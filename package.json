@@ -1,0 +1,21 @@
+{
+  "name": "molweave",
+  "private": true,
+  "packageManager": "pnpm@10.15.1",
+  "scripts": {
+    "dev:web": "pnpm --dir apps/web dev",
+    "lint": "pnpm --dir apps/web lint",
+    "typecheck": "pnpm --dir apps/web typecheck",
+    "test": "pnpm --dir apps/web test",
+    "build": "pnpm --dir apps/web build",
+    "e2e": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.55.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  }
+}

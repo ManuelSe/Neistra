@@ -323,3 +323,35 @@ Consequences:
   not only dependency resolution.
 - Long-running or CPU-heavy work must never execute in these API handlers; the
   separate controlled worker remains required in M9.
+
+## D-013 - Separate durable server state from local workspace preferences
+
+Status: accepted
+
+Decision:
+
+Use TanStack Query for API-backed project and command state. Use a small
+persisted Zustand store only for the active-project pointer, color theme, panel
+sizes, and collapsed-panel preferences. Molecular entries and command history
+are never copied into that browser store.
+
+Build the desktop workspace from four stable regions: structure browser,
+central work surface, inspector, and history. The three auxiliary regions are
+resizable and collapsible on desktop and become drawers on narrow screens.
+
+Rationale:
+
+Project state must remain authoritative in the durable domain model rather than
+drifting into viewer or browser-component state. Local preferences benefit from
+instant persistence and do not belong in project history. The same workspace
+information architecture can adapt to mobile without maintaining a second
+application flow.
+
+Consequences:
+
+- API mutations invalidate or directly replace TanStack Query cache entries.
+- Reload recovery comes from the persisted project, not browser storage.
+- A stale active-project pointer is harmless: the project list remains the
+  source of truth and the user receives a structured unavailable-project state.
+- Mol* integration in M3 must consume normalized molecular state through an
+  adapter and cannot become a second project store.

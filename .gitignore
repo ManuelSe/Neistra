@@ -10,11 +10,13 @@ __pycache__/
 htmlcov/
 
 node_modules/
+.playwright/
 apps/web/dist/
 apps/web/coverage/
+*.tsbuildinfo
 playwright-report/
 test-results/
 
 .env
+.goal_prompt.txt
 .DS_Store
-
