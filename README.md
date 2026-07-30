@@ -1,9 +1,9 @@
 # MolWeave
 
-MolWeave is a local, single-user molecular project workspace. Milestone 3 adds
-one authoritative atom-reference selection model across the project browser,
-protein sequence, inspector, and lazy Mol* viewer, with deterministic selection
-algebra, worker-based spatial queries, and durable named selections.
+MolWeave is a local, single-user molecular project workspace. Milestone 4 adds
+application-owned representations, camera state, inspection, measurements,
+close-contact analysis, and named scenes to the synchronized project browser,
+sequence, inspector, property table, and lazy Mol* viewer.
 
 ## Prerequisites
 
@@ -57,13 +57,14 @@ flowchart LR
     UI --> SELECT[Transient canonical selection store]
     SELECT <--> VIEWER
     SELECT --> WORKER[Spatial-query Web Worker]
+    API --> CONTACTS[SciPy contact index]
     JOBS[Controlled worker, M9] -. publishes artifacts .-> ART
 ```
 
 TanStack Query owns API-backed state. Zustand persists only the active project
 pointer, theme, and panel preferences; a separate non-persisted Zustand store
-owns the current canonical selection. SQLite metadata, named selections, and
-immutable normalized artifacts are authoritative. Mol* renders generated
+owns the current canonical selection. SQLite metadata, viewer settings, named
+selections, measurements, scenes, and immutable normalized artifacts are authoritative. Mol* renders generated
 projections and is never a project save format or molecular state store.
 
 See [docs/API.md](docs/API.md), [docs/PROJECT_SCHEMA.md](docs/PROJECT_SCHEMA.md),
@@ -72,7 +73,7 @@ See [docs/API.md](docs/API.md), [docs/PROJECT_SCHEMA.md](docs/PROJECT_SCHEMA.md)
 [docs/SCIENTIFIC_LIMITATIONS.md](docs/SCIENTIFIC_LIMITATIONS.md), and
 [docs/DECISIONS.md](docs/DECISIONS.md) for the current contracts.
 
-## Milestone 3 Checks
+## Milestone 4 Checks
 
 Run these from the repository root:
 
@@ -81,12 +82,12 @@ UV_CACHE_DIR=/tmp/uv-cache .venv/bin/uv run --no-sync ruff check .
 UV_CACHE_DIR=/tmp/uv-cache .venv/bin/uv run --no-sync mypy \
   apps/api packages/molweave_core
 UV_CACHE_DIR=/tmp/uv-cache .venv/bin/uv run --no-sync pytest \
-  tests/unit/test_selection.py tests/integration/test_saved_selections.py
+  tests/unit/test_measurements.py tests/unit/test_contacts.py
 corepack pnpm --dir apps/web lint
 corepack pnpm --dir apps/web typecheck
-corepack pnpm --dir apps/web test -- selection project-browser sequence
+corepack pnpm --dir apps/web test -- representations measurements inspector
 PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test \
-  tests/e2e/synchronized-selection.spec.ts
+  tests/e2e/viewer-controls.spec.ts tests/e2e/measurements.spec.ts
 corepack pnpm --dir apps/web build
 ```
 

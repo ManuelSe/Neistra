@@ -8,7 +8,7 @@ import {
   Trash2,
   X,
 } from "lucide-react";
-import { useEffect, useMemo, useState, type MouseEvent } from "react";
+import { useEffect, useMemo, useRef, useState, type MouseEvent } from "react";
 import { molecularApi } from "../api/client";
 import type {
   Project,
@@ -562,6 +562,19 @@ export function ProjectInspector(props: ProjectInspectorProps) {
   const [tab, setTab] = useState<
     "selection" | "inspect" | "measurements" | "sequence" | "details"
   >("selection");
+  const automaticallyOpenedDetails = useRef(false);
+  const projectId = project?.id;
+  const entryCount = project?.entries.length;
+  useEffect(() => {
+    if (entryCount === undefined) return;
+    if (entryCount === 0) {
+      automaticallyOpenedDetails.current = true;
+      setTab("details");
+    } else if (automaticallyOpenedDetails.current) {
+      automaticallyOpenedDetails.current = false;
+      setTab("selection");
+    }
+  }, [entryCount, projectId]);
   const relevantIds = useMemo(() => {
     const ids = new Set(
       project?.entries.filter((entry) => entry.visible).map((entry) => entry.id),
@@ -622,7 +635,10 @@ export function ProjectInspector(props: ProjectInspectorProps) {
             role="tab"
             aria-selected={tab === item}
             key={item}
-            onClick={() => setTab(item)}
+            onClick={() => {
+              automaticallyOpenedDetails.current = false;
+              setTab(item);
+            }}
           >
             {item}
           </button>

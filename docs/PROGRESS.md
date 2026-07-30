@@ -368,15 +368,19 @@ Results:
 - Focused fallback regression: 19 client tests passed, including explicit
   reduced-detail projection at 250,000 atoms and viewer startup failure. The
   focused Python selection/measurement/contact suite passed all 21 tests.
+- M1/M3 browser-regression repair: empty projects still open Project details,
+  but the first successful import now returns the inspector to Selection unless
+  the user explicitly chose a tab. The component regression test, ESLint, and
+  the complete real-WebGL synchronized-selection workflow passed.
 
 ## Known limitations
 
 - Mol* is necessarily a large on-demand dependency (about 963 KiB compressed).
   It is excluded from the initial application chunk and loaded only when a
   project contains structures.
-- Mol* still uses its M2 default representations. Representation controls,
-  labels, measurements, and molecular editing remain scoped to later
-  milestones.
+- Representation changes rebuild the affected disposable Mol* projection in
+  M4. Camera state is preserved across rebuilds, but adding incremental Mol*
+  representation patches is deferred unless profiling demonstrates a need.
 - Import preparation uses one short-lived child process per batch. This favors
   cancellation and native-library isolation over minimum process overhead.
 - The API uses short synchronous SQLite transactions inside async route handlers.

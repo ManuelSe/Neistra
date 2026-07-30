@@ -1612,10 +1612,15 @@ select {
   border-radius: 3px;
   font-size: 10px;
   box-shadow: var(--shadow);
+  pointer-events: none;
 }
 
 .tooltip-arrow {
   fill: var(--text);
+}
+
+div[data-radix-popper-content-wrapper]:has(.tooltip) {
+  pointer-events: none !important;
 }
 
 .loading-mark {

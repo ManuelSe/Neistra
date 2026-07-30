@@ -3,7 +3,7 @@ import { cleanup, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { useState, type ReactNode } from "react";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { Selection, SelectionMode } from "../api/types";
+import type { Project, Selection, SelectionMode } from "../api/types";
 import { ProjectInspector } from "../components/ProjectInspector";
 import { combineSelection, emptySelection } from "../selection/selection";
 import { molecularProject, proteinProjection } from "./molecular-fixtures";
@@ -30,6 +30,28 @@ function Harness() {
         setSelection((current) => combineSelection(current, operand, mode))
       }
       onClearSelection={() => setSelection(emptySelection())}
+      onExpandSelection={() => undefined}
+      onInvertSelection={() => undefined}
+      onPredicateSelection={() => undefined}
+      onSpatialSelection={() => undefined}
+      onSaveSelection={() => undefined}
+      onLoadSelection={() => undefined}
+      onDeleteSelection={() => undefined}
+    />
+  );
+}
+
+function InspectorForProject({ project }: { project: Project }) {
+  return (
+    <ProjectInspector
+      project={project}
+      selection={emptySelection()}
+      pickingGranularity="atom"
+      busy={false}
+      onApply={() => undefined}
+      onApplySelection={() => undefined}
+      onPickingGranularity={() => undefined}
+      onClearSelection={() => undefined}
       onExpandSelection={() => undefined}
       onInvertSelection={() => undefined}
       onPredicateSelection={() => undefined}
@@ -90,5 +112,30 @@ describe("bidirectional sequence selection", () => {
       expect(summary).toHaveTextContent("Chains1");
       expect(summary).toHaveTextContent("Structures1");
     });
+  });
+
+  it("returns from automatic project details to selection after the first import", async () => {
+    const project = molecularProject();
+    const emptyProject = { ...project, entries: [] };
+    const client = new QueryClient({ defaultOptions: { queries: { retry: false } } });
+    const view = render(<InspectorForProject project={emptyProject} />, {
+      wrapper: wrapper(client),
+    });
+
+    await waitFor(() =>
+      expect(screen.getByRole("tab", { name: "details" })).toHaveAttribute(
+        "aria-selected",
+        "true",
+      ),
+    );
+
+    view.rerender(<InspectorForProject project={project} />);
+    await waitFor(() =>
+      expect(screen.getByRole("tab", { name: "selection" })).toHaveAttribute(
+        "aria-selected",
+        "true",
+      ),
+    );
+    expect(screen.getByLabelText("Current selection summary")).toBeInTheDocument();
   });
 });

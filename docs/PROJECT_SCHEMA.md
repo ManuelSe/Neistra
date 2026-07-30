@@ -1,7 +1,7 @@
 # Project Schema
 
-Status: `ProjectStateV1` with normalized artifacts and named selections,
-Milestone 3
+Status: `ProjectStateV1` with normalized artifacts, viewer state, measurements,
+and named scenes, Milestone 4
 
 MolWeave separates the relational working model, checkpoint snapshots, immutable
 artifacts, and browser preferences. The API and database are authoritative;
@@ -29,6 +29,8 @@ ProjectStateV1
   entries: StructureEntryV1[] sorted by stable ID
   groups: EntryGroupV1[] sorted by stable ID
   saved_selections: SavedSelectionV1[] sorted by stable ID
+  measurements: MeasurementV1[] sorted by stable ID
+  scenes: SceneV1[] sorted by stable ID
 ```
 
 The snapshot intentionally excludes working revision, checkpoint revision,
@@ -52,6 +54,7 @@ bond_count: integer
 residue_count: integer
 conformer_count: integer
 warnings: MolecularWarning[]
+viewer_settings: ViewerSettingsV1
 visible: boolean
 locked: boolean
 user_metadata: JSON object
@@ -102,6 +105,80 @@ Complete project API responses also include the relational `modified_at`
 timestamp for each saved selection; checkpoint payloads omit derived update
 timestamps.
 
+## ViewerSettingsV1
+
+```text
+representations:
+  - id: unique string within the entry
+    style: cartoon | backbone | line | stick | ball-and-stick |
+      space-filling | surface
+    color_by: element | chain | residue | secondary-structure | structure |
+      custom
+    custom_color: six-digit CSS hex color
+    opacity: number in [0, 1]
+components:
+  hydrogens: boolean
+  solvent: boolean
+  ions: boolean
+  ligands: boolean
+  protein: boolean
+labels:
+  atoms: boolean
+  residues: boolean
+  chains: boolean
+  structure: boolean
+```
+
+Every structure entry has at least one representation. These settings are
+application-owned project state; Mol* consumes them but is not their persistence
+format.
+
+## MeasurementV1
+
+```text
+id: UUIDv7 string
+name: string
+kind: distance | angle | dihedral
+atom_references: ordered AtomReference[]
+visible: boolean
+warnings: MolecularWarning[]
+created_at: ISO-8601 timestamp
+```
+
+Distance, angle, and dihedral measurements require two, three, and four distinct
+atom references respectively. Coordinates and displayed values are derived
+from the current normalized structures rather than stored in the measurement.
+
+## SceneV1
+
+```text
+id: UUIDv7 string
+name: string, unique per project ignoring case
+camera:
+  mode: perspective | orthographic
+  position: [x, y, z]
+  target: [x, y, z]
+  up: [x, y, z]
+  radius: positive number
+entry_states:
+  - entry_id: UUIDv7 string
+    visible: boolean
+    viewer_settings: ViewerSettingsV1
+selection: SelectionV1
+created_at: ISO-8601 timestamp
+```
+
+Named scenes store typed application state, never opaque Mol* snapshots.
+Applying a scene changes durable entry visibility and viewer settings through
+one revisioned command. Camera and current selection are restored by the client
+from the same scene response.
+
+Migration `0005` adds viewer settings, measurements, and scenes and upgrades
+existing checkpoint payloads with deterministic viewer defaults and empty
+measurement/scene lists. It is additive, so the schema version remains 1.
+Entry deletion removes dependent measurements and prunes deleted entry and atom
+references from scenes atomically; undo restores the complete prior state.
+
 ## Command Records
 
 Each reversible mutation stores:
@@ -135,5 +212,6 @@ The `molweave-workspace-v1` browser key contains only:
 - Collapsed state for the structure, inspector, and history panels.
 
 It never contains molecular entries, artifacts, checkpoints, or command history.
-The unsaved current selection is also transient session state and is cleared
-when the active project changes or the page reloads.
+The unsaved current selection and current camera are transient session state and
+are cleared when the active project changes or the page reloads unless the user
+restores them from a named scene.

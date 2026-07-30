@@ -1,6 +1,6 @@
 # MolWeave HTTP API
 
-Status: Milestone 3
+Status: Milestone 4
 
 The local FastAPI application exposes a versioned API under `/api/v1` and
 generates OpenAPI at `/api/v1/openapi.json`. Swagger UI is available at
@@ -42,10 +42,17 @@ generates OpenAPI at `/api/v1/openapi.json`. Swagger UI is available at
 | `POST` | `/api/v1/projects/{project_id}/entries/{entry_id}/visibility` | Show or hide an entry. |
 | `POST` | `/api/v1/projects/{project_id}/entries/{entry_id}/lock` | Lock or unlock an entry. |
 | `POST` | `/api/v1/projects/{project_id}/entries/{entry_id}/isolate` | Make only one entry visible. |
+| `PUT` | `/api/v1/projects/{project_id}/entries/{entry_id}/viewer-settings` | Replace validated representations, components, and labels. |
 | `DELETE` | `/api/v1/projects/{project_id}/entries/{entry_id}` | Delete an entry reversibly. |
 | `POST` | `/api/v1/projects/{project_id}/groups` | Create a group containing specified entries. |
 | `POST` | `/api/v1/projects/{project_id}/selections` | Save a canonical named selection as a reversible command. |
 | `DELETE` | `/api/v1/projects/{project_id}/selections/{selection_id}` | Delete a named selection reversibly. |
+| `POST` | `/api/v1/projects/{project_id}/measurements` | Create a distance, angle, or dihedral measurement. |
+| `PATCH` | `/api/v1/projects/{project_id}/measurements/{measurement_id}` | Rename or show/hide a measurement. |
+| `DELETE` | `/api/v1/projects/{project_id}/measurements/{measurement_id}` | Delete a measurement reversibly. |
+| `POST` | `/api/v1/projects/{project_id}/scenes` | Save camera, visibility, viewer settings, and selection. |
+| `POST` | `/api/v1/projects/{project_id}/scenes/{scene_id}/apply` | Apply scene entry state as one command. |
+| `DELETE` | `/api/v1/projects/{project_id}/scenes/{scene_id}` | Delete a named scene reversibly. |
 
 ## Molecular Endpoints
 
@@ -58,6 +65,7 @@ generates OpenAPI at `/api/v1/openapi.json`. Swagger UI is available at
 | `GET` | `/api/v1/projects/{project_id}/entries/{entry_id}/original` | Download immutable original bytes. |
 | `POST` | `/api/v1/projects/{project_id}/entries/{entry_id}/exports` | Generate one format adapter output. |
 | `GET` | `/api/v1/artifacts/{artifact_id}` | Download an immutable generated or original artifact. |
+| `POST` | `/api/v1/projects/{project_id}/contacts` | Find sorted nonbonded close contacts with a spatial index. |
 
 Import is `multipart/form-data` with one or more `files`, required
 `expected_revision`, optional booleans `generate_3d` and `infer_bonds`, and an
@@ -118,6 +126,27 @@ The response is the revised complete project. Saved names are unique within a
 project using case-insensitive comparison. Entry deletion removes invalid
 references in the same reversible command and adds an
 `invalid_selection_references_removed` warning to the saved selection.
+
+## Viewer, Measurement, And Scene Contracts
+
+Viewer settings require one or more uniquely identified representations.
+Supported styles are `cartoon`, `backbone`, `line`, `stick`,
+`ball-and-stick`, `space-filling`, and `surface`. Color schemes are `element`,
+`chain`, `residue`, `secondary-structure`, `structure`, and `custom`; opacity
+is in `[0, 1]`. Component and label visibility use explicit booleans.
+
+Measurements persist a name, kind, ordered atom references, visibility, and
+warnings. Distance requires two distinct atoms, angle three, and dihedral four.
+Display values are recalculated from authoritative coordinates.
+
+Scenes persist a typed camera (`mode`, `position`, `target`, `up`, `radius`),
+entry visibility/settings, and `SelectionV1`. Mol* snapshots are never
+accepted. Applying a scene revises the project; the client then restores its
+camera and transient selection.
+
+Contact requests contain `entry_id`, `cutoff`, and `minimum_distance`. Results
+contain two canonical atom references and a distance in angstroms. Explicitly
+bonded pairs are excluded.
 
 ## Errors
 

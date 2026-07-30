@@ -1,6 +1,6 @@
 # Scientific Limitations
 
-Status: Milestone 3
+Status: Milestone 4
 
 MolWeave v0.1 reports known uncertainty but does not replace specialist
 structure preparation or validation software.
@@ -45,14 +45,15 @@ structure preparation or validation software.
   losses; blocking losses require acknowledgement.
 - The original upload remains the source of truth for fields not modeled by
   `NormalizedStructureV1`.
-- Mol* still uses default basic representations for simultaneous inspection.
-  Milestone 3 provides synchronized atom, residue, chain, and structure
-  selection; representation, component, label, and advanced camera controls
-  remain scheduled for later milestones.
+- Mol* renders application-owned representation, component, label, and camera
+  settings. Viewer state is a disposable projection; named scenes store typed
+  MolWeave settings and never Mol* snapshots.
 - Mol* requires WebGL. Unsupported or disabled WebGL produces an explicit error;
   it does not affect stored molecular state.
-- The 250,000-atom threshold is a warning, not a performance guarantee. Browser,
-  GPU, representation, and topology determine actual interactive performance.
+- At or above 250,000 atoms, MolWeave substitutes line rendering for surfaces
+  and suppresses dense atom/residue labels with a visible reduced-detail
+  notice. The threshold is not a performance guarantee; browser, GPU,
+  representation, and topology still determine interactivity.
 
 ## Selection And Spatial Queries
 
@@ -72,6 +73,23 @@ structure preparation or validation software.
   seed-by-candidate calculation rather than a spatial index. Very large queries
   may take time and allocate substantial worker memory even though the
   interface remains responsive.
+
+## Measurements And Contacts
+
+- Distance, angle, and signed dihedral values use the active normalized
+  conformer's Cartesian coordinates in angstroms and degrees. They do not apply
+  periodic boundaries, crystallographic symmetry, alignment, or unit-cell
+  transforms.
+- Degenerate angles and dihedrals are rejected rather than assigned an
+  arbitrary value. The signed dihedral convention is matched between the
+  Python reference implementation and the browser.
+- Close-contact detection uses a SciPy `cKDTree`, excludes explicit normalized
+  bonds, and returns deterministic pairs within one structure. It does not infer
+  missing bonds, classify clashes or hydrogen bonds, include symmetry mates, or
+  compare separate structures.
+- Contact thresholds are user-supplied geometric cutoffs, not
+  element-specific van der Waals validation. Results require scientific
+  interpretation.
 
 These limitations and all per-structure warnings remain visible without
 preventing retrieval of the original bytes.
