@@ -759,3 +759,111 @@ Consequences:
   does not introduce another identity representation.
 - The selection remains transient until explicitly saved or used by a durable
   measurement/scene command.
+
+## D-025 - Rigid transform and conformer semantics
+
+Status: accepted
+
+Decision:
+
+Represent every M5 coordinate edit as one float64 rigid transform: a translation
+vector plus Euler rotations in degrees composed X, then Y, then Z. Whole-entry
+rotation defaults to the active conformer's structure centroid. Selected-atom
+rotation supports the selected-atom centroid, the entry centroid, or an explicit
+finite Cartesian pivot.
+
+Apply the same world-space matrix to the requested stable atom IDs in every
+conformer. Update each atom record's coordinate from the resulting active
+conformer. Translation and rotation inputs that are non-finite or jointly
+identity, missing/duplicate atom references, empty selected scopes, locked
+entries, and invalid pivots are rejected before publication.
+
+Rationale:
+
+One matrix gives numeric input and interactive gestures identical scientific
+semantics. Applying it across conformers preserves their shared topology and
+relative coordinate frames; changing only the active conformer would leave the
+normalized entry internally inconsistent. Deriving atom coordinates from the
+active conformer maintains the existing normalized-model invariant.
+
+Consequences:
+
+- Transform previews may use browser float64 calculations, but only the backend
+  result becomes authoritative.
+- Undo restores the prior immutable normalized artifact exactly. Numeric
+  comparisons use a documented `1e-9` angstrom tolerance.
+- Euler composition and pivot choice are part of the public API contract and
+  must not depend on Mol* camera orientation.
+
+## D-026 - Identity-matched protein Kabsch superposition
+
+Status: accepted
+
+Decision:
+
+Superpose one moving protein or complex entry onto one distinct reference entry
+using active-conformer float64 coordinates. Explicit-selection mode partitions
+the canonical selection by the two entries and matches atoms by an unambiguous
+protein identity key containing chain, residue numbering/insertion/name, atom
+name, and element. Backbone mode deterministically matches common `N`, `CA`,
+`C`, and `O` identities.
+
+Require equal identity sets, at least three matched atoms, and rank-two or
+greater centered geometry. Reject missing hierarchy, duplicate identities,
+unequal or non-corresponding selections, collinear geometry, reflection-only
+solutions, and non-protein entries. Apply the resulting proper Kabsch rotation
+and translation to every atom in every moving-entry conformer and report matched
+atom count plus post-fit RMSD.
+
+Rationale:
+
+Canonical selections intentionally do not retain click order. Pairing atoms by
+array position or selection size would silently create scientifically arbitrary
+correspondence. Protein hierarchy supplies a deterministic, inspectable identity
+contract, and rank/reflection validation avoids reporting an underdetermined fit
+as meaningful.
+
+Consequences:
+
+- General ligand graph matching and sequence-alignment-based correspondence are
+  outside M5; the product specifically requires protein superposition.
+- Backbone mode requires compatible residue/chain identities rather than
+  guessing a sequence alignment.
+- The reference entry is never changed; only the moving entry receives a patch
+  and history action.
+
+## D-027 - Immutable coordinate history with transient entry patches
+
+Status: accepted
+
+Decision:
+
+Publish each transformed `NormalizedStructureV1` as an immutable current
+artifact. Store forward and inverse command actions containing the affected
+entry's after/before artifact ID and the corresponding active-coordinate span.
+Undo and redo atomically switch the authoritative artifact reference and return
+the matching span. Do not store viewer state or Mol* objects in commands.
+
+Expose coordinate spans as transient project-response patches and update the
+matching TanStack Query structure cache. At the viewer boundary, use Mol*
+`ModelWithCoordinates` to update only the affected entry model and its
+representations; unrelated loaded entries are not cleared, reparsed, or
+retransmitted. Interactive browser previews use the same patch path and are
+discarded or replaced by the authoritative backend patch at commit.
+
+Rationale:
+
+Immutable artifacts provide reliable reversal and persistence without placing
+large mutable molecular blobs in SQLite. Active-coordinate spans are sufficient
+for visible updates and measurement recalculation, and avoid serializing entire
+structures for ordinary coordinate gestures. Mol* remains a disposable
+projection of application-owned state.
+
+Consequences:
+
+- Project GET responses contain no patches; mutation, undo, and redo responses
+  may carry transient patches that are not checkpoint state.
+- One completed pointer gesture sends one backend command. Pointer movement
+  only updates a local preview.
+- A reload always reconstructs the same state from the current normalized
+  artifact, independent of whether a client consumed the transient patch.

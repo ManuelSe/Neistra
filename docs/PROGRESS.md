@@ -2,12 +2,12 @@
 
 ## Current milestone
 
-Milestone 4 - Complete viewer, inspection, and measurements
+Milestone 5 - Coordinate transforms, superposition, and history
 
-Complete. The scientific, persistence, viewer, inspection, measurement,
-contact, and scene slice satisfies the M4 acceptance criteria. The exact M4
-gate, all repository regressions, migration validation, documented normal
-startup, and responsive browser inspection pass.
+In progress. The M5 product, plan, history, normalized-coordinate, artifact,
+selection, API, and Mol* contracts have been audited from the clean M4
+checkpoint. Transform, superposition, patch, and conformer semantics are now
+recorded; scientific implementation is next.
 
 ## Completed work
 
@@ -221,6 +221,14 @@ startup, and responsive browser inspection pass.
 - Added M4 Playwright workflows for the complete viewer control matrix, named
   scene divergence/restore, WebGL failure, distance/angle/dihedral management,
   property inspection, close-contact success/failure, and reload persistence.
+- Audited the M5 coordinate-editing path end to end. The existing immutable
+  normalized artifacts and command actions can provide exact undo/redo, while
+  Mol* `ModelWithCoordinates` provides an affected-entry-only coordinate update
+  boundary without making the viewer authoritative.
+- Defined whole-structure and selected-atom transform semantics across every
+  conformer, active-conformer patch semantics, deterministic Euler composition,
+  configurable pivots, and strict protein correspondence rules for explicit
+  selection and backbone superposition.
 
 ## Verification performed
 
@@ -387,6 +395,9 @@ Results:
   showed a nonblank responsive shell with readable controls and no clipping or
   incoherent overlap. M4's real molecular view was separately verified by
   nonblank canvas-pixel assertions in the complete representation workflow.
+- M5 audit checkpoint: the worktree began clean at `664bf56`; the complete
+  product, plan, progress, and decision documents were reread; coordinate,
+  artifact, history, API, selection, and viewer source contracts were inspected.
 
 ## Known limitations
 
@@ -417,5 +428,6 @@ None.
 
 ## Next action
 
-Begin Milestone 5 only after reviewing its coordinate-transform,
-superposition, history, and viewer-patch boundaries in `docs/PLAN.md`.
+Implement and verify the typed backend transform and Kabsch superposition
+reference functions, including finite-input, degenerate-geometry,
+correspondence, conformer, and numerical-tolerance tests.
