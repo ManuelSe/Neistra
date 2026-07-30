@@ -459,6 +459,48 @@ Consequences:
 - Hidden entries require no molecular fetch and cannot consume viewer memory.
 - Mol* receives only generated PDBx/mmCIF or SDF projections and is never the
   molecular authority.
-- Parsing currently runs synchronously after upload inside the local API
-  process. M2 limits bound this work; the M9 job runner remains the extension
-  point for long-running conversion workflows.
+- Parsing and normalization run in a short-lived cancellable child process.
+  Artifact publication and the project command occur only in the API parent
+  after the complete validated result returns.
+
+## D-017 - Lazy Mol* projection adapter and cancellable native parsing
+
+Status: accepted
+
+Decision:
+
+Keep Mol* behind the `MolecularViewer` interface. The browser requests full
+normalized structures only for visible entries, passes generated PDBx/mmCIF or
+SDF projections to the viewer, and recreates the Mol* scene when the visible set
+changes. Mol* is dynamically imported only after a project has structures.
+Failure to create a WebGL canvas is an explicit user-visible viewer error.
+
+Give every browser import a stable operation ID. The API performs Gemmi/RDKit
+parsing and normalization in a short-lived child process while polling the
+operation cancellation state. The cancellation endpoint can terminate that
+process and prevents artifact or project commit. Child errors cross the process
+boundary as structured data and are reconstructed into the normal API error
+contract.
+
+Rationale:
+
+Mol* state must not become a second molecular store, hidden structures should
+not consume network or WebGL resources, and the large viewer dependency should
+not delay the empty project shell. Native chemistry parsing can block the event
+loop and native adapter objects proved unsafe to move across worker threads.
+XHR abort/disconnect signals alone are also not reliably propagated through the
+development proxy.
+
+Consequences:
+
+- Project queries remain small; normalized payloads and Mol* load only when
+  visible molecular content needs them.
+- Simultaneous structures share one Mol* scene, with default Mol* structure
+  representations in M2. Representation controls remain scoped to later
+  viewer milestones.
+- Cancellation is explicit and testable even through a proxy; cancelled
+  preparation publishes no artifacts and records no command.
+- The child-process boundary adds process startup and serialization overhead
+  per import. That cost is accepted for local v0.1 correctness and isolation;
+  M9 may move expensive conversion into the general job runner without changing
+  adapter contracts.

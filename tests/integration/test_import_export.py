@@ -28,14 +28,18 @@ def upload(
     project_id: str,
     expected_revision: int,
     filenames: list[str],
+    operation_id: str | None = None,
 ) -> httpx.Response:
+    data = {
+        "expected_revision": expected_revision,
+        "generate_3d": "true",
+        "infer_bonds": "true",
+    }
+    if operation_id is not None:
+        data["operation_id"] = operation_id
     return client.post(
         f"/api/v1/projects/{project_id}/imports",
-        data={
-            "expected_revision": expected_revision,
-            "generate_3d": "true",
-            "infer_bonds": "true",
-        },
+        data=data,
         files=[
             (
                 "files",
@@ -304,3 +308,26 @@ def test_prepared_import_can_be_cancelled_without_committing_artifacts(
     assert unchanged["entries"] == []
     assert list((tmp_path / "artifacts" / "sha256").rglob("*")) == []
     app.state.engine.dispose()
+
+
+def test_explicit_cancellation_is_observed_before_import_commit(
+    client: ApiClient,
+) -> None:
+    project = create_project(client)
+    operation_id = "cancel-integration-import"
+    cancelled = client.post(f"/api/v1/imports/{operation_id}/cancel")
+    assert cancelled.status_code == 200
+
+    response = upload(
+        client,
+        project["id"],
+        0,
+        ["ethanol.mol"],
+        operation_id=operation_id,
+    )
+
+    assert response.status_code == 499
+    assert response.json()["detail"]["code"] == "import_cancelled"
+    unchanged = client.get(f"/api/v1/projects/{project['id']}").json()
+    assert unchanged["revision"] == 0
+    assert unchanged["entries"] == []

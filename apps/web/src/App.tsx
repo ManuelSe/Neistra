@@ -12,7 +12,9 @@ import { ApiError, projectApi } from "./api/client";
 import type { Entry, Project, ProjectListItem } from "./api/types";
 import { HistoryPanel } from "./components/HistoryPanel";
 import { IconButton } from "./components/IconButton";
+import { ImportDialog } from "./components/ImportDialog";
 import { Modal } from "./components/Modal";
+import { ExportDialog } from "./components/ExportDialog";
 import { ProjectBrowser } from "./components/ProjectBrowser";
 import { ProjectInspector } from "./components/ProjectInspector";
 import { TopBar } from "./components/TopBar";
@@ -53,6 +55,9 @@ export default function App() {
   const [newName, setNewName] = useState("");
   const [newDescription, setNewDescription] = useState("");
   const [entryDialog, setEntryDialog] = useState<EntryDialog>(null);
+  const [importDialogOpen, setImportDialogOpen] = useState(false);
+  const [exportDialogOpen, setExportDialogOpen] = useState(false);
+  const [exportEntry, setExportEntry] = useState<Entry | null>(null);
   const [entryName, setEntryName] = useState("");
   const [entryDescription, setEntryDescription] = useState("");
   const [groupName, setGroupName] = useState("");
@@ -181,6 +186,10 @@ export default function App() {
         setEntryDialog({ mode: "group", entry });
       },
       onDelete: (entry: Entry) => setEntryDialog({ mode: "delete", entry }),
+      onExport: (entry: Entry) => {
+        setExportEntry(entry);
+        setExportDialogOpen(true);
+      },
     }),
     [project, projectMutation],
   );
@@ -214,6 +223,11 @@ export default function App() {
           }}
           onRedo={() => {
             if (project) projectMutation.mutate(() => projectApi.redo(project));
+          }}
+          onImport={() => setImportDialogOpen(true)}
+          onExport={() => {
+            setExportEntry(null);
+            setExportDialogOpen(true);
           }}
           onTheme={() => setTheme(theme === "light" ? "dark" : "light")}
           onMobilePanel={setMobilePanel}
@@ -257,6 +271,7 @@ export default function App() {
                   setCreateMode(true);
                   setProjectDialogOpen(true);
                 }}
+                onImport={() => setImportDialogOpen(true)}
               />
               {mobilePanel ? (
                 <>
@@ -335,6 +350,7 @@ export default function App() {
                         setCreateMode(true);
                         setProjectDialogOpen(true);
                       }}
+                      onImport={() => setImportDialogOpen(true)}
                     />
                   </Panel>
                   <PanelResizeHandle className="resize-handle vertical" />
@@ -486,6 +502,32 @@ export default function App() {
           </div>
         )}
       </Modal>
+
+      <ImportDialog
+        open={importDialogOpen}
+        project={project}
+        onOpenChange={setImportDialogOpen}
+        onImported={(result) => {
+          updateProjectCache(result.project);
+          setEditedThisSession(true);
+          setNotice({
+            kind: "success",
+            text: `${result.imported_entry_ids.length} ${
+              result.imported_entry_ids.length === 1 ? "structure" : "structures"
+            } imported${result.warnings.length > 0 ? ` with ${result.warnings.length} warnings` : ""}.`,
+          });
+        }}
+      />
+
+      <ExportDialog
+        open={exportDialogOpen}
+        project={project}
+        initialEntry={exportEntry}
+        onOpenChange={(open) => {
+          setExportDialogOpen(open);
+          if (!open) setExportEntry(null);
+        }}
+      />
 
       <Modal
         open={entryDialog !== null}

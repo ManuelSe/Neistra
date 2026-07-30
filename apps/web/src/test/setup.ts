@@ -14,3 +14,13 @@ Object.defineProperty(window, "matchMedia", {
   }),
 });
 
+class TestResizeObserver {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+}
+
+Object.defineProperty(window, "ResizeObserver", {
+  writable: true,
+  value: TestResizeObserver,
+});

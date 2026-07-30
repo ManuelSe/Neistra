@@ -4,7 +4,7 @@
 
 Milestone 2 - Format-to-viewer scientific slice
 
-Checkpoint 2: atomic import/export and lazy molecular-data APIs verified.
+Checkpoint 3: browser import, simultaneous Mol* display, and export verified.
 
 ## Completed work
 
@@ -86,6 +86,33 @@ Checkpoint 2: atomic import/export and lazy molecular-data APIs verified.
 - Added integration coverage for successful multi-file import, every export,
   lazy retrieval, original-byte retention, multi-record SDF, undo/redo,
   warning/hard limits, cancellation before commit, and important failure states.
+- Added a typed application `MolecularViewer` interface and a Mol* 5.11
+  implementation that consumes disposable PDBx/mmCIF/SDF projections rather
+  than owning molecular state.
+- Added lazy Mol* code loading and lazy normalized-structure requests. Hidden
+  entries are neither fetched nor retained in the viewer scene; visibility
+  changes rebuild the scene from visible authoritative entries.
+- Added simultaneous protein/ligand display, visible loading and loaded counts,
+  warning counts, retryable projection failures, resize handling, camera reset,
+  and an explicit WebGL-unavailable error.
+- Added functioning top-bar and empty-workspace import actions with multi-file
+  selection, file summaries, deterministic SMILES/XYZ options, byte progress,
+  processing state, explicit cancellation, and structured errors.
+- Added an explicit import-operation cancellation API. Molecular parsing runs
+  in a cancellable child process so native Gemmi/RDKit work cannot block the
+  API event loop or race a cancellation into project commit.
+- Added functioning top-bar and per-entry export actions, server-discovered
+  format options, blocking loss-warning acknowledgement, generated artifact
+  download, and per-entry immutable original download.
+- Added compact per-entry source-format, atom-count, and warning summaries in
+  the project browser.
+- Split Mol* into an on-demand production chunk, reducing the initial
+  application JavaScript chunk from about 3.8 MB to about 395 KB.
+- Added component coverage for lazy visible-only structure loading, simultaneous
+  viewer synchronization, retry, and adapter lifecycle isolation.
+- Added Playwright coverage for multi-file import, real WebGL display, reload,
+  loss acknowledgement, generated and original downloads, visibility
+  unload/reload, malformed input, and cancellation without project mutation.
 
 ## Verification performed
 
@@ -138,15 +165,26 @@ Results:
   input, stale revision, oversized input, atom hard-limit rejection, blocking
   export losses, and cancellation after parsing but before commit. Each failure
   left project state unchanged.
+- M2 visible-slice checkpoint: ESLint and TypeScript passed; all 6 component
+  tests passed; the production build passed with Mol* isolated in a lazy chunk.
+- The expanded import/export integration suite passed 16 tests, including the
+  explicit cancellation endpoint and child-process preparation boundary.
+- Desktop Chromium passed both M2 E2E workflows. The success workflow rendered
+  a real nonblank Mol* canvas, displayed protein and ligand simultaneously,
+  reloaded both structures, downloaded acknowledged XYZ output, byte-compared
+  the immutable original MOL download, and exercised hide/show unload. The
+  failure workflow covered cancelled and malformed imports with unchanged
+  project revision.
 
 ## Known limitations
 
-- Mol* is pinned but the `MolecularViewer` adapter and simultaneous browser
-  display are not implemented yet.
-- Upload progress/cancellation and import/export warning presentation are
-  implemented at the API boundary but not yet connected to visible controls.
-- The API cancellation test verifies the pre-commit service boundary. Browser
-  cancellation and disconnected-request behavior remain for the E2E checkpoint.
+- Milestone 2 format/normalized-schema/scientific-limit documentation remains
+  to be finalized.
+- The complete M2 gate, full M1 regression suite, mobile M2 rerun, migration
+  round trip, and documented normal startup remain for the final checkpoint.
+- Mol* is necessarily a large on-demand dependency (about 963 KiB compressed).
+  It is excluded from the initial application chunk and loaded only when a
+  project contains structures.
 - The API uses short synchronous SQLite transactions inside async route handlers.
   This is appropriate for local M1 workloads and remains behind the project
   service boundary.
@@ -157,6 +195,6 @@ None.
 
 ## Next action
 
-Build the typed `MolecularViewer`/Mol* adapter, lazy visible-entry loading, and
-real import/export dialogs with progress, cancellation, warnings, and
-simultaneous protein/ligand display.
+Finalize the supported-format and scientific-limit documentation, run the
+complete M2 and regression gates, verify migrations and normal local startup,
+and repair any remaining browser or visual issues.

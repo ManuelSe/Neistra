@@ -1,7 +1,11 @@
 from __future__ import annotations
 
+import asyncio
+import multiprocessing
 from collections.abc import AsyncIterator, Callable
 from contextlib import asynccontextmanager
+from multiprocessing.connection import Connection
+from typing import cast
 from urllib.parse import quote
 
 from fastapi import (
@@ -20,6 +24,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from molweave_core.adapters import AdapterError
 from sqlalchemy import text
 from sqlalchemy.orm import Session, sessionmaker
+from uuid6 import uuid7
 
 from molweave_api.database import Base, create_database_engine, create_session_factory
 from molweave_api.import_export import (
@@ -27,8 +32,10 @@ from molweave_api.import_export import (
     ImportExportService,
     ImportLimitError,
     LossAcknowledgementRequiredError,
+    PreparedFile,
     StructureUnavailableError,
     UploadPayload,
+    prepare_uploads,
 )
 from molweave_api.project_service import (
     EntryNotFoundError,
@@ -59,8 +66,120 @@ from molweave_api.schemas import (
 from molweave_api.settings import Settings
 
 
+def _prepare_import_child(
+    connection: Connection,
+    settings: Settings,
+    uploads: list[UploadPayload],
+    generate_3d: bool,
+    infer_bonds: bool,
+) -> None:
+    try:
+        connection.send(
+            (
+                "result",
+                prepare_uploads(
+                    settings,
+                    uploads,
+                    generate_3d=generate_3d,
+                    infer_bonds=infer_bonds,
+                ),
+            )
+        )
+    except AdapterError as error:
+        connection.send(
+            (
+                "adapter_error",
+                {
+                    "code": error.code,
+                    "message": error.message,
+                    "filename": error.filename,
+                    "operation": error.operation,
+                    "record_index": error.record_index,
+                },
+            )
+        )
+    except ImportLimitError as error:
+        connection.send(
+            (
+                "limit_error",
+                {
+                    "code": error.code,
+                    "message": error.message,
+                    "filename": error.filename,
+                },
+            )
+        )
+    except BaseException as error:
+        connection.send(("worker_error", f"{type(error).__name__}: {error}"))
+    finally:
+        connection.close()
+
+
+async def _prepare_cancellable(
+    settings: Settings,
+    uploads: list[UploadPayload],
+    generate_3d: bool,
+    infer_bonds: bool,
+    is_cancelled: Callable[[], bool],
+) -> list[PreparedFile]:
+    receiver, sender = multiprocessing.Pipe(duplex=False)
+    process = multiprocessing.Process(
+        target=_prepare_import_child,
+        args=(sender, settings, uploads, generate_3d, infer_bonds),
+        daemon=True,
+    )
+    process.start()
+    sender.close()
+    try:
+        while process.is_alive() and not receiver.poll():
+            if is_cancelled():
+                process.terminate()
+                process.join(timeout=2)
+                raise _error(499, "import_cancelled", "Import was cancelled before commit.")
+            await asyncio.sleep(0.025)
+        if not receiver.poll():
+            raise _error(
+                422,
+                "import_worker_failed",
+                "The molecular parser stopped without returning a result.",
+            )
+        kind, payload = receiver.recv()
+        process.join(timeout=2)
+        if kind == "adapter_error":
+            raise AdapterError(**payload)
+        if kind == "limit_error":
+            raise ImportLimitError(**payload)
+        if kind == "worker_error":
+            raise RuntimeError(str(payload))
+        return cast(list[PreparedFile], payload)
+    finally:
+        if process.is_alive():
+            process.terminate()
+            process.join(timeout=2)
+        receiver.close()
+
+
 def _error(status_code: int, code: str, message: str) -> HTTPException:
     return HTTPException(status_code=status_code, detail={"code": code, "message": message})
+
+
+def _adapter_http_error(error: AdapterError) -> HTTPException:
+    detail: dict[str, object] = {
+        "code": error.code,
+        "message": error.message,
+        "filename": error.filename,
+        "operation": error.operation,
+    }
+    if error.record_index is not None:
+        detail["record_index"] = error.record_index
+    return HTTPException(status_code=422, detail=detail)
+
+
+def _limit_http_error(error: ImportLimitError) -> HTTPException:
+    detail: dict[str, object] = {"code": error.code, "message": error.message}
+    if error.filename is not None:
+        detail["filename"] = error.filename
+    return HTTPException(status_code=413, detail=detail)
 
 
 async def _session(factory: sessionmaker[Session]) -> AsyncIterator[Session]:
@@ -104,6 +223,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     app.state.settings = app_settings
     app.state.engine = engine
     app.state.session_factory = factory
+    app.state.cancelled_imports = set()
     app.add_middleware(
         CORSMiddleware,
         allow_origins=list(app_settings.cors_origins),
@@ -291,8 +411,10 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         expected_revision: int = Form(..., ge=0),
         generate_3d: bool = Form(True),
         infer_bonds: bool = Form(True),
+        operation_id: str | None = Form(None, max_length=64),
         session: Session = Depends(session_dependency),
     ) -> ImportRead:
+        import_id = operation_id or str(uuid7())
         uploads: list[UploadPayload] = []
         aggregate_size = 0
         for upload in files:
@@ -330,16 +452,31 @@ def create_app(settings: Settings | None = None) -> FastAPI:
                 )
             )
         service = ImportExportService(session, app_settings)
-        prepared = _call(
-            lambda: service.prepare(
-                uploads,
-                generate_3d=generate_3d,
-                infer_bonds=infer_bonds,
-            )
-        )
-        if await request.is_disconnected():
-            raise _error(499, "import_cancelled", "Import was cancelled before commit.")
-        return _call(lambda: service.commit_import(project_id, expected_revision, prepared))
+        try:
+            try:
+                prepared = await _prepare_cancellable(
+                    app_settings,
+                    uploads,
+                    generate_3d,
+                    infer_bonds,
+                    lambda: import_id in app.state.cancelled_imports,
+                )
+            except AdapterError as error:
+                raise _adapter_http_error(error) from error
+            except ImportLimitError as error:
+                raise _limit_http_error(error) from error
+            if import_id in app.state.cancelled_imports or await request.is_disconnected():
+                raise _error(499, "import_cancelled", "Import was cancelled before commit.")
+            return _call(lambda: service.commit_import(project_id, expected_revision, prepared))
+        finally:
+            app.state.cancelled_imports.discard(import_id)
+
+    @router.post("/imports/{operation_id}/cancel")
+    async def cancel_import(operation_id: str) -> dict[str, str]:
+        if not operation_id or len(operation_id) > 64:
+            raise _error(422, "invalid_import_operation", "Invalid import operation ID.")
+        app.state.cancelled_imports.add(operation_id)
+        return {"status": "cancelled"}
 
     @router.get(
         "/projects/{project_id}/entries/{entry_id}/structure",
@@ -434,20 +571,9 @@ def _call[ResultT](operation: Callable[[], ResultT]) -> ResultT:
     except InvalidProjectOperationError as error:
         raise _error(422, "invalid_project_operation", str(error)) from error
     except AdapterError as error:
-        detail: dict[str, object] = {
-            "code": error.code,
-            "message": error.message,
-            "filename": error.filename,
-            "operation": error.operation,
-        }
-        if error.record_index is not None:
-            detail["record_index"] = error.record_index
-        raise HTTPException(status_code=422, detail=detail) from error
+        raise _adapter_http_error(error) from error
     except ImportLimitError as error:
-        detail = {"code": error.code, "message": error.message}
-        if error.filename is not None:
-            detail["filename"] = error.filename
-        raise HTTPException(status_code=413, detail=detail) from error
+        raise _limit_http_error(error) from error
     except LossAcknowledgementRequiredError as error:
         raise HTTPException(
             status_code=409,

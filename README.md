@@ -32,8 +32,8 @@ MOLWEAVE_DATA_DIR=.molweave .venv/bin/alembic upgrade head
 Run the API and web client in separate terminals:
 
 ```bash
-MOLWEAVE_DATA_DIR=.molweave .venv/bin/uvicorn molweave_api.main:app \
-  --app-dir apps/api/src --host 127.0.0.1 --port 8000
+PYTHONPATH=apps/api/src:packages/molweave_core/src MOLWEAVE_DATA_DIR=.molweave \
+  .venv/bin/uvicorn molweave_api.main:app --host 127.0.0.1 --port 8000
 ```
 
 ```bash

@@ -1,18 +1,50 @@
-import type { ApiErrorBody, Project, ProjectListItem } from "./types";
+import type {
+  ApiErrorBody,
+  ExportResult,
+  FormatCapability,
+  ImportResult,
+  MolecularWarning,
+  Project,
+  ProjectListItem,
+  StructureProjection,
+} from "./types";
 
 export class ApiError extends Error {
   readonly status: number;
   readonly code: string;
+  readonly warnings: MolecularWarning[];
 
-  constructor(status: number, code: string, message: string) {
+  constructor(
+    status: number,
+    code: string,
+    message: string,
+    warnings: MolecularWarning[] = [],
+  ) {
     super(message);
     this.name = "ApiError";
     this.status = status;
     this.code = code;
+    this.warnings = warnings;
   }
 }
 
-async function request<Response>(path: string, init?: RequestInit): Promise<Response> {
+function apiError(status: number, body: ApiErrorBody): ApiError {
+  const detail = body.detail;
+  const message =
+    typeof detail === "object" && detail?.message
+      ? detail.message
+      : typeof detail === "string"
+        ? detail
+        : `Request failed with status ${status}`;
+  const code = typeof detail === "object" && detail?.code ? detail.code : "request_failed";
+  const warnings = typeof detail === "object" ? (detail?.warnings ?? []) : [];
+  return new ApiError(status, code, message, warnings);
+}
+
+async function request<ResponseType>(
+  path: string,
+  init?: RequestInit,
+): Promise<ResponseType> {
   let response: globalThis.Response;
   try {
     response = await fetch(path, {
@@ -28,17 +60,9 @@ async function request<Response>(path: string, init?: RequestInit): Promise<Resp
 
   if (!response.ok) {
     const body = (await response.json().catch(() => ({}))) as ApiErrorBody;
-    const detail = body.detail;
-    const message =
-      typeof detail === "object" && detail?.message
-        ? detail.message
-        : typeof detail === "string"
-          ? detail
-          : `Request failed with status ${response.status}`;
-    const code = typeof detail === "object" && detail?.code ? detail.code : "request_failed";
-    throw new ApiError(response.status, code, message);
+    throw apiError(response.status, body);
   }
-  return (await response.json()) as Response;
+  return (await response.json()) as ResponseType;
 }
 
 export const projectApi = {
@@ -122,3 +146,79 @@ export const projectApi = {
     }),
 };
 
+export interface ImportUpload {
+  promise: Promise<ImportResult>;
+  cancel: () => void;
+}
+
+export interface ImportCallbacks {
+  onProgress: (loaded: number, total: number) => void;
+  onProcessing: () => void;
+}
+
+export const molecularApi = {
+  formats: () => request<FormatCapability[]>("/api/v1/formats"),
+  structure: (projectId: string, entryId: string) =>
+    request<StructureProjection>(
+      `/api/v1/projects/${projectId}/entries/${entryId}/structure`,
+    ),
+  importStructures: (
+    project: Project,
+    files: File[],
+    options: { generate3d: boolean; inferBonds: boolean },
+    callbacks: ImportCallbacks,
+  ): ImportUpload => {
+    const xhr = new XMLHttpRequest();
+    const form = new FormData();
+    const operationId = crypto.randomUUID();
+    form.set("operation_id", operationId);
+    form.set("expected_revision", String(project.revision));
+    form.set("generate_3d", String(options.generate3d));
+    form.set("infer_bonds", String(options.inferBonds));
+    for (const file of files) form.append("files", file, file.name);
+
+    const promise = new Promise<ImportResult>((resolve, reject) => {
+      xhr.open("POST", `/api/v1/projects/${project.id}/imports`);
+      xhr.responseType = "json";
+      xhr.upload.onprogress = (event) =>
+        callbacks.onProgress(event.loaded, event.lengthComputable ? event.total : 0);
+      xhr.upload.onload = callbacks.onProcessing;
+      xhr.onerror = () =>
+        reject(new ApiError(0, "network_error", "MolWeave could not reach the local API."));
+      xhr.onabort = () =>
+        reject(new ApiError(0, "import_cancelled", "Import cancelled before commit."));
+      xhr.onload = () => {
+        if (xhr.status >= 200 && xhr.status < 300) {
+          resolve(xhr.response as ImportResult);
+          return;
+        }
+        reject(apiError(xhr.status, (xhr.response ?? {}) as ApiErrorBody));
+      };
+      xhr.send(form);
+    });
+    return {
+      promise,
+      cancel: () => {
+        void fetch(`/api/v1/imports/${operationId}/cancel`, { method: "POST" })
+          .catch(() => undefined)
+          .finally(() => xhr.abort());
+      },
+    };
+  },
+  exportStructure: (
+    projectId: string,
+    entryId: string,
+    format: FormatCapability["format"],
+    acknowledgeLosses: boolean,
+  ) =>
+    request<ExportResult>(
+      `/api/v1/projects/${projectId}/entries/${entryId}/exports`,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          format,
+          acknowledge_losses: acknowledgeLosses,
+        }),
+      },
+    ),
+};

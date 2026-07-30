@@ -1,13 +1,20 @@
-import { FolderPlus } from "lucide-react";
+import { FolderPlus, Upload } from "lucide-react";
 import type { Project } from "../api/types";
+import { StructureViewer } from "./StructureViewer";
 
 interface WorkspaceCanvasProps {
   project: Project | undefined;
   loading: boolean;
   onCreate: () => void;
+  onImport: () => void;
 }
 
-export function WorkspaceCanvas({ project, loading, onCreate }: WorkspaceCanvasProps) {
+export function WorkspaceCanvas({
+  project,
+  loading,
+  onCreate,
+  onImport,
+}: WorkspaceCanvasProps) {
   if (loading) {
     return (
       <main className="workspace-canvas" aria-busy="true">
@@ -29,7 +36,7 @@ export function WorkspaceCanvas({ project, loading, onCreate }: WorkspaceCanvasP
             Create project
           </button>
         </div>
-      ) : (
+      ) : project.entries.length === 0 ? (
         <div className="project-stage">
           <div className="stage-mark" aria-hidden="true">
             <span />
@@ -37,15 +44,17 @@ export function WorkspaceCanvas({ project, loading, onCreate }: WorkspaceCanvasP
             <span />
           </div>
           <h1>{project.name}</h1>
-          <p>
-            {project.entries.length} {project.entries.length === 1 ? "structure" : "structures"}
-          </p>
+          <p>0 structures</p>
           <div className={`checkpoint-state ${project.has_uncheckpointed_changes ? "dirty" : ""}`}>
             {project.has_uncheckpointed_changes ? "Changes stored locally" : "Checkpoint saved"}
           </div>
+          <button type="button" className="secondary-button stage-import" onClick={onImport}>
+            <Upload size={16} /> Import structures
+          </button>
         </div>
+      ) : (
+        <StructureViewer project={project} />
       )}
     </main>
   );
 }
-

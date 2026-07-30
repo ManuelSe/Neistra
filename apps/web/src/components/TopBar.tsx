@@ -1,5 +1,6 @@
 import {
   FolderTree,
+  FileOutput,
   History,
   Moon,
   PanelRight,
@@ -7,6 +8,7 @@ import {
   Save,
   Sun,
   Undo2,
+  Upload,
 } from "lucide-react";
 import type { Project } from "../api/types";
 import type { Theme } from "../store/workspace";
@@ -21,6 +23,8 @@ interface TopBarProps {
   onSave: () => void;
   onUndo: () => void;
   onRedo: () => void;
+  onImport: () => void;
+  onExport: () => void;
   onTheme: () => void;
   onMobilePanel: (panel: "projects" | "inspector" | "history") => void;
 }
@@ -34,6 +38,8 @@ export function TopBar({
   onSave,
   onUndo,
   onRedo,
+  onImport,
+  onExport,
   onTheme,
   onMobilePanel,
 }: TopBarProps) {
@@ -64,6 +70,17 @@ export function TopBar({
             </IconButton>
           </>
         ) : null}
+        <IconButton label="Import structures" disabled={!project || busy} onClick={onImport}>
+          <Upload size={18} />
+        </IconButton>
+        <IconButton
+          label="Export structure"
+          disabled={!project?.entries.length || busy}
+          onClick={onExport}
+        >
+          <FileOutput size={18} />
+        </IconButton>
+        <span className="toolbar-separator" />
         <IconButton
           label={project?.history.undo_description ? `Undo: ${project.history.undo_description}` : "Undo"}
           disabled={!project?.history.can_undo || busy}
@@ -96,4 +113,3 @@ export function TopBar({
     </header>
   );
 }
-

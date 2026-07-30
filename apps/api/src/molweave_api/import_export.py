@@ -91,6 +91,84 @@ def safe_filename_stem(name: str) -> str:
     return (portable or "structure")[:120]
 
 
+def prepare_uploads(
+    settings: Settings,
+    uploads: list[UploadPayload],
+    *,
+    generate_3d: bool = True,
+    infer_bonds: bool = True,
+    registry: AdapterRegistry | None = None,
+) -> list[PreparedFile]:
+    if not uploads:
+        raise ImportLimitError("empty_import", "Select at least one structure file.")
+    aggregate_size = sum(len(upload.data) for upload in uploads)
+    if aggregate_size > settings.max_upload_request_bytes:
+        raise ImportLimitError(
+            "aggregate_upload_too_large",
+            (
+                f"Upload is {aggregate_size} bytes; the request limit is "
+                f"{settings.max_upload_request_bytes} bytes."
+            ),
+        )
+    prepared: list[PreparedFile] = []
+    adapter_registry = registry or create_default_registry()
+    options = ImportOptions(generate_3d=generate_3d, infer_bonds=infer_bonds)
+    for upload in uploads:
+        filename = safe_display_filename(upload.filename)
+        if len(upload.data) > settings.max_structure_file_bytes:
+            raise ImportLimitError(
+                "structure_file_too_large",
+                (
+                    f"{filename} is {len(upload.data)} bytes; the per-file limit is "
+                    f"{settings.max_structure_file_bytes} bytes."
+                ),
+                filename=filename,
+            )
+        adapter = adapter_registry.for_filename(filename)
+        parsed = adapter.parse(upload.data, filename, options)
+        structures: list[NormalizedStructureV1] = []
+        for structure in parsed.structures:
+            atom_count = len(structure.atoms)
+            if atom_count > settings.atom_hard_limit:
+                raise ImportLimitError(
+                    "atom_hard_limit_exceeded",
+                    (
+                        f"{filename} record {structure.source.record_index + 1} has "
+                        f"{atom_count} atoms; the hard limit is {settings.atom_hard_limit}."
+                    ),
+                    filename=filename,
+                )
+            if atom_count > settings.atom_warning_limit:
+                warning = MolecularWarning(
+                    code="atom_warning_limit_exceeded",
+                    message=(
+                        f"This structure has {atom_count} atoms; interactive "
+                        "rendering may be slower."
+                    ),
+                    operation="import",
+                    field="atoms",
+                )
+                structure = structure.model_copy(
+                    update={"warnings": [*structure.warnings, warning]}
+                )
+            structures.append(structure)
+        media_type = (
+            upload.media_type
+            if upload.media_type and upload.media_type != "application/octet-stream"
+            else adapter.capabilities.media_types[0]
+        )
+        prepared.append(
+            PreparedFile(
+                filename=filename,
+                data=upload.data,
+                media_type=media_type,
+                source_format=adapter.capabilities.format,
+                structures=tuple(structures),
+            )
+        )
+    return prepared
+
+
 class ArtifactService:
     def __init__(self, session: Session, store: LocalArtifactStore) -> None:
         self.session = session
@@ -146,7 +224,7 @@ class ImportExportService:
     ) -> None:
         self.session = session
         self.settings = settings
-        self.registry = registry or create_default_registry()
+        self.registry = registry
         self.artifacts = ArtifactService(session, store or LocalArtifactStore(settings.data_dir))
 
     def formats(self) -> list[FormatRead]:
@@ -160,7 +238,7 @@ class ImportExportService:
                 can_export=item.can_export,
                 multi_record=item.multi_record,
             )
-            for item in self.registry.capabilities()
+            for item in self._registry().capabilities()
         ]
 
     def prepare(
@@ -170,74 +248,13 @@ class ImportExportService:
         generate_3d: bool = True,
         infer_bonds: bool = True,
     ) -> list[PreparedFile]:
-        if not uploads:
-            raise ImportLimitError("empty_import", "Select at least one structure file.")
-        aggregate_size = sum(len(upload.data) for upload in uploads)
-        if aggregate_size > self.settings.max_upload_request_bytes:
-            raise ImportLimitError(
-                "aggregate_upload_too_large",
-                (
-                    f"Upload is {aggregate_size} bytes; the request limit is "
-                    f"{self.settings.max_upload_request_bytes} bytes."
-                ),
-            )
-        prepared: list[PreparedFile] = []
-        options = ImportOptions(generate_3d=generate_3d, infer_bonds=infer_bonds)
-        for upload in uploads:
-            filename = safe_display_filename(upload.filename)
-            if len(upload.data) > self.settings.max_structure_file_bytes:
-                raise ImportLimitError(
-                    "structure_file_too_large",
-                    (
-                        f"{filename} is {len(upload.data)} bytes; the per-file limit is "
-                        f"{self.settings.max_structure_file_bytes} bytes."
-                    ),
-                    filename=filename,
-                )
-            adapter = self.registry.for_filename(filename)
-            parsed = adapter.parse(upload.data, filename, options)
-            structures: list[NormalizedStructureV1] = []
-            for structure in parsed.structures:
-                atom_count = len(structure.atoms)
-                if atom_count > self.settings.atom_hard_limit:
-                    raise ImportLimitError(
-                        "atom_hard_limit_exceeded",
-                        (
-                            f"{filename} record {structure.source.record_index + 1} has "
-                            f"{atom_count} atoms; the hard limit is "
-                            f"{self.settings.atom_hard_limit}."
-                        ),
-                        filename=filename,
-                    )
-                if atom_count > self.settings.atom_warning_limit:
-                    warning = MolecularWarning(
-                        code="atom_warning_limit_exceeded",
-                        message=(
-                            f"This structure has {atom_count} atoms; interactive "
-                            "rendering may be slower."
-                        ),
-                        operation="import",
-                        field="atoms",
-                    )
-                    structure = structure.model_copy(
-                        update={"warnings": [*structure.warnings, warning]}
-                    )
-                structures.append(structure)
-            media_type = (
-                upload.media_type
-                if upload.media_type and upload.media_type != "application/octet-stream"
-                else adapter.capabilities.media_types[0]
-            )
-            prepared.append(
-                PreparedFile(
-                    filename=filename,
-                    data=upload.data,
-                    media_type=media_type,
-                    source_format=adapter.capabilities.format,
-                    structures=tuple(structures),
-                )
-            )
-        return prepared
+        return prepare_uploads(
+            self.settings,
+            uploads,
+            generate_3d=generate_3d,
+            infer_bonds=infer_bonds,
+            registry=self.registry,
+        )
 
     def commit_import(
         self,
@@ -329,8 +346,10 @@ class ImportExportService:
             }
             else "sdf"
         )
-        projection = self.registry.for_format(viewer_format).export(
-            structure, safe_filename_stem(entry.name)
+        projection = (
+            self._registry()
+            .for_format(viewer_format)
+            .export(structure, safe_filename_stem(entry.name))
         )
         return StructureRead(
             entry_id=entry.id,
@@ -360,8 +379,10 @@ class ImportExportService:
             raise StructureUnavailableError(entry_id)
         _, payload = self.artifacts.read(entry.current_artifact_id)
         structure = NormalizedStructureV1.from_bytes(payload)
-        result = self.registry.for_format(format_name).export(
-            structure, safe_filename_stem(entry.name)
+        result = (
+            self._registry()
+            .for_format(format_name)
+            .export(structure, safe_filename_stem(entry.name))
         )
         blocking = [warning for warning in result.warnings if warning.blocking]
         if blocking and not acknowledge_losses:
@@ -389,3 +410,7 @@ class ImportExportService:
         if entry is None:
             raise EntryNotFoundError(entry_id)
         return entry
+
+    def _registry(self) -> AdapterRegistry:
+        # RDKit adapter objects are created in the thread where parsing runs.
+        return self.registry or create_default_registry()

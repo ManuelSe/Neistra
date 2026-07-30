@@ -2,9 +2,11 @@ import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import {
   ChevronLeft,
   Copy,
+  Download,
   Ellipsis,
   Eye,
   EyeOff,
+  FileOutput,
   FolderPlus,
   FlaskConical,
   Focus,
@@ -26,6 +28,7 @@ interface ProjectBrowserProps {
   onIsolate: (entry: Entry) => void;
   onGroup: (entry: Entry) => void;
   onDelete: (entry: Entry) => void;
+  onExport: (entry: Entry) => void;
 }
 
 function EntryRow({
@@ -37,13 +40,17 @@ function EntryRow({
   onIsolate,
   onGroup,
   onDelete,
+  onExport,
 }: Omit<ProjectBrowserProps, "project" | "onCollapse"> & { entry: Entry }) {
   return (
     <div className={`entry-row ${entry.visible ? "" : "entry-hidden"}`} data-entry-id={entry.id}>
       <FlaskConical size={16} className="entry-type-icon" />
       <div className="entry-copy">
         <span>{entry.name}</span>
-        <small>{entry.structure_type}</small>
+        <small title={entry.warnings.map((warning) => warning.message).join("\n")}>
+          {entry.source_format ?? entry.structure_type} / {entry.atom_count} atoms
+          {entry.warnings.length > 0 ? ` / ${entry.warnings.length} warnings` : ""}
+        </small>
       </div>
       {entry.dirty ? <span className="entry-dirty" aria-label="Modified" /> : null}
       <IconButton
@@ -78,6 +85,16 @@ function EntryRow({
             <DropdownMenu.Item className="dropdown-item" onSelect={() => onGroup(entry)}>
               <FolderPlus size={15} /> Add to new group
             </DropdownMenu.Item>
+            <DropdownMenu.Item className="dropdown-item" onSelect={() => onExport(entry)}>
+              <FileOutput size={15} /> Export
+            </DropdownMenu.Item>
+            {entry.original_artifact_id ? (
+              <DropdownMenu.Item className="dropdown-item" asChild>
+                <a href={`/api/v1/artifacts/${entry.original_artifact_id}`} download>
+                  <Download size={15} /> Download original
+                </a>
+              </DropdownMenu.Item>
+            ) : null}
             <DropdownMenu.Separator className="dropdown-separator" />
             <DropdownMenu.Item
               className="dropdown-item danger"
@@ -152,4 +169,3 @@ export function ProjectBrowser({ project, onCollapse, ...actions }: ProjectBrows
     </section>
   );
 }
-
