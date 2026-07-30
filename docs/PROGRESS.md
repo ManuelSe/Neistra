@@ -4,8 +4,7 @@
 
 Milestone 1 - Durable project workspace
 
-Checkpoint 3: complete M1 lifecycle, failure handling, and documentation
-verified; final clean gate remains.
+Status: complete.
 
 ## Completed work
 
@@ -57,9 +56,9 @@ verified; final clean gate remains.
 Successful on 2026-07-30:
 
 ```bash
-.venv/bin/ruff check .
-.venv/bin/mypy apps/api packages/molweave_core
-.venv/bin/pytest -q tests/unit/test_commands.py tests/unit/test_artifacts.py tests/integration/test_project_lifecycle.py
+UV_CACHE_DIR=/tmp/uv-cache .venv/bin/uv run --no-sync ruff check .
+UV_CACHE_DIR=/tmp/uv-cache .venv/bin/uv run --no-sync mypy apps/api packages/molweave_core
+UV_CACHE_DIR=/tmp/uv-cache .venv/bin/uv run --no-sync pytest tests/unit/test_commands.py tests/integration/test_project_lifecycle.py tests/unit/test_artifacts.py
 corepack pnpm --dir apps/web lint
 corepack pnpm --dir apps/web typecheck
 corepack pnpm --dir apps/web test -- project-workspace
@@ -87,6 +86,13 @@ Results:
   entry-command matrix runs on desktop; mobile lifecycle and failure handling
   run separately).
 - Alembic upgraded the existing local database from revision `0001` to `0002`.
+- The final full M1 gate passed from the committed project-local environment:
+  Ruff, mypy (12 source files), Pytest (8 tests), ESLint, TypeScript, Vitest (3
+  tests), Playwright (5 passed, 1 intentional viewport skip), and the Vite
+  production build.
+- The documented normal API and Vite commands started successfully. The health
+  endpoint returned `{"status":"ok"}` and a fresh 1440x900 Chromium render
+  showed no API warning, clipping, overlap, or blank workspace.
 
 ## Known limitations
 
@@ -102,5 +108,6 @@ None.
 
 ## Next action
 
-Run every M1 verification command from a clean working state, verify documented
-normal startup and browser rendering once more, then mark M1 complete.
+Begin M2 only after reviewing its scientific dependency and fixture
+prerequisites. M2 starts validated multi-format import, immutable original
+preservation, normalized molecular data, and the Mol* viewer abstraction.
