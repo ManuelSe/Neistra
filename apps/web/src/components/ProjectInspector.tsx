@@ -12,12 +12,15 @@ import { useEffect, useMemo, useRef, useState, type MouseEvent } from "react";
 import { molecularApi } from "../api/client";
 import type {
   Project,
+  CoordinateTransform,
   Measurement,
   MeasurementKind,
   SavedSelection,
   Selection,
   SelectionGranularity,
   SelectionMode,
+  SuperpositionRequest,
+  SuperpositionResult,
 } from "../api/types";
 import {
   chainSelection,
@@ -30,6 +33,7 @@ import {
 } from "../selection/selection";
 import { IconButton } from "./IconButton";
 import { MeasurementsPanel } from "./MeasurementsPanel";
+import { TransformPanel } from "./TransformPanel";
 
 interface ProjectInspectorProps {
   project: Project | undefined;
@@ -63,6 +67,12 @@ interface ProjectInspectorProps {
     visible: boolean,
   ) => void;
   onDeleteMeasurement?: (measurement: Measurement) => void;
+  onPreviewTransform?: (transform: CoordinateTransform) => Promise<void>;
+  onClearTransformPreview?: () => void;
+  onTransform?: (transform: CoordinateTransform) => Promise<void>;
+  onSuperpose?: (
+    payload: SuperpositionRequest,
+  ) => Promise<SuperpositionResult["report"] | null>;
   onCollapse?: () => void;
 }
 
@@ -560,7 +570,7 @@ function SequencePanel({
 export function ProjectInspector(props: ProjectInspectorProps) {
   const { project, selection, onCollapse } = props;
   const [tab, setTab] = useState<
-    "selection" | "inspect" | "measurements" | "sequence" | "details"
+    "selection" | "inspect" | "measurements" | "transform" | "sequence" | "details"
   >("selection");
   const automaticallyOpenedDetails = useRef(false);
   const projectId = project?.id;
@@ -617,6 +627,8 @@ export function ProjectInspector(props: ProjectInspectorProps) {
                 ? "Inspect"
                 : tab === "measurements"
                   ? "Measurements"
+                  : tab === "transform"
+                    ? "Transform"
                   : tab === "sequence"
                     ? "Sequence"
                     : "Project"}
@@ -629,7 +641,7 @@ export function ProjectInspector(props: ProjectInspectorProps) {
         ) : null}
       </div>
       <div className="inspector-tabs" role="tablist" aria-label="Inspector views">
-        {(["selection", "inspect", "measurements", "sequence", "details"] as const).map((item) => (
+        {(["selection", "inspect", "measurements", "transform", "sequence", "details"] as const).map((item) => (
           <button
             type="button"
             role="tab"
@@ -663,6 +675,18 @@ export function ProjectInspector(props: ProjectInspectorProps) {
             onUpdate={props.onUpdateMeasurement ?? (() => undefined)}
             onDelete={props.onDeleteMeasurement ?? (() => undefined)}
             onSelectContact={(next) => props.onApplySelection(next, "replace")}
+          />
+        ) : tab === "transform" && project ? (
+          <TransformPanel
+            project={project}
+            selection={selection}
+            busy={props.busy}
+            onPreview={
+              props.onPreviewTransform ?? (() => Promise.resolve())
+            }
+            onClearPreview={props.onClearTransformPreview ?? (() => undefined)}
+            onTransform={props.onTransform ?? (() => Promise.resolve())}
+            onSuperpose={props.onSuperpose ?? (() => Promise.resolve(null))}
           />
         ) : tab === "sequence" ? (
           <SequencePanel

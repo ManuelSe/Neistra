@@ -12,6 +12,8 @@ import { ApiError, molecularApi, projectApi } from "./api/client";
 import type {
   Entry,
   CameraState,
+  CoordinatePatch,
+  CoordinateTransform,
   Measurement,
   MeasurementKind,
   Project,
@@ -20,6 +22,8 @@ import type {
   Scene,
   SelectionGranularity,
   SelectionMode,
+  StructureProjection,
+  SuperpositionRequest,
 } from "./api/types";
 import { LowerPanel } from "./components/LowerPanel";
 import { IconButton } from "./components/IconButton";
@@ -42,6 +46,10 @@ import {
   type StructureMap,
 } from "./selection/selection";
 import { spatialSelectionInWorker } from "./selection/spatialClient";
+import {
+  patchStructureProjection,
+  previewTransform,
+} from "./coordinates/transforms";
 import { useSelectionStore } from "./store/selection";
 import { useWorkspaceStore } from "./store/workspace";
 
@@ -87,6 +95,8 @@ export default function App() {
   const [notice, setNotice] = useState<{ kind: "success" | "error"; text: string } | null>(null);
   const [editedThisSession, setEditedThisSession] = useState(false);
   const [selectionBusy, setSelectionBusy] = useState(false);
+  const [coordinatePreview, setCoordinatePreview] =
+    useState<CoordinatePatch | null>(null);
   const {
     selection,
     pickingGranularity,
@@ -157,6 +167,33 @@ export default function App() {
   }, [editedThisSession, project?.has_uncheckpointed_changes, project?.id]);
 
   const updateProjectCache = (next: Project) => {
+    const previous = queryClient.getQueryData<Project>(["project", next.id]);
+    for (const patch of next.structure_patches ?? []) {
+      const previousEntry = previous?.entries.find(
+        (entry) => entry.id === patch.entry_id,
+      );
+      const source = previousEntry?.current_artifact_id
+        ? queryClient.getQueryData<StructureProjection>([
+            "structure",
+            next.id,
+            patch.entry_id,
+            previousEntry.current_artifact_id,
+          ])
+        : undefined;
+      const target =
+        queryClient.getQueryData<StructureProjection>([
+          "structure",
+          next.id,
+          patch.entry_id,
+          patch.artifact_id,
+        ]) ?? source;
+      if (target) {
+        queryClient.setQueryData(
+          ["structure", next.id, patch.entry_id, patch.artifact_id],
+          patchStructureProjection(target, patch),
+        );
+      }
+    }
     queryClient.setQueryData(["project", next.id], next);
     queryClient.setQueryData<ProjectListItem[]>(["projects"], (current = []) => {
       const summary: ProjectListItem = {
@@ -411,11 +448,52 @@ export default function App() {
         );
       }
     },
+    onPreviewTransform: async (transform: CoordinateTransform) => {
+      const structures = await loadStructures([transform.entry_id]);
+      const structure = structures.get(transform.entry_id);
+      if (!structure) throw new Error("The target structure is not loaded.");
+      setCoordinatePreview(previewTransform(structure, transform));
+    },
+    onClearTransformPreview: () => setCoordinatePreview(null),
+    onTransform: async (transform: CoordinateTransform) => {
+      if (!project) return;
+      setCoordinatePreview(null);
+      await projectMutation.mutateAsync(() =>
+        projectApi.transform(project, transform),
+      );
+    },
+    onSuperpose: async (payload: SuperpositionRequest) => {
+      if (!project) return null;
+      setCoordinatePreview(null);
+      try {
+        const result = await projectApi.superpose(project, payload);
+        updateProjectCache(result.project);
+        setEditedThisSession(true);
+        setNotice({
+          kind: "success",
+          text: `Aligned ${result.report.atom_count} atoms; RMSD ${result.report.rmsd.toFixed(4)} angstrom.`,
+        });
+        return result.report;
+      } catch (error) {
+        setNotice({ kind: "error", text: errorMessage(error) });
+        if (
+          error instanceof ApiError &&
+          error.code === "revision_conflict" &&
+          activeProjectId
+        ) {
+          void queryClient.invalidateQueries({
+            queryKey: ["project", activeProjectId],
+          });
+        }
+        throw error;
+      }
+    },
   };
 
   const projects = projectsQuery.data ?? [];
   const viewerActions = {
     busy,
+    coordinatePreview,
     onUpdateSettings: async (
       entryId: string,
       settings: Entry["viewer_settings"],

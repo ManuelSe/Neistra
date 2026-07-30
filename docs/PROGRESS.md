@@ -421,6 +421,26 @@ Results:
   locked failure states, successful backbone Kabsch fitting with RMSD, rejected
   unequal correspondence, exact undo/redo restoration, redo invalidation, and
   original-file preservation.
+- M5 client checkpoint: the inspector now provides whole-entry or selected-atom
+  translation and rotation, structure/scope/custom pivots, numeric entry, an
+  axis slider with local preview and one-command pointer completion, and
+  backbone or selected protein superposition with matched-atom/RMSD reporting.
+- Coordinate responses seed the new artifact-keyed TanStack Query projection
+  before project state changes. Mol* models are built through
+  `ModelWithCoordinates`; previews, commits, undo, and redo update only the
+  affected model while topology synchronization, other entries, and camera
+  state remain unchanged.
+- M5 client verification: ESLint and TypeScript passed; all 26 component/domain
+  tests passed under the exact `transforms history` gate; the production build
+  passed with 3,344 transformed modules, a 447.95 KiB initial application
+  chunk, and Mol* retained in a lazy chunk.
+- M5 browser checkpoint: the desktop Chromium coordinate workflow passed
+  against the real API and WebGL viewer in 11.2 seconds. It verified camera
+  navigation does not change coordinates, combined numeric transform, nonblank
+  incremental rendering, exact undo/redo, one-revision selected-atom gesture
+  and reversal, zero-RMSD backbone superposition, unequal correspondence
+  feedback, and a locked-entry disabled state. The existing complete
+  synchronized-selection WebGL workflow also passed.
 
 ## Known limitations
 
@@ -451,6 +471,6 @@ None.
 
 ## Next action
 
-Add typed client coordinate commands, update the structure query cache from
-authoritative patches, and implement incremental Mol* coordinate preview and
-commit updates without rebuilding unrelated structures or changing the camera.
+Run the complete Python, client, build, and Playwright regression gates; verify
+the documented normal startup and responsive desktop/mobile UI; then record the
+final M5 state and limitations.

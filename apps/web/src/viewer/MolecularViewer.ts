@@ -1,6 +1,7 @@
 import type {
   AtomReference,
   CameraState,
+  CoordinatePatch,
   Measurement,
   NormalizedStructure,
   SelectionGranularity,
@@ -27,6 +28,11 @@ export interface ViewerSelectionEvent {
 export interface MolecularViewer {
   mount(target: HTMLElement): Promise<void>;
   syncStructures(structures: ViewerStructure[]): Promise<void>;
+  applyCoordinatePatch(
+    patch: CoordinatePatch,
+    mode: "preview" | "commit",
+  ): Promise<void>;
+  clearCoordinatePreview(entryId: string): Promise<void>;
   setSelection(atoms: AtomReference[]): void;
   setPickingGranularity(granularity: SelectionGranularity): void;
   setMeasurements(measurements: ViewerMeasurement[]): Promise<void>;

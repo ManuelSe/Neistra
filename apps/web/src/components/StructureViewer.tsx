@@ -5,6 +5,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { molecularApi } from "../api/client";
 import type {
   CameraState,
+  CoordinatePatch,
   Project,
   Scene,
   ViewerSettings,
@@ -29,6 +30,7 @@ interface StructureViewerProps {
   pickingGranularity: SelectionGranularity;
   onViewerSelection: (selection: Selection, mode: SelectionMode) => void;
   busy?: boolean;
+  coordinatePreview?: CoordinatePatch | null;
   onUpdateSettings?: (entryId: string, settings: ViewerSettings) => Promise<void>;
   onCreateScene?: (name: string, camera: CameraState) => Promise<void>;
   onApplyScene?: (scene: Scene) => Promise<void>;
@@ -42,6 +44,7 @@ export function StructureViewer({
   pickingGranularity,
   onViewerSelection,
   busy = false,
+  coordinatePreview = null,
   onUpdateSettings,
   onCreateScene,
   onApplyScene,
@@ -51,6 +54,9 @@ export function StructureViewer({
   const targetRef = useRef<HTMLDivElement>(null);
   const viewerRef = useRef<MolecularViewer | undefined>(undefined);
   const onViewerSelectionRef = useRef(onViewerSelection);
+  const viewerStructuresRef = useRef<ViewerStructure[]>([]);
+  const appliedArtifactsRef = useRef(new Map<string, string>());
+  const previewEntryRef = useRef<string | null>(null);
   const [viewerReady, setViewerReady] = useState(false);
   const [viewerError, setViewerError] = useState<string | null>(null);
   const [activeEntryId, setActiveEntryId] = useState("");
@@ -160,15 +166,58 @@ export function StructureViewer({
         `${structure.entryId}:${structure.projection.data.length}:${JSON.stringify(structure.settings)}`,
     )
     .join("|");
+  const structuresPending = structureQueries.some((query) => query.isPending);
+  viewerStructuresRef.current = viewerStructures;
 
   useEffect(() => {
-    if (!viewerReady || structureQueries.some((query) => query.isPending)) return;
+    if (!viewerReady) return;
     void viewerRef.current
-      ?.syncStructures(viewerStructures)
+      ?.syncStructures(viewerStructuresRef.current)
       .catch((error: unknown) =>
         setViewerError(error instanceof Error ? error.message : "The viewer rejected a structure."),
       );
-  }, [structureQueries, syncKey, viewerReady, viewerStructures]);
+  }, [structuresPending, syncKey, viewerReady]);
+
+  useEffect(() => {
+    if (!viewerReady) return;
+    for (const patch of project.structure_patches) {
+      if (appliedArtifactsRef.current.get(patch.entry_id) === patch.artifact_id) {
+        continue;
+      }
+      appliedArtifactsRef.current.set(patch.entry_id, patch.artifact_id);
+      void viewerRef.current
+        ?.applyCoordinatePatch(patch, "commit")
+        .catch((error: unknown) =>
+          setViewerError(
+            error instanceof Error
+              ? error.message
+              : "The viewer rejected a coordinate update.",
+          ),
+        );
+    }
+  }, [project.structure_patches, syncKey, viewerReady]);
+
+  useEffect(() => {
+    if (!viewerReady) return;
+    const previousEntryId = previewEntryRef.current;
+    if (previousEntryId && previousEntryId !== coordinatePreview?.entry_id) {
+      void viewerRef.current?.clearCoordinatePreview(previousEntryId);
+    }
+    previewEntryRef.current = coordinatePreview?.entry_id ?? null;
+    if (coordinatePreview) {
+      void viewerRef.current
+        ?.applyCoordinatePatch(coordinatePreview, "preview")
+        .catch((error: unknown) =>
+          setViewerError(
+            error instanceof Error
+              ? error.message
+              : "The viewer rejected a coordinate preview.",
+          ),
+        );
+    } else if (previousEntryId) {
+      void viewerRef.current?.clearCoordinatePreview(previousEntryId);
+    }
+  }, [coordinatePreview, viewerReady]);
 
   useEffect(() => {
     if (!viewerReady) return;
@@ -210,7 +259,7 @@ export function StructureViewer({
   }, [normalizedStructures, project.measurements, syncKey, viewerReady]);
 
   const loading =
-    (!viewerReady && !viewerError) || structureQueries.some((query) => query.isPending);
+    (!viewerReady && !viewerError) || structuresPending;
   const failedQueries = structureQueries.filter((query) => query.isError);
   const warningCount = visibleEntries.reduce((count, entry) => count + entry.warnings.length, 0);
   const largeEntries = visibleEntries.filter((entry) => entry.atom_count >= 250_000);

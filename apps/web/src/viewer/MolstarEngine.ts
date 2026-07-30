@@ -6,6 +6,10 @@ import {
   type Model,
   type Structure,
 } from "molstar/lib/mol-model/structure";
+import {
+  Time,
+  type Frame,
+} from "molstar/lib/mol-model/structure/coordinates/coordinates";
 import { Color } from "molstar/lib/mol-util/color";
 import type { UnitIndex } from "molstar/lib/mol-model/structure/structure/element/util";
 import { Vec3 } from "molstar/lib/mol-math/linear-algebra";
@@ -13,11 +17,14 @@ import { createPluginUI } from "molstar/lib/mol-plugin-ui";
 import type { PluginUIContext } from "molstar/lib/mol-plugin-ui/context";
 import { renderReact18 } from "molstar/lib/mol-plugin-ui/react18";
 import { DefaultPluginUISpec } from "molstar/lib/mol-plugin-ui/spec";
+import { StateTransforms } from "molstar/lib/mol-plugin-state/transforms";
 import { ButtonsType } from "molstar/lib/mol-util/input/input-observer";
 import type {
   AtomReference,
   CameraState,
   ColorScheme,
+  CoordinatePatch,
+  Point3D,
   RepresentationStyle,
   SelectionGranularity,
   SelectionMode,
@@ -30,8 +37,12 @@ import type {
 } from "./MolecularViewer";
 
 interface LoadedStructure {
+  entryId: string;
   structure: Structure;
   atomIds: number[];
+  coordinateRef: string;
+  structureRef: string;
+  baseCoordinates: Map<number, Point3D>;
 }
 
 export class MolstarEngine implements MolecularViewer {
@@ -155,28 +166,43 @@ export class MolstarEngine implements MolecularViewer {
           data,
           structure.projection.format,
         );
-        const preset = await plugin.builders.structure.hierarchy.applyPreset(
-          trajectory,
-          "default",
-          { representationPreset: "empty" },
-        );
-        const molstarStructure =
-          preset?.structureProperties?.obj?.data ?? preset?.structure.obj?.data;
+        const model = await plugin.builders.structure.createModel(trajectory);
+        const modelProperties =
+          await plugin.builders.structure.insertModelProperties(model);
+        const coordinateModel = await plugin.state.data
+          .build()
+          .to(modelProperties)
+          .apply(StateTransforms.Model.ModelWithCoordinates, {
+            frameIndex: 0,
+            frameCount: 1,
+            atomicCoordinateFrame: this.coordinateFrame(
+              structure.normalized.atoms.map((atom) => atom.coordinates),
+            ),
+          })
+          .commit({ revertOnError: true });
+        const modelStructure =
+          await plugin.builders.structure.createStructure(coordinateModel);
+        const structureProperties =
+          await plugin.builders.structure.insertStructureProperties(modelStructure);
+        const molstarStructure = structureProperties.obj?.data;
         if (!molstarStructure) {
           throw new Error(`Mol* could not create a structure for ${structure.label}.`);
         }
         this.loaded.set(structure.entryId, {
+          entryId: structure.entryId,
           structure: molstarStructure,
           atomIds: structure.atomIds,
+          coordinateRef: coordinateModel.ref,
+          structureRef: structureProperties.ref,
+          baseCoordinates: new Map(
+            structure.normalized.atoms.map((atom) => [
+              atom.id,
+              [...atom.coordinates] as Point3D,
+            ]),
+          ),
         });
-        for (const unit of molstarStructure.units) {
-          this.models.set(unit.model, {
-            entryId: structure.entryId,
-            atomIds: structure.atomIds,
-          });
-        }
-        const rootRef = preset?.structureProperties ?? preset?.structure;
-        if (!rootRef) throw new Error(`Mol* lost the structure state for ${structure.label}.`);
+        this.indexModels(structure.entryId, molstarStructure, structure.atomIds);
+        const rootRef = structureProperties;
         const isolated = this.isolation?.filter(
           (reference) => reference.structure_id === structure.entryId,
         );
@@ -263,6 +289,42 @@ export class MolstarEngine implements MolecularViewer {
   setSelection(atoms: AtomReference[]): void {
     this.pendingSelection = atoms;
     this.applySelection();
+  }
+
+  applyCoordinatePatch(
+    patch: CoordinatePatch,
+    mode: "preview" | "commit",
+  ): Promise<void> {
+    this.syncQueue = this.syncQueue.then(async () => {
+      const loaded = this.loaded.get(patch.entry_id);
+      if (!loaded || !this.plugin) return;
+      if (
+        patch.atom_ids.length !== patch.coordinates.length ||
+        patch.atom_ids.some((atomId) => !loaded.baseCoordinates.has(atomId))
+      ) {
+        throw new Error("The coordinate patch does not match the loaded structure.");
+      }
+      const coordinates = new Map(
+        [...loaded.baseCoordinates].map(([atomId, point]) => [
+          atomId,
+          [...point] as Point3D,
+        ]),
+      );
+      patch.atom_ids.forEach((atomId, index) => {
+        coordinates.set(atomId, [...patch.coordinates[index]] as Point3D);
+      });
+      if (mode === "commit") loaded.baseCoordinates = coordinates;
+      await this.updateCoordinates(loaded, coordinates);
+    });
+    return this.syncQueue;
+  }
+
+  clearCoordinatePreview(entryId: string): Promise<void> {
+    this.syncQueue = this.syncQueue.then(async () => {
+      const loaded = this.loaded.get(entryId);
+      if (loaded) await this.updateCoordinates(loaded, loaded.baseCoordinates);
+    });
+    return this.syncQueue;
   }
 
   setPickingGranularity(granularity: SelectionGranularity): void {
@@ -357,6 +419,63 @@ export class MolstarEngine implements MolecularViewer {
 
   private emit(event: ViewerSelectionEvent): void {
     for (const listener of this.listeners) listener(event);
+  }
+
+  private coordinateFrame(coordinates: Point3D[]): Frame {
+    return {
+      elementCount: coordinates.length,
+      time: Time(0, "step"),
+      x: Float64Array.from(coordinates, (point) => point[0]),
+      y: Float64Array.from(coordinates, (point) => point[1]),
+      z: Float64Array.from(coordinates, (point) => point[2]),
+      xyzOrdering: { isIdentity: true },
+    };
+  }
+
+  private async updateCoordinates(
+    loaded: LoadedStructure,
+    coordinates: Map<number, Point3D>,
+  ): Promise<void> {
+    const plugin = this.plugin;
+    if (!plugin) return;
+    const ordered = loaded.atomIds.map((atomId) => {
+      const point = coordinates.get(atomId);
+      if (!point) throw new Error(`Coordinates for atom ${atomId} are unavailable.`);
+      return point;
+    });
+    await plugin.state.data
+      .build()
+      .to(loaded.coordinateRef)
+      .update({
+        frameIndex: 0,
+        frameCount: 1,
+        atomicCoordinateFrame: this.coordinateFrame(ordered),
+      })
+      .commit({ revertOnError: true });
+    const refreshed = plugin.state.data.cells.get(loaded.structureRef)?.obj
+      ?.data as Structure | undefined;
+    if (!refreshed) {
+      throw new Error("Mol* could not refresh the coordinate model.");
+    }
+    loaded.structure = refreshed;
+    for (const [model, mapping] of this.models) {
+      if (mapping.entryId === loaded.entryId) {
+        this.models.delete(model);
+      }
+    }
+    this.indexModels(loaded.entryId, refreshed, loaded.atomIds);
+    this.applySelection();
+    await this.applyMeasurements();
+  }
+
+  private indexModels(
+    entryId: string,
+    structure: Structure,
+    atomIds: number[],
+  ): void {
+    for (const unit of structure.units) {
+      this.models.set(unit.model, { entryId, atomIds });
+    }
   }
 
   private applySelection(): void {

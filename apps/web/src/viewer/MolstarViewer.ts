@@ -1,6 +1,7 @@
 import type {
   AtomReference,
   CameraState,
+  CoordinatePatch,
   SelectionGranularity,
 } from "../api/types";
 import type {
@@ -38,6 +39,17 @@ class LazyMolstarViewer implements MolecularViewer {
 
   syncStructures(structures: ViewerStructure[]): Promise<void> {
     return this.engine?.syncStructures(structures) ?? Promise.resolve();
+  }
+
+  applyCoordinatePatch(
+    patch: CoordinatePatch,
+    mode: "preview" | "commit",
+  ): Promise<void> {
+    return this.engine?.applyCoordinatePatch(patch, mode) ?? Promise.resolve();
+  }
+
+  clearCoordinatePreview(entryId: string): Promise<void> {
+    return this.engine?.clearCoordinatePreview(entryId) ?? Promise.resolve();
   }
 
   setSelection(atoms: AtomReference[]): void {

@@ -2,6 +2,7 @@ import type {
   ApiErrorBody,
   CameraState,
   Contact,
+  CoordinateTransform,
   ExportResult,
   FormatCapability,
   ImportResult,
@@ -12,6 +13,8 @@ import type {
   Scene,
   Selection,
   StructureProjection,
+  SuperpositionRequest,
+  SuperpositionResult,
   ViewerSettings,
 } from "./types";
 
@@ -102,6 +105,25 @@ export const projectApi = {
     request<Project>(`/api/v1/projects/${project.id}/history/redo`, {
       method: "POST",
       body: JSON.stringify({ expected_revision: project.revision }),
+    }),
+  transform: (project: Project, transform: CoordinateTransform) =>
+    request<Project>(
+      `/api/v1/projects/${project.id}/entries/${transform.entry_id}/transform`,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          expected_revision: project.revision,
+          ...transform,
+        }),
+      },
+    ),
+  superpose: (project: Project, payload: SuperpositionRequest) =>
+    request<SuperpositionResult>(`/api/v1/projects/${project.id}/superpositions`, {
+      method: "POST",
+      body: JSON.stringify({
+        expected_revision: project.revision,
+        ...payload,
+      }),
     }),
   updateEntry: (
     project: Project,

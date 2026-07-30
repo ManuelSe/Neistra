@@ -176,6 +176,7 @@ export interface Project {
   measurements: Measurement[];
   scenes: Scene[];
   history: History;
+  structure_patches: CoordinatePatch[];
 }
 
 export interface ProjectListItem {
@@ -259,6 +260,46 @@ export interface StructureProjection {
   viewer: {
     format: "pdb" | "mmcif" | "sdf" | "mol";
     data: string;
+  };
+}
+
+export type Point3D = [number, number, number];
+
+export interface CoordinatePatch {
+  entry_id: string;
+  artifact_id: string;
+  atom_ids: number[];
+  coordinates: Point3D[];
+}
+
+export type TransformScope = "structure" | "selection";
+export type PivotMode = "selection_centroid" | "structure_centroid" | "custom";
+
+export interface CoordinateTransform {
+  entry_id: string;
+  scope: TransformScope;
+  selection: Selection;
+  translation: Point3D;
+  rotation_degrees: Point3D;
+  pivot_mode: PivotMode;
+  pivot: Point3D | null;
+}
+
+export interface SuperpositionRequest {
+  moving_entry_id: string;
+  reference_entry_id: string;
+  mode: "selection" | "backbone";
+  selection: Selection;
+}
+
+export interface SuperpositionResult {
+  project: Project;
+  report: {
+    moving_entry_id: string;
+    reference_entry_id: string;
+    mode: "selection" | "backbone";
+    atom_count: number;
+    rmsd: number;
   };
 }
 

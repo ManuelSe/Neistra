@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import type {
   AtomReference,
+  CoordinatePatch,
   Project,
   Selection,
   SelectionGranularity,
@@ -62,6 +63,7 @@ function project(proteinVisible = true, ligandVisible = false): Project {
     saved_selections: [],
     measurements: [],
     scenes: [],
+    structure_patches: [],
     history: {
       can_undo: true,
       can_redo: false,
@@ -114,6 +116,10 @@ class FakeViewer implements MolecularViewer {
   syncs: ViewerStructure[][] = [];
   selections: AtomReference[][] = [];
   granularities: SelectionGranularity[] = [];
+  coordinatePatches: {
+    patch: CoordinatePatch;
+    mode: "preview" | "commit";
+  }[] = [];
   listener:
     | ((event: {
         atoms: AtomReference[];
@@ -129,6 +135,18 @@ class FakeViewer implements MolecularViewer {
 
   syncStructures(structures: ViewerStructure[]): Promise<void> {
     this.syncs.push(structures);
+    return Promise.resolve();
+  }
+
+  applyCoordinatePatch(
+    patch: CoordinatePatch,
+    mode: "preview" | "commit",
+  ): Promise<void> {
+    this.coordinatePatches.push({ patch, mode });
+    return Promise.resolve();
+  }
+
+  clearCoordinatePreview(): Promise<void> {
     return Promise.resolve();
   }
 
@@ -362,6 +380,76 @@ describe("lazy structure loading", () => {
     await waitFor(() => expect(fake.selections.at(-1)).toEqual([]));
     expect(fake.granularities.at(-1)).toBe("chain");
     expect(onViewerSelection).toHaveBeenCalledOnce();
+  });
+
+  it("patches only the affected coordinate model without a topology resync", async () => {
+    const fake = new FakeViewer();
+    const initial = project(true, true);
+    vi.spyOn(globalThis, "fetch").mockImplementation((input) => {
+      const path =
+        typeof input === "string"
+          ? input
+          : input instanceof URL
+            ? input.toString()
+            : input.url;
+      const entryId = path.includes("/ligand/") ? "ligand" : "protein";
+      return Promise.resolve(
+        new Response(JSON.stringify(projection(entryId)), {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+        }),
+      );
+    });
+    const queryClient = new QueryClient({
+      defaultOptions: { queries: { retry: false } },
+    });
+    const view = render(
+      <StructureViewer
+        project={initial}
+        selection={emptySelection}
+        pickingGranularity="atom"
+        onViewerSelection={() => undefined}
+        createViewer={() => fake}
+      />,
+      { wrapper: wrapper(queryClient) },
+    );
+    await waitFor(() => expect(fake.syncs.at(-1)).toHaveLength(2));
+    const syncCount = fake.syncs.length;
+    const patch: CoordinatePatch = {
+      entry_id: "protein",
+      artifact_id: "coordinate-artifact",
+      atom_ids: [1],
+      coordinates: [[3, 4, 5]],
+    };
+    queryClient.setQueryData(
+      ["structure", initial.id, "protein", patch.artifact_id],
+      projection("protein"),
+    );
+    const next: Project = {
+      ...initial,
+      revision: 2,
+      entries: initial.entries.map((item) =>
+        item.id === "protein"
+          ? { ...item, current_artifact_id: patch.artifact_id }
+          : item,
+      ),
+      structure_patches: [patch],
+    };
+
+    view.rerender(
+      <StructureViewer
+        project={next}
+        selection={emptySelection}
+        pickingGranularity="atom"
+        onViewerSelection={() => undefined}
+        createViewer={() => fake}
+      />,
+    );
+
+    await waitFor(() =>
+      expect(fake.coordinatePatches).toEqual([{ patch, mode: "commit" }]),
+    );
+    expect(fake.syncs).toHaveLength(syncCount);
   });
 
   it("uses a visible reduced-detail fallback above the recommended atom limit", async () => {

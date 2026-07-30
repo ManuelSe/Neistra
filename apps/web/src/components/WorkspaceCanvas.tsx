@@ -1,6 +1,7 @@
 import { FolderPlus, Upload } from "lucide-react";
 import type {
   CameraState,
+  CoordinatePatch,
   Project,
   Scene,
   Selection,
@@ -19,6 +20,7 @@ interface WorkspaceCanvasProps {
   onCreate: () => void;
   onImport: () => void;
   busy?: boolean;
+  coordinatePreview?: CoordinatePatch | null;
   onUpdateSettings?: (entryId: string, settings: ViewerSettings) => Promise<void>;
   onCreateScene?: (name: string, camera: CameraState) => Promise<void>;
   onApplyScene?: (scene: Scene) => Promise<void>;
@@ -34,6 +36,7 @@ export function WorkspaceCanvas({
   onCreate,
   onImport,
   busy,
+  coordinatePreview,
   onUpdateSettings,
   onCreateScene,
   onApplyScene,
@@ -87,6 +90,7 @@ export function WorkspaceCanvas({
           pickingGranularity={pickingGranularity}
           onViewerSelection={onViewerSelection}
           busy={busy}
+          coordinatePreview={coordinatePreview}
           onUpdateSettings={onUpdateSettings}
           onCreateScene={onCreateScene}
           onApplyScene={onApplyScene}

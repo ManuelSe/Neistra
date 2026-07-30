@@ -1850,16 +1850,145 @@ div[data-radix-popper-content-wrapper]:has(.tooltip) {
 }
 
 .inspector-tabs {
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+  height: 58px;
 }
 
 .inspector-tabs button {
   font-size: 8px;
 }
 
+.project-inspector .inspector-body {
+  height: calc(100% - 116px);
+}
+
 .inspect-panel,
 .measurements-panel {
   padding: 10px;
+}
+
+.transform-panel {
+  padding: 0 10px 14px;
+}
+
+.coordinate-section {
+  display: grid;
+  gap: 9px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.coordinate-section:last-of-type {
+  border-bottom: 0;
+}
+
+.coordinate-section > label,
+.coordinate-section > fieldset {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+  margin: 0;
+  color: var(--text-soft);
+  border: 0;
+  font-size: 9px;
+  font-weight: 680;
+}
+
+.coordinate-section > fieldset > legend,
+.vector-input legend {
+  margin-bottom: 5px;
+  padding: 0;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--text);
+}
+
+.section-title h3 {
+  margin: 0;
+  font-size: 11px;
+}
+
+.coordinate-section .segmented-control {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.coordinate-section .segmented-control.three {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.vector-input {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.vector-input legend {
+  grid-column: 1 / -1;
+}
+
+.vector-input label {
+  display: grid;
+  grid-template-columns: 13px minmax(0, 1fr);
+  align-items: center;
+  gap: 3px;
+}
+
+.vector-input input {
+  min-width: 0;
+  height: 30px;
+  padding: 0 5px;
+}
+
+.coordinate-context {
+  margin: -3px 0 0;
+  color: var(--text-soft);
+  font-size: 9px;
+}
+
+.gesture-slider > span {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.gesture-slider output {
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+.gesture-slider input {
+  height: 26px;
+  padding: 0;
+}
+
+.fit-report {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin: 0;
+  border: 1px solid var(--border);
+}
+
+.fit-report div {
+  min-width: 0;
+  padding: 8px;
+}
+
+.fit-report div + div {
+  border-left: 1px solid var(--border);
+}
+
+.fit-report dt {
+  color: var(--text-soft);
+  font-size: 8px;
+  text-transform: uppercase;
+}
+
+.fit-report dd {
+  margin: 3px 0 0;
+  font-size: 11px;
+  font-weight: 720;
 }
 
 .inspect-panel section {

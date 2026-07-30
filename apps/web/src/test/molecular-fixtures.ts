@@ -91,6 +91,7 @@ export function molecularProject(entries?: Entry[]): Project {
     saved_selections: [],
     measurements: [],
     scenes: [],
+    structure_patches: [],
     history: {
       can_undo: true,
       can_redo: false,
