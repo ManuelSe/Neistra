@@ -2,9 +2,10 @@
 
 ## Current milestone
 
-Milestone 2 - Format-to-viewer scientific slice
+Milestone 3 - Project browser, selection, and sequence
 
-Milestone 2 complete: format-to-viewer scientific slice verified.
+Checkpoint 1 complete: authoritative selection domain and durable named
+selection commands verified.
 
 ## Completed work
 
@@ -118,6 +119,20 @@ Milestone 2 complete: format-to-viewer scientific slice verified.
   startup architecture, and exact verification commands.
 - Updated Alembic startup so a fresh configured data directory is created before
   SQLite migration access.
+- Added canonical `SelectionV1` state as an ordered set of stable
+  `(structure_id, atom_id)` references with semantic granularity and operation
+  source metadata.
+- Added pure deterministic replace, add, subtract, clear, invert, residue/chain/
+  structure expansion, molecular predicate, atom-distance, residue-distance,
+  and reference-reconciliation operations.
+- Added durable named-selection persistence, migration `0004`, project response
+  summaries, optimistic-revision APIs, and reversible create/delete commands.
+- Integrated saved-reference reconciliation with the existing entry-delete
+  command. Invalid references are removed atomically with a structured visible
+  warning; undo restores both the entry and the original saved selection.
+- Added backend coverage for algebra, every predicate, expansions, spatial
+  behavior, restart persistence, undo/redo, duplicate and invalid requests,
+  atomic failure, deletion reconciliation, and warning restoration.
 
 ## Verification performed
 
@@ -197,15 +212,21 @@ Results:
   returned `{"status":"ok"}`, `/formats` returned all seven adapters, and
   fresh desktop and Pixel 7 Chromium captures showed a nonblank responsive
   shell without clipping or incoherent overlap.
+- M3 backend checkpoint: targeted Ruff passed; strict mypy passed for 24 source
+  files; all 14 selection and saved-selection tests passed.
+- M3 backend regression: repository-wide Ruff passed; strict mypy passed for 24
+  source files; the complete 64-test Python suite passed.
+- A fresh temporary database migrated `0001 -> 0002 -> 0003 -> 0004`, reported
+  `0004 (head)`, downgraded to `0003`, and upgraded to `0004` again.
 
 ## Known limitations
 
 - Mol* is necessarily a large on-demand dependency (about 963 KiB compressed).
   It is excluded from the initial application chunk and loaded only when a
   project contains structures.
-- M2 uses Mol* default basic representations. Selection synchronization,
-  representation controls, labels, measurements, and molecular editing remain
-  explicitly deferred to their planned milestones.
+- Mol* still uses its M2 default representations. M3 viewer selection
+  synchronization is the next checkpoint; representation controls, labels,
+  measurements, and molecular editing remain scoped to later milestones.
 - Import preparation uses one short-lived child process per batch. This favors
   cancellation and native-library isolation over minimum process overhead.
 - The API uses short synchronous SQLite transactions inside async route handlers.
@@ -218,5 +239,6 @@ None.
 
 ## Next action
 
-Begin Milestone 3 only when requested: project browser sorting/filtering/search,
-central selection, sequence integration, and viewer selection synchronization.
+Commit the verified backend checkpoint. Next, implement the central browser
+selection store, search/sort/filter/multi-selection, sequence and inspector
+surfaces, saved selection controls, and the spatial Web Worker.

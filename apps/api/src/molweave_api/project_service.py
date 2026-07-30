@@ -4,17 +4,25 @@ from copy import deepcopy
 from datetime import UTC, datetime
 from typing import Any
 
+from molweave_core.selection import SelectionV1
 from sqlalchemy import delete, func, select
 from sqlalchemy.orm import Session
 from uuid6 import uuid7
 
-from molweave_api.models import CommandRecord, EntryGroup, Project, StructureEntry
+from molweave_api.models import (
+    CommandRecord,
+    EntryGroup,
+    Project,
+    SavedSelection,
+    StructureEntry,
+)
 from molweave_api.schemas import (
     EntryRead,
     GroupRead,
     HistoryRead,
     ProjectListItem,
     ProjectRead,
+    SavedSelectionRead,
 )
 
 HISTORY_LIMIT = 200
@@ -82,6 +90,17 @@ def _group_state(group: EntryGroup) -> dict[str, Any]:
     }
 
 
+def _saved_selection_state(saved_selection: SavedSelection) -> dict[str, Any]:
+    return {
+        "id": saved_selection.id,
+        "name": saved_selection.name,
+        "atom_references": deepcopy(saved_selection.atom_references),
+        "granularity": saved_selection.granularity,
+        "warnings": deepcopy(saved_selection.warnings),
+        "created_at": saved_selection.created_at.isoformat(),
+    }
+
+
 def _project_state(project: Project) -> dict[str, Any]:
     return {
         "schema_version": PROJECT_STATE_SCHEMA_VERSION,
@@ -93,6 +112,13 @@ def _project_state(project: Project) -> dict[str, Any]:
         ),
         "groups": sorted(
             (_group_state(group) for group in project.groups),
+            key=lambda item: item["id"],
+        ),
+        "saved_selections": sorted(
+            (
+                _saved_selection_state(saved_selection)
+                for saved_selection in project.saved_selections
+            ),
             key=lambda item: item["id"],
         ),
     }
@@ -131,7 +157,7 @@ def _is_dirty(project: Project) -> bool:
 
 
 def project_read(session: Session, project: Project) -> ProjectRead:
-    session.refresh(project, attribute_names=["entries", "groups"])
+    session.refresh(project, attribute_names=["entries", "groups", "saved_selections"])
     current_state = _project_state(project)
     checkpoint_entries = {item["id"]: item for item in project.checkpoint_state.get("entries", [])}
     for entry in project.entries:
@@ -152,6 +178,12 @@ def project_read(session: Session, project: Project) -> ProjectRead:
         groups=[
             GroupRead.model_validate(group)
             for group in sorted(project.groups, key=lambda item: item.name)
+        ],
+        saved_selections=[
+            SavedSelectionRead.model_validate(saved_selection)
+            for saved_selection in sorted(
+                project.saved_selections, key=lambda item: item.name.casefold()
+            )
         ],
         history=_history(session, project.id),
     )
@@ -337,13 +369,121 @@ class ProjectService:
         self._check_revision(project, expected_revision)
         entry = self._entry(project, entry_id)
         snapshot = _entry_state(entry)
+        forward: list[dict[str, Any]] = []
+        inverse: list[dict[str, Any]] = [{"kind": "entry.create", "entry": snapshot}]
+        for saved_selection in project.saved_selections:
+            retained = [
+                reference
+                for reference in saved_selection.atom_references
+                if reference["structure_id"] != entry.id
+            ]
+            removed = len(saved_selection.atom_references) - len(retained)
+            if removed == 0:
+                continue
+            warning = {
+                "code": "invalid_selection_references_removed",
+                "message": (
+                    f"{removed} atom reference{'s were' if removed != 1 else ' was'} "
+                    f"removed after deleting {entry.name}."
+                ),
+                "operation": "entry.delete",
+                "severity": "warning",
+                "field": "atom_references",
+                "blocking": False,
+            }
+            forward.append(
+                {
+                    "kind": "selection.update",
+                    "selection_id": saved_selection.id,
+                    "values": {
+                        "atom_references": retained,
+                        "warnings": [*saved_selection.warnings, warning],
+                    },
+                }
+            )
+            inverse.append(
+                {
+                    "kind": "selection.update",
+                    "selection_id": saved_selection.id,
+                    "values": {
+                        "atom_references": deepcopy(saved_selection.atom_references),
+                        "warnings": deepcopy(saved_selection.warnings),
+                    },
+                }
+            )
+        forward.append({"kind": "entry.delete", "entry_id": entry.id})
         return self._record(
             project,
             "entry.delete",
             f"Delete {entry.name}",
-            [{"kind": "entry.delete", "entry_id": entry.id}],
-            [{"kind": "entry.create", "entry": snapshot}],
+            forward,
+            inverse,
             [entry.id],
+        )
+
+    def create_saved_selection(
+        self,
+        project_id: str,
+        expected_revision: int,
+        name: str,
+        current: SelectionV1,
+    ) -> ProjectRead:
+        project = self._project(project_id)
+        self._check_revision(project, expected_revision)
+        normalized_name = name.strip()
+        if not normalized_name:
+            raise InvalidProjectOperationError("Selection name must not be blank")
+        if any(
+            item.name.casefold() == normalized_name.casefold() for item in project.saved_selections
+        ):
+            raise InvalidProjectOperationError(
+                f'A saved selection named "{normalized_name}" already exists'
+            )
+        entries = {entry.id: entry for entry in project.entries}
+        for reference in current.atoms:
+            entry = entries.get(reference.structure_id)
+            if entry is None or reference.atom_id > entry.atom_count:
+                raise InvalidProjectOperationError(
+                    "Saved selection contains an atom reference that is not in the current project"
+                )
+        state: dict[str, Any] = {
+            "id": _uuid(),
+            "name": normalized_name,
+            "atom_references": [reference.model_dump(mode="json") for reference in current.atoms],
+            "granularity": current.granularity,
+            "warnings": [],
+            "created_at": datetime.now(UTC).isoformat(),
+        }
+        return self._record(
+            project,
+            "selection.create",
+            f"Save selection {normalized_name}",
+            [{"kind": "selection.create", "selection": state}],
+            [{"kind": "selection.delete", "selection_id": state["id"]}],
+            sorted({reference.structure_id for reference in current.atoms}),
+            selection_snapshot=deepcopy(state["atom_references"]),
+        )
+
+    def delete_saved_selection(
+        self,
+        project_id: str,
+        selection_id: str,
+        expected_revision: int,
+    ) -> ProjectRead:
+        project = self._project(project_id)
+        self._check_revision(project, expected_revision)
+        saved_selection = self._saved_selection(project, selection_id)
+        state = _saved_selection_state(saved_selection)
+        return self._record(
+            project,
+            "selection.delete",
+            f"Delete saved selection {saved_selection.name}",
+            [{"kind": "selection.delete", "selection_id": saved_selection.id}],
+            [{"kind": "selection.create", "selection": state}],
+            sorted(
+                {str(reference["structure_id"]) for reference in saved_selection.atom_references}
+            ),
+            selection_snapshot=deepcopy(saved_selection.atom_references),
         )
 
     def create_group(
@@ -441,6 +581,8 @@ class ProjectService:
         forward: list[dict[str, Any]],
         inverse: list[dict[str, Any]],
         affected_entry_ids: list[str],
+        *,
+        selection_snapshot: list[dict[str, Any]] | None = None,
     ) -> ProjectRead:
         self.session.execute(
             delete(CommandRecord).where(
@@ -462,7 +604,7 @@ class ProjectService:
                 forward_actions=forward,
                 inverse_actions=inverse,
                 affected_entry_ids=affected_entry_ids,
-                selection_snapshot=[],
+                selection_snapshot=selection_snapshot or [],
             )
         )
         self._touch(project)
@@ -538,9 +680,32 @@ class ProjectService:
                 if group is not None:
                     self.session.delete(group)
                     self.session.flush()
+            elif kind == "selection.create":
+                state = action["selection"]
+                self.session.add(
+                    SavedSelection(
+                        id=state["id"],
+                        project_id=project.id,
+                        name=state["name"],
+                        atom_references=deepcopy(state["atom_references"]),
+                        granularity=state["granularity"],
+                        warnings=deepcopy(state["warnings"]),
+                        created_at=datetime.fromisoformat(state["created_at"]),
+                    )
+                )
+                self.session.flush()
+            elif kind == "selection.update":
+                saved_selection = self._saved_selection(project, action["selection_id"])
+                for key, value in action["values"].items():
+                    setattr(saved_selection, key, deepcopy(value))
+                saved_selection.modified_at = datetime.now(UTC)
+            elif kind == "selection.delete":
+                saved_selection = self._saved_selection(project, action["selection_id"])
+                self.session.delete(saved_selection)
+                self.session.flush()
             else:
                 raise InvalidProjectOperationError(f"Unknown command action: {kind}")
-        self.session.expire(project, ["entries", "groups"])
+        self.session.expire(project, ["entries", "groups", "saved_selections"])
 
     def _trim_history(self, project_id: str) -> None:
         command_ids = self.session.scalars(
@@ -564,6 +729,13 @@ class ProjectService:
             if entry.id == entry_id:
                 return entry
         raise EntryNotFoundError(entry_id)
+
+    @staticmethod
+    def _saved_selection(project: Project, selection_id: str) -> SavedSelection:
+        for saved_selection in project.saved_selections:
+            if saved_selection.id == selection_id:
+                return saved_selection
+        raise InvalidProjectOperationError(f"Saved selection {selection_id} was not found")
 
     @staticmethod
     def _check_revision(project: Project, expected_revision: int) -> None:

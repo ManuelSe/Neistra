@@ -61,6 +61,7 @@ from molweave_api.schemas import (
     ProjectRead,
     ProjectUpdate,
     RevisionRequest,
+    SavedSelectionCreate,
     StructureRead,
     TestEntryCreate,
 )
@@ -401,6 +402,43 @@ def create_app(settings: Settings | None = None) -> FastAPI:
                 payload.expected_revision,
                 payload.name,
                 payload.entry_ids,
+            )
+        )
+
+    @router.post(
+        "/projects/{project_id}/selections",
+        response_model=ProjectRead,
+        status_code=status.HTTP_201_CREATED,
+    )
+    async def create_saved_selection(
+        project_id: str,
+        payload: SavedSelectionCreate,
+        session: Session = Depends(session_dependency),
+    ) -> ProjectRead:
+        return _call(
+            lambda: _service(session).create_saved_selection(
+                project_id,
+                payload.expected_revision,
+                payload.name,
+                payload.selection,
+            )
+        )
+
+    @router.delete(
+        "/projects/{project_id}/selections/{selection_id}",
+        response_model=ProjectRead,
+    )
+    async def delete_saved_selection(
+        project_id: str,
+        selection_id: str,
+        expected_revision: int,
+        session: Session = Depends(session_dependency),
+    ) -> ProjectRead:
+        return _call(
+            lambda: _service(session).delete_saved_selection(
+                project_id,
+                selection_id,
+                expected_revision,
             )
         )
 

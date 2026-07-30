@@ -45,6 +45,9 @@ class Project(Base):
     commands: Mapped[list[CommandRecord]] = relationship(
         back_populates="project", cascade="all, delete-orphan"
     )
+    saved_selections: Mapped[list[SavedSelection]] = relationship(
+        back_populates="project", cascade="all, delete-orphan"
+    )
 
 
 class EntryGroup(Base):
@@ -120,6 +123,24 @@ class CommandRecord(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)
 
     project: Mapped[Project] = relationship(back_populates="commands")
+
+
+class SavedSelection(Base):
+    __tablename__ = "saved_selections"
+    __table_args__ = (UniqueConstraint("project_id", "name"),)
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    project_id: Mapped[str] = mapped_column(ForeignKey("projects.id", ondelete="CASCADE"))
+    name: Mapped[str] = mapped_column(String(120))
+    atom_references: Mapped[list[dict[str, Any]]] = mapped_column(JSON, default=list)
+    granularity: Mapped[str] = mapped_column(String(16), default="atom")
+    warnings: Mapped[list[dict[str, Any]]] = mapped_column(JSON, default=list)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)
+    modified_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), default=utc_now, onupdate=utc_now
+    )
+
+    project: Mapped[Project] = relationship(back_populates="saved_selections")
 
 
 class Artifact(Base):

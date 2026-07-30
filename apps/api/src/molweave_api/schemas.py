@@ -4,6 +4,7 @@ from datetime import datetime
 from typing import Any, Literal
 
 from molweave_core.molecular import MolecularWarning, NormalizedStructureV1
+from molweave_core.selection import AtomReference, SelectionGranularity, SelectionV1
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 
@@ -87,6 +88,18 @@ class HistoryRead(BaseModel):
     limit: int
 
 
+class SavedSelectionRead(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: str
+    name: str
+    atom_references: list[AtomReference]
+    granularity: SelectionGranularity
+    warnings: list[MolecularWarning]
+    created_at: datetime
+    modified_at: datetime
+
+
 class ProjectRead(BaseModel):
     schema_version: Literal[1] = 1
     id: str
@@ -99,6 +112,7 @@ class ProjectRead(BaseModel):
     modified_at: datetime
     entries: list[EntryRead]
     groups: list[GroupRead]
+    saved_selections: list[SavedSelectionRead]
     history: HistoryRead
 
 
@@ -134,6 +148,20 @@ class GroupCreate(BaseModel):
     expected_revision: int = Field(ge=0)
     name: str = Field(min_length=1, max_length=120)
     entry_ids: list[str] = Field(min_length=1)
+
+
+class SavedSelectionCreate(BaseModel):
+    expected_revision: int = Field(ge=0)
+    name: str = Field(min_length=1, max_length=120)
+    selection: SelectionV1
+
+    @field_validator("name")
+    @classmethod
+    def name_must_not_be_blank(cls, value: str) -> str:
+        normalized = value.strip()
+        if not normalized:
+            raise ValueError("Selection name must not be blank")
+        return normalized
 
 
 class TestEntryCreate(BaseModel):

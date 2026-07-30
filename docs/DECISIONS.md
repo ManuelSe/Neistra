@@ -504,3 +504,45 @@ Consequences:
   per import. That cost is accepted for local v0.1 correctness and isolation;
   M9 may move expensive conversion into the general job runner without changing
   adapter contracts.
+
+## D-018 - Canonical atom references for central and named selection
+
+Status: accepted
+
+Decision:
+
+Represent every atom, residue, chain, and structure selection as a canonical
+ordered set of `(structure_id, atom_id)` references. Granularity and the source
+of the last operation are metadata; they do not create parallel residue, chain,
+or viewer-owned identity systems. Unsaved selection remains transient Zustand
+session state. A named selection stores the same immutable reference set through
+the backend command bus.
+
+Entry deletion reconciles every saved selection in the same command: references
+to the removed entry are pruned and a structured
+`invalid_selection_references_removed` warning is retained. Undo restores the
+entry, references, and previous warning state. Later atom-deletion commands must
+use the same reconciliation action.
+
+Rationale:
+
+Atom IDs are the finest stable molecular identity already shared by import,
+editing, export, and Mol*. Deriving residue, chain, and structure membership from
+the authoritative normalized structure makes all selection algebra deterministic
+and prevents synchronization loops between UI surfaces. Reconciliation must be
+part of the edit transaction so a saved selection cannot silently point at
+deleted molecular state.
+
+Consequences:
+
+- Project, sequence, inspector, worker, and viewer selection adapters consume
+  one `SelectionV1` contract.
+- Selection results are canonically sorted and duplicate-free before entering
+  application state or persistence.
+- Migration `0004` adds named selections and extends existing
+  `ProjectStateV1` checkpoint documents with an additive `saved_selections`
+  field. The schema version remains 1 because the migration makes all stored
+  states conform before application access.
+- M3 validates imported contiguous atom IDs using entry summaries. Future
+  topology edits that create ID gaps must validate and reconcile against the
+  authoritative current normalized artifact in their edit transaction.
