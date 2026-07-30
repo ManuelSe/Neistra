@@ -31,6 +31,7 @@ from molweave_api.schemas import (
     ViewerProjection,
 )
 from molweave_api.settings import Settings
+from molweave_api.viewer_state import default_viewer_settings
 
 NORMALIZED_MEDIA_TYPE = "application/vnd.molweave.normalized-structure+json"
 
@@ -307,6 +308,7 @@ class ImportExportService:
                         "warnings": [
                             warning.model_dump(mode="json") for warning in structure.warnings
                         ],
+                        "viewer_settings": default_viewer_settings(structure.structure_type),
                         "visible": True,
                         "locked": False,
                         "user_metadata": {},

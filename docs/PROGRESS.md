@@ -4,9 +4,9 @@
 
 Milestone 4 - Complete viewer, inspection, and measurements
 
-In progress. The reference measurement and close-contact domain checkpoint is
-complete. Durable viewer settings, measurements, scenes, viewer controls,
-inspection UI, and browser workflows remain.
+In progress. The scientific domain and durable project-state checkpoints are
+complete. Viewer controls, inspection UI, measurement rendering, and browser
+workflows remain.
 
 ## Completed work
 
@@ -181,6 +181,19 @@ inspection UI, and browser workflows remain.
   conformer coordinates, configurable distance bounds, and bonded-pair
   exclusion.
 - Added SciPy 1.18 to the locked project-local environment.
+- Added typed, validated viewer settings for all required representations,
+  coloring, opacity, component visibility, and label visibility. Settings are
+  stored per entry and changed through the revisioned command bus.
+- Added durable named distance, angle, and dihedral measurements with
+  rename/show/hide/delete commands and stable atom references.
+- Added named scenes that capture application camera, entry visibility,
+  representation settings, and selection. Scene application is one undoable
+  project command.
+- Reconciled entry deletion across measurements and scenes: dependent
+  measurements are removed, scene entry/selection references are pruned, and
+  undo restores the complete prior state.
+- Added the close-contact API and migration `0005` for viewer settings,
+  measurements, scenes, and additive checkpoint-state fields.
 
 ## Verification performed
 
@@ -298,6 +311,12 @@ Results:
   incoherent overlap.
 - M4 scientific checkpoint: all 8 focused measurement/contact tests passed;
   targeted Ruff and strict mypy checks passed.
+- M4 persistence checkpoint: repository-wide Ruff passed; strict mypy passed
+  for 28 source files; all 75 Python tests passed, including viewer-state,
+  scene restore/undo, invalid-reference atomicity, deletion reconciliation, and
+  contact API coverage.
+- A fresh temporary database migrated `0001 -> 0002 -> 0003 -> 0004 -> 0005`,
+  reported `0005 (head)`, downgraded to `0004`, and upgraded to `0005` again.
 
 ## Known limitations
 
@@ -328,6 +347,6 @@ None.
 
 ## Next action
 
-Add migration `0005`, typed API contracts, and command-bus persistence for
-viewer settings, measurements, and named scenes, then verify undo/redo and
-checkpoint behavior.
+Add TypeScript contracts and application camera state, then extend the Mol*
+adapter with representation, component, label, camera, focus, isolation, and
+measurement rendering without using Mol* snapshots as project state.

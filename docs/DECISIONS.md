@@ -652,3 +652,44 @@ Consequences:
 - Contact results are transient analysis output and are not project commands.
 - Cross-structure contacts require an explicit shared-frame contract and are
   deferred; periodic boundary handling is also deferred.
+
+## D-022 - Durable viewer state without Mol* snapshots
+
+Status: accepted
+
+Decision:
+
+Persist validated representation, color, opacity, component, and label settings
+on each structure entry. Persist named measurements and named scenes as project
+children. Every durable mutation uses the existing optimistic revision and
+command log; checkpoint snapshots include these domains.
+
+A scene captures an application-owned camera value, all entry visibility and
+viewer settings, and a canonical `SelectionV1`. Applying it changes durable
+entry state in one undoable command. The client restores the saved camera and
+transient selection after that command succeeds. Ordinary orbit, pan, zoom,
+focus, projection changes, and unsaved selection remain session state and never
+create commands.
+
+When an entry is deleted, remove measurements that reference it and prune the
+entry and atom references from named scenes in the same command. Undo restores
+the entry and every dependent object.
+
+Rationale:
+
+Mol* snapshots contain implementation-specific objects and would make the
+viewer authoritative. Typed application records are independently testable,
+migratable, and can be applied to another viewer implementation. Keeping
+navigation transient prevents routine camera motion from polluting history
+while still making explicit scene saves reproducible.
+
+Consequences:
+
+- Migration `0005` adds the new tables, per-entry JSON settings, and additive
+  checkpoint fields while retaining `ProjectStateV1`.
+- At least one representation is required per entry; duplicate representation
+  IDs and invalid color/opacity values are rejected before state changes.
+- Scene camera and selection restoration is a coordinated client action after
+  successful backend application, not a Mol* snapshot restore.
+- Measurement display values are always recalculated from current normalized
+  coordinates; atom references, names, and visibility are the durable data.

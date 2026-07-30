@@ -23,6 +23,7 @@ from fastapi import (
 )
 from fastapi.middleware.cors import CORSMiddleware
 from molweave_core.adapters import AdapterError
+from molweave_core.contacts import close_contacts
 from sqlalchemy import text
 from sqlalchemy.orm import Session, sessionmaker
 from uuid6 import uuid7
@@ -48,6 +49,8 @@ from molweave_api.project_service import (
 )
 from molweave_api.schemas import (
     ArtifactRead,
+    ContactQuery,
+    ContactRead,
     EntryRevisionRequest,
     EntryToggle,
     EntryUpdate,
@@ -56,14 +59,18 @@ from molweave_api.schemas import (
     FormatRead,
     GroupCreate,
     ImportRead,
+    MeasurementCreate,
+    MeasurementUpdate,
     ProjectCreate,
     ProjectListItem,
     ProjectRead,
     ProjectUpdate,
     RevisionRequest,
     SavedSelectionCreate,
+    SceneCreate,
     StructureRead,
     TestEntryCreate,
+    ViewerSettingsUpdate,
 )
 from molweave_api.settings import Settings
 
@@ -379,6 +386,25 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             lambda: _service(session).isolate_entry(project_id, entry_id, payload.expected_revision)
         )
 
+    @router.put(
+        "/projects/{project_id}/entries/{entry_id}/viewer-settings",
+        response_model=ProjectRead,
+    )
+    async def update_viewer_settings(
+        project_id: str,
+        entry_id: str,
+        payload: ViewerSettingsUpdate,
+        session: Session = Depends(session_dependency),
+    ) -> ProjectRead:
+        return _call(
+            lambda: _service(session).update_viewer_settings(
+                project_id,
+                entry_id,
+                payload.expected_revision,
+                payload.settings,
+            )
+        )
+
     @router.delete("/projects/{project_id}/entries/{entry_id}", response_model=ProjectRead)
     async def delete_entry(
         project_id: str,
@@ -441,6 +467,145 @@ def create_app(settings: Settings | None = None) -> FastAPI:
                 expected_revision,
             )
         )
+
+    @router.post(
+        "/projects/{project_id}/measurements",
+        response_model=ProjectRead,
+        status_code=status.HTTP_201_CREATED,
+    )
+    async def create_measurement(
+        project_id: str,
+        payload: MeasurementCreate,
+        session: Session = Depends(session_dependency),
+    ) -> ProjectRead:
+        return _call(
+            lambda: _service(session).create_measurement(
+                project_id,
+                payload.expected_revision,
+                payload.name,
+                payload.kind,
+                [item.model_dump(mode="json") for item in payload.atom_references],
+            )
+        )
+
+    @router.patch(
+        "/projects/{project_id}/measurements/{measurement_id}",
+        response_model=ProjectRead,
+    )
+    async def update_measurement(
+        project_id: str,
+        measurement_id: str,
+        payload: MeasurementUpdate,
+        session: Session = Depends(session_dependency),
+    ) -> ProjectRead:
+        return _call(
+            lambda: _service(session).update_measurement(
+                project_id,
+                measurement_id,
+                payload.expected_revision,
+                payload.name,
+                payload.visible,
+            )
+        )
+
+    @router.delete(
+        "/projects/{project_id}/measurements/{measurement_id}",
+        response_model=ProjectRead,
+    )
+    async def delete_measurement(
+        project_id: str,
+        measurement_id: str,
+        expected_revision: int,
+        session: Session = Depends(session_dependency),
+    ) -> ProjectRead:
+        return _call(
+            lambda: _service(session).delete_measurement(
+                project_id, measurement_id, expected_revision
+            )
+        )
+
+    @router.post(
+        "/projects/{project_id}/scenes",
+        response_model=ProjectRead,
+        status_code=status.HTTP_201_CREATED,
+    )
+    async def create_scene(
+        project_id: str,
+        payload: SceneCreate,
+        session: Session = Depends(session_dependency),
+    ) -> ProjectRead:
+        return _call(
+            lambda: _service(session).create_scene(
+                project_id,
+                payload.expected_revision,
+                payload.name,
+                payload.camera.model_dump(mode="json"),
+                payload.selection,
+            )
+        )
+
+    @router.post(
+        "/projects/{project_id}/scenes/{scene_id}/apply",
+        response_model=ProjectRead,
+    )
+    async def apply_scene(
+        project_id: str,
+        scene_id: str,
+        payload: RevisionRequest,
+        session: Session = Depends(session_dependency),
+    ) -> ProjectRead:
+        return _call(
+            lambda: _service(session).apply_scene(
+                project_id, scene_id, payload.expected_revision
+            )
+        )
+
+    @router.delete(
+        "/projects/{project_id}/scenes/{scene_id}",
+        response_model=ProjectRead,
+    )
+    async def delete_scene(
+        project_id: str,
+        scene_id: str,
+        expected_revision: int,
+        session: Session = Depends(session_dependency),
+    ) -> ProjectRead:
+        return _call(
+            lambda: _service(session).delete_scene(
+                project_id, scene_id, expected_revision
+            )
+        )
+
+    @router.post(
+        "/projects/{project_id}/contacts",
+        response_model=list[ContactRead],
+    )
+    async def contacts(
+        project_id: str,
+        payload: ContactQuery,
+        session: Session = Depends(session_dependency),
+    ) -> list[ContactRead]:
+        structure = _call(
+            lambda: ImportExportService(session, app_settings).structure(
+                project_id, payload.entry_id
+            )
+        ).structure
+        return [
+            ContactRead(
+                atom_1={
+                    "structure_id": payload.entry_id,
+                    "atom_id": contact.atom_1_id,
+                },
+                atom_2={
+                    "structure_id": payload.entry_id,
+                    "atom_id": contact.atom_2_id,
+                },
+                distance=contact.distance,
+            )
+            for contact in close_contacts(
+                structure, payload.cutoff, minimum_distance=payload.minimum_distance
+            )
+        ]
 
     @router.post(
         "/projects/{project_id}/imports",

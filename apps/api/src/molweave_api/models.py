@@ -48,6 +48,12 @@ class Project(Base):
     saved_selections: Mapped[list[SavedSelection]] = relationship(
         back_populates="project", cascade="all, delete-orphan"
     )
+    measurements: Mapped[list[Measurement]] = relationship(
+        back_populates="project", cascade="all, delete-orphan"
+    )
+    scenes: Mapped[list[Scene]] = relationship(
+        back_populates="project", cascade="all, delete-orphan"
+    )
 
 
 class EntryGroup(Base):
@@ -86,6 +92,7 @@ class StructureEntry(Base):
     residue_count: Mapped[int] = mapped_column(Integer, default=0)
     conformer_count: Mapped[int] = mapped_column(Integer, default=0)
     warnings: Mapped[list[dict[str, Any]]] = mapped_column(JSON, default=list)
+    viewer_settings: Mapped[dict[str, Any]] = mapped_column(JSON, default=dict)
     visible: Mapped[bool] = mapped_column(Boolean, default=True)
     locked: Mapped[bool] = mapped_column(Boolean, default=False)
     user_metadata: Mapped[dict[str, Any]] = mapped_column(JSON, default=dict)
@@ -141,6 +148,42 @@ class SavedSelection(Base):
     )
 
     project: Mapped[Project] = relationship(back_populates="saved_selections")
+
+
+class Measurement(Base):
+    __tablename__ = "measurements"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    project_id: Mapped[str] = mapped_column(ForeignKey("projects.id", ondelete="CASCADE"))
+    name: Mapped[str] = mapped_column(String(120))
+    kind: Mapped[str] = mapped_column(String(16))
+    atom_references: Mapped[list[dict[str, Any]]] = mapped_column(JSON)
+    visible: Mapped[bool] = mapped_column(Boolean, default=True)
+    warnings: Mapped[list[dict[str, Any]]] = mapped_column(JSON, default=list)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)
+    modified_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), default=utc_now, onupdate=utc_now
+    )
+
+    project: Mapped[Project] = relationship(back_populates="measurements")
+
+
+class Scene(Base):
+    __tablename__ = "scenes"
+    __table_args__ = (UniqueConstraint("project_id", "name"),)
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    project_id: Mapped[str] = mapped_column(ForeignKey("projects.id", ondelete="CASCADE"))
+    name: Mapped[str] = mapped_column(String(120))
+    camera: Mapped[dict[str, Any]] = mapped_column(JSON)
+    entry_states: Mapped[list[dict[str, Any]]] = mapped_column(JSON)
+    selection: Mapped[dict[str, Any]] = mapped_column(JSON)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)
+    modified_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), default=utc_now, onupdate=utc_now
+    )
+
+    project: Mapped[Project] = relationship(back_populates="scenes")
 
 
 class Artifact(Base):

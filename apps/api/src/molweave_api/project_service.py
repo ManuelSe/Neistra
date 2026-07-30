@@ -12,18 +12,25 @@ from uuid6 import uuid7
 from molweave_api.models import (
     CommandRecord,
     EntryGroup,
+    Measurement,
     Project,
     SavedSelection,
+    Scene,
     StructureEntry,
 )
 from molweave_api.schemas import (
     EntryRead,
     GroupRead,
     HistoryRead,
+    MeasurementKind,
+    MeasurementRead,
     ProjectListItem,
     ProjectRead,
     SavedSelectionRead,
+    SceneRead,
+    ViewerSettings,
 )
+from molweave_api.viewer_state import default_viewer_settings
 
 HISTORY_LIMIT = 200
 PROJECT_STATE_SCHEMA_VERSION = 1
@@ -70,6 +77,7 @@ def _entry_state(entry: StructureEntry) -> dict[str, Any]:
         "residue_count": entry.residue_count,
         "conformer_count": entry.conformer_count,
         "warnings": deepcopy(entry.warnings),
+        "viewer_settings": deepcopy(entry.viewer_settings),
         "visible": entry.visible,
         "locked": entry.locked,
         "user_metadata": deepcopy(entry.user_metadata),
@@ -101,6 +109,29 @@ def _saved_selection_state(saved_selection: SavedSelection) -> dict[str, Any]:
     }
 
 
+def _measurement_state(measurement: Measurement) -> dict[str, Any]:
+    return {
+        "id": measurement.id,
+        "name": measurement.name,
+        "kind": measurement.kind,
+        "atom_references": deepcopy(measurement.atom_references),
+        "visible": measurement.visible,
+        "warnings": deepcopy(measurement.warnings),
+        "created_at": measurement.created_at.isoformat(),
+    }
+
+
+def _scene_state(scene: Scene) -> dict[str, Any]:
+    return {
+        "id": scene.id,
+        "name": scene.name,
+        "camera": deepcopy(scene.camera),
+        "entry_states": deepcopy(scene.entry_states),
+        "selection": deepcopy(scene.selection),
+        "created_at": scene.created_at.isoformat(),
+    }
+
+
 def _project_state(project: Project) -> dict[str, Any]:
     return {
         "schema_version": PROJECT_STATE_SCHEMA_VERSION,
@@ -119,6 +150,14 @@ def _project_state(project: Project) -> dict[str, Any]:
                 _saved_selection_state(saved_selection)
                 for saved_selection in project.saved_selections
             ),
+            key=lambda item: item["id"],
+        ),
+        "measurements": sorted(
+            (_measurement_state(measurement) for measurement in project.measurements),
+            key=lambda item: item["id"],
+        ),
+        "scenes": sorted(
+            (_scene_state(scene) for scene in project.scenes),
             key=lambda item: item["id"],
         ),
     }
@@ -157,7 +196,10 @@ def _is_dirty(project: Project) -> bool:
 
 
 def project_read(session: Session, project: Project) -> ProjectRead:
-    session.refresh(project, attribute_names=["entries", "groups", "saved_selections"])
+    session.refresh(
+        project,
+        attribute_names=["entries", "groups", "saved_selections", "measurements", "scenes"],
+    )
     current_state = _project_state(project)
     checkpoint_entries = {item["id"]: item for item in project.checkpoint_state.get("entries", [])}
     for entry in project.entries:
@@ -184,6 +226,16 @@ def project_read(session: Session, project: Project) -> ProjectRead:
             for saved_selection in sorted(
                 project.saved_selections, key=lambda item: item.name.casefold()
             )
+        ],
+        measurements=[
+            MeasurementRead.model_validate(measurement)
+            for measurement in sorted(
+                project.measurements, key=lambda item: item.created_at
+            )
+        ],
+        scenes=[
+            SceneRead.model_validate(scene)
+            for scene in sorted(project.scenes, key=lambda item: item.name.casefold())
         ],
         history=_history(session, project.id),
     )
@@ -349,6 +401,38 @@ class ProjectService:
             [entry.id],
         )
 
+    def update_viewer_settings(
+        self,
+        project_id: str,
+        entry_id: str,
+        expected_revision: int,
+        settings: ViewerSettings,
+    ) -> ProjectRead:
+        project = self._project(project_id)
+        self._check_revision(project, expected_revision)
+        entry = self._entry(project, entry_id)
+        values = settings.model_dump(mode="json")
+        return self._record(
+            project,
+            "entry.viewer_settings",
+            f"Update viewer settings for {entry.name}",
+            [
+                {
+                    "kind": "entry.update",
+                    "entry_id": entry.id,
+                    "values": {"viewer_settings": values},
+                }
+            ],
+            [
+                {
+                    "kind": "entry.update",
+                    "entry_id": entry.id,
+                    "values": {"viewer_settings": deepcopy(entry.viewer_settings)},
+                }
+            ],
+            [entry.id],
+        )
+
     def isolate_entry(self, project_id: str, entry_id: str, expected_revision: int) -> ProjectRead:
         project = self._project(project_id)
         self._check_revision(project, expected_revision)
@@ -408,6 +492,51 @@ class ProjectService:
                     "values": {
                         "atom_references": deepcopy(saved_selection.atom_references),
                         "warnings": deepcopy(saved_selection.warnings),
+                    },
+                }
+            )
+        for measurement in project.measurements:
+            if not any(
+                reference["structure_id"] == entry.id
+                for reference in measurement.atom_references
+            ):
+                continue
+            state = _measurement_state(measurement)
+            forward.append(
+                {"kind": "measurement.delete", "measurement_id": measurement.id}
+            )
+            inverse.append({"kind": "measurement.create", "measurement": state})
+        for scene in project.scenes:
+            retained_entries = [
+                state for state in scene.entry_states if state["entry_id"] != entry.id
+            ]
+            retained_atoms = [
+                reference
+                for reference in scene.selection.get("atoms", [])
+                if reference["structure_id"] != entry.id
+            ]
+            if (
+                len(retained_entries) == len(scene.entry_states)
+                and len(retained_atoms) == len(scene.selection.get("atoms", []))
+            ):
+                continue
+            forward.append(
+                {
+                    "kind": "scene.update",
+                    "scene_id": scene.id,
+                    "values": {
+                        "entry_states": retained_entries,
+                        "selection": {**scene.selection, "atoms": retained_atoms},
+                    },
+                }
+            )
+            inverse.append(
+                {
+                    "kind": "scene.update",
+                    "scene_id": scene.id,
+                    "values": {
+                        "entry_states": deepcopy(scene.entry_states),
+                        "selection": deepcopy(scene.selection),
                     },
                 }
             )
@@ -484,6 +613,192 @@ class ProjectService:
                 {str(reference["structure_id"]) for reference in saved_selection.atom_references}
             ),
             selection_snapshot=deepcopy(saved_selection.atom_references),
+        )
+
+    def create_measurement(
+        self,
+        project_id: str,
+        expected_revision: int,
+        name: str,
+        kind: MeasurementKind,
+        atom_references: list[dict[str, Any]],
+    ) -> ProjectRead:
+        project = self._project(project_id)
+        self._check_revision(project, expected_revision)
+        expected = {"distance": 2, "angle": 3, "dihedral": 4}[kind]
+        if len(atom_references) != expected:
+            raise InvalidProjectOperationError(
+                f"{kind.title()} requires exactly {expected} atoms"
+            )
+        self._validate_atom_references(project, atom_references)
+        if len(
+            {
+                (reference["structure_id"], reference["atom_id"])
+                for reference in atom_references
+            }
+        ) != expected:
+            raise InvalidProjectOperationError("Measurement atoms must be distinct")
+        state: dict[str, Any] = {
+            "id": _uuid(),
+            "name": name.strip(),
+            "kind": kind,
+            "atom_references": deepcopy(atom_references),
+            "visible": True,
+            "warnings": [],
+            "created_at": datetime.now(UTC).isoformat(),
+        }
+        return self._record(
+            project,
+            "measurement.create",
+            f"Create {kind} measurement {state['name']}",
+            [{"kind": "measurement.create", "measurement": state}],
+            [{"kind": "measurement.delete", "measurement_id": state["id"]}],
+            sorted({str(item["structure_id"]) for item in atom_references}),
+            selection_snapshot=deepcopy(atom_references),
+        )
+
+    def update_measurement(
+        self,
+        project_id: str,
+        measurement_id: str,
+        expected_revision: int,
+        name: str,
+        visible: bool,
+    ) -> ProjectRead:
+        project = self._project(project_id)
+        self._check_revision(project, expected_revision)
+        measurement = self._measurement(project, measurement_id)
+        values = {"name": name.strip(), "visible": visible}
+        return self._record(
+            project,
+            "measurement.update",
+            f"Update measurement {measurement.name}",
+            [
+                {
+                    "kind": "measurement.update",
+                    "measurement_id": measurement.id,
+                    "values": values,
+                }
+            ],
+            [
+                {
+                    "kind": "measurement.update",
+                    "measurement_id": measurement.id,
+                    "values": {
+                        "name": measurement.name,
+                        "visible": measurement.visible,
+                    },
+                }
+            ],
+            sorted(
+                {
+                    str(reference["structure_id"])
+                    for reference in measurement.atom_references
+                }
+            ),
+        )
+
+    def delete_measurement(
+        self, project_id: str, measurement_id: str, expected_revision: int
+    ) -> ProjectRead:
+        project = self._project(project_id)
+        self._check_revision(project, expected_revision)
+        measurement = self._measurement(project, measurement_id)
+        state = _measurement_state(measurement)
+        return self._record(
+            project,
+            "measurement.delete",
+            f"Delete measurement {measurement.name}",
+            [{"kind": "measurement.delete", "measurement_id": measurement.id}],
+            [{"kind": "measurement.create", "measurement": state}],
+            sorted(
+                {
+                    str(reference["structure_id"])
+                    for reference in measurement.atom_references
+                }
+            ),
+        )
+
+    def create_scene(
+        self,
+        project_id: str,
+        expected_revision: int,
+        name: str,
+        camera: dict[str, Any],
+        selection: SelectionV1,
+    ) -> ProjectRead:
+        project = self._project(project_id)
+        self._check_revision(project, expected_revision)
+        normalized_name = name.strip()
+        if any(scene.name.casefold() == normalized_name.casefold() for scene in project.scenes):
+            raise InvalidProjectOperationError(
+                f'A scene named "{normalized_name}" already exists'
+            )
+        references = [item.model_dump(mode="json") for item in selection.atoms]
+        self._validate_atom_references(project, references)
+        state: dict[str, Any] = {
+            "id": _uuid(),
+            "name": normalized_name,
+            "camera": deepcopy(camera),
+            "entry_states": [
+                {
+                    "entry_id": entry.id,
+                    "visible": entry.visible,
+                    "viewer_settings": deepcopy(entry.viewer_settings),
+                }
+                for entry in sorted(project.entries, key=lambda item: item.id)
+            ],
+            "selection": selection.model_dump(mode="json"),
+            "created_at": datetime.now(UTC).isoformat(),
+        }
+        return self._record(
+            project,
+            "scene.create",
+            f"Save scene {normalized_name}",
+            [{"kind": "scene.create", "scene": state}],
+            [{"kind": "scene.delete", "scene_id": state["id"]}],
+            [entry.id for entry in project.entries],
+            selection_snapshot=references,
+        )
+
+    def apply_scene(
+        self, project_id: str, scene_id: str, expected_revision: int
+    ) -> ProjectRead:
+        project = self._project(project_id)
+        self._check_revision(project, expected_revision)
+        scene = self._scene(project, scene_id)
+        before = [
+            {
+                "entry_id": entry.id,
+                "visible": entry.visible,
+                "viewer_settings": deepcopy(entry.viewer_settings),
+            }
+            for entry in project.entries
+        ]
+        return self._record(
+            project,
+            "scene.apply",
+            f"Apply scene {scene.name}",
+            [{"kind": "entries.viewer_state", "values": deepcopy(scene.entry_states)}],
+            [{"kind": "entries.viewer_state", "values": before}],
+            [entry.id for entry in project.entries],
+            selection_snapshot=deepcopy(scene.selection.get("atoms", [])),
+        )
+
+    def delete_scene(
+        self, project_id: str, scene_id: str, expected_revision: int
+    ) -> ProjectRead:
+        project = self._project(project_id)
+        self._check_revision(project, expected_revision)
+        scene = self._scene(project, scene_id)
+        state = _scene_state(scene)
+        return self._record(
+            project,
+            "scene.delete",
+            f"Delete scene {scene.name}",
+            [{"kind": "scene.delete", "scene_id": scene.id}],
+            [{"kind": "scene.create", "scene": state}],
+            [entry.id for entry in project.entries],
         )
 
     def create_group(
@@ -566,6 +881,7 @@ class ProjectService:
             name=name,
             structure_type=structure_type,
             normalized_data={"schema_version": 1, "atoms": [], "bonds": []},
+            viewer_settings=default_viewer_settings(structure_type),
         )
         self.session.add(entry)
         self.session.flush()
@@ -642,6 +958,12 @@ class ProjectService:
                         residue_count=state.get("residue_count", 0),
                         conformer_count=state.get("conformer_count", 0),
                         warnings=deepcopy(state.get("warnings", [])),
+                        viewer_settings=deepcopy(
+                            state.get(
+                                "viewer_settings",
+                                default_viewer_settings(state["structure_type"]),
+                            )
+                        ),
                         visible=state["visible"],
                         locked=state["locked"],
                         user_metadata=deepcopy(state["user_metadata"]),
@@ -660,6 +982,14 @@ class ProjectService:
             elif kind == "entries.visibility":
                 for entry_id, visible in action["values"].items():
                     self._entry(project, entry_id).visible = visible
+            elif kind == "entries.viewer_state":
+                for state in action["values"]:
+                    try:
+                        entry = self._entry(project, state["entry_id"])
+                    except EntryNotFoundError:
+                        continue
+                    entry.visible = state["visible"]
+                    entry.viewer_settings = deepcopy(state["viewer_settings"])
             elif kind == "entries.group":
                 for entry_id, group_id in action["values"].items():
                     self._entry(project, entry_id).group_id = group_id
@@ -703,9 +1033,58 @@ class ProjectService:
                 saved_selection = self._saved_selection(project, action["selection_id"])
                 self.session.delete(saved_selection)
                 self.session.flush()
+            elif kind == "measurement.create":
+                state = action["measurement"]
+                self.session.add(
+                    Measurement(
+                        id=state["id"],
+                        project_id=project.id,
+                        name=state["name"],
+                        kind=state["kind"],
+                        atom_references=deepcopy(state["atom_references"]),
+                        visible=state["visible"],
+                        warnings=deepcopy(state["warnings"]),
+                        created_at=datetime.fromisoformat(state["created_at"]),
+                    )
+                )
+                self.session.flush()
+            elif kind == "measurement.update":
+                measurement = self._measurement(project, action["measurement_id"])
+                for key, value in action["values"].items():
+                    setattr(measurement, key, deepcopy(value))
+                measurement.modified_at = datetime.now(UTC)
+            elif kind == "measurement.delete":
+                measurement = self._measurement(project, action["measurement_id"])
+                self.session.delete(measurement)
+                self.session.flush()
+            elif kind == "scene.create":
+                state = action["scene"]
+                self.session.add(
+                    Scene(
+                        id=state["id"],
+                        project_id=project.id,
+                        name=state["name"],
+                        camera=deepcopy(state["camera"]),
+                        entry_states=deepcopy(state["entry_states"]),
+                        selection=deepcopy(state["selection"]),
+                        created_at=datetime.fromisoformat(state["created_at"]),
+                    )
+                )
+                self.session.flush()
+            elif kind == "scene.update":
+                scene = self._scene(project, action["scene_id"])
+                for key, value in action["values"].items():
+                    setattr(scene, key, deepcopy(value))
+                scene.modified_at = datetime.now(UTC)
+            elif kind == "scene.delete":
+                scene = self._scene(project, action["scene_id"])
+                self.session.delete(scene)
+                self.session.flush()
             else:
                 raise InvalidProjectOperationError(f"Unknown command action: {kind}")
-        self.session.expire(project, ["entries", "groups", "saved_selections"])
+        self.session.expire(
+            project, ["entries", "groups", "saved_selections", "measurements", "scenes"]
+        )
 
     def _trim_history(self, project_id: str) -> None:
         command_ids = self.session.scalars(
@@ -736,6 +1115,33 @@ class ProjectService:
             if saved_selection.id == selection_id:
                 return saved_selection
         raise InvalidProjectOperationError(f"Saved selection {selection_id} was not found")
+
+    @staticmethod
+    def _measurement(project: Project, measurement_id: str) -> Measurement:
+        for measurement in project.measurements:
+            if measurement.id == measurement_id:
+                return measurement
+        raise InvalidProjectOperationError(f"Measurement {measurement_id} was not found")
+
+    @staticmethod
+    def _scene(project: Project, scene_id: str) -> Scene:
+        for scene in project.scenes:
+            if scene.id == scene_id:
+                return scene
+        raise InvalidProjectOperationError(f"Scene {scene_id} was not found")
+
+    @staticmethod
+    def _validate_atom_references(
+        project: Project, atom_references: list[dict[str, Any]]
+    ) -> None:
+        entries = {entry.id: entry for entry in project.entries}
+        for reference in atom_references:
+            entry = entries.get(str(reference["structure_id"]))
+            atom_id = int(reference["atom_id"])
+            if entry is None or atom_id < 1 or atom_id > entry.atom_count:
+                raise InvalidProjectOperationError(
+                    "Atom reference is not in the current project"
+                )
 
     @staticmethod
     def _check_revision(project: Project, expected_revision: int) -> None:
