@@ -19,6 +19,7 @@ from molweave_api.models import (
     StructureEntry,
 )
 from molweave_api.schemas import (
+    CoordinatePatch,
     EntryRead,
     GroupRead,
     HistoryRead,
@@ -195,7 +196,11 @@ def _is_dirty(project: Project) -> bool:
     return _project_state(project) != project.checkpoint_state
 
 
-def project_read(session: Session, project: Project) -> ProjectRead:
+def project_read(
+    session: Session,
+    project: Project,
+    structure_patches: list[CoordinatePatch] | None = None,
+) -> ProjectRead:
     session.refresh(
         project,
         attribute_names=["entries", "groups", "saved_selections", "measurements", "scenes"],
@@ -238,6 +243,7 @@ def project_read(session: Session, project: Project) -> ProjectRead:
             for scene in sorted(project.scenes, key=lambda item: item.name.casefold())
         ],
         history=_history(session, project.id),
+        structure_patches=structure_patches or [],
     )
 
 
@@ -836,6 +842,63 @@ class ProjectService:
             entry_ids,
         )
 
+    def record_coordinate_change(
+        self,
+        project_id: str,
+        expected_revision: int,
+        command_type: str,
+        description: str,
+        changes: list[dict[str, Any]],
+        selection_snapshot: list[dict[str, Any]],
+    ) -> ProjectRead:
+        project = self._project(project_id)
+        self._check_revision(project, expected_revision)
+        if not changes:
+            raise InvalidProjectOperationError(
+                "Coordinate command must affect at least one entry"
+            )
+        forward: list[dict[str, Any]] = []
+        inverse: list[dict[str, Any]] = []
+        affected_entry_ids: list[str] = []
+        response_patches: list[CoordinatePatch] = []
+        for change in changes:
+            entry = self._entry(project, str(change["entry_id"]))
+            if entry.locked:
+                raise InvalidProjectOperationError(
+                    f"Unlock {entry.name} before changing coordinates"
+                )
+            affected_entry_ids.append(entry.id)
+            after_patch = CoordinatePatch.model_validate(change["after_patch"])
+            before_patch = CoordinatePatch.model_validate(change["before_patch"])
+            forward.append(
+                {
+                    "kind": "entry.coordinates",
+                    "entry_id": entry.id,
+                    "artifact_id": str(change["after_artifact_id"]),
+                    "patch": after_patch.model_dump(mode="json"),
+                }
+            )
+            inverse.insert(
+                0,
+                {
+                    "kind": "entry.coordinates",
+                    "entry_id": entry.id,
+                    "artifact_id": str(change["before_artifact_id"]),
+                    "patch": before_patch.model_dump(mode="json"),
+                },
+            )
+            response_patches.append(after_patch)
+        return self._record(
+            project,
+            command_type,
+            description,
+            forward,
+            inverse,
+            affected_entry_ids,
+            selection_snapshot=selection_snapshot,
+            structure_patches=response_patches,
+        )
+
     def undo(self, project_id: str, expected_revision: int) -> ProjectRead:
         project = self._project(project_id)
         self._check_revision(project, expected_revision)
@@ -851,7 +914,11 @@ class ProjectService:
         command.is_applied = False
         self._touch(project)
         self.session.commit()
-        return project_read(self.session, project)
+        return project_read(
+            self.session,
+            project,
+            self._coordinate_patches(command.inverse_actions),
+        )
 
     def redo(self, project_id: str, expected_revision: int) -> ProjectRead:
         project = self._project(project_id)
@@ -868,7 +935,11 @@ class ProjectService:
         command.is_applied = True
         self._touch(project)
         self.session.commit()
-        return project_read(self.session, project)
+        return project_read(
+            self.session,
+            project,
+            self._coordinate_patches(command.forward_actions),
+        )
 
     def seed_entry(
         self, project_id: str, name: str, structure_type: str = "unknown"
@@ -899,6 +970,7 @@ class ProjectService:
         affected_entry_ids: list[str],
         *,
         selection_snapshot: list[dict[str, Any]] | None = None,
+        structure_patches: list[CoordinatePatch] | None = None,
     ) -> ProjectRead:
         self.session.execute(
             delete(CommandRecord).where(
@@ -927,7 +999,7 @@ class ProjectService:
         self.session.flush()
         self._trim_history(project.id)
         self.session.commit()
-        return project_read(self.session, project)
+        return project_read(self.session, project, structure_patches)
 
     def _apply(self, project: Project, actions: list[dict[str, Any]]) -> None:
         for action in actions:
@@ -939,6 +1011,10 @@ class ProjectService:
                 entry = self._entry(project, action["entry_id"])
                 for key, value in action["values"].items():
                     setattr(entry, key, deepcopy(value))
+                entry.modified_at = datetime.now(UTC)
+            elif kind == "entry.coordinates":
+                entry = self._entry(project, action["entry_id"])
+                entry.current_artifact_id = action["artifact_id"]
                 entry.modified_at = datetime.now(UTC)
             elif kind == "entry.create":
                 state = action["entry"]
@@ -1095,6 +1171,14 @@ class ProjectService:
         ).all()
         if command_ids:
             self.session.execute(delete(CommandRecord).where(CommandRecord.id.in_(command_ids)))
+
+    @staticmethod
+    def _coordinate_patches(actions: list[dict[str, Any]]) -> list[CoordinatePatch]:
+        return [
+            CoordinatePatch.model_validate(action["patch"])
+            for action in actions
+            if action["kind"] == "entry.coordinates"
+        ]
 
     def _project(self, project_id: str) -> Project:
         project = self.session.get(Project, project_id)

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime
+from math import isfinite
 from typing import Any, Literal
 
 from molweave_core.molecular import MolecularWarning, NormalizedStructureV1
@@ -198,6 +199,23 @@ class SceneRead(BaseModel):
     modified_at: datetime
 
 
+class CoordinatePatch(BaseModel):
+    entry_id: str
+    artifact_id: str
+    atom_ids: list[int] = Field(min_length=1)
+    coordinates: list[tuple[float, float, float]] = Field(min_length=1)
+
+    @model_validator(mode="after")
+    def validate_coordinate_span(self) -> CoordinatePatch:
+        if self.atom_ids != sorted(set(self.atom_ids)):
+            raise ValueError("Coordinate patch atom IDs must be unique and sorted")
+        if len(self.atom_ids) != len(self.coordinates):
+            raise ValueError("Coordinate patch IDs and coordinates must have equal length")
+        if not all(isfinite(value) for point in self.coordinates for value in point):
+            raise ValueError("Coordinate patch values must be finite")
+        return self
+
+
 class ProjectRead(BaseModel):
     schema_version: Literal[1] = 1
     id: str
@@ -214,6 +232,7 @@ class ProjectRead(BaseModel):
     measurements: list[MeasurementRead]
     scenes: list[SceneRead]
     history: HistoryRead
+    structure_patches: list[CoordinatePatch] = Field(default_factory=list)
 
 
 class ProjectListItem(BaseModel):
@@ -303,6 +322,73 @@ class SceneCreate(BaseModel):
         if not normalized:
             raise ValueError("Scene name must not be blank")
         return normalized
+
+
+class CoordinateTransformCreate(BaseModel):
+    expected_revision: int = Field(ge=0)
+    entry_id: str
+    scope: Literal["structure", "selection"]
+    selection: SelectionV1 = Field(default_factory=SelectionV1)
+    translation: tuple[float, float, float] = (0.0, 0.0, 0.0)
+    rotation_degrees: tuple[float, float, float] = (0.0, 0.0, 0.0)
+    pivot_mode: Literal["selection_centroid", "structure_centroid", "custom"] = (
+        "structure_centroid"
+    )
+    pivot: tuple[float, float, float] | None = None
+
+    @model_validator(mode="after")
+    def validate_transform_input(self) -> CoordinateTransformCreate:
+        values = (*self.translation, *self.rotation_degrees)
+        if not all(isfinite(value) for value in values):
+            raise ValueError("Translation and rotation values must be finite")
+        if self.pivot_mode == "custom":
+            if self.pivot is None or not all(isfinite(value) for value in self.pivot):
+                raise ValueError("Custom pivot must be a finite 3D point")
+        elif self.pivot is not None:
+            raise ValueError("Explicit pivot is only valid with custom pivot mode")
+        if self.scope == "selection" and not any(
+            item.structure_id == self.entry_id for item in self.selection.atoms
+        ):
+            raise ValueError("Selected-atom transform requires atoms from the target entry")
+        return self
+
+
+class SuperpositionCreate(BaseModel):
+    expected_revision: int = Field(ge=0)
+    moving_entry_id: str
+    reference_entry_id: str
+    mode: Literal["selection", "backbone"]
+    selection: SelectionV1 = Field(default_factory=SelectionV1)
+
+    @model_validator(mode="after")
+    def validate_superposition_input(self) -> SuperpositionCreate:
+        if self.moving_entry_id == self.reference_entry_id:
+            raise ValueError("Moving and reference entries must differ")
+        allowed = {self.moving_entry_id, self.reference_entry_id}
+        if any(item.structure_id not in allowed for item in self.selection.atoms):
+            raise ValueError(
+                "Superposition selection may only contain moving and reference atoms"
+            )
+        if self.mode == "selection":
+            selected_entries = {item.structure_id for item in self.selection.atoms}
+            if selected_entries != allowed:
+                raise ValueError(
+                    "Selection superposition requires atoms from both entries"
+                )
+        return self
+
+
+class SuperpositionReport(BaseModel):
+    moving_entry_id: str
+    reference_entry_id: str
+    mode: Literal["selection", "backbone"]
+    atom_count: int = Field(ge=3)
+    rmsd: float = Field(ge=0, allow_inf_nan=False)
+
+
+class SuperpositionRead(BaseModel):
+    project: ProjectRead
+    report: SuperpositionReport
 
 
 class ContactQuery(BaseModel):

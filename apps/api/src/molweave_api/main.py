@@ -28,6 +28,7 @@ from sqlalchemy import text
 from sqlalchemy.orm import Session, sessionmaker
 from uuid6 import uuid7
 
+from molweave_api.coordinate_service import CoordinateService
 from molweave_api.database import Base, create_database_engine, create_session_factory
 from molweave_api.import_export import (
     ArtifactNotFoundError,
@@ -51,6 +52,7 @@ from molweave_api.schemas import (
     ArtifactRead,
     ContactQuery,
     ContactRead,
+    CoordinateTransformCreate,
     EntryRevisionRequest,
     EntryToggle,
     EntryUpdate,
@@ -69,6 +71,8 @@ from molweave_api.schemas import (
     SavedSelectionCreate,
     SceneCreate,
     StructureRead,
+    SuperpositionCreate,
+    SuperpositionRead,
     TestEntryCreate,
     ViewerSettingsUpdate,
 )
@@ -606,6 +610,43 @@ def create_app(settings: Settings | None = None) -> FastAPI:
                 structure, payload.cutoff, minimum_distance=payload.minimum_distance
             )
         ]
+
+    @router.post(
+        "/projects/{project_id}/entries/{entry_id}/transform",
+        response_model=ProjectRead,
+    )
+    async def transform_coordinates(
+        project_id: str,
+        entry_id: str,
+        payload: CoordinateTransformCreate,
+        session: Session = Depends(session_dependency),
+    ) -> ProjectRead:
+        if payload.entry_id != entry_id:
+            raise _error(
+                422,
+                "invalid_project_operation",
+                "Transform entry ID must match the route entry",
+            )
+        return _call(
+            lambda: CoordinateService(session, app_settings).transform(
+                project_id, payload
+            )
+        )
+
+    @router.post(
+        "/projects/{project_id}/superpositions",
+        response_model=SuperpositionRead,
+    )
+    async def superpose_coordinates(
+        project_id: str,
+        payload: SuperpositionCreate,
+        session: Session = Depends(session_dependency),
+    ) -> SuperpositionRead:
+        return _call(
+            lambda: CoordinateService(session, app_settings).superpose(
+                project_id, payload
+            )
+        )
 
     @router.post(
         "/projects/{project_id}/imports",

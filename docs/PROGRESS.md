@@ -411,6 +411,16 @@ Results:
   artifact, history, API, selection, and viewer source contracts were inspected.
 - M5 scientific checkpoint: all 15 transform/superposition tests passed; focused
   Ruff passed; strict mypy passed for both new core modules.
+- M5 persistence checkpoint: transform and superposition mutations now publish
+  immutable normalized artifacts, return active-coordinate patches, preserve
+  original uploads, update every conformer, enforce locks and revisions, and
+  participate in exact artifact-based undo/redo.
+- M5 backend verification: repository-wide Ruff passed; strict mypy passed for
+  25 source files; all 96 Python tests passed. The focused M5 set covered
+  numeric whole-entry translation, selected custom-pivot rotation, no-op and
+  locked failure states, successful backbone Kabsch fitting with RMSD, rejected
+  unequal correspondence, exact undo/redo restoration, redo invalidation, and
+  original-file preservation.
 
 ## Known limitations
 
@@ -441,6 +451,6 @@ None.
 
 ## Next action
 
-Add revisioned transform and superposition APIs that publish immutable
-normalized artifacts, return active-coordinate spans, preserve exact inverse
-state, reject locked/stale/invalid edits atomically, and patch undo/redo.
+Add typed client coordinate commands, update the structure query cache from
+authoritative patches, and implement incremental Mol* coordinate preview and
+commit updates without rebuilding unrelated structures or changing the camera.
