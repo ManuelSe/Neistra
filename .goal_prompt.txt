@@ -1,0 +1,13 @@
+/goal Complete Milestone 1 from `docs/PLAN.md` according to `docs/PRODUCT_SPEC.md` and `AGENTS.md`.
+
+The milestone is complete only when its acceptance criteria are satisfied, the application starts locally using documented commands, and all milestone-specific lint, type-check, unit-test, build, and end-to-end checks pass.
+
+Work through the milestone iteratively. After each meaningful checkpoint, update `docs/PROGRESS.md` with what changed, what was verified, remaining work, and any limitations. Record material architectural decisions in `docs/DECISIONS.md`.
+
+Do not silently omit requirements or replace functioning features with placeholder controls. Keep changes within the current milestone unless a small prerequisite is necessary. When a prerequisite is added, document why.
+
+Use browser-based verification for the visible application. Test both successful workflows and important failure states. Continue repairing issues until the acceptance criteria and validation commands pass.
+
+Work in interruption-safe checkpoints. After each verified checkpoint, commit the changes and update `docs/PROGRESS.md` with the exact current state and nextaction. Assume execution may stop between turns because of a usage limit.
+
+If completion is genuinely blocked, stop with a precise report containing the attempted approaches, evidence gathered, current state, blocker, and the smallest input or change needed to proceed.
