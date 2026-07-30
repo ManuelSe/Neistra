@@ -4,9 +4,9 @@
 
 Milestone 3 - Project browser, selection, and sequence
 
-Checkpoint 3 complete: authoritative selection is synchronized bidirectionally
-through the project browser, sequence, inspector, and Mol* adapter. End-to-end
-browser verification and the final milestone gate remain.
+Checkpoint 4 complete: the complete synchronized-selection workflow passes in
+real desktop Chromium, including success and important failure states. The final
+milestone, regression, startup, and responsive visual gates remain.
 
 ## Completed work
 
@@ -169,6 +169,12 @@ browser verification and the final milestone gate remain.
 - Added component and adapter tests for programmatic viewer reflection,
   viewer-originated callbacks, selection modes, lazy initialization, and
   non-emission from programmatic updates.
+- Added a real Chromium synchronized-selection workflow covering project
+  replace/add/subtract, sequence residue selection, cross-structure element
+  query, Web Worker distance selection, an actual Mol* structure pick, stable
+  loop-free state, named-selection save/load across reload, duplicate-name
+  rejection, search empty state, entry deletion, transient-reference pruning,
+  and a visible durable saved-selection warning.
 
 ## Verification performed
 
@@ -262,6 +268,10 @@ Results:
 - M3 viewer checkpoint: ESLint and TypeScript passed; 13 focused selection,
   browser, sequence, viewer-loading, and adapter tests passed; the production
   build passed with a 413.47 KiB initial application chunk and lazy Mol* chunk.
+- M3 desktop browser checkpoint: the synchronized-selection Playwright workflow
+  passed in Chromium in 16.8 seconds. The test exercised a real WebGL Mol*
+  canvas and confirmed programmatic highlighting remained stable after a
+  viewer-originated pick.
 
 ## Known limitations
 
@@ -283,6 +293,6 @@ None.
 
 ## Next action
 
-Add the M3 synchronized-selection Playwright workflow, exercise successful and
-important failure paths in a real browser, repair issues found, then run the
-complete milestone and regression gates plus documented startup checks.
+Run the exact M3 Python, client, Playwright, and production-build commands, then
+the full regression gates. Verify documented normal startup plus fresh desktop
+and mobile renders, finalize documentation, and commit the completed milestone.
