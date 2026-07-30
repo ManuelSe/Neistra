@@ -1,13 +1,18 @@
 import type {
   ApiErrorBody,
+  CameraState,
+  Contact,
   ExportResult,
   FormatCapability,
   ImportResult,
   MolecularWarning,
   Project,
   ProjectListItem,
+  MeasurementKind,
+  Scene,
   Selection,
   StructureProjection,
+  ViewerSettings,
 } from "./types";
 
 export class ApiError extends Error {
@@ -159,6 +164,97 @@ export const projectApi = {
       `/api/v1/projects/${project.id}/selections/${selectionId}?expected_revision=${project.revision}`,
       { method: "DELETE" },
     ),
+  updateViewerSettings: (
+    project: Project,
+    entryId: string,
+    settings: ViewerSettings,
+  ) =>
+    request<Project>(
+      `/api/v1/projects/${project.id}/entries/${entryId}/viewer-settings`,
+      {
+        method: "PUT",
+        body: JSON.stringify({
+          expected_revision: project.revision,
+          settings,
+        }),
+      },
+    ),
+  createMeasurement: (
+    project: Project,
+    name: string,
+    kind: MeasurementKind,
+    atomReferences: Selection["atoms"],
+  ) =>
+    request<Project>(`/api/v1/projects/${project.id}/measurements`, {
+      method: "POST",
+      body: JSON.stringify({
+        expected_revision: project.revision,
+        name,
+        kind,
+        atom_references: atomReferences,
+      }),
+    }),
+  updateMeasurement: (
+    project: Project,
+    measurementId: string,
+    name: string,
+    visible: boolean,
+  ) =>
+    request<Project>(
+      `/api/v1/projects/${project.id}/measurements/${measurementId}`,
+      {
+        method: "PATCH",
+        body: JSON.stringify({
+          expected_revision: project.revision,
+          name,
+          visible,
+        }),
+      },
+    ),
+  deleteMeasurement: (project: Project, measurementId: string) =>
+    request<Project>(
+      `/api/v1/projects/${project.id}/measurements/${measurementId}?expected_revision=${project.revision}`,
+      { method: "DELETE" },
+    ),
+  createScene: (
+    project: Project,
+    name: string,
+    camera: CameraState,
+    selection: Selection,
+  ) =>
+    request<Project>(`/api/v1/projects/${project.id}/scenes`, {
+      method: "POST",
+      body: JSON.stringify({
+        expected_revision: project.revision,
+        name,
+        camera,
+        selection,
+      }),
+    }),
+  applyScene: (project: Project, scene: Scene) =>
+    request<Project>(`/api/v1/projects/${project.id}/scenes/${scene.id}/apply`, {
+      method: "POST",
+      body: JSON.stringify({ expected_revision: project.revision }),
+    }),
+  deleteScene: (project: Project, scene: Scene) =>
+    request<Project>(
+      `/api/v1/projects/${project.id}/scenes/${scene.id}?expected_revision=${project.revision}`,
+      { method: "DELETE" },
+    ),
+  contacts: (
+    project: Project,
+    entryId: string,
+    cutoff: number,
+    minimumDistance: number,
+  ) =>
+    request<Contact[]>(`/api/v1/projects/${project.id}/contacts`, {
+      method: "POST",
+      body: JSON.stringify({
+        entry_id: entryId,
+        cutoff,
+        minimum_distance: minimumDistance,
+      }),
+    }),
 };
 
 export interface ImportUpload {

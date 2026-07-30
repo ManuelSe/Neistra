@@ -1,9 +1,12 @@
 import { FolderPlus, Upload } from "lucide-react";
 import type {
+  CameraState,
   Project,
+  Scene,
   Selection,
   SelectionGranularity,
   SelectionMode,
+  ViewerSettings,
 } from "../api/types";
 import { StructureViewer } from "./StructureViewer";
 
@@ -15,6 +18,11 @@ interface WorkspaceCanvasProps {
   loading: boolean;
   onCreate: () => void;
   onImport: () => void;
+  busy?: boolean;
+  onUpdateSettings?: (entryId: string, settings: ViewerSettings) => Promise<void>;
+  onCreateScene?: (name: string, camera: CameraState) => Promise<void>;
+  onApplyScene?: (scene: Scene) => Promise<void>;
+  onDeleteScene?: (scene: Scene) => Promise<void>;
 }
 
 export function WorkspaceCanvas({
@@ -25,6 +33,11 @@ export function WorkspaceCanvas({
   loading,
   onCreate,
   onImport,
+  busy,
+  onUpdateSettings,
+  onCreateScene,
+  onApplyScene,
+  onDeleteScene,
 }: WorkspaceCanvasProps) {
   if (loading) {
     return (
@@ -73,6 +86,11 @@ export function WorkspaceCanvas({
           selection={selection}
           pickingGranularity={pickingGranularity}
           onViewerSelection={onViewerSelection}
+          busy={busy}
+          onUpdateSettings={onUpdateSettings}
+          onCreateScene={onCreateScene}
+          onApplyScene={onApplyScene}
+          onDeleteScene={onDeleteScene}
         />
       )}
     </main>

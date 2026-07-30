@@ -5,8 +5,9 @@
 Milestone 4 - Complete viewer, inspection, and measurements
 
 In progress. The scientific domain and durable project-state checkpoints are
-complete. Viewer controls, inspection UI, measurement rendering, and browser
-workflows remain.
+complete. The complete visible viewer/inspection slice is implemented and
+passes component/build plus the existing real-WebGL regression. M4-specific
+browser workflows and final gates remain.
 
 ## Completed work
 
@@ -194,6 +195,26 @@ workflows remain.
   undo restores the complete prior state.
 - Added the close-contact API and migration `0005` for viewer settings,
   measurements, scenes, and additive checkpoint-state fields.
+- Replaced Mol* default presets with application-driven, coexisting cartoon,
+  backbone, line, stick, ball-and-stick, space-filling, and molecular-surface
+  representations using typed entry settings.
+- Added element, chain, residue, secondary-structure, structure, and uniform
+  custom coloring; opacity; hydrogen, solvent, ion, ligand, and protein
+  component visibility; and atom, residue, chain, and structure labels.
+- Added an explicit viewer control surface for perspective/orthographic
+  projection, zoom, focus selection, center/reset, selection isolation, and
+  named-scene save/apply/delete. Orbit and pan remain direct canvas navigation.
+- Added application-owned camera subscriptions and scene values at the viewer
+  adapter boundary. Structure rebuilds preserve the current camera and never
+  persist Mol* snapshots.
+- Added viewer-rendered distance, angle, and dihedral loci/labels that are
+  recalculated from current normalized coordinates.
+- Added measurement create/rename/show/hide/delete UI, close-contact search,
+  atom/residue/chain inspection, and a lower atom-property table synchronized
+  with central selection.
+- Added the recommended-size fallback: structures at or above 250,000 atoms
+  retain usable reduced-detail rendering while surface and dense labels are
+  suppressed with a visible notice.
 
 ## Verification performed
 
@@ -317,6 +338,15 @@ Results:
   contact API coverage.
 - A fresh temporary database migrated `0001 -> 0002 -> 0003 -> 0004 -> 0005`,
   reported `0005 (head)`, downgraded to `0004`, and upgraded to `0005` again.
+- M4 client checkpoint: ESLint and TypeScript passed; all 17 component/domain
+  tests passed, including exact backend-matching geometry and the complete
+  representation/color option matrix.
+- The production build passed with 3,342 transformed modules, a 435.69 KiB
+  initial application chunk, and Mol* retained in a lazy chunk.
+- Existing Chromium import/display/export regression: both workflows passed.
+  A real WebGL canvas rendered protein and ligand with application-owned
+  default representations after reload; malformed and cancelled imports
+  remained non-mutating.
 
 ## Known limitations
 
@@ -347,6 +377,6 @@ None.
 
 ## Next action
 
-Add TypeScript contracts and application camera state, then extend the Mol*
-adapter with representation, component, label, camera, focus, isolation, and
-measurement rendering without using Mol* snapshots as project state.
+Add and run `viewer-controls.spec.ts` and `measurements.spec.ts` for success and
+failure workflows, inspect desktop/mobile screenshots and canvas pixels, then
+repair any interaction or responsive defects before final gates.

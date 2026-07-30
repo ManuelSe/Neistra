@@ -22,6 +22,7 @@ export interface Entry {
   residue_count: number;
   conformer_count: number;
   warnings: MolecularWarning[];
+  viewer_settings: ViewerSettings;
   original_artifact_id: string | null;
   current_artifact_id: string | null;
   visible: boolean;
@@ -68,6 +69,88 @@ export interface SavedSelection {
   modified_at: string;
 }
 
+export type RepresentationStyle =
+  | "cartoon"
+  | "backbone"
+  | "line"
+  | "stick"
+  | "ball-and-stick"
+  | "space-filling"
+  | "surface";
+export type ColorScheme =
+  | "element"
+  | "chain"
+  | "residue"
+  | "secondary-structure"
+  | "structure"
+  | "custom";
+
+export interface RepresentationSettings {
+  id: string;
+  style: RepresentationStyle;
+  color_by: ColorScheme;
+  custom_color: string;
+  opacity: number;
+}
+
+export interface ViewerSettings {
+  representations: RepresentationSettings[];
+  components: {
+    hydrogens: boolean;
+    solvent: boolean;
+    ions: boolean;
+    ligands: boolean;
+    protein: boolean;
+  };
+  labels: {
+    atoms: boolean;
+    residues: boolean;
+    chains: boolean;
+    structure: boolean;
+  };
+}
+
+export type MeasurementKind = "distance" | "angle" | "dihedral";
+
+export interface Measurement {
+  id: string;
+  name: string;
+  kind: MeasurementKind;
+  atom_references: AtomReference[];
+  visible: boolean;
+  warnings: MolecularWarning[];
+  created_at: string;
+  modified_at: string;
+}
+
+export interface CameraState {
+  mode: "perspective" | "orthographic";
+  position: [number, number, number];
+  target: [number, number, number];
+  up: [number, number, number];
+  radius: number;
+}
+
+export interface Scene {
+  id: string;
+  name: string;
+  camera: CameraState;
+  entry_states: {
+    entry_id: string;
+    visible: boolean;
+    viewer_settings: ViewerSettings;
+  }[];
+  selection: Selection;
+  created_at: string;
+  modified_at: string;
+}
+
+export interface Contact {
+  atom_1: AtomReference;
+  atom_2: AtomReference;
+  distance: number;
+}
+
 export interface History {
   can_undo: boolean;
   can_redo: boolean;
@@ -90,6 +173,8 @@ export interface Project {
   entries: Entry[];
   groups: EntryGroup[];
   saved_selections: SavedSelection[];
+  measurements: Measurement[];
+  scenes: Scene[];
   history: History;
 }
 

@@ -3,7 +3,32 @@ import type {
   NormalizedStructure,
   Project,
   StructureProjection,
+  ViewerSettings,
 } from "../api/types";
+
+export function viewerSettings(
+  style: ViewerSettings["representations"][number]["style"] = "ball-and-stick",
+): ViewerSettings {
+  return {
+    representations: [
+      {
+        id: "primary",
+        style,
+        color_by: "element",
+        custom_color: "#3b82f6",
+        opacity: 1,
+      },
+    ],
+    components: {
+      hydrogens: true,
+      solvent: true,
+      ions: true,
+      ligands: true,
+      protein: true,
+    },
+    labels: { atoms: false, residues: false, chains: false, structure: false },
+  };
+}
 
 export function molecularEntry(
   id: string,
@@ -24,6 +49,7 @@ export function molecularEntry(
     residue_count: structureType === "protein" ? 2 : 0,
     conformer_count: 1,
     warnings: [],
+    viewer_settings: viewerSettings(structureType === "protein" ? "cartoon" : "ball-and-stick"),
     original_artifact_id: `original-${id}`,
     current_artifact_id: `current-${id}`,
     visible: true,
@@ -63,6 +89,8 @@ export function molecularProject(entries?: Entry[]): Project {
       },
     ],
     saved_selections: [],
+    measurements: [],
+    scenes: [],
     history: {
       can_undo: true,
       can_redo: false,

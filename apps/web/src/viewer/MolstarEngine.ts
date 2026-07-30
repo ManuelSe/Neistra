@@ -6,7 +6,9 @@ import {
   type Model,
   type Structure,
 } from "molstar/lib/mol-model/structure";
+import { Color } from "molstar/lib/mol-util/color";
 import type { UnitIndex } from "molstar/lib/mol-model/structure/structure/element/util";
+import { Vec3 } from "molstar/lib/mol-math/linear-algebra";
 import { createPluginUI } from "molstar/lib/mol-plugin-ui";
 import type { PluginUIContext } from "molstar/lib/mol-plugin-ui/context";
 import { renderReact18 } from "molstar/lib/mol-plugin-ui/react18";
@@ -14,6 +16,9 @@ import { DefaultPluginUISpec } from "molstar/lib/mol-plugin-ui/spec";
 import { ButtonsType } from "molstar/lib/mol-util/input/input-observer";
 import type {
   AtomReference,
+  CameraState,
+  ColorScheme,
+  RepresentationStyle,
   SelectionGranularity,
   SelectionMode,
 } from "../api/types";
@@ -21,6 +26,7 @@ import type {
   MolecularViewer,
   ViewerSelectionEvent,
   ViewerStructure,
+  ViewerMeasurement,
 } from "./MolecularViewer";
 
 interface LoadedStructure {
@@ -37,7 +43,13 @@ export class MolstarEngine implements MolecularViewer {
   private loaded = new Map<string, LoadedStructure>();
   private models = new Map<Model, { entryId: string; atomIds: number[] }>();
   private listeners = new Set<(event: ViewerSelectionEvent) => void>();
+  private cameraListeners = new Set<(camera: CameraState) => void>();
   private clickSubscription: { unsubscribe(): void } | undefined;
+  private cameraSubscription: { unsubscribe(): void } | undefined;
+  private measurementRefs: string[] = [];
+  private structures: ViewerStructure[] = [];
+  private measurements: ViewerMeasurement[] = [];
+  private isolation: AtomReference[] | null = null;
 
   async mount(target: HTMLElement): Promise<void> {
     this.plugin = await createPluginUI({
@@ -116,14 +128,21 @@ export class MolstarEngine implements MolecularViewer {
         });
       },
     );
+    this.cameraSubscription = this.plugin.canvas3d.camera.changed.subscribe(() => {
+      const camera = this.getCamera();
+      if (camera) for (const listener of this.cameraListeners) listener(camera);
+    });
   }
 
   syncStructures(structures: ViewerStructure[]): Promise<void> {
+    this.structures = structures;
     const generation = ++this.generation;
     this.syncQueue = this.syncQueue.then(async () => {
       const plugin = this.plugin;
       if (!plugin || generation !== this.generation) return;
+      const camera = this.getCamera();
       await plugin.clear();
+      this.measurementRefs = [];
       this.loaded.clear();
       this.models.clear();
       for (const structure of structures) {
@@ -139,6 +158,7 @@ export class MolstarEngine implements MolecularViewer {
         const preset = await plugin.builders.structure.hierarchy.applyPreset(
           trajectory,
           "default",
+          { representationPreset: "empty" },
         );
         const molstarStructure =
           preset?.structureProperties?.obj?.data ?? preset?.structure.obj?.data;
@@ -155,9 +175,87 @@ export class MolstarEngine implements MolecularViewer {
             atomIds: structure.atomIds,
           });
         }
+        const rootRef = preset?.structureProperties ?? preset?.structure;
+        if (!rootRef) throw new Error(`Mol* lost the structure state for ${structure.label}.`);
+        const isolated = this.isolation?.filter(
+          (reference) => reference.structure_id === structure.entryId,
+        );
+        const components = [];
+        if (this.isolation && (!isolated || isolated.length === 0)) continue;
+        if (isolated?.length) {
+          const loci = this.lociFor(isolated);
+          if (loci) {
+            const component = await plugin.builders.structure.tryCreateComponent(
+              rootRef,
+              {
+                type: {
+                  name: "bundle",
+                  params: StructureElement.Bundle.fromLoci(loci),
+                },
+                nullIfEmpty: true,
+                label: "Isolated selection",
+              },
+              `isolation-${structure.entryId}`,
+            );
+            if (component) components.push(component);
+          }
+        } else {
+          const requested = [
+            structure.settings.components.protein ? "protein" : null,
+            structure.settings.components.ligands ? "ligand" : null,
+            structure.settings.components.solvent ? "water" : null,
+            structure.settings.components.ions ? "ion" : null,
+          ].filter((value): value is "protein" | "ligand" | "water" | "ion" => !!value);
+          for (const type of requested) {
+            const component = await plugin.builders.structure.tryCreateComponentStatic(
+              rootRef,
+              type,
+              { label: `${structure.label} ${type}` },
+            );
+            if (component) components.push(component);
+          }
+          if (components.length === 0) {
+            const all = await plugin.builders.structure.tryCreateComponentStatic(
+              rootRef,
+              "all",
+              { label: structure.label },
+            );
+            if (all) components.push(all);
+          }
+        }
+        for (const component of components) {
+          for (const representation of structure.settings.representations) {
+            await plugin.builders.structure.representation.addRepresentation(
+              component,
+              {
+                type: this.representationType(representation.style),
+                typeParams: {
+                  alpha: representation.opacity,
+                  ignoreHydrogens: !structure.settings.components.hydrogens,
+                  ...(representation.style === "stick"
+                    ? { sizeFactor: 0.22, sizeAspectRatio: 0.35 }
+                    : {}),
+                },
+                color: this.colorTheme(representation.color_by),
+                colorParams:
+                  representation.color_by === "custom"
+                    ? {
+                        value: Color(
+                          Number.parseInt(representation.custom_color.slice(1), 16),
+                        ),
+                      }
+                    : undefined,
+              },
+              { tag: `molweave-representation-${representation.id}` },
+            );
+          }
+        }
+        await this.addStructureLabels(structure);
       }
       this.applySelection();
-      plugin.canvas3d?.requestCameraReset();
+      await this.applyMeasurements();
+      if (camera && camera.radius > 0) this.setCamera(camera);
+      else plugin.canvas3d?.requestCameraReset();
     });
     return this.syncQueue;
   }
@@ -169,6 +267,70 @@ export class MolstarEngine implements MolecularViewer {
 
   setPickingGranularity(granularity: SelectionGranularity): void {
     this.pickingGranularity = granularity;
+  }
+
+  async setMeasurements(measurements: ViewerMeasurement[]): Promise<void> {
+    this.measurements = measurements;
+    await this.syncQueue;
+    await this.applyMeasurements();
+  }
+
+  async setIsolation(atoms: AtomReference[] | null): Promise<void> {
+    this.isolation = atoms;
+    await this.syncStructures(this.structures);
+  }
+
+  getCamera(): CameraState | null {
+    const snapshot = this.plugin?.canvas3d?.camera.getSnapshot();
+    if (!snapshot) return null;
+    return {
+      mode: snapshot.mode,
+      position: [...snapshot.position] as CameraState["position"],
+      target: [...snapshot.target] as CameraState["target"],
+      up: [...snapshot.up] as CameraState["up"],
+      radius: snapshot.radius,
+    };
+  }
+
+  setCamera(camera: CameraState): void {
+    this.plugin?.canvas3d?.camera.setState({
+      mode: camera.mode,
+      position: Vec3.create(...camera.position),
+      target: Vec3.create(...camera.target),
+      up: Vec3.create(...camera.up),
+      radius: camera.radius,
+    });
+  }
+
+  setCameraMode(mode: CameraState["mode"]): void {
+    this.plugin?.canvas3d?.camera.setState({ mode });
+  }
+
+  zoom(factor: number): void {
+    const camera = this.plugin?.canvas3d?.camera;
+    if (!camera) return;
+    const snapshot = camera.getSnapshot();
+    const position = snapshot.position.map(
+      (value, index) =>
+        snapshot.target[index] + (value - snapshot.target[index]) * factor,
+    ) as CameraState["position"];
+    camera.setState({ position: Vec3.create(...position) });
+  }
+
+  focusSelection(): void {
+    const loci = this.lociFor(this.pendingSelection);
+    if (loci) this.plugin?.managers.camera.focusLoci(loci);
+  }
+
+  resetCamera(): void {
+    this.plugin?.canvas3d?.requestCameraReset();
+  }
+
+  subscribeCamera(listener: (camera: CameraState) => void): () => void {
+    this.cameraListeners.add(listener);
+    const camera = this.getCamera();
+    if (camera) listener(camera);
+    return () => this.cameraListeners.delete(listener);
   }
 
   subscribeSelection(listener: (event: ViewerSelectionEvent) => void): () => void {
@@ -183,8 +345,10 @@ export class MolstarEngine implements MolecularViewer {
   dispose(): void {
     this.generation += 1;
     this.clickSubscription?.unsubscribe();
+    this.cameraSubscription?.unsubscribe();
     this.clickSubscription = undefined;
     this.listeners.clear();
+    this.cameraListeners.clear();
     this.loaded.clear();
     this.models.clear();
     this.plugin?.dispose();
@@ -235,5 +399,169 @@ export class MolstarEngine implements MolecularViewer {
         );
       }
     }
+  }
+
+  private lociFor(atoms: AtomReference[]): StructureElement.Loci | null {
+    const byEntry = new Map<string, Set<number>>();
+    for (const reference of atoms) {
+      const selected = byEntry.get(reference.structure_id) ?? new Set<number>();
+      selected.add(reference.atom_id);
+      byEntry.set(reference.structure_id, selected);
+    }
+    const locis: StructureElement.Loci[] = [];
+    for (const [entryId, selectedAtomIds] of byEntry) {
+      const loaded = this.loaded.get(entryId);
+      if (!loaded) continue;
+      const elements: StructureElement.Loci["elements"][number][] = [];
+      for (const unit of loaded.structure.units) {
+        if (!Unit.isAtomic(unit)) continue;
+        const indices: UnitIndex[] = [];
+        for (let unitIndex = 0; unitIndex < unit.elements.length; unitIndex += 1) {
+          const sourceIndex = unit.model.atomicHierarchy.atomSourceIndex.value(
+            unit.elements[unitIndex],
+          );
+          if (selectedAtomIds.has(loaded.atomIds[sourceIndex])) {
+            indices.push(unitIndex as UnitIndex);
+          }
+        }
+        if (indices.length) elements.push({ unit, indices: OrderedSet.ofSortedArray(indices) });
+      }
+      if (elements.length) locis.push(StructureElement.Loci(loaded.structure, elements));
+    }
+    if (locis.length === 0) return null;
+    if (locis.length === 1) return locis[0];
+    let combined = locis[0];
+    for (const loci of locis.slice(1)) combined = StructureElement.Loci.union(combined, loci);
+    return combined;
+  }
+
+  private async applyMeasurements(): Promise<void> {
+    const plugin = this.plugin;
+    if (!plugin) return;
+    if (this.measurementRefs.length) {
+      const update = plugin.state.data.build();
+      for (const ref of this.measurementRefs) update.delete(ref);
+      await update.commit();
+      this.measurementRefs = [];
+    }
+    for (const measurement of this.measurements.filter((item) => item.visible)) {
+      const locis = measurement.atom_references.map((reference) =>
+        this.lociFor([reference]),
+      );
+      if (locis.some((loci) => loci === null)) continue;
+      const valid = locis as StructureElement.Loci[];
+      const options = { customText: measurement.label };
+      const result =
+        measurement.kind === "distance"
+          ? await plugin.managers.structure.measurement.addDistance(
+              valid[0],
+              valid[1],
+              options,
+            )
+          : measurement.kind === "angle"
+            ? await plugin.managers.structure.measurement.addAngle(
+                valid[0],
+                valid[1],
+                valid[2],
+                options,
+              )
+            : await plugin.managers.structure.measurement.addDihedral(
+                valid[0],
+                valid[1],
+                valid[2],
+                valid[3],
+                options,
+              );
+      if (result) this.measurementRefs.push(result.selection.ref);
+    }
+  }
+
+  private async addStructureLabels(structure: ViewerStructure): Promise<void> {
+    const labels = structure.settings.labels;
+    const add = async (atoms: AtomReference[], text: string) => {
+      const loci = this.lociFor(atoms);
+      if (!loci) return;
+      const result = await this.plugin?.managers.structure.measurement.addLabel(loci, {
+        visualParams: { customText: text },
+      });
+      if (result) this.measurementRefs.push(result.selection.ref);
+    };
+    if (labels.structure) {
+      await add(
+        structure.normalized.atoms.map((atom) => ({
+          structure_id: structure.entryId,
+          atom_id: atom.id,
+        })),
+        structure.label,
+      );
+    }
+    if (labels.atoms && structure.normalized.atoms.length <= 500) {
+      for (const atom of structure.normalized.atoms) {
+        await add(
+          [{ structure_id: structure.entryId, atom_id: atom.id }],
+          `${atom.name} (${atom.element})`,
+        );
+      }
+    }
+    if (labels.residues && structure.normalized.residues.length <= 250) {
+      for (const residue of structure.normalized.residues) {
+        await add(
+          structure.normalized.atoms
+            .filter((atom) => atom.residue_id === residue.id)
+            .map((atom) => ({ structure_id: structure.entryId, atom_id: atom.id })),
+          `${residue.name} ${residue.author_number ?? residue.label_number ?? residue.id}`,
+        );
+      }
+    }
+    if (labels.chains) {
+      for (const chain of structure.normalized.chains) {
+        const residueIds = new Set(
+          structure.normalized.residues
+            .filter((residue) => residue.chain_id === chain.id)
+            .map((residue) => residue.id),
+        );
+        await add(
+          structure.normalized.atoms
+            .filter((atom) => atom.residue_id && residueIds.has(atom.residue_id))
+            .map((atom) => ({ structure_id: structure.entryId, atom_id: atom.id })),
+          `Chain ${chain.name || "-"}`,
+        );
+      }
+    }
+  }
+
+  private representationType(style: RepresentationStyle) {
+    return {
+      cartoon: "cartoon",
+      backbone: "backbone",
+      line: "line",
+      stick: "ball-and-stick",
+      "ball-and-stick": "ball-and-stick",
+      "space-filling": "spacefill",
+      surface: "molecular-surface",
+    }[style] as
+      | "cartoon"
+      | "backbone"
+      | "line"
+      | "ball-and-stick"
+      | "spacefill"
+      | "molecular-surface";
+  }
+
+  private colorTheme(color: ColorScheme) {
+    return {
+      element: "element-symbol",
+      chain: "chain-id",
+      residue: "residue-name",
+      "secondary-structure": "secondary-structure",
+      structure: "model-index",
+      custom: "uniform",
+    }[color] as
+      | "element-symbol"
+      | "chain-id"
+      | "residue-name"
+      | "secondary-structure"
+      | "model-index"
+      | "uniform";
   }
 }

@@ -1653,6 +1653,420 @@ select {
   right: 0;
 }
 
+.viewer-controls {
+  position: absolute;
+  z-index: 8;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  max-width: calc(100% - 20px);
+}
+
+.viewer-controls > .icon-button {
+  flex: 0 0 auto;
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  border: 1px solid var(--border);
+  box-shadow: 0 5px 18px rgb(20 35 39 / 10%);
+}
+
+.viewer-controls-panel {
+  width: min(410px, calc(100vw - 48px));
+  max-height: calc(100vh - 130px);
+  margin-right: 6px;
+  padding: 10px;
+  overflow: auto;
+  color: var(--text);
+  background: color-mix(in srgb, var(--surface) 96%, transparent);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  box-shadow: var(--shadow);
+  font-size: 10px;
+}
+
+.viewer-control-heading,
+.representation-row,
+.camera-controls,
+.scene-list > div {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.viewer-control-heading {
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.viewer-control-heading select {
+  width: 58%;
+  height: 28px;
+}
+
+.representation-list {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 7px;
+}
+
+.representation-row {
+  display: grid;
+  grid-template-columns: minmax(82px, 1fr) minmax(76px, 1fr) 30px;
+  padding: 6px;
+  background: var(--surface-muted);
+  border: 1px solid var(--border);
+}
+
+.representation-row select,
+.viewer-controls-panel > label select,
+.scene-form input {
+  height: 28px;
+  font-size: 10px;
+}
+
+.representation-row input[type="color"] {
+  width: 30px;
+  height: 28px;
+  padding: 2px;
+}
+
+.opacity-control {
+  display: grid;
+  grid-column: 1 / 3;
+  grid-template-columns: 48px 1fr;
+  align-items: center;
+  gap: 5px;
+}
+
+.opacity-control input {
+  height: 22px;
+  padding: 0;
+}
+
+.representation-row .icon-button {
+  grid-row: 1;
+  grid-column: 3;
+  width: 28px;
+  height: 28px;
+}
+
+.viewer-controls-panel fieldset {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px 12px;
+  margin: 9px 0 0;
+  padding: 7px;
+  border: 1px solid var(--border);
+}
+
+.viewer-controls-panel legend {
+  padding: 0 4px;
+  color: var(--text-soft);
+  font-size: 9px;
+  text-transform: uppercase;
+}
+
+.check-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  text-transform: capitalize;
+}
+
+.check-label input {
+  width: 14px;
+  height: 14px;
+}
+
+.camera-controls {
+  flex-wrap: wrap;
+  margin-top: 9px;
+}
+
+.camera-controls .segmented-control {
+  grid-template-columns: repeat(2, 1fr);
+  width: 188px;
+}
+
+.camera-controls .segmented-control button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.camera-controls > button:last-child {
+  height: 30px;
+  padding: 0 8px;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  font-size: 10px;
+}
+
+.camera-controls > button.active {
+  color: var(--brand);
+  background: var(--accent-soft);
+  border-color: var(--accent);
+}
+
+.scene-form {
+  margin-top: 9px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+}
+
+.scene-form > label {
+  display: grid;
+  gap: 4px;
+}
+
+.scene-list {
+  margin-top: 6px;
+}
+
+.scene-list > div {
+  min-height: 31px;
+  border-top: 1px solid var(--border);
+}
+
+.scene-list > div > button:first-child {
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+  overflow: hidden;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.inspector-tabs {
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.inspector-tabs button {
+  font-size: 8px;
+}
+
+.inspect-panel,
+.measurements-panel {
+  padding: 10px;
+}
+
+.inspect-panel section {
+  margin-bottom: 12px;
+}
+
+.inspect-panel h3,
+.contacts-panel h3 {
+  margin: 0 0 6px;
+  font-size: 10px;
+}
+
+.property-list {
+  margin: 0;
+  border-top: 1px solid var(--border);
+}
+
+.property-list div {
+  display: grid;
+  grid-template-columns: 44% 56%;
+  padding: 5px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 9px;
+}
+
+.property-list dt {
+  color: var(--text-soft);
+}
+
+.property-list dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.measurement-create,
+.measurement-list,
+.contacts-panel {
+  padding-bottom: 11px;
+  border-bottom: 1px solid var(--border);
+}
+
+.measurement-create > label,
+.contacts-panel label {
+  display: grid;
+  gap: 4px;
+  color: var(--text-soft);
+  font-size: 9px;
+}
+
+.measurement-create input,
+.contacts-panel input,
+.contacts-panel select,
+.measurement-row input {
+  height: 29px;
+  font-size: 10px;
+}
+
+.measurement-kind-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  margin-top: 6px;
+}
+
+.measurement-kind-buttons button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  height: 30px;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  font-size: 9px;
+  text-transform: capitalize;
+}
+
+.measurement-kind-buttons button:disabled {
+  opacity: 0.4;
+}
+
+.measurement-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) repeat(3, 28px);
+  align-items: center;
+  gap: 3px;
+  min-height: 47px;
+  border-bottom: 1px solid var(--border);
+}
+
+.measurement-row small {
+  display: block;
+  margin-top: 2px;
+  color: var(--text-soft);
+  font-size: 8px;
+}
+
+.contacts-panel {
+  padding-top: 11px;
+  border-bottom: 0;
+}
+
+.contacts-panel .secondary-button {
+  width: 100%;
+  min-height: 30px;
+  margin-top: 6px;
+  font-size: 9px;
+}
+
+.contact-results {
+  max-height: 170px;
+  margin-top: 7px;
+  overflow: auto;
+}
+
+.contact-results button {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 29px;
+  padding: 0 4px;
+  color: var(--text);
+  background: transparent;
+  border: 0;
+  border-top: 1px solid var(--border);
+  font-size: 9px;
+  cursor: pointer;
+}
+
+.inline-error {
+  color: var(--danger);
+  font-size: 9px;
+}
+
+.lower-panel {
+  min-height: 0;
+}
+
+.lower-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 34px;
+  padding-right: 5px;
+  border-bottom: 1px solid var(--border);
+}
+
+.lower-tabs {
+  display: flex;
+  height: 100%;
+}
+
+.lower-tabs button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0 12px;
+  color: var(--text-soft);
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.lower-tabs button[aria-selected="true"] {
+  color: var(--text);
+  border-bottom-color: var(--accent);
+}
+
+.property-table-wrap {
+  height: calc(100% - 34px);
+  overflow: auto;
+}
+
+.property-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 9px;
+  white-space: nowrap;
+}
+
+.property-table th,
+.property-table td {
+  padding: 5px 8px;
+  text-align: left;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.property-table th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  color: var(--text-soft);
+  background: var(--surface-muted);
+  font-size: 8px;
+  text-transform: uppercase;
+}
+
+.property-table tbody tr {
+  cursor: pointer;
+}
+
+.property-table tbody tr:hover {
+  background: var(--accent-soft);
+}
+
+.lower-panel > .history-panel {
+  height: calc(100% - 34px);
+}
+
 .sr-only {
   position: absolute;
   width: 1px;

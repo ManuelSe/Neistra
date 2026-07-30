@@ -16,6 +16,7 @@ import type {
   MolecularViewer,
   ViewerStructure,
 } from "../viewer/MolecularViewer";
+import { viewerSettings } from "./molecular-fixtures";
 
 function entry(id: string, visible: boolean) {
   return {
@@ -31,6 +32,7 @@ function entry(id: string, visible: boolean) {
     residue_count: 1,
     conformer_count: 1,
     warnings: [],
+    viewer_settings: viewerSettings(id === "protein" ? "cartoon" : "ball-and-stick"),
     original_artifact_id: `original-${id}`,
     current_artifact_id: `current-${id}`,
     visible,
@@ -58,6 +60,8 @@ function project(proteinVisible = true, ligandVisible = false): Project {
     entries: [entry("protein", proteinVisible), entry("ligand", ligandVisible)],
     groups: [],
     saved_selections: [],
+    measurements: [],
+    scenes: [],
     history: {
       can_undo: true,
       can_redo: false,
@@ -134,6 +138,32 @@ class FakeViewer implements MolecularViewer {
 
   setPickingGranularity(granularity: SelectionGranularity): void {
     this.granularities.push(granularity);
+  }
+
+  setMeasurements(): Promise<void> {
+    return Promise.resolve();
+  }
+
+  setIsolation(): Promise<void> {
+    return Promise.resolve();
+  }
+
+  getCamera() {
+    return null;
+  }
+
+  setCamera(): void {}
+
+  setCameraMode(): void {}
+
+  zoom(): void {}
+
+  focusSelection(): void {}
+
+  resetCamera(): void {}
+
+  subscribeCamera(): () => void {
+    return () => undefined;
   }
 
   subscribeSelection(listener: NonNullable<FakeViewer["listener"]>): () => void {

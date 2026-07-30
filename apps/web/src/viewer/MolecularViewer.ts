@@ -1,8 +1,12 @@
 import type {
   AtomReference,
+  CameraState,
+  Measurement,
+  NormalizedStructure,
   SelectionGranularity,
   SelectionMode,
   StructureProjection,
+  ViewerSettings,
 } from "../api/types";
 
 export interface ViewerStructure {
@@ -10,6 +14,8 @@ export interface ViewerStructure {
   label: string;
   projection: StructureProjection["viewer"];
   atomIds: number[];
+  normalized: NormalizedStructure;
+  settings: ViewerSettings;
 }
 
 export interface ViewerSelectionEvent {
@@ -23,9 +29,22 @@ export interface MolecularViewer {
   syncStructures(structures: ViewerStructure[]): Promise<void>;
   setSelection(atoms: AtomReference[]): void;
   setPickingGranularity(granularity: SelectionGranularity): void;
+  setMeasurements(measurements: ViewerMeasurement[]): Promise<void>;
+  setIsolation(atoms: AtomReference[] | null): Promise<void>;
+  getCamera(): CameraState | null;
+  setCamera(camera: CameraState): void;
+  setCameraMode(mode: CameraState["mode"]): void;
+  zoom(factor: number): void;
+  focusSelection(): void;
+  resetCamera(): void;
+  subscribeCamera(listener: (camera: CameraState) => void): () => void;
   subscribeSelection(listener: (event: ViewerSelectionEvent) => void): () => void;
   resize(): void;
   dispose(): void;
+}
+
+export interface ViewerMeasurement extends Measurement {
+  label: string;
 }
 
 export type MolecularViewerFactory = () => MolecularViewer;

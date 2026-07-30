@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { ViewerStructure } from "../viewer/MolecularViewer";
+import { proteinStructure, viewerSettings } from "./molecular-fixtures";
 
 const calls = vi.hoisted(() => ({
   mount: vi.fn(),
@@ -12,6 +13,12 @@ const calls = vi.hoisted(() => ({
   }),
   resize: vi.fn(),
   dispose: vi.fn(),
+  measurements: vi.fn(),
+  isolation: vi.fn(),
+  cameraSubscribe: vi.fn((listener: unknown) => {
+    void listener;
+    return () => undefined;
+  }),
 }));
 
 vi.mock("../viewer/MolstarEngine", () => ({
@@ -38,6 +45,30 @@ vi.mock("../viewer/MolstarEngine", () => ({
       return calls.subscribe(listener);
     }
 
+    setMeasurements(value: unknown) {
+      calls.measurements(value);
+      return Promise.resolve();
+    }
+
+    setIsolation(value: unknown) {
+      calls.isolation(value);
+      return Promise.resolve();
+    }
+
+    getCamera() {
+      return null;
+    }
+
+    setCamera() {}
+    setCameraMode() {}
+    zoom() {}
+    focusSelection() {}
+    resetCamera() {}
+
+    subscribeCamera(listener: unknown) {
+      return calls.cameraSubscribe(listener);
+    }
+
     resize() {
       calls.resize();
     }
@@ -62,12 +93,16 @@ describe("MolecularViewer Molstar adapter", () => {
         label: "Receptor",
         projection: { format: "mmcif", data: "protein data" },
         atomIds: [10, 11],
+        normalized: proteinStructure(),
+        settings: viewerSettings("cartoon"),
       },
       {
         entryId: "ligand",
         label: "Ligand",
         projection: { format: "sdf", data: "ligand data" },
         atomIds: [20],
+        normalized: { ...proteinStructure(), structure_type: "ligand" },
+        settings: viewerSettings(),
       },
     ];
     const viewer = createMolstarViewer();

@@ -693,3 +693,44 @@ Consequences:
   successful backend application, not a Mol* snapshot restore.
 - Measurement display values are always recalculated from current normalized
   coordinates; atom references, names, and visibility are the durable data.
+
+## D-023 - Mol* as a disposable renderer for complete viewer state
+
+Status: accepted
+
+Decision:
+
+Create Mol* structures with an empty representation preset, then build static
+components and representations exclusively from MolWeave `ViewerSettings`.
+Map public styles and color schemes at the adapter boundary. Rebuild disposable
+Mol* state when structure membership, display settings, or selection isolation
+changes, preserving and restoring the application camera around the rebuild.
+
+Render measurements and labels with Mol*'s structure measurement manager from
+canonical atom-reference loci. Track the created selection transforms and
+replace them whenever authoritative coordinates, durable measurements, or label
+settings change. Subscribe to Mol* camera changes only to project position,
+target, up, radius, and projection mode into `CameraState`.
+
+For entries at or above the 250,000-atom recommended limit, replace requested
+surfaces with line rendering and suppress dense atom/residue/chain labels while
+retaining structure labels and a visible reduced-detail notice.
+
+Rationale:
+
+The public builder and measurement APIs provide mature rendering and interaction
+without exposing plugin state to the rest of the application. Full rebuilds are
+acceptable for v0.1 setting changes if camera and selection remain stable, and
+they provide a clear cancellation boundary through generation counters.
+Proactively degrading expensive surfaces/labels avoids an unusable viewer on
+large structures.
+
+Consequences:
+
+- Multiple representations and components can coexist for every loaded entry.
+- Mol* internal refs, themes, snapshots, and loci never enter persistence or
+  React project state.
+- Viewer labels and measurements are regenerated after coordinate changes and
+  therefore remain synchronized with normalized state.
+- Surface requests remain durably recorded on large entries but display as a
+  documented reduced-detail fallback until the structure is below the limit.

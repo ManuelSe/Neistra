@@ -1,8 +1,13 @@
-import type { AtomReference, SelectionGranularity } from "../api/types";
+import type {
+  AtomReference,
+  CameraState,
+  SelectionGranularity,
+} from "../api/types";
 import type {
   MolecularViewer,
   ViewerSelectionEvent,
   ViewerStructure,
+  ViewerMeasurement,
 } from "./MolecularViewer";
 
 class LazyMolstarViewer implements MolecularViewer {
@@ -11,6 +16,7 @@ class LazyMolstarViewer implements MolecularViewer {
   private selection: AtomReference[] = [];
   private pickingGranularity: SelectionGranularity = "atom";
   private selectionListeners = new Set<(event: ViewerSelectionEvent) => void>();
+  private cameraListeners = new Set<(camera: CameraState) => void>();
   private engineUnsubscribers: (() => void)[] = [];
 
   async mount(target: HTMLElement): Promise<void> {
@@ -22,6 +28,11 @@ class LazyMolstarViewer implements MolecularViewer {
     this.engine.setSelection(this.selection);
     this.engineUnsubscribers = [...this.selectionListeners].map((listener) =>
       this.engine!.subscribeSelection(listener),
+    );
+    this.engineUnsubscribers.push(
+      ...[...this.cameraListeners].map((listener) =>
+        this.engine!.subscribeCamera(listener),
+      ),
     );
   }
 
@@ -37,6 +48,47 @@ class LazyMolstarViewer implements MolecularViewer {
   setPickingGranularity(granularity: SelectionGranularity): void {
     this.pickingGranularity = granularity;
     this.engine?.setPickingGranularity(granularity);
+  }
+
+  setMeasurements(measurements: ViewerMeasurement[]): Promise<void> {
+    return this.engine?.setMeasurements(measurements) ?? Promise.resolve();
+  }
+
+  setIsolation(atoms: AtomReference[] | null): Promise<void> {
+    return this.engine?.setIsolation(atoms) ?? Promise.resolve();
+  }
+
+  getCamera(): CameraState | null {
+    return this.engine?.getCamera() ?? null;
+  }
+
+  setCamera(camera: CameraState): void {
+    this.engine?.setCamera(camera);
+  }
+
+  setCameraMode(mode: CameraState["mode"]): void {
+    this.engine?.setCameraMode(mode);
+  }
+
+  zoom(factor: number): void {
+    this.engine?.zoom(factor);
+  }
+
+  focusSelection(): void {
+    this.engine?.focusSelection();
+  }
+
+  resetCamera(): void {
+    this.engine?.resetCamera();
+  }
+
+  subscribeCamera(listener: (camera: CameraState) => void): () => void {
+    this.cameraListeners.add(listener);
+    const engineUnsubscribe = this.engine?.subscribeCamera(listener);
+    return () => {
+      this.cameraListeners.delete(listener);
+      engineUnsubscribe?.();
+    };
   }
 
   subscribeSelection(listener: (event: ViewerSelectionEvent) => void): () => void {
@@ -57,6 +109,7 @@ class LazyMolstarViewer implements MolecularViewer {
     for (const unsubscribe of this.engineUnsubscribers) unsubscribe();
     this.engineUnsubscribers = [];
     this.selectionListeners.clear();
+    this.cameraListeners.clear();
     this.engine?.dispose();
     this.engine = undefined;
   }

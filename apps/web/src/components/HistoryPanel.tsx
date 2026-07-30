@@ -5,12 +5,13 @@ import { IconButton } from "./IconButton";
 interface HistoryPanelProps {
   project: Project | undefined;
   onCollapse?: () => void;
+  embedded?: boolean;
 }
 
-export function HistoryPanel({ project, onCollapse }: HistoryPanelProps) {
+export function HistoryPanel({ project, onCollapse, embedded = false }: HistoryPanelProps) {
   return (
     <section className="panel-content history-panel" aria-label="History">
-      <div className="panel-header compact-header">
+      {!embedded ? <div className="panel-header compact-header">
         <div className="history-title">
           <History size={16} />
           <h2>History</h2>
@@ -20,7 +21,7 @@ export function HistoryPanel({ project, onCollapse }: HistoryPanelProps) {
             <ChevronDown size={17} />
           </IconButton>
         ) : null}
-      </div>
+      </div> : null}
       <div className="history-content">
         {!project ? (
           <p className="empty-label">No project open</p>
@@ -51,4 +52,3 @@ export function HistoryPanel({ project, onCollapse }: HistoryPanelProps) {
     </section>
   );
 }
-

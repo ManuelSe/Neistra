@@ -12,6 +12,8 @@ import { useEffect, useMemo, useState, type MouseEvent } from "react";
 import { molecularApi } from "../api/client";
 import type {
   Project,
+  Measurement,
+  MeasurementKind,
   SavedSelection,
   Selection,
   SelectionGranularity,
@@ -27,6 +29,7 @@ import {
   type StructureMap,
 } from "../selection/selection";
 import { IconButton } from "./IconButton";
+import { MeasurementsPanel } from "./MeasurementsPanel";
 
 interface ProjectInspectorProps {
   project: Project | undefined;
@@ -53,7 +56,76 @@ interface ProjectInspectorProps {
   onSaveSelection: (name: string) => void;
   onLoadSelection: (saved: SavedSelection) => void;
   onDeleteSelection: (saved: SavedSelection) => void;
+  onCreateMeasurement?: (name: string, kind: MeasurementKind) => void;
+  onUpdateMeasurement?: (
+    measurement: Measurement,
+    name: string,
+    visible: boolean,
+  ) => void;
+  onDeleteMeasurement?: (measurement: Measurement) => void;
   onCollapse?: () => void;
+}
+
+function InspectPanel({
+  project,
+  selection,
+  structures,
+}: Pick<ProjectInspectorProps, "project" | "selection"> & {
+  structures: StructureMap;
+}) {
+  const reference = selection.atoms[0];
+  const entry = project?.entries.find((item) => item.id === reference?.structure_id);
+  const structure = reference ? structures.get(reference.structure_id) : undefined;
+  const atom = structure?.atoms.find((item) => item.id === reference?.atom_id);
+  const residue = structure?.residues.find((item) => item.id === atom?.residue_id);
+  const chain = structure?.chains.find((item) => item.id === residue?.chain_id);
+  if (!entry || !atom) {
+    return <p className="empty-label">Select an atom to inspect molecular properties.</p>;
+  }
+  const residueAtoms = structure?.atoms.filter((item) => item.residue_id === residue?.id) ?? [];
+  const chainResidueIds = new Set(
+    structure?.residues
+      .filter((item) => item.chain_id === chain?.id)
+      .map((item) => item.id) ?? [],
+  );
+  return (
+    <div className="inspect-panel">
+      <section>
+        <h3>Atom</h3>
+        <dl className="property-list">
+          <div><dt>Full name</dt><dd>{entry.name} / {atom.name}</dd></div>
+          <div><dt>Element</dt><dd>{atom.element}</dd></div>
+          <div><dt>Coordinates</dt><dd>{atom.coordinates.map((value) => value.toFixed(3)).join(", ")}</dd></div>
+          <div><dt>Residue</dt><dd>{residue ? `${residue.name} ${residue.author_number ?? residue.label_number ?? residue.id}` : "None"}</dd></div>
+          <div><dt>Chain</dt><dd>{chain?.name || "None"}</dd></div>
+          <div><dt>Formal charge</dt><dd>{atom.formal_charge ?? "Unknown"}</dd></div>
+          <div><dt>Atom index</dt><dd>{atom.id}</dd></div>
+        </dl>
+      </section>
+      {residue ? (
+        <section>
+          <h3>Residue</h3>
+          <dl className="property-list">
+            <div><dt>Name</dt><dd>{residue.name}</dd></div>
+            <div><dt>Number</dt><dd>{residue.author_number ?? residue.label_number ?? residue.id}</dd></div>
+            <div><dt>Component</dt><dd>{residue.component_type}</dd></div>
+            <div><dt>Atoms</dt><dd>{residueAtoms.length}</dd></div>
+          </dl>
+        </section>
+      ) : null}
+      {chain ? (
+        <section>
+          <h3>Chain</h3>
+          <dl className="property-list">
+            <div><dt>Name</dt><dd>{chain.name || "-"}</dd></div>
+            <div><dt>Entity</dt><dd>{chain.entity_type}</dd></div>
+            <div><dt>Residues</dt><dd>{chainResidueIds.size}</dd></div>
+            <div><dt>Atoms</dt><dd>{structure?.atoms.filter((item) => item.residue_id && chainResidueIds.has(item.residue_id)).length ?? 0}</dd></div>
+          </dl>
+        </section>
+      ) : null}
+    </div>
+  );
 }
 
 const residueCodes: Record<string, string> = {
@@ -485,7 +557,9 @@ function SequencePanel({
 
 export function ProjectInspector(props: ProjectInspectorProps) {
   const { project, selection, onCollapse } = props;
-  const [tab, setTab] = useState<"selection" | "sequence" | "details">("selection");
+  const [tab, setTab] = useState<
+    "selection" | "inspect" | "measurements" | "sequence" | "details"
+  >("selection");
   const relevantIds = useMemo(() => {
     const ids = new Set(
       project?.entries.filter((entry) => entry.visible).map((entry) => entry.id),
@@ -521,7 +595,17 @@ export function ProjectInspector(props: ProjectInspectorProps) {
       <div className="panel-header inspector-header">
         <div>
           <span className="panel-eyebrow">Inspector</span>
-          <h2>{tab === "selection" ? "Selection" : tab === "sequence" ? "Sequence" : "Project"}</h2>
+          <h2>
+            {tab === "selection"
+              ? "Selection"
+              : tab === "inspect"
+                ? "Inspect"
+                : tab === "measurements"
+                  ? "Measurements"
+                  : tab === "sequence"
+                    ? "Sequence"
+                    : "Project"}
+          </h2>
         </div>
         {onCollapse ? (
           <IconButton label="Collapse inspector" onClick={onCollapse}>
@@ -530,7 +614,7 @@ export function ProjectInspector(props: ProjectInspectorProps) {
         ) : null}
       </div>
       <div className="inspector-tabs" role="tablist" aria-label="Inspector views">
-        {(["selection", "sequence", "details"] as const).map((item) => (
+        {(["selection", "inspect", "measurements", "sequence", "details"] as const).map((item) => (
           <button
             type="button"
             role="tab"
@@ -548,6 +632,19 @@ export function ProjectInspector(props: ProjectInspectorProps) {
             {...props}
             structures={structures}
             busy={props.busy || !!props.selectionBusy}
+          />
+        ) : tab === "inspect" ? (
+          <InspectPanel project={project} selection={selection} structures={structures} />
+        ) : tab === "measurements" && project ? (
+          <MeasurementsPanel
+            project={project}
+            selection={selection}
+            structures={structures}
+            busy={props.busy}
+            onCreate={props.onCreateMeasurement ?? (() => undefined)}
+            onUpdate={props.onUpdateMeasurement ?? (() => undefined)}
+            onDelete={props.onDeleteMeasurement ?? (() => undefined)}
+            onSelectContact={(next) => props.onApplySelection(next, "replace")}
           />
         ) : tab === "sequence" ? (
           <SequencePanel

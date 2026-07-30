@@ -11,13 +11,17 @@ import {
 import { ApiError, molecularApi, projectApi } from "./api/client";
 import type {
   Entry,
+  CameraState,
+  Measurement,
+  MeasurementKind,
   Project,
   ProjectListItem,
   SavedSelection,
+  Scene,
   SelectionGranularity,
   SelectionMode,
 } from "./api/types";
-import { HistoryPanel } from "./components/HistoryPanel";
+import { LowerPanel } from "./components/LowerPanel";
 import { IconButton } from "./components/IconButton";
 import { ImportDialog } from "./components/ImportDialog";
 import { Modal } from "./components/Modal";
@@ -374,9 +378,68 @@ export default function App() {
         );
       }
     },
+    onCreateMeasurement: (
+      name: string,
+      kind: MeasurementKind,
+    ) => {
+      if (project) {
+        projectMutation.mutate(() =>
+          projectApi.createMeasurement(project, name, kind, selection.atoms),
+        );
+      }
+    },
+    onUpdateMeasurement: (
+      measurement: Measurement,
+      name: string,
+      visible: boolean,
+    ) => {
+      if (project) {
+        projectMutation.mutate(() =>
+          projectApi.updateMeasurement(
+            project,
+            measurement.id,
+            name,
+            visible,
+          ),
+        );
+      }
+    },
+    onDeleteMeasurement: (measurement: Measurement) => {
+      if (project) {
+        projectMutation.mutate(() =>
+          projectApi.deleteMeasurement(project, measurement.id),
+        );
+      }
+    },
   };
 
   const projects = projectsQuery.data ?? [];
+  const viewerActions = {
+    busy,
+    onUpdateSettings: async (
+      entryId: string,
+      settings: Entry["viewer_settings"],
+    ) => {
+      if (!project) return;
+      await projectMutation.mutateAsync(() =>
+        projectApi.updateViewerSettings(project, entryId, settings),
+      );
+    },
+    onCreateScene: async (name: string, camera: CameraState) => {
+      if (!project) return;
+      await projectMutation.mutateAsync(() =>
+        projectApi.createScene(project, name, camera, selection),
+      );
+    },
+    onApplyScene: async (scene: Scene) => {
+      if (!project) return;
+      await projectMutation.mutateAsync(() => projectApi.applyScene(project, scene));
+    },
+    onDeleteScene: async (scene: Scene) => {
+      if (!project) return;
+      await projectMutation.mutateAsync(() => projectApi.deleteScene(project, scene));
+    },
+  };
 
   return (
     <Tooltip.Provider delayDuration={350}>
@@ -457,6 +520,7 @@ export default function App() {
                   setProjectDialogOpen(true);
                 }}
                 onImport={() => setImportDialogOpen(true)}
+                {...viewerActions}
               />
               {mobilePanel ? (
                 <>
@@ -487,7 +551,11 @@ export default function App() {
                         }}
                       />
                     ) : (
-                      <HistoryPanel project={project} />
+                      <LowerPanel
+                        project={project}
+                        selection={selection}
+                        onSelection={replaceSelection}
+                      />
                     )}
                   </aside>
                 </>
@@ -547,6 +615,7 @@ export default function App() {
                         setProjectDialogOpen(true);
                       }}
                       onImport={() => setImportDialogOpen(true)}
+                      {...viewerActions}
                     />
                   </Panel>
                   <PanelResizeHandle className="resize-handle vertical" />
@@ -563,7 +632,7 @@ export default function App() {
                     {lowerCollapsed ? (
                       <div className="collapsed-history">
                         <HistoryIcon size={15} />
-                        <span>History</span>
+                        <span>Properties / History</span>
                         <IconButton
                           label="Expand history"
                           onClick={() => lowerRef.current?.expand()}
@@ -572,8 +641,10 @@ export default function App() {
                         </IconButton>
                       </div>
                     ) : (
-                      <HistoryPanel
+                      <LowerPanel
                         project={project}
+                        selection={selection}
+                        onSelection={replaceSelection}
                         onCollapse={() => lowerRef.current?.collapse()}
                       />
                     )}
