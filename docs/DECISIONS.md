@@ -425,3 +425,40 @@ Consequences:
 - RDKit may canonicalize resonance-equivalent MOL2 bond placement; fixture
   assertions compare chemical equivalence and retained SYBYL types rather than
   input array order.
+
+## D-016 - Validate imports before atomic publication and load structures lazily
+
+Status: accepted
+
+Decision:
+
+Read multipart files with byte-limit checks, then parse, normalize, and apply
+atom limits to the complete batch before publishing any artifact or recording
+the single multi-entry import command. A cancelled or failed preparation is
+discarded. The commit phase first rechecks the optimistic project revision, then
+publishes immutable original bytes and normalized snapshots in the same
+short-lived database transaction as the project command.
+
+Project responses expose entry counts, warnings, format, and artifact
+identifiers but not full normalized molecular payloads. A separate entry
+structure endpoint reads the normalized artifact on demand and returns both the
+authoritative typed structure and a disposable Mol* projection.
+
+Rationale:
+
+Multi-file import must not leave a partially changed project, and a stale
+project revision should not publish unreachable artifacts. Molecular payloads
+can be large, so including them in every project query would defeat the lazy
+viewer requirement and make ordinary metadata commands unnecessarily costly.
+
+Consequences:
+
+- One import is one reversible command even when an SDF creates multiple
+  entries.
+- Original artifacts are never rewritten by normalization or export.
+- Hidden entries require no molecular fetch and cannot consume viewer memory.
+- Mol* receives only generated PDBx/mmCIF or SDF projections and is never the
+  molecular authority.
+- Parsing currently runs synchronously after upload inside the local API
+  process. M2 limits bound this work; the M9 job runner remains the extension
+  point for long-running conversion workflows.

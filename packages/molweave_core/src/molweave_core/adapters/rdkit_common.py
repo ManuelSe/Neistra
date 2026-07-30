@@ -90,8 +90,7 @@ def mol_to_normalized(
             MolecularWarning(
                 code="missing_coordinates",
                 message=(
-                    "The source contains no coordinates; zero coordinates were "
-                    "retained explicitly."
+                    "The source contains no coordinates; zero coordinates were retained explicitly."
                 ),
                 operation="import",
                 field="coordinates",

@@ -3,6 +3,7 @@ from __future__ import annotations
 from datetime import datetime
 from typing import Any, Literal
 
+from molweave_core.molecular import MolecularWarning, NormalizedStructureV1
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 
@@ -60,7 +61,13 @@ class EntryRead(BaseModel):
     structure_type: StructureType
     original_filename: str | None
     source_format: str | None
-    normalized_data: dict[str, Any]
+    atom_count: int
+    bond_count: int
+    residue_count: int
+    conformer_count: int
+    warnings: list[MolecularWarning]
+    original_artifact_id: str | None
+    current_artifact_id: str | None
     visible: bool
     locked: bool
     user_metadata: dict[str, Any]
@@ -137,3 +144,49 @@ class TestEntryCreate(BaseModel):
 class ApiError(BaseModel):
     code: str
     message: str
+
+
+class FormatRead(BaseModel):
+    format: str
+    label: str
+    extensions: list[str]
+    media_types: list[str]
+    can_import: bool
+    can_export: bool
+    multi_record: bool
+
+
+class ImportRead(BaseModel):
+    project: ProjectRead
+    imported_entry_ids: list[str]
+    warnings: list[MolecularWarning]
+
+
+class ViewerProjection(BaseModel):
+    format: Literal["pdb", "mmcif", "sdf", "mol"]
+    data: str
+
+
+class StructureRead(BaseModel):
+    entry_id: str
+    structure: NormalizedStructureV1
+    viewer: ViewerProjection
+
+
+class ExportCreate(BaseModel):
+    format: Literal["pdb", "mmcif", "sdf", "mol", "mol2", "xyz", "smiles"]
+    acknowledge_losses: bool = False
+
+
+class ArtifactRead(BaseModel):
+    id: str
+    filename: str
+    media_type: str
+    sha256: str
+    size: int
+    download_url: str
+
+
+class ExportRead(BaseModel):
+    artifact: ArtifactRead
+    warnings: list[MolecularWarning]

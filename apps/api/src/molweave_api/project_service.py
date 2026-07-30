@@ -57,6 +57,11 @@ def _entry_state(entry: StructureEntry) -> dict[str, Any]:
         "original_filename": entry.original_filename,
         "source_format": entry.source_format,
         "normalized_data": deepcopy(entry.normalized_data),
+        "atom_count": entry.atom_count,
+        "bond_count": entry.bond_count,
+        "residue_count": entry.residue_count,
+        "conformer_count": entry.conformer_count,
+        "warnings": deepcopy(entry.warnings),
         "visible": entry.visible,
         "locked": entry.locked,
         "user_metadata": deepcopy(entry.user_metadata),
@@ -252,6 +257,27 @@ class ProjectService:
             [{"kind": "entry.create", "entry": duplicate}],
             [{"kind": "entry.delete", "entry_id": duplicate["id"]}],
             [entry.id, duplicate["id"]],
+        )
+
+    def import_entries(
+        self,
+        project_id: str,
+        expected_revision: int,
+        entry_states: list[dict[str, Any]],
+        file_count: int,
+    ) -> ProjectRead:
+        project = self._project(project_id)
+        self._check_revision(project, expected_revision)
+        if not entry_states:
+            raise InvalidProjectOperationError("An import must contain at least one structure")
+        entry_ids = [str(state["id"]) for state in entry_states]
+        return self._record(
+            project,
+            "entry.import",
+            f"Import {len(entry_states)} structures from {file_count} files",
+            [{"kind": "entry.create", "entry": state} for state in entry_states],
+            [{"kind": "entry.delete", "entry_id": entry_id} for entry_id in reversed(entry_ids)],
+            entry_ids,
         )
 
     def set_entry_value(
@@ -469,6 +495,11 @@ class ProjectService:
                         original_filename=state["original_filename"],
                         source_format=state["source_format"],
                         normalized_data=deepcopy(state["normalized_data"]),
+                        atom_count=state.get("atom_count", 0),
+                        bond_count=state.get("bond_count", 0),
+                        residue_count=state.get("residue_count", 0),
+                        conformer_count=state.get("conformer_count", 0),
+                        warnings=deepcopy(state.get("warnings", [])),
                         visible=state["visible"],
                         locked=state["locked"],
                         user_metadata=deepcopy(state["user_metadata"]),

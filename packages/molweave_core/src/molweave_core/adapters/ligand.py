@@ -218,8 +218,7 @@ class XyzAdapter:
                     InferenceRecord(
                         code="xyz_connectivity_inferred",
                         message=(
-                            "Connectivity was inferred from element covalent radii "
-                            "and distances."
+                            "Connectivity was inferred from element covalent radii and distances."
                         ),
                     )
                 )

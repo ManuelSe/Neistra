@@ -2,13 +2,34 @@ from __future__ import annotations
 
 from collections.abc import AsyncIterator, Callable
 from contextlib import asynccontextmanager
+from urllib.parse import quote
 
-from fastapi import APIRouter, Depends, FastAPI, HTTPException, status
+from fastapi import (
+    APIRouter,
+    Depends,
+    FastAPI,
+    File,
+    Form,
+    HTTPException,
+    Request,
+    Response,
+    UploadFile,
+    status,
+)
 from fastapi.middleware.cors import CORSMiddleware
+from molweave_core.adapters import AdapterError
 from sqlalchemy import text
 from sqlalchemy.orm import Session, sessionmaker
 
 from molweave_api.database import Base, create_database_engine, create_session_factory
+from molweave_api.import_export import (
+    ArtifactNotFoundError,
+    ImportExportService,
+    ImportLimitError,
+    LossAcknowledgementRequiredError,
+    StructureUnavailableError,
+    UploadPayload,
+)
 from molweave_api.project_service import (
     EntryNotFoundError,
     HistoryUnavailableError,
@@ -18,15 +39,21 @@ from molweave_api.project_service import (
     RevisionConflictError,
 )
 from molweave_api.schemas import (
+    ArtifactRead,
     EntryRevisionRequest,
     EntryToggle,
     EntryUpdate,
+    ExportCreate,
+    ExportRead,
+    FormatRead,
     GroupCreate,
+    ImportRead,
     ProjectCreate,
     ProjectListItem,
     ProjectRead,
     ProjectUpdate,
     RevisionRequest,
+    StructureRead,
     TestEntryCreate,
 )
 from molweave_api.settings import Settings
@@ -43,6 +70,15 @@ async def _session(factory: sessionmaker[Session]) -> AsyncIterator[Session]:
 
 def _service(session: Session) -> ProjectService:
     return ProjectService(session)
+
+
+def _download_response(artifact: ArtifactRead, data: bytes) -> Response:
+    filename = quote(artifact.filename, safe="")
+    return Response(
+        content=data,
+        media_type=artifact.media_type,
+        headers={"Content-Disposition": f"attachment; filename*=UTF-8''{filename}"},
+    )
 
 
 def create_app(settings: Settings | None = None) -> FastAPI:
@@ -85,6 +121,10 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     async def health(session: Session = Depends(session_dependency)) -> dict[str, str]:
         session.execute(text("SELECT 1"))
         return {"status": "ok"}
+
+    @router.get("/formats", response_model=list[FormatRead])
+    async def formats(session: Session = Depends(session_dependency)) -> list[FormatRead]:
+        return ImportExportService(session, app_settings).formats()
 
     @router.get("/projects", response_model=list[ProjectListItem])
     async def list_projects(
@@ -239,6 +279,120 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             )
         )
 
+    @router.post(
+        "/projects/{project_id}/imports",
+        response_model=ImportRead,
+        status_code=status.HTTP_201_CREATED,
+    )
+    async def import_structures(
+        project_id: str,
+        request: Request,
+        files: list[UploadFile] = File(...),
+        expected_revision: int = Form(..., ge=0),
+        generate_3d: bool = Form(True),
+        infer_bonds: bool = Form(True),
+        session: Session = Depends(session_dependency),
+    ) -> ImportRead:
+        uploads: list[UploadPayload] = []
+        aggregate_size = 0
+        for upload in files:
+            chunks: list[bytes] = []
+            file_size = 0
+            while chunk := await upload.read(1024 * 1024):
+                if await request.is_disconnected():
+                    raise _error(499, "import_cancelled", "Import was cancelled before commit.")
+                file_size += len(chunk)
+                aggregate_size += len(chunk)
+                if file_size > app_settings.max_structure_file_bytes:
+                    raise _error(
+                        413,
+                        "structure_file_too_large",
+                        (
+                            f"{upload.filename or 'structure'} exceeds the per-file limit "
+                            f"of {app_settings.max_structure_file_bytes} bytes."
+                        ),
+                    )
+                if aggregate_size > app_settings.max_upload_request_bytes:
+                    raise _error(
+                        413,
+                        "aggregate_upload_too_large",
+                        (
+                            "The upload exceeds the aggregate limit of "
+                            f"{app_settings.max_upload_request_bytes} bytes."
+                        ),
+                    )
+                chunks.append(chunk)
+            uploads.append(
+                UploadPayload(
+                    filename=upload.filename or "structure",
+                    data=b"".join(chunks),
+                    media_type=upload.content_type,
+                )
+            )
+        service = ImportExportService(session, app_settings)
+        prepared = _call(
+            lambda: service.prepare(
+                uploads,
+                generate_3d=generate_3d,
+                infer_bonds=infer_bonds,
+            )
+        )
+        if await request.is_disconnected():
+            raise _error(499, "import_cancelled", "Import was cancelled before commit.")
+        return _call(lambda: service.commit_import(project_id, expected_revision, prepared))
+
+    @router.get(
+        "/projects/{project_id}/entries/{entry_id}/structure",
+        response_model=StructureRead,
+    )
+    async def get_structure(
+        project_id: str,
+        entry_id: str,
+        session: Session = Depends(session_dependency),
+    ) -> StructureRead:
+        return _call(
+            lambda: ImportExportService(session, app_settings).structure(project_id, entry_id)
+        )
+
+    @router.get("/projects/{project_id}/entries/{entry_id}/original")
+    async def get_original(
+        project_id: str,
+        entry_id: str,
+        session: Session = Depends(session_dependency),
+    ) -> Response:
+        service = ImportExportService(session, app_settings)
+        artifact, data = _call(lambda: service.original(project_id, entry_id))
+        return _download_response(service.artifacts.response(artifact), data)
+
+    @router.post(
+        "/projects/{project_id}/entries/{entry_id}/exports",
+        response_model=ExportRead,
+        status_code=status.HTTP_201_CREATED,
+    )
+    async def export_structure(
+        project_id: str,
+        entry_id: str,
+        payload: ExportCreate,
+        session: Session = Depends(session_dependency),
+    ) -> ExportRead:
+        return _call(
+            lambda: ImportExportService(session, app_settings).export(
+                project_id,
+                entry_id,
+                payload.format,
+                acknowledge_losses=payload.acknowledge_losses,
+            )
+        )
+
+    @router.get("/artifacts/{artifact_id}")
+    async def get_artifact(
+        artifact_id: str,
+        session: Session = Depends(session_dependency),
+    ) -> Response:
+        service = ImportExportService(session, app_settings)
+        artifact, data = _call(lambda: service.artifact(artifact_id))
+        return _download_response(service.artifacts.response(artifact), data)
+
     app.include_router(router)
 
     if app_settings.enable_test_routes:
@@ -279,6 +433,38 @@ def _call[ResultT](operation: Callable[[], ResultT]) -> ResultT:
         raise _error(409, "history_unavailable", str(error)) from error
     except InvalidProjectOperationError as error:
         raise _error(422, "invalid_project_operation", str(error)) from error
+    except AdapterError as error:
+        detail: dict[str, object] = {
+            "code": error.code,
+            "message": error.message,
+            "filename": error.filename,
+            "operation": error.operation,
+        }
+        if error.record_index is not None:
+            detail["record_index"] = error.record_index
+        raise HTTPException(status_code=422, detail=detail) from error
+    except ImportLimitError as error:
+        detail = {"code": error.code, "message": error.message}
+        if error.filename is not None:
+            detail["filename"] = error.filename
+        raise HTTPException(status_code=413, detail=detail) from error
+    except LossAcknowledgementRequiredError as error:
+        raise HTTPException(
+            status_code=409,
+            detail={
+                "code": "export_loss_acknowledgement_required",
+                "message": str(error),
+                "warnings": [warning.model_dump(mode="json") for warning in error.warnings],
+            },
+        ) from error
+    except ArtifactNotFoundError as error:
+        raise _error(404, "artifact_not_found", f"Artifact {error} was not found") from error
+    except StructureUnavailableError as error:
+        raise _error(
+            409,
+            "structure_unavailable",
+            f"Entry {error} does not have molecular data",
+        ) from error
 
 
 app = create_app()

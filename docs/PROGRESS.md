@@ -4,7 +4,7 @@
 
 Milestone 2 - Format-to-viewer scientific slice
 
-Checkpoint 1: normalized molecular model and all format adapters verified.
+Checkpoint 2: atomic import/export and lazy molecular-data APIs verified.
 
 ## Completed work
 
@@ -70,6 +70,22 @@ Checkpoint 1: normalized molecular model and all format adapters verified.
 - Added small fixtures for every M2 format plus PDB models/alternate locations,
   PDB ligand connectivity, PDBx/mmCIF categories, Tripos and Corina MOL2
   typing, SDF records, XYZ inference, and stereochemical SMILES.
+- Added atomic multipart import for one or more files. Every upload is parsed,
+  normalized, checked against per-file, aggregate-byte, atom-warning, and
+  atom-hard limits before artifacts or entries are published.
+- Added immutable original and normalized-snapshot artifacts, molecular summary
+  fields on entries, and migration `0003` for existing databases and checkpoint
+  snapshots.
+- Added format capability discovery, lazy full-structure/viewer projection
+  retrieval, immutable original download, and individual export through every
+  adapter.
+- Added structured filename/operation/record-aware import errors and explicit
+  blocking export-loss acknowledgement.
+- Added one undoable multi-entry command per import, including multi-record SDF
+  behavior and durable undo/redo restoration.
+- Added integration coverage for successful multi-file import, every export,
+  lazy retrieval, original-byte retention, multi-record SDF, undo/redo,
+  warning/hard limits, cancellation before commit, and important failure states.
 
 ## Verification performed
 
@@ -115,15 +131,22 @@ Results:
   showed no API warning, clipping, overlap, or blank workspace.
 - M2 adapter checkpoint: Ruff passed, mypy passed for 10 core source files, and
   26 adapter/scientific tests passed.
+- M2 API checkpoint: Ruff passed; strict mypy passed for 19 API/core/test source
+  files; 41 adapter, scientific-fidelity, and import/export integration tests
+  passed.
+- Import/export integration verification covered malformed and unsupported
+  input, stale revision, oversized input, atom hard-limit rejection, blocking
+  export losses, and cancellation after parsing but before commit. Each failure
+  left project state unchanged.
 
 ## Known limitations
 
-- The M2 adapters are not yet connected to project import/export endpoints,
-  artifact records, or the browser.
-- Mol* is pinned but the `MolecularViewer` adapter and simultaneous display are
-  not implemented yet.
-- Upload progress, cancellation, warning/hard limits, lazy structure loading,
-  and original-byte retrieval remain for the next checkpoints.
+- Mol* is pinned but the `MolecularViewer` adapter and simultaneous browser
+  display are not implemented yet.
+- Upload progress/cancellation and import/export warning presentation are
+  implemented at the API boundary but not yet connected to visible controls.
+- The API cancellation test verifies the pre-commit service boundary. Browser
+  cancellation and disconnected-request behavior remain for the E2E checkpoint.
 - The API uses short synchronous SQLite transactions inside async route handlers.
   This is appropriate for local M1 workloads and remains behind the project
   service boundary.
@@ -134,6 +157,6 @@ None.
 
 ## Next action
 
-Add M2 persistence columns and artifact-backed normalized snapshots, then build
-atomic multi-file import, lazy structure retrieval, original download, and
-loss-acknowledged individual export APIs with integration tests.
+Build the typed `MolecularViewer`/Mol* adapter, lazy visible-entry loading, and
+real import/export dialogs with progress, cancellation, warnings, and
+simultaneous protein/ligand display.

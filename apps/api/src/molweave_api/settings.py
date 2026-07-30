@@ -12,6 +12,10 @@ class Settings:
     cors_origins: tuple[str, ...] = ("http://127.0.0.1:5173", "http://localhost:5173")
     auto_create_schema: bool = False
     enable_test_routes: bool = False
+    max_structure_file_bytes: int = 100 * 1024 * 1024
+    max_upload_request_bytes: int = 500 * 1024 * 1024
+    atom_warning_limit: int = 250_000
+    atom_hard_limit: int = 1_000_000
 
     @classmethod
     def from_env(cls) -> Settings:
@@ -25,4 +29,12 @@ class Settings:
             database_url=database_url,
             auto_create_schema=os.getenv("MOLWEAVE_AUTO_CREATE_SCHEMA") == "1",
             enable_test_routes=os.getenv("MOLWEAVE_ENABLE_TEST_ROUTES") == "1",
+            max_structure_file_bytes=int(
+                os.getenv("MOLWEAVE_MAX_STRUCTURE_FILE_BYTES", str(100 * 1024 * 1024))
+            ),
+            max_upload_request_bytes=int(
+                os.getenv("MOLWEAVE_MAX_UPLOAD_REQUEST_BYTES", str(500 * 1024 * 1024))
+            ),
+            atom_warning_limit=int(os.getenv("MOLWEAVE_ATOM_WARNING_LIMIT", "250000")),
+            atom_hard_limit=int(os.getenv("MOLWEAVE_ATOM_HARD_LIMIT", "1000000")),
         )
