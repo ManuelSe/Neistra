@@ -4,10 +4,10 @@
 
 Milestone 4 - Complete viewer, inspection, and measurements
 
-In progress. The complete scientific, persistence, viewer, inspection,
-measurement, contact, and scene slice is implemented. The exact M4 gate and all
-repository regressions pass. Only normal documented startup, responsive visual
-inspection, and the final completion record remain.
+Complete. The scientific, persistence, viewer, inspection, measurement,
+contact, and scene slice satisfies the M4 acceptance criteria. The exact M4
+gate, all repository regressions, migration validation, documented normal
+startup, and responsive browser inspection pass.
 
 ## Completed work
 
@@ -380,6 +380,13 @@ Results:
   files; all 77 Python tests passed; ESLint and TypeScript passed; all 20 Vitest
   tests passed; and the full Playwright matrix passed 12 workflows with 6
   intentional desktop-only mobile skips.
+- The normal database migrated from `0004` to `0005 (head)`. The documented API
+  and Vite commands started the current code on ports 8000 and 5173; `/health`
+  returned `{"status":"ok"}` and `/formats` returned all seven adapters.
+- Fresh normal-startup Chromium captures at 1440x900 and Pixel 7 dimensions
+  showed a nonblank responsive shell with readable controls and no clipping or
+  incoherent overlap. M4's real molecular view was separately verified by
+  nonblank canvas-pixel assertions in the complete representation workflow.
 
 ## Known limitations
 
@@ -410,6 +417,5 @@ None.
 
 ## Next action
 
-Migrate and start the normal local database with the documented commands,
-inspect fresh desktop and mobile renders, record the results, and mark M4
-complete.
+Begin Milestone 5 only after reviewing its coordinate-transform,
+superposition, history, and viewer-patch boundaries in `docs/PLAN.md`.
