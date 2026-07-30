@@ -229,6 +229,17 @@ recorded; scientific implementation is next.
   conformer, active-conformer patch semantics, deterministic Euler composition,
   configurable pivots, and strict protein correspondence rules for explicit
   selection and backbone superposition.
+- Added float64 rigid-transform reference logic with stable-atom validation,
+  X-then-Y-then-Z Euler composition, selected/entry centroid helpers, explicit
+  pivots, every-conformer updates, and active-atom coordinate reconciliation.
+- Added proper-rotation Kabsch fitting and protein superposition by explicit
+  identity-matched selections or deterministic backbone identities. Results
+  contain the fitted structure, rotation/translation, matched atom count, RMSD,
+  and inspectable correspondence identities.
+- Added focused scientific tests for selected and whole-entry transforms,
+  multi-conformer behavior, composition and pivots, exact fits, and rejection
+  of identity, finite-input, no-op, missing, duplicate, non-protein, unequal,
+  collinear, and reflection failures.
 
 ## Verification performed
 
@@ -398,6 +409,8 @@ Results:
 - M5 audit checkpoint: the worktree began clean at `664bf56`; the complete
   product, plan, progress, and decision documents were reread; coordinate,
   artifact, history, API, selection, and viewer source contracts were inspected.
+- M5 scientific checkpoint: all 15 transform/superposition tests passed; focused
+  Ruff passed; strict mypy passed for both new core modules.
 
 ## Known limitations
 
@@ -428,6 +441,6 @@ None.
 
 ## Next action
 
-Implement and verify the typed backend transform and Kabsch superposition
-reference functions, including finite-input, degenerate-geometry,
-correspondence, conformer, and numerical-tolerance tests.
+Add revisioned transform and superposition APIs that publish immutable
+normalized artifacts, return active-coordinate spans, preserve exact inverse
+state, reject locked/stale/invalid edits atomically, and patch undo/redo.
