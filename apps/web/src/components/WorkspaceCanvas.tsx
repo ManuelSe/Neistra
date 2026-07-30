@@ -1,9 +1,17 @@
 import { FolderPlus, Upload } from "lucide-react";
-import type { Project } from "../api/types";
+import type {
+  Project,
+  Selection,
+  SelectionGranularity,
+  SelectionMode,
+} from "../api/types";
 import { StructureViewer } from "./StructureViewer";
 
 interface WorkspaceCanvasProps {
   project: Project | undefined;
+  selection: Selection;
+  pickingGranularity: SelectionGranularity;
+  onViewerSelection: (selection: Selection, mode: SelectionMode) => void;
   loading: boolean;
   onCreate: () => void;
   onImport: () => void;
@@ -11,6 +19,9 @@ interface WorkspaceCanvasProps {
 
 export function WorkspaceCanvas({
   project,
+  selection,
+  pickingGranularity,
+  onViewerSelection,
   loading,
   onCreate,
   onImport,
@@ -57,7 +68,12 @@ export function WorkspaceCanvas({
           </button>
         </div>
       ) : (
-        <StructureViewer project={project} />
+        <StructureViewer
+          project={project}
+          selection={selection}
+          pickingGranularity={pickingGranularity}
+          onViewerSelection={onViewerSelection}
+        />
       )}
     </main>
   );

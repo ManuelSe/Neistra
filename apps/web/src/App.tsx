@@ -85,10 +85,12 @@ export default function App() {
   const [selectionBusy, setSelectionBusy] = useState(false);
   const {
     selection,
+    pickingGranularity,
     setProject: setSelectionProject,
     apply: applySelection,
     replace: replaceSelection,
     clear: clearSelection,
+    setPickingGranularity,
   } = useSelectionStore();
 
   const leftRef = useRef<ImperativePanelHandle>(null);
@@ -294,8 +296,10 @@ export default function App() {
 
   const inspectorSelectionProps = {
     selection,
+    pickingGranularity,
     selectionBusy,
     onApplySelection: applySelection,
+    onPickingGranularity: setPickingGranularity,
     onClearSelection: clearSelection,
     onExpandSelection: (granularity: SelectionGranularity) => {
       void runSelectionOperation(async () => {
@@ -444,6 +448,9 @@ export default function App() {
             <>
               <WorkspaceCanvas
                 project={project}
+                selection={selection}
+                pickingGranularity={pickingGranularity}
+                onViewerSelection={applySelection}
                 loading={projectQuery.isLoading}
                 onCreate={() => {
                   setCreateMode(true);
@@ -531,6 +538,9 @@ export default function App() {
                   <Panel defaultSize={verticalLayout[0]} minSize={45}>
                     <WorkspaceCanvas
                       project={project}
+                      selection={selection}
+                      pickingGranularity={pickingGranularity}
+                      onViewerSelection={applySelection}
                       loading={projectQuery.isLoading}
                       onCreate={() => {
                         setCreateMode(true);

@@ -4,8 +4,9 @@
 
 Milestone 3 - Project browser, selection, and sequence
 
-Checkpoint 2 complete: authoritative selection and synchronized browser,
-sequence, and inspector surfaces verified. Viewer synchronization remains.
+Checkpoint 3 complete: authoritative selection is synchronized bidirectionally
+through the project browser, sequence, inspector, and Mol* adapter. End-to-end
+browser verification and the final milestone gate remain.
 
 ## Completed work
 
@@ -156,6 +157,18 @@ sequence, and inspector surfaces verified. Viewer synchronization remains.
 - Added client coverage for the complete algebra and predicate matrix, spatial
   atom/residue behavior, project search/filter/sort/group interaction,
   replace/add/subtract entry selection, and sequence-to-summary synchronization.
+- Extended the viewer abstraction with application selection input, explicit
+  atom/residue/chain/structure picking granularity, and viewer-originated
+  selection events.
+- Added stable normalized atom-ID mapping in both directions across disposable
+  Mol* mmCIF/SDF projections. Programmatic highlighting and user click events
+  use separate Mol* channels to prevent synchronization feedback loops.
+- Added a functional viewer-pick granularity control and visible viewer
+  selection count. The lazy adapter preserves current selection and pick mode
+  while the Mol* chunk initializes.
+- Added component and adapter tests for programmatic viewer reflection,
+  viewer-originated callbacks, selection modes, lazy initialization, and
+  non-emission from programmatic updates.
 
 ## Verification performed
 
@@ -246,15 +259,18 @@ Results:
 - The production build passed and emitted `spatial.worker` as an independent
   0.75 KiB chunk; the initial application chunk remained 411.62 KiB and Mol*
   remained lazy.
+- M3 viewer checkpoint: ESLint and TypeScript passed; 13 focused selection,
+  browser, sequence, viewer-loading, and adapter tests passed; the production
+  build passed with a 413.47 KiB initial application chunk and lazy Mol* chunk.
 
 ## Known limitations
 
 - Mol* is necessarily a large on-demand dependency (about 963 KiB compressed).
   It is excluded from the initial application chunk and loaded only when a
   project contains structures.
-- Mol* still uses its M2 default representations. M3 viewer selection
-  synchronization is the next checkpoint; representation controls, labels,
-  measurements, and molecular editing remain scoped to later milestones.
+- Mol* still uses its M2 default representations. Representation controls,
+  labels, measurements, and molecular editing remain scoped to later
+  milestones.
 - Import preparation uses one short-lived child process per batch. This favors
   cancellation and native-library isolation over minimum process overhead.
 - The API uses short synchronous SQLite transactions inside async route handlers.
@@ -267,7 +283,6 @@ None.
 
 ## Next action
 
-Commit the verified browser/sequence/inspector checkpoint. Next, extend the
-`MolecularViewer` abstraction with application selection input and user-selection
-events, implement stable Mol* atom mapping, and verify loop-free synchronization
-from all four surfaces.
+Add the M3 synchronized-selection Playwright workflow, exercise successful and
+important failure paths in a real browser, repair issues found, then run the
+complete milestone and regression gates plus documented startup checks.

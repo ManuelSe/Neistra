@@ -3,7 +3,14 @@ import { cleanup, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import type { ReactNode } from "react";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { Project, StructureProjection } from "../api/types";
+import type {
+  AtomReference,
+  Project,
+  Selection,
+  SelectionGranularity,
+  SelectionMode,
+  StructureProjection,
+} from "../api/types";
 import { StructureViewer } from "../components/StructureViewer";
 import type {
   MolecularViewer,
@@ -101,6 +108,15 @@ class FakeViewer implements MolecularViewer {
   mounted = false;
   disposed = false;
   syncs: ViewerStructure[][] = [];
+  selections: AtomReference[][] = [];
+  granularities: SelectionGranularity[] = [];
+  listener:
+    | ((event: {
+        atoms: AtomReference[];
+        granularity: SelectionGranularity;
+        mode: SelectionMode;
+      }) => void)
+    | undefined;
 
   mount(): Promise<void> {
     this.mounted = true;
@@ -110,6 +126,21 @@ class FakeViewer implements MolecularViewer {
   syncStructures(structures: ViewerStructure[]): Promise<void> {
     this.syncs.push(structures);
     return Promise.resolve();
+  }
+
+  setSelection(atoms: AtomReference[]): void {
+    this.selections.push(atoms);
+  }
+
+  setPickingGranularity(granularity: SelectionGranularity): void {
+    this.granularities.push(granularity);
+  }
+
+  subscribeSelection(listener: NonNullable<FakeViewer["listener"]>): () => void {
+    this.listener = listener;
+    return () => {
+      this.listener = undefined;
+    };
   }
 
   resize(): void {}
@@ -153,7 +184,13 @@ describe("lazy structure loading", () => {
       defaultOptions: { queries: { retry: false } },
     });
     const { rerender, unmount } = render(
-      <StructureViewer project={project()} createViewer={createViewer} />,
+      <StructureViewer
+        project={project()}
+        selection={emptySelection}
+        pickingGranularity="atom"
+        onViewerSelection={() => undefined}
+        createViewer={createViewer}
+      />,
       { wrapper: wrapper(queryClient) },
     );
 
@@ -164,7 +201,13 @@ describe("lazy structure loading", () => {
     expect(requestUrl(fetchSpy.mock.calls[0][0])).toContain("/protein/structure");
 
     rerender(
-      <StructureViewer project={project(true, true)} createViewer={createViewer} />,
+      <StructureViewer
+        project={project(true, true)}
+        selection={emptySelection}
+        pickingGranularity="atom"
+        onViewerSelection={() => undefined}
+        createViewer={createViewer}
+      />,
     );
     await waitFor(() => {
       expect(fake.syncs.at(-1)?.map((item) => item.entryId)).toEqual([
@@ -175,7 +218,13 @@ describe("lazy structure loading", () => {
     expect(fetchSpy).toHaveBeenCalledTimes(2);
 
     rerender(
-      <StructureViewer project={project(false, false)} createViewer={createViewer} />,
+      <StructureViewer
+        project={project(false, false)}
+        selection={emptySelection}
+        pickingGranularity="atom"
+        onViewerSelection={() => undefined}
+        createViewer={createViewer}
+      />,
     );
     await waitFor(() => expect(fake.syncs.at(-1)).toEqual([]));
     expect(fetchSpy).toHaveBeenCalledTimes(2);
@@ -205,9 +254,16 @@ describe("lazy structure loading", () => {
     const queryClient = new QueryClient({
       defaultOptions: { queries: { retry: false } },
     });
-    render(<StructureViewer project={project()} createViewer={() => fake} />, {
-      wrapper: wrapper(queryClient),
-    });
+    render(
+      <StructureViewer
+        project={project()}
+        selection={emptySelection}
+        pickingGranularity="atom"
+        onViewerSelection={() => undefined}
+        createViewer={() => fake}
+      />,
+      { wrapper: wrapper(queryClient) },
+    );
 
     expect(await screen.findByRole("alert")).toHaveTextContent(
       "One or more structures could not be loaded.",
@@ -219,4 +275,69 @@ describe("lazy structure loading", () => {
     );
     expect(screen.queryByRole("alert")).not.toBeInTheDocument();
   });
+
+  it("reflects application selection and emits only explicit viewer picks", async () => {
+    const fake = new FakeViewer();
+    const onViewerSelection = vi.fn();
+    vi.spyOn(globalThis, "fetch").mockResolvedValue(
+      new Response(JSON.stringify(projection("protein")), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      }),
+    );
+    const queryClient = new QueryClient({
+      defaultOptions: { queries: { retry: false } },
+    });
+    const selected: Selection = {
+      schema_version: 1,
+      atoms: [{ structure_id: "protein", atom_id: 1 }],
+      granularity: "atom",
+      source: "sequence",
+    };
+    const { rerender } = render(
+      <StructureViewer
+        project={project()}
+        selection={selected}
+        pickingGranularity="residue"
+        onViewerSelection={onViewerSelection}
+        createViewer={() => fake}
+      />,
+      { wrapper: wrapper(queryClient) },
+    );
+
+    await waitFor(() => expect(fake.selections.at(-1)).toEqual(selected.atoms));
+    expect(fake.granularities.at(-1)).toBe("residue");
+    expect(onViewerSelection).not.toHaveBeenCalled();
+
+    fake.listener?.({
+      atoms: [{ structure_id: "protein", atom_id: 1 }],
+      granularity: "residue",
+      mode: "add",
+    });
+    expect(onViewerSelection).toHaveBeenCalledOnce();
+    expect(onViewerSelection).toHaveBeenCalledWith(
+      { ...selected, granularity: "residue", source: "viewer" },
+      "add",
+    );
+
+    rerender(
+      <StructureViewer
+        project={project()}
+        selection={{ ...selected, atoms: [] }}
+        pickingGranularity="chain"
+        onViewerSelection={onViewerSelection}
+        createViewer={() => fake}
+      />,
+    );
+    await waitFor(() => expect(fake.selections.at(-1)).toEqual([]));
+    expect(fake.granularities.at(-1)).toBe("chain");
+    expect(onViewerSelection).toHaveBeenCalledOnce();
+  });
 });
+
+const emptySelection: Selection = {
+  schema_version: 1,
+  atoms: [],
+  granularity: "atom",
+  source: "inspector",
+};

@@ -581,3 +581,41 @@ Consequences:
   TypeScript, while persistence validation remains backend-owned.
 - Worker failures are reported through the existing visible operation-error
   notice and do not change the current selection.
+
+## D-020 - Explicit atom identity mapping at the Mol* boundary
+
+Status: accepted
+
+Decision:
+
+Pass an ordered normalized atom-ID vector beside every disposable Mol* viewer
+projection. Mol* source atom indices are translated through that vector when a
+user picks a locus, and application atom references are translated back through
+the same vector when selection highlighting is applied. Map Mol*'s `element`
+picking level to MolWeave's public `atom` granularity at the adapter boundary.
+
+Listen only to Mol* click behavior for viewer-originated selection events.
+Programmatic application highlighting uses the interactivity selection manager
+and does not synthesize a click event. The lazy adapter buffers current
+selection and picking granularity until Mol* has loaded.
+
+Rationale:
+
+The normalized structure is the molecular authority, while mmCIF and SDF are
+generated display projections whose internal identifiers and indices are
+viewer details. The projection writers emit atoms in normalized order, so an
+explicit ordered identity vector preserves stable IDs across protein, ligand,
+multi-model, and reload workflows without making Mol* state authoritative.
+Separating user clicks from programmatic highlights provides a hard loop
+boundary for bidirectional synchronization.
+
+Consequences:
+
+- Browser, sequence, inspector, and viewer use the same canonical atom
+  references even though Mol* works with loci and unit indices.
+- Picking can operate at atom, residue, chain, or structure granularity while
+  application state remains an atom-reference set.
+- A future projection writer that reorders or filters atoms must also emit an
+  updated mapping; relying on source indices without that mapping is forbidden.
+- Symmetry copies map back to the same canonical atom references and are
+  deduplicated by the central selection algebra.

@@ -1,5 +1,9 @@
 import { create } from "zustand";
-import type { Selection, SelectionMode } from "../api/types";
+import type {
+  Selection,
+  SelectionGranularity,
+  SelectionMode,
+} from "../api/types";
 import {
   combineSelection,
   emptySelection,
@@ -8,7 +12,9 @@ import {
 interface SelectionState {
   projectId: string | null;
   selection: Selection;
+  pickingGranularity: SelectionGranularity;
   setProject: (projectId: string | null) => void;
+  setPickingGranularity: (granularity: SelectionGranularity) => void;
   apply: (operand: Selection, mode?: SelectionMode) => void;
   replace: (selection: Selection) => void;
   clear: () => void;
@@ -17,6 +23,7 @@ interface SelectionState {
 export const useSelectionStore = create<SelectionState>((set) => ({
   projectId: null,
   selection: emptySelection(),
+  pickingGranularity: "atom",
   setProject: (projectId) =>
     set((state) =>
       state.projectId === projectId
@@ -28,5 +35,6 @@ export const useSelectionStore = create<SelectionState>((set) => ({
       selection: combineSelection(state.selection, operand, mode),
     })),
   replace: (selection) => set({ selection }),
+  setPickingGranularity: (pickingGranularity) => set({ pickingGranularity }),
   clear: () => set({ selection: emptySelection() }),
 }));

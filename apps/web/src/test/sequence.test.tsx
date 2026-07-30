@@ -16,10 +16,14 @@ function wrapper(client: QueryClient) {
 
 function Harness() {
   const [selection, setSelection] = useState<Selection>(emptySelection());
+  const [pickingGranularity, setPickingGranularity] =
+    useState<Selection["granularity"]>("atom");
   return (
     <ProjectInspector
       project={molecularProject()}
       selection={selection}
+      pickingGranularity={pickingGranularity}
+      onPickingGranularity={setPickingGranularity}
       busy={false}
       onApply={() => undefined}
       onApplySelection={(operand, mode: SelectionMode) =>

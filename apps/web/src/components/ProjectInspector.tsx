@@ -31,10 +31,12 @@ import { IconButton } from "./IconButton";
 interface ProjectInspectorProps {
   project: Project | undefined;
   selection: Selection;
+  pickingGranularity: SelectionGranularity;
   busy: boolean;
   selectionBusy?: boolean;
   onApply: (name: string, description: string | null) => void;
   onApplySelection: (selection: Selection, mode: SelectionMode) => void;
+  onPickingGranularity: (granularity: SelectionGranularity) => void;
   onClearSelection: () => void;
   onExpandSelection: (granularity: SelectionGranularity) => void;
   onInvertSelection: () => void;
@@ -152,9 +154,11 @@ function DetailsPanel({
 function SelectionPanel({
   project,
   selection,
+  pickingGranularity,
   structures,
   busy,
   onClearSelection,
+  onPickingGranularity,
   onExpandSelection,
   onInvertSelection,
   onPredicateSelection,
@@ -166,7 +170,9 @@ function SelectionPanel({
   ProjectInspectorProps,
   | "project"
   | "selection"
+  | "pickingGranularity"
   | "onClearSelection"
+  | "onPickingGranularity"
   | "onExpandSelection"
   | "onInvertSelection"
   | "onPredicateSelection"
@@ -216,6 +222,23 @@ function SelectionPanel({
               className={mode === item ? "active" : ""}
               aria-pressed={mode === item}
               onClick={() => setMode(item)}
+            >
+              {item}
+            </button>
+          ))}
+        </div>
+      </fieldset>
+
+      <fieldset className="selection-section">
+        <legend>Viewer pick</legend>
+        <div className="segmented-control four">
+          {(["atom", "residue", "chain", "structure"] as const).map((item) => (
+            <button
+              type="button"
+              key={item}
+              className={pickingGranularity === item ? "active" : ""}
+              aria-pressed={pickingGranularity === item}
+              onClick={() => onPickingGranularity(item)}
             >
               {item}
             </button>

@@ -838,6 +838,15 @@ select:focus-visible,
   grid-template-columns: repeat(3, 1fr);
 }
 
+.segmented-control.four {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+}
+
+.segmented-control.four button {
+  border: 1px solid var(--border-strong);
+}
+
 .segmented-control button + button {
   border-left: 0;
 }

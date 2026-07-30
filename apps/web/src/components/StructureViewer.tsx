@@ -4,6 +4,11 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { molecularApi } from "../api/client";
 import type { Project } from "../api/types";
 import type {
+  Selection,
+  SelectionGranularity,
+  SelectionMode,
+} from "../api/types";
+import type {
   MolecularViewer,
   MolecularViewerFactory,
   ViewerStructure,
@@ -12,15 +17,22 @@ import { createMolstarViewer } from "../viewer/MolstarViewer";
 
 interface StructureViewerProps {
   project: Project;
+  selection: Selection;
+  pickingGranularity: SelectionGranularity;
+  onViewerSelection: (selection: Selection, mode: SelectionMode) => void;
   createViewer?: MolecularViewerFactory;
 }
 
 export function StructureViewer({
   project,
+  selection,
+  pickingGranularity,
+  onViewerSelection,
   createViewer = createMolstarViewer,
 }: StructureViewerProps) {
   const targetRef = useRef<HTMLDivElement>(null);
   const viewerRef = useRef<MolecularViewer | undefined>(undefined);
+  const onViewerSelectionRef = useRef(onViewerSelection);
   const [viewerReady, setViewerReady] = useState(false);
   const [viewerError, setViewerError] = useState<string | null>(null);
   const visibleEntries = useMemo(
@@ -37,6 +49,10 @@ export function StructureViewer({
   });
 
   useEffect(() => {
+    onViewerSelectionRef.current = onViewerSelection;
+  }, [onViewerSelection]);
+
+  useEffect(() => {
     const target = targetRef.current;
     if (!target) return;
     const viewer = createViewer();
@@ -45,7 +61,9 @@ export function StructureViewer({
     void viewer
       .mount(target)
       .then(() => {
-        if (active) setViewerReady(true);
+        if (active) {
+          setViewerReady(true);
+        }
       })
       .catch((error: unknown) => {
         if (active) {
@@ -56,8 +74,20 @@ export function StructureViewer({
       });
     const observer = new ResizeObserver(() => viewer.resize());
     observer.observe(target);
+    const unsubscribe = viewer.subscribeSelection((event) => {
+      onViewerSelectionRef.current(
+        {
+          schema_version: 1,
+          atoms: event.atoms,
+          granularity: event.granularity,
+          source: "viewer",
+        },
+        event.mode,
+      );
+    });
     return () => {
       active = false;
+      unsubscribe();
       observer.disconnect();
       viewer.dispose();
       viewerRef.current = undefined;
@@ -73,6 +103,7 @@ export function StructureViewer({
                 entryId: visibleEntries[index].id,
                 label: visibleEntries[index].name,
                 projection: query.data.viewer,
+                atomIds: query.data.structure.atoms.map((atom) => atom.id),
               },
             ]
           : [],
@@ -92,6 +123,15 @@ export function StructureViewer({
       );
   }, [structureQueries, syncKey, viewerReady, viewerStructures]);
 
+  useEffect(() => {
+    if (!viewerReady) return;
+    viewerRef.current?.setSelection(selection.atoms);
+  }, [selection.atoms, viewerReady, syncKey]);
+
+  useEffect(() => {
+    viewerRef.current?.setPickingGranularity(pickingGranularity);
+  }, [pickingGranularity]);
+
   const loading =
     (!viewerReady && !viewerError) || structureQueries.some((query) => query.isPending);
   const failedQueries = structureQueries.filter((query) => query.isError);
@@ -109,6 +149,7 @@ export function StructureViewer({
         <span>
           {visibleEntries.length} visible
           {viewerStructures.length > 0 ? ` / ${viewerStructures.length} loaded` : ""}
+          {` / ${selection.atoms.length} selected`}
         </span>
         {warningCount > 0 ? (
           <span className="viewer-warning">
