@@ -619,3 +619,36 @@ Consequences:
   updated mapping; relying on source indices without that mapping is forbidden.
 - Symmetry copies map back to the same canonical atom references and are
   deduplicated by the central selection algebra.
+
+## D-021 - Reference geometry and indexed contact semantics
+
+Status: accepted
+
+Decision:
+
+Compute distance, angle, and signed dihedral values in `molweave_core` from
+authoritative active-conformer coordinates. Use the RDKit-compatible signed
+dihedral convention in the range `[-180, 180]`, reject coincident or collinear
+geometry where the requested value is undefined, and keep measurement atom
+references separate from cached display values.
+
+Detect close contacts with SciPy `cKDTree` over one normalized structure's
+active conformer. Exclude explicitly bonded atom pairs, require positive finite
+cutoffs, sort results deterministically, and do not infer periodic images or
+cross-structure coordinate relationships.
+
+Rationale:
+
+Measurement values must remain reproducible independently of Mol* and must
+update when authoritative coordinates change. A tested library spatial index
+provides the required sub-quadratic neighbor search without introducing a
+second molecular-state model. Excluding explicit bonds makes the result useful
+as nonbonded close-contact inspection rather than a bond-length listing.
+
+Consequences:
+
+- Mol* renders measurement loci and labels but never supplies persisted values.
+- Measurement API responses calculate current values from atom references.
+- Contact results are transient analysis output and are not project commands.
+- Cross-structure contacts require an explicit shared-frame contract and are
+  deferred; periodic boundary handling is also deferred.

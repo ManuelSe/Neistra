@@ -2,11 +2,11 @@
 
 ## Current milestone
 
-Milestone 3 - Project browser, selection, and sequence
+Milestone 4 - Complete viewer, inspection, and measurements
 
-Complete. All acceptance criteria, exact milestone commands, full lint/type/
-unit regressions, production build, normal startup, and desktop/mobile browser
-verification pass.
+In progress. The reference measurement and close-contact domain checkpoint is
+complete. Durable viewer settings, measurements, scenes, viewer controls,
+inspection UI, and browser workflows remain.
 
 ## Completed work
 
@@ -175,6 +175,12 @@ verification pass.
   loop-free state, named-selection save/load across reload, duplicate-name
   rejection, search empty state, entry deletion, transient-reference pruning,
   and a visible durable saved-selection warning.
+- Added backend reference geometry for distance, angle, and signed dihedral
+  measurements, including finite-coordinate and degenerate-geometry validation.
+- Added deterministic close-contact detection using SciPy `cKDTree`, active
+  conformer coordinates, configurable distance bounds, and bonded-pair
+  exclusion.
+- Added SciPy 1.18 to the locked project-local environment.
 
 ## Verification performed
 
@@ -290,6 +296,8 @@ Results:
 - Fresh normal-startup Chromium captures at 1440x900 and Pixel 7 dimensions
   showed a nonblank responsive shell with readable controls and no clipping or
   incoherent overlap.
+- M4 scientific checkpoint: all 8 focused measurement/contact tests passed;
+  targeted Ruff and strict mypy checks passed.
 
 ## Known limitations
 
@@ -310,6 +318,9 @@ Results:
 - Cross-structure distance selection assumes entries already share a meaningful
   Cartesian frame. It does not apply alignment, periodic boundaries, unit-cell
   transforms, or minimum-image rules.
+- M4 close-contact detection currently operates within one normalized
+  structure. Cross-structure contacts and periodic boundaries are outside the
+  v0.1 requirement.
 
 ## Blockers
 
@@ -317,6 +328,6 @@ None.
 
 ## Next action
 
-Begin Milestone 4 only after reviewing its viewer, inspection, and measurement
-scope. Do not extend M3 selection state with representation or measurement
-ownership.
+Add migration `0005`, typed API contracts, and command-bus persistence for
+viewer settings, measurements, and named scenes, then verify undo/redo and
+checkpoint behavior.
