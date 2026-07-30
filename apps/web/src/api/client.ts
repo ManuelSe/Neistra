@@ -6,6 +6,7 @@ import type {
   MolecularWarning,
   Project,
   ProjectListItem,
+  Selection,
   StructureProjection,
 } from "./types";
 
@@ -144,6 +145,20 @@ export const projectApi = {
         entry_ids: entryIds,
       }),
     }),
+  saveSelection: (project: Project, name: string, selection: Selection) =>
+    request<Project>(`/api/v1/projects/${project.id}/selections`, {
+      method: "POST",
+      body: JSON.stringify({
+        expected_revision: project.revision,
+        name,
+        selection,
+      }),
+    }),
+  deleteSelection: (project: Project, selectionId: string) =>
+    request<Project>(
+      `/api/v1/projects/${project.id}/selections/${selectionId}?expected_revision=${project.revision}`,
+      { method: "DELETE" },
+    ),
 };
 
 export interface ImportUpload {

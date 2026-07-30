@@ -4,8 +4,8 @@
 
 Milestone 3 - Project browser, selection, and sequence
 
-Checkpoint 1 complete: authoritative selection domain and durable named
-selection commands verified.
+Checkpoint 2 complete: authoritative selection and synchronized browser,
+sequence, and inspector surfaces verified. Viewer synchronization remains.
 
 ## Completed work
 
@@ -133,6 +133,29 @@ selection commands verified.
 - Added backend coverage for algebra, every predicate, expansions, spatial
   behavior, restart persistence, undo/redo, duplicate and invalid requests,
   atomic failure, deletion reconciliation, and warning restoration.
+- Added a non-persisted central Zustand selection store that resets at the
+  project boundary and retains only canonical `SelectionV1` session state.
+- Added TypeScript selection algebra for replace/add/subtract/clear, invert,
+  residue/chain/structure expansion, all required molecular predicates, and
+  selection summaries using normalized molecular records.
+- Completed the project browser with search, structure-type filter, name/type/
+  atom-count/modified sorting, collapsible and selectable groups, selected-row
+  state, and modifier-driven entry multi-selection.
+- Reworked the inspector into functional Selection, Sequence, and Project tabs.
+  Selection includes a visible atom/residue/chain/structure summary, operation
+  modes, clear/invert/expand controls, all required predicate queries,
+  atom/residue distance operations, and durable named-selection save/load/delete
+  controls with warning display.
+- Added a normalized-residue protein sequence view with chain and residue
+  selection. Selected residues are derived from the common atom-reference set,
+  so sequence-to-inspector and inspector-to-sequence state stays bidirectional.
+- Added a module Web Worker for distance calculations. The production build
+  emits it as an independent worker chunk; the main thread only sends a
+  normalized coordinate/reference projection and receives stable atom
+  references.
+- Added client coverage for the complete algebra and predicate matrix, spatial
+  atom/residue behavior, project search/filter/sort/group interaction,
+  replace/add/subtract entry selection, and sequence-to-summary synchronization.
 
 ## Verification performed
 
@@ -218,6 +241,11 @@ Results:
   source files; the complete 64-test Python suite passed.
 - A fresh temporary database migrated `0001 -> 0002 -> 0003 -> 0004`, reported
   `0004 (head)`, downgraded to `0003`, and upgraded to `0004` again.
+- M3 client checkpoint: ESLint and TypeScript passed; all 12 component/domain
+  tests passed under the exact `selection project-browser sequence` gate.
+- The production build passed and emitted `spatial.worker` as an independent
+  0.75 KiB chunk; the initial application chunk remained 411.62 KiB and Mol*
+  remained lazy.
 
 ## Known limitations
 
@@ -239,6 +267,7 @@ None.
 
 ## Next action
 
-Commit the verified backend checkpoint. Next, implement the central browser
-selection store, search/sort/filter/multi-selection, sequence and inspector
-surfaces, saved selection controls, and the spatial Web Worker.
+Commit the verified browser/sequence/inspector checkpoint. Next, extend the
+`MolecularViewer` abstraction with application selection input and user-selection
+events, implement stable Mol* atom mapping, and verify loop-free synchronization
+from all four surfaces.

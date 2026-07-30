@@ -8,8 +8,15 @@ import {
   PanelResizeHandle,
   type ImperativePanelHandle,
 } from "react-resizable-panels";
-import { ApiError, projectApi } from "./api/client";
-import type { Entry, Project, ProjectListItem } from "./api/types";
+import { ApiError, molecularApi, projectApi } from "./api/client";
+import type {
+  Entry,
+  Project,
+  ProjectListItem,
+  SavedSelection,
+  SelectionGranularity,
+  SelectionMode,
+} from "./api/types";
 import { HistoryPanel } from "./components/HistoryPanel";
 import { IconButton } from "./components/IconButton";
 import { ImportDialog } from "./components/ImportDialog";
@@ -20,6 +27,18 @@ import { ProjectInspector } from "./components/ProjectInspector";
 import { TopBar } from "./components/TopBar";
 import { WorkspaceCanvas } from "./components/WorkspaceCanvas";
 import { useMediaQuery } from "./hooks/useMediaQuery";
+import {
+  canonicalSelection,
+  expandSelection,
+  invertSelection,
+  predicateSelection,
+  selectedEntryIds,
+  structureSelection,
+  type PredicateField,
+  type StructureMap,
+} from "./selection/selection";
+import { spatialSelectionInWorker } from "./selection/spatialClient";
+import { useSelectionStore } from "./store/selection";
 import { useWorkspaceStore } from "./store/workspace";
 
 type EntryDialog = { mode: "rename" | "group" | "delete"; entry: Entry } | null;
@@ -63,6 +82,14 @@ export default function App() {
   const [groupName, setGroupName] = useState("");
   const [notice, setNotice] = useState<{ kind: "success" | "error"; text: string } | null>(null);
   const [editedThisSession, setEditedThisSession] = useState(false);
+  const [selectionBusy, setSelectionBusy] = useState(false);
+  const {
+    selection,
+    setProject: setSelectionProject,
+    apply: applySelection,
+    replace: replaceSelection,
+    clear: clearSelection,
+  } = useSelectionStore();
 
   const leftRef = useRef<ImperativePanelHandle>(null);
   const rightRef = useRef<ImperativePanelHandle>(null);
@@ -80,6 +107,24 @@ export default function App() {
     retry: false,
   });
   const project = projectQuery.data;
+
+  useEffect(() => {
+    setSelectionProject(project?.id ?? null);
+  }, [project?.id, setSelectionProject]);
+
+  useEffect(() => {
+    if (!project || selection.atoms.length === 0) return;
+    const entries = new Map(project.entries.map((entry) => [entry.id, entry]));
+    const valid = selection.atoms.filter((reference) => {
+      const entry = entries.get(reference.structure_id);
+      return entry !== undefined && reference.atom_id <= entry.atom_count;
+    });
+    if (valid.length !== selection.atoms.length) {
+      replaceSelection(
+        canonicalSelection(valid, selection.granularity, selection.source),
+      );
+    }
+  }, [project, replaceSelection, selection]);
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
@@ -194,6 +239,139 @@ export default function App() {
     [project, projectMutation],
   );
 
+  const loadStructures = async (entryIds: Iterable<string>): Promise<StructureMap> => {
+    if (!project) return new Map();
+    const requested = [...new Set(entryIds)];
+    const loaded = await Promise.all(
+      requested.map(async (entryId) => {
+        const entry = project.entries.find((item) => item.id === entryId);
+        if (!entry?.current_artifact_id) return null;
+        const result = await queryClient.fetchQuery({
+          queryKey: ["structure", project.id, entry.id, entry.current_artifact_id],
+          queryFn: () => molecularApi.structure(project.id, entry.id),
+          staleTime: Number.POSITIVE_INFINITY,
+        });
+        return [entry.id, result.structure] as const;
+      }),
+    );
+    return new Map(loaded.filter((item): item is NonNullable<typeof item> => item !== null));
+  };
+
+  const runSelectionOperation = async (operation: () => Promise<void>) => {
+    setSelectionBusy(true);
+    try {
+      await operation();
+    } catch (error) {
+      setNotice({ kind: "error", text: errorMessage(error) });
+    } finally {
+      setSelectionBusy(false);
+    }
+  };
+
+  const selectEntries = (entries: Entry[], mode: SelectionMode) => {
+    void runSelectionOperation(async () => {
+      const structures = await loadStructures(entries.map((entry) => entry.id));
+      const operand = canonicalSelection(
+        entries.flatMap((entry) => {
+          const structure = structures.get(entry.id);
+          return structure
+            ? structureSelection(entry.id, structure, "project").atoms
+            : [];
+        }),
+        "structure",
+        "project",
+      );
+      applySelection(operand, mode);
+    });
+  };
+
+  const inspectAllStructures = () =>
+    loadStructures(
+      project?.entries
+        .filter((entry) => entry.current_artifact_id)
+        .map((entry) => entry.id) ?? [],
+    );
+
+  const inspectorSelectionProps = {
+    selection,
+    selectionBusy,
+    onApplySelection: applySelection,
+    onClearSelection: clearSelection,
+    onExpandSelection: (granularity: SelectionGranularity) => {
+      void runSelectionOperation(async () => {
+        const structures = await loadStructures(selectedEntryIds(selection));
+        replaceSelection(expandSelection(selection, structures, granularity));
+      });
+    },
+    onInvertSelection: () => {
+      void runSelectionOperation(async () => {
+        replaceSelection(invertSelection(selection, await inspectAllStructures()));
+      });
+    },
+    onPredicateSelection: (
+      field: PredicateField,
+      value: string,
+      mode: SelectionMode,
+    ) => {
+      void runSelectionOperation(async () => {
+        applySelection(
+          predicateSelection(await inspectAllStructures(), field, value),
+          mode,
+        );
+      });
+    },
+    onSpatialSelection: (
+      distance: number,
+      granularity: "atom" | "residue",
+      mode: SelectionMode,
+    ) => {
+      void runSelectionOperation(async () => {
+        const structures = await inspectAllStructures();
+        const atoms = [...structures].flatMap(([structureId, structure]) =>
+          structure.atoms.map((atom) => ({
+            structureId,
+            atomId: atom.id,
+            residueId: atom.residue_id,
+            coordinates: atom.coordinates,
+          })),
+        );
+        const references = await spatialSelectionInWorker(
+          atoms,
+          selection.atoms,
+          distance,
+          granularity,
+        );
+        applySelection(
+          canonicalSelection(references, granularity, "inspector"),
+          mode,
+        );
+      });
+    },
+    onSaveSelection: (name: string) => {
+      if (project) {
+        projectMutation.mutate(() =>
+          projectApi.saveSelection(project, name, selection),
+        );
+      }
+    },
+    onLoadSelection: (saved: SavedSelection) => {
+      replaceSelection(
+        canonicalSelection(
+          saved.atom_references,
+          saved.granularity,
+          "saved",
+        ),
+      );
+    },
+    onDeleteSelection: (saved: SavedSelection) => {
+      if (project) {
+        projectMutation.mutate(() =>
+          projectApi.deleteSelection(project, saved.id),
+        );
+      }
+    },
+  };
+
   const projects = projectsQuery.data ?? [];
 
   return (
@@ -283,11 +461,17 @@ export default function App() {
                   />
                   <aside className={`mobile-panel ${mobilePanel}`}>
                     {mobilePanel === "projects" ? (
-                      <ProjectBrowser project={project} {...entryActions} />
+                      <ProjectBrowser
+                        project={project}
+                        selectedEntryIds={selectedEntryIds(selection)}
+                        onSelectEntries={selectEntries}
+                        {...entryActions}
+                      />
                     ) : mobilePanel === "inspector" ? (
                       <ProjectInspector
                         project={project}
                         busy={busy}
+                        {...inspectorSelectionProps}
                         onApply={(name, description) => {
                           if (project)
                             projectMutation.mutate(() =>
@@ -330,6 +514,8 @@ export default function App() {
                 ) : (
                   <ProjectBrowser
                     project={project}
+                    selectedEntryIds={selectedEntryIds(selection)}
+                    onSelectEntries={selectEntries}
                     onCollapse={() => leftRef.current?.collapse()}
                     {...entryActions}
                   />
@@ -408,6 +594,7 @@ export default function App() {
                   <ProjectInspector
                     project={project}
                     busy={busy}
+                    {...inspectorSelectionProps}
                     onCollapse={() => rightRef.current?.collapse()}
                     onApply={(name, description) => {
                       if (project)

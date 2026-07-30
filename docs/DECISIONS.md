@@ -546,3 +546,38 @@ Consequences:
 - M3 validates imported contiguous atom IDs using entry summaries. Future
   topology edits that create ID gaps must validate and reconcile against the
   authoritative current normalized artifact in their edit transaction.
+
+## D-019 - Transient selection store and worker projection
+
+Status: accepted
+
+Decision:
+
+Keep the current unsaved `SelectionV1` in a dedicated non-persisted Zustand
+store and reset it whenever the active project changes. TanStack Query continues
+to own normalized molecular structures. Selection operations explicitly request
+only the structures they need through that cache; selecting a hidden entry or
+running a project-wide predicate/invert/distance operation is an intentional
+on-demand load.
+
+Run spatial selection in a module Web Worker using a minimal projection of atom
+reference, residue ID, and coordinates. The worker returns canonical atom
+references and never receives or owns project, viewer, or command state.
+
+Rationale:
+
+Unsaved selection is session state and must update synchronously across UI
+surfaces without becoming durable project state. Normalized structures remain
+authoritative server data and should not be duplicated into Zustand. Distance
+queries can be quadratic in seed and candidate count, so moving them off the
+main thread is necessary before ordinary protein-scale use.
+
+Consequences:
+
+- Reload clears only the unsaved current selection; named selections reload from
+  the project API.
+- Hidden structures stay lazy until a user action explicitly includes them.
+- The same pure selection functions are independently tested in Python and
+  TypeScript, while persistence validation remains backend-owned.
+- Worker failures are reported through the existing visible operation-error
+  notice and do not change the current selection.

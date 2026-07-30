@@ -42,6 +42,32 @@ export interface EntryGroup {
   modified_at: string;
 }
 
+export type SelectionGranularity = "atom" | "residue" | "chain" | "structure";
+export type SelectionSource = "viewer" | "project" | "sequence" | "inspector" | "saved";
+export type SelectionMode = "replace" | "add" | "subtract";
+
+export interface AtomReference {
+  structure_id: string;
+  atom_id: number;
+}
+
+export interface Selection {
+  schema_version: 1;
+  atoms: AtomReference[];
+  granularity: SelectionGranularity;
+  source: SelectionSource;
+}
+
+export interface SavedSelection {
+  id: string;
+  name: string;
+  atom_references: AtomReference[];
+  granularity: SelectionGranularity;
+  warnings: MolecularWarning[];
+  created_at: string;
+  modified_at: string;
+}
+
 export interface History {
   can_undo: boolean;
   can_redo: boolean;
@@ -63,6 +89,7 @@ export interface Project {
   modified_at: string;
   entries: Entry[];
   groups: EntryGroup[];
+  saved_selections: SavedSelection[];
   history: History;
 }
 
@@ -99,18 +126,51 @@ export interface FormatCapability {
   multi_record: boolean;
 }
 
+export interface MolecularChain {
+  id: number;
+  name: string;
+  entity_type: string;
+}
+
+export interface MolecularResidue {
+  id: number;
+  chain_id: number;
+  name: string;
+  author_number: number | null;
+  label_number: number | null;
+  insertion_code: string | null;
+  component_type: "polymer" | "ligand" | "water" | "ion" | "unknown";
+}
+
+export interface MolecularAtom {
+  id: number;
+  name: string;
+  element: string;
+  coordinates: [number, number, number];
+  residue_id: number | null;
+  formal_charge: number | null;
+  source_index: number;
+  alternate_location: string | null;
+  occupancy: number | null;
+  b_factor: number | null;
+  inferred_fields: string[];
+}
+
+export interface NormalizedStructure {
+  schema_version: 1;
+  title: string;
+  structure_type: StructureType;
+  chains: MolecularChain[];
+  residues: MolecularResidue[];
+  atoms: MolecularAtom[];
+  bonds: unknown[];
+  conformers: unknown[];
+  warnings: MolecularWarning[];
+}
+
 export interface StructureProjection {
   entry_id: string;
-  structure: {
-    schema_version: 1;
-    title: string;
-    structure_type: StructureType;
-    atoms: unknown[];
-    bonds: unknown[];
-    residues: unknown[];
-    conformers: unknown[];
-    warnings: MolecularWarning[];
-  };
+  structure: NormalizedStructure;
   viewer: {
     format: "pdb" | "mmcif" | "sdf" | "mol";
     data: string;
