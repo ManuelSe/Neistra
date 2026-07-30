@@ -9,7 +9,7 @@ import {
   type ImperativePanelHandle,
 } from "react-resizable-panels";
 import { ApiError, projectApi } from "./api/client";
-import type { Entry, Project } from "./api/types";
+import type { Entry, Project, ProjectListItem } from "./api/types";
 import { HistoryPanel } from "./components/HistoryPanel";
 import { IconButton } from "./components/IconButton";
 import { Modal } from "./components/Modal";
@@ -102,6 +102,22 @@ export default function App() {
 
   const updateProjectCache = (next: Project) => {
     queryClient.setQueryData(["project", next.id], next);
+    queryClient.setQueryData<ProjectListItem[]>(["projects"], (current = []) => {
+      const summary: ProjectListItem = {
+        id: next.id,
+        name: next.name,
+        description: next.description,
+        revision: next.revision,
+        checkpoint_revision: next.checkpoint_revision,
+        has_uncheckpointed_changes: next.has_uncheckpointed_changes,
+        entry_count: next.entries.length,
+        created_at: next.created_at,
+        modified_at: next.modified_at,
+      };
+      const existingIndex = current.findIndex((item) => item.id === next.id);
+      if (existingIndex < 0) return [summary, ...current];
+      return current.map((item, index) => (index === existingIndex ? summary : item));
+    });
     void queryClient.invalidateQueries({ queryKey: ["projects"] });
   };
 
@@ -223,7 +239,7 @@ export default function App() {
               type="button"
               onClick={() => {
                 void projectsQuery.refetch();
-                void projectQuery.refetch();
+                if (activeProjectId) void projectQuery.refetch();
               }}
             >
               Retry

@@ -13,6 +13,22 @@ export default defineConfig({
     trace: "retain-on-failure",
     screenshot: "only-on-failure",
   },
+  webServer: [
+    {
+      command:
+        "MOLWEAVE_DATA_DIR=.molweave-e2e MOLWEAVE_AUTO_CREATE_SCHEMA=1 MOLWEAVE_ENABLE_TEST_ROUTES=1 .venv/bin/uvicorn molweave_api.main:app --app-dir apps/api/src --host 127.0.0.1 --port 8010",
+      url: "http://127.0.0.1:8010/api/v1/health",
+      reuseExistingServer: true,
+      timeout: 30_000,
+    },
+    {
+      command:
+        "VITE_API_TARGET=http://127.0.0.1:8010 corepack pnpm --dir apps/web dev",
+      url: "http://127.0.0.1:5173",
+      reuseExistingServer: true,
+      timeout: 30_000,
+    },
+  ],
   projects: [
     {
       name: "chromium",
@@ -24,4 +40,3 @@ export default defineConfig({
     },
   ],
 });
-

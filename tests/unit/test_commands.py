@@ -20,6 +20,7 @@ def seed_entry(client: ApiClient, project_id: str, name: str) -> str:
 
 def test_project_update_is_durable_and_reversible(client: ApiClient) -> None:
     project = create_project(client)
+    assert project["schema_version"] == 1
     project_id = str(project["id"])
 
     updated = client.patch(

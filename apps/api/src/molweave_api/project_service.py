@@ -18,6 +18,7 @@ from molweave_api.schemas import (
 )
 
 HISTORY_LIMIT = 200
+PROJECT_STATE_SCHEMA_VERSION = 1
 
 
 class ProjectNotFoundError(LookupError):
@@ -78,6 +79,7 @@ def _group_state(group: EntryGroup) -> dict[str, Any]:
 
 def _project_state(project: Project) -> dict[str, Any]:
     return {
+        "schema_version": PROJECT_STATE_SCHEMA_VERSION,
         "name": project.name,
         "description": project.description,
         "entries": sorted(

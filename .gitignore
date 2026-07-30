@@ -1,5 +1,6 @@
 .venv/
 .molweave/
+.molweave-e2e/
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/

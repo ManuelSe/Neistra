@@ -37,6 +37,7 @@ export interface History {
 }
 
 export interface Project {
+  schema_version: 1;
   id: string;
   name: string;
   description: string | null;
@@ -68,4 +69,3 @@ export interface ApiErrorBody {
     message?: string;
   } | string;
 }
-

@@ -81,6 +81,7 @@ class HistoryRead(BaseModel):
 
 
 class ProjectRead(BaseModel):
+    schema_version: Literal[1] = 1
     id: str
     name: str
     description: str | None

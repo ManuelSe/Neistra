@@ -4,7 +4,8 @@
 
 Milestone 1 - Durable project workspace
 
-Checkpoint 2: responsive project workspace and component workflows verified.
+Checkpoint 3: complete M1 lifecycle, failure handling, and documentation
+verified; final clean gate remains.
 
 ## Completed work
 
@@ -36,6 +37,20 @@ Checkpoint 2: responsive project workspace and component workflows verified.
   request failure feedback, retry, and conflict/recovery notices.
 - Added component tests for project creation/checkpoint state, persisted theme,
   and an unavailable-API failure with retry.
+- Added Playwright lifecycle coverage for desktop and Pixel 7 viewports,
+  including create, interrupted-session recovery, undo/redo, save/reopen, theme
+  persistence, desktop collapse persistence, mobile drawers, and API
+  failure/retry.
+- Added a desktop browser workflow for all M1 entry commands using isolated,
+  test-only seeded fixtures.
+- Fixed a project-create/list cache race that could clear the newly active
+  project and a retry path that could refetch a disabled project query into the
+  wrong cache.
+- Versioned checkpoint snapshots as `ProjectStateV1`, exposed
+  `schema_version: 1`, and added an Alembic data migration for existing
+  snapshots.
+- Documented local `.venv` setup, startup, architecture, M1 API, project schema,
+  and exact verification commands.
 
 ## Verification performed
 
@@ -49,6 +64,8 @@ corepack pnpm --dir apps/web lint
 corepack pnpm --dir apps/web typecheck
 corepack pnpm --dir apps/web test -- project-workspace
 corepack pnpm --dir apps/web build
+PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test tests/e2e/project-lifecycle.spec.ts
+MOLWEAVE_DATA_DIR=.molweave .venv/bin/alembic upgrade head
 ```
 
 Results:
@@ -66,10 +83,13 @@ Results:
   absolute/traversal paths.
 - Chromium captures at 1440x900 and Pixel 7 dimensions confirmed a nonblank
   workspace, readable controls, responsive drawers, and no visible overlap.
+- Playwright: 5 passed on desktop/mobile and 1 intentional skip (the complete
+  entry-command matrix runs on desktop; mobile lifecycle and failure handling
+  run separately).
+- Alembic upgraded the existing local database from revision `0001` to `0002`.
 
 ## Known limitations
 
-- Playwright lifecycle and failure-state tests are not implemented yet.
 - Entry operations are exercised through seeded normalized fixtures, as allowed
   by M1; production file import belongs to M2.
 - The API uses short synchronous SQLite transactions inside async route handlers.
@@ -82,6 +102,5 @@ None.
 
 ## Next action
 
-Add Playwright coverage for desktop and mobile lifecycle, recovery, preferences,
-entry commands, and API failure/retry. Repair issues, document startup, and run
-the complete M1 gate.
+Run every M1 verification command from a clean working state, verify documented
+normal startup and browser rendering once more, then mark M1 complete.

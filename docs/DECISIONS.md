@@ -355,3 +355,33 @@ Consequences:
   source of truth and the user receives a structured unavailable-project state.
 - Mol* integration in M3 must consume normalized molecular state through an
   adapter and cannot become a second project store.
+
+## D-014 - Explicit checkpoint schema and isolated browser fixtures
+
+Status: accepted
+
+Decision:
+
+Version checkpoint snapshots as `ProjectStateV1` with an explicit
+`schema_version: 1`, expose that version on complete project API responses, and
+migrate older snapshots through Alembic.
+
+Register the fixture-entry API only when `MOLWEAVE_ENABLE_TEST_ROUTES=1`.
+Playwright starts a separate API on port 8010 with an isolated data directory
+and that flag enabled. Normal startup does not expose fixture creation.
+
+Rationale:
+
+Dirty-state comparison and recovery depend on a stable snapshot contract.
+Explicit versioning prevents later molecular-schema changes from being
+interpreted silently. M1 must exercise entry commands through working controls
+without introducing an unsafe pseudo-import path before M2 validation and
+original-file preservation exist.
+
+Consequences:
+
+- Incompatible checkpoint changes require a new schema version and migration.
+- `ProjectStateV1` is distinct from the portable `ProjectManifestV1` archive
+  delivered in M8.
+- Browser tests can cover the complete M1 entry workflow while production entry
+  creation remains owned by the future import service.

@@ -41,6 +41,7 @@ describe("project workspace", () => {
   it("creates a real project and exposes its durable checkpoint state", async () => {
     const user = userEvent.setup();
     const created = {
+      schema_version: 1 as const,
       id: "project-1",
       name: "Kinase panel",
       description: null,
@@ -105,11 +106,19 @@ describe("project workspace", () => {
     expect(useWorkspaceStore.getState().theme).toBe("dark");
   });
 
-  it("surfaces an unavailable local API and offers retry", async () => {
-    vi.spyOn(globalThis, "fetch").mockRejectedValue(new TypeError("offline"));
+  it("surfaces an unavailable local API and recovers on retry", async () => {
+    const user = userEvent.setup();
+    let offline = true;
+    vi.spyOn(globalThis, "fetch").mockImplementation(() =>
+      offline ? Promise.reject(new TypeError("offline")) : Promise.resolve(response([])),
+    );
     renderApp();
 
     expect(await screen.findByRole("alert")).toHaveTextContent("Local API unavailable");
-    expect(screen.getByRole("button", { name: "Retry" })).toBeInTheDocument();
+    offline = false;
+    await user.click(screen.getByRole("button", { name: "Retry" }));
+
+    expect(await screen.findByRole("heading", { name: "No project open" })).toBeInTheDocument();
+    expect(screen.queryByRole("alert")).not.toBeInTheDocument();
   });
 });
