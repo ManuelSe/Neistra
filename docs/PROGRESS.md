@@ -4,11 +4,10 @@
 
 Milestone 4 - Complete viewer, inspection, and measurements
 
-In progress. The scientific domain and durable project-state checkpoints are
-complete. The complete visible viewer/inspection slice is implemented and
-passes component/build, real-WebGL success/failure workflows, and focused
-fallback coverage. Final repository gates, normal startup, responsive visual
-inspection, and documentation remain.
+In progress. The complete scientific, persistence, viewer, inspection,
+measurement, contact, and scene slice is implemented. The exact M4 gate and all
+repository regressions pass. Only normal documented startup, responsive visual
+inspection, and the final completion record remain.
 
 ## Completed work
 
@@ -372,6 +371,15 @@ Results:
   but the first successful import now returns the inspector to Selection unless
   the user explicitly chose a tab. The component regression test, ESLint, and
   the complete real-WebGL synchronized-selection workflow passed.
+- Exact M4 gate: 8 measurement/contact reference tests and all 20 client tests
+  passed; the production build transformed 3,342 modules with a 436.09 KiB
+  initial application chunk and lazy Mol* chunk; all 3 desktop measurement,
+  viewer-control, scene, and WebGL-failure workflows passed with 3 intentional
+  mobile duplicates skipped.
+- Final repository regression: Ruff passed; strict mypy passed for 28 source
+  files; all 77 Python tests passed; ESLint and TypeScript passed; all 20 Vitest
+  tests passed; and the full Playwright matrix passed 12 workflows with 6
+  intentional desktop-only mobile skips.
 
 ## Known limitations
 
@@ -402,6 +410,6 @@ None.
 
 ## Next action
 
-Run the exact M4 commands and full repository regressions, migrate/start the
-normal local database, inspect desktop and mobile screenshots plus canvas
-pixels, update architecture/API/startup documentation, and repair all failures.
+Migrate and start the normal local database with the documented commands,
+inspect fresh desktop and mobile renders, record the results, and mark M4
+complete.
