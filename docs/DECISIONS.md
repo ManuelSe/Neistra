@@ -734,3 +734,28 @@ Consequences:
   therefore remain synchronized with normalized state.
 - Surface requests remain durably recorded on large entries but display as a
   documented reduced-detail fallback until the structure is below the limit.
+
+## D-024 - Exact atom-reference predicate for measurement construction
+
+Status: accepted
+
+Decision:
+
+Extend predicate selection with `atom_index` and `atom_reference`. The latter
+matches the explicit textual form `structure_id:atom_id`, while the former
+matches an entry-local atom ID across all structures in scope.
+
+Rationale:
+
+Imported ligand formats do not guarantee unique atom names, and screen-space
+picking is unsuitable for deterministic 3- and 4-atom measurement construction.
+The canonical identity already consists of structure UUID plus atom ID, so an
+exact predicate is the smallest typed prerequisite for inspection and testing.
+
+Consequences:
+
+- Users can construct ordered measurement selections without ambiguous names.
+- The prerequisite extends the shared Python/TypeScript predicate matrices and
+  does not introduce another identity representation.
+- The selection remains transient until explicitly saved or used by a durable
+  measurement/scene command.

@@ -124,6 +124,8 @@ def test_invert_and_expansion_share_atom_reference_representation() -> None:
     ("field", "value", "expected"),
     [
         ("atom_name", "ca", [1, 3]),
+        ("atom_index", "2", [2]),
+        ("atom_reference", "protein:3", [3]),
         ("element", "N", [2]),
         ("residue_name", "gly", [1, 2]),
         ("residue_number", "20", [3]),

@@ -6,8 +6,9 @@ Milestone 4 - Complete viewer, inspection, and measurements
 
 In progress. The scientific domain and durable project-state checkpoints are
 complete. The complete visible viewer/inspection slice is implemented and
-passes component/build plus the existing real-WebGL regression. M4-specific
-browser workflows and final gates remain.
+passes component/build, real-WebGL success/failure workflows, and focused
+fallback coverage. Final repository gates, normal startup, responsive visual
+inspection, and documentation remain.
 
 ## Completed work
 
@@ -215,6 +216,12 @@ browser workflows and final gates remain.
 - Added the recommended-size fallback: structures at or above 250,000 atoms
   retain usable reduced-detail rendering while surface and dense labels are
   suppressed with a visible notice.
+- Added exact atom-index and `structure_id:atom_id` predicate selection as a
+  small M4 inspection prerequisite. This enables deterministic multi-atom
+  measurement construction when source atom names are not unique.
+- Added M4 Playwright workflows for the complete viewer control matrix, named
+  scene divergence/restore, WebGL failure, distance/angle/dihedral management,
+  property inspection, close-contact success/failure, and reload persistence.
 
 ## Verification performed
 
@@ -347,6 +354,20 @@ Results:
   A real WebGL canvas rendered protein and ligand with application-owned
   default representations after reload; malformed and cancelled imports
   remained non-mutating.
+- M4 viewer browser checkpoint: 2 Chromium workflows passed. One configured all
+  seven representation builders and all six color schemes concurrently,
+  checked nonblank canvas pixels, exercised projection/zoom/focus/reset and
+  selection isolation, then saved/restored/deleted a scene after external
+  visibility divergence. The other disabled WebGL and verified a usable error
+  with project status retained.
+- M4 measurement browser checkpoint: the Chromium workflow passed with exact
+  2/3/4-atom construction, backend-matching distance display, angle/dihedral
+  labels, rename/show/hide/delete, reload persistence, lower property rows,
+  atom/residue/chain inspection, invalid contact feedback, and successful
+  contact selection.
+- Focused fallback regression: 19 client tests passed, including explicit
+  reduced-detail projection at 250,000 atoms and viewer startup failure. The
+  focused Python selection/measurement/contact suite passed all 21 tests.
 
 ## Known limitations
 
@@ -377,6 +398,6 @@ None.
 
 ## Next action
 
-Add and run `viewer-controls.spec.ts` and `measurements.spec.ts` for success and
-failure workflows, inspect desktop/mobile screenshots and canvas pixels, then
-repair any interaction or responsive defects before final gates.
+Run the exact M4 commands and full repository regressions, migrate/start the
+normal local database, inspect desktop and mobile screenshots plus canvas
+pixels, update architecture/API/startup documentation, and repair all failures.

@@ -236,7 +236,10 @@ export function StructureViewer({
         onSettings={(entryId, settings) => {
           void onUpdateSettings?.(entryId, settings);
         }}
-        onCameraMode={(mode) => viewerRef.current?.setCameraMode(mode)}
+        onCameraMode={(mode) => {
+          viewerRef.current?.setCameraMode(mode);
+          setCamera((current) => (current ? { ...current, mode } : current));
+        }}
         onZoom={(factor) => viewerRef.current?.zoom(factor)}
         onFocus={() => viewerRef.current?.focusSelection()}
         onReset={() => viewerRef.current?.resetCamera()}

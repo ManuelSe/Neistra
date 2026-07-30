@@ -42,6 +42,8 @@ describe("central selection algebra", () => {
     expect(expandSelection(atom, structures, "chain").atoms).toEqual(references(1, 2, 3));
     expect(invertSelection(atom, structures).atoms).toEqual(references(2, 3));
     expect(predicateSelection(structures, "atom_name", "ca").atoms).toEqual(references(1, 3));
+    expect(predicateSelection(structures, "atom_index", "2").atoms).toEqual(references(2));
+    expect(predicateSelection(structures, "atom_reference", "protein:3").atoms).toEqual(references(3));
     expect(predicateSelection(structures, "element", "n").atoms).toEqual(references(2));
     expect(predicateSelection(structures, "residue_name", "gly").atoms).toEqual(references(1, 2));
     expect(predicateSelection(structures, "residue_number", "11").atoms).toEqual(references(3));

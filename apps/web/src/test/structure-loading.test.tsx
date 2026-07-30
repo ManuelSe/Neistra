@@ -363,6 +363,90 @@ describe("lazy structure loading", () => {
     expect(fake.granularities.at(-1)).toBe("chain");
     expect(onViewerSelection).toHaveBeenCalledOnce();
   });
+
+  it("uses a visible reduced-detail fallback above the recommended atom limit", async () => {
+    const fake = new FakeViewer();
+    const large = project();
+    large.entries[0] = {
+      ...large.entries[0],
+      atom_count: 250_000,
+      viewer_settings: {
+        ...large.entries[0].viewer_settings,
+        representations: [
+          {
+            id: "surface",
+            style: "surface",
+            color_by: "element",
+            custom_color: "#3b82f6",
+            opacity: 0.5,
+          },
+        ],
+        labels: {
+          atoms: true,
+          residues: true,
+          chains: true,
+          structure: true,
+        },
+      },
+    };
+    vi.spyOn(globalThis, "fetch").mockResolvedValue(
+      new Response(JSON.stringify(projection("protein")), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      }),
+    );
+    const queryClient = new QueryClient({
+      defaultOptions: { queries: { retry: false } },
+    });
+    render(
+      <StructureViewer
+        project={large}
+        selection={emptySelection}
+        pickingGranularity="atom"
+        onViewerSelection={() => undefined}
+        createViewer={() => fake}
+      />,
+      { wrapper: wrapper(queryClient) },
+    );
+
+    expect(await screen.findByText("reduced detail")).toBeVisible();
+    await waitFor(() => {
+      expect(fake.syncs.at(-1)?.[0].settings.representations[0].style).toBe("line");
+    });
+    expect(fake.syncs.at(-1)?.[0].settings.labels).toEqual({
+      atoms: false,
+      residues: false,
+      chains: false,
+      structure: true,
+    });
+  });
+
+  it("surfaces viewer startup failures without hiding project status", async () => {
+    const fake = new FakeViewer();
+    fake.mount = () => Promise.reject(new Error("WebGL is unavailable."));
+    vi.spyOn(globalThis, "fetch").mockResolvedValue(
+      new Response(JSON.stringify(projection("protein")), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      }),
+    );
+    const queryClient = new QueryClient({
+      defaultOptions: { queries: { retry: false } },
+    });
+    render(
+      <StructureViewer
+        project={project()}
+        selection={emptySelection}
+        pickingGranularity="atom"
+        onViewerSelection={() => undefined}
+        createViewer={() => fake}
+      />,
+      { wrapper: wrapper(queryClient) },
+    );
+
+    expect(await screen.findByRole("alert")).toHaveTextContent("WebGL is unavailable.");
+    expect(screen.getByRole("status")).toHaveTextContent("1 visible");
+  });
 });
 
 const emptySelection: Selection = {

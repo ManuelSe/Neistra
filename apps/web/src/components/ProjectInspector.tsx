@@ -345,6 +345,8 @@ function SelectionPanel({
           Select by
           <select value={field} onChange={(event) => setField(event.target.value as PredicateField)}>
             <option value="atom_name">Atom name</option>
+            <option value="atom_index">Atom index</option>
+            <option value="atom_reference">Structure:atom reference</option>
             <option value="element">Element</option>
             <option value="residue_name">Residue name</option>
             <option value="residue_number">Residue number</option>

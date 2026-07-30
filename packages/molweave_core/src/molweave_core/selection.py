@@ -13,6 +13,8 @@ SelectionSource = Literal["viewer", "project", "sequence", "inspector", "saved"]
 SelectionMode = Literal["replace", "add", "subtract"]
 SelectionPredicateField = Literal[
     "atom_name",
+    "atom_index",
+    "atom_reference",
     "element",
     "residue_name",
     "residue_number",
@@ -232,6 +234,10 @@ def _predicate_value(
 ) -> str | None:
     if field == "atom_name":
         return atom.name
+    if field == "atom_index":
+        return str(atom.id)
+    if field == "atom_reference":
+        return f"{structure_id}:{atom.id}"
     if field == "element":
         return atom.element
     if field == "structure":

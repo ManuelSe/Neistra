@@ -10,6 +10,8 @@ import type {
 export type StructureMap = ReadonlyMap<string, NormalizedStructure>;
 export type PredicateField =
   | "atom_name"
+  | "atom_index"
+  | "atom_reference"
   | "element"
   | "residue_name"
   | "residue_number"
@@ -175,7 +177,11 @@ export function predicateSelection(
       const value =
         field === "atom_name"
           ? atom.name
-          : field === "element"
+          : field === "atom_index"
+            ? String(atom.id)
+            : field === "atom_reference"
+              ? `${structureId}:${atom.id}`
+              : field === "element"
             ? atom.element
             : field === "residue_name"
               ? residue?.name
