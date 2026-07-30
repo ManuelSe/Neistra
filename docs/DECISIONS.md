@@ -385,3 +385,43 @@ Consequences:
   delivered in M8.
 - Browser tests can cover the complete M1 entry workflow while production entry
   creation remains owned by the future import service.
+
+## D-015 - M2 normalization and format fidelity policy
+
+Status: accepted
+
+Decision:
+
+Use `NormalizedStructureV1` as the library-independent authority for imported
+molecular data. Stable atom and bond IDs are contiguous, one-based,
+entry-local integers. Models and library conformers map to ordered conformers;
+the active conformer's float64 coordinates are also projected onto atom records.
+Alternate locations remain distinct atom records with occupancy and alternate
+identifier. Author numbering, label numbering, and insertion codes remain
+separate fields.
+
+Use Gemmi 0.7.5 for PDB and PDBx/mmCIF, RDKit 2026.3.4 for SDF, MOL, MOL2, XYZ,
+and SMILES, and a deterministic MolWeave MOL2 writer. SDF records become
+separate project entries. Identical PDB/PDBx models become conformers; mismatched
+model topologies are rejected with an actionable error rather than flattened.
+SMILES uses fixed-seed ETKDGv3 coordinate generation when requested. XYZ
+connectivity may be inferred, but every inferred bond retains unknown order.
+PDB connectivity never implies reliable ligand bond order.
+
+Rationale:
+
+The formats differ materially in topology, coordinate-set, numbering, and
+property semantics. A typed authority prevents Gemmi, RDKit, or Mol* from
+silently defining project behavior. Rejecting ambiguous model topology and
+recording inference is safer than inventing identity or chemistry.
+
+Consequences:
+
+- The immutable original remains the only lossless source for unsupported
+  PDBx/mmCIF categories and producer-specific MOL2 details.
+- Export adapters enumerate known field losses; blocking losses require user
+  acknowledgement at the API/UI boundary.
+- General crystallographic CIF remains rejected as an unsupported dialect.
+- RDKit may canonicalize resonance-equivalent MOL2 bond placement; fixture
+  assertions compare chemical equivalence and retained SYBYL types rather than
+  input array order.

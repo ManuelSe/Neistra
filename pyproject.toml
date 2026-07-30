@@ -7,8 +7,12 @@ dependencies = [
   "alembic>=1.14,<2",
   "anyio>=4.6,<4.10",
   "fastapi>=0.115,<0.120",
+  "gemmi==0.7.5",
   "httpx>=0.28,<1",
+  "numpy>=2.3,<2.5",
   "pydantic>=2.10,<3",
+  "python-multipart>=0.0.20,<1",
+  "rdkit==2026.3.4",
   "sqlalchemy>=2.0,<3",
   "uuid6>=2024.7.10",
   "uvicorn[standard]>=0.34,<1",
@@ -48,5 +52,5 @@ plugins = ["pydantic.mypy"]
 exclude = ["^\\.venv/", "^apps/web/"]
 
 [[tool.mypy.overrides]]
-module = ["uuid6"]
+module = ["gemmi", "rdkit", "rdkit.*", "uuid6"]
 ignore_missing_imports = true

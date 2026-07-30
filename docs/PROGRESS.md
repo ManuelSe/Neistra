@@ -2,9 +2,9 @@
 
 ## Current milestone
 
-Milestone 1 - Durable project workspace
+Milestone 2 - Format-to-viewer scientific slice
 
-Status: complete.
+Checkpoint 1: normalized molecular model and all format adapters verified.
 
 ## Completed work
 
@@ -50,6 +50,26 @@ Status: complete.
   snapshots.
 - Documented local `.venv` setup, startup, architecture, M1 API, project schema,
   and exact verification commands.
+- Pinned and installed Gemmi 0.7.5, RDKit 2026.3.4, NumPy 2.4, and
+  python-multipart in the project-local `.venv`; pinned Mol* 5.11 in the web
+  workspace.
+- Added library-independent `NormalizedStructureV1` records for chains,
+  residues, atoms, bonds, conformers, source facts, warnings, annotations, and
+  inference provenance.
+- Added an extensible `StructureAdapter` contract and registry for PDB,
+  PDBx/mmCIF, SDF, MOL, MOL2, XYZ, and SMILES.
+- Added Gemmi-backed macromolecular import/export with model/conformer,
+  alternate-location, insertion-code, occupancy, and explicit unknown PDB bond
+  order handling.
+- Added RDKit-backed ligand adapters, deterministic SMILES 3D generation,
+  explicit XYZ connectivity inference, multi-record SDF behavior, and a
+  deterministic MolWeave MOL2 writer.
+- Added structured export loss reporting for coordinates, conformers, residue
+  and chain semantics, metadata, connectivity, bond orders, formal charges, and
+  stereochemistry.
+- Added small fixtures for every M2 format plus PDB models/alternate locations,
+  PDB ligand connectivity, PDBx/mmCIF categories, Tripos and Corina MOL2
+  typing, SDF records, XYZ inference, and stereochemical SMILES.
 
 ## Verification performed
 
@@ -93,11 +113,17 @@ Results:
 - The documented normal API and Vite commands started successfully. The health
   endpoint returned `{"status":"ok"}` and a fresh 1440x900 Chromium render
   showed no API warning, clipping, overlap, or blank workspace.
+- M2 adapter checkpoint: Ruff passed, mypy passed for 10 core source files, and
+  26 adapter/scientific tests passed.
 
 ## Known limitations
 
-- Entry operations are exercised through seeded normalized fixtures, as allowed
-  by M1; production file import belongs to M2.
+- The M2 adapters are not yet connected to project import/export endpoints,
+  artifact records, or the browser.
+- Mol* is pinned but the `MolecularViewer` adapter and simultaneous display are
+  not implemented yet.
+- Upload progress, cancellation, warning/hard limits, lazy structure loading,
+  and original-byte retrieval remain for the next checkpoints.
 - The API uses short synchronous SQLite transactions inside async route handlers.
   This is appropriate for local M1 workloads and remains behind the project
   service boundary.
@@ -108,6 +134,6 @@ None.
 
 ## Next action
 
-Begin M2 only after reviewing its scientific dependency and fixture
-prerequisites. M2 starts validated multi-format import, immutable original
-preservation, normalized molecular data, and the Mol* viewer abstraction.
+Add M2 persistence columns and artifact-backed normalized snapshots, then build
+atomic multi-file import, lazy structure retrieval, original download, and
+loss-acknowledged individual export APIs with integration tests.

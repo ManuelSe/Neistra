@@ -1,0 +1,17 @@
+@<TRIPOS>MOLECULE
+Acetate
+4 3 1 0 0
+SMALL
+USER_CHARGES
+
+@<TRIPOS>ATOM
+      1 C1         -1.200000    0.000000    0.000000 C.3        1 ACT         0.0000
+      2 C2          0.000000    0.000000    0.000000 C.2        1 ACT         0.7000
+      3 O1          1.100000    0.700000    0.000000 O.co2       1 ACT        -0.3500
+      4 O2          1.100000   -0.700000    0.000000 O.co2       1 ACT        -0.3500
+@<TRIPOS>BOND
+     1      1      2 1
+     2      2      3 2
+     3      2      4 1
+@<TRIPOS>SUBSTRUCTURE
+     1 ACT          1 RESIDUE

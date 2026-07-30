@@ -1,0 +1,16 @@
+TITLE     TWO MODEL GLYCINE
+MODEL        1
+ATOM      1  N   GLY A  10A     -1.210   0.100   0.000  1.00 12.00           N
+ATOM      2  CA AGLY A  10A      0.000   0.000   0.000  0.60 10.00           C
+ATOM      3  CA BGLY A  10A      0.050   0.080   0.100  0.40 14.00           C
+ATOM      4  C   GLY A  10A      1.300   0.150   0.000  1.00 11.00           C
+ATOM      5  O   GLY A  10A      2.200  -0.650   0.000  1.00 13.00           O
+ENDMDL
+MODEL        2
+ATOM      1  N   GLY A  10A     -1.110   0.200   0.100  1.00 12.00           N
+ATOM      2  CA AGLY A  10A      0.100   0.100   0.100  0.60 10.00           C
+ATOM      3  CA BGLY A  10A      0.150   0.180   0.200  0.40 14.00           C
+ATOM      4  C   GLY A  10A      1.400   0.250   0.100  1.00 11.00           C
+ATOM      5  O   GLY A  10A      2.300  -0.550   0.100  1.00 13.00           O
+ENDMDL
+END
