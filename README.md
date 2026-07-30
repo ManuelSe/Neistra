@@ -1,9 +1,9 @@
 # MolWeave
 
-MolWeave is a local, single-user molecular project workspace. Milestone 2 adds
-validated multi-file molecular import, immutable originals, normalized
-snapshots, lazy simultaneous Mol* display, and individual structure export to
-the durable project and command foundation delivered in Milestone 1.
+MolWeave is a local, single-user molecular project workspace. Milestone 3 adds
+one authoritative atom-reference selection model across the project browser,
+protein sequence, inspector, and lazy Mol* viewer, with deterministic selection
+algebra, worker-based spatial queries, and durable named selections.
 
 ## Prerequisites
 
@@ -54,13 +54,17 @@ flowchart LR
     PS --> ART[Content-addressed artifact store]
     PS --> STATE[ProjectStateV1]
     UI -->|visible-entry projections| VIEWER[Lazy Mol* adapter]
+    UI --> SELECT[Transient canonical selection store]
+    SELECT <--> VIEWER
+    SELECT --> WORKER[Spatial-query Web Worker]
     JOBS[Controlled worker, M9] -. publishes artifacts .-> ART
 ```
 
 TanStack Query owns API-backed state. Zustand persists only the active project
-pointer, theme, and panel preferences. SQLite metadata and immutable normalized
-artifacts are authoritative; Mol* renders generated projections and is never a
-project save format.
+pointer, theme, and panel preferences; a separate non-persisted Zustand store
+owns the current canonical selection. SQLite metadata, named selections, and
+immutable normalized artifacts are authoritative. Mol* renders generated
+projections and is never a project save format or molecular state store.
 
 See [docs/API.md](docs/API.md), [docs/PROJECT_SCHEMA.md](docs/PROJECT_SCHEMA.md),
 [docs/NORMALIZED_SCHEMA.md](docs/NORMALIZED_SCHEMA.md),
@@ -68,20 +72,21 @@ See [docs/API.md](docs/API.md), [docs/PROJECT_SCHEMA.md](docs/PROJECT_SCHEMA.md)
 [docs/SCIENTIFIC_LIMITATIONS.md](docs/SCIENTIFIC_LIMITATIONS.md), and
 [docs/DECISIONS.md](docs/DECISIONS.md) for the current contracts.
 
-## Milestone 2 Checks
+## Milestone 3 Checks
 
 Run these from the repository root:
 
 ```bash
-.venv/bin/ruff check .
-.venv/bin/mypy apps/api packages/molweave_core
-.venv/bin/pytest tests/unit/adapters tests/integration/test_import_export.py
-.venv/bin/pytest tests/scientific/test_format_fidelity.py
+UV_CACHE_DIR=/tmp/uv-cache .venv/bin/uv run --no-sync ruff check .
+UV_CACHE_DIR=/tmp/uv-cache .venv/bin/uv run --no-sync mypy \
+  apps/api packages/molweave_core
+UV_CACHE_DIR=/tmp/uv-cache .venv/bin/uv run --no-sync pytest \
+  tests/unit/test_selection.py tests/integration/test_saved_selections.py
 corepack pnpm --dir apps/web lint
 corepack pnpm --dir apps/web typecheck
-corepack pnpm --dir apps/web test -- structure-loading viewer-adapter
+corepack pnpm --dir apps/web test -- selection project-browser sequence
 PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test \
-  tests/e2e/import-display-export.spec.ts
+  tests/e2e/synchronized-selection.spec.ts
 corepack pnpm --dir apps/web build
 ```
 

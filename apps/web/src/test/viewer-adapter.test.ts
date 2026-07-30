@@ -6,7 +6,10 @@ const calls = vi.hoisted(() => ({
   sync: vi.fn(),
   selection: vi.fn(),
   granularity: vi.fn(),
-  subscribe: vi.fn((_listener: unknown) => () => undefined),
+  subscribe: vi.fn((listener: unknown) => {
+    void listener;
+    return () => undefined;
+  }),
   resize: vi.fn(),
   dispose: vi.fn(),
 }));

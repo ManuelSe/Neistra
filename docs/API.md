@@ -1,6 +1,6 @@
 # MolWeave HTTP API
 
-Status: Milestone 2
+Status: Milestone 3
 
 The local FastAPI application exposes a versioned API under `/api/v1` and
 generates OpenAPI at `/api/v1/openapi.json`. Swagger UI is available at
@@ -44,6 +44,8 @@ generates OpenAPI at `/api/v1/openapi.json`. Swagger UI is available at
 | `POST` | `/api/v1/projects/{project_id}/entries/{entry_id}/isolate` | Make only one entry visible. |
 | `DELETE` | `/api/v1/projects/{project_id}/entries/{entry_id}` | Delete an entry reversibly. |
 | `POST` | `/api/v1/projects/{project_id}/groups` | Create a group containing specified entries. |
+| `POST` | `/api/v1/projects/{project_id}/selections` | Save a canonical named selection as a reversible command. |
+| `DELETE` | `/api/v1/projects/{project_id}/selections/{selection_id}` | Delete a named selection reversibly. |
 
 ## Molecular Endpoints
 
@@ -75,6 +77,47 @@ explicit acknowledgement generates an immutable artifact.
 
 When `MOLWEAVE_ENABLE_TEST_ROUTES=1`, the test harness exposes a fixture-only
 seed endpoint under `/api/v1/testing`; normal startup never registers it.
+
+## Selection Contract
+
+Every selection surface uses `SelectionV1`:
+
+```json
+{
+  "schema_version": 1,
+  "atoms": [
+    {"structure_id": "019fb497-841f-7239-b6a0-618ef7cdac34", "atom_id": 1}
+  ],
+  "granularity": "atom",
+  "source": "inspector"
+}
+```
+
+`atoms` is a unique, lexicographically ordered set of stable
+`(structure_id, atom_id)` references. Granularity is `atom`, `residue`, `chain`,
+or `structure`; source is `viewer`, `project`, `sequence`, `inspector`, or
+`saved`. Granularity and source describe the latest operation and do not create
+alternate molecular identities.
+
+Saving accepts:
+
+```json
+{
+  "expected_revision": 4,
+  "name": "Active site",
+  "selection": {
+    "schema_version": 1,
+    "atoms": [{"structure_id": "entry-id", "atom_id": 42}],
+    "granularity": "residue",
+    "source": "inspector"
+  }
+}
+```
+
+The response is the revised complete project. Saved names are unique within a
+project using case-insensitive comparison. Entry deletion removes invalid
+references in the same reversible command and adds an
+`invalid_selection_references_removed` warning to the saved selection.
 
 ## Errors
 

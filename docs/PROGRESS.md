@@ -4,9 +4,9 @@
 
 Milestone 3 - Project browser, selection, and sequence
 
-Checkpoint 4 complete: the complete synchronized-selection workflow passes in
-real desktop Chromium, including success and important failure states. The final
-milestone, regression, startup, and responsive visual gates remain.
+Complete. All acceptance criteria, exact milestone commands, full lint/type/
+unit regressions, production build, normal startup, and desktop/mobile browser
+verification pass.
 
 ## Completed work
 
@@ -272,6 +272,24 @@ Results:
   passed in Chromium in 16.8 seconds. The test exercised a real WebGL Mol*
   canvas and confirmed programmatic highlighting remained stable after a
   viewer-originated pick.
+- Exact M3 Python gate: 14 selection and saved-selection tests passed.
+- Exact M3 client gate: 13 selection, project-browser, sequence, viewer-loading,
+  adapter, and matched workspace tests passed.
+- Exact M3 Playwright gate: 1 desktop Chromium workflow passed in 15.8 seconds;
+  the intentional mobile duplicate was skipped because the test targets the
+  full three-panel desktop workspace.
+- Final repository gate: Ruff passed; strict mypy passed for 24 source files;
+  all 64 Python tests passed; ESLint and TypeScript passed; all 13 Vitest tests
+  passed; and the production build completed with 3,337 transformed modules.
+- The final build emitted spatial selection as an independent 0.75 KiB Web
+  Worker chunk, kept the initial application at 413.51 KiB, and kept Mol* in a
+  lazy chunk.
+- The normal database upgraded from `0003` to `0004`. The documented API and
+  Vite commands started successfully on ports 8000 and 5173; `/health` returned
+  `{"status":"ok"}` and `/formats` returned all seven adapters.
+- Fresh normal-startup Chromium captures at 1440x900 and Pixel 7 dimensions
+  showed a nonblank responsive shell with readable controls and no clipping or
+  incoherent overlap.
 
 ## Known limitations
 
@@ -286,6 +304,12 @@ Results:
 - The API uses short synchronous SQLite transactions inside async route handlers.
   This is appropriate for local M1 workloads and remains behind the project
   service boundary.
+- Spatial selection runs off the main thread but uses a direct
+  seed-by-candidate calculation in v0.1. Large jobs can take time and consume
+  worker memory; a spatial index is deferred.
+- Cross-structure distance selection assumes entries already share a meaningful
+  Cartesian frame. It does not apply alignment, periodic boundaries, unit-cell
+  transforms, or minimum-image rules.
 
 ## Blockers
 
@@ -293,6 +317,6 @@ None.
 
 ## Next action
 
-Run the exact M3 Python, client, Playwright, and production-build commands, then
-the full regression gates. Verify documented normal startup plus fresh desktop
-and mobile renders, finalize documentation, and commit the completed milestone.
+Begin Milestone 4 only after reviewing its viewer, inspection, and measurement
+scope. Do not extend M3 selection state with representation or measurement
+ownership.

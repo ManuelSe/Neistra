@@ -1,6 +1,6 @@
 # Scientific Limitations
 
-Status: Milestone 2
+Status: Milestone 3
 
 MolWeave v0.1 reports known uncertainty but does not replace specialist
 structure preparation or validation software.
@@ -45,13 +45,33 @@ structure preparation or validation software.
   losses; blocking losses require acknowledgement.
 - The original upload remains the source of truth for fields not modeled by
   `NormalizedStructureV1`.
-- Milestone 2 uses Mol* default basic representations for simultaneous
-  inspection. Representation, component, selection, label, and camera controls
-  scheduled for later milestones are not claimed here.
+- Mol* still uses default basic representations for simultaneous inspection.
+  Milestone 3 provides synchronized atom, residue, chain, and structure
+  selection; representation, component, label, and advanced camera controls
+  remain scheduled for later milestones.
 - Mol* requires WebGL. Unsupported or disabled WebGL produces an explicit error;
   it does not affect stored molecular state.
 - The 250,000-atom threshold is a warning, not a performance guarantee. Browser,
   GPU, representation, and topology determine actual interactive performance.
+
+## Selection And Spatial Queries
+
+- The canonical identity is `(structure_id, atom_id)`. Viewer projections are
+  disposable and map Mol* source indices through an explicit ordered normalized
+  atom-ID vector. Projection writers that filter or reorder atoms must update
+  that vector.
+- Residue, chain, and structure selections are materialized as atom-reference
+  sets. Alternate locations and symmetry copies can therefore collapse to the
+  same canonical identity when they represent the same normalized atom.
+- Distance selection uses current Cartesian coordinates without periodic
+  boundary conditions, crystallographic minimum-image handling, alignment, or
+  unit-cell transforms. Separate structures are compared in their current
+  shared project frame; unaligned coordinates can make cross-structure results
+  scientifically meaningless.
+- Spatial work runs outside the UI thread, but the v0.1 worker uses a direct
+  seed-by-candidate calculation rather than a spatial index. Very large queries
+  may take time and allocate substantial worker memory even though the
+  interface remains responsive.
 
 These limitations and all per-structure warnings remain visible without
 preventing retrieval of the original bytes.

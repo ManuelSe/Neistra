@@ -1,6 +1,7 @@
 # Project Schema
 
-Status: `ProjectStateV1` with `NormalizedStructureV1` artifacts, Milestone 2
+Status: `ProjectStateV1` with normalized artifacts and named selections,
+Milestone 3
 
 MolWeave separates the relational working model, checkpoint snapshots, immutable
 artifacts, and browser preferences. The API and database are authoritative;
@@ -27,6 +28,7 @@ ProjectStateV1
   description: string | null
   entries: StructureEntryV1[] sorted by stable ID
   groups: EntryGroupV1[] sorted by stable ID
+  saved_selections: SavedSelectionV1[] sorted by stable ID
 ```
 
 The snapshot intentionally excludes working revision, checkpoint revision,
@@ -76,6 +78,30 @@ name: string
 created_at: ISO-8601 timestamp
 ```
 
+## SavedSelectionV1
+
+```text
+id: UUIDv7 string
+name: string, unique per project ignoring case
+atom_references: AtomReference[] in canonical order
+granularity: atom | residue | chain | structure
+warnings: MolecularWarning[]
+created_at: ISO-8601 timestamp
+```
+
+An `AtomReference` contains a stable structure-entry ID and a positive
+normalized atom ID. Named selections are immutable reference sets from the
+user's perspective and participate in checkpoint state, undo, and redo. An edit
+that removes referenced molecular objects reconciles references and records a
+warning in the same command; undo restores both references and warning state.
+
+Migration `0004` adds the relational named-selection table and upgrades
+existing checkpoint payloads with an empty `saved_selections` list. This is an
+additive migration, so the schema version remains 1.
+Complete project API responses also include the relational `modified_at`
+timestamp for each saved selection; checkpoint payloads omit derived update
+timestamps.
+
 ## Command Records
 
 Each reversible mutation stores:
@@ -109,3 +135,5 @@ The `molweave-workspace-v1` browser key contains only:
 - Collapsed state for the structure, inspector, and history panels.
 
 It never contains molecular entries, artifacts, checkpoints, or command history.
+The unsaved current selection is also transient session state and is cleared
+when the active project changes or the page reloads.
