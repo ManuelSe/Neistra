@@ -1,6 +1,6 @@
 # Project Schema
 
-Status: `ProjectStateV1`, Milestone 1
+Status: `ProjectStateV1` with `NormalizedStructureV1` artifacts, Milestone 2
 
 MolWeave separates the relational working model, checkpoint snapshots, immutable
 artifacts, and browser preferences. The API and database are authoritative;
@@ -8,7 +8,7 @@ browser layout state is not project state.
 
 ## Versioning
 
-The M1 checkpoint payload is `ProjectStateV1` and contains
+The checkpoint payload is `ProjectStateV1` and contains
 `"schema_version": 1`. The API exposes the same version on complete project
 responses. Alembic migration `0002` upgrades snapshots created before the
 version field was introduced.
@@ -43,8 +43,13 @@ name: string
 description: string | null
 structure_type: protein | ligand | complex | solvent | unknown
 original_filename: string | null
-source_format: string | null
-normalized_data: versioned JSON object
+source_format: pdb | mmcif | sdf | mol | mol2 | xyz | smiles | null
+normalized_data: {"schema_version": 1, "storage": "artifact"}
+atom_count: integer
+bond_count: integer
+residue_count: integer
+conformer_count: integer
+warnings: MolecularWarning[]
 visible: boolean
 locked: boolean
 user_metadata: JSON object
@@ -55,10 +60,12 @@ current_artifact_id: string | null
 created_at: ISO-8601 timestamp
 ```
 
-`original_artifact_id` and `current_artifact_id` are reserved by the M1 schema
-and become populated by M2 import. Originals are never overwritten.
-`normalized_data` is empty only for M1 seeded test fixtures; the scientific
-`NormalizedStructureV1` contract begins in M2.
+Validated M2 import populates `original_artifact_id` and
+`current_artifact_id`. The first references byte-identical input; the second
+references serialized `NormalizedStructureV1`. Originals are never overwritten.
+Project API responses expose summaries, not `normalized_data`; full molecular
+data is read lazily through the structure endpoint. See
+`docs/NORMALIZED_SCHEMA.md`.
 
 ## EntryGroupV1
 
@@ -89,6 +96,8 @@ Artifact bytes live under the configured managed root. The relational record
 contains stable ID, SHA-256, size, media type, safe display filename, managed
 relative path, and creation time. Publication uses a temporary file, `fsync`,
 and atomic replacement. Absolute paths and paths escaping the root are rejected.
+Content hashes deduplicate bytes while entry records retain the safe original
+display filename and source format.
 
 ## Browser Preferences
 

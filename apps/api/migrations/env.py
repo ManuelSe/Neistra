@@ -12,7 +12,9 @@ config = context.config
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-config.set_main_option("sqlalchemy.url", Settings.from_env().database_url)
+settings = Settings.from_env()
+settings.data_dir.mkdir(parents=True, exist_ok=True)
+config.set_main_option("sqlalchemy.url", settings.database_url)
 target_metadata = Base.metadata
 
 

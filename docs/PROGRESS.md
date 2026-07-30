@@ -4,7 +4,7 @@
 
 Milestone 2 - Format-to-viewer scientific slice
 
-Checkpoint 3: browser import, simultaneous Mol* display, and export verified.
+Milestone 2 complete: format-to-viewer scientific slice verified.
 
 ## Completed work
 
@@ -113,6 +113,11 @@ Checkpoint 3: browser import, simultaneous Mol* display, and export verified.
 - Added Playwright coverage for multi-file import, real WebGL display, reload,
   loss acknowledgement, generated and original downloads, visibility
   unload/reload, malformed input, and cancellation without project mutation.
+- Documented the M2 HTTP API, `NormalizedStructureV1`, project artifact
+  references, supported-format fidelity matrix, scientific limitations, local
+  startup architecture, and exact verification commands.
+- Updated Alembic startup so a fresh configured data directory is created before
+  SQLite migration access.
 
 ## Verification performed
 
@@ -175,16 +180,34 @@ Results:
   the immutable original MOL download, and exercised hide/show unload. The
   failure workflow covered cancelled and malformed imports with unchanged
   project revision.
+- Final Python gate: Ruff passed; strict mypy passed for 22 source files; all 50
+  unit, integration, and scientific tests passed.
+- Final web gate: ESLint and TypeScript passed; all 6 component tests passed;
+  the production build passed with a 395.60 KiB initial application chunk and
+  lazy Mol* chunk.
+- Exact M2 Playwright gate: 3 passed across desktop and Pixel 7, with one
+  intentional mobile duplicate of the desktop-only failure/cancellation matrix
+  skipped.
+- M1 browser regression: 5 passed across desktop and Pixel 7, with one
+  intentional mobile duplicate of the desktop-only entry-command matrix
+  skipped.
+- A fresh temporary database migrated `0001 -> 0002 -> 0003`, reported `0003
+  (head)`, downgraded to `0002`, and upgraded to `0003` again.
+- The documented normal API and Vite commands started successfully. `/health`
+  returned `{"status":"ok"}`, `/formats` returned all seven adapters, and
+  fresh desktop and Pixel 7 Chromium captures showed a nonblank responsive
+  shell without clipping or incoherent overlap.
 
 ## Known limitations
 
-- Milestone 2 format/normalized-schema/scientific-limit documentation remains
-  to be finalized.
-- The complete M2 gate, full M1 regression suite, mobile M2 rerun, migration
-  round trip, and documented normal startup remain for the final checkpoint.
 - Mol* is necessarily a large on-demand dependency (about 963 KiB compressed).
   It is excluded from the initial application chunk and loaded only when a
   project contains structures.
+- M2 uses Mol* default basic representations. Selection synchronization,
+  representation controls, labels, measurements, and molecular editing remain
+  explicitly deferred to their planned milestones.
+- Import preparation uses one short-lived child process per batch. This favors
+  cancellation and native-library isolation over minimum process overhead.
 - The API uses short synchronous SQLite transactions inside async route handlers.
   This is appropriate for local M1 workloads and remains behind the project
   service boundary.
@@ -195,6 +218,5 @@ None.
 
 ## Next action
 
-Finalize the supported-format and scientific-limit documentation, run the
-complete M2 and regression gates, verify migrations and normal local startup,
-and repair any remaining browser or visual issues.
+Begin Milestone 3 only when requested: project browser sorting/filtering/search,
+central selection, sequence integration, and viewer selection synchronization.

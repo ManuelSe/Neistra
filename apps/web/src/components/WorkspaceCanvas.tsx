@@ -36,7 +36,8 @@ export function WorkspaceCanvas({
             Create project
           </button>
         </div>
-      ) : project.entries.length === 0 ? (
+      ) : project.entries.length === 0 ||
+        !project.entries.some((entry) => entry.current_artifact_id) ? (
         <div className="project-stage">
           <div className="stage-mark" aria-hidden="true">
             <span />
@@ -44,7 +45,10 @@ export function WorkspaceCanvas({
             <span />
           </div>
           <h1>{project.name}</h1>
-          <p>0 structures</p>
+          <p>
+            {project.entries.length}{" "}
+            {project.entries.length === 1 ? "structure" : "structures"}
+          </p>
           <div className={`checkpoint-state ${project.has_uncheckpointed_changes ? "dirty" : ""}`}>
             {project.has_uncheckpointed_changes ? "Changes stored locally" : "Checkpoint saved"}
           </div>

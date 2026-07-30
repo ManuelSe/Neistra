@@ -1,10 +1,9 @@
 # MolWeave
 
-MolWeave is a local, single-user molecular project workspace. Milestone 1
-provides durable projects, entry organization commands, bounded undo/redo,
-checkpoints, recovery, and a responsive light/dark application shell. Structure
-file import and the molecular viewer begin in Milestone 2 and are intentionally
-absent from the current UI.
+MolWeave is a local, single-user molecular project workspace. Milestone 2 adds
+validated multi-file molecular import, immutable originals, normalized
+snapshots, lazy simultaneous Mol* display, and individual structure export to
+the durable project and command foundation delivered in Milestone 1.
 
 ## Prerequisites
 
@@ -49,34 +48,40 @@ documentation is at [http://127.0.0.1:8000/api/docs](http://127.0.0.1:8000/api/d
 flowchart LR
     UI[React workspace] -->|REST /api/v1| API[FastAPI]
     UI --> PREFS[Local theme and layout preferences]
+    API --> PARSE[Cancellable Gemmi / RDKit child process]
     API --> PS[Project service and command bus]
     PS --> DB[(SQLite)]
     PS --> ART[Content-addressed artifact store]
     PS --> STATE[ProjectStateV1]
-    VIEWER[Mol* adapter, M2] -. consumes normalized state .-> UI
+    UI -->|visible-entry projections| VIEWER[Lazy Mol* adapter]
     JOBS[Controlled worker, M9] -. publishes artifacts .-> ART
 ```
 
 TanStack Query owns API-backed state. Zustand persists only the active project
-pointer, theme, and panel preferences. The SQLite project model is authoritative;
-future molecular state and Mol* viewer state remain separate.
+pointer, theme, and panel preferences. SQLite metadata and immutable normalized
+artifacts are authoritative; Mol* renders generated projections and is never a
+project save format.
 
 See [docs/API.md](docs/API.md), [docs/PROJECT_SCHEMA.md](docs/PROJECT_SCHEMA.md),
-and [docs/DECISIONS.md](docs/DECISIONS.md) for the current contracts.
+[docs/NORMALIZED_SCHEMA.md](docs/NORMALIZED_SCHEMA.md),
+[docs/FORMAT_MATRIX.md](docs/FORMAT_MATRIX.md),
+[docs/SCIENTIFIC_LIMITATIONS.md](docs/SCIENTIFIC_LIMITATIONS.md), and
+[docs/DECISIONS.md](docs/DECISIONS.md) for the current contracts.
 
-## Milestone 1 Checks
+## Milestone 2 Checks
 
 Run these from the repository root:
 
 ```bash
 .venv/bin/ruff check .
 .venv/bin/mypy apps/api packages/molweave_core
-.venv/bin/pytest tests/unit/test_commands.py tests/integration/test_project_lifecycle.py
+.venv/bin/pytest tests/unit/adapters tests/integration/test_import_export.py
+.venv/bin/pytest tests/scientific/test_format_fidelity.py
 corepack pnpm --dir apps/web lint
 corepack pnpm --dir apps/web typecheck
-corepack pnpm --dir apps/web test -- project-workspace
+corepack pnpm --dir apps/web test -- structure-loading viewer-adapter
 PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test \
-  tests/e2e/project-lifecycle.spec.ts
+  tests/e2e/import-display-export.spec.ts
 corepack pnpm --dir apps/web build
 ```
 

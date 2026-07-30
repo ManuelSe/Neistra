@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import asyncio
 import multiprocessing
+import time
 from collections.abc import AsyncIterator, Callable
 from contextlib import asynccontextmanager
 from multiprocessing.connection import Connection
@@ -150,7 +151,11 @@ async def _prepare_cancellable(
         if kind == "limit_error":
             raise ImportLimitError(**payload)
         if kind == "worker_error":
-            raise RuntimeError(str(payload))
+            raise _error(
+                422,
+                "import_worker_failed",
+                f"The molecular parser failed: {payload}",
+            )
         return cast(list[PreparedFile], payload)
     finally:
         if process.is_alive():
@@ -223,7 +228,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     app.state.settings = app_settings
     app.state.engine = engine
     app.state.session_factory = factory
-    app.state.cancelled_imports = set()
+    app.state.cancelled_imports = {}
     app.add_middleware(
         CORSMiddleware,
         allow_origins=list(app_settings.cors_origins),
@@ -469,13 +474,19 @@ def create_app(settings: Settings | None = None) -> FastAPI:
                 raise _error(499, "import_cancelled", "Import was cancelled before commit.")
             return _call(lambda: service.commit_import(project_id, expected_revision, prepared))
         finally:
-            app.state.cancelled_imports.discard(import_id)
+            app.state.cancelled_imports.pop(import_id, None)
 
     @router.post("/imports/{operation_id}/cancel")
     async def cancel_import(operation_id: str) -> dict[str, str]:
         if not operation_id or len(operation_id) > 64:
             raise _error(422, "invalid_import_operation", "Invalid import operation ID.")
-        app.state.cancelled_imports.add(operation_id)
+        now = time.monotonic()
+        app.state.cancelled_imports = {
+            key: created_at
+            for key, created_at in app.state.cancelled_imports.items()
+            if now - created_at < 3600
+        }
+        app.state.cancelled_imports[operation_id] = now
         return {"status": "cancelled"}
 
     @router.get(
