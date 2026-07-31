@@ -2,10 +2,11 @@
 
 ## Current milestone
 
-Milestone 7 - Protein editing and validation
+Milestone 8 - Complete export and portable archives
 
-Complete. The dependency, domain, persistence/API, client, browser, full
-regression, documentation, and normal-startup checkpoints all pass.
+In progress. The complete requirements and existing export, artifact, project
+state, selection, client, and security boundaries have been audited. Export
+policy implementation is next.
 
 ## Completed work
 
@@ -654,6 +655,16 @@ Results:
 - Updated the README, HTTP API contract, scientific limitations, decisions,
   and progress documents for the implemented M7 behavior, dependency pins,
   verification commands, and explicit not-full-preparation boundary.
+- M8 audit checkpoint: reread the complete product, plan, progress, and decision
+  documents from the clean `8de7732` baseline and traced individual adapter
+  export, immutable original/current artifacts, project snapshots, canonical
+  entry selection, client download, and import-cancellation paths.
+- Defined deterministic all/selected/visible scope resolution, disposable
+  hydrogen/water/ion filtering, collision-safe separate filenames, SDF/SMILES
+  multi-record packing, per-entry loss reports, prepare-before-publish
+  cancellation, and `ProjectManifestV1` archive/import semantics in D-035.
+- Existing export baseline verification passed all 9 adapter export tests and
+  all 16 import/export API integration tests before M8 changes.
 
 ## Known limitations
 
@@ -697,4 +708,5 @@ None.
 
 ## Next action
 
-Begin M8 complete export and portable archives from the clean M7 baseline.
+Implement and verify the typed export policy, filtering, deterministic packing,
+loss reporting, and cancellable batch API.

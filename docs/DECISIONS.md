@@ -1138,3 +1138,75 @@ Consequences:
   unchanged; inferred atoms still receive the entry's monotonic MolWeave IDs.
 - Any duplicate hierarchy or atom-name identity continues to reject before
   publication.
+
+## D-035 - Deterministic batch exports and remapped portable archives
+
+Status: accepted
+
+Decision:
+
+Implement one typed export policy over immutable current normalized artifacts.
+The policy resolves `all`, `selected`, or `visible` entry scope; applies
+hydrogen, water, and ion exclusion to a disposable normalized copy; and exports
+either collision-safe separate files or one multi-record file. Multi-record
+packing is available only for formats that declare it and is initially SDF or
+SMILES. Multiple separate outputs are packaged in a deterministic ZIP with
+stable member ordering, fixed ZIP metadata, safe ASCII stems, and numeric
+collision suffixes. Every entry retains its own structured loss report.
+
+Prepare batch exports outside the web request process from immutable input
+bytes. Cancellation terminates preparation. Loss acknowledgement and a final
+cancellation check occur before the parent publishes the one completed
+artifact, so a rejected or cancelled operation leaves no partial export
+artifact or work file.
+
+Define `ProjectManifestV1` as a deterministic JSON document inside a ZIP
+archive. It contains application/schema versions, source project identifiers,
+working/checkpoint revisions, current groups, entries, viewer settings, saved
+selections, measurements, scenes, and a content table for every deduplicated
+original and current normalized artifact. Each content record declares its safe
+archive path, SHA-256, byte length, media type, and display filename.
+
+Archive import rejects absolute or parent paths, backslashes, duplicate names,
+directories, symlinks, encrypted members, undeclared or missing members,
+unsupported schema versions, excessive entry counts, compressed or
+uncompressed size limits, excessive decompression ratios, malformed manifests,
+relationship errors, normalized-summary mismatches, and content hash/size
+mismatches before publishing artifacts or creating a project.
+
+An imported archive always receives fresh project, entry, group, selection,
+measurement, and scene UUIDs, with every relationship remapped atomically.
+Entry-local atom and bond IDs and normalized bytes remain unchanged. This
+allows the same archive to be imported repeatedly or back into its source
+installation without relational collisions. The imported current state becomes
+a clean revision-zero checkpoint; source revisions and IDs remain manifest
+provenance. Command history is not a portable transport concern.
+
+Rationale:
+
+Filtering and format conversion are export projections, not molecular edits,
+so they must not change project history or authoritative artifacts. Preparing
+one final artifact before publication gives cancellation and loss confirmation
+a clear atomic boundary. Fixed metadata and explicit filenames make repeated
+exports byte-deterministic.
+
+Portable archives are scientific snapshots rather than SQLite backups.
+Preserving relational UUIDs would make normal same-instance re-import fail,
+while restoring command rows would couple the transport schema to database
+implementation details. Relationship remapping preserves the user-visible
+project and stable molecular identity while keeping import repeatable.
+
+Consequences:
+
+- A selected export requires an explicit nonempty entry-ID set; visibility is
+  resolved from durable project state.
+- Filtering can produce an empty entry and then rejects the complete export
+  without publication.
+- Per-entry adapter warnings are never flattened into an unattributed batch
+  message. Blocking loss in any entry requires acknowledgement for the batch.
+- Archive export includes byte-identical originals and exact current normalized
+  artifacts, including unsaved durable working state, but not undo/redo records.
+- Archive import is all-or-nothing and creates a new active project rather than
+  mutating an existing project.
+- Job summaries and result artifacts use reserved additive manifest fields that
+  M9 will populate through the generic job model; no docking concepts enter M8.
