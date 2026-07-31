@@ -381,6 +381,25 @@ class ProjectService:
             entry_ids,
         )
 
+    def import_job_result(
+        self,
+        project_id: str,
+        expected_revision: int,
+        entry_state: dict[str, Any],
+        job_id: str,
+    ) -> ProjectRead:
+        project = self._project(project_id)
+        self._check_revision(project, expected_revision)
+        entry_id = str(entry_state["id"])
+        return self._record(
+            project,
+            "job.result.import",
+            f"Import result from job {job_id[:8]}",
+            [{"kind": "entry.create", "entry": entry_state}],
+            [{"kind": "entry.delete", "entry_id": entry_id}],
+            [entry_id],
+        )
+
     def set_entry_value(
         self,
         project_id: str,

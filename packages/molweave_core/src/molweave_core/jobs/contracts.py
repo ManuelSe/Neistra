@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from pathlib import PurePath
+from pathlib import Path, PurePath
 from typing import Any, Protocol
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
@@ -133,6 +133,8 @@ class JobResult:
 
 
 class JobContext(Protocol):
+    work_directory: Path
+
     def is_cancelled(self) -> bool: ...
 
     def checkpoint(self) -> None: ...
@@ -144,6 +146,16 @@ class JobContext(Protocol):
     def stdout(self, message: str) -> None: ...
 
     def stderr(self, message: str) -> None: ...
+
+    def publish_artifact(
+        self,
+        *,
+        role: str,
+        filename: str,
+        media_type: str,
+        data: bytes,
+        metadata: dict[str, Any] | None = None,
+    ) -> ResultArtifact: ...
 
 
 class JobPlugin(Protocol):

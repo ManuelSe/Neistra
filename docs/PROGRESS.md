@@ -776,6 +776,32 @@ Results:
   and strict mypy passed all 7 new core/plugin/test source files. Tests cover
   allowlisting, target and duplicate rejection, parameter schemas, result
   statistics/coordinates, deterministic failure, and cooperative cancellation.
+- M9 durable lifecycle checkpoint: added migration `0007` and relational jobs,
+  immutable input snapshots, result-artifact links, and ordered event records.
+  Submission validates plugin parameters, role cardinality, structure types,
+  current artifact availability, and captures project revision, artifact IDs,
+  hashes, sizes, plugin target, implementation version, and canonical parameters
+  as durable provenance before queue publication.
+- Added the separate `molweave_api.worker` process and controlled spawned-child
+  runner. The worker atomically claims queued rows, re-hashes every immutable
+  input, gives each child a private work directory and controlled context,
+  relays stdout/stderr and monotonic progress into the event ledger, validates
+  returned roles/media/normalized structures/count/bytes, enforces wall time
+  and optional platform CPU/memory limits, and publishes results only in the
+  parent. Cooperative cancellation escalates after the declared grace period;
+  startup recovery marks abandoned running work failed with `worker_lost`.
+- Added generic definition, submit/list/detail/cancel/event/result-import HTTP
+  endpoints and `/ws/jobs` with a durable global event cursor. The API loads an
+  allowlisted registry at startup but never calls plugin execution. Result
+  import creates a fully usable artifact-backed entry through the existing
+  command ledger, preserves job/input/result provenance, and is undoable.
+- Focused backend verification is clean: Ruff and strict mypy pass the complete
+  API/job/plugin tree; 10 job unit/integration tests pass, covering successful
+  execution, deterministic failure, invalid parameters, immutable provenance,
+  queued and running cancellation, downloads, result import/undo, event order,
+  and worker-loss recovery. A fresh SQLite database upgraded through all
+  migrations and reported `0007 (head)`. OpenAPI generation succeeds with 42
+  documented paths.
 
 ## Known limitations
 
@@ -822,6 +848,6 @@ None.
 
 ## Next action
 
-Implement and verify durable job/input/event/result persistence, migration
-`0007`, atomic queue claiming, the separate worker and controlled spawned-child
-runner, result publication, cancellation, and abandoned-worker recovery.
+Extend portable archives with job summaries, immutable input/result references,
+ID remapping, and incomplete-job recovery; then verify archive round trips and
+commit that checkpoint before implementing the job workspace UI.

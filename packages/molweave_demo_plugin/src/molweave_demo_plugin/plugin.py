@@ -12,7 +12,6 @@ from molweave_core.jobs import (
     JobDefinition,
     JobResult,
     ResourcePolicy,
-    ResultArtifact,
     ResultRole,
 )
 from molweave_core.molecular import NormalizedStructureV1
@@ -150,13 +149,13 @@ class DemoPlugin:
         context.progress(100, "Published demonstration results")
         return JobResult(
             artifacts=(
-                ResultArtifact(
+                context.publish_artifact(
                     role="statistics",
                     filename="structure-statistics.json",
                     media_type="application/json",
                     data=statistics_bytes,
                 ),
-                ResultArtifact(
+                context.publish_artifact(
                     role="structure",
                     filename="demonstration-result.normalized.json",
                     media_type=NORMALIZED_MEDIA_TYPE,

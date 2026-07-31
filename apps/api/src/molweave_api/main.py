@@ -19,6 +19,8 @@ from fastapi import (
     Request,
     Response,
     UploadFile,
+    WebSocket,
+    WebSocketDisconnect,
     status,
 )
 from fastapi.middleware.cors import CORSMiddleware
@@ -31,7 +33,8 @@ from molweave_core.export_policy import (
     PreparedExport,
     prepare_export,
 )
-from sqlalchemy import text
+from molweave_core.jobs import PluginRegistry
+from sqlalchemy import select, text
 from sqlalchemy.orm import Session, sessionmaker
 from uuid6 import uuid7
 
@@ -57,7 +60,15 @@ from molweave_api.import_export import (
     prepare_uploads,
     safe_display_filename,
 )
+from molweave_api.job_service import (
+    InvalidJobOperationError,
+    JobConflictError,
+    JobNotFoundError,
+    JobResultNotFoundError,
+    JobService,
+)
 from molweave_api.ligand_edit_service import LigandEditService
+from molweave_api.models import Artifact, Job, JobEvent
 from molweave_api.project_service import (
     EntryNotFoundError,
     HistoryUnavailableError,
@@ -85,6 +96,16 @@ from molweave_api.schemas import (
     FormatRead,
     GroupCreate,
     ImportRead,
+    JobCreate,
+    JobDefinitionRead,
+    JobEventRead,
+    JobInputRead,
+    JobInputRoleRead,
+    JobRead,
+    JobResultArtifactRead,
+    JobResultImportCreate,
+    JobResultImportRead,
+    JobResultRoleRead,
     LigandEditCreate,
     LigandEditRead,
     MeasurementCreate,
@@ -433,6 +454,11 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     app_settings.data_dir.mkdir(parents=True, exist_ok=True)
     engine = create_database_engine(app_settings.database_url)
     factory = create_session_factory(engine)
+    job_registry = PluginRegistry.load(
+        allowlist=app_settings.job_plugin_allowlist,
+        configured_targets=app_settings.job_plugin_targets,
+        discover_installed=True,
+    )
 
     @asynccontextmanager
     async def lifespan(_: FastAPI) -> AsyncIterator[None]:
@@ -451,6 +477,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     app.state.settings = app_settings
     app.state.engine = engine
     app.state.session_factory = factory
+    app.state.job_registry = job_registry
     app.state.cancelled_imports = {}
     app.state.cancelled_exports = {}
     app.add_middleware(
@@ -475,6 +502,39 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     async def formats(session: Session = Depends(session_dependency)) -> list[FormatRead]:
         return ImportExportService(session, app_settings).formats()
 
+    @router.get("/jobs/definitions", response_model=list[JobDefinitionRead])
+    async def job_definitions() -> list[JobDefinitionRead]:
+        return [
+            JobDefinitionRead(
+                plugin_name=registered.plugin_name,
+                job_type=registered.definition.job_type,
+                implementation_version=registered.definition.implementation_version,
+                label=registered.definition.label,
+                description=registered.definition.description,
+                parameter_schema=registered.definition.parameter_schema,
+                input_roles=[
+                    JobInputRoleRead(
+                        role=role.role,
+                        label=role.label,
+                        minimum=role.minimum,
+                        maximum=role.maximum,
+                        structure_types=list(role.structure_types),
+                    )
+                    for role in registered.definition.input_roles
+                ],
+                result_roles=[
+                    JobResultRoleRead(
+                        role=role.role,
+                        label=role.label,
+                        media_types=list(role.media_types),
+                        importable_structure=role.importable_structure,
+                    )
+                    for role in registered.definition.result_roles
+                ],
+            )
+            for registered in job_registry.definitions()
+        ]
+
     @router.get("/projects", response_model=list[ProjectListItem])
     async def list_projects(
         session: Session = Depends(session_dependency),
@@ -492,6 +552,85 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         project_id: str, session: Session = Depends(session_dependency)
     ) -> ProjectRead:
         return _call(lambda: _service(session).get_project(project_id))
+
+    @router.post(
+        "/projects/{project_id}/jobs",
+        response_model=JobRead,
+        status_code=status.HTTP_201_CREATED,
+    )
+    async def submit_job(
+        project_id: str,
+        payload: JobCreate,
+        session: Session = Depends(session_dependency),
+    ) -> JobRead:
+        job = _call(
+            lambda: JobService(session, app_settings, job_registry).submit(
+                project_id,
+                payload.job_type,
+                payload.parameters,
+                [item.model_dump(mode="json") for item in payload.inputs],
+            )
+        )
+        return _job_read(session, app_settings, job)
+
+    @router.get("/projects/{project_id}/jobs", response_model=list[JobRead])
+    async def list_jobs(
+        project_id: str,
+        session: Session = Depends(session_dependency),
+    ) -> list[JobRead]:
+        jobs = _call(
+            lambda: JobService(session, app_settings, job_registry).list_project(project_id)
+        )
+        return [_job_read(session, app_settings, job) for job in jobs]
+
+    @router.get("/jobs/{job_id}", response_model=JobRead)
+    async def get_job(
+        job_id: str,
+        session: Session = Depends(session_dependency),
+    ) -> JobRead:
+        job = _call(lambda: JobService(session, app_settings, job_registry).get(job_id))
+        return _job_read(session, app_settings, job)
+
+    @router.post("/jobs/{job_id}/cancel", response_model=JobRead)
+    async def cancel_job(
+        job_id: str,
+        session: Session = Depends(session_dependency),
+    ) -> JobRead:
+        job = _call(lambda: JobService(session, app_settings, job_registry).cancel(job_id))
+        return _job_read(session, app_settings, job)
+
+    @router.get("/jobs/{job_id}/events", response_model=list[JobEventRead])
+    async def job_events(
+        job_id: str,
+        after_sequence: int = 0,
+        session: Session = Depends(session_dependency),
+    ) -> list[JobEventRead]:
+        events = _call(
+            lambda: JobService(session, app_settings, job_registry).events(
+                job_id, max(0, after_sequence)
+            )
+        )
+        return [JobEventRead.model_validate(event) for event in events]
+
+    @router.post(
+        "/jobs/{job_id}/results/{result_id}/import",
+        response_model=JobResultImportRead,
+    )
+    async def import_job_result(
+        job_id: str,
+        result_id: str,
+        payload: JobResultImportCreate,
+        session: Session = Depends(session_dependency),
+    ) -> JobResultImportRead:
+        project, entry_id = _call(
+            lambda: JobService(session, app_settings, job_registry).import_result(
+                job_id,
+                result_id,
+                payload.expected_revision,
+                payload.name,
+            )
+        )
+        return JobResultImportRead(project=project, imported_entry_id=entry_id)
 
     @router.patch("/projects/{project_id}", response_model=ProjectRead)
     async def update_project(
@@ -771,9 +910,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         session: Session = Depends(session_dependency),
     ) -> ProjectRead:
         return _call(
-            lambda: _service(session).apply_scene(
-                project_id, scene_id, payload.expected_revision
-            )
+            lambda: _service(session).apply_scene(project_id, scene_id, payload.expected_revision)
         )
 
     @router.delete(
@@ -787,9 +924,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         session: Session = Depends(session_dependency),
     ) -> ProjectRead:
         return _call(
-            lambda: _service(session).delete_scene(
-                project_id, scene_id, expected_revision
-            )
+            lambda: _service(session).delete_scene(project_id, scene_id, expected_revision)
         )
 
     @router.post(
@@ -840,9 +975,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
                 "Transform entry ID must match the route entry",
             )
         return _call(
-            lambda: CoordinateService(session, app_settings).transform(
-                project_id, payload
-            )
+            lambda: CoordinateService(session, app_settings).transform(project_id, payload)
         )
 
     @router.post(
@@ -856,9 +989,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         session: Session = Depends(session_dependency),
     ) -> LigandEditRead:
         return _call(
-            lambda: LigandEditService(session, app_settings).edit(
-                project_id, entry_id, payload
-            )
+            lambda: LigandEditService(session, app_settings).edit(project_id, entry_id, payload)
         )
 
     @router.post(
@@ -872,9 +1003,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         session: Session = Depends(session_dependency),
     ) -> ProteinEditRead:
         return _call(
-            lambda: ProteinEditService(session, app_settings).edit(
-                project_id, entry_id, payload
-            )
+            lambda: ProteinEditService(session, app_settings).edit(project_id, entry_id, payload)
         )
 
     @router.post(
@@ -887,9 +1016,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         session: Session = Depends(session_dependency),
     ) -> SuperpositionRead:
         return _call(
-            lambda: CoordinateService(session, app_settings).superpose(
-                project_id, payload
-            )
+            lambda: CoordinateService(session, app_settings).superpose(project_id, payload)
         )
 
     @router.post(
@@ -1104,13 +1231,9 @@ def create_app(settings: Settings | None = None) -> FastAPI:
                 await _archive_child_cancellable(
                     _build_archive_child,
                     (source,),
-                    is_cancelled=lambda: (
-                        payload.operation_id in app.state.cancelled_exports
-                    ),
+                    is_cancelled=lambda: payload.operation_id in app.state.cancelled_exports,
                     cancelled_code="export_cancelled",
-                    cancelled_message=(
-                        "Project archive export was cancelled before publication."
-                    ),
+                    cancelled_message=("Project archive export was cancelled before publication."),
                 ),
             )
             if (
@@ -1188,9 +1311,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
                     "Archive import was cancelled before commit.",
                 )
             return _call(
-                lambda: ProjectArchiveService(
-                    session, app_settings
-                ).import_archive(prepared)
+                lambda: ProjectArchiveService(session, app_settings).import_archive(prepared)
             )
         finally:
             app.state.cancelled_imports.pop(import_id, None)
@@ -1209,6 +1330,38 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         )
 
     app.include_router(router)
+
+    @app.websocket("/ws/jobs")
+    async def jobs_websocket(
+        websocket: WebSocket,
+        project_id: str,
+        after_event_id: int = 0,
+    ) -> None:
+        await websocket.accept()
+        cursor = max(0, after_event_id)
+        try:
+            while True:
+                with factory() as session:
+                    events = list(
+                        session.scalars(
+                            select(JobEvent)
+                            .join(Job, Job.id == JobEvent.job_id)
+                            .where(
+                                Job.project_id == project_id,
+                                JobEvent.id > cursor,
+                            )
+                            .order_by(JobEvent.id)
+                            .limit(100)
+                        ).all()
+                    )
+                    for event in events:
+                        await websocket.send_json(
+                            JobEventRead.model_validate(event).model_dump(mode="json")
+                        )
+                        cursor = event.id
+                await asyncio.sleep(0.1)
+        except WebSocketDisconnect:
+            return
 
     if app_settings.enable_test_routes:
         testing = APIRouter(prefix="/api/v1/testing")
@@ -1274,6 +1427,61 @@ def _call[ResultT](operation: Callable[[], ResultT]) -> ResultT:
             "structure_unavailable",
             f"Entry {error} does not have molecular data",
         ) from error
+    except JobNotFoundError as error:
+        raise _error(404, "job_not_found", f"Job {error} was not found") from error
+    except JobResultNotFoundError as error:
+        raise _error(404, "job_result_not_found", f"Job result {error} was not found") from error
+    except JobConflictError as error:
+        raise _error(409, "job_conflict", str(error)) from error
+    except InvalidJobOperationError as error:
+        raise _error(422, "invalid_job_operation", str(error)) from error
+
+
+def _job_read(session: Session, settings: Settings, job: Job) -> JobRead:
+    artifact_service = ImportExportService(session, settings).artifacts
+    results: list[JobResultArtifactRead] = []
+    for result in sorted(job.results, key=lambda item: item.created_at):
+        artifact = session.get(Artifact, result.artifact_id)
+        if artifact is None:
+            raise ArtifactNotFoundError(result.artifact_id)
+        results.append(
+            JobResultArtifactRead(
+                id=result.id,
+                role=result.role,
+                artifact=artifact_service.response(artifact, filename=result.filename),
+                filename=result.filename,
+                media_type=result.media_type,
+                metadata=result.metadata_json,
+                importable_structure=result.importable_structure,
+                imported_entry_ids=result.imported_entry_ids,
+                created_at=result.created_at,
+            )
+        )
+    return JobRead(
+        id=job.id,
+        project_id=job.project_id,
+        plugin_name=job.plugin_name,
+        job_type=job.job_type,
+        implementation_version=job.implementation_version,
+        status=job.status,
+        parameters=job.parameters,
+        progress=job.progress,
+        status_message=job.status_message,
+        result_values=job.result_values,
+        warnings=job.warnings,
+        error=job.error,
+        provenance=job.provenance,
+        cancellation_requested=job.cancellation_requested,
+        inputs=[
+            JobInputRead.model_validate(item)
+            for item in sorted(job.inputs, key=lambda value: value.ordinal)
+        ],
+        results=results,
+        created_at=job.created_at,
+        started_at=job.started_at,
+        completed_at=job.completed_at,
+        modified_at=job.modified_at,
+    )
 
 
 app = create_app()

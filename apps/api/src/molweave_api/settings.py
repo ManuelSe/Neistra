@@ -20,6 +20,10 @@ class Settings:
     max_archive_compression_ratio: float = 100.0
     atom_warning_limit: int = 250_000
     atom_hard_limit: int = 1_000_000
+    job_plugin_allowlist: tuple[str, ...] = ("molweave.demo",)
+    job_plugin_targets: tuple[str, ...] = ("molweave_demo_plugin.plugin:plugin",)
+    job_worker_poll_seconds: float = 0.1
+    job_worker_health_port: int | None = None
 
     @classmethod
     def from_env(cls) -> Settings:
@@ -54,4 +58,21 @@ class Settings:
             ),
             atom_warning_limit=int(os.getenv("MOLWEAVE_ATOM_WARNING_LIMIT", "250000")),
             atom_hard_limit=int(os.getenv("MOLWEAVE_ATOM_HARD_LIMIT", "1000000")),
+            job_plugin_allowlist=tuple(
+                item.strip()
+                for item in os.getenv("MOLWEAVE_JOB_PLUGIN_ALLOWLIST", "molweave.demo").split(",")
+                if item.strip()
+            ),
+            job_plugin_targets=tuple(
+                item.strip()
+                for item in os.getenv(
+                    "MOLWEAVE_JOB_PLUGIN_TARGETS",
+                    "molweave_demo_plugin.plugin:plugin",
+                ).split(",")
+                if item.strip()
+            ),
+            job_worker_poll_seconds=float(os.getenv("MOLWEAVE_JOB_WORKER_POLL_SECONDS", "0.1")),
+            job_worker_health_port=(
+                int(value) if (value := os.getenv("MOLWEAVE_JOB_WORKER_HEALTH_PORT")) else None
+            ),
         )

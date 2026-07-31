@@ -2,9 +2,11 @@ from __future__ import annotations
 
 import json
 from dataclasses import dataclass, field
+from pathlib import Path
+from typing import Any
 
 import pytest
-from molweave_core.jobs import InputArtifact, JobCancelled
+from molweave_core.jobs import InputArtifact, JobCancelled, ResultArtifact
 from molweave_core.molecular import (
     Atom,
     Bond,
@@ -22,6 +24,7 @@ from molweave_demo_plugin.plugin import (
 
 @dataclass
 class RecordingContext:
+    work_directory: Path = Path("/tmp/molweave-demo-test")
     cancel_at_checkpoint: int | None = None
     checkpoints: int = 0
     progress_events: list[tuple[float, str]] = field(default_factory=list)
@@ -51,6 +54,23 @@ class RecordingContext:
 
     def stderr(self, message: str) -> None:
         self.stderr_lines.append(message)
+
+    def publish_artifact(
+        self,
+        *,
+        role: str,
+        filename: str,
+        media_type: str,
+        data: bytes,
+        metadata: dict[str, Any] | None = None,
+    ) -> ResultArtifact:
+        return ResultArtifact(
+            role=role,
+            filename=filename,
+            media_type=media_type,
+            data=data,
+            metadata=metadata or {},
+        )
 
 
 def structure() -> NormalizedStructureV1:

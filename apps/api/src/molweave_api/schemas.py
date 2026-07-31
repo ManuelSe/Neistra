@@ -40,6 +40,120 @@ class RevisionRequest(BaseModel):
     expected_revision: int = Field(ge=0)
 
 
+class JobInputCreate(BaseModel):
+    role: str = Field(min_length=1, max_length=64)
+    entry_id: str = Field(min_length=1, max_length=36)
+
+
+class JobCreate(BaseModel):
+    job_type: str = Field(min_length=1, max_length=120)
+    parameters: dict[str, Any] = Field(default_factory=dict)
+    inputs: list[JobInputCreate] = Field(min_length=1, max_length=100)
+
+
+class JobInputRoleRead(BaseModel):
+    role: str
+    label: str
+    minimum: int
+    maximum: int
+    structure_types: list[str]
+
+
+class JobResultRoleRead(BaseModel):
+    role: str
+    label: str
+    media_types: list[str]
+    importable_structure: bool
+
+
+class JobDefinitionRead(BaseModel):
+    plugin_name: str
+    job_type: str
+    implementation_version: str
+    label: str
+    description: str
+    parameter_schema: dict[str, Any]
+    input_roles: list[JobInputRoleRead]
+    result_roles: list[JobResultRoleRead]
+
+
+class JobInputRead(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: str
+    ordinal: int
+    role: str
+    entry_id: str
+    entry_name: str
+    structure_type: str
+    artifact_id: str
+    artifact_sha256: str
+    artifact_size: int
+    media_type: str
+    filename: str
+
+
+class JobResultArtifactRead(BaseModel):
+    id: str
+    role: str
+    artifact: ArtifactRead
+    filename: str
+    media_type: str
+    metadata: dict[str, Any]
+    importable_structure: bool
+    imported_entry_ids: list[str]
+    created_at: datetime
+
+
+JobStatus = Literal["queued", "running", "completed", "failed", "cancelled"]
+
+
+class JobRead(BaseModel):
+    id: str
+    project_id: str
+    plugin_name: str
+    job_type: str
+    implementation_version: str
+    status: JobStatus
+    parameters: dict[str, Any]
+    progress: float
+    status_message: str
+    result_values: dict[str, Any]
+    warnings: list[dict[str, Any]]
+    error: dict[str, Any] | None
+    provenance: dict[str, Any]
+    cancellation_requested: bool
+    inputs: list[JobInputRead]
+    results: list[JobResultArtifactRead]
+    created_at: datetime
+    started_at: datetime | None
+    completed_at: datetime | None
+    modified_at: datetime
+
+
+class JobEventRead(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: int
+    job_id: str
+    sequence: int
+    kind: str
+    stream: str | None
+    message: str
+    data: dict[str, Any]
+    created_at: datetime
+
+
+class JobResultImportCreate(BaseModel):
+    expected_revision: int = Field(ge=0)
+    name: str | None = Field(default=None, max_length=160)
+
+
+class JobResultImportRead(BaseModel):
+    project: ProjectRead
+    imported_entry_id: str
+
+
 class GroupRead(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
@@ -338,9 +452,7 @@ class CoordinateTransformCreate(BaseModel):
     selection: SelectionV1 = Field(default_factory=SelectionV1)
     translation: tuple[float, float, float] = (0.0, 0.0, 0.0)
     rotation_degrees: tuple[float, float, float] = (0.0, 0.0, 0.0)
-    pivot_mode: Literal["selection_centroid", "structure_centroid", "custom"] = (
-        "structure_centroid"
-    )
+    pivot_mode: Literal["selection_centroid", "structure_centroid", "custom"] = "structure_centroid"
     pivot: tuple[float, float, float] | None = None
 
     @model_validator(mode="after")
@@ -373,15 +485,11 @@ class SuperpositionCreate(BaseModel):
             raise ValueError("Moving and reference entries must differ")
         allowed = {self.moving_entry_id, self.reference_entry_id}
         if any(item.structure_id not in allowed for item in self.selection.atoms):
-            raise ValueError(
-                "Superposition selection may only contain moving and reference atoms"
-            )
+            raise ValueError("Superposition selection may only contain moving and reference atoms")
         if self.mode == "selection":
             selected_entries = {item.structure_id for item in self.selection.atoms}
             if selected_entries != allowed:
-                raise ValueError(
-                    "Selection superposition requires atoms from both entries"
-                )
+                raise ValueError("Selection superposition requires atoms from both entries")
         return self
 
 

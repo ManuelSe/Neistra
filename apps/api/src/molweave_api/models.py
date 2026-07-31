@@ -7,6 +7,7 @@ from sqlalchemy import (
     JSON,
     Boolean,
     DateTime,
+    Float,
     ForeignKey,
     Integer,
     String,
@@ -54,6 +55,7 @@ class Project(Base):
     scenes: Mapped[list[Scene]] = relationship(
         back_populates="project", cascade="all, delete-orphan"
     )
+    jobs: Mapped[list[Job]] = relationship(back_populates="project", cascade="all, delete-orphan")
 
 
 class EntryGroup(Base):
@@ -199,3 +201,94 @@ class Artifact(Base):
     filename: Mapped[str] = mapped_column(String(255))
     relative_path: Mapped[str] = mapped_column(String(512), unique=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)
+
+
+class Job(Base):
+    __tablename__ = "jobs"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    project_id: Mapped[str] = mapped_column(ForeignKey("projects.id", ondelete="CASCADE"))
+    plugin_name: Mapped[str] = mapped_column(String(120))
+    job_type: Mapped[str] = mapped_column(String(120))
+    implementation_version: Mapped[str] = mapped_column(String(64))
+    status: Mapped[str] = mapped_column(String(16), default="queued", index=True)
+    parameters: Mapped[dict[str, Any]] = mapped_column(JSON)
+    progress: Mapped[float] = mapped_column(Float, default=0.0)
+    status_message: Mapped[str] = mapped_column(String(500), default="Queued")
+    result_values: Mapped[dict[str, Any]] = mapped_column(JSON, default=dict)
+    warnings: Mapped[list[dict[str, Any]]] = mapped_column(JSON, default=list)
+    error: Mapped[dict[str, Any] | None] = mapped_column(JSON, nullable=True)
+    provenance: Mapped[dict[str, Any]] = mapped_column(JSON)
+    cancellation_requested: Mapped[bool] = mapped_column(Boolean, default=False)
+    event_sequence: Mapped[int] = mapped_column(Integer, default=0)
+    worker_id: Mapped[str | None] = mapped_column(String(120), nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)
+    started_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    modified_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), default=utc_now, onupdate=utc_now
+    )
+
+    project: Mapped[Project] = relationship(back_populates="jobs")
+    inputs: Mapped[list[JobInput]] = relationship(
+        back_populates="job", cascade="all, delete-orphan"
+    )
+    results: Mapped[list[JobResultArtifact]] = relationship(
+        back_populates="job", cascade="all, delete-orphan"
+    )
+    events: Mapped[list[JobEvent]] = relationship(
+        back_populates="job", cascade="all, delete-orphan"
+    )
+
+
+class JobInput(Base):
+    __tablename__ = "job_inputs"
+    __table_args__ = (UniqueConstraint("job_id", "ordinal"),)
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    job_id: Mapped[str] = mapped_column(ForeignKey("jobs.id", ondelete="CASCADE"))
+    ordinal: Mapped[int] = mapped_column(Integer)
+    role: Mapped[str] = mapped_column(String(64))
+    entry_id: Mapped[str] = mapped_column(String(36))
+    entry_name: Mapped[str] = mapped_column(String(160))
+    structure_type: Mapped[str] = mapped_column(String(24))
+    artifact_id: Mapped[str] = mapped_column(ForeignKey("artifacts.id", ondelete="RESTRICT"))
+    artifact_sha256: Mapped[str] = mapped_column(String(64))
+    artifact_size: Mapped[int] = mapped_column(Integer)
+    media_type: Mapped[str] = mapped_column(String(120))
+    filename: Mapped[str] = mapped_column(String(255))
+
+    job: Mapped[Job] = relationship(back_populates="inputs")
+
+
+class JobResultArtifact(Base):
+    __tablename__ = "job_result_artifacts"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    job_id: Mapped[str] = mapped_column(ForeignKey("jobs.id", ondelete="CASCADE"))
+    artifact_id: Mapped[str] = mapped_column(ForeignKey("artifacts.id", ondelete="RESTRICT"))
+    role: Mapped[str] = mapped_column(String(64))
+    filename: Mapped[str] = mapped_column(String(255))
+    media_type: Mapped[str] = mapped_column(String(120))
+    metadata_json: Mapped[dict[str, Any]] = mapped_column(JSON, default=dict)
+    importable_structure: Mapped[bool] = mapped_column(Boolean, default=False)
+    imported_entry_ids: Mapped[list[str]] = mapped_column(JSON, default=list)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)
+
+    job: Mapped[Job] = relationship(back_populates="results")
+
+
+class JobEvent(Base):
+    __tablename__ = "job_events"
+    __table_args__ = (UniqueConstraint("job_id", "sequence"),)
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    job_id: Mapped[str] = mapped_column(ForeignKey("jobs.id", ondelete="CASCADE"))
+    sequence: Mapped[int] = mapped_column(Integer)
+    kind: Mapped[str] = mapped_column(String(32))
+    stream: Mapped[str | None] = mapped_column(String(16), nullable=True)
+    message: Mapped[str] = mapped_column(Text)
+    data: Mapped[dict[str, Any]] = mapped_column(JSON, default=dict)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)
+
+    job: Mapped[Job] = relationship(back_populates="events")
