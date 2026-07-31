@@ -29,6 +29,7 @@ function entry(id: string, visible: boolean) {
     original_filename: `${id}.pdb`,
     source_format: "pdb",
     atom_count: 3,
+    atom_ids: [1, 2, 3],
     bond_count: 1,
     residue_count: 1,
     conformer_count: 1,
@@ -64,6 +65,7 @@ function project(proteinVisible = true, ligandVisible = false): Project {
     measurements: [],
     scenes: [],
     structure_patches: [],
+    topology_patches: [],
     history: {
       can_undo: true,
       can_redo: false,
@@ -114,6 +116,7 @@ class FakeViewer implements MolecularViewer {
   mounted = false;
   disposed = false;
   syncs: ViewerStructure[][] = [];
+  replacements: ViewerStructure[] = [];
   selections: AtomReference[][] = [];
   granularities: SelectionGranularity[] = [];
   coordinatePatches: {
@@ -135,6 +138,11 @@ class FakeViewer implements MolecularViewer {
 
   syncStructures(structures: ViewerStructure[]): Promise<void> {
     this.syncs.push(structures);
+    return Promise.resolve();
+  }
+
+  replaceStructure(structure: ViewerStructure): Promise<void> {
+    this.replacements.push(structure);
     return Promise.resolve();
   }
 
@@ -449,6 +457,78 @@ describe("lazy structure loading", () => {
     await waitFor(() =>
       expect(fake.coordinatePatches).toEqual([{ patch, mode: "commit" }]),
     );
+    expect(fake.syncs).toHaveLength(syncCount);
+  });
+
+  it("replaces only the affected topology after its new artifact is loaded", async () => {
+    const fake = new FakeViewer();
+    const initial = project(true, true);
+    vi.spyOn(globalThis, "fetch").mockImplementation((input) => {
+      const entryId = requestUrl(input).includes("/ligand/") ? "ligand" : "protein";
+      return Promise.resolve(
+        new Response(JSON.stringify(projection(entryId)), {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+        }),
+      );
+    });
+    const queryClient = new QueryClient({
+      defaultOptions: { queries: { retry: false } },
+    });
+    const view = render(
+      <StructureViewer
+        project={initial}
+        selection={emptySelection}
+        pickingGranularity="atom"
+        onViewerSelection={() => undefined}
+        createViewer={() => fake}
+      />,
+      { wrapper: wrapper(queryClient) },
+    );
+    await waitFor(() => expect(fake.syncs.at(-1)).toHaveLength(2));
+    const syncCount = fake.syncs.length;
+    const artifactId = "ligand-topology-2";
+    const replacement = projection("ligand");
+    replacement.structure.atoms = [1, 2, 3, 4].map((id) => ({
+      ...replacement.structure.atoms[0],
+      id,
+      name: `C${id}`,
+      source_index: id - 1,
+    }));
+    queryClient.setQueryData(
+      ["structure", initial.id, "ligand", artifactId],
+      replacement,
+    );
+    const next: Project = {
+      ...initial,
+      revision: 2,
+      entries: initial.entries.map((item) =>
+        item.id === "ligand"
+          ? {
+              ...item,
+              atom_count: 4,
+              atom_ids: [1, 2, 3, 4],
+              current_artifact_id: artifactId,
+            }
+          : item,
+      ),
+      topology_patches: [{ entry_id: "ligand", artifact_id: artifactId }],
+    };
+
+    view.rerender(
+      <StructureViewer
+        project={next}
+        selection={emptySelection}
+        pickingGranularity="atom"
+        onViewerSelection={() => undefined}
+        createViewer={() => fake}
+      />,
+    );
+
+    await waitFor(() =>
+      expect(fake.replacements.at(-1)?.normalized.atoms).toHaveLength(4),
+    );
+    expect(fake.replacements.at(-1)?.entryId).toBe("ligand");
     expect(fake.syncs).toHaveLength(syncCount);
   });
 

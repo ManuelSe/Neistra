@@ -45,6 +45,7 @@ export function molecularEntry(
     original_filename: `${name.toLocaleLowerCase()}.pdb`,
     source_format: "pdb",
     atom_count: structureType === "protein" ? 3 : 1,
+    atom_ids: structureType === "protein" ? [1, 2, 3] : [1],
     bond_count: 1,
     residue_count: structureType === "protein" ? 2 : 0,
     conformer_count: 1,
@@ -92,6 +93,7 @@ export function molecularProject(entries?: Entry[]): Project {
     measurements: [],
     scenes: [],
     structure_patches: [],
+    topology_patches: [],
     history: {
       can_undo: true,
       can_redo: false,

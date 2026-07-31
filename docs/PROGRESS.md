@@ -262,6 +262,16 @@ editor and validator.
   restart persistence, original-upload preservation, reference reconciliation,
   exact undo restoration, valence non-mutation, cleanup reporting, and locked
   edits.
+- Added a complete Ligand inspector workspace for atom/bond CRUD, element and
+  charge changes, explicit hydrogens, selected-atom movement, exact-side bond
+  rotation, and whole/selected MMFF/UFF cleanup with structured result and
+  warning display.
+- Reconciled transient selection against exact current atom IDs and added a
+  topology-query path that waits for the new artifact, then replaces only the
+  affected Mol* entry while preserving unrelated models, camera, application
+  selection, labels, and measurements.
+- Added client coverage for all ligand control payloads, locked controls, and
+  affected-entry topology replacement without a full scene synchronization.
 
 ## Verification performed
 
@@ -492,6 +502,10 @@ Results:
 - A fresh temporary database migrated `0001 -> 0002 -> 0003 -> 0004 -> 0005 ->
   0006`, reported `0006 (head)`, downgraded to `0005`, and upgraded to `0006`
   again.
+- M6 client checkpoint: ESLint and TypeScript passed; all 30 client
+  component/domain tests passed under the exact `ligand-editor` gate; the
+  production build transformed 3,345 modules with a 461.10 KiB initial chunk
+  and Mol* retained in a lazy chunk.
 
 ## Known limitations
 
@@ -528,5 +542,6 @@ None.
 
 ## Next action
 
-Add the complete ligand editor UI, exact atom-reference client reconciliation,
-affected-entry query/viewer replacement, component tests, and browser workflows.
+Add and repair the real API/WebGL ligand-editing Playwright workflow, including
+successful edits, undo/redo, warnings, invalid valence, rotation rejection,
+cleanup, locked state, and responsive browser inspection.

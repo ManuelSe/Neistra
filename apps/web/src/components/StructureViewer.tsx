@@ -8,6 +8,7 @@ import type {
   CoordinatePatch,
   Project,
   Scene,
+  StructureProjection,
   ViewerSettings,
 } from "../api/types";
 import type {
@@ -56,6 +57,7 @@ export function StructureViewer({
   const onViewerSelectionRef = useRef(onViewerSelection);
   const viewerStructuresRef = useRef<ViewerStructure[]>([]);
   const appliedArtifactsRef = useRef(new Map<string, string>());
+  const appliedTopologyArtifactsRef = useRef(new Map<string, string>());
   const previewEntryRef = useRef<string | null>(null);
   const [viewerReady, setViewerReady] = useState(false);
   const [viewerError, setViewerError] = useState<string | null>(null);
@@ -72,6 +74,7 @@ export function StructureViewer({
       queryFn: () => molecularApi.structure(project.id, entry.id),
       retry: false,
       staleTime: Number.POSITIVE_INFINITY,
+      placeholderData: (previous: StructureProjection | undefined) => previous,
     })),
   });
 
@@ -163,7 +166,7 @@ export function StructureViewer({
   const syncKey = viewerStructures
     .map(
       (structure) =>
-        `${structure.entryId}:${structure.projection.data.length}:${JSON.stringify(structure.settings)}`,
+        `${structure.entryId}:${JSON.stringify(structure.settings)}`,
     )
     .join("|");
   const structuresPending = structureQueries.some((query) => query.isPending);
@@ -196,6 +199,55 @@ export function StructureViewer({
         );
     }
   }, [project.structure_patches, syncKey, viewerReady]);
+
+  const topologyDataKey = structureQueries
+    .map((query, index) =>
+      query.data && !query.isPlaceholderData
+        ? `${visibleEntries[index].id}:${visibleEntries[index].current_artifact_id}`
+        : "",
+    )
+    .join("|");
+
+  useEffect(() => {
+    if (!viewerReady) return;
+    for (const patch of project.topology_patches) {
+      if (
+        appliedTopologyArtifactsRef.current.get(patch.entry_id) ===
+        patch.artifact_id
+      ) {
+        continue;
+      }
+      const queryIndex = visibleEntries.findIndex(
+        (entry) =>
+          entry.id === patch.entry_id &&
+          entry.current_artifact_id === patch.artifact_id,
+      );
+      if (queryIndex < 0 || structureQueries[queryIndex]?.isPlaceholderData) {
+        continue;
+      }
+      const replacement = viewerStructures.find(
+        (structure) => structure.entryId === patch.entry_id,
+      );
+      if (!replacement) continue;
+      appliedTopologyArtifactsRef.current.set(patch.entry_id, patch.artifact_id);
+      void viewerRef.current
+        ?.replaceStructure(replacement)
+        .catch((error: unknown) =>
+          setViewerError(
+            error instanceof Error
+              ? error.message
+              : "The viewer rejected a molecular update.",
+          ),
+        );
+    }
+  }, [
+    project.topology_patches,
+    structureQueries,
+    topologyDataKey,
+    viewerReady,
+    viewerStructures,
+    visibleEntries,
+  ]);
 
   useEffect(() => {
     if (!viewerReady) return;

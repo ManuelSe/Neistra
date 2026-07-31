@@ -14,6 +14,7 @@ import type {
   CameraState,
   CoordinatePatch,
   CoordinateTransform,
+  LigandEdit,
   Measurement,
   MeasurementKind,
   Project,
@@ -133,7 +134,7 @@ export default function App() {
     const entries = new Map(project.entries.map((entry) => [entry.id, entry]));
     const valid = selection.atoms.filter((reference) => {
       const entry = entries.get(reference.structure_id);
-      return entry !== undefined && reference.atom_id <= entry.atom_count;
+      return entry !== undefined && entry.atom_ids.includes(reference.atom_id);
     });
     if (valid.length !== selection.atoms.length) {
       replaceSelection(
@@ -474,6 +475,53 @@ export default function App() {
           text: `Aligned ${result.report.atom_count} atoms; RMSD ${result.report.rmsd.toFixed(4)} angstrom.`,
         });
         return result.report;
+      } catch (error) {
+        setNotice({ kind: "error", text: errorMessage(error) });
+        if (
+          error instanceof ApiError &&
+          error.code === "revision_conflict" &&
+          activeProjectId
+        ) {
+          void queryClient.invalidateQueries({
+            queryKey: ["project", activeProjectId],
+          });
+        }
+        throw error;
+      }
+    },
+    onLigandEdit: async (entryId: string, edit: LigandEdit) => {
+      if (!project) throw new Error("No project is open.");
+      try {
+        const result = await projectApi.ligandEdit(project, entryId, edit);
+        updateProjectCache(result.project);
+        const currentEntry = result.project.entries.find(
+          (entry) => entry.id === entryId,
+        );
+        if (currentEntry) {
+          replaceSelection(
+            canonicalSelection(
+              selection.atoms.filter(
+                (reference) =>
+                  reference.structure_id !== entryId ||
+                  currentEntry.atom_ids.includes(reference.atom_id),
+              ),
+              selection.granularity,
+              selection.source,
+            ),
+          );
+        }
+        setEditedThisSession(true);
+        const warningText =
+          result.warnings.length > 0
+            ? ` ${result.warnings.length} chemistry warning${
+                result.warnings.length === 1 ? "" : "s"
+              }.`
+            : "";
+        setNotice({
+          kind: "success",
+          text: `Ligand edit stored.${warningText}`,
+        });
+        return result;
       } catch (error) {
         setNotice({ kind: "error", text: errorMessage(error) });
         if (

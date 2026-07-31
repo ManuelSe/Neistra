@@ -41,6 +41,10 @@ class LazyMolstarViewer implements MolecularViewer {
     return this.engine?.syncStructures(structures) ?? Promise.resolve();
   }
 
+  replaceStructure(structure: ViewerStructure): Promise<void> {
+    return this.engine?.replaceStructure(structure) ?? Promise.resolve();
+  }
+
   applyCoordinatePatch(
     patch: CoordinatePatch,
     mode: "preview" | "commit",

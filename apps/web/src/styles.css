@@ -1850,7 +1850,7 @@ div[data-radix-popper-content-wrapper]:has(.tooltip) {
 }
 
 .inspector-tabs {
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   height: 58px;
 }
 
@@ -1869,6 +1869,126 @@ div[data-radix-popper-content-wrapper]:has(.tooltip) {
 
 .transform-panel {
   padding: 0 10px 14px;
+}
+
+.ligand-editor {
+  display: grid;
+  gap: 10px;
+  padding: 10px 10px 16px;
+}
+
+.ligand-editor > label,
+.edit-section label {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+  color: var(--text-soft);
+  font-size: 9px;
+  font-weight: 650;
+}
+
+.ligand-editor input,
+.ligand-editor select {
+  height: 30px;
+  font-size: 10px;
+}
+
+.ligand-status {
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+  color: var(--text-soft);
+  font-size: 9px;
+}
+
+.ligand-status strong {
+  color: var(--danger);
+}
+
+.edit-section {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  margin: 0;
+  padding: 9px;
+  border: 1px solid var(--border);
+}
+
+.edit-section legend {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0 4px;
+  color: var(--text-soft);
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.edit-section .form-row.three,
+.coordinate-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 5px;
+}
+
+.edit-section button,
+.edit-actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-height: 30px;
+  padding: 4px 7px;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 4px;
+  font-size: 9px;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.edit-section button:disabled {
+  opacity: 0.42;
+  cursor: default;
+}
+
+.edit-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 5px;
+}
+
+.edit-actions .danger-button {
+  color: var(--danger);
+  border-color: color-mix(in srgb, var(--danger) 45%, var(--border));
+}
+
+.edit-report {
+  padding: 9px;
+  background: var(--surface-muted);
+  border-left: 3px solid var(--accent);
+}
+
+.edit-report h3,
+.edit-report p {
+  margin: 0;
+}
+
+.edit-report h3 {
+  font-size: 10px;
+}
+
+.edit-report p,
+.edit-report small,
+.edit-warning {
+  margin-top: 4px;
+  font-size: 9px;
+}
+
+.edit-warning {
+  color: var(--danger);
 }
 
 .coordinate-section {

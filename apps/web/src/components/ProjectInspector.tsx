@@ -13,6 +13,8 @@ import { molecularApi } from "../api/client";
 import type {
   Project,
   CoordinateTransform,
+  LigandEdit,
+  LigandEditResult,
   Measurement,
   MeasurementKind,
   SavedSelection,
@@ -32,6 +34,7 @@ import {
   type StructureMap,
 } from "../selection/selection";
 import { IconButton } from "./IconButton";
+import { LigandEditorPanel } from "./LigandEditorPanel";
 import { MeasurementsPanel } from "./MeasurementsPanel";
 import { TransformPanel } from "./TransformPanel";
 
@@ -73,6 +76,10 @@ interface ProjectInspectorProps {
   onSuperpose?: (
     payload: SuperpositionRequest,
   ) => Promise<SuperpositionResult["report"] | null>;
+  onLigandEdit?: (
+    entryId: string,
+    edit: LigandEdit,
+  ) => Promise<LigandEditResult>;
   onCollapse?: () => void;
 }
 
@@ -570,7 +577,13 @@ function SequencePanel({
 export function ProjectInspector(props: ProjectInspectorProps) {
   const { project, selection, onCollapse } = props;
   const [tab, setTab] = useState<
-    "selection" | "inspect" | "measurements" | "transform" | "sequence" | "details"
+    | "selection"
+    | "inspect"
+    | "measurements"
+    | "transform"
+    | "ligand"
+    | "sequence"
+    | "details"
   >("selection");
   const automaticallyOpenedDetails = useRef(false);
   const projectId = project?.id;
@@ -589,6 +602,9 @@ export function ProjectInspector(props: ProjectInspectorProps) {
     const ids = new Set(
       project?.entries.filter((entry) => entry.visible).map((entry) => entry.id),
     );
+    for (const entry of project?.entries ?? []) {
+      if (entry.structure_type === "ligand") ids.add(entry.id);
+    }
     for (const entryId of selectedEntryIds(selection)) ids.add(entryId);
     return [...ids];
   }, [project?.entries, selection]);
@@ -629,7 +645,9 @@ export function ProjectInspector(props: ProjectInspectorProps) {
                   ? "Measurements"
                   : tab === "transform"
                     ? "Transform"
-                  : tab === "sequence"
+                    : tab === "ligand"
+                      ? "Ligand"
+                    : tab === "sequence"
                     ? "Sequence"
                     : "Project"}
           </h2>
@@ -641,7 +659,7 @@ export function ProjectInspector(props: ProjectInspectorProps) {
         ) : null}
       </div>
       <div className="inspector-tabs" role="tablist" aria-label="Inspector views">
-        {(["selection", "inspect", "measurements", "transform", "sequence", "details"] as const).map((item) => (
+        {(["selection", "inspect", "measurements", "transform", "ligand", "sequence", "details"] as const).map((item) => (
           <button
             type="button"
             role="tab"
@@ -687,6 +705,18 @@ export function ProjectInspector(props: ProjectInspectorProps) {
             onClearPreview={props.onClearTransformPreview ?? (() => undefined)}
             onTransform={props.onTransform ?? (() => Promise.resolve())}
             onSuperpose={props.onSuperpose ?? (() => Promise.resolve(null))}
+          />
+        ) : tab === "ligand" && project ? (
+          <LigandEditorPanel
+            project={project}
+            selection={selection}
+            structures={structures}
+            busy={props.busy}
+            onEdit={
+              props.onLigandEdit ??
+              (() => Promise.reject(new Error("Ligand editing is unavailable.")))
+            }
+            onMove={props.onTransform ?? (() => Promise.resolve())}
           />
         ) : tab === "sequence" ? (
           <SequencePanel

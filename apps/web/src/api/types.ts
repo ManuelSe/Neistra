@@ -18,6 +18,7 @@ export interface Entry {
   original_filename: string | null;
   source_format: string | null;
   atom_count: number;
+  atom_ids: number[];
   bond_count: number;
   residue_count: number;
   conformer_count: number;
@@ -177,6 +178,7 @@ export interface Project {
   scenes: Scene[];
   history: History;
   structure_patches: CoordinatePatch[];
+  topology_patches: TopologyPatch[];
 }
 
 export interface ProjectListItem {
@@ -239,7 +241,18 @@ export interface MolecularAtom {
   alternate_location: string | null;
   occupancy: number | null;
   b_factor: number | null;
+  stereo?: string | null;
   inferred_fields: string[];
+}
+
+export interface MolecularBond {
+  id: number;
+  atom_1_id: number;
+  atom_2_id: number;
+  order: number | null;
+  aromatic: boolean;
+  stereo: string | null;
+  inferred: boolean;
 }
 
 export interface NormalizedStructure {
@@ -249,7 +262,7 @@ export interface NormalizedStructure {
   chains: MolecularChain[];
   residues: MolecularResidue[];
   atoms: MolecularAtom[];
-  bonds: unknown[];
+  bonds: MolecularBond[];
   conformers: unknown[];
   warnings: MolecularWarning[];
 }
@@ -270,6 +283,59 @@ export interface CoordinatePatch {
   artifact_id: string;
   atom_ids: number[];
   coordinates: Point3D[];
+}
+
+export interface TopologyPatch {
+  entry_id: string;
+  artifact_id: string;
+}
+
+export type LigandEdit =
+  | {
+      operation: "atom.add";
+      element: string;
+      formal_charge: number;
+      coordinates: Point3D;
+    }
+  | { operation: "atom.delete"; atom_ids: number[] }
+  | {
+      operation: "bond.add";
+      atom_1_id: number;
+      atom_2_id: number;
+      order: number;
+    }
+  | { operation: "bond.delete"; bond_id: number }
+  | { operation: "bond.order"; bond_id: number; order: number }
+  | { operation: "atom.element"; atom_id: number; element: string }
+  | { operation: "atom.charge"; atom_id: number; formal_charge: number }
+  | { operation: "hydrogen.add"; atom_ids: number[] | null }
+  | { operation: "hydrogen.remove"; atom_ids: number[] | null }
+  | {
+      operation: "bond.rotate";
+      bond_id: number;
+      movable_atom_ids: number[];
+      angle_degrees: number;
+    }
+  | {
+      operation: "coordinates.cleanup";
+      force_field: "auto" | "mmff" | "uff";
+      max_iterations: number;
+      atom_ids: number[] | null;
+    };
+
+export interface LigandEditResult {
+  project: Project;
+  warnings: MolecularWarning[];
+  report: {
+    operation: LigandEdit["operation"];
+    created_atom_ids: number[];
+    created_bond_ids: number[];
+    deleted_atom_ids: number[];
+    deleted_bond_ids: number[];
+    changed_atom_ids: number[];
+    force_field: "MMFF" | "UFF" | null;
+    converged: boolean | null;
+  };
 }
 
 export type TransformScope = "structure" | "selection";

@@ -6,6 +6,8 @@ import type {
   ExportResult,
   FormatCapability,
   ImportResult,
+  LigandEdit,
+  LigandEditResult,
   MolecularWarning,
   Project,
   ProjectListItem,
@@ -125,6 +127,17 @@ export const projectApi = {
         ...payload,
       }),
     }),
+  ligandEdit: (project: Project, entryId: string, payload: LigandEdit) =>
+    request<LigandEditResult>(
+      `/api/v1/projects/${project.id}/entries/${entryId}/ligand-edits`,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          expected_revision: project.revision,
+          ...payload,
+        }),
+      },
+    ),
   updateEntry: (
     project: Project,
     entryId: string,

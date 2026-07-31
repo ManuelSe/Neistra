@@ -40,6 +40,7 @@ interface LoadedStructure {
   entryId: string;
   structure: Structure;
   atomIds: number[];
+  rootRef: string;
   coordinateRef: string;
   structureRef: string;
   baseCoordinates: Map<number, Point3D>;
@@ -58,6 +59,7 @@ export class MolstarEngine implements MolecularViewer {
   private clickSubscription: { unsubscribe(): void } | undefined;
   private cameraSubscription: { unsubscribe(): void } | undefined;
   private measurementRefs: string[] = [];
+  private labelRefs: string[] = [];
   private structures: ViewerStructure[] = [];
   private measurements: ViewerMeasurement[] = [];
   private isolation: AtomReference[] | null = null;
@@ -154,134 +156,58 @@ export class MolstarEngine implements MolecularViewer {
       const camera = this.getCamera();
       await plugin.clear();
       this.measurementRefs = [];
+      this.labelRefs = [];
       this.loaded.clear();
       this.models.clear();
       for (const structure of structures) {
         if (generation !== this.generation) return;
-        const data = await plugin.builders.data.rawData(
-          { data: structure.projection.data, label: structure.label },
-          { state: { isGhost: true } },
-        );
-        const trajectory = await plugin.builders.structure.parseTrajectory(
-          data,
-          structure.projection.format,
-        );
-        const model = await plugin.builders.structure.createModel(trajectory);
-        const modelProperties =
-          await plugin.builders.structure.insertModelProperties(model);
-        const coordinateModel = await plugin.state.data
-          .build()
-          .to(modelProperties)
-          .apply(StateTransforms.Model.ModelWithCoordinates, {
-            frameIndex: 0,
-            frameCount: 1,
-            atomicCoordinateFrame: this.coordinateFrame(
-              structure.normalized.atoms.map((atom) => atom.coordinates),
-            ),
-          })
-          .commit({ revertOnError: true });
-        const modelStructure =
-          await plugin.builders.structure.createStructure(coordinateModel);
-        const structureProperties =
-          await plugin.builders.structure.insertStructureProperties(modelStructure);
-        const molstarStructure = structureProperties.obj?.data;
-        if (!molstarStructure) {
-          throw new Error(`Mol* could not create a structure for ${structure.label}.`);
-        }
-        this.loaded.set(structure.entryId, {
-          entryId: structure.entryId,
-          structure: molstarStructure,
-          atomIds: structure.atomIds,
-          coordinateRef: coordinateModel.ref,
-          structureRef: structureProperties.ref,
-          baseCoordinates: new Map(
-            structure.normalized.atoms.map((atom) => [
-              atom.id,
-              [...atom.coordinates] as Point3D,
-            ]),
-          ),
-        });
-        this.indexModels(structure.entryId, molstarStructure, structure.atomIds);
-        const rootRef = structureProperties;
-        const isolated = this.isolation?.filter(
-          (reference) => reference.structure_id === structure.entryId,
-        );
-        const components = [];
-        if (this.isolation && (!isolated || isolated.length === 0)) continue;
-        if (isolated?.length) {
-          const loci = this.lociFor(isolated);
-          if (loci) {
-            const component = await plugin.builders.structure.tryCreateComponent(
-              rootRef,
-              {
-                type: {
-                  name: "bundle",
-                  params: StructureElement.Bundle.fromLoci(loci),
-                },
-                nullIfEmpty: true,
-                label: "Isolated selection",
-              },
-              `isolation-${structure.entryId}`,
-            );
-            if (component) components.push(component);
-          }
-        } else {
-          const requested = [
-            structure.settings.components.protein ? "protein" : null,
-            structure.settings.components.ligands ? "ligand" : null,
-            structure.settings.components.solvent ? "water" : null,
-            structure.settings.components.ions ? "ion" : null,
-          ].filter((value): value is "protein" | "ligand" | "water" | "ion" => !!value);
-          for (const type of requested) {
-            const component = await plugin.builders.structure.tryCreateComponentStatic(
-              rootRef,
-              type,
-              { label: `${structure.label} ${type}` },
-            );
-            if (component) components.push(component);
-          }
-          if (components.length === 0) {
-            const all = await plugin.builders.structure.tryCreateComponentStatic(
-              rootRef,
-              "all",
-              { label: structure.label },
-            );
-            if (all) components.push(all);
-          }
-        }
-        for (const component of components) {
-          for (const representation of structure.settings.representations) {
-            await plugin.builders.structure.representation.addRepresentation(
-              component,
-              {
-                type: this.representationType(representation.style),
-                typeParams: {
-                  alpha: representation.opacity,
-                  ignoreHydrogens: !structure.settings.components.hydrogens,
-                  ...(representation.style === "stick"
-                    ? { sizeFactor: 0.22, sizeAspectRatio: 0.35 }
-                    : {}),
-                },
-                color: this.colorTheme(representation.color_by),
-                colorParams:
-                  representation.color_by === "custom"
-                    ? {
-                        value: Color(
-                          Number.parseInt(representation.custom_color.slice(1), 16),
-                        ),
-                      }
-                    : undefined,
-              },
-              { tag: `molweave-representation-${representation.id}` },
-            );
-          }
-        }
+        await this.loadStructure(structure);
         await this.addStructureLabels(structure);
       }
       this.applySelection();
       await this.applyMeasurements();
       if (camera && camera.radius > 0) this.setCamera(camera);
       else plugin.canvas3d?.requestCameraReset();
+    });
+    return this.syncQueue;
+  }
+
+  replaceStructure(structure: ViewerStructure): Promise<void> {
+    this.structures = this.structures.map((current) =>
+      current.entryId === structure.entryId ? structure : current,
+    );
+    if (!this.structures.some((current) => current.entryId === structure.entryId)) {
+      this.structures.push(structure);
+    }
+    const generation = this.generation;
+    this.syncQueue = this.syncQueue.then(async () => {
+      const plugin = this.plugin;
+      if (!plugin || generation !== this.generation) return;
+      const camera = this.getCamera();
+      const previous = this.loaded.get(structure.entryId);
+      if (previous) {
+        for (const [model, mapping] of this.models) {
+          if (mapping.entryId === structure.entryId) this.models.delete(model);
+        }
+        this.loaded.delete(structure.entryId);
+        await plugin.state.data
+          .build()
+          .delete(previous.rootRef)
+          .commit({ revertOnError: true });
+      }
+      if (this.labelRefs.length) {
+        const labels = plugin.state.data.build();
+        for (const ref of this.labelRefs) labels.delete(ref);
+        await labels.commit();
+        this.labelRefs = [];
+      }
+      await this.loadStructure(structure);
+      for (const current of this.structures) {
+        await this.addStructureLabels(current);
+      }
+      this.applySelection();
+      await this.applyMeasurements();
+      if (camera) this.setCamera(camera);
     });
     return this.syncQueue;
   }
@@ -468,6 +394,132 @@ export class MolstarEngine implements MolecularViewer {
     await this.applyMeasurements();
   }
 
+  private async loadStructure(structure: ViewerStructure): Promise<void> {
+    const plugin = this.plugin;
+    if (!plugin) return;
+    const data = await plugin.builders.data.rawData(
+      { data: structure.projection.data, label: structure.label },
+      { state: { isGhost: true } },
+    );
+    const trajectory = await plugin.builders.structure.parseTrajectory(
+      data,
+      structure.projection.format,
+    );
+    const model = await plugin.builders.structure.createModel(trajectory);
+    const modelProperties =
+      await plugin.builders.structure.insertModelProperties(model);
+    const coordinateModel = await plugin.state.data
+      .build()
+      .to(modelProperties)
+      .apply(StateTransforms.Model.ModelWithCoordinates, {
+        frameIndex: 0,
+        frameCount: 1,
+        atomicCoordinateFrame: this.coordinateFrame(
+          structure.normalized.atoms.map((atom) => atom.coordinates),
+        ),
+      })
+      .commit({ revertOnError: true });
+    const modelStructure =
+      await plugin.builders.structure.createStructure(coordinateModel);
+    const structureProperties =
+      await plugin.builders.structure.insertStructureProperties(modelStructure);
+    const molstarStructure = structureProperties.obj?.data;
+    if (!molstarStructure) {
+      throw new Error(`Mol* could not create a structure for ${structure.label}.`);
+    }
+    this.loaded.set(structure.entryId, {
+      entryId: structure.entryId,
+      structure: molstarStructure,
+      atomIds: structure.atomIds,
+      rootRef: data.ref,
+      coordinateRef: coordinateModel.ref,
+      structureRef: structureProperties.ref,
+      baseCoordinates: new Map(
+        structure.normalized.atoms.map((atom) => [
+          atom.id,
+          [...atom.coordinates] as Point3D,
+        ]),
+      ),
+    });
+    this.indexModels(structure.entryId, molstarStructure, structure.atomIds);
+    const isolated = this.isolation?.filter(
+      (reference) => reference.structure_id === structure.entryId,
+    );
+    const components = [];
+    if (this.isolation && (!isolated || isolated.length === 0)) return;
+    if (isolated?.length) {
+      const loci = this.lociFor(isolated);
+      if (loci) {
+        const component = await plugin.builders.structure.tryCreateComponent(
+          structureProperties,
+          {
+            type: {
+              name: "bundle",
+              params: StructureElement.Bundle.fromLoci(loci),
+            },
+            nullIfEmpty: true,
+            label: "Isolated selection",
+          },
+          `isolation-${structure.entryId}`,
+        );
+        if (component) components.push(component);
+      }
+    } else {
+      const requested = [
+        structure.settings.components.protein ? "protein" : null,
+        structure.settings.components.ligands ? "ligand" : null,
+        structure.settings.components.solvent ? "water" : null,
+        structure.settings.components.ions ? "ion" : null,
+      ].filter(
+        (value): value is "protein" | "ligand" | "water" | "ion" => !!value,
+      );
+      for (const type of requested) {
+        const component =
+          await plugin.builders.structure.tryCreateComponentStatic(
+            structureProperties,
+            type,
+            { label: `${structure.label} ${type}` },
+          );
+        if (component) components.push(component);
+      }
+      if (components.length === 0) {
+        const all = await plugin.builders.structure.tryCreateComponentStatic(
+          structureProperties,
+          "all",
+          { label: structure.label },
+        );
+        if (all) components.push(all);
+      }
+    }
+    for (const component of components) {
+      for (const representation of structure.settings.representations) {
+        await plugin.builders.structure.representation.addRepresentation(
+          component,
+          {
+            type: this.representationType(representation.style),
+            typeParams: {
+              alpha: representation.opacity,
+              ignoreHydrogens: !structure.settings.components.hydrogens,
+              ...(representation.style === "stick"
+                ? { sizeFactor: 0.22, sizeAspectRatio: 0.35 }
+                : {}),
+            },
+            color: this.colorTheme(representation.color_by),
+            colorParams:
+              representation.color_by === "custom"
+                ? {
+                    value: Color(
+                      Number.parseInt(representation.custom_color.slice(1), 16),
+                    ),
+                  }
+                : undefined,
+          },
+          { tag: `molweave-representation-${representation.id}` },
+        );
+      }
+    }
+  }
+
   private indexModels(
     entryId: string,
     structure: Structure,
@@ -603,7 +655,7 @@ export class MolstarEngine implements MolecularViewer {
       const result = await this.plugin?.managers.structure.measurement.addLabel(loci, {
         visualParams: { customText: text },
       });
-      if (result) this.measurementRefs.push(result.selection.ref);
+      if (result) this.labelRefs.push(result.selection.ref);
     };
     if (labels.structure) {
       await add(
