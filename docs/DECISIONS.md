@@ -1217,3 +1217,77 @@ Consequences:
   available when no project is active.
 - Job summaries and result artifacts use reserved additive manifest fields that
   M9 will populate through the generic job model; no docking concepts enter M8.
+
+## D-036 - Durable generic jobs with allowlisted spawned plugins
+
+Status: accepted
+
+Decision:
+
+Define docking-neutral `JobDefinition`, `JobPlugin`, `JobContext`, `JobRunner`,
+`JobResult`, input-artifact, and result-artifact contracts in `molweave_core`.
+Discover installed `molweave.jobs` package entry points and explicitly
+configured Python plugin targets only at process startup, then register only
+plugin names present in the deployment allowlist. The demonstration plugin
+lives in `packages/molweave_demo_plugin` and enters through this same registry;
+it is not a special API or worker branch.
+
+Persist jobs, immutable input snapshot references, result-artifact references,
+and an ordered event ledger in SQLite. Submission records the validated
+parameter object, implementation version, current immutable input artifacts,
+entry roles, hashes, project revision, and plugin identity in one transaction.
+Job submission and state events do not advance project edit history. Importing
+a normalized result creates one ordinary reversible project command and links
+the new entry to the source job, inputs, and result artifact.
+
+Run one coordinating worker as a process separate from Uvicorn. It atomically
+claims queued rows and launches each allowlisted plugin in a spawned child with
+serialized controlled input handles, a private managed work directory,
+validated parameters, progress/log/cancellation callbacks, wall-time and
+output-size limits, and platform-supported resource limits. Only the worker
+parent may publish returned bytes to the artifact store or update lifecycle
+state. Request handlers load definition metadata for validation but never call
+plugin execution code.
+
+Cancellation sets a durable request flag. A cooperative child receives it
+first; the worker terminates the child after a bounded grace period and records
+a terminal cancelled event. Worker startup atomically converts abandoned
+running rows to failed jobs with structured `worker_lost` errors. Automatic
+retry is omitted. Job events are available by monotonic cursor through both a
+WebSocket and a polling endpoint.
+
+Portable archives include project job summaries and result artifacts needed by
+entry provenance. Relational job IDs are remapped on archive import along with
+entry links. Terminal jobs remain terminal historical records. A queued or
+running source job is imported as failed with an explicit
+`archive_incomplete_job` error because executable process state is not
+portable or resumable.
+
+Rationale:
+
+Immutable artifact snapshots make execution reproducible without copying
+mutable entry state into a second molecular model. A durable event ledger
+supports reload, polling fallback, recovery, and inspectable stdout/stderr.
+The spawned child boundary keeps plugin imports and failures away from both the
+HTTP request path and the coordinating worker while retaining a small local
+deployment with no broker. Explicit allowlisting and controlled byte/result
+interfaces satisfy the future integration need without exposing arbitrary
+commands or runtime code upload.
+
+Consequences:
+
+- Normal local startup gains a third documented worker command; API-only use
+  can queue and inspect jobs but cannot execute them.
+- The API and worker build registries independently from identical startup
+  configuration, and registry mismatches produce structured claim failures.
+- Input entries may later change or be deleted without changing a submitted
+  job's artifact IDs, hashes, parameters, or provenance.
+- Standard output, standard error, messages, progress, cancellation requests,
+  state changes, results, and failures remain ordered durable events after
+  browser or process restart.
+- Plugins may be installed only by the deployment operator. Job parameters,
+  filenames, roles, output media types, byte limits, and managed paths are
+  validated even for allowlisted code.
+- Core job models contain generic roles, structured values, scores, artifacts,
+  and provenance only; receptor, ligand, pose, docking, and scoring semantics
+  belong to a future plugin and its documentation.

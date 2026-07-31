@@ -2,11 +2,12 @@
 
 ## Current milestone
 
-Milestone 8 - Complete export and portable archives
+Milestone 9 - Generic jobs and demonstration plugin
 
-Complete. All acceptance criteria in `docs/PLAN.md` are implemented and
-verified through policy, API integration, archive security, component,
-production-build, and real desktop/mobile browser checks.
+In progress. The complete M9 requirement set and the existing persistence,
+artifact, project-command, archive, API, lower-panel, and startup boundaries
+have been audited. Typed job/plugin contracts and the demonstration plugin are
+next.
 
 ## Completed work
 
@@ -746,6 +747,17 @@ Results:
   8000 and 5173; `/api/v1/health` returned `{"status":"ok"}`, current OpenAPI
   included the complete-export/archive endpoints, and the browser entry
   returned the MolWeave application shell.
+- M9 audit checkpoint: reread the complete product, plan, progress, and
+  decision documents from the clean `2f6a7ff` baseline. Confirmed there is no
+  existing job implementation to preserve: entry `job_links` and
+  `generated_results`, archive `jobs`, and lower-panel space are intentional
+  extension points; job tables, plugin contracts/registry, worker, events,
+  APIs, demonstration plugin, and client workflows remain to be implemented.
+- Traced reusable M9 prerequisites: immutable current artifacts provide input
+  snapshots; `ArtifactService` provides atomic result publication and safe
+  downloads; `ProjectService` can import a generated normalized entry through
+  one undoable command; and `ProjectManifestV1` can carry job summaries and
+  referenced result artifacts without changing the molecular schema.
 
 ## Known limitations
 
@@ -792,4 +804,6 @@ None.
 
 ## Next action
 
-Milestone 8 is complete. Begin Milestone 9 only when requested.
+Implement and verify the typed generic job/plugin contracts, allowlisted
+demonstration plugin, durable job/event/result persistence, separate worker,
+controlled child runner, cancellation, and worker recovery.
