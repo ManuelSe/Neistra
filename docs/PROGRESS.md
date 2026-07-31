@@ -859,6 +859,12 @@ Results:
   inputs, controlled execution, progress/logs, artifact publication, pose and
   score representation, generated-result import, failures, and the future
   docking integration checklist. Docking remains explicitly outside v0.1.
+- Final Python checkpoint: repository Ruff passes, strict mypy passes all 73
+  checked source/test files, and the complete suite passes all 168 tests. The
+  full-suite run exposed duplicate `test_registry` module names that focused
+  runs could not reveal; packaging the existing adapter and job test directories
+  gives Pytest stable distinct module identities without changing production
+  code or milestone behavior.
 
 ## Known limitations
 
@@ -905,5 +911,6 @@ None.
 
 ## Next action
 
-Run all M9 and repository validation gates, then verify the documented local
-commands from a clean three-process startup and record the final evidence.
+Run the frontend lint, type-check, focused/full unit, build, and Playwright
+gates, then verify the documented local commands from a clean three-process
+startup and record the final evidence.
