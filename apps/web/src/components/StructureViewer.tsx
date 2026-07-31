@@ -183,7 +183,7 @@ export function StructureViewer({
 
   useEffect(() => {
     if (!viewerReady) return;
-    for (const patch of project.structure_patches) {
+    for (const patch of project.structure_patches ?? []) {
       if (appliedArtifactsRef.current.get(patch.entry_id) === patch.artifact_id) {
         continue;
       }
@@ -210,7 +210,7 @@ export function StructureViewer({
 
   useEffect(() => {
     if (!viewerReady) return;
-    for (const patch of project.topology_patches) {
+    for (const patch of project.topology_patches ?? []) {
       if (
         appliedTopologyArtifactsRef.current.get(patch.entry_id) ===
         patch.artifact_id

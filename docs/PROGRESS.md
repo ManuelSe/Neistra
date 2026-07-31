@@ -4,9 +4,9 @@
 
 Milestone 6 - Ligand editing
 
-In progress. The domain, persistence, viewer, and selection contracts have been
-audited. Implementation will begin with the independently testable RDKit-backed
-editor and validator.
+In progress. The domain, persistence, application UI, affected-entry Mol*
+replacement, and desktop API/WebGL workflow are implemented and verified.
+Repository-wide validation and responsive browser inspection remain.
 
 ## Completed work
 
@@ -506,6 +506,19 @@ Results:
   component/domain tests passed under the exact `ligand-editor` gate; the
   production build transformed 3,345 modules with a 461.10 KiB initial chunk
   and Mol* retained in a lazy chunk.
+- M6 desktop browser checkpoint: the real Chromium API/WebGL workflow passed in
+  12.2 seconds. It verified invalid-valence rejection without revision or atom
+  mutation; atom and bond creation with stable IDs; exact bond-rotation
+  undo/redo; terminal-bond rejection without revision change; explicit
+  hydrogen add/remove; reported MMFF/UFF cleanup; selected-atom movement; lock
+  enforcement after reload; affected-entry viewer replacement; and a nonblank
+  molecular canvas throughout.
+- Playwright now applies Alembic migrations to its persistent `.molweave-e2e`
+  data directory before starting the API. Exact E2E commands therefore work
+  after schema changes without deleting accumulated test projects.
+- The viewer tolerates absent transient patch arrays from a stale local API
+  during a rolling development restart. Fresh current-version project
+  responses continue to provide both typed patch collections.
 
 ## Known limitations
 
@@ -529,9 +542,10 @@ Results:
 - M4 close-contact detection currently operates within one normalized
   structure. Cross-structure contacts and periodic boundaries are outside the
   v0.1 requirement.
-- Selected-atom rigid transforms do not perform valence, stereochemistry,
-  minimization, or clash validation and can create chemically unreasonable
-  local geometry. Those constrained operations remain M6/M7 work.
+- Free selected-atom translation remains an unconstrained rigid transform and
+  can create chemically unreasonable local geometry. Ligand graph changes,
+  bond rotation, and coordinate cleanup now use the M6 validator and surface
+  sanitization, stereochemistry, clash, convergence, and force-field warnings.
 - Protein superposition requires compatible, unambiguous hierarchy identities.
   It does not guess sequence alignments, fill missing residues, or perform
   ligand graph matching.
@@ -542,6 +556,6 @@ None.
 
 ## Next action
 
-Add and repair the real API/WebGL ligand-editing Playwright workflow, including
-successful edits, undo/redo, warnings, invalid valence, rotation rejection,
-cleanup, locked state, and responsive browser inspection.
+Run the exact Milestone 6 gates, repository-wide regressions, production build,
+responsive browser inspection, and documented normal startup; repair any
+failure before marking the milestone complete.

@@ -24,7 +24,7 @@ export default defineConfig({
   webServer: [
     {
       command:
-        "PYTHONPATH=apps/api/src:packages/molweave_core/src MOLWEAVE_DATA_DIR=.molweave-e2e MOLWEAVE_AUTO_CREATE_SCHEMA=1 MOLWEAVE_ENABLE_TEST_ROUTES=1 .venv/bin/uvicorn molweave_api.main:app --host 127.0.0.1 --port 8010",
+        "PYTHONPATH=apps/api/src:packages/molweave_core/src MOLWEAVE_DATA_DIR=.molweave-e2e .venv/bin/alembic upgrade head && PYTHONPATH=apps/api/src:packages/molweave_core/src MOLWEAVE_DATA_DIR=.molweave-e2e MOLWEAVE_ENABLE_TEST_ROUTES=1 .venv/bin/uvicorn molweave_api.main:app --host 127.0.0.1 --port 8010",
       url: "http://127.0.0.1:8010/api/v1/health",
       reuseExistingServer: true,
       timeout: 30_000,

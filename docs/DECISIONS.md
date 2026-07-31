@@ -956,3 +956,31 @@ Consequences:
   patch; reload remains reconstructible from the current artifact alone.
 - Interactive free movement remains the M5 transform command and does not pay
   the topology-refetch cost.
+
+## D-030 - Migrate the persistent E2E database before server startup
+
+Status: accepted
+
+Decision:
+
+Run `alembic upgrade head` against `.molweave-e2e` in the Playwright API
+web-server command before starting Uvicorn. Keep the persistent test data
+directory and `reuseExistingServer` behavior, but require a restarted API after
+backend schema or response-contract changes.
+
+Rationale:
+
+SQLAlchemy `create_all` creates fresh schemas but cannot add columns to an
+existing SQLite database. Milestone 6 added stable-ID and allocator columns, so
+an accumulated E2E database could pass the health check and then fail its first
+project query. Applying the same migration path used by documented local
+startup tests realistic upgrade behavior and avoids destructive test-data
+cleanup.
+
+Consequences:
+
+- Every Playwright command is safe to run against a test directory created by
+  an earlier milestone.
+- Migration failures stop browser verification before test interactions begin.
+- A server already listening on port 8010 is still reused; developers must
+  restart it after code or schema changes.

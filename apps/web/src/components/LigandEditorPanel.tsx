@@ -112,6 +112,8 @@ export function LigandEditorPanel({
     setPending(true);
     try {
       setLastResult(await onEdit(entryId, edit));
+    } catch {
+      // The application-level mutation surface owns visible API error feedback.
     } finally {
       setPending(false);
     }
