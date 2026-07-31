@@ -252,6 +252,16 @@ editor and validator.
   invalid valence, missing force-field parameters, unchanged heavy-atom IDs,
   gapped IDs, hydrogen provenance, stereo preservation/change, cleanup reports,
   ring/terminal/wrong-side rotation rejection, and questionable geometry.
+- Added exact per-entry atom-ID summaries and monotonic atom/bond allocators,
+  Alembic migration `0006`, typed discriminated ligand-edit requests/reports,
+  immutable molecular command actions, and affected-entry topology patches.
+- Added atomic atom-deletion reconciliation for saved selections,
+  measurements, and named-scene selections. Undo restores the prior artifact
+  and every dependent object while allocation counters remain monotonic.
+- Added durable API coverage for topology edits, branch-after-undo identity,
+  restart persistence, original-upload preservation, reference reconciliation,
+  exact undo restoration, valence non-mutation, cleanup reporting, and locked
+  edits.
 
 ## Verification performed
 
@@ -477,6 +487,11 @@ Results:
 - M6 scientific checkpoint: focused Ruff passed; strict mypy passed for 19
   core/test source files; all 11 ligand editor and scientific validation tests
   passed.
+- M6 persistence checkpoint: repository-wide Ruff passed; strict mypy passed
+  for 38 API/core/test source files; all 110 Python tests passed.
+- A fresh temporary database migrated `0001 -> 0002 -> 0003 -> 0004 -> 0005 ->
+  0006`, reported `0006 (head)`, downgraded to `0005`, and upgraded to `0006`
+  again.
 
 ## Known limitations
 
@@ -513,6 +528,5 @@ None.
 
 ## Next action
 
-Add per-entry identity allocators, immutable molecular command history,
-transactional deleted-reference reconciliation, typed edit APIs, and focused
-integration tests.
+Add the complete ligand editor UI, exact atom-reference client reconciliation,
+affected-entry query/viewer replacement, component tests, and browser workflows.

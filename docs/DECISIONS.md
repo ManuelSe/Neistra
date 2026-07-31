@@ -927,3 +927,32 @@ Consequences:
   not exactly one component after cutting the bond are rejected before
   rotatable-bond coordinate publication.
 - Original upload artifacts remain untouched by every edit and cleanup command.
+
+## D-029 - Unified affected-entry patches for ligand edit artifacts
+
+Status: accepted
+
+Decision:
+
+Return an affected-entry topology patch for every M6 ligand edit, including bond
+rotation and coordinate cleanup. The patch contains only the entry and new
+artifact identity; the browser refetches that one normalized/viewer projection
+and replaces only that Mol* structure. Existing M5 translation, rotation, and
+superposition commands continue to use compact coordinate spans.
+
+Rationale:
+
+M6 coordinate cleanup and bond rotation can change validation warnings,
+stereochemistry reports, inference provenance, and the immutable artifact
+snapshot in addition to coordinates. A single molecular patch path guarantees
+that all of those fields update atomically and keeps undo/redo behavior
+identical across every ligand edit. The refetch is still scoped to one affected
+entry and does not rebuild unrelated structures.
+
+Consequences:
+
+- The M6 browser cache must invalidate and replace exactly the patched entry.
+- Molecular edit undo/redo returns the corresponding before/after topology
+  patch; reload remains reconstructible from the current artifact alone.
+- Interactive free movement remains the M5 transform command and does not pay
+  the topology-refetch cost.

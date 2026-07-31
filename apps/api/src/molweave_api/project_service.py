@@ -29,6 +29,7 @@ from molweave_api.schemas import (
     ProjectRead,
     SavedSelectionRead,
     SceneRead,
+    TopologyPatch,
     ViewerSettings,
 )
 from molweave_api.viewer_state import default_viewer_settings
@@ -74,10 +75,13 @@ def _entry_state(entry: StructureEntry) -> dict[str, Any]:
         "source_format": entry.source_format,
         "normalized_data": deepcopy(entry.normalized_data),
         "atom_count": entry.atom_count,
+        "atom_ids": deepcopy(entry.atom_ids),
         "bond_count": entry.bond_count,
         "residue_count": entry.residue_count,
         "conformer_count": entry.conformer_count,
         "warnings": deepcopy(entry.warnings),
+        "next_atom_id": entry.next_atom_id,
+        "next_bond_id": entry.next_bond_id,
         "viewer_settings": deepcopy(entry.viewer_settings),
         "visible": entry.visible,
         "locked": entry.locked,
@@ -200,6 +204,7 @@ def project_read(
     session: Session,
     project: Project,
     structure_patches: list[CoordinatePatch] | None = None,
+    topology_patches: list[TopologyPatch] | None = None,
 ) -> ProjectRead:
     session.refresh(
         project,
@@ -244,6 +249,7 @@ def project_read(
         ],
         history=_history(session, project.id),
         structure_patches=structure_patches or [],
+        topology_patches=topology_patches or [],
     )
 
 
@@ -577,7 +583,7 @@ class ProjectService:
         entries = {entry.id: entry for entry in project.entries}
         for reference in current.atoms:
             entry = entries.get(reference.structure_id)
-            if entry is None or reference.atom_id > entry.atom_count:
+            if entry is None or reference.atom_id not in set(entry.atom_ids):
                 raise InvalidProjectOperationError(
                     "Saved selection contains an atom reference that is not in the current project"
                 )
@@ -899,6 +905,160 @@ class ProjectService:
             structure_patches=response_patches,
         )
 
+    def record_molecular_change(
+        self,
+        project_id: str,
+        expected_revision: int,
+        command_type: str,
+        description: str,
+        change: dict[str, Any],
+        deleted_atom_ids: list[int],
+    ) -> ProjectRead:
+        project = self._project(project_id)
+        self._check_revision(project, expected_revision)
+        entry = self._entry(project, str(change["entry_id"]))
+        if entry.locked:
+            raise InvalidProjectOperationError(
+                f"Unlock {entry.name} before editing its molecule"
+            )
+        forward: list[dict[str, Any]] = [
+            {
+                "kind": "entry.molecule",
+                "entry_id": entry.id,
+                "artifact_id": str(change["after_artifact_id"]),
+                "values": deepcopy(change["after_values"]),
+                "next_atom_id": int(change["next_atom_id"]),
+                "next_bond_id": int(change["next_bond_id"]),
+            }
+        ]
+        inverse: list[dict[str, Any]] = [
+            {
+                "kind": "entry.molecule",
+                "entry_id": entry.id,
+                "artifact_id": str(change["before_artifact_id"]),
+                "values": deepcopy(change["before_values"]),
+            }
+        ]
+        deleted = set(deleted_atom_ids)
+        if deleted:
+            self._append_atom_reference_reconciliation(
+                project, entry, deleted, forward, inverse
+            )
+        return self._record(
+            project,
+            command_type,
+            description,
+            forward,
+            inverse,
+            [entry.id],
+            selection_snapshot=[
+                {"structure_id": entry.id, "atom_id": atom_id}
+                for atom_id in sorted(deleted)
+            ],
+            topology_patches=[
+                TopologyPatch(
+                    entry_id=entry.id,
+                    artifact_id=str(change["after_artifact_id"]),
+                )
+            ],
+        )
+
+    @staticmethod
+    def _append_atom_reference_reconciliation(
+        project: Project,
+        entry: StructureEntry,
+        deleted_atom_ids: set[int],
+        forward: list[dict[str, Any]],
+        inverse: list[dict[str, Any]],
+    ) -> None:
+        for saved_selection in project.saved_selections:
+            retained = [
+                reference
+                for reference in saved_selection.atom_references
+                if not (
+                    reference["structure_id"] == entry.id
+                    and int(reference["atom_id"]) in deleted_atom_ids
+                )
+            ]
+            removed = len(saved_selection.atom_references) - len(retained)
+            if removed == 0:
+                continue
+            warning = {
+                "code": "invalid_selection_references_removed",
+                "message": (
+                    f"{removed} atom reference{'s were' if removed != 1 else ' was'} "
+                    f"removed after editing {entry.name}."
+                ),
+                "operation": "ligand.edit",
+                "severity": "warning",
+                "field": "atom_references",
+                "blocking": False,
+            }
+            forward.append(
+                {
+                    "kind": "selection.update",
+                    "selection_id": saved_selection.id,
+                    "values": {
+                        "atom_references": retained,
+                        "warnings": [*saved_selection.warnings, warning],
+                    },
+                }
+            )
+            inverse.append(
+                {
+                    "kind": "selection.update",
+                    "selection_id": saved_selection.id,
+                    "values": {
+                        "atom_references": deepcopy(saved_selection.atom_references),
+                        "warnings": deepcopy(saved_selection.warnings),
+                    },
+                }
+            )
+        for measurement in project.measurements:
+            if not any(
+                reference["structure_id"] == entry.id
+                and int(reference["atom_id"]) in deleted_atom_ids
+                for reference in measurement.atom_references
+            ):
+                continue
+            forward.append(
+                {"kind": "measurement.delete", "measurement_id": measurement.id}
+            )
+            inverse.append(
+                {
+                    "kind": "measurement.create",
+                    "measurement": _measurement_state(measurement),
+                }
+            )
+        for scene in project.scenes:
+            atoms = scene.selection.get("atoms", [])
+            retained = [
+                reference
+                for reference in atoms
+                if not (
+                    reference["structure_id"] == entry.id
+                    and int(reference["atom_id"]) in deleted_atom_ids
+                )
+            ]
+            if len(retained) == len(atoms):
+                continue
+            forward.append(
+                {
+                    "kind": "scene.update",
+                    "scene_id": scene.id,
+                    "values": {
+                        "selection": {**scene.selection, "atoms": retained}
+                    },
+                }
+            )
+            inverse.append(
+                {
+                    "kind": "scene.update",
+                    "scene_id": scene.id,
+                    "values": {"selection": deepcopy(scene.selection)},
+                }
+            )
+
     def undo(self, project_id: str, expected_revision: int) -> ProjectRead:
         project = self._project(project_id)
         self._check_revision(project, expected_revision)
@@ -917,7 +1077,8 @@ class ProjectService:
         return project_read(
             self.session,
             project,
-            self._coordinate_patches(command.inverse_actions),
+            structure_patches=self._coordinate_patches(command.inverse_actions),
+            topology_patches=self._topology_patches(command.inverse_actions),
         )
 
     def redo(self, project_id: str, expected_revision: int) -> ProjectRead:
@@ -938,7 +1099,8 @@ class ProjectService:
         return project_read(
             self.session,
             project,
-            self._coordinate_patches(command.forward_actions),
+            structure_patches=self._coordinate_patches(command.forward_actions),
+            topology_patches=self._topology_patches(command.forward_actions),
         )
 
     def seed_entry(
@@ -971,6 +1133,7 @@ class ProjectService:
         *,
         selection_snapshot: list[dict[str, Any]] | None = None,
         structure_patches: list[CoordinatePatch] | None = None,
+        topology_patches: list[TopologyPatch] | None = None,
     ) -> ProjectRead:
         self.session.execute(
             delete(CommandRecord).where(
@@ -999,7 +1162,12 @@ class ProjectService:
         self.session.flush()
         self._trim_history(project.id)
         self.session.commit()
-        return project_read(self.session, project, structure_patches)
+        return project_read(
+            self.session,
+            project,
+            structure_patches=structure_patches,
+            topology_patches=topology_patches,
+        )
 
     def _apply(self, project: Project, actions: list[dict[str, Any]]) -> None:
         for action in actions:
@@ -1016,6 +1184,20 @@ class ProjectService:
                 entry = self._entry(project, action["entry_id"])
                 entry.current_artifact_id = action["artifact_id"]
                 entry.modified_at = datetime.now(UTC)
+            elif kind == "entry.molecule":
+                entry = self._entry(project, action["entry_id"])
+                entry.current_artifact_id = action["artifact_id"]
+                for key, value in action["values"].items():
+                    setattr(entry, key, deepcopy(value))
+                if "next_atom_id" in action:
+                    entry.next_atom_id = max(
+                        entry.next_atom_id, int(action["next_atom_id"])
+                    )
+                if "next_bond_id" in action:
+                    entry.next_bond_id = max(
+                        entry.next_bond_id, int(action["next_bond_id"])
+                    )
+                entry.modified_at = datetime.now(UTC)
             elif kind == "entry.create":
                 state = action["entry"]
                 self.session.add(
@@ -1030,10 +1212,22 @@ class ProjectService:
                         source_format=state["source_format"],
                         normalized_data=deepcopy(state["normalized_data"]),
                         atom_count=state.get("atom_count", 0),
+                        atom_ids=deepcopy(
+                            state.get(
+                                "atom_ids",
+                                list(range(1, state.get("atom_count", 0) + 1)),
+                            )
+                        ),
                         bond_count=state.get("bond_count", 0),
                         residue_count=state.get("residue_count", 0),
                         conformer_count=state.get("conformer_count", 0),
                         warnings=deepcopy(state.get("warnings", [])),
+                        next_atom_id=state.get(
+                            "next_atom_id", state.get("atom_count", 0) + 1
+                        ),
+                        next_bond_id=state.get(
+                            "next_bond_id", state.get("bond_count", 0) + 1
+                        ),
                         viewer_settings=deepcopy(
                             state.get(
                                 "viewer_settings",
@@ -1180,6 +1374,17 @@ class ProjectService:
             if action["kind"] == "entry.coordinates"
         ]
 
+    @staticmethod
+    def _topology_patches(actions: list[dict[str, Any]]) -> list[TopologyPatch]:
+        return [
+            TopologyPatch(
+                entry_id=str(action["entry_id"]),
+                artifact_id=str(action["artifact_id"]),
+            )
+            for action in actions
+            if action["kind"] == "entry.molecule"
+        ]
+
     def _project(self, project_id: str) -> Project:
         project = self.session.get(Project, project_id)
         if project is None:
@@ -1222,7 +1427,7 @@ class ProjectService:
         for reference in atom_references:
             entry = entries.get(str(reference["structure_id"]))
             atom_id = int(reference["atom_id"])
-            if entry is None or atom_id < 1 or atom_id > entry.atom_count:
+            if entry is None or atom_id not in set(entry.atom_ids):
                 raise InvalidProjectOperationError(
                     "Atom reference is not in the current project"
                 )

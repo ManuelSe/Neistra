@@ -302,12 +302,21 @@ class ImportExportService:
                             "storage": "artifact",
                         },
                         "atom_count": len(structure.atoms),
+                        "atom_ids": [atom.id for atom in structure.atoms],
                         "bond_count": len(structure.bonds),
                         "residue_count": len(structure.residues),
                         "conformer_count": len(structure.conformers),
                         "warnings": [
                             warning.model_dump(mode="json") for warning in structure.warnings
                         ],
+                        "next_atom_id": max(
+                            (atom.id for atom in structure.atoms), default=0
+                        )
+                        + 1,
+                        "next_bond_id": max(
+                            (bond.id for bond in structure.bonds), default=0
+                        )
+                        + 1,
                         "viewer_settings": default_viewer_settings(structure.structure_type),
                         "visible": True,
                         "locked": False,

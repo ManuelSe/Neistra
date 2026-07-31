@@ -40,6 +40,7 @@ from molweave_api.import_export import (
     UploadPayload,
     prepare_uploads,
 )
+from molweave_api.ligand_edit_service import LigandEditService
 from molweave_api.project_service import (
     EntryNotFoundError,
     HistoryUnavailableError,
@@ -61,6 +62,8 @@ from molweave_api.schemas import (
     FormatRead,
     GroupCreate,
     ImportRead,
+    LigandEditCreate,
+    LigandEditRead,
     MeasurementCreate,
     MeasurementUpdate,
     ProjectCreate,
@@ -630,6 +633,22 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         return _call(
             lambda: CoordinateService(session, app_settings).transform(
                 project_id, payload
+            )
+        )
+
+    @router.post(
+        "/projects/{project_id}/entries/{entry_id}/ligand-edits",
+        response_model=LigandEditRead,
+    )
+    async def edit_ligand(
+        project_id: str,
+        entry_id: str,
+        payload: LigandEditCreate,
+        session: Session = Depends(session_dependency),
+    ) -> LigandEditRead:
+        return _call(
+            lambda: LigandEditService(session, app_settings).edit(
+                project_id, entry_id, payload
             )
         )
 

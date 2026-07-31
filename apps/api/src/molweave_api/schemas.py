@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from datetime import datetime
 from math import isfinite
-from typing import Any, Literal
+from typing import Annotated, Any, Literal
 
 from molweave_core.molecular import MolecularWarning, NormalizedStructureV1
 from molweave_core.selection import AtomReference, SelectionGranularity, SelectionV1
@@ -119,6 +119,7 @@ class EntryRead(BaseModel):
     original_filename: str | None
     source_format: str | None
     atom_count: int
+    atom_ids: list[int]
     bond_count: int
     residue_count: int
     conformer_count: int
@@ -216,6 +217,11 @@ class CoordinatePatch(BaseModel):
         return self
 
 
+class TopologyPatch(BaseModel):
+    entry_id: str
+    artifact_id: str
+
+
 class ProjectRead(BaseModel):
     schema_version: Literal[1] = 1
     id: str
@@ -233,6 +239,7 @@ class ProjectRead(BaseModel):
     scenes: list[SceneRead]
     history: HistoryRead
     structure_patches: list[CoordinatePatch] = Field(default_factory=list)
+    topology_patches: list[TopologyPatch] = Field(default_factory=list)
 
 
 class ProjectListItem(BaseModel):
@@ -389,6 +396,123 @@ class SuperpositionReport(BaseModel):
 class SuperpositionRead(BaseModel):
     project: ProjectRead
     report: SuperpositionReport
+
+
+class LigandEditBase(BaseModel):
+    expected_revision: int = Field(ge=0)
+
+
+class AtomAddEdit(LigandEditBase):
+    operation: Literal["atom.add"]
+    element: str = Field(min_length=1, max_length=3)
+    formal_charge: int = Field(default=0, ge=-8, le=8)
+    coordinates: tuple[float, float, float]
+
+
+class AtomDeleteEdit(LigandEditBase):
+    operation: Literal["atom.delete"]
+    atom_ids: list[int] = Field(min_length=1)
+
+
+class BondAddEdit(LigandEditBase):
+    operation: Literal["bond.add"]
+    atom_1_id: int = Field(ge=1)
+    atom_2_id: int = Field(ge=1)
+    order: float
+
+    @field_validator("order")
+    @classmethod
+    def supported_bond_order(cls, value: float) -> float:
+        if value not in {1.0, 1.5, 2.0, 3.0}:
+            raise ValueError("Bond order must be 1, 1.5, 2, or 3")
+        return value
+
+
+class BondDeleteEdit(LigandEditBase):
+    operation: Literal["bond.delete"]
+    bond_id: int = Field(ge=1)
+
+
+class BondOrderEdit(LigandEditBase):
+    operation: Literal["bond.order"]
+    bond_id: int = Field(ge=1)
+    order: float
+
+    @field_validator("order")
+    @classmethod
+    def supported_bond_order(cls, value: float) -> float:
+        if value not in {1.0, 1.5, 2.0, 3.0}:
+            raise ValueError("Bond order must be 1, 1.5, 2, or 3")
+        return value
+
+
+class AtomElementEdit(LigandEditBase):
+    operation: Literal["atom.element"]
+    atom_id: int = Field(ge=1)
+    element: str = Field(min_length=1, max_length=3)
+
+
+class AtomChargeEdit(LigandEditBase):
+    operation: Literal["atom.charge"]
+    atom_id: int = Field(ge=1)
+    formal_charge: int = Field(ge=-8, le=8)
+
+
+class HydrogenAddEdit(LigandEditBase):
+    operation: Literal["hydrogen.add"]
+    atom_ids: list[int] | None = None
+
+
+class HydrogenRemoveEdit(LigandEditBase):
+    operation: Literal["hydrogen.remove"]
+    atom_ids: list[int] | None = None
+
+
+class BondRotateEdit(LigandEditBase):
+    operation: Literal["bond.rotate"]
+    bond_id: int = Field(ge=1)
+    movable_atom_ids: list[int] = Field(min_length=1)
+    angle_degrees: float
+
+
+class LigandCleanupEdit(LigandEditBase):
+    operation: Literal["coordinates.cleanup"]
+    force_field: Literal["auto", "mmff", "uff"] = "auto"
+    max_iterations: int = Field(default=200, ge=1, le=10_000)
+    atom_ids: list[int] | None = None
+
+
+LigandEditCreate = Annotated[
+    AtomAddEdit
+    | AtomDeleteEdit
+    | BondAddEdit
+    | BondDeleteEdit
+    | BondOrderEdit
+    | AtomElementEdit
+    | AtomChargeEdit
+    | HydrogenAddEdit
+    | HydrogenRemoveEdit
+    | BondRotateEdit
+    | LigandCleanupEdit,
+    Field(discriminator="operation"),
+]
+
+
+class LigandEditReport(BaseModel):
+    operation: str
+    created_atom_ids: list[int] = Field(default_factory=list)
+    created_bond_ids: list[int] = Field(default_factory=list)
+    deleted_atom_ids: list[int] = Field(default_factory=list)
+    deleted_bond_ids: list[int] = Field(default_factory=list)
+    changed_atom_ids: list[int] = Field(default_factory=list)
+    force_field: Literal["MMFF", "UFF"] | None = None
+    converged: bool | None = None
+
+
+class LigandEditRead(BaseModel):
+    project: ProjectRead
+    warnings: list[MolecularWarning]
+    report: LigandEditReport
 
 
 class ContactQuery(BaseModel):
