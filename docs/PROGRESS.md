@@ -4,9 +4,9 @@
 
 Milestone 9 - Generic jobs and demonstration plugin
 
-In progress. Implementation, focused backend/frontend validation, and desktop
-and mobile browser workflows are complete. Documentation is complete; the final
-repository-wide gate and clean documented three-process startup remain.
+Complete. All M9 acceptance criteria, milestone-specific checks, broader
+repository gates, browser workflows, documentation, and the documented local
+three-process startup have been verified.
 
 ## Completed work
 
@@ -871,6 +871,17 @@ Results:
   Playwright command passes its 2 applicable desktop/mobile workflows (2
   intentionally inapplicable variants skipped) against isolated migrated API,
   worker, and Vite processes; server evidence confirms live WebSocket upgrades.
+- Final startup checkpoint: the documented Alembic command upgraded the local
+  store from `0006` to `0007 (head)`, then the documented Uvicorn, standalone
+  worker, and Vite commands started successfully on ports 8000 and 5173.
+  Health and job-definition requests returned 200, the browser-rendered shell
+  was inspected at desktop resolution, and the live worker claimed and
+  completed demonstration job `019fb7bb-4b0d-77c1-83aa-b08f8c9922f5` with
+  ordered progress and both statistics and importable-structure results.
+- Milestone 9 is complete: deterministic completion/failure/cancellation,
+  abandoned-worker recovery, immutable input/result provenance, request/worker
+  execution separation, undoable linked result import, portable job records,
+  and exact future docking extension documentation are implemented and tested.
 
 ## Known limitations
 
@@ -910,6 +921,13 @@ Results:
 - Portable project archives are exact current-state snapshots and intentionally
   omit undo/redo command history. Imported projects start as clean revision-zero
   checkpoints while retaining source revision provenance in the archive.
+- M9 supplies one local coordinating worker and performs no automatic retry.
+  CPU/address-space limits are applied only where the host platform supports
+  them; wall time, cancellation escalation, result count, and result byte limits
+  remain portable.
+- The demonstration plugin validates the generic infrastructure only. Docking,
+  receptor/ligand preparation, pose scoring, and scientific ranking remain
+  outside v0.1 core and require a separately installed allowlisted plugin.
 
 ## Blockers
 
@@ -917,5 +935,5 @@ None.
 
 ## Next action
 
-Verify the documented migration and local API/worker/web commands from a clean
-three-process startup, exercise one live job, and record the final evidence.
+Proceed to M10 release hardening and documentation. Keep the M9 generic plugin
+boundary and demonstration workflows as regression gates.
