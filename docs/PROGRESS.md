@@ -865,6 +865,12 @@ Results:
   runs could not reveal; packaging the existing adapter and job test directories
   gives Pytest stable distinct module identities without changing production
   code or milestone behavior.
+- Final frontend/browser checkpoint: ESLint and TypeScript pass, both the
+  focused jobs command and complete Vitest run pass all 44 tests, and the Vite
+  production build succeeds with Mol* retained as a lazy chunk. The exact M9
+  Playwright command passes its 2 applicable desktop/mobile workflows (2
+  intentionally inapplicable variants skipped) against isolated migrated API,
+  worker, and Vite processes; server evidence confirms live WebSocket upgrades.
 
 ## Known limitations
 
@@ -911,6 +917,5 @@ None.
 
 ## Next action
 
-Run the frontend lint, type-check, focused/full unit, build, and Playwright
-gates, then verify the documented local commands from a clean three-process
-startup and record the final evidence.
+Verify the documented migration and local API/worker/web commands from a clean
+three-process startup, exercise one live job, and record the final evidence.
