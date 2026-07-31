@@ -40,7 +40,6 @@ interface LoadedStructure {
   entryId: string;
   structure: Structure;
   atomIds: number[];
-  rootRef: string;
   coordinateRef: string;
   structureRef: string;
   baseCoordinates: Map<number, Point3D>;
@@ -179,37 +178,7 @@ export class MolstarEngine implements MolecularViewer {
     if (!this.structures.some((current) => current.entryId === structure.entryId)) {
       this.structures.push(structure);
     }
-    const generation = this.generation;
-    this.syncQueue = this.syncQueue.then(async () => {
-      const plugin = this.plugin;
-      if (!plugin || generation !== this.generation) return;
-      const camera = this.getCamera();
-      const previous = this.loaded.get(structure.entryId);
-      if (previous) {
-        for (const [model, mapping] of this.models) {
-          if (mapping.entryId === structure.entryId) this.models.delete(model);
-        }
-        this.loaded.delete(structure.entryId);
-        await plugin.state.data
-          .build()
-          .delete(previous.rootRef)
-          .commit({ revertOnError: true });
-      }
-      if (this.labelRefs.length) {
-        const labels = plugin.state.data.build();
-        for (const ref of this.labelRefs) labels.delete(ref);
-        await labels.commit();
-        this.labelRefs = [];
-      }
-      await this.loadStructure(structure);
-      for (const current of this.structures) {
-        await this.addStructureLabels(current);
-      }
-      this.applySelection();
-      await this.applyMeasurements();
-      if (camera) this.setCamera(camera);
-    });
-    return this.syncQueue;
+    return this.syncStructures(this.structures);
   }
 
   setSelection(atoms: AtomReference[]): void {
@@ -257,10 +226,10 @@ export class MolstarEngine implements MolecularViewer {
     this.pickingGranularity = granularity;
   }
 
-  async setMeasurements(measurements: ViewerMeasurement[]): Promise<void> {
+  setMeasurements(measurements: ViewerMeasurement[]): Promise<void> {
     this.measurements = measurements;
-    await this.syncQueue;
-    await this.applyMeasurements();
+    this.syncQueue = this.syncQueue.then(() => this.applyMeasurements());
+    return this.syncQueue;
   }
 
   async setIsolation(atoms: AtomReference[] | null): Promise<void> {
@@ -431,7 +400,6 @@ export class MolstarEngine implements MolecularViewer {
       entryId: structure.entryId,
       structure: molstarStructure,
       atomIds: structure.atomIds,
-      rootRef: data.ref,
       coordinateRef: coordinateModel.ref,
       structureRef: structureProperties.ref,
       baseCoordinates: new Map(

@@ -1344,3 +1344,34 @@ Consequences:
   consolidated happy-path journey.
 - Release documentation must distinguish measured test-fixture behavior from
   recommended production limits and known scientific limitations.
+
+## D-038 - Atomic Mol* rebuilds for topology changes
+
+Status: accepted
+
+Decision:
+
+Treat Mol* structures, components, representations, labels, selections, and
+measurements as one disposable projection whenever normalized molecular
+topology changes. Replace a changed topology by serializing a full viewer-tree
+rebuild through the engine queue, while preserving the camera and restoring
+selection and measurement overlays from application state. Serialize explicit
+measurement updates through that same queue.
+
+Rationale:
+
+Mol* labels and measurements are state-tree children of structure nodes. A
+partial structure-root replacement can race React effects that update overlays,
+leaving a child operation addressed to a removed parent. A full rebuild is
+atomic from the adapter's perspective, keeps normalized molecular state outside
+Mol*, and is substantially easier to reason about for v0.1 topology edits.
+
+Consequences:
+
+- Topology edits may rebuild every visible Mol* projection, while coordinate-
+  only edits continue to use coordinate patches.
+- Camera, application selection, representation settings, labels, and
+  measurements survive the rebuild because they are reapplied from authoritative
+  application state.
+- Incremental topology-tree surgery is deferred until profiling demonstrates a
+  need and it can preserve parent/child ordering under concurrent UI effects.

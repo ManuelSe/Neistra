@@ -922,6 +922,26 @@ Results:
   spec passes 5 applicable desktop/mobile cases with one intentional mobile
   performance skip; and the affected synchronized-selection real-WebGL workflow
   passes.
+- M10 definition-of-done checkpoint: added a consolidated real-browser desktop
+  journey that creates a project; imports protein and ligand files; renders and
+  configures multiple representations; selects through project, query,
+  hierarchy, sequence, and Mol* picking paths; creates distance, angle, and
+  dihedral measurements; transforms whole structures and selections; edits
+  ligand topology and protein chemistry; exercises undo/redo, checkpoint,
+  reload, selected SDF export, successful job result import, running-job
+  cancellation, and project reopen; and confirms deferred docking/PDBQT/rotamer
+  controls are absent.
+- The combined journey exposed a persistent Mol* state-tree failure when a
+  topology replacement followed measurement creation. Topology changes now
+  rebuild the disposable viewer projection as one serialized transaction, and
+  measurement overlay updates use the same engine queue. This preserves the
+  backend molecular state as authority and avoids deleting children beneath an
+  already-removed Mol* parent. Job-result imports now also mark the browser
+  session edited so a stale recovery notice cannot replace result feedback.
+- Checkpoint verification passes: frontend TypeScript, all 44 Vitest tests, and
+  the consolidated desktop Chromium journey pass. The final journey completed
+  in 2.6 minutes against migrated API, standalone worker, Vite, and real WebGL;
+  both job completion/import and cooperative cancellation were observed.
 
 ## Known limitations
 
@@ -975,7 +995,7 @@ None.
 
 ## Next action
 
-Build and verify the consolidated desktop definition-of-done journey, including
-project/import/viewer/selection/measurement/transform/edit/history/export/job
-workflows and important failure behavior. Then complete fixture, development,
-troubleshooting, accessibility, performance, and requirement-evidence docs.
+Complete fixture, development, troubleshooting, accessibility, performance,
+API/schema/format/limitations, and per-requirement evidence documentation. Then
+run the frozen-install, migration, full static/unit/build/browser gates and the
+documented local startup smoke test.

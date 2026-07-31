@@ -784,7 +784,10 @@ export default function App() {
                         tab={lowerTab}
                         onTabChange={setLowerTab}
                         onNewJob={() => setJobDialogOpen(true)}
-                        onProjectUpdate={updateProjectCache}
+                        onProjectUpdate={(next) => {
+                          updateProjectCache(next);
+                          setEditedThisSession(true);
+                        }}
                         onNotice={(kind, text) => setNotice({ kind, text })}
                       />
                     )}
@@ -891,7 +894,10 @@ export default function App() {
                         tab={lowerTab}
                         onTabChange={setLowerTab}
                         onNewJob={() => setJobDialogOpen(true)}
-                        onProjectUpdate={updateProjectCache}
+                        onProjectUpdate={(next) => {
+                          updateProjectCache(next);
+                          setEditedThisSession(true);
+                        }}
                         onNotice={(kind, text) => setNotice({ kind, text })}
                         onCollapse={() => lowerRef.current?.collapse()}
                       />
