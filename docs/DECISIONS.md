@@ -1297,3 +1297,50 @@ Generated structure results are stored as normalized artifacts with
 molecular file vocabulary, while the normalized artifact media type describes
 the internal generated representation. A pseudo format name would weaken the
 closed file-format contract and break strict portable-archive validation.
+
+## D-037 - Deterministic release qualification and evidence mapping
+
+Status: accepted
+
+Decision:
+
+Qualify v0.1 with the existing domain and vertical-browser suites plus one
+consolidated desktop definition-of-done journey. Add automated browser checks
+for WCAG 2.2 AA detectable violations in both themes, keyboard reachability and
+modal focus restoration, desktop and Pixel 7 bounds/overflow, and important
+API/viewer failure states. Keep behavior that requires real WebGL under explicit
+canvas-pixel assertions.
+
+Profile a documented representative protein-ligand project in Chromium. Record
+bounded shell/import/viewer readiness and selection-interaction timings, fail on
+long main-thread tasks above the documented budget, and assert that camera,
+selection, representation, and metadata interactions do not retransmit complete
+normalized structures except when an affected entry genuinely requires a new
+projection. Treat thresholds as regression budgets on the pinned test host, not
+scientific throughput guarantees.
+
+Maintain a requirement-evidence document keyed by every atomic ID in the plan.
+Prefer automated unit, integration, component, or Playwright evidence; use a
+documented manual check only for behavior that cannot be asserted reliably in
+automation. Fixture provenance and expected scientific assertions are part of
+that evidence, not informal test knowledge.
+
+Rationale:
+
+M10 must demonstrate that the assembled product works as one application and
+is usable, responsive, and operable, without duplicating molecular authority or
+loosening earlier scientific gates. Deterministic checks make regressions
+actionable, while an explicit evidence map prevents broad product requirements
+from being silently inferred from unrelated passing tests.
+
+Consequences:
+
+- Accessibility checks combine an automated rules engine with explicit keyboard
+  and focus workflows because neither method covers the other completely.
+- Performance tests use generous published budgets and request-shape assertions
+  to detect architectural regressions without promising hardware-independent
+  benchmark numbers.
+- The full Playwright gate retains focused failure workflows in addition to the
+  consolidated happy-path journey.
+- Release documentation must distinguish measured test-fixture behavior from
+  recommended production limits and known scientific limitations.

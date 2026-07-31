@@ -2,11 +2,11 @@
 
 ## Current milestone
 
-Milestone 9 - Generic jobs and demonstration plugin
+Milestone 10 - Release hardening and documentation
 
-Complete. All M9 acceptance criteria, milestone-specific checks, broader
-repository gates, browser workflows, documentation, and the documented local
-three-process startup have been verified.
+In progress. The complete product, plan, progress, decision log, repository,
+existing tests, and release commands have been audited from the clean M9
+baseline. Release qualification and documentation gaps are identified below.
 
 ## Completed work
 
@@ -882,6 +882,18 @@ Results:
   abandoned-worker recovery, immutable input/result provenance, request/worker
   execution separation, undoable linked result import, portable job records,
   and exact future docking extension documentation are implemented and tested.
+- M10 audit checkpoint: confirmed every functional v0.1 domain has a real
+  implementation and milestone browser coverage; deferred rotamer browsing,
+  docking/PDBQT, and full protein preparation are omitted or explicitly
+  described as unavailable rather than exposed as working controls.
+- Identified the remaining M10 work: a consolidated definition-of-done browser
+  journey; automated keyboard, focus, accessible-name, light/dark contrast, and
+  responsive-layout checks; reproducible representative-project performance
+  and request-payload evidence; fixture provenance/scientific assertions;
+  development and troubleshooting documentation; final API/schema/format/
+  limitations/plugin review; and an evidence mapping for every traced v0.1
+  requirement. Existing import/export cancellation and large-structure fallback
+  states remain functional regression prerequisites rather than placeholders.
 
 ## Known limitations
 
@@ -935,5 +947,6 @@ None.
 
 ## Next action
 
-Proceed to M10 release hardening and documentation. Keep the M9 generic plugin
-boundary and demonstration workflows as regression gates.
+Add the automated release qualification harness and repair any accessibility,
+layout, performance, loading, or failure-state defects it exposes. Then record
+the verified checkpoint before completing documentation and the final journey.
