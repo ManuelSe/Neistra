@@ -4,8 +4,8 @@
 
 Milestone 7 - Protein editing and validation
 
-In progress. The dependency, protein-domain, and persistence/API checkpoints
-are complete. Client controls, viewer synchronization, and browser verification
+In progress. The dependency, protein-domain, persistence/API, and client
+checkpoints are complete. Browser workflow coverage and final validation
 remain.
 
 ## Completed work
@@ -598,6 +598,23 @@ Results:
   component edits, durable-reference reconciliation, multi-model rejection,
   lock enforcement, and wrong-entry-type rejection. Repository-wide Ruff,
   strict mypy for 56 files, and all 127 Python tests passed.
+- M7 client checkpoint: added a Protein inspector tab that loads protein and
+  complex hierarchy data even when hidden, follows the selected entry, and
+  exposes working selected-atom/residue/chain deletion, water/ion removal,
+  chain rename, author renumbering, one-of-20 mutation, pH-aware explicit
+  hydrogen add/remove, and selected atom or whole-residue movement controls.
+- Protein topology responses use the existing affected-entry cache/viewer
+  replacement path and remove deleted stable IDs from the live selection.
+  Coordinate movement retains the M5 compact patch path. Locked or unloaded
+  entries expose no enabled mutation command.
+- The editor keeps the deterministic-template limitation visible and renders
+  every scientific warning returned by the API; it explicitly states that
+  rotamer search, protonation analysis, and full protein preparation are not
+  performed.
+- ESLint and TypeScript passed. The exact `protein-editor` client gate ran all
+  33 component/domain tests successfully, including 3 protein editor workflows.
+  The production build transformed 3,346 modules with a 472.94 KiB initial
+  application chunk and Mol* retained as a lazy chunk.
 
 ## Known limitations
 
@@ -641,6 +658,6 @@ None.
 
 ## Next action
 
-Build the client protein editor against the typed API, synchronize affected
-Mol* projections, expose scientific warnings/limitations, and add focused
-component tests.
+Add the real Chromium protein-editing workflow for successful topology,
+metadata, hydrogen, movement, undo/redo, viewer synchronization, lock, and
+ambiguous-template failure states.

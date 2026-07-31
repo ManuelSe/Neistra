@@ -17,6 +17,7 @@ import type {
   LigandEdit,
   Measurement,
   MeasurementKind,
+  ProteinEdit,
   Project,
   ProjectListItem,
   SavedSelection,
@@ -520,6 +521,53 @@ export default function App() {
         setNotice({
           kind: "success",
           text: `Ligand edit stored.${warningText}`,
+        });
+        return result;
+      } catch (error) {
+        setNotice({ kind: "error", text: errorMessage(error) });
+        if (
+          error instanceof ApiError &&
+          error.code === "revision_conflict" &&
+          activeProjectId
+        ) {
+          void queryClient.invalidateQueries({
+            queryKey: ["project", activeProjectId],
+          });
+        }
+        throw error;
+      }
+    },
+    onProteinEdit: async (entryId: string, edit: ProteinEdit) => {
+      if (!project) throw new Error("No project is open.");
+      try {
+        const result = await projectApi.proteinEdit(project, entryId, edit);
+        updateProjectCache(result.project);
+        const currentEntry = result.project.entries.find(
+          (entry) => entry.id === entryId,
+        );
+        if (currentEntry) {
+          replaceSelection(
+            canonicalSelection(
+              selection.atoms.filter(
+                (reference) =>
+                  reference.structure_id !== entryId ||
+                  currentEntry.atom_ids.includes(reference.atom_id),
+              ),
+              selection.granularity,
+              selection.source,
+            ),
+          );
+        }
+        setEditedThisSession(true);
+        const warningText =
+          result.warnings.length > 0
+            ? ` ${result.warnings.length} protein warning${
+                result.warnings.length === 1 ? "" : "s"
+              }.`
+            : "";
+        setNotice({
+          kind: "success",
+          text: `Protein edit stored.${warningText}`,
         });
         return result;
       } catch (error) {

@@ -17,6 +17,8 @@ import type {
   LigandEditResult,
   Measurement,
   MeasurementKind,
+  ProteinEdit,
+  ProteinEditResult,
   SavedSelection,
   Selection,
   SelectionGranularity,
@@ -36,6 +38,7 @@ import {
 import { IconButton } from "./IconButton";
 import { LigandEditorPanel } from "./LigandEditorPanel";
 import { MeasurementsPanel } from "./MeasurementsPanel";
+import { ProteinEditorPanel } from "./ProteinEditorPanel";
 import { TransformPanel } from "./TransformPanel";
 
 interface ProjectInspectorProps {
@@ -80,6 +83,10 @@ interface ProjectInspectorProps {
     entryId: string,
     edit: LigandEdit,
   ) => Promise<LigandEditResult>;
+  onProteinEdit?: (
+    entryId: string,
+    edit: ProteinEdit,
+  ) => Promise<ProteinEditResult>;
   onCollapse?: () => void;
 }
 
@@ -582,6 +589,7 @@ export function ProjectInspector(props: ProjectInspectorProps) {
     | "measurements"
     | "transform"
     | "ligand"
+    | "protein"
     | "sequence"
     | "details"
   >("selection");
@@ -603,7 +611,13 @@ export function ProjectInspector(props: ProjectInspectorProps) {
       project?.entries.filter((entry) => entry.visible).map((entry) => entry.id),
     );
     for (const entry of project?.entries ?? []) {
-      if (entry.structure_type === "ligand") ids.add(entry.id);
+      if (
+        entry.structure_type === "ligand" ||
+        entry.structure_type === "protein" ||
+        entry.structure_type === "complex"
+      ) {
+        ids.add(entry.id);
+      }
     }
     for (const entryId of selectedEntryIds(selection)) ids.add(entryId);
     return [...ids];
@@ -647,6 +661,8 @@ export function ProjectInspector(props: ProjectInspectorProps) {
                     ? "Transform"
                     : tab === "ligand"
                       ? "Ligand"
+                    : tab === "protein"
+                      ? "Protein"
                     : tab === "sequence"
                     ? "Sequence"
                     : "Project"}
@@ -659,7 +675,7 @@ export function ProjectInspector(props: ProjectInspectorProps) {
         ) : null}
       </div>
       <div className="inspector-tabs" role="tablist" aria-label="Inspector views">
-        {(["selection", "inspect", "measurements", "transform", "ligand", "sequence", "details"] as const).map((item) => (
+        {(["selection", "inspect", "measurements", "transform", "ligand", "protein", "sequence", "details"] as const).map((item) => (
           <button
             type="button"
             role="tab"
@@ -715,6 +731,18 @@ export function ProjectInspector(props: ProjectInspectorProps) {
             onEdit={
               props.onLigandEdit ??
               (() => Promise.reject(new Error("Ligand editing is unavailable.")))
+            }
+            onMove={props.onTransform ?? (() => Promise.resolve())}
+          />
+        ) : tab === "protein" && project ? (
+          <ProteinEditorPanel
+            project={project}
+            selection={selection}
+            structures={structures}
+            busy={props.busy}
+            onEdit={
+              props.onProteinEdit ??
+              (() => Promise.reject(new Error("Protein editing is unavailable.")))
             }
             onMove={props.onTransform ?? (() => Promise.resolve())}
           />

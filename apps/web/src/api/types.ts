@@ -338,6 +338,73 @@ export interface LigandEditResult {
   };
 }
 
+export type StandardAminoAcid =
+  | "ALA"
+  | "ARG"
+  | "ASN"
+  | "ASP"
+  | "CYS"
+  | "GLN"
+  | "GLU"
+  | "GLY"
+  | "HIS"
+  | "ILE"
+  | "LEU"
+  | "LYS"
+  | "MET"
+  | "PHE"
+  | "PRO"
+  | "SER"
+  | "THR"
+  | "TRP"
+  | "TYR"
+  | "VAL";
+
+export type ProteinEdit =
+  | { operation: "protein.atom.delete"; atom_ids: number[] }
+  | { operation: "protein.residue.delete"; residue_ids: number[] }
+  | { operation: "protein.chain.delete"; chain_ids: number[] }
+  | { operation: "protein.water.delete" }
+  | { operation: "protein.ion.delete" }
+  | { operation: "protein.chain.rename"; chain_id: number; name: string }
+  | {
+      operation: "protein.residue.renumber";
+      chain_id: number;
+      start: number;
+      step: number;
+    }
+  | {
+      operation: "protein.residue.mutate";
+      residue_id: number;
+      target_name: StandardAminoAcid;
+    }
+  | {
+      operation: "protein.hydrogen.add";
+      residue_ids: number[] | null;
+      ph: number;
+    }
+  | {
+      operation: "protein.hydrogen.remove";
+      residue_ids: number[] | null;
+    };
+
+export interface ProteinEditResult {
+  project: Project;
+  warnings: MolecularWarning[];
+  report: {
+    operation: ProteinEdit["operation"];
+    created_atom_ids: number[];
+    created_bond_ids: number[];
+    deleted_atom_ids: number[];
+    deleted_bond_ids: number[];
+    changed_atom_ids: number[];
+    changed_residue_ids: number[];
+    deleted_residue_ids: number[];
+    changed_chain_ids: number[];
+    deleted_chain_ids: number[];
+  };
+}
+
 export type TransformScope = "structure" | "selection";
 export type PivotMode = "selection_centroid" | "structure_centroid" | "custom";
 

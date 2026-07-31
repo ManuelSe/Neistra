@@ -12,6 +12,8 @@ import type {
   Project,
   ProjectListItem,
   MeasurementKind,
+  ProteinEdit,
+  ProteinEditResult,
   Scene,
   Selection,
   StructureProjection,
@@ -130,6 +132,17 @@ export const projectApi = {
   ligandEdit: (project: Project, entryId: string, payload: LigandEdit) =>
     request<LigandEditResult>(
       `/api/v1/projects/${project.id}/entries/${entryId}/ligand-edits`,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          expected_revision: project.revision,
+          ...payload,
+        }),
+      },
+    ),
+  proteinEdit: (project: Project, entryId: string, payload: ProteinEdit) =>
+    request<ProteinEditResult>(
+      `/api/v1/projects/${project.id}/entries/${entryId}/protein-edits`,
       {
         method: "POST",
         body: JSON.stringify({
