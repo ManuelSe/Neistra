@@ -2,11 +2,11 @@
 
 ## Current milestone
 
-Milestone 6 - Ligand editing
+Milestone 7 - Protein editing and validation
 
-Complete. All Milestone 6 acceptance criteria and exact verification commands
-pass. The documented normal API and Vite commands are running the migrated
-application locally on ports 8000 and 5173.
+In progress. The M7 requirements and existing molecular edit, artifact,
+history, selection-reference, and viewer replacement paths have been audited.
+The pinned PDBFixer/OpenMM dependency gate is the current checkpoint.
 
 ## Completed work
 
@@ -545,6 +545,21 @@ Results:
 - Updated the README, HTTP API, project schema, scientific limitations,
   decisions, and progress documents for the implemented M6 contracts and
   validation commands.
+- M7 audit checkpoint: reread the complete product, plan, progress, and decision
+  documents; verified the clean M6 baseline; and traced the reusable M6
+  topology-command, stable-ID, reference-reconciliation, and affected-entry
+  viewer paths.
+- The required dependency gate found neither PDBFixer nor OpenMM installed.
+  PDBFixer `v1.12` was resolved to official commit
+  `94cfa4c0ca551cdc5f13320f9a658efd59f2b881`; OpenMM is pinned to the matching
+  stable `8.4.0` release.
+- M7 dependency checkpoint: `uv` resolved and installed PDBFixer `1.12.0` from
+  the immutable commit and OpenMM `8.4.0` in the project `.venv`. OpenMM's
+  installation test found Reference and CPU platforms, computed forces on
+  both, and reported all differences within tolerance.
+- The PDBFixer smoke path loaded its capped alanine dipeptide, mutated
+  `ALA-2` to `VAL`, rebuilt the standard heavy-atom template, and added 16
+  hydrogens at pH 7.0. The result contained 12 heavy and 28 total atoms.
 
 ## Known limitations
 
@@ -582,4 +597,6 @@ None.
 
 ## Next action
 
-Milestone 6 is complete. Begin Milestone 7 only when explicitly requested.
+Implement the independently testable protein editor and validator using the
+verified PDBFixer/OpenMM adapter, stable MolWeave identity mapping, and explicit
+template/hydrogen/clash warnings.

@@ -10,6 +10,8 @@ dependencies = [
   "gemmi==0.7.5",
   "httpx>=0.28,<1",
   "numpy>=2.3,<2.5",
+  "openmm==8.4.0",
+  "pdbfixer @ git+https://github.com/openmm/pdbfixer.git@94cfa4c0ca551cdc5f13320f9a658efd59f2b881",
   "pydantic>=2.10,<3",
   "python-multipart>=0.0.20,<1",
   "rdkit==2026.3.4",
@@ -53,5 +55,5 @@ plugins = ["pydantic.mypy"]
 exclude = ["^\\.venv/", "^apps/web/"]
 
 [[tool.mypy.overrides]]
-module = ["gemmi", "rdkit", "rdkit.*", "uuid6"]
+module = ["gemmi", "openmm", "openmm.*", "pdbfixer", "rdkit", "rdkit.*", "uuid6"]
 ignore_missing_imports = true

@@ -984,3 +984,40 @@ Consequences:
 - Migration failures stop browser verification before test interactions begin.
 - A server already listening on port 8010 is still reused; developers must
   restart it after code or schema changes.
+
+## D-031 - Pin protein template chemistry to PDBFixer 1.12 and OpenMM 8.4
+
+Status: accepted
+
+Decision:
+
+Pin PDBFixer to the immutable official `v1.12` commit
+`94cfa4c0ca551cdc5f13320f9a658efd59f2b881` and OpenMM to `8.4.0`. Keep both
+behind a constrained protein-editor adapter. Use PDBFixer/OpenMM only for
+standard-residue templates and protein hydrogen placement; use the normalized
+MolWeave model for identity, hierarchy, persistence, warnings, and history.
+
+Mutation is limited to the 20 standard amino acids and one deterministic
+template placement. Interactive rotamer search, protonation-state selection,
+loop construction, terminal capping, force-field assignment, and full protein
+preparation remain deferred.
+
+Rationale:
+
+The approved plan makes a reproducible PDBFixer/OpenMM stack a hard M7 gate and
+forbids substituting unvalidated geometry code. The paired October 2025 releases
+support Python 3.12 and give MolWeave a versioned template authority while the
+explicit adapter prevents library topology or identity from becoming project
+state.
+
+Consequences:
+
+- Dependency smoke tests must cover imports, the Reference platform, standard
+  template mutation, and hydrogen placement before editor implementation.
+- Every generated atom must map to a unique retained residue/chain identity and
+  receive a new monotonic MolWeave atom ID; ambiguous mapping rejects the edit.
+- Alternate conformers, missing backbone/template anchors, unsupported
+  residues, termini, hydrogen uncertainty, and severe clashes must remain
+  explicit warnings or blocking errors.
+- A dependency resolution or smoke failure blocks M7 rather than enabling a
+  fallback protein builder.

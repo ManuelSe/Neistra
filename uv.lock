@@ -271,6 +271,8 @@ dependencies = [
     { name = "gemmi" },
     { name = "httpx" },
     { name = "numpy" },
+    { name = "openmm" },
+    { name = "pdbfixer" },
     { name = "pydantic" },
     { name = "python-multipart" },
     { name = "rdkit" },
@@ -297,6 +299,8 @@ requires-dist = [
     { name = "gemmi", specifier = "==0.7.5" },
     { name = "httpx", specifier = ">=0.28,<1" },
     { name = "numpy", specifier = ">=2.3,<2.5" },
+    { name = "openmm", specifier = "==8.4.0" },
+    { name = "pdbfixer", git = "https://github.com/openmm/pdbfixer.git?rev=94cfa4c0ca551cdc5f13320f9a658efd59f2b881" },
     { name = "pydantic", specifier = ">=2.10,<3" },
     { name = "python-multipart", specifier = ">=0.0.20,<1" },
     { name = "rdkit", specifier = "==2026.3.4" },
@@ -366,6 +370,20 @@ wheels = [
 ]
 
 [[package]]
+name = "openmm"
+version = "8.4.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "numpy" },
+]
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/07/0c/db08b61d10b50e686d6e91ce1aeb7b06d54e3aadd3d414ed7a782d986fe6/openmm-8.4.0-cp312-cp312-macosx_10_12_x86_64.whl", hash = "sha256:b64268af8bfc5b775dfee46e5dec82dd88ddf1e87cbbfaab26057bca8e0245fc", size = 13228228, upload-time = "2025-10-30T00:30:22.811Z" },
+    { url = "https://files.pythonhosted.org/packages/82/f6/ec1dc704b55f5a250001352cd41bb0da7dd04e5d554e085469b4d4350848/openmm-8.4.0-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:4ec4b25bc7789bf6fc64824b149932cb82ff9d2c81b585a344a540edcef65b4b", size = 12742290, upload-time = "2025-10-30T00:30:28.785Z" },
+    { url = "https://files.pythonhosted.org/packages/2f/3d/1d6ddde9cd117655d0e06e682d8d6a49ae0c66ccc1eb0db31eff6cf3c55f/openmm-8.4.0-cp312-cp312-manylinux_2_34_x86_64.whl", hash = "sha256:e8e59d7f665c0652812b8bca97d1d5cc89ffbbcb22ef8ac46016a0a282933b94", size = 14258698, upload-time = "2025-10-30T00:30:34.288Z" },
+    { url = "https://files.pythonhosted.org/packages/26/0f/ca4f09a13ce0cd99b19e629ba49c39472bb9b448133895e982e6a78dbecc/openmm-8.4.0-cp312-cp312-win_amd64.whl", hash = "sha256:9418c871e61807f03682202c53f1e65265f5a38e7571237a9da2805cd9c30056", size = 13098959, upload-time = "2025-10-30T00:30:39.019Z" },
+]
+
+[[package]]
 name = "packaging"
 version = "26.2"
 source = { registry = "https://pypi.org/simple" }
@@ -381,6 +399,15 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/5a/82/42f767fc1c1143d6fd36efb827202a2d997a375e160a71eb2888a925aac1/pathspec-1.1.1.tar.gz", hash = "sha256:17db5ecd524104a120e173814c90367a96a98d07c45b2e10c2f3919fff91bf5a", size = 135180, upload-time = "2026-04-27T01:46:08.907Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/f1/d9/7fb5aa316bc299258e68c73ba3bddbc499654a07f151cba08f6153988714/pathspec-1.1.1-py3-none-any.whl", hash = "sha256:a00ce642f577bf7f473932318056212bc4f8bfdf53128c78bbd5af0b9b20b189", size = 57328, upload-time = "2026-04-27T01:46:07.06Z" },
+]
+
+[[package]]
+name = "pdbfixer"
+version = "1.12.0"
+source = { git = "https://github.com/openmm/pdbfixer.git?rev=94cfa4c0ca551cdc5f13320f9a658efd59f2b881#94cfa4c0ca551cdc5f13320f9a658efd59f2b881" }
+dependencies = [
+    { name = "numpy" },
+    { name = "openmm" },
 ]
 
 [[package]]
