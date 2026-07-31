@@ -720,6 +720,19 @@ Results:
   downloads, attributed loss confirmation, archive round-trip UI, hostile
   archive feedback, and both export/import cancellation. Frontend lint and
   TypeScript checks also pass.
+- Added the exact M8 Playwright workflow against real imported PDB, MOL, and
+  MOL2 chemistry. Desktop Chromium verifies all/selected/visible scopes,
+  water/ion removal in downloaded PDB bytes, supported two-record SDF output,
+  deterministic repeated downloads, safe separate ZIP output, attributed loss
+  consent, and stale-result-free export/import cancellation.
+- Browser archive coverage downloads the same project archive twice and checks
+  byte identity, imports it through the project chooser, compares restored
+  project state and byte-identical originals through the API, then verifies an
+  invalid ZIP creates no project and leaves the restored project active.
+  Pixel 7 coverage confirms the complete export/archive controls fit the
+  viewport, remain operable, generate a real archive, and expose archive import.
+- The exact M8 Playwright command passes 4 applicable workflows across desktop
+  and mobile Chromium (4 intentionally inapplicable project variants skipped).
 
 ## Known limitations
 
@@ -766,7 +779,6 @@ None.
 
 ## Next action
 
-Add and run the M8 browser workflow for complete export, deterministic
-downloads, archive export/re-import, visible-state equivalence, loss
-confirmation, invalid archive rejection, and cancellation. Repair any visible
-or integration failures before the final full validation matrix.
+Run the complete M8 validation matrix and the existing import/export regression,
+repair any compatibility failures, build the production frontend, verify the
+documented startup commands, then mark the milestone complete.
