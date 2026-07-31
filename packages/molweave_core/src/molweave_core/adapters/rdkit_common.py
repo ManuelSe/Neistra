@@ -118,6 +118,11 @@ def mol_to_normalized(
                 alternate_location=(info.GetAltLoc().strip() or None if info is not None else None),
                 occupancy=float(info.GetOccupancy()) if info is not None else None,
                 b_factor=float(info.GetTempFactor()) if info is not None else None,
+                stereo=(
+                    str(rd_atom.GetChiralTag()).removeprefix("CHI_")
+                    if str(rd_atom.GetChiralTag()) != "CHI_UNSPECIFIED"
+                    else None
+                ),
                 inferred_fields=[],
             )
         )
@@ -185,6 +190,11 @@ def normalized_to_mol(structure: NormalizedStructureV1) -> Any:
         rd_atom = Chem.Atom(atom.element)
         rd_atom.SetFormalCharge(atom.formal_charge or 0)
         rd_atom.SetIsAromatic(atom.id in aromatic_atom_ids)
+        if atom.stereo:
+            chiral_tag = getattr(Chem.ChiralType, f"CHI_{atom.stereo}", None)
+            if chiral_tag is not None:
+                rd_atom.SetChiralTag(chiral_tag)
+        rd_atom.SetIntProp("_MolWeaveAtomId", atom.id)
         if atom.residue_id is not None and atom.residue_id in residue_by_id:
             residue = residue_by_id[atom.residue_id]
             chain = chain_by_id.get(residue.chain_id)
@@ -213,6 +223,10 @@ def normalized_to_mol(structure: NormalizedStructureV1) -> Any:
             atom_indices[bond.atom_2_id],
             bond_type_by_order.get(order, Chem.BondType.SINGLE),
         )
+        added = editable.GetBondBetweenAtoms(
+            atom_indices[bond.atom_1_id], atom_indices[bond.atom_2_id]
+        )
+        added.SetIntProp("_MolWeaveBondId", bond.id)
 
     mol = editable.GetMol()
     for conformer in structure.conformers:

@@ -73,6 +73,7 @@ class Atom(BaseModel):
     alternate_location: str | None = None
     occupancy: float | None = None
     b_factor: float | None = None
+    stereo: str | None = None
     inferred_fields: list[str] = Field(default_factory=list)
 
 
@@ -117,10 +118,11 @@ class NormalizedStructureV1(BaseModel):
     @model_validator(mode="after")
     def validate_identity_and_coordinates(self) -> NormalizedStructureV1:
         atom_ids = [atom.id for atom in self.atoms]
-        if atom_ids != list(range(1, len(atom_ids) + 1)):
-            raise ValueError("Atom IDs must be contiguous, one-based, and stable")
-        if len(set(atom_ids)) != len(atom_ids):
-            raise ValueError("Atom IDs must be unique")
+        if atom_ids != sorted(set(atom_ids)):
+            raise ValueError("Atom IDs must be positive, unique, and strictly increasing")
+        bond_ids = [bond.id for bond in self.bonds]
+        if bond_ids != sorted(set(bond_ids)):
+            raise ValueError("Bond IDs must be positive, unique, and strictly increasing")
         atom_id_set = set(atom_ids)
         for bond in self.bonds:
             if bond.atom_1_id not in atom_id_set or bond.atom_2_id not in atom_id_set:

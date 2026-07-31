@@ -239,6 +239,19 @@ editor and validator.
   multi-conformer behavior, composition and pivots, exact fits, and rejection
   of identity, finite-input, no-op, missing, duplicate, non-protein, unequal,
   collinear, and reflection failures.
+- Added the typed RDKit-backed `MolecularEditor` and `StructureValidator` domain
+  boundary with atom/bond CRUD, element and formal-charge changes, explicit
+  hydrogen inference/removal, exact-side rotatable-bond rotation, MMFF/UFF
+  whole or local cleanup, sanitization, clash warnings, and stable-ID
+  stereochemistry comparison.
+- Relaxed normalized atom and bond identities from contiguous to strictly
+  increasing unique IDs while retaining coordinate-array list-order semantics.
+  RDKit projections now carry stable identity properties and round-trip atom
+  chiral tags.
+- Added focused M6 domain and scientific tests covering successful operations,
+  invalid valence, missing force-field parameters, unchanged heavy-atom IDs,
+  gapped IDs, hydrogen provenance, stereo preservation/change, cleanup reports,
+  ring/terminal/wrong-side rotation rejection, and questionable geometry.
 
 ## Verification performed
 
@@ -461,6 +474,9 @@ Results:
   immutable topology history, affected-entry viewer replacement, transactional
   deleted-reference reconciliation, and explicit valence/stereo/force-field
   warning semantics in D-028.
+- M6 scientific checkpoint: focused Ruff passed; strict mypy passed for 19
+  core/test source files; all 11 ligand editor and scientific validation tests
+  passed.
 
 ## Known limitations
 
@@ -497,6 +513,6 @@ None.
 
 ## Next action
 
-Implement and verify the RDKit-backed ligand editor and structure validator,
-including stable identity, all M6 graph/coordinate operations, valence and
-stereochemistry reporting, rotatable-bond validation, and MMFF/UFF cleanup.
+Add per-entry identity allocators, immutable molecular command history,
+transactional deleted-reference reconciliation, typed edit APIs, and focused
+integration tests.
