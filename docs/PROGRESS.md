@@ -4,9 +4,9 @@
 
 Milestone 7 - Protein editing and validation
 
-In progress. The M7 requirements and existing molecular edit, artifact,
-history, selection-reference, and viewer replacement paths have been audited.
-The pinned PDBFixer/OpenMM dependency gate is the current checkpoint.
+In progress. The dependency and independently testable protein-domain
+checkpoints are complete. Persistence, API, client controls, viewer
+synchronization, and browser verification remain.
 
 ## Completed work
 
@@ -560,6 +560,25 @@ Results:
 - The PDBFixer smoke path loaded its capped alanine dipeptide, mutated
   `ALA-2` to `VAL`, rebuilt the standard heavy-atom template, and added 16
   hydrogens at pH 7.0. The result contained 12 heavy and 28 total atoms.
+- M7 domain checkpoint: added cascade-safe atom, residue, chain, water, ion,
+  and hydrogen deletion; chain rename; author residue renumbering; standard
+  amino-acid mutation; and explicit-hydrogen placement behind a typed
+  PDBFixer adapter.
+- PDBFixer template results map topology residues and retained atoms through
+  unique chain, author-number, insertion-code, and atom-name identities.
+  Existing backbone IDs and coordinates survive mutation, while inferred atoms
+  and bonds receive caller-supplied monotonic IDs. Multiple conformers,
+  alternate locations, unsupported mutation sources/targets, and missing
+  backbone anchors reject before publication.
+- Protein validation now surfaces unsupported polymer residues and sub-0.4
+  angstrom severe clashes. Template operations append visible warnings for
+  deterministic side-chain placement without rotamer search, terminal edits,
+  pH-dependent hydrogen inference, and terminal hydrogen state.
+- Focused Ruff and strict mypy passed. The exact M7 domain gates passed all 5
+  protein-editor unit tests and all 8 scientific template tests, covering
+  successful mutation/hydrogen workflows and important ambiguity, unsupported
+  residue, incomplete backbone, invalid target, invalid deletion, and metadata
+  failure states.
 
 ## Known limitations
 
@@ -590,6 +609,12 @@ Results:
 - Protein superposition requires compatible, unambiguous hierarchy identities.
   It does not guess sequence alignments, fill missing residues, or perform
   ligand graph matching.
+- M7 mutation performs one deterministic PDBFixer template placement. It does
+  not search rotamers, optimize the local environment, choose protonation
+  states, cap termini, fill loops, or constitute complete protein preparation.
+- PDBFixer template operations currently require one resolved conformer,
+  unique one-character polymer chain names, author residue numbers, and no
+  alternate locations. Ambiguous inputs reject without changing the entry.
 
 ## Blockers
 
@@ -597,6 +622,5 @@ None.
 
 ## Next action
 
-Implement the independently testable protein editor and validator using the
-verified PDBFixer/OpenMM adapter, stable MolWeave identity mapping, and explicit
-template/hydrogen/clash warnings.
+Integrate the verified protein editor with immutable artifacts, monotonic entry
+allocators, command history, reference reconciliation, and typed API requests.

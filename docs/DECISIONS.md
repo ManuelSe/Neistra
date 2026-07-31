@@ -1021,3 +1021,47 @@ Consequences:
   explicit warnings or blocking errors.
 - A dependency resolution or smoke failure blocks M7 rather than enabling a
   fallback protein builder.
+
+## D-032 - Reject ambiguous protein templates and preserve author metadata
+
+Status: accepted
+
+Decision:
+
+Keep generic deletion and metadata edits in the normalized MolWeave model.
+Atom deletion cascades to incident bonds and empty residues/chains without
+renumbering surviving stable IDs. Residue renumbering changes author numbers in
+chain order and clears insertion codes; it preserves label numbers. Chain
+rename accepts application names longer than one character but reports their
+PDB export limitation.
+
+Project only polymer residues into PDBFixer. Require exactly one conformer,
+resolved alternate locations, unique one-character polymer chain names, and
+unique author residue identities for template mutation and protein hydrogen
+placement. Map every PDBFixer residue by chain, author number, and insertion
+code, then every retained atom by stable residue ID and atom name. Reject the
+complete edit if any identity is missing, duplicated, or changed unexpectedly.
+Preserve retained atom IDs and coordinates; allocate new stable IDs only for
+inferred template atoms and bonds.
+
+Rationale:
+
+Generic hierarchy changes do not require a chemistry engine and should retain
+all available conformers. PDBFixer uses PDB-style topology identities and can
+otherwise silently collapse ambiguity. Explicitly narrowing its accepted input
+turns uncertain mapping into a visible failure instead of publishing a
+scientifically misidentified structure. Author numbering is the interoperable
+PDB edit surface; label numbering remains source provenance.
+
+Consequences:
+
+- Deletion, chain rename, residue renumbering, and the existing M5 free atom or
+  residue movement remain available without PDBFixer template preconditions.
+- Renumbering with insertion codes warns that those codes were cleared.
+- Long chain names remain valid normalized state but block subsequent PDBFixer
+  template operations until changed to unique one-character names.
+- Mutation preserves `N`, `CA`, `C`, and `O` IDs and coordinates when present;
+  the new side chain is deterministic and explicitly reported as unoptimized.
+- Template operations on multiple models, alternate locations, missing author
+  identifiers, duplicate residue/atom identities, or unsupported polymer
+  residues fail atomically.
