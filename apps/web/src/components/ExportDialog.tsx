@@ -1,12 +1,21 @@
 import { useQuery } from "@tanstack/react-query";
-import { AlertTriangle, Download, FileOutput } from "lucide-react";
-import { useEffect, useState } from "react";
+import {
+  AlertTriangle,
+  Archive,
+  Download,
+  FileOutput,
+  LoaderCircle,
+  X,
+} from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { ApiError, molecularApi } from "../api/client";
 import type {
   Artifact,
   Entry,
+  ExportEntryReport,
+  ExportMode,
+  ExportScope,
   FormatCapability,
-  MolecularWarning,
   Project,
 } from "../api/types";
 import { Modal } from "./Modal";
@@ -15,22 +24,39 @@ interface ExportDialogProps {
   open: boolean;
   project: Project | undefined;
   initialEntry: Entry | null;
+  selectedEntryIds: Set<string>;
   onOpenChange: (open: boolean) => void;
+}
+
+type ExportTab = "structures" | "archive";
+
+function formatBytes(bytes: number): string {
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KiB`;
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MiB`;
 }
 
 export function ExportDialog({
   open,
   project,
   initialEntry,
+  selectedEntryIds,
   onOpenChange,
 }: ExportDialogProps) {
-  const [entryId, setEntryId] = useState("");
+  const [tab, setTab] = useState<ExportTab>("structures");
+  const [scope, setScope] = useState<ExportScope>("all");
   const [format, setFormat] = useState<FormatCapability["format"]>("pdb");
+  const [mode, setMode] = useState<ExportMode>("separate");
+  const [includeHydrogens, setIncludeHydrogens] = useState(true);
+  const [includeWaters, setIncludeWaters] = useState(true);
+  const [includeIons, setIncludeIons] = useState(true);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [warnings, setWarnings] = useState<MolecularWarning[]>([]);
+  const [reports, setReports] = useState<ExportEntryReport[]>([]);
   const [acknowledgeLosses, setAcknowledgeLosses] = useState(false);
   const [artifact, setArtifact] = useState<Artifact | null>(null);
+  const activeOperation = useRef<{ cancel: () => void } | null>(null);
+  const operationSequence = useRef(0);
   const formatsQuery = useQuery({
     queryKey: ["formats"],
     queryFn: molecularApi.formats,
@@ -39,84 +65,234 @@ export function ExportDialog({
     retry: false,
   });
 
-  useEffect(() => {
-    if (!open) return;
-    setEntryId(initialEntry?.id ?? project?.entries[0]?.id ?? "");
-    setError(null);
-    setWarnings([]);
-    setAcknowledgeLosses(false);
-    setArtifact(null);
-  }, [initialEntry, open, project?.entries]);
+  const selectedIds = useMemo(
+    () =>
+      initialEntry
+        ? [initialEntry.id]
+        : project?.entries
+            .filter((entry) => selectedEntryIds.has(entry.id))
+            .map((entry) => entry.id) ?? [],
+    [initialEntry, project?.entries, selectedEntryIds],
+  );
+  const visibleCount = project?.entries.filter((entry) => entry.visible).length ?? 0;
+  const scopeCount =
+    scope === "all"
+      ? (project?.entries.length ?? 0)
+      : scope === "visible"
+        ? visibleCount
+        : selectedIds.length;
+  const selectedFormat = formatsQuery.data?.find((item) => item.format === format);
+  const reportWarnings = reports.flatMap((report) => report.warnings);
+  const blockingWarnings = reportWarnings.filter((warning) => warning.blocking);
 
-  const generate = () => {
-    if (!project || !entryId || pending) return;
-    setPending(true);
-    setError(null);
+  const resetResult = () => {
     setArtifact(null);
-    void molecularApi
-      .exportStructure(project.id, entryId, format, acknowledgeLosses)
-      .then((result) => {
-        setWarnings(result.warnings);
-        setArtifact(result.artifact);
-      })
-      .catch((caught: unknown) => {
-        const failure = caught instanceof ApiError ? caught : null;
-        setError(failure?.message ?? "The structure could not be exported.");
-        setWarnings(failure?.warnings ?? []);
-      })
-      .finally(() => setPending(false));
+    setError(null);
+    setReports([]);
+    setAcknowledgeLosses(false);
   };
 
-  const blockingWarnings = warnings.filter((warning) => warning.blocking);
+  useEffect(() => {
+    if (!open) return;
+    setTab("structures");
+    setScope(initialEntry || selectedIds.length > 0 ? "selected" : "all");
+    setFormat("pdb");
+    setMode("separate");
+    setIncludeHydrogens(true);
+    setIncludeWaters(true);
+    setIncludeIons(true);
+    setPending(false);
+    resetResult();
+  }, [initialEntry, open, selectedIds.length]);
+
+  useEffect(() => {
+    if (mode === "multi_record" && selectedFormat && !selectedFormat.multi_record) {
+      setMode("separate");
+    }
+  }, [mode, selectedFormat]);
+
+  const close = () => {
+    operationSequence.current += 1;
+    activeOperation.current?.cancel();
+    activeOperation.current = null;
+    setPending(false);
+    onOpenChange(false);
+  };
+
+  const run = () => {
+    if (!project || pending || scopeCount === 0) return;
+    resetResult();
+    setPending(true);
+    const sequence = ++operationSequence.current;
+    const operation =
+      tab === "archive"
+        ? molecularApi.exportArchive(project.id)
+        : molecularApi.exportProject(project.id, {
+            scope,
+            entryIds: scope === "selected" ? selectedIds : [],
+            format,
+            mode,
+            includeHydrogens,
+            includeWaters,
+            includeIons,
+            acknowledgeLosses,
+          });
+    activeOperation.current = operation;
+    void operation.promise
+      .then((result) => {
+        if (operationSequence.current !== sequence) return;
+        setArtifact(result.artifact);
+        setReports("reports" in result ? result.reports : []);
+      })
+      .catch((caught: unknown) => {
+        if (operationSequence.current !== sequence) return;
+        const failure = caught instanceof ApiError ? caught : null;
+        setError(failure?.message ?? "The export could not be generated.");
+        setReports(failure?.reports ?? []);
+      })
+      .finally(() => {
+        if (operationSequence.current !== sequence) return;
+        activeOperation.current = null;
+        setPending(false);
+      });
+  };
+
+  const changeTab = (nextTab: ExportTab) => {
+    if (pending || tab === nextTab) return;
+    setTab(nextTab);
+    resetResult();
+  };
 
   return (
     <Modal
       open={open}
-      onOpenChange={onOpenChange}
-      title="Export structure"
-      description="Generate one structure file from the normalized molecular model."
+      onOpenChange={(nextOpen) => (nextOpen ? onOpenChange(true) : close())}
+      title="Export"
+      description="Structures and portable project archive"
     >
       <div className="export-dialog">
-        <label>
-          Structure
-          <select
-            value={entryId}
+        <div className="segmented-control" role="tablist" aria-label="Export type">
+          <button
+            type="button"
+            role="tab"
+            aria-selected={tab === "structures"}
             disabled={pending}
-            onChange={(event) => {
-              setEntryId(event.target.value);
-              setArtifact(null);
-              setWarnings([]);
-              setAcknowledgeLosses(false);
-            }}
+            onClick={() => changeTab("structures")}
           >
-            {project?.entries.map((entry) => (
-              <option key={entry.id} value={entry.id}>
-                {entry.name}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label>
-          Format
-          <select
-            value={format}
-            disabled={pending || formatsQuery.isLoading}
-            onChange={(event) => {
-              setFormat(event.target.value as FormatCapability["format"]);
-              setArtifact(null);
-              setWarnings([]);
-              setAcknowledgeLosses(false);
-            }}
+            <FileOutput size={15} /> Structures
+          </button>
+          <button
+            type="button"
+            role="tab"
+            aria-selected={tab === "archive"}
+            disabled={pending}
+            onClick={() => changeTab("archive")}
           >
-            {(formatsQuery.data ?? []).filter((item) => item.can_export).map((item) => (
-              <option key={item.format} value={item.format}>
-                {item.label}
-              </option>
-            ))}
-          </select>
-        </label>
+            <Archive size={15} /> Project archive
+          </button>
+        </div>
 
-        {formatsQuery.isError ? (
+        {tab === "structures" ? (
+          <>
+            <fieldset className="export-fieldset">
+              <legend>Scope</legend>
+              <div className="segmented-control three-up">
+                {(
+                  [
+                    ["all", "All", project?.entries.length ?? 0],
+                    ["selected", "Selected", selectedIds.length],
+                    ["visible", "Visible", visibleCount],
+                  ] as const
+                ).map(([value, label, count]) => (
+                  <button
+                    key={value}
+                    type="button"
+                    aria-pressed={scope === value}
+                    disabled={pending || count === 0}
+                    onClick={() => {
+                      setScope(value);
+                      resetResult();
+                    }}
+                  >
+                    {label} <span>{count}</span>
+                  </button>
+                ))}
+              </div>
+            </fieldset>
+
+            <div className="export-row">
+              <label>
+                Format
+                <select
+                  value={format}
+                  disabled={pending || formatsQuery.isLoading}
+                  onChange={(event) => {
+                    setFormat(event.target.value as FormatCapability["format"]);
+                    resetResult();
+                  }}
+                >
+                  {(formatsQuery.data ?? [])
+                    .filter((item) => item.can_export)
+                    .map((item) => (
+                      <option key={item.format} value={item.format}>
+                        {item.label}
+                      </option>
+                    ))}
+                </select>
+              </label>
+              <label>
+                Output
+                <select
+                  value={mode}
+                  disabled={pending}
+                  onChange={(event) => {
+                    setMode(event.target.value as ExportMode);
+                    resetResult();
+                  }}
+                >
+                  <option value="separate">Separate files</option>
+                  <option value="multi_record" disabled={!selectedFormat?.multi_record}>
+                    Multi-record file
+                  </option>
+                </select>
+              </label>
+            </div>
+
+            <fieldset className="export-fieldset export-filters">
+              <legend>Include</legend>
+              {[
+                ["Hydrogens", includeHydrogens, setIncludeHydrogens],
+                ["Waters", includeWaters, setIncludeWaters],
+                ["Ions", includeIons, setIncludeIons],
+              ].map(([label, checked, setter]) => (
+                <label key={label as string}>
+                  <input
+                    type="checkbox"
+                    checked={checked as boolean}
+                    disabled={pending}
+                    onChange={(event) => {
+                      (setter as (value: boolean) => void)(event.target.checked);
+                      resetResult();
+                    }}
+                  />
+                  <span>{label as string}</span>
+                </label>
+              ))}
+            </fieldset>
+          </>
+        ) : (
+          <div className="archive-summary">
+            <Archive size={18} />
+            <div>
+              <strong>{project?.name}</strong>
+              <small>
+                {project?.entries.length ?? 0} structures · revision {project?.revision ?? 0}
+              </small>
+            </div>
+          </div>
+        )}
+
+        {formatsQuery.isError && tab === "structures" ? (
           <div className="dialog-error" role="alert">
             <AlertTriangle size={16} />
             <span>Supported formats could not be loaded.</span>
@@ -128,12 +304,20 @@ export function ExportDialog({
             <span>{error}</span>
           </div>
         ) : null}
-        {warnings.length > 0 ? (
-          <div className="warning-list" aria-label="Export warnings">
-            {warnings.map((warning, index) => (
-              <div key={`${warning.code}-${index}`}>
-                <AlertTriangle size={14} />
-                <span>{warning.message}</span>
+        {reports.length > 0 ? (
+          <div className="export-reports" aria-label="Export report">
+            {reports.map((report) => (
+              <div key={report.entry_id}>
+                <div>
+                  <strong>{report.entry_name}</strong>
+                  <small>{report.output_filename}</small>
+                </div>
+                {report.warnings.map((warning, index) => (
+                  <p key={`${warning.code}-${index}`}>
+                    <AlertTriangle size={13} />
+                    <span>{warning.message}</span>
+                  </p>
+                ))}
               </div>
             ))}
           </div>
@@ -150,10 +334,10 @@ export function ExportDialog({
         ) : null}
         {artifact ? (
           <div className="export-ready" role="status">
-            <FileOutput size={18} />
+            {tab === "archive" ? <Archive size={18} /> : <FileOutput size={18} />}
             <div>
               <strong>{artifact.filename}</strong>
-              <small>{artifact.size.toLocaleString()} bytes</small>
+              <small>{formatBytes(artifact.size)}</small>
             </div>
             <a className="primary-button" href={artifact.download_url} download>
               <Download size={15} /> Download
@@ -162,29 +346,35 @@ export function ExportDialog({
         ) : null}
 
         <div className="dialog-actions">
-          <button
-            type="button"
-            className="secondary-button"
-            onClick={() => onOpenChange(false)}
-          >
-            Close
-          </button>
-          {!artifact ? (
-            <button
-              type="button"
-              className="primary-button"
-              disabled={
-                pending ||
-                !entryId ||
-                formatsQuery.isLoading ||
-                formatsQuery.isError ||
-                (blockingWarnings.length > 0 && !acknowledgeLosses)
-              }
-              onClick={generate}
-            >
-              <FileOutput size={15} /> {pending ? "Generating" : "Generate"}
+          {pending ? (
+            <button type="button" className="secondary-button" onClick={close}>
+              <X size={15} /> Cancel export
             </button>
-          ) : null}
+          ) : (
+            <>
+              <button type="button" className="secondary-button" onClick={close}>
+                Close
+              </button>
+              {!artifact ? (
+                <button
+                  type="button"
+                  className="primary-button"
+                  disabled={
+                    !project ||
+                    scopeCount === 0 ||
+                    (tab === "structures" &&
+                      (formatsQuery.isLoading ||
+                        formatsQuery.isError ||
+                        (blockingWarnings.length > 0 && !acknowledgeLosses)))
+                  }
+                  onClick={run}
+                >
+                  {pending ? <LoaderCircle size={15} /> : <FileOutput size={15} />}
+                  {blockingWarnings.length > 0 ? "Generate anyway" : "Generate"}
+                </button>
+              ) : null}
+            </>
+          )}
         </div>
       </div>
     </Modal>

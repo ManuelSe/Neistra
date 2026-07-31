@@ -1208,5 +1208,12 @@ Consequences:
   artifacts, including unsaved durable working state, but not undo/redo records.
 - Archive import is all-or-nothing and creates a new active project rather than
   mutating an existing project.
+- The web client exposes each long-running export/import as a typed operation
+  handle. Cancellation first signals the server's operation endpoint and then
+  aborts the local fetch or upload, while sequence guards prevent a late result
+  from repopulating a closed dialog.
+- Project archive import lives in the project chooser rather than the
+  structure-import flow because it creates a fresh project and must be
+  available when no project is active.
 - Job summaries and result artifacts use reserved additive manifest fields that
   M9 will populate through the generic job model; no docking concepts enter M8.

@@ -201,6 +201,7 @@ export interface ApiErrorBody {
     operation?: string;
     record_index?: number;
     warnings?: MolecularWarning[];
+    reports?: ExportEntryReport[];
   } | string;
 }
 
@@ -454,4 +455,36 @@ export interface Artifact {
 export interface ExportResult {
   artifact: Artifact;
   warnings: MolecularWarning[];
+}
+
+export type ExportScope = "all" | "selected" | "visible";
+export type ExportMode = "separate" | "multi_record";
+
+export interface ExportEntryReport {
+  entry_id: string;
+  entry_name: string;
+  output_filename: string;
+  record_index: number | null;
+  warnings: MolecularWarning[];
+}
+
+export interface BatchExportResult {
+  artifact: Artifact;
+  scope: ExportScope;
+  source_revision: number;
+  format: FormatCapability["format"];
+  mode: ExportMode;
+  reports: ExportEntryReport[];
+}
+
+export interface ArchiveExportResult {
+  artifact: Artifact;
+  manifest_schema_version: 1;
+  source_revision: number;
+}
+
+export interface ArchiveImportResult {
+  project: Project;
+  source_project_id: string;
+  source_revision: number;
 }

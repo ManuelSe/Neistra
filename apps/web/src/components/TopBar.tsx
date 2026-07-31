@@ -74,7 +74,7 @@ export function TopBar({
           <Upload size={18} />
         </IconButton>
         <IconButton
-          label="Export structure"
+          label="Export"
           disabled={!project?.entries.length || busy}
           onClick={onExport}
         >

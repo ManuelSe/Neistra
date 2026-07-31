@@ -30,6 +30,7 @@ import type {
 import { LowerPanel } from "./components/LowerPanel";
 import { IconButton } from "./components/IconButton";
 import { ImportDialog } from "./components/ImportDialog";
+import { ArchiveImportDialog } from "./components/ArchiveImportDialog";
 import { Modal } from "./components/Modal";
 import { ExportDialog } from "./components/ExportDialog";
 import { ProjectBrowser } from "./components/ProjectBrowser";
@@ -89,6 +90,7 @@ export default function App() {
   const [newDescription, setNewDescription] = useState("");
   const [entryDialog, setEntryDialog] = useState<EntryDialog>(null);
   const [importDialogOpen, setImportDialogOpen] = useState(false);
+  const [archiveImportDialogOpen, setArchiveImportDialogOpen] = useState(false);
   const [exportDialogOpen, setExportDialogOpen] = useState(false);
   const [exportEntry, setExportEntry] = useState<Entry | null>(null);
   const [entryName, setEntryName] = useState("");
@@ -938,12 +940,35 @@ export default function App() {
                 ))
               )}
             </div>
-            <button type="button" className="primary-button" onClick={() => setCreateMode(true)}>
-              Create project
-            </button>
+            <div className="project-list-actions">
+              <button
+                type="button"
+                className="secondary-button"
+                onClick={() => {
+                  setProjectDialogOpen(false);
+                  setArchiveImportDialogOpen(true);
+                }}
+              >
+                Import project archive
+              </button>
+              <button type="button" className="primary-button" onClick={() => setCreateMode(true)}>
+                Create project
+              </button>
+            </div>
           </div>
         )}
       </Modal>
+
+      <ArchiveImportDialog
+        open={archiveImportDialogOpen}
+        onOpenChange={setArchiveImportDialogOpen}
+        onImported={(result) => {
+          updateProjectCache(result.project);
+          setActiveProjectId(result.project.id);
+          setEditedThisSession(false);
+          setNotice({ kind: "success", text: `Project "${result.project.name}" imported.` });
+        }}
+      />
 
       <ImportDialog
         open={importDialogOpen}
@@ -965,6 +990,7 @@ export default function App() {
         open={exportDialogOpen}
         project={project}
         initialEntry={exportEntry}
+        selectedEntryIds={selectedEntryIds(selection)}
         onOpenChange={(open) => {
           setExportDialogOpen(open);
           if (!open) setExportEntry(null);

@@ -4,9 +4,10 @@
 
 Milestone 8 - Complete export and portable archives
 
-In progress. The complete requirements and existing export, artifact, project
-state, selection, client, and security boundaries have been audited. Export
-policy implementation is next.
+In progress. Backend export/archive policy and publication are complete. The
+typed structure/archive export and project-archive import UI is complete and
+component-verified. Browser end-to-end coverage and the final milestone gates
+remain.
 
 ## Completed work
 
@@ -702,6 +703,23 @@ Results:
   and all 11 hostile-archive cases. The 19 existing import/export workflows
   still pass. Repository-wide Ruff and strict mypy passed all 61 current Python
   source and test files.
+- Added a typed complete-export dialog with all/selected/visible scopes,
+  deterministic format and separate/multi-record choices, hydrogen/water/ion
+  filters, per-entry filenames and scientific warnings, blocking-loss consent,
+  cancellation, and artifact downloads. Per-entry browser export opens the
+  same complete workflow with that entry selected.
+- Added portable archive export in the same export surface and project archive
+  import in the project chooser, so an archive can be restored without an
+  existing active project. Successful import switches to the fresh restored
+  project; rejected archives retain the current project.
+- Added cancellable typed web-client operations for batch export, archive
+  export, and archive import. Client cancellation calls the server operation
+  endpoint before aborting the local request/upload.
+- The exact M8 component command passed all 41 web tests, including 7 new
+  export/archive dialog workflows for scopes, filters, multi-record support,
+  downloads, attributed loss confirmation, archive round-trip UI, hostile
+  archive feedback, and both export/import cancellation. Frontend lint and
+  TypeScript checks also pass.
 
 ## Known limitations
 
@@ -738,6 +756,9 @@ Results:
 - PDBFixer template operations currently require one resolved conformer,
   unique one-character polymer chain names, author residue numbers, and no
   alternate locations. Ambiguous inputs reject without changing the entry.
+- Portable project archives are exact current-state snapshots and intentionally
+  omit undo/redo command history. Imported projects start as clean revision-zero
+  checkpoints while retaining source revision provenance in the archive.
 
 ## Blockers
 
@@ -745,6 +766,7 @@ None.
 
 ## Next action
 
-Build and verify the complete structure/archive export dialog and project
-archive import workflow, including selected/visible scopes, filters, loss
-consent, cancellation, downloads, and responsive failure states.
+Add and run the M8 browser workflow for complete export, deterministic
+downloads, archive export/re-import, visible-state equivalence, loss
+confirmation, invalid archive rejection, and cancellation. Repair any visible
+or integration failures before the final full validation matrix.

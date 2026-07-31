@@ -3,6 +3,12 @@ import type {
   CameraState,
   Contact,
   CoordinateTransform,
+  ArchiveExportResult,
+  ArchiveImportResult,
+  BatchExportResult,
+  ExportEntryReport,
+  ExportMode,
+  ExportScope,
   ExportResult,
   FormatCapability,
   ImportResult,
@@ -26,18 +32,21 @@ export class ApiError extends Error {
   readonly status: number;
   readonly code: string;
   readonly warnings: MolecularWarning[];
+  readonly reports: ExportEntryReport[];
 
   constructor(
     status: number,
     code: string,
     message: string,
     warnings: MolecularWarning[] = [],
+    reports: ExportEntryReport[] = [],
   ) {
     super(message);
     this.name = "ApiError";
     this.status = status;
     this.code = code;
     this.warnings = warnings;
+    this.reports = reports;
   }
 }
 
@@ -51,7 +60,8 @@ function apiError(status: number, body: ApiErrorBody): ApiError {
         : `Request failed with status ${status}`;
   const code = typeof detail === "object" && detail?.code ? detail.code : "request_failed";
   const warnings = typeof detail === "object" ? (detail?.warnings ?? []) : [];
-  return new ApiError(status, code, message, warnings);
+  const reports = typeof detail === "object" ? (detail?.reports ?? []) : [];
+  return new ApiError(status, code, message, warnings, reports);
 }
 
 async function request<ResponseType>(
@@ -310,6 +320,11 @@ export interface ImportUpload {
   cancel: () => void;
 }
 
+export interface CancellableOperation<Result> {
+  promise: Promise<Result>;
+  cancel: () => void;
+}
+
 export interface ImportCallbacks {
   onProgress: (loaded: number, total: number) => void;
   onProcessing: () => void;
@@ -380,4 +395,106 @@ export const molecularApi = {
         }),
       },
     ),
+  exportProject: (
+    projectId: string,
+    options: {
+      scope: ExportScope;
+      entryIds: string[];
+      format: FormatCapability["format"];
+      mode: ExportMode;
+      includeHydrogens: boolean;
+      includeWaters: boolean;
+      includeIons: boolean;
+      acknowledgeLosses: boolean;
+    },
+  ): CancellableOperation<BatchExportResult> => {
+    const operationId = crypto.randomUUID();
+    const controller = new AbortController();
+    const promise = request<BatchExportResult>(
+      `/api/v1/projects/${projectId}/exports`,
+      {
+        method: "POST",
+        signal: controller.signal,
+        body: JSON.stringify({
+          scope: options.scope,
+          entry_ids: options.entryIds,
+          format: options.format,
+          mode: options.mode,
+          include_hydrogens: options.includeHydrogens,
+          include_waters: options.includeWaters,
+          include_ions: options.includeIons,
+          acknowledge_losses: options.acknowledgeLosses,
+          operation_id: operationId,
+        }),
+      },
+    );
+    return {
+      promise,
+      cancel: () => {
+        void fetch(`/api/v1/exports/${operationId}/cancel`, { method: "POST" })
+          .catch(() => undefined)
+          .finally(() => controller.abort());
+      },
+    };
+  },
+  exportArchive: (
+    projectId: string,
+  ): CancellableOperation<ArchiveExportResult> => {
+    const operationId = crypto.randomUUID();
+    const controller = new AbortController();
+    const promise = request<ArchiveExportResult>(
+      `/api/v1/projects/${projectId}/archive`,
+      {
+        method: "POST",
+        signal: controller.signal,
+        body: JSON.stringify({ operation_id: operationId }),
+      },
+    );
+    return {
+      promise,
+      cancel: () => {
+        void fetch(`/api/v1/exports/${operationId}/cancel`, { method: "POST" })
+          .catch(() => undefined)
+          .finally(() => controller.abort());
+      },
+    };
+  },
+  importArchive: (
+    file: File,
+    callbacks: ImportCallbacks,
+  ): CancellableOperation<ArchiveImportResult> => {
+    const xhr = new XMLHttpRequest();
+    const operationId = crypto.randomUUID();
+    const form = new FormData();
+    form.set("operation_id", operationId);
+    form.set("file", file, file.name);
+
+    const promise = new Promise<ArchiveImportResult>((resolve, reject) => {
+      xhr.open("POST", "/api/v1/projects/import-archive");
+      xhr.responseType = "json";
+      xhr.upload.onprogress = (event) =>
+        callbacks.onProgress(event.loaded, event.lengthComputable ? event.total : 0);
+      xhr.upload.onload = callbacks.onProcessing;
+      xhr.onerror = () =>
+        reject(new ApiError(0, "network_error", "MolWeave could not reach the local API."));
+      xhr.onabort = () =>
+        reject(new ApiError(0, "archive_import_cancelled", "Archive import cancelled."));
+      xhr.onload = () => {
+        if (xhr.status >= 200 && xhr.status < 300) {
+          resolve(xhr.response as ArchiveImportResult);
+          return;
+        }
+        reject(apiError(xhr.status, (xhr.response ?? {}) as ApiErrorBody));
+      };
+      xhr.send(form);
+    });
+    return {
+      promise,
+      cancel: () => {
+        void fetch(`/api/v1/imports/${operationId}/cancel`, { method: "POST" })
+          .catch(() => undefined)
+          .finally(() => xhr.abort());
+      },
+    };
+  },
 };
