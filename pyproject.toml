@@ -36,7 +36,11 @@ package = false
 [tool.pytest.ini_options]
 addopts = "-ra --strict-markers"
 testpaths = ["tests"]
-pythonpath = ["apps/api/src", "packages/molweave_core/src"]
+pythonpath = [
+  "apps/api/src",
+  "packages/molweave_core/src",
+  "packages/molweave_demo_plugin/src",
+]
 
 [tool.ruff]
 target-version = "py312"
@@ -50,7 +54,11 @@ ignore = ["B008"]
 [tool.mypy]
 python_version = "3.12"
 strict = true
-mypy_path = ["apps/api/src", "packages/molweave_core/src"]
+mypy_path = [
+  "apps/api/src",
+  "packages/molweave_core/src",
+  "packages/molweave_demo_plugin/src",
+]
 plugins = ["pydantic.mypy"]
 exclude = ["^\\.venv/", "^apps/web/"]
 

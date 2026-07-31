@@ -758,6 +758,24 @@ Results:
   downloads; `ProjectService` can import a generated normalized entry through
   one undoable command; and `ProjectManifestV1` can carry job summaries and
   referenced result artifacts without changing the molecular schema.
+- M9 contract checkpoint: added docking-neutral `JobDefinition`, `JobPlugin`,
+  `JobContext`, `JobResult`, immutable input handle, result artifact, role, and
+  resource-policy contracts in `molweave_core.jobs`. Declarations validate
+  unique roles, cardinality, safe result filenames, media types, wall time,
+  cancellation grace, output counts/bytes, and optional CPU/memory bounds.
+- Added a startup-only plugin registry that loads configured Python targets and
+  installed `molweave.jobs` entry points, admits only allowlisted plugin names,
+  rejects malformed targets and duplicate job types, and exposes validated
+  parameter JSON schemas without calling plugin execution.
+- Added `packages/molweave_demo_plugin` through the same public registry path.
+  Its generic structure-statistics job accepts one or more immutable normalized
+  structure artifacts, reports cancellable step progress and stdout/stderr,
+  calculates atom/bond/residue/chain/element/molecular-weight statistics, and
+  returns JSON plus an optionally translated normalized structure artifact.
+- Focused verification passed all 6 registry/demo-plugin tests. Targeted Ruff
+  and strict mypy passed all 7 new core/plugin/test source files. Tests cover
+  allowlisting, target and duplicate rejection, parameter schemas, result
+  statistics/coordinates, deterministic failure, and cooperative cancellation.
 
 ## Known limitations
 
@@ -804,6 +822,6 @@ None.
 
 ## Next action
 
-Implement and verify the typed generic job/plugin contracts, allowlisted
-demonstration plugin, durable job/event/result persistence, separate worker,
-controlled child runner, cancellation, and worker recovery.
+Implement and verify durable job/input/event/result persistence, migration
+`0007`, atomic queue claiming, the separate worker and controlled spawned-child
+runner, result publication, cancellation, and abandoned-worker recovery.
