@@ -1065,3 +1065,42 @@ Consequences:
 - Template operations on multiple models, alternate locations, missing author
   identifiers, duplicate residue/atom identities, or unsupported polymer
   residues fail atomically.
+
+## D-033 - Reuse molecular artifact commands for protein edits
+
+Status: accepted
+
+Decision:
+
+Expose protein edits through one discriminated
+`POST /projects/{project_id}/entries/{entry_id}/protein-edits` contract. Route
+every successful result through the existing molecular-change command: publish
+an immutable normalized artifact, update molecular summary fields, advance
+monotonic atom/bond allocators, return one affected-entry topology patch, and
+record complete before/after artifacts for undo and redo.
+
+Use the same transactional deleted-atom reference reconciliation as ligand
+edits, but label its durable warning with the actual protein operation.
+Coordinate-only atom or residue movement continues through the M5 transform
+contract and compact coordinate patch; it does not create a second protein
+movement implementation.
+
+Rationale:
+
+Protein and ligand topology edits have the same persistence and viewer
+invalidation semantics even though their chemistry engines differ. Reusing one
+command representation keeps history, stable identity, original-file
+preservation, selection cleanup, and affected-entry replacement consistent.
+The M5 transform already provides reversible selected-atom movement independent
+of viewer state.
+
+Consequences:
+
+- No M7 database migration is required; migration `0006` already provides the
+  allocator and summary fields.
+- Protein and complex entries are accepted; ligand, solvent, unknown, and
+  locked entries reject before artifact publication.
+- New protein atom and bond IDs never reuse identities consumed on an undone
+  branch.
+- Topology changes refetch and replace only the affected Mol* entry. Existing
+  free movement retains the smaller coordinate-patch path.

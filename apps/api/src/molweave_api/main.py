@@ -49,6 +49,7 @@ from molweave_api.project_service import (
     ProjectService,
     RevisionConflictError,
 )
+from molweave_api.protein_edit_service import ProteinEditService
 from molweave_api.schemas import (
     ArtifactRead,
     ContactQuery,
@@ -70,6 +71,8 @@ from molweave_api.schemas import (
     ProjectListItem,
     ProjectRead,
     ProjectUpdate,
+    ProteinEditCreate,
+    ProteinEditRead,
     RevisionRequest,
     SavedSelectionCreate,
     SceneCreate,
@@ -648,6 +651,22 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     ) -> LigandEditRead:
         return _call(
             lambda: LigandEditService(session, app_settings).edit(
+                project_id, entry_id, payload
+            )
+        )
+
+    @router.post(
+        "/projects/{project_id}/entries/{entry_id}/protein-edits",
+        response_model=ProteinEditRead,
+    )
+    async def edit_protein(
+        project_id: str,
+        entry_id: str,
+        payload: ProteinEditCreate,
+        session: Session = Depends(session_dependency),
+    ) -> ProteinEditRead:
+        return _call(
+            lambda: ProteinEditService(session, app_settings).edit(
                 project_id, entry_id, payload
             )
         )

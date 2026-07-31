@@ -4,9 +4,9 @@
 
 Milestone 7 - Protein editing and validation
 
-In progress. The dependency and independently testable protein-domain
-checkpoints are complete. Persistence, API, client controls, viewer
-synchronization, and browser verification remain.
+In progress. The dependency, protein-domain, and persistence/API checkpoints
+are complete. Client controls, viewer synchronization, and browser verification
+remain.
 
 ## Completed work
 
@@ -579,6 +579,25 @@ Results:
   successful mutation/hydrogen workflows and important ambiguity, unsupported
   residue, incomplete backbone, invalid target, invalid deletion, and metadata
   failure states.
+- M7 persistence checkpoint: added a discriminated protein-edit HTTP contract
+  and service for atom/residue/chain deletion, water/ion removal, chain rename,
+  author residue renumbering, standard mutation, and explicit hydrogen
+  add/remove. Protein and complex entries share the service; ligands and locked
+  entries reject before publication.
+- Every successful protein edit publishes a new immutable normalized artifact,
+  advances existing per-entry atom/bond allocators only for created identities,
+  records an exact reversible history command, returns an affected-entry
+  topology patch, and leaves the original upload artifact unchanged.
+- Deleted protein atoms reuse transactional reference reconciliation: saved
+  selections and scenes are pruned, affected measurements are removed, and
+  undo restores the molecular artifact and all durable references exactly.
+  Reconciliation warnings now record the actual edit operation instead of a
+  ligand-specific label.
+- All 4 protein API integration workflows passed, including mutation/backbone
+  preservation, hydrogen ID non-reuse after an undo branch, metadata and
+  component edits, durable-reference reconciliation, multi-model rejection,
+  lock enforcement, and wrong-entry-type rejection. Repository-wide Ruff,
+  strict mypy for 56 files, and all 127 Python tests passed.
 
 ## Known limitations
 
@@ -622,5 +641,6 @@ None.
 
 ## Next action
 
-Integrate the verified protein editor with immutable artifacts, monotonic entry
-allocators, command history, reference reconciliation, and typed API requests.
+Build the client protein editor against the typed API, synchronize affected
+Mol* projections, expose scientific warnings/limitations, and add focused
+component tests.

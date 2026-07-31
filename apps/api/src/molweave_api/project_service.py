@@ -942,7 +942,12 @@ class ProjectService:
         deleted = set(deleted_atom_ids)
         if deleted:
             self._append_atom_reference_reconciliation(
-                project, entry, deleted, forward, inverse
+                project,
+                entry,
+                deleted,
+                forward,
+                inverse,
+                operation=command_type,
             )
         return self._record(
             project,
@@ -970,6 +975,8 @@ class ProjectService:
         deleted_atom_ids: set[int],
         forward: list[dict[str, Any]],
         inverse: list[dict[str, Any]],
+        *,
+        operation: str,
     ) -> None:
         for saved_selection in project.saved_selections:
             retained = [
@@ -989,7 +996,7 @@ class ProjectService:
                     f"{removed} atom reference{'s were' if removed != 1 else ' was'} "
                     f"removed after editing {entry.name}."
                 ),
-                "operation": "ligand.edit",
+                "operation": operation,
                 "severity": "warning",
                 "field": "atom_references",
                 "blocking": False,

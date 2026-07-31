@@ -515,6 +515,121 @@ class LigandEditRead(BaseModel):
     report: LigandEditReport
 
 
+class ProteinEditBase(BaseModel):
+    expected_revision: int = Field(ge=0)
+
+
+class ProteinAtomDeleteEdit(ProteinEditBase):
+    operation: Literal["protein.atom.delete"]
+    atom_ids: list[int] = Field(min_length=1)
+
+
+class ProteinResidueDeleteEdit(ProteinEditBase):
+    operation: Literal["protein.residue.delete"]
+    residue_ids: list[int] = Field(min_length=1)
+
+
+class ProteinChainDeleteEdit(ProteinEditBase):
+    operation: Literal["protein.chain.delete"]
+    chain_ids: list[int] = Field(min_length=1)
+
+
+class ProteinWaterDeleteEdit(ProteinEditBase):
+    operation: Literal["protein.water.delete"]
+
+
+class ProteinIonDeleteEdit(ProteinEditBase):
+    operation: Literal["protein.ion.delete"]
+
+
+class ProteinChainRenameEdit(ProteinEditBase):
+    operation: Literal["protein.chain.rename"]
+    chain_id: int = Field(ge=1)
+    name: str = Field(min_length=1, max_length=160)
+
+
+class ProteinResidueRenumberEdit(ProteinEditBase):
+    operation: Literal["protein.residue.renumber"]
+    chain_id: int = Field(ge=1)
+    start: int
+    step: int = 1
+
+
+StandardAminoAcid = Literal[
+    "ALA",
+    "ARG",
+    "ASN",
+    "ASP",
+    "CYS",
+    "GLN",
+    "GLU",
+    "GLY",
+    "HIS",
+    "ILE",
+    "LEU",
+    "LYS",
+    "MET",
+    "PHE",
+    "PRO",
+    "SER",
+    "THR",
+    "TRP",
+    "TYR",
+    "VAL",
+]
+
+
+class ProteinResidueMutateEdit(ProteinEditBase):
+    operation: Literal["protein.residue.mutate"]
+    residue_id: int = Field(ge=1)
+    target_name: StandardAminoAcid
+
+
+class ProteinHydrogenAddEdit(ProteinEditBase):
+    operation: Literal["protein.hydrogen.add"]
+    residue_ids: list[int] | None = None
+    ph: float = Field(default=7.0, ge=0, le=14, allow_inf_nan=False)
+
+
+class ProteinHydrogenRemoveEdit(ProteinEditBase):
+    operation: Literal["protein.hydrogen.remove"]
+    residue_ids: list[int] | None = None
+
+
+ProteinEditCreate = Annotated[
+    ProteinAtomDeleteEdit
+    | ProteinResidueDeleteEdit
+    | ProteinChainDeleteEdit
+    | ProteinWaterDeleteEdit
+    | ProteinIonDeleteEdit
+    | ProteinChainRenameEdit
+    | ProteinResidueRenumberEdit
+    | ProteinResidueMutateEdit
+    | ProteinHydrogenAddEdit
+    | ProteinHydrogenRemoveEdit,
+    Field(discriminator="operation"),
+]
+
+
+class ProteinEditReport(BaseModel):
+    operation: str
+    created_atom_ids: list[int] = Field(default_factory=list)
+    created_bond_ids: list[int] = Field(default_factory=list)
+    deleted_atom_ids: list[int] = Field(default_factory=list)
+    deleted_bond_ids: list[int] = Field(default_factory=list)
+    changed_atom_ids: list[int] = Field(default_factory=list)
+    changed_residue_ids: list[int] = Field(default_factory=list)
+    deleted_residue_ids: list[int] = Field(default_factory=list)
+    changed_chain_ids: list[int] = Field(default_factory=list)
+    deleted_chain_ids: list[int] = Field(default_factory=list)
+
+
+class ProteinEditRead(BaseModel):
+    project: ProjectRead
+    warnings: list[MolecularWarning]
+    report: ProteinEditReport
+
+
 class ContactQuery(BaseModel):
     entry_id: str
     cutoff: float = Field(default=2.0, gt=0, le=10)
