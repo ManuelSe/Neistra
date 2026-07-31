@@ -5,11 +5,17 @@ from dataclasses import dataclass
 from datetime import UTC, datetime
 from pathlib import Path, PurePosixPath
 from typing import Any
+from urllib.parse import quote
 
 from molweave_core.adapters import ImportOptions
 from molweave_core.adapters.defaults import create_default_registry
 from molweave_core.adapters.registry import AdapterRegistry
 from molweave_core.artifacts import LocalArtifactStore
+from molweave_core.export_policy import (
+    ExportInput,
+    ExportPolicyError,
+    PreparedExport,
+)
 from molweave_core.molecular import MolecularWarning, NormalizedStructureV1
 from sqlalchemy import select
 from sqlalchemy.orm import Session
@@ -24,6 +30,8 @@ from molweave_api.project_service import (
 )
 from molweave_api.schemas import (
     ArtifactRead,
+    BatchExportRead,
+    ExportEntryReportRead,
     ExportRead,
     FormatRead,
     ImportRead,
@@ -53,9 +61,15 @@ class StructureUnavailableError(LookupError):
 
 
 class LossAcknowledgementRequiredError(RuntimeError):
-    def __init__(self, warnings: list[MolecularWarning]) -> None:
+    def __init__(
+        self,
+        warnings: list[MolecularWarning],
+        *,
+        reports: list[ExportEntryReportRead] | None = None,
+    ) -> None:
         super().__init__("Export would lose molecular information")
         self.warnings = warnings
+        self.reports = reports or []
 
 
 @dataclass(frozen=True, slots=True)
@@ -72,6 +86,13 @@ class PreparedFile:
     media_type: str
     source_format: str
     structures: tuple[NormalizedStructureV1, ...]
+
+
+@dataclass(frozen=True, slots=True)
+class ExportSourceSet:
+    project_name: str
+    source_revision: int
+    inputs: tuple[ExportInput, ...]
 
 
 def safe_display_filename(filename: str) -> str:
@@ -203,14 +224,18 @@ class ArtifactService:
         return artifact, self.store.read_bytes(artifact.relative_path)
 
     @staticmethod
-    def response(artifact: Artifact) -> ArtifactRead:
+    def response(artifact: Artifact, *, filename: str | None = None) -> ArtifactRead:
+        download_filename = safe_display_filename(filename or artifact.filename)
         return ArtifactRead(
             id=artifact.id,
-            filename=artifact.filename,
+            filename=download_filename,
             media_type=artifact.media_type,
             sha256=artifact.sha256,
             size=artifact.size,
-            download_url=f"/api/v1/artifacts/{artifact.id}",
+            download_url=(
+                f"/api/v1/artifacts/{artifact.id}"
+                f"?filename={quote(download_filename, safe='')}"
+            ),
         )
 
 
@@ -401,8 +426,93 @@ class ImportExportService:
         artifact = self.artifacts.publish(result.data, result.filename, result.media_type)
         self.session.commit()
         return ExportRead(
-            artifact=self.artifacts.response(artifact),
+            artifact=self.artifacts.response(artifact, filename=result.filename),
             warnings=list(result.warnings),
+        )
+
+    def batch_sources(
+        self,
+        project_id: str,
+        *,
+        scope: str,
+        entry_ids: list[str],
+    ) -> ExportSourceSet:
+        project = self.session.get(Project, project_id)
+        if project is None:
+            raise ProjectNotFoundError(project_id)
+        entries = sorted(project.entries, key=lambda item: item.id)
+        if scope == "visible":
+            entries = [entry for entry in entries if entry.visible]
+        elif scope == "selected":
+            requested_ids = set(entry_ids)
+            found_ids = {entry.id for entry in entries if entry.id in requested_ids}
+            missing_ids = sorted(requested_ids - found_ids)
+            if missing_ids:
+                raise ExportPolicyError(
+                    "invalid_export_selection",
+                    f"Selected entries are not in this project: {', '.join(missing_ids)}.",
+                )
+            entries = [entry for entry in entries if entry.id in requested_ids]
+        elif scope != "all":
+            raise ExportPolicyError("invalid_export_scope", f"Unsupported export scope: {scope}.")
+        if not entries:
+            raise ExportPolicyError(
+                "empty_export_scope",
+                f"The {scope} export scope contains no structures.",
+            )
+
+        inputs: list[ExportInput] = []
+        for entry in entries:
+            if entry.current_artifact_id is None:
+                raise StructureUnavailableError(entry.id)
+            _, payload = self.artifacts.read(entry.current_artifact_id)
+            inputs.append(
+                ExportInput(
+                    entry_id=entry.id,
+                    entry_name=entry.name,
+                    structure=NormalizedStructureV1.from_bytes(payload),
+                )
+            )
+        return ExportSourceSet(
+            project_name=project.name,
+            source_revision=project.revision,
+            inputs=tuple(inputs),
+        )
+
+    def publish_batch_export(
+        self,
+        prepared: PreparedExport,
+        *,
+        scope: str,
+        source_revision: int,
+        acknowledge_losses: bool,
+    ) -> BatchExportRead:
+        reports = [
+            ExportEntryReportRead(
+                entry_id=report.entry_id,
+                entry_name=report.entry_name,
+                output_filename=report.output_filename,
+                record_index=report.record_index,
+                warnings=list(report.warnings),
+            )
+            for report in prepared.reports
+        ]
+        blocking = [warning for warning in prepared.warnings if warning.blocking]
+        if blocking and not acknowledge_losses:
+            raise LossAcknowledgementRequiredError(blocking, reports=reports)
+        artifact = self.artifacts.publish(
+            prepared.data,
+            prepared.filename,
+            prepared.media_type,
+        )
+        self.session.commit()
+        return BatchExportRead(
+            artifact=self.artifacts.response(artifact, filename=prepared.filename),
+            scope=scope,
+            source_revision=source_revision,
+            format=prepared.format,
+            mode=prepared.mode,
+            reports=reports,
         )
 
     def artifact(self, artifact_id: str) -> tuple[Artifact, bytes]:

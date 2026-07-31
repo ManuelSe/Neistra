@@ -6,7 +6,7 @@ import time
 from collections.abc import AsyncIterator, Callable
 from contextlib import asynccontextmanager
 from multiprocessing.connection import Connection
-from typing import cast
+from typing import Literal, cast
 from urllib.parse import quote
 
 from fastapi import (
@@ -24,6 +24,13 @@ from fastapi import (
 from fastapi.middleware.cors import CORSMiddleware
 from molweave_core.adapters import AdapterError
 from molweave_core.contacts import close_contacts
+from molweave_core.export_policy import (
+    ExportFilters,
+    ExportInput,
+    ExportPolicyError,
+    PreparedExport,
+    prepare_export,
+)
 from sqlalchemy import text
 from sqlalchemy.orm import Session, sessionmaker
 from uuid6 import uuid7
@@ -52,6 +59,8 @@ from molweave_api.project_service import (
 from molweave_api.protein_edit_service import ProteinEditService
 from molweave_api.schemas import (
     ArtifactRead,
+    BatchExportCreate,
+    BatchExportRead,
     ContactQuery,
     ContactRead,
     CoordinateTransformCreate,
@@ -182,6 +191,95 @@ async def _prepare_cancellable(
         receiver.close()
 
 
+def _prepare_export_child(
+    connection: Connection,
+    inputs: list[ExportInput],
+    format_name: str,
+    mode: str,
+    filters: ExportFilters,
+    bundle_name: str,
+) -> None:
+    try:
+        connection.send(
+            (
+                "result",
+                prepare_export(
+                    inputs,
+                    format_name=format_name,
+                    mode=cast(Literal["separate", "multi_record"], mode),
+                    filters=filters,
+                    bundle_name=bundle_name,
+                ),
+            )
+        )
+    except AdapterError as error:
+        connection.send(
+            (
+                "adapter_error",
+                {
+                    "code": error.code,
+                    "message": error.message,
+                    "filename": error.filename,
+                    "operation": error.operation,
+                    "record_index": error.record_index,
+                },
+            )
+        )
+    except ExportPolicyError as error:
+        connection.send(("policy_error", {"code": error.code, "message": error.message}))
+    except BaseException as error:
+        connection.send(("worker_error", f"{type(error).__name__}: {error}"))
+    finally:
+        connection.close()
+
+
+async def _prepare_export_cancellable(
+    inputs: list[ExportInput],
+    *,
+    format_name: str,
+    mode: str,
+    filters: ExportFilters,
+    bundle_name: str,
+    is_cancelled: Callable[[], bool],
+) -> PreparedExport:
+    receiver, sender = multiprocessing.Pipe(duplex=False)
+    process = multiprocessing.Process(
+        target=_prepare_export_child,
+        args=(sender, inputs, format_name, mode, filters, bundle_name),
+        daemon=True,
+    )
+    process.start()
+    sender.close()
+    try:
+        while process.is_alive() and not receiver.poll():
+            if is_cancelled():
+                process.terminate()
+                process.join(timeout=2)
+                raise _error(499, "export_cancelled", "Export was cancelled before publication.")
+            await asyncio.sleep(0.025)
+        if not receiver.poll():
+            raise _error(
+                422,
+                "export_worker_failed",
+                "The export worker stopped without returning a result.",
+            )
+        kind, payload = receiver.recv()
+        process.join(timeout=2)
+        if kind == "adapter_error":
+            raise _adapter_http_error(AdapterError(**payload))
+        if kind == "policy_error":
+            error = ExportPolicyError(**payload)
+            raise _error(422, error.code, error.message)
+        if kind == "worker_error":
+            raise _error(422, "export_worker_failed", f"Export failed: {payload}")
+        return cast(PreparedExport, payload)
+    finally:
+        if process.is_alive():
+            process.terminate()
+            process.join(timeout=2)
+        receiver.close()
+
+
 def _error(status_code: int, code: str, message: str) -> HTTPException:
     return HTTPException(status_code=status_code, detail={"code": code, "message": message})
 
@@ -247,6 +345,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     app.state.engine = engine
     app.state.session_factory = factory
     app.state.cancelled_imports = {}
+    app.state.cancelled_exports = {}
     app.add_middleware(
         CORSMiddleware,
         allow_origins=list(app_settings.cors_origins),
@@ -814,14 +913,83 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             )
         )
 
+    @router.post(
+        "/projects/{project_id}/exports",
+        response_model=BatchExportRead,
+        status_code=status.HTTP_201_CREATED,
+    )
+    async def export_project_entries(
+        project_id: str,
+        payload: BatchExportCreate,
+        request: Request,
+        session: Session = Depends(session_dependency),
+    ) -> BatchExportRead:
+        service = ImportExportService(session, app_settings)
+        try:
+            sources = _call(
+                lambda: service.batch_sources(
+                    project_id,
+                    scope=payload.scope,
+                    entry_ids=payload.entry_ids,
+                )
+            )
+            prepared = await _prepare_export_cancellable(
+                list(sources.inputs),
+                format_name=payload.format,
+                mode=payload.mode,
+                filters=ExportFilters(
+                    include_hydrogens=payload.include_hydrogens,
+                    include_waters=payload.include_waters,
+                    include_ions=payload.include_ions,
+                ),
+                bundle_name=sources.project_name,
+                is_cancelled=lambda: payload.operation_id in app.state.cancelled_exports,
+            )
+            if (
+                payload.operation_id in app.state.cancelled_exports
+                or await request.is_disconnected()
+            ):
+                raise _error(
+                    499,
+                    "export_cancelled",
+                    "Export was cancelled before publication.",
+                )
+            return _call(
+                lambda: service.publish_batch_export(
+                    prepared,
+                    scope=payload.scope,
+                    source_revision=sources.source_revision,
+                    acknowledge_losses=payload.acknowledge_losses,
+                )
+            )
+        finally:
+            app.state.cancelled_exports.pop(payload.operation_id, None)
+
+    @router.post("/exports/{operation_id}/cancel")
+    async def cancel_export(operation_id: str) -> dict[str, str]:
+        if not operation_id or len(operation_id) > 64:
+            raise _error(422, "invalid_export_operation", "Invalid export operation ID.")
+        now = time.monotonic()
+        app.state.cancelled_exports = {
+            key: created_at
+            for key, created_at in app.state.cancelled_exports.items()
+            if now - created_at < 3600
+        }
+        app.state.cancelled_exports[operation_id] = now
+        return {"status": "cancelled"}
+
     @router.get("/artifacts/{artifact_id}")
     async def get_artifact(
         artifact_id: str,
+        filename: str | None = None,
         session: Session = Depends(session_dependency),
     ) -> Response:
         service = ImportExportService(session, app_settings)
         artifact, data = _call(lambda: service.artifact(artifact_id))
-        return _download_response(service.artifacts.response(artifact), data)
+        return _download_response(
+            service.artifacts.response(artifact, filename=filename),
+            data,
+        )
 
     app.include_router(router)
 
@@ -863,6 +1031,8 @@ def _call[ResultT](operation: Callable[[], ResultT]) -> ResultT:
         raise _error(409, "history_unavailable", str(error)) from error
     except InvalidProjectOperationError as error:
         raise _error(422, "invalid_project_operation", str(error)) from error
+    except ExportPolicyError as error:
+        raise _error(422, error.code, error.message) from error
     except AdapterError as error:
         raise _adapter_http_error(error) from error
     except ImportLimitError as error:
@@ -874,6 +1044,7 @@ def _call[ResultT](operation: Callable[[], ResultT]) -> ResultT:
                 "code": "export_loss_acknowledgement_required",
                 "message": str(error),
                 "warnings": [warning.model_dump(mode="json") for warning in error.warnings],
+                "reports": [report.model_dump(mode="json") for report in error.reports],
             },
         ) from error
     except ArtifactNotFoundError as error:

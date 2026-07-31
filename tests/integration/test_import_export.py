@@ -10,6 +10,7 @@ from molweave_api.import_export import ImportExportService, UploadPayload
 from molweave_api.main import create_app
 from molweave_api.models import Artifact
 from molweave_api.settings import Settings
+from molweave_core.adapters.defaults import create_default_registry
 from sqlalchemy import func, select
 
 from tests.support.api_client import ApiClient
@@ -160,6 +161,154 @@ def test_export_requires_explicit_acknowledgement_for_blocking_losses(
         "connectivity_lost",
         "bond_orders_lost",
     }
+
+
+def test_batch_export_scopes_filters_and_packs_deterministically(
+    client: ApiClient,
+) -> None:
+    project = create_project(client, "Export experiment")
+    imported = upload(
+        client,
+        project["id"],
+        0,
+        ["protein_editing.pdb", "ethanol.mol"],
+    ).json()
+    entries = imported["project"]["entries"]
+    protein = next(entry for entry in entries if entry["source_format"] == "pdb")
+    ligand = next(entry for entry in entries if entry["source_format"] == "mol")
+    payload = {
+        "scope": "selected",
+        "entry_ids": [protein["id"]],
+        "format": "pdb",
+        "mode": "separate",
+        "include_hydrogens": False,
+        "include_waters": False,
+        "include_ions": False,
+        "acknowledge_losses": True,
+        "operation_id": "filtered-protein",
+    }
+
+    filtered = client.post(
+        f"/api/v1/projects/{project['id']}/exports",
+        json=payload,
+    )
+
+    assert filtered.status_code == 201
+    result = filtered.json()
+    assert result["scope"] == "selected"
+    assert result["source_revision"] == 1
+    assert result["reports"][0]["entry_id"] == protein["id"]
+    assert {warning["code"] for warning in result["reports"][0]["warnings"]} >= {
+        "waters_excluded",
+        "ions_excluded",
+    }
+    downloaded = client.get(result["artifact"]["download_url"])
+    parsed = (
+        create_default_registry()
+        .for_filename(result["artifact"]["filename"])
+        .parse(downloaded.content, result["artifact"]["filename"])
+        .structures[0]
+    )
+    assert len(parsed.atoms) == 20
+
+    all_payload = {
+        **payload,
+        "scope": "all",
+        "entry_ids": [],
+        "format": "mol",
+        "include_waters": True,
+        "include_ions": True,
+        "operation_id": "all-first",
+    }
+    first = client.post(f"/api/v1/projects/{project['id']}/exports", json=all_payload)
+    second = client.post(
+        f"/api/v1/projects/{project['id']}/exports",
+        json={**all_payload, "operation_id": "all-second"},
+    )
+    assert first.status_code == second.status_code == 201
+    assert first.json()["artifact"]["sha256"] == second.json()["artifact"]["sha256"]
+    assert first.json()["artifact"]["filename"] == "Export_experiment-mol.zip"
+    assert len(first.json()["reports"]) == 2
+    assert {report["entry_id"] for report in first.json()["reports"]} == {
+        protein["id"],
+        ligand["id"],
+    }
+
+
+def test_batch_multi_record_and_attributed_loss_acknowledgement(
+    client: ApiClient,
+) -> None:
+    project = create_project(client, "Records")
+    imported = upload(client, project["id"], 0, ["molecules.sdf"]).json()
+    entry_ids = imported["imported_entry_ids"]
+    multi = client.post(
+        f"/api/v1/projects/{project['id']}/exports",
+        json={
+            "scope": "all",
+            "format": "sdf",
+            "mode": "multi_record",
+            "acknowledge_losses": True,
+            "operation_id": "multi-sdf",
+        },
+    )
+    assert multi.status_code == 201
+    body = multi.json()
+    assert body["artifact"]["filename"] == "Records.sdf"
+    assert [report["record_index"] for report in body["reports"]] == [0, 1]
+    assert {report["entry_id"] for report in body["reports"]} == set(entry_ids)
+
+    unsupported = client.post(
+        f"/api/v1/projects/{project['id']}/exports",
+        json={
+            "scope": "all",
+            "format": "pdb",
+            "mode": "multi_record",
+            "operation_id": "multi-pdb",
+        },
+    )
+    assert unsupported.status_code == 422
+    assert unsupported.json()["detail"]["code"] == "multi_record_unsupported"
+
+    losses = client.post(
+        f"/api/v1/projects/{project['id']}/exports",
+        json={
+            "scope": "all",
+            "format": "xyz",
+            "mode": "separate",
+            "operation_id": "loss-report",
+        },
+    )
+    assert losses.status_code == 409
+    detail = losses.json()["detail"]
+    assert detail["code"] == "export_loss_acknowledgement_required"
+    assert {report["entry_id"] for report in detail["reports"]} == set(entry_ids)
+    assert all(report["warnings"] for report in detail["reports"])
+
+
+def test_cancelled_batch_export_publishes_no_artifact(client: ApiClient) -> None:
+    project = create_project(client)
+    imported = upload(client, project["id"], 0, ["ethanol.mol"]).json()
+    del imported
+    with client.app.state.session_factory() as session:
+        before = session.scalar(select(func.count()).select_from(Artifact))
+
+    cancelled = client.post("/api/v1/exports/cancel-batch/cancel")
+    assert cancelled.status_code == 200
+    response = client.post(
+        f"/api/v1/projects/{project['id']}/exports",
+        json={
+            "scope": "all",
+            "format": "mol",
+            "mode": "separate",
+            "operation_id": "cancel-batch",
+        },
+    )
+
+    assert response.status_code == 499
+    assert response.json()["detail"]["code"] == "export_cancelled"
+    with client.app.state.session_factory() as session:
+        after = session.scalar(select(func.count()).select_from(Artifact))
+    assert after == before
 
 
 def test_sdf_records_commit_as_separate_entries(client: ApiClient) -> None:

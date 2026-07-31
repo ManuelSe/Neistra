@@ -665,6 +665,24 @@ Results:
   cancellation, and `ProjectManifestV1` archive/import semantics in D-035.
 - Existing export baseline verification passed all 9 adapter export tests and
   all 16 import/export API integration tests before M8 changes.
+- M8 export-policy checkpoint: added validated disposable
+  hydrogen/water/ion filtering, empty-result rejection, portable ASCII stems,
+  case-insensitive collision suffixes, stable entry ordering, fixed-metadata
+  ZIP packing, SDF/SMILES multi-record packing, and per-entry output/loss
+  reports.
+- Added the cancellable batch export API for all, selected, and visible scopes.
+  Preparation runs in a child process from immutable normalized snapshots;
+  adapter or policy failures remain structured, and only a completed,
+  loss-acknowledged result is published by the API parent.
+- Download filenames are now explicit safe response values instead of mutable
+  artifact metadata. Identical bytes still deduplicate by SHA-256 while renamed
+  exports retain their deterministic requested filename.
+- The exact M8 export-policy gate passed all 12 tests. Focused Ruff and strict
+  mypy passed for the six changed core/API/test modules, and the combined
+  import/export regression passed all 31 tests. API coverage includes every
+  scope/filter, deterministic repeated output, multi-record success,
+  unsupported format/mode, attributed blocking warnings, and pre-publication
+  cancellation with an unchanged artifact count.
 
 ## Known limitations
 
@@ -708,5 +726,6 @@ None.
 
 ## Next action
 
-Implement and verify the typed export policy, filtering, deterministic packing,
-loss reporting, and cancellable batch API.
+Implement and verify `ProjectManifestV1`, deterministic archive export,
+all-or-nothing archive import, relationship remapping, and hostile ZIP
+rejection.

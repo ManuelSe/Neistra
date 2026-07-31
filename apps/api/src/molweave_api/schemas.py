@@ -690,6 +690,28 @@ class ExportCreate(BaseModel):
     acknowledge_losses: bool = False
 
 
+class BatchExportCreate(BaseModel):
+    scope: Literal["all", "selected", "visible"]
+    entry_ids: list[str] = Field(default_factory=list, max_length=10_000)
+    format: Literal["pdb", "mmcif", "sdf", "mol", "mol2", "xyz", "smiles"]
+    mode: Literal["separate", "multi_record"] = "separate"
+    include_hydrogens: bool = True
+    include_waters: bool = True
+    include_ions: bool = True
+    acknowledge_losses: bool = False
+    operation_id: str = Field(min_length=1, max_length=64)
+
+    @model_validator(mode="after")
+    def validate_scope(self) -> BatchExportCreate:
+        if len(self.entry_ids) != len(set(self.entry_ids)):
+            raise ValueError("Selected export entry IDs must be unique")
+        if self.scope == "selected" and not self.entry_ids:
+            raise ValueError("Selected export scope requires at least one entry ID")
+        if self.scope != "selected" and self.entry_ids:
+            raise ValueError("Entry IDs are accepted only for selected export scope")
+        return self
+
+
 class ArtifactRead(BaseModel):
     id: str
     filename: str
@@ -702,3 +724,20 @@ class ArtifactRead(BaseModel):
 class ExportRead(BaseModel):
     artifact: ArtifactRead
     warnings: list[MolecularWarning]
+
+
+class ExportEntryReportRead(BaseModel):
+    entry_id: str
+    entry_name: str
+    output_filename: str
+    record_index: int | None
+    warnings: list[MolecularWarning]
+
+
+class BatchExportRead(BaseModel):
+    artifact: ArtifactRead
+    scope: Literal["all", "selected", "visible"]
+    source_revision: int
+    format: Literal["pdb", "mmcif", "sdf", "mol", "mol2", "xyz", "smiles"]
+    mode: Literal["separate", "multi_record"]
+    reports: list[ExportEntryReportRead]
