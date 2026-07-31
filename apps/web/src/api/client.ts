@@ -26,6 +26,10 @@ import type {
   SuperpositionRequest,
   SuperpositionResult,
   ViewerSettings,
+  Job,
+  JobDefinition,
+  JobEvent,
+  JobResultImport,
 } from "./types";
 
 export class ApiError extends Error {
@@ -311,6 +315,42 @@ export const projectApi = {
         entry_id: entryId,
         cutoff,
         minimum_distance: minimumDistance,
+      }),
+    }),
+};
+
+export const jobApi = {
+  definitions: () => request<JobDefinition[]>("/api/v1/jobs/definitions"),
+  list: (projectId: string) =>
+    request<Job[]>(`/api/v1/projects/${projectId}/jobs`),
+  get: (jobId: string) => request<Job>(`/api/v1/jobs/${jobId}`),
+  submit: (
+    projectId: string,
+    jobType: string,
+    parameters: Record<string, unknown>,
+    inputs: { role: string; entry_id: string }[],
+  ) =>
+    request<Job>(`/api/v1/projects/${projectId}/jobs`, {
+      method: "POST",
+      body: JSON.stringify({ job_type: jobType, parameters, inputs }),
+    }),
+  cancel: (jobId: string) =>
+    request<Job>(`/api/v1/jobs/${jobId}/cancel`, { method: "POST" }),
+  events: (jobId: string, afterSequence = 0) =>
+    request<JobEvent[]>(
+      `/api/v1/jobs/${jobId}/events?after_sequence=${afterSequence}`,
+    ),
+  importResult: (
+    jobId: string,
+    resultId: string,
+    project: Project,
+    name?: string,
+  ) =>
+    request<JobResultImport>(`/api/v1/jobs/${jobId}/results/${resultId}/import`, {
+      method: "POST",
+      body: JSON.stringify({
+        expected_revision: project.revision,
+        name: name?.trim() || null,
       }),
     }),
 };

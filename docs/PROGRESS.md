@@ -818,6 +818,22 @@ Results:
   tests plus targeted Ruff and strict mypy. Coverage includes legacy no-job
   projects, completed job inputs/results/downloads, imported result-entry link
   remapping, immutable hash preservation, and queued-job recovery as failure.
+- M9 frontend checkpoint: added a top-bar Jobs action and a controlled Jobs tab
+  in the persistent lower panel/mobile drawer. The generic submission dialog is
+  generated from registered parameter JSON schemas and input-role declarations,
+  filters incompatible/missing-artifact entries, enforces role cardinality,
+  and submits real canonical values rather than plugin-specific form code.
+- Added a dense job list/detail workspace with queued/running/completed/failed/
+  cancelled states, stable progress, timestamps, input/plugin/version metadata,
+  structured errors, parameters and result values, durable event logs, artifact
+  downloads, result import, retry state, and explicit cancellation confirmation.
+  Active work refreshes through WebSocket invalidation with bounded polling as
+  fallback. Result import updates project/history caches so undo is immediately
+  available.
+- Frontend verification is clean: all 44 Vitest tests pass, including 3 focused
+  job tests for generic submission, logs/download/import, structured failure,
+  and confirmed cancellation. TypeScript and ESLint pass, and the production
+  Vite build succeeds with Mol* still isolated in its lazy viewer chunk.
 
 ## Known limitations
 
@@ -864,7 +880,7 @@ None.
 
 ## Next action
 
-Implement the top-bar job action and lower-panel job workspace with generic
-submission, progress/status, event logs, cancellation confirmation, result
-download/import, polling/WebSocket refresh, responsive states, and frontend
-unit tests; then verify it in desktop and mobile browsers.
+Add and pass the demonstration-job Playwright workflow against the real API,
+worker, and Vite app on desktop and mobile; inspect screenshots and failure
+states, repair any layout/workflow issues, then document plugin integration and
+run the complete M9 validation and startup gates.

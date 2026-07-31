@@ -1,16 +1,24 @@
 import { useQueries } from "@tanstack/react-query";
-import { ChevronDown, History, TableProperties } from "lucide-react";
-import { useMemo, useState } from "react";
+import { BriefcaseBusiness, ChevronDown, History, TableProperties } from "lucide-react";
+import { useMemo } from "react";
 import { molecularApi } from "../api/client";
 import type { Project, Selection } from "../api/types";
 import { canonicalSelection } from "../selection/selection";
 import { HistoryPanel } from "./HistoryPanel";
 import { IconButton } from "./IconButton";
+import { JobsPanel } from "./JobsPanel";
+
+export type LowerPanelTab = "properties" | "history" | "jobs";
 
 interface LowerPanelProps {
   project: Project | undefined;
   selection: Selection;
   onSelection: (selection: Selection) => void;
+  tab: LowerPanelTab;
+  onTabChange: (tab: LowerPanelTab) => void;
+  onNewJob: () => void;
+  onProjectUpdate: (project: Project) => void;
+  onNotice: (kind: "success" | "error", text: string) => void;
   onCollapse?: () => void;
 }
 
@@ -18,9 +26,13 @@ export function LowerPanel({
   project,
   selection,
   onSelection,
+  tab,
+  onTabChange,
+  onNewJob,
+  onProjectUpdate,
+  onNotice,
   onCollapse,
 }: LowerPanelProps) {
-  const [tab, setTab] = useState<"properties" | "history">("properties");
   const entryIds = useMemo(
     () => [...new Set(selection.atoms.map((atom) => atom.structure_id))],
     [selection.atoms],
@@ -50,7 +62,7 @@ export function LowerPanel({
             type="button"
             role="tab"
             aria-selected={tab === "properties"}
-            onClick={() => setTab("properties")}
+            onClick={() => onTabChange("properties")}
           >
             <TableProperties size={15} /> Properties
           </button>
@@ -58,9 +70,17 @@ export function LowerPanel({
             type="button"
             role="tab"
             aria-selected={tab === "history"}
-            onClick={() => setTab("history")}
+            onClick={() => onTabChange("history")}
           >
             <History size={15} /> History
+          </button>
+          <button
+            type="button"
+            role="tab"
+            aria-selected={tab === "jobs"}
+            onClick={() => onTabChange("jobs")}
+          >
+            <BriefcaseBusiness size={15} /> Jobs
           </button>
         </div>
         {onCollapse ? (
@@ -69,7 +89,14 @@ export function LowerPanel({
           </IconButton>
         ) : null}
       </div>
-      {tab === "history" ? (
+      {tab === "jobs" ? (
+        <JobsPanel
+          project={project}
+          onNewJob={onNewJob}
+          onProjectUpdate={onProjectUpdate}
+          onNotice={onNotice}
+        />
+      ) : tab === "history" ? (
         <HistoryPanel project={project} embedded />
       ) : (
         <div className="property-table-wrap">

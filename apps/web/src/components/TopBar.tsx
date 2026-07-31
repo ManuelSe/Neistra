@@ -9,6 +9,7 @@ import {
   Sun,
   Undo2,
   Upload,
+  BriefcaseBusiness,
 } from "lucide-react";
 import type { Project } from "../api/types";
 import type { Theme } from "../store/workspace";
@@ -25,6 +26,7 @@ interface TopBarProps {
   onRedo: () => void;
   onImport: () => void;
   onExport: () => void;
+  onJobs: () => void;
   onTheme: () => void;
   onMobilePanel: (panel: "projects" | "inspector" | "history") => void;
 }
@@ -40,6 +42,7 @@ export function TopBar({
   onRedo,
   onImport,
   onExport,
+  onJobs,
   onTheme,
   onMobilePanel,
 }: TopBarProps) {
@@ -79,6 +82,9 @@ export function TopBar({
           onClick={onExport}
         >
           <FileOutput size={18} />
+        </IconButton>
+        <IconButton label="Jobs" disabled={!project || busy} onClick={onJobs}>
+          <BriefcaseBusiness size={18} />
         </IconButton>
         <span className="toolbar-separator" />
         <IconButton

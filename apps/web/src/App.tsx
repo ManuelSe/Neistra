@@ -28,6 +28,7 @@ import type {
   SuperpositionRequest,
 } from "./api/types";
 import { LowerPanel } from "./components/LowerPanel";
+import type { LowerPanelTab } from "./components/LowerPanel";
 import { IconButton } from "./components/IconButton";
 import { ImportDialog } from "./components/ImportDialog";
 import { ArchiveImportDialog } from "./components/ArchiveImportDialog";
@@ -37,6 +38,7 @@ import { ProjectBrowser } from "./components/ProjectBrowser";
 import { ProjectInspector } from "./components/ProjectInspector";
 import { TopBar } from "./components/TopBar";
 import { WorkspaceCanvas } from "./components/WorkspaceCanvas";
+import { JobSubmitDialog } from "./components/JobSubmitDialog";
 import { useMediaQuery } from "./hooks/useMediaQuery";
 import {
   canonicalSelection,
@@ -93,6 +95,8 @@ export default function App() {
   const [archiveImportDialogOpen, setArchiveImportDialogOpen] = useState(false);
   const [exportDialogOpen, setExportDialogOpen] = useState(false);
   const [exportEntry, setExportEntry] = useState<Entry | null>(null);
+  const [jobDialogOpen, setJobDialogOpen] = useState(false);
+  const [lowerTab, setLowerTab] = useState<LowerPanelTab>("properties");
   const [entryName, setEntryName] = useState("");
   const [entryDescription, setEntryDescription] = useState("");
   const [groupName, setGroupName] = useState("");
@@ -650,6 +654,12 @@ export default function App() {
             setExportEntry(null);
             setExportDialogOpen(true);
           }}
+          onJobs={() => {
+            setLowerTab("jobs");
+            setJobDialogOpen(true);
+            if (compact) setMobilePanel("history");
+            else lowerRef.current?.expand();
+          }}
           onTheme={() => setTheme(theme === "light" ? "dark" : "light")}
           onMobilePanel={setMobilePanel}
         />
@@ -731,6 +741,11 @@ export default function App() {
                         project={project}
                         selection={selection}
                         onSelection={replaceSelection}
+                        tab={lowerTab}
+                        onTabChange={setLowerTab}
+                        onNewJob={() => setJobDialogOpen(true)}
+                        onProjectUpdate={updateProjectCache}
+                        onNotice={(kind, text) => setNotice({ kind, text })}
                       />
                     )}
                   </aside>
@@ -808,7 +823,7 @@ export default function App() {
                     {lowerCollapsed ? (
                       <div className="collapsed-history">
                         <HistoryIcon size={15} />
-                        <span>Properties / History</span>
+                        <span>Properties / History / Jobs</span>
                         <IconButton
                           label="Expand history"
                           onClick={() => lowerRef.current?.expand()}
@@ -821,6 +836,11 @@ export default function App() {
                         project={project}
                         selection={selection}
                         onSelection={replaceSelection}
+                        tab={lowerTab}
+                        onTabChange={setLowerTab}
+                        onNewJob={() => setJobDialogOpen(true)}
+                        onProjectUpdate={updateProjectCache}
+                        onNotice={(kind, text) => setNotice({ kind, text })}
                         onCollapse={() => lowerRef.current?.collapse()}
                       />
                     )}
@@ -994,6 +1014,20 @@ export default function App() {
         onOpenChange={(open) => {
           setExportDialogOpen(open);
           if (!open) setExportEntry(null);
+        }}
+      />
+
+      <JobSubmitDialog
+        open={jobDialogOpen}
+        project={project}
+        onOpenChange={setJobDialogOpen}
+        onSubmitted={(job) => {
+          queryClient.setQueryData(["job", job.id], job);
+          void queryClient.invalidateQueries({ queryKey: ["jobs", job.project_id] });
+          setLowerTab("jobs");
+          if (compact) setMobilePanel("history");
+          else lowerRef.current?.expand();
+          setNotice({ kind: "success", text: "Job queued." });
         }}
       />
 

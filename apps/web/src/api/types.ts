@@ -193,6 +193,118 @@ export interface ProjectListItem {
   modified_at: string;
 }
 
+export type JobStatus = "queued" | "running" | "completed" | "failed" | "cancelled";
+
+export interface JobInputRole {
+  role: string;
+  label: string;
+  minimum: number;
+  maximum: number;
+  structure_types: StructureType[];
+}
+
+export interface JobResultRole {
+  role: string;
+  label: string;
+  media_types: string[];
+  importable_structure: boolean;
+}
+
+export interface JobDefinition {
+  plugin_name: string;
+  job_type: string;
+  implementation_version: string;
+  label: string;
+  description: string;
+  parameter_schema: {
+    properties?: Record<string, {
+      type?: string;
+      title?: string;
+      default?: unknown;
+      minimum?: number;
+      maximum?: number;
+      anyOf?: unknown[];
+    }>;
+    required?: string[];
+  };
+  input_roles: JobInputRole[];
+  result_roles: JobResultRole[];
+}
+
+export interface JobInput {
+  id: string;
+  ordinal: number;
+  role: string;
+  entry_id: string;
+  entry_name: string;
+  structure_type: StructureType;
+  artifact_id: string;
+  artifact_sha256: string;
+  artifact_size: number;
+  media_type: string;
+  filename: string;
+}
+
+export interface ArtifactDownload {
+  id: string;
+  filename: string;
+  media_type: string;
+  sha256: string;
+  size: number;
+  download_url: string;
+}
+
+export interface JobResultArtifact {
+  id: string;
+  role: string;
+  artifact: ArtifactDownload;
+  filename: string;
+  media_type: string;
+  metadata: Record<string, unknown>;
+  importable_structure: boolean;
+  imported_entry_ids: string[];
+  created_at: string;
+}
+
+export interface Job {
+  id: string;
+  project_id: string;
+  plugin_name: string;
+  job_type: string;
+  implementation_version: string;
+  status: JobStatus;
+  parameters: Record<string, unknown>;
+  progress: number;
+  status_message: string;
+  result_values: Record<string, unknown>;
+  warnings: Record<string, unknown>[];
+  error: { code: string; message: string } | null;
+  provenance: Record<string, unknown>;
+  cancellation_requested: boolean;
+  inputs: JobInput[];
+  results: JobResultArtifact[];
+  created_at: string;
+  started_at: string | null;
+  completed_at: string | null;
+  modified_at: string;
+}
+
+export interface JobEvent {
+  id: number;
+  job_id: string;
+  sequence: number;
+  kind: string;
+  stream: string | null;
+  message: string;
+  data: Record<string, unknown>;
+  created_at: string;
+}
+
+export interface JobResultImport {
+  project: Project;
+  imported_entry_id: string;
+}
+
 export interface ApiErrorBody {
   detail?: {
     code?: string;
