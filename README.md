@@ -1,10 +1,10 @@
 # MolWeave
 
-MolWeave is a local, single-user molecular project workspace. Milestone 6 adds
-validated ligand graph editing, explicit hydrogen operations, rotatable-bond
-movement, force-field cleanup, stable non-reused molecular identities, and
-exact artifact history to the synchronized project browser, inspector, property
-table, and lazy Mol* viewer.
+MolWeave is a local, single-user molecular project workspace. Milestone 7 adds
+reversible protein hierarchy editing, standard amino-acid template mutation,
+explicit protein hydrogen operations, scientific warnings, stable non-reused
+molecular identities, and exact artifact history to the synchronized project
+browser, inspector, property table, and lazy Mol* viewer.
 
 ## Prerequisites
 
@@ -53,8 +53,10 @@ flowchart LR
     API --> PS[Project service and command bus]
     API --> COORD[Transform and Kabsch service]
     API --> EDIT[RDKit ligand editor and validator]
+    API --> PEDIT[PDBFixer / OpenMM protein editor]
     COORD --> PS
     EDIT --> PS
+    PEDIT --> PS
     PS --> DB[(SQLite)]
     PS --> ART[Content-addressed artifact store]
     PS --> STATE[ProjectStateV1]
@@ -70,8 +72,9 @@ flowchart LR
 TanStack Query owns API-backed state. Zustand persists only the active project
 pointer, theme, and panel preferences; a separate non-persisted Zustand store
 owns the current canonical selection. SQLite metadata, viewer settings, named
-selections, measurements, scenes, and immutable normalized artifacts are authoritative. Mol* renders generated
-projections and is never a project save format or molecular state store.
+selections, measurements, scenes, and immutable normalized artifacts are
+authoritative. Mol* renders generated projections and is never a project save
+format or molecular state store.
 
 See [docs/API.md](docs/API.md), [docs/PROJECT_SCHEMA.md](docs/PROJECT_SCHEMA.md),
 [docs/NORMALIZED_SCHEMA.md](docs/NORMALIZED_SCHEMA.md),
@@ -79,7 +82,7 @@ See [docs/API.md](docs/API.md), [docs/PROJECT_SCHEMA.md](docs/PROJECT_SCHEMA.md)
 [docs/SCIENTIFIC_LIMITATIONS.md](docs/SCIENTIFIC_LIMITATIONS.md), and
 [docs/DECISIONS.md](docs/DECISIONS.md) for the current contracts.
 
-## Milestone 6 Checks
+## Milestone 7 Checks
 
 Run these from the repository root:
 
@@ -88,14 +91,14 @@ UV_CACHE_DIR=/tmp/uv-cache .venv/bin/uv run --no-sync ruff check .
 UV_CACHE_DIR=/tmp/uv-cache .venv/bin/uv run --no-sync mypy \
   packages/molweave_core/src apps/api/src tests
 UV_CACHE_DIR=/tmp/uv-cache .venv/bin/uv run --no-sync pytest \
-  tests/unit/editing/test_ligand_editor.py
+  tests/unit/editing/test_protein_editor.py
 UV_CACHE_DIR=/tmp/uv-cache .venv/bin/uv run --no-sync pytest \
-  tests/scientific/test_ligand_validation.py
+  tests/scientific/test_protein_templates.py
 corepack pnpm --dir apps/web lint
 corepack pnpm --dir apps/web typecheck
-corepack pnpm --dir apps/web test -- ligand-editor
+corepack pnpm --dir apps/web test -- protein-editor
 PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test \
-  tests/e2e/ligand-editing.spec.ts
+  tests/e2e/protein-editing.spec.ts
 corepack pnpm --dir apps/web build
 ```
 

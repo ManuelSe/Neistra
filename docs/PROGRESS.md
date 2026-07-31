@@ -4,9 +4,8 @@
 
 Milestone 7 - Protein editing and validation
 
-In progress. The dependency, domain, persistence/API, client, and browser
-checkpoints are complete. Final repository-wide validation, normal startup,
-documentation, and responsive inspection remain.
+Complete. The dependency, domain, persistence/API, client, browser, full
+regression, documentation, and normal-startup checkpoints all pass.
 
 ## Completed work
 
@@ -275,7 +274,7 @@ documentation, and responsive inspection remain.
 
 ## Verification performed
 
-Successful on 2026-07-30:
+Successful through 2026-07-31:
 
 ```bash
 UV_CACHE_DIR=/tmp/uv-cache .venv/bin/uv run --no-sync ruff check .
@@ -634,6 +633,27 @@ Results:
   viewer replacement, a nonblank WebGL canvas, lock enforcement, and atomic
   multiple-model/alternate-location rejection. Mobile performed a real chain
   rename and confirmed the scrollable editor has no horizontal overflow.
+- Exact M7 final gates passed: 5 protein-editor unit tests, 9 scientific
+  template tests, all 34 client tests under the `protein-editor` filter, the
+  two-platform protein Playwright workflow with two intentional cross-project
+  skips, and the production build. The build transformed 3,346 modules with a
+  473.24 KiB initial application chunk and Mol* retained as a lazy chunk.
+- Repository-wide final regression passed: Ruff, strict mypy for 56 source and
+  test files, all 128 Python tests, ESLint, TypeScript, all 34 client tests, and
+  the production build. Clean bounded Playwright runs covered all 28 configured
+  cases: 17 workflows passed and 11 intentional cross-project cases skipped.
+- The documented normal migration, Uvicorn, and Vite commands started the
+  current code on ports 8000 and 5173. `/health` returned `{"status":"ok"}`,
+  all seven format capabilities loaded, OpenAPI contained the protein-edit
+  route, and the frontend entrypoint responded.
+- Fresh normal-startup Chromium inspection at 1440x900 and Pixel 7 dimensions
+  showed the empty workspace and responsive navigation with no clipping,
+  horizontal overflow, or incoherent overlap. The separate M7 Playwright
+  workflow exercised the populated protein editor and real nonblank WebGL
+  viewer at both viewport classes.
+- Updated the README, HTTP API contract, scientific limitations, decisions,
+  and progress documents for the implemented M7 behavior, dependency pins,
+  verification commands, and explicit not-full-preparation boundary.
 
 ## Known limitations
 
@@ -677,6 +697,4 @@ None.
 
 ## Next action
 
-Run every M7-specific and repository-wide validation gate, verify documented
-normal startup and responsive live browser layout, and complete milestone
-documentation.
+Begin M8 complete export and portable archives from the clean M7 baseline.

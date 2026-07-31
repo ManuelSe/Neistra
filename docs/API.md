@@ -1,6 +1,6 @@
 # MolWeave HTTP API
 
-Status: Milestone 6
+Status: Milestone 7
 
 The local FastAPI application exposes a versioned API under `/api/v1` and
 generates OpenAPI at `/api/v1/openapi.json`. Swagger UI is available at
@@ -71,6 +71,7 @@ generates OpenAPI at `/api/v1/openapi.json`. Swagger UI is available at
 | `POST` | `/api/v1/projects/{project_id}/contacts` | Find sorted nonbonded close contacts with a spatial index. |
 | `POST` | `/api/v1/projects/{project_id}/entries/{entry_id}/transform` | Translate or rotate a whole entry or selected atoms. |
 | `POST` | `/api/v1/projects/{project_id}/entries/{entry_id}/ligand-edits` | Apply one validated ligand graph, hydrogen, rotation, or cleanup command. |
+| `POST` | `/api/v1/projects/{project_id}/entries/{entry_id}/protein-edits` | Apply one validated protein hierarchy, mutation, or hydrogen command. |
 | `POST` | `/api/v1/projects/{project_id}/superpositions` | Superpose one protein entry onto another and report RMSD. |
 
 Import is `multipart/form-data` with one or more `files`, required
@@ -232,6 +233,39 @@ requested force-field parameters, locked entries, ring/terminal/incorrect-side
 bond rotation, and stale revisions fail without publishing an artifact or
 advancing the project revision. Stable per-entry atom and bond allocators do not
 rewind through undo, redo, or a discarded history branch.
+
+## Protein Edit Contract
+
+Protein edits use a discriminated `operation` field and always include
+`expected_revision`. Supported operations delete atoms, residues, chains,
+waters, or common ions; rename a chain; renumber a chain from a positive start
+using a positive step; mutate one residue to one of the 20 standard amino
+acids; and add or remove hydrogens. Hydrogen addition accepts an optional
+residue scope and a pH in `[0, 14]`.
+
+Chain rename preserves normalized chain identity while changing its authored
+and display labels. Chain renumbering changes authored residue numbers, clears
+insertion codes, and preserves normalized residue identity. Standard amino-acid
+mutation preserves `N`, `CA`, `C`, and `O` coordinates and rebuilds side-chain
+atoms from the pinned PDBFixer/OpenMM template data.
+
+A successful response contains the revised project, structured warnings, and a
+report listing created, deleted, and changed stable atom and bond IDs. It also
+contains an affected-entry topology patch so the client replaces that viewer
+projection and reconciles transient and saved selection references.
+
+Template operations require an unambiguous single-model polymer hierarchy.
+Alternate conformers, duplicate atom names within the target residue, missing
+required backbone atoms, unsupported target residues, locked entries, and stale
+revisions fail without publishing an artifact or advancing the project
+revision. Stable per-entry atom and bond allocators do not rewind through undo,
+redo, or a discarded history branch.
+
+Atom and residue movement uses the existing `transform` endpoint with an exact
+canonical atom selection. This is an unconstrained Cartesian edit. The protein
+editor surfaces missing-template, unsupported-residue, terminal, alternate
+conformer, severe-clash, and questionable-hydrogen warnings, but it is not a
+complete structure-preparation, protonation, rotamer, or force-field workflow.
 
 ## Errors
 

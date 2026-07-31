@@ -1,6 +1,6 @@
 # Scientific Limitations
 
-Status: Milestone 6
+Status: Milestone 7
 
 MolWeave v0.1 reports known uncertainty but does not replace specialist
 structure preparation or validation software.
@@ -59,6 +59,46 @@ structure preparation or validation software.
   does not silently claim preservation.
 - Stable atom and bond IDs describe MolWeave project identity, not source-file
   serials. Deleted IDs leave gaps and newly allocated IDs are never reused.
+
+## Protein Editing
+
+- MolWeave pins PDBFixer 1.12 source commit
+  `94cfa4c0ca551cdc5f13320f9a658efd59f2b881` and OpenMM 8.4.0 for v0.1
+  protein templates and hydrogen placement. A dependency upgrade is a
+  scientific change that requires fixture and regression review.
+- Standard amino-acid mutation accepts only the 20 canonical residue names.
+  It preserves the existing `N`, `CA`, `C`, and `O` coordinates and uses the
+  pinned template for missing side-chain atoms. It does not select or optimize
+  a rotamer, preserve a nonstandard side chain, or assert that the result is a
+  favorable conformation.
+- Template mutation and hydrogen addition require an unambiguous single-model
+  polymer mapping. Alternate conformers, duplicate target atom names, or
+  missing required backbone atoms are rejected instead of being guessed.
+- Hydrogen addition uses PDBFixer's residue templates at the requested pH.
+  It does not determine experimental protonation microstates, resolve ligand or
+  metal coordination, optimize a hydrogen-bond network, add missing heavy
+  atoms, or guarantee a force-field-ready system. MolWeave surfaces the
+  resulting uncertainty.
+- Unsupported residues are retained for generic deletion and coordinate
+  movement but are reported and excluded from template-based mutation or
+  hydrogen inference. Terminal residues are also reported because template
+  capping and protonation may require specialist preparation.
+- Severe-clash warnings are a deterministic Cartesian screen for nonbonded
+  atom pairs closer than 0.4 angstrom. This intentionally catches obvious
+  overlaps; it is not a van der Waals, symmetry, bonded-geometry, or
+  force-field validation.
+- Chain rename changes authored/display labels while stable normalized identity
+  remains intact. Residue renumbering changes authored sequence numbers and
+  clears insertion codes. Neither operation performs sequence alignment,
+  resolves author-label ambiguity, or changes polymer chemistry.
+- Atom and residue deletion and movement are reversible project commands, but
+  movement is an unconstrained Cartesian transform. These operations can
+  create broken polymers, distorted bonds, clashes, invalid chirality, or
+  chemically unreasonable structures.
+- MolWeave v0.1 does not build missing loops, choose alternate locations, add
+  caps, assign force-field parameters, solvate, neutralize, optimize side
+  chains, minimize proteins, or perform a complete structure-preparation
+  protocol.
 
 ## Conversion And Viewing
 
@@ -126,7 +166,8 @@ structure preparation or validation software.
 - Free selected-atom transforms can create distorted bonds, invalid chirality,
   clashes, or chemically unreasonable geometry. They remain unconstrained
   placement tools; use the M6 ligand rotation/cleanup operations for their
-  narrower validation and force-field reports. Protein preparation remains M7.
+  narrower validation and force-field reports. The M7 protein editor adds
+  limited template operations and warnings, not full protein preparation.
 - Protein superposition is a proper float64 Kabsch fit over active-conformer
   coordinates. It requires equal, unambiguous protein hierarchy identities,
   at least three matches, and non-collinear geometry. Reported RMSD is the
