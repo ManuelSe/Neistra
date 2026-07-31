@@ -971,6 +971,22 @@ Results:
 - Corrected the M10 plan's Playwright command to execute from the repository
   root, matching `playwright.config.ts` and `tests/e2e`; the previous `--dir
   apps/web` form changed the working directory and found no tests.
+- M10 full-gate checkpoint: `.venv/bin/uv sync --frozen` passes with 49 locked
+  packages; `CI=1 corepack pnpm install --frozen-lockfile` recreated all 527
+  packages from the lock; and a brand-new temporary data root migrated through
+  Alembic `0001` to `0007 (head)`.
+- Repository Ruff and the exact M10 strict mypy scope pass; the complete Python
+  suite passes all 170 unit, integration, scientific, and security tests after
+  the event-allocation repair. ESLint, TypeScript, all 44 Vitest tests, and the
+  Vite production build pass. The build keeps Mol* in a lazy 965.76 KiB gzip
+  chunk and the initial application chunk at 150.04 KiB gzip.
+- The complete Playwright gate passed from a fresh `.molweave-e2e` store in 6.1
+  minutes: 29 applicable desktop/mobile workflows passed and 19 explicitly
+  inapplicable cross-layout variants skipped. It exercised real WebGL, all
+  definition-of-done workflows, job concurrency/cancellation, structured
+  success/failure states, archive safety, accessibility, responsiveness, and
+  the representative performance/request budget without recurrence of the
+  worker event race.
 
 ## Known limitations
 
@@ -1024,7 +1040,7 @@ None.
 
 ## Next action
 
-Restart the complete 48-case desktop/mobile Playwright gate from isolated state
-with the concurrent event fix. Then rerun the complete Python gate affected by
-the fix and perform documented API/worker/Vite startup plus final browser/API/
-job smoke verification.
+Run the documented API, worker, and Vite commands on ports 8000 and 5173.
+Verify API health/job definitions, a live worker-completed job, and the visible
+application in desktop and narrow browsers, then record the final state and
+mark Milestone 10 complete.
