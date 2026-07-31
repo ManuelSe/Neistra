@@ -1,6 +1,6 @@
 # Normalized Molecular Schema
 
-Status: `NormalizedStructureV1`, Milestone 2
+Status: MolWeave v0.1, `NormalizedStructureV1`
 
 `NormalizedStructureV1` is the application-owned molecular authority. Gemmi,
 RDKit, and Mol* objects are adapters or projections and are not persisted as

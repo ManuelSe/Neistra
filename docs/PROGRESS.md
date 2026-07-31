@@ -942,6 +942,21 @@ Results:
   the consolidated desktop Chromium journey pass. The final journey completed
   in 2.6 minutes against migrated API, standalone worker, Vite, and real WebGL;
   both job completion/import and cooperative cancellation were observed.
+- M10 documentation checkpoint: promoted the README and API/project/
+  normalized/format/scientific contracts to v0.1; added clean frozen setup,
+  three-process startup, development commands, configuration, and specific
+  troubleshooting; documented frontend/API/domain/persistence/viewer/worker
+  ownership and dependencies; expanded the strict `ProjectManifestV1` archive
+  layout and validation contract; and linked all release documents centrally.
+- Added documented WCAG/keyboard/focus/responsive/manual accessibility scope;
+  the `1STP` performance fixture, budgets, request behavior, and interpretation;
+  immutable official/synthetic fixture provenance and scientific assertions;
+  and a release evidence matrix covering functional, failure, documentation,
+  startup, manual, and deferred behavior.
+- Documentation verification passes: a requirement audit expands every listed
+  interval and confirms all 269 atomic IDs from the plan are covered with no
+  missing IDs; every relative Markdown link in the README and `docs/*.md`
+  resolves; and `git diff --check` reports no whitespace errors.
 
 ## Known limitations
 
@@ -995,7 +1010,6 @@ None.
 
 ## Next action
 
-Complete fixture, development, troubleshooting, accessibility, performance,
-API/schema/format/limitations, and per-requirement evidence documentation. Then
-run the frozen-install, migration, full static/unit/build/browser gates and the
-documented local startup smoke test.
+Run the frozen-install, migration, complete Python and frontend static/unit/build
+gates, and full desktop/mobile Playwright suite. Repair any regression, then run
+the documented API/worker/Vite startup and final browser/API/job smoke test.

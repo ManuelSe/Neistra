@@ -1,0 +1,81 @@
+# V0.1 Requirement Evidence
+
+Status: MolWeave v0.1 release matrix
+
+This matrix maps every atomic requirement ID from `docs/PLAN.md` section 11 to
+its implementation milestone and release evidence. ID intervals are inclusive;
+there are no implied gaps inside a listed interval. The complete release gate
+is documented in `README.md` and `DEVELOPMENT.md`.
+
+| Requirement IDs | Milestone | Passing evidence |
+|---|---|---|
+| UI-01–UI-06 | M1–M9 | `project-workspace.test.tsx`, `project-lifecycle.spec.ts`, `responsive-workspace.spec.ts`, `release-journey.spec.ts` |
+| UI-07–UI-08 | M1, M10 | `release-hardening.spec.ts` light/dark axe and responsive checks; manual 100%/200% visual check in `ACCESSIBILITY.md` |
+| PM-01–PM-10 | M1, M2, M9 | project schema/service unit tests; `test_import_export.py`; `test_job_lifecycle.py` |
+| PM-11–PM-19 | M1, M2, M8 | `project-lifecycle.spec.ts`, `import-display-export.spec.ts`, `export-archive.spec.ts` |
+| PM-20–PM-23 | M3 | `synchronized-selection.spec.ts`, `project-browser.test.tsx` |
+| PM-24 | M1 | dirty recovery integration/component and `project-lifecycle.spec.ts` reload workflow |
+| PM-25 | M8 | `test_archive_roundtrip.py`, `export-archive.spec.ts` |
+| PM-26 | M1, M10 | `PROJECT_SCHEMA.md`, migration tests, strict project/manifest schema validation |
+| FF-01–FF-09 | M2 | `tests/unit/adapters`, `test_format_fidelity.py`, `test_import_export.py` |
+| FF-10 | M2, M8 | `test_export_policy.py`, `import-display-export.spec.ts`, `export-archive.spec.ts` |
+| FF-11–FF-18 | M8 | export/archive unit and integration suites plus `export-archive.spec.ts` |
+| VW-01–VW-02 | M2 | viewer adapter/structure-loading component tests and `import-display-export.spec.ts` real WebGL checks |
+| VW-03–VW-30 | M4 | representation unit tests, viewer-state integration tests, `viewer-controls.spec.ts`, `measurements.spec.ts` |
+| VW-31 | M2–M10 | `viewer-adapter.test.ts`, project reload/archive suites, `release-journey.spec.ts`; `ARCHITECTURE.md` ownership boundary |
+| SL-01–SL-22 | M3–M7 | selection unit tests, saved-selection integration tests, `synchronized-selection.spec.ts`, edit workflow specs |
+| NV-01–NV-03 | M4, M5 | `viewer-controls.spec.ts` named camera controls and viewer gestures |
+| NV-04–NV-10 | M5 | transform/superposition unit and integration tests; `coordinate-editing.spec.ts`; `release-journey.spec.ts` |
+| MI-01–MI-12 | M3, M4 | measurement geometry tests, contact integration tests, `measurements.spec.ts`, `sequence.spec.ts` |
+| LE-01–LE-13 | M5, M6 | ligand editor/validator unit and integration suites; `ligand-editing.spec.ts`; definition journey add/transform |
+| PE-01–PE-07 | M7 | protein editor/service unit and integration suites; `protein-editing.spec.ts` |
+| PE-08 | Deferred | Explicitly excluded from v0.1; no rotamer control; limitation stated in UI, `SCIENTIFIC_LIMITATIONS.md`, and `release-journey.spec.ts` |
+| PE-09–PE-13 | M5–M7 | protein edit integration/scientific tests and `protein-editing.spec.ts` failure/success paths |
+| PE-14 | M7, M10 | visible editor limitation, `SCIENTIFIC_LIMITATIONS.md`, no preparation/rotamer claim asserted in browser tests |
+| EH-01–EH-07 | M1–M8 | history/service unit tests, command integration suites, `project-lifecycle.spec.ts`, coordinate/ligand/protein browser undo/redo |
+| EH-08 | M1, M9 | destructive confirmation component/browser tests; job cancellation confirmation in demonstration and release journeys |
+| BA-01–BA-11 | M1–M9 | typed source boundaries, API integration suite, worker/job suite, `ARCHITECTURE.md` |
+| BA-12 | M1–M10 | core model type tests, plugin registry tests, absence of docking-specific core/API fields and controls |
+| BA-13–BA-15 | M2, M6, M7 | adapter/editor/validator protocol implementations and unit suites |
+| BA-16–BA-20 | M1, M9 | generic jobs protocol/registry/runner/artifact tests and demonstration plugin |
+| JB-01–JB-14 | M9 | job model/migration tests, `test_job_lifecycle.py`, archive round trip |
+| JB-15–JB-23 | M9 | job API/worker/recovery integration suites and `demonstration-job.spec.ts` |
+| JB-24 | M9 | `packages/molweave_demo_plugin`, its unit tests, and successful browser completion/import |
+| JB-25 | M9, M10 | exact extension walkthrough and docking checklist in `PLUGIN_GUIDE.md` |
+| PS-01–PS-05 | M1, M9 | migration, repository, transaction, artifact-store, history, and job integration tests |
+| PS-06–PS-07 | M1, M2, M8 | upload/archive limit, traversal, safe filename, checksum, and archive-bomb tests |
+| PS-08 | M1 | repository/artifact-store protocols and dependency construction covered by unit/API tests |
+| SC-01–SC-07 | M2–M8 | scientific fidelity, edit validation, export policy, original-byte, and archive tests |
+| SC-08–SC-10 | M1, M8, M9 | allowlisted registry, spawned runner, path/resource/parameter/result validation and failure tests |
+| PF-01–PF-04 | M2–M4 | lazy structure query and debounce component tests, spatial worker tests, typed normalized schema |
+| PF-05 | M2, M8 | import/export child cancellation integration and browser failure workflows |
+| PF-06 | M1–M10 | component/browser loading assertions across import, viewer, export, and jobs |
+| PF-07 | M2, M4, M10 | atom-limit integration tests, reduced-detail component/browser check, `PERFORMANCE.md` |
+| PF-08 | M2–M5 | request-count assertion in `release-hardening.spec.ts`; coordinate span and structure-query cache tests |
+| TS-01–TS-02 | M2, M8 | adapter and round-trip/export/archive suites |
+| TS-03–TS-05 | M1, M3, M5–M7 | selection, history/edit, malformed/scientific unit and integration suites |
+| TS-06–TS-07 | M1–M9 | complete `tests/integration` suite, including lifecycle, cancellation, and worker recovery |
+| TS-08 | M2–M10 | complete Playwright suite and consolidated `release-journey.spec.ts` |
+| TS-09 | M2 | every supported extension represented in `FIXTURES.md` and adapter parametrization |
+| TS-10 | M2, M10 | official `1STP` protein-ligand complex checksum/scientific test and browser performance gate |
+| DC-01–DC-03 | M1, M10 | `README.md`, `DEVELOPMENT.md`, `ARCHITECTURE.md` |
+| DC-04–DC-07 | M1, M2, M6, M7, M10 | `API.md`, `PROJECT_SCHEMA.md`, `NORMALIZED_SCHEMA.md`, `FORMAT_MATRIX.md`, `SCIENTIFIC_LIMITATIONS.md` |
+| DC-08–DC-10 | M9, M10 | `PLUGIN_GUIDE.md`, runnable demonstration plugin, exact docking integration checklist |
+| DD-01 | M10 | frozen setup/migration commands and live API/worker/Vite/browser smoke recorded in `PROGRESS.md` |
+| DD-02–DD-04 | M1, M2, M4 | `release-journey.spec.ts` project, multi-file import, nonblank simultaneous distinct representations |
+| DD-05–DD-06 | M3 | definition journey atom/hierarchy/project/sequence/Mol* pick assertions |
+| DD-07–DD-10 | M1, M4–M7 | definition journey measurement, transform, ligand/protein edit, undo/redo assertions |
+| DD-11–DD-12 | M1, M8 | definition journey checkpoint/reload/reopen and selected SDF download |
+| DD-13–DD-14 | M9 | definition journey completed/imported job plus running cancellation; demonstration-job success/failure specs |
+| DD-15 | M9, M10 | `PLUGIN_GUIDE.md` registration, controlled runner, pose/score, result import, test checklist |
+| DD-16 | M1–M10 | definition journey absence check; product has no docking/PDBQT/rotamer placeholder controls |
+
+## Manual Evidence Boundary
+
+Automated tests cover every functional requirement, including browser-visible
+success and important failure states. Manual verification is retained only for
+visual focus/readability at 200% zoom, subjective theme quality, host-specific
+startup observation, and meaningful inspection of WebGL content. The browser
+suite still asserts WebGL canvas pixels, accessible surrounding state, and
+viewport bounds so these manual checks are supplementary rather than substitutes
+for functional automation.

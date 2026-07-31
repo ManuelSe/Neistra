@@ -1,6 +1,6 @@
 # Supported Format Matrix
 
-Status: Milestone 2
+Status: MolWeave v0.1
 
 | Format | Extensions | Import behavior | Export behavior and notable loss |
 |---|---|---|---|

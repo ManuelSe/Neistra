@@ -1,16 +1,17 @@
 # MolWeave
 
-MolWeave is a local, single-user molecular project workspace. Milestone 9 adds
-an allowlisted plugin registry, durable SQLite job queue, controlled spawned
-runner, progress/log streaming, cancellation and recovery, immutable input and
-result provenance, portable job archives, and a complete demonstration job.
-Docking itself is not included.
+MolWeave v0.1 is a local, single-user molecular project workspace for importing,
+viewing, selecting, measuring, editing, converting, and organizing protein and
+small-molecule structures. It includes durable projects, undo/redo, portable
+archives, and an allowlisted background-job plugin system. Docking, PDBQT, and
+complete protein preparation are deliberately not included.
 
 ## Prerequisites
 
 - Python 3.12
 - Node.js 22 with Corepack
-- A Chromium-compatible Linux, macOS, or Windows development environment
+- Git, a C/C++ runtime suitable for the locked scientific wheels, and a
+  Chromium-compatible Linux, macOS, or Windows development environment
 
 All Python work uses the project-local `.venv`.
 
@@ -21,9 +22,9 @@ From the repository root:
 ```bash
 python3.12 -m venv .venv
 .venv/bin/python -m pip install uv
-.venv/bin/uv sync
+.venv/bin/uv sync --frozen
 corepack prepare pnpm@10.15.1 --activate
-corepack pnpm install
+corepack pnpm install --frozen-lockfile
 MOLWEAVE_DATA_DIR=.molweave .venv/bin/alembic upgrade head
 ```
 
@@ -87,31 +88,30 @@ selections, measurements, scenes, and immutable normalized artifacts are
 authoritative. Mol* renders generated projections and is never a project save
 format or molecular state store.
 
-See [docs/API.md](docs/API.md), [docs/PROJECT_SCHEMA.md](docs/PROJECT_SCHEMA.md),
-[docs/NORMALIZED_SCHEMA.md](docs/NORMALIZED_SCHEMA.md),
-[docs/FORMAT_MATRIX.md](docs/FORMAT_MATRIX.md),
-[docs/PLUGIN_GUIDE.md](docs/PLUGIN_GUIDE.md),
-[docs/SCIENTIFIC_LIMITATIONS.md](docs/SCIENTIFIC_LIMITATIONS.md), and
-[docs/DECISIONS.md](docs/DECISIONS.md) for the current contracts.
+See [architecture](docs/ARCHITECTURE.md), [development and troubleshooting](docs/DEVELOPMENT.md),
+[HTTP API](docs/API.md), [project/archive schema](docs/PROJECT_SCHEMA.md),
+[normalized molecular schema](docs/NORMALIZED_SCHEMA.md), [format matrix](docs/FORMAT_MATRIX.md),
+[plugin guide](docs/PLUGIN_GUIDE.md), [scientific limitations](docs/SCIENTIFIC_LIMITATIONS.md),
+[fixture provenance](docs/FIXTURES.md), [accessibility](docs/ACCESSIBILITY.md),
+[performance](docs/PERFORMANCE.md), [release evidence](docs/VERIFICATION.md), and
+[architectural decisions](docs/DECISIONS.md) for the v0.1 contracts.
 
-## Milestone 9 Checks
+## Release Checks
 
 Run these from the repository root:
 
 ```bash
-UV_CACHE_DIR=/tmp/uv-cache .venv/bin/uv run --no-sync ruff check .
-UV_CACHE_DIR=/tmp/uv-cache .venv/bin/uv run --no-sync mypy \
-  packages/molweave_core/src packages/molweave_demo_plugin/src apps/api/src tests
-UV_CACHE_DIR=/tmp/uv-cache .venv/bin/uv run --no-sync pytest \
-  tests/unit/jobs tests/integration/test_job_lifecycle.py
-UV_CACHE_DIR=/tmp/uv-cache .venv/bin/uv run --no-sync pytest \
-  tests/integration/test_worker_recovery.py
+.venv/bin/uv sync --frozen
+corepack pnpm install --frozen-lockfile
+MOLWEAVE_DATA_DIR=.molweave .venv/bin/uv run alembic upgrade head
+.venv/bin/uv run ruff check .
+.venv/bin/uv run mypy apps/api packages/molweave_core
+.venv/bin/uv run pytest
 corepack pnpm --dir apps/web lint
 corepack pnpm --dir apps/web typecheck
-corepack pnpm --dir apps/web test -- jobs
-PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test \
-  tests/e2e/demonstration-job.spec.ts
+corepack pnpm --dir apps/web test
 corepack pnpm --dir apps/web build
+PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test
 ```
 
 Install the pinned Chromium once before the browser check:
@@ -120,6 +120,7 @@ Install the pinned Chromium once before the browser check:
 PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright install chromium
 ```
 
-The Playwright configuration migrates its isolated test database, then starts
+The Playwright configuration migrates an isolated test database, then starts
 the test API, separate worker, and Vite server. Ports 5173, 8010, and 8011 must
-be free while that command runs.
+be free. See [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) for focused commands,
+environment variables, clean-state procedures, and troubleshooting.

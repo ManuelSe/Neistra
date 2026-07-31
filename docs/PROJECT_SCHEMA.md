@@ -1,7 +1,6 @@
 # Project Schema
 
-Status: `ProjectStateV1` with normalized artifacts, viewer state, measurements,
-named scenes, immutable coordinate revisions, and durable jobs, Milestone 9
+Status: MolWeave v0.1, `ProjectStateV1` and `ProjectManifestV1`
 
 MolWeave separates the relational working model, checkpoint snapshots, immutable
 artifacts, and browser preferences. The API and database are authoritative;
@@ -246,10 +245,48 @@ molecular file format. `job_links`, `generated_results`, and metadata link the
 job, result, implementation, parameters, inputs, and immutable hashes. Import
 is one normal undoable command.
 
-`ProjectManifestV1` archives include job summaries plus all immutable input and
-result artifacts needed for provenance. IDs are remapped on import. Queued or
-running archived jobs become failed records with `archive_incomplete_job`;
-executable process state is never reconstructed.
+## ProjectManifestV1 Archive
+
+A portable project is a ZIP archive with safe relative member names:
+
+```text
+manifest.json
+artifacts/<sha256>-<safe-filename>
+```
+
+`manifest.json` is strict JSON with:
+
+```text
+schema_version: 1
+project:
+  source_project_id: UUIDv7 string
+  source_revision: non-negative integer
+  exported_at: ISO-8601 timestamp
+  state: ProjectStateV1
+artifacts[]:
+  source_artifact_id: UUIDv7 string
+  member_path: safe relative artifacts/... path
+  sha256: 64 lowercase hex characters
+  size: non-negative integer
+  media_type: allowlisted string
+  filename: safe display basename
+jobs[]: terminal or normalized-incomplete job snapshots
+```
+
+The archive includes every original/current artifact referenced by an entry
+and every immutable job input/result artifact required for provenance. Export
+uses deterministic JSON, deterministic member ordering, fixed ZIP timestamps,
+and checksums. Import validates schema, member allowlist, uniqueness, paths,
+declared/actual size, SHA-256, total/member/compression-ratio limits, normalized
+documents, referential integrity, and job provenance before one atomic project
+creation.
+
+All project, entry, group, selection, measurement, scene, artifact, job, input,
+result, and event IDs are remapped on import. The imported project starts as a
+clean revision-zero checkpoint while retaining source ID/revision provenance.
+Command history and browser/Mol* state are intentionally absent. Queued or
+running source jobs become failed records with `archive_incomplete_job` because
+executable process state is neither portable nor resumable.
 
 ## Browser Preferences
 

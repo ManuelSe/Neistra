@@ -1,6 +1,6 @@
 # MolWeave HTTP API
 
-Status: Milestone 9
+Status: MolWeave v0.1
 
 The local FastAPI application exposes a versioned API under `/api/v1` and
 generates OpenAPI at `/api/v1/openapi.json`. Swagger UI is available at
