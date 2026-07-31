@@ -118,6 +118,31 @@ export default function App() {
   const leftRef = useRef<ImperativePanelHandle>(null);
   const rightRef = useRef<ImperativePanelHandle>(null);
   const lowerRef = useRef<ImperativePanelHandle>(null);
+  const mobilePanelRef = useRef<HTMLElement>(null);
+  const mobilePanelTriggerRef = useRef<HTMLElement | null>(null);
+
+  const openMobilePanel = (panel: "projects" | "inspector" | "history") => {
+    mobilePanelTriggerRef.current =
+      document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    setMobilePanel(panel);
+  };
+
+  const closeMobilePanel = () => {
+    const trigger = mobilePanelTriggerRef.current;
+    setMobilePanel(null);
+    requestAnimationFrame(() => trigger?.focus());
+  };
+
+  useEffect(() => {
+    if (!mobilePanel) return;
+    requestAnimationFrame(() => {
+      mobilePanelRef.current
+        ?.querySelector<HTMLElement>(
+          'button:not(:disabled), input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex="0"]',
+        )
+        ?.focus();
+    });
+  }, [mobilePanel]);
 
   const projectsQuery = useQuery({
     queryKey: ["projects"],
@@ -657,11 +682,11 @@ export default function App() {
           onJobs={() => {
             setLowerTab("jobs");
             setJobDialogOpen(true);
-            if (compact) setMobilePanel("history");
+            if (compact) openMobilePanel("history");
             else lowerRef.current?.expand();
           }}
           onTheme={() => setTheme(theme === "light" ? "dark" : "light")}
-          onMobilePanel={setMobilePanel}
+          onMobilePanel={openMobilePanel}
         />
 
         {notice ? (
@@ -714,9 +739,24 @@ export default function App() {
                     type="button"
                     className="mobile-scrim"
                     aria-label="Close panel"
-                    onClick={() => setMobilePanel(null)}
+                    onClick={closeMobilePanel}
                   />
-                  <aside className={`mobile-panel ${mobilePanel}`}>
+                  <aside
+                    ref={mobilePanelRef}
+                    className={`mobile-panel ${mobilePanel}`}
+                    role="dialog"
+                    aria-modal="true"
+                    aria-label={
+                      mobilePanel === "projects"
+                        ? "Project browser panel"
+                        : mobilePanel === "inspector"
+                          ? "Inspector panel"
+                          : "History and jobs panel"
+                    }
+                    onKeyDown={(event) => {
+                      if (event.key === "Escape") closeMobilePanel();
+                    }}
+                  >
                     {mobilePanel === "projects" ? (
                       <ProjectBrowser
                         project={project}
@@ -754,11 +794,13 @@ export default function App() {
             </>
           ) : (
             <PanelGroup
+              id="workspace-horizontal-panels"
               direction="horizontal"
               onLayout={setHorizontalLayout}
               className="horizontal-panels"
             >
               <Panel
+                id="project-browser-panel"
                 ref={leftRef}
                 defaultSize={horizontalLayout[0]}
                 minSize={15}
@@ -787,14 +829,19 @@ export default function App() {
                   />
                 )}
               </Panel>
-              <PanelResizeHandle className="resize-handle horizontal" />
-              <Panel defaultSize={horizontalLayout[1]} minSize={34}>
+              <PanelResizeHandle
+                id="project-browser-resize-handle"
+                className="resize-handle horizontal"
+                aria-label="Resize project browser"
+              />
+              <Panel id="workspace-center-panel" defaultSize={horizontalLayout[1]} minSize={34}>
                 <PanelGroup
+                  id="workspace-vertical-panels"
                   direction="vertical"
                   onLayout={setVerticalLayout}
                   className="vertical-panels"
                 >
-                  <Panel defaultSize={verticalLayout[0]} minSize={45}>
+                  <Panel id="molecular-viewer-panel" defaultSize={verticalLayout[0]} minSize={45}>
                     <WorkspaceCanvas
                       project={project}
                       selection={selection}
@@ -809,8 +856,13 @@ export default function App() {
                       {...viewerActions}
                     />
                   </Panel>
-                  <PanelResizeHandle className="resize-handle vertical" />
+                  <PanelResizeHandle
+                    id="lower-panel-resize-handle"
+                    className="resize-handle vertical"
+                    aria-label="Resize lower panel"
+                  />
                   <Panel
+                    id="lower-panel"
                     ref={lowerRef}
                     defaultSize={verticalLayout[1]}
                     minSize={16}
@@ -847,8 +899,13 @@ export default function App() {
                   </Panel>
                 </PanelGroup>
               </Panel>
-              <PanelResizeHandle className="resize-handle horizontal" />
+              <PanelResizeHandle
+                id="inspector-resize-handle"
+                className="resize-handle horizontal"
+                aria-label="Resize inspector"
+              />
               <Panel
+                id="inspector-panel"
                 ref={rightRef}
                 defaultSize={horizontalLayout[2]}
                 minSize={17}
@@ -1025,7 +1082,7 @@ export default function App() {
           queryClient.setQueryData(["job", job.id], job);
           void queryClient.invalidateQueries({ queryKey: ["jobs", job.project_id] });
           setLowerTab("jobs");
-          if (compact) setMobilePanel("history");
+          if (compact) openMobilePanel("history");
           else lowerRef.current?.expand();
           setNotice({ kind: "success", text: "Job queued." });
         }}

@@ -19,6 +19,7 @@ import type {
   Project,
 } from "../api/types";
 import { Modal } from "./Modal";
+import { activateTabFromKeyboard } from "./tabKeyboard";
 
 interface ExportDialogProps {
   open: boolean;
@@ -171,11 +172,17 @@ export function ExportDialog({
       description="Structures and portable project archive"
     >
       <div className="export-dialog">
-        <div className="segmented-control" role="tablist" aria-label="Export type">
+        <div
+          className="segmented-control"
+          role="tablist"
+          aria-label="Export type"
+          onKeyDown={activateTabFromKeyboard}
+        >
           <button
             type="button"
             role="tab"
             aria-selected={tab === "structures"}
+            tabIndex={tab === "structures" ? 0 : -1}
             disabled={pending}
             onClick={() => changeTab("structures")}
           >
@@ -185,6 +192,7 @@ export function ExportDialog({
             type="button"
             role="tab"
             aria-selected={tab === "archive"}
+            tabIndex={tab === "archive" ? 0 : -1}
             disabled={pending}
             onClick={() => changeTab("archive")}
           >

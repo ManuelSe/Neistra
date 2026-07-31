@@ -31,25 +31,25 @@ describe("project browser selection and discovery", () => {
   it("searches, filters, sorts, and collapses grouped entries", async () => {
     const user = userEvent.setup();
     renderBrowser(<ProjectBrowser project={molecularProject()} {...actions} />);
-    const listbox = screen.getByRole("listbox");
+    const listbox = screen.getByLabelText("Project structures");
 
-    expect(within(listbox).getAllByRole("option").map((row) => row.textContent)).toEqual([
+    expect([...listbox.querySelectorAll(".entry-select")].map((row) => row.textContent)).toEqual([
       expect.stringContaining("Receptor"),
       expect.stringContaining("Ligand"),
     ]);
     await user.selectOptions(screen.getByLabelText("Sort structures"), "atoms");
-    expect(within(listbox).getAllByRole("option")[0]).toHaveTextContent("Receptor");
+    expect(listbox.querySelectorAll(".entry-select")[0]).toHaveTextContent("Receptor");
     await user.type(screen.getByPlaceholderText("Search structures"), "lig");
-    expect(within(listbox).getAllByRole("option")).toHaveLength(1);
-    expect(within(listbox).getByRole("option")).toHaveTextContent("Ligand");
+    expect(listbox.querySelectorAll(".entry-select")).toHaveLength(1);
+    expect(listbox.querySelector(".entry-select")).toHaveTextContent("Ligand");
     await user.clear(screen.getByPlaceholderText("Search structures"));
     await user.selectOptions(screen.getByLabelText("Filter structure type"), "protein");
-    expect(within(listbox).getAllByRole("option")).toHaveLength(1);
+    expect(listbox.querySelectorAll(".entry-select")).toHaveLength(1);
     await user.selectOptions(screen.getByLabelText("Filter structure type"), "all");
     await user.click(screen.getByLabelText("Collapse Target"));
-    expect(within(listbox).queryByRole("option", { name: /Receptor/ })).not.toBeInTheDocument();
+    expect(listbox.querySelector("[data-entry-id='protein'] .entry-select")).not.toBeInTheDocument();
     await user.click(screen.getByLabelText("Expand Target"));
-    expect(within(listbox).getByRole("option", { name: /Receptor/ })).toBeInTheDocument();
+    expect(listbox.querySelector("[data-entry-id='protein'] .entry-select")).toBeInTheDocument();
   });
 
   it("emits replace, additive, subtractive, and group multi-selection operations", () => {
@@ -62,10 +62,10 @@ describe("project browser selection and discovery", () => {
         {...actions}
       />,
     );
-    const listbox = screen.getByRole("listbox");
-    const receptor = within(listbox).getByRole("option", { name: /Receptor/ });
-    const ligand = within(listbox).getByRole("option", { name: /Ligand/ });
-    expect(receptor).toHaveAttribute("aria-selected", "true");
+    const listbox = screen.getByLabelText("Project structures");
+    const receptor = listbox.querySelector("[data-entry-id='protein'] .entry-select")!;
+    const ligand = listbox.querySelector("[data-entry-id='ligand'] .entry-select")!;
+    expect(receptor).toHaveAttribute("aria-pressed", "true");
     fireEvent.click(receptor);
     fireEvent.click(ligand, { ctrlKey: true });
     fireEvent.click(ligand, { altKey: true });

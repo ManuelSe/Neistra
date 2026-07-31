@@ -18,7 +18,7 @@ import {
   Search,
   Trash2,
 } from "lucide-react";
-import { useMemo, useState, type KeyboardEvent } from "react";
+import { useMemo, useState } from "react";
 import type { Entry, Project, SelectionMode, StructureType } from "../api/types";
 import { selectionMode } from "../selection/selection";
 import { IconButton } from "./IconButton";
@@ -60,31 +60,28 @@ function EntryRow({
   selected: boolean;
   onSelect: (mode: SelectionMode) => void;
 }) {
-  const keyboardSelect = (event: KeyboardEvent<HTMLDivElement>) => {
-    if (event.key !== "Enter" && event.key !== " ") return;
-    event.preventDefault();
-    onSelect(selectionMode(event.nativeEvent));
-  };
   return (
     <div
       className={`entry-row ${entry.visible ? "" : "entry-hidden"} ${selected ? "selected" : ""}`}
       data-entry-id={entry.id}
-      role="option"
-      aria-selected={selected}
-      tabIndex={0}
-      onClick={(event) => onSelect(selectionMode(event.nativeEvent))}
-      onKeyDown={keyboardSelect}
     >
-      <FlaskConical size={16} className="entry-type-icon" />
-      <div className="entry-copy">
-        <span>{entry.name}</span>
-        <small title={entry.warnings.map((warning) => warning.message).join("\n")}>
-          {entry.source_format ?? entry.structure_type} / {entry.atom_count} atoms
-          {entry.warnings.length > 0 ? ` / ${entry.warnings.length} warnings` : ""}
-        </small>
-      </div>
-      {entry.dirty ? <span className="entry-dirty" aria-label="Modified" /> : null}
-      <div className="entry-actions" onClick={(event) => event.stopPropagation()}>
+      <button
+        type="button"
+        className="entry-select"
+        aria-pressed={selected}
+        onClick={(event) => onSelect(selectionMode(event.nativeEvent))}
+      >
+        <FlaskConical size={16} className="entry-type-icon" />
+        <span className="entry-copy">
+          <span>{entry.name}</span>
+          <small title={entry.warnings.map((warning) => warning.message).join("\n")}>
+            {entry.source_format ?? entry.structure_type} / {entry.atom_count} atoms
+            {entry.warnings.length > 0 ? ` / ${entry.warnings.length} warnings` : ""}
+          </small>
+        </span>
+        {entry.dirty ? <span className="entry-dirty" aria-label="Modified" /> : null}
+      </button>
+      <div className="entry-actions">
         <IconButton
           label={entry.visible ? `Hide ${entry.name}` : `Show ${entry.name}`}
           onClick={() => onVisibility(entry)}
@@ -259,7 +256,10 @@ export function ProjectBrowser({
           </select>
         </div>
       </div>
-      <div className="panel-scroll browser-results" role="listbox" aria-multiselectable="true">
+      <div
+        className="panel-scroll browser-results"
+        aria-label="Project structures"
+      >
         {!project ? (
           <p className="empty-label">No project open</p>
         ) : project.entries.length === 0 ? (

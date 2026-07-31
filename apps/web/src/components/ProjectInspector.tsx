@@ -40,6 +40,7 @@ import { LigandEditorPanel } from "./LigandEditorPanel";
 import { MeasurementsPanel } from "./MeasurementsPanel";
 import { ProteinEditorPanel } from "./ProteinEditorPanel";
 import { TransformPanel } from "./TransformPanel";
+import { activateTabFromKeyboard } from "./tabKeyboard";
 
 interface ProjectInspectorProps {
   project: Project | undefined;
@@ -674,12 +675,18 @@ export function ProjectInspector(props: ProjectInspectorProps) {
           </IconButton>
         ) : null}
       </div>
-      <div className="inspector-tabs" role="tablist" aria-label="Inspector views">
+      <div
+        className="inspector-tabs"
+        role="tablist"
+        aria-label="Inspector views"
+        onKeyDown={activateTabFromKeyboard}
+      >
         {(["selection", "inspect", "measurements", "transform", "ligand", "protein", "sequence", "details"] as const).map((item) => (
           <button
             type="button"
             role="tab"
             aria-selected={tab === item}
+            tabIndex={tab === item ? 0 : -1}
             key={item}
             onClick={() => {
               automaticallyOpenedDetails.current = false;

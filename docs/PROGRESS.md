@@ -894,6 +894,34 @@ Results:
   limitations/plugin review; and an evidence mapping for every traced v0.1
   requirement. Existing import/export cancellation and large-structure fallback
   states remain functional regression prerequisites rather than placeholders.
+- M10 accessibility checkpoint: added pinned `@axe-core/playwright` WCAG 2.2
+  A/AA checks over a populated real-WebGL project in both light/dark themes and
+  desktop/Pixel 7 layouts. The audit exposed and repaired unnamed composite
+  structure navigation, nested interactive ARIA options, and invalid generated
+  resize-handle relationships. Structure selection is now a correctly named
+  pressed button beside independent row commands, and every panel/resize handle
+  has a stable ID and accessible label.
+- Added roving Arrow/Home/End keyboard activation for inspector, lower-panel,
+  job-detail, and export tab strips. Controlled dialogs now focus the first
+  workflow control, close with one Escape, and restore their external opener;
+  mobile drawers receive focus, expose dialog semantics, close with Escape, and
+  restore their toolbar trigger. Automated viewport checks find no clipped
+  visible form controls or document-level horizontal overflow.
+- Added the immutable RCSB PDB `1STP` streptavidin-biotin release fixture and an
+  exact SHA-256/scientific assertion: it imports as a 1,001-atom complex with
+  121 polymer residues, one BTN ligand, 84 waters, the expected element counts,
+  and 17 explicit bonds whose PDB bond order remains unknown.
+- M10 performance checkpoint: desktop Chromium imports and renders `1STP`
+  within the 30-second regression budget. Post-load entry selection, zoom,
+  center/reset, and representation change complete within 5 seconds, produce no
+  750 ms main-thread task, and issue zero repeated normalized-structure GETs.
+  These are pinned-host regression budgets, not hardware-independent throughput
+  claims.
+- Checkpoint verification is clean: focused Python test/Ruff/mypy pass; all 44
+  Vitest tests, ESLint, and TypeScript pass; the release-hardening Playwright
+  spec passes 5 applicable desktop/mobile cases with one intentional mobile
+  performance skip; and the affected synchronized-selection real-WebGL workflow
+  passes.
 
 ## Known limitations
 
@@ -947,6 +975,7 @@ None.
 
 ## Next action
 
-Add the automated release qualification harness and repair any accessibility,
-layout, performance, loading, or failure-state defects it exposes. Then record
-the verified checkpoint before completing documentation and the final journey.
+Build and verify the consolidated desktop definition-of-done journey, including
+project/import/viewer/selection/measurement/transform/edit/history/export/job
+workflows and important failure behavior. Then complete fixture, development,
+troubleshooting, accessibility, performance, and requirement-evidence docs.

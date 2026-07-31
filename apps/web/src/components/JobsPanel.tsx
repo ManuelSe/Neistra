@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { ApiError, jobApi } from "../api/client";
 import type { Job, Project } from "../api/types";
 import { Modal } from "./Modal";
+import { activateTabFromKeyboard } from "./tabKeyboard";
 
 interface JobsPanelProps {
   project: Project | undefined;
@@ -152,9 +153,21 @@ export function JobsPanel({
                 </button>
               ) : null}
             </div>
-            <div className="job-detail-tabs" role="tablist" aria-label="Job details">
+            <div
+              className="job-detail-tabs"
+              role="tablist"
+              aria-label="Job details"
+              onKeyDown={activateTabFromKeyboard}
+            >
               {(["overview", "logs", "results"] as const).map((tab) => (
-                <button key={tab} type="button" role="tab" aria-selected={detailTab === tab} onClick={() => setDetailTab(tab)}>
+                <button
+                  key={tab}
+                  type="button"
+                  role="tab"
+                  aria-selected={detailTab === tab}
+                  tabIndex={detailTab === tab ? 0 : -1}
+                  onClick={() => setDetailTab(tab)}
+                >
                   {tab[0].toUpperCase() + tab.slice(1)}
                   {tab === "results" && selected.results.length ? ` (${selected.results.length})` : ""}
                 </button>

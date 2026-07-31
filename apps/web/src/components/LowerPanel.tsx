@@ -7,6 +7,7 @@ import { canonicalSelection } from "../selection/selection";
 import { HistoryPanel } from "./HistoryPanel";
 import { IconButton } from "./IconButton";
 import { JobsPanel } from "./JobsPanel";
+import { activateTabFromKeyboard } from "./tabKeyboard";
 
 export type LowerPanelTab = "properties" | "history" | "jobs";
 
@@ -57,11 +58,17 @@ export function LowerPanel({
   return (
     <section className="panel-content lower-panel" aria-label="Properties and history">
       <div className="lower-panel-header">
-        <div className="lower-tabs" role="tablist" aria-label="Lower panel views">
+        <div
+          className="lower-tabs"
+          role="tablist"
+          aria-label="Lower panel views"
+          onKeyDown={activateTabFromKeyboard}
+        >
           <button
             type="button"
             role="tab"
             aria-selected={tab === "properties"}
+            tabIndex={tab === "properties" ? 0 : -1}
             onClick={() => onTabChange("properties")}
           >
             <TableProperties size={15} /> Properties
@@ -70,6 +77,7 @@ export function LowerPanel({
             type="button"
             role="tab"
             aria-selected={tab === "history"}
+            tabIndex={tab === "history" ? 0 : -1}
             onClick={() => onTabChange("history")}
           >
             <History size={15} /> History
@@ -78,6 +86,7 @@ export function LowerPanel({
             type="button"
             role="tab"
             aria-selected={tab === "jobs"}
+            tabIndex={tab === "jobs" ? 0 : -1}
             onClick={() => onTabChange("jobs")}
           >
             <BriefcaseBusiness size={15} /> Jobs

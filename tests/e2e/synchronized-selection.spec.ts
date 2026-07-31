@@ -124,8 +124,8 @@ test("keeps browser, sequence, inspector, viewer, and saved selection synchroniz
   const proteinRow = page.locator(`.entry-row[data-entry-id="${protein!.id}"]`);
   const ligandRow = page.locator(`.entry-row[data-entry-id="${ligand!.id}"]`);
 
-  await proteinRow.click();
-  await expect(proteinRow).toHaveAttribute("aria-selected", "true");
+  await proteinRow.locator(".entry-select").click();
+  await expect(proteinRow.locator(".entry-select")).toHaveAttribute("aria-pressed", "true");
   await expectSummary(page, {
     atoms: protein!.atom_count,
     residues: 1,
@@ -136,8 +136,8 @@ test("keeps browser, sequence, inspector, viewer, and saved selection synchroniz
     `/ ${protein!.atom_count} selected`,
   );
 
-  await ligandRow.click({ modifiers: ["Control"] });
-  await expect(ligandRow).toHaveAttribute("aria-selected", "true");
+  await ligandRow.locator(".entry-select").click({ modifiers: ["Control"] });
+  await expect(ligandRow.locator(".entry-select")).toHaveAttribute("aria-pressed", "true");
   await expectSummary(page, {
     atoms: protein!.atom_count + ligand!.atom_count,
     residues: 2,
@@ -151,8 +151,8 @@ test("keeps browser, sequence, inspector, viewer, and saved selection synchroniz
     chains: 2,
     structures: 2,
   });
-  await ligandRow.click({ modifiers: ["Alt"] });
-  await expect(ligandRow).toHaveAttribute("aria-selected", "false");
+  await ligandRow.locator(".entry-select").click({ modifiers: ["Alt"] });
+  await expect(ligandRow.locator(".entry-select")).toHaveAttribute("aria-pressed", "false");
   await expectSummary(page, {
     atoms: protein!.atom_count,
     residues: 1,
@@ -164,7 +164,7 @@ test("keeps browser, sequence, inspector, viewer, and saved selection synchroniz
   const residue = page.getByRole("button", { name: /GLY 10/ });
   await residue.click();
   await expect(residue).toHaveAttribute("aria-pressed", "true");
-  await expect(proteinRow).toHaveAttribute("aria-selected", "true");
+  await expect(proteinRow.locator(".entry-select")).toHaveAttribute("aria-pressed", "true");
   await page.getByRole("tab", { name: "selection" }).click();
   await expect(page.locator(".selection-meta")).toContainText("from sequence");
 
@@ -216,7 +216,7 @@ test("keeps browser, sequence, inspector, viewer, and saved selection synchroniz
   await expect(page.locator(".viewer-status")).toContainText(
     `/ ${protein!.atom_count} selected`,
   );
-  await expect(proteinRow).toHaveAttribute("aria-selected", "true");
+  await expect(proteinRow.locator(".entry-select")).toHaveAttribute("aria-pressed", "true");
 
   await page.getByPlaceholder("Search structures").fill("does-not-exist");
   await expect(page.getByText("No matching structures")).toBeVisible();
