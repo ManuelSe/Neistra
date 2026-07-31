@@ -5,6 +5,7 @@ import time
 from pathlib import Path
 from typing import Any
 
+from molweave_api.job_service import JobService
 from molweave_api.job_worker import JobWorker
 
 from tests.support.api_client import ApiClient
@@ -191,6 +192,50 @@ def test_running_job_cancels_cooperatively(client: ApiClient) -> None:
     cancelled = client.get(f"/api/v1/jobs/{job['id']}").json()
     assert cancelled["status"] == "cancelled"
     assert cancelled["progress"] < 100
+
+
+def test_concurrent_job_events_receive_distinct_sequences(client: ApiClient) -> None:
+    project, entry = _project_with_structure(client)
+    job = _submit(
+        client,
+        project["id"],
+        entry["id"],
+        {"step_count": 2, "delay_ms": 0},
+    ).json()
+    factory = client.app.state.session_factory
+    settings = client.app.state.settings
+    registry = client.app.state.job_registry
+    with factory() as session:
+        claimed = JobService(session, settings, registry).claim_next("concurrent-events")
+        assert claimed is not None
+
+    barrier = threading.Barrier(2)
+    failures: list[BaseException] = []
+
+    def append(message: str) -> None:
+        try:
+            with factory() as session:
+                service = JobService(session, settings, registry)
+                record = service.get(job["id"])
+                barrier.wait(timeout=5)
+                service.append_event(record, "log", message, stream="stdout")
+                session.commit()
+        except BaseException as error:
+            failures.append(error)
+
+    threads = [
+        threading.Thread(target=append, args=("first",)),
+        threading.Thread(target=append, args=("second",)),
+    ]
+    for thread in threads:
+        thread.start()
+    for thread in threads:
+        thread.join(timeout=10)
+
+    assert all(not thread.is_alive() for thread in threads)
+    assert failures == []
+    events = client.get(f"/api/v1/jobs/{job['id']}/events").json()
+    assert [event["sequence"] for event in events] == [1, 2, 3, 4]
 
 
 def test_completed_job_and_imported_result_survive_project_archive(

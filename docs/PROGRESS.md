@@ -957,6 +957,20 @@ Results:
   interval and confirms all 269 atomic IDs from the plan are covered with no
   missing IDs; every relative Markdown link in the README and `docs/*.md`
   resolves; and `git diff --check` reports no whitespace errors.
+- M10 final-gate repair checkpoint: a fresh full Playwright run exposed a real
+  SQLite race between worker progress and API cancellation event appends. Two
+  sessions could increment the same in-memory job event counter and violate the
+  unique `(job_id, sequence)` constraint, terminating the worker. Event sequence
+  allocation now uses an atomic database update/return after flushing caller
+  state, so SQLite serializes the competing writers.
+- Added a deterministic two-session barrier regression test that appends two
+  events from independently stale job reads and asserts contiguous unique
+  sequences. Focused Ruff and strict mypy pass, all 5 job-lifecycle integration
+  tests pass, and the affected demonstration-job Playwright spec passes both
+  applicable desktop/mobile workflows with 2 intentional cross-layout skips.
+- Corrected the M10 plan's Playwright command to execute from the repository
+  root, matching `playwright.config.ts` and `tests/e2e`; the previous `--dir
+  apps/web` form changed the working directory and found no tests.
 
 ## Known limitations
 
@@ -1010,6 +1024,7 @@ None.
 
 ## Next action
 
-Run the frozen-install, migration, complete Python and frontend static/unit/build
-gates, and full desktop/mobile Playwright suite. Repair any regression, then run
-the documented API/worker/Vite startup and final browser/API/job smoke test.
+Restart the complete 48-case desktop/mobile Playwright gate from isolated state
+with the concurrent event fix. Then rerun the complete Python gate affected by
+the fix and perform documented API/worker/Vite startup plus final browser/API/
+job smoke verification.

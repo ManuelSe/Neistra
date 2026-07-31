@@ -728,7 +728,7 @@ pnpm --dir apps/web lint
 pnpm --dir apps/web typecheck
 pnpm --dir apps/web test
 pnpm --dir apps/web build
-pnpm --dir apps/web exec playwright test
+pnpm exec playwright test
 ```
 
 ## 9. Scientific and file-format risk register

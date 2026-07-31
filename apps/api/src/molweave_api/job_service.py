@@ -454,10 +454,19 @@ class JobService:
         *,
         stream: str | None = None,
     ) -> JobEvent:
-        job.event_sequence += 1
+        self.session.flush()
+        sequence = self.session.scalar(
+            update(Job)
+            .where(Job.id == job.id)
+            .values(event_sequence=Job.event_sequence + 1)
+            .returning(Job.event_sequence)
+            .execution_options(synchronize_session=False)
+        )
+        if sequence is None:
+            raise JobNotFoundError(job.id)
         event = JobEvent(
             job_id=job.id,
-            sequence=job.event_sequence,
+            sequence=sequence,
             kind=kind,
             stream=stream,
             message=message,

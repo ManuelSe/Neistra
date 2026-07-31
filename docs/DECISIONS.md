@@ -1375,3 +1375,29 @@ Consequences:
   application state.
 - Incremental topology-tree surgery is deferred until profiling demonstrates a
   need and it can preserve parent/child ordering under concurrent UI effects.
+
+## D-039 - Database-allocated per-job event sequences
+
+Status: accepted
+
+Decision:
+
+Allocate each durable job event sequence with an atomic database increment that
+returns the assigned value, after flushing the state change associated with the
+event. Do not derive the next sequence by incrementing a previously loaded ORM
+job object.
+
+Rationale:
+
+The API and worker are separate processes and can append cancellation and
+progress events concurrently. Their ORM objects can contain the same prior
+counter, causing duplicate `(job_id, sequence)` inserts. SQLite serializes the
+atomic updates and assigns a distinct monotonic value to each transaction.
+
+Consequences:
+
+- Ordered polling and WebSocket cursors remain gap-free for successful event
+  transactions under concurrent API/worker writes.
+- Event and related job-state changes remain in the same transaction.
+- A two-session barrier integration test protects the concurrency behavior;
+  the database uniqueness constraint remains a final integrity guard.
