@@ -19,6 +19,9 @@ The same spec verifies:
   with Escape, and restore focus to their opener.
 - Mobile project/inspector/history drawers expose dialog semantics, focus their
   active control, close with Escape, and restore their toolbar trigger.
+  Focus-triggered tooltips are suppressed at narrow width so the restored
+  trigger cannot place transient text over application notices; accessible
+  names remain available on the controls themselves.
 - Inspector, lower-panel, job-detail, and export tab lists implement roving
   focus with Arrow keys plus Home/End.
 - Structure selection is a named pressed button independent from its row action

@@ -125,6 +125,7 @@ test("supports keyboard focus and bounded responsive controls", async ({
     await page.keyboard.press("Escape");
     await expect(drawer).toBeHidden();
     await expect(inspectorButton).toBeFocused();
+    await expect(page.locator(".tooltip")).toBeHidden();
   } else {
     const selectionTab = page.getByRole("tab", { name: "selection" });
     await selectionTab.focus();

@@ -4,9 +4,8 @@
 
 Milestone 10 - Release hardening and documentation
 
-In progress. The complete product, plan, progress, decision log, repository,
-existing tests, and release commands have been audited from the clean M9
-baseline. Release qualification and documentation gaps are identified below.
+Complete. All M10 acceptance criteria and the complete lint, type-check, unit,
+build, browser, clean-migration, and documented-startup gates pass.
 
 ## Completed work
 
@@ -987,6 +986,24 @@ Results:
   success/failure states, archive safety, accessibility, responsiveness, and
   the representative performance/request budget without recurrence of the
   worker event race.
+- M10 startup checkpoint: the documented Alembic command confirmed migration
+  `0007 (head)` in the normal local data root, and the documented Uvicorn,
+  standalone worker, and Vite commands started on ports 8000 and 5173. API
+  health and job-definition requests returned 200. Project
+  `019fb823-b91c-713e-a97f-753463f6b601` imported a real structure and job
+  `019fb823-b991-7efd-a006-751a825ab849` completed through the live worker with
+  9 contiguous durable events plus statistics and structure results.
+- Desktop 1440x900 and Pixel 7 browser smoke checks rendered a nonblank Mol*
+  canvas with no horizontal overflow or clipped workspace controls. Inspection
+  found that focus restoration after closing a narrow inspector drawer could
+  leave its tooltip over a recovery notice. Focus-triggered tooltips are now
+  suppressed at widths up to 520 px while accessible button names remain; the
+  browser regression asserts both restored trigger focus and a hidden tooltip.
+- After that visual repair, ESLint, TypeScript, all 44 Vitest tests, and the
+  production build pass again. A second complete Playwright run from a fresh
+  `.molweave-e2e` store reports `passed` with no failed test IDs or failure
+  artifacts; all managed E2E services shut down cleanly. Milestone 10 and the
+  MolWeave v0.1 implementation are complete.
 
 ## Known limitations
 
@@ -1040,7 +1057,5 @@ None.
 
 ## Next action
 
-Run the documented API, worker, and Vite commands on ports 8000 and 5173.
-Verify API health/job definitions, a live worker-completed job, and the visible
-application in desktop and narrow browsers, then record the final state and
-mark Milestone 10 complete.
+None. Milestone 10 is complete; the next work should begin from a separately
+defined post-v0.1 milestone.

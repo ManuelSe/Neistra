@@ -2983,6 +2983,10 @@ div[data-radix-popper-content-wrapper]:has(.tooltip) {
 }
 
 @media (max-width: 520px) {
+  .tooltip {
+    display: none;
+  }
+
   .topbar {
     padding: 0 5px;
   }
