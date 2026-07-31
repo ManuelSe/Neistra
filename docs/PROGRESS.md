@@ -4,10 +4,9 @@
 
 Milestone 8 - Complete export and portable archives
 
-In progress. Backend export/archive policy and publication are complete. The
-typed structure/archive export and project-archive import UI is complete and
-component-verified. Browser end-to-end coverage and the final milestone gates
-remain.
+Complete. All acceptance criteria in `docs/PLAN.md` are implemented and
+verified through policy, API integration, archive security, component,
+production-build, and real desktop/mobile browser checks.
 
 ## Completed work
 
@@ -733,6 +732,20 @@ Results:
   viewport, remain operable, generate a real archive, and expose archive import.
 - The exact M8 Playwright command passes 4 applicable workflows across desktop
   and mobile Chromium (4 intentionally inapplicable project variants skipped).
+- Updated the existing import/display/export regression for the complete export
+  surface. Both workflows pass in desktop Chromium, including real XYZ
+  information-loss consent, original-file byte equality, malformed-file
+  rejection, and import cancellation.
+- Final validation is clean: all 156 Python tests pass; repository Ruff and
+  strict mypy pass all 61 Python source/test files; all 41 frontend tests pass;
+  frontend lint and TypeScript checks pass; and the Vite production build
+  succeeds. The expected lazy Mol* chunk remains isolated from the initial
+  application bundle.
+- Updated `README.md` to describe M8 and document its exact validation commands.
+  The documented API and Vite startup commands started current code on ports
+  8000 and 5173; `/api/v1/health` returned `{"status":"ok"}`, current OpenAPI
+  included the complete-export/archive endpoints, and the browser entry
+  returned the MolWeave application shell.
 
 ## Known limitations
 
@@ -779,6 +792,4 @@ None.
 
 ## Next action
 
-Run the complete M8 validation matrix and the existing import/export regression,
-repair any compatibility failures, build the production frontend, verify the
-documented startup commands, then mark the milestone complete.
+Milestone 8 is complete. Begin Milestone 9 only when requested.

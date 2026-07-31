@@ -107,19 +107,19 @@ test("imports protein and ligand, renders both after reload, and exports with lo
 
   await ligandRow.getByRole("button", { name: `Actions for ${ligand?.name}` }).click();
   await page.getByRole("menuitem", { name: "Export" }).click();
-  const exportDialog = page.getByRole("dialog", { name: "Export structure" });
+  const exportDialog = page.getByRole("dialog", { name: "Export" });
   await exportDialog.getByLabel("Format").selectOption("xyz");
   await exportDialog.getByRole("button", { name: "Generate" }).click();
   await expect(exportDialog.getByRole("alert")).toContainText(
     "Export would lose molecular information",
   );
-  await expect(exportDialog.getByLabel("Export warnings")).toContainText(
+  await expect(exportDialog.getByLabel("Export report")).toContainText(
     "connectivity",
   );
   await exportDialog
     .getByLabel("I understand that this format cannot preserve the listed information.")
     .check();
-  await exportDialog.getByRole("button", { name: "Generate" }).click();
+  await exportDialog.getByRole("button", { name: "Generate anyway" }).click();
   const exportDownload = page.waitForEvent("download");
   await exportDialog.getByRole("link", { name: "Download" }).click();
   const exported = await exportDownload;
