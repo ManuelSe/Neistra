@@ -9,6 +9,10 @@ export default defineConfig({
     port: 5173,
     proxy: {
       "/api": apiTarget,
+      "/ws": {
+        target: apiTarget,
+        ws: true,
+      },
     },
   },
   test: {

@@ -43,12 +43,14 @@ export function JobsPanel({
   });
   const jobs = jobsQuery.data ?? [];
   const selected = jobs.find((job) => job.id === selectedId) ?? jobs[0];
+  const selectedJobId = selected?.id;
   const eventsQuery = useQuery({
     queryKey: ["job-events", selected?.id],
     queryFn: () => jobApi.events(selected?.id ?? ""),
     enabled: !!selected,
     retry: false,
-    refetchInterval: selected?.status === "queued" || selected?.status === "running" ? 500 : false,
+    refetchInterval:
+      selected?.status === "queued" || selected?.status === "running" ? 500 : 3000,
   });
 
   useEffect(() => {
@@ -61,13 +63,17 @@ export function JobsPanel({
       );
       socket.onmessage = () => {
         void queryClient.invalidateQueries({ queryKey: ["jobs", projectId] });
-        if (selectedId) void queryClient.invalidateQueries({ queryKey: ["job-events", selectedId] });
+        if (selectedJobId) {
+          void queryClient.invalidateQueries({
+            queryKey: ["job-events", selectedJobId],
+          });
+        }
       };
     } catch {
       socket = null;
     }
     return () => socket?.close();
-  }, [projectId, queryClient, selectedId]);
+  }, [projectId, queryClient, selectedJobId]);
 
   const cancel = useMutation({
     mutationFn: (job: Job) => jobApi.cancel(job.id),

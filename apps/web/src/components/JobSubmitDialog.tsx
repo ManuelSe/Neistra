@@ -14,7 +14,14 @@ interface JobSubmitDialogProps {
 function initialParameters(definition: JobDefinition | undefined) {
   return Object.fromEntries(
     Object.entries(definition?.parameter_schema.properties ?? {}).map(
-      ([name, schema]) => [name, schema.default ?? (schema.type === "array" ? [0, 0, 0] : "")],
+      ([name, schema]) => [
+        name,
+        "default" in schema
+          ? schema.default
+          : schema.type === "array"
+            ? [0, 0, 0]
+            : "",
+      ],
     ),
   );
 }
@@ -44,11 +51,11 @@ export function JobSubmitDialog({
     definitions.find((item) => item.job_type === jobType) ?? definitions[0];
 
   useEffect(() => {
-    if (!definition) return;
+    if (!open || !definition) return;
     if (jobType !== definition.job_type) setJobType(definition.job_type);
     setParameters(initialParameters(definition));
     setSelected(Object.fromEntries(definition.input_roles.map((role) => [role.role, []])));
-  }, [definition, jobType]);
+  }, [definition, jobType, open]);
 
   const inputs = useMemo(
     () =>

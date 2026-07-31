@@ -834,6 +834,25 @@ Results:
   job tests for generic submission, logs/download/import, structured failure,
   and confirmed cancellation. TypeScript and ESLint pass, and the production
   Vite build succeeds with Mol* still isolated in its lazy viewer chunk.
+- M9 browser checkpoint: Playwright now manages API, Vite, and the separate job
+  worker, and Vite proxies `/ws/jobs` upgrades as well as HTTP. Desktop Chromium
+  submits a successful demonstration job, observes real progress/log events,
+  downloads statistics, imports its normalized structure, undoes the import,
+  inspects a deterministic structured failure, confirms running-job
+  cancellation, and reaches `cancelled`. Pixel 7 submits/completes the same
+  real job, exposes results/import controls, and passes viewport bounding-box
+  and horizontal-overflow checks.
+- Browser iteration caught and fixed three functional state issues: explicit
+  nullable schema defaults are no longer converted to empty strings; each new
+  submission resets parameters and input roles rather than retaining a previous
+  failure configuration; and event invalidation follows the effective selected
+  job even before the user explicitly selects a row, with slow terminal polling
+  retained as WebSocket fallback.
+- The exact demonstration-job Playwright command passes 2 applicable workflows
+  across desktop and mobile Chromium (2 intentionally inapplicable project
+  variants skipped). Successful runs show accepted backend WebSocket
+  connections, and inspected desktop/mobile screenshots have no overlap or
+  clipping in the job workspace.
 
 ## Known limitations
 
@@ -880,7 +899,7 @@ None.
 
 ## Next action
 
-Add and pass the demonstration-job Playwright workflow against the real API,
-worker, and Vite app on desktop and mobile; inspect screenshots and failure
-states, repair any layout/workflow issues, then document plugin integration and
-run the complete M9 validation and startup gates.
+Write the plugin-development/demonstration guide and exact future docking
+integration checklist, update runtime/startup documentation for the third
+worker process, then run all M9 and repository validation gates and verify the
+documented local commands from a clean three-process startup.
