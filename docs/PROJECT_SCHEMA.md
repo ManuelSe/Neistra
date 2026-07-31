@@ -1,7 +1,7 @@
 # Project Schema
 
 Status: `ProjectStateV1` with normalized artifacts, viewer state, measurements,
-named scenes, and immutable coordinate revisions, Milestone 5
+named scenes, immutable coordinate revisions, and durable jobs, Milestone 9
 
 MolWeave separates the relational working model, checkpoint snapshots, immutable
 artifacts, and browser preferences. The API and database are authoritative;
@@ -225,6 +225,31 @@ relative path, and creation time. Publication uses a temporary file, `fsync`,
 and atomic replacement. Absolute paths and paths escaping the root are rejected.
 Content hashes deduplicate bytes while entry records retain the safe original
 display filename and source format.
+
+## Job Records
+
+Jobs are relational operational state, not part of `ProjectStateV1` and not
+project edit commands. A job stores its stable ID, parent project, plugin/job
+identity and implementation version, canonical parameters, lifecycle state,
+progress/message, timestamps, values, warnings, structured error, worker ID,
+cancellation flag, and immutable provenance document.
+
+Each input stores the submitted entry identity and role plus the exact artifact
+ID, SHA-256, size, media type, and filename. Later project edits cannot change
+that snapshot. Each result stores a role, immutable artifact reference, media
+type, plugin metadata, importability, and IDs of entries created from it.
+Ordered events store state, progress, stdout, stderr, and cancellation messages.
+
+Result import creates an artifact-backed `StructureEntryV1` with
+`source_format: null`; the normalized internal media type is not presented as a
+molecular file format. `job_links`, `generated_results`, and metadata link the
+job, result, implementation, parameters, inputs, and immutable hashes. Import
+is one normal undoable command.
+
+`ProjectManifestV1` archives include job summaries plus all immutable input and
+result artifacts needed for provenance. IDs are remapped on import. Queued or
+running archived jobs become failed records with `archive_incomplete_job`;
+executable process state is never reconstructed.
 
 ## Browser Preferences
 

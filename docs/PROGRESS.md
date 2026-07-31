@@ -4,10 +4,9 @@
 
 Milestone 9 - Generic jobs and demonstration plugin
 
-In progress. The complete M9 requirement set and the existing persistence,
-artifact, project-command, archive, API, lower-panel, and startup boundaries
-have been audited. Typed job/plugin contracts and the demonstration plugin are
-next.
+In progress. Implementation, focused backend/frontend validation, and desktop
+and mobile browser workflows are complete. Documentation is complete; the final
+repository-wide gate and clean documented three-process startup remain.
 
 ## Completed work
 
@@ -853,6 +852,13 @@ Results:
   variants skipped). Successful runs show accepted backend WebSocket
   connections, and inspected desktop/mobile screenshots have no overlap or
   clipping in the job workspace.
+- M9 documentation checkpoint: updated local startup and architecture for the
+  separate worker; documented job HTTP/WebSocket semantics, durable schema and
+  archive behavior, and generic-job scientific limits; and added a concrete
+  plugin-development guide covering registration, definitions, immutable
+  inputs, controlled execution, progress/logs, artifact publication, pose and
+  score representation, generated-result import, failures, and the future
+  docking integration checklist. Docking remains explicitly outside v0.1.
 
 ## Known limitations
 
@@ -899,7 +905,5 @@ None.
 
 ## Next action
 
-Write the plugin-development/demonstration guide and exact future docking
-integration checklist, update runtime/startup documentation for the third
-worker process, then run all M9 and repository validation gates and verify the
-documented local commands from a clean three-process startup.
+Run all M9 and repository validation gates, then verify the documented local
+commands from a clean three-process startup and record the final evidence.

@@ -1,6 +1,6 @@
 # Scientific Limitations
 
-Status: Milestone 7
+Status: Milestone 9
 
 MolWeave v0.1 reports known uncertainty but does not replace specialist
 structure preparation or validation software.
@@ -181,3 +181,21 @@ structure preparation or validation software.
 
 These limitations and all per-structure warnings remain visible without
 preventing retrieval of the original bytes.
+
+## Generic Jobs
+
+- A job input is the entry's normalized artifact at submission time, not a
+  promise that it is prepared for a particular method. Plugins must validate
+  protonation, charge, bond orders, missing atoms, cofactors, metals, alternate
+  conformers, search regions, and units for their scientific domain.
+- Wall time, output count/size, and optional platform CPU/address-space limits
+  are operational safeguards, not scientific convergence criteria.
+- Worker loss produces `worker_lost` and never retries automatically. Partial
+  native-library work may have occurred, but the parent publishes no result
+  until the plugin returns and every artifact passes validation.
+- The demonstration translation/statistics job tests infrastructure only. It
+  is not docking, scoring, minimization, preparation, or evidence of physical
+  plausibility.
+- Importable outputs must be valid `NormalizedStructureV1` artifacts. MolWeave
+  validates representation and provenance, not whether a pose, score, energy,
+  or ranking is scientifically correct.

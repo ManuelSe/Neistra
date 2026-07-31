@@ -1,6 +1,6 @@
 # MolWeave HTTP API
 
-Status: Milestone 7
+Status: Milestone 9
 
 The local FastAPI application exposes a versioned API under `/api/v1` and
 generates OpenAPI at `/api/v1/openapi.json`. Swagger UI is available at
@@ -73,6 +73,45 @@ generates OpenAPI at `/api/v1/openapi.json`. Swagger UI is available at
 | `POST` | `/api/v1/projects/{project_id}/entries/{entry_id}/ligand-edits` | Apply one validated ligand graph, hydrogen, rotation, or cleanup command. |
 | `POST` | `/api/v1/projects/{project_id}/entries/{entry_id}/protein-edits` | Apply one validated protein hierarchy, mutation, or hydrogen command. |
 | `POST` | `/api/v1/projects/{project_id}/superpositions` | Superpose one protein entry onto another and report RMSD. |
+
+## Job Endpoints
+
+| Method | Path | Purpose |
+|---|---|---|
+| `GET` | `/api/v1/jobs/definitions` | Read allowlisted definitions, role declarations, and parameter JSON schemas. |
+| `POST` | `/api/v1/projects/{project_id}/jobs` | Validate and enqueue a job with immutable input snapshots. |
+| `GET` | `/api/v1/projects/{project_id}/jobs` | List durable project jobs, newest first. |
+| `GET` | `/api/v1/jobs/{job_id}` | Read state, provenance, inputs, errors, values, and results. |
+| `POST` | `/api/v1/jobs/{job_id}/cancel` | Cancel queued work or request running-child cancellation. |
+| `GET` | `/api/v1/jobs/{job_id}/events` | Poll ordered events after optional `after_sequence`. |
+| `POST` | `/api/v1/jobs/{job_id}/results/{result_id}/import` | Import a normalized result through one undoable command. |
+| WebSocket | `/ws/jobs?project_id=...&after_event_id=...` | Stream durable project events from a global cursor. |
+
+Submission does not increment the project revision because operational job
+state is not an edit command. It snapshots each input's current artifact ID,
+SHA-256, size, entry identity, role, and structure type in the queued
+transaction. The HTTP process never executes a plugin. A separate worker claims
+jobs and records ordered state, progress, log, and result events. Result import
+does increment project revision and is undoable.
+
+The demonstration request is:
+
+```json
+{
+  "job_type": "molweave.demo.structure_statistics",
+  "parameters": {
+    "step_count": 5,
+    "delay_ms": 100,
+    "fail_at_step": null,
+    "translation": [0.0, 0.0, 0.0]
+  },
+  "inputs": [{"role": "structure", "entry_id": "entry-id"}]
+}
+```
+
+The worker validates result roles/media types, safe filenames, artifact
+count/bytes, and importable normalized structures before publication. See
+`docs/PLUGIN_GUIDE.md` for the public plugin contract.
 
 Import is `multipart/form-data` with one or more `files`, required
 `expected_revision`, optional booleans `generate_3d` and `infer_bonds`, and an
@@ -277,6 +316,8 @@ Domain failures use stable codes:
 | 404 | `entry_not_found` | The entry ID is unknown in the project. |
 | 409 | `revision_conflict` | `expected_revision` is stale. |
 | 409 | `history_unavailable` | The requested undo or redo does not exist. |
+| 404 | `job_not_found` / `job_result_not_found` | The job or result ID is unknown. |
+| 409 | `job_conflict` | The requested lifecycle transition is invalid. |
 | 409 | `export_loss_acknowledgement_required` | Output would discard blocking information. |
 | 413 | `structure_file_too_large` | One file exceeds the configured byte limit. |
 | 413 | `aggregate_upload_too_large` | The multipart request exceeds the aggregate limit. |
@@ -284,6 +325,7 @@ Domain failures use stable codes:
 | 422 | `unsupported_format` | No adapter owns the extension or requested format. |
 | 422 | `parse_failed` / `no_atoms` | The named file cannot become a molecular structure. |
 | 422 | `invalid_project_operation` | The command violates a project invariant. |
+| 422 | `invalid_job_operation` | Parameters, roles, inputs, or results violate the definition. |
 | 499 | `import_cancelled` | Preparation was cancelled before commit. |
 
 FastAPI/Pydantic validation failures retain FastAPI's structured HTTP 422 body.

@@ -1,11 +1,10 @@
 # MolWeave
 
-MolWeave is a local, single-user molecular project workspace. Milestone 8 adds
-complete all/selected/visible structure export, disposable molecular filters,
-safe deterministic separate and multi-record output, attributed scientific
-loss reports, cancellable preparation, and validated portable project archives
-to the synchronized project browser, inspector, property table, and lazy Mol*
-viewer.
+MolWeave is a local, single-user molecular project workspace. Milestone 9 adds
+an allowlisted plugin registry, durable SQLite job queue, controlled spawned
+runner, progress/log streaming, cancellation and recovery, immutable input and
+result provenance, portable job archives, and a complete demonstration job.
+Docking itself is not included.
 
 ## Prerequisites
 
@@ -30,11 +29,17 @@ MOLWEAVE_DATA_DIR=.molweave .venv/bin/alembic upgrade head
 
 ## Start Locally
 
-Run the API and web client in separate terminals:
+Run the API, job worker, and web client in separate terminals:
 
 ```bash
-PYTHONPATH=apps/api/src:packages/molweave_core/src MOLWEAVE_DATA_DIR=.molweave \
+PYTHONPATH=apps/api/src:packages/molweave_core/src:packages/molweave_demo_plugin/src \
+  MOLWEAVE_DATA_DIR=.molweave \
   .venv/bin/uvicorn molweave_api.main:app --host 127.0.0.1 --port 8000
+```
+
+```bash
+PYTHONPATH=apps/api/src:packages/molweave_core/src:packages/molweave_demo_plugin/src \
+  MOLWEAVE_DATA_DIR=.molweave .venv/bin/python -m molweave_api.worker
 ```
 
 ```bash
@@ -48,7 +53,7 @@ documentation is at [http://127.0.0.1:8000/api/docs](http://127.0.0.1:8000/api/d
 
 ```mermaid
 flowchart LR
-    UI[React workspace] -->|REST /api/v1| API[FastAPI]
+    UI[React workspace] -->|REST and job WebSocket| API[FastAPI]
     UI --> PREFS[Local theme and layout preferences]
     API --> PARSE[Cancellable Gemmi / RDKit child process]
     API --> EXPORT[Cancellable export / archive child process]
@@ -68,7 +73,11 @@ flowchart LR
     SELECT --> WORKER[Spatial-query Web Worker]
     UI -->|coordinate spans / affected-entry replacement| VIEWER
     API --> CONTACTS[SciPy contact index]
-    JOBS[Controlled worker, M9] -. publishes artifacts .-> ART
+    API -->|enqueue only| DB
+    JOBS[Separate job worker] -->|atomic claim| DB
+    JOBS --> CHILD[Spawned allowlisted plugin]
+    CHILD -->|progress, logs, results| JOBS
+    JOBS -->|validated publication| ART
 ```
 
 TanStack Query owns API-backed state. Zustand persists only the active project
@@ -81,28 +90,27 @@ format or molecular state store.
 See [docs/API.md](docs/API.md), [docs/PROJECT_SCHEMA.md](docs/PROJECT_SCHEMA.md),
 [docs/NORMALIZED_SCHEMA.md](docs/NORMALIZED_SCHEMA.md),
 [docs/FORMAT_MATRIX.md](docs/FORMAT_MATRIX.md),
+[docs/PLUGIN_GUIDE.md](docs/PLUGIN_GUIDE.md),
 [docs/SCIENTIFIC_LIMITATIONS.md](docs/SCIENTIFIC_LIMITATIONS.md), and
 [docs/DECISIONS.md](docs/DECISIONS.md) for the current contracts.
 
-## Milestone 8 Checks
+## Milestone 9 Checks
 
 Run these from the repository root:
 
 ```bash
 UV_CACHE_DIR=/tmp/uv-cache .venv/bin/uv run --no-sync ruff check .
 UV_CACHE_DIR=/tmp/uv-cache .venv/bin/uv run --no-sync mypy \
-  packages/molweave_core/src apps/api/src tests
+  packages/molweave_core/src packages/molweave_demo_plugin/src apps/api/src tests
 UV_CACHE_DIR=/tmp/uv-cache .venv/bin/uv run --no-sync pytest \
-  tests/unit/test_export_policy.py
+  tests/unit/jobs tests/integration/test_job_lifecycle.py
 UV_CACHE_DIR=/tmp/uv-cache .venv/bin/uv run --no-sync pytest \
-  tests/integration/test_archive_roundtrip.py
-UV_CACHE_DIR=/tmp/uv-cache .venv/bin/uv run --no-sync pytest \
-  tests/security/test_archive_safety.py
+  tests/integration/test_worker_recovery.py
 corepack pnpm --dir apps/web lint
 corepack pnpm --dir apps/web typecheck
-corepack pnpm --dir apps/web test -- export-dialog
+corepack pnpm --dir apps/web test -- jobs
 PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test \
-  tests/e2e/export-archive.spec.ts
+  tests/e2e/demonstration-job.spec.ts
 corepack pnpm --dir apps/web build
 ```
 
@@ -113,5 +121,5 @@ PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright install chrom
 ```
 
 The Playwright configuration migrates its isolated test database, then starts
-the test API and Vite server. Ports 5173 and 8010 must be free while that
-command runs.
+the test API, separate worker, and Vite server. Ports 5173, 8010, and 8011 must
+be free while that command runs.
