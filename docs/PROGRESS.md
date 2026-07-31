@@ -2,12 +2,11 @@
 
 ## Current milestone
 
-Milestone 5 - Coordinate transforms, superposition, and history
+Milestone 6 - Ligand editing
 
-Complete. Whole-entry and selected-atom translation/rotation, numeric and
-interactive command paths, configurable pivots, protein Kabsch
-superposition, immutable coordinate history, and incremental viewer updates
-satisfy the M5 acceptance criteria and verification gates.
+In progress. The domain, persistence, viewer, and selection contracts have been
+audited. Implementation will begin with the independently testable RDKit-backed
+editor and validator.
 
 ## Completed work
 
@@ -454,6 +453,14 @@ Results:
 - Fresh normal-startup Chromium inspection at 1440x900 and Pixel 7 dimensions
   showed the live coordinate inspector and molecular canvas with readable,
   scrollable controls and no clipping, text overflow, or incoherent overlap.
+- M6 audit checkpoint: reread the product, plan, progress, and decision
+  documents; verified the clean M5 baseline; and traced molecular identity,
+  artifact, command-history, saved-selection, measurement, scene, query-cache,
+  and Mol* update paths.
+- Defined gapped stable atom/bond identity, non-rewinding per-entry allocation,
+  immutable topology history, affected-entry viewer replacement, transactional
+  deleted-reference reconciliation, and explicit valence/stereo/force-field
+  warning semantics in D-028.
 
 ## Known limitations
 
@@ -490,4 +497,6 @@ None.
 
 ## Next action
 
-Milestone 5 is complete. Begin Milestone 6 only when explicitly requested.
+Implement and verify the RDKit-backed ligand editor and structure validator,
+including stable identity, all M6 graph/coordinate operations, valence and
+stereochemistry reporting, rotatable-bond validation, and MMFF/UFF cleanup.

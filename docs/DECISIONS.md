@@ -867,3 +867,63 @@ Consequences:
   only updates a local preview.
 - A reload always reconstructs the same state from the current normalized
   artifact, independent of whether a client consumed the transient patch.
+
+## D-028 - Stable ligand-edit identity and validated topology commands
+
+Status: accepted
+
+Decision:
+
+Allow `NormalizedStructureV1` atom and bond IDs to be positive, unique, and
+strictly increasing without requiring contiguity. Coordinate arrays continue to
+align with atom-list order, never with `atom_id - 1`. Imported structures remain
+contiguous initially. Each durable structure entry owns monotonic
+`next_atom_id` and `next_bond_id` allocators; successful additions advance them,
+and undo, redo, history truncation, or branch replacement never rewinds them.
+
+Implement ligand graph changes through an RDKit-backed `MolecularEditor` and
+`StructureValidator`. Convert stable IDs explicitly at the RDKit boundary,
+sanitize before publication, compare stable-ID stereochemistry before and after
+relevant edits, and return structured warnings and an operation report.
+Unavailable requested force-field parameters and non-converged minimization are
+reported explicitly; a requested force field never silently falls back.
+`auto` cleanup may select MMFF and then UFF, but reports the selected method and
+why MMFF was unavailable.
+
+Publish every successful topology result as a new immutable normalized artifact.
+History switches complete before/after artifacts and molecular summaries.
+Topology responses identify the affected entry and artifact so the browser
+refetches that projection and replaces only that Mol* structure. Coordinate-only
+movement and bond rotation retain the M5 coordinate-span patch when topology is
+unchanged.
+
+Atom deletion reconciles transient selection in the client and, in the same
+backend command, prunes invalid references from saved selections and named
+scenes and removes measurements whose required endpoint was deleted. Each
+affected durable object receives a visible structured warning where it remains;
+undo restores its exact previous state.
+
+Rationale:
+
+Contiguous IDs conflict with the product requirement that a deleted or undone
+new identity is never reused. Keeping allocation state outside reversible
+molecular snapshots makes that guarantee hold across undo branches. RDKit is
+the pinned chemistry authority for M6, but explicit identity maps and immutable
+normalized artifacts keep it from becoming application state. Full
+affected-entry replacement is necessary for topology changes, while continuing
+to use coordinate spans avoids rebuilding unrelated structures for geometry-only
+edits.
+
+Consequences:
+
+- Selection and reference validation must inspect authoritative atom-ID sets
+  once topology edits can create gaps; `atom_id <= atom_count` is no longer a
+  valid membership test.
+- Migration `0006` initializes allocators to `atom_count + 1` and
+  `bond_count + 1` for all pre-M6 entries and checkpoint entry states.
+- Adapters and viewer projections must preserve list order independently of
+  stable IDs.
+- Ring bonds, non-single bonds, terminal bonds, and movable selections that are
+  not exactly one component after cutting the bond are rejected before
+  rotatable-bond coordinate publication.
+- Original upload artifacts remain untouched by every edit and cleanup command.
