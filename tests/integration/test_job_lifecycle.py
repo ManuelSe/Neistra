@@ -191,3 +191,71 @@ def test_running_job_cancels_cooperatively(client: ApiClient) -> None:
     cancelled = client.get(f"/api/v1/jobs/{job['id']}").json()
     assert cancelled["status"] == "cancelled"
     assert cancelled["progress"] < 100
+
+
+def test_completed_job_and_imported_result_survive_project_archive(
+    client: ApiClient,
+) -> None:
+    project, entry = _project_with_structure(client)
+    source_job = _submit(
+        client,
+        project["id"],
+        entry["id"],
+        {"step_count": 1, "delay_ms": 0},
+    ).json()
+    _worker(client).run_once()
+    completed = client.get(f"/api/v1/jobs/{source_job['id']}").json()
+    structure_result = next(
+        item for item in completed["results"] if item["role"] == "structure"
+    )
+    imported_response = client.post(
+        f"/api/v1/jobs/{source_job['id']}/results/{structure_result['id']}/import",
+        json={"expected_revision": project["revision"]},
+    )
+    assert imported_response.status_code == 200
+    archive = client.post(
+        f"/api/v1/projects/{project['id']}/archive",
+        json={"operation_id": "job-archive-export"},
+    ).json()
+    archive_bytes = client.get(archive["artifact"]["download_url"]).content
+    restored_response = client.post(
+        "/api/v1/projects/import-archive",
+        data={"operation_id": "job-archive-import"},
+        files={
+            "file": (
+                "job-project.molweave.zip",
+                archive_bytes,
+                "application/vnd.molweave.project+zip",
+            )
+        },
+    )
+    assert restored_response.status_code == 201, restored_response.text
+    restored = restored_response.json()["project"]
+    restored_jobs = client.get(f"/api/v1/projects/{restored['id']}/jobs").json()
+    assert len(restored_jobs) == 1
+    restored_job = restored_jobs[0]
+    assert restored_job["id"] != source_job["id"]
+    assert restored_job["status"] == "completed"
+    assert restored_job["inputs"][0]["artifact_sha256"] == completed["inputs"][0][
+        "artifact_sha256"
+    ]
+    assert restored_job["inputs"][0]["entry_id"] in {
+        item["id"] for item in restored["entries"]
+    }
+    assert all(
+        client.get(item["artifact"]["download_url"]).status_code == 200
+        for item in restored_job["results"]
+    )
+    restored_generated = next(
+        item
+        for item in restored["entries"]
+        if "provenance" in item["user_metadata"]
+    )
+    assert restored_generated["job_links"] == [restored_job["id"]]
+    assert restored_generated["generated_results"] == [
+        next(
+            item["id"]
+            for item in restored_job["results"]
+            if item["role"] == "structure"
+        )
+    ]

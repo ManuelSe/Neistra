@@ -1291,3 +1291,9 @@ Consequences:
 - Core job models contain generic roles, structured values, scores, artifacts,
   and provenance only; receptor, ligand, pose, docking, and scoring semantics
   belong to a future plugin and its documentation.
+
+Generated structure results are stored as normalized artifacts with
+`source_format = null`. `source_format` describes an uploaded/exportable
+molecular file vocabulary, while the normalized artifact media type describes
+the internal generated representation. A pseudo format name would weaken the
+closed file-format contract and break strict portable-archive validation.

@@ -27,6 +27,10 @@ from molweave_api.import_export import (
 )
 from molweave_api.models import (
     EntryGroup,
+    Job,
+    JobEvent,
+    JobInput,
+    JobResultArtifact,
     Measurement,
     Project,
     SavedSelection,
@@ -111,9 +115,7 @@ class ManifestEntry(ManifestModel):
     description: str | None = Field(default=None, max_length=2000)
     structure_type: StructureType
     original_filename: str | None = Field(default=None, max_length=255)
-    source_format: (
-        Literal["pdb", "mmcif", "sdf", "mol", "mol2", "xyz", "smiles"] | None
-    ) = None
+    source_format: Literal["pdb", "mmcif", "sdf", "mol", "mol2", "xyz", "smiles"] | None = None
     normalized_data: dict[str, Any]
     atom_count: int = Field(ge=0)
     atom_ids: list[int]
@@ -215,14 +217,58 @@ class ManifestScene(ManifestModel):
     _scene_uuid = field_validator("id")(_validate_uuid)
 
 
+class ManifestJobInput(ManifestModel):
+    id: str
+    ordinal: int = Field(ge=0)
+    role: str = Field(min_length=1, max_length=64)
+    entry_id: str
+    entry_name: str = Field(min_length=1, max_length=160)
+    structure_type: StructureType
+    artifact_file: str
+    artifact_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
+    artifact_size: int = Field(ge=0)
+    media_type: str = Field(min_length=1, max_length=120)
+    filename: str = Field(min_length=1, max_length=255)
+
+    _input_uuid = field_validator("id")(_validate_uuid)
+    _entry_uuid = field_validator("entry_id")(_validate_uuid)
+
+
+class ManifestJobResult(ManifestModel):
+    id: str
+    role: str = Field(min_length=1, max_length=64)
+    artifact_file: str
+    filename: str = Field(min_length=1, max_length=255)
+    media_type: str = Field(min_length=1, max_length=120)
+    metadata: dict[str, Any]
+    importable_structure: bool
+    imported_entry_ids: list[str]
+    created_at: datetime
+
+    _result_uuid = field_validator("id")(_validate_uuid)
+
+
 class ManifestJobSummary(ManifestModel):
     id: str
-    job_type: str
-    implementation_version: str
-    status: str
-    input_entry_ids: list[str]
-    result_files: list[str]
+    plugin_name: str = Field(min_length=1, max_length=120)
+    job_type: str = Field(min_length=1, max_length=120)
+    implementation_version: str = Field(min_length=1, max_length=64)
+    status: Literal["queued", "running", "completed", "failed", "cancelled"]
+    parameters: dict[str, Any]
+    progress: float = Field(ge=0, le=100)
+    status_message: str = Field(max_length=500)
+    result_values: dict[str, Any]
+    warnings: list[dict[str, Any]]
+    error: dict[str, Any] | None
     provenance: dict[str, Any]
+    inputs: list[ManifestJobInput]
+    results: list[ManifestJobResult]
+    created_at: datetime
+    started_at: datetime | None
+    completed_at: datetime | None
+    modified_at: datetime
+
+    _job_uuid = field_validator("id")(_validate_uuid)
 
 
 class ProjectManifestV1(ManifestModel):
@@ -468,6 +514,57 @@ class ProjectArchiveService:
             )
             for entry in sorted(project.entries, key=lambda item: item.id)
         ]
+        jobs = [
+            ManifestJobSummary(
+                id=job.id,
+                plugin_name=job.plugin_name,
+                job_type=job.job_type,
+                implementation_version=job.implementation_version,
+                status=job.status,
+                parameters=deepcopy(job.parameters),
+                progress=job.progress,
+                status_message=job.status_message,
+                result_values=deepcopy(job.result_values),
+                warnings=deepcopy(job.warnings),
+                error=deepcopy(job.error),
+                provenance=deepcopy(job.provenance),
+                inputs=[
+                    ManifestJobInput(
+                        id=item.id,
+                        ordinal=item.ordinal,
+                        role=item.role,
+                        entry_id=item.entry_id,
+                        entry_name=item.entry_name,
+                        structure_type=item.structure_type,
+                        artifact_file=archive_artifact(item.artifact_id) or "",
+                        artifact_sha256=item.artifact_sha256,
+                        artifact_size=item.artifact_size,
+                        media_type=item.media_type,
+                        filename=item.filename,
+                    )
+                    for item in sorted(job.inputs, key=lambda value: value.ordinal)
+                ],
+                results=[
+                    ManifestJobResult(
+                        id=item.id,
+                        role=item.role,
+                        artifact_file=archive_artifact(item.artifact_id) or "",
+                        filename=item.filename,
+                        media_type=item.media_type,
+                        metadata=deepcopy(item.metadata_json),
+                        importable_structure=item.importable_structure,
+                        imported_entry_ids=deepcopy(item.imported_entry_ids),
+                        created_at=item.created_at,
+                    )
+                    for item in sorted(job.results, key=lambda value: value.id)
+                ],
+                created_at=job.created_at,
+                started_at=job.started_at,
+                completed_at=job.completed_at,
+                modified_at=job.modified_at,
+            )
+            for job in sorted(project.jobs, key=lambda item: item.id)
+        ]
         manifest = ProjectManifestV1(
             source_project_id=project.id,
             source_revision=project.revision,
@@ -497,8 +594,7 @@ class ProjectArchiveService:
                     ],
                     granularity=item.granularity,
                     warnings=[
-                        MolecularWarning.model_validate(warning)
-                        for warning in item.warnings
+                        MolecularWarning.model_validate(warning) for warning in item.warnings
                     ],
                     created_at=item.created_at,
                     modified_at=item.modified_at,
@@ -516,8 +612,7 @@ class ProjectArchiveService:
                     ],
                     visible=item.visible,
                     warnings=[
-                        MolecularWarning.model_validate(warning)
-                        for warning in item.warnings
+                        MolecularWarning.model_validate(warning) for warning in item.warnings
                     ],
                     created_at=item.created_at,
                     modified_at=item.modified_at,
@@ -538,6 +633,7 @@ class ProjectArchiveService:
                 )
                 for item in sorted(project.scenes, key=lambda item: item.id)
             ],
+            jobs=jobs,
             files=[file_records[path] for path in sorted(file_records)],
         )
         _validate_manifest_relationships(manifest, contents)
@@ -583,13 +679,13 @@ class ProjectArchiveService:
             self.session.flush()
             entry_ids = {item.id: str(uuid7()) for item in manifest.entries}
             group_ids = {item.id: str(uuid7()) for item in manifest.groups}
-            selection_ids = {
-                item.id: str(uuid7()) for item in manifest.saved_selections
-            }
-            measurement_ids = {
-                item.id: str(uuid7()) for item in manifest.measurements
-            }
+            selection_ids = {item.id: str(uuid7()) for item in manifest.saved_selections}
+            measurement_ids = {item.id: str(uuid7()) for item in manifest.measurements}
             scene_ids = {item.id: str(uuid7()) for item in manifest.scenes}
+            job_ids = {item.id: str(uuid7()) for item in manifest.jobs}
+            result_ids = {
+                result.id: str(uuid7()) for job in manifest.jobs for result in job.results
+            }
 
             for group in _ordered_groups(manifest.groups):
                 self.session.add(
@@ -597,9 +693,7 @@ class ProjectArchiveService:
                         id=group_ids[group.id],
                         project_id=project.id,
                         parent_id=(
-                            group_ids[group.parent_id]
-                            if group.parent_id is not None
-                            else None
+                            group_ids[group.parent_id] if group.parent_id is not None else None
                         ),
                         name=group.name,
                         created_at=group.created_at,
@@ -623,9 +717,7 @@ class ProjectArchiveService:
                         id=entry_ids[entry.id],
                         project_id=project.id,
                         group_id=(
-                            group_ids[entry.group_id]
-                            if entry.group_id is not None
-                            else None
+                            group_ids[entry.group_id] if entry.group_id is not None else None
                         ),
                         name=entry.name,
                         description=entry.description,
@@ -638,22 +730,130 @@ class ProjectArchiveService:
                         bond_count=entry.bond_count,
                         residue_count=entry.residue_count,
                         conformer_count=entry.conformer_count,
-                        warnings=[
-                            warning.model_dump(mode="json")
-                            for warning in entry.warnings
-                        ],
+                        warnings=[warning.model_dump(mode="json") for warning in entry.warnings],
                         next_atom_id=entry.next_atom_id,
                         next_bond_id=entry.next_bond_id,
                         viewer_settings=entry.viewer_settings.model_dump(mode="json"),
                         visible=entry.visible,
                         locked=entry.locked,
                         user_metadata=deepcopy(entry.user_metadata),
-                        job_links=deepcopy(entry.job_links),
-                        generated_results=deepcopy(entry.generated_results),
+                        job_links=[job_ids[item] for item in entry.job_links],
+                        generated_results=[result_ids[item] for item in entry.generated_results],
                         original_artifact_id=original.id if original else None,
                         current_artifact_id=current.id if current else None,
                         created_at=entry.created_at,
                         modified_at=entry.modified_at,
+                    )
+                )
+            self.session.flush()
+            for archived_job in manifest.jobs:
+                job_id = job_ids[archived_job.id]
+                incomplete = archived_job.status in {"queued", "running"}
+                status = "failed" if incomplete else archived_job.status
+                completed_at = (
+                    datetime.now(archived_job.created_at.tzinfo)
+                    if incomplete
+                    else archived_job.completed_at
+                )
+                error = (
+                    {
+                        "code": "archive_incomplete_job",
+                        "message": (
+                            "The source archive contained a nonterminal job; "
+                            "executable process state was not imported."
+                        ),
+                    }
+                    if incomplete
+                    else deepcopy(archived_job.error)
+                )
+                provenance = deepcopy(archived_job.provenance)
+                provenance["archive_source_job_id"] = archived_job.id
+                provenance["archive_source_project_id"] = manifest.source_project_id
+                provenance["job_id"] = job_id
+                provenance["project_id"] = project.id
+                if isinstance(provenance.get("inputs"), list):
+                    provenance["inputs"] = [
+                        {
+                            **item,
+                            "entry_id": entry_ids.get(item.get("entry_id"), item.get("entry_id")),
+                        }
+                        for item in provenance["inputs"]
+                    ]
+                job = Job(
+                    id=job_id,
+                    project_id=project.id,
+                    plugin_name=archived_job.plugin_name,
+                    job_type=archived_job.job_type,
+                    implementation_version=archived_job.implementation_version,
+                    status=status,
+                    parameters=deepcopy(archived_job.parameters),
+                    progress=archived_job.progress,
+                    status_message=(
+                        "Archived nonterminal job cannot be resumed"
+                        if incomplete
+                        else archived_job.status_message
+                    ),
+                    result_values=deepcopy(archived_job.result_values),
+                    warnings=deepcopy(archived_job.warnings),
+                    error=error,
+                    provenance=provenance,
+                    cancellation_requested=False,
+                    event_sequence=1,
+                    worker_id=None,
+                    created_at=archived_job.created_at,
+                    started_at=archived_job.started_at,
+                    completed_at=completed_at,
+                    modified_at=archived_job.modified_at,
+                )
+                self.session.add(job)
+                self.session.flush()
+                for input_item in archived_job.inputs:
+                    artifact = published_by_path[input_item.artifact_file]
+                    self.session.add(
+                        JobInput(
+                            id=str(uuid7()),
+                            job_id=job.id,
+                            ordinal=input_item.ordinal,
+                            role=input_item.role,
+                            entry_id=entry_ids[input_item.entry_id],
+                            entry_name=input_item.entry_name,
+                            structure_type=input_item.structure_type,
+                            artifact_id=artifact.id,
+                            artifact_sha256=input_item.artifact_sha256,
+                            artifact_size=input_item.artifact_size,
+                            media_type=input_item.media_type,
+                            filename=input_item.filename,
+                        )
+                    )
+                for result_item in archived_job.results:
+                    artifact = published_by_path[result_item.artifact_file]
+                    self.session.add(
+                        JobResultArtifact(
+                            id=result_ids[result_item.id],
+                            job_id=job.id,
+                            artifact_id=artifact.id,
+                            role=result_item.role,
+                            filename=result_item.filename,
+                            media_type=result_item.media_type,
+                            metadata_json=deepcopy(result_item.metadata),
+                            importable_structure=result_item.importable_structure,
+                            imported_entry_ids=[
+                                entry_ids[entry_id] for entry_id in result_item.imported_entry_ids
+                            ],
+                            created_at=result_item.created_at,
+                        )
+                    )
+                self.session.add(
+                    JobEvent(
+                        job_id=job.id,
+                        sequence=1,
+                        kind="state",
+                        message=(
+                            error["message"]
+                            if incomplete and error is not None
+                            else "Job restored from project archive"
+                        ),
+                        data={"status": status, "archive_import": True},
                     )
                 )
             self.session.flush()
@@ -663,13 +863,10 @@ class ProjectArchiveService:
                         id=selection_ids[saved_item.id],
                         project_id=project.id,
                         name=saved_item.name,
-                        atom_references=_remap_references(
-                            saved_item.atom_references, entry_ids
-                        ),
+                        atom_references=_remap_references(saved_item.atom_references, entry_ids),
                         granularity=saved_item.granularity,
                         warnings=[
-                            warning.model_dump(mode="json")
-                            for warning in saved_item.warnings
+                            warning.model_dump(mode="json") for warning in saved_item.warnings
                         ],
                         created_at=saved_item.created_at,
                         modified_at=saved_item.modified_at,
@@ -687,8 +884,7 @@ class ProjectArchiveService:
                         ),
                         visible=measurement_item.visible,
                         warnings=[
-                            warning.model_dump(mode="json")
-                            for warning in measurement_item.warnings
+                            warning.model_dump(mode="json") for warning in measurement_item.warnings
                         ],
                         created_at=measurement_item.created_at,
                         modified_at=measurement_item.modified_at,
@@ -788,6 +984,15 @@ def _validate_manifest_relationships(
     _require_unique("saved selection", [item.id for item in manifest.saved_selections])
     _require_unique("measurement", [item.id for item in manifest.measurements])
     _require_unique("scene", [item.id for item in manifest.scenes])
+    _require_unique("job", [item.id for item in manifest.jobs])
+    _require_unique(
+        "job input",
+        [item.id for job in manifest.jobs for item in job.inputs],
+    )
+    _require_unique(
+        "job result",
+        [item.id for job in manifest.jobs for item in job.results],
+    )
     _require_unique(
         "saved selection name",
         [item.name.casefold() for item in manifest.saved_selections],
@@ -797,6 +1002,8 @@ def _validate_manifest_relationships(
     group_ids = {item.id for item in manifest.groups}
     file_paths = {item.path for item in manifest.files}
     file_by_path = {item.path: item for item in manifest.files}
+    job_ids = {item.id for item in manifest.jobs}
+    result_ids = {result.id for job in manifest.jobs for result in job.results}
     referenced_file_paths: set[str] = set()
     for entry in manifest.entries:
         if entry.group_id is not None and entry.group_id not in group_ids:
@@ -812,10 +1019,15 @@ def _validate_manifest_relationships(
                 )
             if path is not None:
                 referenced_file_paths.add(path)
-        if entry.job_links or entry.generated_results:
+        if not set(entry.job_links).issubset(job_ids):
             raise ArchiveValidationError(
-                "archive_jobs_unsupported",
-                "Job links and generated results are reserved for Milestone 9.",
+                "invalid_archive_relationship",
+                f"Entry {entry.id} links an unknown job.",
+            )
+        if not set(entry.generated_results).issubset(result_ids):
+            raise ArchiveValidationError(
+                "invalid_archive_relationship",
+                f"Entry {entry.id} links an unknown generated result.",
             )
         if entry.current_file is None:
             if entry.atom_count or entry.bond_count or entry.residue_count:
@@ -856,6 +1068,56 @@ def _validate_manifest_relationships(
                 "archive_structure_summary_mismatch",
                 f"Entry {entry.id} summary does not match its normalized artifact.",
             )
+    for job in manifest.jobs:
+        ordinals = [item.ordinal for item in job.inputs]
+        if ordinals != list(range(len(ordinals))):
+            raise ArchiveValidationError(
+                "invalid_archive_job_inputs",
+                f"Job {job.id} input ordinals must be contiguous and ordered.",
+            )
+        for item in job.inputs:
+            if item.entry_id not in entry_ids or item.artifact_file not in file_paths:
+                raise ArchiveValidationError(
+                    "invalid_archive_relationship",
+                    f"Job {job.id} has an invalid input entry or artifact.",
+                )
+            record = file_by_path[item.artifact_file]
+            if (
+                record.sha256 != item.artifact_sha256
+                or record.size != item.artifact_size
+                or record.media_type != item.media_type
+            ):
+                raise ArchiveValidationError(
+                    "archive_job_input_mismatch",
+                    f"Job {job.id} input snapshot does not match its artifact.",
+                )
+            referenced_file_paths.add(item.artifact_file)
+        for result in job.results:
+            if result.artifact_file not in file_paths:
+                raise ArchiveValidationError(
+                    "invalid_archive_relationship",
+                    f"Job {job.id} result references an undeclared artifact.",
+                )
+            record = file_by_path[result.artifact_file]
+            if record.media_type != result.media_type:
+                raise ArchiveValidationError(
+                    "archive_job_result_mismatch",
+                    f"Job {job.id} result media type does not match its artifact.",
+                )
+            if not set(result.imported_entry_ids).issubset(entry_ids):
+                raise ArchiveValidationError(
+                    "invalid_archive_relationship",
+                    f"Job {job.id} result links an unknown imported entry.",
+                )
+            if result.importable_structure:
+                try:
+                    NormalizedStructureV1.from_bytes(contents[result.artifact_file])
+                except (KeyError, ValueError) as error:
+                    raise ArchiveValidationError(
+                        "invalid_archive_job_result",
+                        f"Job {job.id} importable result is not normalized structure data.",
+                    ) from error
+            referenced_file_paths.add(result.artifact_file)
     if file_paths != referenced_file_paths:
         raise ArchiveValidationError(
             "unreferenced_archive_artifact",
@@ -866,24 +1128,17 @@ def _validate_manifest_relationships(
     for saved in manifest.saved_selections:
         _validate_references(saved.atom_references, entry_ids, atom_ids_by_entry)
     for measurement in manifest.measurements:
-        _validate_references(
-            measurement.atom_references, entry_ids, atom_ids_by_entry
-        )
+        _validate_references(measurement.atom_references, entry_ids, atom_ids_by_entry)
     for scene in manifest.scenes:
         scene_entry_ids = [state.entry_id for state in scene.entry_states]
-        if len(scene_entry_ids) != len(set(scene_entry_ids)) or not set(
-            scene_entry_ids
-        ).issubset(entry_ids):
+        if len(scene_entry_ids) != len(set(scene_entry_ids)) or not set(scene_entry_ids).issubset(
+            entry_ids
+        ):
             raise ArchiveValidationError(
                 "invalid_archive_relationship",
                 f"Scene {scene.id} contains invalid or duplicate entry state.",
             )
         _validate_references(scene.selection.atoms, entry_ids, atom_ids_by_entry)
-    if manifest.jobs:
-        raise ArchiveValidationError(
-            "archive_jobs_unsupported",
-            "Job summaries are reserved for Milestone 9 and must be empty.",
-        )
 
 
 def _ordered_groups(groups: list[ManifestGroup]) -> list[ManifestGroup]:

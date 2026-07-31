@@ -802,6 +802,22 @@ Results:
   and worker-loss recovery. A fresh SQLite database upgraded through all
   migrations and reported `0007 (head)`. OpenAPI generation succeeds with 42
   documented paths.
+- M9 archive checkpoint: extended the v1 portable manifest with validated job,
+  immutable input-snapshot, and result-artifact records. Export includes input
+  artifacts even when no longer current, deduplicates all content by hash, and
+  preserves terminal state, parameters, values, warnings, errors, timestamps,
+  provenance, and imported-result links. Import remaps project, entry, job, and
+  result identities while preserving hashes and downloads; nonterminal source
+  jobs become explicit `archive_incomplete_job` failures and cannot execute.
+- Generated normalized result entries now use `source_format: null` instead of
+  inventing a pseudo file format. Their exact media type and implementation,
+  parameter, input, job, and result provenance remain available through the
+  artifact and metadata records. This keeps the supported molecular file-format
+  vocabulary closed and lets archive validation remain strict.
+- Archive verification passes all 8 focused archive/job/recovery integration
+  tests plus targeted Ruff and strict mypy. Coverage includes legacy no-job
+  projects, completed job inputs/results/downloads, imported result-entry link
+  remapping, immutable hash preservation, and queued-job recovery as failure.
 
 ## Known limitations
 
@@ -848,6 +864,7 @@ None.
 
 ## Next action
 
-Extend portable archives with job summaries, immutable input/result references,
-ID remapping, and incomplete-job recovery; then verify archive round trips and
-commit that checkpoint before implementing the job workspace UI.
+Implement the top-bar job action and lower-panel job workspace with generic
+submission, progress/status, event logs, cancellation confirmation, result
+download/import, polling/WebSocket refresh, responsive states, and frontend
+unit tests; then verify it in desktop and mobile browsers.

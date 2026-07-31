@@ -410,7 +410,7 @@ class JobService:
             "description": f"Imported from job {job.id}",
             "structure_type": structure.structure_type,
             "original_filename": result.filename,
-            "source_format": "molweave-normalized-json",
+            "source_format": None,
             "normalized_data": {"schema_version": 1, "storage": "artifact"},
             "atom_count": len(structure.atoms),
             "atom_ids": [atom.id for atom in structure.atoms],
