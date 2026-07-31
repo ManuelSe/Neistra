@@ -1,9 +1,9 @@
 # MolWeave
 
-MolWeave is a local, single-user molecular project workspace. Milestone 4 adds
-application-owned representations, camera state, inspection, measurements,
-close-contact analysis, and named scenes to the synchronized project browser,
-sequence, inspector, property table, and lazy Mol* viewer.
+MolWeave is a local, single-user molecular project workspace. Milestone 5 adds
+revisioned whole-structure and selected-atom coordinate transforms, interactive
+preview/commit, protein superposition, and exact coordinate history to the
+synchronized project browser, inspector, property table, and lazy Mol* viewer.
 
 ## Prerequisites
 
@@ -50,6 +50,8 @@ flowchart LR
     UI --> PREFS[Local theme and layout preferences]
     API --> PARSE[Cancellable Gemmi / RDKit child process]
     API --> PS[Project service and command bus]
+    API --> COORD[Transform and Kabsch service]
+    COORD --> PS
     PS --> DB[(SQLite)]
     PS --> ART[Content-addressed artifact store]
     PS --> STATE[ProjectStateV1]
@@ -57,6 +59,7 @@ flowchart LR
     UI --> SELECT[Transient canonical selection store]
     SELECT <--> VIEWER
     SELECT --> WORKER[Spatial-query Web Worker]
+    UI -->|coordinate spans| VIEWER
     API --> CONTACTS[SciPy contact index]
     JOBS[Controlled worker, M9] -. publishes artifacts .-> ART
 ```
@@ -73,21 +76,23 @@ See [docs/API.md](docs/API.md), [docs/PROJECT_SCHEMA.md](docs/PROJECT_SCHEMA.md)
 [docs/SCIENTIFIC_LIMITATIONS.md](docs/SCIENTIFIC_LIMITATIONS.md), and
 [docs/DECISIONS.md](docs/DECISIONS.md) for the current contracts.
 
-## Milestone 4 Checks
+## Milestone 5 Checks
 
 Run these from the repository root:
 
 ```bash
 UV_CACHE_DIR=/tmp/uv-cache .venv/bin/uv run --no-sync ruff check .
 UV_CACHE_DIR=/tmp/uv-cache .venv/bin/uv run --no-sync mypy \
-  apps/api packages/molweave_core
+  apps/api/src packages/molweave_core/src
 UV_CACHE_DIR=/tmp/uv-cache .venv/bin/uv run --no-sync pytest \
-  tests/unit/test_measurements.py tests/unit/test_contacts.py
+  tests/unit/test_transforms.py tests/unit/test_superposition.py
+UV_CACHE_DIR=/tmp/uv-cache .venv/bin/uv run --no-sync pytest \
+  tests/unit/test_history.py
 corepack pnpm --dir apps/web lint
 corepack pnpm --dir apps/web typecheck
-corepack pnpm --dir apps/web test -- representations measurements inspector
+corepack pnpm --dir apps/web test -- transforms history
 PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test \
-  tests/e2e/viewer-controls.spec.ts tests/e2e/measurements.spec.ts
+  tests/e2e/coordinate-editing.spec.ts
 corepack pnpm --dir apps/web build
 ```
 

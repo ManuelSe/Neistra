@@ -4,10 +4,10 @@
 
 Milestone 5 - Coordinate transforms, superposition, and history
 
-In progress. The M5 product, plan, history, normalized-coordinate, artifact,
-selection, API, and Mol* contracts have been audited from the clean M4
-checkpoint. Transform, superposition, patch, and conformer semantics are now
-recorded; scientific implementation is next.
+Complete. Whole-entry and selected-atom translation/rotation, numeric and
+interactive command paths, configurable pivots, protein Kabsch
+superposition, immutable coordinate history, and incremental viewer updates
+satisfy the M5 acceptance criteria and verification gates.
 
 ## Completed work
 
@@ -441,6 +441,19 @@ Results:
   and reversal, zero-RMSD backbone superposition, unequal correspondence
   feedback, and a locked-entry disabled state. The existing complete
   synchronized-selection WebGL workflow also passed.
+- Exact M5 final gate: 15 transform/superposition tests and the focused history
+  test passed; repository-wide Ruff, strict mypy for 25 source files, and all
+  96 Python tests passed. ESLint, TypeScript, all 26 client tests, and the
+  production build passed.
+- Exact M5 Playwright gate: the complete desktop coordinate workflow passed in
+  11.4 seconds with one intentional mobile duplicate skipped. The full browser
+  regression passed 13 workflows with 7 intentional desktop-only mobile skips.
+- The documented normal API and Vite commands started the current code on ports
+  8000 and 5173. `/health` returned `{"status":"ok"}`, `/formats` returned all
+  seven adapters, and the frontend entrypoint responded successfully.
+- Fresh normal-startup Chromium inspection at 1440x900 and Pixel 7 dimensions
+  showed the live coordinate inspector and molecular canvas with readable,
+  scrollable controls and no clipping, text overflow, or incoherent overlap.
 
 ## Known limitations
 
@@ -464,6 +477,12 @@ Results:
 - M4 close-contact detection currently operates within one normalized
   structure. Cross-structure contacts and periodic boundaries are outside the
   v0.1 requirement.
+- Selected-atom rigid transforms do not perform valence, stereochemistry,
+  minimization, or clash validation and can create chemically unreasonable
+  local geometry. Those constrained operations remain M6/M7 work.
+- Protein superposition requires compatible, unambiguous hierarchy identities.
+  It does not guess sequence alignments, fill missing residues, or perform
+  ligand graph matching.
 
 ## Blockers
 
@@ -471,6 +490,4 @@ None.
 
 ## Next action
 
-Run the complete Python, client, build, and Playwright regression gates; verify
-the documented normal startup and responsive desktop/mobile UI; then record the
-final M5 state and limitations.
+Milestone 5 is complete. Begin Milestone 6 only when explicitly requested.

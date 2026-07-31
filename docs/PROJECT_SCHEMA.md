@@ -1,7 +1,7 @@
 # Project Schema
 
 Status: `ProjectStateV1` with normalized artifacts, viewer state, measurements,
-and named scenes, Milestone 4
+named scenes, and immutable coordinate revisions, Milestone 5
 
 MolWeave separates the relational working model, checkpoint snapshots, immutable
 artifacts, and browser preferences. The API and database are authoritative;
@@ -68,6 +68,8 @@ created_at: ISO-8601 timestamp
 Validated M2 import populates `original_artifact_id` and
 `current_artifact_id`. The first references byte-identical input; the second
 references serialized `NormalizedStructureV1`. Originals are never overwritten.
+Every M5 coordinate command publishes another immutable normalized artifact and
+switches only `current_artifact_id`; undo restores the exact prior artifact ID.
 Project API responses expose summaries, not `normalized_data`; full molecular
 data is read lazily through the structure endpoint. See
 `docs/NORMALIZED_SCHEMA.md`.
@@ -189,9 +191,18 @@ Each reversible mutation stores:
 - Affected entry IDs and a selection snapshot.
 - Applied/undone state and creation timestamp.
 
+Coordinate actions additionally store the before/after normalized artifact ID
+and a sorted active-coordinate span for the affected stable atom IDs. The span
+lets undo, redo, and connected viewers update one entry without embedding the
+complete normalized structure in SQLite. Artifact bytes remain authoritative.
+
 The history is limited to 200 commands. Issuing a command after undo discards
 the redo branch. Undo and redo are themselves revision-checked operations and
 increment the working revision.
+
+Complete project mutation responses expose `structure_patches` as a transient
+transport field. It is excluded from `ProjectStateV1`, checkpoints, dirty-state
+comparison, and ordinary project reads.
 
 ## Artifact Records
 

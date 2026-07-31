@@ -1,6 +1,6 @@
 # Scientific Limitations
 
-Status: Milestone 4
+Status: Milestone 5
 
 MolWeave v0.1 reports known uncertainty but does not replace specialist
 structure preparation or validation software.
@@ -90,6 +90,31 @@ structure preparation or validation software.
 - Contact thresholds are user-supplied geometric cutoffs, not
   element-specific van der Waals validation. Results require scientific
   interpretation.
+
+## Coordinate Transforms And Superposition
+
+- Transforms are Cartesian rigid matrices in the current shared project frame.
+  Degree rotations compose X, then Y, then Z. They do not use camera axes,
+  crystallographic fractional coordinates, symmetry, periodic boundaries, or
+  minimum-image conventions.
+- Whole-entry rotation defaults to the active-conformer centroid. Selected-atom
+  rotation can use the selected scope centroid, entry centroid, or an explicit
+  finite Cartesian pivot. The same matrix is applied to the requested stable
+  atom IDs in every conformer.
+- Selected-atom transforms can create distorted bonds, invalid chirality,
+  clashes, or chemically unreasonable geometry. M5 performs no valence,
+  stereochemistry, minimization, or protein-preparation validation; those
+  checks belong to the constrained M6/M7 editors.
+- Protein superposition is a proper float64 Kabsch fit over active-conformer
+  coordinates. It requires equal, unambiguous protein hierarchy identities,
+  at least three matches, and non-collinear geometry. Reported RMSD is the
+  post-fit value over those matched active coordinates.
+- Backbone matching supports compatible `N`, `CA`, `C`, and `O` identities.
+  MolWeave does not guess a sequence alignment, repair missing residues, match
+  ligands by graph isomorphism, accept reflection-only solutions, or silently
+  pair atoms by selection order.
+- A protein fit is applied to every atom in every conformer of the moving
+  entry. The reference entry and immutable original uploads are unchanged.
 
 These limitations and all per-structure warnings remain visible without
 preventing retrieval of the original bytes.

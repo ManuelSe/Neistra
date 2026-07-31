@@ -1,6 +1,6 @@
 # MolWeave HTTP API
 
-Status: Milestone 4
+Status: Milestone 5
 
 The local FastAPI application exposes a versioned API under `/api/v1` and
 generates OpenAPI at `/api/v1/openapi.json`. Swagger UI is available at
@@ -17,6 +17,8 @@ generates OpenAPI at `/api/v1/openapi.json`. Swagger UI is available at
 - Molecular parse and format errors use HTTP 422 with file, operation, and
   optional record index. Upload/atom hard limits use HTTP 413.
 - Project responses declare `schema_version: 1`.
+- Mutation, undo, and redo responses may include transient
+  `structure_patches`; ordinary project reads return an empty patch list.
 - Save advances the checkpoint to the working revision without creating a
   reversible edit command.
 
@@ -66,6 +68,8 @@ generates OpenAPI at `/api/v1/openapi.json`. Swagger UI is available at
 | `POST` | `/api/v1/projects/{project_id}/entries/{entry_id}/exports` | Generate one format adapter output. |
 | `GET` | `/api/v1/artifacts/{artifact_id}` | Download an immutable generated or original artifact. |
 | `POST` | `/api/v1/projects/{project_id}/contacts` | Find sorted nonbonded close contacts with a spatial index. |
+| `POST` | `/api/v1/projects/{project_id}/entries/{entry_id}/transform` | Translate or rotate a whole entry or selected atoms. |
+| `POST` | `/api/v1/projects/{project_id}/superpositions` | Superpose one protein entry onto another and report RMSD. |
 
 Import is `multipart/form-data` with one or more `files`, required
 `expected_revision`, optional booleans `generate_3d` and `infer_bonds`, and an
@@ -147,6 +151,62 @@ camera and transient selection.
 Contact requests contain `entry_id`, `cutoff`, and `minimum_distance`. Results
 contain two canonical atom references and a distance in angstroms. Explicitly
 bonded pairs are excluded.
+
+## Coordinate Command Contracts
+
+A transform request uses angstrom translations, degree rotations, a canonical
+selection snapshot, and one explicit pivot policy:
+
+```json
+{
+  "expected_revision": 7,
+  "entry_id": "moving-entry-id",
+  "scope": "selection",
+  "selection": {
+    "schema_version": 1,
+    "atoms": [{"structure_id": "moving-entry-id", "atom_id": 42}],
+    "granularity": "atom",
+    "source": "inspector"
+  },
+  "translation": [1.5, 0.0, 0.0],
+  "rotation_degrees": [0.0, 0.0, 30.0],
+  "pivot_mode": "custom",
+  "pivot": [4.2, -1.0, 8.5]
+}
+```
+
+`scope` is `structure` or `selection`. `pivot_mode` is
+`structure_centroid`, `selection_centroid`, or `custom`; only the last accepts
+an explicit pivot. Rotations compose X, then Y, then Z. The same rigid matrix
+is applied to the requested stable atom IDs in every conformer.
+
+Protein superposition accepts distinct moving and reference entry IDs,
+`mode: "backbone" | "selection"`, and a selection. Backbone mode matches
+unambiguous `N`, `CA`, `C`, and `O` hierarchy identities. Selection mode
+partitions the canonical atom set by entry and matches the complete protein
+identity rather than click order. A successful response contains the revised
+project and:
+
+```json
+{
+  "moving_entry_id": "moving-entry-id",
+  "reference_entry_id": "reference-entry-id",
+  "mode": "backbone",
+  "atom_count": 128,
+  "rmsd": 0.7421
+}
+```
+
+Coordinate commands reject locked entries, identity/no-op transforms, invalid
+or empty selected scopes, non-finite values, fewer than three correspondences,
+unequal or ambiguous identities, underdetermined geometry, and
+reflection-only fits. The reference entry is never changed.
+
+Each returned coordinate patch contains `entry_id`, the new authoritative
+`artifact_id`, sorted stable `atom_ids`, and matching active-conformer
+coordinates. Patches are response hints for incremental viewers, not stored
+project state. Reloading always reconstructs the same coordinates from the
+entry's current immutable normalized artifact.
 
 ## Errors
 
