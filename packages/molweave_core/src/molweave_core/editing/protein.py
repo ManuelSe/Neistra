@@ -944,32 +944,61 @@ class PdbfixerProteinEditor:
         }
         if not polymer_residue_ids:
             raise InvalidProteinEditError("The entry contains no polymer residues")
-        atoms = [
+        source_atoms = [
             atom
             for atom in structure.atoms
             if atom.residue_id in polymer_residue_ids
         ]
-        atom_ids = {atom.id for atom in atoms}
         residues = [
             residue
             for residue in structure.residues
             if residue.id in polymer_residue_ids
         ]
+        residue_order = {
+            residue.id: index for index, residue in enumerate(residues)
+        }
+        source_atoms.sort(
+            key=lambda atom: (
+                residue_order[atom.residue_id or -1],
+                atom.source_index,
+                atom.id,
+            )
+        )
+        projected_id_by_source = {
+            atom.id: index for index, atom in enumerate(source_atoms, start=1)
+        }
+        atoms = [
+            atom.model_copy(update={"id": projected_id_by_source[atom.id]})
+            for atom in source_atoms
+        ]
+        source_atom_ids = set(projected_id_by_source)
         chain_ids = {residue.chain_id for residue in residues}
         chains = [
             chain for chain in structure.chains if chain.id in chain_ids
         ]
-        bonds = [
-            bond
-            for bond in structure.bonds
-            if bond.atom_1_id in atom_ids and bond.atom_2_id in atom_ids
+        source_bonds = [
+            bond for bond in structure.bonds
+            if bond.atom_1_id in source_atom_ids
+            and bond.atom_2_id in source_atom_ids
         ]
-        index_by_id = {atom.id: index for index, atom in enumerate(structure.atoms)}
+        bonds = [
+            bond.model_copy(
+                update={
+                    "id": index,
+                    "atom_1_id": projected_id_by_source[bond.atom_1_id],
+                    "atom_2_id": projected_id_by_source[bond.atom_2_id],
+                }
+            )
+            for index, bond in enumerate(source_bonds, start=1)
+        ]
+        index_by_id = {
+            atom.id: index for index, atom in enumerate(structure.atoms)
+        }
         conformer = structure.conformers[0].model_copy(
             update={
                 "coordinates": [
                     structure.conformers[0].coordinates[index_by_id[atom.id]]
-                    for atom in atoms
+                    for atom in source_atoms
                 ]
             }
         )

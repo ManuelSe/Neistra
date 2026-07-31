@@ -110,6 +110,18 @@ export function ProteinEditorPanel({
     [structure],
   );
   const chains = useMemo(() => structure?.chains ?? [], [structure]);
+  const firstAuthorNumberByChain = useMemo(
+    () =>
+      new Map(
+        chains.map((chainItem) => [
+          chainItem.id,
+          structure?.residues.find(
+            (residueItem) => residueItem.chain_id === chainItem.id,
+          )?.author_number ?? 1,
+        ]),
+      ),
+    [chains, structure],
+  );
   const selectedAtomIds = useMemo(
     () =>
       selection.atoms
@@ -137,6 +149,7 @@ export function ProteinEditorPanel({
   }, [selectedResidueIds, structure]);
 
   useEffect(() => {
+    if (!structure) return;
     const selected = selectedResidueIds.find((id) =>
       polymerResidues.some((residue) => residue.id === id),
     );
@@ -145,31 +158,41 @@ export function ProteinEditorPanel({
     } else if (!polymerResidues.some((residue) => String(residue.id) === residueId)) {
       setResidueId(polymerResidues[0] ? String(polymerResidues[0].id) : "");
     }
-  }, [polymerResidues, residueId, selectedResidueIds]);
+  }, [polymerResidues, residueId, selectedResidueIds, structure]);
 
   useEffect(() => {
+    if (!structure) return;
     const selectedResidue = structure?.residues.find(
       (residue) => selectedResidueIds.includes(residue.id),
     );
     const selectedChain = selectedResidue?.chain_id;
-    if (selectedChain !== undefined) {
+    if (selectedChain !== undefined && String(selectedChain) !== chainId) {
       setChainId(String(selectedChain));
-    } else if (!chains.some((chain) => String(chain.id) === chainId)) {
-      setChainId(chains[0] ? String(chains[0].id) : "");
+      const selected = chains.find((item) => item.id === selectedChain);
+      if (selected) {
+        setChainName(selected.name);
+        setRenumberStart(
+          String(firstAuthorNumberByChain.get(selected.id) ?? 1),
+        );
+      }
+    } else if (!chains.some((item) => String(item.id) === chainId)) {
+      const first = chains[0];
+      setChainId(first ? String(first.id) : "");
+      setChainName(first?.name ?? "");
+      setRenumberStart(
+        String(first ? (firstAuthorNumberByChain.get(first.id) ?? 1) : 1),
+      );
     }
-  }, [chainId, chains, selectedResidueIds, structure]);
+  }, [
+    chainId,
+    chains,
+    firstAuthorNumberByChain,
+    selectedResidueIds,
+    structure,
+  ]);
 
   const chain = chains.find((item) => String(item.id) === chainId);
   const residue = polymerResidues.find((item) => String(item.id) === residueId);
-  useEffect(() => {
-    if (chain) {
-      setChainName(chain.name);
-      const first = structure?.residues.find(
-        (item) => item.chain_id === chain.id,
-      );
-      setRenumberStart(String(first?.author_number ?? 1));
-    }
-  }, [chain, structure]);
   useEffect(() => {
     if (residue && aminoAcids.includes(residue.name as StandardAminoAcid)) {
       const alternative = aminoAcids.find((item) => item !== residue.name);
@@ -208,7 +231,14 @@ export function ProteinEditorPanel({
     <div className="protein-editor" aria-label="Protein editor">
       <label>
         Protein
-        <select value={entryId} onChange={(event) => setEntryId(event.target.value)}>
+        <select
+          value={entryId}
+          onChange={(event) => {
+            setEntryId(event.target.value);
+            setChainId("");
+            setResidueId("");
+          }}
+        >
           {proteins.map((item) => (
             <option key={item.id} value={item.id}>{item.name}</option>
           ))}
@@ -298,7 +328,19 @@ export function ProteinEditorPanel({
         <legend><Tag size={15} /> Hierarchy</legend>
         <label>
           Chain
-          <select value={chainId} onChange={(event) => setChainId(event.target.value)}>
+          <select
+            value={chainId}
+            onChange={(event) => {
+              const next = chains.find(
+                (item) => String(item.id) === event.target.value,
+              );
+              setChainId(event.target.value);
+              setChainName(next?.name ?? "");
+              setRenumberStart(
+                String(next ? (firstAuthorNumberByChain.get(next.id) ?? 1) : 1),
+              );
+            }}
+          >
             {chains.map((item) => (
               <option key={item.id} value={item.id}>{item.name || "(blank)"}</option>
             ))}

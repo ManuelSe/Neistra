@@ -1104,3 +1104,37 @@ Consequences:
   branch.
 - Topology changes refetch and replace only the affected Mol* entry. Existing
   free movement retains the smaller coordinate-patch path.
+
+## D-034 - Remap only the transient PDBFixer projection
+
+Status: accepted
+
+Decision:
+
+Before exporting a polymer-only structure to PDBFixer, order atoms by normalized
+residue hierarchy and source atom order, then assign temporary contiguous atom
+and bond serials. Remap projected bond endpoints to those temporary serials.
+Continue mapping PDBFixer output back by unique chain, author number, insertion
+code, residue, and atom-name identities. Never publish the temporary serials or
+use them as MolWeave identity.
+
+Rationale:
+
+MolWeave stable IDs are monotonic and non-reused. A mutation can therefore add
+new atoms to an early residue with IDs greater than atoms in later residues or
+chains. PDB requires each residue's records to be contiguous; exporting in
+stable-ID order made OpenMM reconstruct the early residue as a second topology
+object and correctly triggered the ambiguity rejection. Hierarchy ordering is
+required at this file-format boundary, while stable IDs remain authoritative in
+the normalized model.
+
+Consequences:
+
+- Sequential template operations such as mutation followed by hydrogen
+  placement retain unambiguous residue identity.
+- The projection is disposable and cannot be stored in history, project state,
+  selections, or viewer state.
+- Existing atom IDs and coordinates still map by hierarchy/name and remain
+  unchanged; inferred atoms still receive the entry's monotonic MolWeave IDs.
+- Any duplicate hierarchy or atom-name identity continues to reject before
+  publication.

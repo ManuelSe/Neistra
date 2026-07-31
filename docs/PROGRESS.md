@@ -4,9 +4,9 @@
 
 Milestone 7 - Protein editing and validation
 
-In progress. The dependency, protein-domain, persistence/API, and client
-checkpoints are complete. Browser workflow coverage and final validation
-remain.
+In progress. The dependency, domain, persistence/API, client, and browser
+checkpoints are complete. Final repository-wide validation, normal startup,
+documentation, and responsive inspection remain.
 
 ## Completed work
 
@@ -612,9 +612,28 @@ Results:
   rotamer search, protonation analysis, and full protein preparation are not
   performed.
 - ESLint and TypeScript passed. The exact `protein-editor` client gate ran all
-  33 component/domain tests successfully, including 3 protein editor workflows.
+  34 component/domain tests successfully, including 4 protein editor workflows.
   The production build transformed 3,346 modules with a 472.94 KiB initial
   application chunk and Mol* retained as a lazy chunk.
+- Browser verification exposed and fixed a real sequential-edit mapping defect:
+  monotonic side-chain IDs can place new atoms after atoms from later chains in
+  normalized ID order. The PDBFixer adapter now emits a hierarchy-ordered,
+  temporary remapped projection so each residue remains contiguous without
+  changing authoritative MolWeave IDs. Mutation followed directly by hydrogen
+  placement has focused scientific regression coverage.
+- Browser verification also exposed and fixed hierarchy form input being
+  overwritten during the brief projection gap after a topology artifact
+  changes. The editor now preserves active input while the affected Mol*
+  projection refetches, with a dedicated component regression test.
+- Exact M7 Playwright gate: the desktop Chromium workflow passed in 15.6
+  seconds and the Pixel 7 workflow passed in 4.1 seconds, with two intentional
+  cross-project skips. Desktop verified backbone-preserving mutation and
+  warnings, exact undo/redo, hydrogen add/remove, water/ion removal, chain
+  rename and renumber, atom and whole-residue movement, reversible
+  atom/residue/chain deletion, live selection reconciliation, affected-entry
+  viewer replacement, a nonblank WebGL canvas, lock enforcement, and atomic
+  multiple-model/alternate-location rejection. Mobile performed a real chain
+  rename and confirmed the scrollable editor has no horizontal overflow.
 
 ## Known limitations
 
@@ -658,6 +677,6 @@ None.
 
 ## Next action
 
-Add the real Chromium protein-editing workflow for successful topology,
-metadata, hydrogen, movement, undo/redo, viewer synchronization, lock, and
-ambiguous-template failure states.
+Run every M7-specific and repository-wide validation gate, verify documented
+normal startup and responsive live browser layout, and complete milestone
+documentation.

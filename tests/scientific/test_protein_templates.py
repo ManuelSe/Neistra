@@ -156,6 +156,34 @@ def test_hydrogen_round_trip_preserves_heavy_atoms(
     } == original_heavy
 
 
+def test_hydrogen_placement_maps_after_new_side_chain_ids(
+    protein: NormalizedStructureV1,
+) -> None:
+    editor = PdbfixerProteinEditor()
+    atom_id, bond_id = next_ids(protein)
+    mutated = editor.mutate_residue(
+        protein,
+        residue_id(protein, "A", 1),
+        "VAL",
+        next_atom_id=atom_id,
+        next_bond_id=bond_id,
+    ).structure
+    next_atom, next_bond = next_ids(mutated)
+    hydrogenated = editor.add_hydrogens(
+        mutated,
+        next_atom_id=next_atom,
+        next_bond_id=next_bond,
+    )
+    assert hydrogenated.created_atom_ids
+    assert len(
+        {
+            (residue.chain_id, residue.author_number)
+            for residue in hydrogenated.structure.residues
+            if residue.component_type == "polymer"
+        }
+    ) == 4
+
+
 @pytest.mark.parametrize("target", ["MSE", "", "alanine"])
 def test_mutation_rejects_nonstandard_target(
     protein: NormalizedStructureV1,

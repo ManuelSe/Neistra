@@ -143,7 +143,7 @@ function setup(locked = false, warning = false) {
   const onMove = vi
     .fn<(transform: CoordinateTransform) => Promise<void>>()
     .mockResolvedValue(undefined);
-  render(
+  const view = render(
     <ProteinEditorPanel
       project={project}
       selection={selection}
@@ -153,7 +153,7 @@ function setup(locked = false, warning = false) {
       onMove={onMove}
     />,
   );
-  return { onEdit, onMove };
+  return { onEdit, onMove, project, view };
 }
 
 describe("protein editor", () => {
@@ -264,5 +264,36 @@ describe("protein editor", () => {
     expect(screen.getByRole("button", { name: "Apply mutation" })).toBeDisabled();
     expect(screen.getByText("Locked")).toBeInTheDocument();
     expect(onEdit).not.toHaveBeenCalled();
+  });
+
+  it("preserves hierarchy input while a replacement projection loads", async () => {
+    const user = userEvent.setup();
+    const { onEdit, onMove, project, view } = setup();
+    const input = screen.getByLabelText("New chain name");
+    await user.clear(input);
+    await user.type(input, "X");
+    view.rerender(
+      <ProteinEditorPanel
+        project={project}
+        selection={selection}
+        structures={new Map()}
+        busy={false}
+        onEdit={onEdit}
+        onMove={onMove}
+      />,
+    );
+    expect(screen.getByLabelText("New chain name")).toHaveValue("X");
+    view.rerender(
+      <ProteinEditorPanel
+        project={project}
+        selection={selection}
+        structures={new Map([["protein", structure]])}
+        busy={false}
+        onEdit={onEdit}
+        onMove={onMove}
+      />,
+    );
+    expect(screen.getByLabelText("New chain name")).toHaveValue("X");
+    expect(screen.getByRole("button", { name: "Apply name" })).toBeEnabled();
   });
 });
