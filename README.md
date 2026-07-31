@@ -1,9 +1,10 @@
 # MolWeave
 
-MolWeave is a local, single-user molecular project workspace. Milestone 5 adds
-revisioned whole-structure and selected-atom coordinate transforms, interactive
-preview/commit, protein superposition, and exact coordinate history to the
-synchronized project browser, inspector, property table, and lazy Mol* viewer.
+MolWeave is a local, single-user molecular project workspace. Milestone 6 adds
+validated ligand graph editing, explicit hydrogen operations, rotatable-bond
+movement, force-field cleanup, stable non-reused molecular identities, and
+exact artifact history to the synchronized project browser, inspector, property
+table, and lazy Mol* viewer.
 
 ## Prerequisites
 
@@ -51,7 +52,9 @@ flowchart LR
     API --> PARSE[Cancellable Gemmi / RDKit child process]
     API --> PS[Project service and command bus]
     API --> COORD[Transform and Kabsch service]
+    API --> EDIT[RDKit ligand editor and validator]
     COORD --> PS
+    EDIT --> PS
     PS --> DB[(SQLite)]
     PS --> ART[Content-addressed artifact store]
     PS --> STATE[ProjectStateV1]
@@ -59,7 +62,7 @@ flowchart LR
     UI --> SELECT[Transient canonical selection store]
     SELECT <--> VIEWER
     SELECT --> WORKER[Spatial-query Web Worker]
-    UI -->|coordinate spans| VIEWER
+    UI -->|coordinate spans / affected-entry replacement| VIEWER
     API --> CONTACTS[SciPy contact index]
     JOBS[Controlled worker, M9] -. publishes artifacts .-> ART
 ```
@@ -76,23 +79,23 @@ See [docs/API.md](docs/API.md), [docs/PROJECT_SCHEMA.md](docs/PROJECT_SCHEMA.md)
 [docs/SCIENTIFIC_LIMITATIONS.md](docs/SCIENTIFIC_LIMITATIONS.md), and
 [docs/DECISIONS.md](docs/DECISIONS.md) for the current contracts.
 
-## Milestone 5 Checks
+## Milestone 6 Checks
 
 Run these from the repository root:
 
 ```bash
 UV_CACHE_DIR=/tmp/uv-cache .venv/bin/uv run --no-sync ruff check .
 UV_CACHE_DIR=/tmp/uv-cache .venv/bin/uv run --no-sync mypy \
-  apps/api/src packages/molweave_core/src
+  packages/molweave_core/src apps/api/src tests
 UV_CACHE_DIR=/tmp/uv-cache .venv/bin/uv run --no-sync pytest \
-  tests/unit/test_transforms.py tests/unit/test_superposition.py
+  tests/unit/editing/test_ligand_editor.py
 UV_CACHE_DIR=/tmp/uv-cache .venv/bin/uv run --no-sync pytest \
-  tests/unit/test_history.py
+  tests/scientific/test_ligand_validation.py
 corepack pnpm --dir apps/web lint
 corepack pnpm --dir apps/web typecheck
-corepack pnpm --dir apps/web test -- transforms history
+corepack pnpm --dir apps/web test -- ligand-editor
 PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test \
-  tests/e2e/coordinate-editing.spec.ts
+  tests/e2e/ligand-editing.spec.ts
 corepack pnpm --dir apps/web build
 ```
 
@@ -102,5 +105,6 @@ Install the pinned Chromium once before the browser check:
 PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright install chromium
 ```
 
-The Playwright configuration starts an isolated test API and Vite server. Ports
-5173 and 8010 must be free while that command runs.
+The Playwright configuration migrates its isolated test database, then starts
+the test API and Vite server. Ports 5173 and 8010 must be free while that
+command runs.

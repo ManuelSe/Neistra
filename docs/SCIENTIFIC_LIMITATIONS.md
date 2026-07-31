@@ -1,6 +1,6 @@
 # Scientific Limitations
 
-Status: Milestone 5
+Status: Milestone 6
 
 MolWeave v0.1 reports known uncertainty but does not replace specialist
 structure preparation or validation software.
@@ -37,6 +37,28 @@ structure preparation or validation software.
   inferences, not experimental conformations or an energy-ranked ensemble.
 - Zero coordinates are retained with a warning when a supported source has no
   coordinates and generation was not requested.
+
+## Ligand Editing
+
+- RDKit sanitization is the v0.1 authority for edited valence, aromaticity, and
+  formal charge. MolWeave rejects edits that RDKit cannot sanitize; this is not
+  a comprehensive quantum-chemical or tautomer/protonation-state assessment.
+- Explicit hydrogen addition uses RDKit valence inference. It does not choose a
+  biologically correct pH, protonation microstate, tautomer, metal coordination,
+  or solvent environment. Added atoms and coordinates are marked inferred.
+- Bond rotation only accepts an acyclic single nonterminal bond and a selected
+  atom set exactly equal to one component after cutting it. It does not search
+  conformers, avoid all clashes, or optimize the resulting torsion.
+- MMFF and UFF cleanup operates on the current coordinates and reports the
+  chosen method and convergence. Explicitly requested unavailable parameters
+  fail; `auto` may try MMFF then UFF. A converged local minimum is not evidence
+  of the correct conformer or binding pose.
+- Local cleanup fixes atoms outside the requested set. Whole and local cleanup
+  can change stereochemical perception or reveal close contacts; MolWeave
+  compares stable-atom stereo assignments and surfaces structured warnings but
+  does not silently claim preservation.
+- Stable atom and bond IDs describe MolWeave project identity, not source-file
+  serials. Deleted IDs leave gaps and newly allocated IDs are never reused.
 
 ## Conversion And Viewing
 
@@ -101,10 +123,10 @@ structure preparation or validation software.
   rotation can use the selected scope centroid, entry centroid, or an explicit
   finite Cartesian pivot. The same matrix is applied to the requested stable
   atom IDs in every conformer.
-- Selected-atom transforms can create distorted bonds, invalid chirality,
-  clashes, or chemically unreasonable geometry. M5 performs no valence,
-  stereochemistry, minimization, or protein-preparation validation; those
-  checks belong to the constrained M6/M7 editors.
+- Free selected-atom transforms can create distorted bonds, invalid chirality,
+  clashes, or chemically unreasonable geometry. They remain unconstrained
+  placement tools; use the M6 ligand rotation/cleanup operations for their
+  narrower validation and force-field reports. Protein preparation remains M7.
 - Protein superposition is a proper float64 Kabsch fit over active-conformer
   coordinates. It requires equal, unambiguous protein hierarchy identities,
   at least three matches, and non-collinear geometry. Reported RMSD is the

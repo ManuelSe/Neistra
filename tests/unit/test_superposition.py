@@ -9,6 +9,7 @@ from molweave_core.molecular import (
     NormalizedStructureV1,
     Residue,
     SourceFacts,
+    StructureType,
 )
 from molweave_core.superposition import (
     InvalidSuperpositionError,
@@ -22,12 +23,12 @@ def protein(
     coordinates: list[tuple[float, float, float]],
     *,
     names: list[str] | None = None,
-    structure_type: str = "protein",
+    structure_type: StructureType = "protein",
 ) -> NormalizedStructureV1:
     atom_names = names or ["N", "CA", "C", "O"]
     return NormalizedStructureV1(
         title="Protein",
-        structure_type=structure_type,  # type: ignore[arg-type]
+        structure_type=structure_type,
         source=SourceFacts(filename="protein.pdb", format="pdb"),
         chains=[Chain(id=1, name="A", entity_type="polymer")],
         residues=[

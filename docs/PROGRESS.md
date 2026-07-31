@@ -4,9 +4,9 @@
 
 Milestone 6 - Ligand editing
 
-In progress. The domain, persistence, application UI, affected-entry Mol*
-replacement, and desktop API/WebGL workflow are implemented and verified.
-Repository-wide validation and responsive browser inspection remain.
+Complete. All Milestone 6 acceptance criteria and exact verification commands
+pass. The documented normal API and Vite commands are running the migrated
+application locally on ports 8000 and 5173.
 
 ## Completed work
 
@@ -519,6 +519,32 @@ Results:
 - The viewer tolerates absent transient patch arrays from a stale local API
   during a rolling development restart. Fresh current-version project
   responses continue to provide both typed patch collections.
+- M6 responsive browser checkpoint: the dedicated desktop chemistry workflow
+  and Pixel 7 inspector workflow both passed. The mobile case imported a real
+  ligand, rejected invalid valence without mutation, added an atom, and
+  confirmed the drawer has no horizontal overflow.
+- Exact M6 final gate: 8 ligand editor unit tests, 3 scientific validation
+  tests, all 30 client tests, the two-project ligand Playwright workflow, and
+  the production build passed. The build transformed 3,345 modules with a
+  461.11 KiB initial application chunk and Mol* retained as a lazy chunk.
+- Repository-wide final regression: Ruff passed; strict mypy passed all 51
+  checked source/test files; all 110 Python tests passed; ESLint, TypeScript,
+  and all 30 client tests passed; and the complete Playwright matrix passed 15
+  workflows with 9 intentional cross-project skips.
+- The broader mypy gate found four annotation defects in three pre-M6 tests.
+  Return annotations/casts and one now-unnecessary ignore were corrected as a
+  small validation prerequisite; all 15 affected tests and the complete Python
+  suite pass unchanged behaviorally.
+- Normal `.molweave` startup upgraded migration `0005 -> 0006`. The documented
+  API and Vite commands then started successfully; `/health`, all seven format
+  capabilities, and the frontend entrypoint responded.
+- Live Chromium inspection at 1440x900 and Pixel 7 dimensions loaded an actual
+  ethanol projection and the ligand editor without viewer errors. Both views
+  fit horizontally; the desktop molecule was correctly framed and the mobile
+  controls were readable and vertically scrollable.
+- Updated the README, HTTP API, project schema, scientific limitations,
+  decisions, and progress documents for the implemented M6 contracts and
+  validation commands.
 
 ## Known limitations
 
@@ -556,6 +582,4 @@ None.
 
 ## Next action
 
-Run the exact Milestone 6 gates, repository-wide regressions, production build,
-responsive browser inspection, and documented normal startup; repair any
-failure before marking the milestone complete.
+Milestone 6 is complete. Begin Milestone 7 only when explicitly requested.

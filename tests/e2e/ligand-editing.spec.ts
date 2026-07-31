@@ -261,3 +261,56 @@ test("edits ligand chemistry, validates failures, and round-trips history", asyn
   await expect(page.locator(".viewer-error")).toBeHidden();
   await expectNonblankCanvas(page);
 });
+
+test("keeps ligand editing functional in the mobile inspector", async ({
+  page,
+  request,
+}, testInfo) => {
+  test.skip(
+    testInfo.project.name !== "mobile-chromium",
+    "Responsive ligand-editor coverage uses the mobile project.",
+  );
+  page.setDefaultTimeout(10_000);
+  const opened = await openImportedLigand(page, request, testInfo);
+  const { entryId } = opened;
+  let state = opened.state;
+  const original = await atoms(request, state.id, entryId);
+
+  await page.getByRole("button", { name: "Inspector" }).click();
+  const inspector = page.getByRole("region", { name: "Project inspector" });
+  await inspector.getByRole("tab", { name: "ligand" }).click();
+  await expect(inspector.getByLabel("Ligand editor")).toBeVisible();
+
+  await inspector
+    .getByRole("combobox", { name: "Existing bond" })
+    .selectOption("2");
+  await inspector
+    .getByRole("combobox", { name: "Order", exact: true })
+    .selectOption("3");
+  await inspector.getByRole("button", { name: "Apply order" }).click();
+  await expect(page.locator(".notice[role='alert']")).toContainText(
+    "Invalid valence",
+  );
+  expect((await project(request, state.id)).revision).toBe(state.revision);
+  expect(await atoms(request, state.id, entryId)).toEqual(original);
+
+  await inspector
+    .getByRole("spinbutton", { name: "X", exact: true })
+    .fill("3.2");
+  await inspector
+    .getByRole("spinbutton", { name: "Y", exact: true })
+    .fill("1");
+  await inspector.getByRole("button", { name: "Add", exact: true }).click();
+  await expect
+    .poll(async () => (await project(request, state.id)).entries[0].atom_ids)
+    .toEqual([1, 2, 3, 4]);
+  state = await project(request, state.id);
+  expect(state.revision).toBe(opened.state.revision + 1);
+  await expect(inspector.getByText("4 atoms / 2 bonds")).toBeVisible();
+
+  expect(
+    await page.locator(".mobile-panel").evaluate(
+      (panel) => panel.scrollWidth <= panel.clientWidth,
+    ),
+  ).toBe(true);
+});

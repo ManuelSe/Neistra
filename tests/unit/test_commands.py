@@ -1,12 +1,14 @@
 from __future__ import annotations
 
+from typing import cast
+
 from tests.support.api_client import ApiClient
 
 
 def create_project(client: ApiClient, name: str = "Kinase study") -> dict[str, object]:
     response = client.post("/api/v1/projects", json={"name": name})
     assert response.status_code == 201
-    return response.json()
+    return cast(dict[str, object], response.json())
 
 
 def seed_entry(client: ApiClient, project_id: str, name: str) -> str:
@@ -15,7 +17,7 @@ def seed_entry(client: ApiClient, project_id: str, name: str) -> str:
         json={"name": name, "structure_type": "protein"},
     )
     assert response.status_code == 201
-    return response.json()["id"]
+    return str(cast(dict[str, object], response.json())["id"])
 
 
 def test_project_update_is_durable_and_reversible(client: ApiClient) -> None:

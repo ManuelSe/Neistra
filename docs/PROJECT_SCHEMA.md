@@ -204,6 +204,19 @@ Complete project mutation responses expose `structure_patches` as a transient
 transport field. It is excluded from `ProjectStateV1`, checkpoints, dirty-state
 comparison, and ordinary project reads.
 
+Ligand-capable structure entries also persist an exact ordered `atom_ids`
+summary plus monotonic `next_atom_id` and `next_bond_id` allocators. Atom count
+is not an identity range once deletions create gaps. Allocators are deliberately
+outside reversible molecular snapshots and never rewind, so an identity issued
+by a successful command is not reused after undo or history branching.
+
+Molecular edit actions store complete before/after normalized artifact
+references and entry summaries. Their mutation, undo, and redo responses expose
+an affected-entry `topology_patches` transport field. The client refetches that
+artifact and replaces only its disposable Mol* structure; the patch is not
+checkpoint state. Migration `0006` initializes exact atom IDs and allocators in
+current entries and retained checkpoint payloads.
+
 ## Artifact Records
 
 Artifact bytes live under the configured managed root. The relational record

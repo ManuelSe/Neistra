@@ -1,6 +1,6 @@
 # MolWeave HTTP API
 
-Status: Milestone 5
+Status: Milestone 6
 
 The local FastAPI application exposes a versioned API under `/api/v1` and
 generates OpenAPI at `/api/v1/openapi.json`. Swagger UI is available at
@@ -17,8 +17,9 @@ generates OpenAPI at `/api/v1/openapi.json`. Swagger UI is available at
 - Molecular parse and format errors use HTTP 422 with file, operation, and
   optional record index. Upload/atom hard limits use HTTP 413.
 - Project responses declare `schema_version: 1`.
-- Mutation, undo, and redo responses may include transient
-  `structure_patches`; ordinary project reads return an empty patch list.
+- Mutation, undo, and redo responses may include transient coordinate
+  `structure_patches` or affected-entry `topology_patches`; ordinary project
+  reads return empty patch lists.
 - Save advances the checkpoint to the working revision without creating a
   reversible edit command.
 
@@ -69,6 +70,7 @@ generates OpenAPI at `/api/v1/openapi.json`. Swagger UI is available at
 | `GET` | `/api/v1/artifacts/{artifact_id}` | Download an immutable generated or original artifact. |
 | `POST` | `/api/v1/projects/{project_id}/contacts` | Find sorted nonbonded close contacts with a spatial index. |
 | `POST` | `/api/v1/projects/{project_id}/entries/{entry_id}/transform` | Translate or rotate a whole entry or selected atoms. |
+| `POST` | `/api/v1/projects/{project_id}/entries/{entry_id}/ligand-edits` | Apply one validated ligand graph, hydrogen, rotation, or cleanup command. |
 | `POST` | `/api/v1/projects/{project_id}/superpositions` | Superpose one protein entry onto another and report RMSD. |
 
 Import is `multipart/form-data` with one or more `files`, required
@@ -207,6 +209,29 @@ Each returned coordinate patch contains `entry_id`, the new authoritative
 coordinates. Patches are response hints for incremental viewers, not stored
 project state. Reloading always reconstructs the same coordinates from the
 entry's current immutable normalized artifact.
+
+## Ligand Edit Contract
+
+Ligand edits use a discriminated `operation` field and always include
+`expected_revision`. Supported operations are `atom.add`, `atom.delete`,
+`atom.element`, `atom.charge`, `bond.add`, `bond.delete`, `bond.order`,
+`hydrogen.add`, `hydrogen.remove`, `bond.rotate`, and
+`coordinates.cleanup`. Atom deletion accepts stable `atom_ids`; bond rotation
+accepts one `bond_id`, an exact movable-side atom-ID set, and a degree angle.
+Cleanup accepts `force_field: "auto" | "mmff" | "uff"`, a bounded iteration
+count, and an optional local atom-ID set.
+
+A successful response contains the revised project, structured molecular
+warnings, and a report listing created, deleted, and changed stable IDs. Cleanup
+also reports the actual `MMFF` or `UFF` method and convergence. Every response
+includes an affected-entry topology patch so the client refetches and replaces
+only that viewer projection.
+
+Invalid valence, unsupported elements or bond orders, unavailable explicitly
+requested force-field parameters, locked entries, ring/terminal/incorrect-side
+bond rotation, and stale revisions fail without publishing an artifact or
+advancing the project revision. Stable per-entry atom and bond allocators do not
+rewind through undo, redo, or a discarded history branch.
 
 ## Errors
 

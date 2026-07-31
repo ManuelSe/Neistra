@@ -4,11 +4,12 @@ from pathlib import Path
 
 import pytest
 from molweave_core.adapters.defaults import create_default_registry
+from molweave_core.molecular import NormalizedStructureV1
 
 FIXTURES = Path(__file__).parents[1] / "fixtures" / "formats"
 
 
-def parse(filename: str):
+def parse(filename: str) -> tuple[NormalizedStructureV1, ...]:
     registry = create_default_registry()
     return (
         registry.for_filename(filename)
