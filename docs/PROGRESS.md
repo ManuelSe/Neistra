@@ -683,6 +683,25 @@ Results:
   scope/filter, deterministic repeated output, multi-record success,
   unsupported format/mode, attributed blocking warnings, and pre-publication
   cancellation with an unchanged artifact count.
+- M8 archive checkpoint: defined validated `ProjectManifestV1` records for
+  source revisions, entries, groups, viewer settings, saved selections,
+  measurements, scenes, and deduplicated original/current artifact content.
+  Archive ZIPs use stable JSON/member ordering and fixed metadata, so repeated
+  exports of one project revision are byte-identical.
+- Archive import validates the complete ZIP and normalized-entry summaries in a
+  child process before publication. It then publishes content and creates a
+  clean revision-zero project atomically, remapping every relational UUID while
+  retaining atom/bond IDs and byte-identical original/current artifacts.
+- Archive validation rejects unsafe absolute, drive, backslash, empty, dot, and
+  parent paths; directories, symlinks, special/encrypted files; duplicate,
+  missing, unexpected, or unreferenced members; compression-ratio/member/
+  compressed/uncompressed/manifest limits; unsupported schema/application
+  shapes; bad hashes/sizes; invalid group or atom references; and normalized
+  summary/media mismatches.
+- Exact archive gates passed both round-trip/cancellation integration workflows
+  and all 11 hostile-archive cases. The 19 existing import/export workflows
+  still pass. Repository-wide Ruff and strict mypy passed all 61 current Python
+  source and test files.
 
 ## Known limitations
 
@@ -726,6 +745,6 @@ None.
 
 ## Next action
 
-Implement and verify `ProjectManifestV1`, deterministic archive export,
-all-or-nothing archive import, relationship remapping, and hostile ZIP
-rejection.
+Build and verify the complete structure/archive export dialog and project
+archive import workflow, including selected/visible scopes, filters, loss
+consent, cancellation, downloads, and responsive failure states.

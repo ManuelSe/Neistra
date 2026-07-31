@@ -741,3 +741,19 @@ class BatchExportRead(BaseModel):
     format: Literal["pdb", "mmcif", "sdf", "mol", "mol2", "xyz", "smiles"]
     mode: Literal["separate", "multi_record"]
     reports: list[ExportEntryReportRead]
+
+
+class ArchiveExportCreate(BaseModel):
+    operation_id: str = Field(min_length=1, max_length=64)
+
+
+class ArchiveExportRead(BaseModel):
+    artifact: ArtifactRead
+    manifest_schema_version: Literal[1] = 1
+    source_revision: int = Field(ge=0)
+
+
+class ArchiveImportRead(BaseModel):
+    project: ProjectRead
+    source_project_id: str
+    source_revision: int = Field(ge=0)

@@ -35,6 +35,15 @@ from sqlalchemy import text
 from sqlalchemy.orm import Session, sessionmaker
 from uuid6 import uuid7
 
+from molweave_api.archive_service import (
+    ArchiveBuildInput,
+    ArchiveLimits,
+    ArchiveValidationError,
+    PreparedArchive,
+    ProjectArchiveService,
+    build_project_archive,
+    read_project_archive,
+)
 from molweave_api.coordinate_service import CoordinateService
 from molweave_api.database import Base, create_database_engine, create_session_factory
 from molweave_api.import_export import (
@@ -46,6 +55,7 @@ from molweave_api.import_export import (
     StructureUnavailableError,
     UploadPayload,
     prepare_uploads,
+    safe_display_filename,
 )
 from molweave_api.ligand_edit_service import LigandEditService
 from molweave_api.project_service import (
@@ -58,6 +68,9 @@ from molweave_api.project_service import (
 )
 from molweave_api.protein_edit_service import ProteinEditService
 from molweave_api.schemas import (
+    ArchiveExportCreate,
+    ArchiveExportRead,
+    ArchiveImportRead,
     ArtifactRead,
     BatchExportCreate,
     BatchExportRead,
@@ -280,6 +293,96 @@ async def _prepare_export_cancellable(
         receiver.close()
 
 
+def _build_archive_child(
+    connection: Connection,
+    build: ArchiveBuildInput,
+) -> None:
+    try:
+        connection.send(("result", build_project_archive(build)))
+    except ArchiveValidationError as error:
+        connection.send(
+            (
+                "archive_error",
+                {
+                    "code": error.code,
+                    "message": error.message,
+                    "status_code": error.status_code,
+                },
+            )
+        )
+    except BaseException as error:
+        connection.send(("worker_error", f"{type(error).__name__}: {error}"))
+    finally:
+        connection.close()
+
+
+def _read_archive_child(
+    connection: Connection,
+    data: bytes,
+    limits: ArchiveLimits,
+) -> None:
+    try:
+        connection.send(("result", read_project_archive(data, limits)))
+    except ArchiveValidationError as error:
+        connection.send(
+            (
+                "archive_error",
+                {
+                    "code": error.code,
+                    "message": error.message,
+                    "status_code": error.status_code,
+                },
+            )
+        )
+    except BaseException as error:
+        connection.send(("worker_error", f"{type(error).__name__}: {error}"))
+    finally:
+        connection.close()
+
+
+async def _archive_child_cancellable(
+    target: Callable[..., None],
+    args: tuple[object, ...],
+    *,
+    is_cancelled: Callable[[], bool],
+    cancelled_code: str,
+    cancelled_message: str,
+) -> object:
+    receiver, sender = multiprocessing.Pipe(duplex=False)
+    process = multiprocessing.Process(
+        target=target,
+        args=(sender, *args),
+        daemon=True,
+    )
+    process.start()
+    sender.close()
+    try:
+        while process.is_alive() and not receiver.poll():
+            if is_cancelled():
+                process.terminate()
+                process.join(timeout=2)
+                raise _error(499, cancelled_code, cancelled_message)
+            await asyncio.sleep(0.025)
+        if not receiver.poll():
+            raise _error(
+                422,
+                "archive_worker_failed",
+                "The archive worker stopped without returning a result.",
+            )
+        kind, payload = receiver.recv()
+        process.join(timeout=2)
+        if kind == "archive_error":
+            raise _archive_http_error(ArchiveValidationError(**payload))
+        if kind == "worker_error":
+            raise _error(422, "archive_worker_failed", f"Archive operation failed: {payload}")
+        return payload
+    finally:
+        if process.is_alive():
+            process.terminate()
+            process.join(timeout=2)
+        receiver.close()
+
+
 def _error(status_code: int, code: str, message: str) -> HTTPException:
     return HTTPException(status_code=status_code, detail={"code": code, "message": message})
 
@@ -301,6 +404,10 @@ def _limit_http_error(error: ImportLimitError) -> HTTPException:
     if error.filename is not None:
         detail["filename"] = error.filename
     return HTTPException(status_code=413, detail=detail)
+
+
+def _archive_http_error(error: ArchiveValidationError) -> HTTPException:
+    return _error(error.status_code, error.code, error.message)
 
 
 async def _session(factory: sessionmaker[Session]) -> AsyncIterator[Session]:
@@ -978,6 +1085,116 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         app.state.cancelled_exports[operation_id] = now
         return {"status": "cancelled"}
 
+    @router.post(
+        "/projects/{project_id}/archive",
+        response_model=ArchiveExportRead,
+        status_code=status.HTTP_201_CREATED,
+    )
+    async def export_project_archive(
+        project_id: str,
+        payload: ArchiveExportCreate,
+        request: Request,
+        session: Session = Depends(session_dependency),
+    ) -> ArchiveExportRead:
+        service = ProjectArchiveService(session, app_settings)
+        try:
+            source = _call(lambda: service.export_source(project_id))
+            prepared = cast(
+                bytes,
+                await _archive_child_cancellable(
+                    _build_archive_child,
+                    (source,),
+                    is_cancelled=lambda: (
+                        payload.operation_id in app.state.cancelled_exports
+                    ),
+                    cancelled_code="export_cancelled",
+                    cancelled_message=(
+                        "Project archive export was cancelled before publication."
+                    ),
+                ),
+            )
+            if (
+                payload.operation_id in app.state.cancelled_exports
+                or await request.is_disconnected()
+            ):
+                raise _error(
+                    499,
+                    "export_cancelled",
+                    "Project archive export was cancelled before publication.",
+                )
+            return _call(
+                lambda: service.publish_export(
+                    source.manifest.name,
+                    source.manifest.source_revision,
+                    prepared,
+                )
+            )
+        finally:
+            app.state.cancelled_exports.pop(payload.operation_id, None)
+
+    @router.post(
+        "/projects/import-archive",
+        response_model=ArchiveImportRead,
+        status_code=status.HTTP_201_CREATED,
+    )
+    async def import_project_archive(
+        request: Request,
+        file: UploadFile = File(...),
+        operation_id: str | None = Form(None, max_length=64),
+        session: Session = Depends(session_dependency),
+    ) -> ArchiveImportRead:
+        import_id = operation_id or str(uuid7())
+        filename = safe_display_filename(file.filename or "project.molweave.zip")
+        if not filename.casefold().endswith(".molweave.zip"):
+            raise _error(
+                422,
+                "unsupported_project_archive_extension",
+                "Project archives must use the .molweave.zip extension.",
+            )
+        chunks: list[bytes] = []
+        archive_size = 0
+        while chunk := await file.read(1024 * 1024):
+            if await request.is_disconnected():
+                raise _error(499, "import_cancelled", "Archive import was cancelled.")
+            archive_size += len(chunk)
+            if archive_size > app_settings.max_archive_upload_bytes:
+                raise _error(
+                    413,
+                    "archive_upload_too_large",
+                    (
+                        "Archive exceeds the compressed limit of "
+                        f"{app_settings.max_archive_upload_bytes} bytes."
+                    ),
+                )
+            chunks.append(chunk)
+        try:
+            prepared = cast(
+                PreparedArchive,
+                await _archive_child_cancellable(
+                    _read_archive_child,
+                    (
+                        b"".join(chunks),
+                        ArchiveLimits.from_settings(app_settings),
+                    ),
+                    is_cancelled=lambda: import_id in app.state.cancelled_imports,
+                    cancelled_code="import_cancelled",
+                    cancelled_message="Archive import was cancelled before commit.",
+                ),
+            )
+            if import_id in app.state.cancelled_imports or await request.is_disconnected():
+                raise _error(
+                    499,
+                    "import_cancelled",
+                    "Archive import was cancelled before commit.",
+                )
+            return _call(
+                lambda: ProjectArchiveService(
+                    session, app_settings
+                ).import_archive(prepared)
+            )
+        finally:
+            app.state.cancelled_imports.pop(import_id, None)
+
     @router.get("/artifacts/{artifact_id}")
     async def get_artifact(
         artifact_id: str,
@@ -1033,6 +1250,8 @@ def _call[ResultT](operation: Callable[[], ResultT]) -> ResultT:
         raise _error(422, "invalid_project_operation", str(error)) from error
     except ExportPolicyError as error:
         raise _error(422, error.code, error.message) from error
+    except ArchiveValidationError as error:
+        raise _archive_http_error(error) from error
     except AdapterError as error:
         raise _adapter_http_error(error) from error
     except ImportLimitError as error:

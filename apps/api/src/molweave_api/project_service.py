@@ -168,6 +168,11 @@ def _project_state(project: Project) -> dict[str, Any]:
     }
 
 
+def project_state(project: Project) -> dict[str, Any]:
+    """Return the canonical checkpoint state for persistence transports."""
+    return _project_state(project)
+
+
 def _history(session: Session, project_id: str) -> HistoryRead:
     applied = session.scalar(
         select(CommandRecord)
