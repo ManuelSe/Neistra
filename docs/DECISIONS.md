@@ -1401,3 +1401,74 @@ Consequences:
 - Event and related job-state changes remain in the same transaction.
 - A two-session barrier integration test protects the concurrency behavior;
   the database uniqueness constraint remains a final integrity guard.
+
+## D-040 - One-command local process supervision
+
+Status: accepted
+
+Decision:
+
+Expose `corepack pnpm dev` as the normal post-setup local startup command. A
+dependency-free Node supervisor applies Alembic migrations and then launches
+Uvicorn, the coordinating job worker, and Vite as distinct child processes with
+the same data, plugin, and Python-path configuration. It waits for API and web
+readiness, prefixes logs, and stops the complete child process groups when one
+service fails or the developer interrupts the command.
+
+Keep the existing manual commands documented as a troubleshooting path. Do not
+install dependencies, open a browser, enable test routes, or enable Uvicorn
+reload during normal startup. Permit explicit API and web port overrides while
+retaining 8000 and 5173 as defaults.
+
+Rationale:
+
+Local use should require one memorable command without collapsing the worker
+into the request process or weakening the tested deployment boundaries. Node
+22 is already a required cross-platform runtime, and built-in process APIs avoid
+adding a process-manager dependency solely for development orchestration.
+
+Consequences:
+
+- One-time frozen dependency installation remains explicit and separate from
+  everyday startup.
+- Migration failure, port conflicts, and unexpected child exits fail the whole
+  supervised session instead of leaving a partially working application.
+- Frontend hot reload remains available through Vite; Python changes require a
+  deliberate restart of the supervised command.
+- The API and worker remain independently runnable and continue to load plugin
+  registries in separate processes.
+
+## D-041 - Application-owned Mol* canvas appearance
+
+Status: accepted
+
+Decision:
+
+Project the persisted local workspace theme into Mol* through the typed
+`MolecularViewer` boundary as a transient background color. Apply the initial
+color before Mol* renders its UI, retain it across lazy engine loading, and
+update the existing Canvas3D renderer in place when the theme changes. Use the
+same light and dark colors as the surrounding structure-viewer surface and keep
+the WebGL background opaque.
+
+Do not add the workspace theme or canvas background to project viewer settings,
+named scenes, command history, archives, or Mol* snapshots. A theme change must
+not reload structures, rebuild representations, reset the camera or selection,
+or mark a project dirty.
+
+Rationale:
+
+The theme is already an application-owned persisted browser preference rather
+than molecular project state. Explicitly projecting its color through the
+viewer adapter removes the bright default Mol* canvas in dark mode while
+preserving the existing renderer ownership boundary and opaque screenshot,
+postprocessing, and pixel-test behavior.
+
+Consequences:
+
+- Both initially restored dark mode and live theme changes reach the Mol*
+  renderer without a white first frame.
+- Viewer implementations must accept background-color updates before and after
+  mounting.
+- Canvas appearance follows the local user preference independently of durable
+  scientific and scene state.

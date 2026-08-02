@@ -47,6 +47,7 @@ interface LoadedStructure {
 
 export class MolstarEngine implements MolecularViewer {
   private plugin: PluginUIContext | undefined;
+  private backgroundColor = "#eef2f1";
   private syncQueue: Promise<void> = Promise.resolve();
   private generation = 0;
   private pickingGranularity: SelectionGranularity = "atom";
@@ -85,6 +86,12 @@ export class MolstarEngine implements MolecularViewer {
           remoteState: "none",
           disableDragOverlay: true,
         },
+      },
+      onBeforeUIRender: (plugin) => {
+        plugin.canvas3d?.setProps({
+          renderer: { backgroundColor: Color.fromHexStyle(this.backgroundColor) },
+          transparentBackground: false,
+        });
       },
     });
     if (!this.plugin.canvas3d) {
@@ -143,6 +150,14 @@ export class MolstarEngine implements MolecularViewer {
     this.cameraSubscription = this.plugin.canvas3d.camera.changed.subscribe(() => {
       const camera = this.getCamera();
       if (camera) for (const listener of this.cameraListeners) listener(camera);
+    });
+  }
+
+  setBackgroundColor(cssColor: string): void {
+    this.backgroundColor = cssColor;
+    this.plugin?.canvas3d?.setProps({
+      renderer: { backgroundColor: Color.fromHexStyle(cssColor) },
+      transparentBackground: false,
     });
   }
 

@@ -2,13 +2,30 @@
 
 ## Current milestone
 
-Milestone 10 - Release hardening and documentation
+Post-v0.1 usability - theme-synchronized molecular canvas
 
-Complete. All M10 acceptance criteria and the complete lint, type-check, unit,
-build, browser, clean-migration, and documented-startup gates pass.
+Complete. The Mol* canvas follows initial and live workspace theme changes, and
+all relevant component, build, and real-WebGL validation gates pass.
 
 ## Completed work
 
+- Added application-owned Mol* canvas appearance through the typed viewer
+  boundary, using the existing light `#eef2f1` and dark `#11191b` surface
+  colors.
+- Applied the initial background before Mol* UI rendering and forwarded live
+  theme changes without remounting the viewer, rebuilding structures, or
+  changing durable viewer/project state.
+- Added lazy-adapter and StructureViewer coverage for pre-mount color retention,
+  live forwarding, and stable viewer/structure synchronization.
+- Added `corepack pnpm dev` as a dependency-free cross-platform supervisor for
+  Alembic migration, Uvicorn, the standalone job worker, and Vite.
+- Added prefixed service logs, API/web readiness checks, strict configurable
+  ports, prerequisite diagnostics, failure propagation, and coordinated child
+  process shutdown without changing the API/worker process boundary.
+- Added supervisor tests for command construction, environment overrides,
+  cross-platform paths, invalid ports, readiness retry, and child termination.
+- Promoted single-command startup in the README and development guide while
+  retaining the exact manual troubleshooting path.
 - Created the project-local `.venv` and installed `uv` inside it. All Python
   commands use `.venv/bin/...`.
 - Added the root Python project, locked dependencies, Ruff, mypy, and Pytest
@@ -273,6 +290,31 @@ build, browser, clean-migration, and documented-startup gates pass.
   affected-entry topology replacement without a full scene synchronization.
 
 ## Verification performed
+
+- Frontend ESLint and TypeScript pass; all 45 Vitest tests pass, including
+  initial background propagation, lazy-engine forwarding, live theme changes,
+  and assertions that theme updates do not remount or resynchronize Mol*.
+- The focused Chromium viewer-controls workflow passes both applicable cases.
+  Real WebGL background-pixel luminance changes from light to dark and back,
+  while two loaded structures remain present; the existing representation,
+  navigation, isolation, scene, and WebGL-failure checks also pass.
+- The production Vite build passes with Mol* remaining in its lazy chunk, and
+  `git diff --check` reports no whitespace errors.
+- Supervisor syntax and all 7 Node tests pass, covering default and overridden
+  commands, Windows/POSIX path construction, invalid configuration,
+  prerequisite diagnostics, migration failure, readiness retry, and child
+  termination. `git diff --check` reports no whitespace errors.
+- An isolated `corepack pnpm dev` smoke run migrated a temporary database from
+  empty state through `0007 (head)`, started the API on port 18080, worker health
+  endpoint on 18081, and Vite on 15173, reported readiness, and returned 200
+  from all three processes. Ctrl+C removed all three listeners without touching
+  the normal `.molweave` data root.
+- Repository Ruff and strict mypy pass; all 170 Python tests pass. Frontend
+  ESLint, TypeScript, all 44 Vitest tests, and the production Vite build pass.
+- The focused Chromium demonstration-job workflow passes completion, failure,
+  cancellation, artifact download, result import, and undo against an isolated
+  migrated API, standalone worker, and Vite server (`1 passed`, `1` intentionally
+  inapplicable mobile test skipped under the Chromium desktop project).
 
 Successful through 2026-07-31:
 
@@ -1057,5 +1099,4 @@ None.
 
 ## Next action
 
-None. Milestone 10 is complete; the next work should begin from a separately
-defined post-v0.1 milestone.
+None. The post-v0.1 theme-synchronized molecular canvas milestone is complete.

@@ -722,6 +722,7 @@ export default function App() {
             <>
               <WorkspaceCanvas
                 project={project}
+                theme={theme}
                 selection={selection}
                 pickingGranularity={pickingGranularity}
                 onViewerSelection={applySelection}
@@ -847,6 +848,7 @@ export default function App() {
                   <Panel id="molecular-viewer-panel" defaultSize={verticalLayout[0]} minSize={45}>
                     <WorkspaceCanvas
                       project={project}
+                      theme={theme}
                       selection={selection}
                       pickingGranularity={pickingGranularity}
                       onViewerSelection={applySelection}

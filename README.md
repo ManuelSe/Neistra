@@ -30,7 +30,24 @@ MOLWEAVE_DATA_DIR=.molweave .venv/bin/alembic upgrade head
 
 ## Start Locally
 
-Run the API, job worker, and web client in separate terminals:
+After completing setup, migrate and start the API, job worker, and web client
+with one command:
+
+```bash
+corepack pnpm dev
+```
+
+Open [http://127.0.0.1:5173](http://127.0.0.1:5173). Interactive API
+documentation is at [http://127.0.0.1:8000/api/docs](http://127.0.0.1:8000/api/docs).
+The command prefixes service logs and stops all three processes together when
+you press Ctrl+C.
+
+For troubleshooting, the equivalent processes can still be run in separate
+terminals after applying migrations manually:
+
+```bash
+MOLWEAVE_DATA_DIR=.molweave .venv/bin/uv run alembic upgrade head
+```
 
 ```bash
 PYTHONPATH=apps/api/src:packages/molweave_core/src:packages/molweave_demo_plugin/src \
@@ -46,9 +63,6 @@ PYTHONPATH=apps/api/src:packages/molweave_core/src:packages/molweave_demo_plugin
 ```bash
 corepack pnpm --dir apps/web dev
 ```
-
-Open [http://127.0.0.1:5173](http://127.0.0.1:5173). Interactive API
-documentation is at [http://127.0.0.1:8000/api/docs](http://127.0.0.1:8000/api/docs).
 
 ## Architecture
 
@@ -110,6 +124,7 @@ MOLWEAVE_DATA_DIR=.molweave .venv/bin/uv run alembic upgrade head
 corepack pnpm --dir apps/web lint
 corepack pnpm --dir apps/web typecheck
 corepack pnpm --dir apps/web test
+corepack pnpm test:dev
 corepack pnpm --dir apps/web build
 PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test
 ```

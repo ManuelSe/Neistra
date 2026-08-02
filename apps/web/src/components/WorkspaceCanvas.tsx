@@ -9,10 +9,12 @@ import type {
   SelectionMode,
   ViewerSettings,
 } from "../api/types";
+import type { Theme } from "../store/workspace";
 import { StructureViewer } from "./StructureViewer";
 
 interface WorkspaceCanvasProps {
   project: Project | undefined;
+  theme: Theme;
   selection: Selection;
   pickingGranularity: SelectionGranularity;
   onViewerSelection: (selection: Selection, mode: SelectionMode) => void;
@@ -29,6 +31,7 @@ interface WorkspaceCanvasProps {
 
 export function WorkspaceCanvas({
   project,
+  theme,
   selection,
   pickingGranularity,
   onViewerSelection,
@@ -86,6 +89,7 @@ export function WorkspaceCanvas({
       ) : (
         <StructureViewer
           project={project}
+          theme={theme}
           selection={selection}
           pickingGranularity={pickingGranularity}
           onViewerSelection={onViewerSelection}

@@ -23,10 +23,17 @@ import type {
 } from "../viewer/MolecularViewer";
 import { createMolstarViewer } from "../viewer/MolstarViewer";
 import { formatMeasurement, measurementValue } from "../measurements/geometry";
+import type { Theme } from "../store/workspace";
 import { ViewerControls } from "./ViewerControls";
+
+const VIEWER_BACKGROUND_COLORS: Record<Theme, string> = {
+  light: "#eef2f1",
+  dark: "#11191b",
+};
 
 interface StructureViewerProps {
   project: Project;
+  theme: Theme;
   selection: Selection;
   pickingGranularity: SelectionGranularity;
   onViewerSelection: (selection: Selection, mode: SelectionMode) => void;
@@ -41,6 +48,7 @@ interface StructureViewerProps {
 
 export function StructureViewer({
   project,
+  theme,
   selection,
   pickingGranularity,
   onViewerSelection,
@@ -54,6 +62,8 @@ export function StructureViewer({
 }: StructureViewerProps) {
   const targetRef = useRef<HTMLDivElement>(null);
   const viewerRef = useRef<MolecularViewer | undefined>(undefined);
+  const themeRef = useRef(theme);
+  themeRef.current = theme;
   const onViewerSelectionRef = useRef(onViewerSelection);
   const viewerStructuresRef = useRef<ViewerStructure[]>([]);
   const appliedArtifactsRef = useRef(new Map<string, string>());
@@ -87,6 +97,7 @@ export function StructureViewer({
     if (!target) return;
     const viewer = createViewer();
     viewerRef.current = viewer;
+    viewer.setBackgroundColor(VIEWER_BACKGROUND_COLORS[themeRef.current]);
     let active = true;
     void viewer
       .mount(target)
@@ -125,6 +136,10 @@ export function StructureViewer({
       viewerRef.current = undefined;
     };
   }, [createViewer]);
+
+  useEffect(() => {
+    viewerRef.current?.setBackgroundColor(VIEWER_BACKGROUND_COLORS[theme]);
+  }, [theme]);
 
   const viewerStructures = useMemo(
     () =>

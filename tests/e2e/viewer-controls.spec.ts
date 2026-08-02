@@ -141,6 +141,31 @@ test("applies complete representations, navigation, isolation, and named scenes"
   });
   expect(pixels).toBeGreaterThan(0);
 
+  const backgroundLuminance = () =>
+    canvas.evaluate((element: HTMLCanvasElement) => {
+      const context = element.getContext("webgl2") ?? element.getContext("webgl");
+      if (!context) return -1;
+      const data = new Uint8Array(4);
+      context.readPixels(
+        2,
+        2,
+        1,
+        1,
+        context.RGBA,
+        context.UNSIGNED_BYTE,
+        data,
+      );
+      return data[0] + data[1] + data[2];
+    });
+  await expect.poll(backgroundLuminance).toBeGreaterThan(600);
+  await page.getByRole("button", { name: "Use dark theme" }).click();
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+  await expect.poll(backgroundLuminance).toBeLessThan(150);
+  await expect(page.locator(".viewer-status")).toContainText("2 visible / 2 loaded");
+  await page.getByRole("button", { name: "Use light theme" }).click();
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
+  await expect.poll(backgroundLuminance).toBeGreaterThan(600);
+
   await page.getByRole("button", { name: "Open viewer controls" }).click();
   await page.getByLabel("Controlled structure").selectOption(protein!.id);
   await expect(page.getByLabel(`Representation style for ${protein!.name}`)).toHaveCount(7);

@@ -14,6 +14,7 @@ import type {
 class LazyMolstarViewer implements MolecularViewer {
   private engine: MolecularViewer | undefined;
   private disposed = false;
+  private backgroundColor = "#eef2f1";
   private selection: AtomReference[] = [];
   private pickingGranularity: SelectionGranularity = "atom";
   private selectionListeners = new Set<(event: ViewerSelectionEvent) => void>();
@@ -24,6 +25,7 @@ class LazyMolstarViewer implements MolecularViewer {
     const { MolstarEngine } = await import("./MolstarEngine");
     if (this.disposed) return;
     this.engine = new MolstarEngine();
+    this.engine.setBackgroundColor(this.backgroundColor);
     await this.engine.mount(target);
     this.engine.setPickingGranularity(this.pickingGranularity);
     this.engine.setSelection(this.selection);
@@ -35,6 +37,11 @@ class LazyMolstarViewer implements MolecularViewer {
         this.engine!.subscribeCamera(listener),
       ),
     );
+  }
+
+  setBackgroundColor(cssColor: string): void {
+    this.backgroundColor = cssColor;
+    this.engine?.setBackgroundColor(cssColor);
   }
 
   syncStructures(structures: ViewerStructure[]): Promise<void> {

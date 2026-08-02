@@ -27,7 +27,25 @@ artifacts, job work directories, and worker state and is ignored by Git.
 
 ## Local Processes
 
-Start these three long-running commands in separate terminals:
+The normal development startup applies pending database migrations, starts the
+API, standalone job worker, and Vite client, waits for the API and web client to
+be ready, and supervises their shutdown:
+
+```bash
+corepack pnpm dev
+```
+
+Open `http://127.0.0.1:5173`. Press Ctrl+C in the startup terminal to stop all
+three services. Vite reloads frontend changes; the API deliberately retains the
+tested non-reloading startup behavior and must be restarted after Python
+changes.
+
+For process-level troubleshooting, run the migration and three long-running
+commands manually in separate terminals:
+
+```bash
+MOLWEAVE_DATA_DIR=.molweave .venv/bin/uv run alembic upgrade head
+```
 
 ```bash
 PYTHONPATH=apps/api/src:packages/molweave_core/src:packages/molweave_demo_plugin/src \
@@ -44,7 +62,7 @@ PYTHONPATH=apps/api/src:packages/molweave_core/src:packages/molweave_demo_plugin
 corepack pnpm --dir apps/web dev
 ```
 
-Open `http://127.0.0.1:5173`. Verify the API independently with:
+Verify the API independently with:
 
 ```bash
 curl --fail http://127.0.0.1:8000/api/v1/health
@@ -69,6 +87,7 @@ MOLWEAVE_DATA_DIR=.molweave .venv/bin/uv run alembic upgrade head
 corepack pnpm --dir apps/web lint
 corepack pnpm --dir apps/web typecheck
 corepack pnpm --dir apps/web test
+corepack pnpm test:dev
 corepack pnpm --dir apps/web build
 PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test
 ```
@@ -88,10 +107,13 @@ run. Do not add `MOLWEAVE_ENABLE_TEST_ROUTES=1` to normal startup.
 ## Configuration
 
 `MOLWEAVE_DATA_DIR` changes the managed root. `MOLWEAVE_DATABASE_URL` can
-replace the default SQLite URL. Import/archive byte limits, atom warning/hard
-limits, worker polling, plugin allowlist/targets, and optional worker health
-port are defined in `apps/api/src/molweave_api/settings.py`. API and worker must
-use the same data directory and plugin configuration.
+replace the default SQLite URL. `MOLWEAVE_API_PORT` and `MOLWEAVE_WEB_PORT`
+change the single-command supervisor ports from their defaults of 8000 and
+5173; the Vite proxy follows the selected API port unless `VITE_API_TARGET` is
+set explicitly. Import/archive byte limits, atom warning/hard limits, worker
+polling, plugin allowlist/targets, and optional worker health port are defined
+in `apps/api/src/molweave_api/settings.py`. API and worker must use the same data
+directory and plugin configuration.
 
 ## Troubleshooting
 
@@ -107,6 +129,14 @@ not remove a state directory containing projects that must be retained.
 Check `/api/v1/health`, inspect the Uvicorn terminal, and confirm port 8000 is
 free. Vite proxies `/api` and `/ws` to `http://127.0.0.1:8000` by default; set
 `VITE_API_TARGET` when using another API address.
+
+### Single-command startup exits
+
+Read the final prefixed service error. The supervisor exits if migration fails,
+if a configured port is already occupied, or if any child process stops. Run
+the manual commands above when a service needs to be diagnosed independently.
+Missing-environment and missing-dependency errors include the exact one-time
+setup command to run.
 
 ### Jobs remain queued
 

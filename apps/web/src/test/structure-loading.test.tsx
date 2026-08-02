@@ -114,7 +114,9 @@ function projection(entryId: string): StructureProjection {
 
 class FakeViewer implements MolecularViewer {
   mounted = false;
+  mounts = 0;
   disposed = false;
+  backgroundColors: string[] = [];
   syncs: ViewerStructure[][] = [];
   replacements: ViewerStructure[] = [];
   selections: AtomReference[][] = [];
@@ -133,7 +135,12 @@ class FakeViewer implements MolecularViewer {
 
   mount(): Promise<void> {
     this.mounted = true;
+    this.mounts += 1;
     return Promise.resolve();
+  }
+
+  setBackgroundColor(cssColor: string): void {
+    this.backgroundColors.push(cssColor);
   }
 
   syncStructures(structures: ViewerStructure[]): Promise<void> {
@@ -242,6 +249,7 @@ describe("lazy structure loading", () => {
     const { rerender, unmount } = render(
       <StructureViewer
         project={project()}
+        theme="light"
         selection={emptySelection}
         pickingGranularity="atom"
         onViewerSelection={() => undefined}
@@ -259,6 +267,7 @@ describe("lazy structure loading", () => {
     rerender(
       <StructureViewer
         project={project(true, true)}
+        theme="light"
         selection={emptySelection}
         pickingGranularity="atom"
         onViewerSelection={() => undefined}
@@ -276,6 +285,7 @@ describe("lazy structure loading", () => {
     rerender(
       <StructureViewer
         project={project(false, false)}
+        theme="light"
         selection={emptySelection}
         pickingGranularity="atom"
         onViewerSelection={() => undefined}
@@ -313,6 +323,7 @@ describe("lazy structure loading", () => {
     render(
       <StructureViewer
         project={project()}
+        theme="light"
         selection={emptySelection}
         pickingGranularity="atom"
         onViewerSelection={() => undefined}
@@ -353,6 +364,7 @@ describe("lazy structure loading", () => {
     const { rerender } = render(
       <StructureViewer
         project={project()}
+        theme="light"
         selection={selected}
         pickingGranularity="residue"
         onViewerSelection={onViewerSelection}
@@ -379,6 +391,7 @@ describe("lazy structure loading", () => {
     rerender(
       <StructureViewer
         project={project()}
+        theme="light"
         selection={{ ...selected, atoms: [] }}
         pickingGranularity="chain"
         onViewerSelection={onViewerSelection}
@@ -414,6 +427,7 @@ describe("lazy structure loading", () => {
     const view = render(
       <StructureViewer
         project={initial}
+        theme="light"
         selection={emptySelection}
         pickingGranularity="atom"
         onViewerSelection={() => undefined}
@@ -447,6 +461,7 @@ describe("lazy structure loading", () => {
     view.rerender(
       <StructureViewer
         project={next}
+        theme="light"
         selection={emptySelection}
         pickingGranularity="atom"
         onViewerSelection={() => undefined}
@@ -478,6 +493,7 @@ describe("lazy structure loading", () => {
     const view = render(
       <StructureViewer
         project={initial}
+        theme="light"
         selection={emptySelection}
         pickingGranularity="atom"
         onViewerSelection={() => undefined}
@@ -518,6 +534,7 @@ describe("lazy structure loading", () => {
     view.rerender(
       <StructureViewer
         project={next}
+        theme="light"
         selection={emptySelection}
         pickingGranularity="atom"
         onViewerSelection={() => undefined}
@@ -569,6 +586,7 @@ describe("lazy structure loading", () => {
     render(
       <StructureViewer
         project={large}
+        theme="light"
         selection={emptySelection}
         pickingGranularity="atom"
         onViewerSelection={() => undefined}
@@ -589,6 +607,54 @@ describe("lazy structure loading", () => {
     });
   });
 
+  it("updates the viewer background without remounting or resynchronizing structures", async () => {
+    const fake = new FakeViewer();
+    const createViewer = () => fake;
+    vi.spyOn(globalThis, "fetch").mockResolvedValue(
+      new Response(JSON.stringify(projection("protein")), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      }),
+    );
+    const queryClient = new QueryClient({
+      defaultOptions: { queries: { retry: false } },
+    });
+    const view = render(
+      <StructureViewer
+        project={project()}
+        theme="dark"
+        selection={emptySelection}
+        pickingGranularity="atom"
+        onViewerSelection={() => undefined}
+        createViewer={createViewer}
+      />,
+      { wrapper: wrapper(queryClient) },
+    );
+
+    await waitFor(() => {
+      expect(fake.syncs).toHaveLength(1);
+    });
+    expect(fake.backgroundColors[0]).toBe("#11191b");
+    const syncCount = fake.syncs.length;
+
+    view.rerender(
+      <StructureViewer
+        project={project()}
+        theme="light"
+        selection={emptySelection}
+        pickingGranularity="atom"
+        onViewerSelection={() => undefined}
+        createViewer={createViewer}
+      />,
+    );
+
+    await waitFor(() => {
+      expect(fake.backgroundColors.at(-1)).toBe("#eef2f1");
+    });
+    expect(fake.mounts).toBe(1);
+    expect(fake.syncs).toHaveLength(syncCount);
+  });
+
   it("surfaces viewer startup failures without hiding project status", async () => {
     const fake = new FakeViewer();
     fake.mount = () => Promise.reject(new Error("WebGL is unavailable."));
@@ -604,6 +670,7 @@ describe("lazy structure loading", () => {
     render(
       <StructureViewer
         project={project()}
+        theme="light"
         selection={emptySelection}
         pickingGranularity="atom"
         onViewerSelection={() => undefined}

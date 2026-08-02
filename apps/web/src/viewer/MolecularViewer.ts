@@ -27,6 +27,7 @@ export interface ViewerSelectionEvent {
 
 export interface MolecularViewer {
   mount(target: HTMLElement): Promise<void>;
+  setBackgroundColor(cssColor: string): void;
   syncStructures(structures: ViewerStructure[]): Promise<void>;
   replaceStructure(structure: ViewerStructure): Promise<void>;
   applyCoordinatePatch(

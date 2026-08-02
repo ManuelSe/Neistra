@@ -4,6 +4,7 @@ import { proteinStructure, viewerSettings } from "./molecular-fixtures";
 
 const calls = vi.hoisted(() => ({
   mount: vi.fn(),
+  background: vi.fn(),
   sync: vi.fn(),
   selection: vi.fn(),
   granularity: vi.fn(),
@@ -26,6 +27,10 @@ vi.mock("../viewer/MolstarEngine", () => ({
     mount(target: HTMLElement) {
       calls.mount(target);
       return Promise.resolve();
+    }
+
+    setBackgroundColor(cssColor: string) {
+      calls.background(cssColor);
     }
 
     syncStructures(structures: ViewerStructure[]) {
@@ -109,15 +114,21 @@ describe("MolecularViewer Molstar adapter", () => {
     const listener = vi.fn();
 
     expect(calls.mount).not.toHaveBeenCalled();
+    viewer.setBackgroundColor("#11191b");
     viewer.setPickingGranularity("chain");
     viewer.setSelection([{ structure_id: "protein", atom_id: 10 }]);
     viewer.subscribeSelection(listener);
     await viewer.mount(target);
+    viewer.setBackgroundColor("#eef2f1");
     await viewer.syncStructures(structures);
     viewer.resize();
     viewer.dispose();
 
     expect(calls.mount).toHaveBeenCalledWith(target);
+    expect(calls.background.mock.calls).toEqual([["#11191b"], ["#eef2f1"]]);
+    expect(calls.background.mock.invocationCallOrder[0]).toBeLessThan(
+      calls.mount.mock.invocationCallOrder[0],
+    );
     expect(calls.granularity).toHaveBeenCalledWith("chain");
     expect(calls.selection).toHaveBeenCalledWith([
       { structure_id: "protein", atom_id: 10 },
