@@ -1472,3 +1472,31 @@ Consequences:
   mounting.
 - Canvas appearance follows the local user preference independently of durable
   scientific and scene state.
+
+## D-042 - Archive schema governs structural compatibility
+
+Status: accepted
+
+Decision:
+
+Use `ProjectManifestV1.schema_version` as the archive structural compatibility
+gate. Retain `application_version` as required, validated semantic-version
+producer provenance, but do not require it to equal the importing MolWeave
+release. Keep strict rejection for unknown archive schema versions and malformed
+application-version values.
+
+Rationale:
+
+A patch release that does not change the manifest contract must be able to read
+archives from the preceding patch release. Exact application-version matching
+would incorrectly make compatible 0.1.0 archives unreadable in 0.1.1 and couple
+data compatibility to release metadata instead of the explicitly versioned
+schema.
+
+Consequences:
+
+- Valid 0.1.0 archives import under 0.1.1 without migration or data loss.
+- New archives continue to record the producing application version.
+- A future incompatible archive shape requires a new schema version and an
+  explicit migration or rejection policy; changing only the application
+  version cannot silently redefine the schema.

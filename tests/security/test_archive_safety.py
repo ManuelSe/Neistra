@@ -165,6 +165,55 @@ def test_rejects_unsupported_schema_hash_and_member_mismatch(
     assert missing_error.value.code == "archive_member_mismatch"
 
 
+@pytest.mark.parametrize(
+    "application_version",
+    ["0.1.0", "0.1.1", "1.0.0-rc.1+build.5"],
+)
+def test_accepts_semantic_application_version_provenance(
+    client: ApiClient,
+    application_version: str,
+) -> None:
+    source = mutate_manifest(
+        valid_archive(client),
+        lambda manifest: manifest.__setitem__("application_version", application_version),
+    )
+
+    prepared = read_project_archive(source, LIMITS)
+
+    assert prepared.manifest.application_version == application_version
+
+
+@pytest.mark.parametrize(
+    "application_version",
+    ["", "0.1", "v0.1.0", "01.1.0", "1.0.0-", "1.0.0-01"],
+)
+def test_rejects_malformed_application_version_provenance(
+    client: ApiClient,
+    application_version: str,
+) -> None:
+    source = mutate_manifest(
+        valid_archive(client),
+        lambda manifest: manifest.__setitem__("application_version", application_version),
+    )
+
+    with pytest.raises(ArchiveValidationError) as invalid:
+        read_project_archive(source, LIMITS)
+
+    assert invalid.value.code == "invalid_archive_manifest"
+
+
+def test_rejects_missing_application_version_provenance(client: ApiClient) -> None:
+    source = mutate_manifest(
+        valid_archive(client),
+        lambda manifest: manifest.pop("application_version"),
+    )
+
+    with pytest.raises(ArchiveValidationError) as invalid:
+        read_project_archive(source, LIMITS)
+
+    assert invalid.value.code == "invalid_archive_manifest"
+
+
 def test_api_rejects_invalid_archive_without_creating_project(client: ApiClient) -> None:
     source = valid_archive(client)
     corrupted = mutate_manifest(

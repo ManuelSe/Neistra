@@ -1,9 +1,13 @@
 from __future__ import annotations
 
+import io
+import json
+import zipfile
 from pathlib import Path
 from typing import Any, cast
 
 import httpx
+from molweave_api.archive_service import APPLICATION_VERSION
 
 from tests.support.api_client import ApiClient
 
@@ -141,6 +145,28 @@ def import_archive(client: ApiClient, data: bytes) -> dict[str, Any]:
     return cast(dict[str, Any], response.json())
 
 
+def archive_manifest(data: bytes) -> dict[str, Any]:
+    with zipfile.ZipFile(io.BytesIO(data)) as archive:
+        return cast(dict[str, Any], json.loads(archive.read("manifest.json")))
+
+
+def with_application_version(data: bytes, version: str) -> bytes:
+    source = zipfile.ZipFile(io.BytesIO(data))
+    output = io.BytesIO()
+    with source, zipfile.ZipFile(output, "w") as target:
+        for info in source.infolist():
+            payload = source.read(info)
+            if info.filename == "manifest.json":
+                manifest = json.loads(payload)
+                manifest["application_version"] = version
+                payload = (
+                    json.dumps(manifest, sort_keys=True, separators=(",", ":")).encode()
+                    + b"\n"
+                )
+            target.writestr(info, payload)
+    return output.getvalue()
+
+
 def test_archive_round_trip_preserves_project_and_originals(client: ApiClient) -> None:
     source = build_rich_project(client)
     first = export_archive(client, source["id"], "archive-first")
@@ -152,8 +178,11 @@ def test_archive_round_trip_preserves_project_and_originals(client: ApiClient) -
     first_bytes = client.get(first["artifact"]["download_url"]).content
     second_bytes = client.get(second["artifact"]["download_url"]).content
     assert first_bytes == second_bytes
+    assert archive_manifest(first_bytes)["application_version"] == APPLICATION_VERSION
 
-    restored_result = import_archive(client, first_bytes)
+    legacy_bytes = with_application_version(first_bytes, "0.1.0")
+    assert archive_manifest(legacy_bytes)["application_version"] == "0.1.0"
+    restored_result = import_archive(client, legacy_bytes)
     restored = restored_result["project"]
     assert restored_result["source_project_id"] == source["id"]
     assert restored_result["source_revision"] == source["revision"]
@@ -225,7 +254,7 @@ def test_archive_round_trip_preserves_project_and_originals(client: ApiClient) -
         entry["id"] for entry in restored["entries"]
     }
 
-    second_restore = import_archive(client, first_bytes)["project"]
+    second_restore = import_archive(client, legacy_bytes)["project"]
     assert second_restore["id"] not in {source["id"], restored["id"]}
     assert {
         entry["id"] for entry in second_restore["entries"]

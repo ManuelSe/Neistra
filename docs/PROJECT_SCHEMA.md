@@ -251,27 +251,41 @@ A portable project is a ZIP archive with safe relative member names:
 
 ```text
 manifest.json
-artifacts/<sha256>-<safe-filename>
+artifacts/<sha256>
 ```
 
 `manifest.json` is strict JSON with:
 
 ```text
 schema_version: 1
-project:
-  source_project_id: UUIDv7 string
-  source_revision: non-negative integer
-  exported_at: ISO-8601 timestamp
-  state: ProjectStateV1
-artifacts[]:
-  source_artifact_id: UUIDv7 string
-  member_path: safe relative artifacts/... path
+application_version: semantic-version producer provenance
+source_project_id: UUID string
+source_revision: non-negative integer
+source_checkpoint_revision: non-negative integer
+name: non-empty string
+description: string or null
+created_at: ISO-8601 timestamp
+modified_at: ISO-8601 timestamp
+entries[]: strict current entry snapshots with normalized data and artifact paths
+groups[]: strict group snapshots
+saved_selections[]: strict canonical atom-reference snapshots
+measurements[]: strict typed measurement snapshots
+scenes[]: strict camera, entry-state, and selection snapshots
+jobs[]: strict terminal or normalized-incomplete job snapshots
+files[]:
+  path: artifacts/<sha256>
   sha256: 64 lowercase hex characters
   size: non-negative integer
-  media_type: allowlisted string
+  media_type: non-empty string
   filename: safe display basename
-jobs[]: terminal or normalized-incomplete job snapshots
 ```
+
+`schema_version` selects the structural archive contract. The separately
+validated `application_version` records which MolWeave release produced the
+archive and is not an exact-version import gate. Consequently, a valid archive
+produced by 0.1.0 remains readable by 0.1.1 while both releases use
+`ProjectManifestV1` schema version 1. Malformed semantic versions and unknown
+archive schema versions are rejected.
 
 The archive includes every original/current artifact referenced by an entry
 and every immutable job input/result artifact required for provenance. Export
