@@ -6,7 +6,8 @@ Issue #8 - viewer theme persistence
 
 Checkpoint 4 complete locally. All authoritative application version sources
 are aligned at 0.1.1, release records are current, and the complete release gate
-passes. Base synchronization, full-diff review, and remote PR delivery remain.
+passes. The full diff has no consequential local findings; remote PR delivery
+and review remain.
 
 ## Completed work
 
@@ -359,6 +360,10 @@ passes. Base synchronization, full-diff review, and remote PR delivery remain.
 - The production build kept Mol* lazy at 965.86 KiB gzip and the initial app
   chunk at 150.15 KiB gzip. The existing chunk-size warning is non-blocking;
   `git diff --check` passed.
+- Final local review covered every change from `origin/master` through release
+  preparation commit `71fc21b`. It found no accidental scope expansion, dead or
+  debug code, scientific changes, migration risk, persisted-state regression,
+  or unresolved consequential finding.
 - Confirmed local `master` and `origin/master` matched commit
   `9c60bbad506e30ca2bb6564296090b80b41d8354` before creating the issue branch.
 - Inspected issue #8, related issues, repository ownership boundaries, existing
@@ -1179,6 +1184,5 @@ None.
 
 ## Next action
 
-Fetch and safely incorporate the latest `origin/master`, review the complete
-issue diff, commit the verified 0.1.1 release candidate, and open the planned
-pull request.
+Push the verified branch, open the planned pull request, request the available
+review, and monitor required checks and conversations without bypassing them.
