@@ -1,6 +1,6 @@
 # Issue 8 - Viewer Theme Persistence
 
-Status: implementation in progress; checkpoint 2 complete
+Status: implementation in progress; checkpoint 3 complete
 
 ## Issue metadata
 
@@ -684,7 +684,7 @@ Release is additionally blocked when:
 | 2026-08-05 | Repository workflow persisted | Commit `3bce619` added the approved issue-delivery instructions to `AGENTS.md`. |
 | 2026-08-05 | Checkpoint 1 complete | Canvas3D initialization now receives the active opaque color in its creation spec and reapplies the latest buffered color after mount. All 45 Vitest tests, ESLint, TypeScript, and the production build passed; the existing Mol* chunk-size warning remains non-blocking. |
 | 2026-08-05 | Checkpoint 2 complete | Added `tests/e2e/viewer-theme.spec.ts`. The real Chromium Canvas3D stayed dark through first and second imports, a ligand topology replacement, the 840 px responsive remount, and same-context second-page restoration; a live switch updated the existing canvas to light without project, artifact, viewer-setting, selection, loaded-count, or normalized-request changes, and a light remount stayed light. The dedicated spec passed 1/1 in 18.8 s and the existing viewer-controls suite passed 2/2 in 23.8 s. ESLint, TypeScript, and `git diff --check` also passed. |
-| Pending | Checkpoint 3 | Not started. |
+| 2026-08-05 | Checkpoint 3 complete | `ProjectManifestV1.schema_version` remains the structural compatibility gate while `application_version` is now required strict SemVer producer provenance. The exhaustive archive round trip imports a manifest explicitly marked 0.1.0 without molecular, original-byte, relationship, or remapping loss; valid release/prerelease provenance is accepted and missing/malformed provenance plus unknown schema versions remain rejected. D-042 and the executable archive layout are documented. Ruff, strict mypy, and all 23 focused archive tests passed in 6.03 s. No migration or persisted-schema change was made. |
 | Pending | Checkpoint 4 | Not started. |
 | Pending | PR and review | Not opened. |
 | Pending | Merge and release | No merge, tag, or release exists. |

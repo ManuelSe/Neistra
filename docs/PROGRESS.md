@@ -4,9 +4,9 @@
 
 Issue #8 - viewer theme persistence
 
-Checkpoint 2 complete. A dedicated Chromium workflow now verifies persisted
-light/dark Canvas3D appearance across initial mount, structure loads, topology
-replacement, responsive remounts, second-page restoration, and live switching.
+Checkpoint 3 complete. Archive schema version 1 now governs structural
+compatibility while validated application SemVer remains producer provenance,
+so the planned 0.1.1 release retains valid 0.1.0 archive imports.
 
 ## Completed work
 
@@ -23,6 +23,15 @@ replacement, responsive remounts, second-page restoration, and live switching.
   preserving project revision, artifact IDs, viewer settings, canonical
   selection, loaded-structure count, and normalized-structure request count;
   a subsequent responsive remount also initializes light.
+- Replaced exact archive producer-version matching with strict semantic-version
+  provenance validation while retaining `ProjectManifestV1.schema_version: 1`
+  as the compatibility gate.
+- Extended the exhaustive archive round trip to import a manifest explicitly
+  marked 0.1.0, and added safety cases for valid release/prerelease provenance,
+  malformed versions, and unchanged rejection of unknown schema versions.
+- Corrected the documented executable archive layout and recorded D-042 without
+  changing archive contents, normalized data, relationships, ID remapping,
+  persisted schemas, or Alembic head.
 - Approved and persisted the issue #8 feature plan without changing application
   code, tests, versions, schemas, migrations, or runtime behavior.
 - Added the repository issue-delivery workflow to `AGENTS.md` and prepared the
@@ -326,6 +335,14 @@ replacement, responsive remounts, second-page restoration, and live switching.
 - Checkpoint 2 also passed frontend ESLint, TypeScript type-checking, and
   `git diff --check`. Diff review found one scoped E2E test plus its evidence;
   it adds no runtime, API, schema, migration, scientific, or UI behavior.
+- Issue #8 checkpoint 3: repository Ruff and strict mypy passed; all 23 focused
+  archive round-trip and safety tests passed in 6.03 seconds. The exhaustive
+  restored-project assertions cover molecular structures, original bytes,
+  settings, selections, measurements, scenes, and ID remapping.
+- Checkpoint 3 diff review found only archive provenance validation, compatible
+  test evidence, the executable schema documentation correction, and appended
+  D-042. No database/archive migration, molecular transformation, API shape,
+  frontend behavior, or relaxed archive-structure validation was introduced.
 - Confirmed local `master` and `origin/master` matched commit
   `9c60bbad506e30ca2bb6564296090b80b41d8354` before creating the issue branch.
 - Inspected issue #8, related issues, repository ownership boundaries, existing
@@ -1092,8 +1109,9 @@ Results:
 
 ## Known limitations
 
-- Issue #8 viewer lifecycle behavior is qualified in desktop Chromium. Archive
-  cross-patch compatibility and the full release gate remain checkpoints 3 and
+- Issue #8 viewer lifecycle behavior is qualified in desktop Chromium and
+  archive cross-patch compatibility is covered. Version alignment, final
+  documentation, complete release qualification, and review remain checkpoint
   4; no additional browser engines are required by the approved plan.
 - Mol* is necessarily a large on-demand dependency (about 963 KiB compressed).
   It is excluded from the initial application chunk and loaded only when a
@@ -1145,6 +1163,6 @@ None.
 
 ## Next action
 
-Implement checkpoint 3 in
-`docs/plans/issue-8-viewer-theme-persistence.md`: preserve valid 0.1.0 archive
-imports when the application producer version advances to 0.1.1.
+Implement checkpoint 4 in
+`docs/plans/issue-8-viewer-theme-persistence.md`: align every authoritative
+version source at 0.1.1 and run the complete release gate and diff review.

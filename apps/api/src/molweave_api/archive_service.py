@@ -53,6 +53,14 @@ ARCHIVE_SCHEMA_VERSION = 1
 APPLICATION_VERSION = "0.1.0"
 MANIFEST_PATH = "manifest.json"
 _SHA256_PATTERN = re.compile(r"^[0-9a-f]{64}$")
+_APPLICATION_VERSION_PATTERN = re.compile(
+    r"^(0|[1-9][0-9]*)\."
+    r"(0|[1-9][0-9]*)\."
+    r"(0|[1-9][0-9]*)"
+    r"(?:-(?:0|[1-9][0-9]*|[0-9]*[A-Za-z-][0-9A-Za-z-]*)"
+    r"(?:\.(?:0|[1-9][0-9]*|[0-9]*[A-Za-z-][0-9A-Za-z-]*))*)?"
+    r"(?:\+[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?$"
+)
 
 
 class ArchiveValidationError(ValueError):
@@ -273,7 +281,7 @@ class ManifestJobSummary(ManifestModel):
 
 class ProjectManifestV1(ManifestModel):
     schema_version: Literal[1] = 1
-    application_version: Literal["0.1.0"] = "0.1.0"
+    application_version: str = Field(min_length=5, max_length=64)
     source_project_id: str
     source_revision: int = Field(ge=0)
     source_checkpoint_revision: int = Field(ge=0)
@@ -290,6 +298,13 @@ class ProjectManifestV1(ManifestModel):
     files: list[ManifestFile]
 
     _project_uuid = field_validator("source_project_id")(_validate_uuid)
+
+    @field_validator("application_version")
+    @classmethod
+    def valid_application_version(cls, value: str) -> str:
+        if _APPLICATION_VERSION_PATTERN.fullmatch(value) is None:
+            raise ValueError("Application version must be a semantic version")
+        return value
 
 
 @dataclass(frozen=True, slots=True)
@@ -566,6 +581,7 @@ class ProjectArchiveService:
             for job in sorted(project.jobs, key=lambda item: item.id)
         ]
         manifest = ProjectManifestV1(
+            application_version=APPLICATION_VERSION,
             source_project_id=project.id,
             source_revision=project.revision,
             source_checkpoint_revision=project.checkpoint_revision,
