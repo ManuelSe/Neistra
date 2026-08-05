@@ -2,13 +2,23 @@
 
 ## Current milestone
 
-Post-v0.1 usability - theme-synchronized molecular canvas
+Issue #8 - viewer theme persistence
 
-Complete. The Mol* canvas follows initial and live workspace theme changes, and
-all relevant component, build, and real-WebGL validation gates pass.
+Approved planning; implementation has not started. The detailed implementation
+contract is `docs/plans/issue-8-viewer-theme-persistence.md`, and the repository
+is being handed off on `fix/issue-8-viewer-theme-persistence` for a subsequent
+`/goal` request.
 
 ## Completed work
 
+- Approved and persisted the issue #8 feature plan without changing application
+  code, tests, versions, schemas, migrations, or runtime behavior.
+- Added the repository issue-delivery workflow to `AGENTS.md` and prepared the
+  dedicated `fix/issue-8-viewer-theme-persistence` branch from the verified
+  `master` baseline.
+- Classified the issue requirements, localized the likely lifecycle defect,
+  defined independently verifiable checkpoints, and selected a compatible
+  `0.1.1` patch-release path.
 - Added application-owned Mol* canvas appearance through the typed viewer
   boundary, using the existing light `#eef2f1` and dark `#11191b` surface
   colors.
@@ -291,6 +301,15 @@ all relevant component, build, and real-WebGL validation gates pass.
 
 ## Verification performed
 
+- Confirmed local `master` and `origin/master` matched commit
+  `9c60bbad506e30ca2bb6564296090b80b41d8354` before creating the issue branch.
+- Inspected issue #8, related issues, repository ownership boundaries, existing
+  theme/viewer tests, version sources, archive compatibility, GitHub branches,
+  pull requests, tags, releases, merge settings, and the absence of configured
+  CI and branch protection.
+- `git diff --check` passed for the approved plan and repository-instruction
+  changes. No implementation validation is claimed because implementation has
+  not started.
 - Frontend ESLint and TypeScript pass; all 45 Vitest tests pass, including
   initial background propagation, lazy-engine forwarding, live theme changes,
   and assertions that theme updates do not remount or resynchronize Mol*.
@@ -1049,6 +1068,9 @@ Results:
 
 ## Known limitations
 
+- Issue #8 remains unimplemented at this handoff. A newly created Mol* Canvas3D
+  can still fall back to its light default when dark mode was restored before
+  viewer initialization; existing live theme switching continues to work.
 - Mol* is necessarily a large on-demand dependency (about 963 KiB compressed).
   It is excluded from the initial application chunk and loaded only when a
   project contains structures.
@@ -1099,4 +1121,6 @@ None.
 
 ## Next action
 
-None. The post-v0.1 theme-synchronized molecular canvas milestone is complete.
+Start checkpoint 1 in
+`docs/plans/issue-8-viewer-theme-persistence.md` only after a separate `/goal`
+request. Do not begin implementation during the planning handoff.

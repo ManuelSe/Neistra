@@ -680,6 +680,8 @@ Release is additionally blocked when:
 | 2026-08-05 | Plan proposed | Read-only repository, architecture, test, release, and GitHub inspection completed. Root cause localized to pre-Canvas3D background application. |
 | 2026-08-05 | Plan approved | User approved the plan and authorized committing the pending `AGENTS.md` issue-delivery workflow. |
 | 2026-08-05 | Branch prepared | Local `master` matched `origin/master` at `9c60bbad506e30ca2bb6564296090b80b41d8354`; the approved feature branch was created from a clean tree. |
+| 2026-08-05 | Plan persisted | Commit `6119dc3` added this approved plan as the first branch change. |
+| 2026-08-05 | Repository workflow persisted | Commit `3bce619` added the approved issue-delivery instructions to `AGENTS.md`. |
 | Pending | Checkpoint 1 | Implementation must not start until a separate `/goal` request. |
 | Pending | Checkpoint 2 | Not started. |
 | Pending | Checkpoint 3 | Not started. |
