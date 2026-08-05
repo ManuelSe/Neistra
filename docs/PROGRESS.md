@@ -4,9 +4,9 @@
 
 Issue #8 - viewer theme persistence
 
-Checkpoint 1 complete. Mol* now receives the active opaque background through
-its Canvas3D initialization specification and reapplies the latest buffered
-color after mounting. Real-WebGL lifecycle coverage remains checkpoint 2.
+Checkpoint 2 complete. A dedicated Chromium workflow now verifies persisted
+light/dark Canvas3D appearance across initial mount, structure loads, topology
+replacement, responsive remounts, second-page restoration, and live switching.
 
 ## Completed work
 
@@ -15,6 +15,14 @@ color after mounting. Real-WebGL lifecycle coverage remains checkpoint 2.
   yet exist.
 - Reapplied the latest buffered background immediately after mount, preserving
   live theme changes without remounting or resynchronizing structures.
+- Added a real-WebGL lifecycle regression that starts dark before a project
+  viewer exists, imports a ligand and protein, performs a ligand topology edit,
+  crosses the 840 px layout breakpoint, and restores the active project and
+  dark canvas in a second page from the same browser context.
+- Verified an explicit switch to light updates the existing canvas while
+  preserving project revision, artifact IDs, viewer settings, canonical
+  selection, loaded-structure count, and normalized-structure request count;
+  a subsequent responsive remount also initializes light.
 - Approved and persisted the issue #8 feature plan without changing application
   code, tests, versions, schemas, migrations, or runtime behavior.
 - Added the repository issue-delivery workflow to `AGENTS.md` and prepared the
@@ -312,6 +320,12 @@ color after mounting. Real-WebGL lifecycle coverage remains checkpoint 2.
 - Checkpoint 1 diff review found only the Mol* Canvas3D lifecycle correction and
   planning/progress evidence; it introduced no API, persisted-state, migration,
   scientific, accessibility, or new-control changes.
+- Issue #8 checkpoint 2: the dedicated desktop Chromium lifecycle spec passed
+  1/1 in 18.8 seconds, and the existing viewer-controls Chromium suite passed
+  2/2 in 23.8 seconds. The executed workflows use real SwiftShader WebGL.
+- Checkpoint 2 also passed frontend ESLint, TypeScript type-checking, and
+  `git diff --check`. Diff review found one scoped E2E test plus its evidence;
+  it adds no runtime, API, schema, migration, scientific, or UI behavior.
 - Confirmed local `master` and `origin/master` matched commit
   `9c60bbad506e30ca2bb6564296090b80b41d8354` before creating the issue branch.
 - Inspected issue #8, related issues, repository ownership boundaries, existing
@@ -319,8 +333,7 @@ color after mounting. Real-WebGL lifecycle coverage remains checkpoint 2.
   pull requests, tags, releases, merge settings, and the absence of configured
   CI and branch protection.
 - `git diff --check` passed for the approved plan and repository-instruction
-  changes. No implementation validation is claimed because implementation has
-  not started.
+  changes before implementation began.
 - Frontend ESLint and TypeScript pass; all 45 Vitest tests pass, including
   initial background propagation, lazy-engine forwarding, live theme changes,
   and assertions that theme updates do not remount or resynchronize Mol*.
@@ -1079,10 +1092,9 @@ Results:
 
 ## Known limitations
 
-- Issue #8 checkpoint 1 is implemented, but the complete lifecycle remains
-  unqualified until checkpoint 2 verifies initial theme, structure load and
-  replacement, responsive remount, new-tab restoration, and live switching on
-  a real WebGL canvas.
+- Issue #8 viewer lifecycle behavior is qualified in desktop Chromium. Archive
+  cross-patch compatibility and the full release gate remain checkpoints 3 and
+  4; no additional browser engines are required by the approved plan.
 - Mol* is necessarily a large on-demand dependency (about 963 KiB compressed).
   It is excluded from the initial application chunk and loaded only when a
   project contains structures.
@@ -1133,6 +1145,6 @@ None.
 
 ## Next action
 
-Implement checkpoint 2 in
-`docs/plans/issue-8-viewer-theme-persistence.md`: add and pass the dedicated
-real-WebGL viewer-theme lifecycle workflow.
+Implement checkpoint 3 in
+`docs/plans/issue-8-viewer-theme-persistence.md`: preserve valid 0.1.0 archive
+imports when the application producer version advances to 0.1.1.
