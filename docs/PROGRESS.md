@@ -4,13 +4,17 @@
 
 Issue #8 - viewer theme persistence
 
-Approved planning; implementation has not started. The detailed implementation
-contract is `docs/plans/issue-8-viewer-theme-persistence.md`, and the repository
-is being handed off on `fix/issue-8-viewer-theme-persistence` for a subsequent
-`/goal` request.
+Checkpoint 1 complete. Mol* now receives the active opaque background through
+its Canvas3D initialization specification and reapplies the latest buffered
+color after mounting. Real-WebGL lifecycle coverage remains checkpoint 2.
 
 ## Completed work
 
+- Corrected Mol* initialization so the active light or dark background is part
+  of Canvas3D creation instead of an earlier callback where Canvas3D does not
+  yet exist.
+- Reapplied the latest buffered background immediately after mount, preserving
+  live theme changes without remounting or resynchronizing structures.
 - Approved and persisted the issue #8 feature plan without changing application
   code, tests, versions, schemas, migrations, or runtime behavior.
 - Added the repository issue-delivery workflow to `AGENTS.md` and prepared the
@@ -301,6 +305,13 @@ is being handed off on `fix/issue-8-viewer-theme-persistence` for a subsequent
 
 ## Verification performed
 
+- Issue #8 checkpoint 1: all 45 Vitest tests passed, including the lazy-adapter
+  pre-mount ordering and StructureViewer no-remount/no-resynchronization theme
+  assertions. ESLint, TypeScript type-checking, and the Vite production build
+  passed; the expected existing large Mol* chunk warning remained non-blocking.
+- Checkpoint 1 diff review found only the Mol* Canvas3D lifecycle correction and
+  planning/progress evidence; it introduced no API, persisted-state, migration,
+  scientific, accessibility, or new-control changes.
 - Confirmed local `master` and `origin/master` matched commit
   `9c60bbad506e30ca2bb6564296090b80b41d8354` before creating the issue branch.
 - Inspected issue #8, related issues, repository ownership boundaries, existing
@@ -1068,9 +1079,10 @@ Results:
 
 ## Known limitations
 
-- Issue #8 remains unimplemented at this handoff. A newly created Mol* Canvas3D
-  can still fall back to its light default when dark mode was restored before
-  viewer initialization; existing live theme switching continues to work.
+- Issue #8 checkpoint 1 is implemented, but the complete lifecycle remains
+  unqualified until checkpoint 2 verifies initial theme, structure load and
+  replacement, responsive remount, new-tab restoration, and live switching on
+  a real WebGL canvas.
 - Mol* is necessarily a large on-demand dependency (about 963 KiB compressed).
   It is excluded from the initial application chunk and loaded only when a
   project contains structures.
@@ -1121,6 +1133,6 @@ None.
 
 ## Next action
 
-Start checkpoint 1 in
-`docs/plans/issue-8-viewer-theme-persistence.md` only after a separate `/goal`
-request. Do not begin implementation during the planning handoff.
+Implement checkpoint 2 in
+`docs/plans/issue-8-viewer-theme-persistence.md`: add and pass the dedicated
+real-WebGL viewer-theme lifecycle workflow.

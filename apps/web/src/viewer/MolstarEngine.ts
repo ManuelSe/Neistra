@@ -65,11 +65,20 @@ export class MolstarEngine implements MolecularViewer {
   private isolation: AtomReference[] | null = null;
 
   async mount(target: HTMLElement): Promise<void> {
-    this.plugin = await createPluginUI({
+    const defaultSpec = DefaultPluginUISpec();
+    const plugin = await createPluginUI({
       target,
       render: renderReact18,
       spec: {
-        ...DefaultPluginUISpec(),
+        ...defaultSpec,
+        canvas3d: {
+          ...defaultSpec.canvas3d,
+          renderer: {
+            ...defaultSpec.canvas3d?.renderer,
+            backgroundColor: Color.fromHexStyle(this.backgroundColor),
+          },
+          transparentBackground: false,
+        },
         layout: {
           initial: {
             isExpanded: false,
@@ -87,21 +96,16 @@ export class MolstarEngine implements MolecularViewer {
           disableDragOverlay: true,
         },
       },
-      onBeforeUIRender: (plugin) => {
-        plugin.canvas3d?.setProps({
-          renderer: { backgroundColor: Color.fromHexStyle(this.backgroundColor) },
-          transparentBackground: false,
-        });
-      },
     });
-    if (!this.plugin.canvas3d) {
-      this.plugin.dispose();
-      this.plugin = undefined;
+    if (!plugin.canvas3d) {
+      plugin.dispose();
       throw new Error(
         "WebGL is unavailable. Enable hardware acceleration or use a browser with WebGL support.",
       );
     }
-    this.clickSubscription = this.plugin.behaviors.interaction.click.subscribe(
+    this.plugin = plugin;
+    this.setBackgroundColor(this.backgroundColor);
+    this.clickSubscription = plugin.behaviors.interaction.click.subscribe(
       ({ current, button, modifiers }) => {
         if (button !== ButtonsType.Flag.Primary) return;
         const mode: SelectionMode = modifiers.alt
@@ -147,7 +151,7 @@ export class MolstarEngine implements MolecularViewer {
         });
       },
     );
-    this.cameraSubscription = this.plugin.canvas3d.camera.changed.subscribe(() => {
+    this.cameraSubscription = plugin.canvas3d.camera.changed.subscribe(() => {
       const camera = this.getCamera();
       if (camera) for (const listener of this.cameraListeners) listener(camera);
     });

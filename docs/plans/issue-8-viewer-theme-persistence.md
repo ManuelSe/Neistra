@@ -1,6 +1,6 @@
 # Issue 8 - Viewer Theme Persistence
 
-Status: approved; implementation not started
+Status: implementation in progress; checkpoint 1 complete
 
 ## Issue metadata
 
@@ -682,7 +682,7 @@ Release is additionally blocked when:
 | 2026-08-05 | Branch prepared | Local `master` matched `origin/master` at `9c60bbad506e30ca2bb6564296090b80b41d8354`; the approved feature branch was created from a clean tree. |
 | 2026-08-05 | Plan persisted | Commit `6119dc3` added this approved plan as the first branch change. |
 | 2026-08-05 | Repository workflow persisted | Commit `3bce619` added the approved issue-delivery instructions to `AGENTS.md`. |
-| Pending | Checkpoint 1 | Implementation must not start until a separate `/goal` request. |
+| 2026-08-05 | Checkpoint 1 complete | Canvas3D initialization now receives the active opaque color in its creation spec and reapplies the latest buffered color after mount. All 45 Vitest tests, ESLint, TypeScript, and the production build passed; the existing Mol* chunk-size warning remains non-blocking. |
 | Pending | Checkpoint 2 | Not started. |
 | Pending | Checkpoint 3 | Not started. |
 | Pending | Checkpoint 4 | Not started. |
