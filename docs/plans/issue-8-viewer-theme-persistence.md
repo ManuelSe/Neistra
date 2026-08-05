@@ -1,6 +1,6 @@
 # Issue 8 - Viewer Theme Persistence
 
-Status: locally qualified release candidate; checkpoint 4 complete
+Status: complete and released in MolWeave v0.1.1
 
 ## Issue metadata
 
@@ -14,6 +14,9 @@ Status: locally qualified release candidate; checkpoint 4 complete
 - Planned feature branch: `fix/issue-8-viewer-theme-persistence`
 - Planned application version: `0.1.1`
 - Planned tag: `v0.1.1`
+- Delivered pull request: [#13](https://github.com/ManuelSe/MolWeave/pull/13)
+- Released commit: `fb92de6954f38e4f5d7524e613a3bbd7854c6c2c`
+- GitHub release: [`v0.1.1`](https://github.com/ManuelSe/MolWeave/releases/tag/v0.1.1)
 
 This document is the implementation contract for issue #8. It supplements, but
 does not replace, the global `docs/PLAN.md`.
@@ -680,18 +683,18 @@ Release is additionally blocked when:
 | 2026-08-05 | Plan proposed | Read-only repository, architecture, test, release, and GitHub inspection completed. Root cause localized to pre-Canvas3D background application. |
 | 2026-08-05 | Plan approved | User approved the plan and authorized committing the pending `AGENTS.md` issue-delivery workflow. |
 | 2026-08-05 | Branch prepared | Local `master` matched `origin/master` at `9c60bbad506e30ca2bb6564296090b80b41d8354`; the approved feature branch was created from a clean tree. |
-| 2026-08-05 | Plan persisted | Commit `6119dc3` added this approved plan as the first branch change. |
-| 2026-08-05 | Repository workflow persisted | Commit `3bce619` added the approved issue-delivery instructions to `AGENTS.md`. |
-| 2026-08-05 | Checkpoint 1 complete | Commit `e0b2bec` configures Canvas3D with the active opaque color and reapplies the latest buffered color after mount. All 45 Vitest tests, ESLint, TypeScript, and the production build passed; the existing Mol* chunk-size warning remains non-blocking. |
-| 2026-08-05 | Checkpoint 2 complete | Commit `2b3a940` adds `tests/e2e/viewer-theme.spec.ts`. The real Chromium Canvas3D stayed dark through first and second imports, a ligand topology replacement, the 840 px responsive remount, and same-context second-page restoration; a live switch updated the existing canvas to light without project, artifact, viewer-setting, selection, loaded-count, or normalized-request changes, and a light remount stayed light. The dedicated spec passed 1/1 in 18.8 s and the existing viewer-controls suite passed 2/2 in 23.8 s. ESLint, TypeScript, and `git diff --check` also passed. |
-| 2026-08-05 | Checkpoint 3 complete | Commit `b9c90ce` keeps `ProjectManifestV1.schema_version` as the structural compatibility gate while `application_version` is required strict SemVer producer provenance. The exhaustive archive round trip imports a manifest explicitly marked 0.1.0 without molecular, original-byte, relationship, or remapping loss; valid release/prerelease provenance is accepted and missing/malformed provenance plus unknown schema versions remain rejected. D-042 and the executable archive layout are documented. Ruff, strict mypy, and all 23 focused archive tests passed in 6.03 s. No migration or persisted-schema change was made. |
-| 2026-08-05 | Checkpoint 4 complete locally | Commit `71fc21b` aligns all five authoritative application version sources at 0.1.1 with a regenerated lock and current release notes, verification, progress, decisions, schema documentation, and plan evidence. The complete gate passed frozen installs, Alembic `0007 (head)`, Ruff, strict mypy, 180 Pytest tests, ESLint, TypeScript, 45 Vitest tests, 7 supervisor tests, the production build, 30 applicable Playwright workflows with 20 intentional skips in 7.6 minutes, and `git diff --check`. The existing lazy Mol* chunk warning remains non-blocking. |
+| 2026-08-05 | Plan persisted | Released commit `2ed5cb5` added this approved plan as the first branch change. |
+| 2026-08-05 | Repository workflow persisted | Released commit `1727de3` added the approved issue-delivery instructions to `AGENTS.md`. |
+| 2026-08-05 | Checkpoint 1 complete | Released commit `1a6dc55` configures Canvas3D with the active opaque color and reapplies the latest buffered color after mount. All 45 Vitest tests, ESLint, TypeScript, and the production build passed; the existing Mol* chunk-size warning remains non-blocking. |
+| 2026-08-05 | Checkpoint 2 complete | Released commit `497cbd4` adds `tests/e2e/viewer-theme.spec.ts`. The real Chromium Canvas3D stayed dark through first and second imports, a ligand topology replacement, the 840 px responsive remount, and same-context second-page restoration; a live switch updated the existing canvas to light without project, artifact, viewer-setting, selection, loaded-count, or normalized-request changes, and a light remount stayed light. The dedicated spec passed 1/1 in 18.8 s and the existing viewer-controls suite passed 2/2 in 23.8 s. ESLint, TypeScript, and `git diff --check` also passed. |
+| 2026-08-05 | Checkpoint 3 complete | Released commit `8f7ec72` keeps `ProjectManifestV1.schema_version` as the structural compatibility gate while `application_version` is required strict SemVer producer provenance. The exhaustive archive round trip imports a manifest explicitly marked 0.1.0 without molecular, original-byte, relationship, or remapping loss; valid release/prerelease provenance is accepted and missing/malformed provenance plus unknown schema versions remain rejected. D-042 and the executable archive layout are documented. Ruff, strict mypy, and all 23 focused archive tests passed in 6.03 s. No migration or persisted-schema change was made. |
+| 2026-08-05 | Checkpoint 4 complete locally | Released commit `455581d` aligns all five authoritative application version sources at 0.1.1 with a regenerated lock and current release notes, verification, progress, decisions, schema documentation, and plan evidence. The complete gate passed frozen installs, Alembic `0007 (head)`, Ruff, strict mypy, 180 Pytest tests, ESLint, TypeScript, 45 Vitest tests, 7 supervisor tests, the production build, 30 applicable Playwright workflows with 20 intentional skips in 7.6 minutes, and `git diff --check`. The existing lazy Mol* chunk warning remains non-blocking. |
 | 2026-08-05 | Final local review complete | Reviewed the complete diff from current `origin/master` (`9c60bba`) through release preparation. No consequential scope, dead-code, scientific, migration, compatibility, or regression finding remains. A second complete gate on the documentation-complete candidate passed, including 30 applicable Playwright workflows with 20 intentional skips in 7.0 minutes. |
-| Pending | PR and review | Not opened. |
-| Pending | Merge and release | No merge, tag, or release exists. |
+| 2026-08-05 | PR and review complete | [PR #13](https://github.com/ManuelSe/MolWeave/pull/13) was current with `master`, clean, and mergeable. GitHub reported no checks, protection rules, rulesets, required reviews, or review threads. The requested `@codex review` produced no acknowledgement or review, so only the documented local full-diff review is claimed. |
+| 2026-08-05 | Merge and release complete | PR #13 was rebase-merged at `fb92de6`; local `master` was fast-forwarded. Annotated tag object `6b23f58` dereferences to that exact commit and the non-draft, non-prerelease [`v0.1.1` release](https://github.com/ManuelSe/MolWeave/releases/tag/v0.1.1) is published. Issue #8 closed and received the verified [close-out reply](https://github.com/ManuelSe/MolWeave/issues/8#issuecomment-5197619623). The original feature branch was deleted locally and remotely after verification. |
 
-## Handoff
+## Completion
 
-The repository must stop after plan persistence, repository-instruction commit,
-project-level progress handoff, and feature-branch push. Application
-implementation begins only through a subsequent `/goal` request.
+The approved scope is implemented, verified, merged, tagged, released, and
+closed out. MolWeave 0.1.1 is the authoritative release for issue #8. No
+approved implementation or follow-up work remains.

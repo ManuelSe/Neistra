@@ -82,7 +82,7 @@ for functional automation.
 
 ## V0.1.1 Issue #8 Patch Evidence
 
-Status: local release candidate gate passed
+Status: released in MolWeave v0.1.1
 
 This patch does not rewrite the v0.1 requirement matrix. It adds regression
 evidence for the accepted viewer-theme lifecycle and archive compatibility
@@ -100,3 +100,10 @@ contract in `docs/plans/issue-8-viewer-theme-persistence.md`.
 The full Playwright matrix completed in 7.6 minutes. The build retained the
 existing non-blocking lazy Mol* chunk warning (965.86 KiB gzip); the initial
 application chunk remained 150.15 KiB gzip. `git diff --check` passed.
+
+[PR #13](https://github.com/ManuelSe/MolWeave/pull/13) was rebase-merged after
+the final clean release gate and local full-diff review. Annotated tag and
+[GitHub release `v0.1.1`](https://github.com/ManuelSe/MolWeave/releases/tag/v0.1.1)
+were remotely verified at released commit `fb92de6`. No independent review is
+claimed because the requested Codex integration did not acknowledge or return
+a review and the repository had no configured checks or required reviews.

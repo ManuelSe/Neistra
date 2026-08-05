@@ -2,8 +2,9 @@
 
 ## 0.1.1 - 2026-08-05
 
-Status: locally qualified release candidate pending merge and remote release
-verification
+Status: released as annotated tag
+[`v0.1.1`](https://github.com/ManuelSe/MolWeave/releases/tag/v0.1.1) from
+[PR #13](https://github.com/ManuelSe/MolWeave/pull/13)
 
 ### Highlights
 

@@ -4,10 +4,9 @@
 
 Issue #8 - viewer theme persistence
 
-Checkpoint 4 complete locally. All authoritative application version sources
-are aligned at 0.1.1, release records are current, and the complete release gate
-passes. The full diff has no consequential local findings; remote PR delivery
-and review remain.
+Issue #8 is complete and released as MolWeave 0.1.1. PR #13 is merged, the
+annotated `v0.1.1` tag and GitHub release point to the verified release commit,
+the issue has its close-out reply, and no approved-scope follow-up remains.
 
 ## Completed work
 
@@ -42,6 +41,13 @@ and review remain.
   Alembic `0007 (head)`, Ruff, strict mypy, 180 Python tests, ESLint,
   TypeScript, 45 Vitest tests, 7 supervisor tests, production build, and 30
   applicable Playwright workflows with 20 intentional cross-layout skips.
+- Rebase-merged [PR #13](https://github.com/ManuelSe/MolWeave/pull/13),
+  fast-forwarded local `master`, and published the annotated
+  [`v0.1.1` release](https://github.com/ManuelSe/MolWeave/releases/tag/v0.1.1)
+  from verified commit `fb92de6`.
+- Verified the remote tag object, release, merged PR, closed issue #8 and its
+  close-out reply, then removed the original implementation branch locally and
+  remotely.
 - Approved and persisted the issue #8 feature plan without changing application
   code, tests, versions, schemas, migrations, or runtime behavior.
 - Added the repository issue-delivery workflow to `AGENTS.md` and prepared the
@@ -360,10 +366,17 @@ and review remain.
 - The production build kept Mol* lazy at 965.86 KiB gzip and the initial app
   chunk at 150.15 KiB gzip. The existing chunk-size warning is non-blocking;
   `git diff --check` passed.
-- Final local review covered every change from `origin/master` through release
-  preparation commit `71fc21b`. It found no accidental scope expansion, dead or
+- Final local review covered every change from `origin/master` through released
+  preparation commit `455581d`. It found no accidental scope expansion, dead or
   debug code, scientific changes, migration risk, persisted-state regression,
   or unresolved consequential finding.
+- GitHub reported PR #13 clean and mergeable with no checks, protection rules,
+  rulesets, required reviews, or review threads. The requested `@codex review`
+  produced no acknowledgement or review, so only the documented local review
+  is claimed.
+- Remote release verification confirmed annotated tag object `6b23f58`
+  dereferences to released `master` commit `fb92de6`; issue #8 closed through
+  PR #13 and contains the verified release close-out comment.
 - Confirmed local `master` and `origin/master` matched commit
   `9c60bbad506e30ca2bb6564296090b80b41d8354` before creating the issue branch.
 - Inspected issue #8, related issues, repository ownership boundaries, existing
@@ -1130,10 +1143,9 @@ Results:
 
 ## Known limitations
 
-- Issue #8 viewer lifecycle behavior is qualified in desktop Chromium and
-  archive cross-patch compatibility plus the full release gate are covered. No
-  additional browser engines are required by the approved plan; remote PR,
-  review, merge, and release verification remain.
+- Issue #8 real-viewer lifecycle regression coverage is intentionally desktop
+  Chromium with pinned SwiftShader WebGL. The approved patch did not require a
+  cross-browser theme matrix.
 - Mol* is necessarily a large on-demand dependency (about 963 KiB compressed).
   It is excluded from the initial application chunk and loaded only when a
   project contains structures.
@@ -1184,5 +1196,5 @@ None.
 
 ## Next action
 
-Push the verified branch, open the planned pull request, request the available
-review, and monitor required checks and conversations without bypassing them.
+Issue #8 has no remaining action. Select the next approved project issue or
+milestone before changing application behavior.
