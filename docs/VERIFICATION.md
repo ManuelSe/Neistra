@@ -79,3 +79,24 @@ startup observation, and meaningful inspection of WebGL content. The browser
 suite still asserts WebGL canvas pixels, accessible surrounding state, and
 viewport bounds so these manual checks are supplementary rather than substitutes
 for functional automation.
+
+## V0.1.1 Issue #8 Patch Evidence
+
+Status: local release candidate gate passed
+
+This patch does not rewrite the v0.1 requirement matrix. It adds regression
+evidence for the accepted viewer-theme lifecycle and archive compatibility
+contract in `docs/plans/issue-8-viewer-theme-persistence.md`.
+
+| Release claim | Evidence |
+|---|---|
+| Initial and restored dark Canvas3D | `viewer-theme.spec.ts` real-WebGL luminance after persisted dark preference, first import, responsive remount, and second-page restoration |
+| Structure-load and topology-replacement retention | `viewer-theme.spec.ts` second import and ligand atom-add projection replacement |
+| Live light update without viewer or molecular mutation | Existing-canvas marker, WebGL luminance, project revision/artifact/viewer-setting API snapshot, canonical selection, loaded count, and normalized-request assertions |
+| Component and adapter lifecycle | All 45 Vitest tests, including `structure-loading.test.tsx` and `viewer-adapter.test.ts` |
+| Cross-patch archive compatibility | `test_archive_roundtrip.py` imports an explicit 0.1.0 manifest with exhaustive data/original-byte assertions; archive safety cases retain schema and malformed-provenance rejection |
+| Complete regression gate | Frozen Python/JavaScript installs, Alembic `0007 (head)`, Ruff, strict mypy, 180 Pytest tests, ESLint, TypeScript, 45 Vitest tests, 7 supervisor tests, production build, and 30 applicable Playwright workflows passed; 20 cross-layout Playwright cases skipped intentionally |
+
+The full Playwright matrix completed in 7.6 minutes. The build retained the
+existing non-blocking lazy Mol* chunk warning (965.86 KiB gzip); the initial
+application chunk remained 150.15 KiB gzip. `git diff --check` passed.

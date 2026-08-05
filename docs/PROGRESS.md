@@ -4,9 +4,9 @@
 
 Issue #8 - viewer theme persistence
 
-Checkpoint 3 complete. Archive schema version 1 now governs structural
-compatibility while validated application SemVer remains producer provenance,
-so the planned 0.1.1 release retains valid 0.1.0 archive imports.
+Checkpoint 4 complete locally. All authoritative application version sources
+are aligned at 0.1.1, release records are current, and the complete release gate
+passes. Base synchronization, full-diff review, and remote PR delivery remain.
 
 ## Completed work
 
@@ -32,6 +32,15 @@ so the planned 0.1.1 release retains valid 0.1.0 archive imports.
 - Corrected the documented executable archive layout and recorded D-042 without
   changing archive contents, normalized data, relationships, ID remapping,
   persisted schemas, or Alembic head.
+- Advanced the Python project, generated lock entry, web package, FastAPI
+  metadata, and archive producer version together from 0.1.0 to 0.1.1 without
+  changing API or persisted schema versions.
+- Added 0.1.1 release notes and a focused issue #8 evidence section without
+  rewriting the v0.1 requirement matrix.
+- Passed the complete release gate: frozen Python/JavaScript installation,
+  Alembic `0007 (head)`, Ruff, strict mypy, 180 Python tests, ESLint,
+  TypeScript, 45 Vitest tests, 7 supervisor tests, production build, and 30
+  applicable Playwright workflows with 20 intentional cross-layout skips.
 - Approved and persisted the issue #8 feature plan without changing application
   code, tests, versions, schemas, migrations, or runtime behavior.
 - Added the repository issue-delivery workflow to `AGENTS.md` and prepared the
@@ -343,6 +352,13 @@ so the planned 0.1.1 release retains valid 0.1.0 archive imports.
   test evidence, the executable schema documentation correction, and appended
   D-042. No database/archive migration, molecular transformation, API shape,
   frontend behavior, or relaxed archive-structure validation was introduced.
+- Issue #8 checkpoint 4: every frozen install, migration, static-analysis,
+  Python/frontend/unit/supervisor/build/browser command in the documented gate
+  passed. Pytest reported 180/180, Vitest 45/45, supervisor tests 7/7, and
+  Playwright 30 passed plus 20 intentional skips in 7.6 minutes.
+- The production build kept Mol* lazy at 965.86 KiB gzip and the initial app
+  chunk at 150.15 KiB gzip. The existing chunk-size warning is non-blocking;
+  `git diff --check` passed.
 - Confirmed local `master` and `origin/master` matched commit
   `9c60bbad506e30ca2bb6564296090b80b41d8354` before creating the issue branch.
 - Inspected issue #8, related issues, repository ownership boundaries, existing
@@ -1110,9 +1126,9 @@ Results:
 ## Known limitations
 
 - Issue #8 viewer lifecycle behavior is qualified in desktop Chromium and
-  archive cross-patch compatibility is covered. Version alignment, final
-  documentation, complete release qualification, and review remain checkpoint
-  4; no additional browser engines are required by the approved plan.
+  archive cross-patch compatibility plus the full release gate are covered. No
+  additional browser engines are required by the approved plan; remote PR,
+  review, merge, and release verification remain.
 - Mol* is necessarily a large on-demand dependency (about 963 KiB compressed).
   It is excluded from the initial application chunk and loaded only when a
   project contains structures.
@@ -1163,6 +1179,6 @@ None.
 
 ## Next action
 
-Implement checkpoint 4 in
-`docs/plans/issue-8-viewer-theme-persistence.md`: align every authoritative
-version source at 0.1.1 and run the complete release gate and diff review.
+Fetch and safely incorporate the latest `origin/master`, review the complete
+issue diff, commit the verified 0.1.1 release candidate, and open the planned
+pull request.

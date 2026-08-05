@@ -1,6 +1,6 @@
 # Issue 8 - Viewer Theme Persistence
 
-Status: implementation in progress; checkpoint 3 complete
+Status: locally qualified release candidate; checkpoint 4 complete
 
 ## Issue metadata
 
@@ -468,7 +468,7 @@ Documentation and migration implications:
 Expected commit:
 
 ```text
-chore(release): prepare 0.1.1
+chore(release): prepare v0.1.1
 ```
 
 Do not create an empty verification commit. If final verification discovers a
@@ -556,9 +556,8 @@ not be described as passing until it has run successfully.
 
 - D-041 remains the governing theme decision. The implementation corrects its
   lifecycle placement rather than replacing its design.
-- A new accepted decision will be appended only for the material archive
-  compatibility rule: archive schema version controls structural compatibility;
-  application patch version is provenance.
+- D-042 records the material archive compatibility rule: archive schema version
+  controls structural compatibility; application patch version is provenance.
 - The issue's separate examples are consolidated into the shared viewer
   lifecycle boundary. No operation-specific theme hooks are approved.
 - The new-tab outcome uses existing persisted workspace behavior; new routing
@@ -599,7 +598,7 @@ not convert this bug fix into a minor or major release.
 - Head: `fix/issue-8-viewer-theme-persistence`
 - Body: document implemented, simplified, deferred, and rejected requirements;
   include verification results, compatibility, migration status, version
-  impact, and `Fixes #8`.
+  impact, and `Closes #8`.
 - Merge strategy: rebase-and-merge after approval and all gates.
 
 Rebase-and-merge preserves the coherent Conventional Commit checkpoints and
@@ -610,7 +609,8 @@ blocker rather than an optional substitute for CI.
 
 ### Issue handling
 
-- Use `Fixes #8` so the issue closes only when the PR merges.
+- Use `Closes #8` so the issue closes only when the PR merges, following the
+  user's subsequent explicit delivery instruction.
 - Publish a final issue reply after the release is remotely verified.
 - The reply must state the root cause, implemented lifecycle behavior,
   verification, version/tag, compatibility, and any genuine remaining work.
@@ -682,10 +682,10 @@ Release is additionally blocked when:
 | 2026-08-05 | Branch prepared | Local `master` matched `origin/master` at `9c60bbad506e30ca2bb6564296090b80b41d8354`; the approved feature branch was created from a clean tree. |
 | 2026-08-05 | Plan persisted | Commit `6119dc3` added this approved plan as the first branch change. |
 | 2026-08-05 | Repository workflow persisted | Commit `3bce619` added the approved issue-delivery instructions to `AGENTS.md`. |
-| 2026-08-05 | Checkpoint 1 complete | Canvas3D initialization now receives the active opaque color in its creation spec and reapplies the latest buffered color after mount. All 45 Vitest tests, ESLint, TypeScript, and the production build passed; the existing Mol* chunk-size warning remains non-blocking. |
-| 2026-08-05 | Checkpoint 2 complete | Added `tests/e2e/viewer-theme.spec.ts`. The real Chromium Canvas3D stayed dark through first and second imports, a ligand topology replacement, the 840 px responsive remount, and same-context second-page restoration; a live switch updated the existing canvas to light without project, artifact, viewer-setting, selection, loaded-count, or normalized-request changes, and a light remount stayed light. The dedicated spec passed 1/1 in 18.8 s and the existing viewer-controls suite passed 2/2 in 23.8 s. ESLint, TypeScript, and `git diff --check` also passed. |
-| 2026-08-05 | Checkpoint 3 complete | `ProjectManifestV1.schema_version` remains the structural compatibility gate while `application_version` is now required strict SemVer producer provenance. The exhaustive archive round trip imports a manifest explicitly marked 0.1.0 without molecular, original-byte, relationship, or remapping loss; valid release/prerelease provenance is accepted and missing/malformed provenance plus unknown schema versions remain rejected. D-042 and the executable archive layout are documented. Ruff, strict mypy, and all 23 focused archive tests passed in 6.03 s. No migration or persisted-schema change was made. |
-| Pending | Checkpoint 4 | Not started. |
+| 2026-08-05 | Checkpoint 1 complete | Commit `e0b2bec` configures Canvas3D with the active opaque color and reapplies the latest buffered color after mount. All 45 Vitest tests, ESLint, TypeScript, and the production build passed; the existing Mol* chunk-size warning remains non-blocking. |
+| 2026-08-05 | Checkpoint 2 complete | Commit `2b3a940` adds `tests/e2e/viewer-theme.spec.ts`. The real Chromium Canvas3D stayed dark through first and second imports, a ligand topology replacement, the 840 px responsive remount, and same-context second-page restoration; a live switch updated the existing canvas to light without project, artifact, viewer-setting, selection, loaded-count, or normalized-request changes, and a light remount stayed light. The dedicated spec passed 1/1 in 18.8 s and the existing viewer-controls suite passed 2/2 in 23.8 s. ESLint, TypeScript, and `git diff --check` also passed. |
+| 2026-08-05 | Checkpoint 3 complete | Commit `b9c90ce` keeps `ProjectManifestV1.schema_version` as the structural compatibility gate while `application_version` is required strict SemVer producer provenance. The exhaustive archive round trip imports a manifest explicitly marked 0.1.0 without molecular, original-byte, relationship, or remapping loss; valid release/prerelease provenance is accepted and missing/malformed provenance plus unknown schema versions remain rejected. D-042 and the executable archive layout are documented. Ruff, strict mypy, and all 23 focused archive tests passed in 6.03 s. No migration or persisted-schema change was made. |
+| 2026-08-05 | Checkpoint 4 complete locally | All five authoritative application version sources report 0.1.1 and the lock was regenerated. Release notes, verification, progress, decisions, schema documentation, and this log are current. The complete gate passed frozen installs, Alembic `0007 (head)`, Ruff, strict mypy, 180 Pytest tests, ESLint, TypeScript, 45 Vitest tests, 7 supervisor tests, the production build, 30 applicable Playwright workflows with 20 intentional skips in 7.6 minutes, and `git diff --check`. The existing lazy Mol* chunk warning remains non-blocking. |
 | Pending | PR and review | Not opened. |
 | Pending | Merge and release | No merge, tag, or release exists. |
 
