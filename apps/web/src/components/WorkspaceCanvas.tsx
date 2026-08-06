@@ -17,6 +17,7 @@ interface WorkspaceCanvasProps {
   theme: Theme;
   selection: Selection;
   pickingGranularity: SelectionGranularity;
+  onPickingGranularity: (granularity: SelectionGranularity) => void;
   onViewerSelection: (selection: Selection, mode: SelectionMode) => void;
   loading: boolean;
   onCreate: () => void;
@@ -34,6 +35,7 @@ export function WorkspaceCanvas({
   theme,
   selection,
   pickingGranularity,
+  onPickingGranularity,
   onViewerSelection,
   loading,
   onCreate,
@@ -92,6 +94,7 @@ export function WorkspaceCanvas({
           theme={theme}
           selection={selection}
           pickingGranularity={pickingGranularity}
+          onPickingGranularity={onPickingGranularity}
           onViewerSelection={onViewerSelection}
           busy={busy}
           coordinatePreview={coordinatePreview}

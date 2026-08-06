@@ -25,6 +25,7 @@ import { createMolstarViewer } from "../viewer/MolstarViewer";
 import { formatMeasurement, measurementValue } from "../measurements/geometry";
 import type { Theme } from "../store/workspace";
 import { ViewerControls } from "./ViewerControls";
+import { ViewerToolbar } from "./ViewerToolbar";
 
 const VIEWER_BACKGROUND_COLORS: Record<Theme, string> = {
   light: "#eef2f1",
@@ -36,6 +37,7 @@ interface StructureViewerProps {
   theme: Theme;
   selection: Selection;
   pickingGranularity: SelectionGranularity;
+  onPickingGranularity: (granularity: SelectionGranularity) => void;
   onViewerSelection: (selection: Selection, mode: SelectionMode) => void;
   busy?: boolean;
   coordinatePreview?: CoordinatePatch | null;
@@ -51,6 +53,7 @@ export function StructureViewer({
   theme,
   selection,
   pickingGranularity,
+  onPickingGranularity,
   onViewerSelection,
   busy = false,
   coordinatePreview = null,
@@ -340,6 +343,10 @@ export function StructureViewer({
         aria-label="3D molecular viewer"
       />
       <Tooltip.Provider delayDuration={350}>
+        <ViewerToolbar
+          pickingGranularity={pickingGranularity}
+          onPickingGranularity={onPickingGranularity}
+        />
         <ViewerControls
         entries={project.entries}
         activeEntryId={activeEntryId}

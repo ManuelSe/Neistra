@@ -2,16 +2,24 @@
 
 ## Current milestone
 
-Issue #3 - viewer selection and focus toolbar planning
+Issue #3 - viewer selection and focus toolbar, Checkpoint 1
 
-The implementation plan at
-`docs/plans/issue-3-viewer-toolbar-focus.md` is approved and is the detailed
-source of truth. The dedicated branch is prepared from clean, current `master`.
-Implementation has not started; the repository is being handed off for
-`/goal` at Checkpoint 1.
+The approved plan at `docs/plans/issue-3-viewer-toolbar-focus.md` is the detailed
+source of truth. Checkpoint 1 is implemented and verified: the existing shared
+picking state now has an always-visible desktop and compact viewer surface.
+Checkpoint 2 context-aware focus actions are next.
 
 ## Completed work
 
+- Added an application-owned `ViewerToolbar` that exposes Atom, Residue, Chain,
+  and Structure picking above the 3D workspace without opening the inspector.
+- Wired the toolbar through `App`, `WorkspaceCanvas`, and `StructureViewer` to
+  the existing transient selection-store setter, retaining one picking value
+  for the toolbar, Selection inspector, and Mol* adapter.
+- Added a compact labelled select below 520 px while retaining pressed buttons,
+  accessible names, keyboard-native controls, and explanatory desktop tooltips.
+- Added direct toolbar/store regression tests proving all four modes and that a
+  future picking-mode change leaves the canonical current selection unchanged.
 - Approved issue #3 as a scoped frontend/viewer vertical slice: one
   always-visible selection-mode toolbar, Fit all visible, Focus selection, and
   aggregate Focus visible ligands using authoritative normalized component
@@ -352,6 +360,13 @@ Implementation has not started; the repository is being handed off for
 
 ## Verification performed
 
+- Issue #3 Checkpoint 1: the focused frontend test command passed all 47 Vitest
+  tests across 15 files, including the new toolbar and selection-invariance
+  cases. ESLint, TypeScript type-checking, the Vite production build, and
+  `git diff --check` passed. The established lazy Mol* chunk warning remains
+  non-blocking at 965.86 KiB gzip; the initial application chunk is 150.46 KiB
+  gzip. Checkpoint diff review found no persistence, API, schema, molecular,
+  camera, classification, migration, or unrelated behavior change.
 - Issue #3 planning verification: inspected the governing product, plan,
   progress, decision, verification, architecture, schema, API, accessibility,
   scientific-limit, development, and release documents; traced frontend
@@ -1218,6 +1233,6 @@ None.
 
 ## Next action
 
-Run `/goal` on `feat/issue-3-viewer-toolbar-focus` and begin Checkpoint 1 from
-the approved feature plan. Do not broaden scope or change the aggregate
-all-visible-ligands decision without amending the plan and obtaining approval.
+Implement Checkpoint 2 on `feat/issue-3-viewer-toolbar-focus`: add generic typed
+fit/focus viewer operations and context-aware selection/aggregate-ligand camera
+actions without changing persisted or molecular state.
