@@ -2,19 +2,37 @@
 
 ## Current milestone
 
-Issue #3 - viewer selection and focus toolbar, released in v0.2.0
+Issues #5 and #6 - camera-neutral viewer selection clicks, approved plan
 
-The approved plan at `docs/plans/issue-3-viewer-toolbar-focus.md` is the detailed
-source of truth. All four checkpoints are implemented and verified: the shared
-picking state has an always-visible desktop and compact surface, and generic
-camera operations now support fit-visible, selection focus, and aggregate
-visible-ligand focus. Desktop and compact scientific, accessibility, camera,
-and state-invariance qualification passes. Version 0.2.0 is aligned, the
-complete local release gate passes, and the PR, annotated tag, GitHub release,
-and issue close-out are remotely verified.
+The approved combined plan at
+`docs/plans/issue-5-viewer-click-selection.md` is the detailed source of truth.
+The clean feature branch is prepared from verified `master` at `8e98bda`, and
+the plan is the first branch change. Implementation has not started. The
+approved outcome makes structural and empty primary viewer clicks update only
+the transient canonical selection while camera changes remain explicit through
+the focus and fit controls released in v0.2.0. The planned release impact is a
+backward-compatible patch to v0.2.1 with no API, data, schema, archive, or
+migration change.
 
 ## Completed work
 
+- Approved one combined implementation contract for issues #5 and #6 because
+  Mol*'s default camera-focus and representation-focus behaviors cause both
+  sides of the same primary-click defect.
+- Classified every significant issue requirement and retained Atom, Residue,
+  Chain, and Structure picking, selection modifiers, Mol* gesture thresholds,
+  non-primary camera behavior, and explicit focus operations.
+- Defined unmodified empty-space clearing, already-empty and modified-empty
+  no-op semantics, exact camera invariance, representation-independent behavior,
+  and drag preservation as independently verifiable acceptance criteria.
+- Rejected a second application click-versus-drag detector and deferred new
+  Molecule/Component identity to existing issue #2.
+- Selected the patch release from the verified v0.2.0 baseline to v0.2.1; the
+  five authoritative version sources will change only after implementation and
+  complete qualification.
+- Fetched `origin/master`, confirmed clean local and remote baseline commit
+  `8e98bda5082af57aa591db099bc580a99daf2310`, and created
+  `fix/issue-5-viewer-click-selection` without starting implementation.
 - Rebase-merged [PR #15](https://github.com/ManuelSe/MolWeave/pull/15) to
   verified `origin/master` commit `ab14e19`, closing issue #3.
 - Published and remotely verified annotated tag and
@@ -1271,6 +1289,9 @@ Results:
 
 ## Known limitations
 
+- Until the approved issue #5/#6 implementation is completed, Mol*'s default
+  primary-click behavior can still focus a picked locus or reset the camera on
+  empty space while MolWeave updates the selection.
 - Focus visible ligands aggregates all rendered atoms already classified as
   ligand in normalized application state. It does not repair ambiguous or
   unknown source classification, choose a ligand of interest, or offer
@@ -1328,4 +1349,5 @@ None.
 
 ## Next action
 
-Issue #3 is complete. Await the next approved issue plan or product milestone.
+Stop after the approved plan handoff. Resume with `/goal` to implement
+Checkpoint 1 from `docs/plans/issue-5-viewer-click-selection.md`.
