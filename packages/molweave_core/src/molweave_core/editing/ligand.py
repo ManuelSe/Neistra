@@ -597,6 +597,11 @@ class RdkitLigandEditor:
             ]
         active_index = min(before.active_conformer_id - 1, len(conformers) - 1)
         active = conformers[active_index].coordinates
+        new_atom_residue_id = (
+            before.residues[0].id
+            if before.structure_type == "ligand" and len(before.residues) == 1
+            else None
+        )
         atoms: list[Atom] = []
         for sorted_index, rd_index in enumerate(order):
             rd_atom = mol.GetAtomWithIdx(rd_index)
@@ -609,7 +614,9 @@ class RdkitLigandEditor:
                     name=existing.name if existing else f"{rd_atom.GetSymbol()}{atom_id}",
                     element=rd_atom.GetSymbol(),
                     coordinates=active[sorted_index],
-                    residue_id=existing.residue_id if existing else None,
+                    residue_id=(
+                        existing.residue_id if existing else new_atom_residue_id
+                    ),
                     formal_charge=int(rd_atom.GetFormalCharge()),
                     source_index=(
                         existing.source_index
