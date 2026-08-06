@@ -37,6 +37,9 @@ def test_atom_and_bond_crud_preserves_ids_and_accepts_gaps() -> None:
     )
     assert added_atom.created_atom_ids == (3,)
     assert [atom.id for atom in added_atom.structure.atoms] == [1, 2, 3]
+    assert {atom.residue_id for atom in added_atom.structure.atoms} == {
+        original.residues[0].id
+    }
 
     added_bond = editor.add_bond(
         added_atom.structure,
@@ -116,6 +119,9 @@ def test_hydrogen_add_remove_retains_heavy_atom_ids_and_records_inference() -> N
 
     assert result.created_atom_ids == tuple(range(4, 10))
     assert [atom.id for atom in result.structure.atoms[:3]] == [1, 2, 3]
+    assert {atom.residue_id for atom in result.structure.atoms} == {
+        ethanol.residues[0].id
+    }
     assert result.structure.inferences[-1].code == "hydrogens_added"
     removed = editor.remove_hydrogens(result.structure)
     assert removed.deleted_atom_ids == result.created_atom_ids
