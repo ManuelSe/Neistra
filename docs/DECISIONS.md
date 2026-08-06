@@ -1551,3 +1551,55 @@ Consequences:
 - A future component hierarchy or ligand-of-interest model can provide a more
   specific target through the same generic viewer boundary without changing
   the camera ownership contract.
+
+## D-044 - Primary viewer activation is selection-only
+
+Status: accepted
+
+Decision:
+
+Treat a primary activation in the molecular viewer as an application-owned
+selection input, never an implicit camera-focus command. A structural hit is
+translated immediately from Mol* loci to canonical MolWeave atom references
+and applied using the active Atom, Residue, Chain, or Structure granularity and
+replace/add/subtract mode. An unmodified empty hit clears a non-empty current
+selection; an already-empty hit and an empty hit with an additive or
+subtractive modifier are no-ops.
+
+Configure Mol* camera-focus and representation-focus behavior so primary,
+modified-primary, and primary-equivalent trigger activation cannot focus a
+locus, reset the camera, or create internal representation-focus state. Retain
+non-primary behavior and the existing camera trackball gestures. Continue to
+use Mol* hit testing and click-versus-drag recognition rather than adding a
+second application gesture detector.
+
+Camera framing remains explicit through the generic application-owned
+`focusAtoms` and `fitVisible` viewer operations established by D-043. Current
+selection and ordinary camera movement remain transient and do not enter
+project state, scenes unless explicitly saved afterward, command history,
+archives, or browser preferences.
+
+Rationale:
+
+MolWeave's selection listener and Mol*'s default camera and representation
+focus behaviors currently consume the same click independently. A hit can
+therefore select and focus, while an empty click can clear selection and reset
+the camera. Separating these actions preserves carefully composed inspection
+views and gives explicit toolbar focus controls one predictable responsibility.
+Reusing Mol* gesture recognition avoids divergent movement thresholds and
+keeps the viewer boundary small.
+
+Consequences:
+
+- Primary structural picks and empty-space clearing cannot move, zoom, orient,
+  fit, or retarget the camera.
+- Repeated and modified selections retain their existing canonical selection
+  semantics without camera drift.
+- Camera drag, wheel, pinch, non-primary interaction, and explicit focus paths
+  remain independent from selection clicks.
+- Viewer implementations must expose picked application references without
+  acquiring authoritative molecular or selection state.
+- A future interactive coordinate-movement mode must explicitly supersede
+  gesture ownership while active; it cannot rely on implicit selection focus.
+- Molecule or component picking requires the stable identity model owned by
+  issue #2 and is not inferred by this decision.
