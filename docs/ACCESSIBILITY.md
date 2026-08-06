@@ -1,6 +1,6 @@
 # Accessibility Qualification
 
-Status: MolWeave v0.1
+Status: MolWeave v0.2 release candidate
 
 MolWeave targets WCAG 2.2 Level AA for the local application shell. The
 qualification combines deterministic browser automation with keyboard and
@@ -29,6 +29,15 @@ The same spec verifies:
 - Visible buttons, inputs, and selects remain inside the viewport and the
   document has no horizontal overflow at desktop and Pixel 7 dimensions.
 
+`tests/e2e/viewer-controls.spec.ts` additionally qualifies the always-visible
+viewer quick toolbar. Desktop uses four named pressed buttons for Atom,
+Residue, Chain, and Structure picking; compact layout uses one labelled native
+select. Fit all visible, Focus selection, and Focus visible ligands are named
+buttons in both layouts. An unavailable focus action remains in the tab order,
+uses `aria-disabled`, suppresses activation, and exposes its reason on focus or
+hover. The compact exception keeps these toolbar help messages visible even
+though unrelated narrow-layout tooltips remain suppressed.
+
 Run it with:
 
 ```bash
@@ -43,8 +52,9 @@ PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test \
 - `Enter` or `Space` activates focused buttons and selection rows.
 - Arrow Left/Right, Home, and End move and activate tabs in a tab list.
 - Escape closes the topmost dialog or mobile drawer and returns focus.
-- Mol* camera orbit/pan remains pointer-driven; named zoom, focus, and reset
-  buttons provide keyboard-operable camera commands.
+- Mol* camera orbit/pan remains pointer-driven; named zoom, fit-visible,
+  selection-focus, and ligand-focus buttons provide keyboard-operable camera
+  commands.
 
 ## Manual Release Check
 
@@ -62,6 +72,6 @@ accessible application state around it.
 Automated contrast rules evaluate DOM-rendered text and controls, not molecular
 colors inside WebGL. Molecular color schemes communicate structure visually but
 are not the sole carrier of selection identity, warnings, measurements, or
-properties. MolWeave v0.1 does not claim screen-reader access to individual 3D
+properties. MolWeave does not claim screen-reader access to individual 3D
 atoms through the canvas; the synchronized inspector, query, sequence, project,
 and property surfaces are the semantic alternatives.

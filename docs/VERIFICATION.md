@@ -80,6 +80,30 @@ suite still asserts WebGL canvas pixels, accessible surrounding state, and
 viewport bounds so these manual checks are supplementary rather than substitutes
 for functional automation.
 
+## V0.2.0 Issue #3 Feature Evidence
+
+Status: Checkpoint 3 verified; release qualification pending
+
+This feature evidence supplements the v0.1 requirement matrix and follows the
+approved contract in `docs/plans/issue-3-viewer-toolbar-focus.md`.
+
+| Feature claim | Evidence |
+|---|---|
+| One synchronized picking value | `viewer-toolbar.test.tsx` and `structure-loading.test.tsx`; desktop and Pixel 7 transitions in `viewer-controls.spec.ts` verify toolbar-to-inspector and inspector-to-toolbar updates without changing the current selection |
+| Generic camera boundary | `viewer-adapter.test.ts` verifies buffered `focusAtoms` and `fitVisible` forwarding; `structure-loading.test.tsx` verifies action routing without selection callbacks |
+| Scientifically bounded ligand target | `focus-targets.test.ts` covers normalized ligand classification, deterministic aggregation/deduplication, component and hydrogen visibility, isolation, and water/ion/polymer/unknown exclusion |
+| Real selection, ligand, and all-visible framing | Desktop SwiftShader WebGL captures three named camera snapshots for standalone ethanol plus the classified biotin residue in `1STP`; selection, aggregate-ligand, and all-visible cameras are distinct, and all-visible has the larger radius |
+| Camera-only invariance | Exact project responses are unchanged before and after each quick camera action; selection status is unchanged by picking-mode transitions; no additional normalized-structure request occurs |
+| Context-aware availability | Protein-only browser input exposes a focusable `aria-disabled` ligand action with an accurate reason; standalone and complex classified ligands enable aggregate focus |
+| Responsive and accessible behavior | Pixel 7 uses a labelled select, preserves all named focus buttons and focus help, remains within viewport bounds, and has no horizontal overflow; `release-hardening.spec.ts` passes axe in both themes and both layouts |
+
+Checkpoint 3 commands passed with 5 applicable viewer-control workflows and 5
+intentional cross-layout skips in 42.7 seconds, plus 5 applicable
+release-hardening workflows and 1 intentional performance-layout skip in 30.2
+seconds. Frontend ESLint and TypeScript also passed. Complete release-gate
+counts and archive predecessor evidence will replace this pending status during
+Checkpoint 4.
+
 ## V0.1.1 Issue #8 Patch Evidence
 
 Status: released in MolWeave v0.1.1

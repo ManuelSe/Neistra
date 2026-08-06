@@ -1,8 +1,8 @@
 # Scientific Limitations
 
-Status: MolWeave v0.1
+Status: MolWeave v0.2 release candidate
 
-MolWeave v0.1 reports known uncertainty but does not replace specialist
+MolWeave reports known uncertainty but does not replace specialist
 structure preparation or validation software.
 
 ## Macromolecular Formats
@@ -110,6 +110,14 @@ structure preparation or validation software.
 - Mol* renders application-owned representation, component, label, and camera
   settings. Viewer state is a disposable projection; named scenes store typed
   MolWeave settings and never Mol* snapshots.
+- Focus visible ligands is a camera-navigation aid, not ligand designation or
+  chemical perception. It frames every currently rendered atom whose normalized
+  residue has `component_type: ligand`, subject to entry, ligand-component,
+  hydrogen, and isolation visibility. Water, ions, polymers, and unknown
+  components are excluded. Ambiguous or incomplete source classification is not
+  repaired from residue names, size, proximity, connectivity, ordering, or Mol*
+  internals; use the surfaced classification limits and original upload when
+  specialist interpretation is required.
 - Mol* requires WebGL. Unsupported or disabled WebGL produces an explicit error;
   it does not affect stored molecular state.
 - At or above 250,000 atoms, MolWeave substitutes line rendering for surfaces
