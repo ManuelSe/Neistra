@@ -63,6 +63,7 @@ def mol_to_normalized(
                     label_number=number,
                     insertion_code=insertion_code or None,
                     component_type="ligand",
+                    source_entity_type="non-polymer",
                 )
             )
         return residue_keys[key]

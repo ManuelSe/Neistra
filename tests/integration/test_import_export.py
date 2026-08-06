@@ -88,6 +88,13 @@ def test_multi_file_import_is_lazy_durable_and_preserves_original_bytes(
     assert protein.status_code == ligand.status_code == 200
     assert protein.json()["viewer"]["format"] == "mmcif"
     assert ligand.json()["viewer"]["format"] == "sdf"
+    assert protein.json()["hierarchy"]["schema_version"] == 1
+    assert [
+        component["category"] for component in protein.json()["hierarchy"]["components"]
+    ] == ["protein"]
+    assert [
+        component["category"] for component in ligand.json()["hierarchy"]["components"]
+    ] == ["ligand"]
     assert len(protein.json()["structure"]["conformers"]) == 2
     assert len(ligand.json()["structure"]["atoms"]) == 3
 

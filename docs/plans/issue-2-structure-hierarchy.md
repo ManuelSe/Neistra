@@ -1,6 +1,6 @@
 # Issue 2 - Automatic Component Detection And Structure Hierarchy
 
-Status: approved; implementation not started
+Status: approved; Checkpoint 1 implemented and verified
 
 ## Issue metadata
 
@@ -952,8 +952,11 @@ Release is additionally blocked when:
 | 2026-08-06 | Plan proposed | Read-only inspection covered repository guidance, product/global plan/progress/decision/verification documentation, molecular and project schemas, APIs, migrations, jobs, frontend state ownership, viewer projection, selection, tests, related issues, current branches, tags, releases, PR conventions, CI/protection state, version sources, and release tooling. Current release history supersedes the issue-era no-history assumption. |
 | 2026-08-06 | Plan approved | User approved the deterministic derived hierarchy, conservative source-aware classification, central component/category selection, mapped group visibility, deferred durable overrides/styling/subset export, and v0.3.0 release plan. |
 | 2026-08-06 | Branch prepared | Fast-forward-only update confirmed clean local `master`, `origin/master`, and base commit `da54b10116175d6232882caa8359f7c47d1548f1`; created `feat/issue-2-structure-hierarchy`. |
+| 2026-08-06 | Checkpoint 1 verified | Added optional residue-level source entity, subchain, polymer, and tabulated-residue facts; a Gemmi-independent deterministic `ComponentHierarchyV1` classifier; stable source-identity-based component IDs; complete disjoint atom membership; conservative legacy fallback; and the additive lazy `StructureRead.hierarchy` projection. Focused Ruff, strict mypy across 47 source files, 46 component/adapter/scientific/import-export tests, and `git diff --check` passed. Detection creates no database/archive migration and does not alter molecular coordinates, topology, source bytes, or chemistry. |
 
 ## Completion
 
-Planning is approved and persisted. Implementation has not started. The branch
-is ready for `/goal` to execute Checkpoint 1 under this contract.
+Checkpoint 1 is implemented and verified. Checkpoint 2 will add the accessible
+selectable hierarchy and route component visibility/focus through this
+application-owned projection without starting deferred override or styling
+work.
