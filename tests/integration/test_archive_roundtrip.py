@@ -223,6 +223,13 @@ def test_archive_round_trip_preserves_project_and_originals(
             "user_metadata",
         ):
             assert restored_entry[field] == source_entry[field]
+        source_projection = client.get(
+            f"/api/v1/projects/{source['id']}/entries/{source_entry['id']}/structure"
+        ).json()
+        restored_projection = client.get(
+            f"/api/v1/projects/{restored['id']}/entries/{restored_entry['id']}/structure"
+        ).json()
+        assert restored_projection["hierarchy"] == source_projection["hierarchy"]
         source_structure = client.get(
             f"/api/v1/projects/{source['id']}/entries/{source_entry['id']}/structure"
         ).json()["structure"]

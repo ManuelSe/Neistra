@@ -2,7 +2,7 @@
 
 ## Current milestone
 
-Issue #2 - automatic component detection and structure hierarchy, Checkpoint 2
+Issue #2 - automatic component detection and structure hierarchy, Checkpoint 3
 
 The approved implementation contract at
 `docs/plans/issue-2-structure-hierarchy.md` is the detailed source of truth.
@@ -20,6 +20,18 @@ v0.3.0 with no Alembic or archive-schema migration.
 
 ## Completed work
 
+- Completed issue #2 Checkpoint 3 with a compact covalently linked
+  protein/ligand/water/additive/ion/heterogen fixture plus focused integration
+  and real-browser workflow coverage.
+- Proved exact disjoint memberships, coordinate-stable identities, current
+  topology regeneration, saved-selection reload, archive/reopen determinism,
+  immutable originals, camera-neutral selection, explicit focus, durable
+  solvent visibility, query-cache reuse, desktop/Pixel 7 accessibility and
+  bounds, and meaningful WebGL output.
+- Fixed a qualification finding in which newly added standalone-ligand atoms
+  lost their sole residue and became separate unclassified components. New
+  atoms and added hydrogens now retain that sole ligand residue; ambiguous
+  multi-residue cases still avoid invented membership.
 - Completed issue #2 Checkpoint 2 with an accessible, lazy per-entry hierarchy
   that omits empty groups, keeps category instance lists unrendered until
   expansion, exposes atom/component counts and provenance, and surfaces
@@ -527,6 +539,14 @@ v0.3.0 with no Alembic or archive-schema migration.
 
 ## Verification performed
 
+- Issue #2 Checkpoint 3: all 35 focused integration tests passed across
+  hierarchy, import/export, archive, coordinate, ligand-edit, and protein-edit
+  workflows. The focused Playwright matrix passed 8 applicable desktop/Pixel 7
+  workflows with 8 intentional cross-layout skips in 1.1 minutes;
+  `git diff --check` passed.
+- The topology repair separately passed Ruff, strict mypy across 47 source
+  files, and 10 focused ligand-editor/component integration tests before its
+  coherent fix commit.
 - Issue #2 Checkpoint 2: ESLint and TypeScript passed; all 56 Vitest tests across
   18 files passed; the production build completed; and `git diff --check`
   passed. The known non-blocking lazy Mol* chunk is 966.21 KiB gzip and the
@@ -1532,8 +1552,7 @@ None.
 
 ## Next action
 
-Begin Checkpoint 3 of the approved issue #2 plan: qualify PDB/PDBx hierarchy,
-selection, explicit focus, mapped visibility, named-selection reload,
-coordinate/topology edits, archive/reopen determinism, responsive accessibility,
-query reuse, and real-WebGL behavior. Do not broaden into durable overrides,
-styling, ligand analysis, or subset export.
+Begin Checkpoint 4 of the approved issue #2 plan: document hierarchy ownership,
+normalized source facts, lazy API contract, classification limitations,
+accessibility, performance, fixture provenance, and exact verified evidence.
+Do not claim durable overrides, styling, ligand analysis, or subset export.
