@@ -11,6 +11,7 @@ from molweave_core.adapters import ImportOptions
 from molweave_core.adapters.defaults import create_default_registry
 from molweave_core.adapters.registry import AdapterRegistry
 from molweave_core.artifacts import LocalArtifactStore
+from molweave_core.components import derive_component_hierarchy
 from molweave_core.export_policy import (
     ExportInput,
     ExportPolicyError,
@@ -390,6 +391,7 @@ class ImportExportService:
         return StructureRead(
             entry_id=entry.id,
             structure=structure,
+            hierarchy=derive_component_hierarchy(structure),
             viewer=ViewerProjection(
                 format=viewer_format,
                 data=projection.data.decode("utf-8"),

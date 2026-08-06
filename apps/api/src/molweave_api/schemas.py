@@ -4,6 +4,7 @@ from datetime import datetime
 from math import isfinite
 from typing import Annotated, Any, Literal
 
+from molweave_core.components import ComponentHierarchyV1
 from molweave_core.molecular import MolecularWarning, NormalizedStructureV1
 from molweave_core.selection import AtomReference, SelectionGranularity, SelectionV1
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
@@ -790,6 +791,7 @@ class ViewerProjection(BaseModel):
 class StructureRead(BaseModel):
     entry_id: str
     structure: NormalizedStructureV1
+    hierarchy: ComponentHierarchyV1
     viewer: ViewerProjection
 
 

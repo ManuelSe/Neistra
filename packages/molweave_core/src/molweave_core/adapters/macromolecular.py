@@ -75,6 +75,18 @@ def _component_type(residue: Any) -> str:
     return "ligand"
 
 
+def _enum_name(value: Any) -> str | None:
+    name = getattr(value, "name", None)
+    if not name or name == "Unknown":
+        return None
+    characters: list[str] = []
+    for index, character in enumerate(name):
+        if index and character.isupper() and not name[index - 1].isupper():
+            characters.append("_")
+        characters.append(character.lower())
+    return "".join(characters)
+
+
 def _structure_type(residues: list[Residue]) -> str:
     components = {residue.component_type for residue in residues}
     if components <= {"water", "ion"}:
@@ -127,6 +139,11 @@ def _normalized_from_gemmi(
         )
     structure.setup_entities()
     first_model = structure[0]
+    entities_by_subchain = {
+        subchain: entity
+        for entity in structure.entities
+        for subchain in entity.subchains
+    }
     chains: list[Chain] = []
     residues: list[Residue] = []
     atoms: list[Atom] = []
@@ -139,6 +156,13 @@ def _normalized_from_gemmi(
         chain_id = chain_index + 1
         chains.append(Chain(id=chain_id, name=chain.name, entity_type="mixed"))
         for residue_index, residue in enumerate(chain):
+            source_subchain_id = _clean_identifier(residue.subchain) or None
+            source_entity = entities_by_subchain.get(source_subchain_id or "")
+            source_entity_type = (
+                _enum_name(source_entity.entity_type) if source_entity is not None else None
+            )
+            if source_entity_type == "non_polymer":
+                source_entity_type = "non-polymer"
             residue_id = len(residues) + 1
             residue_id_by_object[(chain_index, residue_index)] = residue_id
             label_number = int(residue.label_seq) if residue.label_seq is not None else None
@@ -151,6 +175,21 @@ def _normalized_from_gemmi(
                     label_number=label_number,
                     insertion_code=_clean_identifier(residue.seqid.icode) or None,
                     component_type=_component_type(residue),
+                    source_entity_id=(
+                        _clean_identifier(source_entity.name) or None
+                        if source_entity is not None
+                        else None
+                    ),
+                    source_subchain_id=source_subchain_id,
+                    source_entity_type=source_entity_type,
+                    source_polymer_type=(
+                        _enum_name(source_entity.polymer_type)
+                        if source_entity is not None
+                        else None
+                    ),
+                    source_residue_kind=_enum_name(
+                        gemmi.find_tabulated_residue(residue.name.strip().upper()).kind
+                    ),
                 )
             )
             for atom in residue:

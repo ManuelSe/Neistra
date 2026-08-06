@@ -58,6 +58,11 @@ class Residue(BaseModel):
     label_number: int | None = None
     insertion_code: str | None = None
     component_type: ComponentType = "unknown"
+    source_entity_id: str | None = None
+    source_subchain_id: str | None = None
+    source_entity_type: str | None = None
+    source_polymer_type: str | None = None
+    source_residue_kind: str | None = None
 
 
 class Atom(BaseModel):

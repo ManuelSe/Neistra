@@ -6,6 +6,7 @@ from pathlib import Path
 
 from molweave_core.adapters.base import ImportOptions
 from molweave_core.adapters.defaults import create_default_registry
+from molweave_core.components import component_atom_ids, derive_component_hierarchy
 
 FIXTURE = Path(__file__).parents[1] / "fixtures" / "complex" / "1stp.pdb"
 
@@ -43,3 +44,12 @@ def test_streptavidin_biotin_release_fixture_has_expected_scientific_content() -
     assert len(structure.bonds) == 17
     assert all(bond.order is None for bond in structure.bonds)
     assert {warning.code for warning in structure.warnings} == {"pdb_bond_orders_unknown"}
+    hierarchy = derive_component_hierarchy(structure)
+    assert Counter(component.category for component in hierarchy.components) == {
+        "protein": 1,
+        "ligand": 1,
+        "water": 84,
+    }
+    assert sum(
+        len(component_atom_ids(structure, component)) for component in hierarchy.components
+    ) == len(structure.atoms)

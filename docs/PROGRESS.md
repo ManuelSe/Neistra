@@ -2,7 +2,7 @@
 
 ## Current milestone
 
-Issue #2 - automatic component detection and structure hierarchy, approved plan
+Issue #2 - automatic component detection and structure hierarchy, Checkpoint 1
 
 The approved implementation contract at
 `docs/plans/issue-2-structure-hierarchy.md` is the detailed source of truth.
@@ -11,14 +11,27 @@ The clean feature branch is based on verified local and remote `master` at
 The approved outcome adds an application-owned deterministic component
 hierarchy, conservative source-aware classification, category and individual
 selection through canonical atom references, and mapped group visibility while
-keeping Mol* disposable. Durable component overrides, selection-specific
-styling, ligand-of-interest state, and component subset export are explicitly
-deferred or rejected from this slice. Implementation has not started. The
-planned backward-compatible feature release is v0.3.0 with no Alembic or
-archive-schema migration.
+keeping Mol* disposable. The typed source-aware domain classifier and additive
+lazy API hierarchy are implemented and verified. Durable component overrides,
+selection-specific styling, ligand-of-interest state, and component subset
+export remain explicitly deferred or rejected. The planned backward-compatible
+feature release is v0.3.0 with no Alembic or archive-schema migration.
 
 ## Completed work
 
+- Completed issue #2 Checkpoint 1 with optional normalized source entity,
+  subchain, polymer, and residue-kind facts, retained at the Gemmi adapter
+  boundary without changing normalized schema version 1.
+- Added the library-independent `ComponentHierarchyV1` projection with stable
+  identity-derived component IDs, all ten approved categories, explicit
+  source/fallback/ambiguous provenance, deterministic sorting, and complete
+  disjoint membership for every atom including orphan atoms.
+- Added conservative legacy-artifact fallback, explicit standalone RDKit
+  ligand components, source-residue boundaries that survive covalent links,
+  and an additive hierarchy field on the existing lazy structure response.
+- Added domain, PDB/PDBx, RDKit, release-fixture, and API tests without a
+  database table, migration, duplicate hierarchy snapshot, molecular mutation,
+  or viewer dependency.
 - Approved issue #2 as a bounded vertical slice with stable component
   instances, source/fallback/ambiguous classification provenance, an expandable
   per-entry hierarchy, central selection, and existing group visibility.
@@ -499,6 +512,15 @@ archive-schema migration.
 
 ## Verification performed
 
+- Issue #2 Checkpoint 1: Ruff passed across core, API, and tests; strict mypy
+  passed across 47 source files; all 46 focused component, adapter, scientific
+  fixture, and import/export tests passed; and `git diff --check` passed.
+- Checkpoint 1 invariant evidence proves all ten categories, every atom in
+  exactly one component, deterministic component ID/membership after coordinate
+  and display-label changes, source-bound covalent ligand separation, legacy
+  normalized-document fallback without rewrite, PDB/PDBx source precedence,
+  one-component RDKit ligands, immutable originals, and additive lazy API
+  output.
 - Remote issue #5/#6 delivery verification: PR #17 is merged; both issues are
   closed with their close-out replies; remote annotated tag `v0.2.1`
   dereferences to `c08fbc3`; and the GitHub release is published, non-draft,
@@ -1421,6 +1443,11 @@ Results:
 
 ## Known limitations
 
+- Component classification is deliberately role-conservative: non-polymer
+  source entities are putative ligands/cofactors, buffer-table matches are
+  solvent/additives, and unresolved material remains visibly unclassified.
+  No ligand-of-interest claim, manual override, selection-specific style,
+  individual persisted visibility, or component subset export exists.
 - Real-WebGL qualification uses the repository's pinned Chromium/SwiftShader
   desktop and Pixel 7 projects; this fix does not add a cross-browser or WebXR
   matrix.
@@ -1481,7 +1508,8 @@ None.
 
 ## Next action
 
-Begin Checkpoint 1 of the approved issue #2 plan under `/goal`: establish the
-typed component domain, source-aware classifier, and additive lazy structure
-API contract. Do not broaden into durable overrides, styling, ligand analysis,
-or subset export.
+Begin Checkpoint 2 of the approved issue #2 plan: add the lazy accessible
+per-entry hierarchy, materialize category/component nodes through canonical
+atom references, and project application-owned memberships into existing
+visibility and ligand-focus behavior. Do not broaden into durable overrides,
+styling, ligand analysis, or subset export.
