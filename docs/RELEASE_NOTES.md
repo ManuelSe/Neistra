@@ -1,5 +1,81 @@
 # MolWeave Release Notes
 
+## 0.2.0 - 2026-08-06
+
+Status: release candidate for issue #3
+
+### Highlights
+
+- Added an always-visible viewer toolbar with synchronized Atom, Residue,
+  Chain, and Structure picking controls on desktop and a compact labelled
+  picker on narrow layouts.
+- Added Fit all visible, Focus selection, and aggregate Focus visible ligands
+  camera actions without opening the advanced inspector or display drawer.
+
+### Added
+
+- Generic typed viewer operations for fitting rendered content and focusing
+  canonical `(structure_id, atom_id)` references.
+- Context-aware, keyboard-reachable unavailable states with accurate focus and
+  hover explanations.
+- Real-WebGL desktop and Pixel 7 coverage for synchronized picking, camera
+  snapshots, durable-state invariance, accessibility, and responsive bounds.
+
+### Changed
+
+- Focus selection and camera reset moved from the expandable display drawer to
+  one stable quick-action surface. Camera reset is now named Fit all visible to
+  describe its rendered-scene behavior.
+- Persistent success/error notices pass pointer input through to underlying
+  application controls except for their own dismiss button.
+
+### Verification
+
+- All 51 frontend unit/component tests pass, including focus-target,
+  viewer-adapter, toolbar, structure-loading, and selection-invariance cases.
+- The focused viewer-controls matrix passes 5 applicable real-WebGL workflows
+  with 5 intentional cross-layout skips; release-hardening passes 5 applicable
+  accessibility/responsive/performance workflows with 1 intentional skip.
+- Focused archive round-trip coverage passes for both 0.1.0 and 0.1.1 producer
+  provenance while retaining exhaustive project, molecular, scene, selection,
+  artifact, and original-byte assertions.
+- The complete release gate passes: frozen Python and JavaScript installs,
+  Alembic `0007 (head)`, Ruff, strict mypy across 46 source files, 181 Python
+  tests, ESLint, TypeScript, 51 Vitest tests, 7 supervisor tests, the production
+  build, and 33 applicable desktop/mobile Playwright workflows. Playwright
+  intentionally skips 23 cross-layout cases and completed in 7.9 minutes.
+- The production build retains the known non-blocking lazy Mol* chunk warning:
+  Mol* is 965.86 KiB gzip and the initial application chunk is 151.14 KiB gzip.
+
+### Compatibility and migrations
+
+- This is a backward-compatible minor release from 0.1.1 to 0.2.0.
+- `/api/v1`, Alembic head `0007`, `ProjectStateV1`,
+  `ProjectManifestV1.schema_version`, and `NormalizedStructureV1` are unchanged.
+- There is no database, project, molecular, selection, scene, browser-storage,
+  or archive migration. Valid 0.1.0 and 0.1.1 archives remain importable;
+  0.2.0 archives retain manifest schema version 1.
+- Picking mode, toolbar state, and ordinary camera navigation remain transient
+  and are not written to projects, commands, checkpoints, scenes, or archives.
+
+### Scientific and accessibility limitations
+
+- Focus visible ligands frames all currently rendered atoms already classified
+  as ligand by normalized application state. It does not infer, reclassify,
+  rank, or designate a ligand of interest; ambiguous and unknown components are
+  excluded.
+- Individual atoms in the WebGL canvas are not exposed as screen-reader
+  objects. Named controls, pressed/selected state, unavailable reasons,
+  selection summaries, and inspector/sequence alternatives remain available.
+
+### Deferred and follow-up work
+
+- Per-ligand choice and broader component identity/reclassification remain with
+  issues #2 and #11; this release deliberately aggregates all visible
+  classified ligands.
+- Durable picking mode, global picking shortcuts, active-ligand guessing, and
+  changes to viewer click/drag/orbit semantics remain outside issue #3.
+
 ## 0.1.1 - 2026-08-05
 
 Status: released as annotated tag

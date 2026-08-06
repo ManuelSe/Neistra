@@ -82,7 +82,7 @@ for functional automation.
 
 ## V0.2.0 Issue #3 Feature Evidence
 
-Status: Checkpoint 3 verified; release qualification pending
+Status: MolWeave v0.2.0 release candidate qualified
 
 This feature evidence supplements the v0.1 requirement matrix and follows the
 approved contract in `docs/plans/issue-3-viewer-toolbar-focus.md`.
@@ -100,9 +100,16 @@ approved contract in `docs/plans/issue-3-viewer-toolbar-focus.md`.
 Checkpoint 3 commands passed with 5 applicable viewer-control workflows and 5
 intentional cross-layout skips in 42.7 seconds, plus 5 applicable
 release-hardening workflows and 1 intentional performance-layout skip in 30.2
-seconds. Frontend ESLint and TypeScript also passed. Complete release-gate
-counts and archive predecessor evidence will replace this pending status during
-Checkpoint 4.
+seconds.
+
+The final candidate passed frozen dependency installs, Alembic `0007 (head)`,
+Ruff, strict mypy across 46 source files, all 181 Python tests, ESLint,
+TypeScript, all 51 Vitest tests, all 7 supervisor tests, the production build,
+and 33 applicable Playwright workflows with 23 intentional cross-layout skips
+in 7.9 minutes. The archive round trip exhaustively passes with both 0.1.0 and
+0.1.1 producer provenance, while 0.2.0 output retains archive schema version 1.
+The known non-blocking lazy Mol* chunk warning remains 965.86 KiB gzip; the
+initial application chunk is 151.14 KiB gzip. `git diff --check` passed.
 
 ## V0.1.1 Issue #8 Patch Evidence
 

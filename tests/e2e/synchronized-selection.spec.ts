@@ -178,7 +178,7 @@ test("keeps browser, sequence, inspector, viewer, and saved selection synchroniz
   await expectSummary(page, { atoms: 2, residues: 2, chains: 2, structures: 2 });
 
   await page
-    .getByRole("group", { name: "Viewer pick" })
+    .getByRole("group", { name: "Viewer pick", exact: true })
     .getByRole("button", { name: "structure", exact: true })
     .click();
   const pickedAtoms = await pickVisibleStructure(page);

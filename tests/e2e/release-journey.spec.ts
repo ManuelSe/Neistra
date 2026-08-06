@@ -224,7 +224,10 @@ test("completes the MolWeave v0.1 definition-of-done journey", async ({
   await page.getByRole("button", { name: "ALA 1", exact: true }).click();
   await page.getByRole("tab", { name: "selection" }).click();
   await expect(page.locator(".selection-meta")).toContainText("from sequence");
-  await page.getByRole("group", { name: "Viewer pick" }).getByRole("button", { name: "structure" }).click();
+  await page
+    .getByRole("group", { name: "Viewer pick", exact: true })
+    .getByRole("button", { name: "structure" })
+    .click();
   await pickVisibleStructure(page);
   await expect(page.locator(".selection-meta")).toContainText("from viewer");
 
