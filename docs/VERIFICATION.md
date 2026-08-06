@@ -82,7 +82,7 @@ for functional automation.
 
 ## V0.2.0 Issue #3 Feature Evidence
 
-Status: MolWeave v0.2.0 release candidate qualified
+Status: released in MolWeave v0.2.0
 
 This feature evidence supplements the v0.1 requirement matrix and follows the
 approved contract in `docs/plans/issue-3-viewer-toolbar-focus.md`.
@@ -110,6 +110,14 @@ in 7.9 minutes. The archive round trip exhaustively passes with both 0.1.0 and
 0.1.1 producer provenance, while 0.2.0 output retains archive schema version 1.
 The known non-blocking lazy Mol* chunk warning remains 965.86 KiB gzip; the
 initial application chunk is 151.14 KiB gzip. `git diff --check` passed.
+
+[PR #15](https://github.com/ManuelSe/MolWeave/pull/15) was verified clean and
+rebase-merged after the complete gate and local full-diff review. The requested
+`@codex review` integration did not acknowledge or return a review, so no
+independent review is claimed. Annotated tag and
+[GitHub release `v0.2.0`](https://github.com/ManuelSe/MolWeave/releases/tag/v0.2.0)
+were remotely verified at released `master` commit `ab14e19`; issue #3 is closed
+and its verified close-out reply records delivered and deferred scope.
 
 ## V0.1.1 Issue #8 Patch Evidence
 

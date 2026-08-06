@@ -1,6 +1,6 @@
 # Scientific Limitations
 
-Status: MolWeave v0.2 release candidate
+Status: released in MolWeave v0.2.0
 
 MolWeave reports known uncertainty but does not replace specialist
 structure preparation or validation software.
