@@ -80,6 +80,44 @@ suite still asserts WebGL canvas pixels, accessible surrounding state, and
 viewport bounds so these manual checks are supplementary rather than substitutes
 for functional automation.
 
+## V0.3.0 Issue #2 Feature Evidence
+
+Status: Checkpoints 1 through 4 verified; release qualification pending
+
+This evidence supplements the v0.1 matrix and follows the approved contract in
+`docs/plans/issue-2-structure-hierarchy.md`.
+
+| Feature claim | Passing evidence |
+|---|---|
+| Source-aware conservative classification | `test_component_classification.py`, `test_components.py`, and `test_release_fixture.py` cover PDB/PDBx source facts, all ten categories, legacy fallback, standalone RDKit ligand identity, ambiguity, and the 1STP complex |
+| Complete deterministic membership | Domain invariants prove every atom appears exactly once, stable IDs ignore coordinates/labels/list order, and explicit covalent bonds do not merge source components |
+| Additive lazy API | `test_import_export.py` and `test_component_hierarchy.py` validate typed `StructureRead.hierarchy`, immutable originals, and unchanged API/schema/migration versions |
+| Central hierarchy selection | `component-hierarchy.test.tsx` and `structure-hierarchy.spec.ts` prove exact category/instance atom sets, chain/residue metadata, pressed state, replace/add/subtract behavior, and synchronization with viewer/inspector/saved selection |
+| Camera and project invariance | Exact project reads and named camera snapshots remain equal across hierarchy selection; explicit Focus selection produces a distinct camera |
+| Visibility and ligand focus | Unit/component/browser evidence proves application membership drives Protein/Ligands/Solvent/Ions projection, Other/unclassified remains visible, and aggregate ligand focus no longer uses Mol* classification |
+| Coordinate/topology/archive stability | Integration tests prove coordinate-exact identity, current membership after atom add/delete, saved-selection reopen, exhaustive archive hierarchy equality, and original-byte preservation |
+| Accessibility and responsiveness | Native disclosure/button semantics, axe, keyboard Enter/Escape/focus restoration, desktop and Pixel 7 bounds, and no horizontal overflow pass in `structure-hierarchy.spec.ts` |
+| Performance and WebGL | One artifact-keyed structure request serves viewer plus repeated hierarchy actions; category instances mount lazily; meaningful SwiftShader WebGL pixels remain visible through selection and visibility changes |
+
+Checkpoint 1 passed Ruff, strict mypy across 47 source files, 46 focused Python
+tests, and `git diff --check`. Checkpoint 2 passed ESLint, TypeScript, all 56
+Vitest tests across 18 files, the production build, and `git diff --check`; the
+known lazy Mol* chunk was 966.21 KiB gzip and the initial application chunk
+152.59 KiB gzip. Checkpoint 3 passed 35 focused integration tests and 8
+applicable Playwright workflows with 8 intentional cross-layout skips in 1.1
+minutes. The topology finding and repair separately passed 10 focused tests,
+Ruff, strict mypy, and diff checks.
+
+Checkpoint 4 passed Ruff, strict mypy across 47 source files, ESLint,
+TypeScript, and `git diff --check`. Documentation now maps the executable
+ownership, additive schema/API fields, scientific boundaries, accessibility,
+performance, fixture provenance, compatibility, and exact evidence without
+claiming deferred functionality.
+
+No Alembic, project-state, archive-schema, selection, scene, job, or API-major
+migration exists. Final complete-gate and v0.3.0 release evidence must replace
+the pending status before release.
+
 ## V0.2.1 Issues #5 And #6 Feature Evidence
 
 Status: released in MolWeave v0.2.1

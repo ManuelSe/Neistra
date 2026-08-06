@@ -38,6 +38,16 @@ uses `aria-disabled`, suppresses activation, and exposes its reason on focus or
 hover. The compact exception keeps these toolbar help messages visible even
 though unrelated narrow-layout tooltips remain suppressed.
 
+`tests/e2e/structure-hierarchy.spec.ts` qualifies the component hierarchy in
+desktop and Pixel 7 layouts. Entry and category disclosures use native
+`details`/`summary` semantics; category and individual component selection use
+named buttons with `aria-pressed` including mixed state. Counts, source versus
+fallback versus ambiguous assignment, and warnings are semantic DOM text rather
+than WebGL-only cues. Instance lists are mounted only after category expansion.
+Keyboard Enter opens disclosures and selects a component; the compact drawer
+remains within viewport bounds, has no horizontal overflow, restores focus on
+Escape, and passes the configured axe rules while expanded.
+
 Run it with:
 
 ```bash
@@ -50,6 +60,8 @@ PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test \
 - `Tab` and `Shift+Tab` traverse commands, fields, resizers, and composite
   controls in DOM order.
 - `Enter` or `Space` activates focused buttons and selection rows.
+- `Enter` or `Space` toggles focused hierarchy disclosures; component buttons
+  then use the same replace/add/subtract selection semantics as other surfaces.
 - Arrow Left/Right, Home, and End move and activate tabs in a tab list.
 - Escape closes the topmost dialog or mobile drawer and returns focus.
 - Mol* camera orbit/pan remains pointer-driven; named zoom, fit-visible,

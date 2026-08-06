@@ -37,6 +37,15 @@ PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test \
 
 - Only visible entries request normalized projections; structure query data is
   cached by project, entry, and artifact ID.
+- Opening a hidden or visible entry hierarchy reuses that same artifact-keyed
+  query. Repeated category/component actions do not refetch or serialize the
+  normalized document; the dedicated browser workflow requires one total
+  structure request before reload.
+- Component derivation performs linear identity/membership passes followed by
+  deterministic bounded sorting. Category unions are built from individual
+  memberships rather than duplicated full category atom arrays.
+- Entry and category disclosures start collapsed. Water/solvent instance lists
+  are absent from the DOM until explicitly expanded.
 - Camera, selection, metadata, and representation interactions send compact
   state/command payloads, not complete normalized molecular JSON.
 - Spatial selection runs in a browser worker.

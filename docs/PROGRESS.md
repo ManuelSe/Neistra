@@ -2,7 +2,7 @@
 
 ## Current milestone
 
-Issue #2 - automatic component detection and structure hierarchy, Checkpoint 3
+Issue #2 - automatic component detection and structure hierarchy, Checkpoint 4
 
 The approved implementation contract at
 `docs/plans/issue-2-structure-hierarchy.md` is the detailed source of truth.
@@ -20,6 +20,13 @@ v0.3.0 with no Alembic or archive-schema migration.
 
 ## Completed work
 
+- Completed issue #2 Checkpoint 4 by documenting hierarchy ownership and
+  identity, additive source facts and API response, non-persisted derivation,
+  scientific boundaries, accessible controls, query/lazy-rendering behavior,
+  fixture provenance, compatibility, and exact verification evidence.
+- Confirmed the documentation does not claim deferred durable labels or
+  reclassification, individual styling or visibility, ligand designation, or
+  subset export and adds no architectural decision beyond accepted D-045.
 - Completed issue #2 Checkpoint 3 with a compact covalently linked
   protein/ligand/water/additive/ion/heterogen fixture plus focused integration
   and real-browser workflow coverage.
@@ -539,6 +546,8 @@ v0.3.0 with no Alembic or archive-schema migration.
 
 ## Verification performed
 
+- Issue #2 Checkpoint 4: Ruff, strict mypy across 47 source files, ESLint,
+  TypeScript, and `git diff --check` passed after the documentation update.
 - Issue #2 Checkpoint 3: all 35 focused integration tests passed across
   hierarchy, import/export, archive, coordinate, ligand-edit, and protein-edit
   workflows. The focused Playwright matrix passed 8 applicable desktop/Pixel 7
@@ -1552,7 +1561,7 @@ None.
 
 ## Next action
 
-Begin Checkpoint 4 of the approved issue #2 plan: document hierarchy ownership,
-normalized source facts, lazy API contract, classification limitations,
-accessibility, performance, fixture provenance, and exact verified evidence.
-Do not claim durable overrides, styling, ligand analysis, or subset export.
+Complete Checkpoint 5 of the approved issue #2 plan by incorporating the latest
+base safely, confirming v0.3.0 remains collision-free, updating every
+authoritative version source and release note, running the complete release
+gate, and performing the final full-diff review.

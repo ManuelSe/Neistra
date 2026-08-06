@@ -13,11 +13,15 @@ flowchart TB
     Query[TanStack Query server state]
     Prefs[Zustand preferences]
     Selection[Transient canonical selection]
+    Components[Derived component hierarchy]
     Spatial[Spatial-query Web Worker]
     Viewer[Mol* adapter and disposable scene]
     React --> Query
     React --> Prefs
     React --> Selection
+    Query --> Components
+    Components --> Selection
+    Components --> Viewer
     Selection <--> Viewer
     Selection --> Spatial
   end
@@ -57,6 +61,32 @@ flowchart TB
   serializes project state.
 - The worker owns job claim/recovery and spawns an allowlisted plugin in a
   controlled child. Only the parent validates and publishes returned bytes.
+
+## Component Hierarchy Ownership
+
+`molweave_core.components` deterministically derives `ComponentHierarchyV1`
+from the current `NormalizedStructureV1` artifact. Gemmi contributes optional
+source entity, subchain, polymer-type, and tabulated-residue facts only at the
+macromolecular adapter boundary; the classifier itself is library-independent.
+Source facts take precedence, documented residue/element rules are explicit
+fallbacks, and unsupported evidence remains ambiguous and visible.
+
+Component IDs are entry-local opaque hashes over stable source/subchain/chain,
+residue, or orphan-atom identity. They never use display labels, coordinates,
+array position, proximity, molecular size, recent selection, or Mol* objects.
+Polymer source instances and individual non-polymer residues own disjoint
+memberships; every normalized atom belongs to exactly one component. Covalent
+connectivity does not erase a source residue boundary.
+
+The hierarchy is returned with the artifact-keyed lazy structure response and
+is never copied into SQLite, checkpoints, scenes, browser preferences, or
+archives. Coordinate-only edits therefore retain exact IDs and membership;
+topology edits derive current membership again from retained normalized
+identities. Category and component nodes materialize the existing canonical
+atom-reference selection. Existing Protein, Ligands, Solvent, and Ions viewer
+settings filter application memberships before Mol* receives a disposable
+bundle; categories without a mapped setting, including unclassified material,
+remain visible.
 
 ## Viewer Interaction Semantics
 
