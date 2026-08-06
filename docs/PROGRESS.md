@@ -2,14 +2,28 @@
 
 ## Current milestone
 
-Issue #8 - viewer theme persistence
+Issue #3 - viewer selection and focus toolbar planning
 
-Issue #8 is complete and released as MolWeave 0.1.1. PR #13 is merged, the
-annotated `v0.1.1` tag and GitHub release point to the verified release commit,
-the issue has its close-out reply, and no approved-scope follow-up remains.
+The implementation plan at
+`docs/plans/issue-3-viewer-toolbar-focus.md` is approved and is the detailed
+source of truth. The dedicated branch is prepared from clean, current `master`.
+Implementation has not started; the repository is being handed off for
+`/goal` at Checkpoint 1.
 
 ## Completed work
 
+- Approved issue #3 as a scoped frontend/viewer vertical slice: one
+  always-visible selection-mode toolbar, Fit all visible, Focus selection, and
+  aggregate Focus visible ligands using authoritative normalized component
+  classifications.
+- Classified all significant issue requirements and explicitly deferred
+  per-ligand choice to existing issues #2 and #11 rather than introducing a
+  premature component or ligand-of-interest model.
+- Selected the backward-compatible MolWeave 0.2.0 minor-release path from the
+  verified v0.1.1 baseline; no persisted schema or HTTP API change is planned.
+- Prepared `feat/issue-3-viewer-toolbar-focus` from clean `master` at
+  `34a2b480cea67a509bb396375b58b4f7841f7cbc` and persisted the approved plan as
+  the first branch change without starting implementation.
 - Corrected Mol* initialization so the active light or dark background is part
   of Canvas3D creation instead of an earlier callback where Canvas3D does not
   yet exist.
@@ -338,6 +352,14 @@ the issue has its close-out reply, and no approved-scope follow-up remains.
 
 ## Verification performed
 
+- Issue #3 planning verification: inspected the governing product, plan,
+  progress, decision, verification, architecture, schema, API, accessibility,
+  scientific-limit, development, and release documents; traced frontend
+  selection/viewer state, normalized ligand classification, viewer tests,
+  migrations, and authoritative version sources; and inspected GitHub issue #3,
+  related issues #2/#5/#6/#7/#11, branches, pull requests, tags, releases,
+  workflows, protections, rulesets, and merge settings. Local `master` was clean
+  and matched `origin/master` at `34a2b48` before branch creation.
 - Issue #8 checkpoint 1: all 45 Vitest tests passed, including the lazy-adapter
   pre-mount ordering and StructureViewer no-remount/no-resynchronization theme
   assertions. ESLint, TypeScript type-checking, and the Vite production build
@@ -1196,5 +1218,6 @@ None.
 
 ## Next action
 
-Issue #8 has no remaining action. Select the next approved project issue or
-milestone before changing application behavior.
+Run `/goal` on `feat/issue-3-viewer-toolbar-focus` and begin Checkpoint 1 from
+the approved feature plan. Do not broaden scope or change the aggregate
+all-visible-ligands decision without amending the plan and obtaining approval.

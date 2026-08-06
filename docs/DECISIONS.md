@@ -1500,3 +1500,54 @@ Consequences:
 - A future incompatible archive shape requires a new schema version and an
   explicit migration or rejection policy; changing only the application
   version cannot silently redefine the schema.
+
+## D-043 - Application-owned focus targets and aggregate ligand focus
+
+Status: accepted
+
+Decision:
+
+Derive context-sensitive camera focus targets from application-owned normalized
+structures and display state, express every molecular target as canonical
+`(structure_id, atom_id)` references, and pass those references through a
+generic `MolecularViewer` focus operation. Mol* owns camera execution and the
+rendered scene bounds used by Fit all visible, but it does not classify the
+target or become the authority for molecular identity.
+
+For issue #3, Focus visible ligands collects all confidently ligand-classified
+atoms from loaded visible entries whose ligand component is enabled, excludes
+hidden hydrogens and atoms outside active isolation, and focuses their union.
+Unknown components, water, ions, polymers, failed loads, and unloaded entries
+are excluded. The implementation must use
+`NormalizedStructureV1.residues[].component_type`; it must not infer ligands
+from residue names, size, ordering, proximity, connectivity guesses, or Mol*
+static-component classifications.
+
+Do not create an active-ligand or component-instance persistence model for this
+aggregate camera action. Individual-ligand choice remains deferred until issue
+#2 or issue #11 establishes stable component identity or durable ligand-of-
+interest semantics. Focus, fit, picking mode, and ordinary camera navigation
+remain transient and do not enter project state, scenes unless explicitly
+saved afterward, command history, archives, or browser preferences.
+
+Rationale:
+
+The normalized model already provides stable atom IDs and validated residue
+component classifications across standalone ligands and complexes. Reusing
+that authority makes the action deterministic and independently testable while
+keeping Mol* disposable. Framing every visible classified ligand gives useful,
+unambiguous behavior without silently selecting one candidate or prematurely
+committing to a durable component model that broader open issues must design.
+
+Consequences:
+
+- Viewer implementations accept application focus targets without acquiring
+  ligand-specific logic.
+- Multiple visible ligands are framed together in issue #3.
+- Focus actions cannot modify selection, isolation, visibility,
+  representations, molecular artifacts, project revision, or history.
+- Component-classification limitations remain visible scientific limitations;
+  the toolbar cannot repair them with hidden heuristics.
+- A future component hierarchy or ligand-of-interest model can provide a more
+  specific target through the same generic viewer boundary without changing
+  the camera ownership contract.
