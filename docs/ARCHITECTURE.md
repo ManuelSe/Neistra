@@ -58,6 +58,26 @@ flowchart TB
 - The worker owns job claim/recovery and spawns an allowlisted plugin in a
   controlled child. Only the parent validates and publishes returned bytes.
 
+## Viewer Interaction Semantics
+
+Mol* owns hit testing and the distinction between a click and a camera drag.
+MolWeave consumes the resulting primary mouse or touch activation and translates
+structural loci immediately into canonical application atom references at the
+active Atom, Residue, Chain, or Structure granularity. An unmodified hit replaces
+selection, Ctrl/Meta/Shift adds, and Alt subtracts. An unmodified empty hit clears
+a non-empty selection; an empty hit with a modifier, or while selection is already
+empty, is a no-op.
+
+Primary and primary-equivalent trigger activations are deliberately absent from
+Mol* camera-focus and representation-focus bindings. Selection clicks therefore
+do not frame a hit or reset the camera. Secondary camera behavior and Mol*'s
+trackball gestures remain owned by Mol*, while camera framing occurs only through
+explicit application operations such as `focusAtoms` and `fitVisible`.
+
+These interactions update transient viewer/application state only. They do not
+issue project commands, refetch normalized structures, mutate molecular data, or
+persist ordinary selection or camera state.
+
 ## Persistence
 
 SQLite stores projects, entries, groups, checkpoints, bounded command history,

@@ -80,6 +80,42 @@ suite still asserts WebGL canvas pixels, accessible surrounding state, and
 viewport bounds so these manual checks are supplementary rather than substitutes
 for functional automation.
 
+## V0.2.1 Issues #5 And #6 Feature Evidence
+
+Status: Checkpoints 1 through 3 verified; release qualification pending
+
+This feature evidence supplements the v0.1 requirement matrix and follows the
+approved combined contract in
+`docs/plans/issue-5-viewer-click-selection.md`.
+
+| Feature claim | Evidence |
+|---|---|
+| Primary activation cannot invoke implicit Mol* focus/reset | `viewer-interaction.test.ts` inspects both configured focus behaviors and exhausts Primary/Trigger with every supported modifier while retaining secondary camera bindings |
+| Hit, modifier, and empty selection semantics | Direct interaction-policy tests plus `viewer-click-selection.spec.ts` prove replace/add/subtract, non-empty clearing, and already-empty or modified-empty no-ops |
+| Camera-neutral hits and clearing | Exact named camera snapshots remain unchanged across Atom, Residue, Chain, Structure, modifier, and empty-space activations |
+| Gesture and explicit-focus preservation | A real drag changes the camera without changing selection; Focus selection and Fit all visible each change the camera explicitly |
+| Shared representation path | The desktop workflow configures cartoon, backbone, line, stick, ball-and-stick, space-filling, and surface before representative real-WebGL selection checks |
+| Transient and durable ownership | Complete project responses remain exactly equal, project revision and artifacts do not change, and no normalized-structure refetch occurs |
+| Compact primary-equivalent path | A Pixel 7 touch-trigger workflow proves Structure selection and empty clearing without durable mutation |
+
+Checkpoint 1 passed all 54 Vitest tests across 17 files, ESLint, TypeScript,
+the production build, and `git diff --check`. The build retains the known
+non-blocking lazy Mol* warning at 966.15 KiB gzip; the initial application
+chunk remains 151.14 KiB gzip.
+
+Checkpoint 2 passed 2 applicable dedicated desktop/mobile workflows with 2
+intentional cross-layout skips in 30.8 seconds. The existing viewer-controls
+and synchronized-selection regression set passed 6 applicable workflows with
+6 intentional cross-layout skips in 56.7 seconds. The first dedicated run
+exposed an unsettled initial camera while all seven representations completed
+their final automatic fit; baseline capture now requires two identical scene
+snapshots and the passing evidence retains exact equality rather than a numeric
+tolerance.
+
+The qualification uses the repository's pinned Chromium/SwiftShader desktop
+and Pixel 7 projects. It does not claim new cross-browser, WebXR, box-selection,
+Molecule/Component picking, or context-input coverage.
+
 ## V0.2.0 Issue #3 Feature Evidence
 
 Status: released in MolWeave v0.2.0

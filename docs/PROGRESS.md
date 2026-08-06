@@ -2,7 +2,7 @@
 
 ## Current milestone
 
-Issues #5 and #6 - camera-neutral viewer selection clicks, Checkpoint 2 complete
+Issues #5 and #6 - camera-neutral viewer selection clicks, Checkpoint 3 complete
 
 The approved combined plan at
 `docs/plans/issue-5-viewer-click-selection.md` is the detailed source of truth.
@@ -11,14 +11,21 @@ plan is the first branch change. Checkpoint 1 configures Mol* primary activation
 as application selection only: implicit camera and representation focus no
 longer bind primary, modified-primary, or trigger activation, while secondary
 camera behavior and explicit focus operations remain. Direct interaction tests
-and desktop/Pixel 7 real-WebGL workflows now qualify hit, empty, modifier, drag,
+and desktop/Pixel 7 real-WebGL workflows qualify hit, empty, modifier, drag,
 representation, exact camera, explicit focus, request, and durable-state
-behavior. Interaction documentation is the next checkpoint. The planned
+behavior. Architecture and verification documentation now distinguish
+application selection, Mol* gestures, and explicit camera framing. Release
+qualification is the next checkpoint. The planned
 release impact remains a backward-compatible patch to v0.2.1 with no API, data,
 schema, archive, or migration change.
 
 ## Completed work
 
+- Documented the viewer interaction ownership boundary, including hit and
+  modifier semantics, empty-space no-ops, Mol* gesture authority, camera-neutral
+  primary activation, explicit focus operations, and transient-state limits.
+- Added a bounded v0.2.1 evidence matrix without claiming deferred component,
+  molecule, box-selection, context-input, cross-browser, or WebXR behavior.
 - Added a dedicated real-WebGL workflow that configures cartoon, backbone,
   line, stick, ball-and-stick, space-filling, and surface representations and
   exercises their shared application selection path.
@@ -452,6 +459,13 @@ schema, archive, or migration change.
 
 ## Verification performed
 
+- Issue #5/#6 Checkpoint 3: architecture and verification documentation now map
+  the implemented selection, gesture, explicit-focus, modifier, empty-space,
+  representation, durable-state, and compact-input boundaries to exact passing
+  evidence. ESLint, TypeScript, and `git diff --check` passed.
+- Checkpoint 3 diff review found no schema, API, migration, archive, molecular,
+  persistence, accessibility, or performance claim expansion and no claim for
+  deferred Molecule/Component or box-selection behavior.
 - Issue #5/#6 Checkpoint 2: `viewer-click-selection.spec.ts` passed 2 applicable
   desktop/mobile workflows with 2 intentional cross-layout skips in 30.8
   seconds. `viewer-controls.spec.ts` plus `synchronized-selection.spec.ts`
@@ -1399,6 +1413,6 @@ None.
 
 ## Next action
 
-Complete Checkpoint 3 documentation for the selection-only primary activation,
-Mol* gesture boundary, explicit focus behavior, modifier/empty semantics, and
-exact passing evidence without claiming deferred component or box selection.
+Complete Checkpoint 4 release qualification: confirm the current remote base and
+v0.2.1 availability, update all authoritative version sources and archive
+compatibility evidence, run the complete release gate, and review the full diff.
