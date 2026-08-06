@@ -209,7 +209,9 @@ test("keeps representative-project interactions responsive and projection-scoped
   const navigation = page.getByLabel("Viewer navigation");
   await navigation.getByRole("button", { name: "Zoom in" }).click();
   await navigation.getByRole("button", { name: "Zoom out" }).click();
-  await navigation.getByRole("button", { name: "Center and reset view" }).click();
+  await page.getByRole("button", { name: "Close viewer controls" }).click();
+  await page.getByRole("button", { name: "Fit all visible" }).click();
+  await page.getByRole("button", { name: "Open viewer controls" }).click();
   await page.getByLabel(/Representation style for/).selectOption("line");
   await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded");
   await page.waitForTimeout(750);
