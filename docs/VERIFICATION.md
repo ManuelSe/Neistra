@@ -82,7 +82,7 @@ for functional automation.
 
 ## V0.3.0 Issue #2 Feature Evidence
 
-Status: v0.3.0 release candidate qualified
+Status: released in MolWeave v0.3.0
 
 This evidence supplements the v0.1 matrix and follows the approved contract in
 `docs/plans/issue-2-structure-hierarchy.md`.
@@ -127,6 +127,11 @@ No Alembic, project-state, archive-schema, selection, scene, job, or API-major
 migration exists. The qualified candidate advances all five authoritative
 application versions to 0.3.0 and retains archive producer compatibility
 through 0.2.1.
+
+Remote delivery is verified: PR #22 rebase-merged to
+`78d079a789368078ec24c4fca7d2d90d6cdab79c`; annotated tag `v0.3.0`
+dereferences to that exact commit; the GitHub release is published, non-draft,
+and non-prerelease; and issue #2 is closed with its verified final response.
 
 ## V0.2.1 Issues #5 And #6 Feature Evidence
 
