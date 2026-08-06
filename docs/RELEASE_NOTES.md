@@ -1,5 +1,104 @@
 # MolWeave Release Notes
 
+## 0.3.0 - 2026-08-06
+
+Release target: annotated tag
+[`v0.3.0`](https://github.com/ManuelSe/MolWeave/releases/tag/v0.3.0)
+for [issue #2](https://github.com/ManuelSe/MolWeave/issues/2)
+
+### Highlights
+
+- Added an expandable per-structure hierarchy for protein, DNA, RNA, other
+  polymers, ligands, water, solvent/additives, ions/metals, other heterogens,
+  and explicitly unclassified material.
+- Added deterministic source-aware component identities and conservative
+  classification provenance without making the disposable Mol* viewer an
+  authority for molecular state.
+- Category and individual component actions now produce the same canonical
+  atom selection used by the viewer, inspector, sequence, measurements, saved
+  selections, and applicable editing paths.
+
+### Added
+
+- Optional normalized source entity, subchain, polymer-type, and tabulated
+  residue-kind facts retained at the macromolecular adapter boundary.
+- A typed, read-only `ComponentHierarchyV1` projection on the existing lazy
+  structure response, with complete disjoint membership and surfaced fallback
+  or ambiguity warnings.
+- Hierarchy-owned projection for existing Protein, Ligands, Solvent, and Ions
+  visibility settings plus aggregate visible-ligand focus.
+- Desktop and Pixel 7 workflows for exact membership, modifier selection,
+  camera neutrality, explicit focus, saved-selection reload, durable
+  visibility, accessibility, viewport bounds, query reuse, and real WebGL.
+
+### Fixed
+
+- Newly added atoms and hydrogens in a standalone single-residue ligand retain
+  that residue, so regenerated component membership does not split them into
+  an unclassified component. Ambiguous multi-residue edits still avoid
+  inventing membership.
+
+### Scientific behavior and limitations
+
+- Source entity/subchain/polymer facts take precedence. Documented residue and
+  element rules are conservative fallbacks; unsupported evidence remains
+  visible as unclassified with warnings.
+- `ligand` is a putative non-polymer/cofactor class, not a validated binder,
+  ligand-of-interest designation, substrate, inhibitor, docking input, or
+  functional claim.
+- Source component boundaries remain authoritative across explicit covalent
+  links because PDB/PDBx connectivity can be incomplete. Detection organizes
+  normalized identity; it does not validate or prepare chemistry.
+- Durable component labels or reclassification, individual style/visibility,
+  ligand-of-interest state, and arbitrary subset extraction/export are not
+  included.
+
+### Verification
+
+- Domain, adapter, scientific, integration, archive, API, component, and
+  browser evidence covers all ten categories, exact complete membership,
+  coordinate-stable IDs, topology regeneration, source/fallback ambiguity,
+  immutable originals, and legacy normalized artifacts.
+- Checkpoint gates passed Ruff, strict mypy, ESLint, TypeScript, 56 Vitest
+  tests, the production build, 35 focused integration tests, and 8 applicable
+  hierarchy Playwright workflows with 8 intentional cross-layout skips.
+- The complete v0.3.0 release-gate result is recorded in
+  `docs/VERIFICATION.md` and the approved issue plan.
+
+### Compatibility and migrations
+
+- This is a backward-compatible minor release from 0.2.1 to 0.3.0.
+- `/api/v1`, Alembic head `0007`, `ProjectStateV1`,
+  `ProjectManifestV1.schema_version`, `NormalizedStructureV1.schema_version`,
+  and archive schema version 1 remain unchanged.
+- There is no database, project, selection, scene, job, browser-storage, or
+  archive-schema migration. New normalized source fields are optional, and old
+  artifacts or archives derive a conservative fallback hierarchy without
+  rewrite. Archive round trips retain producer provenance through 0.2.1.
+
+### Accessibility and performance
+
+- Native disclosures and named pressed-state buttons expose counts,
+  provenance, and warnings semantically. Keyboard, axe, focus restoration,
+  responsive bounds, and horizontal overflow are covered in both layouts.
+- The hierarchy reuses the artifact-keyed normalized-structure query and
+  derives membership in linear passes plus deterministic sorting. Component
+  instance lists remain unmounted until their category is expanded.
+- The known large Mol* dependency remains lazy; no hierarchy interaction adds
+  a repeated structure request.
+
+### Deferred, rejected, and follow-up work
+
+- Durable component names and classification overrides require a focused data,
+  command, archive, and conflict-resolution design and are tracked separately.
+- Component subset extraction/export requires an explicit product decision on
+  boundary bonds, metadata, provenance, and lossy formats and is tracked
+  separately.
+- Selection-specific styling remains with issue #7; ligand-of-interest state
+  remains with issue #11. Per-component style/visibility controls, speculative
+  confidence badges, automatic primary-ligand selection, and docking-specific
+  behavior were rejected from this release.
+
 ## 0.2.1 - 2026-08-06
 
 Status: released as annotated tag
