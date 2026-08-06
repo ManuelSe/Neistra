@@ -168,7 +168,7 @@ def with_application_version(data: bytes, version: str) -> bytes:
     return output.getvalue()
 
 
-@pytest.mark.parametrize("archive_version", ["0.1.0", "0.1.1"])
+@pytest.mark.parametrize("archive_version", ["0.1.0", "0.1.1", "0.2.0"])
 def test_archive_round_trip_preserves_project_and_originals(
     client: ApiClient,
     archive_version: str,

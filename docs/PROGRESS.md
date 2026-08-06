@@ -2,7 +2,7 @@
 
 ## Current milestone
 
-Issues #5 and #6 - camera-neutral viewer selection clicks, Checkpoint 3 complete
+Issues #5 and #6 - camera-neutral viewer selection clicks, Checkpoint 4 complete
 
 The approved combined plan at
 `docs/plans/issue-5-viewer-click-selection.md` is the detailed source of truth.
@@ -15,12 +15,22 @@ and desktop/Pixel 7 real-WebGL workflows qualify hit, empty, modifier, drag,
 representation, exact camera, explicit focus, request, and durable-state
 behavior. Architecture and verification documentation now distinguish
 application selection, Mol* gestures, and explicit camera framing. Release
-qualification is the next checkpoint. The planned
-release impact remains a backward-compatible patch to v0.2.1 with no API, data,
+qualification is complete. All five authoritative version sources report
+v0.2.1 and explicit 0.2.0 archive-provenance coverage is added. The planned
+release impact remains a backward-compatible patch with no API, data,
 schema, archive, or migration change.
 
 ## Completed work
 
+- Confirmed `origin/master` remains the approved `8e98bda` baseline and that no
+  v0.2.1 tag or release exists; the repository still has no configured Actions,
+  branch protection, ruleset, required check, or required review.
+- Advanced all five authoritative application version sources to 0.2.1 and
+  extended exhaustive archive round-trip provenance coverage to 0.2.0 while
+  retaining both 0.1.x cases and schema version 1.
+- Added v0.2.1 release-candidate notes covering behavior, compatibility,
+  verification, scientific/accessibility/performance implications, and
+  deliberately deferred or rejected scope.
 - Documented the viewer interaction ownership boundary, including hit and
   modifier semantics, empty-space no-ops, Mol* gesture authority, camera-neutral
   primary activation, explicit focus operations, and transient-state limits.
@@ -459,6 +469,20 @@ schema, archive, or migration change.
 
 ## Verification performed
 
+- Issue #5/#6 Checkpoint 4 complete release gate: frozen Python/JavaScript
+  installs, Alembic `0007 (head)`, Ruff, strict mypy across 46 source files,
+  182/182 Python tests, ESLint, TypeScript, 54/54 Vitest tests, 7/7 supervisor
+  tests, the production build, and 35 applicable Playwright workflows passed.
+  Playwright intentionally skipped 25 cross-layout cases and completed in 8.3
+  minutes. `git diff --check` passed.
+- Archive round trips pass exhaustively with 0.1.0, 0.1.1, and 0.2.0 producer
+  provenance while 0.2.1 exports retain manifest schema version 1. All five
+  authoritative version sources report 0.2.1; `/api/v1`, Alembic `0007`,
+  `ProjectStateV1`, `ProjectManifestV1`, and `NormalizedStructureV1` remain
+  unchanged. No migration exists, so migration downgrade testing is not
+  applicable.
+- The final build retains the known non-blocking lazy Mol* warning at 966.15
+  KiB gzip and the initial application chunk at 151.14 KiB gzip.
 - Issue #5/#6 Checkpoint 3: architecture and verification documentation now map
   the implemented selection, gesture, explicit-focus, modifier, empty-space,
   representation, durable-state, and compact-input boundaries to exact passing
@@ -1413,6 +1437,6 @@ None.
 
 ## Next action
 
-Complete Checkpoint 4 release qualification: confirm the current remote base and
-v0.2.1 availability, update all authoritative version sources and archive
-compatibility evidence, run the complete release gate, and review the full diff.
+Review the complete branch diff, commit the qualified v0.2.1 release candidate,
+refresh `origin/master`, push the feature branch, and open the planned pull
+request with exact scope and verification evidence.

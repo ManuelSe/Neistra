@@ -82,7 +82,7 @@ for functional automation.
 
 ## V0.2.1 Issues #5 And #6 Feature Evidence
 
-Status: Checkpoints 1 through 3 verified; release qualification pending
+Status: v0.2.1 release candidate qualified
 
 This feature evidence supplements the v0.1 requirement matrix and follows the
 approved combined contract in
@@ -115,6 +115,15 @@ tolerance.
 The qualification uses the repository's pinned Chromium/SwiftShader desktop
 and Pixel 7 projects. It does not claim new cross-browser, WebXR, box-selection,
 Molecule/Component picking, or context-input coverage.
+
+The final candidate passed frozen Python and JavaScript installs, Alembic
+`0007 (head)`, Ruff, strict mypy across 46 source files, all 182 Python tests,
+ESLint, TypeScript, all 54 Vitest tests, all 7 supervisor tests, the production
+build, and 35 applicable Playwright workflows with 25 intentional cross-layout
+skips in 8.3 minutes. Archive round trips exhaustively pass with 0.1.0, 0.1.1,
+and 0.2.0 producer provenance while 0.2.1 output retains archive schema version
+1. The known non-blocking lazy Mol* chunk warning remains 966.15 KiB gzip; the
+initial application chunk remains 151.14 KiB gzip. `git diff --check` passed.
 
 ## V0.2.0 Issue #3 Feature Evidence
 
