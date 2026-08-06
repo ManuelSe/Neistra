@@ -2,16 +2,28 @@
 
 ## Current milestone
 
-Issue #3 - viewer selection and focus toolbar, Checkpoint 2 complete
+Issue #3 - viewer selection and focus toolbar, Checkpoint 3 complete
 
 The approved plan at `docs/plans/issue-3-viewer-toolbar-focus.md` is the detailed
-source of truth. Checkpoints 1 and 2 are implemented and verified: the shared
+source of truth. Checkpoints 1 through 3 are implemented and verified: the shared
 picking state has an always-visible desktop and compact surface, and generic
 camera operations now support fit-visible, selection focus, and aggregate
-visible-ligand focus. Responsive and scientific browser qualification is next.
+visible-ligand focus. Desktop and compact scientific, accessibility, camera,
+and state-invariance qualification passes. Release preparation is next.
 
 ## Completed work
 
+- Added desktop real-WebGL camera snapshots proving selection, aggregate
+  standalone-plus-complex ligand, and all-visible framing are distinct.
+- Added exact before/after project-response and normalized-request evidence that
+  quick camera actions do not mutate durable state or refetch molecular data.
+- Added two-way browser synchronization between toolbar and Selection inspector
+  without changing the current canonical selection.
+- Qualified protein-only ligand unavailability, standalone and `1STP` complex
+  ligand eligibility, focusable explanations, Pixel 7 bounds, compact native
+  selection, axe coverage, keyboard reachability, and horizontal-overflow safety.
+- Documented aggregate classification semantics and explicitly retained
+  ambiguity, ligand designation, and individual-ligand choice as limitations.
 - Added generic typed `focusAtoms` and `fitVisible` viewer operations so
   application code owns canonical focus targets while Mol* owns camera execution.
 - Added Fit all visible, Focus selection, and Focus visible ligands to the quick
@@ -373,6 +385,18 @@ visible-ligand focus. Responsive and scientific browser qualification is next.
 
 ## Verification performed
 
+- Issue #3 Checkpoint 3: `viewer-controls.spec.ts` passed 5 applicable real-WebGL
+  desktop/Pixel 7 workflows with 5 intentional cross-layout skips in 42.7
+  seconds. `release-hardening.spec.ts` passed 5 applicable axe, keyboard,
+  responsive, and performance workflows with 1 intentional layout skip in 30.2
+  seconds. All 51 Vitest tests passed; `git diff --check` passed.
+- Checkpoint 3 browser evidence includes three distinct named camera snapshots,
+  a larger all-visible radius than the aggregate ligand radius, exact durable
+  project equality around every transient action, unchanged selection across
+  picking transitions, and zero repeated normalized-structure requests.
+- Checkpoint 3 diff review found no accidental product expansion, heuristic
+  ligand classification, API/schema/archive/persistence change, molecular
+  mutation, migration, or unresolved scientific or accessibility finding.
 - Issue #3 Checkpoint 2: all 51 Vitest tests across 16 files passed, including
   focus-target classification/filtering, generic viewer-adapter forwarding,
   toolbar availability/help, camera routing, and selection invariance. ESLint,
@@ -1205,6 +1229,10 @@ Results:
 
 ## Known limitations
 
+- Focus visible ligands aggregates all rendered atoms already classified as
+  ligand in normalized application state. It does not repair ambiguous or
+  unknown source classification, choose a ligand of interest, or offer
+  per-ligand selection; issues #2 and #11 own those broader product models.
 - Issue #8 real-viewer lifecycle regression coverage is intentionally desktop
   Chromium with pinned SwiftShader WebGL. The approved patch did not require a
   cross-browser theme matrix.
@@ -1258,6 +1286,7 @@ None.
 
 ## Next action
 
-Implement Checkpoint 3 on `feat/issue-3-viewer-toolbar-focus`: qualify desktop
-and compact toolbar synchronization, camera-only invariants, responsive layout,
-and documented scientific and accessibility semantics.
+Implement Checkpoint 4 on `feat/issue-3-viewer-toolbar-focus`: revalidate the
+0.2.0 SemVer decision against current remote history, align authoritative
+versions and release notes, prove 0.1.x archive compatibility, and run the
+complete release gate and full-diff review.
