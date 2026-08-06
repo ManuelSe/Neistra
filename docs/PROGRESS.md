@@ -2,17 +2,27 @@
 
 ## Current milestone
 
-Issue #3 - viewer selection and focus toolbar, Checkpoint 3 complete
+Issue #3 - viewer selection and focus toolbar, release candidate qualified
 
 The approved plan at `docs/plans/issue-3-viewer-toolbar-focus.md` is the detailed
-source of truth. Checkpoints 1 through 3 are implemented and verified: the shared
+source of truth. All four checkpoints are implemented and verified: the shared
 picking state has an always-visible desktop and compact surface, and generic
 camera operations now support fit-visible, selection focus, and aggregate
 visible-ligand focus. Desktop and compact scientific, accessibility, camera,
-and state-invariance qualification passes. Release preparation is next.
+and state-invariance qualification passes. Version 0.2.0 is aligned and the
+complete local release gate passes. Pull-request delivery is next.
 
 ## Completed work
 
+- Aligned the Python project, generated lock record, web package, FastAPI
+  metadata, and archive producer provenance at 0.2.0 after confirming the
+  remote v0.1.1 baseline and absence of a colliding v0.2.0 tag or release.
+- Kept `/api/v1`, Alembic `0007`, `ProjectStateV1`, manifest schema 1, and
+  `NormalizedStructureV1` unchanged; no migration is required.
+- Extended the exhaustive archive round trip to both 0.1.0 and 0.1.1 producer
+  provenance while 0.2.0 exports retain schema version 1.
+- Added complete 0.2.0 release notes covering behavior, compatibility,
+  verification, scientific/accessibility limits, and deliberately deferred scope.
 - Added desktop real-WebGL camera snapshots proving selection, aggregate
   standalone-plus-complex ligand, and all-visible framing are distinct.
 - Added exact before/after project-response and normalized-request evidence that
@@ -385,6 +395,21 @@ and state-invariance qualification passes. Release preparation is next.
 
 ## Verification performed
 
+- Issue #3 Checkpoint 4 complete release gate: frozen Python/JavaScript installs,
+  Alembic `0007 (head)`, Ruff, strict mypy across 46 source files, 181/181
+  Python tests, ESLint, TypeScript, 51/51 Vitest tests, 7/7 supervisor tests,
+  production build, and 33 applicable Playwright workflows passed. Playwright
+  intentionally skipped 23 cross-layout cases and completed in 7.9 minutes.
+- The build retains the known non-blocking lazy Mol* warning at 965.86 KiB gzip;
+  the initial application chunk is 151.14 KiB gzip. All five authoritative
+  version sources report 0.2.0 and Alembic reports `0007 (head)`.
+- The first full browser run exposed only a stale partial accessible-name query
+  in the definition journey. Exact advanced-inspector group selectors were
+  applied in both related journeys; their focused run passed 2/2, and a fresh
+  complete Playwright rerun passed 33 applicable workflows with no failure.
+- Final full-diff review found no accidental scope expansion, dead or debug
+  code, scientific inaccuracy, migration risk, persisted-data regression,
+  incompatible API/archive change, or consequential unresolved finding.
 - Issue #3 Checkpoint 3: `viewer-controls.spec.ts` passed 5 applicable real-WebGL
   desktop/Pixel 7 workflows with 5 intentional cross-layout skips in 42.7
   seconds. `release-hardening.spec.ts` passed 5 applicable axe, keyboard,
@@ -1286,7 +1311,6 @@ None.
 
 ## Next action
 
-Implement Checkpoint 4 on `feat/issue-3-viewer-toolbar-focus`: revalidate the
-0.2.0 SemVer decision against current remote history, align authoritative
-versions and release notes, prove 0.1.x archive compatibility, and run the
-complete release gate and full-diff review.
+Fetch `origin/master` once more, incorporate any upstream movement safely,
+commit the qualified 0.2.0 release candidate, push the feature branch, and open
+the planned pull request for review and merge.

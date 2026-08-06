@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any, cast
 
 import httpx
+import pytest
 from molweave_api.archive_service import APPLICATION_VERSION
 
 from tests.support.api_client import ApiClient
@@ -167,7 +168,11 @@ def with_application_version(data: bytes, version: str) -> bytes:
     return output.getvalue()
 
 
-def test_archive_round_trip_preserves_project_and_originals(client: ApiClient) -> None:
+@pytest.mark.parametrize("archive_version", ["0.1.0", "0.1.1"])
+def test_archive_round_trip_preserves_project_and_originals(
+    client: ApiClient,
+    archive_version: str,
+) -> None:
     source = build_rich_project(client)
     first = export_archive(client, source["id"], "archive-first")
     second = export_archive(client, source["id"], "archive-second")
@@ -180,8 +185,8 @@ def test_archive_round_trip_preserves_project_and_originals(client: ApiClient) -
     assert first_bytes == second_bytes
     assert archive_manifest(first_bytes)["application_version"] == APPLICATION_VERSION
 
-    legacy_bytes = with_application_version(first_bytes, "0.1.0")
-    assert archive_manifest(legacy_bytes)["application_version"] == "0.1.0"
+    legacy_bytes = with_application_version(first_bytes, archive_version)
+    assert archive_manifest(legacy_bytes)["application_version"] == archive_version
     restored_result = import_archive(client, legacy_bytes)
     restored = restored_result["project"]
     assert restored_result["source_project_id"] == source["id"]
