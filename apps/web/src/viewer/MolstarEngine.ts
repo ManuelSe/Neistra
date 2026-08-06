@@ -18,7 +18,6 @@ import type { PluginUIContext } from "molstar/lib/mol-plugin-ui/context";
 import { renderReact18 } from "molstar/lib/mol-plugin-ui/react18";
 import { DefaultPluginUISpec } from "molstar/lib/mol-plugin-ui/spec";
 import { StateTransforms } from "molstar/lib/mol-plugin-state/transforms";
-import { ButtonsType } from "molstar/lib/mol-util/input/input-observer";
 import type {
   AtomReference,
   CameraState,
@@ -27,7 +26,6 @@ import type {
   Point3D,
   RepresentationStyle,
   SelectionGranularity,
-  SelectionMode,
 } from "../api/types";
 import type {
   MolecularViewer,
@@ -35,6 +33,12 @@ import type {
   ViewerStructure,
   ViewerMeasurement,
 } from "./MolecularViewer";
+import {
+  isPrimarySelectionActivation,
+  selectionModeForModifiers,
+  shouldClearSelectionForEmptyPick,
+  withCameraNeutralPrimarySelection,
+} from "./interaction";
 
 interface LoadedStructure {
   entryId: string;
@@ -71,6 +75,7 @@ export class MolstarEngine implements MolecularViewer {
       render: renderReact18,
       spec: {
         ...defaultSpec,
+        behaviors: withCameraNeutralPrimarySelection(defaultSpec.behaviors),
         canvas3d: {
           ...defaultSpec.canvas3d,
           renderer: {
@@ -107,14 +112,22 @@ export class MolstarEngine implements MolecularViewer {
     this.setBackgroundColor(this.backgroundColor);
     this.clickSubscription = plugin.behaviors.interaction.click.subscribe(
       ({ current, button, modifiers }) => {
-        if (button !== ButtonsType.Flag.Primary) return;
-        const mode: SelectionMode = modifiers.alt
-          ? "subtract"
-          : modifiers.control || modifiers.meta || modifiers.shift
-            ? "add"
-            : "replace";
+        if (!isPrimarySelectionActivation(button)) return;
+        const mode = selectionModeForModifiers(modifiers);
         if (Loci.isEmpty(current.loci)) {
-          this.emit({ atoms: [], granularity: this.pickingGranularity, mode: "replace" });
+          if (
+            shouldClearSelectionForEmptyPick(
+              mode,
+              this.pendingSelection.length > 0,
+            )
+          ) {
+            this.pendingSelection = [];
+            this.emit({
+              atoms: [],
+              granularity: this.pickingGranularity,
+              mode: "replace",
+            });
+          }
           return;
         }
         const granular = Loci.normalize(
