@@ -1,6 +1,6 @@
 # Issue 3 - Viewer Selection And Focus Toolbar
 
-Status: implementation in progress; Checkpoint 1 complete
+Status: implementation in progress; Checkpoints 1 and 2 complete
 
 ## Issue metadata
 
@@ -776,8 +776,9 @@ Release is additionally blocked when:
 | 2026-08-06 | Branch prepared | Local clean `master` was fast-forward checked against `origin/master` at `34a2b480cea67a509bb396375b58b4f7841f7cbc`; branch `feat/issue-3-viewer-toolbar-focus` was created. |
 | 2026-08-06 | Plan persisted | This plan, concise project handoff, and D-043 are the first branch change. No implementation, tests, versions, schemas, migrations, or runtime behavior changed. |
 | 2026-08-06 | Checkpoint 1 complete locally | Added a controlled always-visible viewer toolbar with Atom, Residue, Chain, and Structure buttons plus a compact labelled select, wired through `App` and `WorkspaceCanvas` to the existing selection-store setter. Direct tests cover every mode, controlled state, keyboard-native interaction, and selection invariance. The focused Vitest command passed all 47 tests across 15 files; ESLint, TypeScript, the production build, and `git diff --check` passed. The build retained the established lazy Mol* chunk warning at 965.86 KiB gzip; the initial application chunk is 150.46 KiB gzip. Diff review found no persistence, schema, API, molecular, camera, or classification change and no unrelated scope. |
+| 2026-08-06 | Checkpoint 2 complete locally | Replaced selection-specific viewer camera methods with generic `focusAtoms` and `fitVisible` operations, moved camera shortcuts into the quick toolbar, and derived aggregate visible-ligand targets solely from loaded normalized residue classifications, component settings, hydrogen visibility, and captured isolation. Unavailable actions remain focusable, explain their state, and suppress activation. The focused command passed all 51 Vitest tests across 16 files; ESLint, TypeScript, the production build, `git diff --check`, and both real-WebGL Chromium viewer-control tests passed. Browser qualification exposed two pointer obstructions: a persistent status notice and the intentionally open display drawer. Notices now pass pointer input through except for their dismiss button, and the workflow closes the display drawer before using the underlying quick toolbar. The final production build retained the established lazy Mol* chunk warning at 965.86 KiB gzip; the initial application chunk is 151.12 KiB gzip. Diff review found no durable state, schema, API, archive, command-history, molecular, or classification change. |
 
 ## Completion
 
-Checkpoint 1 is implemented and verified. Checkpoints 2 through 4, pull-request
+Checkpoints 1 and 2 are implemented and verified. Checkpoints 3 and 4, pull-request
 delivery, and release closeout remain in progress under this approved contract.

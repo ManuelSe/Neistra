@@ -1200,6 +1200,7 @@ select {
   box-shadow: var(--shadow);
   transform: translateX(-50%);
   font-size: 12px;
+  pointer-events: none;
 }
 
 .notice.error {
@@ -1212,6 +1213,7 @@ select {
   background: transparent;
   border: 0;
   cursor: pointer;
+  pointer-events: auto;
 }
 
 .api-failure {
@@ -1865,6 +1867,7 @@ div[data-radix-popper-content-wrapper]:has(.tooltip) {
   left: 10px;
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   max-width: calc(100% - 62px);
   min-height: 32px;
   padding: 3px;
@@ -1919,6 +1922,36 @@ div[data-radix-popper-content-wrapper]:has(.tooltip) {
   height: 26px;
   padding: 0 24px 0 7px;
   font-size: 11px;
+}
+
+.viewer-focus-actions {
+  display: flex;
+  align-items: center;
+  margin-left: 3px;
+  padding-left: 3px;
+  border-left: 1px solid var(--border);
+}
+
+.viewer-action-button {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 26px;
+  padding: 0;
+  color: var(--text);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.viewer-action-button:hover:not([aria-disabled="true"]) {
+  color: var(--accent-strong);
+  background: var(--accent-soft);
+}
+
+.viewer-action-button[aria-disabled="true"] {
+  opacity: 0.42;
+  cursor: not-allowed;
 }
 
 .viewer-controls {
@@ -3079,6 +3112,10 @@ div[data-radix-popper-content-wrapper]:has(.tooltip) {
     display: block;
   }
 
+  .tooltip.viewer-toolbar-tooltip {
+    display: block;
+  }
+
   .canvas-empty h1,
   .project-stage h1 {
     max-width: calc(100vw - 40px);
@@ -3107,6 +3144,22 @@ div[data-radix-popper-content-wrapper]:has(.tooltip) {
 
   .job-detail-header > div span {
     display: none;
+  }
+}
+
+@media (max-width: 260px) {
+  .viewer-toolbar-label {
+    display: none;
+  }
+
+  .viewer-picking-select select {
+    width: 96px;
+  }
+
+  .viewer-focus-actions {
+    margin-left: 0;
+    padding-left: 0;
+    border-left: 0;
   }
 }
 

@@ -22,6 +22,7 @@ import type {
   ViewerStructure,
 } from "../viewer/MolecularViewer";
 import { createMolstarViewer } from "../viewer/MolstarViewer";
+import { visibleLigandAtoms } from "../viewer/focusTargets";
 import { formatMeasurement, measurementValue } from "../measurements/geometry";
 import type { Theme } from "../store/workspace";
 import { ViewerControls } from "./ViewerControls";
@@ -76,7 +77,7 @@ export function StructureViewer({
   const [viewerError, setViewerError] = useState<string | null>(null);
   const [activeEntryId, setActiveEntryId] = useState("");
   const [camera, setCamera] = useState<CameraState | null>(null);
-  const [isolated, setIsolated] = useState(false);
+  const [isolation, setIsolation] = useState<Selection["atoms"] | null>(null);
   const visibleEntries = useMemo(
     () => project.entries.filter((entry) => entry.visible),
     [project.entries],
@@ -333,6 +334,23 @@ export function StructureViewer({
   const failedQueries = structureQueries.filter((query) => query.isError);
   const warningCount = visibleEntries.reduce((count, entry) => count + entry.warnings.length, 0);
   const largeEntries = visibleEntries.filter((entry) => entry.atom_count >= 250_000);
+  const ligandAtoms = useMemo(
+    () => visibleLigandAtoms(viewerStructures, isolation),
+    [isolation, viewerStructures],
+  );
+  const viewerUnavailableReason = !viewerReady
+    ? "The 3D viewer is still loading"
+    : structuresPending
+      ? "Visible structures are still loading"
+      : viewerStructures.length === 0
+        ? "No molecular objects are visible"
+        : null;
+  const focusSelectionUnavailableReason =
+    viewerUnavailableReason ??
+    (selection.atoms.length === 0 ? "Select atoms before focusing the selection" : null);
+  const focusLigandsUnavailableReason =
+    viewerUnavailableReason ??
+    (ligandAtoms.length === 0 ? "No ligand detected in visible structures" : null);
 
   return (
     <div className="structure-viewer" data-testid="structure-viewer">
@@ -346,6 +364,12 @@ export function StructureViewer({
         <ViewerToolbar
           pickingGranularity={pickingGranularity}
           onPickingGranularity={onPickingGranularity}
+          fitAllUnavailableReason={viewerUnavailableReason}
+          focusSelectionUnavailableReason={focusSelectionUnavailableReason}
+          focusLigandsUnavailableReason={focusLigandsUnavailableReason}
+          onFitAll={() => viewerRef.current?.fitVisible()}
+          onFocusSelection={() => viewerRef.current?.focusAtoms(selection.atoms)}
+          onFocusLigands={() => viewerRef.current?.focusAtoms(ligandAtoms)}
         />
         <ViewerControls
         entries={project.entries}
@@ -354,7 +378,7 @@ export function StructureViewer({
         scenes={project.scenes}
         selectedCount={selection.atoms.length}
         busy={busy}
-        isolated={isolated}
+        isolated={isolation !== null}
         onActiveEntry={setActiveEntryId}
         onSettings={(entryId, settings) => {
           void onUpdateSettings?.(entryId, settings);
@@ -364,11 +388,10 @@ export function StructureViewer({
           setCamera((current) => (current ? { ...current, mode } : current));
         }}
         onZoom={(factor) => viewerRef.current?.zoom(factor)}
-        onFocus={() => viewerRef.current?.focusSelection()}
-        onReset={() => viewerRef.current?.resetCamera()}
         onIsolation={(next) => {
-          setIsolated(next);
-          void viewerRef.current?.setIsolation(next ? selection.atoms : null);
+          const target = next ? selection.atoms : null;
+          setIsolation(target);
+          void viewerRef.current?.setIsolation(target);
         }}
         onCreateScene={(name) => {
           const snapshot = viewerRef.current?.getCamera();
@@ -377,7 +400,7 @@ export function StructureViewer({
         onApplyScene={(scene) => {
           void (async () => {
             if (onApplyScene) await onApplyScene(scene);
-            setIsolated(false);
+            setIsolation(null);
             viewerRef.current?.setCamera(scene.camera);
             onViewerSelection(scene.selection, "replace");
           })();

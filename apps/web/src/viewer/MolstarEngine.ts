@@ -293,12 +293,12 @@ export class MolstarEngine implements MolecularViewer {
     camera.setState({ position: Vec3.create(...position) });
   }
 
-  focusSelection(): void {
-    const loci = this.lociFor(this.pendingSelection);
+  focusAtoms(atoms: AtomReference[]): void {
+    const loci = this.lociFor(atoms);
     if (loci) this.plugin?.managers.camera.focusLoci(loci);
   }
 
-  resetCamera(): void {
+  fitVisible(): void {
     this.plugin?.canvas3d?.requestCameraReset();
   }
 

@@ -1,19 +1,30 @@
 import * as Tooltip from "@radix-ui/react-tooltip";
-import { render, screen } from "@testing-library/react";
+import { cleanup, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { ViewerToolbar } from "../components/ViewerToolbar";
 import { useSelectionStore } from "../store/selection";
+
+afterEach(cleanup);
 
 describe("viewer toolbar", () => {
   it("exposes every picking mode as one controlled keyboard-accessible value", async () => {
     const user = userEvent.setup();
     const onPickingGranularity = vi.fn();
+    const actionProps = {
+      fitAllUnavailableReason: null,
+      focusSelectionUnavailableReason: null,
+      focusLigandsUnavailableReason: null,
+      onFitAll: vi.fn(),
+      onFocusSelection: vi.fn(),
+      onFocusLigands: vi.fn(),
+    };
     const view = render(
       <Tooltip.Provider delayDuration={0}>
         <ViewerToolbar
           pickingGranularity="residue"
           onPickingGranularity={onPickingGranularity}
+          {...actionProps}
         />
       </Tooltip.Provider>,
     );
@@ -41,6 +52,7 @@ describe("viewer toolbar", () => {
         <ViewerToolbar
           pickingGranularity="structure"
           onPickingGranularity={onPickingGranularity}
+          {...actionProps}
         />
       </Tooltip.Provider>,
     );
@@ -48,6 +60,57 @@ describe("viewer toolbar", () => {
       "aria-pressed",
       "true",
     );
+  });
+
+  it("keeps unavailable focus actions keyboard reachable and explains why", async () => {
+    const user = userEvent.setup();
+    const onFocusLigands = vi.fn();
+    const view = render(
+      <Tooltip.Provider delayDuration={0}>
+        <ViewerToolbar
+          pickingGranularity="atom"
+          onPickingGranularity={() => undefined}
+          fitAllUnavailableReason={null}
+          focusSelectionUnavailableReason="Select atoms before focusing the selection"
+          focusLigandsUnavailableReason="No ligand detected in visible structures"
+          onFitAll={() => undefined}
+          onFocusSelection={() => undefined}
+          onFocusLigands={onFocusLigands}
+        />
+      </Tooltip.Provider>,
+    );
+    const focusLigands = screen.getByRole("button", {
+      name: "Focus visible ligands",
+    });
+
+    expect(focusLigands).toHaveAttribute("aria-disabled", "true");
+    focusLigands.focus();
+    expect(focusLigands).toHaveFocus();
+    await user.hover(focusLigands);
+    expect(await screen.findByRole("tooltip")).toHaveTextContent(
+      "No ligand detected in visible structures",
+    );
+    await user.click(focusLigands);
+    expect(onFocusLigands).not.toHaveBeenCalled();
+
+    view.rerender(
+      <Tooltip.Provider delayDuration={0}>
+        <ViewerToolbar
+          pickingGranularity="atom"
+          onPickingGranularity={() => undefined}
+          fitAllUnavailableReason={null}
+          focusSelectionUnavailableReason={null}
+          focusLigandsUnavailableReason={null}
+          onFitAll={() => undefined}
+          onFocusSelection={() => undefined}
+          onFocusLigands={onFocusLigands}
+        />
+      </Tooltip.Provider>,
+    );
+    await user.click(
+      screen.getByRole("button", { name: "Focus visible ligands" }),
+    );
+    expect(onFocusLigands).toHaveBeenCalledOnce();
   });
 
   it("keeps the canonical current selection unchanged when the future picking mode changes", () => {

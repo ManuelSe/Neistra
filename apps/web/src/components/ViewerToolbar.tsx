@@ -1,4 +1,6 @@
 import * as Tooltip from "@radix-ui/react-tooltip";
+import { Focus, Frame, Pill } from "lucide-react";
+import type { ReactNode } from "react";
 import type { SelectionGranularity } from "../api/types";
 
 const PICKING_MODES: {
@@ -19,11 +21,64 @@ const PICKING_MODES: {
 interface ViewerToolbarProps {
   pickingGranularity: SelectionGranularity;
   onPickingGranularity: (granularity: SelectionGranularity) => void;
+  fitAllUnavailableReason: string | null;
+  focusSelectionUnavailableReason: string | null;
+  focusLigandsUnavailableReason: string | null;
+  onFitAll: () => void;
+  onFocusSelection: () => void;
+  onFocusLigands: () => void;
+}
+
+interface ViewerActionButtonProps {
+  label: string;
+  tooltip: string;
+  unavailableReason: string | null;
+  onClick: () => void;
+  children: ReactNode;
+}
+
+function ViewerActionButton({
+  label,
+  tooltip,
+  unavailableReason,
+  onClick,
+  children,
+}: ViewerActionButtonProps) {
+  const unavailable = unavailableReason !== null;
+  return (
+    <Tooltip.Root>
+      <Tooltip.Trigger asChild>
+        <button
+          type="button"
+          className="viewer-action-button"
+          aria-label={label}
+          aria-disabled={unavailable}
+          onClick={() => {
+            if (!unavailable) onClick();
+          }}
+        >
+          {children}
+        </button>
+      </Tooltip.Trigger>
+      <Tooltip.Portal>
+        <Tooltip.Content className="tooltip viewer-toolbar-tooltip" sideOffset={7}>
+          {unavailableReason ?? tooltip}
+          <Tooltip.Arrow className="tooltip-arrow" />
+        </Tooltip.Content>
+      </Tooltip.Portal>
+    </Tooltip.Root>
+  );
 }
 
 export function ViewerToolbar({
   pickingGranularity,
   onPickingGranularity,
+  fitAllUnavailableReason,
+  focusSelectionUnavailableReason,
+  focusLigandsUnavailableReason,
+  onFitAll,
+  onFocusSelection,
+  onFocusLigands,
 }: ViewerToolbarProps) {
   return (
     <div className="viewer-toolbar" role="toolbar" aria-label="Viewer quick actions">
@@ -45,7 +100,7 @@ export function ViewerToolbar({
               </button>
             </Tooltip.Trigger>
             <Tooltip.Portal>
-              <Tooltip.Content className="tooltip" sideOffset={7}>
+              <Tooltip.Content className="tooltip viewer-toolbar-tooltip" sideOffset={7}>
                 {mode.tooltip}
                 <Tooltip.Arrow className="tooltip-arrow" />
               </Tooltip.Content>
@@ -69,6 +124,32 @@ export function ViewerToolbar({
           ))}
         </select>
       </label>
+      <div className="viewer-focus-actions" role="group" aria-label="Viewer focus actions">
+        <ViewerActionButton
+          label="Fit all visible"
+          tooltip="Frame all visible molecular objects"
+          unavailableReason={fitAllUnavailableReason}
+          onClick={onFitAll}
+        >
+          <Frame size={15} />
+        </ViewerActionButton>
+        <ViewerActionButton
+          label="Focus selection"
+          tooltip="Frame the current selection"
+          unavailableReason={focusSelectionUnavailableReason}
+          onClick={onFocusSelection}
+        >
+          <Focus size={15} />
+        </ViewerActionButton>
+        <ViewerActionButton
+          label="Focus visible ligands"
+          tooltip="Frame all visible classified ligands"
+          unavailableReason={focusLigandsUnavailableReason}
+          onClick={onFocusLigands}
+        >
+          <Pill size={15} />
+        </ViewerActionButton>
+      </div>
     </div>
   );
 }

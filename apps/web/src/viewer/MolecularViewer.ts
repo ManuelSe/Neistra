@@ -43,8 +43,8 @@ export interface MolecularViewer {
   setCamera(camera: CameraState): void;
   setCameraMode(mode: CameraState["mode"]): void;
   zoom(factor: number): void;
-  focusSelection(): void;
-  resetCamera(): void;
+  focusAtoms(atoms: AtomReference[]): void;
+  fitVisible(): void;
   subscribeCamera(listener: (camera: CameraState) => void): () => void;
   subscribeSelection(listener: (event: ViewerSelectionEvent) => void): () => void;
   resize(): void;

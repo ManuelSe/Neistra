@@ -2,15 +2,28 @@
 
 ## Current milestone
 
-Issue #3 - viewer selection and focus toolbar, Checkpoint 1
+Issue #3 - viewer selection and focus toolbar, Checkpoint 2 complete
 
 The approved plan at `docs/plans/issue-3-viewer-toolbar-focus.md` is the detailed
-source of truth. Checkpoint 1 is implemented and verified: the existing shared
-picking state now has an always-visible desktop and compact viewer surface.
-Checkpoint 2 context-aware focus actions are next.
+source of truth. Checkpoints 1 and 2 are implemented and verified: the shared
+picking state has an always-visible desktop and compact surface, and generic
+camera operations now support fit-visible, selection focus, and aggregate
+visible-ligand focus. Responsive and scientific browser qualification is next.
 
 ## Completed work
 
+- Added generic typed `focusAtoms` and `fitVisible` viewer operations so
+  application code owns canonical focus targets while Mol* owns camera execution.
+- Added Fit all visible, Focus selection, and Focus visible ligands to the quick
+  toolbar and removed duplicate focus/reset actions from the expandable display
+  drawer.
+- Derived aggregate visible-ligand targets from normalized residue
+  `component_type`, entry/component/hydrogen visibility, and captured isolation;
+  water, ions, polymers, unknown components, and hidden atoms are excluded.
+- Kept unavailable actions keyboard reachable with `aria-disabled`, accurate
+  focus/hover reasons, and suppressed activation.
+- Made persistent notices pointer-transparent except for their dismiss button so
+  they cannot obstruct underlying viewer quick actions.
 - Added an application-owned `ViewerToolbar` that exposes Atom, Residue, Chain,
   and Structure picking above the 3D workspace without opening the inspector.
 - Wired the toolbar through `App`, `WorkspaceCanvas`, and `StructureViewer` to
@@ -360,6 +373,18 @@ Checkpoint 2 context-aware focus actions are next.
 
 ## Verification performed
 
+- Issue #3 Checkpoint 2: all 51 Vitest tests across 16 files passed, including
+  focus-target classification/filtering, generic viewer-adapter forwarding,
+  toolbar availability/help, camera routing, and selection invariance. ESLint,
+  TypeScript, the production build, and `git diff --check` passed.
+- The focused real-WebGL Chromium viewer-control workflow passed 2/2 in 25.9
+  seconds after verifying the quick toolbar is not obstructed by a persistent
+  status notice and is used with the display drawer closed. The production build
+  retains the established 965.86 KiB gzip lazy Mol* chunk warning; the initial
+  application chunk is 151.12 KiB gzip.
+- Checkpoint 2 diff review found no persisted-state, project revision, command,
+  API, schema, migration, archive, molecular-data, or classification change and
+  no ligand heuristic or Mol*-owned domain decision.
 - Issue #3 Checkpoint 1: the focused frontend test command passed all 47 Vitest
   tests across 15 files, including the new toolbar and selection-invariance
   cases. ESLint, TypeScript type-checking, the Vite production build, and
@@ -1233,6 +1258,6 @@ None.
 
 ## Next action
 
-Implement Checkpoint 2 on `feat/issue-3-viewer-toolbar-focus`: add generic typed
-fit/focus viewer operations and context-aware selection/aggregate-ligand camera
-actions without changing persisted or molecular state.
+Implement Checkpoint 3 on `feat/issue-3-viewer-toolbar-focus`: qualify desktop
+and compact toolbar synchronization, camera-only invariants, responsive layout,
+and documented scientific and accessibility semantics.
