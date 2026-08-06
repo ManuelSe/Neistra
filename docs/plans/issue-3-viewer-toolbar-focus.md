@@ -1,6 +1,6 @@
 # Issue 3 - Viewer Selection And Focus Toolbar
 
-Status: implementation complete; all checkpoints verified; pull request pending
+Status: complete; released in MolWeave v0.2.0
 
 ## Issue metadata
 
@@ -15,6 +15,9 @@ Status: implementation complete; all checkpoints verified; pull request pending
 - Planned application version: `0.2.0`
 - Planned tag: `v0.2.0`
 - Planned pull-request title: `feat(viewer): add selection and focus toolbar`
+- Merged pull request: [#15](https://github.com/ManuelSe/MolWeave/pull/15)
+- Released commit: `ab14e19cddbdabfc28bff5e842b72aa6c7e2cb0a`
+- Release: [`v0.2.0`](https://github.com/ManuelSe/MolWeave/releases/tag/v0.2.0)
 
 This document is the implementation contract for issue #3. It supplements, but
 does not replace, the global `docs/PLAN.md`.
@@ -779,8 +782,12 @@ Release is additionally blocked when:
 | 2026-08-06 | Checkpoint 2 complete locally | Replaced selection-specific viewer camera methods with generic `focusAtoms` and `fitVisible` operations, moved camera shortcuts into the quick toolbar, and derived aggregate visible-ligand targets solely from loaded normalized residue classifications, component settings, hydrogen visibility, and captured isolation. Unavailable actions remain focusable, explain their state, and suppress activation. The focused command passed all 51 Vitest tests across 16 files; ESLint, TypeScript, the production build, `git diff --check`, and both real-WebGL Chromium viewer-control tests passed. Browser qualification exposed two pointer obstructions: a persistent status notice and the intentionally open display drawer. Notices now pass pointer input through except for their dismiss button, and the workflow closes the display drawer before using the underlying quick toolbar. The final production build retained the established lazy Mol* chunk warning at 965.86 KiB gzip; the initial application chunk is 151.12 KiB gzip. Diff review found no durable state, schema, API, archive, command-history, molecular, or classification change. |
 | 2026-08-06 | Checkpoint 3 complete locally | Added desktop and Pixel 7 real-WebGL coverage for two-way toolbar/inspector synchronization, preserved selection, focusable unavailable reasons, viewport bounds, protein-only exclusion, standalone and `1STP` complex ligand eligibility, aggregate ligand framing, three distinct camera snapshots, exact project-response invariance, and zero repeated normalized-structure requests. The viewer-controls matrix passed 5 applicable workflows with 5 intentional cross-layout skips in 42.7 seconds; release-hardening passed 5 applicable workflows with 1 intentional performance-layout skip in 30.2 seconds; all 51 Vitest tests passed. Accessibility, scientific-limit, verification, progress, and plan documentation now describe the qualified behavior without claiming ligand designation or heuristic classification. Diff review found no scope expansion, migration, persistence, API, molecular, or scientific-classification change. |
 | 2026-08-06 | Checkpoint 4 complete locally | Fetched unchanged `origin/master` at `34a2b48`, verified `v0.1.1` remains the latest tag/release and `v0.2.0` does not collide, and retained the approved backward-compatible minor increment. Aligned all five authoritative version sources at 0.2.0 and kept `/api/v1`, Alembic `0007`, project/manifest/normalized schemas, and archive schema 1 unchanged. Exhaustive archive round trips pass with both 0.1.0 and 0.1.1 provenance. The complete gate passed frozen installs, migration, Ruff, strict mypy over 46 source files, 181 Python tests, ESLint, TypeScript, 51 Vitest tests, 7 supervisor tests, production build, and 33 applicable Playwright workflows with 23 intentional cross-layout skips in 7.9 minutes. One initial browser run exposed stale partial-name selectors in two pre-existing journeys; exact inspector-group selectors were applied, both affected journeys passed, and the complete browser matrix then passed from a fresh rerun. Full-diff review found no consequential unresolved finding, accidental scope, dead/debug code, scientific misstatement, migration risk, or compatibility regression. |
+| 2026-08-06 | Pull request merged | Pushed the clean checkpoint branch and opened [PR #15](https://github.com/ManuelSe/MolWeave/pull/15) with `Closes #3`, complete scope dispositions, compatibility, release impact, and exact evidence. Requested `@codex review`; the integration did not acknowledge or return a review, so the PR documents the completed local full-diff review without claiming independence. GitHub reported the PR clean and mergeable with no configured workflows, checks, rulesets, protection, or review requirement. Rebase merge produced verified `origin/master` commit `ab14e19`. |
+| 2026-08-06 | v0.2.0 released | Fast-forwarded clean local `master`, created and pushed annotated tag `v0.2.0`, and verified tag object `1e318ea` dereferences to released commit `ab14e19`. Published and remotely verified the non-draft, non-prerelease [MolWeave v0.2.0 release](https://github.com/ManuelSe/MolWeave/releases/tag/v0.2.0) with compatibility, verification, limitations, and deferred scope. |
+| 2026-08-06 | Issue closeout verified | Verified issue #3 closed through PR #15 and posted the required [close-out reply](https://github.com/ManuelSe/MolWeave/issues/3#issuecomment-5207943429) covering implementation, release, verification, compatibility, rejected/deferred scope, and existing follow-up issues #2 and #11. |
 
 ## Completion
 
-All four implementation checkpoints are complete and verified. Pull-request
-delivery, review, merge, and release closeout remain under this contract.
+All four implementation checkpoints, pull-request delivery, review, merge,
+annotated tag, GitHub release, and issue closeout are complete and remotely
+verified. The released scope matches this approved contract.

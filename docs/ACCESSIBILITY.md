@@ -1,6 +1,6 @@
 # Accessibility Qualification
 
-Status: MolWeave v0.2 release candidate
+Status: released in MolWeave v0.2.0
 
 MolWeave targets WCAG 2.2 Level AA for the local application shell. The
 qualification combines deterministic browser automation with keyboard and

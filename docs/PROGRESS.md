@@ -2,18 +2,28 @@
 
 ## Current milestone
 
-Issue #3 - viewer selection and focus toolbar, release candidate qualified
+Issue #3 - viewer selection and focus toolbar, released in v0.2.0
 
 The approved plan at `docs/plans/issue-3-viewer-toolbar-focus.md` is the detailed
 source of truth. All four checkpoints are implemented and verified: the shared
 picking state has an always-visible desktop and compact surface, and generic
 camera operations now support fit-visible, selection focus, and aggregate
 visible-ligand focus. Desktop and compact scientific, accessibility, camera,
-and state-invariance qualification passes. Version 0.2.0 is aligned and the
-complete local release gate passes. Pull-request delivery is next.
+and state-invariance qualification passes. Version 0.2.0 is aligned, the
+complete local release gate passes, and the PR, annotated tag, GitHub release,
+and issue close-out are remotely verified.
 
 ## Completed work
 
+- Rebase-merged [PR #15](https://github.com/ManuelSe/MolWeave/pull/15) to
+  verified `origin/master` commit `ab14e19`, closing issue #3.
+- Published and remotely verified annotated tag and
+  [GitHub release `v0.2.0`](https://github.com/ManuelSe/MolWeave/releases/tag/v0.2.0)
+  at exact released commit `ab14e19`.
+- Posted and verified the issue #3 close-out reply with implemented scope,
+  release, verification, compatibility, and deferred/rejected decisions.
+- Requested `@codex review`; no integration response arrived, so the PR records
+  the completed local review and does not claim independent review.
 - Aligned the Python project, generated lock record, web package, FastAPI
   metadata, and archive producer provenance at 0.2.0 after confirming the
   remote v0.1.1 baseline and absence of a colliding v0.2.0 tag or release.
@@ -395,6 +405,13 @@ complete local release gate passes. Pull-request delivery is next.
 
 ## Verification performed
 
+- Remote issue #3 delivery verification: PR #15 is merged; issue #3 is closed
+  with its close-out reply; remote annotated tag `v0.2.0` dereferences to
+  `ab14e19`; and the GitHub release is published, non-draft, and non-prerelease.
+- GitHub reported no Actions workflows, rulesets, branch protection, required
+  checks, or required reviews. PR #15 was clean and mergeable before rebase
+  merge. The requested Codex integration returned no review; no independent
+  review is claimed.
 - Issue #3 Checkpoint 4 complete release gate: frozen Python/JavaScript installs,
   Alembic `0007 (head)`, Ruff, strict mypy across 46 source files, 181/181
   Python tests, ESLint, TypeScript, 51/51 Vitest tests, 7/7 supervisor tests,
@@ -1311,6 +1328,4 @@ None.
 
 ## Next action
 
-Fetch `origin/master` once more, incorporate any upstream movement safely,
-commit the qualified 0.2.0 release candidate, push the feature branch, and open
-the planned pull request for review and merge.
+Issue #3 is complete. Await the next approved issue plan or product milestone.
