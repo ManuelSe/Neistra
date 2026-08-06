@@ -23,6 +23,11 @@ remotely verified at `c08fbc3`, and both issues have verified close-out replies.
 
 ## Completed work
 
+- Merged documentation-only [closeout PR #18](https://github.com/ManuelSe/MolWeave/pull/18)
+  without moving `v0.2.1`,
+  fast-forwarded clean local `master`, and deleted the original feature and
+  closeout branches locally and remotely after verifying the release and both
+  issue replies.
 - Rebase-merged [PR #17](https://github.com/ManuelSe/MolWeave/pull/17) to
   verified `origin/master` commit `c08fbc3`, closing issues #5 and #6.
 - Published and remotely verified annotated tag and
@@ -1464,6 +1469,5 @@ None.
 
 ## Next action
 
-Merge this documentation-only closeout without moving `v0.2.1`, fast-forward
-local `master`, delete the remote and local feature/closeout branches, and
-verify the final clean repository state.
+No remaining action for issues #5 and #6. Begin the next separately approved
+project milestone from clean, up-to-date `master`.
