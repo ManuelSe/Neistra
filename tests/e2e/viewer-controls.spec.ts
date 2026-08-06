@@ -180,11 +180,13 @@ test("applies complete representations, navigation, isolation, and named scenes"
   ).toHaveAttribute("aria-pressed", "true");
   await navigation.getByRole("button", { name: "Zoom in" }).click();
   await navigation.getByRole("button", { name: "Zoom out" }).click();
-  await navigation.getByRole("button", { name: "Center and reset view" }).click();
+  await page.getByRole("button", { name: "Close viewer controls" }).click();
+  await page.getByRole("button", { name: "Fit all visible" }).click();
 
   const proteinRow = page.locator(`.entry-row[data-entry-id="${protein!.id}"]`);
   await proteinRow.click();
-  await navigation.getByRole("button", { name: "Focus selection" }).click();
+  await page.getByRole("button", { name: "Focus selection" }).click();
+  await page.getByRole("button", { name: "Open viewer controls" }).click();
   await navigation.getByRole("button", { name: "Isolate selection" }).click();
   await expect(navigation.getByRole("button", { name: "Show all" })).toBeVisible();
   await navigation.getByRole("button", { name: "Show all" }).click();

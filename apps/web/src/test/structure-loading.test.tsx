@@ -109,7 +109,7 @@ function projection(entryId: string): StructureProjection {
           name: "C1",
           element: "C",
           coordinates: [0, 0, 0],
-          residue_id: null,
+          residue_id: entryId === "ligand" ? 1 : null,
           formal_charge: null,
           source_index: 0,
           alternate_location: null,
@@ -119,7 +119,20 @@ function projection(entryId: string): StructureProjection {
         },
       ],
       bonds: [],
-      residues: [],
+      residues:
+        entryId === "ligand"
+          ? [
+              {
+                id: 1,
+                chain_id: 1,
+                name: "LIG",
+                author_number: 1,
+                label_number: 1,
+                insertion_code: null,
+                component_type: "ligand",
+              },
+            ]
+          : [],
       conformers: [],
       warnings: [],
     },
@@ -139,6 +152,8 @@ class FakeViewer implements MolecularViewer {
   replacements: ViewerStructure[] = [];
   selections: AtomReference[][] = [];
   granularities: SelectionGranularity[] = [];
+  focusTargets: AtomReference[][] = [];
+  fits = 0;
   coordinatePatches: {
     patch: CoordinatePatch;
     mode: "preview" | "commit";
@@ -209,9 +224,13 @@ class FakeViewer implements MolecularViewer {
 
   zoom(): void {}
 
-  focusSelection(): void {}
+  focusAtoms(atoms: AtomReference[]): void {
+    this.focusTargets.push(atoms);
+  }
 
-  resetCamera(): void {}
+  fitVisible(): void {
+    this.fits += 1;
+  }
 
   subscribeCamera(): () => void {
     return () => undefined;
@@ -419,6 +438,55 @@ describe("lazy structure loading", () => {
     await waitFor(() => expect(fake.selections.at(-1)).toEqual([]));
     expect(fake.granularities.at(-1)).toBe("chain");
     expect(onViewerSelection).toHaveBeenCalledOnce();
+  });
+
+  it("routes quick camera actions without changing application selection", async () => {
+    const user = userEvent.setup();
+    const fake = new FakeViewer();
+    const onViewerSelection = vi.fn();
+    vi.spyOn(globalThis, "fetch").mockImplementation((input) => {
+      const entryId = requestUrl(input).includes("/ligand/") ? "ligand" : "protein";
+      return Promise.resolve(
+        new Response(JSON.stringify(projection(entryId)), {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+        }),
+      );
+    });
+    const queryClient = new QueryClient({
+      defaultOptions: { queries: { retry: false } },
+    });
+    const selected: Selection = {
+      schema_version: 1,
+      atoms: [{ structure_id: "protein", atom_id: 1 }],
+      granularity: "atom",
+      source: "sequence",
+    };
+    render(
+      <StructureViewer
+        project={project(true, true)}
+        theme="light"
+        selection={selected}
+        pickingGranularity="atom"
+        onViewerSelection={onViewerSelection}
+        createViewer={() => fake}
+      />,
+      { wrapper: wrapper(queryClient) },
+    );
+
+    await waitFor(() => expect(fake.syncs.at(-1)).toHaveLength(2));
+    await user.click(screen.getByRole("button", { name: "Fit all visible" }));
+    await user.click(screen.getByRole("button", { name: "Focus selection" }));
+    await user.click(
+      screen.getByRole("button", { name: "Focus visible ligands" }),
+    );
+
+    expect(fake.fits).toBe(1);
+    expect(fake.focusTargets).toEqual([
+      selected.atoms,
+      [{ structure_id: "ligand", atom_id: 1 }],
+    ]);
+    expect(onViewerSelection).not.toHaveBeenCalled();
   });
 
   it("patches only the affected coordinate model without a topology resync", async () => {

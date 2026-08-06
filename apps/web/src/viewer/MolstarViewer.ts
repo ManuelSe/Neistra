@@ -97,12 +97,12 @@ class LazyMolstarViewer implements MolecularViewer {
     this.engine?.zoom(factor);
   }
 
-  focusSelection(): void {
-    this.engine?.focusSelection();
+  focusAtoms(atoms: AtomReference[]): void {
+    this.engine?.focusAtoms(atoms);
   }
 
-  resetCamera(): void {
-    this.engine?.resetCamera();
+  fitVisible(): void {
+    this.engine?.fitVisible();
   }
 
   subscribeCamera(listener: (camera: CameraState) => void): () => void {

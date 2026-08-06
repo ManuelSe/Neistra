@@ -1,10 +1,8 @@
 import {
-  Focus,
   Frame,
   Layers3,
   Minus,
   Plus,
-  RotateCcw,
   Save,
   Trash2,
   View,
@@ -38,8 +36,6 @@ interface ViewerControlsProps {
   onSettings: (entryId: string, settings: ViewerSettings) => void;
   onCameraMode: (mode: CameraState["mode"]) => void;
   onZoom: (factor: number) => void;
-  onFocus: () => void;
-  onReset: () => void;
   onIsolation: (isolated: boolean) => void;
   onCreateScene: (name: string) => void;
   onApplyScene: (scene: Scene) => void;
@@ -266,16 +262,6 @@ export function ViewerControls(props: ViewerControlsProps) {
             </IconButton>
             <IconButton label="Zoom out" onClick={() => props.onZoom(1.25)}>
               <Minus size={15} />
-            </IconButton>
-            <IconButton
-              label="Focus selection"
-              disabled={props.selectedCount === 0}
-              onClick={props.onFocus}
-            >
-              <Focus size={15} />
-            </IconButton>
-            <IconButton label="Center and reset view" onClick={props.onReset}>
-              <RotateCcw size={15} />
             </IconButton>
             <button
               type="button"

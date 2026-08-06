@@ -16,6 +16,8 @@ const calls = vi.hoisted(() => ({
   dispose: vi.fn(),
   measurements: vi.fn(),
   isolation: vi.fn(),
+  focus: vi.fn(),
+  fit: vi.fn(),
   cameraSubscribe: vi.fn((listener: unknown) => {
     void listener;
     return () => undefined;
@@ -67,8 +69,13 @@ vi.mock("../viewer/MolstarEngine", () => ({
     setCamera() {}
     setCameraMode() {}
     zoom() {}
-    focusSelection() {}
-    resetCamera() {}
+    focusAtoms(atoms: unknown[]) {
+      calls.focus(atoms);
+    }
+
+    fitVisible() {
+      calls.fit();
+    }
 
     subscribeCamera(listener: unknown) {
       return calls.cameraSubscribe(listener);
@@ -121,6 +128,8 @@ describe("MolecularViewer Molstar adapter", () => {
     await viewer.mount(target);
     viewer.setBackgroundColor("#eef2f1");
     await viewer.syncStructures(structures);
+    viewer.focusAtoms([{ structure_id: "protein", atom_id: 10 }]);
+    viewer.fitVisible();
     viewer.resize();
     viewer.dispose();
 
@@ -135,6 +144,10 @@ describe("MolecularViewer Molstar adapter", () => {
     ]);
     expect(calls.subscribe).toHaveBeenCalledWith(listener);
     expect(calls.sync).toHaveBeenCalledWith(structures);
+    expect(calls.focus).toHaveBeenCalledWith([
+      { structure_id: "protein", atom_id: 10 },
+    ]);
+    expect(calls.fit).toHaveBeenCalledOnce();
     expect(calls.resize).toHaveBeenCalledOnce();
     expect(calls.dispose).toHaveBeenCalledOnce();
   });
