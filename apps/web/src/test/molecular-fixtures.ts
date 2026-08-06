@@ -1,10 +1,76 @@
 import type {
+  ComponentCategory,
+  ComponentHierarchy,
   Entry,
   NormalizedStructure,
   Project,
   StructureProjection,
   ViewerSettings,
 } from "../api/types";
+
+export function componentHierarchy(
+  structure: NormalizedStructure,
+): ComponentHierarchy {
+  const categoryFor = (
+    componentType: NormalizedStructure["residues"][number]["component_type"],
+  ): ComponentCategory =>
+    componentType === "polymer"
+      ? "protein"
+      : componentType === "unknown"
+        ? "unclassified"
+        : componentType;
+  const polymerResidues = structure.residues.filter(
+    (residue) => residue.component_type === "polymer",
+  );
+  const components: ComponentHierarchy["components"] = [];
+  if (polymerResidues.length > 0) {
+    components.push({
+      id: "component-polymer",
+      category: "protein",
+      display_label: "Protein chain A",
+      chain_ids: [...new Set(polymerResidues.map((residue) => residue.chain_id))],
+      residue_ids: polymerResidues.map((residue) => residue.id),
+      atom_ids: [],
+      classification_source: "fallback",
+      classification_status: "assigned",
+      warnings: [],
+    });
+  }
+  for (const residue of structure.residues.filter(
+    (item) => item.component_type !== "polymer",
+  )) {
+    const category = categoryFor(residue.component_type);
+    components.push({
+      id: `component-residue-${residue.id}`,
+      category,
+      display_label: `${residue.name} ${residue.author_number ?? residue.id}`,
+      chain_ids: [residue.chain_id],
+      residue_ids: [residue.id],
+      atom_ids: [],
+      classification_source: category === "unclassified" ? "ambiguous" : "fallback",
+      classification_status: category === "unclassified" ? "ambiguous" : "assigned",
+      warnings: [],
+    });
+  }
+  const residueIds = new Set(structure.residues.map((residue) => residue.id));
+  const orphanIds = structure.atoms
+    .filter((atom) => atom.residue_id === null || !residueIds.has(atom.residue_id))
+    .map((atom) => atom.id);
+  if (orphanIds.length > 0) {
+    components.push({
+      id: "component-orphans",
+      category: "unclassified",
+      display_label: "Unclassified atoms",
+      chain_ids: [],
+      residue_ids: [],
+      atom_ids: orphanIds,
+      classification_source: "ambiguous",
+      classification_status: "ambiguous",
+      warnings: [],
+    });
+  }
+  return { schema_version: 1, components, warnings: [] };
+}
 
 export function viewerSettings(
   style: ViewerSettings["representations"][number]["style"] = "ball-and-stick",
@@ -179,9 +245,11 @@ export function proteinStructure(): NormalizedStructure {
 }
 
 export function proteinProjection(): StructureProjection {
+  const structure = proteinStructure();
   return {
     entry_id: "protein",
-    structure: proteinStructure(),
+    structure,
+    hierarchy: componentHierarchy(structure),
     viewer: { format: "mmcif", data: "viewer projection" },
   };
 }

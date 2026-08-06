@@ -1,6 +1,7 @@
 import type {
   AtomReference,
   CameraState,
+  ComponentHierarchy,
   CoordinatePatch,
   Measurement,
   NormalizedStructure,
@@ -16,6 +17,7 @@ export interface ViewerStructure {
   projection: StructureProjection["viewer"];
   atomIds: number[];
   normalized: NormalizedStructure;
+  hierarchy: ComponentHierarchy;
   settings: ViewerSettings;
 }
 

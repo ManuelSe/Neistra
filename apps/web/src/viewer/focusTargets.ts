@@ -1,4 +1,5 @@
 import type { AtomReference } from "../api/types";
+import { componentAtomIds } from "../selection/components";
 import type { ViewerStructure } from "./MolecularViewer";
 
 function referenceKey(reference: AtomReference): string {
@@ -15,15 +16,15 @@ export function visibleLigandAtoms(
 
   for (const structure of structures) {
     if (!structure.settings.components.ligands) continue;
-    const ligandResidues = new Set(
-      structure.normalized.residues
-        .filter((residue) => residue.component_type === "ligand")
-        .map((residue) => residue.id),
+    const ligandAtomIds = new Set(
+      structure.hierarchy.components
+        .filter((component) => component.category === "ligand")
+        .flatMap((component) => componentAtomIds(structure.normalized, component)),
     );
-    if (ligandResidues.size === 0) continue;
+    if (ligandAtomIds.size === 0) continue;
 
     for (const atom of structure.normalized.atoms) {
-      if (atom.residue_id === null || !ligandResidues.has(atom.residue_id)) continue;
+      if (!ligandAtomIds.has(atom.id)) continue;
       if (
         !structure.settings.components.hydrogens &&
         atom.element.trim().toUpperCase() === "H"

@@ -361,6 +361,22 @@ export default function App() {
     });
   };
 
+  const setHierarchyVisibility = (
+    entry: Entry,
+    key: keyof Omit<Entry["viewer_settings"]["components"], "hydrogens">,
+  ) => {
+    if (!project) return;
+    projectMutation.mutate(() =>
+      projectApi.updateViewerSettings(project, entry.id, {
+        ...entry.viewer_settings,
+        components: {
+          ...entry.viewer_settings.components,
+          [key]: !entry.viewer_settings.components[key],
+        },
+      }),
+    );
+  };
+
   const inspectAllStructures = () =>
     loadStructures(
       project?.entries
@@ -762,8 +778,11 @@ export default function App() {
                     {mobilePanel === "projects" ? (
                       <ProjectBrowser
                         project={project}
+                        selection={selection}
                         selectedEntryIds={selectedEntryIds(selection)}
                         onSelectEntries={selectEntries}
+                        onSelectHierarchy={applySelection}
+                        onHierarchyVisibility={setHierarchyVisibility}
                         {...entryActions}
                       />
                     ) : mobilePanel === "inspector" ? (
@@ -827,8 +846,11 @@ export default function App() {
                 ) : (
                   <ProjectBrowser
                     project={project}
+                    selection={selection}
                     selectedEntryIds={selectedEntryIds(selection)}
                     onSelectEntries={selectEntries}
+                    onSelectHierarchy={applySelection}
+                    onHierarchyVisibility={setHierarchyVisibility}
                     onCollapse={() => leftRef.current?.collapse()}
                     {...entryActions}
                   />

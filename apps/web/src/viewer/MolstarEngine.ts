@@ -39,6 +39,7 @@ import {
   shouldClearSelectionForEmptyPick,
   withCameraNeutralPrimarySelection,
 } from "./interaction";
+import { visibleComponentAtomIds } from "./componentVisibility";
 
 interface LoadedStructure {
   entryId: string;
@@ -465,30 +466,27 @@ export class MolstarEngine implements MolecularViewer {
         if (component) components.push(component);
       }
     } else {
-      const requested = [
-        structure.settings.components.protein ? "protein" : null,
-        structure.settings.components.ligands ? "ligand" : null,
-        structure.settings.components.solvent ? "water" : null,
-        structure.settings.components.ions ? "ion" : null,
-      ].filter(
-        (value): value is "protein" | "ligand" | "water" | "ion" => !!value,
+      const visibleAtomIds = visibleComponentAtomIds(structure);
+      const loci = this.lociFor(
+        visibleAtomIds.map((atomId) => ({
+          structure_id: structure.entryId,
+          atom_id: atomId,
+        })),
       );
-      for (const type of requested) {
-        const component =
-          await plugin.builders.structure.tryCreateComponentStatic(
-            structureProperties,
-            type,
-            { label: `${structure.label} ${type}` },
-          );
-        if (component) components.push(component);
-      }
-      if (components.length === 0) {
-        const all = await plugin.builders.structure.tryCreateComponentStatic(
+      if (loci) {
+        const component = await plugin.builders.structure.tryCreateComponent(
           structureProperties,
-          "all",
-          { label: structure.label },
+          {
+            type: {
+              name: "bundle",
+              params: StructureElement.Bundle.fromLoci(loci),
+            },
+            nullIfEmpty: true,
+            label: `${structure.label} visible components`,
+          },
+          `visible-components-${structure.entryId}`,
         );
-        if (all) components.push(all);
+        if (component) components.push(component);
       }
     }
     for (const component of components) {

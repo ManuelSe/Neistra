@@ -156,6 +156,7 @@ export function StructureViewer({
                 projection: query.data.viewer,
                 atomIds: query.data.structure.atoms.map((atom) => atom.id),
                 normalized: query.data.structure,
+                hierarchy: query.data.hierarchy,
                 settings:
                   visibleEntries[index].atom_count >= 250_000
                     ? {

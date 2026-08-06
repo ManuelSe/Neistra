@@ -17,7 +17,7 @@ import type {
   MolecularViewer,
   ViewerStructure,
 } from "../viewer/MolecularViewer";
-import { viewerSettings } from "./molecular-fixtures";
+import { componentHierarchy, viewerSettings } from "./molecular-fixtures";
 
 type StructureViewerProps = Omit<
   ComponentProps<typeof ProductionStructureViewer>,
@@ -96,46 +96,48 @@ function project(proteinVisible = true, ligandVisible = false): Project {
 }
 
 function projection(entryId: string): StructureProjection {
+  const structure: StructureProjection["structure"] = {
+    schema_version: 1,
+    title: entryId,
+    structure_type: entryId === "protein" ? "protein" : "ligand",
+    chains: [],
+    atoms: [
+      {
+        id: 1,
+        name: "C1",
+        element: "C",
+        coordinates: [0, 0, 0],
+        residue_id: entryId === "ligand" ? 1 : null,
+        formal_charge: null,
+        source_index: 0,
+        alternate_location: null,
+        occupancy: null,
+        b_factor: null,
+        inferred_fields: [],
+      },
+    ],
+    bonds: [],
+    residues:
+      entryId === "ligand"
+        ? [
+            {
+              id: 1,
+              chain_id: 1,
+              name: "LIG",
+              author_number: 1,
+              label_number: 1,
+              insertion_code: null,
+              component_type: "ligand",
+            },
+          ]
+        : [],
+    conformers: [],
+    warnings: [],
+  };
   return {
     entry_id: entryId,
-    structure: {
-      schema_version: 1,
-      title: entryId,
-      structure_type: entryId === "protein" ? "protein" : "ligand",
-      chains: [],
-      atoms: [
-        {
-          id: 1,
-          name: "C1",
-          element: "C",
-          coordinates: [0, 0, 0],
-          residue_id: entryId === "ligand" ? 1 : null,
-          formal_charge: null,
-          source_index: 0,
-          alternate_location: null,
-          occupancy: null,
-          b_factor: null,
-          inferred_fields: [],
-        },
-      ],
-      bonds: [],
-      residues:
-        entryId === "ligand"
-          ? [
-              {
-                id: 1,
-                chain_id: 1,
-                name: "LIG",
-                author_number: 1,
-                label_number: 1,
-                insertion_code: null,
-                component_type: "ligand",
-              },
-            ]
-          : [],
-      conformers: [],
-      warnings: [],
-    },
+    structure,
+    hierarchy: componentHierarchy(structure),
     viewer: {
       format: entryId === "protein" ? "mmcif" : "sdf",
       data: `viewer data for ${entryId}`,
