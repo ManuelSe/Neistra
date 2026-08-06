@@ -2,7 +2,7 @@
 
 ## Current milestone
 
-Issues #5 and #6 - camera-neutral viewer selection clicks, PR ready locally
+Issues #5 and #6 - camera-neutral viewer selection clicks, released in v0.2.1
 
 The approved combined plan at
 `docs/plans/issue-5-viewer-click-selection.md` is the detailed source of truth.
@@ -16,19 +16,32 @@ representation, exact camera, explicit focus, request, and durable-state
 behavior. Architecture and verification documentation now distinguish
 application selection, Mol* gestures, and explicit camera framing. Release
 qualification is complete. All five authoritative version sources report
-v0.2.1 and explicit 0.2.0 archive-provenance coverage is added. The planned
-release impact remains a backward-compatible patch with no API, data,
-schema, archive, or migration change.
+v0.2.1 and explicit 0.2.0 archive-provenance coverage is added. The published
+release is a backward-compatible patch with no API, data, schema, archive, or
+migration change. PR #17 is merged, annotated tag and GitHub release v0.2.1 are
+remotely verified at `c08fbc3`, and both issues have verified close-out replies.
 
 ## Completed work
 
-- Confirmed `origin/master` remains the approved `8e98bda` baseline and that no
-  v0.2.1 tag or release exists; the repository still has no configured Actions,
-  branch protection, ruleset, required check, or required review.
+- Rebase-merged [PR #17](https://github.com/ManuelSe/MolWeave/pull/17) to
+  verified `origin/master` commit `c08fbc3`, closing issues #5 and #6.
+- Published and remotely verified annotated tag and
+  [GitHub release `v0.2.1`](https://github.com/ManuelSe/MolWeave/releases/tag/v0.2.1)
+  at exact released commit `c08fbc3`.
+- Posted and verified both issue close-out replies with implemented behavior,
+  explicit-focus and gesture boundaries, verification, compatibility, release,
+  rejected scope, and the issue #2 component-identity deferral.
+- Requested `@codex review`; the integration did not acknowledge or return a
+  review, so PR #17 records the completed local full-diff review without
+  claiming independence.
+- Before qualification, confirmed `origin/master` remained the approved
+  `8e98bda` baseline and no v0.2.1 tag or release existed; the repository had no
+  configured Actions, branch protection, ruleset, required check, or required
+  review.
 - Advanced all five authoritative application version sources to 0.2.1 and
   extended exhaustive archive round-trip provenance coverage to 0.2.0 while
   retaining both 0.1.x cases and schema version 1.
-- Added v0.2.1 release-candidate notes covering behavior, compatibility,
+- Added v0.2.1 release notes covering behavior, compatibility,
   verification, scientific/accessibility/performance implications, and
   deliberately deferred or rejected scope.
 - Documented the viewer interaction ownership boundary, including hit and
@@ -469,6 +482,14 @@ schema, archive, or migration change.
 
 ## Verification performed
 
+- Remote issue #5/#6 delivery verification: PR #17 is merged; both issues are
+  closed with their close-out replies; remote annotated tag `v0.2.1`
+  dereferences to `c08fbc3`; and the GitHub release is published, non-draft,
+  and non-prerelease.
+- GitHub reported no Actions workflows, rulesets, branch protection, required
+  checks, or required reviews. PR #17 was clean and mergeable before rebase
+  merge. The requested Codex integration returned no review; no independent
+  review is claimed.
 - Final full-diff review against `origin/master` found no accidental scope
   expansion, dead or debug code, duplicate gesture recognition, scientific
   inaccuracy, migration risk, persisted-data regression, incompatible API or
@@ -1443,6 +1464,6 @@ None.
 
 ## Next action
 
-Refresh `origin/master`, confirm version/tag availability once more, push the
-feature branch, and open the planned pull request with exact scope and
-verification evidence.
+Merge this documentation-only closeout without moving `v0.2.1`, fast-forward
+local `master`, delete the remote and local feature/closeout branches, and
+verify the final clean repository state.
