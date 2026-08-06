@@ -50,7 +50,7 @@ from molweave_api.settings import Settings
 
 ARCHIVE_MEDIA_TYPE = "application/vnd.molweave.project+zip"
 ARCHIVE_SCHEMA_VERSION = 1
-APPLICATION_VERSION = "0.2.1"
+APPLICATION_VERSION = "0.3.0"
 MANIFEST_PATH = "manifest.json"
 _SHA256_PATTERN = re.compile(r"^[0-9a-f]{64}$")
 _APPLICATION_VERSION_PATTERN = re.compile(
