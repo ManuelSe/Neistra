@@ -1,6 +1,6 @@
 # Issues 5 And 6 - Camera-Neutral Viewer Selection Clicks
 
-Status: implementation complete; v0.2.1 candidate qualified and PR ready locally
+Status: complete; released in MolWeave v0.2.1
 
 ## Issue metadata
 
@@ -744,11 +744,12 @@ Release is additionally blocked when:
 | 2026-08-06 | Checkpoint 3 complete locally | Documented application selection, Mol* hit/drag ownership, camera-neutral primary activation, explicit focus, modifier and empty-space semantics, transient-state limits, and the exact Checkpoints 1 and 2 evidence in `ARCHITECTURE.md` and `VERIFICATION.md`. The evidence explicitly avoids claims for deferred Molecule/Component picking, box selection, new context behavior, cross-browser, or WebXR qualification. ESLint, TypeScript, and `git diff --check` passed. Diff review found no accidental schema, API, migration, archive, molecular, persistence, accessibility, or performance claim expansion. |
 | 2026-08-06 | Checkpoint 4 qualification started | Fetched `origin/master` and confirmed it remains the approved `8e98bda` baseline. Verified no `v0.2.1` tag or release exists and no Actions workflow, branch protection, ruleset, required check, or required review is configured. Advanced all five authoritative version sources to 0.2.1, added explicit 0.2.0 archive-provenance coverage while retaining both 0.1.x cases and schema version 1, and drafted bounded release notes. Complete gate and full-diff review remain. |
 | 2026-08-06 | Checkpoint 4 complete locally | The complete candidate passed frozen Python/JavaScript installs, Alembic `0007 (head)`, Ruff, strict mypy across 46 source files, 182/182 Python tests, ESLint, TypeScript, 54/54 Vitest tests, 7/7 supervisor tests, the production build, 35 applicable Playwright workflows with 25 intentional cross-layout skips in 8.3 minutes, and `git diff --check`. Archive round trips pass exhaustively for 0.1.0, 0.1.1, and 0.2.0 producer provenance while 0.2.1 output retains schema version 1. The build retains the known non-blocking 966.15 KiB gzip lazy Mol* warning and 151.14 KiB gzip initial chunk. All five version sources report 0.2.1; no migration was added, so downgrade testing is not applicable. Full-diff review against `origin/master` found no scope expansion, dead/debug code, duplicate gesture recognition, scientific inaccuracy, migration risk, persisted-data regression, incompatible API/archive change, or consequential unresolved finding. |
-| Pending | Pull request and review | No pull request exists. |
-| Pending | Merge and release | No v0.2.1 tag or release exists. |
+| 2026-08-06 | Pull request and review complete | Pushed the clean qualified feature branch and opened [PR #17](https://github.com/ManuelSe/MolWeave/pull/17) against `master` with both closing directives, scope dispositions, compatibility, scientific/accessibility limits, release impact, and exact evidence. GitHub reported the PR clean and mergeable with no Actions workflow, ruleset, branch protection, required check, or required review. The requested `@codex review` integration did not acknowledge or return a review; the PR records the completed local full-diff review and claims no independence. |
+| 2026-08-06 | Merge and release complete | Rebase-merged PR #17 and verified `origin/master` at `c08fbc3c35612c107b630debfea450cf90183975`. Fast-forwarded clean local `master`, created and pushed annotated tag `v0.2.1`, remotely dereferenced it to exact commit `c08fbc3`, and published a verified non-draft, non-prerelease [GitHub release](https://github.com/ManuelSe/MolWeave/releases/tag/v0.2.1). Both issues closed from the PR, and verified replies document implemented behavior, validation, compatibility, deferred/rejected scope, and issue #2 follow-up ownership. This documentation-only closeout records verified remote identifiers without moving the release tag. |
 
 ## Completion
 
-All four implementation checkpoints and the full-diff review are complete; the
-v0.2.1 candidate is qualified and ready for pull-request delivery. Merge,
-release, and issue closeout remain.
+All approved implementation checkpoints, complete qualification, local review,
+PR delivery, merge, v0.2.1 tag and GitHub release, and both issue closeouts are
+complete and remotely verified. Only branch cleanup remains after this
+documentation-only closeout is merged.

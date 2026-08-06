@@ -2,7 +2,9 @@
 
 ## 0.2.1 - 2026-08-06
 
-Status: release candidate; planned annotated tag `v0.2.1`
+Status: released as annotated tag
+[`v0.2.1`](https://github.com/ManuelSe/MolWeave/releases/tag/v0.2.1) from
+[PR #17](https://github.com/ManuelSe/MolWeave/pull/17)
 
 ### Highlights
 
