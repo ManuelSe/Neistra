@@ -1,6 +1,6 @@
 # Issues 5 And 6 - Camera-Neutral Viewer Selection Clicks
 
-Status: implementation in progress; Checkpoint 1 complete
+Status: implementation in progress; Checkpoints 1 and 2 complete
 
 ## Issue metadata
 
@@ -740,7 +740,7 @@ Release is additionally blocked when:
 | 2026-08-06 | Branch prepared | Clean local `master` was fetched and fast-forward checked against `origin/master` at `8e98bda5082af57aa591db099bc580a99daf2310`; branch `fix/issue-5-viewer-click-selection` was created. |
 | 2026-08-06 | Plan persisted | This plan, concise project handoff, and D-044 are the first branch change. No implementation, tests, versions, schemas, migrations, or runtime behavior changed. |
 | 2026-08-06 | Checkpoint 1 complete locally | Added a typed Mol* interaction policy that removes primary, modified-primary, and trigger activation from both default camera-focus and representation-focus behaviors while retaining secondary camera bindings. The viewer now accepts primary/trigger picks for application selection, clears only a non-empty selection on an unmodified empty pick, and treats already-empty and modified-empty picks as no-ops. Direct tests inspect the installed behavior parameters, prove every modifier cannot match implicit primary focus/reset, preserve secondary bindings, and cover selection activation/mode/empty policy. The focused frontend run passed all 54 tests across 17 files; ESLint, TypeScript, production build, and `git diff --check` passed. The initial lint run identified unsafe access to Mol*'s untyped `defaultParams`; explicit `unknown` narrowing fixed it before the passing rerun. The build retained the known non-blocking lazy Mol* warning at 966.15 KiB gzip and the initial application chunk at 151.14 KiB gzip. Diff review found no backend, API, schema, migration, molecular, persistence, representation, explicit-focus, or custom gesture-detector change. |
-| Pending | Checkpoint 2 | Not started. |
+| 2026-08-06 | Checkpoint 2 complete locally | Added `viewer-click-selection.spec.ts` with desktop SwiftShader WebGL and Pixel 7 trigger-path workflows. The desktop test configures all seven supported representation styles, proves Atom/Residue/Chain/Structure scope, replace/add/subtract behavior, unmodified empty clearing, already-empty and modified-empty no-ops, exact camera equality across all clicks, changed camera after a real drag, changed cameras after explicit Focus selection and Fit all visible, exact durable project equality, and zero repeated normalized-structure requests. The compact test proves touch-trigger Structure selection and empty clearing without durable mutation. The first desktop run exposed that the seven-representation scene had not completed its final automatic fit before the baseline snapshot; the test now requires two identical pre-action snapshots and retains exact equality rather than weakening the assertion. The dedicated matrix then passed 2 applicable workflows with 2 intentional layout skips in 30.8 seconds. Existing `viewer-controls.spec.ts` and `synchronized-selection.spec.ts` passed 6 applicable workflows with 6 intentional cross-layout skips in 56.7 seconds. ESLint, TypeScript, and `git diff --check` passed. Diff review found no product, API, schema, migration, molecular, persistence, accessibility, or unsupported gesture expansion. |
 | Pending | Checkpoint 3 | Not started. |
 | Pending | Checkpoint 4 | Not started. |
 | Pending | Pull request and review | No pull request exists. |
@@ -748,5 +748,5 @@ Release is additionally blocked when:
 
 ## Completion
 
-Checkpoint 1 is implemented, verified, and ready to commit. Checkpoints 2
-through 4, pull-request delivery, merge, release, and issue closeout remain.
+Checkpoints 1 and 2 are implemented and verified. Checkpoints 3 and 4,
+pull-request delivery, merge, release, and issue closeout remain.

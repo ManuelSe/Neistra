@@ -2,7 +2,7 @@
 
 ## Current milestone
 
-Issues #5 and #6 - camera-neutral viewer selection clicks, Checkpoint 1 complete
+Issues #5 and #6 - camera-neutral viewer selection clicks, Checkpoint 2 complete
 
 The approved combined plan at
 `docs/plans/issue-5-viewer-click-selection.md` is the detailed source of truth.
@@ -10,14 +10,28 @@ The clean feature branch is based on verified `master` at `8e98bda`, and the
 plan is the first branch change. Checkpoint 1 configures Mol* primary activation
 as application selection only: implicit camera and representation focus no
 longer bind primary, modified-primary, or trigger activation, while secondary
-camera behavior and explicit focus operations remain. Direct interaction tests,
-all frontend tests, lint, type-check, and build pass. Real-WebGL workflow
-qualification is the next checkpoint. The planned release impact remains a
-backward-compatible patch to v0.2.1 with no API, data, schema, archive, or
-migration change.
+camera behavior and explicit focus operations remain. Direct interaction tests
+and desktop/Pixel 7 real-WebGL workflows now qualify hit, empty, modifier, drag,
+representation, exact camera, explicit focus, request, and durable-state
+behavior. Interaction documentation is the next checkpoint. The planned
+release impact remains a backward-compatible patch to v0.2.1 with no API, data,
+schema, archive, or migration change.
 
 ## Completed work
 
+- Added a dedicated real-WebGL workflow that configures cartoon, backbone,
+  line, stick, ball-and-stick, space-filling, and surface representations and
+  exercises their shared application selection path.
+- Proved Atom, Residue, Chain, and Structure scope plus replace, add, subtract,
+  empty clear, already-empty no-op, and modified-empty no-op behavior with an
+  exact unchanged camera snapshot.
+- Proved a real drag changes the camera without clearing selection and that
+  explicit Focus selection and Fit all visible continue to produce distinct
+  camera snapshots.
+- Proved transient viewer clicks leave the complete project response unchanged
+  and cause no repeated normalized-structure request.
+- Added Pixel 7 touch-trigger evidence for Structure selection and empty-space
+  clearing without durable project mutation.
 - Added a typed interaction-policy helper that derives camera-neutral Mol*
   camera-focus and representation-focus bindings from the pinned defaults,
   removing primary and primary-equivalent triggers without removing secondary
@@ -438,6 +452,18 @@ migration change.
 
 ## Verification performed
 
+- Issue #5/#6 Checkpoint 2: `viewer-click-selection.spec.ts` passed 2 applicable
+  desktop/mobile workflows with 2 intentional cross-layout skips in 30.8
+  seconds. `viewer-controls.spec.ts` plus `synchronized-selection.spec.ts`
+  passed 6 applicable workflows with 6 intentional cross-layout skips in 56.7
+  seconds. ESLint, TypeScript, and `git diff --check` passed.
+- The first dedicated desktop run exposed an unsettled initial camera while all
+  seven representations completed their final automatic fit. Baseline capture
+  now requires two identical snapshots; the passing rerun retains exact camera
+  equality rather than using a numeric tolerance.
+- Checkpoint 2 diff review found no product expansion, new control, custom
+  gesture detector, backend/API/schema/migration/persistence/molecular change,
+  scientific claim, or unresolved accessibility finding.
 - Issue #5/#6 Checkpoint 1: all 54 Vitest tests across 17 files passed; ESLint,
   TypeScript, the production build, and `git diff --check` passed. The initial
   lint run exposed unsafe access to Mol*'s untyped `defaultParams`; explicit
@@ -1313,9 +1339,9 @@ Results:
 
 ## Known limitations
 
-- The camera-neutral behavior has direct typed coverage, but real-WebGL hit,
-  empty, modifier, drag, representation, and compact-input qualification remains
-  pending in Checkpoint 2.
+- Real-WebGL qualification uses the repository's pinned Chromium/SwiftShader
+  desktop and Pixel 7 projects; this fix does not add a cross-browser or WebXR
+  matrix.
 - Focus visible ligands aggregates all rendered atoms already classified as
   ligand in normalized application state. It does not repair ambiguous or
   unknown source classification, choose a ligand of interest, or offer
@@ -1373,6 +1399,6 @@ None.
 
 ## Next action
 
-Implement Checkpoint 2's dedicated real-WebGL interaction workflow, run it with
-the existing viewer-control and synchronized-selection regressions, and record
-exact camera, selection, representation, drag, and durable-state evidence.
+Complete Checkpoint 3 documentation for the selection-only primary activation,
+Mol* gesture boundary, explicit focus behavior, modifier/empty semantics, and
+exact passing evidence without claiming deferred component or box selection.
