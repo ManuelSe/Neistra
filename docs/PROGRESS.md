@@ -2,27 +2,39 @@
 
 ## Current milestone
 
-Issues #5 and #6 - camera-neutral viewer selection clicks, released in v0.2.1
+Issue #2 - automatic component detection and structure hierarchy, approved plan
 
-The approved combined plan at
-`docs/plans/issue-5-viewer-click-selection.md` is the detailed source of truth.
-The clean feature branch is based on verified `master` at `8e98bda`, and the
-plan is the first branch change. Checkpoint 1 configures Mol* primary activation
-as application selection only: implicit camera and representation focus no
-longer bind primary, modified-primary, or trigger activation, while secondary
-camera behavior and explicit focus operations remain. Direct interaction tests
-and desktop/Pixel 7 real-WebGL workflows qualify hit, empty, modifier, drag,
-representation, exact camera, explicit focus, request, and durable-state
-behavior. Architecture and verification documentation now distinguish
-application selection, Mol* gestures, and explicit camera framing. Release
-qualification is complete. All five authoritative version sources report
-v0.2.1 and explicit 0.2.0 archive-provenance coverage is added. The published
-release is a backward-compatible patch with no API, data, schema, archive, or
-migration change. PR #17 is merged, annotated tag and GitHub release v0.2.1 are
-remotely verified at `c08fbc3`, and both issues have verified close-out replies.
+The approved implementation contract at
+`docs/plans/issue-2-structure-hierarchy.md` is the detailed source of truth.
+The clean feature branch is based on verified local and remote `master` at
+`da54b10116175d6232882caa8359f7c47d1548f1`, and this plan is its first change.
+The approved outcome adds an application-owned deterministic component
+hierarchy, conservative source-aware classification, category and individual
+selection through canonical atom references, and mapped group visibility while
+keeping Mol* disposable. Durable component overrides, selection-specific
+styling, ligand-of-interest state, and component subset export are explicitly
+deferred or rejected from this slice. Implementation has not started. The
+planned backward-compatible feature release is v0.3.0 with no Alembic or
+archive-schema migration.
 
 ## Completed work
 
+- Approved issue #2 as a bounded vertical slice with stable component
+  instances, source/fallback/ambiguous classification provenance, an expandable
+  per-entry hierarchy, central selection, and existing group visibility.
+- Classified every significant issue requirement and retained ambiguous atoms
+  under an explicit unclassified fallback rather than discarding or silently
+  assigning them.
+- Deferred durable component labels/reclassification to a focused follow-up,
+  reused issue #7 for selection-specific styling, retained issue #11 ownership
+  of ligand-of-interest state, and separated component subset export for a
+  product-design follow-up.
+- Selected a backward-compatible minor release from v0.2.1 to v0.3.0 based on
+  new user-visible functionality and additive API/normalized facts without a
+  database or archive-schema break.
+- Fast-forwarded clean `master` from `origin/master`, verified both at
+  `da54b10116175d6232882caa8359f7c47d1548f1`, and created
+  `feat/issue-2-structure-hierarchy` without starting implementation.
 - Merged documentation-only [closeout PR #18](https://github.com/ManuelSe/MolWeave/pull/18)
   without moving `v0.2.1`,
   fast-forwarded clean local `master`, and deleted the original feature and
@@ -1469,5 +1481,7 @@ None.
 
 ## Next action
 
-No remaining action for issues #5 and #6. Begin the next separately approved
-project milestone from clean, up-to-date `master`.
+Begin Checkpoint 1 of the approved issue #2 plan under `/goal`: establish the
+typed component domain, source-aware classifier, and additive lazy structure
+API contract. Do not broaden into durable overrides, styling, ligand analysis,
+or subset export.

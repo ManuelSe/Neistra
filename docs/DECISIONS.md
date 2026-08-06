@@ -1603,3 +1603,68 @@ Consequences:
   gesture ownership while active; it cannot rely on implicit selection focus.
 - Molecule or component picking requires the stable identity model owned by
   issue #2 and is not inferred by this decision.
+
+## D-045 - Derived application-owned component hierarchy
+
+Status: accepted
+
+Decision:
+
+Derive `ComponentHierarchyV1` deterministically from the current authoritative
+`NormalizedStructureV1` artifact. Preserve optional source entity, subchain,
+entity-type, and polymer-type facts during macromolecular normalization, then
+classify individual protein, DNA, RNA, other-polymer, putative-ligand, water,
+other-solvent/additive, ion/metal, other-heterogen, and unclassified components.
+Prefer explicit source entity/polymer facts, use documented residue/element and
+legacy-normalized fallbacks, and expose qualitative source/fallback/ambiguous
+provenance plus warnings. Every atom belongs to exactly one individual
+component; unresolved material remains visible as unclassified.
+
+Give components entry-local opaque deterministic IDs anchored to stable
+normalized source/entity/subchain/chain/residue identity. Do not derive identity
+from a display label, coordinate, array position, molecular size, proximity,
+recent selection, or Mol* object. Source instance boundaries take precedence
+over connectivity so a covalently connected ligand remains selectable and
+incomplete PDB/PDBx bonds do not invent false components. One source residue is
+not split solely because recorded connectivity appears disconnected.
+
+Expose the hierarchy through the lazy structure response and project it into
+the per-entry UI. Category and individual selections materialize through the
+existing canonical `(structure_id, atom_id)` selection representation. Reuse
+existing selection granularities rather than extending the persisted selection
+enum. Application-owned memberships drive mapped component visibility and
+ligand focus; Mol* remains a disposable renderer.
+
+Do not persist a second hierarchy snapshot in SQLite, checkpoints, scenes,
+browser preferences, or archives. Recompute it after topology changes and
+require exact identity/membership stability after coordinate-only changes.
+Durable user labels and reclassification overrides, selection-specific styling,
+ligand-of-interest designation, and atom/component subset export require
+separate product contracts.
+
+Rationale:
+
+The normalized model already owns stable molecular identity and is available
+through a lazy artifact-keyed API. A derived hierarchy prevents drift between
+project, viewer, and chemistry state while allowing old artifacts to use a
+conservative fallback. Source metadata is scientifically stronger than viewer
+classification or proximity/size guesses, but it still cannot establish every
+biological role; explicit provenance and unclassified material prevent false
+certainty. Canonical atom materialization lets every current tool consume the
+same selection without a second component-selection state model.
+
+Consequences:
+
+- Optional additive normalized source facts retain
+  `NormalizedStructureV1.schema_version: 1`; legacy artifacts remain valid.
+- The lazy structure API gains an additive typed hierarchy field while
+  `/api/v1`, `ProjectStateV1`, `ProjectManifestV1`, and Alembic head `0007`
+  remain unchanged.
+- Component identity is reproducible across reopen and archive import and is
+  independent from Mol* lifecycle.
+- Coordinate edits cannot change component identity or membership; topology
+  edits regenerate current membership from stable normalized identities.
+- Putative ligand classification is not a ligand-of-interest or binding-role
+  claim, and ambiguous classifications remain visible and warned.
+- Individual component styling/visibility remains with issue #7; durable
+  correction and subset export require focused follow-up decisions.
