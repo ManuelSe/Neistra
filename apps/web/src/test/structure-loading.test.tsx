@@ -1,7 +1,7 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { cleanup, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import type { ReactNode } from "react";
+import type { ComponentProps, ReactNode } from "react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import type {
   AtomReference,
@@ -12,12 +12,30 @@ import type {
   SelectionMode,
   StructureProjection,
 } from "../api/types";
-import { StructureViewer } from "../components/StructureViewer";
+import { StructureViewer as ProductionStructureViewer } from "../components/StructureViewer";
 import type {
   MolecularViewer,
   ViewerStructure,
 } from "../viewer/MolecularViewer";
 import { viewerSettings } from "./molecular-fixtures";
+
+type StructureViewerProps = Omit<
+  ComponentProps<typeof ProductionStructureViewer>,
+  "onPickingGranularity"
+> & {
+  onPickingGranularity?: ComponentProps<
+    typeof ProductionStructureViewer
+  >["onPickingGranularity"];
+};
+
+function StructureViewer(props: StructureViewerProps) {
+  return (
+    <ProductionStructureViewer
+      onPickingGranularity={() => undefined}
+      {...props}
+    />
+  );
+}
 
 function entry(id: string, visible: boolean) {
   return {

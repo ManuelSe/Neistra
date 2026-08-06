@@ -725,6 +725,7 @@ export default function App() {
                 theme={theme}
                 selection={selection}
                 pickingGranularity={pickingGranularity}
+                onPickingGranularity={setPickingGranularity}
                 onViewerSelection={applySelection}
                 loading={projectQuery.isLoading}
                 onCreate={() => {
@@ -851,6 +852,7 @@ export default function App() {
                       theme={theme}
                       selection={selection}
                       pickingGranularity={pickingGranularity}
+                      onPickingGranularity={setPickingGranularity}
                       onViewerSelection={applySelection}
                       loading={projectQuery.isLoading}
                       onCreate={() => {
