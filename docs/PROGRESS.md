@@ -2,7 +2,7 @@
 
 ## Current milestone
 
-Issue #2 - automatic component detection and structure hierarchy, Checkpoint 4
+Issue #2 - automatic component detection and structure hierarchy, Checkpoint 5 qualified
 
 The approved implementation contract at
 `docs/plans/issue-2-structure-hierarchy.md` is the detailed source of truth.
@@ -20,6 +20,12 @@ v0.3.0 with no Alembic or archive-schema migration.
 
 ## Completed work
 
+- Completed issue #2 Checkpoint 5 with all five authoritative application
+  versions at 0.3.0, archive producer compatibility extended through 0.2.1,
+  accurate release notes, the full release gate, and a complete branch review.
+- Confirmed `origin/master` remains at the approved base and no `v0.3.0` tag or
+  GitHub release exists. The backward-compatible minor increment therefore
+  remains collision-free and appropriate.
 - Completed issue #2 Checkpoint 4 by documenting hierarchy ownership and
   identity, additive source facts and API response, non-persisted derivation,
   scientific boundaries, accessible controls, query/lazy-rendering behavior,
@@ -546,6 +552,17 @@ v0.3.0 with no Alembic or archive-schema migration.
 
 ## Verification performed
 
+- Issue #2 Checkpoint 5 complete gate: frozen Python/JavaScript installs,
+  Alembic `0007 (head)`, Ruff, strict mypy across 47 source files, 192 Python
+  tests, ESLint, TypeScript, all 56 Vitest tests, all 7 supervisor tests, the
+  production build, and `git diff --check` passed.
+- The full Playwright matrix passed 37 applicable desktop/mobile workflows with
+  27 intentional cross-layout skips in 8.2 minutes. The production build kept
+  the expected lazy Mol* warning at 966.21 KiB gzip and initial application
+  size at 152.59 KiB gzip.
+- Full `origin/master...HEAD` review found no unresolved scope, scientific,
+  persistence, schema, API, migration, archive, accessibility, performance,
+  dead-code, or compatibility finding.
 - Issue #2 Checkpoint 4: Ruff, strict mypy across 47 source files, ESLint,
   TypeScript, and `git diff --check` passed after the documentation update.
 - Issue #2 Checkpoint 3: all 35 focused integration tests passed across
@@ -1561,7 +1578,6 @@ None.
 
 ## Next action
 
-Complete Checkpoint 5 of the approved issue #2 plan by incorporating the latest
-base safely, confirming v0.3.0 remains collision-free, updating every
-authoritative version source and release note, running the complete release
-gate, and performing the final full-diff review.
+Push the qualified issue #2 branch, create the two approved follow-up issues,
+open the plan-compliant pull request, request review when available, and merge
+only after all remote policy and review checks remain satisfied.

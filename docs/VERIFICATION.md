@@ -82,7 +82,7 @@ for functional automation.
 
 ## V0.3.0 Issue #2 Feature Evidence
 
-Status: Checkpoints 1 through 4 verified; release qualification pending
+Status: v0.3.0 release candidate qualified
 
 This evidence supplements the v0.1 matrix and follows the approved contract in
 `docs/plans/issue-2-structure-hierarchy.md`.
@@ -114,9 +114,19 @@ ownership, additive schema/API fields, scientific boundaries, accessibility,
 performance, fixture provenance, compatibility, and exact evidence without
 claiming deferred functionality.
 
+Checkpoint 5 passed frozen Python/JavaScript installs, Alembic `0007 (head)`,
+Ruff, strict mypy across 47 source files, all 192 Python tests, ESLint,
+TypeScript, all 56 Vitest tests, all 7 supervisor tests, the production build,
+and `git diff --check`. The full desktop/mobile Playwright matrix passed 37
+applicable workflows with 27 intentional cross-layout skips in 8.2 minutes.
+The build retained the expected lazy Mol* warning at 966.21 KiB gzip and the
+initial application chunk at 152.59 KiB gzip. Full `origin/master...HEAD`
+review found no consequential issue.
+
 No Alembic, project-state, archive-schema, selection, scene, job, or API-major
-migration exists. Final complete-gate and v0.3.0 release evidence must replace
-the pending status before release.
+migration exists. The qualified candidate advances all five authoritative
+application versions to 0.3.0 and retains archive producer compatibility
+through 0.2.1.
 
 ## V0.2.1 Issues #5 And #6 Feature Evidence
 
