@@ -2,7 +2,7 @@
 
 ## Current milestone
 
-Issue #2 - automatic component detection and structure hierarchy, Checkpoint 1
+Issue #2 - automatic component detection and structure hierarchy, Checkpoint 2
 
 The approved implementation contract at
 `docs/plans/issue-2-structure-hierarchy.md` is the detailed source of truth.
@@ -12,13 +12,28 @@ The approved outcome adds an application-owned deterministic component
 hierarchy, conservative source-aware classification, category and individual
 selection through canonical atom references, and mapped group visibility while
 keeping Mol* disposable. The typed source-aware domain classifier and additive
-lazy API hierarchy are implemented and verified. Durable component overrides,
-selection-specific styling, ligand-of-interest state, and component subset
-export remain explicitly deferred or rejected. The planned backward-compatible
-feature release is v0.3.0 with no Alembic or archive-schema migration.
+lazy API hierarchy plus the selectable project-browser and viewer projection
+are implemented and verified. Durable component overrides, selection-specific
+styling, ligand-of-interest state, and component subset export remain explicitly
+deferred or rejected. The planned backward-compatible feature release is
+v0.3.0 with no Alembic or archive-schema migration.
 
 ## Completed work
 
+- Completed issue #2 Checkpoint 2 with an accessible, lazy per-entry hierarchy
+  that omits empty groups, keeps category instance lists unrendered until
+  expansion, exposes atom/component counts and provenance, and surfaces
+  ambiguous warnings without adding speculative controls.
+- Routed category and component nodes through canonical atom references and
+  existing replace/add/subtract behavior; selection remains transient,
+  camera-neutral, and immediately consumable by focus, saved selection,
+  measurement, sequence, inspector, and applicable editing paths.
+- Routed Protein, Ligands, Solvent, and Ions hierarchy actions through existing
+  undoable viewer settings and replaced Mol* static classification with an
+  application-membership bundle. DNA, RNA, other polymers, other heterogens,
+  and unclassified atoms are not accidentally hidden by mapped group toggles.
+- Updated aggregate ligand focus to consume hierarchy membership and retained
+  explicit Focus selection as the only component camera action.
 - Completed issue #2 Checkpoint 1 with optional normalized source entity,
   subchain, polymer, and residue-kind facts, retained at the Gemmi adapter
   boundary without changing normalized schema version 1.
@@ -512,6 +527,15 @@ feature release is v0.3.0 with no Alembic or archive-schema migration.
 
 ## Verification performed
 
+- Issue #2 Checkpoint 2: ESLint and TypeScript passed; all 56 Vitest tests across
+  18 files passed; the production build completed; and `git diff --check`
+  passed. The known non-blocking lazy Mol* chunk is 966.21 KiB gzip and the
+  initial application chunk is 152.59 KiB gzip.
+- Checkpoint 2 component evidence proves lazy artifact-keyed fetch reuse,
+  category-list lazy rendering, exact category/component atom materialization,
+  modifier semantics, chain/residue granularity metadata, selection pressed
+  state, mapped durable visibility callbacks, provenance/warning accessibility,
+  hierarchy-owned ligand focus, and preservation of Other/unclassified content.
 - Issue #2 Checkpoint 1: Ruff passed across core, API, and tests; strict mypy
   passed across 47 source files; all 46 focused component, adapter, scientific
   fixture, and import/export tests passed; and `git diff --check` passed.
@@ -1508,8 +1532,8 @@ None.
 
 ## Next action
 
-Begin Checkpoint 2 of the approved issue #2 plan: add the lazy accessible
-per-entry hierarchy, materialize category/component nodes through canonical
-atom references, and project application-owned memberships into existing
-visibility and ligand-focus behavior. Do not broaden into durable overrides,
+Begin Checkpoint 3 of the approved issue #2 plan: qualify PDB/PDBx hierarchy,
+selection, explicit focus, mapped visibility, named-selection reload,
+coordinate/topology edits, archive/reopen determinism, responsive accessibility,
+query reuse, and real-WebGL behavior. Do not broaden into durable overrides,
 styling, ligand analysis, or subset export.

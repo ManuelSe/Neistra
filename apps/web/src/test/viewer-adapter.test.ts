@@ -1,6 +1,10 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { ViewerStructure } from "../viewer/MolecularViewer";
-import { proteinStructure, viewerSettings } from "./molecular-fixtures";
+import {
+  componentHierarchy,
+  proteinStructure,
+  viewerSettings,
+} from "./molecular-fixtures";
 
 const calls = vi.hoisted(() => ({
   mount: vi.fn(),
@@ -99,13 +103,16 @@ describe("MolecularViewer Molstar adapter", () => {
   it("loads Molstar lazily and forwards only application viewer concepts", async () => {
     const { createMolstarViewer } = await import("../viewer/MolstarViewer");
     const target = document.createElement("div");
+    const protein = proteinStructure();
+    const ligand = { ...proteinStructure(), structure_type: "ligand" as const };
     const structures: ViewerStructure[] = [
       {
         entryId: "protein",
         label: "Receptor",
         projection: { format: "mmcif", data: "protein data" },
         atomIds: [10, 11],
-        normalized: proteinStructure(),
+        normalized: protein,
+        hierarchy: componentHierarchy(protein),
         settings: viewerSettings("cartoon"),
       },
       {
@@ -113,7 +120,8 @@ describe("MolecularViewer Molstar adapter", () => {
         label: "Ligand",
         projection: { format: "sdf", data: "ligand data" },
         atomIds: [20],
-        normalized: { ...proteinStructure(), structure_type: "ligand" },
+        normalized: ligand,
+        hierarchy: componentHierarchy(ligand),
         settings: viewerSettings(),
       },
     ];

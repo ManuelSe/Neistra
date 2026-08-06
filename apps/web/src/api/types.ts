@@ -341,6 +341,11 @@ export interface MolecularResidue {
   label_number: number | null;
   insertion_code: string | null;
   component_type: "polymer" | "ligand" | "water" | "ion" | "unknown";
+  source_entity_id?: string | null;
+  source_subchain_id?: string | null;
+  source_entity_type?: string | null;
+  source_polymer_type?: string | null;
+  source_residue_kind?: string | null;
 }
 
 export interface MolecularAtom {
@@ -380,9 +385,40 @@ export interface NormalizedStructure {
   warnings: MolecularWarning[];
 }
 
+export type ComponentCategory =
+  | "protein"
+  | "dna"
+  | "rna"
+  | "other_polymer"
+  | "ligand"
+  | "water"
+  | "solvent"
+  | "ion"
+  | "other_heterogen"
+  | "unclassified";
+
+export interface MolecularComponent {
+  id: string;
+  category: ComponentCategory;
+  display_label: string;
+  chain_ids: number[];
+  residue_ids: number[];
+  atom_ids: number[];
+  classification_source: "source" | "fallback" | "ambiguous";
+  classification_status: "assigned" | "ambiguous";
+  warnings: MolecularWarning[];
+}
+
+export interface ComponentHierarchy {
+  schema_version: 1;
+  components: MolecularComponent[];
+  warnings: MolecularWarning[];
+}
+
 export interface StructureProjection {
   entry_id: string;
   structure: NormalizedStructure;
+  hierarchy: ComponentHierarchy;
   viewer: {
     format: "pdb" | "mmcif" | "sdf" | "mol";
     data: string;

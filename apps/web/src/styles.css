@@ -659,6 +659,177 @@ select:focus-visible,
   height: 28px;
 }
 
+.entry-node {
+  margin-bottom: 3px;
+}
+
+.structure-hierarchy {
+  margin: -2px 4px 4px 27px;
+  color: var(--text-soft);
+  font-size: 10px;
+}
+
+.structure-hierarchy summary,
+.hierarchy-category summary {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  cursor: pointer;
+  list-style: none;
+}
+
+.structure-hierarchy summary::-webkit-details-marker,
+.hierarchy-category summary::-webkit-details-marker {
+  display: none;
+}
+
+.structure-hierarchy > summary {
+  gap: 4px;
+  min-height: 24px;
+  font-weight: 650;
+}
+
+.structure-hierarchy[open] > summary > svg,
+.hierarchy-category[open] > summary > svg {
+  transform: rotate(180deg);
+}
+
+.hierarchy-loading,
+.hierarchy-error,
+.hierarchy-warning {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin: 2px 0 6px;
+  padding: 6px;
+  background: var(--surface-muted);
+  border-radius: 3px;
+  overflow-wrap: anywhere;
+}
+
+.hierarchy-loading svg {
+  animation: spin 800ms linear infinite;
+}
+
+.hierarchy-error,
+.hierarchy-warning,
+.component-warning,
+.classification-source.ambiguous {
+  color: #9b6a00;
+}
+
+.hierarchy-group {
+  margin: 4px 0 7px;
+  padding-left: 6px;
+  border-left: 1px solid var(--border);
+}
+
+.hierarchy-group h4 {
+  margin: 0 0 2px;
+  color: var(--text-soft);
+  font-size: 9px;
+  text-transform: uppercase;
+}
+
+.hierarchy-category > summary {
+  display: grid;
+  grid-template-columns: 14px minmax(0, 1fr) auto;
+  min-height: 25px;
+  color: var(--text);
+}
+
+.hierarchy-category summary small {
+  color: var(--text-soft);
+  font-size: 8px;
+}
+
+.hierarchy-category-actions {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 0 3px 14px;
+}
+
+.hierarchy-category-actions .icon-button {
+  width: 25px;
+  height: 25px;
+}
+
+.hierarchy-select {
+  min-width: 0;
+  height: 25px;
+  padding: 0 7px;
+  color: var(--text-soft);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  font-size: 9px;
+  cursor: pointer;
+}
+
+.hierarchy-select[aria-pressed="true"],
+.hierarchy-select[aria-pressed="mixed"] {
+  color: var(--brand);
+  background: var(--accent-soft);
+  border-color: var(--accent);
+}
+
+.hierarchy-components {
+  padding: 0 0 3px 14px;
+}
+
+.hierarchy-component {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  width: 100%;
+  min-width: 0;
+  margin: 2px 0;
+  padding: 5px 6px;
+  color: var(--text);
+  text-align: left;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.hierarchy-component:hover,
+.hierarchy-component[aria-pressed="true"],
+.hierarchy-component[aria-pressed="mixed"] {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+}
+
+.hierarchy-component > span:first-child {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 650;
+  white-space: nowrap;
+}
+
+.hierarchy-component > small {
+  margin-left: 5px;
+  color: var(--text-soft);
+  font-size: 8px;
+}
+
+.classification-source,
+.component-warning {
+  grid-column: 1 / -1;
+  margin-top: 2px;
+  color: var(--text-soft);
+  font-size: 8px;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+
+.component-warning {
+  display: flex;
+  align-items: flex-start;
+  gap: 3px;
+}
+
 .entry-select {
   display: grid;
   grid-template-columns: 20px minmax(0, 1fr) 9px;

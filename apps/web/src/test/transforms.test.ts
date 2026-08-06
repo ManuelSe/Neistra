@@ -9,6 +9,7 @@ import {
   patchStructureProjection,
   previewTransform,
 } from "../coordinates/transforms";
+import { componentHierarchy } from "./molecular-fixtures";
 
 const structure: NormalizedStructure = {
   schema_version: 1,
@@ -89,6 +90,7 @@ describe("coordinate transforms", () => {
     const projection: StructureProjection = {
       entry_id: "ligand",
       structure,
+      hierarchy: componentHierarchy(structure),
       viewer: { format: "mol", data: "topology stays unchanged" },
     };
     const patched = patchStructureProjection(projection, {

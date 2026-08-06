@@ -19,14 +19,28 @@ import {
   Trash2,
 } from "lucide-react";
 import { useMemo, useState } from "react";
-import type { Entry, Project, SelectionMode, StructureType } from "../api/types";
-import { selectionMode } from "../selection/selection";
+import type {
+  Entry,
+  Project,
+  Selection,
+  SelectionMode,
+  StructureType,
+  ViewerSettings,
+} from "../api/types";
+import { emptySelection, selectionMode } from "../selection/selection";
 import { IconButton } from "./IconButton";
+import { StructureHierarchy } from "./StructureHierarchy";
 
 interface ProjectBrowserProps {
   project: Project | undefined;
+  selection?: Selection;
   selectedEntryIds?: Set<string>;
   onSelectEntries?: (entries: Entry[], mode: SelectionMode) => void;
+  onSelectHierarchy?: (selection: Selection, mode: SelectionMode) => void;
+  onHierarchyVisibility?: (
+    entry: Entry,
+    key: keyof Omit<ViewerSettings["components"], "hydrogens">,
+  ) => void;
   onCollapse?: () => void;
   onRename: (entry: Entry) => void;
   onDuplicate: (entry: Entry) => void;
@@ -40,7 +54,13 @@ interface ProjectBrowserProps {
 
 type BrowserActions = Omit<
   ProjectBrowserProps,
-  "project" | "selectedEntryIds" | "onSelectEntries" | "onCollapse"
+  | "project"
+  | "selection"
+  | "selectedEntryIds"
+  | "onSelectEntries"
+  | "onSelectHierarchy"
+  | "onHierarchyVisibility"
+  | "onCollapse"
 >;
 
 function EntryRow({
@@ -141,8 +161,11 @@ function EntryRow({
 
 export function ProjectBrowser({
   project,
+  selection = emptySelection(),
   selectedEntryIds = new Set(),
   onSelectEntries,
+  onSelectHierarchy = () => undefined,
+  onHierarchyVisibility = () => undefined,
   onCollapse,
   ...actions
 }: ProjectBrowserProps) {
@@ -205,6 +228,26 @@ export function ProjectBrowser({
         <span>{name}</span>
         <small>{groupEntries.length}</small>
       </button>
+    </div>
+  );
+
+  const entryNode = (entry: Entry) => (
+    <div className="entry-node" key={entry.id}>
+      <EntryRow
+        entry={entry}
+        selected={selectedEntryIds.has(entry.id)}
+        onSelect={(mode) => onSelectEntries?.([entry], mode)}
+        {...actions}
+      />
+      {project && entry.current_artifact_id ? (
+        <StructureHierarchy
+          projectId={project.id}
+          entry={entry}
+          selection={selection}
+          onSelect={onSelectHierarchy}
+          onVisibility={onHierarchyVisibility}
+        />
+      ) : null}
     </div>
   );
 
@@ -278,15 +321,7 @@ export function ProjectBrowser({
                 <div className="entry-group" key={group.id}>
                   {groupHeading(group.id, group.name, groupEntries)}
                   {!collapsedGroups.has(group.id)
-                    ? groupEntries.map((entry) => (
-                        <EntryRow
-                          key={entry.id}
-                          entry={entry}
-                          selected={selectedEntryIds.has(entry.id)}
-                          onSelect={(mode) => onSelectEntries?.([entry], mode)}
-                          {...actions}
-                        />
-                      ))
+                    ? groupEntries.map(entryNode)
                     : null}
                 </div>
               );
@@ -297,15 +332,7 @@ export function ProjectBrowser({
                   ? groupHeading("ungrouped", "Ungrouped", ungrouped)
                   : null}
                 {!collapsedGroups.has("ungrouped")
-                  ? ungrouped.map((entry) => (
-                      <EntryRow
-                        key={entry.id}
-                        entry={entry}
-                        selected={selectedEntryIds.has(entry.id)}
-                        onSelect={(mode) => onSelectEntries?.([entry], mode)}
-                        {...actions}
-                      />
-                    ))
+                  ? ungrouped.map(entryNode)
                   : null}
               </div>
             ) : null}
