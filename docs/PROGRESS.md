@@ -2,24 +2,37 @@
 
 ## Current milestone
 
-Issue #2 - automatic component detection and structure hierarchy, Checkpoint 5 qualified
+Issue #2 - automatic component detection and structure hierarchy, released in v0.3.0
 
 The approved implementation contract at
 `docs/plans/issue-2-structure-hierarchy.md` is the detailed source of truth.
-The clean feature branch is based on verified local and remote `master` at
-`da54b10116175d6232882caa8359f7c47d1548f1`, and this plan is its first change.
 The approved outcome adds an application-owned deterministic component
 hierarchy, conservative source-aware classification, category and individual
 selection through canonical atom references, and mapped group visibility while
 keeping Mol* disposable. The typed source-aware domain classifier and additive
 lazy API hierarchy plus the selectable project-browser and viewer projection
-are implemented and verified. Durable component overrides, selection-specific
-styling, ligand-of-interest state, and component subset export remain explicitly
-deferred or rejected. The planned backward-compatible feature release is
-v0.3.0 with no Alembic or archive-schema migration.
+are implemented, verified, merged in PR #22, and released as v0.3.0 from
+`78d079a789368078ec24c4fca7d2d90d6cdab79c`. Durable component overrides,
+selection-specific styling, ligand-of-interest state, and component subset
+export remain explicitly deferred or rejected. The published release is
+backward compatible with no Alembic or archive-schema migration.
 
 ## Completed work
 
+- Rebase-merged [PR #22](https://github.com/ManuelSe/MolWeave/pull/22) to
+  verified `origin/master` commit `78d079a`, closing issue #2.
+- Published and remotely verified annotated tag and
+  [GitHub release v0.3.0](https://github.com/ManuelSe/MolWeave/releases/tag/v0.3.0)
+  at that exact released commit.
+- Posted and remotely verified the issue #2 close-out reply with delivered
+  behavior, verification, compatibility, scientific limits, scope decisions,
+  and follow-ups #20 and #21.
+- Requested `@codex review`; the integration did not acknowledge or return a
+  review. PR #22 records the completed local full-diff review without claiming
+  independence. No protection, ruleset, required check, required review, or
+  review conversation blocked merge.
+- Deleted the original feature branch locally and remotely only after merge,
+  tag, release, and issue reply were verified.
 - Completed issue #2 Checkpoint 5 with all five authoritative application
   versions at 0.3.0, archive producer compatibility extended through 0.2.1,
   accurate release notes, the full release gate, and a complete branch review.
@@ -552,6 +565,10 @@ v0.3.0 with no Alembic or archive-schema migration.
 
 ## Verification performed
 
+- Remote closeout: PR #22 is verified merged; the annotated `v0.3.0` tag
+  dereferences to `78d079a789368078ec24c4fca7d2d90d6cdab79c`; the GitHub
+  release is published, non-draft, and non-prerelease; issue #2 is closed with
+  its verified reply; and follow-ups #20 and #21 are open.
 - Issue #2 Checkpoint 5 complete gate: frozen Python/JavaScript installs,
   Alembic `0007 (head)`, Ruff, strict mypy across 47 source files, 192 Python
   tests, ESLint, TypeScript, all 56 Vitest tests, all 7 supervisor tests, the
@@ -1578,6 +1595,6 @@ None.
 
 ## Next action
 
-Push the qualified issue #2 branch, create the two approved follow-up issues,
-open the plan-compliant pull request, request review when available, and merge
-only after all remote policy and review checks remain satisfied.
+Issue #2 is complete. Await the next approved product priority; follow-ups #20
+and #21 retain the deliberately deferred component-override and subset-export
+design work.

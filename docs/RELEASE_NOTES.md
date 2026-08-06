@@ -2,9 +2,10 @@
 
 ## 0.3.0 - 2026-08-06
 
-Release target: annotated tag
+Status: released as annotated tag
 [`v0.3.0`](https://github.com/ManuelSe/MolWeave/releases/tag/v0.3.0)
-for [issue #2](https://github.com/ManuelSe/MolWeave/issues/2)
+from [PR #22](https://github.com/ManuelSe/MolWeave/pull/22), closing
+[issue #2](https://github.com/ManuelSe/MolWeave/issues/2)
 
 ### Highlights
 

@@ -1,6 +1,6 @@
 # Issue 2 - Automatic Component Detection And Structure Hierarchy
 
-Status: approved; all five checkpoints implemented and verified; release candidate qualified
+Status: complete; released in MolWeave v0.3.0
 
 ## Issue metadata
 
@@ -957,9 +957,12 @@ Release is additionally blocked when:
 | 2026-08-06 | Checkpoint 3 verified | Added a compact covalently linked protein/ligand/water/additive/ion/heterogen PDB fixture and integration/browser workflows for exact membership, central selection, camera neutrality, explicit focus, durable mapped visibility, named-selection reload, coordinate identity, topology regeneration, archive/reopen determinism, query reuse, keyboard/accessibility, Pixel 7 bounds, original-byte preservation, and real WebGL. Qualification found and fixed new standalone-ligand atoms losing their sole residue; unit/integration evidence now keeps those atoms in the same derived component. All 35 focused integration tests passed. The focused desktop/Pixel 7 Playwright matrix passed 8 applicable workflows with 8 intentional cross-layout skips in 1.1 minutes; `git diff --check` passed. |
 | 2026-08-06 | Checkpoint 4 verified | Documented application ownership and identity, additive API and normalized source facts, non-persisted derivation, classification limits, focus semantics, accessibility, query reuse/lazy rendering, fixture provenance, compatibility, and the exact Checkpoints 1 through 3 evidence. Ruff, strict mypy across 47 source files, ESLint, TypeScript, and `git diff --check` passed. Documentation review found no claim for deferred renaming/reclassification, individual styling/visibility, ligand designation, or subset export, and no new architectural decision beyond accepted D-045. |
 | 2026-08-06 | Checkpoint 5 verified | Confirmed `origin/master` remained at the approved base, `v0.3.0` did not collide with a tag or release, advanced all five authoritative application versions, retained archive producer compatibility through 0.2.1, and documented the bounded minor release. The complete gate passed frozen Python/JavaScript installs, Alembic `0007 (head)`, Ruff, strict mypy across 47 source files, 192 Python tests, ESLint, TypeScript, 56 Vitest tests, 7 supervisor tests, the production build, 37 applicable desktop/mobile Playwright workflows, 27 intentional cross-layout skips, and `git diff --check`; Playwright completed in 8.2 minutes. The build retained the expected lazy Mol* warning at 966.21 KiB gzip and 152.59 KiB initial app gzip. Full `origin/master...HEAD` review found no unresolved scope, scientific, persistence, schema, API, migration, archive, accessibility, performance, dead-code, or compatibility finding. |
+| 2026-08-06 | PR and review complete | Pushed the qualified branch and opened PR #22 with `Closes #2`, all checkpoint evidence, scope decisions, compatibility, scientific limits, v0.3.0 impact, and follow-ups #20 and #21. The requested `@codex review` integration did not respond, so the PR records the local full-diff review without claiming independence. Remote inspection found no protection, ruleset, required check, required review, review thread, or actionable finding. |
+| 2026-08-06 | Released and closed | Rebase-merged PR #22 to verified `origin/master` commit `78d079a789368078ec24c4fca7d2d90d6cdab79c`; fast-forwarded clean local `master`; created and remotely dereferenced annotated tag `v0.3.0` to that exact commit; published and verified the non-draft, non-prerelease GitHub release; and posted and verified the final issue #2 reply. The release and reply document implemented, simplified, deferred, and rejected scope, compatibility, migrations, scientific limits, verification, and follow-ups. The original feature branch was then deleted locally and remotely. |
 
 ## Completion
 
-All five checkpoints are implemented and verified. The v0.3.0 release candidate
-is qualified for its pull request; merge, remote release, issue response, and
-branch cleanup remain delivery operations rather than feature implementation.
+All five checkpoints and delivery operations are complete. MolWeave v0.3.0 is
+published from the verified merged commit, issue #2 is closed with its final
+response, follow-ups #20 and #21 own the deferred work, and the feature branch
+has been removed locally and remotely.
