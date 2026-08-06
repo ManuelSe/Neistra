@@ -1,6 +1,6 @@
 # Issue 2 - Automatic Component Detection And Structure Hierarchy
 
-Status: approved; Checkpoints 1 through 4 implemented and verified
+Status: approved; all five checkpoints implemented and verified; release candidate qualified
 
 ## Issue metadata
 
@@ -956,10 +956,10 @@ Release is additionally blocked when:
 | 2026-08-06 | Checkpoint 2 verified | Added a lazy native-disclosure hierarchy beneath project entries, category/component selection through canonical atom references and existing modifier semantics, accessible provenance/warnings/pressed state, mapped durable visibility actions, hierarchy-owned aggregate ligand focus, and Mol* bundle projection from application memberships. Other heterogens and unclassified atoms remain visible when mapped groups are disabled, and instance lists render only after category expansion. ESLint, TypeScript, all 56 Vitest tests across 18 files, production build, and `git diff --check` passed. The build retained the expected lazy Mol* warning at 966.21 KiB gzip; the initial application chunk is 152.59 KiB gzip. |
 | 2026-08-06 | Checkpoint 3 verified | Added a compact covalently linked protein/ligand/water/additive/ion/heterogen PDB fixture and integration/browser workflows for exact membership, central selection, camera neutrality, explicit focus, durable mapped visibility, named-selection reload, coordinate identity, topology regeneration, archive/reopen determinism, query reuse, keyboard/accessibility, Pixel 7 bounds, original-byte preservation, and real WebGL. Qualification found and fixed new standalone-ligand atoms losing their sole residue; unit/integration evidence now keeps those atoms in the same derived component. All 35 focused integration tests passed. The focused desktop/Pixel 7 Playwright matrix passed 8 applicable workflows with 8 intentional cross-layout skips in 1.1 minutes; `git diff --check` passed. |
 | 2026-08-06 | Checkpoint 4 verified | Documented application ownership and identity, additive API and normalized source facts, non-persisted derivation, classification limits, focus semantics, accessibility, query reuse/lazy rendering, fixture provenance, compatibility, and the exact Checkpoints 1 through 3 evidence. Ruff, strict mypy across 47 source files, ESLint, TypeScript, and `git diff --check` passed. Documentation review found no claim for deferred renaming/reclassification, individual styling/visibility, ligand designation, or subset export, and no new architectural decision beyond accepted D-045. |
+| 2026-08-06 | Checkpoint 5 verified | Confirmed `origin/master` remained at the approved base, `v0.3.0` did not collide with a tag or release, advanced all five authoritative application versions, retained archive producer compatibility through 0.2.1, and documented the bounded minor release. The complete gate passed frozen Python/JavaScript installs, Alembic `0007 (head)`, Ruff, strict mypy across 47 source files, 192 Python tests, ESLint, TypeScript, 56 Vitest tests, 7 supervisor tests, the production build, 37 applicable desktop/mobile Playwright workflows, 27 intentional cross-layout skips, and `git diff --check`; Playwright completed in 8.2 minutes. The build retained the expected lazy Mol* warning at 966.21 KiB gzip and 152.59 KiB initial app gzip. Full `origin/master...HEAD` review found no unresolved scope, scientific, persistence, schema, API, migration, archive, accessibility, performance, dead-code, or compatibility finding. |
 
 ## Completion
 
-Checkpoints 1 through 4 are implemented and verified. Checkpoint 5 will update
-the authoritative version sources and release documentation, run the complete
-release gate, and record final qualification without starting deferred override,
-styling, ligand-designation, or subset-export work.
+All five checkpoints are implemented and verified. The v0.3.0 release candidate
+is qualified for its pull request; merge, remote release, issue response, and
+branch cleanup remain delivery operations rather than feature implementation.
