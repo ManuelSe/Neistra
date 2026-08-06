@@ -2,20 +2,35 @@
 
 ## Current milestone
 
-Issues #5 and #6 - camera-neutral viewer selection clicks, approved plan
+Issues #5 and #6 - camera-neutral viewer selection clicks, Checkpoint 1 complete
 
 The approved combined plan at
 `docs/plans/issue-5-viewer-click-selection.md` is the detailed source of truth.
-The clean feature branch is prepared from verified `master` at `8e98bda`, and
-the plan is the first branch change. Implementation has not started. The
-approved outcome makes structural and empty primary viewer clicks update only
-the transient canonical selection while camera changes remain explicit through
-the focus and fit controls released in v0.2.0. The planned release impact is a
+The clean feature branch is based on verified `master` at `8e98bda`, and the
+plan is the first branch change. Checkpoint 1 configures Mol* primary activation
+as application selection only: implicit camera and representation focus no
+longer bind primary, modified-primary, or trigger activation, while secondary
+camera behavior and explicit focus operations remain. Direct interaction tests,
+all frontend tests, lint, type-check, and build pass. Real-WebGL workflow
+qualification is the next checkpoint. The planned release impact remains a
 backward-compatible patch to v0.2.1 with no API, data, schema, archive, or
 migration change.
 
 ## Completed work
 
+- Added a typed interaction-policy helper that derives camera-neutral Mol*
+  camera-focus and representation-focus bindings from the pinned defaults,
+  removing primary and primary-equivalent triggers without removing secondary
+  camera behavior.
+- Routed both primary and Mol* trigger picks into the existing canonical
+  selection path, preserving Alt subtract, Ctrl/Meta/Shift add, and unmodified
+  replace semantics.
+- Made an unmodified empty pick clear only a non-empty selection; already-empty
+  and modified-empty picks now emit no selection change.
+- Added direct tests that inspect the configured Mol* behavior parameters,
+  exhaust every modifier against primary and trigger focus/reset, retain
+  secondary bindings, and cover selection activation, modifier, and empty-pick
+  policy.
 - Approved one combined implementation contract for issues #5 and #6 because
   Mol*'s default camera-focus and representation-focus behaviors cause both
   sides of the same primary-click defect.
@@ -423,6 +438,15 @@ migration change.
 
 ## Verification performed
 
+- Issue #5/#6 Checkpoint 1: all 54 Vitest tests across 17 files passed; ESLint,
+  TypeScript, the production build, and `git diff --check` passed. The initial
+  lint run exposed unsafe access to Mol*'s untyped `defaultParams`; explicit
+  `unknown` narrowing was applied before the passing rerun.
+- The Checkpoint 1 build retains the known non-blocking lazy Mol* warning at
+  966.15 KiB gzip; the initial application chunk remains 151.14 KiB gzip.
+- Checkpoint 1 diff review found no backend, API, persisted state, project or
+  molecular schema, migration, archive, scientific, representation, explicit
+  focus, or new browser gesture-detector change.
 - Remote issue #3 delivery verification: PR #15 is merged; issue #3 is closed
   with its close-out reply; remote annotated tag `v0.2.0` dereferences to
   `ab14e19`; and the GitHub release is published, non-draft, and non-prerelease.
@@ -1289,9 +1313,9 @@ Results:
 
 ## Known limitations
 
-- Until the approved issue #5/#6 implementation is completed, Mol*'s default
-  primary-click behavior can still focus a picked locus or reset the camera on
-  empty space while MolWeave updates the selection.
+- The camera-neutral behavior has direct typed coverage, but real-WebGL hit,
+  empty, modifier, drag, representation, and compact-input qualification remains
+  pending in Checkpoint 2.
 - Focus visible ligands aggregates all rendered atoms already classified as
   ligand in normalized application state. It does not repair ambiguous or
   unknown source classification, choose a ligand of interest, or offer
@@ -1349,5 +1373,6 @@ None.
 
 ## Next action
 
-Stop after the approved plan handoff. Resume with `/goal` to implement
-Checkpoint 1 from `docs/plans/issue-5-viewer-click-selection.md`.
+Implement Checkpoint 2's dedicated real-WebGL interaction workflow, run it with
+the existing viewer-control and synchronized-selection regressions, and record
+exact camera, selection, representation, drag, and durable-state evidence.

@@ -1,6 +1,6 @@
 # Issues 5 And 6 - Camera-Neutral Viewer Selection Clicks
 
-Status: approved; implementation not started
+Status: implementation in progress; Checkpoint 1 complete
 
 ## Issue metadata
 
@@ -739,7 +739,7 @@ Release is additionally blocked when:
 | 2026-08-06 | Plan approved | User approved the combined issue #5/#6 scope, camera-neutral primary selection contract, empty/modifier semantics, checkpoints, patch-release path, blockers, and delivery workflow. |
 | 2026-08-06 | Branch prepared | Clean local `master` was fetched and fast-forward checked against `origin/master` at `8e98bda5082af57aa591db099bc580a99daf2310`; branch `fix/issue-5-viewer-click-selection` was created. |
 | 2026-08-06 | Plan persisted | This plan, concise project handoff, and D-044 are the first branch change. No implementation, tests, versions, schemas, migrations, or runtime behavior changed. |
-| Pending | Checkpoint 1 | Not started. |
+| 2026-08-06 | Checkpoint 1 complete locally | Added a typed Mol* interaction policy that removes primary, modified-primary, and trigger activation from both default camera-focus and representation-focus behaviors while retaining secondary camera bindings. The viewer now accepts primary/trigger picks for application selection, clears only a non-empty selection on an unmodified empty pick, and treats already-empty and modified-empty picks as no-ops. Direct tests inspect the installed behavior parameters, prove every modifier cannot match implicit primary focus/reset, preserve secondary bindings, and cover selection activation/mode/empty policy. The focused frontend run passed all 54 tests across 17 files; ESLint, TypeScript, production build, and `git diff --check` passed. The initial lint run identified unsafe access to Mol*'s untyped `defaultParams`; explicit `unknown` narrowing fixed it before the passing rerun. The build retained the known non-blocking lazy Mol* warning at 966.15 KiB gzip and the initial application chunk at 151.14 KiB gzip. Diff review found no backend, API, schema, migration, molecular, persistence, representation, explicit-focus, or custom gesture-detector change. |
 | Pending | Checkpoint 2 | Not started. |
 | Pending | Checkpoint 3 | Not started. |
 | Pending | Checkpoint 4 | Not started. |
@@ -748,6 +748,5 @@ Release is additionally blocked when:
 
 ## Completion
 
-The approved plan is persisted as the documentation-only branch handoff.
-Implementation has not started and must wait until the repository is resumed
-through `/goal`.
+Checkpoint 1 is implemented, verified, and ready to commit. Checkpoints 2
+through 4, pull-request delivery, merge, release, and issue closeout remain.
