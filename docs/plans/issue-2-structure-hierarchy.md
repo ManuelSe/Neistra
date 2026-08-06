@@ -1,6 +1,6 @@
 # Issue 2 - Automatic Component Detection And Structure Hierarchy
 
-Status: approved; Checkpoints 1 and 2 implemented and verified
+Status: approved; Checkpoints 1 through 3 implemented and verified
 
 ## Issue metadata
 
@@ -954,9 +954,11 @@ Release is additionally blocked when:
 | 2026-08-06 | Branch prepared | Fast-forward-only update confirmed clean local `master`, `origin/master`, and base commit `da54b10116175d6232882caa8359f7c47d1548f1`; created `feat/issue-2-structure-hierarchy`. |
 | 2026-08-06 | Checkpoint 1 verified | Added optional residue-level source entity, subchain, polymer, and tabulated-residue facts; a Gemmi-independent deterministic `ComponentHierarchyV1` classifier; stable source-identity-based component IDs; complete disjoint atom membership; conservative legacy fallback; and the additive lazy `StructureRead.hierarchy` projection. Focused Ruff, strict mypy across 47 source files, 46 component/adapter/scientific/import-export tests, and `git diff --check` passed. Detection creates no database/archive migration and does not alter molecular coordinates, topology, source bytes, or chemistry. |
 | 2026-08-06 | Checkpoint 2 verified | Added a lazy native-disclosure hierarchy beneath project entries, category/component selection through canonical atom references and existing modifier semantics, accessible provenance/warnings/pressed state, mapped durable visibility actions, hierarchy-owned aggregate ligand focus, and Mol* bundle projection from application memberships. Other heterogens and unclassified atoms remain visible when mapped groups are disabled, and instance lists render only after category expansion. ESLint, TypeScript, all 56 Vitest tests across 18 files, production build, and `git diff --check` passed. The build retained the expected lazy Mol* warning at 966.21 KiB gzip; the initial application chunk is 152.59 KiB gzip. |
+| 2026-08-06 | Checkpoint 3 verified | Added a compact covalently linked protein/ligand/water/additive/ion/heterogen PDB fixture and integration/browser workflows for exact membership, central selection, camera neutrality, explicit focus, durable mapped visibility, named-selection reload, coordinate identity, topology regeneration, archive/reopen determinism, query reuse, keyboard/accessibility, Pixel 7 bounds, original-byte preservation, and real WebGL. Qualification found and fixed new standalone-ligand atoms losing their sole residue; unit/integration evidence now keeps those atoms in the same derived component. All 35 focused integration tests passed. The focused desktop/Pixel 7 Playwright matrix passed 8 applicable workflows with 8 intentional cross-layout skips in 1.1 minutes; `git diff --check` passed. |
 
 ## Completion
 
-Checkpoints 1 and 2 are implemented and verified. Checkpoint 3 will qualify
-scientific, persistence, edit, accessibility, responsive, query-cache, and
-real-WebGL workflows without starting deferred override or styling work.
+Checkpoints 1 through 3 are implemented and verified. Checkpoint 4 will
+document the executable ownership, schema, API, classification, accessibility,
+performance, fixture, compatibility, and evidence contract without starting
+deferred override or styling work.
