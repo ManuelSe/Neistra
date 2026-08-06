@@ -2,7 +2,7 @@
 
 ## Current milestone
 
-Issues #5 and #6 - camera-neutral viewer selection clicks, Checkpoint 4 complete
+Issues #5 and #6 - camera-neutral viewer selection clicks, PR ready locally
 
 The approved combined plan at
 `docs/plans/issue-5-viewer-click-selection.md` is the detailed source of truth.
@@ -469,6 +469,12 @@ schema, archive, or migration change.
 
 ## Verification performed
 
+- Final full-diff review against `origin/master` found no accidental scope
+  expansion, dead or debug code, duplicate gesture recognition, scientific
+  inaccuracy, migration risk, persisted-data regression, incompatible API or
+  archive change, or consequential unresolved finding. The only bounded test
+  waits settle representation loading and explicit camera animations before
+  exact snapshots.
 - Issue #5/#6 Checkpoint 4 complete release gate: frozen Python/JavaScript
   installs, Alembic `0007 (head)`, Ruff, strict mypy across 46 source files,
   182/182 Python tests, ESLint, TypeScript, 54/54 Vitest tests, 7/7 supervisor
@@ -1437,6 +1443,6 @@ None.
 
 ## Next action
 
-Review the complete branch diff, commit the qualified v0.2.1 release candidate,
-refresh `origin/master`, push the feature branch, and open the planned pull
-request with exact scope and verification evidence.
+Refresh `origin/master`, confirm version/tag availability once more, push the
+feature branch, and open the planned pull request with exact scope and
+verification evidence.
