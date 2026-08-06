@@ -102,6 +102,32 @@ structure preparation or validation software.
 
 ## Conversion And Viewing
 
+### Automatic component classification
+
+- Component detection organizes current normalized identity; it does not
+  validate chemistry, prepare a structure, or establish experimental function.
+- Source entity/subchain/polymer metadata takes precedence when present.
+  Tabulated amino-acid/nucleotide/water/buffer/sugar facts, common monatomic
+  ion elements, and legacy coarse component values are documented fallbacks.
+  Remaining uncertainty is exposed as `unclassified` with warnings.
+- `ligand` means a putative non-polymer or cofactor component. It does not mean
+  ligand of interest, validated binder, active compound, substrate, inhibitor,
+  or docking input. MolWeave does not rank or designate detected ligands.
+- `solvent` means a recognized buffer, crystallization agent, or other additive
+  fallback. It is not a claim about biological solvent relevance.
+- PDB/PDBx connectivity can be incomplete. Source residue/entity boundaries
+  therefore take precedence over graph connectivity: a covalently linked
+  ligand remains separately selectable, and one residue is not split solely
+  because recorded bonds appear disconnected.
+- DNA, RNA, hybrid/PNA/saccharide/other polymers, sugars/branched material,
+  ions/metals, and unknown material remain distinct categories where evidence
+  supports them. Every atom remains accessible even when no narrow class is
+  justified.
+- Durable user labels and classification corrections, per-component styling or
+  persisted visibility, ligand-of-interest state, and arbitrary component
+  extraction/export are not implemented. The latter requires explicit
+  boundary-bond and file-format semantics.
+
 - No normalized conversion is assumed lossless. Export warnings enumerate known
   coordinate, conformer, hierarchy, metadata, connectivity, charge, and stereo
   losses; blocking losses require acknowledgement.
@@ -111,13 +137,12 @@ structure preparation or validation software.
   settings. Viewer state is a disposable projection; named scenes store typed
   MolWeave settings and never Mol* snapshots.
 - Focus visible ligands is a camera-navigation aid, not ligand designation or
-  chemical perception. It frames every currently rendered atom whose normalized
-  residue has `component_type: ligand`, subject to entry, ligand-component,
-  hydrogen, and isolation visibility. Water, ions, polymers, and unknown
-  components are excluded. Ambiguous or incomplete source classification is not
-  repaired from residue names, size, proximity, connectivity, ordering, or Mol*
-  internals; use the surfaced classification limits and original upload when
-  specialist interpretation is required.
+  chemical perception. It frames rendered atoms in application hierarchy
+  `ligand` components, subject to entry, ligand-group, hydrogen, and isolation
+  visibility. Water, solvent, ions, polymers, heterogens, and unclassified
+  components are excluded. Mol* does not classify focus targets; use the
+  surfaced provenance, warnings, and original upload when specialist
+  interpretation is required.
 - Mol* requires WebGL. Unsupported or disabled WebGL produces an explicit error;
   it does not affect stored molecular state.
 - At or above 250,000 atoms, MolWeave substitutes line rendering for surfaces

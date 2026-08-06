@@ -64,7 +64,7 @@ generates OpenAPI at `/api/v1/openapi.json`. Swagger UI is available at
 | `GET` | `/api/v1/formats` | Discover import/export capabilities and extensions. |
 | `POST` | `/api/v1/projects/{project_id}/imports` | Validate and atomically import multipart structure files. |
 | `POST` | `/api/v1/imports/{operation_id}/cancel` | Cancel parsing before artifact/project commit. |
-| `GET` | `/api/v1/projects/{project_id}/entries/{entry_id}/structure` | Lazily read authoritative normalized data and a viewer projection. |
+| `GET` | `/api/v1/projects/{project_id}/entries/{entry_id}/structure` | Lazily read normalized data, its derived component hierarchy, and a viewer projection. |
 | `GET` | `/api/v1/projects/{project_id}/entries/{entry_id}/original` | Download immutable original bytes. |
 | `POST` | `/api/v1/projects/{project_id}/entries/{entry_id}/exports` | Generate one format adapter output. |
 | `GET` | `/api/v1/artifacts/{artifact_id}` | Download an immutable generated or original artifact. |
@@ -131,6 +131,49 @@ explicit acknowledgement generates an immutable artifact.
 
 When `MOLWEAVE_ENABLE_TEST_ROUTES=1`, the test harness exposes a fixture-only
 seed endpoint under `/api/v1/testing`; normal startup never registers it.
+
+## Lazy Structure And Component Contract
+
+The structure endpoint is artifact-keyed and returns an additive
+`ComponentHierarchyV1` projection beside the authoritative normalized document
+and disposable viewer payload:
+
+```json
+{
+  "entry_id": "entry-id",
+  "structure": {"schema_version": 1, "atoms": [], "residues": []},
+  "hierarchy": {
+    "schema_version": 1,
+    "components": [
+      {
+        "id": "cmp-opaque-stable-id",
+        "category": "ligand",
+        "display_label": "BTN 300 · chain A",
+        "chain_ids": [1],
+        "residue_ids": [122],
+        "atom_ids": [],
+        "classification_source": "source",
+        "classification_status": "assigned",
+        "warnings": []
+      }
+    ],
+    "warnings": []
+  },
+  "viewer": {"format": "mmcif", "data": "..."}
+}
+```
+
+Categories are `protein`, `dna`, `rna`, `other_polymer`, `ligand`, `water`,
+`solvent`, `ion`, `other_heterogen`, and `unclassified`. Membership is expressed
+through chain/residue IDs; `atom_ids` is used only when an atom lacks usable
+hierarchy. Consumers derive exact atom unions from the returned normalized
+document without duplicating category atom arrays. Classification source is
+`source`, `fallback`, or `ambiguous`; status is `assigned` or `ambiguous`.
+
+The projection is read-only. MolWeave exposes no component rename,
+reclassification, individual-style, individual-visibility, ligand-designation,
+or subset-export endpoint in this release. `/api/v1`, project/archive schema
+version 1, and Alembic head `0007` are unchanged.
 
 ## Selection Contract
 

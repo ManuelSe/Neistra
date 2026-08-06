@@ -24,6 +24,22 @@ profiling.
 `tests/scientific/test_release_fixture.py` locks the checksum and every stated
 assertion. The browser performance test uses the same file.
 
+## Component Hierarchy Fixture
+
+`tests/fixtures/complex/component_hierarchy.pdb` is a purpose-built MolWeave
+regression input, not an experimental structure. It contains one GLY polymer,
+one two-atom `LIG`, water, GOL additive, monatomic zinc, and NAG heterogen. An
+explicit `CONECT` bond joins the polymer to `LIG`, proving that source instance
+identity—not connectivity—owns component boundaries.
+
+- SHA-256: `4cf143697c30164224ceb6771cf61718aef05d4370b61929261bf55645d48f7f`
+- Expected categories: one each of protein, ligand, water, solvent/additive,
+  ion/metal, and other heterogen
+- Expected membership: ten atoms exactly once; ligand atoms 5 and 6 remain
+  separate from polymer atom 3 despite their explicit bond
+- Intended use: deterministic hierarchy integration plus desktop/Pixel 7
+  selection, visibility, focus, cache, accessibility, and WebGL qualification
+
 ## Format Fixtures
 
 The files under `tests/fixtures/formats/` are small purpose-built regression
