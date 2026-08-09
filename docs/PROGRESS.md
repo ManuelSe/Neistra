@@ -2,7 +2,7 @@
 
 ## Current milestone
 
-Issue #1 - polar-only hydrogen visibility, checkpoint 2 complete
+Issue #1 - polar-only hydrogen visibility, checkpoint 3 complete
 
 The approved implementation contract is
 `docs/plans/issue-1-polar-hydrogen-visibility.md`. The bounded outcome adds an
@@ -12,12 +12,27 @@ Mol* for protein and ligand representations, and preserves it through history,
 scenes, projects, and archives without changing molecular artifacts or
 inferring hydrogens. The planned backward-compatible feature release is v0.5.0.
 
-Checkpoint 2 adds one effective all/polar-only/none mode, projects it through
-every disposable representation layer, adds explicit dependent controls, and
-keeps ligand focus heavy-atom-only outside all-hydrogen mode. Molecular fixture
-and real-WebGL qualification begin in checkpoint 3.
+Checkpoint 3 adds checksum-locked explicit-connectivity protein and ligand
+fixtures plus real-WebGL scientific, durability, representation, molecular-
+invariance, accessibility, responsive-bounds, and request-reuse evidence. Final
+verified-contract documentation begins in checkpoint 4.
 
 ## Completed work
+
+- Completed issue #1 checkpoint 3 with purpose-built protein and ligand
+  fixtures containing one explicit C-bound H and one explicit O-bound H. Locked
+  checksums and parser tests prove the exact three-bond graph without bond
+  inference.
+- Qualified all/polar-only/none in real pinned Chromium/SwiftShader for both
+  protein and ligand projections, every inherited and exact-selection atomic
+  style, surface, restoration, hydrogen-free input, immutable molecular and
+  original data, undo/redo, reload/checkpoint, named scenes, archive round-trip,
+  camera/selection/picking/isolation invariance, and query reuse.
+- Qualified explicit dependent controls by keyboard on desktop and Pixel 7,
+  with zero scoped axe violations, viewport bounds, and no horizontal overflow.
+  Added optional Playwright port and data-root overrides so focused evidence can
+  avoid an already-running local development supervisor without changing CI or
+  repository defaults.
 
 - Completed issue #1 checkpoint 2 with a centralized typed hydrogen display
   mode. All mode omits a restrictive variant, polar-only uses Mol*'s pinned
@@ -709,6 +724,13 @@ and real-WebGL qualification begin in checkpoint 3.
   affected-entry topology replacement without a full scene synchronization.
 
 ## Verification performed
+
+- Issue #1 checkpoint 3: 17 focused integration/scientific Python tests and all
+  65 frontend tests across 20 files passed; Ruff, ESLint, TypeScript, and
+  `git diff --check` passed. A brand-new isolated data root migrated through
+  Alembic `0009`; 6 applicable desktop/Pixel 7 Playwright workflows passed with
+  4 intentional cross-layout skips in 50.6 seconds. The final run did not reuse
+  the pre-checkpoint API already serving the normal development ports.
 
 - Issue #1 checkpoint 2: ESLint and TypeScript passed; the approved focused
   Vitest command and an explicit control-focused run each passed all 65 tests
@@ -1768,6 +1790,6 @@ None.
 
 ## Next action
 
-Implement issue #1 checkpoint 3: explicit-connectivity protein and ligand
-fixtures plus desktop/Pixel 7 real-WebGL, durability, state-invariance,
-accessibility, bounds, and request-count qualification.
+Implement issue #1 checkpoint 4: document the verified architecture, schema,
+API, scientific, accessibility, performance, compatibility, migration, and
+evidence contract without expanding the approved scope.

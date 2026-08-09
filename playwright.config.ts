@@ -1,5 +1,13 @@
 import { defineConfig, devices } from "@playwright/test";
 
+const apiPort = process.env.MOLWEAVE_E2E_API_PORT ?? "8010";
+const workerPort = process.env.MOLWEAVE_E2E_WORKER_PORT ?? "8011";
+const webPort = process.env.MOLWEAVE_E2E_WEB_PORT ?? "5173";
+const dataDir = process.env.MOLWEAVE_E2E_DATA_DIR ?? ".molweave-e2e";
+const apiUrl = `http://127.0.0.1:${apiPort}`;
+const workerUrl = `http://127.0.0.1:${workerPort}`;
+const webUrl = `http://127.0.0.1:${webPort}`;
+
 export default defineConfig({
   testDir: "./tests/e2e",
   fullyParallel: false,
@@ -9,7 +17,7 @@ export default defineConfig({
     timeout: 5_000,
   },
   use: {
-    baseURL: "http://127.0.0.1:5173",
+    baseURL: webUrl,
     trace: "retain-on-failure",
     screenshot: "only-on-failure",
     launchOptions: {
@@ -23,23 +31,20 @@ export default defineConfig({
   },
   webServer: [
     {
-      command:
-        "PYTHONPATH=apps/api/src:packages/molweave_core/src:packages/molweave_demo_plugin/src MOLWEAVE_DATA_DIR=.molweave-e2e .venv/bin/alembic upgrade head && PYTHONPATH=apps/api/src:packages/molweave_core/src:packages/molweave_demo_plugin/src MOLWEAVE_DATA_DIR=.molweave-e2e MOLWEAVE_ENABLE_TEST_ROUTES=1 .venv/bin/uvicorn molweave_api.main:app --host 127.0.0.1 --port 8010",
-      url: "http://127.0.0.1:8010/api/v1/health",
+      command: `PYTHONPATH=apps/api/src:packages/molweave_core/src:packages/molweave_demo_plugin/src MOLWEAVE_DATA_DIR=${dataDir} .venv/bin/alembic upgrade head && PYTHONPATH=apps/api/src:packages/molweave_core/src:packages/molweave_demo_plugin/src MOLWEAVE_DATA_DIR=${dataDir} MOLWEAVE_ENABLE_TEST_ROUTES=1 .venv/bin/uvicorn molweave_api.main:app --host 127.0.0.1 --port ${apiPort}`,
+      url: `${apiUrl}/api/v1/health`,
       reuseExistingServer: true,
       timeout: 30_000,
     },
     {
-      command:
-        "while ! curl -sf http://127.0.0.1:8010/api/v1/health >/dev/null; do sleep 0.1; done; PYTHONPATH=apps/api/src:packages/molweave_core/src:packages/molweave_demo_plugin/src MOLWEAVE_DATA_DIR=.molweave-e2e MOLWEAVE_JOB_WORKER_HEALTH_PORT=8011 .venv/bin/python -m molweave_api.worker",
-      url: "http://127.0.0.1:8011/health",
+      command: `while ! curl -sf ${apiUrl}/api/v1/health >/dev/null; do sleep 0.1; done; PYTHONPATH=apps/api/src:packages/molweave_core/src:packages/molweave_demo_plugin/src MOLWEAVE_DATA_DIR=${dataDir} MOLWEAVE_JOB_WORKER_HEALTH_PORT=${workerPort} .venv/bin/python -m molweave_api.worker`,
+      url: `${workerUrl}/health`,
       reuseExistingServer: true,
       timeout: 30_000,
     },
     {
-      command:
-        "VITE_API_TARGET=http://127.0.0.1:8010 corepack pnpm --dir apps/web dev",
-      url: "http://127.0.0.1:5173",
+      command: `VITE_API_TARGET=${apiUrl} corepack pnpm --dir apps/web dev --host 127.0.0.1 --port ${webPort} --strictPort`,
+      url: webUrl,
       reuseExistingServer: true,
       timeout: 30_000,
     },

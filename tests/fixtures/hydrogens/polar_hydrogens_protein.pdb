@@ -1,0 +1,8 @@
+TITLE     MOLWEAVE POLAR HYDROGEN PROTEIN FIXTURE
+ATOM      1  C1  SER A   1       0.000   0.000   0.000  1.00 10.00           C
+ATOM      2  HC  SER A   1      -1.100   0.000   0.000  1.00 10.00           H
+ATOM      3  O1  SER A   1       4.000   0.000   0.000  1.00 10.00           O
+ATOM      4  HO  SER A   1       4.900   0.000   0.000  1.00 10.00           H
+CONECT    1    2    3
+CONECT    3    1    4
+END
