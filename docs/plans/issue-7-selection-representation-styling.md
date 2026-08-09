@@ -1273,6 +1273,49 @@ Release is additionally blocked when:
   bond boundaries, and responsive bounds require real-WebGL/browser evidence
   in Checkpoint 4. Next action: commit and qualify the complete workflow.
 
+### 2026-08-09 - Checkpoint 4 implemented
+
+- Added one focused real-browser suite using the existing redistributable
+  `1STP` and component-hierarchy fixtures; no new fixture or scientific source
+  claim was required.
+- The desktop `1STP` workflow proves inherited Cartoon protein, visually
+  distinct ligand Thin and Thick sticks, and Thin sticks on the nearest exact
+  complete protein residue. It also proves one revision per application, exact
+  coexistence, picking/selection retention, reset, undo/redo, named-scene
+  camera/selection/style restoration, saved-selection reuse, project reload,
+  nonblank WebGL, unchanged topology/coordinates/current and original artifact
+  IDs/original bytes, and one normalized-structure request per application
+  load.
+- The boundary workflow proves exact Space filling for an ion, Ball and stick
+  for water, Line for a ligand, a visible incompatibility reason for polymer
+  styling on the ion, and no selected-bond expansion across the fixture's
+  covalent protein-ligand boundary.
+- The Pixel 7 workflow proves keyboard selection through the responsive project
+  hierarchy, keyboard dialog launch and application, Escape focus restoration,
+  viewport containment, no horizontal overflow, and zero scoped axe findings.
+  Existing focused integration coverage continues to prove portable archive
+  round trip, legacy defaulting, edit reconciliation, and exact deletion undo.
+- Focused evidence before commit:
+  - `.venv/bin/uv run pytest tests/integration/test_viewer_state.py tests/integration/test_archive_roundtrip.py tests/integration/test_ligand_edits.py tests/integration/test_protein_edits.py`:
+    pass (21 tests).
+  - `PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test tests/e2e/selection-styling.spec.ts tests/e2e/structure-hierarchy.spec.ts tests/e2e/synchronized-selection.spec.ts tests/e2e/viewer-controls.spec.ts`:
+    pass (11 applicable tests, 11 intentional desktop/mobile project skips;
+    1.7 minutes).
+  - The new selection-styling suite also passed as a complete isolated run,
+    and each of its three applicable workflows passed independently while
+    diagnosing runner behavior.
+  - `corepack pnpm --dir apps/web lint`: pass.
+  - `corepack pnpm --dir apps/web typecheck`: pass.
+  - `git diff --check`: pass.
+- Qualification repaired two test-harness findings without changing runtime
+  behavior: the mobile workflow now selects through the compact project drawer
+  instead of the unavailable desktop inspector, and each WebGL workflow leaves
+  the document before teardown to avoid a Chromium SwiftShader disposal hang.
+- Checkpoint review found no molecular mutation, broader style semantics,
+  copied Maestro design, new migration, or production-code scope expansion.
+  Real-WebGL evidence remains limited to the repository's pinned Chromium and
+  SwiftShader projects. Next action: commit and document the verified contract.
+
 ### Checkpoint log template
 
 For every completed checkpoint append:
@@ -1286,5 +1329,5 @@ For every completed checkpoint append:
 
 ## Completion
 
-Checkpoint 1 is implemented and verified. Checkpoints 2-6 remain in progress
-under this approved contract.
+Checkpoints 1-4 are implemented and verified. Checkpoints 5-6 remain in
+progress under this approved contract.
