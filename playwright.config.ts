@@ -1,9 +1,32 @@
 import { defineConfig, devices } from "@playwright/test";
 
-const apiPort = process.env.MOLWEAVE_E2E_API_PORT ?? "8010";
-const workerPort = process.env.MOLWEAVE_E2E_WORKER_PORT ?? "8011";
-const webPort = process.env.MOLWEAVE_E2E_WEB_PORT ?? "5173";
-const dataDir = process.env.MOLWEAVE_E2E_DATA_DIR ?? ".molweave-e2e";
+function e2ePort(name: string, fallback: string): string {
+  const raw = process.env[name] ?? fallback;
+  const port = Number(raw);
+  if (!/^\d+$/.test(raw) || !Number.isInteger(port) || port < 1 || port > 65_535) {
+    throw new Error(`${name} must be an integer port between 1 and 65535`);
+  }
+  return String(port);
+}
+
+function e2eDataDir(): string {
+  const raw = process.env.MOLWEAVE_E2E_DATA_DIR ?? ".molweave-e2e";
+  if (
+    !/^[A-Za-z0-9._/-]+$/.test(raw) ||
+    raw === "/" ||
+    raw.split("/").includes("..")
+  ) {
+    throw new Error(
+      "MOLWEAVE_E2E_DATA_DIR must be a dedicated path without spaces, shell metacharacters, or parent traversal",
+    );
+  }
+  return raw;
+}
+
+const apiPort = e2ePort("MOLWEAVE_E2E_API_PORT", "8010");
+const workerPort = e2ePort("MOLWEAVE_E2E_WORKER_PORT", "8011");
+const webPort = e2ePort("MOLWEAVE_E2E_WEB_PORT", "5173");
+const dataDir = e2eDataDir();
 const apiUrl = `http://127.0.0.1:${apiPort}`;
 const workerUrl = `http://127.0.0.1:${workerPort}`;
 const webUrl = `http://127.0.0.1:${webPort}`;

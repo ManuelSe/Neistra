@@ -115,7 +115,9 @@ PLAYWRIGHT_BROWSERS_PATH=.playwright \
 
 The data directory must be disposable and dedicated to that run. Record any
 override with the evidence so it is not mistaken for the documented default
-release environment.
+release environment. The configuration rejects invalid ports and data paths
+containing spaces, shell metacharacters, parent traversal, or the filesystem
+root before constructing any service command.
 
 Use `.venv/bin/uv run pytest tests/scientific` for the chemistry/file-format
 suite and `corepack pnpm --dir apps/web test -- jobs` for a focused component
