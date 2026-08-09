@@ -2,7 +2,7 @@
 
 ## Current milestone
 
-Issue #1 - polar-only hydrogen visibility, checkpoint 4 complete
+Issue #1 - polar-only hydrogen visibility, checkpoint 5 release candidate
 
 The approved implementation contract is
 `docs/plans/issue-1-polar-hydrogen-visibility.md`. The bounded outcome adds an
@@ -12,11 +12,20 @@ Mol* for protein and ligand representations, and preserves it through history,
 scenes, projects, and archives without changing molecular artifacts or
 inferring hydrogens. The planned backward-compatible feature release is v0.5.0.
 
-Checkpoint 4 records the verified architecture, schema/API, migration,
-scientific, accessibility, performance, and evidence boundaries. Release
-preparation and the complete v0.5.0 gate are next.
+Checkpoint 5 advances the five authoritative application versions to 0.5.0,
+retains v0.1.0 through v0.4.0 archive compatibility, and adds candidate release
+notes. The complete v0.5.0 gate and full-diff review are next.
 
 ## Completed work
+
+- Rechecked `origin/master` at `e3187b2`, matching the feature base. Confirmed
+  no `v0.5.0` tag, GitHub release, or prior feature PR exists; issue #1 remains
+  open; the repository has no workflow, branch protection, ruleset, required
+  check, or required review; and rebase merge remains enabled.
+- Advanced all five authoritative version sources from 0.4.0 to 0.5.0, extended
+  archive producer-compatibility coverage through v0.4.0, and added candidate
+  release notes covering semantics, scientific limits, migration/downgrade,
+  accessibility, performance, dispositions, and backward compatibility.
 
 - Completed issue #1 checkpoint 4 by documenting the three-mode precedence,
   Mol* ownership and pinned N/O/S/F/Cl/Br/I connectivity rule, additive
