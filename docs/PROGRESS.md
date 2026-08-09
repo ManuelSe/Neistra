@@ -2,7 +2,23 @@
 
 ## Current milestone
 
-Issue #2 - automatic component detection and structure hierarchy, released in v0.3.0
+Issue #7 - selection-based molecular representation styling, approved and
+ready for implementation
+
+The approved implementation contract at
+`docs/plans/issue-7-selection-representation-styling.md` is the detailed source
+of truth. The bounded outcome adds exact durable selection representation
+assignments with atomic and polymer replacement channels, an accessible
+viewer-toolbar action, undo/redo, scene/project/archive persistence, topology
+reconciliation, and camera/selection invariance while keeping molecular state
+and Mol* ownership unchanged. Presets, same-channel layering, selection-specific
+color/opacity/labels/surfaces, context-menu duplication, a Ribbon alias, and a
+new Molecule granularity remain deferred or rejected. The planned
+backward-compatible release is v0.4.0. The approved feature branch is created,
+and the plan is persisted as its first change; implementation has not started.
+
+The previously current issue #2 automatic component detection and structure
+hierarchy milestone is complete and released in v0.3.0.
 
 The approved implementation contract at
 `docs/plans/issue-2-structure-hierarchy.md` is the detailed source of truth.
@@ -19,6 +35,20 @@ backward compatible with no Alembic or archive-schema migration.
 
 ## Completed work
 
+- Approved issue #7 as a bounded vertical slice with exact stable atom targets,
+  atomic and polymer replacement channels, five atom styles, Backbone,
+  Cartoon, Reset, multi-entry atomic commands, and existing hierarchy selection.
+- Classified every significant issue #7 requirement; deferred advanced
+  presentation and presets, reused existing related issues, and rejected copied
+  Maestro design, a duplicate Ribbon value, and a duplicate Molecule granularity.
+- Selected a backward-compatible minor release from v0.3.0 to v0.4.0 based on
+  additive user-visible, viewer-settings, command, API, migration, scene, and
+  archive behavior without a molecular, project-state, archive-major, or
+  API-major break.
+- Fast-forwarded clean `master` from `origin/master`, verified local and remote
+  baseline `0526eb0b95db664a8d8fb837e75f9434090265f2`, and created
+  `feat/issue-7-selection-representation-styling` without starting
+  implementation.
 - Rebase-merged [PR #22](https://github.com/ManuelSe/MolWeave/pull/22) to
   verified `origin/master` commit `78d079a`, closing issue #2.
 - Published and remotely verified annotated tag and
@@ -1595,6 +1625,5 @@ None.
 
 ## Next action
 
-Issue #2 is complete. Await the next approved product priority; follow-ups #20
-and #21 retain the deliberately deferred component-override and subset-export
-design work.
+Checkpoint 0 is complete. Stop with the feature branch ready for `/goal`;
+implementation must not start during the planning handoff.
