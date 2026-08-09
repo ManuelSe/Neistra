@@ -27,6 +27,7 @@ const settings: ViewerSettings = {
   selection_representations: [],
   components: {
     hydrogens: true,
+    nonpolar_hydrogens: true,
     solvent: true,
     ions: true,
     ligands: true,

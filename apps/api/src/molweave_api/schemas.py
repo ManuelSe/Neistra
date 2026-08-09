@@ -205,6 +205,7 @@ class RepresentationSettings(BaseModel):
 
 class ComponentVisibility(BaseModel):
     hydrogens: bool = True
+    nonpolar_hydrogens: bool = True
     solvent: bool = True
     ions: bool = True
     ligands: bool = True

@@ -55,6 +55,19 @@ def test_viewer_settings_reject_noncanonical_or_overlapping_assignments() -> Non
             raise AssertionError("Invalid selection assignments were accepted")
 
 
+def test_viewer_settings_default_to_showing_all_hydrogens() -> None:
+    settings = ViewerSettings.model_validate(
+        {
+            "representations": [{"id": "main", "style": "line"}],
+            "components": {},
+            "labels": {},
+        }
+    )
+
+    assert settings.components.hydrogens is True
+    assert settings.components.nonpolar_hydrogens is True
+
+
 def test_project_update_is_durable_and_reversible(client: ApiClient) -> None:
     project = create_project(client)
     assert project["schema_version"] == 1

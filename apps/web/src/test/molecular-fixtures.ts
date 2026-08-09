@@ -88,6 +88,7 @@ export function viewerSettings(
     selection_representations: [],
     components: {
       hydrogens: true,
+      nonpolar_hydrogens: true,
       solvent: true,
       ions: true,
       ligands: true,

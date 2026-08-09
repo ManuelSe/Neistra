@@ -2,7 +2,7 @@
 
 ## Current milestone
 
-Issue #1 - polar-only hydrogen visibility, approved planning checkpoint
+Issue #1 - polar-only hydrogen visibility, checkpoint 1 complete
 
 The approved implementation contract is
 `docs/plans/issue-1-polar-hydrogen-visibility.md`. The bounded outcome adds an
@@ -12,14 +12,23 @@ Mol* for protein and ligand representations, and preserves it through history,
 scenes, projects, and archives without changing molecular artifacts or
 inferring hydrogens. The planned backward-compatible feature release is v0.5.0.
 
-Checkpoint 0 is documentation only. The branch
-`feat/issue-1-polar-hydrogen-visibility` was created from clean, synchronized
-`master` commit `e3187b22e5da76ff22850b5c5fee1c32adad63e5`. The approved plan and
-project handoff are persisted, and documentation validation passes. The next
-action is to begin Checkpoint 1 only through `/goal`; implementation has not
-started.
+Checkpoint 1 adds the typed durable default, Alembic `0009` migration and
+loss-preventing downgrade policy, history/scene/archive compatibility evidence,
+and accepted decision D-047. Renderer projection and user controls begin in
+checkpoint 2.
 
 ## Completed work
+
+- Completed issue #1 checkpoint 1 with additive typed
+  `components.nonpolar_hydrogens` state defaulting to `true` across backend and
+  frontend contracts, without changing API or persisted schema majors.
+- Added Alembic `0009` migration coverage for live entries, project checkpoints,
+  and named scenes; downgrade refuses when any stored polar-only value would be
+  lost. Undo/redo, scene, archive round-trip, and legacy missing-field behavior
+  are covered.
+- Appended accepted decision D-047, preserving molecular-state and Mol*
+  ownership boundaries and documenting mode precedence, scientific classifier,
+  focus, labels, compatibility, and downgrade policy.
 
 - Rebase-merged [PR #24](https://github.com/ManuelSe/MolWeave/pull/24) to
   verified `origin/master` commit `7f468e9`, closing issue #7.
@@ -688,6 +697,11 @@ started.
   affected-entry topology replacement without a full scene synchronization.
 
 ## Verification performed
+
+- Issue #1 checkpoint 1: focused Ruff passed; strict mypy passed across 50
+  source files; all 27 focused command/history/viewer/archive/migration tests
+  passed with 15 known Alembic configuration deprecation warnings; frontend
+  TypeScript and `git diff --check` passed.
 
 - Remote issue #7 closeout: PR #24 is verified rebase-merged; annotated
   `v0.4.0` dereferences to
@@ -1659,6 +1673,11 @@ Results:
 
 ## Known limitations
 
+- Polar-only rendering relies on explicit normalized bonds and Mol*'s pinned
+  non-polar-hydrogen classifier. It does not add hydrogens, repair bonds,
+  determine protonation, or validate preparation chemistry; malformed or
+  incomplete source connectivity can therefore affect display classification.
+
 - Selection styling is intentionally limited to exact atomic replacement and
   complete-residue polymer replacement channels. It does not add presets,
   same-channel overlays, style-specific color/opacity/labels/surfaces,
@@ -1731,5 +1750,6 @@ None.
 
 ## Next action
 
-Issue #7 is complete and released. Await the next approved product priority;
-existing issues #1, #11, #20, and #21 retain the deliberately deferred work.
+Implement issue #1 checkpoint 2: central effective-mode projection, consistent
+inherited/selection/surface rendering, explicit dependent controls, stable
+heavy-atom ligand focus, and focused frontend coverage.

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from copy import deepcopy
 from pathlib import Path
+from typing import Any
 
 import pytest
 from alembic import command
@@ -11,7 +12,7 @@ from molweave_api.models import Project, Scene, StructureEntry
 from sqlalchemy import select
 
 
-def legacy_viewer_settings() -> dict[str, object]:
+def legacy_viewer_settings() -> dict[str, Any]:
     return {
         "representations": [
             {
@@ -137,4 +138,155 @@ def test_0008_migrates_live_checkpoint_and_scene_settings(
         session.commit()
     with pytest.raises(RuntimeError, match="reset all selection representations"):
         command.downgrade(config, "0007")
+    engine.dispose()
+
+
+def test_0009_migrates_live_checkpoint_and_scene_settings(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    config = migration_config(tmp_path, monkeypatch)
+    command.upgrade(config, "0008")
+    database_url = f"sqlite:///{tmp_path / 'migration-data' / 'molweave.db'}"
+    engine = create_database_engine(database_url)
+    factory = create_session_factory(engine)
+    settings = {**legacy_viewer_settings(), "selection_representations": []}
+    with factory() as session:
+        project = Project(
+            id="project-1",
+            name="Legacy",
+            checkpoint_state={
+                "schema_version": 1,
+                "name": "Legacy",
+                "description": None,
+                "entries": [
+                    {
+                        "id": "entry-1",
+                        "structure_type": "ligand",
+                        "viewer_settings": deepcopy(settings),
+                    }
+                ],
+                "groups": [],
+                "saved_selections": [],
+                "measurements": [],
+                "scenes": [],
+            },
+        )
+        session.add(project)
+        session.add(
+            StructureEntry(
+                id="entry-1",
+                project_id=project.id,
+                name="Ligand",
+                viewer_settings=deepcopy(settings),
+            )
+        )
+        session.add(
+            Scene(
+                id="scene-1",
+                project_id=project.id,
+                name="Legacy scene",
+                camera={
+                    "mode": "perspective",
+                    "position": [0, 0, 10],
+                    "target": [0, 0, 0],
+                    "up": [0, 1, 0],
+                    "radius": 10,
+                },
+                entry_states=[
+                    {
+                        "entry_id": "entry-1",
+                        "visible": True,
+                        "viewer_settings": deepcopy(settings),
+                    }
+                ],
+                selection={
+                    "schema_version": 1,
+                    "atoms": [],
+                    "granularity": "atom",
+                    "source": "inspector",
+                },
+            )
+        )
+        session.commit()
+
+    command.upgrade(config, "head")
+    with factory() as session:
+        entry = session.get(StructureEntry, "entry-1")
+        project = session.get(Project, "project-1")
+        scene = session.get(Scene, "scene-1")
+        assert entry is not None and project is not None and scene is not None
+        assert entry.viewer_settings["components"]["nonpolar_hydrogens"] is True
+        checkpoint_settings = project.checkpoint_state["entries"][0]["viewer_settings"]
+        assert checkpoint_settings["components"]["nonpolar_hydrogens"] is True
+        scene_settings = scene.entry_states[0]["viewer_settings"]
+        assert scene_settings["components"]["nonpolar_hydrogens"] is True
+
+    command.downgrade(config, "0008")
+    with factory() as session:
+        entry = session.get(StructureEntry, "entry-1")
+        project = session.get(Project, "project-1")
+        scene = session.get(Scene, "scene-1")
+        assert entry is not None and project is not None and scene is not None
+        assert "nonpolar_hydrogens" not in entry.viewer_settings["components"]
+        assert (
+            "nonpolar_hydrogens"
+            not in project.checkpoint_state["entries"][0]["viewer_settings"]["components"]
+        )
+        assert "nonpolar_hydrogens" not in scene.entry_states[0]["viewer_settings"]["components"]
+    command.upgrade(config, "head")
+    engine.dispose()
+
+
+@pytest.mark.parametrize("location", ["live", "checkpoint", "scene"])
+def test_0009_refuses_downgrade_when_polar_only_state_would_be_lost(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, location: str
+) -> None:
+    config = migration_config(tmp_path, monkeypatch)
+    command.upgrade(config, "head")
+    database_url = f"sqlite:///{tmp_path / 'migration-data' / 'molweave.db'}"
+    engine = create_database_engine(database_url)
+    factory = create_session_factory(engine)
+    settings = {**legacy_viewer_settings(), "selection_representations": []}
+    polar_only = deepcopy(settings)
+    polar_only["components"]["nonpolar_hydrogens"] = False
+    live_settings = polar_only if location == "live" else settings
+    checkpoint_settings = polar_only if location == "checkpoint" else settings
+    scene_settings = polar_only if location == "scene" else settings
+    with factory() as session:
+        project = Project(
+            id="project-1",
+            name="Polar-only",
+            checkpoint_state={
+                "schema_version": 1,
+                "entries": [{"id": "entry-1", "viewer_settings": deepcopy(checkpoint_settings)}],
+            },
+        )
+        session.add(project)
+        session.add(
+            StructureEntry(
+                id="entry-1",
+                project_id=project.id,
+                name="Ligand",
+                viewer_settings=deepcopy(live_settings),
+            )
+        )
+        session.add(
+            Scene(
+                id="scene-1",
+                project_id=project.id,
+                name="Polar-only scene",
+                camera={},
+                entry_states=[
+                    {
+                        "entry_id": "entry-1",
+                        "viewer_settings": deepcopy(scene_settings),
+                    }
+                ],
+                selection={},
+            )
+        )
+        session.commit()
+
+    with pytest.raises(RuntimeError, match="Cannot downgrade"):
+        command.downgrade(config, "0008")
     engine.dispose()
