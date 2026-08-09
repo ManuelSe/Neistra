@@ -40,6 +40,37 @@ identity—not connectivity—owns component boundaries.
 - Intended use: deterministic hierarchy integration plus desktop/Pixel 7
   selection, visibility, focus, cache, accessibility, and WebGL qualification
 
+## Polar Hydrogen Fixtures
+
+`tests/fixtures/hydrogens/polar_hydrogens_protein.pdb` and
+`tests/fixtures/hydrogens/polar_hydrogens_ligand.mol` are purpose-built
+MolWeave regression inputs, not experimental structures or preparation
+recommendations. Each contains one carbon, one oxygen, and two explicit
+hydrogens with exactly three recorded bonds: H2-C1, C1-O3, and O3-H4. This
+gives one known carbon-bound non-polar hydrogen and one known oxygen-bound
+polar hydrogen under the pinned Mol* classifier without relying on bond
+inference.
+
+The PDB uses a recognized SER polymer residue so MolWeave classifies the
+projection as protein, but deliberately synthetic non-template atom names so
+Mol* consumes only the three recorded `struct_conn` bonds. Standard SER atom
+names on this intentionally incomplete residue would activate Mol* template
+connectivity and create neighbors that the fixture does not contain. This is a
+test-isolation choice, not a model of serine geometry or preparation quality.
+
+- Protein PDB SHA-256:
+  `ccf1a8da540fa9847abe751a9777e3a48966485955accecfa95e92d7878703e4`
+- Ligand MOL SHA-256:
+  `a603d2fe048d3a961b2875f01b2ac0bbfcc9f6ff6607d5053844b314b079b7c5`
+- Expected all mode: atoms 1, 2, 3, and 4 are eligible for rendering.
+- Expected polar-only mode: H2 is ignored and H4 remains eligible.
+- Expected none mode: H2 and H4 are ignored.
+- Intended use: parser/connectivity assertions, protein/ligand representation
+  qualification, real-WebGL mode transitions, persistence, state-invariance,
+  accessibility, and request-reuse evidence. Display filtering does not alter
+  the normalized atoms or bonds and is not protonation or hydrogen-bond
+  analysis.
+
 ## Format Fixtures
 
 The files under `tests/fixtures/formats/` are small purpose-built regression
