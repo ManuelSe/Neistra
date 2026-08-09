@@ -59,6 +59,15 @@ viewport containment, no horizontal overflow or clipped visible buttons, and
 zero scoped axe findings. Canvas pixels and screenshots qualify WebGL output
 separately; they are not treated as semantic accessibility evidence.
 
+`tests/e2e/polar-hydrogen-visibility.spec.ts` qualifies the two explicit
+hydrogen controls at desktop and Pixel 7 sizes. Both are native, named pressed
+buttons. Turning off **Show hydrogens** keeps **Show non-polar hydrogens** in
+the tab order with a disabled state and adjacent explanatory relationship; its
+stored preference is preserved and restored when the master control is enabled.
+Keyboard workflows, viewport containment, horizontal overflow, and the scoped
+WCAG 2/2.1/2.2 axe rules pass in both layouts. Real WebGL pixel signatures
+qualify molecular output separately and are not semantic accessibility evidence.
+
 Run it with:
 
 ```bash
@@ -79,6 +88,9 @@ PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test \
 - The Style selection launcher opens its dialog with `Enter` or `Space`;
   representation and reset buttons use native button activation, and Escape
   returns focus to the launcher.
+- Show hydrogens and Show non-polar hydrogens use native button activation.
+  The dependent control remains discoverable but cannot be activated while
+  the master setting hides all hydrogens; explanatory text communicates why.
 - Mol* camera orbit/pan remains pointer-driven; named zoom, fit-visible,
   selection-focus, and ligand-focus buttons provide keyboard-operable camera
   commands.
@@ -105,3 +117,6 @@ and property surfaces are the semantic alternatives. Automated selection-style
 checks cover configured axe rules, focus, keyboard operation, and geometry at
 the tested desktop/Pixel 7 sizes; they do not replace the release-level manual
 zoom, contrast, readability, or hardware/browser inspection above.
+Automated hydrogen-control coverage likewise does not claim screen-reader
+interpretation of individual visible hydrogen atoms or cross-browser and
+hardware-GPU rendering equivalence.

@@ -2,7 +2,7 @@
 
 ## Current milestone
 
-Issue #1 - polar-only hydrogen visibility, checkpoint 3 complete
+Issue #1 - polar-only hydrogen visibility, checkpoint 4 complete
 
 The approved implementation contract is
 `docs/plans/issue-1-polar-hydrogen-visibility.md`. The bounded outcome adds an
@@ -12,12 +12,22 @@ Mol* for protein and ligand representations, and preserves it through history,
 scenes, projects, and archives without changing molecular artifacts or
 inferring hydrogens. The planned backward-compatible feature release is v0.5.0.
 
-Checkpoint 3 adds checksum-locked explicit-connectivity protein and ligand
-fixtures plus real-WebGL scientific, durability, representation, molecular-
-invariance, accessibility, responsive-bounds, and request-reuse evidence. Final
-verified-contract documentation begins in checkpoint 4.
+Checkpoint 4 records the verified architecture, schema/API, migration,
+scientific, accessibility, performance, and evidence boundaries. Release
+preparation and the complete v0.5.0 gate are next.
 
 ## Completed work
+
+- Completed issue #1 checkpoint 4 by documenting the three-mode precedence,
+  Mol* ownership and pinned N/O/S/F/Cl/Br/I connectivity rule, additive
+  schema/API/archive compatibility, migration `0009` downgrade protection,
+  label and focus behavior, accessible dependent controls, rebuild/query reuse,
+  and scientific/WebGL/performance non-claims.
+- Added the v0.5.0 candidate evidence matrix mapping approved claims to named
+  unit, integration, migration, component, and real-WebGL workflows. The
+  focused documentation gate passed Ruff, strict mypy across 50 source files,
+  ESLint, TypeScript, and `git diff --check`; D-047 already owns the material
+  architectural decision, so no additional decision was introduced.
 
 - Completed issue #1 checkpoint 3 with purpose-built protein and ligand
   fixtures containing one explicit C-bound H and one explicit O-bound H. Locked
