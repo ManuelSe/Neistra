@@ -307,6 +307,7 @@ describe("lazy structure loading", () => {
     styled.entries[0].viewer_settings.selection_representations = [
       { style: "thick-stick", atom_ids: [1] },
     ];
+    styled.entries[0].viewer_settings.components.nonpolar_hydrogens = false;
     rerender(
       <StructureViewer
         project={styled}
@@ -321,6 +322,9 @@ describe("lazy structure loading", () => {
       expect(
         fake.syncs.at(-1)?.[0].settings.selection_representations,
       ).toEqual([{ style: "thick-stick", atom_ids: [1] }]);
+      expect(
+        fake.syncs.at(-1)?.[0].settings.components.nonpolar_hydrogens,
+      ).toBe(false);
     });
     expect(fetchSpy).toHaveBeenCalledTimes(1);
 

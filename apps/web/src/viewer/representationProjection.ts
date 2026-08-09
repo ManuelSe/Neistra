@@ -3,6 +3,7 @@ import type { ViewerStructure } from "./MolecularViewer";
 import { visibleComponentAtomIds } from "./componentVisibility";
 import {
   atomicRepresentationStyles,
+  hydrogenDisplayMode,
   polymerRepresentationStyles,
 } from "./settings";
 
@@ -31,6 +32,7 @@ export function representationLayers(
   structure: ViewerStructure,
   isolatedAtomIds: ReadonlySet<number> | null = null,
 ): RepresentationLayer[] {
+  const hydrogenMode = hydrogenDisplayMode(structure.settings.components);
   const hydrogenIds = new Set(
     structure.normalized.atoms
       .filter((atom) => atom.element.trim().toUpperCase() === "H")
@@ -39,7 +41,7 @@ export function representationLayers(
   const visibleIds = new Set(
     visibleComponentAtomIds(structure).filter(
       (atomId) =>
-        (structure.settings.components.hydrogens || !hydrogenIds.has(atomId)) &&
+        (hydrogenMode !== "none" || !hydrogenIds.has(atomId)) &&
         (isolatedAtomIds === null || isolatedAtomIds.has(atomId)),
     ),
   );

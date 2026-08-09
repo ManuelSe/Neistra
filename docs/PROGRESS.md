@@ -2,7 +2,7 @@
 
 ## Current milestone
 
-Issue #1 - polar-only hydrogen visibility, checkpoint 1 complete
+Issue #1 - polar-only hydrogen visibility, checkpoint 2 complete
 
 The approved implementation contract is
 `docs/plans/issue-1-polar-hydrogen-visibility.md`. The bounded outcome adds an
@@ -12,12 +12,24 @@ Mol* for protein and ligand representations, and preserves it through history,
 scenes, projects, and archives without changing molecular artifacts or
 inferring hydrogens. The planned backward-compatible feature release is v0.5.0.
 
-Checkpoint 1 adds the typed durable default, Alembic `0009` migration and
-loss-preventing downgrade policy, history/scene/archive compatibility evidence,
-and accepted decision D-047. Renderer projection and user controls begin in
-checkpoint 2.
+Checkpoint 2 adds one effective all/polar-only/none mode, projects it through
+every disposable representation layer, adds explicit dependent controls, and
+keeps ligand focus heavy-atom-only outside all-hydrogen mode. Molecular fixture
+and real-WebGL qualification begin in checkpoint 3.
 
 ## Completed work
+
+- Completed issue #1 checkpoint 2 with a centralized typed hydrogen display
+  mode. All mode omits a restrictive variant, polar-only uses Mol*'s pinned
+  `non-polar` ignore variant, and none uses the `all` ignore variant.
+- Applied the mode uniformly to inherited and exact-selection line, thin/thick
+  stick, ball-and-stick, space-filling, and surface layers. Application-side
+  atom filtering removes H only in none mode, allowing Mol* to classify bonded
+  hydrogen in polar-only mode without changing normalized molecular state.
+- Added explicitly named keyboard-operable Show hydrogens and Show non-polar
+  hydrogens controls with a preserved dependent preference and explanatory
+  text. Aggregate ligand focus is deterministic and heavy-atom-only in
+  polar-only and no-hydrogen modes.
 
 - Completed issue #1 checkpoint 1 with additive typed
   `components.nonpolar_hydrogens` state defaulting to `true` across backend and
@@ -697,6 +709,12 @@ checkpoint 2.
   affected-entry topology replacement without a full scene synchronization.
 
 ## Verification performed
+
+- Issue #1 checkpoint 2: ESLint and TypeScript passed; the approved focused
+  Vitest command and an explicit control-focused run each passed all 65 tests
+  across 20 files; production build and `git diff --check` passed. The existing
+  non-blocking lazy Mol* chunk is 966.42 KiB gzip and the initial application
+  bundle is 154.84 KiB gzip.
 
 - Issue #1 checkpoint 1: focused Ruff passed; strict mypy passed across 50
   source files; all 27 focused command/history/viewer/archive/migration tests
@@ -1750,6 +1768,6 @@ None.
 
 ## Next action
 
-Implement issue #1 checkpoint 2: central effective-mode projection, consistent
-inherited/selection/surface rendering, explicit dependent controls, stable
-heavy-atom ligand focus, and focused frontend coverage.
+Implement issue #1 checkpoint 3: explicit-connectivity protein and ligand
+fixtures plus desktop/Pixel 7 real-WebGL, durability, state-invariance,
+accessibility, bounds, and request-count qualification.

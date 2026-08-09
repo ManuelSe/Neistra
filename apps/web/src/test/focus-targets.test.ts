@@ -137,4 +137,25 @@ describe("viewer focus targets", () => {
       ]),
     ).toEqual([{ structure_id: "visible", atom_id: 4 }]);
   });
+
+  it("uses stable heavy-atom ligand focus in polar-only mode", () => {
+    const structure = complexStructure("polar-only");
+    structure.settings = {
+      ...structure.settings,
+      components: {
+        ...structure.settings.components,
+        hydrogens: true,
+        nonpolar_hydrogens: false,
+      },
+    };
+
+    expect(visibleLigandAtoms([structure], null)).toEqual([
+      { structure_id: "polar-only", atom_id: 4 },
+    ]);
+    structure.settings.components.nonpolar_hydrogens = true;
+    expect(visibleLigandAtoms([structure], null)).toEqual([
+      { structure_id: "polar-only", atom_id: 4 },
+      { structure_id: "polar-only", atom_id: 5 },
+    ]);
+  });
 });

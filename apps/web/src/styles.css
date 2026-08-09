@@ -2377,6 +2377,18 @@ div[data-radix-popper-content-wrapper]:has(.tooltip) {
   height: 14px;
 }
 
+.dependent-component-control {
+  display: grid;
+  flex: 1 0 100%;
+  gap: 3px;
+}
+
+.viewer-control-help {
+  padding-left: 18px;
+  color: var(--text-soft);
+  line-height: 1.35;
+}
+
 .camera-controls {
   flex-wrap: wrap;
   margin-top: 9px;
