@@ -82,7 +82,7 @@ for functional automation.
 
 ## V0.5.0 Issue #1 Feature Evidence
 
-Status: checkpoint-qualified release candidate
+Status: complete local release qualification passed
 
 This evidence supplements the v0.1 matrix and follows the approved contract in
 `docs/plans/issue-1-polar-hydrogen-visibility.md`.
@@ -114,6 +114,45 @@ archive, hydrogen-free, accessibility, bounds, and query-reuse workflows with
 4 intentional cross-layout skips in 50.6 seconds. The optional port/data-root
 overrides avoided an already-running pre-checkpoint development stack and did
 not change repository or CI defaults.
+
+Checkpoint 4 passed Ruff, strict mypy across 50 source files, ESLint,
+TypeScript, and `git diff --check`. Architecture, schema/API, migration,
+scientific, accessibility, performance, development, progress, decision, and
+feature-plan documentation were reviewed together. Accepted D-047 remains the
+governing cross-project decision; no additional decision was required.
+
+Release preparation advanced all five authoritative application versions from
+0.4.0 to 0.5.0 and extended archive-producer compatibility through v0.4.0. The
+focused archive gate passed all 9 tests. Immediately before preparation,
+`origin/master` remained the feature base at
+`e3187b22e5da76ff22850b5c5fee1c32adad63e5`; no `v0.5.0` tag, release, or
+prior feature PR existed; issue #1 remained open; and the repository exposed no
+workflow, branch protection, ruleset, required check, or required review.
+
+The final complete gate passed frozen Python and JavaScript installs; upgraded
+the normal local store from Alembic `0008` to `0009 (head)`; passed Ruff, strict
+mypy across 50 source files, all 209 Python tests, ESLint, TypeScript, all 65
+Vitest tests, all 7 supervisor tests, the production build, and
+`git diff --check`; and passed all 46 applicable desktop/mobile Playwright
+workflows with 34 intentional cross-layout skips in 9.1 minutes. A fresh
+isolated browser store migrated from `0001` through `0009`; isolated ports
+avoided an intentionally running pre-checkpoint development supervisor. The
+build retained the expected lazy Mol* advisory at 966.42 KiB gzip and initial
+application bundle at 154.84 KiB gzip. The only Python warnings were 15 known
+Alembic configuration deprecations.
+
+The complete `origin/master...HEAD` diff and commit sequence were reviewed
+locally. Review found unsafe interpolation of optional Playwright resource
+overrides and accidental capitalization of four existing component labels.
+Commits `59bd216` and `d88291d` respectively validate ports/data paths before
+constructing service commands and restore the established labels. ESLint,
+TypeScript, all 65 Vitest tests, valid/invalid Playwright configuration checks,
+and the affected fresh-browser matrix passed afterward: 6 applicable workflows
+passed with 4 intentional skips in 50.9 seconds. No unresolved consequential
+scope, scientific, molecular-state, migration, archive, renderer,
+representation, selection/camera, accessibility, performance, dead-code,
+debug-path, test-infrastructure, or compatibility finding remains. This review
+was local and is not represented as independent.
 
 The automated WebGL evidence verifies the approved explicit-connectivity
 protein and ligand behavior. It does not claim missing-hydrogen generation,

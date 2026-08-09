@@ -91,8 +91,15 @@ for [issue #1](https://github.com/ManuelSe/MolWeave/issues/1)
   all three modes, protein and ligand behavior, every required representation,
   durability, molecular/original invariance, hydrogen-free input, transient
   state, request reuse, accessibility, and responsive bounds.
-- Final complete-gate results and the full-diff review are recorded in
-  `docs/VERIFICATION.md` and the approved issue plan.
+- The complete gate passed frozen installs, Alembic `0009 (head)`, Ruff,
+  strict mypy across 50 source files, all 209 Python tests, ESLint, TypeScript,
+  all 65 Vitest tests, all 7 supervisor tests, the production build, and all 46
+  applicable desktop/mobile Playwright workflows with 34 intentional layout
+  skips in 9.1 minutes.
+- The build keeps Mol* lazy at 966.42 KiB gzip and the initial application at
+  154.84 KiB gzip. Complete local diff review findings were fixed and their
+  affected frontend/configuration/WebGL checks rerun; no consequential finding
+  remains. This review is not claimed as independent.
 
 ### Compatibility and deferred work
 

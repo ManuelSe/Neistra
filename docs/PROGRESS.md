@@ -2,7 +2,7 @@
 
 ## Current milestone
 
-Issue #1 - polar-only hydrogen visibility, checkpoint 5 release candidate
+Issue #1 - polar-only hydrogen visibility, checkpoint 5 qualified
 
 The approved implementation contract is
 `docs/plans/issue-1-polar-hydrogen-visibility.md`. The bounded outcome adds an
@@ -12,11 +12,29 @@ Mol* for protein and ligand representations, and preserves it through history,
 scenes, projects, and archives without changing molecular artifacts or
 inferring hydrogens. The planned backward-compatible feature release is v0.5.0.
 
-Checkpoint 5 advances the five authoritative application versions to 0.5.0,
-retains v0.1.0 through v0.4.0 archive compatibility, and adds candidate release
-notes. The complete v0.5.0 gate and full-diff review are next.
+Checkpoint 5 advances and qualifies the backward-compatible v0.5.0 candidate.
+The feature branch is ready for final base refresh, push, pull request, review,
+and protected remote delivery.
 
 ## Completed work
+
+- Passed the complete v0.5.0 release gate: frozen installs, Alembic `0009`,
+  Ruff, strict mypy across 50 source files, all 209 Python tests, ESLint,
+  TypeScript, all 65 Vitest tests, all 7 supervisor tests, production build,
+  diff checks, and all 46 applicable desktop/mobile Playwright workflows with
+  34 intentional layout skips in 9.1 minutes.
+- Used a fresh isolated browser store migrated from `0001` through `0009`
+  because an intentional pre-checkpoint development supervisor occupied the
+  defaults. The expected lazy Mol* advisory remains 966.42 KiB gzip and the
+  initial application bundle remains 154.84 KiB gzip; Python reported only 15
+  known Alembic configuration deprecations.
+- Reviewed the complete base-to-candidate diff and fixed two findings: unsafe
+  Playwright override interpolation and accidental existing-label
+  capitalization. Commits `59bd216` and `d88291d` address them; ESLint,
+  TypeScript, all 65 Vitest tests, valid/invalid configuration checks, and the
+  affected fresh WebGL matrix passed afterward (6 passed, 4 intentional skips,
+  50.9 seconds). No consequential local finding remains; the review is not
+  claimed as independent.
 
 - Rechecked `origin/master` at `e3187b2`, matching the feature base. Confirmed
   no `v0.5.0` tag, GitHub release, or prior feature PR exists; issue #1 remains
