@@ -150,6 +150,33 @@ structure preparation or validation software.
   notice. The threshold is not a performance guarantee; browser, GPU,
   representation, and topology still determine interactivity.
 
+### Selection-specific representations
+
+- A style assignment changes presentation only. It does not mutate coordinates,
+  topology, components, residue chemistry, original bytes, artifact identity,
+  selection membership, picking granularity, or camera state.
+- Atomic styles target exact canonical atom IDs. Exact Mol* bundles disable
+  parent-bond inclusion, so an atomic representation does not imply that a
+  covalently connected atom outside the selection is part of the target.
+- Backbone and Cartoon accept only the exact complete atom set of supported
+  protein, DNA, or RNA residues with required trace atoms. This conservative
+  rule avoids displaying a partial residue as a complete polymer trace. It
+  does not infer missing atoms, repair residue classification, prepare a
+  polymer, or validate secondary structure.
+- Atomic and polymer styles are independent replacement channels. A selected
+  atom can retain one style in each channel; applying another style replaces
+  only same-channel membership. Reset removes both selection-specific channels
+  for the target so entry-level styles become visible again. Independent
+  entry-level surfaces are never subtracted by these replacements.
+- Thin and Thick sticks are fixed display profiles mapped to Mol* ball-and-stick
+  with different radii. “Thick” is a visual distinction, not a bond-order,
+  confidence, contact, or chemical-type assertion.
+- Selection-specific layers use element coloring and full opacity. This release
+  has no selection-specific colors, opacity, labels, surfaces, presets,
+  same-channel overlays, component overrides/export, ligand designation, or
+  docking semantics. Component and hydrogen visibility plus active isolation
+  can hide assigned atoms without deleting their durable assignment.
+
 ## Selection And Spatial Queries
 
 - The canonical identity is `(structure_id, atom_id)`. Viewer projections are

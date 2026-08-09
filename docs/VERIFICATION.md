@@ -80,6 +80,53 @@ suite still asserts WebGL canvas pixels, accessible surrounding state, and
 viewport bounds so these manual checks are supplementary rather than substitutes
 for functional automation.
 
+## V0.4.0 Issue #7 Feature Evidence
+
+Status: qualified release candidate
+
+This evidence supplements the v0.1 matrix and follows the approved contract in
+`docs/plans/issue-7-selection-representation-styling.md`.
+
+| Feature claim | Passing evidence |
+|---|---|
+| Typed replacement/reset algebra | `test_commands.py` and schema tests prove canonical positive IDs, one record per style, disjoint membership within atomic/polymer channels, same-channel replacement, cross-channel coexistence, and two-channel reset |
+| Atomic multi-entry command and service validation | `test_viewer_state.py`, API safety tests, and malformed-input tests prove one revision, exact forward/inverse state, stale/invalid rejection, all-or-nothing multi-entry updates, entry-settings bypass protection, and complete supported-residue polymer validation |
+| Durable migration and compatibility | `test_migrations.py` proves live/checkpoint/scene upgrade, empty downgrade/re-upgrade, and refusal to discard non-empty assignments; `test_archive_roundtrip.py` proves v0.3.0 missing-field defaulting plus current project/scene/archive round trip |
+| Topology reconciliation | `test_ligand_edits.py` and `test_protein_edits.py` prove deleted IDs are pruned from live and scene assignments in the molecular command and restored exactly by undo; coordinate edits and additions retain membership |
+| Exact disposable viewer projection | `representations.test.ts` proves per-channel inherited subtraction, independent surfaces, component/hydrogen/isolation intersections, fixed Thin/Thick profiles, and no parent-bond expansion; adapter/loading tests prove camera/selection restoration, hidden-entry laziness, query reuse, and reduced-detail retention |
+| Accessible UI and authoritative mutation | `selection-style-dialog.test.tsx`, toolbar/workspace tests, and `selection-styling.spec.ts` prove focusable unavailable reasons, semantic groups/counts/status, backend-matched polymer preflight, one API action, keyboard/Escape behavior, and unchanged transient selection/picking |
+| Protein/ligand styled complex | The desktop `1STP` browser workflow proves inherited Cartoon protein, distinct ligand Thin/Thick sticks, nearest complete-residue Thin sticks, exact coexistence, nonblank WebGL, and no molecular/artifact/original-byte change |
+| Boundary, scene, history, and reload behavior | The hierarchy browser workflow proves ion/water/ligand exact styles and the covalent boundary; the `1STP` workflow proves one revision per apply, reset, undo/redo, named camera/selection/style scenes, saved-selection reuse, reload, and one normalized request per load |
+| Accessibility and responsive bounds | Desktop and Pixel 7 workflows prove keyboard operation, launcher focus restoration, no horizontal overflow/clipped controls, and zero scoped axe findings |
+
+Checkpoint 1 passed Ruff, strict mypy across 49 source files, 48 focused
+Python tests, the isolated migration test, frontend type-check, and
+`git diff --check`. Checkpoint 2 passed ESLint, TypeScript, all 59 Vitest tests,
+the production build, and diff checks. Checkpoint 3 passed ESLint, TypeScript,
+all 61 Vitest tests, the production build, and diff checks. The existing Vite
+lazy Mol* chunk advisory remained non-blocking.
+
+Checkpoint 4 passed 21 focused integration tests and the affected real-browser
+matrix: 11 applicable Chromium/Pixel 7 workflows passed, with 11 intentional
+cross-layout skips, in 1.7 minutes. Frontend lint, type-check, and diff checks
+also passed. Qualification used existing documented fixtures and added no new
+scientific fixture. Automated canvas checks prove nonblank pixels and relative
+Thin/Thick visual difference, not subjective molecular aesthetics or
+cross-browser/hardware-GPU behavior.
+
+Checkpoint 5 passed Ruff, strict mypy across 49 source files, ESLint,
+TypeScript, and `git diff --check`. The architecture, schema, API,
+accessibility, performance, scientific-limitations, progress, decision, and
+feature-plan documents were reviewed together; accepted D-046 remains the
+governing architectural decision and no new decision was required.
+
+The candidate keeps API, project, archive, and normalized schema major version
+1. Alembic `0008` adds the viewer-settings field across live/checkpoint/scene
+JSON and refuses a lossy downgrade while assignments exist. Legacy v0.3.0
+archives default the absent field to empty. Selection styling preserves current
+and original artifacts and does not change molecular data. Release preparation
+will advance all five authoritative application versions from 0.3.0 to 0.4.0.
+
 ## V0.3.0 Issue #2 Feature Evidence
 
 Status: released in MolWeave v0.3.0
