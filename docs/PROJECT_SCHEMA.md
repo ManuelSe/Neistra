@@ -112,11 +112,15 @@ timestamps.
 representations:
   - id: unique string within the entry
     style: cartoon | backbone | line | stick | ball-and-stick |
-      space-filling | surface
+      thick-stick | space-filling | surface
     color_by: element | chain | residue | secondary-structure | structure |
       custom
     custom_color: six-digit CSS hex color
     opacity: number in [0, 1]
+selection_representations:
+  - style: line | stick | thick-stick | ball-and-stick | space-filling |
+      backbone | cartoon
+    atom_ids: sorted unique positive normalized atom IDs
 components:
   hydrogens: boolean
   solvent: boolean
@@ -132,7 +136,27 @@ labels:
 
 Every structure entry has at least one representation. These settings are
 application-owned project state; Mol* consumes them but is not their persistence
-format.
+format. Selection representations contain at most one record per style. Atom
+IDs are disjoint within the atomic channel and within the polymer channel, but
+the same atom may have one assignment in each channel. An applied style
+replaces the selected membership only within its channel; reset removes the
+selected IDs from both channels and restores entry-level inheritance.
+
+Polymer assignments are valid only for exact complete residues classified as
+supported protein, DNA, or RNA and containing their required trace atom.
+Assignments use current entry-local normalized atom IDs; they never persist
+Mol* loci, source array positions, component labels, or coordinates. Atom
+deletion prunes live and scene assignments atomically, while undo restores the
+prior records. Named scenes store the same typed viewer settings, so applying a
+scene restores styles with its camera and transient selection.
+
+Alembic migration `0008` adds an empty `selection_representations` list to live
+entry JSON, checkpoint entry JSON, and scene entry-state JSON. Legacy project
+and archive payloads that omit the additive field default to an empty list.
+Downgrade is permitted only while all such lists are empty; otherwise it stops
+with an explicit instruction to reset selection styles, preventing silent data
+loss. Project schema version 1, archive schema version 1, and normalized schema
+version 1 are unchanged.
 
 ## MeasurementV1
 

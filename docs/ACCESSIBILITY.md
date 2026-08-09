@@ -48,11 +48,23 @@ Keyboard Enter opens disclosures and selects a component; the compact drawer
 remains within viewport bounds, has no horizontal overflow, restores focus on
 Escape, and passes the configured axe rules while expanded.
 
+`tests/e2e/selection-styling.spec.ts` qualifies the selection-style workflow.
+The always-present **Style selection** button stays focusable when unavailable,
+uses `aria-disabled`, and exposes a reason without pretending the action ran.
+The dialog has a programmatic name, selected atom/entry counts, semantic Atom
+detail and Polymer groups, pressed states, an adjacent reason for unavailable
+polymer styles, busy state, and announced success/error status. Desktop and
+Pixel 7 workflows prove keyboard launch/application, Escape focus restoration,
+viewport containment, no horizontal overflow or clipped visible buttons, and
+zero scoped axe findings. Canvas pixels and screenshots qualify WebGL output
+separately; they are not treated as semantic accessibility evidence.
+
 Run it with:
 
 ```bash
 PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test \
-  tests/e2e/release-hardening.spec.ts
+  tests/e2e/release-hardening.spec.ts \
+  tests/e2e/selection-styling.spec.ts
 ```
 
 ## Keyboard Model
@@ -64,6 +76,9 @@ PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test \
   then use the same replace/add/subtract selection semantics as other surfaces.
 - Arrow Left/Right, Home, and End move and activate tabs in a tab list.
 - Escape closes the topmost dialog or mobile drawer and returns focus.
+- The Style selection launcher opens its dialog with `Enter` or `Space`;
+  representation and reset buttons use native button activation, and Escape
+  returns focus to the launcher.
 - Mol* camera orbit/pan remains pointer-driven; named zoom, fit-visible,
   selection-focus, and ligand-focus buttons provide keyboard-operable camera
   commands.
@@ -86,4 +101,7 @@ colors inside WebGL. Molecular color schemes communicate structure visually but
 are not the sole carrier of selection identity, warnings, measurements, or
 properties. MolWeave does not claim screen-reader access to individual 3D
 atoms through the canvas; the synchronized inspector, query, sequence, project,
-and property surfaces are the semantic alternatives.
+and property surfaces are the semantic alternatives. Automated selection-style
+checks cover configured axe rules, focus, keyboard operation, and geometry at
+the tested desktop/Pixel 7 sizes; they do not replace the release-level manual
+zoom, contrast, readability, or hardware/browser inspection above.

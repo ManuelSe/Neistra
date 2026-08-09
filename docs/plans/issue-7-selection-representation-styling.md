@@ -1316,6 +1316,37 @@ Release is additionally blocked when:
   Real-WebGL evidence remains limited to the repository's pinned Chromium and
   SwiftShader projects. Next action: commit and document the verified contract.
 
+### 2026-08-09 - Checkpoint 5 implemented
+
+- Documented selection-representation ownership from durable
+  `ViewerSettingsV1` and the authoritative project command through the exact
+  disposable Mol* layer projection. Current selection, camera, molecular data,
+  component derivation, and original artifacts retain their existing owners.
+- Documented the additive schema/API field, atomic multi-entry action,
+  same-channel replacement and two-channel reset, complete-residue polymer
+  validation, scene/history/topology behavior, legacy default, migration `0008`
+  upgrade, and loss-preventing downgrade rule. Public project, archive,
+  normalized, and API schema major versions remain 1.
+- Documented exact atom/bond boundaries, fixed Thin/Thick presentation,
+  visibility intersections, scientific non-claims, keyboard/semantic dialog
+  behavior, automated/manual accessibility boundary, normalized-query reuse,
+  disposable rebuild cost, reduced-detail retention, and real-WebGL scope.
+- Added the v0.4.0 candidate verification matrix and kept every deferred,
+  rejected, and follow-up feature out of user-visible claims. Accepted D-046
+  already records the architectural decision; this checkpoint introduced no
+  new cross-project decision.
+- Focused evidence before commit:
+  - `.venv/bin/uv run ruff check apps/api packages/molweave_core tests`: pass.
+  - `.venv/bin/uv run mypy apps/api packages/molweave_core`: pass (49 files).
+  - `corepack pnpm --dir apps/web lint`: pass.
+  - `corepack pnpm --dir apps/web typecheck`: pass.
+  - `git diff --check`: pass.
+- Documentation review repaired the stale issue #2 limitation that said no
+  selection-specific styling existed; it now accurately distinguishes issue
+  #7's exact selection styling from still-absent automatic per-component
+  styling and classification overrides. Next action: commit and prepare the
+  v0.4.0 release candidate.
+
 ### Checkpoint log template
 
 For every completed checkpoint append:
@@ -1329,5 +1360,5 @@ For every completed checkpoint append:
 
 ## Completion
 
-Checkpoints 1-4 are implemented and verified. Checkpoints 5-6 remain in
-progress under this approved contract.
+Checkpoints 1-5 are implemented and verified. Checkpoint 6 remains in progress
+under this approved contract.

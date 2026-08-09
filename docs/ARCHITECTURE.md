@@ -108,6 +108,36 @@ These interactions update transient viewer/application state only. They do not
 issue project commands, refetch normalized structures, mutate molecular data, or
 persist ordinary selection or camera state.
 
+## Selection Representation Ownership
+
+Selection-specific representations are durable `ViewerSettingsV1` records,
+not Mol* state and not a property of the transient current selection. Each
+entry stores canonical normalized atom IDs grouped by one atomic style (`line`,
+`stick`, `thick-stick`, `ball-and-stick`, or `space-filling`) or one polymer
+style (`backbone` or `cartoon`). Applying a style replaces membership only in
+its channel for the selected atoms; reset removes those atoms from both
+channels so they inherit entry-level settings again. One project command
+applies the same canonical multi-entry selection atomically and records exact
+forward/inverse settings for undo and redo.
+
+The API validates stable references. Polymer application additionally reads
+the current authoritative normalized artifact and accepts only complete
+supported protein, DNA, or RNA residues with the required trace atoms. The
+browser may preflight the same rule to explain unavailable actions, but the
+service remains authoritative. Topology deletions prune missing atom IDs from
+live and named-scene settings in the same reversible molecular command;
+coordinate changes and topology additions do not infer new membership.
+
+The browser projects entry-level and selection-specific settings into
+disposable exact Mol* bundle components. Targeted atoms replace only the
+inherited atomic or polymer channel; independent surfaces are not subtracted.
+Every layer is intersected with current component, hydrogen, and isolation
+visibility. Exact atomic layers disable parent-bond expansion, so a bond is not
+drawn across an unselected boundary. Rebuilding the projection restores the
+application camera and canonical selection and reuses the artifact-keyed
+normalized-structure query. Color, opacity, labels, surfaces, component
+classification, and molecular data retain their existing owners.
+
 ## Persistence
 
 SQLite stores projects, entries, groups, checkpoints, bounded command history,

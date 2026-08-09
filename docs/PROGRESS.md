@@ -2,7 +2,7 @@
 
 ## Current milestone
 
-Issue #7 - selection-based molecular representation styling, Checkpoint 4
+Issue #7 - selection-based molecular representation styling, Checkpoint 5
 implemented and under final checkpoint review
 
 The approved implementation contract at
@@ -26,8 +26,8 @@ mutation. Real-WebGL desktop and Pixel 7 workflows now qualify exact
 scientific boundaries, durable history/scene/reload behavior, invariant
 molecular data and camera state,
 accessibility, responsive bounds, and normalized-structure query reuse. The
-next action is to commit the passing qualification checkpoint and document the
-verified contract.
+next action is to commit the verified contract documentation and begin release
+preparation.
 
 The previously current issue #2 automatic component detection and structure
 hierarchy milestone is complete and released in v0.3.0.
@@ -46,6 +46,24 @@ export remain explicitly deferred or rejected. The published release is
 backward compatible with no Alembic or archive-schema migration.
 
 ## Completed work
+
+- Documented issue #7's application/Mol* ownership boundary, additive typed
+  viewer schema and project action, migration/downgrade policy, exact channel
+  behavior, scene/history/reconciliation semantics, and unchanged public
+  schema-major contracts.
+- Documented the complete-residue polymer rule, exact covalent boundary,
+  fixed Thin/Thick profiles, scientific non-claims, selection/camera/molecular
+  invariants, accessibility automation/manual boundary, query reuse, rebuild
+  behavior, and large-structure/cross-browser limitations.
+- Added a v0.4.0 candidate evidence matrix mapping every approved user-visible
+  claim to unit, integration, component, and real-WebGL tests without claiming
+  presets, same-channel overlays, context-menu or Ribbon duplication, custom
+  selection presentation, component override/export, ligand designation, or
+  docking.
+- Verified the documentation checkpoint with Ruff, strict mypy across 49
+  source files, ESLint, TypeScript, and `git diff --check`. Accepted decision
+  D-046 already owns the cross-project architecture; no new decision was
+  introduced.
 
 - Implemented issue #7 Checkpoint 4 qualification with existing `1STP` and
   component-hierarchy fixtures; no new scientific fixture or provenance claim
@@ -1638,8 +1656,8 @@ Results:
 - Component classification is deliberately role-conservative: non-polymer
   source entities are putative ligands/cofactors, buffer-table matches are
   solvent/additives, and unresolved material remains visibly unclassified.
-  No ligand-of-interest claim, manual override, selection-specific style,
-  individual persisted visibility, or component subset export exists.
+  No ligand-of-interest claim, classification override, automatic per-component
+  style, individual persisted visibility, or component subset export exists.
 - Real-WebGL qualification uses the repository's pinned Chromium/SwiftShader
   desktop and Pixel 7 projects; this fix does not add a cross-browser or WebXR
   matrix.
@@ -1700,5 +1718,5 @@ None.
 
 ## Next action
 
-Commit issue #7 Checkpoint 4, then complete Checkpoint 5 documentation of the
-verified selection-styling contract.
+Commit issue #7 Checkpoint 5, then complete Checkpoint 6 version, release-note,
+compatibility, full-gate, and final-diff preparation for v0.4.0.

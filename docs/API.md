@@ -35,6 +35,7 @@ generates OpenAPI at `/api/v1/openapi.json`. Swagger UI is available at
 | `POST` | `/api/v1/projects/{project_id}/save` | Save the current working state as the checkpoint. |
 | `POST` | `/api/v1/projects/{project_id}/history/undo` | Apply the latest inverse command. |
 | `POST` | `/api/v1/projects/{project_id}/history/redo` | Reapply the next command. |
+| `POST` | `/api/v1/projects/{project_id}/selection-representations` | Apply or reset a representation for a canonical selection as one reversible multi-entry command. |
 
 ## Entry and Group Endpoints
 
@@ -172,8 +173,9 @@ document without duplicating category atom arrays. Classification source is
 
 The projection is read-only. MolWeave exposes no component rename,
 reclassification, individual-style, individual-visibility, ligand-designation,
-or subset-export endpoint in this release. `/api/v1`, project/archive schema
-version 1, and Alembic head `0007` are unchanged.
+or subset-export endpoint in this release. `/api/v1` and project/archive schema
+version 1 are unchanged. Alembic head is `0008` for the additive selection-
+representation viewer-settings field.
 
 ## Selection Contract
 
@@ -216,13 +218,55 @@ project using case-insensitive comparison. Entry deletion removes invalid
 references in the same reversible command and adds an
 `invalid_selection_references_removed` warning to the saved selection.
 
+### Selection representation action
+
+The project-level action accepts the same canonical `SelectionV1` and applies
+atomically across every referenced entry:
+
+```json
+{
+  "expected_revision": 8,
+  "selection": {
+    "schema_version": 1,
+    "atoms": [
+      {"structure_id": "entry-id", "atom_id": 42},
+      {"structure_id": "entry-id", "atom_id": 43}
+    ],
+    "granularity": "residue",
+    "source": "project"
+  },
+  "action": "apply",
+  "style": "thick-stick"
+}
+```
+
+`action` is `apply` or `reset`. Apply requires one of `line`, `stick`,
+`thick-stick`, `ball-and-stick`, `space-filling`, `backbone`, or `cartoon`;
+reset requires `style` to be absent. An empty selection, stale/unknown atom
+reference, duplicate or noncanonical reference, or incompatible polymer target
+returns a validation/operation error without changing any entry. Backbone and
+Cartoon require exact complete supported protein, DNA, or RNA residues with
+their required trace atoms in every selected entry; partial or mixed-invalid
+multi-entry requests fail as a whole.
+
+A successful action returns the revised complete project and increments the
+project revision exactly once. Atomic styles replace selected atoms only among
+the five atomic styles; polymer styles replace them only between Backbone and
+Cartoon. Reset removes the selected atoms from both channels. The existing
+entry viewer-settings endpoint may preserve but cannot mutate
+`selection_representations`; callers must use this project-level action so
+validation, atomicity, history, and topology reconciliation cannot be bypassed.
+
 ## Viewer, Measurement, And Scene Contracts
 
 Viewer settings require one or more uniquely identified representations.
-Supported styles are `cartoon`, `backbone`, `line`, `stick`,
-`ball-and-stick`, `space-filling`, and `surface`. Color schemes are `element`,
+Supported entry-level styles are `cartoon`, `backbone`, `line`, `stick`,
+`thick-stick`, `ball-and-stick`, `space-filling`, and `surface`. Color schemes are `element`,
 `chain`, `residue`, `secondary-structure`, `structure`, and `custom`; opacity
 is in `[0, 1]`. Component and label visibility use explicit booleans.
+Selection-specific records contain a style and canonical entry-local atom IDs;
+they inherit fixed element coloring and full opacity in this release and do not
+add selection-specific surface, label, color, or opacity controls.
 
 Measurements persist a name, kind, ordered atom references, visibility, and
 warnings. Distance requires two distinct atoms, angle three, and dihedral four.
