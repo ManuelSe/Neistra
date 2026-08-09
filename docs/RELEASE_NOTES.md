@@ -2,9 +2,10 @@
 
 ## 0.4.0 - 2026-08-09
 
-Release target: annotated tag
+Status: released as annotated tag
 [`v0.4.0`](https://github.com/ManuelSe/MolWeave/releases/tag/v0.4.0)
-for [issue #7](https://github.com/ManuelSe/MolWeave/issues/7)
+from [PR #24](https://github.com/ManuelSe/MolWeave/pull/24), closing
+[issue #7](https://github.com/ManuelSe/MolWeave/issues/7)
 
 ### Highlights
 

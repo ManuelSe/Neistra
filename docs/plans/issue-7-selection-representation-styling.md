@@ -1,6 +1,6 @@
 # Issue 7 - Selection-Based Representation Styling
 
-Status: approved; implementation not started
+Status: complete; released in MolWeave v0.4.0
 
 ## Issue metadata
 
@@ -1394,6 +1394,37 @@ Release is additionally blocked when:
   refresh, branch push, PR/review/merge, annotated tag, release, issue reply,
   and branch cleanup.
 
+### 2026-08-09 - Remote delivery complete
+
+- Pushed the qualified eight-commit feature branch and opened
+  [PR #24](https://github.com/ManuelSe/MolWeave/pull/24) with `Closes #7`, all
+  milestone evidence, accepted design, simplifications, deferrals, rejections,
+  migration/compatibility, scientific/accessibility/performance limits,
+  v0.4.0 impact, and existing related issues.
+- Requested `@codex review`. The integration did not acknowledge or return a
+  review after the response window. Remote inspection found no configured
+  status check, protection, ruleset, required review, review thread, or
+  actionable finding; PR #24 explicitly records the completed local review
+  without claiming independence.
+- Rebase-merged PR #24 and verified its released commit as
+  `7f468e90dc0038c9e0fecd8b165867274be757a5` on `origin/master`. Local `master`
+  fast-forwarded cleanly, and the rebased tree exactly matched the qualified
+  feature tree.
+- Created annotated tag `v0.4.0`, pushed it, and remotely dereferenced it to
+  exact released commit `7f468e9`. Published and verified the non-draft,
+  non-prerelease [MolWeave v0.4.0 release](https://github.com/ManuelSe/MolWeave/releases/tag/v0.4.0)
+  with highlights, fixes/invariants, persisted-data migration, compatibility,
+  verification, known limitations, scope decisions, and follow-up ownership.
+- Verified issue #7 closed through the merged PR and posted the required
+  [close-out response](https://github.com/ManuelSe/MolWeave/issues/7#issuecomment-5230953106)
+  covering implemented behavior, PR/release, verification,
+  migration/compatibility, simplifications, deferrals, rejections, and existing
+  issues #1, #11, #20, and #21. No speculative follow-up issue was created.
+- Deleted `feat/issue-7-selection-representation-styling` locally and remotely
+  only after the merge, exact tag, published release, and issue response were
+  verified. The published tag remains fixed on the released feature commit;
+  this documentation-only closeout does not move it.
+
 ### Checkpoint log template
 
 For every completed checkpoint append:
@@ -1407,6 +1438,7 @@ For every completed checkpoint append:
 
 ## Completion
 
-All six checkpoints are implemented and verified. The v0.4.0 release candidate
-is qualified for its pull request; remote review, merge, release, issue reply,
-and branch cleanup remain delivery operations under this contract.
+All six checkpoints and delivery operations are complete. MolWeave v0.4.0 is
+published from the verified merged commit, issue #7 is closed with its final
+response, existing related issues retain deferred work, and the original
+feature branch has been removed locally and remotely.

@@ -2,8 +2,8 @@
 
 ## Current milestone
 
-Issue #7 - selection-based molecular representation styling, Checkpoint 6
-implemented and release candidate qualified for pull request
+Issue #7 - selection-based molecular representation styling, released in
+MolWeave v0.4.0
 
 The approved implementation contract at
 `docs/plans/issue-7-selection-representation-styling.md` is the detailed source
@@ -13,8 +13,9 @@ viewer-toolbar action, undo/redo, scene/project/archive persistence, topology
 reconciliation, and camera/selection invariance while keeping molecular state
 and Mol* ownership unchanged. Presets, same-channel layering, selection-specific
 color/opacity/labels/surfaces, context-menu duplication, a Ribbon alias, and a
-new Molecule granularity remain deferred or rejected. The planned
-backward-compatible release is v0.4.0. The approved feature branch is active.
+new Molecule granularity remain deferred or rejected. The backward-compatible
+minor release was rebase-merged in PR #24 and published as v0.4.0 from exact
+commit `7f468e90dc0038c9e0fecd8b165867274be757a5`.
 Durable typed assignments, replacement/reset algebra, the revisioned
 multi-entry API command, polymer validation, topology/scene reconciliation,
 legacy defaults, and Alembic revision `0008` are implemented. The renderer now
@@ -25,10 +26,9 @@ dialog now expose atom and polymer choices plus reset through the one project
 mutation. Real-WebGL desktop and Pixel 7 workflows now qualify exact
 scientific boundaries, durable history/scene/reload behavior, invariant
 molecular data and camera state, accessibility, responsive bounds, and
-normalized-structure query reuse. v0.4.0 versions and release notes are aligned,
-the complete release gate and full-diff review pass, and the next action is to
-commit qualification evidence, refresh the base, push, and open the feature
-pull request.
+normalized-structure query reuse. The complete release gate and local full-diff
+review passed, remote delivery and the issue response are verified, and the
+original feature branch has been removed locally and remotely.
 
 The previously current issue #2 automatic component detection and structure
 hierarchy milestone is complete and released in v0.3.0.
@@ -47,6 +47,21 @@ export remain explicitly deferred or rejected. The published release is
 backward compatible with no Alembic or archive-schema migration.
 
 ## Completed work
+
+- Rebase-merged [PR #24](https://github.com/ManuelSe/MolWeave/pull/24) to
+  verified `origin/master` commit `7f468e9`, closing issue #7.
+- Published and remotely verified annotated tag and
+  [GitHub release v0.4.0](https://github.com/ManuelSe/MolWeave/releases/tag/v0.4.0)
+  at that exact released commit; the release is non-draft and non-prerelease.
+- Posted and remotely verified the issue #7 close-out reply with delivered
+  behavior, verification, migration/compatibility, scientific limits, scope
+  decisions, and existing follow-ups #1, #11, #20, and #21.
+- Requested `@codex review`; the integration did not acknowledge or return a
+  review. PR #24 records the completed local full-diff review without claiming
+  independence. No protection, ruleset, check, required review, or conversation
+  blocked merge.
+- Deleted the original feature branch locally and remotely only after merge,
+  exact tag, published release, and issue response were remotely verified.
 
 - Advanced all five authoritative application version sources to 0.4.0,
   retained archive producer compatibility through 0.3.0, and added release
@@ -701,6 +716,11 @@ backward compatible with no Alembic or archive-schema migration.
 
 ## Verification performed
 
+- Remote issue #7 closeout: PR #24 is verified rebase-merged; annotated
+  `v0.4.0` dereferences to
+  `7f468e90dc0038c9e0fecd8b165867274be757a5`; the GitHub release is published,
+  non-draft, and non-prerelease; issue #7 is closed with its verified final
+  reply; and the original feature branch no longer exists locally or remotely.
 - Remote closeout: PR #22 is verified merged; the annotated `v0.3.0` tag
   dereferences to `78d079a789368078ec24c4fca7d2d90d6cdab79c`; the GitHub
   release is published, non-draft, and non-prerelease; issue #2 is closed with
@@ -1738,6 +1758,5 @@ None.
 
 ## Next action
 
-Commit issue #7 release qualification evidence, then refresh `origin/master`,
-push the feature branch, open the planned PR, request review, and enforce all
-verified merge/release gates.
+Issue #7 is complete and released. Await the next approved product priority;
+existing issues #1, #11, #20, and #21 retain the deliberately deferred work.

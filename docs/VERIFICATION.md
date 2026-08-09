@@ -82,7 +82,7 @@ for functional automation.
 
 ## V0.4.0 Issue #7 Feature Evidence
 
-Status: qualified v0.4.0 release candidate
+Status: released in MolWeave v0.4.0
 
 This evidence supplements the v0.1 matrix and follows the approved contract in
 `docs/plans/issue-7-selection-representation-styling.md`.
@@ -145,6 +145,12 @@ No unresolved scope, molecular-state, command atomicity, schema, migration,
 archive, exact-boundary, camera/selection, accessibility, performance,
 dead-code, debug-path, or compatibility finding remains. This was a local
 review and is not represented as independent.
+
+Remote delivery is verified: PR #24 rebase-merged to
+`7f468e90dc0038c9e0fecd8b165867274be757a5`; annotated tag `v0.4.0`
+dereferences to that exact commit; the GitHub release is published, non-draft,
+and non-prerelease; issue #7 is closed with its verified final response; and
+the original feature branch was deleted locally and remotely afterward.
 
 ## V0.3.0 Issue #2 Feature Evidence
 
