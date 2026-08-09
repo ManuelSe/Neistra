@@ -2,7 +2,7 @@
 
 ## Current milestone
 
-Issue #7 - selection-based molecular representation styling, Checkpoint 3
+Issue #7 - selection-based molecular representation styling, Checkpoint 4
 implemented and under final checkpoint review
 
 The approved implementation contract at
@@ -22,8 +22,12 @@ projects inherited and selection-specific channels into exact disposable Mol*
 components, including distinct thin/thick stick profiles and boundary-safe
 atomic representations. An accessible toolbar launcher and responsive style
 dialog now expose atom and polymer choices plus reset through the one project
-mutation. Focused frontend gates pass; the next action is final UI diff review
-and commit before real-browser qualification.
+mutation. Real-WebGL desktop and Pixel 7 workflows now qualify exact
+scientific boundaries, durable history/scene/reload behavior, invariant
+molecular data and camera state,
+accessibility, responsive bounds, and normalized-structure query reuse. The
+next action is to commit the passing qualification checkpoint and document the
+verified contract.
 
 The previously current issue #2 automatic component detection and structure
 hierarchy milestone is complete and released in v0.3.0.
@@ -42,6 +46,22 @@ export remain explicitly deferred or rejected. The published release is
 backward compatible with no Alembic or archive-schema migration.
 
 ## Completed work
+
+- Implemented issue #7 Checkpoint 4 qualification with existing `1STP` and
+  component-hierarchy fixtures; no new scientific fixture or provenance claim
+  was needed.
+- Proved Cartoon protein, distinct Thin/Thick sticks, exact ligand and nearest
+  complete-residue targeting, ion Space filling, water Ball and stick, and a
+  ligand Line target that does not leak across its covalent protein boundary.
+- Proved one revision per apply, exact assignments and undo/redo, reset,
+  named-scene camera/selection/style restoration, saved-selection reload,
+  project reload, unchanged topology/coordinates/artifacts/original bytes,
+  picking retention, nonblank SwiftShader WebGL, and one normalized-structure
+  request per load.
+- Verified desktop and Pixel 7 keyboard operation, launcher focus restoration,
+  viewport bounds, no horizontal overflow, and zero scoped axe violations.
+  The focused integration gate passed 21 tests; the affected Playwright matrix
+  passed all 11 applicable workflows with 11 intentional cross-project skips.
 
 - Implemented issue #7 Checkpoint 3's focusable toolbar launcher and original
   compact MolWeave dialog with selection counts, semantic Atom detail and
@@ -1608,6 +1628,13 @@ Results:
 
 ## Known limitations
 
+- Selection styling is intentionally limited to exact atomic replacement and
+  complete-residue polymer replacement channels. It does not add presets,
+  same-channel overlays, style-specific color/opacity/labels/surfaces,
+  component overrides or export, ligand designation, or docking behavior.
+- Real-WebGL selection-styling qualification uses the repository's pinned
+  Chromium/SwiftShader desktop and Pixel 7 projects; it does not establish a
+  cross-browser, hardware-GPU, or WebXR support claim.
 - Component classification is deliberately role-conservative: non-polymer
   source entities are putative ligands/cofactors, buffer-table matches are
   solvent/additives, and unresolved material remains visibly unclassified.
@@ -1673,5 +1700,5 @@ None.
 
 ## Next action
 
-Checkpoint 0 is complete. Stop with the feature branch ready for `/goal`;
-implementation must not start during the planning handoff.
+Commit issue #7 Checkpoint 4, then complete Checkpoint 5 documentation of the
+verified selection-styling contract.
