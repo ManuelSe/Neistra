@@ -265,12 +265,14 @@ def test_legacy_archive_defaults_to_showing_all_hydrogens(client: ApiClient) -> 
     )
 
 
-@pytest.mark.parametrize("archive_version", ["0.1.0", "0.1.1", "0.2.0", "0.2.1", "0.3.0"])
+@pytest.mark.parametrize(
+    "archive_version", ["0.1.0", "0.1.1", "0.2.0", "0.2.1", "0.3.0", "0.4.0"]
+)
 def test_archive_round_trip_preserves_project_and_originals(
     client: ApiClient,
     archive_version: str,
 ) -> None:
-    assert APPLICATION_VERSION == "0.4.0"
+    assert APPLICATION_VERSION == "0.5.0"
     source = build_rich_project(client)
     first = export_archive(client, source["id"], "archive-first")
     second = export_archive(client, source["id"], "archive-second")

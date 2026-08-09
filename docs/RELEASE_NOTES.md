@@ -1,5 +1,115 @@
 # MolWeave Release Notes
 
+## 0.5.0 - 2026-08-09
+
+Release target: annotated tag
+[`v0.5.0`](https://github.com/ManuelSe/MolWeave/releases/tag/v0.5.0)
+for [issue #1](https://github.com/ManuelSe/MolWeave/issues/1)
+
+### Highlights
+
+- Added a durable **Show non-polar hydrogens** preference beneath the existing
+  master **Show hydrogens** control, providing all, polar-only, and none modes.
+- Applied the mode consistently to protein and ligand projections, inherited
+  and exact-selection atomic styles, and surfaces while preserving molecular
+  state, original uploaded files, camera, selection, picking, and isolation.
+- Added reversible history, checkpoint/reload recovery, named-scene and archive
+  persistence, explicit-connectivity scientific fixtures, and responsive
+  keyboard-accessible controls.
+
+### Added
+
+- Additive typed `components.nonpolar_hydrogens` state in backend and frontend
+  viewer settings, defaulting to `true` for existing projects and archives.
+- One centralized effective-mode projection to Mol* for Line, Thin/Thick
+  sticks, Ball and stick, Space filling, and Surface layers, including exact
+  selection-specific targets.
+- Checksum-locked synthetic protein PDB and ligand MOL fixtures with one
+  explicit C-bound hydrogen and one explicit O-bound hydrogen each, plus
+  unit, integration, migration, component, and real-WebGL qualification.
+
+### Hydrogen display semantics
+
+- With both controls enabled, every explicit hydrogen allowed by the current
+  structure and representation is shown. Disabling only non-polar hydrogens
+  retains explicit hydrogens bonded to N, O, S, F, Cl, Br, or I and hides
+  carbon-bound hydrogens. Disabling the master control hides all hydrogens while
+  preserving the dependent preference for later re-enabling.
+- Polar-only uses the pinned Mol* 5.11 `non-polar` ignore variant and projected
+  bond connectivity. It does not persist a second chemical classification or
+  infer attachment from coordinates, atom names, or application component
+  labels.
+- The existing all/none master setting, application-owned molecular state, and
+  disposable Mol* projection architecture were already present and are reused.
+  The issue's suggested toggle was adapted to MolWeave's existing Components
+  controls rather than adding a separate settings system.
+
+### Scientific limitations
+
+- This is presentation filtering, not hydrogen generation, bond inference,
+  protonation or tautomer assignment, pKa estimation, donor/acceptor analysis,
+  hydrogen-bond detection, chemistry repair, or docking preparation.
+- Atom labels remain independent. Aggregate ligand focus uses heavy atoms in
+  polar-only and none modes as a deterministic navigation simplification, not
+  as an application-owned polarity classification.
+- Automated WebGL evidence covers explicit-connectivity protein and ligand
+  fixtures in pinned Chromium/SwiftShader. It does not claim ambiguous or
+  missing-bond behavior, every format, cross-browser equivalence, hardware-GPU
+  behavior, WebXR, or subjective molecular aesthetics.
+
+### Persistence and migrations
+
+- Alembic `0009` adds the default to live entry, checkpoint, and named-scene
+  viewer JSON. Downgrade removes it only while all stored values are `true`;
+  otherwise downgrade stops with instructions to re-enable non-polar
+  hydrogens, preventing silent preference loss.
+- Undo/redo, reload and checkpoint recovery, named-scene application, and
+  portable archive export/import preserve the exact setting. Molecular atoms,
+  bonds, coordinates, conformers, artifacts, warnings/inferences, and original
+  uploaded bytes remain unchanged.
+
+### Accessibility and performance
+
+- Both controls are named native pressed buttons. The dependent control stays
+  discoverable with an explained disabled state while the master hides all
+  hydrogens; desktop and Pixel 7 keyboard, viewport, overflow, and scoped axe
+  workflows pass.
+- Toggling rebuilds disposable Mol* representations while restoring camera and
+  canonical selection. Repeated changes reuse the artifact-keyed structure
+  query; qualification observes one normalized-structure request before reload.
+- No incremental-rendering, new large-system latency/GPU-memory budget, or
+  screen-reader access to individual WebGL atoms is claimed. Existing reduced-
+  detail and manual accessibility boundaries remain in force.
+
+### Verification
+
+- Checkpoints passed Ruff, strict mypy across 50 source files, ESLint,
+  TypeScript, all 65 Vitest tests, production build, 27 persistence/migration
+  tests, and 17 focused scientific/integration tests.
+- Fresh Alembic `0009` browser qualification passed all 6 applicable issue
+  workflows with 4 intentional cross-layout skips in 50.6 seconds, covering
+  all three modes, protein and ligand behavior, every required representation,
+  durability, molecular/original invariance, hydrogen-free input, transient
+  state, request reuse, accessibility, and responsive bounds.
+- Final complete-gate results and the full-diff review are recorded in
+  `docs/VERIFICATION.md` and the approved issue plan.
+
+### Compatibility and deferred work
+
+- This is a backward-compatible minor release from 0.4.0 to 0.5.0. `/api/v1`,
+  `ProjectStateV1`, `ProjectManifestV1.schema_version`, archive schema version
+  1, and `NormalizedStructureV1.schema_version` remain unchanged. Valid v0.1.0
+  through v0.4.0 producer archives remain readable; missing additive fields
+  retain all-hydrogen behavior. Older releases do not promise forward import
+  of v0.5.0 archives.
+- Per-selection and per-representation hydrogen modes and polarity-aware label
+  suppression remain deferred pending demonstrated demand and precedence/UI
+  design. No speculative follow-up issue is created for them.
+- Hydrogen-bond analysis, protonation, pKa, and donor/acceptor analysis remain
+  separate scientific workflows; docking preparation remains outside core.
+  A new backend chemistry endpoint, persisted inferred attachment, and normalized
+  bond rewriting were rejected as unnecessary or scientifically expansive.
+
 ## 0.4.0 - 2026-08-09
 
 Status: released as annotated tag
