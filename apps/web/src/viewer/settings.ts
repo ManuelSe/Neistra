@@ -25,6 +25,72 @@ export const colorSchemes: ColorScheme[] = [
   "custom",
 ];
 
+export const atomicRepresentationStyles: RepresentationStyle[] = [
+  "line",
+  "stick",
+  "thick-stick",
+  "ball-and-stick",
+  "space-filling",
+];
+
+export const polymerRepresentationStyles: RepresentationStyle[] = [
+  "backbone",
+  "cartoon",
+];
+
+export interface MolstarRepresentationProfile {
+  type:
+    | "cartoon"
+    | "backbone"
+    | "line"
+    | "ball-and-stick"
+    | "spacefill"
+    | "molecular-surface";
+  typeParams: {
+    alpha: number;
+    ignoreHydrogens: boolean;
+    includeParent?: false;
+    sizeFactor?: number;
+    sizeAspectRatio?: number;
+  };
+}
+
+export function molstarRepresentationProfile(
+  style: RepresentationStyle,
+  options: {
+    opacity: number;
+    ignoreHydrogens: boolean;
+    exactTarget: boolean;
+  },
+): MolstarRepresentationProfile {
+  const type = {
+    cartoon: "cartoon",
+    backbone: "backbone",
+    line: "line",
+    stick: "ball-and-stick",
+    "thick-stick": "ball-and-stick",
+    "ball-and-stick": "ball-and-stick",
+    "space-filling": "spacefill",
+    surface: "molecular-surface",
+  }[style] as MolstarRepresentationProfile["type"];
+  return {
+    type,
+    typeParams: {
+      alpha: options.opacity,
+      ignoreHydrogens: options.ignoreHydrogens,
+      ...(options.exactTarget &&
+      atomicRepresentationStyles.includes(style)
+        ? { includeParent: false as const }
+        : {}),
+      ...(style === "stick"
+        ? { sizeFactor: 0.22, sizeAspectRatio: 0.35 }
+        : style === "thick-stick"
+          ? { sizeFactor: 0.36, sizeAspectRatio: 0.78 }
+          : {}),
+    },
+  };
+}
+
 export function addRepresentation(
   settings: ViewerSettings,
   style: RepresentationStyle,

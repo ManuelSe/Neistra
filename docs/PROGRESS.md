@@ -2,8 +2,8 @@
 
 ## Current milestone
 
-Issue #7 - selection-based molecular representation styling, Checkpoint 1
-implemented and under final checkpoint verification
+Issue #7 - selection-based molecular representation styling, Checkpoint 2
+implemented and under final checkpoint review
 
 The approved implementation contract at
 `docs/plans/issue-7-selection-representation-styling.md` is the detailed source
@@ -17,9 +17,11 @@ new Molecule granularity remain deferred or rejected. The planned
 backward-compatible release is v0.4.0. The approved feature branch is active.
 Durable typed assignments, replacement/reset algebra, the revisioned
 multi-entry API command, polymer validation, topology/scene reconciliation,
-legacy defaults, and Alembic revision `0008` are implemented. Focused backend,
-archive, edit, migration, and frontend contract checks pass; the next action is
-the final checkpoint diff review and commit before renderer work.
+legacy defaults, and Alembic revision `0008` are implemented. The renderer now
+projects inherited and selection-specific channels into exact disposable Mol*
+components, including distinct thin/thick stick profiles and boundary-safe
+atomic representations. Focused frontend gates pass; the next action is the
+final renderer diff review and checkpoint commit before accessible controls.
 
 The previously current issue #2 automatic component detection and structure
 hierarchy milestone is complete and released in v0.3.0.
@@ -38,6 +40,18 @@ export remain explicitly deferred or rejected. The published release is
 backward compatible with no Alembic or archive-schema migration.
 
 ## Completed work
+
+- Implemented issue #7 Checkpoint 2's deterministic viewer projection: same-
+  channel inherited layers subtract only targeted visible atoms, independent
+  surfaces remain intact, targeted layers intersect component visibility,
+  hydrogen visibility, and isolation, and atomic targets disable parent bonds.
+- Centralized Mol* representation profiles, retained the backward-compatible
+  Thin sticks constants, and added a visibly heavier Thick sticks profile.
+- Preserved existing atomic rebuild ownership for camera and canonical
+  selection restoration, hidden-entry lazy loading, query-cache reuse, and the
+  visible 250,000-atom reduced-detail fallback while retaining selection styles.
+- Verified frontend lint, type-check, all 59 unit/component tests, production
+  build, and diff checks; the existing bundle-size advisory remains non-blocking.
 
 - Implemented issue #7 Checkpoint 1's durable atomic/polymer replacement
   channels with canonical stable atom targets, atomic multi-entry application,

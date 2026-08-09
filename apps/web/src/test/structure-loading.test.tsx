@@ -303,6 +303,27 @@ describe("lazy structure loading", () => {
     expect(fetchSpy).toHaveBeenCalledTimes(1);
     expect(requestUrl(fetchSpy.mock.calls[0][0])).toContain("/protein/structure");
 
+    const styled = project();
+    styled.entries[0].viewer_settings.selection_representations = [
+      { style: "thick-stick", atom_ids: [1] },
+    ];
+    rerender(
+      <StructureViewer
+        project={styled}
+        theme="light"
+        selection={emptySelection}
+        pickingGranularity="atom"
+        onViewerSelection={() => undefined}
+        createViewer={createViewer}
+      />,
+    );
+    await waitFor(() => {
+      expect(
+        fake.syncs.at(-1)?.[0].settings.selection_representations,
+      ).toEqual([{ style: "thick-stick", atom_ids: [1] }]);
+    });
+    expect(fetchSpy).toHaveBeenCalledTimes(1);
+
     rerender(
       <StructureViewer
         project={project(true, true)}
@@ -645,6 +666,9 @@ describe("lazy structure loading", () => {
       atom_count: 250_000,
       viewer_settings: {
         ...large.entries[0].viewer_settings,
+        selection_representations: [
+          { style: "space-filling", atom_ids: [1] },
+        ],
         representations: [
           {
             id: "surface",
@@ -687,6 +711,9 @@ describe("lazy structure loading", () => {
     await waitFor(() => {
       expect(fake.syncs.at(-1)?.[0].settings.representations[0].style).toBe("line");
     });
+    expect(
+      fake.syncs.at(-1)?.[0].settings.selection_representations,
+    ).toEqual([{ style: "space-filling", atom_ids: [1] }]);
     expect(fake.syncs.at(-1)?.[0].settings.labels).toEqual({
       atoms: false,
       residues: false,

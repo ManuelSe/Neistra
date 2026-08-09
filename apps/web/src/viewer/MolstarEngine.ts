@@ -24,7 +24,6 @@ import type {
   ColorScheme,
   CoordinatePatch,
   Point3D,
-  RepresentationStyle,
   SelectionGranularity,
 } from "../api/types";
 import type {
@@ -39,7 +38,8 @@ import {
   shouldClearSelectionForEmptyPick,
   withCameraNeutralPrimarySelection,
 } from "./interaction";
-import { visibleComponentAtomIds } from "./componentVisibility";
+import { representationLayers } from "./representationProjection";
+import { molstarRepresentationProfile } from "./settings";
 
 interface LoadedStructure {
   entryId: string;
@@ -443,78 +443,55 @@ export class MolstarEngine implements MolecularViewer {
       ),
     });
     this.indexModels(structure.entryId, molstarStructure, structure.atomIds);
-    const isolated = this.isolation?.filter(
-      (reference) => reference.structure_id === structure.entryId,
-    );
-    const components = [];
-    if (this.isolation && (!isolated || isolated.length === 0)) return;
-    if (isolated?.length) {
-      const loci = this.lociFor(isolated);
-      if (loci) {
-        const component = await plugin.builders.structure.tryCreateComponent(
-          structureProperties,
-          {
-            type: {
-              name: "bundle",
-              params: StructureElement.Bundle.fromLoci(loci),
-            },
-            nullIfEmpty: true,
-            label: "Isolated selection",
-          },
-          `isolation-${structure.entryId}`,
-        );
-        if (component) components.push(component);
-      }
-    } else {
-      const visibleAtomIds = visibleComponentAtomIds(structure);
+    const isolatedIds =
+      this.isolation === null
+        ? null
+        : new Set(
+            this.isolation
+              .filter((reference) => reference.structure_id === structure.entryId)
+              .map((reference) => reference.atom_id),
+          );
+    for (const layer of representationLayers(structure, isolatedIds)) {
       const loci = this.lociFor(
-        visibleAtomIds.map((atomId) => ({
+        layer.atomIds.map((atomId) => ({
           structure_id: structure.entryId,
           atom_id: atomId,
         })),
       );
-      if (loci) {
-        const component = await plugin.builders.structure.tryCreateComponent(
-          structureProperties,
-          {
-            type: {
-              name: "bundle",
-              params: StructureElement.Bundle.fromLoci(loci),
-            },
-            nullIfEmpty: true,
-            label: `${structure.label} visible components`,
+      if (!loci) continue;
+      const component = await plugin.builders.structure.tryCreateComponent(
+        structureProperties,
+        {
+          type: {
+            name: "bundle",
+            params: StructureElement.Bundle.fromLoci(loci),
           },
-          `visible-components-${structure.entryId}`,
-        );
-        if (component) components.push(component);
-      }
-    }
-    for (const component of components) {
-      for (const representation of structure.settings.representations) {
-        await plugin.builders.structure.representation.addRepresentation(
-          component,
-          {
-            type: this.representationType(representation.style),
-            typeParams: {
-              alpha: representation.opacity,
-              ignoreHydrogens: !structure.settings.components.hydrogens,
-              ...(representation.style === "stick"
-                ? { sizeFactor: 0.22, sizeAspectRatio: 0.35 }
-                : {}),
-            },
-            color: this.colorTheme(representation.color_by),
-            colorParams:
-              representation.color_by === "custom"
-                ? {
-                    value: Color(
-                      Number.parseInt(representation.custom_color.slice(1), 16),
-                    ),
-                  }
-                : undefined,
-          },
-          { tag: `molweave-representation-${representation.id}` },
-        );
-      }
+          nullIfEmpty: true,
+          label: `${structure.label} ${layer.style}`,
+        },
+        `${layer.id}-${structure.entryId}`,
+      );
+      if (!component) continue;
+      const profile = molstarRepresentationProfile(layer.style, {
+        opacity: layer.opacity,
+        ignoreHydrogens: !structure.settings.components.hydrogens,
+        exactTarget: layer.exactTarget,
+      });
+      await plugin.builders.structure.representation.addRepresentation(
+        component,
+        {
+          type: profile.type,
+          typeParams: profile.typeParams,
+          color: this.colorTheme(layer.colorBy),
+          colorParams:
+            layer.colorBy === "custom"
+              ? {
+                  value: Color(Number.parseInt(layer.customColor.slice(1), 16)),
+                }
+              : undefined,
+        },
+        { tag: `molweave-representation-${layer.id}` },
+      );
     }
   }
 
@@ -697,25 +674,6 @@ export class MolstarEngine implements MolecularViewer {
         );
       }
     }
-  }
-
-  private representationType(style: RepresentationStyle) {
-    return {
-      cartoon: "cartoon",
-      backbone: "backbone",
-      line: "line",
-      stick: "ball-and-stick",
-      "thick-stick": "ball-and-stick",
-      "ball-and-stick": "ball-and-stick",
-      "space-filling": "spacefill",
-      surface: "molecular-surface",
-    }[style] as
-      | "cartoon"
-      | "backbone"
-      | "line"
-      | "ball-and-stick"
-      | "spacefill"
-      | "molecular-surface";
   }
 
   private colorTheme(color: ColorScheme) {
