@@ -32,7 +32,11 @@ from molweave_api.schemas import (
     TopologyPatch,
     ViewerSettings,
 )
-from molweave_api.viewer_state import default_viewer_settings
+from molweave_api.viewer_state import (
+    default_viewer_settings,
+    prune_selection_representations,
+    update_selection_representations,
+)
 
 HISTORY_LIMIT = 200
 PROJECT_STATE_SCHEMA_VERSION = 1
@@ -244,9 +248,7 @@ def project_read(
         ],
         measurements=[
             MeasurementRead.model_validate(measurement)
-            for measurement in sorted(
-                project.measurements, key=lambda item: item.created_at
-            )
+            for measurement in sorted(project.measurements, key=lambda item: item.created_at)
         ],
         scenes=[
             SceneRead.model_validate(scene)
@@ -448,6 +450,11 @@ class ProjectService:
         self._check_revision(project, expected_revision)
         entry = self._entry(project, entry_id)
         values = settings.model_dump(mode="json")
+        current_assignments = entry.viewer_settings.get("selection_representations", [])
+        if values["selection_representations"] != current_assignments:
+            raise InvalidProjectOperationError(
+                "Use the selection representation action to change selected-atom styles"
+            )
         return self._record(
             project,
             "entry.viewer_settings",
@@ -467,6 +474,81 @@ class ProjectService:
                 }
             ],
             [entry.id],
+        )
+
+    def update_selection_representations(
+        self,
+        project_id: str,
+        expected_revision: int,
+        atom_references: list[dict[str, Any]],
+        *,
+        action: str,
+        style: str | None,
+    ) -> ProjectRead:
+        project = self._project(project_id)
+        self._check_revision(project, expected_revision)
+        if not atom_references:
+            raise InvalidProjectOperationError(
+                "Select at least one atom to change its representation"
+            )
+        self._validate_atom_references(project, atom_references)
+        selected_by_entry: dict[str, set[int]] = {}
+        for reference in atom_references:
+            selected_by_entry.setdefault(str(reference["structure_id"]), set()).add(
+                int(reference["atom_id"])
+            )
+        forward: list[dict[str, Any]] = []
+        inverse: list[dict[str, Any]] = []
+        for entry_id in sorted(selected_by_entry):
+            entry = self._entry(project, entry_id)
+            before = deepcopy(entry.viewer_settings)
+            after = {
+                **before,
+                "selection_representations": update_selection_representations(
+                    before.get("selection_representations", []),
+                    selected_by_entry[entry_id],
+                    action=action,
+                    style=style,
+                ),
+            }
+            forward.append(
+                {
+                    "kind": "entry.update",
+                    "entry_id": entry.id,
+                    "values": {"viewer_settings": after},
+                }
+            )
+            inverse.insert(
+                0,
+                {
+                    "kind": "entry.update",
+                    "entry_id": entry.id,
+                    "values": {"viewer_settings": before},
+                },
+            )
+        atom_count = len(atom_references)
+        entry_count = len(selected_by_entry)
+        if action == "reset":
+            description = (
+                f"Reset selected representations for {atom_count} atom"
+                f"{'s' if atom_count != 1 else ''} in {entry_count} entr"
+                f"{'ies' if entry_count != 1 else 'y'}"
+            )
+        else:
+            shown_style = (style or "").replace("-", " ").title()
+            description = (
+                f"Apply {shown_style} to {atom_count} atom"
+                f"{'s' if atom_count != 1 else ''} in {entry_count} entr"
+                f"{'ies' if entry_count != 1 else 'y'}"
+            )
+        return self._record(
+            project,
+            "selection.representation",
+            description,
+            forward,
+            inverse,
+            sorted(selected_by_entry),
+            selection_snapshot=deepcopy(atom_references),
         )
 
     def isolate_entry(self, project_id: str, entry_id: str, expected_revision: int) -> ProjectRead:
@@ -533,14 +615,11 @@ class ProjectService:
             )
         for measurement in project.measurements:
             if not any(
-                reference["structure_id"] == entry.id
-                for reference in measurement.atom_references
+                reference["structure_id"] == entry.id for reference in measurement.atom_references
             ):
                 continue
             state = _measurement_state(measurement)
-            forward.append(
-                {"kind": "measurement.delete", "measurement_id": measurement.id}
-            )
+            forward.append({"kind": "measurement.delete", "measurement_id": measurement.id})
             inverse.append({"kind": "measurement.create", "measurement": state})
         for scene in project.scenes:
             retained_entries = [
@@ -551,9 +630,8 @@ class ProjectService:
                 for reference in scene.selection.get("atoms", [])
                 if reference["structure_id"] != entry.id
             ]
-            if (
-                len(retained_entries) == len(scene.entry_states)
-                and len(retained_atoms) == len(scene.selection.get("atoms", []))
+            if len(retained_entries) == len(scene.entry_states) and len(retained_atoms) == len(
+                scene.selection.get("atoms", [])
             ):
                 continue
             forward.append(
@@ -663,16 +741,14 @@ class ProjectService:
         self._check_revision(project, expected_revision)
         expected = {"distance": 2, "angle": 3, "dihedral": 4}[kind]
         if len(atom_references) != expected:
-            raise InvalidProjectOperationError(
-                f"{kind.title()} requires exactly {expected} atoms"
-            )
+            raise InvalidProjectOperationError(f"{kind.title()} requires exactly {expected} atoms")
         self._validate_atom_references(project, atom_references)
-        if len(
-            {
-                (reference["structure_id"], reference["atom_id"])
-                for reference in atom_references
-            }
-        ) != expected:
+        if (
+            len(
+                {(reference["structure_id"], reference["atom_id"]) for reference in atom_references}
+            )
+            != expected
+        ):
             raise InvalidProjectOperationError("Measurement atoms must be distinct")
         state: dict[str, Any] = {
             "id": _uuid(),
@@ -726,12 +802,7 @@ class ProjectService:
                     },
                 }
             ],
-            sorted(
-                {
-                    str(reference["structure_id"])
-                    for reference in measurement.atom_references
-                }
-            ),
+            sorted({str(reference["structure_id"]) for reference in measurement.atom_references}),
         )
 
     def delete_measurement(
@@ -747,12 +818,7 @@ class ProjectService:
             f"Delete measurement {measurement.name}",
             [{"kind": "measurement.delete", "measurement_id": measurement.id}],
             [{"kind": "measurement.create", "measurement": state}],
-            sorted(
-                {
-                    str(reference["structure_id"])
-                    for reference in measurement.atom_references
-                }
-            ),
+            sorted({str(reference["structure_id"]) for reference in measurement.atom_references}),
         )
 
     def create_scene(
@@ -767,9 +833,7 @@ class ProjectService:
         self._check_revision(project, expected_revision)
         normalized_name = name.strip()
         if any(scene.name.casefold() == normalized_name.casefold() for scene in project.scenes):
-            raise InvalidProjectOperationError(
-                f'A scene named "{normalized_name}" already exists'
-            )
+            raise InvalidProjectOperationError(f'A scene named "{normalized_name}" already exists')
         references = [item.model_dump(mode="json") for item in selection.atoms]
         self._validate_atom_references(project, references)
         state: dict[str, Any] = {
@@ -797,9 +861,7 @@ class ProjectService:
             selection_snapshot=references,
         )
 
-    def apply_scene(
-        self, project_id: str, scene_id: str, expected_revision: int
-    ) -> ProjectRead:
+    def apply_scene(self, project_id: str, scene_id: str, expected_revision: int) -> ProjectRead:
         project = self._project(project_id)
         self._check_revision(project, expected_revision)
         scene = self._scene(project, scene_id)
@@ -821,9 +883,7 @@ class ProjectService:
             selection_snapshot=deepcopy(scene.selection.get("atoms", [])),
         )
 
-    def delete_scene(
-        self, project_id: str, scene_id: str, expected_revision: int
-    ) -> ProjectRead:
+    def delete_scene(self, project_id: str, scene_id: str, expected_revision: int) -> ProjectRead:
         project = self._project(project_id)
         self._check_revision(project, expected_revision)
         scene = self._scene(project, scene_id)
@@ -884,9 +944,7 @@ class ProjectService:
         project = self._project(project_id)
         self._check_revision(project, expected_revision)
         if not changes:
-            raise InvalidProjectOperationError(
-                "Coordinate command must affect at least one entry"
-            )
+            raise InvalidProjectOperationError("Coordinate command must affect at least one entry")
         forward: list[dict[str, Any]] = []
         inverse: list[dict[str, Any]] = []
         affected_entry_ids: list[str] = []
@@ -942,9 +1000,7 @@ class ProjectService:
         self._check_revision(project, expected_revision)
         entry = self._entry(project, str(change["entry_id"]))
         if entry.locked:
-            raise InvalidProjectOperationError(
-                f"Unlock {entry.name} before editing its molecule"
-            )
+            raise InvalidProjectOperationError(f"Unlock {entry.name} before editing its molecule")
         forward: list[dict[str, Any]] = [
             {
                 "kind": "entry.molecule",
@@ -981,8 +1037,7 @@ class ProjectService:
             inverse,
             [entry.id],
             selection_snapshot=[
-                {"structure_id": entry.id, "atom_id": atom_id}
-                for atom_id in sorted(deleted)
+                {"structure_id": entry.id, "atom_id": atom_id} for atom_id in sorted(deleted)
             ],
             topology_patches=[
                 TopologyPatch(
@@ -1002,6 +1057,23 @@ class ProjectService:
         *,
         operation: str,
     ) -> None:
+        before_settings = deepcopy(entry.viewer_settings)
+        after_settings = prune_selection_representations(before_settings, deleted_atom_ids)
+        if after_settings != before_settings:
+            forward.append(
+                {
+                    "kind": "entry.update",
+                    "entry_id": entry.id,
+                    "values": {"viewer_settings": after_settings},
+                }
+            )
+            inverse.append(
+                {
+                    "kind": "entry.update",
+                    "entry_id": entry.id,
+                    "values": {"viewer_settings": before_settings},
+                }
+            )
         for saved_selection in project.saved_selections:
             retained = [
                 reference
@@ -1052,9 +1124,7 @@ class ProjectService:
                 for reference in measurement.atom_references
             ):
                 continue
-            forward.append(
-                {"kind": "measurement.delete", "measurement_id": measurement.id}
-            )
+            forward.append({"kind": "measurement.delete", "measurement_id": measurement.id})
             inverse.append(
                 {
                     "kind": "measurement.create",
@@ -1071,22 +1141,40 @@ class ProjectService:
                     and int(reference["atom_id"]) in deleted_atom_ids
                 )
             ]
-            if len(retained) == len(atoms):
+            entry_states = deepcopy(scene.entry_states)
+            styles_changed = False
+            for state in entry_states:
+                if state["entry_id"] != entry.id:
+                    continue
+                before_scene_settings = state["viewer_settings"]
+                after_scene_settings = prune_selection_representations(
+                    before_scene_settings, deleted_atom_ids
+                )
+                if after_scene_settings != before_scene_settings:
+                    state["viewer_settings"] = after_scene_settings
+                    styles_changed = True
+            if len(retained) == len(atoms) and not styles_changed:
                 continue
+            values: dict[str, Any] = {}
+            inverse_values: dict[str, Any] = {}
+            if len(retained) != len(atoms):
+                values["selection"] = {**scene.selection, "atoms": retained}
+                inverse_values["selection"] = deepcopy(scene.selection)
+            if styles_changed:
+                values["entry_states"] = entry_states
+                inverse_values["entry_states"] = deepcopy(scene.entry_states)
             forward.append(
                 {
                     "kind": "scene.update",
                     "scene_id": scene.id,
-                    "values": {
-                        "selection": {**scene.selection, "atoms": retained}
-                    },
+                    "values": values,
                 }
             )
             inverse.append(
                 {
                     "kind": "scene.update",
                     "scene_id": scene.id,
-                    "values": {"selection": deepcopy(scene.selection)},
+                    "values": inverse_values,
                 }
             )
 
@@ -1221,13 +1309,9 @@ class ProjectService:
                 for key, value in action["values"].items():
                     setattr(entry, key, deepcopy(value))
                 if "next_atom_id" in action:
-                    entry.next_atom_id = max(
-                        entry.next_atom_id, int(action["next_atom_id"])
-                    )
+                    entry.next_atom_id = max(entry.next_atom_id, int(action["next_atom_id"]))
                 if "next_bond_id" in action:
-                    entry.next_bond_id = max(
-                        entry.next_bond_id, int(action["next_bond_id"])
-                    )
+                    entry.next_bond_id = max(entry.next_bond_id, int(action["next_bond_id"]))
                 entry.modified_at = datetime.now(UTC)
             elif kind == "entry.create":
                 state = action["entry"]
@@ -1253,12 +1337,8 @@ class ProjectService:
                         residue_count=state.get("residue_count", 0),
                         conformer_count=state.get("conformer_count", 0),
                         warnings=deepcopy(state.get("warnings", [])),
-                        next_atom_id=state.get(
-                            "next_atom_id", state.get("atom_count", 0) + 1
-                        ),
-                        next_bond_id=state.get(
-                            "next_bond_id", state.get("bond_count", 0) + 1
-                        ),
+                        next_atom_id=state.get("next_atom_id", state.get("atom_count", 0) + 1),
+                        next_bond_id=state.get("next_bond_id", state.get("bond_count", 0) + 1),
                         viewer_settings=deepcopy(
                             state.get(
                                 "viewer_settings",
@@ -1451,17 +1531,13 @@ class ProjectService:
         raise InvalidProjectOperationError(f"Scene {scene_id} was not found")
 
     @staticmethod
-    def _validate_atom_references(
-        project: Project, atom_references: list[dict[str, Any]]
-    ) -> None:
+    def _validate_atom_references(project: Project, atom_references: list[dict[str, Any]]) -> None:
         entries = {entry.id: entry for entry in project.entries}
         for reference in atom_references:
             entry = entries.get(str(reference["structure_id"]))
             atom_id = int(reference["atom_id"])
             if entry is None or atom_id not in set(entry.atom_ids):
-                raise InvalidProjectOperationError(
-                    "Atom reference is not in the current project"
-                )
+                raise InvalidProjectOperationError("Atom reference is not in the current project")
 
     @staticmethod
     def _check_revision(project: Project, expected_revision: int) -> None:

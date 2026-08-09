@@ -2,6 +2,9 @@ from __future__ import annotations
 
 from typing import cast
 
+from molweave_api.schemas import ViewerSettings
+from molweave_api.viewer_state import update_selection_representations
+
 from tests.support.api_client import ApiClient
 
 
@@ -18,6 +21,38 @@ def seed_entry(client: ApiClient, project_id: str, name: str) -> str:
     )
     assert response.status_code == 201
     return str(cast(dict[str, object], response.json())["id"])
+
+
+def test_selection_representation_algebra_is_canonical() -> None:
+    assignments = [{"style": "line", "atom_ids": [1, 2]}, {"style": "cartoon", "atom_ids": [1, 2]}]
+    replaced = update_selection_representations(assignments, {2, 3}, action="apply", style="stick")
+    assert replaced == [
+        {"style": "cartoon", "atom_ids": [1, 2]},
+        {"style": "line", "atom_ids": [1]},
+        {"style": "stick", "atom_ids": [2, 3]},
+    ]
+    assert update_selection_representations(replaced, {1, 2}, action="reset") == [
+        {"style": "stick", "atom_ids": [3]}
+    ]
+
+
+def test_viewer_settings_reject_noncanonical_or_overlapping_assignments() -> None:
+    base = {
+        "representations": [{"id": "main", "style": "line"}],
+        "components": {},
+        "labels": {},
+    }
+    for assignments in (
+        [{"style": "line", "atom_ids": [2, 1]}],
+        [{"style": "line", "atom_ids": [1]}, {"style": "stick", "atom_ids": [1]}],
+        [{"style": "line", "atom_ids": [1]}, {"style": "line", "atom_ids": [2]}],
+    ):
+        try:
+            ViewerSettings.model_validate({**base, "selection_representations": assignments})
+        except ValueError:
+            pass
+        else:
+            raise AssertionError("Invalid selection assignments were accepted")
 
 
 def test_project_update_is_durable_and_reversible(client: ApiClient) -> None:

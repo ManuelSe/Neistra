@@ -171,9 +171,19 @@ RepresentationStyle = Literal[
     "backbone",
     "line",
     "stick",
+    "thick-stick",
     "ball-and-stick",
     "space-filling",
     "surface",
+]
+SelectionRepresentationStyle = Literal[
+    "line",
+    "stick",
+    "thick-stick",
+    "ball-and-stick",
+    "space-filling",
+    "backbone",
+    "cartoon",
 ]
 ColorScheme = Literal[
     "element",
@@ -208,8 +218,25 @@ class LabelVisibility(BaseModel):
     structure: bool = False
 
 
+class SelectionRepresentation(BaseModel):
+    style: SelectionRepresentationStyle
+    atom_ids: list[int] = Field(min_length=1)
+
+    @field_validator("atom_ids")
+    @classmethod
+    def atom_ids_are_canonical(cls, value: list[int]) -> list[int]:
+        if value != sorted(set(value)) or any(atom_id < 1 for atom_id in value):
+            raise ValueError(
+                "Selection representation atom IDs must be positive, unique, and sorted"
+            )
+        return value
+
+
 class ViewerSettings(BaseModel):
     representations: list[RepresentationSettings] = Field(min_length=1, max_length=12)
+    selection_representations: list[SelectionRepresentation] = Field(
+        default_factory=list, max_length=7
+    )
     components: ComponentVisibility = Field(default_factory=ComponentVisibility)
     labels: LabelVisibility = Field(default_factory=LabelVisibility)
 
@@ -220,6 +247,27 @@ class ViewerSettings(BaseModel):
     ) -> list[RepresentationSettings]:
         if len({item.id for item in value}) != len(value):
             raise ValueError("Representation IDs must be unique")
+        return value
+
+    @field_validator("selection_representations")
+    @classmethod
+    def selection_representations_are_disjoint(
+        cls, value: list[SelectionRepresentation]
+    ) -> list[SelectionRepresentation]:
+        if len({item.style for item in value}) != len(value):
+            raise ValueError("Selection representation styles must be unique")
+        atomic_styles = {"line", "stick", "thick-stick", "ball-and-stick", "space-filling"}
+        for styles in (atomic_styles, {"backbone", "cartoon"}):
+            assigned: set[int] = set()
+            for item in value:
+                if item.style not in styles:
+                    continue
+                overlap = assigned.intersection(item.atom_ids)
+                if overlap:
+                    raise ValueError(
+                        "Selection representation atom IDs must be disjoint within each channel"
+                    )
+                assigned.update(item.atom_ids)
         return value
 
 
@@ -408,6 +456,23 @@ class SavedSelectionCreate(BaseModel):
 class ViewerSettingsUpdate(BaseModel):
     expected_revision: int = Field(ge=0)
     settings: ViewerSettings
+
+
+class SelectionRepresentationUpdate(BaseModel):
+    expected_revision: int = Field(ge=0)
+    selection: SelectionV1
+    action: Literal["apply", "reset"]
+    style: SelectionRepresentationStyle | None = None
+
+    @model_validator(mode="after")
+    def validate_action(self) -> SelectionRepresentationUpdate:
+        if not self.selection.atoms:
+            raise ValueError("Select at least one atom to change its representation")
+        if self.action == "apply" and self.style is None:
+            raise ValueError("Style is required when applying a selection representation")
+        if self.action == "reset" and self.style is not None:
+            raise ValueError("Style must be omitted when resetting selection representations")
+        return self
 
 
 class MeasurementCreate(BaseModel):

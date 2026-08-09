@@ -705,6 +705,7 @@ export class MolstarEngine implements MolecularViewer {
       backbone: "backbone",
       line: "line",
       stick: "ball-and-stick",
+      "thick-stick": "ball-and-stick",
       "ball-and-stick": "ball-and-stick",
       "space-filling": "spacefill",
       surface: "molecular-surface",

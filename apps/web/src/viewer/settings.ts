@@ -10,6 +10,7 @@ export const representationStyles: RepresentationStyle[] = [
   "backbone",
   "line",
   "stick",
+  "thick-stick",
   "ball-and-stick",
   "space-filling",
   "surface",

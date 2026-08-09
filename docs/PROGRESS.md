@@ -2,8 +2,8 @@
 
 ## Current milestone
 
-Issue #7 - selection-based molecular representation styling, approved and
-ready for implementation
+Issue #7 - selection-based molecular representation styling, Checkpoint 1
+implemented and under final checkpoint verification
 
 The approved implementation contract at
 `docs/plans/issue-7-selection-representation-styling.md` is the detailed source
@@ -14,8 +14,12 @@ reconciliation, and camera/selection invariance while keeping molecular state
 and Mol* ownership unchanged. Presets, same-channel layering, selection-specific
 color/opacity/labels/surfaces, context-menu duplication, a Ribbon alias, and a
 new Molecule granularity remain deferred or rejected. The planned
-backward-compatible release is v0.4.0. The approved feature branch is created,
-and the plan is persisted as its first change; implementation has not started.
+backward-compatible release is v0.4.0. The approved feature branch is active.
+Durable typed assignments, replacement/reset algebra, the revisioned
+multi-entry API command, polymer validation, topology/scene reconciliation,
+legacy defaults, and Alembic revision `0008` are implemented. Focused backend,
+archive, edit, migration, and frontend contract checks pass; the next action is
+the final checkpoint diff review and commit before renderer work.
 
 The previously current issue #2 automatic component detection and structure
 hierarchy milestone is complete and released in v0.3.0.
@@ -34,6 +38,20 @@ export remain explicitly deferred or rejected. The published release is
 backward compatible with no Alembic or archive-schema migration.
 
 ## Completed work
+
+- Implemented issue #7 Checkpoint 1's durable atomic/polymer replacement
+  channels with canonical stable atom targets, atomic multi-entry application,
+  complete-residue protein/DNA/RNA validation, reset, command history, scene
+  persistence, archive compatibility, and protection against mutation through
+  the entry-level viewer-settings endpoint.
+- Added topology deletion reconciliation for live and named-scene assignments
+  with exact undo restoration; coordinate edits and topology additions retain
+  existing memberships.
+- Added Alembic revision `0008` to populate live, checkpoint, and scene viewer
+  JSON and refuse downgrade when it would erase non-empty assignments.
+- Recorded accepted decision D-046 and verified focused Ruff, mypy, pytest,
+  isolated migration upgrade/downgrade, archive compatibility through v0.3.0,
+  and frontend type-check evidence.
 
 - Approved issue #7 as a bounded vertical slice with exact stable atom targets,
   atomic and polymer replacement channels, five atom styles, Backbone,

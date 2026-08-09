@@ -92,6 +92,15 @@ def build_rich_project(client: ApiClient) -> dict[str, Any]:
         },
     ).json()
     project = client.post(
+        f"/api/v1/projects/{project['id']}/selection-representations",
+        json={
+            "expected_revision": project["revision"],
+            "selection": selection,
+            "action": "apply",
+            "style": "thick-stick",
+        },
+    ).json()
+    project = client.post(
         f"/api/v1/projects/{project['id']}/measurements",
         json={
             "expected_revision": project["revision"],
@@ -161,16 +170,50 @@ def with_application_version(data: bytes, version: str) -> bytes:
                 manifest = json.loads(payload)
                 manifest["application_version"] = version
                 payload = (
-                    json.dumps(manifest, sort_keys=True, separators=(",", ":")).encode()
-                    + b"\n"
+                    json.dumps(manifest, sort_keys=True, separators=(",", ":")).encode() + b"\n"
                 )
             target.writestr(info, payload)
     return output.getvalue()
 
 
-@pytest.mark.parametrize(
-    "archive_version", ["0.1.0", "0.1.1", "0.2.0", "0.2.1"]
-)
+def without_selection_representations(data: bytes, version: str) -> bytes:
+    source = zipfile.ZipFile(io.BytesIO(data))
+    output = io.BytesIO()
+    with source, zipfile.ZipFile(output, "w") as target:
+        for info in source.infolist():
+            payload = source.read(info)
+            if info.filename == "manifest.json":
+                manifest = json.loads(payload)
+                manifest["application_version"] = version
+                for entry in manifest["entries"]:
+                    entry["viewer_settings"].pop("selection_representations", None)
+                for scene in manifest["scenes"]:
+                    for state in scene["entry_states"]:
+                        state["viewer_settings"].pop("selection_representations", None)
+                payload = (
+                    json.dumps(manifest, sort_keys=True, separators=(",", ":")).encode() + b"\n"
+                )
+            target.writestr(info, payload)
+    return output.getvalue()
+
+
+def test_legacy_archive_defaults_selection_representations(client: ApiClient) -> None:
+    source = build_rich_project(client)
+    exported = export_archive(client, source["id"], "legacy-selection-default")
+    archive_bytes = client.get(exported["artifact"]["download_url"]).content
+    legacy = without_selection_representations(archive_bytes, "0.3.0")
+    restored = import_archive(client, legacy)["project"]
+    assert all(
+        entry["viewer_settings"]["selection_representations"] == [] for entry in restored["entries"]
+    )
+    assert all(
+        state["viewer_settings"]["selection_representations"] == []
+        for scene in restored["scenes"]
+        for state in scene["entry_states"]
+    )
+
+
+@pytest.mark.parametrize("archive_version", ["0.1.0", "0.1.1", "0.2.0", "0.2.1", "0.3.0"])
 def test_archive_round_trip_preserves_project_and_originals(
     client: ApiClient,
     archive_version: str,
@@ -204,8 +247,7 @@ def test_archive_round_trip_preserves_project_and_originals(
     restored_by_name = {entry["name"]: entry for entry in restored["entries"]}
     assert set(restored_by_name) == set(source_by_name)
     assert all(
-        restored_by_name[name]["id"] != source_by_name[name]["id"]
-        for name in source_by_name
+        restored_by_name[name]["id"] != source_by_name[name]["id"] for name in source_by_name
     )
     for name, source_entry in source_by_name.items():
         restored_entry = restored_by_name[name]
@@ -236,23 +278,19 @@ def test_archive_round_trip_preserves_project_and_originals(
             f"/api/v1/projects/{source['id']}/entries/{source_entry['id']}/structure"
         ).json()["structure"]
         restored_structure = client.get(
-            f"/api/v1/projects/{restored['id']}/entries/"
-            f"{restored_entry['id']}/structure"
+            f"/api/v1/projects/{restored['id']}/entries/{restored_entry['id']}/structure"
         ).json()["structure"]
         assert restored_structure == source_structure
         source_original = client.get(
             f"/api/v1/projects/{source['id']}/entries/{source_entry['id']}/original"
         ).content
         restored_original = client.get(
-            f"/api/v1/projects/{restored['id']}/entries/"
-            f"{restored_entry['id']}/original"
+            f"/api/v1/projects/{restored['id']}/entries/{restored_entry['id']}/original"
         ).content
         assert restored_original == source_original
 
     assert [group["name"] for group in restored["groups"]] == ["Inputs"]
-    assert {entry["group_id"] for entry in restored["entries"]} == {
-        restored["groups"][0]["id"]
-    }
+    assert {entry["group_id"] for entry in restored["entries"]} == {restored["groups"][0]["id"]}
     restored_ligand = restored_by_name["Ethanol"]
     assert restored["saved_selections"][0]["atom_references"] == [
         {"structure_id": restored_ligand["id"], "atom_id": 1}
@@ -270,9 +308,9 @@ def test_archive_round_trip_preserves_project_and_originals(
 
     second_restore = import_archive(client, legacy_bytes)["project"]
     assert second_restore["id"] not in {source["id"], restored["id"]}
-    assert {
-        entry["id"] for entry in second_restore["entries"]
-    }.isdisjoint({entry["id"] for entry in restored["entries"]})
+    assert {entry["id"] for entry in second_restore["entries"]}.isdisjoint(
+        {entry["id"] for entry in restored["entries"]}
+    )
 
 
 def test_cancelled_archive_export_does_not_publish(client: ApiClient) -> None:
