@@ -2,8 +2,8 @@
 
 ## Current milestone
 
-Issue #7 - selection-based molecular representation styling, Checkpoint 5
-implemented and under final checkpoint review
+Issue #7 - selection-based molecular representation styling, Checkpoint 6
+implemented and release candidate qualified for pull request
 
 The approved implementation contract at
 `docs/plans/issue-7-selection-representation-styling.md` is the detailed source
@@ -24,10 +24,11 @@ atomic representations. An accessible toolbar launcher and responsive style
 dialog now expose atom and polymer choices plus reset through the one project
 mutation. Real-WebGL desktop and Pixel 7 workflows now qualify exact
 scientific boundaries, durable history/scene/reload behavior, invariant
-molecular data and camera state,
-accessibility, responsive bounds, and normalized-structure query reuse. The
-next action is to commit the verified contract documentation and begin release
-preparation.
+molecular data and camera state, accessibility, responsive bounds, and
+normalized-structure query reuse. v0.4.0 versions and release notes are aligned,
+the complete release gate and full-diff review pass, and the next action is to
+commit qualification evidence, refresh the base, push, and open the feature
+pull request.
 
 The previously current issue #2 automatic component detection and structure
 hierarchy milestone is complete and released in v0.3.0.
@@ -46,6 +47,25 @@ export remain explicitly deferred or rejected. The published release is
 backward compatible with no Alembic or archive-schema migration.
 
 ## Completed work
+
+- Advanced all five authoritative application version sources to 0.4.0,
+  retained archive producer compatibility through 0.3.0, and added release
+  notes covering implemented behavior, simplifications, migration/downgrade,
+  scientific/accessibility/performance limits, deferred scope, rejections, and
+  existing follow-up issues.
+- Confirmed `origin/master` remains at `0526eb0`, no `v0.4.0` tag or release
+  collides, issue #7 remains open, and no open PR, branch protection, ruleset,
+  required check, or required review is configured.
+- Passed the complete v0.4.0 release gate: frozen Python/JavaScript installs,
+  Alembic `0008 (head)`, Ruff, strict mypy across 49 source files, all 201
+  Python tests, ESLint, TypeScript, all 61 Vitest tests, all 7 supervisor tests,
+  production build, `git diff --check`, and all 40 applicable desktop/mobile
+  Playwright workflows with 30 intentional cross-layout skips in 9.3 minutes.
+- Recorded the expected lazy Mol* advisory at 966.43 KiB gzip and initial app
+  bundle at 154.58 KiB gzip. Local `origin/master...HEAD` review found no
+  unresolved scope, scientific, persistence, migration, archive, boundary,
+  selection/camera, accessibility, performance, dead-code, debug-path, or
+  compatibility issue; it is not claimed as independent review.
 
 - Documented issue #7's application/Mol* ownership boundary, additive typed
   viewer schema and project action, migration/downgrade policy, exact channel
@@ -1718,5 +1738,6 @@ None.
 
 ## Next action
 
-Commit issue #7 Checkpoint 5, then complete Checkpoint 6 version, release-note,
-compatibility, full-gate, and final-diff preparation for v0.4.0.
+Commit issue #7 release qualification evidence, then refresh `origin/master`,
+push the feature branch, open the planned PR, request review, and enforce all
+verified merge/release gates.

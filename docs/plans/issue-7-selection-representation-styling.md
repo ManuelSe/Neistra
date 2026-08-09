@@ -1347,6 +1347,53 @@ Release is additionally blocked when:
   styling and classification overrides. Next action: commit and prepare the
   v0.4.0 release candidate.
 
+### 2026-08-09 - Checkpoint 6 implemented
+
+- Re-fetched the remote base and release state. `origin/master` remained at
+  `0526eb0b95db664a8d8fb837e75f9434090265f2`; issue #7 remained open;
+  `v0.4.0` did not exist as a tag or GitHub release; and there was no open PR,
+  branch protection, ruleset, required check, or required review.
+- Advanced all five authoritative application versions from 0.3.0 to 0.4.0.
+  Added an explicit archive producer-version assertion while retaining
+  exhaustive provenance cases through 0.3.0 and exact selection-style/current
+  structure/original-byte round trip for 0.4.0 output.
+- Added release notes with every planned section and explicit implemented,
+  simplified, deferred, rejected, migration, forward-compatibility,
+  scientific, accessibility, performance, and existing follow-up scope. No
+  speculative advanced-presentation or preset issue was created without
+  demonstrated product demand.
+- Pre-commit release checks passed 8 focused archive/migration tests, frozen
+  Python/JavaScript installs, all five version-source comparisons, and diff
+  hygiene.
+- Complete release gate on commit `0be4119`:
+  - `.venv/bin/uv sync --frozen`: pass (49 locked packages).
+  - `corepack pnpm install --frozen-lockfile`: pass (lockfile current).
+  - `MOLWEAVE_DATA_DIR=.molweave .venv/bin/uv run alembic upgrade head`:
+    pass; upgraded `0007 -> 0008` and reports head.
+  - `.venv/bin/uv run ruff check .`: pass.
+  - `.venv/bin/uv run mypy apps/api packages/molweave_core`: pass (49 files).
+  - `.venv/bin/uv run pytest`: pass (201 tests; five existing Alembic
+    `path_separator` deprecation warnings).
+  - `corepack pnpm --dir apps/web lint`: pass.
+  - `corepack pnpm --dir apps/web typecheck`: pass.
+  - `corepack pnpm --dir apps/web test`: pass (19 files, 61 tests).
+  - `corepack pnpm test:dev`: pass (7 supervisor tests).
+  - `corepack pnpm --dir apps/web build`: pass; initial application 154.58 KiB
+    gzip and lazy Mol* 966.43 KiB gzip with the known non-blocking advisory.
+  - `PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test`:
+    pass (40 applicable desktop/mobile workflows, 30 intentional cross-layout
+    skips; 9.3 minutes).
+  - `git diff --check`: pass.
+- Local full `origin/master...HEAD` review checked all 44 changed files and the
+  ordered seven-commit history. No unresolved scope expansion, molecular-state,
+  command-atomicity, schema, migration, archive, scientific-boundary,
+  renderer-ownership, selection/camera, accessibility, performance, dead-code,
+  debug-path, or compatibility finding remains. The review is local and is not
+  claimed as independent.
+- Remaining delivery work is remote only: qualification evidence commit, base
+  refresh, branch push, PR/review/merge, annotated tag, release, issue reply,
+  and branch cleanup.
+
 ### Checkpoint log template
 
 For every completed checkpoint append:
@@ -1360,5 +1407,6 @@ For every completed checkpoint append:
 
 ## Completion
 
-Checkpoints 1-5 are implemented and verified. Checkpoint 6 remains in progress
-under this approved contract.
+All six checkpoints are implemented and verified. The v0.4.0 release candidate
+is qualified for its pull request; remote review, merge, release, issue reply,
+and branch cleanup remain delivery operations under this contract.

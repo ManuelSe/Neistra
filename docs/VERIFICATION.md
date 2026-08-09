@@ -82,7 +82,7 @@ for functional automation.
 
 ## V0.4.0 Issue #7 Feature Evidence
 
-Status: qualified release candidate
+Status: qualified v0.4.0 release candidate
 
 This evidence supplements the v0.1 matrix and follows the approved contract in
 `docs/plans/issue-7-selection-representation-styling.md`.
@@ -125,7 +125,26 @@ The candidate keeps API, project, archive, and normalized schema major version
 JSON and refuses a lossy downgrade while assignments exist. Legacy v0.3.0
 archives default the absent field to empty. Selection styling preserves current
 and original artifacts and does not change molecular data. Release preparation
-will advance all five authoritative application versions from 0.3.0 to 0.4.0.
+advanced all five authoritative application versions from 0.3.0 to 0.4.0.
+
+The final complete gate passed frozen Python and JavaScript installs; upgraded
+the normal local data store from Alembic `0007` to `0008 (head)`; passed Ruff,
+strict mypy across 49 source files, all 201 Python tests, ESLint, TypeScript,
+all 61 Vitest tests, all 7 supervisor tests, the production build, and
+`git diff --check`; and passed all 40 applicable desktop/mobile Playwright
+workflows with 30 intentional cross-layout skips in 9.3 minutes. The build
+retained the expected lazy Mol* advisory at 966.43 KiB gzip and an initial
+application bundle of 154.58 KiB gzip.
+
+Immediately before qualification, `origin/master` remained
+`0526eb0b95db664a8d8fb837e75f9434090265f2`; `v0.4.0` did not exist as a tag or
+release; issue #7 remained open; and the repository exposed no open pull
+request, branch protection, ruleset, required check, or required review. The
+complete `origin/master...HEAD` diff and commit sequence were reviewed locally.
+No unresolved scope, molecular-state, command atomicity, schema, migration,
+archive, exact-boundary, camera/selection, accessibility, performance,
+dead-code, debug-path, or compatibility finding remains. This was a local
+review and is not represented as independent.
 
 ## V0.3.0 Issue #2 Feature Evidence
 
