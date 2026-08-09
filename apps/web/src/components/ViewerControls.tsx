@@ -243,14 +243,7 @@ export function ViewerControls(props: ViewerControlsProps) {
                 Turn off to keep polar hydrogens only. Requires Show hydrogens.
               </span>
             </div>
-            {(
-              [
-                ["protein", "Protein"],
-                ["ligands", "Ligands"],
-                ["solvent", "Solvent"],
-                ["ions", "Ions"],
-              ] as const
-            ).map(([key, label]) => (
+            {(["protein", "ligands", "solvent", "ions"] as const).map((key) => (
               <label key={key} className="check-label">
                 <input
                   type="checkbox"
@@ -265,7 +258,7 @@ export function ViewerControls(props: ViewerControlsProps) {
                     })
                   }
                 />
-                {label}
+                {key}
               </label>
             ))}
           </fieldset>
