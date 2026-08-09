@@ -1231,6 +1231,48 @@ Release is additionally blocked when:
   to Checkpoint 4 after the Checkpoint 3 controls provide the complete user
   workflow. Next action: commit and add the accessible styling controls.
 
+### 2026-08-09 - Checkpoint 3 implemented
+
+- Added an always-present **Style selection** quick action with an original
+  MolWeave palette icon and treatment. The native button remains keyboard
+  focusable with `aria-disabled`, dialog state, and an exact reason when the
+  selection is empty, a project mutation is busy, or the workflow is absent.
+- Added a compact responsive dialog with selected atom/entry counts, concise
+  inherited-channel help, semantic Atom detail and Polymer fieldsets, all seven
+  accepted styles, Reset to entry defaults, pressed state, action progress, and
+  local success/error announcements.
+- Added frontend polymer preflight from normalized structures and the derived
+  hierarchy. It matches backend rules for supported protein/DNA/RNA residues,
+  exact complete-residue membership, trace atoms, and all-or-nothing rejection
+  of an incompatible multi-entry request. Opening the dialog explicitly loads missing
+  structure through the existing artifact-keyed query cache; ordinary hidden
+  entries remain lazy.
+- Routed apply/reset through `projectApi.updateSelectionRepresentations` and
+  the one revisioned backend mutation. Neither the handler nor dialog modifies
+  current selection, picking granularity, camera, isolation, or molecular data.
+- Radix dialog behavior supplies focus trapping, Escape dismissal, and exact
+  launcher focus restoration. Unavailable polymer actions have a persistent
+  adjacent reason; available atomic actions remain keyboard operable for every
+  non-empty valid selection.
+- The two-column minmax layout and viewport-bounded shared dialog shell contain
+  all controls without fixed wide children; Pixel 7 and desktop browser bounds
+  remain assigned to Checkpoint 4 real-browser evidence.
+- Focused evidence before commit:
+  - `corepack pnpm --dir apps/web lint`: pass.
+  - `corepack pnpm --dir apps/web typecheck`: pass.
+  - `corepack pnpm --dir apps/web test -- viewer-toolbar project-workspace representations structure-loading selection-style-dialog`:
+    pass (19 files, 61 tests; repository Vitest command runs the complete
+    frontend suite).
+  - `corepack pnpm --dir apps/web build`: pass with the existing non-blocking
+    lazy Mol* chunk advisory.
+  - `git diff --check`: pass.
+- Checkpoint review confirmed no Maestro asset, icon, label, layout, palette,
+  or control grouping was copied. The screenshot informed only the high-level
+  value of a compact representation workflow, as approved.
+- Remaining limitation: visual distinctness, exact camera/selection invariance,
+  bond boundaries, and responsive bounds require real-WebGL/browser evidence
+  in Checkpoint 4. Next action: commit and qualify the complete workflow.
+
 ### Checkpoint log template
 
 For every completed checkpoint append:

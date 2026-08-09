@@ -24,6 +24,7 @@ import type {
   Scene,
   SelectionGranularity,
   SelectionMode,
+  SelectionRepresentationStyle,
   StructureProjection,
   SuperpositionRequest,
 } from "./api/types";
@@ -315,7 +316,9 @@ export default function App() {
     [project, projectMutation],
   );
 
-  const loadStructures = async (entryIds: Iterable<string>): Promise<StructureMap> => {
+  const loadStructureProjections = async (
+    entryIds: Iterable<string>,
+  ): Promise<Map<string, StructureProjection>> => {
     if (!project) return new Map();
     const requested = [...new Set(entryIds)];
     const loaded = await Promise.all(
@@ -327,11 +330,19 @@ export default function App() {
           queryFn: () => molecularApi.structure(project.id, entry.id),
           staleTime: Number.POSITIVE_INFINITY,
         });
-        return [entry.id, result.structure] as const;
+        return [entry.id, result] as const;
       }),
     );
     return new Map(loaded.filter((item): item is NonNullable<typeof item> => item !== null));
   };
+
+  const loadStructures = async (entryIds: Iterable<string>): Promise<StructureMap> =>
+    new Map(
+      [...(await loadStructureProjections(entryIds))].map(([entryId, projection]) => [
+        entryId,
+        projection.structure,
+      ]),
+    );
 
   const runSelectionOperation = async (operation: () => Promise<void>) => {
     setSelectionBusy(true);
@@ -659,6 +670,29 @@ export default function App() {
     onDeleteScene: async (scene: Scene) => {
       if (!project) return;
       await projectMutation.mutateAsync(() => projectApi.deleteScene(project, scene));
+    },
+    onLoadSelectionStructures: () =>
+      loadStructureProjections(selectedEntryIds(selection)),
+    onSelectionStyle: async (
+      action: "apply" | "reset",
+      style?: SelectionRepresentationStyle,
+    ) => {
+      if (!project) return;
+      await projectMutation.mutateAsync(() =>
+        projectApi.updateSelectionRepresentations(
+          project,
+          selection,
+          action,
+          style,
+        ),
+      );
+      setNotice({
+        kind: "success",
+        text:
+          action === "reset"
+            ? "Selection representations reset to entry defaults."
+            : "Selection representation applied.",
+      });
     },
   };
 

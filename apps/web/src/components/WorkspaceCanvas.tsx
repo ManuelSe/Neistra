@@ -7,6 +7,8 @@ import type {
   Selection,
   SelectionGranularity,
   SelectionMode,
+  SelectionRepresentationStyle,
+  StructureProjection,
   ViewerSettings,
 } from "../api/types";
 import type { Theme } from "../store/workspace";
@@ -28,6 +30,11 @@ interface WorkspaceCanvasProps {
   onCreateScene?: (name: string, camera: CameraState) => Promise<void>;
   onApplyScene?: (scene: Scene) => Promise<void>;
   onDeleteScene?: (scene: Scene) => Promise<void>;
+  onLoadSelectionStructures?: () => Promise<Map<string, StructureProjection>>;
+  onSelectionStyle?: (
+    action: "apply" | "reset",
+    style?: SelectionRepresentationStyle,
+  ) => Promise<void>;
 }
 
 export function WorkspaceCanvas({
@@ -46,6 +53,8 @@ export function WorkspaceCanvas({
   onCreateScene,
   onApplyScene,
   onDeleteScene,
+  onLoadSelectionStructures,
+  onSelectionStyle,
 }: WorkspaceCanvasProps) {
   if (loading) {
     return (
@@ -102,6 +111,8 @@ export function WorkspaceCanvas({
           onCreateScene={onCreateScene}
           onApplyScene={onApplyScene}
           onDeleteScene={onDeleteScene}
+          onLoadSelectionStructures={onLoadSelectionStructures}
+          onSelectionStyle={onSelectionStyle}
         />
       )}
     </main>

@@ -1,5 +1,5 @@
 import * as Tooltip from "@radix-ui/react-tooltip";
-import { Focus, Frame, Pill } from "lucide-react";
+import { Focus, Frame, Palette, Pill } from "lucide-react";
 import type { ReactNode } from "react";
 import type { SelectionGranularity } from "../api/types";
 
@@ -24,9 +24,12 @@ interface ViewerToolbarProps {
   fitAllUnavailableReason: string | null;
   focusSelectionUnavailableReason: string | null;
   focusLigandsUnavailableReason: string | null;
+  selectionStyleUnavailableReason: string | null;
+  selectionStyleOpen: boolean;
   onFitAll: () => void;
   onFocusSelection: () => void;
   onFocusLigands: () => void;
+  onSelectionStyle: () => void;
 }
 
 interface ViewerActionButtonProps {
@@ -35,6 +38,8 @@ interface ViewerActionButtonProps {
   unavailableReason: string | null;
   onClick: () => void;
   children: ReactNode;
+  hasPopup?: "dialog";
+  expanded?: boolean;
 }
 
 function ViewerActionButton({
@@ -43,6 +48,8 @@ function ViewerActionButton({
   unavailableReason,
   onClick,
   children,
+  hasPopup,
+  expanded,
 }: ViewerActionButtonProps) {
   const unavailable = unavailableReason !== null;
   return (
@@ -53,6 +60,8 @@ function ViewerActionButton({
           className="viewer-action-button"
           aria-label={label}
           aria-disabled={unavailable}
+          aria-haspopup={hasPopup}
+          aria-expanded={hasPopup ? expanded : undefined}
           onClick={() => {
             if (!unavailable) onClick();
           }}
@@ -76,9 +85,12 @@ export function ViewerToolbar({
   fitAllUnavailableReason,
   focusSelectionUnavailableReason,
   focusLigandsUnavailableReason,
+  selectionStyleUnavailableReason,
+  selectionStyleOpen,
   onFitAll,
   onFocusSelection,
   onFocusLigands,
+  onSelectionStyle,
 }: ViewerToolbarProps) {
   return (
     <div className="viewer-toolbar" role="toolbar" aria-label="Viewer quick actions">
@@ -148,6 +160,16 @@ export function ViewerToolbar({
           onClick={onFocusLigands}
         >
           <Pill size={15} />
+        </ViewerActionButton>
+        <ViewerActionButton
+          label="Style selection"
+          tooltip="Choose a representation for the current selection"
+          unavailableReason={selectionStyleUnavailableReason}
+          onClick={onSelectionStyle}
+          hasPopup="dialog"
+          expanded={selectionStyleOpen}
+        >
+          <Palette size={15} />
         </ViewerActionButton>
       </div>
     </div>

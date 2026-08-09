@@ -2,7 +2,7 @@
 
 ## Current milestone
 
-Issue #7 - selection-based molecular representation styling, Checkpoint 2
+Issue #7 - selection-based molecular representation styling, Checkpoint 3
 implemented and under final checkpoint review
 
 The approved implementation contract at
@@ -20,8 +20,10 @@ multi-entry API command, polymer validation, topology/scene reconciliation,
 legacy defaults, and Alembic revision `0008` are implemented. The renderer now
 projects inherited and selection-specific channels into exact disposable Mol*
 components, including distinct thin/thick stick profiles and boundary-safe
-atomic representations. Focused frontend gates pass; the next action is the
-final renderer diff review and checkpoint commit before accessible controls.
+atomic representations. An accessible toolbar launcher and responsive style
+dialog now expose atom and polymer choices plus reset through the one project
+mutation. Focused frontend gates pass; the next action is final UI diff review
+and commit before real-browser qualification.
 
 The previously current issue #2 automatic component detection and structure
 hierarchy milestone is complete and released in v0.3.0.
@@ -40,6 +42,20 @@ export remain explicitly deferred or rejected. The published release is
 backward compatible with no Alembic or archive-schema migration.
 
 ## Completed work
+
+- Implemented issue #7 Checkpoint 3's focusable toolbar launcher and original
+  compact MolWeave dialog with selection counts, semantic Atom detail and
+  Polymer groups, five atomic styles, Backbone, Cartoon, reset, inherited-style
+  help, pressed/busy feedback, and local success/error status.
+- Added frontend polymer preflight against current normalized structures and
+  derived hierarchy with the same complete supported residue and trace-atom
+  reasons as the backend; opening the workflow explicitly loads only selected
+  missing structures through the existing artifact-keyed query cache.
+- Wired apply/reset through the single revisioned project API without touching
+  transient selection, picking mode, isolation, camera, or molecular data.
+- Verified focusable unavailable reasons, dialog semantics, keyboard actions,
+  Escape focus restoration, exact API action arguments, frontend lint,
+  type-check, all 61 component tests, production build, and diff checks.
 
 - Implemented issue #7 Checkpoint 2's deterministic viewer projection: same-
   channel inherited layers subtract only targeted visible atoms, independent

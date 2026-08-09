@@ -15,9 +15,12 @@ describe("viewer toolbar", () => {
       fitAllUnavailableReason: null,
       focusSelectionUnavailableReason: null,
       focusLigandsUnavailableReason: null,
+      selectionStyleUnavailableReason: null,
+      selectionStyleOpen: false,
       onFitAll: vi.fn(),
       onFocusSelection: vi.fn(),
       onFocusLigands: vi.fn(),
+      onSelectionStyle: vi.fn(),
     };
     const view = render(
       <Tooltip.Provider delayDuration={0}>
@@ -73,9 +76,12 @@ describe("viewer toolbar", () => {
           fitAllUnavailableReason={null}
           focusSelectionUnavailableReason="Select atoms before focusing the selection"
           focusLigandsUnavailableReason="No ligand detected in visible structures"
+          selectionStyleUnavailableReason="Select atoms before styling the selection"
+          selectionStyleOpen={false}
           onFitAll={() => undefined}
           onFocusSelection={() => undefined}
           onFocusLigands={onFocusLigands}
+          onSelectionStyle={() => undefined}
         />
       </Tooltip.Provider>,
     );
@@ -84,6 +90,14 @@ describe("viewer toolbar", () => {
     });
 
     expect(focusLigands).toHaveAttribute("aria-disabled", "true");
+    const styleSelection = screen.getByRole("button", {
+      name: "Style selection",
+    });
+    expect(styleSelection).toHaveAttribute("aria-disabled", "true");
+    expect(styleSelection).toHaveAttribute("aria-haspopup", "dialog");
+    expect(styleSelection).toHaveAttribute("aria-expanded", "false");
+    styleSelection.focus();
+    expect(styleSelection).toHaveFocus();
     focusLigands.focus();
     expect(focusLigands).toHaveFocus();
     await user.hover(focusLigands);
@@ -101,9 +115,12 @@ describe("viewer toolbar", () => {
           fitAllUnavailableReason={null}
           focusSelectionUnavailableReason={null}
           focusLigandsUnavailableReason={null}
+          selectionStyleUnavailableReason={null}
+          selectionStyleOpen={false}
           onFitAll={() => undefined}
           onFocusSelection={() => undefined}
           onFocusLigands={onFocusLigands}
+          onSelectionStyle={() => undefined}
         />
       </Tooltip.Provider>,
     );
