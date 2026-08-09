@@ -2,49 +2,22 @@
 
 ## Current milestone
 
-Issue #7 - selection-based molecular representation styling, released in
-MolWeave v0.4.0
+Issue #1 - polar-only hydrogen visibility, approved planning checkpoint
 
-The approved implementation contract at
-`docs/plans/issue-7-selection-representation-styling.md` is the detailed source
-of truth. The bounded outcome adds exact durable selection representation
-assignments with atomic and polymer replacement channels, an accessible
-viewer-toolbar action, undo/redo, scene/project/archive persistence, topology
-reconciliation, and camera/selection invariance while keeping molecular state
-and Mol* ownership unchanged. Presets, same-channel layering, selection-specific
-color/opacity/labels/surfaces, context-menu duplication, a Ribbon alias, and a
-new Molecule granularity remain deferred or rejected. The backward-compatible
-minor release was rebase-merged in PR #24 and published as v0.4.0 from exact
-commit `7f468e90dc0038c9e0fecd8b165867274be757a5`.
-Durable typed assignments, replacement/reset algebra, the revisioned
-multi-entry API command, polymer validation, topology/scene reconciliation,
-legacy defaults, and Alembic revision `0008` are implemented. The renderer now
-projects inherited and selection-specific channels into exact disposable Mol*
-components, including distinct thin/thick stick profiles and boundary-safe
-atomic representations. An accessible toolbar launcher and responsive style
-dialog now expose atom and polymer choices plus reset through the one project
-mutation. Real-WebGL desktop and Pixel 7 workflows now qualify exact
-scientific boundaries, durable history/scene/reload behavior, invariant
-molecular data and camera state, accessibility, responsive bounds, and
-normalized-structure query reuse. The complete release gate and local full-diff
-review passed, remote delivery and the issue response are verified, and the
-original feature branch has been removed locally and remotely.
+The approved implementation contract is
+`docs/plans/issue-1-polar-hydrogen-visibility.md`. The bounded outcome adds an
+additive durable non-polar-hydrogen preference to the existing master hydrogen
+visibility setting, projects the resulting all/polar-only/none mode through
+Mol* for protein and ligand representations, and preserves it through history,
+scenes, projects, and archives without changing molecular artifacts or
+inferring hydrogens. The planned backward-compatible feature release is v0.5.0.
 
-The previously current issue #2 automatic component detection and structure
-hierarchy milestone is complete and released in v0.3.0.
-
-The approved implementation contract at
-`docs/plans/issue-2-structure-hierarchy.md` is the detailed source of truth.
-The approved outcome adds an application-owned deterministic component
-hierarchy, conservative source-aware classification, category and individual
-selection through canonical atom references, and mapped group visibility while
-keeping Mol* disposable. The typed source-aware domain classifier and additive
-lazy API hierarchy plus the selectable project-browser and viewer projection
-are implemented, verified, merged in PR #22, and released as v0.3.0 from
-`78d079a789368078ec24c4fca7d2d90d6cdab79c`. Durable component overrides,
-selection-specific styling, ligand-of-interest state, and component subset
-export remain explicitly deferred or rejected. The published release is
-backward compatible with no Alembic or archive-schema migration.
+Checkpoint 0 is documentation only. The branch
+`feat/issue-1-polar-hydrogen-visibility` was created from clean, synchronized
+`master` commit `e3187b22e5da76ff22850b5c5fee1c32adad63e5`. The approved plan and
+project handoff are persisted, and documentation validation passes. The next
+action is to begin Checkpoint 1 only through `/goal`; implementation has not
+started.
 
 ## Completed work
 
