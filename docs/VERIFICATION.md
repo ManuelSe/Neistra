@@ -82,7 +82,7 @@ for functional automation.
 
 ## V0.5.0 Issue #1 Feature Evidence
 
-Status: complete local release qualification passed
+Status: released in MolWeave v0.5.0
 
 This evidence supplements the v0.1 matrix and follows the approved contract in
 `docs/plans/issue-1-polar-hydrogen-visibility.md`.
@@ -153,6 +153,15 @@ scope, scientific, molecular-state, migration, archive, renderer,
 representation, selection/camera, accessibility, performance, dead-code,
 debug-path, test-infrastructure, or compatibility finding remains. This review
 was local and is not represented as independent.
+
+Remote delivery is verified: PR #26 rebase-merged to
+`bb60e921506ccdcfb19535b6b6cc5328c2b1718a`; annotated tag `v0.5.0`
+dereferences to that exact commit; the GitHub release is published, non-draft,
+and non-prerelease; issue #1 is closed with its verified final response; and
+the original feature branch was deleted locally and remotely afterward. The
+requested `@codex review` integration did not acknowledge or return a review;
+PR #26 records the local review without claiming independence. This
+documentation-only closeout does not move the released tag.
 
 The automated WebGL evidence verifies the approved explicit-connectivity
 protein and ligand behavior. It does not claim missing-hydrogen generation,

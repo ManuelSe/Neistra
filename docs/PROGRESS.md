@@ -2,7 +2,7 @@
 
 ## Current milestone
 
-Issue #1 - polar-only hydrogen visibility, checkpoint 5 qualified
+Issue #1 - polar-only hydrogen visibility, complete and released in v0.5.0
 
 The approved implementation contract is
 `docs/plans/issue-1-polar-hydrogen-visibility.md`. The bounded outcome adds an
@@ -10,13 +10,30 @@ additive durable non-polar-hydrogen preference to the existing master hydrogen
 visibility setting, projects the resulting all/polar-only/none mode through
 Mol* for protein and ligand representations, and preserves it through history,
 scenes, projects, and archives without changing molecular artifacts or
-inferring hydrogens. The planned backward-compatible feature release is v0.5.0.
+inferring hydrogens. The result is the backward-compatible v0.5.0 release.
 
-Checkpoint 5 advances and qualifies the backward-compatible v0.5.0 candidate.
-The feature branch is ready for final base refresh, push, pull request, review,
-and protected remote delivery.
+The approved scope is merged in PR #26, released from annotated tag v0.5.0,
+and closed out on issue #1. The release tag remains on the exact verified
+feature merge; this documentation-only closeout records the remote evidence.
 
 ## Completed work
+
+- Rebase-merged [PR #26](https://github.com/ManuelSe/MolWeave/pull/26) to
+  verified release commit `bb60e92`, closing issue #1.
+- Published and remotely verified annotated tag and
+  [GitHub release v0.5.0](https://github.com/ManuelSe/MolWeave/releases/tag/v0.5.0)
+  at that exact commit; the release is non-draft and non-prerelease.
+- Posted and remotely verified the issue #1 close-out reply with delivered
+  behavior, the exact N/O/S/F/Cl/Br/I connectivity convention, verification,
+  migration/compatibility, scientific limitations, scope decisions, and the
+  absence of speculative follow-up issues.
+- Requested `@codex review`; the integration did not acknowledge or return a
+  review. PR #26 records the completed local full-diff review and resolved
+  findings without claiming independence. No protection, ruleset, check,
+  required review, or unresolved conversation blocked merge.
+- Deleted the original feature branch locally and remotely only after merge,
+  tag, published release, and issue response were remotely verified. The
+  documentation closeout leaves the annotated release tag unchanged.
 
 - Passed the complete v0.5.0 release gate: frozen installs, Alembic `0009`,
   Ruff, strict mypy across 50 source files, all 209 Python tests, ESLint,
