@@ -123,6 +123,7 @@ selection_representations:
     atom_ids: sorted unique positive normalized atom IDs
 components:
   hydrogens: boolean
+  nonpolar_hydrogens: boolean
   solvent: boolean
   ions: boolean
   ligands: boolean
@@ -150,6 +151,13 @@ deletion prunes live and scene assignments atomically, while undo restores the
 prior records. Named scenes store the same typed viewer settings, so applying a
 scene restores styles with its camera and transient selection.
 
+`components.hydrogens` is the master display switch. When it is `true`,
+`components.nonpolar_hydrogens=false` selects the polar-only presentation;
+when the master switch is `false`, no hydrogen is displayed and the dependent
+preference is retained for later re-enabling. Both fields default to `true` in
+legacy payloads. They filter presentation only and do not add, remove, infer,
+or modify normalized atoms or bonds.
+
 Alembic migration `0008` adds an empty `selection_representations` list to live
 entry JSON, checkpoint entry JSON, and scene entry-state JSON. Legacy project
 and archive payloads that omit the additive field default to an empty list.
@@ -157,6 +165,15 @@ Downgrade is permitted only while all such lists are empty; otherwise it stops
 with an explicit instruction to reset selection styles, preventing silent data
 loss. Project schema version 1, archive schema version 1, and normalized schema
 version 1 are unchanged.
+
+Alembic migration `0009` adds `nonpolar_hydrogens: true` to live entry JSON,
+checkpoint entry JSON, and scene entry-state JSON. Project and archive payloads
+that omit the additive field retain all-hydrogen behavior through the model
+default. Downgrade is permitted only while every stored value is `true`; if a
+polar-only preference exists, it stops with an explicit instruction to re-enable
+non-polar hydrogens first rather than silently discard user state. Project
+schema version 1, archive schema version 1, normalized schema version 1, and
+the `/api/v1` major remain unchanged.
 
 ## MeasurementV1
 

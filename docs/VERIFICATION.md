@@ -80,6 +80,47 @@ suite still asserts WebGL canvas pixels, accessible surrounding state, and
 viewport bounds so these manual checks are supplementary rather than substitutes
 for functional automation.
 
+## V0.5.0 Issue #1 Feature Evidence
+
+Status: checkpoint-qualified release candidate
+
+This evidence supplements the v0.1 matrix and follows the approved contract in
+`docs/plans/issue-1-polar-hydrogen-visibility.md`.
+
+| Feature claim | Passing evidence |
+|---|---|
+| Additive durable setting and compatibility | Schema/service/history/scene tests prove `nonpolar_hydrogens=true` defaults, exact update and undo/redo, named-scene application, checkpoint persistence, archive round-trip, and legacy missing-field behavior without changing API, project, archive, or normalized schema majors |
+| Safe migration | `test_migrations.py` proves migration `0009` upgrades live entries, checkpoints, and scenes; permits lossless downgrade/re-upgrade while all values are `true`; and refuses to discard a stored `false` value |
+| Three-mode precedence | `hydrogen-visibility.test.ts`, workspace tests, and viewer profile tests prove all, polar-only, and none; the master switch overrides but preserves the dependent preference |
+| Pinned scientific rule | Checksum-locked protein PDB and ligand MOL fixtures plus `test_release_fixture.py` prove explicit C-H and O-H connectivity without bond inference; Mol* qualification proves polar-only hides the C-bound H and retains the O-bound H |
+| Complete disposable projection | Representation and adapter tests prove every inherited and exact-selection atomic style plus surfaces receives the same mode, no atom is invented, and camera/selection restoration and artifact-keyed query reuse remain intact |
+| Molecular and original-data invariance | API snapshots and the real-browser workflow prove atom IDs/count, bonds, coordinates, conformers, artifacts, warnings/inferences, and original uploaded bytes are unchanged apart from viewer settings and expected history |
+| Durable user workflow | `polar-hydrogen-visibility.spec.ts` proves restoration, undo/redo, reload/checkpoint, named scenes, archive round-trip, and hydrogen-free input across protein and ligand entries |
+| Transient-state and focus behavior | Browser and component evidence proves camera, current selection, picking mode, and isolation remain unchanged; focus uses deterministic heavy atoms outside all-hydrogen mode |
+| Accessible responsive controls | Desktop and Pixel 7 workflows prove native named controls, keyboard use, dependent-state explanation, viewport bounds, no horizontal overflow, and zero scoped axe findings |
+| Performance boundary | The browser workflow observes one normalized-structure request before reload across repeated toggles; no incremental-rendering, large-system, cross-browser, or hardware-GPU performance claim is made |
+
+Checkpoint 1 passed Ruff, strict mypy across 50 source files, 27 focused
+Python tests, frontend type-check, and `git diff --check`. Checkpoint 2 passed
+ESLint, TypeScript, all 65 Vitest tests across 20 files, the production build,
+and diff checks. The build retained the expected lazy Mol* advisory at 966.42
+KiB gzip and an initial application bundle of 154.84 KiB gzip.
+
+Checkpoint 3 passed 17 focused Python integration/scientific tests, all 65
+Vitest tests, Ruff, ESLint, TypeScript, and diff checks. A fresh isolated data
+root migrated through Alembic `0009`; pinned Chromium/SwiftShader then passed
+all 6 applicable scientific, durability, representation, state-invariance,
+archive, hydrogen-free, accessibility, bounds, and query-reuse workflows with
+4 intentional cross-layout skips in 50.6 seconds. The optional port/data-root
+overrides avoided an already-running pre-checkpoint development stack and did
+not change repository or CI defaults.
+
+The automated WebGL evidence verifies the approved explicit-connectivity
+protein and ligand behavior. It does not claim missing-hydrogen generation,
+bond inference, protonation or tautomer correctness, hydrogen-bond analysis,
+all file-format edge cases, cross-browser equivalence, hardware-GPU behavior,
+WebXR support, or subjective molecular aesthetics.
+
 ## V0.4.0 Issue #7 Feature Evidence
 
 Status: released in MolWeave v0.4.0

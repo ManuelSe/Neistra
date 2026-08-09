@@ -100,6 +100,23 @@ PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test \
   tests/e2e/release-journey.spec.ts --project=chromium
 ```
 
+When those resources are already occupied by an intentionally running local
+stack, focused evidence can use isolated values without changing repository or
+CI defaults:
+
+```bash
+MOLWEAVE_E2E_API_PORT=8110 \
+MOLWEAVE_E2E_WORKER_PORT=8111 \
+MOLWEAVE_E2E_WEB_PORT=5273 \
+MOLWEAVE_E2E_DATA_DIR=.molweave-e2e-isolated \
+PLAYWRIGHT_BROWSERS_PATH=.playwright \
+  corepack pnpm exec playwright test tests/e2e/polar-hydrogen-visibility.spec.ts
+```
+
+The data directory must be disposable and dedicated to that run. Record any
+override with the evidence so it is not mistaken for the documented default
+release environment.
+
 Use `.venv/bin/uv run pytest tests/scientific` for the chemistry/file-format
 suite and `corepack pnpm --dir apps/web test -- jobs` for a focused component
 run. Do not add `MOLWEAVE_ENABLE_TEST_ROUTES=1` to normal startup.

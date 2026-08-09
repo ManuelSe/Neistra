@@ -1,6 +1,6 @@
 # Issue 1 - Polar-Only Hydrogen Visibility
 
-Status: approved; implementation in progress (checkpoint 3 complete locally)
+Status: approved; implementation in progress (checkpoint 4 complete locally)
 
 ## Issue metadata
 
@@ -933,7 +933,8 @@ Release is additionally blocked when:
 | 2026-08-09 | Checkpoint 0 complete locally | Clean local `master` fast-forwarded from `origin/master` and verified at approved base `e3187b22e5da76ff22850b5c5fee1c32adad63e5`; created `feat/issue-1-polar-hydrogen-visibility`; persisted this plan and the concise project handoff without implementation changes; `git diff --check` passed. Commit and push this documentation-only checkpoint, then stop ready for `/goal`. |
 | 2026-08-09 | Checkpoint 1 complete locally | Commit `ab9f21c59c527180de82bff857d221ffb07c8be1` added typed `components.nonpolar_hydrogens` defaults in backend and frontend state, Alembic `0009` coverage for live/checkpoint/scene JSON with loss-preventing downgrade refusal, durable undo/redo/scene/archive compatibility coverage, and accepted D-047. Focused Ruff passed; strict mypy passed across 50 source files; all 27 focused Python tests passed with 15 known Alembic configuration deprecation warnings; frontend TypeScript and `git diff --check` passed. |
 | 2026-08-09 | Checkpoint 2 complete locally | Commit `209f362a22fbf9c11f5fd0b4f7f16cf12f05f620` added one typed effective-mode helper and projected all/polar-only/none to Mol* `ignoreHydrogens` and `ignoreHydrogensVariant` for every representation layer; no-hydrogen application filtering, exact targets, inherited/surface layers, hydrogen-free structures, heavy-atom ligand focus, query reuse, and explicit dependent controls have focused coverage. ESLint and TypeScript passed; both the approved focused Vitest command and the explicit control test run passed all 65 tests across 20 files; production build passed with the existing 966.42 KiB gzip lazy Mol* advisory and 154.84 KiB gzip initial bundle; `git diff --check` passed. |
-| 2026-08-09 | Checkpoint 3 complete locally | Added checksum-locked explicit-connectivity protein and ligand fixtures and documented the exact C-H/O-H assertions. The focused Python gate passed 17 integration/scientific tests; the focused frontend run passed all 65 tests across 20 files; Ruff, ESLint, TypeScript, and `git diff --check` passed. From a fresh isolated data root migrated through `0009`, pinned Chromium/SwiftShader passed all 6 applicable scientific, durability, representation, state-invariance, archive, hydrogen-free, accessibility, bounds, and request-reuse workflows with 4 intentional cross-layout skips in 50.6 seconds. The default-port attempt was invalidated because it reused a pre-checkpoint local API; optional Playwright port/data-root overrides now preserve defaults and enable isolated evidence. The coherent checkpoint commit is the commit containing this row. Next: checkpoint 4 verified-contract documentation. |
+| 2026-08-09 | Checkpoint 3 complete locally | Commit `5351029cd4074e97caa3279bb2f0f5771c4d3d7e` added checksum-locked explicit-connectivity protein and ligand fixtures and documented the exact C-H/O-H assertions. The focused Python gate passed 17 integration/scientific tests; the focused frontend run passed all 65 tests across 20 files; Ruff, ESLint, TypeScript, and `git diff --check` passed. From a fresh isolated data root migrated through `0009`, pinned Chromium/SwiftShader passed all 6 applicable scientific, durability, representation, state-invariance, archive, hydrogen-free, accessibility, bounds, and request-reuse workflows with 4 intentional cross-layout skips in 50.6 seconds. The default-port attempt was invalidated because it reused a pre-checkpoint local API; optional Playwright port/data-root overrides now preserve defaults and enable isolated evidence. |
+| 2026-08-09 | Checkpoint 4 complete locally | Documented application/Mol* hydrogen ownership, effective-mode precedence, the pinned N/O/S/F/Cl/Br/I connectivity rule, additive API/project/archive compatibility, migration `0009` downgrade refusal, presentation-only scientific boundary, label and focus behavior, accessible dependent controls, rebuild/query reuse, and WebGL/performance limitations. The candidate evidence matrix maps every approved claim to passing named tests without claiming chemistry preparation or cross-browser/hardware behavior. Ruff passed; strict mypy passed across 50 source files; ESLint, TypeScript, and `git diff --check` passed. Accepted D-047 already owns the material cross-project decision; no additional decision was introduced. The coherent checkpoint commit is the commit containing this row. Next: checkpoint 5 version and release qualification. |
 
 Future checkpoint entries must record exact commits, commands, pass counts,
 known warnings, limitations, remote identifiers, and the next action. Do not
@@ -942,6 +943,5 @@ has been verified remotely.
 
 ## Completion
 
-Implementation is in progress. Checkpoint 3 is complete locally; final
-verified-contract documentation, release preparation, and remote delivery
-remain.
+Implementation is in progress. Checkpoint 4 is complete locally; release
+preparation, complete qualification, and remote delivery remain.

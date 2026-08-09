@@ -150,6 +150,31 @@ structure preparation or validation software.
   notice. The threshold is not a performance guarantee; browser, GPU,
   representation, and topology still determine interactivity.
 
+### Hydrogen display
+
+- The viewer has three effective presentation modes: all explicit hydrogens,
+  polar-only, and none. The master **Show hydrogens** setting wins over the
+  preserved **Show non-polar hydrogens** preference when disabled.
+- Polar-only uses the pinned Mol* `non-polar` ignore variant. It retains an
+  explicit hydrogen only when projected bond connectivity associates it with
+  N, O, S, F, Cl, Br, or I. Carbon-bound hydrogens and hydrogens without that
+  qualifying connectivity are hidden. This element set and connectivity rule
+  are a fixed display convention for this release, not a polarity calculation.
+- Toggling either setting changes no atom, bond, coordinate, conformer,
+  artifact, warning, inference, or original uploaded byte. It never adds
+  missing hydrogens, infers bonds, assigns protonation or tautomer states,
+  repairs chemistry, or identifies hydrogen bonds.
+- The mode applies to inherited and exact selection-specific atomic styles and
+  surfaces. Atom labels are independent: enabling atom labels does not override
+  geometry filtering or make a hidden hydrogen representation visible.
+- Focus visible ligands uses heavy atoms outside all-hydrogen mode. This is a
+  deterministic navigation simplification, not evidence that every hydrogen
+  shown or hidden by Mol* was independently classified by MolWeave.
+- Automated qualification uses small explicit-connectivity protein and ligand
+  fixtures in pinned Chromium/SwiftShader. It does not establish behavior for
+  missing or ambiguous bonds, every file-format convention, other browsers,
+  hardware GPUs, WebXR, or chemically prepared systems.
+
 ### Selection-specific representations
 
 - A style assignment changes presentation only. It does not mutate coordinates,

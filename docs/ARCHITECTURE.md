@@ -138,6 +138,33 @@ application camera and canonical selection and reuses the artifact-keyed
 normalized-structure query. Color, opacity, labels, surfaces, component
 classification, and molecular data retain their existing owners.
 
+## Hydrogen Visibility Ownership
+
+`ViewerSettingsV1.components` stores two independent booleans. `hydrogens`
+is the master switch and `nonpolar_hydrogens` is a preserved preference that
+only has an effect while the master switch is enabled. Their effective modes
+are therefore:
+
+- both `true`: show all explicit hydrogens;
+- `hydrogens=true`, `nonpolar_hydrogens=false`: show only explicit hydrogens
+  bonded to N, O, S, F, Cl, Br, or I;
+- `hydrogens=false`: show no hydrogens, regardless of the preserved dependent
+  preference.
+
+Every inherited and selection-specific Mol* layer receives the same effective
+mode. All mode leaves hydrogen inclusion unrestricted; polar-only mode uses
+the pinned Mol* `non-polar` ignore variant; none mode uses its `all` ignore
+variant. Polar-only classification consequently depends on explicit projected
+connectivity and the pinned neighbor-element set, not coordinates, names,
+residue templates, or application-side chemistry inference. Application atom
+IDs, bonds, coordinates, artifacts, warnings, and original uploads never
+change. Atom labels remain controlled independently by `labels.atoms`.
+
+Viewer rebuilds restore the application camera and canonical selection and
+reuse the artifact-keyed normalized-structure query. Ligand focus uses only
+heavy atoms in polar-only and none modes so navigation remains deterministic
+without asking Mol* to expose its per-representation hydrogen classification.
+
 ## Persistence
 
 SQLite stores projects, entries, groups, checkpoints, bounded command history,

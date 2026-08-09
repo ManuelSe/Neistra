@@ -56,6 +56,11 @@ PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test \
   increments the project revision once. The renderer performs one deterministic
   linear membership projection per affected loaded entry and rebuilds its
   disposable exact Mol* bundle components while restoring camera and selection.
+- Hydrogen-mode changes update only viewer settings and rebuild each affected
+  disposable Mol* entry projection while restoring camera and canonical
+  selection. Repeated changes reuse the artifact-keyed normalized-structure
+  query; the qualified protein/ligand workflow observes one structure request
+  before reload rather than a request per toggle.
 - Spatial selection runs in a browser worker.
 - Mol* is a lazy production chunk and loads only when structures are present.
 - Coordinate commands return affected atom spans; topology commands replace
@@ -79,3 +84,9 @@ Selection-styling qualification proves query reuse and nonblank output for the
 not establish an incremental-rendering advantage or a new large-system
 latency/GPU-memory budget; the existing 250,000-atom reduced-detail behavior
 continues to apply while retaining exact selection assignments.
+Polar-only hydrogen qualification detects request-cache and rebuild regressions
+on compact explicit-connectivity fixtures. It establishes neither incremental
+rendering nor a new latency, GPU-memory, or large-system budget. MolWeave does
+not silently fall back to atom-name or coordinate heuristics when projected
+connectivity is absent; the existing reduced-detail threshold and WebGL limits
+still apply.

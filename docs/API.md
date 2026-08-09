@@ -268,6 +268,15 @@ Selection-specific records contain a style and canonical entry-local atom IDs;
 they inherit fixed element coloring and full opacity in this release and do not
 add selection-specific surface, label, color, or opacity controls.
 
+Component visibility includes `hydrogens` and `nonpolar_hydrogens`, both
+defaulting to `true` for additive compatibility. `hydrogens=false` is
+authoritative and hides all explicit hydrogens while preserving the dependent
+value. Otherwise `nonpolar_hydrogens=false` requests the polar-only mode. That
+mode renders only explicit hydrogens with projected bond connectivity to N, O,
+S, F, Cl, Br, or I. This is a viewer contract, not an atom-edit, hydrogen
+inference, protonation, or hydrogen-bond-analysis API. Existing clients that
+omit the field retain the prior all-hydrogen behavior; `/api/v1` is unchanged.
+
 Measurements persist a name, kind, ordered atom references, visibility, and
 warnings. Distance requires two distinct atoms, angle three, and dihedral four.
 Display values are recalculated from authoritative coordinates.
