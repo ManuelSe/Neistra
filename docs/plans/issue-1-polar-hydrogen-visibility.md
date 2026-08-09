@@ -1,6 +1,6 @@
 # Issue 1 - Polar-Only Hydrogen Visibility
 
-Status: approved; v0.5.0 release candidate prepared; qualification in progress
+Status: approved; v0.5.0 candidate qualified locally; remote delivery pending
 
 ## Issue metadata
 
@@ -936,6 +936,7 @@ Release is additionally blocked when:
 | 2026-08-09 | Checkpoint 3 complete locally | Commit `5351029cd4074e97caa3279bb2f0f5771c4d3d7e` added checksum-locked explicit-connectivity protein and ligand fixtures and documented the exact C-H/O-H assertions. The focused Python gate passed 17 integration/scientific tests; the focused frontend run passed all 65 tests across 20 files; Ruff, ESLint, TypeScript, and `git diff --check` passed. From a fresh isolated data root migrated through `0009`, pinned Chromium/SwiftShader passed all 6 applicable scientific, durability, representation, state-invariance, archive, hydrogen-free, accessibility, bounds, and request-reuse workflows with 4 intentional cross-layout skips in 50.6 seconds. The default-port attempt was invalidated because it reused a pre-checkpoint local API; optional Playwright port/data-root overrides now preserve defaults and enable isolated evidence. |
 | 2026-08-09 | Checkpoint 4 complete locally | Documented application/Mol* hydrogen ownership, effective-mode precedence, the pinned N/O/S/F/Cl/Br/I connectivity rule, additive API/project/archive compatibility, migration `0009` downgrade refusal, presentation-only scientific boundary, label and focus behavior, accessible dependent controls, rebuild/query reuse, and WebGL/performance limitations. The candidate evidence matrix maps every approved claim to passing named tests without claiming chemistry preparation or cross-browser/hardware behavior. Ruff passed; strict mypy passed across 50 source files; ESLint, TypeScript, and `git diff --check` passed. Accepted D-047 already owns the material cross-project decision; no additional decision was introduced. The coherent checkpoint commit is the commit containing this row. Next: checkpoint 5 version and release qualification. |
 | 2026-08-09 | Checkpoint 5 release preparation complete locally | Re-fetched `origin/master` and verified it remains the feature base at `e3187b22e5da76ff22850b5c5fee1c32adad63e5`. No `v0.5.0` tag, GitHub release, or prior branch PR collides; issue #1 remains open; the repository exposes no workflow, branch protection, ruleset, required check, or required review; and rebase merge remains enabled. Advanced all five authoritative application versions to 0.5.0, retained v0.1.0 through v0.4.0 archive producer compatibility, and added release notes for implemented, already-satisfied, simplified, deferred, rejected, scientific, migration, accessibility, performance, and compatibility scope. `uv lock --check` and `git diff --check` passed. The coherent release-preparation commit is the commit containing this row. Next: complete release gate and full-diff review. |
+| 2026-08-09 | Checkpoint 5 qualified locally | Release-preparation commit `df007c9087c8d8e7e4ada44e2c87f2c43041629b` advanced all authoritative versions. The complete gate passed frozen installs, normal-store Alembic `0008 -> 0009`, Ruff, strict mypy across 50 source files, all 209 Python tests with 15 known Alembic configuration deprecation warnings, ESLint, TypeScript, all 65 Vitest tests, all 7 supervisor tests, production build, and `git diff --check`. A fresh isolated store migrated `0001 -> 0009`; all 46 applicable desktop/mobile Playwright workflows passed with 34 intentional layout skips in 9.1 minutes. Build output retained the expected 966.42 KiB gzip lazy Mol* advisory and 154.84 KiB gzip initial bundle. Full local review found and fixed unsafe Playwright override interpolation (`59bd216`) and accidental existing-label capitalization (`d88291d`); rerun ESLint, TypeScript, all 65 Vitest tests, valid/invalid configuration checks, and all 6 applicable affected browser workflows passed with 4 intentional skips in 50.9 seconds. No unresolved consequential finding remains; the review is not claimed as independent. Next: base refresh, PR, remote review, merge, tag, release, issue reply, and cleanup. |
 
 Future checkpoint entries must record exact commits, commands, pass counts,
 known warnings, limitations, remote identifiers, and the next action. Do not
@@ -944,5 +945,5 @@ has been verified remotely.
 
 ## Completion
 
-The v0.5.0 release candidate is prepared. Complete qualification, full-diff
-review, and remote delivery remain.
+The approved v0.5.0 candidate is implemented and qualified locally. Remote PR,
+review, merge, tag, release, issue response, and branch cleanup remain.
