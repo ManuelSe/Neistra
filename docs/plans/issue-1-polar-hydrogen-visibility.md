@@ -1,6 +1,6 @@
 # Issue 1 - Polar-Only Hydrogen Visibility
 
-Status: approved; v0.5.0 candidate qualified locally; remote delivery pending
+Status: completed and released in MolWeave v0.5.0
 
 ## Issue metadata
 
@@ -937,6 +937,7 @@ Release is additionally blocked when:
 | 2026-08-09 | Checkpoint 4 complete locally | Documented application/Mol* hydrogen ownership, effective-mode precedence, the pinned N/O/S/F/Cl/Br/I connectivity rule, additive API/project/archive compatibility, migration `0009` downgrade refusal, presentation-only scientific boundary, label and focus behavior, accessible dependent controls, rebuild/query reuse, and WebGL/performance limitations. The candidate evidence matrix maps every approved claim to passing named tests without claiming chemistry preparation or cross-browser/hardware behavior. Ruff passed; strict mypy passed across 50 source files; ESLint, TypeScript, and `git diff --check` passed. Accepted D-047 already owns the material cross-project decision; no additional decision was introduced. The coherent checkpoint commit is the commit containing this row. Next: checkpoint 5 version and release qualification. |
 | 2026-08-09 | Checkpoint 5 release preparation complete locally | Re-fetched `origin/master` and verified it remains the feature base at `e3187b22e5da76ff22850b5c5fee1c32adad63e5`. No `v0.5.0` tag, GitHub release, or prior branch PR collides; issue #1 remains open; the repository exposes no workflow, branch protection, ruleset, required check, or required review; and rebase merge remains enabled. Advanced all five authoritative application versions to 0.5.0, retained v0.1.0 through v0.4.0 archive producer compatibility, and added release notes for implemented, already-satisfied, simplified, deferred, rejected, scientific, migration, accessibility, performance, and compatibility scope. `uv lock --check` and `git diff --check` passed. The coherent release-preparation commit is the commit containing this row. Next: complete release gate and full-diff review. |
 | 2026-08-09 | Checkpoint 5 qualified locally | Release-preparation commit `df007c9087c8d8e7e4ada44e2c87f2c43041629b` advanced all authoritative versions. The complete gate passed frozen installs, normal-store Alembic `0008 -> 0009`, Ruff, strict mypy across 50 source files, all 209 Python tests with 15 known Alembic configuration deprecation warnings, ESLint, TypeScript, all 65 Vitest tests, all 7 supervisor tests, production build, and `git diff --check`. A fresh isolated store migrated `0001 -> 0009`; all 46 applicable desktop/mobile Playwright workflows passed with 34 intentional layout skips in 9.1 minutes. Build output retained the expected 966.42 KiB gzip lazy Mol* advisory and 154.84 KiB gzip initial bundle. Full local review found and fixed unsafe Playwright override interpolation (`59bd216`) and accidental existing-label capitalization (`d88291d`); rerun ESLint, TypeScript, all 65 Vitest tests, valid/invalid configuration checks, and all 6 applicable affected browser workflows passed with 4 intentional skips in 50.9 seconds. No unresolved consequential finding remains; the review is not claimed as independent. Next: base refresh, PR, remote review, merge, tag, release, issue reply, and cleanup. |
+| 2026-08-09 | Remote delivery complete | [PR #26](https://github.com/ManuelSe/MolWeave/pull/26) rebase-merged to `bb60e921506ccdcfb19535b6b6cc5328c2b1718a`, closing issue #1. Annotated tag `v0.5.0` remotely dereferences to that exact commit; [GitHub release v0.5.0](https://github.com/ManuelSe/MolWeave/releases/tag/v0.5.0) is published, non-draft, and non-prerelease. The final issue reply is remotely visible and records delivered behavior, verification, migration/compatibility, scientific and scope limits, and no speculative follow-up. The requested `@codex review` integration did not return a review; the PR records the local review without claiming independence. The original feature branch was deleted locally and remotely after all delivery artifacts were verified. This documentation-only closeout does not move the released tag. |
 
 Future checkpoint entries must record exact commits, commands, pass counts,
 known warnings, limitations, remote identifiers, and the next action. Do not
@@ -945,5 +946,6 @@ has been verified remotely.
 
 ## Completion
 
-The approved v0.5.0 candidate is implemented and qualified locally. Remote PR,
-review, merge, tag, release, issue response, and branch cleanup remain.
+The approved scope is implemented, qualified, merged, released as v0.5.0, and
+closed out on issue #1. All remote delivery artifacts and branch cleanup are
+verified; no follow-up issue was required.
