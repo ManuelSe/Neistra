@@ -1,5 +1,123 @@
 # MolWeave Release Notes
 
+## 0.4.0 - 2026-08-09
+
+Release target: annotated tag
+[`v0.4.0`](https://github.com/ManuelSe/MolWeave/releases/tag/v0.4.0)
+for [issue #7](https://github.com/ManuelSe/MolWeave/issues/7)
+
+### Highlights
+
+- Added durable representation styling for any exact canonical selection from
+  the existing viewer, hierarchy, sequence, inspector, query, or saved-
+  selection paths.
+- Added five atomic presentation choices—Line, Thin sticks, Thick sticks, Ball
+  and stick, and Space filling—plus Backbone and Cartoon for compatible exact
+  complete polymer residues.
+- Added one accessible **Style selection** workflow with reset, reversible
+  history, project/scene/archive persistence, and unchanged camera, current
+  selection, picking mode, coordinates, topology, and original uploads.
+
+### Added
+
+- A typed `selection_representations` field in application-owned viewer
+  settings and one revisioned project-level apply/reset endpoint that updates a
+  multi-entry selection atomically.
+- Exact disposable Mol* bundle layers that preserve entry-level presentation,
+  component/hydrogen/isolation visibility, independent surfaces, and
+  two-selected-endpoint atomic bond boundaries.
+- Fixed compatible Thin/Thick stick profiles, authoritative complete-residue
+  protein/DNA/RNA validation, frontend availability reasons, topology-deletion
+  reconciliation, and scene/history restoration.
+- Desktop and Pixel 7 qualification for mixed protein/ligand/residue/ion/water
+  styling, exact covalent boundaries, normalized-query reuse, nonblank WebGL,
+  keyboard operation, focus restoration, axe, and responsive bounds.
+
+### Styling and replacement semantics
+
+- Atomic and polymer presentation are two independent replacement channels.
+  Applying a style removes selected atoms only from other styles in that
+  channel, so atomic detail can coexist with polymer context without arbitrary
+  layer ordering.
+- Reset removes the exact selected atoms from both channels and reveals the
+  applicable inherited entry-level representations. Same-style records merge
+  and each entry is bounded to seven selection-specific records.
+- Backbone and Cartoon reject partial residues, unsupported material, missing
+  trace atoms, and mixed-invalid multi-entry requests without partial changes.
+  Atomic styles retain exact atom membership and never expand a target across
+  a covalent boundary.
+
+### Scientific and viewer boundaries
+
+- Styling changes presentation only; it is not chemistry, structure
+  preparation, ligand designation, bond-order interpretation, contact/clash
+  analysis, or a modification of molecular artifacts.
+- Space filling uses Mol* element-radius rendering. Thin and Thick sticks are
+  fixed visual profiles and do not encode bond order, confidence, energy, or
+  chemical type.
+- Selection-specific layers use element coloring and full opacity. Current
+  component and hydrogen visibility plus isolation can hide assigned atoms
+  without deleting their durable styles.
+- Mol* remains a disposable renderer. Canonical atom identity, validation,
+  commands, scenes, archives, camera, and selection remain application-owned.
+
+### Accessibility and performance
+
+- The focusable launcher exposes unavailable reasons through `aria-disabled`;
+  the named dialog provides semantic selection counts/groups, pressed/busy
+  states, adjacent polymer reasons, and announced outcomes.
+- Desktop and Pixel 7 automation covers keyboard application, Escape focus
+  restoration, viewport containment, horizontal overflow, and scoped WCAG 2.2
+  axe rules. WebGL molecular colors and subjective readability remain within
+  the documented manual inspection boundary.
+- Styling reuses the artifact-keyed normalized-structure query: repeated
+  applications make no per-style structure request. Disposable rebuilds retain
+  camera and selection; the existing 250,000-atom reduced-detail behavior and
+  lazy Mol* bundle remain unchanged.
+
+### Verification
+
+- Pure domain/schema, API/service, migration, archive, edit-reconciliation,
+  viewer-projection, adapter, component, and real-WebGL tests cover assignment
+  algebra, compatibility, exact targets, one-revision history, scene/reload,
+  immutable originals, camera/selection invariance, accessibility, and query
+  reuse.
+- Checkpoints passed Ruff, strict mypy, ESLint, TypeScript, up to 61 Vitest
+  tests, production builds, 21 focused integration tests, and an affected
+  browser matrix with all 11 applicable desktop/mobile workflows passing.
+- Final complete-gate results and the full-diff review are recorded in
+  `docs/VERIFICATION.md` and the approved issue plan.
+
+### Compatibility and migrations
+
+- This is a backward-compatible minor release from 0.3.0 to 0.4.0. `/api/v1`,
+  `ProjectStateV1`, `ProjectManifestV1.schema_version`,
+  `NormalizedStructureV1.schema_version`, and archive schema version 1 remain
+  unchanged.
+- Alembic `0008` adds an empty selection-representation list to live entry,
+  checkpoint, and named-scene viewer JSON. It refuses downgrade while any
+  assignment is non-empty, preventing silent data loss; reset those styles
+  before an intentional downgrade.
+- Valid v0.1.0 through v0.3.0 archives remain readable; a v0.3.0 archive that
+  omits the additive field defaults it to empty. v0.4.0 archives preserve
+  assignments and original bytes. Older releases do not promise forward import
+  of v0.4.0 archives.
+
+### Deferred and follow-up work
+
+- Selection-specific colors, opacity, labels, surfaces, same-channel layering,
+  advanced add/remove controls, and presets remain deferred until their
+  precedence, editing, persistence, and large-structure behavior are designed.
+  No speculative advanced-presentation or preset issue was created solely for
+  this release.
+- Hydrogen filtering remains covered by issue #1, ligand-of-interest state by
+  issue #11, component classification overrides by issue #20, and component
+  subset export by issue #21.
+- A copied Maestro layout/assets/terminology, a duplicate Ribbon choice,
+  context-menu duplication, automatic nearby-component presets, and a duplicate
+  Molecule granularity were rejected as proposed. Existing MolWeave hierarchy
+  and selection paths provide the bounded workflow instead.
+
 ## 0.3.0 - 2026-08-06
 
 Status: released as annotated tag
