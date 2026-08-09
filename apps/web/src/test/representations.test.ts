@@ -17,6 +17,7 @@ const settings: ViewerSettings = {
       opacity: 1,
     },
   ],
+  selection_representations: [],
   components: {
     hydrogens: true,
     solvent: true,
@@ -34,6 +35,7 @@ describe("representation settings", () => {
       "backbone",
       "line",
       "stick",
+      "thick-stick",
       "ball-and-stick",
       "space-filling",
       "surface",

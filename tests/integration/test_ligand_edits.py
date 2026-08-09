@@ -9,9 +9,7 @@ FIXTURES = Path(__file__).parents[1] / "fixtures" / "formats"
 
 
 def project_with_ligand(client: ApiClient) -> tuple[dict[str, Any], str]:
-    project_response = client.post(
-        "/api/v1/projects", json={"name": "Ligand editing"}
-    )
+    project_response = client.post("/api/v1/projects", json={"name": "Ligand editing"})
     assert project_response.status_code == 201
     project = cast(dict[str, Any], project_response.json())
     imported = client.post(
@@ -30,9 +28,7 @@ def project_with_ligand(client: ApiClient) -> tuple[dict[str, Any], str]:
     )
     assert imported.status_code == 201
     payload = cast(dict[str, Any], imported.json())
-    return cast(dict[str, Any], payload["project"]), str(
-        payload["imported_entry_ids"][0]
-    )
+    return cast(dict[str, Any], payload["project"]), str(payload["imported_entry_ids"][0])
 
 
 def edit(
@@ -50,9 +46,7 @@ def edit(
 
 
 def structure(client: ApiClient, project_id: str, entry_id: str) -> dict[str, Any]:
-    response = client.get(
-        f"/api/v1/projects/{project_id}/entries/{entry_id}/structure"
-    )
+    response = client.get(f"/api/v1/projects/{project_id}/entries/{entry_id}/structure")
     assert response.status_code == 200
     return cast(dict[str, Any], response.json()["structure"])
 
@@ -82,9 +76,7 @@ def test_topology_edits_are_durable_reversible_and_ids_never_reuse(
     assert first["project"]["topology_patches"] == [
         {
             "entry_id": entry_id,
-            "artifact_id": first["project"]["entries"][0][
-                "current_artifact_id"
-            ],
+            "artifact_id": first["project"]["entries"][0]["current_artifact_id"],
         }
     ]
 
@@ -121,9 +113,10 @@ def test_topology_edits_are_durable_reversible_and_ids_never_reuse(
         },
     )
     assert with_bond["report"]["created_bond_ids"] == [3]
-    assert client.get(
-        f"/api/v1/projects/{project['id']}/entries/{entry_id}/original"
-    ).content == original_upload
+    assert (
+        client.get(f"/api/v1/projects/{project['id']}/entries/{entry_id}/original").content
+        == original_upload
+    )
 
     restart_read = client.get(f"/api/v1/projects/{project['id']}")
     assert restart_read.status_code == 200
@@ -160,10 +153,19 @@ def test_atom_deletion_reconciles_durable_references_and_undo_restores_them(
             ],
         },
     ).json()
+    styled = client.post(
+        f"/api/v1/projects/{project['id']}/selection-representations",
+        json={
+            "expected_revision": measured["revision"],
+            "selection": selection,
+            "action": "apply",
+            "style": "space-filling",
+        },
+    ).json()
     scene = client.post(
         f"/api/v1/projects/{project['id']}/scenes",
         json={
-            "expected_revision": measured["revision"],
+            "expected_revision": styled["revision"],
             "name": "Selected carbon",
             "camera": {
                 "mode": "perspective",
@@ -190,6 +192,11 @@ def test_atom_deletion_reconciles_durable_references_and_undo_restores_them(
     )
     assert changed["measurements"] == []
     assert changed["scenes"][0]["selection"]["atoms"] == []
+    assert changed["entries"][0]["viewer_settings"]["selection_representations"] == []
+    assert (
+        changed["scenes"][0]["entry_states"][0]["viewer_settings"]["selection_representations"]
+        == []
+    )
 
     restored_response = client.post(
         f"/api/v1/projects/{project['id']}/history/undo",
@@ -201,6 +208,12 @@ def test_atom_deletion_reconciles_durable_references_and_undo_restores_them(
     assert restored["saved_selections"][0]["atom_references"] == selection["atoms"]
     assert len(restored["measurements"]) == 1
     assert restored["scenes"][0]["selection"]["atoms"] == selection["atoms"]
+    assert restored["entries"][0]["viewer_settings"]["selection_representations"] == [
+        {"style": "space-filling", "atom_ids": [2]}
+    ]
+    assert restored["scenes"][0]["entry_states"][0]["viewer_settings"][
+        "selection_representations"
+    ] == [{"style": "space-filling", "atom_ids": [2]}]
 
 
 def test_validation_locking_and_cleanup_failures_do_not_mutate_project(

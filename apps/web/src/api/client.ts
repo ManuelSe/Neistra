@@ -22,6 +22,7 @@ import type {
   ProteinEditResult,
   Scene,
   Selection,
+  SelectionRepresentationStyle,
   StructureProjection,
   SuperpositionRequest,
   SuperpositionResult,
@@ -241,6 +242,21 @@ export const projectApi = {
         }),
       },
     ),
+  updateSelectionRepresentations: (
+    project: Project,
+    selection: Selection,
+    action: "apply" | "reset",
+    style?: SelectionRepresentationStyle,
+  ) =>
+    request<Project>(`/api/v1/projects/${project.id}/selection-representations`, {
+      method: "POST",
+      body: JSON.stringify({
+        expected_revision: project.revision,
+        selection,
+        action,
+        ...(style ? { style } : {}),
+      }),
+    }),
   createMeasurement: (
     project: Project,
     name: string,

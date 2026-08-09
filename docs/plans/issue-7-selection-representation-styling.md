@@ -1155,6 +1155,43 @@ Release is additionally blocked when:
 - Persisted this plan and the project-level handoff as the first branch change.
 - Implementation has not started.
 
+### 2026-08-09 - Checkpoint 1 implemented
+
+- Added typed, canonical selection-representation records to viewer settings,
+  including the additive `thick-stick` value and empty legacy default.
+- Added deterministic same-channel replacement and two-channel reset algebra,
+  exposed through one revisioned project endpoint for canonical multi-entry
+  selections with exact command snapshots and undo/redo state.
+- Added authoritative complete-residue protein/DNA/RNA polymer validation from
+  current normalized artifacts and atomic rejection for partial, unsupported,
+  stale, empty, duplicate, or noncanonical requests.
+- Prevented the existing entry-level viewer-settings endpoint from changing
+  selection assignments while allowing unrelated controls to preserve them.
+- Reconciled deleted IDs from live entry and named-scene assignments with
+  empty-record removal and exact undo restoration; additions and coordinate
+  edits do not implicitly alter membership.
+- Added JSON migration `0008` for live entry, checkpoint, and scene viewer
+  state. Verified populated `0007` upgrade, empty downgrade/re-upgrade, and
+  refusal to downgrade with a non-empty assignment.
+- Appended accepted decision D-046. Project, normalized, archive, and API
+  schema major versions remain unchanged.
+- Focused evidence before commit:
+  - `.venv/bin/uv run ruff check apps/api packages/molweave_core tests`: pass.
+  - `.venv/bin/uv run mypy apps/api packages/molweave_core`: pass (49 files).
+  - The planned focused pytest set: pass (48 tests), covering command/history,
+    viewer state, archives through v0.3.0, edit reconciliation, and safety.
+  - `.venv/bin/uv run pytest tests/integration/test_migrations.py -q`: pass
+    (1 test; upgrade/downgrade paths above).
+  - `corepack pnpm --filter @molweave/web typecheck`: pass.
+  - `git diff --check`: pass.
+- Review repaired response-fixture drift from the additive default and added
+  exact membership comparisons after rejected multi-entry requests. No
+  schema-major, SQL-column, molecular-artifact, or original-upload change was
+  introduced.
+- Remaining limitation: renderer projection and interaction UI are
+  deliberately absent until Checkpoints 2 and 3. Next action: commit this
+  passing checkpoint, then implement exact Mol* projection.
+
 ### Checkpoint log template
 
 For every completed checkpoint append:
@@ -1168,5 +1205,5 @@ For every completed checkpoint append:
 
 ## Completion
 
-The plan is approved and persisted. The repository must stop after Checkpoint 0
-with no implementation started and remain ready for `/goal`.
+Checkpoint 1 is implemented and verified. Checkpoints 2-6 remain in progress
+under this approved contract.

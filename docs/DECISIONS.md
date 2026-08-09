@@ -1668,3 +1668,60 @@ Consequences:
   claim, and ambiguous classifications remain visible and warned.
 - Individual component styling/visibility remains with issue #7; durable
   correction and subset export require focused follow-up decisions.
+
+## D-046 - Durable selection-representation replacement channels
+
+Status: accepted
+
+Decision:
+
+Persist selection-specific molecular representations inside each entry's
+`ViewerSettingsV1` as canonical records containing one supported style and a
+sorted, unique, non-empty list of stable atom IDs. Derive an atomic channel
+(`line`, `stick`, `thick-stick`, `ball-and-stick`, `space-filling`) and a
+polymer channel (`backbone`, `cartoon`) from the style rather than storing a
+second channel field. Within each channel, atom memberships are disjoint and
+same-style records merge. Applying a style subtracts the exact target from
+other styles in that channel before merging it into the requested style;
+reset subtracts the exact target from both channels. One revisioned project
+command covers all selected entries and records complete before/after settings
+for undo and redo.
+
+Accept any current non-empty canonical atom selection for atomic styles.
+Accept polymer styles only for exact complete residues classified from the
+current normalized artifact as protein, DNA, or RNA and containing a usable
+trace atom. Persist exact atom membership rather than residues, derived
+components, Mol* loci, or display identities. Coordinate changes preserve
+membership; topology deletions prune live entry and named-scene assignments,
+remove empty records, and retain exact inverse state for undo. New atoms do not
+inherit styles. Existing entry-level viewer-setting mutations must round-trip
+the assignments unchanged and cannot bypass the dedicated command.
+
+The renderer projects these application-owned targets into disposable exact
+Mol* components. Atomic bonds may be shown only when both endpoints are in the
+target. Atomic and polymer channels may coexist; entry-level surface, color,
+opacity, labels, component visibility, camera, isolation, and transient current
+selection remain independent.
+
+Rationale:
+
+Exact stable atom targets give styling the same durable identity and command
+semantics as the rest of MolWeave without duplicating the derived hierarchy or
+making Mol* authoritative. Two bounded replacement channels deliver the common
+cartoon-plus-atomic-detail workflow while avoiding unbounded layer ordering and
+editing semantics. Complete-residue polymer validation prevents a partial or
+unsupported target from being silently expanded into scientifically misleading
+geometry.
+
+Consequences:
+
+- Viewer settings, checkpoints, named scenes, history, and archives preserve
+  exact assignments; legacy state receives an empty additive default through
+  Alembic revision `0008` and model defaults.
+- Downgrading through `0008` is refused while any live, checkpoint, or scene
+  assignment is non-empty, preventing silent data loss.
+- `/api/v1`, project state schema 1, archive manifest schema 1, and normalized
+  structure schema 1 remain unchanged.
+- Selection-specific colors, opacity, labels, surfaces, presets, same-channel
+  layering, context-menu duplication, and a Ribbon alias remain outside this
+  decision.

@@ -75,6 +75,7 @@ export type RepresentationStyle =
   | "backbone"
   | "line"
   | "stick"
+  | "thick-stick"
   | "ball-and-stick"
   | "space-filling"
   | "surface";
@@ -96,6 +97,7 @@ export interface RepresentationSettings {
 
 export interface ViewerSettings {
   representations: RepresentationSettings[];
+  selection_representations: SelectionRepresentation[];
   components: {
     hydrogens: boolean;
     solvent: boolean;
@@ -109,6 +111,13 @@ export interface ViewerSettings {
     chains: boolean;
     structure: boolean;
   };
+}
+
+export type SelectionRepresentationStyle = Exclude<RepresentationStyle, "surface">;
+
+export interface SelectionRepresentation {
+  style: SelectionRepresentationStyle;
+  atom_ids: number[];
 }
 
 export type MeasurementKind = "distance" | "angle" | "dihedral";

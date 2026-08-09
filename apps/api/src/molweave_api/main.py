@@ -119,12 +119,14 @@ from molweave_api.schemas import (
     RevisionRequest,
     SavedSelectionCreate,
     SceneCreate,
+    SelectionRepresentationUpdate,
     StructureRead,
     SuperpositionCreate,
     SuperpositionRead,
     TestEntryCreate,
     ViewerSettingsUpdate,
 )
+from molweave_api.selection_style_service import SelectionStyleService
 from molweave_api.settings import Settings
 
 
@@ -757,6 +759,21 @@ def create_app(settings: Settings | None = None) -> FastAPI:
                 entry_id,
                 payload.expected_revision,
                 payload.settings,
+            )
+        )
+
+    @router.post(
+        "/projects/{project_id}/selection-representations",
+        response_model=ProjectRead,
+    )
+    async def update_selection_representations(
+        project_id: str,
+        payload: SelectionRepresentationUpdate,
+        session: Session = Depends(session_dependency),
+    ) -> ProjectRead:
+        return _call(
+            lambda: SelectionStyleService(session, app_settings).update(
+                project_id, payload
             )
         )
 

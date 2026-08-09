@@ -85,6 +85,7 @@ export function viewerSettings(
         opacity: 1,
       },
     ],
+    selection_representations: [],
     components: {
       hydrogens: true,
       solvent: true,

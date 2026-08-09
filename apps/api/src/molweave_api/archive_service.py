@@ -47,6 +47,7 @@ from molweave_api.schemas import (
     ViewerSettings,
 )
 from molweave_api.settings import Settings
+from molweave_api.viewer_state import POLYMER_SELECTION_STYLES, validate_polymer_selection
 
 ARCHIVE_MEDIA_TYPE = "application/vnd.molweave.project+zip"
 ARCHIVE_SCHEMA_VERSION = 1
@@ -1021,6 +1022,7 @@ def _validate_manifest_relationships(
     job_ids = {item.id for item in manifest.jobs}
     result_ids = {result.id for job in manifest.jobs for result in job.results}
     referenced_file_paths: set[str] = set()
+    structures_by_entry: dict[str, NormalizedStructureV1] = {}
     for entry in manifest.entries:
         if entry.group_id is not None and entry.group_id not in group_ids:
             raise ArchiveValidationError(
@@ -1072,6 +1074,7 @@ def _validate_manifest_relationships(
                 "invalid_normalized_artifact",
                 f"Entry {entry.id} current artifact is not NormalizedStructureV1.",
             ) from error
+        structures_by_entry[entry.id] = structure
         if (
             entry.atom_count != len(structure.atoms)
             or entry.atom_ids != [atom.id for atom in structure.atoms]
@@ -1141,6 +1144,12 @@ def _validate_manifest_relationships(
         )
     _ordered_groups(manifest.groups)
     atom_ids_by_entry = {item.id: set(item.atom_ids) for item in manifest.entries}
+    for entry in manifest.entries:
+        _validate_selection_assignments(
+            entry.viewer_settings,
+            atom_ids_by_entry[entry.id],
+            structures_by_entry.get(entry.id),
+        )
     for saved in manifest.saved_selections:
         _validate_references(saved.atom_references, entry_ids, atom_ids_by_entry)
     for measurement in manifest.measurements:
@@ -1155,6 +1164,38 @@ def _validate_manifest_relationships(
                 f"Scene {scene.id} contains invalid or duplicate entry state.",
             )
         _validate_references(scene.selection.atoms, entry_ids, atom_ids_by_entry)
+        for state in scene.entry_states:
+            _validate_selection_assignments(
+                state.viewer_settings,
+                atom_ids_by_entry[state.entry_id],
+                structures_by_entry.get(state.entry_id),
+            )
+
+
+def _validate_selection_assignments(
+    settings: ViewerSettings,
+    valid_atom_ids: set[int],
+    structure: NormalizedStructureV1 | None,
+) -> None:
+    for assignment in settings.selection_representations:
+        target = set(assignment.atom_ids)
+        if not target.issubset(valid_atom_ids):
+            raise ArchiveValidationError(
+                "invalid_archive_atom_reference",
+                "Archive selection representation targets an atom that is not present.",
+            )
+        if assignment.style in POLYMER_SELECTION_STYLES:
+            if structure is None:
+                raise ArchiveValidationError(
+                    "invalid_archive_selection_representation",
+                    "Archive polymer representation does not have normalized structure data.",
+                )
+            try:
+                validate_polymer_selection(structure, target)
+            except ValueError as error:
+                raise ArchiveValidationError(
+                    "invalid_archive_selection_representation", str(error)
+                ) from error
 
 
 def _ordered_groups(groups: list[ManifestGroup]) -> list[ManifestGroup]:
