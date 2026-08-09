@@ -1725,3 +1725,55 @@ Consequences:
 - Selection-specific colors, opacity, labels, surfaces, presets, same-channel
   layering, context-menu duplication, and a Ribbon alias remain outside this
   decision.
+
+## D-047 - Additive polar-only hydrogen visibility
+
+Status: accepted
+
+Decision:
+
+Persist hydrogen display as two additive booleans in each entry's existing
+viewer settings: `components.hydrogens` remains the master visibility switch
+and `components.nonpolar_hydrogens` defaults to `true`. The effective modes are
+none when the master switch is false, polar-only when the master is true and
+the additive switch is false, and all hydrogens when both are true. Named
+scenes, project checkpoints, undo and redo, and archives preserve the same
+settings without introducing a new molecular-state object or API version.
+
+Project the effective mode into Mol* representation parameters. In polar-only
+mode use Mol*'s native non-polar-hydrogen classifier, which treats hydrogens
+bonded to nitrogen, oxygen, sulfur, fluorine, chlorine, bromine, or iodine as
+polar. Apply the projection consistently to entry and exact-selection atomic
+representations, including surfaces; cartoon and backbone remain unchanged.
+Ligand focus excludes all hydrogen atoms in polar-only mode so the camera target
+is stable even though the remaining polar hydrogens are rendered. Atom labels
+remain an independent explicit visibility setting.
+
+Alembic revision `0009` adds the default to live entry settings, saved project
+checkpoints, and named-scene snapshots. Missing fields in legacy API or archive
+payloads validate as `true`. Downgrade removes the additive default only when no
+stored location has `nonpolar_hydrogens: false`; otherwise it refuses rather
+than silently changing a saved polar-only view.
+
+Rationale:
+
+An additive presentation setting preserves prior all-hydrogen behavior and the
+existing master switch while delivering the scientifically common polar-only
+view without mutating normalized structures or inventing bonds. Reusing the
+renderer classifier avoids a second application-side chemistry heuristic and
+keeps molecular state independent from Mol* lifecycle. The explicit precedence
+also prevents contradictory controls from producing ambiguous persisted state.
+
+Consequences:
+
+- `/api/v1`, `ProjectStateV1`, `ProjectManifestV1`, and
+  `NormalizedStructureV1` retain schema major 1; the change is additive.
+- Projects and archives from earlier MolWeave versions open with all hydrogens
+  shown when hydrogen visibility was enabled.
+- Polar classification depends on the normalized bond graph projected to Mol*;
+  missing or incorrect source bonds can affect which hydrogens remain visible,
+  and MolWeave must surface existing parsing or bond warnings rather than infer
+  chemistry for this display feature.
+- Per-element hydrogen filters, hydrogen addition, protonation, bond inference,
+  ligand-specific policy, rendering presets, and automatic performance changes
+  remain outside this decision.

@@ -121,6 +121,7 @@ def default_viewer_settings(structure_type: str) -> dict[str, Any]:
         "selection_representations": [],
         "components": {
             "hydrogens": True,
+            "nonpolar_hydrogens": True,
             "solvent": True,
             "ions": True,
             "ligands": True,

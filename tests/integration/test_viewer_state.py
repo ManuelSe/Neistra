@@ -49,6 +49,7 @@ def viewer_settings() -> dict[str, Any]:
         "selection_representations": [],
         "components": {
             "hydrogens": False,
+            "nonpolar_hydrogens": False,
             "solvent": True,
             "ions": True,
             "ligands": True,
@@ -272,6 +273,21 @@ def test_viewer_measurement_and_scene_state_are_undoable(client: ApiClient) -> N
         json={"expected_revision": project["revision"], "settings": viewer_settings()},
     ).json()
     assert len(project["entries"][0]["viewer_settings"]["representations"]) == 2
+    assert project["entries"][0]["viewer_settings"]["components"]["nonpolar_hydrogens"] is False
+    assert project["history"]["undo_description"] == "Update viewer settings for Ethanol"
+
+    undone_settings = client.post(
+        f"/api/v1/projects/{project['id']}/history/undo",
+        json={"expected_revision": project["revision"]},
+    ).json()
+    assert (
+        undone_settings["entries"][0]["viewer_settings"]["components"]["nonpolar_hydrogens"] is True
+    )
+    project = client.post(
+        f"/api/v1/projects/{project['id']}/history/redo",
+        json={"expected_revision": undone_settings["revision"]},
+    ).json()
+    assert project["entries"][0]["viewer_settings"]["components"]["nonpolar_hydrogens"] is False
 
     project = client.post(
         f"/api/v1/projects/{project['id']}/measurements",

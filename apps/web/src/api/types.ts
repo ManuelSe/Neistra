@@ -100,6 +100,7 @@ export interface ViewerSettings {
   selection_representations: SelectionRepresentation[];
   components: {
     hydrogens: boolean;
+    nonpolar_hydrogens: boolean;
     solvent: boolean;
     ions: boolean;
     ligands: boolean;

@@ -77,6 +77,20 @@ def build_rich_project(client: ApiClient) -> dict[str, Any]:
         f"/api/v1/projects/{project['id']}/entries/{ligand['id']}/lock",
         json={"expected_revision": project["revision"], "value": True},
     ).json()
+    project = client.request(
+        "PUT",
+        f"/api/v1/projects/{project['id']}/entries/{ligand['id']}/viewer-settings",
+        json={
+            "expected_revision": project["revision"],
+            "settings": {
+                **ligand["viewer_settings"],
+                "components": {
+                    **ligand["viewer_settings"]["components"],
+                    "nonpolar_hydrogens": False,
+                },
+            },
+        },
+    ).json()
     selection = {
         "schema_version": 1,
         "atoms": [{"structure_id": ligand["id"], "atom_id": 1}],
@@ -197,6 +211,27 @@ def without_selection_representations(data: bytes, version: str) -> bytes:
     return output.getvalue()
 
 
+def without_nonpolar_hydrogens(data: bytes, version: str) -> bytes:
+    source = zipfile.ZipFile(io.BytesIO(data))
+    output = io.BytesIO()
+    with source, zipfile.ZipFile(output, "w") as target:
+        for info in source.infolist():
+            payload = source.read(info)
+            if info.filename == "manifest.json":
+                manifest = json.loads(payload)
+                manifest["application_version"] = version
+                for entry in manifest["entries"]:
+                    entry["viewer_settings"]["components"].pop("nonpolar_hydrogens", None)
+                for scene in manifest["scenes"]:
+                    for state in scene["entry_states"]:
+                        state["viewer_settings"]["components"].pop("nonpolar_hydrogens", None)
+                payload = (
+                    json.dumps(manifest, sort_keys=True, separators=(",", ":")).encode() + b"\n"
+                )
+            target.writestr(info, payload)
+    return output.getvalue()
+
+
 def test_legacy_archive_defaults_selection_representations(client: ApiClient) -> None:
     source = build_rich_project(client)
     exported = export_archive(client, source["id"], "legacy-selection-default")
@@ -208,6 +243,23 @@ def test_legacy_archive_defaults_selection_representations(client: ApiClient) ->
     )
     assert all(
         state["viewer_settings"]["selection_representations"] == []
+        for scene in restored["scenes"]
+        for state in scene["entry_states"]
+    )
+
+
+def test_legacy_archive_defaults_to_showing_all_hydrogens(client: ApiClient) -> None:
+    source = build_rich_project(client)
+    exported = export_archive(client, source["id"], "legacy-hydrogen-default")
+    archive_bytes = client.get(exported["artifact"]["download_url"]).content
+    legacy = without_nonpolar_hydrogens(archive_bytes, "0.4.0")
+    restored = import_archive(client, legacy)["project"]
+    assert all(
+        entry["viewer_settings"]["components"]["nonpolar_hydrogens"] is True
+        for entry in restored["entries"]
+    )
+    assert all(
+        state["viewer_settings"]["components"]["nonpolar_hydrogens"] is True
         for scene in restored["scenes"]
         for state in scene["entry_states"]
     )

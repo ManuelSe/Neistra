@@ -144,6 +144,7 @@ test("applies complete representations, navigation, isolation, and named scenes"
     })),
     components: {
       hydrogens: false,
+      nonpolar_hydrogens: true,
       solvent: true,
       ions: true,
       ligands: true,

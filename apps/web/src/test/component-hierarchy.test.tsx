@@ -295,6 +295,7 @@ describe("component hierarchy", () => {
       ...viewerSettings(),
       components: {
         hydrogens: true,
+        nonpolar_hydrogens: true,
         protein: false,
         ligands: false,
         solvent: false,

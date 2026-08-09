@@ -1,6 +1,6 @@
 # Issue 1 - Polar-Only Hydrogen Visibility
 
-Status: approved; implementation not started
+Status: approved; implementation in progress (checkpoint 1 complete locally)
 
 ## Issue metadata
 
@@ -917,6 +917,7 @@ Release is additionally blocked when:
 | 2026-08-09 | Plan proposed | Read-only inspection covered repository guidance, product/global plan/progress/decision/verification documentation, architecture, molecular/project schemas, API, migrations, jobs, frontend state ownership, viewer profiles and projection, controls, tests, related issues #2 and #7, local/remote branches, tags, releases, PR conventions, workflows, rules/protection, version sources, and release tooling. The current release history supersedes the request's stale no-history premise. |
 | 2026-08-09 | Plan approved | User approved the additive durable setting, Mol* polar-neighbor display semantics, three-mode precedence, protein/ligand qualification, non-mutation invariants, migration/downgrade policy, checkpoints, and backward-compatible v0.5.0 release plan. |
 | 2026-08-09 | Checkpoint 0 complete locally | Clean local `master` fast-forwarded from `origin/master` and verified at approved base `e3187b22e5da76ff22850b5c5fee1c32adad63e5`; created `feat/issue-1-polar-hydrogen-visibility`; persisted this plan and the concise project handoff without implementation changes; `git diff --check` passed. Commit and push this documentation-only checkpoint, then stop ready for `/goal`. |
+| 2026-08-09 | Checkpoint 1 complete locally | Added typed `components.nonpolar_hydrogens` defaults in backend and frontend state, Alembic `0009` coverage for live/checkpoint/scene JSON with loss-preventing downgrade refusal, durable undo/redo/scene/archive compatibility coverage, and accepted D-047. Focused Ruff passed; strict mypy passed across 50 source files; all 27 focused Python tests passed with 15 known Alembic configuration deprecation warnings; frontend TypeScript and `git diff --check` passed. The coherent checkpoint commit is the commit containing this row. Next: checkpoint 2 renderer projection, controls, and focus behavior. |
 
 Future checkpoint entries must record exact commits, commands, pass counts,
 known warnings, limitations, remote identifiers, and the next action. Do not
@@ -925,6 +926,6 @@ has been verified remotely.
 
 ## Completion
 
-Implementation is not complete and has not started. Planning Checkpoint 0 is
-complete locally. After this documentation-only checkpoint is committed and
-pushed, the repository must stop ready for `/goal`.
+Implementation is in progress. Checkpoint 1 is complete locally; renderer and
+control behavior, scientific qualification, final documentation, release
+preparation, and remote delivery remain.

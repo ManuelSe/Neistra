@@ -218,6 +218,7 @@ test("keeps primary selection and empty clearing independent from the camera", a
     })),
     components: {
       hydrogens: true,
+      nonpolar_hydrogens: true,
       solvent: true,
       ions: true,
       ligands: true,
