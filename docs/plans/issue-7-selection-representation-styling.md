@@ -1192,6 +1192,45 @@ Release is additionally blocked when:
   deliberately absent until Checkpoints 2 and 3. Next action: commit this
   passing checkpoint, then implement exact Mol* projection.
 
+### 2026-08-09 - Checkpoint 2 implemented
+
+- Added a pure projection from application-owned viewer settings to inherited
+  and selection-specific representation layers. Atomic and polymer inherited
+  memberships subtract only their own channel's visible targets; surface and
+  other independent settings remain unchanged.
+- Every targeted layer is the exact intersection of persisted IDs, component
+  visibility, hydrogen visibility, and active isolation. Empty intersections
+  do not create Mol* components.
+- Replaced the prior shared component loop with deterministic per-layer bundle
+  components. Exact atomic profiles set `includeParent: false`, so a selected
+  bond can be rendered only when both endpoints are in the target bundle.
+- Centralized representation profiles. Existing `stick` retains its v0.3.0
+  thin profile (`sizeFactor: 0.22`, `sizeAspectRatio: 0.35`); `thick-stick` uses
+  a visibly heavier fixed profile (`0.36`, `0.78`). Both map to Mol* ball-and-
+  stick and remain non-configurable in this issue.
+- Selection layers use element coloring and full opacity. Entry-level color,
+  opacity, surface, labels, component visibility, and large-structure fallback
+  remain independent.
+- Existing atomic rebuild flow continues to restore canonical selection and an
+  exact application camera snapshot, retain isolation, avoid loading hidden
+  entries, and reuse artifact-keyed normalized-structure queries. A focused
+  structure-loading regression proves representation changes do not refetch.
+- Focused evidence before commit:
+  - `corepack pnpm --dir apps/web lint`: pass.
+  - `corepack pnpm --dir apps/web typecheck`: pass.
+  - `corepack pnpm --dir apps/web test -- representations structure-loading viewer-adapter component-hierarchy`:
+    pass (18 files, 59 tests; Vitest applies the repository command to the
+    complete frontend suite).
+  - `corepack pnpm --dir apps/web build`: pass. Vite retained the known
+    non-blocking chunk-size advisory for the lazy Mol* bundle.
+  - `git diff --check`: pass.
+- Review confirmed that no normalized data, persistent viewer authority,
+  camera ownership, selection ownership, or public API changed in this
+  checkpoint. The renderer remains disposable.
+- Remaining limitation: real-WebGL visual and camera qualification is assigned
+  to Checkpoint 4 after the Checkpoint 3 controls provide the complete user
+  workflow. Next action: commit and add the accessible styling controls.
+
 ### Checkpoint log template
 
 For every completed checkpoint append:
