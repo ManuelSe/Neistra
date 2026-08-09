@@ -2,6 +2,7 @@ import type {
   ColorScheme,
   RepresentationSettings,
   RepresentationStyle,
+  SelectionRepresentationStyle,
   ViewerSettings,
 } from "../api/types";
 
@@ -25,7 +26,7 @@ export const colorSchemes: ColorScheme[] = [
   "custom",
 ];
 
-export const atomicRepresentationStyles: RepresentationStyle[] = [
+export const atomicRepresentationStyles: SelectionRepresentationStyle[] = [
   "line",
   "stick",
   "thick-stick",
@@ -33,7 +34,7 @@ export const atomicRepresentationStyles: RepresentationStyle[] = [
   "space-filling",
 ];
 
-export const polymerRepresentationStyles: RepresentationStyle[] = [
+export const polymerRepresentationStyles: SelectionRepresentationStyle[] = [
   "backbone",
   "cartoon",
 ];
@@ -78,7 +79,8 @@ export function molstarRepresentationProfile(
     typeParams: {
       alpha: options.opacity,
       ignoreHydrogens: options.ignoreHydrogens,
-      ...(options.exactTarget &&
+      ...(style !== "surface" &&
+      options.exactTarget &&
       atomicRepresentationStyles.includes(style)
         ? { includeParent: false as const }
         : {}),

@@ -1482,6 +1482,132 @@ select {
   padding: 16px;
 }
 
+.selection-style-dialog {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  padding: 15px 16px 17px;
+}
+
+.selection-style-summary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0;
+}
+
+.selection-style-summary > div {
+  min-width: 0;
+  padding: 9px 10px;
+  background: var(--surface-muted);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+}
+
+.selection-style-summary dt {
+  color: var(--text-soft);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.selection-style-summary dd {
+  margin: 2px 0 0;
+  font-size: 17px;
+  font-weight: 720;
+}
+
+.selection-style-help,
+.selection-style-reason,
+.selection-style-message {
+  margin: 0;
+  color: var(--text-soft);
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.selection-style-group {
+  min-width: 0;
+  margin: 0;
+  padding: 9px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+}
+
+.selection-style-group legend {
+  padding: 0 5px;
+  color: var(--text-soft);
+  font-size: 11px;
+  font-weight: 720;
+}
+
+.selection-style-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.selection-style-grid.polymer {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.selection-style-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 0;
+  min-height: 36px;
+  padding: 6px 9px;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 4px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 680;
+  cursor: pointer;
+}
+
+.selection-style-option[aria-pressed="true"] {
+  color: var(--accent-strong);
+  background: var(--accent-soft);
+  border-color: var(--accent);
+}
+
+.selection-style-option:disabled {
+  opacity: 0.48;
+  cursor: default;
+}
+
+.selection-style-option small {
+  color: var(--text-soft);
+  font-size: 9px;
+}
+
+.selection-style-reason {
+  margin-top: 7px;
+}
+
+.selection-style-reset {
+  align-self: flex-start;
+}
+
+.selection-style-message {
+  padding: 8px 9px;
+  border-radius: 4px;
+}
+
+.selection-style-message.success {
+  color: var(--brand);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+
+.selection-style-message.error {
+  color: var(--danger);
+  background: color-mix(in srgb, var(--danger) 9%, transparent);
+}
+
 .file-picker {
   position: relative;
   display: flex;

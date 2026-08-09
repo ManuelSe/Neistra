@@ -8,6 +8,7 @@ import type {
   CoordinatePatch,
   Project,
   Scene,
+  SelectionRepresentationStyle,
   StructureProjection,
   ViewerSettings,
 } from "../api/types";
@@ -27,6 +28,7 @@ import { formatMeasurement, measurementValue } from "../measurements/geometry";
 import type { Theme } from "../store/workspace";
 import { ViewerControls } from "./ViewerControls";
 import { ViewerToolbar } from "./ViewerToolbar";
+import { SelectionStyleDialog } from "./SelectionStyleDialog";
 
 const VIEWER_BACKGROUND_COLORS: Record<Theme, string> = {
   light: "#eef2f1",
@@ -46,6 +48,11 @@ interface StructureViewerProps {
   onCreateScene?: (name: string, camera: CameraState) => Promise<void>;
   onApplyScene?: (scene: Scene) => Promise<void>;
   onDeleteScene?: (scene: Scene) => Promise<void>;
+  onLoadSelectionStructures?: () => Promise<Map<string, StructureProjection>>;
+  onSelectionStyle?: (
+    action: "apply" | "reset",
+    style?: SelectionRepresentationStyle,
+  ) => Promise<void>;
   createViewer?: MolecularViewerFactory;
 }
 
@@ -62,6 +69,8 @@ export function StructureViewer({
   onCreateScene,
   onApplyScene,
   onDeleteScene,
+  onLoadSelectionStructures,
+  onSelectionStyle,
   createViewer = createMolstarViewer,
 }: StructureViewerProps) {
   const targetRef = useRef<HTMLDivElement>(null);
@@ -78,6 +87,11 @@ export function StructureViewer({
   const [activeEntryId, setActiveEntryId] = useState("");
   const [camera, setCamera] = useState<CameraState | null>(null);
   const [isolation, setIsolation] = useState<Selection["atoms"] | null>(null);
+  const [styleDialogOpen, setStyleDialogOpen] = useState(false);
+  const [styleStructures, setStyleStructures] = useState(
+    new Map<string, StructureProjection>(),
+  );
+  const [styleEligibilityBusy, setStyleEligibilityBusy] = useState(false);
   const visibleEntries = useMemo(
     () => project.entries.filter((entry) => entry.visible),
     [project.entries],
@@ -352,6 +366,30 @@ export function StructureViewer({
   const focusLigandsUnavailableReason =
     viewerUnavailableReason ??
     (ligandAtoms.length === 0 ? "No ligand detected in visible structures" : null);
+  const selectionStyleUnavailableReason = busy
+    ? "Finish the current project change before styling the selection"
+    : selection.atoms.length === 0
+      ? "Select atoms before styling the selection"
+      : onSelectionStyle
+        ? null
+        : "Selection styling is unavailable in this workspace";
+
+  const openStyleDialog = () => {
+    if (selectionStyleUnavailableReason) return;
+    setStyleDialogOpen(true);
+    const visible = new Map(
+      structureQueries.flatMap((query, index) =>
+        query.data ? [[visibleEntries[index].id, query.data] as const] : [],
+      ),
+    );
+    setStyleStructures(visible);
+    if (!onLoadSelectionStructures) return;
+    setStyleEligibilityBusy(true);
+    void onLoadSelectionStructures()
+      .then(setStyleStructures)
+      .catch(() => setStyleStructures(new Map()))
+      .finally(() => setStyleEligibilityBusy(false));
+  };
 
   return (
     <div className="structure-viewer" data-testid="structure-viewer">
@@ -368,9 +406,25 @@ export function StructureViewer({
           fitAllUnavailableReason={viewerUnavailableReason}
           focusSelectionUnavailableReason={focusSelectionUnavailableReason}
           focusLigandsUnavailableReason={focusLigandsUnavailableReason}
+          selectionStyleUnavailableReason={selectionStyleUnavailableReason}
+          selectionStyleOpen={styleDialogOpen}
           onFitAll={() => viewerRef.current?.fitVisible()}
           onFocusSelection={() => viewerRef.current?.focusAtoms(selection.atoms)}
           onFocusLigands={() => viewerRef.current?.focusAtoms(ligandAtoms)}
+          onSelectionStyle={openStyleDialog}
+        />
+        <SelectionStyleDialog
+          open={styleDialogOpen}
+          selection={selection}
+          entries={project.entries}
+          structures={styleStructures}
+          eligibilityBusy={styleEligibilityBusy}
+          busy={busy}
+          onOpenChange={setStyleDialogOpen}
+          onAction={async (action, style) => {
+            if (!onSelectionStyle) return;
+            await onSelectionStyle(action, style);
+          }}
         />
         <ViewerControls
         entries={project.entries}

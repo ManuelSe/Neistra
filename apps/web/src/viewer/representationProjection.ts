@@ -21,6 +21,7 @@ export interface RepresentationLayer {
 export function representationChannel(
   style: RepresentationStyle,
 ): RepresentationChannel {
+  if (style === "surface") return "independent";
   if (atomicRepresentationStyles.includes(style)) return "atomic";
   if (polymerRepresentationStyles.includes(style)) return "polymer";
   return "independent";
