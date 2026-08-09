@@ -39,7 +39,10 @@ import {
   withCameraNeutralPrimarySelection,
 } from "./interaction";
 import { representationLayers } from "./representationProjection";
-import { molstarRepresentationProfile } from "./settings";
+import {
+  hydrogenDisplayMode,
+  molstarRepresentationProfile,
+} from "./settings";
 
 interface LoadedStructure {
   entryId: string;
@@ -474,7 +477,7 @@ export class MolstarEngine implements MolecularViewer {
       if (!component) continue;
       const profile = molstarRepresentationProfile(layer.style, {
         opacity: layer.opacity,
-        ignoreHydrogens: !structure.settings.components.hydrogens,
+        hydrogenMode: hydrogenDisplayMode(structure.settings.components),
         exactTarget: layer.exactTarget,
       });
       await plugin.builders.structure.representation.addRepresentation(

@@ -39,6 +39,15 @@ export const polymerRepresentationStyles: SelectionRepresentationStyle[] = [
   "cartoon",
 ];
 
+export type HydrogenDisplayMode = "all" | "polar-only" | "none";
+
+export function hydrogenDisplayMode(
+  components: ViewerSettings["components"],
+): HydrogenDisplayMode {
+  if (!components.hydrogens) return "none";
+  return components.nonpolar_hydrogens ? "all" : "polar-only";
+}
+
 export interface MolstarRepresentationProfile {
   type:
     | "cartoon"
@@ -50,6 +59,7 @@ export interface MolstarRepresentationProfile {
   typeParams: {
     alpha: number;
     ignoreHydrogens: boolean;
+    ignoreHydrogensVariant?: "all" | "non-polar";
     includeParent?: false;
     sizeFactor?: number;
     sizeAspectRatio?: number;
@@ -60,7 +70,7 @@ export function molstarRepresentationProfile(
   style: RepresentationStyle,
   options: {
     opacity: number;
-    ignoreHydrogens: boolean;
+    hydrogenMode: HydrogenDisplayMode;
     exactTarget: boolean;
   },
 ): MolstarRepresentationProfile {
@@ -74,11 +84,21 @@ export function molstarRepresentationProfile(
     "space-filling": "spacefill",
     surface: "molecular-surface",
   }[style] as MolstarRepresentationProfile["type"];
+  const hydrogenParams =
+    options.hydrogenMode === "all"
+      ? { ignoreHydrogens: false }
+      : {
+          ignoreHydrogens: true,
+          ignoreHydrogensVariant:
+            options.hydrogenMode === "polar-only"
+              ? ("non-polar" as const)
+              : ("all" as const),
+        };
   return {
     type,
     typeParams: {
       alpha: options.opacity,
-      ignoreHydrogens: options.ignoreHydrogens,
+      ...hydrogenParams,
       ...(style !== "surface" &&
       options.exactTarget &&
       atomicRepresentationStyles.includes(style)

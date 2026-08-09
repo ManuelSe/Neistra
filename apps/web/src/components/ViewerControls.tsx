@@ -204,11 +204,57 @@ export function ViewerControls(props: ViewerControlsProps) {
 
           <fieldset>
             <legend>Components</legend>
-            {Object.entries(settings.components).map(([key, value]) => (
+            <label className="check-label">
+              <input
+                type="checkbox"
+                checked={settings.components.hydrogens}
+                onChange={(event) =>
+                  props.onSettings(active.id, {
+                    ...settings,
+                    components: {
+                      ...settings.components,
+                      hydrogens: event.target.checked,
+                    },
+                  })
+                }
+              />
+              Show hydrogens
+            </label>
+            <div className="dependent-component-control">
+              <label className="check-label">
+                <input
+                  type="checkbox"
+                  checked={settings.components.nonpolar_hydrogens}
+                  disabled={!settings.components.hydrogens}
+                  aria-describedby="nonpolar-hydrogens-help"
+                  onChange={(event) =>
+                    props.onSettings(active.id, {
+                      ...settings,
+                      components: {
+                        ...settings.components,
+                        nonpolar_hydrogens: event.target.checked,
+                      },
+                    })
+                  }
+                />
+                Show non-polar hydrogens
+              </label>
+              <span id="nonpolar-hydrogens-help" className="viewer-control-help">
+                Turn off to keep polar hydrogens only. Requires Show hydrogens.
+              </span>
+            </div>
+            {(
+              [
+                ["protein", "Protein"],
+                ["ligands", "Ligands"],
+                ["solvent", "Solvent"],
+                ["ions", "Ions"],
+              ] as const
+            ).map(([key, label]) => (
               <label key={key} className="check-label">
                 <input
                   type="checkbox"
-                  checked={value}
+                  checked={settings.components[key]}
                   onChange={(event) =>
                     props.onSettings(active.id, {
                       ...settings,
@@ -219,7 +265,7 @@ export function ViewerControls(props: ViewerControlsProps) {
                     })
                   }
                 />
-                {key}
+                {label}
               </label>
             ))}
           </fieldset>

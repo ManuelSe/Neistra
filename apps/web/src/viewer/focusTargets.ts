@@ -1,6 +1,7 @@
 import type { AtomReference } from "../api/types";
 import { componentAtomIds } from "../selection/components";
 import type { ViewerStructure } from "./MolecularViewer";
+import { hydrogenDisplayMode } from "./settings";
 
 function referenceKey(reference: AtomReference): string {
   return `${reference.structure_id}:${reference.atom_id}`;
@@ -16,6 +17,7 @@ export function visibleLigandAtoms(
 
   for (const structure of structures) {
     if (!structure.settings.components.ligands) continue;
+    const hydrogenMode = hydrogenDisplayMode(structure.settings.components);
     const ligandAtomIds = new Set(
       structure.hierarchy.components
         .filter((component) => component.category === "ligand")
@@ -26,7 +28,7 @@ export function visibleLigandAtoms(
     for (const atom of structure.normalized.atoms) {
       if (!ligandAtomIds.has(atom.id)) continue;
       if (
-        !structure.settings.components.hydrogens &&
+        hydrogenMode !== "all" &&
         atom.element.trim().toUpperCase() === "H"
       ) {
         continue;
