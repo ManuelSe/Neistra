@@ -85,8 +85,15 @@ for [issue #7](https://github.com/ManuelSe/MolWeave/issues/7)
 - Checkpoints passed Ruff, strict mypy, ESLint, TypeScript, up to 61 Vitest
   tests, production builds, 21 focused integration tests, and an affected
   browser matrix with all 11 applicable desktop/mobile workflows passing.
-- Final complete-gate results and the full-diff review are recorded in
-  `docs/VERIFICATION.md` and the approved issue plan.
+- The complete gate passed frozen installs, Alembic `0008 (head)`, Ruff, strict
+  mypy across 49 source files, 201 Python tests, ESLint, TypeScript, 61 Vitest
+  tests, 7 supervisor tests, the production build, and all 40 applicable
+  desktop/mobile Playwright workflows with 30 intentional cross-layout skips
+  in 9.3 minutes.
+- The build keeps Mol* lazy at 966.43 KiB gzip and the initial application at
+  154.58 KiB gzip. The complete `origin/master...HEAD` review found no
+  consequential scope, scientific, persistence, migration, archive,
+  accessibility, performance, dead-code, or compatibility issue.
 
 ### Compatibility and migrations
 
