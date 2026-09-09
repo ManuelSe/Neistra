@@ -2,7 +2,19 @@
 
 ## Current milestone
 
-Issue #1 - polar-only hydrogen visibility, complete and released in v0.5.0
+Neistra rebranding — M1 complete; M2 is next.
+
+The user approved `.rebranding/IMPLEMENTATION_PLAN.md` for sequential
+implementation on `feat/neistra-rebranding`. The `.rebranding/` directory
+must never be committed. The backend, all application version values, archive
+contracts, molecular defaults and local preference keys remain unchanged.
+No remote rename, release or publication is part of this implementation.
+
+M1 delivers the production identity, metadata, responsive header, welcome,
+empty-project and loading surfaces. Remaining theme/workflow/repository work
+belongs to M2–M5 and is not claimed complete.
+
+Previous released milestone: issue #1, polar-only hydrogen visibility, v0.5.0.
 
 The approved implementation contract is
 `docs/plans/issue-1-polar-hydrogen-visibility.md`. The bounded outcome adds an
@@ -17,6 +29,17 @@ and closed out on issue #1. The release tag remains on the exact verified
 feature merge; this documentation-only closeout records the remote evidence.
 
 ## Completed work
+
+- Neistra M1: created reproducible path-only light/dark/monochrome marks,
+  outlined wordmark lockups, compact icons, SVG/raster favicons and touch icon.
+  Source artwork remains unchanged; only optimized derivatives ship.
+- Replaced active MolWeave identity with reusable decorative Brand assets,
+  Neistra metadata, tagline and project entry states. Existing project actions,
+  840px compact behavior and user project names remain intact.
+- Captured pre-change empty/populated desktop and Pixel 7 screenshots in both
+  themes and SHA-256 source hashes under `/tmp/neistra-evidence-RvHbBz/baseline`.
+  Added browser coverage for metadata/assets, both themes, keyboard project
+  access, creation, real protein import and absence of old-logo requests.
 
 - Rebase-merged [PR #26](https://github.com/ManuelSe/MolWeave/pull/26) to
   verified release commit `bb60e92`, closing issue #1.
@@ -778,6 +801,14 @@ feature merge; this documentation-only closeout records the remote evidence.
   affected-entry topology replacement without a full scene synchronization.
 
 ## Verification performed
+
+- Neistra M1: ESLint, TypeScript, all 65 Vitest tests, production build and
+  diff whitespace checks passed. Project lifecycle plus new branding E2Es:
+  7 passed, 1 existing desktop-only layout skip (24.1 seconds).
+- Inspected desktop welcome/workspace and Pixel 7 dark welcome screenshots,
+  and the 180px production icon. All primary actions remain visible. Initial
+  JS gzip grew from 154.82 to 155.01 kB; lazy Mol* remains 966.42 kB gzip.
+  The known lazy-chunk size advisory remains; no new runtime dependency.
 
 - Issue #1 checkpoint 3: 17 focused integration/scientific Python tests and all
   65 frontend tests across 20 files passed; Ruff, ESLint, TypeScript, and
@@ -1844,6 +1875,5 @@ None.
 
 ## Next action
 
-Implement issue #1 checkpoint 4: document the verified architecture, schema,
-API, scientific, accessibility, performance, compatibility, migration, and
-evidence contract without expanding the approved scope.
+Implement Neistra M2: semantic light/dark tokens and coordinated CSS/browser/
+WebGL theme initialization, then qualify contrast and viewer lifecycle before M3.

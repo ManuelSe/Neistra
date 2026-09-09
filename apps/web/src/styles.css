@@ -108,15 +108,39 @@ select:focus-visible,
   cursor: pointer;
 }
 
-.brand img {
+.brand-art {
+  display: inline-block;
+  flex: 0 0 auto;
+  line-height: 0;
+}
+
+.brand-art img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.brand-art .brand-art-dark,
+:root[data-theme="dark"] .brand-art .brand-art-light {
+  display: none;
+}
+
+:root[data-theme="dark"] .brand-art .brand-art-dark {
+  display: block;
+}
+
+.brand-art-lockup {
+  width: 113px;
+  aspect-ratio: 402 / 114;
+}
+
+.brand-art-icon {
   width: 32px;
   height: 32px;
 }
 
-.brand-name {
-  color: var(--text);
-  font-size: 17px;
-  font-weight: 760;
+.brand-compact {
+  display: none;
 }
 
 .project-switcher {
@@ -301,11 +325,25 @@ select:focus-visible,
   text-align: center;
 }
 
-.canvas-empty img {
-  width: 48px;
-  height: 48px;
-  margin-bottom: 14px;
-  box-shadow: var(--shadow);
+.welcome-brand {
+  width: min(220px, 58vw);
+  margin: 56px;
+}
+
+.workspace-tagline {
+  margin: 0 20px 26px;
+  color: var(--text);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(22px, 3vw, 30px);
+  line-height: 1.25;
+}
+
+.workspace-loading {
+  display: grid;
+  justify-items: center;
+  gap: 16px;
+  color: var(--text-soft);
+  font-size: 13px;
 }
 
 .canvas-empty h1,
@@ -327,53 +365,10 @@ select:focus-visible,
   font-size: 13px;
 }
 
-.stage-mark {
-  position: relative;
-  width: 78px;
-  height: 78px;
-  margin-bottom: 20px;
-}
-
-.stage-mark span {
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  background: var(--brand);
-  border: 5px solid var(--surface);
-  border-radius: 50%;
-  box-shadow: 0 0 0 1px var(--border);
-}
-
-.stage-mark span:nth-child(1) {
-  top: 4px;
-  left: 29px;
-}
-
-.stage-mark span:nth-child(2) {
-  right: 3px;
-  bottom: 5px;
-}
-
-.stage-mark span:nth-child(3) {
-  bottom: 5px;
-  left: 3px;
-}
-
-.stage-mark::before,
-.stage-mark::after {
-  position: absolute;
-  top: 35px;
-  left: 15px;
-  width: 49px;
-  height: 3px;
-  background: var(--accent);
-  content: "";
-  transform: rotate(58deg);
-  transform-origin: center;
-}
-
-.stage-mark::after {
-  transform: rotate(-58deg);
+.stage-brand {
+  width: 40px;
+  aspect-ratio: 100 / 114;
+  margin: 46px;
 }
 
 .checkpoint-state {
@@ -3357,8 +3352,12 @@ div[data-radix-popper-content-wrapper]:has(.tooltip) {
 }
 
 @media (max-width: 840px) {
-  .brand-name {
+  .brand-desktop {
     display: none;
+  }
+
+  .brand-compact {
+    display: inline-block;
   }
 
   .brand {

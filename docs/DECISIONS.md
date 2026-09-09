@@ -1777,3 +1777,46 @@ Consequences:
 - Per-element hydrogen filters, hydrogen addition, protonation, bond inference,
   ligand-specific policy, rendering presets, and automatic performance changes
   remain outside this decision.
+
+## D-048 - Neistra presentation with stable MolWeave technical contracts
+
+Status: accepted for the user-approved Neistra rebranding implementation.
+
+Decision:
+
+Rename the visible product and frontend/repository presentation to Neistra.
+Keep all backend code, metadata, version constants, Python packages, API and
+archive contracts, environment variables, data directories, job/plugin IDs,
+scientific defaults and the `molweave-workspace-v1` preference key unchanged.
+Do not rewrite server diagnostics, user names, uploaded files or historical
+evidence to conceal compatibility identifiers. Retain all five application
+version values: the user's no-backend-change requirement explicitly overrides
+the normal coordinated release-version update for this work. Release/version
+policy and external repository cutover remain separate, unexecuted work.
+
+Use the supplied guide's Sparked N with its spark above the right stroke;
+exclude the conflicting spark-over-i variant. Build flat, path-only production
+assets from that construction and an outlined geometric wordmark. Adapt neutral
+strokes for dark backgrounds, retain Ember/Spark, and use a true monochrome
+variant when color is unavailable. Standalone marks retain N-height clear
+space. Toolbar/favicon assets use the compact application treatment illustrated
+in the guide, with explicit padding and minimum sizes documented in BRANDING.
+Use system sans-serif UI text and a system serif for editorial welcome text;
+the supplied guide specifies categories and contains no licensed font master.
+
+Rationale:
+
+Visible identity can change without data migration or backend API changes.
+Keeping technical names preserves existing installations, archives, plugins
+and preferences. Explicit asset geometry, spacing and type choices resolve the
+guide's differing examples without inventing new scientific capabilities or
+introducing network/font dependencies.
+
+Consequences:
+
+- Neistra Archive remains the existing `.molweave.zip` format.
+- Legacy identifiers remain visible when they express real provenance or an
+  executable integration contract; the frontend only rewords its own copy.
+- The rebrand is a compatible presentation change, not a schema/API release.
+- The user forbids committing `.rebranding/`; tracked product documentation
+  records the implementation evidence and permanent brand rules separately.

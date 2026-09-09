@@ -13,6 +13,7 @@ import type {
 } from "../api/types";
 import type { Theme } from "../store/workspace";
 import { StructureViewer } from "./StructureViewer";
+import { Brand } from "./Brand";
 
 interface WorkspaceCanvasProps {
   project: Project | undefined;
@@ -59,8 +60,10 @@ export function WorkspaceCanvas({
   if (loading) {
     return (
       <main className="workspace-canvas" aria-busy="true">
-        <div className="loading-mark" />
-        <span className="sr-only">Loading workspace</span>
+        <div className="workspace-loading">
+          <Brand variant="icon" />
+          <span role="status">Loading Neistra workspace</span>
+        </div>
       </main>
     );
   }
@@ -70,7 +73,8 @@ export function WorkspaceCanvas({
       <div className="canvas-grid" aria-hidden="true" />
       {!project ? (
         <div className="canvas-empty">
-          <img src="/molweave-mark.svg" alt="" />
+          <Brand variant="lockup" className="welcome-brand" />
+          <p className="workspace-tagline">Shape molecular structure.</p>
           <h1>No project open</h1>
           <button type="button" className="primary-button" onClick={onCreate}>
             <FolderPlus size={17} />
@@ -80,11 +84,7 @@ export function WorkspaceCanvas({
       ) : project.entries.length === 0 ||
         !project.entries.some((entry) => entry.current_artifact_id) ? (
         <div className="project-stage">
-          <div className="stage-mark" aria-hidden="true">
-            <span />
-            <span />
-            <span />
-          </div>
+          <Brand className="stage-brand" />
           <h1>{project.name}</h1>
           <p>
             {project.entries.length}{" "}
