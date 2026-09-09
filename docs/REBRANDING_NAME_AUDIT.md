@@ -35,18 +35,18 @@ excluded from the matching inventory because it describes the retained names.
 | `docs/BRANDING.md` | C | 39, 40, 41 |
 | `docs/DECISIONS.md` | H | 3, 42, 70, 231, 270, 302, 404, 595, 704, 998, 1009, 1018, 1031, 1119, 1123, 1138, 1484, 1563, 1584, 1709, 1771, 1775, 1781 |
 | `docs/DECISIONS.md` | C | 37, 369, 629, 966, 1228, 1229, 1232, 1790, 1817 |
-| `docs/DEVELOPMENT.md` | C | 24, 29, 51, 55, 56, 57, 61, 62, 87, 89, 99, 112, 113, 114, 115, 128, 132, 133, 138, 145, 146, 147 |
+| `docs/DEVELOPMENT.md` | C | 27, 32, 54, 58, 59, 60, 64, 65, 90, 92, 102, 115, 116, 117, 118, 131, 135, 136, 141, 148, 149, 150 |
 | `docs/FIXTURES.md` | H | 3, 32, 50, 57, 80 |
 | `docs/NORMALIZED_SCHEMA.md` | C | 58 |
 | `docs/PERFORMANCE.md` | H | 3 |
 | `docs/PLAN.md` | H | 1, 10, 17, 81, 120, 128, 275, 336, 625 |
 | `docs/PLAN.md` | C | 60, 62, 467, 729 |
 | `docs/PLUGIN_GUIDE.md` | C | 13, 14, 20, 21, 30, 35, 39, 131, 132, 219, 237 |
-| `docs/PROGRESS.md` | H | 82, 90, 93, 183, 186, 252, 305, 308, 387, 392, 395, 461, 464, 518, 554, 556, 641, 1144, 1412, 1496, 1622, 1881 |
-| `docs/PROGRESS.md` | C | 1156, 1163, 1390, 1636, 1640, 1643, 1658, 1857, 1879 |
+| `docs/PROGRESS.md` | H | 99, 107, 110, 200, 203, 269, 322, 325, 404, 409, 412, 478, 481, 535, 571, 573, 658, 1161, 1429, 1513, 1639, 1898 |
+| `docs/PROGRESS.md` | C | 1173, 1180, 1407, 1653, 1657, 1660, 1675, 1874, 1896 |
 | `docs/PROJECT_SCHEMA.md` | C | 325, 348 |
-| `docs/REBRANDING_VERIFICATION.md` | C | 64 |
-| `docs/REBRANDING_VERIFICATION.md` | D | 68 |
+| `docs/REBRANDING_VERIFICATION.md` | C | 69 |
+| `docs/REBRANDING_VERIFICATION.md` | D | 73 |
 | `docs/RELEASE_NOTES.md` | H | 5, 28, 29, 30, 67, 146, 147, 148, 266, 272, 273, 274, 372, 373, 456, 457, 534, 535, 540 |
 | `docs/RELEASE_NOTES.md` | C | 15, 16 |
 | `docs/SCIENTIFIC_LIMITATIONS.md` | H | 3 |

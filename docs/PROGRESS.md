@@ -2,7 +2,7 @@
 
 ## Current milestone
 
-Neistra rebranding — M1–M4 complete; M5 is next.
+Neistra rebranding — M1–M5 implemented and verified.
 
 The user approved `.rebranding/IMPLEMENTATION_PLAN.md` for sequential
 implementation on `feat/neistra-rebranding`. The `.rebranding/` directory
@@ -14,7 +14,9 @@ M1 delivers the production identity, metadata, responsive header, welcome,
 empty-project and loading surfaces. M2 delivers coordinated semantic themes,
 startup restoration and viewer appearance. M3 completes workflow presentation,
 accessibility and responsive qualification. M4 completes repository presentation
-and the unexecuted cutover checklist. Final M5 qualification is not yet complete.
+and the unexecuted cutover checklist. M5 completes fresh repository qualification,
+compiled-delivery checks, full-diff review and the compatibility/rollback handoff
+in [REBRANDING_VERIFICATION](REBRANDING_VERIFICATION.md).
 
 Previous released milestone: issue #1, polar-only hydrogen visibility, v0.5.0.
 
@@ -31,6 +33,21 @@ and closed out on issue #1. The release tag remains on the exact verified
 feature merge; this documentation-only closeout records the remote evidence.
 
 ## Completed work
+
+- M5 complete: fresh frozen installs, migration through `0009`, Ruff, mypy
+  (50 files), all 209 Python tests, frontend lint/type-check/70 tests, all
+  eight supervisor tests and production build passed. The only Python output
+  warnings are the 15 existing Alembic configuration deprecations.
+- Fresh qualification data is isolated at `/tmp/neistra-qualification-Tkxv1q/data`
+  with verified current API/worker/web ports 8020/8021/5174. Compiled delivery
+  uses preview port 4174. All four compiled theme/layout checks passed. The
+  complete browser matrix passed (66 tests, 36 explained layout skips across
+  all 102 cases). A real social-preview image is prepared locally in
+  `.rebranding/`; no external upload/cutover occurred.
+- Full baseline-to-candidate review found no remaining consequential issue;
+  protected backend/scientific paths, technical contracts, original brand
+  sources and all five version values remain unchanged. Final scope, evidence,
+  residual-name exceptions and non-destructive rollback are documented.
 
 - M4: renamed private JavaScript packages, current repository/product
   prose and supervisor diagnostics. Preserved commands, identifiers, version
@@ -54,8 +71,8 @@ feature merge; this documentation-only closeout records the remote evidence.
   of the application build). At narrow widths the logo retains project access
   while the redundant cramped project-name control is hidden.
 - Visual review aligned link-buttons, native controls, semantic job statuses
-  and inset inspector focus rings. Its complete acceptance gate passed;
-  repository rewording and M4 have not started.
+  and inset inspector focus rings. Its complete acceptance gate passed before
+  repository rewording and M4 began.
 - Refreshed surface/state/real-zoom gate passed (10 applicable checks, two
   desktop-only skips). Narrow inspector facts and browser filters now adapt
   to their panel width. Nested Mol* screenshot/settings controls use semantic
@@ -1882,6 +1899,13 @@ Results:
 
 ## Known limitations
 
+- Rebranding qualification covers Chromium desktop and Pixel 7 emulation,
+  scoped accessibility checks and real desktop 100%/200% zoom; it does not
+  certify physical devices, Safari/Firefox or whole-product accessibility.
+  Backend compatibility names and version `0.5.0` intentionally remain.
+  External repository/release cutover needs separate authorization; see the
+  [rebranding handoff](REBRANDING_VERIFICATION.md).
+
 - Polar-only rendering relies on explicit normalized bonds and Mol*'s pinned
   non-polar-hydrogen classifier. It does not add hydrogens, repair bonds,
   determine protonation, or validate preparation chemistry; malformed or
@@ -1959,6 +1983,7 @@ None.
 
 ## Next action
 
-Run M5 complete qualification against a fresh isolated test store, verify the
-compiled application, review the full baseline diff and deliver the final
-scope/compatibility/rollback handoff. No external rename or release is authorized.
+Review the completed local `feat/neistra-rebranding` checkpoints and handoff.
+No implementation milestone remains. Repository rename, PR/merge, versioning,
+release and other external cutover actions remain separately authorized work;
+the prepared checklist is local and uncommitted under `.rebranding/`.

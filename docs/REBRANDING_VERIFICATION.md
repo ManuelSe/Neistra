@@ -1,11 +1,11 @@
 # Neistra rebranding verification
 
-Status: M1–M4 verified. M5 final qualification is next.
+Status: M1–M5 implemented and verified; no implementation gate remains.
 This is local implementation evidence, not a release announcement.
 
 Baseline: `2b22cc4` (v0.5.0 documentation closeout). Work is isolated on
 `feat/neistra-rebranding`; `.rebranding/` is never staged or committed.
-Source files, original molecular uploads and protected backend paths remain
+Original brand source files, molecular uploads and protected backend paths remain
 outside the implementation diff. See [BRANDING](BRANDING.md) and D-048/D-049
 for identity, contrast, theme ownership and compatibility decisions.
 
@@ -20,7 +20,7 @@ for identity, contrast, theme ownership and compatibility decisions.
   with 69 tests; 16 focused browser checks passed with two existing layout
   skips. The live viewer check compares whole project state, camera snapshots,
   isolation/selection, exact canvas RGBA and normalized-request counts.
-- M3: frontend gate passed with 70 tests. The new browser test files
+- M3, `8cd7de1`: frontend gate passed with 70 tests. The new browser test files
   also pass an explicit standalone TypeScript check. Full-surface reviews,
   warning/job-state checks, synthetic ambiguity/locked-state review and real
   browser-zoom qualification passed separately. The refreshed 12-case layout
@@ -33,7 +33,7 @@ for identity, contrast, theme ownership and compatibility decisions.
   skips plus two new desktop-only zoom/breakpoint skips). The corrected native zoom
   capture passed independently (one test, 21.2 seconds), with full-frame
   200% viewer/settings, inspector and export images reviewed.
-- M4: private JavaScript names, current documentation, supervisor diagnostics,
+- M4, `25bb2cc`: private JavaScript names, current documentation, supervisor diagnostics,
   padded repository identity and real light/dark 1STP screenshots delivered.
   Frozen JS install required no lock/dependency changes. All 8 supervisor tests,
   frontend lint/type-check/70 tests/build, 15 focused browser tests (one existing
@@ -52,6 +52,11 @@ the configured Pixel 7 emulation, unless explicitly marked desktop-only.
 scoped WCAG A/AA axe checks after finite entrance animations settle. It also
 checks page overflow and inspector tab label fit. Screenshots document visual
 review; they do not replace molecular assertions in the existing workflow tests.
+
+Review captures use fixed local molecular fixtures, repeatable UI actions,
+settled animations and explicit viewport/theme settings. Real project IDs,
+timestamps and job logs remain visible; these are repeatable state captures,
+not pixel-identical golden-image comparisons that conceal live provenance.
 
 | Surface / state | Screenshot prefix or browser evidence | Review outcome |
 | --- | --- | --- |
@@ -113,26 +118,107 @@ Evidence root: `/tmp/neistra-evidence-RvHbBz/`.
 
 These are local execution artifacts, not remotely published evidence. The
 backend/API/worker use only the isolated `data/` directory beneath this root.
-The final M5 gate must use a new disposable store and verified current servers.
+The final M5 gate used the separate fresh disposable store documented below.
 
 | Initial application JS gzip | Size |
 | --- | ---: |
 | Captured baseline | 154.82 kB |
 | M1 | 155.01 kB |
 | M2 | 156.03 kB |
-| M3 candidate | 156.20 kB |
+| M3 and final M5 candidate | 156.20 kB |
 
 Mol* remains lazy-loaded; its current compressed chunk is 966.82 kB. The
 existing large-lazy-chunk build advisory remains. No remote font, molecule
 palette change, viewer upgrade, dependency-version bump or schema migration
-was introduced. Final performance and compiled-delivery qualification are M5.
+was introduced. Final performance and compiled-delivery qualification passed in M5.
 
-## Remaining gates
+## Qualification complete
 
 M3 is qualified, including full-diff review of its presentation/accessibility
 changes and unchanged API, original-file and archive behavior.
 M4 is qualified; repository/documentation rewording, private JavaScript names
-and the unexecuted external checklist are complete. M5 owns the complete frozen-install, Python,
-frontend, supervisor and browser gate, compiled delivery smoke, full-diff audit
-and final implementation handoff. External rename/publication and all version
-bumps remain excluded from this frontend-only implementation.
+and the unexecuted external checklist are complete. M5 passed the complete
+frozen-install, Python, frontend, supervisor and browser gate, compiled delivery
+smoke and full-diff audit, and records the final implementation handoff below.
+External rename/publication and all version bumps remain excluded from this
+frontend-only implementation.
+
+## M5 fresh qualification
+
+Candidate: `25bb2cc`, following passing checkpoints `43d95f4`, `ce94127`,
+and `8cd7de1`. Fresh root: `/tmp/neistra-qualification-Tkxv1q/`; API, worker
+and development web ports are 8020, 8021 and 5174. Compiled preview uses 4174.
+These services were started for this qualification and checked healthy; no
+normal user data directory is used.
+
+Completed:
+
+- Frozen Python and JavaScript installs; existing migrations `0001`–`0009`.
+- Ruff; mypy across 50 source files; all 209 Python tests in 31.08 seconds.
+  Only 15 known Alembic configuration deprecation warnings were reported.
+- ESLint, TypeScript, 70 Vitest tests, all 8 supervisor tests and production
+  build. New browser test sources also pass their standalone type-check.
+- Four compiled-delivery checks: desktop 1440×900 and Pixel 7, each light/dark.
+  The entry bundle was held before execution to verify restored first paint;
+  every shipped brand asset was fetched and byte-compared. A real 1STP import
+  then verified lazy Mol* loading, exact opaque RGBA and no remote branding/
+  font, source-module, old-logo requests or page errors. Local replay script:
+  `/tmp/neistra-qualification-Tkxv1q/verify-production.mjs`; captures use
+  `production-<layout>-<theme>-<state>.png` in the same directory.
+- Full baseline-to-candidate review covered presentation source, shared theme,
+  storage restoration, viewer lifecycle, accessibility additions, CSS,
+  tests, assets and documentation. Protected paths and all five version values
+  are unchanged. Source artwork hashes still match all 11 originals.
+
+The final 102-case browser matrix passed in `browser-1/`, `browser-2/`
+and `browser-3/`: 32 + 16 + 18 passed, 4 + 16 + 16 explained skips,
+in 6.2 + 5.7 + 2.4 minutes. All three result manifests report `passed` with
+no failed test IDs. Total: 66 passed and 36 skipped, comprising 34 pre-existing
+layout skips and two explicit desktop-only zoom/breakpoint checks skipped in
+the mobile project. No test file was omitted and no scientific assertion was
+weakened. Fresh captures cover the complete both-theme desktop/mobile matrix;
+real 100%/200% native zoom and breakpoint qualification passed again.
+
+All eight M5 acceptance criteria are satisfied by these fresh gates, the
+compiled asset/network checks, scope audit and handoff. No consequential
+review finding remains. Final documentation changes do not alter the tested
+application candidate. All 32 local documentation/image targets resolve and the
+residual-name inventory was refreshed after the final documentation edits.
+
+Final production sizes: initial JS 156,196 gzip bytes; lazy Mol* 966,816 gzip
+bytes; CSS 25,683 gzip bytes. Initial JS growth is about 1.4 kB (0.9%) from the
+captured baseline. All 11 shipped brand derivatives total 13,577 uncompressed
+bytes versus the old 499-byte single SVG. The added variants/icons are small
+standalone assets; original brand sheets and repository screenshots do not ship.
+
+## Scope and rollback handoff
+
+| Disposition | Delivered boundary |
+| --- | --- |
+| Implemented | Neistra identity/metadata, canonical assets, welcome/loading/empty states, shared light/dark CSS/WebGL theme, dense workflows, accessible focus/scroll regions and vendor labels, archive compatibility help, frontend errors, private JS naming, repository presentation, real screenshots, tests and local cutover materials. |
+| Simplified as approved | System sans-serif/serif/monospace categories instead of unsupplied font masters; compact toolbar icon treatment instead of squeezing standalone clear space into the header. No blocking splash or logo animation. |
+| Deferred/excluded | Backend identity/code, all version bumps, repository/remotes/domains/checkout rename, PR/merge/tag/release/publication and social-preview upload. A local preview image and actionable checklist are prepared, not externally applied. |
+| Rejected | Recoloring molecules for branding, changing archive suffix/MIME/provenance or preference keys, replacing arbitrary server/user text, rewriting historical evidence, and representing guide account/marketplace/docking mockups as working features. |
+
+Compatibility impact: a backward-compatible presentation rebrand, with no API,
+schema, archive, project or preference migration. Existing technical identifiers
+remain deliberately visible. All authoritative versions stay at `0.5.0` until
+a separately authorized coordinated release decision resolves the no-backend
+boundary. No new release number is proposed or claimed here.
+Custom external web-package filters must use `@neistra/web`; root scripts run
+from the repository root without a filter. Documented workspace commands remain
+unchanged, and the new web filter was resolved during qualification.
+
+Rollback: redeploy the frontend built from baseline `2b22cc4`, or review and
+revert the presentation commits in reverse order. Preserve server data,
+uploaded originals, archives and browser preferences. No migration, reset,
+deletion or other destructive cleanup is required. External cutover would
+need its own separately verified reversal if it is performed later.
+
+Limitations: scoped shell accessibility checks are not a whole-product
+certification or screen-reader access to individual WebGL atoms. Pixel 7 is
+Chromium emulation, not a physical-device certification; Safari/Firefox were
+not qualified. The known large lazy-chunk advisory, blocked optional Scarf
+install script and scientific limitations remain. Review was local and is not
+claimed as an independent or remote PR review. Evidence directories are local
+artifacts and should be retained/copied before temporary-directory cleanup.

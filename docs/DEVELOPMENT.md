@@ -5,6 +5,9 @@ Status: Neistra development guide; existing configuration contracts retained.
 The private JavaScript packages are `neistra` and `@neistra/web`. Workspace
 commands below are unchanged. Python modules, environment variables and data
 paths intentionally retain their compatibility names; see [BRANDING](BRANDING.md).
+If a custom external script uses a package-name filter, update it to
+the web name, for example `corepack pnpm --filter @neistra/web build`.
+Run root scripts from the repository root without a package filter.
 
 All commands run from the repository root. Python commands must use the
 project-local `.venv`; do not install project packages into the system Python.
