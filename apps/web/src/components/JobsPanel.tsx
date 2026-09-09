@@ -174,7 +174,7 @@ export function JobsPanel({
               ))}
             </div>
             {detailTab === "logs" ? (
-              <div className="job-log" aria-label="Job logs">
+              <div className="job-log" role="region" aria-label="Job logs" tabIndex={0}>
                 {orderedEvents.length === 0 ? <p>No events.</p> : orderedEvents.map((event) => (
                   <div key={event.id} className={event.stream === "stderr" ? "stderr" : ""}>
                     <time>{new Date(event.created_at).toLocaleTimeString()}</time>
@@ -226,8 +226,8 @@ export function JobsPanel({
                   <dt>Completed</dt><dd>{timestamp(selected.completed_at)}</dd>
                   <dt>Inputs</dt><dd>{selected.inputs.map((item) => `${item.role}: ${item.entry_name}`).join(", ")}</dd>
                 </dl>
-                <details><summary>Parameters</summary><pre>{JSON.stringify(selected.parameters, null, 2)}</pre></details>
-                {Object.keys(selected.result_values).length ? <details><summary>Result values</summary><pre>{JSON.stringify(selected.result_values, null, 2)}</pre></details> : null}
+                <details><summary>Parameters</summary><pre role="region" aria-label="Job parameters" tabIndex={0}>{JSON.stringify(selected.parameters, null, 2)}</pre></details>
+                {Object.keys(selected.result_values).length ? <details><summary>Result values</summary><pre role="region" aria-label="Job result values" tabIndex={0}>{JSON.stringify(selected.result_values, null, 2)}</pre></details> : null}
               </div>
             )}
           </>

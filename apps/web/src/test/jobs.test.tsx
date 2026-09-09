@@ -181,6 +181,10 @@ describe("jobs", () => {
     expect((await screen.findAllByText("Statistics completed")).length).toBe(2);
     await user.click(screen.getByRole("tab", { name: "Logs" }));
     expect(await screen.findByText("Calculated statistics")).toBeInTheDocument();
+    const logs = screen.getByRole("region", { name: "Job logs" });
+    expect(logs).toHaveAttribute("tabindex", "0");
+    logs.focus();
+    expect(logs).toHaveFocus();
     await user.click(screen.getByRole("tab", { name: "Results (1)" }));
     expect(screen.getByRole("link", { name: "Download" })).toHaveAttribute(
       "href",

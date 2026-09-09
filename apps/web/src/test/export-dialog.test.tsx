@@ -276,6 +276,9 @@ describe("archive import dialog", () => {
       <ArchiveImportDialog open onOpenChange={vi.fn()} onImported={onImported} />,
     );
 
+    expect(screen.getByText(/Neistra Archives use the existing/)).toHaveTextContent(".molweave.zip");
+    expect(screen.getByLabelText("Choose project archive")).toHaveAttribute("accept", ".molweave.zip");
+
     await user.upload(
       screen.getByLabelText("Choose project archive"),
       new File(["archive"], "workspace.molweave.zip", { type: "application/zip" }),

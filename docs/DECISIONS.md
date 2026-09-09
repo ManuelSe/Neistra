@@ -1,4 +1,4 @@
-# MolWeave Architectural Decisions
+# Neistra Architectural Decisions
 
 This log records decisions that materially constrain MolWeave v0.1. Changes must
 add a superseding decision rather than silently editing historical rationale.
@@ -1777,3 +1777,112 @@ Consequences:
 - Per-element hydrogen filters, hydrogen addition, protonation, bond inference,
   ligand-specific policy, rendering presets, and automatic performance changes
   remain outside this decision.
+
+## D-048 - Neistra presentation with stable MolWeave technical contracts
+
+Status: accepted for the user-approved Neistra rebranding implementation.
+
+Decision:
+
+Rename the visible product and frontend/repository presentation to Neistra.
+Keep all backend code, metadata, version constants, Python packages, API and
+archive contracts, environment variables, data directories, job/plugin IDs,
+scientific defaults and the `molweave-workspace-v1` preference key unchanged.
+Do not rewrite server diagnostics, user names, uploaded files or historical
+evidence to conceal compatibility identifiers. Retain all five application
+version values: the user's no-backend-change requirement explicitly overrides
+the normal coordinated release-version update for this work. Release/version
+policy and external repository cutover remain separate, unexecuted work.
+
+Use the supplied guide's Sparked N with its spark above the right stroke;
+exclude the conflicting spark-over-i variant. Build flat, path-only production
+assets from that construction and an outlined geometric wordmark. Adapt neutral
+strokes for dark backgrounds, retain Ember/Spark, and use a true monochrome
+variant when color is unavailable. Standalone marks retain N-height clear
+space. Toolbar/favicon assets use the compact application treatment illustrated
+in the guide, with explicit padding and minimum sizes documented in BRANDING.
+Use system sans-serif UI text and a system serif for editorial welcome text;
+the supplied guide specifies categories and contains no licensed font master.
+
+Rationale:
+
+Visible identity can change without data migration or backend API changes.
+Keeping technical names preserves existing installations, archives, plugins
+and preferences. Explicit asset geometry, spacing and type choices resolve the
+guide's differing examples without inventing new scientific capabilities or
+introducing network/font dependencies.
+
+Consequences:
+
+- Neistra Archive remains the existing `.molweave.zip` format.
+- Legacy identifiers remain visible when they express real provenance or an
+  executable integration contract; the frontend only rewords its own copy.
+- The rebrand is a compatible presentation change, not a schema/API release.
+- The user forbids committing `.rebranding/`; tracked product documentation
+  records the implementation evidence and permanent brand rules separately.
+
+## D-049 - One Neistra presentation theme across startup, CSS and WebGL
+
+Status: accepted
+
+Decision:
+
+Own the Neistra primitives and derived semantic colors in a typed frontend
+module. Generate initial CSS and legacy-preference restoration into the HTML
+head from that same module at dev/build time. Consume the identical opaque
+viewer-background values through the existing buffered `setBackgroundColor`
+boundary from D-041. Do not store theme appearance in molecular settings,
+projects, scenes, history or archive data.
+
+Keep the existing preference key and persisted shape, validate restored values,
+and tolerate unavailable/quota-limited storage for session-only operation.
+Use system fonts and accessible semantic derivatives of the guide palette.
+Scope vendor DOM color/focus overrides to the Mol* host and label its existing
+CSS-only attribution link, without modifying the library or molecular palettes.
+
+Rationale:
+
+One source prevents HTML, browser chrome, CSS and WebGL from drifting and avoids
+a light startup frame for existing dark-theme users. Optional preferences must
+not prevent scientific work. Semantic roles preserve readable warnings, errors,
+focus and selection instead of assigning brand orange to every state.
+
+Consequences:
+
+- Theme toggles remain presentation-only, preserving camera, selection,
+  isolation, artifacts, revision/history and normalized-structure request counts.
+- Preference validation does not migrate or duplicate stored state.
+- The Vite HTML transform participates in both development and production;
+  first-paint and compiled-asset checks must cover both delivery paths.
+- Exact palette assertions coexist with scientific output checks; intentional
+  background changes do not authorize weakening molecule/viewer assertions.
+
+## D-050 - Current Neistra presentation with preserved repository history
+
+Status: accepted
+
+Decision:
+
+Rename only the private JavaScript package identities, current product prose
+and human-facing supervisor messages. Preserve executable commands, backend
+identifiers, version values, prior plans/decisions/releases and their existing
+URLs. Explain the transition in current documentation and inventory all
+remaining old-name matches instead of replacing repository-wide text.
+
+Use real application screenshots and clear-space variants of the canonical
+vector master for repository presentation. Strip generated raster metadata
+to keep the existing pixels and make repeat generation byte-identical.
+
+Rationale:
+
+The current product can be coherent without falsifying provenance, breaking
+existing installations or implying that an external rename/release occurred.
+Real screenshots avoid presenting guide mockups as implemented capabilities.
+
+Consequences:
+
+- Frozen JavaScript installation needs no lockfile or dependency update.
+- Supervisor configuration, startup/readiness and shutdown behavior are
+  unchanged; an integration assertion covers the renamed diagnostic prefix.
+- The external cutover checklist remains local and unexecuted, and the
+  no-backend/version exception in D-048 remains binding.

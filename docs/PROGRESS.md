@@ -1,8 +1,24 @@
-# MolWeave Progress
+# Neistra Progress
 
 ## Current milestone
 
-Issue #1 - polar-only hydrogen visibility, complete and released in v0.5.0
+Neistra rebranding — M1–M5 implemented and verified.
+
+The user approved `.rebranding/IMPLEMENTATION_PLAN.md` for sequential
+implementation on `feat/neistra-rebranding`. The `.rebranding/` directory
+must never be committed. The backend, all application version values, archive
+contracts, molecular defaults and local preference keys remain unchanged.
+No remote rename, release or publication is part of this implementation.
+
+M1 delivers the production identity, metadata, responsive header, welcome,
+empty-project and loading surfaces. M2 delivers coordinated semantic themes,
+startup restoration and viewer appearance. M3 completes workflow presentation,
+accessibility and responsive qualification. M4 completes repository presentation
+and the unexecuted cutover checklist. M5 completes fresh repository qualification,
+compiled-delivery checks, full-diff review and the compatibility/rollback handoff
+in [REBRANDING_VERIFICATION](REBRANDING_VERIFICATION.md).
+
+Previous released milestone: issue #1, polar-only hydrogen visibility, v0.5.0.
 
 The approved implementation contract is
 `docs/plans/issue-1-polar-hydrogen-visibility.md`. The bounded outcome adds an
@@ -17,6 +33,76 @@ and closed out on issue #1. The release tag remains on the exact verified
 feature merge; this documentation-only closeout records the remote evidence.
 
 ## Completed work
+
+- M5 complete: fresh frozen installs, migration through `0009`, Ruff, mypy
+  (50 files), all 209 Python tests, frontend lint/type-check/70 tests, all
+  eight supervisor tests and production build passed. The only Python output
+  warnings are the 15 existing Alembic configuration deprecations.
+- Fresh qualification data is isolated at `/tmp/neistra-qualification-Tkxv1q/data`
+  with verified current API/worker/web ports 8020/8021/5174. Compiled delivery
+  uses preview port 4174. All four compiled theme/layout checks passed. The
+  complete browser matrix passed (66 tests, 36 explained layout skips across
+  all 102 cases). A real social-preview image is prepared locally in
+  `.rebranding/`; no external upload/cutover occurred.
+- Full baseline-to-candidate review found no remaining consequential issue;
+  protected backend/scientific paths, technical contracts, original brand
+  sources and all five version values remain unchanged. Final scope, evidence,
+  residual-name exceptions and non-destructive rollback are documented.
+
+- M4: renamed private JavaScript packages, current repository/product
+  prose and supervisor diagnostics. Preserved commands, identifiers, version
+  values and historical plan/release bodies. Added padded repository lockups,
+  real light/dark 1STP workspace captures, candidate notes and the residual-name
+  inventory. The external cutover checklist is prepared but not executed and
+  remains untracked under `.rebranding/`.
+- Frozen JS installation, all eight supervisor tests (including the new
+  diagnostic-prefix check), frontend lint/type-check/70 tests/build and local
+  Markdown/image target checks passed. Focused browser verification passed:
+  15 applicable tests, one existing layout skip, 31.1 seconds. Supervisor
+  display-only changes, unchanged requirements/history and backend boundaries
+  were reviewed directly before the checkpoint.
+
+- Neistra M3: adapted inspector tabs to available width and added
+  labelled keyboard-scroll regions for inspector content, atom properties and
+  job logs/JSON. Rebranded client-owned API errors and added shared archive
+  compatibility help without changing requests, formats or server content.
+- Added both-theme desktop/Pixel 7 surface/state review coverage and genuine
+  100%/200% browser-zoom qualification using a test-only extension (never part
+  of the application build). At narrow widths the logo retains project access
+  while the redundant cramped project-name control is hidden.
+- Visual review aligned link-buttons, native controls, semantic job statuses
+  and inset inspector focus rings. Its complete acceptance gate passed before
+  repository rewording and M4 began.
+- Refreshed surface/state/real-zoom gate passed (10 applicable checks, two
+  desktop-only skips). Narrow inspector facts and browser filters now adapt
+  to their panel width. Nested Mol* screenshot/settings controls use semantic
+  themes, bounded scrolling and existing visible labels for unnamed fields;
+  scientific color swatches and all vendor behavior remain intact.
+- The first full browser attempt ended externally with signal 143 and no
+  result summary. Its partial evidence is retained, not counted as a pass;
+  complete coverage subsequently passed in three deterministic shards without
+  omissions (66 passed, 36 explained skips). Corrected native screenshot
+  capture also passed real 100%/200% zoom qualification.
+
+- Neistra M2: centralized typed light/dark colors, injected startup theme
+  restoration, semantic typography/spacing/status/focus tokens and matching
+  opaque CSS/WebGL backgrounds. Kept scientific palettes and molecular state
+  unchanged; legacy preference storage now tolerates invalid/blocked values.
+- Scoped Mol* DOM theme/focus overrides and labeled its existing attribution
+  link. Documented derived contrast pairs and theme ownership in BRANDING and
+  D-049. Added token, preference, attribution, first-paint and exact viewer
+  lifecycle regression coverage.
+
+- Neistra M1: created reproducible path-only light/dark/monochrome marks,
+  outlined wordmark lockups, compact icons, SVG/raster favicons and touch icon.
+  Source artwork remains unchanged; only optimized derivatives ship.
+- Replaced active MolWeave identity with reusable decorative Brand assets,
+  Neistra metadata, tagline and project entry states. Existing project actions,
+  840px compact behavior and user project names remain intact.
+- Captured pre-change empty/populated desktop and Pixel 7 screenshots in both
+  themes and SHA-256 source hashes under `/tmp/neistra-evidence-RvHbBz/baseline`.
+  Added browser coverage for metadata/assets, both themes, keyboard project
+  access, creation, real protein import and absence of old-logo requests.
 
 - Rebase-merged [PR #26](https://github.com/ManuelSe/MolWeave/pull/26) to
   verified release commit `bb60e92`, closing issue #1.
@@ -778,6 +864,52 @@ feature merge; this documentation-only closeout records the remote evidence.
   affected-entry topology replacement without a full scene synchronization.
 
 ## Verification performed
+
+- M4: frozen JS install (no lock or dependency changes), 8 supervisor tests,
+  ESLint, TypeScript, 70 Vitest tests, build and diff checks passed. Project
+  lifecycle and brand checks passed on both layouts (15 passed, one existing
+  skip). All 27 current local documentation/image targets exist. Original
+  icon pixels are unchanged; generated metadata-free bytes are reproducible.
+
+- M3 final: ESLint, TypeScript, 70 Vitest tests, production build, standalone
+  browser-test type-check and diff checks passed. All 102 configured browser
+  cases were executed in three batches: 66 passed, 36 explained skips, in
+  6.6 + 5.4 + 2.2 minutes. The 34 existing layout skips are unchanged; two
+  explicit mobile skips cover desktop-only native zoom/breakpoint checks.
+  Full-frame native zoom capture passed separately (21.2 seconds). Both-theme
+  desktop/Pixel 7 popups, dense panels, warnings, jobs, archive compatibility,
+  keyboard and recovery evidence is recorded in REBRANDING_VERIFICATION.
+  Initial JS is 156.20 kB gzip; lazy Mol* is 966.82 kB gzip. No backend or
+  scientific fixture changes; all 11 original brand source hashes match.
+
+- M3 interim: both-theme full-surface accessibility/review journey passed on
+  desktop and Pixel 7 (2 tests, 1.4 minutes; 88 screenshots, before the last
+  native-control/link polish). Real 100%/200% browser zoom and exact-width
+  breakpoint sweep passed (2 tests, 24.9 seconds). State qualification found
+  and fixed missing keyboard targets for scrollable job logs. Final workflow
+  regression and refreshed visual evidence remain pending.
+- All 11 supplied PNG/PDF hashes still match the captured baseline. The
+  protected backend/fixture path diff remains empty.
+
+- Neistra M2: ESLint, TypeScript, all 69 Vitest tests, production build and
+  diff checks passed. Final branding/viewer-theme/release-hardening E2Es:
+  16 passed, 2 existing layout skips in 1.1 minutes, against the isolated
+  `/tmp/neistra-evidence-RvHbBz/data` store. Browser assertions cover exact
+  RGBA backgrounds, equal camera snapshots, selection/isolation, whole-project
+  invariance, normalized-request counts, first paint, legacy saved layout,
+  storage failure, vendor colors/focus and scoped both-theme accessibility.
+- M2 qualification fixed vendor important-color precedence and adjusted the
+  new focus assertion to enter keyboard modality before testing focus-visible.
+  Source/fixture/backend path diff is empty. Initial JS gzip is 156.03 kB;
+  lazy Mol* gzip is 966.66 kB. The known lazy-chunk advisory remains.
+
+- Neistra M1: ESLint, TypeScript, all 65 Vitest tests, production build and
+  diff whitespace checks passed. Project lifecycle plus new branding E2Es:
+  7 passed, 1 existing desktop-only layout skip (24.1 seconds).
+- Inspected desktop welcome/workspace and Pixel 7 dark welcome screenshots,
+  and the 180px production icon. All primary actions remain visible. Initial
+  JS gzip grew from 154.82 to 155.01 kB; lazy Mol* remains 966.42 kB gzip.
+  The known lazy-chunk size advisory remains; no new runtime dependency.
 
 - Issue #1 checkpoint 3: 17 focused integration/scientific Python tests and all
   65 frontend tests across 20 files passed; Ruff, ESLint, TypeScript, and
@@ -1767,6 +1899,13 @@ Results:
 
 ## Known limitations
 
+- Rebranding qualification covers Chromium desktop and Pixel 7 emulation,
+  scoped accessibility checks and real desktop 100%/200% zoom; it does not
+  certify physical devices, Safari/Firefox or whole-product accessibility.
+  Backend compatibility names and version `0.5.0` intentionally remain.
+  External repository/release cutover needs separate authorization; see the
+  [rebranding handoff](REBRANDING_VERIFICATION.md).
+
 - Polar-only rendering relies on explicit normalized bonds and Mol*'s pinned
   non-polar-hydrogen classifier. It does not add hydrogens, repair bonds,
   determine protonation, or validate preparation chemistry; malformed or
@@ -1844,6 +1983,7 @@ None.
 
 ## Next action
 
-Implement issue #1 checkpoint 4: document the verified architecture, schema,
-API, scientific, accessibility, performance, compatibility, migration, and
-evidence contract without expanding the approved scope.
+Review the completed local `feat/neistra-rebranding` checkpoints and handoff.
+No implementation milestone remains. Repository rename, PR/merge, versioning,
+release and other external cutover actions remain separately authorized work;
+the prepared checklist is local and uncommitted under `.rebranding/`.

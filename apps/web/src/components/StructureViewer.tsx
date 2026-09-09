@@ -26,13 +26,14 @@ import { createMolstarViewer } from "../viewer/MolstarViewer";
 import { visibleLigandAtoms } from "../viewer/focusTargets";
 import { formatMeasurement, measurementValue } from "../measurements/geometry";
 import type { Theme } from "../store/workspace";
+import { THEME_TOKENS } from "../theme";
 import { ViewerControls } from "./ViewerControls";
 import { ViewerToolbar } from "./ViewerToolbar";
 import { SelectionStyleDialog } from "./SelectionStyleDialog";
 
 const VIEWER_BACKGROUND_COLORS: Record<Theme, string> = {
-  light: "#eef2f1",
-  dark: "#11191b",
+  light: THEME_TOKENS.light["viewer-background"],
+  dark: THEME_TOKENS.dark["viewer-background"],
 };
 
 interface StructureViewerProps {

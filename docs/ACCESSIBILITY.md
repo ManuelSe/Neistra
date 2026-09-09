@@ -1,8 +1,8 @@
 # Accessibility Qualification
 
-Status: released in MolWeave v0.2.0
+Status: Neistra shell contract; originally released in MolWeave v0.2.0.
 
-MolWeave targets WCAG 2.2 Level AA for the local application shell. The
+Neistra targets WCAG 2.2 Level AA for the local application shell. The
 qualification combines deterministic browser automation with keyboard and
 visual checks; an axe pass alone is not treated as complete coverage.
 
@@ -111,7 +111,7 @@ accessible application state around it.
 Automated contrast rules evaluate DOM-rendered text and controls, not molecular
 colors inside WebGL. Molecular color schemes communicate structure visually but
 are not the sole carrier of selection identity, warnings, measurements, or
-properties. MolWeave does not claim screen-reader access to individual 3D
+properties. Neistra does not claim screen-reader access to individual 3D
 atoms through the canvas; the synchronized inspector, query, sequence, project,
 and property surfaces are the semantic alternatives. Automated selection-style
 checks cover configured axe rules, focus, keyboard operation, and geometry at

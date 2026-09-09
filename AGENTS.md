@@ -1,4 +1,4 @@
-# MolWeave repository instructions
+# Neistra repository instructions
 
 Before making architectural or implementation decisions, read:
 

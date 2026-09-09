@@ -39,6 +39,8 @@ import {
   withCameraNeutralPrimarySelection,
 } from "./interaction";
 import { representationLayers } from "./representationProjection";
+import { THEME_TOKENS } from "../theme";
+import { observeViewerAttribution } from "./domPresentation";
 import {
   hydrogenDisplayMode,
   molstarRepresentationProfile,
@@ -54,8 +56,9 @@ interface LoadedStructure {
 }
 
 export class MolstarEngine implements MolecularViewer {
+  private stopAttributionObserver: (() => void) | undefined;
   private plugin: PluginUIContext | undefined;
-  private backgroundColor = "#eef2f1";
+  private backgroundColor: string = THEME_TOKENS.light["viewer-background"];
   private syncQueue: Promise<void> = Promise.resolve();
   private generation = 0;
   private pickingGranularity: SelectionGranularity = "atom";
@@ -113,6 +116,7 @@ export class MolstarEngine implements MolecularViewer {
       );
     }
     this.plugin = plugin;
+    this.stopAttributionObserver = observeViewerAttribution(target);
     this.setBackgroundColor(this.backgroundColor);
     this.clickSubscription = plugin.behaviors.interaction.click.subscribe(
       ({ current, button, modifiers }) => {
@@ -336,6 +340,8 @@ export class MolstarEngine implements MolecularViewer {
   }
 
   dispose(): void {
+    this.stopAttributionObserver?.();
+    this.stopAttributionObserver = undefined;
     this.generation += 1;
     this.clickSubscription?.unsubscribe();
     this.cameraSubscription?.unsubscribe();

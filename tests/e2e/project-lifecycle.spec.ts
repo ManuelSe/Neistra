@@ -137,7 +137,7 @@ test("reports an unavailable API and recovers after retry", async ({ page }) => 
   await page.goto("/");
   const alert = page.getByRole("alert");
   await expect(alert).toContainText("Local API unavailable");
-  await expect(alert).toContainText("MolWeave could not reach the local API.");
+  await expect(alert).toContainText("Neistra could not reach the local API.");
 
   failProjectList = false;
   await alert.getByRole("button", { name: "Retry" }).click();

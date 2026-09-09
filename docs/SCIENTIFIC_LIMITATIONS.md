@@ -1,8 +1,8 @@
 # Scientific Limitations
 
-Status: released in MolWeave v0.2.0
+Status: Neistra scientific limits; originally documented for MolWeave v0.2.0.
 
-MolWeave reports known uncertainty but does not replace specialist
+Neistra reports known uncertainty but does not replace specialist
 structure preparation or validation software.
 
 ## Macromolecular Formats
@@ -10,7 +10,7 @@ structure preparation or validation software.
 - PDB and PDBx/mmCIF connectivity does not establish reliable ligand bond
   order. Imported connection bonds therefore use `order: null`.
 - Alternate locations are distinct atom records with their identifiers and
-  occupancies. MolWeave does not choose or optimize one alternate state.
+  occupancies. Neistra does not choose or optimize one alternate state.
 - Multiple PDB/PDBx models become conformers only when every model has identical
   atom identity. Mismatched topology is rejected instead of flattened.
 - The normalized model covers core hierarchy and coordinates, not every
@@ -41,7 +41,7 @@ structure preparation or validation software.
 ## Ligand Editing
 
 - RDKit sanitization is the v0.1 authority for edited valence, aromaticity, and
-  formal charge. MolWeave rejects edits that RDKit cannot sanitize; this is not
+  formal charge. Neistra rejects edits that RDKit cannot sanitize; this is not
   a comprehensive quantum-chemical or tautomer/protonation-state assessment.
 - Explicit hydrogen addition uses RDKit valence inference. It does not choose a
   biologically correct pH, protonation microstate, tautomer, metal coordination,
@@ -54,15 +54,15 @@ structure preparation or validation software.
   fail; `auto` may try MMFF then UFF. A converged local minimum is not evidence
   of the correct conformer or binding pose.
 - Local cleanup fixes atoms outside the requested set. Whole and local cleanup
-  can change stereochemical perception or reveal close contacts; MolWeave
+  can change stereochemical perception or reveal close contacts; Neistra
   compares stable-atom stereo assignments and surfaces structured warnings but
   does not silently claim preservation.
-- Stable atom and bond IDs describe MolWeave project identity, not source-file
+- Stable atom and bond IDs describe Neistra project identity, not source-file
   serials. Deleted IDs leave gaps and newly allocated IDs are never reused.
 
 ## Protein Editing
 
-- MolWeave pins PDBFixer 1.12 source commit
+- Neistra pins PDBFixer 1.12 source commit
   `94cfa4c0ca551cdc5f13320f9a658efd59f2b881` and OpenMM 8.4.0 for v0.1
   protein templates and hydrogen placement. A dependency upgrade is a
   scientific change that requires fixture and regression review.
@@ -77,7 +77,7 @@ structure preparation or validation software.
 - Hydrogen addition uses PDBFixer's residue templates at the requested pH.
   It does not determine experimental protonation microstates, resolve ligand or
   metal coordination, optimize a hydrogen-bond network, add missing heavy
-  atoms, or guarantee a force-field-ready system. MolWeave surfaces the
+  atoms, or guarantee a force-field-ready system. Neistra surfaces the
   resulting uncertainty.
 - Unsupported residues are retained for generic deletion and coordinate
   movement but are reported and excluded from template-based mutation or
@@ -95,7 +95,7 @@ structure preparation or validation software.
   movement is an unconstrained Cartesian transform. These operations can
   create broken polymers, distorted bonds, clashes, invalid chirality, or
   chemically unreasonable structures.
-- MolWeave v0.1 does not build missing loops, choose alternate locations, add
+- Neistra does not build missing loops, choose alternate locations, add
   caps, assign force-field parameters, solvate, neutralize, optimize side
   chains, minimize proteins, or perform a complete structure-preparation
   protocol.
@@ -112,7 +112,7 @@ structure preparation or validation software.
   Remaining uncertainty is exposed as `unclassified` with warnings.
 - `ligand` means a putative non-polymer or cofactor component. It does not mean
   ligand of interest, validated binder, active compound, substrate, inhibitor,
-  or docking input. MolWeave does not rank or designate detected ligands.
+  or docking input. Neistra does not rank or designate detected ligands.
 - `solvent` means a recognized buffer, crystallization agent, or other additive
   fallback. It is not a claim about biological solvent relevance.
 - PDB/PDBx connectivity can be incomplete. Source residue/entity boundaries
@@ -135,7 +135,7 @@ structure preparation or validation software.
   `NormalizedStructureV1`.
 - Mol* renders application-owned representation, component, label, and camera
   settings. Viewer state is a disposable projection; named scenes store typed
-  MolWeave settings and never Mol* snapshots.
+  Neistra settings and never Mol* snapshots.
 - Focus visible ligands is a camera-navigation aid, not ligand designation or
   chemical perception. It frames rendered atoms in application hierarchy
   `ligand` components, subject to entry, ligand-group, hydrogen, and isolation
@@ -145,7 +145,7 @@ structure preparation or validation software.
   interpretation is required.
 - Mol* requires WebGL. Unsupported or disabled WebGL produces an explicit error;
   it does not affect stored molecular state.
-- At or above 250,000 atoms, MolWeave substitutes line rendering for surfaces
+- At or above 250,000 atoms, Neistra substitutes line rendering for surfaces
   and suppresses dense atom/residue labels with a visible reduced-detail
   notice. The threshold is not a performance guarantee; browser, GPU,
   representation, and topology still determine interactivity.
@@ -169,7 +169,7 @@ structure preparation or validation software.
   geometry filtering or make a hidden hydrogen representation visible.
 - Focus visible ligands uses heavy atoms outside all-hydrogen mode. This is a
   deterministic navigation simplification, not evidence that every hydrogen
-  shown or hidden by Mol* was independently classified by MolWeave.
+  shown or hidden by Mol* was independently classified by Neistra.
 - Automated qualification uses small explicit-connectivity protein and ligand
   fixtures in pinned Chromium/SwiftShader. It does not establish behavior for
   missing or ambiguous bonds, every file-format convention, other browsers,
@@ -258,7 +258,7 @@ structure preparation or validation software.
   at least three matches, and non-collinear geometry. Reported RMSD is the
   post-fit value over those matched active coordinates.
 - Backbone matching supports compatible `N`, `CA`, `C`, and `O` identities.
-  MolWeave does not guess a sequence alignment, repair missing residues, match
+  Neistra does not guess a sequence alignment, repair missing residues, match
   ligands by graph isomorphism, accept reflection-only solutions, or silently
   pair atoms by selection order.
 - A protein fit is applied to every atom in every conformer of the moving
@@ -281,6 +281,6 @@ preventing retrieval of the original bytes.
 - The demonstration translation/statistics job tests infrastructure only. It
   is not docking, scoring, minimization, preparation, or evidence of physical
   plausibility.
-- Importable outputs must be valid `NormalizedStructureV1` artifacts. MolWeave
+- Importable outputs must be valid `NormalizedStructureV1` artifacts. Neistra
   validates representation and provenance, not whether a pose, score, energy,
   or ranking is scientifically correct.

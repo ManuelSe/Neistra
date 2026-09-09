@@ -1,6 +1,6 @@
 # Performance Qualification
 
-Status: MolWeave v0.1 regression budgets
+Status: Neistra regression budgets, established for MolWeave v0.1.
 
 Performance thresholds are regression gates on the pinned Playwright desktop
 Chromium host. They are not hardware-independent throughput promises or
@@ -86,7 +86,7 @@ latency/GPU-memory budget; the existing 250,000-atom reduced-detail behavior
 continues to apply while retaining exact selection assignments.
 Polar-only hydrogen qualification detects request-cache and rebuild regressions
 on compact explicit-connectivity fixtures. It establishes neither incremental
-rendering nor a new latency, GPU-memory, or large-system budget. MolWeave does
+rendering nor a new latency, GPU-memory, or large-system budget. Neistra does
 not silently fall back to atom-name or coordinate heuristics when projected
 connectivity is absent; the existing reduced-detail threshold and WebGL limits
 still apply.

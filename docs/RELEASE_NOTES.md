@@ -1,4 +1,26 @@
-# MolWeave Release Notes
+# Neistra Release Notes
+
+## Unreleased — Neistra presentation rebrand
+
+Candidate notes, not a published or numbered release. Earlier MolWeave release
+entries and links below are preserved as history.
+
+- Renamed the visible molecular workspace to Neistra, with the Sparked N,
+  “Shape molecular structure.” welcome, matching light/dark themes and browser
+  metadata. Added consistent dense-panel, workflow, popup and focus treatment.
+- Retained scientific colors, original files, molecular state, camera,
+  selection, projects, scenes, history, jobs and backend behavior.
+- Renamed private JavaScript packages to `neistra` and `@neistra/web` and
+  updated repository presentation and human-facing startup diagnostics.
+- Kept `.molweave.zip`, MIME/provenance, Python modules, plugin IDs,
+  `MOLWEAVE_*` configuration, data roots and `molweave-workspace-v1` preferences.
+  No project, archive or preference migration is required.
+- All authoritative version values remain `0.5.0` because backend changes are
+  excluded. A coordinated version/release decision and external repository
+  cutover remain pending; no remote rename, tag or publication is claimed.
+
+See [verification and handoff](REBRANDING_VERIFICATION.md) for executed gates,
+scope decisions and remaining qualification work.
 
 ## 0.5.0 - 2026-08-09
 

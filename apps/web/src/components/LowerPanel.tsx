@@ -108,7 +108,7 @@ export function LowerPanel({
       ) : tab === "history" ? (
         <HistoryPanel project={project} embedded />
       ) : (
-        <div className="property-table-wrap">
+        <div className="property-table-wrap" role="region" aria-label="Selected atom properties" tabIndex={0}>
           <table className="property-table">
             <thead>
               <tr>

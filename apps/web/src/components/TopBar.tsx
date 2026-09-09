@@ -14,6 +14,7 @@ import {
 import type { Project } from "../api/types";
 import type { Theme } from "../store/workspace";
 import { IconButton } from "./IconButton";
+import { Brand } from "./Brand";
 
 interface TopBarProps {
   project: Project | undefined;
@@ -49,8 +50,9 @@ export function TopBar({
   return (
     <header className="topbar">
       <button type="button" className="brand" onClick={onProjects} aria-label="Projects">
-        <img src="/molweave-mark.svg" alt="" />
-        <span className="brand-name">MolWeave</span>
+        <Brand variant="lockup" className="brand-desktop" />
+        <Brand variant="icon" className="brand-compact" />
+        <span className="sr-only">Neistra</span>
       </button>
       <button type="button" className="project-switcher" onClick={onProjects}>
         <span className="project-switcher-label">{project?.name ?? "No project open"}</span>

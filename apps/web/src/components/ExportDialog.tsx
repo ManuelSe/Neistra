@@ -19,6 +19,7 @@ import type {
   Project,
 } from "../api/types";
 import { Modal } from "./Modal";
+import { ArchiveFormatHelp } from "./ArchiveFormatHelp";
 import { activateTabFromKeyboard } from "./tabKeyboard";
 
 interface ExportDialogProps {
@@ -289,13 +290,16 @@ export function ExportDialog({
             </fieldset>
           </>
         ) : (
-          <div className="archive-summary">
-            <Archive size={18} />
-            <div>
-              <strong>{project?.name}</strong>
-              <small>
-                {project?.entries.length ?? 0} structures · revision {project?.revision ?? 0}
-              </small>
+          <div>
+            <ArchiveFormatHelp />
+            <div className="archive-summary">
+              <Archive size={18} />
+              <div>
+                <strong>{project?.name}</strong>
+                <small>
+                  {project?.entries.length ?? 0} structures · revision {project?.revision ?? 0}
+                </small>
+              </div>
             </div>
           </div>
         )}
