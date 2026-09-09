@@ -7,6 +7,7 @@ import {
 } from "../api/client";
 import type { ArchiveImportResult } from "../api/types";
 import { Modal } from "./Modal";
+import { ArchiveFormatHelp } from "./ArchiveFormatHelp";
 
 interface ArchiveImportDialogProps {
   open: boolean;
@@ -82,9 +83,10 @@ export function ArchiveImportDialog({
         onOpenChange(nextOpen);
       }}
       title="Import project archive"
-      description=".molweave.zip"
+      description="Neistra Archive"
     >
       <div className="import-dialog">
+        <ArchiveFormatHelp />
         <label className="file-picker">
           <FileUp size={22} />
           <span>{file ? "Choose another archive" : "Choose project archive"}</span>

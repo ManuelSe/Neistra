@@ -83,7 +83,7 @@ async function request<ResponseType>(
       },
     });
   } catch {
-    throw new ApiError(0, "network_error", "MolWeave could not reach the local API.");
+    throw new ApiError(0, "network_error", "Neistra could not reach the local API.");
   }
 
   if (!response.ok) {
@@ -414,7 +414,7 @@ export const molecularApi = {
         callbacks.onProgress(event.loaded, event.lengthComputable ? event.total : 0);
       xhr.upload.onload = callbacks.onProcessing;
       xhr.onerror = () =>
-        reject(new ApiError(0, "network_error", "MolWeave could not reach the local API."));
+        reject(new ApiError(0, "network_error", "Neistra could not reach the local API."));
       xhr.onabort = () =>
         reject(new ApiError(0, "import_cancelled", "Import cancelled before commit."));
       xhr.onload = () => {
@@ -532,7 +532,7 @@ export const molecularApi = {
         callbacks.onProgress(event.loaded, event.lengthComputable ? event.total : 0);
       xhr.upload.onload = callbacks.onProcessing;
       xhr.onerror = () =>
-        reject(new ApiError(0, "network_error", "MolWeave could not reach the local API."));
+        reject(new ApiError(0, "network_error", "Neistra could not reach the local API."));
       xhr.onabort = () =>
         reject(new ApiError(0, "archive_import_cancelled", "Archive import cancelled."));
       xhr.onload = () => {

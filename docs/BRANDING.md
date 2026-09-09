@@ -85,3 +85,10 @@ certification; the workflow review and final qualification remain separate gates
 Mol* DOM controls are overridden only within the viewer host, including narrowly
 scoped important declarations needed to supersede vendor toggle/focus rules.
 The vendor attribution remains visible and receives an accessible link label.
+
+Nested screenshot/settings forms share the semantic surfaces and text colors.
+Their popup sits below the wrapping picking toolbar and scrolls within the
+viewer bounds. Inline background/color swatches retain their actual values;
+only chrome and slider affordances receive brand colors. Unnamed vendor color
+buttons and numeric fields use their existing adjacent row labels, without
+changing values, callbacks or molecular settings.

@@ -8,7 +8,7 @@ import {
   Trash2,
   X,
 } from "lucide-react";
-import { useEffect, useMemo, useRef, useState, type MouseEvent } from "react";
+import { useEffect, useId, useMemo, useRef, useState, type MouseEvent } from "react";
 import { molecularApi } from "../api/client";
 import type {
   Project,
@@ -583,6 +583,7 @@ function SequencePanel({
 }
 
 export function ProjectInspector(props: ProjectInspectorProps) {
+  const tabId = useId();
   const { project, selection, onCollapse } = props;
   const [tab, setTab] = useState<
     | "selection"
@@ -685,6 +686,8 @@ export function ProjectInspector(props: ProjectInspectorProps) {
           <button
             type="button"
             role="tab"
+            id={`${tabId}-${item}`}
+            aria-controls={`${tabId}-panel`}
             aria-selected={tab === item}
             tabIndex={tab === item ? 0 : -1}
             key={item}
@@ -697,7 +700,8 @@ export function ProjectInspector(props: ProjectInspectorProps) {
           </button>
         ))}
       </div>
-      <div className="inspector-body">
+      <div className="inspector-body" id={`${tabId}-panel`} role="tabpanel"
+        aria-labelledby={`${tabId}-${tab}`} tabIndex={0}>
         {tab === "selection" ? (
           <SelectionPanel
             {...props}

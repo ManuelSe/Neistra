@@ -2,7 +2,7 @@
 
 ## Current milestone
 
-Neistra rebranding — M1 and M2 complete; M3 is next.
+Neistra rebranding — M1–M3 complete; M4 is next.
 
 The user approved `.rebranding/IMPLEMENTATION_PLAN.md` for sequential
 implementation on `feat/neistra-rebranding`. The `.rebranding/` directory
@@ -12,8 +12,9 @@ No remote rename, release or publication is part of this implementation.
 
 M1 delivers the production identity, metadata, responsive header, welcome,
 empty-project and loading surfaces. M2 delivers coordinated semantic themes,
-startup restoration and viewer appearance. Remaining workflow/repository and
-final qualification work belongs to M3–M5 and is not claimed complete.
+startup restoration and viewer appearance. M3 completes workflow presentation,
+accessibility and responsive qualification. Repository presentation and final
+qualification belong to M4–M5 and are not claimed complete.
 
 Previous released milestone: issue #1, polar-only hydrogen visibility, v0.5.0.
 
@@ -30,6 +31,28 @@ and closed out on issue #1. The release tag remains on the exact verified
 feature merge; this documentation-only closeout records the remote evidence.
 
 ## Completed work
+
+- Neistra M3: adapted inspector tabs to available width and added
+  labelled keyboard-scroll regions for inspector content, atom properties and
+  job logs/JSON. Rebranded client-owned API errors and added shared archive
+  compatibility help without changing requests, formats or server content.
+- Added both-theme desktop/Pixel 7 surface/state review coverage and genuine
+  100%/200% browser-zoom qualification using a test-only extension (never part
+  of the application build). At narrow widths the logo retains project access
+  while the redundant cramped project-name control is hidden.
+- Visual review aligned link-buttons, native controls, semantic job statuses
+  and inset inspector focus rings. Its complete acceptance gate passed;
+  repository rewording and M4 have not started.
+- Refreshed surface/state/real-zoom gate passed (10 applicable checks, two
+  desktop-only skips). Narrow inspector facts and browser filters now adapt
+  to their panel width. Nested Mol* screenshot/settings controls use semantic
+  themes, bounded scrolling and existing visible labels for unnamed fields;
+  scientific color swatches and all vendor behavior remain intact.
+- The first full browser attempt ended externally with signal 143 and no
+  result summary. Its partial evidence is retained, not counted as a pass;
+  complete coverage subsequently passed in three deterministic shards without
+  omissions (66 passed, 36 explained skips). Corrected native screenshot
+  capture also passed real 100%/200% zoom qualification.
 
 - Neistra M2: centralized typed light/dark colors, injected startup theme
   restoration, semantic typography/spacing/status/focus tokens and matching
@@ -811,6 +834,26 @@ feature merge; this documentation-only closeout records the remote evidence.
   affected-entry topology replacement without a full scene synchronization.
 
 ## Verification performed
+
+- M3 final: ESLint, TypeScript, 70 Vitest tests, production build, standalone
+  browser-test type-check and diff checks passed. All 102 configured browser
+  cases were executed in three batches: 66 passed, 36 explained skips, in
+  6.6 + 5.4 + 2.2 minutes. The 34 existing layout skips are unchanged; two
+  explicit mobile skips cover desktop-only native zoom/breakpoint checks.
+  Full-frame native zoom capture passed separately (21.2 seconds). Both-theme
+  desktop/Pixel 7 popups, dense panels, warnings, jobs, archive compatibility,
+  keyboard and recovery evidence is recorded in REBRANDING_VERIFICATION.
+  Initial JS is 156.20 kB gzip; lazy Mol* is 966.82 kB gzip. No backend or
+  scientific fixture changes; all 11 original brand source hashes match.
+
+- M3 interim: both-theme full-surface accessibility/review journey passed on
+  desktop and Pixel 7 (2 tests, 1.4 minutes; 88 screenshots, before the last
+  native-control/link polish). Real 100%/200% browser zoom and exact-width
+  breakpoint sweep passed (2 tests, 24.9 seconds). State qualification found
+  and fixed missing keyboard targets for scrollable job logs. Final workflow
+  regression and refreshed visual evidence remain pending.
+- All 11 supplied PNG/PDF hashes still match the captured baseline. The
+  protected backend/fixture path diff remains empty.
 
 - Neistra M2: ESLint, TypeScript, all 69 Vitest tests, production build and
   diff checks passed. Final branding/viewer-theme/release-hardening E2Es:
@@ -1897,6 +1940,6 @@ None.
 
 ## Next action
 
-Implement Neistra M3: complete the frontend surface/state review, resolve dense
-panel clipping, reword client-owned errors and archive help, and qualify existing
-scientific workflows against the unchanged backend before M4.
+Implement Neistra M4 repository presentation, JavaScript package naming and
+developer-facing copy. Keep backend identifiers, historical evidence and all
+versions unchanged; prepare but do not execute external cutover.

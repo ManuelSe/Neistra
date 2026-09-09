@@ -59,6 +59,12 @@ select:focus-visible,
   outline-offset: 2px;
 }
 
+[role="tabpanel"]:focus-visible,
+[role="region"][tabindex="0"]:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: -2px;
+}
+
 .app-shell {
   display: grid;
   grid-template-rows: 52px minmax(0, 1fr);
@@ -374,6 +380,7 @@ select:focus-visible,
 
 .structure-viewer {
   position: relative;
+  container-type: size;
   z-index: 1;
   width: 100%;
   height: 100%;
@@ -432,12 +439,74 @@ select:focus-visible,
   opacity: 0.95;
 }
 
+/* Theme nested vendor forms, but preserve inline scientific color swatches. */
+.molstar-host .msp-plugin .msp-viewport-controls-panel {
+  z-index: 9;
+  /* Leave the wrapping application picking toolbar reachable above popups. */
+  top: 72px;
+  width: min(290px, calc(100cqw - 52px));
+  max-height: calc(100cqh - 92px);
+  overflow: auto;
+}
+
+.molstar-host .msp-plugin .msp-viewport-controls-panel :is(
+  .msp-control-row, .msp-control-row > div, .msp-control-current,
+  .msp-control-group-header, .msp-control-group-header > span,
+  .msp-help-text, .msp-image-preview, .msp-help-row
+) {
+  color: var(--text);
+  background-color: var(--surface);
+}
+
+.molstar-host .msp-plugin .msp-viewport-controls-panel :is(
+  .msp-control-row-label, .msp-control-button-label, .msp-help-description,
+  .msp-help-text > div, .msp-help-text > p
+) {
+  color: var(--text-soft);
+}
+
+.molstar-host .msp-plugin .msp-viewport-controls-panel :is(
+  button:not(.msp-combined-color-button), input, select, textarea
+) {
+  color: var(--text);
+  background-color: var(--surface-muted);
+}
+
+.molstar-host .msp-plugin .msp-viewport-controls-panel .msp-control-group-header > :is(button, div) {
+  color: var(--text-soft);
+  background: var(--surface) !important;
+  font-size: var(--text-xs) !important;
+}
+
+.molstar-host .msp-plugin .msp-viewport-controls-panel :is(
+  button:not(.msp-combined-color-button), input, select, textarea
+):is(:hover, :focus-visible) {
+  color: var(--text);
+  background-color: var(--surface-hover);
+}
+
+.molstar-host .msp-plugin .msp-viewport-controls-panel .msp-control-group-footer {
+  background: var(--border);
+}
+
+.molstar-host .msp-plugin .msp-viewport-controls-panel .msp-slider-base-rail {
+  background: var(--border-strong);
+}
+
+.molstar-host .msp-plugin .msp-viewport-controls-panel :is(.msp-slider-base-track, .msp-slider-base-handle) {
+  background: var(--action);
+  border-color: var(--surface);
+}
+
 .molstar-host button:focus-visible {
   outline: 2px solid var(--focus) !important;
   outline-offset: 2px !important;
 }
 
-progress {
+progress,
+input[type="range"],
+input[type="checkbox"],
+input[type="radio"] {
   accent-color: var(--action);
 }
 
@@ -527,8 +596,13 @@ progress {
 }
 
 .secondary-button {
+  color: var(--text);
   background: var(--surface);
   border: 1px solid var(--border-strong);
+}
+
+.secondary-button:hover:not(:disabled) {
+  background: var(--surface-hover);
 }
 
 .danger-button {
@@ -592,7 +666,7 @@ progress {
 
 .browser-selects {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
   gap: 6px;
 }
 
@@ -901,8 +975,9 @@ progress {
 
 .inspector-tabs {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  height: 34px;
+  grid-template-columns: repeat(auto-fit, minmax(92px, 1fr));
+  grid-auto-rows: minmax(32px, auto);
+  flex-shrink: 0;
   border-bottom: 1px solid var(--border);
 }
 
@@ -922,6 +997,10 @@ progress {
 .inspector-tabs button[aria-selected="true"] {
   color: var(--text);
   border-bottom-color: var(--accent);
+}
+
+.inspector-tabs button:focus-visible {
+  outline-offset: -3px;
 }
 
 .inspector-body {
@@ -1387,6 +1466,10 @@ select {
   border-left-color: var(--danger);
 }
 
+.notice.success {
+  border-left-color: var(--success);
+}
+
 .notice button {
   padding: 5px 7px;
   color: var(--text-soft);
@@ -1608,13 +1691,13 @@ select {
 }
 
 .selection-style-message.success {
-  color: var(--brand);
-  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  color: var(--success);
+  background: var(--success-soft);
 }
 
 .selection-style-message.error {
   color: var(--danger);
-  background: color-mix(in srgb, var(--danger) 9%, transparent);
+  background: var(--danger-soft);
 }
 
 .file-picker {
@@ -1637,6 +1720,11 @@ select {
 .file-picker:hover {
   background: var(--surface-muted);
   border-color: var(--brand);
+}
+
+.file-picker:focus-within {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
 }
 
 .file-picker input {
@@ -1965,6 +2053,13 @@ select {
   border-radius: var(--radius-sm);
 }
 
+.archive-format-help {
+  margin: 0 0 var(--space-3);
+  color: var(--text-soft);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+}
+
 .archive-summary strong,
 .archive-summary small {
   display: block;
@@ -2090,6 +2185,7 @@ select {
   gap: 9px;
   min-height: 31px;
   padding: 0 8px;
+  color: var(--text);
   border-radius: var(--radius-sm);
   outline: 0;
   font-size: var(--text-sm);
@@ -2099,6 +2195,7 @@ select {
 
 .dropdown-item[data-highlighted] {
   background: var(--surface-hover);
+  box-shadow: inset 2px 0 var(--focus);
 }
 
 .dropdown-item.danger {
@@ -2454,17 +2551,63 @@ div[data-radix-popper-content-wrapper]:has(.tooltip) {
   cursor: pointer;
 }
 
-.inspector-tabs {
-  grid-template-columns: repeat(4, 1fr);
-  height: 58px;
+.project-inspector {
+  display: flex;
+  flex-direction: column;
+  container-type: inline-size;
 }
 
-.inspector-tabs button {
-  font-size: var(--text-tiny);
+.project-inspector .panel-header {
+  flex-shrink: 0;
 }
 
 .project-inspector .inspector-body {
-  height: calc(100% - 116px);
+  flex: 1;
+  min-height: 0;
+  height: auto;
+}
+
+.project-browser {
+  display: flex;
+  flex-direction: column;
+}
+
+.project-browser .panel-header,
+.project-browser .browser-controls {
+  flex-shrink: 0;
+}
+
+.project-browser .browser-results {
+  flex: 1;
+  min-height: 0;
+  height: auto;
+}
+
+@container (max-width: 320px) {
+  .selection-summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .project-facts {
+    grid-template-columns: 1fr;
+  }
+
+  .project-facts > div {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-2);
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .project-facts > div:last-child {
+    border-bottom: 0;
+  }
+
+  .project-facts dd {
+    margin: 0;
+  }
 }
 
 .inspect-panel,
@@ -3129,15 +3272,21 @@ div[data-radix-popper-content-wrapper]:has(.tooltip) {
 
 .job-status.completed {
   color: var(--success);
+  background: var(--success-soft);
 }
 
-.job-status.failed,
-.job-status.cancelled {
+.job-status.failed {
   color: var(--danger);
+  background: var(--danger-soft);
+}
+
+.job-status.cancelled {
+  color: var(--text-soft);
 }
 
 .job-status.running {
-  color: var(--accent-strong);
+  color: var(--info);
+  background: var(--info-soft);
 }
 
 .job-detail-pane {
@@ -3457,6 +3606,17 @@ div[data-radix-popper-content-wrapper]:has(.tooltip) {
 
   .job-detail-header > div span {
     display: none;
+  }
+}
+
+@media (max-width: 400px) {
+  /* The logo still opens Projects; avoid a duplicate cramped name control. */
+  .project-switcher {
+    display: none;
+  }
+
+  .topbar .brand {
+    padding: 0;
   }
 }
 

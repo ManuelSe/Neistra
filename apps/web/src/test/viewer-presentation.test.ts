@@ -15,3 +15,24 @@ it("labels vendor attribution across DOM recreation and stops on disposal", asyn
   await Promise.resolve();
   expect(target.querySelector("a")).not.toHaveAttribute("aria-label");
 });
+
+it("labels only unlabelled vendor popup fields from their existing row label", async () => {
+  const target = document.createElement("div");
+  const stop = observeViewerAttribution(target);
+  target.innerHTML = `<div class="msp-viewport-controls-panel">
+    <div class="msp-control-row"><span class="msp-control-row-label">Background</span>
+      <button class="msp-combined-color-button" style="background: rgb(23, 26, 31)"></button></div>
+    <div class="msp-control-row"><span class="msp-control-row-label">Clipping</span>
+      <div><input value="50"><input aria-label="Already named" value="25"></div></div>
+    <input title="Preserved title"><input>
+  </div><input value="Outside vendor popup">`;
+  await Promise.resolve();
+  expect(target.querySelector("button")).toHaveAttribute("aria-label", "Background");
+  expect(target.querySelector("button")?.style.background).toBe("rgb(23, 26, 31)");
+  const inputs = target.querySelectorAll("input");
+  expect(inputs[0]).toHaveAttribute("aria-label", "Clipping");
+  expect(inputs[0]).toHaveValue("50");
+  expect(inputs[1]).toHaveAttribute("aria-label", "Already named");
+  for (const input of [...inputs].slice(2)) expect(input).not.toHaveAttribute("aria-label");
+  stop();
+});
