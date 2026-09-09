@@ -11,10 +11,12 @@ import type {
   ViewerMeasurement,
 } from "./MolecularViewer";
 
+import { THEME_TOKENS } from "../theme";
+
 class LazyMolstarViewer implements MolecularViewer {
   private engine: MolecularViewer | undefined;
   private disposed = false;
-  private backgroundColor = "#eef2f1";
+  private backgroundColor: string = THEME_TOKENS.light["viewer-background"];
   private selection: AtomReference[] = [];
   private pickingGranularity: SelectionGranularity = "atom";
   private selectionListeners = new Set<(event: ViewerSelectionEvent) => void>();

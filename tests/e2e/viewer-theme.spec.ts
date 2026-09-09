@@ -23,6 +23,7 @@ interface ProjectRead {
   name: string;
   revision: number;
   entries: ProjectEntry[];
+  scenes: { name: string; camera: unknown }[];
 }
 
 async function createProject(
@@ -70,10 +71,10 @@ function canvas(page: Page) {
 async function expectViewerTheme(page: Page, theme: "light" | "dark") {
   await expect(page.locator("html")).toHaveAttribute("data-theme", theme);
   await expect(canvas(page)).toBeVisible({ timeout: 30_000 });
-  const backgroundLuminance = () =>
+  const backgroundPixel = () =>
     canvas(page).evaluate((element: HTMLCanvasElement) => {
       const context = element.getContext("webgl2") ?? element.getContext("webgl");
-      if (!context) return -1;
+      if (!context) return [];
       const pixel = new Uint8Array(4);
       context.readPixels(
         2,
@@ -84,24 +85,23 @@ async function expectViewerTheme(page: Page, theme: "light" | "dark") {
         context.UNSIGNED_BYTE,
         pixel,
       );
-      return pixel[0] + pixel[1] + pixel[2];
+      return Array.from(pixel);
     });
   if (theme === "dark") {
-    await expect.poll(backgroundLuminance, { timeout: 30_000 }).toBeLessThan(150);
+    await expect.poll(backgroundPixel, { timeout: 30_000 }).toEqual([23, 26, 31, 255]);
   } else {
-    await expect.poll(backgroundLuminance, { timeout: 30_000 }).toBeGreaterThan(600);
+    await expect.poll(backgroundPixel, { timeout: 30_000 }).toEqual([244, 241, 235, 255]);
   }
+  await expect(page.locator(".structure-viewer")).toHaveCSS("background-color",
+    theme === "dark" ? "rgb(23, 26, 31)" : "rgb(244, 241, 235)");
 }
 
-function persistedProjectState(project: ProjectRead) {
-  return {
-    revision: project.revision,
-    entries: project.entries.map((entry) => ({
-      id: entry.id,
-      current_artifact_id: entry.current_artifact_id,
-      viewer_settings: entry.viewer_settings,
-    })),
-  };
+async function saveThemeCamera(page: Page, request: APIRequestContext, projectId: string, name: string) {
+  await page.getByPlaceholder("Scene name").fill(name);
+  await page.getByRole("button", { name: "Save current scene" }).click();
+  await expect(page.getByRole("button", { name, exact: true })).toBeVisible();
+  const project = await readProject(request, projectId);
+  return project.scenes.find((scene) => scene.name === name)!.camera;
 }
 
 test("keeps the persisted theme through the real viewer lifecycle", async ({
@@ -203,10 +203,13 @@ test("keeps the persisted theme through the real viewer lifecycle", async ({
   await expect(page.locator(".viewer-status")).toContainText(
     `/ ${selectedCount} selected`,
   );
+  await page.getByRole("button", { name: "Open viewer controls" }).click();
+  await page.getByRole("button", { name: "Isolate selection", exact: true }).click();
+  await expect(page.getByRole("button", { name: "Show all", exact: true })).toBeVisible();
+  const cameraBeforeTheme = await saveThemeCamera(page, request, created.id, "Before theme change");
+  await page.getByRole("button", { name: "Close viewer controls" }).click();
   const statusBeforeThemeChange = await page.locator(".viewer-status").textContent();
-  const stateBeforeThemeChange = persistedProjectState(
-    await readProject(request, created.id),
-  );
+  const stateBeforeThemeChange = await readProject(request, created.id);
   const requestsBeforeThemeChange = structureRequests;
   await canvas(page).evaluate((element) => {
     element.dataset.themeLifecycle = "existing";
@@ -220,10 +223,14 @@ test("keeps the persisted theme through the real viewer lifecycle", async ({
     "aria-pressed",
     "true",
   );
-  expect(persistedProjectState(await readProject(request, created.id))).toEqual(
+  expect(await readProject(request, created.id)).toEqual(
     stateBeforeThemeChange,
   );
   expect(structureRequests).toBe(requestsBeforeThemeChange);
+  await page.getByRole("button", { name: "Open viewer controls" }).click();
+  await expect(page.getByRole("button", { name: "Show all", exact: true })).toBeVisible();
+  expect(await saveThemeCamera(page, request, created.id, "After theme change")).toEqual(cameraBeforeTheme);
+  await page.getByRole("button", { name: "Close viewer controls" }).click();
 
   const lightCanvas = await canvas(page).elementHandle();
   await page.setViewportSize({ width: 800, height: 900 });

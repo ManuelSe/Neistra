@@ -2,7 +2,7 @@
 
 ## Current milestone
 
-Neistra rebranding — M1 complete; M2 is next.
+Neistra rebranding — M1 and M2 complete; M3 is next.
 
 The user approved `.rebranding/IMPLEMENTATION_PLAN.md` for sequential
 implementation on `feat/neistra-rebranding`. The `.rebranding/` directory
@@ -11,8 +11,9 @@ contracts, molecular defaults and local preference keys remain unchanged.
 No remote rename, release or publication is part of this implementation.
 
 M1 delivers the production identity, metadata, responsive header, welcome,
-empty-project and loading surfaces. Remaining theme/workflow/repository work
-belongs to M2–M5 and is not claimed complete.
+empty-project and loading surfaces. M2 delivers coordinated semantic themes,
+startup restoration and viewer appearance. Remaining workflow/repository and
+final qualification work belongs to M3–M5 and is not claimed complete.
 
 Previous released milestone: issue #1, polar-only hydrogen visibility, v0.5.0.
 
@@ -29,6 +30,15 @@ and closed out on issue #1. The release tag remains on the exact verified
 feature merge; this documentation-only closeout records the remote evidence.
 
 ## Completed work
+
+- Neistra M2: centralized typed light/dark colors, injected startup theme
+  restoration, semantic typography/spacing/status/focus tokens and matching
+  opaque CSS/WebGL backgrounds. Kept scientific palettes and molecular state
+  unchanged; legacy preference storage now tolerates invalid/blocked values.
+- Scoped Mol* DOM theme/focus overrides and labeled its existing attribution
+  link. Documented derived contrast pairs and theme ownership in BRANDING and
+  D-049. Added token, preference, attribution, first-paint and exact viewer
+  lifecycle regression coverage.
 
 - Neistra M1: created reproducible path-only light/dark/monochrome marks,
   outlined wordmark lockups, compact icons, SVG/raster favicons and touch icon.
@@ -801,6 +811,18 @@ feature merge; this documentation-only closeout records the remote evidence.
   affected-entry topology replacement without a full scene synchronization.
 
 ## Verification performed
+
+- Neistra M2: ESLint, TypeScript, all 69 Vitest tests, production build and
+  diff checks passed. Final branding/viewer-theme/release-hardening E2Es:
+  16 passed, 2 existing layout skips in 1.1 minutes, against the isolated
+  `/tmp/neistra-evidence-RvHbBz/data` store. Browser assertions cover exact
+  RGBA backgrounds, equal camera snapshots, selection/isolation, whole-project
+  invariance, normalized-request counts, first paint, legacy saved layout,
+  storage failure, vendor colors/focus and scoped both-theme accessibility.
+- M2 qualification fixed vendor important-color precedence and adjusted the
+  new focus assertion to enter keyboard modality before testing focus-visible.
+  Source/fixture/backend path diff is empty. Initial JS gzip is 156.03 kB;
+  lazy Mol* gzip is 966.66 kB. The known lazy-chunk advisory remains.
 
 - Neistra M1: ESLint, TypeScript, all 65 Vitest tests, production build and
   diff whitespace checks passed. Project lifecycle plus new branding E2Es:
@@ -1875,5 +1897,6 @@ None.
 
 ## Next action
 
-Implement Neistra M2: semantic light/dark tokens and coordinated CSS/browser/
-WebGL theme initialization, then qualify contrast and viewer lifecycle before M3.
+Implement Neistra M3: complete the frontend surface/state review, resolve dense
+panel clipping, reword client-owned errors and archive help, and qualify existing
+scientific workflows against the unchanged backend before M4.

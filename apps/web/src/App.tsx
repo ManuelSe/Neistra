@@ -58,6 +58,7 @@ import {
 } from "./coordinates/transforms";
 import { useSelectionStore } from "./store/selection";
 import { useWorkspaceStore } from "./store/workspace";
+import { applyTheme } from "./theme";
 
 type EntryDialog = { mode: "rename" | "group" | "delete"; entry: Entry } | null;
 
@@ -177,11 +178,7 @@ export default function App() {
   }, [project, replaceSelection, selection]);
 
   useEffect(() => {
-    document.documentElement.dataset.theme = theme;
-    document.querySelector('meta[name="theme-color"]')?.setAttribute(
-      "content",
-      theme === "light" ? "#f7f8fa" : "#11191b",
-    );
+    applyTheme(theme);
   }, [theme]);
 
   useEffect(() => {

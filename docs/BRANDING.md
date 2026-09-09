@@ -42,3 +42,46 @@ Archives remain `.molweave.zip`; browser preferences remain under
 job/plugin identifiers, original uploads and server-provided diagnostics are
 not rebranded by substitution. Version values remain synchronized and unchanged.
 See D-048 for the boundary and rationale.
+
+## Theme and typography contract
+
+`apps/web/src/theme.ts` owns the seven brand primitives and all light/dark
+semantic color values. Vite injects those CSS properties and synchronous legacy
+preference restoration into the document head before the application module.
+The viewer adapter consumes the same opaque Ash (`#F4F1EB`) / Graphite
+(`#171A1F`) background values. No theme data enters projects, scenes or history.
+Blocked browser storage permits session-only use; malformed values safely fall
+back without executing persisted actions or accepting invalid layout shapes.
+
+UI typography uses system sans-serif, the welcome tagline uses Georgia/Times,
+and data/logs use system monospace. The size scale is 10/11/12/13/14/16px, with
+10px restricted to compact supporting labels; dense workflows must remain
+readable without clipping. Spacing uses 4/8/12/16/24/32px and radii 4/6px.
+No font download, theme animation or scientific color substitution is added.
+
+Ember is the light action background with white text, not Ash text. Dark actions
+use Spark with Graphite text. Light secondary text is the derived `#555B63`,
+not low-contrast Tempered; dark secondary text is `#BAC4CB`. Warning, error,
+success and information each have distinct foreground/soft-surface pairs;
+labels and icons continue to communicate status independently of color.
+The source module is the authoritative reference for all derived shades.
+
+Representative opaque contrast ratios (rounded to two decimals):
+
+| Rendered semantic pair | Light | Dark |
+| --- | ---: | ---: |
+| Main text / workspace background | 15.47 | 15.47 |
+| Secondary text / muted surface | 5.51 | 7.49 |
+| Action text / action background | 4.53 | 9.85 |
+| Warning text / warning surface | 6.13 | 8.19 |
+| Focus indicator / surface | 6.51 | 8.57 |
+| Strong control border / surface | 4.19 | 4.16 |
+
+Token tests also check hover, selection, status and control pairs and verify
+that every CSS variable resolves. Browser tests check restored first paint,
+actual shell/WebGL pixels, vendor button colors and keyboard focus, and scoped
+axe checks in both themes. These do not constitute a whole-product accessibility
+certification; the workflow review and final qualification remain separate gates.
+Mol* DOM controls are overridden only within the viewer host, including narrowly
+scoped important declarations needed to supersede vendor toggle/focus rules.
+The vendor attribution remains visible and receives an accessible link label.

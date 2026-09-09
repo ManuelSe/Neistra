@@ -1820,3 +1820,39 @@ Consequences:
 - The rebrand is a compatible presentation change, not a schema/API release.
 - The user forbids committing `.rebranding/`; tracked product documentation
   records the implementation evidence and permanent brand rules separately.
+
+## D-049 - One Neistra presentation theme across startup, CSS and WebGL
+
+Status: accepted
+
+Decision:
+
+Own the Neistra primitives and derived semantic colors in a typed frontend
+module. Generate initial CSS and legacy-preference restoration into the HTML
+head from that same module at dev/build time. Consume the identical opaque
+viewer-background values through the existing buffered `setBackgroundColor`
+boundary from D-041. Do not store theme appearance in molecular settings,
+projects, scenes, history or archive data.
+
+Keep the existing preference key and persisted shape, validate restored values,
+and tolerate unavailable/quota-limited storage for session-only operation.
+Use system fonts and accessible semantic derivatives of the guide palette.
+Scope vendor DOM color/focus overrides to the Mol* host and label its existing
+CSS-only attribution link, without modifying the library or molecular palettes.
+
+Rationale:
+
+One source prevents HTML, browser chrome, CSS and WebGL from drifting and avoids
+a light startup frame for existing dark-theme users. Optional preferences must
+not prevent scientific work. Semantic roles preserve readable warnings, errors,
+focus and selection instead of assigning brand orange to every state.
+
+Consequences:
+
+- Theme toggles remain presentation-only, preserving camera, selection,
+  isolation, artifacts, revision/history and normalized-structure request counts.
+- Preference validation does not migrate or duplicate stored state.
+- The Vite HTML transform participates in both development and production;
+  first-paint and compiled-asset checks must cover both delivery paths.
+- Exact palette assertions coexist with scientific output checks; intentional
+  background changes do not authorize weakening molecule/viewer assertions.

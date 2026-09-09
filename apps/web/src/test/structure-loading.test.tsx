@@ -753,7 +753,7 @@ describe("lazy structure loading", () => {
     await waitFor(() => {
       expect(fake.syncs).toHaveLength(1);
     });
-    expect(fake.backgroundColors[0]).toBe("#11191b");
+    expect(fake.backgroundColors[0]).toBe("#171A1F");
     const syncCount = fake.syncs.length;
 
     view.rerender(
@@ -768,7 +768,7 @@ describe("lazy structure loading", () => {
     );
 
     await waitFor(() => {
-      expect(fake.backgroundColors.at(-1)).toBe("#eef2f1");
+      expect(fake.backgroundColors.at(-1)).toBe("#F4F1EB");
     });
     expect(fake.mounts).toBe(1);
     expect(fake.syncs).toHaveLength(syncCount);
