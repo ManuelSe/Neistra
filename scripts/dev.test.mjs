@@ -1,7 +1,8 @@
 import assert from "node:assert/strict";
-import { spawn } from "node:child_process";
+import { spawn, spawnSync } from "node:child_process";
 import { once } from "node:events";
 import test from "node:test";
+import { fileURLToPath } from "node:url";
 
 import {
   buildCommands,
@@ -62,6 +63,15 @@ test("rejects invalid port overrides", () => {
   for (const value of ["0", "65536", "12.5", "port", ""]) {
     assert.throws(() => parsePort(value, "TEST_PORT", 8000), /between 1 and 65535/);
   }
+});
+
+test("brands startup diagnostics while retaining the existing configuration contract", () => {
+  const result = spawnSync(process.execPath, [fileURLToPath(new URL("./dev.mjs", import.meta.url))], {
+    env: { ...process.env, MOLWEAVE_API_PORT: "invalid" }, encoding: "utf8",
+  });
+  assert.equal(result.status, 1);
+  assert.match(result.stderr, /^\[neistra\] MOLWEAVE_API_PORT must be an integer between 1 and 65535\./);
+  assert.doesNotMatch(result.stderr, /\[molweave\]/);
 });
 
 test("reports a missing project-local Python environment", () => {

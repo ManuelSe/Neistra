@@ -1,7 +1,7 @@
 # Neistra rebranding verification
 
-Status: M1–M3 verified. M4 and M5 have
-not started. This is local implementation evidence, not a release announcement.
+Status: M1–M4 verified. M5 final qualification is next.
+This is local implementation evidence, not a release announcement.
 
 Baseline: `2b22cc4` (v0.5.0 documentation closeout). Work is isolated on
 `feat/neistra-rebranding`; `.rebranding/` is never staged or committed.
@@ -33,6 +33,16 @@ for identity, contrast, theme ownership and compatibility decisions.
   skips plus two new desktop-only zoom/breakpoint skips). The corrected native zoom
   capture passed independently (one test, 21.2 seconds), with full-frame
   200% viewer/settings, inspector and export images reviewed.
+- M4: private JavaScript names, current documentation, supervisor diagnostics,
+  padded repository identity and real light/dark 1STP screenshots delivered.
+  Frozen JS install required no lock/dependency changes. All 8 supervisor tests,
+  frontend lint/type-check/70 tests/build, 15 focused browser tests (one existing
+  skip, 31.1 seconds) and 27 local Markdown/image targets passed. Repeated icon
+  generation is byte-identical after metadata stripping; decoded pixels match
+  M3. Product requirements and historical decision/release bodies were compared
+  directly; supervisor changes are exactly display-string substitutions.
+  See [residual-name audit](REBRANDING_NAME_AUDIT.md). The external cutover
+  checklist is prepared locally, not executed or committed.
 
 ## M3 visual and interaction review matrix
 
@@ -121,8 +131,8 @@ was introduced. Final performance and compiled-delivery qualification are M5.
 
 M3 is qualified, including full-diff review of its presentation/accessibility
 changes and unchanged API, original-file and archive behavior.
-M4 owns repository/documentation rewording, JavaScript package names and the
-external cutover checklist. M5 owns the complete frozen-install, Python,
+M4 is qualified; repository/documentation rewording, private JavaScript names
+and the unexecuted external checklist are complete. M5 owns the complete frozen-install, Python,
 frontend, supervisor and browser gate, compiled delivery smoke, full-diff audit
 and final implementation handoff. External rename/publication and all version
 bumps remain excluded from this frontend-only implementation.

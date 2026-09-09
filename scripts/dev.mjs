@@ -163,11 +163,11 @@ export function checkPrerequisites(configuration) {
   const versionText = `${version.stdout ?? ""}${version.stderr ?? ""}`.trim();
   if (version.status !== 0 || !/^Python 3\.12\./.test(versionText)) {
     throw new Error(
-      `MolWeave requires Python 3.12 in .venv; found ${versionText || "an unusable environment"}.`,
+      `Neistra requires Python 3.12 in .venv; found ${versionText || "an unusable environment"}.`,
     );
   }
   if (Number(process.versions.node.split(".")[0]) !== 22) {
-    throw new Error(`MolWeave requires Node.js 22; found ${process.version}.`);
+    throw new Error(`Neistra requires Node.js 22; found ${process.version}.`);
   }
 
   try {
@@ -330,7 +330,7 @@ export async function main() {
   const commands = buildCommands(configuration);
   checkPrerequisites(configuration);
 
-  process.stdout.write("[molweave] Applying database migrations...\n");
+  process.stdout.write("[neistra] Applying database migrations...\n");
   await runToCompletion(commands.migration, configuration);
 
   const children = [];
@@ -401,10 +401,10 @@ export async function main() {
     ]);
     process.stdout.write(
       [
-        "[molweave] Ready.",
-        `[molweave] Application: ${configuration.webUrl}`,
-        `[molweave] API docs: ${configuration.apiUrl}/api/docs`,
-        "[molweave] Press Ctrl+C to stop all services.",
+        "[neistra] Ready.",
+        `[neistra] Application: ${configuration.webUrl}`,
+        `[neistra] API docs: ${configuration.apiUrl}/api/docs`,
+        "[neistra] Press Ctrl+C to stop all services.",
       ].join("\n") + "\n",
     );
     await Promise.race([unexpectedExit, stopped]);
@@ -413,14 +413,14 @@ export async function main() {
       await shutdownPromise;
       return;
     }
-    process.stderr.write(`[molweave] ${error instanceof Error ? error.message : String(error)}\n`);
+    process.stderr.write(`[neistra] ${error instanceof Error ? error.message : String(error)}\n`);
     await shutdown(1);
   }
 }
 
 if (path.resolve(process.argv[1] ?? "") === modulePath) {
   main().catch((error) => {
-    process.stderr.write(`[molweave] ${error instanceof Error ? error.message : String(error)}\n`);
+    process.stderr.write(`[neistra] ${error instanceof Error ? error.message : String(error)}\n`);
     process.exitCode = 1;
   });
 }

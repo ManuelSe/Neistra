@@ -1,6 +1,6 @@
 # Job Plugin Guide
 
-Status: MolWeave v0.1 generic job interface. Docking is not implemented in the
+Status: Neistra generic job interface. Docking is not implemented in the
 core application.
 
 ## Registration
@@ -28,7 +28,7 @@ support source checkouts; entry points are the distribution mechanism.
 ## Definition
 
 Public types live in `molweave_core.jobs`. A future docking package uses generic
-role strings without adding docking models to MolWeave core:
+role strings without adding docking models to Neistra core:
 
 ```python
 from pydantic import BaseModel, ConfigDict, Field

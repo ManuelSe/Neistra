@@ -1,8 +1,8 @@
 # Project Schema
 
-Status: MolWeave v0.1, `ProjectStateV1` and `ProjectManifestV1`
+Status: Neistra, `ProjectStateV1` and `ProjectManifestV1`
 
-MolWeave separates the relational working model, checkpoint snapshots, immutable
+Neistra separates the relational working model, checkpoint snapshots, immutable
 artifacts, and browser preferences. The API and database are authoritative;
 browser layout state is not project state.
 

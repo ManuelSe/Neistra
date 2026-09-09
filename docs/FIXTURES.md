@@ -2,6 +2,9 @@
 
 Status: MolWeave v0.1
 
+Provenance below retains the original product name. Neistra uses these fixtures
+unchanged; the rebrand does not alter source files, scientific facts or licenses.
+
 Fixtures are committed immutable inputs. Tests must assert scientific or
 format behavior, not only successful parsing. Run all scientific fixture gates
 with `.venv/bin/uv run pytest tests/scientific`.

@@ -1,5 +1,9 @@
 # MolWeave v0.1 Implementation Plan
 
+Historical plan retained unchanged in scope. The current product is Neistra;
+see [BRANDING](BRANDING.md) and [rebranding verification](REBRANDING_VERIFICATION.md)
+for the presentation transition. This global plan is not replaced by it.
+
 Status: approved implementation plan
 
 This document translates `docs/PRODUCT_SPEC.md` into an implementation sequence

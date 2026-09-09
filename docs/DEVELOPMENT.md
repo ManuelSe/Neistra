@@ -1,6 +1,10 @@
 # Development And Troubleshooting
 
-Status: MolWeave v0.1
+Status: Neistra development guide; existing configuration contracts retained.
+
+The private JavaScript packages are `neistra` and `@neistra/web`. Workspace
+commands below are unchanged. Python modules, environment variables and data
+paths intentionally retain their compatibility names; see [BRANDING](BRANDING.md).
 
 All commands run from the repository root. Python commands must use the
 project-local `.venv`; do not install project packages into the system Python.

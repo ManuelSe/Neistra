@@ -1,10 +1,33 @@
-# MolWeave
+# Neistra
 
-MolWeave v0.1 is a local, single-user molecular project workspace for importing,
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/neistra-brand-dark.svg">
+  <img src="docs/assets/neistra-brand-light.svg" alt="" width="450">
+</picture>
+
+Shape molecular structure.
+
+Neistra, formerly MolWeave, is a local, single-user molecular project workspace for importing,
 viewing, selecting, measuring, editing, converting, and organizing protein and
 small-molecule structures. It includes durable projects, undo/redo, portable
 archives, and an allowlisted background-job plugin system. Docking, PDBQT, and
 complete protein preparation are deliberately not included.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/neistra-workspace-dark.png">
+  <img src="docs/assets/neistra-workspace-light.png" alt="Neistra molecular workspace with a streptavidin structure, component browser and inspector" width="960">
+</picture>
+
+Real workspace screenshots: [light](docs/assets/neistra-workspace-light.png) ·
+[dark](docs/assets/neistra-workspace-dark.png). These show the existing local
+workspace, not proposed account, docking or marketplace features.
+
+The rebrand leaves the backend and all version values at `0.5.0`. Existing
+projects and preferences need no migration. Neistra Archives retain the
+`.molweave.zip` format; Python module names, `MOLWEAVE_*` settings and data
+paths remain compatible. See [brand and compatibility rules](docs/BRANDING.md)
+and [rebranding verification](docs/REBRANDING_VERIFICATION.md). Repository
+rename and a numbered release are separate, unexecuted cutover work.
 
 ## Prerequisites
 
@@ -108,7 +131,7 @@ See [architecture](docs/ARCHITECTURE.md), [development and troubleshooting](docs
 [plugin guide](docs/PLUGIN_GUIDE.md), [scientific limitations](docs/SCIENTIFIC_LIMITATIONS.md),
 [fixture provenance](docs/FIXTURES.md), [accessibility](docs/ACCESSIBILITY.md),
 [performance](docs/PERFORMANCE.md), [release evidence](docs/VERIFICATION.md), and
-[architectural decisions](docs/DECISIONS.md) for the v0.1 contracts.
+[architectural decisions](docs/DECISIONS.md) for the current contracts and their history.
 
 ## Release Checks
 

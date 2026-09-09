@@ -1,8 +1,8 @@
-Build **MolWeave**, a clean and modern web application for interactive molecular visualization and basic molecular modeling. It should be inspired by the core workflow of applications such as Schrödinger Maestro, but it must have an original interface, branding, architecture, and visual design. Do not copy Maestro’s layout, icons, terminology, or other proprietary design elements.
+Build **Neistra**, a clean and modern web application for interactive molecular visualization and basic molecular modeling. It should be inspired by the core workflow of applications such as Schrödinger Maestro, but it must have an original interface, branding, architecture, and visual design. Do not copy Maestro’s layout, icons, terminology, or other proprietary design elements.
 
 ## Product goal
 
-MolWeave should allow a scientist to create a project, import multiple protein and small-molecule structures, inspect and edit them in an interactive 3D workspace, and export the resulting structures in common molecular file formats.
+Neistra should allow a scientist to create a project, import multiple protein and small-molecule structures, inspect and edit them in an interactive 3D workspace, and export the resulting structures in common molecular file formats.
 
 The application must also provide a generic Python job architecture that will later be used to integrate a separately developed docking and molecular-modeling package. Docking itself is not part of this version.
 

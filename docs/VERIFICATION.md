@@ -1,5 +1,8 @@
 # V0.1 Requirement Evidence
 
+Current presentation: Neistra. See [rebranding verification](REBRANDING_VERIFICATION.md)
+for newly executed checks. The release evidence below remains historical.
+
 Status: MolWeave v0.1 release matrix
 
 This matrix maps every atomic requirement ID from `docs/PLAN.md` section 11 to

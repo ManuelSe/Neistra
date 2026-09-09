@@ -6,7 +6,9 @@ import { join } from "node:path";
 import { execFileSync } from "node:child_process";
 
 const output = fileURLToPath(new URL("../apps/web/public/brand/", import.meta.url));
+const repositoryOutput = fileURLToPath(new URL("../docs/assets/", import.meta.url));
 await mkdir(output, { recursive: true });
+await mkdir(repositoryOutput, { recursive: true });
 
 const palettes = {
   light: ["#171A1F", "#2B3038", "#C94F2D", "#FFB35C"],
@@ -25,6 +27,9 @@ for (const [theme, colors] of Object.entries(palettes)) {
   const name = theme === "light" ? "neistra-mark" : `neistra-mark-${theme}`;
   await writeFile(join(output, `${name}.svg`), svg("0 0 100 114", mark(colors)));
   if (theme !== "mono") {
+    // N-height (100 units) clear space around the entire repository lockup.
+    await writeFile(join(repositoryOutput, `neistra-brand-${theme}.svg`), svg("-100 -100 602 314",
+      `${mark(colors)}<g fill="${colors[0]}" transform="translate(118 45) scale(.96)">${wordmark}</g>`));
     await writeFile(join(output, `neistra-lockup-${theme}.svg`), svg("0 0 402 114",
       `${mark(colors)}<g fill="${colors[0]}" transform="translate(118 45) scale(.96)">${wordmark}</g>`));
     await writeFile(join(output, `neistra-icon-${theme}.svg`), svg("0 0 40 40",
@@ -36,6 +41,6 @@ await writeFile(join(output, "neistra-favicon.svg"), svg("0 0 40 40",
 // ImageMagick renders our vectors only; supplied raster artwork is never edited.
 for (const size of [16, 32, 180]) {
   const filename = size === 180 ? "neistra-touch-icon.png" : `neistra-favicon-${size}.png`;
-  execFileSync("magick", ["-background", "none", "-density", "432", join(output, "neistra-icon-light.svg"), "-resize", `${size}x${size}`, join(output, filename)]);
+  execFileSync("magick", ["-background", "none", "-density", "432", join(output, "neistra-icon-light.svg"), "-resize", `${size}x${size}`, "-strip", join(output, filename)]);
 }
 console.log(`Generated Neistra assets in ${output}`);

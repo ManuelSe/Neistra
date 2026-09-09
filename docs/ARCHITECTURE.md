@@ -1,8 +1,8 @@
 # Architecture
 
-Status: MolWeave v0.1
+Status: Neistra architecture; existing backend contracts retained.
 
-MolWeave is a local three-process application: a browser client, an HTTP API,
+Neistra is a local three-process application: a browser client, an HTTP API,
 and a coordinating job worker. SQLite and a managed content-addressed artifact
 directory provide durable local state.
 
@@ -91,7 +91,7 @@ remain visible.
 ## Viewer Interaction Semantics
 
 Mol* owns hit testing and the distinction between a click and a camera drag.
-MolWeave consumes the resulting primary mouse or touch activation and translates
+Neistra consumes the resulting primary mouse or touch activation and translates
 structural loci immediately into canonical application atom references at the
 active Atom, Residue, Chain, or Structure granularity. An unmodified hit replaces
 selection, Ctrl/Meta/Shift adds, and Alt subtracts. An unmodified empty hit clears

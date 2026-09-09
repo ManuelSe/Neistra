@@ -1,8 +1,8 @@
-# MolWeave Progress
+# Neistra Progress
 
 ## Current milestone
 
-Neistra rebranding — M1–M3 complete; M4 is next.
+Neistra rebranding — M1–M4 complete; M5 is next.
 
 The user approved `.rebranding/IMPLEMENTATION_PLAN.md` for sequential
 implementation on `feat/neistra-rebranding`. The `.rebranding/` directory
@@ -13,8 +13,8 @@ No remote rename, release or publication is part of this implementation.
 M1 delivers the production identity, metadata, responsive header, welcome,
 empty-project and loading surfaces. M2 delivers coordinated semantic themes,
 startup restoration and viewer appearance. M3 completes workflow presentation,
-accessibility and responsive qualification. Repository presentation and final
-qualification belong to M4–M5 and are not claimed complete.
+accessibility and responsive qualification. M4 completes repository presentation
+and the unexecuted cutover checklist. Final M5 qualification is not yet complete.
 
 Previous released milestone: issue #1, polar-only hydrogen visibility, v0.5.0.
 
@@ -31,6 +31,19 @@ and closed out on issue #1. The release tag remains on the exact verified
 feature merge; this documentation-only closeout records the remote evidence.
 
 ## Completed work
+
+- M4: renamed private JavaScript packages, current repository/product
+  prose and supervisor diagnostics. Preserved commands, identifiers, version
+  values and historical plan/release bodies. Added padded repository lockups,
+  real light/dark 1STP workspace captures, candidate notes and the residual-name
+  inventory. The external cutover checklist is prepared but not executed and
+  remains untracked under `.rebranding/`.
+- Frozen JS installation, all eight supervisor tests (including the new
+  diagnostic-prefix check), frontend lint/type-check/70 tests/build and local
+  Markdown/image target checks passed. Focused browser verification passed:
+  15 applicable tests, one existing layout skip, 31.1 seconds. Supervisor
+  display-only changes, unchanged requirements/history and backend boundaries
+  were reviewed directly before the checkpoint.
 
 - Neistra M3: adapted inspector tabs to available width and added
   labelled keyboard-scroll regions for inspector content, atom properties and
@@ -834,6 +847,12 @@ feature merge; this documentation-only closeout records the remote evidence.
   affected-entry topology replacement without a full scene synchronization.
 
 ## Verification performed
+
+- M4: frozen JS install (no lock or dependency changes), 8 supervisor tests,
+  ESLint, TypeScript, 70 Vitest tests, build and diff checks passed. Project
+  lifecycle and brand checks passed on both layouts (15 passed, one existing
+  skip). All 27 current local documentation/image targets exist. Original
+  icon pixels are unchanged; generated metadata-free bytes are reproducible.
 
 - M3 final: ESLint, TypeScript, 70 Vitest tests, production build, standalone
   browser-test type-check and diff checks passed. All 102 configured browser
@@ -1940,6 +1959,6 @@ None.
 
 ## Next action
 
-Implement Neistra M4 repository presentation, JavaScript package naming and
-developer-facing copy. Keep backend identifiers, historical evidence and all
-versions unchanged; prepare but do not execute external cutover.
+Run M5 complete qualification against a fresh isolated test store, verify the
+compiled application, review the full baseline diff and deliver the final
+scope/compatibility/rollback handoff. No external rename or release is authorized.

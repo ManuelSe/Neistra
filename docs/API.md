@@ -1,6 +1,6 @@
-# MolWeave HTTP API
+# Neistra HTTP API
 
-Status: MolWeave v0.1
+Status: Neistra HTTP interface; the unchanged server identifies itself as `MolWeave API`.
 
 The local FastAPI application exposes a versioned API under `/api/v1` and
 generates OpenAPI at `/api/v1/openapi.json`. Swagger UI is available at
@@ -171,7 +171,7 @@ hierarchy. Consumers derive exact atom unions from the returned normalized
 document without duplicating category atom arrays. Classification source is
 `source`, `fallback`, or `ambiguous`; status is `assigned` or `ambiguous`.
 
-The projection is read-only. MolWeave exposes no component rename,
+The projection is read-only. Neistra exposes no component rename,
 reclassification, individual-style, individual-visibility, ligand-designation,
 or subset-export endpoint in this release. `/api/v1` and project/archive schema
 version 1 are unchanged. Alembic head is `0008` for the additive selection-

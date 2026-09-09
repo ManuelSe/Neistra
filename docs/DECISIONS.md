@@ -1,4 +1,4 @@
-# MolWeave Architectural Decisions
+# Neistra Architectural Decisions
 
 This log records decisions that materially constrain MolWeave v0.1. Changes must
 add a superseding decision rather than silently editing historical rationale.
@@ -1856,3 +1856,33 @@ Consequences:
   first-paint and compiled-asset checks must cover both delivery paths.
 - Exact palette assertions coexist with scientific output checks; intentional
   background changes do not authorize weakening molecule/viewer assertions.
+
+## D-050 - Current Neistra presentation with preserved repository history
+
+Status: accepted
+
+Decision:
+
+Rename only the private JavaScript package identities, current product prose
+and human-facing supervisor messages. Preserve executable commands, backend
+identifiers, version values, prior plans/decisions/releases and their existing
+URLs. Explain the transition in current documentation and inventory all
+remaining old-name matches instead of replacing repository-wide text.
+
+Use real application screenshots and clear-space variants of the canonical
+vector master for repository presentation. Strip generated raster metadata
+to keep the existing pixels and make repeat generation byte-identical.
+
+Rationale:
+
+The current product can be coherent without falsifying provenance, breaking
+existing installations or implying that an external rename/release occurred.
+Real screenshots avoid presenting guide mockups as implemented capabilities.
+
+Consequences:
+
+- Frozen JavaScript installation needs no lockfile or dependency update.
+- Supervisor configuration, startup/readiness and shutdown behavior are
+  unchanged; an integration assertion covers the renamed diagnostic prefix.
+- The external cutover checklist remains local and unexecuted, and the
+  no-backend/version exception in D-048 remains binding.

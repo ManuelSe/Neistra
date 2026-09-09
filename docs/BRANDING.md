@@ -92,3 +92,19 @@ viewer bounds. Inline background/color swatches retain their actual values;
 only chrome and slider affordances receive brand colors. Unnamed vendor color
 buttons and numeric fields use their existing adjacent row labels, without
 changing values, callbacks or molecular settings.
+
+## Repository presentation
+
+README light/dark lockups live in `docs/assets/`. Their 602×314 viewBox adds
+100 units of clear space on every side of the 402×114 master. The same asset
+generator produces them; no duplicated drawing or runtime font is involved.
+Raster icons are stripped of timestamps/metadata, making repeated generation
+byte-identical while preserving decoded pixels. Repository screenshots are
+native, lossless 1440×900 captures of the actual 1STP fixture workspace in both
+themes, with a descriptive entry name set through the normal rename workflow.
+They are documentation assets, not part of the application bundle.
+
+The private JavaScript names are `neistra` and `@neistra/web`; dependency and
+application versions are unchanged. See [residual-name audit](REBRANDING_NAME_AUDIT.md)
+for compatibility, historical and fixture exceptions. External rename and
+release publication are separate from these local presentation changes.
