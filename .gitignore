@@ -21,3 +21,5 @@ test-results/
 .env
 .goal_prompt.txt
 .DS_Store
+
+.rebranding/
