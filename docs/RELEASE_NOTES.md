@@ -2,8 +2,9 @@
 
 ## 0.6.0 - 2026-09-11
 
-Status: release candidate for issue #29; publish only after verified merge and
-merged-commit qualification. Detailed evidence: [approved feature plan](plans/issue-29-selection-appearance.md).
+Status: [released as v0.6.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.6.0) from verified commit
+`b747f0cccdb575d38022d4b42bfb7e8fa2e1c849` (PRs #31 and #32). Detailed evidence:
+[feature plan and delivery closeout](plans/issue-29-selection-appearance.md).
 
 ### Highlights
 
@@ -74,9 +75,11 @@ actual color application/reset, selected C–H disappearance, polar O–H retent
 and master/local precedence for explicit protein and ligand fixtures. The final candidate passed the complete README/DEVELOPMENT release gate:
 237 Python tests, 80 frontend tests, eight supervisor tests, and 73 browser
 workflows (39 documented layout skips), plus frozen setup, migrations, lint, type
-checks and build, including the carbon-only amendment. The exact merged commit
-is qualified again before publication;
-executed results are recorded in the feature plan.
+checks and build, including the carbon-only amendment. The same complete gate
+passed on the exact merged release commit. An initial
+29 ms timing-budget excursion was followed by three passing unchanged isolated
+checks and a passing fresh complete gate; no performance limits were relaxed.
+Executed results and publication evidence are recorded in the feature plan.
 
 ### Deferred work
 
