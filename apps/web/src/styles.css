@@ -3660,3 +3660,26 @@ div[data-radix-popper-content-wrapper]:has(.tooltip) {
 }
 .selection-expansion-form input,
 .selection-expansion-form select { width: 100%; min-width: 0; }
+
+/* A workspace tool, below modal dialogs and above the molecular canvas. */
+.selection-palette {
+  position: absolute;
+  z-index: 20;
+  top: 58px;
+  left: 10px;
+  width: min(340px, calc(100vw - 24px));
+  max-height: min(680px, calc(100dvh - 180px));
+  transform: none;
+  animation: fade-in 120ms ease-out;
+}
+
+@media (max-width: 840px) {
+  .selection-palette {
+    position: fixed;
+    top: auto;
+    bottom: 8px;
+    left: 8px;
+    width: min(340px, calc(100vw - 16px));
+    max-height: 60dvh;
+  }
+}

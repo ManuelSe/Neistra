@@ -2,6 +2,15 @@
 
 ## Current milestone
 
+Issue #34 — compact selection styling, checkpoint 1 complete.
+The approved [feature plan](plans/issue-34-compact-selection-styling.md) is the
+detailed source of truth. Dedicated non-modal shell and focus/context regressions
+pass frontend lint/typecheck, 81 tests, build and 5 applicable browser workflows
+(5 intentional skips). Compact controls are next. No migration
+or scientific behavior change. Current blocker: none; release work is pending.
+
+### Previous release
+
 Issue #29 complete — released [Neistra v0.6.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.6.0).
 
 PRs [#31](https://github.com/ManuelSe/Neistra/pull/31) and

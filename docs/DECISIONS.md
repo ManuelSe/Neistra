@@ -2008,3 +2008,17 @@ No new migration is necessary. The unreleased additive minor remains 0.6.0; sche
 major 1 and backward archive reading remain, without older-reader compatibility
 for newly added appearance values. This explicit amendment supersedes the earlier
 single-solid-mode scope; other deferred color schemes remain outside scope.
+
+## D-055 - Non-modal selection styling with transient palette state
+
+Status: accepted for issue #34, 2026-09-11
+
+Selection styling is a workspace tool, implemented as a dedicated non-modal dialog
+rather than changing the shared Modal used for blocking workflows. Outside picking,
+selection and camera actions remain available. Escape closes only when focus belongs
+to the palette; move focus to its container before disabling the activated control.
+Close on project changes. Keep draft coloring mode and custom color only for the
+open palette lifetime, without adding viewer-owned molecular state or persistence.
+Existing application command closures capture the project and selection at activation;
+context-bound feedback must not describe a subsequent selection. This is a usability
+patch retaining D-051–D-054, API/schema major 1 and migration head 0010.

@@ -16,7 +16,7 @@ import {
   atomicRepresentationStyles,
   polymerRepresentationStyles,
 } from "../viewer/settings";
-import { Modal } from "./Modal";
+import { SelectionPalette } from "./SelectionPalette";
 
 const LABELS: Record<SelectionRepresentationStyle, string> = {
   line: "Line",
@@ -59,9 +59,10 @@ export function SelectionStyleDialog({
   onAppearance,
 }: SelectionStyleDialogProps) {
   const [activeAction, setActiveAction] = useState<string | null>(null);
-  const [message, setMessage] = useState<{ kind: "success" | "error"; text: string } | null>(
+  const [message, setMessage] = useState<{ kind: "success" | "error"; text: string; context: string } | null>(
     null,
   );
+  const context = JSON.stringify([open, selection.atoms, entries.map((entry) => [entry.id, entry.current_artifact_id])]);
   const entryCount = new Set(selection.atoms.map((atom) => atom.structure_id)).size;
   const polymerReason = eligibilityBusy
     ? "Checking complete-residue compatibility"
@@ -86,13 +87,16 @@ export function SelectionStyleDialog({
     action: "apply" | "reset",
     style?: SelectionRepresentationStyle,
   ) => {
+    if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.closest<HTMLElement>(".selection-palette")?.focus();
+    }
     const key = style ?? "reset";
     setActiveAction(key);
     setMessage(null);
     try {
       await onAction(action, style);
       setMessage({
-        kind: "success",
+        kind: "success", context,
         text:
           action === "reset"
             ? `Reset ${selection.atoms.length} selected atom${selection.atoms.length === 1 ? "" : "s"} to entry defaults.`
@@ -100,7 +104,7 @@ export function SelectionStyleDialog({
       });
     } catch (error) {
       setMessage({
-        kind: "error",
+        kind: "error", context,
         text: error instanceof Error ? error.message : "The selection style could not be changed.",
       });
     } finally {
@@ -114,7 +118,7 @@ export function SelectionStyleDialog({
       type="button"
       className="selection-style-option"
       aria-pressed={assignedStyles.has(style)}
-      disabled={busy || unavailable !== null}
+      disabled={busy || activeAction !== null || !selection.atoms.length || unavailable !== null}
       title={unavailable ?? undefined}
       onClick={() => void run("apply", style)}
     >
@@ -124,10 +128,8 @@ export function SelectionStyleDialog({
   );
 
   return (
-    <Modal
+    <SelectionPalette
       open={open}
-      title="Style selection"
-      description="Add visual detail to the current selection without changing molecular data."
       onOpenChange={(next) => {
         if (!next) setMessage(null);
         onOpenChange(next);
@@ -179,18 +181,18 @@ export function SelectionStyleDialog({
         <button
           type="button"
           className="secondary-button selection-style-reset"
-          disabled={busy}
+          disabled={busy || activeAction !== null || !selection.atoms.length}
           onClick={() => void run("reset")}
         >
           <RotateCcw size={15} />
           {activeAction === "reset" ? "Resetting…" : "Reset representation"}
         </button>
-        {message ? (
+        {message?.context === context ? (
           <p className={`selection-style-message ${message.kind}`} role={message.kind === "error" ? "alert" : "status"}>
             {message.text}
           </p>
         ) : null}
       </div>
-    </Modal>
+    </SelectionPalette>
   );
 }

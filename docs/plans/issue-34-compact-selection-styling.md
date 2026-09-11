@@ -122,3 +122,20 @@ fixes, persisted-data/migrations, compatibility, verification, limitations and #
 - Planning checkpoint: clean master fast-forward verified; issue #34 created;
   dedicated branch created. This approved plan is the first branch change.
 - Implementation and validation: pending.
+
+### Checkpoint 1 — complete
+
+Dedicated non-modal Radix shell retains external workspace interaction, closes on
+project change, supports toolbar toggle and handles empty selection. Regression
+coverage verifies outside Escape, pending-action disabling and stale representation
+feedback. Browser qualification exposed disabled-button focus loss; focusing the
+palette before disabling the activated control fixes Escape and focus restoration.
+The unchanged baseline workflow passed and its 1366×768 screenshot was captured.
+
+Passing: frontend lint, typecheck, 81 tests / 24 files and production build;
+`selection-styling.spec.ts viewer-click-selection.spec.ts` reports 5 passed and 5
+intentional layout skips. Isolated ports 8110/8111/5273, data root
+`/tmp/neistra-34-c1-fixed`; logs `/tmp/neistra-34-c1-{unit,build}.log` and
+`/tmp/neistra-34-c1-fixed-e2e.log`. Diff reviewed for scope, ownership, compatibility
+and dead code; no domain/API/migration changes. Existing Mol* chunk-size advisory
+remains. Next: compact controls and consolidated action feedback.

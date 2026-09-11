@@ -5,6 +5,7 @@ import type { Project } from "../../apps/web/src/api/types";
 
 test("expands from styling across hidden entries without durable changes", async ({ page, request }, info) => {
   test.skip(info.project.name !== "chromium", "Project-wide fixture setup uses desktop panels.");
+  await page.setViewportSize({ width: 1366, height: 768 });
   const created = await request.post("/api/v1/projects", {
     data: { name: `Selection appearance ${Date.now()}` },
   });

@@ -1,4 +1,4 @@
-import { cleanup, render, screen } from "@testing-library/react";
+import { act, cleanup, render, screen } from "@testing-library/react";
 import * as Tooltip from "@radix-ui/react-tooltip";
 import userEvent from "@testing-library/user-event";
 import { useState } from "react";
@@ -168,4 +168,31 @@ it("does not misreport failed or pending structure loads as hydrogen-free select
     busy={false} onAppearance={onChange} onOpenChange={() => {}} onAction={vi.fn().mockResolvedValue(undefined)} /></Tooltip.Provider>);
   expect(screen.getByRole("alert")).toHaveTextContent("Could not load selection structures");
   expect(screen.queryByLabelText("Selected non-polar hydrogens")).not.toBeInTheDocument();
+});
+
+
+it("keeps workspace interaction available, suppresses old feedback and disables empty targets", async () => {
+  const user = userEvent.setup();
+  let finish = () => {};
+  const onAction = vi.fn(() => new Promise<void>((resolve) => { finish = resolve; }));
+  const props = { open: true, selection: completeResidue,
+    entries: [molecularEntry("protein", "Receptor", "protein")],
+    structures: new Map([["protein", proteinProjection()]]), eligibilityBusy: false,
+    busy: false, onAction, onOpenChange: vi.fn() };
+  const view = render(<Tooltip.Provider><button>Workspace selection</button><SelectionStyleDialog {...props} /></Tooltip.Provider>);
+  const dialog = screen.getByRole("dialog");
+  expect(dialog).not.toHaveAttribute("aria-modal", "true");
+  await user.click(screen.getByRole("button", { name: "Thin sticks" }));
+  expect(screen.getByRole("button", { name: "Line" })).toBeDisabled();
+  await user.click(screen.getByRole("button", { name: "Workspace selection" }));
+  expect(screen.getByRole("button", { name: "Workspace selection" })).toHaveFocus();
+  await user.keyboard("{Escape}");
+  expect(props.onOpenChange).not.toHaveBeenCalled();
+  view.rerender(<Tooltip.Provider><button>Workspace selection</button><SelectionStyleDialog {...props}
+    selection={{ ...completeResidue, atoms: [] }} /></Tooltip.Provider>);
+  await act(async () => { finish(); await Promise.resolve(); });
+  expect(screen.queryByRole("status")).not.toBeInTheDocument();
+  expect(screen.getByRole("button", { name: "Thin sticks" })).toBeDisabled();
+  expect(screen.getByRole("button", { name: "Reset representation" })).toBeDisabled();
+  expect(dialog).toBeVisible();
 });

@@ -94,7 +94,10 @@ export function StructureViewer({
   const [activeEntryId, setActiveEntryId] = useState("");
   const [camera, setCamera] = useState<CameraState | null>(null);
   const [isolation, setIsolation] = useState<Selection["atoms"] | null>(null);
-  const [styleDialogOpen, setStyleDialogOpen] = useState(false);
+  const [styleProjectId, setStyleProjectId] = useState<string | null>(null);
+  const styleDialogOpen = styleProjectId === project.id;
+  const setStyleDialogOpen = (open: boolean) => setStyleProjectId(open ? project.id : null);
+  useEffect(() => { setStyleProjectId(null); }, [project.id]);
   const [styleStructures, setStyleStructures] = useState(
     new Map<string, StructureProjection>(),
   );
@@ -383,6 +386,7 @@ export function StructureViewer({
         : "Selection styling is unavailable in this workspace";
 
   const openStyleDialog = () => {
+    if (styleDialogOpen) { setStyleDialogOpen(false); return; }
     if (selectionStyleUnavailableReason) return;
     setStyleDialogOpen(true);
     const visible = new Map(
@@ -406,7 +410,7 @@ export function StructureViewer({
       .catch(() => {
         if (current) {
           setStyleStructures(new Map());
-          setStyleEligibilityError("Could not load selection structures. Close and reopen this dialog to retry.");
+          setStyleEligibilityError("Could not load selection structures. Close and reopen the styling palette to retry.");
         }
       })
       .finally(() => { if (current) setStyleEligibilityBusy(false); });
@@ -428,7 +432,7 @@ export function StructureViewer({
           fitAllUnavailableReason={viewerUnavailableReason}
           focusSelectionUnavailableReason={focusSelectionUnavailableReason}
           focusLigandsUnavailableReason={focusLigandsUnavailableReason}
-          selectionStyleUnavailableReason={selectionStyleUnavailableReason}
+          selectionStyleUnavailableReason={styleDialogOpen ? null : selectionStyleUnavailableReason}
           selectionStyleOpen={styleDialogOpen}
           onFitAll={() => viewerRef.current?.fitVisible()}
           onFocusSelection={() => viewerRef.current?.focusAtoms(selection.atoms)}
