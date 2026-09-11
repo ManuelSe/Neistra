@@ -214,3 +214,11 @@ the Mol* adapter classifies on its full disposable projection before producing
 visibility masks for inherited, exact-selection and surface layers. Subsets never
 reclassify an O–H hydrogen after dropping its oxygen. Local preferences override
 entry nonpolar preferences but not master/component/isolation bounds (D-053).
+
+Carbon-only selection coloring extends this command (D-054): resolve C targets
+from authoritative normalized elements; persist chosen hex colors on C and explicit
+`element` assignments on the other selected IDs. The disposable viewer projects
+those assignments through Mol*'s default element palette, preserving native theme
+adjustments even when the underlying entry theme is custom. Existing disjoint
+membership/history/archive/pruning behavior applies; no geometry or molecular state
+is added. Empty appearance collections avoid the additional palette-resolution pass.

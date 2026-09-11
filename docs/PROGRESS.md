@@ -2,7 +2,7 @@
 
 ## Current milestone
 
-Issue #29 — M4/C5 qualified; PR and release delivery next.
+Issue #29 — carbon-only amendment implemented; final qualification and delivery.
 
 The user authorized full delivery with `/goal` on 2026-09-11 under
 [the approved feature plan](plans/issue-29-selection-appearance.md). The planned
@@ -11,7 +11,7 @@ Expansion now works in Style selection using the shared worker, retaining seeds
 and orphan matches and guarding cancellation/stale results. D-051 records scope.
 Local color is implemented with migration/history/archive coverage and D-052.
 Local hydrogen overrides are implemented with full-projection classification and D-053.
-Integrated qualification is complete; release delivery remains outstanding. Branch: `feat/issue-29-selection-appearance`.
+Prior qualification is recorded below; the carbon-only amendment requires fresh qualification. Release delivery remains outstanding. Branch: `feat/issue-29-selection-appearance`.
 
 ### Previous milestone context
 
@@ -55,7 +55,7 @@ feature merge; this documentation-only closeout records the remote evidence.
   and delivery contracts, resolved product scope through explicit approval,
   refreshed the base with fast-forward-only integration, created the dedicated
   feature branch, and persisted the detailed contract as its first file change.
-  No implementation checkpoint is complete.
+  This was the planning handoff; implementation checkpoint evidence follows.
 
 - M5 complete: fresh frozen installs, migration through `0009`, Ruff, mypy
   (50 files), all 209 Python tests, frontend lint/type-check/70 tests, all
@@ -888,11 +888,35 @@ feature merge; this documentation-only closeout records the remote evidence.
 
 ## Verification performed
 
+- Amended candidate `e395509` passed the complete release gate: 237 Python,
+  80 frontend, 8 supervisor, 73 browser tests (39 intentional layout skips;
+  14.5 minutes), frozen setup, migration 0010, lint/type/build and local review.
+  User-authorized merge and exact merged qualification precede release.
+
+- Carbon-only amendment C6a: 84 focused Python and 80 frontend tests passed;
+  lint/type/build and all 21 applicable affected browser workflows passed across
+  the combined run and corrected pixel test. Actual C/O colors survive reload
+  and a custom entry theme. Migration downgrade, archive/scenes/history/topology,
+  restart/duplicate, mobile/themes/axe/zoom and 1STP budgets are covered.
+  Full candidate requalification follows; detailed evidence lives in the plan.
+
+- Correction candidate `d21cde4` passed complete V5: 228 Python, 79 frontend,
+  8 supervisor and 73 browser tests (39 intentional layout skips; 14.0 minutes),
+  frozen installs, migration 0010, lint/type checks/build and local diff review.
+  Both mobile appearance themes passed; exact merged qualification remains.
+
+- First merged gate at `d18c3f6`: all non-browser gates and 72 browser workflows
+  passed; one mobile test exposed a drawer focus-restoration race in the test
+  setup. Fixed synchronization on the planned branch; six repeated mobile
+  workflows and real 100%/200% zoom passed. Full correction qualification
+  precedes release. Original local-master pointer is preserved in
+  `backup/issue-29-master-06cae49`; shared feature history was not force-pushed.
+
 - M4/C5 complete release gate on `687d7bf`: 228 Python, 79 frontend,
   8 supervisor and 73 browser tests passed (39 intentional browser layout skips).
   Frozen installs, fresh migration through 0010, all lint/type checks, build
   and local full-diff review passed. Detailed evidence and advisories are in
-  the issue #29 feature plan. No remote delivery is claimed yet.
+  the issue #29 feature plan. PR #31 subsequently merged; no tag or release yet.
 
 - M3/C4: 77 focused Python and 79 full frontend tests passed. Combined affected
   browser gate passed 29 workflows (19 layout skips), followed by passing
@@ -1961,11 +1985,10 @@ Results:
 
 ## Known limitations
 
-- Issue #29's hydrogen controls remain planned, not implemented.
-  Local color is implemented with focused qualification.
-  Styling-dialog distance expansion is implemented and qualified. Exact-selected-hydrogen targets, project-wide
-  expansion, the selection-surface deferral, and backward archive compatibility
-  are approved contract boundaries; see the feature plan for full semantics.
+- Issue #29 implements expansion, local color and explicit-selected-hydrogen
+  preferences. Expansion assumes a shared Cartesian frame; native Mol* polarity
+  uses available connectivity without chemistry repair. Selection-specific surfaces
+  remain follow-up #30. See the feature plan for full semantics and compatibility.
 
 - Rebranding qualification covers Chromium desktop and Pixel 7 emulation,
   scoped accessibility checks and real desktop 100%/200% zoom; it does not
@@ -2047,9 +2070,11 @@ Results:
 
 ## Blockers
 
-None.
+None. The user authorized any merge method after the carbon-only amendment;
+a merge commit for PR #32 will preserve history without a force push.
 
 ## Next action
 
-Publish the qualified PR and complete v0.6.0 delivery under
+Complete the amended V5 gate, merge PR #32, qualify the exact merged commit,
+and complete v0.6.0 delivery under
 [the approved issue #29 contract](plans/issue-29-selection-appearance.md).

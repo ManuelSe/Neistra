@@ -39,6 +39,7 @@ import {
   shouldClearSelectionForEmptyPick,
   withCameraNeutralPrimarySelection,
 } from "./interaction";
+import { selectionColorLayers } from "./selectionColors";
 import { representationLayers } from "./representationProjection";
 import { THEME_TOKENS } from "../theme";
 import { observeViewerAttribution } from "./domPresentation";
@@ -489,6 +490,7 @@ export class MolstarEngine implements MolecularViewer {
         }
       }
     }
+    const colorLayers = selectionColorLayers(structure.settings.selection_colors, structure.normalized.atoms);
     for (const layer of representationLayers(structure, isolatedIds, nonpolarHydrogens)) {
       const loci = this.lociFor(
         layer.atomIds.map((atomId) => ({
@@ -532,12 +534,12 @@ export class MolstarEngine implements MolecularViewer {
         { tag: `molweave-representation-${layer.id}` },
       );
       const visible = new Set(layer.atomIds);
-      const colors = structure.settings.selection_colors.flatMap((assignment) => {
-        const colorLoci = this.lociFor(assignment.atom_ids.filter((id) => visible.has(id))
+      const colors = colorLayers.flatMap((assignment) => {
+        const colorLoci = this.lociFor(assignment.atomIds.filter((id) => visible.has(id))
           .map((atom_id) => ({ structure_id: structure.entryId, atom_id })));
         return colorLoci ? [{
           bundle: StructureElement.Bundle.fromLoci(colorLoci),
-          color: Color(Number.parseInt(assignment.color.slice(1), 16)), clear: false,
+          color: assignment.color, clear: false,
         }] : [];
       });
       if (colors.length) {

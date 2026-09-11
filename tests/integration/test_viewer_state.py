@@ -392,7 +392,7 @@ def test_entry_viewer_update_cannot_mutate_selection_assignments(client: ApiClie
                 **changed["entries"][0]["viewer_settings"],
                 "selection_representations": [],
                 "selection_colors": [],
-                        "selection_nonpolar_hydrogens": [],
+                "selection_nonpolar_hydrogens": [],
             },
         },
     )
@@ -691,3 +691,123 @@ def test_local_hydrogens_exact_targets_persistence_and_molecular_invariance(
     ).json()
     assert project["entries"][0]["viewer_settings"][field] == expected
     assert client.get(f"{entry_path}/structure").json() == normalized
+
+
+def test_carbon_only_color_restores_elements_and_preserves_history_and_archive(
+    client: ApiClient,
+) -> None:
+    project = import_ligand(client)
+    entry_id = project["entries"][0]["id"]
+    path = f"/api/v1/projects/{project['id']}"
+    original = client.get(f"{path}/entries/{entry_id}/original").content
+    normalized = client.get(f"{path}/entries/{entry_id}/structure").json()
+    project = color_selection(client, project, selection(entry_id, 1, 2, 3), "#ff0000").json()
+    previous = project["entries"][0]["viewer_settings"]
+    payload = {
+        "expected_revision": project["revision"],
+        "selection": selection(entry_id, 2, 3),
+        "property": "color",
+        "action": "set",
+        "color": "#00FF00",
+        "color_mode": "carbon",
+    }
+    response = client.post(f"{path}/selection-appearance", json=payload)
+    assert response.status_code == 200, response.text
+    project = response.json()
+    expected = [
+        {"color": "#00ff00", "atom_ids": [2]},
+        {"color": "#ff0000", "atom_ids": [1]},
+        {"color": "element", "atom_ids": [3]},
+    ]
+    assert project["entries"][0]["viewer_settings"]["selection_colors"] == expected
+    assert client.get(f"{path}/entries/{entry_id}/original").content == original
+    assert client.get(f"{path}/entries/{entry_id}/structure").json() == normalized
+    assert client.post(f"{path}/selection-appearance", json=payload).status_code == 409
+    project = client.post(
+        f"{path}/history/undo", json={"expected_revision": project["revision"]}
+    ).json()
+    assert project["entries"][0]["viewer_settings"] == previous
+    project = client.post(
+        f"{path}/history/redo", json={"expected_revision": project["revision"]}
+    ).json()
+    assert project["entries"][0]["viewer_settings"]["selection_colors"] == expected
+    project = client.post(
+        f"{path}/scenes",
+        json={
+            "expected_revision": project["revision"],
+            "name": "Carbon",
+            "selection": selection(entry_id, 2, 3),
+            "camera": {
+                "mode": "perspective",
+                "position": [0, 0, 10],
+                "target": [0, 0, 0],
+                "up": [0, 1, 0],
+                "radius": 5,
+            },
+        },
+    ).json()
+    exported = export_archive(client, project["id"], "carbon-roundtrip")
+    restored = import_archive(client, client.get(exported["artifact"]["download_url"]).content)[
+        "project"
+    ]
+    assert restored["entries"][0]["viewer_settings"]["selection_colors"] == expected
+    assert (
+        restored["scenes"][0]["entry_states"][0]["viewer_settings"]["selection_colors"] == expected
+    )
+    deleted = client.post(
+        f"{path}/entries/{entry_id}/ligand-edits",
+        json={
+            "expected_revision": project["revision"],
+            "operation": "atom.delete",
+            "atom_ids": [3],
+        },
+    )
+    assert deleted.status_code == 200, deleted.text
+    project = deleted.json()["project"]
+    for state in [project["entries"][0], project["scenes"][0]["entry_states"][0]]:
+        assert state["viewer_settings"]["selection_colors"] == expected[:2]
+    project = client.post(
+        f"{path}/history/undo",
+        json={
+            "expected_revision": project["revision"],
+        },
+    ).json()
+    assert project["entries"][0]["viewer_settings"]["selection_colors"] == expected
+    assert (
+        project["scenes"][0]["entry_states"][0]["viewer_settings"]["selection_colors"] == expected
+    )
+    # A no-carbon selection explicitly restores element coloring; no unrelated C changes.
+    response = client.post(
+        f"{path}/selection-appearance",
+        json={
+            **payload,
+            "expected_revision": project["revision"],
+            "selection": selection(entry_id, 3),
+        },
+    )
+    assert response.status_code == 200, response.text
+    project = response.json()
+    assert project["entries"][0]["viewer_settings"]["selection_colors"] == expected
+    project = client.get(path).json()
+    for invalid in [
+        {"color_mode": "unknown"},
+        {"action": "reset", "color": None},
+        {"selection": selection(entry_id, 2, 999)},
+        {"property": "nonpolar_hydrogens", "color": None, "show": True},
+    ]:
+        assert (
+            client.post(
+                f"{path}/selection-appearance",
+                json={
+                    **payload,
+                    "expected_revision": project["revision"],
+                    **invalid,
+                },
+            ).status_code
+            == 422
+        )
+        assert client.get(path).json() == project
+    reset = color_selection(client, project, selection(entry_id, 2, 3), None).json()
+    assert reset["entries"][0]["viewer_settings"]["selection_colors"] == [
+        {"color": "#ff0000", "atom_ids": [1]}
+    ]

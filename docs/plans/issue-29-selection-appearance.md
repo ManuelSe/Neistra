@@ -2,7 +2,7 @@
 
 ## Status and metadata
 
-- Status: **approved; implementation active — M4/C5 qualified**.
+- Status: **approved; amended candidate qualified; delivery in progress**.
 - Issue: [#29 — Enhance selection representation controls](https://github.com/ManuelSe/Neistra/issues/29).
 - Issue created/updated: 2026-09-10; inspected and plan approved: 2026-09-11.
 - Approval: the user explicitly approved the complete proposal and instructed:
@@ -83,7 +83,7 @@ resolved product decisions, not outstanding clarification requests.
 | Toggle non-polar hydrogens for selection | Essential | Durable local overrides with inheritance and master-switch precedence. |
 | Customizable distance expansion, default 4 Å | Essential | Explicit Expand action using existing worker infrastructure. |
 | Matching atoms or complete residues | Essential | Both modes, seed retention, and explicit residue completion. |
-| Change selection color | Essential | One solid custom color and reset to existing coloring. |
+| Change selection color | Essential | Solid custom color, user-approved carbon-only mode, and independent reset. |
 | Lines, sticks, spheres and existing atomic choices | Already satisfied | Retain established style vocabulary and replacement behavior. |
 | Protein Cartoon and Backbone | Already satisfied | Retain authoritative complete-residue and trace-atom validation. |
 | Selection-specific surface | Deferred | Subset geometry, neighbor context, boundaries, and cost need their own contract. Tracked in [#30](https://github.com/ManuelSe/Neistra/issues/30); no new subset-surface control here. |
@@ -119,6 +119,35 @@ and #21. No docking, preparation, contact-analysis, or new job system is include
 - Preserve the inspector's existing general replace/add/subtract query behavior.
 
 ### Selection color
+
+User amendment, 2026-09-11: add **All selected atoms** (default) and **Carbon
+atoms only** modes. Carbon-only apply resolves selected C from authoritative
+normalized elements, applies the custom color to those stable atom IDs, and
+explicitly assigns native element coloring to all other selected atoms. This
+replaces prior solid overrides and remains correct under non-element entry
+themes. Outside-selection assignments are untouched. No-carbon selections
+restore their element colors. Reset clears both kinds of assignments and returns
+to the underlying entry theme; applying the mode does not establish a dynamic
+chemical-selection rule. Existing atoms retain their explicit assignments after
+chemistry edits; newly added atoms inherit the entry theme.
+
+Persist `color: "element"` alongside existing hex-color records in the existing
+disjoint collection. The request adds optional `color_mode: "all" | "carbon"`
+for color set only; omission preserves old behavior. No new collection, database
+migration, version increment beyond the still-unreleased 0.6.0, or schema-major
+change is needed. Older readers need not accept new element records, consistent
+with the existing backward-reading-only guarantee. Migration 0010 already guards
+all nonempty color records on downgrade. D-054 records this accepted extension.
+
+Amendment checkpoint C6a: coherent API/UI/viewer/persistence slice; acceptance
+covers previous all-solid→carbon-only, C/non-C locality, no-C selection, exact
+undo/redo/reset, invalid/stale atomicity, archive/restart/duplicate, native
+palette projection, actual magenta-carbon/red-oxygen pixels, mobile/both-theme
+keyboard/axe/zoom and unchanged artifacts. Run V2 plus project-lifecycle and
+selection-colors unit tests, then V4 affected browser gates and full V5. Commit
+as `feat(viewer): add carbon-only selection coloring`; update API/schema/release
+notes and evidence. No merge or release before requalification. The user subsequently authorized
+any merge method; use a merge commit for PR #32 to preserve checkpoint history.
 
 - Apply a validated solid `#RRGGBB` color to exact selected atom references
   through existing rendered representations, independently of style assignment.
@@ -229,14 +258,14 @@ milestone commits. Validation groups are executable commands below.
 | M4 / C6 — Delivery | Approved merge, merged-commit qualification, annotated tag/release, issue response and cleanup. | Verify remote merge SHA, tag dereference, publication, issue/follow-up links and branch deletion. | Record actual evidence; later tracked closeout uses a documentation PR. Never move the release tag. |
 
 C2 must be a complete usable color slice before C3 starts. Neither introduces
-placeholder controls. Detailed implementation remains blocked on `/goal`, not
-on further approval of these already accepted product decisions.
+placeholder controls. The planning handoff waited for `/goal`; the user supplied
+it on 2026-09-11 and later approved the carbon-only amendment and merge strategy.
 
 ## Acceptance and verification evidence
 
-Commands below are planned gates, not executed feature evidence. Newly named
-`selection-expansion.test.tsx` and `selection-appearance.spec.ts` are planned
-test artifacts. Run from the repository root with project-local Python.
+Commands below define the gates; executed results are recorded in the progress
+and completion log. The named test artifacts are implemented. Run from the
+repository root with project-local Python.
 
 ### V1 — Expansion
 
@@ -364,7 +393,10 @@ Release-note sections:
 ## PR, merge, issue response, and branch cleanup
 
 - PR title: `feat(viewer): enhance selection appearance controls`.
-- Target `master`; use **rebase merge**, respecting all then-current protections.
+- Target `master`; PR #31 used **rebase merge**. On 2026-09-11 the user explicitly
+  authorized any merge method after the carbon-only amendment. Use a **merge commit
+  for PR #32** to preserve shared checkpoint history without force pushing. Later
+  documentation closeout may use rebase merge. Respect all current protections.
 - Include and identify the user's `.gitignore` prerequisite commit in the PR.
 - Document implemented, reused, simplified, deferred, and rejected scope and
   link this contract, verification, and the focused selection-surface follow-up.
@@ -388,8 +420,8 @@ Release-note sections:
   follow-up verification. Fast-forward local master before local branch deletion.
   Preserve unrelated branches and existing tags.
 - Any later tracked delivery closeout uses a small documentation branch/PR and
-  does not move the release tag. No delivery messages or publications occur in
-  the current planning-only handoff.
+  does not move the release tag. No delivery messages or publications occurred
+  during the initial planning-only handoff.
 
 ## Merge and release blockers
 
@@ -428,6 +460,20 @@ evidence. An inability to publish is not evidence that publication occurred.
 
 | 2026-09-11 | M4/C5 qualified | Code/release candidate `687d7bf` passed complete V5: frozen sync (49 packages), frozen pnpm install, fresh `.molweave-issue29-qualification` upgrade through 0010, Ruff, mypy (51 files), 228 Python tests (59 existing Alembic warnings; 30.62 s), ESLint, TypeScript, 79 frontend tests, 8 supervisor tests, production build and full Playwright (73 passed/39 intentional layout skips; 13.8 minutes). Fresh browser root `/tmp/neistra-issue29-candidate`, ports 8110/8111/5273. Build: 158.50 KiB initial and 967.43 KiB lazy Mol* gzip; existing bundle/optional Scarf-script advisories and negative-fixture chemistry/WebSocket-disconnect logging retained. The dedicated migration root was removed afterward; browser fixtures/log remain outside tracked files. All five version values independently checked as 0.6.0. Full local diff reviewed against `origin/master`, including migrations, API/ownership, rendering, tests, docs and prerequisite; no remaining consequential findings. This was local review, not independent review. Documentation-only evidence commit follows; PR publication and remote review checks are next. |
 
+| 2026-09-11 | M4/C6 merged; test correction required | PR [#31](https://github.com/ManuelSe/Neistra/pull/31) rebase-merged at `d18c3f6a18fba40987cc80fa78663768d40d4a2e`; all 51 remote file blobs and the merged tree matched candidate `a906863`. No required checks/protections/reviews or unresolved threads existed; the Codex request returned no review, so documented local review was used without claiming independence. GitHub rewrote the prerequisite commit; preserved original local master `06cae49` as `backup/issue-29-master-06cae49`, recreated master at verified shared base `8b68909`, then fast-forwarded to the remote merge. First merged V5 passed setup, migration, 228 Python, 79 frontend, 8 supervisor, lint/type/build and 72 browser workflows, with 39 layout skips, but one mobile light workflow timed out (15.6-minute browser run). Trace showed Enter reopened the project drawer because its closing focus restoration raced the test launcher focus. No release/tag was created. |
+
+| 2026-09-11 | M4/C6 focused test correction qualified | On the same planned feature branch, integrated rebased master with ordinary history merge `6e34dec` (no force push; not an implementation checkpoint). Added explicit drawer-hidden/restored-focus, selected-atom and launcher-ready/focused guards before keyboard activation in appearance and real-zoom tests. No product code, timeout increases or acceptance relaxation. Six repeated mobile integrated workflows passed (52.5 s); real 100%/200% zoom in both themes passed (1 pass/1 layout skip; 30.6 s), using `/tmp/neistra-issue29-focus`, ports 8110/8111/5273. Diff reviewed and checked; a separate non-merge test checkpoint contains the correction. Complete candidate and exact merged release gates follow before publication. |
+
+| 2026-09-11 | M4/C6 correction candidate qualified | Test checkpoint `d21cde4` passed complete V5: frozen installs, upgrade through 0010, Ruff, mypy (51 files), 228 Python tests (59 known Alembic warnings), ESLint, TypeScript, 79 frontend tests, 8 supervisor tests, build and full Playwright (73 passed/39 intentional layout skips; 14.0 minutes). Browser data `/tmp/neistra-issue29-focus-candidate`, ports 8110/8111/5273; log `/tmp/neistra-issue29-focus-candidate-gate.log`. Both corrected mobile themes passed. Removed only task-owned migration data after qualification. Full correction diff reviewed locally (not independently): two test synchronization changes and evidence docs, with no application/schema/dependency/version changes. Corrected obsolete planning language in project progress. No remaining local findings; correction PR and exact merged qualification precede publication. |
+
+| 2026-09-11 | M4/C6 blocked on approved merge strategy | Correction PR [#32](https://github.com/ManuelSe/Neistra/pull/32), candidate/evidence `86994dcc7470c3cb622ca5de5897657a6e50bb5f`, is clean and mergeable with four changed files, no required checks/reviews and no local findings. GitHub reports `rebaseable: false`; the authorized rebase merge request returned HTTP 405, “This branch can’t be rebased.” Original checkpoint history and its rebased master copies coexist after safe base integration. No force push or alternate merge was attempted. Await user approval for a merge commit on this correction PR, preserving checkpoint history; exact merged V5, tag, release, issue reply and cleanup remain pending. |
+
+| 2026-09-11 | User amendment C6a focused qualification | Added All selected atoms / Carbon atoms only UI, authoritative C resolution and explicit element assignments (D-054), pinned native palette projection, independent reset, docs and tests. Consolidated V2 plus lifecycle: 84 passed (81 existing Alembic warnings; 22.17 s). Full frontend: 80 passed; Ruff/mypy (51 files), ESLint/TypeScript/build passed (158.70 KiB initial/967.60 KiB lazy Mol* gzip advisory). V4 affected browser run: 20 passed/13 intentional skips plus one new-test setup failure (reopened color input defaults blue). Explicitly chose magenta; affected test passed (24.2 s), then extended it to prove native oxygen color after a solid-green entry theme and reload, passing again (21.9 s). This completes all 21 applicable affected workflows across runs, including both themes/mobile, axe/keyboard, real 200% zoom and 1STP budgets. Data `/tmp/neistra-issue29-carbon`, ports 8110/8111/5273; logs `/tmp/neistra-issue29-carbon-{python,focused,pixels,theme}.log`. Persistence assertions compare pre/post GET snapshots to avoid command-response timestamp serialization differences. Exact undo/redo, scene/archive round trip, topology pruning/undo, restart/duplicate and atomic rejection passed. Full local diff review found no remaining consequential issues; no molecular/artifact, migration or version changes. Full V5 candidate qualification follows before PR delivery. |
+
+| 2026-09-11 | Merge-method blocker resolved by user | User explicitly instructed: “Once you're done, commit the changes and merge into master (whatever way you want), then release and finish the goal.” Use a normal merge commit for PR #32 after the amended full gate, retaining meaningful checkpoint history without rewriting the shared branch. Exact merged qualification and verified release/issue reply/cleanup remain mandatory. |
+
+| 2026-09-11 | Amended V5 candidate qualified | Carbon-only checkpoint `e395509` passed complete V5: frozen uv/pnpm setup, isolated upgrade through 0010, Ruff, mypy (51 files), 237 Python tests (81 known Alembic warnings; 35.02 s), ESLint, TypeScript, 80 frontend tests, 8 supervisor tests, production build and full Playwright (73 passed/39 intentional layout skips; 14.5 minutes). All new carbon pixel/custom-theme/reload and desktop/mobile/theme journeys passed in the full run. Browser data `/tmp/neistra-issue29-carbon-candidate`, ports 8110/8111/5273; log `/tmp/neistra-issue29-carbon-candidate-gate.log`. Existing optional Scarf, lazy Mol* and negative-fixture chemistry/disconnect advisories remain; initial/lazy gzip 158.70/967.60 KiB. Removed only the dedicated migration data afterward. All five version sources verified as 0.6.0; no tag collision, workflows, rulesets or master protection. Local full amendment diff reviewed with no remaining consequential findings, without claiming independent review. Documentation-only evidence/authorization commit follows; merge PR #32 and qualify exact master before publication. |
+
 Future entries must record exact commits, commands, results, known warnings,
 limitations, remote identifiers, blockers, and next action. Populate feature
 acceptance evidence only after execution. Do not mark the PR, issue, merge,
@@ -435,4 +481,4 @@ tag, release, or cleanup complete until remotely verified.
 
 ## Completion and next action
 
-M4/C5 is qualified. Next: publish the PR, verify review/protection state, rebase merge and qualify exact merged master before release.
+PR #31 is merged. Carbon-only amendment C6a is implemented and focused-qualified at `e395509`; complete V5 passed (237 Python/80 frontend/8 supervisor/73 browser, 39 intentional skips). The user authorized a merge commit for PR #32. Finish qualification, merge, qualify exact master, publish v0.6.0, reply to the issue and record cleanup.

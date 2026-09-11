@@ -53,6 +53,7 @@ def migration_config(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Config:
     "field, assignment",
     [
         ("selection_colors", {"color": "#112233", "atom_ids": [1]}),
+        ("selection_colors", {"color": "element", "atom_ids": [1]}),
         ("selection_nonpolar_hydrogens", {"show": False, "atom_ids": [2]}),
     ],
 )

@@ -17,6 +17,8 @@ local non-polar-hydrogen preferences in the existing molecular workflow.
   and stale-result protection. Hidden project entries participate without
   becoming visible.
 - Set/reset durable solid colors on exact selected atoms using Mol* overpaint.
+  Choose All selected atoms or Carbon atoms only; the latter restores native
+  element colors on other selected atoms, retaining unrelated assignments.
 - Set Show/Hide/Use entry setting for explicit selected hydrogens. Mixed states,
   loading failures, empty targets and master-switch dependencies are explained.
 - Reuse existing atomic styles, Backbone and Cartoon; keep each property's reset
@@ -70,9 +72,10 @@ Checkpoint evidence includes domain, API, history/restart, migration/downgrade,
 legacy archive, topology, component and real-WebGL tests. Pixel checks verify
 actual color application/reset, selected C–H disappearance, polar O–H retention
 and master/local precedence for explicit protein and ligand fixtures. The final candidate passed the complete README/DEVELOPMENT release gate:
-228 Python tests, 79 frontend tests, eight supervisor tests, and 73 browser
+237 Python tests, 80 frontend tests, eight supervisor tests, and 73 browser
 workflows (39 documented layout skips), plus frozen setup, migrations, lint, type
-checks and build. The exact merged commit is qualified again before publication;
+checks and build, including the carbon-only amendment. The exact merged commit
+is qualified again before publication;
 executed results are recorded in the feature plan.
 
 ### Deferred work

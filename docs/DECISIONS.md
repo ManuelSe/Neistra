@@ -1980,3 +1980,31 @@ last valid application camera while rebuilding (including superseded rebuilds),
 and do not publish this renderer reset to scene persistence. This enforces the
 existing camera-invariance contract rather than changing scene schemas or
 accepting invalid saved cameras.
+
+## D-054 - Carbon-only selection coloring with explicit element overrides
+
+Status: accepted by user amendment to issue #29, 2026-09-11
+
+Extend D-052 with an optional carbon-only color application mode. Resolve selected
+carbon atoms from authoritative normalized elements in the existing atomic command;
+store the chosen hex color on those IDs and `color: "element"` on the remaining
+selected IDs. Retain disjoint memberships and independent property resets.
+The viewer resolves element records using the pinned Mol* palette and its default
+saturation/lightness, intersected with each representation's visible membership.
+There is no backend palette, molecular mutation, new geometry, or dynamic selection.
+
+Rationale: merely filtering the custom-color target to carbon would leave previous
+solid colors or non-element entry themes on selected heteroatoms, contrary to the
+user's requested element colors. Explicit element assignments make that outcome
+durable across entry themes, history, scenes and archives without new collections.
+No-carbon selections restore element colors. Reset returns to the underlying entry
+theme. Assignments attach to current stable IDs; subsequent chemistry edits do not
+rerun the carbon selection, and added atoms inherit existing entry defaults.
+
+The API adds optional `color_mode` only to color-set requests; omission means all.
+Existing hex records are unchanged. Migration 0010 already defaults the collection
+and rejects any retained nonempty appearance on downgrade, including element records.
+No new migration is necessary. The unreleased additive minor remains 0.6.0; schema
+major 1 and backward archive reading remain, without older-reader compatibility
+for newly added appearance values. This explicit amendment supersedes the earlier
+single-solid-mode scope; other deferred color schemes remain outside scope.
