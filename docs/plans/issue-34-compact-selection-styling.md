@@ -1,0 +1,124 @@
+# Issue #34 — Compact selection styling
+
+Status: approved by the user; implementation authorized. Approved 2026-09-11.
+Issue: https://github.com/ManuelSe/Neistra/issues/34
+Base: `master` at `25187d9`; branch: `fix/issue-34-compact-selection-styling`.
+
+## Problem, outcome, and authority
+
+The v0.6.0 styling dialog devotes too much space to instructions and secondary
+actions, and blocks changing the selection. Deliver an original compact non-modal
+palette with illustrated, briefly labeled buttons and immediate color swatches.
+These three interaction choices were explicitly selected by the user.
+User guidance, AGENTS.md, accepted decisions, product boundaries and the approved
+plan govern implementation. Preserve D-051–D-054 and existing molecular ownership.
+
+## Accepted scope and dispositions
+
+| Requirement | Disposition | Outcome |
+| --- | --- | --- |
+| Quick, compact styling | Essential | Primary representation/color actions visible without scrolling at 1366×768 |
+| Stay-open palette | Essential | Picking and camera gestures remain available; viewport-constrained, about 340 px wide; bottom-positioned on narrow screens |
+| Original illustrated short-label buttons | Essential | Five atomic and two polymer styles; independent channels, current/mixed/unavailable indicators |
+| Immediate color swatches | Essential | Blue/cyan/green/yellow/orange/red/purple/gray; one activation applies current All atoms / Carbon only mode |
+| Custom color | Supporting | Custom… disclosure with explicit Apply; mode alone does not mutate |
+| Reset actions | Essential | Existing representation and independent color reset semantics |
+| Hydrogen controls | Supporting | Compact three-choice row with explicit-H eligibility and visibility-limit explanations |
+| Distance expansion | Supporting | Initially collapsed; same distance/granularity/cancellation semantics |
+| Help and feedback | Supporting | Accessible help disclosures; one concise status area; actionable errors stay visible |
+| Keyboard/touch/responsive/light/dark | Essential | Focus management, accessible names, ≥44 px touch targets, 200% zoom without horizontal overflow |
+| Persistence/history/scientific semantics | Already satisfied; preserve | Existing commands, schemas, API, archives, scenes and scientific constraints |
+| Presets, hover previews, new inference/rendering algorithms | Deferred | Unnecessary for correcting this workflow; no speculative follow-up issue |
+| Selection-specific surfaces | Deferred | Existing follow-up #30 owns geometry and persistence |
+| Copied layout/icons/terminology | Rejected | Original Neistra design required |
+
+Open from the existing toolbar button. Close through close button, toolbar toggle,
+or Escape while focus is inside; outside interaction does not close it. Show one
+heading with atom count; place entry count and general instructions in help.
+Use a dedicated non-modal dialog without changing unrelated dialogs. Empty
+selection keeps the palette open with disabled actions; project changes close it.
+
+Changing coloring mode alone has no molecular effect. Carbon mode retains the
+brief visible explanation “Other selected atoms use element colors.” Keep mode
+and custom color while open, reset them on reopening; add no persisted preferences.
+Capture action targets at activation, serialize pending mutations, retain workspace
+viewing/selection, and prevent stale eligibility/feedback from describing a newer
+selection. Preserve expansion context cancellation. No API/schema/migration changes.
+
+## Checkpoints and acceptance
+
+1. **Palette shell** — responsive non-modal container, existing controls, picking,
+   rotation, focus and selection-context handling. Affected: frontend presentation
+   and workflow state. Tests: component and selection-styling/viewer-picking browser
+   tests. Commit `refactor(selection): introduce non-modal styling palette`.
+2. **Compact controls** — illustrated styles, mixed states, immediate swatches,
+   custom color, compact hydrogen and collapsed expansion. One activation per
+   representation or swatch after opening. Tests: action/reset/error/disabled/mixed
+   component tests and actual rendered representation/element-color browser checks.
+   Commit `feat(selection): streamline styling controls`.
+3. **Hardening/documentation** — responsive, keyboard, touch, light/dark and actual
+   200% zoom; before/after screenshots at matching viewports; user documentation and
+   exact evidence. Tests: relevant appearance/styling/expansion/accessibility/zoom
+   and existing performance budgets. Commit
+   `test(selection): verify compact styling workflows`.
+4. **Release** — complete passing gate, reviewed final candidate, versions and release
+   notes. Commit `chore(release): prepare v0.6.1`.
+
+Each checkpoint runs frontend lint, typecheck, component tests, build and focused
+Playwright. Review the diff before each passing commit; update this log and concise
+project PROGRESS. Append material cross-project decisions to DECISIONS. No empty
+commits. Rollback is an ordinary revert and subsequent patch release, retaining
+v0.6.0-compatible appearance data. No migration upgrade/downgrade is introduced.
+
+Focused commands (from repository root):
+
+```bash
+corepack pnpm --dir apps/web lint
+corepack pnpm --dir apps/web typecheck
+corepack pnpm --dir apps/web test
+corepack pnpm --dir apps/web build
+PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test tests/e2e/selection-styling.spec.ts tests/e2e/viewer-click-selection.spec.ts
+PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test tests/e2e/selection-appearance.spec.ts tests/e2e/rebranding-zoom.spec.ts tests/e2e/release-hardening.spec.ts
+git diff --check
+```
+
+Regression acceptance: change selection during open/pending/eligibility states;
+carbon-only selected heteroatoms use element colors, outside atoms unchanged;
+undo/redo/reload/scenes/archive semantics survive; hydrogen bounds, hidden expansion
+and cancellation remain; no unsolicited camera movement, repeated structure loads,
+or weakened performance budgets. Scrolling is allowed on small/zoomed viewports.
+
+## Release and remote workflow
+
+Patch **0.6.1** corrects existing functionality's usability without new scientific
+capabilities, APIs or compatibility changes; no prerelease is planned. Recheck tags
+and releases before preparing versions. Update pyproject.toml, root package in
+uv.lock, apps/web/package.json, FastAPI version and archive APPLICATION_VERSION.
+
+Safely incorporate origin/master before PR. PR title:
+`fix(selection): make representation styling compact and immediate`; `Closes #34`.
+Describe outcomes, checkpoints, simplifications, deferred #30, compatibility,
+scientific limitations, exact checks and release impact. Request automated review
+if available; otherwise accurately document local review. Address consequential
+findings and all required approvals/checks without bypassing protection.
+
+Run complete README/DEVELOPMENT release gate: frozen uv/pnpm installations,
+isolated Alembic upgrade, Ruff, mypy, all Python tests, frontend lint/typecheck/tests,
+supervisor tests, production build, all Playwright tests and diff whitespace check.
+Record isolated ports/data root when overriding defaults; never reset user data.
+Use a normal merge commit preserving checkpoints. Verify remote master and rerun
+the complete release gate on the exact merged commit before annotated tag v0.6.1.
+Publish and remotely verify the tag and GitHub release, then post issue close-out
+with PR/release links and verification/compatibility/deferred-scope information.
+Delete only this local/remote feature branch after all remote results are verified.
+
+Block merge/release for failed gates, unresolved consequential findings, missing
+required approvals, stale-selection targeting, accessibility regressions, unplanned
+compatibility changes or version collision. Release notes cover improvements,
+fixes, persisted-data/migrations, compatibility, verification, limitations and #30.
+
+## Progress and evidence
+
+- Planning checkpoint: clean master fast-forward verified; issue #34 created;
+  dedicated branch created. This approved plan is the first branch change.
+- Implementation and validation: pending.
