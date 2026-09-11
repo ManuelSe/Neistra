@@ -22,12 +22,24 @@ Real workspace screenshots: [light](docs/assets/neistra-workspace-light.png) ·
 [dark](docs/assets/neistra-workspace-dark.png). These show the existing local
 workspace, not proposed account, docking or marketplace features.
 
-The rebrand leaves the backend and all version values at `0.5.0`. Existing
-projects and preferences need no migration. Neistra Archives retain the
-`.molweave.zip` format; Python module names, `MOLWEAVE_*` settings and data
-paths remain compatible. See [brand and compatibility rules](docs/BRANDING.md)
-and [rebranding verification](docs/REBRANDING_VERIFICATION.md). Repository
-rename and a numbered release are separate, unexecuted cutover work.
+Version **0.6.0** adds distance expansion, solid colors and local non-polar-hydrogen
+preferences to **Style selection**. Existing atomic styles, Backbone and Cartoon
+remain available; representation, color and hydrogen resets are independent.
+
+Select atoms or an entry, open Style selection, and expand by a positive distance
+(default 4 Å) to matching atoms or complete residues. Expansion searches all
+project entries, including hidden entries, and preserves the seed. Use Apply color
+or the local hydrogen preference to store reversible appearance changes. Hydrogen
+controls target explicit selected H; selecting heavy atoms does not include their
+attached H. The Show hydrogens master remains an upper bound.
+
+Upgrade existing data with migration 0010 before starting this version. Supported
+older projects and archives remain readable; Neistra Archives retain
+`.molweave.zip`, and Python module names, `MOLWEAVE_*` settings and data paths
+remain compatible. See [release notes](docs/RELEASE_NOTES.md),
+[migration guidance](docs/DEVELOPMENT.md#selection-appearance-migration-060), and
+[scientific limitations](docs/SCIENTIFIC_LIMITATIONS.md). Selection-specific
+surfaces are tracked separately in [#30](https://github.com/ManuelSe/Neistra/issues/30).
 
 ## Prerequisites
 

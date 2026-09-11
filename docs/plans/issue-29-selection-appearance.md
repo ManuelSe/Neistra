@@ -2,7 +2,7 @@
 
 ## Status and metadata
 
-- Status: **approved; implementation active — M3/C4 qualified**.
+- Status: **approved; implementation active — M4/C5 release candidate**.
 - Issue: [#29 — Enhance selection representation controls](https://github.com/ManuelSe/Neistra/issues/29).
 - Issue created/updated: 2026-09-10; inspected and plan approved: 2026-09-11.
 - Approval: the user explicitly approved the complete proposal and instructed:
@@ -424,6 +424,8 @@ evidence. An inability to publish is not evidence that publication occurred.
 
 | 2026-09-11 | M3/C4 qualified | C3 committed as `c47e999`. Added integrated expansion→representation→color→hydrogen journeys, intercepted revision-failure/retry, both themes and desktop/Pixel 7 keyboard/axe/control bounds, real 100%/200% browser-zoom dialog checks, exact artifact/request-count and reopen checks, and duplicate/multi-entry-failure/checkpoint/restart undo/redo evidence. V4 combined affected browser gate: 29 passed, 19 intentional layout skips, 4.3 minutes. Review found failed/pending structure loading could be described as no-H and property summary lookups could scan memberships quadratically; fixed both, with a new component regression. Renamed the unchanged representation-only reset to “Reset representation” to distinguish properties. Affected appearance/zoom/hardening rerun: 12 passed/4 skips, 1.9 minutes; representation/reset rerun: 3 passed/3 skips, 36.1 seconds. All used `/tmp/neistra-issue29-c4`, head 0010, ports 8110/8111/5273. V3 plus lifecycle: 77 Python tests passed (59 known Alembic warnings); updated legacy archive assertions reran 10 passing tests. Full frontend: 79 passed; final label focused suite: 5 passed. Ruff/mypy (51 files), ESLint/TypeScript/build and diff review passed (158.50 KiB initial gzip; lazy Mol* 967.43 KiB advisory). Reviewed the actual dark 200% screenshot. Scientific limits/migration guidance updated; focused surface follow-up [#30](https://github.com/ManuelSe/Neistra/issues/30) created and verified. No material scope deviation. |
 
+| 2026-09-11 | M4/C5 prepared | C4 committed as `7d4e554`. Re-fetched origin and fast-forward-only base incorporation reported already current at `8b68909`. Verified no rulesets, workflows or master protection and no v0.6.0 tag/release collision; baseline remains v0.5.0. Updated all five authoritative versions and archive assertion, release notes and current README. Complete final candidate gate and final review are next; no PR/merge/release is claimed by this row. |
+
 Future entries must record exact commits, commands, results, known warnings,
 limitations, remote identifiers, blockers, and next action. Populate feature
 acceptance evidence only after execution. Do not mark the PR, issue, merge,
@@ -431,4 +433,4 @@ tag, release, or cleanup complete until remotely verified.
 
 ## Completion and next action
 
-M3/C4 is qualified. Next: M4/C5 version preparation, complete release gate and full-diff review, then PR and delivery.
+M4/C5 release preparation is complete. Next: complete release gate and final review, then PR and delivery.
