@@ -2,22 +2,15 @@
 
 ## Current milestone
 
-Issue #29 — approved planning handoff; implementation has not started.
+Issue #29 — M1/C1 distance expansion qualified; M2/C2 local color next.
 
-The user approved [the selection appearance plan](plans/issue-29-selection-appearance.md)
-on 2026-09-11. The implementation contract covers distance expansion in Style
-selection, durable selection-local solid color, and selection-local non-polar
-hydrogen visibility. It retains existing representation choices and defers
-selection-specific surfaces to a focused follow-up. The planned release is the
-backward-compatible minor version `0.6.0`; no version has changed yet.
-
-Fetched origin and performed a fast-forward-only integration on clean local
-`master`. The feature branch is `feat/issue-29-selection-appearance`, based on
-`06cae490fc9d73302a6d0891c6e0636c0a9ea376`, the user's separately requested
-`.gitignore` prerequisite commit above remote master `8b68909`. Checkpoint 0
-persists the approved plan and this concise handoff only. Commit/push evidence
-is supplied in the handoff; no implementation, PR, follow-up issue, or release
-is claimed. Wait for the user's `/goal` prompt before M1/C1.
+The user authorized full delivery with `/goal` on 2026-09-11 under
+[the approved feature plan](plans/issue-29-selection-appearance.md). The planned
+release remains the compatible minor `0.6.0`; no version has changed yet.
+Expansion now works in Style selection using the shared worker, retaining seeds
+and orphan matches and guarding cancellation/stale results. D-051 records scope.
+Local color and hydrogen overrides, integrated qualification and release delivery
+remain outstanding. Branch: `feat/issue-29-selection-appearance`.
 
 ### Previous milestone context
 
@@ -893,6 +886,13 @@ feature merge; this documentation-only closeout records the remote evidence.
   affected-entry topology replacement without a full scene synchronization.
 
 ## Verification performed
+
+- Issue #29 M1/C1: 13 Python selection tests, 10 focused frontend tests, full
+  frontend suite (75 tests), Ruff, mypy (50 files), ESLint, TypeScript and build
+  passed. Fresh isolated browser gate passed 2 desktop workflows, 2 explained
+  skips in 26.2 s; data `/tmp/neistra-issue29-c1`, ports 8110/8111/5273. Frozen
+  reinstall repaired stale pre-rename Python launchers without dependency changes.
+  Detailed commands, warnings, compatibility and next steps live in the feature plan.
 
 - Issue #29 planning handoff: verified clean working tree before branch creation,
   successful origin fetch and fast-forward-only integration, exact local/remote
@@ -1934,8 +1934,8 @@ Results:
 
 ## Known limitations
 
-- Issue #29's new color/hydrogen controls and styling-dialog distance expansion
-  are planned, not implemented. Exact-selected-hydrogen targets, project-wide
+- Issue #29's new color/hydrogen controls remain planned, not implemented.
+  Styling-dialog distance expansion is implemented and qualified. Exact-selected-hydrogen targets, project-wide
   expansion, the selection-surface deferral, and backward archive compatibility
   are approved contract boundaries; see the feature plan for full semantics.
 
@@ -2023,7 +2023,5 @@ None.
 
 ## Next action
 
-Finish checkpoint 0 commit/push verification, then wait for the user's `/goal`
-prompt. Do not start implementation. The first implementation checkpoint will
-be M1/C1 (distance expansion) under
-[the approved issue #29 contract](plans/issue-29-selection-appearance.md).
+Commit the passing M1/C1 checkpoint and proceed to M2/C2 durable selection color
+under [the approved issue #29 contract](plans/issue-29-selection-appearance.md).

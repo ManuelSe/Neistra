@@ -1,3 +1,4 @@
+import type { ExpandSelection } from "../selection/expansion";
 import { FolderPlus, Upload } from "lucide-react";
 import type {
   CameraState,
@@ -32,6 +33,7 @@ interface WorkspaceCanvasProps {
   onApplyScene?: (scene: Scene) => Promise<void>;
   onDeleteScene?: (scene: Scene) => Promise<void>;
   onLoadSelectionStructures?: () => Promise<Map<string, StructureProjection>>;
+  onExpandDistance?: ExpandSelection;
   onSelectionStyle?: (
     action: "apply" | "reset",
     style?: SelectionRepresentationStyle,
@@ -56,6 +58,7 @@ export function WorkspaceCanvas({
   onDeleteScene,
   onLoadSelectionStructures,
   onSelectionStyle,
+  onExpandDistance,
 }: WorkspaceCanvasProps) {
   if (loading) {
     return (
@@ -113,6 +116,7 @@ export function WorkspaceCanvas({
           onDeleteScene={onDeleteScene}
           onLoadSelectionStructures={onLoadSelectionStructures}
           onSelectionStyle={onSelectionStyle}
+          onExpandDistance={onExpandDistance}
         />
       )}
     </main>

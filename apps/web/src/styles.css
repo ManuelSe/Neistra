@@ -3645,3 +3645,18 @@ div[data-radix-popper-content-wrapper]:has(.tooltip) {
     animation-iteration-count: 1 !important;
   }
 }
+
+.selection-expansion-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 0.6rem;
+}
+.selection-expansion-form label {
+  display: grid;
+  gap: 0.3rem;
+  flex: 1 1 8rem;
+  min-width: 0;
+}
+.selection-expansion-form input,
+.selection-expansion-form select { width: 100%; min-width: 0; }

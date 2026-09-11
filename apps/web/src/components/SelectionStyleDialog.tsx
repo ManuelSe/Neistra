@@ -1,3 +1,5 @@
+import type { ExpandSelection } from "../selection/expansion";
+import { SelectionExpansion } from "./SelectionExpansion";
 import { RotateCcw } from "lucide-react";
 import { useMemo, useState } from "react";
 import type {
@@ -31,6 +33,7 @@ interface SelectionStyleDialogProps {
   eligibilityBusy: boolean;
   busy: boolean;
   onOpenChange: (open: boolean) => void;
+  onExpandDistance?: ExpandSelection;
   onAction: (
     action: "apply" | "reset",
     style?: SelectionRepresentationStyle,
@@ -46,6 +49,7 @@ export function SelectionStyleDialog({
   busy,
   onOpenChange,
   onAction,
+  onExpandDistance,
 }: SelectionStyleDialogProps) {
   const [activeAction, setActiveAction] = useState<string | null>(null);
   const [message, setMessage] = useState<{ kind: "success" | "error"; text: string } | null>(
@@ -133,6 +137,12 @@ export function SelectionStyleDialog({
             <dd>{entryCount}</dd>
           </div>
         </dl>
+        {open && onExpandDistance ? <SelectionExpansion
+          expand={onExpandDistance}
+          disabled={busy || selection.atoms.length === 0}
+          contextKey={JSON.stringify([selection, entries.map((entry) =>
+            [entry.id, entry.current_artifact_id])])}
+        /> : null}
         <p className="selection-style-help">
           Entry representations remain the default. A selection style replaces only the same
           atom-detail or polymer channel on these atoms.

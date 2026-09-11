@@ -2,7 +2,7 @@
 
 ## Status and metadata
 
-- Status: **approved; implementation not started; awaiting the user's `/goal` prompt**.
+- Status: **approved; implementation active — M1/C1 qualified**.
 - Issue: [#29 — Enhance selection representation controls](https://github.com/ManuelSe/Neistra/issues/29).
 - Issue created/updated: 2026-09-10; inspected and plan approved: 2026-09-11.
 - Approval: the user explicitly approved the complete proposal and instructed:
@@ -15,8 +15,8 @@
 - Feature branch: `feat/issue-29-selection-appearance`.
 - Proposed release: **0.6.0**, annotated tag **`v0.6.0`**.
 - This document is the implementation contract. Do not replace `docs/PLAN.md`.
-- Current authorization covers branch creation, plan/progress persistence, commit,
-  and feature-branch push only. Stop afterward; implementation awaits `/goal`.
+- The user supplied `/goal` on 2026-09-11, authorizing implementation, verification,
+  checkpoint commits, PR/review/merge, version/tag/release, issue response, and cleanup.
 
 ## Core problem and approved outcome
 
@@ -415,6 +415,9 @@ evidence. An inability to publish is not evidence that publication occurred.
 | 2026-09-11 | Approved | User approved the complete proposal and explicitly required waiting for `/goal` after persistence. |
 | 2026-09-11 | Checkpoint 0 prepared | Fetched origin; `git merge --ff-only origin/master` reported already up to date. Verified clean local master at `06cae49` and remote base at `8b68909`; created `feat/issue-29-selection-appearance`; persisted this approved plan as the first branch file change. Commit/push verification is reported by the handoff and identifiable from the commit containing this row. No implementation started. |
 
+| 2026-09-11 | Checkpoint 0 verified | Plan commit `711509d3d52cbec7de10cedb374b3ace3c0123e4` was pushed and remotely verified; clean tree at handoff. |
+| 2026-09-11 | M1/C1 qualified | Shared worker expansion, cancellation/load and worker context guards, canonical seed/orphan retention, project-wide hidden-entry scope, and refreshed polymer eligibility implemented. D-051 records ownership. V1: 13 Python selection tests and 10 focused frontend tests passed; full frontend suite passed 75 tests. Ruff, strict mypy (50 files), ESLint, TypeScript and production build passed. Fresh `/tmp/neistra-issue29-c1` migrated through 0009, ports 8110/8111/5273: 2 browser workflows passed, 2 documented desktop-only skips, 26.2 s. Build retains the lazy Mol* advisory (966.82 KiB gzip; initial 157.32 KiB gzip). Fixed stale pre-rename Python launchers by frozen reinstall of the same 49 packages, with no dependency change. Checkpoint diff reviewed; no schema or molecular changes. The commit containing this row is the checkpoint evidence commit. |
+
 Future entries must record exact commits, commands, results, known warnings,
 limitations, remote identifiers, blockers, and next action. Populate feature
 acceptance evidence only after execution. Do not mark the PR, issue, merge,
@@ -422,6 +425,5 @@ tag, release, or cleanup complete until remotely verified.
 
 ## Completion and next action
 
-Implementation is not started. After committing and verifying the feature-branch
-push for checkpoint 0, **wait for the user's `/goal` prompt**. The next authorized
-implementation checkpoint will be M1/C1 only when that prompt arrives.
+M1/C1 is qualified. Next: commit the coherent expansion checkpoint, then implement
+M2/C2 (durable local color). All later delivery work remains outstanding.
