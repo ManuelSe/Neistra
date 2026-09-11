@@ -2,7 +2,7 @@
 
 ## Current milestone
 
-Issue #29 — M4/C5 release candidate prepared; complete release gate next.
+Issue #29 — M4/C5 qualified; PR and release delivery next.
 
 The user authorized full delivery with `/goal` on 2026-09-11 under
 [the approved feature plan](plans/issue-29-selection-appearance.md). The planned
@@ -887,6 +887,12 @@ feature merge; this documentation-only closeout records the remote evidence.
   affected-entry topology replacement without a full scene synchronization.
 
 ## Verification performed
+
+- M4/C5 complete release gate on `687d7bf`: 228 Python, 79 frontend,
+  8 supervisor and 73 browser tests passed (39 intentional browser layout skips).
+  Frozen installs, fresh migration through 0010, all lint/type checks, build
+  and local full-diff review passed. Detailed evidence and advisories are in
+  the issue #29 feature plan. No remote delivery is claimed yet.
 
 - M3/C4: 77 focused Python and 79 full frontend tests passed. Combined affected
   browser gate passed 29 workflows (19 layout skips), followed by passing
@@ -2045,5 +2051,5 @@ None.
 
 ## Next action
 
-Run the complete v0.6.0 release gate and final review under
+Publish the qualified PR and complete v0.6.0 delivery under
 [the approved issue #29 contract](plans/issue-29-selection-appearance.md).

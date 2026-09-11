@@ -69,9 +69,11 @@ certification is implied. The existing lazy Mol* bundle advisory remains.
 Checkpoint evidence includes domain, API, history/restart, migration/downgrade,
 legacy archive, topology, component and real-WebGL tests. Pixel checks verify
 actual color application/reset, selected C–H disappearance, polar O–H retention
-and master/local precedence for explicit protein and ligand fixtures. The final
-candidate and exact merged commit must pass the complete README/DEVELOPMENT
-release gate; executed results are recorded in the feature plan.
+and master/local precedence for explicit protein and ligand fixtures. The final candidate passed the complete README/DEVELOPMENT release gate:
+228 Python tests, 79 frontend tests, eight supervisor tests, and 73 browser
+workflows (39 documented layout skips), plus frozen setup, migrations, lint, type
+checks and build. The exact merged commit is qualified again before publication;
+executed results are recorded in the feature plan.
 
 ### Deferred work
 

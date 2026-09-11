@@ -2,7 +2,7 @@
 
 ## Status and metadata
 
-- Status: **approved; implementation active — M4/C5 release candidate**.
+- Status: **approved; implementation active — M4/C5 qualified**.
 - Issue: [#29 — Enhance selection representation controls](https://github.com/ManuelSe/Neistra/issues/29).
 - Issue created/updated: 2026-09-10; inspected and plan approved: 2026-09-11.
 - Approval: the user explicitly approved the complete proposal and instructed:
@@ -426,6 +426,8 @@ evidence. An inability to publish is not evidence that publication occurred.
 
 | 2026-09-11 | M4/C5 prepared | C4 committed as `7d4e554`. Re-fetched origin and fast-forward-only base incorporation reported already current at `8b68909`. Verified no rulesets, workflows or master protection and no v0.6.0 tag/release collision; baseline remains v0.5.0. Updated all five authoritative versions and archive assertion, release notes and current README. Complete final candidate gate and final review are next; no PR/merge/release is claimed by this row. |
 
+| 2026-09-11 | M4/C5 qualified | Code/release candidate `687d7bf` passed complete V5: frozen sync (49 packages), frozen pnpm install, fresh `.molweave-issue29-qualification` upgrade through 0010, Ruff, mypy (51 files), 228 Python tests (59 existing Alembic warnings; 30.62 s), ESLint, TypeScript, 79 frontend tests, 8 supervisor tests, production build and full Playwright (73 passed/39 intentional layout skips; 13.8 minutes). Fresh browser root `/tmp/neistra-issue29-candidate`, ports 8110/8111/5273. Build: 158.50 KiB initial and 967.43 KiB lazy Mol* gzip; existing bundle/optional Scarf-script advisories and negative-fixture chemistry/WebSocket-disconnect logging retained. The dedicated migration root was removed afterward; browser fixtures/log remain outside tracked files. All five version values independently checked as 0.6.0. Full local diff reviewed against `origin/master`, including migrations, API/ownership, rendering, tests, docs and prerequisite; no remaining consequential findings. This was local review, not independent review. Documentation-only evidence commit follows; PR publication and remote review checks are next. |
+
 Future entries must record exact commits, commands, results, known warnings,
 limitations, remote identifiers, blockers, and next action. Populate feature
 acceptance evidence only after execution. Do not mark the PR, issue, merge,
@@ -433,4 +435,4 @@ tag, release, or cleanup complete until remotely verified.
 
 ## Completion and next action
 
-M4/C5 release preparation is complete. Next: complete release gate and final review, then PR and delivery.
+M4/C5 is qualified. Next: publish the PR, verify review/protection state, rebase merge and qualify exact merged master before release.
