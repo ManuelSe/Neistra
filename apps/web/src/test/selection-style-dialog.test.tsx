@@ -96,7 +96,7 @@ describe("selection style dialog", () => {
       "Applied Thin sticks to 2 selected atoms",
     );
 
-    await user.click(screen.getByRole("button", { name: "Reset to entry defaults" }));
+    await user.click(screen.getByRole("button", { name: "Reset representation" }));
     expect(onAction).toHaveBeenLastCalledWith("reset", undefined);
     expect(completeResidue.atoms).toHaveLength(2);
 
@@ -138,7 +138,7 @@ it("explains exact hydrogen targets and mixed/master states, with separate inher
   projection.structure.atoms[1].element = "H";
   entry.viewer_settings.selection_nonpolar_hydrogens = [{ show: false, atom_ids: [1] }];
   entry.viewer_settings.components.hydrogens = false;
-  view.rerender(<SelectionHydrogenControls {...props} />);
+  view.rerender(<SelectionHydrogenControls {...props} entries={[...props.entries]} />);
   expect(screen.getByRole("combobox")).toHaveValue("mixed");
   expect(screen.getByText(/Show hydrogens is off/)).toBeVisible();
   await user.selectOptions(screen.getByRole("combobox"), "show");
@@ -148,4 +148,20 @@ it("explains exact hydrogen targets and mixed/master states, with separate inher
   onChange.mockRejectedValueOnce(new Error("Revision changed"));
   await user.selectOptions(screen.getByRole("combobox"), "hide");
   expect(await screen.findByRole("alert")).toHaveTextContent("Revision changed");
+});
+
+
+it("does not misreport failed or pending structure loads as hydrogen-free selections", () => {
+  const onChange = vi.fn().mockResolvedValue(undefined);
+  const entry = molecularEntry("protein", "Receptor", "protein");
+  const view = render(<SelectionHydrogenControls selection={completeResidue} entries={[entry]}
+    structures={new Map()} busy loading onChange={onChange} />);
+  expect(screen.getByText(/Checking explicit hydrogen targets/)).toBeVisible();
+  expect(screen.queryByText(/Select explicit hydrogen atoms, or/)).not.toBeInTheDocument();
+  view.unmount();
+  render(<Tooltip.Provider><SelectionStyleDialog open selection={completeResidue} entries={[entry]}
+    structures={new Map()} eligibilityBusy={false} eligibilityError="Could not load selection structures."
+    busy={false} onAppearance={onChange} onOpenChange={() => {}} onAction={vi.fn().mockResolvedValue(undefined)} /></Tooltip.Provider>);
+  expect(screen.getByRole("alert")).toHaveTextContent("Could not load selection structures");
+  expect(screen.queryByLabelText("Selected non-polar hydrogens")).not.toBeInTheDocument();
 });

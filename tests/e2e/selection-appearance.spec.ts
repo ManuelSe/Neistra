@@ -84,3 +84,76 @@ test("expands from styling across hidden entries without durable changes", async
   expect(reset.entries.find((entry) => entry.id === duplicate.id)!.viewer_settings.selection_colors).toHaveLength(1);
 
 });
+
+for (const theme of ["light", "dark"]) {
+  test(`integrated selection appearance is durable and accessible in ${theme}`, async ({ page, request }, info) => {
+    test.setTimeout(90_000);
+    const created = await request.post("/api/v1/projects", { data: { name: `Appearance ${theme} ${info.project.name} ${Date.now()}` } });
+    let project: Project = await created.json();
+    await page.goto("/");
+    if (theme === "dark") await page.getByRole("button", { name: "Use dark theme" }).click();
+    await page.getByRole("button", { name: "Projects", exact: true }).click();
+    await page.getByRole("dialog", { name: "Projects" }).getByRole("button", { name: new RegExp(`^${project.name}`) }).click();
+    const structureRequests: string[] = [];
+    page.on("request", (outgoing) => {
+      if (/\/entries\/[^/]+\/structure$/.test(new URL(outgoing.url()).pathname)) structureRequests.push(outgoing.url());
+    });
+    await page.getByRole("button", { name: "Import structures" }).first().click();
+    const upload = page.getByRole("dialog", { name: "Import structures" });
+    await upload.locator('input[type="file"]').setInputFiles(resolve("tests/fixtures/hydrogens/polar_hydrogens_ligand.mol"));
+    await upload.getByRole("button", { name: "Import", exact: true }).click();
+    await expect(upload).toBeHidden({ timeout: 30_000 });
+    await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded", { timeout: 30_000 });
+    project = await (await request.get(`/api/v1/projects/${project.id}`)).json();
+    const entry = project.entries[0];
+    const path = `/api/v1/projects/${project.id}/entries/${entry.id}`;
+    const structure = await (await request.get(`${path}/structure`)).json();
+    const original = await (await request.get(`${path}/original`)).body();
+    const mobile = info.project.name === "mobile-chromium";
+    if (mobile) await page.getByRole("button", { name: "Project browser", exact: true }).click();
+    await page.locator(`.entry-row[data-entry-id="${entry.id}"] .entry-select`).click();
+    if (mobile) await page.keyboard.press("Escape");
+    const launcher = page.getByRole("button", { name: "Style selection", exact: true });
+    await launcher.focus();
+    await page.keyboard.press("Enter");
+    const dialog = page.getByRole("dialog", { name: "Style selection" });
+    await dialog.getByRole("button", { name: "Expand selection", exact: true }).click();
+    await expect(dialog.locator(".selection-style-summary")).toContainText("4");
+    await dialog.getByRole("button", { name: "Line", exact: true }).focus();
+    await page.keyboard.press("Enter");
+    await expect(dialog.getByRole("status").filter({ hasText: "Applied Line" })).toBeVisible();
+    await dialog.getByLabel("Custom selection color").fill("#ff00ff");
+    await page.route(`**/projects/${project.id}/selection-appearance`, async (route) => {
+      await route.fulfill({ status: 409, contentType: "application/json", body: JSON.stringify({ detail: { code: "revision_conflict", message: "The project changed. Retry the selection action." } }) });
+    }, { times: 1 });
+    await dialog.getByRole("button", { name: "Apply color" }).click();
+    await expect(dialog.getByRole("alert")).toContainText("project changed");
+    expect((await (await request.get(`/api/v1/projects/${project.id}`)).json()).entries[0].viewer_settings.selection_colors).toEqual([]);
+    await dialog.getByRole("button", { name: "Apply color" }).click();
+    await expect(dialog.getByRole("status").filter({ hasText: "Selection color applied" })).toBeVisible();
+    await dialog.getByLabel("Selected non-polar hydrogens").selectOption("hide");
+    await expect(dialog.getByRole("status").filter({ hasText: "Selection hydrogen visibility stored" })).toBeVisible();
+    expect((await new AxeBuilder({ page }).include('[role="dialog"]').analyze()).violations).toEqual([]);
+    for (const control of await dialog.locator("button:visible, input:visible, select:visible").all()) {
+      await control.scrollIntoViewIfNeeded();
+      const box = await control.boundingBox();
+      const size = await page.evaluate(() => ({ width: innerWidth, height: innerHeight }));
+      expect(box!.x).toBeGreaterThanOrEqual(0);
+      expect(box!.x + box!.width).toBeLessThanOrEqual(size.width + 1);
+      expect(box!.y + box!.height).toBeLessThanOrEqual(size.height + 1);
+    }
+    await page.keyboard.press("Escape");
+    await expect(launcher).toBeFocused();
+    await expect(page.locator(".viewer-status")).toContainText("/ 4 selected");
+    const changed: Project = await (await request.get(`/api/v1/projects/${project.id}`)).json();
+    expect(changed.entries[0].viewer_settings.selection_representations).toEqual([{ style: "line", atom_ids: [1, 2, 3, 4] }]);
+    expect(changed.entries[0].viewer_settings.selection_colors).toEqual([{ color: "#ff00ff", atom_ids: [1, 2, 3, 4] }]);
+    expect(changed.entries[0].viewer_settings.selection_nonpolar_hydrogens).toEqual([{ show: false, atom_ids: [2, 4] }]);
+    expect(await (await request.get(`${path}/structure`)).json()).toEqual(structure);
+    expect(await (await request.get(`${path}/original`)).body()).toEqual(original);
+    expect(structureRequests).toHaveLength(1);
+    await page.reload();
+    await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded", { timeout: 30_000 });
+    expect((await (await request.get(`/api/v1/projects/${project.id}`)).json()).entries[0].viewer_settings).toEqual(changed.entries[0].viewer_settings);
+  });
+}

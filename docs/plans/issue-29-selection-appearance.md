@@ -2,7 +2,7 @@
 
 ## Status and metadata
 
-- Status: **approved; implementation active — M2/C3 qualified**.
+- Status: **approved; implementation active — M3/C4 qualified**.
 - Issue: [#29 — Enhance selection representation controls](https://github.com/ManuelSe/Neistra/issues/29).
 - Issue created/updated: 2026-09-10; inspected and plan approved: 2026-09-11.
 - Approval: the user explicitly approved the complete proposal and instructed:
@@ -86,7 +86,7 @@ resolved product decisions, not outstanding clarification requests.
 | Change selection color | Essential | One solid custom color and reset to existing coloring. |
 | Lines, sticks, spheres and existing atomic choices | Already satisfied | Retain established style vocabulary and replacement behavior. |
 | Protein Cartoon and Backbone | Already satisfied | Retain authoritative complete-residue and trace-atom validation. |
-| Selection-specific surface | Deferred | Subset geometry, neighbor context, boundaries, and cost need their own contract. Create one focused follow-up during delivery; no new subset-surface control here. |
+| Selection-specific surface | Deferred | Subset geometry, neighbor context, boundaries, and cost need their own contract. Tracked in [#30](https://github.com/ManuelSe/Neistra/issues/30); no new subset-surface control here. |
 | Reuse existing capabilities | Supporting | Shared commands, cache, worker, viewer adapter, dialog primitives, and tests. |
 | Local hydrogen/color precedence and expansion scope | Unclear and requiring a product decision at proposal time; resolved by approval | Use the explicit semantics below. |
 | Relabel entry-wide controls as selection controls | Rejected as proposed implementation | Violates locality; no follow-up needed. |
@@ -422,6 +422,8 @@ evidence. An inability to publish is not evidence that publication occurred.
 
 | 2026-09-11 | M2/C3 qualified | C2 committed as `2ab4c49`. Added exact-selected explicit-H preferences, full-projection native classification, independent reset/mixed/master controls, persistence/pruning and guarded migration extension (D-053). V3: 75 Python tests passed (59 existing Alembic warnings); 25 focused and 78 full frontend tests passed, including focus extension. Ruff/mypy (51 files), ESLint/TypeScript/build passed (initial 158.40 KiB gzip; lazy Mol* 967.43 KiB advisory). `/tmp/neistra-issue29-c3`, ports 8110/8111/5273, head 0010: combined V2/V3 browser run passed 15 workflows with 14 layout skips and exposed one existing scene-saving radius-zero failure. Retained valid camera across disposable rebuilds; affected scene/local-H rerun passed 3 workflows with 3 layout skips in 1 minute, completing all 16 applicable workflows across runs. Exact full-frame hashes proved unsuitable for rebuilt lighting; actual left/right hydrogen-sphere presence checks now verify C-H removal, O-H retention, local Show and master precedence on protein and ligand fixtures without relying on settings alone. Full checkpoint diff reviewed, no molecular artifacts or chemistry changes. |
 
+| 2026-09-11 | M3/C4 qualified | C3 committed as `c47e999`. Added integrated expansion→representation→color→hydrogen journeys, intercepted revision-failure/retry, both themes and desktop/Pixel 7 keyboard/axe/control bounds, real 100%/200% browser-zoom dialog checks, exact artifact/request-count and reopen checks, and duplicate/multi-entry-failure/checkpoint/restart undo/redo evidence. V4 combined affected browser gate: 29 passed, 19 intentional layout skips, 4.3 minutes. Review found failed/pending structure loading could be described as no-H and property summary lookups could scan memberships quadratically; fixed both, with a new component regression. Renamed the unchanged representation-only reset to “Reset representation” to distinguish properties. Affected appearance/zoom/hardening rerun: 12 passed/4 skips, 1.9 minutes; representation/reset rerun: 3 passed/3 skips, 36.1 seconds. All used `/tmp/neistra-issue29-c4`, head 0010, ports 8110/8111/5273. V3 plus lifecycle: 77 Python tests passed (59 known Alembic warnings); updated legacy archive assertions reran 10 passing tests. Full frontend: 79 passed; final label focused suite: 5 passed. Ruff/mypy (51 files), ESLint/TypeScript/build and diff review passed (158.50 KiB initial gzip; lazy Mol* 967.43 KiB advisory). Reviewed the actual dark 200% screenshot. Scientific limits/migration guidance updated; focused surface follow-up [#30](https://github.com/ManuelSe/Neistra/issues/30) created and verified. No material scope deviation. |
+
 Future entries must record exact commits, commands, results, known warnings,
 limitations, remote identifiers, blockers, and next action. Populate feature
 acceptance evidence only after execution. Do not mark the PR, issue, merge,
@@ -429,4 +431,4 @@ tag, release, or cleanup complete until remotely verified.
 
 ## Completion and next action
 
-M2/C3 is qualified. Next: M3/C4 integrated qualification, then M4 release delivery.
+M3/C4 is qualified. Next: M4/C5 version preparation, complete release gate and full-diff review, then PR and delivery.

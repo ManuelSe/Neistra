@@ -34,6 +34,7 @@ interface SelectionStyleDialogProps {
   entries: Entry[];
   structures: ReadonlyMap<string, StructureProjection>;
   eligibilityBusy: boolean;
+  eligibilityError?: string | null;
   busy: boolean;
   onOpenChange: (open: boolean) => void;
   onExpandDistance?: ExpandSelection;
@@ -50,6 +51,7 @@ export function SelectionStyleDialog({
   entries,
   structures,
   eligibilityBusy,
+  eligibilityError,
   busy,
   onOpenChange,
   onAction,
@@ -63,18 +65,18 @@ export function SelectionStyleDialog({
   const entryCount = new Set(selection.atoms.map((atom) => atom.structure_id)).size;
   const polymerReason = eligibilityBusy
     ? "Checking complete-residue compatibility"
-    : polymerStyleUnavailableReason(selection, structures);
+    : eligibilityError ?? polymerStyleUnavailableReason(selection, structures);
   const assignedStyles = useMemo(() => {
-    const byEntry = new Map(entries.map((entry) => [entry.id, entry]));
+    const byEntry = new Map(entries.map((entry) => [entry.id,
+      new Map(entry.viewer_settings.selection_representations.map((assignment) =>
+        [assignment.style, new Set(assignment.atom_ids)] as const)),
+    ]));
     return new Set(
       [...atomicRepresentationStyles, ...polymerRepresentationStyles].filter((style) =>
         selection.atoms.every((reference) =>
           byEntry
             .get(reference.structure_id)
-            ?.viewer_settings.selection_representations.some(
-              (assignment) =>
-                assignment.style === style && assignment.atom_ids.includes(reference.atom_id),
-            ),
+            ?.get(style)?.has(reference.atom_id),
         ),
       ),
     );
@@ -169,8 +171,9 @@ export function SelectionStyleDialog({
           </div>
           {polymerReason ? <p className="selection-style-reason">{polymerReason}</p> : null}
         </fieldset>
-        {onAppearance ? <SelectionHydrogenControls selection={selection} entries={entries}
-          structures={structures} busy={busy || eligibilityBusy} onChange={onAppearance} /> : null}
+        {eligibilityError ? <p role="alert">{eligibilityError}</p> : null}
+        {onAppearance && !eligibilityError ? <SelectionHydrogenControls selection={selection} entries={entries}
+          structures={structures} loading={eligibilityBusy} busy={busy || eligibilityBusy} onChange={onAppearance} /> : null}
         {onAppearance ? <SelectionColorControls selection={selection} entries={entries}
           busy={busy} onChange={onAppearance} /> : null}
         <button
@@ -180,7 +183,7 @@ export function SelectionStyleDialog({
           onClick={() => void run("reset")}
         >
           <RotateCcw size={15} />
-          {activeAction === "reset" ? "Resetting…" : "Reset to entry defaults"}
+          {activeAction === "reset" ? "Resetting…" : "Reset representation"}
         </button>
         {message ? (
           <p className={`selection-style-message ${message.kind}`} role={message.kind === "error" ? "alert" : "status"}>

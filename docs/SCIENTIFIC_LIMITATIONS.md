@@ -284,3 +284,21 @@ preventing retrieval of the original bytes.
 - Importable outputs must be valid `NormalizedStructureV1` artifacts. Neistra
   validates representation and provenance, not whether a pose, score, energy,
   or ranking is scientifically correct.
+
+## Selection appearance and neighborhood expansion
+
+Style selection expands around active-conformer coordinates in all project
+entries, including hidden entries, without making them visible. It uses inclusive
+Euclidean distance and assumes entries already share a meaningful Cartesian
+frame. It performs no alignment, periodic-image search, contact classification,
+or binding-site inference. Residue mode completes matching residues and retains
+matching atoms without residue membership.
+
+Color follows atom-associated primitives; continuous cartoon and surface geometry
+does not provide atom-shaped color boundaries. Local hydrogen preferences target
+only explicit selected H. Selecting heavy atoms does not select attached H, and
+polar H is unaffected by a nonpolar preference. Full-projection Mol* connectivity
+owns display polarity using the established polar-neighbor convention. No hydrogen
+generation, protonation assignment or chemistry repair occurs. Master hydrogen,
+component and isolation bounds still apply. Selection-specific surfaces remain
+deferred pending a geometry/context and resource-limit design.
