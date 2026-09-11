@@ -2022,3 +2022,79 @@ open palette lifetime, without adding viewer-owned molecular state or persistenc
 Existing application command closures capture the project and selection at activation;
 context-bound feedback must not describe a subsequent selection. This is a usability
 patch retaining D-051–D-054, API/schema major 1 and migration head 0010.
+
+## D-056 - Selected-fragment surface interpretation
+
+Status: accepted for issue #30, 2026-09-11; not yet implemented
+
+The approved [issue #30 plan](plans/issue-30-selection-surfaces.md) adds a surface
+computed only from assigned atoms, independently per entry and across internal
+rendering units. The fixed `molecular-v1` profile uses a 1.4 Å probe, 0.5 Å grid,
+36 probe positions, pinned Mol* physical radii, no parent context or cavity flood
+filling, and opacity 0.45. Effective membership intersects existing visibility,
+isolation and full-projection hydrogen preferences. Existing colors apply through
+atom-associated coloring; existing entry surfaces and representation channels
+remain independent.
+
+Rationale: a bounded fragment view delivers useful selection styling without
+implicitly promising a context-derived molecular surface patch. Cut residues and
+covalent boundaries may expose artificial faces. Do not infer residue completion,
+caps, repair, alignment, periodic geometry, alternate-location resolution or
+occupancy weighting. Preserve source warnings; this is not a solvent-accessible
+area measurement or pocket analysis. Context-aware patches require separate work.
+
+This extends the earlier surface deferral in D-046/052 without rewriting their
+historical scope. The feature plan records qualification gates and non-goals.
+
+## D-057 - One durable surface membership per entry
+
+Status: accepted for issue #30, 2026-09-11; not yet implemented
+
+Extend ViewerSettings with nullable `selection_surface`, containing the fixed
+profile identifier and canonical stable atom IDs. Add/Remove union or subtract
+captured IDs through one revisioned multi-entry command. No-op actions create no
+history. Other appearance properties and atomic/polymer resets stay independent.
+Ordinary current-selection changes do not retarget membership. Deletions prune
+live/scene memberships reversibly; additions infer no membership. Scenes,
+checkpoints, duplication and archive remapping preserve the application record,
+not generated meshes or Mol* snapshots.
+
+Rationale: a single bounded membership avoids a generic layer manager while
+retaining established command, history and application-authority guarantees.
+Existing entry-settings updates preserve omitted values and cannot bypass the
+dedicated action. Migration 0011 (subject to availability) defaults every documented
+live/checkpoint/scene/forward/inverse settings path to null without traversing
+user metadata. Validate all retained locations before downgrade and refuse any
+non-null state, including history. Removing visible membership alone does not
+make downgrade safe; document pre-upgrade backup restoration.
+
+Retain API/project/archive/normalized major 1 with backward reading of absent
+fields. Older readers are not guaranteed to preserve new surface state. Original
+uploads and normalized scientific artifacts remain unchanged. The additive user
+feature targets application v0.7.0, subject to release collision checks.
+
+## D-058 - Bounded cancellable selection-surface computation
+
+Status: accepted for issue #30, 2026-09-11; not yet implemented
+
+Reuse pinned Mol* field and mesh routines inside a dedicated browser worker with
+a small viewer adapter; do not fork the scientific algorithm or add backend jobs.
+Prove identity, coloring, picking, normals, cancellation and disposal before
+building persistence/UI. Generation counters alone do not stop computation:
+terminate obsolete/cancelled workers and reject stale results.
+
+The approved plan fixes initial atom/grid/mesh/concurrency/deadline and host
+qualification gates. Check admission before allocation and account for working
+buffers, not only finished meshes. Failure to establish reliable bounds blocks
+progress pending an approved amendment. Browser/GPU process memory is not claimed
+to have a hard per-worker cap. Retain intent with explained line fallback for
+oversize/failure, including the existing 250,000-atom parent degradation policy.
+
+Rationale: responsiveness and truthful state require separating durable membership
+from transient rendering success. Status, Cancel and Retry are transient; Cancel
+does not undo settings. Closing the palette does not cancel a saved request.
+Project switches, disposal and superseding geometry terminate obsolete work.
+Coordinates/membership/visibility/isolation invalidate geometry; colors reuse
+valid meshes and ordinary camera/selection changes do not regenerate them.
+Hide obsolete surfaces during coordinate previews and regenerate or restore at
+commit/cancellation. Never publish stale geometry as current scientific state.
