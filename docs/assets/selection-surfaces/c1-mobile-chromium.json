@@ -1,0 +1,25 @@
+{
+  "cells": 734160,
+  "activeCells": 35503,
+  "meshBytes": 3405576,
+  "meshBoundBytes": 28970448,
+  "workingBoundBytes": 133020368,
+  "durationMs": 189.40000000223517,
+  "readyMs": 485.69999999925494,
+  "units": 1,
+  "partitionUnits": 2,
+  "partitionInvariant": true,
+  "longestSurfaceTaskMs": 177,
+  "vertices": 91194,
+  "triangles": 71012,
+  "groups": 567,
+  "atoms": 1001,
+  "observedStartupTaskMs": 177,
+  "cancellation": {
+    "cancelled": true,
+    "elapsed": 20.300000000745058
+  },
+  "baselineRssKiB": 554036,
+  "peakRssKiB": 754652,
+  "memoryMeasurement": "Linux summed descendant RSS, sampled every 100 ms; includes browser and shared pages"
+}

@@ -2,15 +2,15 @@
 
 ## Current milestone
 
-Issue #30 — selection-specific surfaces **approved; implementation not started**.
-The [approved feature plan](plans/issue-30-selection-surfaces.md) is the detailed
-contract: selected-atoms-only fragment surfaces, one durable membership per entry,
-compact Add/Remove controls, bounded cancellable worker computation, migration
-and archive/history compatibility, and scientific/accessibility/release gates.
-Planned branch: `feat/issue-30-selection-surfaces`; provisional release: **v0.7.0**.
-D-056–058 record accepted decisions, not implemented capabilities. Planning
-verification covers clean base/branch, documentation and remote persistence;
-no feature tests or new functionality are claimed. Wait for the user's `/goal`.
+Issue #30 — **M1/C1 complete; M2/C2 next** on
+`feat/issue-30-selection-surfaces`, targeting provisional **v0.7.0**.
+The [approved feature plan](plans/issue-30-selection-surfaces.md) records the
+bounded Mol* worker/mesh adapter and exact scientific/resource evidence. Passed
+Ruff, mypy, frontend lint/typecheck/build, 91 frontend tests and two real-renderer
+browser checks. 1STP surface readiness was 549 ms desktop / 486 ms mobile;
+cancellation 22/20 ms. These are pinned Chromium/Pixel 7 emulation measurements.
+No surface UI, persistence, API or migration is implemented yet. C2 adds durable
+membership/history/archive semantics; D-056–059 retain the approved boundaries.
 
 ### Previous release — v0.6.1
 
@@ -2110,12 +2110,11 @@ Results:
 
 ## Blockers
 
-No planning blocker. Issue #30 implementation awaits the user's `/goal`; its
-scientific/resource feasibility checkpoint must pass before further milestones.
+None. M1 scientific/resource feasibility passed; broader workflow qualification
+remains required before release.
 
 ## Next action
 
-Wait for `/goal` before starting the [issue #30 plan](plans/issue-30-selection-surfaces.md).
-Then execute M1 scientific/execution feasibility, M2 durable end-to-end workflow,
-M3 hardening and M4 release delivery checkpoint by checkpoint on the feature branch.
+Execute M2/C2 durable membership in the [issue #30 plan](plans/issue-30-selection-surfaces.md),
+then complete UI integration, hardening and release gates on the feature branch.
 Prior release delivery evidence remains in [issue #34](https://github.com/ManuelSe/Neistra/issues/34).

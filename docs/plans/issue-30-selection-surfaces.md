@@ -1,7 +1,7 @@
 # Issue #30 — Selection-specific surfaces
 
-Status: approved; implementation not started. User approved the proposal on
-2026-09-11. Wait for an explicit `/goal` before implementation.
+Status: implementing; M1/C1 complete. User approved the proposal on 2026-09-11
+and authorized implementation with `/goal` on 2026-09-11.
 
 - Issue: [#30 — Define selection-specific surface geometry and persistence](https://github.com/ManuelSe/Neistra/issues/30), open at approval.
 - Base branch: `master` / `origin/master`.
@@ -403,7 +403,7 @@ for documentation. Keep project-level progress concise and current.
 | 2026-09-11 — approval | User: “I approve the plan.” Approved selected-only geometry, resource gates, checkpoints and provisional v0.7.0 |
 | 2026-09-11 — persistence preparation | Clean master fetched and fast-forward verified at `9624ebcca24a1164c34d31a7f7d9cef3183b8775`; planned feature branch created; this plan is its first file change |
 | 2026-09-11 — documentation validation | `git diff --check` passed; local Markdown links, required plan sections and unique D-056–058 identifiers checked; global `docs/PLAN.md` unchanged; diff reviewed as documentation-only |
-| M1/C1 | Not started |
+| M1/C1 | Complete: bounded native geometry worker and structural mesh adapter; 91 frontend tests, lint/type/build and two real-browser checks pass; evidence below |
 | M2/C2–C3 | Not started |
 | M3/C4 | Not started |
 | M4/C5 | Not started |
@@ -412,4 +412,48 @@ Planning completion: validate documentation links/scope/whitespace, commit as
 `docs(plan): add approved plan for issue 30`, push and verify the remote branch.
 The planning commit identifies itself through Git history. No implementation,
 version increment, migration, PR, follow-up issue, tag or release is created in
-this planning stage. Next action: wait for the user's `/goal`.
+that planning stage. The user subsequently authorized implementation; next: M2/C2.
+
+
+### M1/C1 evidence — 2026-09-11
+
+Implemented fixed profile, input/grid admission, intersected-cell mesh allocation
+accounting, serial worker queue with cancellation/deadline/disposal, and a native
+Mol* complex mesh visual preserving structural group iteration and loci. No
+production controls, API changes or migration yet. A development-only HTML entry
+makes the renderer qualification reproducible without adding it to production
+build inputs. Internal unit partitioning preserves exact input arrays.
+
+Commands passed: Ruff; mypy (51 files); frontend lint, typecheck, full Vitest
+(91 tests / 26 files), production build; focused Playwright selection-surfaces
+(two passed: Chromium and Pixel 7 emulation); `git diff --check`.
+Logs: `/tmp/neistra-30-c1-{ruff,mypy,lint,typecheck,vitest,build}.log` and
+`/tmp/neistra-30-c1-final-e2e.log`. Isolated E2E data:
+`/tmp/neistra-30-c1-final-e2e`, ports 8110/8111/5273. No developer data changed.
+
+Persisted [desktop](../assets/selection-surfaces/c1-chromium.json) and
+[mobile](../assets/selection-surfaces/c1-mobile-chromium.json) evidence: 1,001 atoms,
+734,160 grid cells, 35,503 intersected cells, 71,012 triangles, 3,405,576 mesh bytes;
+conservative mesh bound 28,970,448 and working allocation accounting 133,020,368
+bytes. Desktop readiness 549 ms, longest surface task 210 ms, cancellation 22 ms;
+mobile 486/177/20 ms respectively. Linux summed descendant RSS peaked at
+887,156/754,652 KiB, including browser, shared pages, projection and renderer;
+these measurements are not worker-heap or GPU caps.
+
+Unit tests cover physical sphere tolerance, overlapping/disconnected atoms,
+selected-only input independence, stable IDs, admission failures and worker
+lifecycle. Browser qualification isolates the new surface, verifies nonblank
+colored geometry and actual picks mapped to normalized IDs, and checks disposal.
+C4 will broaden workflow/scientific/accessibility coverage.
+
+Initial integration checks exposed a bad one-unit fixture assumption, native
+opacity picking threshold, and dev dependency discovery reloads. Explicit
+partition-invariance evidence, a dedicated scanned test HTML entry, and the
+0.45 picking threshold in the isolated renderer harness resolve those checks.
+Production integration must preserve inherited opacity picking semantics (D-059).
+Lint/type findings were fixed; the final checks above passed without retry or
+budget relaxation. The existing lazy Mol* chunk-size advisory remains.
+
+Diff reviewed for scope, scientific identity, cancellation and allocation risks.
+No native scientific algorithm was copied. C1 is a renderer foundation, not a
+claim of available durable selection-surface functionality. Next: M2/C2.

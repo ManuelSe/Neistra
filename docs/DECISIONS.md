@@ -2098,3 +2098,24 @@ Coordinates/membership/visibility/isolation invalidate geometry; colors reuse
 valid meshes and ordinary camera/selection changes do not regenerate them.
 Hide obsolete surfaces during coordinate previews and regenerate or restore at
 commit/cancellation. Never publish stale geometry as current scientific state.
+
+
+## D-059 - Native surface mesh groups and transparent picking compatibility
+
+Status: accepted implementation decision for issue #30, 2026-09-11
+
+Use pinned Mol* field/marching-cubes routines, and its no-subdivision uniform
+triangle group operation for cross-WebGL atom-associated picking/coloring.
+Surface input groups follow the full component's serial element iterator across
+units. A WeakMap binds disposable structures to generated meshes; a native complex
+mesh visual retains structural loci. Count intersected cells before extraction
+and bound native edge/triangle/chunk allocations; no scientific algorithm fork.
+
+C1 real picking revealed Mol*'s default minimum pick opacity is 0.5, above the
+approved surface opacity 0.45. Selection-surface integration must permit picking
+at 0.45 while preserving inherited representation eligibility: explicitly retain
+inherited layers' original 0.5 opacity threshold when lowering the renderer
+threshold, and restore its default when the selection surface is absent. C1
+qualifies this in an isolated surface-only harness; C3 must implement and verify
+mixed-layer compatibility. Do not change the approved scientific opacity or make
+other transparent layers newly pickable as a side effect.
