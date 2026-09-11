@@ -207,3 +207,10 @@ channels. The dedicated revisioned project command owns persistence and exact
 history; Mol* receives disposable overpaint bundles intersected with rendered
 layer membership. It does not own colors or molecular state. See D-052 and the
 issue feature plan for retained-history migration and compatibility guarantees.
+
+Selection-local hydrogen preferences extend this command without introducing a
+polarity service. The backend resolves explicit selected H from normalized data;
+the Mol* adapter classifies on its full disposable projection before producing
+visibility masks for inherited, exact-selection and surface layers. Subsets never
+reclassify an O–H hydrogen after dropping its oxygen. Local preferences override
+entry nonpolar preferences but not master/component/isolation bounds (D-053).

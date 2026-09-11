@@ -16,7 +16,7 @@ down_revision = "0009"
 branch_labels = None
 depends_on = None
 
-FIELDS = ("selection_colors",)
+FIELDS = ("selection_colors", "selection_nonpolar_hydrogens")
 TABLE_FIELDS = {
     "structure_entries": ("viewer_settings",),
     "projects": ("checkpoint_state",),

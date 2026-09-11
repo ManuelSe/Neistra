@@ -27,6 +27,7 @@ const settings: ViewerSettings = {
   ],
   selection_representations: [],
     selection_colors: [],
+    selection_nonpolar_hydrogens: [],
   components: {
     hydrogens: true,
     nonpolar_hydrogens: true,
@@ -301,4 +302,30 @@ describe("representation settings", () => {
       ).toBe(style);
     }
   });
+});
+
+it("applies full-projection nonpolar classification to all layers with visibility upper bounds", () => {
+  const normalized = proteinStructure();
+  normalized.atoms[1].element = "H";
+  normalized.atoms[2].element = "H";
+  const structure: ViewerStructure = {
+    entryId: "protein", label: "Protein", projection: { format: "mmcif", data: "projection" },
+    atomIds: [1, 2, 3], normalized, hierarchy: componentHierarchy(normalized),
+    settings: { ...settings,
+      representations: [{ ...settings.representations[0], style: "surface" }],
+      selection_representations: [{ style: "space-filling", atom_ids: [1, 2, 3] }],
+      components: { ...settings.components, nonpolar_hydrogens: false },
+      selection_nonpolar_hydrogens: [{ show: true, atom_ids: [2] }, { show: false, atom_ids: [3] }],
+    },
+  };
+  // Atom 2 is classified nonpolar on the full graph; polar atom 3 is unaffected by local Hide.
+  const classified = new Set([2]);
+  for (const layer of representationLayers(structure, null, classified)) expect(layer.atomIds).toEqual([1, 2, 3]);
+  structure.settings.selection_nonpolar_hydrogens = [{ show: false, atom_ids: [2] }];
+  structure.settings.components.nonpolar_hydrogens = true;
+  for (const layer of representationLayers(structure, null, classified)) expect(layer.atomIds).toEqual([1, 3]);
+  structure.settings.components.hydrogens = false;
+  structure.settings.selection_nonpolar_hydrogens = [{ show: true, atom_ids: [2] }];
+  for (const layer of representationLayers(structure, null, classified)) expect(layer.atomIds).toEqual([1]);
+  expect(representationLayers(structure, new Set([2]), classified)).toEqual([]);
 });

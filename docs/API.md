@@ -435,3 +435,11 @@ reset omits it. One successful action updates all selected entries atomically
 and is undoable. Invalid references/parameters return 422 and stale revisions
 return 409. Entry viewer-setting requests preserve omitted color assignments
 and cannot mutate them directly. Existing representation reset remains separate.
+
+The same endpoint accepts `property: "nonpolar_hydrogens"` with a strict boolean
+`show` for `set`, or no value for `reset`. Only explicit H atoms in the selection
+are targeted; no-H selections return 422 without a command. Original references
+are all validated, including selected heavy atoms. Polarity is evaluated by the
+viewer on full projected connectivity, so selecting polar H can store a preference
+without changing its visibility. Color and hydrogen values cannot be combined in
+one request. Omitted hydrogen assignments in entry settings are also preserved.

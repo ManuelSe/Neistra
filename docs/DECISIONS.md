@@ -1946,3 +1946,37 @@ The additive contract retains API/project/archive/normalized schema major 1 and
 immutable scientific artifacts; it promises backward reading, not older-reader
 support for new appearance state. Hydrogen-specific precedence extends this
 property model in the following checkpoint.
+
+## D-053 - Exact selected-hydrogen preferences and complete-projection classification
+
+Status: accepted for issue #29
+
+Extend D-047 and D-052 with independent `selection_nonpolar_hydrogens` assignments,
+grouped by strict boolean `show`, with disjoint canonical atom IDs. The command
+reads authoritative normalized elements to target only explicit selected H atoms;
+heavy-atom selection never implicitly targets attached H. Reject an action with
+no hydrogen targets. Retain preferences for polar H without claiming a visual
+change: polarity is determined only in the disposable viewer.
+
+When local preferences exist, classify nonpolar H once on the complete Mol*
+structure, using its pinned native connectivity classifier before any selection,
+component, or isolation subsets. Apply local preference over the entry nonpolar
+setting, with the master hydrogen/component/isolation visibility as upper bounds.
+Pass the resulting mask to all representation layers and prevent parent-geometry
+expansion or reclassification on filtered subsets. Polar H remains unaffected.
+Without local preferences retain the established native representation path.
+
+Do not duplicate chemistry classification in the backend or generate hydrogen
+atoms. The established N/O/S/F/Cl/Br/I polar-neighbor convention and connectivity
+limitations remain. Ligand focus conservatively uses heavy atoms when any local
+hydrogen preference exists, extending D-047's stable focus rule without a second
+classifier. Selection, stored coordinates, bonds, originals and warnings remain
+unchanged. Extend unreleased migration 0010 and its retained-state downgrade guard
+to both independent properties; intermediate checkpoint schemas are not releases.
+
+During qualification, an existing isolation→appearance→scene workflow exposed a
+transient Mol* radius-zero camera during disposable scene clearing. Retain the
+last valid application camera while rebuilding (including superseded rebuilds),
+and do not publish this renderer reset to scene persistence. This enforces the
+existing camera-invariance contract rather than changing scene schemas or
+accepting invalid saved cameras.

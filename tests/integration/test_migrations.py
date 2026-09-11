@@ -49,10 +49,19 @@ def migration_config(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Config:
 @pytest.mark.parametrize(
     "location", ["live", "checkpoint", "checkpoint_scene", "scene", "forward", "inverse", "empty"]
 )
+@pytest.mark.parametrize(
+    "field, assignment",
+    [
+        ("selection_colors", {"color": "#112233", "atom_ids": [1]}),
+        ("selection_nonpolar_hydrogens", {"show": False, "atom_ids": [2]}),
+    ],
+)
 def test_0010_preserves_all_settings_and_refuses_lossy_history_downgrade(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
     location: str,
+    field: str,
+    assignment: dict[str, Any],
 ) -> None:
     config = migration_config(tmp_path, monkeypatch)
     command.upgrade(config, "0009")
@@ -62,11 +71,7 @@ def test_0010_preserves_all_settings_and_refuses_lossy_history_downgrade(
     def settings(where: str) -> dict[str, Any]:
         return {
             **legacy_viewer_settings(),
-            **(
-                {"selection_colors": [{"color": "#112233", "atom_ids": [1]}]}
-                if where == location
-                else {}
-            ),
+            **({field: [assignment]} if where == location else {}),
         }
 
     with factory() as session:
@@ -145,9 +150,7 @@ def test_0010_preserves_all_settings_and_refuses_lossy_history_downgrade(
             "inverse": history.inverse_actions[0]["scene"]["entry_states"][0]["viewer_settings"],
         }
         for key, value in locations.items():
-            assert value["selection_colors"] == (
-                [{"color": "#112233", "atom_ids": [1]}] if key == location else []
-            )
+            assert value[field] == ([assignment] if key == location else [])
     if location == "empty":
         command.downgrade(config, "0009")
         command.upgrade(config, "head")

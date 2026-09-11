@@ -284,6 +284,7 @@ def test_legacy_archive_defaults_selection_colors(client: ApiClient) -> None:
                 ]
                 for value in settings:
                     value.pop("selection_colors")
+                    value.pop("selection_nonpolar_hydrogens")
                 payload = json.dumps(manifest).encode()
             target.writestr(info, payload)
     restored = import_archive(client, output.getvalue())["project"]

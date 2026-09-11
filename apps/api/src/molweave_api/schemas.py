@@ -249,14 +249,43 @@ class SelectionColor(BaseModel):
         return value.lower()
 
 
+class SelectionNonpolarHydrogens(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    show: bool = Field(strict=True)
+    atom_ids: list[int] = Field(min_length=1)
+
+    @field_validator("atom_ids")
+    @classmethod
+    def canonical_ids(cls, value: list[int]) -> list[int]:
+        return SelectionRepresentation.atom_ids_are_canonical(value)
+
+
 class ViewerSettings(BaseModel):
     representations: list[RepresentationSettings] = Field(min_length=1, max_length=12)
     selection_representations: list[SelectionRepresentation] = Field(
         default_factory=list, max_length=7
     )
     selection_colors: list[SelectionColor] = Field(default_factory=list)
+    selection_nonpolar_hydrogens: list[SelectionNonpolarHydrogens] = Field(
+        default_factory=list, max_length=2
+    )
     components: ComponentVisibility = Field(default_factory=ComponentVisibility)
     labels: LabelVisibility = Field(default_factory=LabelVisibility)
+
+    @field_validator("selection_nonpolar_hydrogens")
+    @classmethod
+    def hydrogen_modes_are_disjoint(
+        cls,
+        value: list[SelectionNonpolarHydrogens],
+    ) -> list[SelectionNonpolarHydrogens]:
+        assigned: set[int] = set()
+        modes: set[bool] = set()
+        for item in value:
+            if item.show in modes or assigned.intersection(item.atom_ids):
+                raise ValueError("Hydrogen modes must be unique with disjoint atom IDs")
+            modes.add(item.show)
+            assigned.update(item.atom_ids)
+        return sorted(value, key=lambda item: item.show)
 
     @field_validator("selection_colors")
     @classmethod
@@ -509,18 +538,27 @@ class SelectionAppearanceUpdate(BaseModel):
     model_config = ConfigDict(extra="forbid")
     expected_revision: int = Field(ge=0)
     selection: SelectionV1
-    property: Literal["color"]
+    property: Literal["color", "nonpolar_hydrogens"]
     action: Literal["set", "reset"]
     color: str | None = Field(default=None, pattern=r"^#[0-9a-fA-F]{6}$")
+    show: bool | None = Field(default=None, strict=True)
 
     @model_validator(mode="after")
     def validate_action(self) -> SelectionAppearanceUpdate:
         if not self.selection.atoms:
             raise ValueError("Select at least one atom to change its appearance")
-        if self.action == "set" and self.color is None:
-            raise ValueError("Color is required when setting selection color")
-        if self.action == "reset" and self.color is not None:
-            raise ValueError("Color must be omitted when resetting selection color")
+        if self.property == "color":
+            if self.show is not None:
+                raise ValueError("Show is only valid for hydrogen visibility")
+            value: str | bool | None = self.color
+        else:
+            if self.color is not None:
+                raise ValueError("Color is only valid for color changes")
+            value = self.show
+        if self.action == "set" and value is None:
+            raise ValueError("A property value is required for set")
+        if self.action == "reset" and value is not None:
+            raise ValueError("Omit the property value for reset")
         return self
 
 

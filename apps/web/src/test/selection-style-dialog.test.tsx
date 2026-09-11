@@ -6,6 +6,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import type { Selection, StructureProjection } from "../api/types";
 import { SelectionStyleDialog } from "../components/SelectionStyleDialog";
 import { SelectionColorControls } from "../components/SelectionColorControls";
+import { SelectionHydrogenControls } from "../components/SelectionHydrogenControls";
 import {
   molecularEntry,
   proteinProjection,
@@ -121,4 +122,30 @@ describe("selection style dialog", () => {
     await user.click(screen.getByRole("button", { name: "Line" }));
     expect(onAction).toHaveBeenCalledWith("apply", "line");
   });
+});
+
+it("explains exact hydrogen targets and mixed/master states, with separate inheritance", async () => {
+  const user = userEvent.setup();
+  const onChange = vi.fn().mockResolvedValue(undefined);
+  const entry = molecularEntry("protein", "Receptor", "protein");
+  const projection = proteinProjection();
+  const props = { selection: completeResidue, entries: [entry],
+    structures: new Map([["protein", projection]]), busy: false, onChange };
+  const view = render(<SelectionHydrogenControls {...props} />);
+  expect(screen.getByRole("combobox")).toBeDisabled();
+  expect(screen.getByText(/Select explicit hydrogen atoms, or/)).toBeVisible();
+  projection.structure.atoms[0].element = "H";
+  projection.structure.atoms[1].element = "H";
+  entry.viewer_settings.selection_nonpolar_hydrogens = [{ show: false, atom_ids: [1] }];
+  entry.viewer_settings.components.hydrogens = false;
+  view.rerender(<SelectionHydrogenControls {...props} />);
+  expect(screen.getByRole("combobox")).toHaveValue("mixed");
+  expect(screen.getByText(/Show hydrogens is off/)).toBeVisible();
+  await user.selectOptions(screen.getByRole("combobox"), "show");
+  expect(onChange).toHaveBeenLastCalledWith({ property: "nonpolar_hydrogens", action: "set", show: true });
+  await user.selectOptions(screen.getByRole("combobox"), "inherit");
+  expect(onChange).toHaveBeenLastCalledWith({ property: "nonpolar_hydrogens", action: "reset" });
+  onChange.mockRejectedValueOnce(new Error("Revision changed"));
+  await user.selectOptions(screen.getByRole("combobox"), "hide");
+  expect(await screen.findByRole("alert")).toHaveTextContent("Revision changed");
 });

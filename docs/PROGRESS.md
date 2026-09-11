@@ -2,7 +2,7 @@
 
 ## Current milestone
 
-Issue #29 — M2/C2 local color qualified; M2/C3 local hydrogen visibility next.
+Issue #29 — M2 complete; M3/C4 integrated qualification next.
 
 The user authorized full delivery with `/goal` on 2026-09-11 under
 [the approved feature plan](plans/issue-29-selection-appearance.md). The planned
@@ -10,7 +10,8 @@ release remains the compatible minor `0.6.0`; no version has changed yet.
 Expansion now works in Style selection using the shared worker, retaining seeds
 and orphan matches and guarding cancellation/stale results. D-051 records scope.
 Local color is implemented with migration/history/archive coverage and D-052.
-Hydrogen overrides, integrated qualification and release delivery remain outstanding. Branch: `feat/issue-29-selection-appearance`.
+Local hydrogen overrides are implemented with full-projection classification and D-053.
+Integrated qualification and release delivery remain outstanding. Branch: `feat/issue-29-selection-appearance`.
 
 ### Previous milestone context
 
@@ -886,6 +887,13 @@ feature merge; this documentation-only closeout records the remote evidence.
   affected-entry topology replacement without a full scene synchronization.
 
 ## Verification performed
+
+- M2/C3: V3 passed 75 Python tests, 25 focused/78 full frontend tests, lint/type
+  checks and production build. All 16 applicable V2/V3 browser workflows passed
+  across the combined run and affected rerun after fixing transient radius-zero
+  camera publication. New protein/ligand pixel checks prove local/master
+  precedence and polar-H retention. Detailed commands, warnings and evidence
+  are in the feature plan.
 
 - M2/C2: 65 Python tests, 19 focused frontend tests, Ruff/mypy (51 files),
   ESLint/TypeScript/build passed. Existing V2 browser coverage passed 7 workflows;
@@ -2030,5 +2038,5 @@ None.
 
 ## Next action
 
-Commit M2/C2 and implement M2/C3 selection-local hydrogen visibility under
+Complete M3/C4 integrated qualification under
 [the approved issue #29 contract](plans/issue-29-selection-appearance.md).

@@ -1,3 +1,4 @@
+import { SelectionHydrogenControls } from "./SelectionHydrogenControls";
 import { SelectionColorControls } from "./SelectionColorControls";
 import type { ChangeSelectionAppearance } from "../api/types";
 import type { ExpandSelection } from "../selection/expansion";
@@ -168,6 +169,8 @@ export function SelectionStyleDialog({
           </div>
           {polymerReason ? <p className="selection-style-reason">{polymerReason}</p> : null}
         </fieldset>
+        {onAppearance ? <SelectionHydrogenControls selection={selection} entries={entries}
+          structures={structures} busy={busy || eligibilityBusy} onChange={onAppearance} /> : null}
         {onAppearance ? <SelectionColorControls selection={selection} entries={entries}
           busy={busy} onChange={onAppearance} /> : null}
         <button

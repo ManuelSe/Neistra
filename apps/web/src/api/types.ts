@@ -99,6 +99,7 @@ export interface ViewerSettings {
   representations: RepresentationSettings[];
   selection_representations: SelectionRepresentation[];
   selection_colors: SelectionColor[];
+  selection_nonpolar_hydrogens: { show: boolean; atom_ids: number[] }[];
   components: {
     hydrogens: boolean;
     nonpolar_hydrogens: boolean;
@@ -123,9 +124,9 @@ export interface SelectionRepresentation {
 }
 
 export interface SelectionColor { color: string; atom_ids: number[] }
-export type SelectionAppearanceChange = { property: "color" } & (
-  { action: "set"; color: string } | { action: "reset"; color?: never }
-);
+export type SelectionAppearanceChange =
+  | ({ property: "color" } & ({ action: "set"; color: string } | { action: "reset"; color?: never }))
+  | ({ property: "nonpolar_hydrogens" } & ({ action: "set"; show: boolean } | { action: "reset"; show?: never }));
 export type ChangeSelectionAppearance = (change: SelectionAppearanceChange) => Promise<void>;
 
 export type MeasurementKind = "distance" | "angle" | "dihedral";

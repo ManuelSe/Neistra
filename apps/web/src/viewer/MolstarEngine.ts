@@ -1,3 +1,4 @@
+import { isHydrogen } from "molstar/lib/mol-repr/structure/visual/util/common";
 import { OrderedSet } from "molstar/lib/mol-data/int";
 import { Loci } from "molstar/lib/mol-model/loci";
 import {
@@ -67,6 +68,8 @@ export class MolstarEngine implements MolecularViewer {
   private models = new Map<Model, { entryId: string; atomIds: number[] }>();
   private listeners = new Set<(event: ViewerSelectionEvent) => void>();
   private cameraListeners = new Set<(camera: CameraState) => void>();
+  private retainedCamera: CameraState | null = null;
+  private rebuilding = false;
   private clickSubscription: { unsubscribe(): void } | undefined;
   private cameraSubscription: { unsubscribe(): void } | undefined;
   private measurementRefs: string[] = [];
@@ -193,20 +196,25 @@ export class MolstarEngine implements MolecularViewer {
       const plugin = this.plugin;
       if (!plugin || generation !== this.generation) return;
       const camera = this.getCamera();
-      await plugin.clear();
-      this.measurementRefs = [];
-      this.labelRefs = [];
-      this.loaded.clear();
-      this.models.clear();
-      for (const structure of structures) {
-        if (generation !== this.generation) return;
-        await this.loadStructure(structure);
-        await this.addStructureLabels(structure);
+      this.rebuilding = true;
+      try {
+        await plugin.clear();
+        this.measurementRefs = [];
+        this.labelRefs = [];
+        this.loaded.clear();
+        this.models.clear();
+        for (const structure of structures) {
+          if (generation !== this.generation) return;
+          await this.loadStructure(structure);
+          await this.addStructureLabels(structure);
+        }
+        this.applySelection();
+        await this.applyMeasurements();
+        if (camera && camera.radius > 0) this.setCamera(camera);
+        else plugin.canvas3d?.requestCameraReset();
+      } finally {
+        this.rebuilding = false;
       }
-      this.applySelection();
-      await this.applyMeasurements();
-      if (camera && camera.radius > 0) this.setCamera(camera);
-      else plugin.canvas3d?.requestCameraReset();
     });
     return this.syncQueue;
   }
@@ -279,17 +287,21 @@ export class MolstarEngine implements MolecularViewer {
 
   getCamera(): CameraState | null {
     const snapshot = this.plugin?.canvas3d?.camera.getSnapshot();
-    if (!snapshot) return null;
-    return {
+    // Clearing a disposable scene can briefly yield radius zero. Never publish
+    // that reset as application camera state or carry it into the next rebuild.
+    if (this.rebuilding || !snapshot || snapshot.radius <= 0) return this.retainedCamera;
+    this.retainedCamera = {
       mode: snapshot.mode,
       position: [...snapshot.position] as CameraState["position"],
       target: [...snapshot.target] as CameraState["target"],
       up: [...snapshot.up] as CameraState["up"],
       radius: snapshot.radius,
     };
+    return this.retainedCamera;
   }
 
   setCamera(camera: CameraState): void {
+    this.retainedCamera = camera;
     this.plugin?.canvas3d?.camera.setState({
       mode: camera.mode,
       position: Vec3.create(...camera.position),
@@ -460,7 +472,24 @@ export class MolstarEngine implements MolecularViewer {
               .filter((reference) => reference.structure_id === structure.entryId)
               .map((reference) => reference.atom_id),
           );
-    for (const layer of representationLayers(structure, isolatedIds)) {
+    const localHydrogens = structure.settings.selection_nonpolar_hydrogens.length > 0;
+    const nonpolarHydrogens = localHydrogens ? new Set<number>() : undefined;
+    // Classify before filtering: a selected O-H must not lose its polar neighbour.
+    // Only the disposable Mol* projection owns connectivity-based display polarity.
+    if (nonpolarHydrogens) {
+      for (const unit of molstarStructure.units) {
+        if (!Unit.isAtomic(unit)) continue;
+        for (let index = 0; index < unit.elements.length; index++) {
+          const element = unit.elements[index];
+          if (isHydrogen(molstarStructure, unit, element, "non-polar")) {
+            const source = unit.model.atomicHierarchy.atomSourceIndex.value(element);
+            const id = structure.atomIds[source];
+            if (id !== undefined) nonpolarHydrogens.add(id);
+          }
+        }
+      }
+    }
+    for (const layer of representationLayers(structure, isolatedIds, nonpolarHydrogens)) {
       const loci = this.lociFor(
         layer.atomIds.map((atomId) => ({
           structure_id: structure.entryId,
@@ -483,8 +512,9 @@ export class MolstarEngine implements MolecularViewer {
       if (!component) continue;
       const profile = molstarRepresentationProfile(layer.style, {
         opacity: layer.opacity,
-        hydrogenMode: hydrogenDisplayMode(structure.settings.components),
-        exactTarget: layer.exactTarget,
+        // The full-structure mask already enforces master and local preferences.
+        hydrogenMode: localHydrogens ? "all" : hydrogenDisplayMode(structure.settings.components),
+        exactTarget: layer.exactTarget || localHydrogens,
       });
       const representation = await plugin.builders.structure.representation.addRepresentation(
         component,
@@ -501,8 +531,8 @@ export class MolstarEngine implements MolecularViewer {
         },
         { tag: `molweave-representation-${layer.id}` },
       );
+      const visible = new Set(layer.atomIds);
       const colors = structure.settings.selection_colors.flatMap((assignment) => {
-        const visible = new Set(layer.atomIds);
         const colorLoci = this.lociFor(assignment.atom_ids.filter((id) => visible.has(id))
           .map((atom_id) => ({ structure_id: structure.entryId, atom_id })));
         return colorLoci ? [{
