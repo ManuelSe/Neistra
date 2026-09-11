@@ -748,7 +748,8 @@ for (const fixture of ["polar_hydrogens_ligand.mol", "polar_hydrogens_protein.pd
     await page.getByRole("button", { name: "Close viewer controls" }).click();
     await expect.poll(hydrogenPixels).toEqual([0, 0]);
     await selectAtom(2);
-    await expect(page.getByText(/Show hydrogens is off for at least/)).toBeVisible();
+    await expect(page.getByRole("dialog", { name: "Style selection" })
+      .getByText("Show hydrogens is off; local preferences are retained.", { exact: true })).toBeVisible();
     await page.keyboard.press("Escape");
     await page.getByRole("button", { name: "Clear", exact: true }).click();
     await setHydrogenControl(page, request, project.id, "Show hydrogens", true);

@@ -202,3 +202,23 @@ and 0.6.0 archive compatibility cases. Ruff and all 12 archive-roundtrip tests p
 Release notes, upgrade/compatibility guidance and user documentation are prepared.
 No new migration or protocol change. Complete candidate gate is the next gate;
 no merge, tag or release is claimed by this preparation entry.
+
+### Complete-gate integration repair
+
+The first complete candidate gate passed frozen installs, isolated migration, Ruff,
+mypy, 239 Python tests, 84 frontend tests, 8 supervisor tests and production build.
+Its full browser pass reported 70 passed / 39 intentional skips / 3 failures.
+Two hydrogen precedence tests still matched the old expanded master-warning copy;
+update them to assert the exact compact warning inside the palette. The mobile
+viewer-toolbar test raced the inspector's existing requestAnimationFrame focus
+restoration; its trace left Inspector focused. Wait explicitly for that established
+restoration before testing the next toolbar tooltip. No application behavior or
+scientific assertions were weakened. The same run's performance profile passed:
+3962 ms interactions, 552 ms maximum task, zero repeated structure GETs.
+
+Focused repaired cases pass (3 passed / 3 intentional skips):
+`playwright test tests/e2e/polar-hydrogen-visibility.spec.ts tests/e2e/viewer-controls.spec.ts --grep 'selection-local|keeps compact picking'`.
+Ports 8110/8111/5273, data `/tmp/neistra-34-gate-repair`; log
+`/tmp/neistra-34-gate-repair.log`. Full original evidence:
+`/tmp/neistra-34-candidate-gate.log` and `candidate-report.json` in `/tmp` (report
+filename prefix `neistra-34-`). A fresh complete gate follows this passing repair.

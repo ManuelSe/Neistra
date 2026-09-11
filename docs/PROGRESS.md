@@ -8,7 +8,9 @@ detailed source of truth. Compact non-modal controls, immediate swatches and con
 frontend lint/typecheck, 84 tests, build and 15 hardening browser workflows
 (7 intentional skips), plus 2 browser checks after review. Real zoom, touch sizes,
 live picking/orbit and captured pending targets pass. v0.6.1 versions and notes are prepared; 12 archive-roundtrip tests pass.
-The complete candidate gate is next. No migration
+The first complete gate passed all non-browser checks; three browser assertion/
+focus-timing failures are repaired and pass focused checks. A fresh complete
+candidate gate is next. No migration
 or scientific behavior change. Current blocker: none; release work is pending.
 
 ### Previous release
