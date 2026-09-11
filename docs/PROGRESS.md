@@ -2,11 +2,13 @@
 
 ## Current milestone
 
-Issue #34 — compact selection styling, checkpoint 2 complete.
+Issue #34 — compact selection styling, checkpoint 3 complete.
 The approved [feature plan](plans/issue-34-compact-selection-styling.md) is the
 detailed source of truth. Compact non-modal controls, immediate swatches and context-safe feedback pass
-frontend lint/typecheck, 83 tests, build and 8 appearance/styling browser workflows
-(4 intentional skips). Live-selection, zoom and performance hardening are next. No migration
+frontend lint/typecheck, 84 tests, build and 15 hardening browser workflows
+(7 intentional skips), plus 2 browser checks after review. Real zoom, touch sizes,
+live picking/orbit and captured pending targets pass. Version and release gates
+are next. No migration
 or scientific behavior change. Current blocker: none; release work is pending.
 
 ### Previous release
@@ -2095,5 +2097,6 @@ None.
 
 ## Next action
 
-No remaining implementation or release work for issue #29. Selection-specific
-surfaces are tracked separately in [#30](https://github.com/ManuelSe/Neistra/issues/30).
+Prepare issue #34 for v0.6.1, run the complete candidate gate, review and merge
+the PR, verify the merged gate, publish the tag/release and close out the issue.
+Selection-specific surfaces remain [#30](https://github.com/ManuelSe/Neistra/issues/30).

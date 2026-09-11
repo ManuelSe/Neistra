@@ -151,7 +151,7 @@ async function styleSelection(page: Page, label: string): Promise<void> {
   const dialog = page.getByRole("dialog", { name: "Style selection" });
   await expect(dialog).toBeVisible();
   await dialog.getByRole("button", { name: label, exact: true }).click();
-  await expect(dialog.getByRole("status")).toBeVisible();
+  await expect(dialog.getByRole("status")).toContainText("Applied");
   await page.keyboard.press("Escape");
   await expect(dialog).toBeHidden();
   await expect(launcher).toBeFocused();
@@ -402,7 +402,7 @@ test("keeps ion, water, and covalent-boundary targets exact", async ({
   await expect(ionDialog.getByText(/require complete protein, DNA, or RNA residues/i)).toBeVisible();
   await expect(ionDialog.getByRole("button", { name: "Cartoon" })).toBeDisabled();
   await ionDialog.getByRole("button", { name: "Space filling" }).click();
-  await expect(ionDialog.getByRole("status")).toBeVisible();
+  await expect(ionDialog.getByRole("status")).toContainText("Applied");
   await page.keyboard.press("Escape");
 
   await chooseComponent("Water", /HOH 201/);
@@ -482,7 +482,7 @@ test("keeps the selection styling dialog bounded and keyboard-operable on Pixel 
   expect(accessibility.violations).toEqual([]);
   await dialog.getByRole("button", { name: "Thick sticks" }).focus();
   await page.keyboard.press("Enter");
-  await expect(dialog.getByRole("status")).toBeVisible();
+  await expect(dialog.getByRole("status")).toContainText("Applied");
   await page.keyboard.press("Escape");
   await expect(dialog).toBeHidden();
   await expect(launcher).toBeFocused();

@@ -26,14 +26,17 @@ Version **0.6.0** adds distance expansion, solid colors and local non-polar-hydr
 preferences to **Style selection**. Existing atomic styles, Backbone and Cartoon
 remain available; representation, color and hydrogen resets are independent.
 
-Select atoms or an entry, open Style selection, and expand by a positive distance
-(default 4 Å) to matching atoms or complete residues. Expansion searches all
-project entries, including hidden entries, and preserves the seed. Choose All selected
-atoms or Carbon atoms only under Coloring mode, then Apply color. Carbon-only
-mode uses the chosen color on selected C and restores element colors on the other
-selected atoms. Color and local hydrogen changes are reversible. Hydrogen
-controls target explicit selected H; selecting heavy atoms does not include their
-attached H. The Show hydrogens master remains an upper bound.
+Select atoms or an entry and open **Style selection**. The compact palette stays
+open while you pick another selection or move the camera. Click an illustrated
+representation or a color swatch to apply it immediately. Choose **All atoms** or
+**Carbon only** before applying color; carbon-only restores element colors on
+other selected atoms. **Custom…** opens a custom color picker with explicit Apply.
+
+Hydrogen preferences still target explicit selected H, with **Show hydrogens** as
+an upper bound. **Expand by distance** opens the existing positive-distance search
+(default 4 Å), including hidden entries in their shared coordinate frame. Changes
+to representation, color and hydrogen preferences are independently reversible.
+See the [styling workflow and visual comparison](docs/SELECTION_STYLING.md).
 
 Upgrade existing data with migration 0010 before starting this version. Supported
 older projects and archives remain readable; Neistra Archives retain

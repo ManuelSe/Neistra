@@ -162,3 +162,33 @@ including real carbon/heteroatom pixel checks, hidden-entry expansion, camera/da
 invariance, local H and scoped axe. Ports 8110/8111/5273, root `/tmp/neistra-34-c2`,
 logs `/tmp/neistra-34-c2-{unit,build,e2e}.log`. Diff reviewed; next: additional
 live-selection/pending tests, zoom/performance gate and published visual evidence.
+
+### Checkpoint 3 — complete
+
+Added actual canvas picking and orbit while open, held-request target capture and
+selection change, empty-target disabling and toolbar toggle browser regressions.
+Component coverage verifies stale eligibility rejection, project-switch closure and
+the optional loader fallback. Touch dimensions are asserted for both axes; a more
+specific polymer CSS rule initially defeated the 44 px minimum and was corrected.
+Visual review added a sticky close/count header and panel-resize anchoring.
+User workflow, accessibility and verification docs now link persisted before/after
+1366×768 captures and a Pixel 7 dark capture in `docs/assets/selection-styling/`.
+
+Final frontend lint/typecheck, 84 tests / 24 files and production build pass.
+Appearance/styling/zoom/release-hardening suites pass 15 applicable workflows with
+7 intentional layout skips at ports 8110/8111/5273, root `/tmp/neistra-34-c3-final`.
+Real 100%/200% zoom, light/dark scoped axe, 44×44 px touch targets, scientific/data
+invariance, camera orbit and unchanged 5-second/750-ms performance budgets pass.
+An earlier performance run measured 7054 ms while frontend validation ran
+concurrently; the complete hardening rerun without that competing work passed.
+Budgets and retries were not relaxed. After full-diff review repaired the optional
+loader fallback, frontend checks and both integrated light browser layouts passed
+again (`/tmp/neistra-34-c3-reviewed`, 2 tests). Exact logs are
+`/tmp/neistra-34-c3-{unit,build}.log`, `/tmp/neistra-34-c3-final-e2e.log` and
+`/tmp/neistra-34-c3-reviewed-e2e.log`.
+
+Local full-diff review was performed by the implementing agent, not independently.
+Reviewed ownership, scientific semantics, stale targets, focus/accessibility,
+responsive clipping, dead code and compatibility. No consequential findings remain
+at this checkpoint. No API/schema/migration changes or extra dependencies. Next:
+version/release preparation and complete candidate gate.

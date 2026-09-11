@@ -1,6 +1,9 @@
 # V0.1 Requirement Evidence
 
-Current issue #29 evidence is maintained in
+Current compact-styling evidence is maintained in
+[the issue #34 feature plan](plans/issue-34-compact-selection-styling.md).
+
+Issue #29 evidence is maintained in
 [the selection-appearance feature plan](plans/issue-29-selection-appearance.md);
 its checkpoint and final-release results are separate from this historical matrix.
 

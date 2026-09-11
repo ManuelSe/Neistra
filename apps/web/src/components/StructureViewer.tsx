@@ -447,7 +447,7 @@ export function StructureViewer({
           selection={selection}
           entries={project.entries}
           structures={styleStructures}
-          eligibilityBusy={styleEligibilityBusy || styleLoadedContext !== styleContext}
+          eligibilityBusy={Boolean(onLoadSelectionStructures) && (styleEligibilityBusy || styleLoadedContext !== styleContext)}
           eligibilityError={styleLoadedContext === styleContext ? styleEligibilityError : null}
           busy={busy}
           onOpenChange={setStyleDialogOpen}
