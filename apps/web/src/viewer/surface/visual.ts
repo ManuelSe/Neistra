@@ -7,12 +7,15 @@ import { ComplexMeshParams, ComplexMeshVisual } from "molstar/lib/mol-repr/struc
 import { ComplexRepresentation, StructureRepresentationProvider } from "molstar/lib/mol-repr/structure/representation";
 import { ElementIterator, getSerialElementLoci, eachSerialElement } from "molstar/lib/mol-repr/structure/visual/util/element";
 import type { SurfaceGeometry, SurfaceInput } from "./protocol";
-import { SURFACE_PROFILE } from "./protocol";
+import { SURFACE_LIMITS, SURFACE_PROFILE } from "./protocol";
 
 const geometryByStructure = new WeakMap<Structure, SurfaceGeometry>();
 const params = { ...ComplexMeshParams, alpha: PD.Numeric(SURFACE_PROFILE.opacity) };
 
 export function surfaceInput(structure: Structure, sourceAtomIds: readonly number[]): SurfaceInput {
+  if (!structure.elementCount || structure.elementCount > SURFACE_LIMITS.atoms) {
+    throw new Error("Surface requires 1–20,000 visible atoms.");
+  }
   const atomIds: number[] = [], x: number[] = [], y: number[] = [], z: number[] = [], radii: number[] = [];
   for (const unit of structure.units) {
     if (!Unit.isAtomic(unit)) throw new Error("Selection surfaces require explicit atoms.");

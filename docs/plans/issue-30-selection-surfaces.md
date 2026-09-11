@@ -609,3 +609,14 @@ Ruff, diff check and 31 archive/surface integration tests passed (8.16 seconds,
 `/tmp/neistra-30-version-{sync,ruff,tests}.log`). Updated the release-specific
 archive-version assertion and added v0.6.1 to the legacy compatibility matrix;
 the initial assertion failures were outdated test expectations, not archive loss.
+
+### C5 preflight review correction — 2026-09-12
+
+Move the projected atom-count rejection ahead of input-array construction; the
+250,000-atom parent degradation also bypasses surface input extraction. This
+honors the existing limits without first serializing oversized selections. A
+negative test proves oversized components are rejected before any atom-array
+access. Frontend lint/typecheck, all **97 tests / 27 files**, production build and
+diff check pass (`/tmp/neistra-30-preflight-{lint,typecheck,vitest,build}.log`).
+No schema/API/profile change. Record this as a separate `perf(viewer)` correction
+before the complete clean candidate gate.

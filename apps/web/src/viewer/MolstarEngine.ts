@@ -692,8 +692,9 @@ export class MolstarEngine implements MolecularViewer {
       });
     };
     try {
-      this.surfaces.request(entryId, source.label, surfaceInput(component.obj.data, loaded.atomIds), notify,
-        source.normalized.atoms.length >= 250_000 ? "Large entry uses reduced detail." : undefined);
+      const unavailable = source.normalized.atoms.length >= 250_000 ? "Large entry uses reduced detail." : undefined;
+      this.surfaces.request(entryId, source.label,
+        unavailable ? null : surfaceInput(component.obj.data, loaded.atomIds), notify, unavailable);
     } catch (error) {
       this.surfaces.request(entryId, source.label, null, notify,
         error instanceof Error ? error.message : "Surface atoms could not be projected.");

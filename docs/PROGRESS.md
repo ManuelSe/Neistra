@@ -12,7 +12,9 @@ real zoom and performance limits pass. Exact evidence and limitations are in the
 to [#36](https://github.com/ManuelSe/Neistra/issues/36).
 C5 v0.7.0 metadata and release notes are prepared; frozen Python lock validation
 and 31 archive/surface integration checks pass. Next: complete frozen release
-gate, final review, PR/merge and verified publication. No product blocker; release delivery is not yet complete.
+gate, final review, PR/merge and verified publication. Final preflight review now
+rejects oversized components before allocating atom inputs; 97 frontend tests and
+lint/type/build checks pass. No product blocker; release delivery is not yet complete.
 
 ### Previous release — v0.6.1
 

@@ -1,3 +1,5 @@
+import type { Structure } from "molstar/lib/mol-model/structure";
+import { surfaceInput } from "../viewer/surface/visual";
 import { describe, expect, it } from "vitest";
 import { computeSurface, meshAllocationBound, surfaceAdmission } from "../viewer/surface/geometry";
 import type { SurfaceInput } from "../viewer/surface/protocol";
@@ -50,4 +52,10 @@ describe("selection surface geometry", () => {
     expect(() => surfaceAdmission(atoms([0, 1], [7, 7]))).toThrow("mapping");
     expect(() => meshAllocationBound(100_000, 4_000_000, [100, 100, 400])).toThrow("allocation");
   });
+});
+
+
+it("rejects oversized projected components before reading atom arrays", () => {
+  const oversized = { elementCount: 20_001, get units() { throw new Error("Atom arrays must not be read"); } };
+  expect(() => surfaceInput(oversized as unknown as Structure, [])).toThrow("20,000");
 });
