@@ -55,7 +55,7 @@ feature merge; this documentation-only closeout records the remote evidence.
   and delivery contracts, resolved product scope through explicit approval,
   refreshed the base with fast-forward-only integration, created the dedicated
   feature branch, and persisted the detailed contract as its first file change.
-  No implementation checkpoint is complete.
+  This was the planning handoff; implementation checkpoint evidence follows.
 
 - M5 complete: fresh frozen installs, migration through `0009`, Ruff, mypy
   (50 files), all 209 Python tests, frontend lint/type-check/70 tests, all
@@ -887,6 +887,11 @@ feature merge; this documentation-only closeout records the remote evidence.
   affected-entry topology replacement without a full scene synchronization.
 
 ## Verification performed
+
+- Correction candidate `d21cde4` passed complete V5: 228 Python, 79 frontend,
+  8 supervisor and 73 browser tests (39 intentional layout skips; 14.0 minutes),
+  frozen installs, migration 0010, lint/type checks/build and local diff review.
+  Both mobile appearance themes passed; exact merged qualification remains.
 
 - First merged gate at `d18c3f6`: all non-browser gates and 72 browser workflows
   passed; one mobile test exposed a drawer focus-restoration race in the test
@@ -1968,11 +1973,10 @@ Results:
 
 ## Known limitations
 
-- Issue #29's hydrogen controls remain planned, not implemented.
-  Local color is implemented with focused qualification.
-  Styling-dialog distance expansion is implemented and qualified. Exact-selected-hydrogen targets, project-wide
-  expansion, the selection-surface deferral, and backward archive compatibility
-  are approved contract boundaries; see the feature plan for full semantics.
+- Issue #29 implements expansion, local color and explicit-selected-hydrogen
+  preferences. Expansion assumes a shared Cartesian frame; native Mol* polarity
+  uses available connectivity without chemistry repair. Selection-specific surfaces
+  remain follow-up #30. See the feature plan for full semantics and compatibility.
 
 - Rebranding qualification covers Chromium desktop and Pixel 7 emulation,
   scoped accessibility checks and real desktop 100%/200% zoom; it does not
