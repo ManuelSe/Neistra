@@ -81,7 +81,7 @@ export async function mountProductionSurfaceHarness(container: HTMLElement, sour
   const engine = new MolstarEngine();
   await engine.mount(container);
   const internal = engine as unknown as {
-    plugin: PluginUIContext; syncQueue: Promise<void>;
+    plugin: PluginUIContext; syncQueue: Promise<void>; measurementRefs: string[];
     loaded: Map<string, { structure: Structure; atomIds: number[] }>;
     surfaceMeshEntries: Set<string>; surfaceRefs: Map<string, string>;
     surfaces: { statuses(): SurfaceStatus[];
@@ -98,7 +98,8 @@ export async function mountProductionSurfaceHarness(container: HTMLElement, sour
   };
   const sync = async (sources: ViewerStructure[]) => { await engine.syncStructures(sources); await wait(); };
   const inspect = () => ({ statuses: internal.surfaces.statuses(), meshes: [...internal.surfaceMeshEntries],
-    components: internal.surfaceRefs.size, workers: { ...workers }, camera: engine.getCamera(),
+    components: internal.surfaceRefs.size, measurements: [...internal.measurementRefs],
+    workers: { ...workers }, camera: engine.getCamera(),
     threshold: internal.plugin.canvas3d?.props.renderer.pickingAlphaThreshold,
     geometry: [...internal.surfaces.requests].map(([id, r]) => ({ id, atomIds: r.geometry ? [...r.geometry.atomIds] : [],
       vertices: r.geometry ? [...r.geometry.vertices] : [], groups: r.geometry ? [...new Set(r.geometry.groups)] : [] })) });

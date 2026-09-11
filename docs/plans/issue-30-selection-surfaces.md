@@ -648,3 +648,25 @@ Palette count correction validation: frontend lint/typecheck and all **97 tests 
 27 files** pass (`/tmp/neistra-30-count-{lint,typecheck,test}.log`). Existing mixed
 membership and disabled-action assertions remain unchanged. Diff review confirms
 only membership lookup cost changed; no new behavior or migration is introduced.
+
+### C5 complete-gate measurement correction — 2026-09-12
+
+An orphaned interrupted browser runner initially contested the test ports. Both
+runners were stopped and the ports verified free; those results are not release
+evidence. A new uncontested gate on 281317a passed 275 Python, 97 frontend and
+8 supervisor tests, frozen installs, migration, lint/type checks and build, but
+the measurement browser workflow timed out at 120 seconds. The run was stopped
+after recording that failure (`/tmp/neistra-30-candidate-final-gate.log`).
+
+D-062 records the rendering feedback loop and correction: unchanged measurement
+payloads no longer rebuild native objects or restore the camera repeatedly.
+The existing full measurement workflow now passes in 18.1 seconds. Additional
+production assertions verify repeated inputs keep native references while label
+changes replace them and clearing removes them.
+
+Frontend lint/typecheck and all **97 tests / 27 files** pass. Focused browser
+command `playwright test tests/e2e/measurements.spec.ts tests/e2e/selection-surfaces.spec.ts`
+passes **10 / 2 intentional skips** in 1.1 minutes, with the standard isolated
+8110/8111/5273 ports and fresh `/tmp/neistra-30-measurement-focused` data. Logs:
+`/tmp/neistra-30-measurement-{lint,typecheck,unit,focused}.log`. No assertions,
+timeouts or scientific budgets were weakened. Next: a new clean complete gate.

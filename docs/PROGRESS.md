@@ -17,8 +17,11 @@ rejects oversized components before allocating atom inputs; 97 frontend tests an
 lint/type/build checks pass. Final review also fixed stale committed coordinates
 and preview loss during viewer rebuilds (D-061); 10 focused browser checks pass
 with 2 intentional skips. Membership counts now use sets to avoid quadratic scans.
-Next is the complete corrected-candidate gate. No product blocker; publication
-is not yet complete.
+The full gate exposed a measurement/camera feedback loop; unchanged measurement
+updates now retain native objects (D-062). The existing measurement workflow and
+new surface regression checks pass (10 browser checks, 2 intentional skips).
+Next is a fresh complete candidate gate. No product blocker; publication is not
+yet complete.
 
 ### Previous release — v0.6.1
 

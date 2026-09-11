@@ -2157,3 +2157,17 @@ The production regression test exposed a 5 Å surface displacement after isolati
 with the old cache. It now checks committed geometry, immutable source input,
 preview preservation during rebuild, cancellation and exact geometry restoration.
 No persisted schema, API or scientific profile changes are required.
+
+## D-062 - Idempotent measurement projection updates
+
+Status: accepted implementation decision for issue #30, 2026-09-12
+
+Ignore unchanged measurement payloads in the viewer adapter. React query result
+arrays can change identity during camera notifications without any measurement
+change. Rebuilding native measurements then restoring the camera caused a feedback
+loop during the complete measurement workflow. Compare the small serializable
+payload before enqueueing rendering; real label/reference/visibility changes still
+rebuild, while coordinate and structure changes explicitly refresh measurements
+through their existing paths. Molecular and measurement authority remain outside
+the viewer. Production tests verify stable native references for repeated inputs
+and replacement/removal for changed inputs.

@@ -311,6 +311,9 @@ export class MolstarEngine implements MolecularViewer {
   }
 
   setMeasurements(measurements: ViewerMeasurement[]): Promise<void> {
+    // Camera notifications can rerender the owner without changing measurements.
+    // Rebuilding those same objects would restore the camera and repeat the cycle.
+    if (JSON.stringify(measurements) === JSON.stringify(this.measurements)) return this.syncQueue;
     this.measurements = measurements;
     this.syncQueue = this.syncQueue.then(async () => {
       const camera = this.getCamera();

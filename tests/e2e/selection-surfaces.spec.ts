@@ -267,6 +267,24 @@ for (const fixture of ["formats/ethanol.mol", "hydrogens/polar_hydrogens_ligand.
       });
       await expect.poll(async () => (await colors()).magenta).toBeGreaterThan(50);
       await expect.poll(async () => (await colors()).red).toBeGreaterThan(50);
+      const measurementState = await page.evaluate(async () => {
+        const h = window.productionSurface;
+        const measurement = { id: "surface-distance", name: "Distance", kind: "distance" as const,
+          atom_references: [1, 2].map((atom_id) => ({ structure_id: h.source.entryId, atom_id })),
+          visible: true, warnings: [], created_at: "", modified_at: "", label: "Distance" };
+        await h.engine.setMeasurements([measurement]);
+        const first = h.inspect().measurements;
+        for (let i = 0; i < 3; i++) await h.engine.setMeasurements([structuredClone(measurement)]);
+        const repeated = h.inspect().measurements;
+        await h.engine.setMeasurements([{ ...measurement, label: "Changed label" }]);
+        const changed = h.inspect().measurements;
+        await h.engine.setMeasurements([]);
+        return { first, repeated, changed, cleared: h.inspect().measurements };
+      });
+      expect(measurementState.first).toHaveLength(1);
+      expect(measurementState.repeated).toEqual(measurementState.first);
+      expect(measurementState.changed).not.toEqual(measurementState.first);
+      expect(measurementState.cleared).toEqual([]);
       const recolored = await page.evaluate(async () => {
         const h = window.productionSurface, geometry = h.geometry(h.source.entryId), camera = h.engine.getCamera();
         h.source.settings.selection_colors[0].color = "#0000ff";

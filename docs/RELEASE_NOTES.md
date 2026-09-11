@@ -21,6 +21,9 @@
 - Retain saved intent on cancellation or resource/worker failure, with explicit
   line fallback and Retry. Report rendering failure accurately if lines also fail.
 - Prune deleted atoms reversibly; newly added atoms do not inherit membership.
+- Preserve committed coordinates and active previews across visibility/style
+  rebuilds without mutating application inputs; avoid redundant measurement
+  rebuilds during camera updates and quadratic surface membership counting.
 
 ### Persisted data, migration and compatibility
 
