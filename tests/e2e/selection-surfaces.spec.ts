@@ -126,3 +126,47 @@ test("qualifies worker geometry, real element colors, picking and cancellation",
   await page.evaluate(() => window.surfaceHarness.dispose());
   await expect(page.locator("#surface-harness canvas")).toHaveCount(0);
 });
+
+test("adds and removes saved surfaces from the compact palette with reload and undo", async ({ page, request }, info) => {
+  test.setTimeout(90_000);
+  test.skip(info.project.name !== "chromium", "Desktop project panel workflow; renderer qualified on both viewports.");
+  await page.setViewportSize({ width: 1366, height: 768 });
+  const created = await request.post("/api/v1/projects", { data: { name: `Surface workflow ${Date.now()}` } });
+  let project: Project = await created.json();
+  const imported = await request.post(`/api/v1/projects/${project.id}/imports`, {
+    multipart: { expected_revision: "0", files: { name: "ethanol.mol", mimeType: "chemical/x-mdl-molfile", buffer: readFileSync(resolve("tests/fixtures/formats/ethanol.mol")) } },
+  });
+  expect(imported.status()).toBe(201);
+  project = (await imported.json()).project;
+  const entry = project.entries[0];
+  await page.goto("/");
+  await page.getByRole("button", { name: "Projects", exact: true }).click();
+  await page.getByRole("dialog", { name: "Projects" }).getByRole("button", { name: new RegExp(`^${project.name}`) }).click();
+  await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded", { timeout: 45_000 });
+  const row = page.locator(`.entry-row[data-entry-id="${entry.id}"]`);
+  await row.locator(".entry-select").click();
+  await page.getByRole("button", { name: "Style selection", exact: true }).click();
+  const palette = page.getByRole("dialog", { name: "Style selection" });
+  await palette.getByRole("button", { name: "Add surface", exact: true }).click();
+  await expect(page.getByLabel("Selection surface rendering")).toContainText("ready");
+  await expect(palette.getByRole("button", { name: "Add surface" })).toBeDisabled();
+  project = await (await request.get(`/api/v1/projects/${project.id}`)).json();
+  expect(project.entries[0].viewer_settings.selection_surface).toEqual({ profile: "molecular-v1", atom_ids: entry.atom_ids });
+  expect(project.entries[0].current_artifact_id).toBe(entry.current_artifact_id);
+  await palette.getByRole("button", { name: "Reset representation" }).click();
+  await expect(palette.getByRole("status")).toContainText("Reset representation");
+  await expect(page.getByLabel("Selection surface rendering")).toContainText("ready");
+  await page.keyboard.press("Escape");
+  await page.getByRole("button", { name: "Clear", exact: true }).click();
+  await expect(page.getByLabel("Selection surface rendering")).toContainText("ready");
+  await page.reload();
+  await expect(page.getByLabel("Selection surface rendering")).toContainText("ready", { timeout: 30_000 });
+  await row.locator(".entry-select").click();
+  await page.getByRole("button", { name: "Style selection", exact: true }).click();
+  await palette.getByRole("button", { name: "Remove surface" }).click();
+  await expect(page.getByLabel("Selection surface rendering")).toHaveCount(0);
+  await page.keyboard.press("Escape");
+  await page.getByRole("button", { name: /^Undo:/ }).click();
+  await expect(page.getByLabel("Selection surface rendering")).toContainText("ready");
+  await page.screenshot({ path: info.outputPath("selection-surface-workflow.png") });
+});

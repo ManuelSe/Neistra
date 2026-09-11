@@ -1,6 +1,6 @@
 # Issue #30 — Selection-specific surfaces
 
-Status: implementing; M1/C1 and M2/C2 complete. User approved the proposal on 2026-09-11
+Status: implementing; M1/C1 and M2/C2–C3 complete. User approved the proposal on 2026-09-11
 and authorized implementation with `/goal` on 2026-09-11.
 
 - Issue: [#30 — Define selection-specific surface geometry and persistence](https://github.com/ManuelSe/Neistra/issues/30), open at approval.
@@ -490,3 +490,35 @@ Diff reviewed for retained-history coverage, mutation bypass, no-op revision beh
 archive reference validation, pruning and unrelated molecular changes. No further
 architectural deviation from D-057. The API is available; production surface UI and
 rendering integration remain C3. Next: M2/C3.
+
+
+### C3 / M2 completion — 2026-09-11
+
+Implemented compact Surface Add/Remove controls, exact mixed counts, on-demand
+fragment explanation and coexistence notice. Mutation ownership stays in App;
+current selection and artifact state are captured at activation. Runtime status,
+cancel and retry remain accessible outside the palette. Durable memberships drive
+independent geometry, full-context hydrogen classification and visibility/isolation
+intersection. Color-only rebuilds reuse geometry; edits remove obsolete components.
+One serial worker queue and bounded cache discard obsolete requests/results.
+
+Validation on the C3 candidate:
+- Ruff and mypy (52 files), frontend lint/typecheck, all 96 frontend tests in 27
+  files, production build and `git diff --check`: passed. Logs
+  `/tmp/neistra-30-c3-{ruff,mypy,lint,typecheck,vitest,build}.log`.
+- Planned C3 browser command (`selection-surfaces`, `selection-styling`,
+  `selection-appearance`): **11 passed, 5 intentional layout skips**, 1.8 minutes.
+  Fresh data `/tmp/neistra-30-c3-final-e2e`, API/worker/web ports 8110/8111/5273;
+  log `/tmp/neistra-30-c3-final-e2e.log`. Add → reset → reload → Remove → Undo
+  verifies durable membership and unchanged molecular artifact.
+- Final review corrected threshold restoration when another entry has only a
+  line fallback. All common gates reran; focused surface browsers then **3 passed,
+  1 intentional layout skip**, 20.6 seconds, fresh data
+  `/tmp/neistra-30-c3-review-e2e`, log `/tmp/neistra-30-c3-review-e2e.log`.
+- Initial browser failures exposed a desktop palette overflow (fixed by one compact
+  row), an obsolete duplicate test-provider registration and a test locator that
+  omitted Undo's command description. No assertion/budget was relaxed.
+- Diff reviewed for scope, independent resets, original artifacts, atom mapping,
+  stale callbacks, cancellation and inherited pick eligibility. No new migration
+  or compatibility change beyond C2. Scientific/browser/performance hardening is C4;
+  complete release qualification and publication remain pending.

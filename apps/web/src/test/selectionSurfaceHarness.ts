@@ -19,7 +19,6 @@ export async function mountSurfaceHarness(container: HTMLElement, source: Viewer
   }> };
   const { plugin } = internals;
   const loaded = internals.loaded.get(source.entryId)!;
-  plugin.representation.structure.registry.add(SelectionSurfaceProvider);
   const component = await plugin.builders.structure.tryCreateComponent(loaded.structureRef, {
     type: { name: "bundle", params: StructureElement.Bundle.fromLoci(Structure.toStructureElementLoci(loaded.structure)) },
     nullIfEmpty: true, label: "Test selection surface",

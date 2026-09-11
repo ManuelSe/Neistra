@@ -1,3 +1,4 @@
+import type { SurfaceStatus } from "./surface/runtime";
 import type {
   AtomReference,
   CameraState,
@@ -49,6 +50,9 @@ export interface MolecularViewer {
   fitVisible(): void;
   subscribeCamera(listener: (camera: CameraState) => void): () => void;
   subscribeSelection(listener: (event: ViewerSelectionEvent) => void): () => void;
+  subscribeSurfaces(listener: (statuses: SurfaceStatus[]) => void): () => void;
+  cancelSurface(entryId: string): void;
+  retrySurface(entryId: string): void;
   resize(): void;
   dispose(): void;
 }

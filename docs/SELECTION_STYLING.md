@@ -52,3 +52,35 @@ Qualification uses pinned Chromium/SwiftShader and Pixel 7 emulation, light/dark
 and actual 100%/200% desktop zoom. It does not establish physical-device or other
 browser support. This change adds no migration, persisted setting or public API.
 New molecular surfaces remain follow-up #30; no presets or hover previews are added.
+
+## Selection surfaces
+
+In **Style selection → Surface**, **Add surface** adds the selected atoms to a
+saved surface membership; **Remove surface** subtracts them. The count reports how
+many currently selected atoms are members (including mixed selections). Each
+entry has one membership and its own geometry. Changing or clearing the current
+selection does not retarget it. Representation, color and hydrogen resets remain
+independent. Entry-level surfaces can coexist; overlapping translucent surfaces
+can obscure each other.
+
+The surface encloses the member atoms alone, with a fixed molecular profile
+(1.4 Å probe, 0.5 Å grid, opacity 0.45). It is a fragment surface: cut boundaries
+can produce artificial faces. It is not a context-aware patch, a solvent-accessible
+surface, or a chemistry repair. **About surfaces** explains this in the palette.
+Element colors and selection color overrides, including carbon-only coloring,
+apply. Entry/component visibility, isolation and hydrogen preferences filter the
+visible fragment without changing saved membership.
+
+Rendering runs asynchronously, with status outside the palette. **Cancel** stops
+rendering and keeps membership; **Retry** retries a cancelled or failed request.
+Failures or resource limits show lines for the same target. Smaller memberships
+can fit limits of 20,000 visible atoms, four million padded grid cells, 64 MiB mesh
+allocation per surface and 128 MiB retained meshes per viewer. Calculation stops
+after 30 seconds. Entries with at least 250,000 atoms retain reduced-detail behavior.
+These are allocation/work limits, not a browser or GPU memory guarantee.
+
+Coordinate previews hide stale geometry. Committing coordinates or cancelling a
+preview regenerates the appropriate surface. Undo/redo, scenes, project saves and
+archives retain memberships. Deleted atoms are pruned reversibly; newly added atoms
+do not automatically join. Migration 0011 and rollback restrictions are documented
+in [Development](DEVELOPMENT.md).

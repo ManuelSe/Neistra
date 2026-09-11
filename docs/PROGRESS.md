@@ -2,15 +2,14 @@
 
 ## Current milestone
 
-Issue #30 — **M1/C1 and M2/C2 complete; M2/C3 next** on
-`feat/issue-30-selection-surfaces`, targeting provisional **v0.7.0**.
-The [approved feature plan](plans/issue-30-selection-surfaces.md) records exact
-geometry and persistence evidence. Durable surface memberships, revisioned API,
-no-op suppression, history/scenes/archives/pruning and guarded migration 0011 are
-implemented. Passed 272 Python tests, 91 frontend tests, Ruff/mypy, frontend
-lint/typecheck/build, and six browser workflows (four intentional layout skips).
-Migration qualification covers every retained settings path and safe downgrade/refusal.
-Production palette/renderer integration is next; no complete surface UI is claimed.
+Issue #30 — M1 and M2 complete: bounded worker geometry, reversible persistence,
+and compact surface controls are implemented. C3 passed 96 frontend tests,
+Ruff/mypy, frontend lint/typecheck/build and 11 browser workflows (5 intentional
+layout skips); the final threshold fix passed all common gates and 3 surface
+browser checks. C2 passed 272 Python tests including all migration retention paths.
+The [feature plan](plans/issue-30-selection-surfaces.md) records exact evidence.
+Next: C4 scientific, lifecycle, accessibility and performance hardening. No product
+blocker; release qualification and publication remain pending.
 
 ### Previous release — v0.6.1
 

@@ -672,6 +672,10 @@ export default function App() {
     },
     onLoadSelectionStructures: () =>
       loadStructureProjections(selectedEntryIds(selection)),
+    onSurface: async (action: "add" | "remove") => {
+      if (!project) return;
+      await projectMutation.mutateAsync(() => projectApi.updateSelectionSurface(project, selection, action));
+    },
     onAppearance: async (change: SelectionAppearanceChange) => {
       if (!project) return;
       await projectMutation.mutateAsync(() => projectApi.updateSelectionAppearance(project, selection, change));

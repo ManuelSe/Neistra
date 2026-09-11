@@ -1,4 +1,4 @@
-import { RotateCcw } from "lucide-react";
+import { Info, RotateCcw } from "lucide-react";
 import { useMemo, useRef, useState } from "react";
 import type { ChangeSelectionAppearance, Entry, Selection, SelectionRepresentationStyle, StructureProjection } from "../api/types";
 import type { ExpandSelection } from "../selection/expansion";
@@ -26,6 +26,7 @@ interface SelectionStyleDialogProps {
   busy: boolean;
   onOpenChange: (open: boolean) => void;
   onExpandDistance?: ExpandSelection;
+  onSurface?: (action: "add" | "remove") => Promise<void>;
   onAppearance?: ChangeSelectionAppearance;
   onAction: (action: "apply" | "reset", style?: SelectionRepresentationStyle) => Promise<void>;
 }
@@ -38,7 +39,7 @@ export function SelectionStyleDialog(props: SelectionStyleDialogProps) {
 }
 
 function SelectionStyleContent({ selection, entries, structures, eligibilityBusy,
-  eligibilityError, busy, onAction, onExpandDistance, onAppearance }: SelectionStyleDialogProps) {
+  eligibilityError, busy, onAction, onExpandDistance, onAppearance, onSurface }: SelectionStyleDialogProps) {
   const [pending, setPending] = useState(false);
   const locked = useRef(false);
   const [message, setMessage] = useState<{ text: string; failed: boolean; context: string } | null>(null);
@@ -51,6 +52,10 @@ function SelectionStyleContent({ selection, entries, structures, eligibilityBusy
     new Map(entry.viewer_settings.selection_representations.map((item) =>
       [item.style, new Set(item.atom_ids)] as const)),
   ])), [entries]);
+  const surfaceCount = selection.atoms.filter((atom) => entries.find((entry) => entry.id === atom.structure_id)
+    ?.viewer_settings.selection_surface?.atom_ids.includes(atom.atom_id)).length;
+  const entrySurface = entries.some((entry) => selection.atoms.some((atom) => atom.structure_id === entry.id)
+    && entry.viewer_settings.representations.some((item) => item.style === "surface"));
   const assigned = (style: SelectionRepresentationStyle) => {
     const count = selection.atoms.filter((atom) => memberships.get(atom.structure_id)?.get(style)?.has(atom.atom_id)).length;
     return count === 0 ? false : count === selection.atoms.length ? true : "mixed" as const;
@@ -101,6 +106,17 @@ function SelectionStyleContent({ selection, entries, structures, eligibilityBusy
       </details> : null}
     </fieldset>
     {eligibilityError ? <p role="alert" id="selection-polymer-reason">{eligibilityError}</p> : null}
+    {onSurface ? <div className="selection-surface-controls" role="group" aria-label="Surface"><span><strong>Surface</strong><br /><span aria-live="polite">{surfaceCount}/{selection.atoms.length}{surfaceCount > 0 && surfaceCount < selection.atoms.length ? " · mixed" : ""}</span></span>
+      <button type="button" aria-label="Add surface" disabled={disabled || surfaceCount === selection.atoms.length}
+        onClick={() => void perform(() => onSurface("add"), "Surface membership added.")}>Add</button>
+      <button type="button" aria-label="Remove surface" disabled={disabled || surfaceCount === 0}
+        onClick={() => void perform(() => onSurface("remove"), "Surface membership removed.")}>Remove</button>
+      <details className="selection-help surface-help"><summary aria-label="About surfaces"><Info size={16} aria-hidden="true" /></summary>
+        <p>A translucent molecular surface of these atoms alone. Cut boundaries can create artificial faces; this is not a patch on the surrounding molecule.
+          Changing the selection leaves the surface in place. Visibility filters still apply. Atom detail, polymer styles and their resets remain independent.</p>
+        {entrySurface ? <p>An entry surface is also enabled. Both surfaces remain visible and may overlap.</p> : null}
+      </details>
+    </div> : null}
     {onAppearance ? <SelectionColorControls selection={selection} entries={entries} busy={disabled} onChange={appearance} /> : null}
     {onAppearance && !eligibilityError ? <SelectionHydrogenControls selection={selection} entries={entries}
       structures={structures} loading={eligibilityBusy} busy={disabled || eligibilityBusy} onChange={appearance} /> : null}

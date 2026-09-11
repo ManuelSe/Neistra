@@ -1,3 +1,7 @@
+import { ElementSymbolColorThemeProvider } from "molstar/lib/mol-theme/color/element-symbol";
+import { SurfaceRuntime, type SurfaceStatus } from "./surface/runtime";
+import { attachSurfaceGeometry, SelectionSurfaceProvider, surfaceInput } from "./surface/visual";
+import { SURFACE_PROFILE, type SurfaceGeometry } from "./surface/protocol";
 import { isHydrogen } from "molstar/lib/mol-repr/structure/visual/util/common";
 import { OrderedSet } from "molstar/lib/mol-data/int";
 import { Loci } from "molstar/lib/mol-model/loci";
@@ -40,7 +44,7 @@ import {
   withCameraNeutralPrimarySelection,
 } from "./interaction";
 import { selectionColorLayers } from "./selectionColors";
-import { representationLayers } from "./representationProjection";
+import { representationLayers, visibleRepresentationAtomIds } from "./representationProjection";
 import { THEME_TOKENS } from "../theme";
 import { observeViewerAttribution } from "./domPresentation";
 import {
@@ -78,6 +82,10 @@ export class MolstarEngine implements MolecularViewer {
   private structures: ViewerStructure[] = [];
   private measurements: ViewerMeasurement[] = [];
   private isolation: AtomReference[] | null = null;
+  private surfaces = new SurfaceRuntime();
+  private surfaceMeshEntries = new Set<string>();
+  private surfaceRefs = new Map<string, string>();
+  private surfaceBindings = new Map<string, object>();
 
   async mount(target: HTMLElement): Promise<void> {
     const defaultSpec = DefaultPluginUISpec();
@@ -120,6 +128,7 @@ export class MolstarEngine implements MolecularViewer {
       );
     }
     this.plugin = plugin;
+    plugin.representation.structure.registry.add(SelectionSurfaceProvider);
     this.stopAttributionObserver = observeViewerAttribution(target);
     this.setBackgroundColor(this.backgroundColor);
     this.clickSubscription = plugin.behaviors.interaction.click.subscribe(
@@ -192,6 +201,8 @@ export class MolstarEngine implements MolecularViewer {
 
   syncStructures(structures: ViewerStructure[]): Promise<void> {
     this.structures = structures;
+    this.surfaces.retain(new Set(structures.filter((item) => item.settings.selection_surface).map((item) => item.entryId)));
+    this.surfaceBindings.clear();
     const generation = ++this.generation;
     this.syncQueue = this.syncQueue.then(async () => {
       const plugin = this.plugin;
@@ -200,6 +211,9 @@ export class MolstarEngine implements MolecularViewer {
       this.rebuilding = true;
       try {
         await plugin.clear();
+        this.surfaceRefs.clear();
+        this.surfaceMeshEntries.clear();
+        plugin.canvas3d?.setProps({ renderer: { pickingAlphaThreshold: 0.5 } });
         this.measurementRefs = [];
         this.labelRefs = [];
         this.loaded.clear();
@@ -257,8 +271,11 @@ export class MolstarEngine implements MolecularViewer {
       patch.atom_ids.forEach((atomId, index) => {
         coordinates.set(atomId, [...patch.coordinates[index]] as Point3D);
       });
+      await this.detachSurface(patch.entry_id);
+      this.surfaces.remove(patch.entry_id);
       if (mode === "commit") loaded.baseCoordinates = coordinates;
       await this.updateCoordinates(loaded, coordinates);
+      if (mode === "commit") await this.prepareSurface(patch.entry_id);
     });
     return this.syncQueue;
   }
@@ -266,7 +283,11 @@ export class MolstarEngine implements MolecularViewer {
   clearCoordinatePreview(entryId: string): Promise<void> {
     this.syncQueue = this.syncQueue.then(async () => {
       const loaded = this.loaded.get(entryId);
-      if (loaded) await this.updateCoordinates(loaded, loaded.baseCoordinates);
+      if (loaded) {
+        await this.detachSurface(entryId);
+        await this.updateCoordinates(loaded, loaded.baseCoordinates);
+        await this.prepareSurface(entryId);
+      }
     });
     return this.syncQueue;
   }
@@ -348,6 +369,20 @@ export class MolstarEngine implements MolecularViewer {
     return () => this.listeners.delete(listener);
   }
 
+  subscribeSurfaces(listener: (statuses: SurfaceStatus[]) => void): () => void {
+    return this.surfaces.subscribe(listener);
+  }
+
+  cancelSurface(entryId: string): void { this.surfaces.cancel(entryId); }
+
+  retrySurface(entryId: string): void {
+    this.surfaces.remove(entryId);
+    this.syncQueue = this.syncQueue.then(async () => {
+      await this.detachSurface(entryId);
+      await this.prepareSurface(entryId);
+    });
+  }
+
   resize(): void {
     this.plugin?.layout.events.updated.next(undefined);
   }
@@ -356,6 +391,10 @@ export class MolstarEngine implements MolecularViewer {
     this.stopAttributionObserver?.();
     this.stopAttributionObserver = undefined;
     this.generation += 1;
+    this.surfaces.dispose();
+    this.surfaceBindings.clear();
+    this.surfaceRefs.clear();
+    this.surfaceMeshEntries.clear();
     this.clickSubscription?.unsubscribe();
     this.cameraSubscription?.unsubscribe();
     this.clickSubscription = undefined;
@@ -533,6 +572,8 @@ export class MolstarEngine implements MolecularViewer {
         },
         { tag: `molweave-representation-${layer.id}` },
       );
+      // Preserve inherited pick eligibility when the selection surface lowers the canvas threshold.
+      representation.obj?.data.repr.setState({ pickable: layer.opacity >= 0.5 });
       const visible = new Set(layer.atomIds);
       const colors = colorLayers.flatMap((assignment) => {
         const colorLoci = this.lociFor(assignment.atomIds.filter((id) => visible.has(id))
@@ -548,6 +589,92 @@ export class MolstarEngine implements MolecularViewer {
             { layers: colors }).commit();
       }
     }
+    await this.prepareSurface(structure.entryId);
+  }
+
+  private async detachSurface(entryId: string) {
+    this.surfaceBindings.delete(entryId);
+    const ref = this.surfaceRefs.get(entryId);
+    this.surfaceRefs.delete(entryId);
+    this.surfaceMeshEntries.delete(entryId);
+    if (ref && this.plugin?.state.data.cells.has(ref)) await this.plugin.state.data.build().delete(ref).commit();
+    if (!this.surfaceMeshEntries.size) this.plugin?.canvas3d?.setProps({ renderer: { pickingAlphaThreshold: 0.5 } });
+  }
+
+  private async prepareSurface(entryId: string) {
+    const plugin = this.plugin;
+    const loaded = this.loaded.get(entryId);
+    const source = this.structures.find((item) => item.entryId === entryId);
+    if (!plugin || !loaded || !source?.settings.selection_surface) return;
+    // Classify against the complete projection, never the selected fragment.
+    const nonpolar = new Set<number>();
+    for (const unit of loaded.structure.units) {
+      if (!Unit.isAtomic(unit)) continue;
+      for (let i = 0; i < unit.elements.length; i++) {
+        const element = unit.elements[i];
+        if (isHydrogen(loaded.structure, unit, element, "non-polar")) {
+          nonpolar.add(loaded.atomIds[unit.model.atomicHierarchy.atomSourceIndex.value(element)]);
+        }
+      }
+    }
+    const isolated = this.isolation === null ? null : new Set(this.isolation.filter((atom) => atom.structure_id === entryId).map((atom) => atom.atom_id));
+    const visible = visibleRepresentationAtomIds(source, isolated, nonpolar);
+    const ids = source.settings.selection_surface.atom_ids.filter((id) => visible.has(id));
+    const loci = this.lociFor(ids.map((atom_id) => ({ structure_id: entryId, atom_id })));
+    if (!loci) { this.surfaces.request(entryId, source.label, null, () => {}); return; }
+    const component = await plugin.builders.structure.tryCreateComponent(loaded.structureRef, {
+      type: { name: "bundle", params: StructureElement.Bundle.fromLoci(loci) },
+      nullIfEmpty: true, label: `${source.label} selection fragment surface`,
+    }, `selection-surface-${entryId}`);
+    if (!component?.obj) return;
+    this.surfaceRefs.set(entryId, component.ref);
+    const binding = {};
+    this.surfaceBindings.set(entryId, binding);
+    const notify = (geometry?: SurfaceGeometry) => {
+      // Worker completion may arrive during a rebuild. Only the latest component may attach.
+      this.syncQueue = this.syncQueue.then(async () => {
+        if (this.surfaceBindings.get(entryId) !== binding || !this.plugin) return;
+        const camera = this.getCamera();
+        try {
+          if (geometry) attachSurfaceGeometry(component.obj!.data, geometry);
+          const repr = geometry ? await plugin.builders.structure.representation.addRepresentation(component, {
+            type: SelectionSurfaceProvider, typeParams: { alpha: SURFACE_PROFILE.opacity },
+            color: ElementSymbolColorThemeProvider,
+          }) : await this.addSurfaceFallback(component.ref);
+          if (geometry) {
+            this.surfaceMeshEntries.add(entryId);
+            plugin.canvas3d?.setProps({ renderer: { pickingAlphaThreshold: SURFACE_PROFILE.opacity } });
+          }
+          if (repr) {
+            const colors = selectionColorLayers(source.settings.selection_colors, source.normalized.atoms).flatMap((assignment) => {
+              const colorLoci = this.lociFor(assignment.atomIds.filter((id) => ids.includes(id)).map((atom_id) => ({ structure_id: entryId, atom_id })));
+              return colorLoci ? [{ bundle: StructureElement.Bundle.fromLoci(colorLoci), color: assignment.color, clear: false }] : [];
+            });
+            if (colors.length) await plugin.state.data.build().to(repr)
+              .apply(StateTransforms.Representation.OverpaintStructureRepresentation3DFromBundle, { layers: colors }).commit();
+          }
+          this.applySelection();
+        } catch (error) {
+          this.surfaces.fail(entryId, error instanceof Error ? error.message : "Surface upload failed.");
+          await this.addSurfaceFallback(component.ref).catch(() => {});
+        } finally { if (camera) this.setCamera(camera); }
+      });
+    };
+    try {
+      this.surfaces.request(entryId, source.label, surfaceInput(component.obj.data, loaded.atomIds), notify,
+        source.normalized.atoms.length >= 250_000 ? "Large entry uses reduced detail." : undefined);
+    } catch (error) {
+      this.surfaces.request(entryId, source.label, null, notify,
+        error instanceof Error ? error.message : "Surface atoms could not be projected.");
+    }
+  }
+
+  private async addSurfaceFallback(component: string) {
+    if (!this.plugin) return;
+    const profile = molstarRepresentationProfile("line", { opacity: 1, hydrogenMode: "all", exactTarget: true });
+    return this.plugin.builders.structure.representation.addRepresentation(component, {
+      type: profile.type, typeParams: profile.typeParams, color: "element-symbol",
+    });
   }
 
   private indexModels(

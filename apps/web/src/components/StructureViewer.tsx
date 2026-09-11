@@ -1,3 +1,4 @@
+import type { SurfaceStatus } from "../viewer/surface/runtime";
 import type { ChangeSelectionAppearance } from "../api/types";
 import type { ExpandSelection } from "../selection/expansion";
 import { useQueries } from "@tanstack/react-query";
@@ -53,6 +54,7 @@ interface StructureViewerProps {
   onDeleteScene?: (scene: Scene) => Promise<void>;
   onLoadSelectionStructures?: () => Promise<Map<string, StructureProjection>>;
   onExpandDistance?: ExpandSelection;
+  onSurface?: (action: "add" | "remove") => Promise<void>;
   onAppearance?: ChangeSelectionAppearance;
   onSelectionStyle?: (
     action: "apply" | "reset",
@@ -77,6 +79,7 @@ export function StructureViewer({
   onLoadSelectionStructures,
   onSelectionStyle,
   onExpandDistance,
+  onSurface,
   onAppearance,
   createViewer = createMolstarViewer,
 }: StructureViewerProps) {
@@ -89,6 +92,7 @@ export function StructureViewer({
   const appliedArtifactsRef = useRef(new Map<string, string>());
   const appliedTopologyArtifactsRef = useRef(new Map<string, string>());
   const previewEntryRef = useRef<string | null>(null);
+  const [surfaceStatuses, setSurfaceStatuses] = useState<SurfaceStatus[]>([]);
   const [viewerReady, setViewerReady] = useState(false);
   const [viewerError, setViewerError] = useState<string | null>(null);
   const [activeEntryId, setActiveEntryId] = useState("");
@@ -156,11 +160,13 @@ export function StructureViewer({
         event.mode,
       );
     });
+    const unsubscribeSurfaces = viewer.subscribeSurfaces(setSurfaceStatuses);
     const unsubscribeCamera = viewer.subscribeCamera(setCamera);
     return () => {
       active = false;
       unsubscribe();
       unsubscribeCamera();
+      unsubscribeSurfaces();
       observer.disconnect();
       viewer.dispose();
       viewerRef.current = undefined;
@@ -443,6 +449,7 @@ export function StructureViewer({
         <SelectionStyleDialog
           onExpandDistance={onExpandDistance}
           onAppearance={onAppearance}
+          onSurface={onSurface}
           open={styleDialogOpen}
           selection={selection}
           entries={project.entries}
@@ -495,6 +502,15 @@ export function StructureViewer({
         }}
         />
       </Tooltip.Provider>
+      {surfaceStatuses.length ? <div className="surface-runtime-status" aria-label="Selection surface rendering">
+        {surfaceStatuses.map((status) => <div key={status.entryId}>
+          <span role="status">{status.label}: {status.message}</span>
+          {["queued", "rendering"].includes(status.state) ? <button type="button"
+            aria-label={`Cancel surface for ${status.label}`} onClick={() => viewerRef.current?.cancelSurface(status.entryId)}>Cancel</button> : null}
+          {["cancelled", "fallback"].includes(status.state) ? <button type="button"
+            aria-label={`Retry surface for ${status.label}`} onClick={() => viewerRef.current?.retrySurface(status.entryId)}>Retry</button> : null}
+        </div>)}
+      </div> : null}
       <div className="viewer-status" role="status">
         <span>
           {visibleEntries.length} visible

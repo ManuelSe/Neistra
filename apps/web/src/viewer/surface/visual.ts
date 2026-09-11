@@ -20,7 +20,7 @@ export function surfaceInput(structure: Structure, sourceAtomIds: readonly numbe
       const element = unit.elements[index];
       const sourceIndex = unit.model.atomicHierarchy.atomSourceIndex.value(element);
       const atomId = sourceAtomIds[sourceIndex];
-      if (atomId === undefined) throw new Error("Surface atom identity could not be resolved.");
+      if (!Number.isSafeInteger(atomId) || atomId < 1 || atomId > 0xffffffff) throw new Error("Surface atom identity could not be resolved.");
       atomIds.push(atomId);
       x.push(unit.conformation.x(element)); y.push(unit.conformation.y(element)); z.push(unit.conformation.z(element));
       radii.push(getPhysicalRadius(unit, element));
