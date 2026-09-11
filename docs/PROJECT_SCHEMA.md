@@ -378,3 +378,22 @@ Preferences survive scenes, archives, history and coordinate edits; deletion
 prunes stable IDs transactionally. Master hydrogen visibility remains an upper
 bound. Migration 0010 defaults both appearance collections in every retained
 settings location and refuses downgrade while either has non-default data.
+
+## Selection surface membership (issue #30)
+
+`ViewerSettingsV1.selection_surface` defaults to null. Its non-null form has
+`profile: "molecular-v1"` and positive, sorted, unique, nonempty normalized
+`atom_ids`. It is independent of atomic/polymer assignments, local colors and H
+preferences. One per-entry union is updated by the revisioned selection-surface
+command; it is not a generic layer collection or a live binding to selection.
+Scenes/checkpoints/duplication preserve the setting; deleting atoms prunes live
+and scene memberships with exact inverse history. Added atoms do not inherit it.
+
+Migration 0011 adds null defaults to every documented live, checkpoint, scene and
+forward/inverse command settings path. It does not traverse metadata or rewrite
+molecular artifacts. Downgrade validates all retained locations before writes
+and refuses any non-null surface state, including history that could restore it.
+New readers default absent fields from older archives, remap entry identities
+and validate atom targets. Archive history remains omitted. API, project,
+archive and normalized schema majors remain 1; older readers are not guaranteed
+to retain new surface state. See [development](DEVELOPMENT.md) for rollback.

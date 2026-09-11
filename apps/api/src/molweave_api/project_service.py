@@ -30,6 +30,7 @@ from molweave_api.schemas import (
     SavedSelectionRead,
     SceneRead,
     SelectionAppearanceUpdate,
+    SelectionSurfaceUpdate,
     TopologyPatch,
     ViewerSettings,
 )
@@ -459,6 +460,11 @@ class ProjectService:
                 values[field] = deepcopy(current)
             elif values[field] != current:
                 raise InvalidProjectOperationError("Use the selection appearance action")
+        current_surface = entry.viewer_settings.get("selection_surface")
+        if "selection_surface" not in settings.model_fields_set:
+            values["selection_surface"] = deepcopy(current_surface)
+        elif values["selection_surface"] != current_surface:
+            raise InvalidProjectOperationError("Use the selection surface action")
         current_assignments = entry.viewer_settings.get("selection_representations", [])
         if values["selection_representations"] != current_assignments:
             raise InvalidProjectOperationError(
@@ -558,6 +564,57 @@ class ProjectService:
             inverse,
             sorted(selected_by_entry),
             selection_snapshot=deepcopy(atom_references),
+        )
+
+    def update_selection_surface(
+        self, project_id: str, payload: SelectionSurfaceUpdate
+    ) -> ProjectRead:
+        project = self._project(project_id)
+        self._check_revision(project, payload.expected_revision)
+        references = [item.model_dump(mode="json") for item in payload.selection.atoms]
+        self._validate_atom_references(project, references)
+        targets: dict[str, set[int]] = {}
+        for item in payload.selection.atoms:
+            targets.setdefault(item.structure_id, set()).add(item.atom_id)
+        forward: list[dict[str, Any]] = []
+        inverse: list[dict[str, Any]] = []
+        affected: list[str] = []
+        for entry_id, ids in sorted(targets.items()):
+            entry = self._entry(project, entry_id)
+            before = deepcopy(entry.viewer_settings)
+            surface = before.get("selection_surface")
+            current = set(surface["atom_ids"]) if surface else set()
+            result = current | ids if payload.action == "add" else current - ids
+            if result == current:
+                continue
+            after = {
+                **before,
+                "selection_surface": (
+                    {"profile": "molecular-v1", "atom_ids": sorted(result)} if result else None
+                ),
+            }
+            forward.append(
+                {"kind": "entry.update", "entry_id": entry_id, "values": {"viewer_settings": after}}
+            )
+            inverse.insert(
+                0,
+                {
+                    "kind": "entry.update",
+                    "entry_id": entry_id,
+                    "values": {"viewer_settings": before},
+                },
+            )
+            affected.append(entry_id)
+        if not affected:
+            return self.get_project(project_id)
+        return self._record(
+            project,
+            "selection.surface",
+            f"{payload.action.title()} selection surface membership for {len(references)} atoms",
+            forward,
+            inverse,
+            affected,
+            selection_snapshot=references,
         )
 
     def update_selection_appearance(

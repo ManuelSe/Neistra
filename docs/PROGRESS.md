@@ -2,15 +2,15 @@
 
 ## Current milestone
 
-Issue #30 — **M1/C1 complete; M2/C2 next** on
+Issue #30 — **M1/C1 and M2/C2 complete; M2/C3 next** on
 `feat/issue-30-selection-surfaces`, targeting provisional **v0.7.0**.
-The [approved feature plan](plans/issue-30-selection-surfaces.md) records the
-bounded Mol* worker/mesh adapter and exact scientific/resource evidence. Passed
-Ruff, mypy, frontend lint/typecheck/build, 91 frontend tests and two real-renderer
-browser checks. 1STP surface readiness was 549 ms desktop / 486 ms mobile;
-cancellation 22/20 ms. These are pinned Chromium/Pixel 7 emulation measurements.
-No surface UI, persistence, API or migration is implemented yet. C2 adds durable
-membership/history/archive semantics; D-056–059 retain the approved boundaries.
+The [approved feature plan](plans/issue-30-selection-surfaces.md) records exact
+geometry and persistence evidence. Durable surface memberships, revisioned API,
+no-op suppression, history/scenes/archives/pruning and guarded migration 0011 are
+implemented. Passed 272 Python tests, 91 frontend tests, Ruff/mypy, frontend
+lint/typecheck/build, and six browser workflows (four intentional layout skips).
+Migration qualification covers every retained settings path and safe downgrade/refusal.
+Production palette/renderer integration is next; no complete surface UI is claimed.
 
 ### Previous release — v0.6.1
 
@@ -2115,6 +2115,6 @@ remains required before release.
 
 ## Next action
 
-Execute M2/C2 durable membership in the [issue #30 plan](plans/issue-30-selection-surfaces.md),
+Execute M2/C3 production UI and renderer integration in the [issue #30 plan](plans/issue-30-selection-surfaces.md),
 then complete UI integration, hardening and release gates on the feature branch.
 Prior release delivery evidence remains in [issue #34](https://github.com/ManuelSe/Neistra/issues/34).

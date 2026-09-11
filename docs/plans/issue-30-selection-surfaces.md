@@ -1,6 +1,6 @@
 # Issue #30 — Selection-specific surfaces
 
-Status: implementing; M1/C1 complete. User approved the proposal on 2026-09-11
+Status: implementing; M1/C1 and M2/C2 complete. User approved the proposal on 2026-09-11
 and authorized implementation with `/goal` on 2026-09-11.
 
 - Issue: [#30 — Define selection-specific surface geometry and persistence](https://github.com/ManuelSe/Neistra/issues/30), open at approval.
@@ -404,7 +404,8 @@ for documentation. Keep project-level progress concise and current.
 | 2026-09-11 — persistence preparation | Clean master fetched and fast-forward verified at `9624ebcca24a1164c34d31a7f7d9cef3183b8775`; planned feature branch created; this plan is its first file change |
 | 2026-09-11 — documentation validation | `git diff --check` passed; local Markdown links, required plan sections and unique D-056–058 identifiers checked; global `docs/PLAN.md` unchanged; diff reviewed as documentation-only |
 | M1/C1 | Complete: bounded native geometry worker and structural mesh adapter; 91 frontend tests, lint/type/build and two real-browser checks pass; evidence below |
-| M2/C2–C3 | Not started |
+| M2/C2 | Complete: durable membership/API/history/scenes/archives and guarded migration 0011; 272 Python tests and all checkpoint gates passed |
+| M2/C3 | Next: complete production palette/renderer workflow |
 | M3/C4 | Not started |
 | M4/C5 | Not started |
 
@@ -457,3 +458,35 @@ budget relaxation. The existing lazy Mol* chunk-size advisory remains.
 Diff reviewed for scope, scientific identity, cancellation and allocation risks.
 No native scientific algorithm was copied. C1 is a renderer foundation, not a
 claim of available durable selection-surface functionality. Next: M2/C2.
+
+
+### M2/C2 evidence — 2026-09-11
+
+Added nullable fixed-profile membership, strict persisted IDs, dedicated revisioned
+Add/Remove action, exact atomic multi-entry history and no-op suppression. Legacy
+entry settings preserve omitted membership and cannot bypass the action. Pruning,
+scenes, duplication, checkpoints, restart recovery and archive remapping retain
+or reconcile memberships without changing molecular bytes/artifacts. Migration
+0011 defaults every documented path and refuses non-null retained state before
+writing; 17 scenarios cover 16 live/checkpoint/scene/history locations plus the
+permitted upgrade/downgrade/re-upgrade cycle. Metadata sentinels remain unchanged.
+
+Passed focused Python gate (102 tests), then complete Python suite after additional
+restart/archive-error checks (**272 passed**, 133 existing Alembic deprecation
+warnings). Ruff and mypy (52 files), frontend lint/typecheck, 91 Vitest tests and
+production build passed. Focused Playwright selection-surfaces + export-archive:
+**6 passed, 4 intentional layout skips**. Logs `/tmp/neistra-30-c2-{ruff,mypy,pytest,
+lint,typecheck,vitest,build,e2e}.log`; focused Python log
+`/tmp/neistra-30-c2-focused.log`. E2E directory `/tmp/neistra-30-c2-e2e`, isolated
+ports 8110/8111/5273, upgraded freshly through 0011. No developer data changed.
+
+Initial new assertions exposed existing SQLite timestamp serialization differences
+between mutation responses and subsequent reads; no-op/atomicity checks now compare
+persisted reads. Updated the existing viewer-settings fixture for the additive null
+field. Archive rejection checks assert actual error codes, not merely HTTP status.
+These were test corrections, not relaxed compatibility checks. Final full suite passed.
+
+Diff reviewed for retained-history coverage, mutation bypass, no-op revision behavior,
+archive reference validation, pruning and unrelated molecular changes. No further
+architectural deviation from D-057. The API is available; production surface UI and
+rendering integration remain C3. Next: M2/C3.

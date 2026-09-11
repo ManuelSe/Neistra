@@ -405,3 +405,177 @@ def test_0009_refuses_downgrade_when_polar_only_state_would_be_lost(
     with pytest.raises(RuntimeError, match="Cannot downgrade"):
         command.downgrade(config, "0008")
     engine.dispose()
+
+
+_SURFACE_PATHS = ["live", "checkpoint", "checkpoint_scene", "scene"] + [
+    f"{direction}:{kind}"
+    for direction in ("forward", "inverse")
+    for kind in (
+        "entry.create",
+        "entry.update",
+        "entry.molecule",
+        "entries.viewer_state",
+        "scene.create",
+        "scene.update",
+    )
+]
+
+
+@pytest.mark.parametrize("retained_path", [*_SURFACE_PATHS, "empty"])
+def test_0011_covers_every_retained_settings_path_and_refuses_loss_atomically(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, retained_path: str
+) -> None:
+    config = migration_config(tmp_path, monkeypatch)
+    command.upgrade(config, "0010")
+    engine = create_database_engine(f"sqlite:///{tmp_path / 'migration-data' / 'molweave.db'}")
+    factory = create_session_factory(engine)
+    membership = {"profile": "molecular-v1", "atom_ids": [3, 9]}
+    sentinel = {"selection_surface": {"metadata": "not viewer settings"}}
+
+    def settings(path: str) -> dict[str, Any]:
+        value = {
+            **legacy_viewer_settings(),
+            "selection_colors": [],
+            "selection_nonpolar_hydrogens": [],
+        }
+        if path == retained_path:
+            value["selection_surface"] = deepcopy(membership)
+        return value
+
+    def actions(direction: str) -> list[dict[str, Any]]:
+        return [
+            {
+                "kind": "entry.create",
+                "entry": {"viewer_settings": settings(f"{direction}:entry.create")},
+            },
+            {
+                "kind": "entry.update",
+                "values": {"viewer_settings": settings(f"{direction}:entry.update")},
+            },
+            {
+                "kind": "entry.molecule",
+                "values": {"viewer_settings": settings(f"{direction}:entry.molecule")},
+            },
+            {
+                "kind": "entries.viewer_state",
+                "values": [{"viewer_settings": settings(f"{direction}:entries.viewer_state")}],
+            },
+            {
+                "kind": "scene.create",
+                "scene": {
+                    "entry_states": [{"viewer_settings": settings(f"{direction}:scene.create")}]
+                },
+            },
+            {
+                "kind": "scene.update",
+                "values": {
+                    "entry_states": [{"viewer_settings": settings(f"{direction}:scene.update")}]
+                },
+            },
+        ]
+
+    with factory() as session:
+        session.add(
+            Project(
+                id="p",
+                name="Retained surfaces",
+                checkpoint_state={
+                    "entries": [
+                        {"viewer_settings": settings("checkpoint"), "user_metadata": sentinel}
+                    ],
+                    "scenes": [
+                        {"entry_states": [{"viewer_settings": settings("checkpoint_scene")}]}
+                    ],
+                },
+            )
+        )
+        session.flush()
+        session.add(
+            StructureEntry(
+                id="e",
+                project_id="p",
+                name="Entry",
+                viewer_settings=settings("live"),
+                user_metadata=sentinel,
+            )
+        )
+        session.add(
+            Scene(
+                id="s",
+                project_id="p",
+                name="Scene",
+                camera={},
+                selection={},
+                entry_states=[{"entry_id": "e", "viewer_settings": settings("scene")}],
+            )
+        )
+        session.add(
+            CommandRecord(
+                id="c",
+                project_id="p",
+                position=1,
+                command_type="fixture",
+                description="Every retained path",
+                affected_entry_ids=["e"],
+                forward_actions=actions("forward"),
+                inverse_actions=actions("inverse"),
+            )
+        )
+        session.commit()
+    command.upgrade(config, "0011")
+
+    def snapshot() -> dict[str, Any]:
+        with factory() as session:
+            entry = session.get(StructureEntry, "e")
+            project = session.get(Project, "p")
+            scene = session.get(Scene, "s")
+            history = session.get(CommandRecord, "c")
+            assert entry and project and scene and history
+            return deepcopy(
+                {
+                    "live": entry.viewer_settings,
+                    "checkpoint": project.checkpoint_state,
+                    "scene": scene.entry_states,
+                    "forward": history.forward_actions,
+                    "inverse": history.inverse_actions,
+                    "metadata": entry.user_metadata,
+                }
+            )
+
+    before = snapshot()
+    locations = {
+        "live": before["live"],
+        "checkpoint": before["checkpoint"]["entries"][0]["viewer_settings"],
+        "checkpoint_scene": before["checkpoint"]["scenes"][0]["entry_states"][0]["viewer_settings"],
+        "scene": before["scene"][0]["viewer_settings"],
+    }
+    for direction in ("forward", "inverse"):
+        items = before[direction]
+        locations.update(
+            {
+                f"{direction}:entry.create": items[0]["entry"]["viewer_settings"],
+                f"{direction}:entry.update": items[1]["values"]["viewer_settings"],
+                f"{direction}:entry.molecule": items[2]["values"]["viewer_settings"],
+                f"{direction}:entries.viewer_state": items[3]["values"][0]["viewer_settings"],
+                f"{direction}:scene.create": items[4]["scene"]["entry_states"][0][
+                    "viewer_settings"
+                ],
+                f"{direction}:scene.update": items[5]["values"]["entry_states"][0][
+                    "viewer_settings"
+                ],
+            }
+        )
+    for path, value in locations.items():
+        assert value["selection_surface"] == (membership if path == retained_path else None)
+    assert before["metadata"] == sentinel
+    assert before["checkpoint"]["entries"][0]["user_metadata"] == sentinel
+    if retained_path == "empty":
+        command.downgrade(config, "0010")
+        assert "selection_surface" not in snapshot()["live"]
+        command.upgrade(config, "0011")
+        assert snapshot() == before
+    else:
+        with pytest.raises(RuntimeError, match="retains selection surface state"):
+            command.downgrade(config, "0010")
+        assert snapshot() == before
+    engine.dispose()

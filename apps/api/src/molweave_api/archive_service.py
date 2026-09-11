@@ -1179,6 +1179,7 @@ def _validate_selection_assignments(
 ) -> None:
     for atom_ids in [
         *(item.atom_ids for item in settings.selection_colors),
+        *([settings.selection_surface.atom_ids] if settings.selection_surface else []),
         *(item.atom_ids for item in settings.selection_nonpolar_hydrogens),
     ]:
         if not set(atom_ids).issubset(valid_atom_ids):

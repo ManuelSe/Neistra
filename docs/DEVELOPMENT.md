@@ -221,3 +221,19 @@ upgrade command for earlier databases. Application/API/archive version metadata
 advances together to 0.6.1; schema major 1 and appearance wire formats are unchanged.
 The issue #34 plan records focused and complete release gates and compatibility
 checks, including archive application versions 0.5.0 and 0.6.0.
+
+## Selection surface migration (planned 0.7.0)
+
+Back up the managed data directory before upgrading. Migration 0011 adds a null
+surface-membership default throughout live entries, checkpoints, scenes and
+retained command actions. Run `.venv/bin/uv run alembic upgrade head` against the
+intended application data directory. Existing originals and normalized artifacts
+are unchanged; older projects/archives remain readable by the new application.
+
+Downgrade to 0010 is allowed only when **every retained surface value is null**.
+A removed surface can remain in undo history, checkpoints or scenes, so removal
+alone is not a safe downgrade procedure. Refusal leaves stored state unchanged.
+After using the feature, restoring the pre-upgrade backup is the reliable rollback;
+do not edit SQLite JSON or silently discard history. Older applications are not
+guaranteed to preserve newly exported surface settings. Frontend geometry is not
+persisted and is rebuilt from stable memberships and current molecular artifacts.

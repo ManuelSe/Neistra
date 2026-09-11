@@ -243,6 +243,11 @@ export const projectApi = {
         }),
       },
     ),
+  updateSelectionSurface: (project: Project, selection: Selection, action: "add" | "remove") =>
+    request<Project>(`/api/v1/projects/${project.id}/selection-surface`, {
+      method: "POST",
+      body: JSON.stringify({ expected_revision: project.revision, selection, action }),
+    }),
   updateSelectionAppearance: (project: Project, selection: Selection, change: SelectionAppearanceChange) =>
     request<Project>(`/api/v1/projects/${project.id}/selection-appearance`, {
       method: "POST",
