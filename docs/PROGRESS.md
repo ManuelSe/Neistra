@@ -2,6 +2,29 @@
 
 ## Current milestone
 
+Issue #29 — approved planning handoff; implementation has not started.
+
+The user approved [the selection appearance plan](plans/issue-29-selection-appearance.md)
+on 2026-09-11. The implementation contract covers distance expansion in Style
+selection, durable selection-local solid color, and selection-local non-polar
+hydrogen visibility. It retains existing representation choices and defers
+selection-specific surfaces to a focused follow-up. The planned release is the
+backward-compatible minor version `0.6.0`; no version has changed yet.
+
+Fetched origin and performed a fast-forward-only integration on clean local
+`master`. The feature branch is `feat/issue-29-selection-appearance`, based on
+`06cae490fc9d73302a6d0891c6e0636c0a9ea376`, the user's separately requested
+`.gitignore` prerequisite commit above remote master `8b68909`. Checkpoint 0
+persists the approved plan and this concise handoff only. Commit/push evidence
+is supplied in the handoff; no implementation, PR, follow-up issue, or release
+is claimed. Wait for the user's `/goal` prompt before M1/C1.
+
+### Previous milestone context
+
+The following rebranding implementation record is historical. PR #28 is now
+merged at remote master `8b68909`; its earlier pending-cutover statements below
+describe that handoff, not the current issue #29 authorization.
+
 Neistra rebranding — M1–M5 implemented and verified.
 
 The user approved `.rebranding/IMPLEMENTATION_PLAN.md` for sequential
@@ -33,6 +56,12 @@ and closed out on issue #1. The release tag remains on the exact verified
 feature merge; this documentation-only closeout records the remote evidence.
 
 ## Completed work
+
+- Issue #29 planning: inspected the product/architecture/data/selection/viewer
+  and delivery contracts, resolved product scope through explicit approval,
+  refreshed the base with fast-forward-only integration, created the dedicated
+  feature branch, and persisted the detailed contract as its first file change.
+  No implementation checkpoint is complete.
 
 - M5 complete: fresh frozen installs, migration through `0009`, Ruff, mypy
   (50 files), all 209 Python tests, frontend lint/type-check/70 tests, all
@@ -864,6 +893,12 @@ feature merge; this documentation-only closeout records the remote evidence.
   affected-entry topology replacement without a full scene synchronization.
 
 ## Verification performed
+
+- Issue #29 planning handoff: verified clean working tree before branch creation,
+  successful origin fetch and fast-forward-only integration, exact local/remote
+  base commits, and the separately committed `.gitignore` prerequisite. Feature
+  validation commands and acceptance evidence requirements are recorded in the
+  approved plan; no feature test results are claimed during planning.
 
 - M4: frozen JS install (no lock or dependency changes), 8 supervisor tests,
   ESLint, TypeScript, 70 Vitest tests, build and diff checks passed. Project
@@ -1899,6 +1934,11 @@ Results:
 
 ## Known limitations
 
+- Issue #29's new color/hydrogen controls and styling-dialog distance expansion
+  are planned, not implemented. Exact-selected-hydrogen targets, project-wide
+  expansion, the selection-surface deferral, and backward archive compatibility
+  are approved contract boundaries; see the feature plan for full semantics.
+
 - Rebranding qualification covers Chromium desktop and Pixel 7 emulation,
   scoped accessibility checks and real desktop 100%/200% zoom; it does not
   certify physical devices, Safari/Firefox or whole-product accessibility.
@@ -1983,7 +2023,7 @@ None.
 
 ## Next action
 
-Review the completed local `feat/neistra-rebranding` checkpoints and handoff.
-No implementation milestone remains. Repository rename, PR/merge, versioning,
-release and other external cutover actions remain separately authorized work;
-the prepared checklist is local and uncommitted under `.rebranding/`.
+Finish checkpoint 0 commit/push verification, then wait for the user's `/goal`
+prompt. Do not start implementation. The first implementation checkpoint will
+be M1/C1 (distance expansion) under
+[the approved issue #29 contract](plans/issue-29-selection-appearance.md).
