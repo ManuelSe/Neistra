@@ -393,6 +393,7 @@ test("keeps compact picking and focus controls bounded and keyboard reachable", 
   await viewerPick.getByRole("button", { name: "chain" }).click();
   await page.keyboard.press("Escape");
   await expect(drawer).toBeHidden();
+  await expect(page.getByRole("button", { name: "Inspector", exact: true })).toBeFocused();
   await expect(picking).toHaveValue("chain");
 
   const focusSelection = toolbar.getByRole("button", { name: "Focus selection" });

@@ -1,4 +1,4 @@
-import { cleanup, render, screen } from "@testing-library/react";
+import { act, cleanup, render, screen } from "@testing-library/react";
 import * as Tooltip from "@radix-ui/react-tooltip";
 import userEvent from "@testing-library/user-event";
 import { useState } from "react";
@@ -65,11 +65,11 @@ describe("selection style dialog", () => {
     render(<SelectionColorControls selection={completeResidue} entries={[entry]}
       busy={false} onChange={onChange} />);
     expect(screen.getByText("Mixed")).toBeVisible();
-    await user.click(screen.getByRole("button", { name: "Apply color" }));
+    await user.click(screen.getByRole("button", { name: "Apply blue color" }));
     expect(onChange).toHaveBeenCalledWith({ property: "color", action: "set", color: "#3b82f6" });
-    await user.selectOptions(screen.getByLabelText("Coloring mode"), "carbon");
-    expect(screen.getByText(/other selected atoms use element colors/)).toBeVisible();
-    await user.click(screen.getByRole("button", { name: "Apply color" }));
+    await user.click(screen.getByRole("button", { name: "Carbon only" }));
+    expect(screen.getByText(/Other selected atoms use element colors/)).toBeVisible();
+    await user.click(screen.getByRole("button", { name: "Apply blue color" }));
     expect(onChange).toHaveBeenLastCalledWith({ property: "color", action: "set", color: "#3b82f6", color_mode: "carbon" });
     await user.click(screen.getByRole("button", { name: "Reset color" }));
     expect(onChange).toHaveBeenLastCalledWith({ property: "color", action: "reset" });
@@ -91,17 +91,17 @@ describe("selection style dialog", () => {
     expect(screen.getByRole("dialog", { name: "Style selection" })).toBeVisible();
     expect(screen.getByRole("group", { name: "Atom detail" })).toBeVisible();
     expect(screen.getByRole("group", { name: "Polymer" })).toBeVisible();
-    expect(screen.getByText("2", { selector: "dd" })).toBeVisible();
+    expect(screen.getByText("2 atoms")).toBeVisible();
     expect(screen.getByRole("button", { name: "Cartoon" })).toBeEnabled();
 
     await user.click(screen.getByRole("button", { name: "Thin sticks" }));
     expect(onAction).toHaveBeenCalledWith("apply", "stick");
     expect(await screen.findByRole("status")).toHaveTextContent(
-      "Applied Thin sticks to 2 selected atoms",
+      "Applied Thin sticks.",
     );
 
     await user.click(screen.getByRole("button", { name: "Reset representation" }));
-    expect(onAction).toHaveBeenLastCalledWith("reset", undefined);
+    expect(onAction).toHaveBeenLastCalledWith("reset");
     expect(completeResidue.atoms).toHaveLength(2);
 
     await user.keyboard("{Escape}");
@@ -120,6 +120,7 @@ describe("selection style dialog", () => {
       />,
     );
     await user.click(screen.getByRole("button", { name: "Style selection" }));
+    await user.click(screen.getByText("Why unavailable?"));
     expect(screen.getByText(/require every atom in each selected residue/i)).toBeVisible();
     expect(screen.getByRole("button", { name: "Cartoon" })).toBeDisabled();
     expect(screen.getByRole("button", { name: "Line" })).toBeEnabled();
@@ -137,6 +138,7 @@ it("explains exact hydrogen targets and mixed/master states, with separate inher
     structures: new Map([["protein", projection]]), busy: false, onChange };
   const view = render(<SelectionHydrogenControls {...props} />);
   expect(screen.getByRole("combobox")).toBeDisabled();
+  await user.click(screen.getByText("No selected hydrogens"));
   expect(screen.getByText(/Select explicit hydrogen atoms, or/)).toBeVisible();
   projection.structure.atoms[0].element = "H";
   projection.structure.atoms[1].element = "H";
@@ -149,9 +151,7 @@ it("explains exact hydrogen targets and mixed/master states, with separate inher
   expect(onChange).toHaveBeenLastCalledWith({ property: "nonpolar_hydrogens", action: "set", show: true });
   await user.selectOptions(screen.getByRole("combobox"), "inherit");
   expect(onChange).toHaveBeenLastCalledWith({ property: "nonpolar_hydrogens", action: "reset" });
-  onChange.mockRejectedValueOnce(new Error("Revision changed"));
-  await user.selectOptions(screen.getByRole("combobox"), "hide");
-  expect(await screen.findByRole("alert")).toHaveTextContent("Revision changed");
+
 });
 
 
@@ -168,4 +168,76 @@ it("does not misreport failed or pending structure loads as hydrogen-free select
     busy={false} onAppearance={onChange} onOpenChange={() => {}} onAction={vi.fn().mockResolvedValue(undefined)} /></Tooltip.Provider>);
   expect(screen.getByRole("alert")).toHaveTextContent("Could not load selection structures");
   expect(screen.queryByLabelText("Selected non-polar hydrogens")).not.toBeInTheDocument();
+});
+
+
+it("keeps workspace interaction available, suppresses old feedback and disables empty targets", async () => {
+  const user = userEvent.setup();
+  let finish = () => {};
+  const onAction = vi.fn(() => new Promise<void>((resolve) => { finish = resolve; }));
+  const props = { open: true, selection: completeResidue,
+    entries: [molecularEntry("protein", "Receptor", "protein")],
+    structures: new Map([["protein", proteinProjection()]]), eligibilityBusy: false,
+    busy: false, onAction, onOpenChange: vi.fn() };
+  const view = render(<Tooltip.Provider><button>Workspace selection</button><SelectionStyleDialog {...props} /></Tooltip.Provider>);
+  const dialog = screen.getByRole("dialog");
+  expect(dialog).not.toHaveAttribute("aria-modal", "true");
+  await user.click(screen.getByRole("button", { name: "Thin sticks" }));
+  expect(screen.getByRole("button", { name: "Line" })).toBeDisabled();
+  await user.click(screen.getByRole("button", { name: "Workspace selection" }));
+  expect(screen.getByRole("button", { name: "Workspace selection" })).toHaveFocus();
+  await user.keyboard("{Escape}");
+  expect(props.onOpenChange).not.toHaveBeenCalled();
+  view.rerender(<Tooltip.Provider><button>Workspace selection</button><SelectionStyleDialog {...props}
+    selection={{ ...completeResidue, atoms: [] }} /></Tooltip.Provider>);
+  await act(async () => { finish(); await Promise.resolve(); });
+  expect(screen.queryByRole("status")).not.toBeInTheDocument();
+  expect(screen.getByRole("button", { name: "Thin sticks" })).toBeDisabled();
+  expect(screen.getByRole("button", { name: "Reset representation" })).toBeDisabled();
+  expect(dialog).toBeVisible();
+});
+
+
+it("uses one action status, blocks overlapping properties, and preserves errors across selection changes", async () => {
+  const user = userEvent.setup();
+  let reject = (_error: Error) => { void _error; };
+  const onAppearance = vi.fn(() => new Promise<void>((_resolve, fail) => { reject = fail; }));
+  const props = { open: true, selection: completeResidue,
+    entries: [molecularEntry("protein", "Receptor", "protein")],
+    structures: new Map([["protein", proteinProjection()]]), eligibilityBusy: false,
+    busy: false, onAction: vi.fn().mockResolvedValue(undefined), onAppearance, onOpenChange: vi.fn() };
+  const view = render(<Tooltip.Provider><SelectionStyleDialog {...props} /></Tooltip.Provider>);
+  await user.click(screen.getByRole("button", { name: "Carbon only" }));
+  expect(onAppearance).not.toHaveBeenCalled();
+  await user.click(screen.getByRole("button", { name: "Apply red color" }));
+  expect(onAppearance).toHaveBeenCalledExactlyOnceWith({ property: "color", action: "set", color: "#ef4444", color_mode: "carbon" });
+  expect(screen.getByRole("button", { name: "Line" })).toBeDisabled();
+  expect(screen.getByRole("button", { name: "Reset color" })).toBeDisabled();
+  expect(screen.getAllByRole("status")).toHaveLength(1);
+  view.rerender(<Tooltip.Provider><SelectionStyleDialog {...props}
+    selection={{ ...completeResidue, atoms: [completeResidue.atoms[0]] }} /></Tooltip.Provider>);
+  await act(async () => { reject(new Error("Revision changed")); await Promise.resolve(); });
+  expect(screen.getByRole("alert")).toHaveTextContent("Previous selection: Revision changed");
+  expect(screen.getByRole("button", { name: "Apply red color" })).toBeEnabled();
+});
+
+it("shows mixed style membership and resets only draft controls when reopened", async () => {
+  const user = userEvent.setup();
+  const entry = molecularEntry("protein", "Receptor", "protein");
+  entry.viewer_settings.selection_representations = [{ style: "stick", atom_ids: [1] }];
+  const props = { open: true, selection: completeResidue, entries: [entry],
+    structures: new Map([["protein", proteinProjection()]]), eligibilityBusy: false,
+    busy: false, onAction: vi.fn().mockResolvedValue(undefined),
+    onAppearance: vi.fn().mockResolvedValue(undefined), onOpenChange: vi.fn() };
+  const view = render(<Tooltip.Provider><SelectionStyleDialog {...props} /></Tooltip.Provider>);
+  expect(screen.getByRole("button", { name: "Thin sticks" })).toHaveAttribute("aria-pressed", "mixed");
+  await user.click(screen.getByRole("button", { name: "Carbon only" }));
+  await user.click(screen.getByText("Custom…"));
+  expect(screen.getByLabelText("Custom selection color")).toBeVisible();
+  view.rerender(<Tooltip.Provider><SelectionStyleDialog {...props} open={false} /></Tooltip.Provider>);
+  view.rerender(<Tooltip.Provider><SelectionStyleDialog {...props} /></Tooltip.Provider>);
+  expect(screen.getByRole("button", { name: "All atoms" })).toHaveAttribute("aria-pressed", "true");
+  expect(screen.getByLabelText("Custom selection color")).not.toBeVisible();
+  expect(props.onAppearance).not.toHaveBeenCalled();
+  expect(screen.getByRole("button", { name: "Thin sticks" })).toHaveAttribute("aria-pressed", "mixed");
 });

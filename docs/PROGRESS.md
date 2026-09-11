@@ -2,6 +2,22 @@
 
 ## Current milestone
 
+Issue #34 — compact selection styling implemented and qualified for **v0.6.1**.
+The [feature plan](plans/issue-34-compact-selection-styling.md) contains checkpoint
+and exact candidate evidence. Compact non-modal controls, immediate swatches,
+context-safe feedback, live picking/orbit, keyboard/touch and real zoom are covered.
+The clean complete gate passes 239 Python tests, 84 frontend tests, 8 supervisor
+tests and 73 browser workflows (39 intentional layout skips), lint/type checks,
+build and fresh migration. No migration/API/schema change was introduced.
+
+Release execution and its exact merged gate/tag are audited in the feature plan's
+[publication records](plans/issue-34-compact-selection-styling.md#publication-and-completion-records)
+and [issue #34](https://github.com/ManuelSe/Neistra/issues/34). No product blocker
+or further approved implementation remains. Existing scientific and browser-support
+limits are documented in [Selection styling](SELECTION_STYLING.md).
+
+### Previous release
+
 Issue #29 complete — released [Neistra v0.6.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.6.0).
 
 PRs [#31](https://github.com/ManuelSe/Neistra/pull/31) and
@@ -2086,5 +2102,6 @@ None.
 
 ## Next action
 
-No remaining implementation or release work for issue #29. Selection-specific
-surfaces are tracked separately in [#30](https://github.com/ManuelSe/Neistra/issues/30).
+Use [issue #34's delivery record](https://github.com/ManuelSe/Neistra/issues/34)
+for merge, release and cleanup status; no additional feature scope is approved.
+Selection-specific surfaces remain [#30](https://github.com/ManuelSe/Neistra/issues/30).

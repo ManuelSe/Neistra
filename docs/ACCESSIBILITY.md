@@ -51,9 +51,13 @@ Escape, and passes the configured axe rules while expanded.
 `tests/e2e/selection-styling.spec.ts` qualifies the selection-style workflow.
 The always-present **Style selection** button stays focusable when unavailable,
 uses `aria-disabled`, and exposes a reason without pretending the action ran.
-The dialog has a programmatic name, selected atom/entry counts, semantic Atom
-detail and Polymer groups, pressed states, an adjacent reason for unavailable
-polymer styles, busy state, and announced success/error status. Desktop and
+The non-modal palette has a programmatic name, a selected atom count, semantic
+Atom detail and Polymer groups, pressed/mixed states and accessible help for
+unavailable polymer styles. Entry counts are in Selection help. Color swatches
+have accessible color names; native disclosures expose secondary actions and
+scientific explanations. A single feedback area announces action results.
+Outside workspace interaction stays available, including changing the selection.
+Desktop and
 Pixel 7 workflows prove keyboard launch/application, Escape focus restoration,
 viewport containment, no horizontal overflow or clipped visible buttons, and
 zero scoped axe findings. Canvas pixels and screenshots qualify WebGL output
@@ -86,8 +90,10 @@ PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test \
 - Arrow Left/Right, Home, and End move and activate tabs in a tab list.
 - Escape closes the topmost dialog or mobile drawer and returns focus.
 - The Style selection launcher opens its dialog with `Enter` or `Space`;
-  representation and reset buttons use native button activation, and Escape
-  returns focus to the launcher.
+  representation, swatch and reset buttons use native button activation. Escape
+  while focus is inside the palette closes it and restores the launcher; Escape
+  elsewhere belongs to that workspace control. Touch controls are at least 44 px
+  high, and compact screens scroll inside the palette.
 - Show hydrogens and Show non-polar hydrogens use native button activation.
   The dependent control remains discoverable but cannot be activated while
   the master setting hides all hydrogens; explanatory text communicates why.

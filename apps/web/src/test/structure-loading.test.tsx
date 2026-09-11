@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { cleanup, render, screen, waitFor } from "@testing-library/react";
+import { act, cleanup, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import type { ComponentProps, ReactNode } from "react";
 import { afterEach, describe, expect, it, vi } from "vitest";
@@ -809,3 +809,37 @@ const emptySelection: Selection = {
   granularity: "atom",
   source: "inspector",
 };
+
+
+it("ignores stale styling eligibility and closes the palette across project switches", async () => {
+  const user = userEvent.setup();
+  const fake = new FakeViewer();
+  const queryClient = new QueryClient({ defaultOptions: { queries: { retry: false } } });
+  let staleFailure = (_error: Error) => { void _error; };
+  const first = new Promise<Map<string, StructureProjection>>((_resolve, reject) => { staleFailure = reject; });
+  const next = projection("protein");
+  next.structure.atoms[0] = { ...next.structure.atoms[0], id: 2, element: "H" };
+  const load = vi.fn().mockReturnValueOnce(first).mockResolvedValue(new Map([["protein", next]]));
+  const props: StructureViewerProps = { project: project(false, false), theme: "light",
+    selection: { ...emptySelection, atoms: [{ structure_id: "protein", atom_id: 1 }] },
+    pickingGranularity: "atom", onViewerSelection: vi.fn(), createViewer: () => fake,
+    onLoadSelectionStructures: load, onSelectionStyle: vi.fn().mockResolvedValue(undefined),
+    onAppearance: vi.fn().mockResolvedValue(undefined) };
+  const view = render(<StructureViewer {...props} />, { wrapper: wrapper(queryClient) });
+  await user.click(screen.getByRole("button", { name: "Style selection" }));
+  expect(screen.getByLabelText("Selected non-polar hydrogens")).toBeDisabled();
+  view.rerender(<StructureViewer {...props} selection={{ ...emptySelection, atoms: [{ structure_id: "protein", atom_id: 2 }] }} />);
+  await waitFor(() => expect(screen.getByLabelText("Selected non-polar hydrogens")).toBeEnabled());
+  await act(async () => { staleFailure(new Error("Old structure load failed")); await Promise.resolve(); });
+  expect(screen.queryByRole("alert")).not.toBeInTheDocument();
+  expect(screen.getByLabelText("Selected non-polar hydrogens")).toBeEnabled();
+  view.rerender(<StructureViewer {...props} project={{ ...props.project, id: "other-project" }} />);
+  expect(screen.queryByRole("dialog", { name: "Style selection" })).not.toBeInTheDocument();
+  view.rerender(<StructureViewer {...props} />);
+  expect(screen.queryByRole("dialog", { name: "Style selection" })).not.toBeInTheDocument();
+  view.rerender(<StructureViewer {...props} onLoadSelectionStructures={undefined} />);
+  await user.click(screen.getByRole("button", { name: "Style selection" }));
+  expect(screen.queryByText("Checking explicit hydrogen targets…")).not.toBeInTheDocument();
+  view.unmount();
+  queryClient.clear();
+});

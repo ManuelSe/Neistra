@@ -1,10 +1,12 @@
 import AxeBuilder from "@axe-core/playwright";
 import { resolve } from "node:path";
 import { expect, test } from "@playwright/test";
-import type { Project } from "../../apps/web/src/api/types";
+import type { Project, Selection } from "../../apps/web/src/api/types";
 
 test("expands from styling across hidden entries without durable changes", async ({ page, request }, info) => {
+  test.setTimeout(90_000);
   test.skip(info.project.name !== "chromium", "Project-wide fixture setup uses desktop panels.");
+  await page.setViewportSize({ width: 1366, height: 768 });
   const created = await request.post("/api/v1/projects", {
     data: { name: `Selection appearance ${Date.now()}` },
   });
@@ -36,6 +38,10 @@ test("expands from styling across hidden entries without durable changes", async
   const before = await (await request.get(`/api/v1/projects/${project.id}`)).json();
   await page.getByRole("button", { name: "Style selection", exact: true }).click();
   const dialog = page.getByRole("dialog", { name: "Style selection" });
+  await expect(dialog.getByRole("button", { name: "Apply blue color" })).toBeInViewport();
+  expect(await dialog.evaluate((el) => el.scrollHeight <= el.clientHeight + 1)).toBe(true);
+  await page.screenshot({ path: info.outputPath("selection-palette-desktop.png") });
+  await dialog.getByText("Expand by distance", { exact: true }).click();
   await expect(dialog.getByLabel("Distance (Å)")).toHaveValue("4");
   await dialog.getByRole("button", { name: "Expand selection", exact: true }).click();
   await expect(dialog.locator(".selection-style-summary")).toContainText(String(original.atom_count * 2));
@@ -46,6 +52,7 @@ test("expands from styling across hidden entries without durable changes", async
   await expect(dialog.getByRole("button", { name: "Expand selection", exact: true })).toBeEnabled();
   expect(await (await request.get(`/api/v1/projects/${project.id}`)).json()).toEqual(before);
   expect((await new AxeBuilder({ page }).include('[role="dialog"]').analyze()).violations).toEqual([]);
+  await dialog.getByText("Custom…", { exact: true }).click();
   await dialog.getByLabel("Custom selection color").fill("#ff00ff");
   await dialog.getByRole("button", { name: "Apply color", exact: true }).click();
   await expect(dialog.getByRole("status").filter({ hasText: "Selection color applied" })).toBeVisible();
@@ -77,7 +84,8 @@ test("expands from styling across hidden entries without durable changes", async
   await expect.poll(magentaPixels).toBeGreaterThan(100);
   await row.locator(".entry-select").click();
   await page.getByRole("button", { name: "Style selection", exact: true }).click();
-  await dialog.getByLabel("Coloring mode").selectOption("carbon");
+  await dialog.getByRole("button", { name: "Carbon only", exact: true }).click();
+  await dialog.getByText("Custom…", { exact: true }).click();
   await dialog.getByLabel("Custom selection color").fill("#ff00ff");
   await dialog.getByRole("button", { name: "Apply color", exact: true }).click();
   await expect(dialog.getByRole("status")).toHaveText("Selection color applied.");
@@ -110,6 +118,68 @@ test("expands from styling across hidden entries without durable changes", async
   await expect.poll(magentaPixels).toBe(0);
   const reset: Project = await (await request.get(`/api/v1/projects/${project.id}`)).json();
   expect(reset.entries.find((entry) => entry.id === duplicate.id)!.viewer_settings.selection_colors).toHaveLength(1);
+
+  // Keep the palette open while real canvas picking changes its canonical target.
+  await row.locator(".entry-select").click();
+  const launcher = page.getByRole("button", { name: "Style selection", exact: true });
+  await launcher.click();
+  const canvas = page.locator(".molstar-host canvas").first();
+  const box = (await canvas.boundingBox())!;
+  for (const fraction of [0.65, 0.6, 0.55, 0.7, 0.75]) {
+    await canvas.click({ position: { x: box.width * fraction, y: box.height * 0.5 } });
+    if ((await dialog.locator(".selection-style-summary").textContent()) === "1 atom") break;
+  }
+  await expect(dialog.locator(".selection-style-summary")).toHaveText("1 atom");
+  await expect(dialog).toBeVisible();
+  const saveCamera = async (name: string) => {
+    await page.getByRole("button", { name: "Open viewer controls" }).click();
+    await page.getByPlaceholder("Scene name").fill(name);
+    await page.getByRole("button", { name: "Save current scene" }).click();
+    await expect(page.getByRole("button", { name, exact: true })).toBeVisible();
+    await page.getByRole("button", { name: "Close viewer controls" }).click();
+    const current: Project = await (await request.get(`/api/v1/projects/${project.id}`)).json();
+    return current.scenes.find((scene) => scene.name === name)!.camera;
+  };
+  const beforeOrbit = await saveCamera("Before palette orbit");
+  await page.mouse.move(box.x + box.width * 0.8, box.y + box.height * 0.6);
+  await page.mouse.down();
+  await page.mouse.move(box.x + box.width * 0.85, box.y + box.height * 0.7, { steps: 8 });
+  await page.mouse.up();
+  const afterOrbit = await saveCamera("After palette orbit");
+  expect(afterOrbit.position).not.toEqual(beforeOrbit.position);
+  await expect(dialog.locator(".selection-style-summary")).toHaveText("1 atom");
+
+  let releaseRequest = () => {};
+  const held = new Promise<void>((resolve) => { releaseRequest = resolve; });
+  let submitted: Selection | undefined;
+  await page.route(`**/projects/${project.id}/selection-appearance`, async (route) => {
+    submitted = (route.request().postDataJSON() as { selection: Selection }).selection;
+    await held;
+    await route.continue();
+  }, { times: 1 });
+  try {
+    await dialog.getByRole("button", { name: "Apply blue color" }).click();
+    await expect.poll(() => submitted?.atoms.length).toBe(1);
+    await expect(dialog.getByRole("button", { name: "Line", exact: true })).toBeDisabled();
+    // A second target is legal while the first target's command is in flight.
+    await row.locator(".entry-select").click();
+    await expect(dialog.locator(".selection-style-summary")).toHaveText("3 atoms");
+    await page.keyboard.press("Escape");
+    await expect(dialog).toBeVisible();
+  } finally { releaseRequest(); }
+  await expect(dialog.getByRole("button", { name: "Apply blue color" })).toBeEnabled();
+  await expect(dialog.getByRole("status")).toHaveCount(0);
+  const applied: Project = await (await request.get(`/api/v1/projects/${project.id}`)).json();
+  expect(applied.entries.find((entry) => entry.id === original.id)!.viewer_settings.selection_colors)
+    .toEqual([{ color: "#3b82f6", atom_ids: submitted!.atoms.map((atom) => atom.atom_id) }]);
+  expect(applied.entries.find((entry) => entry.id === duplicate.id)!.viewer_settings)
+    .toEqual(reset.entries.find((entry) => entry.id === duplicate.id)!.viewer_settings);
+  await page.getByRole("button", { name: "Clear", exact: true }).click();
+  await expect(dialog.locator(".selection-style-summary")).toHaveText("0 atoms");
+  await expect(dialog.getByRole("button", { name: "Apply blue color" })).toBeDisabled();
+  await launcher.click();
+  await expect(dialog).toBeHidden();
+
 
 });
 
@@ -153,13 +223,23 @@ for (const theme of ["light", "dark"]) {
     await page.keyboard.press("Enter");
     const dialog = page.getByRole("dialog", { name: "Style selection" });
     await expect(dialog).toBeVisible();
+    await page.screenshot({ path: info.outputPath(`selection-palette-${theme}.png`) });
+    if (mobile) {
+      for (const control of await dialog.locator("button:visible, select:visible, summary:visible").all()) {
+        const bounds = (await control.boundingBox())!;
+        expect(bounds.height, await control.getAttribute("aria-label") ?? await control.textContent() ?? "control").toBeGreaterThanOrEqual(44);
+        expect(bounds.width).toBeGreaterThanOrEqual(44);
+      }
+    }
+    await dialog.getByText("Expand by distance", { exact: true }).click();
     await dialog.getByRole("button", { name: "Expand selection", exact: true }).click();
     await expect(dialog.locator(".selection-style-summary")).toContainText("4");
     await dialog.getByRole("button", { name: "Line", exact: true }).focus();
     await page.keyboard.press("Enter");
     await expect(dialog.getByRole("status").filter({ hasText: "Applied Line" })).toBeVisible();
+    await dialog.getByText("Custom…", { exact: true }).click();
     await dialog.getByLabel("Custom selection color").fill("#ff00ff");
-    await dialog.getByLabel("Coloring mode").selectOption("carbon");
+    await dialog.getByRole("button", { name: "Carbon only", exact: true }).click();
     await page.route(`**/projects/${project.id}/selection-appearance`, async (route) => {
       await route.fulfill({ status: 409, contentType: "application/json", body: JSON.stringify({ detail: { code: "revision_conflict", message: "The project changed. Retry the selection action." } }) });
     }, { times: 1 });
