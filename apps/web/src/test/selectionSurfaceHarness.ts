@@ -82,6 +82,7 @@ export async function mountProductionSurfaceHarness(container: HTMLElement, sour
   await engine.mount(container);
   const internal = engine as unknown as {
     plugin: PluginUIContext; syncQueue: Promise<void>;
+    loaded: Map<string, { structure: Structure; atomIds: number[] }>;
     surfaceMeshEntries: Set<string>; surfaceRefs: Map<string, string>;
     surfaces: { statuses(): SurfaceStatus[];
       requests: Map<string, { geometry?: SurfaceGeometry }> };
@@ -106,6 +107,7 @@ export async function mountProductionSurfaceHarness(container: HTMLElement, sour
   await new Promise(requestAnimationFrame);
   return { engine, source, workers, wait, sync, inspect,
     geometry: (id: string) => internal.surfaces.requests.get(id)?.geometry,
+    input: (id: string) => { const loaded = internal.loaded.get(id)!; return surfaceInput(loaded.structure, loaded.atomIds); },
     failRepresentations(count: number) {
       const builder = internal.plugin.builders.structure.representation;
       const original = builder.addRepresentation.bind(builder);

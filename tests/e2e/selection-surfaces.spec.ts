@@ -283,16 +283,25 @@ for (const fixture of ["formats/ethanol.mol", "hydrogens/polar_hydrogens_ligand.
         const original = [...h.geometry(id)!.vertices];
         const atom = h.source.normalized.atoms[0];
         const patch = { entry_id: id, artifact_id: "test-projection", atom_ids: [atom.id], coordinates: [[atom.coordinates[0] + 5, atom.coordinates[1], atom.coordinates[2]] as [number, number, number]] };
-        await h.engine.applyCoordinatePatch(patch, "preview"); const preview = h.inspect();
+        await h.engine.applyCoordinatePatch(patch, "preview");
+        await h.sync([h.source]); // A style rebuild during an active preview must preserve it.
+        const preview = h.inspect(), previewX = h.input(id).x[0];
         await h.engine.clearCoordinatePreview(id); await h.wait(); const restored = [...h.geometry(id)!.vertices];
         await h.engine.applyCoordinatePatch(patch, "commit"); await h.wait(); const committed = [...h.geometry(id)!.vertices];
         await h.engine.setIsolation([{ structure_id: id, atom_id: 1 }]); await h.wait();
-        return { original, preview, restored, committed, isolated: h.inspect(), membership: h.source.settings.selection_surface };
+        return { original, preview, previewX, restored, committed, editedCenter: patch.coordinates[0], sourceCoordinates: h.source.normalized.atoms[0].coordinates, isolated: h.inspect(), membership: h.source.settings.selection_surface };
       });
       expect(edits.preview.meshes).toEqual([]);
+      expect(edits.previewX).toBeCloseTo(edits.editedCenter[0], 5);
       expect(edits.restored).toEqual(edits.original);
       expect(edits.committed).not.toEqual(edits.original);
       expect(edits.isolated.geometry[0].atomIds).toEqual([1]);
+      for (let axis = 0; axis < 3; axis++) {
+        const positions = edits.isolated.geometry[0].vertices.filter((_, i) => i % 3 === axis);
+        const center = (Math.min(...positions) + Math.max(...positions)) / 2;
+        expect(Math.abs(center - edits.editedCenter[axis])).toBeLessThan(0.5);
+      }
+      expect(edits.sourceCoordinates).toEqual(projection.structure.atoms[0].coordinates);
       expect(edits.membership!.atom_ids).toEqual([1, 2, 3]);
       const cancellation = await page.evaluate(async () => {
         const h = window.productionSurface;
@@ -311,6 +320,7 @@ for (const fixture of ["formats/ethanol.mol", "hydrogens/polar_hydrogens_ligand.
       expect(cancellation.activeAfterCancel).toBe(0);
       expect(cancellation.retried.statuses[0].state).toBe("ready");
       expect(cancellation.retried.meshes).toEqual([entry.id]);
+      expect(cancellation.retried.geometry[0].vertices).toEqual(edits.committed);
       const uploadFailure = await page.evaluate(async () => {
         const h = window.productionSurface;
         const restore = h.failRepresentations(2);

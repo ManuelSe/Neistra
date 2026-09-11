@@ -81,6 +81,7 @@ export class MolstarEngine implements MolecularViewer {
   private measurementRefs: string[] = [];
   private labelRefs: string[] = [];
   private structures: ViewerStructure[] = [];
+  private coordinatePreviews = new Map<string, Map<number, Point3D>>();
   private measurements: ViewerMeasurement[] = [];
   private isolation: AtomReference[] | null = null;
   private surfaces = new SurfaceRuntime();
@@ -274,7 +275,18 @@ export class MolstarEngine implements MolecularViewer {
       });
       await this.detachSurface(patch.entry_id);
       this.surfaces.remove(patch.entry_id);
-      if (mode === "commit") loaded.baseCoordinates = coordinates;
+      if (mode === "preview") this.coordinatePreviews.set(patch.entry_id, coordinates);
+      else this.coordinatePreviews.delete(patch.entry_id);
+      if (mode === "commit") {
+        loaded.baseCoordinates = coordinates;
+        // Local visibility/isolation rebuilds must use the latest authoritative patch.
+        // Clone the disposable input; never mutate the application's query objects.
+        this.structures = this.structures.map((source) => source.entryId !== patch.entry_id ? source : {
+          ...source, normalized: { ...source.normalized, atoms: source.normalized.atoms.map((atom) => ({
+            ...atom, coordinates: coordinates.get(atom.id) ?? atom.coordinates,
+          })) },
+        });
+      }
       await this.updateCoordinates(loaded, coordinates);
       if (mode === "commit") await this.prepareSurface(patch.entry_id);
     });
@@ -283,6 +295,7 @@ export class MolstarEngine implements MolecularViewer {
 
   clearCoordinatePreview(entryId: string): Promise<void> {
     this.syncQueue = this.syncQueue.then(async () => {
+      this.coordinatePreviews.delete(entryId);
       const loaded = this.loaded.get(entryId);
       if (loaded) {
         await this.detachSurface(entryId);
@@ -309,6 +322,7 @@ export class MolstarEngine implements MolecularViewer {
 
   async setIsolation(atoms: AtomReference[] | null): Promise<void> {
     this.isolation = atoms;
+    await this.syncQueue;
     await this.syncStructures(this.structures);
   }
 
@@ -418,6 +432,7 @@ export class MolstarEngine implements MolecularViewer {
     this.cameraListeners.clear();
     this.loaded.clear();
     this.models.clear();
+    this.coordinatePreviews.clear();
     this.plugin?.dispose();
     this.plugin = undefined;
   }
@@ -496,7 +511,7 @@ export class MolstarEngine implements MolecularViewer {
         frameIndex: 0,
         frameCount: 1,
         atomicCoordinateFrame: this.coordinateFrame(
-          structure.normalized.atoms.map((atom) => atom.coordinates),
+          structure.normalized.atoms.map((atom) => this.coordinatePreviews.get(structure.entryId)?.get(atom.id) ?? atom.coordinates),
         ),
       })
       .commit({ revertOnError: true });
@@ -623,7 +638,7 @@ export class MolstarEngine implements MolecularViewer {
     const plugin = this.plugin;
     const loaded = this.loaded.get(entryId);
     const source = this.structures.find((item) => item.entryId === entryId);
-    if (!plugin || !loaded || !source?.settings.selection_surface) return;
+    if (!plugin || !loaded || !source?.settings.selection_surface || this.coordinatePreviews.has(entryId)) return;
     // Classify against the complete projection, never the selected fragment.
     const nonpolar = new Set<number>();
     for (const unit of loaded.structure.units) {
