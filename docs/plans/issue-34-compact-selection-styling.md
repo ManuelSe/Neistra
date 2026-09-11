@@ -1,6 +1,7 @@
 # Issue #34 — Compact selection styling
 
-Status: approved by the user; implementation authorized. Approved 2026-09-11.
+Status: implemented and candidate-qualified for v0.6.1. Approved 2026-09-11.
+Release execution audit: see the publication records below.
 Issue: https://github.com/ManuelSe/Neistra/issues/34
 Base: `master` at `25187d9`; branch: `fix/issue-34-compact-selection-styling`.
 
@@ -222,3 +223,63 @@ Ports 8110/8111/5273, data `/tmp/neistra-34-gate-repair`; log
 `/tmp/neistra-34-gate-repair.log`. Full original evidence:
 `/tmp/neistra-34-candidate-gate.log` and `candidate-report.json` in `/tmp` (report
 filename prefix `neistra-34-`). A fresh complete gate follows this passing repair.
+
+
+### Complete candidate gate — passed
+
+Clean tested commit: `a5be708e096c186bc83037a8c3ac9905e336af0f`.
+The complete gate passed: frozen installs, fresh migration to 0010, Ruff, mypy,
+**239 Python tests, 84 frontend tests, 8 supervisor tests, production build and
+73 browser workflows / 39 intentional layout skips**, with zero failed/flaky tests.
+1STP profile: 605 ms import/render, 4048 ms interactions, 544 ms maximum task,
+zero repeated normalized-structure GETs. Existing Alembic deprecation and Mol*
+large-chunk advisories remain; no validation budget or scientific assertion changed.
+
+Exact commands (repository root; `gate_root` was
+`/tmp/neistra-34-candidate-final-oxGzT6` for this run):
+
+```bash
+.venv/bin/uv sync --frozen
+CI=1 corepack pnpm install --frozen-lockfile
+MOLWEAVE_DATA_DIR="$gate_root/migration" .venv/bin/uv run alembic upgrade head
+.venv/bin/uv run ruff check .
+.venv/bin/uv run mypy apps/api packages/molweave_core
+.venv/bin/uv run pytest
+corepack pnpm --dir apps/web lint
+corepack pnpm --dir apps/web typecheck
+corepack pnpm --dir apps/web test
+corepack pnpm test:dev
+corepack pnpm --dir apps/web build
+MOLWEAVE_E2E_API_PORT=8110 MOLWEAVE_E2E_WORKER_PORT=8111 \
+MOLWEAVE_E2E_WEB_PORT=5273 MOLWEAVE_E2E_DATA_DIR="$gate_root/e2e" \
+PLAYWRIGHT_BROWSERS_PATH=.playwright \
+PLAYWRIGHT_JSON_OUTPUT_FILE=/tmp/neistra-34-candidate-final-report.json \
+corepack pnpm exec playwright test --reporter=line,json
+git diff --check
+```
+
+Logs: `/tmp/neistra-34-candidate-final-gate.log` and
+`/tmp/neistra-34-candidate-final-report.json`. Rechecked origin/master at `25187d9`
+and v0.6.1 remained unallocated. Final local diff review includes the passing
+integration-test repairs; no consequential findings remain. This evidence commit
+changes documentation only after the clean tested candidate; production and test
+sources remain identical. The exact merged master commit must pass the same gate
+before tagging. No required GitHub rulesets/protection/workflows were present at
+inspection; recheck live PR checks and review state before merge.
+
+### Publication and completion records
+
+The reviewed source and candidate evidence remain immutable here. The following
+publication records are populated during delivery, after the merged gate:
+
+- [v0.6.1 release](https://github.com/ManuelSe/Neistra/releases/tag/v0.6.1): published
+  release notes, compatibility/limitations, and verification attachment.
+- [Release verification report](https://github.com/ManuelSe/Neistra/releases/download/v0.6.1/neistra-0.6.1-verification.json):
+  exact candidate/merged commits, annotated tag object and full-gate test/performance
+  results. Generated only after both complete gates pass and the tag is verified.
+- [Issue #34 delivery reply](https://github.com/ManuelSe/Neistra/issues/34): merged PR,
+  verified tag/release and issue-response evidence, review outcome and branch cleanup.
+
+This separates immutable source qualification from the subsequent remote delivery
+record without moving an already verified release tag for bookkeeping. No further
+feature scope is approved; selection-specific surfaces remain #30.

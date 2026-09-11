@@ -2,16 +2,19 @@
 
 ## Current milestone
 
-Issue #34 — compact selection styling, checkpoint 3 complete.
-The approved [feature plan](plans/issue-34-compact-selection-styling.md) is the
-detailed source of truth. Compact non-modal controls, immediate swatches and context-safe feedback pass
-frontend lint/typecheck, 84 tests, build and 15 hardening browser workflows
-(7 intentional skips), plus 2 browser checks after review. Real zoom, touch sizes,
-live picking/orbit and captured pending targets pass. v0.6.1 versions and notes are prepared; 12 archive-roundtrip tests pass.
-The first complete gate passed all non-browser checks; three browser assertion/
-focus-timing failures are repaired and pass focused checks. A fresh complete
-candidate gate is next. No migration
-or scientific behavior change. Current blocker: none; release work is pending.
+Issue #34 — compact selection styling implemented and qualified for **v0.6.1**.
+The [feature plan](plans/issue-34-compact-selection-styling.md) contains checkpoint
+and exact candidate evidence. Compact non-modal controls, immediate swatches,
+context-safe feedback, live picking/orbit, keyboard/touch and real zoom are covered.
+The clean complete gate passes 239 Python tests, 84 frontend tests, 8 supervisor
+tests and 73 browser workflows (39 intentional layout skips), lint/type checks,
+build and fresh migration. No migration/API/schema change was introduced.
+
+Release execution and its exact merged gate/tag are audited in the feature plan's
+[publication records](plans/issue-34-compact-selection-styling.md#publication-and-completion-records)
+and [issue #34](https://github.com/ManuelSe/Neistra/issues/34). No product blocker
+or further approved implementation remains. Existing scientific and browser-support
+limits are documented in [Selection styling](SELECTION_STYLING.md).
 
 ### Previous release
 
@@ -2099,6 +2102,6 @@ None.
 
 ## Next action
 
-Prepare issue #34 for v0.6.1, run the complete candidate gate, review and merge
-the PR, verify the merged gate, publish the tag/release and close out the issue.
+Use [issue #34's delivery record](https://github.com/ManuelSe/Neistra/issues/34)
+for merge, release and cleanup status; no additional feature scope is approved.
 Selection-specific surfaces remain [#30](https://github.com/ManuelSe/Neistra/issues/30).
