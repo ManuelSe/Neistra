@@ -121,9 +121,15 @@ test("keeps actions and dialogs reachable at real 100% and 200% browser zoom", a
         const browser = page.getByRole("button", { name: "Project browser", exact: true });
         if (await browser.isVisible()) await browser.click();
         await page.locator(".entry-row .entry-select").click();
-        if (await page.locator(".mobile-panel").isVisible()) await page.keyboard.press("Escape");
+        if (await page.locator(".mobile-panel").isVisible()) {
+          await page.keyboard.press("Escape");
+          await expect(page.getByRole("dialog", { name: "Project browser panel" })).toBeHidden();
+          await expect(browser).toBeFocused();
+        }
         const launcher = page.getByRole("button", { name: "Style selection", exact: true });
+        await expect(launcher).toBeEnabled();
         await launcher.focus();
+        await expect(launcher).toBeFocused();
         await page.keyboard.press("Enter");
         const appearance = page.getByRole("dialog", { name: "Style selection" });
         for (const control of await appearance.locator("button:visible, input:visible, select:visible").all()) {

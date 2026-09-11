@@ -2,7 +2,7 @@
 
 ## Status and metadata
 
-- Status: **approved; implementation active — M4/C5 qualified**.
+- Status: **approved; implementation active — M4/C6 qualification correction**.
 - Issue: [#29 — Enhance selection representation controls](https://github.com/ManuelSe/Neistra/issues/29).
 - Issue created/updated: 2026-09-10; inspected and plan approved: 2026-09-11.
 - Approval: the user explicitly approved the complete proposal and instructed:
@@ -428,6 +428,10 @@ evidence. An inability to publish is not evidence that publication occurred.
 
 | 2026-09-11 | M4/C5 qualified | Code/release candidate `687d7bf` passed complete V5: frozen sync (49 packages), frozen pnpm install, fresh `.molweave-issue29-qualification` upgrade through 0010, Ruff, mypy (51 files), 228 Python tests (59 existing Alembic warnings; 30.62 s), ESLint, TypeScript, 79 frontend tests, 8 supervisor tests, production build and full Playwright (73 passed/39 intentional layout skips; 13.8 minutes). Fresh browser root `/tmp/neistra-issue29-candidate`, ports 8110/8111/5273. Build: 158.50 KiB initial and 967.43 KiB lazy Mol* gzip; existing bundle/optional Scarf-script advisories and negative-fixture chemistry/WebSocket-disconnect logging retained. The dedicated migration root was removed afterward; browser fixtures/log remain outside tracked files. All five version values independently checked as 0.6.0. Full local diff reviewed against `origin/master`, including migrations, API/ownership, rendering, tests, docs and prerequisite; no remaining consequential findings. This was local review, not independent review. Documentation-only evidence commit follows; PR publication and remote review checks are next. |
 
+| 2026-09-11 | M4/C6 merged; test correction required | PR [#31](https://github.com/ManuelSe/Neistra/pull/31) rebase-merged at `d18c3f6a18fba40987cc80fa78663768d40d4a2e`; all 51 remote file blobs and the merged tree matched candidate `a906863`. No required checks/protections/reviews or unresolved threads existed; the Codex request returned no review, so documented local review was used without claiming independence. GitHub rewrote the prerequisite commit; preserved original local master `06cae49` as `backup/issue-29-master-06cae49`, recreated master at verified shared base `8b68909`, then fast-forwarded to the remote merge. First merged V5 passed setup, migration, 228 Python, 79 frontend, 8 supervisor, lint/type/build and 72 browser workflows, with 39 layout skips, but one mobile light workflow timed out (15.6-minute browser run). Trace showed Enter reopened the project drawer because its closing focus restoration raced the test launcher focus. No release/tag was created. |
+
+| 2026-09-11 | M4/C6 focused test correction qualified | On the same planned feature branch, integrated rebased master with ordinary history merge `6e34dec` (no force push; not an implementation checkpoint). Added explicit drawer-hidden/restored-focus, selected-atom and launcher-ready/focused guards before keyboard activation in appearance and real-zoom tests. No product code, timeout increases or acceptance relaxation. Six repeated mobile integrated workflows passed (52.5 s); real 100%/200% zoom in both themes passed (1 pass/1 layout skip; 30.6 s), using `/tmp/neistra-issue29-focus`, ports 8110/8111/5273. Diff reviewed and checked; a separate non-merge test checkpoint contains the correction. Complete candidate and exact merged release gates follow before publication. |
+
 Future entries must record exact commits, commands, results, known warnings,
 limitations, remote identifiers, blockers, and next action. Populate feature
 acceptance evidence only after execution. Do not mark the PR, issue, merge,
@@ -435,4 +439,4 @@ tag, release, or cleanup complete until remotely verified.
 
 ## Completion and next action
 
-M4/C5 is qualified. Next: publish the PR, verify review/protection state, rebase merge and qualify exact merged master before release.
+PR #31 is merged. The discovered test focus race is corrected; qualify and merge the test checkpoint, then complete exact merged qualification before tagging and publication.

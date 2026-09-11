@@ -2,7 +2,7 @@
 
 ## Current milestone
 
-Issue #29 — M4/C5 qualified; PR and release delivery next.
+Issue #29 — PR #31 merged; M4/C6 test qualification correction in progress.
 
 The user authorized full delivery with `/goal` on 2026-09-11 under
 [the approved feature plan](plans/issue-29-selection-appearance.md). The planned
@@ -888,11 +888,18 @@ feature merge; this documentation-only closeout records the remote evidence.
 
 ## Verification performed
 
+- First merged gate at `d18c3f6`: all non-browser gates and 72 browser workflows
+  passed; one mobile test exposed a drawer focus-restoration race in the test
+  setup. Fixed synchronization on the planned branch; six repeated mobile
+  workflows and real 100%/200% zoom passed. Full correction qualification
+  precedes release. Original local-master pointer is preserved in
+  `backup/issue-29-master-06cae49`; shared feature history was not force-pushed.
+
 - M4/C5 complete release gate on `687d7bf`: 228 Python, 79 frontend,
   8 supervisor and 73 browser tests passed (39 intentional browser layout skips).
   Frozen installs, fresh migration through 0010, all lint/type checks, build
   and local full-diff review passed. Detailed evidence and advisories are in
-  the issue #29 feature plan. No remote delivery is claimed yet.
+  the issue #29 feature plan. PR #31 subsequently merged; no tag or release yet.
 
 - M3/C4: 77 focused Python and 79 full frontend tests passed. Combined affected
   browser gate passed 29 workflows (19 layout skips), followed by passing
@@ -2051,5 +2058,5 @@ None.
 
 ## Next action
 
-Publish the qualified PR and complete v0.6.0 delivery under
+Qualify and merge the test correction, then complete v0.6.0 delivery under
 [the approved issue #29 contract](plans/issue-29-selection-appearance.md).

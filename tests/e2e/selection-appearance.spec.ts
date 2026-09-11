@@ -112,11 +112,19 @@ for (const theme of ["light", "dark"]) {
     const mobile = info.project.name === "mobile-chromium";
     if (mobile) await page.getByRole("button", { name: "Project browser", exact: true }).click();
     await page.locator(`.entry-row[data-entry-id="${entry.id}"] .entry-select`).click();
-    if (mobile) await page.keyboard.press("Escape");
+    if (mobile) {
+      await page.keyboard.press("Escape");
+      await expect(page.getByRole("dialog", { name: "Project browser panel" })).toBeHidden();
+      await expect(page.getByRole("button", { name: "Project browser", exact: true })).toBeFocused();
+    }
+    await expect(page.locator(".viewer-status")).toContainText("/ 4 selected");
     const launcher = page.getByRole("button", { name: "Style selection", exact: true });
+    await expect(launcher).toBeEnabled();
     await launcher.focus();
+    await expect(launcher).toBeFocused();
     await page.keyboard.press("Enter");
     const dialog = page.getByRole("dialog", { name: "Style selection" });
+    await expect(dialog).toBeVisible();
     await dialog.getByRole("button", { name: "Expand selection", exact: true }).click();
     await expect(dialog.locator(".selection-style-summary")).toContainText("4");
     await dialog.getByRole("button", { name: "Line", exact: true }).focus();
