@@ -586,3 +586,26 @@ C4 uses a `fix(viewer)` checkpoint commit because qualification exposed conseque
 camera and failure-cleanup defects. Documentation, tests and evidence are included;
 there is no new migration or approved-scope expansion. Next is C5 version/release
 preparation, clean complete gate, final review and protected remote delivery.
+
+
+### C5 release preparation — 2026-09-12
+
+Fetched origin and tags; `origin/master` remains
+`9624ebcca24a1164c34d31a7f7d9cef3183b8775`, already an ancestor of this branch.
+Remote tags/releases show v0.6.1 latest and no v0.7.0 allocation. Normal merge is
+allowed; no rulesets/master protection or CI workflows are configured at this
+inspection. Recheck live PR state before merging.
+
+Prepare **v0.7.0 minor** in all five authoritative files. This is additive user
+functionality, a defaultable setting and API action; original molecular data and
+backward reading remain intact, while forward reading by older versions is not
+promised. Therefore neither patch, major nor prerelease is appropriate. Release
+notes, README and migration guidance describe rollback, scientific limits and #36.
+The complete clean candidate gate and full-diff review follow this preparation
+commit; publication still requires the exact merged gate and verified tag/release.
+
+Preparation validation: all five version values equal 0.7.0; `uv sync --frozen`,
+Ruff, diff check and 31 archive/surface integration tests passed (8.16 seconds,
+`/tmp/neistra-30-version-{sync,ruff,tests}.log`). Updated the release-specific
+archive-version assertion and added v0.6.1 to the legacy compatibility matrix;
+the initial assertion failures were outdated test expectations, not archive loss.

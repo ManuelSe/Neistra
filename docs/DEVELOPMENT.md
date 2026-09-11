@@ -222,7 +222,7 @@ advances together to 0.6.1; schema major 1 and appearance wire formats are uncha
 The issue #34 plan records focused and complete release gates and compatibility
 checks, including archive application versions 0.5.0 and 0.6.0.
 
-## Selection surface migration (planned 0.7.0)
+## Selection surface migration (0.7.0)
 
 Back up the managed data directory before upgrading. Migration 0011 adds a null
 surface-membership default throughout live entries, checkpoints, scenes and

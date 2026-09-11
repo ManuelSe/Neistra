@@ -10,8 +10,9 @@ and its corrected fixture rerun. Camera and upload-cleanup findings are fixed;
 real zoom and performance limits pass. Exact evidence and limitations are in the
 [feature plan](plans/issue-30-selection-surfaces.md). Context patches are deferred
 to [#36](https://github.com/ManuelSe/Neistra/issues/36).
-Next: C5 v0.7.0 preparation, complete frozen release gate, PR/review/merge and
-verified publication. No product blocker; release delivery is not yet complete.
+C5 v0.7.0 metadata and release notes are prepared; frozen Python lock validation
+and 31 archive/surface integration checks pass. Next: complete frozen release
+gate, final review, PR/merge and verified publication. No product blocker; release delivery is not yet complete.
 
 ### Previous release — v0.6.1
 

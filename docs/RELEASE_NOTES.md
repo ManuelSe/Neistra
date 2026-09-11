@@ -1,5 +1,80 @@
 # Neistra Release Notes
 
+## 0.7.0 - 2026-09-12
+
+### Highlights
+
+- Add or remove selected atoms from one durable fragment-surface membership per
+  entry, directly in the compact Style selection palette. Mixed counts and
+  on-demand scientific help keep repeated styling quick.
+- Keep atom/polymer representations, existing entry surfaces, selection colors
+  (including carbon-only), hydrogen preferences and their resets independent.
+  Memberships survive selection changes, saves, undo/redo, scenes and archives.
+- Generate fixed-profile molecular surfaces asynchronously in a cancellable worker.
+  Reuse geometry for color changes, hide stale geometry during coordinate previews,
+  and regenerate for committed coordinates, membership and visibility changes.
+
+### Fixes
+
+- Preserve the application camera across asynchronous empty-scene rebuilds;
+  dispose renderer state across cached project switches.
+- Retain saved intent on cancellation or resource/worker failure, with explicit
+  line fallback and Retry. Report rendering failure accurately if lines also fail.
+- Prune deleted atoms reversibly; newly added atoms do not inherit membership.
+
+### Persisted data, migration and compatibility
+
+Migration **0011** adds `selection_surface: null` defaults to live entries,
+checkpoints, scenes and retained forward/inverse commands. Back up managed data
+before upgrading. Downgrade to 0010 is allowed only when **every retained surface
+value is null**; removing a visible surface does not erase history or scene values.
+Otherwise restore the pre-upgrade backup. Refused downgrades leave state intact.
+
+API/project/archive/normalized schema majors remain 1. The additive
+`POST /api/v1/projects/{id}/selection-surface` action is revision-checked and atomic
+across entries; no-ops do not create history. New readers accept older archives,
+with absent memberships defaulting to null. Older readers are not supported for
+new surface-bearing archives. Original uploads, normalized coordinates, bonds,
+conformer data and scientific warnings are unchanged by styling. Application
+version metadata advances consistently in all five authoritative sources.
+
+### Scientific interpretation and limits
+
+The fixed profile uses selected atoms alone, native physical radii, a 1.4 Å probe,
+0.5 Å resolution and 0.45 opacity. Partial residues/cut boundaries can produce
+artificial faces: this is **not a patch computed from the surrounding molecule**.
+Visibility/isolation and full-projection hydrogen classification filter rendering
+without changing membership. Entries do not fuse; entry and selection surfaces can
+coexist and overlap. No repair, capping, protonation or conformer resolution occurs.
+
+Limits: one worker per viewer; 20,000 effective atoms; four million padded grid
+cells; 64 MiB mesh allocation per surface; 128 MiB retained selection meshes; a
+30-second calculation deadline. The existing 250,000-atom parent-entry degradation
+remains. These are bounded work/allocation policies, not browser/GPU heap ceilings.
+
+### Verification
+
+The [approved plan](plans/issue-30-selection-surfaces.md) records checkpoint,
+full candidate and exact merged-commit gates, review and publication evidence.
+Coverage includes analytic geometry, real WebGL element/carbon colors and picking,
+partial residues, explicit H, coordinate invalidation, cancellation/retry, upload
+failure, per-entry failure isolation, persistence/archive round trips, every
+migration retention path, warning/original-byte invariance, keyboard/touch targets,
+both themes and actual 100%/200% zoom. Performance and process-memory evidence is
+in [Performance](PERFORMANCE.md). Qualification uses pinned Chromium/SwiftShader
+and Pixel 7 emulation; physical devices and other engines are not claimed.
+
+### Deferred and rejected requests
+
+Context-aware selected surface patches are tracked in
+[#36](https://github.com/ManuelSe/Neistra/issues/36), because they need a separate
+scientific contract for context, boundaries and triangle ownership. Adjustable
+profiles and additional algorithms are deferred pending need. A generic layer
+manager is rejected as unnecessary complexity for this workflow. Classification
+expansion (#20) and subset export (#21) remain separate; no mesh export, chemistry
+repair or speculative profile/layer follow-ups were added.
+
+
 ## 0.6.1 - 2026-09-11
 
 ### Highlights
