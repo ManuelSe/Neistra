@@ -1,0 +1,54 @@
+{
+  "stage": "C4 final renderer qualification, 2026-09-12",
+  "project": "mobile-chromium",
+  "log": "/tmp/neistra-30-c4-accepted-e2e.log",
+  "workerQualification": {
+    "cells": 734160,
+    "activeCells": 35503,
+    "meshBytes": 3405576,
+    "meshBoundBytes": 28970448,
+    "workingBoundBytes": 133020368,
+    "durationMs": 283.30000000074506,
+    "readyMs": 507.4000000022352,
+    "units": 1,
+    "partitionUnits": 2,
+    "partitionInvariant": true,
+    "longestSurfaceTaskMs": 69,
+    "vertices": 91194,
+    "triangles": 71012,
+    "groups": 567,
+    "atoms": 1001,
+    "observedStartupTaskMs": 146,
+    "cancellation": {
+      "cancelled": true,
+      "elapsed": 20.699999999254942
+    },
+    "baselineRssKiB": 768936,
+    "peakRssKiB": 876160,
+    "memoryMeasurement": "Linux summed descendant RSS, sampled every 100 ms; includes browser and shared pages"
+  },
+  "production": {
+    "readyMs": 490.1000000014901,
+    "longestSurfaceTaskMs": 129,
+    "full": {
+      "cells": 734160,
+      "activeCells": 35503,
+      "meshBytes": 3405576,
+      "meshBoundBytes": 28970448,
+      "workingBoundBytes": 133020368,
+      "durationMs": 264,
+      "atomCount": 1001,
+      "groupCount": 567
+    },
+    "partial": {
+      "atoms": [
+        1
+      ],
+      "maxRadius": 1.5499992857612752,
+      "groups": [
+        0
+      ],
+      "triangles": 344
+    }
+  }
+}

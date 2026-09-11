@@ -273,3 +273,40 @@ def test_surface_checkpoint_survives_restart_and_undo_restores_clean_state(tmp_p
     assert surface(restored) == expected
     assert not restored["has_uncheckpointed_changes"]
     restarted.state.engine.dispose()
+
+
+def test_surfaces_preserve_unresolved_conformers_warnings_and_originals(client: ApiClient) -> None:
+    project = client.post("/api/v1/projects", json={"name": "Surface conformer context"}).json()
+    imported = upload(client, project["id"], 0, ["protein_models_altloc.pdb"])
+    assert imported.status_code == 201
+    project = imported.json()["project"]
+    entry = project["entries"][0]
+    path = f"/api/v1/projects/{project['id']}/entries/{entry['id']}"
+    before = client.get(f"{path}/structure").json()
+    original = client.get(f"{path}/original").content
+    assert len(before["structure"]["conformers"]) == 2
+    assert any(atom.get("alternate_location") for atom in before["structure"]["atoms"])
+    response = change(client, project, selection(entry["id"], entry["atom_ids"][0]))
+    assert response.status_code == 200
+    assert response.json()["entries"][0]["warnings"] == entry["warnings"]
+    assert client.get(f"{path}/structure").json() == before
+    assert client.get(f"{path}/original").content == original
+
+
+def test_new_atoms_do_not_inherit_surface_membership(client: ApiClient) -> None:
+    from tests.integration.test_ligand_edits import edit
+
+    project = import_ligand(client)
+    entry = project["entries"][0]
+    project = change(client, project, selection(entry["id"], 1, 2, 3)).json()
+    added = edit(client, project, entry["id"], {
+        "operation": "atom.add", "element": "F", "coordinates": [3.5, 0, 0],
+    })
+    assert added["report"]["created_atom_ids"] == [4]
+    assert surface(added["project"])["atom_ids"] == [1, 2, 3]
+    undone = client.post(
+        f"/api/v1/projects/{project['id']}/history/undo",
+        json={"expected_revision": added["project"]["revision"]},
+    )
+    assert undone.status_code == 200
+    assert surface(undone.json())["atom_ids"] == [1, 2, 3]

@@ -2,14 +2,16 @@
 
 ## Current milestone
 
-Issue #30 — M1 and M2 complete: bounded worker geometry, reversible persistence,
-and compact surface controls are implemented. C3 passed 96 frontend tests,
-Ruff/mypy, frontend lint/typecheck/build and 11 browser workflows (5 intentional
-layout skips); the final threshold fix passed all common gates and 3 surface
-browser checks. C2 passed 272 Python tests including all migration retention paths.
-The [feature plan](plans/issue-30-selection-surfaces.md) records exact evidence.
-Next: C4 scientific, lifecycle, accessibility and performance hardening. No product
-blocker; release qualification and publication remain pending.
+Issue #30 — M1–M3 / C1–C4 complete: persistent selection surfaces, compact controls,
+bounded workers, reversible history/archive state and production rendering are
+implemented and qualified. C4 passed 274 Python and 96 frontend tests, common
+lint/type/build gates, and all 26 applicable browser cases across the broad gate
+and its corrected fixture rerun. Camera and upload-cleanup findings are fixed;
+real zoom and performance limits pass. Exact evidence and limitations are in the
+[feature plan](plans/issue-30-selection-surfaces.md). Context patches are deferred
+to [#36](https://github.com/ManuelSe/Neistra/issues/36).
+Next: C5 v0.7.0 preparation, complete frozen release gate, PR/review/merge and
+verified publication. No product blocker; release delivery is not yet complete.
 
 ### Previous release — v0.6.1
 

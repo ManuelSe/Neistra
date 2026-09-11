@@ -45,12 +45,12 @@ export class SurfaceRuntime {
     request.notify();
     this.emit();
   }
-  fail(entryId: string, message: string) {
+  fail(entryId: string, message: string, linesShown = true) {
     const request = this.requests.get(entryId);
     if (!request) return;
     request.controller.abort();
     request.geometry = undefined;
-    request.status = { ...request.status, state: "fallback", message: `${message} Lines shown. Membership kept.` };
+    request.status = { ...request.status, state: "fallback", message: `${message}${linesShown ? " Lines shown." : ""} Membership kept.` };
     this.emit();
   }
   request(entryId: string, label: string, input: SurfaceInput | null,

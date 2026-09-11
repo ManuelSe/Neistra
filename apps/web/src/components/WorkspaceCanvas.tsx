@@ -107,6 +107,7 @@ export function WorkspaceCanvas({
         </div>
       ) : (
         <StructureViewer
+          key={project.id}
           project={project}
           theme={theme}
           selection={selection}

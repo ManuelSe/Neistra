@@ -7,6 +7,8 @@ import { MolstarEngine } from "../viewer/MolstarEngine";
 import type { ViewerStructure, ViewerSelectionEvent } from "../viewer/MolecularViewer";
 import { SurfaceCalculator } from "../viewer/surface/client";
 import { SelectionSurfaceProvider, surfaceInput, attachSurfaceGeometry } from "../viewer/surface/visual";
+import type { SurfaceStatus } from "../viewer/surface/runtime";
+import type { SurfaceGeometry } from "../viewer/surface/protocol";
 import { SURFACE_PROFILE } from "../viewer/surface/protocol";
 
 export async function mountSurfaceHarness(container: HTMLElement, source: ViewerStructure) {
@@ -58,4 +60,60 @@ export async function mountSurfaceHarness(container: HTMLElement, source: Viewer
     representation,
     dispose() { calculator.dispose(); engine.dispose(); },
   };
+}
+
+/** Exercise production integration; inspection is test-only, without application globals. */
+export async function mountProductionSurfaceHarness(container: HTMLElement, source: ViewerStructure) {
+  const originalWorker = window.Worker;
+  const workers = { created: 0, terminated: 0, active: 0, maximum: 0 };
+  window.Worker = class extends originalWorker {
+    private ended = false;
+    constructor(url: string | URL, options?: WorkerOptions) {
+      super(url, options);
+      workers.created++; workers.active++;
+      workers.maximum = Math.max(workers.maximum, workers.active);
+    }
+    terminate() {
+      if (!this.ended) { workers.terminated++; workers.active--; this.ended = true; }
+      super.terminate();
+    }
+  };
+  const engine = new MolstarEngine();
+  await engine.mount(container);
+  const internal = engine as unknown as {
+    plugin: PluginUIContext; syncQueue: Promise<void>;
+    surfaceMeshEntries: Set<string>; surfaceRefs: Map<string, string>;
+    surfaces: { statuses(): SurfaceStatus[];
+      requests: Map<string, { geometry?: SurfaceGeometry }> };
+  };
+  const wait = async () => {
+    await internal.syncQueue;
+    const deadline = performance.now() + 12_000;
+    while (internal.surfaces.statuses().some((s) => ["queued", "rendering"].includes(s.state))) {
+      if (performance.now() > deadline) throw new Error("Production surface did not settle.");
+      await new Promise((resolve) => setTimeout(resolve, 10));
+    }
+    await internal.syncQueue;
+  };
+  const sync = async (sources: ViewerStructure[]) => { await engine.syncStructures(sources); await wait(); };
+  const inspect = () => ({ statuses: internal.surfaces.statuses(), meshes: [...internal.surfaceMeshEntries],
+    components: internal.surfaceRefs.size, workers: { ...workers }, camera: engine.getCamera(),
+    threshold: internal.plugin.canvas3d?.props.renderer.pickingAlphaThreshold,
+    geometry: [...internal.surfaces.requests].map(([id, r]) => ({ id, atomIds: r.geometry ? [...r.geometry.atomIds] : [],
+      vertices: r.geometry ? [...r.geometry.vertices] : [], groups: r.geometry ? [...new Set(r.geometry.groups)] : [] })) });
+  await sync([source]);
+  await new Promise(requestAnimationFrame);
+  await new Promise(requestAnimationFrame);
+  return { engine, source, workers, wait, sync, inspect,
+    geometry: (id: string) => internal.surfaces.requests.get(id)?.geometry,
+    failRepresentations(count: number) {
+      const builder = internal.plugin.builders.structure.representation;
+      const original = builder.addRepresentation.bind(builder);
+      builder.addRepresentation = async (...args: Parameters<typeof original>) => {
+        if (count-- > 0) throw new Error("Injected representation upload failure.");
+        return original(...args);
+      };
+      return () => { builder.addRepresentation = original; };
+    },
+    dispose() { engine.dispose(); window.Worker = originalWorker; } };
 }

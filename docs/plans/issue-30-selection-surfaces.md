@@ -1,6 +1,6 @@
 # Issue #30 — Selection-specific surfaces
 
-Status: implementing; M1/C1 and M2/C2–C3 complete. User approved the proposal on 2026-09-11
+Status: implementing; M1–M3 / C1–C4 complete. User approved the proposal on 2026-09-11
 and authorized implementation with `/goal` on 2026-09-11.
 
 - Issue: [#30 — Define selection-specific surface geometry and persistence](https://github.com/ManuelSe/Neistra/issues/30), open at approval.
@@ -108,7 +108,7 @@ Primary references verified during planning:
 | Existing whole-entry surfaces | Already satisfied | Preserve native renderer and controls |
 | Application-owned molecular state and generic jobs | Already satisfied | Preserve ownership; no new backend surface job |
 | Compact explanatory feedback/documentation | Supporting | Explain fragment meaning, overlaps and rendering state without verbose primary controls |
-| Context-aware surface patches | Deferred | Different scientific contract; create one follow-up during authorized delivery |
+| Context-aware surface patches | Deferred | Different scientific contract; tracked in [#36](https://github.com/ManuelSe/Neistra/issues/36) |
 | Adjustable probe/resolution/opacity; more algorithms | Optional; deferred | Fixed profile is sufficient for first workflow; no speculative follow-up yet |
 | Generic layer manager/unlimited editable surfaces | Rejected as proposed architecture | Unnecessary ordering/overlap/naming/state complexity; no follow-up without concrete need |
 | Subset extraction/export | Deferred | Existing #21 owns it |
@@ -522,3 +522,67 @@ Validation on the C3 candidate:
   stale callbacks, cancellation and inherited pick eligibility. No new migration
   or compatibility change beyond C2. Scientific/browser/performance hardening is C4;
   complete release qualification and publication remain pending.
+
+
+### C4 / M3 completion — 2026-09-12
+
+Production WebGL qualification now covers carbon/element color coexistence,
+geometry identity across recoloring, exact camera preservation, coordinate
+preview/cancel/commit, isolation, full-projection C–H/O–H classification, hidden
+targets, per-entry grid failure, cancellation/retry, upload failure/recovery,
+worker disposal and partial-residue fragments. The real palette workflow proves
+zero extra normalized GETs before reload, durable undo/reload and disposal when
+returning to a cached project. New Python cases retain conformers/alternate-location
+warnings/original bytes and prove newly created atoms do not inherit membership.
+
+Material findings fixed during hardening:
+- Empty-scene automatic camera resets could clamp radius to 0.01, clipping a
+  surface-only view during recoloring. D-060 records explicit camera-reset/scene
+  ownership and project-keyed viewer lifetime. Same camera/color assertions pass;
+  navigation, named scenes and coordinate checks also passed in the focused review.
+- Color intersections now use a set; failed uploads remove partial representations
+  and release attached mesh references. Failure of both surface and line rendering
+  reports unavailable rendering rather than falsely claiming lines are visible.
+- The production cancellation test originally timed termination *plus* subsequent
+  line upload (739.9 ms in one run). It now asserts the unchanged <500 ms worker
+  termination boundary and zero active workers immediately, then independently
+  waits for line fallback. The separate real-worker qualification remains <500 ms.
+- The new cached-project test originally created its second fixture after the UI's
+  project list was cached. Fixture creation now precedes opening the UI; the
+  corrected focused workflow passed. No product assertion or resource budget was
+  weakened, and no unresolved consequential finding remains.
+
+Evidence:
+- `.venv/bin/uv run pytest`: **274 passed**, 133 existing Alembic deprecation
+  warnings, 40.13 seconds (`/tmp/neistra-30-c4-pytest.log`). C2's migration upgrade,
+  downgrade and every retained-state refusal case remain covered.
+- Ruff/mypy (52 files), frontend lint/typecheck, **96 tests / 27 files**, production
+  build and diff check passed; `/tmp/neistra-30-c4-{ruff,mypy,lint,typecheck,vitest,build}.log`.
+- Focused camera/upload review: surface, viewer-controls and coordinate browser
+  suites **15 passed / 7 intentional skips**, 1.5 minutes
+  (`/tmp/neistra-30-c4-review-e2e.log`).
+- Final broad C4 command: planned surface/appearance/coordinate/archive/release-
+  hardening suites plus `rebranding-zoom.spec.ts`; **25 passed / 10 intentional
+  skips**, with the sole stale fixture-order failure described above, 4.8 minutes
+  (`/tmp/neistra-30-c4-accepted-e2e.log`). Corrected workflow rerun:
+  `playwright test tests/e2e/selection-surfaces.spec.ts -g 'adds and removes'`,
+  **1 passed / 1 intentional skip**, 18.3 seconds
+  (`/tmp/neistra-30-c4-workflow-e2e.log`). All 26 distinct applicable C4 cases
+  therefore have passing results; the complete clean release gate remains C5.
+- Browser commands used API/worker/web ports 8110/8111/5273, `PLAYWRIGHT_BROWSERS_PATH=.playwright`
+  and dedicated fresh `/tmp/neistra-30-c4-{accepted,workflow}-e2e` data. No developer
+  data was reset. Real 100%/200% zoom and light/dark accessibility passed; inspected
+  screenshots are linked in `SELECTION_STYLING.md`.
+- Final renderer evidence: [desktop](../assets/selection-surfaces/c4-chromium.json),
+  [Pixel 7 emulation](../assets/selection-surfaces/c4-mobile-chromium.json). Production
+  ready 727.2/490.1 ms, longest observed surface task 385/129 ms; real-worker
+  cancellation 21.7/20.7 ms. Geometry and allocation bounds remain the C1 values.
+  RSS is measured summed process memory, not a worker/GPU heap ceiling.
+- Deferred context-aware patches: [#36](https://github.com/ManuelSe/Neistra/issues/36)
+  created and verified open. Existing #20/#21 remain separate; no speculative
+  optional-profile/layer-manager issues were created.
+
+C4 uses a `fix(viewer)` checkpoint commit because qualification exposed consequential
+camera and failure-cleanup defects. Documentation, tests and evidence are included;
+there is no new migration or approved-scope expansion. Next is C5 version/release
+preparation, clean complete gate, final review and protected remote delivery.

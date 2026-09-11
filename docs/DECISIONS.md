@@ -2119,3 +2119,24 @@ threshold, and restore its default when the selection surface is absent. C1
 qualifies this in an isolated surface-only harness; C3 must implement and verify
 mixed-layer compatibility. Do not change the approved scientific opacity or make
 other transparent layers newly pickable as a side effect.
+
+## D-060 - Application-owned camera resets across asynchronous scene updates
+
+Status: accepted implementation decision for issue #30, 2026-09-11
+
+C4 exposed an intermittent surface-only rebuild failure: Mol* automatically reset
+an empty scene's maximum radius, clamping the application camera radius to 0.01
+before the asynchronous mesh arrived. Preserving position alone was insufficient;
+the resulting clipping removed surface color evidence.
+
+The adapter uses Mol*'s manual-reset mode, explicitly commits scene geometry before
+restoring the application camera, and supplies a maximum radius that cannot clamp
+the retained radius. An initial populated scene still fits explicitly; user Fit,
+Focus, orbit, zoom and saved cameras remain available. An empty/disposable scene
+must not publish a new camera. Coordinate and measurement updates synchronize the
+scene bounds while retaining the current camera. This enforces existing camera
+ownership, rather than changing the scientific surface profile or relaxing tests.
+
+Viewer components are keyed by project ID so switching to a cached project also
+disposes its previous worker/geometry/isolation state and establishes a fresh
+initial view. This avoids carrying renderer state between projects.

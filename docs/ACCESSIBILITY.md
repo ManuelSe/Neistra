@@ -126,3 +126,18 @@ zoom, contrast, readability, or hardware/browser inspection above.
 Automated hydrogen-control coverage likewise does not claim screen-reader
 interpretation of individual visible hydrogen atoms or cross-browser and
 hardware-GPU rendering equivalence.
+
+## Selection surfaces (issue #30)
+
+The compact Surface row has named Add/Remove buttons and a live membership count;
+mixed membership is text, not color alone. Add/Remove and the scientific-help
+summary have at least 44×44 CSS-pixel targets. Rendering status and named
+Cancel/Retry buttons remain outside the non-modal palette. Membership changes use
+the existing captured-selection mutation and focus/error-feedback behavior.
+
+C4 passed the real browser zoom extension's 100%/200% checks in light/dark,
+including keyboard Add/Remove, scientific-help expansion and viewport reachability.
+The desktop palette still passes its no-scroll baseline at 1366×768; narrow/zoomed
+layouts scroll within the bounded palette. Desktop Chromium and Pixel 7 emulation
+are qualified, not physical devices or other browser engines. Exact results and
+final gate evidence are in the [feature plan](plans/issue-30-selection-surfaces.md).

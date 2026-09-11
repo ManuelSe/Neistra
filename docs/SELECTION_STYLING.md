@@ -84,3 +84,8 @@ preview regenerates the appropriate surface. Undo/redo, scenes, project saves an
 archives retain memberships. Deleted atoms are pruned reversibly; newly added atoms
 do not automatically join. Migration 0011 and rollback restrictions are documented
 in [Development](DEVELOPMENT.md).
+
+C4 visual qualification: [light, 100% zoom](assets/selection-surfaces/palette-light-100.png)
+and [dark, actual 200% browser zoom](assets/selection-surfaces/palette-dark-200.png).
+These show the compact action row after a removal; the narrow palette scrolls
+within its bounds with its close control retained in the sticky header.

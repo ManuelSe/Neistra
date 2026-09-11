@@ -1,6 +1,9 @@
 # V0.1 Requirement Evidence
 
-Current compact-styling evidence is maintained in
+Current selection-surface evidence is maintained in
+[the issue #30 feature plan](plans/issue-30-selection-surfaces.md).
+
+Previous compact-styling evidence is maintained in
 [the issue #34 feature plan](plans/issue-34-compact-selection-styling.md).
 
 Issue #29 evidence is maintained in

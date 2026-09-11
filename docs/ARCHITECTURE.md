@@ -240,3 +240,10 @@ the canvas picking threshold to 0.45; inherited layers below the former 0.5
 threshold remain explicitly unpickable (D-059). Coordinate previews remove the
 surface component before coordinate model updates; commits/cancellation regenerate.
 No normalized-structure request is issued by surface rendering or retry.
+
+D-060 makes camera-reset ownership explicit: Mol* manual-reset mode prevents an
+empty scene during asynchronous rendering from clamping the retained camera.
+The adapter commits geometry before restoring camera state and updates its clipping
+bound without reducing the application radius. The first populated scene fits
+explicitly; subsequent geometry/color/measurement updates preserve the current
+view, while user Fit/Focus and scene camera actions remain authoritative.

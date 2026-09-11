@@ -30,6 +30,8 @@ export function surfaceInput(structure: Structure, sourceAtomIds: readonly numbe
     z: Float64Array.from(z), radii: Float32Array.from(radii) };
 }
 
+export function detachSurfaceGeometry(structure: Structure) { geometryByStructure.delete(structure); }
+
 export function attachSurfaceGeometry(structure: Structure, geometry: SurfaceGeometry) {
   if (structure.elementCount !== geometry.atomIds.length) throw new Error("Surface component membership changed.");
   geometryByStructure.set(structure, geometry);
