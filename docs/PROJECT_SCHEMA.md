@@ -367,3 +367,11 @@ archive state preserve the same records; topology deletion prunes references
 reversibly. Alembic 0010 upgrades every documented retained viewer-settings path,
 including checkpointed scenes and forward/inverse actions, and refuses a lossy
 downgrade. Older archives missing the field remain valid with empty defaults.
+
+`selection_nonpolar_hydrogens` defaults to `[]` and contains at most two records
+`{"show": false, "atom_ids": [2, 4]}`. Boolean modes are unique, memberships are
+positive/sorted/disjoint, and the dedicated command targets explicit selected H.
+Preferences survive scenes, archives, history and coordinate edits; deletion
+prunes stable IDs transactionally. Master hydrogen visibility remains an upper
+bound. Migration 0010 defaults both appearance collections in every retained
+settings location and refuses downgrade while either has non-default data.

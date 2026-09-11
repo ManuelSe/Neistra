@@ -15,7 +15,11 @@ from molweave_api.project_service import (
     ProjectService,
     RevisionConflictError,
 )
-from molweave_api.schemas import ProjectRead, SelectionRepresentationUpdate
+from molweave_api.schemas import (
+    ProjectRead,
+    SelectionAppearanceUpdate,
+    SelectionRepresentationUpdate,
+)
 from molweave_api.settings import Settings
 from molweave_api.viewer_state import POLYMER_SELECTION_STYLES, validate_polymer_selection
 
@@ -40,6 +44,29 @@ class SelectionStyleService:
             references,
             action=payload.action,
             style=payload.style,
+        )
+
+    def update_appearance(self, project_id: str, payload: SelectionAppearanceUpdate) -> ProjectRead:
+        targets: dict[str, set[int]] | None = None
+        if payload.property == "nonpolar_hydrogens":
+            project = self._project(project_id, payload.expected_revision)
+            selected: dict[str, set[int]] = defaultdict(set)
+            for reference in payload.selection.atoms:
+                selected[reference.structure_id].add(reference.atom_id)
+            targets = {}
+            for entry_id, atom_ids in selected.items():
+                entry = self._entry(project, entry_id)
+                if entry.current_artifact_id is None:
+                    raise StructureUnavailableError(entry_id)
+                _, data = self.artifacts.read(entry.current_artifact_id)
+                structure = NormalizedStructureV1.from_bytes(data)
+                targets[entry_id] = {
+                    atom.id
+                    for atom in structure.atoms
+                    if atom.id in atom_ids and atom.element.strip().upper() == "H"
+                }
+        return ProjectService(self.session).update_selection_appearance(
+            project_id, payload, targets
         )
 
     def _validate_polymer_target(self, entry: StructureEntry, selected: set[int]) -> None:

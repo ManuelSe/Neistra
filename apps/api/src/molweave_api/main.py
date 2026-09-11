@@ -773,9 +773,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         session: Session = Depends(session_dependency),
     ) -> ProjectRead:
         return _call(
-            lambda: SelectionStyleService(session, app_settings).update(
-                project_id, payload
-            )
+            lambda: SelectionStyleService(session, app_settings).update(project_id, payload)
         )
 
     @router.post("/projects/{project_id}/selection-appearance", response_model=ProjectRead)
@@ -784,7 +782,11 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         payload: SelectionAppearanceUpdate,
         session: Session = Depends(session_dependency),
     ) -> ProjectRead:
-        return _call(lambda: _service(session).update_selection_appearance(project_id, payload))
+        return _call(
+            lambda: SelectionStyleService(session, app_settings).update_appearance(
+                project_id, payload
+            )
+        )
 
     @router.delete("/projects/{project_id}/entries/{entry_id}", response_model=ProjectRead)
     async def delete_entry(

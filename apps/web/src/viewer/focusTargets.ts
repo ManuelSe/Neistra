@@ -28,7 +28,7 @@ export function visibleLigandAtoms(
     for (const atom of structure.normalized.atoms) {
       if (!ligandAtomIds.has(atom.id)) continue;
       if (
-        hydrogenMode !== "all" &&
+        (hydrogenMode !== "all" || structure.settings.selection_nonpolar_hydrogens.length > 0) &&
         atom.element.trim().toUpperCase() === "H"
       ) {
         continue;

@@ -37,6 +37,7 @@ from molweave_api.viewer_state import (
     default_viewer_settings,
     prune_selection_representations,
     update_selection_colors,
+    update_selection_hydrogens,
     update_selection_representations,
 )
 
@@ -452,7 +453,7 @@ class ProjectService:
         self._check_revision(project, expected_revision)
         entry = self._entry(project, entry_id)
         values = settings.model_dump(mode="json")
-        for field in ("selection_colors",):
+        for field in ("selection_colors", "selection_nonpolar_hydrogens"):
             current = entry.viewer_settings.get(field, [])
             if field not in settings.model_fields_set:
                 values[field] = deepcopy(current)
@@ -563,6 +564,7 @@ class ProjectService:
         self,
         project_id: str,
         payload: SelectionAppearanceUpdate,
+        hydrogen_targets: dict[str, set[int]] | None = None,
     ) -> ProjectRead:
         project = self._project(project_id)
         self._check_revision(project, payload.expected_revision)
@@ -571,19 +573,33 @@ class ProjectService:
         targets: dict[str, set[int]] = {}
         for item in payload.selection.atoms:
             targets.setdefault(item.structure_id, set()).add(item.atom_id)
+        if payload.property == "nonpolar_hydrogens":
+            if not hydrogen_targets or not any(hydrogen_targets.values()):
+                raise InvalidProjectOperationError("Select explicit hydrogen atoms first")
+            targets = {key: ids for key, ids in hydrogen_targets.items() if ids}
         forward: list[dict[str, Any]] = []
         inverse: list[dict[str, Any]] = []
         for entry_id, atom_ids in sorted(targets.items()):
             entry = self._entry(project, entry_id)
             before = deepcopy(entry.viewer_settings)
-            after = {
-                **before,
-                "selection_colors": update_selection_colors(
-                    before.get("selection_colors", []),
-                    atom_ids,
-                    payload.color,
-                ),
-            }
+            if payload.property == "color":
+                after = {
+                    **before,
+                    "selection_colors": update_selection_colors(
+                        before.get("selection_colors", []),
+                        atom_ids,
+                        payload.color,
+                    ),
+                }
+            else:
+                after = {
+                    **before,
+                    "selection_nonpolar_hydrogens": update_selection_hydrogens(
+                        before.get("selection_nonpolar_hydrogens", []),
+                        atom_ids,
+                        payload.show,
+                    ),
+                }
             forward.append(
                 {"kind": "entry.update", "entry_id": entry_id, "values": {"viewer_settings": after}}
             )
@@ -595,10 +611,12 @@ class ProjectService:
                     "values": {"viewer_settings": before},
                 },
             )
+        target_count = sum(len(ids) for ids in targets.values())
+        property_label = "color" if payload.property == "color" else "hydrogen visibility"
         return self._record(
             project,
             "selection.appearance",
-            f"{payload.action.title()} selection {payload.property} for {len(references)} atoms",
+            f"{payload.action.title()} selection {property_label} for {target_count} atoms",
             forward,
             inverse,
             sorted(targets),

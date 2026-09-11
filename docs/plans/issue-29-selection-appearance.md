@@ -2,7 +2,7 @@
 
 ## Status and metadata
 
-- Status: **approved; implementation active — M2/C2 qualified**.
+- Status: **approved; implementation active — M2/C3 qualified**.
 - Issue: [#29 — Enhance selection representation controls](https://github.com/ManuelSe/Neistra/issues/29).
 - Issue created/updated: 2026-09-10; inspected and plan approved: 2026-09-11.
 - Approval: the user explicitly approved the complete proposal and instructed:
@@ -420,6 +420,8 @@ evidence. An inability to publish is not evidence that publication occurred.
 
 | 2026-09-11 | M2/C2 qualified | M1/C1 commit `0c2d12e`. Implemented independent color records, atomic revisioned command, entry-update bypass protection/legacy omission handling, exact disposable overpaint, dialog mixed state/reset, history/scenes/archive/topology reconciliation and migration 0010 including retained command/checkpoint-scene settings. D-052 records architecture. V2 passed 65 Python tests (37 existing Alembic deprecation warnings), 19 focused frontend tests, Ruff, mypy (51 files), ESLint, TypeScript and production build (initial 157.79 KiB gzip; lazy Mol* 966.92 KiB advisory). Fresh `/tmp/neistra-issue29-c2`, ports 8110/8111/5273: 7 existing browser workflows passed with 8 explained layout skips; initial new reset pixel assertion detected 2 colored orientation-axis pixels outside the molecule. Restricted the molecular-color assertion to the central canvas; the corrected new workflow passed (1 pass/1 layout skip, 17.3 s), proving actual magenta application/reset and hidden-entry persistence. No product fallback or assertion tolerance was introduced. Full checkpoint diff reviewed and diff checks passed. |
 
+| 2026-09-11 | M2/C3 qualified | C2 committed as `2ab4c49`. Added exact-selected explicit-H preferences, full-projection native classification, independent reset/mixed/master controls, persistence/pruning and guarded migration extension (D-053). V3: 75 Python tests passed (59 existing Alembic warnings); 25 focused and 78 full frontend tests passed, including focus extension. Ruff/mypy (51 files), ESLint/TypeScript/build passed (initial 158.40 KiB gzip; lazy Mol* 967.43 KiB advisory). `/tmp/neistra-issue29-c3`, ports 8110/8111/5273, head 0010: combined V2/V3 browser run passed 15 workflows with 14 layout skips and exposed one existing scene-saving radius-zero failure. Retained valid camera across disposable rebuilds; affected scene/local-H rerun passed 3 workflows with 3 layout skips in 1 minute, completing all 16 applicable workflows across runs. Exact full-frame hashes proved unsuitable for rebuilt lighting; actual left/right hydrogen-sphere presence checks now verify C-H removal, O-H retention, local Show and master precedence on protein and ligand fixtures without relying on settings alone. Full checkpoint diff reviewed, no molecular artifacts or chemistry changes. |
+
 Future entries must record exact commits, commands, results, known warnings,
 limitations, remote identifiers, blockers, and next action. Populate feature
 acceptance evidence only after execution. Do not mark the PR, issue, merge,
@@ -427,5 +429,4 @@ tag, release, or cleanup complete until remotely verified.
 
 ## Completion and next action
 
-M2/C2 is qualified. Next: commit the local color checkpoint, then implement M2/C3
-(selection-local non-polar hydrogen visibility). Later qualification and delivery remain.
+M2/C3 is qualified. Next: M3/C4 integrated qualification, then M4 release delivery.

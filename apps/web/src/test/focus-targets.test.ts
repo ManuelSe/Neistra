@@ -157,5 +157,9 @@ describe("viewer focus targets", () => {
       { structure_id: "polar-only", atom_id: 4 },
       { structure_id: "polar-only", atom_id: 5 },
     ]);
+    structure.settings.selection_nonpolar_hydrogens = [{ show: true, atom_ids: [5] }];
+    expect(visibleLigandAtoms([structure], null)).toEqual([
+      { structure_id: "polar-only", atom_id: 4 },
+    ]);
   });
 });

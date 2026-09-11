@@ -49,6 +49,7 @@ def viewer_settings() -> dict[str, Any]:
         ],
         "selection_representations": [],
         "selection_colors": [],
+        "selection_nonpolar_hydrogens": [],
         "components": {
             "hydrogens": False,
             "nonpolar_hydrogens": False,
@@ -391,6 +392,7 @@ def test_entry_viewer_update_cannot_mutate_selection_assignments(client: ApiClie
                 **changed["entries"][0]["viewer_settings"],
                 "selection_representations": [],
                 "selection_colors": [],
+                        "selection_nonpolar_hydrogens": [],
             },
         },
     )
@@ -575,3 +577,117 @@ def test_close_contact_endpoint_returns_sorted_nonbonded_pairs(client: ApiClient
         json={"entry_id": entry_id, "cutoff": 1.0, "minimum_distance": 2.0},
     )
     assert invalid.status_code == 422
+
+
+def test_local_hydrogens_exact_targets_persistence_and_molecular_invariance(
+    client: ApiClient,
+) -> None:
+    project = client.post("/api/v1/projects", json={"name": "Hydrogens"}).json()
+    path = f"/api/v1/projects/{project['id']}"
+    imported = client.post(
+        f"{path}/imports",
+        data={"expected_revision": 0},
+        files=[
+            (
+                "files",
+                (
+                    "hydrogens.mol",
+                    (FIXTURES.parent / "hydrogens" / "polar_hydrogens_ligand.mol").read_bytes(),
+                    "chemical/x-mdl-molfile",
+                ),
+            ),
+        ],
+    )
+    assert imported.status_code == 201, imported.text
+    project = imported.json()["project"]
+    entry = project["entries"][0]
+    entry_path = f"{path}/entries/{entry['id']}"
+    normalized = client.get(f"{entry_path}/structure").json()
+    original = client.get(f"{entry_path}/original").content
+    project = client.get(path).json()
+
+    def change(current: dict[str, Any], ids: list[int], show: bool | None):
+        return client.post(
+            f"{path}/selection-appearance",
+            json={
+                "expected_revision": current["revision"],
+                "selection": selection(entry["id"], *ids),
+                "property": "nonpolar_hydrogens",
+                "action": "reset" if show is None else "set",
+                **({"show": show} if show is not None else {}),
+            },
+        )
+
+    for ids in [[1, 3], [2, 999]]:
+        assert change(project, ids, False).status_code == 422
+        assert client.get(path).json() == project
+    result = change(project, [1, 2, 3, 4], False)
+    assert result.status_code == 200, result.text
+    project = result.json()
+    assert change({**project, "revision": project["revision"] - 1}, [2], True).status_code == 409
+    project = change(project, [2], True).json()
+    expected = [{"show": False, "atom_ids": [4]}, {"show": True, "atom_ids": [2]}]
+    field = "selection_nonpolar_hydrogens"
+    assert project["entries"][0]["viewer_settings"][field] == expected
+    assert client.get(f"{entry_path}/structure").json() == normalized
+    assert client.get(f"{entry_path}/original").content == original
+    project = client.post(
+        f"{path}/scenes",
+        json={
+            "expected_revision": project["revision"],
+            "name": "Hydrogens",
+            "camera": camera(),
+            "selection": selection(entry["id"], 2, 4),
+        },
+    ).json()
+    settings = project["entries"][0]["viewer_settings"]
+    legacy = {k: v for k, v in settings.items() if k != field}
+    project = client.request(
+        "PUT",
+        f"{entry_path}/viewer-settings",
+        json={
+            "expected_revision": project["revision"],
+            "settings": legacy,
+        },
+    ).json()
+    assert project["entries"][0]["viewer_settings"][field] == expected
+    assert (
+        client.request(
+            "PUT",
+            f"{entry_path}/viewer-settings",
+            json={
+                "expected_revision": project["revision"],
+                "settings": {**settings, field: []},
+            },
+        ).status_code
+        == 422
+    )
+    exported = export_archive(client, project["id"], "local-hydrogens")
+    restored = import_archive(client, client.get(exported["artifact"]["download_url"]).content)[
+        "project"
+    ]
+    assert restored["entries"][0]["viewer_settings"][field] == expected
+    assert restored["scenes"][0]["entry_states"][0]["viewer_settings"][field] == expected
+    project = change(project, [2], None).json()
+    assert project["entries"][0]["viewer_settings"][field] == expected[:1]
+    project = client.post(
+        f"{path}/history/undo", json={"expected_revision": project["revision"]}
+    ).json()
+    assert project["entries"][0]["viewer_settings"][field] == expected
+    result = client.post(
+        f"{entry_path}/ligand-edits",
+        json={
+            "expected_revision": project["revision"],
+            "operation": "atom.delete",
+            "atom_ids": [2],
+        },
+    )
+    assert result.status_code == 200, result.text
+    project = result.json()["project"]
+    assert project["entries"][0]["viewer_settings"][field] == expected[:1]
+    assert project["scenes"][0]["entry_states"][0]["viewer_settings"][field] == expected[:1]
+    project = client.post(
+        f"{path}/history/undo", json={"expected_revision": project["revision"]}
+    ).json()
+    assert project["entries"][0]["viewer_settings"][field] == expected
+    assert client.get(f"{entry_path}/structure").json() == normalized

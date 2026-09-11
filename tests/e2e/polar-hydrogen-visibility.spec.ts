@@ -661,3 +661,99 @@ test("a hydrogen-free structure remains hydrogen-free in polar-only mode", async
   );
   expect(await canvasSignature(page)).not.toBe(0);
 });
+
+for (const fixture of ["polar_hydrogens_ligand.mol", "polar_hydrogens_protein.pdb"]) {
+  test(`selection-local hydrogen precedence and full-graph classification: ${fixture}`, async ({ page, request }, info) => {
+    test.skip(info.project.name !== "chromium", "Exact atom queries use the desktop inspector.");
+    test.setTimeout(120_000);
+    const project = await createAndOpen(page, request, info, "Local hydrogens");
+    await importFixture(page, resolve(HYDROGEN_FIXTURES, fixture));
+    const state = await readProject(request, project.id);
+    const entry = state.entries[0];
+    const before = await readStructure(request, project.id, entry.id);
+    await openViewerControls(page);
+    await page.getByLabel(`Representation style for ${entry.name}`).selectOption("space-filling");
+    await page.getByRole("button", { name: "Close viewer controls" }).click();
+    await page.getByRole("tab", { name: "selection" }).click();
+    const clear = page.getByRole("button", { name: "Clear", exact: true });
+    if (await clear.isEnabled()) await clear.click();
+    await page.getByRole("button", { name: "Fit all visible" }).click();
+    await page.waitForTimeout(500);
+    const hydrogenPixels = () => page.locator(".molstar-host canvas").first().evaluate((canvas: HTMLCanvasElement) => {
+      const gl = canvas.getContext("webgl2") ?? canvas.getContext("webgl");
+      if (!gl) throw new Error("WebGL required");
+      gl.finish();
+      const width = Math.floor(canvas.width * 0.6), height = Math.floor(canvas.height * 0.6);
+      const data = new Uint8Array(width * height * 4);
+      gl.readPixels(Math.floor(canvas.width * 0.2), Math.floor(canvas.height * 0.2), width, height,
+        gl.RGBA, gl.UNSIGNED_BYTE, data);
+      const counts = [0, 0];
+      for (let pixel = 0; pixel < width * height; pixel++) {
+        const channels = [data[pixel * 4], data[pixel * 4 + 1], data[pixel * 4 + 2]];
+        const lo = Math.min(...channels), hi = Math.max(...channels);
+        // Neutral shaded H spheres; excludes colored C/O, cream background and the corner axes.
+        if (lo > 80 && hi < 230 && hi - lo < 5) counts[pixel % width < width / 2 ? 0 : 1]++;
+      }
+      return counts;
+    });
+    const same = async (expected: number[]) => {
+      // Test sphere presence, not lighting/antialias equality after geometry rebuilds.
+      await expect.poll(async () => (await hydrogenPixels()).every((count, i) =>
+        expected[i] > 100 ? count > 100 : count < 5)).toBe(true);
+    };
+    const all = await hydrogenPixels();
+    expect(all[0]).toBeGreaterThan(100);
+    expect(all[1]).toBeGreaterThan(100);
+    await page.getByLabel("Select by").selectOption("atom_reference");
+    const selectAtom = async (id: number) => {
+      await page.getByLabel("Value").fill(`${entry.id}:${id}`);
+      await page.getByRole("button", { name: "Apply query" }).click();
+      await expect(page.locator(".viewer-status")).toContainText("1 selected");
+      await page.getByRole("button", { name: "Style selection", exact: true }).click();
+    };
+    const local = page.getByRole("dialog", { name: "Style selection" }).getByLabel("Selected non-polar hydrogens");
+    const finish = async () => {
+      await expect(page.getByRole("status").filter({ hasText: "Selection hydrogen visibility stored" })).toBeVisible();
+      await page.keyboard.press("Escape");
+      await page.getByRole("button", { name: "Clear", exact: true }).click();
+    };
+    await selectAtom(1);
+    await expect(local).toBeDisabled();
+    await page.keyboard.press("Escape");
+    await selectAtom(4); // O-H remains polar even though its O is outside the selection.
+    await local.selectOption("hide");
+    await finish();
+    await same(all);
+    await selectAtom(2); // Only this explicit C-H is hidden.
+    await local.selectOption("hide");
+    await finish();
+    await expect.poll(async () => (await hydrogenPixels())[0]).toBeLessThan(5);
+    const hidden = await hydrogenPixels();
+    expect(hidden[1]).toBeGreaterThan(100);
+    await selectAtom(2);
+    await local.selectOption("show");
+    await finish();
+    await same(all);
+    await setHydrogenControl(page, request, project.id, "Show non-polar hydrogens", false);
+    await page.getByRole("button", { name: "Close viewer controls" }).click();
+    await same(all); // Local Show overrides the entry preference.
+    await selectAtom(2);
+    await local.selectOption("inherit");
+    await finish();
+    await same(hidden);
+    await selectAtom(2);
+    await local.selectOption("show");
+    await finish();
+    await setHydrogenControl(page, request, project.id, "Show hydrogens", false);
+    await page.getByRole("button", { name: "Close viewer controls" }).click();
+    await expect.poll(hydrogenPixels).toEqual([0, 0]);
+    await selectAtom(2);
+    await expect(page.getByText(/Show hydrogens is off for at least/)).toBeVisible();
+    await page.keyboard.press("Escape");
+    await page.getByRole("button", { name: "Clear", exact: true }).click();
+    await setHydrogenControl(page, request, project.id, "Show hydrogens", true);
+    await page.getByRole("button", { name: "Close viewer controls" }).click();
+    await same(all);
+    expect(await readStructure(request, project.id, entry.id)).toEqual(before);
+  });
+}

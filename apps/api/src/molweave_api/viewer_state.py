@@ -68,7 +68,23 @@ def prune_selection_representations(
         for item in settings.get("selection_colors", [])
         if (retained := sorted(set(item["atom_ids"]) - deleted_atom_ids))
     ]
+    updated["selection_nonpolar_hydrogens"] = [
+        {**item, "atom_ids": retained}
+        for item in settings.get("selection_nonpolar_hydrogens", [])
+        if (retained := sorted(set(item["atom_ids"]) - deleted_atom_ids))
+    ]
     return updated
+
+
+def update_selection_hydrogens(
+    assignments: list[dict[str, Any]],
+    atom_ids: set[int],
+    show: bool | None,
+) -> list[dict[str, Any]]:
+    result = {item["show"]: set(item["atom_ids"]) - atom_ids for item in assignments}
+    if show is not None:
+        result.setdefault(show, set()).update(atom_ids)
+    return [{"show": mode, "atom_ids": sorted(ids)} for mode, ids in sorted(result.items()) if ids]
 
 
 def update_selection_colors(
@@ -138,6 +154,7 @@ def default_viewer_settings(structure_type: str) -> dict[str, Any]:
         ],
         "selection_representations": [],
         "selection_colors": [],
+        "selection_nonpolar_hydrogens": [],
         "components": {
             "hydrogens": True,
             "nonpolar_hydrogens": True,
