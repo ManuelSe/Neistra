@@ -8,7 +8,7 @@ import pytest
 from alembic import command
 from alembic.config import Config
 from molweave_api.database import create_database_engine, create_session_factory
-from molweave_api.models import Project, Scene, StructureEntry
+from molweave_api.models import CommandRecord, Project, Scene, StructureEntry
 from sqlalchemy import select
 
 
@@ -44,6 +44,117 @@ def migration_config(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Config:
     monkeypatch.setenv("MOLWEAVE_DATA_DIR", str(data_dir))
     monkeypatch.setenv("MOLWEAVE_DATABASE_URL", f"sqlite:///{data_dir / 'molweave.db'}")
     return Config("alembic.ini")
+
+
+@pytest.mark.parametrize(
+    "location", ["live", "checkpoint", "checkpoint_scene", "scene", "forward", "inverse", "empty"]
+)
+def test_0010_preserves_all_settings_and_refuses_lossy_history_downgrade(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    location: str,
+) -> None:
+    config = migration_config(tmp_path, monkeypatch)
+    command.upgrade(config, "0009")
+    engine = create_database_engine(f"sqlite:///{tmp_path / 'migration-data' / 'molweave.db'}")
+    factory = create_session_factory(engine)
+
+    def settings(where: str) -> dict[str, Any]:
+        return {
+            **legacy_viewer_settings(),
+            **(
+                {"selection_colors": [{"color": "#112233", "atom_ids": [1]}]}
+                if where == location
+                else {}
+            ),
+        }
+
+    with factory() as session:
+        session.add(
+            Project(
+                id="p",
+                name="Legacy",
+                checkpoint_state={
+                    "entries": [{"viewer_settings": settings("checkpoint")}],
+                    "scenes": [
+                        {"entry_states": [{"viewer_settings": settings("checkpoint_scene")}]}
+                    ],
+                },
+            )
+        )
+        session.flush()
+        session.add(
+            StructureEntry(
+                id="e",
+                project_id="p",
+                name="Entry",
+                viewer_settings=settings("live"),
+                user_metadata={"viewer_settings": {"sentinel": True}},
+            )
+        )
+        session.add(
+            Scene(
+                id="s",
+                project_id="p",
+                name="Scene",
+                camera={},
+                selection={},
+                entry_states=[{"entry_id": "e", "viewer_settings": settings("scene")}],
+            )
+        )
+        session.add(
+            CommandRecord(
+                id="c",
+                project_id="p",
+                position=1,
+                command_type="entry.viewer_settings",
+                description="Legacy",
+                affected_entry_ids=["e"],
+                forward_actions=[
+                    {
+                        "kind": "entry.update",
+                        "entry_id": "e",
+                        "values": {"viewer_settings": settings("forward")},
+                    }
+                ],
+                inverse_actions=[
+                    {
+                        "kind": "scene.create",
+                        "scene": {"entry_states": [{"viewer_settings": settings("inverse")}]},
+                    }
+                ],
+            )
+        )
+        session.commit()
+    command.upgrade(config, "head")
+    with factory() as session:
+        entry = session.get(StructureEntry, "e")
+        project = session.get(Project, "p")
+        scene = session.get(Scene, "s")
+        history = session.get(CommandRecord, "c")
+        assert entry and project and scene and history
+        assert entry.user_metadata == {"viewer_settings": {"sentinel": True}}
+        locations = {
+            "live": entry.viewer_settings,
+            "checkpoint": project.checkpoint_state["entries"][0]["viewer_settings"],
+            "checkpoint_scene": project.checkpoint_state["scenes"][0]["entry_states"][0][
+                "viewer_settings"
+            ],
+            "scene": scene.entry_states[0]["viewer_settings"],
+            "forward": history.forward_actions[0]["values"]["viewer_settings"],
+            "inverse": history.inverse_actions[0]["scene"]["entry_states"][0]["viewer_settings"],
+        }
+        for key, value in locations.items():
+            assert value["selection_colors"] == (
+                [{"color": "#112233", "atom_ids": [1]}] if key == location else []
+            )
+    if location == "empty":
+        command.downgrade(config, "0009")
+        command.upgrade(config, "head")
+    else:
+        with pytest.raises(RuntimeError, match="retains selection appearance"):
+            command.downgrade(config, "0009")
+    engine.dispose()
 
 
 def test_0008_migrates_live_checkpoint_and_scene_settings(

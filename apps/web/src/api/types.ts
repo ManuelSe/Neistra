@@ -98,6 +98,7 @@ export interface RepresentationSettings {
 export interface ViewerSettings {
   representations: RepresentationSettings[];
   selection_representations: SelectionRepresentation[];
+  selection_colors: SelectionColor[];
   components: {
     hydrogens: boolean;
     nonpolar_hydrogens: boolean;
@@ -120,6 +121,12 @@ export interface SelectionRepresentation {
   style: SelectionRepresentationStyle;
   atom_ids: number[];
 }
+
+export interface SelectionColor { color: string; atom_ids: number[] }
+export type SelectionAppearanceChange = { property: "color" } & (
+  { action: "set"; color: string } | { action: "reset"; color?: never }
+);
+export type ChangeSelectionAppearance = (change: SelectionAppearanceChange) => Promise<void>;
 
 export type MeasurementKind = "distance" | "angle" | "dihedral";
 

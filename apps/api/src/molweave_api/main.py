@@ -119,6 +119,7 @@ from molweave_api.schemas import (
     RevisionRequest,
     SavedSelectionCreate,
     SceneCreate,
+    SelectionAppearanceUpdate,
     SelectionRepresentationUpdate,
     StructureRead,
     SuperpositionCreate,
@@ -776,6 +777,14 @@ def create_app(settings: Settings | None = None) -> FastAPI:
                 project_id, payload
             )
         )
+
+    @router.post("/projects/{project_id}/selection-appearance", response_model=ProjectRead)
+    async def update_selection_appearance(
+        project_id: str,
+        payload: SelectionAppearanceUpdate,
+        session: Session = Depends(session_dependency),
+    ) -> ProjectRead:
+        return _call(lambda: _service(session).update_selection_appearance(project_id, payload))
 
     @router.delete("/projects/{project_id}/entries/{entry_id}", response_model=ProjectRead)
     async def delete_entry(

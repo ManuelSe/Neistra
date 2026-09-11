@@ -86,6 +86,7 @@ export function viewerSettings(
       },
     ],
     selection_representations: [],
+    selection_colors: [],
     components: {
       hydrogens: true,
       nonpolar_hydrogens: true,

@@ -2,7 +2,7 @@
 
 ## Status and metadata
 
-- Status: **approved; implementation active — M1/C1 qualified**.
+- Status: **approved; implementation active — M2/C2 qualified**.
 - Issue: [#29 — Enhance selection representation controls](https://github.com/ManuelSe/Neistra/issues/29).
 - Issue created/updated: 2026-09-10; inspected and plan approved: 2026-09-11.
 - Approval: the user explicitly approved the complete proposal and instructed:
@@ -418,6 +418,8 @@ evidence. An inability to publish is not evidence that publication occurred.
 | 2026-09-11 | Checkpoint 0 verified | Plan commit `711509d3d52cbec7de10cedb374b3ace3c0123e4` was pushed and remotely verified; clean tree at handoff. |
 | 2026-09-11 | M1/C1 qualified | Shared worker expansion, cancellation/load and worker context guards, canonical seed/orphan retention, project-wide hidden-entry scope, and refreshed polymer eligibility implemented. D-051 records ownership. V1: 13 Python selection tests and 10 focused frontend tests passed; full frontend suite passed 75 tests. Ruff, strict mypy (50 files), ESLint, TypeScript and production build passed. Fresh `/tmp/neistra-issue29-c1` migrated through 0009, ports 8110/8111/5273: 2 browser workflows passed, 2 documented desktop-only skips, 26.2 s. Build retains the lazy Mol* advisory (966.82 KiB gzip; initial 157.32 KiB gzip). Fixed stale pre-rename Python launchers by frozen reinstall of the same 49 packages, with no dependency change. Checkpoint diff reviewed; no schema or molecular changes. The commit containing this row is the checkpoint evidence commit. |
 
+| 2026-09-11 | M2/C2 qualified | M1/C1 commit `0c2d12e`. Implemented independent color records, atomic revisioned command, entry-update bypass protection/legacy omission handling, exact disposable overpaint, dialog mixed state/reset, history/scenes/archive/topology reconciliation and migration 0010 including retained command/checkpoint-scene settings. D-052 records architecture. V2 passed 65 Python tests (37 existing Alembic deprecation warnings), 19 focused frontend tests, Ruff, mypy (51 files), ESLint, TypeScript and production build (initial 157.79 KiB gzip; lazy Mol* 966.92 KiB advisory). Fresh `/tmp/neistra-issue29-c2`, ports 8110/8111/5273: 7 existing browser workflows passed with 8 explained layout skips; initial new reset pixel assertion detected 2 colored orientation-axis pixels outside the molecule. Restricted the molecular-color assertion to the central canvas; the corrected new workflow passed (1 pass/1 layout skip, 17.3 s), proving actual magenta application/reset and hidden-entry persistence. No product fallback or assertion tolerance was introduced. Full checkpoint diff reviewed and diff checks passed. |
+
 Future entries must record exact commits, commands, results, known warnings,
 limitations, remote identifiers, blockers, and next action. Populate feature
 acceptance evidence only after execution. Do not mark the PR, issue, merge,
@@ -425,5 +427,5 @@ tag, release, or cleanup complete until remotely verified.
 
 ## Completion and next action
 
-M1/C1 is qualified. Next: commit the coherent expansion checkpoint, then implement
-M2/C2 (durable local color). All later delivery work remains outstanding.
+M2/C2 is qualified. Next: commit the local color checkpoint, then implement M2/C3
+(selection-local non-polar hydrogen visibility). Later qualification and delivery remain.

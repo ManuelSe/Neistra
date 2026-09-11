@@ -5,6 +5,7 @@ import { useState } from "react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import type { Selection, StructureProjection } from "../api/types";
 import { SelectionStyleDialog } from "../components/SelectionStyleDialog";
+import { SelectionColorControls } from "../components/SelectionColorControls";
 import {
   molecularEntry,
   proteinProjection,
@@ -55,6 +56,20 @@ const completeResidue: Selection = {
 };
 
 describe("selection style dialog", () => {
+  it("shows mixed colors and applies or resets only the requested property", async () => {
+    const user = userEvent.setup();
+    const onChange = vi.fn().mockResolvedValue(undefined);
+    const entry = molecularEntry("protein", "Receptor", "protein");
+    entry.viewer_settings.selection_colors = [{ color: "#ff0000", atom_ids: [1] }];
+    render(<SelectionColorControls selection={completeResidue} entries={[entry]}
+      busy={false} onChange={onChange} />);
+    expect(screen.getByText("Mixed")).toBeVisible();
+    await user.click(screen.getByRole("button", { name: "Apply color" }));
+    expect(onChange).toHaveBeenCalledWith({ property: "color", action: "set", color: "#3b82f6" });
+    await user.click(screen.getByRole("button", { name: "Reset color" }));
+    expect(onChange).toHaveBeenLastCalledWith({ property: "color", action: "reset" });
+    expect(completeResidue.atoms).toHaveLength(2);
+  });
   it("groups styles, applies and resets without changing the selection, and restores focus", async () => {
     const user = userEvent.setup();
     const onAction = vi.fn().mockResolvedValue(undefined);

@@ -425,3 +425,13 @@ Domain failures use stable codes:
 | 499 | `import_cancelled` | Preparation was cancelled before commit. |
 
 FastAPI/Pydantic validation failures retain FastAPI's structured HTTP 422 body.
+
+## Selection appearance (issue #29)
+
+`POST /api/v1/projects/{project_id}/selection-appearance` accepts
+`expected_revision`, canonical `selection`, `property: "color"`, and
+`action: "set" | "reset"`. Set requires a six-digit `color` such as `#ff00ff`;
+reset omits it. One successful action updates all selected entries atomically
+and is undoable. Invalid references/parameters return 422 and stale revisions
+return 409. Entry viewer-setting requests preserve omitted color assignments
+and cannot mutate them directly. Existing representation reset remains separate.

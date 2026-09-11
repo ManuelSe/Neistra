@@ -3,6 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any, cast
 
+from tests.integration.test_archive_roundtrip import export_archive, import_archive
 from tests.support.api_client import ApiClient
 
 FIXTURES = Path(__file__).parents[1] / "fixtures" / "formats"
@@ -47,6 +48,7 @@ def viewer_settings() -> dict[str, Any]:
             },
         ],
         "selection_representations": [],
+        "selection_colors": [],
         "components": {
             "hydrogens": False,
             "nonpolar_hydrogens": False,
@@ -128,6 +130,140 @@ def test_selection_representation_replacement_reset_and_history(client: ApiClien
     ]
 
 
+def color_selection(
+    client: ApiClient,
+    project: dict[str, Any],
+    target: dict[str, Any],
+    color: str | None,
+):
+    return client.post(
+        f"/api/v1/projects/{project['id']}/selection-appearance",
+        json={
+            "expected_revision": project["revision"],
+            "selection": target,
+            "property": "color",
+            "action": "set" if color is not None else "reset",
+            **({"color": color} if color is not None else {}),
+        },
+    )
+
+
+def test_selection_colors_overlap_history_scenes_archive_and_topology(client: ApiClient) -> None:
+    project = import_ligand(client)
+    entry = project["entries"][0]
+    path = f"/api/v1/projects/{project['id']}"
+    target = selection(entry["id"], 1, 2)
+    original = client.get(f"{path}/entries/{entry['id']}/original").content
+    normalized = client.get(f"{path}/entries/{entry['id']}/structure").json()
+    first = color_selection(client, project, target, "#FF0000")
+    assert first.status_code == 200, first.text
+    project = first.json()
+    assert project["entries"][0]["viewer_settings"]["selection_colors"] == [
+        {"color": "#ff0000", "atom_ids": [1, 2]}
+    ]
+    project = color_selection(client, project, selection(entry["id"], 2, 3), "#00ff00").json()
+    expected = [{"color": "#00ff00", "atom_ids": [2, 3]}, {"color": "#ff0000", "atom_ids": [1]}]
+    assert project["entries"][0]["viewer_settings"]["selection_colors"] == expected
+    assert client.get(f"{path}/entries/{entry['id']}/structure").json() == normalized
+    assert client.get(f"{path}/entries/{entry['id']}/original").content == original
+    project = client.post(
+        f"{path}/scenes",
+        json={
+            "expected_revision": project["revision"],
+            "name": "Colors",
+            "selection": target,
+            "camera": {
+                "mode": "perspective",
+                "position": [0, 0, 10],
+                "target": [0, 0, 0],
+                "up": [0, 1, 0],
+                "radius": 10,
+            },
+        },
+    ).json()
+    project = color_selection(client, project, target, None).json()
+    assert project["entries"][0]["viewer_settings"]["selection_colors"] == [
+        {"color": "#00ff00", "atom_ids": [3]}
+    ]
+    project = client.post(
+        f"{path}/history/undo", json={"expected_revision": project["revision"]}
+    ).json()
+    assert project["entries"][0]["viewer_settings"]["selection_colors"] == expected
+    project = client.post(
+        f"{path}/history/redo", json={"expected_revision": project["revision"]}
+    ).json()
+    assert project["entries"][0]["viewer_settings"]["selection_colors"] == [
+        {"color": "#00ff00", "atom_ids": [3]}
+    ]
+    project = client.post(
+        f"{path}/scenes/{project['scenes'][0]['id']}/apply",
+        json={"expected_revision": project["revision"]},
+    ).json()
+    assert project["entries"][0]["viewer_settings"]["selection_colors"] == expected
+    exported = export_archive(client, project["id"], "color-roundtrip")
+    restored = import_archive(client, client.get(exported["artifact"]["download_url"]).content)[
+        "project"
+    ]
+    assert restored["entries"][0]["viewer_settings"]["selection_colors"] == expected
+    assert (
+        restored["scenes"][0]["entry_states"][0]["viewer_settings"]["selection_colors"] == expected
+    )
+    edited = client.post(
+        f"{path}/entries/{entry['id']}/ligand-edits",
+        json={
+            "expected_revision": project["revision"],
+            "operation": "atom.delete",
+            "atom_ids": [3],
+        },
+    )
+    assert edited.status_code == 200, edited.text
+    project = edited.json()["project"]
+    for settings in [
+        project["entries"][0]["viewer_settings"],
+        project["scenes"][0]["entry_states"][0]["viewer_settings"],
+    ]:
+        assert settings["selection_colors"] == [
+            {"color": "#00ff00", "atom_ids": [2]},
+            {"color": "#ff0000", "atom_ids": [1]},
+        ]
+    project = client.post(
+        f"{path}/history/undo", json={"expected_revision": project["revision"]}
+    ).json()
+    assert project["entries"][0]["viewer_settings"]["selection_colors"] == expected
+
+
+def test_selection_color_validation_and_legacy_entry_updates(client: ApiClient) -> None:
+    project = import_ligand(client)
+    entry_id = project["entries"][0]["id"]
+    target = selection(entry_id, 1)
+    for color in ["red", "#fff", "#1234567"]:
+        assert color_selection(client, project, target, color).status_code == 422
+    assert color_selection(client, project, selection(entry_id, 999), "#ffffff").status_code == 422
+    colored = color_selection(client, project, target, "#ffffff").json()
+    assert color_selection(client, project, target, "#000000").status_code == 409
+    settings = colored["entries"][0]["viewer_settings"]
+    settings.pop("selection_colors")
+    response = client.request(
+        "PUT",
+        f"/api/v1/projects/{project['id']}/entries/{entry_id}/viewer-settings",
+        json={"expected_revision": colored["revision"], "settings": settings},
+    )
+    assert response.status_code == 200, response.text
+    project = response.json()
+    assert project["entries"][0]["viewer_settings"]["selection_colors"] == [
+        {"color": "#ffffff", "atom_ids": [1]}
+    ]
+    settings["selection_colors"] = []
+    assert (
+        client.request(
+            "PUT",
+            f"/api/v1/projects/{project['id']}/entries/{entry_id}/viewer-settings",
+            json={"expected_revision": project["revision"], "settings": settings},
+        ).status_code
+        == 422
+    )
+
+
 def test_selection_representation_multi_entry_is_atomic(client: ApiClient) -> None:
     project = import_ligand(client)
     first_entry = project["entries"][0]
@@ -162,6 +298,11 @@ def test_selection_representation_multi_entry_is_atomic(client: ApiClient) -> No
     assert styled["revision"] == imported["revision"] + 1
     assert all(entry["viewer_settings"]["selection_representations"] for entry in styled["entries"])
 
+    colored = color_selection(client, styled, target, "#123456")
+    assert colored.status_code == 200
+    styled = colored.json()
+    assert all(entry["viewer_settings"]["selection_colors"] for entry in styled["entries"])
+
     invalid_target = {
         **target,
         "atoms": [
@@ -172,6 +313,9 @@ def test_selection_representation_multi_entry_is_atomic(client: ApiClient) -> No
     invalid_target["atoms"] = sorted(
         invalid_target["atoms"], key=lambda item: (item["structure_id"], item["atom_id"])
     )
+    before = client.get(f"/api/v1/projects/{project['id']}").json()
+    assert color_selection(client, styled, invalid_target, "#abcdef").status_code == 422
+    assert client.get(f"/api/v1/projects/{project['id']}").json() == before
     rejected = apply_style(client, styled, invalid_target, "line")
     assert rejected.status_code == 422
     unchanged = client.get(f"/api/v1/projects/{project['id']}").json()
@@ -246,6 +390,7 @@ def test_entry_viewer_update_cannot_mutate_selection_assignments(client: ApiClie
             "settings": {
                 **changed["entries"][0]["viewer_settings"],
                 "selection_representations": [],
+                "selection_colors": [],
             },
         },
     )

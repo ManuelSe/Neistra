@@ -233,13 +233,42 @@ class SelectionRepresentation(BaseModel):
         return value
 
 
+class SelectionColor(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    color: str = Field(pattern=r"^#[0-9a-fA-F]{6}$")
+    atom_ids: list[int] = Field(min_length=1)
+
+    @field_validator("atom_ids")
+    @classmethod
+    def canonical_ids(cls, value: list[int]) -> list[int]:
+        return SelectionRepresentation.atom_ids_are_canonical(value)
+
+    @field_validator("color")
+    @classmethod
+    def canonical_color(cls, value: str) -> str:
+        return value.lower()
+
+
 class ViewerSettings(BaseModel):
     representations: list[RepresentationSettings] = Field(min_length=1, max_length=12)
     selection_representations: list[SelectionRepresentation] = Field(
         default_factory=list, max_length=7
     )
+    selection_colors: list[SelectionColor] = Field(default_factory=list)
     components: ComponentVisibility = Field(default_factory=ComponentVisibility)
     labels: LabelVisibility = Field(default_factory=LabelVisibility)
+
+    @field_validator("selection_colors")
+    @classmethod
+    def colors_are_disjoint(cls, value: list[SelectionColor]) -> list[SelectionColor]:
+        assigned: set[int] = set()
+        colors: set[str] = set()
+        for item in value:
+            if item.color in colors or assigned.intersection(item.atom_ids):
+                raise ValueError("Selection colors must be unique with disjoint atom IDs")
+            colors.add(item.color)
+            assigned.update(item.atom_ids)
+        return sorted(value, key=lambda item: item.color)
 
     @field_validator("representations")
     @classmethod
@@ -473,6 +502,25 @@ class SelectionRepresentationUpdate(BaseModel):
             raise ValueError("Style is required when applying a selection representation")
         if self.action == "reset" and self.style is not None:
             raise ValueError("Style must be omitted when resetting selection representations")
+        return self
+
+
+class SelectionAppearanceUpdate(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    expected_revision: int = Field(ge=0)
+    selection: SelectionV1
+    property: Literal["color"]
+    action: Literal["set", "reset"]
+    color: str | None = Field(default=None, pattern=r"^#[0-9a-fA-F]{6}$")
+
+    @model_validator(mode="after")
+    def validate_action(self) -> SelectionAppearanceUpdate:
+        if not self.selection.atoms:
+            raise ValueError("Select at least one atom to change its appearance")
+        if self.action == "set" and self.color is None:
+            raise ValueError("Color is required when setting selection color")
+        if self.action == "reset" and self.color is not None:
+            raise ValueError("Color must be omitted when resetting selection color")
         return self
 
 

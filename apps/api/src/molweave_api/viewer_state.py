@@ -63,7 +63,25 @@ def prune_selection_representations(
         for item in settings.get("selection_representations", [])
         if (retained := sorted(set(item["atom_ids"]) - deleted_atom_ids))
     ]
+    updated["selection_colors"] = [
+        {**item, "atom_ids": retained}
+        for item in settings.get("selection_colors", [])
+        if (retained := sorted(set(item["atom_ids"]) - deleted_atom_ids))
+    ]
     return updated
+
+
+def update_selection_colors(
+    assignments: list[dict[str, Any]],
+    atom_ids: set[int],
+    color: str | None,
+) -> list[dict[str, Any]]:
+    result = {item["color"]: set(item["atom_ids"]) - atom_ids for item in assignments}
+    if color is not None:
+        result.setdefault(color.lower(), set()).update(atom_ids)
+    return [
+        {"color": color, "atom_ids": sorted(ids)} for color, ids in sorted(result.items()) if ids
+    ]
 
 
 def validate_polymer_selection(structure: NormalizedStructureV1, selected: set[int]) -> None:
@@ -119,6 +137,7 @@ def default_viewer_settings(structure_type: str) -> dict[str, Any]:
             }
         ],
         "selection_representations": [],
+        "selection_colors": [],
         "components": {
             "hydrogens": True,
             "nonpolar_hydrogens": True,
