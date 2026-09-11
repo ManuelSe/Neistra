@@ -2,7 +2,7 @@
 
 ## Current milestone
 
-Issue #29 — user-requested carbon-only coloring amendment in progress on PR #32.
+Issue #29 — carbon-only amendment implemented; final qualification and delivery.
 
 The user authorized full delivery with `/goal` on 2026-09-11 under
 [the approved feature plan](plans/issue-29-selection-appearance.md). The planned
@@ -887,6 +887,11 @@ feature merge; this documentation-only closeout records the remote evidence.
   affected-entry topology replacement without a full scene synchronization.
 
 ## Verification performed
+
+- Amended candidate `e395509` passed the complete release gate: 237 Python,
+  80 frontend, 8 supervisor, 73 browser tests (39 intentional layout skips;
+  14.5 minutes), frozen setup, migration 0010, lint/type/build and local review.
+  User-authorized merge and exact merged qualification precede release.
 
 - Carbon-only amendment C6a: 84 focused Python and 80 frontend tests passed;
   lint/type/build and all 21 applicable affected browser workflows passed across
@@ -2065,13 +2070,11 @@ Results:
 
 ## Blockers
 
-GitHub rejects the approved rebase merge for qualified correction PR #32
-(HTTP 405: “This branch can’t be rebased”). A merge commit is available but
-requires approval to deviate from the feature plan. No force push or release occurred.
+None. The user authorized any merge method after the carbon-only amendment;
+a merge commit for PR #32 will preserve history without a force push.
 
 ## Next action
 
-Complete and qualify the carbon-only amendment, obtain merge-method approval
-for PR #32, then qualify the exact merged
-commit and complete v0.6.0 delivery under
+Complete the amended V5 gate, merge PR #32, qualify the exact merged commit,
+and complete v0.6.0 delivery under
 [the approved issue #29 contract](plans/issue-29-selection-appearance.md).

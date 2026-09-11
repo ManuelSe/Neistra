@@ -72,10 +72,10 @@ Checkpoint evidence includes domain, API, history/restart, migration/downgrade,
 legacy archive, topology, component and real-WebGL tests. Pixel checks verify
 actual color application/reset, selected C–H disappearance, polar O–H retention
 and master/local precedence for explicit protein and ligand fixtures. The final candidate passed the complete README/DEVELOPMENT release gate:
-228 Python tests, 79 frontend tests, eight supervisor tests, and 73 browser
+237 Python tests, 80 frontend tests, eight supervisor tests, and 73 browser
 workflows (39 documented layout skips), plus frozen setup, migrations, lint, type
-checks and build. The subsequent carbon-only amendment requires fresh candidate qualification;
-the exact merged commit is qualified again before publication;
+checks and build, including the carbon-only amendment. The exact merged commit
+is qualified again before publication;
 executed results are recorded in the feature plan.
 
 ### Deferred work
