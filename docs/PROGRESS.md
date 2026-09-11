@@ -2,26 +2,23 @@
 
 ## Current milestone
 
-Issue #30 — M1–M3 / C1–C4 complete: persistent selection surfaces, compact controls,
-bounded workers, reversible history/archive state and production rendering are
-implemented and qualified. C4 passed 274 Python and 96 frontend tests, common
-lint/type/build gates, and all 26 applicable browser cases across the broad gate
-and its corrected fixture rerun. Camera and upload-cleanup findings are fixed;
-real zoom and performance limits pass. Exact evidence and limitations are in the
-[feature plan](plans/issue-30-selection-surfaces.md). Context patches are deferred
-to [#36](https://github.com/ManuelSe/Neistra/issues/36).
-C5 v0.7.0 metadata and release notes are prepared; frozen Python lock validation
-and 31 archive/surface integration checks pass. Next: complete frozen release
-gate, final review, PR/merge and verified publication. Final preflight review now
-rejects oversized components before allocating atom inputs; 97 frontend tests and
-lint/type/build checks pass. Final review also fixed stale committed coordinates
-and preview loss during viewer rebuilds (D-061); 10 focused browser checks pass
-with 2 intentional skips. Membership counts now use sets to avoid quadratic scans.
-The full gate exposed a measurement/camera feedback loop; unchanged measurement
-updates now retain native objects (D-062). The existing measurement workflow and
-new surface regression checks pass (10 browser checks, 2 intentional skips).
-Next is a fresh complete candidate gate. No product blocker; publication is not
-yet complete.
+Issue #30 — M1–M4 / C1–C5 implemented and candidate-qualified for **v0.7.0**.
+Durable selection surfaces, compact controls, bounded workers, reversible
+history/scenes/archives and scientific/lifecycle qualification are complete.
+Review corrections preserve camera/coordinates/previews, make measurement updates
+idempotent and keep palette membership counts linear (D-056–D-062).
+
+The clean complete gate passes **275 Python, 97 frontend, 8 supervisor and
+82 browser tests / 40 intentional layout skips**, frozen installs, fresh migration
+to 0011, lint/type checks and build, with zero failed/flaky tests. Exact evidence
+is in the [feature plan](plans/issue-30-selection-surfaces.md). Fragment-boundary,
+resource, browser and downgrade limits are documented; context-aware patches are
+tracked separately in [#36](https://github.com/ManuelSe/Neistra/issues/36).
+
+Release execution, exact merged qualification, tag and closeout are audited in
+the plan's [publication records](plans/issue-30-selection-surfaces.md#publication-and-completion-records).
+No product blocker or further approved implementation remains. Delivery follows
+the documented PR/review, merged-gate and verified-publication sequence.
 
 ### Previous release — v0.6.1
 

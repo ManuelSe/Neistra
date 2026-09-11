@@ -1,7 +1,8 @@
 # Issue #30 — Selection-specific surfaces
 
-Status: implementing; M1–M3 / C1–C4 complete. User approved the proposal on 2026-09-11
-and authorized implementation with `/goal` on 2026-09-11.
+Status: implemented and candidate-qualified for v0.7.0; M1–M4 / C1–C5 complete.
+User approved the proposal and authorized implementation with `/goal` on 2026-09-11.
+Release execution audit: see the publication records below.
 
 - Issue: [#30 — Define selection-specific surface geometry and persistence](https://github.com/ManuelSe/Neistra/issues/30), open at approval.
 - Base branch: `master` / `origin/master`.
@@ -670,3 +671,74 @@ passes **10 / 2 intentional skips** in 1.1 minutes, with the standard isolated
 8110/8111/5273 ports and fresh `/tmp/neistra-30-measurement-focused` data. Logs:
 `/tmp/neistra-30-measurement-{lint,typecheck,unit,focused}.log`. No assertions,
 timeouts or scientific budgets were weakened. Next: a new clean complete gate.
+
+### Complete candidate gate — passed, 2026-09-12
+
+Clean tested commit: `e805ffcbc8e09ee71fae7a54fc58e408d6467051`.
+Frozen installs, fresh migration to 0011, Ruff, mypy (52 files), frontend lint/type
+checks, **275 Python tests, 97 frontend tests, 8 supervisor tests**, production
+build and **82 browser workflows / 40 intentional layout skips** all pass. Browser
+duration: 700.331 seconds (11.7 minutes), zero failed or flaky cases. Existing
+133 Alembic deprecation warnings and Mol* large-bundle advisories remain.
+
+Exact commands (repository root; `gate_root` was
+`/tmp/neistra-30-candidate-qualified-F7MkIo`):
+
+```bash
+.venv/bin/uv sync --frozen
+CI=1 corepack pnpm install --frozen-lockfile
+MOLWEAVE_DATA_DIR="$gate_root/migration" .venv/bin/uv run alembic upgrade head
+.venv/bin/uv run ruff check .
+.venv/bin/uv run mypy apps/api packages/molweave_core
+.venv/bin/uv run pytest
+corepack pnpm --dir apps/web lint
+corepack pnpm --dir apps/web typecheck
+corepack pnpm --dir apps/web test
+corepack pnpm test:dev
+corepack pnpm --dir apps/web build
+MOLWEAVE_E2E_API_PORT=8110 MOLWEAVE_E2E_WORKER_PORT=8111 \
+MOLWEAVE_E2E_WEB_PORT=5273 MOLWEAVE_E2E_DATA_DIR="$gate_root/e2e" \
+PLAYWRIGHT_BROWSERS_PATH=.playwright \
+PLAYWRIGHT_JSON_OUTPUT_FILE=/tmp/neistra-30-candidate-qualified-report.json \
+corepack pnpm exec playwright test --reporter=line,json
+git diff --check
+```
+
+Logs: `/tmp/neistra-30-candidate-qualified-gate.log` and
+`/tmp/neistra-30-candidate-qualified-report.json`. Surface evidence copied to
+`/tmp/neistra-30-candidate-evidence/` for the release verification attachment.
+Production 1STP ready: 757.9 ms desktop / 491.4 ms Pixel 7 emulation; longest surface
+task 377 / 141 ms; real worker cancellation 20.4 / 20.4 ms. Bounds and scientific
+assertions pass unchanged. Summed process RSS is not a browser/GPU heap ceiling.
+
+Origin/master was fetched again at `9624ebcca24a1164c34d31a7f7d9cef3183b8775`;
+v0.6.1 remains latest and v0.7.0 is unallocated. Final full-diff review was local,
+by the implementing agent, not independent. It covered scientific geometry,
+worker bounds/cleanup, stale results, camera and coordinate ownership, measurement
+idempotence, migration/history/archive safety, UI accessibility/performance and
+scope. All consequential findings were corrected and qualified.
+
+This subsequent evidence commit changes documentation only; production/test
+sources remain identical to the clean candidate. Live checks/reviews/protection
+must be rechecked before a normal merge. The exact merged master commit must pass
+the same complete gate before tagging.
+
+### Publication and completion records
+
+The reviewed source and candidate evidence remain immutable here. The following
+publication records are populated during delivery, after the merged gate:
+
+- [v0.7.0 release](https://github.com/ManuelSe/Neistra/releases/tag/v0.7.0):
+  published release notes, compatibility, limitations and verification attachment.
+- [Release verification report](https://github.com/ManuelSe/Neistra/releases/download/v0.7.0/neistra-0.7.0-verification.json):
+  exact candidate/merged commits, annotated tag object, complete gate results and
+  surface performance evidence. Generated only after both gates pass and the tag
+  is verified remotely.
+- [Issue #30 delivery reply](https://github.com/ManuelSe/Neistra/issues/30):
+  merged PR, release, verification, scope decisions, review and delivery status.
+- [Context-aware patch follow-up #36](https://github.com/ManuelSe/Neistra/issues/36):
+  separate scientific contract; no additional implementation is part of this plan.
+
+This separates immutable source qualification from subsequent remote delivery
+without moving a verified release tag for bookkeeping. Feature branch cleanup
+occurs only after the merge, tag, release and issue reply are verified.
