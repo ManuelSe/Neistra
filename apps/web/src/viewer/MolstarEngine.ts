@@ -486,7 +486,7 @@ export class MolstarEngine implements MolecularViewer {
         hydrogenMode: hydrogenDisplayMode(structure.settings.components),
         exactTarget: layer.exactTarget,
       });
-      await plugin.builders.structure.representation.addRepresentation(
+      const representation = await plugin.builders.structure.representation.addRepresentation(
         component,
         {
           type: profile.type,
@@ -501,6 +501,20 @@ export class MolstarEngine implements MolecularViewer {
         },
         { tag: `molweave-representation-${layer.id}` },
       );
+      const colors = structure.settings.selection_colors.flatMap((assignment) => {
+        const visible = new Set(layer.atomIds);
+        const colorLoci = this.lociFor(assignment.atom_ids.filter((id) => visible.has(id))
+          .map((atom_id) => ({ structure_id: structure.entryId, atom_id })));
+        return colorLoci ? [{
+          bundle: StructureElement.Bundle.fromLoci(colorLoci),
+          color: Color(Number.parseInt(assignment.color.slice(1), 16)), clear: false,
+        }] : [];
+      });
+      if (colors.length) {
+        await plugin.state.data.build().to(representation)
+          .apply(StateTransforms.Representation.OverpaintStructureRepresentation3DFromBundle,
+            { layers: colors }).commit();
+      }
     }
   }
 

@@ -23,6 +23,7 @@ import type {
   Scene,
   Selection,
   SelectionRepresentationStyle,
+  SelectionAppearanceChange,
   StructureProjection,
   SuperpositionRequest,
   SuperpositionResult,
@@ -242,6 +243,11 @@ export const projectApi = {
         }),
       },
     ),
+  updateSelectionAppearance: (project: Project, selection: Selection, change: SelectionAppearanceChange) =>
+    request<Project>(`/api/v1/projects/${project.id}/selection-appearance`, {
+      method: "POST",
+      body: JSON.stringify({ expected_revision: project.revision, selection, ...change }),
+    }),
   updateSelectionRepresentations: (
     project: Project,
     selection: Selection,

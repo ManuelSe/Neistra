@@ -29,12 +29,14 @@ from molweave_api.schemas import (
     ProjectRead,
     SavedSelectionRead,
     SceneRead,
+    SelectionAppearanceUpdate,
     TopologyPatch,
     ViewerSettings,
 )
 from molweave_api.viewer_state import (
     default_viewer_settings,
     prune_selection_representations,
+    update_selection_colors,
     update_selection_representations,
 )
 
@@ -450,6 +452,12 @@ class ProjectService:
         self._check_revision(project, expected_revision)
         entry = self._entry(project, entry_id)
         values = settings.model_dump(mode="json")
+        for field in ("selection_colors",):
+            current = entry.viewer_settings.get(field, [])
+            if field not in settings.model_fields_set:
+                values[field] = deepcopy(current)
+            elif values[field] != current:
+                raise InvalidProjectOperationError("Use the selection appearance action")
         current_assignments = entry.viewer_settings.get("selection_representations", [])
         if values["selection_representations"] != current_assignments:
             raise InvalidProjectOperationError(
@@ -549,6 +557,52 @@ class ProjectService:
             inverse,
             sorted(selected_by_entry),
             selection_snapshot=deepcopy(atom_references),
+        )
+
+    def update_selection_appearance(
+        self,
+        project_id: str,
+        payload: SelectionAppearanceUpdate,
+    ) -> ProjectRead:
+        project = self._project(project_id)
+        self._check_revision(project, payload.expected_revision)
+        references = [item.model_dump(mode="json") for item in payload.selection.atoms]
+        self._validate_atom_references(project, references)
+        targets: dict[str, set[int]] = {}
+        for item in payload.selection.atoms:
+            targets.setdefault(item.structure_id, set()).add(item.atom_id)
+        forward: list[dict[str, Any]] = []
+        inverse: list[dict[str, Any]] = []
+        for entry_id, atom_ids in sorted(targets.items()):
+            entry = self._entry(project, entry_id)
+            before = deepcopy(entry.viewer_settings)
+            after = {
+                **before,
+                "selection_colors": update_selection_colors(
+                    before.get("selection_colors", []),
+                    atom_ids,
+                    payload.color,
+                ),
+            }
+            forward.append(
+                {"kind": "entry.update", "entry_id": entry_id, "values": {"viewer_settings": after}}
+            )
+            inverse.insert(
+                0,
+                {
+                    "kind": "entry.update",
+                    "entry_id": entry_id,
+                    "values": {"viewer_settings": before},
+                },
+            )
+        return self._record(
+            project,
+            "selection.appearance",
+            f"{payload.action.title()} selection {payload.property} for {len(references)} atoms",
+            forward,
+            inverse,
+            sorted(targets),
+            selection_snapshot=references,
         )
 
     def isolate_entry(self, project_id: str, entry_id: str, expected_revision: int) -> ProjectRead:

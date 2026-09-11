@@ -265,9 +265,37 @@ def test_legacy_archive_defaults_to_showing_all_hydrogens(client: ApiClient) -> 
     )
 
 
-@pytest.mark.parametrize(
-    "archive_version", ["0.1.0", "0.1.1", "0.2.0", "0.2.1", "0.3.0", "0.4.0"]
-)
+def test_legacy_archive_defaults_selection_colors(client: ApiClient) -> None:
+    source = build_rich_project(client)
+    exported = export_archive(client, source["id"], "legacy-color-default")
+    data = client.get(exported["artifact"]["download_url"]).content
+    output = io.BytesIO()
+    with zipfile.ZipFile(io.BytesIO(data)) as archive, zipfile.ZipFile(output, "w") as target:
+        for info in archive.infolist():
+            payload = archive.read(info.filename)
+            if info.filename == "manifest.json":
+                manifest = json.loads(payload)
+                manifest["application_version"] = "0.5.0"
+                settings = [entry["viewer_settings"] for entry in manifest["entries"]]
+                settings += [
+                    state["viewer_settings"]
+                    for scene in manifest["scenes"]
+                    for state in scene["entry_states"]
+                ]
+                for value in settings:
+                    value.pop("selection_colors")
+                payload = json.dumps(manifest).encode()
+            target.writestr(info, payload)
+    restored = import_archive(client, output.getvalue())["project"]
+    assert all(entry["viewer_settings"]["selection_colors"] == [] for entry in restored["entries"])
+    assert all(
+        state["viewer_settings"]["selection_colors"] == []
+        for scene in restored["scenes"]
+        for state in scene["entry_states"]
+    )
+
+
+@pytest.mark.parametrize("archive_version", ["0.1.0", "0.1.1", "0.2.0", "0.2.1", "0.3.0", "0.4.0"])
 def test_archive_round_trip_preserves_project_and_originals(
     client: ApiClient,
     archive_version: str,

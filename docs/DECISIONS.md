@@ -1913,3 +1913,36 @@ prevent asynchronous results from overwriting later scientific or selection stat
 No project command, revision, molecular artifact, visibility, or camera change
 occurs. Coordinates across entries must already share a meaningful frame; there
 is no alignment, periodic geometry, contact classification, or binding-site claim.
+
+## D-052 - Independent durable selection appearance properties
+
+Status: accepted for issue #29
+
+Extend D-046 with `ViewerSettings.selection_colors`: canonical, disjoint stable
+atom-ID memberships grouped by lowercase six-digit color. Color replacements
+subtract only their selected atoms from other colors. They neither replace nor
+reset atomic/polymer representation assignments. The new revisioned
+`selection-appearance` command changes one property across all selected entries
+atomically, recording exact settings for history. Entry-setting requests preserve
+omitted appearance fields and reject attempts to bypass this dedicated action.
+
+Render colors as one disposable Mol* overpaint transform per representation,
+intersected with that layer's atom membership. This includes inherited surfaces
+without introducing a subset-surface representation or splitting polymer geometry.
+Color boundaries on continuous geometry follow atom-associated primitives.
+
+Alembic 0010 adds defaults to live entries, checkpoint entries and scenes, named
+scenes, and documented forward/inverse command action paths. Do not traverse user
+metadata. Validate all retained locations before downgrade and refuse any loss of
+non-default appearance, including history that could restore an override. This
+strengthens downgrade safety beyond the earlier viewer migrations without changing
+them. Legacy archives default absent fields; archive readers validate target IDs.
+Topology deletion prunes live and scene assignments in the same reversible edit.
+
+Rationale: independent property memberships avoid multiplying representation styles
+or silently changing unrelated state. Complete retained-history migration prevents
+undo from restoring a structurally stale snapshot or creating a false dirty state.
+The additive contract retains API/project/archive/normalized schema major 1 and
+immutable scientific artifacts; it promises backward reading, not older-reader
+support for new appearance state. Hydrogen-specific precedence extends this
+property model in the following checkpoint.

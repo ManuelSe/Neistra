@@ -356,3 +356,14 @@ It never contains molecular entries, artifacts, checkpoints, or command history.
 The unsaved current selection and current camera are transient session state and
 are cleared when the active project changes or the page reloads unless the user
 restores them from a named scene.
+
+## Selection colors (issue #29)
+
+`ViewerSettings.selection_colors` defaults to `[]`. Each record contains
+`color: "#rrggbb"` and positive, sorted, unique, nonempty `atom_ids`. Colors are
+unique and atom memberships disjoint within this property. Representation
+assignments remain independent. History, checkpoint, duplication, scene and
+archive state preserve the same records; topology deletion prunes references
+reversibly. Alembic 0010 upgrades every documented retained viewer-settings path,
+including checkpointed scenes and forward/inverse actions, and refuses a lossy
+downgrade. Older archives missing the field remain valid with empty defaults.

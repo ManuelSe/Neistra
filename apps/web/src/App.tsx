@@ -26,6 +26,7 @@ import type {
   SelectionGranularity,
   SelectionMode,
   SelectionRepresentationStyle,
+  SelectionAppearanceChange,
   StructureProjection,
   SuperpositionRequest,
 } from "./api/types";
@@ -671,6 +672,10 @@ export default function App() {
     },
     onLoadSelectionStructures: () =>
       loadStructureProjections(selectedEntryIds(selection)),
+    onAppearance: async (change: SelectionAppearanceChange) => {
+      if (!project) return;
+      await projectMutation.mutateAsync(() => projectApi.updateSelectionAppearance(project, selection, change));
+    },
     onExpandDistance: async (
       distance: number, granularity: "atom" | "residue", signal: AbortSignal,
     ) => {

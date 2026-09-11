@@ -2,15 +2,15 @@
 
 ## Current milestone
 
-Issue #29 — M1/C1 distance expansion qualified; M2/C2 local color next.
+Issue #29 — M2/C2 local color qualified; M2/C3 local hydrogen visibility next.
 
 The user authorized full delivery with `/goal` on 2026-09-11 under
 [the approved feature plan](plans/issue-29-selection-appearance.md). The planned
 release remains the compatible minor `0.6.0`; no version has changed yet.
 Expansion now works in Style selection using the shared worker, retaining seeds
 and orphan matches and guarding cancellation/stale results. D-051 records scope.
-Local color and hydrogen overrides, integrated qualification and release delivery
-remain outstanding. Branch: `feat/issue-29-selection-appearance`.
+Local color is implemented with migration/history/archive coverage and D-052.
+Hydrogen overrides, integrated qualification and release delivery remain outstanding. Branch: `feat/issue-29-selection-appearance`.
 
 ### Previous milestone context
 
@@ -886,6 +886,12 @@ feature merge; this documentation-only closeout records the remote evidence.
   affected-entry topology replacement without a full scene synchronization.
 
 ## Verification performed
+
+- M2/C2: 65 Python tests, 19 focused frontend tests, Ruff/mypy (51 files),
+  ESLint/TypeScript/build passed. Existing V2 browser coverage passed 7 workflows;
+  corrected molecular-color ROI test passed separately, proving color/reset and
+  hidden-entry locality. Migration defaults and downgrade refusals cover all
+  retained locations. Detailed evidence and known warnings are in the feature log.
 
 - Issue #29 M1/C1: 13 Python selection tests, 10 focused frontend tests, full
   frontend suite (75 tests), Ruff, mypy (50 files), ESLint, TypeScript and build
@@ -1934,7 +1940,8 @@ Results:
 
 ## Known limitations
 
-- Issue #29's new color/hydrogen controls remain planned, not implemented.
+- Issue #29's hydrogen controls remain planned, not implemented.
+  Local color is implemented with focused qualification.
   Styling-dialog distance expansion is implemented and qualified. Exact-selected-hydrogen targets, project-wide
   expansion, the selection-surface deferral, and backward archive compatibility
   are approved contract boundaries; see the feature plan for full semantics.
@@ -2023,5 +2030,5 @@ None.
 
 ## Next action
 
-Commit the passing M1/C1 checkpoint and proceed to M2/C2 durable selection color
-under [the approved issue #29 contract](plans/issue-29-selection-appearance.md).
+Commit M2/C2 and implement M2/C3 selection-local hydrogen visibility under
+[the approved issue #29 contract](plans/issue-29-selection-appearance.md).

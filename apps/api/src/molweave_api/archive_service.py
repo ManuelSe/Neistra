@@ -1177,6 +1177,11 @@ def _validate_selection_assignments(
     valid_atom_ids: set[int],
     structure: NormalizedStructureV1 | None,
 ) -> None:
+    for appearance in settings.selection_colors:
+        if not set(appearance.atom_ids).issubset(valid_atom_ids):
+            raise ArchiveValidationError(
+                "invalid_archive_atom_reference", "Archive appearance targets a missing atom."
+            )
     for assignment in settings.selection_representations:
         target = set(assignment.atom_ids)
         if not target.issubset(valid_atom_ids):

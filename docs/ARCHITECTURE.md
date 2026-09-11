@@ -199,3 +199,11 @@ macromolecular hierarchy; RDKit handles small-molecule chemistry; PDBFixer and
 OpenMM provide deliberately limited protein templates/hydrogens; SciPy supplies
 the contact spatial index; Pytest/Vitest/Playwright/axe cover domain, component,
 real-browser, WebGL, and detectable accessibility behavior.
+
+## Selection appearance extension
+
+Issue #29 stores local color memberships independently of atomic/polymer style
+channels. The dedicated revisioned project command owns persistence and exact
+history; Mol* receives disposable overpaint bundles intersected with rendered
+layer membership. It does not own colors or molecular state. See D-052 and the
+issue feature plan for retained-history migration and compatibility guarantees.

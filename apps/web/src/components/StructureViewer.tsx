@@ -1,3 +1,4 @@
+import type { ChangeSelectionAppearance } from "../api/types";
 import type { ExpandSelection } from "../selection/expansion";
 import { useQueries } from "@tanstack/react-query";
 import * as Tooltip from "@radix-ui/react-tooltip";
@@ -52,6 +53,7 @@ interface StructureViewerProps {
   onDeleteScene?: (scene: Scene) => Promise<void>;
   onLoadSelectionStructures?: () => Promise<Map<string, StructureProjection>>;
   onExpandDistance?: ExpandSelection;
+  onAppearance?: ChangeSelectionAppearance;
   onSelectionStyle?: (
     action: "apply" | "reset",
     style?: SelectionRepresentationStyle,
@@ -75,6 +77,7 @@ export function StructureViewer({
   onLoadSelectionStructures,
   onSelectionStyle,
   onExpandDistance,
+  onAppearance,
   createViewer = createMolstarViewer,
 }: StructureViewerProps) {
   const targetRef = useRef<HTMLDivElement>(null);
@@ -427,6 +430,7 @@ export function StructureViewer({
         />
         <SelectionStyleDialog
           onExpandDistance={onExpandDistance}
+          onAppearance={onAppearance}
           open={styleDialogOpen}
           selection={selection}
           entries={project.entries}

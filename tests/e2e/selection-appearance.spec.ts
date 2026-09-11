@@ -46,6 +46,41 @@ test("expands from styling across hidden entries without durable changes", async
   await expect(dialog.getByRole("button", { name: "Expand selection", exact: true })).toBeEnabled();
   expect(await (await request.get(`/api/v1/projects/${project.id}`)).json()).toEqual(before);
   expect((await new AxeBuilder({ page }).include('[role="dialog"]').analyze()).violations).toEqual([]);
+  await dialog.getByLabel("Custom selection color").fill("#ff00ff");
+  await dialog.getByRole("button", { name: "Apply color", exact: true }).click();
+  await expect(dialog.getByRole("status").filter({ hasText: "Selection color applied" })).toBeVisible();
+  const colored: Project = await (await request.get(`/api/v1/projects/${project.id}`)).json();
+  for (const entry of colored.entries) {
+    expect(entry.viewer_settings.selection_colors).toEqual([{ color: "#ff00ff", atom_ids: entry.atom_ids }]);
+    expect(entry.viewer_settings.selection_representations).toEqual([]);
+  }
   await page.keyboard.press("Escape");
   await expect(page.getByRole("button", { name: "Style selection", exact: true })).toBeFocused();
+  await page.getByRole("button", { name: "Clear", exact: true }).click();
+  const magentaPixels = () => page.locator(".molstar-host canvas").first().evaluate((canvas: HTMLCanvasElement) => {
+    const gl = canvas.getContext("webgl2") ?? canvas.getContext("webgl");
+    if (!gl) return 0;
+    gl.finish();
+    const width = Math.floor(canvas.width * 0.6);
+    const height = Math.floor(canvas.height * 0.6);
+    const pixels = new Uint8Array(width * height * 4);
+    gl.readPixels(Math.floor(canvas.width * 0.2), Math.floor(canvas.height * 0.2),
+      width, height, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
+    let count = 0;
+    for (let i = 0; i < pixels.length; i += 4) {
+      if (pixels[i] > 100 && pixels[i + 2] > 100 && pixels[i + 1] < 70) count++;
+    }
+    return count;
+  });
+  await expect.poll(magentaPixels).toBeGreaterThan(100);
+  await row.locator(".entry-select").click();
+  await page.getByRole("button", { name: "Style selection", exact: true }).click();
+  await dialog.getByRole("button", { name: "Reset color" }).click();
+  await expect(dialog.getByRole("status")).toHaveText("Selection color reset.");
+  await page.keyboard.press("Escape");
+  await page.getByRole("button", { name: "Clear", exact: true }).click();
+  await expect.poll(magentaPixels).toBe(0);
+  const reset: Project = await (await request.get(`/api/v1/projects/${project.id}`)).json();
+  expect(reset.entries.find((entry) => entry.id === duplicate.id)!.viewer_settings.selection_colors).toHaveLength(1);
+
 });

@@ -1,3 +1,5 @@
+import { SelectionColorControls } from "./SelectionColorControls";
+import type { ChangeSelectionAppearance } from "../api/types";
 import type { ExpandSelection } from "../selection/expansion";
 import { SelectionExpansion } from "./SelectionExpansion";
 import { RotateCcw } from "lucide-react";
@@ -34,6 +36,7 @@ interface SelectionStyleDialogProps {
   busy: boolean;
   onOpenChange: (open: boolean) => void;
   onExpandDistance?: ExpandSelection;
+  onAppearance?: ChangeSelectionAppearance;
   onAction: (
     action: "apply" | "reset",
     style?: SelectionRepresentationStyle,
@@ -50,6 +53,7 @@ export function SelectionStyleDialog({
   onOpenChange,
   onAction,
   onExpandDistance,
+  onAppearance,
 }: SelectionStyleDialogProps) {
   const [activeAction, setActiveAction] = useState<string | null>(null);
   const [message, setMessage] = useState<{ kind: "success" | "error"; text: string } | null>(
@@ -164,6 +168,8 @@ export function SelectionStyleDialog({
           </div>
           {polymerReason ? <p className="selection-style-reason">{polymerReason}</p> : null}
         </fieldset>
+        {onAppearance ? <SelectionColorControls selection={selection} entries={entries}
+          busy={busy} onChange={onAppearance} /> : null}
         <button
           type="button"
           className="secondary-button selection-style-reset"
