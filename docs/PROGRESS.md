@@ -2,16 +2,16 @@
 
 ## Current milestone
 
-Issue #29 — carbon-only amendment implemented; final qualification and delivery.
+Issue #29 complete — released [Neistra v0.6.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.6.0).
 
-The user authorized full delivery with `/goal` on 2026-09-11 under
-[the approved feature plan](plans/issue-29-selection-appearance.md). The planned
-release is the compatible minor `0.6.0`; all five authoritative versions are updated.
-Expansion now works in Style selection using the shared worker, retaining seeds
-and orphan matches and guarding cancellation/stale results. D-051 records scope.
-Local color is implemented with migration/history/archive coverage and D-052.
-Local hydrogen overrides are implemented with full-projection classification and D-053.
-Prior qualification is recorded below; the carbon-only amendment requires fresh qualification. Release delivery remains outstanding. Branch: `feat/issue-29-selection-appearance`.
+PRs [#31](https://github.com/ManuelSe/Neistra/pull/31) and
+[#32](https://github.com/ManuelSe/Neistra/pull/32) deliver styling-dialog distance
+expansion, independent local colors with All selected atoms / Carbon atoms only,
+and local explicit-hydrogen preferences. D-051–D-054 record ownership and scope.
+The complete candidate and exact merged gates passed. The annotated tag, release,
+issue reply and implementation-branch cleanup are remotely verified in
+[the feature plan](plans/issue-29-selection-appearance.md). This documentation-only
+closeout leaves the release tag on `b747f0cccdb575d38022d4b42bfb7e8fa2e1c849`.
 
 ### Previous milestone context
 
@@ -50,6 +50,10 @@ and closed out on issue #1. The release tag remains on the exact verified
 feature merge; this documentation-only closeout records the remote evidence.
 
 ## Completed work
+
+- Issue #29: all approved checkpoints and the user’s carbon-only amendment are
+  implemented, verified, merged, versioned and released. The issue received its
+  scope-accurate closeout reply; surface follow-up #30 remains separate.
 
 - Issue #29 planning: inspected the product/architecture/data/selection/viewer
   and delivery contracts, resolved product scope through explicit approval,
@@ -887,6 +891,14 @@ feature merge; this documentation-only closeout records the remote evidence.
   affected-entry topology replacement without a full scene synchronization.
 
 ## Verification performed
+
+- Released commit `b747f0cccdb575d38022d4b42bfb7e8fa2e1c849` passed complete V5: 237 Python,
+  80 frontend, 8 supervisor and 73 browser tests (39 intentional layout skips;
+  14.5m), frozen installs, migration 0010, lint/type checks and build.
+  An initial 29 ms performance-budget excursion did not reproduce in three
+  unchanged isolated runs or the subsequent complete gate; no limits were relaxed.
+  Exact timings, logs, compatibility coverage and publication evidence are in
+  the feature plan. Review was local; Codex requests returned no independent review.
 
 - Amended candidate `e395509` passed the complete release gate: 237 Python,
   80 frontend, 8 supervisor, 73 browser tests (39 intentional layout skips;
@@ -2070,11 +2082,9 @@ Results:
 
 ## Blockers
 
-None. The user authorized any merge method after the carbon-only amendment;
-a merge commit for PR #32 will preserve history without a force push.
+None.
 
 ## Next action
 
-Complete the amended V5 gate, merge PR #32, qualify the exact merged commit,
-and complete v0.6.0 delivery under
-[the approved issue #29 contract](plans/issue-29-selection-appearance.md).
+No remaining implementation or release work for issue #29. Selection-specific
+surfaces are tracked separately in [#30](https://github.com/ManuelSe/Neistra/issues/30).

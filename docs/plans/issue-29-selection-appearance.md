@@ -2,7 +2,7 @@
 
 ## Status and metadata
 
-- Status: **approved; amended candidate qualified; delivery in progress**.
+- Status: **complete; released as v0.6.0; verified delivery closeout**.
 - Issue: [#29 — Enhance selection representation controls](https://github.com/ManuelSe/Neistra/issues/29).
 - Issue created/updated: 2026-09-10; inspected and plan approved: 2026-09-11.
 - Approval: the user explicitly approved the complete proposal and instructed:
@@ -11,17 +11,17 @@
 - Inspected and refreshed remote base: `8b68909d3b33500a130e9c9a7dae52ceda1ff8a4`.
 - Local branch base: `06cae490fc9d73302a6d0891c6e0636c0a9ea376`, the user's
   separately requested `chore(git): ignore local rebranding workspace` prerequisite.
-  Local `master` is one commit ahead of the remote base, not divergent.
+  At the planning handoff, local `master` was one commit ahead of the remote base, not divergent.
 - Feature branch: `feat/issue-29-selection-appearance`.
-- Proposed release: **0.6.0**, annotated tag **`v0.6.0`**.
+- Released: [**0.6.0**](https://github.com/ManuelSe/Neistra/releases/tag/v0.6.0), annotated tag **`v0.6.0`**, commit `b747f0cccdb575d38022d4b42bfb7e8fa2e1c849`.
 - This document is the implementation contract. Do not replace `docs/PLAN.md`.
 - The user supplied `/goal` on 2026-09-11, authorizing implementation, verification,
   checkpoint commits, PR/review/merge, version/tag/release, issue response, and cleanup.
 
 ## Core problem and approved outcome
 
-Scientists must currently leave the selection styling workflow to perform
-distance queries, while available color and hydrogen controls act on whole
+Before this issue, scientists had to leave the selection styling workflow to perform
+distance queries, while available color and hydrogen controls acted on whole
 entries. Provide distance expansion, selection-local solid color, and
 selection-local non-polar-hydrogen visibility inside the existing **Style
 selection** dialog. Retain its existing atomic and polymer representation choices.
@@ -474,6 +474,14 @@ evidence. An inability to publish is not evidence that publication occurred.
 
 | 2026-09-11 | Amended V5 candidate qualified | Carbon-only checkpoint `e395509` passed complete V5: frozen uv/pnpm setup, isolated upgrade through 0010, Ruff, mypy (51 files), 237 Python tests (81 known Alembic warnings; 35.02 s), ESLint, TypeScript, 80 frontend tests, 8 supervisor tests, production build and full Playwright (73 passed/39 intentional layout skips; 14.5 minutes). All new carbon pixel/custom-theme/reload and desktop/mobile/theme journeys passed in the full run. Browser data `/tmp/neistra-issue29-carbon-candidate`, ports 8110/8111/5273; log `/tmp/neistra-issue29-carbon-candidate-gate.log`. Existing optional Scarf, lazy Mol* and negative-fixture chemistry/disconnect advisories remain; initial/lazy gzip 158.70/967.60 KiB. Removed only the dedicated migration data afterward. All five version sources verified as 0.6.0; no tag collision, workflows, rulesets or master protection. Local full amendment diff reviewed with no remaining consequential findings, without claiming independent review. Documentation-only evidence/authorization commit follows; merge PR #32 and qualify exact master before publication. |
 
+| 2026-09-11 | PR #32 merged and verified | User-authorized merge commit `b747f0cccdb575d38022d4b42bfb7e8fa2e1c849` on `origin/master`; local master fast-forwarded. All 22 remote PR file blobs matched candidate `772d5e5`; merged tree `77f45e64ae19fb8f513efe1c03cb0183a7b441ca` matched it exactly. No required checks/protections/reviews or unresolved conversations. Codex review was requested on #31 and #32 but no review returned; full local review was documented without claiming independence. |
+
+| 2026-09-11 | Exact merged V5 qualified | Initial merged gate on `b747f0cccdb575d38022d4b42bfb7e8fa2e1c849` passed all non-browser checks and 72 browser workflows (39 skips; 14.3 minutes), but one existing performance sequence measured 5,029 ms against 5,000 ms. Preserved `/tmp/neistra-issue29-performance-excursion.zip`; its 750 ms wait took about 975 ms. No code, budget, timeout or assertion was changed. Three unchanged isolated repetitions passed (24.5 s): interactions 3,746/4,222/4,346 ms, maximum long tasks 523/515/528 ms, zero repeated structure requests. Evidence `/tmp/neistra-issue29-performance-repeat.json`. Fresh complete V5 then passed on the same exact merged commit: frozen installs, fresh upgrade through 0010, Ruff, mypy (51 files), 237 Python tests (81 known Alembic warnings; 32.51 s), ESLint, TypeScript, 80 frontend tests, 8 supervisor tests, build, and 73 browser workflows/39 intentional layout skips (14.5m). Log `/tmp/neistra-issue29-final-merged-recheck-gate.log`; browser root `/tmp/neistra-issue29-final-merged-recheck`, ports 8110/8111/5273. Final performance check passed within unchanged limits. Dedicated migration data removed; tree clean before tag. Existing bundle/optional script/negative-fixture advisories remain. |
+
+| 2026-09-11 | Publication and issue closeout verified | Annotated tag `v0.6.0`, object `3eeb413b126888d256555111427aa7ed6e670070`, remotely dereferences to `b747f0cccdb575d38022d4b42bfb7e8fa2e1c849`. Published non-draft, non-prerelease [Neistra v0.6.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.6.0); verified remotely. Posted and verified the [issue #29 closeout reply](https://github.com/ManuelSe/Neistra/issues/29#issuecomment-5638054289), covering all implemented scope including carbon-only coloring, PRs #31/#32, exact verification, migration/compatibility, scientific limits and deferred/rejected work. Issue #29 is closed; focused surface follow-up [#30](https://github.com/ManuelSe/Neistra/issues/30) is open and verified. All five version sources remain 0.6.0. |
+
+| 2026-09-11 | Branch cleanup and documentation closeout | After verifying merge, tag, release, issue reply and follow-up, deleted the implementation branch remotely and locally and verified clean synchronized master. Preserved `backup/issue-29-master-06cae49`. Reused the planned feature-branch name from released master solely for this small documentation closeout PR, respecting the user’s branch restriction. The commit containing this row changes only release/progress/feature-plan documentation and leaves the verified release tag fixed. Final documentation-branch removal is verified in the delivery handoff after its PR merges. |
+
 Future entries must record exact commits, commands, results, known warnings,
 limitations, remote identifiers, blockers, and next action. Populate feature
 acceptance evidence only after execution. Do not mark the PR, issue, merge,
@@ -481,4 +489,9 @@ tag, release, or cleanup complete until remotely verified.
 
 ## Completion and next action
 
-PR #31 is merged. Carbon-only amendment C6a is implemented and focused-qualified at `e395509`; complete V5 passed (237 Python/80 frontend/8 supervisor/73 browser, 39 intentional skips). The user authorized a merge commit for PR #32. Finish qualification, merge, qualify exact master, publish v0.6.0, reply to the issue and record cleanup.
+Approved scope, including the carbon-only amendment, is implemented and released
+in [v0.6.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.6.0) through PRs #31 and #32. Complete candidate and exact merged
+qualification passed; the issue reply, tag/release and implementation-branch
+cleanup are verified above. This documentation closeout records those outcomes
+without moving the release tag. No remaining implementation or release work for
+issue #29; selection-specific surfaces remain the separate follow-up #30.
