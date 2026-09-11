@@ -1,26 +1,95 @@
 # Neistra Release Notes
 
-## Unreleased — Neistra presentation rebrand
+## 0.6.0 - 2026-09-11
 
-Candidate notes, not a published or numbered release. Earlier MolWeave release
-entries and links below are preserved as history.
+Status: release candidate for issue #29; publish only after verified merge and
+merged-commit qualification. Detailed evidence: [approved feature plan](plans/issue-29-selection-appearance.md).
 
-- Renamed the visible molecular workspace to Neistra, with the Sparked N,
-  “Shape molecular structure.” welcome, matching light/dark themes and browser
-  metadata. Added consistent dense-panel, workflow, popup and focus treatment.
-- Retained scientific colors, original files, molecular state, camera,
-  selection, projects, scenes, history, jobs and backend behavior.
-- Renamed private JavaScript packages to `neistra` and `@neistra/web` and
-  updated repository presentation and human-facing startup diagnostics.
-- Kept `.molweave.zip`, MIME/provenance, Python modules, plugin IDs,
-  `MOLWEAVE_*` configuration, data roots and `molweave-workspace-v1` preferences.
-  No project, archive or preference migration is required.
-- All authoritative version values remain `0.5.0` because backend changes are
-  excluded. A coordinated version/release decision and external repository
-  cutover remain pending; no remote rename, tag or publication is claimed.
+### Highlights
 
-See [verification and handoff](REBRANDING_VERIFICATION.md) for executed gates,
-scope decisions and remaining qualification work.
+Style selection now supports distance expansion, independent solid colors, and
+local non-polar-hydrogen preferences in the existing molecular workflow.
+
+### Added
+
+- Expand around selected atoms with a positive cutoff (default 4 Å), to matching
+  atoms or complete residues. Retain seeds and orphan matches, with cancellation
+  and stale-result protection. Hidden project entries participate without
+  becoming visible.
+- Set/reset durable solid colors on exact selected atoms using Mol* overpaint.
+- Set Show/Hide/Use entry setting for explicit selected hydrogens. Mixed states,
+  loading failures, empty targets and master-switch dependencies are explained.
+- Reuse existing atomic styles, Backbone and Cartoon; keep each property's reset
+  independent. Retain settings through history, duplication, scenes and archives.
+
+### Fixes and display semantics
+
+- Preserve the last valid camera while disposable Mol* scenes rebuild, preventing
+  a transient zero-radius camera from reaching scene persistence.
+- Local hydrogen preferences override the entry nonpolar setting; master
+  hydrogen, component, entry visibility and isolation remain upper bounds.
+  Classify on full projected connectivity before any subset filtering.
+- Use indexed property membership lookups for selection summaries. Appearance
+  changes reuse artifact caches and do not mutate molecular data or selection.
+
+### Scientific limitations
+
+Distance expansion assumes a shared Cartesian frame and supplies no alignment,
+periodic geometry, contact classification or binding-site inference. Hydrogen
+preferences target explicit selected H, never hydrogens implicitly attached to
+selected heavy atoms. Polarity follows the pinned Mol* N/O/S/F/Cl/Br/I-neighbor
+convention and available connectivity; there is no chemistry repair, generation
+or protonation analysis. Continuous cartoon/surface color boundaries follow
+atom-associated primitives. Ligand focus uses heavy atoms when local hydrogen
+preferences exist.
+
+### Migration and compatibility
+
+Alembic 0010 defaults both appearance collections in live, checkpoint, scene and
+retained command settings. Back up the managed directory, stop API/worker, and
+upgrade before restarting. Downgrade refuses loss of non-default appearance in
+any retained state, including history. See [migration guidance](DEVELOPMENT.md).
+
+API v1, project/archive/normalized schema 1, immutable originals, scientific
+artifacts, `.molweave.zip`, Python modules, plugin identifiers and `MOLWEAVE_*`
+configuration remain compatible. Supported older projects and archives remain
+readable; older applications are not guaranteed to read new appearance data.
+This additive user-visible feature is a minor increment from 0.5.0 to 0.6.0.
+
+### Accessibility and performance
+
+Qualified integrated keyboard workflows and scoped axe checks in both themes on
+desktop Chromium and Pixel 7 emulation, plus actual 100%/200% desktop browser zoom.
+The established 1STP readiness, interaction, long-task and artifact-request budgets
+remain release gates. No cross-browser, hardware-GPU or large-system throughput
+certification is implied. The existing lazy Mol* bundle advisory remains.
+
+### Verification
+
+Checkpoint evidence includes domain, API, history/restart, migration/downgrade,
+legacy archive, topology, component and real-WebGL tests. Pixel checks verify
+actual color application/reset, selected C–H disappearance, polar O–H retention
+and master/local precedence for explicit protein and ligand fixtures. The final
+candidate and exact merged commit must pass the complete README/DEVELOPMENT
+release gate; executed results are recorded in the feature plan.
+
+### Deferred work
+
+Selection-specific surfaces are deferred to [#30](https://github.com/ManuelSe/Neistra/issues/30)
+for a defensible subset/context geometry, persistence and resource-limit contract.
+Existing entry surfaces remain supported. Entry-wide controls were rejected as a
+substitute for local controls. Extra color schemes, opacity, labels, presets,
+overlays, live previews and duplicate menus are outside this approved scope.
+Ligand designation, component classification and subset export remain #11, #20
+and #21.
+
+### Neistra presentation since the preceding numbered release
+
+Includes the previously merged Neistra rebrand (PR #28): Sparked N identity,
+“Shape molecular structure.” welcome, coordinated themes, responsive controls and
+human-facing diagnostics. Private JavaScript packages use Neistra names; persisted
+formats and backend identifiers remain compatible. The rebrand itself retained
+0.5.0; this release's new version belongs to the selection-appearance feature.
 
 ## 0.5.0 - 2026-08-09
 

@@ -2,11 +2,11 @@
 
 ## Current milestone
 
-Issue #29 — M3/C4 qualified; M4 release preparation next.
+Issue #29 — M4/C5 release candidate prepared; complete release gate next.
 
 The user authorized full delivery with `/goal` on 2026-09-11 under
 [the approved feature plan](plans/issue-29-selection-appearance.md). The planned
-release remains the compatible minor `0.6.0`; no version has changed yet.
+release is the compatible minor `0.6.0`; all five authoritative versions are updated.
 Expansion now works in Style selection using the shared worker, retaining seeds
 and orphan matches and guarding cancellation/stale results. D-051 records scope.
 Local color is implemented with migration/history/archive coverage and D-052.
@@ -2045,5 +2045,5 @@ None.
 
 ## Next action
 
-Prepare v0.6.0 and run the complete release gate under
+Run the complete v0.6.0 release gate and final review under
 [the approved issue #29 contract](plans/issue-29-selection-appearance.md).
