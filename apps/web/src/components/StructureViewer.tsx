@@ -99,6 +99,7 @@ export function StructureViewer({
     new Map<string, StructureProjection>(),
   );
   const [styleEligibilityBusy, setStyleEligibilityBusy] = useState(false);
+  const [styleEligibilityError, setStyleEligibilityError] = useState<string | null>(null);
   const visibleEntries = useMemo(
     () => project.entries.filter((entry) => entry.visible),
     [project.entries],
@@ -399,9 +400,15 @@ export function StructureViewer({
     if (!styleDialogOpen || !styleLoader.current) return;
     let current = true;
     setStyleEligibilityBusy(true);
+    setStyleEligibilityError(null);
     void styleLoader.current()
       .then((loaded) => { if (current) setStyleStructures(loaded); })
-      .catch(() => { if (current) setStyleStructures(new Map()); })
+      .catch(() => {
+        if (current) {
+          setStyleStructures(new Map());
+          setStyleEligibilityError("Could not load selection structures. Close and reopen this dialog to retry.");
+        }
+      })
       .finally(() => { if (current) setStyleEligibilityBusy(false); });
     return () => { current = false; };
   }, [styleDialogOpen, styleContext]);
@@ -436,6 +443,7 @@ export function StructureViewer({
           entries={project.entries}
           structures={styleStructures}
           eligibilityBusy={styleEligibilityBusy}
+          eligibilityError={styleEligibilityError}
           busy={busy}
           onOpenChange={setStyleDialogOpen}
           onAction={async (action, style) => {

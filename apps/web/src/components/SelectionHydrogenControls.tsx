@@ -1,13 +1,14 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import type {
   ChangeSelectionAppearance, Entry, Selection, StructureProjection,
 } from "../api/types";
 
-export function SelectionHydrogenControls({ selection, entries, structures, busy, onChange }: {
+export function SelectionHydrogenControls({ selection, entries, structures, loading = false, busy, onChange }: {
   selection: Selection;
   entries: Entry[];
   structures: ReadonlyMap<string, StructureProjection>;
   busy: boolean;
+  loading?: boolean;
   onChange: ChangeSelectionAppearance;
 }) {
   const [pending, setPending] = useState(false);
@@ -19,9 +20,12 @@ export function SelectionHydrogenControls({ selection, entries, structures, busy
   ]));
   const hydrogens = selection.atoms.filter((atom) => hydrogenIds.get(atom.structure_id)?.has(atom.atom_id));
   const byEntry = new Map(entries.map((entry) => [entry.id, entry]));
+  const preferences = useMemo(() => new Map(entries.map((entry) => [entry.id,
+    new Map(entry.viewer_settings.selection_nonpolar_hydrogens.flatMap((item) =>
+      item.atom_ids.map((id) => [id, item.show] as const))),
+  ])), [entries]);
   const states = new Set(hydrogens.map((atom) => {
-    const show = byEntry.get(atom.structure_id)?.viewer_settings.selection_nonpolar_hydrogens
-      .find((item) => item.atom_ids.includes(atom.atom_id))?.show;
+    const show = preferences.get(atom.structure_id)?.get(atom.atom_id);
     return show === undefined ? "inherit" : show ? "show" : "hide";
   }));
   const state = states.size > 1 ? "mixed" : [...states][0] ?? "inherit";
@@ -43,11 +47,11 @@ export function SelectionHydrogenControls({ selection, entries, structures, busy
     <fieldset className="selection-style-group">
       <legend>Selection hydrogens</legend>
       <p className="selection-style-help" id="selection-hydrogen-help">
-        {hydrogens.length} explicit hydrogens selected. Only non-polar hydrogen visibility
+        {loading ? "Checking explicit hydrogen targets…" : `${hydrogens.length} explicit hydrogens selected.`} Only non-polar hydrogen visibility
         changes; selecting a heavy atom does not include its attached hydrogens.
         Entry visibility, Show hydrogens, components, and isolation still apply.
       </p>
-      {!hydrogens.length ? <p>Select explicit hydrogen atoms, or a complete residue containing them.</p> : null}
+      {!loading && !hydrogens.length ? <p>Select explicit hydrogen atoms, or a complete residue containing them.</p> : null}
       {hiddenByMaster ? <p>Show hydrogens is off for at least one selected entry. Local preferences are retained.</p> : null}
       <label>Selected non-polar hydrogens
         <select value={state} aria-describedby="selection-hydrogen-help"

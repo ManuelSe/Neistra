@@ -54,3 +54,105 @@ def test_project_survives_api_restart_and_recovers_uncheckpointed_changes(
     assert reopened["name"] == "Recovered project"
     assert reopened["has_uncheckpointed_changes"] is False
     third_app.state.engine.dispose()
+
+
+def test_appearance_duplicate_atomicity_checkpoint_and_restart(tmp_path: Path) -> None:
+    settings = Settings(
+        data_dir=tmp_path,
+        database_url=f"sqlite:///{tmp_path / 'appearance.db'}",
+        auto_create_schema=True,
+    )
+    app = create_app(settings)
+    Base.metadata.create_all(app.state.engine)
+    client = ApiClient(app)
+    project = client.post("/api/v1/projects", json={"name": "Durable appearance"}).json()
+    path = f"/api/v1/projects/{project['id']}"
+    fixture = Path(__file__).parents[1] / "fixtures/hydrogens/polar_hydrogens_ligand.mol"
+    project = client.post(
+        f"{path}/imports",
+        data={"expected_revision": 0},
+        files=[
+            ("files", ("hydrogens.mol", fixture.read_bytes(), "chemical/x-mdl-molfile")),
+        ],
+    ).json()["project"]
+    entry_id = project["entries"][0]["id"]
+    target = {
+        "atoms": [{"structure_id": entry_id, "atom_id": 2}],
+        "granularity": "atom",
+        "source": "inspector",
+    }
+    for value in [
+        {"property": "color", "color": "#112233"},
+        {"property": "nonpolar_hydrogens", "show": False},
+    ]:
+        response = client.post(
+            f"{path}/selection-appearance",
+            json={
+                "expected_revision": project["revision"],
+                "selection": target,
+                "action": "set",
+                **value,
+            },
+        )
+        assert response.status_code == 200, response.text
+        project = response.json()
+    expected = project["entries"][0]["viewer_settings"]
+    project = client.post(
+        f"{path}/entries/{entry_id}/duplicate", json={"expected_revision": project["revision"]}
+    ).json()
+    assert len(project["entries"]) == 2
+    assert all(entry["viewer_settings"] == expected for entry in project["entries"])
+    target["atoms"] = [{"structure_id": entry["id"], "atom_id": 2} for entry in project["entries"]]
+    project = client.get(path).json()
+    invalid = {**target, "atoms": [*target["atoms"], {"structure_id": entry_id, "atom_id": 999}]}
+    rejected = client.post(
+        f"{path}/selection-appearance",
+        json={
+            "expected_revision": project["revision"],
+            "selection": invalid,
+            "action": "set",
+            "property": "nonpolar_hydrogens",
+            "show": True,
+        },
+    )
+    assert rejected.status_code == 422
+    assert client.get(path).json() == project
+    project = client.post(f"{path}/save", json={"expected_revision": project["revision"]}).json()
+    assert not project["has_uncheckpointed_changes"]
+    project = client.post(
+        f"{path}/selection-appearance",
+        json={
+            "expected_revision": project["revision"],
+            "selection": target,
+            "action": "reset",
+            "property": "nonpolar_hydrogens",
+        },
+    ).json()
+    assert all(
+        entry["viewer_settings"]["selection_nonpolar_hydrogens"] == []
+        for entry in project["entries"]
+    )
+    project = client.get(path).json()
+    app.state.engine.dispose()
+    restarted = create_app(settings)
+    client = ApiClient(restarted)
+    recovered = client.get(path).json()
+    assert recovered["has_uncheckpointed_changes"]
+    assert recovered["entries"] == project["entries"]
+    undone = client.post(
+        f"{path}/history/undo", json={"expected_revision": recovered["revision"]}
+    ).json()
+    assert all(entry["viewer_settings"] == expected for entry in undone["entries"])
+    assert not undone["has_uncheckpointed_changes"]
+    redone = client.post(
+        f"{path}/history/redo", json={"expected_revision": undone["revision"]}
+    ).json()
+    assert all(
+        entry["viewer_settings"]["selection_nonpolar_hydrogens"] == []
+        for entry in redone["entries"]
+    )
+    assert all(
+        entry["viewer_settings"]["selection_colors"] == expected["selection_colors"]
+        for entry in redone["entries"]
+    )
+    restarted.state.engine.dispose()

@@ -196,3 +196,18 @@ Read the structured error and warnings in the UI/API. Filename extension,
 UTF-8 validity, request/file limits, atom limits, malformed chemistry, and
 known export losses are enforced. Lossy export requires explicit
 acknowledgement; the immutable original remains downloadable.
+
+### Selection appearance migration (0.6.0)
+
+Back up the managed data directory, stop API and worker, then run the normal
+`alembic upgrade head` command before starting 0.6.0. Migration 0010 adds empty
+appearance collections to live, checkpoint, scene and retained command settings.
+It does not rewrite normalized molecular artifacts or uploaded originals.
+Supported older projects and archives remain readable; an older application is
+not guaranteed to read new appearance data.
+
+Downgrade to 0009 is allowed only when every retained appearance collection is
+empty. Undo history or a named/checkpoint scene may retain non-default data after
+resetting current display. The migration refuses such a downgrade before writing
+changes. Use a pre-upgrade backup to roll back without discarding retained state;
+do not manually delete history to bypass the guard.

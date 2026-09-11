@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import type { ChangeSelectionAppearance, Entry, Selection } from "../api/types";
 
 export function SelectionColorControls({ selection, entries, busy, onChange }: {
@@ -11,10 +11,12 @@ export function SelectionColorControls({ selection, entries, busy, onChange }: {
   const [pending, setPending] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
   const [failed, setFailed] = useState(false);
-  const byEntry = new Map(entries.map((entry) => [entry.id, entry]));
-  const colors = new Set(selection.atoms.map((atom) => byEntry.get(atom.structure_id)
-    ?.viewer_settings.selection_colors.find((item) => item.atom_ids.includes(atom.atom_id))
-    ?.color ?? "Inherited"));
+  const byEntry = useMemo(() => new Map(entries.map((entry) => [entry.id,
+    new Map(entry.viewer_settings.selection_colors.flatMap((item) =>
+      item.atom_ids.map((id) => [id, item.color] as const))),
+  ])), [entries]);
+  const colors = new Set(selection.atoms.map((atom) =>
+    byEntry.get(atom.structure_id)?.get(atom.atom_id) ?? "Inherited"));
   const state = colors.size > 1 ? "Mixed" : [...colors][0] ?? "No selection";
   const run = async (reset: boolean) => {
     setPending(true);

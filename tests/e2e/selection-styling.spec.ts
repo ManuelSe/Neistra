@@ -160,7 +160,7 @@ async function styleSelection(page: Page, label: string): Promise<void> {
 async function resetSelectionStyle(page: Page): Promise<void> {
   await page.getByRole("button", { name: "Style selection" }).click();
   const dialog = page.getByRole("dialog", { name: "Style selection" });
-  await dialog.getByRole("button", { name: "Reset to entry defaults" }).click();
+  await dialog.getByRole("button", { name: "Reset representation" }).click();
   await expect(dialog.getByRole("status")).toContainText("Reset");
   await page.keyboard.press("Escape");
 }

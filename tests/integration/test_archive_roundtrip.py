@@ -265,7 +265,7 @@ def test_legacy_archive_defaults_to_showing_all_hydrogens(client: ApiClient) -> 
     )
 
 
-def test_legacy_archive_defaults_selection_colors(client: ApiClient) -> None:
+def test_legacy_archive_defaults_selection_appearance(client: ApiClient) -> None:
     source = build_rich_project(client)
     exported = export_archive(client, source["id"], "legacy-color-default")
     data = client.get(exported["artifact"]["download_url"]).content
@@ -288,12 +288,13 @@ def test_legacy_archive_defaults_selection_colors(client: ApiClient) -> None:
                 payload = json.dumps(manifest).encode()
             target.writestr(info, payload)
     restored = import_archive(client, output.getvalue())["project"]
-    assert all(entry["viewer_settings"]["selection_colors"] == [] for entry in restored["entries"])
-    assert all(
-        state["viewer_settings"]["selection_colors"] == []
-        for scene in restored["scenes"]
-        for state in scene["entry_states"]
-    )
+    for field in ("selection_colors", "selection_nonpolar_hydrogens"):
+        assert all(entry["viewer_settings"][field] == [] for entry in restored["entries"])
+        assert all(
+            state["viewer_settings"][field] == []
+            for scene in restored["scenes"]
+            for state in scene["entry_states"]
+        )
 
 
 @pytest.mark.parametrize("archive_version", ["0.1.0", "0.1.1", "0.2.0", "0.2.1", "0.3.0", "0.4.0"])

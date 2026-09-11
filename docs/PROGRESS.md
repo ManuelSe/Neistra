@@ -2,7 +2,7 @@
 
 ## Current milestone
 
-Issue #29 — M2 complete; M3/C4 integrated qualification next.
+Issue #29 — M3/C4 qualified; M4 release preparation next.
 
 The user authorized full delivery with `/goal` on 2026-09-11 under
 [the approved feature plan](plans/issue-29-selection-appearance.md). The planned
@@ -11,7 +11,7 @@ Expansion now works in Style selection using the shared worker, retaining seeds
 and orphan matches and guarding cancellation/stale results. D-051 records scope.
 Local color is implemented with migration/history/archive coverage and D-052.
 Local hydrogen overrides are implemented with full-projection classification and D-053.
-Integrated qualification and release delivery remain outstanding. Branch: `feat/issue-29-selection-appearance`.
+Integrated qualification is complete; release delivery remains outstanding. Branch: `feat/issue-29-selection-appearance`.
 
 ### Previous milestone context
 
@@ -887,6 +887,13 @@ feature merge; this documentation-only closeout records the remote evidence.
   affected-entry topology replacement without a full scene synchronization.
 
 ## Verification performed
+
+- M3/C4: 77 focused Python and 79 full frontend tests passed. Combined affected
+  browser gate passed 29 workflows (19 layout skips), followed by passing
+  appearance/zoom/hardening (12) and reset (3) reruns after review fixes.
+  Both themes, Pixel 7, real 200% zoom, 1STP budgets, cache/molecular invariance,
+  restart/duplicate/history, migration and compatibility are covered. All lint,
+  type and build gates passed. Surface follow-up #30 is verified.
 
 - M2/C3: V3 passed 75 Python tests, 25 focused/78 full frontend tests, lint/type
   checks and production build. All 16 applicable V2/V3 browser workflows passed
@@ -2038,5 +2045,5 @@ None.
 
 ## Next action
 
-Complete M3/C4 integrated qualification under
+Prepare v0.6.0 and run the complete release gate under
 [the approved issue #29 contract](plans/issue-29-selection-appearance.md).

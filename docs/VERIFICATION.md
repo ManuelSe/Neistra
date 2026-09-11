@@ -1,5 +1,9 @@
 # V0.1 Requirement Evidence
 
+Current issue #29 evidence is maintained in
+[the selection-appearance feature plan](plans/issue-29-selection-appearance.md);
+its checkpoint and final-release results are separate from this historical matrix.
+
 Current presentation: Neistra. See [rebranding verification](REBRANDING_VERIFICATION.md)
 for newly executed checks. The release evidence below remains historical.
 

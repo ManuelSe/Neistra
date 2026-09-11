@@ -118,6 +118,25 @@ test("keeps actions and dialogs reachable at real 100% and 200% browser zoom", a
         expect(box!.y + box!.height).toBeLessThanOrEqual(height + 1);
         await captureZoomPage(page, info, `${theme}-${factor * 100}-export.png`);
         await page.keyboard.press("Escape");
+        const browser = page.getByRole("button", { name: "Project browser", exact: true });
+        if (await browser.isVisible()) await browser.click();
+        await page.locator(".entry-row .entry-select").click();
+        if (await page.locator(".mobile-panel").isVisible()) await page.keyboard.press("Escape");
+        const launcher = page.getByRole("button", { name: "Style selection", exact: true });
+        await launcher.focus();
+        await page.keyboard.press("Enter");
+        const appearance = page.getByRole("dialog", { name: "Style selection" });
+        for (const control of await appearance.locator("button:visible, input:visible, select:visible").all()) {
+          await control.scrollIntoViewIfNeeded();
+          const bounds = await control.boundingBox();
+          const viewport = await page.evaluate(() => ({ width: innerWidth, height: innerHeight }));
+          expect(bounds!.x).toBeGreaterThanOrEqual(0);
+          expect(bounds!.x + bounds!.width).toBeLessThanOrEqual(viewport.width + 1);
+          expect(bounds!.y + bounds!.height).toBeLessThanOrEqual(viewport.height + 1);
+        }
+        await captureZoomPage(page, info, `${theme}-${factor * 100}-selection-appearance.png`);
+        await page.keyboard.press("Escape");
+        await expect(launcher).toBeFocused();
       }
       expect(await setZoom(worker, baseURL!, 1)).toBe(1);
       await expect.poll(() => page.evaluate(() => devicePixelRatio)).toBe(1);
