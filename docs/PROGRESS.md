@@ -2,7 +2,7 @@
 
 ## Current milestone
 
-Issue #29 — PR #31 merged; correction PR #32 qualified, awaiting merge-method approval.
+Issue #29 — user-requested carbon-only coloring amendment in progress on PR #32.
 
 The user authorized full delivery with `/goal` on 2026-09-11 under
 [the approved feature plan](plans/issue-29-selection-appearance.md). The planned
@@ -11,7 +11,7 @@ Expansion now works in Style selection using the shared worker, retaining seeds
 and orphan matches and guarding cancellation/stale results. D-051 records scope.
 Local color is implemented with migration/history/archive coverage and D-052.
 Local hydrogen overrides are implemented with full-projection classification and D-053.
-Integrated qualification is complete; release delivery remains outstanding. Branch: `feat/issue-29-selection-appearance`.
+Prior qualification is recorded below; the carbon-only amendment requires fresh qualification. Release delivery remains outstanding. Branch: `feat/issue-29-selection-appearance`.
 
 ### Previous milestone context
 
@@ -887,6 +887,13 @@ feature merge; this documentation-only closeout records the remote evidence.
   affected-entry topology replacement without a full scene synchronization.
 
 ## Verification performed
+
+- Carbon-only amendment C6a: 84 focused Python and 80 frontend tests passed;
+  lint/type/build and all 21 applicable affected browser workflows passed across
+  the combined run and corrected pixel test. Actual C/O colors survive reload
+  and a custom entry theme. Migration downgrade, archive/scenes/history/topology,
+  restart/duplicate, mobile/themes/axe/zoom and 1STP budgets are covered.
+  Full candidate requalification follows; detailed evidence lives in the plan.
 
 - Correction candidate `d21cde4` passed complete V5: 228 Python, 79 frontend,
   8 supervisor and 73 browser tests (39 intentional layout skips; 14.0 minutes),
@@ -2064,6 +2071,7 @@ requires approval to deviate from the feature plan. No force push or release occ
 
 ## Next action
 
-Approve a merge commit for correction PR #32, then qualify the exact merged
+Complete and qualify the carbon-only amendment, obtain merge-method approval
+for PR #32, then qualify the exact merged
 commit and complete v0.6.0 delivery under
 [the approved issue #29 contract](plans/issue-29-selection-appearance.md).

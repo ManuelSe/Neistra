@@ -28,8 +28,10 @@ remain available; representation, color and hydrogen resets are independent.
 
 Select atoms or an entry, open Style selection, and expand by a positive distance
 (default 4 Å) to matching atoms or complete residues. Expansion searches all
-project entries, including hidden entries, and preserves the seed. Use Apply color
-or the local hydrogen preference to store reversible appearance changes. Hydrogen
+project entries, including hidden entries, and preserves the seed. Choose All selected
+atoms or Carbon atoms only under Coloring mode, then Apply color. Carbon-only
+mode uses the chosen color on selected C and restores element colors on the other
+selected atoms. Color and local hydrogen changes are reversible. Hydrogen
 controls target explicit selected H; selecting heavy atoms does not include their
 attached H. The Show hydrogens master remains an upper bound.
 

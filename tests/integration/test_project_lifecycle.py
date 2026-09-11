@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import pytest
 from molweave_api.database import Base
 from molweave_api.main import create_app
 from molweave_api.settings import Settings
@@ -56,7 +57,10 @@ def test_project_survives_api_restart_and_recovers_uncheckpointed_changes(
     third_app.state.engine.dispose()
 
 
-def test_appearance_duplicate_atomicity_checkpoint_and_restart(tmp_path: Path) -> None:
+@pytest.mark.parametrize("color_mode", ["all", "carbon"])
+def test_appearance_duplicate_atomicity_checkpoint_and_restart(
+    tmp_path: Path, color_mode: str
+) -> None:
     settings = Settings(
         data_dir=tmp_path,
         database_url=f"sqlite:///{tmp_path / 'appearance.db'}",
@@ -82,7 +86,7 @@ def test_appearance_duplicate_atomicity_checkpoint_and_restart(tmp_path: Path) -
         "source": "inspector",
     }
     for value in [
-        {"property": "color", "color": "#112233"},
+        {"property": "color", "color": "#112233", "color_mode": color_mode},
         {"property": "nonpolar_hydrogens", "show": False},
     ]:
         response = client.post(
@@ -116,6 +120,12 @@ def test_appearance_duplicate_atomicity_checkpoint_and_restart(tmp_path: Path) -
         },
     )
     assert rejected.status_code == 422
+    assert client.get(path).json() == project
+    rejected_color = client.post(f"{path}/selection-appearance", json={
+        "expected_revision": project["revision"], "selection": invalid,
+        "action": "set", "property": "color", "color": "#ff00ff", "color_mode": color_mode,
+    })
+    assert rejected_color.status_code == 422
     assert client.get(path).json() == project
     project = client.post(f"{path}/save", json={"expected_revision": project["revision"]}).json()
     assert not project["has_uncheckpointed_changes"]

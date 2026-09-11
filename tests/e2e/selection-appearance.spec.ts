@@ -57,7 +57,7 @@ test("expands from styling across hidden entries without durable changes", async
   await page.keyboard.press("Escape");
   await expect(page.getByRole("button", { name: "Style selection", exact: true })).toBeFocused();
   await page.getByRole("button", { name: "Clear", exact: true }).click();
-  const magentaPixels = () => page.locator(".molstar-host canvas").first().evaluate((canvas: HTMLCanvasElement) => {
+  const colorPixels = (channel: "magenta" | "red") => page.locator(".molstar-host canvas").first().evaluate((canvas: HTMLCanvasElement, channel: "magenta" | "red") => {
     const gl = canvas.getContext("webgl2") ?? canvas.getContext("webgl");
     if (!gl) return 0;
     gl.finish();
@@ -68,11 +68,39 @@ test("expands from styling across hidden entries without durable changes", async
       width, height, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
     let count = 0;
     for (let i = 0; i < pixels.length; i += 4) {
-      if (pixels[i] > 100 && pixels[i + 2] > 100 && pixels[i + 1] < 70) count++;
+      if (pixels[i] > 100 && pixels[i + 1] < 70
+        && (channel === "magenta" ? pixels[i + 2] > 100 : pixels[i + 2] < 70)) count++;
     }
     return count;
-  });
+  }, channel);
+  const magentaPixels = () => colorPixels("magenta");
   await expect.poll(magentaPixels).toBeGreaterThan(100);
+  await row.locator(".entry-select").click();
+  await page.getByRole("button", { name: "Style selection", exact: true }).click();
+  await dialog.getByLabel("Coloring mode").selectOption("carbon");
+  await dialog.getByLabel("Custom selection color").fill("#ff00ff");
+  await dialog.getByRole("button", { name: "Apply color", exact: true }).click();
+  await expect(dialog.getByRole("status")).toHaveText("Selection color applied.");
+  const carbon: Project = await (await request.get(`/api/v1/projects/${project.id}`)).json();
+  expect(carbon.entries.find((entry) => entry.id === original.id)!.viewer_settings.selection_colors)
+    .toEqual([{ color: "#ff00ff", atom_ids: [1, 2] }, { color: "element", atom_ids: [3] }]);
+  expect(carbon.entries.find((entry) => entry.id === duplicate.id)!.viewer_settings)
+    .toEqual(colored.entries.find((entry) => entry.id === duplicate.id)!.viewer_settings);
+  await page.keyboard.press("Escape");
+  await page.getByRole("button", { name: "Clear", exact: true }).click();
+  await expect.poll(magentaPixels).toBeGreaterThan(100);
+  await expect.poll(() => colorPixels("red")).toBeGreaterThan(100);
+  const settings = carbon.entries.find((entry) => entry.id === original.id)!.viewer_settings;
+  const themed = await request.put(`/api/v1/projects/${project.id}/entries/${original.id}/viewer-settings`, {
+    data: { expected_revision: carbon.revision, settings: { ...settings,
+      representations: settings.representations.map((item) => ({ ...item, color_by: "custom", custom_color: "#00ff00" })),
+    } },
+  });
+  expect(themed.status()).toBe(200);
+  await page.reload();
+  await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded", { timeout: 30_000 });
+  await expect.poll(magentaPixels).toBeGreaterThan(100);
+  await expect.poll(() => colorPixels("red")).toBeGreaterThan(100);
   await row.locator(".entry-select").click();
   await page.getByRole("button", { name: "Style selection", exact: true }).click();
   await dialog.getByRole("button", { name: "Reset color" }).click();
@@ -131,6 +159,7 @@ for (const theme of ["light", "dark"]) {
     await page.keyboard.press("Enter");
     await expect(dialog.getByRole("status").filter({ hasText: "Applied Line" })).toBeVisible();
     await dialog.getByLabel("Custom selection color").fill("#ff00ff");
+    await dialog.getByLabel("Coloring mode").selectOption("carbon");
     await page.route(`**/projects/${project.id}/selection-appearance`, async (route) => {
       await route.fulfill({ status: 409, contentType: "application/json", body: JSON.stringify({ detail: { code: "revision_conflict", message: "The project changed. Retry the selection action." } }) });
     }, { times: 1 });
@@ -155,7 +184,7 @@ for (const theme of ["light", "dark"]) {
     await expect(page.locator(".viewer-status")).toContainText("/ 4 selected");
     const changed: Project = await (await request.get(`/api/v1/projects/${project.id}`)).json();
     expect(changed.entries[0].viewer_settings.selection_representations).toEqual([{ style: "line", atom_ids: [1, 2, 3, 4] }]);
-    expect(changed.entries[0].viewer_settings.selection_colors).toEqual([{ color: "#ff00ff", atom_ids: [1, 2, 3, 4] }]);
+    expect(changed.entries[0].viewer_settings.selection_colors).toEqual([{ color: "#ff00ff", atom_ids: [1] }, { color: "element", atom_ids: [2, 3, 4] }]);
     expect(changed.entries[0].viewer_settings.selection_nonpolar_hydrogens).toEqual([{ show: false, atom_ids: [2, 4] }]);
     expect(await (await request.get(`${path}/structure`)).json()).toEqual(structure);
     expect(await (await request.get(`${path}/original`)).body()).toEqual(original);

@@ -67,6 +67,10 @@ describe("selection style dialog", () => {
     expect(screen.getByText("Mixed")).toBeVisible();
     await user.click(screen.getByRole("button", { name: "Apply color" }));
     expect(onChange).toHaveBeenCalledWith({ property: "color", action: "set", color: "#3b82f6" });
+    await user.selectOptions(screen.getByLabelText("Coloring mode"), "carbon");
+    expect(screen.getByText(/other selected atoms use element colors/)).toBeVisible();
+    await user.click(screen.getByRole("button", { name: "Apply color" }));
+    expect(onChange).toHaveBeenLastCalledWith({ property: "color", action: "set", color: "#3b82f6", color_mode: "carbon" });
     await user.click(screen.getByRole("button", { name: "Reset color" }));
     expect(onChange).toHaveBeenLastCalledWith({ property: "color", action: "reset" });
     expect(completeResidue.atoms).toHaveLength(2);

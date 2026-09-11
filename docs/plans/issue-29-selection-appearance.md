@@ -2,7 +2,7 @@
 
 ## Status and metadata
 
-- Status: **approved; implementation qualified — M4/C6 merge-strategy blocker**.
+- Status: **approved; carbon-only color amendment in progress; merge-strategy blocker remains**.
 - Issue: [#29 — Enhance selection representation controls](https://github.com/ManuelSe/Neistra/issues/29).
 - Issue created/updated: 2026-09-10; inspected and plan approved: 2026-09-11.
 - Approval: the user explicitly approved the complete proposal and instructed:
@@ -83,7 +83,7 @@ resolved product decisions, not outstanding clarification requests.
 | Toggle non-polar hydrogens for selection | Essential | Durable local overrides with inheritance and master-switch precedence. |
 | Customizable distance expansion, default 4 Å | Essential | Explicit Expand action using existing worker infrastructure. |
 | Matching atoms or complete residues | Essential | Both modes, seed retention, and explicit residue completion. |
-| Change selection color | Essential | One solid custom color and reset to existing coloring. |
+| Change selection color | Essential | Solid custom color, user-approved carbon-only mode, and independent reset. |
 | Lines, sticks, spheres and existing atomic choices | Already satisfied | Retain established style vocabulary and replacement behavior. |
 | Protein Cartoon and Backbone | Already satisfied | Retain authoritative complete-residue and trace-atom validation. |
 | Selection-specific surface | Deferred | Subset geometry, neighbor context, boundaries, and cost need their own contract. Tracked in [#30](https://github.com/ManuelSe/Neistra/issues/30); no new subset-surface control here. |
@@ -119,6 +119,35 @@ and #21. No docking, preparation, contact-analysis, or new job system is include
 - Preserve the inspector's existing general replace/add/subtract query behavior.
 
 ### Selection color
+
+User amendment, 2026-09-11: add **All selected atoms** (default) and **Carbon
+atoms only** modes. Carbon-only apply resolves selected C from authoritative
+normalized elements, applies the custom color to those stable atom IDs, and
+explicitly assigns native element coloring to all other selected atoms. This
+replaces prior solid overrides and remains correct under non-element entry
+themes. Outside-selection assignments are untouched. No-carbon selections
+restore their element colors. Reset clears both kinds of assignments and returns
+to the underlying entry theme; applying the mode does not establish a dynamic
+chemical-selection rule. Existing atoms retain their explicit assignments after
+chemistry edits; newly added atoms inherit the entry theme.
+
+Persist `color: "element"` alongside existing hex-color records in the existing
+disjoint collection. The request adds optional `color_mode: "all" | "carbon"`
+for color set only; omission preserves old behavior. No new collection, database
+migration, version increment beyond the still-unreleased 0.6.0, or schema-major
+change is needed. Older readers need not accept new element records, consistent
+with the existing backward-reading-only guarantee. Migration 0010 already guards
+all nonempty color records on downgrade. D-054 records this accepted extension.
+
+Amendment checkpoint C6a: coherent API/UI/viewer/persistence slice; acceptance
+covers previous all-solid→carbon-only, C/non-C locality, no-C selection, exact
+undo/redo/reset, invalid/stale atomicity, archive/restart/duplicate, native
+palette projection, actual magenta-carbon/red-oxygen pixels, mobile/both-theme
+keyboard/axe/zoom and unchanged artifacts. Run V2 plus project-lifecycle and
+selection-colors unit tests, then V4 affected browser gates and full V5. Commit
+as `feat(viewer): add carbon-only selection coloring`; update API/schema/release
+notes and evidence. No merge or release before requalification; the previously
+recorded merge-method approval remains pending.
 
 - Apply a validated solid `#RRGGBB` color to exact selected atom references
   through existing rendered representations, independently of style assignment.
@@ -436,6 +465,8 @@ evidence. An inability to publish is not evidence that publication occurred.
 
 | 2026-09-11 | M4/C6 blocked on approved merge strategy | Correction PR [#32](https://github.com/ManuelSe/Neistra/pull/32), candidate/evidence `86994dcc7470c3cb622ca5de5897657a6e50bb5f`, is clean and mergeable with four changed files, no required checks/reviews and no local findings. GitHub reports `rebaseable: false`; the authorized rebase merge request returned HTTP 405, “This branch can’t be rebased.” Original checkpoint history and its rebased master copies coexist after safe base integration. No force push or alternate merge was attempted. Await user approval for a merge commit on this correction PR, preserving checkpoint history; exact merged V5, tag, release, issue reply and cleanup remain pending. |
 
+| 2026-09-11 | User amendment C6a focused qualification | Added All selected atoms / Carbon atoms only UI, authoritative C resolution and explicit element assignments (D-054), pinned native palette projection, independent reset, docs and tests. Consolidated V2 plus lifecycle: 84 passed (81 existing Alembic warnings; 22.17 s). Full frontend: 80 passed; Ruff/mypy (51 files), ESLint/TypeScript/build passed (158.70 KiB initial/967.60 KiB lazy Mol* gzip advisory). V4 affected browser run: 20 passed/13 intentional skips plus one new-test setup failure (reopened color input defaults blue). Explicitly chose magenta; affected test passed (24.2 s), then extended it to prove native oxygen color after a solid-green entry theme and reload, passing again (21.9 s). This completes all 21 applicable affected workflows across runs, including both themes/mobile, axe/keyboard, real 200% zoom and 1STP budgets. Data `/tmp/neistra-issue29-carbon`, ports 8110/8111/5273; logs `/tmp/neistra-issue29-carbon-{python,focused,pixels,theme}.log`. Persistence assertions compare pre/post GET snapshots to avoid command-response timestamp serialization differences. Exact undo/redo, scene/archive round trip, topology pruning/undo, restart/duplicate and atomic rejection passed. Full local diff review found no remaining consequential issues; no molecular/artifact, migration or version changes. Full V5 candidate qualification follows before PR delivery. |
+
 Future entries must record exact commits, commands, results, known warnings,
 limitations, remote identifiers, blockers, and next action. Populate feature
 acceptance evidence only after execution. Do not mark the PR, issue, merge,
@@ -443,4 +474,4 @@ tag, release, or cleanup complete until remotely verified.
 
 ## Completion and next action
 
-PR #31 is merged and correction PR #32 is fully qualified. GitHub refuses rebase merge. The smallest next action is approval to use a merge commit for PR #32; then qualify the exact merged commit and complete publication and cleanup.
+PR #31 is merged and correction PR #32 is fully qualified. GitHub refuses rebase merge. The user authorized carbon-only coloring before merge. Complete and qualify C6a first; merge-method approval for PR #32 still precedes exact merged qualification, publication and cleanup.

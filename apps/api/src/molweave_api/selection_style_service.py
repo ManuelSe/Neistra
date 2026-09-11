@@ -48,7 +48,8 @@ class SelectionStyleService:
 
     def update_appearance(self, project_id: str, payload: SelectionAppearanceUpdate) -> ProjectRead:
         targets: dict[str, set[int]] | None = None
-        if payload.property == "nonpolar_hydrogens":
+        if payload.property == "nonpolar_hydrogens" or payload.color_mode == "carbon":
+            element = "H" if payload.property == "nonpolar_hydrogens" else "C"
             project = self._project(project_id, payload.expected_revision)
             selected: dict[str, set[int]] = defaultdict(set)
             for reference in payload.selection.atoms:
@@ -63,7 +64,7 @@ class SelectionStyleService:
                 targets[entry_id] = {
                     atom.id
                     for atom in structure.atoms
-                    if atom.id in atom_ids and atom.element.strip().upper() == "H"
+                    if atom.id in atom_ids and atom.element.strip().upper() == element
                 }
         return ProjectService(self.session).update_selection_appearance(
             project_id, payload, targets

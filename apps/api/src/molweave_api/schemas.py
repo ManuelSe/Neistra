@@ -235,7 +235,7 @@ class SelectionRepresentation(BaseModel):
 
 class SelectionColor(BaseModel):
     model_config = ConfigDict(extra="forbid")
-    color: str = Field(pattern=r"^#[0-9a-fA-F]{6}$")
+    color: str = Field(pattern=r"^(#[0-9a-fA-F]{6}|element)$")
     atom_ids: list[int] = Field(min_length=1)
 
     @field_validator("atom_ids")
@@ -542,11 +542,14 @@ class SelectionAppearanceUpdate(BaseModel):
     action: Literal["set", "reset"]
     color: str | None = Field(default=None, pattern=r"^#[0-9a-fA-F]{6}$")
     show: bool | None = Field(default=None, strict=True)
+    color_mode: Literal["all", "carbon"] | None = None
 
     @model_validator(mode="after")
     def validate_action(self) -> SelectionAppearanceUpdate:
         if not self.selection.atoms:
             raise ValueError("Select at least one atom to change its appearance")
+        if self.color_mode is not None and (self.property != "color" or self.action != "set"):
+            raise ValueError("Color mode is only valid when setting color")
         if self.property == "color":
             if self.show is not None:
                 raise ValueError("Show is only valid for hydrogen visibility")

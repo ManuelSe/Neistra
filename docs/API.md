@@ -431,7 +431,12 @@ FastAPI/Pydantic validation failures retain FastAPI's structured HTTP 422 body.
 `POST /api/v1/projects/{project_id}/selection-appearance` accepts
 `expected_revision`, canonical `selection`, `property: "color"`, and
 `action: "set" | "reset"`. Set requires a six-digit `color` such as `#ff00ff`;
-reset omits it. One successful action updates all selected entries atomically
+reset omits it. Color set accepts optional `color_mode: "all" | "carbon"`;
+omission means all selected atoms. Carbon mode colors selected C and explicitly
+restores native element colors on other selected atoms, including a no-C selection.
+It does not change atoms outside the selection. Mode is invalid on reset/hydrogen
+requests. The public input color remains a hex value, never `"element"`.
+One successful action updates all selected entries atomically
 and is undoable. Invalid references/parameters return 422 and stale revisions
 return 409. Entry viewer-setting requests preserve omitted color assignments
 and cannot mutate them directly. Existing representation reset remains separate.

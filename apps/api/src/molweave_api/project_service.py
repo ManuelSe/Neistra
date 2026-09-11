@@ -564,7 +564,7 @@ class ProjectService:
         self,
         project_id: str,
         payload: SelectionAppearanceUpdate,
-        hydrogen_targets: dict[str, set[int]] | None = None,
+        element_targets: dict[str, set[int]] | None = None,
     ) -> ProjectRead:
         project = self._project(project_id)
         self._check_revision(project, payload.expected_revision)
@@ -574,22 +574,27 @@ class ProjectService:
         for item in payload.selection.atoms:
             targets.setdefault(item.structure_id, set()).add(item.atom_id)
         if payload.property == "nonpolar_hydrogens":
-            if not hydrogen_targets or not any(hydrogen_targets.values()):
+            if not element_targets or not any(element_targets.values()):
                 raise InvalidProjectOperationError("Select explicit hydrogen atoms first")
-            targets = {key: ids for key, ids in hydrogen_targets.items() if ids}
+            targets = {key: ids for key, ids in element_targets.items() if ids}
         forward: list[dict[str, Any]] = []
         inverse: list[dict[str, Any]] = []
         for entry_id, atom_ids in sorted(targets.items()):
             entry = self._entry(project, entry_id)
             before = deepcopy(entry.viewer_settings)
             if payload.property == "color":
+                colors = update_selection_colors(
+                    before.get("selection_colors", []), atom_ids, payload.color
+                )
+                if payload.color_mode == "carbon":
+                    if element_targets is None:
+                        raise InvalidProjectOperationError("Carbon targets must be resolved first")
+                    colors = update_selection_colors(
+                        colors, atom_ids - element_targets.get(entry_id, set()), "element"
+                    )
                 after = {
                     **before,
-                    "selection_colors": update_selection_colors(
-                        before.get("selection_colors", []),
-                        atom_ids,
-                        payload.color,
-                    ),
+                    "selection_colors": colors,
                 }
             else:
                 after = {
