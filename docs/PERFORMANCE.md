@@ -90,3 +90,36 @@ rendering nor a new latency, GPU-memory, or large-system budget. Neistra does
 not silently fall back to atom-name or coordinate heuristics when projected
 connectivity is absent; the existing reduced-detail threshold and WebGL limits
 still apply.
+
+## Bounded selection surfaces (issue #30)
+
+This extends the historical baseline above for the fixed `molecular-v1` fragment
+profile. One browser worker runs per viewer, with preallocation admission at
+20,000 effective atoms and four million padded grid cells. Extraction checks a
+conservative mesh allocation bound before marching cubes (64 MiB per surface);
+retained selection meshes are limited to 128 MiB per viewer. Calculation has a
+30-second deadline. Failed or oversize targets retain membership and show labelled
+lines. The inherited 250,000-atom parent-entry degradation still applies.
+
+C4 production 1STP measurement, without competing builds/tests:
+
+| Measure | Desktop Chromium | Pixel 7 emulation |
+|---|---:|---:|
+| Production surface ready (budget <10 s) | 727.2 ms | 490.1 ms |
+| Longest observed surface main-thread task (budget <750 ms) | 385 ms | 129 ms |
+| Worker cancellation qualification (budget <500 ms) | 21.7 ms | 20.7 ms |
+| Summed browser-descendant RSS baseline → peak | 800,176 → 982,204 KiB | 768,936 → 876,160 KiB |
+
+Both produce 91,194 vertices / 71,012 triangles, 567 atom-owner groups, a 3,405,576-byte
+mesh and a 133,020,368-byte conservative working-allocation estimate. RSS samples
+include browser processes and potentially duplicated shared pages; they are not
+worker heap or GPU measurements. These bounds do not promise a browser/GPU memory
+ceiling or latency across arbitrary hardware. The recorded measurements and
+allocation evidence are [desktop](assets/selection-surfaces/c4-chromium.json) and
+[mobile emulation](assets/selection-surfaces/c4-mobile-chromium.json).
+
+Production tests verify geometry reuse across color changes, cancellation/retry,
+coordinate-preview invalidation, per-entry failure isolation and disposal of every
+worker. The actual palette Add/reset/selection-clear workflow issues zero additional
+normalized-structure GETs before reload. C4 and final release commands/results are
+recorded in the [feature plan](plans/issue-30-selection-surfaces.md).

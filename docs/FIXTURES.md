@@ -107,3 +107,16 @@ multi-file atomicity, safe filenames, cancellation, and byte/atom limits are
 covered by `tests/unit/adapters`, `tests/scientific/test_format_fidelity.py`,
 `tests/unit/test_export_policy.py`, and
 `tests/integration/test_import_export.py`.
+
+## Selection surface qualification
+
+Issue #30 reuses 1STP for bounded complex geometry and a one-atom partial-residue
+fragment; `formats/ethanol.mol` for production element/carbon colors and coordinate
+invalidation; `hydrogens/polar_hydrogens_ligand.mol` for C–H versus O–H visibility
+classified before filtering; and `formats/protein_models_altloc.pdb` for retained
+conformer/alternate-location warnings and exact original-byte invariance. Analytic
+isolated-atom and separated/overlapping-atom inputs test bounds, connectivity and
+structural group ownership within the declared 0.5 Å grid tolerance. Invalid bounds
+and one failing entry beside a valid entry exercise explicit fallback without
+changing saved membership. These fixtures do not establish context-aware patches,
+chemical repair or broader browser/device support.

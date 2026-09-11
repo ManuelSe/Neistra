@@ -73,6 +73,10 @@ def prune_selection_representations(
         for item in settings.get("selection_nonpolar_hydrogens", [])
         if (retained := sorted(set(item["atom_ids"]) - deleted_atom_ids))
     ]
+    surface = settings.get("selection_surface")
+    if surface is not None:
+        retained = sorted(set(surface["atom_ids"]) - deleted_atom_ids)
+        updated["selection_surface"] = {**surface, "atom_ids": retained} if retained else None
     return updated
 
 
@@ -152,6 +156,7 @@ def default_viewer_settings(structure_type: str) -> dict[str, Any]:
                 "opacity": 1.0,
             }
         ],
+        "selection_surface": None,
         "selection_representations": [],
         "selection_colors": [],
         "selection_nonpolar_hydrogens": [],

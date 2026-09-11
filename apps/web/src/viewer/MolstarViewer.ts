@@ -1,3 +1,4 @@
+import type { SurfaceStatus } from "./surface/runtime";
 import type {
   AtomReference,
   CameraState,
@@ -21,6 +22,7 @@ class LazyMolstarViewer implements MolecularViewer {
   private pickingGranularity: SelectionGranularity = "atom";
   private selectionListeners = new Set<(event: ViewerSelectionEvent) => void>();
   private cameraListeners = new Set<(camera: CameraState) => void>();
+  private surfaceListeners = new Set<(statuses: SurfaceStatus[]) => void>();
   private engineUnsubscribers: (() => void)[] = [];
 
   async mount(target: HTMLElement): Promise<void> {
@@ -34,6 +36,7 @@ class LazyMolstarViewer implements MolecularViewer {
     this.engineUnsubscribers = [...this.selectionListeners].map((listener) =>
       this.engine!.subscribeSelection(listener),
     );
+    this.engineUnsubscribers.push(...[...this.surfaceListeners].map((listener) => this.engine!.subscribeSurfaces(listener)));
     this.engineUnsubscribers.push(
       ...[...this.cameraListeners].map((listener) =>
         this.engine!.subscribeCamera(listener),
@@ -125,6 +128,14 @@ class LazyMolstarViewer implements MolecularViewer {
     };
   }
 
+  subscribeSurfaces(listener: (statuses: SurfaceStatus[]) => void): () => void {
+    this.surfaceListeners.add(listener);
+    const unsubscribe = this.engine?.subscribeSurfaces(listener);
+    return () => { this.surfaceListeners.delete(listener); unsubscribe?.(); };
+  }
+  cancelSurface(entryId: string): void { this.engine?.cancelSurface(entryId); }
+  retrySurface(entryId: string): void { this.engine?.retrySurface(entryId); }
+
   resize(): void {
     this.engine?.resize();
   }
@@ -135,6 +146,7 @@ class LazyMolstarViewer implements MolecularViewer {
     this.engineUnsubscribers = [];
     this.selectionListeners.clear();
     this.cameraListeners.clear();
+    this.surfaceListeners.clear();
     this.engine?.dispose();
     this.engine = undefined;
   }

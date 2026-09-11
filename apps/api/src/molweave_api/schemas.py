@@ -260,7 +260,21 @@ class SelectionNonpolarHydrogens(BaseModel):
         return SelectionRepresentation.atom_ids_are_canonical(value)
 
 
+class SelectionSurface(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    profile: Literal["molecular-v1"] = "molecular-v1"
+    atom_ids: list[int] = Field(min_length=1, strict=True)
+
+    @field_validator("atom_ids", mode="before")
+    @classmethod
+    def strict_ids(cls, value: Any) -> Any:
+        if not isinstance(value, list) or any(type(item) is not int for item in value):
+            raise ValueError("Surface atom IDs must be integers")
+        return SelectionRepresentation.atom_ids_are_canonical(value)
+
+
 class ViewerSettings(BaseModel):
+    selection_surface: SelectionSurface | None = None
     representations: list[RepresentationSettings] = Field(min_length=1, max_length=12)
     selection_representations: list[SelectionRepresentation] = Field(
         default_factory=list, max_length=7
@@ -531,6 +545,19 @@ class SelectionRepresentationUpdate(BaseModel):
             raise ValueError("Style is required when applying a selection representation")
         if self.action == "reset" and self.style is not None:
             raise ValueError("Style must be omitted when resetting selection representations")
+        return self
+
+
+class SelectionSurfaceUpdate(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    expected_revision: int = Field(ge=0)
+    selection: SelectionV1
+    action: Literal["add", "remove"]
+
+    @model_validator(mode="after")
+    def nonempty_selection(self) -> SelectionSurfaceUpdate:
+        if not self.selection.atoms:
+            raise ValueError("Select at least one atom to change its surface")
         return self
 
 

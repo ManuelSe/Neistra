@@ -264,9 +264,10 @@ Supported entry-level styles are `cartoon`, `backbone`, `line`, `stick`,
 `thick-stick`, `ball-and-stick`, `space-filling`, and `surface`. Color schemes are `element`,
 `chain`, `residue`, `secondary-structure`, `structure`, and `custom`; opacity
 is in `[0, 1]`. Component and label visibility use explicit booleans.
-Selection-specific records contain a style and canonical entry-local atom IDs;
-they inherit fixed element coloring and full opacity in this release and do not
-add selection-specific surface, label, color, or opacity controls.
+Selection representation records contain a style and canonical entry-local atom
+IDs. Their atomic/polymer geometry uses element coloring and full opacity before
+independent selection appearance overrides. Selection surface membership is a
+separate contract documented below; it does not replace these channels.
 
 Component visibility includes `hydrogens` and `nonpolar_hydrogens`, both
 defaulting to `true` for additive compatibility. `hydrogens=false` is
@@ -448,3 +449,22 @@ are all validated, including selected heavy atoms. Polarity is evaluated by the
 viewer on full projected connectivity, so selecting polar H can store a preference
 without changing its visibility. Color and hydrogen values cannot be combined in
 one request. Omitted hydrogen assignments in entry settings are also preserved.
+
+## Selection surface membership (issue #30)
+
+`POST /api/v1/projects/{project_id}/selection-surface` accepts `expected_revision`,
+the canonical `SelectionV1`, and `action: add | remove`. Add unions exact IDs per
+entry; Remove subtracts them and converts empty membership to null. The fixed
+profile is `molecular-v1`; callers cannot supply arbitrary scientific parameters.
+Invalid references/empty selections fail atomically; stale revisions return 409.
+One changed multi-entry action increments the revision once with exact undo/redo
+settings; unchanged membership creates no command or revision. The response is
+`ProjectRead`, not generated surface geometry or a backend job.
+
+`ViewerSettings.selection_surface` is null or `{profile: "molecular-v1", atom_ids}`.
+Existing entry-settings PUTs preserve omitted surface state and reject changes
+through that route. Scenes, checkpoints, duplication and archives retain the
+setting; topology deletion prunes live/scene targets reversibly. Geometry is
+computed later in the disposable browser renderer. API success confirms saved
+membership, not rendering success. See the [approved plan](plans/issue-30-selection-surfaces.md)
+for scientific interpretation, rendering limits and release qualification.

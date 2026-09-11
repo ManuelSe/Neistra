@@ -51,7 +51,7 @@ from molweave_api.viewer_state import POLYMER_SELECTION_STYLES, validate_polymer
 
 ARCHIVE_MEDIA_TYPE = "application/vnd.molweave.project+zip"
 ARCHIVE_SCHEMA_VERSION = 1
-APPLICATION_VERSION = "0.6.1"
+APPLICATION_VERSION = "0.7.0"
 MANIFEST_PATH = "manifest.json"
 _SHA256_PATTERN = re.compile(r"^[0-9a-f]{64}$")
 _APPLICATION_VERSION_PATTERN = re.compile(
@@ -1179,6 +1179,7 @@ def _validate_selection_assignments(
 ) -> None:
     for atom_ids in [
         *(item.atom_ids for item in settings.selection_colors),
+        *([settings.selection_surface.atom_ids] if settings.selection_surface else []),
         *(item.atom_ids for item in settings.selection_nonpolar_hydrogens),
     ]:
         if not set(atom_ids).issubset(valid_atom_ids):

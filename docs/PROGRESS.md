@@ -2,6 +2,26 @@
 
 ## Current milestone
 
+Issue #30 — M1–M4 / C1–C5 implemented and candidate-qualified for **v0.7.0**.
+Durable selection surfaces, compact controls, bounded workers, reversible
+history/scenes/archives and scientific/lifecycle qualification are complete.
+Review corrections preserve camera/coordinates/previews, make measurement updates
+idempotent and keep palette membership counts linear (D-056–D-062).
+
+The clean complete gate passes **275 Python, 97 frontend, 8 supervisor and
+82 browser tests / 40 intentional layout skips**, frozen installs, fresh migration
+to 0011, lint/type checks and build, with zero failed/flaky tests. Exact evidence
+is in the [feature plan](plans/issue-30-selection-surfaces.md). Fragment-boundary,
+resource, browser and downgrade limits are documented; context-aware patches are
+tracked separately in [#36](https://github.com/ManuelSe/Neistra/issues/36).
+
+Release execution, exact merged qualification, tag and closeout are audited in
+the plan's [publication records](plans/issue-30-selection-surfaces.md#publication-and-completion-records).
+No product blocker or further approved implementation remains. Delivery follows
+the documented PR/review, merged-gate and verified-publication sequence.
+
+### Previous release — v0.6.1
+
 Issue #34 — compact selection styling implemented and qualified for **v0.6.1**.
 The [feature plan](plans/issue-34-compact-selection-styling.md) contains checkpoint
 and exact candidate evidence. Compact non-modal controls, immediate swatches,
@@ -2098,10 +2118,11 @@ Results:
 
 ## Blockers
 
-None.
+None. M1 scientific/resource feasibility passed; broader workflow qualification
+remains required before release.
 
 ## Next action
 
-Use [issue #34's delivery record](https://github.com/ManuelSe/Neistra/issues/34)
-for merge, release and cleanup status; no additional feature scope is approved.
-Selection-specific surfaces remain [#30](https://github.com/ManuelSe/Neistra/issues/30).
+Execute M2/C3 production UI and renderer integration in the [issue #30 plan](plans/issue-30-selection-surfaces.md),
+then complete UI integration, hardening and release gates on the feature branch.
+Prior release delivery evidence remains in [issue #34](https://github.com/ManuelSe/Neistra/issues/34).

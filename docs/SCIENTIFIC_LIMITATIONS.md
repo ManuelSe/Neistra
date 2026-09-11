@@ -302,3 +302,14 @@ owns display polarity using the established polar-neighbor convention. No hydrog
 generation, protonation assignment or chemistry repair occurs. Master hydrogen,
 component and isolation bounds still apply. Selection-specific surfaces remain
 deferred pending a geometry/context and resource-limit design.
+
+## Selection fragment surfaces
+
+Selection surfaces use only effective member atoms. Partial residues and cut bonds
+can expose artificial faces and change cavities relative to a complete molecule.
+No context patch, capping, repair, protonation, alternate-conformer resolution,
+periodic transform, assembly generation or cross-entry fusion is performed.
+Existing parse/conformer warnings remain authoritative. The fixed native Mol*
+molecular-surface profile uses physical radii, a 1.4 Å probe and a 0.5 Å grid;
+coordinates and chemical topology remain unchanged. Resource-limit line fallback
+is explicitly labelled and must not be interpreted as a computed surface.

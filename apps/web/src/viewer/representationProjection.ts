@@ -33,23 +33,7 @@ export function representationLayers(
   isolatedAtomIds: ReadonlySet<number> | null = null,
   nonpolarHydrogenIds?: ReadonlySet<number>,
 ): RepresentationLayer[] {
-  const hydrogenMode = hydrogenDisplayMode(structure.settings.components);
-  const hydrogenIds = new Set(
-    structure.normalized.atoms
-      .filter((atom) => atom.element.trim().toUpperCase() === "H")
-      .map((atom) => atom.id),
-  );
-  const localHydrogens = new Map(structure.settings.selection_nonpolar_hydrogens
-    .flatMap((assignment) => assignment.atom_ids.map((id) => [id, assignment.show] as const)));
-  const visibleIds = new Set(
-    visibleComponentAtomIds(structure).filter(
-      (atomId) =>
-        (hydrogenMode !== "none" || !hydrogenIds.has(atomId)) &&
-        (!nonpolarHydrogenIds?.has(atomId) ||
-          (localHydrogens.get(atomId) ?? structure.settings.components.nonpolar_hydrogens)) &&
-        (isolatedAtomIds === null || isolatedAtomIds.has(atomId)),
-    ),
-  );
+  const visibleIds = visibleRepresentationAtomIds(structure, isolatedAtomIds, nonpolarHydrogenIds);
   const targeted = structure.settings.selection_representations.map(
     (assignment) => ({
       ...assignment,
@@ -105,4 +89,27 @@ export function representationLayers(
       : [],
   );
   return [...inherited, ...selectionSpecific];
+}
+
+export function visibleRepresentationAtomIds(
+  structure: ViewerStructure, isolatedAtomIds: ReadonlySet<number> | null = null,
+  nonpolarHydrogenIds?: ReadonlySet<number>,
+): Set<number> {
+  const hydrogenMode = hydrogenDisplayMode(structure.settings.components);
+  const hydrogenIds = new Set(
+    structure.normalized.atoms
+      .filter((atom) => atom.element.trim().toUpperCase() === "H")
+      .map((atom) => atom.id),
+  );
+  const localHydrogens = new Map(structure.settings.selection_nonpolar_hydrogens
+    .flatMap((assignment) => assignment.atom_ids.map((id) => [id, assignment.show] as const)));
+  return new Set(
+    visibleComponentAtomIds(structure).filter(
+      (atomId) =>
+        (hydrogenMode !== "none" || !hydrogenIds.has(atomId)) &&
+        (!nonpolarHydrogenIds?.has(atomId) ||
+          (localHydrogens.get(atomId) ?? structure.settings.components.nonpolar_hydrogens)) &&
+        (isolatedAtomIds === null || isolatedAtomIds.has(atomId)),
+    ),
+  );
 }

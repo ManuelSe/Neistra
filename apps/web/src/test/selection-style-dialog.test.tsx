@@ -241,3 +241,20 @@ it("shows mixed style membership and resets only draft controls when reopened", 
   expect(props.onAppearance).not.toHaveBeenCalled();
   expect(screen.getByRole("button", { name: "Thin sticks" })).toHaveAttribute("aria-pressed", "mixed");
 });
+
+it("keeps surface membership separate with mixed counts and independent add/remove actions", async () => {
+  const user = userEvent.setup();
+  const entry = molecularEntry("protein", "Receptor", "protein");
+  entry.viewer_settings.selection_surface = { profile: "molecular-v1", atom_ids: [1] };
+  const onSurface = vi.fn().mockResolvedValue(undefined);
+  render(<Tooltip.Provider><SelectionStyleDialog open selection={completeResidue} entries={[entry]}
+    structures={new Map([["protein", proteinProjection()]])} eligibilityBusy={false} busy={false}
+    onSurface={onSurface} onOpenChange={() => {}} onAction={vi.fn().mockResolvedValue(undefined)} /></Tooltip.Provider>);
+  expect(screen.getByText("1/2 · mixed")).toBeVisible();
+  await user.click(screen.getByRole("button", { name: "Add surface" }));
+  expect(onSurface).toHaveBeenLastCalledWith("add");
+  await user.click(screen.getByRole("button", { name: "Remove surface" }));
+  expect(onSurface).toHaveBeenLastCalledWith("remove");
+  await user.click(screen.getByLabelText("About surfaces"));
+  expect(screen.getByText(/Cut boundaries can create artificial faces/)).toBeVisible();
+});

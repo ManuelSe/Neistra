@@ -35,6 +35,7 @@ interface WorkspaceCanvasProps {
   onDeleteScene?: (scene: Scene) => Promise<void>;
   onLoadSelectionStructures?: () => Promise<Map<string, StructureProjection>>;
   onExpandDistance?: ExpandSelection;
+  onSurface?: (action: "add" | "remove") => Promise<void>;
   onAppearance?: ChangeSelectionAppearance;
   onSelectionStyle?: (
     action: "apply" | "reset",
@@ -61,6 +62,7 @@ export function WorkspaceCanvas({
   onLoadSelectionStructures,
   onSelectionStyle,
   onExpandDistance,
+  onSurface,
   onAppearance,
 }: WorkspaceCanvasProps) {
   if (loading) {
@@ -105,6 +107,7 @@ export function WorkspaceCanvas({
         </div>
       ) : (
         <StructureViewer
+          key={project.id}
           project={project}
           theme={theme}
           selection={selection}
@@ -121,6 +124,7 @@ export function WorkspaceCanvas({
           onSelectionStyle={onSelectionStyle}
           onExpandDistance={onExpandDistance}
           onAppearance={onAppearance}
+          onSurface={onSurface}
         />
       )}
     </main>

@@ -121,6 +121,7 @@ from molweave_api.schemas import (
     SceneCreate,
     SelectionAppearanceUpdate,
     SelectionRepresentationUpdate,
+    SelectionSurfaceUpdate,
     StructureRead,
     SuperpositionCreate,
     SuperpositionRead,
@@ -472,7 +473,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     app = FastAPI(
         title="MolWeave API",
-        version="0.6.1",
+        version="0.7.0",
         lifespan=lifespan,
         openapi_url="/api/v1/openapi.json",
         docs_url="/api/docs",
@@ -775,6 +776,14 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         return _call(
             lambda: SelectionStyleService(session, app_settings).update(project_id, payload)
         )
+
+    @router.post("/projects/{project_id}/selection-surface", response_model=ProjectRead)
+    async def update_selection_surface(
+        project_id: str,
+        payload: SelectionSurfaceUpdate,
+        session: Session = Depends(session_dependency),
+    ) -> ProjectRead:
+        return _call(lambda: _service(session).update_selection_surface(project_id, payload))
 
     @router.post("/projects/{project_id}/selection-appearance", response_model=ProjectRead)
     async def update_selection_appearance(

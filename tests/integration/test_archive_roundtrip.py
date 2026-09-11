@@ -298,13 +298,14 @@ def test_legacy_archive_defaults_selection_appearance(client: ApiClient) -> None
 
 
 @pytest.mark.parametrize(
-    "archive_version", ["0.1.0", "0.1.1", "0.2.0", "0.2.1", "0.3.0", "0.4.0", "0.5.0", "0.6.0"]
+    "archive_version",
+    ["0.1.0", "0.1.1", "0.2.0", "0.2.1", "0.3.0", "0.4.0", "0.5.0", "0.6.0", "0.6.1"],
 )
 def test_archive_round_trip_preserves_project_and_originals(
     client: ApiClient,
     archive_version: str,
 ) -> None:
-    assert APPLICATION_VERSION == "0.6.1"
+    assert APPLICATION_VERSION == "0.7.0"
     source = build_rich_project(client)
     first = export_archive(client, source["id"], "archive-first")
     second = export_archive(client, source["id"], "archive-second")
