@@ -2140,3 +2140,20 @@ ownership, rather than changing the scientific surface profile or relaxing tests
 Viewer components are keyed by project ID so switching to a cached project also
 disposes its previous worker/geometry/isolation state and establishes a fresh
 initial view. This avoids carrying renderer state between projects.
+
+## D-061 - Coordinate snapshots survive disposable viewer rebuilds
+
+Status: accepted implementation decision for issue #30, 2026-09-12
+
+A committed coordinate patch also updates the adapter's disposable normalized
+input by cloning it; isolation and visibility rebuilds must not recreate the old
+pose. Application query objects and original molecular files remain untouched.
+Transient preview coordinates are retained separately across style rebuilds and
+keep surfaces hidden until commit or cancel; clearing a preview restores the
+committed coordinates. These caches are renderer projections, not molecular
+authority, and are disposed with the viewer.
+
+The production regression test exposed a 5 Å surface displacement after isolation
+with the old cache. It now checks committed geometry, immutable source input,
+preview preservation during rebuild, cancellation and exact geometry restoration.
+No persisted schema, API or scientific profile changes are required.

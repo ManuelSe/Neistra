@@ -52,9 +52,12 @@ function SelectionStyleContent({ selection, entries, structures, eligibilityBusy
     new Map(entry.viewer_settings.selection_representations.map((item) =>
       [item.style, new Set(item.atom_ids)] as const)),
   ])), [entries]);
-  const surfaceCount = selection.atoms.filter((atom) => entries.find((entry) => entry.id === atom.structure_id)
-    ?.viewer_settings.selection_surface?.atom_ids.includes(atom.atom_id)).length;
-  const entrySurface = entries.some((entry) => selection.atoms.some((atom) => atom.structure_id === entry.id)
+  const surfaceMemberships = useMemo(() => new Map(entries.map((entry) => [
+    entry.id, new Set(entry.viewer_settings.selection_surface?.atom_ids ?? []),
+  ])), [entries]);
+  const surfaceCount = selection.atoms.filter((atom) => surfaceMemberships.get(atom.structure_id)?.has(atom.atom_id)).length;
+  const selectedEntries = new Set(selection.atoms.map((atom) => atom.structure_id));
+  const entrySurface = entries.some((entry) => selectedEntries.has(entry.id)
     && entry.viewer_settings.representations.some((item) => item.style === "surface"));
   const assigned = (style: SelectionRepresentationStyle) => {
     const count = selection.atoms.filter((atom) => memberships.get(atom.structure_id)?.get(style)?.has(atom.atom_id)).length;

@@ -620,3 +620,31 @@ access. Frontend lint/typecheck, all **97 tests / 27 files**, production build a
 diff check pass (`/tmp/neistra-30-preflight-{lint,typecheck,vitest,build}.log`).
 No schema/API/profile change. Record this as a separate `perf(viewer)` correction
 before the complete clean candidate gate.
+
+### C5 coordinate-cache review correction — 2026-09-12
+
+Full-diff review found committed coordinates missing from the adapter's cached
+rebuild input. A production geometry assertion reproduced a 5.000166 Å error
+after isolation (required error <0.5 Å). D-061 records the fix: clone committed
+input and retain transient preview coordinates separately through style rebuilds,
+without mutating application query state. Preview surfaces stay hidden.
+
+Frontend lint/typecheck, **97 tests / 27 files**, build and diff check pass;
+`/tmp/neistra-30-coordinate-cache-{lint,typecheck,vitest,build}.log`. Focused command:
+`PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test tests/e2e/selection-surfaces.spec.ts tests/e2e/coordinate-editing.spec.ts`,
+with isolated ports 8110/8111/5273 and fresh
+`MOLWEAVE_E2E_DATA_DIR=/tmp/neistra-30-coordinate-cache-final`: **10 passed /
+2 intentional skips**, 59.0 seconds (`/tmp/neistra-30-coordinate-cache-final.log`).
+The red reproduction is `/tmp/neistra-30-coordinate-cache-red.log`.
+
+The earlier full candidate run on 98e8ff3 was deliberately interrupted when this
+finding emerged; it is not a passing release gate. The following run on ea7f799
+was stopped before browser qualification for a palette performance correction:
+use memoized per-entry membership sets rather than repeatedly scanning arrays
+for each selected atom. This preserves mixed counts and avoids quadratic work.
+A fresh complete gate follows the correction. No schema, API or scope change.
+
+Palette count correction validation: frontend lint/typecheck and all **97 tests /
+27 files** pass (`/tmp/neistra-30-count-{lint,typecheck,test}.log`). Existing mixed
+membership and disabled-action assertions remain unchanged. Diff review confirms
+only membership lookup cost changed; no new behavior or migration is introduced.
