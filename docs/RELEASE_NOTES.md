@@ -1,5 +1,61 @@
 # Neistra Release Notes
 
+## 0.6.1 - 2026-09-11
+
+### Highlights
+
+- Replace the large styling dialog with a compact non-modal palette that stays
+  open while selecting atoms and rotating the molecule.
+- Apply seven illustrated representation choices and eight color swatches in one
+  activation. Preserve All atoms / Carbon only behavior, independent resets and
+  explicit custom-color Apply behind Custom….
+- Keep hydrogen controls compact and distance expansion/help initially collapsed.
+  A live atom count, mixed states, concise feedback and a sticky close header make
+  repeated styling easier. Touch controls are at least 44×44 px; narrow/zoomed
+  layouts scroll within the palette.
+
+### Fixes
+
+- Capture the selection at command activation and suppress outdated success
+  feedback after selecting another target; attribute previous-target errors.
+- Serialize palette mutations, reject stale eligibility results, close across
+  project switches and preserve outside workspace interaction and focus.
+- Constrain the palette to the viewport and track toolbar/panel resizing without
+  clipping it to the molecular canvas.
+
+### Persisted data, migration and compatibility
+
+No new migration, public API, project/archive schema or molecular data change.
+Migration head remains 0010. v0.6.0 projects and archives remain compatible;
+older supported archives retain their existing defaulting behavior. Original
+uploads, coordinates, connectivity, chemistry warnings, scenes, history and
+appearance assignments retain their established semantics. Only application
+version metadata advances to 0.6.1 in all five authoritative sources.
+
+### Verification
+
+The [approved feature plan](plans/issue-34-compact-selection-styling.md) records
+checkpoint gates, full candidate/released-commit gates and delivery references.
+Coverage includes frontend components, real WebGL carbon/element colors,
+explicit-H bounds, hidden-entry expansion, pending-request targeting, live picking
+and orbit, persistence/archives, light/dark accessibility, touch sizes and actual
+100%/200% zoom. Existing performance budgets remain unchanged. Screenshots and
+usage are in [Selection styling](SELECTION_STYLING.md).
+
+### Limitations and deferred work
+
+This is an interface improvement, not a new chemistry or rendering capability.
+Expansion still assumes a common Cartesian frame. Hydrogen preferences target
+explicit selected H and use available connectivity; they do not infer attached
+hydrogens, repair chemistry or determine protonation. Carbon-only assignments
+retain the existing explicit element-override semantics. Qualification uses pinned
+Chromium/SwiftShader and Pixel 7 emulation, not physical devices or other browsers.
+General instructions moved into disclosures; scientific constraints remain
+available. Presets, hover previews and new algorithms were deliberately deferred
+because they are unnecessary for this workflow correction. Selection-specific
+surfaces remain existing follow-up #30; no additional speculative issues were made.
+
+
 ## 0.6.0 - 2026-09-11
 
 Status: [released as v0.6.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.6.0) from verified commit

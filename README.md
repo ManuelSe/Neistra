@@ -22,9 +22,9 @@ Real workspace screenshots: [light](docs/assets/neistra-workspace-light.png) ·
 [dark](docs/assets/neistra-workspace-dark.png). These show the existing local
 workspace, not proposed account, docking or marketplace features.
 
-Version **0.6.0** adds distance expansion, solid colors and local non-polar-hydrogen
-preferences to **Style selection**. Existing atomic styles, Backbone and Cartoon
-remain available; representation, color and hydrogen resets are independent.
+Version **0.6.1** makes **Style selection** compact and immediate while retaining
+the distance expansion, carbon-only coloring and explicit-hydrogen preferences
+introduced in v0.6.0. Representation, color and hydrogen resets stay independent.
 
 Select atoms or an entry and open **Style selection**. The compact palette stays
 open while you pick another selection or move the camera. Click an illustrated
@@ -38,7 +38,8 @@ an upper bound. **Expand by distance** opens the existing positive-distance sear
 to representation, color and hydrogen preferences are independently reversible.
 See the [styling workflow and visual comparison](docs/SELECTION_STYLING.md).
 
-Upgrade existing data with migration 0010 before starting this version. Supported
+No new migration is required from v0.6.0. Older databases must reach migration
+0010 before startup. Supported
 older projects and archives remain readable; Neistra Archives retain
 `.molweave.zip`, and Python module names, `MOLWEAVE_*` settings and data paths
 remain compatible. See [release notes](docs/RELEASE_NOTES.md),

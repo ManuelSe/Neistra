@@ -192,3 +192,13 @@ Reviewed ownership, scientific semantics, stale targets, focus/accessibility,
 responsive clipping, dead code and compatibility. No consequential findings remain
 at this checkpoint. No API/schema/migration changes or extra dependencies. Next:
 version/release preparation and complete candidate gate.
+
+### Checkpoint 4 — release preparation
+
+Fetched origin/master before preparation; base unchanged and feature history retained.
+Remote latest is v0.6.0 and v0.6.1 is unallocated. Updated all five authoritative
+version sources to 0.6.1 and the archive-version assertion; added explicit 0.5.0
+and 0.6.0 archive compatibility cases. Ruff and all 12 archive-roundtrip tests pass.
+Release notes, upgrade/compatibility guidance and user documentation are prepared.
+No new migration or protocol change. Complete candidate gate is the next gate;
+no merge, tag or release is claimed by this preparation entry.

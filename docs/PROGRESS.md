@@ -7,8 +7,8 @@ The approved [feature plan](plans/issue-34-compact-selection-styling.md) is the
 detailed source of truth. Compact non-modal controls, immediate swatches and context-safe feedback pass
 frontend lint/typecheck, 84 tests, build and 15 hardening browser workflows
 (7 intentional skips), plus 2 browser checks after review. Real zoom, touch sizes,
-live picking/orbit and captured pending targets pass. Version and release gates
-are next. No migration
+live picking/orbit and captured pending targets pass. v0.6.1 versions and notes are prepared; 12 archive-roundtrip tests pass.
+The complete candidate gate is next. No migration
 or scientific behavior change. Current blocker: none; release work is pending.
 
 ### Previous release

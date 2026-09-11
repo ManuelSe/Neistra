@@ -211,3 +211,13 @@ empty. Undo history or a named/checkpoint scene may retain non-default data afte
 resetting current display. The migration refuses such a downgrade before writing
 changes. Use a pre-upgrade backup to roll back without discarding retained state;
 do not manually delete history to bypass the guard.
+
+
+## Compact selection styling (0.6.1)
+
+This release changes presentation and transient palette state only. Upgrading from
+0.6.0 requires no new migration; Alembic head remains 0010. Keep the documented
+upgrade command for earlier databases. Application/API/archive version metadata
+advances together to 0.6.1; schema major 1 and appearance wire formats are unchanged.
+The issue #34 plan records focused and complete release gates and compatibility
+checks, including archive application versions 0.5.0 and 0.6.0.
