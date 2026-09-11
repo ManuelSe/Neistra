@@ -2,11 +2,11 @@
 
 ## Current milestone
 
-Issue #34 — compact selection styling, checkpoint 1 complete.
+Issue #34 — compact selection styling, checkpoint 2 complete.
 The approved [feature plan](plans/issue-34-compact-selection-styling.md) is the
-detailed source of truth. Dedicated non-modal shell and focus/context regressions
-pass frontend lint/typecheck, 81 tests, build and 5 applicable browser workflows
-(5 intentional skips). Compact controls are next. No migration
+detailed source of truth. Compact non-modal controls, immediate swatches and context-safe feedback pass
+frontend lint/typecheck, 83 tests, build and 8 appearance/styling browser workflows
+(4 intentional skips). Live-selection, zoom and performance hardening are next. No migration
 or scientific behavior change. Current blocker: none; release work is pending.
 
 ### Previous release

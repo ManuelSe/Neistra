@@ -398,6 +398,7 @@ test("keeps ion, water, and covalent-boundary targets exact", async ({
   await chooseComponent("Ions / metals", /ZN 401/);
   await page.getByRole("button", { name: "Style selection" }).click();
   const ionDialog = page.getByRole("dialog", { name: "Style selection" });
+  await ionDialog.getByText("Why unavailable?", { exact: true }).click();
   await expect(ionDialog.getByText(/require complete protein, DNA, or RNA residues/i)).toBeVisible();
   await expect(ionDialog.getByRole("button", { name: "Cartoon" })).toBeDisabled();
   await ionDialog.getByRole("button", { name: "Space filling" }).click();

@@ -37,6 +37,10 @@ test("expands from styling across hidden entries without durable changes", async
   const before = await (await request.get(`/api/v1/projects/${project.id}`)).json();
   await page.getByRole("button", { name: "Style selection", exact: true }).click();
   const dialog = page.getByRole("dialog", { name: "Style selection" });
+  await expect(dialog.getByRole("button", { name: "Apply blue color" })).toBeInViewport();
+  expect(await dialog.evaluate((el) => el.scrollHeight <= el.clientHeight + 1)).toBe(true);
+  await page.screenshot({ path: info.outputPath("selection-palette-desktop.png") });
+  await dialog.getByText("Expand by distance", { exact: true }).click();
   await expect(dialog.getByLabel("Distance (Å)")).toHaveValue("4");
   await dialog.getByRole("button", { name: "Expand selection", exact: true }).click();
   await expect(dialog.locator(".selection-style-summary")).toContainText(String(original.atom_count * 2));
@@ -47,6 +51,7 @@ test("expands from styling across hidden entries without durable changes", async
   await expect(dialog.getByRole("button", { name: "Expand selection", exact: true })).toBeEnabled();
   expect(await (await request.get(`/api/v1/projects/${project.id}`)).json()).toEqual(before);
   expect((await new AxeBuilder({ page }).include('[role="dialog"]').analyze()).violations).toEqual([]);
+  await dialog.getByText("Custom…", { exact: true }).click();
   await dialog.getByLabel("Custom selection color").fill("#ff00ff");
   await dialog.getByRole("button", { name: "Apply color", exact: true }).click();
   await expect(dialog.getByRole("status").filter({ hasText: "Selection color applied" })).toBeVisible();
@@ -78,7 +83,8 @@ test("expands from styling across hidden entries without durable changes", async
   await expect.poll(magentaPixels).toBeGreaterThan(100);
   await row.locator(".entry-select").click();
   await page.getByRole("button", { name: "Style selection", exact: true }).click();
-  await dialog.getByLabel("Coloring mode").selectOption("carbon");
+  await dialog.getByRole("button", { name: "Carbon only", exact: true }).click();
+  await dialog.getByText("Custom…", { exact: true }).click();
   await dialog.getByLabel("Custom selection color").fill("#ff00ff");
   await dialog.getByRole("button", { name: "Apply color", exact: true }).click();
   await expect(dialog.getByRole("status")).toHaveText("Selection color applied.");
@@ -154,13 +160,15 @@ for (const theme of ["light", "dark"]) {
     await page.keyboard.press("Enter");
     const dialog = page.getByRole("dialog", { name: "Style selection" });
     await expect(dialog).toBeVisible();
+    await dialog.getByText("Expand by distance", { exact: true }).click();
     await dialog.getByRole("button", { name: "Expand selection", exact: true }).click();
     await expect(dialog.locator(".selection-style-summary")).toContainText("4");
     await dialog.getByRole("button", { name: "Line", exact: true }).focus();
     await page.keyboard.press("Enter");
     await expect(dialog.getByRole("status").filter({ hasText: "Applied Line" })).toBeVisible();
-    await dialog.getByLabel("Custom selection color").fill("#ff00ff");
-    await dialog.getByLabel("Coloring mode").selectOption("carbon");
+    await dialog.getByText("Custom…", { exact: true }).click();
+  await dialog.getByLabel("Custom selection color").fill("#ff00ff");
+    await dialog.getByRole("button", { name: "Carbon only", exact: true }).click();
     await page.route(`**/projects/${project.id}/selection-appearance`, async (route) => {
       await route.fulfill({ status: 409, contentType: "application/json", body: JSON.stringify({ detail: { code: "revision_conflict", message: "The project changed. Retry the selection action." } }) });
     }, { times: 1 });

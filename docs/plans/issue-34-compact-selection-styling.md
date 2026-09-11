@@ -139,3 +139,26 @@ intentional layout skips. Isolated ports 8110/8111/5273, data root
 `/tmp/neistra-34-c1-fixed-e2e.log`. Diff reviewed for scope, ownership, compatibility
 and dead code; no domain/API/migration changes. Existing Mol* chunk-size advisory
 remains. Next: compact controls and consolidated action feedback.
+
+### Checkpoint 2 — complete
+
+Seven original SVG glyphs, short-label style buttons with mixed membership,
+independent resets, eight immediate swatches and all/carbon segmented mode are
+implemented. Custom color, distance expansion and detailed help use native
+keyboard/touch disclosures. Explicit hydrogen controls retain loading, mixed and
+master-bound explanations. One context-bound feedback area handles appearance
+commands; pending commands serialize all palette mutations. Older-selection errors
+remain visible and explicitly attributed; older successes are suppressed. Closing
+unmounts drafts. Eligibility cannot use a previous selection's loaded result.
+
+The viewport-constrained portal avoids the viewer's size-container clipping while
+remaining below application dialogs. The initial 1366×768 palette fits without
+scrolling; original baseline screenshot showed color entirely below the fold.
+No API, molecular, persisted state, dependencies or migrations changed.
+
+Passing: lint, typecheck, 83 frontend tests, production build; appearance and styling
+Playwright suites: 8 passed / 4 intentional skips, light/dark and desktop/Pixel 7,
+including real carbon/heteroatom pixel checks, hidden-entry expansion, camera/data
+invariance, local H and scoped axe. Ports 8110/8111/5273, root `/tmp/neistra-34-c2`,
+logs `/tmp/neistra-34-c2-{unit,build,e2e}.log`. Diff reviewed; next: additional
+live-selection/pending tests, zoom/performance gate and published visual evidence.

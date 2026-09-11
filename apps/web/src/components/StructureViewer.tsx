@@ -101,6 +101,7 @@ export function StructureViewer({
   const [styleStructures, setStyleStructures] = useState(
     new Map<string, StructureProjection>(),
   );
+  const [styleLoadedContext, setStyleLoadedContext] = useState<string | null>(null);
   const [styleEligibilityBusy, setStyleEligibilityBusy] = useState(false);
   const [styleEligibilityError, setStyleEligibilityError] = useState<string | null>(null);
   const visibleEntries = useMemo(
@@ -413,7 +414,7 @@ export function StructureViewer({
           setStyleEligibilityError("Could not load selection structures. Close and reopen the styling palette to retry.");
         }
       })
-      .finally(() => { if (current) setStyleEligibilityBusy(false); });
+      .finally(() => { if (current) { setStyleEligibilityBusy(false); setStyleLoadedContext(styleContext); } });
     return () => { current = false; };
   }, [styleDialogOpen, styleContext]);
 
@@ -446,8 +447,8 @@ export function StructureViewer({
           selection={selection}
           entries={project.entries}
           structures={styleStructures}
-          eligibilityBusy={styleEligibilityBusy}
-          eligibilityError={styleEligibilityError}
+          eligibilityBusy={styleEligibilityBusy || styleLoadedContext !== styleContext}
+          eligibilityError={styleLoadedContext === styleContext ? styleEligibilityError : null}
           busy={busy}
           onOpenChange={setStyleDialogOpen}
           onAction={async (action, style) => {

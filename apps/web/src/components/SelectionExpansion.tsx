@@ -1,44 +1,46 @@
 import { useEffect, useRef, useState } from "react";
 import type { ExpandSelection } from "../selection/expansion";
 
-export function SelectionExpansion({ expand, contextKey, disabled }: {
+export function SelectionExpansion({ expand, contextKey, disabled, onMessage }: {
   expand: ExpandSelection;
   contextKey: string;
   disabled: boolean;
+  onMessage?: (text: string | null, failed: boolean) => void;
 }) {
   const [distance, setDistance] = useState("4");
   const [granularity, setGranularity] = useState<"atom" | "residue">("atom");
   const [running, setRunning] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
   const [failed, setFailed] = useState(false);
+  const report = (text: string | null, failed: boolean) => {
+    setMessage(text); setFailed(failed); onMessage?.(text, failed);
+  };
   const pending = useRef<AbortController | null>(null);
   useEffect(() => () => pending.current?.abort(), [contextKey]);
   const cancel = () => {
     pending.current?.abort();
     pending.current = null;
     setRunning(false);
-    setFailed(false);
-    setMessage("Distance expansion cancelled.");
+    report("Distance expansion cancelled.", false);
   };
   const run = async () => {
+    if (document.activeElement instanceof HTMLElement) document.activeElement.closest<HTMLElement>(".selection-palette")?.focus();
     const controller = new AbortController();
     pending.current?.abort();
     pending.current = controller;
     setRunning(true);
-    setMessage(null);
-    setFailed(false);
+    report(null, false);
     try {
       const count = await expand(Number(distance), granularity, controller.signal);
       if (pending.current === controller && !controller.signal.aborted) {
-        setMessage(`Selection expanded to ${count} atoms.`);
+        report(`Selection expanded to ${count} atoms.`, false);
       }
     } catch (error) {
       if (pending.current === controller) {
         const cancelled = controller.signal.aborted ||
           (error instanceof DOMException && error.name === "AbortError");
-        setFailed(!cancelled);
-        setMessage(cancelled ? "Distance expansion cancelled." :
-          error instanceof Error ? error.message : "Distance expansion failed.");
+        report(cancelled ? "Distance expansion cancelled." :
+          error instanceof Error ? error.message : "Distance expansion failed.", !cancelled);
       }
     } finally {
       if (pending.current === controller) {
@@ -74,7 +76,7 @@ export function SelectionExpansion({ expand, contextKey, disabled }: {
           Cancel expansion
         </button> : null}
       </form>
-      {message ? <p role={failed ? "alert" : "status"}>{message}</p> : null}
+      {!onMessage && message ? <p role={failed ? "alert" : "status"}>{message}</p> : null}
     </fieldset>
   );
 }

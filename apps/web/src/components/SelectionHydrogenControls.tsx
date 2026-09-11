@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import type {
   ChangeSelectionAppearance, Entry, Selection, StructureProjection,
 } from "../api/types";
@@ -11,9 +11,6 @@ export function SelectionHydrogenControls({ selection, entries, structures, load
   loading?: boolean;
   onChange: ChangeSelectionAppearance;
 }) {
-  const [pending, setPending] = useState(false);
-  const [message, setMessage] = useState<string | null>(null);
-  const [failed, setFailed] = useState(false);
   const hydrogenIds = new Map([...structures].map(([id, projection]) => [id,
     new Set(projection.structure.atoms.filter((atom) => atom.element.trim().toUpperCase() === "H")
       .map((atom) => atom.id)),
@@ -30,40 +27,31 @@ export function SelectionHydrogenControls({ selection, entries, structures, load
   }));
   const state = states.size > 1 ? "mixed" : [...states][0] ?? "inherit";
   const hiddenByMaster = hydrogens.some((atom) => !byEntry.get(atom.structure_id)?.viewer_settings.components.hydrogens);
-  const change = async (value: string) => {
-    setPending(true);
-    setMessage(null);
-    setFailed(false);
-    try {
-      await onChange(value === "inherit" ? { property: "nonpolar_hydrogens", action: "reset" }
-        : { property: "nonpolar_hydrogens", action: "set", show: value === "show" });
-      setMessage("Selection hydrogen visibility stored.");
-    } catch (error) {
-      setFailed(true);
-      setMessage(error instanceof Error ? error.message : "Hydrogen visibility could not be changed.");
-    } finally { setPending(false); }
-  };
+  const change = (value: string) => void onChange(value === "inherit"
+    ? { property: "nonpolar_hydrogens", action: "reset" }
+    : { property: "nonpolar_hydrogens", action: "set", show: value === "show" });
   return (
-    <fieldset className="selection-style-group">
-      <legend>Selection hydrogens</legend>
-      <p className="selection-style-help" id="selection-hydrogen-help">
-        {loading ? "Checking explicit hydrogen targets…" : `${hydrogens.length} explicit hydrogens selected.`} Only non-polar hydrogen visibility
-        changes; selecting a heavy atom does not include its attached hydrogens.
-        Entry visibility, Show hydrogens, components, and isolation still apply.
-      </p>
-      {!loading && !hydrogens.length ? <p>Select explicit hydrogen atoms, or a complete residue containing them.</p> : null}
-      {hiddenByMaster ? <p>Show hydrogens is off for at least one selected entry. Local preferences are retained.</p> : null}
-      <label>Selected non-polar hydrogens
-        <select value={state} aria-describedby="selection-hydrogen-help"
-          disabled={busy || pending || !hydrogens.length}
-          onChange={(event) => void change(event.target.value)}>
+    <fieldset className="selection-style-group selection-hydrogens">
+      <legend>Hydrogens</legend>
+      <label className="selection-hydrogen-row"><span>Non-polar H</span>
+        <select value={state} aria-label="Selected non-polar hydrogens" aria-describedby="selection-hydrogen-help"
+          disabled={busy || loading || !hydrogens.length}
+          onChange={(event) => change(event.target.value)}>
           {state === "mixed" ? <option value="mixed" disabled>Mixed</option> : null}
           <option value="inherit">Use entry setting</option>
           <option value="show">Show</option>
           <option value="hide">Hide</option>
         </select>
       </label>
-      {message ? <p role={failed ? "alert" : "status"}>{message}</p> : null}
+      {loading ? <p className="selection-style-help">Checking explicit hydrogen targets…</p> : null}
+      {hiddenByMaster ? <p className="selection-style-help">Show hydrogens is off; local preferences are retained.</p> : null}
+      <details className="selection-help"><summary>{!loading && !hydrogens.length ? "No selected hydrogens" : "Hydrogen help"}</summary>
+        <p id="selection-hydrogen-help">{hydrogens.length} explicit hydrogens selected.
+          Only non-polar hydrogen visibility changes; selecting a heavy atom does not include its attached hydrogens.
+          Entry visibility, Show hydrogens, components, and isolation still apply.
+          {!loading && !hydrogens.length ? " Select explicit hydrogen atoms, or a complete residue containing them." : ""}
+        </p>
+      </details>
     </fieldset>
   );
 }
