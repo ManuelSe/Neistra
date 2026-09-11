@@ -1,3 +1,4 @@
+import type { ExpandSelection } from "../selection/expansion";
 import { useQueries } from "@tanstack/react-query";
 import * as Tooltip from "@radix-ui/react-tooltip";
 import { AlertTriangle, LoaderCircle, RotateCcw } from "lucide-react";
@@ -50,6 +51,7 @@ interface StructureViewerProps {
   onApplyScene?: (scene: Scene) => Promise<void>;
   onDeleteScene?: (scene: Scene) => Promise<void>;
   onLoadSelectionStructures?: () => Promise<Map<string, StructureProjection>>;
+  onExpandDistance?: ExpandSelection;
   onSelectionStyle?: (
     action: "apply" | "reset",
     style?: SelectionRepresentationStyle,
@@ -72,6 +74,7 @@ export function StructureViewer({
   onDeleteScene,
   onLoadSelectionStructures,
   onSelectionStyle,
+  onExpandDistance,
   createViewer = createMolstarViewer,
 }: StructureViewerProps) {
   const targetRef = useRef<HTMLDivElement>(null);
@@ -384,13 +387,21 @@ export function StructureViewer({
       ),
     );
     setStyleStructures(visible);
-    if (!onLoadSelectionStructures) return;
-    setStyleEligibilityBusy(true);
-    void onLoadSelectionStructures()
-      .then(setStyleStructures)
-      .catch(() => setStyleStructures(new Map()))
-      .finally(() => setStyleEligibilityBusy(false));
   };
+  const styleLoader = useRef(onLoadSelectionStructures);
+  styleLoader.current = onLoadSelectionStructures;
+  const styleContext = JSON.stringify([project.id, selection.atoms,
+    project.entries.map((entry) => [entry.id, entry.current_artifact_id])]);
+  useEffect(() => {
+    if (!styleDialogOpen || !styleLoader.current) return;
+    let current = true;
+    setStyleEligibilityBusy(true);
+    void styleLoader.current()
+      .then((loaded) => { if (current) setStyleStructures(loaded); })
+      .catch(() => { if (current) setStyleStructures(new Map()); })
+      .finally(() => { if (current) setStyleEligibilityBusy(false); });
+    return () => { current = false; };
+  }, [styleDialogOpen, styleContext]);
 
   return (
     <div className="structure-viewer" data-testid="structure-viewer">
@@ -415,6 +426,7 @@ export function StructureViewer({
           onSelectionStyle={openStyleDialog}
         />
         <SelectionStyleDialog
+          onExpandDistance={onExpandDistance}
           open={styleDialogOpen}
           selection={selection}
           entries={project.entries}

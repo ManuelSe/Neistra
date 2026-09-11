@@ -1,3 +1,4 @@
+import { expandByDistance } from "./selection/expansion";
 import * as Tooltip from "@radix-ui/react-tooltip";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { ChevronLeft, ChevronRight, History as HistoryIcon } from "lucide-react";
@@ -670,6 +671,25 @@ export default function App() {
     },
     onLoadSelectionStructures: () =>
       loadStructureProjections(selectedEntryIds(selection)),
+    onExpandDistance: async (
+      distance: number, granularity: "atom" | "residue", signal: AbortSignal,
+    ) => {
+      if (!project) throw new Error("Open a project before expanding.");
+      const seed = useSelectionStore.getState().selection;
+      const molecularKey = (value: Project | undefined) => JSON.stringify(
+        value?.entries.map((entry) => [entry.id, entry.current_artifact_id]),
+      );
+      const initialKey = molecularKey(project);
+      return expandByDistance({
+        selection: seed, distance, granularity, signal,
+        load: inspectAllStructures,
+        isCurrent: () =>
+          useWorkspaceStore.getState().activeProjectId === project.id &&
+          useSelectionStore.getState().selection === seed &&
+          molecularKey(queryClient.getQueryData<Project>(["project", project.id])) === initialKey,
+        apply: replaceSelection,
+      });
+    },
     onSelectionStyle: async (
       action: "apply" | "reset",
       style?: SelectionRepresentationStyle,

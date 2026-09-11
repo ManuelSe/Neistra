@@ -13,6 +13,7 @@ export interface SpatialRequest {
   seed: AtomReference[];
   distance: number;
   granularity: "atom" | "residue";
+  preserveOrphans?: boolean;
 }
 
 export interface SpatialResponse {
@@ -49,8 +50,10 @@ export function computeSpatialSelection(request: SpatialRequest): SpatialRespons
     .filter((atom) =>
       request.granularity === "atom"
         ? matchedAtoms.has(`${atom.structureId}:${atom.atomId}`)
-        : atom.residueId !== null &&
-          matchedResidues.has(`${atom.structureId}:${atom.residueId}`),
+        : atom.residueId !== null
+          ? matchedResidues.has(`${atom.structureId}:${atom.residueId}`)
+          : request.preserveOrphans === true &&
+            matchedAtoms.has(`${atom.structureId}:${atom.atomId}`),
     )
     .map((atom) => ({ structure_id: atom.structureId, atom_id: atom.atomId }));
   return { id: request.id, atoms };

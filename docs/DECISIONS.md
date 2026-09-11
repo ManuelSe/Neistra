@@ -1886,3 +1886,30 @@ Consequences:
   unchanged; an integration assertion covers the renamed diagnostic prefix.
 - The external cutover checklist remains local and unexecuted, and the
   no-backend/version exception in D-048 remains binding.
+
+## D-051 - Seed-preserving distance expansion in selection styling
+
+Status: accepted for issue #29
+
+Extend D-018/019 with an explicit expansion operation in Style selection. Search
+all current project entries, including intentionally loaded hidden entries, in
+active-conformer Cartesian coordinates with an inclusive positive finite cutoff.
+Default to 4 Å and matching atoms. Complete-residue mode includes every atom of
+each matched residue, preserves matching orphan atoms, and always retains the
+canonical seed. Keep the inspector's existing general query semantics unchanged.
+
+Reuse the existing spatial Web Worker and artifact cache. Abort terminates the
+worker; cancellation during shared loading rejects the operation without cancelling
+other consumers' cache fetches. Before application, check the active project,
+seed identity, and current entry/artifact identities. Dialog context changes and
+closure cancel pending work. Refresh polymer eligibility after selection changes
+and ignore superseded eligibility responses.
+
+Rationale: expansion is a deliberate shared-selection change, not a representation
+edit or a spatial inference. Seed retention and explicit orphan behavior prevent
+residue completion from unexpectedly dropping a ligand or ion. Context guards
+prevent asynchronous results from overwriting later scientific or selection state.
+
+No project command, revision, molecular artifact, visibility, or camera change
+occurs. Coordinates across entries must already share a meaningful frame; there
+is no alignment, periodic geometry, contact classification, or binding-site claim.
