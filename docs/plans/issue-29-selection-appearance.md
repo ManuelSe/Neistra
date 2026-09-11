@@ -2,7 +2,7 @@
 
 ## Status and metadata
 
-- Status: **approved; implementation active — M4/C6 qualification correction**.
+- Status: **approved; implementation qualified — M4/C6 merge-strategy blocker**.
 - Issue: [#29 — Enhance selection representation controls](https://github.com/ManuelSe/Neistra/issues/29).
 - Issue created/updated: 2026-09-10; inspected and plan approved: 2026-09-11.
 - Approval: the user explicitly approved the complete proposal and instructed:
@@ -434,6 +434,8 @@ evidence. An inability to publish is not evidence that publication occurred.
 
 | 2026-09-11 | M4/C6 correction candidate qualified | Test checkpoint `d21cde4` passed complete V5: frozen installs, upgrade through 0010, Ruff, mypy (51 files), 228 Python tests (59 known Alembic warnings), ESLint, TypeScript, 79 frontend tests, 8 supervisor tests, build and full Playwright (73 passed/39 intentional layout skips; 14.0 minutes). Browser data `/tmp/neistra-issue29-focus-candidate`, ports 8110/8111/5273; log `/tmp/neistra-issue29-focus-candidate-gate.log`. Both corrected mobile themes passed. Removed only task-owned migration data after qualification. Full correction diff reviewed locally (not independently): two test synchronization changes and evidence docs, with no application/schema/dependency/version changes. Corrected obsolete planning language in project progress. No remaining local findings; correction PR and exact merged qualification precede publication. |
 
+| 2026-09-11 | M4/C6 blocked on approved merge strategy | Correction PR [#32](https://github.com/ManuelSe/Neistra/pull/32), candidate/evidence `86994dcc7470c3cb622ca5de5897657a6e50bb5f`, is clean and mergeable with four changed files, no required checks/reviews and no local findings. GitHub reports `rebaseable: false`; the authorized rebase merge request returned HTTP 405, “This branch can’t be rebased.” Original checkpoint history and its rebased master copies coexist after safe base integration. No force push or alternate merge was attempted. Await user approval for a merge commit on this correction PR, preserving checkpoint history; exact merged V5, tag, release, issue reply and cleanup remain pending. |
+
 Future entries must record exact commits, commands, results, known warnings,
 limitations, remote identifiers, blockers, and next action. Populate feature
 acceptance evidence only after execution. Do not mark the PR, issue, merge,
@@ -441,4 +443,4 @@ tag, release, or cleanup complete until remotely verified.
 
 ## Completion and next action
 
-PR #31 is merged. The discovered test focus race is corrected; qualify and merge the test checkpoint, then complete exact merged qualification before tagging and publication.
+PR #31 is merged and correction PR #32 is fully qualified. GitHub refuses rebase merge. The smallest next action is approval to use a merge commit for PR #32; then qualify the exact merged commit and complete publication and cleanup.

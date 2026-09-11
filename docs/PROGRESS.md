@@ -2,7 +2,7 @@
 
 ## Current milestone
 
-Issue #29 — PR #31 merged; M4/C6 test qualification correction in progress.
+Issue #29 — PR #31 merged; correction PR #32 qualified, awaiting merge-method approval.
 
 The user authorized full delivery with `/goal` on 2026-09-11 under
 [the approved feature plan](plans/issue-29-selection-appearance.md). The planned
@@ -2058,9 +2058,12 @@ Results:
 
 ## Blockers
 
-None.
+GitHub rejects the approved rebase merge for qualified correction PR #32
+(HTTP 405: “This branch can’t be rebased”). A merge commit is available but
+requires approval to deviate from the feature plan. No force push or release occurred.
 
 ## Next action
 
-Qualify and merge the test correction, then complete v0.6.0 delivery under
+Approve a merge commit for correction PR #32, then qualify the exact merged
+commit and complete v0.6.0 delivery under
 [the approved issue #29 contract](plans/issue-29-selection-appearance.md).
