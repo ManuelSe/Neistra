@@ -603,3 +603,15 @@ channel leakage, parent bonds, persisted intent, focus, stale selection and scop
 No consequential finding remains; `git diff --check` passes. This is not an
 independent review. Commit: `feat(selection): add compact hide and show controls`
 (Refs #38). Next: C4 version preparation, complete release gate and delivery.
+
+### 2026-09-14 — C4 release preparation
+
+Fetched origin/master: unchanged at `d962682d904eb274974da7ef620098b8dcfb7d84`,
+an ancestor of this branch. Remote releases remain latest v0.7.0; v0.8.0 is
+unallocated. The additive durable visibility API and user workflow justify the
+approved minor increment, with schema majors retained and downgrade guards intact.
+All five authoritative sources advance to 0.8.0; the current-version archive
+assertion is updated while the legacy v0.7.0 compatibility fixture is preserved.
+README, release notes and migration guidance describe the delivered behavior,
+scientific limits and #36 follow-up. Complete candidate qualification and final
+full-diff review are next; this record does not claim release or merge completion.

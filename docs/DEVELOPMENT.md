@@ -239,7 +239,7 @@ guaranteed to preserve newly exported surface settings. Frontend geometry is not
 persisted and is rebuilt from stable memberships and current molecular artifacts.
 
 
-## Atomic-detail visibility migration (planned 0.8.0)
+## Atomic-detail visibility migration (0.8.0)
 
 Migration 0012 adds `selection_hidden_atoms: []` to all retained viewer-settings
 paths, including nested checkpoint scenes and forward/inverse commands. Upgrade

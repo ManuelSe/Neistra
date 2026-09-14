@@ -22,11 +22,16 @@ Real workspace screenshots: [light](docs/assets/neistra-workspace-light.png) ·
 [dark](docs/assets/neistra-workspace-dark.png). These show the existing local
 workspace, not proposed account, docking or marketplace features.
 
-Version **0.7.0** adds saved selection surfaces to **Style selection**. Add or
-remove atoms from a fragment surface without replacing atom/polymer styling.
-Changing the current selection leaves the surface in place; undo/redo, scenes,
-saves and archives retain membership. Rendering is asynchronous, cancellable and
-bounded, with explicit fallback and retry.
+Version **0.8.0** adds reversible **Hide / Show** in the existing Atom detail row.
+Hide any selected atoms while retaining polymer and surface geometry; Show restores
+prior atomic styles. Applying an atomic style or resetting representations also
+reveals its target. Saved visibility survives undo/redo, scenes, reload and archives.
+
+Whole-protein fragment surfaces now support up to 100,000 effective atoms within
+explicit grid, memory and time bounds: 512 MiB mesh allocation, 1 GiB retained
+output, 2 GiB accounted working buffers and a 120-second calculation deadline.
+Real 23,694- and 58,870-atom proteins and a synthetic 100,000-atom target are
+qualified on desktop and Pixel 7 emulation; this is not an arbitrary-device guarantee.
 
 Select atoms or an entry and open **Style selection**. The compact palette stays
 open while you pick another selection or move the camera. Apply an illustrated
@@ -41,13 +46,14 @@ preferences filter the fragment. Existing entry surfaces can remain enabled.
 See the [styling workflow](docs/SELECTION_STYLING.md) and
 [scientific limitations](docs/SCIENTIFIC_LIMITATIONS.md).
 
-Back up managed data and upgrade to migration **0011** before startup. Older
-projects/archives remain readable by v0.7.0. Downgrade requires all retained surface
-values, including history and scenes, to be null; otherwise restore the pre-upgrade
-backup. Older readers are unsupported for new surface-bearing archives.
+Back up managed data and upgrade to migration **0012** before startup. Older
+projects/archives remain readable by v0.8.0. Downgrade to 0011 requires all retained
+hidden masks, including history and scenes, to be empty; otherwise restore the
+pre-upgrade backup. Older readers are unsupported for new visibility-bearing
+archives. Atomic hiding does not change entry-based Visible export.
 `.molweave.zip`, Python module names, `MOLWEAVE_*` settings and data paths remain
 compatible. See [release notes](docs/RELEASE_NOTES.md) and
-[migration guidance](docs/DEVELOPMENT.md#selection-surface-migration-070).
+[migration guidance](docs/DEVELOPMENT.md#atomic-detail-visibility-migration-080).
 Context-aware patches are follow-up [#36](https://github.com/ManuelSe/Neistra/issues/36).
 
 ## Prerequisites

@@ -1,5 +1,71 @@
 # Neistra Release Notes
 
+## 0.8.0 - 2026-09-14
+
+### Highlights
+
+- Hide or show arbitrary selected atom detail with one compact sixth tile. Mixed
+  selections use Hide; Show restores prior styles. Polymer and surface geometry,
+  selection, camera and measurements remain independent.
+- Apply an atomic representation or Reset to reveal its target in the same saved
+  command. Hidden atoms remain selectable through hierarchy, queries and visible
+  polymer/surface picks; atom labels and incident atomic bonds are hidden.
+- Generate larger whole-protein fragment surfaces with coordinated resource limits
+  and staged native allocation accounting. Reuse immutable geometry inputs and
+  allocate worker buffers only for calculations that are actually needed.
+
+### Fixes and performance
+
+Raise effective atom capacity to 100,000, padded grid cells to 64 million, mesh
+allocation to 512 MiB, retained output to 1 GiB, accounted working buffers to 2 GiB
+and calculation deadline to 120 seconds. Retain one worker and the existing
+250,000-atom parent-entry degradation. Cancellation, retry and truthful fallback
+remain available; limits are allocation policies, not browser/GPU heap ceilings.
+
+Pinned whole 6VXX (23,694 atoms) and 1AON (58,870 atoms), plus a synthetic 100,000-atom
+case, render within the approved desktop/Pixel 7 emulation gates. Qualification,
+process memory and exact timings are in [Performance](PERFORMANCE.md); no physical
+phone or arbitrary-hardware performance guarantee is implied.
+
+### Persisted data, migration and compatibility
+
+Migration **0012** defaults `selection_hidden_atoms` to `[]` in live entries,
+checkpoints, scenes and retained forward/inverse commands. Back up before upgrade.
+Downgrade to 0011 is allowed only when **every retained mask is empty**; showing
+current atoms does not erase history. Refusal validates all retained locations
+before writing. Otherwise restore the pre-upgrade backup.
+
+The revision-checked, multi-entry `selection-atom-visibility` API supports exact
+Hide/Show with no-op preservation. Generic settings updates cannot change masks.
+Topology deletion prunes references reversibly; new atoms do not inherit hiding.
+API/project/archive/normalized schema majors remain 1. New readers accept older
+archives with absent masks; older readers are unsupported for visibility-bearing
+archives. Original bytes, coordinates, bonds, conformers and warnings are unchanged.
+Visible export remains entry-based. This additive user-visible capability warrants
+a minor release; all five application version sources advance to 0.8.0.
+
+### Verification
+
+The [approved plan](plans/issue-38-selection-visibility-capacity.md) records exact
+checkpoint, complete candidate and merged-commit evidence and publication audit.
+Tests cover native incident bonds and unchanged polymers/surfaces, all/partial/
+mixed hiding, hidden-atom reselection, cached projections, reload/history/scenes/
+archives, every retained migration path, memory boundaries and cancellation.
+Both themes, 44 px targets, keyboard interaction, Pixel 7 emulation and actual
+100%/200% browser zoom are qualified. Full release gates remain mandatory before
+publication; their final counts and commits are recorded with the release.
+
+### Scientific limitations and deferred requests
+
+The molecular-v1 algorithm remains unchanged: selected-fragment context, physical
+radii, 1.4 Å probe, 0.5 Å grid and 0.45 opacity. Cut boundaries may create artificial
+faces. There is no silent resolution reduction, chemistry repair or unlimited
+allocation. Atom hiding does not reshape surfaces. Context-aware pocket patches
+follow under approved [#36](https://github.com/ManuelSe/Neistra/issues/36), after
+this release. Classification (#20), subset export (#21), adjustable profiles and
+automatic cavity discovery remain outside this scope; no speculative issues added.
+
+
 ## 0.7.0 - 2026-09-12
 
 ### Highlights
