@@ -503,3 +503,30 @@ prior assignments and remains subject to entry/component/isolation/H visibility.
 Generic viewer-settings PUT preserves an omitted mask and rejects a changed mask;
 use the dedicated action, representation Apply/Reset, or existing scene/history
 operations. This is atomic-detail visibility, not atom deletion or subset export.
+
+### Saved protein pocket surfaces
+
+`POST /api/v1/projects/{project_id}/selection-pocket-surface` accepts
+`expected_revision`, `receptor_entry_id`, `action: "apply" | "remove"`, and
+`pocket` (required for Apply, null/omitted for Remove). The definition is:
+
+```json
+{
+  "profile": "pocket-v1",
+  "seed_atom_references": [{"structure_id": "entry-id", "atom_id": 1}],
+  "radius": 5.0
+}
+```
+
+References must be nonempty, unique, canonically sorted and currently valid across
+the project. Hidden entries/atoms remain valid seeds. Radius is finite, 2–12 Å in
+0.5 Å steps. Apply requires current normalized protein context in the receptor;
+Remove remains available if that context later disappears. Validation and revision
+checks precede mutation. Identical Apply and absent Remove are exact no-ops.
+
+The command stores one nullable `ViewerSettings.selection_pocket_surface` on its
+owner, with exact reversible settings changes. Generic viewer-settings PUT preserves
+an omitted pocket field and rejects changed pocket state; use this action instead.
+Atomic styles, colors, hiding and fragment Add/Remove are independent. Seed deletion
+prunes all affected owners and scenes in the originating reversible command; the
+last deleted seed clears the definition. Meshes and runtime failures are not API state.

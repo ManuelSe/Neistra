@@ -2,7 +2,7 @@
 
 ## Status and delivery metadata
 
-- Status: **M1/C1 complete; M2/C2 persistence next**.
+- Status: **M1/C1 and M2/C2 complete; M2/C3 compact workflow next**.
 - User approved the two-release plan on 2026-09-14, then requested detailed
   persistence and an explicit stop before implementation.
 - Issue: [#36](https://github.com/ManuelSe/Neistra/issues/36).
@@ -528,3 +528,54 @@ Updated scientific limitations, fixtures, performance, progress and the #38 fina
 publication record. No migration/version change in C1; rollback remains disposable
 renderer code. Commit: `feat(surface): generate context-aware protein patches`
 (Refs #36). Next: C2 durable definitions and cross-entry reference lifecycle.
+
+### 2026-09-15 — M2/C2 complete: reversible pocket definitions
+
+Added the strict nullable pocket-v1 schema, revisioned Apply/Remove command,
+normalized protein eligibility validation and ordinary viewer-settings guard.
+Exact no-ops do not add revision/history. Cross-entry seeds remain valid while
+hidden. Topology and entry deletion prune every affected owner and scene in the
+originating command; undo/redo restore definitions exactly. Self-seeds remap on
+receptor duplication; new protein atoms change current context without becoming
+captured seeds. Validation indexes each referenced entry once.
+
+Migration 0013 defaults null at all 17 documented retained path cases and refuses
+any non-null state before writes on downgrade. Existing migration paths and user
+metadata remain intact. D-069 clarifies the plan's archive/history wording through
+D-035: portable archives contain current entries/scenes, with a newly derived
+remapped checkpoint; command history remains database-local. Every exported
+definition is validated/remapped, including a saved scene with no live pocket.
+No archive-history schema extension or silent historical-reference stripping.
+
+Validation commands/results:
+
+```bash
+MOLWEAVE_DATA_DIR=/tmp/neistra-36-c2-migration .venv/bin/uv run alembic upgrade head
+.venv/bin/uv run ruff check .
+.venv/bin/uv run mypy apps/api packages/molweave_core
+.venv/bin/uv run pytest
+git diff --check
+```
+
+Fresh upgrade reaches 0013; Ruff passes; mypy passes all 54 source files;
+**365 Python tests pass in 57.90 s**, including 29 new pocket tests and the
+retained-path migration matrix. The existing 237 Alembic configuration deprecation
+warnings are unchanged infrastructure warnings, not failures. Tests cover strict
+radii/references/profile, invalid atomicity, revision conflicts, no-ops, independent
+styles/channels, hidden seeds, partial/last-seed deletion, scene restoration,
+receptor duplication/deletion, topology additions, checkpoint/restart recovery,
+legacy and remapped archives, invalid live/scene archive references, original bytes,
+normalized structures, warnings and unresolved conformers.
+
+Initial test setup used a protein type label for a mixed protein-containing fixture,
+the wrong visibility route and a 200 scene-create expectation; corrected to actual
+repository APIs/classification (201 creation). Exact scene comparisons exclude the
+intentionally updated modification timestamp while checking all retained content.
+No production behavior was weakened to satisfy those setup assertions.
+
+Local implementing-agent review checked command atomicity, inverse ordering,
+all-owner pruning, generic-PUT compatibility, canonical remapping and migration
+prevalidation. No unresolved consequential finding. This is not independent review.
+Updated API, PROJECT_SCHEMA, ARCHITECTURE and DEVELOPMENT migration/backup notes.
+No version change yet. Commit: `feat(surface): persist reversible pocket definitions`
+(Refs #36). Next: C3 application-owned projection dependencies and compact workflow.

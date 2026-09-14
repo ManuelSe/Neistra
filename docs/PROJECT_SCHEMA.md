@@ -420,3 +420,31 @@ and refuses any nonempty retained mask before any writes. API/project/archive/
 normalized schema majors remain 1; new readers default absent masks in supported
 older archives. Older readers are unsupported for new visibility-bearing archives.
 See DEVELOPMENT for backup/rollback and the feature plan for exact verification.
+
+### Pocket definitions (migration 0013)
+
+`ViewerSettingsV1.selection_pocket_surface` defaults to null, or contains
+`profile: "pocket-v1"`, canonical cross-entry `seed_atom_references` and a
+2–12 Å half-step `radius` (default 5 Å). The owner is the receptor. No copied
+receptor membership, seed coordinates or generated mesh is persisted: current
+normalized protein context and current seed coordinates are resolved at render time.
+
+Scene snapshots, checkpoints and reversible command payloads retain this setting.
+Receptor duplication remaps self-seeds to the new entry and preserves other-entry
+seeds. Topology/entry deletion reversibly prunes every affected live and scene
+definition, clearing only when no seeds remain. New atoms never become captured
+seeds automatically. A definition can remain valid while receptor protein context
+is temporarily empty.
+
+Archive major remains 1. Current entry and scene definitions are validated against
+the exported molecular snapshot, then all seed entry IDs are remapped. The imported
+checkpoint is derived from that remapped state. As established in D-035, command
+history is not portable; archive import does not invent historical state (D-069).
+Older archives omitting this setting load null. Older readers are unsupported for
+pocket-bearing archives.
+
+Migration 0013 adds null only at documented viewer-settings paths in entries,
+checkpoint entries/scenes, scenes and forward/inverse entry/scene command actions.
+It does not traverse user metadata. Downgrade prevalidates every retained location
+and refuses any non-null pocket before writes. Removing a live pocket does not
+erase undo history; restore a pre-upgrade backup when a lossless downgrade refuses.

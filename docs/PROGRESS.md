@@ -2,19 +2,18 @@
 
 ## Current milestone
 
-Issue #36 — M1/C1 geometry complete; M2/C2 persistence next on
+Issue #36 — M1/C1 and M2/C2 complete; M2/C3 compact workflow next on
 `feat/issue-36-pocket-surfaces`, based on verified v0.8.0 master `ce3e4f7`.
 Contract: [approved pocket plan](plans/issue-36-pocket-surfaces.md), planned v0.9.0.
-Completed: full-context crop geometry, explicit shared worker channels, compact
-retention, owner-only isolation and native geometry/color/picking qualification.
-Verification: frontend lint/typecheck/build and 113 tests pass; 21 browser cases
-pass with one intentional layout skip. 1STP and full 58,674-atom 1AON protein
-contexts meet the approved timing/allocation gates. Exact evidence is in the plan.
-Known limitations: geometry is dev-harness qualified; durable definitions and
-application Pocket controls are not implemented yet.
+Completed: native full-context patches and shared channels; durable pocket commands,
+cross-entry seed pruning/remapping, scenes/history/restart and safe migration 0013.
+Verification: 365 Python tests, Ruff, mypy and fresh migration pass. C1 frontend
+lint/typecheck/build, 113 unit tests and 21 browser tests / one layout skip pass.
+Exact geometry, compatibility and performance evidence is in the feature plan.
+Known limitations: API and geometry are qualified; compact Pocket controls and
+application projection/coordinate dependency integration are not implemented yet.
 Blockers: none.
-Next action: implement reversible pocket definitions, cross-entry pruning/remapping
-and safe migration 0013; then integrate the compact saved workflow.
+Next action: integrate the saved Pocket workflow and qualify native user interactions.
 
 ### Previous release — v0.8.0
 

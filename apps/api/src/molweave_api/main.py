@@ -121,6 +121,7 @@ from molweave_api.schemas import (
     SceneCreate,
     SelectionAppearanceUpdate,
     SelectionAtomVisibilityUpdate,
+    SelectionPocketSurfaceUpdate,
     SelectionRepresentationUpdate,
     SelectionSurfaceUpdate,
     StructureRead,
@@ -785,6 +786,16 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         session: Session = Depends(session_dependency),
     ) -> ProjectRead:
         return _call(lambda: _service(session).update_selection_surface(project_id, payload))
+
+    @router.post("/projects/{project_id}/selection-pocket-surface", response_model=ProjectRead)
+    async def update_selection_pocket_surface(
+        project_id: str,
+        payload: SelectionPocketSurfaceUpdate,
+        session: Session = Depends(session_dependency),
+    ) -> ProjectRead:
+        return _call(
+            lambda: SelectionStyleService(session, app_settings).update_pocket(project_id, payload)
+        )
 
     @router.post("/projects/{project_id}/selection-atom-visibility", response_model=ProjectRead)
     async def update_selection_atom_visibility(

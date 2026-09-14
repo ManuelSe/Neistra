@@ -160,6 +160,7 @@ def default_viewer_settings(structure_type: str) -> dict[str, Any]:
             }
         ],
         "selection_surface": None,
+        "selection_pocket_surface": None,
         "selection_hidden_atoms": [],
         "selection_representations": [],
         "selection_colors": [],
@@ -177,5 +178,51 @@ def default_viewer_settings(structure_type: str) -> dict[str, Any]:
             "residues": False,
             "chains": False,
             "structure": False,
+        },
+    }
+
+
+def prune_pocket_seeds(
+    settings: dict[str, Any], seed_entry_id: str, deleted_atom_ids: set[int] | None
+) -> dict[str, Any]:
+    pocket = settings.get("selection_pocket_surface")
+    if pocket is None:
+        return settings
+    retained = [
+        reference
+        for reference in pocket["seed_atom_references"]
+        if not (
+            reference["structure_id"] == seed_entry_id
+            and (deleted_atom_ids is None or reference["atom_id"] in deleted_atom_ids)
+        )
+    ]
+    if len(retained) == len(pocket["seed_atom_references"]):
+        return settings
+    return {
+        **settings,
+        "selection_pocket_surface": (
+            {**pocket, "seed_atom_references": retained} if retained else None
+        ),
+    }
+
+
+def remap_pocket_seeds(settings: dict[str, Any], entry_ids: dict[str, str]) -> dict[str, Any]:
+    pocket = settings.get("selection_pocket_surface")
+    if pocket is None:
+        return settings
+    references = [
+        {
+            **reference,
+            "structure_id": entry_ids.get(reference["structure_id"], reference["structure_id"]),
+        }
+        for reference in pocket["seed_atom_references"]
+    ]
+    return {
+        **settings,
+        "selection_pocket_surface": {
+            **pocket,
+            "seed_atom_references": sorted(
+                references, key=lambda reference: (reference["structure_id"], reference["atom_id"])
+            ),
         },
     }

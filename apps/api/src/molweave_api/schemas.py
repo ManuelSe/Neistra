@@ -273,7 +273,44 @@ class SelectionSurface(BaseModel):
         return SelectionRepresentation.atom_ids_are_canonical(value)
 
 
+class SelectionPocketSurface(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    profile: Literal["pocket-v1"] = "pocket-v1"
+    seed_atom_references: list[AtomReference] = Field(min_length=1, strict=True)
+    radius: float = Field(default=5.0, ge=2, le=12, strict=True)
+
+    @field_validator("seed_atom_references", mode="before")
+    @classmethod
+    def strict_seed_references(cls, value: Any) -> Any:
+        if not isinstance(value, list):
+            raise ValueError("Pocket seeds must be a list of atom references")
+        for reference in value:
+            item = reference.model_dump() if isinstance(reference, AtomReference) else reference
+            if (
+                not isinstance(item, dict)
+                or set(item) != {"structure_id", "atom_id"}
+                or not isinstance(item["structure_id"], str)
+                or type(item["atom_id"]) is not int
+            ):
+                raise ValueError("Pocket seeds require strict atom references")
+        return value
+
+    @field_validator("seed_atom_references")
+    @classmethod
+    def canonical_seeds(cls, value: list[AtomReference]) -> list[AtomReference]:
+        SelectionV1(atoms=value)
+        return value
+
+    @field_validator("radius")
+    @classmethod
+    def half_angstrom_steps(cls, value: float) -> float:
+        if not isfinite(value) or not (value * 2).is_integer():
+            raise ValueError("Pocket radius must use 0.5 Å steps")
+        return value
+
+
 class ViewerSettings(BaseModel):
+    selection_pocket_surface: SelectionPocketSurface | None = None
     selection_hidden_atoms: list[int] = Field(default_factory=list, strict=True)
 
     @field_validator("selection_hidden_atoms", mode="before")
@@ -567,6 +604,20 @@ class SelectionSurfaceUpdate(BaseModel):
     def nonempty_selection(self) -> SelectionSurfaceUpdate:
         if not self.selection.atoms:
             raise ValueError("Select at least one atom to change its surface")
+        return self
+
+
+class SelectionPocketSurfaceUpdate(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    expected_revision: int = Field(ge=0)
+    receptor_entry_id: str = Field(min_length=1)
+    action: Literal["apply", "remove"]
+    pocket: SelectionPocketSurface | None = None
+
+    @model_validator(mode="after")
+    def action_definition(self) -> SelectionPocketSurfaceUpdate:
+        if (self.action == "apply") != (self.pocket is not None):
+            raise ValueError("Apply requires a pocket definition; Remove must not include one")
         return self
 
 

@@ -2331,3 +2331,27 @@ Rationale: this implements D-065/066 using native scientific geometry and existi
 application ownership, with two explicit channels rather than a generic layer
 manager. The dev-only harness qualifies this renderer checkpoint before durable
 commands or the Pocket UI are introduced.
+
+## D-069 — Pocket persistence preserves the portable snapshot boundary
+
+Status: accepted and implemented for issue #36 C2.
+
+The approved pocket plan requires all retained seed references to survive, remap
+and validate correctly. Its reference to archive history is interpreted through
+the existing higher-authority D-035 architecture: archives export current entries
+and scenes, not command history or prior checkpoint contents. Remap and validate
+every exported pocket definition, then derive the imported checkpoint from that
+remapped current state. Do not add portable historical commands or validate a
+historical atom against unrelated current geometry.
+
+Database history remains reversible and migration 0013 covers every documented
+live/checkpoint/scene/forward/inverse viewer-settings path, with atomic downgrade
+refusal on any non-null pocket. Topology/entry deletion prunes all affected live
+owners and scenes in its original command; inverse actions retain the prior
+references. Self-seeds remap on receptor duplication; other-entry references stay
+within the same project. Newly created atoms do not become captured seeds.
+
+This clarifies retained-path scope without expanding archive schema or silently
+rewriting D-035. API, project and archive majors remain 1; old archives default
+null and older readers are unsupported for pocket-bearing archives. Originals,
+normalized artifacts, conformers and warnings remain molecular authority.
