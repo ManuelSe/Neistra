@@ -1178,6 +1178,7 @@ def _validate_selection_assignments(
     structure: NormalizedStructureV1 | None,
 ) -> None:
     for atom_ids in [
+        settings.selection_hidden_atoms,
         *(item.atom_ids for item in settings.selection_colors),
         *([settings.selection_surface.atom_ids] if settings.selection_surface else []),
         *(item.atom_ids for item in settings.selection_nonpolar_hydrogens),

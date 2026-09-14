@@ -2,7 +2,7 @@
 
 ## Status and delivery metadata
 
-- Status: **M1/C1 complete; M2/C2 persistence next**.
+- Status: **M1/C1 and M2/C2 complete; M2/C3 compact UI next**.
 - Approved by the user on 2026-09-14. The user authorized detailed persistence,
   then explicitly required waiting for a subsequent implementation instruction.
 - Issue: [#38](https://github.com/ManuelSe/Neistra/issues/38).
@@ -509,3 +509,50 @@ an implementing-agent review, not independent review. `git diff --check` passes.
 Rollback remains resource-policy-only. C1 commit:
 `perf(surface): expand bounded protein surface capacity` (Refs #38).
 Next: M2/C2 durable atom-detail visibility and migration 0012.
+
+### 2026-09-14 — M2/C2 complete: durable atom-detail visibility
+
+Added strict canonical `selection_hidden_atoms` defaults, revisioned multi-entry
+Hide/Show with exact no-op behavior, generic PUT protection, atomic Apply/Reset
+reveal in the same command, archive reference validation and reversible topology
+pruning. Existing scenes/checkpoints/restart/duplication carry the authoritative
+settings; original bytes, warnings, artifacts and conformers are unchanged.
+
+Migration 0012 adds empty masks to all documented retained settings paths.
+The migration suite now runs the existing explicit retained-path matrix for both
+0011 and 0012: live/checkpoint/nested checkpoint scene/scene plus every forward/
+inverse entry.create, entry.update, entry.molecule, entries.viewer_state,
+scene.create and scene.update path. Tests prove upgrade preservation, safe
+downgrade/re-upgrade, nonempty refusal before writes and metadata invariance.
+No accepted historical migration was edited. D-063 is implemented without a new
+architectural deviation; its earlier planning status remains a historical record.
+
+Validation:
+
+```bash
+.venv/bin/uv run ruff check .
+.venv/bin/uv run mypy apps/api packages/molweave_core
+.venv/bin/uv run pytest
+```
+
+Final results: Ruff passes; mypy passes (53 source files); **319 Python tests pass**
+in 50.06 s (185 existing Alembic path-separator warnings across migration runs).
+This includes all focused visibility/viewer-state/archive/migration suites. The
+initial focused run had 106 passes and three test-expectation failures: persisted
+SQLite timestamps versus immediate mutation-response timestamps, and the newly
+added empty default in an existing settings fixture. Assertions now compare
+persisted no-op state, and the modern fixture includes the default; explicit legacy
+omission compatibility remains tested. The full rerun passes every corrected test.
+
+Additional coverage proves all atomic styles reveal, both polymer styles preserve
+the mask, Reset and Show retain independent channels, partial targets leave other
+hidden IDs alone, invalid multi-entry references cannot partially mutate, new IDs
+do not inherit hiding, and no surface-capacity cap applies to the hide mask.
+Archive older-mask omission and malformed/missing-atom masks are verified.
+
+Local implementing-agent review checked revision/validation ordering, complete
+forward/inverse state, all topology/scene paths and downgrade prevalidation. API,
+PROJECT_SCHEMA, ARCHITECTURE and DEVELOPMENT document ownership and compatibility;
+no molecular schema-major bump or scientific change. `git diff --check` passes.
+Commit: `feat(selection): persist atom-detail visibility` (Refs #38).
+C2 provides the API/persistence contract; renderer/UI behavior remains C3 work.

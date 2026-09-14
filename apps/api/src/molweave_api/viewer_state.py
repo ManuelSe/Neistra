@@ -58,6 +58,9 @@ def prune_selection_representations(
     settings: dict[str, Any], deleted_atom_ids: set[int]
 ) -> dict[str, Any]:
     updated = {**settings}
+    updated["selection_hidden_atoms"] = sorted(
+        set(settings.get("selection_hidden_atoms", [])) - deleted_atom_ids
+    )
     updated["selection_representations"] = [
         {"style": item["style"], "atom_ids": retained}
         for item in settings.get("selection_representations", [])
@@ -157,6 +160,7 @@ def default_viewer_settings(structure_type: str) -> dict[str, Any]:
             }
         ],
         "selection_surface": None,
+        "selection_hidden_atoms": [],
         "selection_representations": [],
         "selection_colors": [],
         "selection_nonpolar_hydrogens": [],
