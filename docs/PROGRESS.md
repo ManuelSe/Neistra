@@ -2,7 +2,7 @@
 
 ## Current milestone
 
-Issue #36 — M1/C1 and M2/C2–C3 complete; M3/C4 release preparation next on
+Issue #36 — M1/C1 and M2/C2–C3 complete; M3/C4 clean candidate qualification underway on
 `feat/issue-36-pocket-surfaces`, based on verified v0.8.0 master `ce3e4f7`.
 Contract: [approved pocket plan](plans/issue-36-pocket-surfaces.md), planned v0.9.0.
 Completed: qualified full-protein patches, durable seed definitions/migration 0013,
@@ -14,7 +14,8 @@ checks (3 tests / 1 skip). No failures/flakes in completed qualification.
 Known limitations: protein-only centroid patches, open edges, no cavity analysis;
 host/emulated-device capacity evidence is not a universal memory guarantee.
 Blockers: none. Full release qualification and remote delivery remain pending.
-Next action: prepare v0.9.0, run the clean complete release gate, review/open the PR,
+Prepared v0.9.0 consistently in all five authoritative sources; remote base/tag
+collision checks pass. Next action: run the clean complete release gate, review/open the PR,
 then merge and qualify exact master before publishing and closing out issue #36.
 
 ### Previous release — v0.8.0

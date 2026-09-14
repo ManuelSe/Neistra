@@ -1,5 +1,83 @@
 # Neistra Release Notes
 
+## 0.9.0 - 2026-09-15
+
+### Highlights
+
+- Create a saved protein pocket view from captured ligand or site atoms through
+  **Surface options → Pocket…**. Choose a receptor, set a 2–12 Å radius (5 Å
+  default), and Apply. Use selection explicitly replaces captured seeds.
+- Keep the existing compact palette: no permanent pocket row or layer list.
+  Remove works with no selection; scenes retain alternate views.
+- Fragment and Pocket have independent Cancel/Retry actions while sharing one
+  bounded worker queue. Hidden seeds supply current coordinates without becoming
+  visible.
+
+### Scientific definition and limits
+
+Pocket-v1 computes the complete current protein molecular surface with native
+physical radii, a 1.4 Å probe, 0.5 Å grid and 36 probe positions. It keeps whole
+triangles whose centroids are within the radius of any captured seed center.
+Vertices, normals, winding, colors and picking retain receptor ownership.
+Cut edges stay open; disconnected and empty patches are valid.
+
+Supplied protein hydrogens contribute regardless of atomic display settings.
+Separately classified ligands, water, ions and cofactors are excluded from receptor
+context. Atomic hiding does not reshape the pocket; isolation filters owner
+triangles without truncating calculation context. No alignment, preparation,
+automatic cavity detection, volume/area/scoring or binding significance is implied.
+
+### Fixes and lifecycle
+
+Seed/receptor coordinate previews suppress obsolete pockets; cancel restores
+committed geometry and commit regenerates from current coordinates. Already-applied
+coordinate commits avoid duplicate invalidation. Current selection, colors and
+camera do not silently retarget saved seeds. Topology/entry deletion prunes seeds
+reversibly across owners and scenes; the last seed clears the pocket. Empty protein
+context retains valid seed intent and still permits removal.
+
+### Persisted data, migration and compatibility
+
+Migration **0013** adds nullable pocket definitions at every documented live,
+checkpoint, scene and forward/inverse settings path. Back up the database and
+artifacts before upgrading. Downgrade to 0012 refuses any non-null retained pocket
+before writing; removing the live view does not erase history. Restore a pre-upgrade
+backup when a lossless downgrade refuses.
+
+The revisioned selection-pocket-surface API provides exact no-ops and undo/redo.
+Archives remap all exported entry/scene seed references and derive an imported
+checkpoint. D-035/D-069 preserve current-state archives; command history is not
+portable. API/project/archive/normalized majors remain 1. Prior archives default
+null; older readers are unsupported for pocket-bearing archives. Original bytes,
+normalized scientific artifacts, supplied conformers and warnings remain intact.
+
+### Verification
+
+C3 qualification passes 124 frontend tests and 30 pocket API tests, plus the full
+focused browser matrix (33 passed / 9 intentional layout skips). The final UI
+review retest passes three workflows / one layout skip. Native geometry, actual
+colors/picking, hidden-seed coordinate dependencies, migration paths, archives,
+light/dark accessibility and actual browser zoom are covered.
+
+Complete clean candidate and exact merged-master gates remain publication
+requirements. Their final commands, commits and counts are recorded in the
+[feature plan](plans/issue-36-pocket-surfaces.md) and release verification attachment.
+
+### Scope decisions and follow-up work
+
+This is the approved seed-centered, protein-only, one-pocket-per-receptor slice.
+Automatic cavity discovery/ranking, custom nonprotein context, multiple managed
+pocket layers, mesh export and analytical metrics remain deferred or rejected as
+claims for this feature. They require separate scientific/product work; no
+speculative follow-up issues were created. Classification #20 and coordinate-subset
+export #21 remain separate.
+
+The release is a **minor** increment: additive visible functionality, an additive
+revisioned endpoint and a nullable persisted setting, with existing behavior and
+prior-project/archive readers preserved in the new application. It does not require
+a major or prerelease increment.
+
+
 ## 0.8.0 - 2026-09-14
 
 ### Highlights

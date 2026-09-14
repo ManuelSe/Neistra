@@ -22,10 +22,15 @@ Real workspace screenshots: [light](docs/assets/neistra-workspace-light.png) ·
 [dark](docs/assets/neistra-workspace-dark.png). These show the existing local
 workspace, not proposed account, docking or marketplace features.
 
-Version **0.8.0** adds reversible **Hide / Show** in the existing Atom detail row.
-Hide any selected atoms while retaining polymer and surface geometry; Show restores
-prior atomic styles. Applying an atomic style or resetting representations also
-reveals its target. Saved visibility survives undo/redo, scenes, reload and archives.
+Version **0.9.0** adds saved **protein pocket views** behind
+**Surface options → Pocket…**. Capture ligand or site atoms, choose a protein
+receptor and apply a radius. The view crops a complete protein molecular surface;
+it does not discover cavities or infer binding. Hidden seed entries remain valid.
+One pocket is saved per receptor; scenes retain alternatives.
+
+Reversible **Hide / Show** remains in the existing Atom detail row. Hide selected
+atoms while retaining polymer and surface geometry; Show restores prior styles.
+Saved styling survives undo/redo, scenes, reload and project archives.
 
 Whole-protein fragment surfaces now support up to 100,000 effective atoms within
 explicit grid, memory and time bounds: 512 MiB mesh allocation, 1 GiB retained
@@ -39,22 +44,23 @@ representation or color swatch immediately, choose **All atoms** or **Carbon onl
 or use **Surface → Add / Remove**. Representation, surface, color and hydrogen
 changes remain independently reversible. Scientific help stays on demand.
 
-Surfaces enclose the selected atoms alone. Cut boundaries can create artificial
+Fragment surfaces enclose the selected atoms alone. Cut boundaries can create artificial
 faces; they are not context-aware patches. The fixed profile uses a 1.4 Å probe,
 0.5 Å grid and translucent element/selection colors. Visibility and hydrogen
 preferences filter the fragment. Existing entry surfaces can remain enabled.
 See the [styling workflow](docs/SELECTION_STYLING.md) and
 [scientific limitations](docs/SCIENTIFIC_LIMITATIONS.md).
 
-Back up managed data and upgrade to migration **0012** before startup. Older
-projects/archives remain readable by v0.8.0. Downgrade to 0011 requires all retained
-hidden masks, including history and scenes, to be empty; otherwise restore the
-pre-upgrade backup. Older readers are unsupported for new visibility-bearing
-archives. Atomic hiding does not change entry-based Visible export.
+Back up managed data and upgrade to migration **0013** before startup. Older
+projects/archives remain readable by v0.9.0. Downgrade to 0012 requires every retained
+pocket definition, including history and scenes, to be null; otherwise restore the
+pre-upgrade backup. Older readers are unsupported for pocket-bearing archives.
+Atomic hiding does not change entry-based Visible export.
 `.molweave.zip`, Python module names, `MOLWEAVE_*` settings and data paths remain
 compatible. See [release notes](docs/RELEASE_NOTES.md) and
-[migration guidance](docs/DEVELOPMENT.md#atomic-detail-visibility-migration-080).
-Context-aware patches are follow-up [#36](https://github.com/ManuelSe/Neistra/issues/36).
+[migration guidance](docs/DEVELOPMENT.md#pocket-definition-migration-090).
+The [pocket feature plan](docs/plans/issue-36-pocket-surfaces.md) records scope,
+scientific boundaries and qualification evidence.
 
 ## Prerequisites
 

@@ -255,6 +255,8 @@ JSON to evade the check. New readers accept older archives with absent masks;
 older readers are unsupported for new visibility-bearing archives. Migration tests
 cover upgrade, safe downgrade/re-upgrade, every refusal path and metadata invariance.
 
+## Pocket-definition migration (0.9.0)
+
 Migration 0013 adds nullable saved pocket definitions throughout live and retained
 viewer state. Upgrade existing databases with `uv run alembic upgrade head` after
 backing up the database and artifact directory. A lossless downgrade to 0012 requires

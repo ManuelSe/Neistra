@@ -2,7 +2,7 @@
 
 ## Status and delivery metadata
 
-- Status: **M1/C1 and M2/C2–C3 complete; M3/C4 release preparation next**.
+- Status: **M1/C1 and M2/C2–C3 complete; M3/C4 clean candidate qualification underway**.
 - User approved the two-release plan on 2026-09-14, then requested detailed
   persistence and an explicit stop before implementation.
 - Issue: [#36](https://github.com/ManuelSe/Neistra/issues/36).
@@ -665,3 +665,27 @@ project progress. No additional migration or version change in C3. Commit:
 `feat(selection): add saved pocket surface views` (Refs #36).
 Next: C4 version/release preparation, full clean candidate gate, final review,
 protected PR/merge and exact merged gate before tag/release/issue closeout.
+
+
+### 2026-09-15 — M3/C4 release preparation
+
+C3 committed as `75c1871` and pushed. Fetched origin/master and tags: base remains
+`ce3e4f761133caeff1ee76a827379f790fcad7cf`, with no upstream commits to incorporate.
+Working tree was clean. Remote latest release is v0.8.0; no v0.9.0 tag exists.
+Normal merge commits remain enabled. Live protections/checks/reviews will be
+rechecked before merge.
+
+Prepared **v0.9.0**, the approved additive minor release: user-visible pocket views,
+a nullable durable record and an additive revisioned endpoint. Prior archives and
+existing behavior remain readable in the new application; archive/API/project/
+normalized majors remain 1. Older readers are unsupported for pocket-bearing
+archives. No major or mandatory prerelease increment is warranted.
+
+Updated all five authoritative sources: root pyproject, molweave-dev root record
+in uv.lock, web package, FastAPI application version and archive producer version.
+Updated the producer assertion, README, release notes and migration anchor. No
+historical release record or dependency version was rewritten.
+
+Commit: `chore(release): prepare v0.9.0` (Refs #36). Next: the complete clean
+README/DEVELOPMENT gate with isolated data, then final full-diff local review,
+PR and required review/protection checks. Publication is still pending.
