@@ -1,0 +1,63 @@
+{
+  "milestone": "M2/C3",
+  "date": "2026-09-14",
+  "browser_results": {
+    "passed": 26,
+    "intentional_layout_skips": 12,
+    "failed": 0
+  },
+  "native_evidence": [
+    {
+      "browser": "chromium",
+      "case": "visibility-channels.json",
+      "sha256": "451c6b449fb2ade6977965cca8a8013a9818f439f2f9f7181d2dcc5eb2ce092a",
+      "bytes": 1700083,
+      "stages": [
+        "trace",
+        "residue",
+        "all"
+      ],
+      "native_assertions": "Passed; exact buffer arrays, labels, camera and selection asserted in selection-visibility.spec.ts"
+    },
+    {
+      "browser": "mobile-chromium",
+      "case": "visibility-channels.json",
+      "sha256": "3b7f690ebdd4c8d77a860381ac0f64299d1cca5de864309cae969c7dbbb0486d",
+      "bytes": 1700083,
+      "stages": [
+        "trace",
+        "residue",
+        "all"
+      ],
+      "native_assertions": "Passed; exact buffer arrays, labels, camera and selection asserted in selection-visibility.spec.ts"
+    },
+    {
+      "browser": "mobile-chromium",
+      "case": "incident-bonds.json",
+      "sha256": "f05a2a6c65c5701063808280a53abf6dfd1d70d222950cd90b0de4623b0bfb11",
+      "bytes": 50158,
+      "stages": [
+        "line",
+        "stick",
+        "thick-stick",
+        "ball-and-stick",
+        "space-filling"
+      ],
+      "native_assertions": "Passed; exact buffer arrays, labels, camera and selection asserted in selection-visibility.spec.ts"
+    },
+    {
+      "browser": "chromium",
+      "case": "incident-bonds.json",
+      "sha256": "4253f1d4f8f27880c9fb55febf221486d1c595f899b337a93641a89ccaea1572",
+      "bytes": 50148,
+      "stages": [
+        "line",
+        "stick",
+        "thick-stick",
+        "ball-and-stick",
+        "space-filling"
+      ],
+      "native_assertions": "Passed; exact buffer arrays, labels, camera and selection asserted in selection-visibility.spec.ts"
+    }
+  ]
+}

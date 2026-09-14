@@ -54,6 +54,7 @@ interface StructureViewerProps {
   onDeleteScene?: (scene: Scene) => Promise<void>;
   onLoadSelectionStructures?: () => Promise<Map<string, StructureProjection>>;
   onExpandDistance?: ExpandSelection;
+  onAtomVisibility?: (action: "hide" | "show") => Promise<void>;
   onSurface?: (action: "add" | "remove") => Promise<void>;
   onAppearance?: ChangeSelectionAppearance;
   onSelectionStyle?: (
@@ -79,6 +80,7 @@ export function StructureViewer({
   onLoadSelectionStructures,
   onSelectionStyle,
   onExpandDistance,
+  onAtomVisibility,
   onSurface,
   onAppearance,
   createViewer = createMolstarViewer,
@@ -449,6 +451,7 @@ export function StructureViewer({
         <SelectionStyleDialog
           onExpandDistance={onExpandDistance}
           onAppearance={onAppearance}
+          onAtomVisibility={onAtomVisibility}
           onSurface={onSurface}
           open={styleDialogOpen}
           selection={selection}

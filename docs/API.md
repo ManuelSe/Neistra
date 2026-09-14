@@ -503,4 +503,3 @@ prior assignments and remains subject to entry/component/isolation/H visibility.
 Generic viewer-settings PUT preserves an omitted mask and rejects a changed mask;
 use the dedicated action, representation Apply/Reset, or existing scene/history
 operations. This is atomic-detail visibility, not atom deletion or subset export.
-The API/persistence checkpoint precedes the compact UI/renderer integration (C3).

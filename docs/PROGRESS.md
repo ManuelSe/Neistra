@@ -2,7 +2,7 @@
 
 ## Current milestone
 
-Issue #38 — M1/C1 capacity and M2/C2 persistence complete; M2/C3 UI next,
+Issue #38 — M1 capacity and M2 visibility complete; M3/C4 release qualification next,
 authorized by the user's sequential `/goal` for #38 then #36. Detailed contracts:
 
 - [#38: atom-detail Hide/Show and larger surfaces](plans/issue-38-selection-visibility-capacity.md),
@@ -20,11 +20,15 @@ Exact evidence and initial test corrections are tracked in the feature plan.
 C2 adds revisioned Hide/Show, atomic Apply/Reset reveal, topology/archive guards
 and migration 0012. Ruff/mypy and all 319 Python tests pass, including retained
 history downgrade refusal and legacy archive compatibility.
+C3 adds the compact sixth Hide/Show tile, atomic-only projection and labels,
+unchanged polymer/surface geometry, hidden-atom reselection and cached styling.
+The full M2 gate passes 107 frontend, 319 Python and 26 browser tests with 12
+intentional layout skips, lint/type checks/build, both themes and real 100%/200%
+zoom. Native geometry, keyboard/touch and migration evidence is in the plan.
 Known limitations: bounded native fragment surfaces; no arbitrary-hardware memory
-or latency guarantee. Atomic hiding UI/renderer integration and pockets remain pending.
+or latency guarantee. Pocket surfaces remain the separate #36 contract.
 Blockers: none; #36 depends on completed #38 delivery.
-Next action: implement the compact Hide/Show tile, independent atomic projection
-and real viewer/accessibility regressions, then qualify the completed M2 milestone.
+Next action: prepare v0.8.0, run the complete candidate gate, review and deliver #38.
 
 ### Previous release — v0.7.0
 

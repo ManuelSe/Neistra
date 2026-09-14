@@ -1,4 +1,4 @@
-import { Info, RotateCcw } from "lucide-react";
+import { Eye, EyeOff, Info, RotateCcw } from "lucide-react";
 import { useMemo, useRef, useState } from "react";
 import type { ChangeSelectionAppearance, Entry, Selection, SelectionRepresentationStyle, StructureProjection } from "../api/types";
 import type { ExpandSelection } from "../selection/expansion";
@@ -26,6 +26,7 @@ interface SelectionStyleDialogProps {
   busy: boolean;
   onOpenChange: (open: boolean) => void;
   onExpandDistance?: ExpandSelection;
+  onAtomVisibility?: (action: "hide" | "show") => Promise<void>;
   onSurface?: (action: "add" | "remove") => Promise<void>;
   onAppearance?: ChangeSelectionAppearance;
   onAction: (action: "apply" | "reset", style?: SelectionRepresentationStyle) => Promise<void>;
@@ -39,7 +40,7 @@ export function SelectionStyleDialog(props: SelectionStyleDialogProps) {
 }
 
 function SelectionStyleContent({ selection, entries, structures, eligibilityBusy,
-  eligibilityError, busy, onAction, onExpandDistance, onAppearance, onSurface }: SelectionStyleDialogProps) {
+  eligibilityError, busy, onAction, onExpandDistance, onAppearance, onSurface, onAtomVisibility }: SelectionStyleDialogProps) {
   const [pending, setPending] = useState(false);
   const locked = useRef(false);
   const [message, setMessage] = useState<{ text: string; failed: boolean; context: string } | null>(null);
@@ -52,6 +53,12 @@ function SelectionStyleContent({ selection, entries, structures, eligibilityBusy
     new Map(entry.viewer_settings.selection_representations.map((item) =>
       [item.style, new Set(item.atom_ids)] as const)),
   ])), [entries]);
+  const hiddenMemberships = useMemo(() => new Map(entries.map((entry) => [
+    entry.id, new Set(entry.viewer_settings.selection_hidden_atoms),
+  ])), [entries]);
+  const hiddenCount = selection.atoms.filter((atom) => hiddenMemberships.get(atom.structure_id)?.has(atom.atom_id)).length;
+  const allHidden = selection.atoms.length > 0 && hiddenCount === selection.atoms.length;
+  const mixedHidden = hiddenCount > 0 && !allHidden;
   const surfaceMemberships = useMemo(() => new Map(entries.map((entry) => [
     entry.id, new Set(entry.viewer_settings.selection_surface?.atom_ids ?? []),
   ])), [entries]);
@@ -100,7 +107,17 @@ function SelectionStyleContent({ selection, entries, structures, eligibilityBusy
       </button>
     </div>
     <fieldset className="selection-style-group"><legend>Atom detail</legend>
-      <div className="selection-style-grid">{atomicRepresentationStyles.map((style) => renderStyle(style, null))}</div>
+      <div className="selection-style-grid">{atomicRepresentationStyles.map((style) => renderStyle(style, null))}
+        <button type="button" className="selection-style-option" data-mixed={mixedHidden || undefined}
+          aria-label={allHidden ? "Show atom detail" : `Hide atom detail${mixedHidden ? " (mixed visibility)" : ""}`}
+          disabled={disabled || !onAtomVisibility}
+          onClick={() => void perform(() => onAtomVisibility!(allHidden ? "show" : "hide"),
+            allHidden ? "Atom detail shown." : "Atom detail hidden.")}>
+          {allHidden ? <Eye size={25} aria-hidden="true" /> : <EyeOff size={25} aria-hidden="true" />}
+          <span>{allHidden ? "Show" : "Hide"}</span>
+          {mixedHidden ? <span className="selection-mixed-mark" aria-hidden="true">−</span> : null}
+        </button>
+      </div>
     </fieldset>
     <fieldset className="selection-style-group"><legend>Polymer</legend>
       <div className="selection-style-grid polymer">{polymerRepresentationStyles.map((style) => renderStyle(style, polymerReason))}</div>
@@ -130,7 +147,8 @@ function SelectionStyleContent({ selection, entries, structures, eligibilityBusy
     <details className="selection-help"><summary>Selection help</summary>
       <p>{entryCount} {entryCount === 1 ? "entry" : "entries"}. Entry representations remain the default.
         Styles replace only their atom-detail or polymer channel. A dash indicates mixed assignments.
-        Reset representation restores both channels; color and hydrogen resets are independent.</p>
+        Hide affects atom detail only; polymer and surfaces stay visible. Show restores prior styles.
+        Reset representation restores both channels and shows its target; color and hydrogen resets are independent.</p>
     </details>
     <div className="selection-feedback" aria-busy={pending}>
       {pending ? <p role="status">Applying…</p> : feedback ? <p role={feedback.failed ? "alert" : "status"}>

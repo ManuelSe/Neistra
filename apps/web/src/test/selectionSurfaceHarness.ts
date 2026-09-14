@@ -81,7 +81,7 @@ export async function mountProductionSurfaceHarness(container: HTMLElement, sour
   const engine = new MolstarEngine();
   await engine.mount(container);
   const internal = engine as unknown as {
-    plugin: PluginUIContext; syncQueue: Promise<void>; measurementRefs: string[];
+    plugin: PluginUIContext; syncQueue: Promise<void>; measurementRefs: string[]; labelRefs: string[]; pendingSelection: ViewerSelectionEvent["atoms"];
     loaded: Map<string, { structure: Structure; atomIds: number[] }>;
     surfaceMeshEntries: Set<string>; surfaceRefs: Map<string, string>;
     surfaces: { statuses(): SurfaceStatus[];
@@ -107,6 +107,25 @@ export async function mountProductionSurfaceHarness(container: HTMLElement, sour
   await new Promise(requestAnimationFrame);
   await new Promise(requestAnimationFrame);
   return { engine, source, workers, wait, sync, inspect,
+    details: () => ({ labels: internal.labelRefs.length, measurements: internal.measurementRefs.length,
+      selection: structuredClone(internal.pendingSelection),
+      representations: [...internal.plugin.state.data.cells.values()].flatMap((cell) => {
+        const tags = cell.transform.tags?.filter((tag) => tag.startsWith("molweave-representation-")) ?? [];
+        if (!tags.length) return [];
+        const repr = (cell.obj?.data as { repr?: { renderObjects: { type: string; values: unknown }[] } } | undefined)?.repr;
+        return repr ? [{ tags, objects: repr.renderObjects.map((object) => {
+          const values = object.values as Record<string, { ref: { value: unknown } }>;
+          const attributes: Record<string, number[]> = {};
+          for (const key of ["aPosition", "aNormal", "aStart", "aEnd", "aGroup"]) {
+            const value = values[key]?.ref.value;
+            if (ArrayBuffer.isView(value) && !(value instanceof DataView)) {
+              attributes[key] = Array.from(value as Float32Array);
+            }
+          }
+          return { type: object.type, drawCount: values.drawCount?.ref.value as number, attributes };
+        }) }] : [];
+      }),
+    }),
     geometry: (id: string) => internal.surfaces.requests.get(id)?.geometry,
     input: (id: string) => { const loaded = internal.loaded.get(id)!; return surfaceInput(loaded.structure, loaded.atomIds); },
     failRepresentations(count: number) {

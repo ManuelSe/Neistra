@@ -884,7 +884,9 @@ export class MolstarEngine implements MolecularViewer {
       );
     }
     if (labels.atoms && structure.normalized.atoms.length <= 500) {
+      const hidden = new Set(structure.settings.selection_hidden_atoms);
       for (const atom of structure.normalized.atoms) {
+        if (hidden.has(atom.id)) continue;
         await add(
           [{ structure_id: structure.entryId, atom_id: atom.id }],
           `${atom.name} (${atom.element})`,

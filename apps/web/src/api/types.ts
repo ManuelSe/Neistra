@@ -96,6 +96,7 @@ export interface RepresentationSettings {
 }
 
 export interface ViewerSettings {
+  selection_hidden_atoms: number[];
   selection_surface: { profile: "molecular-v1"; atom_ids: number[] } | null;
   representations: RepresentationSettings[];
   selection_representations: SelectionRepresentation[];

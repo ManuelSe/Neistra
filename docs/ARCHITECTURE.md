@@ -260,9 +260,9 @@ Apply leaves the mask unchanged. Existing scene/checkpoint/duplication paths car
 settings; topology reconciliation prunes masks through the shared viewer-state
 helper. Archive checks validate the mask against the applicable entry atoms.
 
-C2 establishes persistence/API and migration 0012. C3 applies the mask only after
+Persistence/API and migration 0012 store the mask. The viewer applies it only after
 atomic layer assignment and ordinary visibility filtering, including incident
 bonds and atom labels. Shared molecular state, polymer traces and surface inputs
-must retain hidden atoms. This boundary preserves independent styling channels
+retain hidden atoms. This boundary preserves independent styling channels
 (D-063) and lets Show restore prior representations without an alternate viewer
 state model. Runtime meshes and renderer visibility never become archive authority.

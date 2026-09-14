@@ -1,6 +1,9 @@
 # V0.1 Requirement Evidence
 
-Current selection-surface evidence is maintained in
+Current visibility/capacity evidence is maintained in
+[the issue #38 feature plan](plans/issue-38-selection-visibility-capacity.md).
+
+Previous selection-surface evidence is maintained in
 [the issue #30 feature plan](plans/issue-30-selection-surfaces.md).
 
 Previous compact-styling evidence is maintained in

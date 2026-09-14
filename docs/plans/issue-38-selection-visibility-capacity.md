@@ -2,7 +2,7 @@
 
 ## Status and delivery metadata
 
-- Status: **M1/C1 and M2/C2 complete; M2/C3 compact UI next**.
+- Status: **M1 and M2 complete; M3/C4 release qualification next**.
 - Approved by the user on 2026-09-14. The user authorized detailed persistence,
   then explicitly required waiting for a subsequent implementation instruction.
 - Issue: [#38](https://github.com/ManuelSe/Neistra/issues/38).
@@ -556,3 +556,50 @@ PROJECT_SCHEMA, ARCHITECTURE and DEVELOPMENT document ownership and compatibilit
 no molecular schema-major bump or scientific change. `git diff --check` passes.
 Commit: `feat(selection): persist atom-detail visibility` (Refs #38).
 C2 provides the API/persistence contract; renderer/UI behavior remains C3 work.
+
+### 2026-09-14 — M2/C3 complete: compact Hide/Show workflow
+
+Added the sixth Atom detail tile with none/all/mixed/empty selection behavior,
+44 px targets, keyboard focus retention and context-bound feedback. The changing
+Hide/Show label describes an action, rather than an `aria-pressed` toggle; mixed
+visibility has an accessible name and the existing dashed visual treatment.
+Application-owned commands preserve captured selection and cached projections.
+The renderer masks only assigned atomic layers and their labels, using exact
+native targets to suppress incident bonds. Polymer and surface inputs remain intact.
+
+Validation commands: all frontend and Python common gates above, followed by the
+exact C3 focused Playwright command with ports 8110/8111/5273, fresh data directory
+`/tmp/neistra-38-m2-qualified` and `PLAYWRIGHT_BROWSERS_PATH=.playwright`.
+Results: lint/typecheck/build and Ruff/mypy pass; **107 frontend tests (28 files)**,
+**319 Python tests (49.61 s)** and **26 browser tests / 12 intentional layout skips
+(4.0 minutes)** pass. No failed or flaky test remains. The existing bundle-size
+advisory and 185 Alembic path-separator warnings remain unchanged.
+
+Native tests exercise all five atomic styles and central-atom incident bonds,
+atom labels, trace atoms, complete residues and all-atom hiding. Exact native
+polymer arrays and retained surface buffer identity remain unchanged; camera,
+selection, residue/chain labels and measurements are preserved. Hidden canonical
+atoms remain pickable through polymer/surface geometry. Real application tests
+cover mixed/partial targets, atomic-style reveal, Show/Reset, reload, hierarchy and
+query reselection, zero structure GETs for style-only changes, and nonblank
+rendering after reopening a fully hidden project. Both themes, desktop/Pixel 7,
+axe checks, six tiles in one row and actual 100%/200% browser zoom pass.
+
+Initial focused tests incorrectly counted native unbonded line crosses as bonds;
+assertions now distinguish short crosses around visible atoms from former bond
+segments. Mobile setup was corrected to dismiss existing notices and close the
+inspector using its actual keyboard focus path before opening the palette. These
+were test corrections, without forced clicks, reduced requirements or application
+workarounds. The final full milestone run passes all corrected cases.
+
+Screenshots and hashed native evidence are retained under
+`docs/assets/selection-visibility/c3-*`. Desktop/light, mobile/dark and actual
+200% zoom captures were visually inspected. Updated SELECTION_STYLING,
+ACCESSIBILITY, ARCHITECTURE, API and VERIFICATION. D-063 is implemented; no new
+cross-project decision or migration is required beyond C2.
+
+Local implementing-agent review inspected all application/test changes for
+channel leakage, parent bonds, persisted intent, focus, stale selection and scope.
+No consequential finding remains; `git diff --check` passes. This is not an
+independent review. Commit: `feat(selection): add compact hide and show controls`
+(Refs #38). Next: C4 version preparation, complete release gate and delivery.
