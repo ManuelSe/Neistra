@@ -2,7 +2,7 @@
 
 ## Status and delivery metadata
 
-- Status: **M1 and M2 complete; M3/C4 release qualification next**.
+- Status: **C1–C4 implemented and candidate-qualified; verified publication pending**.
 - Approved by the user on 2026-09-14. The user authorized detailed persistence,
   then explicitly required waiting for a subsequent implementation instruction.
 - Issue: [#38](https://github.com/ManuelSe/Neistra/issues/38).
@@ -642,3 +642,53 @@ native visibility, mobile and actual zoom pass; the corrected desktop capture wa
 visually inspected. Updated captures are retained as `c4-*-visibility.png`.
 Local review confirms this two-line UI change has no state or scientific effect.
 Commit: `fix(selection): keep six-tile palette compact` (Refs #38).
+
+### 2026-09-14 — Clean corrected candidate qualified
+
+Exact tested commit: `4e2f14987603662889a922eb208467c9ae96c71f`.
+Executed every complete-gate command above from a clean tree, using fresh data
+and exclusive ports. Frozen uv/pnpm installs pass; fresh migration reaches 0012;
+Ruff/mypy, frontend lint/typecheck/build and `git diff --check` pass.
+**319 Python, 107 frontend, 8 supervisor and 94 browser tests pass**, with
+**40 intentional layout skips, zero failures and zero flaky cases**. The browser
+matrix contains 134 cases and took 934.47 s. Existing Alembic path-separator and
+large-bundle advisories remain; there are no new qualification warnings.
+
+All large cases pass on desktop/mobile: 6VXX ready 4.397/4.088 s, 1AON
+9.081/8.790 s, synthetic 100k 8.511/8.160 s; longest task 443 ms. These are
+host-specific Chromium/SwiftShader and Pixel 7 emulation results, not physical
+phone claims. The original no-scroll test passes unchanged in the complete gate.
+
+Final implementing-agent full-diff review covered API validation/no-op atomicity,
+retained migration/history/archive paths, topology pruning, native mesh/chunk/
+group accounting, immutable coordinate dependencies, exact atomic targets,
+labels, channels, focus and scientific claims. The desktop overflow finding was
+fixed in `4e2f149` and fully requalified. No consequential finding remains. This
+local review is not independent review. No unapproved pocket implementation,
+algorithm fork, silent resolution change or unrelated cleanup was introduced.
+
+Fetched origin/master again: unchanged at `d962682d904eb274974da7ef620098b8dcfb7d84`
+and already an ancestor. v0.8.0 remains unallocated. Normal merge is enabled;
+master currently has no protection, rulesets, workflows or required checks.
+Recheck live PR conversations/reviews/checks before merge. This subsequent evidence
+commit changes documentation only; application/test sources match the tested SHA.
+The exact merged master must pass the complete gate again before tagging.
+
+### Publication and completion records
+
+The following records are populated during delivery after exact merged qualification;
+links here do not claim that publication has already occurred:
+
+- [v0.8.0 release](https://github.com/ManuelSe/Neistra/releases/tag/v0.8.0): release
+  notes, compatibility, limitations and verification attachment.
+- [Release verification report](https://github.com/ManuelSe/Neistra/releases/download/v0.8.0/neistra-0.8.0-verification.json):
+  exact candidate/merged commits, annotated tag object, complete gate results,
+  large-surface measurements and review/delivery audit.
+- [Issue #38 delivery reply](https://github.com/ManuelSe/Neistra/issues/38): merged
+  PR, verified release, verification evidence and scope decisions.
+- [Approved #36 follow-up](issue-36-pocket-surfaces.md): implementation begins only
+  after #38 merge/tag/release/reply verification and feature-branch cleanup.
+
+This preserves immutable qualified source without moving a release tag for later
+bookkeeping. Clean up only this feature branch after every publication step is
+verified remotely. No human approval or repository protection may be bypassed.

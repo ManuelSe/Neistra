@@ -28,12 +28,15 @@ zoom. Native geometry, keyboard/touch and migration evidence is in the plan.
 Known limitations: bounded native fragment surfaces; no arbitrary-hardware memory
 or latency guarantee. Pocket surfaces remain the separate #36 contract.
 Blockers: none; #36 depends on completed #38 delivery.
-Release preparation is committed for v0.8.0. The first complete candidate gate
-found one desktop palette-height regression (93 browser passes, 40 skips); shorten
-the visible ball-and-stick label while retaining its full accessible name.
-The corrected label passes frontend checks and 13 focused browser cases (3 layout
-skips), including the unchanged desktop no-scroll assertion and actual zoom.
-Next action: rerun the complete clean candidate gate, then review and deliver #38.
+The corrected v0.8.0 candidate `4e2f149` passes the complete release gate:
+319 Python, 107 frontend, 8 supervisor and 94 browser tests, 40 intentional layout
+skips, zero failures/flakes, frozen installs, fresh migration, lint/type/build.
+The desktop overflow finding was fixed without weakening its no-scroll assertion.
+Final local full-diff review has no unresolved consequential finding; it is an
+implementing-agent review, not independent review.
+Next action: PR/review/live merge checks, exact merged gate, verified v0.8.0
+publication and issue closeout; then start #36 on its planned branch. Publication
+records are linked from the #38 feature plan.
 
 ### Previous release — v0.7.0
 
