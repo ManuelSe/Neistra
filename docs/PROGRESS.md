@@ -2,24 +2,21 @@
 
 ## Current milestone
 
-Issue #36 — M1/C1 and M2/C2–C3 complete; M3/C4 clean candidate qualification underway on
-`feat/issue-36-pocket-surfaces`, based on verified v0.8.0 master `ce3e4f7`.
-Contract: [approved pocket plan](plans/issue-36-pocket-surfaces.md), planned v0.9.0.
-Completed: qualified full-protein patches, durable seed definitions/migration 0013,
-cross-entry lifecycle, compact saved workflow and hidden-seed coordinate invalidation.
-Verification: C2 full Python gate passes 365 tests; final C3 pocket API suite passes
-30 tests. Frontend lint/type/build and 124 tests pass. C3 browser gate passes
-33 tests / 9 layout skips; final UI review correction passes affected panel/real-zoom
-checks (3 tests / 1 skip). No failures/flakes in completed qualification.
+Issue #36 — implementation and clean candidate qualification complete;
+PR, exact merged-master gate and publication next on `feat/issue-36-pocket-surfaces`.
+Contract: [approved pocket plan](plans/issue-36-pocket-surfaces.md), version v0.9.0.
+Completed: native full-protein patches, durable seeds/migration 0013, cross-entry
+lifecycle, compact saved workflow and hidden-seed coordinate invalidation.
+Complete clean candidate `18d8cf3` passes **366 Python, 125 frontend, 8 supervisor
+and 104 browser tests / 40 intentional layout skips**, frozen installs, fresh
+migration, lint/type/build and clean-tree checks. Zero failed/flaky browser cases.
+Final local full-diff review is complete with no unresolved consequential finding;
+it is not independent review. Only evidence documentation changes after tested code.
 Known limitations: protein-only centroid patches, open edges, no cavity analysis;
 host/emulated-device capacity evidence is not a universal memory guarantee.
-Blockers: none. Full release qualification and remote delivery remain pending.
-The first candidate passed all non-browser gates; its browser run was interrupted
-to verify keyboard focus. Component and native desktop/mobile Tab checks pass
-without production changes. Added regression coverage; complete clean gate restarting.
-Prepared v0.9.0 consistently in all five authoritative sources; remote base/tag
-collision checks pass. Next action: run the clean complete release gate, review/open the PR,
-then merge and qualify exact master before publishing and closing out issue #36.
+Blockers: none. Base remains `ce3e4f7`; all five versions agree and v0.9.0 is free.
+Next action: open/review the PR, satisfy live merge policy, normal-merge, then run
+the complete gate on exact master before tag/release/issue closeout and cleanup.
 
 ### Previous release — v0.8.0
 

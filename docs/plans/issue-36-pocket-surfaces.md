@@ -2,7 +2,7 @@
 
 ## Status and delivery metadata
 
-- Status: **M1/C1 and M2/C2–C3 complete; M3/C4 clean candidate qualification underway**.
+- Status: **M1/C1 and M2/C2–C3 complete; M3/C4 candidate qualified; PR, merged gate and publication pending**.
 - User approved the two-release plan on 2026-09-14, then requested detailed
   persistence and an explicit stop before implementation.
 - Issue: [#36](https://github.com/ManuelSe/Neistra/issues/36).
@@ -618,7 +618,10 @@ the complete release gate will rerun the whole repository.
 C3 milestone browser command:
 
 ```bash
-MOLWEAVE_E2E_API_PORT=8110 MOLWEAVE_E2E_WORKER_PORT=8111 MOLWEAVE_E2E_WEB_PORT=5273 MOLWEAVE_E2E_DATA_DIR=/tmp/neistra-36-c3-qualified PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test   tests/e2e/pocket-surfaces.spec.ts tests/e2e/selection-visibility.spec.ts   tests/e2e/selection-surfaces.spec.ts tests/e2e/coordinate-editing.spec.ts   tests/e2e/measurements.spec.ts tests/e2e/export-archive.spec.ts   tests/e2e/rebranding-zoom.spec.ts
+MOLWEAVE_E2E_API_PORT=8110 MOLWEAVE_E2E_WORKER_PORT=8111 \
+MOLWEAVE_E2E_WEB_PORT=5273 MOLWEAVE_E2E_DATA_DIR=/tmp/neistra-36-c3-qualified \
+PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test \
+  tests/e2e/pocket-surfaces.spec.ts tests/e2e/selection-visibility.spec.ts   tests/e2e/selection-surfaces.spec.ts tests/e2e/coordinate-editing.spec.ts   tests/e2e/measurements.spec.ts tests/e2e/export-archive.spec.ts   tests/e2e/rebranding-zoom.spec.ts
 ```
 
 **33 passed, 9 intentional layout skips, zero failures/flakes (384.07 s).**
@@ -637,7 +640,11 @@ common commands pass again (124 tests) and the affected workflow/zoom command pa
 **3 tests / 1 intentional layout skip, zero failures/flakes (1.1 minutes)**:
 
 ```bash
-MOLWEAVE_E2E_API_PORT=8110 MOLWEAVE_E2E_WORKER_PORT=8111 MOLWEAVE_E2E_WEB_PORT=5273 MOLWEAVE_E2E_DATA_DIR=/tmp/neistra-36-c3-review PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test   tests/e2e/pocket-surfaces.spec.ts tests/e2e/rebranding-zoom.spec.ts   --grep 'saves pockets|real 100%'
+MOLWEAVE_E2E_API_PORT=8110 MOLWEAVE_E2E_WORKER_PORT=8111 \
+MOLWEAVE_E2E_WEB_PORT=5273 MOLWEAVE_E2E_DATA_DIR=/tmp/neistra-36-c3-review \
+PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test \
+  tests/e2e/pocket-surfaces.spec.ts tests/e2e/rebranding-zoom.spec.ts \
+  --grep 'saves pockets|real 100%'
 ```
 
 That correction does not change native geometry, migrations, dependency invalidation
@@ -706,3 +713,47 @@ bug was fixed. The new tests and this evidence are committed as
 `test(selection): verify pocket panel keyboard focus` (Refs #36), then the entire
 clean candidate release gate is restarted. Source functionality/version remains
 unchanged from the release-preparation commit.
+
+
+### 2026-09-15 — C4 complete clean candidate gate and final local review
+
+Clean candidate `18d8cf31fb8473a31237d3036966b495c247cefc` passes the full README/DEVELOPMENT release gate:
+frozen uv/pnpm installs, fresh migration to 0013, Ruff, mypy, **366 Python tests**,
+frontend lint/typecheck, **125 frontend tests**, **8 supervisor tests**, production
+build and **104 browser tests / 40 intentional layout skips**. Zero failed/flaky
+browser cases; browser duration **1,106.21 s (18.4 minutes)**. Final whitespace and
+clean-tree checks pass. Existing Alembic configuration and bundle-size advisories
+remain non-failing limitations, not omitted checks.
+
+The exact gate command sequence is the full verification sequence specified in
+the approved #38 plan and README/DEVELOPMENT, using isolated data at
+`/tmp/neistra-36-candidate2-data-c1CfCI`, ports 8110/8111/5273 and
+`PLAYWRIGHT_BROWSERS_PATH=.playwright`. The browser command runs every suite with
+line/JSON reporters. Per-command logs, browser report, capacity/pocket measurements
+and SHA-256 log identities are retained for the immutable release attachment.
+
+Final local full-diff review checked the entire change against released master:
+strict durable schemas and atomic commands; every retained migration path;
+cross-entry pruning/remapping and current-snapshot archive scope; scientific
+context/centroid/owner invariants; combined worker/buffer bounds; stale input and
+coordinate invalidation; primary-panel size, focus and lazy-adapter channel routing;
+test scope, dead code, documentation, five version sources and release compatibility.
+All observed consequential findings are resolved. The autofocus concern was
+disproved by direct regression tests, without unnecessary production changes.
+This review is by the implementing agent, **not independent review**.
+
+Fetched master/tags again after the gate: origin/master is still
+`ce3e4f761133caeff1ee76a827379f790fcad7cf`, already an ancestor of this branch;
+v0.9.0 remains unallocated. All five authoritative versions are 0.9.0.
+This evidence update changes documentation only after the tested source commit.
+Record the PR and review request, recheck live protections/reviews/statuses,
+then normal-merge preserving checkpoints. The exact merged master must pass the
+complete gate again before annotated tag/release publication.
+
+Implementation and candidate qualification are complete. Delivery is complete
+only after the remotely verified release, annotated tag, issue reply and branch
+cleanup. The final post-merge audit belongs in the immutable
+[release verification attachment](https://github.com/ManuelSe/Neistra/releases/download/v0.9.0/neistra-0.9.0-verification.json)
+and [issue closeout](https://github.com/ManuelSe/Neistra/issues/36);
+these links become publication evidence only once verified. Do not move a published
+tag or claim a pending artifact already exists.

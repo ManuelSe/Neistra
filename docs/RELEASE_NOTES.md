@@ -59,8 +59,11 @@ review retest passes three workflows / one layout skip. Native geometry, actual
 colors/picking, hidden-seed coordinate dependencies, migration paths, archives,
 light/dark accessibility and actual browser zoom are covered.
 
-Complete clean candidate and exact merged-master gates remain publication
-requirements. Their final commands, commits and counts are recorded in the
+Clean candidate `18d8cf3` passes the complete gate: **366 Python, 125 frontend,
+8 supervisor and 104 browser tests / 40 intentional layout skips**, frozen installs,
+fresh migration 0013, lint/type/build and clean-tree checks, with zero failures or
+flaky browser cases. The exact merged-master gate remains required before tag and
+publication. Final commands, commits and results are recorded in the
 [feature plan](plans/issue-36-pocket-surfaces.md) and release verification attachment.
 
 ### Scope decisions and follow-up work
