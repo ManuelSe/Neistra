@@ -8,13 +8,19 @@ panels, or move the camera. Its count always describes the current selection.
   independent channels. A solid pressed button applies throughout the selection;
   a dashed border and dash mark partial membership. Unavailable polymer styles
   have a **Why unavailable?** disclosure explaining their complete-residue rule.
+- Use **Hide** in Atom detail to hide the selected atoms and incident bonds.
+  Polymer Backbone/Cartoon and surfaces stay visible. If every selected atom is
+  hidden, the same tile offers **Show**, restoring its previous styles. A dash
+  and dashed border mean mixed visibility; **Hide** then hides the whole target.
+  Applying an atomic style also shows its target. Entry/component/isolation and
+  hydrogen visibility still bound what can appear; hidden atoms remain selectable.
 - Choose **All atoms** or **Carbon only**, then click a color swatch. Mode changes
   alone do not alter atoms. Carbon-only uses the chosen color on selected carbon
   and element colors on other selected atoms; outside atoms are unchanged.
 - Open **Custom…** to choose a custom color and press **Apply color**. Mode and
   custom color are remembered while open and reset when you reopen the palette.
 - Use the representation or color **Reset** independently. Representation reset
-  restores both representation channels to entry defaults. Color reset restores
+  restores both representation channels to entry defaults and shows the target. Color reset restores
   the underlying entry theme, including removal of explicit element overrides.
 - **Non-polar H** stores Show/Hide/Use entry setting for explicit selected H.
   Selecting heavy atoms does not include attached hydrogens. Master hydrogen,
@@ -23,7 +29,7 @@ panels, or move the camera. Its count always describes the current selection.
   with a positive cutoff (default 4 Å). Choose matching atoms or complete residues.
   The search preserves seeds, assumes a common Cartesian frame, and can be cancelled.
 
-Representation, color and hydrogen edits use the existing undo/redo history.
+Representation, atom-detail visibility, color and hydrogen edits use undo/redo.
 While an action is pending, its target remains the selection captured at activation.
 You may change the selection, but further palette mutations wait until it finishes.
 Errors for an older target are labeled **Previous selection**. Empty selection
@@ -50,8 +56,9 @@ Additional capture: [Pixel 7, dark](assets/selection-styling/after-mobile-dark.p
 
 Qualification uses pinned Chromium/SwiftShader and Pixel 7 emulation, light/dark
 and actual 100%/200% desktop zoom. It does not establish physical-device or other
-browser support. This change adds no migration, persisted setting or public API.
-New molecular surfaces remain follow-up #30; no presets or hover previews are added.
+browser support. These v0.6.1 comparison captures predate the later surface and Hide/Show additions.
+The compact-layout release itself added no persisted setting or public API; current
+surface and visibility behavior is described here. No presets or hover previews are added.
 
 ## Selection surfaces
 
@@ -74,9 +81,9 @@ visible fragment without changing saved membership.
 Rendering runs asynchronously, with status outside the palette. **Cancel** stops
 rendering and keeps membership; **Retry** retries a cancelled or failed request.
 Failures or resource limits show lines for the same target. Smaller memberships
-can fit limits of 20,000 visible atoms, four million padded grid cells, 64 MiB mesh
-allocation per surface and 128 MiB retained meshes per viewer. Calculation stops
-after 30 seconds. Entries with at least 250,000 atoms retain reduced-detail behavior.
+can fit limits of 100,000 visible atoms, 64 million padded grid cells, 512 MiB mesh
+allocation per surface and 1 GiB retained meshes per viewer. Each active calculation
+is admitted against a 2 GiB buffer budget and stops after 120 seconds. Entries with at least 250,000 atoms retain reduced-detail behavior.
 These are allocation/work limits, not a browser or GPU memory guarantee.
 
 Coordinate previews hide stale geometry. Committing coordinates or cancelling a
@@ -89,3 +96,22 @@ C4 visual qualification: [light, 100% zoom](assets/selection-surfaces/palette-li
 and [dark, actual 200% browser zoom](assets/selection-surfaces/palette-dark-200.png).
 These show the compact action row after a removal; the narrow palette scrolls
 within its bounds with its close control retained in the sticky header.
+
+
+## Hiding, saving and exporting
+
+Hide suppresses atomic representations and atom labels, including bonds incident
+to hidden atoms. It preserves residue/chain labels, measurements and their atom
+references, molecular coordinates, topology, supplied conformers and warnings.
+It does not remove a ribbon/cartoon trace when its CA or other atoms are hidden.
+Surface memberships and geometry remain independent.
+
+Hidden IDs survive undo/redo, saved scenes, checkpoints/restart, duplication and
+project archives. Deleting atoms prunes the mask with undo support; adding atoms
+does not hide them automatically. Hierarchy, sequence, queries and saved selections
+remain ways to select hidden atoms; visible polymer/surface picks can select them.
+
+**Visible** molecular export still exports visible entries. Atom-detail hiding
+does not create an atom-subset export or remove atoms from original files. New
+archives with visibility state require a compatible reader; migration/backup
+instructions are in DEVELOPMENT. The feature plan records actual verification.

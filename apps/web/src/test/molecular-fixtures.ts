@@ -89,6 +89,7 @@ export function viewerSettings(
     selection_colors: [],
     selection_nonpolar_hydrogens: [],
     selection_surface: null,
+    selection_hidden_atoms: [],
     components: {
       hydrogens: true,
       nonpolar_hydrogens: true,

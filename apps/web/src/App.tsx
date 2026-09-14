@@ -672,6 +672,10 @@ export default function App() {
     },
     onLoadSelectionStructures: () =>
       loadStructureProjections(selectedEntryIds(selection)),
+    onAtomVisibility: async (action: "hide" | "show") => {
+      if (!project) return;
+      await projectMutation.mutateAsync(() => projectApi.updateSelectionAtomVisibility(project, selection, action));
+    },
     onSurface: async (action: "add" | "remove") => {
       if (!project) return;
       await projectMutation.mutateAsync(() => projectApi.updateSelectionSurface(project, selection, action));

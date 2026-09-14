@@ -1,3 +1,4 @@
+import { fieldAllocation, countSurfaceMesh, extractionAllocation, groupingAllocation } from "./allocation";
 import { OrderedSet } from "molstar/lib/mol-data/int";
 import { getBoundary } from "molstar/lib/mol-math/geometry/boundary";
 import { calcMolecularSurface } from "molstar/lib/mol-math/geometry/molecular-surface";
@@ -8,7 +9,7 @@ import { SURFACE_LIMITS, SURFACE_PROFILE, type SurfaceGeometry, type SurfaceInpu
 
 export function surfaceAdmission(input: SurfaceInput) {
   const n = input.atomIds.length;
-  if (!n || n > SURFACE_LIMITS.atoms) throw new Error("Surface requires 1–20,000 visible atoms.");
+  if (!n || n > SURFACE_LIMITS.atoms) throw new Error("Surface requires 1–100,000 visible atoms.");
   if ([input.x, input.y, input.z, input.radii].some((a) => a.length !== n)
     || new Set(input.atomIds).size !== n || input.atomIds.some((id) => id === 0)) {
     throw new Error("Invalid surface atom mapping.");
@@ -33,27 +34,9 @@ export function surfaceAdmission(input: SurfaceInput) {
   ));
   const cells = dimensions.reduce((a, b) => a * b, 1);
   if (!Number.isSafeInteger(cells) || cells <= 0 || cells > SURFACE_LIMITS.cells) {
-    throw new Error("Surface exceeds the 4 million grid-cell limit; select a smaller region.");
+    throw new Error("Surface exceeds the 64 million grid-cell limit; select a smaller region.");
   }
-  return { cells, maxRadius, dimensions };
-}
-
-/** Count intersected cells, without extracting geometry or copying the native algorithm. */
-export function meshAllocationBound(activeCells: number, cells: number, dimensions: readonly number[]) {
-  // Native MC: <=12 edge vertices + 5 triangles per intersected cell. Uniform groups
-  // (without geometric subdivision) can add <=3 vertices/triangle. 28 bytes/vertex
-  // (position, normal, group), 12/triangle. Include initial array chunk rounding.
-  const meshBoundBytes = activeCells * ((12 + 15) * 28 + 5 * 12);
-  const vertexChunk = Math.min(262144, Math.max(cells / 32, 1024));
-  const chunkSlack = Math.ceil(vertexChunk) * 28 + Math.ceil(Math.min(65536, vertexChunk * 4)) * 12 + 64 * 1024;
-  // Fields, two MC edge-cache slices, original/chunked/compacted mesh buffers,
-  // plus bounded input, lookup/neighbor arrays and conservative object overhead.
-  const workingBoundBytes = cells * 8 + dimensions[0] * dimensions[1] * 24
-    + 4 * (meshBoundBytes + chunkSlack) + SURFACE_LIMITS.atoms * 256;
-  if (meshBoundBytes + chunkSlack > SURFACE_LIMITS.meshBytes) {
-    throw new Error("Surface mesh allocation exceeds 64 MiB; select a smaller region.");
-  }
-  return { meshBoundBytes, workingBoundBytes };
+  return { cells, maxRadius, dimensions, fieldBytes: fieldAllocation(cells, dimensions, n) };
 }
 
 export async function computeSurface(input: SurfaceInput, progress: (message: string) => void = () => {}): Promise<SurfaceGeometry> {
@@ -69,18 +52,25 @@ export async function computeSurface(input: SurfaceInput, progress: (message: st
     boundary, admission.maxRadius, boundary.box, SURFACE_PROFILE);
   const { field, idField, transform } = result;
   if (field.data.length !== admission.cells) throw new Error("Surface grid admission mismatch.");
-  const [nx, ny, nz] = field.space.dimensions;
-  const get = (x: number, y: number, z: number) => field.space.get(field.data, x, y, z) < SURFACE_PROFILE.probeRadius;
-  let activeCells = 0;
-  for (let x = 0; x < nx - 1; x++) for (let y = 0; y < ny - 1; y++) for (let z = 0; z < nz - 1; z++) {
-    const first = get(x, y, z);
-    if (get(x + 1, y, z) !== first || get(x, y + 1, z) !== first || get(x + 1, y + 1, z) !== first
-      || get(x, y, z + 1) !== first || get(x + 1, y, z + 1) !== first
-      || get(x, y + 1, z + 1) !== first || get(x + 1, y + 1, z + 1) !== first) activeCells++;
-  }
-  const bound = meshAllocationBound(activeCells, admission.cells, admission.dimensions);
+  progress("Checking mesh allocations");
+  const counts = countSurfaceMesh(field);
+  const extraction = extractionAllocation(counts.vertices, counts.triangles, admission.cells,
+    admission.dimensions, admission.fieldBytes);
   progress("Building surface mesh");
   const mesh = await computeMarchingCubesMesh({ scalarField: field, idField, isoLevel: SURFACE_PROFILE.probeRadius }).run();
+  if (mesh.vertexCount > counts.vertices || mesh.triangleCount > counts.triangles) {
+    throw new Error("Surface extraction allocation mismatch.");
+  }
+  const rawBytes = mesh.vertexBuffer.ref.value.byteLength + mesh.normalBuffer.ref.value.byteLength
+    + mesh.groupBuffer.ref.value.byteLength + mesh.indexBuffer.ref.value.byteLength;
+  const meshIndices = mesh.indexBuffer.ref.value, atomGroups = mesh.groupBuffer.ref.value;
+  let mixed = 0;
+  for (let i = 0; i < mesh.triangleCount * 3; i += 3) {
+    if (atomGroups[meshIndices[i]] !== atomGroups[meshIndices[i + 1]] || atomGroups[meshIndices[i]] !== atomGroups[meshIndices[i + 2]]) mixed++;
+  }
+  const grouping = groupingAllocation(rawBytes, mesh.vertexCount, mesh.triangleCount, mixed, admission.fieldBytes, input.atomIds.byteLength);
+  const bound = { meshBoundBytes: grouping.capacity,
+    workingBoundBytes: Math.max(admission.fieldBytes, extraction.workingBytes, grouping.workingBytes) };
   Mesh.transform(mesh, transform);
   // Flat atom-associated groups support both WebGL generations without changing
   // geometry. This follows Mol*'s supported no-subdivision path, not custom chemistry.
@@ -89,12 +79,12 @@ export async function computeSurface(input: SurfaceInput, progress: (message: st
   const normals = mesh.normalBuffer.ref.value.slice(0, mesh.vertexCount * 3);
   const groups = mesh.groupBuffer.ref.value.slice(0, mesh.vertexCount);
   const triangles = mesh.indexBuffer.ref.value.slice(0, mesh.triangleCount * 3);
-  const meshBytes = vertices.byteLength + normals.byteLength + groups.byteLength + triangles.byteLength;
+  const meshBytes = vertices.byteLength + normals.byteLength + groups.byteLength + triangles.byteLength + input.atomIds.byteLength;
   if (meshBytes > SURFACE_LIMITS.meshBytes || meshBytes > bound.meshBoundBytes
     || !mesh.triangleCount || vertices.some((v) => !Number.isFinite(v))
     || normals.some((v) => !Number.isFinite(v))
     || groups.some((g) => !Number.isInteger(g) || g < 0 || g >= input.atomIds.length)
     || triangles.some((i) => i >= mesh.vertexCount)) throw new Error("Surface geometry failed validation.");
   return { vertices, normals, indices: triangles, groups, atomIds: input.atomIds,
-    evidence: { cells: admission.cells, activeCells, meshBytes, ...bound, durationMs: performance.now() - started } };
+    evidence: { cells: admission.cells, activeCells: counts.activeCells, meshBytes, ...bound, durationMs: performance.now() - started } };
 }

@@ -29,6 +29,7 @@ const settings: ViewerSettings = {
     selection_colors: [],
     selection_nonpolar_hydrogens: [],
     selection_surface: null,
+    selection_hidden_atoms: [],
   components: {
     hydrogens: true,
     nonpolar_hydrogens: true,
@@ -329,4 +330,31 @@ it("applies full-projection nonpolar classification to all layers with visibilit
   structure.settings.selection_nonpolar_hydrogens = [{ show: true, atom_ids: [2] }];
   for (const layer of representationLayers(structure, null, classified)) expect(layer.atomIds).toEqual([1]);
   expect(representationLayers(structure, new Set([2]), classified)).toEqual([]);
+});
+
+it("hides atomic layers after assignment while preserving polymer and surface context", () => {
+  const normalized = proteinStructure();
+  const source: ViewerStructure = { entryId: "protein", label: "Protein", normalized,
+    hierarchy: componentHierarchy(normalized), atomIds: [1, 2, 3], projection: { format: "mmcif", data: "" },
+    settings: { ...settings, representations: (["line", "cartoon", "backbone", "surface"] as const)
+      .map((style) => ({ ...settings.representations[0], id: style, style })),
+    selection_representations: [{ style: "stick", atom_ids: [2] }], selection_hidden_atoms: [] } };
+  const before = representationLayers(source);
+  const assignments = structuredClone(source.settings.selection_representations);
+  source.settings.selection_hidden_atoms = [1, 2];
+  const hidden = representationLayers(source);
+  expect(hidden.find((layer) => layer.style === "stick")).toBeUndefined();
+  expect(hidden.find((layer) => layer.style === "line")).toMatchObject({ atomIds: [3], exactTarget: true });
+  for (const style of ["cartoon", "backbone", "surface"]) {
+    expect(hidden.find((layer) => layer.style === style)).toEqual(before.find((layer) => layer.style === style));
+  }
+  expect(source.settings.selection_representations).toEqual(assignments);
+  source.settings.selection_hidden_atoms = [1, 2, 3];
+  expect(representationLayers(source).map((layer) => layer.style)).toEqual(["cartoon", "backbone", "surface"]);
+  source.settings.selection_hidden_atoms = [];
+  expect(representationLayers(source)).toEqual(before);
+  source.settings.components.protein = false;
+  expect(representationLayers(source)).toEqual([]);
+  source.settings.components.protein = true;
+  expect(representationLayers(source, new Set([3])).every((layer) => layer.atomIds.every((id) => id === 3))).toBe(true);
 });

@@ -237,3 +237,20 @@ After using the feature, restoring the pre-upgrade backup is the reliable rollba
 do not edit SQLite JSON or silently discard history. Older applications are not
 guaranteed to preserve newly exported surface settings. Frontend geometry is not
 persisted and is rebuilt from stable memberships and current molecular artifacts.
+
+
+## Atomic-detail visibility migration (0.8.0)
+
+Migration 0012 adds `selection_hidden_atoms: []` to all retained viewer-settings
+paths, including nested checkpoint scenes and forward/inverse commands. Upgrade
+with the existing `alembic upgrade head` command against the intended data directory,
+after retaining a pre-upgrade backup. Original uploads and normalized artifacts
+are unchanged; schema majors remain 1.
+
+Downgrade to 0011 is allowed only when **every retained hidden mask is empty**.
+Showing all currently hidden atoms is insufficient if history/scenes/checkpoints
+can restore a nonempty mask. Refusal prevalidates all locations before writing.
+Restore the pre-upgrade backup when needed; do not strip history or edit database
+JSON to evade the check. New readers accept older archives with absent masks;
+older readers are unsupported for new visibility-bearing archives. Migration tests
+cover upgrade, safe downgrade/re-upgrade, every refusal path and metadata invariance.

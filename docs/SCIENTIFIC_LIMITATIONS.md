@@ -300,8 +300,7 @@ only explicit selected H. Selecting heavy atoms does not select attached H, and
 polar H is unaffected by a nonpolar preference. Full-projection Mol* connectivity
 owns display polarity using the established polar-neighbor convention. No hydrogen
 generation, protonation assignment or chemistry repair occurs. Master hydrogen,
-component and isolation bounds still apply. Selection-specific surfaces remain
-deferred pending a geometry/context and resource-limit design.
+component and isolation bounds still apply. Fragment-surface science and capacity are described below.
 
 ## Selection fragment surfaces
 
@@ -313,3 +312,14 @@ Existing parse/conformer warnings remain authoritative. The fixed native Mol*
 molecular-surface profile uses physical radii, a 1.4 Å probe and a 0.5 Å grid;
 coordinates and chemical topology remain unchanged. Resource-limit line fallback
 is explicitly labelled and must not be interpreted as a computed surface.
+
+
+The increased #38 capacity preserves this same molecular-v1 profile. It admits
+100,000 effective atoms, 64 million padded grid cells, 512 MiB mesh output/chunks,
+1 GiB retained outputs and 2 GiB accounted active calculation buffers, with a
+120-second deadline and one worker. These are independent bounds: a dispersed
+or complex 100,000-atom selection can still exceed grid/mesh/working limits.
+There is no automatic coarsening, residue truncation or geometry substitution.
+Pinned whole-protein fixtures and a labelled synthetic lattice qualify specific
+cases; they do not establish physical-phone performance or a browser/GPU memory
+ceiling. Detailed current evidence belongs in PERFORMANCE and the feature plan.

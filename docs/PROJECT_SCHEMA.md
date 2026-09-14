@@ -397,3 +397,26 @@ New readers default absent fields from older archives, remap entry identities
 and validate atom targets. Archive history remains omitted. API, project,
 archive and normalized schema majors remain 1; older readers are not guaranteed
 to retain new surface state. See [development](DEVELOPMENT.md) for rollback.
+
+
+## Selection atom-detail visibility (issue #38)
+
+`ViewerSettingsV1.selection_hidden_atoms: number[]` defaults to `[]`. Values must
+be strict positive integers, sorted and unique; booleans, coercions, null and
+duplicate/unsorted IDs are rejected. This independent atomic-detail mask preserves
+representation assignments and does not change polymer/surface inputs or molecular
+state. The `selection.atom_visibility` command records complete forward/inverse
+entry settings and captured selection; unchanged actions do not create history.
+
+Scene/checkpoint/restart/duplication paths retain the mask. Topology deletion
+prunes live and scene IDs with exact undo; newly allocated IDs are never hidden
+implicitly. Archive validation rejects missing atom references. Archive history
+remains omitted, as before; database history is preserved and migrated.
+
+Migration 0012 adds empty defaults at live entries, checkpoints and nested scenes,
+scenes and every documented forward/inverse action settings location. It traverses
+only those paths, never arbitrary metadata. Downgrade prevalidates all locations
+and refuses any nonempty retained mask before any writes. API/project/archive/
+normalized schema majors remain 1; new readers default absent masks in supported
+older archives. Older readers are unsupported for new visibility-bearing archives.
+See DEVELOPMENT for backup/rollback and the feature plan for exact verification.

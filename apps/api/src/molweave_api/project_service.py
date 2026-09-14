@@ -30,11 +30,13 @@ from molweave_api.schemas import (
     SavedSelectionRead,
     SceneRead,
     SelectionAppearanceUpdate,
+    SelectionAtomVisibilityUpdate,
     SelectionSurfaceUpdate,
     TopologyPatch,
     ViewerSettings,
 )
 from molweave_api.viewer_state import (
+    ATOMIC_SELECTION_STYLES,
     default_viewer_settings,
     prune_selection_representations,
     update_selection_colors,
@@ -460,6 +462,11 @@ class ProjectService:
                 values[field] = deepcopy(current)
             elif values[field] != current:
                 raise InvalidProjectOperationError("Use the selection appearance action")
+        current_hidden = entry.viewer_settings.get("selection_hidden_atoms", [])
+        if "selection_hidden_atoms" not in settings.model_fields_set:
+            values["selection_hidden_atoms"] = deepcopy(current_hidden)
+        elif values["selection_hidden_atoms"] != current_hidden:
+            raise InvalidProjectOperationError("Use the selection atom visibility action")
         current_surface = entry.viewer_settings.get("selection_surface")
         if "selection_surface" not in settings.model_fields_set:
             values["selection_surface"] = deepcopy(current_surface)
@@ -526,6 +533,10 @@ class ProjectService:
                     style=style,
                 ),
             }
+            if action == "reset" or style in ATOMIC_SELECTION_STYLES:
+                after["selection_hidden_atoms"] = sorted(
+                    set(before.get("selection_hidden_atoms", [])) - selected_by_entry[entry_id]
+                )
             forward.append(
                 {
                     "kind": "entry.update",
@@ -611,6 +622,54 @@ class ProjectService:
             project,
             "selection.surface",
             f"{payload.action.title()} selection surface membership for {len(references)} atoms",
+            forward,
+            inverse,
+            affected,
+            selection_snapshot=references,
+        )
+
+    def update_selection_atom_visibility(
+        self, project_id: str, payload: SelectionAtomVisibilityUpdate
+    ) -> ProjectRead:
+        project = self._project(project_id)
+        self._check_revision(project, payload.expected_revision)
+        references = [item.model_dump(mode="json") for item in payload.selection.atoms]
+        self._validate_atom_references(project, references)
+        targets: dict[str, set[int]] = {}
+        for item in payload.selection.atoms:
+            targets.setdefault(item.structure_id, set()).add(item.atom_id)
+        forward: list[dict[str, Any]] = []
+        inverse: list[dict[str, Any]] = []
+        affected: list[str] = []
+        for entry_id, ids in sorted(targets.items()):
+            entry = self._entry(project, entry_id)
+            before = deepcopy(entry.viewer_settings)
+            current = set(before.get("selection_hidden_atoms", []))
+            result = current | ids if payload.action == "hide" else current - ids
+            if result == current:
+                continue
+            after = {
+                **before,
+                "selection_hidden_atoms": sorted(result),
+            }
+            forward.append(
+                {"kind": "entry.update", "entry_id": entry_id, "values": {"viewer_settings": after}}
+            )
+            inverse.insert(
+                0,
+                {
+                    "kind": "entry.update",
+                    "entry_id": entry_id,
+                    "values": {"viewer_settings": before},
+                },
+            )
+            affected.append(entry_id)
+        if not affected:
+            return self.get_project(project_id)
+        return self._record(
+            project,
+            "selection.atom_visibility",
+            f"{payload.action.title()} selection atom detail for {len(references)} atoms",
             forward,
             inverse,
             affected,

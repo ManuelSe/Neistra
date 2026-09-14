@@ -243,6 +243,11 @@ export const projectApi = {
         }),
       },
     ),
+  updateSelectionAtomVisibility: (project: Project, selection: Selection, action: "hide" | "show") =>
+    request<Project>(`/api/v1/projects/${project.id}/selection-atom-visibility`, {
+      method: "POST",
+      body: JSON.stringify({ expected_revision: project.revision, selection, action }),
+    }),
   updateSelectionSurface: (project: Project, selection: Selection, action: "add" | "remove") =>
     request<Project>(`/api/v1/projects/${project.id}/selection-surface`, {
       method: "POST",

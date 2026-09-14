@@ -88,7 +88,16 @@ export function representationLayers(
         ]
       : [],
   );
-  return [...inherited, ...selectionSpecific];
+  const layers = [...inherited, ...selectionSpecific];
+  const hidden = new Set(structure.settings.selection_hidden_atoms);
+  if (!hidden.size) return layers;
+  // Apply only after channel assignment. Shared visibility, polymers and surfaces
+  // retain the full atom context; exact targets suppress native parent-bond leaks.
+  return layers.flatMap((layer) => {
+    if (representationChannel(layer.style) !== "atomic") return [layer];
+    const atomIds = layer.atomIds.filter((id) => !hidden.has(id));
+    return atomIds.length ? [{ ...layer, atomIds, exactTarget: true }] : [];
+  });
 }
 
 export function visibleRepresentationAtomIds(

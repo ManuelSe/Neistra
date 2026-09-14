@@ -14,9 +14,12 @@ const params = { ...ComplexMeshParams, alpha: PD.Numeric(SURFACE_PROFILE.opacity
 
 export function surfaceInput(structure: Structure, sourceAtomIds: readonly number[]): SurfaceInput {
   if (!structure.elementCount || structure.elementCount > SURFACE_LIMITS.atoms) {
-    throw new Error("Surface requires 1–20,000 visible atoms.");
+    throw new Error("Surface requires 1–100,000 visible atoms.");
   }
-  const atomIds: number[] = [], x: number[] = [], y: number[] = [], z: number[] = [], radii: number[] = [];
+  const n = structure.elementCount;
+  const atomIds = new Uint32Array(n), x = new Float64Array(n), y = new Float64Array(n),
+    z = new Float64Array(n), radii = new Float32Array(n);
+  let offset = 0;
   for (const unit of structure.units) {
     if (!Unit.isAtomic(unit)) throw new Error("Selection surfaces require explicit atoms.");
     for (let index = 0; index < unit.elements.length; index++) {
@@ -24,13 +27,12 @@ export function surfaceInput(structure: Structure, sourceAtomIds: readonly numbe
       const sourceIndex = unit.model.atomicHierarchy.atomSourceIndex.value(element);
       const atomId = sourceAtomIds[sourceIndex];
       if (!Number.isSafeInteger(atomId) || atomId < 1 || atomId > 0xffffffff) throw new Error("Surface atom identity could not be resolved.");
-      atomIds.push(atomId);
-      x.push(unit.conformation.x(element)); y.push(unit.conformation.y(element)); z.push(unit.conformation.z(element));
-      radii.push(getPhysicalRadius(unit, element));
+      atomIds[offset] = atomId;
+      x[offset] = unit.conformation.x(element); y[offset] = unit.conformation.y(element); z[offset] = unit.conformation.z(element);
+      radii[offset++] = getPhysicalRadius(unit, element);
     }
   }
-  return { atomIds: Uint32Array.from(atomIds), x: Float64Array.from(x), y: Float64Array.from(y),
-    z: Float64Array.from(z), radii: Float32Array.from(radii) };
+  return { atomIds, x, y, z, radii };
 }
 
 export function detachSurfaceGeometry(structure: Structure) { geometryByStructure.delete(structure); }

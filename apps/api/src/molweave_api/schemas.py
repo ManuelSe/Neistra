@@ -274,6 +274,15 @@ class SelectionSurface(BaseModel):
 
 
 class ViewerSettings(BaseModel):
+    selection_hidden_atoms: list[int] = Field(default_factory=list, strict=True)
+
+    @field_validator("selection_hidden_atoms", mode="before")
+    @classmethod
+    def hidden_atoms_are_canonical(cls, value: Any) -> Any:
+        if not isinstance(value, list) or any(type(item) is not int for item in value):
+            raise ValueError("Hidden atom IDs must be integers")
+        return SelectionRepresentation.atom_ids_are_canonical(value)
+
     selection_surface: SelectionSurface | None = None
     representations: list[RepresentationSettings] = Field(min_length=1, max_length=12)
     selection_representations: list[SelectionRepresentation] = Field(
@@ -558,6 +567,19 @@ class SelectionSurfaceUpdate(BaseModel):
     def nonempty_selection(self) -> SelectionSurfaceUpdate:
         if not self.selection.atoms:
             raise ValueError("Select at least one atom to change its surface")
+        return self
+
+
+class SelectionAtomVisibilityUpdate(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    expected_revision: int = Field(ge=0)
+    selection: SelectionV1
+    action: Literal["hide", "show"]
+
+    @model_validator(mode="after")
+    def nonempty_selection(self) -> SelectionAtomVisibilityUpdate:
+        if not self.selection.atoms:
+            raise ValueError("Select at least one atom to change its visibility")
         return self
 
 

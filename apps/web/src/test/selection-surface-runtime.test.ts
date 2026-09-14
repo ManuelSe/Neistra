@@ -14,20 +14,22 @@ describe("transient surface lifecycle", () => {
   it("reuses pending and completed geometry, rebinding only the current disposable component", async () => {
     const { runtime, pending, compute } = setup();
     const old = vi.fn(), current = vi.fn();
-    runtime.request("a", "A", input(), old);
-    runtime.request("a", "new label", input(), current);
+    const createInput = vi.fn(() => input());
+    runtime.request("a", "A", "pose-0", createInput, old);
+    runtime.request("a", "new label", "pose-0", createInput, current);
     pending[0].resolve(geometry());
     await vi.waitFor(() => expect(current).toHaveBeenCalledOnce());
     expect(old).not.toHaveBeenCalled();
-    runtime.request("a", "A", input(), current);
+    runtime.request("a", "A", "pose-0", createInput, current);
     expect(compute).toHaveBeenCalledOnce();
     expect(current).toHaveBeenCalledTimes(2);
+    expect(createInput).toHaveBeenCalledOnce();
   });
   it("drops stale results after coordinates change, removal and disposal", async () => {
     const { runtime, pending, dispose } = setup();
     const notify = vi.fn();
-    runtime.request("a", "A", input(), notify);
-    runtime.request("a", "A", input(2), notify);
+    runtime.request("a", "A", "pose-0", () => input(), notify);
+    runtime.request("a", "A", "pose-2", () => input(2), notify);
     expect(pending[0].signal.aborted).toBe(true);
     pending[0].resolve(geometry());
     runtime.retain(new Set());
@@ -39,25 +41,25 @@ describe("transient surface lifecycle", () => {
   });
   it("keeps cancellation until retry and converts worker failures to explicit fallback", async () => {
     const { runtime, pending, compute } = setup(); const notify = vi.fn();
-    runtime.request("a", "A", input(), notify);
+    runtime.request("a", "A", "pose-0", () => input(), notify);
     runtime.cancel("a"); expect(pending[0].signal.aborted).toBe(true);
-    runtime.request("a", "A", input(), notify);
+    runtime.request("a", "A", "pose-0", () => input(), notify);
     expect(compute).toHaveBeenCalledOnce();
     expect(runtime.statuses()[0].state).toBe("cancelled");
-    runtime.remove("a"); runtime.request("a", "A", input(), notify);
+    runtime.remove("a"); runtime.request("a", "A", "pose-0", () => input(), notify);
     pending[1].reject(new Error("Worker unavailable."));
     await vi.waitFor(() => expect(runtime.statuses()[0].state).toBe("fallback"));
     expect(runtime.statuses()[0].message).toContain("Lines shown. Membership kept.");
   });
   it("admits before workers, enforces retained budget and handles hidden targets", async () => {
     const { runtime, pending, compute } = setup();
-    runtime.request("hidden", "Hidden", null, vi.fn());
-    runtime.request("large", "Large", input(), vi.fn(), "Large entry uses reduced detail.");
+    runtime.request("hidden", "Hidden", "hidden", null, vi.fn());
+    runtime.request("large", "Large", "pose-0", () => input(), vi.fn(), "Large entry uses reduced detail.");
     expect(compute).not.toHaveBeenCalled();
     expect(runtime.statuses().map((s) => s.state)).toEqual(["hidden", "fallback"]);
-    runtime.request("a", "A", input(), vi.fn()); pending[0].resolve(geometry(SURFACE_LIMITS.retainedBytes));
+    runtime.request("a", "A", "pose-0", () => input(), vi.fn()); pending[0].resolve(geometry(SURFACE_LIMITS.retainedBytes));
     await vi.waitFor(() => expect(runtime.statuses()[2].state).toBe("ready"));
-    runtime.request("b", "B", input(), vi.fn()); pending[1].resolve(geometry());
+    runtime.request("b", "B", "pose-0", () => input(), vi.fn()); pending[1].resolve(geometry());
     await vi.waitFor(() => expect(runtime.statuses()[3].state).toBe("fallback"));
   });
 });

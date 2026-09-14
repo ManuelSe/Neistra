@@ -141,3 +141,22 @@ The desktop palette still passes its no-scroll baseline at 1366×768; narrow/zoo
 layouts scroll within the bounded palette. Desktop Chromium and Pixel 7 emulation
 are qualified, not physical devices or other browser engines. Exact results and
 final gate evidence are in the [feature plan](plans/issue-30-selection-surfaces.md).
+
+
+## Selection Hide/Show (#38)
+
+The sixth Atom detail tile stays in the existing row. It has a visible Hide/Show
+label, decorative eye glyph, and a named button action. Mixed visibility uses the
+same dashed border/dash treatment as mixed styling and an explicit accessible
+name; it is not conveyed through color alone. Since the action label changes,
+it is a normal action button rather than a toggle with a misleading pressed state.
+Empty selection and pending work disable the action; focus moves to the palette
+before disabling the active control. Existing context-bound success/error feedback,
+nonmodal workspace interaction and keyboard closure are retained.
+
+`selection-visibility.spec.ts` checks six tiles in one row, >=44 px targets,
+light/dark axe, real changes and persistent selection in desktop/Pixel 7 layouts.
+`rebranding-zoom.spec.ts` exercises Hide/Show through keyboard activation at actual
+100%/200% browser zoom in both themes. Final executed results and screenshots are
+recorded in the issue #38 plan; passing a specific emulation is not physical-device
+qualification. Native geometry and picking checks are separate from DOM/axe checks.

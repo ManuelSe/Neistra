@@ -422,15 +422,34 @@ _SURFACE_PATHS = ["live", "checkpoint", "checkpoint_scene", "scene"] + [
 
 
 @pytest.mark.parametrize("retained_path", [*_SURFACE_PATHS, "empty"])
-def test_0011_covers_every_retained_settings_path_and_refuses_loss_atomically(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, retained_path: str
+@pytest.mark.parametrize(
+    "revision, previous, field, membership, empty",
+    [
+        (
+            "0011",
+            "0010",
+            "selection_surface",
+            {"profile": "molecular-v1", "atom_ids": [3, 9]},
+            None,
+        ),
+        ("0012", "0011", "selection_hidden_atoms", [3, 9], []),
+    ],
+)
+def test_display_migrations_cover_every_retained_path_and_refuse_loss_atomically(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    retained_path: str,
+    revision: str,
+    previous: str,
+    field: str,
+    membership: Any,
+    empty: Any,
 ) -> None:
     config = migration_config(tmp_path, monkeypatch)
-    command.upgrade(config, "0010")
+    command.upgrade(config, previous)
     engine = create_database_engine(f"sqlite:///{tmp_path / 'migration-data' / 'molweave.db'}")
     factory = create_session_factory(engine)
-    membership = {"profile": "molecular-v1", "atom_ids": [3, 9]}
-    sentinel = {"selection_surface": {"metadata": "not viewer settings"}}
+    sentinel = {field: {"metadata": "not viewer settings"}}
 
     def settings(path: str) -> dict[str, Any]:
         value = {
@@ -439,7 +458,7 @@ def test_0011_covers_every_retained_settings_path_and_refuses_loss_atomically(
             "selection_nonpolar_hydrogens": [],
         }
         if path == retained_path:
-            value["selection_surface"] = deepcopy(membership)
+            value[field] = deepcopy(membership)
         return value
 
     def actions(direction: str) -> list[dict[str, Any]]:
@@ -522,7 +541,7 @@ def test_0011_covers_every_retained_settings_path_and_refuses_loss_atomically(
             )
         )
         session.commit()
-    command.upgrade(config, "0011")
+    command.upgrade(config, revision)
 
     def snapshot() -> dict[str, Any]:
         with factory() as session:
@@ -566,16 +585,16 @@ def test_0011_covers_every_retained_settings_path_and_refuses_loss_atomically(
             }
         )
     for path, value in locations.items():
-        assert value["selection_surface"] == (membership if path == retained_path else None)
+        assert value[field] == (membership if path == retained_path else empty)
     assert before["metadata"] == sentinel
     assert before["checkpoint"]["entries"][0]["user_metadata"] == sentinel
     if retained_path == "empty":
-        command.downgrade(config, "0010")
-        assert "selection_surface" not in snapshot()["live"]
-        command.upgrade(config, "0011")
+        command.downgrade(config, previous)
+        assert field not in snapshot()["live"]
+        command.upgrade(config, revision)
         assert snapshot() == before
     else:
-        with pytest.raises(RuntimeError, match="retains selection surface state"):
-            command.downgrade(config, "0010")
+        with pytest.raises(RuntimeError, match=r"retains .* state"):
+            command.downgrade(config, previous)
         assert snapshot() == before
     engine.dispose()

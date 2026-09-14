@@ -35,6 +35,7 @@ generates OpenAPI at `/api/v1/openapi.json`. Swagger UI is available at
 | `POST` | `/api/v1/projects/{project_id}/save` | Save the current working state as the checkpoint. |
 | `POST` | `/api/v1/projects/{project_id}/history/undo` | Apply the latest inverse command. |
 | `POST` | `/api/v1/projects/{project_id}/history/redo` | Reapply the next command. |
+| `POST` | `/api/v1/projects/{project_id}/selection-atom-visibility` | Hide or show canonical selected atom detail as one reversible multi-entry command. |
 | `POST` | `/api/v1/projects/{project_id}/selection-representations` | Apply or reset a representation for a canonical selection as one reversible multi-entry command. |
 
 ## Entry and Group Endpoints
@@ -468,3 +469,37 @@ setting; topology deletion prunes live/scene targets reversibly. Geometry is
 computed later in the disposable browser renderer. API success confirms saved
 membership, not rendering success. See the [approved plan](plans/issue-30-selection-surfaces.md)
 for scientific interpretation, rendering limits and release qualification.
+
+
+## Selection atom-detail visibility (issue #38)
+
+`POST /api/v1/projects/{project_id}/selection-atom-visibility` accepts:
+
+```json
+{
+  "expected_revision": 4,
+  "selection": {
+    "schema_version": 1,
+    "atoms": [{"structure_id": "entry-id", "atom_id": 1}],
+    "granularity": "atom",
+    "source": "viewer"
+  },
+  "action": "hide"
+}
+```
+
+`action` is `hide` or `show`; a nonempty canonical SelectionV1 is required.
+All references across entries are validated before any mutation. Hide unions the
+captured IDs into `ViewerSettings.selection_hidden_atoms`; Show subtracts them.
+Unchanged membership returns the current project without a revision/history entry.
+Invalid targets/actions are 422; stale revision is 409. There is no surface atom
+capacity limit on this display-state command.
+
+Atomic representation Apply reveals its target in the same command; polymer
+Backbone/Cartoon Apply preserves hidden membership. Representation Reset clears
+its target's atomic/polymer assignments and hidden membership. Other settings,
+coordinates, molecular artifacts and original bytes are unaffected. Show retains
+prior assignments and remains subject to entry/component/isolation/H visibility.
+Generic viewer-settings PUT preserves an omitted mask and rejects a changed mask;
+use the dedicated action, representation Apply/Reset, or existing scene/history
+operations. This is atomic-detail visibility, not atom deletion or subset export.

@@ -53,10 +53,11 @@ export class SurfaceRuntime {
     request.status = { ...request.status, state: "fallback", message: `${message}${linesShown ? " Lines shown." : ""} Membership kept.` };
     this.emit();
   }
-  request(entryId: string, label: string, input: SurfaceInput | null,
+  request(entryId: string, label: string, dependencyKey: string, createInput: (() => SurfaceInput) | null,
     notify: (geometry?: SurfaceGeometry) => void, unavailable?: string) {
-    // Exact identity avoids hash collisions and excludes camera, colors and current selection.
-    const key = input ? JSON.stringify([input.atomIds, input.x, input.y, input.z, input.radii, unavailable]) : `hidden:${unavailable ?? ""}`;
+    // Revision + effective membership identifies geometry. Input allocation is lazy:
+    // cached color-only rebuilds neither serialize coordinates nor extract atoms.
+    const key = JSON.stringify([dependencyKey, unavailable]);
     const previous = this.requests.get(entryId);
     if (previous?.key === key) {
       previous.notify = notify;
@@ -67,15 +68,17 @@ export class SurfaceRuntime {
     }
     this.remove(entryId);
     const request: Request = { key, controller: new AbortController(), notify,
-      status: { entryId, label, state: input ? "queued" : "hidden", message: input ? "Queued" : "Hidden by visibility filters" } };
+      status: { entryId, label, state: createInput ? "queued" : "hidden", message: createInput ? "Queued" : "Hidden by visibility filters" } };
     this.requests.set(entryId, request);
     this.emit();
-    if (!input) {
+    if (!createInput) {
       if (unavailable) { this.fail(entryId, unavailable); notify(); }
       return;
     }
+    let input: SurfaceInput;
     try {
       if (unavailable) throw new Error(unavailable);
+      input = createInput();
       surfaceAdmission(input);
     } catch (error) {
       this.fail(entryId, error instanceof Error ? error.message : "Surface input is unavailable.");

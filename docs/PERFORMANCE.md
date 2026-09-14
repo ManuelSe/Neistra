@@ -91,7 +91,7 @@ not silently fall back to atom-name or coordinate heuristics when projected
 connectivity is absent; the existing reduced-detail threshold and WebGL limits
 still apply.
 
-## Bounded selection surfaces (issue #30)
+## Historical v0.7.0 bounded selection surfaces (issue #30)
 
 This extends the historical baseline above for the fixed `molecular-v1` fragment
 profile. One browser worker runs per viewer, with preallocation admission at
@@ -123,3 +123,49 @@ coordinate-preview invalidation, per-entry failure isolation and disposal of eve
 worker. The actual palette Add/reset/selection-clear workflow issues zero additional
 normalized-structure GETs before reload. C4 and final release commands/results are
 recorded in the [feature plan](plans/issue-30-selection-surfaces.md).
+
+
+## Qualified capacity — issue #38 C1
+
+The current molecular-v1 resource policy is 100,000 effective atoms, 64 million
+padded grid cells, 512 MiB mesh allocation, 1 GiB retained mesh output per viewer,
+2 GiB accounted active calculation buffers and 120 seconds, with one worker.
+The 250,000-atom parent reduced-detail policy is unchanged. Mesh-byte evidence now
+includes the returned stable atom-ID mapping as well as vertices/normals/groups/
+indices. Staged bounds include native lookup, extraction/grouping chunk rounding,
+compaction and transfer copies (D-067); no resolution or science changes.
+
+Host: Linux 6.17.0-119029-tuxedo, Ryzen 7 8845HS (8 cores/16 threads), 60 GiB RAM;
+Playwright 1.55.0 / Chromium 140.0.7339.16, SwiftShader WebGL, desktop and Pixel 7
+emulation. No competing test/build jobs were run. These are host qualifications,
+not physical-phone guarantees. RSS sums browser descendants with possible shared-
+page double counting and includes test inspection; it is separate from allocation
+bounds and is not a JavaScript heap or GPU limit.
+
+Complete imported entries, all components/H enabled; fixed native profile and
+source coordinates unchanged. Synthetic-100k is the single artificial component
+specified in FIXTURES, not a protein or chemical preparation. All cases assert
+checksums, exact atom membership and coordinate mapping, rendered pixels, readiness
+<120 s, longest surface task <750 ms, bounded output and disposal of every worker.
+
+| Fixture / browser | Atoms | Ready ms | Longest task ms | Retained output bytes | Accounted working bytes | RSS baseline → peak KiB |
+|---|---:|---:|---:|---:|---:|---:|
+| 6vxx / chromium | 23,694 | 4332.6 | 187 | 85,392,860 | 606,979,788 | 650,752 → 1,352,056 |
+| 6vxx / mobile-chromium | 23,694 | 3956.3 | 181 | 85,392,860 | 606,979,788 | 661,588 → 1,359,996 |
+| 1aon / chromium | 58,870 | 9538.5 | 437 | 219,986,372 | 1,326,940,068 | 670,724 → 2,422,480 |
+| 1aon / mobile-chromium | 58,870 | 8845.9 | 428 | 219,986,372 | 1,326,940,068 | 667,472 → 2,405,116 |
+| synthetic-100k / chromium | 100,000 | 8459.2 | 168 | 49,639,320 | 381,667,584 | 716,008 → 3,361,424 |
+| synthetic-100k / mobile-chromium | 100,000 | 8115.4 | 194 | 49,639,320 | 381,667,584 | 712,324 → 3,354,008 |
+
+Raw measurements, grid dimensions and checksums: [capacity evidence](assets/selection-capacity/).
+The unchanged 1STP <10-second readiness and <500 ms cancellation gates also pass
+on both configurations; their raw files are in the same directory. Additional
+production regressions cover camera, coordinate preview/commit/cancel, reuse,
+per-entry failure, H filtering, exact fragments and palette persistence.
+
+The initial mobile picking test checked before the native render-loop event;
+it now waits for delivery after each real canvas click, preserving the canonical
+atom assertion. The corrected focused rerun passes all eight cases; full command
+and prior unchanged-workflow evidence are recorded in the feature plan. Initial
+synthetic projection with 100,000 separate components timed out; this qualification
+does not claim capacity for that unrelated component-count stress case.

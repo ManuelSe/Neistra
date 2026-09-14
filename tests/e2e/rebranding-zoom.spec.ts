@@ -140,6 +140,15 @@ test("keeps actions and dialogs reachable at real 100% and 200% browser zoom", a
           expect(bounds!.x + bounds!.width).toBeLessThanOrEqual(viewport.width + 1);
           expect(bounds!.y + bounds!.height).toBeLessThanOrEqual(viewport.height + 1);
         }
+        for (const name of ["Hide atom detail", "Show atom detail"]) {
+          const action = appearance.getByRole("button", { name, exact: true });
+          await action.scrollIntoViewIfNeeded();
+          const bounds = await action.boundingBox();
+          expect(bounds!.width).toBeGreaterThanOrEqual(44);
+          expect(bounds!.height).toBeGreaterThanOrEqual(44);
+          await action.focus(); await page.keyboard.press("Enter");
+          await expect(appearance.getByRole("status")).toContainText("Atom detail");
+        }
         const addSurface = appearance.getByRole("button", { name: "Add surface" });
         const removeSurface = appearance.getByRole("button", { name: "Remove surface" });
         for (const action of [addSurface, removeSurface]) {

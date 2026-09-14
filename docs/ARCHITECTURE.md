@@ -227,8 +227,9 @@ is added. Empty appearance collections avoid the additional palette-resolution p
 
 `selection_surface` is durable application state. `SurfaceRuntime` owns only
 transient per-entry request identity, worker cancellation, bounded cached geometry
-and status. Exact identity includes effective atom IDs, coordinates and physical
-radii; current selection, camera and colors do not enter the key. The viewer has
+and status. Exact identity includes the immutable coordinate/topology snapshot revision,
+profile and effective atom IDs (D-067); current selection, camera and colors do
+not enter the key. Cache hits avoid coordinate serialization and input allocation. The viewer has
 one serial worker queue, and completion binds to the latest disposable component.
 Superseded, hidden, removed or disposed targets discard obsolete work. Geometry
 attachment is serialized with scene updates, preserving the current camera.
@@ -247,3 +248,21 @@ The adapter commits geometry before restoring camera state and updates its clipp
 bound without reducing the application radius. The first populated scene fits
 explicitly; subsequent geometry/color/measurement updates preserve the current
 view, while user Fit/Focus and scene camera actions remain authoritative.
+
+
+## Atomic-detail visibility ownership (issue #38)
+
+The application owns exact `selection_hidden_atoms` in entry viewer settings.
+The revisioned visibility command uses deterministic union/subtraction and complete
+forward/inverse settings, validating every multi-entry reference before writes.
+Atomic representation Apply/Reset integrates reveal into the same command; polymer
+Apply leaves the mask unchanged. Existing scene/checkpoint/duplication paths carry
+settings; topology reconciliation prunes masks through the shared viewer-state
+helper. Archive checks validate the mask against the applicable entry atoms.
+
+Persistence/API and migration 0012 store the mask. The viewer applies it only after
+atomic layer assignment and ordinary visibility filtering, including incident
+bonds and atom labels. Shared molecular state, polymer traces and surface inputs
+retain hidden atoms. This boundary preserves independent styling channels
+(D-063) and lets Show restore prior representations without an alternate viewer
+state model. Runtime meshes and renderer visibility never become archive authority.

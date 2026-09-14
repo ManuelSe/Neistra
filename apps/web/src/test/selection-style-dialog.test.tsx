@@ -258,3 +258,30 @@ it("keeps surface membership separate with mixed counts and independent add/remo
   await user.click(screen.getByLabelText("About surfaces"));
   expect(screen.getByText(/Cut boundaries can create artificial faces/)).toBeVisible();
 });
+
+it.each([
+  { ids: [], label: "Hide atom detail", action: "hide", mixed: false },
+  { ids: [1], label: "Hide atom detail (mixed visibility)", action: "hide", mixed: true },
+  { ids: [1, 2], label: "Show atom detail", action: "show", mixed: false },
+])("offers the exact visibility action for $ids", async ({ ids, label, action, mixed }) => {
+  const user = userEvent.setup();
+  const entry = molecularEntry("protein", "Protein", "protein");
+  entry.viewer_settings.selection_hidden_atoms = ids;
+  const onAtomVisibility = vi.fn().mockResolvedValue(undefined);
+  render(<Tooltip.Provider><SelectionStyleDialog open selection={completeResidue} entries={[entry]}
+    structures={new Map()} eligibilityBusy={false} busy={false} onOpenChange={() => {}}
+    onAction={vi.fn()} onAtomVisibility={onAtomVisibility} /></Tooltip.Provider>);
+  const button = screen.getByRole("button", { name: label });
+  expect(button.dataset.mixed === "true").toBe(mixed);
+  await user.click(button);
+  expect(onAtomVisibility).toHaveBeenCalledWith(action);
+  expect(screen.getByRole("dialog", { name: "Style selection" })).toHaveFocus();
+  expect(completeResidue.atoms.map((atom) => atom.atom_id)).toEqual([1, 2]);
+});
+
+it("disables atom visibility without a selection", () => {
+  render(<Tooltip.Provider><SelectionStyleDialog open selection={{ ...completeResidue, atoms: [] }}
+    entries={[]} structures={new Map()} eligibilityBusy={false} busy={false} onOpenChange={() => {}}
+    onAction={vi.fn()} onAtomVisibility={vi.fn()} /></Tooltip.Provider>);
+  expect(screen.getByRole("button", { name: "Hide atom detail" })).toBeDisabled();
+});
