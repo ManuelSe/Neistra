@@ -115,3 +115,38 @@ remain ways to select hidden atoms; visible polymer/surface picks can select the
 does not create an atom-subset export or remove atoms from original files. New
 archives with visibility state require a compatible reader; migration/backup
 instructions are in DEVELOPMENT. The feature plan records actual verification.
+
+## Saved protein pocket views
+
+Choose **Surface options → Pocket…** in the selection palette. Choose a receptor
+when more than one entry contains protein, set the radius (5 Å initially), and
+Apply. The initial selection becomes captured seeds. Later selection changes do
+not retarget that view; **Use selection** explicitly captures a replacement.
+Reopening an existing pocket loads its saved seeds and radius. Closing the panel
+discards unapplied changes. Remove clears the pocket even with an empty selection;
+the Style selection launcher remains available while saved pockets exist.
+
+This view crops the molecular surface calculated from the complete current protein
+component. Radius is the inclusive distance from a surface triangle's centroid to
+any seed center, from 2–12 Å in 0.5 Å steps. It is a nearby surface view, not cavity
+detection or evidence of binding. Cut edges are open and can look stepped; separate
+seed regions may yield disconnected pieces. Empty output is explained without
+inventing geometry or enlarging the radius.
+
+Supplied protein hydrogens contribute even when atom detail is hidden. Separately
+classified ligands, water, ions and cofactors do not provide receptor context.
+Hidden seeds still supply current coordinates. Hiding the receptor/protein hides
+its pocket; isolation filters receptor-owned display triangles while preserving
+full calculation context. Colors and picks belong to the receptor, not the seeds.
+
+One pocket is stored per receptor. Scenes provide alternate views. Fragment,
+pocket and whole-entry surfaces can coexist and overlap; fragment Remove and atom/
+color resets do not remove the pocket. Fragment/Pocket status labels route Cancel
+and Retry to the requested calculation. Failed or cancelled pockets retain their
+definition without substituting a scientifically different fragment or line mesh.
+
+Coordinate previews hide obsolete dependent pockets, including previews of hidden
+seed entries. Cancel restores committed geometry; commit uses current coordinates.
+Deleted seeds are pruned reversibly across owners/scenes; the last seed clears the
+definition. Checkpoints, restart, duplication and project archives retain intent.
+No mesh, inferred alignment, preparation, volume or score is stored.

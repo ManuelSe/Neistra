@@ -2355,3 +2355,35 @@ This clarifies retained-path scope without expanding archive schema or silently
 rewriting D-035. API, project and archive majors remain 1; old archives default
 null and older readers are unsupported for pocket-bearing archives. Originals,
 normalized artifacts, conformers and warnings remain molecular authority.
+
+## D-070 — Application-resolved pocket inputs and coordinate dependency invalidation
+
+Status: accepted and implemented for issue #36 C3.
+
+Resolve pocket seed coordinates in the application from artifact-keyed projection
+queries, including hidden seed entries. Only visible owner entries become viewer
+structures. Never resolve molecular data through viewer API fetches or make a seed
+entry visible as a loading side effect. Pending/failed/obsolete projections produce
+an explicit unavailable input rather than a patch from stale coordinates.
+
+Carry captured references, coordinates and source-revision dependencies through the
+typed render boundary. Selection, color, camera and atomic/H visibility are not seed
+dependencies. Preview bookkeeping includes hidden entries: suppress every dependent
+pocket before rendering previews, restore committed state on cancel, and update
+resolved seed coordinates on commit. Full receptor context remains independent of
+display-only atom masks and isolation.
+
+An artifact-keyed application sync may already contain a committed coordinate patch.
+When neither loaded coordinates nor dependent seed coordinates differ, and no
+preview is active, treating that commit as already applied avoids duplicate geometry
+invalidation and a spurious runtime seed revision. Real changes still invalidate
+the appropriate channels. This extends D-060–062 without making the viewer molecular
+authority; its coordinate copies and caches remain disposable.
+
+Keep one saved pocket per receptor behind the existing Surface overflow footprint.
+The nonmodal panel captures seeds explicitly; selection changes do not retarget it.
+Default receptor eligibility uses the current entry list after imports/deletions;
+initial seeds stay captured until explicitly replaced. Existing saved pockets
+remain removable with no selection or no protein context.
+Scenes remain the supported way to retain alternative pocket views. No permanent
+layer manager, cavity algorithm or additional primary-panel row is introduced.

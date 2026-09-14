@@ -2,7 +2,7 @@
 
 ## Status and delivery metadata
 
-- Status: **M1/C1 and M2/C2 complete; M2/C3 compact workflow next**.
+- Status: **M1/C1 and M2/C2–C3 complete; M3/C4 release preparation next**.
 - User approved the two-release plan on 2026-09-14, then requested detailed
   persistence and an explicit stop before implementation.
 - Issue: [#36](https://github.com/ManuelSe/Neistra/issues/36).
@@ -579,3 +579,89 @@ prevalidation. No unresolved consequential finding. This is not independent revi
 Updated API, PROJECT_SCHEMA, ARCHITECTURE and DEVELOPMENT migration/backup notes.
 No version change yet. Commit: `feat(surface): persist reversible pocket definitions`
 (Refs #36). Next: C3 application-owned projection dependencies and compact workflow.
+
+
+### 2026-09-15 — M2/C3 complete: compact saved pocket workflow
+
+Implemented Surface options → Pocket… / About surfaces in the existing help
+footprint, without a permanent row or layer list. The nonmodal panel loads saved
+seeds/radius, explicitly captures Use selection, defaults only a unique eligible
+receptor, validates radius/seeds and permits Remove with empty selection or empty
+current protein context. Current entry-list changes update eligibility without
+silently retargeting captured seeds. Closing/project switching discards drafts.
+
+Application artifact-keyed queries load hidden seed projections without displaying
+those entries. Typed resolved inputs include current dependencies and reject stale
+placeholders. Hidden-owner pockets are not unnecessarily resolved. The viewer
+tracks seed/receptor previews independently of loaded molecular objects, suppresses
+obsolete patches, restores committed state on cancel and regenerates actual changes.
+Already-applied commits avoid duplicate invalidation. Fragment/Pocket Cancel and
+Retry retain their channel through the lazy adapter. D-070 records these boundaries.
+
+Final frontend common commands pass:
+
+```bash
+corepack pnpm --dir apps/web lint
+corepack pnpm --dir apps/web typecheck
+corepack pnpm --dir apps/web test
+corepack pnpm --dir apps/web build
+.venv/bin/uv run ruff check .
+.venv/bin/uv run pytest tests/integration/test_pocket_surfaces.py
+```
+
+Results: **124 frontend tests / 31 files**, all lint/type/build checks, and
+**30 pocket API tests** pass. The added empty-context API case proves retained seed
+intent, rejected creation without protein, valid archive import, explicit removal
+and exact topology undo. C2's full Python/migration evidence remains recorded above;
+the complete release gate will rerun the whole repository.
+
+C3 milestone browser command:
+
+```bash
+MOLWEAVE_E2E_API_PORT=8110 MOLWEAVE_E2E_WORKER_PORT=8111 MOLWEAVE_E2E_WEB_PORT=5273 MOLWEAVE_E2E_DATA_DIR=/tmp/neistra-36-c3-qualified PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test   tests/e2e/pocket-surfaces.spec.ts tests/e2e/selection-visibility.spec.ts   tests/e2e/selection-surfaces.spec.ts tests/e2e/coordinate-editing.spec.ts   tests/e2e/measurements.spec.ts tests/e2e/export-archive.spec.ts   tests/e2e/rebranding-zoom.spec.ts
+```
+
+**33 passed, 9 intentional layout skips, zero failures/flakes (384.07 s).**
+Native checks compare complete retained triangles/attributes to the full receptor
+reference, exercise actual colors/picking, H/atomic/isolation independence, shared
+worker bounds, empty output and independent channels. Dependency checks cover
+hidden seed and receptor preview/cancel/commit, exact camera/selection and duplicate
+commit reuse. Application checks cover saved/reloaded definitions, hidden input
+loading, empty-selection removal, no-op revisions and no style-only structure GETs.
+
+Desktop/mobile creation and removal, light/dark axe checks, 44 px controls,
+keyboard Apply/focus return, narrow layouts and actual 100%/200% browser zoom pass.
+The final UI-only review correction replaces the original entry-list snapshot for
+default eligibility with the current list. After that correction all frontend
+common commands pass again (124 tests) and the affected workflow/zoom command passes
+**3 tests / 1 intentional layout skip, zero failures/flakes (1.1 minutes)**:
+
+```bash
+MOLWEAVE_E2E_API_PORT=8110 MOLWEAVE_E2E_WORKER_PORT=8111 MOLWEAVE_E2E_WEB_PORT=5273 MOLWEAVE_E2E_DATA_DIR=/tmp/neistra-36-c3-review PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test   tests/e2e/pocket-surfaces.spec.ts tests/e2e/rebranding-zoom.spec.ts   --grep 'saves pockets|real 100%'
+```
+
+That correction does not change native geometry, migrations, dependency invalidation
+or allocation behavior qualified by the full C3 matrix. C4 will run the complete
+clean release gate on the final release source.
+
+Reference/performance rerun: 1STP ready 922.8/593.0 ms desktop/mobile; full 58,674-atom
+1AON protein ready 13.631/13.026 s; full 220,336,136-byte output crops to 296,364 bytes.
+Largest steady surface task 400 ms; tested native cancellation 2.3–3.4 ms. One worker
+and shared allocation bounds hold. Detailed source identity hashes, sizes/timings and
+RSS qualification are in [C3 evidence](../assets/pocket-surfaces/c3-native-qualification.json).
+Captures: [mobile light](../assets/pocket-surfaces/c3-mobile-light-pocket-workflow.png),
+[desktop dark](../assets/pocket-surfaces/c3-desktop-dark-pocket-workflow.png) and
+[actual 200% zoom](../assets/pocket-surfaces/c3-zoom-dark-200-pocket.png).
+
+Local implementing-agent review corrected missing WorkspaceCanvas callback
+forwarding, a 32 px close target, duplicate commit invalidation, dropped adapter
+Cancel/Retry channel identity and stale entry-list eligibility. Regression tests
+cover each boundary; no consequential finding remains. An earlier C3 browser run
+was intentionally interrupted after 18 passes to fix adapter forwarding, then the
+whole corrected milestone matrix was rerun. This is not independent review.
+
+Updated API, scientific/user guidance, accessibility, performance, verification and
+project progress. No additional migration or version change in C3. Commit:
+`feat(selection): add saved pocket surface views` (Refs #36).
+Next: C4 version/release preparation, full clean candidate gate, final review,
+protected PR/merge and exact merged gate before tag/release/issue closeout.

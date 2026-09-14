@@ -457,3 +457,37 @@ def test_pockets_preserve_conformers_warnings_and_originals(client: ApiClient):
     assert response.json()["entries"][0]["warnings"] == entry["warnings"]
     assert client.get(f"{path}/structure").json() == normalized
     assert client.get(f"{path}/original").content == original
+
+
+def test_empty_protein_context_keeps_seed_intent_until_explicit_removal(client: ApiClient):
+    from tests.integration.test_protein_edits import edit as protein_edit
+
+    project, receptor, ligand = fixture(client)
+    value = definition((ligand["id"], 1))
+    project = change(client, project, receptor["id"], value).json()
+    deleted = protein_edit(
+        client,
+        project,
+        receptor["id"],
+        {"operation": "protein.residue.delete", "residue_ids": [1, 2, 3, 4]},
+    )
+    project = deleted["project"]
+    remaining = next(e for e in project["entries"] if e["id"] == receptor["id"])
+    assert remaining["atom_ids"] == [21, 22]
+    assert settings(project, receptor["id"])["selection_pocket_surface"] == value
+    assert change(client, project, receptor["id"], value).status_code == 422
+    exported = export_archive(client, project["id"], "empty-context-pocket")
+    restored = import_archive(client, client.get(exported["artifact"]["download_url"]).content)[
+        "project"
+    ]
+    assert any(e["viewer_settings"]["selection_pocket_surface"] for e in restored["entries"])
+    removed = change(client, project, receptor["id"])
+    assert removed.status_code == 200, removed.text
+    assert settings(removed.json(), receptor["id"])["selection_pocket_surface"] is None
+    project = history(client, removed.json(), "undo")
+    project = history(client, project, "undo")
+    assert settings(project, receptor["id"])["selection_pocket_surface"] == value
+    assert (
+        next(e for e in project["entries"] if e["id"] == receptor["id"])["atom_ids"]
+        == receptor["atom_ids"]
+    )

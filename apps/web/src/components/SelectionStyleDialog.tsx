@@ -1,9 +1,10 @@
 import { Eye, EyeOff, Info, RotateCcw } from "lucide-react";
 import { useMemo, useRef, useState } from "react";
-import type { ChangeSelectionAppearance, Entry, Selection, SelectionRepresentationStyle, StructureProjection } from "../api/types";
+import type { ChangePocketSurface, ChangeSelectionAppearance, Entry, Selection, SelectionRepresentationStyle, StructureProjection } from "../api/types";
 import type { ExpandSelection } from "../selection/expansion";
 import { polymerStyleUnavailableReason } from "../viewer/selectionStyleEligibility";
 import { atomicRepresentationStyles, polymerRepresentationStyles } from "../viewer/settings";
+import { PocketSurfaceControls } from "./PocketSurfaceControls";
 import { SelectionPalette } from "./SelectionPalette";
 import { SelectionColorControls } from "./SelectionColorControls";
 import { SelectionHydrogenControls } from "./SelectionHydrogenControls";
@@ -27,6 +28,8 @@ interface SelectionStyleDialogProps {
   onOpenChange: (open: boolean) => void;
   onExpandDistance?: ExpandSelection;
   onAtomVisibility?: (action: "hide" | "show") => Promise<void>;
+  onPocket?: ChangePocketSurface;
+  onLoadPocketStructures?: () => Promise<Map<string, StructureProjection>>;
   onSurface?: (action: "add" | "remove") => Promise<void>;
   onAppearance?: ChangeSelectionAppearance;
   onAction: (action: "apply" | "reset", style?: SelectionRepresentationStyle) => Promise<void>;
@@ -40,7 +43,7 @@ export function SelectionStyleDialog(props: SelectionStyleDialogProps) {
 }
 
 function SelectionStyleContent({ selection, entries, structures, eligibilityBusy,
-  eligibilityError, busy, onAction, onExpandDistance, onAppearance, onSurface, onAtomVisibility }: SelectionStyleDialogProps) {
+  eligibilityError, busy, onAction, onExpandDistance, onAppearance, onSurface, onAtomVisibility, onPocket, onLoadPocketStructures }: SelectionStyleDialogProps) {
   const [pending, setPending] = useState(false);
   const locked = useRef(false);
   const [message, setMessage] = useState<{ text: string; failed: boolean; context: string } | null>(null);
@@ -131,11 +134,12 @@ function SelectionStyleContent({ selection, entries, structures, eligibilityBusy
         onClick={() => void perform(() => onSurface("add"), "Surface membership added.")}>Add</button>
       <button type="button" aria-label="Remove surface" disabled={disabled || surfaceCount === 0}
         onClick={() => void perform(() => onSurface("remove"), "Surface membership removed.")}>Remove</button>
-      <details className="selection-help surface-help"><summary aria-label="About surfaces"><Info size={16} aria-hidden="true" /></summary>
+      {onPocket && onLoadPocketStructures ? <PocketSurfaceControls entries={entries} selection={selection}
+        busy={busy || pending} onPocket={onPocket} load={onLoadPocketStructures} /> : <details className="selection-help surface-help"><summary aria-label="About surfaces"><Info size={16} aria-hidden="true" /></summary>
         <p>A translucent molecular surface of these atoms alone. Cut boundaries can create artificial faces; this is not a patch on the surrounding molecule.
           Changing the selection leaves the surface in place. Visibility filters still apply. Atom detail, polymer styles and their resets remain independent.</p>
         {entrySurface ? <p>An entry surface is also enabled. Both surfaces remain visible and may overlap.</p> : null}
-      </details>
+      </details>}
     </div> : null}
     {onAppearance ? <SelectionColorControls selection={selection} entries={entries} busy={disabled} onChange={appearance} /> : null}
     {onAppearance && !eligibilityError ? <SelectionHydrogenControls selection={selection} entries={entries}

@@ -2,18 +2,20 @@
 
 ## Current milestone
 
-Issue #36 — M1/C1 and M2/C2 complete; M2/C3 compact workflow next on
+Issue #36 — M1/C1 and M2/C2–C3 complete; M3/C4 release preparation next on
 `feat/issue-36-pocket-surfaces`, based on verified v0.8.0 master `ce3e4f7`.
 Contract: [approved pocket plan](plans/issue-36-pocket-surfaces.md), planned v0.9.0.
-Completed: native full-context patches and shared channels; durable pocket commands,
-cross-entry seed pruning/remapping, scenes/history/restart and safe migration 0013.
-Verification: 365 Python tests, Ruff, mypy and fresh migration pass. C1 frontend
-lint/typecheck/build, 113 unit tests and 21 browser tests / one layout skip pass.
-Exact geometry, compatibility and performance evidence is in the feature plan.
-Known limitations: API and geometry are qualified; compact Pocket controls and
-application projection/coordinate dependency integration are not implemented yet.
-Blockers: none.
-Next action: integrate the saved Pocket workflow and qualify native user interactions.
+Completed: qualified full-protein patches, durable seed definitions/migration 0013,
+cross-entry lifecycle, compact saved workflow and hidden-seed coordinate invalidation.
+Verification: C2 full Python gate passes 365 tests; final C3 pocket API suite passes
+30 tests. Frontend lint/type/build and 124 tests pass. C3 browser gate passes
+33 tests / 9 layout skips; final UI review correction passes affected panel/real-zoom
+checks (3 tests / 1 skip). No failures/flakes in completed qualification.
+Known limitations: protein-only centroid patches, open edges, no cavity analysis;
+host/emulated-device capacity evidence is not a universal memory guarantee.
+Blockers: none. Full release qualification and remote delivery remain pending.
+Next action: prepare v0.9.0, run the clean complete release gate, review/open the PR,
+then merge and qualify exact master before publishing and closing out issue #36.
 
 ### Previous release — v0.8.0
 

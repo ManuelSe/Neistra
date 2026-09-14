@@ -36,6 +36,7 @@ generates OpenAPI at `/api/v1/openapi.json`. Swagger UI is available at
 | `POST` | `/api/v1/projects/{project_id}/history/undo` | Apply the latest inverse command. |
 | `POST` | `/api/v1/projects/{project_id}/history/redo` | Reapply the next command. |
 | `POST` | `/api/v1/projects/{project_id}/selection-atom-visibility` | Hide or show canonical selected atom detail as one reversible multi-entry command. |
+| `POST` | `/api/v1/projects/{project_id}/selection-pocket-surface` | Apply or remove one saved, seed-centered protein pocket per receptor. |
 | `POST` | `/api/v1/projects/{project_id}/selection-representations` | Apply or reset a representation for a canonical selection as one reversible multi-entry command. |
 
 ## Entry and Group Endpoints

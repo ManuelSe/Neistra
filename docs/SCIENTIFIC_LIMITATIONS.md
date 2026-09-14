@@ -324,7 +324,7 @@ Pinned whole-protein fixtures and a labelled synthetic lattice qualify specific
 cases; they do not establish physical-phone performance or a browser/GPU memory
 ceiling. Detailed current evidence belongs in PERFORMANCE and the feature plan.
 
-## Protein pocket geometry (issue #36, C1)
+## Protein pocket geometry (issue #36)
 
 The pocket-v1 renderer computes the complete current protein component, including
 supplied protein hydrogens, with the same native physical radii, 1.4 Å probe,
@@ -347,5 +347,8 @@ Both channels share one worker and the released capacity bounds. Temporary full
 geometry, crop marks/remapping, seed index and compact output count toward active
 allocation; only the compact patch and receptor identity mapping are retained.
 Pocket failure/cancellation retains intent without substituting fragment geometry.
-C1 exposes this through the development qualification harness; durable definitions
-and the application Pocket control are subsequent checkpoints, not yet delivered.
+Durable pocket definitions capture stable seed references and a radius; the compact
+Pocket control does not discover sites. Coordinate previews suppress obsolete
+patches, including hidden-seed dependencies. If current protein context disappears,
+retain valid seed intent and explain unavailable context; do not choose a replacement
+receptor. Originals, supplied conformers and warnings remain unchanged.

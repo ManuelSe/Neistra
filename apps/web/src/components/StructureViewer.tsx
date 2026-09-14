@@ -1,5 +1,5 @@
 import type { SurfaceStatus } from "../viewer/surface/runtime";
-import type { ChangeSelectionAppearance } from "../api/types";
+import type { ChangePocketSurface, ChangeSelectionAppearance } from "../api/types";
 import type { ExpandSelection } from "../selection/expansion";
 import { useQueries } from "@tanstack/react-query";
 import * as Tooltip from "@radix-ui/react-tooltip";
@@ -32,6 +32,7 @@ import type { Theme } from "../store/workspace";
 import { THEME_TOKENS } from "../theme";
 import { ViewerControls } from "./ViewerControls";
 import { ViewerToolbar } from "./ViewerToolbar";
+import { resolvePocketInputs } from "../selection/pocketInputs";
 import { SelectionStyleDialog } from "./SelectionStyleDialog";
 
 const VIEWER_BACKGROUND_COLORS: Record<Theme, string> = {
@@ -55,6 +56,8 @@ interface StructureViewerProps {
   onLoadSelectionStructures?: () => Promise<Map<string, StructureProjection>>;
   onExpandDistance?: ExpandSelection;
   onAtomVisibility?: (action: "hide" | "show") => Promise<void>;
+  onPocket?: ChangePocketSurface;
+  onLoadPocketStructures?: () => Promise<Map<string, StructureProjection>>;
   onSurface?: (action: "add" | "remove") => Promise<void>;
   onAppearance?: ChangeSelectionAppearance;
   onSelectionStyle?: (
@@ -82,6 +85,8 @@ export function StructureViewer({
   onExpandDistance,
   onAtomVisibility,
   onSurface,
+  onPocket,
+  onLoadPocketStructures,
   onAppearance,
   createViewer = createMolstarViewer,
 }: StructureViewerProps) {
@@ -123,6 +128,27 @@ export function StructureViewer({
       placeholderData: (previous: StructureProjection | undefined) => previous,
     })),
   });
+
+  const hiddenSeedEntries = useMemo(() => {
+    const needed = new Set(visibleEntries.flatMap((entry) =>
+      entry.viewer_settings.selection_pocket_surface?.seed_atom_references.map((seed) => seed.structure_id) ?? []));
+    return project.entries.filter((entry) => !entry.visible && needed.has(entry.id));
+  }, [project.entries, visibleEntries]);
+  const hiddenSeedQueries = useQueries({
+    queries: hiddenSeedEntries.map((entry) => ({
+      queryKey: ["structure", project.id, entry.id, entry.current_artifact_id],
+      queryFn: () => molecularApi.structure(project.id, entry.id),
+      retry: false, staleTime: Number.POSITIVE_INFINITY,
+    })),
+  });
+  const pockets = resolvePocketInputs(visibleEntries.concat(hiddenSeedEntries), new Map([
+    ...structureQueries.map((query, index) => [visibleEntries[index].id, {
+      data: query.data, current: Boolean(query.data) && !query.isPlaceholderData, failed: query.isError,
+    }] as const),
+    ...hiddenSeedQueries.map((query, index) => [hiddenSeedEntries[index].id, {
+      data: query.data, current: Boolean(query.data), failed: query.isError,
+    }] as const),
+  ]));
 
   useEffect(() => {
     onViewerSelectionRef.current = onViewerSelection;
@@ -186,6 +212,7 @@ export function StructureViewer({
           ? [
               {
                 entryId: visibleEntries[index].id,
+                pocket: pockets.get(visibleEntries[index].id),
                 label: visibleEntries[index].name,
                 projection: query.data.viewer,
                 atomIds: query.data.structure.atoms.map((atom) => atom.id),
@@ -215,12 +242,12 @@ export function StructureViewer({
             ]
           : [],
       ),
-    [structureQueries, visibleEntries],
+    [structureQueries, visibleEntries, pockets],
   );
   const syncKey = viewerStructures
     .map(
       (structure) =>
-        `${structure.entryId}:${JSON.stringify(structure.settings)}`,
+        `${structure.entryId}:${JSON.stringify(structure.settings)}:${structure.pocket?.dependencyKey ?? ""}`,
     )
     .join("|");
   const structuresPending = structureQueries.some((query) => query.isPending);
@@ -366,7 +393,7 @@ export function StructureViewer({
 
   const loading =
     (!viewerReady && !viewerError) || structuresPending;
-  const failedQueries = structureQueries.filter((query) => query.isError);
+  const failedQueries = [...structureQueries, ...hiddenSeedQueries].filter((query) => query.isError);
   const warningCount = visibleEntries.reduce((count, entry) => count + entry.warnings.length, 0);
   const largeEntries = visibleEntries.filter((entry) => entry.atom_count >= 250_000);
   const ligandAtoms = useMemo(
@@ -388,7 +415,7 @@ export function StructureViewer({
     (ligandAtoms.length === 0 ? "No ligand detected in visible structures" : null);
   const selectionStyleUnavailableReason = busy
     ? "Finish the current project change before styling the selection"
-    : selection.atoms.length === 0
+    : selection.atoms.length === 0 && !project.entries.some((entry) => entry.viewer_settings.selection_pocket_surface)
       ? "Select atoms before styling the selection"
       : onSelectionStyle
         ? null
@@ -452,7 +479,10 @@ export function StructureViewer({
           onExpandDistance={onExpandDistance}
           onAppearance={onAppearance}
           onAtomVisibility={onAtomVisibility}
+          key={project.id}
           onSurface={onSurface}
+          onPocket={onPocket}
+          onLoadPocketStructures={onLoadPocketStructures}
           open={styleDialogOpen}
           selection={selection}
           entries={project.entries}

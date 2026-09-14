@@ -1,6 +1,9 @@
 # V0.1 Requirement Evidence
 
-Current visibility/capacity evidence is maintained in
+Current pocket-surface evidence is maintained in
+[the issue #36 feature plan](plans/issue-36-pocket-surfaces.md).
+
+Previous visibility/capacity evidence is maintained in
 [the issue #38 feature plan](plans/issue-38-selection-visibility-capacity.md).
 
 Previous selection-surface evidence is maintained in

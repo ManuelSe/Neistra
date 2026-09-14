@@ -83,6 +83,7 @@ export class MolstarEngine implements MolecularViewer {
   private measurementRefs: string[] = [];
   private labelRefs: string[] = [];
   private structures: ViewerStructure[] = [];
+  private pocketPreviewEntries = new Set<string>();
   private coordinatePreviews = new Map<string, Map<number, Point3D>>();
   private measurements: ViewerMeasurement[] = [];
   private isolation: AtomReference[] | null = null;
@@ -263,8 +264,46 @@ export class MolstarEngine implements MolecularViewer {
     mode: "preview" | "commit",
   ): Promise<void> {
     this.syncQueue = this.syncQueue.then(async () => {
+      if (!this.plugin) return;
       const loaded = this.loaded.get(patch.entry_id);
-      if (!loaded || !this.plugin) return;
+      if (patch.atom_ids.length !== patch.coordinates.length) throw new Error("Invalid coordinate patch.");
+      // A current artifact-keyed application sync may already contain this commit.
+      // Do not invalidate geometry again (or create a spurious seed revision).
+      if (mode === "commit" && !this.pocketPreviewEntries.has(patch.entry_id) &&
+        !this.coordinatePreviews.has(patch.entry_id)) {
+        const changed = new Map(patch.atom_ids.map((id, index) => [id, patch.coordinates[index]]));
+        const differs = (a: Point3D | undefined, b: Point3D) => !a || a.some((value, axis) => value !== b[axis]);
+        const moleculeChanged = loaded && patch.atom_ids.some((id, index) => differs(loaded.baseCoordinates.get(id), patch.coordinates[index]));
+        const seedChanged = this.structures.some((source) => source.pocket?.seeds.some((seed) =>
+          seed.reference.structure_id === patch.entry_id && changed.has(seed.reference.atom_id) &&
+          differs(seed.coordinates, changed.get(seed.reference.atom_id)!)));
+        if (!moleculeChanged && !seedChanged) return;
+      }
+
+      if (mode === "preview") this.pocketPreviewEntries.add(patch.entry_id);
+      else this.pocketPreviewEntries.delete(patch.entry_id);
+      const dependentIds = this.structures.filter((source) => source.pocket &&
+        (source.entryId === patch.entry_id || source.pocket.seeds.some((seed) =>
+          seed.reference.structure_id === patch.entry_id))).map((source) => source.entryId);
+      for (const ownerId of dependentIds) {
+        await this.detachSurface(ownerId, "pocket");
+        this.surfaces.remove(ownerId, "pocket");
+      }
+      if (mode === "commit") {
+        const changed = new Map(patch.atom_ids.map((id, index) => [id, patch.coordinates[index]]));
+        this.structures = this.structures.map((source) => !source.pocket ? source : {
+          ...source, pocket: { ...source.pocket,
+            seeds: source.pocket.seeds.map((seed) => seed.reference.structure_id === patch.entry_id &&
+              changed.has(seed.reference.atom_id) ? { ...seed, coordinates: [...changed.get(seed.reference.atom_id)!] as Point3D } : seed),
+            dependencyKey: dependentIds.includes(source.entryId)
+              ? JSON.stringify([source.pocket.dependencyKey, patch.entry_id, patch.artifact_id]) : source.pocket.dependencyKey,
+          },
+        });
+      }
+      if (!loaded) {
+        if (mode === "commit") for (const ownerId of dependentIds) await this.prepareSurface(ownerId, "pocket");
+        return;
+      }
       if (
         patch.atom_ids.length !== patch.coordinates.length ||
         patch.atom_ids.some((atomId) => !loaded.baseCoordinates.has(atomId))
@@ -295,7 +334,10 @@ export class MolstarEngine implements MolecularViewer {
         });
       }
       await this.updateCoordinates(loaded, coordinates);
-      if (mode === "commit") await this.prepareSurfaces(patch.entry_id);
+      if (mode === "commit") {
+        await this.prepareSurfaces(patch.entry_id);
+        for (const ownerId of dependentIds) if (ownerId !== patch.entry_id) await this.prepareSurface(ownerId, "pocket");
+      }
     });
     return this.syncQueue;
   }
@@ -303,11 +345,18 @@ export class MolstarEngine implements MolecularViewer {
   clearCoordinatePreview(entryId: string): Promise<void> {
     this.syncQueue = this.syncQueue.then(async () => {
       this.coordinatePreviews.delete(entryId);
+      this.pocketPreviewEntries.delete(entryId);
       const loaded = this.loaded.get(entryId);
       if (loaded) {
         await this.detachSurface(entryId);
         await this.updateCoordinates(loaded, loaded.baseCoordinates);
         await this.prepareSurfaces(entryId);
+      }
+      for (const source of this.structures) {
+        if (source.entryId !== entryId && source.pocket?.seeds.some((seed) => seed.reference.structure_id === entryId)) {
+          await this.detachSurface(source.entryId, "pocket");
+          await this.prepareSurface(source.entryId, "pocket");
+        }
       }
     });
     return this.syncQueue;
@@ -443,6 +492,7 @@ export class MolstarEngine implements MolecularViewer {
     this.loaded.clear();
     this.models.clear();
     this.coordinatePreviews.clear();
+    this.pocketPreviewEntries.clear();
     this.plugin?.dispose();
     this.plugin = undefined;
   }
@@ -659,6 +709,8 @@ export class MolstarEngine implements MolecularViewer {
     const source = this.structures.find((item) => item.entryId === entryId);
     if (!plugin || !loaded || !source || this.coordinatePreviews.has(entryId)) return;
     if (channel === "fragment" ? !source.settings.selection_surface : !source.pocket) return;
+    if (channel === "pocket" && (this.pocketPreviewEntries.has(entryId) ||
+      source.pocket?.seeds.some((seed) => this.pocketPreviewEntries.has(seed.reference.structure_id)))) return;
     // Classify against the complete projection, never the selected fragment.
     const nonpolar = new Set<number>();
     for (const unit of loaded.structure.units) {

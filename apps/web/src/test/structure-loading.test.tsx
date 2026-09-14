@@ -846,3 +846,40 @@ it("ignores stale styling eligibility and closes the palette across project swit
   view.unmount();
   queryClient.clear();
 });
+
+it("loads hidden pocket seeds by artifact, keeps them invisible, and reuses style-only inputs", async () => {
+  const fake = new FakeViewer(), createViewer = () => fake;
+  const fetchSpy = vi.spyOn(globalThis, "fetch").mockImplementation((input) => {
+    const id = requestUrl(input).includes("/protein/") ? "protein" : "ligand";
+    return Promise.resolve(new Response(JSON.stringify(projection(id)), {
+      status: 200, headers: { "Content-Type": "application/json" },
+    }));
+  });
+  const queryClient = new QueryClient({ defaultOptions: { queries: { retry: false } } });
+  const current = project();
+  current.entries[0].viewer_settings.selection_pocket_surface = {
+    profile: "pocket-v1", radius: 5, seed_atom_references: [{ structure_id: "ligand", atom_id: 1 }],
+  };
+  const props: StructureViewerProps = { project: current, theme: "light", selection: emptySelection,
+    pickingGranularity: "atom", onViewerSelection: () => undefined, createViewer };
+  const view = render(<StructureViewer {...props} />, { wrapper: wrapper(queryClient) });
+  await waitFor(() => expect(fake.syncs.at(-1)?.[0].pocket?.seeds).toHaveLength(1));
+  expect(fake.syncs.at(-1)?.map((s) => s.entryId)).toEqual(["protein"]);
+  expect(fetchSpy).toHaveBeenCalledTimes(2);
+  const key = fake.syncs.at(-1)![0].pocket!.dependencyKey;
+  const styled = structuredClone(current);
+  styled.entries[0].viewer_settings.selection_hidden_atoms = [1];
+  view.rerender(<StructureViewer {...props} project={styled} selection={{ ...emptySelection, atoms: [{ structure_id: "protein", atom_id: 1 }] }} />);
+  await waitFor(() => expect(fake.syncs.at(-1)?.[0].settings.selection_hidden_atoms).toEqual([1]));
+  expect(fake.syncs.at(-1)![0].pocket!.dependencyKey).toBe(key);
+  expect(fetchSpy).toHaveBeenCalledTimes(2);
+  const moved = structuredClone(styled);
+  moved.entries[1].current_artifact_id = "new-ligand-coordinates";
+  moved.structure_patches = [{ entry_id: "ligand", artifact_id: "new-ligand-coordinates", atom_ids: [1], coordinates: [[1, 2, 3]] }];
+  view.rerender(<StructureViewer {...props} project={moved} />);
+  await waitFor(() => expect(fake.coordinatePatches.some((item) => item.patch.entry_id === "ligand" && item.mode === "commit")).toBe(true));
+  await waitFor(() => expect(fake.syncs.at(-1)?.[0].pocket?.unavailable).toBeUndefined());
+  expect(fetchSpy).toHaveBeenCalledTimes(3);
+  expect(fake.syncs.at(-1)?.map((s) => s.entryId)).toEqual(["protein"]);
+  expect(fake.syncs.at(-1)![0].pocket!.dependencyKey).not.toBe(key);
+});

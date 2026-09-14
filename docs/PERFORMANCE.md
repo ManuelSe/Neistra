@@ -203,3 +203,26 @@ calculation buffers, not a browser/GPU heap bound or physical-phone guarantee.
 Raw evidence and actual native captures: [pocket assets](assets/pocket-surfaces/).
 The complete fragment/capacity regression command passes 21 browser cases with
 one intentional layout skip; exact commands and review are in the feature plan.
+
+### Pocket saved-workflow qualification (C3)
+
+The C3 native rerun again qualifies the complete 58,674-atom 1AON protein context,
+including supplied protein H where present, before cropping. Desktop/mobile
+readiness is 13.631/13.026 s; the full 220,336,136-byte mesh becomes a
+296,364-byte patch. 1STP readiness is 922.8/593.0 ms (901 protein atoms);
+its full 3,452,740-byte mesh becomes 65,268 bytes. The supplied-H fixture preserves
+all four protein atoms and produces a 24,776-byte patch.
+
+Largest observed steady surface task: 400 ms; tested native cancellation:
+2.3–3.4 ms. Both channels retain one worker and respect combined allocation bounds.
+Peak summed descendant RSS is 2,451,060 KiB including independent reference
+calculation and display lifecycle; shared pages may be counted repeatedly. This is
+not a measured worker heap ceiling or a physical-phone guarantee. Full evidence:
+[qualification JSON](assets/pocket-surfaces/c3-native-qualification.json).
+
+Application tests additionally check hidden-seed input loading without visibility
+changes, style-only projection reuse, exact camera/selection during dependent
+coordinate preview/cancel/commit, and prevention of duplicate invalidation for an
+already-applied commit. A final UI-only receptor-default correction is independently
+rechecked by component/workflow/real-zoom tests; it does not change this native
+geometry or resource evidence.

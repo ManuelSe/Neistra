@@ -28,6 +28,7 @@ import type {
   SuperpositionRequest,
   SuperpositionResult,
   ViewerSettings,
+  SelectionPocketSurface,
   Job,
   JobDefinition,
   JobEvent,
@@ -247,6 +248,12 @@ export const projectApi = {
     request<Project>(`/api/v1/projects/${project.id}/selection-atom-visibility`, {
       method: "POST",
       body: JSON.stringify({ expected_revision: project.revision, selection, action }),
+    }),
+  updatePocketSurface: (project: Project, receptorId: string, pocket: SelectionPocketSurface | null) =>
+    request<Project>(`/api/v1/projects/${project.id}/selection-pocket-surface`, {
+      method: "POST",
+      body: JSON.stringify({ expected_revision: project.revision, receptor_entry_id: receptorId,
+        action: pocket ? "apply" : "remove", pocket }),
     }),
   updateSelectionSurface: (project: Project, selection: Selection, action: "add" | "remove") =>
     request<Project>(`/api/v1/projects/${project.id}/selection-surface`, {

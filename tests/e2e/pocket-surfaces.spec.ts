@@ -1,3 +1,4 @@
+import AxeBuilder from "@axe-core/playwright";
 import { browserRssKiB } from "./support/process-memory";
 import { readFileSync, writeFileSync } from "node:fs";
 import { expect, test } from "@playwright/test";
@@ -150,3 +151,152 @@ for (const file of ["complex/1stp.pdb", "hydrogens/polar_hydrogens_protein.pdb",
     writeFileSync(info.outputPath("pocket-native.json"), JSON.stringify({ ...result, baselineRssKiB, peakRssKiB, memoryMeasurement: "Linux summed descendant RSS; includes reference calculation and display lifecycle, shared pages may be counted repeatedly" }, null, 2));
   });
 }
+
+test("invalidates native pockets for hidden seed and receptor preview, cancel and commit", async ({ page, request }, info) => {
+  test.setTimeout(90_000);
+  const initial: Project = await (await request.post("/api/v1/projects", { data: { name: "Pocket dependencies" } })).json();
+  const imported = await request.post(`/api/v1/projects/${initial.id}/imports`, { multipart: {
+    expected_revision: "0", files: { name: "protein_editing.pdb", mimeType: "chemical/x-pdb", buffer: readFileSync("tests/fixtures/formats/protein_editing.pdb") },
+  } });
+  const project: Project = (await imported.json()).project, entry = project.entries[0];
+  const projection: StructureProjection = await (await request.get(`/api/v1/projects/${project.id}/entries/${entry.id}/structure`)).json();
+  await page.goto("/selection-surface-test.html");
+  const result = await page.evaluate(async ({ entry, projection }) => {
+    const path = "/src/test/selectionSurfaceHarness.ts";
+    const { mountProductionSurfaceHarness } = await import(/* @vite-ignore */ path);
+    const container = document.createElement("div"); Object.assign(container.style, { position: "fixed", inset: "0" }); document.body.appendChild(container);
+    const point = projection.structure.atoms[0].coordinates;
+    const source = { entryId: entry.id, label: entry.name, projection: projection.viewer, atomIds: entry.atom_ids,
+      normalized: projection.structure, hierarchy: projection.hierarchy, settings: structuredClone(entry.viewer_settings),
+      pocket: { radius: 5, dependencyKey: "hidden-seed", seeds: [{ reference: { structure_id: "hidden-seed", atom_id: 1 }, coordinates: point }] } };
+    source.settings.selection_surface = { profile: "molecular-v1", atom_ids: [1, 2] };
+    const h = await mountProductionSurfaceHarness(container, source);
+    const original = h.geometry(entry.id, "pocket")!, fragment = h.geometry(entry.id)!;
+    const originalVertices = [...original.vertices], camera = h.engine.getCamera();
+    h.engine.setSelection([{ structure_id: entry.id, atom_id: 1 }]);
+    const patch = { entry_id: "hidden-seed", artifact_id: "moved", atom_ids: [1], coordinates: [[1000, 1000, 1000] as [number, number, number]] };
+    await h.engine.applyCoordinatePatch(patch, "preview"); await h.wait();
+    const preview = h.inspect();
+    if (preview.meshes.includes(`pocket:${entry.id}`)) throw new Error("Obsolete hidden-seed pocket remained visible");
+    if (h.geometry(entry.id) !== fragment) throw new Error("Hidden seed preview invalidated fragment");
+    await h.engine.clearCoordinatePreview("hidden-seed"); await h.wait();
+    const restored = [...h.geometry(entry.id, "pocket")!.vertices];
+    await h.engine.applyCoordinatePatch(patch, "commit"); await h.wait();
+    const empty = h.inspect().statuses.find((s) => s.channel === "pocket")?.state;
+    await h.engine.applyCoordinatePatch({ ...patch, artifact_id: "restored", coordinates: [point] }, "commit"); await h.wait();
+    const hiddenCommitRestored = [...h.geometry(entry.id, "pocket")!.vertices];
+    const receptorPatch = { entry_id: entry.id, artifact_id: "receptor-moved", atom_ids: entry.atom_ids,
+      coordinates: projection.structure.atoms.map((atom) => atom.coordinates.map((c) => c + 1000) as [number, number, number]) };
+    await h.engine.applyCoordinatePatch(receptorPatch, "preview"); await h.wait();
+    const receptorPreview = h.inspect();
+    await h.engine.clearCoordinatePreview(entry.id); await h.wait();
+    const receptorRestored = [...h.geometry(entry.id, "pocket")!.vertices];
+    await h.engine.applyCoordinatePatch(receptorPatch, "commit"); await h.wait();
+    const receptorEmpty = h.inspect().statuses.find((s) => s.channel === "pocket")?.state;
+    const beforeRepeatedCommit = h.geometry(entry.id, "pocket"), fragmentBeforeRepeat = h.geometry(entry.id);
+    await h.engine.applyCoordinatePatch(receptorPatch, "commit"); await h.wait();
+    if (h.geometry(entry.id, "pocket") !== beforeRepeatedCommit || h.geometry(entry.id) !== fragmentBeforeRepeat) {
+      throw new Error("An already-applied coordinate commit invalidated geometry again");
+    }
+    const final = h.inspect(), selection = h.details().selection;
+    h.dispose();
+    return { originalVertices, restored, hiddenCommitRestored, receptorRestored, empty, receptorEmpty,
+      previewMeshes: preview.meshes, receptorPreviewMeshes: receptorPreview.meshes, camera, finalCamera: final.camera,
+      workers: final.workers, selection };
+  }, { entry, projection });
+  expect(result.originalVertices.length).toBeGreaterThan(0);
+  expect(result.restored).toEqual(result.originalVertices);
+  expect(result.hiddenCommitRestored).toEqual(result.originalVertices);
+  expect(result.receptorRestored).toEqual(result.originalVertices);
+  expect(result.empty).toBe("empty"); expect(result.receptorEmpty).toBe("empty");
+  expect(result.receptorPreviewMeshes).toEqual([]);
+  expect(result.finalCamera).toEqual(result.camera);
+  expect(result.selection).toEqual([{ structure_id: entry.id, atom_id: 1 }]);
+  expect(result.workers.maximum).toBe(1);
+  writeFileSync(info.outputPath("pocket-coordinate-dependencies.json"), JSON.stringify(result, null, 2));
+});
+
+test("saves pockets through the compact panel and restores hidden seed inputs", async ({ page, request, isMobile }, info) => {
+  test.setTimeout(120_000);
+  let project: Project = await (await request.post("/api/v1/projects", { data: { name: `Pocket workflow ${Date.now()}` } })).json();
+  for (const name of ["protein_editing.pdb", "ethanol.mol"]) {
+    const imported = await request.post(`/api/v1/projects/${project.id}/imports`, { multipart: {
+      expected_revision: String(project.revision), files: { name, mimeType: "application/octet-stream", buffer: readFileSync(`tests/fixtures/formats/${name}`) },
+    } });
+    expect(imported.status()).toBe(201); project = (await imported.json()).project;
+  }
+  const receptor = project.entries.find((e) => e.source_format === "pdb")!, seed = project.entries.find((e) => e.source_format === "mol")!;
+  project = await (await request.post(`/api/v1/projects/${project.id}/entries/${seed.id}/visibility`, { data: { expected_revision: project.revision, value: false } })).json();
+  await page.goto("/");
+  await page.getByRole("button", { name: "Projects", exact: true }).click();
+  await page.getByRole("dialog", { name: "Projects" }).getByRole("button", { name: new RegExp(`^${project.name}`) }).click();
+  await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded", { timeout: 30_000 });
+  for (const notice of await page.getByRole("button", { name: "Dismiss message" }).all()) await notice.click();
+  if (isMobile) await page.getByRole("button", { name: "Project browser", exact: true }).click();
+  await page.locator(`.entry-row[data-entry-id="${receptor.id}"] .entry-select`).click();
+  if (isMobile) await page.keyboard.press("Escape");
+  await page.getByRole("button", { name: "Style selection", exact: true }).click();
+  const palette = page.getByRole("dialog", { name: "Style selection" });
+  const openPocket = async () => {
+    await expect(palette.getByRole("button", { name: "Surface options" })).toBeVisible();
+    await palette.getByRole("button", { name: "Surface options" }).click();
+    await page.getByRole("menuitem", { name: "Pocket…" }).click();
+  };
+  await openPocket();
+  const pocket = page.getByRole("dialog", { name: "Protein pocket" });
+  await expect(pocket.getByRole("combobox", { name: "Pocket receptor" })).toHaveValue(receptor.id);
+  await expect(pocket.getByText("22 captured seeds")).toBeVisible();
+  await pocket.getByRole("spinbutton", { name: "Pocket radius" }).fill("5.5");
+  await pocket.getByRole("button", { name: "Apply pocket" }).focus();
+  await page.keyboard.press("Enter");
+  await expect(pocket.getByText("Pocket saved.")).toBeVisible();
+  await expect(page.getByLabel("Selection surface rendering")).toContainText(/Pocket: .*ready/, { timeout: 30_000 });
+  let reads = 0;
+  page.on("request", (r) => { if (r.method() === "GET" && /\/entries\/[^/]+\/structure$/.test(r.url())) reads++; });
+  project = await (await request.get(`/api/v1/projects/${project.id}`)).json();
+  const saved = project.entries.find((e) => e.id === receptor.id)!.viewer_settings.selection_pocket_surface!;
+  expect(saved.radius).toBe(5.5); expect(saved.seed_atom_references).toHaveLength(22);
+  // Repeated Apply remains a no-op and uses cached projections.
+  await pocket.getByRole("button", { name: "Apply pocket" }).focus();
+  await page.keyboard.press("Enter");
+  await expect(pocket.getByText("Pocket saved.")).toBeVisible();
+  expect((await (await request.get(`/api/v1/projects/${project.id}`)).json()).revision).toBe(project.revision);
+  for (const theme of ["light", "dark"]) {
+    const switcher = page.getByRole("button", { name: `Use ${theme} theme` });
+    if (await switcher.count()) await switcher.click();
+    const bounds = await pocket.boundingBox(), viewport = page.viewportSize()!;
+    expect(bounds!.x).toBeGreaterThanOrEqual(0); expect(bounds!.x + bounds!.width).toBeLessThanOrEqual(viewport.width);
+    for (const button of await pocket.getByRole("button").all()) {
+      const box = await button.boundingBox(); expect(box!.height).toBeGreaterThanOrEqual(44); expect(box!.width).toBeGreaterThanOrEqual(44);
+    }
+    const axe = await new AxeBuilder({ page }).include(".pocket-popover").withTags(["wcag2a", "wcag2aa", "wcag21aa"]).analyze();
+    expect(axe.violations).toEqual([]);
+    await page.screenshot({ path: info.outputPath(`${theme}-pocket-workflow.png`) });
+  }
+  await pocket.getByRole("button", { name: "Close surface panel" }).click();
+  await expect(palette.getByRole("button", { name: "Surface options" })).toBeFocused();
+  await palette.getByRole("button", { name: "Apply blue color" }).click();
+  await expect(palette.getByRole("status")).toContainText("Selection color applied");
+  expect(reads).toBe(0);
+  // Persist a cross-entry seed, then reload: the hidden ligand must supply its
+  // current projection without becoming a visible molecular object.
+  project = await (await request.get(`/api/v1/projects/${project.id}`)).json();
+  const response = await request.post(`/api/v1/projects/${project.id}/selection-pocket-surface`, { data: {
+    expected_revision: project.revision, receptor_entry_id: receptor.id, action: "apply",
+    pocket: { profile: "pocket-v1", radius: 5, seed_atom_references: [{ structure_id: seed.id, atom_id: 1 }] },
+  } });
+  expect(response.status()).toBe(200);
+  await page.reload();
+  await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded", { timeout: 30_000 });
+  await expect(page.getByLabel("Selection surface rendering")).toContainText(/Pocket: .*ready/, { timeout: 30_000 });
+  for (const notice of await page.getByRole("button", { name: "Dismiss message" }).all()) await notice.click();
+  // Saved pockets remain accessible with an empty current selection.
+  await page.getByRole("button", { name: "Style selection", exact: true }).click();
+  await openPocket();
+  await expect(pocket.getByText("1 captured seeds")).toBeVisible();
+  await pocket.getByRole("button", { name: "Remove pocket" }).click();
+  await expect(pocket.getByText("Pocket removed.")).toBeVisible();
+  await expect(page.getByLabel("Selection surface rendering")).toHaveCount(0);
+  project = await (await request.get(`/api/v1/projects/${project.id}`)).json();
+  expect(project.entries.find((e) => e.id === seed.id)!.visible).toBe(false);
+});

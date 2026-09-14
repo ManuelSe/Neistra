@@ -160,10 +160,23 @@ test("keeps actions and dialogs reachable at real 100% and 200% browser zoom", a
           await expect(appearance.getByRole("status")).toContainText("Surface membership");
         }
         await expect(page.getByLabel("Selection surface rendering")).toHaveCount(0);
-        const surfaceHelp = appearance.getByLabel("About surfaces");
-        await surfaceHelp.focus(); await page.keyboard.press("Enter");
-        await expect(appearance.getByText(/Cut boundaries can create artificial faces/)).toBeVisible();
-        await page.keyboard.press("Enter");
+        const surfaceOptions = appearance.getByRole("button", { name: "Surface options" });
+        await surfaceOptions.focus(); await page.keyboard.press("Enter");
+        await page.getByRole("menuitem", { name: "About surfaces" }).click();
+        const surfaceHelp = page.getByRole("dialog", { name: "About surfaces" });
+        await expect(surfaceHelp.getByText(/Cut boundaries can create artificial faces/)).toBeVisible();
+        await surfaceHelp.getByRole("button", { name: "Close surface panel" }).click();
+        await surfaceOptions.click();
+        await page.getByRole("menuitem", { name: "Pocket…" }).click();
+        const pocket = page.getByRole("dialog", { name: "Protein pocket" });
+        await expect(pocket).toBeVisible();
+        expect(await pocket.evaluate((node) => {
+          const box = node.getBoundingClientRect();
+          return box.left >= 0 && box.right <= innerWidth && box.top >= 0 && box.bottom <= innerHeight &&
+            node.scrollWidth <= node.clientWidth + 1;
+        })).toBe(true);
+        await captureZoomPage(page, info, `${theme}-${factor * 100}-pocket.png`);
+        await pocket.getByRole("button", { name: "Close surface panel" }).click();
         await captureZoomPage(page, info, `${theme}-${factor * 100}-selection-appearance.png`);
         await page.keyboard.press("Escape");
         await expect(launcher).toBeFocused();
