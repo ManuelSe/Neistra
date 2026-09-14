@@ -1,7 +1,8 @@
 import type { Structure } from "molstar/lib/mol-model/structure";
 import { surfaceInput } from "../viewer/surface/visual";
 import { describe, expect, it } from "vitest";
-import { computeSurface, meshAllocationBound, surfaceAdmission } from "../viewer/surface/geometry";
+import { computeSurface, surfaceAdmission } from "../viewer/surface/geometry";
+import { extractionAllocation, groupingAllocation, checkWorkingAllocation } from "../viewer/surface/allocation";
 import type { SurfaceInput } from "../viewer/surface/protocol";
 
 function atoms(xs: number[], ids = xs.map((_, i) => i + 11)): SurfaceInput {
@@ -46,16 +47,32 @@ describe("selection surface geometry", () => {
   });
 
   it("rejects atom, spatial, identity and mesh allocation limits before expensive allocation", () => {
-    expect(() => surfaceAdmission(atoms(Array.from({ length: 20_001 }, () => 0)))).toThrow("20,000");
+    expect(() => surfaceAdmission(atoms(Array.from({ length: 100_001 }, () => 0)))).toThrow("100,000");
     expect(() => surfaceAdmission(atoms([0, 1e8]))).toThrow("grid-cell");
     expect(() => surfaceAdmission(atoms([NaN]))).toThrow("finite");
     expect(() => surfaceAdmission(atoms([0, 1], [7, 7]))).toThrow("mapping");
-    expect(() => meshAllocationBound(100_000, 4_000_000, [100, 100, 400])).toThrow("allocation");
+    expect(() => extractionAllocation(30_000_000, 20_000_000, 64_000_000, [400, 400, 400], 800_000_000)).toThrow("512 MiB");
+    expect(() => groupingAllocation(100, 10_000_000, 10_000_000, 10_000_000, 100)).toThrow("512 MiB");
+    expect(() => checkWorkingAllocation(2 * 1024 ** 3 + 1)).toThrow("2 GiB");
   });
 });
 
 
 it("rejects oversized projected components before reading atom arrays", () => {
-  const oversized = { elementCount: 20_001, get units() { throw new Error("Atom arrays must not be read"); } };
-  expect(() => surfaceInput(oversized as unknown as Structure, [])).toThrow("20,000");
+  const oversized = { elementCount: 100_001, get units() { throw new Error("Atom arrays must not be read"); } };
+  expect(() => surfaceInput(oversized as unknown as Structure, [])).toThrow("100,000");
+});
+
+it("admits the exact atom boundary without weakening dispersed-coordinate rejection", () => {
+  const input = atoms(Array.from({ length: 100_000 }, (_, i) => i % 100));
+  expect(surfaceAdmission(input).cells).toBeLessThan(64_000_000);
+  expect(() => surfaceAdmission({ ...input, x: new Float64Array(100_000).fill(Infinity) })).toThrow("finite");
+});
+
+it("admits exactly 64 million padded cells and rejects the next grid width", () => {
+  const input = atoms([0, 195.4]); input.y[1] = 195.4; input.z[1] = 195.4;
+  expect(surfaceAdmission(input).dimensions).toEqual([400, 400, 400]);
+  expect(surfaceAdmission(input).cells).toBe(64_000_000);
+  input.x[1] = 196;
+  expect(() => surfaceAdmission(input)).toThrow("64 million");
 });

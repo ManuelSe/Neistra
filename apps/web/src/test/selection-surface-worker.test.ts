@@ -41,8 +41,8 @@ describe("surface worker lifecycle", () => {
     vi.useFakeTimers(); const w = new FakeWorker();
     const calculator = new SurfaceCalculator(() => w as unknown as Worker);
     const result = calculator.compute(input, new AbortController().signal);
-    const rejection = expect(result).rejects.toThrow("30 second");
-    await vi.advanceTimersByTimeAsync(30_000); await rejection;
+    const rejection = expect(result).rejects.toThrow("120 second");
+    await vi.advanceTimersByTimeAsync(120_000); await rejection;
     expect(w.terminate).toHaveBeenCalledOnce();
     const pending = calculator.compute(input, new AbortController().signal);
     await Promise.resolve(); calculator.dispose();

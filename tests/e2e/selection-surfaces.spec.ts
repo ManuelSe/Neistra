@@ -99,7 +99,9 @@ test("qualifies worker geometry, real element colors, picking and cancellation",
   // Find a real surface hit. There are no atomic/polymer/entry-surface layers here.
   for (const dx of [0, -0.12, 0.12, -0.24, 0.24]) {
     await page.mouse.click(box.x + box.width * (0.5 + dx), box.y + box.height * 0.5);
-    if (await page.evaluate(() => window.surfaceHarness.events.some((e) => e.atoms.length > 0))) break;
+    // Native picking is delivered on the render loop, after the click promise.
+    const picked = await page.waitForFunction(() => window.surfaceHarness.events.some((e) => e.atoms.length > 0), undefined, { timeout: 500 }).then(() => true, () => false);
+    if (picked) break;
   }
   const picked = await page.evaluate(() => window.surfaceHarness.events.flatMap((e) => e.atoms));
   expect(picked.length).toBeGreaterThan(0);

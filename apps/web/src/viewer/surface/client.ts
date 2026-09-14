@@ -34,7 +34,7 @@ export class SurfaceCalculator {
         this.active = undefined;
       };
       const abort = () => { cleanup(); reject(new DOMException("Surface rendering cancelled.", "AbortError")); };
-      const timeout = setTimeout(() => { cleanup(); reject(new Error("Surface exceeded the 30 second calculation limit.")); }, SURFACE_LIMITS.deadlineMs);
+      const timeout = setTimeout(() => { cleanup(); reject(new Error("Surface exceeded the 120 second calculation limit.")); }, SURFACE_LIMITS.deadlineMs);
       signal.addEventListener("abort", abort, { once: true });
       controller.signal.addEventListener("abort", abort, { once: true });
       try {

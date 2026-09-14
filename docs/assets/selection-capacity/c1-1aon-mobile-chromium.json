@@ -1,0 +1,32 @@
+{
+  "fixture": "1aon",
+  "sha256": "6b202f340ffb9a1924d5315ce9e837e02cee1dbd745df675be76f6d4e1b8e66f",
+  "baselineRssKiB": 667472,
+  "peakRssKiB": 2405116,
+  "cells": 35538426,
+  "activeCells": 2143839,
+  "meshBytes": 219986372,
+  "meshBoundBytes": 220027332,
+  "workingBoundBytes": 1326940068,
+  "durationMs": 8052.399999999907,
+  "dimensions": [
+    294,
+    297,
+    407
+  ],
+  "exactCoordinates": true,
+  "readyMs": 8845.899999999907,
+  "longestSurfaceTaskMs": 428,
+  "atoms": 58870,
+  "exactMembership": true,
+  "vertices": 6008449,
+  "triangles": 4292860,
+  "renderedPixels": 45662,
+  "workers": {
+    "created": 1,
+    "terminated": 1,
+    "active": 0,
+    "maximum": 1
+  },
+  "activeAfterDispose": 0
+}

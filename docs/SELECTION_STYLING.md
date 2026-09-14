@@ -74,9 +74,9 @@ visible fragment without changing saved membership.
 Rendering runs asynchronously, with status outside the palette. **Cancel** stops
 rendering and keeps membership; **Retry** retries a cancelled or failed request.
 Failures or resource limits show lines for the same target. Smaller memberships
-can fit limits of 20,000 visible atoms, four million padded grid cells, 64 MiB mesh
-allocation per surface and 128 MiB retained meshes per viewer. Calculation stops
-after 30 seconds. Entries with at least 250,000 atoms retain reduced-detail behavior.
+can fit limits of 100,000 visible atoms, 64 million padded grid cells, 512 MiB mesh
+allocation per surface and 1 GiB retained meshes per viewer. Each active calculation
+is admitted against a 2 GiB buffer budget and stops after 120 seconds. Entries with at least 250,000 atoms retain reduced-detail behavior.
 These are allocation/work limits, not a browser or GPU memory guarantee.
 
 Coordinate previews hide stale geometry. Committing coordinates or cancelling a

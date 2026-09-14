@@ -85,6 +85,8 @@ export class MolstarEngine implements MolecularViewer {
   private measurements: ViewerMeasurement[] = [];
   private isolation: AtomReference[] | null = null;
   private surfaces = new SurfaceRuntime();
+  private surfaceSourceRevisions = new WeakMap<ViewerStructure["normalized"], number>();
+  private nextSurfaceSourceRevision = 0;
   private surfaceMeshEntries = new Set<string>();
   private surfaceRefs = new Map<string, string>();
   private surfaceBindings = new Map<string, object>();
@@ -658,7 +660,15 @@ export class MolstarEngine implements MolecularViewer {
     const ids = source.settings.selection_surface.atom_ids.filter((id) => visible.has(id));
     const targetIds = new Set(ids);
     const loci = this.lociFor(ids.map((atom_id) => ({ structure_id: entryId, atom_id })));
-    if (!loci) { this.surfaces.request(entryId, source.label, null, () => {}); return; }
+    let revision = this.surfaceSourceRevisions.get(source.normalized);
+    if (revision === undefined) {
+      revision = ++this.nextSurfaceSourceRevision;
+      this.surfaceSourceRevisions.set(source.normalized, revision);
+    }
+    // Immutable normalized snapshots are coordinate/topology revisions. The exact
+    // ordered IDs encode membership and all visibility/isolation/H intersections.
+    const dependencyKey = `${SURFACE_PROFILE.id}:${revision}:${ids.join(",")}`;
+    if (!loci) { this.surfaces.request(entryId, source.label, dependencyKey, null, () => {}); return; }
     const component = await plugin.builders.structure.tryCreateComponent(loaded.structureRef, {
       type: { name: "bundle", params: StructureElement.Bundle.fromLoci(loci) },
       nullIfEmpty: true, label: `${source.label} selection fragment surface`,
@@ -711,10 +721,10 @@ export class MolstarEngine implements MolecularViewer {
     };
     try {
       const unavailable = source.normalized.atoms.length >= 250_000 ? "Large entry uses reduced detail." : undefined;
-      this.surfaces.request(entryId, source.label,
-        unavailable ? null : surfaceInput(component.obj.data, loaded.atomIds), notify, unavailable);
+      this.surfaces.request(entryId, source.label, dependencyKey,
+        unavailable ? null : () => surfaceInput(component.obj!.data, loaded.atomIds), notify, unavailable);
     } catch (error) {
-      this.surfaces.request(entryId, source.label, null, notify,
+      this.surfaces.request(entryId, source.label, dependencyKey, null, notify,
         error instanceof Error ? error.message : "Surface atoms could not be projected.");
     }
   }

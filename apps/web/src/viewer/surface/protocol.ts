@@ -4,8 +4,8 @@ export const SURFACE_PROFILE = {
   opacity: 0.45,
 } as const;
 export const SURFACE_LIMITS = {
-  atoms: 20_000, cells: 4_000_000, meshBytes: 64 * 1024 * 1024,
-  retainedBytes: 128 * 1024 * 1024, deadlineMs: 30_000,
+  atoms: 100_000, cells: 64_000_000, meshBytes: 512 * 1024 * 1024,
+  retainedBytes: 1024 * 1024 * 1024, workingBytes: 2 * 1024 * 1024 * 1024, deadlineMs: 120_000,
 } as const;
 
 /** Dense serial groups map to the component's structural element iterator. */

@@ -2277,3 +2277,30 @@ Rationale: entry settings remain authoritative while renderer state is disposabl
 existing per-entry-only appearance validation is insufficient for cross-entry seeds.
 This separately approved v0.9.0 release follows verified v0.8.0. Implementation is
 not authorized by the user's plan-persistence instruction; wait for their start.
+
+
+## D-067 - Staged native allocation and immutable surface dependency revisions
+
+Status: implemented and qualified in issue #38 C1, 2026-09-14
+
+D-064 uses the pinned native marching-cubes corner table and counts unique crossing
+grid edges before extraction. Count all crossings even if native id-field filtering
+later omits them. Bound native chunk rounding, simultaneous compact copies and two
+edge-cache slices. Before native no-subdivision grouping, count mixed-owner
+triangles (three additional vertices each); include raw arrays, retained original
+index metadata, grouping chunks, compaction, transfer copies and atom-ID mapping.
+The 2 GiB active-buffer check is separate from the 1 GiB retained output budget.
+Field accounting includes both fields, an upper bound for native lookup cells,
+lookup scratch, grid axes, atom input copies and neighbor buffers. This accounts
+application/native calculation buffers, not JavaScript object overhead, browser
+heap capacity or GPU allocation. Measure process RSS separately.
+
+Inside each viewer, immutable normalized snapshots receive monotonically assigned
+revisions through a WeakMap. Coordinate commits and topology replacements supply
+new snapshots; previews continue to suspend obsolete geometry. An exact effective
+atom-ID key covers membership and visibility/H/isolation, together with revision
+and profile. Coordinates are never JSON-serialized for cache identity. Input
+extraction is lazy, after the cache check; colors/camera/current selection cannot
+force input allocation or worker recomputation. Weak keys do not retain old
+molecular snapshots. Existing application ownership and native group ordering stay
+unchanged, with production coordinate/cancel/cache regressions as release gates.

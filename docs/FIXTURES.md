@@ -120,3 +120,28 @@ structural group ownership within the declared 0.5 Å grid tolerance. Invalid bo
 and one failing entry beside a valid entry exercise explicit fallback without
 changing saved membership. These fixtures do not establish context-aware patches,
 chemical repair or broader browser/device support.
+
+
+## Larger surface qualification (#38)
+
+Immutable RCSB mmCIF downloads, retrieved unchanged on 2026-09-14:
+
+| Fixture | Source / entry DOI | SHA-256 | Normalized atoms |
+|---|---|---|---:|
+| `tests/fixtures/surfaces/6vxx.cif` | `https://files.rcsb.org/download/6VXX.cif` / `https://doi.org/10.2210/pdb6VXX/pdb` | `74ceac62dc45e34818f7c6f32fc12690f250ad803b999c1d7399a362ecd86984` | 23,694 |
+| `tests/fixtures/surfaces/1aon.cif` | `https://files.rcsb.org/download/1AON.cif` / `https://doi.org/10.2210/pdb1AON/pdb` | `6b202f340ffb9a1924d5315ce9e837e02cee1dbd745df675be76f6d4e1b8e66f` | 58,870 |
+
+The surface-capacity browser suite imports each complete entry and selects every
+normalized atom with all component/H visibility enabled. No small successful
+subset is substituted; source bytes, supplied coordinates and parser warnings
+remain unchanged. Assertions require complete stable-ID membership, rendered
+pixels, bounded allocations, response time and worker disposal. Native unit order
+may differ from canonical atom-ID order without changing identity or ownership.
+
+The same suite generates a deterministic **synthetic** 100,000-carbon-center
+mmCIF lattice: spacing 2.5 Å, width 47 along x/y, increasing z, IDs 1–100,000,
+one artificial SYN residue with distinct atom names and no supplied bonds.
+This is a capacity input, not an experimental molecule, prepared structure or
+chemical model. Its coordinates are fixed by the generator; checksum and grid
+sizes are recorded with each qualification result. Rejected dispersed inputs and
+all resource boundaries are covered separately by unit tests.

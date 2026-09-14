@@ -63,7 +63,7 @@ export async function mountSurfaceHarness(container: HTMLElement, source: Viewer
 }
 
 /** Exercise production integration; inspection is test-only, without application globals. */
-export async function mountProductionSurfaceHarness(container: HTMLElement, source: ViewerStructure) {
+export async function mountProductionSurfaceHarness(container: HTMLElement, source: ViewerStructure, settleMs = 12_000) {
   const originalWorker = window.Worker;
   const workers = { created: 0, terminated: 0, active: 0, maximum: 0 };
   window.Worker = class extends originalWorker {
@@ -89,7 +89,7 @@ export async function mountProductionSurfaceHarness(container: HTMLElement, sour
   };
   const wait = async () => {
     await internal.syncQueue;
-    const deadline = performance.now() + 12_000;
+    const deadline = performance.now() + settleMs;
     while (internal.surfaces.statuses().some((s) => ["queued", "rendering"].includes(s.state))) {
       if (performance.now() > deadline) throw new Error("Production surface did not settle.");
       await new Promise((resolve) => setTimeout(resolve, 10));

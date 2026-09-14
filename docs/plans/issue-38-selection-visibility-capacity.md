@@ -2,7 +2,7 @@
 
 ## Status and delivery metadata
 
-- Status: **approved; planning only; implementation has not started**.
+- Status: **M1/C1 complete; M2/C2 persistence next**.
 - Approved by the user on 2026-09-14. The user authorized detailed persistence,
   then explicitly required waiting for a subsequent implementation instruction.
 - Issue: [#38](https://github.com/ManuelSe/Neistra/issues/38).
@@ -16,8 +16,9 @@
   a later v0.9.0 release. Pocket work must not delay this release.
 
 This document is the implementation contract. The global `docs/PLAN.md` remains
-unchanged. Approval to persist this document is **not** an instruction to start
-implementation, open an implementation PR, merge, or publish a release now.
+unchanged. The subsequent user `/goal` instruction on 2026-09-14 authorized full
+implementation and delivery of #38 followed by #36; the original persistence-only
+restriction below is historical. #36 starts after verified publication of #38.
 
 ## Problem, outcome, and authority
 
@@ -429,3 +430,82 @@ fences checked; D-063–066 IDs unique; staged diff whitespace checks pass. Chan
 paths are restricted to these two approved feature plans, DECISIONS and PROGRESS.
 No implementation/release gate was run or claimed. Commit/push verification is
 reported to the user after the documentation commit is created.
+
+### 2026-09-14 — Implementation authorization and C1 preparation
+
+The user authorized the complete sequential delivery goal for #38 then #36.
+Verified the clean planned branch at approved-plan commit `8871299`, origin/master
+at `d962682`, and latest release v0.7.0. Read required authority/verification
+sources and inspected native Mol* allocation and state ownership before edits.
+
+C1 implements staged native edge/triangle/group allocation, coordinated limits,
+preallocated atom arrays and lazy revision/membership cache inputs. No schema,
+scientific profile or UI controls changed. D-067 records the buffer/key contract.
+Focused tests caught and corrected a local identifier collision; an additional
+boundary test guards native fractional chunk rounding. Frontend lint/typecheck,
+101 tests across 28 files, and build pass (existing chunk-size advisory only).
+
+Initial whole-protein qualification rendered all 23,694 atoms of 6VXX and all
+58,870 atoms of 1AON in 4.4/9.1 seconds respectively. These preliminary timings
+are not final checkpoint evidence. The 1AON assertion was corrected to compare
+exact stable membership without assuming native unit traversal order. An initial
+synthetic generator created 100,000 separate components and timed out in structure
+projection, before surface calculation. The final stress fixture keeps identical
+100,000 carbon coordinates but one artificial residue/component; it makes no
+chemical claim. No scientific resolution or acceptance budget was reduced.
+Final desktop/mobile-emulation browser qualification is pending; C1 not committed.
+
+### 2026-09-14 — M1/C1 complete: qualified protein capacity
+
+Implemented and reviewed the capacity checkpoint without schema/migration changes.
+Final common gate commands all pass on this source state:
+
+```bash
+corepack pnpm --dir apps/web lint
+corepack pnpm --dir apps/web typecheck
+corepack pnpm --dir apps/web test     # 102 tests, 28 files
+corepack pnpm --dir apps/web build    # existing Mol* chunk-size advisory only
+corepack pnpm --dir apps/web exec vitest run src/test/selection-surface # 17 tests
+```
+
+Browser command (fresh data, exclusive ports; no competing build/test jobs):
+
+```bash
+MOLWEAVE_E2E_API_PORT=8110 MOLWEAVE_E2E_WORKER_PORT=8111 \
+MOLWEAVE_E2E_WEB_PORT=5273 MOLWEAVE_E2E_DATA_DIR=/tmp/neistra-38-capacity-2 \
+PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test \
+  tests/e2e/selection-surfaces.spec.ts tests/e2e/surface-capacity.spec.ts
+```
+
+Result: 14 passed, 1 intentional mobile layout skip, 1 mobile test failure caused
+by checking for a native pick event immediately after the click. Corrected the
+real-click test to wait for render-loop delivery, without bypassing picking or
+weakening the atom assertions. Added fixture checksum/count and exact coordinate
+mapping assertions and reran affected cases on fresh `/tmp/neistra-38-capacity-3`
+with the same ports/command plus
+`--grep 'qualifies worker geometry|renders the complete'`: **8 passed**, both
+browser projects, no retries. All remaining unchanged workflow cases passed in
+the preceding full focused run. Raw measurements are persisted under
+`docs/assets/selection-capacity/c1-*.json`; PERFORMANCE records the host and tables.
+No failed check remains unresolved.
+
+- Full 6VXX: 23,694 atoms, 85,392,860 retained output bytes; ready 4.33/3.96 s.
+- Full 1AON: 58,870 atoms, 219,986,372 bytes; ready 9.54/8.85 s.
+- Synthetic: 100,000 atoms, 49,639,320 bytes; ready 8.46/8.12 s.
+- Longest large-case main-thread task: 437 ms; all bounds and <120 s gates pass.
+- 1STP: 674.6/476.6 ms ready, 221/116 ms longest task, 20.3/20.3 ms cancellation.
+  Native geometry remains 91,194 vertices / 71,012 triangles / 567 owner groups.
+- The largest accounted working allocation is 1,326,940,068 bytes; measured RSS
+  is reported separately and includes browser/native/testing overhead.
+- All native corner configurations, fractional chunk rounding, atom/grid/mesh/
+  working/retained boundaries, stale results, timeout and disposal are covered.
+
+Local checkpoint review: inspected the complete application/test diff, native
+Mol* 5.11.0 field/lookup/chunk/mesh implementation and scientific parameters;
+corrected the triangle-chunk fractional rounding and included atom-ID output
+mapping in retention. No algorithm fork, silent resolution change, new UI, dead
+compatibility shim, persisted-data change or additional scope remains. This was
+an implementing-agent review, not independent review. `git diff --check` passes.
+Rollback remains resource-policy-only. C1 commit:
+`perf(surface): expand bounded protein surface capacity` (Refs #38).
+Next: M2/C2 durable atom-detail visibility and migration 0012.

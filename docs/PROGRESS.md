@@ -2,32 +2,26 @@
 
 ## Current milestone
 
-Planning complete — approved two-release selection visibility/surface program.
-Implementation has **not started** and is explicitly waiting for the user's start
-instruction. Detailed source-of-truth contracts:
+Issue #38 — M1/C1 surface capacity complete; M2/C2 persistence next,
+authorized by the user's sequential `/goal` for #38 then #36. Detailed contracts:
 
-- [#38: atom-detail Hide/Show and larger protein surfaces](plans/issue-38-selection-visibility-capacity.md),
-  planned v0.8.0: M1/C1 capacity, M2/C2 persistence/migration, M2/C3 compact UI,
-  M3/C4 qualification/release. Planning branch:
-  `feat/issue-38-selection-visibility-capacity`.
-- [#36: selection-centered protein pocket surfaces](plans/issue-36-pocket-surfaces.md),
-  planned v0.9.0 after #38: M1/C1 geometry, M2/C2 cross-entry persistence,
-  M2/C3 compact workflow, M3/C4 qualification/release. Future branch:
-  `feat/issue-36-pocket-surfaces`; not created during planning.
+- [#38: atom-detail Hide/Show and larger surfaces](plans/issue-38-selection-visibility-capacity.md),
+  planned v0.8.0 on `feat/issue-38-selection-visibility-capacity`.
+- [#36: protein pocket surfaces](plans/issue-36-pocket-surfaces.md), planned v0.9.0
+  after #38 is fully released; no #36 implementation has started.
 
-Completed: user-approved behavior, budgets, scientific contracts, milestones,
-focused/full gates, migration/compatibility safeguards and delivery workflow are
-persisted. D-063–066 record the approved architectural extensions without altering
-historical decisions. Master was fast-forward verified at released v0.7.0 commit
-`d962682d904eb274974da7ef620098b8dcfb7d84`; issue #38 was created and verified.
-Verification at this stage is documentation scope/link/diff checking only; no new
-implementation tests, scientific benchmarks or migrations have run. The 100,000-atom
-capacity is a qualification target, not an already measured capability.
-Known limitations: hiding affects atomic detail only; pocket-v1 uses protein-only
-context, one pocket per receptor and no cavity discovery or binding analysis.
-Blockers: none for persistence; #36 depends on the released #38 implementation.
-Next action: wait for the user's explicit implementation instruction. No application
-code, dependencies, migration/version files or global plan are changed by this work.
+Completed in C1: coordinated resource limits,
+staged native allocation checks, typed inputs and lazy revision/membership caching.
+Verification: frontend lint/typecheck, 102 tests and production build pass. Full
+23,694/58,870-atom proteins and the synthetic 100,000-atom case render on desktop
+and Pixel 7 emulation within all approved gates. Corrected browser rerun: 8 passed;
+remaining unchanged focused workflows passed, with one intentional mobile skip.
+Exact evidence and initial test corrections are tracked in the feature plan.
+Known limitations: bounded native fragment surfaces; no arbitrary-hardware memory
+or latency guarantee. Atomic hiding and pocket surfaces remain unimplemented.
+Blockers: none; #36 depends on completed #38 delivery.
+Next action: implement C2 durable Hide/Show commands, archive guards and migration
+0012, then qualify and commit before adding compact UI controls.
 
 ### Previous release — v0.7.0
 
