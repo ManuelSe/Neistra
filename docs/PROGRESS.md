@@ -14,6 +14,9 @@ checks (3 tests / 1 skip). No failures/flakes in completed qualification.
 Known limitations: protein-only centroid patches, open edges, no cavity analysis;
 host/emulated-device capacity evidence is not a universal memory guarantee.
 Blockers: none. Full release qualification and remote delivery remain pending.
+The first candidate passed all non-browser gates; its browser run was interrupted
+to verify keyboard focus. Component and native desktop/mobile Tab checks pass
+without production changes. Added regression coverage; complete clean gate restarting.
 Prepared v0.9.0 consistently in all five authoritative sources; remote base/tag
 collision checks pass. Next action: run the clean complete release gate, review/open the PR,
 then merge and qualify exact master before publishing and closing out issue #36.

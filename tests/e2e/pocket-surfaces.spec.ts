@@ -245,6 +245,8 @@ test("saves pockets through the compact panel and restores hidden seed inputs", 
   await openPocket();
   const pocket = page.getByRole("dialog", { name: "Protein pocket" });
   await expect(pocket.getByRole("combobox", { name: "Pocket receptor" })).toHaveValue(receptor.id);
+  await page.keyboard.press("Tab");
+  await expect(pocket.getByRole("combobox", { name: "Pocket receptor" })).toBeFocused();
   await expect(pocket.getByText("22 captured seeds")).toBeVisible();
   await pocket.getByRole("spinbutton", { name: "Pocket radius" }).fill("5.5");
   await pocket.getByRole("button", { name: "Apply pocket" }).focus();

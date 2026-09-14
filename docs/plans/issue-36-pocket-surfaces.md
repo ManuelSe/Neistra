@@ -689,3 +689,20 @@ historical release record or dependency version was rewritten.
 Commit: `chore(release): prepare v0.9.0` (Refs #36). Next: the complete clean
 README/DEVELOPMENT gate with isolated data, then final full-diff local review,
 PR and required review/protection checks. Publication is still pending.
+
+### 2026-09-15 — C4 keyboard review coverage and candidate restart
+
+Candidate `f5fc32cd117e6eba50c05a23ecf93bd8ab1b0a7e` passed frozen installs,
+fresh migration 0013, Ruff/mypy, 366 Python tests, frontend lint/type/build,
+124 frontend tests and eight supervisor tests. Its browser run was intentionally
+interrupted after 23 passes to investigate a suspected menu-to-panel autofocus
+conflict; it is **not** claimed as a complete release gate.
+
+The concern was not reproduced: a new component test passes with the existing
+implementation, and native desktop/mobile Pocket workflows both pass explicit Tab
+navigation into the receptor field (2 tests, 22.5 s). No production focus change
+was needed or made. Keep this regression coverage rather than claiming a nonexistent
+bug was fixed. The new tests and this evidence are committed as
+`test(selection): verify pocket panel keyboard focus` (Refs #36), then the entire
+clean candidate release gate is restarted. Source functionality/version remains
+unchanged from the release-preparation commit.

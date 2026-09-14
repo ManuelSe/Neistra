@@ -92,3 +92,11 @@ it("uses current entry eligibility after imports without guessing among multiple
   await screen.findByText("Choose a receptor.");
   expect(screen.getByRole("combobox", { name: "Pocket receptor" })).toHaveValue("");
 });
+
+it("moves keyboard focus into the opened panel and tabs to its receptor field", async () => {
+  render(panel([receptor()], selection()));
+  const user = await open();
+  await screen.findByText("1 captured seeds");
+  await user.tab();
+  expect(screen.getByRole("combobox", { name: "Pocket receptor" })).toHaveFocus();
+});
