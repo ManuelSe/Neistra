@@ -2171,3 +2171,109 @@ rebuild, while coordinate and structure changes explicitly refresh measurements
 through their existing paths. Molecular and measurement authority remain outside
 the viewer. Production tests verify stable native references for repeated inputs
 and replacement/removal for changed inputs.
+
+## D-063 - Durable atom-detail hiding preserves independent representations
+
+Status: approved plan on 2026-09-14; not implemented
+
+Under the [issue #38 plan](plans/issue-38-selection-visibility-capacity.md), add an
+exact per-entry `selection_hidden_atoms` membership with revisioned multi-entry
+hide/show commands. Apply the mask only to atomic layers and their atom labels,
+including suppression of bonds incident to hidden atoms. Do not subtract from
+shared polymer or surface inputs: hiding any selected residue atoms must preserve
+ribbon/cartoon and surfaces. Molecular data and original uploads remain unchanged.
+
+Retain prior atomic style assignments so Show restores them. Applying an atomic
+style reveals its captured target in the same command; polymer styling leaves the
+mask unchanged. Representation Reset clears the target's representation overrides
+and hide mask, while colors, H preferences and surfaces remain independent.
+Entry/component/isolation/H visibility bounds still apply after Show. Hidden atoms
+remain selectable through application selections; Visible export remains entry-based.
+
+Rationale: a sixth Hide/Show tile within Atom detail provides quick reversible
+control without another permanent row or a new global visibility model. Reuse
+history/scenes/checkpoints/archive paths and reversible topology pruning. A
+provisional migration 0012 adds empty defaults throughout retained state and
+refuses downgrade if any nonempty hide mask remains, before writing anything.
+
+## D-064 - Substantially increased surface capacity with staged accounting
+
+Status: approved plan on 2026-09-14; not implemented or empirically qualified
+
+Issue #38 supersedes the initial resource policy in D-058 while preserving its
+scientific and cancellation principles. Target 100,000 effective atoms, 64 million
+grid cells, 512 MiB mesh allocation per surface, 1 GiB retained meshes per viewer,
+2 GiB accounted active calculation buffers and a 120-second deadline, with one
+worker at a time. Keep the existing 250,000-atom parent degradation policy.
+
+Replace the overly conservative per-intersected-cell bound with staged accounting
+of actual edge/triangle requirements, native group duplication, chunk/compaction
+and transfer/retention buffers. Check allocations before each stage. Preallocate
+typed inputs and use explicit geometry dependency keys instead of large typed-array
+JSON serialization. Preserve hard worker termination and truthful fallback/retry.
+
+Rationale: increasing only the 64 MiB constant would leave other false rejections
+and unsafe working allocations unresolved. Qualification must render real larger
+proteins and a labelled deterministic 100,000-atom stress fixture, preserving
+molecular-v1 radii/probe/grid/opacity, cancellation and UI responsiveness gates.
+This is not an arbitrary-hardware or browser/GPU heap guarantee. Do not silently
+reduce resolution, weaken tests or claim an approved budget has been measured.
+The complete first release targets v0.8.0 and must not wait for pocket work.
+
+## D-065 - Pocket views crop complete protein-context molecular surfaces
+
+Status: approved plan on 2026-09-14; not implemented
+
+The [issue #36 plan](plans/issue-36-pocket-surfaces.md) resolves the context-patch
+follow-up from D-056. Define pocket-v1 separately from molecular-v1 fragments:
+compute the chosen entry's complete current protein surface, including supplied
+protein H atoms, excluding separately classified nonprotein context, then keep
+triangles whose centroids are within the radius of a captured seed atom center.
+Radius defaults to 5 Å, accepts 2–12 Å in 0.5 Å steps, and uses the current shared
+Cartesian project frame without automatic alignment or periodic/symmetry context.
+
+Use pinned native molecular-surface parameters (probe 1.4 Å, grid 0.5 Å, 36 probe
+positions, physical radii, opacity 0.45). Preserve retained vertex coordinates,
+normals, winding and receptor atom-owner groups; do not cap cut edges or recompute
+nearby residues as a fragment. Open triangle boundaries and disconnected patches
+are valid. No nearby triangles is an explained empty result.
+
+Atomic hiding and H detail toggles do not reshape this full-protein context.
+Entry/protein hiding hides the view; isolation filters displayed triangles by
+receptor ownership without truncating calculation context. Hidden seeds still
+supply coordinates. This extends pocket behavior without changing fragment rules.
+
+Rationale: a selection-centered patch answers the user's inspection need while
+avoiding fragment cut-face artifacts. It is not automatic pocket discovery,
+solvent/cavity measurement or evidence of binding. Custom receptor context,
+multiple managed pockets, chemistry repair and analysis remain outside this slice.
+
+## D-066 - One saved pocket per receptor with explicit cross-entry dependencies
+
+Status: approved plan on 2026-09-14; not implemented
+
+Persist a nullable pocket-v1 definition on the receptor's viewer settings, with
+canonical captured seed atom references and radius. One view per receptor plus
+saved scenes provides alternatives without a layer manager. The Surface row's
+existing help footprint becomes an overflow menu for Pocket and About surfaces;
+receptor/radius/seed controls appear only in the pocket popover. Selection changes
+never silently replace saved seeds; Use selection explicitly updates the draft.
+
+Resolve receptor and seed projections in the application, including hidden seed
+entries. Keep two explicit runtime channels, Fragment and Pocket, sharing one
+worker and combined release-1 allocation budgets. Compute/crop in the worker and
+retain only the compact patch. Coordinate/topology changes to either dependency
+invalidate the view; previews hide obsolete output. Colors/camera/current selection
+do not regenerate it. Preserve D-060–062 ownership and lifecycle safeguards.
+
+Revisioned commands, scenes/checkpoints/history, duplication, topology pruning and
+archive validation/remapping must cover cross-entry seed references at every
+retained path. Prune deleted seeds reversibly and clear definitions when all seeds
+are gone. Receptor copies remap self-seeds; other same-project references remain.
+A provisional migration 0013 adds null defaults and refuses downgrade with any
+retained non-null pocket before writes. Do not silently lose historical intent.
+
+Rationale: entry settings remain authoritative while renderer state is disposable;
+existing per-entry-only appearance validation is insufficient for cross-entry seeds.
+This separately approved v0.9.0 release follows verified v0.8.0. Implementation is
+not authorized by the user's plan-persistence instruction; wait for their start.
