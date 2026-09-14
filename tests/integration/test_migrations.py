@@ -433,6 +433,17 @@ _SURFACE_PATHS = ["live", "checkpoint", "checkpoint_scene", "scene"] + [
             None,
         ),
         ("0012", "0011", "selection_hidden_atoms", [3, 9], []),
+        (
+            "0013",
+            "0012",
+            "selection_pocket_surface",
+            {
+                "profile": "pocket-v1",
+                "seed_atom_references": [{"structure_id": "e", "atom_id": 3}],
+                "radius": 5,
+            },
+            None,
+        ),
     ],
 )
 def test_display_migrations_cover_every_retained_path_and_refuse_loss_atomically(

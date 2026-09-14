@@ -29,7 +29,7 @@ const settings: ViewerSettings = {
     selection_colors: [],
     selection_nonpolar_hydrogens: [],
     selection_surface: null,
-    selection_hidden_atoms: [],
+    selection_pocket_surface: null, selection_hidden_atoms: [],
   components: {
     hydrogens: true,
     nonpolar_hydrogens: true,
@@ -338,7 +338,7 @@ it("hides atomic layers after assignment while preserving polymer and surface co
     hierarchy: componentHierarchy(normalized), atomIds: [1, 2, 3], projection: { format: "mmcif", data: "" },
     settings: { ...settings, representations: (["line", "cartoon", "backbone", "surface"] as const)
       .map((style) => ({ ...settings.representations[0], id: style, style })),
-    selection_representations: [{ style: "stick", atom_ids: [2] }], selection_hidden_atoms: [] } };
+    selection_representations: [{ style: "stick", atom_ids: [2] }], selection_pocket_surface: null, selection_hidden_atoms: [] } };
   const before = representationLayers(source);
   const assignments = structuredClone(source.settings.selection_representations);
   source.settings.selection_hidden_atoms = [1, 2];

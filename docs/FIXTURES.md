@@ -145,3 +145,22 @@ This is a capacity input, not an experimental molecule, prepared structure or
 chemical model. Its coordinates are fixed by the generator; checksum and grid
 sizes are recorded with each qualification result. Rejected dispersed inputs and
 all resource boundaries are covered separately by unit tests.
+
+## Protein pocket reference qualification (#36)
+
+Reuse the unchanged `complex/1stp.pdb`, supplied-H
+`hydrogens/polar_hydrogens_protein.pdb` and pinned `surfaces/1aon.cif` fixtures.
+Pocket tests select the complete currently classified protein component, even with
+atom detail and hydrogens hidden. Seed the first protein atom at radius 5 Å;
+compare every retained triangle with an independently filtered full native surface,
+including positions, normals, winding and canonical receptor ownership. The 1AON
+case computes all 58,674 classified protein atoms from the 58,870-atom entry
+before cropping; the 196 separately classified nonprotein atoms are excluded.
+The 1STP pocket context has 901 protein atoms from its 1,001-atom entry; the
+supplied-H fixture has four protein atoms, including two supplied hydrogens.
+
+Small deterministic geometry tests independently exercise inclusive radius 2 Å,
+just-outside cutoffs, disconnected seeds, empty output, invalid radii/coordinates,
+working-memory refusal and owner-only isolation. Overlapping atomic centers show
+that a cropped full-context patch differs from a freshly calculated fragment.
+Fixtures do not imply pocket discovery, chemical preparation or binding analysis.

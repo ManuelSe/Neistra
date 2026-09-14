@@ -47,11 +47,15 @@ from molweave_api.schemas import (
     ViewerSettings,
 )
 from molweave_api.settings import Settings
-from molweave_api.viewer_state import POLYMER_SELECTION_STYLES, validate_polymer_selection
+from molweave_api.viewer_state import (
+    POLYMER_SELECTION_STYLES,
+    remap_pocket_seeds,
+    validate_polymer_selection,
+)
 
 ARCHIVE_MEDIA_TYPE = "application/vnd.molweave.project+zip"
 ARCHIVE_SCHEMA_VERSION = 1
-APPLICATION_VERSION = "0.8.0"
+APPLICATION_VERSION = "0.9.0"
 MANIFEST_PATH = "manifest.json"
 _SHA256_PATTERN = re.compile(r"^[0-9a-f]{64}$")
 _APPLICATION_VERSION_PATTERN = re.compile(
@@ -750,7 +754,9 @@ class ProjectArchiveService:
                         warnings=[warning.model_dump(mode="json") for warning in entry.warnings],
                         next_atom_id=entry.next_atom_id,
                         next_bond_id=entry.next_bond_id,
-                        viewer_settings=entry.viewer_settings.model_dump(mode="json"),
+                        viewer_settings=remap_pocket_seeds(
+                            entry.viewer_settings.model_dump(mode="json"), entry_ids
+                        ),
                         visible=entry.visible,
                         locked=entry.locked,
                         user_metadata=deepcopy(entry.user_metadata),
@@ -918,6 +924,9 @@ class ProjectArchiveService:
                             {
                                 **state.model_dump(mode="json"),
                                 "entry_id": entry_ids[state.entry_id],
+                                "viewer_settings": remap_pocket_seeds(
+                                    state.viewer_settings.model_dump(mode="json"), entry_ids
+                                ),
                             }
                             for state in scene_item.entry_states
                         ],
@@ -1149,6 +1158,7 @@ def _validate_manifest_relationships(
             entry.viewer_settings,
             atom_ids_by_entry[entry.id],
             structures_by_entry.get(entry.id),
+            atom_ids_by_entry,
         )
     for saved in manifest.saved_selections:
         _validate_references(saved.atom_references, entry_ids, atom_ids_by_entry)
@@ -1169,6 +1179,7 @@ def _validate_manifest_relationships(
                 state.viewer_settings,
                 atom_ids_by_entry[state.entry_id],
                 structures_by_entry.get(state.entry_id),
+                atom_ids_by_entry,
             )
 
 
@@ -1176,7 +1187,14 @@ def _validate_selection_assignments(
     settings: ViewerSettings,
     valid_atom_ids: set[int],
     structure: NormalizedStructureV1 | None,
+    atom_ids_by_entry: dict[str, set[int]],
 ) -> None:
+    if settings.selection_pocket_surface is not None:
+        _validate_references(
+            settings.selection_pocket_surface.seed_atom_references,
+            set(atom_ids_by_entry),
+            atom_ids_by_entry,
+        )
     for atom_ids in [
         settings.selection_hidden_atoms,
         *(item.atom_ids for item in settings.selection_colors),

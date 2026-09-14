@@ -266,3 +266,18 @@ bonds and atom labels. Shared molecular state, polymer traces and surface inputs
 retain hidden atoms. This boundary preserves independent styling channels
 (D-063) and lets Show restore prior representations without an alternate viewer
 state model. Runtime meshes and renderer visibility never become archive authority.
+
+### Durable cross-entry pocket dependencies
+
+Pocket definitions belong to application ViewerSettings, separate from disposable
+Fragment/Pocket runtime channels. SelectionStyleService checks normalized protein
+eligibility; ProjectService validates all stable seed references before recording
+one reversible command. Reference validation builds one atom-ID set per referenced
+entry, avoiding repeated full-entry scans for large selections.
+
+The existing topology reconciliation transaction prunes seed references across all
+owners and retained scenes, alongside existing local appearance and saved-selection
+reconciliation. Undo restores the exact prior definitions. Duplication remaps only
+self-references; archive import remaps all exported references and derives its
+checkpoint after remapping. Portable archives remain current snapshots under D-035;
+database migration covers retained command history under D-069.

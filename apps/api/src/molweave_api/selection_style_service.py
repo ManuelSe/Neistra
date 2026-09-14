@@ -3,6 +3,7 @@ from __future__ import annotations
 from collections import defaultdict
 
 from molweave_core.artifacts import LocalArtifactStore
+from molweave_core.components import component_atom_ids, derive_component_hierarchy
 from molweave_core.molecular import NormalizedStructureV1
 from sqlalchemy.orm import Session
 
@@ -18,6 +19,7 @@ from molweave_api.project_service import (
 from molweave_api.schemas import (
     ProjectRead,
     SelectionAppearanceUpdate,
+    SelectionPocketSurfaceUpdate,
     SelectionRepresentationUpdate,
 )
 from molweave_api.settings import Settings
@@ -69,6 +71,22 @@ class SelectionStyleService:
         return ProjectService(self.session).update_selection_appearance(
             project_id, payload, targets
         )
+
+    def update_pocket(self, project_id: str, payload: SelectionPocketSurfaceUpdate) -> ProjectRead:
+        project = self._project(project_id, payload.expected_revision)
+        receptor = self._entry(project, payload.receptor_entry_id)
+        if payload.action == "apply":
+            if receptor.current_artifact_id is None:
+                raise StructureUnavailableError(receptor.id)
+            _, data = self.artifacts.read(receptor.current_artifact_id)
+            structure = NormalizedStructureV1.from_bytes(data)
+            hierarchy = derive_component_hierarchy(structure)
+            if not any(
+                component.category == "protein" and component_atom_ids(structure, component)
+                for component in hierarchy.components
+            ):
+                raise InvalidProjectOperationError("Choose an entry containing protein context")
+        return ProjectService(self.session).update_selection_pocket_surface(project_id, payload)
 
     def _validate_polymer_target(self, entry: StructureEntry, selected: set[int]) -> None:
         if entry.current_artifact_id is None:

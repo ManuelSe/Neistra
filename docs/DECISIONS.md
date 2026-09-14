@@ -2304,3 +2304,86 @@ extraction is lazy, after the cache check; colors/camera/current selection canno
 force input allocation or worker recomputation. Weak keys do not retain old
 molecular snapshots. Existing application ownership and native group ordering stay
 unchanged, with production coordinate/cancel/cache regressions as release gates.
+
+## D-068 - Explicit surface channels retain compact pocket output
+
+Status: implemented and qualified in issue #36 C1, 2026-09-15
+
+Fragment and Pocket requests use explicit entry/channel identity and one shared
+worker queue. Cancellation, retry, stale-result guards, component bindings and
+status messages distinguish channels. Reject channel/profile mismatches. Empty
+pockets are a distinct explained terminal result; errors/cancellation retain the
+definition without relabelling a fragment or full-receptor line representation as
+a pocket fallback. Ordinary fragment fallback remains unchanged.
+
+After native full-protein extraction/grouping, use a radius-cell seed index and
+an inclusive triangle-centroid test. Compact only retained vertices/indices while
+preserving positions, normals, winding and receptor serial groups. Retain the full
+receptor atom-ID mapping for native color/picking, but not the full source mesh.
+Account source/compact coexistence, seed copies/index, triangle marks and vertex
+remapping under the active budget before crop allocation. Reserve an additional
+pocket index buffer under the combined retained budget for display isolation;
+isolation reuses cached vertices/normals/context and never recalculates fragments.
+Seed-buffer admission precedes allocation, avoiding an intermediate flat JS copy.
+These are accounted-buffer limits, not guarantees about browser/GPU heaps.
+
+Rationale: this implements D-065/066 using native scientific geometry and existing
+application ownership, with two explicit channels rather than a generic layer
+manager. The dev-only harness qualifies this renderer checkpoint before durable
+commands or the Pocket UI are introduced.
+
+## D-069 — Pocket persistence preserves the portable snapshot boundary
+
+Status: accepted and implemented for issue #36 C2.
+
+The approved pocket plan requires all retained seed references to survive, remap
+and validate correctly. Its reference to archive history is interpreted through
+the existing higher-authority D-035 architecture: archives export current entries
+and scenes, not command history or prior checkpoint contents. Remap and validate
+every exported pocket definition, then derive the imported checkpoint from that
+remapped current state. Do not add portable historical commands or validate a
+historical atom against unrelated current geometry.
+
+Database history remains reversible and migration 0013 covers every documented
+live/checkpoint/scene/forward/inverse viewer-settings path, with atomic downgrade
+refusal on any non-null pocket. Topology/entry deletion prunes all affected live
+owners and scenes in its original command; inverse actions retain the prior
+references. Self-seeds remap on receptor duplication; other-entry references stay
+within the same project. Newly created atoms do not become captured seeds.
+
+This clarifies retained-path scope without expanding archive schema or silently
+rewriting D-035. API, project and archive majors remain 1; old archives default
+null and older readers are unsupported for pocket-bearing archives. Originals,
+normalized artifacts, conformers and warnings remain molecular authority.
+
+## D-070 — Application-resolved pocket inputs and coordinate dependency invalidation
+
+Status: accepted and implemented for issue #36 C3.
+
+Resolve pocket seed coordinates in the application from artifact-keyed projection
+queries, including hidden seed entries. Only visible owner entries become viewer
+structures. Never resolve molecular data through viewer API fetches or make a seed
+entry visible as a loading side effect. Pending/failed/obsolete projections produce
+an explicit unavailable input rather than a patch from stale coordinates.
+
+Carry captured references, coordinates and source-revision dependencies through the
+typed render boundary. Selection, color, camera and atomic/H visibility are not seed
+dependencies. Preview bookkeeping includes hidden entries: suppress every dependent
+pocket before rendering previews, restore committed state on cancel, and update
+resolved seed coordinates on commit. Full receptor context remains independent of
+display-only atom masks and isolation.
+
+An artifact-keyed application sync may already contain a committed coordinate patch.
+When neither loaded coordinates nor dependent seed coordinates differ, and no
+preview is active, treating that commit as already applied avoids duplicate geometry
+invalidation and a spurious runtime seed revision. Real changes still invalidate
+the appropriate channels. This extends D-060–062 without making the viewer molecular
+authority; its coordinate copies and caches remain disposable.
+
+Keep one saved pocket per receptor behind the existing Surface overflow footprint.
+The nonmodal panel captures seeds explicitly; selection changes do not retarget it.
+Default receptor eligibility uses the current entry list after imports/deletions;
+initial seeds stay captured until explicitly replaced. Existing saved pockets
+remain removable with no selection or no protein context.
+Scenes remain the supported way to retain alternative pocket views. No permanent
+layer manager, cavity algorithm or additional primary-panel row is introduced.

@@ -1,4 +1,5 @@
-import { fieldAllocation, countSurfaceMesh, extractionAllocation, groupingAllocation } from "./allocation";
+import { cropPocketSurface, validatePocketCrop } from "./pocket";
+import { checkWorkingAllocation, fieldAllocation, countSurfaceMesh, extractionAllocation, groupingAllocation } from "./allocation";
 import { OrderedSet } from "molstar/lib/mol-data/int";
 import { getBoundary } from "molstar/lib/mol-math/geometry/boundary";
 import { calcMolecularSurface } from "molstar/lib/mol-math/geometry/molecular-surface";
@@ -8,8 +9,9 @@ import { RuntimeContext } from "molstar/lib/mol-task";
 import { SURFACE_LIMITS, SURFACE_PROFILE, type SurfaceGeometry, type SurfaceInput } from "./protocol";
 
 export function surfaceAdmission(input: SurfaceInput) {
+  if (input.pocket) validatePocketCrop(input.pocket);
   const n = input.atomIds.length;
-  if (!n || n > SURFACE_LIMITS.atoms) throw new Error("Surface requires 1–100,000 visible atoms.");
+  if (!n || n > SURFACE_LIMITS.atoms) throw new Error("Surface requires 1–100,000 atoms.");
   if ([input.x, input.y, input.z, input.radii].some((a) => a.length !== n)
     || new Set(input.atomIds).size !== n || input.atomIds.some((id) => id === 0)) {
     throw new Error("Invalid surface atom mapping.");
@@ -34,9 +36,9 @@ export function surfaceAdmission(input: SurfaceInput) {
   ));
   const cells = dimensions.reduce((a, b) => a * b, 1);
   if (!Number.isSafeInteger(cells) || cells <= 0 || cells > SURFACE_LIMITS.cells) {
-    throw new Error("Surface exceeds the 64 million grid-cell limit; select a smaller region.");
+    throw new Error("Surface exceeds the 64 million grid-cell limit.");
   }
-  return { cells, maxRadius, dimensions, fieldBytes: fieldAllocation(cells, dimensions, n) };
+  return { cells, maxRadius, dimensions, fieldBytes: checkWorkingAllocation(fieldAllocation(cells, dimensions, n) + (input.pocket ? validatePocketCrop(input.pocket) : 0)) };
 }
 
 export async function computeSurface(input: SurfaceInput, progress: (message: string) => void = () => {}): Promise<SurfaceGeometry> {
@@ -85,6 +87,11 @@ export async function computeSurface(input: SurfaceInput, progress: (message: st
     || normals.some((v) => !Number.isFinite(v))
     || groups.some((g) => !Number.isInteger(g) || g < 0 || g >= input.atomIds.length)
     || triangles.some((i) => i >= mesh.vertexCount)) throw new Error("Surface geometry failed validation.");
-  return { vertices, normals, indices: triangles, groups, atomIds: input.atomIds,
+  const geometry = { vertices, normals, indices: triangles, groups, atomIds: input.atomIds,
     evidence: { cells: admission.cells, activeCells: counts.activeCells, meshBytes, ...bound, durationMs: performance.now() - started } };
+  if (!input.pocket) return geometry;
+  progress("Cropping protein pocket");
+  const pocket = cropPocketSurface(geometry, input.pocket);
+  pocket.evidence.durationMs = performance.now() - started;
+  return pocket;
 }

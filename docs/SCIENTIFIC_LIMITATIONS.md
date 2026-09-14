@@ -323,3 +323,32 @@ There is no automatic coarsening, residue truncation or geometry substitution.
 Pinned whole-protein fixtures and a labelled synthetic lattice qualify specific
 cases; they do not establish physical-phone performance or a browser/GPU memory
 ceiling. Detailed current evidence belongs in PERFORMANCE and the feature plan.
+
+## Protein pocket geometry (issue #36)
+
+The pocket-v1 renderer computes the complete current protein component, including
+supplied protein hydrogens, with the same native physical radii, 1.4 Å probe,
+0.5 Å grid and 36 probe positions. Separately classified ligands, water, ions and
+cofactors do not provide context. It then retains whole triangles whose centroids
+are within the radius of a captured seed center, in the existing Cartesian frame.
+No caps, interpolated closure faces, chemistry repair, alignment, periodic context,
+conformer resolution or inferred preparation are introduced. Vertex positions,
+normals, winding and receptor atom ownership remain those of the full surface.
+
+This is a proximity view, not automatic cavity discovery, a volume/area measurement
+or evidence of binding. The cutoff may leave jagged open boundaries, disconnected
+pieces, or no triangles. Empty output is explicitly explained. Atomic Hide and H
+detail preferences do not reshape protein context; entry/protein visibility hides
+the view and isolation filters displayed owner triangles only. Colors and picks
+belong to receptor atoms, not seed atoms. Fragment surfaces retain their different
+selected-atom context and may coexist with pockets.
+
+Both channels share one worker and the released capacity bounds. Temporary full
+geometry, crop marks/remapping, seed index and compact output count toward active
+allocation; only the compact patch and receptor identity mapping are retained.
+Pocket failure/cancellation retains intent without substituting fragment geometry.
+Durable pocket definitions capture stable seed references and a radius; the compact
+Pocket control does not discover sites. Coordinate previews suppress obsolete
+patches, including hidden-seed dependencies. If current protein context disappears,
+retain valid seed intent and explain unavailable context; do not choose a replacement
+receptor. Originals, supplied conformers and warnings remain unchanged.

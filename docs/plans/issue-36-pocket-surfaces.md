@@ -2,7 +2,7 @@
 
 ## Status and delivery metadata
 
-- Status: **approved; planning only; implementation has not started**.
+- Status: **M1/C1 and M2/C2–C3 complete; M3/C4 candidate qualified; PR, merged gate and publication pending**.
 - User approved the two-release plan on 2026-09-14, then requested detailed
   persistence and an explicit stop before implementation.
 - Issue: [#36](https://github.com/ManuelSe/Neistra/issues/36).
@@ -14,7 +14,7 @@
   together with the entire approved first-release contract.
 - Future implementation base: up-to-date `origin/master` containing the verified
   issue #38 release. Record its exact commit before pocket implementation.
-- Future branch: `feat/issue-36-pocket-surfaces`; **do not create it now**.
+- Future branch: `feat/issue-36-pocket-surfaces`; created from verified v0.8.0 master.
 - Planned version/tag: **v0.9.0**, subject to the dependency release and collision check.
 - Proposed PR title: `feat(surface): add selection-centered protein pocket views`.
 - Merge strategy: normal merge commit preserving coherent checkpoint history.
@@ -442,3 +442,318 @@ Plan-persistence validation (2026-09-14): local Markdown document links and code
 fences checked; staged whitespace checks pass. Only the two feature plans and
 project decision/progress documents are changed. No implementation qualification
 is claimed, and the pocket implementation branch remains uncreated.
+
+### 2026-09-14 — Implementation started after verified dependency release
+
+The user's sequential `/goal` supersedes the historical persistence-only stop.
+Issue #38 is fully delivered: PR #39 merged as
+`ce3e4f761133caeff1ee76a827379f790fcad7cf`, exact merged gate passed, annotated
+v0.8.0 tag object `bb4e053205592f540d240e92052252637ef4ca87` and release verified,
+verification attachment downloaded byte-for-byte, and issue closeout
+[5671366694](https://github.com/ManuelSe/Neistra/issues/38#issuecomment-5671366694)
+verified. Its local/remote feature branches were then deleted.
+
+Fetched/fast-forwarded clean master and created `feat/issue-36-pocket-surfaces`
+from that exact released commit. Re-read repository authority, approved contract,
+verification and affected viewer/API/archive boundaries before changing code.
+Start with C1 full-context geometry, explicit channels and native qualification;
+no durable pocket command or user-facing Pocket control exists yet.
+
+### 2026-09-15 — M1/C1 complete: full-context geometry and execution
+
+Implemented pocket-v1 crop input, radius-cell seed indexing, inclusive centroid
+inclusion and compact remapping of unchanged native vertices/normals/winding/owner
+groups. Empty and disconnected outputs are valid. Display isolation filters only
+indices, preserving full protein context. Atom/H detail does not reshape context.
+Two explicit Fragment/Pocket channels share one queue and combined retention;
+Pocket cancellation/failure never substitutes fragment or full-receptor lines.
+The dev-only production harness exercises typed resolved pocket inputs; no saved
+pocket API or user-facing Pocket creation control is claimed at this checkpoint.
+
+D-068 records channel identity, profile mismatch protection, seed-buffer admission,
+full/compact/index allocation and isolation reservation. The shared surface provider
+preserves receptor-owned colors/picks; changing carbon colors reuses geometry.
+Existing fragment requests and their native qualification continue to pass.
+
+Commands:
+
+```bash
+corepack pnpm --dir apps/web lint
+corepack pnpm --dir apps/web typecheck
+corepack pnpm --dir apps/web test
+corepack pnpm --dir apps/web build
+MOLWEAVE_E2E_API_PORT=8110 MOLWEAVE_E2E_WORKER_PORT=8111 \
+MOLWEAVE_E2E_WEB_PORT=5273 MOLWEAVE_E2E_DATA_DIR=/tmp/neistra-36-c1-final \
+PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test \
+  tests/e2e/pocket-surfaces.spec.ts tests/e2e/selection-surfaces.spec.ts \
+  tests/e2e/surface-capacity.spec.ts
+```
+
+Results: lint/typecheck/build pass; **113 frontend tests in 29 files** pass;
+**21 browser tests / 1 intentional layout skip (5.7 minutes)** pass with no failures.
+Geometry unit tests use an independent brute-force cutoff and exact retained
+triangle data; exercise radius endpoints, inclusive/just-outside boundaries, empty,
+disconnected, fragment differences, ownership/isolation and active-memory refusal.
+Runtime tests cover same-entry channels, cancellation/stale work, combined retention
+and hidden-owner recovery. Native browser tests cover supplied protein H, exact
+reference geometry, actual colors/picks, color reuse, camera, hide/show, isolation,
+coexistence, empty output, Pocket cancellation/retry and all prior capacity cases.
+
+1STP protein context: 901 of 1,001 entry atoms; ready 936.4/623.0 ms desktop/mobile.
+Supplied-H fixture: four protein atoms including two supplied H, still contributing
+when H detail is hidden. 1AON: all 58,674 protein atoms from the 58,870-atom entry;
+196 separately classified nonprotein atoms are excluded. Ready 13.164/13.064 s;
+full output 220,336,136 bytes becomes a 296,364-byte patch. All working bounds fit
+2 GiB; largest observed surface task is 398 ms. Native cancellation takes 2.5–3.9 ms.
+Detailed full/compact sizes, RSS (including independent reference/lifecycle work),
+timings and captures are retained under `docs/assets/pocket-surfaces/c1-*` and in
+PERFORMANCE. Qualification is emulation/host-specific, not a physical-phone claim.
+
+Initial native run: 20 passed, one intentional skip, one desktop picking-test
+failure. A fixed canvas grid missed the small visible 1AON patch; all its geometry/
+allocation assertions and mobile picking had passed. The test now locates interior
+rendered pixels and performs real mouse clicks/native picks, without synthetic loci
+or weaker ownership assertions. The full corrected native run passes.
+
+Local implementing-agent review checked scientific parameters/context, cutoff and
+compaction, source-buffer lifetime, profile/channel identity, stale bindings,
+retention and isolation accounting, truthful empty/failure states and compatibility.
+Resource messages were made context-neutral after review: shrinking a displayed
+pocket radius cannot solve full-receptor allocation. This final text-only adjustment
+was followed by all frontend common gates (113 tests); native geometry/behavior is
+unchanged from the full browser qualification. No unresolved consequential finding
+remains. This is not an independent review. `git diff --check` passes.
+
+Updated scientific limitations, fixtures, performance, progress and the #38 final
+publication record. No migration/version change in C1; rollback remains disposable
+renderer code. Commit: `feat(surface): generate context-aware protein patches`
+(Refs #36). Next: C2 durable definitions and cross-entry reference lifecycle.
+
+### 2026-09-15 — M2/C2 complete: reversible pocket definitions
+
+Added the strict nullable pocket-v1 schema, revisioned Apply/Remove command,
+normalized protein eligibility validation and ordinary viewer-settings guard.
+Exact no-ops do not add revision/history. Cross-entry seeds remain valid while
+hidden. Topology and entry deletion prune every affected owner and scene in the
+originating command; undo/redo restore definitions exactly. Self-seeds remap on
+receptor duplication; new protein atoms change current context without becoming
+captured seeds. Validation indexes each referenced entry once.
+
+Migration 0013 defaults null at all 17 documented retained path cases and refuses
+any non-null state before writes on downgrade. Existing migration paths and user
+metadata remain intact. D-069 clarifies the plan's archive/history wording through
+D-035: portable archives contain current entries/scenes, with a newly derived
+remapped checkpoint; command history remains database-local. Every exported
+definition is validated/remapped, including a saved scene with no live pocket.
+No archive-history schema extension or silent historical-reference stripping.
+
+Validation commands/results:
+
+```bash
+MOLWEAVE_DATA_DIR=/tmp/neistra-36-c2-migration .venv/bin/uv run alembic upgrade head
+.venv/bin/uv run ruff check .
+.venv/bin/uv run mypy apps/api packages/molweave_core
+.venv/bin/uv run pytest
+git diff --check
+```
+
+Fresh upgrade reaches 0013; Ruff passes; mypy passes all 54 source files;
+**365 Python tests pass in 57.90 s**, including 29 new pocket tests and the
+retained-path migration matrix. The existing 237 Alembic configuration deprecation
+warnings are unchanged infrastructure warnings, not failures. Tests cover strict
+radii/references/profile, invalid atomicity, revision conflicts, no-ops, independent
+styles/channels, hidden seeds, partial/last-seed deletion, scene restoration,
+receptor duplication/deletion, topology additions, checkpoint/restart recovery,
+legacy and remapped archives, invalid live/scene archive references, original bytes,
+normalized structures, warnings and unresolved conformers.
+
+Initial test setup used a protein type label for a mixed protein-containing fixture,
+the wrong visibility route and a 200 scene-create expectation; corrected to actual
+repository APIs/classification (201 creation). Exact scene comparisons exclude the
+intentionally updated modification timestamp while checking all retained content.
+No production behavior was weakened to satisfy those setup assertions.
+
+Local implementing-agent review checked command atomicity, inverse ordering,
+all-owner pruning, generic-PUT compatibility, canonical remapping and migration
+prevalidation. No unresolved consequential finding. This is not independent review.
+Updated API, PROJECT_SCHEMA, ARCHITECTURE and DEVELOPMENT migration/backup notes.
+No version change yet. Commit: `feat(surface): persist reversible pocket definitions`
+(Refs #36). Next: C3 application-owned projection dependencies and compact workflow.
+
+
+### 2026-09-15 — M2/C3 complete: compact saved pocket workflow
+
+Implemented Surface options → Pocket… / About surfaces in the existing help
+footprint, without a permanent row or layer list. The nonmodal panel loads saved
+seeds/radius, explicitly captures Use selection, defaults only a unique eligible
+receptor, validates radius/seeds and permits Remove with empty selection or empty
+current protein context. Current entry-list changes update eligibility without
+silently retargeting captured seeds. Closing/project switching discards drafts.
+
+Application artifact-keyed queries load hidden seed projections without displaying
+those entries. Typed resolved inputs include current dependencies and reject stale
+placeholders. Hidden-owner pockets are not unnecessarily resolved. The viewer
+tracks seed/receptor previews independently of loaded molecular objects, suppresses
+obsolete patches, restores committed state on cancel and regenerates actual changes.
+Already-applied commits avoid duplicate invalidation. Fragment/Pocket Cancel and
+Retry retain their channel through the lazy adapter. D-070 records these boundaries.
+
+Final frontend common commands pass:
+
+```bash
+corepack pnpm --dir apps/web lint
+corepack pnpm --dir apps/web typecheck
+corepack pnpm --dir apps/web test
+corepack pnpm --dir apps/web build
+.venv/bin/uv run ruff check .
+.venv/bin/uv run pytest tests/integration/test_pocket_surfaces.py
+```
+
+Results: **124 frontend tests / 31 files**, all lint/type/build checks, and
+**30 pocket API tests** pass. The added empty-context API case proves retained seed
+intent, rejected creation without protein, valid archive import, explicit removal
+and exact topology undo. C2's full Python/migration evidence remains recorded above;
+the complete release gate will rerun the whole repository.
+
+C3 milestone browser command:
+
+```bash
+MOLWEAVE_E2E_API_PORT=8110 MOLWEAVE_E2E_WORKER_PORT=8111 \
+MOLWEAVE_E2E_WEB_PORT=5273 MOLWEAVE_E2E_DATA_DIR=/tmp/neistra-36-c3-qualified \
+PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test \
+  tests/e2e/pocket-surfaces.spec.ts tests/e2e/selection-visibility.spec.ts   tests/e2e/selection-surfaces.spec.ts tests/e2e/coordinate-editing.spec.ts   tests/e2e/measurements.spec.ts tests/e2e/export-archive.spec.ts   tests/e2e/rebranding-zoom.spec.ts
+```
+
+**33 passed, 9 intentional layout skips, zero failures/flakes (384.07 s).**
+Native checks compare complete retained triangles/attributes to the full receptor
+reference, exercise actual colors/picking, H/atomic/isolation independence, shared
+worker bounds, empty output and independent channels. Dependency checks cover
+hidden seed and receptor preview/cancel/commit, exact camera/selection and duplicate
+commit reuse. Application checks cover saved/reloaded definitions, hidden input
+loading, empty-selection removal, no-op revisions and no style-only structure GETs.
+
+Desktop/mobile creation and removal, light/dark axe checks, 44 px controls,
+keyboard Apply/focus return, narrow layouts and actual 100%/200% browser zoom pass.
+The final UI-only review correction replaces the original entry-list snapshot for
+default eligibility with the current list. After that correction all frontend
+common commands pass again (124 tests) and the affected workflow/zoom command passes
+**3 tests / 1 intentional layout skip, zero failures/flakes (1.1 minutes)**:
+
+```bash
+MOLWEAVE_E2E_API_PORT=8110 MOLWEAVE_E2E_WORKER_PORT=8111 \
+MOLWEAVE_E2E_WEB_PORT=5273 MOLWEAVE_E2E_DATA_DIR=/tmp/neistra-36-c3-review \
+PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test \
+  tests/e2e/pocket-surfaces.spec.ts tests/e2e/rebranding-zoom.spec.ts \
+  --grep 'saves pockets|real 100%'
+```
+
+That correction does not change native geometry, migrations, dependency invalidation
+or allocation behavior qualified by the full C3 matrix. C4 will run the complete
+clean release gate on the final release source.
+
+Reference/performance rerun: 1STP ready 922.8/593.0 ms desktop/mobile; full 58,674-atom
+1AON protein ready 13.631/13.026 s; full 220,336,136-byte output crops to 296,364 bytes.
+Largest steady surface task 400 ms; tested native cancellation 2.3–3.4 ms. One worker
+and shared allocation bounds hold. Detailed source identity hashes, sizes/timings and
+RSS qualification are in [C3 evidence](../assets/pocket-surfaces/c3-native-qualification.json).
+Captures: [mobile light](../assets/pocket-surfaces/c3-mobile-light-pocket-workflow.png),
+[desktop dark](../assets/pocket-surfaces/c3-desktop-dark-pocket-workflow.png) and
+[actual 200% zoom](../assets/pocket-surfaces/c3-zoom-dark-200-pocket.png).
+
+Local implementing-agent review corrected missing WorkspaceCanvas callback
+forwarding, a 32 px close target, duplicate commit invalidation, dropped adapter
+Cancel/Retry channel identity and stale entry-list eligibility. Regression tests
+cover each boundary; no consequential finding remains. An earlier C3 browser run
+was intentionally interrupted after 18 passes to fix adapter forwarding, then the
+whole corrected milestone matrix was rerun. This is not independent review.
+
+Updated API, scientific/user guidance, accessibility, performance, verification and
+project progress. No additional migration or version change in C3. Commit:
+`feat(selection): add saved pocket surface views` (Refs #36).
+Next: C4 version/release preparation, full clean candidate gate, final review,
+protected PR/merge and exact merged gate before tag/release/issue closeout.
+
+
+### 2026-09-15 — M3/C4 release preparation
+
+C3 committed as `75c1871` and pushed. Fetched origin/master and tags: base remains
+`ce3e4f761133caeff1ee76a827379f790fcad7cf`, with no upstream commits to incorporate.
+Working tree was clean. Remote latest release is v0.8.0; no v0.9.0 tag exists.
+Normal merge commits remain enabled. Live protections/checks/reviews will be
+rechecked before merge.
+
+Prepared **v0.9.0**, the approved additive minor release: user-visible pocket views,
+a nullable durable record and an additive revisioned endpoint. Prior archives and
+existing behavior remain readable in the new application; archive/API/project/
+normalized majors remain 1. Older readers are unsupported for pocket-bearing
+archives. No major or mandatory prerelease increment is warranted.
+
+Updated all five authoritative sources: root pyproject, molweave-dev root record
+in uv.lock, web package, FastAPI application version and archive producer version.
+Updated the producer assertion, README, release notes and migration anchor. No
+historical release record or dependency version was rewritten.
+
+Commit: `chore(release): prepare v0.9.0` (Refs #36). Next: the complete clean
+README/DEVELOPMENT gate with isolated data, then final full-diff local review,
+PR and required review/protection checks. Publication is still pending.
+
+### 2026-09-15 — C4 keyboard review coverage and candidate restart
+
+Candidate `f5fc32cd117e6eba50c05a23ecf93bd8ab1b0a7e` passed frozen installs,
+fresh migration 0013, Ruff/mypy, 366 Python tests, frontend lint/type/build,
+124 frontend tests and eight supervisor tests. Its browser run was intentionally
+interrupted after 23 passes to investigate a suspected menu-to-panel autofocus
+conflict; it is **not** claimed as a complete release gate.
+
+The concern was not reproduced: a new component test passes with the existing
+implementation, and native desktop/mobile Pocket workflows both pass explicit Tab
+navigation into the receptor field (2 tests, 22.5 s). No production focus change
+was needed or made. Keep this regression coverage rather than claiming a nonexistent
+bug was fixed. The new tests and this evidence are committed as
+`test(selection): verify pocket panel keyboard focus` (Refs #36), then the entire
+clean candidate release gate is restarted. Source functionality/version remains
+unchanged from the release-preparation commit.
+
+
+### 2026-09-15 — C4 complete clean candidate gate and final local review
+
+Clean candidate `18d8cf31fb8473a31237d3036966b495c247cefc` passes the full README/DEVELOPMENT release gate:
+frozen uv/pnpm installs, fresh migration to 0013, Ruff, mypy, **366 Python tests**,
+frontend lint/typecheck, **125 frontend tests**, **8 supervisor tests**, production
+build and **104 browser tests / 40 intentional layout skips**. Zero failed/flaky
+browser cases; browser duration **1,106.21 s (18.4 minutes)**. Final whitespace and
+clean-tree checks pass. Existing Alembic configuration and bundle-size advisories
+remain non-failing limitations, not omitted checks.
+
+The exact gate command sequence is the full verification sequence specified in
+the approved #38 plan and README/DEVELOPMENT, using isolated data at
+`/tmp/neistra-36-candidate2-data-c1CfCI`, ports 8110/8111/5273 and
+`PLAYWRIGHT_BROWSERS_PATH=.playwright`. The browser command runs every suite with
+line/JSON reporters. Per-command logs, browser report, capacity/pocket measurements
+and SHA-256 log identities are retained for the immutable release attachment.
+
+Final local full-diff review checked the entire change against released master:
+strict durable schemas and atomic commands; every retained migration path;
+cross-entry pruning/remapping and current-snapshot archive scope; scientific
+context/centroid/owner invariants; combined worker/buffer bounds; stale input and
+coordinate invalidation; primary-panel size, focus and lazy-adapter channel routing;
+test scope, dead code, documentation, five version sources and release compatibility.
+All observed consequential findings are resolved. The autofocus concern was
+disproved by direct regression tests, without unnecessary production changes.
+This review is by the implementing agent, **not independent review**.
+
+Fetched master/tags again after the gate: origin/master is still
+`ce3e4f761133caeff1ee76a827379f790fcad7cf`, already an ancestor of this branch;
+v0.9.0 remains unallocated. All five authoritative versions are 0.9.0.
+This evidence update changes documentation only after the tested source commit.
+Record the PR and review request, recheck live protections/reviews/statuses,
+then normal-merge preserving checkpoints. The exact merged master must pass the
+complete gate again before annotated tag/release publication.
+
+Implementation and candidate qualification are complete. Delivery is complete
+only after the remotely verified release, annotated tag, issue reply and branch
+cleanup. The final post-merge audit belongs in the immutable
+[release verification attachment](https://github.com/ManuelSe/Neistra/releases/download/v0.9.0/neistra-0.9.0-verification.json)
+and [issue closeout](https://github.com/ManuelSe/Neistra/issues/36);
+these links become publication evidence only once verified. Do not move a published
+tag or claim a pending artifact already exists.

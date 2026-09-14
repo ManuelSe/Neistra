@@ -254,3 +254,15 @@ Restore the pre-upgrade backup when needed; do not strip history or edit databas
 JSON to evade the check. New readers accept older archives with absent masks;
 older readers are unsupported for new visibility-bearing archives. Migration tests
 cover upgrade, safe downgrade/re-upgrade, every refusal path and metadata invariance.
+
+## Pocket-definition migration (0.9.0)
+
+Migration 0013 adds nullable saved pocket definitions throughout live and retained
+viewer state. Upgrade existing databases with `uv run alembic upgrade head` after
+backing up the database and artifact directory. A lossless downgrade to 0012 requires
+**every** live/checkpoint/scene/forward/inverse pocket field to be null. The migration
+checks all locations before modifying any and refuses otherwise. Removing the
+visible pocket is insufficient while history retains it; restore a pre-upgrade
+backup rather than stripping references. Prior archives load with null pockets;
+new pocket-bearing archives require a compatible reader. See PROJECT_SCHEMA and
+D-069 for the unchanged current-snapshot archive boundary.

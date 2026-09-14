@@ -50,6 +50,7 @@ def viewer_settings() -> dict[str, Any]:
         "selection_representations": [],
         "selection_surface": None,
         "selection_hidden_atoms": [],
+        "selection_pocket_surface": None,
         "selection_colors": [],
         "selection_nonpolar_hydrogens": [],
         "components": {

@@ -95,7 +95,16 @@ export interface RepresentationSettings {
   opacity: number;
 }
 
+export interface SelectionPocketSurface {
+  profile: "pocket-v1";
+  seed_atom_references: AtomReference[];
+  radius: number;
+}
+
+export type ChangePocketSurface = (receptorId: string, pocket: SelectionPocketSurface | null) => Promise<void>;
+
 export interface ViewerSettings {
+  selection_pocket_surface: SelectionPocketSurface | null;
   selection_hidden_atoms: number[];
   selection_surface: { profile: "molecular-v1"; atom_ids: number[] } | null;
   representations: RepresentationSettings[];

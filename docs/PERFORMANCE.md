@@ -169,3 +169,60 @@ atom assertion. The corrected focused rerun passes all eight cases; full command
 and prior unchanged-workflow evidence are recorded in the feature plan. Initial
 synthetic projection with 100,000 separate components timed out; this qualification
 does not claim capacity for that unrelated component-count stress case.
+
+
+## Full-protein pocket qualification — issue #36 C1
+
+Same Linux/Chromium/SwiftShader and Pixel 7 emulation host as #38. Each pocket uses
+the first protein atom as a captured seed, radius 5 Å, all classified protein
+context and supplied protein H, even with atomic detail/H display hidden. It
+computes the complete native surface before retaining centroid-near triangles.
+No competing builds/tests ran during qualification.
+
+| Fixture / browser | Protein context atoms | Ready ms | Longest task ms | Full → compact output bytes | Accounted working bytes | RSS baseline → peak KiB |
+|---|---:|---:|---:|---:|---:|---:|
+| 1aon / chromium | 58,674 | 13164.2 | 398 | 220,336,136 → 296,364 | 1,577,129,988 | 649,956 → 2,406,632 |
+| 1aon / mobile-chromium | 58,674 | 13064.4 | 289 | 220,336,136 → 296,364 | 1,577,129,988 | 654,280 → 2,411,864 |
+| 1stp / chromium | 901 | 936.4 | 396 | 3,452,740 → 65,268 | 27,904,624 | 563,276 → 917,296 |
+| 1stp / mobile-chromium | 901 | 623.0 | 207 | 3,452,740 → 65,268 | 27,904,624 | 556,988 → 841,100 |
+| supplied-h / chromium | 4 | 424.6 | 300 | 30,252 → 24,776 | 2,522,564 | 651,080 → 898,856 |
+| supplied-h / mobile-chromium | 4 | 235.0 | 130 | 30,252 → 24,776 | 2,522,564 | 669,912 → 828,264 |
+
+All required readiness (<10 s for 1STP, <120 s larger cases), main-thread (<750 ms),
+working/retained bounds and one-worker limits pass. Native Pocket cancellation on
+small fixtures takes 2.5–3.9 ms, below 500 ms, without cancelling the Fragment
+channel; retry restores the pocket. Tests compare every triangle against a separate
+full-context reference, preserve native normals/ownership, and exercise color
+reuse, hiding, isolation, empty results, coexistence and real pixel-targeted picks.
+Only compact geometry and the receptor identity mapping are retained; isolation
+index allocation is reserved within the combined 1 GiB retained budget.
+
+RSS includes the independent reference calculation and subsequent display
+lifecycle, and can count shared pages repeatedly. It is distinct from accounted
+calculation buffers, not a browser/GPU heap bound or physical-phone guarantee.
+Raw evidence and actual native captures: [pocket assets](assets/pocket-surfaces/).
+The complete fragment/capacity regression command passes 21 browser cases with
+one intentional layout skip; exact commands and review are in the feature plan.
+
+### Pocket saved-workflow qualification (C3)
+
+The C3 native rerun again qualifies the complete 58,674-atom 1AON protein context,
+including supplied protein H where present, before cropping. Desktop/mobile
+readiness is 13.631/13.026 s; the full 220,336,136-byte mesh becomes a
+296,364-byte patch. 1STP readiness is 922.8/593.0 ms (901 protein atoms);
+its full 3,452,740-byte mesh becomes 65,268 bytes. The supplied-H fixture preserves
+all four protein atoms and produces a 24,776-byte patch.
+
+Largest observed steady surface task: 400 ms; tested native cancellation:
+2.3–3.4 ms. Both channels retain one worker and respect combined allocation bounds.
+Peak summed descendant RSS is 2,451,060 KiB including independent reference
+calculation and display lifecycle; shared pages may be counted repeatedly. This is
+not a measured worker heap ceiling or a physical-phone guarantee. Full evidence:
+[qualification JSON](assets/pocket-surfaces/c3-native-qualification.json).
+
+Application tests additionally check hidden-seed input loading without visibility
+changes, style-only projection reuse, exact camera/selection during dependent
+coordinate preview/cancel/commit, and prevention of duplicate invalidation for an
+already-applied commit. A final UI-only receptor-default correction is independently
+rechecked by component/workflow/real-zoom tests; it does not change this native
+geometry or resource evidence.

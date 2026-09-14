@@ -31,6 +31,7 @@ from molweave_api.schemas import (
     SceneRead,
     SelectionAppearanceUpdate,
     SelectionAtomVisibilityUpdate,
+    SelectionPocketSurfaceUpdate,
     SelectionSurfaceUpdate,
     TopologyPatch,
     ViewerSettings,
@@ -38,7 +39,9 @@ from molweave_api.schemas import (
 from molweave_api.viewer_state import (
     ATOMIC_SELECTION_STYLES,
     default_viewer_settings,
+    prune_pocket_seeds,
     prune_selection_representations,
+    remap_pocket_seeds,
     update_selection_colors,
     update_selection_hydrogens,
     update_selection_representations,
@@ -357,6 +360,9 @@ class ProjectService:
         entry = self._entry(project, entry_id)
         duplicate = _entry_state(entry)
         duplicate["id"] = _uuid()
+        duplicate["viewer_settings"] = remap_pocket_seeds(
+            duplicate["viewer_settings"], {entry.id: duplicate["id"]}
+        )
         duplicate["name"] = self._copy_name(project, entry.name)
         duplicate["created_at"] = datetime.now(UTC).isoformat()
         return self._record(
@@ -462,6 +468,11 @@ class ProjectService:
                 values[field] = deepcopy(current)
             elif values[field] != current:
                 raise InvalidProjectOperationError("Use the selection appearance action")
+        current_pocket = entry.viewer_settings.get("selection_pocket_surface")
+        if "selection_pocket_surface" not in settings.model_fields_set:
+            values["selection_pocket_surface"] = deepcopy(current_pocket)
+        elif values["selection_pocket_surface"] != current_pocket:
+            raise InvalidProjectOperationError("Use the selection pocket surface action")
         current_hidden = entry.viewer_settings.get("selection_hidden_atoms", [])
         if "selection_hidden_atoms" not in settings.model_fields_set:
             values["selection_hidden_atoms"] = deepcopy(current_hidden)
@@ -628,6 +639,41 @@ class ProjectService:
             selection_snapshot=references,
         )
 
+    def update_selection_pocket_surface(
+        self, project_id: str, payload: SelectionPocketSurfaceUpdate
+    ) -> ProjectRead:
+        project = self._project(project_id)
+        self._check_revision(project, payload.expected_revision)
+        receptor = self._entry(project, payload.receptor_entry_id)
+        definition = payload.pocket.model_dump(mode="json") if payload.pocket else None
+        references = definition["seed_atom_references"] if definition else []
+        self._validate_atom_references(project, references)
+        before = deepcopy(receptor.viewer_settings)
+        if before.get("selection_pocket_surface") == definition:
+            return self.get_project(project_id)
+        after = {**before, "selection_pocket_surface": definition}
+        return self._record(
+            project,
+            "selection.pocket_surface",
+            f"{payload.action.title()} protein pocket for {receptor.name}",
+            [
+                {
+                    "kind": "entry.update",
+                    "entry_id": receptor.id,
+                    "values": {"viewer_settings": after},
+                }
+            ],
+            [
+                {
+                    "kind": "entry.update",
+                    "entry_id": receptor.id,
+                    "values": {"viewer_settings": before},
+                }
+            ],
+            [receptor.id],
+            selection_snapshot=references,
+        )
+
     def update_selection_atom_visibility(
         self, project_id: str, payload: SelectionAtomVisibilityUpdate
     ) -> ProjectRead:
@@ -766,6 +812,26 @@ class ProjectService:
         snapshot = _entry_state(entry)
         forward: list[dict[str, Any]] = []
         inverse: list[dict[str, Any]] = [{"kind": "entry.create", "entry": snapshot}]
+        for owner in project.entries:
+            if owner.id == entry.id:
+                continue
+            before = deepcopy(owner.viewer_settings)
+            after = prune_pocket_seeds(before, entry.id, None)
+            if after != before:
+                forward.append(
+                    {
+                        "kind": "entry.update",
+                        "entry_id": owner.id,
+                        "values": {"viewer_settings": after},
+                    }
+                )
+                inverse.append(
+                    {
+                        "kind": "entry.update",
+                        "entry_id": owner.id,
+                        "values": {"viewer_settings": before},
+                    }
+                )
         for saved_selection in project.saved_selections:
             retained = [
                 reference
@@ -816,14 +882,19 @@ class ProjectService:
             inverse.append({"kind": "measurement.create", "measurement": state})
         for scene in project.scenes:
             retained_entries = [
-                state for state in scene.entry_states if state["entry_id"] != entry.id
+                {
+                    **state,
+                    "viewer_settings": prune_pocket_seeds(state["viewer_settings"], entry.id, None),
+                }
+                for state in scene.entry_states
+                if state["entry_id"] != entry.id
             ]
             retained_atoms = [
                 reference
                 for reference in scene.selection.get("atoms", [])
                 if reference["structure_id"] != entry.id
             ]
-            if len(retained_entries) == len(scene.entry_states) and len(retained_atoms) == len(
+            if retained_entries == scene.entry_states and len(retained_atoms) == len(
                 scene.selection.get("atoms", [])
             ):
                 continue
@@ -1250,23 +1321,29 @@ class ProjectService:
         *,
         operation: str,
     ) -> None:
-        before_settings = deepcopy(entry.viewer_settings)
-        after_settings = prune_selection_representations(before_settings, deleted_atom_ids)
-        if after_settings != before_settings:
-            forward.append(
-                {
-                    "kind": "entry.update",
-                    "entry_id": entry.id,
-                    "values": {"viewer_settings": after_settings},
-                }
+        for owner in project.entries:
+            before_settings = deepcopy(owner.viewer_settings)
+            after_settings = (
+                prune_selection_representations(before_settings, deleted_atom_ids)
+                if owner.id == entry.id
+                else before_settings
             )
-            inverse.append(
-                {
-                    "kind": "entry.update",
-                    "entry_id": entry.id,
-                    "values": {"viewer_settings": before_settings},
-                }
-            )
+            after_settings = prune_pocket_seeds(after_settings, entry.id, deleted_atom_ids)
+            if after_settings != before_settings:
+                forward.append(
+                    {
+                        "kind": "entry.update",
+                        "entry_id": owner.id,
+                        "values": {"viewer_settings": after_settings},
+                    }
+                )
+                inverse.append(
+                    {
+                        "kind": "entry.update",
+                        "entry_id": owner.id,
+                        "values": {"viewer_settings": before_settings},
+                    }
+                )
         for saved_selection in project.saved_selections:
             retained = [
                 reference
@@ -1337,11 +1414,14 @@ class ProjectService:
             entry_states = deepcopy(scene.entry_states)
             styles_changed = False
             for state in entry_states:
-                if state["entry_id"] != entry.id:
-                    continue
                 before_scene_settings = state["viewer_settings"]
-                after_scene_settings = prune_selection_representations(
-                    before_scene_settings, deleted_atom_ids
+                after_scene_settings = (
+                    prune_selection_representations(before_scene_settings, deleted_atom_ids)
+                    if state["entry_id"] == entry.id
+                    else before_scene_settings
+                )
+                after_scene_settings = prune_pocket_seeds(
+                    after_scene_settings, entry.id, deleted_atom_ids
                 )
                 if after_scene_settings != before_scene_settings:
                     state["viewer_settings"] = after_scene_settings
@@ -1726,10 +1806,15 @@ class ProjectService:
     @staticmethod
     def _validate_atom_references(project: Project, atom_references: list[dict[str, Any]]) -> None:
         entries = {entry.id: entry for entry in project.entries}
+        atom_ids_by_entry: dict[str, set[int]] = {}
         for reference in atom_references:
-            entry = entries.get(str(reference["structure_id"]))
-            atom_id = int(reference["atom_id"])
-            if entry is None or atom_id not in set(entry.atom_ids):
+            entry_id = str(reference["structure_id"])
+            entry = entries.get(entry_id)
+            if entry is None:
+                raise InvalidProjectOperationError("Atom reference is not in the current project")
+            if entry_id not in atom_ids_by_entry:
+                atom_ids_by_entry[entry_id] = set(entry.atom_ids)
+            if int(reference["atom_id"]) not in atom_ids_by_entry[entry_id]:
                 raise InvalidProjectOperationError("Atom reference is not in the current project")
 
     @staticmethod

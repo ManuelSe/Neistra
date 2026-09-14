@@ -1,3 +1,4 @@
+import type { SurfaceChannel } from "./surface/protocol";
 import type { SurfaceStatus } from "./surface/runtime";
 import type {
   AtomReference,
@@ -133,8 +134,8 @@ class LazyMolstarViewer implements MolecularViewer {
     const unsubscribe = this.engine?.subscribeSurfaces(listener);
     return () => { this.surfaceListeners.delete(listener); unsubscribe?.(); };
   }
-  cancelSurface(entryId: string): void { this.engine?.cancelSurface(entryId); }
-  retrySurface(entryId: string): void { this.engine?.retrySurface(entryId); }
+  cancelSurface(entryId: string, channel: SurfaceChannel = "fragment"): void { this.engine?.cancelSurface(entryId, channel); }
+  retrySurface(entryId: string, channel: SurfaceChannel = "fragment"): void { this.engine?.retrySurface(entryId, channel); }
 
   resize(): void {
     this.engine?.resize();

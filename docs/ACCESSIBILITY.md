@@ -160,3 +160,20 @@ light/dark axe, real changes and persistent selection in desktop/Pixel 7 layouts
 100%/200% browser zoom in both themes. Final executed results and screenshots are
 recorded in the issue #38 plan; passing a specific emulation is not physical-device
 qualification. Native geometry and picking checks are separate from DOM/axe checks.
+
+### Pocket controls
+
+The compact Surface row uses one labelled **Surface options** trigger. Its
+keyboard-operable menu opens a nonmodal Pocket panel or on-demand explanation.
+Receptor/radius fields and Apply/Remove/Use selection have explicit labels and
+44 px minimum control heights; menu targets are also 44 px. Opening does not lock
+the workspace. Closing returns focus to the options trigger; Escape closes the
+surface panel without closing the containing selection palette. Apply focuses the
+panel before disabling its pending controls. Empty selection does not disable
+removal of saved pockets. Scientific detail stays in help, not the primary row.
+
+C3 qualification passes desktop/Pixel 7 light/dark axe checks and all measured
+44 px targets, keyboard Apply/focus return, and actual 100%/200% browser zoom.
+Final captures: [mobile light](assets/pocket-surfaces/c3-mobile-light-pocket-workflow.png)
+and [dark 200% zoom](assets/pocket-surfaces/c3-zoom-dark-200-pocket.png).
+The complete milestone and final UI-review retest evidence is in the #36 plan.

@@ -3613,3 +3613,16 @@ div[data-radix-popper-content-wrapper]:has(.tooltip) {
 .surface-runtime-status { position: absolute; bottom: 34px; left: 12px; max-width: min(420px, calc(100% - 24px)); max-height: 25%; overflow: auto; padding: 4px 8px; border: 1px solid var(--border); border-radius: 6px; background: var(--surface); font-size: 12px; z-index: 2; }
 .surface-runtime-status > div { display: flex; align-items: center; gap: 8px; }
 .surface-runtime-status span { flex: 1; }
+
+/* On-demand surface tools keep the primary selection palette at its existing size. */
+.pocket-popover { width: min(340px, calc(100vw - 16px)); max-height: calc(100dvh - 24px); overflow-y: auto; z-index: 80; }
+.pocket-draft { display: grid; gap: 10px; }
+.pocket-draft label { display: grid; gap: 4px; }
+.pocket-draft select, .pocket-draft input { width: 100%; min-width: 0; min-height: 44px; }
+.pocket-seeds { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.pocket-draft button, .pocket-draft summary { min-height: 44px; }
+.pocket-draft p, .surface-explanation p { font-size: 0.8125rem; line-height: 1.45; }
+.pocket-popover { z-index: 115; }
+.pocket-draft, .pocket-popover > .surface-explanation { padding: 12px; }
+.surface-options-menu .dropdown-item { min-height: 44px; }
+.pocket-popover .icon-button { min-width: 44px; min-height: 44px; }

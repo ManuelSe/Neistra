@@ -2,7 +2,7 @@
 
 ## Status and delivery metadata
 
-- Status: **C1–C4 implemented and candidate-qualified; verified publication pending**.
+- Status: **complete; v0.8.0 published and verified**.
 - Approved by the user on 2026-09-14. The user authorized detailed persistence,
   then explicitly required waiting for a subsequent implementation instruction.
 - Issue: [#38](https://github.com/ManuelSe/Neistra/issues/38).
@@ -692,3 +692,19 @@ links here do not claim that publication has already occurred:
 This preserves immutable qualified source without moving a release tag for later
 bookkeeping. Clean up only this feature branch after every publication step is
 verified remotely. No human approval or repository protection may be bypassed.
+
+### 2026-09-14 — Delivery complete
+
+PR [#39](https://github.com/ManuelSe/Neistra/pull/39) merged normally as
+`ce3e4f761133caeff1ee76a827379f790fcad7cf`. The exact merged gate passed 319 Python,
+107 frontend, 8 supervisor and 94 browser tests / 40 intentional layout skips,
+zero failures/flakes (browser 935.21 s), plus every install/migration/lint/type/build
+check. Annotated v0.8.0 tag object `bb4e053205592f540d240e92052252637ef4ca87` points
+to that commit. Release and verification attachment are remotely verified;
+downloaded report matches local bytes. Closeout
+[reply](https://github.com/ManuelSe/Neistra/issues/38#issuecomment-5671366694)
+is verified. Codex returned no review; documented local review and live repository
+policy allowed normal merge without bypass. Local/remote feature branches were
+deleted only after all publication checks. #38 is complete; #36 now proceeds on
+its own branch. This completion record is appended on the #36 branch, without
+changing the immutable v0.8.0 released source or tag.

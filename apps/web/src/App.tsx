@@ -676,6 +676,11 @@ export default function App() {
       if (!project) return;
       await projectMutation.mutateAsync(() => projectApi.updateSelectionAtomVisibility(project, selection, action));
     },
+    onLoadPocketStructures: () => loadStructureProjections(project?.entries.map((entry) => entry.id) ?? []),
+    onPocket: async (receptorId: string, pocket: Entry["viewer_settings"]["selection_pocket_surface"]) => {
+      if (!project) return;
+      await projectMutation.mutateAsync(() => projectApi.updatePocketSurface(project, receptorId, pocket));
+    },
     onSurface: async (action: "add" | "remove") => {
       if (!project) return;
       await projectMutation.mutateAsync(() => projectApi.updateSelectionSurface(project, selection, action));

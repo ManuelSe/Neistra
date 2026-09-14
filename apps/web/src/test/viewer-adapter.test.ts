@@ -8,6 +8,8 @@ import {
 
 const calls = vi.hoisted(() => ({
   mount: vi.fn(),
+  cancelSurface: vi.fn(),
+  retrySurface: vi.fn(),
   background: vi.fn(),
   sync: vi.fn(),
   selection: vi.fn(),
@@ -69,6 +71,9 @@ vi.mock("../viewer/MolstarEngine", () => ({
     getCamera() {
       return null;
     }
+
+    cancelSurface(id: string, channel: string) { calls.cancelSurface(id, channel); }
+    retrySurface(id: string, channel: string) { calls.retrySurface(id, channel); }
 
     setCamera() {}
     setCameraMode() {}
@@ -159,4 +164,20 @@ describe("MolecularViewer Molstar adapter", () => {
     expect(calls.resize).toHaveBeenCalledOnce();
     expect(calls.dispose).toHaveBeenCalledOnce();
   });
+});
+
+
+it("forwards surface channel identity through the lazy adapter for Cancel and Retry", async () => {
+  const { createMolstarViewer } = await import("../viewer/MolstarViewer");
+  const viewer = createMolstarViewer();
+  await viewer.mount(document.createElement("div"));
+  viewer.cancelSurface("receptor", "pocket");
+  viewer.retrySurface("receptor", "pocket");
+  expect(calls.cancelSurface).toHaveBeenLastCalledWith("receptor", "pocket");
+  expect(calls.retrySurface).toHaveBeenLastCalledWith("receptor", "pocket");
+  viewer.cancelSurface("receptor");
+  viewer.retrySurface("receptor");
+  expect(calls.cancelSurface).toHaveBeenLastCalledWith("receptor", "fragment");
+  expect(calls.retrySurface).toHaveBeenLastCalledWith("receptor", "fragment");
+  viewer.dispose();
 });

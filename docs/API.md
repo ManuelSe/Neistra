@@ -36,6 +36,7 @@ generates OpenAPI at `/api/v1/openapi.json`. Swagger UI is available at
 | `POST` | `/api/v1/projects/{project_id}/history/undo` | Apply the latest inverse command. |
 | `POST` | `/api/v1/projects/{project_id}/history/redo` | Reapply the next command. |
 | `POST` | `/api/v1/projects/{project_id}/selection-atom-visibility` | Hide or show canonical selected atom detail as one reversible multi-entry command. |
+| `POST` | `/api/v1/projects/{project_id}/selection-pocket-surface` | Apply or remove one saved, seed-centered protein pocket per receptor. |
 | `POST` | `/api/v1/projects/{project_id}/selection-representations` | Apply or reset a representation for a canonical selection as one reversible multi-entry command. |
 
 ## Entry and Group Endpoints
@@ -503,3 +504,30 @@ prior assignments and remains subject to entry/component/isolation/H visibility.
 Generic viewer-settings PUT preserves an omitted mask and rejects a changed mask;
 use the dedicated action, representation Apply/Reset, or existing scene/history
 operations. This is atomic-detail visibility, not atom deletion or subset export.
+
+### Saved protein pocket surfaces
+
+`POST /api/v1/projects/{project_id}/selection-pocket-surface` accepts
+`expected_revision`, `receptor_entry_id`, `action: "apply" | "remove"`, and
+`pocket` (required for Apply, null/omitted for Remove). The definition is:
+
+```json
+{
+  "profile": "pocket-v1",
+  "seed_atom_references": [{"structure_id": "entry-id", "atom_id": 1}],
+  "radius": 5.0
+}
+```
+
+References must be nonempty, unique, canonically sorted and currently valid across
+the project. Hidden entries/atoms remain valid seeds. Radius is finite, 2–12 Å in
+0.5 Å steps. Apply requires current normalized protein context in the receptor;
+Remove remains available if that context later disappears. Validation and revision
+checks precede mutation. Identical Apply and absent Remove are exact no-ops.
+
+The command stores one nullable `ViewerSettings.selection_pocket_surface` on its
+owner, with exact reversible settings changes. Generic viewer-settings PUT preserves
+an omitted pocket field and rejects changed pocket state; use this action instead.
+Atomic styles, colors, hiding and fragment Add/Remove are independent. Seed deletion
+prunes all affected owners and scenes in the originating reversible command; the
+last deleted seed clears the definition. Meshes and runtime failures are not API state.
