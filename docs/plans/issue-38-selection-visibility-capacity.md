@@ -615,3 +615,30 @@ assertion is updated while the legacy v0.7.0 compatibility fixture is preserved.
 README, release notes and migration guidance describe the delivered behavior,
 scientific limits and #36 follow-up. Complete candidate qualification and final
 full-diff review are next; this record does not claim release or merge completion.
+
+### 2026-09-14 — Complete candidate gate found desktop palette overflow
+
+Clean candidate `c147827` passed frozen installs, fresh migration 0012, Ruff/mypy,
+319 Python tests, frontend lint/typecheck, 107 frontend tests, 8 supervisor tests
+and production build. The complete Playwright run finished with **93 passed,
+40 intentional skips, 1 failed, 0 flaky** in 917.33 s. The failure was the existing
+1366×768 desktop no-scroll assertion in selection-appearance.spec.ts: six tiles
+made the ball-and-stick label wrap to three lines and increased palette height.
+All native visibility and large-capacity cases passed on both browser projects.
+This candidate is not release-qualified.
+
+Correct the visible label to “Ball & stick” while retaining the full “Ball and
+stick” accessible name. Keep six equal-width tiles, 44 px targets, the existing
+palette width and the unchanged no-scroll assertion. No molecular/persistence or
+scientific change is involved. Focused layout/visibility/zoom verification and a
+new clean complete candidate gate are required before PR creation.
+
+Correction validation: frontend lint/typecheck and all 107 tests pass. Focused
+Playwright selection-appearance, selection-visibility and rebranding-zoom suites
+pass **13 cases / 3 intentional layout skips (3.0 minutes)** on fresh
+`/tmp/neistra-38-label-qualified`, ports 8110/8111/5273. The original desktop
+no-scroll assertion is unchanged and passes. Both themes, full accessible labels,
+native visibility, mobile and actual zoom pass; the corrected desktop capture was
+visually inspected. Updated captures are retained as `c4-*-visibility.png`.
+Local review confirms this two-line UI change has no state or scientific effect.
+Commit: `fix(selection): keep six-tile palette compact` (Refs #38).

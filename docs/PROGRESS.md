@@ -28,7 +28,12 @@ zoom. Native geometry, keyboard/touch and migration evidence is in the plan.
 Known limitations: bounded native fragment surfaces; no arbitrary-hardware memory
 or latency guarantee. Pocket surfaces remain the separate #36 contract.
 Blockers: none; #36 depends on completed #38 delivery.
-Next action: prepare v0.8.0, run the complete candidate gate, review and deliver #38.
+Release preparation is committed for v0.8.0. The first complete candidate gate
+found one desktop palette-height regression (93 browser passes, 40 skips); shorten
+the visible ball-and-stick label while retaining its full accessible name.
+The corrected label passes frontend checks and 13 focused browser cases (3 layout
+skips), including the unchanged desktop no-scroll assertion and actual zoom.
+Next action: rerun the complete clean candidate gate, then review and deliver #38.
 
 ### Previous release — v0.7.0
 

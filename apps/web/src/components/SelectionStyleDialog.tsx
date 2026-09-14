@@ -92,10 +92,10 @@ function SelectionStyleContent({ selection, entries, structures, eligibilityBusy
       : "Selection hydrogen visibility stored.",
   );
   const renderStyle = (style: SelectionRepresentationStyle, reason: string | null) => <button
-    key={style} type="button" className="selection-style-option" aria-pressed={assigned(style)}
+    key={style} type="button" className="selection-style-option" aria-label={LABELS[style]} aria-pressed={assigned(style)}
     disabled={disabled || reason !== null} aria-describedby={reason ? "selection-polymer-reason" : undefined}
     onClick={() => void perform(() => onAction("apply", style), `Applied ${LABELS[style]}.`)}>
-    <RepresentationGlyph style={style} /><span>{LABELS[style]}</span>
+    <RepresentationGlyph style={style} /><span>{style === "ball-and-stick" ? "Ball & stick" : LABELS[style]}</span>
     {assigned(style) === "mixed" ? <span className="selection-mixed-mark" aria-hidden="true">−</span> : null}
   </button>;
   const feedback = message && (message.failed || message.context === context) ? message : null;
