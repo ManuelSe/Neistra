@@ -1,7 +1,9 @@
+import { componentAtomIds } from "../selection/components";
+import { createPocketCrop, isolatePocketSurface } from "./surface/pocket";
 import { ElementSymbolColorThemeProvider } from "molstar/lib/mol-theme/color/element-symbol";
 import { SurfaceRuntime, type SurfaceStatus } from "./surface/runtime";
 import { attachSurfaceGeometry, detachSurfaceGeometry, SelectionSurfaceProvider, surfaceInput } from "./surface/visual";
-import { SURFACE_PROFILE, type SurfaceGeometry } from "./surface/protocol";
+import { SURFACE_PROFILE, surfaceKey, type SurfaceChannel, type SurfaceGeometry } from "./surface/protocol";
 import { isHydrogen } from "molstar/lib/mol-repr/structure/visual/util/common";
 import { OrderedSet } from "molstar/lib/mol-data/int";
 import { Loci } from "molstar/lib/mol-model/loci";
@@ -206,7 +208,10 @@ export class MolstarEngine implements MolecularViewer {
 
   syncStructures(structures: ViewerStructure[]): Promise<void> {
     this.structures = structures;
-    this.surfaces.retain(new Set(structures.filter((item) => item.settings.selection_surface).map((item) => item.entryId)));
+    this.surfaces.retain(new Set(structures.flatMap((item) => [
+      ...(item.settings.selection_surface ? [surfaceKey(item.entryId, "fragment")] : []),
+      ...(item.pocket ? [surfaceKey(item.entryId, "pocket")] : []),
+    ])));
     this.surfaceBindings.clear();
     const generation = ++this.generation;
     this.syncQueue = this.syncQueue.then(async () => {
@@ -276,7 +281,7 @@ export class MolstarEngine implements MolecularViewer {
         coordinates.set(atomId, [...patch.coordinates[index]] as Point3D);
       });
       await this.detachSurface(patch.entry_id);
-      this.surfaces.remove(patch.entry_id);
+      for (const channel of ["fragment", "pocket"] as const) this.surfaces.remove(patch.entry_id, channel);
       if (mode === "preview") this.coordinatePreviews.set(patch.entry_id, coordinates);
       else this.coordinatePreviews.delete(patch.entry_id);
       if (mode === "commit") {
@@ -290,7 +295,7 @@ export class MolstarEngine implements MolecularViewer {
         });
       }
       await this.updateCoordinates(loaded, coordinates);
-      if (mode === "commit") await this.prepareSurface(patch.entry_id);
+      if (mode === "commit") await this.prepareSurfaces(patch.entry_id);
     });
     return this.syncQueue;
   }
@@ -302,7 +307,7 @@ export class MolstarEngine implements MolecularViewer {
       if (loaded) {
         await this.detachSurface(entryId);
         await this.updateCoordinates(loaded, loaded.baseCoordinates);
-        await this.prepareSurface(entryId);
+        await this.prepareSurfaces(entryId);
       }
     });
     return this.syncQueue;
@@ -408,13 +413,13 @@ export class MolstarEngine implements MolecularViewer {
     return this.surfaces.subscribe(listener);
   }
 
-  cancelSurface(entryId: string): void { this.surfaces.cancel(entryId); }
+  cancelSurface(entryId: string, channel: SurfaceChannel = "fragment"): void { this.surfaces.cancel(entryId, channel); }
 
-  retrySurface(entryId: string): void {
-    this.surfaces.remove(entryId);
+  retrySurface(entryId: string, channel: SurfaceChannel = "fragment"): void {
+    this.surfaces.remove(entryId, channel);
     this.syncQueue = this.syncQueue.then(async () => {
-      await this.detachSurface(entryId);
-      await this.prepareSurface(entryId);
+      await this.detachSurface(entryId, channel);
+      await this.prepareSurface(entryId, channel);
     });
   }
 
@@ -627,23 +632,33 @@ export class MolstarEngine implements MolecularViewer {
             { layers: colors }).commit();
       }
     }
-    await this.prepareSurface(structure.entryId);
+    await this.prepareSurfaces(structure.entryId);
   }
 
-  private async detachSurface(entryId: string) {
-    this.surfaceBindings.delete(entryId);
-    const ref = this.surfaceRefs.get(entryId);
-    this.surfaceRefs.delete(entryId);
-    this.surfaceMeshEntries.delete(entryId);
+  private async detachSurface(entryId: string, channel?: SurfaceChannel) {
+    if (!channel) {
+      await this.detachSurface(entryId, "fragment"); await this.detachSurface(entryId, "pocket"); return;
+    }
+    const key = surfaceKey(entryId, channel);
+    this.surfaceBindings.delete(key);
+    const ref = this.surfaceRefs.get(key);
+    this.surfaceRefs.delete(key);
+    this.surfaceMeshEntries.delete(key);
     if (ref && this.plugin?.state.data.cells.has(ref)) await this.plugin.state.data.build().delete(ref).commit();
     if (!this.surfaceMeshEntries.size) this.plugin?.canvas3d?.setProps({ renderer: { pickingAlphaThreshold: 0.5 } });
   }
 
-  private async prepareSurface(entryId: string) {
+  private async prepareSurfaces(entryId: string) {
+    await this.prepareSurface(entryId, "fragment"); await this.prepareSurface(entryId, "pocket");
+  }
+
+  private async prepareSurface(entryId: string, channel: SurfaceChannel) {
+    const key = surfaceKey(entryId, channel);
     const plugin = this.plugin;
     const loaded = this.loaded.get(entryId);
     const source = this.structures.find((item) => item.entryId === entryId);
-    if (!plugin || !loaded || !source?.settings.selection_surface || this.coordinatePreviews.has(entryId)) return;
+    if (!plugin || !loaded || !source || this.coordinatePreviews.has(entryId)) return;
+    if (channel === "fragment" ? !source.settings.selection_surface : !source.pocket) return;
     // Classify against the complete projection, never the selected fragment.
     const nonpolar = new Set<number>();
     for (const unit of loaded.structure.units) {
@@ -657,7 +672,9 @@ export class MolstarEngine implements MolecularViewer {
     }
     const isolated = this.isolation === null ? null : new Set(this.isolation.filter((atom) => atom.structure_id === entryId).map((atom) => atom.atom_id));
     const visible = visibleRepresentationAtomIds(source, isolated, nonpolar);
-    const ids = source.settings.selection_surface.atom_ids.filter((id) => visible.has(id));
+    const ids = channel === "fragment" ? source.settings.selection_surface!.atom_ids.filter((id) => visible.has(id))
+      : [...new Set(source.hierarchy.components.filter((component) => component.category === "protein")
+        .flatMap((component) => componentAtomIds(source.normalized, component)))].sort((a, b) => a - b);
     const targetIds = new Set(ids);
     const loci = this.lociFor(ids.map((atom_id) => ({ structure_id: entryId, atom_id })));
     let revision = this.surfaceSourceRevisions.get(source.normalized);
@@ -667,29 +684,34 @@ export class MolstarEngine implements MolecularViewer {
     }
     // Immutable normalized snapshots are coordinate/topology revisions. The exact
     // ordered IDs encode membership and all visibility/isolation/H intersections.
-    const dependencyKey = `${SURFACE_PROFILE.id}:${revision}:${ids.join(",")}`;
-    if (!loci) { this.surfaces.request(entryId, source.label, dependencyKey, null, () => {}); return; }
+    const dependencyKey = `${channel}:${revision}:${ids.join(",")}:${channel === "pocket" ? `${source.pocket!.dependencyKey}:${source.pocket!.radius}` : SURFACE_PROFILE.id}`;
+    if (channel === "pocket" && (!source.settings.components.protein || source.pocket?.unavailable)) {
+      this.surfaces.request(entryId, channel, source.label, dependencyKey, null, () => {}, source.pocket?.unavailable); return;
+    }
+    if (!loci) { this.surfaces.request(entryId, channel, source.label, dependencyKey, null, () => {}, channel === "pocket" ? "No protein context is available." : undefined); return; }
     const component = await plugin.builders.structure.tryCreateComponent(loaded.structureRef, {
       type: { name: "bundle", params: StructureElement.Bundle.fromLoci(loci) },
-      nullIfEmpty: true, label: `${source.label} selection fragment surface`,
-    }, `selection-surface-${entryId}`);
+      nullIfEmpty: true, label: `${source.label} ${channel} surface`,
+    }, `selection-surface-${key}`);
     if (!component?.obj) return;
-    this.surfaceRefs.set(entryId, component.ref);
+    this.surfaceRefs.set(key, component.ref);
     const binding = {};
-    this.surfaceBindings.set(entryId, binding);
+    this.surfaceBindings.set(key, binding);
     const notify = (geometry?: SurfaceGeometry) => {
       // Worker completion may arrive during a rebuild. Only the latest component may attach.
       this.syncQueue = this.syncQueue.then(async () => {
-        if (this.surfaceBindings.get(entryId) !== binding || !this.plugin) return;
+        if (this.surfaceBindings.get(key) !== binding || !this.plugin) return;
         const camera = this.getCamera();
         try {
-          if (geometry) attachSurfaceGeometry(component.obj!.data, geometry);
+          const displayed = geometry && channel === "pocket" ? isolatePocketSurface(geometry, isolated) : geometry;
+          if (channel === "pocket" && !displayed?.indices.length) { this.commitScene(camera); return; }
+          if (displayed) attachSurfaceGeometry(component.obj!.data, displayed);
           const repr = geometry ? await plugin.builders.structure.representation.addRepresentation(component, {
             type: SelectionSurfaceProvider, typeParams: { alpha: SURFACE_PROFILE.opacity },
             color: ElementSymbolColorThemeProvider,
           }) : await this.addSurfaceFallback(component.ref);
           if (geometry) {
-            this.surfaceMeshEntries.add(entryId);
+            this.surfaceMeshEntries.add(key);
             plugin.canvas3d?.setProps({ renderer: { pickingAlphaThreshold: SURFACE_PROFILE.opacity } });
           }
           if (repr) {
@@ -704,27 +726,31 @@ export class MolstarEngine implements MolecularViewer {
           this.commitScene(camera);
         } catch (error) {
           detachSurfaceGeometry(component.obj!.data);
-          this.surfaces.fail(entryId, error instanceof Error ? error.message : "Surface upload failed.");
+          this.surfaces.fail(entryId, channel, error instanceof Error ? error.message : "Surface upload failed.");
           try {
             const cleanup = plugin.state.data.build();
             plugin.state.data.tree.children.get(component.ref)?.forEach((child) => cleanup.delete(child));
             await cleanup.commit();
-            this.surfaceMeshEntries.delete(entryId);
+            this.surfaceMeshEntries.delete(key);
             if (!this.surfaceMeshEntries.size) plugin.canvas3d?.setProps({ renderer: { pickingAlphaThreshold: 0.5 } });
-            await this.addSurfaceFallback(component.ref);
+            if (channel === "fragment") await this.addSurfaceFallback(component.ref);
             this.commitScene(camera);
           } catch {
-            this.surfaces.fail(entryId, "Surface and line rendering failed.", false);
+            this.surfaces.fail(entryId, channel, channel === "pocket" ? "Pocket rendering failed." : "Surface and line rendering failed.", false);
           }
         }
       });
     };
     try {
       const unavailable = source.normalized.atoms.length >= 250_000 ? "Large entry uses reduced detail." : undefined;
-      this.surfaces.request(entryId, source.label, dependencyKey,
-        unavailable ? null : () => surfaceInput(component.obj!.data, loaded.atomIds), notify, unavailable);
+      this.surfaces.request(entryId, channel, source.label, dependencyKey,
+        unavailable ? null : () => {
+          const input = surfaceInput(component.obj!.data, loaded.atomIds);
+          if (channel === "pocket") input.pocket = createPocketCrop(source.pocket!.seeds, source.pocket!.radius);
+          return input;
+        }, notify, unavailable);
     } catch (error) {
-      this.surfaces.request(entryId, source.label, dependencyKey, null, notify,
+      this.surfaces.request(entryId, channel, source.label, dependencyKey, null, notify,
         error instanceof Error ? error.message : "Surface atoms could not be projected.");
     }
   }

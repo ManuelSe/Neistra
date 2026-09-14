@@ -2304,3 +2304,30 @@ extraction is lazy, after the cache check; colors/camera/current selection canno
 force input allocation or worker recomputation. Weak keys do not retain old
 molecular snapshots. Existing application ownership and native group ordering stay
 unchanged, with production coordinate/cancel/cache regressions as release gates.
+
+## D-068 - Explicit surface channels retain compact pocket output
+
+Status: implemented and qualified in issue #36 C1, 2026-09-15
+
+Fragment and Pocket requests use explicit entry/channel identity and one shared
+worker queue. Cancellation, retry, stale-result guards, component bindings and
+status messages distinguish channels. Reject channel/profile mismatches. Empty
+pockets are a distinct explained terminal result; errors/cancellation retain the
+definition without relabelling a fragment or full-receptor line representation as
+a pocket fallback. Ordinary fragment fallback remains unchanged.
+
+After native full-protein extraction/grouping, use a radius-cell seed index and
+an inclusive triangle-centroid test. Compact only retained vertices/indices while
+preserving positions, normals, winding and receptor serial groups. Retain the full
+receptor atom-ID mapping for native color/picking, but not the full source mesh.
+Account source/compact coexistence, seed copies/index, triangle marks and vertex
+remapping under the active budget before crop allocation. Reserve an additional
+pocket index buffer under the combined retained budget for display isolation;
+isolation reuses cached vertices/normals/context and never recalculates fragments.
+Seed-buffer admission precedes allocation, avoiding an intermediate flat JS copy.
+These are accounted-buffer limits, not guarantees about browser/GPU heaps.
+
+Rationale: this implements D-065/066 using native scientific geometry and existing
+application ownership, with two explicit channels rather than a generic layer
+manager. The dev-only harness qualifies this renderer checkpoint before durable
+commands or the Pocket UI are introduced.

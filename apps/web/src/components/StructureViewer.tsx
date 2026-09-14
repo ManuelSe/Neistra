@@ -506,12 +506,12 @@ export function StructureViewer({
         />
       </Tooltip.Provider>
       {surfaceStatuses.length ? <div className="surface-runtime-status" aria-label="Selection surface rendering">
-        {surfaceStatuses.map((status) => <div key={status.entryId}>
-          <span role="status">{status.label}: {status.message}</span>
+        {surfaceStatuses.map((status) => <div key={`${status.channel}:${status.entryId}`}>
+          <span role="status">{status.label} · {status.channel === "pocket" ? "Pocket" : "Fragment"}: {status.message}</span>
           {["queued", "rendering"].includes(status.state) ? <button type="button"
-            aria-label={`Cancel surface for ${status.label}`} onClick={() => viewerRef.current?.cancelSurface(status.entryId)}>Cancel</button> : null}
+            aria-label={`Cancel ${status.channel} surface for ${status.label}`} onClick={() => viewerRef.current?.cancelSurface(status.entryId, status.channel)}>Cancel</button> : null}
           {["cancelled", "fallback"].includes(status.state) ? <button type="button"
-            aria-label={`Retry surface for ${status.label}`} onClick={() => viewerRef.current?.retrySurface(status.entryId)}>Retry</button> : null}
+            aria-label={`Retry ${status.channel} surface for ${status.label}`} onClick={() => viewerRef.current?.retrySurface(status.entryId, status.channel)}>Retry</button> : null}
         </div>)}
       </div> : null}
       <div className="viewer-status" role="status">

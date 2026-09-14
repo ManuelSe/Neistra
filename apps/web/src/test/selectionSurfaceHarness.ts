@@ -126,8 +126,13 @@ export async function mountProductionSurfaceHarness(container: HTMLElement, sour
         }) }] : [];
       }),
     }),
-    geometry: (id: string) => internal.surfaces.requests.get(id)?.geometry,
-    input: (id: string) => { const loaded = internal.loaded.get(id)!; return surfaceInput(loaded.structure, loaded.atomIds); },
+    geometry: (id: string, channel: "fragment" | "pocket" = "fragment") => internal.surfaces.requests.get(`${channel}:${id}`)?.geometry,
+    input: (id: string, channel: "fragment" | "pocket" = "fragment") => {
+      const loaded = internal.loaded.get(id)!;
+      const component = internal.surfaceRefs.get(`${channel}:${id}`);
+      const structure = component ? internal.plugin.state.data.cells.get(component)?.obj?.data as Structure : loaded.structure;
+      return surfaceInput(structure, loaded.atomIds);
+    },
     failRepresentations(count: number) {
       const builder = internal.plugin.builders.structure.representation;
       const original = builder.addRepresentation.bind(builder);

@@ -5,13 +5,13 @@ import { SURFACE_LIMITS, SURFACE_PROFILE } from "./protocol";
 const MiB = 1024 * 1024;
 export function checkWorkingAllocation(bytes: number) {
   if (!Number.isSafeInteger(bytes) || bytes < 0 || bytes > SURFACE_LIMITS.workingBytes) {
-    throw new Error("Surface working allocation exceeds 2 GiB; select a smaller region.");
+    throw new Error("Surface working allocation exceeds 2 GiB.");
   }
   return bytes;
 }
 export function checkMeshAllocation(bytes: number) {
   if (!Number.isSafeInteger(bytes) || bytes < 0 || bytes > SURFACE_LIMITS.meshBytes) {
-    throw new Error("Surface mesh allocation exceeds 512 MiB; select a smaller region.");
+    throw new Error("Surface mesh allocation exceeds 512 MiB.");
   }
   return bytes;
 }

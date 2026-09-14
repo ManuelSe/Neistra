@@ -2,41 +2,30 @@
 
 ## Current milestone
 
-Issue #38 — M1 capacity and M2 visibility complete; M3/C4 release qualification next,
-authorized by the user's sequential `/goal` for #38 then #36. Detailed contracts:
+Issue #36 — M1/C1 geometry complete; M2/C2 persistence next on
+`feat/issue-36-pocket-surfaces`, based on verified v0.8.0 master `ce3e4f7`.
+Contract: [approved pocket plan](plans/issue-36-pocket-surfaces.md), planned v0.9.0.
+Completed: full-context crop geometry, explicit shared worker channels, compact
+retention, owner-only isolation and native geometry/color/picking qualification.
+Verification: frontend lint/typecheck/build and 113 tests pass; 21 browser cases
+pass with one intentional layout skip. 1STP and full 58,674-atom 1AON protein
+contexts meet the approved timing/allocation gates. Exact evidence is in the plan.
+Known limitations: geometry is dev-harness qualified; durable definitions and
+application Pocket controls are not implemented yet.
+Blockers: none.
+Next action: implement reversible pocket definitions, cross-entry pruning/remapping
+and safe migration 0013; then integrate the compact saved workflow.
 
-- [#38: atom-detail Hide/Show and larger surfaces](plans/issue-38-selection-visibility-capacity.md),
-  planned v0.8.0 on `feat/issue-38-selection-visibility-capacity`.
-- [#36: protein pocket surfaces](plans/issue-36-pocket-surfaces.md), planned v0.9.0
-  after #38 is fully released; no #36 implementation has started.
+### Previous release — v0.8.0
 
-Completed in C1: coordinated resource limits,
-staged native allocation checks, typed inputs and lazy revision/membership caching.
-Verification: frontend lint/typecheck, 102 tests and production build pass. Full
-23,694/58,870-atom proteins and the synthetic 100,000-atom case render on desktop
-and Pixel 7 emulation within all approved gates. Corrected browser rerun: 8 passed;
-remaining unchanged focused workflows passed, with one intentional mobile skip.
-Exact evidence and initial test corrections are tracked in the feature plan.
-C2 adds revisioned Hide/Show, atomic Apply/Reset reveal, topology/archive guards
-and migration 0012. Ruff/mypy and all 319 Python tests pass, including retained
-history downgrade refusal and legacy archive compatibility.
-C3 adds the compact sixth Hide/Show tile, atomic-only projection and labels,
-unchanged polymer/surface geometry, hidden-atom reselection and cached styling.
-The full M2 gate passes 107 frontend, 319 Python and 26 browser tests with 12
-intentional layout skips, lint/type checks/build, both themes and real 100%/200%
-zoom. Native geometry, keyboard/touch and migration evidence is in the plan.
-Known limitations: bounded native fragment surfaces; no arbitrary-hardware memory
-or latency guarantee. Pocket surfaces remain the separate #36 contract.
-Blockers: none; #36 depends on completed #38 delivery.
-The corrected v0.8.0 candidate `4e2f149` passes the complete release gate:
-319 Python, 107 frontend, 8 supervisor and 94 browser tests, 40 intentional layout
-skips, zero failures/flakes, frozen installs, fresh migration, lint/type/build.
-The desktop overflow finding was fixed without weakening its no-scroll assertion.
-Final local full-diff review has no unresolved consequential finding; it is an
-implementing-agent review, not independent review.
-Next action: PR/review/live merge checks, exact merged gate, verified v0.8.0
-publication and issue closeout; then start #36 on its planned branch. Publication
-records are linked from the #38 feature plan.
+Issue #38 is fully delivered through PR #39 and verified release/tag v0.8.0 on
+`ce3e4f761133caeff1ee76a827379f790fcad7cf`. Candidate and exact merged gates pass
+319 Python, 107 frontend, 8 supervisor and 94 browser tests / 40 layout skips,
+zero failures/flakes, frozen installs, fresh migration 0012, lint/type/build.
+Compact atomic Hide/Show, durable masks and larger qualified protein surfaces are
+complete. The desktop overflow finding was fixed and fully requalified.
+Publication report, issue closeout and branch cleanup are verified; see the
+[#38 feature plan](plans/issue-38-selection-visibility-capacity.md#2026-09-14--delivery-complete).
 
 ### Previous release — v0.7.0
 

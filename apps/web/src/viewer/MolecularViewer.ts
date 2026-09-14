@@ -1,3 +1,4 @@
+import type { SurfaceChannel } from "./surface/protocol";
 import type { SurfaceStatus } from "./surface/runtime";
 import type {
   AtomReference,
@@ -12,7 +13,15 @@ import type {
   ViewerSettings,
 } from "../api/types";
 
+export interface ResolvedPocket {
+  radius: number;
+  seeds: { reference: AtomReference; coordinates: [number, number, number] }[];
+  dependencyKey: string;
+  unavailable?: string;
+}
+
 export interface ViewerStructure {
+  pocket?: ResolvedPocket;
   entryId: string;
   label: string;
   projection: StructureProjection["viewer"];
@@ -51,8 +60,8 @@ export interface MolecularViewer {
   subscribeCamera(listener: (camera: CameraState) => void): () => void;
   subscribeSelection(listener: (event: ViewerSelectionEvent) => void): () => void;
   subscribeSurfaces(listener: (statuses: SurfaceStatus[]) => void): () => void;
-  cancelSurface(entryId: string): void;
-  retrySurface(entryId: string): void;
+  cancelSurface(entryId: string, channel?: SurfaceChannel): void;
+  retrySurface(entryId: string, channel?: SurfaceChannel): void;
   resize(): void;
   dispose(): void;
 }

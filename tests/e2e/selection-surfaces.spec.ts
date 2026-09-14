@@ -1,4 +1,5 @@
-import { readFileSync, readdirSync, writeFileSync } from "node:fs";
+import { browserRssKiB } from "./support/process-memory";
+import { readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { expect, test } from "@playwright/test";
 import type { Project, StructureProjection } from "../../apps/web/src/api/types";
@@ -12,25 +13,6 @@ declare global {
 // counted more than once). This is measured process memory, not a worker heap cap.
 let memoryTimer: ReturnType<typeof setInterval> | undefined;
 test.afterEach(() => clearInterval(memoryTimer));
-function browserRssKiB() {
-  const processes = new Map<number, { parent: number; rss: number }>();
-  for (const name of readdirSync("/proc")) {
-    if (!/^\d+$/.test(name)) continue;
-    try {
-      const status = readFileSync(`/proc/${name}/status`, "utf8");
-      processes.set(Number(name), { parent: Number(status.match(/^PPid:\s+(\d+)/m)?.[1]),
-        rss: Number(status.match(/^VmRSS:\s+(\d+)/m)?.[1] ?? 0) });
-    } catch { /* Process exited while sampling. */ }
-  }
-  let sum = 0;
-  for (const data of processes.values()) {
-    let parent = data.parent;
-    while (parent > 1 && parent !== process.pid) parent = processes.get(parent)?.parent ?? 0;
-    if (parent === process.pid) sum += data.rss;
-  }
-  return sum;
-}
-
 test("qualifies worker geometry, real element colors, picking and cancellation", async ({ page, request }, info) => {
   test.setTimeout(120_000);
   const created = await request.post("/api/v1/projects", { data: { name: `Surface C1 ${Date.now()}` } });
@@ -219,7 +201,7 @@ for (const fixture of ["formats/ethanol.mol", "hydrogens/polar_hydrogens_ligand.
         projection: projection.viewer, atomIds: entry.atom_ids, normalized: projection.structure, hierarchy: projection.hierarchy, settings });
       return window.productionSurface.inspect();
     }, { entry, projection, hydrogen });
-    expect(initialState.meshes).toEqual([entry.id]);
+    expect(initialState.meshes).toEqual([`fragment:${entry.id}`]);
     expect(initialState.geometry[0].atomIds).toEqual(hydrogen ? [4] : [1, 2, 3]);
     expect(initialState.workers.maximum).toBe(1);
     expect(initialState.workers.active).toBe(0);
@@ -243,7 +225,7 @@ for (const fixture of ["formats/ethanol.mol", "hydrogens/polar_hydrogens_ligand.
       expect(states.hidden.statuses[0].state).toBe("hidden");
       expect(states.hidden.threshold).toBe(0.5);
       expect(states.multiple.statuses.map((s) => s.state)).toEqual(["fallback", "ready"]);
-      expect(states.multiple.meshes).toEqual([entry.id]);
+      expect(states.multiple.meshes).toEqual([`fragment:${entry.id}`]);
       expect(states.membership!.atom_ids).toEqual([2, 4]);
       // Removing the last mesh restores the threshold even while another entry is in fallback.
       const fallbackOnly = await page.evaluate(async () => {
@@ -339,7 +321,7 @@ for (const fixture of ["formats/ethanol.mol", "hydrogens/polar_hydrogens_ligand.
       expect(cancellation.cancelMs).toBeLessThan(500);
       expect(cancellation.activeAfterCancel).toBe(0);
       expect(cancellation.retried.statuses[0].state).toBe("ready");
-      expect(cancellation.retried.meshes).toEqual([entry.id]);
+      expect(cancellation.retried.meshes).toEqual([`fragment:${entry.id}`]);
       expect(cancellation.retried.geometry[0].vertices).toEqual(edits.committed);
       const uploadFailure = await page.evaluate(async () => {
         const h = window.productionSurface;
@@ -350,7 +332,7 @@ for (const fixture of ["formats/ethanol.mol", "hydrogens/polar_hydrogens_ligand.
       });
       expect(uploadFailure.failed.meshes).toEqual([]);
       expect(uploadFailure.failed.statuses[0].message).toBe("Surface and line rendering failed. Membership kept.");
-      expect(uploadFailure.recovered.meshes).toEqual([entry.id]);
+      expect(uploadFailure.recovered.meshes).toEqual([`fragment:${entry.id}`]);
     }
     const cleanup = await page.evaluate(async () => {
       const h = window.productionSurface; await h.sync([]); const empty = h.inspect(); h.dispose(); return empty;

@@ -2,7 +2,7 @@
 
 ## Status and delivery metadata
 
-- Status: **approved; planning only; implementation has not started**.
+- Status: **M1/C1 complete; M2/C2 persistence next**.
 - User approved the two-release plan on 2026-09-14, then requested detailed
   persistence and an explicit stop before implementation.
 - Issue: [#36](https://github.com/ManuelSe/Neistra/issues/36).
@@ -14,7 +14,7 @@
   together with the entire approved first-release contract.
 - Future implementation base: up-to-date `origin/master` containing the verified
   issue #38 release. Record its exact commit before pocket implementation.
-- Future branch: `feat/issue-36-pocket-surfaces`; **do not create it now**.
+- Future branch: `feat/issue-36-pocket-surfaces`; created from verified v0.8.0 master.
 - Planned version/tag: **v0.9.0**, subject to the dependency release and collision check.
 - Proposed PR title: `feat(surface): add selection-centered protein pocket views`.
 - Merge strategy: normal merge commit preserving coherent checkpoint history.
@@ -442,3 +442,89 @@ Plan-persistence validation (2026-09-14): local Markdown document links and code
 fences checked; staged whitespace checks pass. Only the two feature plans and
 project decision/progress documents are changed. No implementation qualification
 is claimed, and the pocket implementation branch remains uncreated.
+
+### 2026-09-14 — Implementation started after verified dependency release
+
+The user's sequential `/goal` supersedes the historical persistence-only stop.
+Issue #38 is fully delivered: PR #39 merged as
+`ce3e4f761133caeff1ee76a827379f790fcad7cf`, exact merged gate passed, annotated
+v0.8.0 tag object `bb4e053205592f540d240e92052252637ef4ca87` and release verified,
+verification attachment downloaded byte-for-byte, and issue closeout
+[5671366694](https://github.com/ManuelSe/Neistra/issues/38#issuecomment-5671366694)
+verified. Its local/remote feature branches were then deleted.
+
+Fetched/fast-forwarded clean master and created `feat/issue-36-pocket-surfaces`
+from that exact released commit. Re-read repository authority, approved contract,
+verification and affected viewer/API/archive boundaries before changing code.
+Start with C1 full-context geometry, explicit channels and native qualification;
+no durable pocket command or user-facing Pocket control exists yet.
+
+### 2026-09-15 — M1/C1 complete: full-context geometry and execution
+
+Implemented pocket-v1 crop input, radius-cell seed indexing, inclusive centroid
+inclusion and compact remapping of unchanged native vertices/normals/winding/owner
+groups. Empty and disconnected outputs are valid. Display isolation filters only
+indices, preserving full protein context. Atom/H detail does not reshape context.
+Two explicit Fragment/Pocket channels share one queue and combined retention;
+Pocket cancellation/failure never substitutes fragment or full-receptor lines.
+The dev-only production harness exercises typed resolved pocket inputs; no saved
+pocket API or user-facing Pocket creation control is claimed at this checkpoint.
+
+D-068 records channel identity, profile mismatch protection, seed-buffer admission,
+full/compact/index allocation and isolation reservation. The shared surface provider
+preserves receptor-owned colors/picks; changing carbon colors reuses geometry.
+Existing fragment requests and their native qualification continue to pass.
+
+Commands:
+
+```bash
+corepack pnpm --dir apps/web lint
+corepack pnpm --dir apps/web typecheck
+corepack pnpm --dir apps/web test
+corepack pnpm --dir apps/web build
+MOLWEAVE_E2E_API_PORT=8110 MOLWEAVE_E2E_WORKER_PORT=8111 \
+MOLWEAVE_E2E_WEB_PORT=5273 MOLWEAVE_E2E_DATA_DIR=/tmp/neistra-36-c1-final \
+PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test \
+  tests/e2e/pocket-surfaces.spec.ts tests/e2e/selection-surfaces.spec.ts \
+  tests/e2e/surface-capacity.spec.ts
+```
+
+Results: lint/typecheck/build pass; **113 frontend tests in 29 files** pass;
+**21 browser tests / 1 intentional layout skip (5.7 minutes)** pass with no failures.
+Geometry unit tests use an independent brute-force cutoff and exact retained
+triangle data; exercise radius endpoints, inclusive/just-outside boundaries, empty,
+disconnected, fragment differences, ownership/isolation and active-memory refusal.
+Runtime tests cover same-entry channels, cancellation/stale work, combined retention
+and hidden-owner recovery. Native browser tests cover supplied protein H, exact
+reference geometry, actual colors/picks, color reuse, camera, hide/show, isolation,
+coexistence, empty output, Pocket cancellation/retry and all prior capacity cases.
+
+1STP protein context: 901 of 1,001 entry atoms; ready 936.4/623.0 ms desktop/mobile.
+Supplied-H fixture: four protein atoms including two supplied H, still contributing
+when H detail is hidden. 1AON: all 58,674 protein atoms from the 58,870-atom entry;
+196 separately classified nonprotein atoms are excluded. Ready 13.164/13.064 s;
+full output 220,336,136 bytes becomes a 296,364-byte patch. All working bounds fit
+2 GiB; largest observed surface task is 398 ms. Native cancellation takes 2.5–3.9 ms.
+Detailed full/compact sizes, RSS (including independent reference/lifecycle work),
+timings and captures are retained under `docs/assets/pocket-surfaces/c1-*` and in
+PERFORMANCE. Qualification is emulation/host-specific, not a physical-phone claim.
+
+Initial native run: 20 passed, one intentional skip, one desktop picking-test
+failure. A fixed canvas grid missed the small visible 1AON patch; all its geometry/
+allocation assertions and mobile picking had passed. The test now locates interior
+rendered pixels and performs real mouse clicks/native picks, without synthetic loci
+or weaker ownership assertions. The full corrected native run passes.
+
+Local implementing-agent review checked scientific parameters/context, cutoff and
+compaction, source-buffer lifetime, profile/channel identity, stale bindings,
+retention and isolation accounting, truthful empty/failure states and compatibility.
+Resource messages were made context-neutral after review: shrinking a displayed
+pocket radius cannot solve full-receptor allocation. This final text-only adjustment
+was followed by all frontend common gates (113 tests); native geometry/behavior is
+unchanged from the full browser qualification. No unresolved consequential finding
+remains. This is not an independent review. `git diff --check` passes.
+
+Updated scientific limitations, fixtures, performance, progress and the #38 final
+publication record. No migration/version change in C1; rollback remains disposable
+renderer code. Commit: `feat(surface): generate context-aware protein patches`
+(Refs #36). Next: C2 durable definitions and cross-entry reference lifecycle.

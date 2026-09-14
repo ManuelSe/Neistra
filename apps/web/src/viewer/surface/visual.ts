@@ -14,7 +14,7 @@ const params = { ...ComplexMeshParams, alpha: PD.Numeric(SURFACE_PROFILE.opacity
 
 export function surfaceInput(structure: Structure, sourceAtomIds: readonly number[]): SurfaceInput {
   if (!structure.elementCount || structure.elementCount > SURFACE_LIMITS.atoms) {
-    throw new Error("Surface requires 1–100,000 visible atoms.");
+    throw new Error("Surface requires 1–100,000 atoms.");
   }
   const n = structure.elementCount;
   const atomIds = new Uint32Array(n), x = new Float64Array(n), y = new Float64Array(n),
@@ -43,9 +43,9 @@ export function attachSurfaceGeometry(structure: Structure, geometry: SurfaceGeo
 }
 
 export const SelectionSurfaceProvider = StructureRepresentationProvider({
-  name: "neistra-selection-surface", label: "Selection fragment surface",
-  description: "Molecular surface of selected atoms alone; cut boundaries can expose artificial faces.",
-  factory: (ctx, getParams) => ComplexRepresentation("Selection fragment surface", ctx, getParams,
+  name: "neistra-selection-surface", label: "Selection surface",
+  description: "Precomputed molecular surface with canonical atom ownership.",
+  factory: (ctx, getParams) => ComplexRepresentation("Selection surface", ctx, getParams,
     (materialId) => ComplexMeshVisual({
       defaultProps: PD.getDefaultValues(params),
       createGeometry: (_ctx, structure) => {
