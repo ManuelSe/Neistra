@@ -2,28 +2,21 @@
 
 ## Current milestone
 
-Issue #9 — M1/C1 and M2/C2–C3 implemented and verified; C4 qualification underway.
+Issue #9 — M1–M3 / C1–C4 implemented and candidate-qualified for **v0.10.0**.
 Contract: [structure group membership plan](plans/issue-9-structure-group-membership.md).
-Branch: `feat/issue-9-structure-group-membership`; approved 2026-10-08.
-Completed: atomic reversible membership API; exact no-ops; timestamp invariance;
-accessible batch move/ungroup/create, captured partial/filter-hidden scope, retained
-empty groups, distinct display names and focus/conflict handling. Native desktop
-drag uses the same command, stable targets and captured session guards. D-071–D-074.
-C4 review correction preserves entry timestamps through reads and checkpoint save;
-its regression fails against the preceding checkpoint and passes after correction.
-Verification: 31 focused Python, 134 frontend tests, lint/type/build;
-15 browser workflows / 3 layout skips (desktop/Pixel 7), light/dark scoped axe,
-stale-tab and viewer/request invariance. Detailed commands in the feature plan.
-All five version sources are prepared for minor v0.10.0. No migration/schema change.
-Limitations: mobile evidence is emulation; deferred scope stays deferred.
-C4 focused qualification: 9 browser workflows / 3 intentional skips, including
-real zoom and live camera/surface instrumentation; expanded archive compatibility.
-Full gate first attempt: 379 Python / 134 frontend / 8 supervisor pass; browser
-110 pass / 41 skips / 1 Vite connection-loss reload failure. Isolated unchanged
-theme/menu repro passes. Subsequent review fixes late-response project context;
-its success/conflict regressions fail against preceding App and pass after the fix.
-Corrected membership suite: 11 browser workflows / 1 intentional mobile drag skip.
-Blockers: no product decision. Next: qualify the corrected clean candidate, then PR.
+Branch: `feat/issue-9-structure-group-membership`; D-071–D-074.
+Atomic reversible membership, captured accessible batch actions, native desktop
+moves, reusable empty destinations and derived sorts are complete. Review fixes
+preserve entry timestamps through checkpoint saves and keep late responses with
+their captured project. No migration/schema change; all five versions are 0.10.0.
+
+Clean candidate `6334715f216287913ad9e427014f7a29a0270248` passes **379 Python, 134 frontend,
+8 supervisor and 115 browser tests / 41 intentional layout skips**, frozen installs,
+fresh migration 0013, lint/type/build; zero failed/flaky cases in final qualification.
+Earlier Vite reload failure and expected old-code regressions remain documented
+separately in the plan. Limits: Pixel 7 emulation, unchanged lazy Mol* advisory and
+Alembic deprecation; deferred scope stays deferred. Review is local, not independent.
+Blockers: none. Next: PR/review/normal merge, exact merged gate and publication.
 
 ### Previous release — v0.9.0
 

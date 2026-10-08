@@ -46,9 +46,12 @@
 The [approved issue #9 plan](plans/issue-9-structure-group-membership.md) records
 checkpoint evidence for atomicity/history/restart/archive tests, component/viewer
 instrumentation, native desktop dragging, Pixel 7 explicit workflows, light/dark
-scoped axe and real 100%/200% zoom. Complete candidate and exact merged qualification
-are release blockers; their results will be recorded there and in the published
-release verification report.
+scoped axe and real 100%/200% zoom. Clean candidate qualification passes
+**379 Python, 134 frontend, 8 supervisor and
+115 browser tests / 41 intentional layout skips**, with zero failed/flaky cases
+in the final run. Exact merged qualification remains a release blocker and will
+be recorded in the published verification report. Earlier diagnostic failures
+are separate from passing release evidence.
 Local review is identified accurately; it is not claimed as independent review.
 
 ### Scientific limitations and deferred scope

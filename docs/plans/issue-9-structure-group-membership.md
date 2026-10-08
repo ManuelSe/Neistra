@@ -2,7 +2,7 @@
 
 ## Status and issue metadata
 
-- Status: **M1/C1 and M2/C2–C3 complete; M3/C4 qualification underway; implementation authorized by `/goal`**.
+- Status: **M1–M3 / C1–C4 implemented and candidate-qualified for v0.10.0; PR/release delivery pending**.
 - Approval: the user explicitly approved the complete proposed plan on 2026-10-08.
 - Issue: [#9 — Allow structure entries to be added to, moved between, and removed from groups](https://github.com/ManuelSe/Neistra/issues/9).
 - Base branch: `master`, updated from `origin/master` using fast-forward-only integration.
@@ -736,3 +736,54 @@ PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test
 1.4 min. This includes the strengthened filter-focus assertions. `git diff --check`
 and local correction diff review pass. The corrected complete candidate gate is
 still required before PR creation; no merged/tagged/released outcome is claimed.
+
+
+### 2026-10-09 — M3/C4 complete: corrected candidate qualification
+
+Correction checkpoint is `6334715`. Clean complete gate on `6334715f216287913ad9e427014f7a29a0270248` passes **379 Python, 134 frontend, 8 supervisor and 115 browser tests / 41 intentional layout skips**. Final browser run has zero failed/flaky cases (1165.20 s), frozen installs, fresh migration to 0013, Ruff/mypy (54 files), frontend lint/types/build and clean diff/tree checks. Python retains 237 existing Alembic deprecations; the existing lazy Mol* bundle advisory remains. Fresh browser services use ports 8110/8111/5273 and `/tmp/neistra-issue9-candidate-final-e2e`; migration uses `/tmp/neistra-issue9-candidate-final-migration`. Detailed gate records/logs are under `/tmp/neistra-issue9-candidate-final-evidence`, to be summarized in the published verification report.
+
+Exact complete gate commands:
+
+```bash
+.venv/bin/uv sync --frozen
+corepack pnpm install --frozen-lockfile
+MOLWEAVE_DATA_DIR=/tmp/neistra-issue9-candidate-final-migration .venv/bin/uv run alembic upgrade head
+.venv/bin/uv run ruff check .
+.venv/bin/uv run mypy apps/api packages/molweave_core
+.venv/bin/uv run pytest
+corepack pnpm --dir apps/web lint
+corepack pnpm --dir apps/web typecheck
+corepack pnpm --dir apps/web test
+corepack pnpm test:dev
+corepack pnpm --dir apps/web build
+MOLWEAVE_E2E_API_PORT=8110 MOLWEAVE_E2E_WORKER_PORT=8111 MOLWEAVE_E2E_WEB_PORT=5273 MOLWEAVE_E2E_DATA_DIR=/tmp/neistra-issue9-candidate-final-e2e PLAYWRIGHT_BROWSERS_PATH=.playwright PLAYWRIGHT_JSON_OUTPUT_FILE=/tmp/neistra-issue9-candidate-final-evidence/playwright.json corepack pnpm exec playwright test --reporter=line,json
+git diff --check
+git status --short
+```
+
+No source, test or dependency change occurred during qualification. Earlier
+connection-loss failure/interrupted qualification and expected old-code regression
+failures are retained as diagnostics, not included in these passing counts.
+All approved implementation milestones are complete; no deferred scope was added.
+Full-diff review is local, not independent, and leaves no consequential unresolved
+finding after timestamp and completion-context corrections. Delivery next requires
+live base/version/policy checks, PR/review, normal merge, exact merged gate,
+annotated tag/release, verified issue reply and cleanup.
+
+#### Claim-to-evidence acceptance matrix
+
+All rows below are covered by the clean candidate above; exact merged qualification
+must repeat the complete gate before publication.
+
+| Accepted claim | Concrete implemented evidence | Passing result |
+|---|---|---|
+| Atomic membership, invalid/stale rejection, exact no-ops and history | `test_batch_membership_history_noops_and_complete_state_invariance`, `test_mixed_batches_record_only_changes_and_retain_groups_after_delete`, six `test_invalid_batches_reject_before_any_write` cases; command suite | 379-test Python gate |
+| Checkpoint, restart, ID remapping, empty groups and original bytes | `test_membership_checkpoint_restart_archive_and_legacy_history`; archive round-trip/legacy producer tests; project-lifecycle browser workflows | Python + both-layout browser gates |
+| Modified-sort/checkpoint invariance | `test_read_move_noop_and_checkpoint_do_not_dirty_orm_timestamps`, meaningful old-service regression, stable browser sort ties | Python + frontend gates |
+| Scientific metadata, artifacts and job provenance unchanged | Rich API byte/full-state/job comparisons in `test_batch_membership_history_noops_and_complete_state_invariance`; archive originals | Python gate |
+| No normalized refetch, load/rebuild, camera/selection/representation/surface change | `does not reload or rebuild the viewer for membership-only responses` (structure-loading component suite); `keeps a live molecular viewer and prepared surface unchanged during membership edits` with real module/worker/camera evidence | 134 frontend + 115 browser gates |
+| Batch explicit actions, partial/filter-hidden scope, conflict, focus, touch and history | `moves filtered selected batches...`; `rejects stale-tab actions...`; native modal/scope tests | Both-layout membership workflows |
+| Native desktop dragging, valid targets, external rejection and cancellation | `uses real desktop drags for batches, collapsed/empty destinations, Ungrouped, and exact no-ops`; drag hook lifecycle tests | Native desktop pass; intentional mobile drag skip |
+| Completion-context ownership | `keeps late membership success/conflict feedback and focus in its captured project`; old-App regressions demonstrate stolen focus/replaced notice | Four delayed-response browser cases |
+| Accessibility, themes, zoom and responsiveness | Scoped WCAG axe, light/dark keyboard/touch membership flows, extended `keeps actions and dialogs reachable at real 100% and 200% browser zoom`, release-hardening and responsive-breakpoint suites | Complete browser gate; no threshold weakening |
+| Schema, migration and preceding action compatibility | Existing `entries.group` payload assertions, producer/legacy archive cases, full migration upgrade/downgrade suite and fresh head 0013 | Python + fresh migration gate; no new migration |
