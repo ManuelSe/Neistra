@@ -51,6 +51,7 @@ generates OpenAPI at `/api/v1/openapi.json`. Swagger UI is available at
 | `PUT` | `/api/v1/projects/{project_id}/entries/{entry_id}/viewer-settings` | Replace validated representations, components, and labels. |
 | `DELETE` | `/api/v1/projects/{project_id}/entries/{entry_id}` | Delete an entry reversibly. |
 | `POST` | `/api/v1/projects/{project_id}/groups` | Create a group containing specified entries. |
+| `POST` | `/api/v1/projects/{project_id}/group-membership` | Move an entry batch to an existing group or Ungrouped as one reversible command. |
 | `POST` | `/api/v1/projects/{project_id}/selections` | Save a canonical named selection as a reversible command. |
 | `DELETE` | `/api/v1/projects/{project_id}/selections/{selection_id}` | Delete a named selection reversibly. |
 | `POST` | `/api/v1/projects/{project_id}/measurements` | Create a distance, angle, or dihedral measurement. |
@@ -59,6 +60,24 @@ generates OpenAPI at `/api/v1/openapi.json`. Swagger UI is available at
 | `POST` | `/api/v1/projects/{project_id}/scenes` | Save camera, visibility, viewer settings, and selection. |
 | `POST` | `/api/v1/projects/{project_id}/scenes/{scene_id}/apply` | Apply scene entry state as one command. |
 | `DELETE` | `/api/v1/projects/{project_id}/scenes/{scene_id}` | Delete a named scene reversibly. |
+
+### Group membership
+
+`group-membership` accepts `expected_revision`, a nonempty unique `entry_ids` list,
+and `group_id` (an existing same-project group ID, or `null` for Ungrouped).
+An optional canonical `selection` captures history context; group creation also
+accepts this optional field without changing existing callers. The entire batch,
+destination and selection references are validated before writes. Foreign or
+missing references reject with structured 422 errors; stale revisions return 409,
+including stale requests that otherwise would do nothing.
+
+Only entries changing membership appear in the forward/inverse `entries.group`
+actions. An exact no-op returns the current ProjectRead without changing revision,
+history, timestamps or the redo branch. Empty groups remain available after moving
+or deleting their final member. Locked entries may be reorganized. Membership edits
+preserve molecular artifacts, entry timestamps, viewer settings and job provenance;
+they emit no molecular patches. Project and affected-entry dirty state are derived
+from the existing checkpoint comparison. No new migration or schema is needed.
 
 ## Molecular Endpoints
 

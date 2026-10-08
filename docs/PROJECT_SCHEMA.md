@@ -82,7 +82,22 @@ name: string
 created_at: ISO-8601 timestamp
 ```
 
+### Group organization and history
+
+Group membership uses existing `StructureEntryV1.group_id`; no ordering field or
+new schema is introduced. Empty groups persist after moves, ungrouping and deletion
+of their final entry. One revisioned membership command stores complete inverse
+memberships using the existing `entries.group` action vocabulary. Exact no-ops do
+not consume revision/history or discard redo. Entry timestamps are preserved so
+organization cannot perturb the Modified sort key. Dirty state continues to derive
+from checkpoint comparison. API entries/groups use stable ID ties when names match.
+
+Archives preserve current groups and membership, remapping IDs as before; no
+portable command history is added. Named scenes remain visual-state snapshots.
+The existing derived browser sort has no persistent manual position contract.
+
 ## SavedSelectionV1
+
 
 ```text
 id: UUIDv7 string

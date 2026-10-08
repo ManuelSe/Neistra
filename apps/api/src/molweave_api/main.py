@@ -95,6 +95,7 @@ from molweave_api.schemas import (
     ExportRead,
     FormatRead,
     GroupCreate,
+    GroupMembershipUpdate,
     ImportRead,
     JobCreate,
     JobDefinitionRead,
@@ -842,6 +843,23 @@ def create_app(settings: Settings | None = None) -> FastAPI:
                 payload.expected_revision,
                 payload.name,
                 payload.entry_ids,
+                payload.selection,
+            )
+        )
+
+    @router.post("/projects/{project_id}/group-membership", response_model=ProjectRead)
+    async def update_group_membership(
+        project_id: str,
+        payload: GroupMembershipUpdate,
+        session: Session = Depends(session_dependency),
+    ) -> ProjectRead:
+        return _call(
+            lambda: _service(session).update_group_membership(
+                project_id,
+                payload.expected_revision,
+                payload.entry_ids,
+                payload.group_id,
+                payload.selection,
             )
         )
 

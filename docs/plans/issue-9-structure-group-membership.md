@@ -2,7 +2,7 @@
 
 ## Status and issue metadata
 
-- Status: **approved and persisted; implementation not started**.
+- Status: **M1/C1 complete; M2/C2 next; implementation authorized by `/goal`**.
 - Approval: the user explicitly approved the complete proposed plan on 2026-10-08.
 - Issue: [#9 — Allow structure entries to be added to, moved between, and removed from groups](https://github.com/ManuelSe/Neistra/issues/9).
 - Base branch: `master`, updated from `origin/master` using fast-forward-only integration.
@@ -17,7 +17,8 @@ This feature plan is the approved implementation contract. The GitHub issue is a
 product/problem brief, not a binding technical specification. The global
 `docs/PLAN.md` remains unchanged. Persisting this contract authorizes only the
 planning handoff in this turn: documentation, commit, push and verification.
-Stop before implementation and await the user's `/goal` instruction.
+The user subsequently invoked `/goal` on 2026-10-08, authorizing implementation
+and the complete PR/review/merge/release/issue-response/cleanup workflow.
 
 ## Core problem and approved outcome
 
@@ -507,7 +508,7 @@ findings. Do not bypass blockers or silently reduce accepted scope.
 | Planning review | Complete | Inspected architecture/product/delivery inputs; repository stayed read-only until approval |
 | Approval | Complete | User explicitly approved the full proposal on 2026-10-08 |
 | Planning persistence | Documentation complete and validated | Fast-forward-only master integration; clean base `94fdcd54e53e674c036e46894669f46f7edc2e66`; dedicated branch created; this document is its first file change |
-| M1 / C1 | Not started | Await `/goal`; durable membership API first |
+| M1 / C1 | Complete | Typed atomic membership API; focused and M1 boundary gates passed; evidence below |
 | M2 / C2 | Not started | Accessible explicit workflow |
 | M2 / C3 | Not started | Desktop drag and drop |
 | M3 / C4 | Not started | Compatibility, full gate, review and release preparation |
@@ -529,4 +530,36 @@ lint/type/test/build/browser gates remain unexecuted.
 During implementation append checkpoint date/commit, concrete outcome, exact
 commands/results, compatibility evidence, deviations, limitations, blockers and
 next action. Keep detailed evidence here and only concise current summaries in
-PROGRESS. Next action after planning commit/push: **stop, ready for `/goal`**.
+PROGRESS. Next action: **M2/C2 accessible explicit actions**.
+
+### 2026-10-08 — M1/C1 complete
+
+Implemented `POST /group-membership`, optional history selection context on this
+action and existing group creation, complete same-project validation, changed-only
+legacy `entries.group` actions, stale-revision rejection and exact no-ops retaining
+redo. Empty groups survive moves/deletion. Stable name/ID ties make API ordering
+deterministic. D-072 fixes automatic membership/blanket-dirty timestamp updates;
+checkpoint-derived dirty state already owns entry flags. No migration or new
+history vocabulary. Locked entries, originals, normalized documents, settings,
+scenes, saved selections, measurements and queued job inputs stay unchanged.
+
+Passing focused commands: `.venv/bin/uv run ruff check .`; `.venv/bin/uv run mypy
+apps/api packages/molweave_core` (54 files); `.venv/bin/uv run pytest
+tests/unit/test_commands.py tests/integration/test_group_membership.py
+tests/integration/test_project_lifecycle.py tests/integration/test_archive_roundtrip.py
+-q` (**31 passed**, 10.87 s). The new suite includes invalid batch atomicity,
+mixed destinations, complete snapshots, history/redo no-ops, API restart,
+checkpoint, archive remapping/empty groups/original bytes and existing action format.
+
+M1 boundary: `corepack pnpm --dir apps/web lint`, `typecheck`, `test` and `build`
+all pass (**125 frontend tests**). Existing lazy Mol* build-size advisory remains.
+`MOLWEAVE_E2E_API_PORT=8110 MOLWEAVE_E2E_WORKER_PORT=8111
+MOLWEAVE_E2E_WEB_PORT=5273 MOLWEAVE_E2E_DATA_DIR=/tmp/neistra-issue9-c1-e2e
+PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test
+tests/e2e/project-lifecycle.spec.ts` passes **5 tests / 1 intentional layout skip**
+in 16.2 s, using fresh migration through 0013. `git diff --check` passes.
+
+Initial checks identified timestamp side effects and test setup snapshot/lifespan
+assumptions; all were corrected before the passing run. Local full checkpoint
+diff review found no remaining scope, data, scientific, migration or history
+finding. Review is local, not independent. No placeholder UI was added. Next: C2.

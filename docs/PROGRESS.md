@@ -2,7 +2,7 @@
 
 ## Current milestone
 
-Issue #9 — approved implementation plan persisted; implementation not started.
+Issue #9 — M1/C1 implemented and verified; M2/C2 accessible actions next.
 Contract: [structure group membership plan](plans/issue-9-structure-group-membership.md).
 Branch: `feat/issue-9-structure-group-membership`, based on fast-forward-updated
 master `94fdcd54e53e674c036e46894669f46f7edc2e66`. User approval: 2026-10-08.
@@ -11,15 +11,15 @@ actions; M2/C3 desktop drag and drop; M3/C4 qualification and release preparatio
 Planned release: minor **v0.10.0**; current application versions remain **0.9.0**.
 D-071 records retained empty groups, existing derived sorting and organizational
 state ownership. No new migration or schema-major change is planned.
-Completed: planning inspection, explicit approval, clean fast-forward-only base,
-dedicated branch and approved contract/decision/progress documentation.
-Verification: planning baseline and prior release remotely inspected; diff checks,
-plan structure, local Markdown links and whitespace checks pass. No implementation
-checks are claimed.
+Completed: atomic membership API, changed-only reversible actions, exact no-ops,
+retained empty groups and selection context. D-072 preserves entry timestamps and
+uses existing checkpoint-derived dirty state. `/goal` authorizes full delivery.
+Verification: Ruff, mypy (54 files), 31 focused Python and 125 frontend tests,
+frontend lint/type/build and 5 browser workflows / 1 layout skip pass; fresh
+migration 0013 and diff review pass. Exact commands are in the feature plan.
 Known limitations: desktop dragging with explicit touch/keyboard alternatives;
 manual order, persisted sort/filter and live tab synchronization remain deferred.
-Blockers: none for planning handoff. Next action: stop, ready for `/goal`; do not
-start C1 merely because the plan has been committed or pushed.
+Blockers: none. Next action: M2/C2 explicit keyboard/touch membership actions.
 
 ### Previous release — v0.9.0
 
@@ -2193,7 +2193,6 @@ unexecuted; future failures or unmet live repository policy block advancement.
 
 ## Next action
 
-Stop after committing, pushing and verifying the approved issue #9 planning
-documentation. Await `/goal`; then begin M1/C1 in the
-[feature plan](plans/issue-9-structure-group-membership.md). Current released
-baseline is v0.9.0; no implementation is authorized by the persistence step alone.
+Implement M2/C2 accessible explicit actions in the
+[feature plan](plans/issue-9-structure-group-membership.md), then desktop drag and
+qualification. Current released baseline remains v0.9.0; target v0.10.0.

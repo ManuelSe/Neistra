@@ -5,7 +5,7 @@ from datetime import UTC, datetime
 from typing import Any
 
 from molweave_core.selection import SelectionV1
-from sqlalchemy import delete, func, select
+from sqlalchemy import delete, func, select, update
 from sqlalchemy.orm import Session
 from uuid6 import uuid7
 
@@ -243,11 +243,11 @@ def project_read(
         modified_at=project.modified_at,
         entries=[
             EntryRead.model_validate(entry)
-            for entry in sorted(project.entries, key=lambda item: item.name)
+            for entry in sorted(project.entries, key=lambda item: (item.name, item.id))
         ],
         groups=[
             GroupRead.model_validate(group)
-            for group in sorted(project.groups, key=lambda item: item.name)
+            for group in sorted(project.groups, key=lambda item: (item.name, item.id))
         ],
         saved_selections=[
             SavedSelectionRead.model_validate(saved_selection)
@@ -1167,10 +1167,12 @@ class ProjectService:
         expected_revision: int,
         name: str,
         entry_ids: list[str],
+        selection: SelectionV1 | None = None,
     ) -> ProjectRead:
         project = self._project(project_id)
         self._check_revision(project, expected_revision)
         entries = [self._entry(project, entry_id) for entry_id in entry_ids]
+        references = self._group_selection(project, selection)
         group = {
             "id": _uuid(),
             "parent_id": None,
@@ -1194,7 +1196,54 @@ class ProjectService:
                 {"kind": "group.delete", "group_id": group["id"]},
             ],
             entry_ids,
+            selection_snapshot=references,
         )
+
+    def update_group_membership(
+        self,
+        project_id: str,
+        expected_revision: int,
+        entry_ids: list[str],
+        group_id: str | None,
+        selection: SelectionV1 | None = None,
+    ) -> ProjectRead:
+        project = self._project(project_id)
+        self._check_revision(project, expected_revision)
+        if not entry_ids or len(set(entry_ids)) != len(entry_ids):
+            raise InvalidProjectOperationError("Select a nonempty set of unique entry IDs")
+        entries_by_id = {entry.id: entry for entry in project.entries}
+        if any(entry_id not in entries_by_id for entry_id in entry_ids):
+            raise InvalidProjectOperationError("Entry is not in the current project")
+        group = next((item for item in project.groups if item.id == group_id), None)
+        if group_id is not None and group is None:
+            raise InvalidProjectOperationError("Destination group is not in the current project")
+        references = self._group_selection(project, selection)
+        before = {
+            entry_id: entries_by_id[entry_id].group_id
+            for entry_id in sorted(entry_ids)
+            if entries_by_id[entry_id].group_id != group_id
+        }
+        if not before:
+            return project_read(self.session, project)
+        destination = f"to {group.name}" if group is not None else "to Ungrouped"
+        return self._record(
+            project,
+            "group.membership",
+            f"Move {len(before)} structure{'s' if len(before) != 1 else ''} {destination}",
+            [{"kind": "entries.group", "values": dict.fromkeys(before, group_id)}],
+            [{"kind": "entries.group", "values": before}],
+            list(before),
+            selection_snapshot=references,
+        )
+
+    def _group_selection(
+        self, project: Project, selection: SelectionV1 | None
+    ) -> list[dict[str, Any]]:
+        references = (
+            [item.model_dump(mode="json") for item in selection.atoms] if selection else []
+        )
+        self._validate_atom_references(project, references)
+        return references
 
     def record_coordinate_change(
         self,
@@ -1646,7 +1695,12 @@ class ProjectService:
                     entry.viewer_settings = deepcopy(state["viewer_settings"])
             elif kind == "entries.group":
                 for entry_id, group_id in action["values"].items():
-                    self._entry(project, entry_id).group_id = group_id
+                    entry = self._entry(project, entry_id)
+                    self.session.execute(
+                        update(StructureEntry)
+                        .where(StructureEntry.id == entry.id)
+                        .values(group_id=group_id, modified_at=StructureEntry.modified_at)
+                    )
             elif kind == "group.create":
                 state = action["group"]
                 self.session.add(
@@ -1826,8 +1880,6 @@ class ProjectService:
     def _touch(project: Project) -> None:
         project.revision += 1
         project.modified_at = datetime.now(UTC)
-        for entry in project.entries:
-            entry.dirty = True
 
     @staticmethod
     def _copy_name(project: Project, name: str) -> str:

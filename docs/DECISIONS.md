@@ -2452,3 +2452,26 @@ Consequences:
   not introduced. Component corrections #20 and subset export #21 remain separate.
 - The planned minor release is 0.10.0. Approval/persistence does not mean the feature
   is implemented, tested, merged or released; await the user's implementation start.
+
+## D-072 — Checkpoint-derived dirty state preserves organization timestamps
+
+Status: accepted and implemented for issue #9 M1/C1.
+
+Decision: keep project revision/time updates in `_touch`, while deriving entry
+dirty flags through the existing checkpoint comparison in `project_read`. Remove
+the redundant blanket assignment of `dirty=true` to every entry. Apply existing
+`entries.group` actions with an explicit unchanged database `modified_at` value,
+including creation, undo and redo, so SQLAlchemy's automatic on-update timestamp
+cannot change the browser's Modified sorting key during organization.
+
+Rationale: qualification exposed that changing either group membership or the
+redundant dirty column invoked the entry's automatic timestamp update. That
+violated approved organization-only semantics and touched unrelated structures.
+The checkpoint comparison already owns correct per-entry dirty state; no alternate
+dirty model or new command/action field is necessary. Molecular edits continue
+their existing explicit timestamps and all command responses derive dirty flags.
+
+Compatibility: no migration/schema change or new inverse payload vocabulary.
+Existing `entries.group` history is retained, and original/current artifacts,
+viewer settings, scenes and job snapshots remain unchanged. Tests cover exact
+timestamps, dirty/checkpoint behavior, history no-ops, restart and archive remapping.
