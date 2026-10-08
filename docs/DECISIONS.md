@@ -2496,3 +2496,24 @@ Compatibility: no migration or payload change. Molecular mutations keep their
 existing explicit state/timestamp writes, and accepted checkpoint comparison
 still supplies the public dirty flags. Existing grouping/history/archive readers
 continue to use the same state and action shapes.
+
+## D-074 — Project mutation feedback follows captured project ownership
+
+Date: 2026-10-09. Status: accepted during issue #9 qualification.
+
+Decision: capture the active project when a project mutation starts. Cache its
+response under its own project ID, and refetch that captured project on a revision
+conflict. Show completion/error feedback and restore membership focus only when
+that project is still active, including the scheduled focus frame. A closing
+membership dialog clears only its own captured request.
+
+Rationale: users can switch projects while a request is pending. The command still
+belongs to its captured project; a late response must not overwrite another
+workspace's notice, dirty-session indicator or focus. Existing molecular/query
+ownership remains unchanged. This is completion-context correctness, not live tab
+synchronization or a new concurrency model.
+
+Implications: no API, schema, migration or archive change. Success and conflict
+regressions hold a real membership request, switch workspace, and then release it
+on desktop and Pixel 7. The original project's command/conflict semantics remain
+valid while the other project's revision, notice and filter-control focus stay unchanged.

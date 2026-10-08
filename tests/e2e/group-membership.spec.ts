@@ -278,3 +278,51 @@ test("keeps a live molecular viewer and prepared surface unchanged during member
   expect(state.entries.find(entry => entry.id === receptor.id)?.viewer_settings.selection_surface?.atom_ids).toEqual(receptor.atom_ids);
   await info.attach("membership-viewer-invariance", { body: JSON.stringify({ before, after, normalizedRequests: gets }), contentType: "application/json" });
 });
+
+
+for (const outcome of ["success", "conflict"] as const) {
+  test(`keeps late membership ${outcome} feedback and focus in its captured project`, async ({ page, request }, info) => {
+    const other = await (await request.post("/api/v1/projects", { data: { name: `Other membership workspace ${Date.now()}` } })).json() as Project;
+    const initial = await setup(page, request, info);
+    const origin = initial.entries[0];
+    let release!: () => void;
+    let received!: () => void;
+    const held = new Promise<void>(resolve => { release = resolve; });
+    const intercepted = new Promise<void>(resolve => { received = resolve; });
+    await page.route("**/group-membership", async route => {
+      received();
+      await held;
+      await route.continue();
+    });
+    await action(page, origin.id, "Remove from group");
+    await intercepted;
+    if (outcome === "conflict") {
+      const changed = await request.post(`/api/v1/projects/${initial.id}/group-membership`, { data: {
+        expected_revision: initial.revision, entry_ids: [origin.id], group_id: null,
+      } });
+      expect(changed.status()).toBe(200);
+    }
+    if (info.project.name === "mobile-chromium") {
+      await page.getByPlaceholder("Search structures").focus();
+      await page.keyboard.press("Escape");
+      await expect(page.locator(".mobile-panel")).toBeHidden();
+    }
+    await page.getByRole("button", { name: "Projects", exact: true }).click();
+    await page.getByRole("dialog", { name: "Projects" }).getByRole("button", { name: new RegExp(`^${other.name}`) }).click();
+    if (info.project.name === "mobile-chromium") await page.getByRole("button", { name: "Project browser", exact: true }).click();
+    const search = page.getByPlaceholder("Search structures");
+    await search.fill("Keep this workspace focus");
+    const currentFocus = page.getByRole("combobox", { name: "Filter structure type" });
+    await currentFocus.focus();
+    const noticeBefore = await page.locator(".notice").allTextContents();
+    const reply = page.waitForResponse(response => response.request().method() === "POST" && response.url().endsWith("/group-membership"));
+    release();
+    expect((await reply).status()).toBe(outcome === "success" ? 200 : 409);
+    await expect(page.getByRole("button", { name: "Import structures" }).first()).toBeEnabled();
+    await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
+    await expect(currentFocus).toBeFocused();
+    expect(await page.locator(".notice").allTextContents()).toEqual(noticeBefore);
+    expect((await getProject(request, other.id)).revision).toBe(0);
+    expect((await getProject(request, initial.id)).entries.find(entry => entry.id === origin.id)?.group_id).toBeNull();
+  });
+}

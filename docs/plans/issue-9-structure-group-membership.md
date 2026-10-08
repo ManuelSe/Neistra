@@ -685,3 +685,54 @@ ownership, drag authorization/cancellation, accessible destinations and release
 consistency; no consequential unresolved finding remains. Review is local, not
 independent. `git diff --check` passes. Complete clean candidate qualification and
 PR/publication remain pending; no release is claimed yet.
+
+
+### 2026-10-09 — C4 completion-context review correction
+
+Release preparation commit is `c18678f` (remotely verified). Its complete non-browser
+gate passes frozen installs, fresh migration 0013, Ruff, mypy (54 files), **379
+Python** (77.67 s; 237 existing Alembic warnings), **134 frontend**, **8 supervisor**,
+frontend lint/types and build. The first full browser attempt ran 20.9 min:
+**110 passed / 41 intentional skips / 1 failed**. The retained trace shows Vite's
+“server connection lost” message followed by page reload during the dark entry-menu
+audit; selection cleared and the viewer restarted. No product/test change was
+made to hide this. An isolated unchanged case passes (**1**, 51.6 s, fresh
+`/tmp/neistra-issue9-theme-repro-e2e`). These are diagnostic results, not a passing
+complete candidate gate.
+
+A full unchanged browser rerun passed the previously failing theme/menu case,
+then was deliberately interrupted (exit 130) when subsequent review found a
+completion-context flaw. It is not claimed as complete evidence. Late membership
+success could overwrite the new workspace's notice/focus; late conflict handling
+could refetch the wrong project. D-074 appends captured mutation-feedback ownership.
+Cache responses retain their own project ID; errors refetch their originating
+project, and notices/session flags/focus require that project to remain active.
+Scheduled focus rechecks context, and dialog close clears only its own request.
+No schema, API, migration, archive or new synchronization scope is introduced.
+
+New browser regressions hold real membership requests while switching projects,
+then release either a successful operation or a real stale-revision conflict.
+They preserve the other project's revision, notice and focused filter control.
+Against the preceding App both desktop cases fail meaningfully (success steals
+focus; conflict replaces the notice). The corrected App passes focused success/
+conflict on both layouts (**4**, 23.8 s); the strengthened filter-focus assertions
+are also covered by the full membership qualification below. Initial fixture
+cache and mobile scrim-center assumptions were fixed using pre-created projects
+and the existing keyboard drawer-close workflow, without weakening assertions.
+
+Frontend lint, typecheck, all **134 tests** and build pass after the correction;
+existing lazy Mol* advisory remains. Full membership qualification and fresh
+complete corrected candidate qualification are the next gates. Original failure,
+interrupted-run evidence and expected old-code regressions remain distinct from
+release acceptance. Review remains local, not independent.
+
+
+Correction checkpoint qualification: `corepack pnpm --dir apps/web lint`,
+`typecheck`, `test` (**134**) and `build` pass. `MOLWEAVE_E2E_API_PORT=8110
+MOLWEAVE_E2E_WORKER_PORT=8111 MOLWEAVE_E2E_WEB_PORT=5273
+MOLWEAVE_E2E_DATA_DIR=/tmp/neistra-issue9-context-qualified-e2e
+PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test
+ tests/e2e/group-membership.spec.ts` passes **11 / 1 intentional mobile drag skip**,
+1.4 min. This includes the strengthened filter-focus assertions. `git diff --check`
+and local correction diff review pass. The corrected complete candidate gate is
+still required before PR creation; no merged/tagged/released outcome is claimed.

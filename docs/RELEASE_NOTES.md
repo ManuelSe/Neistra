@@ -1,6 +1,6 @@
 # Neistra Release Notes
 
-## 0.10.0 - 2026-10-08
+## 0.10.0 - 2026-10-09
 
 ### Highlights
 
@@ -20,6 +20,13 @@
   no revision/history/timestamp change and preserve redo. Locked entries can move.
 - Existing name/type/atom-count/modified sorts retain deterministic ties.
   There is no persisted manual insertion order; undo restores derived placement.
+
+### Fixes
+
+- Response-derived dirty flags preserve entry timestamps through reads and
+  checkpoint saves. Membership preserves Modified-sort keys (D-072/D-073).
+- Late membership success/conflict feedback, refetch and focus stay with the
+  captured project when users switch workspaces (D-074).
 
 ### Persistence and compatibility
 

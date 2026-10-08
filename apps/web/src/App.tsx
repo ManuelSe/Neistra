@@ -252,16 +252,19 @@ export default function App() {
 
   const projectMutation = useMutation({
     mutationFn: (operation: () => Promise<Project>) => operation(),
+    onMutate: () => ({ projectId: useWorkspaceStore.getState().activeProjectId }),
     onSuccess: (next) => {
       updateProjectCache(next);
+      if (useWorkspaceStore.getState().activeProjectId !== next.id) return;
       setEditedThisSession(true);
       setNotice({ kind: "success", text: "Change stored locally." });
     },
-    onError: (error) => {
-      setNotice({ kind: "error", text: errorMessage(error) });
-      if (error instanceof ApiError && error.code === "revision_conflict" && activeProjectId) {
-        void queryClient.invalidateQueries({ queryKey: ["project", activeProjectId] });
+    onError: (error, _operation, context) => {
+      if (error instanceof ApiError && error.code === "revision_conflict" && context?.projectId) {
+        void queryClient.invalidateQueries({ queryKey: ["project", context.projectId] });
       }
+      if (useWorkspaceStore.getState().activeProjectId !== context?.projectId) return;
+      setNotice({ kind: "error", text: errorMessage(error) });
     },
   });
 
@@ -287,8 +290,11 @@ export default function App() {
     projectMutation.mutate(
       () => projectApi.updateGroupMembership({ ...project, revision: scope.revision }, scope.entryIds, groupId, scope.selection),
       { onSuccess: (next) => {
+        if (useWorkspaceStore.getState().activeProjectId !== scope.projectId) return;
         setNotice({ kind: "success", text: next.revision === scope.revision ? "Group membership unchanged." : `Organized ${scope.entryIds.length} complete structures.` });
-        requestAnimationFrame(() => groupReturnFocus(scope, groupId)?.focus());
+        requestAnimationFrame(() => {
+          if (useWorkspaceStore.getState().activeProjectId === scope.projectId) groupReturnFocus(scope, groupId)?.focus();
+        });
       } },
     );
   };
@@ -1205,7 +1211,7 @@ export default function App() {
       {groupDialog && project && groupDialog.scope.projectId === project.id ? (
         <GroupMembershipDialog
           project={project} request={groupDialog} busy={busy}
-          onClose={() => setGroupDialog(null)}
+          onClose={() => setGroupDialog(current => current === groupDialog ? null : current)}
           onSubmit={async (scope, target) => {
             if (project.id !== scope.projectId || projectMutation.isPending) return;
             const captured = { ...project, revision: scope.revision };
@@ -1214,6 +1220,7 @@ export default function App() {
                 ? projectApi.createGroup(captured, target.name, scope.entryIds, scope.selection)
                 : projectApi.updateGroupMembership(captured, scope.entryIds, target.groupId, scope.selection),
             );
+            if (useWorkspaceStore.getState().activeProjectId !== scope.projectId) return;
             setNotice({ kind: "success", text: next.revision === scope.revision ? "Group membership unchanged." : `Organized ${scope.entryIds.length} complete structures.` });
           }}
         />

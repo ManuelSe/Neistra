@@ -8,7 +8,7 @@ Branch: `feat/issue-9-structure-group-membership`; approved 2026-10-08.
 Completed: atomic reversible membership API; exact no-ops; timestamp invariance;
 accessible batch move/ungroup/create, captured partial/filter-hidden scope, retained
 empty groups, distinct display names and focus/conflict handling. Native desktop
-drag uses the same command, stable targets and captured session guards. D-071–D-073.
+drag uses the same command, stable targets and captured session guards. D-071–D-074.
 C4 review correction preserves entry timestamps through reads and checkpoint save;
 its regression fails against the preceding checkpoint and passes after correction.
 Verification: 31 focused Python, 134 frontend tests, lint/type/build;
@@ -18,7 +18,12 @@ All five version sources are prepared for minor v0.10.0. No migration/schema cha
 Limitations: mobile evidence is emulation; deferred scope stays deferred.
 C4 focused qualification: 9 browser workflows / 3 intentional skips, including
 real zoom and live camera/surface instrumentation; expanded archive compatibility.
-Blockers: none. Next: complete clean candidate gate, then PR/review/publication.
+Full gate first attempt: 379 Python / 134 frontend / 8 supervisor pass; browser
+110 pass / 41 skips / 1 Vite connection-loss reload failure. Isolated unchanged
+theme/menu repro passes. Subsequent review fixes late-response project context;
+its success/conflict regressions fail against preceding App and pass after the fix.
+Corrected membership suite: 11 browser workflows / 1 intentional mobile drag skip.
+Blockers: no product decision. Next: qualify the corrected clean candidate, then PR.
 
 ### Previous release — v0.9.0
 

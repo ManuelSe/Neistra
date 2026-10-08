@@ -32,7 +32,9 @@ browser without shifting the initiating row or target headings.
 The named menus and native dialog controls work with keyboard and touch. Escape
 cancels dialogs. Focus returns to the initiating row, the destination heading if
 that row is collapsed, or search if neither is visible. Pending actions cannot be
-submitted twice. Failed actions remain visible with an error.
+submitted twice. Failed actions remain visible with an error. If you switch
+projects while a request is pending, its late response updates its own project
+without changing the new workspace's notice or focus.
 
 Empty source groups remain available. Organization is a reversible, atomic
 project command and survives unsaved recovery, save/reopen and archive import.
