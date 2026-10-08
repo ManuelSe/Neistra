@@ -647,3 +647,41 @@ Current focused backend gate: Ruff, mypy (**54 files**) and C1 suites
 (**35 passed**, 13.38 s, including the in-progress producer compatibility expansion).
 The isolated old-service regression is expected failure evidence, not a failed
 release gate. C4 release preparation/full qualification remains pending.
+
+
+### 2026-10-08 — C4 release preparation
+
+Review correction commit: `8338b1a`. All five authoritative version sources now
+agree on **0.10.0**. Upstream master remains the approved base `94fdcd5`; published
+releases still end at v0.9.0. The minor increment follows additive public
+functionality and an additive API, with no persisted schema/action break or
+prerelease requirement. No migration is added; head remains 0013.
+
+Expanded archive producer metadata compatibility through 0.9.0 (not a claim of
+independently captured archives from every historical release). Existing legacy
+payload and migration upgrade/downgrade coverage remains. The focused archive,
+group and migration run passed **102 tests**, 33.72 s, before the additional
+same-session timestamp regression; the subsequent C1 focused gate passed **35**.
+Existing Alembic configuration deprecations are retained, not hidden.
+
+Live production-module/worker instrumentation on both layouts observes zero
+structure load/sync/replacement/coordinate-patch/camera-fit/set/surface preparation
+calls, no new surface jobs or normalized requests, and an identical camera and
+prepared surface during a membership change. The extended real browser zoom test
+qualifies grouping controls and focus at 100%/200%, light/dark, alongside existing
+shell, viewer, styling and export coverage.
+
+Final focused browser command uses ports 8110/8111/5273, fresh
+`/tmp/neistra-issue9-c4-final-e2e`, pinned `.playwright`, `corepack pnpm exec
+playwright test tests/e2e/group-membership.spec.ts tests/e2e/rebranding-zoom.spec.ts`:
+**9 passed / 3 intentional layout skips**, 2.0 min. Earlier exploratory surface
+setup used an intentionally protected generic settings endpoint; qualification
+uses the existing revisioned selection-surface command and changes no product API.
+
+User, upgrade, API, schema, scientific and accessibility documents cover accepted
+scope and limitations. Full local diff review checked atomic validation, retained
+history vocabulary, timestamp/dirty ownership, original bytes, selection/viewer
+ownership, drag authorization/cancellation, accessible destinations and release
+consistency; no consequential unresolved finding remains. Review is local, not
+independent. `git diff --check` passes. Complete clean candidate qualification and
+PR/publication remain pending; no release is claimed yet.

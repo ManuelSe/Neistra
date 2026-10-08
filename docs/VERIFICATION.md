@@ -1,6 +1,10 @@
 # V0.1 Requirement Evidence
 
-Current pocket-surface evidence is maintained in
+Current structure-group membership evidence is maintained in
+[the approved issue #9 plan](plans/issue-9-structure-group-membership.md). Its
+checkpoint and release results are separate from the historical matrix below.
+
+Pocket-surface evidence is maintained in
 [the issue #36 feature plan](plans/issue-36-pocket-surfaces.md).
 
 Previous visibility/capacity evidence is maintained in

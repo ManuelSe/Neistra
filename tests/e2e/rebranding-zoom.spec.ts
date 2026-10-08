@@ -1,3 +1,4 @@
+import type { Project } from "../../apps/web/src/api/types";
 import { chromium, expect, test, type Page, type TestInfo, type Worker } from "@playwright/test";
 import { mkdtemp, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
@@ -70,7 +71,7 @@ test("keeps actions and dialogs reachable at real 100% and 200% browser zoom", a
     page.setDefaultTimeout(15_000);
     const created = await request.post("/api/v1/projects", { data: { name: `Zoom qualification ${Date.now()}` } });
     expect(created.status()).toBe(201);
-    const project = await created.json() as { name: string };
+    const project = await created.json() as { id: string; name: string };
     await page.goto(baseURL!);
     await page.getByRole("button", { name: "Projects", exact: true }).click();
     await page.getByRole("dialog", { name: "Projects" }).getByRole("button", { name: new RegExp(`^${project.name}`) }).click();
@@ -80,6 +81,11 @@ test("keeps actions and dialogs reachable at real 100% and 200% browser zoom", a
     await importer.getByRole("button", { name: "Import", exact: true }).click();
     await expect(importer).toBeHidden();
     await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded", { timeout: 30_000 });
+    const imported = await (await request.get(`/api/v1/projects/${project.id}`)).json() as Project;
+    const grouped = await request.post(`/api/v1/projects/${project.id}/groups`, { data: { expected_revision: imported.revision, name: "Zoom destination", entry_ids: imported.entries.map(entry => entry.id) } });
+    expect(grouped.status()).toBe(200);
+    await page.reload();
+    await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded", { timeout: 30000 });
     for (const theme of ["light", "dark"]) {
       if (theme === "dark") await page.getByRole("button", { name: "Use dark theme" }).click();
       for (const factor of [1, 2]) {
@@ -121,6 +127,28 @@ test("keeps actions and dialogs reachable at real 100% and 200% browser zoom", a
         const browser = page.getByRole("button", { name: "Project browser", exact: true });
         if (await browser.isVisible()) await browser.click();
         await page.locator(".entry-row .entry-select").click();
+        await page.locator(".entry-menu-trigger").focus();
+        await page.keyboard.press("Enter");
+        await page.getByRole("menuitem", { name: "Move to group…", exact: true }).click();
+        const membership = page.getByRole("dialog", { name: "Move to group", exact: true });
+        await expect(membership).toContainText("1 complete structure.");
+        await expect(membership.getByLabel("Destination group")).toBeFocused();
+        for (const control of await membership.locator("button:visible, select:visible").all()) {
+          await control.scrollIntoViewIfNeeded();
+          const bounds = await control.boundingBox();
+          const viewport = await page.evaluate(() => ({ width: innerWidth, height: innerHeight }));
+          expect(bounds!.x).toBeGreaterThanOrEqual(0);
+          expect(bounds!.x + bounds!.width).toBeLessThanOrEqual(viewport.width + 1);
+          expect(bounds!.y + bounds!.height).toBeLessThanOrEqual(viewport.height + 1);
+        }
+        await captureZoomPage(page, info, `${theme}-${factor * 100}-group-membership.png`);
+        await membership.getByRole("button", { name: "Move structures" }).click();
+        await expect(membership).toBeHidden();
+        await expect(page.locator(".entry-menu-trigger")).toBeFocused();
+        await page.keyboard.press("Enter");
+        await page.getByRole("menuitem", { name: "Remove from group", exact: true }).click();
+        await expect(page.locator('.entry-group[data-group-id="ungrouped"] .entry-row')).toBeVisible();
+
         if (await page.locator(".mobile-panel").isVisible()) {
           await page.keyboard.press("Escape");
           await expect(page.getByRole("dialog", { name: "Project browser panel" })).toBeHidden();

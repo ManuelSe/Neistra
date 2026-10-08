@@ -14,9 +14,11 @@ its regression fails against the preceding checkpoint and passes after correctio
 Verification: 31 focused Python, 134 frontend tests, lint/type/build;
 15 browser workflows / 3 layout skips (desktop/Pixel 7), light/dark scoped axe,
 stale-tab and viewer/request invariance. Detailed commands in the feature plan.
-Planned minor release v0.10.0; versions remain 0.9.0. No migration/schema change.
+All five version sources are prepared for minor v0.10.0. No migration/schema change.
 Limitations: mobile evidence is emulation; deferred scope stays deferred.
-Blockers: none. Next: finish C4 version/release preparation and the complete gate.
+C4 focused qualification: 9 browser workflows / 3 intentional skips, including
+real zoom and live camera/surface instrumentation; expanded archive compatibility.
+Blockers: none. Next: complete clean candidate gate, then PR/review/publication.
 
 ### Previous release — v0.9.0
 

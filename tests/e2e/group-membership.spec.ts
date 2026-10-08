@@ -200,3 +200,81 @@ test("uses real desktop drags for batches, collapsed/empty destinations, Ungroup
   await forged.dispose();
   expect(count).toBe(beforeCount);
 });
+
+interface ViewerEvidence {
+  camera: unknown;
+  counts: Record<string, number>;
+  surfaceJobs: number;
+}
+
+test("keeps a live molecular viewer and prepared surface unchanged during membership edits", async ({ page, request }, info) => {
+  test.setTimeout(120000);
+  await page.addInitScript(() => {
+    const stats = { surfaceJobs: 0 };
+    Object.assign(window, { __groupWorkerStats: stats });
+    const original = Worker.prototype.postMessage;
+    Worker.prototype.postMessage = function(message: unknown, ...options: [Transferable[]] | [StructuredSerializeOptions] | []) {
+      if (typeof message === "object" && message !== null && "x" in message && message.x instanceof Float64Array) stats.surfaceJobs++;
+      // Preserve the actual overload and all worker behavior; observe inputs only.
+      return Reflect.apply(original, this, [message, ...options]);
+    };
+  });
+  const initial = await setup(page, request, info);
+  const receptor = initial.entries.find(entry => entry.source_format === "pdb")!;
+  const surface = await request.post(`/api/v1/projects/${initial.id}/selection-surface`, { data: {
+    expected_revision: initial.revision,
+    selection: { schema_version: 1, granularity: "atom", source: "project", atoms: receptor.atom_ids.map(atom_id => ({ structure_id: receptor.id, atom_id })) },
+    action: "add",
+  } });
+  expect(surface.status(), await surface.text()).toBe(200);
+  await page.reload();
+  await expect(page.locator(".viewer-status")).toContainText("2 visible / 2 loaded", { timeout: 30000 });
+  await expect(page.getByLabel("Selection surface rendering")).toContainText("ready", { timeout: 30000 });
+  // Instrument the loaded production module in this test context; no product debug API.
+  await page.evaluate(async () => {
+    const moduleUrl = "/src/viewer/MolstarEngine.ts";
+    const { MolstarEngine } = await import(moduleUrl) as { MolstarEngine: { prototype: Record<string, (...args: unknown[]) => unknown> } };
+    let engine: { getCamera: () => unknown } | null = null;
+    const methods = ["syncStructures", "replaceStructure", "applyCoordinatePatch", "setCamera", "fitVisible", "loadStructure", "prepareSurfaces"];
+    const counts: Record<string, number> = Object.fromEntries(methods.map(method => [method, 0]));
+    for (const method of methods) {
+      const original = MolstarEngine.prototype[method];
+      if (typeof original !== "function") throw new Error(`Missing viewer boundary: ${method}`);
+      MolstarEngine.prototype[method] = function(this: { getCamera: () => unknown }, ...args: unknown[]) {
+        engine = this;
+        counts[method]++;
+        return original.apply(this, args);
+      };
+    }
+    Object.assign(window, {
+      __groupViewerEvidence: () => ({ camera: engine?.getCamera(), counts: { ...counts }, surfaceJobs: (window as unknown as { __groupWorkerStats: { surfaceJobs: number } }).__groupWorkerStats.surfaceJobs }),
+      __resetGroupViewerCounts: () => { for (const method of methods) counts[method] = 0; },
+    });
+  });
+  await page.getByRole("button", { name: "Fit all visible", exact: true }).click();
+  await page.waitForTimeout(750); // Existing Mol* camera reset animation settles before the comparison.
+  if (info.project.name === "mobile-chromium") await page.getByRole("button", { name: "Project browser", exact: true }).click();
+  await row(page, receptor.id).locator(".entry-select").click();
+  const selected = await page.locator(".viewer-status").textContent();
+  await page.evaluate(() => (window as unknown as { __resetGroupViewerCounts: () => void }).__resetGroupViewerCounts());
+  const readEvidence = () => page.evaluate(() => (window as unknown as { __groupViewerEvidence: () => ViewerEvidence }).__groupViewerEvidence());
+  const before = await readEvidence();
+  expect(before.camera).toBeTruthy();
+  expect(before.surfaceJobs).toBeGreaterThan(0);
+  const gets: string[] = [];
+  page.on("request", request => { if (/\/structure(?:\?|$)/.test(request.url())) gets.push(request.url()); });
+  await action(page, receptor.id, "Move to group…");
+  const target = initial.groups.find(group => group.name === "Destination")!;
+  await page.getByRole("dialog", { name: "Move to group" }).getByLabel("Destination group").selectOption(target.id);
+  await page.getByRole("button", { name: "Move structures" }).click();
+  await expect(page.getByRole("dialog", { name: "Move to group" })).toBeHidden();
+  await expect(page.locator(".viewer-status")).toHaveText(selected!);
+  await expect(page.getByLabel("Selection surface rendering")).toContainText("ready");
+  const after = await readEvidence();
+  expect(after).toEqual(before);
+  expect(Object.values(after.counts)).toEqual(Object.values(after.counts).map(() => 0));
+  expect(gets).toEqual([]);
+  const state = await getProject(request, initial.id);
+  expect(state.entries.find(entry => entry.id === receptor.id)?.viewer_settings.selection_surface?.atom_ids).toEqual(receptor.atom_ids);
+  await info.attach("membership-viewer-invariance", { body: JSON.stringify({ before, after, normalizedRequests: gets }), contentType: "application/json" });
+});
