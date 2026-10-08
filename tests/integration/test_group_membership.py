@@ -1,13 +1,15 @@
 from __future__ import annotations
 
 from copy import deepcopy
+from datetime import UTC
 from pathlib import Path
 from typing import Any
 
 import pytest
 from molweave_api.database import Base
 from molweave_api.main import create_app
-from molweave_api.models import CommandRecord
+from molweave_api.models import CommandRecord, StructureEntry
+from molweave_api.project_service import ProjectService
 from molweave_api.settings import Settings
 from sqlalchemy import select
 
@@ -233,3 +235,31 @@ def test_membership_checkpoint_restart_archive_and_legacy_history(tmp_path: Path
     assert set(groups(project).values()) == {source_group}
     assert membership(client, project, ids, source_group).json()["history"]["can_redo"]
     app.state.engine.dispose()
+
+
+def test_read_move_noop_and_checkpoint_do_not_dirty_orm_timestamps(client: ApiClient) -> None:
+    project = build_rich_project(client)
+    ids = [entry["id"] for entry in project["entries"]]
+    with client.app.state.session_factory() as session:
+        service = ProjectService(session)
+        initial = service.get_project(project["id"])
+        timestamps = {entry.id: entry.modified_at for entry in initial.entries}
+        assert not any(isinstance(item, StructureEntry) for item in session.dirty)
+        moved = service.update_group_membership(initial.id, initial.revision, ids, None)
+        assert {entry.id: entry.modified_at for entry in moved.entries} == timestamps
+        assert all(entry.dirty for entry in moved.entries)
+        assert not any(isinstance(item, StructureEntry) for item in session.dirty)
+        unchanged = service.update_group_membership(moved.id, moved.revision, ids, None)
+        assert unchanged.model_dump(exclude={"modified_at"}) == moved.model_dump(
+            exclude={"modified_at"}
+        )
+        assert unchanged.modified_at.replace(tzinfo=UTC) == moved.modified_at.replace(tzinfo=UTC)
+        saved = service.save(moved.id, moved.revision)
+        assert {entry.id: entry.modified_at for entry in saved.entries} == timestamps
+        assert not saved.has_uncheckpointed_changes
+        assert all(not entry.dirty for entry in saved.entries)
+        assert not any(isinstance(item, StructureEntry) for item in session.dirty)
+    reopened = client.get(f"/api/v1/projects/{project['id']}").json()
+    assert {entry["id"]: entry["modified_at"] for entry in reopened["entries"]} == {
+        entry_id: timestamp.isoformat() for entry_id, timestamp in timestamps.items()
+    }

@@ -230,8 +230,6 @@ def project_read(
     )
     current_state = _project_state(project)
     checkpoint_entries = {item["id"]: item for item in project.checkpoint_state.get("entries", [])}
-    for entry in project.entries:
-        entry.dirty = _entry_state(entry) != checkpoint_entries.get(entry.id)
     return ProjectRead(
         id=project.id,
         name=project.name,
@@ -242,7 +240,9 @@ def project_read(
         created_at=project.created_at,
         modified_at=project.modified_at,
         entries=[
-            EntryRead.model_validate(entry)
+            EntryRead.model_validate(entry).model_copy(
+                update={"dirty": _entry_state(entry) != checkpoint_entries.get(entry.id)}
+            )
             for entry in sorted(project.entries, key=lambda item: (item.name, item.id))
         ],
         groups=[
@@ -306,8 +306,6 @@ class ProjectService:
         self._check_revision(project, expected_revision)
         project.checkpoint_state = _project_state(project)
         project.checkpoint_revision = project.revision
-        for entry in project.entries:
-            entry.dirty = False
         self.session.commit()
         return project_read(self.session, project)
 

@@ -2,7 +2,7 @@
 
 ## Status and issue metadata
 
-- Status: **M1/C1 and M2/C2–C3 complete; M3/C4 next; implementation authorized by `/goal`**.
+- Status: **M1/C1 and M2/C2–C3 complete; M3/C4 qualification underway; implementation authorized by `/goal`**.
 - Approval: the user explicitly approved the complete proposed plan on 2026-10-08.
 - Issue: [#9 — Allow structure entries to be added to, moved between, and removed from groups](https://github.com/ManuelSe/Neistra/issues/9).
 - Base branch: `master`, updated from `origin/master` using fast-forward-only integration.
@@ -631,3 +631,19 @@ evidence. Local full checkpoint diff review and `git diff --check` pass.
 Checkpoint commits already verified locally: C1 `fe86a39`, C2 `b3ff555`.
 No consequential finding remains; lazy Mol* build-size advisory is unchanged.
 Next: C4 compatibility, explicit zoom/viewer instrumentation, versions and full gate.
+
+### 2026-10-08 — C4 review correction: checkpoint timestamp invariance
+
+C3 commit is `268c28b`. Full-diff qualification review identified a remaining
+cached-dirty ORM write on reads/checkpoint save that could change sorting timestamps.
+D-073 appends the decision to compute dirty only on response copies and preserve
+entry timestamps through save. The stored redundant column remains; no migration,
+archive shape or reader contract changes. Public checkpoint-derived flags are
+unchanged. This fixes the approved sort/persistence contract rather than adding
+scope. The new same-session read/move/no-op/save/reopen regression is meaningful:
+it fails against C3's service and passes after correction.
+
+Current focused backend gate: Ruff, mypy (**54 files**) and C1 suites
+(**35 passed**, 13.38 s, including the in-progress producer compatibility expansion).
+The isolated old-service regression is expected failure evidence, not a failed
+release gate. C4 release preparation/full qualification remains pending.

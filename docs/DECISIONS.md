@@ -2475,3 +2475,24 @@ Compatibility: no migration/schema change or new inverse payload vocabulary.
 Existing `entries.group` history is retained, and original/current artifacts,
 viewer settings, scenes and job snapshots remain unchanged. Tests cover exact
 timestamps, dirty/checkpoint behavior, history no-ops, restart and archive remapping.
+
+## D-073 — Derived entry dirty flags must not mutate ORM state
+
+Date: 2026-10-08. Status: accepted during issue #9 qualification.
+
+Decision: compute per-entry dirty flags on the typed response from checkpoint
+comparison, without assigning the redundant ORM column. Saving a checkpoint
+updates project checkpoint state/revision and does not reset that entry column.
+The persisted column remains for schema/reader compatibility; it has no new
+ownership role. D-072 and previous accepted checkpoint semantics remain intact.
+
+Rationale: assigning derived flags during reads could autoflush entry timestamp
+updates; clearing them on save also touched modified-date sorting keys. An
+organization-only edit followed by checkpoint save must retain those keys.
+A same-session read/move/no-op/save regression demonstrates the previous failure
+and proves response flags, timestamps and reopened state with the corrected path.
+
+Compatibility: no migration or payload change. Molecular mutations keep their
+existing explicit state/timestamp writes, and accepted checkpoint comparison
+still supplies the public dirty flags. Existing grouping/history/archive readers
+continue to use the same state and action shapes.

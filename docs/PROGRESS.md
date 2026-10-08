@@ -2,20 +2,21 @@
 
 ## Current milestone
 
-Issue #9 — M1/C1 and M2/C2–C3 implemented and verified; C4 qualification next.
+Issue #9 — M1/C1 and M2/C2–C3 implemented and verified; C4 qualification underway.
 Contract: [structure group membership plan](plans/issue-9-structure-group-membership.md).
 Branch: `feat/issue-9-structure-group-membership`; approved 2026-10-08.
 Completed: atomic reversible membership API; exact no-ops; timestamp invariance;
 accessible batch move/ungroup/create, captured partial/filter-hidden scope, retained
 empty groups, distinct display names and focus/conflict handling. Native desktop
-drag uses the same command, stable targets and captured session guards. D-071/D-072.
+drag uses the same command, stable targets and captured session guards. D-071–D-073.
+C4 review correction preserves entry timestamps through reads and checkpoint save;
+its regression fails against the preceding checkpoint and passes after correction.
 Verification: 31 focused Python, 134 frontend tests, lint/type/build;
 15 browser workflows / 3 layout skips (desktop/Pixel 7), light/dark scoped axe,
 stale-tab and viewer/request invariance. Detailed commands in the feature plan.
 Planned minor release v0.10.0; versions remain 0.9.0. No migration/schema change.
 Limitations: mobile evidence is emulation; deferred scope stays deferred.
-Blockers: none. Next: qualify compatibility/zoom/viewer boundaries, versions and
-the complete release gate in C4.
+Blockers: none. Next: finish C4 version/release preparation and the complete gate.
 
 ### Previous release — v0.9.0
 
