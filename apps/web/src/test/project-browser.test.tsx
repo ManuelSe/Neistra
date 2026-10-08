@@ -89,7 +89,7 @@ describe("project browser selection and discovery", () => {
     await user.type(screen.getByPlaceholderText("Search structures"), "nothing");
     expect(screen.getByText("No matching structures")).toBeVisible();
     expect(screen.getByText("Empty")).toBeVisible();
-    expect(screen.queryByText("Target")).not.toBeInTheDocument();
+    expect(screen.getByText("Target")).toBeVisible();
     rerender(<Tooltip.Provider><ProjectBrowser project={{ ...project, entries: [] }} {...actions} /></Tooltip.Provider>);
     expect(screen.getByText("No structures")).toBeVisible();
     expect(screen.getByText("Target")).toBeVisible();

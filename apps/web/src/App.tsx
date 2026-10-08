@@ -2,7 +2,7 @@ import { expandByDistance } from "./selection/expansion";
 import * as Tooltip from "@radix-ui/react-tooltip";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { ChevronLeft, ChevronRight, History as HistoryIcon } from "lucide-react";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Panel,
   PanelGroup,
@@ -282,49 +282,49 @@ export default function App() {
 
   const busy = projectMutation.isPending || createMutation.isPending;
 
-  const entryActions = useMemo(
-    () => ({
-      onRename: (entry: Entry) => {
-        setEntryName(entry.name);
-        setEntryDescription(entry.description ?? "");
-        setEntryDialog({ mode: "rename", entry });
-      },
-      onDuplicate: (entry: Entry) => {
-        if (project) projectMutation.mutate(() => projectApi.duplicateEntry(project, entry.id));
-      },
-      onVisibility: (entry: Entry) => {
-        if (project)
-          projectMutation.mutate(() =>
-            projectApi.setEntryVisibility(project, entry.id, !entry.visible),
-          );
-      },
-      onLock: (entry: Entry) => {
-        if (project)
-          projectMutation.mutate(() => projectApi.setEntryLock(project, entry.id, !entry.locked));
-      },
-      onIsolate: (entry: Entry) => {
-        if (project) projectMutation.mutate(() => projectApi.isolateEntry(project, entry.id));
-      },
-      onGroup: (_entry: Entry, scope: GroupScope) => setGroupDialog({ mode: "create", scope }),
-      onMoveGroup: (scope: GroupScope) => setGroupDialog({ mode: "move", scope }),
-      onRemoveGroup: (scope: GroupScope) => {
-        if (!project || project.id !== scope.projectId || projectMutation.isPending) return;
-        projectMutation.mutate(
-          () => projectApi.updateGroupMembership({ ...project, revision: scope.revision }, scope.entryIds, null, scope.selection),
-          { onSuccess: (next) => {
-            setNotice({ kind: "success", text: next.revision === scope.revision ? "Group membership unchanged." : `Removed ${scope.entryIds.length} complete structures from groups.` });
-            requestAnimationFrame(() => groupReturnFocus(scope, null)?.focus());
-          } },
+  const moveMembership = (scope: GroupScope, groupId: string | null) => {
+    if (!project || project.id !== scope.projectId || projectMutation.isPending) return;
+    projectMutation.mutate(
+      () => projectApi.updateGroupMembership({ ...project, revision: scope.revision }, scope.entryIds, groupId, scope.selection),
+      { onSuccess: (next) => {
+        setNotice({ kind: "success", text: next.revision === scope.revision ? "Group membership unchanged." : `Organized ${scope.entryIds.length} complete structures.` });
+        requestAnimationFrame(() => groupReturnFocus(scope, groupId)?.focus());
+      } },
+    );
+  };
+
+  const entryActions = {
+    onRename: (entry: Entry) => {
+      setEntryName(entry.name);
+      setEntryDescription(entry.description ?? "");
+      setEntryDialog({ mode: "rename", entry });
+    },
+    onDuplicate: (entry: Entry) => {
+      if (project) projectMutation.mutate(() => projectApi.duplicateEntry(project, entry.id));
+    },
+    onVisibility: (entry: Entry) => {
+      if (project)
+        projectMutation.mutate(() =>
+          projectApi.setEntryVisibility(project, entry.id, !entry.visible),
         );
-      },
-      onDelete: (entry: Entry) => setEntryDialog({ mode: "delete", entry }),
-      onExport: (entry: Entry) => {
-        setExportEntry(entry);
-        setExportDialogOpen(true);
-      },
-    }),
-    [project, projectMutation],
-  );
+    },
+    onLock: (entry: Entry) => {
+      if (project)
+        projectMutation.mutate(() => projectApi.setEntryLock(project, entry.id, !entry.locked));
+    },
+    onIsolate: (entry: Entry) => {
+      if (project) projectMutation.mutate(() => projectApi.isolateEntry(project, entry.id));
+    },
+    onGroup: (_entry: Entry, scope: GroupScope) => setGroupDialog({ mode: "create", scope }),
+    onMoveGroup: (scope: GroupScope) => setGroupDialog({ mode: "move", scope }),
+    onRemoveGroup: (scope: GroupScope) => moveMembership(scope, null),
+    onMoveMembership: moveMembership,
+    onDelete: (entry: Entry) => setEntryDialog({ mode: "delete", entry }),
+    onExport: (entry: Entry) => {
+      setExportEntry(entry);
+      setExportDialogOpen(true);
+    },
+  };
 
   const loadStructureProjections = async (
     entryIds: Iterable<string>,

@@ -18,6 +18,17 @@ that atom selection. Scope text shows the complete structure count and selected
 structures hidden by search or type filters. Scope and revision are captured when
 the action starts; a conflict requires starting a fresh action.
 
+On desktop, drag a structure's grip handle onto a group heading or the Ungrouped
+heading. The handle is separate from selection and row actions. The same captured
+batch is moved in one command; Escape or drag end cancels. During dragging,
+Ungrouped is available even when currently empty, and valid destinations receive
+an outline/highlight. External drops cannot choose entries. Touch layouts use the
+explicit actions above.
+
+Search and type filters narrow structure rows; group headings remain available
+as destinations and their counts reflect matching rows. Drag status overlays the
+browser without shifting the initiating row or target headings.
+
 The named menus and native dialog controls work with keyboard and touch. Escape
 cancels dialogs. Focus returns to the initiating row, the destination heading if
 that row is collapsed, or search if neither is visible. Pending actions cannot be

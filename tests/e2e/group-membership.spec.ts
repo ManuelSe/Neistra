@@ -111,6 +111,7 @@ test("moves filtered selected batches, preserves molecular state, and supports k
   if (info.project.name === "mobile-chromium") await page.getByRole("button", { name: "Project browser", exact: true }).click();
   await expect(page.locator(`[data-group-id="${moved.entries[0].group_id}"] [data-entry-id="${other.id}"]`)).toBeVisible();
   await page.getByRole("button", { name: "Use dark theme" }).click();
+  if (info.project.name === "mobile-chromium") await expect(page.locator(".entry-drag-handle").first()).toBeHidden();
   await action(page, origin.id, "Move to group…");
   expect(await dialogAccessibility(page)).toEqual([]);
   await page.keyboard.press("Escape");
@@ -140,4 +141,62 @@ test("rejects stale-tab actions and keeps a partial selection scoped to its comp
   await page.getByRole("dialog", { name: "Move to group" }).getByLabel("Destination group").selectOption(target.id);
   await page.getByRole("button", { name: "Move structures" }).click();
   await expect.poll(async () => (await getProject(request, initial.id)).entries.find(item => item.id === entry.id)?.group_id).toBe(target.id);
+});
+
+test("uses real desktop drags for batches, collapsed/empty destinations, Ungrouped, and exact no-ops", async ({ page, request }, info) => {
+  test.skip(info.project.name !== "chromium", "Pixel 7 uses the equivalent explicit workflow; touch drag is not supported.");
+  test.setTimeout(120000);
+  const initial = await setup(page, request, info);
+  const origin = initial.entries.find(entry => entry.source_format === "mol")!;
+  const target = initial.groups.find(group => group.name === "Destination")!;
+  const source = initial.groups.find(group => group.name === "Source")!;
+  let count = 0;
+  page.on("request", request => { if (request.method() === "POST" && request.url().endsWith("/group-membership")) count++; });
+  await page.locator(`[data-group-id="${source.id}"] .group-select`).click();
+  const status = await page.locator(".viewer-status").textContent();
+  await page.locator(`[data-group-id="${target.id}"] .group-toggle`).click();
+  await page.getByPlaceholder("Search structures").fill(origin.name);
+  await row(page, origin.id).locator(".entry-drag-handle").dragTo(page.locator(`[data-group-id="${target.id}"] .group-heading`), { timeout: 10000 });
+  await expect.poll(async () => (await getProject(request, initial.id)).entries.map(entry => entry.group_id)).toEqual([target.id, target.id]);
+  await expect(page.locator(".viewer-status")).toHaveText(status!);
+  expect(count).toBe(1);
+  await page.locator(`[data-group-id="${target.id}"] .group-toggle`).click();
+  // The initially absent Ungrouped heading appears during a native drag.
+  const handle = row(page, origin.id).locator(".entry-drag-handle");
+  await handle.hover();
+  await page.mouse.down();
+  await page.mouse.move(350, 300, { steps: 12 });
+  await expect(page.locator('[data-group-id="ungrouped"] .group-heading')).toBeVisible();
+  await expect(page.locator(".group-drag-status")).toContainText("2 complete structures (1 hidden");
+  const ungrouped = await page.locator('[data-group-id="ungrouped"] .group-heading').boundingBox();
+  await page.mouse.move(ungrouped!.x + 40, ungrouped!.y + ungrouped!.height / 2, { steps: 10 });
+  await expect(page.locator('[data-group-id="ungrouped"]')).toHaveClass(/group-drop-hover/);
+  await page.mouse.up();
+  await expect.poll(async () => (await getProject(request, initial.id)).entries.map(entry => entry.group_id)).toEqual([null, null]);
+  expect(count).toBe(2);
+  await handle.dragTo(page.locator(`[data-group-id="${source.id}"] .group-heading`));
+  await expect.poll(async () => (await getProject(request, initial.id)).entries.map(entry => entry.group_id)).toEqual([source.id, source.id]);
+  await page.getByRole("button", { name: /^Undo:/ }).click();
+  const beforeNoop = await getProject(request, initial.id);
+  expect(beforeNoop.history.can_redo).toBe(true);
+  await handle.dragTo(page.locator('[data-group-id="ungrouped"] .group-heading'));
+  await expect(page.locator(".notice[role=status]")).toContainText("Group membership unchanged.");
+  expect(await getProject(request, initial.id)).toEqual(beforeNoop);
+  await page.getByRole("button", { name: /^Redo:/ }).click();
+  await expect.poll(async () => (await getProject(request, initial.id)).entries.map(entry => entry.group_id)).toEqual([source.id, source.id]);
+  const beforeCancel = await getProject(request, initial.id);
+  const beforeCount = count;
+  await handle.hover(); await page.mouse.down(); await page.mouse.move(350, 300, { steps: 12 });
+  await expect(page.locator(".group-drag-status")).toBeVisible();
+  await page.keyboard.press("Escape"); await page.mouse.up();
+  await expect(page.locator(".group-drag-status")).toBeHidden();
+  expect(count).toBe(beforeCount);
+  expect(await getProject(request, initial.id)).toEqual(beforeCancel);
+  // An external/forged drop cannot choose entries or start a mutation.
+  const forged = await page.evaluateHandle(() => {
+    const data = new DataTransfer(); data.setData("text/plain", '["forged-entry-id"]'); return data;
+  });
+  await page.locator(`[data-group-id="${target.id}"]`).dispatchEvent("drop", { dataTransfer: forged });
+  await forged.dispose();
+  expect(count).toBe(beforeCount);
 });

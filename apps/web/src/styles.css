@@ -635,6 +635,7 @@ input[type="radio"] {
 }
 
 .entry-group {
+  min-height: 32px;
   margin-bottom: 10px;
 }
 
@@ -3628,3 +3629,11 @@ div[data-radix-popper-content-wrapper]:has(.tooltip) {
 .pocket-popover .icon-button { min-width: 44px; min-height: 44px; }
 
 .group-scope-label { max-width: 260px; padding: 6px 10px; font-size: 0.75rem; color: var(--text-soft); }
+
+.entry-drag-handle { align-self: stretch; display: flex; align-items: center; padding: 0 2px; color: var(--text-soft); cursor: grab; }
+.entry-drag-handle:active { cursor: grabbing; }
+.group-drop-target { outline: 1px dashed var(--border-strong); outline-offset: -1px; }
+.group-drop-hover { outline: 2px solid var(--focus); background: var(--accent-soft); }
+.project-browser { position: relative; }
+.group-drag-status { position: absolute; bottom: 8px; left: 8px; right: 8px; z-index: 2; margin: 0; padding: 8px; font-size: var(--text-sm); color: var(--text-soft); background: var(--surface); border: 1px solid var(--border); pointer-events: none; }
+@media (pointer: coarse), (max-width: 840px) { .entry-drag-handle { display: none; } }

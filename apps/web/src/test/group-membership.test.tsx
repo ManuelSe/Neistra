@@ -32,6 +32,7 @@ describe("complete-entry grouping scope", () => {
     ];
     expect([...groupLabels(groups).values()]).toEqual(["Same · Group 2", "Same · Group 3", "Same · Group 1"]);
     expect(groups[0].name).toBe("Same");
+    expect(groupLabels([{ ...groups[0], name: "Ungrouped" }]).get("b")).toBe("Ungrouped · Group 1");
   });
 });
 

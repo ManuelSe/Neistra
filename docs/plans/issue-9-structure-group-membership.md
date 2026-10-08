@@ -2,7 +2,7 @@
 
 ## Status and issue metadata
 
-- Status: **M1/C1 and M2/C2 complete; M2/C3 next; implementation authorized by `/goal`**.
+- Status: **M1/C1 and M2/C2–C3 complete; M3/C4 next; implementation authorized by `/goal`**.
 - Approval: the user explicitly approved the complete proposed plan on 2026-10-08.
 - Issue: [#9 — Allow structure entries to be added to, moved between, and removed from groups](https://github.com/ManuelSe/Neistra/issues/9).
 - Base branch: `master`, updated from `origin/master` using fast-forward-only integration.
@@ -510,7 +510,7 @@ findings. Do not bypass blockers or silently reduce accepted scope.
 | Planning persistence | Documentation complete and validated | Fast-forward-only master integration; clean base `94fdcd54e53e674c036e46894669f46f7edc2e66`; dedicated branch created; this document is its first file change |
 | M1 / C1 | Complete | Typed atomic membership API; focused and M1 boundary gates passed; evidence below |
 | M2 / C2 | Complete | Accessible explicit workflow; scope, focus, stale-tab and viewer checks pass |
-| M2 / C3 | Not started | Desktop drag and drop |
+| M2 / C3 | Complete | Native desktop drag; explicit mobile equivalents; boundary gates pass |
 | M3 / C4 | Not started | Compatibility, full gate, review and release preparation |
 | PR / merged gate / publication / closeout | Not started | Later delivery; no remote artifact existence implied |
 
@@ -530,7 +530,7 @@ lint/type/test/build/browser gates remain unexecuted.
 During implementation append checkpoint date/commit, concrete outcome, exact
 commands/results, compatibility evidence, deviations, limitations, blockers and
 next action. Keep detailed evidence here and only concise current summaries in
-PROGRESS. Next action: **M2/C3 desktop drag and drop**.
+PROGRESS. Next action: **M3/C4 qualification and release preparation**.
 
 ### 2026-10-08 — M1/C1 complete
 
@@ -595,3 +595,39 @@ Earlier test fixture/schema and ambiguous status selectors were corrected. Local
 checkpoint diff review checked captured scope, metadata-only operations, focus,
 compatibility and accidental expansion. No new migration/architectural deviation.
 Lazy Mol* build-size advisory remains. Next: C3.
+
+### 2026-10-08 — M2/C3 complete
+
+Dedicated desktop grips use a transient, captured project/revision/entry/selection
+session. Only that internal session authorizes a drop; the transfer marker contains
+no entry IDs or molecular payload. One drop consumes the session before mutation.
+Collapsed/empty groups and Ungrouped accept batches; Ungrouped appears while dragging
+even when empty. Escape/end/blur/context/busy changes cancel. Touch grips are hidden;
+explicit controls remain the complete keyboard/touch workflow.
+
+Native qualification uncovered drag-start layout movement and first-entry hover
+feedback. Feedback now overlays without moving rows, headings have stable minimum
+height and remain available under filtering (counts show matching rows), and both
+dragenter/dragover highlight valid destinations. Leaving child elements does not
+clear the containing target. Stored “Ungrouped” names are also disambiguated from
+the virtual destination. These are bounded presentation refinements, not new data
+or ordering contracts. No scope expansion, schema or migration change.
+
+Passing frontend lint/typecheck/full tests (**134 passed**) and build; focused
+`exec vitest run src/test/group-drag.test.tsx src/test/group-membership.test.tsx
+src/test/project-browser.test.tsx` (**10 passed**). M2 backend boundary: Ruff,
+mypy (**54 files**) and C1 focused Python suites (**31 passed**, 11.62 s).
+Browser command uses 8110/8111/5273, fresh `/tmp/neistra-issue9-c3-qualified-e2e`,
+pinned `.playwright`, `corepack pnpm exec playwright test
+tests/e2e/group-membership.spec.ts tests/e2e/project-lifecycle.spec.ts
+tests/e2e/release-hardening.spec.ts`: **15 passed / 3 intentional layout skips**,
+1.4 min. The native workflow qualifies all move directions, filtered selected
+batches, collapsed targets, immediate hover, absent Ungrouped, exact no-op preserving
+redo, unchanged selection, Escape, forged drops and one mutation per drop.
+Both layouts pass shell keyboard/axe/containment regressions; desktop performance
+budget remains passing. Earlier exploratory failures were fixed and are not passing
+evidence. Local full checkpoint diff review and `git diff --check` pass.
+
+Checkpoint commits already verified locally: C1 `fe86a39`, C2 `b3ff555`.
+No consequential finding remains; lazy Mol* build-size advisory is unchanged.
+Next: C4 compatibility, explicit zoom/viewer instrumentation, versions and full gate.

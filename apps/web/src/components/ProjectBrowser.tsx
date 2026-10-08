@@ -12,6 +12,7 @@ import {
   FolderPlus,
   FlaskConical,
   Focus,
+  GripVertical,
   Lock,
   LockOpen,
   Pencil,
@@ -28,6 +29,8 @@ import type {
   ViewerSettings,
 } from "../api/types";
 import { captureGroupScope, groupLabels, groupScopeSummary, type GroupScope } from "../groups/membership";
+import { useGroupDrag } from "../groups/useGroupDrag";
+import type { DragEvent } from "react";
 import { emptySelection, selectionMode } from "../selection/selection";
 import { IconButton } from "./IconButton";
 import { StructureHierarchy } from "./StructureHierarchy";
@@ -52,6 +55,7 @@ interface ProjectBrowserProps {
   onMoveGroup?: (scope: GroupScope) => void;
   onRemoveGroup?: (scope: GroupScope) => void;
   busy?: boolean;
+  onMoveMembership?: (scope: GroupScope, groupId: string | null) => void;
   onDelete: (entry: Entry) => void;
   onExport: (entry: Entry) => void;
 }
@@ -65,6 +69,7 @@ type BrowserActions = Omit<
   | "onSelectHierarchy"
   | "onHierarchyVisibility"
   | "onCollapse"
+  | "onMoveMembership"
 >;
 
 function EntryRow({
@@ -83,6 +88,8 @@ function EntryRow({
   captureScope,
   canUngroup,
   scopeSummary,
+  onDragStart,
+  onDragEnd,
   onDelete,
   onExport,
 }: BrowserActions & {
@@ -91,6 +98,8 @@ function EntryRow({
   captureScope: () => GroupScope;
   canUngroup: boolean;
   scopeSummary: string;
+  onDragStart?: (event: DragEvent) => void;
+  onDragEnd?: () => void;
   onSelect: (mode: SelectionMode) => void;
 }) {
   return (
@@ -98,6 +107,9 @@ function EntryRow({
       className={`entry-row ${entry.visible ? "" : "entry-hidden"} ${selected ? "selected" : ""}`}
       data-entry-id={entry.id}
     >
+      {onDragStart ? <span className="entry-drag-handle" draggable={!busy}
+        aria-hidden="true" title={`Drag ${entry.name} to a group`}
+        onDragStart={onDragStart} onDragEnd={onDragEnd}><GripVertical size={14} /></span> : null}
       <button
         type="button"
         className="entry-select"
@@ -189,8 +201,10 @@ export function ProjectBrowser({
   onSelectHierarchy = () => undefined,
   onHierarchyVisibility = () => undefined,
   onCollapse,
+  onMoveMembership,
   ...actions
 }: ProjectBrowserProps) {
+  const drag = useGroupDrag(project, actions.busy ?? false, onMoveMembership);
   const [search, setSearch] = useState("");
   const [typeFilter, setTypeFilter] = useState<StructureType | "all">("all");
   const [sortBy, setSortBy] = useState<"name" | "type" | "atoms" | "modified">("name");
@@ -268,6 +282,8 @@ export function ProjectBrowser({
         selected={selectedEntryIds.has(entry.id)}
         onSelect={(mode) => onSelectEntries?.([entry], mode)}
         {...actions}
+        onDragStart={onMoveMembership ? (event) => drag.start(captureScope(entry), event) : undefined}
+        onDragEnd={drag.cancel}
         captureScope={() => captureScope(entry)}
         canUngroup={canonicalIds.has(entry.id) ? selectedGrouped : entry.group_id !== null}
         scopeSummary={canonicalIds.has(entry.id) ? selectedSummary : groupScopeSummary({ entryIds: [entry.id], hiddenCount: 0 })}
@@ -332,6 +348,7 @@ export function ProjectBrowser({
           </select>
         </div>
       </div>
+      {drag.scope ? <p className="group-drag-status" role="status">{groupScopeSummary(drag.scope)} Drop on a group or Ungrouped. Escape cancels.</p> : null}
       <div
         className="panel-scroll browser-results"
         aria-label="Project structures"
@@ -344,9 +361,8 @@ export function ProjectBrowser({
               entries.length === 0 ? <p className="empty-label">No matching structures</p> : null}
             {project.groups.map((group) => {
               const groupEntries = entries.filter((entry) => entry.group_id === group.id);
-              if (groupEntries.length === 0 && project.entries.some((entry) => entry.group_id === group.id)) return null;
               return (
-                <div className="entry-group" key={group.id} data-group-id={group.id}>
+                <div className={`entry-group ${drag.scope ? "group-drop-target" : ""} ${drag.hovered === group.id ? "group-drop-hover" : ""}`} key={group.id} data-group-id={group.id} {...drag.target(group.id)}>
                   {groupHeading(group.id, labels.get(group.id)!, groupEntries)}
                   {!collapsedGroups.has(group.id)
                     ? groupEntries.map(entryNode)
@@ -354,9 +370,9 @@ export function ProjectBrowser({
                 </div>
               );
             })}
-            {ungrouped.length > 0 ? (
-              <div className="entry-group" data-group-id="ungrouped">
-                {project.groups.length > 0
+            {ungrouped.length > 0 || drag.scope ? (
+              <div className={`entry-group ${drag.scope ? "group-drop-target" : ""} ${drag.hovered === "ungrouped" ? "group-drop-hover" : ""}`} data-group-id="ungrouped" {...drag.target(null)}>
+                {project.groups.length > 0 || drag.scope
                   ? groupHeading("ungrouped", "Ungrouped", ungrouped)
                   : null}
                 {!collapsedGroups.has("ungrouped")

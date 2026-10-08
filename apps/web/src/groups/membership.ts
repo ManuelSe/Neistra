@@ -38,10 +38,10 @@ export function groupLabels(groups: EntryGroup[]): Map<string, string> {
   for (const group of groups) counts.set(group.name, (counts.get(group.name) ?? 0) + 1);
   const ordinals = new Map<string, number>();
   const labels = new Map<string, string>();
-  const used = new Set(names);
+  const used = new Set([...names, "Ungrouped"]);
   for (const group of [...groups].sort((a, b) => a.id.localeCompare(b.id))) {
     let label = group.name;
-    if (counts.get(group.name)! > 1) {
+    if (counts.get(group.name)! > 1 || group.name === "Ungrouped") {
       let ordinal = ordinals.get(group.name) ?? 0;
       do { label = `${group.name} · Group ${++ordinal}`; } while (used.has(label));
       ordinals.set(group.name, ordinal);
