@@ -206,14 +206,20 @@ export const projectApi = {
       `/api/v1/projects/${project.id}/entries/${entryId}?expected_revision=${project.revision}`,
       { method: "DELETE" },
     ),
-  createGroup: (project: Project, name: string, entryIds: string[]) =>
+  createGroup: (project: Project, name: string, entryIds: string[], selection?: Selection) =>
     request<Project>(`/api/v1/projects/${project.id}/groups`, {
       method: "POST",
       body: JSON.stringify({
         expected_revision: project.revision,
         name,
         entry_ids: entryIds,
+        selection,
       }),
+    }),
+  updateGroupMembership: (project: Project, entryIds: string[], groupId: string | null, selection?: Selection) =>
+    request<Project>(`/api/v1/projects/${project.id}/group-membership`, {
+      method: "POST",
+      body: JSON.stringify({ expected_revision: project.revision, entry_ids: entryIds, group_id: groupId, selection }),
     }),
   saveSelection: (project: Project, name: string, selection: Selection) =>
     request<Project>(`/api/v1/projects/${project.id}/selections`, {

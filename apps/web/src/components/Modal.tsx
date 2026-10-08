@@ -9,9 +9,10 @@ interface ModalProps {
   description?: string;
   onOpenChange: (open: boolean) => void;
   children: ReactNode;
+  returnFocus?: () => HTMLElement | null;
 }
 
-export function Modal({ open, title, description, onOpenChange, children }: ModalProps) {
+export function Modal({ open, title, description, onOpenChange, children, returnFocus }: ModalProps) {
   const contentRef = useRef<HTMLDivElement>(null);
   const returnFocusRef = useRef<HTMLElement | null>(null);
 
@@ -36,7 +37,7 @@ export function Modal({ open, title, description, onOpenChange, children }: Moda
             firstWorkflowControl.focus();
           }}
           onCloseAutoFocus={(event) => {
-            const returnTarget = returnFocusRef.current;
+            const returnTarget = returnFocus?.() ?? returnFocusRef.current;
             if (!returnTarget?.isConnected) return;
             event.preventDefault();
             returnTarget.focus();

@@ -27,6 +27,7 @@ import type {
   StructureType,
   ViewerSettings,
 } from "../api/types";
+import { captureGroupScope, groupLabels, groupScopeSummary, type GroupScope } from "../groups/membership";
 import { emptySelection, selectionMode } from "../selection/selection";
 import { IconButton } from "./IconButton";
 import { StructureHierarchy } from "./StructureHierarchy";
@@ -47,7 +48,10 @@ interface ProjectBrowserProps {
   onVisibility: (entry: Entry) => void;
   onLock: (entry: Entry) => void;
   onIsolate: (entry: Entry) => void;
-  onGroup: (entry: Entry) => void;
+  onGroup: (entry: Entry, scope: GroupScope) => void;
+  onMoveGroup?: (scope: GroupScope) => void;
+  onRemoveGroup?: (scope: GroupScope) => void;
+  busy?: boolean;
   onDelete: (entry: Entry) => void;
   onExport: (entry: Entry) => void;
 }
@@ -73,11 +77,20 @@ function EntryRow({
   onLock,
   onIsolate,
   onGroup,
+  onMoveGroup,
+  onRemoveGroup,
+  busy,
+  captureScope,
+  canUngroup,
+  scopeSummary,
   onDelete,
   onExport,
 }: BrowserActions & {
   entry: Entry;
   selected: boolean;
+  captureScope: () => GroupScope;
+  canUngroup: boolean;
+  scopeSummary: string;
   onSelect: (mode: SelectionMode) => void;
 }) {
   return (
@@ -116,7 +129,7 @@ function EntryRow({
         </IconButton>
         <DropdownMenu.Root>
           <DropdownMenu.Trigger asChild>
-            <IconButton label={`Actions for ${entry.name}`}>
+            <IconButton className="entry-menu-trigger" label={`Actions for ${entry.name}`}>
               <Ellipsis size={16} />
             </IconButton>
           </DropdownMenu.Trigger>
@@ -131,9 +144,18 @@ function EntryRow({
               <DropdownMenu.Item className="dropdown-item" onSelect={() => onIsolate(entry)}>
                 <Focus size={15} /> Isolate
               </DropdownMenu.Item>
-              <DropdownMenu.Item className="dropdown-item" onSelect={() => onGroup(entry)}>
+              <DropdownMenu.Separator className="dropdown-separator" />
+              <DropdownMenu.Label className="group-scope-label">{scopeSummary}</DropdownMenu.Label>
+              {onMoveGroup ? <DropdownMenu.Item className="dropdown-item" disabled={busy} onSelect={() => onMoveGroup(captureScope())}>
+                <FolderPlus size={15} /> Move to group…
+              </DropdownMenu.Item> : null}
+              {canUngroup && onRemoveGroup ? <DropdownMenu.Item className="dropdown-item" disabled={busy} onSelect={() => onRemoveGroup(captureScope())}>
+                Remove from group
+              </DropdownMenu.Item> : null}
+              <DropdownMenu.Item className="dropdown-item" disabled={busy} onSelect={() => onGroup(entry, captureScope())}>
                 <FolderPlus size={15} /> Add to new group
               </DropdownMenu.Item>
+              <DropdownMenu.Separator className="dropdown-separator" />
               <DropdownMenu.Item className="dropdown-item" onSelect={() => onExport(entry)}>
                 <FileOutput size={15} /> Export
               </DropdownMenu.Item>
@@ -183,7 +205,7 @@ export function ProjectBrowser({
             entry.name.toLocaleLowerCase().includes(query) ||
             entry.original_filename?.toLocaleLowerCase().includes(query)),
       )
-      .sort((left, right) =>
+      .sort((left, right) => (
         sortBy === "atoms"
           ? right.atom_count - left.atom_count || left.name.localeCompare(right.name)
           : sortBy === "modified"
@@ -191,9 +213,17 @@ export function ProjectBrowser({
             : sortBy === "type"
               ? left.structure_type.localeCompare(right.structure_type) ||
                 left.name.localeCompare(right.name)
-              : left.name.localeCompare(right.name),
+              : left.name.localeCompare(right.name)
+      ) || left.id.localeCompare(right.id),
       );
   }, [project?.entries, search, sortBy, typeFilter]);
+  const labels = groupLabels(project?.groups ?? []);
+  const canonicalIds = new Set(selection.atoms.map((atom) => atom.structure_id));
+  const displayedIds = new Set(entries.map((entry) => entry.id));
+  const selectedEntries = project?.entries.filter((entry) => canonicalIds.has(entry.id)) ?? [];
+  const selectedSummary = groupScopeSummary({ entryIds: selectedEntries.map((entry) => entry.id), hiddenCount: selectedEntries.filter((entry) => !displayedIds.has(entry.id)).length });
+  const selectedGrouped = selectedEntries.some((entry) => entry.group_id !== null);
+  const captureScope = (entry: Entry) => captureGroupScope(project!, selection, entry.id, displayedIds, canonicalIds);
   const ungrouped = entries.filter((entry) => entry.group_id === null);
 
   const toggleGroup = (groupId: string) =>
@@ -238,6 +268,9 @@ export function ProjectBrowser({
         selected={selectedEntryIds.has(entry.id)}
         onSelect={(mode) => onSelectEntries?.([entry], mode)}
         {...actions}
+        captureScope={() => captureScope(entry)}
+        canUngroup={canonicalIds.has(entry.id) ? selectedGrouped : entry.group_id !== null}
+        scopeSummary={canonicalIds.has(entry.id) ? selectedSummary : groupScopeSummary({ entryIds: [entry.id], hiddenCount: 0 })}
       />
       {project && entry.current_artifact_id ? (
         <StructureHierarchy
@@ -305,21 +338,16 @@ export function ProjectBrowser({
       >
         {!project ? (
           <p className="empty-label">No project open</p>
-        ) : project.entries.length === 0 ? (
-          <div className="empty-panel">
-            <FlaskConical size={28} />
-            <p>No structures</p>
-          </div>
-        ) : entries.length === 0 ? (
-          <p className="empty-label">No matching structures</p>
         ) : (
           <>
+            {project.entries.length === 0 ? <div className="empty-panel"><FlaskConical size={28} /><p>No structures</p></div> :
+              entries.length === 0 ? <p className="empty-label">No matching structures</p> : null}
             {project.groups.map((group) => {
               const groupEntries = entries.filter((entry) => entry.group_id === group.id);
-              if (groupEntries.length === 0) return null;
+              if (groupEntries.length === 0 && project.entries.some((entry) => entry.group_id === group.id)) return null;
               return (
-                <div className="entry-group" key={group.id}>
-                  {groupHeading(group.id, group.name, groupEntries)}
+                <div className="entry-group" key={group.id} data-group-id={group.id}>
+                  {groupHeading(group.id, labels.get(group.id)!, groupEntries)}
                   {!collapsedGroups.has(group.id)
                     ? groupEntries.map(entryNode)
                     : null}
@@ -327,7 +355,7 @@ export function ProjectBrowser({
               );
             })}
             {ungrouped.length > 0 ? (
-              <div className="entry-group">
+              <div className="entry-group" data-group-id="ungrouped">
                 {project.groups.length > 0
                   ? groupHeading("ungrouped", "Ungrouped", ungrouped)
                   : null}

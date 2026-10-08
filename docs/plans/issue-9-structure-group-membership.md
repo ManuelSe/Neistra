@@ -2,7 +2,7 @@
 
 ## Status and issue metadata
 
-- Status: **M1/C1 complete; M2/C2 next; implementation authorized by `/goal`**.
+- Status: **M1/C1 and M2/C2 complete; M2/C3 next; implementation authorized by `/goal`**.
 - Approval: the user explicitly approved the complete proposed plan on 2026-10-08.
 - Issue: [#9 — Allow structure entries to be added to, moved between, and removed from groups](https://github.com/ManuelSe/Neistra/issues/9).
 - Base branch: `master`, updated from `origin/master` using fast-forward-only integration.
@@ -275,7 +275,7 @@ removing history or weakening archive checks.
 
 ## Milestones and independently verifiable checkpoints
 
-All implementation checkpoints are **not started**. Each leaves coherent working
+Implementation checkpoint statuses and evidence are tracked in the log below. Each leaves coherent working
 behavior, passes focused checks, records exact evidence/deviations/limitations,
 updates concise project progress and commits only a passing state. At every
 milestone boundary run relevant lint/type/test/build/browser gates. Fix failures
@@ -509,7 +509,7 @@ findings. Do not bypass blockers or silently reduce accepted scope.
 | Approval | Complete | User explicitly approved the full proposal on 2026-10-08 |
 | Planning persistence | Documentation complete and validated | Fast-forward-only master integration; clean base `94fdcd54e53e674c036e46894669f46f7edc2e66`; dedicated branch created; this document is its first file change |
 | M1 / C1 | Complete | Typed atomic membership API; focused and M1 boundary gates passed; evidence below |
-| M2 / C2 | Not started | Accessible explicit workflow |
+| M2 / C2 | Complete | Accessible explicit workflow; scope, focus, stale-tab and viewer checks pass |
 | M2 / C3 | Not started | Desktop drag and drop |
 | M3 / C4 | Not started | Compatibility, full gate, review and release preparation |
 | PR / merged gate / publication / closeout | Not started | Later delivery; no remote artifact existence implied |
@@ -530,7 +530,7 @@ lint/type/test/build/browser gates remain unexecuted.
 During implementation append checkpoint date/commit, concrete outcome, exact
 commands/results, compatibility evidence, deviations, limitations, blockers and
 next action. Keep detailed evidence here and only concise current summaries in
-PROGRESS. Next action: **M2/C2 accessible explicit actions**.
+PROGRESS. Next action: **M2/C3 desktop drag and drop**.
 
 ### 2026-10-08 — M1/C1 complete
 
@@ -563,3 +563,35 @@ Initial checks identified timestamp side effects and test setup snapshot/lifespa
 assumptions; all were corrected before the passing run. Local full checkpoint
 diff review found no remaining scope, data, scientific, migration or history
 finding. Review is local, not independent. No placeholder UI was added. Next: C2.
+
+### 2026-10-08 — M2/C2 complete
+
+Explicit Move to group, conditional Remove from group and batch Add to new group
+capture canonical entry scope/revision/selection at activation. Scope includes
+filter-hidden highlighted entries and complete-entry meaning for partial atom
+selections. Empty groups remain visible; repeated stored names use stable distinct
+display labels. Local menu/dialog drafts do not enter molecular or viewer state.
+Pending duplicate submission guards, inline errors, stale-revision handling,
+keyboard/touch controls and visible focus fallbacks are implemented. See GROUPS.md.
+
+Passing commands: frontend lint, typecheck, full test (**132 passed**) and build;
+focused `exec vitest run src/test/project-browser.test.tsx
+src/test/group-membership.test.tsx src/test/project-workspace.test.tsx
+src/test/structure-loading.test.tsx` (**23 passed**). The viewer boundary verifies
+no projection refetch, remount, synchronization, replacement, coordinate patch,
+fit or canonical selection mutation for membership-only responses.
+
+Browser command: C1 port overrides 8110/8111/5273, fresh data directory
+`/tmp/neistra-issue9-c2d-e2e`, pinned browser path `.playwright`, `corepack pnpm
+exec playwright test tests/e2e/group-membership.spec.ts
+tests/e2e/project-lifecycle.spec.ts`: **9 passed / 1 intentional layout skip**,
+51.1 s. Both layouts qualify filtered batch move/create/ungroup, no-op revision,
+history, save/reopen, preserved entry metadata/selection, post-load request counts,
+partial multichain selections and second-session conflicts. Scoped WCAG axe checks
+pass light/dark after awaiting the existing dialog animation; transient animation
+opacity was a test timing finding, not a changed contrast threshold.
+
+Earlier test fixture/schema and ambiguous status selectors were corrected. Local
+checkpoint diff review checked captured scope, metadata-only operations, focus,
+compatibility and accidental expansion. No new migration/architectural deviation.
+Lazy Mol* build-size advisory remains. Next: C3.

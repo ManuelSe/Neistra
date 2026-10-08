@@ -177,3 +177,11 @@ C3 qualification passes desktop/Pixel 7 light/dark axe checks and all measured
 Final captures: [mobile light](assets/pocket-surfaces/c3-mobile-light-pocket-workflow.png)
 and [dark 200% zoom](assets/pocket-surfaces/c3-zoom-dark-200-pocket.png).
 The complete milestone and final UI-review retest evidence is in the #36 plan.
+
+## Structure group controls
+
+`tests/e2e/group-membership.spec.ts` exercises named row actions, native group
+destination and name controls, captured complete-entry counts, keyboard launch,
+Escape and focus restoration on desktop and Pixel 7 emulation. Move dialogs run
+scoped axe checks in both themes. Explicit actions are the touch and keyboard
+workflow; dragging does not replace them.

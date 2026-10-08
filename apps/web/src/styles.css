@@ -3626,3 +3626,5 @@ div[data-radix-popper-content-wrapper]:has(.tooltip) {
 .pocket-draft, .pocket-popover > .surface-explanation { padding: 12px; }
 .surface-options-menu .dropdown-item { min-height: 44px; }
 .pocket-popover .icon-button { min-width: 44px; min-height: 44px; }
+
+.group-scope-label { max-width: 260px; padding: 6px 10px; font-size: 0.75rem; color: var(--text-soft); }

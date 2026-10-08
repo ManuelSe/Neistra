@@ -37,6 +37,8 @@ import { ImportDialog } from "./components/ImportDialog";
 import { ArchiveImportDialog } from "./components/ArchiveImportDialog";
 import { Modal } from "./components/Modal";
 import { ExportDialog } from "./components/ExportDialog";
+import { GroupMembershipDialog, type GroupDialogRequest } from "./components/GroupMembershipDialog";
+import { groupReturnFocus, type GroupScope } from "./groups/membership";
 import { ProjectBrowser } from "./components/ProjectBrowser";
 import { ProjectInspector } from "./components/ProjectInspector";
 import { TopBar } from "./components/TopBar";
@@ -62,7 +64,7 @@ import { useSelectionStore } from "./store/selection";
 import { useWorkspaceStore } from "./store/workspace";
 import { applyTheme } from "./theme";
 
-type EntryDialog = { mode: "rename" | "group" | "delete"; entry: Entry } | null;
+type EntryDialog = { mode: "rename" | "delete"; entry: Entry } | null;
 
 function errorMessage(error: unknown): string {
   return error instanceof ApiError ? error.message : "The operation could not be completed.";
@@ -103,7 +105,7 @@ export default function App() {
   const [lowerTab, setLowerTab] = useState<LowerPanelTab>("properties");
   const [entryName, setEntryName] = useState("");
   const [entryDescription, setEntryDescription] = useState("");
-  const [groupName, setGroupName] = useState("");
+  const [groupDialog, setGroupDialog] = useState<GroupDialogRequest | null>(null);
   const [notice, setNotice] = useState<{ kind: "success" | "error"; text: string } | null>(null);
   const [editedThisSession, setEditedThisSession] = useState(false);
   const [selectionBusy, setSelectionBusy] = useState(false);
@@ -163,6 +165,7 @@ export default function App() {
 
   useEffect(() => {
     setSelectionProject(project?.id ?? null);
+    setGroupDialog(null);
   }, [project?.id, setSelectionProject]);
 
   useEffect(() => {
@@ -302,9 +305,17 @@ export default function App() {
       onIsolate: (entry: Entry) => {
         if (project) projectMutation.mutate(() => projectApi.isolateEntry(project, entry.id));
       },
-      onGroup: (entry: Entry) => {
-        setGroupName("");
-        setEntryDialog({ mode: "group", entry });
+      onGroup: (_entry: Entry, scope: GroupScope) => setGroupDialog({ mode: "create", scope }),
+      onMoveGroup: (scope: GroupScope) => setGroupDialog({ mode: "move", scope }),
+      onRemoveGroup: (scope: GroupScope) => {
+        if (!project || project.id !== scope.projectId || projectMutation.isPending) return;
+        projectMutation.mutate(
+          () => projectApi.updateGroupMembership({ ...project, revision: scope.revision }, scope.entryIds, null, scope.selection),
+          { onSuccess: (next) => {
+            setNotice({ kind: "success", text: next.revision === scope.revision ? "Group membership unchanged." : `Removed ${scope.entryIds.length} complete structures from groups.` });
+            requestAnimationFrame(() => groupReturnFocus(scope, null)?.focus());
+          } },
+        );
       },
       onDelete: (entry: Entry) => setEntryDialog({ mode: "delete", entry }),
       onExport: (entry: Entry) => {
@@ -846,6 +857,7 @@ export default function App() {
                   >
                     {mobilePanel === "projects" ? (
                       <ProjectBrowser
+                        busy={busy}
                         project={project}
                         selection={selection}
                         selectedEntryIds={selectedEntryIds(selection)}
@@ -914,6 +926,7 @@ export default function App() {
                   </div>
                 ) : (
                   <ProjectBrowser
+                    busy={busy}
                     project={project}
                     selection={selection}
                     selectedEntryIds={selectedEntryIds(selection)}
@@ -1189,6 +1202,22 @@ export default function App() {
         }}
       />
 
+      {groupDialog && project && groupDialog.scope.projectId === project.id ? (
+        <GroupMembershipDialog
+          project={project} request={groupDialog} busy={busy}
+          onClose={() => setGroupDialog(null)}
+          onSubmit={async (scope, target) => {
+            if (project.id !== scope.projectId || projectMutation.isPending) return;
+            const captured = { ...project, revision: scope.revision };
+            const next = await projectMutation.mutateAsync(() =>
+              "name" in target
+                ? projectApi.createGroup(captured, target.name, scope.entryIds, scope.selection)
+                : projectApi.updateGroupMembership(captured, scope.entryIds, target.groupId, scope.selection),
+            );
+            setNotice({ kind: "success", text: next.revision === scope.revision ? "Group membership unchanged." : `Organized ${scope.entryIds.length} complete structures.` });
+          }}
+        />
+      ) : null}
       <Modal
         open={entryDialog !== null}
         onOpenChange={(open) => {
@@ -1197,9 +1226,7 @@ export default function App() {
         title={
           entryDialog?.mode === "rename"
             ? "Rename structure"
-            : entryDialog?.mode === "group"
-              ? "Create group"
-              : "Delete structure"
+            : "Delete structure"
         }
       >
         {entryDialog?.mode === "rename" ? (
@@ -1244,37 +1271,6 @@ export default function App() {
               </button>
               <button className="primary-button" type="submit" disabled={!entryName.trim() || busy}>
                 Apply
-              </button>
-            </div>
-          </form>
-        ) : entryDialog?.mode === "group" ? (
-          <form
-            className="dialog-form"
-            onSubmit={(event) => {
-              event.preventDefault();
-              if (project && groupName.trim()) {
-                projectMutation.mutate(
-                  () => projectApi.createGroup(project, groupName.trim(), [entryDialog.entry.id]),
-                  { onSuccess: () => setEntryDialog(null) },
-                );
-              }
-            }}
-          >
-            <label>
-              Group name
-              <input
-                autoFocus
-                value={groupName}
-                maxLength={120}
-                onChange={(event) => setGroupName(event.target.value)}
-              />
-            </label>
-            <div className="dialog-actions">
-              <button type="button" className="secondary-button" onClick={() => setEntryDialog(null)}>
-                Cancel
-              </button>
-              <button className="primary-button" type="submit" disabled={!groupName.trim() || busy}>
-                Create group
               </button>
             </div>
           </form>

@@ -120,6 +120,9 @@ PYTHONPATH=apps/api/src:packages/molweave_core/src:packages/molweave_demo_plugin
 corepack pnpm --dir apps/web dev
 ```
 
+Structure organization: see [Structure groups](docs/GROUPS.md) for batch move,
+ungroup and group-creation controls.
+
 ## Architecture
 
 ```mermaid

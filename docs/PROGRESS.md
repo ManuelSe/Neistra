@@ -2,24 +2,18 @@
 
 ## Current milestone
 
-Issue #9 — M1/C1 implemented and verified; M2/C2 accessible actions next.
+Issue #9 — M1/C1 and M2/C2 implemented and verified; desktop drag C3 next.
 Contract: [structure group membership plan](plans/issue-9-structure-group-membership.md).
-Branch: `feat/issue-9-structure-group-membership`, based on fast-forward-updated
-master `94fdcd54e53e674c036e46894669f46f7edc2e66`. User approval: 2026-10-08.
-Approved checkpoints: M1/C1 durable membership command; M2/C2 accessible explicit
-actions; M2/C3 desktop drag and drop; M3/C4 qualification and release preparation.
-Planned release: minor **v0.10.0**; current application versions remain **0.9.0**.
-D-071 records retained empty groups, existing derived sorting and organizational
-state ownership. No new migration or schema-major change is planned.
-Completed: atomic membership API, changed-only reversible actions, exact no-ops,
-retained empty groups and selection context. D-072 preserves entry timestamps and
-uses existing checkpoint-derived dirty state. `/goal` authorizes full delivery.
-Verification: Ruff, mypy (54 files), 31 focused Python and 125 frontend tests,
-frontend lint/type/build and 5 browser workflows / 1 layout skip pass; fresh
-migration 0013 and diff review pass. Exact commands are in the feature plan.
-Known limitations: desktop dragging with explicit touch/keyboard alternatives;
-manual order, persisted sort/filter and live tab synchronization remain deferred.
-Blockers: none. Next action: M2/C2 explicit keyboard/touch membership actions.
+Branch: `feat/issue-9-structure-group-membership`; approved 2026-10-08.
+Completed: atomic reversible membership API; exact no-ops; timestamp invariance;
+accessible batch move/ungroup/create, captured partial/filter-hidden scope, retained
+empty groups, distinct display names and focus/conflict handling. D-071/D-072.
+Verification: 31 focused Python, 132 frontend tests, lint/type/build;
+9 browser workflows / 1 layout skip (desktop/Pixel 7), light/dark scoped axe,
+stale-tab and viewer/request invariance. Detailed commands in the feature plan.
+Planned minor release v0.10.0; versions remain 0.9.0. No migration/schema change.
+Limitations: mobile evidence is emulation; deferred scope stays deferred.
+Blockers: none. Next: implement C3, then qualify the full release gate in C4.
 
 ### Previous release — v0.9.0
 
@@ -139,7 +133,8 @@ feature merge; this documentation-only closeout records the remote evidence.
   retained empty groups, existing derived sorting and desktop drag with equivalent
   explicit mobile actions. Fast-forward-only master integration confirmed a clean
   v0.9.0 base; the detailed plan is the first change on the dedicated feature
-  branch. D-071 records the architectural choices. Implementation is not started.
+  branch. D-071 records the architectural choices. This is the planning record;
+  current implementation evidence is above and in the feature plan.
 
 - Issue #29: all approved checkpoints and the user’s carbon-only amendment are
   implemented, verified, merged, versioned and released. The issue received its

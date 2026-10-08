@@ -365,6 +365,30 @@ describe("lazy structure loading", () => {
     expect(fake.disposed).toBe(true);
   });
 
+  it("does not reload or rebuild the viewer for membership-only responses", async () => {
+    const fake = new FakeViewer();
+    const createViewer = () => fake;
+    const fetchSpy = vi.spyOn(globalThis, "fetch").mockResolvedValue(new Response(JSON.stringify(projection("protein")), { status: 200 }));
+    const queryClient = new QueryClient({ defaultOptions: { queries: { retry: false } } });
+    const selected: Selection = { ...emptySelection, atoms: [{ structure_id: "protein", atom_id: 1 }] };
+    const props = { theme: "light" as const, selection: selected, pickingGranularity: "atom" as const, onViewerSelection: vi.fn(), createViewer };
+    const original = project();
+    const { rerender } = render(<StructureViewer project={original} {...props} />, { wrapper: wrapper(queryClient) });
+    await waitFor(() => expect(fake.syncs.at(-1)).toHaveLength(1));
+    const before = { syncs: fake.syncs.length, fits: fake.fits, selections: fake.selections.length };
+    const moved = { ...original, revision: original.revision + 1, groups: [{ id: "new", parent_id: null, name: "New", created_at: original.created_at, modified_at: original.modified_at }], entries: original.entries.map((entry) => ({ ...entry, group_id: "new", dirty: true })) };
+    rerender(<StructureViewer project={moved} {...props} />);
+    await act(async () => { await Promise.resolve(); });
+    expect(fetchSpy).toHaveBeenCalledTimes(1);
+    expect(fake.mounts).toBe(1);
+    expect(fake.syncs).toHaveLength(before.syncs);
+    expect(fake.fits).toBe(before.fits);
+    expect(fake.selections).toHaveLength(before.selections);
+    expect(fake.replacements).toEqual([]);
+    expect(fake.coordinatePatches).toEqual([]);
+    expect(props.onViewerSelection).not.toHaveBeenCalled();
+  });
+
   it("surfaces a failed projection and retries successfully", async () => {
     const user = userEvent.setup();
     const fake = new FakeViewer();
