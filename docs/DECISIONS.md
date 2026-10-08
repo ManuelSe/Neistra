@@ -2387,3 +2387,68 @@ initial seeds stay captured until explicitly replaced. Existing saved pockets
 remain removable with no selection or no protein context.
 Scenes remain the supported way to retain alternative pocket views. No permanent
 layer manager, cavity algorithm or additional primary-panel row is introduced.
+
+## D-071 — Organizational group membership without molecular or ordering state
+
+Status: accepted by explicit user approval of the issue #9 plan on 2026-10-08;
+implementation not started.
+
+Decision:
+
+Use existing nullable `StructureEntry.group_id` and persisted EntryGroup records
+for top-level project organization. Add one revisioned, atomic membership command
+for a captured entry batch and group-or-Ungrouped destination. Reuse existing
+`entries.group` forward/inverse actions and project responses. Validate complete
+same-project scope before writes; exact no-ops must preserve revisions, timestamps,
+history and the redo branch. Locked entries may be reorganized, consistent with
+existing group creation, without changing their lock or molecular state.
+
+Retain empty groups after moving, ungrouping or deleting their final entry and
+expose them as reusable destinations. Preserve the existing derived sorting model;
+undo restores membership and the derived position under unchanged sort/filter.
+Do not add manual position storage or persist sort/filter preferences in this
+slice. Reload retains the existing default name-sorted view.
+
+Use entry highlighting derived from the canonical transient selection rather
+than a second entry-selection authority. If the originating row is selected,
+capture all selected entry IDs; otherwise capture that row alone. Explicit actions
+and desktop drag operate on whole entries, including those with partial atom
+selections, and explain their scope without expanding or changing atom selection.
+Capture selection context for command history using existing conventions.
+
+TanStack Query remains the project cache owner; dialog/drag drafts are transient
+application state. Mol*, normalized molecular artifacts and the separate derived
+component hierarchy do not own organization. Membership changes must not fetch
+normalized data, reload/rebuild structures, regenerate surfaces, or alter camera,
+selection, representation, visibility, molecular data, warnings, originals or jobs.
+
+Offer complete keyboard/touch accessible explicit actions and desktop drag from
+dedicated handles. Touch drag, keyboard drag simulation, live tab synchronization,
+manual ordering and broader group/component management remain outside this plan.
+Named scenes keep their existing visual-state purpose. D-035/D-042 archives remain
+current-state snapshots with remapped group references and no portable history.
+
+Rationale:
+
+The user problem is changing membership as projects evolve. Existing relational
+membership and reversible action vocabulary already express that operation.
+Retained groups support refill workflows and avoid an additional deletion/restore
+lifecycle. Derived sorting removes unnecessary ordering migrations. Explicit
+controls make desktop, keyboard and mobile organization complete without a new
+touch-gesture system. These choices preserve molecular authority and reduce
+compatibility risk while delivering the issue's essential outcome.
+
+Consequences:
+
+- The approved implementation contract is
+  [issue #9 structure group membership](plans/issue-9-structure-group-membership.md).
+- No database migration, ordering field, molecular schema or archive shape change
+  is planned; Alembic head remains 0013 and schema majors remain 1.
+- The additive API returns existing ProjectRead; optional history selection context
+  must not break older group-creation callers.
+- Validate retained command/history compatibility with the preceding application
+  before claiming rollback safety; never strip data to make a downgrade appear safe.
+- Empty-group presentation changes, but automatic deletion and nested groups are
+  not introduced. Component corrections #20 and subset export #21 remain separate.
+- The planned minor release is 0.10.0. Approval/persistence does not mean the feature
+  is implemented, tested, merged or released; await the user's implementation start.
