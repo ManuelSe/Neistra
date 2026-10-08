@@ -2,13 +2,13 @@
 
 ## Status and issue metadata
 
-- Status: **M1–M3 / C1–C4 implemented and candidate-qualified for v0.10.0; PR/release delivery pending**.
+- Status: **Approved scope complete, merged and published as v0.10.0; verified delivery audit below**.
 - Approval: the user explicitly approved the complete proposed plan on 2026-10-08.
 - Issue: [#9 — Allow structure entries to be added to, moved between, and removed from groups](https://github.com/ManuelSe/Neistra/issues/9).
 - Base branch: `master`, updated from `origin/master` using fast-forward-only integration.
 - Planning and branch base: `94fdcd54e53e674c036e46894669f46f7edc2e66`.
 - Feature branch: `feat/issue-9-structure-group-membership`.
-- Planned version: **0.10.0**; proposed annotated tag: **`v0.10.0`**.
+- Released version: **0.10.0**; verified annotated tag: **`v0.10.0`**.
 - PR title: `feat(groups): allow moving and ungrouping structure entries`.
 - Merge strategy: normal merge commit preserving passing checkpoint history.
 - Implementation checkpoints: M1/C1, M2/C2–C3, M3/C4 below.
@@ -511,8 +511,8 @@ findings. Do not bypass blockers or silently reduce accepted scope.
 | M1 / C1 | Complete | Typed atomic membership API; focused and M1 boundary gates passed; evidence below |
 | M2 / C2 | Complete | Accessible explicit workflow; scope, focus, stale-tab and viewer checks pass |
 | M2 / C3 | Complete | Native desktop drag; explicit mobile equivalents; boundary gates pass |
-| M3 / C4 | Not started | Compatibility, full gate, review and release preparation |
-| PR / merged gate / publication / closeout | Not started | Later delivery; no remote artifact existence implied |
+| M3 / C4 | Complete | Compatibility/history/archive and both complete candidate/merged gates pass; five versions updated; local review corrections verified |
+| PR / merged gate / publication / closeout | Complete; final cleanup audit linked below | PR #41 merged; exact merged gate passes; annotated v0.10.0/release/issue reply remotely verified; cleanup audit: [issue reply](https://github.com/ManuelSe/Neistra/issues/9#issuecomment-6070785773) |
 
 Planning handoff commits this file with concise PROGRESS and appended D-071 as
 `docs(plan): add approved plan for issue 9`, pushes the branch when remote access
@@ -530,7 +530,7 @@ lint/type/test/build/browser gates remain unexecuted.
 During implementation append checkpoint date/commit, concrete outcome, exact
 commands/results, compatibility evidence, deviations, limitations, blockers and
 next action. Keep detailed evidence here and only concise current summaries in
-PROGRESS. Next action: **M3/C4 qualification and release preparation**.
+PROGRESS. Next action: **approved scope complete; final delivery and cleanup audit below**.
 
 ### 2026-10-08 — M1/C1 complete
 
@@ -787,3 +787,73 @@ must repeat the complete gate before publication.
 | Completion-context ownership | `keeps late membership success/conflict feedback and focus in its captured project`; old-App regressions demonstrate stolen focus/replaced notice | Four delayed-response browser cases |
 | Accessibility, themes, zoom and responsiveness | Scoped WCAG axe, light/dark keyboard/touch membership flows, extended `keeps actions and dialogs reachable at real 100% and 200% browser zoom`, release-hardening and responsive-breakpoint suites | Complete browser gate; no threshold weakening |
 | Schema, migration and preceding action compatibility | Existing `entries.group` payload assertions, producer/legacy archive cases, full migration upgrade/downgrade suite and fresh head 0013 | Python + fresh migration gate; no new migration |
+
+
+### 2026-10-09 — Verified v0.10.0 publication and delivery audit
+
+[PR #41](https://github.com/ManuelSe/Neistra/pull/41) is normally merged on
+`cad24628d9221fef26f667eae4275ab23438841f`, preserving every checkpoint. Remote master and local
+fast-forwarded master were verified at that exact commit, with a clean tree.
+Candidate `6334715` and PR head `0bc8e3c` differ only in three qualification
+documents; the merged production, tests, dependencies and version sources remain
+identical to the qualified candidate.
+
+The complete gate ran again on the exact merged commit: **379 Python, 134 frontend,
+8 supervisor and 115 browser tests / 41 intentional layout skips**, zero
+failed/flaky cases, frozen installs, fresh migration 0013, Ruff/mypy (54 files),
+frontend lint/types/build and clean diff/tree checks. Merged browser duration:
+**1165.15 s**. Fresh services use ports 8110/8111/5273 and
+`/tmp/neistra-issue9-merged-e2e`; migration uses `/tmp/neistra-issue9-merged-migration`.
+
+Exact merged gate commands:
+
+```bash
+.venv/bin/uv sync --frozen
+corepack pnpm install --frozen-lockfile
+MOLWEAVE_DATA_DIR=/tmp/neistra-issue9-merged-migration .venv/bin/uv run alembic upgrade head
+.venv/bin/uv run ruff check .
+.venv/bin/uv run mypy apps/api packages/molweave_core
+.venv/bin/uv run pytest
+corepack pnpm --dir apps/web lint
+corepack pnpm --dir apps/web typecheck
+corepack pnpm --dir apps/web test
+corepack pnpm test:dev
+corepack pnpm --dir apps/web build
+MOLWEAVE_E2E_API_PORT=8110 MOLWEAVE_E2E_WORKER_PORT=8111 MOLWEAVE_E2E_WEB_PORT=5273 MOLWEAVE_E2E_DATA_DIR=/tmp/neistra-issue9-merged-e2e PLAYWRIGHT_BROWSERS_PATH=.playwright PLAYWRIGHT_JSON_OUTPUT_FILE=/tmp/neistra-issue9-merged-evidence/playwright.json corepack pnpm exec playwright test --reporter=line,json
+git diff --check
+git status --short
+```
+
+Local complete diff review is not independent. Timestamp and completion-context
+findings were fixed and meaningfully demonstrated against preceding code. The
+[Codex review request](https://github.com/ManuelSe/Neistra/pull/41#issuecomment-6070471639)
+is verified; no integration review/response or job appeared. The
+[local review and live policy audit](https://github.com/ManuelSe/Neistra/pull/41#issuecomment-6070509850)
+records MERGEABLE/CLEAN, no checks/workflows, no protection/rulesets/required human
+review and no unresolved threads. No force push or protection bypass was used.
+
+Annotated **v0.10.0** and the published non-draft, non-prerelease
+[GitHub release](https://github.com/ManuelSe/Neistra/releases/tag/v0.10.0) are remotely verified. The tag's annotation
+object and peeled target are verified on the exact released master commit above.
+The [verification report](https://github.com/ManuelSe/Neistra/releases/download/v0.10.0/neistra-0.10.0-verification.json) records both exact gates,
+commands, log hashes, versions, diagnostic attempts and limits; its downloaded
+bytes were verified against the uploaded artifact. All five authoritative version
+sources agree on 0.10.0. Minor SemVer impact is final; no new migration or schema
+major, no data stripping or new history vocabulary.
+
+Issue #9 is closed through the PR and has a verified
+[close-out reply](https://github.com/ManuelSe/Neistra/issues/9#issuecomment-6070785773) covering outcome, PR/release, verification,
+compatibility, deliberate scope choices and existing #20/#21 follow-ups. No new
+follow-up issue was created. Empty groups remain reusable; sorts remain derived;
+keyboard/touch explicit actions replace touch/keyboard dragging. Deferred scope,
+scientific neutrality, emulated-device qualification and existing advisories stay
+explicit. There is no remaining approved implementation or product decision.
+
+This documentation closeout is prepared on the same planned feature branch after
+publication. It changes only delivery records; complete merged qualification
+covers the identical production/test/dependency tree. Its focused validation is
+`git diff --check`, source-tree equivalence and local documentation diff review;
+repository policy and unresolved conversations are rechecked before its normal
+merge. The final branch-cleanup and clean-master audit is maintained in the issue
+close-out reply linked above, after this documentation is merged. The published
+tag stays on the original qualified feature merge; it is never retargeted.

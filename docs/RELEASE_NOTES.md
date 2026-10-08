@@ -49,8 +49,11 @@ instrumentation, native desktop dragging, Pixel 7 explicit workflows, light/dark
 scoped axe and real 100%/200% zoom. Clean candidate qualification passes
 **379 Python, 134 frontend, 8 supervisor and
 115 browser tests / 41 intentional layout skips**, with zero failed/flaky cases
-in the final run. Exact merged qualification remains a release blocker and will
-be recorded in the published verification report. Earlier diagnostic failures
+in the final run. Exact merged qualification also passes the same complete gate on
+`cad24628d9221fef26f667eae4275ab23438841f`; the annotated tag and
+[release](https://github.com/ManuelSe/Neistra/releases/tag/v0.10.0) are verified. The
+[published verification report](https://github.com/ManuelSe/Neistra/releases/download/v0.10.0/neistra-0.10.0-verification.json)
+records both gates and exact evidence. Earlier diagnostic failures
 are separate from passing release evidence.
 Local review is identified accurately; it is not claimed as independent review.
 
@@ -65,8 +68,8 @@ advisory and Alembic configuration deprecation remain.
 Automatic empty-group deletion is rejected so destinations stay reusable.
 Manual order, saved sort/filter preferences, live tab synchronization, touch drag,
 keyboard drag simulation and group lifecycle management are deferred. Nested,
-multiple and automatic membership are out of scope. Component extraction and
-subset export remain existing #20/#21 work; no speculative follow-up is created.
+multiple and automatic membership are out of scope. Component naming/classification
+remains #20; extraction/subset export remains #21; no speculative follow-up is created.
 
 ## 0.9.0 - 2026-09-15
 

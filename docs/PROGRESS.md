@@ -2,21 +2,23 @@
 
 ## Current milestone
 
-Issue #9 — M1–M3 / C1–C4 implemented and candidate-qualified for **v0.10.0**.
-Contract: [structure group membership plan](plans/issue-9-structure-group-membership.md).
-Branch: `feat/issue-9-structure-group-membership`; D-071–D-074.
-Atomic reversible membership, captured accessible batch actions, native desktop
-moves, reusable empty destinations and derived sorts are complete. Review fixes
-preserve entry timestamps through checkpoint saves and keep late responses with
-their captured project. No migration/schema change; all five versions are 0.10.0.
+Issue #9 — approved scope complete, merged through [PR #41](https://github.com/ManuelSe/Neistra/pull/41)
+and published as [v0.10.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.10.0).
+Contract and full audit: [structure group membership plan](plans/issue-9-structure-group-membership.md).
+Reversible captured batch actions, native desktop grips, reusable empty groups and
+derived sorts are delivered. D-071–D-074 preserve scientific/viewer ownership,
+timestamps/checkpoints and late-response context. All five versions are 0.10.0;
+no migration/schema-major change (head 0013).
 
-Clean candidate `6334715f216287913ad9e427014f7a29a0270248` passes **379 Python, 134 frontend,
-8 supervisor and 115 browser tests / 41 intentional layout skips**, frozen installs,
-fresh migration 0013, lint/type/build; zero failed/flaky cases in final qualification.
-Earlier Vite reload failure and expected old-code regressions remain documented
-separately in the plan. Limits: Pixel 7 emulation, unchanged lazy Mol* advisory and
-Alembic deprecation; deferred scope stays deferred. Review is local, not independent.
-Blockers: none. Next: PR/review/normal merge, exact merged gate and publication.
+Complete clean candidate and exact merged gates each pass **379 Python, 134 frontend,
+8 supervisor and 115 browser tests / 41 intentional skips**, zero failed/flaky
+cases, frozen installs, fresh migration, lint/type/build. Annotated tag and release
+point to `cad24628d9221fef26f667eae4275ab23438841f`; published verification bytes are
+verified. Issue closed and [close-out reply](https://github.com/ManuelSe/Neistra/issues/9#issuecomment-6070785773) verified; that reply
+maintains the final branch-cleanup/clean-master audit. Review is local, not independent;
+Codex was requested without a returned integration review. Limits remain emulation,
+existing advisories and approved deferrals; no speculative follow-ups were created.
+Blockers: none. Next action: select and approve a separate backlog plan.
 
 ### Previous release — v0.9.0
 
