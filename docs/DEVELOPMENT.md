@@ -266,3 +266,20 @@ visible pocket is insufficient while history retains it; restore a pre-upgrade
 backup rather than stripping references. Prior archives load with null pockets;
 new pocket-bearing archives require a compatible reader. See PROJECT_SCHEMA and
 D-069 for the unchanged current-snapshot archive boundary.
+
+## Structure membership compatibility (0.10.0)
+
+No new migration is introduced; Alembic head remains 0013. The revisioned membership
+endpoint is additive. Existing nullable entry group IDs, EntryGroup records and
+`entries.group` history actions retain their shape. Current project/normalized/API/
+archive schema majors remain 1. Empty groups and membership round-trip through
+archives with IDs remapped; archive history remains database-local.
+
+Reverting this feature's controls/endpoint to 0.9.0 needs no data stripping or
+schema downgrade. The preceding service understands the retained grouping actions.
+Earlier pre-0.9 readers retain their existing pocket/visibility limitations;
+organization compatibility does not waive those scientific-state constraints.
+Grouping preserves uploaded and normalized bytes and entry modified-date sort keys.
+D-072 preserves membership timestamps; D-073 keeps derived dirty flags on response
+copies, avoiding ORM writes through reads and checkpoint saves. See GROUPS.md and the issue #9 feature plan for scope,
+interaction semantics, evidence and release blockers.

@@ -352,3 +352,12 @@ Pocket control does not discover sites. Coordinate previews suppress obsolete
 patches, including hidden-seed dependencies. If current protein context disappears,
 retain valid seed intent and explain unavailable context; do not choose a replacement
 receptor. Originals, supplied conformers and warnings remain unchanged.
+
+## Structure organization
+
+A group is organizational membership of complete entries. Grouping a partially
+selected structure does not extract those atoms or change the selection. Names
+such as “receptor” or “ligand” express user organization, not a classification,
+preparation or validation result. Membership changes preserve scientific data,
+viewer presentation and job provenance; component extraction and subset export
+remain separate work (#20/#21).

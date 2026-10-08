@@ -2,21 +2,37 @@
 
 ## Current milestone
 
-Issue #36 — implementation and clean candidate qualification complete;
-PR, exact merged-master gate and publication next on `feat/issue-36-pocket-surfaces`.
-Contract: [approved pocket plan](plans/issue-36-pocket-surfaces.md), version v0.9.0.
-Completed: native full-protein patches, durable seeds/migration 0013, cross-entry
-lifecycle, compact saved workflow and hidden-seed coordinate invalidation.
-Complete clean candidate `18d8cf3` passes **366 Python, 125 frontend, 8 supervisor
-and 104 browser tests / 40 intentional layout skips**, frozen installs, fresh
-migration, lint/type/build and clean-tree checks. Zero failed/flaky browser cases.
-Final local full-diff review is complete with no unresolved consequential finding;
-it is not independent review. Only evidence documentation changes after tested code.
-Known limitations: protein-only centroid patches, open edges, no cavity analysis;
-host/emulated-device capacity evidence is not a universal memory guarantee.
-Blockers: none. Base remains `ce3e4f7`; all five versions agree and v0.9.0 is free.
-Next action: open/review the PR, satisfy live merge policy, normal-merge, then run
-the complete gate on exact master before tag/release/issue closeout and cleanup.
+Issue #9 — M1–M3 / C1–C4 implemented and candidate-qualified for **v0.10.0**.
+Contract: [structure group membership plan](plans/issue-9-structure-group-membership.md).
+Branch: `feat/issue-9-structure-group-membership`; D-071–D-074.
+Atomic reversible membership, captured accessible batch actions, native desktop
+moves, reusable empty destinations and derived sorts are complete. Review fixes
+preserve entry timestamps through checkpoint saves and keep late responses with
+their captured project. No migration/schema change; all five versions are 0.10.0.
+
+Clean candidate `6334715f216287913ad9e427014f7a29a0270248` passes **379 Python, 134 frontend,
+8 supervisor and 115 browser tests / 41 intentional layout skips**, frozen installs,
+fresh migration 0013, lint/type/build; zero failed/flaky cases in final qualification.
+Earlier Vite reload failure and expected old-code regressions remain documented
+separately in the plan. Limits: Pixel 7 emulation, unchanged lazy Mol* advisory and
+Alembic deprecation; deferred scope stays deferred. Review is local, not independent.
+Blockers: none. Next: PR/review/normal merge, exact merged gate and publication.
+
+### Previous release — v0.9.0
+
+Issue #36 is delivered through [PR #40](https://github.com/ManuelSe/Neistra/pull/40)
+and verified annotated tag/[release v0.9.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.9.0)
+on `94fdcd54e53e674c036e46894669f46f7edc2e66`; the issue is closed.
+The published release records complete clean candidate and exact merged gates:
+**366 Python, 125 frontend, 8 supervisor and 104 browser tests / 40 intentional
+layout skips**, frozen installs, fresh migration 0013, lint/type/build and zero
+failed/flaky browser cases. These are historical release results, not new issue #9
+verification. Review was local, not independent. Native full-protein patches,
+durable seeds, cross-entry lifecycle, compact saved workflow and hidden-seed
+coordinate invalidation are complete. Limits remain protein-only centroid patches,
+open edges and no cavity analysis; host/emulated-device capacity evidence is not a
+universal memory guarantee. See the [pocket plan](plans/issue-36-pocket-surfaces.md)
+and the published verification report linked from the release.
 
 ### Previous release — v0.8.0
 
@@ -115,6 +131,13 @@ and closed out on issue #1. The release tag remains on the exact verified
 feature merge; this documentation-only closeout records the remote evidence.
 
 ## Completed work
+
+- Issue #9 planning: the user approved the complete membership contract, including
+  retained empty groups, existing derived sorting and desktop drag with equivalent
+  explicit mobile actions. Fast-forward-only master integration confirmed a clean
+  v0.9.0 base; the detailed plan is the first change on the dedicated feature
+  branch. D-071 records the architectural choices. This is the planning record;
+  current implementation evidence is above and in the feature plan.
 
 - Issue #29: all approved checkpoints and the user’s carbon-only amendment are
   implemented, verified, merged, versioned and released. The issue received its
@@ -956,6 +979,16 @@ feature merge; this documentation-only closeout records the remote evidence.
   affected-entry topology replacement without a full scene synchronization.
 
 ## Verification performed
+
+- Issue #9 planning: inspected repository/product/architecture/schema/API/history,
+  frontend selection/query/viewer ownership, migrations/jobs/tests and delivery
+  conventions. Remote master and the annotated v0.9.0 release target agree at
+  `94fdcd54e53e674c036e46894669f46f7edc2e66`; issue #36 is closed. The first planning
+  commit contains documentation only. No feature tests, migration, version bump,
+  PR, merge or release were performed for issue #9. Documentation validation passed
+  `git diff --check`, required plan sections/checkpoints, local Markdown targets,
+  final newlines/whitespace and unique appended D-071 checks; the documentation
+  diff was reviewed against the approved scope.
 
 - Released commit `b747f0cccdb575d38022d4b42bfb7e8fa2e1c849` passed complete V5: 237 Python,
   80 frontend, 8 supervisor and 73 browser tests (39 intentional layout skips;
@@ -2062,6 +2095,12 @@ Results:
 
 ## Known limitations
 
+- Issue #9 is an approved plan, not implemented functionality. The planned slice
+  retains empty groups and derived sorting, supports desktop drag and complete
+  explicit keyboard/touch actions, and defers manual ordering, saved sort/filter,
+  touch drag, keyboard drag simulation and live tab synchronization. No new
+  schema/migration, chemistry, component correction or subset export is included.
+
 - Issue #29 implements expansion, local color and explicit-selected-hydrogen
   preferences. Expansion assumes a shared Cartesian frame; native Mol* polarity
   uses available connectivity without chemistry repair. Selection-specific surfaces
@@ -2147,11 +2186,11 @@ Results:
 
 ## Blockers
 
-None. M1 scientific/resource feasibility passed; broader workflow qualification
-remains required before release.
+None for the issue #9 planning handoff. Implementation and delivery gates remain
+unexecuted; future failures or unmet live repository policy block advancement.
 
 ## Next action
 
-Execute M2/C3 production UI and renderer integration in the [issue #30 plan](plans/issue-30-selection-surfaces.md),
-then complete UI integration, hardening and release gates on the feature branch.
-Prior release delivery evidence remains in [issue #34](https://github.com/ManuelSe/Neistra/issues/34).
+Implement M2/C2 accessible explicit actions in the
+[feature plan](plans/issue-9-structure-group-membership.md), then desktop drag and
+qualification. Current released baseline remains v0.9.0; target v0.10.0.

@@ -556,6 +556,21 @@ class GroupCreate(BaseModel):
     expected_revision: int = Field(ge=0)
     name: str = Field(min_length=1, max_length=120)
     entry_ids: list[str] = Field(min_length=1)
+    selection: SelectionV1 | None = None
+
+
+class GroupMembershipUpdate(BaseModel):
+    expected_revision: int = Field(ge=0)
+    entry_ids: list[str] = Field(min_length=1)
+    group_id: str | None
+    selection: SelectionV1 | None = None
+
+    @field_validator("entry_ids")
+    @classmethod
+    def entries_are_unique(cls, value: list[str]) -> list[str]:
+        if len(set(value)) != len(value):
+            raise ValueError("Entry IDs must be unique")
+        return value
 
 
 class SavedSelectionCreate(BaseModel):

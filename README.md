@@ -22,7 +22,14 @@ Real workspace screenshots: [light](docs/assets/neistra-workspace-light.png) ·
 [dark](docs/assets/neistra-workspace-dark.png). These show the existing local
 workspace, not proposed account, docking or marketplace features.
 
-Version **0.9.0** adds saved **protein pocket views** behind
+Version **0.10.0** adds reversible structure organization: select structures and
+use **Move to group…**, **Remove from group**, or **Add to new group** in a row's
+Actions menu. Desktop grip handles move the same captured batch; keyboard and
+touch use explicit controls. Partial selections still move complete entries,
+empty groups remain reusable, and molecular/viewer state stays unchanged.
+See [Structure groups](docs/GROUPS.md).
+
+Saved **protein pocket views** remain behind
 **Surface options → Pocket…**. Capture ligand or site atoms, choose a protein
 receptor and apply a radius. The view crops a complete protein molecular surface;
 it does not discover cavities or infer binding. Hidden seed entries remain valid.
@@ -52,7 +59,7 @@ See the [styling workflow](docs/SELECTION_STYLING.md) and
 [scientific limitations](docs/SCIENTIFIC_LIMITATIONS.md).
 
 Back up managed data and upgrade to migration **0013** before startup. Older
-projects/archives remain readable by v0.9.0. Downgrade to 0012 requires every retained
+projects/archives remain readable by v0.10.0. Downgrade to 0012 requires every retained
 pocket definition, including history and scenes, to be null; otherwise restore the
 pre-upgrade backup. Older readers are unsupported for pocket-bearing archives.
 Atomic hiding does not change entry-based Visible export.
@@ -119,6 +126,9 @@ PYTHONPATH=apps/api/src:packages/molweave_core/src:packages/molweave_demo_plugin
 ```bash
 corepack pnpm --dir apps/web dev
 ```
+
+Structure organization: see [Structure groups](docs/GROUPS.md) for batch move,
+ungroup and group-creation controls.
 
 ## Architecture
 

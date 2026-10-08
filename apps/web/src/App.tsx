@@ -2,7 +2,7 @@ import { expandByDistance } from "./selection/expansion";
 import * as Tooltip from "@radix-ui/react-tooltip";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { ChevronLeft, ChevronRight, History as HistoryIcon } from "lucide-react";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Panel,
   PanelGroup,
@@ -37,6 +37,8 @@ import { ImportDialog } from "./components/ImportDialog";
 import { ArchiveImportDialog } from "./components/ArchiveImportDialog";
 import { Modal } from "./components/Modal";
 import { ExportDialog } from "./components/ExportDialog";
+import { GroupMembershipDialog, type GroupDialogRequest } from "./components/GroupMembershipDialog";
+import { groupReturnFocus, type GroupScope } from "./groups/membership";
 import { ProjectBrowser } from "./components/ProjectBrowser";
 import { ProjectInspector } from "./components/ProjectInspector";
 import { TopBar } from "./components/TopBar";
@@ -62,7 +64,7 @@ import { useSelectionStore } from "./store/selection";
 import { useWorkspaceStore } from "./store/workspace";
 import { applyTheme } from "./theme";
 
-type EntryDialog = { mode: "rename" | "group" | "delete"; entry: Entry } | null;
+type EntryDialog = { mode: "rename" | "delete"; entry: Entry } | null;
 
 function errorMessage(error: unknown): string {
   return error instanceof ApiError ? error.message : "The operation could not be completed.";
@@ -103,7 +105,7 @@ export default function App() {
   const [lowerTab, setLowerTab] = useState<LowerPanelTab>("properties");
   const [entryName, setEntryName] = useState("");
   const [entryDescription, setEntryDescription] = useState("");
-  const [groupName, setGroupName] = useState("");
+  const [groupDialog, setGroupDialog] = useState<GroupDialogRequest | null>(null);
   const [notice, setNotice] = useState<{ kind: "success" | "error"; text: string } | null>(null);
   const [editedThisSession, setEditedThisSession] = useState(false);
   const [selectionBusy, setSelectionBusy] = useState(false);
@@ -163,6 +165,7 @@ export default function App() {
 
   useEffect(() => {
     setSelectionProject(project?.id ?? null);
+    setGroupDialog(null);
   }, [project?.id, setSelectionProject]);
 
   useEffect(() => {
@@ -249,16 +252,19 @@ export default function App() {
 
   const projectMutation = useMutation({
     mutationFn: (operation: () => Promise<Project>) => operation(),
+    onMutate: () => ({ projectId: useWorkspaceStore.getState().activeProjectId }),
     onSuccess: (next) => {
       updateProjectCache(next);
+      if (useWorkspaceStore.getState().activeProjectId !== next.id) return;
       setEditedThisSession(true);
       setNotice({ kind: "success", text: "Change stored locally." });
     },
-    onError: (error) => {
-      setNotice({ kind: "error", text: errorMessage(error) });
-      if (error instanceof ApiError && error.code === "revision_conflict" && activeProjectId) {
-        void queryClient.invalidateQueries({ queryKey: ["project", activeProjectId] });
+    onError: (error, _operation, context) => {
+      if (error instanceof ApiError && error.code === "revision_conflict" && context?.projectId) {
+        void queryClient.invalidateQueries({ queryKey: ["project", context.projectId] });
       }
+      if (useWorkspaceStore.getState().activeProjectId !== context?.projectId) return;
+      setNotice({ kind: "error", text: errorMessage(error) });
     },
   });
 
@@ -279,41 +285,52 @@ export default function App() {
 
   const busy = projectMutation.isPending || createMutation.isPending;
 
-  const entryActions = useMemo(
-    () => ({
-      onRename: (entry: Entry) => {
-        setEntryName(entry.name);
-        setEntryDescription(entry.description ?? "");
-        setEntryDialog({ mode: "rename", entry });
-      },
-      onDuplicate: (entry: Entry) => {
-        if (project) projectMutation.mutate(() => projectApi.duplicateEntry(project, entry.id));
-      },
-      onVisibility: (entry: Entry) => {
-        if (project)
-          projectMutation.mutate(() =>
-            projectApi.setEntryVisibility(project, entry.id, !entry.visible),
-          );
-      },
-      onLock: (entry: Entry) => {
-        if (project)
-          projectMutation.mutate(() => projectApi.setEntryLock(project, entry.id, !entry.locked));
-      },
-      onIsolate: (entry: Entry) => {
-        if (project) projectMutation.mutate(() => projectApi.isolateEntry(project, entry.id));
-      },
-      onGroup: (entry: Entry) => {
-        setGroupName("");
-        setEntryDialog({ mode: "group", entry });
-      },
-      onDelete: (entry: Entry) => setEntryDialog({ mode: "delete", entry }),
-      onExport: (entry: Entry) => {
-        setExportEntry(entry);
-        setExportDialogOpen(true);
-      },
-    }),
-    [project, projectMutation],
-  );
+  const moveMembership = (scope: GroupScope, groupId: string | null) => {
+    if (!project || project.id !== scope.projectId || projectMutation.isPending) return;
+    projectMutation.mutate(
+      () => projectApi.updateGroupMembership({ ...project, revision: scope.revision }, scope.entryIds, groupId, scope.selection),
+      { onSuccess: (next) => {
+        if (useWorkspaceStore.getState().activeProjectId !== scope.projectId) return;
+        setNotice({ kind: "success", text: next.revision === scope.revision ? "Group membership unchanged." : `Organized ${scope.entryIds.length} complete structures.` });
+        requestAnimationFrame(() => {
+          if (useWorkspaceStore.getState().activeProjectId === scope.projectId) groupReturnFocus(scope, groupId)?.focus();
+        });
+      } },
+    );
+  };
+
+  const entryActions = {
+    onRename: (entry: Entry) => {
+      setEntryName(entry.name);
+      setEntryDescription(entry.description ?? "");
+      setEntryDialog({ mode: "rename", entry });
+    },
+    onDuplicate: (entry: Entry) => {
+      if (project) projectMutation.mutate(() => projectApi.duplicateEntry(project, entry.id));
+    },
+    onVisibility: (entry: Entry) => {
+      if (project)
+        projectMutation.mutate(() =>
+          projectApi.setEntryVisibility(project, entry.id, !entry.visible),
+        );
+    },
+    onLock: (entry: Entry) => {
+      if (project)
+        projectMutation.mutate(() => projectApi.setEntryLock(project, entry.id, !entry.locked));
+    },
+    onIsolate: (entry: Entry) => {
+      if (project) projectMutation.mutate(() => projectApi.isolateEntry(project, entry.id));
+    },
+    onGroup: (_entry: Entry, scope: GroupScope) => setGroupDialog({ mode: "create", scope }),
+    onMoveGroup: (scope: GroupScope) => setGroupDialog({ mode: "move", scope }),
+    onRemoveGroup: (scope: GroupScope) => moveMembership(scope, null),
+    onMoveMembership: moveMembership,
+    onDelete: (entry: Entry) => setEntryDialog({ mode: "delete", entry }),
+    onExport: (entry: Entry) => {
+      setExportEntry(entry);
+      setExportDialogOpen(true);
+    },
+  };
 
   const loadStructureProjections = async (
     entryIds: Iterable<string>,
@@ -846,6 +863,7 @@ export default function App() {
                   >
                     {mobilePanel === "projects" ? (
                       <ProjectBrowser
+                        busy={busy}
                         project={project}
                         selection={selection}
                         selectedEntryIds={selectedEntryIds(selection)}
@@ -914,6 +932,7 @@ export default function App() {
                   </div>
                 ) : (
                   <ProjectBrowser
+                    busy={busy}
                     project={project}
                     selection={selection}
                     selectedEntryIds={selectedEntryIds(selection)}
@@ -1189,6 +1208,23 @@ export default function App() {
         }}
       />
 
+      {groupDialog && project && groupDialog.scope.projectId === project.id ? (
+        <GroupMembershipDialog
+          project={project} request={groupDialog} busy={busy}
+          onClose={() => setGroupDialog(current => current === groupDialog ? null : current)}
+          onSubmit={async (scope, target) => {
+            if (project.id !== scope.projectId || projectMutation.isPending) return;
+            const captured = { ...project, revision: scope.revision };
+            const next = await projectMutation.mutateAsync(() =>
+              "name" in target
+                ? projectApi.createGroup(captured, target.name, scope.entryIds, scope.selection)
+                : projectApi.updateGroupMembership(captured, scope.entryIds, target.groupId, scope.selection),
+            );
+            if (useWorkspaceStore.getState().activeProjectId !== scope.projectId) return;
+            setNotice({ kind: "success", text: next.revision === scope.revision ? "Group membership unchanged." : `Organized ${scope.entryIds.length} complete structures.` });
+          }}
+        />
+      ) : null}
       <Modal
         open={entryDialog !== null}
         onOpenChange={(open) => {
@@ -1197,9 +1233,7 @@ export default function App() {
         title={
           entryDialog?.mode === "rename"
             ? "Rename structure"
-            : entryDialog?.mode === "group"
-              ? "Create group"
-              : "Delete structure"
+            : "Delete structure"
         }
       >
         {entryDialog?.mode === "rename" ? (
@@ -1244,37 +1278,6 @@ export default function App() {
               </button>
               <button className="primary-button" type="submit" disabled={!entryName.trim() || busy}>
                 Apply
-              </button>
-            </div>
-          </form>
-        ) : entryDialog?.mode === "group" ? (
-          <form
-            className="dialog-form"
-            onSubmit={(event) => {
-              event.preventDefault();
-              if (project && groupName.trim()) {
-                projectMutation.mutate(
-                  () => projectApi.createGroup(project, groupName.trim(), [entryDialog.entry.id]),
-                  { onSuccess: () => setEntryDialog(null) },
-                );
-              }
-            }}
-          >
-            <label>
-              Group name
-              <input
-                autoFocus
-                value={groupName}
-                maxLength={120}
-                onChange={(event) => setGroupName(event.target.value)}
-              />
-            </label>
-            <div className="dialog-actions">
-              <button type="button" className="secondary-button" onClick={() => setEntryDialog(null)}>
-                Cancel
-              </button>
-              <button className="primary-button" type="submit" disabled={!groupName.trim() || busy}>
-                Create group
               </button>
             </div>
           </form>

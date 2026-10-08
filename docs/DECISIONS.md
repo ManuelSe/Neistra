@@ -2387,3 +2387,133 @@ initial seeds stay captured until explicitly replaced. Existing saved pockets
 remain removable with no selection or no protein context.
 Scenes remain the supported way to retain alternative pocket views. No permanent
 layer manager, cavity algorithm or additional primary-panel row is introduced.
+
+## D-071 — Organizational group membership without molecular or ordering state
+
+Status: accepted by explicit user approval of the issue #9 plan on 2026-10-08;
+implementation not started.
+
+Decision:
+
+Use existing nullable `StructureEntry.group_id` and persisted EntryGroup records
+for top-level project organization. Add one revisioned, atomic membership command
+for a captured entry batch and group-or-Ungrouped destination. Reuse existing
+`entries.group` forward/inverse actions and project responses. Validate complete
+same-project scope before writes; exact no-ops must preserve revisions, timestamps,
+history and the redo branch. Locked entries may be reorganized, consistent with
+existing group creation, without changing their lock or molecular state.
+
+Retain empty groups after moving, ungrouping or deleting their final entry and
+expose them as reusable destinations. Preserve the existing derived sorting model;
+undo restores membership and the derived position under unchanged sort/filter.
+Do not add manual position storage or persist sort/filter preferences in this
+slice. Reload retains the existing default name-sorted view.
+
+Use entry highlighting derived from the canonical transient selection rather
+than a second entry-selection authority. If the originating row is selected,
+capture all selected entry IDs; otherwise capture that row alone. Explicit actions
+and desktop drag operate on whole entries, including those with partial atom
+selections, and explain their scope without expanding or changing atom selection.
+Capture selection context for command history using existing conventions.
+
+TanStack Query remains the project cache owner; dialog/drag drafts are transient
+application state. Mol*, normalized molecular artifacts and the separate derived
+component hierarchy do not own organization. Membership changes must not fetch
+normalized data, reload/rebuild structures, regenerate surfaces, or alter camera,
+selection, representation, visibility, molecular data, warnings, originals or jobs.
+
+Offer complete keyboard/touch accessible explicit actions and desktop drag from
+dedicated handles. Touch drag, keyboard drag simulation, live tab synchronization,
+manual ordering and broader group/component management remain outside this plan.
+Named scenes keep their existing visual-state purpose. D-035/D-042 archives remain
+current-state snapshots with remapped group references and no portable history.
+
+Rationale:
+
+The user problem is changing membership as projects evolve. Existing relational
+membership and reversible action vocabulary already express that operation.
+Retained groups support refill workflows and avoid an additional deletion/restore
+lifecycle. Derived sorting removes unnecessary ordering migrations. Explicit
+controls make desktop, keyboard and mobile organization complete without a new
+touch-gesture system. These choices preserve molecular authority and reduce
+compatibility risk while delivering the issue's essential outcome.
+
+Consequences:
+
+- The approved implementation contract is
+  [issue #9 structure group membership](plans/issue-9-structure-group-membership.md).
+- No database migration, ordering field, molecular schema or archive shape change
+  is planned; Alembic head remains 0013 and schema majors remain 1.
+- The additive API returns existing ProjectRead; optional history selection context
+  must not break older group-creation callers.
+- Validate retained command/history compatibility with the preceding application
+  before claiming rollback safety; never strip data to make a downgrade appear safe.
+- Empty-group presentation changes, but automatic deletion and nested groups are
+  not introduced. Component corrections #20 and subset export #21 remain separate.
+- The planned minor release is 0.10.0. Approval/persistence does not mean the feature
+  is implemented, tested, merged or released; await the user's implementation start.
+
+## D-072 — Checkpoint-derived dirty state preserves organization timestamps
+
+Status: accepted and implemented for issue #9 M1/C1.
+
+Decision: keep project revision/time updates in `_touch`, while deriving entry
+dirty flags through the existing checkpoint comparison in `project_read`. Remove
+the redundant blanket assignment of `dirty=true` to every entry. Apply existing
+`entries.group` actions with an explicit unchanged database `modified_at` value,
+including creation, undo and redo, so SQLAlchemy's automatic on-update timestamp
+cannot change the browser's Modified sorting key during organization.
+
+Rationale: qualification exposed that changing either group membership or the
+redundant dirty column invoked the entry's automatic timestamp update. That
+violated approved organization-only semantics and touched unrelated structures.
+The checkpoint comparison already owns correct per-entry dirty state; no alternate
+dirty model or new command/action field is necessary. Molecular edits continue
+their existing explicit timestamps and all command responses derive dirty flags.
+
+Compatibility: no migration/schema change or new inverse payload vocabulary.
+Existing `entries.group` history is retained, and original/current artifacts,
+viewer settings, scenes and job snapshots remain unchanged. Tests cover exact
+timestamps, dirty/checkpoint behavior, history no-ops, restart and archive remapping.
+
+## D-073 — Derived entry dirty flags must not mutate ORM state
+
+Date: 2026-10-08. Status: accepted during issue #9 qualification.
+
+Decision: compute per-entry dirty flags on the typed response from checkpoint
+comparison, without assigning the redundant ORM column. Saving a checkpoint
+updates project checkpoint state/revision and does not reset that entry column.
+The persisted column remains for schema/reader compatibility; it has no new
+ownership role. D-072 and previous accepted checkpoint semantics remain intact.
+
+Rationale: assigning derived flags during reads could autoflush entry timestamp
+updates; clearing them on save also touched modified-date sorting keys. An
+organization-only edit followed by checkpoint save must retain those keys.
+A same-session read/move/no-op/save regression demonstrates the previous failure
+and proves response flags, timestamps and reopened state with the corrected path.
+
+Compatibility: no migration or payload change. Molecular mutations keep their
+existing explicit state/timestamp writes, and accepted checkpoint comparison
+still supplies the public dirty flags. Existing grouping/history/archive readers
+continue to use the same state and action shapes.
+
+## D-074 — Project mutation feedback follows captured project ownership
+
+Date: 2026-10-09. Status: accepted during issue #9 qualification.
+
+Decision: capture the active project when a project mutation starts. Cache its
+response under its own project ID, and refetch that captured project on a revision
+conflict. Show completion/error feedback and restore membership focus only when
+that project is still active, including the scheduled focus frame. A closing
+membership dialog clears only its own captured request.
+
+Rationale: users can switch projects while a request is pending. The command still
+belongs to its captured project; a late response must not overwrite another
+workspace's notice, dirty-session indicator or focus. Existing molecular/query
+ownership remains unchanged. This is completion-context correctness, not live tab
+synchronization or a new concurrency model.
+
+Implications: no API, schema, migration or archive change. Success and conflict
+regressions hold a real membership request, switch workspace, and then release it
+on desktop and Pixel 7. The original project's command/conflict semantics remain
+valid while the other project's revision, notice and filter-control focus stay unchanged.

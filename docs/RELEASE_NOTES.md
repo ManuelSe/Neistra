@@ -1,5 +1,73 @@
 # Neistra Release Notes
 
+## 0.10.0 - 2026-10-09
+
+### Highlights
+
+- Move complete structures into existing groups, between groups or back to
+  Ungrouped. Select entries, open a row's Actions menu and choose **Move to group…**,
+  **Remove from group** or **Add to new group**. Desktop grip handles perform the
+  same batch command; keyboard and touch use named explicit controls.
+- Scope is captured at activation and includes highlighted structures hidden by
+  filters. A partial atom selection still moves its complete entry and remains
+  unchanged. Duplicate stored names get distinct destination display labels.
+
+### Membership and sorting semantics
+
+- Empty groups remain reusable after moves, ungrouping and final-entry deletion.
+  Filtered rows keep group headings accessible; heading counts show matching rows.
+- Each changed batch makes one undoable command; same-destination actions make
+  no revision/history/timestamp change and preserve redo. Locked entries can move.
+- Existing name/type/atom-count/modified sorts retain deterministic ties.
+  There is no persisted manual insertion order; undo restores derived placement.
+
+### Fixes
+
+- Response-derived dirty flags preserve entry timestamps through reads and
+  checkpoint saves. Membership preserves Modified-sort keys (D-072/D-073).
+- Late membership success/conflict feedback, refetch and focus stay with the
+  captured project when users switch workspaces (D-074).
+
+### Persistence and compatibility
+
+- The revisioned `POST /api/v1/projects/{project_id}/group-membership` endpoint is
+  additive. It rejects invalid whole batches and stale revisions before writes.
+- No new migration: head remains 0013 and API/project/normalized/archive schema
+  majors remain 1. Existing `group_id`, EntryGroup records and `entries.group`
+  action payloads retain their shape. Archives remap IDs and capture current state;
+  undo history remains local. Empty destinations and original bytes round-trip.
+- Organization preserves molecular artifacts, modified-date entry timestamps,
+  viewer state and job provenance. Dirty state remains checkpoint-derived (D-072/D-073).
+- Reverting this feature to 0.9.0 needs no data stripping or schema downgrade.
+  Existing limits for readers predating pocket/visibility support still apply.
+
+### Verification and review
+
+The [approved issue #9 plan](plans/issue-9-structure-group-membership.md) records
+checkpoint evidence for atomicity/history/restart/archive tests, component/viewer
+instrumentation, native desktop dragging, Pixel 7 explicit workflows, light/dark
+scoped axe and real 100%/200% zoom. Clean candidate qualification passes
+**379 Python, 134 frontend, 8 supervisor and
+115 browser tests / 41 intentional layout skips**, with zero failed/flaky cases
+in the final run. Exact merged qualification remains a release blocker and will
+be recorded in the published verification report. Earlier diagnostic failures
+are separate from passing release evidence.
+Local review is identified accurately; it is not claimed as independent review.
+
+### Scientific limitations and deferred scope
+
+Grouping is organization, not molecular classification, extraction, preparation
+or validation. It preserves coordinates, atom identity, selection, camera,
+representations, surfaces and job inputs. Pixel 7 evidence is emulation, not
+physical-device or cross-browser certification. The existing lazy Mol* chunk-size
+advisory and Alembic configuration deprecation remain.
+
+Automatic empty-group deletion is rejected so destinations stay reusable.
+Manual order, saved sort/filter preferences, live tab synchronization, touch drag,
+keyboard drag simulation and group lifecycle management are deferred. Nested,
+multiple and automatic membership are out of scope. Component extraction and
+subset export remain existing #20/#21 work; no speculative follow-up is created.
+
 ## 0.9.0 - 2026-09-15
 
 ### Highlights

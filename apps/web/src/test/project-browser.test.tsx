@@ -80,4 +80,19 @@ describe("project browser selection and discovery", () => {
     ]);
     expect(calls[3][0].map((entry) => entry.id)).toEqual(["protein"]);
   });
+  it("retains empty group headings while filtering and in projects without entries", async () => {
+    const user = userEvent.setup();
+    const project = molecularProject();
+    project.groups.push({ ...project.groups[0], id: "empty", name: "Empty" });
+    const { rerender } = renderBrowser(<ProjectBrowser project={project} {...actions} />);
+    expect(screen.getByText("Empty")).toBeVisible();
+    await user.type(screen.getByPlaceholderText("Search structures"), "nothing");
+    expect(screen.getByText("No matching structures")).toBeVisible();
+    expect(screen.getByText("Empty")).toBeVisible();
+    expect(screen.getByText("Target")).toBeVisible();
+    rerender(<Tooltip.Provider><ProjectBrowser project={{ ...project, entries: [] }} {...actions} /></Tooltip.Provider>);
+    expect(screen.getByText("No structures")).toBeVisible();
+    expect(screen.getByText("Target")).toBeVisible();
+    expect(screen.getByText("Empty")).toBeVisible();
+  });
 });
