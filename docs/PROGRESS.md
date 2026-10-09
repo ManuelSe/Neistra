@@ -2,24 +2,21 @@
 
 ## Current milestone
 
-Issue #4 — approved implementation plan persisted on
-`feat/issue-4-interactive-selection-transform`; implementation not started.
+Issue #4 — M1/C1 complete on `feat/issue-4-interactive-selection-transform`.
 Contract: [interactive selection transforms](plans/issue-4-interactive-selection-transform.md).
-Approval on 2026-10-09 accepts exact captured multi-entry rigid movement, local
-preview, one Apply/Cancel transaction, translated centroid and automatic discard
-on task changes. D-075/D-076 record transport, ownership and interaction semantics.
-Planned milestones: M1/C1 atomic command, M2/C2–C3 preview session and viewer
-workflow, M3/C4–C5 qualification and release preparation. Planned minor release:
-**0.11.0**. All current versions remain 0.10.0; no code or migration change.
+The subsequent `/goal` authorizes the complete implementation/delivery workflow.
+Atomic multi-entry rigid transforms validate all targets and proper rotations,
+transform stable IDs across every conformer, preserve original files, and use one
+reversible command. Identity preserves redo and creates no artifacts or revision.
+D-075–D-077 record scientific, interaction and validation semantics. No migration;
+head remains 0013. All five versions remain 0.10.0; planned release is 0.11.0.
 
-Planning verification: master updated with fast-forward-only integration and was
-already current; clean base `c53c3251e87db69c3eac6b81453f514bbaff0706` verified;
-dedicated branch created and feature plan written as its first file change.
-Documentation section/checkpoint/link/scope validation and staged whitespace checks
-passed; global PLAN and all five version sources are unchanged.
-Implementation lint/type/test/build/browser gates remain unexecuted. The detailed
-plan tracks documentation and subsequent checkpoint/delivery evidence. Blockers:
-none for the planning handoff. Next action: await `/goal` to begin M1/C1.
+Verification: 31 focused and **396 full Python tests**, **134 frontend tests**,
+**8 supervisor tests**, lint/type/build and **1 desktop numeric browser test /
+1 intentional mobile skip** pass. Existing Alembic and bundle advisories remain.
+The feature plan records exact commands and detailed evidence. Interactive preview,
+viewer workflow and release qualification remain pending. Blockers: none.
+Next action: M2/C2 application-owned captured preview session.
 
 ### Previous release — v0.10.0
 

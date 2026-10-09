@@ -716,6 +716,25 @@ class SceneCreate(BaseModel):
         return normalized
 
 
+class SelectionTransformCreate(BaseModel):
+    expected_revision: int = Field(ge=0)
+    selection: SelectionV1
+    rotation_matrix: tuple[
+        tuple[float, float, float], tuple[float, float, float], tuple[float, float, float]
+    ]
+    translation: tuple[float, float, float]
+
+    @model_validator(mode="after")
+    def validate_selection_transform(self) -> SelectionTransformCreate:
+        if not self.selection.atoms:
+            raise ValueError("Selection transform requires at least one atom")
+        if not all(isfinite(value) for row in self.rotation_matrix for value in row):
+            raise ValueError("Rotation matrix must be finite")
+        if not all(isfinite(value) for value in self.translation):
+            raise ValueError("Translation must be finite")
+        return self
+
+
 class CoordinateTransformCreate(BaseModel):
     expected_revision: int = Field(ge=0)
     entry_id: str

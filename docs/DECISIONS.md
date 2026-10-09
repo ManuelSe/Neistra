@@ -2643,3 +2643,24 @@ Consequences:
 - Full scope, checkpoint commands and release blockers live in the approved
   [feature plan](plans/issue-4-interactive-selection-transform.md). Implementation
   requires a subsequent instruction such as `/goal`.
+
+## D-077 — Proper-rotation validation and coordinate no-op tolerance
+
+Date: 2026-10-09. Status: implemented in issue #4 M1/C1.
+
+Validate supplied matrices in the core rigid-transform boundary with float64
+orthonormality and determinant +1, absolute tolerance `1e-10` and no relative
+tolerance. Reject rather than normalize invalid rotations. Also validate resulting
+coordinates before publication. The numerical and superposition callers continue
+to supply proper rotations through this common boundary.
+
+The additive selection endpoint preflights every entry and prepares all conformers
+before publishing any result. Coordinate movement no greater than `1e-9` angstrom
+on every axis of every conformer is a no-op. Return unchanged project state and
+preserve timestamps, history, redo and artifacts. Keep the numerical endpoint's
+existing no-op rejection unchanged. Entries whose coordinates are unchanged need
+no patch/artifact, while the history selection records the complete captured target.
+
+This supplies reproducible validation for D-075 without new persisted state,
+migration or action vocabulary. The threshold follows the existing documented
+coordinate comparison precision in D-025; it is not a geometry repair policy.

@@ -2,7 +2,7 @@
 
 ## Status and issue metadata
 
-- Status: **Approved implementation plan; implementation not started**.
+- Status: **Implementation in progress; M1/C1 complete**.
 - Approval: the user explicitly approved the complete proposed plan on 2026-10-09.
 - Issue: [#4 — Add an interactive mouse-based mode for translating and rotating selected atoms](https://github.com/ManuelSe/Neistra/issues/4).
 - Issue at approval: open, without comments, labels or a milestone; last updated 2026-08-03.
@@ -600,14 +600,47 @@ publication evidence. Do not bypass blockers or silently reduce accepted scope.
 | Approval | Complete | User: "I approve this plan." on 2026-10-09; all proposed product choices accepted |
 | Planning persistence | Documentation prepared on dedicated branch | Master fast-forward-only check was already current; clean base verified; this plan is the first branch file change; commit/push identity is recorded by Git and handoff report |
 | Planning documentation verification | Complete | Required sections/five checkpoints/local links/exact three-file scope passed; staged diff whitespace check passed; global PLAN and all five version sources unchanged |
-| M1 / C1 | Pending | Validated atomic rigid-transform command |
+| M1 / C1 | Complete | Atomic batch endpoint, proper rotations, all-conformer stable-ID transforms, one history command, no-op/rejection invariants; evidence below |
 | M2 / C2 | Pending | Application-owned captured preview session |
 | M2 / C3 | Pending | Complete viewer interaction workflow |
 | M3 / C4 | Pending | Lifecycle/accessibility/persistence/performance qualification |
 | M3 / C5 | Pending | Reviewed release candidate and coordinated version bump |
-| PR/review/merge/exact-merged gate | Pending; not authorized by planning handoff | Requires subsequent implementation/delivery instruction |
-| Publication/issue response/cleanup | Pending; not authorized by planning handoff | Verified release and scope-accurate closeout |
+| PR/review/merge/exact-merged gate | Pending; authorized by subsequent `/goal` | Run after C5 qualification |
+| Publication/issue response/cleanup | Pending; authorized by subsequent `/goal` | Verified release and scope-accurate closeout |
 
-Known planning limitations: no implementation, new tests or scientific/performance
-qualification yet; Pixel 7 is emulation, not physical-device certification. No
-planning blocker is known. **Next action: await `/goal` to begin M1/C1.**
+### 2026-10-09 — Implementation authorization and M1/C1
+
+The subsequent `/goal` authorizes implementation and the full delivery workflow;
+the historical planning-only handoff above remains an accurate approval record.
+Planning commit `b0e26a91bfc84ee861ee58a01737810351f4037e` was pushed and verified.
+All implementation is on the planned feature branch.
+
+Added the typed additive selection-transform endpoint and client. Every target is
+validated before publication; matrices reject shear, scaling and reflection.
+Selected stable IDs transform in every conformer with unrelated coordinates,
+connectivity and original upload bytes preserved. One batch produces one command;
+undo/redo restores immutable snapshots. Identity preserves redo and creates no
+revision or artifact. D-077 records validation/no-op precision. No migration or
+version change.
+
+Focused evidence:
+
+- `.venv/bin/uv run pytest tests/unit/test_transforms.py tests/unit/test_history.py tests/integration/test_coordinate_commands.py`: **31 passed**.
+- `.venv/bin/uv run ruff check .`: passed.
+- `.venv/bin/uv run mypy apps/api packages/molweave_core`: passed, 54 source files.
+- `corepack pnpm --dir apps/web typecheck`: passed.
+
+M1 boundary evidence:
+
+- `.venv/bin/uv run pytest`: **396 passed**, including migration upgrade/downgrade and archive coverage; 237 existing Alembic deprecation warnings.
+- `corepack pnpm --dir apps/web lint`: passed.
+- `corepack pnpm --dir apps/web test`: **134 passed / 33 files**.
+- `corepack pnpm test:dev`: **8 passed**.
+- `corepack pnpm --dir apps/web build`: passed; existing large lazy-bundle advisory remains.
+- `PLAYWRIGHT_BROWSERS_PATH=.playwright MOLWEAVE_E2E_API_PORT=8210 MOLWEAVE_E2E_WORKER_PORT=8211 MOLWEAVE_E2E_WEB_PORT=5373 MOLWEAVE_E2E_DATA_DIR=/tmp/neistra-issue4-m1-e2e corepack pnpm exec playwright test tests/e2e/coordinate-editing.spec.ts`: **1 desktop passed / 1 intentional mobile skip**, fresh migration through 0013.
+- `git diff --check`: passed. Local checkpoint diff reviewed for atomicity,
+  scientific invariants, stable-ID handling and accidental scope expansion.
+
+Known limitations: interactive preview/UI and previous-release reader qualification
+are pending; existing numeric browser workflow is preserved. No blocker.
+**Next action: M2/C2 application-owned session.**

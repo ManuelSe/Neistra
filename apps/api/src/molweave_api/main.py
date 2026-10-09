@@ -125,6 +125,7 @@ from molweave_api.schemas import (
     SelectionPocketSurfaceUpdate,
     SelectionRepresentationUpdate,
     SelectionSurfaceUpdate,
+    SelectionTransformCreate,
     StructureRead,
     SuperpositionCreate,
     SuperpositionRead,
@@ -1034,6 +1035,18 @@ def create_app(settings: Settings | None = None) -> FastAPI:
                 structure, payload.cutoff, minimum_distance=payload.minimum_distance
             )
         ]
+
+    @router.post("/projects/{project_id}/selection-transform", response_model=ProjectRead)
+    async def transform_selection(
+        project_id: str,
+        payload: SelectionTransformCreate,
+        session: Session = Depends(session_dependency),
+    ) -> ProjectRead:
+        return _call(
+            lambda: CoordinateService(session, app_settings).transform_selection(
+                project_id, payload
+            )
+        )
 
     @router.post(
         "/projects/{project_id}/entries/{entry_id}/transform",

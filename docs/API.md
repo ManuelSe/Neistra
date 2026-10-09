@@ -314,6 +314,45 @@ bonded pairs are excluded.
 
 ## Coordinate Command Contracts
 
+### Atomic selection transform
+
+`POST /api/v1/projects/{project_id}/selection-transform` accepts the entire
+canonical selection, including atoms in multiple entries:
+
+```json
+{
+  "expected_revision": 7,
+  "selection": {"schema_version": 1, "atoms": [
+    {"structure_id": "entry-a", "atom_id": 2},
+    {"structure_id": "entry-b", "atom_id": 7}
+  ]},
+  "rotation_matrix": [[0, -1, 0], [1, 0, 0], [0, 0, 1]],
+  "translation": [1.5, 0, 0]
+}
+```
+
+This is an affine world-space transform `x′ = R x + translation`, in angstroms.
+The interactive client converts its captured centroid and movement to this offset;
+the server does not infer a pivot or extract a target from the inspector's entry.
+Require finite orthonormal rotation and determinant +1 (absolute tolerance `1e-10`,
+no relative tolerance), rejecting scale, shear and reflection without repair.
+Selection references are nonempty, unique and canonically ordered. Validate the
+whole batch against current project/artifact/lock state before publication.
+
+One transform applies to requested stable IDs in every conformer and records one
+`coordinates.transform` command using existing `entry.coordinates` actions. Return
+ProjectRead with affected-entry coordinate patches. Original uploads and unselected
+coordinates remain unchanged. Stale revision rejects with 409. Invalid references,
+locks or matrix inputs reject without partial publication/project changes.
+
+Movement no greater than `1e-9` angstrom on any coordinate in any conformer is a
+no-op: return the unchanged project without artifacts, history, revision/timestamp
+changes or redo truncation. This endpoint is additive; the numerical endpoint
+below retains its existing identity-transform rejection and Euler convention.
+No migration or project/archive/normalized schema change is introduced.
+
+### Numerical transform and superposition
+
 A transform request uses angstrom translations, degree rotations, a canonical
 selection snapshot, and one explicit pivot policy:
 
