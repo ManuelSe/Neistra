@@ -29,6 +29,13 @@ layouts; light/dark scoped axe and keyboard/touch checks pass (**6 browser tests
 Focused controls/session/loading/numeric tests **37 passed**; frontend lint,
 typecheck and build pass. Remaining C4 gates are pending; no blocker.
 
+C4 visual/context correction: the heading clears the viewer status badge;
+real 100%/200% zoom, both themes, keyboard/focus/axe and screenshot inspection pass.
+Project changes explain discarded/pending movement and clear unrelated feedback.
+Task/selection/project changes, canceled/lost pointer drags, secondary/Ctrl motion,
+stale Apply and empty/locked/hidden errors pass **8 browser tests** in both layouts.
+Focused frontend tests **31 passed** and lint/type/build pass. Full C4 gates pending.
+
 ### Previous release — v0.10.0
 
 Issue #9 — approved scope complete, merged through [PR #41](https://github.com/ManuelSe/Neistra/pull/41)

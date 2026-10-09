@@ -412,7 +412,7 @@ select:focus-visible,
 .movement-banner {
   position: absolute;
   z-index: 3;
-  top: 12px;
+  top: 48px;
   left: 12px;
   width: min(360px, calc(100% - 24px));
   max-height: calc(100% - 64px);
@@ -436,6 +436,7 @@ select:focus-visible,
 .movement-step-controls button { min-height: 44px; border: 1px solid var(--border); border-radius: 5px; background: var(--surface); color: var(--text); }
 .movement-banner button { min-height: 44px; }
 .movement-banner .segmented-control button { min-height: 44px; }
+.movement-banner .segmented-control { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .movement-sensitivity input { min-height: 44px; }
 .movement-actions { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
 .numerical-transform-controls { display: contents; }

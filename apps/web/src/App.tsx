@@ -201,7 +201,7 @@ export default function App() {
 
   useEffect(() => {
     if (project?.has_uncheckpointed_changes && !editedThisSession) {
-      setNotice({ kind: "success", text: "Recovered locally stored changes." });
+      setNotice(current => current ?? { kind: "success", text: "Recovered locally stored changes." });
     }
   }, [editedThisSession, project?.has_uncheckpointed_changes, project?.id]);
 
@@ -285,9 +285,15 @@ export default function App() {
   useEffect(() => useSelectionStore.subscribe(() => movementSession.guardContext()), [movementSession]);
   useEffect(() => useWorkspaceStore.subscribe((next, previous) => {
     if (next.activeProjectId !== previous.activeProjectId) {
+      const phase = movementSession.snapshot().phase;
       movementSession.cancel(undefined, true);
       renderedMovementAtoms.current = () => [];
       setCoordinatePreview(null);
+      setNotice(phase === "active" || phase === "loading"
+        ? { kind: "success", text: "Unapplied movement was discarded after changing projects." }
+        : ["submitting", "reconciling", "uncertain"].includes(phase)
+          ? { kind: "success", text: "Movement for the previous project may be pending. Reopen it to check its coordinates and history." }
+          : null);
     }
   }), [movementSession]);
   useEffect(() => { movementSession.guardContext(); }, [movementSession, project, selection]);

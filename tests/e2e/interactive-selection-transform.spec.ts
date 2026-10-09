@@ -166,7 +166,11 @@ test("captures hidden multi-entry targets, previews multiple drags, cancels, and
   if (compact) await page.getByRole("button", { name: "Close panel", exact: true }).click({ position: { x: 2, y: 100 } });
   const revision = project.revision;
   let applyRequests = 0;
-  page.on("request", request => { if (request.method() === "POST" && request.url().endsWith("/selection-transform")) applyRequests++; });
+  const previewFetches: string[] = [];
+  page.on("request", request => {
+    if (request.method() === "POST" && request.url().endsWith("/selection-transform")) applyRequests++;
+    if (/\/entries\/[^/]+\/structure$/.test(new URL(request.url()).pathname) || (request.method() === "POST" && request.url().endsWith("/jobs"))) previewFetches.push(request.url());
+  });
   const banner = page.getByRole("region", { name: "Move selection controls" });
   const surface = page.getByTestId("movement-pointer-surface");
   const box = (await surface.boundingBox())!;
@@ -180,6 +184,7 @@ test("captures hidden multi-entry targets, previews multiple drags, cancels, and
   await banner.getByRole("button", { name: "Step away", exact: true }).click();
   expect((await read(request, project.id)).revision).toBe(revision);
   expect(applyRequests).toBe(0);
+  expect(previewFetches).toEqual([]);
   await banner.getByRole("button", { name: "Cancel movement", exact: true }).click();
   await expect(surface).toBeHidden();
   for (const [index, entry] of project.entries.entries()) expect(await structure(request, project.id, entry.id)).toEqual(originals[index]);
@@ -311,4 +316,143 @@ test("qualifies native proper-rotation previews, camera suspension, zoom and sur
   expect(evidence.fragment.restored.previewCues).toBe(0);
   expect(evidence.fragment.restored.coordinates).toEqual(evidence.before.coordinates);
   await page.evaluate(() => window.movementHarness.dispose());
+});
+
+test("discards previews with feedback on task, selection and project changes", async ({ page, request }, info) => {
+  test.setTimeout(120_000);
+  const mobile = info.project.name === "mobile-chromium";
+  const next: Project = await (await request.post("/api/v1/projects", { data: { name: `Movement destination ${Date.now()}` } })).json();
+  const project = await simpleMovement(page, request, mobile);
+  const original = await structure(request, project.id, project.entries[0].id);
+  const banner = page.getByRole("region", { name: "Move selection controls" });
+  // Keep the inspector open: closing it is not a task change.
+  await page.getByRole("button", { name: "Move selection", exact: true }).click();
+  await expect(page.getByRole("group", { name: "Translation (angstrom)", exact: true }).locator("input").first()).toBeDisabled();
+  if (mobile) await page.getByRole("button", { name: "Close panel", exact: true }).click({ position: { x: 2, y: 100 } });
+  await banner.getByRole("button", { name: "Step right" }).click();
+  if (mobile) await page.getByRole("button", { name: "Inspector", exact: true }).click();
+  await page.getByRole("tab", { name: "selection", exact: true }).click();
+  await expect(banner).toBeHidden();
+  await expect(page.getByRole("status").filter({ hasText: "discarded after changing inspector tasks" })).toBeVisible();
+  await page.getByRole("tab", { name: "transform", exact: true }).click();
+  await launchMovement(page, mobile);
+  await banner.getByRole("button", { name: "Step right" }).click();
+  await page.evaluate(async () => {
+    const path = "/src/store/selection.ts";
+    const { useSelectionStore } = await import(/* @vite-ignore */ path);
+    useSelectionStore.getState().clear();
+  });
+  await expect(banner).toBeHidden();
+  await expect(page.getByRole("status").filter({ hasText: "discarded because its project or selection changed" })).toBeVisible();
+  if (mobile) await page.getByRole("button", { name: "Inspector", exact: true }).click();
+  await select(page, [{ structure_id: project.entries[0].id, atom_id: 1 }]);
+  await page.getByRole("tab", { name: "transform", exact: true }).click();
+  await launchMovement(page, mobile);
+  await banner.getByRole("button", { name: "Step right" }).click();
+  await page.getByRole("button", { name: "Projects", exact: true }).click();
+  await page.getByRole("dialog", { name: "Projects", exact: true }).getByRole("button", { name: new RegExp(`^${next.name}`) }).click();
+  await expect(banner).toBeHidden();
+  await expect(page.getByRole("status").filter({ hasText: "Unapplied movement was discarded after changing projects" })).toBeVisible();
+  expect(await structure(request, project.id, project.entries[0].id)).toEqual(original);
+  expect((await read(request, project.id)).revision).toBe(project.revision);
+  await page.getByRole("button", { name: "Projects", exact: true }).click();
+  await page.getByRole("dialog", { name: "Projects", exact: true }).getByRole("button", { name: new RegExp(`^${project.name}`) }).click();
+  await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded", { timeout: 30_000 });
+  await expect(page.locator(".viewer-error")).toBeHidden();
+});
+
+test("restores canceled or lost pointer drags and supports secondary and Ctrl translation", async ({ page, request }, info) => {
+  test.setTimeout(120_000);
+  const mobile = info.project.name === "mobile-chromium";
+  const project = await simpleMovement(page, request, mobile);
+  const original = await structure(request, project.id, project.entries[0].id);
+  const banner = await launchMovement(page, mobile);
+  await banner.getByRole("button", { name: "Translate", exact: true }).click();
+  await banner.getByRole("button", { name: "Step right" }).click();
+  await banner.getByRole("button", { name: "Rotate", exact: true }).click();
+  const surface = page.getByTestId("movement-pointer-surface");
+  await surface.evaluate(node => node.addEventListener("pointerdown", event => { (node as HTMLElement).dataset.pointerId = String((event as PointerEvent).pointerId); }));
+  const box = (await surface.boundingBox())!;
+  const x = box.x + box.width * 0.85, y = box.y + box.height * 0.9;
+  for (const event of ["pointercancel", "lostpointercapture"]) {
+    await page.mouse.move(x, y); await page.mouse.down();
+    await page.mouse.move(x - 25, y - 20, { steps: 5 });
+    await surface.evaluate((node, type) => node.dispatchEvent(new PointerEvent(type, { bubbles: true, pointerId: Number((node as HTMLElement).dataset.pointerId) })), event);
+    await page.mouse.up();
+  }
+  await page.mouse.move(x, y); await page.mouse.down({ button: "right" });
+  await page.mouse.move(x - 20, y - 10, { steps: 5 }); await page.mouse.up({ button: "right" });
+  await page.keyboard.down("Control");
+  await page.mouse.move(x, y); await page.mouse.down();
+  await page.mouse.move(x - 10, y - 5, { steps: 5 }); await page.mouse.up(); await page.keyboard.up("Control");
+  const response = page.waitForResponse(r => r.url().endsWith("/selection-transform") && r.request().method() === "POST");
+  await banner.getByRole("button", { name: "Apply movement" }).click();
+  const committed = await response; expect(committed.status()).toBe(200);
+  const payload = committed.request().postDataJSON();
+  expect(payload.rotation_matrix).toEqual([[1, 0, 0], [0, 1, 0], [0, 0, 1]]);
+  expect(payload.translation.some((value: number) => Math.abs(value) > 1e-6)).toBe(true);
+  const after = await structure(request, project.id, project.entries[0].id);
+  for (const [i, atom] of after.structure.atoms.entries()) {
+    atom.coordinates.forEach((value, axis) => expect(value).toBeCloseTo(original.structure.atoms[i].coordinates[axis] + payload.translation[axis], 9));
+  }
+  await expect(banner).toBeHidden();
+  await expect(page.locator(".viewer-error")).toBeHidden();
+});
+
+test("rejects stale Apply without replay or partial movement", async ({ page, request }, info) => {
+  test.setTimeout(120_000);
+  const mobile = info.project.name === "mobile-chromium";
+  const project = await simpleMovement(page, request, mobile);
+  const original = await structure(request, project.id, project.entries[0].id);
+  const banner = await launchMovement(page, mobile);
+  await banner.getByRole("button", { name: "Step right" }).click();
+  const renamed = await request.patch(`/api/v1/projects/${project.id}`, { data: { expected_revision: project.revision, name: `${project.name} externally changed`, description: null } });
+  expect(renamed.status()).toBe(200);
+  let requests = 0;
+  page.on("request", r => { if (r.method() === "POST" && r.url().endsWith("/selection-transform")) requests++; });
+  const response = page.waitForResponse(r => r.url().endsWith("/selection-transform"));
+  await banner.getByRole("button", { name: "Apply movement" }).click();
+  expect((await response).status()).toBe(409);
+  await expect(banner).toBeHidden();
+  await expect(page.getByRole("alert").filter({ hasText: "discarded" })).toBeVisible();
+  expect(requests).toBe(1);
+  expect(await structure(request, project.id, project.entries[0].id)).toEqual(original);
+  expect((await read(request, project.id)).revision).toBe(project.revision + 1);
+});
+
+test("explains empty, locked and wholly hidden movement targets without changing them", async ({ page, request }, info) => {
+  test.setTimeout(120_000);
+  const mobile = info.project.name === "mobile-chromium";
+  let project = await simpleMovement(page, request, mobile);
+  const original = await structure(request, project.id, project.entries[0].id);
+  const selectTarget = async () => {
+    await page.evaluate(async ({ id, entry }) => {
+      const path = "/src/store/selection.ts";
+      const { useSelectionStore } = await import(/* @vite-ignore */ path);
+      useSelectionStore.getState().setProject(id);
+      useSelectionStore.getState().replace({ schema_version: 1, atoms: [{ structure_id: entry, atom_id: 1 }], granularity: "atom", source: "inspector" });
+    }, { id: project.id, entry: project.entries[0].id });
+  };
+  await page.evaluate(async () => { const path = "/src/store/selection.ts"; (await import(/* @vite-ignore */ path)).useSelectionStore.getState().clear(); });
+  await page.getByRole("button", { name: "Move selection", exact: true }).click();
+  await expect(page.getByRole("alert").filter({ hasText: "Select atoms before starting" })).toBeVisible();
+  for (const condition of ["lock", "visibility"] as const) {
+    const response = await request.post(`/api/v1/projects/${project.id}/entries/${project.entries[0].id}/${condition}`, {
+      data: { expected_revision: project.revision, value: condition === "lock" },
+    });
+    expect(response.status()).toBe(200); project = await response.json();
+    if (condition === "visibility") {
+      const unlocked = await request.post(`/api/v1/projects/${project.id}/entries/${project.entries[0].id}/lock`, { data: { expected_revision: project.revision, value: false } });
+      expect(unlocked.status()).toBe(200); project = await unlocked.json();
+    }
+    await page.reload();
+    if (mobile) await page.getByRole("button", { name: "Inspector", exact: true }).click();
+    await selectTarget();
+    await page.getByRole("tab", { name: "transform", exact: true }).click();
+    await page.getByRole("button", { name: "Move selection", exact: true }).click();
+    await expect(page.getByRole("alert").filter({ hasText: condition === "lock" ? "Unlock Ethanol before moving the selection" : "Show selected atoms in the viewer" })).toBeVisible();
+    await expect(page.getByRole("region", { name: "Move selection controls" })).toBeHidden();
+    expect((await read(request, project.id)).revision).toBe(project.revision);
+    expect(await structure(request, project.id, project.entries[0].id)).toEqual(original);
+  }
 });

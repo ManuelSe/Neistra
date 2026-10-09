@@ -757,3 +757,39 @@ tests: **37 passed / 4 files**. Frontend lint, typecheck and build passed.
 Local diff review and `git diff --check` passed. Remaining C4 compatibility,
 lifecycle, zoom and performance qualification is still pending; this correction
 does not mark C4 or M3 complete.
+
+### 2026-10-09 — C4 correction: visible heading and context feedback
+
+Visual inspection found the movement heading behind the viewer status badge.
+The banner now starts below that badge, with its three modes on one row and a
+bounded scroll area. Real browser-zoom checks independently assert nonoverlap,
+44 px targets, reachable controls, keyboard movement, focus and scoped axe at
+100%/200% in both themes. Native full-surface screenshots were inspected at all
+four combinations: [light 100%](../assets/interactive-selection-transform/c4-light-100.png),
+[light 200%](../assets/interactive-selection-transform/c4-light-200.png),
+[dark 100%](../assets/interactive-selection-transform/c4-dark-100.png),
+[dark 200%](../assets/interactive-selection-transform/c4-dark-200.png).
+At 200%, the banner scrolls internally; Apply/Cancel and every step remain reachable.
+
+Project changes now clear previous-project feedback and explicitly explain
+discarded unapplied movement. A submitted/unknown operation instead explains
+that its captured project must be reopened and checked; no recall or replay is
+claimed. Recovery notices cannot overwrite that immediate context-change feedback.
+This applies D-074's existing ownership rule; no new persisted field or migration.
+
+Evidence:
+
+- Frontend lint/typecheck/build passed; focused controls/session/queue/workspace/
+  numeric tests: **31 passed / 5 files**.
+- Frozen `playwright test tests/e2e/interactive-selection-transform.spec.ts --grep
+  'discards previews|canceled or lost|stale Apply|explains empty'`, ports
+  8210/8211/5373, `/tmp/neistra-issue4-c4-context`: **8 passed**, zero failed/flaky.
+- Real desktop zoom workflow with corrected heading: **1 passed**; mobile zoom
+  intentionally skipped because Pixel 7 qualification is separate.
+- Local diff review and `git diff --check` passed.
+
+Diagnostic attempts exposed a test-created destination absent from an already
+cached project list and an ambiguous locked-target locator matching the existing
+numerical-control warning. Test setup now creates both projects before loading
+the list and uses the specific movement error. The final frozen rerun above passes.
+Full C4 qualification and M3 release gates remain pending.
