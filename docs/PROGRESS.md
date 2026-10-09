@@ -36,6 +36,12 @@ Task/selection/project changes, canceled/lost pointer drags, secondary/Ctrl moti
 stale Apply and empty/locked/hidden errors pass **8 browser tests** in both layouts.
 Focused frontend tests **31 passed** and lint/type/build pass. Full C4 gates pending.
 
+C4 keyboard correction: open modal dialogs/drawers retain focus and own Escape;
+dismissal preserves the preview. Scoped light/dark keyboard/touch/axe workflows
+pass in both layouts (**2 browser tests**), with **22 focused frontend tests** and
+lint/type/build. Reload, no-op history, measurement pause/recalculation and checkpoint
+workflows also pass in both layouts. Complete C4 regression/performance gates pending.
+
 ### Previous release — v0.10.0
 
 Issue #9 — approved scope complete, merged through [PR #41](https://github.com/ManuelSe/Neistra/pull/41)

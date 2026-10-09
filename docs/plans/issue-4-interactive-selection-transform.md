@@ -793,3 +793,28 @@ cached project list and an ambiguous locked-target locator matching the existing
 numerical-control warning. Test setup now creates both projects before loading
 the list and uses the specific movement error. The final frozen rerun above passes.
 Full C4 qualification and M3 release gates remain pending.
+
+### 2026-10-09 — C4 correction: modal focus and Escape ownership
+
+Full interaction review found the global movement Escape listener intercepted
+modal/drawer dismissal. Movement now leaves initial focus inside an open modal
+and defers Escape to it; after closing that panel, workspace Escape cancels the
+entire preview. Non-modal palettes are not treated as modal owners. Native Radix
+dialogs omit `aria-modal`, so the guard covers their dialog role as well as the
+explicit mobile drawer. TRANSFORMS documents this established keyboard behavior.
+
+Evidence: controls/session Vitest **22 passed / 2 files**, frontend lint/typecheck/
+build passed. Frozen browser `interactive-selection-transform.spec.ts --grep
+'keyboard/touch'`, ports 8210/8211/5373, `/tmp/neistra-issue4-c4-modal`:
+**2 passed**. Both themes/layouts verify Projects Escape, mobile inspector Escape
+retaining movement, scoped axe, touch/keyboard movement and final Cancel focus.
+The initial overly narrow `aria-modal=true` guard failed the real Radix dialog
+test and was corrected before this passing run.
+
+Additional workflow qualification verifies applied hidden multi-entry coordinates
+after reload (**2 passed**) and no-op history/artifacts, visible measurement pause,
+unapplied disposal/reload, changed reference distance after Apply, checkpoint and
+reload (**2 passed**, `/tmp/neistra-issue4-c4-lifecycle`). An initial measurement
+fixture expected 200 instead of its documented creation status 201; corrected and
+rerun. Local diff review and `git diff --check` passed. No migration or scientific
+semantics changed; complete C4 regression/performance gates remain pending.

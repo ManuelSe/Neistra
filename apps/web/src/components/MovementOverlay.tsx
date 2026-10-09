@@ -23,9 +23,11 @@ export function MovementOverlay({ movement, view, zoom }: {
   current.current = movement;
   const active = movement.state.phase === "active";
   useEffect(() => {
-    surface.current?.focus();
+    // Modal dialogs/drawers own their focus and Escape until they close.
+    const modalOpen = () => document.querySelector('[role="dialog"]:not([aria-modal="false"]):not([aria-hidden="true"])') !== null;
+    if (!modalOpen()) surface.current?.focus();
     const onEscape = (event: KeyboardEvent) => {
-      if (event.key !== "Escape" || current.current.state.phase !== "active") return;
+      if (event.key !== "Escape" || current.current.state.phase !== "active" || modalOpen()) return;
       event.preventDefault();
       event.stopPropagation();
       current.current.cancel();

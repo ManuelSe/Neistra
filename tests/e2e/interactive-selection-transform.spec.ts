@@ -72,6 +72,18 @@ test("qualifies keyboard/touch controls, focus and scoped accessibility in both 
       await page.getByRole("tab", { name: "transform", exact: true }).click();
     }
     const banner = await launchMovement(page, mobile);
+    await page.getByRole("button", { name: "Projects", exact: true }).click();
+    await expect(page.getByRole("dialog", { name: "Projects", exact: true })).toBeVisible();
+    await page.keyboard.press("Escape");
+    await expect(page.getByRole("dialog", { name: "Projects", exact: true })).toBeHidden();
+    await expect(banner).toBeVisible();
+    if (mobile) {
+      await page.getByRole("button", { name: "Inspector", exact: true }).click();
+      await expect(page.getByRole("dialog", { name: "Inspector panel", exact: true })).toBeVisible();
+      await page.keyboard.press("Escape");
+      await expect(page.getByRole("dialog", { name: "Inspector panel", exact: true })).toBeHidden();
+      await expect(banner).toBeVisible();
+    }
     expect((await new AxeBuilder({ page }).include(".movement-banner").include(".movement-pointer-surface")
       .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"]).analyze()).violations).toEqual([]);
     const sizes = await banner.locator("button").evaluateAll(nodes => nodes.map(node => ({ name: node.textContent, height: node.getBoundingClientRect().height })));
@@ -212,6 +224,9 @@ test("captures hidden multi-entry targets, previews multiple drags, cancels, and
       else expect(atom.coordinates).toEqual(originals[index].structure.atoms[atomIndex].coordinates);
     });
   }
+  await page.reload();
+  await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded", { timeout: 30_000 });
+  expect((await read(request, project.id)).revision).toBe(revision + 1);
   await page.getByRole("button", { name: /Undo: Move 3 selected atoms/ }).click();
   await expect.poll(async () => (await structure(request, project.id, visible.id)).structure.atoms).toEqual(originals[0].structure.atoms);
   await expect(page.locator(".viewer-error")).toBeHidden();
@@ -455,4 +470,60 @@ test("explains empty, locked and wholly hidden movement targets without changing
     expect((await read(request, project.id)).revision).toBe(project.revision);
     expect(await structure(request, project.id, project.entries[0].id)).toEqual(original);
   }
+});
+
+test("preserves no-op history, pauses measurements and discards unapplied movement on reload", async ({ page, request }, info) => {
+  test.setTimeout(120_000);
+  const mobile = info.project.name === "mobile-chromium";
+  let project = await simpleMovement(page, request, mobile);
+  const entryId = project.entries[0].id;
+  const original = await structure(request, project.id, entryId);
+  const measured = await request.post(`/api/v1/projects/${project.id}/measurements`, { data: {
+    expected_revision: project.revision, name: "Movement reference", kind: "distance",
+    atom_references: [1, 2].map(atom_id => ({ structure_id: entryId, atom_id })),
+  } });
+  expect(measured.status()).toBe(201); project = await measured.json();
+  const reopen = async () => {
+    await page.reload();
+    await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded", { timeout: 30_000 });
+    if (mobile) await page.getByRole("button", { name: "Inspector", exact: true }).click();
+    await select(page, [{ structure_id: entryId, atom_id: 1 }]);
+    await page.getByRole("tab", { name: "transform", exact: true }).click();
+  };
+  await reopen();
+  const before = await read(request, project.id);
+  const banner = await launchMovement(page, mobile);
+  await expect(page.getByRole("status").filter({ hasText: "Measurements paused during coordinate preview" })).toBeVisible();
+  await banner.getByRole("button", { name: "Apply movement" }).click();
+  await expect(banner).toBeHidden();
+  const unchanged = await read(request, project.id);
+  expect(unchanged.revision).toBe(before.revision); expect(unchanged.history).toEqual(before.history);
+  expect(unchanged.entries[0].current_artifact_id).toBe(before.entries[0].current_artifact_id);
+  await expect(page.getByRole("status").filter({ hasText: "Selection coordinates unchanged" })).toBeVisible();
+  await expect(page.locator(".measurement-preview-notice")).toBeHidden();
+  if (mobile) await page.getByRole("button", { name: "Inspector", exact: true }).click();
+  await page.getByRole("tab", { name: "transform", exact: true }).click();
+  await launchMovement(page, mobile);
+  await banner.getByRole("button", { name: "Step right" }).click();
+  await page.reload();
+  await expect(banner).toBeHidden();
+  await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded", { timeout: 30_000 });
+  expect(await structure(request, project.id, entryId)).toEqual(original);
+  expect((await read(request, project.id)).revision).toBe(before.revision);
+  if (mobile) await page.getByRole("button", { name: "Inspector", exact: true }).click();
+  await select(page, [{ structure_id: entryId, atom_id: 1 }]);
+  await page.getByRole("tab", { name: "transform", exact: true }).click();
+  await launchMovement(page, mobile);
+  await banner.getByRole("button", { name: "Translate", exact: true }).click();
+  await banner.getByRole("button", { name: "Step right" }).click();
+  await banner.getByRole("button", { name: "Apply movement" }).click(); await expect(banner).toBeHidden();
+  await page.getByRole("button", { name: "Save checkpoint", exact: true }).click();
+  await expect.poll(async () => (await read(request, project.id)).has_uncheckpointed_changes).toBe(false);
+  await page.reload(); await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded", { timeout: 30_000 });
+  const after = await structure(request, project.id, entryId);
+  const distance = Math.hypot(...after.structure.atoms[0].coordinates.map((v, i) => v - after.structure.atoms[1].coordinates[i]));
+  if (mobile) await page.getByRole("button", { name: "Inspector", exact: true }).click();
+  await page.getByRole("tab", { name: "measurements", exact: true }).click();
+  await expect(page.locator(".measurement-row").filter({ has: page.getByLabel("Name for Movement reference") })).toContainText(`${distance.toFixed(2)} Å`);
+  await expect(page.locator(".viewer-error")).toBeHidden();
 });

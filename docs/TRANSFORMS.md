@@ -32,6 +32,8 @@ one undo step; identity/coordinate no-ops preserve revision, artifacts and redo.
 **Cancel movement** or Escape discards the entire unapplied pose. A cancelled
 pointer or lost capture restores the start of that drag while retaining earlier
 drags. Normal viewer controls return when the session ends.
+An open modal dialog or mobile drawer owns focus and Escape: close that panel
+first, retaining the preview, then use Escape on the workspace to cancel movement.
 
 Changing selection, inspector task, project or conflicting project state discards
 an unapplied preview with feedback. Closing the inspector alone retains it.
