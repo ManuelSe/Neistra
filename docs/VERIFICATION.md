@@ -1,6 +1,13 @@
 # V0.1 Requirement Evidence
 
-Current structure-group membership evidence is maintained in
+Current interactive movement evidence is maintained in
+[the approved issue #4 plan](plans/issue-4-interactive-selection-transform.md).
+It links native coordinate/performance and actual zoom screenshots, domain/API
+atomicity/history/restart/export/archive tests and actual previous-release reader
+qualification. Checkpoint evidence and pending candidate/release gates remain
+distinct from the historical matrix below.
+
+Previous structure-group membership evidence is maintained in
 [the approved issue #9 plan](plans/issue-9-structure-group-membership.md). Its
 checkpoint and release results are separate from the historical matrix below.
 

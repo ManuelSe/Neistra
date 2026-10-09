@@ -6,6 +6,39 @@ Performance thresholds are regression gates on the pinned Playwright desktop
 Chromium host. They are not hardware-independent throughput promises or
 recommended maximum scientific system sizes.
 
+## Interactive movement (issue #4)
+
+`interactive-transform-performance.spec.ts` applies native preview patches on an
+already presented ordinary RCSB 1STP scene: a three-atom protein fragment and the
+16-atom bound biotin. First-preview response includes pose math, coordinate update
+and transient cue completion. Exact Cancel timing observes restored native model
+coordinates at update completion, independently of the later animation frame or
+surface regeneration. The production queue receives a burst of 40 frames and must
+render only the first and latest, with one active operation. The profile requires
+zero normalized projection, transform-command or job requests during these previews.
+
+| Measure | Budget | C4 fragment / biotin |
+|---|---:|---:|
+| Native preview response | `< 500 ms` | 91 / 30.5 ms |
+| Exact native coordinate Cancel | `< 500 ms` | 16.2 / 19.2 ms |
+| Longest movement main-thread task | `< 750 ms` | 75 / 0 observed ms |
+
+[Raw C4 evidence](assets/interactive-selection-transform/c4-performance.json)
+reports all values, frame counts and request assertions. Inherited surface
+coordinates restore in 16 ms; full regeneration completes separately at 1,047.1 ms.
+That regeneration time is not substituted for coordinate Cancel or hidden from
+the report. Test-only coordinate observation and optional `MOVEMENT_CPU_PROFILE=1`
+CDP diagnostics are absent from production imports; the passing timing run had no
+profiler or competing build/qualification. D-079 records the mesh-cue correction
+for an identified first-use shader stall; accepted budgets are unchanged.
+
+The actual UI hidden multi-entry workflow separately asserts no normalized refetch
+or job submission through multiple pointer gestures/steps before one explicit
+Apply. These are pinned desktop Chromium/SwiftShader host regression gates, not
+arbitrary-system-size, hardware-independent throughput or physical-phone promises.
+Surface/pocket capacity qualification remains independent. Candidate and exact
+merged release runs must recheck these gates.
+
 ## Representative Project
 
 The profile uses official RCSB PDB `1STP`, a 1,001-atom streptavidin-biotin

@@ -3,6 +3,7 @@ import type {
   CameraState,
   Contact,
   CoordinateTransform,
+  SelectionTransform,
   ArchiveExportResult,
   ArchiveImportResult,
   BatchExportResult,
@@ -126,6 +127,11 @@ export const projectApi = {
     request<Project>(`/api/v1/projects/${project.id}/history/redo`, {
       method: "POST",
       body: JSON.stringify({ expected_revision: project.revision }),
+    }),
+  transformSelection: (project: Project, transform: SelectionTransform) =>
+    request<Project>(`/api/v1/projects/${project.id}/selection-transform`, {
+      method: "POST",
+      body: JSON.stringify({ expected_revision: project.revision, ...transform }),
     }),
   transform: (project: Project, transform: CoordinateTransform) =>
     request<Project>(

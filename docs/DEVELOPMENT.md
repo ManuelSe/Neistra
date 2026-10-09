@@ -283,3 +283,46 @@ Grouping preserves uploaded and normalized bytes and entry modified-date sort ke
 D-072 preserves membership timestamps; D-073 keeps derived dirty flags on response
 copies, avoiding ORM writes through reads and checkpoint saves. See GROUPS.md and the issue #9 feature plan for scope,
 interaction semantics, evidence and release blockers.
+
+## Interactive movement compatibility (0.11.0)
+
+The typed selection-transform endpoint is additive. No database migration or
+persisted draft is introduced; head remains 0013 and project, normalized, API and
+archive majors remain 1. Committed multi-entry movement reuses existing
+`coordinates.transform` / `entry.coordinates` forward and inverse actions and
+immutable normalized artifacts. Original uploads and submitted job inputs remain
+unchanged. Archives capture applied current state, with remapped IDs and no
+portable undo history. Format-specific molecular exports retain their existing
+precision/loss reporting; previews are never exported.
+
+The previous-release reader qualification uses the actual `v0.10.0` API/core/plugin
+checkout in a separate process, with the unchanged pinned scientific dependencies.
+It opens the candidate's SQLite/artifact directory, checks exact coordinates and
+original hashes, undoes/redoes the retained multi-entry command, saves/re-exports,
+and imports the candidate archive. Existing completed jobs remain unchanged.
+`tests/support/transform_reader_qualification.py` produces executable evidence;
+see the [feature plan](plans/issue-4-interactive-selection-transform.md) for runs
+and the version of each producer. Qualification must be repeated after updating
+the candidate producer version.
+
+Example from the repository root, using fresh qualification data and a detached
+previous-release worktree (never a user's project):
+
+```bash
+git worktree add --detach /tmp/neistra-reader-010 v0.10.0
+MOLWEAVE_DATA_DIR=/tmp/neistra-movement-reader .venv/bin/uv run alembic upgrade head
+PYTHONPATH=apps/api/src:packages/molweave_core/src:packages/molweave_demo_plugin/src \
+  .venv/bin/python -m tests.support.transform_reader_qualification produce \
+  --data-dir /tmp/neistra-movement-reader --evidence /tmp/neistra-producer.json
+PYTHONPATH=/tmp/neistra-reader-010/apps/api/src:/tmp/neistra-reader-010/packages/molweave_core/src:/tmp/neistra-reader-010/packages/molweave_demo_plugin/src \
+  .venv/bin/python -m tests.support.transform_reader_qualification read \
+  --data-dir /tmp/neistra-movement-reader --expected-reader 0.10.0 \
+  --evidence /tmp/neistra-reader.json
+git worktree remove /tmp/neistra-reader-010
+```
+
+Reverting movement controls/endpoint to the qualified 0.10.0 reader requires no
+schema downgrade or data stripping. Readers predating pocket/visibility support
+retain their existing limitations; this check does not waive them. Restore a
+pre-upgrade backup when downgrading those earlier schema features rather than
+stripping retained history or scientific settings.

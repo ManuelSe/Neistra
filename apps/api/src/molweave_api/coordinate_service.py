@@ -13,6 +13,7 @@ from molweave_core.superposition import (
 )
 from molweave_core.transforms import (
     InvalidTransformError,
+    apply_rigid_transform,
     centroid,
     transform_structure,
 )
@@ -37,6 +38,7 @@ from molweave_api.schemas import (
     CoordinatePatch,
     CoordinateTransformCreate,
     ProjectRead,
+    SelectionTransformCreate,
     SuperpositionCreate,
     SuperpositionRead,
     SuperpositionReport,
@@ -50,6 +52,54 @@ class CoordinateService:
         self.artifacts = ArtifactService(
             session,
             LocalArtifactStore(settings.data_dir),
+        )
+
+    def transform_selection(
+        self, project_id: str, payload: SelectionTransformCreate
+    ) -> ProjectRead:
+        project = self._project(project_id, payload.expected_revision)
+        ids_by_entry: dict[str, list[int]] = {}
+        for reference in payload.selection.atoms:
+            ids_by_entry.setdefault(reference.structure_id, []).append(reference.atom_id)
+        prepared: list[
+            tuple[StructureEntry, NormalizedStructureV1, NormalizedStructureV1, list[int]]
+        ] = []
+        # Preflight the complete batch before any publication or project mutation.
+        for entry_id, atom_ids in ids_by_entry.items():
+            entry = self._entry(project.id, entry_id)
+            before = self._structure(entry)
+            try:
+                after = apply_rigid_transform(
+                    before, atom_ids, payload.rotation_matrix, payload.translation
+                )
+            except InvalidTransformError as error:
+                raise InvalidProjectOperationError(str(error)) from error
+            moved = any(
+                abs(old - new) > 1e-9
+                for old_conformer, new_conformer in zip(
+                    before.conformers, after.conformers, strict=True
+                )
+                for old_point, new_point in zip(
+                    old_conformer.coordinates, new_conformer.coordinates, strict=True
+                )
+                for old, new in zip(old_point, new_point, strict=True)
+            )
+            if moved:
+                prepared.append((entry, before, after, atom_ids))
+        service = ProjectService(self.session)
+        if not prepared:
+            return service.get_project(project.id)
+        changes = [
+            self._change(entry, before, after, atom_ids, self._publish(entry, after))
+            for entry, before, after, atom_ids in prepared
+        ]
+        return service.record_coordinate_change(
+            project.id,
+            payload.expected_revision,
+            "coordinates.transform",
+            f"Move {len(payload.selection.atoms)} selected atoms in {len(ids_by_entry)} structures",
+            changes,
+            self._selection_snapshot(payload.selection),
         )
 
     def transform(

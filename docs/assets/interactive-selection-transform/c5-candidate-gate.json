@@ -1,0 +1,177 @@
+{
+  "stage": "candidate-qualified",
+  "commit": "28a3ac83ac9031a0b9fb3ba5d7c894c45d471952",
+  "commands": [
+    {
+      "name": "python-install",
+      "command": [
+        ".venv/bin/uv",
+        "sync",
+        "--frozen"
+      ],
+      "exit_code": 0,
+      "seconds": 0.03,
+      "log": "/tmp/neistra-issue4-candidate-qualified-gate/python-install.log"
+    },
+    {
+      "name": "frontend-install",
+      "command": [
+        "corepack",
+        "pnpm",
+        "install",
+        "--frozen-lockfile"
+      ],
+      "exit_code": 0,
+      "seconds": 0.62,
+      "log": "/tmp/neistra-issue4-candidate-qualified-gate/frontend-install.log"
+    },
+    {
+      "name": "migration",
+      "command": [
+        ".venv/bin/uv",
+        "run",
+        "alembic",
+        "upgrade",
+        "head"
+      ],
+      "exit_code": 0,
+      "seconds": 0.58,
+      "log": "/tmp/neistra-issue4-candidate-qualified-gate/migration.log"
+    },
+    {
+      "name": "ruff",
+      "command": [
+        ".venv/bin/uv",
+        "run",
+        "ruff",
+        "check",
+        "."
+      ],
+      "exit_code": 0,
+      "seconds": 0.04,
+      "log": "/tmp/neistra-issue4-candidate-qualified-gate/ruff.log"
+    },
+    {
+      "name": "mypy",
+      "command": [
+        ".venv/bin/uv",
+        "run",
+        "mypy",
+        "apps/api",
+        "packages/molweave_core"
+      ],
+      "exit_code": 0,
+      "seconds": 0.18,
+      "log": "/tmp/neistra-issue4-candidate-qualified-gate/mypy.log"
+    },
+    {
+      "name": "pytest",
+      "command": [
+        ".venv/bin/uv",
+        "run",
+        "pytest"
+      ],
+      "exit_code": 0,
+      "seconds": 69.46,
+      "log": "/tmp/neistra-issue4-candidate-qualified-gate/pytest.log"
+    },
+    {
+      "name": "frontend-lint",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "lint"
+      ],
+      "exit_code": 0,
+      "seconds": 7.71,
+      "log": "/tmp/neistra-issue4-candidate-qualified-gate/frontend-lint.log"
+    },
+    {
+      "name": "frontend-typecheck",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "typecheck"
+      ],
+      "exit_code": 0,
+      "seconds": 4.08,
+      "log": "/tmp/neistra-issue4-candidate-qualified-gate/frontend-typecheck.log"
+    },
+    {
+      "name": "frontend-tests",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "test"
+      ],
+      "exit_code": 0,
+      "seconds": 7.35,
+      "log": "/tmp/neistra-issue4-candidate-qualified-gate/frontend-tests.log"
+    },
+    {
+      "name": "supervisor-tests",
+      "command": [
+        "corepack",
+        "pnpm",
+        "test:dev"
+      ],
+      "exit_code": 0,
+      "seconds": 1.45,
+      "log": "/tmp/neistra-issue4-candidate-qualified-gate/supervisor-tests.log"
+    },
+    {
+      "name": "build",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "build"
+      ],
+      "exit_code": 0,
+      "seconds": 11.75,
+      "log": "/tmp/neistra-issue4-candidate-qualified-gate/build.log"
+    },
+    {
+      "name": "browser",
+      "command": [
+        "corepack",
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "--output=/tmp/neistra-issue4-candidate-qualified-gate/browser-results"
+      ],
+      "exit_code": 0,
+      "seconds": 1392.49,
+      "log": "/tmp/neistra-issue4-candidate-qualified-gate/browser.log"
+    },
+    {
+      "name": "diff-check",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0,
+      "log": "/tmp/neistra-issue4-candidate-qualified-gate/diff-check.log"
+    }
+  ],
+  "environment": {
+    "browser": "pinned Chromium/SwiftShader; desktop and Pixel 7 emulation",
+    "ports": [
+      8210,
+      8211,
+      5373
+    ],
+    "migration_data": "/tmp/neistra-issue4-candidate-qualified-migration",
+    "browser_data": "/tmp/neistra-issue4-candidate-qualified-browser"
+  }
+}

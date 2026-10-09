@@ -10,6 +10,7 @@ from molweave_core.molecular import Conformer, NormalizedStructureV1
 
 Point3D = tuple[float, float, float]
 FloatMatrix = NDArray[np.float64]
+RIGID_ROTATION_TOLERANCE = 1e-10
 
 
 class InvalidTransformError(ValueError):
@@ -111,9 +112,7 @@ def apply_rigid_transform(
     translation: Sequence[float],
 ) -> NormalizedStructureV1:
     selected_indices = _atom_indices(structure, atom_ids)
-    rotation_array = np.asarray(rotation, dtype=np.float64)
-    if rotation_array.shape != (3, 3) or not np.all(np.isfinite(rotation_array)):
-        raise InvalidTransformError("Rotation matrix must be a finite 3 by 3 matrix")
+    rotation_array = validate_rigid_rotation(rotation)
     translation_array = _vector(translation, "Translation")
     transformed_conformers: list[Conformer] = []
     for conformer in structure.conformers:
@@ -123,6 +122,7 @@ def apply_rigid_transform(
         changed[selected_indices] = (
             coordinates[selected_indices] @ rotation_array.T + translation_array
         )
+        _validate_coordinates(changed)
         transformed_conformers.append(
             conformer.model_copy(
                 update={
@@ -144,6 +144,18 @@ def apply_rigid_transform(
     return structure.model_copy(
         update={"atoms": atoms, "conformers": transformed_conformers}
     )
+
+
+def validate_rigid_rotation(rotation: Sequence[Sequence[float]] | FloatMatrix) -> FloatMatrix:
+    """Reject reflections, scale and shear; never repair submitted geometry."""
+    matrix = np.asarray(rotation, dtype=np.float64)
+    if matrix.shape != (3, 3) or not np.all(np.isfinite(matrix)):
+        raise InvalidTransformError("Rotation matrix must be a finite 3 by 3 matrix")
+    if not np.allclose(
+        matrix.T @ matrix, np.identity(3), rtol=0, atol=RIGID_ROTATION_TOLERANCE
+    ) or not np.isclose(np.linalg.det(matrix), 1, rtol=0, atol=RIGID_ROTATION_TOLERANCE):
+        raise InvalidTransformError("Rotation matrix must be orthonormal with determinant +1")
+    return matrix
 
 
 def _atom_indices(

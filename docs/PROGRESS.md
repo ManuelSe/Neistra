@@ -2,6 +2,31 @@
 
 ## Current milestone
 
+Issue #4 — M1–M3/C1–C5 implemented and qualified on
+`feat/issue-4-interactive-selection-transform`. Contract and detailed evidence:
+[interactive selection transforms](plans/issue-4-interactive-selection-transform.md).
+Captured complete multi-entry selection, translated-centroid rotation, screen/depth
+gestures, keyboard/touch steps, one atomic Apply and exact Cancel are delivered.
+D-075–D-081 preserve molecular/viewer, focus/remount and async ownership. Originals,
+unselected state and immutable job inputs remain unchanged. No migration; head0013.
+All five versions agree at 0.11.0; additive minor release v0.11.0 is planned.
+
+Complete clean candidate gate: **398 Python, 163 frontend, 8 supervisor and
+138 browser tests / 42 intentional layout skips**, zero failures/flakes/retries,
+frozen installs, fresh migration, lint/types/build. Native 1STP preview
+**128.9/26 ms**, exact Cancel **13.6/16.8 ms**, longest task **111 ms** pass
+unchanged budgets. Surface regeneration is separate. Light/dark scoped axe,
+keyboard/touch, actual 100%/200% Chrome zoom, persistence/exports/archives and
+actual v0.10.0 reading 0.11.0 retained history pass. Corrected diagnostics and raw
+evidence remain in the feature plan. Final review is local, not independent;
+no unresolved consequential finding.
+
+Remote delivery remains pending: PR/review request, live-policy audit, normal merge,
+exact merged gate, annotated tag/release, verified issue reply and branch cleanup.
+No current blocker.
+
+### Previous release — v0.10.0
+
 Issue #9 — approved scope complete, merged through [PR #41](https://github.com/ManuelSe/Neistra/pull/41)
 and published as [v0.10.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.10.0).
 Contract and full audit: [structure group membership plan](plans/issue-9-structure-group-membership.md).
@@ -133,6 +158,14 @@ and closed out on issue #1. The release tag remains on the exact verified
 feature merge; this documentation-only closeout records the remote evidence.
 
 ## Completed work
+
+- Issue #4 planning: the user approved the complete proposal on 2026-10-09.
+  Read-only review covered product, architecture, scientific state, transforms,
+  interactions, tests and release conventions. Fast-forward-only master integration
+  confirmed a clean current base; the approved plan is the first file change on
+  the dedicated feature branch. D-075/D-076 preserve the approved decisions.
+  This is a documentation handoff; no implementation or new feature validation
+  is claimed. The feature plan is the detailed implementation contract.
 
 - Issue #9 planning: the user approved the complete membership contract, including
   retained empty groups, existing derived sorting and desktop drag with equivalent
@@ -2188,11 +2221,11 @@ Results:
 
 ## Blockers
 
-None for the issue #9 planning handoff. Implementation and delivery gates remain
-unexecuted; future failures or unmet live repository policy block advancement.
+No current blocker. Issue #4 qualification and delivery remain in progress; failed
+gates or unmet live repository policy block advancement.
 
 ## Next action
 
-Implement M2/C2 accessible explicit actions in the
-[feature plan](plans/issue-9-structure-group-membership.md), then desktop drag and
-qualification. Current released baseline remains v0.9.0; target v0.10.0.
+Complete remote delivery and exact merged qualification in the approved
+[issue #4 feature plan](plans/issue-4-interactive-selection-transform.md).
+Current released baseline is v0.10.0; planned release is the minor v0.11.0.

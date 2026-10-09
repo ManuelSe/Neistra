@@ -361,3 +361,21 @@ such as “receptor” or “ligand” express user organization, not a classifi
 preparation or validation result. Membership changes preserve scientific data,
 viewer presentation and job provenance; component extraction and subset export
 remain separate work (#20/#21).
+
+## Interactive movement
+
+Move selection is unconstrained manual positioning. It applies one proper rigid
+world transform to the exact captured multi-entry selection in every conformer,
+around the active-conformer centroid carried by translation. This preserves
+distances within the target, without constraining its relationship to unselected
+atoms. Partial selections may distort crossing covalent bonds or introduce clashes.
+Known crossing bonds are counted from normalized records; missing records do not
+prove chemical safety. The operation neither minimizes nor repairs chemistry and
+does not establish suitability for docking or preparation.
+
+Hidden selected atoms move with visible targets; visibility is never a filter for
+scientific targeting. Previews leave authoritative coordinates untouched and never
+enter exports, archives or jobs. Original uploads, connectivity, charges, metadata,
+warnings and previous job inputs remain unchanged. Surfaces and measurements pause
+during preview and restore from the appropriate committed coordinates. See
+[transform workflow](TRANSFORMS.md) for gesture, cancellation and history semantics.

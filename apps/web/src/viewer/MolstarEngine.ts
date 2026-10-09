@@ -48,11 +48,18 @@ import {
 import { selectionColorLayers } from "./selectionColors";
 import { representationLayers, visibleRepresentationAtomIds } from "./representationProjection";
 import { THEME_TOKENS } from "../theme";
+import type { MovementView } from "../coordinates/interactiveTransform";
+import { Binding } from "molstar/lib/mol-util/binding";
+import type { Canvas3DAttribs, Canvas3DProps } from "molstar/lib/mol-canvas3d/canvas3d";
 import { observeViewerAttribution } from "./domPresentation";
 import {
   hydrogenDisplayMode,
   molstarRepresentationProfile,
 } from "./settings";
+
+// Small mesh spheres reuse the ordinary mesh shader instead of compiling a new
+// sphere-impostor pipeline on the first movement of a cartoon/surface-only view.
+const movementCueParams = { sizeFactor: 0.3, tryUseImpostor: false, detail: 0 };
 
 interface LoadedStructure {
   entryId: string;
@@ -67,6 +74,7 @@ export class MolstarEngine implements MolecularViewer {
   private stopAttributionObserver: (() => void) | undefined;
   private plugin: PluginUIContext | undefined;
   private backgroundColor: string = THEME_TOKENS.light["viewer-background"];
+  // Each caller observes its rejection; later restoration commands must still run.
   private syncQueue: Promise<void> = Promise.resolve();
   private generation = 0;
   private pickingGranularity: SelectionGranularity = "atom";
@@ -76,6 +84,10 @@ export class MolstarEngine implements MolecularViewer {
   private listeners = new Set<(event: ViewerSelectionEvent) => void>();
   private cameraListeners = new Set<(camera: CameraState) => void>();
   private retainedCamera: CameraState | null = null;
+  private movementCamera: CameraState | null = null;
+  private movementBindings: Canvas3DAttribs["trackball"] | null = null;
+  private movementTrackball: Canvas3DProps["trackball"] | null = null;
+  private mountTarget: HTMLElement | null = null;
   private rebuilding = false;
   private hasScene = false;
   private clickSubscription: { unsubscribe(): void } | undefined;
@@ -92,6 +104,12 @@ export class MolstarEngine implements MolecularViewer {
   private nextSurfaceSourceRevision = 0;
   private surfaceMeshEntries = new Set<string>();
   private surfaceRefs = new Map<string, string>();
+  private inheritedSurfaceRefs = new Map<string, string[]>();
+  private movementCueRefs = new Map<string, string>();
+  private renderedAtomReferences = new Map<string, AtomReference[]>();
+  private surfaceRenderedAtoms = new Map<string, AtomReference[]>();
+  private previewRenderedAtoms = new Map<string, AtomReference[]>();
+  private previewTargetIds = new Map<string, Set<number>>();
   private surfaceBindings = new Map<string, object>();
 
   async mount(target: HTMLElement): Promise<void> {
@@ -136,12 +154,13 @@ export class MolstarEngine implements MolecularViewer {
       );
     }
     this.plugin = plugin;
+    this.mountTarget = target;
     plugin.representation.structure.registry.add(SelectionSurfaceProvider);
     this.stopAttributionObserver = observeViewerAttribution(target);
     this.setBackgroundColor(this.backgroundColor);
     this.clickSubscription = plugin.behaviors.interaction.click.subscribe(
       ({ current, button, modifiers }) => {
-        if (!isPrimarySelectionActivation(button)) return;
+        if (this.movementCamera || !isPrimarySelectionActivation(button)) return;
         const mode = selectionModeForModifiers(modifiers);
         if (Loci.isEmpty(current.loci)) {
           if (
@@ -194,6 +213,11 @@ export class MolstarEngine implements MolecularViewer {
       },
     );
     this.cameraSubscription = plugin.canvas3d.camera.changed.subscribe(() => {
+      const snapshot = plugin.canvas3d!.camera.getSnapshot();
+      if (this.movementCamera && ["position", "target", "up"].some(key =>
+        (snapshot[key as "position"] as number[]).some((value, axis) => value !== this.movementCamera![key as "position"][axis]))) {
+        this.setCamera(this.movementCamera);
+      }
       const camera = this.getCamera();
       if (camera) for (const listener of this.cameraListeners) listener(camera);
     });
@@ -214,8 +238,12 @@ export class MolstarEngine implements MolecularViewer {
       ...(item.pocket ? [surfaceKey(item.entryId, "pocket")] : []),
     ])));
     this.surfaceBindings.clear();
+    this.inheritedSurfaceRefs.clear();
+    this.movementCueRefs.clear();
+    this.renderedAtomReferences.clear();
+    this.surfaceRenderedAtoms.clear();
     const generation = ++this.generation;
-    this.syncQueue = this.syncQueue.then(async () => {
+    this.syncQueue = this.syncQueue.catch(() => undefined).then(async () => {
       const plugin = this.plugin;
       if (!plugin || generation !== this.generation) return;
       const camera = this.getCamera();
@@ -263,9 +291,13 @@ export class MolstarEngine implements MolecularViewer {
     patch: CoordinatePatch,
     mode: "preview" | "commit",
   ): Promise<void> {
-    this.syncQueue = this.syncQueue.then(async () => {
+    this.syncQueue = this.syncQueue.catch(() => undefined).then(async () => {
       if (!this.plugin) return;
       const loaded = this.loaded.get(patch.entry_id);
+      if (mode === "preview" && !this.coordinatePreviews.has(patch.entry_id)) {
+        this.previewRenderedAtoms.set(patch.entry_id, this.getRenderedAtomReferences().filter(atom => atom.structure_id === patch.entry_id));
+        this.previewTargetIds.set(patch.entry_id, new Set(patch.atom_ids));
+      }
       if (patch.atom_ids.length !== patch.coordinates.length) throw new Error("Invalid coordinate patch.");
       // A current artifact-keyed application sync may already contain this commit.
       // Do not invalidate geometry again (or create a spurious seed revision).
@@ -301,6 +333,10 @@ export class MolstarEngine implements MolecularViewer {
         });
       }
       if (!loaded) {
+        if (mode === "commit") {
+          this.previewRenderedAtoms.delete(patch.entry_id);
+          this.previewTargetIds.delete(patch.entry_id);
+        }
         if (mode === "commit") for (const ownerId of dependentIds) await this.prepareSurface(ownerId, "pocket");
         return;
       }
@@ -321,6 +357,13 @@ export class MolstarEngine implements MolecularViewer {
       });
       await this.detachSurface(patch.entry_id);
       for (const channel of ["fragment", "pocket"] as const) this.surfaces.remove(patch.entry_id, channel);
+      const firstPreview = mode === "preview" && !this.coordinatePreviews.has(patch.entry_id);
+      const hadPreview = this.coordinatePreviews.has(patch.entry_id);
+      if (firstPreview) {
+        const refs = this.inheritedSurfaceRefs.get(patch.entry_id) ?? [];
+        for (const ref of refs) await this.plugin.state.data.build().delete(ref).commit();
+        this.inheritedSurfaceRefs.delete(patch.entry_id);
+      }
       if (mode === "preview") this.coordinatePreviews.set(patch.entry_id, coordinates);
       else this.coordinatePreviews.delete(patch.entry_id);
       if (mode === "commit") {
@@ -334,7 +377,10 @@ export class MolstarEngine implements MolecularViewer {
         });
       }
       await this.updateCoordinates(loaded, coordinates);
+      const source = this.structures.find(item => item.entryId === patch.entry_id);
+      if (firstPreview && source) await this.addMovementCue(source, loaded);
       if (mode === "commit") {
+        if (hadPreview && source) await this.restorePreviewRepresentations(source, loaded);
         await this.prepareSurfaces(patch.entry_id);
         for (const ownerId of dependentIds) if (ownerId !== patch.entry_id) await this.prepareSurface(ownerId, "pocket");
       }
@@ -343,13 +389,19 @@ export class MolstarEngine implements MolecularViewer {
   }
 
   clearCoordinatePreview(entryId: string): Promise<void> {
-    this.syncQueue = this.syncQueue.then(async () => {
+    this.syncQueue = this.syncQueue.catch(() => undefined).then(async () => {
       this.coordinatePreviews.delete(entryId);
       this.pocketPreviewEntries.delete(entryId);
       const loaded = this.loaded.get(entryId);
+      if (!loaded) {
+        this.previewRenderedAtoms.delete(entryId);
+        this.previewTargetIds.delete(entryId);
+      }
       if (loaded) {
         await this.detachSurface(entryId);
         await this.updateCoordinates(loaded, loaded.baseCoordinates);
+        const source = this.structures.find(item => item.entryId === entryId);
+        if (source) await this.restorePreviewRepresentations(source, loaded);
         await this.prepareSurfaces(entryId);
       }
       for (const source of this.structures) {
@@ -371,7 +423,7 @@ export class MolstarEngine implements MolecularViewer {
     // Rebuilding those same objects would restore the camera and repeat the cycle.
     if (JSON.stringify(measurements) === JSON.stringify(this.measurements)) return this.syncQueue;
     this.measurements = measurements;
-    this.syncQueue = this.syncQueue.then(async () => {
+    this.syncQueue = this.syncQueue.catch(() => undefined).then(async () => {
       const camera = this.getCamera();
       await this.applyMeasurements();
       this.commitScene(camera);
@@ -381,7 +433,7 @@ export class MolstarEngine implements MolecularViewer {
 
   async setIsolation(atoms: AtomReference[] | null): Promise<void> {
     this.isolation = atoms;
-    await this.syncQueue;
+    await this.syncQueue.catch(() => undefined);
     await this.syncStructures(this.structures);
   }
 
@@ -398,6 +450,49 @@ export class MolstarEngine implements MolecularViewer {
       radius: snapshot.radius,
     };
     return this.retainedCamera;
+  }
+
+  getMovementView(): MovementView | null {
+    const camera = this.getCamera();
+    const snapshot = this.plugin?.canvas3d?.camera.getSnapshot();
+    const height = this.mountTarget?.getBoundingClientRect().height ?? 0;
+    return camera && snapshot && height > 0 ? { camera, height, fov: snapshot.fov } : null;
+  }
+  getRenderedAtomReferences(): AtomReference[] {
+    const references = [...this.renderedAtomReferences.values(), ...this.surfaceRenderedAtoms.values()].flat();
+    return [...new Map(references.map(atom => [`${atom.structure_id}:${atom.atom_id}`, atom])).values()];
+  }
+
+  setMovementMode(active: boolean): void {
+    const canvas = this.plugin?.canvas3d;
+    if (!canvas || active === Boolean(this.movementCamera)) return;
+    if (active) {
+      this.movementCamera = this.getCamera();
+      if (!this.movementCamera) return;
+      this.movementBindings = structuredClone(canvas.attribs.trackball);
+      this.movementTrackball = structuredClone(canvas.props.trackball);
+      // Release held navigation keys while their original bindings still match.
+      // Otherwise a key released under empty bindings can remain latched on exit.
+      for (const binding of Object.values(this.movementBindings.bindings)) {
+        for (const trigger of binding.triggers) {
+          if (!trigger.code) continue;
+          window.dispatchEvent(new KeyboardEvent("keyup", {
+            code: trigger.code,
+            ctrlKey: trigger.modifiers?.control, shiftKey: trigger.modifiers?.shift,
+            altKey: trigger.modifiers?.alt, metaKey: trigger.modifiers?.meta,
+          }));
+        }
+      }
+      const bindings = Object.fromEntries(Object.keys(canvas.attribs.trackball.bindings).map(key => [key, Binding.Empty])) as Canvas3DAttribs["trackball"]["bindings"];
+      canvas.setAttribs({ trackball: { bindings } });
+      canvas.setProps({ trackball: { staticMoving: true, animate: { name: "off", params: {} } } });
+    } else {
+      this.movementCamera = null;
+      if (this.movementBindings) canvas.setAttribs({ trackball: this.movementBindings });
+      if (this.movementTrackball) canvas.setProps({ trackball: this.movementTrackball });
+      this.movementBindings = null;
+      this.movementTrackball = null;
+    }
   }
 
   setCamera(camera: CameraState): void {
@@ -418,11 +513,13 @@ export class MolstarEngine implements MolecularViewer {
     const canvas = this.plugin?.canvas3d;
     canvas?.commit(true);
     this.hasScene = (canvas?.reprCount.value ?? 0) > 0;
-    if (camera) this.setCamera(camera);
+    if (this.movementCamera) this.setCamera(this.movementCamera);
+    else if (camera) this.setCamera(camera);
     else if (this.hasScene) canvas?.requestCameraReset({ durationMs: 0 });
   }
 
   setCameraMode(mode: CameraState["mode"]): void {
+    if (this.movementCamera) return;
     this.plugin?.canvas3d?.camera.setState({ mode });
   }
 
@@ -434,15 +531,18 @@ export class MolstarEngine implements MolecularViewer {
       (value, index) =>
         snapshot.target[index] + (value - snapshot.target[index]) * factor,
     ) as CameraState["position"];
+    if (this.movementCamera) this.movementCamera = { ...this.movementCamera, position };
     camera.setState({ position: Vec3.create(...position) });
   }
 
   focusAtoms(atoms: AtomReference[]): void {
+    if (this.movementCamera) return;
     const loci = this.lociFor(atoms);
     if (loci) this.plugin?.managers.camera.focusLoci(loci);
   }
 
   fitVisible(): void {
+    if (this.movementCamera) return;
     this.plugin?.canvas3d?.requestCameraReset();
   }
 
@@ -466,7 +566,7 @@ export class MolstarEngine implements MolecularViewer {
 
   retrySurface(entryId: string, channel: SurfaceChannel = "fragment"): void {
     this.surfaces.remove(entryId, channel);
-    this.syncQueue = this.syncQueue.then(async () => {
+    this.syncQueue = this.syncQueue.catch(() => undefined).then(async () => {
       await this.detachSurface(entryId, channel);
       await this.prepareSurface(entryId, channel);
     });
@@ -477,6 +577,7 @@ export class MolstarEngine implements MolecularViewer {
   }
 
   dispose(): void {
+    this.setMovementMode(false);
     this.stopAttributionObserver?.();
     this.stopAttributionObserver = undefined;
     this.generation += 1;
@@ -484,6 +585,13 @@ export class MolstarEngine implements MolecularViewer {
     this.surfaceBindings.clear();
     this.surfaceRefs.clear();
     this.surfaceMeshEntries.clear();
+    this.inheritedSurfaceRefs.clear();
+    this.movementCueRefs.clear();
+    this.renderedAtomReferences.clear();
+    this.surfaceRenderedAtoms.clear();
+    this.previewRenderedAtoms.clear();
+    this.previewTargetIds.clear();
+    this.mountTarget = null;
     this.clickSubscription?.unsubscribe();
     this.cameraSubscription?.unsubscribe();
     this.clickSubscription = undefined;
@@ -597,6 +705,13 @@ export class MolstarEngine implements MolecularViewer {
       ),
     });
     this.indexModels(structure.entryId, molstarStructure, structure.atomIds);
+    await this.addRepresentations(structure, structureProperties.ref, molstarStructure);
+    await this.prepareSurfaces(structure.entryId);
+  }
+
+  private async addRepresentations(structure: ViewerStructure, structureRef: string, molstarStructure: Structure, onlySurfaces = false): Promise<void> {
+    const plugin = this.plugin;
+    if (!plugin) return;
     const isolatedIds =
       this.isolation === null
         ? null
@@ -606,7 +721,7 @@ export class MolstarEngine implements MolecularViewer {
               .map((reference) => reference.atom_id),
           );
     const localHydrogens = structure.settings.selection_nonpolar_hydrogens.length > 0;
-    const nonpolarHydrogens = localHydrogens ? new Set<number>() : undefined;
+    const nonpolarHydrogens = new Set<number>();
     // Classify before filtering: a selected O-H must not lose its polar neighbour.
     // Only the disposable Mol* projection owns connectivity-based display polarity.
     if (nonpolarHydrogens) {
@@ -623,7 +738,21 @@ export class MolstarEngine implements MolecularViewer {
       }
     }
     const colorLayers = selectionColorLayers(structure.settings.selection_colors, structure.normalized.atoms);
-    for (const layer of representationLayers(structure, isolatedIds, nonpolarHydrogens)) {
+    const layers = representationLayers(structure, isolatedIds, nonpolarHydrogens);
+    if (!onlySurfaces) {
+      const hidden = new Set(structure.settings.selection_hidden_atoms);
+      const visible = [...new Set(layers.filter(layer => layer.opacity > 0).flatMap(layer => layer.atomIds))].filter(id => !hidden.has(id));
+      this.renderedAtomReferences.set(structure.entryId, visible.map(atom_id => ({ structure_id: structure.entryId, atom_id })));
+    }
+    if (this.coordinatePreviews.has(structure.entryId) && !onlySurfaces) {
+      const visible = new Set(this.previewRenderedAtoms.get(structure.entryId)?.map(atom => atom.atom_id) ?? []);
+      const hidden = new Set(structure.settings.selection_hidden_atoms);
+      layers.push({ id: "movement-preview", style: "space-filling", colorBy: "element", customColor: "#C94F2D", opacity: 1, exactTarget: true,
+        atomIds: [...(this.previewTargetIds.get(structure.entryId) ?? [])].filter(id => visible.has(id) && !hidden.has(id)) });
+    }
+    for (const layer of layers) {
+      if (onlySurfaces && layer.style !== "surface") continue;
+      if (this.coordinatePreviews.has(structure.entryId) && layer.style === "surface") continue;
       const loci = this.lociFor(
         layer.atomIds.map((atomId) => ({
           structure_id: structure.entryId,
@@ -632,7 +761,7 @@ export class MolstarEngine implements MolecularViewer {
       );
       if (!loci) continue;
       const component = await plugin.builders.structure.tryCreateComponent(
-        structureProperties,
+        structureRef,
         {
           type: {
             name: "bundle",
@@ -644,6 +773,12 @@ export class MolstarEngine implements MolecularViewer {
         `${layer.id}-${structure.entryId}`,
       );
       if (!component) continue;
+      if (layer.style === "surface") {
+        const refs = this.inheritedSurfaceRefs.get(structure.entryId) ?? [];
+        refs.push(component.ref);
+        this.inheritedSurfaceRefs.set(structure.entryId, refs);
+      }
+      if (layer.id === "movement-preview") this.movementCueRefs.set(structure.entryId, component.ref);
       const profile = molstarRepresentationProfile(layer.style, {
         opacity: layer.opacity,
         // The full-structure mask already enforces master and local preferences.
@@ -654,7 +789,7 @@ export class MolstarEngine implements MolecularViewer {
         component,
         {
           type: profile.type,
-          typeParams: profile.typeParams,
+          typeParams: layer.id === "movement-preview" ? { ...profile.typeParams, ...movementCueParams } : profile.typeParams,
           color: this.colorTheme(layer.colorBy),
           colorParams:
             layer.colorBy === "custom"
@@ -682,7 +817,35 @@ export class MolstarEngine implements MolecularViewer {
             { layers: colors }).commit();
       }
     }
-    await this.prepareSurfaces(structure.entryId);
+  }
+
+  private async addMovementCue(source: ViewerStructure, loaded: LoadedStructure) {
+    const plugin = this.plugin;
+    if (!plugin) return;
+    const visible = new Set(this.previewRenderedAtoms.get(source.entryId)?.map(atom => atom.atom_id) ?? []);
+    const hidden = new Set(source.settings.selection_hidden_atoms);
+    const loci = this.lociFor([...(this.previewTargetIds.get(source.entryId) ?? [])]
+      .filter(id => visible.has(id) && !hidden.has(id))
+      .map(atom_id => ({ structure_id: source.entryId, atom_id })));
+    if (!loci) return;
+    const component = await plugin.builders.structure.tryCreateComponent(loaded.structureRef, {
+      type: { name: "bundle", params: StructureElement.Bundle.fromLoci(loci) }, nullIfEmpty: true, label: "Selected atoms: movement preview",
+    }, `movement-preview-${source.entryId}`);
+    if (!component) return;
+    this.movementCueRefs.set(source.entryId, component.ref);
+    await plugin.builders.structure.representation.addRepresentation(component, { type: "spacefill", typeParams: movementCueParams, color: "element-symbol" });
+    this.applySelection();
+    this.commitScene(this.getCamera());
+  }
+
+  private async restorePreviewRepresentations(source: ViewerStructure, loaded: LoadedStructure) {
+    const cue = this.movementCueRefs.get(source.entryId);
+    this.movementCueRefs.delete(source.entryId);
+    this.previewRenderedAtoms.delete(source.entryId);
+    this.previewTargetIds.delete(source.entryId);
+    if (cue) await this.plugin?.state.data.build().delete(cue).commit();
+    if (!this.inheritedSurfaceRefs.has(source.entryId)) await this.addRepresentations(source, loaded.structureRef, loaded.structure, true);
+    this.commitScene(this.getCamera());
   }
 
   private async detachSurface(entryId: string, channel?: SurfaceChannel) {
@@ -691,6 +854,7 @@ export class MolstarEngine implements MolecularViewer {
     }
     const key = surfaceKey(entryId, channel);
     this.surfaceBindings.delete(key);
+    this.surfaceRenderedAtoms.delete(key);
     const ref = this.surfaceRefs.get(key);
     this.surfaceRefs.delete(key);
     this.surfaceMeshEntries.delete(key);
@@ -751,7 +915,7 @@ export class MolstarEngine implements MolecularViewer {
     this.surfaceBindings.set(key, binding);
     const notify = (geometry?: SurfaceGeometry) => {
       // Worker completion may arrive during a rebuild. Only the latest component may attach.
-      this.syncQueue = this.syncQueue.then(async () => {
+      this.syncQueue = this.syncQueue.catch(() => undefined).then(async () => {
         if (this.surfaceBindings.get(key) !== binding || !this.plugin) return;
         const camera = this.getCamera();
         try {
@@ -774,9 +938,17 @@ export class MolstarEngine implements MolecularViewer {
             if (colors.length) await plugin.state.data.build().to(repr)
               .apply(StateTransforms.Representation.OverpaintStructureRepresentation3DFromBundle, { layers: colors }).commit();
           }
+          const hidden = new Set(source.settings.selection_hidden_atoms);
+          const displayedIds = new Set<number>();
+          if (displayed) {
+            for (let i = 0; i < displayed.groups.length; i++) displayedIds.add(displayed.atomIds[displayed.groups[i]]);
+          } else if (channel === "fragment") ids.forEach(id => displayedIds.add(id));
+          this.surfaceRenderedAtoms.set(key, [...displayedIds].filter(id => visible.has(id) && !hidden.has(id))
+            .map(atom_id => ({ structure_id: entryId, atom_id })));
           this.applySelection();
           this.commitScene(camera);
         } catch (error) {
+          this.surfaceRenderedAtoms.delete(key);
           detachSurfaceGeometry(component.obj!.data);
           this.surfaces.fail(entryId, channel, error instanceof Error ? error.message : "Surface upload failed.");
           try {

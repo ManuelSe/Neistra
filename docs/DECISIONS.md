@@ -2517,3 +2517,229 @@ Implications: no API, schema, migration or archive change. Success and conflict
 regressions hold a real membership request, switch workspace, and then release it
 on desktop and Pixel 7. The original project's command/conflict semantics remain
 valid while the other project's revision, notice and filter-control focus stay unchanged.
+
+## D-075 — Atomic rigid transforms of captured canonical selections
+
+Date: 2026-10-09. Status: accepted by explicit approval of the issue #4 plan;
+implementation not started.
+
+Decision:
+
+Extend the numerical coordinate workflow with one additive revisioned selection
+transform endpoint. Its captured canonical selection may span entries. Accept a
+finite proper rotation matrix and affine world-space translation; validate all
+references, same-project ownership, locks, coordinates and matrix constraints
+before publication. Require orthonormality and determinant +1 within a documented
+tolerance; reject scale, shear, reflection and nonfinite values rather than
+silently repairing them. Never silently narrow selection to the inspector's entry
+or rendered atoms.
+
+Apply the same matrix to selected stable atom IDs in every conformer. Reuse
+`coordinates.transform`, existing `entry.coordinates` forward/inverse actions,
+immutable before/after normalized artifacts, ProjectRead and coordinate patches.
+One Apply is one atomic revision/history operation. Identity or coordinate-no-op
+movement preserves history and redo. Keep the current numerical endpoint and its
+X-then-Y-then-Z Euler semantics unchanged.
+
+The browser derives every preview from captured original float64 coordinates:
+`x′ = c + t + R(x − c)`. Here `c` is the initial selected-coordinate arithmetic
+centroid and `t` is accumulated translation. Further rotation uses `c + t`, so a
+translated ligand rotates about its moved center rather than orbiting the old
+world location. The affine command offset is `b = c + t − R c`. Camera orientation
+maps gestures into world transforms but never defines the molecular centroid.
+
+Rationale:
+
+Canonical selections and existing history already support multiple entries.
+Sequential single-entry requests would risk partial commits and multiple undo
+steps. A validated matrix carries composed gestures without Euler decomposition
+or gimbal singularities, while retaining the established persisted action shape.
+Deriving previews from originals avoids coordinate drift and exact cancellation
+does not depend on inverse floating-point arithmetic.
+
+Consequences:
+
+- The approved contract is [issue #4 interactive selection transforms](plans/issue-4-interactive-selection-transform.md).
+- This extends D-025's transport without changing numerical API composition,
+  all-conformer semantics or backend molecular authority under D-002.
+- No new history action vocabulary, database migration or persisted session field
+  is planned. Alembic remains 0013; API/project/archive/normalized majors remain 1.
+- Unselected coordinates, stable IDs, connectivity, source warnings and originals
+  remain unchanged. Partial covalent movement may distort boundary bonds and create
+  clashes; explain unconstrained editing without inferring chemical safety from
+  missing connectivity. No docking, preparation or conformation claim is added.
+- D-035/D-042 archives remain current scientific snapshots without command history.
+  Verify preceding 0.10.0 readers before claiming retained-history rollback safety.
+- The planned additive minor release is 0.11.0, subject to availability and gates.
+  Approval/persistence does not mean implementation, validation or release occurred.
+
+## D-076 — Application-owned movement sessions temporarily own viewer gestures
+
+Date: 2026-10-09. Status: accepted by explicit approval of the issue #4 plan;
+implementation not started.
+
+Decision:
+
+Own Move selection as transient application state capturing project, revision,
+canonical references, source artifacts, original coordinates and centroid. Keep
+TanStack Query as the authoritative server cache and Mol* as a disposable renderer.
+Preview snapshots are temporary operation inputs, not a second durable molecular
+store. Only Apply submits; drag completion does not commit. Cancel/Escape restores
+captured committed coordinates without changing artifacts, revision or history.
+
+While active, primary dragging rotates and normal secondary/Ctrl-primary pan
+gestures translate in the screen plane. An explicit Depth mode supplies movement
+along the viewing direction. Compact Rotate/Translate/Depth controls and bounded
+keyboard/touch step actions use the same session transaction. Keep numerical
+controls but prevent competing transforms during a preview. Suppress viewer picking,
+empty-space selection clearing, focus, fit, orbit, pan, roll, navigation and camera
+inertia; allow permitted zoom and refresh gesture sensitivity between drags.
+Restore normal D-044 interaction ownership on exit.
+
+Display a persistent viewer banner with target count, gesture help and Apply/Cancel;
+preserve visible selected highlighting and appropriate cursor. Hidden selected
+atoms still belong to the target and are counted. Require inspectable selected
+material or explain what must be shown; never automatically reveal hidden entries
+or change durable visibility. Selected-atom preview cues must honor visibility
+bounds when affected surfaces pause.
+
+Selection replacement, actual inspector-task changes, project changes and
+conflicting operations discard an unapplied session before proceeding, with clear
+feedback. Collapsing the inspector or closing its mobile drawer alone retains the
+session so canvas interaction remains possible. Reload discards the draft. Capture
+and generation guards prevent obsolete loads/frames from resurrecting it. Bound
+renderer preview scheduling to one active update plus its latest pending state.
+
+Suspend affected surfaces and dependent pocket surfaces while coordinates preview;
+restore/regenerate from correct state on cancel/commit under D-060–D-062/D-070.
+Measurement previews update correctly or are visibly suspended until restoration.
+Never show obsolete geometry as current. No molecular refetch or command per
+pointer event; immutable submitted job inputs remain unchanged.
+
+Prevent duplicate Apply/conflicting actions during submission. Revision conflict
+invalidates preview and refreshes the captured project. Reconcile ambiguous transport
+failures before retry without automatically replaying against a refreshed revision.
+Late responses, feedback and focus retain D-074's captured project ownership.
+
+Rationale:
+
+Temporary gesture ownership makes coordinate editing visibly distinct from camera
+navigation. A persistent banner prevents unnoticed mode state and lets mobile
+users close the drawer without losing their operation. Automatic discard avoids
+retargeting or silently committing a pose when switching tasks. Existing coordinate
+projection and dependent-geometry rules retain scientific and persistence ownership.
+
+Consequences:
+
+- This explicitly supersedes D-044 gesture ownership only during Move selection;
+  normal picking/focus/navigation behavior is unchanged outside the mode.
+- No durable viewer preference, local-storage draft, scene session or job type is
+  introduced. Uncommitted poses never enter export, archives or job inputs.
+- Qualify real WebGL rotation/pan/depth, both projection modes, exact cancellation,
+  multi-drag single Apply, context failures, keyboard/touch, themes, real zoom,
+  dependent geometry and published host performance gates before release.
+- Pivot marker, extra toolbar launcher, Euler readout and generic gizmo framework
+  remain optional/deferred; no speculative follow-up issues are required.
+- Full scope, checkpoint commands and release blockers live in the approved
+  [feature plan](plans/issue-4-interactive-selection-transform.md). Implementation
+  requires a subsequent instruction such as `/goal`.
+
+## D-077 — Proper-rotation validation and coordinate no-op tolerance
+
+Date: 2026-10-09. Status: implemented in issue #4 M1/C1.
+
+Validate supplied matrices in the core rigid-transform boundary with float64
+orthonormality and determinant +1, absolute tolerance `1e-10` and no relative
+tolerance. Reject rather than normalize invalid rotations. Also validate resulting
+coordinates before publication. The numerical and superposition callers continue
+to supply proper rotations through this common boundary.
+
+The additive selection endpoint preflights every entry and prepares all conformers
+before publishing any result. Coordinate movement no greater than `1e-9` angstrom
+on every axis of every conformer is a no-op. Return unchanged project state and
+preserve timestamps, history, redo and artifacts. Keep the numerical endpoint's
+existing no-op rejection unchanged. Entries whose coordinates are unchanged need
+no patch/artifact, while the history selection records the complete captured target.
+
+This supplies reproducible validation for D-075 without new persisted state,
+migration or action vocabulary. The threshold follows the existing documented
+coordinate comparison precision in D-025; it is not a geometry repair policy.
+
+## D-078 — Viewer visibility and bounded movement rendering
+
+Date: 2026-10-09. Status: implemented in issue #4 M2/C3.
+
+Movement eligibility reads the adapter's live inspectable atom references rather
+than approximating visibility in React. The viewer projection owns hydrogen
+display classification, component/isolation bounds and rendered surface groups;
+these references affect availability/hidden counts only. Scientific targets remain
+the complete captured canonical selection. A temporary getter above the drawer
+lifetime avoids stale visibility snapshots after asynchronous surface completion.
+
+Keep one active renderer operation and the latest pending multi-entry preview
+batch. Complete each active non-cancelled batch so continuous movement does not
+starve later entries. Commit drops pending previews before authoritative patches;
+Cancel restores captured base coordinates after active work finishes. Dispose
+drops pending frames and restores original camera bindings before releasing the
+engine. Late API cache updates cannot replace newer project revisions.
+Every renderer caller still observes its own failure; subsequent queued recovery
+commands handle a rejected predecessor so cancellation can restore the model.
+
+Suspend inherited surfaces, fragment meshes and dependent pockets before preview
+model updates. Capture inspectable bounds before suspension and add transient
+selected-atom cues without revealing hidden material or altering durable styles.
+Measurements pause explicitly instead of displaying stale preview values. Surface
+restoration/regeneration is separate from coordinate cancellation latency. These
+choices implement D-075/D-076 without a persisted session or generic manipulator.
+
+## D-079 — Bounded transient movement cues
+
+Date: 2026-10-09. Status: implemented during issue #4 C4 qualification.
+
+Use small, detail-zero mesh spheres for transient selected-atom movement cues,
+including cues recreated during a visibility/isolation rebuild. These disposable
+cues preserve captured inspectable bounds and do not change saved representations,
+scientific coordinates, visibility masks or the matrix transaction.
+
+Native CPU profiling found first-use sphere-impostor shader finalization stalled
+an otherwise ordinary cartoon view for about one second. Reusing the ordinary
+mesh rendering path reduces the qualified first preview to 91 ms without moving
+that work outside the measured interval or weakening the accepted 500 ms response
+and 750 ms task budgets. Subsequent preview and exact coordinate cancellation are
+also qualified. Surface restoration/regeneration remains separately reported.
+
+## D-080 — Retain transient movement camera across renderer remounts
+
+Date: 2026-10-09. Status: implemented during issue #4 C4 qualification.
+
+Keep a copied camera snapshot with the application-owned movement workflow for
+its lifetime. Responsive layout can dispose and remount the viewer while the
+captured scientific target and pose remain active. Ignore the new renderer's
+initial camera notifications until its first scene is synchronized, restore the
+held snapshot, and reacquire movement bindings. Clear the snapshot on session
+exit/new capture; it is neither persisted nor authoritative molecular state.
+Only the renderer that initiated synchronization may complete that lifecycle.
+
+The lazy adapter also releases an engine whose asynchronous native mount finishes
+after disposal, without attaching late listeners. Native desktop-to-compact and
+compact-to-desktop regressions verify unchanged preview coordinates and camera,
+suppressed navigation, exact Cancel and restored normal bindings.
+
+## D-081 — Numerical preview request ownership
+
+Date: 2026-10-09. Status: implemented during issue #4 C5 review.
+
+Keep a transient generation for numerical preview loads in the application.
+Latest requests supersede older ones. Clearing preview, starting movement, changing
+project/revision/selection or submitting a conflicting project operation invalidates
+pending work. Check the captured project/revision/selection and movement phase
+before handing a loaded numerical pose to the renderer; suppress superseded
+failures too. The clear callback is stable so rerenders cannot inadvertently clear
+a valid numerical preview through the Transform panel's cleanup. Active numerical
+failures remain visible in that panel. This guards the existing numerical workflow
+without persisting draft state or changing its API/commit semantics.
+
+An App-level delayed-load regression fails against the preceding source because
+a cleared numerical pose reaches the renderer after movement starts. It passes
+with generation invalidation and also verifies a subsequent valid numerical
+preview still works while authoritative cached coordinates stay unchanged.

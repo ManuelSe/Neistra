@@ -6,9 +6,11 @@ import pytest
 from molweave_core.molecular import Atom, Conformer, NormalizedStructureV1, SourceFacts
 from molweave_core.transforms import (
     InvalidTransformError,
+    apply_rigid_transform,
     centroid,
     euler_rotation_matrix,
     transform_structure,
+    validate_rigid_rotation,
 )
 
 
@@ -111,3 +113,36 @@ def test_invalid_transforms_are_rejected(
             rotation_degrees=rotation,
             pivot=pivot,
         )
+
+
+@pytest.mark.parametrize(
+    "rotation",
+    [
+        [[2, 0, 0], [0, 1, 0], [0, 0, 1]],
+        [[1, 0.1, 0], [0, 1, 0], [0, 0, 1]],
+        [[-1, 0, 0], [0, 1, 0], [0, 0, 1]],
+        [[math.nan, 0, 0], [0, 1, 0], [0, 0, 1]],
+        [[1, 0], [0, 1]],
+    ],
+)
+def test_submitted_matrix_rejects_scale_shear_reflection_and_invalid_shape(
+    rotation: list[list[float]],
+) -> None:
+    with pytest.raises(InvalidTransformError):
+        validate_rigid_rotation(rotation)
+
+
+def test_rigid_matrix_preserves_selected_distances_and_stable_id_gaps() -> None:
+    original = structure()
+    original.atoms[2] = original.atoms[2].model_copy(update={"id": 7})
+    original.atoms[3] = original.atoms[3].model_copy(update={"id": 9})
+    rotation = [[0, -1, 0], [1, 0, 0], [0, 0, 1]]
+    changed = apply_rigid_transform(original, [1, 7], rotation, [3, -2, 0.25])
+    for before, after in zip(original.conformers, changed.conformers, strict=True):
+        assert math.dist(after.coordinates[0], after.coordinates[2]) == pytest.approx(
+            math.dist(before.coordinates[0], before.coordinates[2]), abs=1e-12
+        )
+        assert after.coordinates[1] == before.coordinates[1]
+        assert after.coordinates[3] == before.coordinates[3]
+    assert [atom.id for atom in changed.atoms] == [1, 2, 7, 9]
+    assert changed.atoms[0].coordinates == (3, -2, 0.25)

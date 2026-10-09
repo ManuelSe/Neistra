@@ -455,6 +455,14 @@ export interface StructureProjection {
 }
 
 export type Point3D = [number, number, number];
+export type RotationMatrix = [Point3D, Point3D, Point3D];
+
+export interface SelectionTransform {
+  selection: Selection;
+  rotation_matrix: RotationMatrix;
+  /** Affine world offset: x' = R x + translation. */
+  translation: Point3D;
+}
 
 export interface CoordinatePatch {
   entry_id: string;

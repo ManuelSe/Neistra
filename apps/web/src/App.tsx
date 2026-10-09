@@ -2,7 +2,7 @@ import { expandByDistance } from "./selection/expansion";
 import * as Tooltip from "@radix-ui/react-tooltip";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { ChevronLeft, ChevronRight, History as HistoryIcon } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   Panel,
   PanelGroup,
@@ -12,6 +12,7 @@ import {
 import { ApiError, molecularApi, projectApi } from "./api/client";
 import type {
   Entry,
+  AtomReference,
   CameraState,
   CoordinatePatch,
   CoordinateTransform,
@@ -63,6 +64,7 @@ import {
 import { useSelectionStore } from "./store/selection";
 import { useWorkspaceStore } from "./store/workspace";
 import { applyTheme } from "./theme";
+import { useMovementSession } from "./coordinates/useMovementSession";
 
 type EntryDialog = { mode: "rename" | "delete"; entry: Entry } | null;
 
@@ -111,6 +113,11 @@ export default function App() {
   const [selectionBusy, setSelectionBusy] = useState(false);
   const [coordinatePreview, setCoordinatePreview] =
     useState<CoordinatePatch | null>(null);
+  const numericalPreviewGeneration = useRef(0);
+  const clearCoordinatePreview = useCallback(() => {
+    numericalPreviewGeneration.current++;
+    setCoordinatePreview(null);
+  }, []);
   const {
     selection,
     pickingGranularity,
@@ -126,6 +133,7 @@ export default function App() {
   const lowerRef = useRef<ImperativePanelHandle>(null);
   const mobilePanelRef = useRef<HTMLElement>(null);
   const mobilePanelTriggerRef = useRef<HTMLElement | null>(null);
+  const renderedMovementAtoms = useRef<() => AtomReference[]>(() => []);
 
   const openMobilePanel = (panel: "projects" | "inspector" | "history") => {
     mobilePanelTriggerRef.current =
@@ -198,12 +206,13 @@ export default function App() {
 
   useEffect(() => {
     if (project?.has_uncheckpointed_changes && !editedThisSession) {
-      setNotice({ kind: "success", text: "Recovered locally stored changes." });
+      setNotice(current => current ?? { kind: "success", text: "Recovered locally stored changes." });
     }
   }, [editedThisSession, project?.has_uncheckpointed_changes, project?.id]);
 
   const updateProjectCache = (next: Project) => {
     const previous = queryClient.getQueryData<Project>(["project", next.id]);
+    if (previous && previous.revision > next.revision) return;
     for (const patch of next.structure_patches ?? []) {
       const previousEntry = previous?.entries.find(
         (entry) => entry.id === patch.entry_id,
@@ -250,9 +259,59 @@ export default function App() {
     void queryClient.invalidateQueries({ queryKey: ["projects"] });
   };
 
+  const { session: movementSession, workflow: movement } = useMovementSession({
+    context: () => ({
+      project: queryClient.getQueryData<Project>(["project", useWorkspaceStore.getState().activeProjectId]),
+      selection: useSelectionStore.getState().selection,
+    }),
+    load: async (captured, ids) => new Map(await Promise.all(ids.map(async id => {
+      const entry = captured.entries.find(item => item.id === id);
+      if (!entry?.current_artifact_id) throw new Error("A selected structure is unavailable.");
+      const projection = await queryClient.fetchQuery({
+        queryKey: ["structure", captured.id, id, entry.current_artifact_id],
+        queryFn: () => molecularApi.structure(captured.id, id),
+        staleTime: Number.POSITIVE_INFINITY,
+      });
+      return [id, projection] as const;
+    }))),
+    rendered: () => renderedMovementAtoms.current(),
+    commit: projectApi.transformSelection,
+    refresh: projectApi.get,
+    accept: next => {
+      updateProjectCache(next);
+      if (next.id === useWorkspaceStore.getState().activeProjectId && next.structure_patches?.length) setEditedThisSession(true);
+    },
+    notice: (id, text, error) => {
+      if (id === useWorkspaceStore.getState().activeProjectId) setNotice({ kind: error ? "error" : "success", text });
+    },
+  });
+  const movementBlocked = ["submitting", "reconciling", "uncertain"].includes(movement.state.phase);
+
+  useEffect(() => useSelectionStore.subscribe(() => movementSession.guardContext()), [movementSession]);
+  useEffect(() => useWorkspaceStore.subscribe((next, previous) => {
+    if (next.activeProjectId !== previous.activeProjectId) {
+      const phase = movementSession.snapshot().phase;
+      movementSession.cancel(undefined, true);
+      renderedMovementAtoms.current = () => [];
+      clearCoordinatePreview();
+      setNotice(phase === "active" || phase === "loading"
+        ? { kind: "success", text: "Unapplied movement was discarded after changing projects." }
+        : ["submitting", "reconciling", "uncertain"].includes(phase)
+          ? { kind: "success", text: "Movement for the previous project may be pending. Reopen it to check its coordinates and history." }
+          : null);
+    }
+  }), [movementSession, clearCoordinatePreview]);
+  useEffect(() => { movementSession.guardContext(); }, [movementSession, project, selection]);
+  useEffect(() => clearCoordinatePreview(), [clearCoordinatePreview, project?.id, project?.revision, selection]);
+
   const projectMutation = useMutation({
     mutationFn: (operation: () => Promise<Project>) => operation(),
-    onMutate: () => ({ projectId: useWorkspaceStore.getState().activeProjectId }),
+    onMutate: () => {
+      if (["submitting", "reconciling", "uncertain"].includes(movementSession.snapshot().phase)) throw new ApiError(409, "movement_busy", "Finish or reconcile the current movement before changing the project.");
+      clearCoordinatePreview();
+      if (movementSession.snapshot().phase !== "idle") movementSession.cancel("Move selection was discarded before changing the project.");
+      return { projectId: useWorkspaceStore.getState().activeProjectId };
+    },
     onSuccess: (next) => {
       updateProjectCache(next);
       if (useWorkspaceStore.getState().activeProjectId !== next.id) return;
@@ -283,7 +342,7 @@ export default function App() {
     onError: (error) => setNotice({ kind: "error", text: errorMessage(error) }),
   });
 
-  const busy = projectMutation.isPending || createMutation.isPending;
+  const busy = projectMutation.isPending || createMutation.isPending || movementBlocked;
 
   const moveMembership = (scope: GroupScope, groupId: string | null) => {
     if (!project || project.id !== scope.projectId || projectMutation.isPending) return;
@@ -412,6 +471,10 @@ export default function App() {
     );
 
   const inspectorSelectionProps = {
+    movement,
+    onInspectorTaskChange: () => {
+      if (movementSession.snapshot().phase === "active" || movementSession.snapshot().phase === "loading") movementSession.cancel("Move selection was discarded after changing inspector tasks.");
+    },
     selection,
     pickingGranularity,
     selectionBusy,
@@ -525,22 +588,34 @@ export default function App() {
       }
     },
     onPreviewTransform: async (transform: CoordinateTransform) => {
-      const structures = await loadStructures([transform.entry_id]);
+      if (!project || movementSession.snapshot().phase !== "idle") return;
+      const generation = ++numericalPreviewGeneration.current;
+      let structures: StructureMap;
+      try {
+        structures = await loadStructures([transform.entry_id]);
+      } catch (error) {
+        if (generation !== numericalPreviewGeneration.current || movementSession.snapshot().phase !== "idle") return;
+        throw error;
+      }
+      const currentProject = queryClient.getQueryData<Project>(["project", useWorkspaceStore.getState().activeProjectId]);
+      if (generation !== numericalPreviewGeneration.current || movementSession.snapshot().phase !== "idle"
+        || currentProject?.id !== project.id || currentProject.revision !== project.revision
+        || JSON.stringify(transform.selection.atoms) !== JSON.stringify(useSelectionStore.getState().selection.atoms)) return;
       const structure = structures.get(transform.entry_id);
       if (!structure) throw new Error("The target structure is not loaded.");
       setCoordinatePreview(previewTransform(structure, transform));
     },
-    onClearTransformPreview: () => setCoordinatePreview(null),
+    onClearTransformPreview: clearCoordinatePreview,
     onTransform: async (transform: CoordinateTransform) => {
       if (!project) return;
-      setCoordinatePreview(null);
+      clearCoordinatePreview();
       await projectMutation.mutateAsync(() =>
         projectApi.transform(project, transform),
       );
     },
     onSuperpose: async (payload: SuperpositionRequest) => {
       if (!project) return null;
-      setCoordinatePreview(null);
+      clearCoordinatePreview();
       try {
         const result = await projectApi.superpose(project, payload);
         updateProjectCache(result.project);
@@ -664,6 +739,8 @@ export default function App() {
   const viewerActions = {
     busy,
     coordinatePreview,
+    movement,
+    onRenderedMovementAtoms: (read: () => AtomReference[]) => { renderedMovementAtoms.current = read; },
     onUpdateSettings: async (
       entryId: string,
       settings: Entry["viewer_settings"],

@@ -1,5 +1,6 @@
 import { AlignCenter, Move3d, Rotate3d } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
+import type { MovementWorkflow } from "../coordinates/useMovementSession";
 import type {
   CoordinateTransform,
   PivotMode,
@@ -15,6 +16,7 @@ interface TransformPanelProps {
   project: Project;
   selection: Selection;
   busy: boolean;
+  movement?: MovementWorkflow;
   onPreview: (transform: CoordinateTransform) => Promise<void>;
   onClearPreview: () => void;
   onTransform: (transform: CoordinateTransform) => Promise<void>;
@@ -68,12 +70,14 @@ function VectorInput({
 export function TransformPanel({
   project,
   selection,
-  busy,
+  busy: projectBusy,
+  movement,
   onPreview,
   onClearPreview,
   onTransform,
   onSuperpose,
 }: TransformPanelProps) {
+  const busy = projectBusy || Boolean(movement && movement.state.phase !== "idle");
   const [entryId, setEntryId] = useState(project.entries[0]?.id ?? "");
   const [scope, setScope] = useState<TransformScope>("structure");
   const [translation, setTranslation] = useState(["0", "0", "0"]);
@@ -165,6 +169,15 @@ export function TransformPanel({
 
   return (
     <div className="transform-panel">
+      {movement ? <section className="coordinate-section">
+        <h3>Move selection</h3>
+        <p className="coordinate-context">Move the complete current selection in the viewer. Hidden selected atoms remain targets. Apply once or cancel the entire preview.</p>
+        <button type="button" className="primary-button" disabled={projectBusy || movement.state.phase !== "idle"}
+          onClick={() => { onClearPreview(); movement.start(); }}>Move selection</button>
+        {movement.state.phase !== "idle" ? <p role="status">{movement.state.phase === "loading" ? "Capturing selected coordinates…" : "Movement controls are on the viewer."}</p> : null}
+      </section> : null}
+      <fieldset className="numerical-transform-controls" disabled={Boolean(movement && movement.state.phase !== "idle")}>
+      <legend className="sr-only">Numerical transforms and superposition</legend>
       <section className="coordinate-section">
         <div className="section-title">
           <Move3d size={16} />
@@ -319,7 +332,8 @@ export function TransformPanel({
               const value = Number(event.target.value);
               setGestureValue(value);
               if (value === 0) onClearPreview();
-              else void onPreview(gestureTransform(value));
+              else void onPreview(gestureTransform(value)).catch((error: unknown) =>
+                setLocalError(error instanceof Error ? error.message : "Preview failed."));
             }}
             onPointerUp={() => {
               if (gestureValue === 0) return;
@@ -423,6 +437,7 @@ export function TransformPanel({
           </dl>
         ) : null}
       </section>
+      </fieldset>
       {localError ? (
         <p className="inline-error" role="alert">
           {localError}

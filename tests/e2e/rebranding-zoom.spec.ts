@@ -1,4 +1,5 @@
 import type { Project } from "../../apps/web/src/api/types";
+import AxeBuilder from "@axe-core/playwright";
 import { chromium, expect, test, type Page, type TestInfo, type Worker } from "@playwright/test";
 import { mkdtemp, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
@@ -95,6 +96,39 @@ test("keeps actions and dialogs reachable at real 100% and 200% browser zoom", a
         await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded");
         await expectBoundedActions(page);
         await captureZoomPage(page, info, `${theme}-${factor * 100}-workspace.png`);
+        if (factor === 2) await page.getByRole("button", { name: "Inspector", exact: true }).click();
+        await page.getByRole("tab", { name: "selection", exact: true }).click();
+        await page.getByLabel("Select by").selectOption("structure");
+        await page.getByLabel("Value", { exact: true }).fill(imported.entries[0].id);
+        await page.getByRole("button", { name: "Apply query", exact: true }).click();
+        await page.getByRole("tab", { name: "transform", exact: true }).click();
+        await page.getByRole("button", { name: "Move selection", exact: true }).focus();
+        await page.keyboard.press("Enter");
+        const movement = page.getByRole("region", { name: "Move selection controls" });
+        await expect(movement).toBeVisible();
+        if (factor === 2) await page.getByRole("button", { name: "Close panel", exact: true }).click({ position: { x: 2, y: 100 } });
+        expect((await new AxeBuilder({ page }).include(".movement-banner").include(".movement-pointer-surface")
+          .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"]).analyze()).violations).toEqual([]);
+        const statusBox = (await page.locator(".viewer-status").boundingBox())!;
+        const movementBox = (await movement.boundingBox())!;
+        expect(movementBox.y).toBeGreaterThan(statusBox.y + statusBox.height);
+        for (const control of await movement.locator("button, input").all()) {
+          await control.scrollIntoViewIfNeeded();
+          const box = (await control.boundingBox())!;
+          const viewport = await page.evaluate(() => ({ width: innerWidth, height: innerHeight }));
+          expect(box.x).toBeGreaterThanOrEqual(0); expect(box.x + box.width).toBeLessThanOrEqual(viewport.width + 1);
+          expect(box.y).toBeGreaterThanOrEqual(0); expect(box.y + box.height).toBeLessThanOrEqual(viewport.height + 1);
+          expect(box.height).toBeGreaterThanOrEqual(44);
+        }
+        await movement.getByRole("button", { name: "Translate", exact: true }).focus(); await page.keyboard.press("Enter");
+        await page.getByRole("group", { name: "Move selection canvas" }).focus(); await page.keyboard.press("ArrowRight");
+        await movement.getByRole("button", { name: "Depth", exact: true }).click();
+        await movement.getByRole("button", { name: "Step away" }).click();
+        expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+        await movement.evaluate(element => { element.scrollTop = 0; });
+        await captureZoomPage(page, info, `${theme}-${factor * 100}-interactive-movement.png`);
+        await page.keyboard.press("Escape"); await expect(movement).toBeHidden();
+        await expect(page.getByRole("button", { name: factor === 2 ? "Fit all visible" : "Move selection", exact: true })).toBeFocused();
         const settings = page.locator('.msp-viewport-controls button[title="Settings / Controls Info"]');
         await settings.click();
         const popup = page.locator(".msp-viewport-controls-panel");
@@ -148,6 +182,10 @@ test("keeps actions and dialogs reachable at real 100% and 200% browser zoom", a
         await page.keyboard.press("Enter");
         await page.getByRole("menuitem", { name: "Remove from group", exact: true }).click();
         await expect(page.locator('.entry-group[data-group-id="ungrouped"] .entry-row')).toBeVisible();
+        // Membership relocates/remounts the row. Escape belongs to its drawer
+        // only after the captured action's scheduled focus restoration completes.
+        await expect(page.getByRole("menu")).toBeHidden();
+        await expect(page.locator(".entry-menu-trigger")).toBeFocused();
 
         if (await page.locator(".mobile-panel").isVisible()) {
           await page.keyboard.press("Escape");

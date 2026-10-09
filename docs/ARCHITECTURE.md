@@ -281,3 +281,32 @@ reconciliation. Undo restores the exact prior definitions. Duplication remaps on
 self-references; archive import remaps all exported references and derives its
 checkpoint after remapping. Portable archives remain current snapshots under D-035;
 database migration covers retained command history under D-069.
+
+### Captured interactive coordinate transactions
+
+`coordinates/interactiveTransform.ts` captures copied coordinates, the complete
+canonical selection, source artifact IDs and project revision as temporary
+operation inputs. Quaternion composition produces a proper world rotation;
+previews derive from captured originals around the translated captured centroid.
+Camera-space deltas use the projection, field of view and viewport at drag start.
+The query cache and normalized molecular authority remain untouched by previews.
+
+`MovementSession` orchestrates capture, cancellation and one captured-revision
+Apply through injected load/commit/cache ports. Late responses update only their
+captured project's authority; obsolete loads cannot revive a cancelled session.
+Ambiguous responses reconcile before retry, and unsuccessful reconciliation
+enters an uncertain state that blocks new movement until a read-only refresh
+succeeds. No automatic replay against a refreshed revision occurs. Sessions are
+neither persisted nor included in archives, exports or jobs.
+
+React owns the session above the inspector/drawer lifetime. The viewer adapter
+exposes its camera projection and inspectable visibility, while pointer gestures
+produce only typed operation poses. A dedicated movement pointer surface prevents
+picking and secondary focus. The engine suspends/restores trackball bindings and
+holds a camera snapshot with explicitly permitted zoom. Renderer work is bounded
+to one active update plus the latest pending preview batch; commit/cancellation
+discards obsolete pending frames. Inherited surfaces, fragment meshes and dependent
+pockets are suspended before model updates. Temporary selected-atom cues honor
+visibility; measurements pause explicitly. Session exit restores representations
+without changing durable definitions. Older late API responses cannot replace a
+newer revision in the authority cache.

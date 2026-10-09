@@ -1,5 +1,77 @@
 # Neistra Release Notes
 
+## 0.11.0 - 2026-10-09
+
+### Highlights and gestures
+
+- Select atoms and open **Transform → Move selection**. Primary drag rotates;
+  secondary/Ctrl drag translates in the screen plane. Explicit Rotate/Translate/
+  Depth modes, sensitivity and named steps serve keyboard and touch users.
+- Capture the complete canonical selection across entries, including hidden
+  targets. Rotation uses the captured centroid carried by accumulated translation;
+  all entries/conformers receive the same proper world-space rigid transform.
+- Hold camera orientation/target during movement; wheel/named zoom remains usable.
+  Responsive viewer remounts preserve the temporary pose and held camera.
+
+### Apply, Cancel and fixes
+
+- Multiple drags create one atomic Apply and one undo/redo command. Pointer release
+  ends only the drag. Cancel/Escape restores exact captured coordinates; no-op
+  preserves revision, artifacts, timestamps, history and redo.
+- Task/selection/project changes discard unapplied movement with feedback. Closing
+  the inspector alone retains it; dialogs/drawers own their focus and Escape.
+- Conflicting/ambiguous requests block replay until captured-project reconciliation.
+  Late results cannot revive previews or leak feedback into another project.
+- Bounded first/latest rendering avoids queued stale frames. Selected-atom mesh
+  cues avoid first-use impostor shader stalls. Surfaces/pockets suspend and restore;
+  measurement values visibly pause, then recalculate from authoritative state.
+
+### API, persisted data and compatibility
+
+- Additive `POST /api/v1/projects/{project_id}/selection-transform` accepts a finite
+  proper rotation matrix, affine translation, captured selection and expected
+  revision. Reject invalid whole batches before writes; numerical endpoints remain.
+- No new migration: head remains **0013**; project/normalized/API/archive majors
+  remain **1**. Reuse existing coordinate forward/inverse action vocabulary.
+  No persisted session/draft or new job type; original uploads, connectivity,
+  unselected state and immutable submitted job inputs remain unchanged.
+- Applied state survives save/reload/API restart, molecular exports at their
+  existing format precision, and exact current-state archives. Archives omit
+  portable history. Actual **v0.10.0** reader qualification covers retained batch
+  undo/redo, transformed artifacts, save/reexport, archive import and unchanged jobs.
+  Readers predating pocket/visibility retain existing limitations; do not strip data.
+
+### Verification and review
+
+The [approved issue #4 plan](plans/issue-4-interactive-selection-transform.md)
+records exact checkpoint evidence, both projections, hidden multi-entry targets,
+lifecycle/conflict cases, light/dark scoped axe, keyboard/touch, actual 100%/200%
+Chrome zoom and inspected screenshots.
+
+Clean committed candidate `28a3ac83ac9031a0b9fb3ba5d7c894c45d471952` passes the complete README/DEVELOPMENT release gate: **398 Python, 163 frontend / 37 files, 8 supervisor and 138 browser tests / 42 intentional layout skips**, zero failed/flaky cases or configured retries (23.2 minutes). Frozen uv/pnpm installs, fresh migration through 0013, Ruff, mypy (54 files), frontend lint/typecheck, production build (3388 modules) and diff check pass.
+
+Native ordinary 1STP protein-fragment/ligand first preview **128.9/26 ms**, exact coordinate Cancel **13.6/16.8 ms**, longest task **111 ms** pass unchanged budgets (preview/Cancel <500 ms, task <750 ms). Each 40-frame burst renders two frames, max active one, exact restoration and zero preview requests. Surface coordinate Cancel **9.4 ms** and regeneration **1101.8 ms** are accounted separately. Actual v0.10.0 reader accepts 0.11.0 data and retained undo/redo, save/reexport and archive import.
+
+Final full-diff review covers proper matrix/atomic batches, canonical copied targets/all conformers/no-op/history, immutable provenance, numerical-preview ownership (D-081), async/context failures, camera/queue/remount lifecycle, surface/measurement/visibility behavior, accessibility/performance, compatibility, versions and approved scope. All consequential findings are corrected and qualified. Review is **local, not independent**. Existing Alembic/bundle advisories and scientific/emulated-device limits remain. No migration or speculative follow-up issue is needed.
+
+Exact merged qualification and remote publication remain pending.
+
+### Scientific limitations and deferred scope
+
+Movement is manual and unconstrained; partial selections can distort crossing
+bonds and create clashes. Missing bond records do not prove safety. No repair,
+minimization, preparation, scoring, alignment or docking is implied.
+
+A pivot fixed at the original world location is rejected in favor of the
+translated centroid; separate Exit is redundant with Apply/Cancel. Optional pivot
+markers, extra launchers and live Euler-field synchronization are deferred to keep
+one coherent workflow. Specialized manipulators, persisted drafts, physical-device
+and cross-browser certification remain outside scope. No speculative follow-up
+issue is created. Qualification uses pinned Chromium/SwiftShader and Pixel 7
+emulation; performance is a host regression gate, not a universal guarantee.
+Existing lazy Mol* chunk and Alembic configuration advisories remain.
+
+
 ## 0.10.0 - 2026-10-09
 
 ### Highlights
