@@ -2,6 +2,27 @@
 
 ## Current milestone
 
+Issue #4 — approved implementation plan persisted on
+`feat/issue-4-interactive-selection-transform`; implementation not started.
+Contract: [interactive selection transforms](plans/issue-4-interactive-selection-transform.md).
+Approval on 2026-10-09 accepts exact captured multi-entry rigid movement, local
+preview, one Apply/Cancel transaction, translated centroid and automatic discard
+on task changes. D-075/D-076 record transport, ownership and interaction semantics.
+Planned milestones: M1/C1 atomic command, M2/C2–C3 preview session and viewer
+workflow, M3/C4–C5 qualification and release preparation. Planned minor release:
+**0.11.0**. All current versions remain 0.10.0; no code or migration change.
+
+Planning verification: master updated with fast-forward-only integration and was
+already current; clean base `c53c3251e87db69c3eac6b81453f514bbaff0706` verified;
+dedicated branch created and feature plan written as its first file change.
+Documentation section/checkpoint/link/scope validation and staged whitespace checks
+passed; global PLAN and all five version sources are unchanged.
+Implementation lint/type/test/build/browser gates remain unexecuted. The detailed
+plan tracks documentation and subsequent checkpoint/delivery evidence. Blockers:
+none for the planning handoff. Next action: await `/goal` to begin M1/C1.
+
+### Previous release — v0.10.0
+
 Issue #9 — approved scope complete, merged through [PR #41](https://github.com/ManuelSe/Neistra/pull/41)
 and published as [v0.10.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.10.0).
 Contract and full audit: [structure group membership plan](plans/issue-9-structure-group-membership.md).
@@ -133,6 +154,14 @@ and closed out on issue #1. The release tag remains on the exact verified
 feature merge; this documentation-only closeout records the remote evidence.
 
 ## Completed work
+
+- Issue #4 planning: the user approved the complete proposal on 2026-10-09.
+  Read-only review covered product, architecture, scientific state, transforms,
+  interactions, tests and release conventions. Fast-forward-only master integration
+  confirmed a clean current base; the approved plan is the first file change on
+  the dedicated feature branch. D-075/D-076 preserve the approved decisions.
+  This is a documentation handoff; no implementation or new feature validation
+  is claimed. The feature plan is the detailed implementation contract.
 
 - Issue #9 planning: the user approved the complete membership contract, including
   retained empty groups, existing derived sorting and desktop drag with equivalent
@@ -2188,11 +2217,12 @@ Results:
 
 ## Blockers
 
-None for the issue #9 planning handoff. Implementation and delivery gates remain
-unexecuted; future failures or unmet live repository policy block advancement.
+None for the issue #4 planning handoff. Issue #4 implementation and delivery gates
+remain unexecuted; future failures or unmet live repository policy block advancement.
 
 ## Next action
 
-Implement M2/C2 accessible explicit actions in the
-[feature plan](plans/issue-9-structure-group-membership.md), then desktop drag and
-qualification. Current released baseline remains v0.9.0; target v0.10.0.
+Await `/goal` to begin M1/C1 in the approved
+[issue #4 feature plan](plans/issue-4-interactive-selection-transform.md).
+Current released baseline is v0.10.0; planned release is the minor v0.11.0.
+Do not start implementation as part of this planning-persistence handoff.

@@ -1,0 +1,613 @@
+# Issue #4 — Interactive selection transforms
+
+## Status and issue metadata
+
+- Status: **Approved implementation plan; implementation not started**.
+- Approval: the user explicitly approved the complete proposed plan on 2026-10-09.
+- Issue: [#4 — Add an interactive mouse-based mode for translating and rotating selected atoms](https://github.com/ManuelSe/Neistra/issues/4).
+- Issue at approval: open, without comments, labels or a milestone; last updated 2026-08-03.
+- Base branch: `master`, updated from `origin/master` with fast-forward-only integration.
+- Verified planning and branch base: `c53c3251e87db69c3eac6b81453f514bbaff0706`.
+- Feature branch: `feat/issue-4-interactive-selection-transform`.
+- Planned version and annotated tag: **0.11.0 / `v0.11.0`**, subject to collision checks.
+- PR title: `feat(transform): add interactive selection movement`.
+- Merge strategy: normal merge commit preserving passing checkpoint history.
+- Milestones: M1/C1, M2/C2–C3, M3/C4–C5.
+
+This feature plan is the approved implementation contract. The issue is a product
+and problem brief, not a binding technical specification. The global
+`docs/PLAN.md` remains unchanged. Approval authorizes this planning handoff only:
+branch creation, documentation, commit, push and remote verification. Do not
+start implementation or execute PR/merge/release/issue-response actions until a
+subsequent user instruction such as `/goal` authorizes that work.
+
+## Core problem and approved outcome
+
+Scientists need to position selected molecular material visually without
+repeatedly editing coordinate fields. Deliver a temporary **Move selection**
+interaction mode that:
+
+- Captures the complete current canonical atom selection.
+- Rotates that selection and translates it in the screen plane or viewing direction.
+- Shows a continuous local preview while leaving authoritative molecular state unchanged.
+- Applies the final pose through one atomic backend command.
+- Cancels without changing project state and restores normal viewer interaction.
+- Retains existing numerical inputs and sliders.
+
+Selections may span entries. Every captured atom receives the same world-space
+rigid transformation. Never silently narrow the selection to the inspector's
+chosen structure or to visible atoms.
+
+## Authority, inspected baseline and assumptions
+
+Apply this authority order:
+
+1. Explicit user guidance, approval and subsequent corrections.
+2. `AGENTS.md` and accepted decisions in `docs/DECISIONS.md`.
+3. Existing architecture, documented boundaries, schemas and repository conventions.
+4. The issue's underlying user problems, outcomes, constraints and explicit non-goals.
+5. Technical suggestions in the issue, which are non-binding.
+
+Planning inspected AGENTS, PRODUCT_SPEC, global PLAN, PROGRESS, DECISIONS and
+VERIFICATION; architecture, API, project/normalized schemas, development,
+accessibility, performance and scientific-limitations documentation; transform
+domain/service/schema/routes, command history and coordinate patches; selection,
+workspace and query-cache ownership; viewer interfaces/lazy adapter/engine and
+pinned Mol* 5.11.0 gesture bindings; surface/pocket and measurement dependencies;
+persistence, migration and immutable job input paths; relevant Python, frontend
+and browser tests; related issues and feature plans; branches, tags, releases,
+recent PRs, live repository policy, version sources and release tooling.
+
+Relevant accepted decisions include D-002, D-007, D-018–D-020, D-025/D-027,
+D-035/D-042, D-044, D-060–D-062, D-070 and D-074. D-075 and D-076 append the
+approved transform transport and interaction/session decisions without replacing
+historical decisions.
+
+Existing foundations include browser coordinate previews, immutable coordinate
+history, canonical selections and atomic history actions across entries. The
+current numerical transform endpoint operates on one entry; it cannot directly
+commit an arbitrary captured multi-entry selection. Core matrix application
+already exists, but externally supplied matrices need proper-rotation validation.
+The viewer currently queues each coordinate update, so continuous dragging also
+needs explicit bounded preview scheduling.
+
+Issues #3, #5 and #6 establish explicit focus and selection-only clicks outside
+this mode. Delivered surface work (#30/#38/#36) establishes obsolete-geometry
+suppression, coordinate snapshot retention and cross-entry pocket invalidation.
+Component corrections (#20) and subset export (#21) remain separate. Broader
+ligand/preparation/docking work is not a prerequisite for free rigid movement.
+
+Assumptions accepted by approval:
+
+- Entries already share a meaningful Cartesian frame; no alignment is inferred.
+- The same world-space transform applies to selected IDs in every conformer,
+  retaining existing conformer semantics and active-atom coordinate consistency.
+- Original uploads, chemistry, connectivity, identity, classification and submitted
+  job inputs remain unchanged.
+- Uncommitted previews are session state and are discarded on reload.
+- Approval resolves whole-selection batching, a translated captured centroid,
+  automatic discard on task changes and the visibility/accessibility policies below.
+
+The premise that Neistra has no release history is outdated. Remote releases
+exist through [v0.10.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.10.0).
+Its annotated tag peels to `cad24628d9221fef26f667eae4275ab23438841f`, with
+documentation closeout subsequently merged into the planning base. Existing
+release evidence is historical, not newly executed issue #4 validation.
+
+At review there were no open PRs, no `.github` directory or GitHub Actions
+workflows, no rulesets and no protection on master. Normal merge commits are
+enabled. No dedicated release script exists. Recheck live policy before delivery;
+absence of remote gates does not replace local validation and full-diff review.
+The planned feature branch and v0.11.0 tag were unallocated at the handoff check.
+
+## Requirement disposition matrix
+
+| Significant requirement | Disposition | Approved treatment and follow-up |
+|---|---|---|
+| Interactive Move selection launcher in Transform | Essential | Named control with an accessible unavailable reason |
+| Optional viewer-toolbar launcher | Optional | Omit initially; no follow-up required |
+| Require nonempty selection | Essential | Also reject locked, invalid, unavailable or uninspectable targets |
+| Transform exactly selected atoms; preserve unselected coordinates | Essential | Backend validation and exact invariance evidence |
+| Ligand, fragment, residue, chain and whole-entry selections | Essential | All consume canonical atom references |
+| Selection spanning entries | Unclear in brief; product decision approved | Accept the complete selection atomically |
+| Fixed transform target | Essential | Capture references, revision and source artifacts |
+| Disable viewer picking | Essential | Disable hit and empty-space selection changes while active |
+| Selection changes elsewhere | Unclear in brief; product decision approved | Cancel the preview before applying the new selection |
+| Rotation gesture moves atoms instead of camera | Essential | Primary drag rotates; no camera inertia/focus side effects |
+| Pan gesture moves atoms instead of camera | Essential | Secondary or Ctrl-primary drag translates in the screen plane |
+| Horizontal/vertical movement follows screen orientation | Essential | Use an orthonormal camera screen basis |
+| Movement along viewing direction | Essential | Explicit Depth drag mode |
+| Camera fixed except zoom | Essential | Suspend orbit, pan, focus, fit, roll and navigation inputs |
+| Zoom remains available | Essential | Wheel and named controls; touch controls as qualified |
+| Continuous coordinate preview | Essential | Local float64 calculation and bounded renderer updates |
+| Geometric centroid from selected coordinates | Essential | Arithmetic mean across all captured atoms |
+| Pivot independent of mass, camera and outside atoms | Essential | Domain calculation only |
+| Pivot fixed at original world location after translation | Rejected as proposed | Causes rotation to orbit the old location; carry captured centroid with translation; no follow-up needed |
+| Visible pivot marker | Optional | Deferred; count/highlight/banner provide scope cues; no follow-up required |
+| Selected atoms remain highlighted | Essential | Restore highlighting after coordinate updates |
+| Obvious mode, count, gestures, Apply and Cancel | Essential | Persistent viewer banner; communicate state beyond color |
+| Changed cursor | Supporting | Appropriate movement cursor |
+| Separate Exit action | Rejected as redundant | Cancel exits; Apply exits after success; no follow-up needed |
+| Escape behavior | Supporting | Cancel the complete unapplied session |
+| Multiple drags create one command | Essential | Only Apply submits |
+| Cancel restores exact originals | Essential | Restore captured committed coordinates, not inverse arithmetic |
+| Complete-operation undo and redo | Essential | Existing immutable artifacts and coordinate actions |
+| Normal controls return after exit | Essential | Restore bindings and dispose session listeners |
+| Existing numerical fields and sliders | Already satisfied | Preserve behavior; prevent competing transforms during preview |
+| Live Euler/vector display synchronized to numerical fields | Optional | Deferred to avoid Euler decomposition/field coupling; no follow-up required |
+| Task-switch prompt versus automatic discard | Unclear in brief; product decision approved | Automatic discard with visible feedback |
+| Rigid motion preserves selected relative geometry | Essential | Proper rotations and pairwise-distance tests |
+| No internal conformation/connectivity editing | Essential boundary | No torsion tools, minimization, snapping or repair |
+| Specialized manipulators | Deferred | Separate future product work; no speculative issue |
+
+The unclear rows are resolved by explicit approval of this contract, not left as
+implementation blockers. Cross-browser certification, physical-device
+qualification, a generic gizmo framework, saved transform sessions and new job
+types are deferred because they are unnecessary to this coherent workflow.
+Create follow-ups only for concrete unresolved problems, not every optional idea.
+
+## Accepted scope and interaction contract
+
+### Capture, rigid composition and pivot
+
+Activation captures project ID, expected revision, canonical selection, current
+artifact identities, original selected coordinates and centroid. Use:
+
+```text
+x′ = c + t + R(x − c)
+```
+
+`c` is the captured arithmetic centroid, `t` is accumulated world translation,
+and `R` is a proper rotation. Rotation after translation occurs around `c + t`.
+The original centroid is never recomputed from rounded renderer coordinates.
+Preview coordinates always derive from the captured originals. One selected atom
+can translate; rotation about its own centroid produces no coordinate change.
+
+The viewer adapter supplies camera/projection information needed for gesture
+mapping. Molecular calculations and session ownership stay in application code;
+Mol* objects never enter the session, API or persisted state. D-075/D-076 explain
+the departure from a permanently fixed world pivot and the matrix extension.
+
+### Gestures, visible state and accessible alternatives
+
+Desktop controls:
+
+- Primary drag rotates.
+- Secondary or Ctrl-primary drag translates horizontally/vertically in the screen plane.
+- Depth mode uses primary vertical drag along the viewing direction.
+- Compact Rotate / Translate / Depth controls provide explicit primary-drag alternatives.
+- Zoom remains available and updates translation sensitivity between drags.
+
+Provide bounded step controls for keyboard and touch users through the same
+preview transaction. Existing numerical controls remain available for precise
+work outside an active session. Do not hijack keys belonging to text inputs.
+
+Hidden selected atoms remain targets and are counted explicitly. Activation must
+have inspectable rendered selected material; otherwise explain what must be
+shown. Never automatically reveal hidden entries or change durable visibility.
+Preserve visible highlighting. Provide truthful selected-atom preview cues where
+suspended surfaces would otherwise remove visual context, while honoring current
+visibility bounds. The banner names the mode, target count, gestures and Apply/
+Cancel. Cursor/color supplement semantic text rather than being its sole carrier.
+
+### Apply, cancel and context changes
+
+Apply commits once. Pointer release only finishes a drag. Identity or coordinate-
+no-op sessions create no command and preserve redo. Cancel restores captured
+committed coordinates exactly and creates no revision, artifact, dirty-state or
+history change. Escape cancels the complete unapplied session.
+
+Selection replacement, actual inspector-task changes, project changes and
+conflicting project operations discard an unapplied preview before proceeding.
+Show clear discard feedback. Merely collapsing the inspector or closing its
+mobile drawer retains the session so the canvas remains usable; the viewer banner
+keeps Apply/Cancel accessible. Disable viewer picking, including empty-space
+clearing, and suspend other camera-changing interactions except permitted zoom.
+Restore normal controls and dispose listeners on exit.
+
+During submission prevent duplicate Apply and conflicting session actions. Stale
+revisions invalidate preview and refresh its captured project. Ambiguous transport
+failures require reconciliation before retry: never replay against a refreshed
+revision automatically. Late responses, cache updates, notices and focus follow
+captured project ownership under D-074. Obsolete async loads or frames must not
+restore a cancelled session or overwrite a committed pose.
+
+### Surfaces and measurements
+
+Affected surfaces and dependent pocket surfaces pause during preview. Commit or
+cancel restores/regenerates them from appropriate coordinates. Preserve existing
+definitions, profiles, colors, membership and resource/cancellation bounds; never
+render obsolete geometry as current. Preview-dependent measurement displays must
+update correctly or be visibly suspended until restoration. Keep unrelated entries
+and representations stable. No per-drag surface jobs or normalized refetches.
+
+## Data, migration, API and ownership implications
+
+Add the proposed typed endpoint:
+
+```text
+POST /api/v1/projects/{project_id}/selection-transform
+```
+
+The request contains `expected_revision`, canonical `selection`, finite
+`rotation_matrix` and finite affine `translation`, with `x′ = R x + b`.
+The client calculates `b = c + t − R c`. Submit a rigid transform rather than
+arbitrary replacement atom coordinates.
+
+The backend validates the complete selection, same-project membership, stable
+atom IDs, locks, finite coordinates and proper rotation before publication.
+Require orthonormality and determinant +1 with a documented numerical tolerance;
+reject scaling, shear, reflection and nonfinite inputs rather than silently
+correcting them. Validate and prepare the whole batch before publishing/recording
+its atomic project change. Existing artifact transaction guarantees still apply.
+
+Reuse `coordinates.transform`, `entry.coordinates` forward/inverse actions,
+immutable artifacts, `ProjectRead` and per-entry coordinate patches. Do not
+introduce a second history vocabulary. The numerical single-entry endpoint and
+its X-then-Y-then-Z Euler semantics remain unchanged. Client/server contracts must
+be typed and verified together using the repository's current client conventions.
+
+No database migration is planned: Alembic head remains 0013 and API, project,
+archive and normalized schema majors remain 1. No persisted draft/session/viewer
+field is needed. TanStack Query remains the authority cache; previews never
+mutate authoritative cached structures. Session coordinate snapshots are temporary
+operation inputs, not a second durable molecular store.
+
+Archives remain current-state snapshots without portable command history. Applied
+coordinates export normally; previews never export or become job inputs. Existing
+submitted jobs keep their immutable artifact snapshots. Original files remain
+byte-identical and downloadable. Verify previous 0.10.0 readers against retained
+coordinate actions and artifacts before claiming rollback compatibility.
+
+## Scientific implications and non-goals
+
+Rigid movement preserves distances within the captured selection in each
+conformer. Unselected coordinates remain exact. Stable identity, bond topology,
+charges, hierarchy, classification and source warnings remain unchanged.
+
+Moving a partial covalent selection can distort bonds to stationary atoms and
+create clashes. Show an unconstrained-editing explanation and identify known
+crossing bonds where source connectivity permits. Missing connectivity is not
+evidence of chemical safety. This feature does not validate a binding pose,
+perform docking, or constitute protein preparation. No automatic alignment,
+periodic geometry, conformation optimization, restraints, snapping or repair.
+
+## Milestones and checkpoints
+
+Every checkpoint leaves existing workflows operational, records actual evidence
+and commits only after focused validation passes. Run relevant Python/frontend
+lint, type checks, tests, production build and browser regressions at each
+milestone boundary. Fix failures before advancing. No empty checkpoint commits.
+
+### M1 / C1 — Validated atomic rigid-transform command
+
+Outcome: an executable API transforms an exact selection across entries through
+one reversible command.
+
+Affected areas: core transforms, API schemas/routes/coordinate service, history
+integration, typed client and domain/API tests.
+
+Acceptance:
+
+- Proper rotations only; stable-ID gaps resolve correctly.
+- Same world-space matrix across conformers and entries.
+- Exact unselected-state and original-byte preservation.
+- One revision/history operation and complete undo/redo.
+- Whole-batch rejection for invalid targets or stale revisions.
+- No-op handling preserves history and redo.
+
+Focused validation:
+
+```bash
+.venv/bin/uv run pytest tests/unit/test_transforms.py tests/unit/test_history.py tests/integration/test_coordinate_commands.py
+.venv/bin/uv run ruff check .
+.venv/bin/uv run mypy apps/api packages/molweave_core
+corepack pnpm --dir apps/web typecheck
+```
+
+Documentation/migration: API contract and architectural decision; update plan
+evidence and PROGRESS. No migration.
+
+Expected commit: `feat(transform): add atomic selection rigid transforms`.
+
+Compatibility/rollback: numerical endpoint unchanged; existing coordinate action
+readers retained. Revert endpoint exposure without stripping scientific data.
+
+### M2 / C2 — Application-owned preview session
+
+Outcome: independently tested capture, composition, preview, cancel and Apply
+orchestration.
+
+Affected areas: transform math, transient session ownership, selection guards,
+query-cache integration, multi-entry preview plumbing and component/store tests.
+
+Acceptance:
+
+- Immutable originals and captured target; no cumulative coordinate drift.
+- Centroid and translated-pivot semantics.
+- Correct screen/depth mapping in perspective and orthographic modes.
+- No authoritative cache mutation during preview.
+- Submission, no-op, failure and late-response behavior.
+- Existing numerical/sliding transforms continue to work.
+
+Focused validation:
+
+```bash
+corepack pnpm --dir apps/web test -- transforms history interactive-transform
+corepack pnpm --dir apps/web lint
+corepack pnpm --dir apps/web typecheck
+corepack pnpm --dir apps/web build
+```
+
+Documentation/migration: session ownership, cancellation policy and progress/
+evidence. No persisted draft or migration.
+
+Expected commit: `feat(transform): add captured movement preview sessions`.
+
+Rollback: remove transient orchestration; existing commands/numerical work remain
+usable. No placeholder production controls are introduced by this checkpoint.
+
+### M2 / C3 — Complete viewer interaction workflow
+
+Outcome: users activate Move selection, drag, zoom, Apply/Cancel and return to
+normal navigation.
+
+Affected areas: viewer interface/lazy adapter/engine, interaction bindings,
+Transform panel, viewer banner, gesture controls, highlighting, surface/
+measurement lifecycle and native browser tests.
+
+Acceptance:
+
+- Real pointer rotation, pan and depth alter preview coordinates.
+- Camera orientation/target remain fixed; only permitted zoom changes.
+- Picking and secondary-focus behavior cannot retarget or reframe.
+- One Apply request across multiple drags.
+- Cancel restores coordinates and normal bindings.
+- Bounded pending preview work; obsolete frames cannot overwrite final state.
+- Affected surfaces restore correctly.
+
+Focused validation:
+
+```bash
+corepack pnpm --dir apps/web test -- interactive-transform viewer-adapter viewer-interaction structure-loading
+PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test \
+  tests/e2e/interactive-selection-transform.spec.ts \
+  tests/e2e/coordinate-editing.spec.ts \
+  tests/e2e/viewer-click-selection.spec.ts \
+  tests/e2e/viewer-controls.spec.ts
+```
+
+Documentation/migration: gestures and mode semantics in new `docs/TRANSFORMS.md`;
+architecture/scientific-limitations updates and evidence. No migration.
+
+Expected commit: `feat(viewer): enable interactive selection movement`.
+
+Rollback: remove/disable launcher and restore normal bindings; committed poses
+remain ordinary coordinate state.
+
+### M3 / C4 — Lifecycle, accessibility, persistence and performance qualification
+
+Outcome: the workflow is safe across task changes and usable through keyboard
+and compact touch controls.
+
+Affected areas: operation guards, mobile integration, focus/error feedback,
+targeted unit/integration/browser tests and compatibility evidence.
+
+Acceptance:
+
+- Empty, locked, hidden, missing and stale targets explain availability.
+- Project/selection/task changes cannot leak previews or feedback.
+- Pointer cancellation, lost capture, disposal and remount restore coherent state.
+- Keyboard/touch step controls share the Apply/Cancel transaction.
+- Light/dark, desktop/Pixel 7, actual 100%/200% browser zoom, focus and scoped axe checks pass.
+- Reload/reopen/API restart, save, export and archive import retain applied coordinates.
+- Previous 0.10.0 readers handle retained coordinate actions and transformed artifacts.
+- Existing surface/pocket and measurement regressions pass.
+
+Focused validation:
+
+```bash
+.venv/bin/uv run pytest tests/integration/test_coordinate_commands.py \
+  tests/integration/test_archive_roundtrip.py tests/security/test_archive_safety.py
+corepack pnpm --dir apps/web test -- interactive-transform selection structure-loading
+PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test \
+  tests/e2e/interactive-selection-transform.spec.ts \
+  tests/e2e/selection-surfaces.spec.ts \
+  tests/e2e/pocket-surfaces.spec.ts \
+  tests/e2e/measurements.spec.ts \
+  tests/e2e/export-archive.spec.ts \
+  tests/e2e/release-hardening.spec.ts \
+  tests/e2e/rebranding-zoom.spec.ts
+```
+
+Performance evidence uses ordinary 1STP/ligand workflows: no command per pointer
+event, no normalized refetch during preview, at most one active renderer update
+plus its latest pending state, preview response and coordinate cancellation under
+500 ms, and longest main-thread task below the existing 750 ms budget on the
+pinned host. Measure surface regeneration completion separately. These are host
+regression gates, not hardware-independent throughput or physical-phone promises.
+Failure to meet accepted budgets blocks advancement; never quietly weaken them.
+
+Documentation/migration: TRANSFORMS, ACCESSIBILITY, PERFORMANCE,
+SCIENTIFIC_LIMITATIONS, VERIFICATION, feature plan and PROGRESS. No migration.
+
+Expected commit: `test(transform): qualify movement lifecycle and compatibility`.
+Use separate substantive `fix(transform)` commits for consequential corrections.
+
+Compatibility/rollback: qualify the preceding reader with retained history and
+transformed artifacts in an isolated environment. Remove transient controls
+without stripping history, settings or coordinates; correct any discovered
+incompatibility before claiming downgrade safety.
+
+### M3 / C5 — Reviewed release candidate
+
+Outcome: fully validated candidate with consistent versions and scope-accurate
+release documentation.
+
+Affected areas: five version sources, current producer assertions, compatibility
+matrix, release notes and verification/progress/completion records.
+
+Acceptance:
+
+- Every accepted requirement has evidence.
+- Complete candidate gate passes with no unexplained flakes.
+- Full-diff review has no consequential unresolved finding.
+- Version values agree.
+- Preserve older archive coverage and add 0.10.0 producer provenance.
+
+Focused validation: version consistency, archive tests and documentation review,
+followed by the complete gate below.
+
+Documentation/migration: release and compatibility notes, current evidence and
+plan/progress records. No schema migration is planned.
+
+Expected commit: `chore(release): prepare v0.11.0`.
+
+Rollback: corrective commits or a subsequent release; never retarget a published tag.
+
+## Acceptance and verification evidence
+
+Record command, commit, environment, result counts, skips, warnings and attached
+evidence. Compare backend coordinates and artifact identities: canvas movement
+alone does not prove persistence. Test invariants independently of the
+implementation's transform formula, including pairwise distances, determinant,
+unselected coordinates, all conformers and immutable originals.
+
+Use API rejection/atomicity/history tests, pure session/math tests, component
+lifecycle/accessibility tests and real WebGL workflows. Demonstrate the ligand in
+a protein complex, a partial fragment/residue and multi-entry selection. Include
+both camera projections, zero-change movement, failures/conflicts, preview
+surfaces/measurements and normal picking/navigation after exit.
+
+Planning inspection is complete. **No new implementation validation has been
+executed.** Historical release results are baseline evidence only.
+
+Run the complete release gate before opening and merging the PR and again on the
+exact merged master commit before publication:
+
+```bash
+.venv/bin/uv sync --frozen
+corepack pnpm install --frozen-lockfile
+MOLWEAVE_DATA_DIR=<dedicated-qualification-directory> .venv/bin/uv run alembic upgrade head
+.venv/bin/uv run ruff check .
+.venv/bin/uv run mypy apps/api packages/molweave_core
+.venv/bin/uv run pytest
+corepack pnpm --dir apps/web lint
+corepack pnpm --dir apps/web typecheck
+corepack pnpm --dir apps/web test
+corepack pnpm test:dev
+corepack pnpm --dir apps/web build
+PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test
+git diff --check
+```
+
+Replace the qualification-directory placeholder with a fresh dedicated path;
+it is not a literal shell argument. Use isolated browser ports/data where needed,
+record overrides and ensure any reused server runs the candidate code. Preserve
+the documented project-local Python environment and pinned dependency graph.
+
+## Decisions and deviations
+
+Approval explicitly accepts these departures/clarifications from the brief:
+
+- A captured multi-entry atom selection is one target and one atomic command.
+- Rotation uses the captured centroid carried by translation, rather than
+  orbiting a permanently fixed original world location.
+- Task/selection changes discard uncommitted movement automatically with feedback;
+  collapsing the inspector/mobile drawer alone retains it.
+- Matrix transport avoids decomposing continuous gestures into Euler inputs while
+  preserving the existing numerical endpoint and persisted action vocabulary.
+- Depth and accessible step controls deliver complete movement without a generic
+  manipulator framework. The optional pivot marker, extra launcher and readout
+  are not release requirements.
+
+D-075/D-076 are the cross-project architectural source of truth. Record subsequent
+deviations here and append decisions when material; changes to approved outcomes,
+scientific semantics, compatibility or gates require explicit user approval.
+
+## Version and release plan
+
+Advance **0.10.0 to 0.11.0**, a minor release:
+
+- Adds meaningful public functionality and an additive API, exceeding a patch fix.
+- No planned breaking API, persisted schema, archive or history change requires a major increment.
+- Existing releases are stable; use a normal release only after qualification,
+  not a prerelease merely to bypass incomplete work.
+- Pre-1.0 numbering does not excuse incompatible scientific data.
+
+Update all five authoritative version sources together during C5:
+
+1. `pyproject.toml`.
+2. Root development-project version in `uv.lock`.
+3. `apps/web/package.json`.
+4. FastAPI version in `apps/api/src/molweave_api/main.py`.
+5. `APPLICATION_VERSION` in `apps/api/src/molweave_api/archive_service.py`.
+
+Update current assertions and notes; retain historical release records and
+archive producer coverage. Do not invent a root JavaScript package version or
+upgrade unrelated dependencies. Recheck version/tag/release availability and
+record ordinary sequencing changes before delivery. No version bump occurs in
+this documentation-only planning commit.
+
+Proposed annotated tag: **`v0.11.0`**, only from the verified merged master commit.
+
+Release-note sections:
+
+1. Workflow highlights and example.
+2. Gestures and target/pivot semantics.
+3. Apply, cancel and history.
+4. Scientific limitations.
+5. Keyboard/touch behavior.
+6. API, persistence and compatibility.
+7. Verification and review evidence.
+8. Deferred scope and remaining limitations.
+
+## PR, merge, issue response and branch cleanup
+
+Use `feat(transform): add interactive selection movement` and a normal merge
+commit preserving passing checkpoint history. Document implemented, simplified,
+deferred and rejected requirements, compatibility, exact evidence and remaining
+limitations. Use `Closes #4` only when the approved contract is complete. Merge
+may close the issue before publication; the final reply follows verified release.
+
+Review the complete diff, address consequential findings and distinguish local
+from independent review. Recheck required reviews/checks, protection and unresolved
+conversations; bypass none. After merge, fast-forward local master, verify the
+remote merged SHA and run the complete gate on that exact commit. Only then create
+the annotated tag and GitHub release. Verify annotation, target, non-draft release
+and published evidence remotely before claiming publication.
+
+Post a scope-accurate issue reply after publication. Create follow-up issues only
+for concrete unresolved work; optional ideas do not automatically become backlog
+commitments. Delete and verify only this feature branch locally/remotely after
+delivery; leave unrelated branches unchanged.
+
+Merge blockers: incorrect target/geometry, partial batch commits, broken cancel/
+history, camera/selection leakage, stale surfaces/measurements, accessibility
+failures, missed performance gates, incompatible archives/history, inconsistent
+versions, failed checks, unexplained flakes, consequential unresolved findings
+or unmet live repository policy.
+
+Release blockers additionally include failed exact-merged qualification,
+unverified merged SHA, version/tag collision, incorrect tag target or incomplete
+publication evidence. Do not bypass blockers or silently reduce accepted scope.
+
+## Progress and completion log
+
+| Checkpoint | Status | Evidence / next action |
+|---|---|---|
+| Planning inspection and review | Complete | Repository remained read-only until explicit approval; baseline and scope evidence above |
+| Approval | Complete | User: "I approve this plan." on 2026-10-09; all proposed product choices accepted |
+| Planning persistence | Documentation prepared on dedicated branch | Master fast-forward-only check was already current; clean base verified; this plan is the first branch file change; commit/push identity is recorded by Git and handoff report |
+| Planning documentation verification | Complete | Required sections/five checkpoints/local links/exact three-file scope passed; staged diff whitespace check passed; global PLAN and all five version sources unchanged |
+| M1 / C1 | Pending | Validated atomic rigid-transform command |
+| M2 / C2 | Pending | Application-owned captured preview session |
+| M2 / C3 | Pending | Complete viewer interaction workflow |
+| M3 / C4 | Pending | Lifecycle/accessibility/persistence/performance qualification |
+| M3 / C5 | Pending | Reviewed release candidate and coordinated version bump |
+| PR/review/merge/exact-merged gate | Pending; not authorized by planning handoff | Requires subsequent implementation/delivery instruction |
+| Publication/issue response/cleanup | Pending; not authorized by planning handoff | Verified release and scope-accurate closeout |
+
+Known planning limitations: no implementation, new tests or scientific/performance
+qualification yet; Pixel 7 is emulation, not physical-device certification. No
+planning blocker is known. **Next action: await `/goal` to begin M1/C1.**
