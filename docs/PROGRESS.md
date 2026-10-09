@@ -2,36 +2,26 @@
 
 ## Current milestone
 
-Issue #4 — M1–M3/C1–C5 implemented and qualified on
-`feat/issue-4-interactive-selection-transform`. Contract and detailed evidence:
+Issue #4 — approved scope delivered through [PR #43](https://github.com/ManuelSe/Neistra/pull/43) and
+[correction PR #44](https://github.com/ManuelSe/Neistra/pull/44), with verified
+[release v0.11.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.11.0). Contract and detailed evidence:
 [interactive selection transforms](plans/issue-4-interactive-selection-transform.md).
-Captured complete multi-entry selection, translated-centroid rotation, screen/depth
-gestures, keyboard/touch steps, one atomic Apply and exact Cancel are delivered.
-D-075–D-081 preserve molecular/viewer, focus/remount and async ownership. Originals,
-unselected state and immutable job inputs remain unchanged. No migration; head0013.
-All five versions agree at 0.11.0; additive minor release v0.11.0 is planned.
+All M1–M3/C1–C5 complete. Captured multi-entry movement, translated-centroid
+rotation, screen/depth translation, accessible steps, atomic Apply and exact Cancel
+are delivered. D-075–D-082 preserve scientific/viewer/context/async ownership.
+All five versions are 0.11.0; no new migration or schema-major change (head0013).
 
-Complete clean candidate gate: **398 Python, 163 frontend, 8 supervisor and
-138 browser tests / 42 intentional layout skips**, zero failures/flakes/retries,
-frozen installs, fresh migration, lint/types/build. Native 1STP preview
-**128.9/26 ms**, exact Cancel **13.6/16.8 ms**, longest task **111 ms** pass
-unchanged budgets. Surface regeneration is separate. Light/dark scoped axe,
-keyboard/touch, actual 100%/200% Chrome zoom, persistence/exports/archives and
-actual v0.10.0 reading 0.11.0 retained history pass. Corrected diagnostics and raw
-evidence remain in the feature plan. Final review is local, not independent;
-no unresolved consequential finding.
-
-PR #43 merged normally at e72593e; no integration review returned. Its exact
-merged gate exposed a real menu-teardown focus race. D-082 corrects captured
-membership focus at menu teardown and later responses, guarded by project.
-Regression fails on preceding source; 9 focused units and **21 native repeat
-tests / 3 intentional skips** pass. The corrected clean candidate74ced02 passes
-the complete release gate: **398 Python, 164 frontend, 8 supervisor and
-138 browser tests / 42 intentional skips**, zero failed/flaky cases/retries,
-frozen installs, fresh migration, lint/types/build. Native preview132.2/42.6ms,
-Cancel11.3/14.8ms, longest task115ms pass unchanged budgets. Detailed evidence
-and rejected runs remain in the feature plan. Correction PR/review/merge and
-exact-master qualification precede tag/release/reply/cleanup. No current blocker.
+Complete clean candidate and exact released-master gates each pass **398 Python,
+164 frontend, 8 supervisor and 138 browser tests / 42 intentional layout skips**,
+zero failures/flakes/retries, frozen installs, fresh migration, lint/types/build.
+Native preview/Cancel/task budgets pass; surface regeneration is separate.
+Actual v0.10.0 reader accepts 0.11.0 data/retained history/archives.
+Annotated tag/release targets `4ed61264d9006f81ca528bf42c0c21594121a55b`; published verification
+bytes are checked. Issue closed and [closeout reply](https://github.com/ManuelSe/Neistra/issues/4#issuecomment-6085403742) verified.
+That reply maintains final branch-cleanup/clean-master audit after this docs merge.
+Review is local, not independent; Codex requested without a returned review.
+Limits remain unconstrained geometry, emulation, existing advisories and approved
+deferrals; no speculative follow-ups. No blockers or remaining implementation work.
 
 ### Previous release — v0.10.0
 
@@ -2229,11 +2219,8 @@ Results:
 
 ## Blockers
 
-No current blocker. Issue #4 qualification and delivery remain in progress; failed
-gates or unmet live repository policy block advancement.
+No current blocker. Issue #4 is released; final cleanup audit is maintained in its closeout reply.
 
 ## Next action
 
-Complete remote delivery and exact merged qualification in the approved
-[issue #4 feature plan](plans/issue-4-interactive-selection-transform.md).
-Current released baseline is v0.10.0; planned release is the minor v0.11.0.
+Select and approve a separate backlog plan. Current released baseline is v0.11.0.

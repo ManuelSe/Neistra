@@ -26,6 +26,9 @@
   cues avoid first-use impostor shader stalls. Surfaces/pockets suspend and restore;
   measurement values visibly pause, then recalculate from authoritative state.
 
+- Restore focus to the replacement structure row after direct membership actions,
+  coordinated with menu teardown and guarded by the captured project.
+
 ### API, persisted data and compatibility
 
 - Additive `POST /api/v1/projects/{project_id}/selection-transform` accepts a finite
@@ -54,7 +57,7 @@ Native ordinary 1STP protein-fragment/ligand first preview **132.2/42.6 ms**, ex
 
 Final full-diff review covers proper matrix/atomic batches, canonical copied targets/all conformers/no-op/history, immutable provenance, numerical-preview ownership (D-081), membership/menu focus teardown (D-082), async/context failures, camera/queue/remount lifecycle, surface/measurement/visibility behavior, accessibility/performance, compatibility, versions and approved scope. All consequential findings are corrected and qualified. Review is **local, not independent**. Existing Alembic/bundle advisories and scientific/emulated-device limits remain. No migration or speculative follow-up issue is needed.
 
-Exact merged qualification and remote publication remain pending.
+Published through [PR #43](https://github.com/ManuelSe/Neistra/pull/43) and [release v0.11.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.11.0) on `4ed61264d9006f81ca528bf42c0c21594121a55b`. The exact merged gate repeats **398 Python, 164 frontend, 8 supervisor and 138 browser tests / 42 intentional skips**, zero failures/flakes/retries. Annotated tag target and downloaded verification-report bytes are verified. [Issue closeout](https://github.com/ManuelSe/Neistra/issues/4#issuecomment-6085403742) records final cleanup. Codex review was requested without a returned review; the completed review is local, not independent.
 
 ### Scientific limitations and deferred scope
 
