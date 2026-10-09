@@ -1,5 +1,74 @@
 # Neistra Release Notes
 
+## 0.11.0 - 2026-10-09
+
+### Highlights and gestures
+
+- Select atoms and open **Transform → Move selection**. Primary drag rotates;
+  secondary/Ctrl drag translates in the screen plane. Explicit Rotate/Translate/
+  Depth modes, sensitivity and named steps serve keyboard and touch users.
+- Capture the complete canonical selection across entries, including hidden
+  targets. Rotation uses the captured centroid carried by accumulated translation;
+  all entries/conformers receive the same proper world-space rigid transform.
+- Hold camera orientation/target during movement; wheel/named zoom remains usable.
+  Responsive viewer remounts preserve the temporary pose and held camera.
+
+### Apply, Cancel and fixes
+
+- Multiple drags create one atomic Apply and one undo/redo command. Pointer release
+  ends only the drag. Cancel/Escape restores exact captured coordinates; no-op
+  preserves revision, artifacts, timestamps, history and redo.
+- Task/selection/project changes discard unapplied movement with feedback. Closing
+  the inspector alone retains it; dialogs/drawers own their focus and Escape.
+- Conflicting/ambiguous requests block replay until captured-project reconciliation.
+  Late results cannot revive previews or leak feedback into another project.
+- Bounded first/latest rendering avoids queued stale frames. Selected-atom mesh
+  cues avoid first-use impostor shader stalls. Surfaces/pockets suspend and restore;
+  measurement values visibly pause, then recalculate from authoritative state.
+
+### API, persisted data and compatibility
+
+- Additive `POST /api/v1/projects/{project_id}/selection-transform` accepts a finite
+  proper rotation matrix, affine translation, captured selection and expected
+  revision. Reject invalid whole batches before writes; numerical endpoints remain.
+- No new migration: head remains **0013**; project/normalized/API/archive majors
+  remain **1**. Reuse existing coordinate forward/inverse action vocabulary.
+  No persisted session/draft or new job type; original uploads, connectivity,
+  unselected state and immutable submitted job inputs remain unchanged.
+- Applied state survives save/reload/API restart, molecular exports at their
+  existing format precision, and exact current-state archives. Archives omit
+  portable history. Actual **v0.10.0** reader qualification covers retained batch
+  undo/redo, transformed artifacts, save/reexport, archive import and unchanged jobs.
+  Readers predating pocket/visibility retain existing limitations; do not strip data.
+
+### Verification and review
+
+The [approved issue #4 plan](plans/issue-4-interactive-selection-transform.md)
+records checkpoint evidence, native coordinates, both projections, multi-entry
+hidden targets, lifecycle/conflict cases, light/dark scoped axe, keyboard/touch,
+actual 100%/200% Chrome zoom and inspected screenshots. C4 broad browser gate:
+**52 passed / 10 intentional skips** plus **2 native remount regressions**;
+focused persisted/archive/security tests **52 passed**. Native 1STP preview
+**151.1/36 ms**, exact Cancel **17.8/21.6 ms**, longest task **133 ms** pass unchanged
+budgets; surface regeneration is separate. Complete C5 candidate/release gates
+and final local full-diff review remain pending. Local review is not independent.
+
+### Scientific limitations and deferred scope
+
+Movement is manual and unconstrained; partial selections can distort crossing
+bonds and create clashes. Missing bond records do not prove safety. No repair,
+minimization, preparation, scoring, alignment or docking is implied.
+
+A pivot fixed at the original world location is rejected in favor of the
+translated centroid; separate Exit is redundant with Apply/Cancel. Optional pivot
+markers, extra launchers and live Euler-field synchronization are deferred to keep
+one coherent workflow. Specialized manipulators, persisted drafts, physical-device
+and cross-browser certification remain outside scope. No speculative follow-up
+issue is created. Qualification uses pinned Chromium/SwiftShader and Pixel 7
+emulation; performance is a host regression gate, not a universal guarantee.
+Existing lazy Mol* chunk and Alembic configuration advisories remain.
+
+
 ## 0.10.0 - 2026-10-09
 
 ### Highlights

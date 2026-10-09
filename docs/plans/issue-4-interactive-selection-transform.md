@@ -939,3 +939,25 @@ are explanatory, not geometry validation. Optional marker/launcher/gizmos,
 alignment/repair/docking and persisted drafts remain outside approved scope.
 No concrete follow-up blocker or speculative issue is created. C5 and remote
 delivery remain pending; no current blocker.
+
+### 2026-10-09 — C5 release preparation
+
+Fetched `origin/master` remains `c53c3251e87db69c3eac6b81453f514bbaff0706`;
+latest release/tag remains v0.10.0, no v0.11.0 collision. Additive public workflow
+and API, unchanged schema/history/archive compatibility and stable release
+sequencing confirm minor 0.11.0. All five authoritative sources agree; pinned
+dependencies unchanged. Preserve preceding archive producer cases and add 0.10.0.
+Focused archive/security gate **38 passed** (15.11 s).
+
+Repeat actual preceding-reader qualification with fresh migration 0013 at
+`/tmp/neistra-issue4-c5-reader-data`: candidate PYTHONPATH produces **0.11.0**
+data/archive, detached v0.10.0 API/core/plugin PYTHONPATH reads it. Exact retained
+batch redo is explicitly checked along with undo, saved state, originals, completed
+jobs and current-state archive import. All pass; [C5 reader evidence](../assets/interactive-selection-transform/c5-previous-reader.json).
+Commands follow DEVELOPMENT.md with the paths above and the existing
+`/tmp/neistra-issue4-reader-010` detached worktree.
+
+README, release notes and compatibility/user documentation describe accepted
+scope and scientific/deferred limits. No migration or follow-up issue is needed.
+Complete clean candidate gate and final full-diff review must pass before PR/merge;
+exact merged gate must pass before annotated tag/release. Delivery remains pending.

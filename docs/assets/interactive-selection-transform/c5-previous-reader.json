@@ -1,0 +1,12 @@
+{
+  "reader": "0.10.0",
+  "reader_module": "/tmp/neistra-issue4-reader-010/apps/api/src/molweave_api/main.py",
+  "producer": "0.11.0",
+  "entries": 2,
+  "exact_coordinates_and_originals": true,
+  "retained_batch_undo_redo": true,
+  "save_and_reexport": true,
+  "archive_import": true,
+  "archive_omits_history": true,
+  "original_jobs_unchanged": true
+}

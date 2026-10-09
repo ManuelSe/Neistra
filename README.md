@@ -22,7 +22,17 @@ Real workspace screenshots: [light](docs/assets/neistra-workspace-light.png) ·
 [dark](docs/assets/neistra-workspace-dark.png). These show the existing local
 workspace, not proposed account, docking or marketplace features.
 
-Version **0.10.0** adds reversible structure organization: select structures and
+Version **0.11.0** adds **Transform → Move selection**. Rotate with primary drag,
+translate with secondary/Ctrl drag, or use Translate/Depth modes and named steps.
+The complete captured selection moves across entries, including hidden targets.
+Zoom remains available; Apply creates one reversible command and Cancel restores
+exact coordinates. Movement is unconstrained: partial selections can distort
+crossing bonds or create clashes. See [Interactive transforms](docs/TRANSFORMS.md).
+No new migration is needed. Actual v0.10.0 readers retain applied coordinates,
+existing undo/redo actions and archives; see
+[compatibility guidance](docs/DEVELOPMENT.md#interactive-movement-compatibility-0110).
+
+Structure organization includes reversible batch grouping: select structures and
 use **Move to group…**, **Remove from group**, or **Add to new group** in a row's
 Actions menu. Desktop grip handles move the same captured batch; keyboard and
 touch use explicit controls. Partial selections still move complete entries,
@@ -59,7 +69,7 @@ See the [styling workflow](docs/SELECTION_STYLING.md) and
 [scientific limitations](docs/SCIENTIFIC_LIMITATIONS.md).
 
 Back up managed data and upgrade to migration **0013** before startup. Older
-projects/archives remain readable by v0.10.0. Downgrade to 0012 requires every retained
+projects/archives remain readable by v0.11.0. Downgrade to 0012 requires every retained
 pocket definition, including history and scenes, to be null; otherwise restore the
 pre-upgrade backup. Older readers are unsupported for pocket-bearing archives.
 Atomic hiding does not change entry-based Visible export.

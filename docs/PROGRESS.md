@@ -10,7 +10,7 @@ steps and zoom end in one atomic Apply or exact Cancel. Camera/picking suspensio
 bounded renderer batches, transient cues, surface/measurement suspension and
 renderer recovery preserve authority. D-075–D-078 record the design. Originals and
 unselected state remain unchanged. No migration; head remains 0013. All five
-versions remain 0.10.0; planned minor release is 0.11.0.
+versions are now 0.11.0; planned minor release is v0.11.0.
 
 M2 verification: **396 Python, 158 frontend and 8 supervisor tests**, lint/type/build,
 and **12 native browser tests / 8 intentional layout skips** pass. Both projections,
@@ -31,7 +31,10 @@ preview **151.1/36 ms**, exact Cancel **17.8/21.6 ms**, longest task **133 ms**;
 first/latest bounded rendering and zero preview requests pass. Surface regeneration
 is separate. D-079/D-080 record mesh cues and remount camera ownership. Detailed
 commands, corrected development failures, screenshots and raw evidence remain in
-the feature plan. C5 full release gate and delivery remain pending; no blocker.
+the feature plan. C5 preparation: five versions agree at 0.11.0; preceding archive provenance
+coverage is retained and 0.10.0 added (**38 archive/security tests**). Actual v0.10.0
+reader accepts the 0.11.0 producer, including exact batch redo. Complete clean
+candidate gate, full-diff review and delivery remain pending; no blocker.
 
 ### Previous release — v0.10.0
 
