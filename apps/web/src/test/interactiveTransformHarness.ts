@@ -12,6 +12,13 @@ export async function mountInteractiveTransformHarness(target: HTMLElement, sour
     loaded: Map<string, { structure: Structure; atomIds: number[] }>;
     inheritedSurfaceRefs: Map<string, string[]>;
     movementCueRefs: Map<string, string>;
+    updateCoordinates: (...args: unknown[]) => Promise<void>;
+  };
+  const coordinateUpdates = new Set<() => void>();
+  const updateCoordinates = internals.updateCoordinates.bind(engine);
+  internals.updateCoordinates = async (...args) => {
+    await updateCoordinates(...args);
+    coordinateUpdates.forEach(listener => listener());
   };
   const events: AtomReference[][] = [];
   const unsubscribe = engine.subscribeSelection(event => events.push(event.atoms));
@@ -33,5 +40,7 @@ export async function mountInteractiveTransformHarness(target: HTMLElement, sour
       previewCues: internals.movementCueRefs.has(source.entryId) ? 1 : 0, events: [...events],
     };
   };
-  return { engine, source, inspect, dispose: () => { unsubscribe(); engine.dispose(); } };
+  return { engine, source, inspect,
+    onCoordinatesUpdated: (listener: () => void) => { coordinateUpdates.add(listener); return () => { coordinateUpdates.delete(listener); }; },
+    dispose: () => { coordinateUpdates.clear(); unsubscribe(); engine.dispose(); } };
 }

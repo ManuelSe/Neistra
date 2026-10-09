@@ -2691,3 +2691,19 @@ selected-atom cues without revealing hidden material or altering durable styles.
 Measurements pause explicitly instead of displaying stale preview values. Surface
 restoration/regeneration is separate from coordinate cancellation latency. These
 choices implement D-075/D-076 without a persisted session or generic manipulator.
+
+## D-079 — Bounded transient movement cues
+
+Date: 2026-10-09. Status: implemented during issue #4 C4 qualification.
+
+Use small, detail-zero mesh spheres for transient selected-atom movement cues,
+including cues recreated during a visibility/isolation rebuild. These disposable
+cues preserve captured inspectable bounds and do not change saved representations,
+scientific coordinates, visibility masks or the matrix transaction.
+
+Native CPU profiling found first-use sphere-impostor shader finalization stalled
+an otherwise ordinary cartoon view for about one second. Reusing the ordinary
+mesh rendering path reduces the qualified first preview to 91 ms without moving
+that work outside the measured interval or weakening the accepted 500 ms response
+and 750 ms task budgets. Subsequent preview and exact coordinate cancellation are
+also qualified. Surface restoration/regeneration remains separately reported.

@@ -57,6 +57,10 @@ import {
   molstarRepresentationProfile,
 } from "./settings";
 
+// Small mesh spheres reuse the ordinary mesh shader instead of compiling a new
+// sphere-impostor pipeline on the first movement of a cartoon/surface-only view.
+const movementCueParams = { sizeFactor: 0.3, tryUseImpostor: false, detail: 0 };
+
 interface LoadedStructure {
   entryId: string;
   structure: Structure;
@@ -785,7 +789,7 @@ export class MolstarEngine implements MolecularViewer {
         component,
         {
           type: profile.type,
-          typeParams: profile.typeParams,
+          typeParams: layer.id === "movement-preview" ? { ...profile.typeParams, ...movementCueParams } : profile.typeParams,
           color: this.colorTheme(layer.colorBy),
           colorParams:
             layer.colorBy === "custom"
@@ -829,7 +833,7 @@ export class MolstarEngine implements MolecularViewer {
     }, `movement-preview-${source.entryId}`);
     if (!component) return;
     this.movementCueRefs.set(source.entryId, component.ref);
-    await plugin.builders.structure.representation.addRepresentation(component, { type: "spacefill", typeParams: { sizeFactor: 0.3 }, color: "element-symbol" });
+    await plugin.builders.structure.representation.addRepresentation(component, { type: "spacefill", typeParams: movementCueParams, color: "element-symbol" });
     this.applySelection();
     this.commitScene(this.getCamera());
   }

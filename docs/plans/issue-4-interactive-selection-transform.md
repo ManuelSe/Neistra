@@ -818,3 +818,38 @@ reload (**2 passed**, `/tmp/neistra-issue4-c4-lifecycle`). An initial measuremen
 fixture expected 200 instead of its documented creation status 201; corrected and
 rerun. Local diff review and `git diff --check` passed. No migration or scientific
 semantics changed; complete C4 regression/performance gates remain pending.
+
+### 2026-10-09 — C4 performance correction: transient cue shader
+
+Native qualification distinguished actual coordinate-restoration completion from
+an animation-frame polling delay. A test-only coordinate observer records exact
+restored model state before subsequent surface work; it does not alter renderer
+behavior. The first preview still exceeded the unchanged accepted budget:
+**1,050.7 ms preview / 981 ms task**. Optional CDP CPU profiling identified
+sphere-impostor shader finalization in the transient cue's scene commit; coordinate
+updates themselves took 82.5 ms in that diagnostic run.
+
+Transient cues now use small detail-zero mesh spheres, sharing the ordinary mesh
+rendering path. The same params apply when visibility/isolation rebuilds a preview.
+D-079 records the reason. Normal saved styles, hidden bounds, scientific state,
+selection identity and complete Apply/Cancel semantics are unchanged.
+
+Frozen unprofiled desktop qualification with ordinary RCSB 1STP (1,001 atoms),
+ports 8210/8211/5373, `/tmp/neistra-issue4-c4-profile`, output
+`/tmp/neistra-issue4-c4-mesh-results`, `playwright test
+tests/e2e/interactive-transform-performance.spec.ts --project=chromium`: **1 passed**.
+[Raw evidence](../assets/interactive-selection-transform/c4-performance.json):
+protein-fragment preview **91 ms**, exact cancellation **16.2 ms**, longest task
+**75 ms**; bound biotin (16 atoms) preview **30.5 ms**, cancellation **19.2 ms**.
+Forty submitted frames render only the first and latest, with one active operation;
+no normalized fetch, command or job request. Surface coordinates restore in
+**16 ms**; inherited-surface regeneration completes separately at **1,047.1 ms**.
+No CPU profiler, concurrent build or competing qualification ran during this
+passing timing run. Full C4 regression and M3 release qualification remain pending.
+
+The corrected cue also passes native both-projection/surface-only exact-restoration
+workflows in desktop and Pixel 7 (**2 passed**, `/tmp/neistra-issue4-c4-cue`).
+Queue/adapter/loading Vitest **19 passed / 3 files**; frontend lint/typecheck/build
+pass. Local diff review and `git diff --check` pass. The test-only observer and
+optional profiler stay outside production imports. No new scientific/rendered
+surface profile, migration or compatibility change.

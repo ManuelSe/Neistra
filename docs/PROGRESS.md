@@ -42,6 +42,13 @@ pass in both layouts (**2 browser tests**), with **22 focused frontend tests** a
 lint/type/build. Reload, no-op history, measurement pause/recalculation and checkpoint
 workflows also pass in both layouts. Complete C4 regression/performance gates pending.
 
+C4 performance correction: first-use transient sphere-impostor shader compilation
+exceeded the approved budgets. Mesh cues (D-079) remove the stall. The unchanged
+native 1STP gates pass: **91/30.5 ms** fragment/ligand preview, **16.2/19.2 ms** exact
+Cancel, **75 ms** longest task; 40 frames render first/latest with one active call
+and no projection/command/job requests. Surface regeneration is reported separately.
+Complete C4 regression and release delivery remain pending.
+
 ### Previous release — v0.10.0
 
 Issue #9 — approved scope complete, merged through [PR #41](https://github.com/ManuelSe/Neistra/pull/41)
