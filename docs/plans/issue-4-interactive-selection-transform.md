@@ -729,3 +729,31 @@ Known limitations: complete task/failure/focus/touch/zoom/axe qualification,
 performance budgets, persistence/restart and 0.10.0 reader compatibility remain
 M3/C4 work. No current blocker. Next action: M3/C4 qualification, followed by C5
 version/release preparation and full delivery gates.
+
+### 2026-10-09 — C4 correction: focus and competing controls
+
+Qualification exposed lost keyboard focus after movement exit and inherited CSS
+that reduced Rotate/Translate/Depth targets to 31 px. Exit now restores the
+connected launcher, or the visible Fit all visible action when closing the mobile
+inspector removed that launcher. Restoration respects current project ownership
+and does not steal focus from a context-changing action. Movement buttons and the
+sensitivity input have 44 px targets. Numerical transforms and superposition are
+disabled for the captured interactive session so they cannot introduce competing
+previews. No persisted data or migration changed.
+
+The component test checks keyboard steps, exact launcher focus, Cancel and one
+Apply; the loading regression proves reconciliation without response patches
+loads the changed artifact. Browser tests cover scoped WCAG 2/2.1/2.2 axe rules,
+light/dark, desktop keyboard and Pixel 7 touch, interrupted committed response
+without replay and unknown-outcome blocking until explicit refresh.
+
+Evidence: isolated browser command with ports 8210/8211/5373 and data directory
+`/tmp/neistra-issue4-c4-controls`, `playwright test
+tests/e2e/interactive-selection-transform.spec.ts --grep
+'keyboard/touch|interrupted response|outcome is unknown'`: **6 passed**, zero
+failed/flaky, final frozen source. Earlier 31 px and hidden fallback-focus failures
+were corrected before this run. Focused Vitest controls/session/loading/numeric
+tests: **37 passed / 4 files**. Frontend lint, typecheck and build passed.
+Local diff review and `git diff --check` passed. Remaining C4 compatibility,
+lifecycle, zoom and performance qualification is still pending; this correction
+does not mark C4 or M3 complete.

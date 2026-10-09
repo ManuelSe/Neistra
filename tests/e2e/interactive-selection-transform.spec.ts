@@ -1,4 +1,5 @@
 import { readFileSync } from "node:fs";
+import AxeBuilder from "@axe-core/playwright";
 import { resolve } from "node:path";
 import { expect, test, type APIRequestContext, type Page } from "@playwright/test";
 import type { Project, StructureProjection } from "../../apps/web/src/api/types";
@@ -29,6 +30,113 @@ async function select(page: Page, references: { structure_id: string; atom_id: n
   }
   await expect(page.getByLabel("Current selection summary")).toContainText(`Atoms${references.length}`);
 }
+
+async function simpleMovement(page: Page, request: APIRequestContext, mobile: boolean) {
+  const initial: Project = await (await request.post("/api/v1/projects", { data: { name: `Movement lifecycle ${Date.now()}` } })).json();
+  const imported = await request.post(`/api/v1/projects/${initial.id}/imports`, {
+    multipart: { expected_revision: "0", files: { name: "ethanol.mol", mimeType: "chemical/x-mdl-molfile", buffer: readFileSync(resolve("tests/fixtures/formats/ethanol.mol")) } },
+  });
+  expect(imported.status()).toBe(201);
+  const project: Project = (await imported.json()).project;
+  await page.goto("/");
+  await page.getByRole("button", { name: "Projects", exact: true }).click();
+  await page.getByRole("dialog", { name: "Projects", exact: true }).getByRole("button", { name: new RegExp(`^${project.name}`) }).click();
+  await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded", { timeout: 30_000 });
+  if (mobile) await page.getByRole("button", { name: "Inspector", exact: true }).click();
+  await page.getByLabel("Select by").selectOption("structure");
+  await page.getByLabel("Value", { exact: true }).fill(project.entries[0].id);
+  await page.getByRole("button", { name: "Apply query", exact: true }).click();
+  await expect(page.getByLabel("Current selection summary")).toContainText(`Atoms${project.entries[0].atom_count}`);
+  await page.getByRole("tab", { name: "transform", exact: true }).click();
+  return project;
+}
+
+async function launchMovement(page: Page, mobile: boolean) {
+  const launcher = page.getByRole("button", { name: "Move selection", exact: true });
+  await launcher.focus(); await page.keyboard.press("Enter");
+  const banner = page.getByRole("region", { name: "Move selection controls" });
+  await expect(banner).toBeVisible();
+  if (mobile) await page.getByRole("button", { name: "Close panel", exact: true }).click({ position: { x: 2, y: 100 } });
+  return banner;
+}
+
+test("qualifies keyboard/touch controls, focus and scoped accessibility in both themes", async ({ page, request }, info) => {
+  test.setTimeout(120_000);
+  const mobile = info.project.name === "mobile-chromium";
+  const project = await simpleMovement(page, request, mobile);
+  const original = await structure(request, project.id, project.entries[0].id);
+  for (const theme of ["light", "dark"] as const) {
+    if (theme === "dark") {
+      await page.getByRole("button", { name: "Use dark theme" }).click();
+      if (mobile) await page.getByRole("button", { name: "Inspector", exact: true }).click();
+      await page.getByRole("tab", { name: "transform", exact: true }).click();
+    }
+    const banner = await launchMovement(page, mobile);
+    expect((await new AxeBuilder({ page }).include(".movement-banner").include(".movement-pointer-surface")
+      .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"]).analyze()).violations).toEqual([]);
+    const sizes = await banner.locator("button").evaluateAll(nodes => nodes.map(node => ({ name: node.textContent, height: node.getBoundingClientRect().height })));
+    for (const size of sizes) expect(size.height, size.name ?? "movement action").toBeGreaterThanOrEqual(44);
+    if (mobile) {
+      await banner.getByRole("button", { name: "Translate", exact: true }).tap();
+      await banner.getByRole("button", { name: "Step right" }).tap();
+      await banner.getByRole("button", { name: "Depth", exact: true }).tap();
+      await banner.getByRole("button", { name: "Step away" }).tap();
+    } else {
+      await banner.getByRole("button", { name: "Translate", exact: true }).focus(); await page.keyboard.press("Enter");
+      await page.getByRole("group", { name: "Move selection canvas" }).focus(); await page.keyboard.press("ArrowRight");
+      await page.keyboard.press("ArrowUp");
+    }
+    expect((await read(request, project.id)).revision).toBe(project.revision);
+    await page.keyboard.press("Escape");
+    await expect(banner).toBeHidden();
+    await expect(page.getByRole("button", { name: mobile ? "Fit all visible" : "Move selection", exact: true })).toBeFocused();
+    expect(await structure(request, project.id, project.entries[0].id)).toEqual(original);
+    await page.screenshot({ path: info.outputPath(`movement-${theme}-cancel.png`) });
+  }
+});
+
+test("reconciles an interrupted response after server commit without replaying Apply", async ({ page, request }, info) => {
+  test.setTimeout(120_000);
+  const mobile = info.project.name === "mobile-chromium";
+  const project = await simpleMovement(page, request, mobile);
+  const original = await structure(request, project.id, project.entries[0].id);
+  const banner = await launchMovement(page, mobile);
+  await banner.getByRole("button", { name: "Translate", exact: true }).click();
+  await banner.getByRole("button", { name: "Step right" }).click();
+  let count = 0;
+  await page.route(`**/api/v1/projects/${project.id}/selection-transform`, async route => {
+    count++;
+    const response = await route.fetch(); expect(response.status()).toBe(200);
+    await route.abort("failed");
+  });
+  await banner.getByRole("button", { name: "Apply movement" }).click();
+  await expect(banner).toBeHidden();
+  const next = await read(request, project.id);
+  expect(next.revision).toBe(project.revision + 1); expect(count).toBe(1);
+  expect((await structure(request, project.id, project.entries[0].id)).structure.atoms).not.toEqual(original.structure.atoms);
+  await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded", { timeout: 30_000 });
+  await expect(page.locator(".viewer-error")).toBeHidden();
+  await page.unroute(`**/api/v1/projects/${project.id}/selection-transform`);
+});
+
+test("blocks Apply while outcome is unknown and recovers only after explicit refresh", async ({ page, request }, info) => {
+  test.setTimeout(120_000);
+  const mobile = info.project.name === "mobile-chromium";
+  const project = await simpleMovement(page, request, mobile);
+  const banner = await launchMovement(page, mobile);
+  let count = 0;
+  await page.route(`**/api/v1/projects/${project.id}/selection-transform`, async route => { count++; await route.abort("failed"); });
+  await page.route(`**/api/v1/projects/${project.id}`, route => route.abort("failed"));
+  await banner.getByRole("button", { name: "Apply movement" }).click();
+  await expect(banner).toContainText("Outcome unknown; changes paused.");
+  await expect(banner.getByRole("button", { name: "Translate", exact: true })).toBeDisabled();
+  expect(count).toBe(1);
+  await page.unroute(`**/api/v1/projects/${project.id}`);
+  await banner.getByRole("button", { name: "Refresh project" }).click();
+  await expect(banner).toBeHidden();
+  expect((await read(request, project.id)).revision).toBe(project.revision); expect(count).toBe(1);
+  await page.unroute(`**/api/v1/projects/${project.id}/selection-transform`);
+});
 
 test("captures hidden multi-entry targets, previews multiple drags, cancels, and applies one reversible command", async ({ page, request }, info) => {
   test.setTimeout(120_000);

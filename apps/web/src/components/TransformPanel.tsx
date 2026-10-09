@@ -176,6 +176,8 @@ export function TransformPanel({
           onClick={() => { onClearPreview(); movement.start(); }}>Move selection</button>
         {movement.state.phase !== "idle" ? <p role="status">{movement.state.phase === "loading" ? "Capturing selected coordinates…" : "Movement controls are on the viewer."}</p> : null}
       </section> : null}
+      <fieldset className="numerical-transform-controls" disabled={Boolean(movement && movement.state.phase !== "idle")}>
+      <legend className="sr-only">Numerical transforms and superposition</legend>
       <section className="coordinate-section">
         <div className="section-title">
           <Move3d size={16} />
@@ -434,6 +436,7 @@ export function TransformPanel({
           </dl>
         ) : null}
       </section>
+      </fieldset>
       {localError ? (
         <p className="inline-error" role="alert">
           {localError}

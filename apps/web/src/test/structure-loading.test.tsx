@@ -619,6 +619,29 @@ describe("lazy structure loading", () => {
     expect(fake.syncs).toHaveLength(syncCount);
   });
 
+  it("reconciles a changed artifact without transient response patches after an interrupted Apply", async () => {
+    const fake = new FakeViewer();
+    const createViewer = () => fake;
+    const initial = project();
+    let current = projection("protein");
+    vi.spyOn(globalThis, "fetch").mockImplementation(() => Promise.resolve(
+      new Response(JSON.stringify(current), { status: 200, headers: { "Content-Type": "application/json" } }),
+    ));
+    const queryClient = new QueryClient({ defaultOptions: { queries: { retry: false } } });
+    const props = { theme: "light" as const, selection: emptySelection, pickingGranularity: "atom" as const,
+      onViewerSelection: vi.fn(), createViewer };
+    const view = render(<StructureViewer {...props} project={initial} />, { wrapper: wrapper(queryClient) });
+    await waitFor(() => expect(fake.syncs.at(-1)).toHaveLength(1));
+    current = structuredClone(current);
+    current.structure.atoms[0].coordinates = [7, 8, 9];
+    const refreshed = { ...initial, revision: initial.revision + 1,
+      entries: initial.entries.map(entry => entry.id === "protein" ? { ...entry, current_artifact_id: "reconciled-artifact" } : entry) };
+    view.rerender(<StructureViewer {...props} project={refreshed} />);
+    await waitFor(() => expect(fake.syncs.at(-1)?.[0].normalized.atoms[0].coordinates).toEqual([7, 8, 9]));
+    expect(fake.coordinatePatches).toEqual([]);
+    expect(screen.queryByRole("alert")).not.toBeInTheDocument();
+  });
+
   it("replaces only the affected topology after its new artifact is loaded", async () => {
     const fake = new FakeViewer();
     const initial = project(true, true);

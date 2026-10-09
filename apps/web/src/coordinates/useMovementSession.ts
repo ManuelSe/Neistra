@@ -30,11 +30,34 @@ export function useMovementSession(ports: MovementSessionPorts) {
   const state = useSyncExternalStore(session.subscribe, session.snapshot);
   const [mode, setMode] = useState<MovementMode>("rotate");
   const [sensitivity, setSensitivity] = useState(1);
+  const returnFocus = useRef<{ element: HTMLElement | null; projectId: string | undefined } | null>(null);
+  const previousPhase = useRef(state.phase);
+  useEffect(() => {
+    const previous = previousPhase.current;
+    previousPhase.current = state.phase;
+    if (state.phase !== "idle" || previous === "idle") return;
+    const target = returnFocus.current;
+    returnFocus.current = null;
+    if (!target || portsRef.current.context().project?.id !== target.projectId) return;
+    const active = document.activeElement;
+    // Context-changing actions keep their focus. Only recover focus lost with
+    // the movement surface/banner; never focus a different project's launcher.
+    if (active !== document.body && !active?.closest(".movement-banner, .movement-pointer-surface")) return;
+    if (target.element?.isConnected) target.element.focus();
+    else document.querySelector<HTMLElement>('.structure-viewer .viewer-toolbar button[aria-label="Fit all visible"]:not([aria-disabled="true"])')?.focus();
+  }, [state.phase]);
   useEffect(() => () => session.cancel(undefined, true), [session]);
   const workflow: MovementWorkflow = {
     state, mode, sensitivity, setMode,
     setSensitivity: value => setSensitivity(Math.min(4, Math.max(0.25, value))),
-    start: () => { void session.begin(); },
+    start: () => {
+      if (session.snapshot().phase !== "idle") return;
+      returnFocus.current = {
+        element: document.activeElement instanceof HTMLElement ? document.activeElement : null,
+        projectId: portsRef.current.context().project?.id,
+      };
+      void session.begin();
+    },
     apply: () => { void session.apply(); },
     cancel: () => session.cancel(),
     reconcile: () => { void session.reconcile(); },

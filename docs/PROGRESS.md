@@ -22,6 +22,13 @@ Full lifecycle/accessibility/real zoom/performance/persistence/older-reader
 qualification and release delivery remain pending. Blockers: none.
 Next action: M3/C4 qualification, then C5 release preparation.
 
+C4 qualification correction: movement exit restores context-owned keyboard focus,
+44 px controls support touch, and competing numerical previews are disabled.
+Interrupted-response reconciliation and unknown-outcome blocking pass in both
+layouts; light/dark scoped axe and keyboard/touch checks pass (**6 browser tests**).
+Focused controls/session/loading/numeric tests **37 passed**; frontend lint,
+typecheck and build pass. Remaining C4 gates are pending; no blocker.
+
 ### Previous release — v0.10.0
 
 Issue #9 — approved scope complete, merged through [PR #41](https://github.com/ManuelSe/Neistra/pull/41)
