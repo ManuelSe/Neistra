@@ -2,7 +2,7 @@
 
 ## Status and issue metadata
 
-- Status: **Implementation and corrected candidate qualification complete; correction PR and exact-merged qualification pending**.
+- Status: **Released v0.11.0; M1–M3/C1–C5 complete; final documentation/cleanup audit in issue reply**.
 - Approval: the user explicitly approved the complete proposed plan on 2026-10-09.
 - Issue: [#4 — Add an interactive mouse-based mode for translating and rotating selected atoms](https://github.com/ManuelSe/Neistra/issues/4).
 - Issue at approval: open, without comments, labels or a milestone; last updated 2026-08-03.
@@ -605,9 +605,9 @@ publication evidence. Do not bypass blockers or silently reduce accepted scope.
 | M2 / C2 | Complete | Copied capture, quaternion pose, multi-entry patches and independently tested Apply/cancel/context/response orchestration |
 | M2 / C3 | Complete | App-owned activation, gestures/steps, camera/selection suspension, bounded multi-entry rendering and native surface/error restoration; evidence below |
 | M3 / C4 | Complete | Lifecycle/accessibility/persistence/performance evidence below |
-| M3 / C5 | Corrected candidate complete | Full corrected candidate gate passes; correction merge and exact-master qualification remain |
-| PR/review/merge/exact-merged gate | PR #43 merged; correction/requalification pending | Original exact-master gate rejected; D-082 follow-on evidence below |
-| Publication/issue response/cleanup | Pending; authorized by subsequent `/goal` | Verified release and scope-accurate closeout |
+| M3 / C5 | Complete | Corrected candidate and exact released master full gates pass; evidence below |
+| PR/review/merge/exact-merged gate | Complete | PR #43 and #44 normal merges; exact released master gate and local review pass |
+| Publication/issue response/cleanup | Published; final operational state in linked audit | v0.11.0 and [issue audit](https://github.com/ManuelSe/Neistra/issues/4#issuecomment-6085403742) |
 
 ### 2026-10-09 — Implementation authorization and M1/C1
 
@@ -1128,3 +1128,22 @@ the original issue implementation and correction finds no unresolved consequenti
 finding; review is local, not independent. This completion commit changes only
 docs/evidence from the clean qualified source. Next: reviewed normal correction
 merge, complete gate on the exact new master commit, then publication and cleanup.
+
+### 2026-10-09 — Verified merge, release and issue closeout
+
+[PR #43](https://github.com/ManuelSe/Neistra/pull/43) merged normally, preserving all 14 checkpoint/documentation commits. Verified merged/released master SHA: `4ed61264d9006f81ca528bf42c0c21594121a55b`. Full release gate repeated on this exact clean commit: **398 Python, 164 frontend, 8 supervisor and 138 browser tests / 42 intentional skips**, zero failed/flaky cases/retries. Frozen installs, fresh migration0013, Ruff, mypy, frontend lint/types, production build and diff check pass. [Exact merged gate](../assets/interactive-selection-transform/c5-merged-gate.json) records all commands/timings/data paths; [native merged performance](../assets/interactive-selection-transform/c5-merged-performance.json) records unchanged budgets and exact restoration: preview **135.1/28.4 ms**, coordinate Cancel **16.3/15.3 ms**, longest task **119 ms**. Surface Cancel **10.1 ms** and regeneration **1143.7 ms** are measured separately. Runtime/test/version sources of corrected candidate 74ced02 and PR #44 merge 4ed6126 are identical. Actual v0.10.0 reading 0.11.0 qualification remains applicable.
+
+Annotated `v0.11.0` points to this exact qualified commit; [stable GitHub release](https://github.com/ManuelSe/Neistra/releases/tag/v0.11.0) and tag/peeled target are verified remotely. Downloaded `neistra-0.11.0-verification.json` release bytes match the local report. Correction [PR #44](https://github.com/ManuelSe/Neistra/pull/44) also merged normally; [request](https://github.com/ManuelSe/Neistra/pull/44#issuecomment-6084960950) and [local audit](https://github.com/ManuelSe/Neistra/pull/44#issuecomment-6084992950) are verified. All five versions are 0.11.0. No migration/schema/history/API break. Release notes publish scope, compatibility, science, verification, advisories and approved optional/deferred/rejected requests. No speculative follow-up issue is created.
+
+[Review request](https://github.com/ManuelSe/Neistra/pull/43#issuecomment-6084141559) and [local review/policy audit](https://github.com/ManuelSe/Neistra/pull/43#issuecomment-6084167766) are verified. No returned integration review, reaction or check; no independent review is claimed. Master was unprotected, rulesets/workflows/checks empty and PR clean/mergeable with no unresolved conversations or required human approval. No protection is bypassed.
+
+Issue #4 is closed; [scope-accurate closeout reply](https://github.com/ManuelSe/Neistra/issues/4#issuecomment-6085403742) is verified. This docs-only closeout follows the established v0.10.0 pattern: planned feature branch fast-forwarded to released master, documentation/evidence-only updates, without retargeting the published tag. The reply maintains the final cleanup/clean-master audit after this documentation merge. Remote/local feature branch cleanup is performed only after verified merge/tag/release/issue reply. No outstanding scope or product blocker.
+
+Published [verification report](https://github.com/ManuelSe/Neistra/releases/download/v0.11.0/neistra-0.11.0-verification.json)
+SHA-256: `96428371b0e6bc5524b86ca2fe305e27aa209340facbaddf077bd3b5b32cd7a6`.
+This closeout adds documentation/evidence only; source equality with the exact
+fully qualified release is checked before its PR. Local link validation and diff
+review supplement the complete released-runtime gate. Final documentation merge,
+remote/local branch deletion and clean current master SHA are recorded in the
+linked operational issue audit after those actions are verified, without changing
+the published annotated tag.

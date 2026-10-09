@@ -1,0 +1,177 @@
+{
+  "stage": "merged-repaired",
+  "commit": "4ed61264d9006f81ca528bf42c0c21594121a55b",
+  "commands": [
+    {
+      "name": "python-install",
+      "command": [
+        ".venv/bin/uv",
+        "sync",
+        "--frozen"
+      ],
+      "exit_code": 0,
+      "seconds": 0.02,
+      "log": "/tmp/neistra-issue4-merged-repaired-gate/python-install.log"
+    },
+    {
+      "name": "frontend-install",
+      "command": [
+        "corepack",
+        "pnpm",
+        "install",
+        "--frozen-lockfile"
+      ],
+      "exit_code": 0,
+      "seconds": 0.67,
+      "log": "/tmp/neistra-issue4-merged-repaired-gate/frontend-install.log"
+    },
+    {
+      "name": "migration",
+      "command": [
+        ".venv/bin/uv",
+        "run",
+        "alembic",
+        "upgrade",
+        "head"
+      ],
+      "exit_code": 0,
+      "seconds": 0.56,
+      "log": "/tmp/neistra-issue4-merged-repaired-gate/migration.log"
+    },
+    {
+      "name": "ruff",
+      "command": [
+        ".venv/bin/uv",
+        "run",
+        "ruff",
+        "check",
+        "."
+      ],
+      "exit_code": 0,
+      "seconds": 0.03,
+      "log": "/tmp/neistra-issue4-merged-repaired-gate/ruff.log"
+    },
+    {
+      "name": "mypy",
+      "command": [
+        ".venv/bin/uv",
+        "run",
+        "mypy",
+        "apps/api",
+        "packages/molweave_core"
+      ],
+      "exit_code": 0,
+      "seconds": 0.19,
+      "log": "/tmp/neistra-issue4-merged-repaired-gate/mypy.log"
+    },
+    {
+      "name": "pytest",
+      "command": [
+        ".venv/bin/uv",
+        "run",
+        "pytest"
+      ],
+      "exit_code": 0,
+      "seconds": 69.93,
+      "log": "/tmp/neistra-issue4-merged-repaired-gate/pytest.log"
+    },
+    {
+      "name": "frontend-lint",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "lint"
+      ],
+      "exit_code": 0,
+      "seconds": 7.63,
+      "log": "/tmp/neistra-issue4-merged-repaired-gate/frontend-lint.log"
+    },
+    {
+      "name": "frontend-typecheck",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "typecheck"
+      ],
+      "exit_code": 0,
+      "seconds": 4.08,
+      "log": "/tmp/neistra-issue4-merged-repaired-gate/frontend-typecheck.log"
+    },
+    {
+      "name": "frontend-tests",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "test"
+      ],
+      "exit_code": 0,
+      "seconds": 7.37,
+      "log": "/tmp/neistra-issue4-merged-repaired-gate/frontend-tests.log"
+    },
+    {
+      "name": "supervisor-tests",
+      "command": [
+        "corepack",
+        "pnpm",
+        "test:dev"
+      ],
+      "exit_code": 0,
+      "seconds": 1.44,
+      "log": "/tmp/neistra-issue4-merged-repaired-gate/supervisor-tests.log"
+    },
+    {
+      "name": "build",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "build"
+      ],
+      "exit_code": 0,
+      "seconds": 11.87,
+      "log": "/tmp/neistra-issue4-merged-repaired-gate/build.log"
+    },
+    {
+      "name": "browser",
+      "command": [
+        "corepack",
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "--output=/tmp/neistra-issue4-merged-repaired-gate/browser-results"
+      ],
+      "exit_code": 0,
+      "seconds": 1377.76,
+      "log": "/tmp/neistra-issue4-merged-repaired-gate/browser.log"
+    },
+    {
+      "name": "diff-check",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0,
+      "log": "/tmp/neistra-issue4-merged-repaired-gate/diff-check.log"
+    }
+  ],
+  "environment": {
+    "browser": "pinned Chromium/SwiftShader; desktop and Pixel 7 emulation",
+    "ports": [
+      8210,
+      8211,
+      5373
+    ],
+    "migration_data": "/tmp/neistra-issue4-merged-repaired-migration",
+    "browser_data": "/tmp/neistra-issue4-merged-repaired-browser"
+  }
+}
