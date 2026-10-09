@@ -21,17 +21,17 @@ actual v0.10.0 reading 0.11.0 retained history pass. Corrected diagnostics and r
 evidence remain in the feature plan. Final review is local, not independent;
 no unresolved consequential finding.
 
-PR #43 merged normally at e72593e; no integration review returned. Exact merged
-gate passes all non-browser checks but is rejected by a real menu-teardown focus
-race at dark 200% zoom. Stop after the detected failure (56 browser passed, one
-failed, one interrupted); no tag/release exists. D-082 restores captured membership
-focus at menu teardown and later responses, with project guards. Its regression
-fails on preceding code and passes with the fix; 9 focused units and lint/types/build
-pass. Native repeats pass **21 tests / 3 intentional skips** (three actual-zoom/theme
-sequences plus immediate/late desktop/compact membership). Full clean
-requalification/correction PR remain in progress.
-Release remains blocked until complete passing candidate and exact merged gates.
-Detailed evidence and rejected runs remain in the feature plan.
+PR #43 merged normally at e72593e; no integration review returned. Its exact
+merged gate exposed a real menu-teardown focus race. D-082 corrects captured
+membership focus at menu teardown and later responses, guarded by project.
+Regression fails on preceding source; 9 focused units and **21 native repeat
+tests / 3 intentional skips** pass. The corrected clean candidate74ced02 passes
+the complete release gate: **398 Python, 164 frontend, 8 supervisor and
+138 browser tests / 42 intentional skips**, zero failed/flaky cases/retries,
+frozen installs, fresh migration, lint/types/build. Native preview132.2/42.6ms,
+Cancel11.3/14.8ms, longest task115ms pass unchanged budgets. Detailed evidence
+and rejected runs remain in the feature plan. Correction PR/review/merge and
+exact-master qualification precede tag/release/reply/cleanup. No current blocker.
 
 ### Previous release — v0.10.0
 

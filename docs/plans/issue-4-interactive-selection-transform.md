@@ -2,7 +2,7 @@
 
 ## Status and issue metadata
 
-- Status: **Implementation complete; M1–M2/C1–C4 complete; C5 exact-merged requalification in progress**.
+- Status: **Implementation and corrected candidate qualification complete; correction PR and exact-merged qualification pending**.
 - Approval: the user explicitly approved the complete proposed plan on 2026-10-09.
 - Issue: [#4 — Add an interactive mouse-based mode for translating and rotating selected atoms](https://github.com/ManuelSe/Neistra/issues/4).
 - Issue at approval: open, without comments, labels or a milestone; last updated 2026-08-03.
@@ -605,7 +605,7 @@ publication evidence. Do not bypass blockers or silently reduce accepted scope.
 | M2 / C2 | Complete | Copied capture, quaternion pose, multi-entry patches and independently tested Apply/cancel/context/response orchestration |
 | M2 / C3 | Complete | App-owned activation, gestures/steps, camera/selection suspension, bounded multi-entry rendering and native surface/error restoration; evidence below |
 | M3 / C4 | Complete | Lifecycle/accessibility/persistence/performance evidence below |
-| M3 / C5 | Requalifying | Original clean candidate passed; D-082 correction requires new complete candidate/exact-merged gates |
+| M3 / C5 | Corrected candidate complete | Full corrected candidate gate passes; correction merge and exact-master qualification remain |
 | PR/review/merge/exact-merged gate | PR #43 merged; correction/requalification pending | Original exact-master gate rejected; D-082 follow-on evidence below |
 | Publication/issue response/cleanup | Pending; authorized by subsequent `/goal` | Verified release and scope-accurate closeout |
 
@@ -1104,3 +1104,27 @@ Frontend typecheck, lint, production build and diff check pass. Review confirms
 non-membership menu behavior, captured-project guard, absence of polling/retries
 and unchanged scientific/persisted scope. Commit this coherent correction before
 full clean candidate requalification.
+
+### 2026-10-09 — Corrected clean candidate gate complete
+
+Clean correction `74ced0225ac6520311de8fa5b4726274bf4c8b91` passes every documented
+release gate command: frozen uv/pnpm installs, fresh migration0013, Ruff, mypy
+(54 files), **398 Python, 164 frontend / 37 files, 8 supervisor and 138 browser
+tests / 42 intentional layout skips**, lint/typecheck/build (3388 modules), diff
+check; zero failures/flakes/retries. Browser duration22.9min. [Exact commands and
+timings](../assets/interactive-selection-transform/c5-repaired-candidate-gate.json)
+record the same documented sequence with fresh `candidate-repaired` migration/
+browser data, pinned Chromium/SwiftShader, Pixel 7 and ports8210/8211/5373.
+[Native evidence](../assets/interactive-selection-transform/c5-repaired-performance.json):
+first preview **132.2/42.6 ms**, coordinate Cancel **11.3/14.8 ms**, longest task
+**115 ms**; first/latest two renders/max active one/zero preview requests and exact
+restoration pass unchanged budgets. Surface Cancel14.1ms and regeneration1056.5ms
+are separate. All actual-zoom focus assertions pass in this full run.
+
+Fresh origin/master is still e72593e; latest releasev0.10.0 and v0.11.0 is free.
+Master remains explicitly unprotected, rulesets empty. Five versions remain0.11.0;
+backend/persistence/reader compatibility is unchanged. Local full-diff review of
+the original issue implementation and correction finds no unresolved consequential
+finding; review is local, not independent. This completion commit changes only
+docs/evidence from the clean qualified source. Next: reviewed normal correction
+merge, complete gate on the exact new master commit, then publication and cleanup.
