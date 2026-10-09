@@ -853,3 +853,23 @@ Queue/adapter/loading Vitest **19 passed / 3 files**; frontend lint/typecheck/bu
 pass. Local diff review and `git diff --check` pass. The test-only observer and
 optional profiler stay outside production imports. No new scientific/rendered
 surface profile, migration or compatibility change.
+
+### 2026-10-09 — C4 responsive viewer lifecycle correction
+
+Review found that responsive layout reparents/disposes the viewer while the
+application-owned movement session remains active. The new renderer previously
+missed camera/binding capture before its first scene. D-080 retains a transient
+workflow camera, restores it after initial scene synchronization, reacquires
+bindings and prevents a disposed asynchronous mount from attaching listeners.
+
+Frozen-source native regression command: `PLAYWRIGHT_BROWSERS_PATH=.playwright
+MOLWEAVE_E2E_API_PORT=8210 MOLWEAVE_E2E_WORKER_PORT=8211
+MOLWEAVE_E2E_WEB_PORT=5373 MOLWEAVE_E2E_DATA_DIR=/tmp/neistra-issue4-remount
+corepack pnpm exec playwright test tests/e2e/interactive-selection-transform.spec.ts
+--grep 'responsive viewer remounts' --output=/tmp/neistra-issue4-remount-results`:
+**2 passed**, both directions. Actual application native coordinates/camera,
+empty movement navigation bindings, no revision write and exact cancellation/
+restored bindings pass. Frontend suite **162 passed / 36 files**, including
+asynchronous adapter disposal; lint and typecheck pass. Production build passes (3388 modules). A test-only harness refactor initially
+used iteration on Mol*'s array-like sorted set; typecheck caught this and the
+existing index loop was restored before rerunning passing typecheck/lint/build. No migration or scope expansion.

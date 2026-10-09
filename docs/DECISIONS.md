@@ -2707,3 +2707,20 @@ mesh rendering path reduces the qualified first preview to 91 ms without moving
 that work outside the measured interval or weakening the accepted 500 ms response
 and 750 ms task budgets. Subsequent preview and exact coordinate cancellation are
 also qualified. Surface restoration/regeneration remains separately reported.
+
+## D-080 — Retain transient movement camera across renderer remounts
+
+Date: 2026-10-09. Status: implemented during issue #4 C4 qualification.
+
+Keep a copied camera snapshot with the application-owned movement workflow for
+its lifetime. Responsive layout can dispose and remount the viewer while the
+captured scientific target and pose remain active. Ignore the new renderer's
+initial camera notifications until its first scene is synchronized, restore the
+held snapshot, and reacquire movement bindings. Clear the snapshot on session
+exit/new capture; it is neither persisted nor authoritative molecular state.
+Only the renderer that initiated synchronization may complete that lifecycle.
+
+The lazy adapter also releases an engine whose asynchronous native mount finishes
+after disposal, without attaching late listeners. Native desktop-to-compact and
+compact-to-desktop regressions verify unchanged preview coordinates and camera,
+suppressed navigation, exact Cancel and restored normal bindings.

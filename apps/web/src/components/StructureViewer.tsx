@@ -111,6 +111,7 @@ export function StructureViewer({
   const movementActive = Boolean(movement?.state.capture && movement.state.phase !== "idle");
   const currentMovement = useRef(movement);
   currentMovement.current = movement;
+  const initialSceneReady = useRef(false);
   const [surfaceStatuses, setSurfaceStatuses] = useState<SurfaceStatus[]>([]);
   const [viewerReady, setViewerReady] = useState(false);
   const [viewerError, setViewerError] = useState<string | null>(null);
@@ -205,9 +206,14 @@ export function StructureViewer({
       );
     });
     const unsubscribeSurfaces = viewer.subscribeSurfaces(setSurfaceStatuses);
-    const unsubscribeCamera = viewer.subscribeCamera(setCamera);
+    initialSceneReady.current = false;
+    const unsubscribeCamera = viewer.subscribeCamera(camera => {
+      setCamera(camera);
+      if (initialSceneReady.current) currentMovement.current?.rememberCamera(camera);
+    });
     return () => {
       active = false;
+      if (initialSceneReady.current) currentMovement.current?.rememberCamera(viewer.getCamera());
       unsubscribe();
       unsubscribeCamera();
       unsubscribeSurfaces();
@@ -277,13 +283,34 @@ export function StructureViewer({
   }, [viewerReady]);
 
   useEffect(() => {
-    if (viewerReady) viewerRef.current?.setMovementMode(movementActive);
+    if (viewerReady) {
+      const viewer = viewerRef.current;
+      if (movementActive && initialSceneReady.current) currentMovement.current?.rememberCamera(viewer?.getCamera() ?? null);
+      viewer?.setMovementMode(movementActive);
+    }
   }, [movementActive, viewerReady]);
 
   useEffect(() => {
     if (!viewerReady) return;
-    void viewerRef.current
+    const syncedViewer = viewerRef.current;
+    void syncedViewer
       ?.syncStructures(viewerStructuresRef.current)
+      .then(() => {
+        const viewer = viewerRef.current;
+        if (!viewer || viewer !== syncedViewer) return;
+        const workflow = currentMovement.current;
+        const active = Boolean(workflow?.state.capture && workflow.state.phase !== "idle");
+        if (!initialSceneReady.current) {
+          const camera = workflow?.camera();
+          if (active && camera) {
+            viewer.setMovementMode(false);
+            viewer.setCamera(camera);
+          }
+          initialSceneReady.current = true;
+        }
+        viewer.setMovementMode(active);
+        if (active) workflow?.rememberCamera(viewer.getCamera());
+      })
       .catch((error: unknown) =>
         setViewerError(error instanceof Error ? error.message : "The viewer rejected a structure."),
       );

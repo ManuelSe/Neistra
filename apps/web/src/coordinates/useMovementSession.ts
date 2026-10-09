@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { MovementSession, type MovementSessionPorts, type MovementSessionState } from "./MovementSession";
 import type { MovementMode, MovementPose } from "./interactiveTransform";
+import type { CameraState } from "../api/types";
 
 export interface MovementWorkflow {
   state: MovementSessionState;
@@ -13,6 +14,8 @@ export interface MovementWorkflow {
   cancel: () => void;
   reconcile: () => void;
   update: (pose: MovementPose) => void;
+  camera: () => CameraState | null;
+  rememberCamera: (camera: CameraState | null) => void;
 }
 
 export function useMovementSession(ports: MovementSessionPorts) {
@@ -32,10 +35,12 @@ export function useMovementSession(ports: MovementSessionPorts) {
   const [sensitivity, setSensitivity] = useState(1);
   const returnFocus = useRef<{ element: HTMLElement | null; projectId: string | undefined } | null>(null);
   const previousPhase = useRef(state.phase);
+  const movementCamera = useRef<CameraState | null>(null);
   useEffect(() => {
     const previous = previousPhase.current;
     previousPhase.current = state.phase;
     if (state.phase !== "idle" || previous === "idle") return;
+    movementCamera.current = null;
     const target = returnFocus.current;
     returnFocus.current = null;
     if (!target || portsRef.current.context().project?.id !== target.projectId) return;
@@ -52,6 +57,7 @@ export function useMovementSession(ports: MovementSessionPorts) {
     setSensitivity: value => setSensitivity(Math.min(4, Math.max(0.25, value))),
     start: () => {
       if (session.snapshot().phase !== "idle") return;
+      movementCamera.current = null;
       returnFocus.current = {
         element: document.activeElement instanceof HTMLElement ? document.activeElement : null,
         projectId: portsRef.current.context().project?.id,
@@ -62,6 +68,10 @@ export function useMovementSession(ports: MovementSessionPorts) {
     cancel: () => session.cancel(),
     reconcile: () => { void session.reconcile(); },
     update: pose => session.update(pose),
+    camera: () => movementCamera.current,
+    rememberCamera: camera => {
+      if (session.snapshot().capture && camera) movementCamera.current = structuredClone(camera);
+    },
   };
   return { session, workflow };
 }

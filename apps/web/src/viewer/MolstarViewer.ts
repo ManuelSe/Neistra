@@ -31,9 +31,11 @@ class LazyMolstarViewer implements MolecularViewer {
   async mount(target: HTMLElement): Promise<void> {
     const { MolstarEngine } = await import("./MolstarEngine");
     if (this.disposed) return;
-    this.engine = new MolstarEngine();
-    this.engine.setBackgroundColor(this.backgroundColor);
-    await this.engine.mount(target);
+    const engine = new MolstarEngine();
+    this.engine = engine;
+    engine.setBackgroundColor(this.backgroundColor);
+    await engine.mount(target);
+    if (this.disposed || this.engine !== engine) { engine.dispose(); return; }
     this.engine.setPickingGranularity(this.pickingGranularity);
     this.engine.setSelection(this.selection);
     this.engine.setMovementMode(this.movementActive);

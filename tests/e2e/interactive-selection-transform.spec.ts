@@ -3,10 +3,11 @@ import AxeBuilder from "@axe-core/playwright";
 import { resolve } from "node:path";
 import { expect, test, type APIRequestContext, type Page } from "@playwright/test";
 import type { Project, StructureProjection } from "../../apps/web/src/api/types";
+import type { MolstarEngine } from "../../apps/web/src/viewer/MolstarEngine";
 import type { mountInteractiveTransformHarness } from "../../apps/web/src/test/interactiveTransformHarness";
 
 declare global {
-  interface Window { movementHarness: Awaited<ReturnType<typeof mountInteractiveTransformHarness>> }
+  interface Window { movementEngines: MolstarEngine[]; movementHarness: Awaited<ReturnType<typeof mountInteractiveTransformHarness>> }
 }
 
 const read = async (request: APIRequestContext, id: string): Promise<Project> => {
@@ -526,4 +527,48 @@ test("preserves no-op history, pauses measurements and discards unapplied moveme
   await page.getByRole("tab", { name: "measurements", exact: true }).click();
   await expect(page.locator(".measurement-row").filter({ has: page.getByLabel("Name for Movement reference") })).toContainText(`${distance.toFixed(2)} Å`);
   await expect(page.locator(".viewer-error")).toBeHidden();
+});
+
+
+test("retains the native preview and held camera across responsive viewer remounts", async ({ page, request }, info) => {
+  test.setTimeout(120_000);
+  await page.route("**/src/viewer/MolstarEngine.ts*", async route => {
+    const response = await route.fetch();
+    await route.fulfill({ response, body: `${await response.text()}
+const movementNativeMount = MolstarEngine.prototype.mount;
+MolstarEngine.prototype.mount = async function(target) {
+  await movementNativeMount.call(this, target);
+  (window.movementEngines ??= []).push(this);
+};` });
+  });
+  const mobile = info.project.name === "mobile-chromium";
+  const project = await simpleMovement(page, request, mobile);
+  const inspect = () => page.evaluate(async id => {
+    const { inspectInteractiveTransform } = await import("/src/test/interactiveTransformHarness.ts");
+    return inspectInteractiveTransform(window.movementEngines.at(-1)!, id);
+  }, project.entries[0].id);
+  const original = await inspect();
+  const banner = await launchMovement(page, mobile);
+  await banner.getByRole("button", { name: "Step right" }).click();
+  await banner.getByRole("button", { name: "Translate", exact: true }).click();
+  await banner.getByRole("button", { name: "Step right" }).click();
+  await banner.getByRole("button", { name: "Zoom in" }).click();
+  await expect.poll(async () => (await inspect()).coordinates).not.toEqual(original.coordinates);
+  await expect.poll(async () => (await inspect()).movementActive).toBe(true);
+  const before = await inspect();
+  expect(before.navigationTriggers).toBe(0);
+  const count = await page.evaluate(() => window.movementEngines.length);
+  await page.setViewportSize({ width: mobile ? 1440 : 393, height: 900 });
+  await expect.poll(() => page.evaluate(() => window.movementEngines.length)).toBeGreaterThan(count);
+  await expect(banner).toBeVisible();
+  await expect.poll(async () => (await inspect()).coordinates).toEqual(before.coordinates);
+  await expect.poll(async () => (await inspect()).camera).toEqual(before.camera);
+  await expect.poll(async () => (await inspect()).movementActive).toBe(true);
+  expect((await inspect()).navigationTriggers).toBe(0);
+  expect((await read(request, project.id)).revision).toBe(project.revision);
+  await banner.getByRole("button", { name: "Cancel movement" }).click();
+  await expect(banner).toBeHidden();
+  await expect.poll(async () => (await inspect()).coordinates).toEqual(original.coordinates);
+  await expect.poll(async () => (await inspect()).movementActive).toBe(false);
+  expect((await inspect()).navigationTriggers).toBeGreaterThan(0);
 });

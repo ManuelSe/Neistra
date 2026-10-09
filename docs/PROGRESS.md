@@ -49,6 +49,12 @@ Cancel, **75 ms** longest task; 40 frames render first/latest with one active ca
 and no projection/command/job requests. Surface regeneration is reported separately.
 Complete C4 regression and release delivery remain pending.
 
+C4 remount correction (D-080): responsive renderer replacement retains the live
+preview and held camera, reacquires movement bindings and cancels exactly. Native
+both-direction regressions **2 passed**; **162 frontend tests**, lint and typecheck
+pass. Late asynchronous mounts release their engine without attaching listeners.
+No migration; complete C4 evidence and C5 delivery follow.
+
 ### Previous release — v0.10.0
 
 Issue #9 — approved scope complete, merged through [PR #41](https://github.com/ManuelSe/Neistra/pull/41)

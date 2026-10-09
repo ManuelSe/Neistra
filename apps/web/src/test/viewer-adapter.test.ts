@@ -33,8 +33,7 @@ const calls = vi.hoisted(() => ({
 vi.mock("../viewer/MolstarEngine", () => ({
   MolstarEngine: class {
     mount(target: HTMLElement) {
-      calls.mount(target);
-      return Promise.resolve();
+      return Promise.resolve(calls.mount(target));
     }
 
     setBackgroundColor(cssColor: string) {
@@ -107,6 +106,22 @@ vi.mock("../viewer/MolstarEngine", () => ({
 describe("MolecularViewer Molstar adapter", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+  });
+
+  it("releases a native engine whose asynchronous mount completes after disposal", async () => {
+    let finish!: () => void;
+    calls.mount.mockReturnValueOnce(new Promise<void>(resolve => { finish = resolve; }));
+    const { createMolstarViewer } = await import("../viewer/MolstarViewer");
+    const viewer = createMolstarViewer();
+    viewer.subscribeCamera(vi.fn());
+    const mounting = viewer.mount(document.createElement("div"));
+    await vi.waitFor(() => expect(calls.mount).toHaveBeenCalledOnce());
+    viewer.dispose();
+    finish();
+    await mounting;
+    expect(calls.dispose).toHaveBeenCalledTimes(2);
+    expect(calls.cameraSubscribe).not.toHaveBeenCalled();
+    expect(calls.granularity).not.toHaveBeenCalled();
   });
 
   it("loads Molstar lazily and forwards only application viewer concepts", async () => {
