@@ -44,14 +44,17 @@
 ### Verification and review
 
 The [approved issue #4 plan](plans/issue-4-interactive-selection-transform.md)
-records checkpoint evidence, native coordinates, both projections, multi-entry
-hidden targets, lifecycle/conflict cases, light/dark scoped axe, keyboard/touch,
-actual 100%/200% Chrome zoom and inspected screenshots. C4 broad browser gate:
-**52 passed / 10 intentional skips** plus **2 native remount regressions**;
-focused persisted/archive/security tests **52 passed**. Native 1STP preview
-**151.1/36 ms**, exact Cancel **17.8/21.6 ms**, longest task **133 ms** pass unchanged
-budgets; surface regeneration is separate. Complete C5 candidate/release gates
-and final local full-diff review remain pending. Local review is not independent.
+records exact checkpoint evidence, both projections, hidden multi-entry targets,
+lifecycle/conflict cases, light/dark scoped axe, keyboard/touch, actual 100%/200%
+Chrome zoom and inspected screenshots.
+
+Clean committed candidate `28a3ac83ac9031a0b9fb3ba5d7c894c45d471952` passes the complete README/DEVELOPMENT release gate: **398 Python, 163 frontend / 37 files, 8 supervisor and 138 browser tests / 42 intentional layout skips**, zero failed/flaky cases or configured retries (23.2 minutes). Frozen uv/pnpm installs, fresh migration through 0013, Ruff, mypy (54 files), frontend lint/typecheck, production build (3388 modules) and diff check pass.
+
+Native ordinary 1STP protein-fragment/ligand first preview **128.9/26 ms**, exact coordinate Cancel **13.6/16.8 ms**, longest task **111 ms** pass unchanged budgets (preview/Cancel <500 ms, task <750 ms). Each 40-frame burst renders two frames, max active one, exact restoration and zero preview requests. Surface coordinate Cancel **9.4 ms** and regeneration **1101.8 ms** are accounted separately. Actual v0.10.0 reader accepts 0.11.0 data and retained undo/redo, save/reexport and archive import.
+
+Final full-diff review covers proper matrix/atomic batches, canonical copied targets/all conformers/no-op/history, immutable provenance, numerical-preview ownership (D-081), async/context failures, camera/queue/remount lifecycle, surface/measurement/visibility behavior, accessibility/performance, compatibility, versions and approved scope. All consequential findings are corrected and qualified. Review is **local, not independent**. Existing Alembic/bundle advisories and scientific/emulated-device limits remain. No migration or speculative follow-up issue is needed.
+
+Exact merged qualification and remote publication remain pending.
 
 ### Scientific limitations and deferred scope
 

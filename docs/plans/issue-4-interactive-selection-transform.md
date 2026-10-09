@@ -2,7 +2,7 @@
 
 ## Status and issue metadata
 
-- Status: **Implementation in progress; M1 and M2 complete; M3 in progress; C4 complete; C5 pending**.
+- Status: **Implementation and qualification complete; M1–M3/C1–C5 complete; remote delivery pending**.
 - Approval: the user explicitly approved the complete proposed plan on 2026-10-09.
 - Issue: [#4 — Add an interactive mouse-based mode for translating and rotating selected atoms](https://github.com/ManuelSe/Neistra/issues/4).
 - Issue at approval: open, without comments, labels or a milestone; last updated 2026-08-03.
@@ -604,8 +604,8 @@ publication evidence. Do not bypass blockers or silently reduce accepted scope.
 | M1 / C1 | Complete | Atomic batch endpoint, proper rotations, all-conformer stable-ID transforms, one history command, no-op/rejection invariants; evidence below |
 | M2 / C2 | Complete | Copied capture, quaternion pose, multi-entry patches and independently tested Apply/cancel/context/response orchestration |
 | M2 / C3 | Complete | App-owned activation, gestures/steps, camera/selection suspension, bounded multi-entry rendering and native surface/error restoration; evidence below |
-| M3 / C4 | Pending | Lifecycle/accessibility/persistence/performance qualification |
-| M3 / C5 | Pending | Reviewed release candidate and coordinated version bump |
+| M3 / C4 | Complete | Lifecycle/accessibility/persistence/performance evidence below |
+| M3 / C5 | Complete | Five versions 0.11.0; clean candidate gate and local review pass |
 | PR/review/merge/exact-merged gate | Pending; authorized by subsequent `/goal` | Run after C5 qualification |
 | Publication/issue response/cleanup | Pending; authorized by subsequent `/goal` | Verified release and scope-accurate closeout |
 
@@ -1044,3 +1044,15 @@ typecheck, production build (3388 modules) and diff check pass.
 Reviewed the correction for scope, dead state, captured request/failure ownership,
 existing numerical semantics and no persisted/schema change. Remaining action:
 complete clean candidate gate on the correction commit, then remote delivery.
+
+### 2026-10-09 — M3/C5 complete: clean candidate qualification
+
+Clean committed candidate `28a3ac83ac9031a0b9fb3ba5d7c894c45d471952` passes the complete README/DEVELOPMENT release gate: **398 Python, 163 frontend / 37 files, 8 supervisor and 138 browser tests / 42 intentional layout skips**, zero failed/flaky cases or configured retries (23.2 minutes). Frozen uv/pnpm installs, fresh migration through 0013, Ruff, mypy (54 files), frontend lint/typecheck, production build (3388 modules) and diff check pass.
+
+Native ordinary 1STP protein-fragment/ligand first preview **128.9/26 ms**, exact coordinate Cancel **13.6/16.8 ms**, longest task **111 ms** pass unchanged budgets (preview/Cancel <500 ms, task <750 ms). Each 40-frame burst renders two frames, max active one, exact restoration and zero preview requests. Surface coordinate Cancel **9.4 ms** and regeneration **1101.8 ms** are accounted separately. Actual v0.10.0 reader accepts 0.11.0 data and retained undo/redo, save/reexport and archive import.
+
+Final full-diff review covers proper matrix/atomic batches, canonical copied targets/all conformers/no-op/history, immutable provenance, numerical-preview ownership (D-081), async/context failures, camera/queue/remount lifecycle, surface/measurement/visibility behavior, accessibility/performance, compatibility, versions and approved scope. All consequential findings are corrected and qualified. Review is **local, not independent**. Existing Alembic/bundle advisories and scientific/emulated-device limits remain. No migration or speculative follow-up issue is needed.
+
+Exact commands, exit codes, timings and isolated data paths: [candidate gate](../assets/interactive-selection-transform/c5-candidate-gate.json); [native performance](../assets/interactive-selection-transform/c5-performance.json). The complete documented release command list is used with Playwright environment `PLAYWRIGHT_BROWSERS_PATH=.playwright`, API/worker/web ports 8210/8211/5373 and data `/tmp/neistra-issue4-candidate-qualified-browser`; fresh migration data `/tmp/neistra-issue4-candidate-qualified-migration`. Pinned Chromium/SwiftShader desktop and Pixel 7 emulation. Full browser-log failure scans and final summary are authoritative; earlier rejected diagnostic runs remain recorded separately.
+
+Fresh fetch confirms base remains `c53c3251e87db69c3eac6b81453f514bbaff0706`. Latest release is v0.10.0; v0.11.0 is free. Master protection returns explicit 404 "Branch not protected", rulesets are empty, workflow count zero, normal merge enabled. Recheck live policy before merge. This completion commit changes documentation/evidence only; runtime/test/version sources match the qualified candidate. Remote PR/review/merge, exact-merged gate and publication remain pending.

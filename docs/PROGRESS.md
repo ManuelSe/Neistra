@@ -2,47 +2,28 @@
 
 ## Current milestone
 
-Issue #4 — M1 and M2 complete on `feat/issue-4-interactive-selection-transform`.
-Contract: [interactive selection transforms](plans/issue-4-interactive-selection-transform.md).
-Move selection captures all canonical targets across entries, including hidden
-atoms. App-owned previews, translated-centroid rotation, screen/depth gestures,
-steps and zoom end in one atomic Apply or exact Cancel. Camera/picking suspension,
-bounded renderer batches, transient cues, surface/measurement suspension and
-renderer recovery preserve authority. D-075–D-078 record the design. Originals and
-unselected state remain unchanged. No migration; head remains 0013. All five
-versions are now 0.11.0; planned minor release is v0.11.0.
+Issue #4 — M1–M3/C1–C5 implemented and qualified on
+`feat/issue-4-interactive-selection-transform`. Contract and detailed evidence:
+[interactive selection transforms](plans/issue-4-interactive-selection-transform.md).
+Captured complete multi-entry selection, translated-centroid rotation, screen/depth
+gestures, keyboard/touch steps, one atomic Apply and exact Cancel are delivered.
+D-075–D-081 preserve molecular/viewer, focus/remount and async ownership. Originals,
+unselected state and immutable job inputs remain unchanged. No migration; head0013.
+All five versions agree at 0.11.0; additive minor release v0.11.0 is planned.
 
-M2 verification: **396 Python, 158 frontend and 8 supervisor tests**, lint/type/build,
-and **12 native browser tests / 8 intentional layout skips** pass. Both projections,
-Pixel 7 emulation, hidden multi-entry targets, exact coordinate cancellation,
-rejected renderer-frame restoration and surface-only cues are covered. Development
-failures were corrected and final gates rerun with frozen source; detailed commands
-and evidence are in the feature plan. Existing Alembic/bundle advisories remain.
-C4 qualification is complete below. C5 release preparation/delivery remain pending.
-Blockers: none. Next action: C5 complete release candidate gate.
+Complete clean candidate gate: **398 Python, 163 frontend, 8 supervisor and
+138 browser tests / 42 intentional layout skips**, zero failures/flakes/retries,
+frozen installs, fresh migration, lint/types/build. Native 1STP preview
+**128.9/26 ms**, exact Cancel **13.6/16.8 ms**, longest task **111 ms** pass
+unchanged budgets. Surface regeneration is separate. Light/dark scoped axe,
+keyboard/touch, actual 100%/200% Chrome zoom, persistence/exports/archives and
+actual v0.10.0 reading 0.11.0 retained history pass. Corrected diagnostics and raw
+evidence remain in the feature plan. Final review is local, not independent;
+no unresolved consequential finding.
 
-M3/C4 complete: **52 browser tests / 10 intentional skips**, zero failed/flaky
-cases, plus **2 native responsive remount regressions** and **162 frontend tests**.
-Focused persistence/archive/security Python **52 passed**; lint/type/build pass.
-Light/dark, keyboard/touch, scoped axe and actual 100%/200% Chrome zoom pass.
-API restart, save/reload, exports/archives and actual v0.10.0 retained history
-reader pass; candidate producer-version qualification repeats in C5. Native 1STP
-preview **151.1/36 ms**, exact Cancel **17.8/21.6 ms**, longest task **133 ms**;
-first/latest bounded rendering and zero preview requests pass. Surface regeneration
-is separate. D-079/D-080 record mesh cues and remount camera ownership. Detailed
-commands, corrected development failures, screenshots and raw evidence remain in
-the feature plan. C5 preparation: five versions agree at 0.11.0; preceding archive provenance
-coverage is retained and 0.10.0 added (**38 archive/security tests**). Actual v0.10.0
-reader accepts the 0.11.0 producer, including exact batch redo. Complete clean
-candidate gate diagnosed a zoom-test focus race (**137 passed / 42 skips /
-1 failed**); the test now awaits relocated-row focus before drawer Escape. No
-production change or gate relaxation. **398 Python, 162 frontend and 8 supervisor
-tests**, frozen installs, fresh migration, lint/types/build pass. The repeated full gate corrected zoom but diagnosed another premature drawer
-Escape (**137 passed / 42 skips / 1 failed**). Await drawer focus. D-081 also
-prevents delayed numerical previews from outliving movement capture; its regression
-fails on preceding code and passes with the fix. Focused **19 frontend tests**,
-lint/types/build pass. Complete clean requalification remains required before PR;
-the feature plan distinguishes rejected runs from release evidence.
+Remote delivery remains pending: PR/review request, live-policy audit, normal merge,
+exact merged gate, annotated tag/release, verified issue reply and branch cleanup.
+No current blocker.
 
 ### Previous release — v0.10.0
 
@@ -2245,6 +2226,6 @@ gates or unmet live repository policy block advancement.
 
 ## Next action
 
-Complete M3 qualification and release preparation in the approved
+Complete remote delivery and exact merged qualification in the approved
 [issue #4 feature plan](plans/issue-4-interactive-selection-transform.md).
 Current released baseline is v0.10.0; planned release is the minor v0.11.0.
