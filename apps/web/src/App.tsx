@@ -383,6 +383,9 @@ export default function App() {
     onGroup: (_entry: Entry, scope: GroupScope) => setGroupDialog({ mode: "create", scope }),
     onMoveGroup: (scope: GroupScope) => setGroupDialog({ mode: "move", scope }),
     onRemoveGroup: (scope: GroupScope) => moveMembership(scope, null),
+    onMembershipMenuClose: (scope: GroupScope) => {
+      if (useWorkspaceStore.getState().activeProjectId === scope.projectId) groupReturnFocus(scope, null)?.focus();
+    },
     onMoveMembership: moveMembership,
     onDelete: (entry: Entry) => setEntryDialog({ mode: "delete", entry }),
     onExport: (entry: Entry) => {

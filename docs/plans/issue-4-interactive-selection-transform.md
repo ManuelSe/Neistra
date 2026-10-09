@@ -2,7 +2,7 @@
 
 ## Status and issue metadata
 
-- Status: **Implementation and qualification complete; M1–M3/C1–C5 complete; remote delivery pending**.
+- Status: **Implementation complete; M1–M2/C1–C4 complete; C5 exact-merged requalification in progress**.
 - Approval: the user explicitly approved the complete proposed plan on 2026-10-09.
 - Issue: [#4 — Add an interactive mouse-based mode for translating and rotating selected atoms](https://github.com/ManuelSe/Neistra/issues/4).
 - Issue at approval: open, without comments, labels or a milestone; last updated 2026-08-03.
@@ -605,8 +605,8 @@ publication evidence. Do not bypass blockers or silently reduce accepted scope.
 | M2 / C2 | Complete | Copied capture, quaternion pose, multi-entry patches and independently tested Apply/cancel/context/response orchestration |
 | M2 / C3 | Complete | App-owned activation, gestures/steps, camera/selection suspension, bounded multi-entry rendering and native surface/error restoration; evidence below |
 | M3 / C4 | Complete | Lifecycle/accessibility/persistence/performance evidence below |
-| M3 / C5 | Complete | Five versions 0.11.0; clean candidate gate and local review pass |
-| PR/review/merge/exact-merged gate | Pending; authorized by subsequent `/goal` | Run after C5 qualification |
+| M3 / C5 | Requalifying | Original clean candidate passed; D-082 correction requires new complete candidate/exact-merged gates |
+| PR/review/merge/exact-merged gate | PR #43 merged; correction/requalification pending | Original exact-master gate rejected; D-082 follow-on evidence below |
 | Publication/issue response/cleanup | Pending; authorized by subsequent `/goal` | Verified release and scope-accurate closeout |
 
 ### 2026-10-09 — Implementation authorization and M1/C1
@@ -1056,3 +1056,51 @@ Final full-diff review covers proper matrix/atomic batches, canonical copied tar
 Exact commands, exit codes, timings and isolated data paths: [candidate gate](../assets/interactive-selection-transform/c5-candidate-gate.json); [native performance](../assets/interactive-selection-transform/c5-performance.json). The complete documented release command list is used with Playwright environment `PLAYWRIGHT_BROWSERS_PATH=.playwright`, API/worker/web ports 8210/8211/5373 and data `/tmp/neistra-issue4-candidate-qualified-browser`; fresh migration data `/tmp/neistra-issue4-candidate-qualified-migration`. Pinned Chromium/SwiftShader desktop and Pixel 7 emulation. Full browser-log failure scans and final summary are authoritative; earlier rejected diagnostic runs remain recorded separately.
 
 Fresh fetch confirms base remains `c53c3251e87db69c3eac6b81453f514bbaff0706`. Latest release is v0.10.0; v0.11.0 is free. Master protection returns explicit 404 "Branch not protected", rulesets are empty, workflow count zero, normal merge enabled. Recheck live policy before merge. This completion commit changes documentation/evidence only; runtime/test/version sources match the qualified candidate. Remote PR/review/merge, exact-merged gate and publication remain pending.
+
+### 2026-10-09 — Exact-merged gate rejected; menu-teardown focus correction
+
+PR #43 merged normally at `e72593e5bad00fcc1163cd6f497d82f6b87672b4`, verified
+on origin/master; local master fast-forwarded cleanly. Requested Codex review
+returned no review/reaction/check. The verified PR audit documents local review
+and live policy; no independent review or bypass is claimed. Issue closed by PR;
+publication/reply/cleanup remain outstanding.
+
+Exact-master gate passes all non-browser commands (**398 Python, 163 frontend,
+8 supervisor**, frozen installs, fresh migration0013, Ruff/mypy/lint/types/build).
+The actual dark 200% Chrome zoom membership case fails at line188: replacement
+entry-menu trigger remains inactive for the full five-second focus assertion.
+This is a real lifecycle race, not premature Escape. Whole-log scanning catches
+it promptly; stop the already rejected gate with SIGINT before changing source.
+Summary **56 passed / 4 skips / 1 failed / 1 interrupted / 118 not run** (9.9 min),
+browser exit130. The interrupted release journey is not an additional completed
+failure. Logs/trace remain `/tmp/neistra-issue4-merged-gate/`. No tag/release exists.
+
+Fast-forward the existing planned branch to the verified merged master before
+correction; never edit master. D-082 coordinates captured direct membership scope
+with menu close-autofocus and preserves success restoration for later responses.
+Both callbacks guard captured project; other menu actions keep Radix defaults.
+No API/persistence/science/scope/version change. This fixes the accessibility
+regression exposed by the approved full gate, rather than dropping its assertion.
+The immediate-completion/remounted-row regression fails on preceding source
+(exit1, `/tmp/neistra-issue4-group-focus-old-code.log`) and passes with the correction.
+Focused browser/dialog units **9 passed**; fix a test-only unsupported Testing
+Library `exact` option, then typecheck/lint/build pass (3388 modules). Native
+actual zoom and immediate/late membership repeats follow with frozen source.
+A new full clean candidate gate, reviewed correction PR and exact-merged gate are
+required before publication. Existing historical candidate evidence remains valid
+for its recorded commit, but does not qualify the new correction.
+
+D-082 correction checkpoint native gate: `PLAYWRIGHT_BROWSERS_PATH=.playwright
+MOLWEAVE_E2E_API_PORT=8210 MOLWEAVE_E2E_WORKER_PORT=8211
+MOLWEAVE_E2E_WEB_PORT=5373 MOLWEAVE_E2E_DATA_DIR=/tmp/neistra-issue4-menu-teardown
+corepack pnpm exec playwright test tests/e2e/rebranding-zoom.spec.ts
+tests/e2e/group-membership.spec.ts --grep 'real 100%|moves filtered|late membership'
+--repeat-each=3 --output=/tmp/neistra-issue4-menu-teardown-results`: **21 passed /
+3 intentional mobile real-desktop-zoom skips**, zero failed/flaky cases (5 min).
+Three full actual-zoom/theme sequences and all desktop/compact immediate/late
+membership sequences pass. Unit command `corepack pnpm --dir apps/web exec vitest
+run src/test/project-browser.test.tsx src/test/group-membership.test.tsx`: **9 passed**.
+Frontend typecheck, lint, production build and diff check pass. Review confirms
+non-membership menu behavior, captured-project guard, absence of polling/retries
+and unchanged scientific/persisted scope. Commit this coherent correction before
+full clean candidate requalification.

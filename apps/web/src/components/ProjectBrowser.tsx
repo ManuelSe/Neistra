@@ -19,7 +19,7 @@ import {
   Search,
   Trash2,
 } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import type {
   Entry,
   Project,
@@ -54,6 +54,7 @@ interface ProjectBrowserProps {
   onGroup: (entry: Entry, scope: GroupScope) => void;
   onMoveGroup?: (scope: GroupScope) => void;
   onRemoveGroup?: (scope: GroupScope) => void;
+  onMembershipMenuClose?: (scope: GroupScope) => void;
   busy?: boolean;
   onMoveMembership?: (scope: GroupScope, groupId: string | null) => void;
   onDelete: (entry: Entry) => void;
@@ -84,6 +85,7 @@ function EntryRow({
   onGroup,
   onMoveGroup,
   onRemoveGroup,
+  onMembershipMenuClose,
   busy,
   captureScope,
   canUngroup,
@@ -102,6 +104,7 @@ function EntryRow({
   onDragEnd?: () => void;
   onSelect: (mode: SelectionMode) => void;
 }) {
+  const membershipMenuScope = useRef<GroupScope | null>(null);
   return (
     <div
       className={`entry-row ${entry.visible ? "" : "entry-hidden"} ${selected ? "selected" : ""}`}
@@ -146,7 +149,16 @@ function EntryRow({
             </IconButton>
           </DropdownMenu.Trigger>
           <DropdownMenu.Portal>
-            <DropdownMenu.Content className="dropdown-content" sideOffset={5} align="end">
+            <DropdownMenu.Content className="dropdown-content" sideOffset={5} align="end"
+              onCloseAutoFocus={event => {
+                const scope = membershipMenuScope.current;
+                if (!scope || !onMembershipMenuClose) return;
+                membershipMenuScope.current = null;
+                // Membership may remount this row before the menu focus scope
+                // tears down. Resolve its replacement after that teardown.
+                event.preventDefault();
+                onMembershipMenuClose(scope);
+              }}>
               <DropdownMenu.Item className="dropdown-item" onSelect={() => onRename(entry)}>
                 <Pencil size={15} /> Rename
               </DropdownMenu.Item>
@@ -161,7 +173,11 @@ function EntryRow({
               {onMoveGroup ? <DropdownMenu.Item className="dropdown-item" disabled={busy} onSelect={() => onMoveGroup(captureScope())}>
                 <FolderPlus size={15} /> Move to group…
               </DropdownMenu.Item> : null}
-              {canUngroup && onRemoveGroup ? <DropdownMenu.Item className="dropdown-item" disabled={busy} onSelect={() => onRemoveGroup(captureScope())}>
+              {canUngroup && onRemoveGroup ? <DropdownMenu.Item className="dropdown-item" disabled={busy} onSelect={() => {
+                const scope = captureScope();
+                membershipMenuScope.current = scope;
+                onRemoveGroup(scope);
+              }}>
                 Remove from group
               </DropdownMenu.Item> : null}
               <DropdownMenu.Item className="dropdown-item" disabled={busy} onSelect={() => onGroup(entry, captureScope())}>

@@ -21,9 +21,17 @@ actual v0.10.0 reading 0.11.0 retained history pass. Corrected diagnostics and r
 evidence remain in the feature plan. Final review is local, not independent;
 no unresolved consequential finding.
 
-Remote delivery remains pending: PR/review request, live-policy audit, normal merge,
-exact merged gate, annotated tag/release, verified issue reply and branch cleanup.
-No current blocker.
+PR #43 merged normally at e72593e; no integration review returned. Exact merged
+gate passes all non-browser checks but is rejected by a real menu-teardown focus
+race at dark 200% zoom. Stop after the detected failure (56 browser passed, one
+failed, one interrupted); no tag/release exists. D-082 restores captured membership
+focus at menu teardown and later responses, with project guards. Its regression
+fails on preceding code and passes with the fix; 9 focused units and lint/types/build
+pass. Native repeats pass **21 tests / 3 intentional skips** (three actual-zoom/theme
+sequences plus immediate/late desktop/compact membership). Full clean
+requalification/correction PR remain in progress.
+Release remains blocked until complete passing candidate and exact merged gates.
+Detailed evidence and rejected runs remain in the feature plan.
 
 ### Previous release — v0.10.0
 

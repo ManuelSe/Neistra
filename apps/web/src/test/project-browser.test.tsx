@@ -1,11 +1,12 @@
 import * as Tooltip from "@radix-ui/react-tooltip";
-import { cleanup, fireEvent, render, screen, within } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import type { ReactElement } from "react";
+import { useState, type ReactElement } from "react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { ProjectBrowser } from "../components/ProjectBrowser";
 import type { Entry, SelectionMode } from "../api/types";
 import { molecularProject } from "./molecular-fixtures";
+import type { GroupScope } from "../groups/membership";
 
 const actions = {
   onRename: vi.fn(),
@@ -94,5 +95,30 @@ describe("project browser selection and discovery", () => {
     expect(screen.getByText("No structures")).toBeVisible();
     expect(screen.getByText("Target")).toBeVisible();
     expect(screen.getByText("Empty")).toBeVisible();
+  });
+
+  it("hands focus to the replacement row when membership completes before menu teardown", async () => {
+    const user = userEvent.setup();
+    const onMenuClose = vi.fn((scope: GroupScope) => {
+      expect(scope.originEntryId).toBe("protein");
+      const row = document.querySelector('[data-group-id="ungrouped"] [data-entry-id="protein"]');
+      expect(row).not.toBeNull();
+      row!.querySelector<HTMLButtonElement>(".entry-menu-trigger")!.focus();
+    });
+    function Browser() {
+      const [project, setProject] = useState(molecularProject);
+      return <ProjectBrowser project={project} {...actions}
+        onMembershipMenuClose={onMenuClose}
+        onRemoveGroup={() => setProject(current => ({
+          ...current, entries: current.entries.map(entry => entry.id === "protein" ? { ...entry, group_id: null } : entry),
+        }))} />;
+    }
+    renderBrowser(<Browser />);
+    const original = screen.getByRole("button", { name: "Actions for Receptor" });
+    await user.click(original);
+    await user.click(screen.getByRole("menuitem", { name: /^Remove from group$/ }));
+    await waitFor(() => expect(onMenuClose).toHaveBeenCalledOnce());
+    expect(original.isConnected).toBe(false);
+    expect(screen.getByRole("button", { name: "Actions for Receptor" })).toHaveFocus();
   });
 });
