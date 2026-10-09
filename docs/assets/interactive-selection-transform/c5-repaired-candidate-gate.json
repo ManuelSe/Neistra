@@ -1,0 +1,177 @@
+{
+  "stage": "candidate-repaired",
+  "commit": "74ced0225ac6520311de8fa5b4726274bf4c8b91",
+  "commands": [
+    {
+      "name": "python-install",
+      "command": [
+        ".venv/bin/uv",
+        "sync",
+        "--frozen"
+      ],
+      "exit_code": 0,
+      "seconds": 0.03,
+      "log": "/tmp/neistra-issue4-candidate-repaired-gate/python-install.log"
+    },
+    {
+      "name": "frontend-install",
+      "command": [
+        "corepack",
+        "pnpm",
+        "install",
+        "--frozen-lockfile"
+      ],
+      "exit_code": 0,
+      "seconds": 0.66,
+      "log": "/tmp/neistra-issue4-candidate-repaired-gate/frontend-install.log"
+    },
+    {
+      "name": "migration",
+      "command": [
+        ".venv/bin/uv",
+        "run",
+        "alembic",
+        "upgrade",
+        "head"
+      ],
+      "exit_code": 0,
+      "seconds": 0.57,
+      "log": "/tmp/neistra-issue4-candidate-repaired-gate/migration.log"
+    },
+    {
+      "name": "ruff",
+      "command": [
+        ".venv/bin/uv",
+        "run",
+        "ruff",
+        "check",
+        "."
+      ],
+      "exit_code": 0,
+      "seconds": 0.03,
+      "log": "/tmp/neistra-issue4-candidate-repaired-gate/ruff.log"
+    },
+    {
+      "name": "mypy",
+      "command": [
+        ".venv/bin/uv",
+        "run",
+        "mypy",
+        "apps/api",
+        "packages/molweave_core"
+      ],
+      "exit_code": 0,
+      "seconds": 0.18,
+      "log": "/tmp/neistra-issue4-candidate-repaired-gate/mypy.log"
+    },
+    {
+      "name": "pytest",
+      "command": [
+        ".venv/bin/uv",
+        "run",
+        "pytest"
+      ],
+      "exit_code": 0,
+      "seconds": 69.46,
+      "log": "/tmp/neistra-issue4-candidate-repaired-gate/pytest.log"
+    },
+    {
+      "name": "frontend-lint",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "lint"
+      ],
+      "exit_code": 0,
+      "seconds": 7.57,
+      "log": "/tmp/neistra-issue4-candidate-repaired-gate/frontend-lint.log"
+    },
+    {
+      "name": "frontend-typecheck",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "typecheck"
+      ],
+      "exit_code": 0,
+      "seconds": 4.12,
+      "log": "/tmp/neistra-issue4-candidate-repaired-gate/frontend-typecheck.log"
+    },
+    {
+      "name": "frontend-tests",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "test"
+      ],
+      "exit_code": 0,
+      "seconds": 7.35,
+      "log": "/tmp/neistra-issue4-candidate-repaired-gate/frontend-tests.log"
+    },
+    {
+      "name": "supervisor-tests",
+      "command": [
+        "corepack",
+        "pnpm",
+        "test:dev"
+      ],
+      "exit_code": 0,
+      "seconds": 1.45,
+      "log": "/tmp/neistra-issue4-candidate-repaired-gate/supervisor-tests.log"
+    },
+    {
+      "name": "build",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "build"
+      ],
+      "exit_code": 0,
+      "seconds": 11.69,
+      "log": "/tmp/neistra-issue4-candidate-repaired-gate/build.log"
+    },
+    {
+      "name": "browser",
+      "command": [
+        "corepack",
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "--output=/tmp/neistra-issue4-candidate-repaired-gate/browser-results"
+      ],
+      "exit_code": 0,
+      "seconds": 1371.87,
+      "log": "/tmp/neistra-issue4-candidate-repaired-gate/browser.log"
+    },
+    {
+      "name": "diff-check",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0,
+      "log": "/tmp/neistra-issue4-candidate-repaired-gate/diff-check.log"
+    }
+  ],
+  "environment": {
+    "browser": "pinned Chromium/SwiftShader; desktop and Pixel 7 emulation",
+    "ports": [
+      8210,
+      8211,
+      5373
+    ],
+    "migration_data": "/tmp/neistra-issue4-candidate-repaired-migration",
+    "browser_data": "/tmp/neistra-issue4-candidate-repaired-browser"
+  }
+}

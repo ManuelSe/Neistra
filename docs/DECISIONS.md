@@ -2743,3 +2743,23 @@ An App-level delayed-load regression fails against the preceding source because
 a cleared numerical pose reaches the renderer after movement starts. It passes
 with generation invalidation and also verifies a subsequent valid numerical
 preview still works while authoritative cached coordinates stay unchanged.
+
+## D-082 — Coordinate remounted membership focus with menu teardown
+
+Date: 2026-10-09. Status: accepted during issue #4 release qualification.
+
+The exact-merged actual Chrome zoom gate found that a direct Remove from group
+action can remount its origin row before the Radix menu focus scope finishes
+teardown. A lone success requestAnimationFrame cannot guarantee retained focus:
+the replacement action trigger stayed inactive throughout a five-second assertion.
+This blocks keyboard/drawer navigation in the approved accessibility workflow.
+
+Capture the direct membership action scope in the row and explicitly hand focus
+back through `onCloseAutoFocus`. Prevent stale default trigger restoration and
+resolve the replacement via the application callback, guarded by the captured
+project. Retain the success-frame restoration for responses arriving after menu
+closure. These two lifecycle events cover either ordering without arbitrary waits,
+retry loops or longer test timeouts. Other menu actions retain normal Radix behavior.
+This extends D-074's captured-project focus ownership; no molecular/API/schema
+semantics or release impact changes. Add a regression completing membership before
+menu teardown; native zoom repeats and late-project responses qualify the handoff.

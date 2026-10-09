@@ -21,9 +21,17 @@ actual v0.10.0 reading 0.11.0 retained history pass. Corrected diagnostics and r
 evidence remain in the feature plan. Final review is local, not independent;
 no unresolved consequential finding.
 
-Remote delivery remains pending: PR/review request, live-policy audit, normal merge,
-exact merged gate, annotated tag/release, verified issue reply and branch cleanup.
-No current blocker.
+PR #43 merged normally at e72593e; no integration review returned. Its exact
+merged gate exposed a real menu-teardown focus race. D-082 corrects captured
+membership focus at menu teardown and later responses, guarded by project.
+Regression fails on preceding source; 9 focused units and **21 native repeat
+tests / 3 intentional skips** pass. The corrected clean candidate74ced02 passes
+the complete release gate: **398 Python, 164 frontend, 8 supervisor and
+138 browser tests / 42 intentional skips**, zero failed/flaky cases/retries,
+frozen installs, fresh migration, lint/types/build. Native preview132.2/42.6ms,
+Cancel11.3/14.8ms, longest task115ms pass unchanged budgets. Detailed evidence
+and rejected runs remain in the feature plan. Correction PR/review/merge and
+exact-master qualification precede tag/release/reply/cleanup. No current blocker.
 
 ### Previous release — v0.10.0
 
