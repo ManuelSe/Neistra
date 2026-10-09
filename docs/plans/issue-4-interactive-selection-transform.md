@@ -997,3 +997,50 @@ corepack pnpm exec playwright test tests/e2e/rebranding-zoom.spec.ts
 failed/flaky cases. Both complete theme/actual-zoom sequences verify menu closure,
 restored row focus and drawer Escape. `git diff --check` passes. The substantive
 test/documentation correction is committed before clean complete requalification.
+
+### 2026-10-09 — C5 final async/focus review corrections
+
+Complete candidate rerun `085f1436e8bd9ef6952f4df3cd7c25ec35b54125` passes all
+non-browser gates again (**398 Python, 162 frontend, 8 supervisor**, frozen installs,
+fresh migration, lint/types/build). The browser summary is **137 passed / 42
+intentional skips / 1 failed** (25 min). The previous zoom failure is corrected,
+but the mobile Inspector Escape case similarly sent a key before the drawer's
+scheduled initial focus. Error context shows focus arrived on its first tab
+afterward. Assert actual drawer focus ownership before Escape; retain all existing
+assertions, timing budgets and zero retries. Progress tail checks initially missed
+this earlier failure; final summaries and future whole-log failure scans are
+authoritative. This rejected run is not release evidence.
+
+A subsequent full async review found a consequential race: a numerical slider
+preview load could resolve after movement had cleared it, reach the renderer and
+reappear around Cancel. D-081 invalidates superseded requests and checks captured
+context before publication. Stabilize the clear callback to preserve valid
+numerical previews, and surface active numerical preview errors. No API/migration
+or scientific semantics change. The delayed App-port regression demonstrably
+fails against the preceding App at its no-late-preview assertion (exit1,
+`/tmp/neistra-issue4-numeric-old-code.log`) and passes with the correction, also
+checking valid numerical previews and unchanged authority. Focused controls/math/
+loading/ownership gate **19 passed / 4 files**; lint/typecheck and build pass after
+correcting test-only fixture initialization, pivot literal and lint issues.
+
+Repeated native keyboard/drawer and numerical-coordinate workflows must pass
+before the correction commit. Complete clean requalification follows that commit;
+no PR, merge, tag or release is claimed yet.
+
+Correction checkpoint evidence: `PLAYWRIGHT_BROWSERS_PATH=.playwright
+MOLWEAVE_E2E_API_PORT=8210 MOLWEAVE_E2E_WORKER_PORT=8211
+MOLWEAVE_E2E_WEB_PORT=5373 MOLWEAVE_E2E_DATA_DIR=/tmp/neistra-issue4-preview-focus
+corepack pnpm exec playwright test tests/e2e/interactive-selection-transform.spec.ts
+tests/e2e/coordinate-editing.spec.ts --grep 'qualifies keyboard|edits coordinates'
+--repeat-each=2 --output=/tmp/neistra-issue4-preview-focus-results`: **6 passed /
+2 intentional mobile numerical-suite skips**, zero failures/flakes (1.1 min).
+Both repeated native keyboard/theme/touch sequences and desktop numerical/
+superposition workflows pass. Focused unit command: `corepack pnpm --dir apps/web
+exec vitest run src/test/numeric-preview-ownership.test.tsx
+src/test/interactive-transform-controls.test.tsx src/test/transforms.test.ts
+src/test/structure-loading.test.tsx`: **19 passed / 4 files**. Frontend lint,
+typecheck, production build (3388 modules) and diff check pass.
+
+Reviewed the correction for scope, dead state, captured request/failure ownership,
+existing numerical semantics and no persisted/schema change. Remaining action:
+complete clean candidate gate on the correction commit, then remote delivery.

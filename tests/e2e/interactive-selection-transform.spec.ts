@@ -80,7 +80,9 @@ test("qualifies keyboard/touch controls, focus and scoped accessibility in both 
     await expect(banner).toBeVisible();
     if (mobile) {
       await page.getByRole("button", { name: "Inspector", exact: true }).click();
-      await expect(page.getByRole("dialog", { name: "Inspector panel", exact: true })).toBeVisible();
+      const inspector = page.getByRole("dialog", { name: "Inspector panel", exact: true });
+      await expect(inspector).toBeVisible();
+      await expect.poll(() => inspector.evaluate(element => element.contains(document.activeElement))).toBe(true);
       await page.keyboard.press("Escape");
       await expect(page.getByRole("dialog", { name: "Inspector panel", exact: true })).toBeHidden();
       await expect(banner).toBeVisible();

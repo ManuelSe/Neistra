@@ -2724,3 +2724,22 @@ The lazy adapter also releases an engine whose asynchronous native mount finishe
 after disposal, without attaching late listeners. Native desktop-to-compact and
 compact-to-desktop regressions verify unchanged preview coordinates and camera,
 suppressed navigation, exact Cancel and restored normal bindings.
+
+## D-081 — Numerical preview request ownership
+
+Date: 2026-10-09. Status: implemented during issue #4 C5 review.
+
+Keep a transient generation for numerical preview loads in the application.
+Latest requests supersede older ones. Clearing preview, starting movement, changing
+project/revision/selection or submitting a conflicting project operation invalidates
+pending work. Check the captured project/revision/selection and movement phase
+before handing a loaded numerical pose to the renderer; suppress superseded
+failures too. The clear callback is stable so rerenders cannot inadvertently clear
+a valid numerical preview through the Transform panel's cleanup. Active numerical
+failures remain visible in that panel. This guards the existing numerical workflow
+without persisting draft state or changing its API/commit semantics.
+
+An App-level delayed-load regression fails against the preceding source because
+a cleared numerical pose reaches the renderer after movement starts. It passes
+with generation invalidation and also verifies a subsequent valid numerical
+preview still works while authoritative cached coordinates stay unchanged.

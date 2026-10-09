@@ -2,7 +2,7 @@ import { expandByDistance } from "./selection/expansion";
 import * as Tooltip from "@radix-ui/react-tooltip";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { ChevronLeft, ChevronRight, History as HistoryIcon } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   Panel,
   PanelGroup,
@@ -113,6 +113,11 @@ export default function App() {
   const [selectionBusy, setSelectionBusy] = useState(false);
   const [coordinatePreview, setCoordinatePreview] =
     useState<CoordinatePatch | null>(null);
+  const numericalPreviewGeneration = useRef(0);
+  const clearCoordinatePreview = useCallback(() => {
+    numericalPreviewGeneration.current++;
+    setCoordinatePreview(null);
+  }, []);
   const {
     selection,
     pickingGranularity,
@@ -288,20 +293,22 @@ export default function App() {
       const phase = movementSession.snapshot().phase;
       movementSession.cancel(undefined, true);
       renderedMovementAtoms.current = () => [];
-      setCoordinatePreview(null);
+      clearCoordinatePreview();
       setNotice(phase === "active" || phase === "loading"
         ? { kind: "success", text: "Unapplied movement was discarded after changing projects." }
         : ["submitting", "reconciling", "uncertain"].includes(phase)
           ? { kind: "success", text: "Movement for the previous project may be pending. Reopen it to check its coordinates and history." }
           : null);
     }
-  }), [movementSession]);
+  }), [movementSession, clearCoordinatePreview]);
   useEffect(() => { movementSession.guardContext(); }, [movementSession, project, selection]);
+  useEffect(() => clearCoordinatePreview(), [clearCoordinatePreview, project?.id, project?.revision, selection]);
 
   const projectMutation = useMutation({
     mutationFn: (operation: () => Promise<Project>) => operation(),
     onMutate: () => {
       if (["submitting", "reconciling", "uncertain"].includes(movementSession.snapshot().phase)) throw new ApiError(409, "movement_busy", "Finish or reconcile the current movement before changing the project.");
+      clearCoordinatePreview();
       if (movementSession.snapshot().phase !== "idle") movementSession.cancel("Move selection was discarded before changing the project.");
       return { projectId: useWorkspaceStore.getState().activeProjectId };
     },
@@ -581,22 +588,34 @@ export default function App() {
       }
     },
     onPreviewTransform: async (transform: CoordinateTransform) => {
-      const structures = await loadStructures([transform.entry_id]);
+      if (!project || movementSession.snapshot().phase !== "idle") return;
+      const generation = ++numericalPreviewGeneration.current;
+      let structures: StructureMap;
+      try {
+        structures = await loadStructures([transform.entry_id]);
+      } catch (error) {
+        if (generation !== numericalPreviewGeneration.current || movementSession.snapshot().phase !== "idle") return;
+        throw error;
+      }
+      const currentProject = queryClient.getQueryData<Project>(["project", useWorkspaceStore.getState().activeProjectId]);
+      if (generation !== numericalPreviewGeneration.current || movementSession.snapshot().phase !== "idle"
+        || currentProject?.id !== project.id || currentProject.revision !== project.revision
+        || JSON.stringify(transform.selection.atoms) !== JSON.stringify(useSelectionStore.getState().selection.atoms)) return;
       const structure = structures.get(transform.entry_id);
       if (!structure) throw new Error("The target structure is not loaded.");
       setCoordinatePreview(previewTransform(structure, transform));
     },
-    onClearTransformPreview: () => setCoordinatePreview(null),
+    onClearTransformPreview: clearCoordinatePreview,
     onTransform: async (transform: CoordinateTransform) => {
       if (!project) return;
-      setCoordinatePreview(null);
+      clearCoordinatePreview();
       await projectMutation.mutateAsync(() =>
         projectApi.transform(project, transform),
       );
     },
     onSuperpose: async (payload: SuperpositionRequest) => {
       if (!project) return null;
-      setCoordinatePreview(null);
+      clearCoordinatePreview();
       try {
         const result = await projectApi.superpose(project, payload);
         updateProjectCache(result.project);

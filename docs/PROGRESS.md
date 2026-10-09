@@ -37,8 +37,12 @@ reader accepts the 0.11.0 producer, including exact batch redo. Complete clean
 candidate gate diagnosed a zoom-test focus race (**137 passed / 42 skips /
 1 failed**); the test now awaits relocated-row focus before drawer Escape. No
 production change or gate relaxation. **398 Python, 162 frontend and 8 supervisor
-tests**, frozen installs, fresh migration, lint/types/build pass. Full clean gate
-repeats before delivery; the feature plan distinguishes rejected evidence.
+tests**, frozen installs, fresh migration, lint/types/build pass. The repeated full gate corrected zoom but diagnosed another premature drawer
+Escape (**137 passed / 42 skips / 1 failed**). Await drawer focus. D-081 also
+prevents delayed numerical previews from outliving movement capture; its regression
+fails on preceding code and passes with the fix. Focused **19 frontend tests**,
+lint/types/build pass. Complete clean requalification remains required before PR;
+the feature plan distinguishes rejected runs from release evidence.
 
 ### Previous release — v0.10.0
 

@@ -332,7 +332,8 @@ export function TransformPanel({
               const value = Number(event.target.value);
               setGestureValue(value);
               if (value === 0) onClearPreview();
-              else void onPreview(gestureTransform(value));
+              else void onPreview(gestureTransform(value)).catch((error: unknown) =>
+                setLocalError(error instanceof Error ? error.message : "Preview failed."));
             }}
             onPointerUp={() => {
               if (gestureValue === 0) return;
