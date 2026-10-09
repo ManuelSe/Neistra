@@ -281,3 +281,22 @@ reconciliation. Undo restores the exact prior definitions. Duplication remaps on
 self-references; archive import remaps all exported references and derives its
 checkpoint after remapping. Portable archives remain current snapshots under D-035;
 database migration covers retained command history under D-069.
+
+### Captured interactive coordinate transactions
+
+`coordinates/interactiveTransform.ts` captures copied coordinates, the complete
+canonical selection, source artifact IDs and project revision as temporary
+operation inputs. Quaternion composition produces a proper world rotation;
+previews derive from captured originals around the translated captured centroid.
+Camera-space deltas use the projection, field of view and viewport at drag start.
+The query cache and normalized molecular authority remain untouched by previews.
+
+`MovementSession` orchestrates capture, cancellation and one captured-revision
+Apply through injected load/commit/cache ports. Late responses update only their
+captured project's authority; obsolete loads cannot revive a cancelled session.
+Ambiguous responses reconcile before retry, and unsuccessful reconciliation
+enters an uncertain state that blocks new movement until a read-only refresh
+succeeds. No automatic replay against a refreshed revision occurs. Sessions are
+neither persisted nor included in archives, exports or jobs. Viewer/UI integration
+is delivered separately in issue #4 C3; these tested boundaries do not yet expose
+a production movement launcher.

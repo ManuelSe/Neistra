@@ -2,7 +2,7 @@
 
 ## Current milestone
 
-Issue #4 — M1/C1 complete on `feat/issue-4-interactive-selection-transform`.
+Issue #4 — M1/C1 and M2/C2 complete on `feat/issue-4-interactive-selection-transform`.
 Contract: [interactive selection transforms](plans/issue-4-interactive-selection-transform.md).
 The subsequent `/goal` authorizes the complete implementation/delivery workflow.
 Atomic multi-entry rigid transforms validate all targets and proper rotations,
@@ -14,9 +14,10 @@ head remains 0013. All five versions remain 0.10.0; planned release is 0.11.0.
 Verification: 31 focused and **396 full Python tests**, **134 frontend tests**,
 **8 supervisor tests**, lint/type/build and **1 desktop numeric browser test /
 1 intentional mobile skip** pass. Existing Alembic and bundle advisories remain.
-The feature plan records exact commands and detailed evidence. Interactive preview,
-viewer workflow and release qualification remain pending. Blockers: none.
-Next action: M2/C2 application-owned captured preview session.
+The feature plan records exact commands and detailed evidence. The tested session boundary captures originals, composes proper rotations and
+reconciles responses without automatic replay. Twenty new session/math tests pass;
+C2 lint/type/build pass. Viewer activation and release qualification remain pending. Blockers: none.
+Next action: M2/C3 full viewer integration and M2 boundary gates.
 
 ### Previous release — v0.10.0
 

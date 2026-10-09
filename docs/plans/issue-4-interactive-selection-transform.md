@@ -2,7 +2,7 @@
 
 ## Status and issue metadata
 
-- Status: **Implementation in progress; M1/C1 complete**.
+- Status: **Implementation in progress; M1/C1 and M2/C2 complete**.
 - Approval: the user explicitly approved the complete proposed plan on 2026-10-09.
 - Issue: [#4 — Add an interactive mouse-based mode for translating and rotating selected atoms](https://github.com/ManuelSe/Neistra/issues/4).
 - Issue at approval: open, without comments, labels or a milestone; last updated 2026-08-03.
@@ -601,7 +601,7 @@ publication evidence. Do not bypass blockers or silently reduce accepted scope.
 | Planning persistence | Documentation prepared on dedicated branch | Master fast-forward-only check was already current; clean base verified; this plan is the first branch file change; commit/push identity is recorded by Git and handoff report |
 | Planning documentation verification | Complete | Required sections/five checkpoints/local links/exact three-file scope passed; staged diff whitespace check passed; global PLAN and all five version sources unchanged |
 | M1 / C1 | Complete | Atomic batch endpoint, proper rotations, all-conformer stable-ID transforms, one history command, no-op/rejection invariants; evidence below |
-| M2 / C2 | Pending | Application-owned captured preview session |
+| M2 / C2 | Complete | Copied capture, quaternion pose, multi-entry patches and independently tested Apply/cancel/context/response orchestration |
 | M2 / C3 | Pending | Complete viewer interaction workflow |
 | M3 / C4 | Pending | Lifecycle/accessibility/persistence/performance qualification |
 | M3 / C5 | Pending | Reviewed release candidate and coordinated version bump |
@@ -644,3 +644,32 @@ M1 boundary evidence:
 Known limitations: interactive preview/UI and previous-release reader qualification
 are pending; existing numeric browser workflow is preserved. No blocker.
 **Next action: M2/C2 application-owned session.**
+
+
+### 2026-10-09 — M2/C2 captured session boundary
+
+M1/C1 committed as `e12bf71`. Added copied multi-entry capture and immutable-original
+preview math, including hidden count and known crossing covalent bonds. Screen-plane
+and depth deltas use the camera basis and perspective pivot depth or orthographic
+view span. Quaternion composition is normalized, tested after 10,000 gestures, and
+transported directly as a proper matrix. The pivot is the translated captured
+centroid. No Euler conversion or cache mutation.
+
+The app-owned `MovementSession` boundary uses injected authoritative load/commit/
+cache ports. It prevents duplicate Apply, invalidates obsolete loads, guards the
+captured context, preserves captured revision during retries, reconciles ambiguous
+responses and routes late results only to the captured project. Failed reconciliation
+blocks further movement until a read-only refresh succeeds. The viewer launcher
+and actual React/cache/gesture wiring remain C3 work; no placeholder UI was added.
+
+Evidence:
+
+- `corepack pnpm --dir apps/web exec vitest run src/test/transforms.test.ts src/test/history.test.tsx src/test/interactive-transform.test.ts`: **25 passed** (20 new session/math cases).
+- `corepack pnpm --dir apps/web lint`: passed.
+- `corepack pnpm --dir apps/web typecheck`: passed.
+- `corepack pnpm --dir apps/web build`: passed; existing bundle advisory unchanged.
+- Local diff review covered scientific composition, copied input ownership, stale
+  contexts, cancellation and ambiguous-response safety. No persisted field,
+  migration, version change or new product decision. `git diff --check` passed.
+
+No blocker. Next action: M2/C3 full viewer integration, then M2 boundary gates.
