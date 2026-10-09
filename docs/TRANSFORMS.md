@@ -76,3 +76,11 @@ The additive API accepts a proper world rotation matrix and affine translation;
 see [API contract](API.md#atomic-selection-transform). Release qualification and
 device/performance limits are recorded in the
 [issue #4 plan](plans/issue-4-interactive-selection-transform.md).
+
+Applied coordinates are checked after reload, API restart, checkpoint, molecular
+export/reimport and archive import. The actual 0.10.0 reader is qualified against
+retained coordinate history and transformed artifacts; see the
+[compatibility procedure](DEVELOPMENT.md#interactive-movement-compatibility-0110).
+Molecular exports retain their format precision, while project archives preserve
+exact normalized coordinates and original bytes. Earlier pocket/visibility
+migration restrictions continue to apply.

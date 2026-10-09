@@ -2,7 +2,7 @@
 
 ## Status and issue metadata
 
-- Status: **Implementation in progress; M1 and M2 complete; M3 pending**.
+- Status: **Implementation in progress; M1 and M2 complete; M3 in progress; C4 complete; C5 pending**.
 - Approval: the user explicitly approved the complete proposed plan on 2026-10-09.
 - Issue: [#4 — Add an interactive mouse-based mode for translating and rotating selected atoms](https://github.com/ManuelSe/Neistra/issues/4).
 - Issue at approval: open, without comments, labels or a milestone; last updated 2026-08-03.
@@ -873,3 +873,69 @@ restored bindings pass. Frontend suite **162 passed / 36 files**, including
 asynchronous adapter disposal; lint and typecheck pass. Production build passes (3388 modules). A test-only harness refactor initially
 used iteration on Mol*'s array-like sorted set; typecheck caught this and the
 existing index loop was restored before rerunning passing typecheck/lint/build. No migration or scope expansion.
+
+### 2026-10-09 — M3/C4 qualification complete
+
+C4's coherent outcome is qualified. The broad frozen-source browser run on
+`f1b4c4b9ddf4a8e8541f8b21fffdeb819366edc0` passes **52 tests / 10 intentional
+layout skips**, zero failures/flakes, including selection/pocket surfaces,
+measurements, archives, accessibility, actual browser zoom and all movement
+lifecycle cases present at that checkpoint. The subsequent D-080 remount
+correction passes its two native regressions and frontend gates above; C5's
+complete gate must qualify their combined final release source.
+
+Exact broad command:
+
+```bash
+PLAYWRIGHT_BROWSERS_PATH=.playwright MOLWEAVE_E2E_API_PORT=8210 \
+MOLWEAVE_E2E_WORKER_PORT=8211 MOLWEAVE_E2E_WEB_PORT=5373 \
+MOLWEAVE_E2E_DATA_DIR=/tmp/neistra-issue4-c4-regression \
+corepack pnpm exec playwright test \
+ tests/e2e/interactive-selection-transform.spec.ts \
+ tests/e2e/interactive-transform-performance.spec.ts \
+ tests/e2e/selection-surfaces.spec.ts tests/e2e/pocket-surfaces.spec.ts \
+ tests/e2e/measurements.spec.ts tests/e2e/export-archive.spec.ts \
+ tests/e2e/release-hardening.spec.ts tests/e2e/rebranding-zoom.spec.ts \
+ --output=/tmp/neistra-issue4-c4-regression-results
+.venv/bin/uv run pytest tests/integration/test_coordinate_commands.py \
+ tests/integration/test_archive_roundtrip.py tests/security/test_archive_safety.py
+```
+
+Focused Python **52 passed** (19.09 s), including the new same-SQLite API restart,
+save, PDB/MOL export/reimport at format precision, exact archive state and original
+uploads. Ruff passes. Native performance in the broader run: fragment/ligand
+preview **151.1/36 ms**, exact coordinate Cancel **17.8/21.6 ms**, longest task
+**133 ms**. Forty frames produce first/latest with one active renderer operation
+and no projection, mutation or job requests. Full-surface coordinate Cancel
+**16.4 ms**; separate restoration/regeneration **1022.5 ms**. Unchanged 500/750 ms
+budgets pass. Raw evidence: [broad performance](../assets/interactive-selection-transform/c4-regression-performance.json).
+
+Actual preceding reader `v0.10.0` (`cad24628d9221fef26f667eae4275ab23438841f`)
+opens transformed candidate data, undoes/redoes the retained batch, saves/reexports,
+and imports the archive with exact coordinates/original hashes and unchanged
+completed jobs. Evidence: [C4 reader](../assets/interactive-selection-transform/c4-previous-reader.json).
+Producer still reports 0.10.0 at C4; repeat with 0.11.0 provenance in C5 before
+release. No migration; schema/action vocabulary unchanged. Executable isolated
+qualification and commands are in DEVELOPMENT.md and
+`tests/support/transform_reader_qualification.py`.
+
+Acceptance evidence mapping:
+
+| Acceptance | Evidence |
+|---|---|
+| Complete target/proper rigid pose/atomic history | C1 domain/API tests; C3 hidden multi-entry native workflow |
+| Immutable preview/exact Cancel/no-op | C2 math/session tests; C3/C4 native coordinates, no-op and artifact/history tests |
+| Conflict/failure/context lifecycle | C4 stale/unknown/interrupted-response/task/selection/project browser cases |
+| Pointer cancellation/disposal/remount | C4 gesture tests; D-080 two-direction native and late mount unit regression |
+| Surface/pocket/measurement lifecycle | Broad native suites, inherited/fragment cues and persisted measurement recalculation |
+| Keyboard/touch/themes/zoom/focus | Both layouts, scoped axe; real Chrome 100/200 extension checks and inspected light/dark PNGs |
+| Durable persistence/exports/archives | Same-SQLite restart test, browser reload/save/export/archive, actual previous reader |
+| Bounded performance | Native completion observations, unchanged budgets, first/latest queue and raw measurements |
+
+Limits: pinned Chromium/SwiftShader and Pixel 7 emulation only; no physical-device
+or universal throughput claim. Surface regeneration separately measured. Partial
+selection movement remains scientifically unconstrained; crossing-bond warnings
+are explanatory, not geometry validation. Optional marker/launcher/gizmos,
+alignment/repair/docking and persisted drafts remain outside approved scope.
+No concrete follow-up blocker or speculative issue is created. C5 and remote
+delivery remain pending; no current blocker.

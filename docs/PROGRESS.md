@@ -18,42 +18,20 @@ Pixel 7 emulation, hidden multi-entry targets, exact coordinate cancellation,
 rejected renderer-frame restoration and surface-only cues are covered. Development
 failures were corrected and final gates rerun with frozen source; detailed commands
 and evidence are in the feature plan. Existing Alembic/bundle advisories remain.
-Full lifecycle/accessibility/real zoom/performance/persistence/older-reader
-qualification and release delivery remain pending. Blockers: none.
-Next action: M3/C4 qualification, then C5 release preparation.
+C4 qualification is complete below. C5 release preparation/delivery remain pending.
+Blockers: none. Next action: C5 complete release candidate gate.
 
-C4 qualification correction: movement exit restores context-owned keyboard focus,
-44 px controls support touch, and competing numerical previews are disabled.
-Interrupted-response reconciliation and unknown-outcome blocking pass in both
-layouts; light/dark scoped axe and keyboard/touch checks pass (**6 browser tests**).
-Focused controls/session/loading/numeric tests **37 passed**; frontend lint,
-typecheck and build pass. Remaining C4 gates are pending; no blocker.
-
-C4 visual/context correction: the heading clears the viewer status badge;
-real 100%/200% zoom, both themes, keyboard/focus/axe and screenshot inspection pass.
-Project changes explain discarded/pending movement and clear unrelated feedback.
-Task/selection/project changes, canceled/lost pointer drags, secondary/Ctrl motion,
-stale Apply and empty/locked/hidden errors pass **8 browser tests** in both layouts.
-Focused frontend tests **31 passed** and lint/type/build pass. Full C4 gates pending.
-
-C4 keyboard correction: open modal dialogs/drawers retain focus and own Escape;
-dismissal preserves the preview. Scoped light/dark keyboard/touch/axe workflows
-pass in both layouts (**2 browser tests**), with **22 focused frontend tests** and
-lint/type/build. Reload, no-op history, measurement pause/recalculation and checkpoint
-workflows also pass in both layouts. Complete C4 regression/performance gates pending.
-
-C4 performance correction: first-use transient sphere-impostor shader compilation
-exceeded the approved budgets. Mesh cues (D-079) remove the stall. The unchanged
-native 1STP gates pass: **91/30.5 ms** fragment/ligand preview, **16.2/19.2 ms** exact
-Cancel, **75 ms** longest task; 40 frames render first/latest with one active call
-and no projection/command/job requests. Surface regeneration is reported separately.
-Complete C4 regression and release delivery remain pending.
-
-C4 remount correction (D-080): responsive renderer replacement retains the live
-preview and held camera, reacquires movement bindings and cancels exactly. Native
-both-direction regressions **2 passed**; **162 frontend tests**, lint and typecheck
-pass. Late asynchronous mounts release their engine without attaching listeners.
-No migration; complete C4 evidence and C5 delivery follow.
+M3/C4 complete: **52 browser tests / 10 intentional skips**, zero failed/flaky
+cases, plus **2 native responsive remount regressions** and **162 frontend tests**.
+Focused persistence/archive/security Python **52 passed**; lint/type/build pass.
+Light/dark, keyboard/touch, scoped axe and actual 100%/200% Chrome zoom pass.
+API restart, save/reload, exports/archives and actual v0.10.0 retained history
+reader pass; candidate producer-version qualification repeats in C5. Native 1STP
+preview **151.1/36 ms**, exact Cancel **17.8/21.6 ms**, longest task **133 ms**;
+first/latest bounded rendering and zero preview requests pass. Surface regeneration
+is separate. D-079/D-080 record mesh cues and remount camera ownership. Detailed
+commands, corrected development failures, screenshots and raw evidence remain in
+the feature plan. C5 full release gate and delivery remain pending; no blocker.
 
 ### Previous release — v0.10.0
 

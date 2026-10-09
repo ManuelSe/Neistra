@@ -6,6 +6,33 @@ Neistra targets WCAG 2.2 Level AA for the local application shell. The
 qualification combines deterministic browser automation with keyboard and
 visual checks; an axe pass alone is not treated as complete coverage.
 
+## Interactive movement (issue #4)
+
+The named Transform launcher and persistent movement region expose captured atom
+and hidden counts, unconstrained-editing warnings, pressed Rotate/Translate/Depth
+states, a labelled sensitivity slider, directional steps, zoom and Apply/Cancel.
+Buttons and the slider are at least 44 CSS px high. Arrow keys on the movement
+canvas use the same transaction as the step buttons; fields keep their own keys.
+The region scrolls internally at compact sizes and real 200% zoom. Its heading
+clears the separate viewer-status badge. The scientific warning remains DOM text.
+
+Movement starts with canvas focus when no modal is open. Open dialogs/drawers own
+their focus and Escape; closing them retains the preview. Workspace Escape cancels
+movement and restores the connected launcher, or visible Fit all visible action
+if closing the mobile inspector removed that launcher. Context-changing actions
+keep their focus; late responses cannot focus another project's launcher.
+
+`interactive-selection-transform.spec.ts` qualifies desktop keyboard and Pixel 7
+touch, light/dark scoped WCAG 2/2.1/2.2 axe, modal/drawer dismissal, final focus and
+explained invalid-target feedback. `rebranding-zoom.spec.ts` uses the actual Chrome
+zoom extension at 100%/200%, verifies the zoom factor and CSS viewport, and checks
+every control's reachability and the banner/status geometry. Full native-surface
+screenshots were inspected in all four theme/zoom combinations; see the
+[feature-plan evidence](plans/issue-4-interactive-selection-transform.md).
+These checks do not certify physical phones, other browsers or screen-reader
+access to individual canvas atoms. Coordinates and WebGL cues are qualified
+separately from semantic accessibility.
+
 ## Automated Scope
 
 `tests/e2e/release-hardening.spec.ts` opens a populated protein/ligand project

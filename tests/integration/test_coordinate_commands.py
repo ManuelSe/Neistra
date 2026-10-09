@@ -4,9 +4,11 @@ from pathlib import Path
 from typing import Any, cast
 
 import pytest
+from molweave_api.main import create_app
 from molweave_api.models import Artifact, CommandRecord
 from sqlalchemy import func, select
 
+from tests.integration.test_archive_roundtrip import export_archive, import_archive
 from tests.support.api_client import ApiClient
 
 FIXTURES = Path(__file__).parents[1] / "fixtures" / "formats"
@@ -76,6 +78,72 @@ def _structure(client: ApiClient, project_id: str, entry_id: str) -> dict[str, A
     response = client.get(f"/api/v1/projects/{project_id}/entries/{entry_id}/structure")
     assert response.status_code == 200
     return cast(dict[str, Any], response.json()["structure"])
+
+
+def test_selection_movement_survives_restart_save_export_and_archive(client: ApiClient) -> None:
+    project = _import(
+        client, _project(client)["id"], 0, "ethanol.mol", "protein_models_altloc.pdb"
+    )["project"]
+    project_id = project["id"]
+    ids = [entry["id"] for entry in project["entries"]]
+    before_jobs = client.get(f"/api/v1/projects/{project_id}/jobs").json()
+    moved = client.post(
+        f"/api/v1/projects/{project_id}/selection-transform",
+        json=_selection_payload(project["revision"], [(entry_id, 1) for entry_id in ids]),
+    )
+    assert moved.status_code == 200, moved.text
+    expected = {entry_id: _structure(client, project_id, entry_id) for entry_id in ids}
+    artifacts = {entry["id"]: entry["current_artifact_id"] for entry in moved.json()["entries"]}
+    client.app.state.engine.dispose()
+    restarted = ApiClient(create_app(client.app.state.settings))
+    try:
+        reopened = restarted.get(f"/api/v1/projects/{project_id}").json()
+        assert reopened["revision"] == project["revision"] + 1
+        assert {
+            entry["id"]: entry["current_artifact_id"] for entry in reopened["entries"]
+        } == artifacts
+        assert restarted.get(f"/api/v1/projects/{project_id}/jobs").json() == before_jobs
+        saved = restarted.post(
+            f"/api/v1/projects/{project_id}/save", json={"expected_revision": reopened["revision"]}
+        )
+        assert saved.status_code == 200, saved.text
+        assert saved.json()["has_uncheckpointed_changes"] is False
+        for entry in reopened["entries"]:
+            assert _structure(restarted, project_id, entry["id"]) == expected[entry["id"]]
+            original_url = f"/api/v1/projects/{project_id}/entries/{entry['id']}/original"
+            assert restarted.get(original_url).content == (
+                FIXTURES / entry["original_filename"]
+            ).read_bytes()
+            exported = restarted.post(
+                f"/api/v1/projects/{project_id}/entries/{entry['id']}/exports",
+                json={"format": entry["source_format"], "acknowledge_losses": True},
+            )
+            assert exported.status_code == 201, exported.text
+            data = restarted.get(exported.json()["artifact"]["download_url"]).content
+            fresh = _project(restarted)
+            imported = restarted.post(
+                f"/api/v1/projects/{fresh['id']}/imports",
+                data={"expected_revision": 0},
+                files={"files": (entry["original_filename"], data, "application/octet-stream")},
+            )
+            assert imported.status_code == 201, imported.text
+            roundtrip = _structure(restarted, fresh["id"], imported.json()["imported_entry_ids"][0])
+            for old, new in zip(expected[entry["id"]]["atoms"], roundtrip["atoms"], strict=True):
+                assert new["coordinates"] == pytest.approx(old["coordinates"], abs=1e-3)
+        archive = export_archive(restarted, project_id, "movement-restart-archive")
+        archive_data = restarted.get(archive["artifact"]["download_url"]).content
+        restored = import_archive(restarted, archive_data)["project"]
+        assert restored["history"]["retained_commands"] == 0
+        by_name = {entry["name"]: entry for entry in reopened["entries"]}
+        for entry in restored["entries"]:
+            source = by_name[entry["name"]]
+            assert _structure(restarted, restored["id"], entry["id"]) == expected[source["id"]]
+            original_url = f"/api/v1/projects/{restored['id']}/entries/{entry['id']}/original"
+            assert restarted.get(original_url).content == (
+                FIXTURES / source["original_filename"]
+            ).read_bytes()
+    finally:
+        restarted.app.state.engine.dispose()
 
 
 def test_transform_is_durable_reversible_and_preserves_original(
