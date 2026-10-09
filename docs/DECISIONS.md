@@ -2664,3 +2664,30 @@ no patch/artifact, while the history selection records the complete captured tar
 This supplies reproducible validation for D-075 without new persisted state,
 migration or action vocabulary. The threshold follows the existing documented
 coordinate comparison precision in D-025; it is not a geometry repair policy.
+
+## D-078 — Viewer visibility and bounded movement rendering
+
+Date: 2026-10-09. Status: implemented in issue #4 M2/C3.
+
+Movement eligibility reads the adapter's live inspectable atom references rather
+than approximating visibility in React. The viewer projection owns hydrogen
+display classification, component/isolation bounds and rendered surface groups;
+these references affect availability/hidden counts only. Scientific targets remain
+the complete captured canonical selection. A temporary getter above the drawer
+lifetime avoids stale visibility snapshots after asynchronous surface completion.
+
+Keep one active renderer operation and the latest pending multi-entry preview
+batch. Complete each active non-cancelled batch so continuous movement does not
+starve later entries. Commit drops pending previews before authoritative patches;
+Cancel restores captured base coordinates after active work finishes. Dispose
+drops pending frames and restores original camera bindings before releasing the
+engine. Late API cache updates cannot replace newer project revisions.
+Every renderer caller still observes its own failure; subsequent queued recovery
+commands handle a rejected predecessor so cancellation can restore the model.
+
+Suspend inherited surfaces, fragment meshes and dependent pockets before preview
+model updates. Capture inspectable bounds before suspension and add transient
+selected-atom cues without revealing hidden material or altering durable styles.
+Measurements pause explicitly instead of displaying stale preview values. Surface
+restoration/regeneration is separate from coordinate cancellation latency. These
+choices implement D-075/D-076 without a persisted session or generic manipulator.

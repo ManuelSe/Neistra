@@ -1,5 +1,6 @@
 import type { SurfaceChannel } from "./surface/protocol";
 import type { SurfaceStatus } from "./surface/runtime";
+import type { MovementView } from "../coordinates/interactiveTransform";
 import type {
   AtomReference,
   CameraState,
@@ -52,6 +53,9 @@ export interface MolecularViewer {
   setMeasurements(measurements: ViewerMeasurement[]): Promise<void>;
   setIsolation(atoms: AtomReference[] | null): Promise<void>;
   getCamera(): CameraState | null;
+  getMovementView(): MovementView | null;
+  getRenderedAtomReferences(): AtomReference[];
+  setMovementMode(active: boolean): void;
   setCamera(camera: CameraState): void;
   setCameraMode(mode: CameraState["mode"]): void;
   zoom(factor: number): void;

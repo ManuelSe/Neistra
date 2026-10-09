@@ -220,6 +220,10 @@ class FakeViewer implements MolecularViewer {
     return null;
   }
 
+  getMovementView() { return null; }
+  getRenderedAtomReferences() { return []; }
+  setMovementMode(): void {}
+
   setCamera(): void {}
 
   setCameraMode(): void {}

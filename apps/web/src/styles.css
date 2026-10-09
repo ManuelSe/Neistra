@@ -398,6 +398,45 @@ select:focus-visible,
   height: 100%;
 }
 
+.movement-pointer-surface {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  touch-action: none;
+  cursor: grab;
+}
+.molstar-host { z-index: 0; }
+.movement-translate { cursor: move; }
+.movement-depth { cursor: ns-resize; }
+.movement-pointer-surface:focus-visible { outline: 2px solid var(--accent); outline-offset: -3px; }
+.movement-banner {
+  position: absolute;
+  z-index: 3;
+  top: 12px;
+  left: 12px;
+  width: min(360px, calc(100% - 24px));
+  max-height: calc(100% - 64px);
+  overflow: auto;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: 0 3px 16px #0002;
+  font-size: 12px;
+}
+.movement-banner p { margin: 6px 0; line-height: 1.4; }
+.movement-banner fieldset { margin: 8px 0; padding: 0; border: 0; }
+.movement-banner legend { margin-bottom: 4px; font-weight: 600; }
+.movement-banner summary { cursor: pointer; }
+.movement-warning { color: var(--text); font-weight: 600; }
+.movement-sensitivity { display: flex; align-items: center; gap: 8px; margin: 8px 0; }
+.movement-sensitivity input { min-width: 0; flex: 1; }
+.movement-step-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+.movement-step-controls button { min-height: 36px; border: 1px solid var(--border); border-radius: 5px; background: var(--surface); color: var(--text); }
+.movement-actions { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+.measurement-preview-notice { position: absolute; z-index: 3; right: 12px; bottom: 40px; background: var(--surface); color: var(--text); padding: 6px; border-radius: 6px; font-size: 12px; }
+
 .molstar-host .msp-plugin,
 .molstar-host .msp-viewport {
   background: transparent;

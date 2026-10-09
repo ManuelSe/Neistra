@@ -8,6 +8,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { molecularApi } from "../api/client";
 import type {
   CameraState,
+  AtomReference,
   CoordinatePatch,
   Project,
   Scene,
@@ -34,6 +35,10 @@ import { ViewerControls } from "./ViewerControls";
 import { ViewerToolbar } from "./ViewerToolbar";
 import { resolvePocketInputs } from "../selection/pocketInputs";
 import { SelectionStyleDialog } from "./SelectionStyleDialog";
+import { MovementOverlay } from "./MovementOverlay";
+import type { MovementWorkflow } from "../coordinates/useMovementSession";
+import { movementPreview } from "../coordinates/interactiveTransform";
+import { CoordinatePreviewQueue } from "../viewer/CoordinatePreviewQueue";
 
 const VIEWER_BACKGROUND_COLORS: Record<Theme, string> = {
   light: THEME_TOKENS.light["viewer-background"],
@@ -49,6 +54,8 @@ interface StructureViewerProps {
   onViewerSelection: (selection: Selection, mode: SelectionMode) => void;
   busy?: boolean;
   coordinatePreview?: CoordinatePatch | null;
+  movement?: MovementWorkflow;
+  onRenderedMovementAtoms?: (read: () => AtomReference[]) => void;
   onUpdateSettings?: (entryId: string, settings: ViewerSettings) => Promise<void>;
   onCreateScene?: (name: string, camera: CameraState) => Promise<void>;
   onApplyScene?: (scene: Scene) => Promise<void>;
@@ -76,6 +83,8 @@ export function StructureViewer({
   onViewerSelection,
   busy = false,
   coordinatePreview = null,
+  movement,
+  onRenderedMovementAtoms,
   onUpdateSettings,
   onCreateScene,
   onApplyScene,
@@ -98,7 +107,10 @@ export function StructureViewer({
   const viewerStructuresRef = useRef<ViewerStructure[]>([]);
   const appliedArtifactsRef = useRef(new Map<string, string>());
   const appliedTopologyArtifactsRef = useRef(new Map<string, string>());
-  const previewEntryRef = useRef<string | null>(null);
+  const previewQueue = useRef<CoordinatePreviewQueue | null>(null);
+  const movementActive = Boolean(movement?.state.capture && movement.state.phase !== "idle");
+  const currentMovement = useRef(movement);
+  currentMovement.current = movement;
   const [surfaceStatuses, setSurfaceStatuses] = useState<SurfaceStatus[]>([]);
   const [viewerReady, setViewerReady] = useState(false);
   const [viewerError, setViewerError] = useState<string | null>(null);
@@ -158,6 +170,10 @@ export function StructureViewer({
     const target = targetRef.current;
     if (!target) return;
     const viewer = createViewer();
+    previewQueue.current = new CoordinatePreviewQueue(viewer, error => {
+      currentMovement.current?.cancel();
+      setViewerError(error instanceof Error ? error.message : "The viewer rejected a coordinate preview.");
+    });
     viewerRef.current = viewer;
     viewer.setBackgroundColor(VIEWER_BACKGROUND_COLORS[themeRef.current]);
     let active = true;
@@ -196,6 +212,8 @@ export function StructureViewer({
       unsubscribeCamera();
       unsubscribeSurfaces();
       observer.disconnect();
+      previewQueue.current?.dispose();
+      previewQueue.current = null;
       viewer.dispose();
       viewerRef.current = undefined;
     };
@@ -252,6 +270,15 @@ export function StructureViewer({
     .join("|");
   const structuresPending = structureQueries.some((query) => query.isPending);
   viewerStructuresRef.current = viewerStructures;
+  const renderedCallback = useRef(onRenderedMovementAtoms);
+  renderedCallback.current = onRenderedMovementAtoms;
+  useEffect(() => {
+    renderedCallback.current?.(() => viewerRef.current?.getRenderedAtomReferences() ?? []);
+  }, [viewerReady]);
+
+  useEffect(() => {
+    if (viewerReady) viewerRef.current?.setMovementMode(movementActive);
+  }, [movementActive, viewerReady]);
 
   useEffect(() => {
     if (!viewerReady) return;
@@ -264,21 +291,15 @@ export function StructureViewer({
 
   useEffect(() => {
     if (!viewerReady) return;
+    const commits: CoordinatePatch[] = [];
     for (const patch of project.structure_patches ?? []) {
       if (appliedArtifactsRef.current.get(patch.entry_id) === patch.artifact_id) {
         continue;
       }
       appliedArtifactsRef.current.set(patch.entry_id, patch.artifact_id);
-      void viewerRef.current
-        ?.applyCoordinatePatch(patch, "commit")
-        .catch((error: unknown) =>
-          setViewerError(
-            error instanceof Error
-              ? error.message
-              : "The viewer rejected a coordinate update.",
-          ),
-        );
+      commits.push(patch);
     }
+    if (commits.length) previewQueue.current?.commit(commits);
   }, [project.structure_patches, syncKey, viewerReady]);
 
   const topologyDataKey = structureQueries
@@ -332,25 +353,12 @@ export function StructureViewer({
 
   useEffect(() => {
     if (!viewerReady) return;
-    const previousEntryId = previewEntryRef.current;
-    if (previousEntryId && previousEntryId !== coordinatePreview?.entry_id) {
-      void viewerRef.current?.clearCoordinatePreview(previousEntryId);
-    }
-    previewEntryRef.current = coordinatePreview?.entry_id ?? null;
-    if (coordinatePreview) {
-      void viewerRef.current
-        ?.applyCoordinatePatch(coordinatePreview, "preview")
-        .catch((error: unknown) =>
-          setViewerError(
-            error instanceof Error
-              ? error.message
-              : "The viewer rejected a coordinate preview.",
-          ),
-        );
-    } else if (previousEntryId) {
-      void viewerRef.current?.clearCoordinatePreview(previousEntryId);
-    }
-  }, [coordinatePreview, viewerReady]);
+    const state = movement?.state;
+    const patches = state?.capture && ["active", "submitting"].includes(state.phase)
+      ? movementPreview(state.capture, state.pose)
+      : coordinatePreview ? [coordinatePreview] : [];
+    previewQueue.current?.set(patches);
+  }, [coordinatePreview, movement?.state, viewerReady]);
 
   useEffect(() => {
     if (!viewerReady) return;
@@ -373,7 +381,7 @@ export function StructureViewer({
 
   useEffect(() => {
     if (!viewerReady) return;
-    const measurements = project.measurements.map((measurement) => {
+    const measurements = movementActive || coordinatePreview ? [] : project.measurements.map((measurement) => {
       const value = measurementValue(
         measurement.kind,
         measurement.atom_references,
@@ -389,7 +397,7 @@ export function StructureViewer({
         error instanceof Error ? error.message : "Measurements could not be displayed.",
       );
     });
-  }, [normalizedStructures, project.measurements, syncKey, viewerReady]);
+  }, [normalizedStructures, project.measurements, syncKey, viewerReady, movementActive, coordinatePreview]);
 
   const loading =
     (!viewerReady && !viewerError) || structuresPending;
@@ -461,8 +469,12 @@ export function StructureViewer({
         data-testid="molstar-host"
         aria-label="3D molecular viewer"
       />
+      {movementActive && movement ? <MovementOverlay movement={movement}
+        view={() => viewerRef.current?.getMovementView() ?? null}
+        zoom={factor => viewerRef.current?.zoom(factor)} /> : null}
+      {(movementActive || coordinatePreview) && project.measurements.length ? <div className="measurement-preview-notice" role="status">Measurements paused during coordinate preview.</div> : null}
       <Tooltip.Provider delayDuration={350}>
-        <ViewerToolbar
+        {!movementActive ? <ViewerToolbar
           pickingGranularity={pickingGranularity}
           onPickingGranularity={onPickingGranularity}
           fitAllUnavailableReason={viewerUnavailableReason}
@@ -474,7 +486,7 @@ export function StructureViewer({
           onFocusSelection={() => viewerRef.current?.focusAtoms(selection.atoms)}
           onFocusLigands={() => viewerRef.current?.focusAtoms(ligandAtoms)}
           onSelectionStyle={openStyleDialog}
-        />
+        /> : null}
         <SelectionStyleDialog
           onExpandDistance={onExpandDistance}
           onAppearance={onAppearance}
@@ -496,7 +508,7 @@ export function StructureViewer({
             await onSelectionStyle(action, style);
           }}
         />
-        <ViewerControls
+        {!movementActive ? <ViewerControls
         entries={project.entries}
         activeEntryId={activeEntryId}
         camera={camera}
@@ -533,7 +545,7 @@ export function StructureViewer({
         onDeleteScene={(scene) => {
           void onDeleteScene?.(scene);
         }}
-        />
+        /> : null}
       </Tooltip.Provider>
       {surfaceStatuses.length ? <div className="surface-runtime-status" aria-label="Selection surface rendering">
         {surfaceStatuses.map((status) => <div key={`${status.channel}:${status.entryId}`}>

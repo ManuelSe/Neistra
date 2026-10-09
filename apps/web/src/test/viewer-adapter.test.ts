@@ -72,6 +72,10 @@ vi.mock("../viewer/MolstarEngine", () => ({
       return null;
     }
 
+    getMovementView() { return null; }
+    getRenderedAtomReferences() { return []; }
+    setMovementMode() {}
+
     cancelSurface(id: string, channel: string) { calls.cancelSurface(id, channel); }
     retrySurface(id: string, channel: string) { calls.retrySurface(id, channel); }
 

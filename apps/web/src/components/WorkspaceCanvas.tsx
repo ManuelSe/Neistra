@@ -3,6 +3,7 @@ import type { ExpandSelection } from "../selection/expansion";
 import { FolderPlus, Upload } from "lucide-react";
 import type {
   CameraState,
+  AtomReference,
   CoordinatePatch,
   Project,
   Scene,
@@ -16,6 +17,7 @@ import type {
 import type { Theme } from "../store/workspace";
 import { StructureViewer } from "./StructureViewer";
 import { Brand } from "./Brand";
+import type { MovementWorkflow } from "../coordinates/useMovementSession";
 
 interface WorkspaceCanvasProps {
   project: Project | undefined;
@@ -29,6 +31,8 @@ interface WorkspaceCanvasProps {
   onImport: () => void;
   busy?: boolean;
   coordinatePreview?: CoordinatePatch | null;
+  movement?: MovementWorkflow;
+  onRenderedMovementAtoms?: (read: () => AtomReference[]) => void;
   onUpdateSettings?: (entryId: string, settings: ViewerSettings) => Promise<void>;
   onCreateScene?: (name: string, camera: CameraState) => Promise<void>;
   onApplyScene?: (scene: Scene) => Promise<void>;
@@ -58,6 +62,8 @@ export function WorkspaceCanvas({
   onImport,
   busy,
   coordinatePreview,
+  movement,
+  onRenderedMovementAtoms,
   onUpdateSettings,
   onCreateScene,
   onApplyScene,
@@ -122,6 +128,8 @@ export function WorkspaceCanvas({
           onViewerSelection={onViewerSelection}
           busy={busy}
           coordinatePreview={coordinatePreview}
+          movement={movement}
+          onRenderedMovementAtoms={onRenderedMovementAtoms}
           onUpdateSettings={onUpdateSettings}
           onCreateScene={onCreateScene}
           onApplyScene={onApplyScene}

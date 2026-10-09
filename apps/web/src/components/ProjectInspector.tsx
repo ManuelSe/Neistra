@@ -41,6 +41,7 @@ import { MeasurementsPanel } from "./MeasurementsPanel";
 import { ProteinEditorPanel } from "./ProteinEditorPanel";
 import { TransformPanel } from "./TransformPanel";
 import { activateTabFromKeyboard } from "./tabKeyboard";
+import type { MovementWorkflow } from "../coordinates/useMovementSession";
 
 interface ProjectInspectorProps {
   project: Project | undefined;
@@ -89,6 +90,8 @@ interface ProjectInspectorProps {
     edit: ProteinEdit,
   ) => Promise<ProteinEditResult>;
   onCollapse?: () => void;
+  movement?: MovementWorkflow;
+  onInspectorTaskChange?: () => void;
 }
 
 function InspectPanel({
@@ -594,7 +597,7 @@ export function ProjectInspector(props: ProjectInspectorProps) {
     | "protein"
     | "sequence"
     | "details"
-  >("selection");
+  >(props.movement?.state.capture ? "transform" : "selection");
   const automaticallyOpenedDetails = useRef(false);
   const projectId = project?.id;
   const entryCount = project?.entries.length;
@@ -692,6 +695,7 @@ export function ProjectInspector(props: ProjectInspectorProps) {
             tabIndex={tab === item ? 0 : -1}
             key={item}
             onClick={() => {
+              if (item !== tab) props.onInspectorTaskChange?.();
               automaticallyOpenedDetails.current = false;
               setTab(item);
             }}
@@ -726,6 +730,7 @@ export function ProjectInspector(props: ProjectInspectorProps) {
             project={project}
             selection={selection}
             busy={props.busy}
+            movement={props.movement}
             onPreview={
               props.onPreviewTransform ?? (() => Promise.resolve())
             }

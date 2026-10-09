@@ -297,6 +297,16 @@ captured project's authority; obsolete loads cannot revive a cancelled session.
 Ambiguous responses reconcile before retry, and unsuccessful reconciliation
 enters an uncertain state that blocks new movement until a read-only refresh
 succeeds. No automatic replay against a refreshed revision occurs. Sessions are
-neither persisted nor included in archives, exports or jobs. Viewer/UI integration
-is delivered separately in issue #4 C3; these tested boundaries do not yet expose
-a production movement launcher.
+neither persisted nor included in archives, exports or jobs.
+
+React owns the session above the inspector/drawer lifetime. The viewer adapter
+exposes its camera projection and inspectable visibility, while pointer gestures
+produce only typed operation poses. A dedicated movement pointer surface prevents
+picking and secondary focus. The engine suspends/restores trackball bindings and
+holds a camera snapshot with explicitly permitted zoom. Renderer work is bounded
+to one active update plus the latest pending preview batch; commit/cancellation
+discards obsolete pending frames. Inherited surfaces, fragment meshes and dependent
+pockets are suspended before model updates. Temporary selected-atom cues honor
+visibility; measurements pause explicitly. Session exit restores representations
+without changing durable definitions. Older late API responses cannot replace a
+newer revision in the authority cache.

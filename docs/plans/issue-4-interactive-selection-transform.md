@@ -2,7 +2,7 @@
 
 ## Status and issue metadata
 
-- Status: **Implementation in progress; M1/C1 and M2/C2 complete**.
+- Status: **Implementation in progress; M1 and M2 complete; M3 pending**.
 - Approval: the user explicitly approved the complete proposed plan on 2026-10-09.
 - Issue: [#4 — Add an interactive mouse-based mode for translating and rotating selected atoms](https://github.com/ManuelSe/Neistra/issues/4).
 - Issue at approval: open, without comments, labels or a milestone; last updated 2026-08-03.
@@ -479,8 +479,9 @@ a protein complex, a partial fragment/residue and multi-entry selection. Include
 both camera projections, zero-change movement, failures/conflicts, preview
 surfaces/measurements and normal picking/navigation after exit.
 
-Planning inspection is complete. **No new implementation validation has been
-executed.** Historical release results are baseline evidence only.
+At planning approval, no implementation validation had been executed. Historical
+release results remain baseline evidence; subsequent checkpoint evidence is
+recorded in the progress log below.
 
 Run the complete release gate before opening and merging the PR and again on the
 exact merged master commit before publication:
@@ -602,7 +603,7 @@ publication evidence. Do not bypass blockers or silently reduce accepted scope.
 | Planning documentation verification | Complete | Required sections/five checkpoints/local links/exact three-file scope passed; staged diff whitespace check passed; global PLAN and all five version sources unchanged |
 | M1 / C1 | Complete | Atomic batch endpoint, proper rotations, all-conformer stable-ID transforms, one history command, no-op/rejection invariants; evidence below |
 | M2 / C2 | Complete | Copied capture, quaternion pose, multi-entry patches and independently tested Apply/cancel/context/response orchestration |
-| M2 / C3 | Pending | Complete viewer interaction workflow |
+| M2 / C3 | Complete | App-owned activation, gestures/steps, camera/selection suspension, bounded multi-entry rendering and native surface/error restoration; evidence below |
 | M3 / C4 | Pending | Lifecycle/accessibility/persistence/performance qualification |
 | M3 / C5 | Pending | Reviewed release candidate and coordinated version bump |
 | PR/review/merge/exact-merged gate | Pending; authorized by subsequent `/goal` | Run after C5 qualification |
@@ -673,3 +674,58 @@ Evidence:
   migration, version change or new product decision. `git diff --check` passed.
 
 No blocker. Next action: M2/C3 full viewer integration, then M2 boundary gates.
+
+
+### 2026-10-09 — M2/C3 viewer workflow and M2 boundary
+
+C2 committed as `9799f20`. Move selection now activates from Transform, with an
+app-owned session surviving inspector/drawer closure. The viewer banner names the
+captured atom/hidden counts, scientific limits, Rotate/Translate/Depth, bounded
+sensitivity, keyboard/touch steps, zoom, Apply and Cancel. Pointer release keeps
+preview. Inspector task and selection/project changes discard the session; project
+mutations guard submission/reconciliation. No persistent session or settings field.
+
+The adapter suspends picking and restores trackball bindings, including on disposal.
+A held camera permits explicit zoom only. Availability reads live rendered bounds,
+including surface-only geometry and hydrogen/isolation preferences. Inherited
+surfaces and fragment/dependent pocket channels pause before coordinate updates;
+transient target cues preserve inspectability and measurements pause visibly.
+One active preview batch plus the latest pending frame prevents unbounded work and
+starvation of later entries. Commit drops obsolete previews; cancellation restores
+base coordinates. Renderer failures remain visible while later restoration commands
+can recover from rejected predecessors. Older late API results cannot overwrite a
+newer cached project revision. D-078 records these boundaries.
+
+Native Chromium/SwiftShader and Pixel 7 emulation compare actual model coordinates
+with expected proper-rotation patches, preserve camera target/orientation in both
+projections, permit zoom, restore exact originals and inherited/fragment-only
+representations, and recover after an explicitly rejected invalid stable-ID patch.
+The UI journey captures hidden multi-entry targets, previews multiple gestures and
+steps without writes, cancels exactly, applies one reversible batch and preserves
+unselected atoms and visibility. No schema/migration/version change.
+
+Focused and milestone evidence:
+
+- `corepack pnpm --dir apps/web exec vitest run src/test/interactive-transform.test.ts src/test/interactive-transform-queue.test.ts src/test/viewer-adapter.test.ts src/test/viewer-interaction.test.ts src/test/structure-loading.test.tsx`: **41 passed**; the final complete frontend rerun also covers all these cases.
+- `.venv/bin/uv run ruff check .`: passed.
+- `.venv/bin/uv run mypy apps/api packages/molweave_core`: passed, 54 files.
+- `.venv/bin/uv run pytest`: **396 passed**, including migrations/archives; 237 existing Alembic advisories.
+- `corepack pnpm --dir apps/web lint`: passed.
+- `corepack pnpm --dir apps/web typecheck`: passed.
+- `corepack pnpm --dir apps/web test`: **158 passed / 35 files**.
+- `corepack pnpm test:dev`: **8 passed**.
+- `corepack pnpm --dir apps/web build`: passed; existing large-bundle advisory remains.
+- `PLAYWRIGHT_BROWSERS_PATH=.playwright MOLWEAVE_E2E_API_PORT=8210 MOLWEAVE_E2E_WORKER_PORT=8211 MOLWEAVE_E2E_WEB_PORT=5373 MOLWEAVE_E2E_DATA_DIR=/tmp/neistra-issue4-c3-e2e corepack pnpm exec playwright test tests/e2e/interactive-selection-transform.spec.ts tests/e2e/coordinate-editing.spec.ts tests/e2e/viewer-click-selection.spec.ts tests/e2e/viewer-controls.spec.ts`: **12 passed / 8 intentional layout skips**, final frozen source run, no failed/flaky cases.
+- Local checkpoint diff reviewed for ownership, scientific semantics, queue
+  ordering, visibility, disposal and recovery; `git diff --check` passed.
+
+Earlier development attempts found a mobile test that needed to reselect the
+Transform tab after Cancel/remount, a TypeScript harness iteration error, and one
+invalidated navigation run caused by editing Vite source during tests. All are
+corrected; gates were rerun against frozen final source. These are not unexplained
+flakes or omitted failures.
+
+Known limitations: complete task/failure/focus/touch/zoom/axe qualification,
+performance budgets, persistence/restart and 0.10.0 reader compatibility remain
+M3/C4 work. No current blocker. Next action: M3/C4 qualification, followed by C5
+version/release preparation and full delivery gates.

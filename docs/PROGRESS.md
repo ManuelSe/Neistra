@@ -2,22 +2,25 @@
 
 ## Current milestone
 
-Issue #4 — M1/C1 and M2/C2 complete on `feat/issue-4-interactive-selection-transform`.
+Issue #4 — M1 and M2 complete on `feat/issue-4-interactive-selection-transform`.
 Contract: [interactive selection transforms](plans/issue-4-interactive-selection-transform.md).
-The subsequent `/goal` authorizes the complete implementation/delivery workflow.
-Atomic multi-entry rigid transforms validate all targets and proper rotations,
-transform stable IDs across every conformer, preserve original files, and use one
-reversible command. Identity preserves redo and creates no artifacts or revision.
-D-075–D-077 record scientific, interaction and validation semantics. No migration;
-head remains 0013. All five versions remain 0.10.0; planned release is 0.11.0.
+Move selection captures all canonical targets across entries, including hidden
+atoms. App-owned previews, translated-centroid rotation, screen/depth gestures,
+steps and zoom end in one atomic Apply or exact Cancel. Camera/picking suspension,
+bounded renderer batches, transient cues, surface/measurement suspension and
+renderer recovery preserve authority. D-075–D-078 record the design. Originals and
+unselected state remain unchanged. No migration; head remains 0013. All five
+versions remain 0.10.0; planned minor release is 0.11.0.
 
-Verification: 31 focused and **396 full Python tests**, **134 frontend tests**,
-**8 supervisor tests**, lint/type/build and **1 desktop numeric browser test /
-1 intentional mobile skip** pass. Existing Alembic and bundle advisories remain.
-The feature plan records exact commands and detailed evidence. The tested session boundary captures originals, composes proper rotations and
-reconciles responses without automatic replay. Twenty new session/math tests pass;
-C2 lint/type/build pass. Viewer activation and release qualification remain pending. Blockers: none.
-Next action: M2/C3 full viewer integration and M2 boundary gates.
+M2 verification: **396 Python, 158 frontend and 8 supervisor tests**, lint/type/build,
+and **12 native browser tests / 8 intentional layout skips** pass. Both projections,
+Pixel 7 emulation, hidden multi-entry targets, exact coordinate cancellation,
+rejected renderer-frame restoration and surface-only cues are covered. Development
+failures were corrected and final gates rerun with frozen source; detailed commands
+and evidence are in the feature plan. Existing Alembic/bundle advisories remain.
+Full lifecycle/accessibility/real zoom/performance/persistence/older-reader
+qualification and release delivery remain pending. Blockers: none.
+Next action: M3/C4 qualification, then C5 release preparation.
 
 ### Previous release — v0.10.0
 
@@ -2215,12 +2218,11 @@ Results:
 
 ## Blockers
 
-None for the issue #4 planning handoff. Issue #4 implementation and delivery gates
-remain unexecuted; future failures or unmet live repository policy block advancement.
+No current blocker. Issue #4 qualification and delivery remain in progress; failed
+gates or unmet live repository policy block advancement.
 
 ## Next action
 
-Await `/goal` to begin M1/C1 in the approved
+Complete M3 qualification and release preparation in the approved
 [issue #4 feature plan](plans/issue-4-interactive-selection-transform.md).
 Current released baseline is v0.10.0; planned release is the minor v0.11.0.
-Do not start implementation as part of this planning-persistence handoff.
