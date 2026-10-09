@@ -961,3 +961,39 @@ README, release notes and compatibility/user documentation describe accepted
 scope and scientific/deferred limits. No migration or follow-up issue is needed.
 Complete clean candidate gate and final full-diff review must pass before PR/merge;
 exact merged gate must pass before annotated tag/release. Delivery remains pending.
+
+### 2026-10-09 — C5 candidate gate diagnostic and zoom synchronization correction
+
+Clean candidate `13ab3cff639602d6803cd61de96606282bb56d79` passes frozen installs,
+fresh migration 0013, Ruff, mypy (54 source files), **398 Python, 162 frontend and
+8 supervisor tests**, frontend lint/typecheck and production build. Full browser
+run finishes **137 passed / 42 intentional skips / 1 failed**, zero configured
+retries. This is rejected candidate evidence, not a passing release gate. Logs and
+commands: `/tmp/neistra-issue4-candidate-gate/gate.json` and `browser.log`.
+
+The actual Chrome zoom workflow pressed Escape seven milliseconds after observing
+a newly ungrouped row, before that captured membership action's scheduled focus
+restoration. The drawer handles Escape through its focused descendants; trace
+shows the premature key failed to dismiss it. Add explicit assertions that the
+menu is closed and the relocated row trigger has regained focus before checking
+drawer Escape. No arbitrary sleep, retry, dropped assertion, relaxed budget or
+production code change. Focused repeated real-zoom qualification follows, then the
+complete gate repeats on a fresh clean candidate.
+
+Local full-diff review also clarifies TRANSFORMS.md: scenes store presentation and
+use current coordinates, not independent coordinate poses. Other reviewed areas
+include proper matrix/scientific invariants, whole-batch/no-op/history semantics,
+immutable artifact/job provenance, camera/visibility/surface/measurement ownership,
+context/failure/remount lifecycles, accessible controls, bounded queue/performance,
+archive/preceding-reader compatibility, version sources and approved scope.
+Review is local, not independent. No unresolved consequential code finding remains.
+
+Focused correction gate: `PLAYWRIGHT_BROWSERS_PATH=.playwright
+MOLWEAVE_E2E_API_PORT=8210 MOLWEAVE_E2E_WORKER_PORT=8211
+MOLWEAVE_E2E_WEB_PORT=5373 MOLWEAVE_E2E_DATA_DIR=/tmp/neistra-issue4-zoom-focus
+corepack pnpm exec playwright test tests/e2e/rebranding-zoom.spec.ts
+--grep 'real 100%' --project=chromium --repeat-each=2
+--output=/tmp/neistra-issue4-zoom-focus-results`: **2 passed** (2.2 min), zero
+failed/flaky cases. Both complete theme/actual-zoom sequences verify menu closure,
+restored row focus and drawer Escape. `git diff --check` passes. The substantive
+test/documentation correction is committed before clean complete requalification.

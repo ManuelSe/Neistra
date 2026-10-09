@@ -34,7 +34,11 @@ commands, corrected development failures, screenshots and raw evidence remain in
 the feature plan. C5 preparation: five versions agree at 0.11.0; preceding archive provenance
 coverage is retained and 0.10.0 added (**38 archive/security tests**). Actual v0.10.0
 reader accepts the 0.11.0 producer, including exact batch redo. Complete clean
-candidate gate, full-diff review and delivery remain pending; no blocker.
+candidate gate diagnosed a zoom-test focus race (**137 passed / 42 skips /
+1 failed**); the test now awaits relocated-row focus before drawer Escape. No
+production change or gate relaxation. **398 Python, 162 frontend and 8 supervisor
+tests**, frozen installs, fresh migration, lint/types/build pass. Full clean gate
+repeats before delivery; the feature plan distinguishes rejected evidence.
 
 ### Previous release — v0.10.0
 

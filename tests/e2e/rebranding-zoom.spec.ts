@@ -182,6 +182,10 @@ test("keeps actions and dialogs reachable at real 100% and 200% browser zoom", a
         await page.keyboard.press("Enter");
         await page.getByRole("menuitem", { name: "Remove from group", exact: true }).click();
         await expect(page.locator('.entry-group[data-group-id="ungrouped"] .entry-row')).toBeVisible();
+        // Membership relocates/remounts the row. Escape belongs to its drawer
+        // only after the captured action's scheduled focus restoration completes.
+        await expect(page.getByRole("menu")).toBeHidden();
+        await expect(page.locator(".entry-menu-trigger")).toBeFocused();
 
         if (await page.locator(".mobile-panel").isVisible()) {
           await page.keyboard.press("Escape");

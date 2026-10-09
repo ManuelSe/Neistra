@@ -60,7 +60,8 @@ or preparation.
 
 Previews are transient operation inputs, never authoritative cache state. They
 are excluded from exports, archives and job inputs. Applied coordinates participate
-in ordinary persistence, export, checkpoints, scenes and history. Previously
+in ordinary persistence, export, checkpoints and history. Scenes store presentation
+settings and use current coordinates; they do not store an independent pose. Previously
 submitted jobs retain their immutable inputs. No database migration or schema
 major change is introduced by interactive movement.
 
