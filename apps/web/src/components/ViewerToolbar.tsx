@@ -19,6 +19,7 @@ const PICKING_MODES: {
 ];
 
 interface ViewerToolbarProps {
+  pickingUnavailableReason?: string | null;
   pickingGranularity: SelectionGranularity;
   onPickingGranularity: (granularity: SelectionGranularity) => void;
   fitAllUnavailableReason: string | null;
@@ -80,6 +81,7 @@ function ViewerActionButton({
 }
 
 export function ViewerToolbar({
+  pickingUnavailableReason = null,
   pickingGranularity,
   onPickingGranularity,
   fitAllUnavailableReason,
@@ -106,14 +108,15 @@ export function ViewerToolbar({
                 className={pickingGranularity === mode.value ? "active" : ""}
                 aria-label={`Pick ${mode.label.toLowerCase()}s`}
                 aria-pressed={pickingGranularity === mode.value}
-                onClick={() => onPickingGranularity(mode.value)}
+                aria-disabled={pickingUnavailableReason !== null}
+                onClick={() => { if (!pickingUnavailableReason) onPickingGranularity(mode.value); }}
               >
                 {mode.label}
               </button>
             </Tooltip.Trigger>
             <Tooltip.Portal>
               <Tooltip.Content className="tooltip viewer-toolbar-tooltip" sideOffset={7}>
-                {mode.tooltip}
+                {pickingUnavailableReason ?? mode.tooltip}
                 <Tooltip.Arrow className="tooltip-arrow" />
               </Tooltip.Content>
             </Tooltip.Portal>
@@ -124,6 +127,8 @@ export function ViewerToolbar({
         <span className="sr-only">Viewer picking mode</span>
         <select
           aria-label="Viewer picking mode"
+          disabled={pickingUnavailableReason !== null}
+          title={pickingUnavailableReason ?? undefined}
           value={pickingGranularity}
           onChange={(event) =>
             onPickingGranularity(event.target.value as SelectionGranularity)

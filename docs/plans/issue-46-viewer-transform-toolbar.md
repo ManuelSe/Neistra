@@ -1,0 +1,1028 @@
+# Issue #46 — Viewer transformation toolbar and temporary camera navigation
+
+## Status and delivery metadata
+
+**Status: C1–C5 complete; candidate qualified, PR/review/merge and publication pending.** Approved explicitly
+on 2026-10-10, persisted as `ffea74185ce3d7b79cdb2989288f690d4e373a24`, and
+verified on the remote feature branch. The subsequent explicit `/goal` authorizes
+checkpoint implementation and the complete reviewed release workflow below.
+
+| Item | Planned value |
+|---|---|
+| Issue | [#46](https://github.com/ManuelSe/Neistra/issues/46) |
+| Feature plan | `docs/plans/issue-46-viewer-transform-toolbar.md` |
+| Base branch | `master` |
+| Inspected and fast-forward-confirmed base | `984ecc0507625f1e72e01c3f9e4c2d4a32961a73` |
+| Feature branch | `feat/issue-46-viewer-transform-toolbar` |
+| PR title | `feat(viewer): add transform toolbar and temporary camera navigation` |
+| Merge strategy | Normal merge commit, preserving passing checkpoints |
+| Release | Minor increment: **0.11.0 → 0.12.0** |
+| Annotated tag | `v0.12.0`, subject to a final collision check |
+
+The working tree was clean before and after fetching and fast-forward-only
+confirmation; local `master` matched remotely inspected `origin/master`.
+
+The repository already has an established tag and release history. The published,
+non-prerelease [v0.11.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.11.0)
+points to `4ed61264d9006f81ca528bf42c0c21594121a55b`; later documentation merged
+into the planning base. The planning prompt's assumption that release history is
+absent does not match the inspected repository.
+
+## Core problem and approved outcome
+
+Users should be able to select a molecule, start transforming it directly above
+the viewer, and alternate between molecular positioning and camera navigation
+without reopening the inspector or losing their preview.
+
+Deliver one existing movement transaction with:
+
+- A distinct transformation bar adjacent to the current selection/styling toolbar.
+- Fixed mouse controls: primary drag rotates; secondary or Ctrl-primary drag
+  translates in the screen plane.
+- Hold-Space camera navigation, followed by automatic transformation resumption
+  on release.
+- An **Adjust view / Resume transform** toggle for touch and keyboard access,
+  as explicitly selected during planning.
+- Directly accessible Apply and Cancel actions.
+- Compact secondary tools for touch, keyboard, depth movement, and sensitivity.
+
+Reuse the current transformation mathematics, captured selection, rendering queue,
+backend command, history, and scientific warnings.
+
+## Authority, baseline, and assumptions
+
+Apply this authority order:
+
+1. Explicit user guidance and subsequent corrections.
+2. `AGENTS.md` and accepted decisions in `docs/DECISIONS.md`.
+3. Existing architecture, documented boundaries, contracts, and conventions.
+4. Issue outcomes, constraints, and non-goals.
+5. Speculative technical suggestions in the issue.
+
+Inspection covered the required [product specification](../PRODUCT_SPEC.md),
+[global plan](../PLAN.md), [progress](../PROGRESS.md),
+[decisions](../DECISIONS.md), and [verification](../VERIFICATION.md) documents;
+relevant architecture, transformation, accessibility, performance, schema, API
+and development documentation; movement state and viewer adapters; migrations,
+job boundaries, tests, release metadata and repository policies. Related inputs
+include issues #4 and #3 and PR #43, along with its release correction and
+documentation closeout PRs #44/#45.
+
+Relevant authority includes D-013, D-025, D-027, D-042, D-044, D-074–D-081.
+[D-083](../DECISIONS.md#d-083--movement-transactions-retain-selection-ownership-during-temporary-camera-navigation)
+explicitly extends D-076 for temporary camera navigation; D-076's molecular
+transaction and context-discard rules remain applicable.
+
+Baseline findings:
+
+- Default Rotate mode already combines primary rotation with secondary/Ctrl-primary
+  translation.
+- The movement session belongs to the application; Mol* remains a disposable renderer.
+- Movement currently hides the ordinary viewer toolbar and displays a large
+  movement banner.
+- Picking suppression and camera locking currently share the same viewer flag.
+  Turning that flag off for Space would also re-enable selection.
+- Responsive viewer remounts already retain the captured pose and camera.
+- API, project, normalized and archive contracts remain version 1; Alembic head
+  is `0013`.
+- Recent feature PRs use normal merge commits.
+- No GitHub Actions workflows, master protection or rulesets were exposed during
+  inspection. Recheck live policy before delivery.
+- Release qualification uses documented commands and GitHub CLI operations;
+  no dedicated release automation was found.
+
+Defaults:
+
+- Preserve the Transform inspector launcher as another entry point to the same session.
+- Preserve current task/selection/project invalidation and submission reconciliation.
+- Keep navigation and secondary-tool preferences transient.
+- Qualify pinned Chromium/SwiftShader and Pixel 7 emulation; make no
+  physical-device or cross-browser certification claim.
+
+## Requirement disposition matrix
+
+| Significant requirement | Disposition | Planned treatment |
+|---|---|---|
+| Start transformation above the viewer | Essential | Add a viewer launcher using the existing movement workflow. |
+| Clearly separate transformation from selection/styling | Essential | Use a separate adjacent transformation bar. |
+| Same bar versus new bar | Optional layout alternatives | Select the separate-bar option for clear grouping and responsive wrapping. |
+| Combined primary rotation and secondary translation | Already satisfied in default mode; essential to preserve | Make mouse mappings predictable regardless of touch/keyboard tool choice. |
+| Intuitive drag rotation and current-plane translation | Already satisfied mathematically | Reuse quaternion composition and camera-based mapping; qualify both projections. |
+| Hold Space to adjust the camera | Essential | Temporarily change interaction ownership without ending the transaction. |
+| Release Space to resume | Essential | Retain pose and selection; use the updated camera for subsequent drags. |
+| Touch alternative to Space | Supporting; product decision resolved | Provide the approved Adjust view / Resume transform toggle. |
+| Active mode and gesture guidance | Supporting | Show semantic status, concise instructions and pressed states. |
+| Apply/Cancel without opening the inspector | Already available in the banner; supporting relocation | Keep both in the transformation bar. |
+| Captured target, pivot, preview and atomic history | Already satisfied | Preserve and add integration regression coverage. |
+| Unselected coordinates remain unchanged | Already satisfied | Retain exact scientific assertions. |
+| Numerical controls remain available | Already satisfied | Preserve their existing availability outside an active session. |
+| Respect fields, buttons, modals and lost focus | Supporting | Scope the shortcut and clear stale navigation ownership safely. |
+| Polished mobile and theme styling | Essential | Responsive wrapping, bounded secondary controls and touch-sized actions. |
+| Regression coverage | Essential | Add real navigation/coordinate assertions, lifecycle tests and responsive evidence. |
+
+Additional design dispositions:
+
+- **Rejected as proposed:** implementing temporary navigation by ending or
+  restarting movement. It risks selection leakage, recapture and preview loss.
+  No follow-up issue.
+- **Rejected as proposed:** removing useful depth, touch, keyboard or numerical
+  capabilities to achieve a unified mouse workflow. Keep those capabilities as
+  secondary tools. No follow-up issue.
+- **Deferred:** continuous transfer of an already-held pointer gesture between
+  camera and molecule. Require a fresh drag after ownership changes to avoid
+  coordinate jumps. No follow-up issue unless users demonstrate a concrete need.
+- **Deferred:** new gizmos, pivot markers, configurable bindings, durable
+  preferences, scientific constraints and broader device certification. None is
+  necessary for this issue; create no speculative follow-ups.
+
+No unresolved product decision remains.
+
+## Accepted scope and interaction contract
+
+### Toolbar and secondary controls
+
+Place the existing toolbar and a separate transformation bar in one responsive
+viewer-header stack. Compute layout through normal flow rather than fixed
+vertical offsets. Keep viewer status, warnings and errors clear of both bars.
+
+When idle, show **Move selection**, with focusable unavailable states and
+explanations for empty selection, locked/missing targets, viewer readiness and
+wholly hidden targets. Existing capture validation remains the final check.
+
+During a session, show:
+
+- Transformation or camera-navigation status.
+- Captured atom count and hidden-target count.
+- Adjust view / Resume transform.
+- Apply movement and Cancel movement.
+- A **More** disclosure containing sensitivity, Rotate/Translate/Depth touch and
+  keyboard preferences, step and zoom actions, and scientific details.
+
+Keep a concise unconstrained-movement warning visible outside the disclosure.
+Controls must wrap at narrow widths; secondary content must scroll within
+available viewer space. Retain at least 44 CSS px height for touch actions and
+the sensitivity control, and provide names, focus indicators and semantic state.
+
+Selection, styling and explicit focus actions remain unavailable while a captured
+movement exists, including temporary camera navigation. Their availability must
+accurately explain the active transaction.
+
+Preserve the inspector launcher. Route both launchers through one start action
+that clears and invalidates numerical previews before capture. Restore focus to
+the connected originating launcher after session exit, with a viewer-launcher
+fallback guarded by project identity.
+
+### Mouse, touch and keyboard
+
+Mouse primary drag always rotates; secondary or Ctrl-primary drag always
+translates. The touch/keyboard preference must not change these mouse mappings.
+
+Retain Rotate/Translate/Depth for touch dragging, arrow keys and named steps.
+Desktop depth positioning remains available through steps and numerical controls.
+Update guidance to describe these distinctions accurately.
+
+Reset secondary-tool defaults when a new session begins. Pointer release retains
+the preview; Apply is the only commit action.
+
+### Navigation state and viewer boundary
+
+Keep temporary navigation state in the application-owned movement workflow,
+outside authoritative molecular data and persistent preferences.
+
+Replace the internal viewer boolean with a typed interaction state:
+
+```ts
+type MovementInteraction = "inactive" | "transform" | "camera";
+setMovementMode(interaction: MovementInteraction): void;
+```
+
+Update the lazy adapter, native engine, callers, test doubles and qualification
+harness together.
+
+The transaction phase remains separate from interaction ownership:
+
+- `inactive`: ordinary viewer behavior.
+- `transform`: picking suppressed; camera orientation and target held; permitted
+  zoom retained.
+- `camera`: picking and implicit molecular-focus behavior still suppressed;
+  native orbit, pan and zoom available.
+
+Capture normal viewer bindings once per session. Restore them on final
+exit/disposal. During temporary navigation, permit native camera gestures while
+keeping animation/inertia suppressed. Reacquire the latest camera when
+transformation resumes.
+
+Do not reimplement camera motion in the application or depend on private Mol* fields.
+
+### Space and ownership transitions
+
+Handle unmodified Space only when an active movement canvas/viewer owns focus.
+Preserve normal Space behavior in buttons, fields, editable content, disclosures,
+dialogs and drawers.
+
+Maintain separate transient held-Space and explicit-toggle state. Camera
+navigation is enabled while either is active. Releasing Space resumes
+transformation unless the user deliberately left the view toggle enabled.
+
+On every ownership transition:
+
+- End the current gesture without changing its last accepted molecular pose or camera.
+- Release application pointer capture safely.
+- Ignore continuation of already-held pointers until release.
+- Require a fresh pointer-down for the next gesture.
+- Prevent movement events from reaching both owners.
+
+Ordinary pointer cancellation/lost capture retains the existing rule: restore the
+start of that molecular drag.
+
+Clear held-Space state on focus departure. Clear all temporary navigation state on
+window blur, hidden document, modal takeover, session phase exit and renderer
+remount. Preserve the captured pose and latest camera when the session remains
+valid. Require a fresh Space press or toggle activation after remount.
+
+### Scientific and compatibility boundaries
+
+Reuse the existing captured originals, translated-centroid pivot, normalized
+quaternion composition and atomic selection-transform endpoint.
+
+Navigation cannot alter selection, coordinates, artifacts, revisions, dirty
+state, history, visibility or job inputs. Camera changes do not trigger molecular
+recapture or surface regeneration.
+
+Surfaces/pockets remain suspended for the complete preview transaction;
+measurements remain visibly paused. Resume geometry only on the existing
+commit/cancel lifecycle.
+
+No new endpoint, request/response field, database migration, archive field, scene
+field, job type or history vocabulary is required. The only interface change is
+the internal typed viewer interaction contract.
+
+## Data, migration, API, UI, scientific, accessibility and performance implications
+
+- TanStack Query remains the authoritative server-state cache. The existing
+  application-owned movement capture/pose owns transient preview inputs; Mol*
+  renders them without acquiring molecular authority.
+- Reuse `POST /api/v1/projects/{project_id}/selection-transform`, proper rigid
+  matrices, all-conformer transformation and `coordinates.transform` /
+  `entry.coordinates` history. Keep original uploads, stable identities,
+  unselected state, warnings, chemistry and immutable submitted job inputs.
+- No migration is planned; head remains `0013`. API, project, normalized and
+  archive majors remain 1. No durable navigation state, preference, scene pose,
+  draft or new job type is introduced.
+- Previews remain excluded from exports, archives and job inputs. Applied
+  coordinates retain normal save/reload/restart/export/history behavior. Molecular
+  export precision and loss warnings, and archive history omission, remain unchanged.
+- Partial selections may stretch crossing bonds or create clashes. Missing bond
+  records do not prove safety. This is manual positioning without repair,
+  minimization, preparation, scoring or docking validation.
+- The viewer-header stack and bounded More disclosure replace the obstructive
+  primary banner layout. Keyboard, native Space activation, modal focus/Escape,
+  touch-sized actions, light/dark themes and actual 200% zoom are required.
+- Reuse the bounded first/latest rendering queue. Neither pointer movement nor
+  navigation transitions may submit transforms, refetch normalized structures or
+  enqueue molecular/surface jobs. Retain the published host performance budgets
+  and report surface restoration separately.
+
+## Milestones and independently verifiable checkpoints
+
+Each checkpoint records commands, results, limitations and corrections here, with
+a concise project summary in `docs/PROGRESS.md`. Commit only passing, substantive
+states.
+
+Run frontend lint, type-check, full frontend tests and production build at each
+implementation milestone, plus its focused browser workflows. Run the relevant
+Python checks for affected areas and the complete release gate before PR/merge.
+Fix failures before advancing.
+
+### M1 / C1 — Toolbar-driven transformation slice
+
+**Outcome:** Users can start, manipulate, apply and cancel the existing
+transaction entirely from the viewer header.
+
+**Affected areas:** application launch routing, viewer header, movement controls,
+availability, styling and focus.
+
+**Acceptance:** Both launchers share one capture; mouse mappings are fixed;
+hidden targets remain included; no numerical preview leaks into movement;
+controls fit desktop/mobile; existing Apply/Cancel/history workflows pass. Do not
+advertise Space before C2 implements it.
+
+**Focused validation:**
+
+```bash
+corepack pnpm --dir apps/web exec vitest run \
+  src/test/viewer-toolbar.test.tsx \
+  src/test/structure-loading.test.tsx \
+  src/test/interactive-transform-controls.test.tsx \
+  src/test/numeric-preview-ownership.test.tsx
+PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test \
+  tests/e2e/viewer-transform-toolbar.spec.ts \
+  tests/e2e/interactive-selection-transform.spec.ts \
+  tests/e2e/viewer-controls.spec.ts
+```
+
+**Documentation/migration:** Update transformation usage and feature evidence;
+no migration.
+
+**Commit:** `feat(viewer): expose selection transforms in the viewer toolbar`
+
+**Rollback:** Restore prior launcher/banner presentation; committed coordinates
+remain ordinary compatible state.
+
+### M2 / C2 — Temporary camera navigation
+
+**Outcome:** Space and Adjust view temporarily transfer control to the camera
+while retaining the molecular transaction.
+
+**Affected areas:** transient workflow state, typed viewer boundary, native
+binding/camera ownership, overlay routing and gesture guidance.
+
+**Acceptance:** Real camera orbit/pan/zoom works; picking remains suppressed;
+preview coordinates remain exact; release resumes transformation; subsequent
+translation uses the new camera basis in perspective and orthographic views;
+repeated transitions cause no binding drift.
+
+**Focused validation:**
+
+```bash
+corepack pnpm --dir apps/web exec vitest run \
+  src/test/interactive-transform.test.ts \
+  src/test/interactive-transform-controls.test.tsx \
+  src/test/viewer-adapter.test.ts \
+  src/test/viewer-interaction.test.ts
+PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test \
+  tests/e2e/viewer-transform-toolbar.spec.ts \
+  tests/e2e/interactive-selection-transform.spec.ts \
+  tests/e2e/viewer-click-selection.spec.ts
+```
+
+**Documentation/migration:** Document navigation semantics and the internal
+viewer boundary; reference D-083. No migration.
+
+**Commit:** `feat(transform): allow temporary camera navigation during movement`
+
+**Rollback:** Remove navigation entry points and restore camera locking without
+discarding molecular data.
+
+### M2 / C3 — Input lifecycle and responsive qualification
+
+**Outcome:** Navigation ownership stays coherent across interruptions, focus
+changes and responsive remounts.
+
+**Affected areas:** gesture cleanup, shortcut scope, modal ownership, focus
+restoration, responsive controls and browser regressions.
+
+**Acceptance:** Mid-drag changes preserve the accepted pose without jumps; lost
+key-up cannot leave navigation active; buttons/fields retain Space; modal Escape
+retains its existing ownership; remount preserves pose/camera and clears
+navigation flags. Touch toggle, advanced steps and Apply/Cancel work in both
+themes. Real 100%/200% zoom and scoped axe checks pass.
+
+**Focused validation:**
+
+```bash
+corepack pnpm --dir apps/web exec vitest run \
+  src/test/interactive-transform-controls.test.tsx \
+  src/test/structure-loading.test.tsx \
+  src/test/viewer-toolbar.test.tsx
+PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test \
+  tests/e2e/viewer-transform-toolbar.spec.ts \
+  tests/e2e/rebranding-zoom.spec.ts \
+  tests/e2e/release-hardening.spec.ts
+```
+
+**Documentation/migration:** Update accessibility guidance and record inspected
+screenshots; no migration.
+
+Validation-path correction during implementation: the historical
+`responsive-workspace.spec.ts` named in the proposal is absent from the current
+repository. Current responsive coverage lives in `rebranding-zoom.spec.ts` and
+`release-hardening.spec.ts`, supplemented by the native remount cases in the
+toolbar spec. The command above uses those actual files; the approved responsive,
+touch, focus, theme, zoom and accessibility outcomes are unchanged.
+
+**Commit:** `test(transform): qualify navigation ownership and responsive controls`
+
+Substantive corrections use separate `fix(transform)` or `fix(viewer)` commits.
+
+**Rollback:** Revert transient ownership changes; retain the compatible
+transaction and coordinates.
+
+### M3 / C4 — Scientific, persistence and performance qualification
+
+**Outcome:** Demonstrate unchanged scientific transactions and bounded rendering
+throughout camera/navigation cycles.
+
+**Affected areas:** native qualification harness, browser scientific assertions,
+persistence/archive checks and evidence.
+
+**Acceptance:** Hidden multi-entry targets, unselected coordinates, all-conformer
+transforms, exact Cancel, no-op history and single Apply/undo/redo remain correct.
+Navigation creates no molecular requests or commits. Existing
+surface/pocket/measurement behavior remains correct.
+
+Keep the established pinned-host budgets: preview and exact coordinate Cancel
+each below 500 ms; longest movement task below 750 ms. Preserve one active
+renderer update plus its latest pending frame. Report surface restoration
+separately.
+
+**Focused validation:**
+
+```bash
+.venv/bin/uv run pytest \
+  tests/integration/test_coordinate_commands.py \
+  tests/integration/test_archive_roundtrip.py \
+  tests/integration/test_migrations.py \
+  tests/security/test_archive_safety.py
+PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test \
+  tests/e2e/viewer-transform-toolbar.spec.ts \
+  tests/e2e/interactive-transform-performance.spec.ts \
+  tests/e2e/selection-surfaces.spec.ts \
+  tests/e2e/pocket-surfaces.spec.ts \
+  tests/e2e/measurements.spec.ts \
+  tests/e2e/export-archive.spec.ts
+```
+
+Stage actual preceding-reader qualification using the `v0.11.0` API/core/plugin
+checkout and `tests.support.transform_reader_qualification`, with
+`--expected-reader 0.11.0`. Final producer-version qualification occurs in C5.
+Use the existing [qualification procedure](../DEVELOPMENT.md#interactive-movement-compatibility-0110)
+with the preceding checkout/version advanced to v0.11.0 and fresh disposable data.
+
+**Documentation/migration:** Update performance, verification and compatibility
+evidence; no migration.
+
+**Commit:** `test(transform): verify scientific invariants and compatibility`
+
+**Rollback:** Returning to the qualified preceding release requires no schema
+downgrade or data stripping.
+
+### M3 / C5 — Reviewed release candidate
+
+**Outcome:** Complete approved scope, consistent versions and a qualified
+release candidate.
+
+**Affected areas:** authoritative versions, producer assertions, compatibility
+qualification, release notes and evidence.
+
+**Acceptance:** Every accepted requirement maps to passing evidence; actual
+v0.11.0 reads final v0.12.0-produced data; complete gate passes; full-diff review
+resolves consequential findings.
+
+**Focused validation:** Check all five versions, run archive/coordinate tests,
+repeat actual preceding-reader qualification with final producer metadata, then
+run the complete release gate below.
+
+```bash
+.venv/bin/uv run pytest tests/integration/test_archive_roundtrip.py \
+  tests/integration/test_coordinate_commands.py
+```
+
+The actual reader must check exact current coordinates/original hashes, retained
+batch undo/redo, save/reexport, archive import and unchanged completed jobs. Run
+produce with candidate PYTHONPATH, then read with the actual v0.11.0
+API/core/plugin PYTHONPATH and `--expected-reader 0.11.0`, using the repository's
+project-local Python. Record both producer and reader versions in evidence.
+
+**Documentation/migration:** Final release notes, limitations, decisions,
+verification and completion records; no migration.
+
+**Commit:** `chore(release): prepare v0.12.0`
+
+**Rollback:** Corrective commits before publication or a subsequent release
+afterward. Never retarget a published tag.
+
+## Acceptance and verification evidence
+
+Planning-stage checks performed on the unchanged baseline:
+
+- **164 frontend tests passed across 37 files.** The planning invocation
+  `corepack pnpm --dir apps/web test -- interactive-transform viewer-toolbar
+  viewer-interaction viewer-adapter` ran the full frontend suite; record it as
+  full-suite baseline evidence rather than claiming the filter was effective.
+- **109 coordinate, archive and migration integration tests passed** through
+  `.venv/bin/uv run pytest tests/integration/test_coordinate_commands.py
+  tests/integration/test_archive_roundtrip.py tests/integration/test_migrations.py`.
+- Existing Alembic configuration deprecation warnings remain (237 warnings in
+  the focused Python run).
+- Working tree remained clean after baseline checks.
+
+These results establish baseline health; they do not prove the proposed feature
+works. No new browser/release gate has been run during planning.
+
+During implementation, attach evidence for actual camera changes and native
+coordinates, not only screenshots or control labels. Cover repeated Space
+transitions, touch toggle, post-navigation translation, interruption cleanup,
+focus, remounts, Apply/Cancel/history and request counts.
+
+Maintain evidence under `docs/assets/viewer-transform-toolbar/`, distinguishing
+checkpoint, candidate and exact-merged results. Update relevant transformation,
+architecture, accessibility, performance and verification documentation with
+actual behavior and measured evidence rather than planned claims.
+
+The complete candidate gate, repeated on the exact merged release commit, is:
+
+```bash
+.venv/bin/uv sync --frozen
+corepack pnpm install --frozen-lockfile
+MOLWEAVE_DATA_DIR=/tmp/neistra-issue46-release-migration \
+  .venv/bin/uv run alembic upgrade head
+.venv/bin/uv run ruff check .
+.venv/bin/uv run mypy apps/api packages/molweave_core
+.venv/bin/uv run pytest
+corepack pnpm --dir apps/web lint
+corepack pnpm --dir apps/web typecheck
+corepack pnpm --dir apps/web test
+corepack pnpm test:dev
+corepack pnpm --dir apps/web build
+PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test
+git diff --check
+```
+
+Use fresh disposable qualification data. Confirm configured services belong to
+the run; record any isolated-port/data overrides. Preserve existing regression
+assertions while updating selectors for the new layout. Do not weaken timing
+budgets, replace real zoom with viewport emulation, or conceal unexplained flakes.
+
+## Decisions and deviations
+
+[D-083](../DECISIONS.md#d-083--movement-transactions-retain-selection-ownership-during-temporary-camera-navigation)
+records the significant cross-project architectural extension:
+
+- Transaction lifetime differs from camera/transform interaction ownership.
+- Application-owned temporary navigation never recaptures or commits molecular state.
+- Picking remains suppressed while native camera navigation is permitted.
+- Ownership changes require fresh pointer gestures.
+- Space respects focused controls and modal ownership.
+- The approved touch toggle and remount cleanup rules.
+- Fixed mouse mappings coexist with touch/keyboard/depth tools.
+
+Explicitly extend D-076; do not rewrite prior accepted decisions. Preserve D-080
+camera retention and D-081 numerical-preview invalidation.
+
+This feature plan records local scope choices; the decision log remains
+authoritative for cross-project architecture. Material changes to the approved
+outcome or compatibility require renewed product review; routine corrections
+within this contract are recorded with their verification.
+
+## Version and release plan
+
+Use a **minor release**, because toolbar access and temporary camera navigation
+add meaningful public functionality. This exceeds a patch correction. No API,
+schema, archive, history or scientific-data incompatibility requires a major
+increment. Existing stable releases and completion gates provide no reason to
+use a prerelease.
+
+During C5 update these five authoritative sources together:
+
+1. `pyproject.toml`
+2. Root development-project version in `uv.lock`
+3. `apps/web/package.json`
+4. FastAPI version in `apps/api/src/molweave_api/main.py`
+5. `APPLICATION_VERSION` in `apps/api/src/molweave_api/archive_service.py`
+
+Update current producer assertions and notes while retaining historical archive
+coverage. Do not add a root JavaScript package version or upgrade unrelated
+dependencies. No version bump occurs in the planning commit.
+
+Release-note sections:
+
+- Viewer transformation workflow.
+- Mouse, Space, touch and keyboard controls.
+- Apply/Cancel, history and scientific limitations.
+- API, persistence and compatibility.
+- Verification, performance and review evidence.
+- Deferred scope and known limitations.
+
+Recheck release ordering and tag availability before version changes and
+publication. Record ordinary version sequencing changes; any material
+compatibility change requires revisiting the plan.
+
+## PR, merge, issue response and branch cleanup
+
+Open the planned PR only after the complete candidate gate. Describe implemented,
+simplified, deferred and rejected requirements, with compatibility and
+verification evidence. Include `Closes #46` when the approved contract is complete.
+
+Review the complete diff. Recheck required reviews, checks, protection, rulesets
+and unresolved conversations; bypass none. Distinguish local review from
+independent review.
+
+After a verified merge:
+
+1. Fast-forward local `master` to the remote merged commit.
+2. Run the complete gate and final qualification on that exact commit.
+3. Create annotated `v0.12.0` and publish the GitHub release.
+4. Verify the annotation, peeled target, release state and published evidence remotely.
+5. Publish a scope-accurate final issue reply.
+6. Complete any documentation closeout through a reviewed PR without retargeting
+   the release tag.
+7. Delete and remotely verify only the issue #46 feature branch after delivery.
+
+No follow-up issue is planned. Create one only for concrete unresolved work,
+explaining whether it changes completion of #46.
+
+**Merge blockers:** selection leakage, lost/jumping previews, stuck input
+ownership, broken Cancel/history, changed unselected state, stale geometry,
+inaccessible controls, performance regressions, incompatible data, inconsistent
+versions, failing checks, unexplained flakes, consequential review findings or
+unresolved required conversations.
+
+**Release blockers:** failed exact-merged qualification, unverified merged SHA,
+tag/version collision, incorrect tag target, incomplete publication evidence or
+inaccurate scope claims.
+
+## Approval, persistence and progress/completion log
+
+The user explicitly approved this proposal on 2026-10-10 and instructed:
+"Persist it and wait for the goal command as described in the previous instructions."
+This supersedes the proposal's approval-pending status but does not authorize
+implementation.
+
+Planning persistence workflow:
+
+1. Confirm the working tree is clean.
+2. Fetch `origin`, switch to `master`, and update with
+   `git merge --ff-only origin/master`.
+3. Confirm cleanliness and review any intervening changes that affect this plan.
+4. Create `feat/issue-46-viewer-transform-toolbar`.
+5. Write this approved feature plan as the first branch change.
+6. Append D-083 and update the concise project progress summary.
+7. Verify document links, whitespace, approved scope and unchanged runtime/version sources.
+8. Commit exactly: `docs(plan): add approved plan for issue 46`.
+9. Push and verify the feature branch if remote access is available.
+10. Report the exact path, branch, commit, milestones and planned minor release.
+
+The initial planning commit contains this feature plan, the decision-log addition
+and progress update. It leaves the global `docs/PLAN.md` unchanged.
+
+| Item | Status | Evidence or next action |
+|---|---|---|
+| Product decision | Complete | User selected Adjust view / Resume transform toggle for touch. |
+| Plan approval | Complete | Explicit user approval on 2026-10-10; implementation awaits `/goal`. |
+| Baseline inspection/checks | Complete | 164 frontend and 109 focused Python tests pass; no new-feature claims. |
+| Base synchronization | Complete | Fetched origin; clean master fast-forward confirmation at `984ecc0507625f1e72e01c3f9e4c2d4a32961a73`. |
+| Feature branch creation | Complete | Local `feat/issue-46-viewer-transform-toolbar` created from the confirmed base. |
+| Planning documentation verification | Complete | Required sections, five checkpoint contracts, code fences, local links/anchors, exact three-file scope, feature branch and unchanged global plan/runtime/version sources pass; whitespace check passes. |
+| Planning commit/push | Handoff record | Initial commit title is `docs(plan): add approved plan for issue 46`; its exact SHA and remote branch verification are reported after commit/push, outside this commit to avoid self-reference. |
+| M1 / C1 | Complete | 40 focused units; 165 full frontend tests; lint/types/build; 27 existing browser cases and 2 toolbar cases pass, with 5 intentional layout skips. |
+| M2 / C2–C3 | Complete | 169 frontend tests; 18 C3 browser passes / four intentional skips plus four final guard passes; actual zoom/touch evidence retained. |
+| M3 / C4–C5 | In progress | C4 complete: 130 Python and 38 browser passes / eight intentional skips; six native ownership cycles, bounded queue and actual v0.11.0 reader pass. C5 next. |
+| PR/review/merge | Not started | Complete candidate gate before PR; comply with live repository policy. |
+| Exact-merged qualification | Not started | Complete release gate on verified merged master. |
+| Tag/release/issue reply | Not started | Publish only from qualified merged commit; verify remotely. |
+| Documentation closeout/branch cleanup | Not started | Complete and verify after delivery; leave unrelated branches unchanged. |
+
+### 2026-10-10 — Approved planning handoff
+
+Approved scope is the viewer transformation bar, fixed mouse gestures, scoped
+hold-Space navigation and the selected touch toggle, preserving existing atomic
+movement and scientific state. Three milestones and five implementation
+checkpoints are approved. Planned release is minor v0.12.0, with no migration.
+
+Planning documentation checks passed for all required sections, five checkpoint
+contracts, balanced code fences and local links/anchors. Exact changed scope is
+this plan, `docs/DECISIONS.md` and `docs/PROGRESS.md`; the global plan and all
+runtime/version sources are unchanged. Whitespace validation passes. The initial
+planning commit/push SHA is verified and reported in the subsequent handoff;
+no PR, implementation or release is authorized by this planning action.
+
+Known limitations: no implementation or new-feature verification yet; qualification
+will use pinned Chromium/SwiftShader and Pixel 7 emulation; existing scientific,
+surface-restoration and Alembic/bundle limits remain. No blocker to planning
+persistence. Next action after the verified planning commit/push is to wait for
+`/goal`, without starting implementation or opening a PR.
+
+### 2026-10-10 — M1/C1 complete
+
+Implemented a separate viewer-header transformation bar, shared launcher/capture
+routing and numerical-preview invalidation, synchronous explained availability,
+fixed mouse mappings, originating-launcher focus recovery and bounded More tools.
+Status and selection/styling tools share normal-flow header layout; conflicting
+selection/focus/style actions explain their unavailability throughout movement.
+Inspector access, complete hidden membership and the atomic transaction remain.
+
+Verification on the feature branch:
+
+- Focused C1 Vitest command plus `src/test/interactive-transform.test.ts`:
+  **40 tests / 5 files passed**.
+- `corepack pnpm --dir apps/web lint`, `typecheck`, `test`, `build` passed;
+  full suite **165 tests / 37 files**; build 11.14 s, existing lazy Mol* size advisory.
+- Planned C1 Playwright command, isolated API 8210 / worker 8211 / web 5373,
+  fresh `/tmp/neistra-issue46-c1-final-e2e`: **27 existing cases passed and
+  5 intentional layout skips**. Both new toolbar cases initially stopped on a
+  baseline import-response versus SQLite GET timestamp-format difference.
+- After taking the baseline from the same project GET path, the affected command
+  `PLAYWRIGHT_BROWSERS_PATH=.playwright MOLWEAVE_E2E_API_PORT=8210
+  MOLWEAVE_E2E_WORKER_PORT=8211 MOLWEAVE_E2E_WEB_PORT=5373
+  MOLWEAVE_E2E_DATA_DIR=/tmp/neistra-issue46-c1-toolbar-e2e corepack pnpm exec
+  playwright test tests/e2e/viewer-transform-toolbar.spec.ts` passed **2/2**
+  (26.4 s). No persisted-state assertion was relaxed.
+- Earlier diagnostic runs exposed obsolete hidden-step selectors, More activation
+  behind a mobile modal, and physical drags hitting expanded step buttons. Updated
+  disclosure ordering and asserted canvas hit targets. Cancellation/Ctrl-drag
+  regressions pass in both layouts; no unexplained flake or weakened assertion.
+- Reviewed complete checkpoint diff and `git diff --check` passed. No backend,
+  schema, migration, dependency or authoritative-version change.
+
+Evidence: [checkpoint record](../assets/viewer-transform-toolbar/c1-verification.md).
+Known limits: Space and the touch camera toggle await C2; actual zoom and final
+scientific/performance/release qualification await their approved checkpoints.
+No scope deviation or cross-project decision beyond accepted D-083. Next: C2.
+
+### 2026-10-10 — M2/C2 complete
+
+Implemented transient held-Space and explicit view-toggle ownership in the
+application workflow. The internal viewer boundary, lazy adapter, native engine,
+callers and native qualification harness now use `MovementInteraction`.
+Normal bindings are captured once, final exit restores them, and temporary camera
+navigation retains static/no-animation controls. Picking, empty clearing and all
+implicit focus bindings remain suppressed throughout the captured transaction.
+Resume acquires the current camera without recapture. Public Mol* Binding values
+check focus ownership synchronously; DOM input-end events and app capture cleanup
+end gestures without private Mol* fields or application camera mathematics.
+
+Verification:
+
+- Planned C2 Vitest: **32 passed / 4 files**. Repeated Space, explicit-toggle OR
+  behavior, unchanged pose/capture, native input Space, lazy buffering and focus
+  binding suppression are covered. Corrected test-local mock isolation and lint
+  assertions; no production behavior was relaxed.
+- Frontend lint/types/build pass; full suite **168 passed / 37 files**, build
+  **7.42 s**, existing lazy Mol* advisory.
+- Native toolbar/navigation suite: **4 passed** on desktop and Pixel 7, 1.2 min.
+  Perspective and orthographic orbit, explicit target-changing pan, wheel zoom,
+  repeated ownership, exact preview/selection/project preservation, empty clicks,
+  fixed mouse mappings and updated-plane translation are checked with native data.
+  No transform/job/normalized-structure requests occur during preview/navigation.
+- Planned C2 browser command with isolated 8210/8211/5373 services and fresh
+  `/tmp/neistra-issue46-c2-final-e2e`: **27 passed / 2 intentional skips**;
+  one mobile picking fixture tapped the newly available Move selection button
+  while seeking an empty pixel. Desktop fixture had the same covered-canvas
+  assumption and its diagnostic run was interrupted. Candidate scans now reject
+  covered pixels using DOM hit testing, preserving every camera/selection assertion.
+- Affected rerun, `PLAYWRIGHT_BROWSERS_PATH=.playwright
+  MOLWEAVE_E2E_API_PORT=8210 MOLWEAVE_E2E_WORKER_PORT=8211
+  MOLWEAVE_E2E_WEB_PORT=5373
+  MOLWEAVE_E2E_DATA_DIR=/tmp/neistra-issue46-c2-picking-e2e corepack pnpm exec
+  playwright test tests/e2e/viewer-click-selection.spec.ts`: **2 passed / 2
+  intentional layout skips**, 27.1 s. All planned browser cases now pass;
+  the combined release gate remains pending.
+- Complete checkpoint diff/whitespace review passes. No API/schema/migration,
+  version, persisted preference, scene, job or molecular-authority change.
+
+Updated transformation guidance and architecture. D-083 implementation note
+records synchronous native focus ownership. C1 commit is `aae804f`.
+Next: C3 held-pointer/interruption, true touch, real zoom and responsive evidence.
+No blocker or approved-scope deviation.
+
+### 2026-10-10 — C3 lifecycle correction checkpoint
+
+Review identified that a blur/hidden/modal interruption must end a molecular drag
+at its accepted pose even when temporary navigation was already off. An
+application-owned transient input epoch now signals interruptions independently
+of navigation flags; immediate overlay blur/visibility cleanup clears capture
+before lost-capture can roll back the accepted pose. Pointer guards ignore held
+continuation and newly added pointers until prior pointers release. Native input
+tracking covers both owned surfaces; public native end events and touch/mouse
+start guards require fresh gestures. Modal observation only resets on takeover,
+avoiding repeated interruption signals from unrelated modal DOM updates.
+
+Passing focused correction checks: frontend lint/types; **20 Vitest tests / 4
+files** (planned C3 suite plus `movement-navigation.test.tsx`); **2 native held-mouse
+cases** in Chromium and Pixel 7, **25.4 s**. Browser command is the toolbar spec
+with `--grep 'held mouse'`, isolated 8210/8211/5373 and fresh
+`/tmp/neistra-issue46-c3-gesture-e2e`. Native coordinates/camera remain exact through
+both ownership directions and blur; a fresh drag works and Cancel restores originals.
+Full correction diff/whitespace review passes. No scientific/persisted-data change.
+
+This is a substantive `fix(transform)` checkpoint within C3, not M2 completion.
+Next: true touch, native control Space, modal/visibility/remount and complete
+responsive/real-zoom gates, followed by the C3 qualification commit.
+
+### 2026-10-10 — M2/C3 complete
+
+Completed interruption/remount retention, native-control Space ownership, true
+CDP touch orbit, touch/keyboard/depth tools, themes and real 100%/200% zoom.
+More tools scroll independently; Apply/Cancel remain hit-test reachable at every
+secondary control. Buttons/inputs/summaries meet 44 CSS px height. Eight images
+were visually inspected/retained under `docs/assets/viewer-transform-toolbar/`.
+
+A held native release after keyboard Cancel reproduced selection leakage in both
+layouts. The native boundary suppresses that compatibility mouse-up; a fresh
+pointer anywhere clears an unused guard (app preventDefault can suppress mouse
+compatibility events entirely). Tests cover both owners: old release preserves
+selection/coordinates, fresh click restores normal clearing. No private native
+state or persistent state added.
+
+Evidence:
+
+- Planned C3 toolbar/zoom/release-hardening browser set: **18 passed / four
+  intentional skips**, **4.0 min**, isolated 8210/8211/5373, fresh
+  `/tmp/neistra-issue46-c3-qualified-e2e`. Real zoom assertions remain intact.
+- Final toolbar `--grep 'pointer release after Cancel'`: **four passed**, fresh
+  `/tmp/neistra-issue46-c3-fresh-release-e2e`, same ports, both owners/layouts.
+- Final frontend lint/types/test/build: **169 tests / 38 files** pass; existing
+  lazy Mol* advisory. Focused C3 tests passed in correction `8dff477`.
+- Initial interruption fixtures pressed Space on an autofocus project action
+  inside a dialog, correctly invoking its native action. Focus the neutral
+  dialog to test ignored workspace shortcuts without an unrelated project action;
+  exact preview assertions retained. Affected layout/touch rerun **3 passed /
+  one intentional skip** before full gate. Stale-release repro failed twice
+  before the native guard fix; final passing checks retain exact selection.
+- Removed absent `responsive-workspace.spec.ts` from runnable C3 command;
+  existing breakpoint/release-hardening and new remount tests cover all approved
+  outcomes. Historical verification evidence preserved; no scope reduction.
+- Complete diff/whitespace review passes. No API/data/migration/scientific/version
+  change. Next: C4 scientific, persistence, performance and actual v0.11.0 reader.
+
+C3 correction `f637339` is followed by the qualification documentation/assets
+checkpoint. A concurrent post-review frontend shell exited 143 after Vite had
+reported success during browser-server teardown; its unit/lint/type logs pass.
+The isolated standalone build was repeated after shutdown and exits 0 in 7.40 s.
+No failed gate is presented as passing; final browser guard rerun took 26.3 s.
+
+### 2026-10-10 — C4 complete
+
+Planned Python command: **130 passed**, 34.85 s; migration upgrade/downgrade
+regressions pass with 237 existing Alembic path_separator deprecation warnings.
+Planned toolbar/performance/surfaces/pockets/measurements/export-archive browsers:
+**38 passed / eight intentional layout skips**, **6.8 min**, zero failures/retries,
+isolated API8210/worker8211/web5373, fresh `/tmp/neistra-issue46-c4-e2e`.
+
+Native 1STP fragment/biotin now each exercise six camera/transform ownership
+cycles with exact accepted pose/camera preservation. First preview **144.5/26.7
+ms**, exact coordinate Cancel **14.2/14.7 ms**, longest task **125/0 observed ms**
+pass unchanged budgets. Each 40-frame burst renders two frames, maximum active
+one, exact restoration and zero molecular requests. Surface coordinate Cancel
+**18.9 ms**, geometry regeneration **1074 ms** are separate. No competing build
+or profiler. Raw [performance](../assets/viewer-transform-toolbar/c4-performance.json).
+
+Actual tagged v0.11.0 (`4ed61264d9006f81ca528bf42c0c21594121a55b`) detached
+worktree `/tmp/neistra-reader-011`, fresh migrated `/tmp/neistra-issue46-c4-reader`:
+candidate producer then actual preceding API/core/plugin PYTHONPATH reader with
+`--expected-reader 0.11.0` pass. Exact coordinates/original hashes, retained batch
+undo/redo, save/reexport, history-free archive import and immutable completed jobs
+are checked. [Producer](../assets/viewer-transform-toolbar/c4-producer.json) and
+[reader](../assets/viewer-transform-toolbar/c4-reader.json) identify both versions
+as **0.11.0** at this staging checkpoint; final 0.12.0 producer qualification is
+required in C5. Fresh migration through0013; no new schema or data stripping.
+
+Current upstream remains planning base `984ecc0`; remote policy still permits
+normal merges, with unprotected master, zero workflows/rulesets. Full checkpoint
+review and whitespace check pass. D-083 C3 completion note, current compatibility
+procedure and transformation/performance guidance updated. All scientific/queue/
+archive assertions retained. No scope deviation, follow-up or blocker.
+Next: verify the full-review viewer-error placement concern, then final versions,
+preceding reader, release notes and complete candidate gate.
+
+### 2026-10-10 — C5 review correction: readable viewer errors
+
+Full-diff review found that a centered viewer error could be obscured by the new
+active controls. The new native regression fails on preceding source in both
+layouts (alert bottom338.8/487 versus toolbar top96). Move the existing alert
+into the normal-flow header, above selection/style and transform bars; retain
+error text, semantics and Retry. Wrapping supports narrow widths. Both themes
+assert readable hit-tested error/primary actions and unchanged project/exactCancel.
+
+Focused final qualification: `viewer-transform-toolbar.spec.ts --grep 'viewer
+errors'`, fresh `/tmp/neistra-issue46-c5-error-clean-e2e`, ports8210/8211/5373:
+**2 passed**, **14.8 s**. Frontend lint/types and **169 tests / 38 files** pass;
+standalone production build passes with the existing lazy Mol* advisory. Complete
+correction diff reviewed; whitespace clean. No API/scientific/data/version change.
+
+Diagnostic history is retained: initial JSX relocation missed its outer closing
+tags; corrected and interrupted that diagnostic run. An attempted rerun reused
+its still-running interrupted import server and failed fixture imports (HTTP500),
+so its result is not qualification. Stopped only those identified disposable
+server PIDs, confirmed free ports and ran the fresh clean passing qualification
+above. No retries, timing relaxation or weakened scientific assertion.
+This restores the approved clear-error outcome, not expanded feature scope.
+
+### 2026-10-10 — C5 release preparation
+
+Review correction is `2ba0d84`; all accepted outcomes map to evidence below.
+Fetched current `origin/master`; unchanged base `984ecc0` remains an ancestor, so no
+upstream merge/conflict or discarded work. Latest public release/tag is v0.11.0;
+remote/local v0.12.0 collision checks are empty. All five authoritative sources now
+agree **0.12.0**, with only the root dev version changed in uv.lock; no dependency
+upgrade or root JS version added. Producer assertion and README/release notes,
+compatibility, scientific limits and current guidance updated. Minor increment
+adds public toolbar/navigation functionality without API/persisted compatibility
+breaks. No migration or schema-major change (0013/1).
+
+Final version-focused archive/coordinate command: **32 passed**, **11.58 s**.
+Actual v0.11.0 checkout/API/core/plugin reads final **0.12.0** data in fresh migrated
+`/tmp/neistra-issue46-c5-reader`: exact coordinates/originals, retained batch
+undo/redo, save/reexport, archive import without history, completedjobs unchanged.
+[Producer](../assets/viewer-transform-toolbar/c5-producer.json) and
+[reader](../assets/viewer-transform-toolbar/c5-reader.json) identify actual versions.
+Complete candidate/exact-merged gates and remote delivery remain pending.
+
+| Accepted outcome | Passing evidence |
+|---|---|
+| Separate viewer/inspector launcher, explained availability, defaults and numerical invalidation | C1 unit/native toolbar; numeric-preview ownership tests; full frontend169. |
+| Fixed primaryrotate/secondarytranslate despite touch preference; current-plane mapping | Native toolbar test1 and navigation bothprojections; domain quaternion/allconformer tests. |
+| Space/toggle OR and latest-camera resumption; native orbit/pan/zoom without selection/pose/persisted leakage | Native navigation test with exact camera/coordinates/selection/GET/request assertions; hook/binding/adapter tests. |
+| Shortcut scopes, modal/key release, blur/visibility/remount and fresh gestures | C3 units/native interruption/held-pointer tests; final stale-release guards cover both owners/layouts. |
+| Shared Apply/Cancel/history, hidden complete targets, unselected/original/job invariants | Native toolbar/remount and existing multi-entry movement suite; 130 focused Python; actual0.11 reader. |
+| Touch/depth/keyboard, themes, primary access and realzoom | True CDPtouch + scopedaxe + primary hit testing; actual100/200% zoom and eight inspected screenshots; C3 gate18/4skip. |
+| Readable errors | Regression reproduced both layouts; clean light/dark correction2/2, no weaker assertions. |
+| Surfaces/pockets/measurements/archive compatibility and boundedpreview queue | C4 38 browsers/8skip, 130 Python, six ownership cycles; first/latest2frames, one active, established timing budgets. |
+
+Full-diff review is **local, not independent**. Reviewed all changed runtime,
+interfaces/harnesses/regression selectors, tests, schema/API/version sources,
+scientific authority, pointer/key/focus/async ownership, layout/errors, native
+camera properties, cleanup and compatibility. Consequential lifecycle, stale
+release, primary scrolling and error placement findings are corrected and gated.
+No dead boolean adapter/caller remains; historical decisions preserved. No
+approved deferred/rejected capability reintroduced or speculative follow-up.
+Next: commit release preparation, run the complete clean candidate gate, record
+exact results, then push/open the planned PR and request Codex review.
+
+### 2026-10-10 — C5 native-key review correction
+
+Review of the public installed Mol* input source found that synthetic key-up
+on window is rejected by its body/canvas target check. A real key held before
+movement could remain active after bindings resume. New native regression starts
+ordinary W navigation, captures movement while still held, then adjusts view;
+preceding source drifts over eight frames in both layouts. Correct bubbling
+body key-up ends the native keys while preserving camera/pose. Mol* already clears
+keys on native pointer leave, so no private fields or fabricated coordinate event
+is needed. D-083 has an appended implementation note; no scope/data change.
+
+The initial full candidate gate on `b58a08e` was deliberately interrupted for
+this consequential finding. All non-browser commands passed (398 Python, 169
+frontend, eight supervisor, installs/fresh0013/lint/types/build); browser coverage
+was incomplete, with a marked styling case not yet diagnosed at interruption.
+The later trace audit below identifies that failure accurately. **That run is
+not release qualification.** Only identified disposable run servers were stopped;
+fresh key repro services started/migrated, and the repro fails exactly on camera
+retention (not fixture import/timeout).
+
+Final focused browser command: toolbar `--grep 'navigation keys held|held mouse'`,
+isolated8210/8211/5373 and fresh `/tmp/neistra-issue46-c5-keys-final-e2e`:
+**four passed**, **35.6 s**, both layouts. Frame-by-frame camera, coordinate and
+project assertions retained. Frontend lint/types/full169/build pass with existing
+bundle advisory. Diff reviewed/whitespace clean. Next: commit the correction and
+restart **every** complete release command from a clean corrected candidate;
+preceding-reader final0.12.0 evidence remains valid (no API/data/version change).
+
+### 2026-10-10 — C5 complete-gate styling regression correction
+
+The complete clean candidate gate on `1d51633` passed frozen installs, fresh
+migration0013, Ruff/mypy, **398 Python**, frontend lint/types/**169 tests**/build
+and **eight supervisor tests**. Browser qualification was **154 passed / 43
+intentional skips / one failure**, 25.7 min. **This candidate is rejected.**
+The unchanged default-palette sizing assertion in selection-appearance failed:
+the taller normal-flow viewer header reduced room below its anchor. Trace audit
+also identifies the same real failure in the earlier interrupted candidate;
+it was not a teardown artifact. No failure is counted as release evidence.
+
+SelectionPalette now fits its natural content height within available desktop
+viewport space, shifting upward when necessary. Its children are observed for
+content changes without observing the constrained panel itself (avoids resize
+feedback); oversized content remains scrollable and the existing mobile sheet
+is retained. No styling or scientific behavior, data, version or API changes.
+The unchanged previously failing workflow passes, including subsequent expansion,
+colors, picking, camera and history assertions. Default desktop screenshot was
+visually inspected: [fitted palette](../assets/viewer-transform-toolbar/c5-selection-palette-desktop.png).
+
+Focused command: `PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec
+playwright test tests/e2e/selection-appearance.spec.ts
+tests/e2e/selection-styling.spec.ts tests/e2e/rebranding-zoom.spec.ts`, isolated
+8210/8211/5373 with fresh `/tmp/neistra-issue46-c5-palette-e2e`: **10 passed / six
+intentional layout skips**, **2.7 min**. Light/dark, mobile and real100/200% zoom
+pass. Frontend lint/types/**169 tests / 38 files**/build all pass (7.46s Vite,
+existing lazy chunk advisory). Checkpoint diff reviewed; whitespace clean.
+Next: repeat every complete release command on the clean corrected candidate
+before PR. No retries, relaxed assertions or timing budgets. A local runner
+invocation used unavailable `python`; corrected to `python3` before any gate ran.
+
+### 2026-10-11 — M3/C5 candidate qualified
+
+Clean source `545d3553557a8b442b45e9b37a14259751360aba` passes **every** README/DEVELOPMENT release command,
+with frozen installs, isolated fresh migration0013, Ruff/mypy, frontend lint/types,
+production build, **398 Python**, **169 frontend / 38 files**, **eight supervisor**
+and **155 browser passes / 43 intentional layout skips**, zero failures, flakes
+or retries. Browser duration **26.32 min**.
+Isolated ports8210/8211/5373, fresh `/tmp/neistra-issue46-candidate-qualified/e2e-data`.
+Initial/final working tree clean; same source SHA throughout. Exact commands,
+exit codes/timings, counts and native performance are retained in
+[candidate evidence](../assets/viewer-transform-toolbar/candidate-verification.json).
+
+Preceding failed/interrupted candidates are diagnostic only. The default palette
+sizing regression passes unchanged in the complete corrected gate. Native-key,
+held-release, errors, real zoom and true touch regressions all pass. Existing
+Alembic path_separator warnings and lazy Mol* build advisory remain, without
+suppression. No migration/API/schema/scientific/history change or follow-up issue.
+
+Final local full-diff review (not independent) confirms approved-scope mapping,
+proper rigid math remains reused, app owns molecular/transaction state, native
+input restores captured bindings, stale contexts/releases are guarded, errors/
+primary actions/style controls remain reachable, historical decisions preserved,
+all five versions0.12.0 and no dependency/global-plan changes. Consequential
+findings are corrected and verified. No remaining actionable finding. This
+completion/evidence commit changes only docs/assets; runtime/tests/versions remain
+identical to the qualified source. Fetch/base/tag/policy checks are repeated at PR
+merge. Exact merged-master gate, actual-reader rerun and remote delivery follow.

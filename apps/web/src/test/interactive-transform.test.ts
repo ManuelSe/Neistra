@@ -3,7 +3,7 @@ import { ApiError } from "../api/client";
 import type { Project } from "../api/types";
 import {
   captureMovement, initialMovementPose, movementContextMatches, movementMatrix,
-  movementPreview, movementRequest, movePose, type MovementView,
+  movementPreview, movementRequest, movementUnavailableReason, movePose, type MovementView,
 } from "../coordinates/interactiveTransform";
 import { MovementSession } from "../coordinates/MovementSession";
 import { canonicalSelection } from "../selection/selection";
@@ -201,4 +201,19 @@ describe("interactive-transform transaction", () => {
     expect(ports.notice).not.toHaveBeenCalled();
     expect(session.snapshot().phase).toBe("idle");
   });
+});
+
+
+it("explains unavailable captured targets without narrowing hidden membership", () => {
+  const { project, selection, rendered } = fixture();
+  const readRendered = vi.fn(() => rendered);
+  expect(movementUnavailableReason(project, canonicalSelection([]), readRendered)).toContain("Select one or more");
+  expect(readRendered).not.toHaveBeenCalled();
+  expect(movementUnavailableReason(project, selection, readRendered)).toBeNull();
+  expect(movementUnavailableReason(project, selection, () => [])).toContain("Show selected atoms");
+  project.entries[1].locked = true;
+  expect(movementUnavailableReason(project, selection, readRendered)).toContain("Unlock Hidden");
+  project.entries[1].locked = false;
+  selection.atoms[0].atom_id = 999;
+  expect(movementUnavailableReason(project, selection, readRendered)).toContain("no longer available");
 });

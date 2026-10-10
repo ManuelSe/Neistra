@@ -15,11 +15,14 @@ export function SelectionPalette({ open, onOpenChange, children, count }: {
   const anchor = useRef<Element | null>(null);
   const [anchorNode, setAnchorNode] = useState<Element | null>(null);
   const position = useCallback(() => {
+    const panel = content.current;
+    if (!panel) return;
     const box = anchor.current?.getBoundingClientRect();
     const left = Math.max(8, Math.min(box?.left ?? 10, window.innerWidth - 352));
-    const top = Math.max(8, Math.min((box?.bottom ?? 50) + 8, window.innerHeight - 120));
-    content.current?.style.setProperty("--palette-left", `${left}px`);
-    content.current?.style.setProperty("--palette-top", `${top}px`);
+    const naturalHeight = panel.scrollHeight + 2 * panel.clientTop;
+    const top = Math.max(8, Math.min((box?.bottom ?? 50) + 8, window.innerHeight - naturalHeight - 12));
+    panel.style.setProperty("--palette-left", `${left}px`);
+    panel.style.setProperty("--palette-top", `${top}px`);
   }, []);
   useEffect(() => {
     if (!open) return;
@@ -29,6 +32,8 @@ export function SelectionPalette({ open, onOpenChange, children, count }: {
       observer?.observe(anchorNode);
       if (anchorNode.parentElement) observer?.observe(anchorNode.parentElement);
     }
+    // Observe content changes without observing our own constrained panel height.
+    for (const child of Array.from(content.current?.children ?? [])) observer?.observe(child);
     return () => { window.removeEventListener("resize", position); observer?.disconnect(); };
   }, [open, position, anchorNode]);
   return <Dialog.Root open={open} onOpenChange={onOpenChange} modal={false}>

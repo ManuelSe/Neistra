@@ -34,7 +34,7 @@ export function inspectInteractiveTransform(engine: MolstarEngine, entryId: stri
     loaded: Map<string, { structure: Structure; atomIds: number[] }>;
     inheritedSurfaceRefs: Map<string, string[]>;
     movementCueRefs: Map<string, string>;
-    movementCamera: unknown;
+    movementInteraction: string;
     plugin?: { canvas3d?: { attribs: { trackball: { bindings: Record<string, { triggers: unknown[] }> } } } };
   };
   const loaded = internals.loaded.get(entryId);
@@ -53,7 +53,8 @@ export function inspectInteractiveTransform(engine: MolstarEngine, entryId: stri
     camera: engine.getCamera(), coordinates: [...coordinates].sort(([a], [b]) => a - b),
     inheritedSurfaces: internals.inheritedSurfaceRefs.get(entryId)?.length ?? 0,
     previewCues: internals.movementCueRefs.has(entryId) ? 1 : 0,
-    movementActive: Boolean(internals.movementCamera),
+    movementActive: internals.movementInteraction !== "inactive",
+    movementInteraction: internals.movementInteraction,
     navigationTriggers: Object.values(internals.plugin?.canvas3d?.attribs.trackball.bindings ?? {})
       .reduce((count, binding) => count + binding.triggers.length, 0),
   };

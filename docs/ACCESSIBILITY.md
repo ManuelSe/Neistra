@@ -6,6 +6,34 @@ Neistra targets WCAG 2.2 Level AA for the local application shell. The
 qualification combines deterministic browser automation with keyboard and
 visual checks; an axe pass alone is not treated as complete coverage.
 
+## Viewer transformation toolbar (issue #46)
+
+The separate viewer bar exposes Move selection and explained focusable unavailable
+states. Apply, Cancel and Adjust view / Resume transform remain reachable while
+More tools scroll independently. Touch controls, the sensitivity slider and
+summaries have 44 CSS px targets. Conflicting selection/style/focus actions expose
+explained unavailable states throughout the captured transaction.
+
+Space enables native camera navigation only when the movement canvas has focus
+and no modifier/modal owns the key. Native controls retain their Space behavior.
+Focus departure clears held Space; blur, hidden documents, modal takeover and
+viewer remount clear temporary navigation while retaining preview/latest camera.
+Final focus returns to the connected launcher or visible Transform selection
+launcher when closing the inspector removed the originating launcher.
+
+Toolbar, real-zoom and release-hardening specs pass 18 cases / four intentional
+layout skips; final held-release checks pass four cases across both owners and
+layouts. Eight screenshots were visually inspected and retained:
+[light 100%](assets/viewer-transform-toolbar/c3-light-100-interactive-movement.png),
+[dark 200%](assets/viewer-transform-toolbar/c3-dark-200-interactive-movement.png),
+[touch camera](assets/viewer-transform-toolbar/c3-toolbar-light-touch-camera.png),
+[touch transform](assets/viewer-transform-toolbar/c3-toolbar-dark-touch-transform.png).
+True CDP touch, scoped light/dark axe, primary-action hit testing during scrolling,
+real Chrome zoom and responsive remounts are qualified. Pinned Chromium/SwiftShader
+and emulated Pixel 7 do not certify physical devices, other browsers or individual
+canvas atoms for screen readers. Exact commands are in the
+[feature plan](plans/issue-46-viewer-transform-toolbar.md).
+
 ## Interactive movement (issue #4)
 
 The named Transform launcher and persistent movement region expose captured atom

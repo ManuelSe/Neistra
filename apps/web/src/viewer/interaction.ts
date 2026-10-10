@@ -68,7 +68,18 @@ export const cameraNeutralFocusBindings = {
 
 export function withCameraNeutralPrimarySelection(
   behaviors: PluginSpec.Behavior[],
+  allowFocus?: () => boolean,
 ): PluginSpec.Behavior[] {
+  // Public Binding values retain their identity in Mol* PD.Value parameters.
+  // Evaluate ownership at event time, avoiding asynchronous behavior updates
+  // that could leave a focus-click window during a navigation transition.
+  const guarded = <T extends Record<string, Binding>>(bindings: T): T =>
+    allowFocus ? Object.fromEntries(Object.entries(bindings).map(([key, binding]) => [key, {
+      action: binding.action, description: binding.description,
+      get triggers() { return allowFocus() ? binding.triggers : []; },
+    }])) as T : bindings;
+  const cameraBindings = guarded(cameraNeutralFocusBindings.camera);
+  const representationBindings = guarded(cameraNeutralFocusBindings.representation);
   return behaviors.map((behavior) => {
     const existingParams: unknown = behavior.defaultParams;
     const defaultParams =
@@ -80,7 +91,7 @@ export function withCameraNeutralPrimarySelection(
         ...behavior,
         defaultParams: {
           ...defaultParams,
-          bindings: cameraNeutralFocusBindings.camera,
+          bindings: cameraBindings,
         },
       };
     }
@@ -89,7 +100,7 @@ export function withCameraNeutralPrimarySelection(
         ...behavior,
         defaultParams: {
           ...defaultParams,
-          bindings: cameraNeutralFocusBindings.representation,
+          bindings: representationBindings,
         },
       };
     }

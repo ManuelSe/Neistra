@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { MovementSession, type MovementSessionPorts, type MovementSessionState } from "./MovementSession";
 import type { MovementMode, MovementPose } from "./interactiveTransform";
 import type { CameraState } from "../api/types";
+import { useMovementNavigation } from "./useMovementNavigation";
 
 export interface MovementWorkflow {
   state: MovementSessionState;
@@ -16,9 +17,14 @@ export interface MovementWorkflow {
   update: (pose: MovementPose) => void;
   camera: () => CameraState | null;
   rememberCamera: (camera: CameraState | null) => void;
+  cameraNavigation: boolean;
+  viewToggle: boolean;
+  toggleView: () => void;
+  clearNavigation: () => void;
+  inputEpoch: number;
 }
 
-export function useMovementSession(ports: MovementSessionPorts) {
+export function useMovementSession(ports: MovementSessionPorts & { beforeStart?: () => void }) {
   const portsRef = useRef(ports);
   portsRef.current = ports;
   const [session] = useState(() => new MovementSession({
@@ -31,6 +37,7 @@ export function useMovementSession(ports: MovementSessionPorts) {
     notice: (id, text, error) => portsRef.current.notice(id, text, error),
   }));
   const state = useSyncExternalStore(session.subscribe, session.snapshot);
+  const navigation = useMovementNavigation(state.phase === "active");
   const [mode, setMode] = useState<MovementMode>("rotate");
   const [sensitivity, setSensitivity] = useState(1);
   const returnFocus = useRef<{ element: HTMLElement | null; projectId: string | undefined } | null>(null);
@@ -49,14 +56,18 @@ export function useMovementSession(ports: MovementSessionPorts) {
     // the movement surface/banner; never focus a different project's launcher.
     if (active !== document.body && !active?.closest(".movement-banner, .movement-pointer-surface")) return;
     if (target.element?.isConnected) target.element.focus();
-    else document.querySelector<HTMLElement>('.structure-viewer .viewer-toolbar button[aria-label="Fit all visible"]:not([aria-disabled="true"])')?.focus();
+    else document.querySelector<HTMLElement>('.structure-viewer button[aria-label="Transform selection"]:not([aria-disabled="true"])')?.focus();
   }, [state.phase]);
   useEffect(() => () => session.cancel(undefined, true), [session]);
   const workflow: MovementWorkflow = {
+    ...navigation,
     state, mode, sensitivity, setMode,
     setSensitivity: value => setSensitivity(Math.min(4, Math.max(0.25, value))),
     start: () => {
       if (session.snapshot().phase !== "idle") return;
+      portsRef.current.beforeStart?.();
+      setMode("rotate");
+      setSensitivity(1);
       movementCamera.current = null;
       returnFocus.current = {
         element: document.activeElement instanceof HTMLElement ? document.activeElement : null,

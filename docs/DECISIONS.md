@@ -2763,3 +2763,110 @@ retry loops or longer test timeouts. Other menu actions retain normal Radix beha
 This extends D-074's captured-project focus ownership; no molecular/API/schema
 semantics or release impact changes. Add a regression completing membership before
 menu teardown; native zoom repeats and late-project responses qualify the handoff.
+
+## D-083 — Movement transactions retain selection ownership during temporary camera navigation
+
+Date: 2026-10-10. Status: accepted by explicit approval of the issue #46 plan;
+implementation not started.
+
+Decision:
+
+Keep the captured movement transaction independent from temporary camera versus
+coordinate interaction ownership. Application-owned transient held-Space and
+explicit Adjust view toggle state can permit native orbit, pan and zoom without
+ending the transaction, recapturing its target, changing its pose or committing.
+The typed viewer boundary distinguishes `inactive`, `transform` and `camera`.
+Suppress picking, empty-space clearing and implicit molecular-focus behavior
+throughout the captured session, including camera navigation. Capture normal
+bindings once per session and restore them on final exit/disposal. Suppress
+animation/inertia during the session; resume transformation using the latest
+camera, with each new molecular drag capturing its current basis and scale.
+
+Mouse primary drag rotates; secondary or Ctrl-primary drag translates regardless
+of the secondary touch/keyboard preference. Retain Rotate/Translate/Depth for
+touch, arrows and named steps, plus existing numerical controls outside movement.
+Place the shared session's launcher and Apply/Cancel in a distinct viewer-header
+bar with compact secondary tools. The inspector launcher remains an alternative
+entry point, using the same numerical-preview invalidation before capture.
+
+Scope unmodified Space to the active viewer/movement canvas; native controls,
+editable content, dialogs and drawers retain their keyboard ownership. The user
+explicitly selected an Adjust view / Resume transform toggle for touch and
+keyboard access. Navigation is enabled while either held Space or the explicit
+toggle is active; key release does not override a deliberately enabled toggle.
+Clear held Space on focus departure, and clear all temporary navigation state on
+window blur, hidden document, modal takeover, session phase exit or renderer
+remount. Retain a still-valid pose and latest camera, requiring a fresh navigation
+activation after remount.
+
+On ownership changes, end the current gesture at its last accepted pose/camera,
+release application capture safely, and ignore already-held pointers until
+release. Require a fresh pointer-down for the next owner. Ordinary pointer
+cancellation/lost capture continues to restore the start of that molecular drag.
+Do not synthesize continuous gesture transfers or depend on private Mol* fields.
+
+Rationale:
+
+The prior boolean couples camera locking to selection suppression. Disabling it
+to navigate would permit a click to replace the captured selection or discard a
+preview. Separating interaction ownership from transaction lifetime delivers the
+requested camera adjustment without weakening scientific authority or history.
+Fresh gesture boundaries prevent stale deltas from jumping between camera and
+molecule. The explicit toggle is usable without simultaneous touch controls.
+
+Consequences:
+
+- This explicitly extends D-076's camera restriction while preserving its
+  capture, Apply/Cancel, task/selection/project invalidation, reconciliation,
+  geometry suspension and rendering bounds.
+- D-080 still governs application-held camera restoration across remounts;
+  D-081 still invalidates pending numerical previews before shared movement start.
+- Reuse D-075/D-077's rigid transform, all-conformer semantics and atomic history.
+  No endpoint, schema, migration, archive, scene, job type, history vocabulary or
+  persisted navigation preference is added. Original uploads and submitted job
+  snapshots remain unchanged.
+- Camera/navigation changes cannot recapture molecular targets or trigger
+  molecular refetches, commands or surface jobs. Existing scientific warnings,
+  surface/measurement suspension and pinned-host budgets remain required.
+- Full scope, lifecycle rules, checkpoints and release blockers are in the
+  [approved issue #46 plan](plans/issue-46-viewer-transform-toolbar.md).
+  Implementation requires a subsequent `/goal`; approval currently authorizes
+  documentation persistence only.
+
+### D-083 implementation note — 2026-10-10, C2
+
+The native adapter uses public Mol* Binding values with ownership-sensitive
+trigger getters. Mol* retains these PD.Value parameters by identity; checking
+availability at event time suppresses implicit focus without an asynchronous
+behavior-update window. The typed interaction flag separately suppresses all
+application picking. Native trackball bindings/properties are copied once per
+transaction and restored on final exit. Public DOM input-end events terminate
+native gestures; production code does not access private Mol* input/control fields
+or implement camera movement. Native perspective/orthographic regression checks
+confirm orbit, target-changing pan, zoom, unchanged selection/coordinates and
+normal picking restoration. Broader C3 lifecycle qualification remains pending.
+This implements D-083; it does not amend scientific or persistence contracts.
+
+### D-083 implementation note — 2026-10-10, C3
+
+Temporary navigation is now qualified through true emulated touch, held mouse
+ownership changes, blur/visibility/modal interruption, responsive remounts,
+native control Space, both themes and real browser zoom. An application-owned
+transient input epoch ends gestures even if interaction remains `transform`.
+Held pointers and their compatibility mouse-up cannot leak into ordinary picking
+after final exit; fresh pointers restore normal behavior. Secondary tools scroll
+independently to preserve primary actions. This implements the accepted fresh
+input/selection contract without private Mol* state, gesture transfer or new
+persisted preferences. Historical planning/C2 notes above retain their dates;
+implementation is authorized by the subsequent `/goal` and C1–C3 are complete.
+
+### D-083 implementation note — 2026-10-10, C5 native key handoff
+
+Native key termination uses bubbling body key-up events. The public Mol* input
+observer accepts keyboard input only from body/canvas while the pointer is inside;
+its ordinary leave handler clears key state outside. Window-target events had
+been ignored and a held pre-session navigation key could resume camera movement.
+The native regression reproduces this in both layouts; accepted camera remains
+exact over eight frames after corrected entry/resume, with unchanged coordinates
+and project. This preserves fresh input ownership without private native fields,
+observable mutation, fabricated camera mathematics or persistent state.

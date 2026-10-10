@@ -9,6 +9,7 @@ import type {
 } from "../api/types";
 import type {
   MolecularViewer,
+  MovementInteraction,
   ViewerSelectionEvent,
   ViewerStructure,
   ViewerMeasurement,
@@ -22,7 +23,7 @@ class LazyMolstarViewer implements MolecularViewer {
   private backgroundColor: string = THEME_TOKENS.light["viewer-background"];
   private selection: AtomReference[] = [];
   private pickingGranularity: SelectionGranularity = "atom";
-  private movementActive = false;
+  private movementInteraction: MovementInteraction = "inactive";
   private selectionListeners = new Set<(event: ViewerSelectionEvent) => void>();
   private cameraListeners = new Set<(camera: CameraState) => void>();
   private surfaceListeners = new Set<(statuses: SurfaceStatus[]) => void>();
@@ -38,7 +39,7 @@ class LazyMolstarViewer implements MolecularViewer {
     if (this.disposed || this.engine !== engine) { engine.dispose(); return; }
     this.engine.setPickingGranularity(this.pickingGranularity);
     this.engine.setSelection(this.selection);
-    this.engine.setMovementMode(this.movementActive);
+    this.engine.setMovementMode(this.movementInteraction);
     this.engineUnsubscribers = [...this.selectionListeners].map((listener) =>
       this.engine!.subscribeSelection(listener),
     );
@@ -103,9 +104,9 @@ class LazyMolstarViewer implements MolecularViewer {
     return this.engine?.getRenderedAtomReferences() ?? [];
   }
 
-  setMovementMode(active: boolean): void {
-    this.movementActive = active;
-    this.engine?.setMovementMode(active);
+  setMovementMode(interaction: MovementInteraction): void {
+    this.movementInteraction = interaction;
+    this.engine?.setMovementMode(interaction);
   }
 
   setCamera(camera: CameraState): void {

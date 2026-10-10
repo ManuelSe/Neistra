@@ -2,6 +2,32 @@
 
 ## Current milestone
 
+Issue #46 — C1–C5 complete; clean candidate qualified for minor **v0.12.0**.
+Contract: [viewer toolbar/navigation plan](plans/issue-46-viewer-transform-toolbar.md).
+Authorized delivery branch: `feat/issue-46-viewer-transform-toolbar`.
+
+Separate toolbar/shared transaction, fixed mouse mappings, scoped Space and
+approved touch toggle, accepted-gesture termination, fresh-pointer/native-key
+cleanup, latest-camera remount, reachable secondary/primary tools, readable
+errors and fitted styling palette are complete. D-083 and user guidance current.
+
+Complete clean source `545d3553557a8b442b45e9b37a14259751360aba` passes frozen installs/fresh0013 migration,
+Ruff/mypy/lint/types/build, **398 Python, 169 frontend, eight supervisor and
+155 browser tests / 43 intentional skips**, zero failures/flakes/retries.
+[Exact candidate evidence](assets/viewer-transform-toolbar/candidate-verification.json)
+and the plan retain commands, diagnostics, corrections, screenshots/performance.
+Actual tagged v0.11.0 reader accepts final0.12.0 exact coordinates/originals,
+retained undo/redo, save/reexport, archives and unchanged jobs. No migration or
+contract-major change (0013/1); all five versions0.12.0. Review local, not independent.
+
+Limits: unconstrained geometry, pinned Chromium/SwiftShader/emulated Pixel7,
+existing Alembic/lazy Mol* advisories and approved deferrals. No follow-up issue.
+Blockers: none. Next: push/open PR, request review, normal merge and exact-master
+qualification before annotated tag/release/issue reply/documentation cleanup.
+Current published baseline remains v0.11.0.
+
+### Previous release — v0.11.0
+
 Issue #4 — approved scope delivered through [PR #43](https://github.com/ManuelSe/Neistra/pull/43) and
 [correction PR #44](https://github.com/ManuelSe/Neistra/pull/44), with verified
 [release v0.11.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.11.0). Contract and detailed evidence:
@@ -2219,8 +2245,11 @@ Results:
 
 ## Blockers
 
-No current blocker. Issue #4 is released; final cleanup audit is maintained in its closeout reply.
+No current blocker to issue #46 delivery. Issue #4 remains released; its final cleanup audit is maintained
+in its closeout reply.
 
 ## Next action
 
-Select and approve a separate backlog plan. Current released baseline is v0.11.0.
+Follow the completed candidate through reviewed PR,
+normal merge, exact-master gate, v0.12.0 release and verified branch cleanup.
+Current published baseline remains v0.11.0; candidate is v0.12.0.

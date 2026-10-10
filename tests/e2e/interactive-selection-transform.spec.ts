@@ -58,6 +58,7 @@ async function launchMovement(page: Page, mobile: boolean) {
   const banner = page.getByRole("region", { name: "Move selection controls" });
   await expect(banner).toBeVisible();
   if (mobile) await page.getByRole("button", { name: "Close panel", exact: true }).click({ position: { x: 2, y: 100 } });
+  await banner.getByText("More", { exact: true }).click();
   return banner;
 }
 
@@ -104,7 +105,7 @@ test("qualifies keyboard/touch controls, focus and scoped accessibility in both 
     expect((await read(request, project.id)).revision).toBe(project.revision);
     await page.keyboard.press("Escape");
     await expect(banner).toBeHidden();
-    await expect(page.getByRole("button", { name: mobile ? "Fit all visible" : "Move selection", exact: true })).toBeFocused();
+    await expect(page.getByRole("button", { name: mobile ? "Transform selection" : "Move selection", exact: true })).toBeFocused();
     expect(await structure(request, project.id, project.entries[0].id)).toEqual(original);
     await page.screenshot({ path: info.outputPath(`movement-${theme}-cancel.png`) });
   }
@@ -193,6 +194,7 @@ test("captures hidden multi-entry targets, previews multiple drags, cancels, and
   await page.mouse.down();
   await page.mouse.move(box.x + box.width * 0.85, box.y + box.height * 0.9, { steps: 8 });
   await page.mouse.up();
+  await banner.getByText("More", { exact: true }).click();
   await banner.getByRole("button", { name: "Translate", exact: true }).click();
   await banner.getByRole("button", { name: "Step right", exact: true }).click();
   await banner.getByRole("button", { name: "Depth", exact: true }).click();
@@ -207,6 +209,7 @@ test("captures hidden multi-entry targets, previews multiple drags, cancels, and
   await page.getByRole("tab", { name: "transform", exact: true }).click();
   await page.getByRole("button", { name: "Move selection", exact: true }).click();
   if (compact) await page.getByRole("button", { name: "Close panel", exact: true }).click({ position: { x: 2, y: 100 } });
+  await banner.getByText("More", { exact: true }).click();
   await banner.getByRole("button", { name: "Rotate", exact: true }).click();
   await banner.getByRole("button", { name: "Step right", exact: true }).click();
   await banner.getByRole("button", { name: "Translate", exact: true }).click();
@@ -267,7 +270,7 @@ test("qualifies native proper-rotation previews, camera suspension, zoom and sur
     for (const mode of ["perspective", "orthographic"] as const) {
       h.engine.setCameraMode(mode);
       const camera = h.engine.getCamera();
-      h.engine.setMovementMode(true);
+      h.engine.setMovementMode("transform");
       const view = h.engine.getMovementView()!;
       const translated = movePose(capture, initialMovementPose(), "translate", 24, -12, view);
       const pose = movePose(capture, translated, "rotate", 30, -15, view);
@@ -287,7 +290,7 @@ test("qualifies native proper-rotation previews, camera suspension, zoom and sur
       } catch { rejected = true; }
       if (!rejected) throw new Error("The viewer accepted an invalid atom patch.");
       await h.engine.clearCoordinatePreview(entry.id);
-      h.engine.setMovementMode(false);
+      h.engine.setMovementMode("inactive");
       results.push({ mode, camera, heldCamera, preview, depth, expected, restored: h.inspect() });
     }
     await h.engine.syncStructures([{ ...h.source, settings: { ...entry.viewer_settings,
@@ -304,12 +307,12 @@ test("qualifies native proper-rotation previews, camera suspension, zoom and sur
     const fragmentSelection = { ...selection, atoms: [rendered[0]] };
     h.engine.setSelection(fragmentSelection.atoms);
     const fragmentCapture = captureMovement(project, fragmentSelection, new Map([[entry.id, projection]]), rendered);
-    h.engine.setMovementMode(true);
+    h.engine.setMovementMode("transform");
     const fragmentPose = movePose(fragmentCapture, initialMovementPose(), "translate", 20, -10, h.engine.getMovementView()!);
     await h.engine.applyCoordinatePatch(movementPreview(fragmentCapture, fragmentPose)[0], "preview");
     const fragmentPreview = h.inspect();
     await h.engine.clearCoordinatePreview(entry.id);
-    h.engine.setMovementMode(false);
+    h.engine.setMovementMode("inactive");
     await waitForRendered();
     return { before, results, fragment: { rendered: rendered.length, preview: fragmentPreview, restored: h.inspect() }, cachedOriginals: projection.structure.atoms.map(atom => [atom.id, atom.coordinates]) };
   }, { project, entry, projection });
@@ -347,6 +350,7 @@ test("discards previews with feedback on task, selection and project changes", a
   await page.getByRole("button", { name: "Move selection", exact: true }).click();
   await expect(page.getByRole("group", { name: "Translation (angstrom)", exact: true }).locator("input").first()).toBeDisabled();
   if (mobile) await page.getByRole("button", { name: "Close panel", exact: true }).click({ position: { x: 2, y: 100 } });
+  await banner.getByText("More", { exact: true }).click();
   await banner.getByRole("button", { name: "Step right" }).click();
   if (mobile) await page.getByRole("button", { name: "Inspector", exact: true }).click();
   await page.getByRole("tab", { name: "selection", exact: true }).click();
@@ -388,10 +392,12 @@ test("restores canceled or lost pointer drags and supports secondary and Ctrl tr
   await banner.getByRole("button", { name: "Translate", exact: true }).click();
   await banner.getByRole("button", { name: "Step right" }).click();
   await banner.getByRole("button", { name: "Rotate", exact: true }).click();
+  await banner.getByText("More", { exact: true }).click();
   const surface = page.getByTestId("movement-pointer-surface");
   await surface.evaluate(node => node.addEventListener("pointerdown", event => { (node as HTMLElement).dataset.pointerId = String((event as PointerEvent).pointerId); }));
   const box = (await surface.boundingBox())!;
   const x = box.x + box.width * 0.85, y = box.y + box.height * 0.9;
+  expect(await surface.evaluate((node, point) => document.elementFromPoint(point.x, point.y) === node, { x, y })).toBe(true);
   for (const event of ["pointercancel", "lostpointercapture"]) {
     await page.mouse.move(x, y); await page.mouse.down();
     await page.mouse.move(x - 25, y - 20, { steps: 5 });
