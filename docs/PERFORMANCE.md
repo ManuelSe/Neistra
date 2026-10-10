@@ -6,6 +6,23 @@ Performance thresholds are regression gates on the pinned Playwright desktop
 Chromium host. They are not hardware-independent throughput promises or
 recommended maximum scientific system sizes.
 
+## Viewer toolbar/navigation (issue #46)
+
+The native movement benchmark now cycles camera/transform ownership six times
+for each protein-fragment and bound-ligand case, preserving accepted coordinates
+and camera between transitions. Actual orbit/pan/zoom and updated-plane movement
+are separately qualified through the native toolbar UI. Established budgets are
+unchanged; navigation makes no molecular requests.
+
+C4 pinned Chromium/SwiftShader values: first preview **144.5 / 26.7 ms**, exact
+coordinate Cancel **14.2 / 14.7 ms**, longest task **125 / 0 observed ms**. Each
+40-frame burst renders first/latest only (two frames, one active update), with
+exact restoration. Surface coordinate restoration **18.9 ms** and full geometry
+regeneration **1074 ms** are reported separately. No profiler or competing build
+ran during timing. [Raw evidence](assets/viewer-transform-toolbar/c4-performance.json).
+Candidate and exact-merged gates must repeat these unchanged budgets; these are
+host regression gates, not hardware-independent throughput guarantees.
+
 ## Interactive movement (issue #4)
 
 `interactive-transform-performance.spec.ts` applies native preview patches on an

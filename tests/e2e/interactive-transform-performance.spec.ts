@@ -55,6 +55,21 @@ test("bounds native protein/ligand preview work and measures exact cancellation"
       const previewMs = performance.now() - started;
       unsubscribePreview();
       const changed = h.inspect().coordinates;
+      let navigationCycles = 0;
+      const navigate = () => {
+        const coordinates = h.inspect().coordinates;
+        const camera = h.engine.getCamera();
+        for (let cycle = 0; cycle < 3; cycle++) {
+          h.engine.setMovementMode("camera");
+          h.engine.setMovementMode("transform");
+          navigationCycles++;
+        }
+        if (JSON.stringify(h.inspect().coordinates) !== JSON.stringify(coordinates)
+          || JSON.stringify(h.engine.getCamera()) !== JSON.stringify(camera)) {
+          throw new Error("Temporary navigation changed the accepted pose or camera.");
+        }
+      };
+      navigate();
       let active = 0, maxActive = 0, calls = 0;
       const errors: string[] = [];
       const queue = new CoordinatePreviewQueue({
@@ -67,6 +82,7 @@ test("bounds native protein/ligand preview work and measures exact cancellation"
         const point = new Map(h.inspect().coordinates).get(id)!;
         return point.every((v, axis) => Math.abs(v - final.coordinates[i][axis]) < 1e-8);
       }));
+      navigate();
       const cancelStarted = performance.now();
       let coordinateCancelMs = -1;
       const canceled = new Promise<void>(resolve => {
@@ -79,7 +95,7 @@ test("bounds native protein/ligand preview work and measures exact cancellation"
       await canceled;
       h.engine.setMovementMode("inactive"); queue.dispose();
       await new Promise(resolve => setTimeout(resolve, 100));
-      cases.push({ name, atoms: atomIds.length, previewMs, coordinatePreviewMs, coordinateCancelMs, maxActive, submittedFrames: 40, renderedFrames: calls,
+      cases.push({ name, atoms: atomIds.length, navigationCycles, previewMs, coordinatePreviewMs, coordinateCancelMs, maxActive, submittedFrames: 40, renderedFrames: calls,
         longestTaskMs: Math.max(0, ...tasks.filter(t => t.start >= started && t.start < cancelStarted + coordinateCancelMs).map(t => t.duration)),
         changed: JSON.stringify(changed) !== JSON.stringify(original), exactRestore: JSON.stringify(h.inspect().coordinates) === JSON.stringify(original), errors });
     }
@@ -111,6 +127,7 @@ test("bounds native protein/ligand preview work and measures exact cancellation"
   expect(evidence.atoms).toBe(1001); expect(requests).toEqual([]);
   for (const c of evidence.cases) {
     expect(c.changed).toBe(true); expect(c.exactRestore).toBe(true); expect(c.errors).toEqual([]);
+    expect(c.navigationCycles).toBe(6);
     expect(c.previewMs).toBeLessThan(500); expect(c.coordinateCancelMs).toBeLessThan(500);
     expect(c.longestTaskMs).toBeLessThan(750); expect(c.maxActive).toBe(1); expect(c.renderedFrames).toBe(2);
   }

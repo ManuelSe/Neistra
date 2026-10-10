@@ -2,7 +2,7 @@
 
 ## Current milestone
 
-Issue #46 — M2/C3 complete; M3 scientific and release qualification next.
+Issue #46 — C1–C4 complete; C5 review and release preparation next.
 Contract: [viewer toolbar/navigation plan](plans/issue-46-viewer-transform-toolbar.md).
 Authorized complete delivery is on `feat/issue-46-viewer-transform-toolbar`.
 
@@ -14,9 +14,12 @@ Authorized complete delivery is on `feat/issue-46-viewer-transform-toolbar`.
   desktop/Pixel 7). Eight real-zoom/touch screenshots inspected and retained.
   Stale native release reproduced/corrected without weaker selection assertions.
 - Limitations: pinned Chromium/SwiftShader, emulated Pixel 7, unconstrained edits,
-  existing build advisory. C4 reader/performance/scientific and C5 complete
+  existing build advisory. C5 complete
   candidate/exact-master gates remain pending. Head stays 0013.
-- Blockers: none. Next: C4 scientific/persistence/performance qualification.
+- C4: 130 Python and 38 browser passes / eight intentional skips; native budgets,
+  first/latest queue, six ownership cycles and actual v0.11.0 reader pass. Exact
+  coordinates/originals/history/archives/jobs preserved; staging producer0.11.0.
+- Blockers: none. Next: C5 review correction, final producer/version and full gate.
   Planned minor **0.12.0**; all five sources still **0.11.0**.
 
 ### Previous release — v0.11.0
@@ -2243,7 +2246,6 @@ in its closeout reply.
 
 ## Next action
 
-Complete C4 scientific/performance/previous-reader qualification, then C5 release
-preparation and candidate gate. Follow the feature plan through reviewed PR,
+Complete C5 release preparation and candidate gate. Follow the feature plan through reviewed PR,
 normal merge, exact-master gate, v0.12.0 release and verified branch cleanup.
 Current released baseline remains v0.11.0.

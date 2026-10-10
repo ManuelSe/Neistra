@@ -284,6 +284,34 @@ D-072 preserves membership timestamps; D-073 keeps derived dirty flags on respon
 copies, avoiding ORM writes through reads and checkpoint saves. See GROUPS.md and the issue #9 feature plan for scope,
 interaction semantics, evidence and release blockers.
 
+## Viewer toolbar compatibility (0.12.0)
+
+Toolbar access and temporary navigation introduce no API, persisted draft,
+scientific transform, history, archive or database changes. Head remains 0013;
+contract majors remain 1. Existing atomic selection transforms are reused.
+Use the actual v0.11.0 checkout as the preceding reader; repeat qualification
+with final v0.12.0 producer metadata before publication. The executable helper
+checks exact coordinates/original hashes, retained multi-entry undo/redo,
+save/reexport, archive import (history intentionally omitted) and unchanged jobs.
+
+```bash
+git worktree add --detach /tmp/neistra-reader-011 v0.11.0
+MOLWEAVE_DATA_DIR=/tmp/neistra-toolbar-reader .venv/bin/uv run alembic upgrade head
+PYTHONPATH=apps/api/src:packages/molweave_core/src:packages/molweave_demo_plugin/src \
+  .venv/bin/python -m tests.support.transform_reader_qualification produce \
+  --data-dir /tmp/neistra-toolbar-reader --evidence /tmp/neistra-toolbar-producer.json
+PYTHONPATH=/tmp/neistra-reader-011/apps/api/src:/tmp/neistra-reader-011/packages/molweave_core/src:/tmp/neistra-reader-011/packages/molweave_demo_plugin/src \
+  .venv/bin/python -m tests.support.transform_reader_qualification read \
+  --data-dir /tmp/neistra-toolbar-reader --expected-reader 0.11.0 \
+  --evidence /tmp/neistra-toolbar-reader.json
+git worktree remove /tmp/neistra-reader-011
+```
+
+Use fresh disposable directories, never a user's project. Rollback to the
+qualified v0.11.0 requires no schema downgrade or data stripping. Historical
+qualifications below do not certify readers predating their supported schemas.
+Detailed results: [issue #46 plan](plans/issue-46-viewer-transform-toolbar.md).
+
 ## Interactive movement compatibility (0.11.0)
 
 The typed selection-transform endpoint is additive. No database migration or

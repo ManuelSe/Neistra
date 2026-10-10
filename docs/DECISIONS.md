@@ -2846,3 +2846,16 @@ or implement camera movement. Native perspective/orthographic regression checks
 confirm orbit, target-changing pan, zoom, unchanged selection/coordinates and
 normal picking restoration. Broader C3 lifecycle qualification remains pending.
 This implements D-083; it does not amend scientific or persistence contracts.
+
+### D-083 implementation note — 2026-10-10, C3
+
+Temporary navigation is now qualified through true emulated touch, held mouse
+ownership changes, blur/visibility/modal interruption, responsive remounts,
+native control Space, both themes and real browser zoom. An application-owned
+transient input epoch ends gestures even if interaction remains `transform`.
+Held pointers and their compatibility mouse-up cannot leak into ordinary picking
+after final exit; fresh pointers restore normal behavior. Secondary tools scroll
+independently to preserve primary actions. This implements the accepted fresh
+input/selection contract without private Mol* state, gesture transfer or new
+persisted preferences. Historical planning/C2 notes above retain their dates;
+implementation is authorized by the subsequent `/goal` and C1–C3 are complete.

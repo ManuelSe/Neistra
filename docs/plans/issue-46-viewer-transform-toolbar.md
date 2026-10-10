@@ -2,7 +2,7 @@
 
 ## Status and delivery metadata
 
-**Status: implementation in progress; M2/C3 input lifecycle and responsive qualification.** Approved explicitly
+**Status: C1–C4 complete; C5 reviewed release preparation in progress.** Approved explicitly
 on 2026-10-10, persisted as `ffea74185ce3d7b79cdb2989288f690d4e373a24`, and
 verified on the remote feature branch. The subsequent explicit `/goal` authorizes
 checkpoint implementation and the complete reviewed release workflow below.
@@ -667,7 +667,7 @@ and progress update. It leaves the global `docs/PLAN.md` unchanged.
 | Planning commit/push | Handoff record | Initial commit title is `docs(plan): add approved plan for issue 46`; its exact SHA and remote branch verification are reported after commit/push, outside this commit to avoid self-reference. |
 | M1 / C1 | Complete | 40 focused units; 165 full frontend tests; lint/types/build; 27 existing browser cases and 2 toolbar cases pass, with 5 intentional layout skips. |
 | M2 / C2–C3 | Complete | 169 frontend tests; 18 C3 browser passes / four intentional skips plus four final guard passes; actual zoom/touch evidence retained. |
-| M3 / C4–C5 | Not started | Scientific/performance/compatibility qualification and release candidate. |
+| M3 / C4–C5 | In progress | C4 complete: 130 Python and 38 browser passes / eight intentional skips; six native ownership cycles, bounded queue and actual v0.11.0 reader pass. C5 next. |
 | PR/review/merge | Not started | Complete candidate gate before PR; comply with live repository policy. |
 | Exact-merged qualification | Not started | Complete release gate on verified merged master. |
 | Tag/release/issue reply | Not started | Publish only from qualified merged commit; verify remotely. |
@@ -841,3 +841,37 @@ checkpoint. A concurrent post-review frontend shell exited 143 after Vite had
 reported success during browser-server teardown; its unit/lint/type logs pass.
 The isolated standalone build was repeated after shutdown and exits 0 in 7.40 s.
 No failed gate is presented as passing; final browser guard rerun took 26.3 s.
+
+### 2026-10-10 — C4 complete
+
+Planned Python command: **130 passed**, 34.85 s; migration upgrade/downgrade
+regressions pass with 237 existing Alembic path_separator deprecation warnings.
+Planned toolbar/performance/surfaces/pockets/measurements/export-archive browsers:
+**38 passed / eight intentional layout skips**, **6.8 min**, zero failures/retries,
+isolated API8210/worker8211/web5373, fresh `/tmp/neistra-issue46-c4-e2e`.
+
+Native 1STP fragment/biotin now each exercise six camera/transform ownership
+cycles with exact accepted pose/camera preservation. First preview **144.5/26.7
+ms**, exact coordinate Cancel **14.2/14.7 ms**, longest task **125/0 observed ms**
+pass unchanged budgets. Each 40-frame burst renders two frames, maximum active
+one, exact restoration and zero molecular requests. Surface coordinate Cancel
+**18.9 ms**, geometry regeneration **1074 ms** are separate. No competing build
+or profiler. Raw [performance](../assets/viewer-transform-toolbar/c4-performance.json).
+
+Actual tagged v0.11.0 (`4ed61264d9006f81ca528bf42c0c21594121a55b`) detached
+worktree `/tmp/neistra-reader-011`, fresh migrated `/tmp/neistra-issue46-c4-reader`:
+candidate producer then actual preceding API/core/plugin PYTHONPATH reader with
+`--expected-reader 0.11.0` pass. Exact coordinates/original hashes, retained batch
+undo/redo, save/reexport, history-free archive import and immutable completed jobs
+are checked. [Producer](../assets/viewer-transform-toolbar/c4-producer.json) and
+[reader](../assets/viewer-transform-toolbar/c4-reader.json) identify both versions
+as **0.11.0** at this staging checkpoint; final 0.12.0 producer qualification is
+required in C5. Fresh migration through0013; no new schema or data stripping.
+
+Current upstream remains planning base `984ecc0`; remote policy still permits
+normal merges, with unprotected master, zero workflows/rulesets. Full checkpoint
+review and whitespace check pass. D-083 C3 completion note, current compatibility
+procedure and transformation/performance guidance updated. All scientific/queue/
+archive assertions retained. No scope deviation, follow-up or blocker.
+Next: verify the full-review viewer-error placement concern, then final versions,
+preceding reader, release notes and complete candidate gate.
