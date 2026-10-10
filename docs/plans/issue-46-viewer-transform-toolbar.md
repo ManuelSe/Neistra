@@ -954,7 +954,8 @@ is needed. D-083 has an appended implementation note; no scope/data change.
 The initial full candidate gate on `b58a08e` was deliberately interrupted for
 this consequential finding. All non-browser commands passed (398 Python, 169
 frontend, eight supervisor, installs/fresh0013/lint/types/build); browser coverage
-was incomplete, with a teardown-interrupted case marked failed. **That run is
+was incomplete, with a marked styling case not yet diagnosed at interruption.
+The later trace audit below identifies that failure accurately. **That run is
 not release qualification.** Only identified disposable run servers were stopped;
 fresh key repro services started/migrated, and the repro fails exactly on camera
 retention (not fixture import/timeout).
@@ -966,3 +967,34 @@ project assertions retained. Frontend lint/types/full169/build pass with existin
 bundle advisory. Diff reviewed/whitespace clean. Next: commit the correction and
 restart **every** complete release command from a clean corrected candidate;
 preceding-reader final0.12.0 evidence remains valid (no API/data/version change).
+
+### 2026-10-10 — C5 complete-gate styling regression correction
+
+The complete clean candidate gate on `1d51633` passed frozen installs, fresh
+migration0013, Ruff/mypy, **398 Python**, frontend lint/types/**169 tests**/build
+and **eight supervisor tests**. Browser qualification was **154 passed / 43
+intentional skips / one failure**, 25.7 min. **This candidate is rejected.**
+The unchanged default-palette sizing assertion in selection-appearance failed:
+the taller normal-flow viewer header reduced room below its anchor. Trace audit
+also identifies the same real failure in the earlier interrupted candidate;
+it was not a teardown artifact. No failure is counted as release evidence.
+
+SelectionPalette now fits its natural content height within available desktop
+viewport space, shifting upward when necessary. Its children are observed for
+content changes without observing the constrained panel itself (avoids resize
+feedback); oversized content remains scrollable and the existing mobile sheet
+is retained. No styling or scientific behavior, data, version or API changes.
+The unchanged previously failing workflow passes, including subsequent expansion,
+colors, picking, camera and history assertions. Default desktop screenshot was
+visually inspected: [fitted palette](../assets/viewer-transform-toolbar/c5-selection-palette-desktop.png).
+
+Focused command: `PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec
+playwright test tests/e2e/selection-appearance.spec.ts
+tests/e2e/selection-styling.spec.ts tests/e2e/rebranding-zoom.spec.ts`, isolated
+8210/8211/5373 with fresh `/tmp/neistra-issue46-c5-palette-e2e`: **10 passed / six
+intentional layout skips**, **2.7 min**. Light/dark, mobile and real100/200% zoom
+pass. Frontend lint/types/**169 tests / 38 files**/build all pass (7.46s Vite,
+existing lazy chunk advisory). Checkpoint diff reviewed; whitespace clean.
+Next: repeat every complete release command on the clean corrected candidate
+before PR. No retries, relaxed assertions or timing budgets. A local runner
+invocation used unavailable `python`; corrected to `python3` before any gate ran.

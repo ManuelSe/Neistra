@@ -26,6 +26,11 @@ Authorized complete delivery is on `feat/issue-46-viewer-transform-toolbar`.
   from a pre-session held navigation key; four native handoff cases pass.
   Initial candidate browser gate deliberately interrupted and rejected; repeat
   every gate on the corrected clean candidate. No compatibility/version change.
+- C5 full-gate correction: clean candidate passed all non-browser gates, but
+  154 browser passes/43 skips/one default-palette clipping failure rejected it.
+  Natural-height positioning restores the unchanged palette assertion; focused
+  styling/real-zoom gate 10 passed/six skips, frontend169/lint/types/build pass.
+  Screenshot inspected. Repeat the full gate before PR; no assertion relaxation.
 - Blockers: none. Next: corrected candidate gate, then push/PR/review.
   Planned minor **0.12.0**; all five sources now **0.12.0**; final v0.11.0 reader accepts v0.12.0
   data/history/archives/jobs. Version-focused Python 32 passed.

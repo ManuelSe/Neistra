@@ -25,7 +25,8 @@
   resume. Selection clearing, implicit focus and styling remain suspended.
 - Secondary tools scroll independently so primary actions remain reachable. Keep
   touch controls at least 44 CSS px, theme contrast, named status/focus and real
-  200% zoom behavior. Existing viewer errors now sit clearly in the header stack.
+  200% zoom behavior. Existing viewer errors now sit clearly in the header stack;
+  the styling palette fits available viewport space alongside the taller header.
 
 ### Scientific behavior, data and compatibility
 
