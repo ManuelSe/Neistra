@@ -22,7 +22,11 @@ Authorized complete delivery is on `feat/issue-46-viewer-transform-toolbar`.
 - C5 review: existing viewer errors now share the normal-flow header; preceding
   source fails both layouts, clean correction passes 2 native light/dark cases.
   Frontend 169/lint/types/build pass. No migration/scientific change.
-- Blockers: none. Next: full clean candidate gate; then push/PR/review.
+- C5 native-key review: bubbling body releases fix demonstrated camera drift
+  from a pre-session held navigation key; four native handoff cases pass.
+  Initial candidate browser gate deliberately interrupted and rejected; repeat
+  every gate on the corrected clean candidate. No compatibility/version change.
+- Blockers: none. Next: corrected candidate gate, then push/PR/review.
   Planned minor **0.12.0**; all five sources now **0.12.0**; final v0.11.0 reader accepts v0.12.0
   data/history/archives/jobs. Version-focused Python 32 passed.
 

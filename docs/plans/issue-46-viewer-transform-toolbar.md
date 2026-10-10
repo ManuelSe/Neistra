@@ -939,3 +939,30 @@ No dead boolean adapter/caller remains; historical decisions preserved. No
 approved deferred/rejected capability reintroduced or speculative follow-up.
 Next: commit release preparation, run the complete clean candidate gate, record
 exact results, then push/open the planned PR and request Codex review.
+
+### 2026-10-10 — C5 native-key review correction
+
+Review of the public installed Mol* input source found that synthetic key-up
+on window is rejected by its body/canvas target check. A real key held before
+movement could remain active after bindings resume. New native regression starts
+ordinary W navigation, captures movement while still held, then adjusts view;
+preceding source drifts over eight frames in both layouts. Correct bubbling
+body key-up ends the native keys while preserving camera/pose. Mol* already clears
+keys on native pointer leave, so no private fields or fabricated coordinate event
+is needed. D-083 has an appended implementation note; no scope/data change.
+
+The initial full candidate gate on `b58a08e` was deliberately interrupted for
+this consequential finding. All non-browser commands passed (398 Python, 169
+frontend, eight supervisor, installs/fresh0013/lint/types/build); browser coverage
+was incomplete, with a teardown-interrupted case marked failed. **That run is
+not release qualification.** Only identified disposable run servers were stopped;
+fresh key repro services started/migrated, and the repro fails exactly on camera
+retention (not fixture import/timeout).
+
+Final focused browser command: toolbar `--grep 'navigation keys held|held mouse'`,
+isolated8210/8211/5373 and fresh `/tmp/neistra-issue46-c5-keys-final-e2e`:
+**four passed**, **35.6 s**, both layouts. Frame-by-frame camera, coordinate and
+project assertions retained. Frontend lint/types/full169/build pass with existing
+bundle advisory. Diff reviewed/whitespace clean. Next: commit the correction and
+restart **every** complete release command from a clean corrected candidate;
+preceding-reader final0.12.0 evidence remains valid (no API/data/version change).

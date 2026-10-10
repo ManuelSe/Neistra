@@ -393,3 +393,32 @@ test("keeps viewer errors readable and primary transform actions reachable", asy
   await controls.getByRole("button", { name: "Cancel movement" }).click();
   await expect.poll(async () => (await inspect()).coordinates).toEqual(original.coordinates);
 });
+
+test("releases native navigation keys held before movement starts", async ({ page, request }, info) => {
+  const { project, launcher, inspect, original } = await prepare(page, request, info.project.name === "mobile-chromium");
+  const box = (await page.getByTestId("structure-viewer").boundingBox())!;
+  await page.mouse.move(box.x + box.width * 0.8, box.y + box.height * 0.8);
+  await page.locator("body").evaluate(body => { body.tabIndex = -1; body.focus(); });
+  await page.keyboard.down("w");
+  await expect.poll(async () => (await inspect()).camera).not.toEqual(original.camera);
+  await launcher.click();
+  await expect.poll(async () => (await inspect()).movementInteraction).toBe("transform");
+  const camera = (await inspect()).camera;
+  await page.getByRole("group", { name: "Move selection canvas" }).focus();
+  await page.keyboard.down("Space");
+  await expect.poll(async () => (await inspect()).movementInteraction).toBe("camera");
+  const frames = await page.evaluate(async entryId => {
+    const { inspectInteractiveTransform } = await import("/src/test/interactiveTransformHarness.ts");
+    const cameras = [];
+    for (let i = 0; i < 8; i++) {
+      await new Promise(requestAnimationFrame);
+      cameras.push(inspectInteractiveTransform(window.movementEngines.at(-1)!, entryId).camera);
+    }
+    return cameras;
+  }, project.entries[0].id);
+  expect(frames).toEqual(Array.from({ length: 8 }, () => camera));
+  expect((await inspect()).coordinates).toEqual(original.coordinates);
+  await page.keyboard.up("Space"); await page.keyboard.up("w");
+  await page.getByRole("button", { name: "Cancel movement" }).click();
+  expect(await projectRead(request, project.id)).toEqual(project);
+});

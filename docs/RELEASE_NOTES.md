@@ -20,7 +20,8 @@
   held Space; blur, hidden documents, modal takeover, phase exit and remount clear
   navigation. Valid previews and latest camera survive responsive remounts.
 - Ownership changes end the gesture at its accepted pose/camera. Old held-pointer
-  continuations and compatibility releases cannot leak into picking; fresh drags
+  continuations and compatibility releases cannot leak into picking; pre-session
+  native navigation keys are released at handoff; fresh drags
   resume. Selection clearing, implicit focus and styling remain suspended.
 - Secondary tools scroll independently so primary actions remain reachable. Keep
   touch controls at least 44 CSS px, theme contrast, named status/focus and real

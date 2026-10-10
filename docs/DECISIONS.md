@@ -2859,3 +2859,14 @@ independently to preserve primary actions. This implements the accepted fresh
 input/selection contract without private Mol* state, gesture transfer or new
 persisted preferences. Historical planning/C2 notes above retain their dates;
 implementation is authorized by the subsequent `/goal` and C1–C3 are complete.
+
+### D-083 implementation note — 2026-10-10, C5 native key handoff
+
+Native key termination uses bubbling body key-up events. The public Mol* input
+observer accepts keyboard input only from body/canvas while the pointer is inside;
+its ordinary leave handler clears key state outside. Window-target events had
+been ignored and a held pre-session navigation key could resume camera movement.
+The native regression reproduces this in both layouts; accepted camera remains
+exact over eight frames after corrected entry/resume, with unchanged coordinates
+and project. This preserves fresh input ownership without private native fields,
+observable mutation, fabricated camera mathematics or persistent state.

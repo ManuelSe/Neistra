@@ -567,12 +567,14 @@ export class MolstarEngine implements MolecularViewer {
 
   private releaseNavigationKeys() {
     // Release while current native bindings still match, including camera exit.
+    // Mol* accepts keyboard events from body/canvas; window targets are ignored.
     const bindings = this.plugin?.canvas3d?.attribs.trackball.bindings;
     if (!bindings) return;
     for (const binding of Object.values(bindings)) {
       for (const trigger of binding.triggers) {
         if (!trigger.code) continue;
-        window.dispatchEvent(new KeyboardEvent("keyup", {
+        document.body.dispatchEvent(new KeyboardEvent("keyup", {
+          bubbles: true,
           code: trigger.code,
           ctrlKey: trigger.modifiers?.control, shiftKey: trigger.modifiers?.shift,
           altKey: trigger.modifiers?.alt, metaKey: trigger.modifiers?.meta,
