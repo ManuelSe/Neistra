@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { expect, test, type APIRequestContext, type Page } from "@playwright/test";
+import AxeBuilder from "@axe-core/playwright";
 import type { Project, StructureProjection } from "../../apps/web/src/api/types";
 
 async function projectRead(request: APIRequestContext, id: string): Promise<Project> {
@@ -53,6 +54,7 @@ async function drag(page: Page, button: "left" | "right", dx: number, dy: number
     : document.elementFromPoint(point.x, point.y)?.getAttribute("data-testid") === "movement-pointer-surface", { x, y, camera })).toBe(true);
   await page.mouse.move(x, y); await page.mouse.down({ button });
   await page.mouse.move(x + dx, y + dy, { steps: 8 }); await page.mouse.up({ button });
+  if (camera) await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
 }
 
 test("transforms from the viewer with fixed mouse gestures, exact Cancel and one Apply/undo/redo", async ({ page, request }, info) => {
@@ -212,4 +214,152 @@ test("ends held mouse gestures at accepted coordinates and camera before ownersh
   expect(await projectRead(request, project.id)).toEqual(project);
   await page.getByRole("button", { name: "Cancel movement" }).click();
   await expect.poll(async () => (await inspect()).coordinates).toEqual(original.coordinates);
+});
+
+test("clears temporary navigation on interruption and remount while preserving preview and camera", async ({ page, request }, info) => {
+  test.setTimeout(120_000);
+  const mobile = info.project.name === "mobile-chromium";
+  const { project, launcher, inspect, original } = await prepare(page, request, mobile);
+  await launcher.click(); await drag(page, "left", 20, 10);
+  await expect.poll(async () => (await inspect()).coordinates).not.toEqual(original.coordinates);
+  const preview = (await inspect()).coordinates;
+  const controls = page.getByRole("region", { name: "Move selection controls" });
+  const canvas = page.getByRole("group", { name: "Move selection canvas" });
+  await canvas.focus(); await page.keyboard.down("Shift"); await page.keyboard.press("Space"); await page.keyboard.up("Shift");
+  expect((await inspect()).movementInteraction).toBe("transform");
+  await page.keyboard.down("Space");
+  await expect.poll(async () => (await inspect()).movementInteraction).toBe("camera");
+  await controls.getByText("More", { exact: true }).focus();
+  await expect.poll(async () => (await inspect()).movementInteraction).toBe("transform");
+  await page.keyboard.up("Space");
+  await page.keyboard.press("Space"); // Native disclosure activation, not the shortcut.
+  await expect(controls.getByRole("button", { name: "Depth", exact: true })).toBeVisible();
+  await controls.getByText("More", { exact: true }).click();
+  for (const interruption of ["blur", "hidden", "modal"] as const) {
+    await controls.getByRole("button", { name: "Adjust view" }).click();
+    await drag(page, "left", 15, -10, true);
+    const camera = (await inspect()).camera;
+    if (interruption === "blur") await page.evaluate(() => window.dispatchEvent(new Event("blur")));
+    else if (interruption === "hidden") await page.evaluate(() => {
+      Object.defineProperty(document, "hidden", { configurable: true, value: true });
+      document.dispatchEvent(new Event("visibilitychange"));
+      delete (document as unknown as { hidden?: boolean }).hidden;
+    });
+    else {
+      await page.getByRole("button", { name: "Projects", exact: true }).click();
+      await expect(page.getByRole("dialog", { name: "Projects", exact: true })).toBeVisible();
+      await page.getByRole("dialog", { name: "Projects", exact: true }).focus();
+      await page.keyboard.press("Space");
+      await page.keyboard.press("Escape");
+      await expect(page.getByRole("dialog", { name: "Projects", exact: true })).toBeHidden();
+    }
+    await expect.poll(async () => (await inspect()).movementInteraction).toBe("transform");
+    expect((await inspect()).camera).toEqual(camera);
+    expect((await inspect()).coordinates).toEqual(preview);
+    await expect(controls.getByRole("button", { name: "Adjust view" })).toHaveAttribute("aria-pressed", "false");
+  }
+  // Keyboard Space activates the explicit native button, and remount clears it.
+  await controls.getByRole("button", { name: "Adjust view" }).focus(); await page.keyboard.press("Space");
+  await expect.poll(async () => (await inspect()).movementInteraction).toBe("camera");
+  await drag(page, "left", 25, -15, true);
+  const before = await inspect();
+  const count = await page.evaluate(() => window.movementEngines.length);
+  await page.setViewportSize({ width: mobile ? 1440 : 393, height: 900 });
+  await expect.poll(() => page.evaluate(() => window.movementEngines.length)).toBeGreaterThan(count);
+  await expect.poll(async () => (await inspect()).movementInteraction).toBe("transform");
+  await expect.poll(async () => (await inspect()).coordinates).toEqual(before.coordinates);
+  await expect.poll(async () => (await inspect()).camera).toEqual(before.camera);
+  await expect(controls.getByRole("button", { name: "Adjust view" })).toHaveAttribute("aria-pressed", "false");
+  expect(await projectRead(request, project.id)).toEqual(project);
+  await controls.getByRole("button", { name: "Adjust view" }).click();
+  await controls.getByRole("button", { name: "Apply movement" }).click();
+  await expect(controls).toBeHidden();
+  await expect.poll(async () => (await inspect()).movementInteraction).toBe("inactive");
+  expect((await projectRead(request, project.id)).revision).toBe(project.revision + 1);
+  await page.getByRole("button", { name: /^Undo: Move / }).click();
+  await expect.poll(async () => (await inspect()).coordinates).toEqual(original.coordinates);
+});
+
+async function touchDrag(page: Page, dx: number, dy: number) {
+  const box = (await page.getByTestId("structure-viewer").boundingBox())!;
+  const x = box.x + box.width * 0.8, y = box.y + box.height * 0.8;
+  const input = await page.context().newCDPSession(page);
+  try {
+    await input.send("Input.dispatchTouchEvent", { type: "touchStart", touchPoints: [{ x, y, id: 1 }] });
+    for (let i = 1; i <= 8; i++) await input.send("Input.dispatchTouchEvent", { type: "touchMove", touchPoints: [{ x: x + dx * i / 8, y: y + dy * i / 8, id: 1 }] });
+    await input.send("Input.dispatchTouchEvent", { type: "touchEnd", touchPoints: [] });
+  } finally { await input.detach(); }
+}
+
+test("qualifies native touch navigation, secondary tools and accessible theme layouts", async ({ page, request }, info) => {
+  test.skip(info.project.name !== "mobile-chromium", "Touch qualification uses Pixel 7; desktop has native mouse and real zoom evidence.");
+  test.setTimeout(120_000);
+  const { project, launcher, inspect, original } = await prepare(page, request, true);
+  const controls = page.getByRole("region", { name: "Move selection controls" });
+  for (const theme of ["light", "dark"]) {
+    if (theme === "dark") await page.getByRole("button", { name: "Use dark theme" }).click();
+    await launcher.tap();
+    await controls.getByText("More", { exact: true }).tap();
+    await controls.getByRole("button", { name: "Translate", exact: true }).tap();
+    await controls.getByText("More", { exact: true }).tap();
+    await touchDrag(page, 20, -10);
+    await expect.poll(async () => (await inspect()).coordinates).not.toEqual(original.coordinates);
+    const preview = (await inspect()).coordinates;
+    await controls.getByRole("button", { name: "Adjust view" }).tap();
+    const beforeCamera = (await inspect()).camera;
+    await touchDrag(page, -35, 20);
+    await expect.poll(async () => (await inspect()).camera).not.toEqual(beforeCamera);
+    expect((await inspect()).coordinates).toEqual(preview);
+    await page.screenshot({ path: info.outputPath(`toolbar-${theme}-touch-camera.png`) });
+    await controls.getByRole("button", { name: "Resume transform" }).tap();
+    await controls.getByText("More", { exact: true }).tap();
+    await controls.getByRole("button", { name: "Depth", exact: true }).tap();
+    await controls.getByRole("button", { name: "Step away" }).tap();
+    expect((await new AxeBuilder({ page }).include(".viewer-header").include(".movement-pointer-surface")
+      .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"]).analyze()).violations).toEqual([]);
+    for (const control of await controls.locator("button, input, summary").all()) {
+      await control.scrollIntoViewIfNeeded();
+      const box = (await control.boundingBox())!;
+      const viewport = await page.evaluate(() => ({ width: innerWidth, height: innerHeight }));
+      expect(box.x).toBeGreaterThanOrEqual(0); expect(box.x + box.width).toBeLessThanOrEqual(viewport.width + 1);
+      expect(box.y).toBeGreaterThanOrEqual(0); expect(box.y + box.height).toBeLessThanOrEqual(viewport.height + 1);
+      expect(box.height).toBeGreaterThanOrEqual(44);
+      for (const name of ["Apply movement", "Cancel movement"]) {
+        expect(await controls.getByRole("button", { name }).evaluate(node => {
+          const box = node.getBoundingClientRect();
+          const hit = document.elementFromPoint(box.x + box.width / 2, box.y + box.height / 2);
+          return hit === node || Boolean(hit && node.contains(hit));
+        })).toBe(true);
+      }
+    }
+    await controls.getByText("More", { exact: true }).tap();
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    await page.screenshot({ path: info.outputPath(`toolbar-${theme}-touch-transform.png`) });
+    expect(await projectRead(request, project.id)).toEqual(project);
+    await controls.getByRole("button", { name: "Cancel movement" }).tap();
+    await expect.poll(async () => (await inspect()).coordinates).toEqual(original.coordinates);
+  }
+});
+
+for (const owner of ["camera", "transform"] as const) test(`ignores a held ${owner} pointer release after Cancel and restores selection on a fresh click`, async ({ page, request }, info) => {
+  test.setTimeout(60_000);
+  const { launcher, inspect, original } = await prepare(page, request, info.project.name === "mobile-chromium");
+  const selected = () => page.evaluate(async () => {
+    const { useSelectionStore } = await import("/src/store/selection.ts");
+    return useSelectionStore.getState().selection;
+  });
+  const before = await selected();
+  await launcher.click();
+  if (owner === "camera") await page.getByRole("button", { name: "Adjust view" }).click();
+  const box = (await page.getByTestId("structure-viewer").boundingBox())!;
+  const x = box.x + box.width * 0.8, y = box.y + box.height * 0.8;
+  await page.mouse.move(x, y); await page.mouse.down();
+  await page.getByRole("button", { name: "Cancel movement" }).focus(); await page.keyboard.press("Enter");
+  await expect.poll(async () => (await inspect()).movementInteraction).toBe("inactive");
+  await page.mouse.up();
+  await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
+  expect(await selected()).toEqual(before);
+  await expect.poll(async () => (await inspect()).coordinates).toEqual(original.coordinates);
+  await page.mouse.click(x, y);
+  await expect.poll(async () => (await selected()).atoms.length).toBe(0);
 });

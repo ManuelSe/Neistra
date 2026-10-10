@@ -387,13 +387,19 @@ corepack pnpm --dir apps/web exec vitest run \
   src/test/viewer-toolbar.test.tsx
 PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test \
   tests/e2e/viewer-transform-toolbar.spec.ts \
-  tests/e2e/responsive-workspace.spec.ts \
   tests/e2e/rebranding-zoom.spec.ts \
   tests/e2e/release-hardening.spec.ts
 ```
 
 **Documentation/migration:** Update accessibility guidance and record inspected
 screenshots; no migration.
+
+Validation-path correction during implementation: the historical
+`responsive-workspace.spec.ts` named in the proposal is absent from the current
+repository. Current responsive coverage lives in `rebranding-zoom.spec.ts` and
+`release-hardening.spec.ts`, supplemented by the native remount cases in the
+toolbar spec. The command above uses those actual files; the approved responsive,
+touch, focus, theme, zoom and accessibility outcomes are unchanged.
 
 **Commit:** `test(transform): qualify navigation ownership and responsive controls`
 
@@ -660,7 +666,7 @@ and progress update. It leaves the global `docs/PLAN.md` unchanged.
 | Planning documentation verification | Complete | Required sections, five checkpoint contracts, code fences, local links/anchors, exact three-file scope, feature branch and unchanged global plan/runtime/version sources pass; whitespace check passes. |
 | Planning commit/push | Handoff record | Initial commit title is `docs(plan): add approved plan for issue 46`; its exact SHA and remote branch verification are reported after commit/push, outside this commit to avoid self-reference. |
 | M1 / C1 | Complete | 40 focused units; 165 full frontend tests; lint/types/build; 27 existing browser cases and 2 toolbar cases pass, with 5 intentional layout skips. |
-| M2 / C2–C3 | In progress | C2 complete: typed native navigation, 32 focused / 168 full frontend tests and all required browser cases pass; C3 next. |
+| M2 / C2–C3 | Complete | 169 frontend tests; 18 C3 browser passes / four intentional skips plus four final guard passes; actual zoom/touch evidence retained. |
 | M3 / C4–C5 | Not started | Scientific/performance/compatibility qualification and release candidate. |
 | PR/review/merge | Not started | Complete candidate gate before PR; comply with live repository policy. |
 | Exact-merged qualification | Not started | Complete release gate on verified merged master. |
@@ -793,3 +799,39 @@ Full correction diff/whitespace review passes. No scientific/persisted-data chan
 This is a substantive `fix(transform)` checkpoint within C3, not M2 completion.
 Next: true touch, native control Space, modal/visibility/remount and complete
 responsive/real-zoom gates, followed by the C3 qualification commit.
+
+### 2026-10-10 — M2/C3 complete
+
+Completed interruption/remount retention, native-control Space ownership, true
+CDP touch orbit, touch/keyboard/depth tools, themes and real 100%/200% zoom.
+More tools scroll independently; Apply/Cancel remain hit-test reachable at every
+secondary control. Buttons/inputs/summaries meet 44 CSS px height. Eight images
+were visually inspected/retained under `docs/assets/viewer-transform-toolbar/`.
+
+A held native release after keyboard Cancel reproduced selection leakage in both
+layouts. The native boundary suppresses that compatibility mouse-up; a fresh
+pointer anywhere clears an unused guard (app preventDefault can suppress mouse
+compatibility events entirely). Tests cover both owners: old release preserves
+selection/coordinates, fresh click restores normal clearing. No private native
+state or persistent state added.
+
+Evidence:
+
+- Planned C3 toolbar/zoom/release-hardening browser set: **18 passed / four
+  intentional skips**, **4.0 min**, isolated 8210/8211/5373, fresh
+  `/tmp/neistra-issue46-c3-qualified-e2e`. Real zoom assertions remain intact.
+- Final toolbar `--grep 'pointer release after Cancel'`: **four passed**, fresh
+  `/tmp/neistra-issue46-c3-fresh-release-e2e`, same ports, both owners/layouts.
+- Final frontend lint/types/test/build: **169 tests / 38 files** pass; existing
+  lazy Mol* advisory. Focused C3 tests passed in correction `8dff477`.
+- Initial interruption fixtures pressed Space on an autofocus project action
+  inside a dialog, correctly invoking its native action. Focus the neutral
+  dialog to test ignored workspace shortcuts without an unrelated project action;
+  exact preview assertions retained. Affected layout/touch rerun **3 passed /
+  one intentional skip** before full gate. Stale-release repro failed twice
+  before the native guard fix; final passing checks retain exact selection.
+- Removed absent `responsive-workspace.spec.ts` from runnable C3 command;
+  existing breakpoint/release-hardening and new remount tests cover all approved
+  outcomes. Historical verification evidence preserved; no scope reduction.
+- Complete diff/whitespace review passes. No API/data/migration/scientific/version
+  change. Next: C4 scientific, persistence, performance and actual v0.11.0 reader.

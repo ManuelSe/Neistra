@@ -28,7 +28,7 @@ async function expectBoundedActions(page: Page) {
   const inspector = page.getByRole("button", { name: "Inspector", exact: true });
   if (size.width <= 840) await expect(inspector).toBeVisible();
   else await expect(inspector).toBeHidden();
-  const bounds = await page.locator('.topbar button:visible, .viewer-toolbar button:visible, .viewer-toolbar select:visible')
+  const bounds = await page.locator('.topbar button:visible, .viewer-toolbar button:visible, .viewer-toolbar select:visible, .transform-launcher button:visible')
     .evaluateAll(nodes => nodes.map(node => {
       const box = node.getBoundingClientRect();
       return { name: node.getAttribute("aria-label"), x: box.x, y: box.y, width: box.width, height: box.height };
@@ -107,6 +107,17 @@ test("keeps actions and dialogs reachable at real 100% and 200% browser zoom", a
         const movement = page.getByRole("region", { name: "Move selection controls" });
         await expect(movement).toBeVisible();
         if (factor === 2) await page.getByRole("button", { name: "Close panel", exact: true }).click({ position: { x: 2, y: 100 } });
+        await page.getByRole("group", { name: "Move selection canvas" }).focus();
+        await page.keyboard.down("Space");
+        await expect(movement).toContainText("Adjusting camera");
+        await page.keyboard.up("Space");
+        await expect(movement).toContainText("Transforming selection");
+        await movement.getByRole("button", { name: "Adjust view" }).focus();
+        await page.keyboard.press("Space");
+        await expect(movement).toContainText("Adjusting camera");
+        await movement.getByRole("button", { name: "Resume transform" }).focus();
+        await page.keyboard.press("Space");
+        await expect(movement).toContainText("Transforming selection");
         expect((await new AxeBuilder({ page }).include(".movement-banner").include(".movement-pointer-surface")
           .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"]).analyze()).violations).toEqual([]);
         await movement.getByText("More", { exact: true }).click();

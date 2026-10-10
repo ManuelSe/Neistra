@@ -89,6 +89,7 @@ export class MolstarEngine implements MolecularViewer {
   private stopInputBoundary: (() => void) | undefined;
   private heldPointers = new Set<number>();
   private ignoredPointers = new Set<number>();
+  private ignoredMouseRelease = false;
   private movementCamera: CameraState | null = null;
   private movementBindings: Canvas3DAttribs["trackball"] | null = null;
   private movementTrackball: Canvas3DProps["trackball"] | null = null;
@@ -163,29 +164,50 @@ export class MolstarEngine implements MolecularViewer {
     const inputRoot = target.parentElement ?? target;
     const down = (event: PointerEvent) => {
       if (event.target instanceof Element && (event.target instanceof HTMLCanvasElement
-        || event.target.closest(".movement-pointer-surface"))) this.heldPointers.add(event.pointerId);
+        || event.target.closest(".movement-pointer-surface"))) {
+        this.heldPointers.add(event.pointerId);
+        if (this.ignoredPointers.size) this.ignoredPointers.add(event.pointerId);
+      }
     };
     const up = (event: PointerEvent) => {
       this.heldPointers.delete(event.pointerId);
-      this.ignoredPointers.delete(event.pointerId);
+      const ignored = this.ignoredPointers.delete(event.pointerId);
+      // Pointer-up precedes its compatibility mouse-up. Keep that final native
+      // click suppressed even when the transaction has already exited.
+      if (ignored && event.type === "pointerup" && event.pointerType !== "touch") this.ignoredMouseRelease = true;
+    };
+    const freshDown = () => {
+      // preventDefault on an app-owned pointer can suppress compatibility mouse
+      // events entirely. A fresh pointer starts a new sequence, anywhere in UI.
+      if (!this.ignoredPointers.size) this.ignoredMouseRelease = false;
+    };
+    const mouseUp = (event: MouseEvent) => {
+      if (!this.ignoredMouseRelease) return;
+      this.ignoredMouseRelease = false;
+      event.preventDefault();
+      event.stopImmediatePropagation();
     };
     const blockContinuation = (event: Event) => {
       if (!this.ignoredPointers.size) return;
       event.preventDefault();
       event.stopImmediatePropagation();
     };
-    const blur = () => { this.heldPointers.clear(); this.ignoredPointers.clear(); };
+    const blur = () => { this.heldPointers.clear(); this.ignoredPointers.clear(); this.ignoredMouseRelease = false; };
     inputRoot.addEventListener("pointerdown", down, true);
+    window.addEventListener("pointerdown", freshDown, true);
     window.addEventListener("pointerup", up, true);
     window.addEventListener("pointercancel", up, true);
+    window.addEventListener("mouseup", mouseUp, true);
     target.addEventListener("touchmove", blockContinuation, { capture: true, passive: false });
     target.addEventListener("touchstart", blockContinuation, { capture: true, passive: false });
     target.addEventListener("mousedown", blockContinuation, true);
     window.addEventListener("blur", blur);
     this.stopInputBoundary = () => {
       inputRoot.removeEventListener("pointerdown", down, true);
+      window.removeEventListener("pointerdown", freshDown, true);
       window.removeEventListener("pointerup", up, true);
       window.removeEventListener("pointercancel", up, true);
+      window.removeEventListener("mouseup", mouseUp, true);
       target.removeEventListener("touchmove", blockContinuation, true);
       target.removeEventListener("touchstart", blockContinuation, true);
       target.removeEventListener("mousedown", blockContinuation, true);

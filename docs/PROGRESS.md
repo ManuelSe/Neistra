@@ -2,29 +2,22 @@
 
 ## Current milestone
 
-Issue #46 — M2/C2 temporary camera navigation (M1/C1 complete) for
-[viewer transformation toolbar and temporary camera navigation](plans/issue-46-viewer-transform-toolbar.md).
-The user approved the plan and subsequently authorized the complete delivery
-workflow with `/goal` on 2026-10-10. Work is on the planned feature branch.
+Issue #46 — M2/C3 complete; M3 scientific and release qualification next.
+Contract: [viewer toolbar/navigation plan](plans/issue-46-viewer-transform-toolbar.md).
+Authorized complete delivery is on `feat/issue-46-viewer-transform-toolbar`.
 
-- Completed work: C1 (`aae804f`) viewer bar and shared atomic workflow; C2
-  transient Space/view-toggle navigation, typed renderer ownership, synchronous
-  focus/picking suppression and latest-camera resumption. Usage/architecture and
-  D-083 implementation notes are current; detailed evidence is in the feature plan.
-- Verification performed: C2 32 focused / 168 full frontend tests and lint/types/
-  build pass. Planned browsers pass 27 cases / 2 intentional skips, with the
-  covered-pixel mobile fixture corrected and its affected picking suite passing
-  2/2 / 2 intentional skips. Native orbit/pan/zoom and updated-plane translation
-  pass in both projections/layouts with exact preview, selection and project
-  preservation and no molecular preview/navigation requests. Diff reviewed.
-- Known limitations: C3 lifecycle/true-touch/actual zoom, C4 scientific/performance/
-  preceding-reader and C5 full candidate/release gates remain pending. Existing
-  scientific, emulation and advisory limits remain. No new migration (head 0013).
-- Blockers: none.
-- Next action: C2 committed as `4a5e957`; commit the passing C3 lifecycle
-  correction (20 focused units, lint/types and 2 exact native held-mouse/blur cases).
-  Complete C3 touch/modal/remount/responsive/actual zoom and full M2 gates next.
-  Planned minor **0.12.0 / v0.12.0**; all five current versions remain **0.11.0**.
+- Completed: C1 separate toolbar/shared transaction; C2 transient Space/toggle
+  and typed native ownership; C3 interruption, held-release isolation, secondary
+  scrolling, touch, keyboard, themes and real zoom. D-083 and guidance are current.
+- Verification: 169 frontend tests / 38 files, lint/types/build pass. C3 browsers
+  18 passed / 4 intentional skips; final guard rerun four passed (both owners,
+  desktop/Pixel 7). Eight real-zoom/touch screenshots inspected and retained.
+  Stale native release reproduced/corrected without weaker selection assertions.
+- Limitations: pinned Chromium/SwiftShader, emulated Pixel 7, unconstrained edits,
+  existing build advisory. C4 reader/performance/scientific and C5 complete
+  candidate/exact-master gates remain pending. Head stays 0013.
+- Blockers: none. Next: C4 scientific/persistence/performance qualification.
+  Planned minor **0.12.0**; all five sources still **0.11.0**.
 
 ### Previous release — v0.11.0
 
@@ -2245,13 +2238,12 @@ Results:
 
 ## Blockers
 
-No current blocker to issue #46 planning persistence. Implementation awaits
-explicit `/goal`. Issue #4 remains released; its final cleanup audit is maintained
+No current blocker to issue #46 delivery. Issue #4 remains released; its final cleanup audit is maintained
 in its closeout reply.
 
 ## Next action
 
-Wait for `/goal` after the approved issue #46 documentation-only planning
-commit/push. The detailed contract is
-[the issue #46 feature plan](plans/issue-46-viewer-transform-toolbar.md).
-Current released baseline remains v0.11.0; planned feature release is v0.12.0.
+Complete C4 scientific/performance/previous-reader qualification, then C5 release
+preparation and candidate gate. Follow the feature plan through reviewed PR,
+normal merge, exact-master gate, v0.12.0 release and verified branch cleanup.
+Current released baseline remains v0.11.0.
