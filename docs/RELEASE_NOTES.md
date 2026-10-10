@@ -1,5 +1,74 @@
 # Neistra Release Notes
 
+## 0.12.0 - 2026-10-10
+
+### Viewer transformation workflow
+
+- Start Move selection from a clearly separate viewer bar or the existing Transform
+  inspector. Captured atom/hidden counts, Apply and Cancel remain above the viewer;
+  More holds sensitivity, touch/keyboard Rotate/Translate/Depth, steps and limits.
+- Mouse left drag always rotates; right or Ctrl-left drag translates in the current
+  screen plane, independent of secondary-tool preferences. Defaults reset each session.
+- Hold unmodified Space on the movement canvas for native camera orbit/pan/zoom;
+  releasing it resumes positioning using the updated view. Adjust view / Resume
+  transform provides the approved touch/keyboard alternative. Explicit toggle and
+  held Space combine without losing the preview or captured selection.
+
+### Input lifecycle, accessibility and fixes
+
+- Native buttons/fields/disclosures/modals retain Space. Focus departure clears
+  held Space; blur, hidden documents, modal takeover, phase exit and remount clear
+  navigation. Valid previews and latest camera survive responsive remounts.
+- Ownership changes end the gesture at its accepted pose/camera. Old held-pointer
+  continuations and compatibility releases cannot leak into picking; fresh drags
+  resume. Selection clearing, implicit focus and styling remain suspended.
+- Secondary tools scroll independently so primary actions remain reachable. Keep
+  touch controls at least 44 CSS px, theme contrast, named status/focus and real
+  200% zoom behavior. Existing viewer errors now sit clearly in the header stack.
+
+### Scientific behavior, data and compatibility
+
+- Preserve the existing proper rigid all-conformer/multi-entry transform, carried
+  centroid pivot, complete hidden membership, unchanged unselected state/originals,
+  no-op preservation, single atomic Apply/undo/redo and exact Cancel. Preview and
+  camera changes do not submit jobs, refetch molecular projections or commit data.
+- No API, history vocabulary, persisted preference, archive or database change.
+  Migration head remains 0013; contract majors remain 1. The actual v0.11.0 reader
+  checks final 0.12.0 coordinates, original hashes, retained batch history,
+  save/reexport, current-state archives (without portable history) and unchanged jobs.
+- Minor SemVer increment adds public functionality without incompatible data/API
+  changes. All five authoritative versions agree; no unrelated dependency update.
+
+### Verification and review
+
+The [approved issue #46 plan](plans/issue-46-viewer-transform-toolbar.md) records
+checkpoint commands, diagnostics/corrections and pending/final release evidence.
+C1–C4 qualify native perspective/orthographic navigation/updated-plane movement,
+exact state/history, interruption, true emulated touch, both themes/scoped axe,
+actual 100%/200% zoom, inspected screenshots, scientific/archive/migration checks
+and actual preceding-release readers. Complete candidate and exact-merged gates
+are required before publication; their final results are recorded in that plan.
+
+C4 native first preview 144.5/26.7 ms, exact Cancel 14.2/14.7 ms and longest task 125/0
+observed ms pass unchanged 500/500/750 ms budgets. Six ownership cycles per case,
+two rendered frames per 40-frame burst, one active update, exact restoration and
+zero molecular requests pass. Surface restoration 18.9 ms/full regeneration 1074 ms
+are separate. Review is local, not independent; request Codex review on the PR.
+
+### Deferred scope and known limitations
+
+Continuous transfer of an already-held drag is deferred; fresh gestures avoid
+jumps. Gizmos, pivot markers, custom/durable bindings, scientific constraints and
+broader-device certification are outside this issue; no speculative follow-up.
+Restarting movement to adjust the view and removing depth/touch/keyboard/numerical
+capabilities were rejected because they lose state or useful existing workflows.
+
+Movement remains unconstrained: it can distort crossing bonds or create clashes,
+without minimization, chemistry repair or docking validation. Qualification uses
+pinned Chromium/SwiftShader and emulated Pixel 7, not physical-device certification.
+Existing Alembic and lazy Mol* size advisories remain; historical migration
+restrictions for older pocket/visibility schemas still apply.
+
 ## 0.11.0 - 2026-10-09
 
 ### Highlights and gestures

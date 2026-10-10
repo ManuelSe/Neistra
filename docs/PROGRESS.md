@@ -22,8 +22,9 @@ Authorized complete delivery is on `feat/issue-46-viewer-transform-toolbar`.
 - C5 review: existing viewer errors now share the normal-flow header; preceding
   source fails both layouts, clean correction passes 2 native light/dark cases.
   Frontend 169/lint/types/build pass. No migration/scientific change.
-- Blockers: none. Next: final producer/version and full candidate gate.
-  Planned minor **0.12.0**; all five sources still **0.11.0**.
+- Blockers: none. Next: full clean candidate gate; then push/PR/review.
+  Planned minor **0.12.0**; all five sources now **0.12.0**; final v0.11.0 reader accepts v0.12.0
+  data/history/archives/jobs. Version-focused Python 32 passed.
 
 ### Previous release — v0.11.0
 
@@ -2251,4 +2252,4 @@ in its closeout reply.
 
 Complete C5 release preparation and candidate gate. Follow the feature plan through reviewed PR,
 normal merge, exact-master gate, v0.12.0 release and verified branch cleanup.
-Current released baseline remains v0.11.0.
+Current published baseline remains v0.11.0; candidate is v0.12.0.

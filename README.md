@@ -22,15 +22,17 @@ Real workspace screenshots: [light](docs/assets/neistra-workspace-light.png) ·
 [dark](docs/assets/neistra-workspace-dark.png). These show the existing local
 workspace, not proposed account, docking or marketplace features.
 
-Version **0.11.0** adds **Transform → Move selection**. Rotate with primary drag,
-translate with secondary/Ctrl drag, or use Translate/Depth modes and named steps.
-The complete captured selection moves across entries, including hidden targets.
-Zoom remains available; Apply creates one reversible command and Cancel restores
-exact coordinates. Movement is unconstrained: partial selections can distort
+Version **0.12.0** places **Move selection** in a separate bar above the viewer.
+Left mouse drag rotates; right or Ctrl-drag translates in the current view plane.
+Hold **Space** on the movement canvas to adjust the camera, then release to resume.
+Touch and keyboard users have **Adjust view / Resume transform**, with sensitivity,
+Rotate/Translate/Depth and steps under **More**. The inspector remains an entry point.
+The captured selection includes hidden targets; Apply creates one reversible
+command and Cancel restores exact coordinates. Partial selections can distort
 crossing bonds or create clashes. See [Interactive transforms](docs/TRANSFORMS.md).
-No new migration is needed. Actual v0.10.0 readers retain applied coordinates,
-existing undo/redo actions and archives; see
-[compatibility guidance](docs/DEVELOPMENT.md#interactive-movement-compatibility-0110).
+No new migration is needed. Actual v0.11.0 readers retain applied coordinates,
+undo/redo, immutable originals/jobs and archives; see
+[compatibility guidance](docs/DEVELOPMENT.md#viewer-toolbar-compatibility-0120).
 
 Structure organization includes reversible batch grouping: select structures and
 use **Move to group…**, **Remove from group**, or **Add to new group** in a row's
@@ -69,7 +71,7 @@ See the [styling workflow](docs/SELECTION_STYLING.md) and
 [scientific limitations](docs/SCIENTIFIC_LIMITATIONS.md).
 
 Back up managed data and upgrade to migration **0013** before startup. Older
-projects/archives remain readable by v0.11.0. Downgrade to 0012 requires every retained
+projects/archives remain readable by v0.12.0. Downgrade to 0012 requires every retained
 pocket definition, including history and scenes, to be null; otherwise restore the
 pre-upgrade backup. Older readers are unsupported for pocket-bearing archives.
 Atomic hiding does not change entry-based Visible export.

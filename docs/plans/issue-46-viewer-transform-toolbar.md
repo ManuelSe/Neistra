@@ -898,3 +898,44 @@ so its result is not qualification. Stopped only those identified disposable
 server PIDs, confirmed free ports and ran the fresh clean passing qualification
 above. No retries, timing relaxation or weakened scientific assertion.
 This restores the approved clear-error outcome, not expanded feature scope.
+
+### 2026-10-10 — C5 release preparation
+
+Review correction is `2ba0d84`; all accepted outcomes map to evidence below.
+Fetched current `origin/master`; unchanged base `984ecc0` remains an ancestor, so no
+upstream merge/conflict or discarded work. Latest public release/tag is v0.11.0;
+remote/local v0.12.0 collision checks are empty. All five authoritative sources now
+agree **0.12.0**, with only the root dev version changed in uv.lock; no dependency
+upgrade or root JS version added. Producer assertion and README/release notes,
+compatibility, scientific limits and current guidance updated. Minor increment
+adds public toolbar/navigation functionality without API/persisted compatibility
+breaks. No migration or schema-major change (0013/1).
+
+Final version-focused archive/coordinate command: **32 passed**, **11.58 s**.
+Actual v0.11.0 checkout/API/core/plugin reads final **0.12.0** data in fresh migrated
+`/tmp/neistra-issue46-c5-reader`: exact coordinates/originals, retained batch
+undo/redo, save/reexport, archive import without history, completedjobs unchanged.
+[Producer](../assets/viewer-transform-toolbar/c5-producer.json) and
+[reader](../assets/viewer-transform-toolbar/c5-reader.json) identify actual versions.
+Complete candidate/exact-merged gates and remote delivery remain pending.
+
+| Accepted outcome | Passing evidence |
+|---|---|
+| Separate viewer/inspector launcher, explained availability, defaults and numerical invalidation | C1 unit/native toolbar; numeric-preview ownership tests; full frontend169. |
+| Fixed primaryrotate/secondarytranslate despite touch preference; current-plane mapping | Native toolbar test1 and navigation bothprojections; domain quaternion/allconformer tests. |
+| Space/toggle OR and latest-camera resumption; native orbit/pan/zoom without selection/pose/persisted leakage | Native navigation test with exact camera/coordinates/selection/GET/request assertions; hook/binding/adapter tests. |
+| Shortcut scopes, modal/key release, blur/visibility/remount and fresh gestures | C3 units/native interruption/held-pointer tests; final stale-release guards cover both owners/layouts. |
+| Shared Apply/Cancel/history, hidden complete targets, unselected/original/job invariants | Native toolbar/remount and existing multi-entry movement suite; 130 focused Python; actual0.11 reader. |
+| Touch/depth/keyboard, themes, primary access and realzoom | True CDPtouch + scopedaxe + primary hit testing; actual100/200% zoom and eight inspected screenshots; C3 gate18/4skip. |
+| Readable errors | Regression reproduced both layouts; clean light/dark correction2/2, no weaker assertions. |
+| Surfaces/pockets/measurements/archive compatibility and boundedpreview queue | C4 38 browsers/8skip, 130 Python, six ownership cycles; first/latest2frames, one active, established timing budgets. |
+
+Full-diff review is **local, not independent**. Reviewed all changed runtime,
+interfaces/harnesses/regression selectors, tests, schema/API/version sources,
+scientific authority, pointer/key/focus/async ownership, layout/errors, native
+camera properties, cleanup and compatibility. Consequential lifecycle, stale
+release, primary scrolling and error placement findings are corrected and gated.
+No dead boolean adapter/caller remains; historical decisions preserved. No
+approved deferred/rejected capability reintroduced or speculative follow-up.
+Next: commit release preparation, run the complete clean candidate gate, record
+exact results, then push/open the planned PR and request Codex review.
