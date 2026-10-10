@@ -2,7 +2,7 @@
 
 ## Status and delivery metadata
 
-**Status: implementation in progress; M2/C2 complete, C3 next.** Approved explicitly
+**Status: implementation in progress; M2/C3 input lifecycle and responsive qualification.** Approved explicitly
 on 2026-10-10, persisted as `ffea74185ce3d7b79cdb2989288f690d4e373a24`, and
 verified on the remote feature branch. The subsequent explicit `/goal` authorizes
 checkpoint implementation and the complete reviewed release workflow below.
@@ -769,3 +769,27 @@ Updated transformation guidance and architecture. D-083 implementation note
 records synchronous native focus ownership. C1 commit is `aae804f`.
 Next: C3 held-pointer/interruption, true touch, real zoom and responsive evidence.
 No blocker or approved-scope deviation.
+
+### 2026-10-10 — C3 lifecycle correction checkpoint
+
+Review identified that a blur/hidden/modal interruption must end a molecular drag
+at its accepted pose even when temporary navigation was already off. An
+application-owned transient input epoch now signals interruptions independently
+of navigation flags; immediate overlay blur/visibility cleanup clears capture
+before lost-capture can roll back the accepted pose. Pointer guards ignore held
+continuation and newly added pointers until prior pointers release. Native input
+tracking covers both owned surfaces; public native end events and touch/mouse
+start guards require fresh gestures. Modal observation only resets on takeover,
+avoiding repeated interruption signals from unrelated modal DOM updates.
+
+Passing focused correction checks: frontend lint/types; **20 Vitest tests / 4
+files** (planned C3 suite plus `movement-navigation.test.tsx`); **2 native held-mouse
+cases** in Chromium and Pixel 7, **25.4 s**. Browser command is the toolbar spec
+with `--grep 'held mouse'`, isolated 8210/8211/5373 and fresh
+`/tmp/neistra-issue46-c3-gesture-e2e`. Native coordinates/camera remain exact through
+both ownership directions and blur; a fresh drag works and Cancel restores originals.
+Full correction diff/whitespace review passes. No scientific/persisted-data change.
+
+This is a substantive `fix(transform)` checkpoint within C3, not M2 completion.
+Next: true touch, native control Space, modal/visibility/remount and complete
+responsive/real-zoom gates, followed by the C3 qualification commit.

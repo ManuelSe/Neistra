@@ -7,9 +7,13 @@ const canvasFocused = () => document.activeElement?.matches('[data-movement-canv
 export function useMovementNavigation(active: boolean) {
   const [heldSpace, setHeldSpace] = useState(false);
   const [viewToggle, setViewToggle] = useState(false);
+  const [inputEpoch, setInputEpoch] = useState(0);
   const enabled = useRef(active);
   enabled.current = active;
-  const clear = useCallback(() => { setHeldSpace(false); setViewToggle(false); }, []);
+  const clear = useCallback(() => {
+    setHeldSpace(false); setViewToggle(false);
+    if (enabled.current) setInputEpoch(epoch => epoch + 1);
+  }, []);
   useEffect(() => { if (!active) clear(); }, [active, clear]);
   useEffect(() => {
     const down = (event: KeyboardEvent) => {
@@ -25,7 +29,12 @@ export function useMovementNavigation(active: boolean) {
     };
     const focus = () => { if (!canvasFocused()) setHeldSpace(false); };
     const visibility = () => { if (document.hidden) clear(); };
-    const observer = new MutationObserver(() => { if (modalOpen()) clear(); });
+    let hadModal = modalOpen();
+    const observer = new MutationObserver(() => {
+      const hasModal = modalOpen();
+      if (hasModal && !hadModal) clear();
+      hadModal = hasModal;
+    });
     observer.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ["role", "aria-hidden", "aria-modal"] });
     window.addEventListener("keydown", down, true);
     window.addEventListener("keyup", up, true);
@@ -41,7 +50,7 @@ export function useMovementNavigation(active: boolean) {
       document.removeEventListener("visibilitychange", visibility);
     };
   }, [clear]);
-  return { cameraNavigation: active && (heldSpace || viewToggle), viewToggle,
+  return { cameraNavigation: active && (heldSpace || viewToggle), viewToggle, inputEpoch,
     clearNavigation: clear,
     toggleView: () => { if (enabled.current && !modalOpen()) setViewToggle(value => !value); } };
 }

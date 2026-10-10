@@ -171,3 +171,45 @@ test("temporarily navigates the native camera with Space and the view toggle wit
     expect((await inspect()).navigationTriggers).toBeGreaterThan(0);
   }
 });
+
+test("ends held mouse gestures at accepted coordinates and camera before ownership changes", async ({ page, request }, info) => {
+  test.setTimeout(90_000);
+  const { project, launcher, inspect, original } = await prepare(page, request, info.project.name === "mobile-chromium");
+  await launcher.click();
+  const box = (await page.getByTestId("structure-viewer").boundingBox())!;
+  const x = box.x + box.width * 0.8, y = box.y + box.height * 0.8;
+  await page.mouse.move(x, y); await page.mouse.down();
+  await page.mouse.move(x - 25, y - 10, { steps: 6 });
+  await expect.poll(async () => (await inspect()).coordinates).not.toEqual(original.coordinates);
+  const accepted = await inspect();
+  await page.keyboard.down("Space");
+  await expect.poll(async () => (await inspect()).movementInteraction).toBe("camera");
+  await page.mouse.move(x - 45, y - 20, { steps: 6 });
+  expect((await inspect()).coordinates).toEqual(accepted.coordinates);
+  expect((await inspect()).camera).toEqual(accepted.camera);
+  await page.mouse.up();
+  // Fresh camera down works; releasing Space while held accepts its current view.
+  await page.mouse.move(x, y); await page.mouse.down();
+  await page.mouse.move(x - 40, y + 15, { steps: 8 });
+  await expect.poll(async () => (await inspect()).camera).not.toEqual(accepted.camera);
+  const camera = (await inspect()).camera;
+  await page.keyboard.up("Space");
+  await expect.poll(async () => (await inspect()).movementInteraction).toBe("transform");
+  await page.mouse.move(x - 55, y + 25, { steps: 6 });
+  expect((await inspect()).coordinates).toEqual(accepted.coordinates);
+  expect((await inspect()).camera).toEqual(camera);
+  await page.mouse.up();
+  // Blur with a transform drag also preserves its accepted pose, without navigation.
+  await page.mouse.move(x, y); await page.mouse.down();
+  await page.mouse.move(x + 15, y - 5, { steps: 5 });
+  await expect.poll(async () => (await inspect()).coordinates).not.toEqual(accepted.coordinates);
+  const beforeBlur = (await inspect()).coordinates;
+  await page.evaluate(() => window.dispatchEvent(new Event("blur")));
+  await page.mouse.move(x + 30, y - 15, { steps: 5 }); await page.mouse.up();
+  expect((await inspect()).coordinates).toEqual(beforeBlur);
+  await drag(page, "right", 10, 0);
+  await expect.poll(async () => (await inspect()).coordinates).not.toEqual(beforeBlur);
+  expect(await projectRead(request, project.id)).toEqual(project);
+  await page.getByRole("button", { name: "Cancel movement" }).click();
+  await expect.poll(async () => (await inspect()).coordinates).toEqual(original.coordinates);
+});

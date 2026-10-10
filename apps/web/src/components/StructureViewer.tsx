@@ -291,7 +291,7 @@ export function StructureViewer({
       if (movementActive && initialSceneReady.current) currentMovement.current?.rememberCamera(viewer?.getCamera() ?? null);
       viewer?.setMovementMode(movementInteraction);
     }
-  }, [movementActive, movementInteraction, viewerReady]);
+  }, [movementActive, movementInteraction, movement?.inputEpoch, viewerReady]);
 
   useEffect(() => {
     if (!viewerReady) return;

@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef } from "react";
 import * as Tooltip from "@radix-ui/react-tooltip";
 import { Move3d } from "lucide-react";
 import { movePose, type MovementMode, type MovementPose, type MovementView } from "../coordinates/interactiveTransform";
@@ -20,18 +20,39 @@ export function MovementOverlay({ movement, view, zoom }: {
   zoom: (factor: number) => void;
 }) {
   const drag = useRef<Drag | null>(null);
+  const ignoredPointers = useRef(new Set<number>());
   const surface = useRef<HTMLDivElement>(null);
   const current = useRef(movement);
   current.current = movement;
   const active = movement.state.phase === "active";
   const cameraNavigation = movement.cameraNavigation;
-  useLayoutEffect(() => {
+  const endAcceptedDrag = useCallback(() => {
     // Ownership/phase changes accept the last pose and terminate its gesture.
     // Clear before release so lost-capture cannot undo an accepted transition.
     const previous = drag.current;
     drag.current = null;
-    if (previous && surface.current?.hasPointerCapture(previous.pointer)) surface.current.releasePointerCapture(previous.pointer);
-  }, [cameraNavigation, active]);
+    if (previous) {
+      ignoredPointers.current.add(previous.pointer);
+      if (surface.current?.hasPointerCapture(previous.pointer)) surface.current.releasePointerCapture(previous.pointer);
+    }
+  }, []);
+  useLayoutEffect(endAcceptedDrag, [endAcceptedDrag, cameraNavigation, active, movement.inputEpoch]);
+  useEffect(() => {
+    const up = (event: PointerEvent) => ignoredPointers.current.delete(event.pointerId);
+    const blur = () => { endAcceptedDrag(); ignoredPointers.current.clear(); };
+    const visibility = () => { if (document.hidden) blur(); };
+    window.addEventListener("pointerup", up, true);
+    window.addEventListener("pointercancel", up, true);
+    window.addEventListener("blur", blur);
+    document.addEventListener("visibilitychange", visibility);
+    return () => {
+      window.removeEventListener("pointerup", up, true);
+      window.removeEventListener("pointercancel", up, true);
+      window.removeEventListener("blur", blur);
+      document.removeEventListener("visibilitychange", visibility);
+      endAcceptedDrag();
+    };
+  }, [endAcceptedDrag]);
   useEffect(() => {
     // Modal dialogs/drawers own their focus and Escape until they close.
     const modalOpen = () => document.querySelector('[role="dialog"]:not([aria-modal="false"]):not([aria-hidden="true"])') !== null;
@@ -63,6 +84,7 @@ export function MovementOverlay({ movement, view, zoom }: {
         if (!cameraNavigation && delta[event.key]) { event.preventDefault(); stepMovement(current.current, view, ...delta[event.key]); }
       }}
       onPointerDown={event => {
+        if (ignoredPointers.current.size) { event.preventDefault(); event.stopPropagation(); return; }
         if (!active || cameraNavigation || drag.current || !movement.state.capture || ![0, 2].includes(event.button)) return;
         const camera = view();
         if (!camera) return;

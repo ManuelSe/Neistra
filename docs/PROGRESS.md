@@ -21,7 +21,9 @@ workflow with `/goal` on 2026-10-10. Work is on the planned feature branch.
   preceding-reader and C5 full candidate/release gates remain pending. Existing
   scientific, emulation and advisory limits remain. No new migration (head 0013).
 - Blockers: none.
-- Next action: commit passing C2 and qualify C3 interruptions/responsive controls.
+- Next action: C2 committed as `4a5e957`; commit the passing C3 lifecycle
+  correction (20 focused units, lint/types and 2 exact native held-mouse/blur cases).
+  Complete C3 touch/modal/remount/responsive/actual zoom and full M2 gates next.
   Planned minor **0.12.0 / v0.12.0**; all five current versions remain **0.11.0**.
 
 ### Previous release — v0.11.0

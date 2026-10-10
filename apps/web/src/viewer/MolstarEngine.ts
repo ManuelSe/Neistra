@@ -160,27 +160,35 @@ export class MolstarEngine implements MolecularViewer {
     }
     this.plugin = plugin;
     this.mountTarget = target;
-    const down = (event: PointerEvent) => this.heldPointers.add(event.pointerId);
+    const inputRoot = target.parentElement ?? target;
+    const down = (event: PointerEvent) => {
+      if (event.target instanceof Element && (event.target instanceof HTMLCanvasElement
+        || event.target.closest(".movement-pointer-surface"))) this.heldPointers.add(event.pointerId);
+    };
     const up = (event: PointerEvent) => {
       this.heldPointers.delete(event.pointerId);
       this.ignoredPointers.delete(event.pointerId);
     };
-    const blockTouchContinuation = (event: TouchEvent) => {
+    const blockContinuation = (event: Event) => {
       if (!this.ignoredPointers.size) return;
       event.preventDefault();
       event.stopImmediatePropagation();
     };
     const blur = () => { this.heldPointers.clear(); this.ignoredPointers.clear(); };
-    target.addEventListener("pointerdown", down, true);
+    inputRoot.addEventListener("pointerdown", down, true);
     window.addEventListener("pointerup", up, true);
     window.addEventListener("pointercancel", up, true);
-    target.addEventListener("touchmove", blockTouchContinuation, { capture: true, passive: false });
+    target.addEventListener("touchmove", blockContinuation, { capture: true, passive: false });
+    target.addEventListener("touchstart", blockContinuation, { capture: true, passive: false });
+    target.addEventListener("mousedown", blockContinuation, true);
     window.addEventListener("blur", blur);
     this.stopInputBoundary = () => {
-      target.removeEventListener("pointerdown", down, true);
+      inputRoot.removeEventListener("pointerdown", down, true);
       window.removeEventListener("pointerup", up, true);
       window.removeEventListener("pointercancel", up, true);
-      target.removeEventListener("touchmove", blockTouchContinuation, true);
+      target.removeEventListener("touchmove", blockContinuation, true);
+      target.removeEventListener("touchstart", blockContinuation, true);
+      target.removeEventListener("mousedown", blockContinuation, true);
       window.removeEventListener("blur", blur);
       blur();
     };
@@ -494,7 +502,15 @@ export class MolstarEngine implements MolecularViewer {
 
   setMovementMode(interaction: MovementInteraction): void {
     const canvas = this.plugin?.canvas3d;
-    if (!canvas || interaction === this.movementInteraction) return;
+    if (!canvas) return;
+    if (interaction === this.movementInteraction) {
+      if (interaction !== "inactive") {
+        this.releaseNavigationKeys();
+        this.endNavigationGesture();
+        if (interaction === "transform") this.movementCamera = this.getCamera();
+      }
+      return;
+    }
     const previous = this.movementInteraction;
     if (previous === "inactive") {
       this.movementBindings = structuredClone(canvas.attribs.trackball);
@@ -504,11 +520,7 @@ export class MolstarEngine implements MolecularViewer {
     // events reset Mol*'s observer; no private controls or camera implementation.
     this.movementInteraction = interaction === "inactive" ? previous : interaction;
     this.releaseNavigationKeys();
-    if (this.heldPointers.size) {
-      this.heldPointers.forEach(pointer => this.ignoredPointers.add(pointer));
-      window.dispatchEvent(new MouseEvent("mouseup", { clientX: -100000, clientY: -100000, buttons: 0 }));
-      this.mountTarget?.querySelector("canvas")?.dispatchEvent(new Event("touchend", { bubbles: true }));
-    }
+    this.endNavigationGesture();
     this.movementCamera = interaction === "transform" ? this.getCamera() : null;
     this.movementInteraction = interaction;
     if (interaction === "inactive") {
@@ -522,6 +534,13 @@ export class MolstarEngine implements MolecularViewer {
       : Object.fromEntries(Object.keys(this.movementBindings!.bindings).map(key => [key, Binding.Empty])) as Canvas3DAttribs["trackball"]["bindings"];
     canvas.setAttribs({ trackball: { bindings } });
     canvas.setProps({ trackball: { staticMoving: true, animate: { name: "off", params: {} } } });
+  }
+
+  private endNavigationGesture() {
+    if (!this.heldPointers.size) return;
+    this.heldPointers.forEach(pointer => this.ignoredPointers.add(pointer));
+    window.dispatchEvent(new MouseEvent("mouseup", { clientX: -100000, clientY: -100000, buttons: 0 }));
+    this.mountTarget?.querySelector("canvas")?.dispatchEvent(new Event("touchend", { bubbles: true }));
   }
 
   private releaseNavigationKeys() {

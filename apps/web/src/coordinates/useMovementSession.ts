@@ -21,6 +21,7 @@ export interface MovementWorkflow {
   viewToggle: boolean;
   toggleView: () => void;
   clearNavigation: () => void;
+  inputEpoch: number;
 }
 
 export function useMovementSession(ports: MovementSessionPorts & { beforeStart?: () => void }) {
