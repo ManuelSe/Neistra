@@ -2,29 +2,28 @@
 
 ## Current milestone
 
-Issue #46 — C1–C5 complete; clean candidate qualified for minor **v0.12.0**.
-Contract: [viewer toolbar/navigation plan](plans/issue-46-viewer-transform-toolbar.md).
-Authorized delivery branch: `feat/issue-46-viewer-transform-toolbar`.
+Issue #46 — approved scope delivered through [PR #47](https://github.com/ManuelSe/Neistra/pull/47) and verified
+[release v0.12.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.12.0). Contract and detailed evidence:
+[viewer toolbar/navigation plan](plans/issue-46-viewer-transform-toolbar.md).
+All C1–C5 complete. Separate viewer toolbar/shared transaction, fixed mouse
+mappings, scoped Space/approved touch toggle, retained preview/latest camera,
+accepted-gesture termination/fresh-input guards and responsive controls delivered.
+D-083 and guidance current; all five versions are 0.12.0, no migration/major change (0013/1).
 
-Separate toolbar/shared transaction, fixed mouse mappings, scoped Space and
-approved touch toggle, accepted-gesture termination, fresh-pointer/native-key
-cleanup, latest-camera remount, reachable secondary/primary tools, readable
-errors and fitted styling palette are complete. D-083 and user guidance current.
+Complete clean candidate and exact released-master gates each pass **398 Python,
+169 frontend, eight supervisor and 155 browser tests / 43 intentional skips**,
+zero failures/flakes/retries, frozen installs/fresh migration 0013/lint/types/build. Native
+preview/Cancel/task budgets and first/latest queue pass; surface regeneration
+separate. Actual tagged v0.11.0 reader accepts final 0.12.0 exact data/history/
+archives/jobs. Released commit `427c050b32c5ae361c7c9da042616a5266600dcd`; annotated tag/release and downloaded
+verification bytes checked. Issue closed and [closeout reply](https://github.com/ManuelSe/Neistra/issues/46#issuecomment-6102912003) verified.
+Reply maintains final documentation-merge/branch-cleanup/clean-master audit.
 
-Complete clean source `545d3553557a8b442b45e9b37a14259751360aba` passes frozen installs/fresh0013 migration,
-Ruff/mypy/lint/types/build, **398 Python, 169 frontend, eight supervisor and
-155 browser tests / 43 intentional skips**, zero failures/flakes/retries.
-[Exact candidate evidence](assets/viewer-transform-toolbar/candidate-verification.json)
-and the plan retain commands, diagnostics, corrections, screenshots/performance.
-Actual tagged v0.11.0 reader accepts final0.12.0 exact coordinates/originals,
-retained undo/redo, save/reexport, archives and unchanged jobs. No migration or
-contract-major change (0013/1); all five versions0.12.0. Review local, not independent.
-
-Limits: unconstrained geometry, pinned Chromium/SwiftShader/emulated Pixel7,
-existing Alembic/lazy Mol* advisories and approved deferrals. No follow-up issue.
-Blockers: none. Next: push/open PR, request review, normal merge and exact-master
-qualification before annotated tag/release/issue reply/documentation cleanup.
-Current published baseline remains v0.11.0.
+Review local, not independent; Codex requested without a returned review.
+Limits remain unconstrained geometry, pinned Chromium/SwiftShader/Pixel 7 emulation,
+existing advisories and approved deferrals; no follow-up issues. No blockers or
+remaining implementation work. Final documentation/cleanup audit is maintained
+in the linked issue reply. Next product action: approve a separate backlog plan.
 
 ### Previous release — v0.11.0
 
@@ -2245,11 +2244,9 @@ Results:
 
 ## Blockers
 
-No current blocker to issue #46 delivery. Issue #4 remains released; its final cleanup audit is maintained
-in its closeout reply.
+No current blocker. Issue #46 is released; final cleanup audit is maintained in its closeout reply.
 
 ## Next action
 
-Follow the completed candidate through reviewed PR,
-normal merge, exact-master gate, v0.12.0 release and verified branch cleanup.
-Current published baseline remains v0.11.0; candidate is v0.12.0.
+Select and approve a separate backlog plan. Current released baseline is v0.12.0;
+the issue closeout maintains the final documentation/branch-cleanup audit.

@@ -51,14 +51,17 @@ actual 100%/200% zoom, inspected screenshots, scientific/archive/migration check
 and actual preceding-release readers. Clean candidate `545d3553557a8b442b45e9b37a14259751360aba` passes the complete
 release gate: **398 Python, 169 frontend, eight supervisor and 155 browser tests /
 43 intentional skips**, zero failures/flakes/retries; frozen installs/fresh0013,
-Ruff/mypy/lint/types/build pass. Exact merged qualification remains required before
-publication; commands/timings are linked from the plan.
+Ruff/mypy/lint/types/build pass. Exact merged `427c050b32c5ae361c7c9da042616a5266600dcd` repeats the same complete
+gates; final actual 0.11.0 reader qualification passes. [PR #47](https://github.com/ManuelSe/Neistra/pull/47), annotated
+tag/[release v0.12.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.12.0), downloaded verification bytes and
+[issue closeout](https://github.com/ManuelSe/Neistra/issues/46#issuecomment-6102912003) are verified. Exact commands/timings and native
+performance are linked from the plan; final cleanup audit is maintained in the reply.
 
 C4 native first preview 144.5/26.7 ms, exact Cancel 14.2/14.7 ms and longest task 125/0
 observed ms pass unchanged 500/500/750 ms budgets. Six ownership cycles per case,
 two rendered frames per 40-frame burst, one active update, exact restoration and
 zero molecular requests pass. Surface restoration 18.9 ms/full regeneration 1074 ms
-are separate. Review is local, not independent; request Codex review on the PR.
+are separate. Review is local, not independent; Codex was requested without a returned review.
 
 ### Deferred scope and known limitations
 

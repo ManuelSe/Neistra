@@ -1,0 +1,12 @@
+{
+  "release_id": 409246665,
+  "release_url": "https://github.com/ManuelSe/Neistra/releases/tag/v0.12.0",
+  "published_at": "2026-10-10T22:34:49Z",
+  "stable": true,
+  "tag_object": "53e411b6c3b66f0fe0d3622f21f63ec3208468c7",
+  "released_commit": "427c050b32c5ae361c7c9da042616a5266600dcd",
+  "asset_id": 629160467,
+  "asset_size": 15462,
+  "asset_sha256": "6b4f7bb937353798cf270495f425381f9533723c1f7188c84cebfd245c33063f",
+  "downloaded_bytes_match": true
+}
