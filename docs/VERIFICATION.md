@@ -1,6 +1,12 @@
 # V0.1 Requirement Evidence
 
-Current interactive movement evidence is maintained in
+Current toolbar/navigation evidence is maintained in
+[the approved issue #46 plan](plans/issue-46-viewer-transform-toolbar.md).
+C1–C3 qualify shared transactions, native ownership, interruption, touch,
+accessibility and real zoom. Scientific/compatibility and release gates are
+recorded separately as they complete; no schema or migration changes.
+
+Previous interactive movement evidence is maintained in
 [the approved issue #4 plan](plans/issue-4-interactive-selection-transform.md).
 It links native coordinate/performance and actual zoom screenshots, domain/API
 atomicity/history/restart/export/archive tests and actual previous-release reader

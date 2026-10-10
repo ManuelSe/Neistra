@@ -835,3 +835,9 @@ Evidence:
   outcomes. Historical verification evidence preserved; no scope reduction.
 - Complete diff/whitespace review passes. No API/data/migration/scientific/version
   change. Next: C4 scientific, persistence, performance and actual v0.11.0 reader.
+
+C3 correction `f637339` is followed by the qualification documentation/assets
+checkpoint. A concurrent post-review frontend shell exited 143 after Vite had
+reported success during browser-server teardown; its unit/lint/type logs pass.
+The isolated standalone build was repeated after shutdown and exits 0 in 7.40 s.
+No failed gate is presented as passing; final browser guard rerun took 26.3 s.
