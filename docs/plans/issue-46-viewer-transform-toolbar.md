@@ -2,7 +2,7 @@
 
 ## Status and delivery metadata
 
-**Status: C1–C5 complete; candidate qualified, PR/review/merge and publication pending.** Approved explicitly
+**Status: Released v0.12.0; C1–C5 complete; final documentation/cleanup audit in issue reply.** Approved explicitly
 on 2026-10-10, persisted as `ffea74185ce3d7b79cdb2989288f690d4e373a24`, and
 verified on the remote feature branch. The subsequent explicit `/goal` authorizes
 checkpoint implementation and the complete reviewed release workflow below.
@@ -667,11 +667,11 @@ and progress update. It leaves the global `docs/PLAN.md` unchanged.
 | Planning commit/push | Handoff record | Initial commit title is `docs(plan): add approved plan for issue 46`; its exact SHA and remote branch verification are reported after commit/push, outside this commit to avoid self-reference. |
 | M1 / C1 | Complete | 40 focused units; 165 full frontend tests; lint/types/build; 27 existing browser cases and 2 toolbar cases pass, with 5 intentional layout skips. |
 | M2 / C2–C3 | Complete | 169 frontend tests; 18 C3 browser passes / four intentional skips plus four final guard passes; actual zoom/touch evidence retained. |
-| M3 / C4–C5 | In progress | C4 complete: 130 Python and 38 browser passes / eight intentional skips; six native ownership cycles, bounded queue and actual v0.11.0 reader pass. C5 next. |
-| PR/review/merge | Not started | Complete candidate gate before PR; comply with live repository policy. |
-| Exact-merged qualification | Not started | Complete release gate on verified merged master. |
-| Tag/release/issue reply | Not started | Publish only from qualified merged commit; verify remotely. |
-| Documentation closeout/branch cleanup | Not started | Complete and verify after delivery; leave unrelated branches unchanged. |
+| M3 / C4–C5 | Complete | Scientific/performance/preceding-reader qualification and complete candidate/exact-merged gates pass; evidence below. |
+| PR/review/merge | Complete | PR #47 normal merge; local full-diff review, verified Codex request and policy audit. |
+| Exact-merged qualification | Complete | Same complete gates and actual v0.11.0 reader repeated on released master; evidence below. |
+| Tag/release/issue reply | Complete | Annotated v0.12.0/release/asset bytes and [issue reply](https://github.com/ManuelSe/Neistra/issues/46#issuecomment-6102912003) verified. |
+| Documentation closeout/branch cleanup | Final audit maintained in issue reply | Same planned branch, docs-only PR; final verified audit in [issue reply](https://github.com/ManuelSe/Neistra/issues/46#issuecomment-6102912003). |
 
 ### 2026-10-10 — Approved planning handoff
 
@@ -1026,3 +1026,42 @@ findings are corrected and verified. No remaining actionable finding. This
 completion/evidence commit changes only docs/assets; runtime/tests/versions remain
 identical to the qualified source. Fetch/base/tag/policy checks are repeated at PR
 merge. Exact merged-master gate, actual-reader rerun and remote delivery follow.
+
+### 2026-10-11 — Verified merge, exact-master qualification and publication
+
+[PR #47](https://github.com/ManuelSe/Neistra/pull/47) merged normally, preserving approved plan and meaningful checkpoint
+history. Released master SHA: `427c050b32c5ae361c7c9da042616a5266600dcd`, verified on origin/master before testing.
+Complete release gate repeated on this exact clean commit: **398 Python, 169
+frontend, eight supervisor and 155 browser tests / 43 intentional layout skips**,
+zero failures/flakes/retries. Frozen installs, fresh migration 0013, Ruff/mypy,
+frontend lint/types/build and whitespace checks all pass. Browser duration
+**25.97 min**.
+[Exact merged evidence](../assets/viewer-transform-toolbar/merged-verification.json)
+retains commands, timings, clean-state/commit identity and native performance.
+Runtime/tests/versions are identical to the complete passing candidate.
+Actual tagged v0.11.0 API/core/plugin reading final 0.12.0 was repeated after this
+gate: exact coordinates/originals, retained batch undo/redo, save/reexport,
+archive import without portable history and unchanged completed jobs all pass.
+[Producer](../assets/viewer-transform-toolbar/merged-producer.json) and
+[reader](../assets/viewer-transform-toolbar/merged-reader.json) identify actual
+versions. No migration/schema/API/history vocabulary change; all five versions are 0.12.0.
+
+Annotated `v0.12.0` targets this exact qualified merged commit. Tag object and
+peeled target, stable [GitHub release](https://github.com/ManuelSe/Neistra/releases/tag/v0.12.0), published notes and release
+asset are verified remotely. Downloaded `neistra-0.12.0-verification.json` bytes
+match the local [verification report](../assets/viewer-transform-toolbar/release-verification.json).
+Release notes cover outcome/fixes/science/data/compatibility/verification,
+qualified-device limits, approved simplifications/deferrals/rejections and no
+speculative follow-ups. No capability beyond the approved plan was reintroduced.
+
+[Codex request](https://github.com/ManuelSe/Neistra/pull/47#issuecomment-6102663128)
+and [local review/audit](https://github.com/ManuelSe/Neistra/pull/47#issuecomment-6102678272)
+are verified. No returned integration review/check; review remains local, not
+independent. Master unprotected, no rulesets/workflows/required checks/reviews,
+clean mergeable PR and no unresolved review findings. No protection/approval bypass.
+
+Issue #46 is closed; [closeout reply](https://github.com/ManuelSe/Neistra/issues/46#issuecomment-6102912003) is verified. This docs-only
+closeout uses the same planned feature branch, fast-forwarded to released master;
+it records publication without retargeting the tag or changing qualified source.
+Final branch cleanup and clean-master audit are maintained in that reply after
+the documentation PR merge. No remaining implementation scope or blocker.

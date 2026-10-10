@@ -6,7 +6,9 @@ C1–C5 qualify shared transactions, native ownership, interruption, true touch,
 accessibility/real zoom, scientific/compatibility and performance. Clean candidate
 `545d3553557a8b442b45e9b37a14259751360aba` passes all release commands: 398 Python, 169 frontend, eight supervisor,
 155 browser passes/43 intentional skips, zero failures/flakes/retries. Exact
-merged qualification and publication remain pending; no schema/migration changes.
+merged `427c050b32c5ae361c7c9da042616a5266600dcd` repeats these complete gates; final 0.12.0 producer/actual 0.11.0
+reader pass. Annotated tag/release and issue closeout verified; no schema/migration
+changes. Final cleanup audit is in the issue reply linked from the plan.
 
 Previous interactive movement evidence is maintained in
 [the approved issue #4 plan](plans/issue-4-interactive-selection-transform.md).
