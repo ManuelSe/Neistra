@@ -109,6 +109,7 @@ test("keeps actions and dialogs reachable at real 100% and 200% browser zoom", a
         if (factor === 2) await page.getByRole("button", { name: "Close panel", exact: true }).click({ position: { x: 2, y: 100 } });
         expect((await new AxeBuilder({ page }).include(".movement-banner").include(".movement-pointer-surface")
           .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"]).analyze()).violations).toEqual([]);
+        await movement.getByText("More", { exact: true }).click();
         const statusBox = (await page.locator(".viewer-status").boundingBox())!;
         const movementBox = (await movement.boundingBox())!;
         expect(movementBox.y).toBeGreaterThan(statusBox.y + statusBox.height);
@@ -128,7 +129,7 @@ test("keeps actions and dialogs reachable at real 100% and 200% browser zoom", a
         await movement.evaluate(element => { element.scrollTop = 0; });
         await captureZoomPage(page, info, `${theme}-${factor * 100}-interactive-movement.png`);
         await page.keyboard.press("Escape"); await expect(movement).toBeHidden();
-        await expect(page.getByRole("button", { name: factor === 2 ? "Fit all visible" : "Move selection", exact: true })).toBeFocused();
+        await expect(page.getByRole("button", { name: factor === 2 ? "Transform selection" : "Move selection", exact: true })).toBeFocused();
         const settings = page.locator('.msp-viewport-controls button[title="Settings / Controls Info"]');
         await settings.click();
         const popup = page.locator(".msp-viewport-controls-panel");

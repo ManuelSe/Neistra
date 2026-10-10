@@ -19,7 +19,8 @@ vi.mock("../components/WorkspaceCanvas", () => ({
     useEffect(() => {
       onRenderedMovementAtoms?.(() => [{ structure_id: "protein", atom_id: 1 }]);
     }, [onRenderedMovementAtoms]);
-    return <output data-testid="phase">{props.movement?.state.phase}</output>;
+    return <><output data-testid="phase">{props.movement?.state.phase}</output>
+      <button onClick={() => props.movement?.start()}>Transform selection</button></>;
   },
 }));
 vi.mock("../components/ProjectInspector", () => ({
@@ -59,7 +60,7 @@ it("discards a delayed numerical preview cleared by movement while retaining val
   act(() => useSelectionStore.getState().replace(canonicalSelection([{ structure_id: "protein", atom_id: 1 }])));
   await user.click(screen.getByRole("button", { name: "Numerical preview" }));
   await waitFor(() => expect(requested).toBe(true));
-  await user.click(screen.getByRole("button", { name: "Start movement" }));
+  await user.click(screen.getByRole("button", { name: "Transform selection" }));
   await waitFor(() => expect(screen.getByTestId("phase")).toHaveTextContent("loading"));
   seen.preview.mockClear();
   await act(async () => { finish(); await Promise.resolve(); });

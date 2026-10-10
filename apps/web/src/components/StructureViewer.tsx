@@ -35,9 +35,9 @@ import { ViewerControls } from "./ViewerControls";
 import { ViewerToolbar } from "./ViewerToolbar";
 import { resolvePocketInputs } from "../selection/pocketInputs";
 import { SelectionStyleDialog } from "./SelectionStyleDialog";
-import { MovementOverlay } from "./MovementOverlay";
+import { MovementOverlay, MovementControls } from "./MovementOverlay";
 import type { MovementWorkflow } from "../coordinates/useMovementSession";
-import { movementPreview } from "../coordinates/interactiveTransform";
+import { movementPreview, movementUnavailableReason } from "../coordinates/interactiveTransform";
 import { CoordinatePreviewQueue } from "../viewer/CoordinatePreviewQueue";
 
 const VIEWER_BACKGROUND_COLORS: Record<Theme, string> = {
@@ -456,6 +456,8 @@ export function StructureViewer({
         ? null
         : "Selection styling is unavailable in this workspace";
 
+  useEffect(() => { if (movementActive) setStyleProjectId(null); }, [movementActive]);
+
   const openStyleDialog = () => {
     if (styleDialogOpen) { setStyleDialogOpen(false); return; }
     if (selectionStyleUnavailableReason) return;
@@ -501,19 +503,45 @@ export function StructureViewer({
         zoom={factor => viewerRef.current?.zoom(factor)} /> : null}
       {(movementActive || coordinatePreview) && project.measurements.length ? <div className="measurement-preview-notice" role="status">Measurements paused during coordinate preview.</div> : null}
       <Tooltip.Provider delayDuration={350}>
-        {!movementActive ? <ViewerToolbar
+        <div className="viewer-header">
+      <div className="viewer-status" role="status">
+        <span>
+          {visibleEntries.length} visible
+          {viewerStructures.length > 0 ? ` / ${viewerStructures.length} loaded` : ""}
+          {` / ${selection.atoms.length} selected`}
+        </span>
+        {warningCount > 0 ? (
+          <span className="viewer-warning">
+            <AlertTriangle size={13} /> {warningCount} warning{warningCount === 1 ? "" : "s"}
+          </span>
+        ) : null}
+        {largeEntries.length > 0 ? (
+          <span className="viewer-warning" title="Surface and dense labels use reduced detail">
+            <AlertTriangle size={13} /> reduced detail
+          </span>
+        ) : null}
+      </div>
+        <ViewerToolbar
+          pickingUnavailableReason={movementActive ? "Finish movement before changing selection" : null}
           pickingGranularity={pickingGranularity}
           onPickingGranularity={onPickingGranularity}
-          fitAllUnavailableReason={viewerUnavailableReason}
-          focusSelectionUnavailableReason={focusSelectionUnavailableReason}
-          focusLigandsUnavailableReason={focusLigandsUnavailableReason}
-          selectionStyleUnavailableReason={styleDialogOpen ? null : selectionStyleUnavailableReason}
+          fitAllUnavailableReason={movementActive ? "Finish movement before focusing the view" : viewerUnavailableReason}
+          focusSelectionUnavailableReason={movementActive ? "Finish movement before focusing the view" : focusSelectionUnavailableReason}
+          focusLigandsUnavailableReason={movementActive ? "Finish movement before focusing the view" : focusLigandsUnavailableReason}
+          selectionStyleUnavailableReason={movementActive ? "Finish movement before styling selection" : styleDialogOpen ? null : selectionStyleUnavailableReason}
           selectionStyleOpen={styleDialogOpen}
           onFitAll={() => viewerRef.current?.fitVisible()}
           onFocusSelection={() => viewerRef.current?.focusAtoms(selection.atoms)}
           onFocusLigands={() => viewerRef.current?.focusAtoms(ligandAtoms)}
           onSelectionStyle={openStyleDialog}
-        /> : null}
+        />
+        {movement ? <MovementControls movement={movement}
+          view={() => viewerRef.current?.getMovementView() ?? null}
+          zoom={factor => viewerRef.current?.zoom(factor)}
+          unavailableReason={movement.state.phase !== "idle" ? "Selection capture is in progress"
+            : busy ? "Finish the current project change before moving selection"
+            : viewerUnavailableReason ?? movementUnavailableReason(project, selection, () => viewerRef.current?.getRenderedAtomReferences() ?? [])} /> : null}
+        </div>
         <SelectionStyleDialog
           onExpandDistance={onExpandDistance}
           onAppearance={onAppearance}
@@ -583,23 +611,7 @@ export function StructureViewer({
             aria-label={`Retry ${status.channel} surface for ${status.label}`} onClick={() => viewerRef.current?.retrySurface(status.entryId, status.channel)}>Retry</button> : null}
         </div>)}
       </div> : null}
-      <div className="viewer-status" role="status">
-        <span>
-          {visibleEntries.length} visible
-          {viewerStructures.length > 0 ? ` / ${viewerStructures.length} loaded` : ""}
-          {` / ${selection.atoms.length} selected`}
-        </span>
-        {warningCount > 0 ? (
-          <span className="viewer-warning">
-            <AlertTriangle size={13} /> {warningCount} warning{warningCount === 1 ? "" : "s"}
-          </span>
-        ) : null}
-        {largeEntries.length > 0 ? (
-          <span className="viewer-warning" title="Surface and dense labels use reduced detail">
-            <AlertTriangle size={13} /> reduced detail
-          </span>
-        ) : null}
-      </div>
+
       {loading ? (
         <div className="viewer-loading" aria-label="Loading molecular structures">
           <LoaderCircle size={22} />

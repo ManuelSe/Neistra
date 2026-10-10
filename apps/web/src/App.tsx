@@ -260,6 +260,7 @@ export default function App() {
   };
 
   const { session: movementSession, workflow: movement } = useMovementSession({
+    beforeStart: clearCoordinatePreview,
     context: () => ({
       project: queryClient.getQueryData<Project>(["project", useWorkspaceStore.getState().activeProjectId]),
       selection: useSelectionStore.getState().selection,

@@ -2,30 +2,26 @@
 
 ## Current milestone
 
-Issue #46 — approved planning handoff for
+Issue #46 — M2/C2 temporary camera navigation (M1/C1 complete) for
 [viewer transformation toolbar and temporary camera navigation](plans/issue-46-viewer-transform-toolbar.md).
-Explicit user approval on 2026-10-10 authorizes the planning commit/push only;
-implementation has not started and awaits `/goal`.
+The user approved the plan and subsequently authorized the complete delivery
+workflow with `/goal` on 2026-10-10. Work is on the planned feature branch.
 
-- Completed work: repository/issue/release inspection, approved requirement
-  dispositions and M1–M3/C1–C5 contract; distinct transform bar, fixed mouse
-  gestures, hold-Space navigation and the user-selected touch toggle. D-083
-  extends movement interaction ownership without changing scientific authority.
-- Verification performed: unchanged baseline passes 164 frontend tests and 109
-  focused coordinate/archive/migration tests. Clean master fetched and confirmed
-  fast-forward-current at `984ecc0507625f1e72e01c3f9e4c2d4a32961a73` before
-  creating `feat/issue-46-viewer-transform-toolbar`. Planning sections, checkpoint
-  contracts, code fences, local links/anchors, whitespace and exact three-file
-  scope pass; global plan/runtime/version sources are unchanged. The initial
-  commit SHA and remote verification are reported in the planning handoff.
-- Known limitations: no issue #46 functionality or new-feature verification yet;
-  no new browser/release gate during planning. Existing unconstrained movement,
-  emulated-device and Alembic/bundle limitations remain.
-- Blockers: none to planning persistence. Awaiting `/goal` is an authorization
-  boundary, not an implementation failure.
-- Next action: wait for `/goal` after the documentation-only commit/push.
-  Planned release is minor **0.12.0 / `v0.12.0`**; all five authoritative versions
-  remain **0.11.0**, with no planned migration (head `0013`).
+- Completed work: M1/C1 separate transform bar, shared inspector/viewer capture,
+  numerical-preview invalidation, explained availability, fixed mouse gestures,
+  More tools and focus recovery. Detailed source of truth is the feature plan.
+- Verification performed: 40 focused units, 165 full frontend tests, lint,
+  type-check and build pass. Existing C1 browsers pass 27 cases / 5 intentional
+  layout skips; corrected toolbar-only workflow passes 2/2 on desktop/mobile.
+  Diagnostic selector/hit-target/timestamp-baseline failures are explained in
+  the plan; no assertions or budgets weakened. Checkpoint diff/whitespace reviewed.
+- Known limitations: Space/touch camera navigation awaits C2; real zoom and
+  scientific/performance/previous-reader/release gates remain pending. Existing
+  unconstrained movement, emulated-device and Alembic/bundle limitations remain.
+- Blockers: none.
+- Next action: commit passing C1, then implement M2/C2 temporary camera navigation.
+  Planned release remains minor **0.12.0 / `v0.12.0`**. All five authoritative
+  versions remain **0.11.0**; no planned migration (head `0013`).
 
 ### Previous release — v0.11.0
 

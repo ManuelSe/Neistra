@@ -40,6 +40,23 @@ export function initialMovementPose(): MovementPose {
   return { rotation: [0, 0, 0, 1], translation: [0, 0, 0] };
 }
 
+/** Explain cheap synchronous preflight; capture still validates loaded coordinates. */
+export function movementUnavailableReason(project: Project, selection: Selection, rendered: () => readonly AtomReference[]): string | null {
+  if (!selection.atoms.length) return "Select one or more atoms to transform.";
+  const entries = new Map(project.entries.map(entry => [entry.id, entry]));
+  const validIds = new Map<string, Set<number>>();
+  for (const atom of selection.atoms) {
+    const entry = entries.get(atom.structure_id);
+    if (!entry?.current_artifact_id) return "A selected atom is no longer available.";
+    if (!validIds.has(entry.id)) validIds.set(entry.id, new Set(entry.atom_ids));
+    if (!validIds.get(entry.id)!.has(atom.atom_id)) return "A selected atom is no longer available.";
+    if (entry.locked) return `Unlock ${entry.name} before moving the selection.`;
+  }
+  const targets = new Set(selection.atoms.map(atom => `${atom.structure_id}:${atom.atom_id}`));
+  return rendered().some(atom => targets.has(`${atom.structure_id}:${atom.atom_id}`)) ? null
+    : "Show selected atoms in the viewer before starting Move selection. Hidden atoms remain movement targets.";
+}
+
 /** Copy operation inputs; never retain mutable coordinate arrays from the cache. */
 export function captureMovement(
   project: Project, selection: Selection, structures: ReadonlyMap<string, StructureProjection>,

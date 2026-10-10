@@ -18,7 +18,7 @@ export interface MovementWorkflow {
   rememberCamera: (camera: CameraState | null) => void;
 }
 
-export function useMovementSession(ports: MovementSessionPorts) {
+export function useMovementSession(ports: MovementSessionPorts & { beforeStart?: () => void }) {
   const portsRef = useRef(ports);
   portsRef.current = ports;
   const [session] = useState(() => new MovementSession({
@@ -49,7 +49,7 @@ export function useMovementSession(ports: MovementSessionPorts) {
     // the movement surface/banner; never focus a different project's launcher.
     if (active !== document.body && !active?.closest(".movement-banner, .movement-pointer-surface")) return;
     if (target.element?.isConnected) target.element.focus();
-    else document.querySelector<HTMLElement>('.structure-viewer .viewer-toolbar button[aria-label="Fit all visible"]:not([aria-disabled="true"])')?.focus();
+    else document.querySelector<HTMLElement>('.structure-viewer button[aria-label="Transform selection"]:not([aria-disabled="true"])')?.focus();
   }, [state.phase]);
   useEffect(() => () => session.cancel(undefined, true), [session]);
   const workflow: MovementWorkflow = {
@@ -57,6 +57,9 @@ export function useMovementSession(ports: MovementSessionPorts) {
     setSensitivity: value => setSensitivity(Math.min(4, Math.max(0.25, value))),
     start: () => {
       if (session.snapshot().phase !== "idle") return;
+      portsRef.current.beforeStart?.();
+      setMode("rotate");
+      setSensitivity(1);
       movementCamera.current = null;
       returnFocus.current = {
         element: document.activeElement instanceof HTMLElement ? document.activeElement : null,

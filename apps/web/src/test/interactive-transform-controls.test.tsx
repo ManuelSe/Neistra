@@ -3,7 +3,7 @@ import { cleanup, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { useState } from "react";
 import { afterEach, expect, it, vi } from "vitest";
-import { MovementOverlay } from "../components/MovementOverlay";
+import { MovementOverlay, MovementControls } from "../components/MovementOverlay";
 import { useMovementSession } from "../coordinates/useMovementSession";
 import { molecularProject, proteinProjection } from "./molecular-fixtures";
 import { canonicalSelection } from "../selection/selection";
@@ -21,8 +21,8 @@ it("shares keyboard steps with one Apply and restores launcher focus after Cance
   function Harness() {
     const { workflow } = useMovementSession(ports);
     return <><button type="button" onClick={workflow.start}>Move selection</button>
-      {workflow.state.capture ? <MovementOverlay movement={workflow} zoom={zoom}
-        view={() => ({ camera: { mode: "perspective", position: [0, 0, 10], target: [0, 0, 0], up: [0, 1, 0], radius: 5 }, height: 400, fov: Math.PI / 4 })} /> : null}</>;
+      {workflow.state.capture ? <><MovementOverlay movement={workflow} zoom={zoom}
+        view={() => ({ camera: { mode: "perspective", position: [0, 0, 10], target: [0, 0, 0], up: [0, 1, 0], radius: 5 }, height: 400, fov: Math.PI / 4 })} /><MovementControls movement={workflow} zoom={zoom} unavailableReason={null} view={() => ({ camera: { mode: "perspective", position: [0, 0, 10], target: [0, 0, 0], up: [0, 1, 0], radius: 5 }, height: 400, fov: Math.PI / 4 })} /></> : null}</>;
   }
   const user = userEvent.setup();
   render(<QueryClientProvider client={new QueryClient()}><Harness /></QueryClientProvider>);
@@ -30,6 +30,7 @@ it("shares keyboard steps with one Apply and restores launcher focus after Cance
   await user.click(launcher);
   await waitFor(() => expect(screen.getByRole("group", { name: "Move selection canvas" })).toHaveFocus());
   await user.keyboard("{ArrowRight}{ArrowUp}");
+  await user.click(screen.getByText("More"));
   await user.click(screen.getByRole("button", { name: "Translate" }));
   await user.click(screen.getByRole("button", { name: "Step right" }));
   expect(commit).not.toHaveBeenCalled();
@@ -37,6 +38,7 @@ it("shares keyboard steps with one Apply and restores launcher focus after Cance
   expect(screen.queryByRole("region", { name: "Move selection controls" })).not.toBeInTheDocument();
   expect(launcher).toHaveFocus();
   await user.keyboard("{Enter}");
+  await user.click(screen.getByText("More"));
   await user.click(screen.getByRole("button", { name: "Depth" }));
   await user.click(screen.getByRole("button", { name: "Step away" }));
   await user.click(screen.getByRole("button", { name: "Zoom in" }));
@@ -61,8 +63,8 @@ it("retains a captured movement while a modal owns focus and Escape", async () =
         onKeyDown={event => { if (event.key === "Escape") setDialog(false); }}>
         <button type="button" onClick={workflow.start}>Move selection</button>
       </div> : null}
-      {workflow.state.capture ? <MovementOverlay movement={workflow} zoom={vi.fn()}
-        view={() => ({ camera: { mode: "perspective", position: [0, 0, 10], target: [0, 0, 0], up: [0, 1, 0], radius: 5 }, height: 400, fov: Math.PI / 4 })} /> : null}
+      {workflow.state.capture ? <><MovementOverlay movement={workflow} zoom={vi.fn()}
+        view={() => ({ camera: { mode: "perspective", position: [0, 0, 10], target: [0, 0, 0], up: [0, 1, 0], radius: 5 }, height: 400, fov: Math.PI / 4 })} /><MovementControls movement={workflow} zoom={vi.fn()} unavailableReason={null} view={() => ({ camera: { mode: "perspective", position: [0, 0, 10], target: [0, 0, 0], up: [0, 1, 0], radius: 5 }, height: 400, fov: Math.PI / 4 })} /></> : null}
     </>;
   }
   const user = userEvent.setup(); render(<Harness />);
@@ -73,6 +75,7 @@ it("retains a captured movement while a modal owns focus and Escape", async () =
   await user.keyboard("{Escape}");
   expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
   expect(screen.getByRole("region", { name: "Move selection controls" })).toBeInTheDocument();
+  await user.click(screen.getByText("More"));
   await user.click(screen.getByRole("button", { name: "Step right" }));
   await user.keyboard("{Escape}");
   expect(screen.queryByRole("region", { name: "Move selection controls" })).not.toBeInTheDocument();

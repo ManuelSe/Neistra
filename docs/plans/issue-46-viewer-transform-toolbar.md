@@ -2,10 +2,10 @@
 
 ## Status and delivery metadata
 
-**Status: approved implementation plan; implementation not started.** Approved
-explicitly by the user on 2026-10-10. Approval authorizes persisting this plan,
-not starting implementation. Stop after the planning commit and verified branch
-push; await `/goal`.
+**Status: implementation in progress; M1/C1 qualification.** Approved explicitly
+on 2026-10-10, persisted as `ffea74185ce3d7b79cdb2989288f690d4e373a24`, and
+verified on the remote feature branch. The subsequent explicit `/goal` authorizes
+checkpoint implementation and the complete reviewed release workflow below.
 
 | Item | Planned value |
 |---|---|
@@ -659,8 +659,8 @@ and progress update. It leaves the global `docs/PLAN.md` unchanged.
 | Feature branch creation | Complete | Local `feat/issue-46-viewer-transform-toolbar` created from the confirmed base. |
 | Planning documentation verification | Complete | Required sections, five checkpoint contracts, code fences, local links/anchors, exact three-file scope, feature branch and unchanged global plan/runtime/version sources pass; whitespace check passes. |
 | Planning commit/push | Handoff record | Initial commit title is `docs(plan): add approved plan for issue 46`; its exact SHA and remote branch verification are reported after commit/push, outside this commit to avoid self-reference. |
-| M1 / C1 | Not started | Viewer toolbar transformation slice. |
-| M2 / C2–C3 | Not started | Temporary navigation, input lifecycle and responsive qualification. |
+| M1 / C1 | Complete | 40 focused units; 165 full frontend tests; lint/types/build; 27 existing browser cases and 2 toolbar cases pass, with 5 intentional layout skips. |
+| M2 / C2–C3 | Next | Temporary navigation, input lifecycle and responsive qualification. |
 | M3 / C4–C5 | Not started | Scientific/performance/compatibility qualification and release candidate. |
 | PR/review/merge | Not started | Complete candidate gate before PR; comply with live repository policy. |
 | Exact-merged qualification | Not started | Complete release gate on verified merged master. |
@@ -686,3 +686,40 @@ will use pinned Chromium/SwiftShader and Pixel 7 emulation; existing scientific,
 surface-restoration and Alembic/bundle limits remain. No blocker to planning
 persistence. Next action after the verified planning commit/push is to wait for
 `/goal`, without starting implementation or opening a PR.
+
+### 2026-10-10 — M1/C1 complete
+
+Implemented a separate viewer-header transformation bar, shared launcher/capture
+routing and numerical-preview invalidation, synchronous explained availability,
+fixed mouse mappings, originating-launcher focus recovery and bounded More tools.
+Status and selection/styling tools share normal-flow header layout; conflicting
+selection/focus/style actions explain their unavailability throughout movement.
+Inspector access, complete hidden membership and the atomic transaction remain.
+
+Verification on the feature branch:
+
+- Focused C1 Vitest command plus `src/test/interactive-transform.test.ts`:
+  **40 tests / 5 files passed**.
+- `corepack pnpm --dir apps/web lint`, `typecheck`, `test`, `build` passed;
+  full suite **165 tests / 37 files**; build 11.14 s, existing lazy Mol* size advisory.
+- Planned C1 Playwright command, isolated API 8210 / worker 8211 / web 5373,
+  fresh `/tmp/neistra-issue46-c1-final-e2e`: **27 existing cases passed and
+  5 intentional layout skips**. Both new toolbar cases initially stopped on a
+  baseline import-response versus SQLite GET timestamp-format difference.
+- After taking the baseline from the same project GET path, the affected command
+  `PLAYWRIGHT_BROWSERS_PATH=.playwright MOLWEAVE_E2E_API_PORT=8210
+  MOLWEAVE_E2E_WORKER_PORT=8211 MOLWEAVE_E2E_WEB_PORT=5373
+  MOLWEAVE_E2E_DATA_DIR=/tmp/neistra-issue46-c1-toolbar-e2e corepack pnpm exec
+  playwright test tests/e2e/viewer-transform-toolbar.spec.ts` passed **2/2**
+  (26.4 s). No persisted-state assertion was relaxed.
+- Earlier diagnostic runs exposed obsolete hidden-step selectors, More activation
+  behind a mobile modal, and physical drags hitting expanded step buttons. Updated
+  disclosure ordering and asserted canvas hit targets. Cancellation/Ctrl-drag
+  regressions pass in both layouts; no unexplained flake or weakened assertion.
+- Reviewed complete checkpoint diff and `git diff --check` passed. No backend,
+  schema, migration, dependency or authoritative-version change.
+
+Evidence: [checkpoint record](../assets/viewer-transform-toolbar/c1-verification.md).
+Known limits: Space and the touch camera toggle await C2; actual zoom and final
+scientific/performance/release qualification await their approved checkpoints.
+No scope deviation or cross-project decision beyond accepted D-083. Next: C2.

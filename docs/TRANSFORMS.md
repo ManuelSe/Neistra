@@ -6,22 +6,26 @@ operations, without minimization, restraints, chemistry repair or docking scorin
 
 ## Move selection
 
-Select atoms, open the **Transform** inspector task and choose **Move selection**.
+Select atoms and choose **Move selection** in the separate transformation bar
+above the viewer. **Transform → Move selection** in the inspector starts the same
+operation.
 The mode captures the complete selection across structures, its project revision
 and original coordinates. Hidden selected atoms remain targets and are counted
 in the viewer banner. At least some selected material must be visible; show it
 before activation. A locked or missing target prevents the entire operation.
 
-The banner remains available when the inspector is collapsed or its mobile drawer
-is closed. Choose Rotate, Translate or Depth:
+The transformation bar keeps Apply/Cancel visible when the inspector is collapsed
+or its mobile drawer is closed. **More** exposes sensitivity, scientific details,
+and Rotate/Translate/Depth tools for touch dragging, arrow keys and named steps:
 
-- Primary drag rotates around the captured arithmetic centroid, carried along
+- Primary mouse drag always rotates around the captured arithmetic centroid, carried along
   by translation. Rotation does not orbit a fixed original world location.
 - Secondary drag or Ctrl-primary drag translates in the screen plane.
-- Depth uses a primary vertical drag along the viewing direction; upward moves
+- Depth uses a vertical touch drag or named steps along the viewing direction; upward moves
   away from the camera. Screen-plane upward movement follows camera up.
 - Arrow keys on the movement canvas and the named step buttons use the same
-  preview transaction. Touch users can choose a mode and use step buttons.
+  preview transaction. Touch users can choose a mode and use step buttons. Those
+  choices do not change mouse rotation/translation gestures.
 - Wheel and named Zoom in/out controls change view scale. Other navigation,
   focus and picking are suspended. The next drag captures the updated scale.
 - Sensitivity is bounded from 0.25 to 4; changes take effect on the next drag.
@@ -54,7 +58,7 @@ Every captured atom receives the same proper rigid world transform across all
 conformers. The active conformer supplies the captured centroid. Unselected
 coordinates, connectivity, charges, metadata, warnings and original bytes remain
 unchanged. A partial selection may stretch bonds to unselected atoms or create
-clashes. The banner reports known crossing bonds where records exist; absent bond
+clashes. The More disclosure reports known crossing bonds where records exist; absent bond
 records do not prove safety. This workflow does not validate a pose for docking
 or preparation.
 
