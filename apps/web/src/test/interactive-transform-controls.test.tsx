@@ -81,3 +81,44 @@ it("retains a captured movement while a modal owns focus and Escape", async () =
   expect(screen.queryByRole("region", { name: "Move selection controls" })).not.toBeInTheDocument();
   expect(commit).not.toHaveBeenCalled();
 });
+
+it("retains one capture and pose across scoped Space and explicit view-toggle ownership", async () => {
+  const project = molecularProject();
+  const selection = canonicalSelection([{ structure_id: "protein", atom_id: 1 }]);
+  const load = vi.fn(() => Promise.resolve(new Map([["protein", proteinProjection()]])));
+  const commit = vi.fn(() => Promise.resolve(project));
+  const ports = { context: () => ({ project, selection }), rendered: () => selection.atoms, load, commit,
+    refresh: () => Promise.resolve(project), accept: vi.fn(), notice: vi.fn() };
+  function Harness() {
+    const { workflow } = useMovementSession(ports);
+    const view = () => ({ camera: { mode: "perspective" as const, position: [0, 0, 10] as [number, number, number], target: [0, 0, 0] as [number, number, number], up: [0, 1, 0] as [number, number, number], radius: 5 }, height: 400, fov: Math.PI / 4 });
+    return <><button onClick={workflow.start}>Launch</button><input aria-label="Other input" />
+      <output data-testid="ownership">{workflow.cameraNavigation ? "camera" : "transform"}</output>
+      <output data-testid="pose">{JSON.stringify(workflow.state.pose)}</output>
+      {workflow.state.capture ? <><MovementOverlay movement={workflow} view={view} zoom={vi.fn()} />
+        <MovementControls movement={workflow} view={view} zoom={vi.fn()} unavailableReason={null} /></> : null}</>;
+  }
+  const user = userEvent.setup(); render(<Harness />);
+  await user.click(screen.getByRole("button", { name: "Launch" }));
+  const canvas = await screen.findByRole("group", { name: "Move selection canvas" });
+  await user.keyboard("{ArrowRight}");
+  const pose = screen.getByTestId("pose").textContent;
+  for (let i = 0; i < 3; i++) {
+    canvas.focus(); await user.keyboard("[Space>]");
+    expect(screen.getByTestId("ownership")).toHaveTextContent("camera");
+    await user.keyboard("{ArrowRight}");
+    expect(screen.getByTestId("pose")).toHaveTextContent(pose);
+    await user.keyboard("[/Space]");
+    expect(screen.getByTestId("ownership")).toHaveTextContent("transform");
+  }
+  await user.click(screen.getByRole("button", { name: "Adjust view" }));
+  canvas.focus(); await user.keyboard("[Space>][/Space]");
+  expect(screen.getByTestId("ownership")).toHaveTextContent("camera");
+  await user.click(screen.getByRole("button", { name: "Resume transform" }));
+  await user.click(screen.getByRole("textbox", { name: "Other input" }));
+  await user.keyboard(" ");
+  expect(screen.getByRole("textbox")).toHaveValue(" ");
+  expect(screen.getByTestId("ownership")).toHaveTextContent("transform");
+  expect(screen.getByTestId("pose")).toHaveTextContent(pose);
+  expect(load).toHaveBeenCalledOnce(); expect(commit).not.toHaveBeenCalled();
+});

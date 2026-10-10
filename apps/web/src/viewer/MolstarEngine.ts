@@ -35,6 +35,7 @@ import type {
 } from "../api/types";
 import type {
   MolecularViewer,
+  MovementInteraction,
   ViewerSelectionEvent,
   ViewerStructure,
   ViewerMeasurement,
@@ -84,6 +85,10 @@ export class MolstarEngine implements MolecularViewer {
   private listeners = new Set<(event: ViewerSelectionEvent) => void>();
   private cameraListeners = new Set<(camera: CameraState) => void>();
   private retainedCamera: CameraState | null = null;
+  private movementInteraction: MovementInteraction = "inactive";
+  private stopInputBoundary: (() => void) | undefined;
+  private heldPointers = new Set<number>();
+  private ignoredPointers = new Set<number>();
   private movementCamera: CameraState | null = null;
   private movementBindings: Canvas3DAttribs["trackball"] | null = null;
   private movementTrackball: Canvas3DProps["trackball"] | null = null;
@@ -119,7 +124,7 @@ export class MolstarEngine implements MolecularViewer {
       render: renderReact18,
       spec: {
         ...defaultSpec,
-        behaviors: withCameraNeutralPrimarySelection(defaultSpec.behaviors),
+        behaviors: withCameraNeutralPrimarySelection(defaultSpec.behaviors, () => this.movementInteraction === "inactive"),
         canvas3d: {
           ...defaultSpec.canvas3d,
           camera: { ...defaultSpec.canvas3d?.camera, manualReset: true },
@@ -155,12 +160,36 @@ export class MolstarEngine implements MolecularViewer {
     }
     this.plugin = plugin;
     this.mountTarget = target;
+    const down = (event: PointerEvent) => this.heldPointers.add(event.pointerId);
+    const up = (event: PointerEvent) => {
+      this.heldPointers.delete(event.pointerId);
+      this.ignoredPointers.delete(event.pointerId);
+    };
+    const blockTouchContinuation = (event: TouchEvent) => {
+      if (!this.ignoredPointers.size) return;
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    };
+    const blur = () => { this.heldPointers.clear(); this.ignoredPointers.clear(); };
+    target.addEventListener("pointerdown", down, true);
+    window.addEventListener("pointerup", up, true);
+    window.addEventListener("pointercancel", up, true);
+    target.addEventListener("touchmove", blockTouchContinuation, { capture: true, passive: false });
+    window.addEventListener("blur", blur);
+    this.stopInputBoundary = () => {
+      target.removeEventListener("pointerdown", down, true);
+      window.removeEventListener("pointerup", up, true);
+      window.removeEventListener("pointercancel", up, true);
+      target.removeEventListener("touchmove", blockTouchContinuation, true);
+      window.removeEventListener("blur", blur);
+      blur();
+    };
     plugin.representation.structure.registry.add(SelectionSurfaceProvider);
     this.stopAttributionObserver = observeViewerAttribution(target);
     this.setBackgroundColor(this.backgroundColor);
     this.clickSubscription = plugin.behaviors.interaction.click.subscribe(
       ({ current, button, modifiers }) => {
-        if (this.movementCamera || !isPrimarySelectionActivation(button)) return;
+        if (this.movementInteraction !== "inactive" || !isPrimarySelectionActivation(button)) return;
         const mode = selectionModeForModifiers(modifiers);
         if (Loci.isEmpty(current.loci)) {
           if (
@@ -463,35 +492,51 @@ export class MolstarEngine implements MolecularViewer {
     return [...new Map(references.map(atom => [`${atom.structure_id}:${atom.atom_id}`, atom])).values()];
   }
 
-  setMovementMode(active: boolean): void {
+  setMovementMode(interaction: MovementInteraction): void {
     const canvas = this.plugin?.canvas3d;
-    if (!canvas || active === Boolean(this.movementCamera)) return;
-    if (active) {
-      this.movementCamera = this.getCamera();
-      if (!this.movementCamera) return;
+    if (!canvas || interaction === this.movementInteraction) return;
+    const previous = this.movementInteraction;
+    if (previous === "inactive") {
       this.movementBindings = structuredClone(canvas.attribs.trackball);
       this.movementTrackball = structuredClone(canvas.props.trackball);
-      // Release held navigation keys while their original bindings still match.
-      // Otherwise a key released under empty bindings can remain latched on exit.
-      for (const binding of Object.values(this.movementBindings.bindings)) {
-        for (const trigger of binding.triggers) {
-          if (!trigger.code) continue;
-          window.dispatchEvent(new KeyboardEvent("keyup", {
-            code: trigger.code,
-            ctrlKey: trigger.modifiers?.control, shiftKey: trigger.modifiers?.shift,
-            altKey: trigger.modifiers?.alt, metaKey: trigger.modifiers?.meta,
-          }));
-        }
-      }
-      const bindings = Object.fromEntries(Object.keys(canvas.attribs.trackball.bindings).map(key => [key, Binding.Empty])) as Canvas3DAttribs["trackball"]["bindings"];
-      canvas.setAttribs({ trackball: { bindings } });
-      canvas.setProps({ trackball: { staticMoving: true, animate: { name: "off", params: {} } } });
-    } else {
-      this.movementCamera = null;
+    }
+    // Suppress selection/focus before terminating native input. Public DOM end
+    // events reset Mol*'s observer; no private controls or camera implementation.
+    this.movementInteraction = interaction === "inactive" ? previous : interaction;
+    this.releaseNavigationKeys();
+    if (this.heldPointers.size) {
+      this.heldPointers.forEach(pointer => this.ignoredPointers.add(pointer));
+      window.dispatchEvent(new MouseEvent("mouseup", { clientX: -100000, clientY: -100000, buttons: 0 }));
+      this.mountTarget?.querySelector("canvas")?.dispatchEvent(new Event("touchend", { bubbles: true }));
+    }
+    this.movementCamera = interaction === "transform" ? this.getCamera() : null;
+    this.movementInteraction = interaction;
+    if (interaction === "inactive") {
       if (this.movementBindings) canvas.setAttribs({ trackball: this.movementBindings });
       if (this.movementTrackball) canvas.setProps({ trackball: this.movementTrackball });
       this.movementBindings = null;
       this.movementTrackball = null;
+      return;
+    }
+    const bindings = interaction === "camera" ? this.movementBindings!.bindings
+      : Object.fromEntries(Object.keys(this.movementBindings!.bindings).map(key => [key, Binding.Empty])) as Canvas3DAttribs["trackball"]["bindings"];
+    canvas.setAttribs({ trackball: { bindings } });
+    canvas.setProps({ trackball: { staticMoving: true, animate: { name: "off", params: {} } } });
+  }
+
+  private releaseNavigationKeys() {
+    // Release while current native bindings still match, including camera exit.
+    const bindings = this.plugin?.canvas3d?.attribs.trackball.bindings;
+    if (!bindings) return;
+    for (const binding of Object.values(bindings)) {
+      for (const trigger of binding.triggers) {
+        if (!trigger.code) continue;
+        window.dispatchEvent(new KeyboardEvent("keyup", {
+          code: trigger.code,
+          ctrlKey: trigger.modifiers?.control, shiftKey: trigger.modifiers?.shift,
+          altKey: trigger.modifiers?.alt, metaKey: trigger.modifiers?.meta,
+        }));
+      }
     }
   }
 
@@ -519,7 +564,7 @@ export class MolstarEngine implements MolecularViewer {
   }
 
   setCameraMode(mode: CameraState["mode"]): void {
-    if (this.movementCamera) return;
+    if (this.movementInteraction !== "inactive") return;
     this.plugin?.canvas3d?.camera.setState({ mode });
   }
 
@@ -536,13 +581,13 @@ export class MolstarEngine implements MolecularViewer {
   }
 
   focusAtoms(atoms: AtomReference[]): void {
-    if (this.movementCamera) return;
+    if (this.movementInteraction !== "inactive") return;
     const loci = this.lociFor(atoms);
     if (loci) this.plugin?.managers.camera.focusLoci(loci);
   }
 
   fitVisible(): void {
-    if (this.movementCamera) return;
+    if (this.movementInteraction !== "inactive") return;
     this.plugin?.canvas3d?.requestCameraReset();
   }
 
@@ -577,7 +622,9 @@ export class MolstarEngine implements MolecularViewer {
   }
 
   dispose(): void {
-    this.setMovementMode(false);
+    this.setMovementMode("inactive");
+    this.stopInputBoundary?.();
+    this.stopInputBoundary = undefined;
     this.stopAttributionObserver?.();
     this.stopAttributionObserver = undefined;
     this.generation += 1;

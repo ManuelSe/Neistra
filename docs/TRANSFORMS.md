@@ -26,8 +26,8 @@ and Rotate/Translate/Depth tools for touch dragging, arrow keys and named steps:
 - Arrow keys on the movement canvas and the named step buttons use the same
   preview transaction. Touch users can choose a mode and use step buttons. Those
   choices do not change mouse rotation/translation gestures.
-- Wheel and named Zoom in/out controls change view scale. Other navigation,
-  focus and picking are suspended. The next drag captures the updated scale.
+- Wheel and named Zoom in/out controls change view scale. Focus and picking stay
+  suspended throughout the transaction. The next drag captures the updated scale.
 - Sensitivity is bounded from 0.25 to 4; changes take effect on the next drag.
 
 Pointer release finishes a drag and keeps the preview. Multiple drags and steps
@@ -38,6 +38,17 @@ pointer or lost capture restores the start of that drag while retaining earlier
 drags. Normal viewer controls return when the session ends.
 An open modal dialog or mobile drawer owns focus and Escape: close that panel
 first, retaining the preview, then use Escape on the workspace to cancel movement.
+
+Hold **Space** with the movement canvas focused to orbit, pan and zoom the camera
+using the viewer's normal navigation. Release Space to resume positioning in the
+updated viewing plane. **Adjust view / Resume transform** provides the same
+temporary navigation for touch and keyboard users; the explicit toggle stays on
+when Space is released. Selection and molecular coordinates remain captured.
+Fields, buttons, disclosures and dialogs keep their normal Space behavior.
+Each ownership change ends its current drag at the accepted pose/camera; start a
+fresh drag afterward. Focus departure clears held Space; blur, hidden documents,
+modal takeover, phase changes and renderer remounts clear temporary navigation.
+A valid preview and latest camera survive renderer remounts.
 
 Changing selection, inspector task, project or conflicting project state discards
 an unapplied preview with feedback. Closing the inspector alone retains it.

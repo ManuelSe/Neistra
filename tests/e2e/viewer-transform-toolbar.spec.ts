@@ -45,10 +45,12 @@ MolstarEngine.prototype.mount = async function(target) {
   return { project, launcher, inspect, original };
 }
 
-async function drag(page: Page, button: "left" | "right", dx: number, dy: number) {
+async function drag(page: Page, button: "left" | "right", dx: number, dy: number, camera = false) {
   const box = (await page.getByTestId("structure-viewer").boundingBox())!;
   const x = box.x + box.width * 0.8, y = box.y + box.height * 0.8;
-  expect(await page.evaluate(point => document.elementFromPoint(point.x, point.y)?.getAttribute("data-testid") === "movement-pointer-surface", { x, y })).toBe(true);
+  expect(await page.evaluate(point => point.camera
+    ? Boolean(document.elementFromPoint(point.x, point.y)?.closest(".molstar-host"))
+    : document.elementFromPoint(point.x, point.y)?.getAttribute("data-testid") === "movement-pointer-surface", { x, y, camera })).toBe(true);
   await page.mouse.move(x, y); await page.mouse.down({ button });
   await page.mouse.move(x + dx, y + dy, { steps: 8 }); await page.mouse.up({ button });
 }
@@ -99,4 +101,73 @@ test("transforms from the viewer with fixed mouse gestures, exact Cancel and one
   const redone: StructureProjection = await (await request.get(`/api/v1/projects/${project.id}/entries/${project.entries[0].id}/structure`)).json();
   expect(redone.structure).toEqual(movedProjection.structure);
   await expect(page.locator(".viewer-error")).toBeHidden();
+});
+
+test("temporarily navigates the native camera with Space and the view toggle without changing the captured preview", async ({ page, request }, info) => {
+  test.setTimeout(120_000);
+  const { project, launcher, inspect, original } = await prepare(page, request, info.project.name === "mobile-chromium");
+  const selection = () => page.evaluate(async () => {
+    const { useSelectionStore } = await import("/src/store/selection.ts");
+    return useSelectionStore.getState().selection;
+  });
+  const capturedSelection = await selection();
+  const molecularRequests: string[] = [];
+  page.on("request", r => {
+    if (/\/entries\/[^/]+\/structure$/.test(new URL(r.url()).pathname) || r.method() === "POST" && /\/(jobs|selection-transform)$/.test(r.url())) molecularRequests.push(r.url());
+  });
+  const controls = page.getByRole("region", { name: "Move selection controls" });
+  for (const projection of ["perspective", "orthographic"] as const) {
+    await page.evaluate(mode => window.movementEngines.at(-1)!.setCameraMode(mode), projection);
+    await expect.poll(async () => (await inspect()).camera?.mode).toBe(projection);
+    await launcher.click();
+    await drag(page, "left", 20, -10);
+    await expect.poll(async () => (await inspect()).coordinates).not.toEqual(original.coordinates);
+    const preview = (await inspect()).coordinates;
+    const initialCamera = (await inspect()).camera;
+    const triggersBefore = (await inspect()).navigationTriggers;
+    const canvas = page.getByRole("group", { name: "Move selection canvas" });
+    for (let i = 0; i < 2; i++) {
+      await canvas.focus(); await page.keyboard.down("Space");
+      await expect.poll(async () => (await inspect()).movementInteraction).toBe("camera");
+      await drag(page, "left", -45, 25, true);
+      await expect.poll(async () => (await inspect()).camera).not.toEqual(initialCamera);
+      expect((await inspect()).coordinates).toEqual(preview);
+      await page.keyboard.up("Space");
+      await expect.poll(async () => (await inspect()).movementInteraction).toBe("transform");
+      expect((await inspect()).navigationTriggers).toBe(triggersBefore);
+    }
+    await controls.getByRole("button", { name: "Adjust view" }).click();
+    await expect.poll(async () => (await inspect()).movementInteraction).toBe("camera");
+    await canvas.focus(); await page.keyboard.down("Space"); await page.keyboard.up("Space");
+    await expect(controls.getByRole("button", { name: "Resume transform" })).toHaveAttribute("aria-pressed", "true");
+    const beforePan = (await inspect()).camera;
+    await drag(page, "right", -20, -10, true);
+    await expect.poll(async () => (await inspect()).camera?.target).not.toEqual(beforePan?.target);
+    const panned = await inspect();
+    await drag(page, "left", 0, 0, true); // Empty primary click must not clear selection.
+    await drag(page, "right", 0, 0, true); // Secondary click must not focus/reset.
+    expect((await inspect()).camera).toEqual(panned.camera);
+    await page.mouse.wheel(0, -60);
+    await expect.poll(async () => (await inspect()).camera).not.toEqual(panned.camera);
+    expect((await inspect()).coordinates).toEqual(preview);
+    expect(await selection()).toEqual(capturedSelection);
+    await controls.getByRole("button", { name: "Resume transform" }).click();
+    await expect.poll(async () => (await inspect()).movementInteraction).toBe("transform");
+    const camera = (await inspect()).camera!;
+    await drag(page, "right", 25, 0);
+    await expect.poll(async () => (await inspect()).coordinates).not.toEqual(preview);
+    const translated = (await inspect()).coordinates;
+    const displacement = translated[0][1].map((v, i) => v - preview[0][1][i]);
+    const forward = camera.target.map((v, i) => v - camera.position[i]);
+    expect(displacement.reduce((sum, v, i) => sum + v * forward[i], 0)).toBeCloseTo(0, 5);
+    const cross = [forward[1] * camera.up[2] - forward[2] * camera.up[1], forward[2] * camera.up[0] - forward[0] * camera.up[2], forward[0] * camera.up[1] - forward[1] * camera.up[0]];
+    expect(displacement.reduce((sum, v, i) => sum + v * cross[i], 0)).toBeGreaterThan(0);
+    expect((await inspect()).camera).toEqual(camera);
+    expect(await projectRead(request, project.id)).toEqual(project);
+    expect(molecularRequests).toEqual([]);
+    await controls.getByRole("button", { name: "Cancel movement" }).click();
+    await expect.poll(async () => (await inspect()).coordinates).toEqual(original.coordinates);
+    await expect.poll(async () => (await inspect()).movementInteraction).toBe("inactive");
+    expect((await inspect()).navigationTriggers).toBeGreaterThan(0);
+  }
 });

@@ -14,6 +14,7 @@ const calls = vi.hoisted(() => ({
   sync: vi.fn(),
   selection: vi.fn(),
   granularity: vi.fn(),
+  movement: vi.fn(),
   subscribe: vi.fn((listener: unknown) => {
     void listener;
     return () => undefined;
@@ -73,7 +74,7 @@ vi.mock("../viewer/MolstarEngine", () => ({
 
     getMovementView() { return null; }
     getRenderedAtomReferences() { return []; }
-    setMovementMode() {}
+    setMovementMode(value: string) { calls.movement(value); }
 
     cancelSurface(id: string, channel: string) { calls.cancelSurface(id, channel); }
     retrySurface(id: string, channel: string) { calls.retrySurface(id, channel); }
@@ -183,6 +184,22 @@ describe("MolecularViewer Molstar adapter", () => {
     expect(calls.resize).toHaveBeenCalledOnce();
     expect(calls.dispose).toHaveBeenCalledOnce();
   });
+});
+
+it("buffers typed movement ownership and forwards camera transitions without remounting", async () => {
+  vi.clearAllMocks();
+  const { createMolstarViewer } = await import("../viewer/MolstarViewer");
+  const viewer = createMolstarViewer();
+  viewer.setMovementMode("transform");
+  await viewer.mount(document.createElement("div"));
+  expect(calls.movement).toHaveBeenLastCalledWith("transform");
+  viewer.setMovementMode("camera");
+  expect(calls.movement).toHaveBeenLastCalledWith("camera");
+  viewer.setMovementMode("transform");
+  viewer.setMovementMode("inactive");
+  expect(calls.movement).toHaveBeenLastCalledWith("inactive");
+  expect(calls.mount).toHaveBeenCalledOnce();
+  viewer.dispose();
 });
 
 

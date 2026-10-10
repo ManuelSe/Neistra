@@ -302,8 +302,17 @@ neither persisted nor included in archives, exports or jobs.
 React owns the session above the inspector/drawer lifetime. The viewer adapter
 exposes its camera projection and inspectable visibility, while pointer gestures
 produce only typed operation poses. A dedicated movement pointer surface prevents
-picking and secondary focus. The engine suspends/restores trackball bindings and
-holds a camera snapshot with explicitly permitted zoom. Renderer work is bounded
+picking and secondary focus. The typed `MovementInteraction` boundary separates
+`inactive`, `transform` and `camera` ownership from transaction phase (D-083).
+Application-owned held-Space and explicit view-toggle state temporarily permit
+native camera gestures without recapture or persistence. The engine captures
+normal trackball bindings once per session, suppresses inertia/animation, locks
+orientation/target in transform mode, and restores bindings only on final exit.
+Public focus Binding values evaluate ownership at event time, closing the race
+that asynchronous behavior updates would introduce. Public DOM end events and
+pointer-lifecycle guards terminate old gestures without private Mol* access;
+the application releases its capture before lost-capture can roll back a transition.
+Renderer work is bounded
 to one active update plus the latest pending preview batch; commit/cancellation
 discards obsolete pending frames. Inherited surfaces, fragment meshes and dependent
 pockets are suspended before model updates. Temporary selected-atom cues honor

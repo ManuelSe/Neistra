@@ -46,7 +46,7 @@ test("bounds native protein/ligand preview work and measures exact cancellation"
       const selection = { schema_version: 1, atoms: atomIds.map(atom_id => ({ structure_id: entry.id, atom_id })), granularity: "atom", source: "inspector" };
       h.engine.setSelection(selection.atoms);
       const capture = captureMovement(project, selection, new Map([[entry.id, projection]]), h.engine.getRenderedAtomReferences());
-      h.engine.setMovementMode(true);
+      h.engine.setMovementMode("transform");
       const started = performance.now();
       let coordinatePreviewMs = -1;
       const unsubscribePreview = h.onCoordinatesUpdated(() => { coordinatePreviewMs = performance.now() - started; });
@@ -77,7 +77,7 @@ test("bounds native protein/ligand preview work and measures exact cancellation"
       });
       queue.set([]);
       await canceled;
-      h.engine.setMovementMode(false); queue.dispose();
+      h.engine.setMovementMode("inactive"); queue.dispose();
       await new Promise(resolve => setTimeout(resolve, 100));
       cases.push({ name, atoms: atomIds.length, previewMs, coordinatePreviewMs, coordinateCancelMs, maxActive, submittedFrames: 40, renderedFrames: calls,
         longestTaskMs: Math.max(0, ...tasks.filter(t => t.start >= started && t.start < cancelStarted + coordinateCancelMs).map(t => t.duration)),
@@ -87,7 +87,7 @@ test("bounds native protein/ligand preview work and measures exact cancellation"
     await h.engine.syncStructures([{ ...h.source, settings: { ...entry.viewer_settings, representations: [{ ...entry.viewer_settings.representations[0], style: "surface" }] } }]);
     const selection = { schema_version: 1, atoms: ligand.atom_ids.map(atom_id => ({ structure_id: entry.id, atom_id })), granularity: "atom", source: "inspector" };
     const capture = captureMovement(project, selection, new Map([[entry.id, projection]]), h.engine.getRenderedAtomReferences());
-    h.engine.setMovementMode(true);
+    h.engine.setMovementMode("transform");
     await h.engine.applyCoordinatePatch(movementPreview(capture, movePose(capture, initialMovementPose(), "translate", 20, -10, h.engine.getMovementView()!))[0], "preview");
     const started = performance.now();
     let coordinateCancelMs = -1;
@@ -102,7 +102,7 @@ test("bounds native protein/ligand preview work and measures exact cancellation"
     await restoration;
     const regenerationCompleteMs = performance.now() - started;
     const surface = { coordinateCancelMs, regenerationCompleteMs, inheritedRestored: h.inspect().inheritedSurfaces > 0 };
-    h.engine.setMovementMode(false); observer.disconnect(); h.dispose();
+    h.engine.setMovementMode("inactive"); observer.disconnect(); h.dispose();
     return { fixture: "RCSB 1STP", atoms: projection.structure.atoms.length, renderer: "pinned Chromium / SwiftShader", cases, surface };
   }, { project, entry, projection });
   if (profiler) { const { profile } = await profiler.send("Profiler.stop"); writeFileSync(info.outputPath("movement-cpu.json"), JSON.stringify(profile)); await profiler.detach(); }

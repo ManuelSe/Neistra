@@ -7,21 +7,22 @@ Issue #46 — M2/C2 temporary camera navigation (M1/C1 complete) for
 The user approved the plan and subsequently authorized the complete delivery
 workflow with `/goal` on 2026-10-10. Work is on the planned feature branch.
 
-- Completed work: M1/C1 separate transform bar, shared inspector/viewer capture,
-  numerical-preview invalidation, explained availability, fixed mouse gestures,
-  More tools and focus recovery. Detailed source of truth is the feature plan.
-- Verification performed: 40 focused units, 165 full frontend tests, lint,
-  type-check and build pass. Existing C1 browsers pass 27 cases / 5 intentional
-  layout skips; corrected toolbar-only workflow passes 2/2 on desktop/mobile.
-  Diagnostic selector/hit-target/timestamp-baseline failures are explained in
-  the plan; no assertions or budgets weakened. Checkpoint diff/whitespace reviewed.
-- Known limitations: Space/touch camera navigation awaits C2; real zoom and
-  scientific/performance/previous-reader/release gates remain pending. Existing
-  unconstrained movement, emulated-device and Alembic/bundle limitations remain.
+- Completed work: C1 (`aae804f`) viewer bar and shared atomic workflow; C2
+  transient Space/view-toggle navigation, typed renderer ownership, synchronous
+  focus/picking suppression and latest-camera resumption. Usage/architecture and
+  D-083 implementation notes are current; detailed evidence is in the feature plan.
+- Verification performed: C2 32 focused / 168 full frontend tests and lint/types/
+  build pass. Planned browsers pass 27 cases / 2 intentional skips, with the
+  covered-pixel mobile fixture corrected and its affected picking suite passing
+  2/2 / 2 intentional skips. Native orbit/pan/zoom and updated-plane translation
+  pass in both projections/layouts with exact preview, selection and project
+  preservation and no molecular preview/navigation requests. Diff reviewed.
+- Known limitations: C3 lifecycle/true-touch/actual zoom, C4 scientific/performance/
+  preceding-reader and C5 full candidate/release gates remain pending. Existing
+  scientific, emulation and advisory limits remain. No new migration (head 0013).
 - Blockers: none.
-- Next action: commit passing C1, then implement M2/C2 temporary camera navigation.
-  Planned release remains minor **0.12.0 / `v0.12.0`**. All five authoritative
-  versions remain **0.11.0**; no planned migration (head `0013`).
+- Next action: commit passing C2 and qualify C3 interruptions/responsive controls.
+  Planned minor **0.12.0 / v0.12.0**; all five current versions remain **0.11.0**.
 
 ### Previous release — v0.11.0
 

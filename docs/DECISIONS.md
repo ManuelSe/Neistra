@@ -2832,3 +2832,17 @@ Consequences:
   [approved issue #46 plan](plans/issue-46-viewer-transform-toolbar.md).
   Implementation requires a subsequent `/goal`; approval currently authorizes
   documentation persistence only.
+
+### D-083 implementation note — 2026-10-10, C2
+
+The native adapter uses public Mol* Binding values with ownership-sensitive
+trigger getters. Mol* retains these PD.Value parameters by identity; checking
+availability at event time suppresses implicit focus without an asynchronous
+behavior-update window. The typed interaction flag separately suppresses all
+application picking. Native trackball bindings/properties are copied once per
+transaction and restored on final exit. Public DOM input-end events terminate
+native gestures; production code does not access private Mol* input/control fields
+or implement camera movement. Native perspective/orthographic regression checks
+confirm orbit, target-changing pan, zoom, unchanged selection/coordinates and
+normal picking restoration. Broader C3 lifecycle qualification remains pending.
+This implements D-083; it does not amend scientific or persistence contracts.

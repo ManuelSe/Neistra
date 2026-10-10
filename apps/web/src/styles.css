@@ -408,6 +408,7 @@ select:focus-visible,
 .molstar-host { z-index: 0; }
 .movement-translate { cursor: move; }
 .movement-depth { cursor: ns-resize; }
+.movement-camera { pointer-events: none; }
 .movement-pointer-surface:focus-visible { outline: 2px solid var(--accent); outline-offset: -3px; }
 .viewer-header {
   position: absolute;

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef } from "react";
 import * as Tooltip from "@radix-ui/react-tooltip";
 import { Move3d } from "lucide-react";
 import { movePose, type MovementMode, type MovementPose, type MovementView } from "../coordinates/interactiveTransform";
@@ -24,6 +24,14 @@ export function MovementOverlay({ movement, view, zoom }: {
   const current = useRef(movement);
   current.current = movement;
   const active = movement.state.phase === "active";
+  const cameraNavigation = movement.cameraNavigation;
+  useLayoutEffect(() => {
+    // Ownership/phase changes accept the last pose and terminate its gesture.
+    // Clear before release so lost-capture cannot undo an accepted transition.
+    const previous = drag.current;
+    drag.current = null;
+    if (previous && surface.current?.hasPointerCapture(previous.pointer)) surface.current.releasePointerCapture(previous.pointer);
+  }, [cameraNavigation, active]);
   useEffect(() => {
     // Modal dialogs/drawers own their focus and Escape until they close.
     const modalOpen = () => document.querySelector('[role="dialog"]:not([aria-modal="false"]):not([aria-hidden="true"])') !== null;
@@ -44,17 +52,18 @@ export function MovementOverlay({ movement, view, zoom }: {
     if (aborted && previous) current.current.update(previous.pose);
   };
 
-  return <div ref={surface} className={`movement-pointer-surface movement-${movement.mode}`}
+  return <div ref={surface} className={`movement-pointer-surface movement-${movement.mode}${cameraNavigation ? " movement-camera" : ""}`}
+      data-movement-canvas="true"
       data-testid="movement-pointer-surface" tabIndex={0} role="group"
       aria-label="Move selection canvas" aria-describedby="movement-help"
       onContextMenu={event => event.preventDefault()}
-      onWheel={event => { event.stopPropagation(); if (active) zoom(Math.exp(Math.max(-100, Math.min(100, event.deltaY)) * 0.002)); }}
+      onWheel={event => { event.stopPropagation(); if (active && !cameraNavigation) zoom(Math.exp(Math.max(-100, Math.min(100, event.deltaY)) * 0.002)); }}
       onKeyDown={event => {
         const delta: Record<string, [number, number]> = { ArrowLeft: [-10, 0], ArrowRight: [10, 0], ArrowUp: [0, -10], ArrowDown: [0, 10] };
-        if (delta[event.key]) { event.preventDefault(); stepMovement(current.current, view, ...delta[event.key]); }
+        if (!cameraNavigation && delta[event.key]) { event.preventDefault(); stepMovement(current.current, view, ...delta[event.key]); }
       }}
       onPointerDown={event => {
-        if (!active || drag.current || !movement.state.capture || ![0, 2].includes(event.button)) return;
+        if (!active || cameraNavigation || drag.current || !movement.state.capture || ![0, 2].includes(event.button)) return;
         const camera = view();
         if (!camera) return;
         event.preventDefault(); event.stopPropagation();
@@ -81,7 +90,7 @@ export function MovementOverlay({ movement, view, zoom }: {
 
 function stepMovement(movement: MovementWorkflow, view: () => MovementView | null, dx: number, dy: number) {
   const camera = view();
-  if (movement.state.phase !== "active" || !movement.state.capture || !camera) return;
+  if (movement.state.phase !== "active" || movement.cameraNavigation || !movement.state.capture || !camera) return;
   movement.update(movePose(movement.state.capture, movement.state.pose, movement.mode, dx, dy, camera, movement.sensitivity));
 }
 
@@ -115,17 +124,20 @@ export function MovementControls({ movement, view, zoom, unavailableReason }: {
         {movement.state.capture.hiddenCount ? ` · ${movement.state.capture.hiddenCount} hidden` : ""}</strong>
     </div>
     <div className="movement-actions">
+      <button type="button" className="secondary-button" disabled={!active} aria-pressed={movement.viewToggle}
+        onClick={movement.toggleView}>{movement.viewToggle ? "Resume transform" : "Adjust view"}</button>
       {movement.state.phase === "uncertain" ? <button type="button" className="primary-button" onClick={movement.reconcile}>Refresh project</button> : <>
         <button type="button" className="primary-button" disabled={!active} onClick={movement.apply}>Apply movement</button>
         <button type="button" className="secondary-button" disabled={!active} onClick={movement.cancel}>Cancel movement</button>
       </>}
       {!active ? <span role="status">{movement.state.phase === "uncertain" ? "Outcome unknown; changes paused." : "Storing or reconciling movement…"}</span> : null}
     </div>
-    <p id="movement-help">Mouse: left drag rotates; right or Ctrl-drag translates. Release keeps the preview. Escape cancels.</p>
+    <p role="status">{movement.cameraNavigation ? "Adjusting camera · molecular preview retained" : "Transforming selection"}</p>
+    <p id="movement-help">{movement.cameraNavigation ? "Orbit, pan or zoom the view. Release Space or choose Resume transform to continue positioning." : "Mouse: left drag rotates; right or Ctrl-drag translates. Hold Space on the canvas to adjust the view. Escape cancels."}</p>
     <p className="movement-warning">Unconstrained: movement may distort bonds or create clashes.</p>
     <details className="movement-more"><summary>More</summary>
       <div className="movement-secondary">
-        <fieldset disabled={!active}>
+        <fieldset disabled={!active || movement.cameraNavigation}>
           <legend>Touch and keyboard movement</legend>
           <div className="segmented-control">
             {(["rotate", "translate", "depth"] as const).map(mode => <button key={mode} type="button" aria-pressed={movement.mode === mode}

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { MovementSession, type MovementSessionPorts, type MovementSessionState } from "./MovementSession";
 import type { MovementMode, MovementPose } from "./interactiveTransform";
 import type { CameraState } from "../api/types";
+import { useMovementNavigation } from "./useMovementNavigation";
 
 export interface MovementWorkflow {
   state: MovementSessionState;
@@ -16,6 +17,10 @@ export interface MovementWorkflow {
   update: (pose: MovementPose) => void;
   camera: () => CameraState | null;
   rememberCamera: (camera: CameraState | null) => void;
+  cameraNavigation: boolean;
+  viewToggle: boolean;
+  toggleView: () => void;
+  clearNavigation: () => void;
 }
 
 export function useMovementSession(ports: MovementSessionPorts & { beforeStart?: () => void }) {
@@ -31,6 +36,7 @@ export function useMovementSession(ports: MovementSessionPorts & { beforeStart?:
     notice: (id, text, error) => portsRef.current.notice(id, text, error),
   }));
   const state = useSyncExternalStore(session.subscribe, session.snapshot);
+  const navigation = useMovementNavigation(state.phase === "active");
   const [mode, setMode] = useState<MovementMode>("rotate");
   const [sensitivity, setSensitivity] = useState(1);
   const returnFocus = useRef<{ element: HTMLElement | null; projectId: string | undefined } | null>(null);
@@ -53,6 +59,7 @@ export function useMovementSession(ports: MovementSessionPorts & { beforeStart?:
   }, [state.phase]);
   useEffect(() => () => session.cancel(undefined, true), [session]);
   const workflow: MovementWorkflow = {
+    ...navigation,
     state, mode, sensitivity, setMode,
     setSensitivity: value => setSensitivity(Math.min(4, Math.max(0.25, value))),
     start: () => {

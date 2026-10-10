@@ -2,7 +2,7 @@
 
 ## Status and delivery metadata
 
-**Status: implementation in progress; M1/C1 qualification.** Approved explicitly
+**Status: implementation in progress; M2/C2 complete, C3 next.** Approved explicitly
 on 2026-10-10, persisted as `ffea74185ce3d7b79cdb2989288f690d4e373a24`, and
 verified on the remote feature branch. The subsequent explicit `/goal` authorizes
 checkpoint implementation and the complete reviewed release workflow below.
@@ -660,7 +660,7 @@ and progress update. It leaves the global `docs/PLAN.md` unchanged.
 | Planning documentation verification | Complete | Required sections, five checkpoint contracts, code fences, local links/anchors, exact three-file scope, feature branch and unchanged global plan/runtime/version sources pass; whitespace check passes. |
 | Planning commit/push | Handoff record | Initial commit title is `docs(plan): add approved plan for issue 46`; its exact SHA and remote branch verification are reported after commit/push, outside this commit to avoid self-reference. |
 | M1 / C1 | Complete | 40 focused units; 165 full frontend tests; lint/types/build; 27 existing browser cases and 2 toolbar cases pass, with 5 intentional layout skips. |
-| M2 / C2–C3 | Next | Temporary navigation, input lifecycle and responsive qualification. |
+| M2 / C2–C3 | In progress | C2 complete: typed native navigation, 32 focused / 168 full frontend tests and all required browser cases pass; C3 next. |
 | M3 / C4–C5 | Not started | Scientific/performance/compatibility qualification and release candidate. |
 | PR/review/merge | Not started | Complete candidate gate before PR; comply with live repository policy. |
 | Exact-merged qualification | Not started | Complete release gate on verified merged master. |
@@ -723,3 +723,49 @@ Evidence: [checkpoint record](../assets/viewer-transform-toolbar/c1-verification
 Known limits: Space and the touch camera toggle await C2; actual zoom and final
 scientific/performance/release qualification await their approved checkpoints.
 No scope deviation or cross-project decision beyond accepted D-083. Next: C2.
+
+### 2026-10-10 — M2/C2 complete
+
+Implemented transient held-Space and explicit view-toggle ownership in the
+application workflow. The internal viewer boundary, lazy adapter, native engine,
+callers and native qualification harness now use `MovementInteraction`.
+Normal bindings are captured once, final exit restores them, and temporary camera
+navigation retains static/no-animation controls. Picking, empty clearing and all
+implicit focus bindings remain suppressed throughout the captured transaction.
+Resume acquires the current camera without recapture. Public Mol* Binding values
+check focus ownership synchronously; DOM input-end events and app capture cleanup
+end gestures without private Mol* fields or application camera mathematics.
+
+Verification:
+
+- Planned C2 Vitest: **32 passed / 4 files**. Repeated Space, explicit-toggle OR
+  behavior, unchanged pose/capture, native input Space, lazy buffering and focus
+  binding suppression are covered. Corrected test-local mock isolation and lint
+  assertions; no production behavior was relaxed.
+- Frontend lint/types/build pass; full suite **168 passed / 37 files**, build
+  **7.42 s**, existing lazy Mol* advisory.
+- Native toolbar/navigation suite: **4 passed** on desktop and Pixel 7, 1.2 min.
+  Perspective and orthographic orbit, explicit target-changing pan, wheel zoom,
+  repeated ownership, exact preview/selection/project preservation, empty clicks,
+  fixed mouse mappings and updated-plane translation are checked with native data.
+  No transform/job/normalized-structure requests occur during preview/navigation.
+- Planned C2 browser command with isolated 8210/8211/5373 services and fresh
+  `/tmp/neistra-issue46-c2-final-e2e`: **27 passed / 2 intentional skips**;
+  one mobile picking fixture tapped the newly available Move selection button
+  while seeking an empty pixel. Desktop fixture had the same covered-canvas
+  assumption and its diagnostic run was interrupted. Candidate scans now reject
+  covered pixels using DOM hit testing, preserving every camera/selection assertion.
+- Affected rerun, `PLAYWRIGHT_BROWSERS_PATH=.playwright
+  MOLWEAVE_E2E_API_PORT=8210 MOLWEAVE_E2E_WORKER_PORT=8211
+  MOLWEAVE_E2E_WEB_PORT=5373
+  MOLWEAVE_E2E_DATA_DIR=/tmp/neistra-issue46-c2-picking-e2e corepack pnpm exec
+  playwright test tests/e2e/viewer-click-selection.spec.ts`: **2 passed / 2
+  intentional layout skips**, 27.1 s. All planned browser cases now pass;
+  the combined release gate remains pending.
+- Complete checkpoint diff/whitespace review passes. No API/schema/migration,
+  version, persisted preference, scene, job or molecular-authority change.
+
+Updated transformation guidance and architecture. D-083 implementation note
+records synchronous native focus ownership. C1 commit is `aae804f`.
+Next: C3 held-pointer/interruption, true touch, real zoom and responsive evidence.
+No blocker or approved-scope deviation.

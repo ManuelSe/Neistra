@@ -38,6 +38,8 @@ export interface ViewerSelectionEvent {
   mode: SelectionMode;
 }
 
+export type MovementInteraction = "inactive" | "transform" | "camera";
+
 export interface MolecularViewer {
   mount(target: HTMLElement): Promise<void>;
   setBackgroundColor(cssColor: string): void;
@@ -55,7 +57,7 @@ export interface MolecularViewer {
   getCamera(): CameraState | null;
   getMovementView(): MovementView | null;
   getRenderedAtomReferences(): AtomReference[];
-  setMovementMode(active: boolean): void;
+  setMovementMode(interaction: MovementInteraction): void;
   setCamera(camera: CameraState): void;
   setCameraMode(mode: CameraState["mode"]): void;
   zoom(factor: number): void;

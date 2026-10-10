@@ -35,6 +35,18 @@ const configuredBindings = (params: unknown): unknown =>
     : undefined;
 
 describe("viewer primary interaction policy", () => {
+  it("suppresses every implicit focus binding throughout temporary camera ownership", () => {
+    let active = false;
+    const spec = withCameraNeutralPrimarySelection(DefaultPluginUISpec().behaviors, () => !active);
+    const bindings = spec.filter(behavior => behavior.transformer === PluginBehaviors.Camera.FocusLoci
+      || behavior.transformer === PluginBehaviors.Representation.FocusLoci)
+      .flatMap(behavior => Object.values(configuredBindings(behavior.defaultParams as unknown) as Record<string, Binding>));
+    expect(bindings.some(binding => binding.triggers.length)).toBe(true);
+    active = true;
+    for (const binding of bindings) expect(binding.triggers).toEqual([]);
+    active = false;
+    expect(bindings.some(binding => binding.triggers.length)).toBe(true);
+  });
   it("installs camera-neutral bindings on both Mol* focus behaviors", () => {
     const defaults = DefaultPluginUISpec();
     const configured = withCameraNeutralPrimarySelection(defaults.behaviors);

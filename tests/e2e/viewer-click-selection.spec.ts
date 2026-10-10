@@ -125,6 +125,13 @@ async function clickPoint(
   await canvas.click({ position: point, modifiers });
 }
 
+async function uncovered(canvas: Locator, point: CanvasPoint): Promise<boolean> {
+  return canvas.evaluate((node, point) => {
+    const box = node.getBoundingClientRect();
+    return document.elementFromPoint(box.x + point.x, box.y + point.y) === node;
+  }, point);
+}
+
 async function findStructuralHit(
   page: Page,
   canvas: Locator,
@@ -132,6 +139,7 @@ async function findStructuralHit(
 ): Promise<CanvasPoint> {
   for (const candidate of hitCandidates) {
     const point = await canvasPoint(canvas, candidate);
+    if (!await uncovered(canvas, point)) continue;
     await clickPoint(canvas, point, options.modifiers);
     const count = await selectionCount(page);
     if (count > (options.greaterThan ?? 0)) return point;
@@ -142,6 +150,7 @@ async function findStructuralHit(
 async function findEmptyPoint(page: Page, canvas: Locator): Promise<CanvasPoint> {
   for (const candidate of emptyCandidates) {
     const point = await canvasPoint(canvas, candidate);
+    if (!await uncovered(canvas, point)) continue;
     await clickPoint(canvas, point);
     if ((await selectionCount(page)) === 0) return point;
   }
@@ -372,6 +381,7 @@ test("uses the compact trigger path for selection and empty clearing", async ({
   expect(box).not.toBeNull();
   let selected = false;
   for (const candidate of hitCandidates) {
+    if (!await uncovered(canvas, await canvasPoint(canvas, candidate))) continue;
     await page.touchscreen.tap(
       box!.x + box!.width * candidate[0],
       box!.y + box!.height * candidate[1],
@@ -386,6 +396,7 @@ test("uses the compact trigger path for selection and empty clearing", async ({
   const durableBefore = await readProject(request, project.id);
   let cleared = false;
   for (const candidate of emptyCandidates) {
+    if (!await uncovered(canvas, await canvasPoint(canvas, candidate))) continue;
     await page.touchscreen.tap(
       box!.x + box!.width * candidate[0],
       box!.y + box!.height * candidate[1],

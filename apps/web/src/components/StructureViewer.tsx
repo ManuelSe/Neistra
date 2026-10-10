@@ -4,7 +4,7 @@ import type { ExpandSelection } from "../selection/expansion";
 import { useQueries } from "@tanstack/react-query";
 import * as Tooltip from "@radix-ui/react-tooltip";
 import { AlertTriangle, LoaderCircle, RotateCcw } from "lucide-react";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { molecularApi } from "../api/client";
 import type {
   CameraState,
@@ -109,6 +109,7 @@ export function StructureViewer({
   const appliedTopologyArtifactsRef = useRef(new Map<string, string>());
   const previewQueue = useRef<CoordinatePreviewQueue | null>(null);
   const movementActive = Boolean(movement?.state.capture && movement.state.phase !== "idle");
+  const movementInteraction = !movementActive ? "inactive" : movement?.cameraNavigation ? "camera" : "transform";
   const currentMovement = useRef(movement);
   currentMovement.current = movement;
   const initialSceneReady = useRef(false);
@@ -170,6 +171,7 @@ export function StructureViewer({
   useEffect(() => {
     const target = targetRef.current;
     if (!target) return;
+    currentMovement.current?.clearNavigation();
     const viewer = createViewer();
     previewQueue.current = new CoordinatePreviewQueue(viewer, error => {
       currentMovement.current?.cancel();
@@ -214,6 +216,7 @@ export function StructureViewer({
     return () => {
       active = false;
       if (initialSceneReady.current) currentMovement.current?.rememberCamera(viewer.getCamera());
+      currentMovement.current?.clearNavigation();
       unsubscribe();
       unsubscribeCamera();
       unsubscribeSurfaces();
@@ -282,13 +285,13 @@ export function StructureViewer({
     renderedCallback.current?.(() => viewerRef.current?.getRenderedAtomReferences() ?? []);
   }, [viewerReady]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (viewerReady) {
       const viewer = viewerRef.current;
       if (movementActive && initialSceneReady.current) currentMovement.current?.rememberCamera(viewer?.getCamera() ?? null);
-      viewer?.setMovementMode(movementActive);
+      viewer?.setMovementMode(movementInteraction);
     }
-  }, [movementActive, viewerReady]);
+  }, [movementActive, movementInteraction, viewerReady]);
 
   useEffect(() => {
     if (!viewerReady) return;
@@ -303,12 +306,12 @@ export function StructureViewer({
         if (!initialSceneReady.current) {
           const camera = workflow?.camera();
           if (active && camera) {
-            viewer.setMovementMode(false);
+            viewer.setMovementMode("inactive");
             viewer.setCamera(camera);
           }
           initialSceneReady.current = true;
         }
-        viewer.setMovementMode(active);
+        viewer.setMovementMode(!active ? "inactive" : workflow?.cameraNavigation ? "camera" : "transform");
         if (active) workflow?.rememberCamera(viewer.getCamera());
       })
       .catch((error: unknown) =>
@@ -491,7 +494,12 @@ export function StructureViewer({
   }, [styleDialogOpen, styleContext]);
 
   return (
-    <div className="structure-viewer" data-testid="structure-viewer">
+    <div className="structure-viewer" data-testid="structure-viewer"
+      onPointerDownCapture={event => {
+        if (currentMovement.current?.cameraNavigation && event.target instanceof Element && event.target.closest(".molstar-host")) {
+          event.currentTarget.querySelector<HTMLElement>("[data-movement-canvas]")?.focus({ preventScroll: true });
+        }
+      }}>
       <div
         ref={targetRef}
         className="molstar-host"

@@ -270,7 +270,7 @@ test("qualifies native proper-rotation previews, camera suspension, zoom and sur
     for (const mode of ["perspective", "orthographic"] as const) {
       h.engine.setCameraMode(mode);
       const camera = h.engine.getCamera();
-      h.engine.setMovementMode(true);
+      h.engine.setMovementMode("transform");
       const view = h.engine.getMovementView()!;
       const translated = movePose(capture, initialMovementPose(), "translate", 24, -12, view);
       const pose = movePose(capture, translated, "rotate", 30, -15, view);
@@ -290,7 +290,7 @@ test("qualifies native proper-rotation previews, camera suspension, zoom and sur
       } catch { rejected = true; }
       if (!rejected) throw new Error("The viewer accepted an invalid atom patch.");
       await h.engine.clearCoordinatePreview(entry.id);
-      h.engine.setMovementMode(false);
+      h.engine.setMovementMode("inactive");
       results.push({ mode, camera, heldCamera, preview, depth, expected, restored: h.inspect() });
     }
     await h.engine.syncStructures([{ ...h.source, settings: { ...entry.viewer_settings,
@@ -307,12 +307,12 @@ test("qualifies native proper-rotation previews, camera suspension, zoom and sur
     const fragmentSelection = { ...selection, atoms: [rendered[0]] };
     h.engine.setSelection(fragmentSelection.atoms);
     const fragmentCapture = captureMovement(project, fragmentSelection, new Map([[entry.id, projection]]), rendered);
-    h.engine.setMovementMode(true);
+    h.engine.setMovementMode("transform");
     const fragmentPose = movePose(fragmentCapture, initialMovementPose(), "translate", 20, -10, h.engine.getMovementView()!);
     await h.engine.applyCoordinatePatch(movementPreview(fragmentCapture, fragmentPose)[0], "preview");
     const fragmentPreview = h.inspect();
     await h.engine.clearCoordinatePreview(entry.id);
-    h.engine.setMovementMode(false);
+    h.engine.setMovementMode("inactive");
     await waitForRendered();
     return { before, results, fragment: { rendered: rendered.length, preview: fragmentPreview, restored: h.inspect() }, cachedOriginals: projection.structure.atoms.map(atom => [atom.id, atom.coordinates]) };
   }, { project, entry, projection });
