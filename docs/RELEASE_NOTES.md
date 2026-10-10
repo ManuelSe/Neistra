@@ -1,6 +1,6 @@
 # Neistra Release Notes
 
-## 0.12.0 - 2026-10-10
+## 0.12.0 - 2026-10-11
 
 ### Viewer transformation workflow
 
@@ -44,12 +44,15 @@
 ### Verification and review
 
 The [approved issue #46 plan](plans/issue-46-viewer-transform-toolbar.md) records
-checkpoint commands, diagnostics/corrections and pending/final release evidence.
+checkpoint commands, diagnostics/corrections and release evidence.
 C1–C4 qualify native perspective/orthographic navigation/updated-plane movement,
 exact state/history, interruption, true emulated touch, both themes/scoped axe,
 actual 100%/200% zoom, inspected screenshots, scientific/archive/migration checks
-and actual preceding-release readers. Complete candidate and exact-merged gates
-are required before publication; their final results are recorded in that plan.
+and actual preceding-release readers. Clean candidate `545d3553557a8b442b45e9b37a14259751360aba` passes the complete
+release gate: **398 Python, 169 frontend, eight supervisor and 155 browser tests /
+43 intentional skips**, zero failures/flakes/retries; frozen installs/fresh0013,
+Ruff/mypy/lint/types/build pass. Exact merged qualification remains required before
+publication; commands/timings are linked from the plan.
 
 C4 native first preview 144.5/26.7 ms, exact Cancel 14.2/14.7 ms and longest task 125/0
 observed ms pass unchanged 500/500/750 ms budgets. Six ownership cycles per case,

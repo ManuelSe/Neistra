@@ -2,38 +2,29 @@
 
 ## Current milestone
 
-Issue #46 — C1–C4 complete; C5 review and release preparation next.
+Issue #46 — C1–C5 complete; clean candidate qualified for minor **v0.12.0**.
 Contract: [viewer toolbar/navigation plan](plans/issue-46-viewer-transform-toolbar.md).
-Authorized complete delivery is on `feat/issue-46-viewer-transform-toolbar`.
+Authorized delivery branch: `feat/issue-46-viewer-transform-toolbar`.
 
-- Completed: C1 separate toolbar/shared transaction; C2 transient Space/toggle
-  and typed native ownership; C3 interruption, held-release isolation, secondary
-  scrolling, touch, keyboard, themes and real zoom. D-083 and guidance are current.
-- Verification: 169 frontend tests / 38 files, lint/types/build pass. C3 browsers
-  18 passed / 4 intentional skips; final guard rerun four passed (both owners,
-  desktop/Pixel 7). Eight real-zoom/touch screenshots inspected and retained.
-  Stale native release reproduced/corrected without weaker selection assertions.
-- Limitations: pinned Chromium/SwiftShader, emulated Pixel 7, unconstrained edits,
-  existing build advisory. C5 complete
-  candidate/exact-master gates remain pending. Head stays 0013.
-- C4: 130 Python and 38 browser passes / eight intentional skips; native budgets,
-  first/latest queue, six ownership cycles and actual v0.11.0 reader pass. Exact
-  coordinates/originals/history/archives/jobs preserved; staging producer0.11.0.
-- C5 review: existing viewer errors now share the normal-flow header; preceding
-  source fails both layouts, clean correction passes 2 native light/dark cases.
-  Frontend 169/lint/types/build pass. No migration/scientific change.
-- C5 native-key review: bubbling body releases fix demonstrated camera drift
-  from a pre-session held navigation key; four native handoff cases pass.
-  Initial candidate browser gate deliberately interrupted and rejected; repeat
-  every gate on the corrected clean candidate. No compatibility/version change.
-- C5 full-gate correction: clean candidate passed all non-browser gates, but
-  154 browser passes/43 skips/one default-palette clipping failure rejected it.
-  Natural-height positioning restores the unchanged palette assertion; focused
-  styling/real-zoom gate 10 passed/six skips, frontend169/lint/types/build pass.
-  Screenshot inspected. Repeat the full gate before PR; no assertion relaxation.
-- Blockers: none. Next: corrected candidate gate, then push/PR/review.
-  Planned minor **0.12.0**; all five sources now **0.12.0**; final v0.11.0 reader accepts v0.12.0
-  data/history/archives/jobs. Version-focused Python 32 passed.
+Separate toolbar/shared transaction, fixed mouse mappings, scoped Space and
+approved touch toggle, accepted-gesture termination, fresh-pointer/native-key
+cleanup, latest-camera remount, reachable secondary/primary tools, readable
+errors and fitted styling palette are complete. D-083 and user guidance current.
+
+Complete clean source `545d3553557a8b442b45e9b37a14259751360aba` passes frozen installs/fresh0013 migration,
+Ruff/mypy/lint/types/build, **398 Python, 169 frontend, eight supervisor and
+155 browser tests / 43 intentional skips**, zero failures/flakes/retries.
+[Exact candidate evidence](assets/viewer-transform-toolbar/candidate-verification.json)
+and the plan retain commands, diagnostics, corrections, screenshots/performance.
+Actual tagged v0.11.0 reader accepts final0.12.0 exact coordinates/originals,
+retained undo/redo, save/reexport, archives and unchanged jobs. No migration or
+contract-major change (0013/1); all five versions0.12.0. Review local, not independent.
+
+Limits: unconstrained geometry, pinned Chromium/SwiftShader/emulated Pixel7,
+existing Alembic/lazy Mol* advisories and approved deferrals. No follow-up issue.
+Blockers: none. Next: push/open PR, request review, normal merge and exact-master
+qualification before annotated tag/release/issue reply/documentation cleanup.
+Current published baseline remains v0.11.0.
 
 ### Previous release — v0.11.0
 
@@ -2259,6 +2250,6 @@ in its closeout reply.
 
 ## Next action
 
-Complete C5 release preparation and candidate gate. Follow the feature plan through reviewed PR,
+Follow the completed candidate through reviewed PR,
 normal merge, exact-master gate, v0.12.0 release and verified branch cleanup.
 Current published baseline remains v0.11.0; candidate is v0.12.0.

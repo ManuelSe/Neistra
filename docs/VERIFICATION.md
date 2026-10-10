@@ -2,9 +2,11 @@
 
 Current toolbar/navigation evidence is maintained in
 [the approved issue #46 plan](plans/issue-46-viewer-transform-toolbar.md).
-C1–C3 qualify shared transactions, native ownership, interruption, touch,
-accessibility and real zoom. Scientific/compatibility and release gates are
-recorded separately as they complete; no schema or migration changes.
+C1–C5 qualify shared transactions, native ownership, interruption, true touch,
+accessibility/real zoom, scientific/compatibility and performance. Clean candidate
+`545d3553557a8b442b45e9b37a14259751360aba` passes all release commands: 398 Python, 169 frontend, eight supervisor,
+155 browser passes/43 intentional skips, zero failures/flakes/retries. Exact
+merged qualification and publication remain pending; no schema/migration changes.
 
 Previous interactive movement evidence is maintained in
 [the approved issue #4 plan](plans/issue-4-interactive-selection-transform.md).

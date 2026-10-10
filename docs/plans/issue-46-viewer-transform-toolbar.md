@@ -2,7 +2,7 @@
 
 ## Status and delivery metadata
 
-**Status: C1–C4 complete; C5 reviewed release preparation in progress.** Approved explicitly
+**Status: C1–C5 complete; candidate qualified, PR/review/merge and publication pending.** Approved explicitly
 on 2026-10-10, persisted as `ffea74185ce3d7b79cdb2989288f690d4e373a24`, and
 verified on the remote feature branch. The subsequent explicit `/goal` authorizes
 checkpoint implementation and the complete reviewed release workflow below.
@@ -998,3 +998,31 @@ existing lazy chunk advisory). Checkpoint diff reviewed; whitespace clean.
 Next: repeat every complete release command on the clean corrected candidate
 before PR. No retries, relaxed assertions or timing budgets. A local runner
 invocation used unavailable `python`; corrected to `python3` before any gate ran.
+
+### 2026-10-11 — M3/C5 candidate qualified
+
+Clean source `545d3553557a8b442b45e9b37a14259751360aba` passes **every** README/DEVELOPMENT release command,
+with frozen installs, isolated fresh migration0013, Ruff/mypy, frontend lint/types,
+production build, **398 Python**, **169 frontend / 38 files**, **eight supervisor**
+and **155 browser passes / 43 intentional layout skips**, zero failures, flakes
+or retries. Browser duration **26.32 min**.
+Isolated ports8210/8211/5373, fresh `/tmp/neistra-issue46-candidate-qualified/e2e-data`.
+Initial/final working tree clean; same source SHA throughout. Exact commands,
+exit codes/timings, counts and native performance are retained in
+[candidate evidence](../assets/viewer-transform-toolbar/candidate-verification.json).
+
+Preceding failed/interrupted candidates are diagnostic only. The default palette
+sizing regression passes unchanged in the complete corrected gate. Native-key,
+held-release, errors, real zoom and true touch regressions all pass. Existing
+Alembic path_separator warnings and lazy Mol* build advisory remain, without
+suppression. No migration/API/schema/scientific/history change or follow-up issue.
+
+Final local full-diff review (not independent) confirms approved-scope mapping,
+proper rigid math remains reused, app owns molecular/transaction state, native
+input restores captured bindings, stale contexts/releases are guarded, errors/
+primary actions/style controls remain reachable, historical decisions preserved,
+all five versions0.12.0 and no dependency/global-plan changes. Consequential
+findings are corrected and verified. No remaining actionable finding. This
+completion/evidence commit changes only docs/assets; runtime/tests/versions remain
+identical to the qualified source. Fetch/base/tag/policy checks are repeated at PR
+merge. Exact merged-master gate, actual-reader rerun and remote delivery follow.
