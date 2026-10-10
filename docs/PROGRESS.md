@@ -19,7 +19,10 @@ Authorized complete delivery is on `feat/issue-46-viewer-transform-toolbar`.
 - C4: 130 Python and 38 browser passes / eight intentional skips; native budgets,
   first/latest queue, six ownership cycles and actual v0.11.0 reader pass. Exact
   coordinates/originals/history/archives/jobs preserved; staging producer0.11.0.
-- Blockers: none. Next: C5 review correction, final producer/version and full gate.
+- C5 review: existing viewer errors now share the normal-flow header; preceding
+  source fails both layouts, clean correction passes 2 native light/dark cases.
+  Frontend 169/lint/types/build pass. No migration/scientific change.
+- Blockers: none. Next: final producer/version and full candidate gate.
   Planned minor **0.12.0**; all five sources still **0.11.0**.
 
 ### Previous release — v0.11.0

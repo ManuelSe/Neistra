@@ -363,3 +363,33 @@ for (const owner of ["camera", "transform"] as const) test(`ignores a held ${own
   await page.mouse.click(x, y);
   await expect.poll(async () => (await selected()).atoms.length).toBe(0);
 });
+
+test("keeps viewer errors readable and primary transform actions reachable", async ({ page, request }, info) => {
+  const { project, launcher, inspect, original } = await prepare(page, request, info.project.name === "mobile-chromium");
+  await page.evaluate(() => {
+    window.movementEngines.at(-1)!.setMeasurements = async () => {
+      throw new Error("Measurement display unavailable; captured movement is retained.");
+    };
+  });
+  await launcher.click();
+  const controls = page.getByRole("region", { name: "Move selection controls" });
+  const error = page.locator(".viewer-error");
+  await expect(error).toContainText("Measurement display unavailable");
+  for (const theme of ["light", "dark"]) {
+    if (theme === "dark") await page.getByRole("button", { name: "Use dark theme" }).click();
+    const alert = (await error.boundingBox())!, toolbar = (await page.locator(".viewer-toolbar").boundingBox())!;
+    expect(alert.y + alert.height).toBeLessThanOrEqual(toolbar.y);
+    expect(await error.evaluate(node => {
+      const box = node.getBoundingClientRect();
+      return Boolean(document.elementFromPoint(box.x + box.width / 2, box.y + box.height / 2)?.closest(".viewer-error"));
+    })).toBe(true);
+    for (const name of ["Apply movement", "Cancel movement"]) expect(await controls.getByRole("button", { name }).evaluate(node => {
+      const box = node.getBoundingClientRect();
+      const hit = document.elementFromPoint(box.x + box.width / 2, box.y + box.height / 2);
+      return hit === node || Boolean(hit && node.contains(hit));
+    })).toBe(true);
+  }
+  expect(await projectRead(request, project.id)).toEqual(project);
+  await controls.getByRole("button", { name: "Cancel movement" }).click();
+  await expect.poll(async () => (await inspect()).coordinates).toEqual(original.coordinates);
+});

@@ -875,3 +875,26 @@ procedure and transformation/performance guidance updated. All scientific/queue/
 archive assertions retained. No scope deviation, follow-up or blocker.
 Next: verify the full-review viewer-error placement concern, then final versions,
 preceding reader, release notes and complete candidate gate.
+
+### 2026-10-10 — C5 review correction: readable viewer errors
+
+Full-diff review found that a centered viewer error could be obscured by the new
+active controls. The new native regression fails on preceding source in both
+layouts (alert bottom338.8/487 versus toolbar top96). Move the existing alert
+into the normal-flow header, above selection/style and transform bars; retain
+error text, semantics and Retry. Wrapping supports narrow widths. Both themes
+assert readable hit-tested error/primary actions and unchanged project/exactCancel.
+
+Focused final qualification: `viewer-transform-toolbar.spec.ts --grep 'viewer
+errors'`, fresh `/tmp/neistra-issue46-c5-error-clean-e2e`, ports8210/8211/5373:
+**2 passed**, **14.8 s**. Frontend lint/types and **169 tests / 38 files** pass;
+standalone production build passes with the existing lazy Mol* advisory. Complete
+correction diff reviewed; whitespace clean. No API/scientific/data/version change.
+
+Diagnostic history is retained: initial JSX relocation missed its outer closing
+tags; corrected and interrupted that diagnostic run. An attempted rerun reused
+its still-running interrupted import server and failed fixture imports (HTTP500),
+so its result is not qualification. Stopped only those identified disposable
+server PIDs, confirmed free ports and ran the fresh clean passing qualification
+above. No retries, timing relaxation or weakened scientific assertion.
+This restores the approved clear-error outcome, not expanded feature scope.

@@ -512,43 +512,58 @@ export function StructureViewer({
       {(movementActive || coordinatePreview) && project.measurements.length ? <div className="measurement-preview-notice" role="status">Measurements paused during coordinate preview.</div> : null}
       <Tooltip.Provider delayDuration={350}>
         <div className="viewer-header">
-      <div className="viewer-status" role="status">
-        <span>
-          {visibleEntries.length} visible
-          {viewerStructures.length > 0 ? ` / ${viewerStructures.length} loaded` : ""}
-          {` / ${selection.atoms.length} selected`}
-        </span>
-        {warningCount > 0 ? (
-          <span className="viewer-warning">
-            <AlertTriangle size={13} /> {warningCount} warning{warningCount === 1 ? "" : "s"}
-          </span>
-        ) : null}
-        {largeEntries.length > 0 ? (
-          <span className="viewer-warning" title="Surface and dense labels use reduced detail">
-            <AlertTriangle size={13} /> reduced detail
-          </span>
-        ) : null}
-      </div>
-        <ViewerToolbar
-          pickingUnavailableReason={movementActive ? "Finish movement before changing selection" : null}
-          pickingGranularity={pickingGranularity}
-          onPickingGranularity={onPickingGranularity}
-          fitAllUnavailableReason={movementActive ? "Finish movement before focusing the view" : viewerUnavailableReason}
-          focusSelectionUnavailableReason={movementActive ? "Finish movement before focusing the view" : focusSelectionUnavailableReason}
-          focusLigandsUnavailableReason={movementActive ? "Finish movement before focusing the view" : focusLigandsUnavailableReason}
-          selectionStyleUnavailableReason={movementActive ? "Finish movement before styling selection" : styleDialogOpen ? null : selectionStyleUnavailableReason}
-          selectionStyleOpen={styleDialogOpen}
-          onFitAll={() => viewerRef.current?.fitVisible()}
-          onFocusSelection={() => viewerRef.current?.focusAtoms(selection.atoms)}
-          onFocusLigands={() => viewerRef.current?.focusAtoms(ligandAtoms)}
-          onSelectionStyle={openStyleDialog}
-        />
-        {movement ? <MovementControls movement={movement}
-          view={() => viewerRef.current?.getMovementView() ?? null}
-          zoom={factor => viewerRef.current?.zoom(factor)}
-          unavailableReason={movement.state.phase !== "idle" ? "Selection capture is in progress"
-            : busy ? "Finish the current project change before moving selection"
-            : viewerUnavailableReason ?? movementUnavailableReason(project, selection, () => viewerRef.current?.getRenderedAtomReferences() ?? [])} /> : null}
+          <div className="viewer-status" role="status">
+            <span>
+              {visibleEntries.length} visible
+              {viewerStructures.length > 0 ? ` / ${viewerStructures.length} loaded` : ""}
+              {` / ${selection.atoms.length} selected`}
+            </span>
+            {warningCount > 0 ? (
+              <span className="viewer-warning">
+                <AlertTriangle size={13} /> {warningCount} warning{warningCount === 1 ? "" : "s"}
+              </span>
+            ) : null}
+            {largeEntries.length > 0 ? (
+              <span className="viewer-warning" title="Surface and dense labels use reduced detail">
+                <AlertTriangle size={13} /> reduced detail
+              </span>
+            ) : null}
+          </div>
+          {failedQueries.length > 0 || viewerError ? (
+            <div className="viewer-error" role="alert">
+              <AlertTriangle size={18} />
+              <span>{viewerError ?? "One or more structures could not be loaded."}</span>
+              {failedQueries.length > 0 ? (
+                <button
+                  type="button"
+                  className="secondary-button"
+                  onClick={() => failedQueries.forEach((query) => void query.refetch())}
+                >
+                  <RotateCcw size={15} /> Retry
+                </button>
+              ) : null}
+            </div>
+          ) : null}
+          <ViewerToolbar
+            pickingUnavailableReason={movementActive ? "Finish movement before changing selection" : null}
+            pickingGranularity={pickingGranularity}
+            onPickingGranularity={onPickingGranularity}
+            fitAllUnavailableReason={movementActive ? "Finish movement before focusing the view" : viewerUnavailableReason}
+            focusSelectionUnavailableReason={movementActive ? "Finish movement before focusing the view" : focusSelectionUnavailableReason}
+            focusLigandsUnavailableReason={movementActive ? "Finish movement before focusing the view" : focusLigandsUnavailableReason}
+            selectionStyleUnavailableReason={movementActive ? "Finish movement before styling selection" : styleDialogOpen ? null : selectionStyleUnavailableReason}
+            selectionStyleOpen={styleDialogOpen}
+            onFitAll={() => viewerRef.current?.fitVisible()}
+            onFocusSelection={() => viewerRef.current?.focusAtoms(selection.atoms)}
+            onFocusLigands={() => viewerRef.current?.focusAtoms(ligandAtoms)}
+            onSelectionStyle={openStyleDialog}
+          />
+          {movement ? <MovementControls movement={movement}
+            view={() => viewerRef.current?.getMovementView() ?? null}
+            zoom={factor => viewerRef.current?.zoom(factor)}
+            unavailableReason={movement.state.phase !== "idle" ? "Selection capture is in progress"
+              : busy ? "Finish the current project change before moving selection"
+              : viewerUnavailableReason ?? movementUnavailableReason(project, selection, () => viewerRef.current?.getRenderedAtomReferences() ?? [])} /> : null}
         </div>
         <SelectionStyleDialog
           onExpandDistance={onExpandDistance}
@@ -619,7 +634,6 @@ export function StructureViewer({
             aria-label={`Retry ${status.channel} surface for ${status.label}`} onClick={() => viewerRef.current?.retrySurface(status.entryId, status.channel)}>Retry</button> : null}
         </div>)}
       </div> : null}
-
       {loading ? (
         <div className="viewer-loading" aria-label="Loading molecular structures">
           <LoaderCircle size={22} />
@@ -629,21 +643,6 @@ export function StructureViewer({
       {visibleEntries.length === 0 ? (
         <div className="viewer-empty">
           <span>No visible structures</span>
-        </div>
-      ) : null}
-      {failedQueries.length > 0 || viewerError ? (
-        <div className="viewer-error" role="alert">
-          <AlertTriangle size={18} />
-          <span>{viewerError ?? "One or more structures could not be loaded."}</span>
-          {failedQueries.length > 0 ? (
-            <button
-              type="button"
-              className="secondary-button"
-              onClick={() => failedQueries.forEach((query) => void query.refetch())}
-            >
-              <RotateCcw size={15} /> Retry
-            </button>
-          ) : null}
         </div>
       ) : null}
     </div>

@@ -426,6 +426,7 @@ select:focus-visible,
 .viewer-header > * { pointer-events: auto; max-width: 100%; flex-shrink: 0; }
 .viewer-header .viewer-status { position: static; flex-wrap: wrap; pointer-events: none; }
 .viewer-header .viewer-toolbar { position: static; max-width: 100%; }
+.viewer-header .viewer-error { position: static; align-self: stretch; width: 100%; min-width: 0; transform: none; overflow-wrap: anywhere; }
 .transform-launcher, .movement-banner {
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
