@@ -2,6 +2,33 @@
 
 ## Current milestone
 
+Issue #46 — approved planning handoff for
+[viewer transformation toolbar and temporary camera navigation](plans/issue-46-viewer-transform-toolbar.md).
+Explicit user approval on 2026-10-10 authorizes the planning commit/push only;
+implementation has not started and awaits `/goal`.
+
+- Completed work: repository/issue/release inspection, approved requirement
+  dispositions and M1–M3/C1–C5 contract; distinct transform bar, fixed mouse
+  gestures, hold-Space navigation and the user-selected touch toggle. D-083
+  extends movement interaction ownership without changing scientific authority.
+- Verification performed: unchanged baseline passes 164 frontend tests and 109
+  focused coordinate/archive/migration tests. Clean master fetched and confirmed
+  fast-forward-current at `984ecc0507625f1e72e01c3f9e4c2d4a32961a73` before
+  creating `feat/issue-46-viewer-transform-toolbar`. Planning sections, checkpoint
+  contracts, code fences, local links/anchors, whitespace and exact three-file
+  scope pass; global plan/runtime/version sources are unchanged. The initial
+  commit SHA and remote verification are reported in the planning handoff.
+- Known limitations: no issue #46 functionality or new-feature verification yet;
+  no new browser/release gate during planning. Existing unconstrained movement,
+  emulated-device and Alembic/bundle limitations remain.
+- Blockers: none to planning persistence. Awaiting `/goal` is an authorization
+  boundary, not an implementation failure.
+- Next action: wait for `/goal` after the documentation-only commit/push.
+  Planned release is minor **0.12.0 / `v0.12.0`**; all five authoritative versions
+  remain **0.11.0**, with no planned migration (head `0013`).
+
+### Previous release — v0.11.0
+
 Issue #4 — approved scope delivered through [PR #43](https://github.com/ManuelSe/Neistra/pull/43) and
 [correction PR #44](https://github.com/ManuelSe/Neistra/pull/44), with verified
 [release v0.11.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.11.0). Contract and detailed evidence:
@@ -2219,8 +2246,13 @@ Results:
 
 ## Blockers
 
-No current blocker. Issue #4 is released; final cleanup audit is maintained in its closeout reply.
+No current blocker to issue #46 planning persistence. Implementation awaits
+explicit `/goal`. Issue #4 remains released; its final cleanup audit is maintained
+in its closeout reply.
 
 ## Next action
 
-Select and approve a separate backlog plan. Current released baseline is v0.11.0.
+Wait for `/goal` after the approved issue #46 documentation-only planning
+commit/push. The detailed contract is
+[the issue #46 feature plan](plans/issue-46-viewer-transform-toolbar.md).
+Current released baseline remains v0.11.0; planned feature release is v0.12.0.
