@@ -60,6 +60,7 @@ from molweave_api.import_export import (
     prepare_uploads,
     safe_display_filename,
 )
+from molweave_api.interaction_service import interaction_router
 from molweave_api.job_service import (
     InvalidJobOperationError,
     JobConflictError,
@@ -1420,6 +1421,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         )
 
     app.include_router(router)
+    app.include_router(interaction_router(app_settings, session_dependency))
 
     @app.websocket("/ws/jobs")
     async def jobs_websocket(

@@ -2,10 +2,9 @@
 
 ## Status, authority, and delivery baseline
 
-Status: **approved; implementation not started**. Approved by the user on
+Status: **approved; implementation in progress (M1/C1 complete)**. Approved by the user on
 2026-10-11 through “Implement the plan”, with the explicit persist-only handoff
-retained. Stop after the documentation commit and verified branch push, ready
-for `/goal`.
+completed. The subsequent `/goal` authorizes implementation and delivery.
 
 Issue: [#49](https://github.com/ManuelSe/Neistra/issues/49).
 Plan: `docs/plans/issue-49-molecular-interactions.md`.
@@ -461,3 +460,35 @@ Approved handoff is **persistence only**, followed by a stop ready for `/goal`:
 - Known limitations: approved chemistry coverage, explicit-H requirement,
   uncertain raw-PDB ligands, fixed profile and pinned/emulated qualification scope.
 - Blockers: none at plan handoff. Next action: `/goal` to authorize implementation.
+
+
+### 2026-10-11 — M1/C1 clash vertical slice
+
+Implemented pure normalized-input clash analysis, source/connectivity molecule
+grouping, canonical identity/endpoints, deterministic ordering, fixed RDKit radii,
+three-bond exclusions, explicit uncertainty and metal/alternate-site suppression.
+The additive endpoint validates project/current artifact/frame, reads artifacts
+without viewer export and runs a cancellable spawned child. Admission is bounded
+before neighbor-list allocation; failures cannot return truncated completeness.
+Compact nonmodal menu control, session store, artifact-keyed cache/filtering,
+preview clearing and batched nonpickable patterned Mol* lines are connected.
+Only clashes are exposed at C1; H-bond exceptions and other type controls are C2/C3.
+
+Passing focused evidence:
+
+- `.venv/bin/uv run pytest tests/unit/test_interactions.py tests/unit/test_contacts.py tests/integration/test_interactions.py`: 15 passed.
+- `corepack pnpm --dir apps/web exec vitest run src/test/interactions.test.ts src/test/viewer-adapter.test.ts src/test/structure-loading.test.tsx`: 20 passed.
+- `.venv/bin/uv run ruff check .`; `.venv/bin/uv run mypy apps/api packages/molweave_core`: pass (56 source files).
+- `corepack pnpm --dir apps/web lint`; `corepack pnpm --dir apps/web typecheck`; `corepack pnpm --dir apps/web build`: pass; existing bundle-size advisory retained.
+- Focused Playwright interactions: 2 passed, desktop/Pixel 7; use `MOLWEAVE_E2E_WEB_PORT=5183 MOLWEAVE_E2E_API_PORT=8020 MOLWEAVE_E2E_WORKER_PORT=8021 MOLWEAVE_E2E_DATA_DIR=.molweave-interactions-e2e PLAYWRIGHT_BROWSERS_PATH=.playwright` before the approved command.
+- `git diff --check`: pass. Local diff review corrected input-order orientation
+  and suppressed ambiguous molecule groups; no persistence/version changes.
+
+Diagnostics corrected: same-basename Python modules now have package namespaces;
+read-only comparison uses the pre-analysis GET serialization. An initial browser
+run reused an existing development server with an old API and returned 404;
+isolated ports pass. These failures are not qualification evidence.
+
+No migration; schema head0013/majors1 and producer0.12.1 unchanged. Original
+artifacts/history are untouched. Full scientific/geometry/visibility/timing and
+previous-reader qualification remain C2–C4; release gates remain C5. No blocker.

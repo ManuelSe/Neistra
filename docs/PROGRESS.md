@@ -2,26 +2,18 @@
 
 ## Current milestone
 
-Issue #49 — approved [molecular-interactions plan](plans/issue-49-molecular-interactions.md)
-persisted on `feat/issue-49-molecular-interactions`; implementation not started.
-M1/C1–C2: clash vertical slice, then hydrogen bonds/hydrophobic contacts.
-M2/C3: aromatic and ionic types, including salt bridges. M3/C4–C5:
-workflow/scientific/accessibility/performance/compatibility qualification and delivery.
-Approved D-085–088 retain authoritative molecular state, transient inspection,
-bounded analysis, explicit H and warned templates, separate molecule grouping,
-paused previews and hidden-polar-H marker suppression. CCD typing is a separate
-follow-up. Planned minor release **0.13.0**; runtime versions remain 0.12.1,
-Alembic head 0013 and schema majors 1; no migration planned.
-
-Completed: repository/remote inspection, product decisions, plan approval,
-clean master fetch/fast-forward-only check at `2a33edf90ae384d60cdef378a3ec8d26a7bc9649`,
-dedicated branch and approved documentation. Verification: baseline/history,
-documentation diff and local links; no feature tests or release gate run.
-Known limits: assessable chemistry only, supplied/explicitly prepared hydrogens,
-uncertain raw PDB/mmCIF ligands skipped with guidance, fixed profile, pinned
-browser/emulation qualification. No blocker. Next action: `/goal` to start C1.
-Stop after verified plan commit/push; no implementation or follow-up issue creation
-is part of this handoff. Exact commit/remote verification is reported in the handoff.
+Issue #49 — [approved molecular-interactions plan](plans/issue-49-molecular-interactions.md)
+in progress on `feat/issue-49-molecular-interactions`. M1/C1 clash vertical slice
+complete: bounded pure analysis, current-artifact API, source/connectivity scopes,
+warned coverage, compact session controls/cache and nonpickable overlay.
+Focused checks: 15 Python, 20 frontend, 2 desktop/Pixel 7 browser passes;
+Ruff/mypy/web lint/types/build/diff checks pass. Isolated ports avoid an existing
+development server. No migration or persisted change (0013/majors1/0.12.1).
+Limitations: C1 exposes clashes only; conservative incomplete within-molecule
+connectivity, alternate sites and metals skipped. Hydrogen-bond exceptions and
+other type controls follow in C2/C3; full qualification/release in C4/C5.
+D-085–088 remain the contract; no blocker. Next: M1/C2 hydrogen bonds and
+hydrophobic contacts. Planned minor release0.13.0; CCD typing remains a follow-up.
 
 ### Previous delivery baseline — v0.12.1
 

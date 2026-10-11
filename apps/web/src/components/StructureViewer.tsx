@@ -39,6 +39,9 @@ import { MovementOverlay, MovementControls } from "./MovementOverlay";
 import type { MovementWorkflow } from "../coordinates/useMovementSession";
 import { movementPreview, movementUnavailableReason } from "../coordinates/interactiveTransform";
 import { CoordinatePreviewQueue } from "../viewer/CoordinatePreviewQueue";
+import { InteractionPanel } from "./InteractionPanel";
+import { useInteractions } from "../interactions/useInteractions";
+import { filterInteractions } from "../interactions/filter";
 
 const VIEWER_BACKGROUND_COLORS: Record<Theme, string> = {
   light: THEME_TOKENS.light["viewer-background"],
@@ -120,6 +123,10 @@ export function StructureViewer({
   const [camera, setCamera] = useState<CameraState | null>(null);
   const [isolation, setIsolation] = useState<Selection["atoms"] | null>(null);
   const [styleProjectId, setStyleProjectId] = useState<string | null>(null);
+  const [interactionProjectId, setInteractionProjectId] = useState<string | null>(null);
+  const interactionPaused = movementActive || Boolean(coordinatePreview);
+  const interactionInputs = project.entries.filter(entry => entry.visible && entry.current_artifact_id).map(entry => ({ entry_id: entry.id, artifact_id: entry.current_artifact_id! }));
+  const interactions = useInteractions(project.id, interactionInputs, interactionPaused);
   const styleDialogOpen = styleProjectId === project.id;
   const setStyleDialogOpen = (open: boolean) => setStyleProjectId(open ? project.id : null);
   useEffect(() => { setStyleProjectId(null); }, [project.id]);
@@ -279,6 +286,17 @@ export function StructureViewer({
     .join("|");
   const structuresPending = structureQueries.some((query) => query.isPending);
   viewerStructuresRef.current = viewerStructures;
+  const interactionRecords = interactions.result && !interactionPaused
+    ? filterInteractions(interactions.result.records, interactions.choices, viewerStructures, isolation) : [];
+  const interactionDisplayKey = JSON.stringify(interactionRecords);
+  const interactionRecordsRef = useRef(interactionRecords); interactionRecordsRef.current = interactionRecords;
+  useLayoutEffect(() => {
+    if (interactionPaused) void viewerRef.current?.setInteractions([]).catch(() => undefined);
+  }, [interactionPaused, viewerReady]);
+  useEffect(() => {
+    if (!viewerReady) return;
+    void viewerRef.current?.setInteractions(interactionRecordsRef.current).catch((error: unknown) => setViewerError(error instanceof Error ? error.message : "Interaction markers could not be displayed."));
+  }, [interactionDisplayKey, syncKey, viewerReady]);
   const renderedCallback = useRef(onRenderedMovementAtoms);
   renderedCallback.current = onRenderedMovementAtoms;
   useEffect(() => {
@@ -561,6 +579,8 @@ export function StructureViewer({
             </div>
           ) : null}
           <ViewerToolbar
+            interactionsOpen={interactionProjectId === project.id}
+            onInteractions={() => setInteractionProjectId(interactionProjectId === project.id ? null : project.id)}
             pickingUnavailableReason={movementActive ? "Finish movement before changing selection" : null}
             pickingGranularity={pickingGranularity}
             onPickingGranularity={onPickingGranularity}
@@ -581,6 +601,8 @@ export function StructureViewer({
               : busy ? "Finish the current project change before moving selection"
               : viewerUnavailableReason ?? movementUnavailableReason(project, selection, () => viewerRef.current?.getRenderedAtomReferences() ?? [])} /> : null}
         </div>
+        <InteractionPanel open={interactionProjectId === project.id} onOpenChange={open => setInteractionProjectId(open ? project.id : null)} choices={interactions.choices} result={interactions.result}
+          status={interactionPaused ? "Paused during preview" : interactions.error ?? (interactions.loading ? "Analyzing…" : !interactions.enabled ? "Off" : !interactions.result ? "Waiting…" : `${interactionRecords.length} detected${interactions.result.warnings.length ? " · partial coverage" : ""}`)} />
         <SelectionStyleDialog
           onExpandDistance={onExpandDistance}
           onAppearance={onAppearance}

@@ -1,4 +1,5 @@
 import type { SurfaceChannel } from "./surface/protocol";
+import type { InteractionRecord } from "../interactions/types";
 import type { SurfaceStatus } from "./surface/runtime";
 import type { MovementView } from "../coordinates/interactiveTransform";
 import type {
@@ -87,6 +88,10 @@ class LazyMolstarViewer implements MolecularViewer {
 
   setMeasurements(measurements: ViewerMeasurement[]): Promise<void> {
     return this.engine?.setMeasurements(measurements) ?? Promise.resolve();
+  }
+
+  setInteractions(interactions: InteractionRecord[]): Promise<void> {
+    return this.engine?.setInteractions(interactions) ?? Promise.resolve();
   }
 
   setIsolation(atoms: AtomReference[] | null): Promise<void> {

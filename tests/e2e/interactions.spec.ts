@@ -1,0 +1,33 @@
+import { resolve } from "node:path";
+import { expect, test } from "@playwright/test";
+
+test("compact interaction control analyzes once and filters cached scopes", async ({ page, request }, info) => {
+  test.setTimeout(90_000);
+  const created = await request.post("/api/v1/projects", { data: { name: `Interactions ${info.project.name} ${Date.now()}` } });
+  const project = await created.json();
+  await page.goto("/");
+  await page.getByRole("button", { name: "Projects", exact: true }).click();
+  await page.getByRole("dialog", { name: "Projects" }).getByRole("button", { name: new RegExp(`^${project.name}`) }).click();
+  await page.getByRole("button", { name: "Import structures" }).first().click();
+  const imports = page.getByRole("dialog", { name: "Import structures" });
+  await imports.locator('input[type="file"]').setInputFiles([resolve("tests/fixtures/formats/ethanol.mol"), resolve("tests/fixtures/formats/ethanol.mol")]);
+  await imports.getByRole("button", { name: "Import", exact: true }).click();
+  await expect(imports).toBeHidden({ timeout: 20_000 });
+  await expect(page.locator(".viewer-status")).toContainText("2 visible / 2 loaded", { timeout: 20_000 });
+  let analyses = 0;
+  page.on("request", request => { if (request.url().endsWith("/interactions")) analyses++; });
+  await page.getByRole("button", { name: "Interactions", exact: true }).click();
+  const panel = page.getByRole("dialog", { name: "Interactions", exact: true });
+  await expect(panel.getByRole("status")).toHaveText("Off");
+  expect(analyses).toBe(0);
+  await panel.getByRole("button", { name: "Clashes", exact: true }).click();
+  await expect(panel.getByRole("status")).toContainText(/\d+ detected/, { timeout: 20_000 });
+  expect(analyses).toBe(1);
+  await panel.getByRole("button", { name: "Intermolecular interactions" }).click();
+  await expect(panel.getByRole("status")).toHaveText("Off");
+  await panel.getByRole("button", { name: "Intramolecular interactions" }).click();
+  await expect(panel.getByRole("status")).toContainText("0 detected");
+  expect(analyses).toBe(1);
+  await panel.getByRole("button", { name: "Close interactions" }).click();
+  await expect(panel).toBeHidden();
+});

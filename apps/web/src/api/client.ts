@@ -35,6 +35,13 @@ import type {
   JobEvent,
   JobResultImport,
 } from "./types";
+import type { InteractionInput, InteractionResult } from "../interactions/types";
+
+export const interactionApi = {
+  analyze: (projectId: string, inputs: InteractionInput[], signal: AbortSignal) => request<InteractionResult>(`/api/v1/projects/${projectId}/interactions`, {
+    method: "POST", signal, body: JSON.stringify({ inputs, profile: "interaction-v1", frame: "workspace-cartesian" }),
+  }),
+};
 
 export class ApiError extends Error {
   readonly status: number;
