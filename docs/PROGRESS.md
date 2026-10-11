@@ -17,10 +17,14 @@ pass. [C1](assets/compact-transform-controls/c1-verification.md) /
 [C2](assets/compact-transform-controls/c2-verification.md) evidence. No blocker.
 Direct Help/More switching now renews panel focus; Escape closes the selected
 panel first. Review regression and five native cases/one intentional skip pass.
-Patch 0.12.1 prepared consistently in all five sources, with current release/user
-guidance and recent-version archive round-trips (19 archive tests pass). Actual
-tagged v0.12.0 reader accepts final 0.12.1 exact data/history/archives/jobs. Next: complete clean release gates, PR/review,
-normal merge, annotated tag/release and new issue #46 correction reply.
+Patch 0.12.1 prepared in all five authoritative sources; actual tagged v0.12.0
+reader accepts final 0.12.1 exact data/history/archives/jobs. Complete clean
+candidate `f437c31767cd44be435d829ca4fb9ad033049214` passes **400 Python, 173 frontend, eight supervisor and
+159 browser tests / 43 intentional skips**, zero failures/flakes/retries and all
+frozen-install/migration/lint/type/build gates. Native preview/Cancel/task budgets
+and bounded queue pass. Local full-diff review is not independent; consequential
+findings corrected, no unresolved finding. Next: current base/collision/policy
+audit, PR/review, normal merge, exact-master qualification and publication.
 
 Previous delivery baseline:
 
@@ -2270,5 +2274,5 @@ No current blocker. Issue #46 is released; final cleanup audit is maintained in 
 
 ## Next action
 
-Select and approve a separate backlog plan. Current released baseline is v0.12.0;
-the issue closeout maintains the final documentation/branch-cleanup audit.
+Complete the correction PR/review/normal merge, exact-master qualification and
+v0.12.1 publication/verified closeout. Current released baseline remains v0.12.0.

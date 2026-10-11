@@ -38,16 +38,24 @@ Rollback to the qualified 0.12.0 reader requires no schema downgrade/data stripp
 ### Verification and review
 
 The [approved correction contract](plans/issue-46-compact-transform-controls.md)
-records checkpoints, diagnostics and scope decisions. C1/C2 pass frontend
-lint/types/build, 173 frontend tests, 34 final focused browser cases / four intentional
-layout skips, and preceding natural-focus tests in both layouts. Coverage includes
-native repeated Space without injected canvas focus, preserved exact coordinates/
-selection/project, latest-plane translation, interrupted input, touch Help/More,
-320 px targets, both themes/scoped axe, actual 100%/200% Chrome zoom and primary hit
-testing during scrolling. The original 0.12.0 regression manually refocused the
-canvas and missed the natural-focus defect; historical release evidence is retained.
-Full clean candidate and exact merged gates, compatibility reader and full local
-review must be recorded in the plan before release. Local review is not independent.
+records exact commands/timings, diagnostics and scope decisions. Complete clean
+candidate `f437c31767cd44be435d829ca4fb9ad033049214` passes **400 Python, 173 frontend, eight supervisor and
+159 browser tests / 43 intentional layout skips**, zero failures/flakes/retries.
+Frozen installs/fresh migration 0013/Ruff/mypy/web lint/types/build all pass.
+Native first previews 145.0/37.6 ms, exact coordinate Cancel 18.1/19.7 ms and
+longest tasks 130/0 ms pass unchanged 500/500/750 ms budgets; each case
+retains six ownership cycles, first/latest two frames per 40 submissions, max one
+active update, exact restoration and no molecular requests. Surface regeneration
+is measured separately.
+
+Coverage includes natural repeated Space without injected canvas focus, guarded
+mouse return, latest-plane translation, exact transaction/history, interrupted
+input, direct Help/More switching and focused Escape, true CDP touch, both themes/
+scoped axe, 44 px mobile/320 px targets and actual 100%/200% Chrome zoom with
+primary-action hit testing. Historical 0.12.0 tests manually refocused the canvas;
+that missed natural-focus defect is now covered. Review findings were reproduced
+and corrected before qualification. Full-diff review is local, not independent.
+Exact merged qualification and publication remain required.
 
 ### Limitations and scope decisions
 

@@ -210,3 +210,31 @@ or unsatisfied repository protection.
   address this consequential finding; it is diagnostic, not release qualification.
   Complete clean candidate gate restarts on the corrected checkpoint. Review is
   local, not independent; no remaining consequential finding in this checkpoint.
+
+### Complete clean candidate qualification and local review
+
+Clean candidate `f437c31767cd44be435d829ca4fb9ad033049214` passes every release command in README/DEVELOPMENT:
+**400 Python, 173 frontend, eight supervisor and 159 browser tests / 43 intentional
+layout skips**, zero failures/flakes/retries. Frozen installs, fresh migration
+0013, Ruff/mypy, web lint/types/build and `git diff --check` all pass. Browser
+duration 27.48 min; isolated ports 8210/8211/5373,
+data `/tmp/neistra-issue46-compact-candidate-qualified`.
+[Exact commands, timings, source/clean-state and native performance](../assets/compact-transform-controls/candidate-verification.json).
+First previews 145.0/37.6 ms, exact coordinate Cancel 18.1/19.7 ms and longest
+tasks 130/0 ms satisfy unchanged 500/500/750 ms budgets. Each case retains
+six ownership cycles, first/latest two frames per 40 submissions, max one active
+update, exact restoration and zero molecular requests. Surface coordinate Cancel
+12.4 ms and regeneration
+1050.4 ms remain separate.
+
+Complete diff reviewed locally, not independently: typed presentation/focus,
+Radix panel lifetime and keyboard/native input ownership, scoped supporting
+group-render focus repair, unchanged scientific math/APIs/persistence/history,
+accessibility/theme/touch/real zoom, versions/tests/docs and dead CSS/scope.
+Consequential findings were reproduced, corrected and rerun; prior diagnostic
+runs remain explicitly unqualified. No unresolved finding or migration. Actual
+tagged v0.12.0 reader of final 0.12.1 data passes as recorded above.
+This evidence-only checkpoint changes no runtime/test/version source.
+Next: fetch/base/version collision and live protection/review audit; PR normal
+merge, exact merged gate/reader, annotated tag/release/asset verification, new
+issue correction reply and reviewed documentation closeout/branch cleanup.
