@@ -146,6 +146,7 @@ function projection(entryId: string): StructureProjection {
 }
 
 class FakeViewer implements MolecularViewer {
+  setInteractions = vi.fn(async () => {});
   mounted = false;
   mounts = 0;
   disposed = false;

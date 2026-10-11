@@ -1,0 +1,28 @@
+{
+  "review_type": "local full-diff review; not independent",
+  "reviewed_source": "2cbdee512ce1eefa09c126dd6c243adbba2b56c4",
+  "base": "2a33edf90ae384d60cdef378a3ec8d26a7bc9649",
+  "areas": [
+    "Approved six-type scope and independent scopes; deferred requirements remain deferred",
+    "Immutable normalized inputs, source/connectivity grouping and analysis-only canonical typing",
+    "Explicit donor-H endpoints and directional geometry; charge/ring completeness and fixed boundaries",
+    "Contradictory protonation/charges and covalent modifications; uncertainty, metals and incomplete inputs",
+    "Spatial candidate/record/atom bounds and no partial publication",
+    "Ownership/stale input validation and cancellation/deadline child cleanup/admission",
+    "Transient state, immutable subset cache, captured generation, empty-project reset and renderer remounts",
+    "Native visibility, hydrogen masks, preview clear/Cancel restoration and committed artifact invalidation",
+    "Batched nonpickable geometry separate from measurement and camera/selection ownership",
+    "Compact nonmodal keyboard/touch controls, both themes, narrow viewports and actual zoom",
+    "Independent scientific expected values and native browser assertions, fixtures and host provenance",
+    "Five consistent version sources, unchanged dependencies, schemas, migrations, archives and existing APIs",
+    "Scientific/user/architecture/accessibility/performance guidance and checkpoint evidence"
+  ],
+  "consequential_findings_resolved": [
+    "Covalently modified Lys cannot receive canonical positive charge; disulfide S cannot be thiol donor",
+    "Renderer-native nonpolar hydrogen visibility and immediate preview clearing/restoration",
+    "Immutable subset reuse and session reset when switching through an empty project",
+    "Scoped panel animation/position variables and six-kind deduplication in native filtering"
+  ],
+  "unresolved_consequential_findings": [],
+  "known_limits": "Fixed geometric screening and prepared chemistry, warned canonical assumptions, no CCD/metal/periodic analysis; pinned browser emulation"
+}

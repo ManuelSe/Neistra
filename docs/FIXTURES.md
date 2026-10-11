@@ -164,3 +164,28 @@ just-outside cutoffs, disconnected seeds, empty output, invalid radii/coordinate
 working-memory refusal and owner-only isolation. Overlapping atomic centers show
 that a cropped full-context patch differs from a freshly calculated fragment.
 Fixtures do not imply pocket discovery, chemical preparation or binding analysis.
+# Controlled interaction fixtures
+
+`tests/scientific/test_interactions.py` constructs explicitly charged/ordered
+ammonia–carbonyl geometry with supplied H and independently varied distance/angle
+boundaries. `tests/unit/test_interactions.py` constructs carbon graph contacts,
+three-bond exclusions and resource-limit negatives. Synthetic coordinates test
+rules and canonical identities, not experimental binding. A canonical ALA
+fixture verifies observed OpenMM template mapping/alternate-site rejection without
+mutation. These fixtures use pinned RDKit/OpenMM; imported fixture originals stay
+unchanged. Browser fixtures reuse preserved format inputs; real qualification
+and provenance are recorded separately in the issue #49 plan.
+
+## Interaction browser fixtures
+
+`tests/fixtures/interactions/` contains synthetic supplied-coordinate MOL fixtures
+serialized using pinned RDKit 2026.3.4 (no downloads or coordinate optimization):
+neutral ammonia/formaldehyde fragments with explicit donor H at (1,0,0), acceptor O
+at (2.8,0,0); benzene rings of radius 1.4 at z=0/z=3.5; and explicit N+ at (0,0,4).
+These qualify endpoints, full ring memberships and charge-center direction.
+`aligned_ethanol.mol` derives from the existing ethanol fixture with RDKit AddHs
+(addCoords=True), translated to the pinned 1STP BTN heavy-atom centroid
+(11.117625,1.6800625,-10.7545625); it makes no experimentally bound pose claim.
+[Checksums/host evidence](assets/molecular-interactions/c4-host-fixtures.json) pins
+bytes. Unit/scientific tests independently specify negative and boundary variants
+for distance/angles/offsets/planarity/charges, exclusions, ambiguity and limits.

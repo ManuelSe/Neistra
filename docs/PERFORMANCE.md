@@ -276,3 +276,18 @@ coordinate preview/cancel/commit, and prevention of duplicate invalidation for a
 already-applied commit. A final UI-only receptor-default correction is independently
 rechecked by component/workflow/real-zoom tests; it does not change this native
 geometry or resource evidence.
+
+## Molecular interactions (issue #49)
+
+Pinned 1STP plus an explicitly typed 9-atom ethanol aligned to the BTN centroid
+contains 1,010 atoms. This synthetic alignment makes no binding claim. Host gates
+require first analysis-to-overlay <5 s, cached toggle <500 ms and longest main-thread
+task <750 ms. Final C4 desktop: 2337 ms / 178.5 ms / 0 ms observed; Pixel 7 emulation: 2416 ms / 152.5 ms / 0 ms observed. Each uses one 279-byte identity request, zero structure GETs and 79 shown clash records. [Raw evidence/host/checksums](assets/molecular-interactions/).
+No profiler or competing build ran during these timing windows. Budgets are host
+regression gates, not physical-phone or arbitrary-size throughput promises.
+
+Analysis limits are 100,000 atoms, 1 million spatial candidate admissions, 20,000 records
+and 30 s wall time, with one active child/API process. Limit failure returns no complete
+result. Cached switches filter records; camera/selection/theme/styles send no new
+chemistry request. Hidden/deleted subsets reuse matching immutable input supersets.
+Existing viewer/surface budgets remain binding and repeat in the release gate.

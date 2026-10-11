@@ -1,4 +1,5 @@
 import type { SurfaceChannel } from "./surface/protocol";
+import type { InteractionRecord } from "../interactions/types";
 import type { SurfaceStatus } from "./surface/runtime";
 import type { MovementView } from "../coordinates/interactiveTransform";
 import type {
@@ -53,6 +54,7 @@ export interface MolecularViewer {
   setSelection(atoms: AtomReference[]): void;
   setPickingGranularity(granularity: SelectionGranularity): void;
   setMeasurements(measurements: ViewerMeasurement[]): Promise<void>;
+  setInteractions(interactions: InteractionRecord[]): Promise<void>;
   setIsolation(atoms: AtomReference[] | null): Promise<void>;
   getCamera(): CameraState | null;
   getMovementView(): MovementView | null;

@@ -2,6 +2,40 @@
 
 ## Current milestone
 
+Issue #49 — [approved molecular-interactions plan](plans/issue-49-molecular-interactions.md).
+M1–M2/C1–C3 and M3/C4 complete on `feat/issue-49-molecular-interactions`.
+All six scientifically typed interaction types and independent scopes work through
+the compact viewer control, bounded read-only analysis and nonpickable overlays.
+Explicit-H angles/endpoints, charge/ring geometry, source/covalent scopes and
+warned uncertainty remain application owned. Previews clear/pause; Cancel restores
+cache; Apply/Undo/Redo follow committed artifacts. Visibility subsets reuse cache;
+empty-project switches reset session state. No migration or persisted change.
+
+C4: 471 Python /76 focused, 179 frontend; browser regression76passes/14intentional
+skips, corrected interactions9passes/1skip, final centroid/performance3passes/1skip.
+Ruff/mypy/web lint/types/build/diff pass. Evidence, exact commands and diagnostics:
+[verification](assets/molecular-interactions/c4-verification.json). Real zoom,
+light/dark scoped axe, 320px, H pixels/centroids/native nonpickability and existing
+Space/movement/surface/measurement budgets pass. Preliminary tagged v0.12.1 reader
+passes; final v0.13.0 producer and exact merged master must repeat in C5.
+
+Known limits: geometric screening, explicit preparation, warned observed-only
+protein conventions, incomplete ligand chemistry, unsupported metal/periodic
+coordination and pinned Chromium/SwiftShader/Pixel 7 emulation. D-085–088 and
+[Interactions](INTERACTIONS.md) define scope; CCD remains verified [follow-up #52](https://github.com/ManuelSe/Neistra/issues/52).
+C5 clean candidate `2cbdee512ce1eefa09c126dd6c243adbba2b56c4` passes the complete
+release gate: **472 Python,179 frontend,8 supervisor,168 browser /44 intentional
+skips**, zero failures/flakes/retries; frozen installs/fresh0013/lint/types/build.
+Final0.13.0 producer/actual tagged0.12.1 reader passes exact originals/coordinates,
+history/save/re-export/archives/jobs. [Candidate evidence](assets/molecular-interactions/c5-candidate-gate.json)
+and [local full-diff review](assets/molecular-interactions/c5-local-review.json) retained;
+review is not independent, with no unresolved consequential findings. Five versions
+0.13.0, no dependency/schema migration change. No blocker. Next: PR/normal merge,
+exact merged gate/reader, verified tag/release/issue reply and branch cleanup.
+Current released baseline remains v0.12.1 until verified publication.
+
+### Previous delivery baseline — v0.12.1
+
 Issue #46 correction delivered through [PR](https://github.com/ManuelSe/Neistra/pull/50) and verified
 [release v0.12.1](https://github.com/ManuelSe/Neistra/releases/tag/v0.12.1). [Contract/evidence](plans/issue-46-compact-transform-controls.md).
 C1–C3 complete: icon-only controls, bounded Help/More, retained visible errors/
@@ -2269,5 +2303,5 @@ No current blocker. Issue #46 is released; final cleanup audit is maintained in 
 
 ## Next action
 
-Select and approve a separate backlog plan. Current released baseline is v0.12.1;
-the new correction reply maintains final documentation/branch-cleanup audit.
+Complete issue #49 C4 qualification and C5 delivery on its approved feature branch.
+Current released baseline remains v0.12.1 until verified publication.

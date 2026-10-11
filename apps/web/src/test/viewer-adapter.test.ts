@@ -22,6 +22,7 @@ const calls = vi.hoisted(() => ({
   resize: vi.fn(),
   dispose: vi.fn(),
   measurements: vi.fn(),
+  interactions: vi.fn(),
   isolation: vi.fn(),
   focus: vi.fn(),
   fit: vi.fn(),
@@ -60,6 +61,11 @@ vi.mock("../viewer/MolstarEngine", () => ({
 
     setMeasurements(value: unknown) {
       calls.measurements(value);
+      return Promise.resolve();
+    }
+
+    setInteractions(value: unknown) {
+      calls.interactions(value);
       return Promise.resolve();
     }
 
@@ -161,6 +167,7 @@ describe("MolecularViewer Molstar adapter", () => {
     await viewer.mount(target);
     viewer.setBackgroundColor("#eef2f1");
     await viewer.syncStructures(structures);
+    await viewer.setInteractions([]);
     viewer.focusAtoms([{ structure_id: "protein", atom_id: 10 }]);
     viewer.fitVisible();
     viewer.resize();
@@ -177,6 +184,7 @@ describe("MolecularViewer Molstar adapter", () => {
     ]);
     expect(calls.subscribe).toHaveBeenCalledWith(listener);
     expect(calls.sync).toHaveBeenCalledWith(structures);
+    expect(calls.interactions).toHaveBeenCalledWith([]);
     expect(calls.focus).toHaveBeenCalledWith([
       { structure_id: "protein", atom_id: 10 },
     ]);

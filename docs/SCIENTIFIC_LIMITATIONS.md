@@ -5,6 +5,22 @@ Status: Neistra scientific limits; originally documented for MolWeave v0.2.0.
 Neistra reports known uncertainty but does not replace specialist
 structure preparation or validation software.
 
+## Molecular interactions
+
+Transient `interaction-v1` analysis is geometric screening, not binding energy.
+It requires explicit donor H and chemical evidence; missing coordinates, uncertain
+charges/orders, incomplete template sites, alternate locations and unsupported
+metal coordination are reported. Analysis-only protein templates do not prepare
+the structure. Raw PDB/mmCIF ligands receive no name/distance-based chemistry
+assignment. Scope uses connectivity/source molecule instances in the current
+workspace frame, without periodic/symmetry images. Incomplete covalent exclusions
+suppress within-molecule clashes. Fixed thresholds and display/visibility rules
+are documented in [Interactions](INTERACTIONS.md). These results are transient;
+archives and history are unchanged. Known covalent modifications override residue
+name conventions; unsupported modified template sites and contradictory water
+charges are skipped with warnings. Disulfides are not unprepared thiol donors.
+CCD assignment remains [follow-up #52](https://github.com/ManuelSe/Neistra/issues/52).
+
 ## Macromolecular Formats
 
 - PDB and PDBx/mmCIF connectivity does not establish reliable ligand bond

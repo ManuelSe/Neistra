@@ -96,6 +96,16 @@ test("keeps actions and dialogs reachable at real 100% and 200% browser zoom", a
         await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded");
         await expectBoundedActions(page);
         await captureZoomPage(page, info, `${theme}-${factor * 100}-workspace.png`);
+        const interactionsLauncher = page.getByRole("button", { name: "Interactions", exact: true });
+        await interactionsLauncher.focus(); await page.keyboard.press("Enter");
+        const interactions = page.getByRole("dialog", { name: "Interactions", exact: true });
+        await expect(interactions).toBeVisible();
+        expect(await interactions.evaluate(node => { const box = node.getBoundingClientRect(); return box.left >= 0 && box.right <= innerWidth && box.top >= 0 && box.bottom <= innerHeight && node.scrollWidth <= node.clientWidth + 1; })).toBe(true);
+        expect((await new AxeBuilder({ page }).include(".interaction-panel").analyze()).violations).toEqual([]);
+        await captureZoomPage(page, info, `${theme}-${factor * 100}-interactions.png`);
+        await interactions.getByRole("button", { name: "Interaction help" }).click();
+        await interactions.getByRole("button", { name: "Close interactions" }).focus(); await page.keyboard.press("Enter");
+        await expect(interactionsLauncher).toBeFocused();
         if (factor === 2) await page.getByRole("button", { name: "Inspector", exact: true }).click();
         await page.getByRole("tab", { name: "selection", exact: true }).click();
         await page.getByLabel("Select by").selectOption("structure");

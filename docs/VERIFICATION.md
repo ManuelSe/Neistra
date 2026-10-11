@@ -1,6 +1,22 @@
 # V0.1 Requirement Evidence
 
-Current correction evidence is maintained in the
+Issue #49 qualification is maintained in the [approved interaction plan](plans/issue-49-molecular-interactions.md)
+and [raw evidence](assets/molecular-interactions/). All six types use independently
+specified positive, negative and exact-threshold scientific cases. Native browser
+checks verify H-to-acceptor pixels/geometry, complete ring centroids, nonpickable
+batching, cached scopes/visibility, preview Cancel, Apply/Undo/Redo, scenes,
+deletions and project/remount/reload lifetimes. Busy, cancellation, deadline,
+resource limits and stale artifacts return no misleading complete result.
+Light/dark scoped axe, keyboard, 320px and real100%/200% zoom are qualified.
+[Clean candidate gate](assets/molecular-interactions/c5-candidate-gate.json) at
+2cbdee512ce1eefa09c126dd6c243adbba2b56c4 passes472Python/179frontend/8supervisor/
+168browser with44intentional skips, zero failures/flakes/retries. Frozen installs,
+fresh0013/lint/types/build/diff pass; actual tagged0.12.1 reader accepts final0.13.0
+data/history/archives/jobs. Exact merged-release gates must repeat before tagging.
+Evidence remains distinct from C4/historical counts. No schema migration; review
+[local, not independent](assets/molecular-interactions/c5-local-review.json).
+
+Previous correction evidence is maintained in the
 [approved compact-transform plan](plans/issue-46-compact-transform-controls.md).
 Clean candidate `f437c31767cd44be435d829ca4fb9ad033049214` passes every complete release command: 400 Python,
 173 frontend, eight supervisor and 159 browser passes / 43 intentional skips,

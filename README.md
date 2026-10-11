@@ -35,6 +35,13 @@ No new migration is needed. Actual v0.11.0 readers retain applied coordinates,
 undo/redo, immutable originals/jobs and archives; see
 [compatibility guidance](docs/DEVELOPMENT.md#viewer-toolbar-compatibility-0120).
 
+Open **Interactions** in the viewer menu bar to toggle hydrogen bonds, hydrophobic
+contacts, π–π, cation–π, salt bridges and clashes, with independent Inter/Intra
+scopes. Hydrogen-bond markers use explicit H and angular criteria. Results are
+geometric screening with visible uncertainty; they pause during previews and
+follow committed edits. Choices are transient. See [Interactions](docs/INTERACTIONS.md)
+for preparation guidance, fixed thresholds and limitations.
+
 Structure organization includes reversible batch grouping: select structures and
 use **Move to group…**, **Remove from group**, or **Add to new group** in a row's
 Actions menu. Desktop grip handles move the same captured batch; keyboard and

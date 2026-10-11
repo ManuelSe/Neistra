@@ -1,4 +1,7 @@
 import { componentAtomIds } from "../selection/components";
+import type { InteractionRecord } from "../interactions/types";
+import { createInteractionRepresentation } from "./interactionGeometry";
+import { filterInteractions } from "../interactions/filter";
 import { createPocketCrop, isolatePocketSurface } from "./surface/pocket";
 import { ElementSymbolColorThemeProvider } from "molstar/lib/mol-theme/color/element-symbol";
 import { SurfaceRuntime, type SurfaceStatus } from "./surface/runtime";
@@ -104,6 +107,9 @@ export class MolstarEngine implements MolecularViewer {
   private pocketPreviewEntries = new Set<string>();
   private coordinatePreviews = new Map<string, Map<number, Point3D>>();
   private measurements: ViewerMeasurement[] = [];
+  private interactions: InteractionRecord[] = [];
+  private interactionRepresentation = createInteractionRepresentation();
+  private nonpolarHydrogenIds = new Map<string, Set<number>>();
   private isolation: AtomReference[] | null = null;
   private surfaces = new SurfaceRuntime();
   private surfaceSourceRevisions = new WeakMap<ViewerStructure["normalized"], number>();
@@ -315,6 +321,7 @@ export class MolstarEngine implements MolecularViewer {
         this.measurementRefs = [];
         this.labelRefs = [];
         this.loaded.clear();
+        this.nonpolarHydrogenIds.clear();
         this.models.clear();
         for (const structure of structures) {
           if (generation !== this.generation) return;
@@ -323,6 +330,7 @@ export class MolstarEngine implements MolecularViewer {
         }
         this.applySelection();
         await this.applyMeasurements();
+        await this.applyInteractions();
         this.commitScene(camera);
       } finally {
         this.rebuilding = false;
@@ -350,6 +358,7 @@ export class MolstarEngine implements MolecularViewer {
     patch: CoordinatePatch,
     mode: "preview" | "commit",
   ): Promise<void> {
+    if (mode === "preview") this.plugin?.canvas3d?.remove(this.interactionRepresentation);
     this.syncQueue = this.syncQueue.catch(() => undefined).then(async () => {
       if (!this.plugin) return;
       const loaded = this.loaded.get(patch.entry_id);
@@ -469,6 +478,7 @@ export class MolstarEngine implements MolecularViewer {
           await this.prepareSurface(source.entryId, "pocket");
         }
       }
+      await this.applyInteractions();
     });
     return this.syncQueue;
   }
@@ -488,6 +498,29 @@ export class MolstarEngine implements MolecularViewer {
       this.commitScene(camera);
     });
     return this.syncQueue;
+  }
+
+  setInteractions(interactions: InteractionRecord[]): Promise<void> {
+    this.interactions = interactions;
+    // Clear synchronously before queued coordinate operations can reach the canvas.
+    if (!interactions.length) this.plugin?.canvas3d?.remove(this.interactionRepresentation);
+    this.syncQueue = this.syncQueue.catch(() => undefined).then(() => this.applyInteractions());
+    return this.syncQueue;
+  }
+
+  private async applyInteractions(): Promise<void> {
+    const canvas = this.plugin?.canvas3d;
+    if (!canvas) return;
+    if (!this.interactions.length || this.coordinatePreviews.size) {
+      canvas.remove(this.interactionRepresentation);
+      return;
+    }
+    const types = [...new Set(this.interactions.map(record => record.kind))];
+    const visible = filterInteractions(this.interactions, { types, intra: true, inter: true }, this.structures, this.isolation, this.nonpolarHydrogenIds);
+    if (!visible.length) { canvas.remove(this.interactionRepresentation); return; }
+    await this.interactionRepresentation.createOrUpdate({ sizeFactor: 2.5 }, visible).run();
+    this.interactionRepresentation.setState({ pickable: false, markerActions: 0 });
+    canvas.add(this.interactionRepresentation);
   }
 
   async setIsolation(atoms: AtomReference[] | null): Promise<void> {
@@ -665,6 +698,8 @@ export class MolstarEngine implements MolecularViewer {
   }
 
   dispose(): void {
+    this.plugin?.canvas3d?.remove(this.interactionRepresentation);
+    this.interactionRepresentation.destroy();
     this.setMovementMode("inactive");
     this.stopInputBoundary?.();
     this.stopInputBoundary = undefined;
@@ -827,6 +862,7 @@ export class MolstarEngine implements MolecularViewer {
         }
       }
     }
+    this.nonpolarHydrogenIds.set(structure.entryId, nonpolarHydrogens);
     const colorLayers = selectionColorLayers(structure.settings.selection_colors, structure.normalized.atoms);
     const layers = representationLayers(structure, isolatedIds, nonpolarHydrogens);
     if (!onlySurfaces) {

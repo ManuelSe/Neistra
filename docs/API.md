@@ -589,3 +589,14 @@ an omitted pocket field and rejects changed pocket state; use this action instea
 Atomic styles, colors, hiding and fragment Add/Remove are independent. Seed deletion
 prunes all affected owners and scenes in the originating reversible command; the
 last deleted seed clears the definition. Meshes and runtime failures are not API state.
+# Transient molecular interaction analysis
+
+`POST /api/v1/projects/{project_id}/interactions` is read-only and requires
+`{"inputs":[{"entry_id":"…","artifact_id":"…"}],"profile":"interaction-v1","frame":"workspace-cartesian"}`.
+Inputs must be unique current normalized artifacts belonging to the project.
+Foreign entries return 404; stale inputs 409; invalid requests 422; busy admission
+429; resource limits 413; deadline 504. Client disconnect cancels execution.
+Response contains input identities, profile/frame, deterministic interaction
+records (canonical participants, endpoints, scope, geometry), per-type coverage,
+warnings and admitted candidate count. No viewer projection or job worker is
+required; no result is persisted. See [Interactions](INTERACTIONS.md).

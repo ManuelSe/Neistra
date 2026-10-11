@@ -2908,3 +2908,192 @@ focus. This narrow supporting repair is necessary for the existing release gate;
 it introduces no grouping capability, data/API/history change or general focus
 refactor. Cover delayed query rendering, unrelated fields, project changes and
 repeated native row remounts. Original transform scope/deferrals remain unchanged.
+
+## D-085 — Transient bounded molecular interaction analysis
+
+Date: 2026-10-11. Status: accepted by explicit user approval of the issue #49
+plan; implementation not started.
+
+Decision: implement interaction inspection as pure molecular-core analysis over
+immutable normalized artifacts, exposed through one additive read-only endpoint.
+Return canonical atom identities, geometric evidence, immutable input identities
+and structured coverage/warnings; no project command, database record, result
+artifact or durable report. Display choices are transient per-project session
+state, not browser preferences, scene content, history or archive fields.
+
+Run analysis in a cancellable child using existing import/export execution
+conventions, without requiring the standalone generic job worker. Admission is
+bounded by 100,000 atoms, one million candidate comparisons, 20,000 records and
+30 seconds, with one active analysis per API process. Enforce limits before
+unbounded allocation; failures cannot masquerade as complete truncated results.
+
+Rationale: interactive inspection needs reproducible chemistry, cancellation and
+responsive rendering, but neither durable reports nor preparation commands.
+Bounded read-only execution avoids a second molecular authority and unnecessary
+persistence/job lifecycle complexity.
+
+Consequences: preserve the existing close-contact endpoint. No migration or
+persisted schema change; head remains 0013 and existing contract majors remain 1.
+Scientific/result identity is application-owned; Mol* renders disposable geometry.
+The full contract and checkpoint/release gates are in the
+[issue #49 plan](plans/issue-49-molecular-interactions.md).
+
+## D-086 — Conservative analysis-only interaction chemistry
+
+Date: 2026-10-11. Status: accepted by explicit user approval of the issue #49
+plan; implementation not started.
+
+Decision: require explicit donor hydrogens for H-bond geometry and markers from
+H to acceptor heavy atom. Do not generate atoms/coordinates automatically or
+substitute donor-heavy-atom endpoints. Reuse existing explicit preparation tools.
+
+Use pinned RDKit for chemically validated small molecules and a restricted
+analysis-only registry for the 20 canonical amino acids, grounded in pinned OpenMM
+standard bond definitions and documented interaction typing. Map only observed,
+unambiguous atoms. Conventional ASP/GLU negative and LYS/ARG positive side-chain
+assumptions are warned; explicit conflicting chemistry/protonation prevents them.
+Do not assume histidine or terminal charge. Unknown normalized bond orders and
+charges must not become silent conversion defaults. Unsupported chemistry and
+unresolved alternate locations produce skipped-site coverage/warnings.
+
+One versioned interaction-v1 profile defines geometry, ring planarity, charges,
+radii and covalent/H-bond exclusions as specified by the approved plan. These
+classifications do not establish binding energies, universally correct protonation
+or experimentally validated chemistry. Display switches cannot change assignment
+or disable chemical clash exceptions; valid overlapping types remain independent.
+
+Rationale: common protein imports omit chemistry, so explicitly disclosed template
+assumptions are useful without changing authoritative molecular data. Unsupported
+ligands require real chemistry assignment rather than proximity/name guesses.
+
+Consequences: analysis cannot overwrite original uploads, normalized records or
+their existing warnings/inferences. CCD-based PDB/mmCIF ligand typing is a separate
+approved follow-up, not an implicit preparation feature in #49. Research found
+that dictionary-based assignment requires its own data and mapping contract.
+
+## D-087 — Molecular grouping and shared-workspace interaction geometry
+
+Date: 2026-10-11. Status: accepted by explicit user approval of the issue #49
+plan; implementation not started.
+
+Decision: derive analysis molecule grouping separately from D-045 selectable
+components. Complete small-molecule graphs use connected components; source
+polymer/nonpolymer instances provide grouping evidence for incompletely connected
+macromolecular inputs. Unambiguous covalent links join instances, including
+attached ligands. Ambiguous links warn and suppress affected scope-dependent
+results. Use stable source identities/connectivity rather than spatial proximity;
+coordinate movement must not split a polymer into new molecule identities.
+
+The current domain has no cross-entry covalent connectivity, so separate entries
+remain separate molecular instances. Cross-entry analysis explicitly declares the
+workspace Cartesian frame and uses authoritative active-conformer coordinates as
+displayed, without alignment, crystallographic symmetry or periodic images.
+
+Rationale: file, entry, chain, residue and selectable-component boundaries do not
+universally represent molecule boundaries. A documented common-frame contract
+makes cross-entry geometry inspectable without inventing molecular relationships.
+
+Consequences: this extends D-021's cross-structure deferral for #49's explicit
+shared-frame analysis only. It does not change the old contact tool, component
+identity, molecular connectivity, persisted grouping or coordinate-transform math.
+Suppress within-group clash assignments when incomplete connectivity prevents
+defensible exclusions; cross-molecule element-based screening remains possible
+when separation is established.
+
+## D-088 — Interaction overlay lifecycle and logical visibility
+
+Date: 2026-10-11. Status: accepted by explicit user approval of the issue #49
+plan; implementation not started.
+
+Decision: cache derived analysis by project, sorted input artifact identities and
+fixed profile. Type/scope controls filter cached results. Camera, selection, theme,
+organization and ordinary styling do not rerun chemistry. Committed input changes
+debounce by 250 ms; cancellation and captured generations reject obsolete results.
+
+Clear overlays before any coordinate preview reaches the renderer. Pause for the
+preview lifetime, restore matching committed results after Cancel, and analyze
+new committed artifacts after Apply. Keep choices outside the disposable renderer
+so renderer remounts retain them; project switch/reload restores defaults: all six
+types off, Inter on and Intra off. Panel opening alone starts no analysis.
+
+Current component visibility, isolation, applicable atom masks and H settings
+filter overlays. Deliberately hidden polar hydrogens suppress their H-bond markers,
+as explicitly requested by the user. Centroid interactions require complete
+visible ring membership. Distinguish zero detected, partial coverage and unavailable.
+
+Rationale: an old classification at preview coordinates would misrepresent geometry.
+Explicit pausing avoids per-frame chemistry without concealing this limitation.
+Display-state ownership and canonical references preserve camera/picking/focus
+contracts and prevent unrelated actions from refetching molecular data.
+
+Consequences: typed batched nonpickable overlay geometry is separate from durable
+measurements. Use pattern and color distinctions, compact nonmodal controls,
+accessible names/tooltips and secondary Help. Preserve D-083–084 movement/native
+focus conventions. No transient options or results enter scenes, history or archives.
+
+
+### D-086 implementation note — M1/C2, 2026-10-11
+
+Ligand site typing checks every supplied formal charge and bond order before
+calling the existing RDKit conversion helper; unknown values cannot become its
+neutral/single defaults. Validate disconnected graphs independently, preserving
+canonical IDs. Observed canonical protein sites require expected elements,
+unambiguous names and required heavy neighbors; template inference is analysis
+only. Missing explicit donor H and undefined angular geometry remain visible
+coverage warnings. Qualified H-bond clash exceptions are computed before display
+filtering. Complete supplied ligand graphs use connectivity rather than their
+shared residue labels for molecular grouping. No authoritative schema changed.
+
+
+### D-086 implementation note — M2/C3, 2026-10-11
+
+Use pinned RDKit public Lipinski donor/acceptor SMARTS for validated ligand graphs,
+with explicit H and charge constraints. BaseFeatures pharmacophore acceptor rules
+exclude some common amines/anionic oxygen and include fluorine; they are unsuitable
+as this profile's H-bond typing contract. Canonical protein ring/site rules remain
+explicit and observed-only. Histidine acceptors need observed tautomer evidence;
+no histidine/terminal charge assumption is introduced. Resonance-equivalent ionic
+sites share one group center/marker; supplied neutral chemistry and contradictory
+H evidence prevent conventional side-chain charge fallback. All six assignment
+rules run independently before display filtering.
+
+### D-087 implementation note — M2/C3, 2026-10-11
+
+Consecutive source residue identities within one canonical polymer instance can
+supply analysis-only OpenMM peptide connectivity, explicitly warned. Missing
+heavy template sites, sequence gaps and unresolved links suppress unsafe covalent
+exclusions. Group identity is independent of coordinates, and an unknown-order
+cross-residue link without canonical or supplied covalent evidence suppresses its
+affected scope rather than inventing a relationship. XYZ has no reliable molecule
+boundaries, so disconnected inferred fragments do not become intermolecular scope.
+
+### D-088 implementation note — M3/C4, 2026-10-11
+
+Overlay visibility is filtered first from authoritative application membership
+and again against the disposable renderer projection using the established native
+nonpolar-H classifier. This preserves D-045 hydrogen semantics without chemistry
+repair or moving state authority into Mol*. Clear before native coordinate previews;
+restore only after committed coordinates and current projections are ready.
+Responsive renderer remounts retain project-session choices/cache, while an open
+interaction popover may close with its old renderer. This matches existing
+responsive workspace lifecycle and does not persist transient state in scenes.
+
+### D-088 lifecycle/cache qualification note — 2026-10-11
+
+Reuse the latest analysis for a visible subset only when every requested entry
+has the same immutable artifact identity in that result. Retain conservative
+superset coverage warnings; logical visibility filters suppress hidden/deleted
+participants. New/revealed changed artifacts invalidate the result. Reset session
+choices synchronously when the workspace project pointer changes, including empty
+projects without a mounted molecular viewer. This closes the lifetime gap between
+application-owned session state and conditional renderer mounting.
+
+### D-086 covalent modification qualification note — 2026-10-11
+
+Canonical residue names cannot override observed covalent modifications. Local
+template typing verifies required heavy-neighbor elements and rejects external
+links except chemically compatible peptide/disulfide connections. A modified
+side-chain site becomes untyped with a warning, preventing e.g. acylated Lys NZ
+from acquiring an assumed positive charge. Disulfide S is not a thiol donor and
+does not request missing donor H; contradictory supplied thiol H is skipped.
+Molecular grouping still respects supplied covalent links and inputs stay immutable.
