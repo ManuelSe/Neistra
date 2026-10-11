@@ -2,14 +2,15 @@
 
 ## Status and metadata
 
-Status: approved by the user's “Implement the plan”; C1/C2 complete, C3 release pending.
+Status: released v0.12.1; C1–C3 complete. Final documentation/cleanup audit in the issue reply.
 Issue: [#46](https://github.com/ManuelSe/Neistra/issues/46), correction to released
 v0.12.0 and the [original approved contract](issue-46-viewer-transform-toolbar.md).
 Base: `master`, verified up to date at `2782d80956f8c5af356f226678f124f7dbd2ac59`.
 Branch: `fix/issue-46-compact-transform-controls`.
-PR: `fix(viewer): compact transform controls and restore Space navigation`.
-Normal merge preserves checkpoint history. Planned patch: **0.12.1**, annotated
-`v0.12.1`, subject to collision/base checks before release preparation.
+PR: [#50](https://github.com/ManuelSe/Neistra/pull/50),
+`fix(viewer): compact transform controls and restore Space navigation`.
+Normal merge preserves checkpoint history. Released patch: **0.12.1**, annotated
+`v0.12.1`; verified publication and completion evidence below.
 
 ## Problem and approved outcome
 
@@ -238,3 +239,35 @@ This evidence-only checkpoint changes no runtime/test/version source.
 Next: fetch/base/version collision and live protection/review audit; PR normal
 merge, exact merged gate/reader, annotated tag/release/asset verification, new
 issue correction reply and reviewed documentation closeout/branch cleanup.
+
+### Verified release and completion
+
+[Correction PR](https://github.com/ManuelSe/Neistra/pull/50) merged normally, preserving meaningful checkpoint history.
+Exact released master `39d5c7b4c142ffb6d327f3ed0eebbc4ce8eb4cda` repeats every complete gate on a clean tree:
+**400 Python, 173 frontend, eight supervisor and 159 browser tests / 43 intentional
+layout skips**, zero failures/flakes/retries. Frozen installs, fresh migration to
+0013, Ruff/mypy, frontend lint/types/build and whitespace checks pass. Browser
+duration 27.98 min.
+[Exact merged commands/performance](../assets/compact-transform-controls/merged-verification.json)
+identify source and clean state; runtime/tests/versions match the passing candidate.
+Actual tagged v0.12.0 reader repeated against final 0.12.1 data accepts exact
+coordinates/originals, batch undo/redo, save/reexport, archives without portable
+history and unchanged jobs. [Reader](../assets/compact-transform-controls/merged-reader.json) /
+[producer](../assets/compact-transform-controls/merged-producer.json). No new
+schema/API/migration/scientific algorithm; all five version sources are 0.12.1.
+
+Annotated `v0.12.1` targets this qualified commit. Remote tag object/peeled target,
+stable [release](https://github.com/ManuelSe/Neistra/releases/tag/v0.12.1), notes and downloaded verification asset bytes verified.
+[Release evidence](../assets/compact-transform-controls/release-verification.json) /
+[publication audit](../assets/compact-transform-controls/publication-audit.json).
+Local full-diff review is not independent; the verified Codex request had no
+returned integration review at the merge audit, recorded in release evidence. No unresolved consequential finding,
+required approval or protection bypass. Native/emulated-device, unconstrained
+geometry and existing advisories remain documented; original deferrals unchanged,
+no speculative follow-up issues.
+
+Issue #46 remains closed; new [correction reply](https://github.com/ManuelSe/Neistra/issues/46#issuecomment-6112208278) is verified, preserving
+the original v0.12.0 closeout. This same planned branch is fast-forwarded to
+released master for a reviewed docs-only closeout, without retargeting the release.
+Final docs merge/remote and local branch cleanup/clean master audit is maintained
+in that reply after verification. C1–C3 scope complete; no implementation blocker.

@@ -2,29 +2,24 @@
 
 ## Current milestone
 
-Issue #46 correction: C1/C2 complete on
-`fix/issue-46-compact-transform-controls`. [Contract](plans/issue-46-compact-transform-controls.md).
-Icon-only primary controls, bounded Help/More, persistent warning icon/visible
-errors, native Space focus retention and guarded mouse return implemented. An
-existing idle group-focus race found by release qualification now resolves after
-the accepted revision renders; D-084 records the supporting correction. No API,
-scientific math, data/history or migration change.
+Issue #46 correction delivered through [PR](https://github.com/ManuelSe/Neistra/pull/50) and verified
+[release v0.12.1](https://github.com/ManuelSe/Neistra/releases/tag/v0.12.1). [Contract/evidence](plans/issue-46-compact-transform-controls.md).
+C1–C3 complete: icon-only controls, bounded Help/More, retained visible errors/
+scientific guidance, repeated Space/native focus and guarded mouse return; narrow
+idle group-remount and panel-switch focus regressions repaired. D-084 and user
+guidance current. Five versions 0.12.1; no API/schema/math/migration change (0013/1).
 
-Lint/types/build, 173 frontend tests and final 34 focused browser cases / four
-intentional skips pass. Natural repeated Space, preserved exact state, latest-plane
-translation, control/modal focus, interruptions, touch/320 px/themes/axe/real zoom
-pass. [C1](assets/compact-transform-controls/c1-verification.md) /
-[C2](assets/compact-transform-controls/c2-verification.md) evidence. No blocker.
-Direct Help/More switching now renews panel focus; Escape closes the selected
-panel first. Review regression and five native cases/one intentional skip pass.
-Patch 0.12.1 prepared in all five authoritative sources; actual tagged v0.12.0
-reader accepts final 0.12.1 exact data/history/archives/jobs. Complete clean
-candidate `f437c31767cd44be435d829ca4fb9ad033049214` passes **400 Python, 173 frontend, eight supervisor and
-159 browser tests / 43 intentional skips**, zero failures/flakes/retries and all
-frozen-install/migration/lint/type/build gates. Native preview/Cancel/task budgets
-and bounded queue pass. Local full-diff review is not independent; consequential
-findings corrected, no unresolved finding. Next: current base/collision/policy
-audit, PR/review, normal merge, exact-master qualification and publication.
+Clean candidate and exact released master `39d5c7b4c142ffb6d327f3ed0eebbc4ce8eb4cda` each pass **400 Python,
+173 frontend, eight supervisor and 159 browser tests / 43 intentional skips**,
+zero failures/flakes/retries, frozen installs/fresh 0013/lint/types/build. Native
+preview/Cancel/task and bounded queue budgets pass; actual tagged v0.12.0 reader
+accepts exact final 0.12.1 data/history/archives/jobs. Annotated tag/release and
+downloaded evidence bytes verified. New [issue correction reply](https://github.com/ManuelSe/Neistra/issues/46#issuecomment-6112208278) verified.
+Review local, not independent; Codex requested without a returned review at the
+merge audit. Verified request and empty integration response are recorded.
+Pinned emulation, unconstrained geometry and existing advisories remain; no new
+follow-up issues or blocker. Final docs merge/branch cleanup/clean master audit
+is maintained in the reply. Next product action: approve a separate backlog plan.
 
 Previous delivery baseline:
 
@@ -2274,5 +2269,5 @@ No current blocker. Issue #46 is released; final cleanup audit is maintained in 
 
 ## Next action
 
-Complete the correction PR/review/normal merge, exact-master qualification and
-v0.12.1 publication/verified closeout. Current released baseline remains v0.12.0.
+Select and approve a separate backlog plan. Current released baseline is v0.12.1;
+the new correction reply maintains final documentation/branch-cleanup audit.
