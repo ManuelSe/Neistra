@@ -174,7 +174,7 @@ function TransformControls({ movement, view, zoom, unavailableReason }: Controls
       <p id="movement-help" className="sr-only">Mouse: left drag rotates; right or Ctrl-drag translates. Hold Space on the canvas to adjust the view. Escape cancels. Unconstrained movement may distort bonds or create clashes. Open movement help for scientific limits.</p>
       {movement.state.phase === "uncertain" ? <p className="movement-warning" role="status">Outcome unknown; changes paused. Refresh project to reconcile before continuing.</p> : null}
     </section>
-    <MovementPanel panel={panel} bar={bar} onClose={() => setPanel(null)}>
+    <MovementPanel key={panel ?? "closed"} panel={panel} bar={bar} onClose={() => setPanel(null)}>
       {panel === "help" ? <>
         <p>{capture.selection.atoms.length} captured atoms · {capture.hiddenCount} hidden.</p>
         <p>Mouse: left drag rotates; right or Ctrl-drag translates in the current screen plane.</p>

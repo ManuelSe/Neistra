@@ -380,8 +380,23 @@ test("qualifies native touch navigation, secondary tools and accessible theme la
     expect((await new AxeBuilder({ page }).include(".viewer-header").include(".movement-panel")
       .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"]).analyze()).violations).toEqual([]);
     await page.screenshot({ path: info.outputPath(`toolbar-${theme}-touch-help.png`) });
-    await help.getByRole("button", { name: "Close movement panel" }).tap();
+    // Switch panels directly: focus belongs to the newly opened content,
+    // so Escape closes it before canceling the retained movement session.
+    await controls.getByRole("button", { name: "More movement tools", exact: true }).tap();
+    await expect(help).toBeHidden();
+    const more = page.getByRole("dialog", { name: "More movement tools", exact: true });
+    await expect(more.getByRole("button", { name: "Close movement panel" })).toBeFocused();
+    await page.keyboard.press("Escape");
+    await expect(more).toBeHidden();
     await expect(controls).toBeVisible();
+    await expect(controls.getByRole("button", { name: "More movement tools", exact: true })).toBeFocused();
+    await controls.getByRole("button", { name: "More movement tools", exact: true }).tap();
+    await controls.getByRole("button", { name: "Movement help and scientific limits" }).tap();
+    await expect(help.getByRole("button", { name: "Close movement panel" })).toBeFocused();
+    await page.keyboard.press("Escape");
+    await expect(help).toBeHidden();
+    await expect(controls).toBeVisible();
+    await expect(controls.getByRole("button", { name: "Movement help and scientific limits" })).toBeFocused();
     await controls.getByRole("button", { name: "More movement tools", exact: true }).tap();
     await page.getByRole("dialog", { name: "More movement tools", exact: true }).getByRole("button", { name: "Translate", exact: true }).tap();
     await controls.getByRole("button", { name: "More movement tools", exact: true }).tap();

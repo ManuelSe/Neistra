@@ -257,6 +257,6 @@ gates and natural-focus regressions. The original Space regression explicitly
 refocused the canvas and missed real pointer/toolbar focus loss. Current tests
 exercise repeated native drags and mouse return from tools without that injection.
 C2 passes 34 focused browser cases / four intentional skips and 173 frontend tests.
-Real-zoom checks hit-test Apply/Cancel while More scrolls; touch Help and320 px
+Real-zoom checks hit-test Apply/Cancel while More scrolls; touch Help and 320 px
 actions pass both themes/scoped axe. [Compact screenshots and commands](assets/compact-transform-controls/c1-verification.md)
 supplement functional evidence. Qualification remains pinned emulation.

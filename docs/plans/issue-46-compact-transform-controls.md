@@ -158,7 +158,7 @@ or unsatisfied repository protection.
   accessibility. No migration or blocker; C2 remains required.
 
 - C2 verification deviation: four natural-focus/native cases pass in both layouts;
-  broader three-file qualification passes42 with three skips but real zoom finds
+  broader three-file qualification passes 42 with three skips but real zoom finds
   an existing idle group-menu focus race. An isolated no-movement diagnosis fails
   after four membership cycles. Supporting repair (D-084 implementation note):
   typed transient group-action focus waits for accepted rendered revision, preserves
@@ -170,24 +170,43 @@ or unsatisfied repository protection.
 - C2 complete: native canvas focus retained; deliberate mouse return restores
   keyboard ownership from movement tools, preserving editable/unrelated/modal
   focus. Narrow group-focus gate repair waits for accepted rendered revision.
-  Lint/types/build,173 frontend tests and final 34 native browser cases / four
+  Lint/types/build, 173 frontend tests and final 34 native browser cases / four
   intentional skips pass. [Exact C2 evidence](../assets/compact-transform-controls/c2-verification.md)
   records the prior failing diagnostics and scoped correction; no unresolved
-  finding or migration. C2 diff reviewed. Next: consistent0.12.1 metadata, complete
+  finding or migration. C2 diff reviewed. Next: consistent 0.12.1 metadata, complete
   clean release gates, compatibility reader, full review and normal publication.
 
 - C3 release preparation: origin/master remains 2782d809; safely incorporated with
   no upstream source changes. Remote latest v0.12.0; no v0.12.1 tag collision.
   All five versions 0.12.1; uv's third-party 0.12.0 package remains pinned unchanged.
-  Producer assertion updated;0.11.0/0.12.0 archive metadata joins compatibility
+  Producer assertion updated; 0.11.0/0.12.0 archive metadata joins compatibility
   matrix. Release/user/migration guidance current. Complete clean gates and actual
   tagged 0.12.0 reader, full review and publication remain pending.
 
-- Actual annotated v0.12.0 reference checkout at427c050b32c5ae361c7c9da042616a5266600dcd
-  accepts final0.12.1 data. [Producer](../assets/compact-transform-controls/candidate-producer.json) /
+- Actual annotated v0.12.0 reference checkout at 427c050b32c5ae361c7c9da042616a5266600dcd
+  accepts final 0.12.1 data. [Producer](../assets/compact-transform-controls/candidate-producer.json) /
   [reader](../assets/compact-transform-controls/candidate-reader.json) record exact
   coordinates/original hashes, retained multi-entry undo/redo, save/reexport, archive
   import without portable history and unchanged completed jobs. Fresh disposable
-  `/tmp/neistra-compact-candidate-reader` migrated to0013; actual reader module
-  resides in `/tmp/neistra-reader-012`. Focused archive tests19 pass; frozen UV
+  `/tmp/neistra-compact-candidate-reader` migrated to 0013; actual reader module
+  resides in `/tmp/neistra-reader-012`. Focused archive tests: 19 pass; frozen UV
   sync and focused Ruff pass. Full clean release gates and review remain pending.
+
+- C3 full-diff review found direct More/Help switching left focus on the outside
+  trigger because the nonmodal dialog stayed mounted. A new assertion reproduced
+  the failure (172 pass/one fail). Key each panel lifetime to rerun Radix focus
+  entry and capture the correct return trigger; molecular state stays in its
+  existing owner. Enhanced component and native touch regressions cover both
+  switching directions, focused Escape and retained transaction. Final frontend
+  lint/types/build and all 173 tests pass; focused native navigation/touch passes
+  five cases/one intentional desktop touch skip (1.5 min), including both themes,
+  320 px targets and scoped axe. Exact command: `PLAYWRIGHT_BROWSERS_PATH=.playwright
+  MOLWEAVE_E2E_API_PORT=8210 MOLWEAVE_E2E_WORKER_PORT=8211
+  MOLWEAVE_E2E_WEB_PORT=5373 MOLWEAVE_E2E_DATA_DIR=/tmp/neistra-compact-panel-data
+  corepack pnpm exec playwright test tests/e2e/viewer-transform-toolbar.spec.ts
+  --grep 'qualifies native touch navigation|temporarily navigates|returns the mouse'
+  --output=/tmp/neistra-compact-panel-results`. Logs `/tmp/neistra-compact-panel-*`.
+  Earlier full gate on 01b07be was deliberately interrupted during browsers to
+  address this consequential finding; it is diagnostic, not release qualification.
+  Complete clean candidate gate restarts on the corrected checkpoint. Review is
+  local, not independent; no remaining consequential finding in this checkpoint.

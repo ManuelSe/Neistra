@@ -149,8 +149,11 @@ it("keeps primary actions textless and exposes scientific help without hiding th
   await user.click(launcher);
   const controls = await screen.findByRole("region", { name: "Move selection controls" });
   for (const button of controls.querySelectorAll("button")) expect(button.textContent).toBe("");
+  await user.click(screen.getByRole("button", { name: "More movement tools" }));
+  expect(screen.getByRole("button", { name: "Close movement panel" })).toHaveFocus();
   await user.click(screen.getByRole("button", { name: "Movement help and scientific limits" }));
   const help = screen.getByRole("dialog", { name: "Movement help and scientific limits" });
+  expect(screen.getByRole("button", { name: "Close movement panel" })).toHaveFocus();
   expect(help).toHaveTextContent("1 captured atoms · 0 hidden");
   expect(help).toHaveTextContent("movement may distort bonds or create clashes");
   expect(help).toHaveTextContent("Missing bond records do not establish safety");
@@ -159,6 +162,13 @@ it("keeps primary actions textless and exposes scientific help without hiding th
   expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
   expect(controls).toBeInTheDocument();
   expect(screen.getByRole("button", { name: "Movement help and scientific limits" })).toHaveFocus();
+  await user.click(screen.getByRole("button", { name: "Movement help and scientific limits" }));
+  await user.click(screen.getByRole("button", { name: "More movement tools" }));
+  expect(screen.getByRole("button", { name: "Close movement panel" })).toHaveFocus();
+  await user.keyboard("{Escape}");
+  expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+  expect(controls).toBeInTheDocument();
+  expect(screen.getByRole("button", { name: "More movement tools" })).toHaveFocus();
   await user.click(screen.getByRole("button", { name: "Cancel movement" }));
   await waitFor(() => expect(screen.getByRole("button", { name: "Transform selection" })).toHaveFocus());
 });
