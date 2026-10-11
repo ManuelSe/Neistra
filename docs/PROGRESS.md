@@ -2,6 +2,29 @@
 
 ## Current milestone
 
+Issue #49 — approved [molecular-interactions plan](plans/issue-49-molecular-interactions.md)
+persisted on `feat/issue-49-molecular-interactions`; implementation not started.
+M1/C1–C2: clash vertical slice, then hydrogen bonds/hydrophobic contacts.
+M2/C3: aromatic and ionic types, including salt bridges. M3/C4–C5:
+workflow/scientific/accessibility/performance/compatibility qualification and delivery.
+Approved D-085–088 retain authoritative molecular state, transient inspection,
+bounded analysis, explicit H and warned templates, separate molecule grouping,
+paused previews and hidden-polar-H marker suppression. CCD typing is a separate
+follow-up. Planned minor release **0.13.0**; runtime versions remain 0.12.1,
+Alembic head 0013 and schema majors 1; no migration planned.
+
+Completed: repository/remote inspection, product decisions, plan approval,
+clean master fetch/fast-forward-only check at `2a33edf90ae384d60cdef378a3ec8d26a7bc9649`,
+dedicated branch and approved documentation. Verification: baseline/history,
+documentation diff and local links; no feature tests or release gate run.
+Known limits: assessable chemistry only, supplied/explicitly prepared hydrogens,
+uncertain raw PDB/mmCIF ligands skipped with guidance, fixed profile, pinned
+browser/emulation qualification. No blocker. Next action: `/goal` to start C1.
+Stop after verified plan commit/push; no implementation or follow-up issue creation
+is part of this handoff. Exact commit/remote verification is reported in the handoff.
+
+### Previous delivery baseline — v0.12.1
+
 Issue #46 correction delivered through [PR](https://github.com/ManuelSe/Neistra/pull/50) and verified
 [release v0.12.1](https://github.com/ManuelSe/Neistra/releases/tag/v0.12.1). [Contract/evidence](plans/issue-46-compact-transform-controls.md).
 C1–C3 complete: icon-only controls, bounded Help/More, retained visible errors/
