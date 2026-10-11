@@ -1,5 +1,64 @@
 # Neistra Release Notes
 
+## 0.12.1 - 2026-10-11
+
+### Highlights and fixes
+
+- Transform selection now uses its Move3d symbol with a hover/focus tooltip. The
+  separate active strip contains camera, Apply, Cancel, More and warning/Help
+  icons with accessible names. Guidance and scientific limits move into reachable
+  nonmodal Help; More retains touch modes, depth, sensitivity, steps and zoom.
+- Wide fine-pointer primary actions are32px; mobile widths or any coarse pointer
+  retain44px targets. More/Help scroll below the primary strip; Apply/Cancel stay
+  reachable through both themes,320px layouts and actual200% browser zoom.
+  Consequential errors and uncertain commit outcomes remain visible text.
+- Repeated hold-Space camera drags retain canvas focus. Moving the mouse back from
+  noneditable movement actions restores it; sliders, editable fields, unrelated
+  controls and modals retain their own focus and native Space behavior. The
+  Adjust view / Resume transform toggle remains the touch/keyboard alternative.
+- Existing real-zoom qualification exposed an idle group-action focus race. Focus
+  restoration now waits for the accepted project revision to render before
+  resolving a remounted row, preserving later unrelated/project focus.
+
+### Data, migrations and compatibility
+
+Patch increment fixes released presentation/focus defects without a new public
+capability or breaking data/API behavior. All five version sources advance to
+0.12.1 without dependency changes. No new endpoint, schema, migration, scientific
+math, history action or durable preference; head0013 and contract majors1 remain.
+Original uploads, all conformers, unselected data, captured previews and submitted
+jobs retain existing behavior. Navigation changes only the camera. Archives stay
+current-state snapshots without portable history. Recent0.11.0/0.12.0 archive
+metadata joins the existing round-trip matrix; actual tagged0.12.0 reader
+qualification and complete release gates are required before publication.
+Rollback to the qualified0.12.0 reader requires no schema downgrade/data stripping.
+
+### Verification and review
+
+The [approved correction contract](plans/issue-46-compact-transform-controls.md)
+records checkpoints, diagnostics and scope decisions. C1/C2 pass frontend
+lint/types/build,173 frontend tests,34 final focused browser cases/four intentional
+layout skips, and preceding natural-focus tests in both layouts. Coverage includes
+native repeated Space without injected canvas focus, preserved exact coordinates/
+selection/project, latest-plane translation, interrupted input, touch Help/More,
+320px targets, both themes/scoped axe, actual100/200% Chrome zoom and primary hit
+testing during scrolling. The original0.12.0 regression manually refocused the
+canvas and missed the natural-focus defect; historical release evidence is retained.
+Full clean candidate and exact merged gates, compatibility reader and full local
+review must be recorded in the plan before release. Local review is not independent.
+
+### Limitations and scope decisions
+
+Movement remains unconstrained and can distort bonds or create clashes; no repair,
+minimization or docking validation. Qualification uses pinned Chromium/SwiftShader
+and emulated Pixel7, not physical-device or universal browser certification.
+Existing Alembic and lazy Mol* bundle advisories remain. Space is fixable, so new
+Shift/Ctrl shortcuts are rejected to avoid existing pan/translation conflicts.
+Gizmos, durable/custom bindings, gesture transfer and broader device certification
+remain deferred from the original contract; no speculative follow-up issue.
+
+
+
 ## 0.12.0 - 2026-10-11
 
 ### Viewer transformation workflow

@@ -15,7 +15,9 @@ intentional skips pass. Natural repeated Space, preserved exact state, latest-pl
 translation, control/modal focus, interruptions, touch/320px/themes/axe/real zoom
 pass. [C1](assets/compact-transform-controls/c1-verification.md) /
 [C2](assets/compact-transform-controls/c2-verification.md) evidence. No blocker.
-Next: prepare patch0.12.1, complete release gates/actual0.12.0 reader, PR/review,
+Patch0.12.1 prepared consistently in all five sources, with current release/user
+guidance and recent-version archive round-trips. Next: complete release gates/
+actual0.12.0 reader, PR/review,
 normal merge, annotated tag/release and new issue46 correction reply.
 
 Previous delivery baseline:

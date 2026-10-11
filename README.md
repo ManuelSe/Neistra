@@ -22,7 +22,7 @@ Real workspace screenshots: [light](docs/assets/neistra-workspace-light.png) ·
 [dark](docs/assets/neistra-workspace-dark.png). These show the existing local
 workspace, not proposed account, docking or marketplace features.
 
-Version **0.12.0** offers the **Transform selection** icon in a separate bar above the viewer.
+Version **0.12.1** offers the **Transform selection** icon in a separate bar above the viewer.
 Left mouse drag rotates; right or Ctrl-drag translates in the current view plane.
 Hold **Space** on the movement canvas to adjust the camera, then release to resume.
 Touch and keyboard users have **Adjust view / Resume transform**, with sensitivity,

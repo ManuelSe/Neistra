@@ -175,3 +175,10 @@ or unsatisfied repository protection.
   records the prior failing diagnostics and scoped correction; no unresolved
   finding or migration. C2 diff reviewed. Next: consistent0.12.1 metadata, complete
   clean release gates, compatibility reader, full review and normal publication.
+
+- C3 release preparation: origin/master remains2782d809; safely incorporated with
+  no upstream source changes. Remote latestv0.12.0; no v0.12.1 tag collision.
+  All five versions0.12.1; uv's third-party0.12.0 package remains pinned unchanged.
+  Producer assertion updated;0.11.0/0.12.0 archive metadata joins compatibility
+  matrix. Release/user/migration guidance current. Complete clean gates and actual
+  tagged0.12.0 reader, full review and publication remain pending.
