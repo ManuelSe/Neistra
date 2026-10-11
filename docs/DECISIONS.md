@@ -3043,3 +3043,26 @@ only. Missing explicit donor H and undefined angular geometry remain visible
 coverage warnings. Qualified H-bond clash exceptions are computed before display
 filtering. Complete supplied ligand graphs use connectivity rather than their
 shared residue labels for molecular grouping. No authoritative schema changed.
+
+
+### D-086 implementation note — M2/C3, 2026-10-11
+
+Use pinned RDKit public Lipinski donor/acceptor SMARTS for validated ligand graphs,
+with explicit H and charge constraints. BaseFeatures pharmacophore acceptor rules
+exclude some common amines/anionic oxygen and include fluorine; they are unsuitable
+as this profile's H-bond typing contract. Canonical protein ring/site rules remain
+explicit and observed-only. Histidine acceptors need observed tautomer evidence;
+no histidine/terminal charge assumption is introduced. Resonance-equivalent ionic
+sites share one group center/marker; supplied neutral chemistry and contradictory
+H evidence prevent conventional side-chain charge fallback. All six assignment
+rules run independently before display filtering.
+
+### D-087 implementation note — M2/C3, 2026-10-11
+
+Consecutive source residue identities within one canonical polymer instance can
+supply analysis-only OpenMM peptide connectivity, explicitly warned. Missing
+heavy template sites, sequence gaps and unresolved links suppress unsafe covalent
+exclusions. Group identity is independent of coordinates, and an unknown-order
+cross-residue link without canonical or supplied covalent evidence suppresses its
+affected scope rather than inventing a relationship. XYZ has no reliable molecule
+boundaries, so disconnected inferred fragments do not become intermolecular scope.

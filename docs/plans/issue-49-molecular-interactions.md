@@ -2,7 +2,7 @@
 
 ## Status, authority, and delivery baseline
 
-Status: **approved; implementation in progress (M1 complete; C2 verified)**. Approved by the user on
+Status: **approved; implementation in progress (M1–M2 complete; C3 verified)**. Approved by the user on
 2026-10-11 through “Implement the plan”, with the explicit persist-only handoff
 completed. The subsequent `/goal` authorizes implementation and delivery.
 
@@ -522,3 +522,36 @@ required angles now warn instead of suggesting complete geometry coverage.
 No migration or new persisted/API-major fields, no dependency/version change.
 Limits remain fixed geometry, conservative incomplete connectivity and uncertain
 raw PDB ligands. C3/C4 qualify remaining types and broader workflows. No blocker.
+
+
+### 2026-10-11 — M2/C3 and milestone M2 complete
+
+All six independent controls now work through the same pipeline. Complete RDKit
+or canonical protein rings require profile planarity and directional geometry;
+π–π parallel/T and cation–π normal/offset criteria are enforced. Supplied charges
+and grouped carboxylate/guanidinium/imidazolium sites drive ionic markers; warned
+canonical side-chain conventions yield to contradictory charge/H evidence.
+Histidine/terminal charge is not assumed. Salt/H-bond records can overlap.
+
+Passing focused command sets: **40 Python**, **21 frontend**, **2 desktop/Pixel 7
+browser tests**; Ruff, mypy (**58 files**), frontend lint/typecheck/build and
+`git diff --check` pass. Browser type toggles and scope changes reuse one request.
+Python positives/negatives cover all six types, ring plane/offset/T/warp cases,
+charge/direction/distance, resonance group deduplication, explicit-versus-assumed
+protein charge, supplied H and independent overlapping assignments. Same isolated
+ports and `/tmp` browser store as C2. Existing bundle advisory retained.
+
+Consequential local review corrections: RDKit's general BaseFeatures pharmacophore
+acceptors omit aliphatic amines/anionic oxygen and include fluorine, unsuitable
+for this profile. Use pinned public Lipinski donor/acceptor SMARTS with charge
+constraints instead; explicit H remains mandatory. Unknown chemistry is still
+prevalidated before conversion. Histidine acceptor assignment now requires
+observed tautomer evidence. Source-sequential canonical peptide links are warned
+analysis-only connectivity; complete observed templates can support intra clashes,
+while missing heavy sites/gaps remain unsafe. Ambiguous unknown cross-residue
+links suppress affected scopes; XYZ supplies no independent molecule boundaries.
+No geometry-based molecule splitting or authoritative bond changes are introduced.
+
+No migration/version/dependency/persistence change. Full lifecycle/native pixel,
+accessibility/performance/previous-reader qualification and delivery remain C4/C5.
+No blocker; no deferred issue requirement reintroduced.

@@ -23,6 +23,11 @@ test("compact interaction control analyzes once and filters cached scopes", asyn
   await panel.getByRole("button", { name: "Clashes", exact: true }).click();
   await expect(panel.getByRole("status")).toContainText(/\d+ detected/, { timeout: 20_000 });
   expect(analyses).toBe(1);
+  for (const label of ["H bonds", "Hydrophobic", "π–π", "Cation–π", "Salt bridges"]) {
+    await panel.getByRole("button", { name: label, exact: true }).click();
+    await expect(panel.getByRole("button", { name: label, exact: true })).toHaveAttribute("aria-pressed", "true");
+  }
+  expect(analyses).toBe(1);
   await panel.getByRole("button", { name: "Intermolecular interactions" }).click();
   await expect(panel.getByRole("status")).toHaveText("Off");
   await panel.getByRole("button", { name: "Intramolecular interactions" }).click();

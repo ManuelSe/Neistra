@@ -6,8 +6,8 @@ from collections import defaultdict
 from dataclasses import dataclass, field
 from typing import Any, cast
 
-from rdkit import Chem, RDConfig
-from rdkit.Chem import ChemicalFeatures
+from rdkit import Chem
+from rdkit.Chem import Lipinski
 
 from molweave_core.adapters.rdkit_common import normalized_to_mol
 from molweave_core.interactions import AnalysisInput, InteractionWarning, Site, _template_bonds
@@ -15,6 +15,8 @@ from molweave_core.interactions import AnalysisInput, InteractionWarning, Site, 
 # Explicit site registry. Backbone amide N is never an acceptor; proline N is
 # not a donor. Histidine requires observed tautomer evidence, not assumed charge.
 SIDE_DONORS = {
+    "ASP": {"OD1", "OD2"},
+    "GLU": {"OE1", "OE2"},
     "ARG": {"NE", "NH1", "NH2"},
     "ASN": {"ND2"},
     "GLN": {"NE2"},
@@ -59,9 +61,6 @@ def type_sites(
         (site.reference.structure_id, site.atom.id): index for index, site in enumerate(sites)
     }
     templates = _template_bonds()
-    factory = cast(Any, ChemicalFeatures).BuildFeatureFactory(
-        f"{RDConfig.RDDataDir}/BaseFeatures.fdef"
-    )
     for source in inputs:
         structure, entry = source.structure, source.identity.entry_id
         residue_atoms: dict[int | None, list[int]] = defaultdict(list)
@@ -93,6 +92,23 @@ def type_sites(
                 expected[first].add(second)
                 expected[second].add(first)
             valid: dict[str, int] = {}
+            histidine_evidence = any(
+                sites[neighbor].atom.element == "H"
+                for atom_name in ("ND1", "NE2")
+                if atom_name in names
+                for neighbor in sites[names[atom_name]].neighbors
+            )
+            if residue.name == "HIS" and not histidine_evidence:
+                warnings.append(
+                    InteractionWarning(
+                        entry_id=entry,
+                        code="unresolved_histidine_tautomer",
+                        message=(
+                            "Histidine acceptor nitrogens lack observed tautomer evidence; "
+                            "their H-bond typing is skipped."
+                        ),
+                    )
+                )
             for name, index in names.items():
                 if name not in expected:
                     continue
@@ -125,7 +141,9 @@ def type_sites(
                     if (atom.formal_charge or 0) <= 0:
                         # Protonated histidine N and carboxylic OH are not acceptors.
                         has_h = any(sites[neighbor].atom.element == "H" for neighbor in neighbors)
-                        if not (has_h and residue.name in {"HIS", "ASP", "GLU"}):
+                        if not (has_h and residue.name in {"HIS", "ASP", "GLU"}) and (
+                            residue.name != "HIS" or histidine_evidence
+                        ):
                             chemistry.acceptors.add(index)
             chemistry.protein_residues.append((entry, residue.name, valid))
             missing = [sites[index].atom.id for index in members if index not in templated]
@@ -218,21 +236,21 @@ def type_sites(
                 mapped = [indices[(entry, atom.id)] for atom in atoms]
                 chemistry.typed.update(mapped)
                 chemistry.validated_molecules.append((mol, mapped))
-                for feature in factory.GetFeaturesForMol(mol):
-                    if feature.GetFamily() == "Acceptor":
-                        chemistry.acceptors.update(mapped[i] for i in feature.GetAtomIds())
-                    elif feature.GetFamily() == "Donor":
-                        for i in feature.GetAtomIds():
-                            donor = mapped[i]
-                            hydrogens = [
-                                neighbor
-                                for neighbor in sites[donor].neighbors
-                                if sites[neighbor].atom.element == "H"
-                            ]
-                            if hydrogens:
-                                chemistry.donors[donor] = sorted(hydrogens)
-                            else:
-                                chemistry.missing_hydrogens.add(donor)
+                for match in mol.GetSubstructMatches(cast(Any, Lipinski).HAcceptorSmarts):
+                    index = match[0]
+                    if mol.GetAtomWithIdx(index).GetFormalCharge() <= 0:
+                        chemistry.acceptors.add(mapped[index])
+                for match in mol.GetSubstructMatches(cast(Any, Lipinski).HDonorSmarts):
+                    donor = mapped[match[0]]
+                    hydrogens = [
+                        neighbor
+                        for neighbor in sites[donor].neighbors
+                        if sites[neighbor].atom.element == "H"
+                    ]
+                    if hydrogens:
+                        chemistry.donors[donor] = sorted(hydrogens)
+                    else:
+                        chemistry.missing_hydrogens.add(donor)
             except (ValueError, RuntimeError):
                 warnings.append(
                     InteractionWarning(

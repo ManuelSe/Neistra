@@ -42,5 +42,21 @@ Small-molecule typing validates supplied bond orders and charges with pinned
 RDKit. Canonical amino acids use only observed, unambiguous OpenMM template sites;
 missing/contradictory sites and uncertain ligand chemistry produce warnings.
 
-Checkpoint status: clashes, hydrogen bonds and hydrophobic contacts are available.
-Aromatic and ionic controls are omitted until their C3 vertical slice is complete.
+π–π requires complete aromatic5/6-member rings, center distance≤5.5 Å and either
+parallel planes (acute angle≤30°, both offsets≤2 Å) or T geometry (angle≥60°,
+minimum offset≤2 Å). Ring plane RMS≤0.1 Å; degenerate rings are unassessable.
+Cation–π connects a positive charge-group center to a ring center within6.0 Å,
+offset≤2 Å and vector≤30° from the ring normal. Salt bridges use opposite charged
+groups with nearest group site≤4.5 Å and no H-bond angular requirement. Shared
+carboxylate/guanidinium charge sites produce one group marker. Salt and H bonds
+can both be present. Patterns and colors distinguish all six marker types.
+
+Canonical ASP/GLU negative and LYS/ARG positive side-chain conventions are warned
+analysis assumptions only when supplied charges/protonation do not contradict
+them. Histidine and terminal charges are never assumed. Histidine acceptor N
+requires observed tautomer evidence. Neutral ionizable groups are not cations.
+Protein connectivity uses observed template bonds and warned consecutive source
+peptide links within a polymer instance, preserving grouping under movement.
+Missing heavy atoms, gaps or ambiguous cross-residue links suppress affected
+scope-dependent results or unsafe within-molecule exclusions. Chemically defined
+ligands use supplied graph evidence; CCD assignment remains separate.

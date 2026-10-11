@@ -9,6 +9,7 @@ from __future__ import annotations
 from collections import defaultdict
 from dataclasses import dataclass, field
 from importlib.resources import files
+from itertools import pairwise
 from typing import Literal
 from xml.etree import ElementTree
 
@@ -150,6 +151,7 @@ def _sites(inputs: list[AnalysisInput]) -> tuple[list[Site], list[InteractionWar
             adjacency[bond.atom_2_id].add(bond.atom_1_id)
         templated: set[int] = set()
         incomplete: set[int] = set()
+        incomplete_residues: set[int] = set()
         for residue_id, atoms in by_residue.items():
             residue = residues.get(residue_id) if residue_id is not None else None
             if residue_id in ambiguous:
@@ -180,8 +182,65 @@ def _sites(inputs: list[AnalysisInput]) -> tuple[list[Site], list[InteractionWar
                         templated.add(atom.id)
                     else:
                         incomplete.add(atom.id)
+                heavy = {name for name in expected if not name.startswith("H") and name != "OXT"}
+                if not heavy.issubset(names) or any(
+                    names[name].element != name[0] for name in heavy if name in names
+                ):
+                    incomplete_residues.add(residue.id)
             elif structure.source.format.lower() in {"pdb", "mmcif", "cif", "xyz"}:
                 incomplete.update(atom.id for atom in atoms)
+        polymers: dict[tuple[int, str | None], list[int]] = defaultdict(list)
+        for residue in structure.residues:
+            if residue.component_type == "polymer":
+                polymers[(residue.chain_id, residue.source_subchain_id)].append(residue.id)
+        inferred_peptides = 0
+        for residue_ids in polymers.values():
+            for previous_id, current_id in pairwise(residue_ids):
+                previous, current = residues[previous_id], residues[current_id]
+                a = {atom.name: atom for atom in by_residue[previous_id]}
+                b = {atom.name: atom for atom in by_residue[current_id]}
+                if (
+                    "C" not in a
+                    or "N" not in b
+                    or previous_id in ambiguous
+                    or current_id in ambiguous
+                ):
+                    incomplete_residues.update((previous_id, current_id))
+                    continue
+                if b["N"].id in adjacency[a["C"].id]:
+                    continue
+                label_contiguous = (
+                    previous.label_number is not None
+                    and current.label_number == previous.label_number + 1
+                )
+                author_contiguous = (
+                    previous.author_number is not None
+                    and current.author_number == previous.author_number + 1
+                    and not previous.insertion_code
+                    and not current.insertion_code
+                )
+                if (
+                    previous.name in templates
+                    and current.name in templates
+                    and (label_contiguous or author_contiguous)
+                ):
+                    adjacency[a["C"].id].add(b["N"].id)
+                    adjacency[b["N"].id].add(a["C"].id)
+                    inferred_peptides += 1
+                else:
+                    incomplete_residues.update((previous_id, current_id))
+        if inferred_peptides:
+            warnings.append(
+                InteractionWarning(
+                    entry_id=entry,
+                    code="protein_template_peptide_links",
+                    message=(
+                        "Consecutive source residues in the same polymer instance use "
+                        "analysis-only peptide connectivity; no distance-based molecule "
+                        "splitting is performed."
+                    ),
+                )
+            )
         if templated:
             warnings.append(
                 InteractionWarning(
@@ -219,19 +278,57 @@ def _sites(inputs: list[AnalysisInput]) -> tuple[list[Site], list[InteractionWar
                     union(instances[key], atom.id)
                 else:
                     instances[key] = atom.id
+            elif structure.source.format.lower() == "xyz":
+                # XYZ supplies no molecular boundaries; guessed bonds cannot make
+                # disconnected fragments defensible intermolecular instances.
+                if instances:
+                    union(next(iter(instances.values())), atom.id)
+                else:
+                    instances[("unresolved_xyz",)] = atom.id
         for atom_id, neighbors in adjacency.items():
             for neighbor in neighbors:
                 union(atom_id, neighbor)
-        # Missing inter-residue peptide edges make within-polymer exclusions unsafe.
+        # Missing template atoms or uncertain peptide links make exclusions unsafe.
         polymer_roots = {
-            root(atom.id)
-            for atom in structure.atoms
-            if atom.residue_id in residues and residues[atom.residue_id].component_type == "polymer"
+            root(atom.id) for atom in structure.atoms if atom.residue_id in incomplete_residues
         }
         unsafe_roots = {root(atom_id) for atom_id in incomplete} | polymer_roots
         ambiguous_roots = {
             root(atom.id) for atom in structure.atoms if atom.residue_id in ambiguous
         }
+        atom_lookup = {atom.id: atom for atom in structure.atoms}
+        for bond in structure.bonds:
+            first_atom, second_atom = atom_lookup[bond.atom_1_id], atom_lookup[bond.atom_2_id]
+            if first_atom.residue_id == second_atom.residue_id or bond.order is not None:
+                continue
+            a_residue, b_residue = (
+                residues.get(first_atom.residue_id or -1),
+                residues.get(second_atom.residue_id or -1),
+            )
+            canonical_link = (
+                a_residue is not None
+                and b_residue is not None
+                and a_residue.name in CANONICAL
+                and b_residue.name in CANONICAL
+                and (
+                    set((first_atom.name, second_atom.name)) == {"C", "N"}
+                    or (a_residue.name == b_residue.name == "CYS"
+                    and first_atom.name == second_atom.name == "SG")
+                )
+            )
+            if not canonical_link:
+                ambiguous_roots.update((root(first_atom.id), root(second_atom.id)))
+        if ambiguous_roots:
+            warnings.append(
+                InteractionWarning(
+                    entry_id=entry,
+                    code="ambiguous_molecular_scope",
+                    message=(
+                        "Alternate sites or links without unambiguous covalent evidence "
+                        "prevent molecular scope assignment; affected groups are skipped."
+                    ),
+                )
+            )
         local: dict[int, int] = {}
         for atom, point in zip(structure.atoms, structure.active_coordinates, strict=True):
             if not np.isfinite(point).all():
@@ -363,6 +460,9 @@ def analyze_interactions(
     from molweave_core.interaction_chemistry import type_sites
 
     chemistry = type_sites(inputs, sites, warnings)
+    from molweave_core.interaction_groups import interaction_groups
+
+    rings, charges = interaction_groups(chemistry, sites, warnings)
     records: list[InteractionRecord] = []
     budget = CandidateBudget(limits)
     hydrogen_contacts: set[tuple[int, int]] = set()
@@ -435,6 +535,115 @@ def analyze_interactions(
                 ),
             )
         )
+    if rings:
+        ring_tree = cKDTree(np.asarray([ring.center for ring in rings]))
+        for first, ring in enumerate(rings):
+            for second in budget.neighbors(ring_tree, ring.center, 5.5):
+                if second <= first or set(ring.atoms).intersection(rings[second].atoms):
+                    continue
+                other_ring = rings[second]
+                vector = other_ring.center - ring.center
+                distance = float(np.linalg.norm(vector))
+                plane_angle = float(
+                    np.degrees(
+                        np.arccos(np.clip(abs(np.dot(ring.normal, other_ring.normal)), 0, 1))
+                    )
+                )
+                offsets = [
+                    float(np.linalg.norm(vector - np.dot(vector, normal) * normal))
+                    for normal in (ring.normal, other_ring.normal)
+                ]
+                parallel = plane_angle <= 30 + 1e-9 and max(offsets) <= 2 + 1e-9
+                perpendicular = plane_angle >= 60 - 1e-9 and min(offsets) <= 2 + 1e-9
+                if parallel or perpendicular:
+                    add_record(
+                        records,
+                        limits,
+                        sites,
+                        "pi_pi",
+                        [ring.atoms, other_ring.atoms],
+                        {
+                            "distance": distance,
+                            "plane_angle": plane_angle,
+                            "offset_1": offsets[0],
+                            "offset_2": offsets[1],
+                        },
+                        [tuple(ring.center), tuple(other_ring.center)],
+                    )
+        for charge in charges:
+            if charge.charge <= 0:
+                continue
+            for candidate in budget.neighbors(ring_tree, charge.center, 6.0):
+                ring = rings[candidate]
+                if set(charge.atoms).intersection(ring.atoms):
+                    continue
+                vector = charge.center - ring.center
+                distance = float(np.linalg.norm(vector))
+                if distance < 1e-12:
+                    continue
+                normal_angle = float(
+                    np.degrees(
+                        np.arccos(np.clip(abs(np.dot(vector, ring.normal)) / distance, 0, 1))
+                    )
+                )
+                offset = float(np.linalg.norm(vector - np.dot(vector, ring.normal) * ring.normal))
+                if offset <= 2 + 1e-9 and normal_angle <= 30 + 1e-9:
+                    add_record(
+                        records,
+                        limits,
+                        sites,
+                        "cation_pi",
+                        [charge.atoms, ring.atoms],
+                        {
+                            "distance": distance,
+                            "normal_angle": normal_angle,
+                            "offset": offset,
+                            "charge": float(charge.charge),
+                        },
+                        [tuple(charge.center), tuple(ring.center)],
+                    )
+    # Index charge-bearing atoms, not group centers: elongated charge groups must
+    # retain the specified nearest-site criterion without unbounded all-pairs.
+    if charges:
+        charge_sites = [
+            (owner, index) for owner, group in enumerate(charges) for index in group.atoms
+        ]
+        charge_tree = cKDTree(np.asarray([sites[index].point for _, index in charge_sites]))
+        emitted: set[tuple[int, int]] = set()
+        for owner, index in charge_sites:
+            for candidate in budget.neighbors(charge_tree, sites[index].point, 4.5):
+                second, _ = charge_sites[candidate]
+                pair = (min(owner, second), max(owner, second))
+                if (
+                    owner == second
+                    or pair in emitted
+                    or charges[owner].charge * charges[second].charge >= 0
+                ):
+                    continue
+                a, b = charges[pair[0]], charges[pair[1]]
+                if any(
+                    other in _local_neighbors(sites, atom) for atom in a.atoms for other in b.atoms
+                ):
+                    continue
+                distance = min(
+                    float(np.linalg.norm(sites[atom].point - sites[other].point))
+                    for atom in a.atoms
+                    for other in b.atoms
+                )
+                emitted.add(pair)
+                add_record(
+                    records,
+                    limits,
+                    sites,
+                    "salt_bridge",
+                    [a.atoms, b.atoms],
+                    {
+                        "distance": distance,
+                        "charge_1": float(a.charge),
+                        "charge_2": float(b.charge),
+                    },
+                    [tuple(a.center), tuple(b.center)],
+                )
     if sites:
         coordinates = np.asarray([site.point for site in sites])
         tree = cKDTree(coordinates)
@@ -490,7 +699,7 @@ def analyze_interactions(
         skipped_atoms=total - assessed,
     )
     typed = len(chemistry.typed)
-    for kind in ("hydrogen_bond", "hydrophobic"):
+    for kind in ("hydrogen_bond", "hydrophobic", "pi_pi", "cation_pi", "salt_bridge"):
         coverage[kind] = InteractionCoverage(
             status="unavailable"
             if not typed

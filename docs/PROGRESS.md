@@ -3,17 +3,17 @@
 ## Current milestone
 
 Issue #49 — [approved molecular-interactions plan](plans/issue-49-molecular-interactions.md)
-in progress on `feat/issue-49-molecular-interactions`. M1/C1–C2 complete: bounded pure analysis, current-artifact API, source/connectivity scopes,
+in progress on `feat/issue-49-molecular-interactions`. M1–M2/C1–C3 complete: bounded pure analysis, current-artifact API, source/connectivity scopes,
 warned coverage, compact session controls/cache and nonpickable overlay.
 Hydrogen bonds use explicit H/angles and warned typing; hydrophobic contacts use
-established nonpolar neighborhoods. Focused checks: 23 Python, 21 frontend,
-11 browser passes / 7 intentional inspector skips;
+established nonpolar neighborhoods. Focused checks: 40 Python, 21 frontend,
+2 focused all-type desktop/Pixel 7 browser passes;
 Ruff/mypy/web lint/types/build/diff checks pass. Isolated ports avoid an existing
 development server. No migration or persisted change (0013/majors1/0.12.1).
 Limitations: conservative incomplete within-molecule connectivity, alternate
-sites and metals skipped. Aromatic/ionic types follow in C3; full qualification
-and release in C4/C5.
-D-085–088 remain the contract; no blocker. Next: M2/C3 aromatic and ionic contacts. Planned minor release0.13.0; CCD typing remains a follow-up.
+sites and metals skipped. All six types available; full lifecycle/scientific/native geometry, accessibility,
+performance/compatibility qualification and release remain C4/C5.
+D-085–088 remain the contract; no blocker. Next: M3/C4 workflow and release qualification. Planned minor release0.13.0; CCD typing remains a follow-up.
 
 ### Previous delivery baseline — v0.12.1
 

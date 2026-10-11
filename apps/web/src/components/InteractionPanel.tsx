@@ -6,7 +6,7 @@ import { useInteractionStore } from "../store/interactions";
 import { INTERACTION_LABELS, type InteractionChoices, type InteractionKind, type InteractionResult } from "../interactions/types";
 
 // Only completed vertical slices are offered during checkpoint development.
-const available: InteractionKind[] = ["clash", "hydrogen_bond", "hydrophobic"];
+const available: InteractionKind[] = ["hydrogen_bond", "hydrophobic", "pi_pi", "cation_pi", "salt_bridge", "clash"];
 
 export function InteractionPanel({ open, onOpenChange, choices, result, status }: {
   open: boolean; onOpenChange: (open: boolean) => void;
@@ -34,6 +34,7 @@ export function InteractionPanel({ open, onOpenChange, choices, result, status }
       {help ? <div className="interaction-help">
         <p>Fixed interaction-v1 geometry in the current workspace. This is geometric screening, not binding energy. Uncertain sites are skipped.</p>
         <p>Clashes use element radii and ≥0.4 Å overlap, excluding up to three covalent bonds. Metal coordination is unsupported.</p>
+        <p>H bonds need explicit H, donor angle ≥130° and applicable acceptor angle ≥90°. π contacts require complete planar aromatic rings and directional geometry. Salt bridges use opposite charged groups within4.5 Å.</p>
         <p>Prepare explicit hydrogens using the existing editing tools. Resolve alternate locations; raw PDB/mmCIF ligand chemistry may require preparation.</p>
         {result?.warnings.map((warning, index) => <p key={index}>{warning.message}</p>)}
       </div> : null}
