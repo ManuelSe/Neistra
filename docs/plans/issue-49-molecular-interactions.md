@@ -555,3 +555,32 @@ No geometry-based molecule splitting or authoritative bond changes are introduce
 No migration/version/dependency/persistence change. Full lifecycle/native pixel,
 accessibility/performance/previous-reader qualification and delivery remain C4/C5.
 No blocker; no deferred issue requirement reintroduced.
+
+### C4 consequential lifecycle fixes — 2026-10-11
+
+Qualification found and repaired an anchored-panel animation/positioning defect,
+a missing explicit retry action, atom-mask coverage for every atomic style, and
+overlay restoration ordering after Cancel. Native display now reapplies hydrogen
+polarity/visibility using the existing Mol* classifier and suppresses results while
+current projection queries are pending. Pure metal-only clash assessment reports
+unavailable rather than a misleading partial zero. API child EOF and cancellation
+cleanup preserve structured failure and single-process admission. Session choices
+remain outside persisted projects/scenes. Focused Python 43 and frontend 22 tests,
+Ruff/mypy, web lint/types passed; native browser/build evidence follows below.
+
+Diagnostic browser runs exposed test assumptions as well: cyan selection highlights
+must not be counted as H-bond pixels, and screen-space movement steps have
+camera-dependent Cartesian displacement. Tests now check the independent committed
+normalized coordinates after Apply and exact originals after Undo/Cancel. These
+diagnostic failures are not passing qualification evidence.
+
+C4 fix gate passes: 48 focused Python, 22 frontend, Ruff/mypy/web lint/types,
+production build and diff checks. Isolated Playwright interactions + rebranding-zoom:
+10 passes, 2 intentional mobile skips (real desktop zoom/breakpoint qualification).
+Charged or overprotonated source water is skipped with a contradiction warning;
+neutral/positive/negative boundary fixtures pass. Browser results include real H
+marker pixels and nonpickable batched geometry, hidden explicit H, preview/Cancel,
+Apply/Undo/Redo, retry, both themes, 320px and responsive cache retention.
+Performance: desktop1010 atoms/79 shown records,2414ms first overlay,158.5ms
+cached toggle,0ms observed long task,1analysis/0structureGET/279request bytes.
+Detailed qualification and final-version preceding-reader evidence remain C4/C5.

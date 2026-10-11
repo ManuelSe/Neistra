@@ -694,7 +694,7 @@ def analyze_interactions(
         for kind in TYPES
     }
     coverage["clash"] = InteractionCoverage(
-        status="partial" if warnings else "complete",
+        status="unavailable" if not assessed else "partial" if warnings else "complete",
         assessed_atoms=assessed,
         skipped_atoms=total - assessed,
     )

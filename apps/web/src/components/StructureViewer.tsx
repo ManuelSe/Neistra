@@ -286,13 +286,14 @@ export function StructureViewer({
     .join("|");
   const structuresPending = structureQueries.some((query) => query.isPending);
   viewerStructuresRef.current = viewerStructures;
-  const interactionRecords = interactions.result && !interactionPaused
+  const interactionViewReady = structureQueries.every(query => Boolean(query.data) && !query.isPlaceholderData && !query.isError);
+  const interactionRecords = interactions.result && !interactionPaused && interactionViewReady
     ? filterInteractions(interactions.result.records, interactions.choices, viewerStructures, isolation) : [];
   const interactionDisplayKey = JSON.stringify(interactionRecords);
   const interactionRecordsRef = useRef(interactionRecords); interactionRecordsRef.current = interactionRecords;
   useLayoutEffect(() => {
-    if (interactionPaused) void viewerRef.current?.setInteractions([]).catch(() => undefined);
-  }, [interactionPaused, viewerReady]);
+    if (interactionPaused || !interactions.result || !interactionViewReady) void viewerRef.current?.setInteractions([]).catch(() => undefined);
+  }, [interactionPaused, interactions.result, interactionViewReady, viewerReady]);
   useEffect(() => {
     if (!viewerReady) return;
     void viewerRef.current?.setInteractions(interactionRecordsRef.current).catch((error: unknown) => setViewerError(error instanceof Error ? error.message : "Interaction markers could not be displayed."));
@@ -601,8 +602,8 @@ export function StructureViewer({
               : busy ? "Finish the current project change before moving selection"
               : viewerUnavailableReason ?? movementUnavailableReason(project, selection, () => viewerRef.current?.getRenderedAtomReferences() ?? [])} /> : null}
         </div>
-        <InteractionPanel open={interactionProjectId === project.id} onOpenChange={open => setInteractionProjectId(open ? project.id : null)} choices={interactions.choices} result={interactions.result}
-          status={interactionPaused ? "Paused during preview" : interactions.error ?? (interactions.loading ? "Analyzing…" : !interactions.enabled ? "Off" : !interactions.result ? "Waiting…" : `${interactionRecords.length} detected${interactions.result.warnings.length ? " · partial coverage" : ""}`)} />
+        <InteractionPanel open={interactionProjectId === project.id} onOpenChange={open => setInteractionProjectId(open ? project.id : null)} choices={interactions.choices} result={interactions.result} onRetry={interactions.error ? interactions.retry : undefined}
+          status={interactionPaused ? "Paused during preview" : interactions.error ?? (interactions.loading ? "Analyzing…" : !interactions.enabled ? "Off" : !interactionInputs.length ? "No visible inputs" : !interactions.result || !interactionViewReady ? "Waiting…" : interactions.choices.types.every(kind => interactions.result!.coverage[kind].status === "unavailable") ? "Unavailable · see Help" : `${interactionRecords.length} detected${interactions.choices.types.some(kind => interactions.result!.coverage[kind].status !== "complete") ? " · partial coverage" : ""}`)} />
         <SelectionStyleDialog
           onExpandDistance={onExpandDistance}
           onAppearance={onAppearance}

@@ -109,12 +109,12 @@ def interaction_router(settings: Settings, session_dependency: Callable[..., obj
                     "message": "Interaction atom limit exceeded (100,000).",
                 },
             )
-        active = True  # No await between admission check and acquisition.
         context = multiprocessing.get_context("spawn")
         receiver, sender = context.Pipe(duplex=False)
         process = context.Process(
             target=_analyze_child, args=(sender, settings.data_dir, sources), daemon=True
         )
+        active = True  # No await between admission check and acquisition.
         started = False
         try:
             process.start()
@@ -133,7 +133,12 @@ def interaction_router(settings: Settings, session_dependency: Callable[..., obj
                         },
                     )
                 if receiver.poll():
-                    kind, value = receiver.recv()
+                    try:
+                        kind, value = receiver.recv()
+                    except EOFError as error:
+                        raise HTTPException(
+                            500, detail="Interaction analysis exited without a result"
+                        ) from error
                     if kind == "result":
                         return InteractionResult.model_validate(value)
                     raise HTTPException(
@@ -144,16 +149,23 @@ def interaction_router(settings: Settings, session_dependency: Callable[..., obj
                     raise HTTPException(500, detail="Interaction analysis exited without a result")
                 await asyncio.sleep(0.025)
         finally:
-            if started:
-                if process.is_alive():
-                    process.terminate()
-                await asyncio.to_thread(process.join, 2)
-                if process.is_alive():
-                    process.kill()
-                    await asyncio.to_thread(process.join)
-                process.close()
-            receiver.close()
-            sender.close()
-            active = False
+            async def cleanup() -> None:
+                nonlocal active
+                try:
+                    if started:
+                        if process.is_alive():
+                            process.terminate()
+                        await asyncio.to_thread(process.join, 2)
+                        if process.is_alive():
+                            process.kill()
+                            await asyncio.to_thread(process.join)
+                        process.close()
+                finally:
+                    receiver.close()
+                    sender.close()
+                    active = False
+
+            # A second task cancellation must not interrupt reaping/admission cleanup.
+            await asyncio.shield(cleanup())
 
     return router

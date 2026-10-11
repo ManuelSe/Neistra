@@ -82,6 +82,41 @@ def test_unknown_chemistry_does_not_become_rdkit_defaults() -> None:
     assert any(w.code == "unknown_chemistry" for w in result.warnings)
 
 
+@pytest.mark.parametrize("charge,expected", [(0, True), (1, False), (-1, False)])
+def test_source_water_assignment_respects_contradictory_charges(
+    charge: int, expected: bool
+) -> None:
+    from molweave_core.molecular import Chain, Residue
+
+    from tests.unit.test_interactions import molecule
+
+    water = molecule([(2.8, 0, 0)])
+    water = water.model_copy(
+        update={
+            "source": SourceFacts(filename="water.pdb", format="pdb"),
+            "atoms": [
+                water.atoms[0].model_copy(
+                    update={"element": "O", "name": "O", "formal_charge": charge, "residue_id": 1}
+                )
+            ],
+            "chains": [Chain(id=1, name="W")],
+            "residues": [Residue(id=1, chain_id=1, name="HOH", component_type="water")],
+        }
+    )
+    result = analyze_interactions([source(hydrogen_pair()), source(water, "water")])
+    assert (
+        any(
+            record.kind == "hydrogen_bond" and record.participants[1][0].structure_id == "water"
+            for record in result.records
+        )
+        is expected
+    )
+    assert (
+        any(warning.code == "contradictory_water_chemistry" for warning in result.warnings)
+        is not expected
+    )
+
+
 def test_hydrophobic_neighborhood_and_distance() -> None:
     from tests.unit.test_interactions import molecule
 

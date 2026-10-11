@@ -98,3 +98,38 @@ def test_unknown_connectivity_and_metals_report_partial_coverage() -> None:
     result = analyze_interactions([source(metal)])
     assert not result.records
     assert result.coverage["clash"].skipped_atoms == 2
+    assert result.coverage["clash"].status == "unavailable"
+
+
+def test_scope_follows_covalent_identity_after_large_coordinate_changes() -> None:
+    structure = molecule([(0, 0, 0)] * 5, [(1, 2), (2, 3), (3, 4), (4, 5)])
+    points = [
+        (0.0, 0.0, 0.0),
+        (0.0, 0.0, 0.0),
+        (1000.0, 0.0, 0.0),
+        (0.0, 0.0, 0.0),
+        (0.0, 0.0, 0.0),
+    ]
+    moved = structure.model_copy(
+        update={
+            "atoms": [
+                atom.model_copy(update={"coordinates": point})
+                for atom, point in zip(structure.atoms, points, strict=True)
+            ],
+            "conformers": [Conformer(id=1, name="moved", coordinates=points)],
+        }
+    )
+    record = next(
+        record for record in analyze_interactions([source(moved)]).records if record.kind == "clash"
+    )
+    assert record.scope == "intra"
+    assert [group[0].atom_id for group in record.participants] == [1, 5]
+
+
+def test_unknown_xyz_fragment_boundaries_do_not_fabricate_interactions() -> None:
+    structure = molecule([(0, 0, 0), (1, 0, 0)]).model_copy(
+        update={"source": SourceFacts(filename="unknown.xyz", format="xyz")}
+    )
+    result = analyze_interactions([source(structure)])
+    assert not result.records
+    assert any(warning.code == "incomplete_connectivity" for warning in result.warnings)

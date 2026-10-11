@@ -76,12 +76,30 @@ def type_sites(
             names = {sites[index].atom.name: index for index in members}
             if residue.component_type == "water":
                 oxygen = [index for index in members if sites[index].atom.element == "O"]
-                if len(oxygen) == 1 and all(
-                    sites[index].atom.element in {"H", "O"} for index in members
+                if (
+                    len(oxygen) == 1
+                    and all(
+                        sites[index].atom.element in {"H", "O"}
+                        and sites[index].atom.formal_charge in {None, 0}
+                        for index in members
+                    )
+                    and sum(sites[index].atom.element == "H" for index in members) <= 2
                 ):
                     chemistry.typed.update(members)
                     chemistry.acceptors.update(oxygen)
                     templated.update(members)
+                else:
+                    warnings.append(
+                        InteractionWarning(
+                            entry_id=entry,
+                            code="contradictory_water_chemistry",
+                            message=("Water identity contradicts observed charge/composition; "
+                                     "typing is skipped."),
+                            atom_ids=[sites[index].atom.id for index in members],
+                        )
+                    )
+                # Invalid source water must not fall through to ligand assumptions.
+                templated.update(members)
                 continue
             if residue.component_type != "polymer" or residue.name not in templates:
                 continue

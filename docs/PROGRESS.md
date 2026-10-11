@@ -3,16 +3,18 @@
 ## Current milestone
 
 Issue #49 — [approved molecular-interactions plan](plans/issue-49-molecular-interactions.md)
-in progress on `feat/issue-49-molecular-interactions`. M1–M2/C1–C3 complete: bounded pure analysis, current-artifact API, source/connectivity scopes,
+in progress on `feat/issue-49-molecular-interactions`. M1–M2/C1–C3 complete; M3/C4 qualification in progress: bounded pure analysis, current-artifact API, source/connectivity scopes,
 warned coverage, compact session controls/cache and nonpickable overlay.
 Hydrogen bonds use explicit H/angles and warned typing; hydrophobic contacts use
-established nonpolar neighborhoods. Focused checks: 40 Python, 21 frontend,
-2 focused all-type desktop/Pixel 7 browser passes;
+established nonpolar neighborhoods. Focused checks: 48 Python, 22 frontend,
+10 interaction/zoom browser passes (2 intentional mobile skips);
 Ruff/mypy/web lint/types/build/diff checks pass. Isolated ports avoid an existing
 development server. No migration or persisted change (0013/majors1/0.12.1).
 Limitations: conservative incomplete within-molecule connectivity, alternate
 sites and metals skipped. All six types available; full lifecycle/scientific/native geometry, accessibility,
 performance/compatibility qualification and release remain C4/C5.
+C4 fixes cover bounded anchoring, retry, native hydrogen/mask filtering, pending
+projection suppression, Cancel restoration and shielded child cleanup.
 D-085–088 remain the contract; no blocker. Next: M3/C4 workflow and release qualification. Planned minor release0.13.0; CCD typing remains a follow-up.
 
 ### Previous delivery baseline — v0.12.1
@@ -2284,5 +2286,5 @@ No current blocker. Issue #46 is released; final cleanup audit is maintained in 
 
 ## Next action
 
-Select and approve a separate backlog plan. Current released baseline is v0.12.1;
-the new correction reply maintains final documentation/branch-cleanup audit.
+Complete issue #49 C4 qualification and C5 delivery on its approved feature branch.
+Current released baseline remains v0.12.1 until verified publication.

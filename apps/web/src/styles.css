@@ -3711,7 +3711,7 @@ div[data-radix-popper-content-wrapper]:has(.tooltip) {
 .project-browser { position: relative; }
 .group-drag-status { position: absolute; bottom: 8px; left: 8px; right: 8px; z-index: 2; margin: 0; padding: 8px; font-size: var(--text-sm); color: var(--text-soft); background: var(--surface); border: 1px solid var(--border); pointer-events: none; }
 @media (pointer: coarse), (max-width: 840px) { .entry-drag-handle { display: none; } }
-.interaction-panel { position: fixed; left: max(8px, min(36vw, calc(100vw - 320px))); top: 110px; width: min(304px, calc(100vw - 16px)); max-height: calc(100dvh - 126px); overflow-y: auto; padding: 14px; }
+.interaction-panel { animation: fade-in 120ms ease-out; transform: none; position: fixed; left: var(--interaction-left, 8px); top: var(--interaction-top, 80px); width: min(304px, calc(100vw - 16px)); max-height: calc(100dvh - 16px); overflow-y: auto; padding: 14px; }
 .interaction-actions, .interaction-scopes { display: flex; gap: 6px; }
 .interaction-types { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 10px; }
 .interaction-types button, .interaction-scopes button { display: flex; align-items: center; gap: 8px; min-height: 36px; border: 1px solid var(--border); border-radius: 6px; background: var(--surface); color: var(--text); padding: 6px 9px; font-size: 12px; }
@@ -3725,3 +3725,4 @@ div[data-radix-popper-content-wrapper]:has(.tooltip) {
 .interaction-pi_pi { border-color: #9567c4; border-top-style: dashed; }
 .interaction-cation_pi { border-color: #5079d3; border-top-style: dashed; }
 .interaction-salt_bridge { border-color: #d56b30; border-top-style: dotted; }
+@media (pointer: coarse) { .interaction-panel button { min-width: 44px; min-height: 44px; } }

@@ -1,14 +1,17 @@
-import { beforeEach, describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { act, renderHook } from "@testing-library/react";
+import { interactionApi } from "../api/client";
 import { useInteractionStore } from "../store/interactions";
-import { interactionKey } from "../interactions/useInteractions";
+import { interactionKey, useInteractions } from "../interactions/useInteractions";
 import { interactionLines } from "../viewer/interactionGeometry";
-import type { InteractionRecord } from "../interactions/types";
+import type { InteractionKind, InteractionRecord, InteractionResult } from "../interactions/types";
 import { filterInteractions } from "../interactions/filter";
 import { componentHierarchy, proteinStructure, viewerSettings } from "./molecular-fixtures";
 
 const clash: InteractionRecord = { kind: "clash", scope: "inter", participants: [[{ structure_id: "a", atom_id: 1 }], [{ structure_id: "b", atom_id: 1 }]], endpoints: [[0, 0, 0], [2, 0, 0]], geometry: { distance: 2, overlap: 1.4 } };
 describe("interaction session and geometry", () => {
   beforeEach(() => useInteractionStore.getState().setProject(`reset-${Math.random()}`));
+  afterEach(() => { vi.restoreAllMocks(); vi.useRealTimers(); });
   it("retains choices on renderer remount, resets on project change and has independent scopes", () => {
     const store = useInteractionStore.getState();
     store.setProject("a"); store.toggleType("clash"); store.toggleScope("intra");
@@ -43,5 +46,35 @@ describe("interaction session and geometry", () => {
     settings.components.hydrogens = true;
     settings.selection_hidden_atoms = [atoms[2].id];
     expect(filterInteractions([bond], choices, [viewer], null)).toHaveLength(0);
+    settings.selection_hidden_atoms = [];
+    const ring: InteractionRecord = { ...bond, kind: "pi_pi", participants: [atoms.map(atom => ({ structure_id: "a", atom_id: atom.id }))] };
+    expect(filterInteractions([ring], { ...choices, types: ["pi_pi"] }, [viewer], null)).toHaveLength(1);
+    expect(filterInteractions([ring], { ...choices, types: ["pi_pi"] }, [viewer], [{ structure_id: "a", atom_id: atoms[0].id }])).toHaveLength(0);
+  });
+  it("debounces input changes, rejects obsolete responses, pauses and restores cached results", async () => {
+    vi.useFakeTimers();
+    const coverage = Object.fromEntries(["clash", "hydrogen_bond", "hydrophobic", "pi_pi", "cation_pi", "salt_bridge"].map(kind => [kind, { status: "complete", assessed_atoms: 2, skipped_atoms: 0 }])) as InteractionResult["coverage"];
+    const makeResult = (artifact: string): InteractionResult => ({ profile: "interaction-v1", frame: "workspace-cartesian", inputs: [{ entry_id: "a", artifact_id: artifact }], records: [clash], coverage, warnings: [], candidate_comparisons: 1 });
+    let first!: (result: InteractionResult) => void, second!: (result: InteractionResult) => void;
+    const api = vi.spyOn(interactionApi, "analyze").mockImplementationOnce(() => new Promise(resolve => { first = resolve; })).mockImplementationOnce(() => new Promise(resolve => { second = resolve; }));
+    useInteractionStore.getState().setProject("a"); useInteractionStore.getState().toggleType("clash");
+    const hook = renderHook(({ artifact, paused }) => useInteractions("a", [{ entry_id: "a", artifact_id: artifact }], paused), { initialProps: { artifact: "1", paused: false } });
+    await act(() => vi.advanceTimersByTimeAsync(249)); expect(api).not.toHaveBeenCalled();
+    await act(() => vi.advanceTimersByTimeAsync(1)); expect(api).toHaveBeenCalledTimes(1);
+    hook.rerender({ artifact: "2", paused: false });
+    expect(api.mock.calls[0][2].aborted).toBe(true);
+    await act(() => vi.advanceTimersByTimeAsync(250));
+    await act(async () => { first(makeResult("1")); await Promise.resolve(); });
+    expect(hook.result.current.result).toBeNull();
+    await act(async () => { second(makeResult("2")); await Promise.resolve(); });
+    expect(hook.result.current.result?.inputs[0].artifact_id).toBe("2");
+    hook.rerender({ artifact: "2", paused: true }); hook.rerender({ artifact: "2", paused: false });
+    await act(() => vi.advanceTimersByTimeAsync(300)); expect(api).toHaveBeenCalledTimes(2);
+    act(() => useInteractionStore.getState().toggleType("pi_pi" as InteractionKind));
+    expect(api).toHaveBeenCalledTimes(2);
+    hook.unmount();
+    const remount = renderHook(() => useInteractions("a", [{ entry_id: "a", artifact_id: "2" }], false));
+    expect(remount.result.current.result?.inputs[0].artifact_id).toBe("2");
+    expect(api).toHaveBeenCalledTimes(2);
   });
 });

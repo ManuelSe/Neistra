@@ -167,6 +167,7 @@ describe("MolecularViewer Molstar adapter", () => {
     await viewer.mount(target);
     viewer.setBackgroundColor("#eef2f1");
     await viewer.syncStructures(structures);
+    await viewer.setInteractions([]);
     viewer.focusAtoms([{ structure_id: "protein", atom_id: 10 }]);
     viewer.fitVisible();
     viewer.resize();
@@ -183,6 +184,7 @@ describe("MolecularViewer Molstar adapter", () => {
     ]);
     expect(calls.subscribe).toHaveBeenCalledWith(listener);
     expect(calls.sync).toHaveBeenCalledWith(structures);
+    expect(calls.interactions).toHaveBeenCalledWith([]);
     expect(calls.focus).toHaveBeenCalledWith([
       { structure_id: "protein", atom_id: 10 },
     ]);

@@ -3066,3 +3066,14 @@ exclusions. Group identity is independent of coordinates, and an unknown-order
 cross-residue link without canonical or supplied covalent evidence suppresses its
 affected scope rather than inventing a relationship. XYZ has no reliable molecule
 boundaries, so disconnected inferred fragments do not become intermolecular scope.
+
+### D-088 implementation note — M3/C4, 2026-10-11
+
+Overlay visibility is filtered first from authoritative application membership
+and again against the disposable renderer projection using the established native
+nonpolar-H classifier. This preserves D-045 hydrogen semantics without chemistry
+repair or moving state authority into Mol*. Clear before native coordinate previews;
+restore only after committed coordinates and current projections are ready.
+Responsive renderer remounts retain project-session choices/cache, while an open
+interaction popover may close with its old renderer. This matches existing
+responsive workspace lifecycle and does not persist transient state in scenes.
