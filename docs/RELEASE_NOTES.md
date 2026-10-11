@@ -1,5 +1,87 @@
 # Neistra Release Notes
 
+## 0.13.0 - Molecular interactions
+
+### Highlights
+
+- A compact network-icon control in the viewer menu bar independently toggles
+  hydrogen bonds, hydrophobic contacts, π–π, cation–π, salt bridges and clashes,
+  with separate Inter/Intra switches and scientific Help.
+- Analysis reads immutable normalized artifacts and emits canonical participants,
+  geometry, coverage and warnings. Molecule scopes follow covalent/source identity,
+  including disconnected molecules within one entry and separate entries.
+- Patterned, batched, nonpickable overlays preserve camera, selection, measurements
+  and movement focus. Preview clears/pauses markers; Cancel restores cached results,
+  while committed edits, Apply, Undo and Redo refresh current artifacts.
+
+### Scientific criteria and supported inputs
+
+Hydrogen-bond markers connect explicit donor H to acceptor heavy atoms, respecting
+3.5 Å donor–acceptor /2.5 Å H–acceptor distances, ≥130° donor and applicable ≥90°
+acceptor angles. Hydrophobic contacts require established nonpolar carbon sites.
+Complete aromatic rings require planarity, distance, orientation and offset rules;
+cation–π uses actual positive groups and directional geometry. Salt bridges use
+opposite charged groups within 4.5 Å; resonance sites share a marker. Qualified
+H-bond pairs are excluded from clashes even with H-bond display off, while salt
+and H-bond classifications remain independently visible. Element radii and ≥0.4 Å
+overlap define clashes with local covalent exclusions.
+
+Prepared, validated ligand graphs and observed canonical amino-acid sites are
+supported. Protein connectivity/side-chain charge conventions are warned analysis
+assumptions; supplied contradictory charges, protonation or covalent modifications
+prevent those assignments. Disulfides are not thiol donors. Missing/ambiguous
+chemistry and unsupported sites remain unassessable. [Exact profile and preparation
+limits](INTERACTIONS.md) are part of the delivered contract.
+
+### UI behavior
+
+Choices are transient per-project session state; renderer remounts retain them,
+while project changes (including empty projects) and reload reset them. Opening
+alone does no analysis. Type/scope/visibility switches reuse matching cached
+results; new or changed artifacts debounce/cancel obsolete requests. Concise
+Off/Analyzing/Paused/partial/unavailable/error states and explicit Retry remain
+visible. Keyboard, touch, both themes, 320 px and real 100%/200% zoom are qualified.
+
+### API, data, migrations and rollback
+
+`POST /api/v1/projects/{project_id}/interactions` is additive in API v1. Requests
+contain entry/artifact identities, `interaction-v1` and `workspace-cartesian`,
+with no molecular payload retransmission or viewer export. One cancellable child
+per API process is bounded by 100,000 atoms, 1 million candidate admissions,
+20,000 records and 30 s; busy/limit/timeout failures publish no complete result.
+
+This is a minor increment from 0.12.1: new public behavior and endpoint, with no
+breaking existing API or persisted contract. All five authoritative versions are
+0.13.0. No dependency upgrade or migration; Alembic remains 0013 and project,
+normalized and archive contract majors remain 1. Originals, history, scenes and
+jobs are unchanged; interaction results/choices are absent from archives. The
+preceding-reader qualification must use actual tagged v0.12.1 against final 0.13.0
+producer data before publication. Qualified rollback needs no schema downgrade
+or data stripping; transient interaction state resets.
+
+### Verification and review
+
+The [approved feature plan](plans/issue-49-molecular-interactions.md) and
+[C4 evidence](assets/molecular-interactions/c4-verification.json) record scientific
+boundaries, native marker pixels/centroids/nonpickability, cache/preview/scene/
+project lifetimes, cancellation/limits, accessibility/real zoom and host performance.
+Final clean candidate and exact merged-master complete release gates and final
+preceding-reader evidence are required before publication. Review is local, not
+independent, unless an independent review is explicitly recorded.
+
+### Limitations and deliberately deferred scope
+
+Geometric screening does not predict binding energy. Explicit H/preparation is
+required; analysis never adds atoms, guesses arbitrary ligand chemistry or
+mutates source data. Canonical template/charge assumptions are visible warnings.
+Raw PDB/mmCIF ligand CCD assignment is tracked in [#52](https://github.com/ManuelSe/Neistra/issues/52).
+Automatic protonation/completion, configurable profiles, periodic/symmetry images,
+metal coordination, durable analysis reports, new docking logic, and component
+correction/extraction remain outside this approved slice. Pinned Chromium/SwiftShader
+and Pixel 7 emulation establish host regression budgets, not physical-device or
+arbitrary-system-size guarantees. Existing Alembic and lazy-bundle advisories remain.
+
+
 ## 0.12.1 - 2026-10-11
 
 ### Highlights and fixes

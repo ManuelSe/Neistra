@@ -655,3 +655,17 @@ scope was reintroduced. Review local, not independent, with consequential fixes
 committed separately. Next: version/base collision audit, release preparation,
 complete clean candidate gate, PR/review/merge, exact merged gate/reader, tag/release
 and verified issue response/branch cleanup.
+
+### C5 release preparation — 2026-10-11
+
+Fetched origin/master remains2a33edf and is an ancestor of this branch; remote
+latestrelease/tagv0.12.1, no v0.13 collision. All five authoritative versions and
+producer assertion advance0.12.1→0.13.0; preceding0.12.1 archive provenance joins
+the existing import/round-trip matrix. No dependency, migration or schema-major
+change. Minor follows additive public capability/API plus unchanged persisted
+contracts; neither patch, major nor prerelease fits the verified scope. Release
+notes and user/scientific/accessibility/performance/architecture guidance current.
+Normal merge remains approved and available; remote master unprotected, rulesets
+empty, no CI workflows, automatic branch deletion disabled. Reaudit before merge.
+Next: clean candidate complete gate and actual tagged0.12.1 reader against final
+0.13.0 producer, full-diff review, PR delivery and exact merged verification.

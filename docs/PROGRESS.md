@@ -25,6 +25,8 @@ coordination and pinned Chromium/SwiftShader/Pixel 7 emulation. D-085–088 and
 [Interactions](INTERACTIONS.md) define scope; CCD remains verified [follow-up #52](https://github.com/ManuelSe/Neistra/issues/52).
 No blocker. Next: C5 version/release preparation, complete clean gates, reviewed
 PR/normal merge, exact merged verification/reader, v0.13.0 publication and closeout.
+C5 prepares all five versions as 0.13.0 with unchanged dependencies/head0013/majors1;
+complete clean candidate/merged gates and final preceding-reader remain required.
 Current released baseline remains v0.12.1 until verified publication.
 
 ### Previous delivery baseline — v0.12.1
