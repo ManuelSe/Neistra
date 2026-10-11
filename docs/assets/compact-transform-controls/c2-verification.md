@@ -22,27 +22,27 @@ PLAYWRIGHT_BROWSERS_PATH=.playwright MOLWEAVE_E2E_API_PORT=8210 \
 git diff --check
 ```
 
-173 frontend tests /39 files, lint/types/build pass. Final focused browser gate:
-34 pass /four intentional layout-specific skips, zero failures or retries, 6.3min.
-Four preceding natural-focus/native cases pass in1.1min across both layouts.
+173 frontend tests / 39 files, lint/types/build pass. Final focused browser gate:
+34 pass / four intentional layout-specific skips, zero failures or retries, 6.3 min.
+Four preceding natural-focus/native cases pass in 1.1 min across both layouts.
 Repeated Space orbit, return from mode/steps/More/Resume, latest-plane translation,
 unchanged exact coordinates/selection/project and no molecular requests pass.
 Native slider/button Space, unrelated/modal focus, blur/remount, held input,
-true touch, both themes/scoped axe and real100/200% zoom remain qualified.
+true touch, both themes/scoped axe and real 100/200% zoom remain qualified.
 The natural-focus regressions omit artificial canvas focus; separate keyboard
 ownership tests retain deliberate native control/canvas focus setup.
 
-A broader diagnostic gate passed42 /three skips but failed old group-menu focus
-at real zoom. Separate idle/no-movement repetition reproduced failure on cycle4:
+A broader diagnostic gate passed 42 / three skips but failed old group-menu focus
+at real zoom. Separate idle/no-movement repetition reproduced failure on cycle 4:
 focus reached the old grouped row before query notification remounted it. This
 was not a passing qualification. The narrow supporting repair waits for the
 accepted project revision to render before resolving focus. It preserves later
 unrelated interaction, discards stale/project-switched requests and retains fast
-menu-teardown recovery. Three unit workflows and12 native membership cycles per
+menu-teardown recovery. Three unit workflows and 12 native membership cycles per
 layout pass; existing late success/conflict, scientific/surface invariance, batch
 history and drag tests pass. D-084 records this necessary gate correction.
 
 C2 full diff reviewed for timing dependencies, scientific/data changes, accidental
 scope, dead code and regressions. No schema/API/history/math migration. Pinned
-Chromium/SwiftShader/Pixel7 emulation is not physical-device certification. Existing
+Chromium/SwiftShader/Pixel 7 emulation is not physical-device certification. Existing
 lazy Mol* bundle advisory remains. Full release gate/review/publication pending.

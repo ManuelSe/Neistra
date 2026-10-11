@@ -170,15 +170,24 @@ or unsatisfied repository protection.
 - C2 complete: native canvas focus retained; deliberate mouse return restores
   keyboard ownership from movement tools, preserving editable/unrelated/modal
   focus. Narrow group-focus gate repair waits for accepted rendered revision.
-  Lint/types/build,173 frontend tests and final34 native browser cases/four
+  Lint/types/build,173 frontend tests and final 34 native browser cases / four
   intentional skips pass. [Exact C2 evidence](../assets/compact-transform-controls/c2-verification.md)
   records the prior failing diagnostics and scoped correction; no unresolved
   finding or migration. C2 diff reviewed. Next: consistent0.12.1 metadata, complete
   clean release gates, compatibility reader, full review and normal publication.
 
-- C3 release preparation: origin/master remains2782d809; safely incorporated with
-  no upstream source changes. Remote latestv0.12.0; no v0.12.1 tag collision.
-  All five versions0.12.1; uv's third-party0.12.0 package remains pinned unchanged.
+- C3 release preparation: origin/master remains 2782d809; safely incorporated with
+  no upstream source changes. Remote latest v0.12.0; no v0.12.1 tag collision.
+  All five versions 0.12.1; uv's third-party 0.12.0 package remains pinned unchanged.
   Producer assertion updated;0.11.0/0.12.0 archive metadata joins compatibility
   matrix. Release/user/migration guidance current. Complete clean gates and actual
-  tagged0.12.0 reader, full review and publication remain pending.
+  tagged 0.12.0 reader, full review and publication remain pending.
+
+- Actual annotated v0.12.0 reference checkout at427c050b32c5ae361c7c9da042616a5266600dcd
+  accepts final0.12.1 data. [Producer](../assets/compact-transform-controls/candidate-producer.json) /
+  [reader](../assets/compact-transform-controls/candidate-reader.json) record exact
+  coordinates/original hashes, retained multi-entry undo/redo, save/reexport, archive
+  import without portable history and unchanged completed jobs. Fresh disposable
+  `/tmp/neistra-compact-candidate-reader` migrated to0013; actual reader module
+  resides in `/tmp/neistra-reader-012`. Focused archive tests19 pass; frozen UV
+  sync and focused Ruff pass. Full clean release gates and review remain pending.

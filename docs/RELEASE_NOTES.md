@@ -8,9 +8,9 @@
   separate active strip contains camera, Apply, Cancel, More and warning/Help
   icons with accessible names. Guidance and scientific limits move into reachable
   nonmodal Help; More retains touch modes, depth, sensitivity, steps and zoom.
-- Wide fine-pointer primary actions are32px; mobile widths or any coarse pointer
-  retain44px targets. More/Help scroll below the primary strip; Apply/Cancel stay
-  reachable through both themes,320px layouts and actual200% browser zoom.
+- Wide fine-pointer primary actions are 32 px; mobile widths or any coarse pointer
+  retain 44 px targets. More/Help scroll below the primary strip; Apply/Cancel stay
+  reachable through both themes, 320 px layouts and actual 200% browser zoom.
   Consequential errors and uncertain commit outcomes remain visible text.
 - Repeated hold-Space camera drags retain canvas focus. Moving the mouse back from
   noneditable movement actions restores it; sliders, editable fields, unrelated
@@ -25,24 +25,26 @@
 Patch increment fixes released presentation/focus defects without a new public
 capability or breaking data/API behavior. All five version sources advance to
 0.12.1 without dependency changes. No new endpoint, schema, migration, scientific
-math, history action or durable preference; head0013 and contract majors1 remain.
+math, history action or durable preference; head 0013 and contract majors 1 remain.
 Original uploads, all conformers, unselected data, captured previews and submitted
 jobs retain existing behavior. Navigation changes only the camera. Archives stay
-current-state snapshots without portable history. Recent0.11.0/0.12.0 archive
-metadata joins the existing round-trip matrix; actual tagged0.12.0 reader
-qualification and complete release gates are required before publication.
-Rollback to the qualified0.12.0 reader requires no schema downgrade/data stripping.
+current-state snapshots without portable history. Recent 0.11.0/0.12.0 archive
+metadata joins the existing round-trip matrix; actual tagged 0.12.0 reader
+accepts final 0.12.1 exact coordinates/originals, retained batch history,
+save/reexport, archives and unchanged jobs. Complete release gates remain required
+before publication.
+Rollback to the qualified 0.12.0 reader requires no schema downgrade/data stripping.
 
 ### Verification and review
 
 The [approved correction contract](plans/issue-46-compact-transform-controls.md)
 records checkpoints, diagnostics and scope decisions. C1/C2 pass frontend
-lint/types/build,173 frontend tests,34 final focused browser cases/four intentional
+lint/types/build, 173 frontend tests, 34 final focused browser cases / four intentional
 layout skips, and preceding natural-focus tests in both layouts. Coverage includes
 native repeated Space without injected canvas focus, preserved exact coordinates/
 selection/project, latest-plane translation, interrupted input, touch Help/More,
-320px targets, both themes/scoped axe, actual100/200% Chrome zoom and primary hit
-testing during scrolling. The original0.12.0 regression manually refocused the
+320 px targets, both themes/scoped axe, actual 100%/200% Chrome zoom and primary hit
+testing during scrolling. The original 0.12.0 regression manually refocused the
 canvas and missed the natural-focus defect; historical release evidence is retained.
 Full clean candidate and exact merged gates, compatibility reader and full local
 review must be recorded in the plan before release. Local review is not independent.
@@ -51,7 +53,7 @@ review must be recorded in the plan before release. Local review is not independ
 
 Movement remains unconstrained and can distort bonds or create clashes; no repair,
 minimization or docking validation. Qualification uses pinned Chromium/SwiftShader
-and emulated Pixel7, not physical-device or universal browser certification.
+and emulated Pixel 7, not physical-device or universal browser certification.
 Existing Alembic and lazy Mol* bundle advisories remain. Space is fixable, so new
 Shift/Ctrl shortcuts are rejected to avoid existing pan/translation conflicts.
 Gizmos, durable/custom bindings, gesture transfer and broader device certification

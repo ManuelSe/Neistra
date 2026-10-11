@@ -360,15 +360,15 @@ stripping retained history or scientific settings.
 
 This patch changes presentation and transient focus restoration, including an
 existing group-action return-focus race. No scientific algorithm, API, archive or
-database change; head remains0013 and schema majors1. All five version sources
+database change; head remains0013 and schema majors 1. All five version sources
 advance together without dependency updates. Run the complete release gate above
 on the clean candidate and exact merged master before tagging.
 
-Qualify the actual taggedv0.12.0 reader with the existing two-process helper, using
+Qualify the actual tagged v0.12.0 reader with the existing two-process helper, using
 a fresh disposable data directory and a detached reference checkout. Replace the
 prior example's reader path/tag with `/tmp/neistra-reader-012` /`v0.12.0` and use
-`--expected-reader 0.12.0`. The0.12.1 producer must be final before qualification.
+`--expected-reader 0.12.0`. The 0.12.1 producer must be final before qualification.
 Check exact coordinates/originals, retained batch undo/redo, save/reexport, archive
 import without portable history and unchanged completed jobs. Rollback to that
-qualified0.12.0 needs no data stripping or schema downgrade; earlier migration
+qualified 0.12.0 needs no data stripping or schema downgrade; earlier migration
 restrictions still apply. See the [correction plan](plans/issue-46-compact-transform-controls.md).

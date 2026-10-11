@@ -10,15 +10,16 @@ existing idle group-focus race found by release qualification now resolves after
 the accepted revision renders; D-084 records the supporting correction. No API,
 scientific math, data/history or migration change.
 
-Lint/types/build,173 frontend tests and final34 focused browser cases/four
+Lint/types/build,173 frontend tests and final 34 focused browser cases / four
 intentional skips pass. Natural repeated Space, preserved exact state, latest-plane
-translation, control/modal focus, interruptions, touch/320px/themes/axe/real zoom
+translation, control/modal focus, interruptions, touch/320 px/themes/axe/real zoom
 pass. [C1](assets/compact-transform-controls/c1-verification.md) /
 [C2](assets/compact-transform-controls/c2-verification.md) evidence. No blocker.
-Patch0.12.1 prepared consistently in all five sources, with current release/user
-guidance and recent-version archive round-trips. Next: complete release gates/
-actual0.12.0 reader, PR/review,
-normal merge, annotated tag/release and new issue46 correction reply.
+Patch 0.12.1 prepared consistently in all five sources, with current release/user
+guidance and recent-version archive round-trips (19 archive tests pass). Actual
+tagged v0.12.0 reader accepts final 0.12.1 exact data/history/archives/jobs. Next: complete release gates/
+actual 0.12.0 reader, PR/review,
+normal merge, annotated tag/release and new issue #46 correction reply.
 
 Previous delivery baseline:
 
