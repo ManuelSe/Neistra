@@ -23,10 +23,15 @@ Known limits: geometric screening, explicit preparation, warned observed-only
 protein conventions, incomplete ligand chemistry, unsupported metal/periodic
 coordination and pinned Chromium/SwiftShader/Pixel 7 emulation. D-085–088 and
 [Interactions](INTERACTIONS.md) define scope; CCD remains verified [follow-up #52](https://github.com/ManuelSe/Neistra/issues/52).
-No blocker. Next: C5 version/release preparation, complete clean gates, reviewed
-PR/normal merge, exact merged verification/reader, v0.13.0 publication and closeout.
-C5 prepares all five versions as 0.13.0 with unchanged dependencies/head0013/majors1;
-complete clean candidate/merged gates and final preceding-reader remain required.
+C5 clean candidate `2cbdee512ce1eefa09c126dd6c243adbba2b56c4` passes the complete
+release gate: **472 Python,179 frontend,8 supervisor,168 browser /44 intentional
+skips**, zero failures/flakes/retries; frozen installs/fresh0013/lint/types/build.
+Final0.13.0 producer/actual tagged0.12.1 reader passes exact originals/coordinates,
+history/save/re-export/archives/jobs. [Candidate evidence](assets/molecular-interactions/c5-candidate-gate.json)
+and [local full-diff review](assets/molecular-interactions/c5-local-review.json) retained;
+review is not independent, with no unresolved consequential findings. Five versions
+0.13.0, no dependency/schema migration change. No blocker. Next: PR/normal merge,
+exact merged gate/reader, verified tag/release/issue reply and branch cleanup.
 Current released baseline remains v0.12.1 until verified publication.
 
 ### Previous delivery baseline — v0.12.1

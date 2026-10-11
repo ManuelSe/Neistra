@@ -1,0 +1,4 @@
+
+> @neistra/web@0.13.0 typecheck /datadisk/dev/neistra/apps/web
+> tsc -b --pretty false
+

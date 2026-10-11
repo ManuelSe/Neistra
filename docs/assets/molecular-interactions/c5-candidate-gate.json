@@ -1,0 +1,238 @@
+{
+  "phase": "candidate",
+  "commit": "2cbdee512ce1eefa09c126dd6c243adbba2b56c4",
+  "branch": "feat/issue-49-molecular-interactions",
+  "started": "2026-10-11T21:16:05.621806+00:00",
+  "environment": {
+    "MOLWEAVE_DATA_DIR": "/tmp/neistra-issue49-candidate-migration",
+    "MOLWEAVE_E2E_DATA_DIR": "/tmp/neistra-issue49-candidate-e2e",
+    "MOLWEAVE_E2E_WEB_PORT": "5183",
+    "MOLWEAVE_E2E_API_PORT": "8020",
+    "MOLWEAVE_E2E_WORKER_PORT": "8021",
+    "PLAYWRIGHT_BROWSERS_PATH": ".playwright"
+  },
+  "reader_commit": "39d5c7b4c142ffb6d327f3ed0eebbc4ce8eb4cda",
+  "steps": [
+    {
+      "name": "python-frozen-install",
+      "command": [
+        ".venv/bin/uv",
+        "sync",
+        "--frozen"
+      ],
+      "exit_code": 0,
+      "seconds": 0.03,
+      "log": "c5-candidate-python-frozen-install.log"
+    },
+    {
+      "name": "web-frozen-install",
+      "command": [
+        "corepack",
+        "pnpm",
+        "install",
+        "--frozen-lockfile"
+      ],
+      "exit_code": 0,
+      "seconds": 0.953,
+      "log": "c5-candidate-web-frozen-install.log"
+    },
+    {
+      "name": "fresh-migration",
+      "command": [
+        ".venv/bin/uv",
+        "run",
+        "alembic",
+        "upgrade",
+        "head"
+      ],
+      "exit_code": 0,
+      "seconds": 0.573,
+      "log": "c5-candidate-fresh-migration.log"
+    },
+    {
+      "name": "ruff",
+      "command": [
+        ".venv/bin/uv",
+        "run",
+        "ruff",
+        "check",
+        "."
+      ],
+      "exit_code": 0,
+      "seconds": 0.036,
+      "log": "c5-candidate-ruff.log"
+    },
+    {
+      "name": "mypy",
+      "command": [
+        ".venv/bin/uv",
+        "run",
+        "mypy",
+        "apps/api",
+        "packages/molweave_core"
+      ],
+      "exit_code": 0,
+      "seconds": 0.605,
+      "log": "c5-candidate-mypy.log"
+    },
+    {
+      "name": "python-tests",
+      "command": [
+        ".venv/bin/uv",
+        "run",
+        "pytest"
+      ],
+      "exit_code": 0,
+      "seconds": 74.752,
+      "log": "c5-candidate-python-tests.log"
+    },
+    {
+      "name": "web-lint",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "lint"
+      ],
+      "exit_code": 0,
+      "seconds": 8.009,
+      "log": "c5-candidate-web-lint.log"
+    },
+    {
+      "name": "web-typecheck",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "typecheck"
+      ],
+      "exit_code": 0,
+      "seconds": 4.228,
+      "log": "c5-candidate-web-typecheck.log"
+    },
+    {
+      "name": "web-tests",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "test"
+      ],
+      "exit_code": 0,
+      "seconds": 7.814,
+      "log": "c5-candidate-web-tests.log"
+    },
+    {
+      "name": "supervisor-tests",
+      "command": [
+        "corepack",
+        "pnpm",
+        "test:dev"
+      ],
+      "exit_code": 0,
+      "seconds": 1.455,
+      "log": "c5-candidate-supervisor-tests.log"
+    },
+    {
+      "name": "web-build",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "build"
+      ],
+      "exit_code": 0,
+      "seconds": 11.907,
+      "log": "c5-candidate-web-build.log"
+    },
+    {
+      "name": "compat-migration",
+      "command": [
+        ".venv/bin/uv",
+        "run",
+        "alembic",
+        "upgrade",
+        "head"
+      ],
+      "exit_code": 0,
+      "seconds": 0.561,
+      "log": "c5-candidate-compat-migration.log"
+    },
+    {
+      "name": "compat-produce",
+      "command": [
+        ".venv/bin/python",
+        "tests/support/transform_reader_qualification.py",
+        "produce",
+        "--data-dir",
+        "/tmp/neistra-issue49-candidate-compat",
+        "--expected-reader",
+        "0.12.1",
+        "--evidence",
+        "/tmp/neistra-issue49-candidate-verification/producer.json"
+      ],
+      "exit_code": 0,
+      "seconds": 2.445,
+      "log": "c5-candidate-compat-produce.log"
+    },
+    {
+      "name": "compat-read-v0121",
+      "command": [
+        ".venv/bin/python",
+        "tests/support/transform_reader_qualification.py",
+        "read",
+        "--data-dir",
+        "/tmp/neistra-issue49-candidate-compat",
+        "--expected-reader",
+        "0.12.1",
+        "--evidence",
+        "/tmp/neistra-issue49-candidate-verification/reader.json"
+      ],
+      "exit_code": 0,
+      "seconds": 1.394,
+      "log": "c5-candidate-compat-read-v0121.log"
+    },
+    {
+      "name": "browser-tests",
+      "command": [
+        "corepack",
+        "pnpm",
+        "exec",
+        "playwright",
+        "test"
+      ],
+      "exit_code": 0,
+      "seconds": 1695.407,
+      "log": "c5-candidate-browser-tests.log"
+    },
+    {
+      "name": "diff-check",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "seconds": 0.003,
+      "log": "c5-candidate-diff-check.log"
+    }
+  ],
+  "completed": "2026-10-11T21:46:15.803485+00:00",
+  "passed": true,
+  "counts": {
+    "python_passed": 472,
+    "frontend_passed": 179,
+    "supervisor_passed": 8,
+    "browser_passed": 168,
+    "browser_intentional_skips": 44,
+    "failures": 0,
+    "flakes": 0,
+    "retries": 0
+  },
+  "review": "Local full-diff review, not independent; no unresolved consequential findings.",
+  "reader_pythonpath": "/tmp/neistra-issue49-reader-v0121/apps/api/src:/tmp/neistra-issue49-reader-v0121/packages/molweave_core/src:/tmp/neistra-issue49-reader-v0121/packages/molweave_demo_plugin/src:."
+}

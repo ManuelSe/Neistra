@@ -2,7 +2,7 @@
 
 ## Status, authority, and delivery baseline
 
-Status: **approved; implementation in progress (M1–M2 and C4 complete; C5 delivery pending)**. Approved by the user on
+Status: **approved; implementation qualified (M1–M2/C4 complete; C5 candidate passed, delivery pending)**. Approved by the user on
 2026-10-11 through “Implement the plan”, with the explicit persist-only handoff
 completed. The subsequent `/goal` authorizes implementation and delivery.
 
@@ -669,3 +669,30 @@ Normal merge remains approved and available; remote master unprotected, rulesets
 empty, no CI workflows, automatic branch deletion disabled. Reaudit before merge.
 Next: clean candidate complete gate and actual tagged0.12.1 reader against final
 0.13.0 producer, full-diff review, PR delivery and exact merged verification.
+
+### C5 clean candidate qualification — 2026-10-11
+
+Clean release-preparation commit `2cbdee512ce1eefa09c126dd6c243adbba2b56c4`
+passes every README/DEVELOPMENT release command: frozen installs, fresh migration
+0013, Ruff, mypy, Python **472**, frontend **179**, supervisor **8**, production
+build, browser **168 passes /44 intentional skips** in28.2min and diff check.
+Zero failures, flakes or retries. Isolated ports5183/8020/8021 and fresh stores;
+no competing build/qualification during host timing. Existing Alembic, lazy-bundle
+and color-environment advisories remain. Exact commands/environment/timings and
+raw logs: [candidate gate](../assets/molecular-interactions/c5-candidate-gate.json).
+
+Final **0.13.0** producer and actual tagged **0.12.1** reader at39d5c7b pass:
+exact coordinates/originals, retained batch Undo/Redo, save/re-export, archive
+import/history omission and unchanged jobs. Separate raw producer/reader evidence
+is adjacent to the gate. No schema downgrade or migration is required.
+Desktop/mobile1010-atom fixture: first2398/2291ms, cached171.5/175.5ms,
+longest recorded task0/0ms, one279-byte request each, zero structureGETs,79records.
+All new native interaction and existing movement/navigation/surface budgets pass.
+
+Final [full-diff review](../assets/molecular-interactions/c5-local-review.json) is
+local, not independent. Chemistry, visibility/preview, immutable subset/empty-project
+lifetime and panel-position findings were repaired in preceding checkpoints;
+no unresolved consequential finding, accidental scope expansion or migration risk.
+Evidence-only documentation changes leave tested runtime/tests/versions unchanged.
+Next: current-base/version/protection audit, reviewed normal-merge PR, exact merged
+complete gate/preceding reader, annotated tag/release, issue reply and cleanup.

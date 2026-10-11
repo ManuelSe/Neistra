@@ -55,8 +55,8 @@ breaking existing API or persisted contract. All five authoritative versions are
 0.13.0. No dependency upgrade or migration; Alembic remains 0013 and project,
 normalized and archive contract majors remain 1. Originals, history, scenes and
 jobs are unchanged; interaction results/choices are absent from archives. The
-preceding-reader qualification must use actual tagged v0.12.1 against final 0.13.0
-producer data before publication. Qualified rollback needs no schema downgrade
+actual tagged v0.12.1 reader accepts final 0.13.0 producer data, retained history
+and archives; the exact merged qualification must repeat before publication. Qualified rollback needs no schema downgrade
 or data stripping; transient interaction state resets.
 
 ### Verification and review
@@ -65,9 +65,12 @@ The [approved feature plan](plans/issue-49-molecular-interactions.md) and
 [C4 evidence](assets/molecular-interactions/c4-verification.json) record scientific
 boundaries, native marker pixels/centroids/nonpickability, cache/preview/scene/
 project lifetimes, cancellation/limits, accessibility/real zoom and host performance.
-Final clean candidate and exact merged-master complete release gates and final
-preceding-reader evidence are required before publication. Review is local, not
-independent, unless an independent review is explicitly recorded.
+[Clean candidate evidence](assets/molecular-interactions/c5-candidate-gate.json)
+passes **472 Python,179 frontend,8 supervisor,168 browser /44 intentional skips**,
+zero failures/flakes/retries, frozen installs/fresh0013/lint/types/build/diff.
+Final0.13.0 producer/actual tagged0.12.1 reader passes exact data/history/archives/jobs.
+Repeat complete gates on exact merged master before publication. Review is local,
+not independent, unless an independent review is explicitly recorded.
 
 ### Limitations and deliberately deferred scope
 

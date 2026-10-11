@@ -1,0 +1,4 @@
+
+> @neistra/web@0.13.0 lint /datadisk/dev/neistra/apps/web
+> eslint . --max-warnings 0
+

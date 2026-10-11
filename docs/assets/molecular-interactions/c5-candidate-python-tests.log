@@ -1,0 +1,61 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.2, pluggy-1.6.0
+rootdir: /datadisk/dev/neistra
+configfile: pyproject.toml
+testpaths: tests
+plugins: cov-6.3.0, anyio-4.9.0
+collected 472 items
+
+tests/integration/test_archive_roundtrip.py ....................         [  4%]
+tests/integration/test_component_hierarchy.py ..                         [  4%]
+tests/integration/test_coordinate_commands.py ...............            [  7%]
+tests/integration/test_group_membership.py ..........                    [  9%]
+tests/integration/test_import_export.py ...................              [ 13%]
+tests/integration/test_interactions.py .....                             [ 15%]
+tests/integration/test_job_lifecycle.py .....                            [ 16%]
+tests/integration/test_ligand_edits.py ...                               [ 16%]
+tests/integration/test_migrations.py ................................... [ 24%]
+..........................................                               [ 33%]
+tests/integration/test_pocket_surfaces.py .............................. [ 39%]
+                                                                         [ 39%]
+tests/integration/test_project_lifecycle.py ...                          [ 40%]
+tests/integration/test_protein_edits.py ....                             [ 40%]
+tests/integration/test_saved_selections.py ...                           [ 41%]
+tests/integration/test_selection_surfaces.py ..................          [ 45%]
+tests/integration/test_selection_visibility.py ......................... [ 50%]
+..                                                                       [ 51%]
+tests/integration/test_viewer_state.py ...........                       [ 53%]
+tests/integration/test_worker_recovery.py ..                             [ 53%]
+tests/scientific/test_component_classification.py ...                    [ 54%]
+tests/scientific/test_format_fidelity.py .......                         [ 55%]
+tests/scientific/test_interactions.py .................................. [ 63%]
+...................                                                      [ 67%]
+tests/scientific/test_ligand_validation.py ...                           [ 67%]
+tests/scientific/test_protein_templates.py .........                     [ 69%]
+tests/scientific/test_release_fixture.py ..                              [ 70%]
+tests/security/test_archive_safety.py .....................              [ 74%]
+tests/unit/adapters/test_exports.py .........                            [ 76%]
+tests/unit/adapters/test_registry.py ..........                          [ 78%]
+tests/unit/editing/test_ligand_editor.py ........                        [ 80%]
+tests/unit/editing/test_protein_editor.py .....                          [ 81%]
+tests/unit/jobs/test_demo_plugin.py ...                                  [ 81%]
+tests/unit/jobs/test_registry.py ...                                     [ 82%]
+tests/unit/test_artifacts.py ....                                        [ 83%]
+tests/unit/test_commands.py ......                                       [ 84%]
+tests/unit/test_components.py ....                                       [ 85%]
+tests/unit/test_contacts.py .....                                        [ 86%]
+tests/unit/test_export_policy.py ............                            [ 89%]
+tests/unit/test_history.py .                                             [ 89%]
+tests/unit/test_interactions.py .............                            [ 92%]
+tests/unit/test_measurements.py ...                                      [ 92%]
+tests/unit/test_selection.py .............                               [ 95%]
+tests/unit/test_superposition.py .....                                   [ 96%]
+tests/unit/test_transforms.py ................                           [100%]
+
+=============================== warnings summary ===============================
+tests/integration/test_migrations.py: 237 warnings
+  /datadisk/dev/neistra/.venv/lib/python3.12/site-packages/alembic/config.py:612: DeprecationWarning: No path_separator found in configuration; falling back to legacy splitting on spaces, commas, and colons for prepend_sys_path.  Consider adding path_separator=os to Alembic config.
+    util.warn_deprecated(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+================= 472 passed, 237 warnings in 72.19s (0:01:12) =================

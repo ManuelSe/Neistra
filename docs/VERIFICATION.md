@@ -8,9 +8,13 @@ batching, cached scopes/visibility, preview Cancel, Apply/Undo/Redo, scenes,
 deletions and project/remount/reload lifetimes. Busy, cancellation, deadline,
 resource limits and stale artifacts return no misleading complete result.
 Light/dark scoped axe, keyboard, 320px and real100%/200% zoom are qualified.
-Final candidate and exact merged-release evidence remain distinct from C4 and
-historical release counts. No schema migration; taggedv0.12.1 reader qualification
-must repeat against final0.13.0 producer data before publication.
+[Clean candidate gate](assets/molecular-interactions/c5-candidate-gate.json) at
+2cbdee512ce1eefa09c126dd6c243adbba2b56c4 passes472Python/179frontend/8supervisor/
+168browser with44intentional skips, zero failures/flakes/retries. Frozen installs,
+fresh0013/lint/types/build/diff pass; actual tagged0.12.1 reader accepts final0.13.0
+data/history/archives/jobs. Exact merged-release gates must repeat before tagging.
+Evidence remains distinct from C4/historical counts. No schema migration; review
+[local, not independent](assets/molecular-interactions/c5-local-review.json).
 
 Previous correction evidence is maintained in the
 [approved compact-transform plan](plans/issue-46-compact-transform-controls.md).
