@@ -1,0 +1,7 @@
+controlled interaction fixture
+     RDKit          3D
+
+  1  0  0  0  0  0  0  0  0  0999 V2000
+    0.0000    0.0000    4.0000 N   0  0  0  0  0  0  0  0  0  0  0  0
+M  CHG  1   1   1
+M  END

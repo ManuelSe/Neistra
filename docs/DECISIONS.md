@@ -3077,3 +3077,13 @@ restore only after committed coordinates and current projections are ready.
 Responsive renderer remounts retain project-session choices/cache, while an open
 interaction popover may close with its old renderer. This matches existing
 responsive workspace lifecycle and does not persist transient state in scenes.
+
+### D-088 lifecycle/cache qualification note — 2026-10-11
+
+Reuse the latest analysis for a visible subset only when every requested entry
+has the same immutable artifact identity in that result. Retain conservative
+superset coverage warnings; logical visibility filters suppress hidden/deleted
+participants. New/revealed changed artifacts invalidate the result. Reset session
+choices synchronously when the workspace project pointer changes, including empty
+projects without a mounted molecular viewer. This closes the lifetime gap between
+application-owned session state and conditional renderer mounting.

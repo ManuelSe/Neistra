@@ -64,6 +64,7 @@ import {
 } from "./coordinates/transforms";
 import { useSelectionStore } from "./store/selection";
 import { useWorkspaceStore } from "./store/workspace";
+import { useInteractionStore } from "./store/interactions";
 import { applyTheme } from "./theme";
 import { useMovementSession } from "./coordinates/useMovementSession";
 
@@ -293,6 +294,7 @@ export default function App() {
   useEffect(() => useSelectionStore.subscribe(() => movementSession.guardContext()), [movementSession]);
   useEffect(() => useWorkspaceStore.subscribe((next, previous) => {
     if (next.activeProjectId !== previous.activeProjectId) {
+      useInteractionStore.getState().setProject(next.activeProjectId);
       const phase = movementSession.snapshot().phase;
       movementSession.cancel(undefined, true);
       renderedMovementAtoms.current = () => [];

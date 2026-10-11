@@ -77,4 +77,21 @@ describe("interaction session and geometry", () => {
     expect(remount.result.current.result?.inputs[0].artifact_id).toBe("2");
     expect(api).toHaveBeenCalledTimes(2);
   });
+
+  it("reuses an immutable superset after hiding entries but invalidates changed artifacts", async () => {
+    vi.useFakeTimers();
+    const inputs = [{ entry_id: "a", artifact_id: "1" }, { entry_id: "b", artifact_id: "2" }];
+    const result = { inputs, records: [clash] } as InteractionResult;
+    const store = useInteractionStore.getState();
+    store.setProject("p"); store.toggleType("clash"); store.publish("p", interactionKey("p", inputs), result);
+    const api = vi.spyOn(interactionApi, "analyze").mockResolvedValue({ ...result, inputs: [{ entry_id: "a", artifact_id: "new" }] });
+    const hook = renderHook(({ visible }) => useInteractions("p", visible, false), { initialProps: { visible: inputs } });
+    hook.rerender({ visible: [inputs[0]] });
+    expect(hook.result.current.result).toBe(result);
+    await act(() => vi.advanceTimersByTimeAsync(300)); expect(api).not.toHaveBeenCalled();
+    hook.rerender({ visible: inputs }); expect(hook.result.current.result).toBe(result);
+    hook.rerender({ visible: [{ entry_id: "a", artifact_id: "new" }] });
+    expect(hook.result.current.result).toBeNull();
+    await act(() => vi.advanceTimersByTimeAsync(250)); expect(api).toHaveBeenCalledOnce();
+  });
 });

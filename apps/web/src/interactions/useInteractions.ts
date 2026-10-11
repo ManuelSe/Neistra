@@ -16,7 +16,10 @@ export function useInteractions(projectId: string, inputs: InteractionInput[], p
   const key = interactionKey(projectId, inputs);
   const inputRef = useRef(inputs); inputRef.current = inputs;
   const enabled = state.projectId === projectId && state.choices.types.length > 0 && (state.choices.intra || state.choices.inter);
-  const cached = state.projectId === projectId && state.cache?.key === key ? state.cache.result : null;
+  // Hiding/deleting an entry can reuse a complete immutable superset result.
+  // Revealing a new or changed artifact still requires fresh analysis.
+  const cachedInputs = new Map(state.cache?.result.inputs.map(input => [input.entry_id, input.artifact_id]));
+  const cached = state.projectId === projectId && state.cache && inputs.every(input => cachedInputs.get(input.entry_id) === input.artifact_id) ? state.cache.result : null;
   useEffect(() => { setProject(projectId); }, [projectId, setProject]);
   useEffect(() => {
     const current = ++generation.current;

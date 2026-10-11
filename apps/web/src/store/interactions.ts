@@ -6,7 +6,7 @@ interface InteractionState {
   projectId: string | null;
   choices: InteractionChoices;
   cache: { key: string; result: InteractionResult } | null;
-  setProject: (id: string) => void;
+  setProject: (id: string | null) => void;
   toggleType: (type: InteractionKind) => void;
   toggleScope: (scope: "intra" | "inter") => void;
   publish: (projectId: string, key: string, result: InteractionResult) => void;

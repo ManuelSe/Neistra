@@ -584,3 +584,29 @@ Apply/Undo/Redo, retry, both themes, 320px and responsive cache retention.
 Performance: desktop1010 atoms/79 shown records,2414ms first overlay,158.5ms
 cached toggle,0ms observed long task,1analysis/0structureGET/279request bytes.
 Detailed qualification and final-version preceding-reader evidence remain C4/C5.
+
+### C4 cache/project lifetime correction — 2026-10-11
+
+Centroid lifecycle qualification exposed two contract gaps: immutable visible
+subsets unnecessarily reanalyzed, and visiting an empty project could retain the
+previous viewer session. Superset reuse now validates each current artifact;
+workspace project-pointer changes synchronously reset choices/cache even without
+a renderer. Warnings remain conservative for the cached superset. Scientific
+scope is unchanged. Native ring/group centroids, scenes and deletion are verified
+in the same workflow; focused gates and commit evidence follow.
+
+Preparatory compatibility qualification passes with actual detached tagged
+v0.12.1 reader at39d5c7b, reading current feature-tree0.12.1 producer data: exact
+coordinates/originals, retained batch Undo/Redo, save/reexport, archive import and
+unchanged jobs. This is preliminary; final0.13.0 producer and exact merged master
+must repeat qualification in C5. The first helper invocation lacked PYTHONPATH
+and was corrected; no data compatibility failure was observed.
+
+C4 cache lifetime focused verification: centroid/scene/hide/show/delete/empty-project
+switch/reload native workflow passes on Chromium (one intentional mobile skip);
+hide/show/delete make no new analysis requests. Frontend179tests, lint/types/build
+pass, including the full theme-token contract after adding explicit local anchor
+variable defaults. All focused interaction checks remain passing. Authorized
+CCD follow-up [#52](https://github.com/ManuelSe/Neistra/issues/52) created and
+verified remotely. The historical diagnostic run waited on an externally created
+project absent from its cached list; fixture setup now creates it before page load.
