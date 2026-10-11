@@ -1,0 +1,219 @@
+{
+  "stage": "compact-candidate-qualified",
+  "commit": "f437c31767cd44be435d829ca4fb9ad033049214",
+  "started_utc": "2026-10-11T17:19:07Z",
+  "initial_git_status": "",
+  "browser_overrides": {
+    "PLAYWRIGHT_BROWSERS_PATH": ".playwright",
+    "MOLWEAVE_E2E_API_PORT": "8210",
+    "MOLWEAVE_E2E_WORKER_PORT": "8211",
+    "MOLWEAVE_E2E_WEB_PORT": "5373",
+    "MOLWEAVE_E2E_DATA_DIR": "/tmp/neistra-issue46-compact-candidate-qualified/e2e-data"
+  },
+  "commands": [
+    {
+      "argv": [
+        ".venv/bin/uv",
+        "sync",
+        "--frozen"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.03,
+      "log": "/tmp/neistra-issue46-compact-candidate-qualified/01---frozen.log"
+    },
+    {
+      "argv": [
+        "corepack",
+        "pnpm",
+        "install",
+        "--frozen-lockfile"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.8,
+      "log": "/tmp/neistra-issue46-compact-candidate-qualified/02---frozen-lockfile.log"
+    },
+    {
+      "argv": [
+        ".venv/bin/uv",
+        "run",
+        "alembic",
+        "upgrade",
+        "head"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.78,
+      "log": "/tmp/neistra-issue46-compact-candidate-qualified/03-head.log"
+    },
+    {
+      "argv": [
+        ".venv/bin/uv",
+        "run",
+        "ruff",
+        "check",
+        "."
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.04,
+      "log": "/tmp/neistra-issue46-compact-candidate-qualified/04-..log"
+    },
+    {
+      "argv": [
+        ".venv/bin/uv",
+        "run",
+        "mypy",
+        "apps/api",
+        "packages/molweave_core"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.23,
+      "log": "/tmp/neistra-issue46-compact-candidate-qualified/05-packages_molweave_core.log"
+    },
+    {
+      "argv": [
+        ".venv/bin/uv",
+        "run",
+        "pytest"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 85.54,
+      "log": "/tmp/neistra-issue46-compact-candidate-qualified/06-pytest.log"
+    },
+    {
+      "argv": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "lint"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 8.61,
+      "log": "/tmp/neistra-issue46-compact-candidate-qualified/07-lint.log"
+    },
+    {
+      "argv": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "typecheck"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 4.72,
+      "log": "/tmp/neistra-issue46-compact-candidate-qualified/08-typecheck.log"
+    },
+    {
+      "argv": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "test"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 8.43,
+      "log": "/tmp/neistra-issue46-compact-candidate-qualified/09-test.log"
+    },
+    {
+      "argv": [
+        "corepack",
+        "pnpm",
+        "test:dev"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.49,
+      "log": "/tmp/neistra-issue46-compact-candidate-qualified/10-test:dev.log"
+    },
+    {
+      "argv": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "build"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 13.12,
+      "log": "/tmp/neistra-issue46-compact-candidate-qualified/11-build.log"
+    },
+    {
+      "argv": [
+        "corepack",
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "--output=/tmp/neistra-issue46-compact-candidate-qualified/browser-results"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1648.91,
+      "log": "/tmp/neistra-issue46-compact-candidate-qualified/12---output=_tmp_neistra-issue46-compact-candidate-qualified_browser-results.log"
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.0,
+      "log": "/tmp/neistra-issue46-compact-candidate-qualified/13---check.log"
+    }
+  ],
+  "passed": true,
+  "finished_utc": "2026-10-11T17:48:40Z",
+  "final_git_status": "",
+  "counts": {
+    "python": 400,
+    "frontend": 173,
+    "supervisor": 8,
+    "browser_passed": 159,
+    "browser_intentional_skips": 43,
+    "browser_failures": 0,
+    "browser_flakes": 0,
+    "browser_retries": 0
+  },
+  "performance": {
+    "fixture": "RCSB 1STP",
+    "atoms": 1001,
+    "renderer": "pinned Chromium / SwiftShader",
+    "cases": [
+      {
+        "name": "protein-fragment",
+        "atoms": 3,
+        "navigationCycles": 6,
+        "previewMs": 145,
+        "coordinatePreviewMs": 123.5,
+        "coordinateCancelMs": 18.099999994039536,
+        "maxActive": 1,
+        "submittedFrames": 40,
+        "renderedFrames": 2,
+        "longestTaskMs": 130,
+        "changed": true,
+        "exactRestore": true,
+        "errors": []
+      },
+      {
+        "name": "bound-ligand",
+        "atoms": 16,
+        "navigationCycles": 6,
+        "previewMs": 37.599999994039536,
+        "coordinatePreviewMs": 23.399999976158142,
+        "coordinateCancelMs": 19.69999998807907,
+        "maxActive": 1,
+        "submittedFrames": 40,
+        "renderedFrames": 2,
+        "longestTaskMs": 0,
+        "changed": true,
+        "exactRestore": true,
+        "errors": []
+      }
+    ],
+    "surface": {
+      "coordinateCancelMs": 12.400000005960464,
+      "regenerationCompleteMs": 1050.4000000059605,
+      "inheritedRestored": true
+    },
+    "requests": []
+  }
+}

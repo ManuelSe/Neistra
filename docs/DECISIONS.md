@@ -2870,3 +2870,41 @@ The native regression reproduces this in both layouts; accepted camera remains
 exact over eight frames after corrected entry/resume, with unchanged coordinates
 and project. This preserves fresh input ownership without private native fields,
 observable mutation, fabricated camera mathematics or persistent state.
+
+
+### D-084 — Compact transform actions and pointer-owned canvas focus (2026-10-11)
+
+Accepted by explicit user approval of the correction plan. Primary transform
+actions use icons, accessible names and hover/focus tooltips. A persistent warning/
+help icon opens tap-accessible scientific and gesture guidance; meaningful errors
+and uncertain commit outcomes remain visible text. More retains secondary tools.
+Nonmodal panels remain bounded and yield Escape before movement cancellation when
+focused. Native control Space and editable/modal focus retain their meaning.
+
+Native mouse-down must retain movement canvas focus without blocking Mol* input.
+Idle mouse movement back to the canvas may restore focus from body or noneditable
+movement controls only; it must not steal editable, slider, unrelated or modal
+focus. This repairs released Space navigation instead of introducing conflicting
+Shift/Ctrl bindings. D-083 ownership, fresh gestures and scientific invariants
+remain unchanged. No API, schema, migration, scientific math or durable preference
+change. See the [correction contract](plans/issue-46-compact-transform-controls.md).
+Historical verification did not cover natural focus after toolbar interaction;
+new regression tests must omit artificial canvas focus for these workflows.
+
+
+### D-084 implementation note — release-gate focus restoration correction
+
+The full real-zoom gate exposed an existing group-menu return-focus race after
+removing membership. An isolated 20-cycle diagnosis with movement never active
+failed on cycle4: focus reached the old grouped row before query notification
+remounted it, leaving body focused. The canvas handlers cannot focus a missing
+movement overlay and are scoped outside the project browser.
+
+Resolve the requested group action against the **accepted rendered revision**
+using an application-owned transient focus request and layout effect, rather than
+a timing-dependent requestAnimationFrame. Retain menu-teardown recovery for fast
+responses; discard requests after a project/revision change or later unrelated
+focus. This narrow supporting repair is necessary for the existing release gate;
+it introduces no grouping capability, data/API/history change or general focus
+refactor. Cover delayed query rendering, unrelated fields, project changes and
+repeated native row remounts. Original transform scope/deferrals remain unchanged.

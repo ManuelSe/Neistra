@@ -8,20 +8,28 @@ visual checks; an axe pass alone is not treated as complete coverage.
 
 ## Viewer transformation toolbar (issue #46)
 
-The separate viewer bar exposes Move selection and explained focusable unavailable
-states. Apply, Cancel and Adjust view / Resume transform remain reachable while
-More tools scroll independently. Touch controls, the sensitivity slider and
-summaries have 44 CSS px targets. Conflicting selection/style/focus actions expose
+The separate viewer bar exposes an icon-only Transform selection action and
+explained focusable unavailable states. Primary icons have accessible names and
+hover/focus tooltips. Apply, Cancel and Adjust view / Resume transform remain
+reachable while the nonmodal More tools panel scrolls independently. The warning/
+Help icon opens gesture guidance, captured/hidden counts and complete scientific
+limits on touch as well as desktop. Consequential errors remain visible text.
+Primary icons are 32 CSS px on wide fine-pointer layouts and at least 44 CSS px
+at mobile widths or with any coarse pointer; secondary controls, including
+sensitivity, retain at least 44 CSS px targets. Escape closes
+a focused movement panel before canceling the transaction. Conflicting selection/style/focus actions expose
 explained unavailable states throughout the captured transaction.
 
 Space enables native camera navigation only when the movement canvas has focus
-and no modifier/modal owns the key. Native controls retain their Space behavior.
+and no modifier/modal owns the key. Native controls retain their Space behavior. Native camera mouse-down retains
+canvas focus; an idle mouse return from noneditable movement controls restores
+it. Editable/slider controls, unrelated UI and modals keep their focus.
 Focus departure clears held Space; blur, hidden documents, modal takeover and
 viewer remount clear temporary navigation while retaining preview/latest camera.
 Final focus returns to the connected launcher or visible Transform selection
 launcher when closing the inspector removed the originating launcher.
 
-Toolbar, real-zoom and release-hardening specs pass 18 cases / four intentional
+Original v0.12.0 toolbar, real-zoom and release-hardening specs passed 18 cases / four intentional
 layout skips; final held-release checks pass four cases across both owners and
 layouts. Eight screenshots were visually inspected and retained:
 [light 100%](assets/viewer-transform-toolbar/c3-light-100-interactive-movement.png),
@@ -240,3 +248,15 @@ destination and name controls, captured complete-entry counts, keyboard launch,
 Escape and focus restoration on desktop and Pixel 7 emulation. Move dialogs run
 scoped axe checks in both themes. Explicit actions are the touch and keyboard
 workflow; dragging does not replace them.
+
+
+## Compact transform correction qualification
+
+The [correction plan](plans/issue-46-compact-transform-controls.md) records C1/C2
+gates and natural-focus regressions. The original Space regression explicitly
+refocused the canvas and missed real pointer/toolbar focus loss. Current tests
+exercise repeated native drags and mouse return from tools without that injection.
+C2 passes 34 focused browser cases / four intentional skips and 173 frontend tests.
+Real-zoom checks hit-test Apply/Cancel while More scrolls; touch Help and 320 px
+actions pass both themes/scoped axe. [Compact screenshots and commands](assets/compact-transform-controls/c1-verification.md)
+supplement functional evidence. Qualification remains pinned emulation.

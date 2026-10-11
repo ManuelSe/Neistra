@@ -6,17 +6,18 @@ operations, without minimization, restraints, chemistry repair or docking scorin
 
 ## Move selection
 
-Select atoms and choose **Move selection** in the separate transformation bar
-above the viewer. **Transform → Move selection** in the inspector starts the same
-operation.
+Select atoms and choose the **Transform selection** icon in the separate bar
+above the viewer; hover or keyboard focus reveals its tooltip.
+**Transform → Move selection** in the inspector starts the same operation.
 The mode captures the complete selection across structures, its project revision
 and original coordinates. Hidden selected atoms remain targets and are counted
-in the viewer banner. At least some selected material must be visible; show it
-before activation. A locked or missing target prevents the entire operation.
+in Help, with a compact count on wide desktop layouts. At least some selected
+material must be visible; show it before activation. A locked or missing target prevents the entire operation.
 
 The transformation bar keeps Apply/Cancel visible when the inspector is collapsed
-or its mobile drawer is closed. **More** exposes sensitivity, scientific details,
-and Rotate/Translate/Depth tools for touch dragging, arrow keys and named steps:
+or its mobile drawer is closed. The **More** icon exposes sensitivity and
+Rotate/Translate/Depth tools for touch dragging, arrow keys and named steps.
+The warning/Help icon exposes gesture guidance, full counts and scientific limits:
 
 - Primary mouse drag always rotates around the captured arithmetic centroid, carried along
   by translation. Rotation does not orbit a fixed original world location.
@@ -100,3 +101,20 @@ retained coordinate history and transformed artifacts; see the
 Molecular exports retain their format precision, while project archives preserve
 exact normalized coordinates and original bytes. Earlier pocket/visibility
 migration restrictions continue to apply.
+
+
+## Compact viewer controls (issue #46 correction)
+
+The Move3d icon starts movement; hover or keyboard focus reveals its tooltip.
+The separate icon strip offers Adjust view / Resume transform (camera), Apply
+(check), Cancel (cross), More (ellipsis), and Help/scientific limits (warning).
+More retains touch/keyboard modes, depth, sensitivity, steps and zoom. Help
+contains gesture guidance and complete captured/hidden atom counts and scientific
+limits. Movement remains unconstrained and may distort bonds or create clashes.
+Errors and uncertain commit outcomes remain visible. Escape in a focused panel
+closes that panel first; Escape on the canvas cancels the movement.
+
+Moving the mouse back onto the canvas after using a movement action restores
+canvas keyboard focus. Repeated Space camera drags retain it. Editable fields,
+sliders, unrelated controls and modal dialogs retain their own focus and normal
+Space behavior. The camera toggle remains the touch and keyboard alternative.

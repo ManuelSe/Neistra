@@ -58,7 +58,7 @@ async function launchMovement(page: Page, mobile: boolean) {
   const banner = page.getByRole("region", { name: "Move selection controls" });
   await expect(banner).toBeVisible();
   if (mobile) await page.getByRole("button", { name: "Close panel", exact: true }).click({ position: { x: 2, y: 100 } });
-  await banner.getByText("More", { exact: true }).click();
+  await banner.getByRole("button", { name: "More movement tools", exact: true }).click();
   return banner;
 }
 
@@ -88,22 +88,27 @@ test("qualifies keyboard/touch controls, focus and scoped accessibility in both 
       await expect(page.getByRole("dialog", { name: "Inspector panel", exact: true })).toBeHidden();
       await expect(banner).toBeVisible();
     }
-    expect((await new AxeBuilder({ page }).include(".movement-banner").include(".movement-pointer-surface")
+    expect((await new AxeBuilder({ page }).include(".movement-banner").include(".movement-pointer-surface").include(".movement-panel")
       .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"]).analyze()).violations).toEqual([]);
     const sizes = await banner.locator("button").evaluateAll(nodes => nodes.map(node => ({ name: node.textContent, height: node.getBoundingClientRect().height })));
-    for (const size of sizes) expect(size.height, size.name ?? "movement action").toBeGreaterThanOrEqual(44);
+    for (const size of sizes) expect(size.height, size.name ?? "movement action").toBeGreaterThanOrEqual(mobile ? 44 : 32);
     if (mobile) {
-      await banner.getByRole("button", { name: "Translate", exact: true }).tap();
-      await banner.getByRole("button", { name: "Step right" }).tap();
-      await banner.getByRole("button", { name: "Depth", exact: true }).tap();
-      await banner.getByRole("button", { name: "Step away" }).tap();
+      await page.getByRole("dialog", { name: "More movement tools", exact: true }).getByRole("button", { name: "Translate", exact: true }).tap();
+      await page.getByRole("dialog", { name: "More movement tools", exact: true }).getByRole("button", { name: "Step right" }).tap();
+      await page.getByRole("dialog", { name: "More movement tools", exact: true }).getByRole("button", { name: "Depth", exact: true }).tap();
+      await page.getByRole("dialog", { name: "More movement tools", exact: true }).getByRole("button", { name: "Step away" }).tap();
     } else {
-      await banner.getByRole("button", { name: "Translate", exact: true }).focus(); await page.keyboard.press("Enter");
+      await page.getByRole("dialog", { name: "More movement tools", exact: true }).getByRole("button", { name: "Translate", exact: true }).focus(); await page.keyboard.press("Enter");
       await page.getByRole("group", { name: "Move selection canvas" }).focus(); await page.keyboard.press("ArrowRight");
       await page.keyboard.press("ArrowUp");
     }
     expect((await read(request, project.id)).revision).toBe(project.revision);
     await page.keyboard.press("Escape");
+    if (mobile) {
+      await expect(page.getByRole("dialog", { name: "More movement tools" })).toBeHidden();
+      await expect(banner).toBeVisible();
+      await page.keyboard.press("Escape");
+    }
     await expect(banner).toBeHidden();
     await expect(page.getByRole("button", { name: mobile ? "Transform selection" : "Move selection", exact: true })).toBeFocused();
     expect(await structure(request, project.id, project.entries[0].id)).toEqual(original);
@@ -117,8 +122,8 @@ test("reconciles an interrupted response after server commit without replaying A
   const project = await simpleMovement(page, request, mobile);
   const original = await structure(request, project.id, project.entries[0].id);
   const banner = await launchMovement(page, mobile);
-  await banner.getByRole("button", { name: "Translate", exact: true }).click();
-  await banner.getByRole("button", { name: "Step right" }).click();
+  await page.getByRole("dialog", { name: "More movement tools", exact: true }).getByRole("button", { name: "Translate", exact: true }).click();
+  await page.getByRole("dialog", { name: "More movement tools", exact: true }).getByRole("button", { name: "Step right" }).click();
   let count = 0;
   await page.route(`**/api/v1/projects/${project.id}/selection-transform`, async route => {
     count++;
@@ -145,7 +150,7 @@ test("blocks Apply while outcome is unknown and recovers only after explicit ref
   await page.route(`**/api/v1/projects/${project.id}`, route => route.abort("failed"));
   await banner.getByRole("button", { name: "Apply movement" }).click();
   await expect(banner).toContainText("Outcome unknown; changes paused.");
-  await expect(banner.getByRole("button", { name: "Translate", exact: true })).toBeDisabled();
+  await expect(page.getByRole("dialog", { name: "More movement tools", exact: true }).getByRole("button", { name: "Translate", exact: true })).toBeDisabled();
   expect(count).toBe(1);
   await page.unroute(`**/api/v1/projects/${project.id}`);
   await banner.getByRole("button", { name: "Refresh project" }).click();
@@ -194,11 +199,11 @@ test("captures hidden multi-entry targets, previews multiple drags, cancels, and
   await page.mouse.down();
   await page.mouse.move(box.x + box.width * 0.85, box.y + box.height * 0.9, { steps: 8 });
   await page.mouse.up();
-  await banner.getByText("More", { exact: true }).click();
-  await banner.getByRole("button", { name: "Translate", exact: true }).click();
-  await banner.getByRole("button", { name: "Step right", exact: true }).click();
-  await banner.getByRole("button", { name: "Depth", exact: true }).click();
-  await banner.getByRole("button", { name: "Step away", exact: true }).click();
+  await banner.getByRole("button", { name: "More movement tools", exact: true }).click();
+  await page.getByRole("dialog", { name: "More movement tools", exact: true }).getByRole("button", { name: "Translate", exact: true }).click();
+  await page.getByRole("dialog", { name: "More movement tools", exact: true }).getByRole("button", { name: "Step right", exact: true }).click();
+  await page.getByRole("dialog", { name: "More movement tools", exact: true }).getByRole("button", { name: "Depth", exact: true }).click();
+  await page.getByRole("dialog", { name: "More movement tools", exact: true }).getByRole("button", { name: "Step away", exact: true }).click();
   expect((await read(request, project.id)).revision).toBe(revision);
   expect(applyRequests).toBe(0);
   expect(previewFetches).toEqual([]);
@@ -209,12 +214,12 @@ test("captures hidden multi-entry targets, previews multiple drags, cancels, and
   await page.getByRole("tab", { name: "transform", exact: true }).click();
   await page.getByRole("button", { name: "Move selection", exact: true }).click();
   if (compact) await page.getByRole("button", { name: "Close panel", exact: true }).click({ position: { x: 2, y: 100 } });
-  await banner.getByText("More", { exact: true }).click();
-  await banner.getByRole("button", { name: "Rotate", exact: true }).click();
-  await banner.getByRole("button", { name: "Step right", exact: true }).click();
-  await banner.getByRole("button", { name: "Translate", exact: true }).click();
-  await banner.getByRole("button", { name: "Step right", exact: true }).click();
-  await banner.getByRole("button", { name: "Step up", exact: true }).click();
+  await banner.getByRole("button", { name: "More movement tools", exact: true }).click();
+  await page.getByRole("dialog", { name: "More movement tools", exact: true }).getByRole("button", { name: "Rotate", exact: true }).click();
+  await page.getByRole("dialog", { name: "More movement tools", exact: true }).getByRole("button", { name: "Step right", exact: true }).click();
+  await page.getByRole("dialog", { name: "More movement tools", exact: true }).getByRole("button", { name: "Translate", exact: true }).click();
+  await page.getByRole("dialog", { name: "More movement tools", exact: true }).getByRole("button", { name: "Step right", exact: true }).click();
+  await page.getByRole("dialog", { name: "More movement tools", exact: true }).getByRole("button", { name: "Step up", exact: true }).click();
   await banner.getByRole("button", { name: "Apply movement", exact: true }).click();
   await expect(banner).toBeHidden();
   expect(applyRequests).toBe(1);
@@ -350,15 +355,15 @@ test("discards previews with feedback on task, selection and project changes", a
   await page.getByRole("button", { name: "Move selection", exact: true }).click();
   await expect(page.getByRole("group", { name: "Translation (angstrom)", exact: true }).locator("input").first()).toBeDisabled();
   if (mobile) await page.getByRole("button", { name: "Close panel", exact: true }).click({ position: { x: 2, y: 100 } });
-  await banner.getByText("More", { exact: true }).click();
-  await banner.getByRole("button", { name: "Step right" }).click();
+  await banner.getByRole("button", { name: "More movement tools", exact: true }).click();
+  await page.getByRole("dialog", { name: "More movement tools", exact: true }).getByRole("button", { name: "Step right" }).click();
   if (mobile) await page.getByRole("button", { name: "Inspector", exact: true }).click();
   await page.getByRole("tab", { name: "selection", exact: true }).click();
   await expect(banner).toBeHidden();
   await expect(page.getByRole("status").filter({ hasText: "discarded after changing inspector tasks" })).toBeVisible();
   await page.getByRole("tab", { name: "transform", exact: true }).click();
   await launchMovement(page, mobile);
-  await banner.getByRole("button", { name: "Step right" }).click();
+  await page.getByRole("dialog", { name: "More movement tools", exact: true }).getByRole("button", { name: "Step right" }).click();
   await page.evaluate(async () => {
     const path = "/src/store/selection.ts";
     const { useSelectionStore } = await import(/* @vite-ignore */ path);
@@ -370,7 +375,7 @@ test("discards previews with feedback on task, selection and project changes", a
   await select(page, [{ structure_id: project.entries[0].id, atom_id: 1 }]);
   await page.getByRole("tab", { name: "transform", exact: true }).click();
   await launchMovement(page, mobile);
-  await banner.getByRole("button", { name: "Step right" }).click();
+  await page.getByRole("dialog", { name: "More movement tools", exact: true }).getByRole("button", { name: "Step right" }).click();
   await page.getByRole("button", { name: "Projects", exact: true }).click();
   await page.getByRole("dialog", { name: "Projects", exact: true }).getByRole("button", { name: new RegExp(`^${next.name}`) }).click();
   await expect(banner).toBeHidden();
@@ -389,10 +394,10 @@ test("restores canceled or lost pointer drags and supports secondary and Ctrl tr
   const project = await simpleMovement(page, request, mobile);
   const original = await structure(request, project.id, project.entries[0].id);
   const banner = await launchMovement(page, mobile);
-  await banner.getByRole("button", { name: "Translate", exact: true }).click();
-  await banner.getByRole("button", { name: "Step right" }).click();
-  await banner.getByRole("button", { name: "Rotate", exact: true }).click();
-  await banner.getByText("More", { exact: true }).click();
+  await page.getByRole("dialog", { name: "More movement tools", exact: true }).getByRole("button", { name: "Translate", exact: true }).click();
+  await page.getByRole("dialog", { name: "More movement tools", exact: true }).getByRole("button", { name: "Step right" }).click();
+  await page.getByRole("dialog", { name: "More movement tools", exact: true }).getByRole("button", { name: "Rotate", exact: true }).click();
+  await banner.getByRole("button", { name: "More movement tools", exact: true }).click();
   const surface = page.getByTestId("movement-pointer-surface");
   await surface.evaluate(node => node.addEventListener("pointerdown", event => { (node as HTMLElement).dataset.pointerId = String((event as PointerEvent).pointerId); }));
   const box = (await surface.boundingBox())!;
@@ -429,7 +434,7 @@ test("rejects stale Apply without replay or partial movement", async ({ page, re
   const project = await simpleMovement(page, request, mobile);
   const original = await structure(request, project.id, project.entries[0].id);
   const banner = await launchMovement(page, mobile);
-  await banner.getByRole("button", { name: "Step right" }).click();
+  await page.getByRole("dialog", { name: "More movement tools", exact: true }).getByRole("button", { name: "Step right" }).click();
   const renamed = await request.patch(`/api/v1/projects/${project.id}`, { data: { expected_revision: project.revision, name: `${project.name} externally changed`, description: null } });
   expect(renamed.status()).toBe(200);
   let requests = 0;
@@ -513,7 +518,7 @@ test("preserves no-op history, pauses measurements and discards unapplied moveme
   if (mobile) await page.getByRole("button", { name: "Inspector", exact: true }).click();
   await page.getByRole("tab", { name: "transform", exact: true }).click();
   await launchMovement(page, mobile);
-  await banner.getByRole("button", { name: "Step right" }).click();
+  await page.getByRole("dialog", { name: "More movement tools", exact: true }).getByRole("button", { name: "Step right" }).click();
   await page.reload();
   await expect(banner).toBeHidden();
   await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded", { timeout: 30_000 });
@@ -523,8 +528,8 @@ test("preserves no-op history, pauses measurements and discards unapplied moveme
   await select(page, [{ structure_id: entryId, atom_id: 1 }]);
   await page.getByRole("tab", { name: "transform", exact: true }).click();
   await launchMovement(page, mobile);
-  await banner.getByRole("button", { name: "Translate", exact: true }).click();
-  await banner.getByRole("button", { name: "Step right" }).click();
+  await page.getByRole("dialog", { name: "More movement tools", exact: true }).getByRole("button", { name: "Translate", exact: true }).click();
+  await page.getByRole("dialog", { name: "More movement tools", exact: true }).getByRole("button", { name: "Step right" }).click();
   await banner.getByRole("button", { name: "Apply movement" }).click(); await expect(banner).toBeHidden();
   await page.getByRole("button", { name: "Save checkpoint", exact: true }).click();
   await expect.poll(async () => (await read(request, project.id)).has_uncheckpointed_changes).toBe(false);
@@ -557,10 +562,10 @@ MolstarEngine.prototype.mount = async function(target) {
   }, project.entries[0].id);
   const original = await inspect();
   const banner = await launchMovement(page, mobile);
-  await banner.getByRole("button", { name: "Step right" }).click();
-  await banner.getByRole("button", { name: "Translate", exact: true }).click();
-  await banner.getByRole("button", { name: "Step right" }).click();
-  await banner.getByRole("button", { name: "Zoom in" }).click();
+  await page.getByRole("dialog", { name: "More movement tools", exact: true }).getByRole("button", { name: "Step right" }).click();
+  await page.getByRole("dialog", { name: "More movement tools", exact: true }).getByRole("button", { name: "Translate", exact: true }).click();
+  await page.getByRole("dialog", { name: "More movement tools", exact: true }).getByRole("button", { name: "Step right" }).click();
+  await page.getByRole("dialog", { name: "More movement tools", exact: true }).getByRole("button", { name: "Zoom in" }).click();
   await expect.poll(async () => (await inspect()).coordinates).not.toEqual(original.coordinates);
   await expect.poll(async () => (await inspect()).movementActive).toBe(true);
   const before = await inspect();

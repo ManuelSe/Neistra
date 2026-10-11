@@ -1,5 +1,74 @@
 # Neistra Release Notes
 
+## 0.12.1 - 2026-10-11
+
+### Highlights and fixes
+
+- Transform selection now uses its Move3d symbol with a hover/focus tooltip. The
+  separate active strip contains camera, Apply, Cancel, More and warning/Help
+  icons with accessible names. Guidance and scientific limits move into reachable
+  nonmodal Help; More retains touch modes, depth, sensitivity, steps and zoom.
+- Wide fine-pointer primary actions are 32 px; mobile widths or any coarse pointer
+  retain 44 px targets. More/Help scroll below the primary strip; Apply/Cancel stay
+  reachable through both themes, 320 px layouts and actual 200% browser zoom.
+  Consequential errors and uncertain commit outcomes remain visible text.
+- Repeated hold-Space camera drags retain canvas focus. Moving the mouse back from
+  noneditable movement actions restores it; sliders, editable fields, unrelated
+  controls and modals retain their own focus and native Space behavior. The
+  Adjust view / Resume transform toggle remains the touch/keyboard alternative.
+- Existing real-zoom qualification exposed an idle group-action focus race. Focus
+  restoration now waits for the accepted project revision to render before
+  resolving a remounted row, preserving later unrelated/project focus.
+
+### Data, migrations and compatibility
+
+Patch increment fixes released presentation/focus defects without a new public
+capability or breaking data/API behavior. All five version sources advance to
+0.12.1 without dependency changes. No new endpoint, schema, migration, scientific
+math, history action or durable preference; head 0013 and contract majors 1 remain.
+Original uploads, all conformers, unselected data, captured previews and submitted
+jobs retain existing behavior. Navigation changes only the camera. Archives stay
+current-state snapshots without portable history. Recent 0.11.0/0.12.0 archive
+metadata joins the existing round-trip matrix; actual tagged 0.12.0 reader
+accepts final 0.12.1 exact coordinates/originals, retained batch history,
+save/reexport, archives and unchanged jobs. Complete release gates remain required
+before publication.
+Rollback to the qualified 0.12.0 reader requires no schema downgrade/data stripping.
+
+### Verification and review
+
+The [approved correction contract](plans/issue-46-compact-transform-controls.md)
+records exact commands/timings, diagnostics and scope decisions. Complete clean
+candidate `f437c31767cd44be435d829ca4fb9ad033049214` passes **400 Python, 173 frontend, eight supervisor and
+159 browser tests / 43 intentional layout skips**, zero failures/flakes/retries.
+Frozen installs/fresh migration 0013/Ruff/mypy/web lint/types/build all pass.
+Native first previews 145.0/37.6 ms, exact coordinate Cancel 18.1/19.7 ms and
+longest tasks 130/0 ms pass unchanged 500/500/750 ms budgets; each case
+retains six ownership cycles, first/latest two frames per 40 submissions, max one
+active update, exact restoration and no molecular requests. Surface regeneration
+is measured separately.
+
+Coverage includes natural repeated Space without injected canvas focus, guarded
+mouse return, latest-plane translation, exact transaction/history, interrupted
+input, direct Help/More switching and focused Escape, true CDP touch, both themes/
+scoped axe, 44 px mobile/320 px targets and actual 100%/200% Chrome zoom with
+primary-action hit testing. Historical 0.12.0 tests manually refocused the canvas;
+that missed natural-focus defect is now covered. Review findings were reproduced
+and corrected before qualification. Full-diff review is local, not independent.
+Exact merged qualification and publication remain required.
+
+### Limitations and scope decisions
+
+Movement remains unconstrained and can distort bonds or create clashes; no repair,
+minimization or docking validation. Qualification uses pinned Chromium/SwiftShader
+and emulated Pixel 7, not physical-device or universal browser certification.
+Existing Alembic and lazy Mol* bundle advisories remain. Space is fixable, so new
+Shift/Ctrl shortcuts are rejected to avoid existing pan/translation conflicts.
+Gizmos, durable/custom bindings, gesture transfer and broader device certification
+remain deferred from the original contract; no speculative follow-up issue.
+
+
+
 ## 0.12.0 - 2026-10-11
 
 ### Viewer transformation workflow

@@ -1,6 +1,14 @@
 # V0.1 Requirement Evidence
 
-Current toolbar/navigation evidence is maintained in
+Current correction evidence is maintained in the
+[approved compact-transform plan](plans/issue-46-compact-transform-controls.md).
+Clean candidate `f437c31767cd44be435d829ca4fb9ad033049214` passes every complete release command: 400 Python,
+173 frontend, eight supervisor and 159 browser passes / 43 intentional skips,
+zero failures/flakes/retries; fresh migration 0013/frozen installs/lint/types/build.
+Native performance, exact coordinates/history and actual tagged 0.12.0 reader of
+final 0.12.1 pass. Review is local, not independent. Exact merged qualification and publication remain pending.
+
+Previous toolbar/navigation evidence is maintained in
 [the approved issue #46 plan](plans/issue-46-viewer-transform-toolbar.md).
 C1–C5 qualify shared transactions, native ownership, interruption, true touch,
 accessibility/real zoom, scientific/compatibility and performance. Clean candidate

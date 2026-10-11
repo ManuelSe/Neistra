@@ -118,27 +118,37 @@ test("keeps actions and dialogs reachable at real 100% and 200% browser zoom", a
         await movement.getByRole("button", { name: "Resume transform" }).focus();
         await page.keyboard.press("Space");
         await expect(movement).toContainText("Transforming selection");
-        expect((await new AxeBuilder({ page }).include(".movement-banner").include(".movement-pointer-surface")
+        expect((await new AxeBuilder({ page }).include(".movement-banner").include(".movement-pointer-surface").include(".movement-panel")
           .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"]).analyze()).violations).toEqual([]);
-        await movement.getByText("More", { exact: true }).click();
+        await movement.getByRole("button", { name: "More movement tools", exact: true }).click();
         const statusBox = (await page.locator(".viewer-status").boundingBox())!;
         const movementBox = (await movement.boundingBox())!;
         expect(movementBox.y).toBeGreaterThan(statusBox.y + statusBox.height);
-        for (const control of await movement.locator("button, input").all()) {
+        for (const control of await page.locator(".movement-banner button, .movement-panel button, .movement-panel input").all()) {
           await control.scrollIntoViewIfNeeded();
           const box = (await control.boundingBox())!;
           const viewport = await page.evaluate(() => ({ width: innerWidth, height: innerHeight }));
           expect(box.x).toBeGreaterThanOrEqual(0); expect(box.x + box.width).toBeLessThanOrEqual(viewport.width + 1);
           expect(box.y).toBeGreaterThanOrEqual(0); expect(box.y + box.height).toBeLessThanOrEqual(viewport.height + 1);
-          expect(box.height).toBeGreaterThanOrEqual(44);
+          expect(box.height).toBeGreaterThanOrEqual(await control.evaluate(node => !node.classList.contains("movement-action") || matchMedia("(pointer: coarse)").matches ? 44 : 32));
+          for (const name of ["Apply movement", "Cancel movement"]) {
+            expect(await movement.getByRole("button", { name }).evaluate(node => {
+              const box = node.getBoundingClientRect();
+              const hit = document.elementFromPoint(box.x + box.width / 2, box.y + box.height / 2);
+              return hit === node || Boolean(hit && node.contains(hit));
+            })).toBe(true);
+          }
         }
-        await movement.getByRole("button", { name: "Translate", exact: true }).focus(); await page.keyboard.press("Enter");
+        await page.getByRole("dialog", { name: "More movement tools", exact: true }).getByRole("button", { name: "Translate", exact: true }).focus(); await page.keyboard.press("Enter");
         await page.getByRole("group", { name: "Move selection canvas" }).focus(); await page.keyboard.press("ArrowRight");
-        await movement.getByRole("button", { name: "Depth", exact: true }).click();
-        await movement.getByRole("button", { name: "Step away" }).click();
+        await page.getByRole("dialog", { name: "More movement tools", exact: true }).getByRole("button", { name: "Depth", exact: true }).click();
+        await page.getByRole("dialog", { name: "More movement tools", exact: true }).getByRole("button", { name: "Step away" }).click();
         expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
         await movement.evaluate(element => { element.scrollTop = 0; });
         await captureZoomPage(page, info, `${theme}-${factor * 100}-interactive-movement.png`);
+        await page.keyboard.press("Escape");
+        await expect(page.getByRole("dialog", { name: "More movement tools" })).toBeHidden();
+        await expect(movement).toBeVisible();
         await page.keyboard.press("Escape"); await expect(movement).toBeHidden();
         await expect(page.getByRole("button", { name: factor === 2 ? "Transform selection" : "Move selection", exact: true })).toBeFocused();
         const settings = page.locator('.msp-viewport-controls button[title="Settings / Controls Info"]');

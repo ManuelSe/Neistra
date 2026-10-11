@@ -2,6 +2,32 @@
 
 ## Current milestone
 
+Issue #46 correction: C1/C2 complete on
+`fix/issue-46-compact-transform-controls`. [Contract](plans/issue-46-compact-transform-controls.md).
+Icon-only primary controls, bounded Help/More, persistent warning icon/visible
+errors, native Space focus retention and guarded mouse return implemented. An
+existing idle group-focus race found by release qualification now resolves after
+the accepted revision renders; D-084 records the supporting correction. No API,
+scientific math, data/history or migration change.
+
+Lint/types/build, 173 frontend tests and final 34 focused browser cases / four
+intentional skips pass. Natural repeated Space, preserved exact state, latest-plane
+translation, control/modal focus, interruptions, touch/320 px/themes/axe/real zoom
+pass. [C1](assets/compact-transform-controls/c1-verification.md) /
+[C2](assets/compact-transform-controls/c2-verification.md) evidence. No blocker.
+Direct Help/More switching now renews panel focus; Escape closes the selected
+panel first. Review regression and five native cases/one intentional skip pass.
+Patch 0.12.1 prepared in all five authoritative sources; actual tagged v0.12.0
+reader accepts final 0.12.1 exact data/history/archives/jobs. Complete clean
+candidate `f437c31767cd44be435d829ca4fb9ad033049214` passes **400 Python, 173 frontend, eight supervisor and
+159 browser tests / 43 intentional skips**, zero failures/flakes/retries and all
+frozen-install/migration/lint/type/build gates. Native preview/Cancel/task budgets
+and bounded queue pass. Local full-diff review is not independent; consequential
+findings corrected, no unresolved finding. Next: current base/collision/policy
+audit, PR/review, normal merge, exact-master qualification and publication.
+
+Previous delivery baseline:
+
 Issue #46 — approved scope delivered through [PR #47](https://github.com/ManuelSe/Neistra/pull/47) and verified
 [release v0.12.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.12.0). Contract and detailed evidence:
 [viewer toolbar/navigation plan](plans/issue-46-viewer-transform-toolbar.md).
@@ -2248,5 +2274,5 @@ No current blocker. Issue #46 is released; final cleanup audit is maintained in 
 
 ## Next action
 
-Select and approve a separate backlog plan. Current released baseline is v0.12.0;
-the issue closeout maintains the final documentation/branch-cleanup audit.
+Complete the correction PR/review/normal merge, exact-master qualification and
+v0.12.1 publication/verified closeout. Current released baseline remains v0.12.0.

@@ -40,6 +40,7 @@ import { Modal } from "./components/Modal";
 import { ExportDialog } from "./components/ExportDialog";
 import { GroupMembershipDialog, type GroupDialogRequest } from "./components/GroupMembershipDialog";
 import { groupReturnFocus, type GroupScope } from "./groups/membership";
+import { useGroupActionFocus } from "./groups/useGroupActionFocus";
 import { ProjectBrowser } from "./components/ProjectBrowser";
 import { ProjectInspector } from "./components/ProjectInspector";
 import { TopBar } from "./components/TopBar";
@@ -170,6 +171,7 @@ export default function App() {
     retry: false,
   });
   const project = projectQuery.data;
+  const focusGroupAction = useGroupActionFocus(project, activeProjectId);
 
   useEffect(() => {
     setSelectionProject(project?.id ?? null);
@@ -352,9 +354,7 @@ export default function App() {
       { onSuccess: (next) => {
         if (useWorkspaceStore.getState().activeProjectId !== scope.projectId) return;
         setNotice({ kind: "success", text: next.revision === scope.revision ? "Group membership unchanged." : `Organized ${scope.entryIds.length} complete structures.` });
-        requestAnimationFrame(() => {
-          if (useWorkspaceStore.getState().activeProjectId === scope.projectId) groupReturnFocus(scope, groupId)?.focus();
-        });
+        focusGroupAction(scope, groupId, next.revision);
       } },
     );
   };

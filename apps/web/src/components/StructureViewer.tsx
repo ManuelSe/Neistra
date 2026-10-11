@@ -495,10 +495,26 @@ export function StructureViewer({
 
   return (
     <div className="structure-viewer" data-testid="structure-viewer"
-      onPointerDownCapture={event => {
-        if (currentMovement.current?.cameraNavigation && event.target instanceof Element && event.target.closest(".molstar-host")) {
-          event.currentTarget.querySelector<HTMLElement>("[data-movement-canvas]")?.focus({ preventScroll: true });
-        }
+      onPointerMoveCapture={event => {
+        // A deliberate mouse return resumes canvas keyboard ownership after tool
+        // use. Editable controls, unrelated UI and modals keep their focus.
+        if (currentMovement.current?.state.phase !== "active" || event.pointerType !== "mouse" || event.buttons !== 0
+          || !(event.target instanceof Element) || !event.target.closest("[data-movement-canvas], .molstar-host canvas")
+          || document.querySelector('[role="dialog"]:not([aria-modal="false"]):not([aria-hidden="true"])')) return;
+        const focused = document.activeElement;
+        if (focused !== document.body && (!focused?.closest("[data-movement-controls], [data-movement-panel]")
+          || focused.closest('input, textarea, select, [role="slider"], [contenteditable]:not([contenteditable="false"])'))) return;
+        event.currentTarget.querySelector<HTMLElement>("[data-movement-canvas]")?.focus({ preventScroll: true });
+      }}
+      onMouseDownCapture={event => {
+        if (currentMovement.current?.state.phase !== "active" || !currentMovement.current.cameraNavigation
+          || !(event.target instanceof Element) || !event.target.closest(".molstar-host canvas")
+          || document.querySelector('[role="dialog"]:not([aria-modal="false"]):not([aria-hidden="true"])')) return;
+        // Native mousedown otherwise blurs the focused overlay to body, disabling
+        // the next Space press. Keep focus without stopping Mol* propagation.
+        // Preventing pointerdown would suppress Mol*'s compatibility mouse input.
+        event.preventDefault();
+        event.currentTarget.querySelector<HTMLElement>("[data-movement-canvas]")?.focus({ preventScroll: true });
       }}>
       <div
         ref={targetRef}
