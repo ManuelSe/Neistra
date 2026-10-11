@@ -2,7 +2,7 @@
 
 ## Status and metadata
 
-Status: approved by the user's “Implement the plan”; persisted before implementation.
+Status: approved by the user's “Implement the plan”; C1/C2 complete, C3 release pending.
 Issue: [#46](https://github.com/ManuelSe/Neistra/issues/46), correction to released
 v0.12.0 and the [original approved contract](issue-46-viewer-transform-toolbar.md).
 Base: `master`, verified up to date at `2782d80956f8c5af356f226678f124f7dbd2ac59`.
@@ -156,3 +156,22 @@ or unsatisfied repository protection.
   [C1 evidence](../assets/compact-transform-controls/c1-verification.md).
   Full C1 diff reviewed for scope, data/science invariants, focus, dead CSS and
   accessibility. No migration or blocker; C2 remains required.
+
+- C2 verification deviation: four natural-focus/native cases pass in both layouts;
+  broader three-file qualification passes42 with three skips but real zoom finds
+  an existing idle group-menu focus race. An isolated no-movement diagnosis fails
+  after four membership cycles. Supporting repair (D-084 implementation note):
+  typed transient group-action focus waits for accepted rendered revision, preserves
+  unrelated/project focus, and retains menu-teardown recovery. App/groups and
+  focused unit/native regression tests join affected areas. No new product scope,
+  API, data or scientific algorithm; no speculative follow-up. Final C2 gates
+  remain required before committing.
+
+- C2 complete: native canvas focus retained; deliberate mouse return restores
+  keyboard ownership from movement tools, preserving editable/unrelated/modal
+  focus. Narrow group-focus gate repair waits for accepted rendered revision.
+  Lint/types/build,173 frontend tests and final34 native browser cases/four
+  intentional skips pass. [Exact C2 evidence](../assets/compact-transform-controls/c2-verification.md)
+  records the prior failing diagnostics and scoped correction; no unresolved
+  finding or migration. C2 diff reviewed. Next: consistent0.12.1 metadata, complete
+  clean release gates, compatibility reader, full review and normal publication.

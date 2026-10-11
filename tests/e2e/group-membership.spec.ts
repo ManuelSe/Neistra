@@ -326,3 +326,31 @@ for (const outcome of ["success", "conflict"] as const) {
     expect((await getProject(request, initial.id)).entries.find(entry => entry.id === origin.id)?.group_id).toBeNull();
   });
 }
+
+// API completion can precede the query notification that remounts a row. Focus
+// must resolve against the accepted rendered revision, without movement active.
+test("restores group action focus across repeated accepted row remounts", async ({ page, request }, info) => {
+  test.setTimeout(120_000);
+  const initial = await setup(page, request, info);
+  const origin = initial.entries.find(entry => entry.source_format === "mol")!;
+  const destination = initial.groups.find(group => group.name === "Destination")!;
+  await row(page, origin.id).locator(".entry-select").click();
+  const molecular = initial.entries.map(entry => ({ id: entry.id, artifact: entry.current_artifact_id, original: entry.original_artifact_id }));
+  for (let iteration = 0; iteration < 12; iteration++) {
+    if (iteration % 2 === 0) {
+      await action(page, origin.id, "Remove from group");
+      await expect(page.locator(`[data-group-id="ungrouped"] .entry-row[data-entry-id="${origin.id}"]`)).toBeVisible();
+      await expect(page.getByRole("menu")).toBeHidden();
+    } else {
+      await action(page, origin.id, "Move to group…");
+      const dialog = page.getByRole("dialog", { name: "Move to group", exact: true });
+      await dialog.getByLabel("Destination group").selectOption(destination.id);
+      await dialog.getByRole("button", { name: "Move structures" }).click();
+      await expect(dialog).toBeHidden();
+    }
+    await expect(row(page, origin.id).locator(".entry-menu-trigger")).toBeFocused();
+  }
+  const final = await getProject(request, initial.id);
+  expect(final.entries.map(entry => ({ id: entry.id, artifact: entry.current_artifact_id, original: entry.original_artifact_id }))).toEqual(molecular);
+  await expect(page.getByRole("region", { name: "Move selection controls" })).toBeHidden();
+});

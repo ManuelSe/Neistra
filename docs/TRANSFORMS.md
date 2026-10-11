@@ -112,3 +112,8 @@ contains gesture guidance and complete captured/hidden atom counts and scientifi
 limits. Movement remains unconstrained and may distort bonds or create clashes.
 Errors and uncertain commit outcomes remain visible. Escape in a focused panel
 closes that panel first; Escape on the canvas cancels the movement.
+
+Moving the mouse back onto the canvas after using a movement action restores
+canvas keyboard focus. Repeated Space camera drags retain it. Editable fields,
+sliders, unrelated controls and modal dialogs retain their own focus and normal
+Space behavior. The camera toggle remains the touch and keyboard alternative.

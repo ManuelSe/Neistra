@@ -129,11 +129,13 @@ test("temporarily navigates the native camera with Space and the view toggle wit
     const triggersBefore = (await inspect()).navigationTriggers;
     const canvas = page.getByRole("group", { name: "Move selection canvas" });
     for (let i = 0; i < 2; i++) {
-      await canvas.focus(); await page.keyboard.down("Space");
+      // Natural focus from transformation/previous native drag; no focus injection.
+      await expect(canvas).toBeFocused(); await page.keyboard.down("Space");
       await expect.poll(async () => (await inspect()).movementInteraction).toBe("camera");
       await drag(page, "left", -45, 25, true);
       await expect.poll(async () => (await inspect()).camera).not.toEqual(initialCamera);
       expect((await inspect()).coordinates).toEqual(preview);
+      await expect(canvas).toBeFocused();
       await page.keyboard.up("Space");
       await expect.poll(async () => (await inspect()).movementInteraction).toBe("transform");
       expect((await inspect()).navigationTriggers).toBe(triggersBefore);
@@ -172,6 +174,75 @@ test("temporarily navigates the native camera with Space and the view toggle wit
     await expect.poll(async () => (await inspect()).movementInteraction).toBe("inactive");
     expect((await inspect()).navigationTriggers).toBeGreaterThan(0);
   }
+});
+
+test("returns the mouse from movement tools for Space without stealing editable or unrelated focus", async ({ page, request }, info) => {
+  test.setTimeout(120_000);
+  const { project, launcher, inspect, original } = await prepare(page, request, info.project.name === "mobile-chromium");
+  const selection = () => page.evaluate(async () => {
+    const { useSelectionStore } = await import("/src/store/selection.ts");
+    return useSelectionStore.getState().selection;
+  });
+  const captured = await selection();
+  const requests: string[] = [];
+  page.on("request", r => {
+    if (/\/entries\/[^/]+\/structure$/.test(new URL(r.url()).pathname) || r.method() === "POST" && /\/(jobs|selection-transform)$/.test(r.url())) requests.push(r.url());
+  });
+  await launcher.click();
+  const controls = page.getByRole("region", { name: "Move selection controls" });
+  const more = controls.getByRole("button", { name: "More movement tools", exact: true });
+  const panel = page.getByRole("dialog", { name: "More movement tools", exact: true });
+  const canvas = page.getByRole("group", { name: "Move selection canvas" });
+  const returnMouse = async () => {
+    const box = (await page.getByTestId("structure-viewer").boundingBox())!;
+    // Actual pointer movement, including an idle move while a panel stays open.
+    await page.mouse.move(box.x + box.width * 0.91, box.y + box.height * 0.89);
+    await page.mouse.move(box.x + box.width * 0.92, box.y + box.height * 0.9);
+  };
+  const navigate = async () => {
+    const before = await inspect();
+    await returnMouse(); await expect(canvas).toBeFocused();
+    await page.keyboard.down("Space");
+    await expect.poll(async () => (await inspect()).movementInteraction).toBe("camera");
+    await drag(page, "left", -35, 20, true);
+    await expect.poll(async () => (await inspect()).camera).not.toEqual(before.camera);
+    expect((await inspect()).coordinates).toEqual(before.coordinates);
+    await expect(canvas).toBeFocused();
+    await page.keyboard.up("Space");
+    await expect.poll(async () => (await inspect()).movementInteraction).toBe("transform");
+  };
+  await more.click();
+  await panel.getByRole("button", { name: "Translate", exact: true }).click();
+  await panel.getByRole("button", { name: "Step right" }).click();
+  await expect.poll(async () => (await inspect()).coordinates).not.toEqual(original.coordinates);
+  await navigate(); // Mode/step focus while More stays open.
+  await more.click(); await navigate(); // Closed More trigger focus.
+  await controls.getByRole("button", { name: "Adjust view" }).click();
+  await drag(page, "left", 20, -15, true);
+  await controls.getByRole("button", { name: "Resume transform" }).click();
+  await navigate(); // Explicit Resume transform focus.
+  const preview = (await inspect()).coordinates;
+  await more.click();
+  const slider = panel.getByRole("slider", { name: "Sensitivity" });
+  await slider.click(); await returnMouse(); await expect(slider).toBeFocused();
+  await page.keyboard.press("Space");
+  expect((await inspect()).movementInteraction).toBe("transform");
+  expect((await inspect()).coordinates).toEqual(preview);
+  await more.click();
+  const projects = page.getByRole("button", { name: "Projects", exact: true });
+  await projects.focus(); await returnMouse(); await expect(projects).toBeFocused();
+  await page.keyboard.press("Space"); // Preserve native button activation.
+  const modal = page.getByRole("dialog", { name: "Projects", exact: true });
+  await expect(modal).toBeVisible();
+  await returnMouse();
+  expect(await modal.evaluate(node => node.contains(document.activeElement))).toBe(true);
+  await page.keyboard.press("Escape");
+  await expect(modal).toBeHidden(); await expect(controls).toBeVisible();
+  expect(await selection()).toEqual(captured);
+  expect(await projectRead(request, project.id)).toEqual(project);
+  expect(requests).toEqual([]);
+  await controls.getByRole("button", { name: "Cancel movement" }).click();
+  await expect.poll(async () => (await inspect()).coordinates).toEqual(original.coordinates);
 });
 
 test("ends held mouse gestures at accepted coordinates and camera before ownership changes", async ({ page, request }, info) => {

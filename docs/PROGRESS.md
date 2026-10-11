@@ -2,15 +2,21 @@
 
 ## Current milestone
 
-Issue #46 correction approved: [compact-controls plan](plans/issue-46-compact-transform-controls.md).
-Branch `fix/issue-46-compact-transform-controls`; C1 compact controls complete; C2 natural-focus repair pending,
-followed by reviewed patch 0.12.1 delivery. Natural-focus investigation reproduced
-Space failures after native camera drag and return from controls; icon-only primary
-controls explicitly approved. No migrations or scientific-state changes planned.
-C1 lint/types/build, 170 frontend tests and four targeted browser cases/two
-intentional skips pass; touch/320px/themes/scoped axe/real zoom/primary hit tests
-qualified. [Evidence](assets/compact-transform-controls/c1-verification.md).
-No blocker. Next action: preserve canvas focus and test natural Space workflows.
+Issue #46 correction: C1/C2 complete on
+`fix/issue-46-compact-transform-controls`. [Contract](plans/issue-46-compact-transform-controls.md).
+Icon-only primary controls, bounded Help/More, persistent warning icon/visible
+errors, native Space focus retention and guarded mouse return implemented. An
+existing idle group-focus race found by release qualification now resolves after
+the accepted revision renders; D-084 records the supporting correction. No API,
+scientific math, data/history or migration change.
+
+Lint/types/build,173 frontend tests and final34 focused browser cases/four
+intentional skips pass. Natural repeated Space, preserved exact state, latest-plane
+translation, control/modal focus, interruptions, touch/320px/themes/axe/real zoom
+pass. [C1](assets/compact-transform-controls/c1-verification.md) /
+[C2](assets/compact-transform-controls/c2-verification.md) evidence. No blocker.
+Next: prepare patch0.12.1, complete release gates/actual0.12.0 reader, PR/review,
+normal merge, annotated tag/release and new issue46 correction reply.
 
 Previous delivery baseline:
 

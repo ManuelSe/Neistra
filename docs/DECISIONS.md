@@ -2890,3 +2890,21 @@ remain unchanged. No API, schema, migration, scientific math or durable preferen
 change. See the [correction contract](plans/issue-46-compact-transform-controls.md).
 Historical verification did not cover natural focus after toolbar interaction;
 new regression tests must omit artificial canvas focus for these workflows.
+
+
+### D-084 implementation note — release-gate focus restoration correction
+
+The full real-zoom gate exposed an existing group-menu return-focus race after
+removing membership. An isolated 20-cycle diagnosis with movement never active
+failed on cycle4: focus reached the old grouped row before query notification
+remounted it, leaving body focused. The canvas handlers cannot focus a missing
+movement overlay and are scoped outside the project browser.
+
+Resolve the requested group action against the **accepted rendered revision**
+using an application-owned transient focus request and layout effect, rather than
+a timing-dependent requestAnimationFrame. Retain menu-teardown recovery for fast
+responses; discard requests after a project/revision change or later unrelated
+focus. This narrow supporting repair is necessary for the existing release gate;
+it introduces no grouping capability, data/API/history change or general focus
+refactor. Cover delayed query rendering, unrelated fields, project changes and
+repeated native row remounts. Original transform scope/deferrals remain unchanged.
