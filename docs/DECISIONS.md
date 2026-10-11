@@ -3087,3 +3087,13 @@ participants. New/revealed changed artifacts invalidate the result. Reset sessio
 choices synchronously when the workspace project pointer changes, including empty
 projects without a mounted molecular viewer. This closes the lifetime gap between
 application-owned session state and conditional renderer mounting.
+
+### D-086 covalent modification qualification note — 2026-10-11
+
+Canonical residue names cannot override observed covalent modifications. Local
+template typing verifies required heavy-neighbor elements and rejects external
+links except chemically compatible peptide/disulfide connections. A modified
+side-chain site becomes untyped with a warning, preventing e.g. acylated Lys NZ
+from acquiring an assumed positive charge. Disulfide S is not a thiol donor and
+does not request missing donor H; contradictory supplied thiol H is skipped.
+Molecular grouping still respects supplied covalent links and inputs stay immutable.

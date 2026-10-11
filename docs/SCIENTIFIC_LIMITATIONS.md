@@ -16,7 +16,10 @@ assignment. Scope uses connectivity/source molecule instances in the current
 workspace frame, without periodic/symmetry images. Incomplete covalent exclusions
 suppress within-molecule clashes. Fixed thresholds and display/visibility rules
 are documented in [Interactions](INTERACTIONS.md). These results are transient;
-archives and history are unchanged. CCD assignment is a separate follow-up.
+archives and history are unchanged. Known covalent modifications override residue
+name conventions; unsupported modified template sites and contradictory water
+charges are skipped with warnings. Disulfides are not unprepared thiol donors.
+CCD assignment remains [follow-up #52](https://github.com/ManuelSe/Neistra/issues/52).
 
 ## Macromolecular Formats
 

@@ -698,7 +698,7 @@ def analyze_interactions(
         assessed_atoms=assessed,
         skipped_atoms=total - assessed,
     )
-    typed = len(chemistry.typed)
+    typed = sum(sites[index].radius is not None for index in chemistry.typed)
     for kind in ("hydrogen_bond", "hydrophobic", "pi_pi", "cation_pi", "salt_bridge"):
         coverage[kind] = InteractionCoverage(
             status="unavailable"

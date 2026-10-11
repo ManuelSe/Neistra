@@ -610,3 +610,25 @@ variable defaults. All focused interaction checks remain passing. Authorized
 CCD follow-up [#52](https://github.com/ManuelSe/Neistra/issues/52) created and
 verified remotely. The historical diagnostic run waited on an externally created
 project absent from its cached list; fixture setup now creates it before page load.
+
+### C4 scientific full-diff review correction — 2026-10-11
+
+A negative controlled covalent-Lys-acylation test reproduced false conventional
+positive charge assignment (unattached control passed; attached case failed).
+Observed external covalent chemistry now overrides canonical residue labels:
+modified sites are skipped/warned, permitted peptide/disulfide neighbors are
+element-checked, and disulfide sulfur neither acts as thiol donor nor requests H.
+Explicit protonation contradictions remain unassessable. Added independently
+specified boundaries for every type and raw1STP ligand/missing/degenerate inputs.
+Focused gate:76Python, Ruff/mypy pass. Full scientific/API/native regression and
+checkpoint evidence follow; the earlier C4 browser baseline remains identifiable
+as c884f43, before this domain-only correction. No migration/schema/API/UI change.
+
+C4 scientific correction gates pass: full471Python after the covalent-site repair,
+then76focused cases after excluding unsupported metal sites from typed coverage;
+Ruff/mypy and web lint/types/all179frontend/build/diff pass. Native interaction
+rerun9passes/1intentional mobile skip; after bounded six-kind deduplication, native
+centroid/performance rerun3passes/1intentional mobile skip. All regression budgets
+remain unchanged. Broader pre-correction UI baseline:76passes/14intentional skips
+in11.9min, zero failures/flakes/retries; domain-only corrections are separately
+qualified and will repeat every complete gate in C5. No unresolved review finding.

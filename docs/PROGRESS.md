@@ -6,7 +6,7 @@ Issue #49 — [approved molecular-interactions plan](plans/issue-49-molecular-in
 in progress on `feat/issue-49-molecular-interactions`. M1–M2/C1–C3 complete; M3/C4 qualification in progress: bounded pure analysis, current-artifact API, source/connectivity scopes,
 warned coverage, compact session controls/cache and nonpickable overlay.
 Hydrogen bonds use explicit H/angles and warned typing; hydrophobic contacts use
-established nonpolar neighborhoods. Focused checks: 48 focused Python, 179 total frontend,
+established nonpolar neighborhoods. Focused checks: 471 total /76 focused Python, 179 total frontend,
 10 interaction/zoom browser passes (2 intentional mobile skips);
 Ruff/mypy/web lint/types/build/diff checks pass. Isolated ports avoid an existing
 development server. No migration or persisted change (0013/majors1/0.12.1).
@@ -14,7 +14,7 @@ Limitations: conservative incomplete within-molecule connectivity, alternate
 sites and metals skipped. All six types available; full lifecycle/scientific/native geometry, accessibility,
 performance/compatibility qualification and release remain C4/C5.
 C4 fixes cover immutable superset reuse, empty-project resets, bounded anchoring,
-retry, native hydrogen/mask filtering, pending
+retry, native hydrogen/mask filtering, covalent modification/disulfide guards, pending
 projection suppression, Cancel restoration and shielded child cleanup.
 D-085–088 remain the contract; no blocker. Next: M3/C4 workflow and release qualification. Planned minor release0.13.0; CCD typing remains verified follow-up #52.
 

@@ -515,7 +515,8 @@ export class MolstarEngine implements MolecularViewer {
       canvas.remove(this.interactionRepresentation);
       return;
     }
-    const visible = filterInteractions(this.interactions, { types: this.interactions.map(record => record.kind), intra: true, inter: true }, this.structures, this.isolation, this.nonpolarHydrogenIds);
+    const types = [...new Set(this.interactions.map(record => record.kind))];
+    const visible = filterInteractions(this.interactions, { types, intra: true, inter: true }, this.structures, this.isolation, this.nonpolarHydrogenIds);
     if (!visible.length) { canvas.remove(this.interactionRepresentation); return; }
     await this.interactionRepresentation.createOrUpdate({ sizeFactor: 2.5 }, visible).run();
     this.interactionRepresentation.setState({ pickable: false, markerActions: 0 });

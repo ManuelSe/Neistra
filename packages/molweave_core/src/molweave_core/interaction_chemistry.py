@@ -63,6 +63,7 @@ def type_sites(
     templates = _template_bonds()
     for source in inputs:
         structure, entry = source.structure, source.identity.entry_id
+        residues = {residue.id: residue for residue in structure.residues}
         residue_atoms: dict[int | None, list[int]] = defaultdict(list)
         for atom in structure.atoms:
             index = indices.get((entry, atom.id))
@@ -93,8 +94,10 @@ def type_sites(
                         InteractionWarning(
                             entry_id=entry,
                             code="contradictory_water_chemistry",
-                            message=("Water identity contradicts observed charge/composition; "
-                                     "typing is skipped."),
+                            message=(
+                                "Water identity contradicts observed charge/composition; "
+                                "typing is skipped."
+                            ),
                             atom_ids=[sites[index].atom.id for index in members],
                         )
                     )
@@ -110,6 +113,7 @@ def type_sites(
                 expected[first].add(second)
                 expected[second].add(first)
             valid: dict[str, int] = {}
+            disulfides: set[int] = set()
             histidine_evidence = any(
                 sites[neighbor].atom.element == "H"
                 for atom_name in ("ND1", "NE2")
@@ -145,10 +149,49 @@ def type_sites(
                     and sites[neighbor].atom.name not in expected[name]
                     for neighbor in neighbors
                 )
+                external = [
+                    neighbor
+                    for neighbor in neighbors
+                    if sites[neighbor].atom.residue_id != residue.id
+                ]
+                heavy_external = [
+                    neighbor for neighbor in external if sites[neighbor].atom.element != "H"
+                ]
+                peptide = disulfide = False
+                if len(heavy_external) == 1:
+                    other = sites[heavy_external[0]].atom
+                    other_residue = residues.get(other.residue_id or -1)
+                    canonical_other = (
+                        other_residue is not None
+                        and other_residue.component_type == "polymer"
+                        and other_residue.name in templates
+                        and other.element == other.name[:1]
+                    )
+                    peptide = canonical_other and (name, other.name) in {("N", "C"), ("C", "N")}
+                    disulfide = (
+                        canonical_other
+                        and residue.name == "CYS"
+                        and name == "SG"
+                        and other_residue is not None
+                        and other_residue.name == "CYS"
+                        and other.name == "SG"
+                    )
+                conflicts |= bool(heavy_external) and not (peptide or disulfide)
+                conflicts |= len(external) != len(heavy_external)
+                conflicts |= disulfide and any(
+                    sites[neighbor].atom.element == "H" for neighbor in neighbors
+                )
+                if disulfide:
+                    disulfides.add(index)
                 if (
                     name not in expected
                     or atom.element != expected_element
                     or not required.issubset(names)
+                    or any(
+                        sites[names[neighbor]].atom.element != neighbor[:1]
+                        for neighbor in required
+                        if neighbor in names
+                    )
                     or conflicts
                 ):
                     continue
@@ -178,6 +221,8 @@ def type_sites(
                     )
                 )
             for name, index in valid.items():
+                if index in disulfides:
+                    continue  # Disulfide sulfur is not an unprepared thiol donor.
                 if name in SIDE_DONORS.get(residue.name, set()) or (
                     name == "N" and residue.name != "PRO"
                 ):

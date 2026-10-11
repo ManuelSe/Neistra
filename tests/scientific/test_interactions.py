@@ -71,6 +71,215 @@ def test_acceptor_angle_and_missing_hydrogen_are_respected() -> None:
     assert any(w.code == "explicit_hydrogens_required" for w in result.warnings)
 
 
+@pytest.mark.parametrize(
+    "acceptor_x,hydrogen_x,expected",
+    [
+        (3.5, 1, 1),
+        (3.5001, 1, 0),
+        (3.5, 0.9999, 0),
+    ],
+)
+def test_hbond_distance_boundaries(acceptor_x: float, hydrogen_x: float, expected: int) -> None:
+    structure = hydrogen_pair()
+    points = [
+        (0.0, 0.0, 0.0),
+        (hydrogen_x, 0.0, 0.0),
+        (acceptor_x, 0.0, 0.0),
+        (acceptor_x + 1, 0.0, 0.0),
+    ]
+    structure = structure.model_copy(
+        update={
+            "atoms": [
+                atom.model_copy(update={"coordinates": point})
+                for atom, point in zip(structure.atoms, points, strict=True)
+            ],
+            "conformers": [Conformer(id=1, name="boundary", coordinates=points)],
+        }
+    )
+    assert (
+        sum(
+            record.kind == "hydrogen_bond"
+            for record in analyze_interactions([source(structure)]).records
+        )
+        == expected
+    )
+
+
+def test_acceptor_angle_includes_right_angle_boundary() -> None:
+    result = analyze_interactions([source(hydrogen_pair(acceptor_base=(2.8, 1, 0)))])
+    record = next(record for record in result.records if record.kind == "hydrogen_bond")
+    assert record.geometry["acceptor_angle"] == pytest.approx(90)
+
+
+def test_degenerate_donor_angle_is_unassessable() -> None:
+    structure = hydrogen_pair()
+    points = [(0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (2.8, 0.0, 0.0), (3.8, 0.0, 0.0)]
+    structure = structure.model_copy(
+        update={
+            "atoms": [
+                atom.model_copy(update={"coordinates": point})
+                for atom, point in zip(structure.atoms, points, strict=True)
+            ],
+            "conformers": [Conformer(id=1, name="degenerate", coordinates=points)],
+        }
+    )
+    result = analyze_interactions([source(structure)])
+    assert not any(record.kind == "hydrogen_bond" for record in result.records)
+    assert any(warning.code == "undefined_hbond_geometry" for warning in result.warnings)
+
+
+def test_raw_pdb_ligand_chemistry_is_warned_without_fabricated_assignments() -> None:
+    from pathlib import Path
+
+    from molweave_core.adapters.base import ImportOptions
+    from molweave_core.adapters.defaults import create_default_registry
+
+    fixture = Path(__file__).parents[1] / "fixtures" / "complex" / "1stp.pdb"
+    structure = (
+        create_default_registry()
+        .for_filename(fixture.name)
+        .parse(fixture.read_bytes(), fixture.name, ImportOptions())
+        .structures[0]
+    )
+    before = structure.to_bytes()
+    residue = next(residue for residue in structure.residues if residue.name == "BTN")
+    ligand_ids = {atom.id for atom in structure.atoms if atom.residue_id == residue.id}
+    result = analyze_interactions([source(structure)])
+    assert any(
+        warning.code == "unknown_chemistry" and ligand_ids.issubset(warning.atom_ids)
+        for warning in result.warnings
+    )
+    assert not any(
+        record.kind != "clash"
+        and any(atom.atom_id in ligand_ids for group in record.participants for atom in group)
+        for record in result.records
+    )
+    assert not any(record.kind == "hydrogen_bond" for record in result.records)
+    assert any(warning.code == "explicit_hydrogens_required" for warning in result.warnings)
+    assert structure.to_bytes() == before
+
+
+@pytest.mark.parametrize("attached,expected", [(False, 1), (True, 0)])
+def test_covalent_attachment_prevents_unmodified_lysine_charge_assumption(
+    attached: bool, expected: int
+) -> None:
+    from molweave_core.molecular import Chain, Residue
+
+    from tests.unit.test_interactions import molecule
+
+    # Observed Lys NZ acylation changes its chemistry, despite an unchanged LYS label.
+    base = molecule([(1, 0, 4), (0, 0, 4), (0, 1, 4), (0, 2, 4)], [(1, 2), (3, 4)])
+    names = ["CE", "NZ", "C1", "O1"]
+    elements = ["C", "N", "C", "O"]
+    structure = base.model_copy(
+        update={
+            "source": SourceFacts(filename="modified.pdb", format="pdb"),
+            "atoms": [
+                atom.model_copy(
+                    update={
+                        "name": names[i],
+                        "element": elements[i],
+                        "formal_charge": None if i < 2 else 0,
+                        "residue_id": 1 if i < 2 else 2,
+                    }
+                )
+                for i, atom in enumerate(base.atoms)
+            ],
+            "chains": [Chain(id=1, name="A")],
+            "residues": [
+                Residue(id=1, chain_id=1, name="LYS", component_type="polymer"),
+                Residue(id=2, chain_id=1, name="LIG", component_type="ligand"),
+            ],
+            "bonds": [base.bonds[0], base.bonds[1].model_copy(update={"order": 2})]
+            + ([Bond(id=3, atom_1_id=2, atom_2_id=3, order=1)] if attached else []),
+        }
+    )
+    before = structure.to_bytes()
+    result = analyze_interactions([source(structure, "modified"), source(aromatic(), "ring")])
+    assert sum(record.kind == "cation_pi" for record in result.records) == expected
+    assert structure.to_bytes() == before
+
+
+@pytest.mark.parametrize("hydrogen", [False, True])
+def test_disulfide_is_not_a_thiol_donor_or_a_missing_hydrogen_request(hydrogen: bool) -> None:
+    from molweave_core.molecular import Chain, Residue
+
+    from tests.unit.test_interactions import molecule
+
+    points = [(-1, 0, 0), (0, 0, 0), (0, -2, 0), (0, -3, 0)]
+    names = ["CB", "SG", "SG", "CB"]
+    elements = ["C", "S", "S", "C"]
+    residue_ids = [1, 1, 2, 2]
+    edges = [(1, 2), (2, 3), (3, 4)]
+    if hydrogen:
+        points.append((1, 0, 0))
+        names.append("HG")
+        elements.append("H")
+        residue_ids.append(1)
+        edges.append((2, 5))
+    base = molecule(points, edges)
+    structure = base.model_copy(
+        update={
+            "source": SourceFacts(filename="disulfide.pdb", format="pdb"),
+            "atoms": [
+                atom.model_copy(
+                    update={
+                        "name": names[i],
+                        "element": elements[i],
+                        "formal_charge": None,
+                        "residue_id": residue_ids[i],
+                    }
+                )
+                for i, atom in enumerate(base.atoms)
+            ],
+            "chains": [Chain(id=1, name="A")],
+            "residues": [
+                Residue(id=i, chain_id=1, name="CYS", component_type="polymer") for i in (1, 2)
+            ],
+        }
+    )
+    result = analyze_interactions(
+        [source(structure, "disulfide"), source(hydrogen_pair(), "other")]
+    )
+    assert not any(
+        record.kind == "hydrogen_bond" and record.participants[0][0].structure_id == "disulfide"
+        for record in result.records
+    )
+    assert not any(
+        warning.code == "explicit_hydrogens_required" and warning.entry_id == "disulfide"
+        for warning in result.warnings
+    )
+    if hydrogen:
+        assert any(
+            warning.code == "incomplete_template_sites" and 2 in warning.atom_ids
+            for warning in result.warnings
+        )
+
+
+@pytest.mark.parametrize("distance,expected", [(4.5, 1), (4.5001, 0)])
+def test_salt_bridge_distance_boundary(distance: float, expected: int) -> None:
+    result = analyze_interactions(
+        [source(ion("N", 1, (0, 0, 0)), "a"), source(ion("O", -1, (distance, 0, 0)), "b")]
+    )
+    assert sum(record.kind == "salt_bridge" for record in result.records) == expected
+
+
+@pytest.mark.parametrize("distance,expected", [(4, 1), (4.0001, 0)])
+def test_hydrophobic_distance_boundary(distance: float, expected: int) -> None:
+    from tests.unit.test_interactions import molecule
+
+    structure = molecule(
+        [(0, 0, 0), (-1.5, 0, 0), (distance, 0, 0), (distance + 1.5, 0, 0)], [(1, 2), (3, 4)]
+    )
+    assert (
+        sum(
+            record.kind == "hydrophobic"
+            for record in analyze_interactions([source(structure)]).records
+        )
+        == expected
+    )
+
+
 def test_unknown_chemistry_does_not_become_rdkit_defaults() -> None:
     structure = hydrogen_pair()
     structure = structure.model_copy(
@@ -210,7 +419,19 @@ def aromatic(
 
 @pytest.mark.parametrize(
     "z,offset,tilt,expected",
-    [(3.5, 0, 0, 1), (3.5, 2.01, 0, 0), (4, 0, 90, 1), (3.5, 0, 45, 0), (5.51, 0, 0, 0)],
+    [
+        (3.5, 0, 0, 1),
+        (3.5, 2, 0, 1),
+        (3.5, 2.01, 0, 0),
+        (4, 0, 90, 1),
+        (3.5, 0, 30, 1),
+        (3.5, 0, 30.01, 0),
+        (3.5, 0, 60, 1),
+        (3.5, 0, 59.99, 0),
+        (3.5, 0, 45, 0),
+        (5.5, 0, 0, 1),
+        (5.51, 0, 0, 0),
+    ],
 )
 def test_ring_distance_plane_and_offset_geometry(
     z: float, offset: float, tilt: float, expected: int
@@ -246,6 +467,11 @@ def ion(element: str, charge: int, point: tuple[float, float, float]) -> Normali
     "point,charge,expected",
     [
         ((0, 0, 4), 1, 1),
+        ((0, 0, 6), 1, 1),
+        ((2, 0, 4), 1, 1),
+        ((2.001, 0, 4), 1, 0),
+        ((2, 0, math.sqrt(12)), 1, 1),
+        ((2, 0, math.sqrt(12) - 0.001), 1, 0),
         ((3, 0, 4), 1, 0),
         ((0, 0, 6.01), 1, 0),
         ((0, 0, 4), 0, 0),

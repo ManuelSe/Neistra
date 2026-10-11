@@ -71,6 +71,12 @@ def test_cross_entry_contacts_and_input_order_are_deterministic() -> None:
     assert result == analyze_interactions([b, a])
 
 
+@pytest.mark.parametrize("distance,expected", [(3.0, 1), (3.0001, 0)])
+def test_clash_overlap_boundary(distance: float, expected: int) -> None:
+    result = analyze_interactions([source(molecule([(0, 0, 0), (distance, 0, 0)]))])
+    assert sum(record.kind == "clash" for record in result.records) == expected
+
+
 @pytest.mark.parametrize(
     "limits", [AnalysisLimits(atoms=1), AnalysisLimits(candidates=1), AnalysisLimits(records=0)]
 )
@@ -82,6 +88,24 @@ def test_resource_limits_never_return_truncated_results(limits: AnalysisLimits) 
 def test_nonfinite_coordinates_are_rejected() -> None:
     with pytest.raises(ValueError, match="finite"):
         analyze_interactions([source(molecule([(float("nan"), 0, 0)]))])
+
+
+def test_missing_coordinate_provenance_is_unavailable_instead_of_zero_detected() -> None:
+    from molweave_core.molecular import MolecularWarning
+
+    structure = molecule([(0, 0, 0), (1, 0, 0)]).model_copy(
+        update={
+            "warnings": [
+                MolecularWarning(
+                    code="missing_coordinates", message="No source coordinates", operation="parse"
+                )
+            ]
+        }
+    )
+    result = analyze_interactions([source(structure)])
+    assert not result.records
+    assert all(coverage.status == "unavailable" for coverage in result.coverage.values())
+    assert any(warning.code == "missing_coordinates" for warning in result.warnings)
 
 
 def test_unknown_connectivity_and_metals_report_partial_coverage() -> None:
@@ -99,6 +123,7 @@ def test_unknown_connectivity_and_metals_report_partial_coverage() -> None:
     assert not result.records
     assert result.coverage["clash"].skipped_atoms == 2
     assert result.coverage["clash"].status == "unavailable"
+    assert all(coverage.status == "unavailable" for coverage in result.coverage.values())
 
 
 def test_scope_follows_covalent_identity_after_large_coordinate_changes() -> None:
