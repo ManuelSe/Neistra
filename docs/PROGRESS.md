@@ -2,6 +2,15 @@
 
 ## Current milestone
 
+Issue #46 correction approved: [compact-controls plan](plans/issue-46-compact-transform-controls.md).
+Branch `fix/issue-46-compact-transform-controls`; C1/C2 implementation pending,
+followed by reviewed patch 0.12.1 delivery. Natural-focus investigation reproduced
+Space failures after native camera drag and return from controls; icon-only primary
+controls explicitly approved. No migrations or scientific-state changes planned.
+No blocker. Next action: compact primary controls and bounded More/Help panels.
+
+Previous delivery baseline:
+
 Issue #46 — approved scope delivered through [PR #47](https://github.com/ManuelSe/Neistra/pull/47) and verified
 [release v0.12.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.12.0). Contract and detailed evidence:
 [viewer toolbar/navigation plan](plans/issue-46-viewer-transform-toolbar.md).
