@@ -30,15 +30,18 @@ it("shares keyboard steps with one Apply and restores launcher focus after Cance
   await user.click(launcher);
   await waitFor(() => expect(screen.getByRole("group", { name: "Move selection canvas" })).toHaveFocus());
   await user.keyboard("{ArrowRight}{ArrowUp}");
-  await user.click(screen.getByText("More"));
+  await user.click(screen.getByRole("button", { name: "More movement tools" }));
   await user.click(screen.getByRole("button", { name: "Translate" }));
   await user.click(screen.getByRole("button", { name: "Step right" }));
   expect(commit).not.toHaveBeenCalled();
   await user.keyboard("{Escape}");
+  expect(screen.queryByRole("dialog", { name: "More movement tools" })).not.toBeInTheDocument();
+  expect(screen.getByRole("region", { name: "Move selection controls" })).toBeInTheDocument();
+  await user.keyboard("{Escape}");
   expect(screen.queryByRole("region", { name: "Move selection controls" })).not.toBeInTheDocument();
   expect(launcher).toHaveFocus();
   await user.keyboard("{Enter}");
-  await user.click(screen.getByText("More"));
+  await user.click(screen.getByRole("button", { name: "More movement tools" }));
   await user.click(screen.getByRole("button", { name: "Depth" }));
   await user.click(screen.getByRole("button", { name: "Step away" }));
   await user.click(screen.getByRole("button", { name: "Zoom in" }));
@@ -75,8 +78,11 @@ it("retains a captured movement while a modal owns focus and Escape", async () =
   await user.keyboard("{Escape}");
   expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
   expect(screen.getByRole("region", { name: "Move selection controls" })).toBeInTheDocument();
-  await user.click(screen.getByText("More"));
+  await user.click(screen.getByRole("button", { name: "More movement tools" }));
   await user.click(screen.getByRole("button", { name: "Step right" }));
+  await user.keyboard("{Escape}");
+  expect(screen.queryByRole("dialog", { name: "More movement tools" })).not.toBeInTheDocument();
+  expect(screen.getByRole("region", { name: "Move selection controls" })).toBeInTheDocument();
   await user.keyboard("{Escape}");
   expect(screen.queryByRole("region", { name: "Move selection controls" })).not.toBeInTheDocument();
   expect(commit).not.toHaveBeenCalled();
@@ -121,4 +127,38 @@ it("retains one capture and pose across scoped Space and explicit view-toggle ow
   expect(screen.getByTestId("ownership")).toHaveTextContent("transform");
   expect(screen.getByTestId("pose")).toHaveTextContent(pose);
   expect(load).toHaveBeenCalledOnce(); expect(commit).not.toHaveBeenCalled();
+});
+
+it("keeps primary actions textless and exposes scientific help without hiding the transaction", async () => {
+  const project = molecularProject();
+  const selection = canonicalSelection([{ structure_id: "protein", atom_id: 1 }]);
+  function Harness() {
+    const { workflow } = useMovementSession({
+      context: () => ({ project, selection }), rendered: () => selection.atoms,
+      load: () => Promise.resolve(new Map([["protein", proteinProjection()]])),
+      commit: vi.fn(() => Promise.resolve(project)), refresh: () => Promise.resolve(project), accept: vi.fn(), notice: vi.fn(),
+    });
+    return <div className="structure-viewer"><MovementControls movement={workflow} view={() => null} zoom={vi.fn()} unavailableReason={null} />
+      {workflow.state.capture ? <MovementOverlay movement={workflow} view={() => null} zoom={vi.fn()} /> : null}</div>;
+  }
+  const user = userEvent.setup(); render(<Harness />);
+  const launcher = screen.getByRole("button", { name: "Transform selection" });
+  expect(launcher.textContent).toBe("");
+  await user.hover(launcher);
+  expect(await screen.findByRole("tooltip")).toHaveTextContent("Rotate and translate");
+  await user.click(launcher);
+  const controls = await screen.findByRole("region", { name: "Move selection controls" });
+  for (const button of controls.querySelectorAll("button")) expect(button.textContent).toBe("");
+  await user.click(screen.getByRole("button", { name: "Movement help and scientific limits" }));
+  const help = screen.getByRole("dialog", { name: "Movement help and scientific limits" });
+  expect(help).toHaveTextContent("1 captured atoms · 0 hidden");
+  expect(help).toHaveTextContent("movement may distort bonds or create clashes");
+  expect(help).toHaveTextContent("Missing bond records do not establish safety");
+  expect(help).toHaveTextContent("without minimization, chemistry repair or docking validation");
+  await user.keyboard("{Escape}");
+  expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+  expect(controls).toBeInTheDocument();
+  expect(screen.getByRole("button", { name: "Movement help and scientific limits" })).toHaveFocus();
+  await user.click(screen.getByRole("button", { name: "Cancel movement" }));
+  await waitFor(() => expect(screen.getByRole("button", { name: "Transform selection" })).toHaveFocus());
 });

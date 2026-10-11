@@ -69,11 +69,11 @@ test("transforms from the viewer with fixed mouse gestures, exact Cancel and one
   await launcher.click();
   const controls = page.getByRole("region", { name: "Move selection controls" });
   await expect(controls).toBeVisible();
-  await expect(controls.getByRole("button", { name: "Step right" })).toBeHidden();
+  await expect(page.getByRole("dialog", { name: "More movement tools", exact: true }).getByRole("button", { name: "Step right" })).toBeHidden();
   await expect(page.getByRole("button", { name: "Fit all visible" })).toHaveAttribute("aria-disabled", "true");
-  await controls.getByText("More", { exact: true }).click();
-  await controls.getByRole("button", { name: "Depth", exact: true }).click();
-  await controls.getByText("More", { exact: true }).click();
+  await controls.getByRole("button", { name: "More movement tools", exact: true }).click();
+  await page.getByRole("dialog", { name: "More movement tools", exact: true }).getByRole("button", { name: "Depth", exact: true }).click();
+  await controls.getByRole("button", { name: "More movement tools", exact: true }).click();
   await drag(page, "left", 25, 10);
   await expect.poll(async () => (await inspect()).coordinates).not.toEqual(original.coordinates);
   const rotated = await inspect();
@@ -229,12 +229,12 @@ test("clears temporary navigation on interruption and remount while preserving p
   expect((await inspect()).movementInteraction).toBe("transform");
   await page.keyboard.down("Space");
   await expect.poll(async () => (await inspect()).movementInteraction).toBe("camera");
-  await controls.getByText("More", { exact: true }).focus();
+  await controls.getByRole("button", { name: "More movement tools", exact: true }).focus();
   await expect.poll(async () => (await inspect()).movementInteraction).toBe("transform");
   await page.keyboard.up("Space");
   await page.keyboard.press("Space"); // Native disclosure activation, not the shortcut.
-  await expect(controls.getByRole("button", { name: "Depth", exact: true })).toBeVisible();
-  await controls.getByText("More", { exact: true }).click();
+  await expect(page.getByRole("dialog", { name: "More movement tools", exact: true }).getByRole("button", { name: "Depth", exact: true })).toBeVisible();
+  await controls.getByRole("button", { name: "More movement tools", exact: true }).click();
   for (const interruption of ["blur", "hidden", "modal"] as const) {
     await controls.getByRole("button", { name: "Adjust view" }).click();
     await drag(page, "left", 15, -10, true);
@@ -298,10 +298,22 @@ test("qualifies native touch navigation, secondary tools and accessible theme la
   const controls = page.getByRole("region", { name: "Move selection controls" });
   for (const theme of ["light", "dark"]) {
     if (theme === "dark") await page.getByRole("button", { name: "Use dark theme" }).click();
+    expect(await launcher.textContent()).toBe("");
     await launcher.tap();
-    await controls.getByText("More", { exact: true }).tap();
-    await controls.getByRole("button", { name: "Translate", exact: true }).tap();
-    await controls.getByText("More", { exact: true }).tap();
+    for (const button of await controls.getByRole("button").all()) expect(await button.textContent()).toBe("");
+    await controls.getByRole("button", { name: "Movement help and scientific limits" }).tap();
+    const help = page.getByRole("dialog", { name: "Movement help and scientific limits", exact: true });
+    await expect(help).toContainText(`${project.entries[0].atom_count} captured atoms · 0 hidden`);
+    await expect(help).toContainText("Missing bond records do not establish safety");
+    await expect(help).toContainText("without minimization, chemistry repair or docking validation");
+    expect((await new AxeBuilder({ page }).include(".viewer-header").include(".movement-panel")
+      .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"]).analyze()).violations).toEqual([]);
+    await page.screenshot({ path: info.outputPath(`toolbar-${theme}-touch-help.png`) });
+    await help.getByRole("button", { name: "Close movement panel" }).tap();
+    await expect(controls).toBeVisible();
+    await controls.getByRole("button", { name: "More movement tools", exact: true }).tap();
+    await page.getByRole("dialog", { name: "More movement tools", exact: true }).getByRole("button", { name: "Translate", exact: true }).tap();
+    await controls.getByRole("button", { name: "More movement tools", exact: true }).tap();
     await touchDrag(page, 20, -10);
     await expect.poll(async () => (await inspect()).coordinates).not.toEqual(original.coordinates);
     const preview = (await inspect()).coordinates;
@@ -312,18 +324,18 @@ test("qualifies native touch navigation, secondary tools and accessible theme la
     expect((await inspect()).coordinates).toEqual(preview);
     await page.screenshot({ path: info.outputPath(`toolbar-${theme}-touch-camera.png`) });
     await controls.getByRole("button", { name: "Resume transform" }).tap();
-    await controls.getByText("More", { exact: true }).tap();
-    await controls.getByRole("button", { name: "Depth", exact: true }).tap();
-    await controls.getByRole("button", { name: "Step away" }).tap();
-    expect((await new AxeBuilder({ page }).include(".viewer-header").include(".movement-pointer-surface")
+    await controls.getByRole("button", { name: "More movement tools", exact: true }).tap();
+    await page.getByRole("dialog", { name: "More movement tools", exact: true }).getByRole("button", { name: "Depth", exact: true }).tap();
+    await page.getByRole("dialog", { name: "More movement tools", exact: true }).getByRole("button", { name: "Step away" }).tap();
+    expect((await new AxeBuilder({ page }).include(".viewer-header").include(".movement-pointer-surface").include(".movement-panel")
       .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"]).analyze()).violations).toEqual([]);
-    for (const control of await controls.locator("button, input, summary").all()) {
+    for (const control of await page.locator(".movement-banner button, .movement-panel button, .movement-panel input").all()) {
       await control.scrollIntoViewIfNeeded();
       const box = (await control.boundingBox())!;
       const viewport = await page.evaluate(() => ({ width: innerWidth, height: innerHeight }));
       expect(box.x).toBeGreaterThanOrEqual(0); expect(box.x + box.width).toBeLessThanOrEqual(viewport.width + 1);
       expect(box.y).toBeGreaterThanOrEqual(0); expect(box.y + box.height).toBeLessThanOrEqual(viewport.height + 1);
-      expect(box.height).toBeGreaterThanOrEqual(44);
+      expect(box.height, await control.getAttribute("aria-label") ?? await control.textContent() ?? "movement control").toBeGreaterThanOrEqual(44);
       for (const name of ["Apply movement", "Cancel movement"]) {
         expect(await controls.getByRole("button", { name }).evaluate(node => {
           const box = node.getBoundingClientRect();
@@ -332,9 +344,23 @@ test("qualifies native touch navigation, secondary tools and accessible theme la
         })).toBe(true);
       }
     }
-    await controls.getByText("More", { exact: true }).tap();
+    await controls.getByRole("button", { name: "More movement tools", exact: true }).tap();
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
     await page.screenshot({ path: info.outputPath(`toolbar-${theme}-touch-transform.png`) });
+    const viewport = page.viewportSize()!;
+    await page.setViewportSize({ ...viewport, width: 320 });
+    for (const action of await controls.getByRole("button").all()) {
+      const box = (await action.boundingBox())!;
+      expect(box.width).toBeGreaterThanOrEqual(44); expect(box.height).toBeGreaterThanOrEqual(44);
+      expect(box.x).toBeGreaterThanOrEqual(0); expect(box.x + box.width).toBeLessThanOrEqual(320);
+      expect(await action.evaluate(node => {
+        const box = node.getBoundingClientRect();
+        const hit = document.elementFromPoint(box.x + box.width / 2, box.y + box.height / 2);
+        return hit === node || Boolean(hit && node.contains(hit));
+      })).toBe(true);
+    }
+    await page.screenshot({ path: info.outputPath(`toolbar-${theme}-320-transform.png`) });
+    await page.setViewportSize(viewport);
     expect(await projectRead(request, project.id)).toEqual(project);
     await controls.getByRole("button", { name: "Cancel movement" }).tap();
     await expect.poll(async () => (await inspect()).coordinates).toEqual(original.coordinates);

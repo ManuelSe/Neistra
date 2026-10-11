@@ -3,11 +3,14 @@
 ## Current milestone
 
 Issue #46 correction approved: [compact-controls plan](plans/issue-46-compact-transform-controls.md).
-Branch `fix/issue-46-compact-transform-controls`; C1/C2 implementation pending,
+Branch `fix/issue-46-compact-transform-controls`; C1 compact controls complete; C2 natural-focus repair pending,
 followed by reviewed patch 0.12.1 delivery. Natural-focus investigation reproduced
 Space failures after native camera drag and return from controls; icon-only primary
 controls explicitly approved. No migrations or scientific-state changes planned.
-No blocker. Next action: compact primary controls and bounded More/Help panels.
+C1 lint/types/build, 170 frontend tests and four targeted browser cases/two
+intentional skips pass; touch/320px/themes/scoped axe/real zoom/primary hit tests
+qualified. [Evidence](assets/compact-transform-controls/c1-verification.md).
+No blocker. Next action: preserve canvas focus and test natural Space workflows.
 
 Previous delivery baseline:
 

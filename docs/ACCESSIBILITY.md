@@ -8,10 +8,16 @@ visual checks; an axe pass alone is not treated as complete coverage.
 
 ## Viewer transformation toolbar (issue #46)
 
-The separate viewer bar exposes Move selection and explained focusable unavailable
-states. Apply, Cancel and Adjust view / Resume transform remain reachable while
-More tools scroll independently. Touch controls, the sensitivity slider and
-summaries have 44 CSS px targets. Conflicting selection/style/focus actions expose
+The separate viewer bar exposes an icon-only Transform selection action and
+explained focusable unavailable states. Primary icons have accessible names and
+hover/focus tooltips. Apply, Cancel and Adjust view / Resume transform remain
+reachable while the nonmodal More tools panel scrolls independently. The warning/
+Help icon opens gesture guidance, captured/hidden counts and complete scientific
+limits on touch as well as desktop. Consequential errors remain visible text.
+Primary icons are 32 CSS px on wide fine-pointer layouts and at least 44 CSS px
+at mobile widths or with any coarse pointer; secondary controls, including
+sensitivity, retain at least 44 CSS px targets. Escape closes
+a focused movement panel before canceling the transaction. Conflicting selection/style/focus actions expose
 explained unavailable states throughout the captured transaction.
 
 Space enables native camera navigation only when the movement canvas has focus

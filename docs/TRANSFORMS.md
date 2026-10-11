@@ -100,3 +100,15 @@ retained coordinate history and transformed artifacts; see the
 Molecular exports retain their format precision, while project archives preserve
 exact normalized coordinates and original bytes. Earlier pocket/visibility
 migration restrictions continue to apply.
+
+
+## Compact viewer controls (issue #46 correction)
+
+The Move3d icon starts movement; hover or keyboard focus reveals its tooltip.
+The separate icon strip offers Adjust view / Resume transform (camera), Apply
+(check), Cancel (cross), More (ellipsis), and Help/scientific limits (warning).
+More retains touch/keyboard modes, depth, sensitivity, steps and zoom. Help
+contains gesture guidance and complete captured/hidden atom counts and scientific
+limits. Movement remains unconstrained and may distort bonds or create clashes.
+Errors and uncertain commit outcomes remain visible. Escape in a focused panel
+closes that panel first; Escape on the canvas cancels the movement.

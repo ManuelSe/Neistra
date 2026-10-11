@@ -148,3 +148,11 @@ or unsatisfied repository protection.
   branch created. Prior read-only native investigation reproduced body/summary/
   button focus failures. Existing test passed only with explicit focus injection.
   Plan persisted as the first branch change; implementation pending.
+
+- C1 complete: icon-only strip, bounded nonmodal Help/More, retained errors and
+  secondary tools. Lint/types/build, 170 frontend tests and four targeted browser
+  cases/two intentional skips pass. Exact commands, corrected diagnostics and
+  visually inspected touch/zoom screenshots are in
+  [C1 evidence](../assets/compact-transform-controls/c1-verification.md).
+  Full C1 diff reviewed for scope, data/science invariants, focus, dead CSS and
+  accessibility. No migration or blocker; C2 remains required.
