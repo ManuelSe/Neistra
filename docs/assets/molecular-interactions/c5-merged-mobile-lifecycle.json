@@ -1,0 +1,78 @@
+{
+  "project": "mobile-chromium",
+  "pixels": 32,
+  "geometry": {
+    "records": [
+      {
+        "kind": "hydrogen_bond",
+        "scope": "inter",
+        "participants": [
+          [
+            {
+              "structure_id": "01a12d03-e0ff-7ccc-afc4-cb599d3c2a60",
+              "atom_id": 2
+            },
+            {
+              "structure_id": "01a12d03-e0ff-7ccc-afc4-cb599d3c2a60",
+              "atom_id": 1
+            }
+          ],
+          [
+            {
+              "structure_id": "01a12d03-e0ff-7ccc-afc4-cb599d3c2a60",
+              "atom_id": 3
+            }
+          ]
+        ],
+        "endpoints": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            2.8,
+            0,
+            0
+          ]
+        ],
+        "geometry": {
+          "distance": 1.7999999999999998,
+          "donor_acceptor_distance": 2.8,
+          "donor_angle": 180,
+          "acceptor_angle": 180
+        }
+      }
+    ],
+    "objects": [
+      {
+        "type": "lines",
+        "pickable": false,
+        "drawCount": 30
+      }
+    ],
+    "representations": 2,
+    "previews": 0,
+    "camera": {
+      "mode": "perspective",
+      "position": [
+        2.3431784340772692,
+        0.06071882390721189,
+        22.44848814632862
+      ],
+      "target": [
+        2.3431784340772692,
+        0.06071882390721189,
+        0.05329483805178377
+      ],
+      "up": [
+        0,
+        1,
+        0
+      ],
+      "radius": 4.476191683966037
+    }
+  },
+  "analyses": 4,
+  "structureGets": 0
+}

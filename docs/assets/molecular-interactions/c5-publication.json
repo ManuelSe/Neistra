@@ -1,0 +1,17 @@
+{
+  "version": "0.13.0",
+  "feature_pr": "https://github.com/ManuelSe/Neistra/pull/53",
+  "release_commit": "bf29b9a913be48dac95b8d9aa055a7310c21d5b2",
+  "annotated_tag_object": "561780087acedba6062f96e9a7b01f0e72fece62",
+  "release": "https://github.com/ManuelSe/Neistra/releases/tag/v0.13.0",
+  "published_utc": "2026-10-11T22:20:03Z",
+  "asset_name": "neistra-v0.13.0-verification.zip",
+  "downloaded_asset_sha256": "3357c9144154c0279c4ca2eaee5133aafa5c92e5316d9bf3940a7ad3aff40427",
+  "downloaded_bytes": 9019185,
+  "verified_manifest_files": 165,
+  "release_notes_verified_exact": true,
+  "issue_reply": "https://github.com/ManuelSe/Neistra/issues/49#issuecomment-6114530002",
+  "follow_up": "https://github.com/ManuelSe/Neistra/issues/52",
+  "review": "local, not independent; Codex request verified, no returned review at merge audit",
+  "documentation_cleanup_audit": "Append verified documentation merge, branch deletion and clean default-branch audit to the linked issue reply after this checkpoint is merged."
+}
