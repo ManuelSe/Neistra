@@ -1,6 +1,18 @@
 # V0.1 Requirement Evidence
 
-Current correction evidence is maintained in the
+Issue #49 qualification is maintained in the [approved interaction plan](plans/issue-49-molecular-interactions.md)
+and [raw evidence](assets/molecular-interactions/). All six types use independently
+specified positive, negative and exact-threshold scientific cases. Native browser
+checks verify H-to-acceptor pixels/geometry, complete ring centroids, nonpickable
+batching, cached scopes/visibility, preview Cancel, Apply/Undo/Redo, scenes,
+deletions and project/remount/reload lifetimes. Busy, cancellation, deadline,
+resource limits and stale artifacts return no misleading complete result.
+Light/dark scoped axe, keyboard, 320px and real100%/200% zoom are qualified.
+Final candidate and exact merged-release evidence remain distinct from C4 and
+historical release counts. No schema migration; taggedv0.12.1 reader qualification
+must repeat against final0.13.0 producer data before publication.
+
+Previous correction evidence is maintained in the
 [approved compact-transform plan](plans/issue-46-compact-transform-controls.md).
 Clean candidate `f437c31767cd44be435d829ca4fb9ad033049214` passes every complete release command: 400 Python,
 173 frontend, eight supervisor and 159 browser passes / 43 intentional skips,

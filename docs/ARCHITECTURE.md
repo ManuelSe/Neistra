@@ -319,3 +319,20 @@ pockets are suspended before model updates. Temporary selected-atom cues honor
 visibility; measurements pause explicitly. Session exit restores representations
 without changing durable definitions. Older late API responses cannot replace a
 newer revision in the authority cache.
+
+## Molecular interaction inspection (issue #49)
+
+The additive interaction route resolves current entry/artifact references and
+reads normalized artifacts directly in one cancellable spawned child per API
+process. Pure core typing/grouping/geometry emits canonical participants, endpoints,
+coverage and warnings; it creates no job, export, artifact or project command.
+Resource failures publish no complete result. Existing component hierarchy remains
+distinct from covalent/source-based molecular scope. D-085–088 document ownership.
+
+A nonpersisted project-session store owns choices and the latest immutable result.
+The workspace project pointer resets it even for empty projects. Matching artifact
+supersets support visibility subsets; new or changed inputs cancel/debounce analysis.
+The typed viewer adapter renders one batched, nonpickable patterned shape separate
+from measurements. Native hydrogen/representation visibility is a final projection
+filter. Previews pause/clear it; Cancel restores committed cached coordinates, and
+Apply/Undo/Redo require current artifacts. Schema majors 1 and Alembic 0013 are unchanged.

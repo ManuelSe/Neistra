@@ -260,3 +260,21 @@ C2 passes 34 focused browser cases / four intentional skips and 173 frontend tes
 Real-zoom checks hit-test Apply/Cancel while More scrolls; touch Help and 320 px
 actions pass both themes/scoped axe. [Compact screenshots and commands](assets/compact-transform-controls/c1-verification.md)
 supplement functional evidence. Qualification remains pinned emulation.
+
+## Molecular interaction controls (issue #49)
+
+The viewer menu-bar network icon opens a bounded nonmodal panel with six concise
+type buttons, independent Inter/Intra pressed states, named Help/Close and an
+explicit Retry action on failure. Patterns supplement color and permanent labels
+are omitted. Secondary Help contains scientific thresholds and coverage warnings;
+consequential status/errors remain visible. Coarse-pointer controls are at least
+44 CSS px. Escape dismisses only while focus belongs to the panel and restores its
+connected launcher; movement/native focus rules remain unchanged.
+
+Chromium/Pixel 7 emulation qualify light/dark scoped axe and 320 px bounds. The
+existing real browser zoom extension qualifies 100%/200%, keyboard launch/close,
+bounds and focus in both themes. [Screenshots/evidence](assets/molecular-interactions/)
+include actual H-bond pixels, not just a nonblank canvas. Visual inspection confirms
+H-to-acceptor dashed geometry and bounded readable controls. This does not certify
+physical devices, other browsers, whole-product accessibility or screen-reader
+access to individual molecular atoms.

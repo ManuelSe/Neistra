@@ -36,16 +36,16 @@ Undefined required geometry is skipped. Qualified H-bond contact pairs are exemp
 from clash detection even when H-bond display is off. Deliberately hidden polar H
 hides its markers; no automatic preparation or donor-heavy substitute is used.
 
-Hydrophobic contacts connect nonpolar carbon pairs within4.0 Å, requiring an
+Hydrophobic contacts connect nonpolar carbon pairs within 4.0 Å, requiring an
 established carbon/hydrogen-only neighborhood and local covalent exclusions.
 Small-molecule typing validates supplied bond orders and charges with pinned
 RDKit. Canonical amino acids use only observed, unambiguous OpenMM template sites;
 missing/contradictory sites and uncertain ligand chemistry produce warnings.
 
-π–π requires complete aromatic5/6-member rings, center distance≤5.5 Å and either
+π–π requires complete aromatic 5/6-member rings, center distance≤5.5 Å and either
 parallel planes (acute angle≤30°, both offsets≤2 Å) or T geometry (angle≥60°,
 minimum offset≤2 Å). Ring plane RMS≤0.1 Å; degenerate rings are unassessable.
-Cation–π connects a positive charge-group center to a ring center within6.0 Å,
+Cation–π connects a positive charge-group center to a ring center within 6.0 Å,
 offset≤2 Å and vector≤30° from the ring normal. Salt bridges use opposite charged
 groups with nearest group site≤4.5 Å and no H-bond angular requirement. Shared
 carboxylate/guanidinium charge sites produce one group marker. Salt and H bonds
@@ -60,3 +60,9 @@ peptide links within a polymer instance, preserving grouping under movement.
 Missing heavy atoms, gaps or ambiguous cross-residue links suppress affected
 scope-dependent results or unsafe within-molecule exclusions. Chemically defined
 ligands use supplied graph evidence; CCD assignment remains separate.
+
+An immutable cached superset can serve hidden/deleted-entry subsets without a new
+request; revealing a new or changed artifact requires analysis. Coverage warnings
+remain conservative for that superset. Busy/limit/timeout errors never publish a
+truncated result; use the retry icon after resolving the cause. CCD ligand
+assignment is tracked separately in [#52](https://github.com/ManuelSe/Neistra/issues/52).

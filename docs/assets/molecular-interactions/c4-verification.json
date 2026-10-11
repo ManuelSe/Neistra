@@ -1,0 +1,81 @@
+{
+  "checkpoint": "C4",
+  "runtime_commit": "26f56fa7a898d4040899accb31fc2e14c3d55a2e",
+  "status": "passed; final candidate and merged gates remain C5",
+  "python": {
+    "full": 471,
+    "focused": 76,
+    "warnings": "237 established Alembic deprecations"
+  },
+  "frontend": 179,
+  "browser": {
+    "baseline": {
+      "passed": 76,
+      "skipped": 14,
+      "minutes": 11.9,
+      "runtime_base": "c884f43"
+    },
+    "corrected_typing": {
+      "passed": 9,
+      "skipped": 1
+    },
+    "final_centroid_performance": {
+      "passed": 3,
+      "skipped": 1
+    },
+    "failed": 0,
+    "flaky": 0,
+    "retries": 0
+  },
+  "commands": {
+    "core": ".venv/bin/uv run ruff check . && .venv/bin/uv run mypy apps/api packages/molweave_core && .venv/bin/uv run pytest",
+    "frontend": "corepack pnpm --dir apps/web lint && corepack pnpm --dir apps/web typecheck && corepack pnpm --dir apps/web test && corepack pnpm --dir apps/web build",
+    "baseline_browser": "MOLWEAVE_E2E_WEB_PORT=5183 MOLWEAVE_E2E_API_PORT=8020 MOLWEAVE_E2E_WORKER_PORT=8021 MOLWEAVE_E2E_DATA_DIR=/tmp/neistra-interactions-e2e PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test tests/e2e/interactions.spec.ts tests/e2e/interactions-lifecycle.spec.ts tests/e2e/interactive-selection-transform.spec.ts tests/e2e/viewer-transform-toolbar.spec.ts tests/e2e/interactive-transform-performance.spec.ts tests/e2e/polar-hydrogen-visibility.spec.ts tests/e2e/selection-surfaces.spec.ts tests/e2e/measurements.spec.ts tests/e2e/release-hardening.spec.ts tests/e2e/rebranding-zoom.spec.ts",
+    "correction_browser": "MOLWEAVE_E2E_WEB_PORT=5183 MOLWEAVE_E2E_API_PORT=8020 MOLWEAVE_E2E_WORKER_PORT=8021 MOLWEAVE_E2E_DATA_DIR=/tmp/neistra-interactions-e2e PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test tests/e2e/interactions.spec.ts tests/e2e/interactions-lifecycle.spec.ts",
+    "final_browser": "MOLWEAVE_E2E_WEB_PORT=5183 MOLWEAVE_E2E_API_PORT=8020 MOLWEAVE_E2E_WORKER_PORT=8021 MOLWEAVE_E2E_DATA_DIR=/tmp/neistra-interactions-e2e PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test tests/e2e/interactions.spec.ts tests/e2e/interactions-lifecycle.spec.ts --grep 'measures|centroid'",
+    "whitespace": "git diff --check"
+  },
+  "performance": {
+    "desktop": {
+      "project": "chromium",
+      "atoms": 1010,
+      "records": 79,
+      "firstMs": 2337,
+      "cachedToggleMs": 178.5,
+      "longestTaskMs": 0,
+      "analyses": 1,
+      "structureGets": 0,
+      "requestBytes": 279,
+      "fixture": "pinned 1STP + supplied typed ethanol aligned to BTN centroid; no binding claim"
+    },
+    "mobile": {
+      "project": "mobile-chromium",
+      "atoms": 1010,
+      "records": 79,
+      "firstMs": 2416,
+      "cachedToggleMs": 152.5,
+      "longestTaskMs": 0,
+      "analyses": 1,
+      "structureGets": 0,
+      "requestBytes": 279,
+      "fixture": "pinned 1STP + supplied typed ethanol aligned to BTN centroid; no binding claim"
+    }
+  },
+  "compatibility": "Actual tagged v0.12.1 reader preparatory pass with feature-tree 0.12.1 producer; repeat final 0.13.0 producer and exact merged master in C5. No migration/schema-major change.",
+  "review": "Local full-diff review, not independent; covalent modification, water, native visibility, cancellation, subset/reset and bounds findings repaired.",
+  "followup": "https://github.com/ManuelSe/Neistra/issues/52",
+  "diagnostics": [
+    "Default development port reuse was replaced with isolated ports.",
+    "Selection-highlight cyan pixels and camera-dependent screen steps corrected in harness.",
+    "External project fixture created before page load to match existing cached project list.",
+    "Anchor animation and theme variable definitions fixed without relaxing tests.",
+    "Covalent-Lys negative fixture reproduced incorrect assumption before correction."
+  ],
+  "fixture_sha256": {
+    "tests/fixtures/interactions/aligned_ethanol.mol": "2363fea3166abc858e4a20bb676bcca7fd842a45cec54ccec6cddd276a55ef97",
+    "tests/fixtures/interactions/hydrogen_pair.mol": "e570811e93dbae598e01c94682b163174cdc4b48cc03fae404f3459224d52da3",
+    "tests/fixtures/interactions/ring_b.mol": "426a012070374126c42da82bf03de50eaaeb24c175172bf238f6a6c0713c519c",
+    "tests/fixtures/interactions/ring_a.mol": "79f417a37e22ce752292109b989927e89f8335264a167ecb4e38969f1d2e202a",
+    "tests/fixtures/interactions/positive_ion.mol": "3d62755d62b39f17a8faf9a516c0e2eabfde8f060d529dc46ff0c82c14aac89f"
+  }
+}

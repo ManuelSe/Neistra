@@ -1,0 +1,34 @@
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+[2m[WebServer] [22mINFO:     Started server process [420757]
+[2m[WebServer] [22mINFO:     Waiting for application startup.
+[2m[WebServer] [22mINFO:     Application startup complete.
+[2m[WebServer] [22mINFO:     Uvicorn running on http://127.0.0.1:8020 (Press CTRL+C to quit)
+[2m[WebServer] [22m(node:420817) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:420829) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 10 tests using 1 worker
+
+(node:420855) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:420855) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [chromium] › tests/e2e/interactions-lifecycle.spec.ts:4:5 › keeps centroid overlays current through scenes, deletion and project changes (13.9s)
+  ✓   2 [chromium] › tests/e2e/interactions.spec.ts:8:5 › compact interaction control analyzes once and filters cached scopes (5.3s)
+  ✓   3 [chromium] › tests/e2e/interactions.spec.ts:44:5 › qualifies explicit-H marker pixels, visibility, preview Cancel and committed invalidation (13.4s)
+  ✓   4 [chromium] › tests/e2e/interactions.spec.ts:108:5 › shows busy failures, retries, and keeps the compact panel accessible in both themes (7.2s)
+  ✓   5 [chromium] › tests/e2e/interactions.spec.ts:144:5 › measures bounded analysis and cached toggles on pinned 1STP with aligned typed ligand (5.3s)
+(node:421402) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:421402) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  -   6 [mobile-chromium] › tests/e2e/interactions-lifecycle.spec.ts:4:5 › keeps centroid overlays current through scenes, deletion and project changes
+  ✓   7 [mobile-chromium] › tests/e2e/interactions.spec.ts:8:5 › compact interaction control analyzes once and filters cached scopes (5.6s)
+  ✓   8 [mobile-chromium] › tests/e2e/interactions.spec.ts:44:5 › qualifies explicit-H marker pixels, visibility, preview Cancel and committed invalidation (13.0s)
+  ✓   9 [mobile-chromium] › tests/e2e/interactions.spec.ts:108:5 › shows busy failures, retries, and keeps the compact panel accessible in both themes (6.7s)
+  ✓  10 [mobile-chromium] › tests/e2e/interactions.spec.ts:144:5 › measures bounded analysis and cached toggles on pinned 1STP with aligned typed ligand (5.7s)
+
+  1 skipped
+  9 passed (1.3m)

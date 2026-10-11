@@ -372,3 +372,22 @@ Check exact coordinates/originals, retained batch undo/redo, save/reexport, arch
 import without portable history and unchanged completed jobs. Rollback to that
 qualified 0.12.0 needs no data stripping or schema downgrade; earlier migration
 restrictions still apply. See the [correction plan](plans/issue-46-compact-transform-controls.md).
+
+## Molecular interaction qualification
+
+Contract: [issue #49 plan](plans/issue-49-molecular-interactions.md). Focused core/API
+checks include `tests/unit/test_interactions.py`, `tests/scientific/test_interactions.py`
+and `tests/integration/test_interactions.py`; frontend ownership tests are
+`src/test/interactions.test.ts`. Browser specs `interactions.spec.ts` and
+`interactions-lifecycle.spec.ts` inspect actual batched native geometry, H-bond pixels,
+cache/request behavior, immutable artifacts and project/scene/preview lifecycles.
+The existing `rebranding-zoom.spec.ts` supplies real browser zoom qualification.
+
+When an existing development server occupies default ports, set
+`MOLWEAVE_E2E_WEB_PORT=5183`, `MOLWEAVE_E2E_API_PORT=8020`,
+`MOLWEAVE_E2E_WORKER_PORT=8021` and a disposable absolute
+`MOLWEAVE_E2E_DATA_DIR` alongside the documented Playwright command. Run timing
+without a profiler or concurrent build. Keep diagnostic failures separate from
+passing evidence. Final candidate and exact merged master must repeat the full
+release gate and actual tagged preceding-reader qualification. No migration or
+state stripping is needed for rollback to qualified v0.12.1; transient choices reset.

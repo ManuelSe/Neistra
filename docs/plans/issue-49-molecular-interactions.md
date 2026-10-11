@@ -2,7 +2,7 @@
 
 ## Status, authority, and delivery baseline
 
-Status: **approved; implementation in progress (M1–M2 complete; C3 verified)**. Approved by the user on
+Status: **approved; implementation in progress (M1–M2 and C4 complete; C5 delivery pending)**. Approved by the user on
 2026-10-11 through “Implement the plan”, with the explicit persist-only handoff
 completed. The subsequent `/goal` authorizes implementation and delivery.
 
@@ -632,3 +632,26 @@ centroid/performance rerun3passes/1intentional mobile skip. All regression budge
 remain unchanged. Broader pre-correction UI baseline:76passes/14intentional skips
 in11.9min, zero failures/flakes/retries; domain-only corrections are separately
 qualified and will repeat every complete gate in C5. No unresolved review finding.
+
+### C4 qualification complete — 2026-10-11
+
+[Machine-readable matrix](../assets/molecular-interactions/c4-verification.json)
+records runtime26f56fa, commands/counts, corrected native workflows, final
+performance and independent scientific expectations. Common gates pass:
+Ruff/mypy58files, frontend lint/types/all179tests/build/diff. Full Python471
+and focused76; broader browser76passes/14intentional skips, corrected interaction
+9passes/1skip, final centroid/performance3passes/1skip. Zero passing-run failures,
+flakes or retries. Real zoom, light/dark/320px scoped axe and native H pixels
+are retained and visually inspected; native ring memberships/endpoints and
+nonpickability are asserted. Space/navigation, measurements, surfaces and movement
+budgets remain passing. All six types and both scopes are qualified.
+
+No schema/API-major/data migration; exact original/normalized bytes and the
+preliminary actual tagged0.12.1 reader pass. Final0.13.0 producer/merged reader
+qualification remains an explicit C5 release blocker. Fixed profiles, explicit H,
+source/template assumptions, incomplete chemistry, metal/periodic non-goals and
+emulated-host limitations are documented. CCD is verified follow-up#52; no other
+scope was reintroduced. Review local, not independent, with consequential fixes
+committed separately. Next: version/base collision audit, release preparation,
+complete clean candidate gate, PR/review/merge, exact merged gate/reader, tag/release
+and verified issue response/branch cleanup.
