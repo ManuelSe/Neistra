@@ -123,6 +123,15 @@ def _sites(inputs: list[AnalysisInput]) -> tuple[list[Site], list[InteractionWar
     periodic = Chem.GetPeriodicTable()
     for source in inputs:
         structure, entry = source.structure, source.identity.entry_id
+        if any(warning.code == "missing_coordinates" for warning in structure.warnings):
+            warnings.append(
+                InteractionWarning(
+                    entry_id=entry,
+                    code="missing_coordinates",
+                    message="Coordinates are missing; this input is not assessable.",
+                )
+            )
+            continue
         residues = {residue.id: residue for residue in structure.residues}
         by_residue: dict[int | None, list[Atom]] = defaultdict(list)
         for atom in structure.atoms:
@@ -200,7 +209,7 @@ def _sites(inputs: list[AnalysisInput]) -> tuple[list[Site], list[InteractionWar
         instances: dict[tuple[object, ...], int] = {}
         for atom in structure.atoms:
             residue = residues.get(atom.residue_id) if atom.residue_id is not None else None
-            if residue:
+            if residue and structure.source.format.lower() in {"pdb", "mmcif", "cif"}:
                 key = (
                     ("polymer", residue.chain_id, residue.source_subchain_id)
                     if residue.component_type == "polymer"
@@ -300,6 +309,50 @@ def _local_neighbors(sites: list[Site], start: int, depth: int = 3) -> set[int]:
     return visited
 
 
+def angle(first: np.ndarray, vertex: np.ndarray, last: np.ndarray) -> float | None:
+    a, b = first - vertex, last - vertex
+    norm = float(np.linalg.norm(a) * np.linalg.norm(b))
+    if norm < 1e-12:
+        return None
+    return float(np.degrees(np.arccos(np.clip(np.dot(a, b) / norm, -1, 1))))
+
+
+@dataclass
+class CandidateBudget:
+    limits: AnalysisLimits
+    comparisons: int = 0
+
+    def neighbors(self, tree: cKDTree, point: np.ndarray, radius: float) -> list[int]:
+        count = int(tree.query_ball_point(point, radius, return_length=True))
+        if self.comparisons + count > self.limits.candidates:
+            raise InteractionLimitError("Interaction candidate limit exceeded (1,000,000)")
+        self.comparisons += count
+        return sorted(tree.query_ball_point(point, radius))
+
+
+def add_record(
+    records: list[InteractionRecord],
+    limits: AnalysisLimits,
+    sites: list[Site],
+    kind: InteractionType,
+    groups: list[list[int]],
+    geometry: dict[str, float],
+    endpoints: list[tuple[float, float, float]] | None = None,
+) -> None:
+    if len(records) >= limits.records:
+        raise InteractionLimitError("Interaction result limit exceeded (20,000)")
+    first, second = sites[groups[0][0]], sites[groups[1][0]]
+    records.append(
+        InteractionRecord(
+            kind=kind,
+            scope="intra" if first.molecule == second.molecule else "inter",
+            participants=[[sites[index].reference for index in group] for group in groups],
+            endpoints=endpoints or [tuple(first.point), tuple(second.point)],
+            geometry=geometry,
+        )
+    )
+
+
 def analyze_interactions(
     inputs: list[AnalysisInput], limits: AnalysisLimits = AnalysisLimits()
 ) -> InteractionResult:
@@ -307,42 +360,123 @@ def analyze_interactions(
     if sum(len(source.structure.atoms) for source in inputs) > limits.atoms:
         raise InteractionLimitError("Interaction atom limit exceeded (100,000)")
     sites, warnings = _sites(inputs)
+    from molweave_core.interaction_chemistry import type_sites
+
+    chemistry = type_sites(inputs, sites, warnings)
     records: list[InteractionRecord] = []
-    comparisons = 0
+    budget = CandidateBudget(limits)
+    hydrogen_contacts: set[tuple[int, int]] = set()
+    undefined_geometry: set[str] = set()
+    acceptors = sorted(chemistry.acceptors)
+    if acceptors:
+        tree = cKDTree(np.asarray([sites[index].point for index in acceptors]))
+        for donor, hydrogens in sorted(chemistry.donors.items()):
+            excluded = _local_neighbors(sites, donor)
+            for candidate in budget.neighbors(tree, sites[donor].point, 3.5):
+                acceptor = acceptors[candidate]
+                if acceptor in excluded:
+                    continue
+                donor_distance = float(np.linalg.norm(sites[donor].point - sites[acceptor].point))
+                for hydrogen in hydrogens:
+                    distance = float(np.linalg.norm(sites[hydrogen].point - sites[acceptor].point))
+                    donor_angle = angle(
+                        sites[donor].point, sites[hydrogen].point, sites[acceptor].point
+                    )
+                    bases = [
+                        neighbor
+                        for neighbor in sites[acceptor].neighbors
+                        if sites[neighbor].atom.element != "H"
+                    ]
+                    base_angles = [
+                        angle(sites[hydrogen].point, sites[acceptor].point, sites[base].point)
+                        for base in bases
+                    ]
+                    if donor_angle is None or any(value is None for value in base_angles):
+                        undefined_geometry.add(sites[donor].reference.structure_id)
+                    if (
+                        distance > 2.5 + 1e-9
+                        or donor_angle is None
+                        or donor_angle < 130 - 1e-9
+                        or any(value is None or value < 90 - 1e-9 for value in base_angles)
+                    ):
+                        continue
+                    geometry = {
+                        "distance": distance,
+                        "donor_acceptor_distance": donor_distance,
+                        "donor_angle": donor_angle,
+                    }
+                    if base_angles:
+                        geometry["acceptor_angle"] = min(
+                            value for value in base_angles if value is not None
+                        )
+                    add_record(
+                        records,
+                        limits,
+                        sites,
+                        "hydrogen_bond",
+                        [[hydrogen, donor], [acceptor]],
+                        geometry,
+                        [tuple(sites[hydrogen].point), tuple(sites[acceptor].point)],
+                    )
+                    hydrogen_contacts.update(
+                        (
+                            (min(hydrogen, acceptor), max(hydrogen, acceptor)),
+                            (min(donor, acceptor), max(donor, acceptor)),
+                        )
+                    )
+    for entry in sorted(undefined_geometry):
+        warnings.append(
+            InteractionWarning(
+                entry_id=entry,
+                code="undefined_hbond_geometry",
+                message=(
+                    "Degenerate required hydrogen-bond angles are unassessable; "
+                    "affected contacts are skipped."
+                ),
+            )
+        )
     if sites:
         coordinates = np.asarray([site.point for site in sites])
         tree = cKDTree(coordinates)
-        radius = max((site.radius or 0 for site in sites), default=0) * 2
+        radius = max(4.0, max((site.radius or 0 for site in sites), default=0) * 2)
         for first, site in enumerate(sites):
             # Count before allocating a neighbor list: dense inputs remain bounded.
-            count = int(tree.query_ball_point(site.point, radius, return_length=True))
-            if comparisons + count > limits.candidates:
-                raise InteractionLimitError("Interaction candidate limit exceeded (1,000,000)")
-            comparisons += count
             excluded = _local_neighbors(sites, first)
-            for second in sorted(tree.query_ball_point(site.point, radius)):
+            for second in budget.neighbors(tree, site.point, radius):
                 if second <= first or second in excluded:
                     continue
                 other = sites[second]
                 intra = site.molecule == other.molecule
+                distance = float(np.linalg.norm(site.point - other.point))
+                if (
+                    first in chemistry.hydrophobic
+                    and second in chemistry.hydrophobic
+                    and distance <= 4.0 + 1e-9
+                ):
+                    add_record(
+                        records,
+                        limits,
+                        sites,
+                        "hydrophobic",
+                        [[first], [second]],
+                        {"distance": distance},
+                    )
                 if intra and not (site.safe_connectivity and other.safe_connectivity):
                     continue
                 if site.radius is None or other.radius is None:
                     continue
-                distance = float(np.linalg.norm(site.point - other.point))
+                if (first, second) in hydrogen_contacts:
+                    continue
                 overlap = site.radius + other.radius - distance
                 if overlap < 0.4 - 1e-9:
                     continue
-                if len(records) >= limits.records:
-                    raise InteractionLimitError("Interaction result limit exceeded (20,000)")
-                records.append(
-                    InteractionRecord(
-                        kind="clash",
-                        scope="intra" if intra else "inter",
-                        participants=[[site.reference], [other.reference]],
-                        endpoints=[tuple(site.point), tuple(other.point)],
-                        geometry={"distance": distance, "overlap": overlap},
-                    )
+                add_record(
+                    records,
+                    limits,
+                    sites,
+                    "clash",
+                    [[first], [second]],
+                    {"distance": distance, "overlap": overlap},
                 )
     assessed = sum(site.radius is not None for site in sites)
     total = sum(len(source.structure.atoms) for source in inputs)
@@ -355,6 +489,17 @@ def analyze_interactions(
         assessed_atoms=assessed,
         skipped_atoms=total - assessed,
     )
+    typed = len(chemistry.typed)
+    for kind in ("hydrogen_bond", "hydrophobic"):
+        coverage[kind] = InteractionCoverage(
+            status="unavailable"
+            if not typed
+            else "partial"
+            if warnings or typed < total
+            else "complete",
+            assessed_atoms=typed,
+            skipped_atoms=total - typed,
+        )
     records.sort(
         key=lambda record: (
             record.kind,
@@ -371,5 +516,5 @@ def analyze_interactions(
         records=records,
         coverage=coverage,
         warnings=warnings,
-        candidate_comparisons=comparisons,
+        candidate_comparisons=budget.comparisons,
     )

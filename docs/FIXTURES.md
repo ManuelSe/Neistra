@@ -164,3 +164,14 @@ just-outside cutoffs, disconnected seeds, empty output, invalid radii/coordinate
 working-memory refusal and owner-only isolation. Overlapping atomic centers show
 that a cropped full-context patch differs from a freshly calculated fragment.
 Fixtures do not imply pocket discovery, chemical preparation or binding analysis.
+# Controlled interaction fixtures
+
+`tests/scientific/test_interactions.py` constructs explicitly charged/ordered
+ammonia–carbonyl geometry with supplied H and independently varied distance/angle
+boundaries. `tests/unit/test_interactions.py` constructs carbon graph contacts,
+three-bond exclusions and resource-limit negatives. Synthetic coordinates test
+rules and canonical identities, not experimental binding. A canonical ALA
+fixture verifies observed OpenMM template mapping/alternate-site rejection without
+mutation. These fixtures use pinned RDKit/OpenMM; imported fixture originals stay
+unchanged. Browser fixtures reuse preserved format inputs; real qualification
+and provenance are recorded separately in the issue #49 plan.

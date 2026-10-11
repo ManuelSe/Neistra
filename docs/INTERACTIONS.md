@@ -29,6 +29,18 @@ connectivity suppresses within-molecule screening. Analysis has explicit limits:
 100,000 atoms, one million candidate admissions, 20,000 records, 30 seconds, and
 one active request per API process. A limit failure returns no complete result.
 
-Checkpoint status: clashes are available. Hydrogen-bond exceptions and the other
-five interaction types are completed in subsequent approved checkpoints before
-release; their controls are currently omitted.
+Hydrogen bonds require chemically typed donors/acceptors and supplied explicit H.
+Markers connect H to the acceptor heavy atom. Donor–acceptor ≤3.5 Å, H–acceptor
+≤2.5 Å, donor–H–acceptor ≥130°, and applicable H–acceptor–heavy-base ≥90°.
+Undefined required geometry is skipped. Qualified H-bond contact pairs are exempt
+from clash detection even when H-bond display is off. Deliberately hidden polar H
+hides its markers; no automatic preparation or donor-heavy substitute is used.
+
+Hydrophobic contacts connect nonpolar carbon pairs within4.0 Å, requiring an
+established carbon/hydrogen-only neighborhood and local covalent exclusions.
+Small-molecule typing validates supplied bond orders and charges with pinned
+RDKit. Canonical amino acids use only observed, unambiguous OpenMM template sites;
+missing/contradictory sites and uncertain ligand chemistry produce warnings.
+
+Checkpoint status: clashes, hydrogen bonds and hydrophobic contacts are available.
+Aromatic and ionic controls are omitted until their C3 vertical slice is complete.

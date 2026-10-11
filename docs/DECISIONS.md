@@ -3030,3 +3030,16 @@ Consequences: typed batched nonpickable overlay geometry is separate from durabl
 measurements. Use pattern and color distinctions, compact nonmodal controls,
 accessible names/tooltips and secondary Help. Preserve D-083–084 movement/native
 focus conventions. No transient options or results enter scenes, history or archives.
+
+
+### D-086 implementation note — M1/C2, 2026-10-11
+
+Ligand site typing checks every supplied formal charge and bond order before
+calling the existing RDKit conversion helper; unknown values cannot become its
+neutral/single defaults. Validate disconnected graphs independently, preserving
+canonical IDs. Observed canonical protein sites require expected elements,
+unambiguous names and required heavy neighbors; template inference is analysis
+only. Missing explicit donor H and undefined angular geometry remain visible
+coverage warnings. Qualified H-bond clash exceptions are computed before display
+filtering. Complete supplied ligand graphs use connectivity rather than their
+shared residue labels for molecular grouping. No authoritative schema changed.

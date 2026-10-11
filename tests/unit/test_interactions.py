@@ -58,7 +58,7 @@ def test_clash_threshold_scope_identity_and_immutable_coordinates() -> None:
 
 def test_clashes_exclude_three_bonds_but_retain_remote_intra_contact() -> None:
     structure = molecule([(0, 0, 0)] * 5, [(1, 2), (2, 3), (3, 4), (4, 5)])
-    records = analyze_interactions([source(structure)]).records
+    records = [r for r in analyze_interactions([source(structure)]).records if r.kind == "clash"]
     assert len(records) == 1
     assert records[0].scope == "intra"
     assert [group[0].atom_id for group in records[0].participants] == [1, 5]

@@ -6,7 +6,7 @@ import { useInteractionStore } from "../store/interactions";
 import { INTERACTION_LABELS, type InteractionChoices, type InteractionKind, type InteractionResult } from "../interactions/types";
 
 // Only completed vertical slices are offered during checkpoint development.
-const available: InteractionKind[] = ["clash"];
+const available: InteractionKind[] = ["clash", "hydrogen_bond", "hydrophobic"];
 
 export function InteractionPanel({ open, onOpenChange, choices, result, status }: {
   open: boolean; onOpenChange: (open: boolean) => void;

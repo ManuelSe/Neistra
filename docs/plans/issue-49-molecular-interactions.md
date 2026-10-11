@@ -2,7 +2,7 @@
 
 ## Status, authority, and delivery baseline
 
-Status: **approved; implementation in progress (M1/C1 complete)**. Approved by the user on
+Status: **approved; implementation in progress (M1 complete; C2 verified)**. Approved by the user on
 2026-10-11 through “Implement the plan”, with the explicit persist-only handoff
 completed. The subsequent `/goal` authorizes implementation and delivery.
 
@@ -492,3 +492,33 @@ isolated ports pass. These failures are not qualification evidence.
 No migration; schema head0013/majors1 and producer0.12.1 unchanged. Original
 artifacts/history are untouched. Full scientific/geometry/visibility/timing and
 previous-reader qualification remain C2–C4; release gates remain C5. No blocker.
+
+
+### 2026-10-11 — M1/C2 and milestone M1 complete
+
+Added prevalidated RDKit ligand typing and an observed-only canonical protein
+site registry, with explicit-H donor construction, missing-site/H/coordinate
+coverage and no preparation mutation. H···acceptor endpoints, donor/base angles
+and fixed distances are enforced. Qualified H-bond pairs suppress clashes
+independently of display; hydrophobic contacts require established C/H neighbors.
+Session filters suppress deliberately hidden polar-H markers. Controls expose
+only the three completed types. Fixed source molecule grouping now keeps supplied
+ligand graph fragments separate even if their residue labels coincide.
+
+Passing commands: C1 Python command plus `tests/scientific/test_interactions.py`
+(**23 passed**); C1 Vitest command (**21 passed**); Ruff, mypy (**57 files**),
+web lint/typecheck/build and diff checks. Focused browser interactions/measurements
+(**3 passed, 1 intentional mobile skip**) and the actual
+`tests/e2e/polar-hydrogen-visibility.spec.ts` (**8 passed, 6 intentional mobile
+inspector skips**). Isolated browser settings now use the same5183/8020/8021 ports
+and `/tmp/neistra-interactions-e2e`, keeping generated data outside the repository.
+Initial mistaken hydrogen spec filename matched no file; the correctly named
+complete regression suite was then run. Existing bundle-size advisory only.
+
+Local checkpoint review: validated no silent charge/order conversion defaults,
+observed-only chemistry, missing-coordinate handling, immutable data, template
+alternate suppression and independent classification/visibility. Degenerate
+required angles now warn instead of suggesting complete geometry coverage.
+No migration or new persisted/API-major fields, no dependency/version change.
+Limits remain fixed geometry, conservative incomplete connectivity and uncertain
+raw PDB ligands. C3/C4 qualify remaining types and broader workflows. No blocker.
