@@ -2,7 +2,7 @@
 
 ## Status, authority, and delivery baseline
 
-Status: **approved; implementation qualified (M1–M2/C4 complete; C5 candidate passed, delivery pending)**. Approved by the user on
+Status: **approved; implemented and released as v0.13.0; final cleanup audit linked below**. Approved by the user on
 2026-10-11 through “Implement the plan”, with the explicit persist-only handoff
 completed. The subsequent `/goal` authorizes implementation and delivery.
 
@@ -706,3 +706,48 @@ diff checking found trailing empty lines in four copied qualification logs;
 stored text-log endings normalized without changing assertions/results/runtime.
 Full base diff now passes `git diff origin/master...HEAD --check`. Runtime/tests/
 versions remain identical to the complete qualified candidate.
+
+### C5 exact merged qualification and publication — 2026-10-12 (Europe/Zurich)
+
+[PR #53](https://github.com/ManuelSe/Neistra/pull/53) merged normally at
+`bf29b9a913be48dac95b8d9aa055a7310c21d5b2`, verified on origin/master; local master
+fast-forwarded cleanly. Reviewed all runtime, scientific, ownership/lifecycle,
+compatibility, test, documentation and version changes. Final policy audit: no
+rulesets/workflows/required checks/reviews, clean mergeable PR and no review threads
+or findings. Codex request verified with no returned review/comment/check at merge;
+review local, not independent. No protection or required approval was bypassed.
+
+The **exact merged commit** repeats every complete release command with fresh
+stores: **472 Python, 179 frontend, 8 supervisor, 168 browser /44 intentional skips**,
+zero failures/flakes/retries; frozen installs/fresh0013/Ruff/mypy/web lint/types/
+build/diff pass. Browser28.2min. [Exact gate and raw logs](../assets/molecular-interactions/c5-merged-gate.json)
+remain distinct from candidate/C4. Actual tagged0.12.1 reader of final0.13.0 again
+passes exact originals/coordinates, atomic batch Undo/Redo, save/re-export,
+archive import/history omission and unchanged jobs. No new migration or persisted
+major/API compatibility change. Final desktop/mobile1010-atom fixture: first2395/
+2019ms, cached166/157ms, longest recorded task0/0ms; one279-byte POST each,
+zero structureGETs,79records. All scientific/native/accessibility/performance
+acceptance criteria pass; host emulation and warned chemistry limits remain.
+
+Annotated **v0.13.0**, tag object561780087acedba6062f96e9a7b01f0e72fece62, remotely
+peels to exactly the verified merged commit. [Release](https://github.com/ManuelSe/Neistra/releases/tag/v0.13.0)
+published2026-10-11T22:20:03Z. Notes verified byte-for-byte; downloaded9,019,185-byte
+verification archive matches SHA2563357c9144154c0279c4ca2eaee5133aafa5c92e5316d9bf3940a7ad3aff40427,
+with all165 internal manifest files verified. [Publication evidence](../assets/molecular-interactions/c5-publication.json).
+[Issue reply](https://github.com/ManuelSe/Neistra/issues/49#issuecomment-6114530002)
+verified; #49 closed through the merge. Approved simplifications/deferred/rejected
+scope and CCD [follow-up#52](https://github.com/ManuelSe/Neistra/issues/52) are explicit
+in the PR, release and reply. No scope was reintroduced.
+
+This final evidence/documentation checkpoint is made on the **same planned feature
+branch**, fast-forwarded to the released master, never directly on master. Runtime,
+tests, fixtures, migrations, schemas, dependencies and five versions are identical
+to the exact fully qualified release. Complete gate evidence is reused for that
+unchanged runtime; review the entire documentation-only diff and diff/link/JSON/
+version checks before its normal merge. Do not retag the verified release.
+
+Implementation, verification and publication are complete. Merge this documentation
+closeout, then verify and delete remote/local feature branches, remove the disposable
+preceding-reader worktree and finish clean on current master. The final verified
+documentation merge/branch-cleanup/default-branch audit is maintained in the linked
+**issue reply** after those operations; this entry does not preclaim their success.

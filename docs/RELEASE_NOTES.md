@@ -1,6 +1,6 @@
 # Neistra Release Notes
 
-## 0.13.0 - Molecular interactions
+## 0.13.0 - 2026-10-12 - Molecular interactions
 
 ### Highlights
 
@@ -56,7 +56,7 @@ breaking existing API or persisted contract. All five authoritative versions are
 normalized and archive contract majors remain 1. Originals, history, scenes and
 jobs are unchanged; interaction results/choices are absent from archives. The
 actual tagged v0.12.1 reader accepts final 0.13.0 producer data, retained history
-and archives; the exact merged qualification must repeat before publication. Qualified rollback needs no schema downgrade
+and archives on both final candidate and exact merged master. Qualified rollback needs no schema downgrade
 or data stripping; transient interaction state resets.
 
 ### Verification and review
@@ -69,8 +69,13 @@ project lifetimes, cancellation/limits, accessibility/real zoom and host perform
 passes **472 Python,179 frontend,8 supervisor,168 browser /44 intentional skips**,
 zero failures/flakes/retries, frozen installs/fresh0013/lint/types/build/diff.
 Final0.13.0 producer/actual tagged0.12.1 reader passes exact data/history/archives/jobs.
-Repeat complete gates on exact merged master before publication. Review is local,
-not independent, unless an independent review is explicitly recorded.
+[Exact merged evidence](assets/molecular-interactions/c5-merged-gate.json) at
+bf29b9a913be48dac95b8d9aa055a7310c21d5b2 repeats all commands/counts and actual
+preceding-reader qualification. Annotatedv0.13.0/release/notes/downloaded evidence
+bytes and issue reply are verified; [publication record](assets/molecular-interactions/c5-publication.json).
+[PR#53](https://github.com/ManuelSe/Neistra/pull/53) preserves checkpoint history.
+Review local, not independent; Codex requested without a returned review at merge.
+Final documentation/cleanup audit is maintained in the linked issue reply.
 
 ### Limitations and deliberately deferred scope
 

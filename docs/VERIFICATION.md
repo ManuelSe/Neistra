@@ -12,7 +12,12 @@ Light/dark scoped axe, keyboard, 320px and real100%/200% zoom are qualified.
 2cbdee512ce1eefa09c126dd6c243adbba2b56c4 passes472Python/179frontend/8supervisor/
 168browser with44intentional skips, zero failures/flakes/retries. Frozen installs,
 fresh0013/lint/types/build/diff pass; actual tagged0.12.1 reader accepts final0.13.0
-data/history/archives/jobs. Exact merged-release gates must repeat before tagging.
+data/history/archives/jobs. [Exact merged gate](assets/molecular-interactions/c5-merged-gate.json)
+atbf29b9a913be48dac95b8d9aa055a7310c21d5b2 repeats every command/count and actual
+preceding-reader qualification, zero failures/flakes/retries. Annotatedv0.13.0,
+release notes and downloaded archive/internal checksums are verified; [publication
+record](assets/molecular-interactions/c5-publication.json). Final documentation/
+cleanup audit is maintained in the linked issue reply.
 Evidence remains distinct from C4/historical counts. No schema migration; review
 [local, not independent](assets/molecular-interactions/c5-local-review.json).
 

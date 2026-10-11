@@ -388,6 +388,8 @@ When an existing development server occupies default ports, set
 `MOLWEAVE_E2E_WORKER_PORT=8021` and a disposable absolute
 `MOLWEAVE_E2E_DATA_DIR` alongside the documented Playwright command. Run timing
 without a profiler or concurrent build. Keep diagnostic failures separate from
-passing evidence. Final candidate and exact merged master must repeat the full
-release gate and actual tagged preceding-reader qualification. No migration or
+passing evidence. Final0.13.0 candidate and exact mergedbf29b9a have passed the
+complete release gate and actual tagged0.12.1 reader qualification; [recorded
+evidence](assets/molecular-interactions/c5-merged-gate.json). Future releases must
+repeat those gates against their final producer. No migration or
 state stripping is needed for rollback to qualified v0.12.1; transient choices reset.

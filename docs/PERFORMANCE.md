@@ -291,3 +291,11 @@ and 30 s wall time, with one active child/API process. Limit failure returns no 
 result. Cached switches filter records; camera/selection/theme/styles send no new
 chemistry request. Hidden/deleted subsets reuse matching immutable input supersets.
 Existing viewer/surface budgets remain binding and repeat in the release gate.
+
+Final C5 candidate and exact merged complete browser gates repeat these budgets.
+On exact releasedbf29b9a, desktop/mobile first2395/2019ms, cached166/157ms,
+longest recorded task0/0ms; each one279-byte request, zero structureGETs,79records.
+[Final desktop](assets/molecular-interactions/c5-merged-desktop-performance.json) /
+[mobile](assets/molecular-interactions/c5-merged-mobile-performance.json) evidence
+is separate from C4/candidate observations. Existing native movement/navigation/
+surface/capacity budgets pass in both complete release runs.

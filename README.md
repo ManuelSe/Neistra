@@ -22,7 +22,7 @@ Real workspace screenshots: [light](docs/assets/neistra-workspace-light.png) ·
 [dark](docs/assets/neistra-workspace-dark.png). These show the existing local
 workspace, not proposed account, docking or marketplace features.
 
-Version **0.12.1** offers the **Transform selection** icon in a separate bar above the viewer.
+Version **0.13.0** offers the **Transform selection** icon in a separate bar above the viewer.
 Left mouse drag rotates; right or Ctrl-drag translates in the current view plane.
 Hold **Space** on the movement canvas to adjust the camera, then release to resume.
 Touch and keyboard users have **Adjust view / Resume transform**, with sensitivity,
@@ -31,9 +31,9 @@ opens gesture guidance and scientific limits. The inspector remains an entry poi
 The captured selection includes hidden targets; Apply creates one reversible
 command and Cancel restores exact coordinates. Partial selections can distort
 crossing bonds or create clashes. See [Interactive transforms](docs/TRANSFORMS.md).
-No new migration is needed. Actual v0.11.0 readers retain applied coordinates,
-undo/redo, immutable originals/jobs and archives; see
-[compatibility guidance](docs/DEVELOPMENT.md#viewer-toolbar-compatibility-0120).
+No new migration is needed. The actual tagged v0.12.1 reader accepts final v0.13.0
+coordinates, retained undo/redo, immutable originals/jobs and archives; see
+[compatibility guidance](docs/DEVELOPMENT.md#molecular-interaction-qualification).
 
 Open **Interactions** in the viewer menu bar to toggle hydrogen bonds, hydrophobic
 contacts, π–π, cation–π, salt bridges and clashes, with independent Inter/Intra
