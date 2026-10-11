@@ -31,8 +31,8 @@ jobs retain existing behavior. Navigation changes only the camera. Archives stay
 current-state snapshots without portable history. Recent 0.11.0/0.12.0 archive
 metadata joins the existing round-trip matrix; actual tagged 0.12.0 reader
 accepts final 0.12.1 exact coordinates/originals, retained batch history,
-save/reexport, archives and unchanged jobs. Complete release gates remain required
-before publication.
+save/reexport, archives and unchanged jobs. Complete candidate and exact merged
+gates pass.
 Rollback to the qualified 0.12.0 reader requires no schema downgrade/data stripping.
 
 ### Verification and review
@@ -55,7 +55,13 @@ scoped axe, 44 px mobile/320 px targets and actual 100%/200% Chrome zoom with
 primary-action hit testing. Historical 0.12.0 tests manually refocused the canvas;
 that missed natural-focus defect is now covered. Review findings were reproduced
 and corrected before qualification. Full-diff review is local, not independent.
-Exact merged qualification and publication remain required.
+[PR #50](https://github.com/ManuelSe/Neistra/pull/50), exact merged
+`39d5c7b4c142ffb6d327f3ed0eebbc4ce8eb4cda`, annotated tag/
+[release v0.12.1](https://github.com/ManuelSe/Neistra/releases/tag/v0.12.1), downloaded
+verification bytes and the
+[issue correction reply](https://github.com/ManuelSe/Neistra/issues/46#issuecomment-6112208278)
+are verified. Exact merged qualification repeats the candidate counts and budgets;
+commands and publication audit are linked from the contract.
 
 ### Limitations and scope decisions
 

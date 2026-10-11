@@ -1,0 +1,14 @@
+{
+  "released_commit": "39d5c7b4c142ffb6d327f3ed0eebbc4ce8eb4cda",
+  "tag_name": "v0.12.1",
+  "annotated_tag_object": "f29d2ff850dba526a29c51967ceec91405a113f1",
+  "peeled_target": "39d5c7b4c142ffb6d327f3ed0eebbc4ce8eb4cda",
+  "release_url": "https://github.com/ManuelSe/Neistra/releases/tag/v0.12.1",
+  "published_at": "2026-10-11T18:22:53Z",
+  "draft": false,
+  "prerelease": false,
+  "asset_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.12.1/neistra-0.12.1-verification.json",
+  "downloaded_bytes_match": true,
+  "asset_sha256": "b9852038b78ded79ddb10db0a67b8e8f6a561054e0f77ea02b4b9b54028dc8e0",
+  "asset_size": 16267
+}

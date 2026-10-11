@@ -1,0 +1,573 @@
+{
+  "version": "0.12.1",
+  "released_commit": "39d5c7b4c142ffb6d327f3ed0eebbc4ce8eb4cda",
+  "pull_request": "https://github.com/ManuelSe/Neistra/pull/50",
+  "candidate_gate": {
+    "stage": "compact-candidate-qualified",
+    "commit": "f437c31767cd44be435d829ca4fb9ad033049214",
+    "started_utc": "2026-10-11T17:19:07Z",
+    "initial_git_status": "",
+    "browser_overrides": {
+      "PLAYWRIGHT_BROWSERS_PATH": ".playwright",
+      "MOLWEAVE_E2E_API_PORT": "8210",
+      "MOLWEAVE_E2E_WORKER_PORT": "8211",
+      "MOLWEAVE_E2E_WEB_PORT": "5373",
+      "MOLWEAVE_E2E_DATA_DIR": "/tmp/neistra-issue46-compact-candidate-qualified/e2e-data"
+    },
+    "commands": [
+      {
+        "argv": [
+          ".venv/bin/uv",
+          "sync",
+          "--frozen"
+        ],
+        "exit_code": 0,
+        "elapsed_seconds": 0.03,
+        "log": "/tmp/neistra-issue46-compact-candidate-qualified/01---frozen.log"
+      },
+      {
+        "argv": [
+          "corepack",
+          "pnpm",
+          "install",
+          "--frozen-lockfile"
+        ],
+        "exit_code": 0,
+        "elapsed_seconds": 0.8,
+        "log": "/tmp/neistra-issue46-compact-candidate-qualified/02---frozen-lockfile.log"
+      },
+      {
+        "argv": [
+          ".venv/bin/uv",
+          "run",
+          "alembic",
+          "upgrade",
+          "head"
+        ],
+        "exit_code": 0,
+        "elapsed_seconds": 0.78,
+        "log": "/tmp/neistra-issue46-compact-candidate-qualified/03-head.log"
+      },
+      {
+        "argv": [
+          ".venv/bin/uv",
+          "run",
+          "ruff",
+          "check",
+          "."
+        ],
+        "exit_code": 0,
+        "elapsed_seconds": 0.04,
+        "log": "/tmp/neistra-issue46-compact-candidate-qualified/04-..log"
+      },
+      {
+        "argv": [
+          ".venv/bin/uv",
+          "run",
+          "mypy",
+          "apps/api",
+          "packages/molweave_core"
+        ],
+        "exit_code": 0,
+        "elapsed_seconds": 0.23,
+        "log": "/tmp/neistra-issue46-compact-candidate-qualified/05-packages_molweave_core.log"
+      },
+      {
+        "argv": [
+          ".venv/bin/uv",
+          "run",
+          "pytest"
+        ],
+        "exit_code": 0,
+        "elapsed_seconds": 85.54,
+        "log": "/tmp/neistra-issue46-compact-candidate-qualified/06-pytest.log"
+      },
+      {
+        "argv": [
+          "corepack",
+          "pnpm",
+          "--dir",
+          "apps/web",
+          "lint"
+        ],
+        "exit_code": 0,
+        "elapsed_seconds": 8.61,
+        "log": "/tmp/neistra-issue46-compact-candidate-qualified/07-lint.log"
+      },
+      {
+        "argv": [
+          "corepack",
+          "pnpm",
+          "--dir",
+          "apps/web",
+          "typecheck"
+        ],
+        "exit_code": 0,
+        "elapsed_seconds": 4.72,
+        "log": "/tmp/neistra-issue46-compact-candidate-qualified/08-typecheck.log"
+      },
+      {
+        "argv": [
+          "corepack",
+          "pnpm",
+          "--dir",
+          "apps/web",
+          "test"
+        ],
+        "exit_code": 0,
+        "elapsed_seconds": 8.43,
+        "log": "/tmp/neistra-issue46-compact-candidate-qualified/09-test.log"
+      },
+      {
+        "argv": [
+          "corepack",
+          "pnpm",
+          "test:dev"
+        ],
+        "exit_code": 0,
+        "elapsed_seconds": 1.49,
+        "log": "/tmp/neistra-issue46-compact-candidate-qualified/10-test:dev.log"
+      },
+      {
+        "argv": [
+          "corepack",
+          "pnpm",
+          "--dir",
+          "apps/web",
+          "build"
+        ],
+        "exit_code": 0,
+        "elapsed_seconds": 13.12,
+        "log": "/tmp/neistra-issue46-compact-candidate-qualified/11-build.log"
+      },
+      {
+        "argv": [
+          "corepack",
+          "pnpm",
+          "exec",
+          "playwright",
+          "test",
+          "--output=/tmp/neistra-issue46-compact-candidate-qualified/browser-results"
+        ],
+        "exit_code": 0,
+        "elapsed_seconds": 1648.91,
+        "log": "/tmp/neistra-issue46-compact-candidate-qualified/12---output=_tmp_neistra-issue46-compact-candidate-qualified_browser-results.log"
+      },
+      {
+        "argv": [
+          "git",
+          "diff",
+          "--check"
+        ],
+        "exit_code": 0,
+        "elapsed_seconds": 0.0,
+        "log": "/tmp/neistra-issue46-compact-candidate-qualified/13---check.log"
+      }
+    ],
+    "passed": true,
+    "finished_utc": "2026-10-11T17:48:40Z",
+    "final_git_status": "",
+    "counts": {
+      "python": 400,
+      "frontend": 173,
+      "supervisor": 8,
+      "browser_passed": 159,
+      "browser_intentional_skips": 43,
+      "browser_failures": 0,
+      "browser_flakes": 0,
+      "browser_retries": 0
+    },
+    "performance": {
+      "fixture": "RCSB 1STP",
+      "atoms": 1001,
+      "renderer": "pinned Chromium / SwiftShader",
+      "cases": [
+        {
+          "name": "protein-fragment",
+          "atoms": 3,
+          "navigationCycles": 6,
+          "previewMs": 145,
+          "coordinatePreviewMs": 123.5,
+          "coordinateCancelMs": 18.099999994039536,
+          "maxActive": 1,
+          "submittedFrames": 40,
+          "renderedFrames": 2,
+          "longestTaskMs": 130,
+          "changed": true,
+          "exactRestore": true,
+          "errors": []
+        },
+        {
+          "name": "bound-ligand",
+          "atoms": 16,
+          "navigationCycles": 6,
+          "previewMs": 37.599999994039536,
+          "coordinatePreviewMs": 23.399999976158142,
+          "coordinateCancelMs": 19.69999998807907,
+          "maxActive": 1,
+          "submittedFrames": 40,
+          "renderedFrames": 2,
+          "longestTaskMs": 0,
+          "changed": true,
+          "exactRestore": true,
+          "errors": []
+        }
+      ],
+      "surface": {
+        "coordinateCancelMs": 12.400000005960464,
+        "regenerationCompleteMs": 1050.4000000059605,
+        "inheritedRestored": true
+      },
+      "requests": []
+    }
+  },
+  "merged_gate": {
+    "stage": "compact-merged",
+    "commit": "39d5c7b4c142ffb6d327f3ed0eebbc4ce8eb4cda",
+    "started_utc": "2026-10-11T17:52:19Z",
+    "initial_git_status": "",
+    "browser_overrides": {
+      "PLAYWRIGHT_BROWSERS_PATH": ".playwright",
+      "MOLWEAVE_E2E_API_PORT": "8210",
+      "MOLWEAVE_E2E_WORKER_PORT": "8211",
+      "MOLWEAVE_E2E_WEB_PORT": "5373",
+      "MOLWEAVE_E2E_DATA_DIR": "/tmp/neistra-issue46-compact-merged/e2e-data"
+    },
+    "commands": [
+      {
+        "argv": [
+          ".venv/bin/uv",
+          "sync",
+          "--frozen"
+        ],
+        "exit_code": 0,
+        "elapsed_seconds": 0.02,
+        "log": "/tmp/neistra-issue46-compact-merged/01---frozen.log"
+      },
+      {
+        "argv": [
+          "corepack",
+          "pnpm",
+          "install",
+          "--frozen-lockfile"
+        ],
+        "exit_code": 0,
+        "elapsed_seconds": 0.66,
+        "log": "/tmp/neistra-issue46-compact-merged/02---frozen-lockfile.log"
+      },
+      {
+        "argv": [
+          ".venv/bin/uv",
+          "run",
+          "alembic",
+          "upgrade",
+          "head"
+        ],
+        "exit_code": 0,
+        "elapsed_seconds": 0.6,
+        "log": "/tmp/neistra-issue46-compact-merged/03-head.log"
+      },
+      {
+        "argv": [
+          ".venv/bin/uv",
+          "run",
+          "ruff",
+          "check",
+          "."
+        ],
+        "exit_code": 0,
+        "elapsed_seconds": 0.04,
+        "log": "/tmp/neistra-issue46-compact-merged/04-..log"
+      },
+      {
+        "argv": [
+          ".venv/bin/uv",
+          "run",
+          "mypy",
+          "apps/api",
+          "packages/molweave_core"
+        ],
+        "exit_code": 0,
+        "elapsed_seconds": 0.18,
+        "log": "/tmp/neistra-issue46-compact-merged/05-packages_molweave_core.log"
+      },
+      {
+        "argv": [
+          ".venv/bin/uv",
+          "run",
+          "pytest"
+        ],
+        "exit_code": 0,
+        "elapsed_seconds": 72.15,
+        "log": "/tmp/neistra-issue46-compact-merged/06-pytest.log"
+      },
+      {
+        "argv": [
+          "corepack",
+          "pnpm",
+          "--dir",
+          "apps/web",
+          "lint"
+        ],
+        "exit_code": 0,
+        "elapsed_seconds": 8.32,
+        "log": "/tmp/neistra-issue46-compact-merged/07-lint.log"
+      },
+      {
+        "argv": [
+          "corepack",
+          "pnpm",
+          "--dir",
+          "apps/web",
+          "typecheck"
+        ],
+        "exit_code": 0,
+        "elapsed_seconds": 4.69,
+        "log": "/tmp/neistra-issue46-compact-merged/08-typecheck.log"
+      },
+      {
+        "argv": [
+          "corepack",
+          "pnpm",
+          "--dir",
+          "apps/web",
+          "test"
+        ],
+        "exit_code": 0,
+        "elapsed_seconds": 7.9,
+        "log": "/tmp/neistra-issue46-compact-merged/09-test.log"
+      },
+      {
+        "argv": [
+          "corepack",
+          "pnpm",
+          "test:dev"
+        ],
+        "exit_code": 0,
+        "elapsed_seconds": 1.46,
+        "log": "/tmp/neistra-issue46-compact-merged/10-test:dev.log"
+      },
+      {
+        "argv": [
+          "corepack",
+          "pnpm",
+          "--dir",
+          "apps/web",
+          "build"
+        ],
+        "exit_code": 0,
+        "elapsed_seconds": 13.64,
+        "log": "/tmp/neistra-issue46-compact-merged/11-build.log"
+      },
+      {
+        "argv": [
+          "corepack",
+          "pnpm",
+          "exec",
+          "playwright",
+          "test",
+          "--output=/tmp/neistra-issue46-compact-merged/browser-results"
+        ],
+        "exit_code": 0,
+        "elapsed_seconds": 1678.77,
+        "log": "/tmp/neistra-issue46-compact-merged/12---output=_tmp_neistra-issue46-compact-merged_browser-results.log"
+      },
+      {
+        "argv": [
+          "git",
+          "diff",
+          "--check"
+        ],
+        "exit_code": 0,
+        "elapsed_seconds": 0.0,
+        "log": "/tmp/neistra-issue46-compact-merged/13---check.log"
+      }
+    ],
+    "passed": true,
+    "finished_utc": "2026-10-11T18:22:08Z",
+    "final_git_status": "",
+    "counts": {
+      "python": 400,
+      "frontend": 173,
+      "supervisor": 8,
+      "browser_passed": 159,
+      "browser_intentional_skips": 43,
+      "browser_failures": 0,
+      "browser_flakes": 0,
+      "browser_retries": 0
+    },
+    "performance": {
+      "fixture": "RCSB 1STP",
+      "atoms": 1001,
+      "renderer": "pinned Chromium / SwiftShader",
+      "cases": [
+        {
+          "name": "protein-fragment",
+          "atoms": 3,
+          "navigationCycles": 6,
+          "previewMs": 205.40000000596046,
+          "coordinatePreviewMs": 180,
+          "coordinateCancelMs": 10.800000011920929,
+          "maxActive": 1,
+          "submittedFrames": 40,
+          "renderedFrames": 2,
+          "longestTaskMs": 186,
+          "changed": true,
+          "exactRestore": true,
+          "errors": []
+        },
+        {
+          "name": "bound-ligand",
+          "atoms": 16,
+          "navigationCycles": 6,
+          "previewMs": 34.20000001788139,
+          "coordinatePreviewMs": 19.200000017881393,
+          "coordinateCancelMs": 18.80000001192093,
+          "maxActive": 1,
+          "submittedFrames": 40,
+          "renderedFrames": 2,
+          "longestTaskMs": 0,
+          "changed": true,
+          "exactRestore": true,
+          "errors": []
+        }
+      ],
+      "surface": {
+        "coordinateCancelMs": 18.80000001192093,
+        "regenerationCompleteMs": 1402.5,
+        "inheritedRestored": true
+      },
+      "requests": []
+    }
+  },
+  "counts": {
+    "python": 400,
+    "frontend": 173,
+    "supervisor": 8,
+    "browser_passed": 159,
+    "browser_intentional_skips": 43,
+    "browser_failures": 0,
+    "browser_flakes": 0,
+    "browser_retries": 0
+  },
+  "merged_performance": {
+    "fixture": "RCSB 1STP",
+    "atoms": 1001,
+    "renderer": "pinned Chromium / SwiftShader",
+    "cases": [
+      {
+        "name": "protein-fragment",
+        "atoms": 3,
+        "navigationCycles": 6,
+        "previewMs": 205.40000000596046,
+        "coordinatePreviewMs": 180,
+        "coordinateCancelMs": 10.800000011920929,
+        "maxActive": 1,
+        "submittedFrames": 40,
+        "renderedFrames": 2,
+        "longestTaskMs": 186,
+        "changed": true,
+        "exactRestore": true,
+        "errors": []
+      },
+      {
+        "name": "bound-ligand",
+        "atoms": 16,
+        "navigationCycles": 6,
+        "previewMs": 34.20000001788139,
+        "coordinatePreviewMs": 19.200000017881393,
+        "coordinateCancelMs": 18.80000001192093,
+        "maxActive": 1,
+        "submittedFrames": 40,
+        "renderedFrames": 2,
+        "longestTaskMs": 0,
+        "changed": true,
+        "exactRestore": true,
+        "errors": []
+      }
+    ],
+    "surface": {
+      "coordinateCancelMs": 18.80000001192093,
+      "regenerationCompleteMs": 1402.5,
+      "inheritedRestored": true
+    },
+    "requests": []
+  },
+  "preceding_reader": {
+    "reader": "0.12.0",
+    "reader_module": "/tmp/neistra-reader-012/apps/api/src/molweave_api/main.py",
+    "producer": "0.12.1",
+    "entries": 2,
+    "exact_coordinates_and_originals": true,
+    "retained_batch_undo_redo": true,
+    "save_and_reexport": true,
+    "archive_import": true,
+    "archive_omits_history": true,
+    "original_jobs_unchanged": true
+  },
+  "producer": {
+    "producer": "0.12.1",
+    "entries": 2,
+    "atomic_batch": true,
+    "jobs_unchanged": true,
+    "archive_sha256": "b4a17d4237a51327042267bde09afdea423dc35a4a5bbdac5b149977b6efeb77"
+  },
+  "runtime_source_identical_to_candidate": true,
+  "merge_audit": {
+    "pull_request": "https://github.com/ManuelSe/Neistra/pull/50",
+    "head": "1010bb9a06eeddb507964ebeb4dff1778051adf5",
+    "base": "2782d80956f8c5af356f226678f124f7dbd2ac59",
+    "state": "open",
+    "mergeable": true,
+    "mergeable_state": "clean",
+    "draft": false,
+    "protection_http_success": false,
+    "protection": {
+      "message": "Branch not protected",
+      "documentation_url": "https://docs.github.com/rest/branches/branch-protection#get-branch-protection",
+      "status": "404"
+    },
+    "rulesets": [],
+    "workflows": 0,
+    "check_runs": [],
+    "statuses": [],
+    "reviews": [],
+    "review_comments": [],
+    "review_threads": [],
+    "codex_request": "https://github.com/ManuelSe/Neistra/pull/50#issuecomment-6111900757",
+    "integration_response": [],
+    "local_review": "full-diff, not independent; all consequential findings corrected and gated",
+    "local_review_comment": "https://github.com/ManuelSe/Neistra/pull/50#issuecomment-6111920861",
+    "normal_merge_verified": true,
+    "merge_commit": "39d5c7b4c142ffb6d327f3ed0eebbc4ce8eb4cda",
+    "merged_at": "2026-10-11T17:52:16Z"
+  },
+  "review": {
+    "kind": "local full-diff; not independent",
+    "unresolved_findings": 0,
+    "codex_request": "https://github.com/ManuelSe/Neistra/pull/50#issuecomment-6111900757",
+    "integration_response": []
+  },
+  "compatibility": {
+    "migration_head": "0013",
+    "new_migration": false,
+    "schema_majors": 1,
+    "history_vocabulary": "existing coordinates.transform/entry.coordinates",
+    "archives": "current-state snapshot without portable history",
+    "original_uploads_and_job_inputs": "preserved"
+  },
+  "qualification_limits": [
+    "Pinned Chromium/SwiftShader and Pixel 7 emulation",
+    "Actual Chrome 100/200% zoom and scoped axe; no universal accessibility certification",
+    "Host performance regression budgets; no universal throughput claim",
+    "Unconstrained positioning; no chemistry repair, minimization or docking validation",
+    "Existing lazy Molstar chunk and Alembic configuration advisories"
+  ],
+  "diagnostic_disposition": [
+    "Initial C1 panel semantics, CSS cascade and touch size findings were corrected before qualifying C1.",
+    "Initial C2 broader gate: 42 passes/3 skips/1 real-zoom group-focus failure; independently reproduced while movement inactive and repaired without weaker assertions.",
+    "01b07be complete candidate gate interrupted during browsers to address panel-switch focus found in local review; diagnostic, not qualification.",
+    "Panel-switch assertion reproduced failure before fix (172 frontend passes/1 failure); final regression passes both directions."
+  ],
+  "follow_up_issues": []
+}

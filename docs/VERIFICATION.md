@@ -6,7 +6,10 @@ Clean candidate `f437c31767cd44be435d829ca4fb9ad033049214` passes every complete
 173 frontend, eight supervisor and 159 browser passes / 43 intentional skips,
 zero failures/flakes/retries; fresh migration 0013/frozen installs/lint/types/build.
 Native performance, exact coordinates/history and actual tagged 0.12.0 reader of
-final 0.12.1 pass. Review is local, not independent. Exact merged qualification and publication remain pending.
+final 0.12.1 pass. Review is local, not independent. Exact merged
+`39d5c7b4c142ffb6d327f3ed0eebbc4ce8eb4cda` repeats all gates; annotated
+v0.12.1/release/asset bytes and the issue correction reply are verified.
+Final documentation/cleanup audit is linked from the contract.
 
 Previous toolbar/navigation evidence is maintained in
 [the approved issue #46 plan](plans/issue-46-viewer-transform-toolbar.md).
