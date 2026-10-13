@@ -6,8 +6,13 @@ six-type and frozen2REG science/API invariance, and C3 actual marker pixels,256
 choice combinations, complete native workflows and real zoom are qualified.
 [C3 logs and screenshots](assets/interaction-corrections/c3-verification.json):
 182frontend and44browser/6intentional skips pass, zero failures/retries; C2 full
-Python487 passes. C4 release/reader qualification remains pending; prior #49
-evidence below stays historical.
+Python487 passes historically. C4 clean candidate at `0b409a1` passes490Python,
+182frontend,8supervisor,172browser/44intentional skips, zero failures/retries;
+frozen installs/fresh0013/lint/types/build/diff. [Exact candidate gate](assets/interaction-corrections/c4-candidate-gate.json)
+and [actual tagged0.13.0 reader](assets/interaction-corrections/c4-candidate-reader.json)
+qualify final0.13.1 data/history/archives/jobs. [Local full-diff review](assets/interaction-corrections/c4-local-review.json)
+is not independent; no consequential finding remains. Exact merged gate and
+publication remain pending; prior #49 evidence below stays historical.
 
 Issue #49 qualification is maintained in the [approved interaction plan](plans/issue-49-molecular-interactions.md)
 and [raw evidence](assets/molecular-interactions/). All six types use independently

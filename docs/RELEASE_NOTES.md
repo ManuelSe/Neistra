@@ -46,8 +46,8 @@ advance to0.13.1; scientific dependencies remain pinned. No new migration;
 head0013 and project/normalized/archive majors1 remain. Originals, immutable
 molecular artifacts, retained history, scenes and jobs retain their contracts.
 Interaction choices/results remain absent from portable current-state archives.
-Actual tagged0.13.0 reader qualification against final0.13.1 data is required
-before delivery; supported rollback needs no schema downgrade or data stripping,
+Actual tagged0.13.0 reader accepts final0.13.1 data/history/archives/jobs;
+supported rollback needs no schema downgrade or data stripping,
 but restores the old renderer and contradictory-acid typing defects. Restart
 services and reload the workspace to reset transient derived caches; earlier
 migration guards still apply.
@@ -60,9 +60,11 @@ scientific/API facts from native buffers and actual marker pixels. C2 passes487
 Python tests; C3 passes182frontend and44browser/6intentional layout skips, zero
 failures/retries, with256 filter combinations, real100%/200%zoom,320px, scoped axe,
 native touch, lifecycle and existing movement/measurement/surface regressions.
-Pinned1010-atom analysis and cached-toggle budgets pass. Complete candidate and
-exact merged-master release/reader gates remain pending at release preparation;
-only their recorded results authorize tagging/publication. Review is local,
+Pinned1010-atom analysis and cached-toggle budgets pass. Complete clean candidate at0b409a1 passes490Python,182frontend,8supervisor,
+172browser/44intentional skips, zero failures/retries; frozen installs/fresh0013/
+lint/types/build/diff and actual tagged0.13.0 reader pass. [Exact gate](assets/interaction-corrections/c4-candidate-gate.json).
+Exact merged-master qualification remains required before tagging/publication.
+Review is local,
 not independent unless a returned external review is explicitly recorded.
 Known Alembic, lazy Mol* bundle and color-env advisories remain. Pinned Chromium/
 SwiftShader and Pixel7 emulation do not establish arbitrary hardware/browser support.

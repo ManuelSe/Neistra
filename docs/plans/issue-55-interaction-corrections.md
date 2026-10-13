@@ -5,7 +5,7 @@
 **Status:** approved on 2026-10-13 through the user's “Implement the plan.”
 The C0 persistence handoff completed at `938e2eef8b74932f0323178ceea1e34969a4d1bd`.
 The user authorized implementation and full delivery through `/goal` on 2026-10-13.
-Current checkpoint: C4 release preparation; complete candidate/reader gates pending.
+Current checkpoint: C4 candidate/reader gates complete; PR/review and exact merged qualification next.
 
 - **Issue:** [#55 — Fix and scientifically validate molecular interaction detection and visualization](https://github.com/ManuelSe/Neistra/issues/55).
 - **Issue metadata:** open; created and last updated 2026-10-13 at 05:59:32 UTC;
@@ -525,7 +525,7 @@ remains historical.
 | C1 implementation and qualification | Complete; evidence below |
 | C2 scientific qualification | Complete; evidence below |
 | C3 complete viewer qualification | Complete; evidence below |
-| C4 release qualification and delivery | Not started |
+| C4 release qualification and delivery | Candidate and actual preceding reader pass; merged qualification/publication pending |
 | PR, merge, tag, release, issue reply | Not started |
 
 `docs/PROGRESS.md` provides the concise project-level summary; this feature plan
@@ -689,3 +689,30 @@ Local diff review finds no scope or policy change. Actual tagged0.13.0 reader
 already accepts0.13.1 originals/coordinates/history/archives/jobs; retain exact
 reader evidence with the final gate. Next: entire clean-candidate gate rerun,
 with isolated services and fresh storage; no failed/incomplete run authorizes PR.
+
+### C4 complete candidate — 2026-10-13
+
+Settled-contrast correction committed as `0b409a13ca40edaab2a4458dd1795f8e7e5b40d9`.
+The complete release gate passes on that clean exact commit:490Python,
+182frontend,8supervisor,172browser/44intentional layout skips, zero failures/
+retries; frozen installs, fresh0013, Ruff/mypy58files, lint/types/build/diff.
+Browser duration29.6minutes, dedicated8020/8021/5183 services and fresh
+`/tmp/neistra-issue55-candidate2-browser`; no service overlap or reused user data.
+[Exact commands/results](../assets/interaction-corrections/c4-candidate-gate.json).
+Actual detached taggedv0.13.0 (`bf29b9a`) reader accepts final0.13.1 data:
+exact coordinates/originals, atomic retained Undo/Redo, save/re-export,
+archive import/history omission and unchanged completed jobs.
+[Producer](../assets/interaction-corrections/c4-candidate-producer.json),
+[actual reader](../assets/interaction-corrections/c4-candidate-reader.json).
+Existing exhaustive archive tests accept previous-producer archives.
+
+Complete base diff reviewed locally by the primary Codex agent, not independently.
+[Review scope/findings](../assets/interaction-corrections/c4-local-review.json).
+No consequential finding remains. Runtime/tests/fixtures/versions remain exactly
+those of the qualified source; this checkpoint only adds documentation/evidence.
+Five sources agree0.13.1, no dependencies/migration/persisted-major/API changes.
+237existing Alembic warnings, bundle/color-env advisories and pinned emulation
+remain disclosed. Full base whitespace diff passes. Latest base1169090 and
+latest release0.13.0 remain current;v0.13.1 has no remote collision.
+Next: push/open PR, request available Codex review and inspect protections/checks/
+conversations; normal merge then repeat complete gate/actual reader on exact master.

@@ -25,20 +25,18 @@ alone in both themes, every pair/all-six/scope combinations, topology deletion/U
 and incomplete raw-chemistry guidance; native buffers and actual marker pixels
 agree. Real zoom/touch/keyboard/axe, movement/measurement/surface/cache/performance
 regressions pass. [C3 evidence](assets/interaction-corrections/c3-verification.json).
-C4 release preparation is committed as `e9cd8d6`. Local review reproduced and
-corrected an explicit negative-charge/acid-H typing conflict for ASP/GLU.89 focused
-tests, Ruff and strict mypy58 pass; sources remain immutable and warnings explicit.
-This enforces D-086 without retuning the profile. Complete candidate/merged release
-and actual preceding-reader qualification remain.
-
-Five versions now0.13.1 in release preparation; planned patch0.13.1, no migration/API/persisted change
-(head0013/majors1). Fixed interaction-v1 and #52 boundaries remain. Pinned browser
-emulation and existing bundle/color-env advisories remain. No blocker.
-Actual tagged0.13.0 reader passes originals/coordinates/history/archives/jobs.
-First candidate browser gate caught contrast during fade-in; settled-opacity
-measurement now passes10focused browser cases/2intentional skips, lint/types.
-Failed/interrupted and overlapping-service diagnostics remain separate.
-Next action: rerun complete clean-candidate release gate, then PR/review.
+C4 candidate gate passes at `0b409a1`:490Python,182frontend,8supervisor,
+172browser/44intentional skips, zero failures/retries, frozen installs/fresh0013/
+lint/types/build/diff. Actual tagged0.13.0 reader accepts final0.13.1 exact data,
+originals/history/archives/jobs. Local full-diff review resolved acid-charge/H
+contradiction and transient contrast sampling; no consequential finding remains.
+[Candidate evidence](assets/interaction-corrections/c4-candidate-gate.json),
+[reader](assets/interaction-corrections/c4-candidate-reader.json),
+[local review](assets/interaction-corrections/c4-local-review.json).
+Five versions0.13.1; patch, no migration/API/persisted change (0013/majors1).
+Fixed interaction-v1/#52 boundaries remain. Existing warnings/pinned emulation
+remain; diagnostics separate. No blocker. Next: PR/review/normal merge, exact
+merged gate/reader, then verified tag/release/issue reply and cleanup.
 
 ### Previous delivery baseline — v0.13.0
 

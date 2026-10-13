@@ -1,0 +1,1182 @@
+{
+  "project": "mobile-chromium",
+  "observed": [
+    {
+      "label": "light: H bonds",
+      "changedPixels": 30,
+      "records": 2
+    },
+    {
+      "label": "light: Hydrophobic",
+      "changedPixels": 138,
+      "records": 19
+    },
+    {
+      "label": "light: π–π",
+      "changedPixels": 10,
+      "records": 1
+    },
+    {
+      "label": "light: Cation–π",
+      "changedPixels": 14,
+      "records": 1
+    },
+    {
+      "label": "light: Salt bridges",
+      "changedPixels": 34,
+      "records": 1
+    },
+    {
+      "label": "light: Clashes",
+      "changedPixels": 46,
+      "records": 1
+    },
+    {
+      "label": "dark: H bonds",
+      "changedPixels": 48,
+      "records": 2
+    },
+    {
+      "label": "dark: Hydrophobic",
+      "changedPixels": 193,
+      "records": 19
+    },
+    {
+      "label": "dark: π–π",
+      "changedPixels": 14,
+      "records": 1
+    },
+    {
+      "label": "dark: Cation–π",
+      "changedPixels": 26,
+      "records": 1
+    },
+    {
+      "label": "dark: Salt bridges",
+      "changedPixels": 50,
+      "records": 1
+    },
+    {
+      "label": "dark: Clashes",
+      "changedPixels": 62,
+      "records": 1
+    }
+  ],
+  "analyses": 1,
+  "structureGets": 0,
+  "records": [
+    {
+      "kind": "cation_pi",
+      "scope": "inter",
+      "participants": [
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 27
+          }
+        ],
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 21
+          },
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 22
+          },
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 23
+          },
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 24
+          },
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 25
+          },
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 26
+          }
+        ]
+      ],
+      "endpoints": [
+        [
+          12,
+          12,
+          4
+        ],
+        [
+          12.000000000000002,
+          12,
+          0
+        ]
+      ],
+      "geometry": {
+        "distance": 4,
+        "normal_angle": 0,
+        "offset": 1.7763568394002505e-15,
+        "charge": 1
+      }
+    },
+    {
+      "kind": "clash",
+      "scope": "inter",
+      "participants": [
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 41
+          }
+        ],
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 42
+          }
+        ]
+      ],
+      "endpoints": [
+        [
+          24,
+          12,
+          0
+        ],
+        [
+          26.8,
+          12,
+          0
+        ]
+      ],
+      "geometry": {
+        "distance": 2.8000000000000007,
+        "overlap": 0.5999999999999992
+      }
+    },
+    {
+      "kind": "clash",
+      "scope": "intra",
+      "participants": [
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 43
+          }
+        ],
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 47
+          }
+        ]
+      ],
+      "endpoints": [
+        [
+          35,
+          0,
+          0
+        ],
+        [
+          35.5,
+          2.4,
+          0
+        ]
+      ],
+      "geometry": {
+        "distance": 2.4515301344262523,
+        "overlap": 0.9484698655737476
+      }
+    },
+    {
+      "kind": "clash",
+      "scope": "intra",
+      "participants": [
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 43
+          }
+        ],
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 48
+          }
+        ]
+      ],
+      "endpoints": [
+        [
+          35,
+          0,
+          0
+        ],
+        [
+          35,
+          1,
+          0
+        ]
+      ],
+      "geometry": {
+        "distance": 1,
+        "overlap": 2.4
+      }
+    },
+    {
+      "kind": "clash",
+      "scope": "intra",
+      "participants": [
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 44
+          }
+        ],
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 48
+          }
+        ]
+      ],
+      "endpoints": [
+        [
+          36.5,
+          0,
+          0
+        ],
+        [
+          35,
+          1,
+          0
+        ]
+      ],
+      "geometry": {
+        "distance": 1.8027756377319946,
+        "overlap": 1.5972243622680053
+      }
+    },
+    {
+      "kind": "hydrogen_bond",
+      "scope": "inter",
+      "participants": [
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 2
+          },
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 1
+          }
+        ],
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 3
+          }
+        ]
+      ],
+      "endpoints": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          2.8,
+          0,
+          0
+        ]
+      ],
+      "geometry": {
+        "distance": 1.7999999999999998,
+        "donor_acceptor_distance": 2.8,
+        "donor_angle": 180,
+        "acceptor_angle": 180
+      }
+    },
+    {
+      "kind": "hydrogen_bond",
+      "scope": "inter",
+      "participants": [
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 34
+          },
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 32
+          }
+        ],
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 37
+          }
+        ]
+      ],
+      "endpoints": [
+        [
+          25,
+          0,
+          0
+        ],
+        [
+          26.8,
+          0,
+          0
+        ]
+      ],
+      "geometry": {
+        "distance": 1.8000000000000007,
+        "donor_acceptor_distance": 2.8000000000000007,
+        "donor_angle": 180,
+        "acceptor_angle": 180
+      }
+    },
+    {
+      "kind": "hydrophobic",
+      "scope": "inter",
+      "participants": [
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 5
+          }
+        ],
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 7
+          }
+        ]
+      ],
+      "endpoints": [
+        [
+          10,
+          0,
+          0
+        ],
+        [
+          14,
+          0,
+          0
+        ]
+      ],
+      "geometry": {
+        "distance": 4
+      }
+    },
+    {
+      "kind": "hydrophobic",
+      "scope": "inter",
+      "participants": [
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 9
+          }
+        ],
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 15
+          }
+        ]
+      ],
+      "endpoints": [
+        [
+          1.4,
+          12,
+          0
+        ],
+        [
+          1.4,
+          12,
+          3.5
+        ]
+      ],
+      "geometry": {
+        "distance": 3.5
+      }
+    },
+    {
+      "kind": "hydrophobic",
+      "scope": "inter",
+      "participants": [
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 9
+          }
+        ],
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 16
+          }
+        ]
+      ],
+      "endpoints": [
+        [
+          1.4,
+          12,
+          0
+        ],
+        [
+          0.7,
+          13.2124,
+          3.5
+        ]
+      ],
+      "geometry": {
+        "distance": 3.7696039261439656
+      }
+    },
+    {
+      "kind": "hydrophobic",
+      "scope": "inter",
+      "participants": [
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 9
+          }
+        ],
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 20
+          }
+        ]
+      ],
+      "endpoints": [
+        [
+          1.4,
+          12,
+          0
+        ],
+        [
+          0.7,
+          10.7876,
+          3.5
+        ]
+      ],
+      "geometry": {
+        "distance": 3.7696039261439656
+      }
+    },
+    {
+      "kind": "hydrophobic",
+      "scope": "inter",
+      "participants": [
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 10
+          }
+        ],
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 15
+          }
+        ]
+      ],
+      "endpoints": [
+        [
+          0.7,
+          13.2124,
+          0
+        ],
+        [
+          1.4,
+          12,
+          3.5
+        ]
+      ],
+      "geometry": {
+        "distance": 3.7696039261439656
+      }
+    },
+    {
+      "kind": "hydrophobic",
+      "scope": "inter",
+      "participants": [
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 10
+          }
+        ],
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 16
+          }
+        ]
+      ],
+      "endpoints": [
+        [
+          0.7,
+          13.2124,
+          0
+        ],
+        [
+          0.7,
+          13.2124,
+          3.5
+        ]
+      ],
+      "geometry": {
+        "distance": 3.5
+      }
+    },
+    {
+      "kind": "hydrophobic",
+      "scope": "inter",
+      "participants": [
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 10
+          }
+        ],
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 17
+          }
+        ]
+      ],
+      "endpoints": [
+        [
+          0.7,
+          13.2124,
+          0
+        ],
+        [
+          -0.7,
+          13.2124,
+          3.5
+        ]
+      ],
+      "geometry": {
+        "distance": 3.7696153649941526
+      }
+    },
+    {
+      "kind": "hydrophobic",
+      "scope": "inter",
+      "participants": [
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 11
+          }
+        ],
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 16
+          }
+        ]
+      ],
+      "endpoints": [
+        [
+          -0.7,
+          13.2124,
+          0
+        ],
+        [
+          0.7,
+          13.2124,
+          3.5
+        ]
+      ],
+      "geometry": {
+        "distance": 3.7696153649941526
+      }
+    },
+    {
+      "kind": "hydrophobic",
+      "scope": "inter",
+      "participants": [
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 11
+          }
+        ],
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 17
+          }
+        ]
+      ],
+      "endpoints": [
+        [
+          -0.7,
+          13.2124,
+          0
+        ],
+        [
+          -0.7,
+          13.2124,
+          3.5
+        ]
+      ],
+      "geometry": {
+        "distance": 3.5
+      }
+    },
+    {
+      "kind": "hydrophobic",
+      "scope": "inter",
+      "participants": [
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 11
+          }
+        ],
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 18
+          }
+        ]
+      ],
+      "endpoints": [
+        [
+          -0.7,
+          13.2124,
+          0
+        ],
+        [
+          -1.4,
+          12,
+          3.5
+        ]
+      ],
+      "geometry": {
+        "distance": 3.7696039261439656
+      }
+    },
+    {
+      "kind": "hydrophobic",
+      "scope": "inter",
+      "participants": [
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 12
+          }
+        ],
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 17
+          }
+        ]
+      ],
+      "endpoints": [
+        [
+          -1.4,
+          12,
+          0
+        ],
+        [
+          -0.7,
+          13.2124,
+          3.5
+        ]
+      ],
+      "geometry": {
+        "distance": 3.7696039261439656
+      }
+    },
+    {
+      "kind": "hydrophobic",
+      "scope": "inter",
+      "participants": [
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 12
+          }
+        ],
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 18
+          }
+        ]
+      ],
+      "endpoints": [
+        [
+          -1.4,
+          12,
+          0
+        ],
+        [
+          -1.4,
+          12,
+          3.5
+        ]
+      ],
+      "geometry": {
+        "distance": 3.5
+      }
+    },
+    {
+      "kind": "hydrophobic",
+      "scope": "inter",
+      "participants": [
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 12
+          }
+        ],
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 19
+          }
+        ]
+      ],
+      "endpoints": [
+        [
+          -1.4,
+          12,
+          0
+        ],
+        [
+          -0.7,
+          10.7876,
+          3.5
+        ]
+      ],
+      "geometry": {
+        "distance": 3.7696039261439656
+      }
+    },
+    {
+      "kind": "hydrophobic",
+      "scope": "inter",
+      "participants": [
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 13
+          }
+        ],
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 18
+          }
+        ]
+      ],
+      "endpoints": [
+        [
+          -0.7,
+          10.7876,
+          0
+        ],
+        [
+          -1.4,
+          12,
+          3.5
+        ]
+      ],
+      "geometry": {
+        "distance": 3.7696039261439656
+      }
+    },
+    {
+      "kind": "hydrophobic",
+      "scope": "inter",
+      "participants": [
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 13
+          }
+        ],
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 19
+          }
+        ]
+      ],
+      "endpoints": [
+        [
+          -0.7,
+          10.7876,
+          0
+        ],
+        [
+          -0.7,
+          10.7876,
+          3.5
+        ]
+      ],
+      "geometry": {
+        "distance": 3.5
+      }
+    },
+    {
+      "kind": "hydrophobic",
+      "scope": "inter",
+      "participants": [
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 13
+          }
+        ],
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 20
+          }
+        ]
+      ],
+      "endpoints": [
+        [
+          -0.7,
+          10.7876,
+          0
+        ],
+        [
+          0.7,
+          10.7876,
+          3.5
+        ]
+      ],
+      "geometry": {
+        "distance": 3.7696153649941526
+      }
+    },
+    {
+      "kind": "hydrophobic",
+      "scope": "inter",
+      "participants": [
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 14
+          }
+        ],
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 15
+          }
+        ]
+      ],
+      "endpoints": [
+        [
+          0.7,
+          10.7876,
+          0
+        ],
+        [
+          1.4,
+          12,
+          3.5
+        ]
+      ],
+      "geometry": {
+        "distance": 3.7696039261439656
+      }
+    },
+    {
+      "kind": "hydrophobic",
+      "scope": "inter",
+      "participants": [
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 14
+          }
+        ],
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 19
+          }
+        ]
+      ],
+      "endpoints": [
+        [
+          0.7,
+          10.7876,
+          0
+        ],
+        [
+          -0.7,
+          10.7876,
+          3.5
+        ]
+      ],
+      "geometry": {
+        "distance": 3.7696153649941526
+      }
+    },
+    {
+      "kind": "hydrophobic",
+      "scope": "inter",
+      "participants": [
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 14
+          }
+        ],
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 20
+          }
+        ]
+      ],
+      "endpoints": [
+        [
+          0.7,
+          10.7876,
+          0
+        ],
+        [
+          0.7,
+          10.7876,
+          3.5
+        ]
+      ],
+      "geometry": {
+        "distance": 3.5
+      }
+    },
+    {
+      "kind": "hydrophobic",
+      "scope": "intra",
+      "participants": [
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 43
+          }
+        ],
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 47
+          }
+        ]
+      ],
+      "endpoints": [
+        [
+          35,
+          0,
+          0
+        ],
+        [
+          35.5,
+          2.4,
+          0
+        ]
+      ],
+      "geometry": {
+        "distance": 2.4515301344262523
+      }
+    },
+    {
+      "kind": "hydrophobic",
+      "scope": "intra",
+      "participants": [
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 43
+          }
+        ],
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 48
+          }
+        ]
+      ],
+      "endpoints": [
+        [
+          35,
+          0,
+          0
+        ],
+        [
+          35,
+          1,
+          0
+        ]
+      ],
+      "geometry": {
+        "distance": 1
+      }
+    },
+    {
+      "kind": "hydrophobic",
+      "scope": "intra",
+      "participants": [
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 44
+          }
+        ],
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 48
+          }
+        ]
+      ],
+      "endpoints": [
+        [
+          36.5,
+          0,
+          0
+        ],
+        [
+          35,
+          1,
+          0
+        ]
+      ],
+      "geometry": {
+        "distance": 1.8027756377319946
+      }
+    },
+    {
+      "kind": "pi_pi",
+      "scope": "inter",
+      "participants": [
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 9
+          },
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 10
+          },
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 11
+          },
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 12
+          },
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 13
+          },
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 14
+          }
+        ],
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 15
+          },
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 16
+          },
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 17
+          },
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 18
+          },
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 19
+          },
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 20
+          }
+        ]
+      ],
+      "endpoints": [
+        [
+          -3.700743415417188e-17,
+          12,
+          0
+        ],
+        [
+          -3.700743415417188e-17,
+          12,
+          3.5
+        ]
+      ],
+      "geometry": {
+        "distance": 3.5,
+        "plane_angle": 0,
+        "offset_1": 0,
+        "offset_2": 0
+      }
+    },
+    {
+      "kind": "salt_bridge",
+      "scope": "inter",
+      "participants": [
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 32
+          }
+        ],
+        [
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 37
+          },
+          {
+            "structure_id": "01a13703-d9f4-710d-afd3-6553bd0d1a0f",
+            "atom_id": 39
+          }
+        ]
+      ],
+      "endpoints": [
+        [
+          24,
+          0,
+          0
+        ],
+        [
+          27.4,
+          0.6,
+          0
+        ]
+      ],
+      "geometry": {
+        "distance": 2.8000000000000007,
+        "charge_1": 1,
+        "charge_2": -1
+      }
+    }
+  ]
+}

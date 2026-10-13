@@ -1,0 +1,37 @@
+{
+  "kind": "local complete-diff review",
+  "independent": false,
+  "reviewer": "Codex primary agent",
+  "source_commit": "0b409a13ca40edaab2a4458dd1795f8e7e5b40d9",
+  "base_commit": "116909085a52237d275dd2f42e30c1f847583a54",
+  "areas": [
+    "native ValueCell lifetime, group capacity/endpoints/colors, zero-distance clash geometry",
+    "immutable normalized molecular authority, no viewer-derived scientific state",
+    "conservative acid charge/protonation and fixed interaction-v1 policy",
+    "independent frozen fixtures, source bytes/attribution, analytical participants/endpoints",
+    "filter/scopes/cache, lifecycle/topology, actual WebGL marker pixels",
+    "keyboard/touch/zoom/axe/performance, test-only harness absent production imports",
+    "five versions, archive/API/schema/migration and actual tagged preceding reader",
+    "approved disposition matrix, documents, evidence and complete base whitespace diff"
+  ],
+  "resolved_findings": [
+    "native stale buffers and stale capacity groups",
+    "explicit acid charge/protonation contradiction",
+    "contrast sampled during transient panel fade-in"
+  ],
+  "unresolved_consequential_findings": [],
+  "limitations": [
+    "no independent review returned yet",
+    "pinned Chromium/SwiftShader and Pixel7 emulation",
+    "existing Alembic, bundle and color-env advisories"
+  ],
+  "complete_candidate_gate": {
+    "python": 490,
+    "frontend": 182,
+    "supervisor": 8,
+    "browser": 172,
+    "intentional_skips": 44,
+    "failures": 0,
+    "retries": 0
+  }
+}

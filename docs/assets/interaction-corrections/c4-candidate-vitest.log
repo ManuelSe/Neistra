@@ -1,0 +1,73 @@
+
+> @neistra/web@0.13.1 test /datadisk/dev/neistra/apps/web
+> vitest run
+
+
+ RUN  v3.2.4 /datadisk/dev/neistra/apps/web
+
+ ✓ src/test/selection-expansion.test.tsx (5 tests) 458ms
+   ✓ distance expansion > offers defaults, custom residue expansion, cancel, and visible failures  314ms
+ ✓ src/test/viewer-toolbar.test.tsx (3 tests) 511ms
+   ✓ viewer toolbar > exposes every picking mode as one controlled keyboard-accessible value  372ms
+ ✓ src/test/group-membership.test.tsx (5 tests) 549ms
+ ✓ src/test/component-hierarchy.test.tsx (2 tests) 507ms
+   ✓ component hierarchy > loads lazily, renders categories lazily, and emits canonical modifier selections  504ms
+ ✓ src/test/jobs.test.tsx (3 tests) 833ms
+   ✓ jobs > submits validated generic parameters and immutable role inputs  501ms
+ ✓ src/test/ligand-editor.test.tsx (3 tests) 1177ms
+   ✓ ligand editor > submits atom, bond, hydrogen, rotation, movement, and cleanup commands  834ms
+ ✓ src/test/project-browser.test.tsx (4 tests) 975ms
+   ✓ project browser selection and discovery > searches, filters, sorts, and collapses grouped entries  446ms
+   ✓ project browser selection and discovery > hands focus to the replacement row when membership completes before menu teardown  333ms
+ ✓ src/test/protein-editor.test.tsx (4 tests) 1516ms
+   ✓ protein editor > submits destructive, metadata, mutation, hydrogen, and movement commands  1098ms
+ ✓ src/test/export-dialog.test.tsx (7 tests) 1386ms
+   ✓ export dialog > submits scope, supported output mode, and molecular filters then exposes the artifact  508ms
+ ✓ src/test/numeric-preview-ownership.test.tsx (1 test) 1156ms
+   ✓ discards a delayed numerical preview cleared by movement while retaining valid numerical previews  1155ms
+ ✓ src/test/selection-style-dialog.test.tsx (13 tests) 1782ms
+ ✓ src/test/pocket-controls.test.tsx (6 tests) 1962ms
+   ✓ captures selection, preserves draft across selection changes, and explicitly recaptures  487ms
+   ✓ loads saved seeds, permits empty-selection removal, validates radius and discards drafts  516ms
+   ✓ requires explicit choice for multiple receptors and explains no receptor  414ms
+ ✓ src/test/movement-navigation.test.tsx (1 test) 300ms
+ ✓ src/test/viewer-controls.test.tsx (1 test) 316ms
+   ✓ viewer controls > exposes the non-polar preference with an explicit master dependency  315ms
+ ✓ src/test/sequence.test.tsx (2 tests) 464ms
+   ✓ bidirectional sequence selection > turns sequence residue clicks into the common selection and reflects them in summary  373ms
+ ✓ src/test/structure-loading.test.tsx (13 tests) 1751ms
+   ✓ ignores stale styling eligibility and closes the palette across project switches  402ms
+ ✓ src/test/interactive-transform-controls.test.tsx (4 tests) 2180ms
+   ✓ shares keyboard steps with one Apply and restores launcher focus after Cancel  754ms
+   ✓ retains one capture and pose across scoped Space and explicit view-toggle ownership  304ms
+   ✓ keeps primary actions textless and exposes scientific help without hiding the transaction  905ms
+ ✓ src/test/interactive-transform.test.ts (21 tests) 115ms
+ ✓ src/test/history.test.tsx (2 tests) 231ms
+ ✓ src/test/group-action-focus.test.tsx (3 tests) 301ms
+ ✓ src/test/project-workspace.test.tsx (3 tests) 1845ms
+   ✓ project workspace > creates a real project and exposes its durable checkpoint state  1309ms
+ ✓ src/test/viewer-adapter.test.ts (4 tests) 66ms
+ ✓ src/test/viewer-presentation.test.ts (2 tests) 69ms
+ ✓ src/test/group-drag.test.tsx (2 tests) 34ms
+ ✓ src/test/representations.test.ts (9 tests) 13ms
+ ✓ src/test/interactive-transform-queue.test.ts (4 tests) 17ms
+ ✓ src/test/focus-targets.test.ts (3 tests) 11ms
+ ✓ src/test/selection.test.ts (3 tests) 14ms
+ ✓ src/test/selection-surface-worker.test.ts (3 tests) 11ms
+ ✓ src/test/theme.test.ts (3 tests) 10ms
+ ✓ src/test/transforms.test.ts (3 tests) 4ms
+ ✓ src/test/pocket-inputs.test.ts (4 tests) 3ms
+ ✓ src/test/measurements.test.ts (2 tests) 3ms
+ ✓ src/test/selection-surface-allocation.test.ts (3 tests) 30ms
+ ✓ src/test/pocket-surface-geometry.test.ts (4 tests) 99ms
+ ✓ src/test/selection-surface-runtime.test.ts (6 tests) 362ms
+ ✓ src/test/selection-colors.test.ts (1 test) 3ms
+ ✓ src/test/interaction-native-geometry.test.ts (2 tests) 18ms
+ ✓ src/test/interactions.test.ts (7 tests) 38ms
+ ✓ src/test/selection-surface-geometry.test.ts (7 tests) 80ms
+ ✓ src/test/viewer-interaction.test.ts (4 tests) 5ms
+
+ Test Files  41 passed (41)
+      Tests  182 passed (182)
+   Start at  22:26:11
+   Duration  7.52s (transform 4.80s, setup 2.98s, collect 28.73s, tests 21.20s, environment 18.97s, prepare 4.05s)
