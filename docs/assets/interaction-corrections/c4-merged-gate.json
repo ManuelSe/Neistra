@@ -1,0 +1,111 @@
+{
+  "phase": "merged",
+  "source_commit": "dfca45af3baac1e7395c6b39e73f93fc9651276f",
+  "source_tree": "87d11e2e1879fb966b192936f35f20fea5ab6ad5",
+  "started_utc": "2026-10-13T21:00:59.906633+00:00",
+  "environment": {
+    "MOLWEAVE_DATA_DIR": "/tmp/neistra-issue55-merged-migration",
+    "MOLWEAVE_E2E_API_PORT": "8020",
+    "MOLWEAVE_E2E_WORKER_PORT": "8021",
+    "MOLWEAVE_E2E_WEB_PORT": "5183",
+    "MOLWEAVE_E2E_DATA_DIR": "/tmp/neistra-issue55-merged-browser",
+    "PLAYWRIGHT_BROWSERS_PATH": ".playwright"
+  },
+  "commands": [
+    {
+      "name": "uv-sync",
+      "command": ".venv/bin/uv sync --frozen",
+      "exit_code": 0,
+      "seconds": 0.033,
+      "log": "c4-merged-uv-sync.log"
+    },
+    {
+      "name": "pnpm-install",
+      "command": "corepack pnpm install --frozen-lockfile",
+      "exit_code": 0,
+      "seconds": 0.664,
+      "log": "c4-merged-pnpm-install.log"
+    },
+    {
+      "name": "migration",
+      "command": ".venv/bin/uv run alembic upgrade head",
+      "exit_code": 0,
+      "seconds": 0.602,
+      "log": "c4-merged-migration.log"
+    },
+    {
+      "name": "ruff",
+      "command": ".venv/bin/uv run ruff check .",
+      "exit_code": 0,
+      "seconds": 0.038,
+      "log": "c4-merged-ruff.log"
+    },
+    {
+      "name": "mypy",
+      "command": ".venv/bin/uv run mypy apps/api packages/molweave_core",
+      "exit_code": 0,
+      "seconds": 0.171,
+      "log": "c4-merged-mypy.log"
+    },
+    {
+      "name": "pytest",
+      "command": ".venv/bin/uv run pytest",
+      "exit_code": 0,
+      "seconds": 75.916,
+      "log": "c4-merged-pytest.log"
+    },
+    {
+      "name": "lint",
+      "command": "corepack pnpm --dir apps/web lint",
+      "exit_code": 0,
+      "seconds": 8.026,
+      "log": "c4-merged-lint.log"
+    },
+    {
+      "name": "typecheck",
+      "command": "corepack pnpm --dir apps/web typecheck",
+      "exit_code": 0,
+      "seconds": 4.253,
+      "log": "c4-merged-typecheck.log"
+    },
+    {
+      "name": "vitest",
+      "command": "corepack pnpm --dir apps/web test",
+      "exit_code": 0,
+      "seconds": 7.99,
+      "log": "c4-merged-vitest.log"
+    },
+    {
+      "name": "supervisor",
+      "command": "corepack pnpm test:dev",
+      "exit_code": 0,
+      "seconds": 1.45,
+      "log": "c4-merged-supervisor.log"
+    },
+    {
+      "name": "build",
+      "command": "corepack pnpm --dir apps/web build",
+      "exit_code": 0,
+      "seconds": 12.166,
+      "log": "c4-merged-build.log"
+    },
+    {
+      "name": "browser",
+      "command": "corepack pnpm exec playwright test",
+      "exit_code": 0,
+      "seconds": 1775.79,
+      "log": "c4-merged-browser.log"
+    },
+    {
+      "name": "diff",
+      "command": "git diff --check",
+      "exit_code": 0,
+      "seconds": 0.004,
+      "log": "c4-merged-diff.log"
+    }
+  ],
+  "complete": true,
+  "finished_utc": "2026-10-13T21:32:27.018377+00:00",
+  "working_tree_clean": true,
+  "evidence_note": "Copied log paths reflect repository artifact names; qualified source, commands, exit codes and timings are unchanged."
+}

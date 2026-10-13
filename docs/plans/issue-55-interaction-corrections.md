@@ -2,13 +2,15 @@
 
 ## 1. Status, outcome, and inspected baseline
 
-**Status:** approved on 2026-10-13 through the user's “Implement the plan.”
+**Status:** implemented and released as v0.13.1; approved on 2026-10-13
+through the user's “Implement the plan.”
 The C0 persistence handoff completed at `938e2eef8b74932f0323178ceea1e34969a4d1bd`.
 The user authorized implementation and full delivery through `/goal` on 2026-10-13.
-Current checkpoint: C4 candidate/reader gates complete; PR/review and exact merged qualification next.
+C1–C4 are complete. Verified publication and exact merged qualification are
+recorded below; final documentation merge/cleanup audit is maintained in the issue reply.
 
 - **Issue:** [#55 — Fix and scientifically validate molecular interaction detection and visualization](https://github.com/ManuelSe/Neistra/issues/55).
-- **Issue metadata:** open; created and last updated 2026-10-13 at 05:59:32 UTC;
+- **Issue metadata:** closed by PR #60; open at planning inspection; created and last updated 2026-10-13 at 05:59:32 UTC;
   no issue comments or labels at the planning inspection.
 - **Related:** [#49](https://github.com/ManuelSe/Neistra/issues/49),
   [PR #53](https://github.com/ManuelSe/Neistra/pull/53), and
@@ -525,8 +527,8 @@ remains historical.
 | C1 implementation and qualification | Complete; evidence below |
 | C2 scientific qualification | Complete; evidence below |
 | C3 complete viewer qualification | Complete; evidence below |
-| C4 release qualification and delivery | Candidate and actual preceding reader pass; merged qualification/publication pending |
-| PR, merge, tag, release, issue reply | Not started |
+| C4 release qualification and delivery | Complete: candidate/exact merged gates and actual tagged reader pass |
+| PR, merge, tag, release, issue reply | Verified: PR #60, annotated v0.13.1, published release and closed-issue reply |
 
 `docs/PROGRESS.md` provides the concise project-level summary; this feature plan
 remains the detailed contract. Cross-project decisions stay in
@@ -716,3 +718,43 @@ remain disclosed. Full base whitespace diff passes. Latest base1169090 and
 latest release0.13.0 remain current;v0.13.1 has no remote collision.
 Next: push/open PR, request available Codex review and inspect protections/checks/
 conversations; normal merge then repeat complete gate/actual reader on exact master.
+
+### C4 verified release and publication — 2026-10-13
+
+Candidate evidence committed as `ce37098`. [PR #60](https://github.com/ManuelSe/Neistra/pull/60)
+was reviewed locally against the entire approved contract. Verified
+[Codex request](https://github.com/ManuelSe/Neistra/pull/60#issuecomment-6155064447)
+returned no review/comment/check at the
+[merge audit](https://github.com/ManuelSe/Neistra/pull/60#issuecomment-6155103062);
+no independent review is claimed. No unresolved findings/threads, required
+reviews/checks, protected master or rulesets existed; PR was current/clean/mergeable.
+Normal merge preserves checkpoints; remotely verified merge commit is
+`dfca45af3baac1e7395c6b39e73f93fc9651276f`, on origin/master; local master fast-forwarded.
+
+Every complete release command repeats successfully on that exact clean commit:
+490Python,182frontend,8supervisor,172browser/44intentional layout skips, zero
+failures/retries, frozen installs/fresh0013/Ruff/mypy58files/lint/types/build/diff.
+Browser29.6minutes, fresh `/tmp/neistra-issue55-merged-browser`, isolated
+8020/8021/5183. [Exact merged gate](../assets/interaction-corrections/c4-merged-gate.json).
+[Actual tagged0.13.0 reader](../assets/interaction-corrections/c4-merged-reader.json)
+again passes final merged0.13.1 originals/coordinates/history/save/re-export/
+archives/history omission/jobs; no schema downgrade or migration introduced.
+Merged desktop analysis/cached-toggle2402/187ms; mobile2363/173.5ms, one279-byte
+POST and zero incremental structure GETs each. Existing scientific, accessibility,
+visibility/lifecycle and native marker budgets pass. Warnings/emulation limits remain.
+
+Annotated `v0.13.1` object `160ed3290ee8df5669edcd5a457b11b1ab2e9d80` remotely
+peels to the exact verified merge. Stable published
+[release](https://github.com/ManuelSe/Neistra/releases/tag/v0.13.1) and exact notes
+are verified. Downloaded `neistra-v0.13.1-verification.zip`:2969989bytes,
+SHA256`ce1ce30fa347a012d7a24852f1edb626e882e1c34ab8fcfb77ed703057741ec5`;
+all123internal checksums pass. [Publication record](../assets/interaction-corrections/c4-publication.json).
+[Close-out reply](https://github.com/ManuelSe/Neistra/issues/55#issuecomment-6155674003)
+body verified remotely; issue is closed. #52 remains open; no new speculative follow-up.
+
+This documentation-only closeout records final evidence/publication after delivery.
+Runtime/tests/fixtures/versions remain identical to the qualified release commit;
+immutable tag remains there. Review/merge this closeout on the same planned branch.
+Only then delete remote/local feature branches and remove detached qualification
+worktree; audit final closeout merge, cleanup, clean current master and unchanged
+release runtime in the linked issue reply. No additional implementation scope remains.

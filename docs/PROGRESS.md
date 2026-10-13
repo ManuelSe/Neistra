@@ -2,41 +2,36 @@
 
 ## Current milestone
 
-Issue #55 — [approved interaction-correction plan](plans/issue-55-interaction-corrections.md).
-`/goal` authorized implementation and delivery on 2026-10-13. C0 was committed
-and remotely verified at `938e2ee`; planned branch remains
-`fix/issue-55-interaction-corrections`. M1/C1 is complete: native buffers and
-current group counts update coherently; coincident clashes get a centered cross;
-Interactions is the final quick action. D-088 qualification note appended.
+Issue #55 delivered as [v0.13.1](https://github.com/ManuelSe/Neistra/releases/tag/v0.13.1)
+through [PR #60](https://github.com/ManuelSe/Neistra/pull/60), following the
+[approved plan and detailed completion log](plans/issue-55-interaction-corrections.md).
+C1–C4 complete: correct attached native buffers/current groups, centered coincident
+clashes and final toolbar action; independent six-type/frozen2REG science;
+256additive filter/scope combinations and actual native marker pixels; conservative
+ASP/GLU acid charge/H-conflict warnings. Fixed interaction-v1 and #52 boundaries remain.
 
-C1 frontend lint/types/build and all 181 tests pass. Native desktop/Pixel 7
-interaction specs pass 9 cases/1 intentional skip, zero failures/retries; exact
-attached coordinates, additive groups, previews/history, cache, accessibility and
-performance budgets pass. [Evidence](assets/interaction-corrections/c1-verification.json).
-Review is local, not independent. C2 now qualifies all six types with independent
-fixtures and frozen2REG references:86 focused/91 scientific/487 full Python
-tests, Ruff and strict mypy58 files pass. Raw/source-derived coordinates, supplied
-charge graphs, endpoints, shared types and immutable API/original bytes pass.
-No detector or threshold change needed. [C2 evidence](assets/interaction-corrections/c2-verification.json).
-Diagnostics remain separate;237 existing Alembic warnings retained. C3 is now
-complete:256 choice/scope combinations,182 frontend tests and44 browser cases/6
-intentional skips pass, with zero failures/retries. Six genuine types render
-alone in both themes, every pair/all-six/scope combinations, topology deletion/Undo
-and incomplete raw-chemistry guidance; native buffers and actual marker pixels
-agree. Real zoom/touch/keyboard/axe, movement/measurement/surface/cache/performance
-regressions pass. [C3 evidence](assets/interaction-corrections/c3-verification.json).
-C4 candidate gate passes at `0b409a1`:490Python,182frontend,8supervisor,
-172browser/44intentional skips, zero failures/retries, frozen installs/fresh0013/
-lint/types/build/diff. Actual tagged0.13.0 reader accepts final0.13.1 exact data,
-originals/history/archives/jobs. Local full-diff review resolved acid-charge/H
-contradiction and transient contrast sampling; no consequential finding remains.
-[Candidate evidence](assets/interaction-corrections/c4-candidate-gate.json),
-[reader](assets/interaction-corrections/c4-candidate-reader.json),
-[local review](assets/interaction-corrections/c4-local-review.json).
-Five versions0.13.1; patch, no migration/API/persisted change (0013/majors1).
-Fixed interaction-v1/#52 boundaries remain. Existing warnings/pinned emulation
-remain; diagnostics separate. No blocker. Next: PR/review/normal merge, exact
-merged gate/reader, then verified tag/release/issue reply and cleanup.
+Clean candidate `0b409a1` and exact released master
+`dfca45af3baac1e7395c6b39e73f93fc9651276f` each pass490Python,182frontend,
+8supervisor,172browser/44intentional skips, zero failures/retries; frozen installs,
+fresh0013/Ruff/mypy/lint/types/build/diff. Actual tagged0.13.0 reader accepts
+final0.13.1 originals/coordinates/history/archives/jobs. [Candidate](assets/interaction-corrections/c4-candidate-gate.json),
+[merged](assets/interaction-corrections/c4-merged-gate.json),
+[publication](assets/interaction-corrections/c4-publication.json).
+
+Five versions0.13.1; patch, no dependency upgrade/API/persisted-major change or
+new migration (head0013/majors1). Annotated tag/exact target, stable release/notes,
+downloaded archive bytes/SHA256 and123internal checksums verified.
+[Issue reply](https://github.com/ManuelSe/Neistra/issues/55#issuecomment-6155674003)
+verified; issue closed. Review local, not independent; Codex request returned no
+review at merge audit; no required protection/approval bypass or unresolved finding.
+
+Known limits: geometric screening, explicit donor H, warned protein assumptions,
+incomplete ligand chemistry, unsupported metal/periodic coordination and pinned
+browser emulation; existing Alembic/bundle/color-env advisories remain. [Guidance](INTERACTIONS.md).
+Raw ligand assignment remains [#52](https://github.com/ManuelSe/Neistra/issues/52).
+No blocker or remaining implementation. Final documentation merge/branch cleanup/
+clean-master audit is maintained in the linked issue reply after verification.
+Next product action: approve a separate backlog plan; no deferred scope is reintroduced.
 
 ### Previous delivery baseline — v0.13.0
 

@@ -63,7 +63,12 @@ native touch, lifecycle and existing movement/measurement/surface regressions.
 Pinned1010-atom analysis and cached-toggle budgets pass. Complete clean candidate at0b409a1 passes490Python,182frontend,8supervisor,
 172browser/44intentional skips, zero failures/retries; frozen installs/fresh0013/
 lint/types/build/diff and actual tagged0.13.0 reader pass. [Exact gate](assets/interaction-corrections/c4-candidate-gate.json).
-Exact merged-master qualification remains required before tagging/publication.
+Exact merged masterdfca45af3baac1e7395c6b39e73f93fc9651276f repeats every gate/count
+and actual tagged0.13.0 reader. [Merged evidence](assets/interaction-corrections/c4-merged-gate.json).
+Annotatedv0.13.1/exact target and stable [release](https://github.com/ManuelSe/Neistra/releases/tag/v0.13.1)
+notes, downloaded verification archive and123internal checksums verified.
+[Publication record](assets/interaction-corrections/c4-publication.json); issue55
+reply verified and issue closed.
 Review is local,
 not independent unless a returned external review is explicitly recorded.
 Known Alembic, lazy Mol* bundle and color-env advisories remain. Pinned Chromium/
