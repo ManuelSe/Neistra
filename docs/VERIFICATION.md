@@ -1,5 +1,14 @@
 # V0.1 Requirement Evidence
 
+Issue #55 correction evidence follows the [approved plan](plans/issue-55-interaction-corrections.md).
+C1 native buffer/group/capacity/coordinate and toolbar checks, C2 independent
+six-type and frozen2REG science/API invariance, and C3 actual marker pixels,256
+choice combinations, complete native workflows and real zoom are qualified.
+[C3 logs and screenshots](assets/interaction-corrections/c3-verification.json):
+182frontend and44browser/6intentional skips pass, zero failures/retries; C2 full
+Python487 passes. C4 release/reader qualification remains pending; prior #49
+evidence below stays historical.
+
 Issue #49 qualification is maintained in the [approved interaction plan](plans/issue-49-molecular-interactions.md)
 and [raw evidence](assets/molecular-interactions/). All six types use independently
 specified positive, negative and exact-threshold scientific cases. Native browser

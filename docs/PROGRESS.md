@@ -18,13 +18,19 @@ fixtures and frozen2REG references:86 focused/91 scientific/487 full Python
 tests, Ruff and strict mypy58 files pass. Raw/source-derived coordinates, supplied
 charge graphs, endpoints, shared types and immutable API/original bytes pass.
 No detector or threshold change needed. [C2 evidence](assets/interaction-corrections/c2-verification.json).
-Diagnostics remain separate;237 existing Alembic warnings retained. C3 workflow
-and C4 release gates remain.
+Diagnostics remain separate;237 existing Alembic warnings retained. C3 is now
+complete:256 choice/scope combinations,182 frontend tests and44 browser cases/6
+intentional skips pass, with zero failures/retries. Six genuine types render
+alone in both themes, every pair/all-six/scope combinations, topology deletion/Undo
+and incomplete raw-chemistry guidance; native buffers and actual marker pixels
+agree. Real zoom/touch/keyboard/axe, movement/measurement/surface/cache/performance
+regressions pass. [C3 evidence](assets/interaction-corrections/c3-verification.json).
+C4 release preparation and complete candidate/merged qualification remain.
 
 Versions remain0.13.0; planned patch0.13.1, no migration/API/persisted change
 (head0013/majors1). Fixed interaction-v1 and #52 boundaries remain. Pinned browser
 emulation and existing bundle/color-env advisories remain. No blocker.
-Next action: M3/C3 complete additive native viewer qualification.
+Next action: M4/C4 version preparation, complete release gate and actual preceding reader.
 
 ### Previous delivery baseline — v0.13.0
 
@@ -2240,8 +2246,9 @@ Results:
 
 ## Known limitations
 
-- Issue #55 is an approved plan, not implemented functionality. The released
-  interaction renderer still has the reproduced native-buffer update defect.
+- Issue #55 C1–C3 are implemented and qualified on the feature branch; release
+  preparation and publication remain pending. Released v0.13.0 still has the
+  native-buffer defect until this correction is delivered.
   Scientific scope remains bounded by `interaction-v1`; #52 owns raw ligand
   chemistry assignment. The feature plan contains the detailed acceptance gates.
 
@@ -2336,11 +2343,11 @@ Results:
 
 ## Blockers
 
-No current blocker. Issue #55 is approved for the C0 persistence-only handoff;
-implementation/delivery is authorized through `/goal`. Issue #49 remains released, with its final
-documentation/cleanup audit maintained in its closeout reply.
+No current blocker. Issue #55 implementation/delivery is authorized by `/goal`;
+C1–C3 pass. C4 versions, complete candidate/merged qualification, review and
+publication remain. Issue #49 remains the released baseline.
 
 ## Next action
 
-Complete M3/C3 under the approved issue #55 plan. Released baseline v0.13.0;
+Complete M4/C4 under the approved issue #55 plan. Released baseline v0.13.0;
 planned correction patch v0.13.1.

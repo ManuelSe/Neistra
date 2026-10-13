@@ -299,3 +299,13 @@ longest recorded task0/0ms; each one279-byte request, zero structureGETs,79recor
 [mobile](assets/molecular-interactions/c5-merged-mobile-performance.json) evidence
 is separate from C4/candidate observations. Existing native movement/navigation/
 surface/capacity budgets pass in both complete release runs.
+
+## Issue #55 interaction correction
+
+Native overlay geometry reuses attached buffer cells and explicitly bounds active
+groups, retaining batched nonpickable rendering. All six cached type/scope
+choices avoid new molecular requests. C3 repeats the pinned1010-atom fixture
+budgets (first analysis/display<5s, cached toggle<500ms, longest task<750ms; one
+279-byte analysis request and zero additional structure GETs). Measured desktop/
+Pixel7 values are in [evidence](assets/interaction-corrections/c3-verification.json).
+Scientific fixtures and projection/pixel inspection remain test-only.

@@ -5,7 +5,7 @@
 **Status:** approved on 2026-10-13 through the user's “Implement the plan.”
 The C0 persistence handoff completed at `938e2eef8b74932f0323178ceea1e34969a4d1bd`.
 The user authorized implementation and full delivery through `/goal` on 2026-10-13.
-Current checkpoint: C2 complete; C3 next.
+Current checkpoint: C3 complete; C4 release preparation next.
 
 - **Issue:** [#55 — Fix and scientifically validate molecular interaction detection and visualization](https://github.com/ManuelSe/Neistra/issues/55).
 - **Issue metadata:** open; created and last updated 2026-10-13 at 05:59:32 UTC;
@@ -524,7 +524,8 @@ remains historical.
 | C0 persistence | Approved plan and project summary are the first branch change; commit/push verification reported at handoff |
 | C1 implementation and qualification | Complete; evidence below |
 | C2 scientific qualification | Complete; evidence below |
-| C3–C4 implementation and qualification | Not started |
+| C3 complete viewer qualification | Complete; evidence below |
+| C4 release qualification and delivery | Not started |
 | PR, merge, tag, release, issue reply | Not started |
 
 `docs/PROGRESS.md` provides the concise project-level summary; this feature plan
@@ -599,3 +600,38 @@ qualification note. Reviewed the entire C2 diff locally: fixtures are scientific
 test data, not preparation/CCD service; no app/schema/API/dependency/version
 change or scope expansion. No consequential finding. Next: C3 additive/native
 all-type and complete viewer workflows.
+
+### C3 — 2026-10-13
+
+C2 committed as `f33ee28`. All256 type/scope combinations preserve exact input
+record identities. Genuine48-atom fixture qualifies every type alone in light/dark,
+all15 pairs and all six together on desktop and Pixel7: API classifications,
+attached native segments/colors/index capacity and actual projected marker pixels
+agree. Scope combinations retain their independent records. Cached choices make
+one analysis POST and zero normalized GETs before edits. Donor-H deletion
+invalidates artifacts and removes its H marker; Undo restores canonical identity
+and current native geometry. Raw1STP missing ligand chemistry/H guidance is visible.
+
+Passing C3 milestone gate: frontend lint/types/build,182 full tests and12 focused
+representation/store/toolbar tests. Seven browser specs pass44 cases/6 intentional
+layout skips, zero failures/retries, including existing interactions/lifecycle,
+new `interaction-corrections.spec.ts`, real zoom, viewer-transform toolbar,
+measurements and selection surfaces. True native touch, keyboard, scoped axe,
+320px and100%/200%zoom pass; all existing analysis/cached-toggle budgets pass.
+Overrides remain8020/8021/5183 and `/tmp/neistra-issue55-c3-browser`.
+[Logs, native source records, screenshots and measured performance](../assets/interaction-corrections/c3-verification.json).
+
+Canvas assertions use a settled oblique view and expected endpoint regions,
+requiring >=4 newly visible marker-hue pixels and allowing <=3 unrelated
+antialiasing pixels when off. Native endpoints/colors/segments/capacity and empty
+record sets remain exact or float32-projection-qualified. Earlier whole-scene
+bitmap/pure-RGB assertions incorrectly included unrelated fog/shading; diagnostic
+failures/interruption are separate from the complete passing gate. Segment
+validation aggregates failures while checking every active attached segment,
+avoiding thousands of redundant assertion trace records.
+
+Updated verification/accessibility/performance documentation and native harness
+(test-only, absent from production imports). Complete C3 local diff review finds
+no production/API/schema/chemistry change, scope expansion or consequential
+finding. Next: C4 versions/notes, current-base audit, exact candidate release gate
+and actual tagged0.13.0 reader qualification before PR.

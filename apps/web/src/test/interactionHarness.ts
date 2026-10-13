@@ -1,3 +1,4 @@
+import { Vec3, Vec4 } from "molstar/lib/mol-math/linear-algebra";
 import type { MolstarEngine } from "../viewer/MolstarEngine";
 import type { createInteractionRepresentation } from "../viewer/interactionGeometry";
 import type { PluginUIContext } from "molstar/lib/mol-plugin-ui/context";
@@ -16,6 +17,8 @@ export async function inspectInteractions(engine: MolstarEngine) {
   await native.syncQueue;
   return {
     records: native.interactions,
+    projectedEndpoints: native.interactions.map(record => record.endpoints.map(point =>
+      native.plugin?.canvas3d?.camera.project(Vec4(), Vec3.create(...point)).slice(0, 2) ?? [])),
     objects: native.interactionRepresentation.renderObjects.map(object => {
       const values = object.values as LinesValues;
       const count = values.drawCount.ref.value;

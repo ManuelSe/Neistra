@@ -278,3 +278,12 @@ include actual H-bond pixels, not just a nonblank canvas. Visual inspection conf
 H-to-acceptor dashed geometry and bounded readable controls. This does not certify
 physical devices, other browsers, whole-product accessibility or screen-reader
 access to individual molecular atoms.
+
+## Issue #55 interaction correction
+
+Interactions is the final quick-action toolbar button, after Style selection in
+DOM and keyboard order. C3 verifies light/dark scoped axe, keyboard/focus, true
+touch,320px and actual100%/200%browser zoom alongside all six patterned markers.
+Native pixel evidence and existing movement/measurement/surface workflows pass;
+qualification remains pinned Chromium/SwiftShader and Pixel7 emulation.
+[Evidence](assets/interaction-corrections/c3-verification.json).
