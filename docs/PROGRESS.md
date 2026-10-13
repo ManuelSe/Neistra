@@ -34,7 +34,11 @@ and actual preceding-reader qualification remain.
 Five versions now0.13.1 in release preparation; planned patch0.13.1, no migration/API/persisted change
 (head0013/majors1). Fixed interaction-v1 and #52 boundaries remain. Pinned browser
 emulation and existing bundle/color-env advisories remain. No blocker.
-Next action: C4 complete clean-candidate release gate and actual tagged0.13.0 reader, then PR/review.
+Actual tagged0.13.0 reader passes originals/coordinates/history/archives/jobs.
+First candidate browser gate caught contrast during fade-in; settled-opacity
+measurement now passes10focused browser cases/2intentional skips, lint/types.
+Failed/interrupted and overlapping-service diagnostics remain separate.
+Next action: rerun complete clean-candidate release gate, then PR/review.
 
 ### Previous delivery baseline — v0.13.0
 

@@ -128,6 +128,7 @@ test("shows busy failures, retries, and keeps the compact panel accessible in bo
     const current = await page.locator("html").getAttribute("data-theme");
     if (current !== theme) await page.getByRole("button", { name: `Use ${theme} theme` }).click();
     await expect(panel).toBeVisible();
+    await expect(panel).toHaveCSS("opacity", "1");
     expect((await new AxeBuilder({ page }).include(".interaction-panel").analyze()).violations).toEqual([]);
     await page.screenshot({ path: info.outputPath(`interaction-panel-${theme}.png`) });
   }

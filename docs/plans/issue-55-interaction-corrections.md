@@ -670,3 +670,22 @@ D-086 note and scientific/release/upgrade guidance updated. Reviewed the small
 code/test diff locally; no consequential finding remains. Complete candidate and
 exact merged gates must include this correction. Next: clean candidate release
 gate and actual tagged0.13.0 reader before opening PR.
+
+### C4 settled-contrast correction — 2026-10-13
+
+Acid correction committed as `3ab1469`. First complete candidate attempt passed
+frozen installs, fresh0013, Ruff/mypy,490Python,182frontend,8supervisor and build,
+but the browser gate caught an axe contrast sample during the panel's120ms fade-in.
+Explicitly await opaque panel CSS before measuring contrast; WCAG assertions and
+production styling remain unchanged. The failed gate was interrupted and is
+[diagnostic only](../assets/interaction-corrections/c4-candidate-interrupted-diagnostic.log).
+A prematurely overlapping focused run lost test services during cleanup; its
+[diagnostic](../assets/interaction-corrections/c4-overlap-diagnostic.log) is not
+passing evidence. Isolated rerun passes10browser/2intentional mobile skips,
+zero failures/retries, including real100%/200%zoom and both themes; lint/types pass.
+[Focused browser log](../assets/interaction-corrections/c4-contrast.log),
+[lint/types](../assets/interaction-corrections/c4-contrast-lint.log).
+Local diff review finds no scope or policy change. Actual tagged0.13.0 reader
+already accepts0.13.1 originals/coordinates/history/archives/jobs; retain exact
+reader evidence with the final gate. Next: entire clean-candidate gate rerun,
+with isolated services and fresh storage; no failed/incomplete run authorizes PR.

@@ -287,3 +287,8 @@ touch,320px and actual100%/200%browser zoom alongside all six patterned markers.
 Native pixel evidence and existing movement/measurement/surface workflows pass;
 qualification remains pinned Chromium/SwiftShader and Pixel7 emulation.
 [Evidence](assets/interaction-corrections/c3-verification.json).
+
+Interaction contrast qualification waits for the panel's fade-in to reach
+`opacity: 1` before running axe. This samples the settled user interface while
+retaining all WCAG assertions; it does not change production colors or disable
+animation. The issue55 plan retains the initial transient sample separately.
