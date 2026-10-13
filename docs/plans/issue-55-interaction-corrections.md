@@ -5,7 +5,7 @@
 **Status:** approved on 2026-10-13 through the user's “Implement the plan.”
 The C0 persistence handoff completed at `938e2eef8b74932f0323178ceea1e34969a4d1bd`.
 The user authorized implementation and full delivery through `/goal` on 2026-10-13.
-Current checkpoint: C1 complete; C2 next.
+Current checkpoint: C2 complete; C3 next.
 
 - **Issue:** [#55 — Fix and scientifically validate molecular interaction detection and visualization](https://github.com/ManuelSe/Neistra/issues/55).
 - **Issue metadata:** open; created and last updated 2026-10-13 at 05:59:32 UTC;
@@ -523,7 +523,8 @@ remains historical.
 | Plan approval | Approved 2026-10-13 through “Implement the plan”; persistence-only handoff |
 | C0 persistence | Approved plan and project summary are the first branch change; commit/push verification reported at handoff |
 | C1 implementation and qualification | Complete; evidence below |
-| C2–C4 implementation and qualification | Not started |
+| C2 scientific qualification | Complete; evidence below |
+| C3–C4 implementation and qualification | Not started |
 | PR, merge, tag, release, issue reply | Not started |
 
 `docs/PROGRESS.md` provides the concise project-level summary; this feature plan
@@ -571,3 +572,30 @@ Reviewed complete C1 diff locally for scope, native lifetime, nonpickability,
 endpoint invariance and scientific boundaries. No consequential finding remains.
 No migration, API/scientific policy, persisted-state or version change. Existing
 lazy-bundle and color-env advisories remain. Next action: C2 scientific fixtures.
+
+### C2 — 2026-10-13
+
+C1 committed as `8bfd47e`. Added checksum-frozen2REG originals, exact-coordinate
+receptor/choline derivatives and48-atom supplied six-type fixture. Independent
+participants/endpoints, counts, realistic neutral/charged controls, quaternary
+distance boundaries, shared classifications and covariance-based reference
+geometry pass. Seven cation–ring records span Trp43/90/205 and Tyr119; Asp45 at
+4.716Å remains outside the fixed ionic cutoff. Derivative graph/charges and every
+observed coordinate are checked against original bytes. API analysis preserves
+GET project state, normalized artifact/viewer payload and exact original bytes.
+No production detector correction or threshold change was necessary.
+
+Passing C2 gate: Ruff, strict mypy58 source files,86 focused interaction tests,
+91 scientific tests,487 complete Python tests. Full suite retains237 existing
+Alembic configuration warnings. Commands are C2's documented gate plus
+`tests/scientific/test_interaction_qualification.py` in the focused command.
+[Exact logs/provenance/evidence](../assets/interaction-corrections/c2-verification.json).
+Initial API-invariance assertion diagnostic is separate: import response/GET
+timestamp formatting differs; before/after GET is the correct unchanged-state
+comparison. Final complete suite includes the source-coordinate derivative test.
+
+Updated fixture provenance, scientific limitations and appended D-086 reference
+qualification note. Reviewed the entire C2 diff locally: fixtures are scientific
+test data, not preparation/CCD service; no app/schema/API/dependency/version
+change or scope expansion. No consequential finding. Next: C3 additive/native
+all-type and complete viewer workflows.

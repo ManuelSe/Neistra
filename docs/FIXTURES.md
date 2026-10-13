@@ -189,3 +189,35 @@ These qualify endpoints, full ring memberships and charge-center direction.
 [Checksums/host evidence](assets/molecular-interactions/c4-host-fixtures.json) pins
 bytes. Unit/scientific tests independently specify negative and boundary variants
 for distance/angles/offsets/planarity/charges, exclusions, ambiguity and limits.
+
+## Interaction correction qualification (#55)
+
+`interactions/qualification.json` pins all input checksums, source attribution,
+manual preparation and motif membership. `2reg-original.pdb` preserves bytes
+from PLIP commit `2f4911d307490479ac023b22d6faa8f59b577ca8` (PDB 2REG, Oswald
+et al. ChoX/choline structures, 2008). Its SHA-256 is
+`48cbe518ffd7bee3fca458757f2c76549cc27e74fae237b2e1a3118d43241d1f`.
+The original is not rewritten. `2reg-receptor.pdb` extracts complete observed
+chain-A residues43/45/90/119/205; `2reg-choline.mol` keeps its seven observed
+heavy-atom coordinates with an explicitly supplied single-bond graph and N1+1.
+This test-only preparation adds no atoms, coordinates, dictionary or app service.
+
+Independent source-coordinate checks and covariance eigenvectors verify seven
+cation–ring records at Trp43/90/205 and Tyr119. Trp contributes separate complete
+five/six-member rings; residue-level literature reports need not share that count.
+Asp45's nearest charge site is4.716Å, outside the unchanged4.5Å salt criterion.
+Absent donor H, source gaps and conventional protein charges remain warned.
+No equivalence to another tool's cutoffs or binding-energy claim is made.
+
+`six_types.mol` contains48 atoms in separated supplied-chemistry motifs: explicit-H
+ammonia/carbonyl, ethane pairs, parallel neutral benzene rings, tetramethylammonium
+above benzene, explicit-H methylammonium/acetate, a nonbonded carbon clash and an
+intentionally overlapping hexane chain. This is rule/renderer test geometry, not
+an optimized or experimental pose. Independent expected participants/endpoints
+and counts are encoded in `test_interaction_qualification.py`:19 inter hydrophobic
+pairs (18 ring pairs plus one ethane pair),2 inter H bonds, one each inter π–π,
+cation–π, salt and clash, and3 intra hydrophobic plus3 intra clashes. H/ionic and
+ring/hydrophobic classifications coexist. Neutral tertiary-amine and carboxylic-acid
+controls, realistic quaternary distance boundaries and immutable API/original
+checks supplement the prior positive/negative/angular/boundary/uncertainty suites.
+Tests read frozen files offline and never derive expectations from the detector.

@@ -1,0 +1,111 @@
+{
+  "source": "https://raw.githubusercontent.com/pharmai/plip/2f4911d307490479ac023b22d6faa8f59b577ca8/plip/test/pdb/2reg.pdb",
+  "source_sha256": "48cbe518ffd7bee3fca458757f2c76549cc27e74fae237b2e1a3118d43241d1f",
+  "attribution": "PDB 2REG coordinates; frozen source distributed in PLIP literature-validation fixtures. Reference: Oswald et al., Crystal structures of the choline/acetylcholine substrate-binding protein ChoX (2008).",
+  "derivatives": {
+    "2reg-receptor.pdb": "Complete observed chain-A residues 43,45,90,119,205; source atom coordinates unchanged. Gaps and absent donor H are intentional and warned.",
+    "2reg-choline.mol": {
+      "atom_names": [
+        "C4",
+        "C5",
+        "C6",
+        "C7",
+        "C8",
+        "O6",
+        "N1"
+      ],
+      "charge": {
+        "N1": 1
+      },
+      "bonds": "Supplied single-bond choline graph; test-only manual assignment, no CCD/preparation service; no atoms/coordinates added."
+    },
+    "six_types.mol": "Purpose-built separated motifs with supplied chemistry; designed overlap/chain geometry is a rule test, not an equilibrium conformation or bound pose."
+  },
+  "motifs": {
+    "hydrogen_bond": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "hydrophobic": [
+      5,
+      6,
+      7,
+      8
+    ],
+    "pi_ring_a": [
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    "pi_ring_b": [
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "cation_ring": [
+      21,
+      22,
+      23,
+      24,
+      25,
+      26
+    ],
+    "quaternary_ammonium": [
+      27,
+      28,
+      29,
+      30,
+      31
+    ],
+    "methylammonium": [
+      32,
+      33,
+      34,
+      35,
+      36
+    ],
+    "acetate": [
+      37,
+      38,
+      39,
+      40
+    ],
+    "clash": [
+      41,
+      42
+    ],
+    "intra_chain": [
+      43,
+      44,
+      45,
+      46,
+      47,
+      48
+    ]
+  },
+  "expected_reference": {
+    "cation_pi_residues": [
+      43,
+      90,
+      119,
+      205
+    ],
+    "cation_pi_ring_count": 7,
+    "asp45_nearest_charge_site_angstrom": 4.716,
+    "salt_bridge_to_asp45": false
+  },
+  "sha256": {
+    "2reg-original.pdb": "48cbe518ffd7bee3fca458757f2c76549cc27e74fae237b2e1a3118d43241d1f",
+    "2reg-receptor.pdb": "3aaf5c29ca92284507e8f8eb7c90a14e1d22dae56983ed0a160c1344df0a7f91",
+    "2reg-choline.mol": "4579faf10e583e27b7a39693ddb223453b678c7133859fd9a0d81c7fc401b3d1",
+    "six_types.mol": "14bbb04652057078901617f26b78bb0ed9f0e62e224d8869e91630b28ce41afb"
+  }
+}

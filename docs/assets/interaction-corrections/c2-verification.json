@@ -1,0 +1,20 @@
+{
+  "checkpoint": "C2",
+  "base": "8bfd47e",
+  "focused_python": 86,
+  "scientific_python": 91,
+  "full_python": 487,
+  "ruff": "pass",
+  "mypy": "pass:58 source files",
+  "production_changes": false,
+  "profile": "interaction-v1 unchanged",
+  "reference": "tests/fixtures/interactions/qualification.json",
+  "diagnostic": "Compared analysis GET state with import mutation response; existing timestamp serialization differs Z suffix. Fixed the invariant assertion to compare GET before versus GET after; no unrelated API change.",
+  "review": "local full checkpoint diff; no consequential finding",
+  "limitations": [
+    "2REG chemistry explicitly supplied only in test",
+    "source gaps/absent H/conventional charges warned",
+    "no universal support/energy/external-tool equivalence claim",
+    "237 existing Alembic configuration deprecation warnings"
+  ]
+}

@@ -1,0 +1,17 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.2, pluggy-1.6.0
+rootdir: /datadisk/dev/neistra
+configfile: pyproject.toml
+plugins: cov-6.3.0, anyio-4.9.0
+collected 91 items
+
+tests/scientific/test_component_classification.py ...                    [  3%]
+tests/scientific/test_format_fidelity.py .......                         [ 10%]
+tests/scientific/test_interaction_qualification.py ..............        [ 26%]
+tests/scientific/test_interactions.py .................................. [ 63%]
+...................                                                      [ 84%]
+tests/scientific/test_ligand_validation.py ...                           [ 87%]
+tests/scientific/test_protein_templates.py .........                     [ 97%]
+tests/scientific/test_release_fixture.py ..                              [100%]
+
+============================== 91 passed in 0.52s ==============================

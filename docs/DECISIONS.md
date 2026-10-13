@@ -3111,3 +3111,15 @@ a centered three-axis cross of 0.15 Å half-length as an explicitly documented
 marker; molecular geometry is not inferred or modified.
 The shape uses the current record count explicitly; retained buffer capacity
 must not create stale color groups after shrinking or emptying the batch.
+
+### D-086 fixed-profile reference qualification note — issue #55 C2, 2026-10-13
+
+Freeze structural source coordinates and independently specify prepared test
+chemistry, participants and geometric expectations. Small controlled molecules
+plus the2REG choline environment qualify supported rules without implementing
+ligand assignment. Source atom coordinates and explicit choline graph are checked
+against original bytes. Do not tune interaction-v1 to reproduce another tool's
+report:2REG cation–π partners qualify, while Asp45 at4.716Å lies outside Neistra's
+4.5Å ionic cutoff. Separate complete Trp rings explain ring-versus-residue counts.
+No production chemistry or thresholds are changed by this qualification.
+The two2REG PDB fixture paths have scoped Git attributes preserving fixed-width\npadding and disabling text newline conversion. Their format padding is exempt\nfrom blank-at-end-of-line checks; code/documentation checks remain unchanged.\nChecksum and source-coordinate tests enforce exact scientific input fidelity.\nEOF

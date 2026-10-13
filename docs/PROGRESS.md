@@ -13,13 +13,18 @@ C1 frontend lint/types/build and all 181 tests pass. Native desktop/Pixel 7
 interaction specs pass 9 cases/1 intentional skip, zero failures/retries; exact
 attached coordinates, additive groups, previews/history, cache, accessibility and
 performance budgets pass. [Evidence](assets/interaction-corrections/c1-verification.json).
-Review is local, not independent. Initial diagnostic failures are documented
-separately. C2 scientific, C3 complete workflow and C4 release gates remain.
+Review is local, not independent. C2 now qualifies all six types with independent
+fixtures and frozen2REG references:86 focused/91 scientific/487 full Python
+tests, Ruff and strict mypy58 files pass. Raw/source-derived coordinates, supplied
+charge graphs, endpoints, shared types and immutable API/original bytes pass.
+No detector or threshold change needed. [C2 evidence](assets/interaction-corrections/c2-verification.json).
+Diagnostics remain separate;237 existing Alembic warnings retained. C3 workflow
+and C4 release gates remain.
 
 Versions remain0.13.0; planned patch0.13.1, no migration/API/persisted change
 (head0013/majors1). Fixed interaction-v1 and #52 boundaries remain. Pinned browser
 emulation and existing bundle/color-env advisories remain. No blocker.
-Next action: M2/C2 scientific qualification, without widening chemistry/profile.
+Next action: M3/C3 complete additive native viewer qualification.
 
 ### Previous delivery baseline — v0.13.0
 
@@ -2337,5 +2342,5 @@ documentation/cleanup audit maintained in its closeout reply.
 
 ## Next action
 
-Complete M2/C2 under the approved issue #55 plan. Released baseline v0.13.0;
+Complete M3/C3 under the approved issue #55 plan. Released baseline v0.13.0;
 planned correction patch v0.13.1.
