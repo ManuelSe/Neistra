@@ -17,6 +17,7 @@ describe("viewer toolbar", () => {
       focusLigandsUnavailableReason: null,
       selectionStyleUnavailableReason: null,
       selectionStyleOpen: false,
+      onInteractions: vi.fn(),
       onFitAll: vi.fn(),
       onFocusSelection: vi.fn(),
       onFocusLigands: vi.fn(),
@@ -33,6 +34,11 @@ describe("viewer toolbar", () => {
     );
 
     expect(screen.getByRole("toolbar", { name: "Viewer quick actions" })).toBeVisible();
+    const actions = screen.getByRole("group", { name: "Viewer focus actions" }).querySelectorAll("button");
+    expect(actions[actions.length - 1]).toHaveAccessibleName("Interactions");
+    screen.getByRole("button", { name: "Style selection" }).focus();
+    await user.tab();
+    expect(screen.getByRole("button", { name: "Interactions" })).toHaveFocus();
     expect(screen.getByRole("button", { name: "Pick residues" })).toHaveAttribute(
       "aria-pressed",
       "true",

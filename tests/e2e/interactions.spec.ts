@@ -54,6 +54,7 @@ test("qualifies explicit-H marker pixels, visibility, preview Cancel and committ
   await expect.poll(async () => (await native(page)).records.length).toBe(1);
   const geometry = await native(page);
   expect(geometry.records[0].endpoints).toEqual([[1, 0, 0], [2.8, 0, 0]]);
+  expect(geometry.objects[0].starts.slice(0, 3)).toEqual([1, 0, 0]);
   expect(geometry.objects.every(object => !object.pickable && object.drawCount > 0)).toBe(true);
   await panel.getByRole("button", { name: "Close interactions" }).click();
   await expect.poll(() => cyanPixels(page)).toBeGreaterThan(10);
@@ -96,12 +97,14 @@ test("qualifies explicit-H marker pixels, visibility, preview Cancel and committ
   const movedEndpoints = [2, 3].map(id => changed.structure.atoms.find(atom => atom.id === id)!.coordinates);
   expect(movedEndpoints).not.toEqual(geometry.records[0].endpoints);
   await expect.poll(async () => (await native(page)).records[0]?.endpoints).toEqual(movedEndpoints);
+  await expect.poll(async () => (await native(page)).objects[0]?.starts.slice(0, 3)).toEqual(movedEndpoints[0].map(Math.fround));
   await page.getByRole("button", { name: /^Undo:/ }).click();
   await expect.poll(() => analyses, { timeout: 20_000 }).toBe(3);
   await expect.poll(async () => (await native(page)).records[0]?.endpoints).toEqual(geometry.records[0].endpoints);
   await page.getByRole("button", { name: /^Redo:/ }).click();
   await expect.poll(() => analyses, { timeout: 20_000 }).toBe(4);
   await expect.poll(async () => (await native(page)).records[0]?.endpoints).toEqual(movedEndpoints);
+  await expect.poll(async () => (await native(page)).objects[0]?.starts.slice(0, 3)).toEqual(movedEndpoints[0].map(Math.fround));
   writeFileSync(info.outputPath("interaction-lifecycle.json"), JSON.stringify({ project: info.project.name, pixels, geometry, analyses, structureGets }, null, 2));
 });
 

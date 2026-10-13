@@ -3097,3 +3097,17 @@ side-chain site becomes untyped with a warning, preventing e.g. acylated Lys NZ
 from acquiring an assumed positive charge. Disulfide S is not a thiol donor and
 does not request missing donor H; contradictory supplied thiol H is skipped.
 Molecular grouping still respects supplied covalent links and inputs stay immutable.
+
+### D-088 native buffer qualification note — issue #55 C1, 2026-10-13
+
+Mol* ShapeRepresentation retains geometry ValueCells on an existing render object.
+Create updated Lines through the previous geometry so endpoint/group/index buffers
+change together with counts, colors and bounds. Fresh disconnected buffers can
+leave old coordinates and undersized index capacity attached despite correct
+application records. Tests must inspect active attached buffers and actual canvas
+output; submitted records and draw counts alone do not establish rendering.
+Keep one nonpickable batch and canonical endpoints. Exact coincident clashes use
+a centered three-axis cross of 0.15 Å half-length as an explicitly documented
+marker; molecular geometry is not inferred or modified.
+The shape uses the current record count explicitly; retained buffer capacity
+must not create stale color groups after shrinking or emptying the batch.

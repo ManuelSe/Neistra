@@ -14,14 +14,25 @@ const patterns: Record<InteractionKind, number[]> = {
   pi_pi: [0.45, 0.2], cation_pi: [0.45, 0.15, 0.08, 0.15], salt_bridge: [0.18, 0.1, 0.18, 0.25],
 };
 
-export function interactionLines(records: InteractionRecord[]) {
-  const builder = LinesBuilder.create();
+export function interactionLines(records: InteractionRecord[], previous?: Lines) {
+  // ShapeRepresentation retains these ValueCells on its existing render object.
+  // Reusing geometry updates attached buffers, not only draw counts and colors.
+  const builder = LinesBuilder.create(2048, 1024, previous);
   records.forEach((record, group) => {
     const [a, b] = record.endpoints;
     if (!a || !b) return;
     const distance = Math.hypot(...a.map((value, index) => b[index] - value));
     const pattern = record.kind === "clash" ? [distance] : patterns[record.kind];
-    if (!distance) return;
+    if (!distance) {
+      if (record.kind === "clash") {
+        for (let axis = 0; axis < 3; axis++) {
+          const start = [...a], stop = [...a];
+          start[axis] -= 0.15; stop[axis] += 0.15;
+          builder.add(start[0], start[1], start[2], stop[0], stop[1], stop[2], group);
+        }
+      }
+      return;
+    }
     let offset = 0, index = 0;
     while (offset < distance) {
       const end = Math.min(distance, offset + pattern[index % pattern.length]);
@@ -38,7 +49,7 @@ export function interactionLines(records: InteractionRecord[]) {
 
 export function createInteractionRepresentation() {
   return ShapeRepresentation<InteractionRecord[], Lines, typeof Lines.Params>(
-    (_ctx, records) => Shape.create("Molecular interactions", records, interactionLines(records), group => Color(INTERACTION_COLORS[records[group].kind]), () => 1, () => ""),
+    (_ctx, records, _props, previous) => Shape.create("Molecular interactions", records, interactionLines(records, previous?.geometry), group => Color(INTERACTION_COLORS[records[group].kind]), () => 1, () => "", undefined, records.length),
     Lines.Utils,
   );
 }

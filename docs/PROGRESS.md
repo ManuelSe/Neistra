@@ -3,28 +3,23 @@
 ## Current milestone
 
 Issue #55 — [approved interaction-correction plan](plans/issue-55-interaction-corrections.md).
-Approved on 2026-10-13 through “Implement the plan” for the persistence-only C0
-handoff. Branch: `fix/issue-55-interaction-corrections`; verified master base
-`116909085a52237d275dd2f42e30c1f847583a54`. The plan is the first branch change;
-implementation has not started. The repository is being prepared for `/goal`.
+`/goal` authorized implementation and delivery on 2026-10-13. C0 was committed
+and remotely verified at `938e2ee`; planned branch remains
+`fix/issue-55-interaction-corrections`. M1/C1 is complete: native buffers and
+current group counts update coherently; coincident clashes get a centered cross;
+Interactions is the final quick action. D-088 qualification note appended.
 
-Approved milestones: M1/C1 repairs native overlay buffer updates and toolbar
-placement; M2/C2 qualifies all six scientific classifications; M3/C3 verifies
-additive controls and native viewer workflows; M4/C4 prepares the patch release
-and qualifies compatibility. Planned release: **0.13.1**, annotated `v0.13.1`.
-Current application versions remain 0.13.0. No new migration or API/persisted
-schema change is planned; head remains 0013 and schema majors remain 1.
+C1 frontend lint/types/build and all 181 tests pass. Native desktop/Pixel 7
+interaction specs pass 9 cases/1 intentional skip, zero failures/retries; exact
+attached coordinates, additive groups, previews/history, cache, accessibility and
+performance budgets pass. [Evidence](assets/interaction-corrections/c1-verification.json).
+Review is local, not independent. Initial diagnostic failures are documented
+separately. C2 scientific, C3 complete workflow and C4 release gates remain.
 
-Planning reproduced stale native line buffers despite updated draw counts, with
-a read-only reusable-geometry experiment demonstrating correct updates. Planning
-checks passed 71 interaction Python tests and all 179 frontend tests; these are
-baseline evidence, not #55 implementation or release qualification. C0 validates
-documentation, links, base/version metadata, diff scope, and remote handoff.
-
-Known limits: preserve fixed `interaction-v1`, explicit-H requirements, warned
-protein conventions, and unsupported chemistry. CCD ligand assignment remains
-separate in [#52](https://github.com/ManuelSe/Neistra/issues/52). No blocker.
-Next action: `/goal` to authorize C1 and subsequent implementation/delivery.
+Versions remain0.13.0; planned patch0.13.1, no migration/API/persisted change
+(head0013/majors1). Fixed interaction-v1 and #52 boundaries remain. Pinned browser
+emulation and existing bundle/color-env advisories remain. No blocker.
+Next action: M2/C2 scientific qualification, without widening chemistry/profile.
 
 ### Previous delivery baseline — v0.13.0
 
@@ -2337,11 +2332,10 @@ Results:
 ## Blockers
 
 No current blocker. Issue #55 is approved for the C0 persistence-only handoff;
-implementation awaits `/goal`. Issue #49 remains released, with its final
+implementation/delivery is authorized through `/goal`. Issue #49 remains released, with its final
 documentation/cleanup audit maintained in its closeout reply.
 
 ## Next action
 
-Run `/goal` for the approved issue #55 contract, starting with M1/C1. Stop after
-the C0 documentation commit/push handoff; do not start implementation in the
-planning-approval turn. Released baseline remains v0.13.0; planned patch 0.13.1.
+Complete M2/C2 under the approved issue #55 plan. Released baseline v0.13.0;
+planned correction patch v0.13.1.

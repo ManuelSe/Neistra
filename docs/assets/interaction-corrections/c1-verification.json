@@ -1,0 +1,57 @@
+{
+  "checkpoint": "C1",
+  "base": "938e2eef8b74932f0323178ceea1e34969a4d1bd",
+  "frontend_tests": 181,
+  "focused_tests": 11,
+  "browser_passed": 9,
+  "intentional_skips": 1,
+  "browser_retries": 0,
+  "browser_failures": 0,
+  "checks": [
+    "web lint",
+    "web typecheck",
+    "full Vitest",
+    "production build",
+    "interaction specs on desktop and Pixel 7",
+    "git diff --check"
+  ],
+  "browser_environment": {
+    "api": 8020,
+    "worker": 8021,
+    "web": 5183,
+    "data": "/tmp/neistra-issue55-c1-browser",
+    "renderer": "pinned Chromium/SwiftShader"
+  },
+  "diagnostics": "initial browser assertions compared float64 with float32; corrected to exact Math.fround projection; new buffer tests exposed stale-capacity groups, fixed with explicit current record count",
+  "performance": [
+    {
+      "project": "chromium",
+      "atoms": 1010,
+      "records": 79,
+      "firstMs": 2000,
+      "cachedToggleMs": 190.5,
+      "longestTaskMs": 0,
+      "analyses": 1,
+      "structureGets": 0,
+      "requestBytes": 279,
+      "fixture": "pinned 1STP + supplied typed ethanol aligned to BTN centroid; no binding claim"
+    },
+    {
+      "project": "mobile-chromium",
+      "atoms": 1010,
+      "records": 79,
+      "firstMs": 2419,
+      "cachedToggleMs": 164,
+      "longestTaskMs": 0,
+      "analyses": 1,
+      "structureGets": 0,
+      "requestBytes": 279,
+      "fixture": "pinned 1STP + supplied typed ethanol aligned to BTN centroid; no binding claim"
+    }
+  ],
+  "limitations": [
+    "local review, not independent",
+    "no chemistry/API/schema/dependency/version change",
+    "existing Mol* bundle/color-env advisories"
+  ]
+}

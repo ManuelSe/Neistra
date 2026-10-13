@@ -3,8 +3,9 @@
 ## 1. Status, outcome, and inspected baseline
 
 **Status:** approved on 2026-10-13 through the user's “Implement the plan.”
-This approval authorizes the C0 persistence handoff only, following the explicit
-planning instruction to stop ready for `/goal`. Implementation has not started.
+The C0 persistence handoff completed at `938e2eef8b74932f0323178ceea1e34969a4d1bd`.
+The user authorized implementation and full delivery through `/goal` on 2026-10-13.
+Current checkpoint: C1 complete; C2 next.
 
 - **Issue:** [#55 — Fix and scientifically validate molecular interaction detection and visualization](https://github.com/ManuelSe/Neistra/issues/55).
 - **Issue metadata:** open; created and last updated 2026-10-13 at 05:59:32 UTC;
@@ -521,7 +522,8 @@ remains historical.
 | Planning validation | 71 interaction Python tests; 179 frontend tests passed |
 | Plan approval | Approved 2026-10-13 through “Implement the plan”; persistence-only handoff |
 | C0 persistence | Approved plan and project summary are the first branch change; commit/push verification reported at handoff |
-| C1–C4 implementation and qualification | Not started |
+| C1 implementation and qualification | Complete; evidence below |
+| C2–C4 implementation and qualification | Not started |
 | PR, merge, tag, release, issue reply | Not started |
 
 `docs/PROGRESS.md` provides the concise project-level summary; this feature plan
@@ -542,3 +544,30 @@ remains the detailed contract. Cross-project decisions stay in
   accepted-decision change is included in C0.
 - Documentation checks and remote commit verification are reported in the
   handoff. Stop ready for `/goal`; C1 is the next implementation checkpoint.
+
+### C1 — 2026-10-13
+
+Reused native Lines ValueCells and explicitly bounded shape groups to current
+records, fixing both stale attached geometry and stale-capacity groups on shrink.
+Coincident clashes use the approved centered cross; Interactions is the final
+quick action. Native representation tests cover grow/reorder/shrink/same-count
+coordinate replacement/empty/restore, active buffers, colors and index capacity.
+Browser checks now inspect attached buffers and float32 projected coordinates
+through Apply/Undo/Redo. D-088 qualification note and marker guidance updated.
+
+Passing milestone gate: frontend lint/typecheck, 181 full Vitest tests, production
+build; both interaction specs pass 9 browser cases with 1 intentional desktop-only
+workflow skip, zero failures/retries. Focused representation/store/toolbar gate
+passes 11 tests. Commands are those in C1 above, plus the new
+`src/test/interaction-native-geometry.test.ts` in the focused Vitest command.
+Browser overrides: API8020/worker8021/web5183 and disposable
+`/tmp/neistra-issue55-c1-browser`; no running user's development service reused.
+[Exact logs and performance/lifecycle evidence](../assets/interaction-corrections/c1-verification.json).
+Initial diagnostic failures are separated from passing evidence: testing-library
+matcher/options corrected; real shrink-capacity issue fixed; native coordinate
+assertion correctly compares the float32 projection of authoritative float64 data.
+
+Reviewed complete C1 diff locally for scope, native lifetime, nonpickability,
+endpoint invariance and scientific boundaries. No consequential finding remains.
+No migration, API/scientific policy, persisted-state or version change. Existing
+lazy-bundle and color-env advisories remain. Next action: C2 scientific fixtures.

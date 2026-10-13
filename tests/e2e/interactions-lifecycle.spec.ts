@@ -19,6 +19,10 @@ test("keeps centroid overlays current through scenes, deletion and project chang
   expect(ring.endpoints[0][2]).toBe(0); expect(ring.endpoints[1][2]).toBe(3.5);
   await panel.getByRole("button", { name: "Cation–π", exact: true }).click();
   await expect(panel.getByRole("status")).toContainText("3 detected");
+  await expect.poll(async () => new Set((await native(page)).objects[0]?.groups).size).toBe(3);
+  const attached = (await native(page)).objects[0];
+  expect(attached.drawCount).toBeLessThanOrEqual(attached.indexCapacity);
+  expect(attached.starts.length).toBe(attached.drawCount / 6 * 12);
   expect(analyses).toBe(1);
   await panel.getByRole("button", { name: "Close interactions" }).click();
   await page.getByRole("button", { name: "Open viewer controls" }).click();
