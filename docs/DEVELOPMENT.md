@@ -409,3 +409,6 @@ fresh data verifies exact coordinates/originals, retained Undo/Redo, save/re-exp
 archive import without portable history and unchanged completed jobs. Qualified
 rollback needs no downgrade/data stripping, but restores the old rendering defect.
 Earlier migration guards still apply. [Contract](plans/issue-55-interaction-corrections.md).
+Restart services and reload the workspace on upgrade/rollback to reset transient
+interaction caches. Rollback restores both the native renderer defect and the
+old contradictory-acid assignment limitation. Persisted compatibility is unchanged.

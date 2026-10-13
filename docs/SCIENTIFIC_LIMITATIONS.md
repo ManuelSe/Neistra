@@ -405,3 +405,7 @@ Cation–π evidence covers the four literature-identified aromatic residues; se
 complete Trp rings produce multiple records. A reference contact outside Neistra's
 fixed cutoff remains absent:2REG Asp45 has nearest charge-site distance4.716Å,
 so it is not a salt bridge under the4.5Å profile. CCD assignment remains#52.
+
+Contradictory observed acid H and supplied negative ASP/GLU side-chain charge
+are skipped for ionic and H-bond assignments, with a structured warning. This
+conservative correction does not infer a new protonation state or modify uploads.

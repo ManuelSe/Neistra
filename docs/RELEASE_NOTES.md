@@ -8,6 +8,9 @@
   combined, reordered or moved. Reuse attached line buffers and explicit current
   group counts so old endpoints, stale colors and undersized index capacity no
   longer misrepresent classifications or hide newly enabled markers.
+- Contradictory observed acid H and supplied negative ASP/GLU side-chain charge
+  now suppress affected ionic/H-bond assignments with a warning, implementing
+  the existing conservative chemistry boundary.
 - Exactly coincident clashes get a centered three-axis cross (0.15 Å half-length),
   preserving canonical endpoints. Interactions is the final viewer quick action.
 - Type and Inter/Intra controls remain independent, cached and session-only.
@@ -45,7 +48,9 @@ molecular artifacts, retained history, scenes and jobs retain their contracts.
 Interaction choices/results remain absent from portable current-state archives.
 Actual tagged0.13.0 reader qualification against final0.13.1 data is required
 before delivery; supported rollback needs no schema downgrade or data stripping,
-but restores the old renderer defect. Earlier migration guards still apply.
+but restores the old renderer and contradictory-acid typing defects. Restart
+services and reload the workspace to reset transient derived caches; earlier
+migration guards still apply.
 
 ### Verification and review
 

@@ -651,3 +651,22 @@ No tag, release, merge or publication is claimed.
 Focused release preparation passes111 archive/migration/scientific-reference tests
 with237 existing Alembic warnings; all five versions and Markdown links verified.
 No full candidate/release claim is made before the next gate.
+
+### C4 local review correction — 2026-10-13
+
+Release preparation committed as `e9cd8d6`. Local complete-diff scientific review
+found a missing negative case: protonated ASP with explicitly supplied negative
+acid charge produced a salt bridge, despite D-086's conservative evidence rule.
+The new regression fails on the preceding code (1fail/4pass). Suppress affected
+ASP/GLU oxygen typing before charge/H-bond groups; preserve input bytes and warn
+with canonical site IDs. Aligned donor-H negatives cover both residue templates.
+This is a correctness fix under accepted policy, not a new profile or preparation
+feature. Ordinary charged/neutral sites, fixed thresholds and2REG remain unchanged.
+
+Passing focused correction gate: Ruff, strict mypy58files,89 interaction/domain/
+API tests. [Counterexample](../assets/interaction-corrections/c4-acid-diagnostic.log)
+and [passing gate](../assets/interaction-corrections/c4-acid.log) remain separate.
+D-086 note and scientific/release/upgrade guidance updated. Reviewed the small
+code/test diff locally; no consequential finding remains. Complete candidate and
+exact merged gates must include this correction. Next: clean candidate release
+gate and actual tagged0.13.0 reader before opening PR.

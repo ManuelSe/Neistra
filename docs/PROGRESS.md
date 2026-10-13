@@ -25,7 +25,11 @@ alone in both themes, every pair/all-six/scope combinations, topology deletion/U
 and incomplete raw-chemistry guidance; native buffers and actual marker pixels
 agree. Real zoom/touch/keyboard/axe, movement/measurement/surface/cache/performance
 regressions pass. [C3 evidence](assets/interaction-corrections/c3-verification.json).
-C4 release preparation and complete candidate/merged qualification remain.
+C4 release preparation is committed as `e9cd8d6`. Local review reproduced and
+corrected an explicit negative-charge/acid-H typing conflict for ASP/GLU.89 focused
+tests, Ruff and strict mypy58 pass; sources remain immutable and warnings explicit.
+This enforces D-086 without retuning the profile. Complete candidate/merged release
+and actual preceding-reader qualification remain.
 
 Five versions now0.13.1 in release preparation; planned patch0.13.1, no migration/API/persisted change
 (head0013/majors1). Fixed interaction-v1 and #52 boundaries remain. Pinned browser

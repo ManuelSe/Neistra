@@ -114,6 +114,29 @@ def type_sites(
                 expected[second].add(first)
             valid: dict[str, int] = {}
             disulfides: set[int] = set()
+            acid_names = {"ASP": {"OD1", "OD2"}, "GLU": {"OE1", "OE2"}}.get(
+                residue.name, set()
+            )
+            acid_sites = [index for name, index in names.items() if name in acid_names]
+            conflicting_acid = any(
+                (sites[index].atom.formal_charge or 0) < 0 for index in acid_sites
+            ) and any(
+                sites[neighbor].atom.element == "H"
+                for index in acid_sites
+                for neighbor in sites[index].neighbors
+            )
+            if conflicting_acid:
+                warnings.append(
+                    InteractionWarning(
+                        entry_id=entry,
+                        code="conflicting_protonation",
+                        message=(
+                            f"Observed {residue.name} acid H conflicts with supplied negative "
+                            "side-chain charge; affected ionic and H-bond sites are skipped."
+                        ),
+                        atom_ids=sorted(sites[index].atom.id for index in acid_sites),
+                    )
+                )
             histidine_evidence = any(
                 sites[neighbor].atom.element == "H"
                 for atom_name in ("ND1", "NE2")
@@ -132,7 +155,7 @@ def type_sites(
                     )
                 )
             for name, index in names.items():
-                if name not in expected:
+                if name not in expected or (conflicting_acid and name in acid_names):
                     continue
                 atom = sites[index].atom
                 # Missing heavy neighbors prevent defensible chemistry assignment.

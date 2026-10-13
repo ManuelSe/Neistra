@@ -3123,3 +3123,15 @@ report:2REG cation–π partners qualify, while Asp45 at4.716Å lies outside Nei
 4.5Å ionic cutoff. Separate complete Trp rings explain ring-versus-residue counts.
 No production chemistry or thresholds are changed by this qualification.
 The two2REG PDB fixture paths have scoped Git attributes preserving fixed-width\npadding and disabling text newline conversion. Their format padding is exempt\nfrom blank-at-end-of-line checks; code/documentation checks remain unchanged.\nChecksum and source-coordinate tests enforce exact scientific input fidelity.\nEOF
+
+### D-086 contradictory acid evidence correction — issue #55 C4 review, 2026-10-13
+
+Local complete-diff scientific review reproduced a supported-policy violation:
+observed ASP/GLU acid H plus supplied negative carboxyl-side charge could bypass
+the old fallback-protonation check and create ionic or H-bond assignments. Skip
+the affected acid oxygen sites before typing/groups and return the existing
+structured conflicting_protonation warning with canonical IDs. Preserve source
+charges/coordinates; do not choose a replacement protonation state. Neutral acid
+and ordinary deprotonated sites retain their existing behavior. This implements
+the accepted contradictory-evidence boundary; no threshold/profile/API/schema
+change. Negative salt and aligned donor-H regressions cover both ASP and GLU.

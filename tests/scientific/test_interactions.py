@@ -525,7 +525,8 @@ def test_salt_and_hydrogen_bond_classifications_are_independent() -> None:
 
 
 @pytest.mark.parametrize(
-    "charge,protonated,expected", [(None, False, 1), (0, False, 0), (-1, False, 1), (None, True, 0)]
+    "charge,protonated,expected",
+    [(None, False, 1), (0, False, 0), (-1, False, 1), (None, True, 0), (-1, True, 0)],
 )
 def test_protein_charge_assumptions_respect_explicit_evidence(
     charge: int | None, protonated: bool, expected: int
@@ -568,3 +569,58 @@ def test_protein_charge_assumptions_respect_explicit_evidence(
     assert any(w.code == "conventional_sidechain_charge" for w in result.warnings) == (
         charge is None and not protonated
     )
+
+
+@pytest.mark.parametrize("residue_name", ["ASP", "GLU"])
+def test_conflicting_acid_charge_and_hydrogen_cannot_produce_a_hydrogen_bond(
+    residue_name: str,
+) -> None:
+    from molweave_core.molecular import Chain, Residue
+
+    from tests.unit.test_interactions import molecule
+
+    base = molecule([(4, 1, 0), (4, 0, 0), (3.4, 0.5, 0), (3.4, -0.5, 0), (2.5, -0.5, 0)])
+    names = (
+        ["CB", "CG", "OD1", "OD2", "HD2"]
+        if residue_name == "ASP"
+        else ["CG", "CD", "OE1", "OE2", "HE2"]
+    )
+    acid = base.model_copy(
+        update={
+            "source": SourceFacts(filename="conflicting.pdb", format="pdb"),
+            "atoms": [
+                atom.model_copy(
+                    update={
+                        "name": names[i],
+                        "element": "O" if i in {2, 3} else "H" if i == 4 else "C",
+                        "formal_charge": -1 if i == 3 else None,
+                        "residue_id": 1,
+                    }
+                )
+                for i, atom in enumerate(base.atoms)
+            ],
+            "chains": [Chain(id=1, name="A")],
+            "residues": [Residue(id=1, chain_id=1, name=residue_name, component_type="polymer")],
+        }
+    )
+    carbonyl = molecule([(0.7, -0.5, 0), (-0.5, -0.5, 0)], [(1, 2)])
+    carbonyl = carbonyl.model_copy(
+        update={
+            "atoms": [carbonyl.atoms[0].model_copy(update={"element": "O"}), carbonyl.atoms[1]],
+            "bonds": [carbonyl.bonds[0].model_copy(update={"order": 2})],
+        }
+    )
+    before = acid.to_bytes()
+    result = analyze_interactions(
+        [
+            source(acid, "acid"),
+            source(carbonyl, "carbonyl"),
+            source(ion("N", 1, (0, 0, 0)), "cation"),
+        ]
+    )
+    assert not any(record.kind == "salt_bridge" for record in result.records)
+    assert not any(record.kind == "hydrogen_bond" for record in result.records)
+    warning = next(w for w in result.warnings if w.code == "conflicting_protonation")
+    assert warning.atom_ids == [3, 4]
+    assert result.coverage["hydrogen_bond"].status == "partial"
+    assert acid.to_bytes() == before

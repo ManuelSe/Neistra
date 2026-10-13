@@ -71,3 +71,7 @@ Exactly coincident clash endpoints use a three-axis cross centered at their true
 shared coordinate (0.15 Å half-length). This is a marker, not inferred molecular
 geometry. Native overlay updates reuse attached geometry buffers; type additions
 and coordinate changes preserve current endpoints and group/color assignments.
+
+Observed acid H conflicting with supplied negative ASP/GLU side-chain charge
+suppresses its acid oxygen typing and ionic/H-bond markers, with an explicit
+warning. Resolve the contradictory input; no replacement protonation is guessed.
