@@ -95,3 +95,28 @@ describe("interaction session and geometry", () => {
     await act(() => vi.advanceTimersByTimeAsync(250)); expect(api).toHaveBeenCalledOnce();
   });
 });
+
+
+describe("additive type and molecule-scope filtering", () => {
+  it("preserves exact record identities for all 64 type subsets and four scope combinations", () => {
+    const kinds: InteractionKind[] = ["hydrogen_bond", "hydrophobic", "pi_pi", "cation_pi", "salt_bridge", "clash"];
+    const normalized = proteinStructure();
+    const structures = ["a", "b"].map(entryId => ({ entryId, label: entryId, normalized,
+      atomIds: normalized.atoms.map(atom => atom.id), hierarchy: componentHierarchy(normalized),
+      settings: viewerSettings(), projection: { format: "mmcif" as const, data: "", warnings: [] } }));
+    const records = kinds.flatMap(kind => (["intra", "inter"] as const).map(scope => ({
+      ...clash, kind, scope, participants: [[{ structure_id: "a", atom_id: 1 }],
+        [{ structure_id: scope === "intra" ? "a" : "b", atom_id: 2 }]],
+    })));
+    for (let mask = 0; mask < 64; mask++) for (let scopes = 0; scopes < 4; scopes++) {
+      const types = kinds.filter((_, bit) => Boolean(mask & 1 << bit));
+      const choices = { types, intra: Boolean(scopes & 1), inter: Boolean(scopes & 2) };
+      const visible = filterInteractions(records, choices, structures, null);
+      const expected = types.flatMap(kind => [
+        ...(choices.intra ? [`${kind}:intra`] : []), ...(choices.inter ? [`${kind}:inter`] : []),
+      ]);
+      expect(visible.map(record => `${record.kind}:${record.scope}`)).toEqual(expected);
+      expect(visible.every(record => records.includes(record))).toBe(true);
+    }
+  });
+});

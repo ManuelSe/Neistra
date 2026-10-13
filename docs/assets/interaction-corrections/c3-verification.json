@@ -1,0 +1,67 @@
+{
+  "checkpoint": "C3",
+  "base": "f33ee28",
+  "focused_frontend": 12,
+  "full_frontend": 182,
+  "browser_passed": 44,
+  "intentional_skips": 6,
+  "failures": 0,
+  "retries": 0,
+  "filter_combinations": 256,
+  "checks": [
+    "frontend lint/types/full tests/build",
+    "seven specified/adjacent browser specs, desktop/Pixel7",
+    "real100%/200%zoom,320px,axe,keyboard/native touch",
+    "preview/Cancel/Apply/Undo/Redo,scenes/deletion/remount/reload/project change",
+    "topology donor-H deletion and Undo",
+    "all six alone in both themes, all15 pairs/all-six native buffers and actual marker pixels",
+    "raw ligand incomplete-chemistry guidance"
+  ],
+  "browser_environment": {
+    "api": 8020,
+    "worker": 8021,
+    "web": 5183,
+    "data": "/tmp/neistra-issue55-c3-browser"
+  },
+  "canvas_method": {
+    "projection": "native camera for display-only endpoint regions; scientific identities/coordinates remain API-owned",
+    "hue_tolerance_degrees": 8,
+    "saturation_minimum": 0.15,
+    "minimum_new_marker_pixels": 4,
+    "off_noise_allowance_pixels": 3,
+    "reason": "reject marker absence without demanding bit-identical unrelated molecular shading/fog/antialiasing"
+  },
+  "performance": [
+    {
+      "project": "chromium",
+      "atoms": 1010,
+      "records": 79,
+      "firstMs": 2406,
+      "cachedToggleMs": 181,
+      "longestTaskMs": 0,
+      "analyses": 1,
+      "structureGets": 0,
+      "requestBytes": 279,
+      "fixture": "pinned 1STP + supplied typed ethanol aligned to BTN centroid; no binding claim"
+    },
+    {
+      "project": "mobile-chromium",
+      "atoms": 1010,
+      "records": 79,
+      "firstMs": 2380,
+      "cachedToggleMs": 172.5,
+      "longestTaskMs": 0,
+      "analyses": 1,
+      "structureGets": 0,
+      "requestBytes": 279,
+      "fixture": "pinned 1STP + supplied typed ethanol aligned to BTN centroid; no binding claim"
+    }
+  ],
+  "diagnostics": "early whole-scene/pure-RGB pixel assertions replaced by settled oblique camera and endpoint-scoped hue evidence; source has no production change in C3. Initial interrupted/failed runs retained separately.",
+  "review": "local, not independent",
+  "limitations": [
+    "pinned Chromium/SwiftShader, Pixel7 emulation",
+    "prior scientific/CCD boundaries unchanged",
+    "no API/schema/migration/dependency/version change"
+  ]
+}

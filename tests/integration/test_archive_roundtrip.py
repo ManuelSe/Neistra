@@ -309,7 +309,7 @@ def test_archive_round_trip_preserves_project_and_originals(
     client: ApiClient,
     archive_version: str,
 ) -> None:
-    assert APPLICATION_VERSION == "0.13.0"
+    assert APPLICATION_VERSION == "0.13.1"
     source = build_rich_project(client)
     first = export_archive(client, source["id"], "archive-first")
     second = export_archive(client, source["id"], "archive-second")

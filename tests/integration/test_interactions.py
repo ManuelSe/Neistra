@@ -115,3 +115,38 @@ def test_deadline_terminates_child_without_publishing_partial_results(
     assert response.status_code == 504
     assert "records" not in response.json()
     assert {process.pid for process in multiprocessing.active_children()} == baseline
+
+
+def test_six_type_import_analysis_preserves_project_artifacts_and_original(
+    client: ApiClient,
+) -> None:
+    from pathlib import Path
+
+    raw = (Path(__file__).parents[1] / "fixtures/interactions/six_types.mol").read_bytes()
+    project = create_project(client)
+    imported_response = client.post(
+        f"/api/v1/projects/{project['id']}/imports",
+        data={"expected_revision": 0, "generate_3d": "false", "infer_bonds": "false"},
+        files=[("files", ("six_types.mol", raw, "application/octet-stream"))],
+    )
+    assert imported_response.status_code == 201
+    project = imported_response.json()["project"]
+    entry = project["entries"][0]
+    path = f"/api/v1/projects/{project['id']}/entries/{entry['id']}"
+    normalized = client.get(f"{path}/structure").json()
+    before = client.get(f"/api/v1/projects/{project['id']}").json()
+    response = client.post(f"/api/v1/projects/{project['id']}/interactions", json=query(project))
+    assert response.status_code == 200, response.text
+    records = response.json()["records"]
+    assert {r["kind"] for r in records} == {
+        "hydrogen_bond",
+        "hydrophobic",
+        "pi_pi",
+        "cation_pi",
+        "salt_bridge",
+        "clash",
+    }
+    assert {r["scope"] for r in records} == {"intra", "inter"}
+    assert client.get(f"/api/v1/projects/{project['id']}").json() == before
+    assert client.get(f"{path}/structure").json() == normalized
+    assert client.get(f"{path}/original").content == raw

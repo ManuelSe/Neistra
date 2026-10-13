@@ -1,0 +1,49 @@
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade  -> 0001, Create Milestone 1 project workspace tables.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0001 -> 0002, Version existing project checkpoint snapshots.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0002 -> 0003, Add artifact-backed molecular entry summaries.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0003 -> 0004, Add durable named atom selections.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0004 -> 0005, Add viewer settings, measurements, and named scenes.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0005 -> 0006, Add exact atom identity summaries and monotonic edit allocators.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0006 -> 0007, Add durable generic job lifecycle tables.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0007 -> 0008, Add durable selection representation assignments to viewer settings.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0008 -> 0009, Add durable nonpolar-hydrogen visibility to viewer settings.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0009 -> 0010, Add selection appearance defaults without losing retained history.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0010 -> 0011, Add selection surface defaults without losing retained history.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0011 -> 0012, Add atomic-detail visibility defaults without losing retained history.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0012 -> 0013, Add pocket surface defaults without losing retained history.
+[2m[WebServer] [22mINFO:     Started server process [501472]
+[2m[WebServer] [22mINFO:     Waiting for application startup.
+[2m[WebServer] [22mINFO:     Application startup complete.
+[2m[WebServer] [22mINFO:     Uvicorn running on http://127.0.0.1:8020 (Press CTRL+C to quit)
+[2m[WebServer] [22m(node:501532) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:501544) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 12 tests using 1 worker
+
+(node:501570) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:501570) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [chromium] › tests/e2e/interactions.spec.ts:8:5 › compact interaction control analyzes once and filters cached scopes (5.7s)
+  ✓   2 [chromium] › tests/e2e/interactions.spec.ts:44:5 › qualifies explicit-H marker pixels, visibility, preview Cancel and committed invalidation (13.1s)
+  ✓   3 [chromium] › tests/e2e/interactions.spec.ts:111:5 › shows busy failures, retries, and keeps the compact panel accessible in both themes (7.3s)
+  ✓   4 [chromium] › tests/e2e/interactions.spec.ts:148:5 › measures bounded analysis and cached toggles on pinned 1STP with aligned typed ligand (5.7s)
+  ✓   5 [chromium] › tests/e2e/rebranding-zoom.spec.ts:58:5 › keeps actions and dialogs reachable at real 100% and 200% browser zoom (1.2m)
+  ✓   6 [chromium] › tests/e2e/rebranding-zoom.spec.ts:291:5 › keeps shell and inspector controls bounded around both responsive breakpoints (8.6s)
+(node:502508) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:502508) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   7 [mobile-chromium] › tests/e2e/interactions.spec.ts:8:5 › compact interaction control analyzes once and filters cached scopes (5.7s)
+  ✓   8 [mobile-chromium] › tests/e2e/interactions.spec.ts:44:5 › qualifies explicit-H marker pixels, visibility, preview Cancel and committed invalidation (12.9s)
+  ✓   9 [mobile-chromium] › tests/e2e/interactions.spec.ts:111:5 › shows busy failures, retries, and keeps the compact panel accessible in both themes (6.7s)
+  ✓  10 [mobile-chromium] › tests/e2e/interactions.spec.ts:148:5 › measures bounded analysis and cached toggles on pinned 1STP with aligned typed ligand (5.7s)
+  -  11 [mobile-chromium] › tests/e2e/rebranding-zoom.spec.ts:58:5 › keeps actions and dialogs reachable at real 100% and 200% browser zoom
+  -  12 [mobile-chromium] › tests/e2e/rebranding-zoom.spec.ts:291:5 › keeps shell and inspector controls bounded around both responsive breakpoints
+
+  2 skipped
+  10 passed (2.5m)

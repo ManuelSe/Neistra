@@ -3097,3 +3097,41 @@ side-chain site becomes untyped with a warning, preventing e.g. acylated Lys NZ
 from acquiring an assumed positive charge. Disulfide S is not a thiol donor and
 does not request missing donor H; contradictory supplied thiol H is skipped.
 Molecular grouping still respects supplied covalent links and inputs stay immutable.
+
+### D-088 native buffer qualification note — issue #55 C1, 2026-10-13
+
+Mol* ShapeRepresentation retains geometry ValueCells on an existing render object.
+Create updated Lines through the previous geometry so endpoint/group/index buffers
+change together with counts, colors and bounds. Fresh disconnected buffers can
+leave old coordinates and undersized index capacity attached despite correct
+application records. Tests must inspect active attached buffers and actual canvas
+output; submitted records and draw counts alone do not establish rendering.
+Keep one nonpickable batch and canonical endpoints. Exact coincident clashes use
+a centered three-axis cross of 0.15 Å half-length as an explicitly documented
+marker; molecular geometry is not inferred or modified.
+The shape uses the current record count explicitly; retained buffer capacity
+must not create stale color groups after shrinking or emptying the batch.
+
+### D-086 fixed-profile reference qualification note — issue #55 C2, 2026-10-13
+
+Freeze structural source coordinates and independently specify prepared test
+chemistry, participants and geometric expectations. Small controlled molecules
+plus the2REG choline environment qualify supported rules without implementing
+ligand assignment. Source atom coordinates and explicit choline graph are checked
+against original bytes. Do not tune interaction-v1 to reproduce another tool's
+report:2REG cation–π partners qualify, while Asp45 at4.716Å lies outside Neistra's
+4.5Å ionic cutoff. Separate complete Trp rings explain ring-versus-residue counts.
+No production chemistry or thresholds are changed by this qualification.
+The two2REG PDB fixture paths have scoped Git attributes preserving fixed-width\npadding and disabling text newline conversion. Their format padding is exempt\nfrom blank-at-end-of-line checks; code/documentation checks remain unchanged.\nChecksum and source-coordinate tests enforce exact scientific input fidelity.\nEOF
+
+### D-086 contradictory acid evidence correction — issue #55 C4 review, 2026-10-13
+
+Local complete-diff scientific review reproduced a supported-policy violation:
+observed ASP/GLU acid H plus supplied negative carboxyl-side charge could bypass
+the old fallback-protonation check and create ionic or H-bond assignments. Skip
+the affected acid oxygen sites before typing/groups and return the existing
+structured conflicting_protonation warning with canonical IDs. Preserve source
+charges/coordinates; do not choose a replacement protonation state. Neutral acid
+and ordinary deprotonated sites retain their existing behavior. This implements
+the accepted contradictory-evidence boundary; no threshold/profile/API/schema
+change. Negative salt and aligned donor-H regressions cover both ASP and GLU.

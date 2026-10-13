@@ -395,3 +395,17 @@ enter exports, archives or jobs. Original uploads, connectivity, charges, metada
 warnings and previous job inputs remain unchanged. Surfaces and measurements pause
 during preview and restore from the appropriate committed coordinates. See
 [transform workflow](TRANSFORMS.md) for gesture, cancellation and history semantics.
+
+## Interaction correction evidence (#55)
+
+The supplied-chemistry and frozen2REG qualification fixtures establish defined
+interaction-v1 behavior, not universal chemistry support or equilibrium geometry.
+Frozen choline chemistry is explicit test input, not automatic PDB ligand typing.
+Cation–π evidence covers the four literature-identified aromatic residues; separate
+complete Trp rings produce multiple records. A reference contact outside Neistra's
+fixed cutoff remains absent:2REG Asp45 has nearest charge-site distance4.716Å,
+so it is not a salt bridge under the4.5Å profile. CCD assignment remains#52.
+
+Contradictory observed acid H and supplied negative ASP/GLU side-chain charge
+are skipped for ionic and H-bond assignments, with a structured warning. This
+conservative correction does not infer a new protonation state or modify uploads.

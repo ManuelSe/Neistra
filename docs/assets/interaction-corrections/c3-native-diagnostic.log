@@ -1,0 +1,105 @@
+[WebServer] INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+[WebServer] INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+[WebServer] INFO:     Started server process [481537]
+[WebServer] INFO:     Waiting for application startup.
+[WebServer] INFO:     Application startup complete.
+[WebServer] INFO:     Uvicorn running on http://127.0.0.1:8020 (Press CTRL+C to quit)
+[WebServer] (node:481597) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:481609) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 4 tests using 1 worker
+
+(node:481647) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:481647) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 [chromium] › tests/e2e/interaction-corrections.spec.ts:60:5 › renders genuine six-type records alone, pairwise and together with independent scopes (9.8s)
+(node:481802) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:481802) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  2 [chromium] › tests/e2e/interaction-corrections.spec.ts:143:5 › explains unsupported raw ligand chemistry without claiming complete zero coverage (5.1s)
+(node:481952) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:481952) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  3 [mobile-chromium] › tests/e2e/interaction-corrections.spec.ts:60:5 › renders genuine six-type records alone, pairwise and together with independent scopes (9.6s)
+(node:482104) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:482104) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  4 [mobile-chromium] › tests/e2e/interaction-corrections.spec.ts:143:5 › explains unsupported raw ligand chemistry without claiming complete zero coverage (5.2s)
+
+
+  1) [chromium] › tests/e2e/interaction-corrections.spec.ts:60:5 › renders genuine six-type records alone, pairwise and together with independent scopes › Expect "poll toBe"
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 0
+    Received: 1300
+
+    Call Log:
+    - Timeout 5000ms exceeded while waiting on the predicate
+
+       98 |     await panel.getByRole("button", { name: labels[index], exact: true }).click();
+       99 |     await attached(page, []);
+    > 100 |     await expect.poll(() => pixels(page)).toBe(0);
+          |     ^
+      101 |   }
+      102 |   for (let first = 0; first < kinds.length; first++) for (let second = first + 1; second < kinds.length; second++) {
+      103 |     await panel.getByRole("button", { name: labels[first], exact: true }).click();
+        at /datadisk/dev/neistra/tests/e2e/interaction-corrections.spec.ts:100:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/interaction-corrections-re-bea82-her-with-independent-scopes-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/interaction-corrections-re-bea82-her-with-independent-scopes-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/interaction-corrections-re-bea82-her-with-independent-scopes-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/interaction-corrections-re-bea82-her-with-independent-scopes-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [mobile-chromium] › tests/e2e/interaction-corrections.spec.ts:60:5 › renders genuine six-type records alone, pairwise and together with independent scopes › Expect "poll toBe"
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 0
+    Received: 1133
+
+    Call Log:
+    - Timeout 5000ms exceeded while waiting on the predicate
+
+       98 |     await panel.getByRole("button", { name: labels[index], exact: true }).click();
+       99 |     await attached(page, []);
+    > 100 |     await expect.poll(() => pixels(page)).toBe(0);
+          |     ^
+      101 |   }
+      102 |   for (let first = 0; first < kinds.length; first++) for (let second = first + 1; second < kinds.length; second++) {
+      103 |     await panel.getByRole("button", { name: labels[first], exact: true }).click();
+        at /datadisk/dev/neistra/tests/e2e/interaction-corrections.spec.ts:100:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/interaction-corrections-re-bea82-her-with-independent-scopes-mobile-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/interaction-corrections-re-bea82-her-with-independent-scopes-mobile-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/interaction-corrections-re-bea82-her-with-independent-scopes-mobile-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/interaction-corrections-re-bea82-her-with-independent-scopes-mobile-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    [chromium] › tests/e2e/interaction-corrections.spec.ts:60:5 › renders genuine six-type records alone, pairwise and together with independent scopes
+    [mobile-chromium] › tests/e2e/interaction-corrections.spec.ts:60:5 › renders genuine six-type records alone, pairwise and together with independent scopes
+  2 passed (39.3s)

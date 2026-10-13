@@ -146,7 +146,6 @@ export function ViewerToolbar({
         </select>
       </label>
       <div className="viewer-focus-actions" role="group" aria-label="Viewer focus actions">
-        {onInteractions ? <ViewerActionButton label="Interactions" tooltip="Inspect molecular interactions" unavailableReason={null} onClick={onInteractions} hasPopup="dialog" expanded={interactionsOpen}><Network size={15} /></ViewerActionButton> : null}
         <ViewerActionButton
           label="Fit all visible"
           tooltip="Frame all visible molecular objects"
@@ -181,6 +180,7 @@ export function ViewerToolbar({
         >
           <Palette size={15} />
         </ViewerActionButton>
+        {onInteractions ? <ViewerActionButton label="Interactions" tooltip="Inspect molecular interactions" unavailableReason={null} onClick={onInteractions} hasPopup="dialog" expanded={interactionsOpen}><Network size={15} /></ViewerActionButton> : null}
       </div>
     </div>
   );

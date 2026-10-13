@@ -1,0 +1,54 @@
+....F                                                                    [100%]
+=================================== FAILURES ===================================
+_____ test_protein_charge_assumptions_respect_explicit_evidence[-1-True-0] _____
+
+charge = -1, protonated = True, expected = 0
+
+    @pytest.mark.parametrize(
+        "charge,protonated,expected", [(None, False, 1), (0, False, 0), (-1, False, 1), (None, True, 0), (-1, True, 0)]
+    )
+    def test_protein_charge_assumptions_respect_explicit_evidence(
+        charge: int | None, protonated: bool, expected: int
+    ) -> None:
+        from molweave_core.molecular import Chain, Residue
+
+        from tests.unit.test_interactions import molecule
+
+        points = [(4, 1, 0), (4, 0, 0), (3.4, 0.5, 0), (3.4, -0.5, 0)]
+        names = ["CB", "CG", "OD1", "OD2"]
+        if protonated:
+            points.append((2.5, -0.5, 0))
+            names.append("HD2")
+        base = molecule(points)
+        atoms = [
+            atom.model_copy(
+                update={
+                    "name": names[i],
+                    "element": "O"
+                    if names[i].startswith("O")
+                    else "H"
+                    if names[i].startswith("H")
+                    else "C",
+                    "formal_charge": charge if names[i] == "OD2" else None,
+                    "residue_id": 1,
+                }
+            )
+            for i, atom in enumerate(base.atoms)
+        ]
+        structure = base.model_copy(
+            update={
+                "source": SourceFacts(filename="acid.pdb", format="pdb"),
+                "atoms": atoms,
+                "chains": [Chain(id=1, name="A")],
+                "residues": [Residue(id=1, chain_id=1, name="ASP", component_type="polymer")],
+            }
+        )
+        result = analyze_interactions([source(structure, "a"), source(ion("N", 1, (0, 0, 0)), "b")])
+>       assert sum(r.kind == "salt_bridge" for r in result.records) == expected
+E       assert 1 == 0
+E        +  where 1 = sum(<generator object test_protein_charge_assumptions_respect_explicit_evidence.<locals>.<genexpr> at 0x7ba850456f60>)
+
+tests/scientific/test_interactions.py:567: AssertionError
+=========================== short test summary info ============================
+FAILED tests/scientific/test_interactions.py::test_protein_charge_assumptions_respect_explicit_evidence[-1-True-0]
+1 failed, 4 passed, 49 deselected in 0.13s

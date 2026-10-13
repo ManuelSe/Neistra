@@ -1,0 +1,21 @@
+
+> @neistra/web@0.13.1 build /datadisk/dev/neistra/apps/web
+> tsc -b && vite build
+
+vite v7.1.5 building for production...
+transforming...
+✓ 3396 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/assets/spatial.worker-CH8rhhsF.js      0.81 kB
+dist/index.html                             3.12 kB │ gzip:   1.33 kB
+dist/assets/surface.worker-u37-1hNj.js    479.78 kB
+dist/assets/index-d3sf3q2m.css            136.95 kB │ gzip:  27.74 kB
+dist/assets/index-DEkS3W-v.js             593.20 kB │ gzip: 178.11 kB
+dist/assets/MolstarEngine-BiBxO5RE.js   3,444.11 kB │ gzip: 976.99 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 7.52s

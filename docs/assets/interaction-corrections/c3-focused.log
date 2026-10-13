@@ -1,0 +1,11 @@
+
+ RUN  v3.2.4 /datadisk/dev/neistra/apps/web
+
+ ✓ src/test/viewer-toolbar.test.tsx (3 tests) 236ms
+ ✓ src/test/interaction-native-geometry.test.ts (2 tests) 19ms
+ ✓ src/test/interactions.test.ts (7 tests) 35ms
+
+ Test Files  3 passed (3)
+      Tests  12 passed (12)
+   Start at  21:04:19
+   Duration  2.74s (transform 1.15s, setup 125ms, collect 4.55s, tests 291ms, environment 684ms, prepare 222ms)

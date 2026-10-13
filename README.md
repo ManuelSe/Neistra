@@ -22,7 +22,7 @@ Real workspace screenshots: [light](docs/assets/neistra-workspace-light.png) ·
 [dark](docs/assets/neistra-workspace-dark.png). These show the existing local
 workspace, not proposed account, docking or marketplace features.
 
-Version **0.13.0** offers the **Transform selection** icon in a separate bar above the viewer.
+Version **0.13.1** offers the **Transform selection** icon in a separate bar above the viewer.
 Left mouse drag rotates; right or Ctrl-drag translates in the current view plane.
 Hold **Space** on the movement canvas to adjust the camera, then release to resume.
 Touch and keyboard users have **Adjust view / Resume transform**, with sensitivity,
@@ -31,16 +31,20 @@ opens gesture guidance and scientific limits. The inspector remains an entry poi
 The captured selection includes hidden targets; Apply creates one reversible
 command and Cancel restores exact coordinates. Partial selections can distort
 crossing bonds or create clashes. See [Interactive transforms](docs/TRANSFORMS.md).
-No new migration is needed. The actual tagged v0.12.1 reader accepts final v0.13.0
-coordinates, retained undo/redo, immutable originals/jobs and archives; see
-[compatibility guidance](docs/DEVELOPMENT.md#molecular-interaction-qualification).
+No new migration is needed. Patch0.13.1 keeps the API, molecular state, history,
+jobs and archives compatible; final producer data is qualified against the actual
+tagged v0.13.0 reader before delivery. See
+[compatibility guidance](docs/DEVELOPMENT.md#interaction-correction-compatibility-0131).
 
-Open **Interactions** in the viewer menu bar to toggle hydrogen bonds, hydrophobic
+Open **Interactions** at the right end of the viewer quick-action toolbar to toggle hydrogen bonds, hydrophobic
 contacts, π–π, cation–π, salt bridges and clashes, with independent Inter/Intra
 scopes. Hydrogen-bond markers use explicit H and angular criteria. Results are
 geometric screening with visible uncertainty; they pause during previews and
 follow committed edits. Choices are transient. See [Interactions](docs/INTERACTIONS.md)
-for preparation guidance, fixed thresholds and limitations.
+for preparation guidance, fixed thresholds and limitations. The0.13.1 correction
+keeps native buffers, colors and current group counts synchronized as types or
+coordinates change; coincident clashes use a centered cross. All six types remain
+additive, with independent scientific and actual native-pixel qualification.
 
 Structure organization includes reversible batch grouping: select structures and
 use **Move to group…**, **Remove from group**, or **Add to new group** in a row's

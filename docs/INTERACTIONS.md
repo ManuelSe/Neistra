@@ -1,6 +1,6 @@
 # Molecular interactions
 
-Open **Interactions** (network icon) in the viewer menu bar. Choose independent
+Open **Interactions** (network icon) at the right end of the viewer quick-action toolbar. Choose independent
 interaction types and **Inter** / **Intra** scopes. Opening the panel alone does
 not start analysis; turning every type or scope off hides markers. Choices last
 for the current project session and survive renderer remounts. Switching projects
@@ -66,3 +66,12 @@ request; revealing a new or changed artifact requires analysis. Coverage warning
 remain conservative for that superset. Busy/limit/timeout errors never publish a
 truncated result; use the retry icon after resolving the cause. CCD ligand
 assignment is tracked separately in [#52](https://github.com/ManuelSe/Neistra/issues/52).
+
+Exactly coincident clash endpoints use a three-axis cross centered at their true
+shared coordinate (0.15 Å half-length). This is a marker, not inferred molecular
+geometry. Native overlay updates reuse attached geometry buffers; type additions
+and coordinate changes preserve current endpoints and group/color assignments.
+
+Observed acid H conflicting with supplied negative ASP/GLU side-chain charge
+suppresses its acid oxygen typing and ionic/H-bond markers, with an explicit
+warning. Resolve the contradictory input; no replacement protonation is guessed.

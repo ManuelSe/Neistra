@@ -101,6 +101,9 @@ test("keeps actions and dialogs reachable at real 100% and 200% browser zoom", a
         const interactions = page.getByRole("dialog", { name: "Interactions", exact: true });
         await expect(interactions).toBeVisible();
         expect(await interactions.evaluate(node => { const box = node.getBoundingClientRect(); return box.left >= 0 && box.right <= innerWidth && box.top >= 0 && box.bottom <= innerHeight && node.scrollWidth <= node.clientWidth + 1; })).toBe(true);
+        // Contrast measurements must sample the settled panel, not its opacity
+        // transition. Keep the actual WCAG assertions unchanged.
+        await expect(interactions).toHaveCSS("opacity", "1");
         expect((await new AxeBuilder({ page }).include(".interaction-panel").analyze()).violations).toEqual([]);
         await captureZoomPage(page, info, `${theme}-${factor * 100}-interactions.png`);
         await interactions.getByRole("button", { name: "Interaction help" }).click();

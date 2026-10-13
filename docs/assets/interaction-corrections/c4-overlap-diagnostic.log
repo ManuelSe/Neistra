@@ -1,0 +1,261 @@
+
+Running 12 tests using 1 worker
+
+(node:500027) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:500027) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [chromium] › tests/e2e/interactions.spec.ts:8:5 › compact interaction control analyzes once and filters cached scopes (7.6s)
+  ✓   2 [chromium] › tests/e2e/interactions.spec.ts:44:5 › qualifies explicit-H marker pixels, visibility, preview Cancel and committed invalidation (20.2s)
+  ✓   3 [chromium] › tests/e2e/interactions.spec.ts:111:5 › shows busy failures, retries, and keeps the compact panel accessible in both themes (10.0s)
+  ✓   4 [chromium] › tests/e2e/interactions.spec.ts:148:5 › measures bounded analysis and cached toggles on pinned 1STP with aligned typed ligand (5.8s)
+Internal error: step id not found: fixture@1209
+  ✘   5 [chromium] › tests/e2e/rebranding-zoom.spec.ts:58:5 › keeps actions and dialogs reachable at real 100% and 200% browser zoom (38.2s)
+(node:500781) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:500781) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘   6 [chromium] › tests/e2e/rebranding-zoom.spec.ts:291:5 › keeps shell and inspector controls bounded around both responsive breakpoints (152ms)
+(node:500878) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:500878) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘   7 [mobile-chromium] › tests/e2e/interactions.spec.ts:8:5 › compact interaction control analyzes once and filters cached scopes (191ms)
+(node:500967) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:500967) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘   8 [mobile-chromium] › tests/e2e/interactions.spec.ts:44:5 › qualifies explicit-H marker pixels, visibility, preview Cancel and committed invalidation (198ms)
+(node:501058) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:501058) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘   9 [mobile-chromium] › tests/e2e/interactions.spec.ts:111:5 › shows busy failures, retries, and keeps the compact panel accessible in both themes (196ms)
+(node:501148) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:501148) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  10 [mobile-chromium] › tests/e2e/interactions.spec.ts:148:5 › measures bounded analysis and cached toggles on pinned 1STP with aligned typed ligand (203ms)
+(node:501238) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:501238) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  -  11 [mobile-chromium] › tests/e2e/rebranding-zoom.spec.ts:58:5 › keeps actions and dialogs reachable at real 100% and 200% browser zoom
+  -  12 [mobile-chromium] › tests/e2e/rebranding-zoom.spec.ts:291:5 › keeps shell and inspector controls bounded around both responsive breakpoints
+
+
+  1) [chromium] › tests/e2e/rebranding-zoom.spec.ts:58:5 › keeps actions and dialogs reachable at real 100% and 200% browser zoom
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeHidden[2m()[22m failed
+
+    Locator:  getByRole('dialog', { name: 'Move to group', exact: true })
+    Expected: hidden
+    Received: visible
+    Timeout:  5000ms
+
+    Call log:
+    [2m  - Expect "toBeHidden" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('dialog', { name: 'Move to group', exact: true })[22m
+    [2m    8 × locator resolved to <div role="dialog" tabindex="-1" id="radix-«r5d»" data-state="open" class="dialog-content" aria-labelledby="radix-«r5e»" aria-describedby="radix-«r5f»">…</div>[22m
+    [2m      - unexpected value "visible"[22m
+
+
+      213 |         await captureZoomPage(page, info, `${theme}-${factor * 100}-group-membership.png`);
+      214 |         await membership.getByRole("button", { name: "Move structures" }).click();
+    > 215 |         await expect(membership).toBeHidden();
+          |                                  ^
+      216 |         await expect(page.locator(".entry-menu-trigger")).toBeFocused();
+      217 |         await page.keyboard.press("Enter");
+      218 |         await page.getByRole("menuitem", { name: "Remove from group", exact: true }).click();
+        at /datadisk/dev/neistra/tests/e2e/rebranding-zoom.spec.ts:215:34
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [chromium] › tests/e2e/rebranding-zoom.spec.ts:291:5 › keeps shell and inspector controls bounded around both responsive breakpoints
+
+    Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:5183/
+    Call log:
+    [2m  - navigating to "http://127.0.0.1:5183/", waiting until "load"[22m
+
+
+      292 |   test.skip(info.project.name !== "chromium", "Exact-width breakpoint sweep runs once; Pixel 7 has its own workflow matrix.");
+      293 |   test.setTimeout(90_000);
+    > 294 |   await page.goto("/");
+          |              ^
+      295 |   await page.getByRole("main").getByRole("button", { name: "Create project" }).click();
+      296 |   const create = page.getByRole("dialog", { name: "Create project" });
+      297 |   await create.getByLabel("Name", { exact: true }).fill(`Breakpoint qualification ${Date.now()}`);
+        at /datadisk/dev/neistra/tests/e2e/rebranding-zoom.spec.ts:294:14
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/rebranding-zoom-keeps-shel-71e25-both-responsive-breakpoints-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/rebranding-zoom-keeps-shel-71e25-both-responsive-breakpoints-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/rebranding-zoom-keeps-shel-71e25-both-responsive-breakpoints-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [mobile-chromium] › tests/e2e/interactions.spec.ts:8:5 › compact interaction control analyzes once and filters cached scopes
+
+    Error: apiRequestContext.post: connect ECONNREFUSED 127.0.0.1:5183
+    Call log:
+    [2m  - → POST http://127.0.0.1:5183/api/v1/projects[22m
+    [2m    - user-agent: Mozilla/5.0 (Linux; Android 14; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.7339.16 Mobile Safari/537.36[22m
+    [2m    - accept: */*[22m
+    [2m    - accept-encoding: gzip,deflate,br[22m
+    [2m    - content-type: application/json[22m
+    [2m    - content-length: 53[22m
+
+
+       8 | test("compact interaction control analyzes once and filters cached scopes", async ({ page, request }, info) => {
+       9 |   test.setTimeout(90_000);
+    > 10 |   const created = await request.post("/api/v1/projects", { data: { name: `Interactions ${info.project.name} ${Date.now()}` } });
+         |                                 ^
+      11 |   const project = await created.json();
+      12 |   await page.goto("/");
+      13 |   await page.getByRole("button", { name: "Projects", exact: true }).click();
+        at /datadisk/dev/neistra/tests/e2e/interactions.spec.ts:10:33
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/interactions-compact-inter-65f99-e-and-filters-cached-scopes-mobile-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/interactions-compact-inter-65f99-e-and-filters-cached-scopes-mobile-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/interactions-compact-inter-65f99-e-and-filters-cached-scopes-mobile-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) [mobile-chromium] › tests/e2e/interactions.spec.ts:44:5 › qualifies explicit-H marker pixels, visibility, preview Cancel and committed invalidation
+
+    Error: apiRequestContext.post: connect ECONNREFUSED 127.0.0.1:5183
+    Call log:
+    [2m  - → POST http://127.0.0.1:5183/api/v1/projects[22m
+    [2m    - user-agent: Mozilla/5.0 (Linux; Android 14; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.7339.16 Mobile Safari/537.36[22m
+    [2m    - accept: */*[22m
+    [2m    - accept-encoding: gzip,deflate,br[22m
+    [2m    - content-type: application/json[22m
+    [2m    - content-length: 46[22m
+
+
+       at support/interactions.ts:13
+
+      11 |     await route.fulfill({ response, body: `${await response.text()}\nconst interactionMount = MolstarEngine.prototype.mount;\nMolstarEngine.prototype.mount = async function(target) { await interactionMount.call(this,target); (window.interactionEngines ??= []).push(this); };` });
+      12 |   });
+    > 13 |   const created = await request.post("/api/v1/projects", { data: { name: `${label} ${Date.now()}` } });
+         |                                 ^
+      14 |   const project: Project = await created.json();
+      15 |   await page.goto("/");
+      16 |   await page.getByRole("button", { name: "Projects", exact: true }).click();
+        at prepare (/datadisk/dev/neistra/tests/e2e/support/interactions.ts:13:33)
+        at /datadisk/dev/neistra/tests/e2e/interactions.spec.ts:46:19
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/interactions-qualifies-exp-dec8f--and-committed-invalidation-mobile-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/interactions-qualifies-exp-dec8f--and-committed-invalidation-mobile-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/interactions-qualifies-exp-dec8f--and-committed-invalidation-mobile-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  5) [mobile-chromium] › tests/e2e/interactions.spec.ts:111:5 › shows busy failures, retries, and keeps the compact panel accessible in both themes
+
+    Error: apiRequestContext.post: connect ECONNREFUSED 127.0.0.1:5183
+    Call log:
+    [2m  - → POST http://127.0.0.1:5183/api/v1/projects[22m
+    [2m    - user-agent: Mozilla/5.0 (Linux; Android 14; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.7339.16 Mobile Safari/537.36[22m
+    [2m    - accept: */*[22m
+    [2m    - accept-encoding: gzip,deflate,br[22m
+    [2m    - content-type: application/json[22m
+    [2m    - content-length: 42[22m
+
+
+       at support/interactions.ts:13
+
+      11 |     await route.fulfill({ response, body: `${await response.text()}\nconst interactionMount = MolstarEngine.prototype.mount;\nMolstarEngine.prototype.mount = async function(target) { await interactionMount.call(this,target); (window.interactionEngines ??= []).push(this); };` });
+      12 |   });
+    > 13 |   const created = await request.post("/api/v1/projects", { data: { name: `${label} ${Date.now()}` } });
+         |                                 ^
+      14 |   const project: Project = await created.json();
+      15 |   await page.goto("/");
+      16 |   await page.getByRole("button", { name: "Projects", exact: true }).click();
+        at prepare (/datadisk/dev/neistra/tests/e2e/support/interactions.ts:13:33)
+        at /datadisk/dev/neistra/tests/e2e/interactions.spec.ts:113:3
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/interactions-shows-busy-fa-36f4b-l-accessible-in-both-themes-mobile-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/interactions-shows-busy-fa-36f4b-l-accessible-in-both-themes-mobile-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/interactions-shows-busy-fa-36f4b-l-accessible-in-both-themes-mobile-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  6) [mobile-chromium] › tests/e2e/interactions.spec.ts:148:5 › measures bounded analysis and cached toggles on pinned 1STP with aligned typed ligand
+
+    Error: apiRequestContext.post: connect ECONNREFUSED 127.0.0.1:5183
+    Call log:
+    [2m  - → POST http://127.0.0.1:5183/api/v1/projects[22m
+    [2m    - user-agent: Mozilla/5.0 (Linux; Android 14; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.7339.16 Mobile Safari/537.36[22m
+    [2m    - accept: */*[22m
+    [2m    - accept-encoding: gzip,deflate,br[22m
+    [2m    - content-type: application/json[22m
+    [2m    - content-length: 48[22m
+
+
+       at support/interactions.ts:13
+
+      11 |     await route.fulfill({ response, body: `${await response.text()}\nconst interactionMount = MolstarEngine.prototype.mount;\nMolstarEngine.prototype.mount = async function(target) { await interactionMount.call(this,target); (window.interactionEngines ??= []).push(this); };` });
+      12 |   });
+    > 13 |   const created = await request.post("/api/v1/projects", { data: { name: `${label} ${Date.now()}` } });
+         |                                 ^
+      14 |   const project: Project = await created.json();
+      15 |   await page.goto("/");
+      16 |   await page.getByRole("button", { name: "Projects", exact: true }).click();
+        at prepare (/datadisk/dev/neistra/tests/e2e/support/interactions.ts:13:33)
+        at /datadisk/dev/neistra/tests/e2e/interactions.spec.ts:150:19
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/interactions-measures-boun-bc239-P-with-aligned-typed-ligand-mobile-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/interactions-measures-boun-bc239-P-with-aligned-typed-ligand-mobile-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/interactions-measures-boun-bc239-P-with-aligned-typed-ligand-mobile-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  6 failed
+    [chromium] › tests/e2e/rebranding-zoom.spec.ts:58:5 › keeps actions and dialogs reachable at real 100% and 200% browser zoom
+    [chromium] › tests/e2e/rebranding-zoom.spec.ts:291:5 › keeps shell and inspector controls bounded around both responsive breakpoints
+    [mobile-chromium] › tests/e2e/interactions.spec.ts:8:5 › compact interaction control analyzes once and filters cached scopes
+    [mobile-chromium] › tests/e2e/interactions.spec.ts:44:5 › qualifies explicit-H marker pixels, visibility, preview Cancel and committed invalidation
+    [mobile-chromium] › tests/e2e/interactions.spec.ts:111:5 › shows busy failures, retries, and keeps the compact panel accessible in both themes
+    [mobile-chromium] › tests/e2e/interactions.spec.ts:148:5 › measures bounded analysis and cached toggles on pinned 1STP with aligned typed ligand
+  2 skipped
+  4 passed (1.5m)

@@ -2,6 +2,44 @@
 
 ## Current milestone
 
+Issue #55 — [approved interaction-correction plan](plans/issue-55-interaction-corrections.md).
+`/goal` authorized implementation and delivery on 2026-10-13. C0 was committed
+and remotely verified at `938e2ee`; planned branch remains
+`fix/issue-55-interaction-corrections`. M1/C1 is complete: native buffers and
+current group counts update coherently; coincident clashes get a centered cross;
+Interactions is the final quick action. D-088 qualification note appended.
+
+C1 frontend lint/types/build and all 181 tests pass. Native desktop/Pixel 7
+interaction specs pass 9 cases/1 intentional skip, zero failures/retries; exact
+attached coordinates, additive groups, previews/history, cache, accessibility and
+performance budgets pass. [Evidence](assets/interaction-corrections/c1-verification.json).
+Review is local, not independent. C2 now qualifies all six types with independent
+fixtures and frozen2REG references:86 focused/91 scientific/487 full Python
+tests, Ruff and strict mypy58 files pass. Raw/source-derived coordinates, supplied
+charge graphs, endpoints, shared types and immutable API/original bytes pass.
+No detector or threshold change needed. [C2 evidence](assets/interaction-corrections/c2-verification.json).
+Diagnostics remain separate;237 existing Alembic warnings retained. C3 is now
+complete:256 choice/scope combinations,182 frontend tests and44 browser cases/6
+intentional skips pass, with zero failures/retries. Six genuine types render
+alone in both themes, every pair/all-six/scope combinations, topology deletion/Undo
+and incomplete raw-chemistry guidance; native buffers and actual marker pixels
+agree. Real zoom/touch/keyboard/axe, movement/measurement/surface/cache/performance
+regressions pass. [C3 evidence](assets/interaction-corrections/c3-verification.json).
+C4 candidate gate passes at `0b409a1`:490Python,182frontend,8supervisor,
+172browser/44intentional skips, zero failures/retries, frozen installs/fresh0013/
+lint/types/build/diff. Actual tagged0.13.0 reader accepts final0.13.1 exact data,
+originals/history/archives/jobs. Local full-diff review resolved acid-charge/H
+contradiction and transient contrast sampling; no consequential finding remains.
+[Candidate evidence](assets/interaction-corrections/c4-candidate-gate.json),
+[reader](assets/interaction-corrections/c4-candidate-reader.json),
+[local review](assets/interaction-corrections/c4-local-review.json).
+Five versions0.13.1; patch, no migration/API/persisted change (0013/majors1).
+Fixed interaction-v1/#52 boundaries remain. Existing warnings/pinned emulation
+remain; diagnostics separate. No blocker. Next: PR/review/normal merge, exact
+merged gate/reader, then verified tag/release/issue reply and cleanup.
+
+### Previous delivery baseline — v0.13.0
+
 Issue #49 — [approved plan and detailed completion log](plans/issue-49-molecular-interactions.md).
 Implemented and released through [PR #53](https://github.com/ManuelSe/Neistra/pull/53)
 and verified [v0.13.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.13.0).
@@ -231,6 +269,10 @@ and closed out on issue #1. The release tag remains on the exact verified
 feature merge; this documentation-only closeout records the remote evidence.
 
 ## Completed work
+
+- Issue #55 C0: approved feature contract persisted under `docs/plans/` as the
+  first change on `fix/issue-55-interaction-corrections`, with the concise project
+  summary above. No product implementation or release work has started.
 
 - Issue #4 planning: the user approved the complete proposal on 2026-10-09.
   Read-only review covered product, architecture, scientific state, transforms,
@@ -1087,6 +1129,13 @@ feature merge; this documentation-only closeout records the remote evidence.
   affected-entry topology replacement without a full scene synchronization.
 
 ## Verification performed
+
+- Issue #55 planning/C0: remote issue/master/release baseline rechecked; clean
+  local master fast-forwarded with `--ff-only` (already current). Planning tests
+  passed 71 focused Python and 179 frontend cases. Native buffer defect and
+  reusable-geometry feasibility were reproduced without tracked changes.
+  Documentation validation and commit/push verification are reported at handoff;
+  no #55 browser or release gate is claimed.
 
 - Issue #9 planning: inspected repository/product/architecture/schema/API/history,
   frontend selection/query/viewer ownership, migrations/jobs/tests and delivery
@@ -2203,6 +2252,12 @@ Results:
 
 ## Known limitations
 
+- Issue #55 C1–C3 are implemented and qualified on the feature branch; release
+  preparation and publication remain pending. Released v0.13.0 still has the
+  native-buffer defect until this correction is delivered.
+  Scientific scope remains bounded by `interaction-v1`; #52 owns raw ligand
+  chemistry assignment. The feature plan contains the detailed acceptance gates.
+
 - Issue #9 is an approved plan, not implemented functionality. The planned slice
   retains empty groups and derived sorting, supports desktop drag and complete
   explicit keyboard/touch actions, and defers manual ordering, saved sort/filter,
@@ -2294,8 +2349,11 @@ Results:
 
 ## Blockers
 
-No current blocker. Issue #49 is released; final documentation/cleanup audit is maintained in its closeout reply.
+No current blocker. Issue #55 implementation/delivery is authorized by `/goal`;
+C1–C3 pass. C4 versions, complete candidate/merged qualification, review and
+publication remain. Issue #49 remains the released baseline.
 
 ## Next action
 
-Approve a separate backlog plan. Final documentation/cleanup validation is maintained in the linked issue #49 reply. Released baseline: v0.13.0.
+Complete C4 candidate/reader qualification and review under the issue #55 plan. Released baseline v0.13.0;
+planned correction patch v0.13.1.
