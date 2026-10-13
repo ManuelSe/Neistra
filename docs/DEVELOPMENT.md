@@ -393,3 +393,19 @@ complete release gate and actual tagged0.12.1 reader qualification; [recorded
 evidence](assets/molecular-interactions/c5-merged-gate.json). Future releases must
 repeat those gates against their final producer. No migration or
 state stripping is needed for rollback to qualified v0.12.1; transient choices reset.
+
+## Interaction correction compatibility (0.13.1)
+
+Issue#55 repairs native buffers/current group counts and marker/toolbar presentation,
+with independently qualified existing chemistry. It adds no API, database, archive
+or normalized-state field. Head remains0013 and schema majors1; dependencies are
+unchanged. All five versions advance together to0.13.1. Run the complete release
+gate on the clean candidate and exact merged master.
+
+Use the existing two-process `tests.support.transform_reader_qualification` helper
+with final0.13.1 producer metadata and an actual detached `v0.13.0` checkout at
+`/tmp/neistra-issue55-reader-013`, passing `--expected-reader 0.13.0`. Dedicated
+fresh data verifies exact coordinates/originals, retained Undo/Redo, save/re-export,
+archive import without portable history and unchanged completed jobs. Qualified
+rollback needs no downgrade/data stripping, but restores the old rendering defect.
+Earlier migration guards still apply. [Contract](plans/issue-55-interaction-corrections.md).

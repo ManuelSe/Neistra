@@ -27,10 +27,10 @@ agree. Real zoom/touch/keyboard/axe, movement/measurement/surface/cache/performa
 regressions pass. [C3 evidence](assets/interaction-corrections/c3-verification.json).
 C4 release preparation and complete candidate/merged qualification remain.
 
-Versions remain0.13.0; planned patch0.13.1, no migration/API/persisted change
+Five versions now0.13.1 in release preparation; planned patch0.13.1, no migration/API/persisted change
 (head0013/majors1). Fixed interaction-v1 and #52 boundaries remain. Pinned browser
 emulation and existing bundle/color-env advisories remain. No blocker.
-Next action: M4/C4 version preparation, complete release gate and actual preceding reader.
+Next action: C4 complete clean-candidate release gate and actual tagged0.13.0 reader, then PR/review.
 
 ### Previous delivery baseline — v0.13.0
 
@@ -2349,5 +2349,5 @@ publication remain. Issue #49 remains the released baseline.
 
 ## Next action
 
-Complete M4/C4 under the approved issue #55 plan. Released baseline v0.13.0;
+Complete C4 candidate/reader qualification and review under the issue #55 plan. Released baseline v0.13.0;
 planned correction patch v0.13.1.

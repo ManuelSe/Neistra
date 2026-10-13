@@ -5,7 +5,7 @@
 **Status:** approved on 2026-10-13 through the user's “Implement the plan.”
 The C0 persistence handoff completed at `938e2eef8b74932f0323178ceea1e34969a4d1bd`.
 The user authorized implementation and full delivery through `/goal` on 2026-10-13.
-Current checkpoint: C3 complete; C4 release preparation next.
+Current checkpoint: C4 release preparation; complete candidate/reader gates pending.
 
 - **Issue:** [#55 — Fix and scientifically validate molecular interaction detection and visualization](https://github.com/ManuelSe/Neistra/issues/55).
 - **Issue metadata:** open; created and last updated 2026-10-13 at 05:59:32 UTC;
@@ -635,3 +635,19 @@ Updated verification/accessibility/performance documentation and native harness
 no production/API/schema/chemistry change, scope expansion or consequential
 finding. Next: C4 versions/notes, current-base audit, exact candidate release gate
 and actual tagged0.13.0 reader qualification before PR.
+
+### C4 release preparation — 2026-10-13
+
+C3 committed as `727daee`. Fetched/reconciled origin/master safely (already current
+at1169090); latest release remains0.13.0 and remote v0.13.1 does not exist. Master
+remains unprotected with no rulesets/workflows; recheck reviews/checks at merge.
+Five version sources and the current archive-producer assertion advance together
+to0.13.1 without dependency changes. Patch rationale, release notes, supported
+inputs, fixed criteria, deferrals and upgrade/rollback guidance are current.
+The user's `/goal` explicitly specifies release preparation commit title
+`chore(release): prepare v0.13.1`, superseding the illustrative C4 title above.
+Complete clean-candidate gate and actual tagged0.13.0 reader are next, before PR.
+No tag, release, merge or publication is claimed.
+Focused release preparation passes111 archive/migration/scientific-reference tests
+with237 existing Alembic warnings; all five versions and Markdown links verified.
+No full candidate/release claim is made before the next gate.

@@ -478,7 +478,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     app = FastAPI(
         title="MolWeave API",
-        version="0.13.0",
+        version="0.13.1",
         lifespan=lifespan,
         openapi_url="/api/v1/openapi.json",
         docs_url="/api/docs",

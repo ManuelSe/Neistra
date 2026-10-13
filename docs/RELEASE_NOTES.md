@@ -1,5 +1,68 @@
 # Neistra Release Notes
 
+## 0.13.1 - 2026-10-13 - Interaction corrections
+
+### Highlights and fixes
+
+- All six existing interaction types update their actual native geometry when
+  combined, reordered or moved. Reuse attached line buffers and explicit current
+  group counts so old endpoints, stale colors and undersized index capacity no
+  longer misrepresent classifications or hide newly enabled markers.
+- Exactly coincident clashes get a centered three-axis cross (0.15 Å half-length),
+  preserving canonical endpoints. Interactions is the final viewer quick action.
+- Type and Inter/Intra controls remain independent, cached and session-only.
+  Preview/Cancel, committed edits, topology deletion and Undo/Redo retain their
+  current-artifact and logical-visibility behavior.
+
+### Scientific qualification and unchanged criteria
+
+The fixed interaction-v1 profile and supported-chemistry boundary are unchanged.
+Independent participants/endpoints, positive/negative/boundary cases and frozen
+2REG choline geometry qualify the existing six types. Seven complete aromatic
+ring contacts span four literature-identified residues; Asp45 at4.716 Å remains
+outside Neistra's4.5 Å ionic cutoff. Manually supplied fixture chemistry is test
+input, not a CCD assignment or preparation service. Neutral, ambiguous, modified,
+missing-H and unsupported sites remain conservatively assessed with warnings.
+
+### UI behavior and known limitations
+
+Native buffers and marker pixels qualify each type in light/dark, all15 pairs,
+all six together and independent scopes. Nonpickable patterned overlays retain
+camera/selection and bounded keyboard/touch/zoom layouts. Geometric screening is
+not binding energy; explicit donor H, warned protein conventions and a shared
+Cartesian frame remain required. Metal coordination, symmetry/periodic images,
+automatic preparation, editable profiles, persistent reports and new analysis
+libraries remain outside scope. Raw ligand assignment stays in [#52](https://github.com/ManuelSe/Neistra/issues/52);
+no duplicate or speculative follow-up issue was created.
+
+### API, data, migration, compatibility and rollback
+
+This is a **patch0.13.0→0.13.1**, restoring existing advertised behavior, without
+new categories/endpoints or API/persisted changes. All five authoritative sources
+advance to0.13.1; scientific dependencies remain pinned. No new migration;
+head0013 and project/normalized/archive majors1 remain. Originals, immutable
+molecular artifacts, retained history, scenes and jobs retain their contracts.
+Interaction choices/results remain absent from portable current-state archives.
+Actual tagged0.13.0 reader qualification against final0.13.1 data is required
+before delivery; supported rollback needs no schema downgrade or data stripping,
+but restores the old renderer defect. Earlier migration guards still apply.
+
+### Verification and review
+
+The [approved contract](plans/issue-55-interaction-corrections.md) and
+[C1–C3 evidence](assets/interaction-corrections/c3-verification.json) distinguish
+scientific/API facts from native buffers and actual marker pixels. C2 passes487
+Python tests; C3 passes182frontend and44browser/6intentional layout skips, zero
+failures/retries, with256 filter combinations, real100%/200%zoom,320px, scoped axe,
+native touch, lifecycle and existing movement/measurement/surface regressions.
+Pinned1010-atom analysis and cached-toggle budgets pass. Complete candidate and
+exact merged-master release/reader gates remain pending at release preparation;
+only their recorded results authorize tagging/publication. Review is local,
+not independent unless a returned external review is explicitly recorded.
+Known Alembic, lazy Mol* bundle and color-env advisories remain. Pinned Chromium/
+SwiftShader and Pixel7 emulation do not establish arbitrary hardware/browser support.
+
+
 ## 0.13.0 - 2026-10-12 - Molecular interactions
 
 ### Highlights
