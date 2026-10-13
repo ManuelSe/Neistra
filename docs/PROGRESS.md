@@ -2,6 +2,32 @@
 
 ## Current milestone
 
+Issue #55 — [approved interaction-correction plan](plans/issue-55-interaction-corrections.md).
+Approved on 2026-10-13 through “Implement the plan” for the persistence-only C0
+handoff. Branch: `fix/issue-55-interaction-corrections`; verified master base
+`116909085a52237d275dd2f42e30c1f847583a54`. The plan is the first branch change;
+implementation has not started. The repository is being prepared for `/goal`.
+
+Approved milestones: M1/C1 repairs native overlay buffer updates and toolbar
+placement; M2/C2 qualifies all six scientific classifications; M3/C3 verifies
+additive controls and native viewer workflows; M4/C4 prepares the patch release
+and qualifies compatibility. Planned release: **0.13.1**, annotated `v0.13.1`.
+Current application versions remain 0.13.0. No new migration or API/persisted
+schema change is planned; head remains 0013 and schema majors remain 1.
+
+Planning reproduced stale native line buffers despite updated draw counts, with
+a read-only reusable-geometry experiment demonstrating correct updates. Planning
+checks passed 71 interaction Python tests and all 179 frontend tests; these are
+baseline evidence, not #55 implementation or release qualification. C0 validates
+documentation, links, base/version metadata, diff scope, and remote handoff.
+
+Known limits: preserve fixed `interaction-v1`, explicit-H requirements, warned
+protein conventions, and unsupported chemistry. CCD ligand assignment remains
+separate in [#52](https://github.com/ManuelSe/Neistra/issues/52). No blocker.
+Next action: `/goal` to authorize C1 and subsequent implementation/delivery.
+
+### Previous delivery baseline — v0.13.0
+
 Issue #49 — [approved plan and detailed completion log](plans/issue-49-molecular-interactions.md).
 Implemented and released through [PR #53](https://github.com/ManuelSe/Neistra/pull/53)
 and verified [v0.13.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.13.0).
@@ -231,6 +257,10 @@ and closed out on issue #1. The release tag remains on the exact verified
 feature merge; this documentation-only closeout records the remote evidence.
 
 ## Completed work
+
+- Issue #55 C0: approved feature contract persisted under `docs/plans/` as the
+  first change on `fix/issue-55-interaction-corrections`, with the concise project
+  summary above. No product implementation or release work has started.
 
 - Issue #4 planning: the user approved the complete proposal on 2026-10-09.
   Read-only review covered product, architecture, scientific state, transforms,
@@ -1087,6 +1117,13 @@ feature merge; this documentation-only closeout records the remote evidence.
   affected-entry topology replacement without a full scene synchronization.
 
 ## Verification performed
+
+- Issue #55 planning/C0: remote issue/master/release baseline rechecked; clean
+  local master fast-forwarded with `--ff-only` (already current). Planning tests
+  passed 71 focused Python and 179 frontend cases. Native buffer defect and
+  reusable-geometry feasibility were reproduced without tracked changes.
+  Documentation validation and commit/push verification are reported at handoff;
+  no #55 browser or release gate is claimed.
 
 - Issue #9 planning: inspected repository/product/architecture/schema/API/history,
   frontend selection/query/viewer ownership, migrations/jobs/tests and delivery
@@ -2203,6 +2240,11 @@ Results:
 
 ## Known limitations
 
+- Issue #55 is an approved plan, not implemented functionality. The released
+  interaction renderer still has the reproduced native-buffer update defect.
+  Scientific scope remains bounded by `interaction-v1`; #52 owns raw ligand
+  chemistry assignment. The feature plan contains the detailed acceptance gates.
+
 - Issue #9 is an approved plan, not implemented functionality. The planned slice
   retains empty groups and derived sorting, supports desktop drag and complete
   explicit keyboard/touch actions, and defers manual ordering, saved sort/filter,
@@ -2294,8 +2336,12 @@ Results:
 
 ## Blockers
 
-No current blocker. Issue #49 is released; final documentation/cleanup audit is maintained in its closeout reply.
+No current blocker. Issue #55 is approved for the C0 persistence-only handoff;
+implementation awaits `/goal`. Issue #49 remains released, with its final
+documentation/cleanup audit maintained in its closeout reply.
 
 ## Next action
 
-Approve a separate backlog plan. Final documentation/cleanup validation is maintained in the linked issue #49 reply. Released baseline: v0.13.0.
+Run `/goal` for the approved issue #55 contract, starting with M1/C1. Stop after
+the C0 documentation commit/push handoff; do not start implementation in the
+planning-approval turn. Released baseline remains v0.13.0; planned patch 0.13.1.
