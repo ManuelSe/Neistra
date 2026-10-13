@@ -1,0 +1,50 @@
+{
+  "released_commit": "dfca45af3baac1e7395c6b39e73f93fc9651276f",
+  "tag": "v0.13.1",
+  "annotated_tag_object": "160ed3290ee8df5669edcd5a457b11b1ab2e9d80",
+  "remote_peeled_tag_verified": true,
+  "pr": "https://github.com/ManuelSe/Neistra/pull/60",
+  "release": {
+    "assets": [
+      {
+        "apiUrl": "https://api.github.com/repos/ManuelSe/Neistra/releases/assets/638312554",
+        "contentType": "application/zip",
+        "createdAt": "2026-10-13T21:33:21Z",
+        "downloadCount": 0,
+        "id": "RA_kwDOTqyhK84mC-Bq",
+        "label": "",
+        "name": "neistra-v0.13.1-verification.zip",
+        "size": 2969989,
+        "state": "uploaded",
+        "updatedAt": "2026-10-13T21:33:22Z",
+        "url": "https://github.com/ManuelSe/Neistra/releases/download/v0.13.1/neistra-v0.13.1-verification.zip"
+      }
+    ],
+    "id": "RE_kwDOTqyhK84YkJcz",
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "Neistra v0.13.1",
+    "publishedAt": "2026-10-13T21:33:22Z",
+    "tagName": "v0.13.1",
+    "url": "https://github.com/ManuelSe/Neistra/releases/tag/v0.13.1"
+  },
+  "release_notes_verified": true,
+  "asset": {
+    "name": "neistra-v0.13.1-verification.zip",
+    "bytes": 2969989,
+    "sha256": "ce1ce30fa347a012d7a24852f1edb626e882e1c34ab8fcfb77ed703057741ec5",
+    "files": 124,
+    "source_commit": "dfca45af3baac1e7395c6b39e73f93fc9651276f",
+    "downloaded_bytes_and_sha256_verified": true,
+    "internal_checksums_verified": 123
+  },
+  "candidate_gate": "c4-candidate-gate.json",
+  "merged_gate": "c4-merged-gate.json",
+  "actual_preceding_reader": "0.13.0",
+  "review": "local, not independent; no returned Codex review at merge audit",
+  "follow_up": "https://github.com/ManuelSe/Neistra/issues/52",
+  "issue_reply": "https://github.com/ManuelSe/Neistra/issues/55#issuecomment-6155674003",
+  "initial_issue_reply_body_verified": true,
+  "issue_state": "CLOSED",
+  "documentation_closeout": "recorded through reviewed docs-only PR; final merge/cleanup audit in linked issue reply"
+}

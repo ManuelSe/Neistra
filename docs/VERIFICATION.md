@@ -11,8 +11,13 @@ Python487 passes historically. C4 clean candidate at `0b409a1` passes490Python,
 frozen installs/fresh0013/lint/types/build/diff. [Exact candidate gate](assets/interaction-corrections/c4-candidate-gate.json)
 and [actual tagged0.13.0 reader](assets/interaction-corrections/c4-candidate-reader.json)
 qualify final0.13.1 data/history/archives/jobs. [Local full-diff review](assets/interaction-corrections/c4-local-review.json)
-is not independent; no consequential finding remains. Exact merged gate and
-publication remain pending; prior #49 evidence below stays historical.
+is not independent; no consequential finding remains. [Exact merged gate](assets/interaction-corrections/c4-merged-gate.json) at
+dfca45af3baac1e7395c6b39e73f93fc9651276f repeats every command/count, zero failures/
+retries; [actual tagged0.13.0 reader](assets/interaction-corrections/c4-merged-reader.json)
+passes final merged data. Annotatedv0.13.1/exact target, release/notes/downloaded
+archive bytes and123internal checksums verified; [publication](assets/interaction-corrections/c4-publication.json).
+Final documentation merge/cleanup audit is maintained in the verified issue reply.
+Prior #49 evidence below stays historical.
 
 Issue #49 qualification is maintained in the [approved interaction plan](plans/issue-49-molecular-interactions.md)
 and [raw evidence](assets/molecular-interactions/). All six types use independently

@@ -17,94 +17,95 @@
       "command": ".venv/bin/uv sync --frozen",
       "exit_code": 0,
       "seconds": 0.029,
-      "log": "uv-sync.log"
+      "log": "c4-candidate-uv-sync.log"
     },
     {
       "name": "pnpm-install",
       "command": "corepack pnpm install --frozen-lockfile",
       "exit_code": 0,
       "seconds": 0.64,
-      "log": "pnpm-install.log"
+      "log": "c4-candidate-pnpm-install.log"
     },
     {
       "name": "migration",
       "command": ".venv/bin/uv run alembic upgrade head",
       "exit_code": 0,
       "seconds": 0.594,
-      "log": "migration.log"
+      "log": "c4-candidate-migration.log"
     },
     {
       "name": "ruff",
       "command": ".venv/bin/uv run ruff check .",
       "exit_code": 0,
       "seconds": 0.035,
-      "log": "ruff.log"
+      "log": "c4-candidate-ruff.log"
     },
     {
       "name": "mypy",
       "command": ".venv/bin/uv run mypy apps/api packages/molweave_core",
       "exit_code": 0,
       "seconds": 0.18,
-      "log": "mypy.log"
+      "log": "c4-candidate-mypy.log"
     },
     {
       "name": "pytest",
       "command": ".venv/bin/uv run pytest",
       "exit_code": 0,
       "seconds": 75.999,
-      "log": "pytest.log"
+      "log": "c4-candidate-pytest.log"
     },
     {
       "name": "lint",
       "command": "corepack pnpm --dir apps/web lint",
       "exit_code": 0,
       "seconds": 8.027,
-      "log": "lint.log"
+      "log": "c4-candidate-lint.log"
     },
     {
       "name": "typecheck",
       "command": "corepack pnpm --dir apps/web typecheck",
       "exit_code": 0,
       "seconds": 4.222,
-      "log": "typecheck.log"
+      "log": "c4-candidate-typecheck.log"
     },
     {
       "name": "vitest",
       "command": "corepack pnpm --dir apps/web test",
       "exit_code": 0,
       "seconds": 8.046,
-      "log": "vitest.log"
+      "log": "c4-candidate-vitest.log"
     },
     {
       "name": "supervisor",
       "command": "corepack pnpm test:dev",
       "exit_code": 0,
       "seconds": 1.451,
-      "log": "supervisor.log"
+      "log": "c4-candidate-supervisor.log"
     },
     {
       "name": "build",
       "command": "corepack pnpm --dir apps/web build",
       "exit_code": 0,
       "seconds": 12.132,
-      "log": "build.log"
+      "log": "c4-candidate-build.log"
     },
     {
       "name": "browser",
       "command": "corepack pnpm exec playwright test",
       "exit_code": 0,
       "seconds": 1775.449,
-      "log": "browser.log"
+      "log": "c4-candidate-browser.log"
     },
     {
       "name": "diff",
       "command": "git diff --check",
       "exit_code": 0,
       "seconds": 0.004,
-      "log": "diff.log"
+      "log": "c4-candidate-diff.log"
     }
   ],
   "complete": true,
   "finished_utc": "2026-10-13T20:56:08.630244+00:00",
-  "working_tree_clean": true
+  "working_tree_clean": true,
+  "evidence_note": "Copied log paths reflect repository artifact names; qualified source, commands, exit codes and timings are unchanged."
 }
