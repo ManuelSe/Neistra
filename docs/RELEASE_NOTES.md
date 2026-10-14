@@ -1,9 +1,10 @@
 # Neistra Release Notes
 
-## 0.15.0 - 2026-10-14 - Compact project navigation
+## 0.15.0 - 2026-10-15 - Compact project navigation
 
-Status: complete clean candidate qualified; PR/merge and exact merged-master
-qualification remain mandatory before publication.
+Status: [released as v0.15.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.15.0)
+through [PR #67](https://github.com/ManuelSe/Neistra/pull/67) on exact qualified master
+`dccc5e6d2f3dc3d392144165ffd1f4237db4a2e5` (2026-10-15 Europe/Zurich).
 
 ### Added and changed navigation
 
@@ -41,7 +42,7 @@ schemas1. No new migration or endpoint/job/plugin change. Original molecular fil
 coordinates, atom identities, classifications, history/scenes/surfaces and archives
 retain their contracts. Only layout/collapse preferences persist in browser storage.
 
-Final0.15.0 producer data must pass the actual tagged v0.14.0 API/core reader,
+Final0.15.0 producer data passes the actual tagged v0.14.0 API/core reader,
 including exact originals/coordinates, history/jobs/scenes/surfaces and archive
 seed remapping. Runtime rollback to qualified0.14.0 needs no schema downgrade or
 data stripping and restores the previous layout; earlier0014 guards still apply.
@@ -73,8 +74,15 @@ remain separate. [Complete clean candidate](assets/project-navigation/c4-candida
 skips in34.3m, with zero failures/retries; frozen installs/fresh0014/static/build/
 diff pass. Actual tagged0.14.0 reader accepts final0.15.0 exact originals/coordinates/
 history/jobs/scenes/surfaces/archive remapping. [Local complete-diff review](assets/project-navigation/c4-local-review.md)
-is self-review, not independent; all consequential findings repaired. Exact merged
-master must repeat the full gate before publication. [Approved plan](plans/issue-59-compact-project-navigation.md)
+is self-review, not independent; all consequential findings repaired. [Exact merged-master gate](assets/project-navigation/c4-merged-gate.json) repeats
+every command/count and actual tagged-reader qualification, with197browser passes/
+45intentional skips in34.2m and zero failures/retries. Annotated exact tag, stable
+release/notes, downloaded archive SHA256 and132internal checksums are verified;
+[publication](assets/project-navigation/c4-publication.json).
+[Issue reply](https://github.com/ManuelSe/Neistra/issues/59#issuecomment-6179659377)
+is verified; issue closed. Codex returned no independent review at merge/publication
+audit; no required protection/approval bypass. Final documentation/master/cleanup
+audit is maintained in that verified reply. [Approved plan](plans/issue-59-compact-project-navigation.md)
 and [user guidance](PROJECT_NAVIGATION.md) retain dispositions and ownership.
 
 

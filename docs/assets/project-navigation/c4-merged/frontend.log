@@ -1,0 +1,91 @@
+
+> @neistra/web@0.15.0 test /datadisk/dev/neistra/apps/web
+> vitest run
+
+
+ RUN  v3.2.4 /datadisk/dev/neistra/apps/web
+
+ ✓ src/test/surface-manager.test.tsx (5 tests) 863ms
+ ✓ src/test/jobs.test.tsx (3 tests) 924ms
+   ✓ jobs > submits validated generic parameters and immutable role inputs  521ms
+ ✓ src/test/ligand-editor.test.tsx (3 tests) 1187ms
+   ✓ ligand editor > submits atom, bond, hydrogen, rotation, movement, and cleanup commands  885ms
+ ✓ src/test/protein-editor.test.tsx (4 tests) 1479ms
+   ✓ protein editor > submits destructive, metadata, mutation, hydrogen, and movement commands  1061ms
+ ✓ src/test/export-dialog.test.tsx (7 tests) 1375ms
+   ✓ export dialog > submits scope, supported output mode, and molecular filters then exposes the artifact  558ms
+ ✓ src/test/notification-producers.test.tsx (3 tests) 1006ms
+   ✓ classifies import results from structured warnings, independently of success styling  514ms
+   ✓ classifies ligand results from structured warnings, independently of success styling  315ms
+ ✓ src/test/project-browser.test.tsx (4 tests) 1379ms
+   ✓ project browser selection and discovery > searches, filters, sorts, and collapses grouped entries  638ms
+   ✓ project browser selection and discovery > hands focus to the replacement row when membership completes before menu teardown  337ms
+ ✓ src/test/pocket-controls.test.tsx (6 tests) 1787ms
+   ✓ captures selection, preserves draft across selection changes, and explicitly recaptures  491ms
+   ✓ starts a new captured pocket independently of existing objects, validates radius and discards drafts  464ms
+   ✓ requires explicit choice for multiple receptors and explains no receptor  392ms
+ ✓ src/test/numeric-preview-ownership.test.tsx (1 test) 1343ms
+   ✓ discards a delayed numerical preview cleared by movement while retaining valid numerical previews  1341ms
+ ✓ src/test/selection-style-dialog.test.tsx (13 tests) 1864ms
+   ✓ uses one action status, blocks overlapping properties, and preserves errors across selection changes  305ms
+ ✓ src/test/component-hierarchy.test.tsx (2 tests) 1770ms
+   ✓ component hierarchy > loads lazily, renders categories lazily, and emits canonical modifier selections  1766ms
+ ✓ src/test/interactive-transform-controls.test.tsx (4 tests) 2342ms
+   ✓ shares keyboard steps with one Apply and restores launcher focus after Cancel  744ms
+   ✓ retains one capture and pose across scoped Space and explicit view-toggle ownership  332ms
+   ✓ keeps primary actions textless and exposes scientific help without hiding the transaction  1023ms
+ ✓ src/test/structure-loading.test.tsx (13 tests) 1863ms
+   ✓ ignores stale styling eligibility and closes the palette across project switches  473ms
+ ✓ src/test/project-workspace.test.tsx (3 tests) 2145ms
+   ✓ project workspace > creates a real project and exposes its durable checkpoint state  1579ms
+ ✓ src/test/viewer-toolbar.test.tsx (3 tests) 584ms
+   ✓ viewer toolbar > exposes every picking mode as one controlled keyboard-accessible value  447ms
+ ✓ src/test/notifications.test.tsx (9 tests) 275ms
+ ✓ src/test/surface-editor.test.tsx (5 tests) 723ms
+   ✓ applies independent appearance as one command and restores a draft after undo  378ms
+ ✓ src/test/group-membership.test.tsx (5 tests) 585ms
+   ✓ membership dialog > shows complete scope, sends the captured batch, and reports failures without dismissing  330ms
+ ✓ src/test/selection-expansion.test.tsx (5 tests) 481ms
+   ✓ distance expansion > offers defaults, custom residue expansion, cancel, and visible failures  345ms
+ ✓ src/test/movement-navigation.test.tsx (1 test) 299ms
+ ✓ src/test/sequence.test.tsx (2 tests) 373ms
+   ✓ bidirectional sequence selection > turns sequence residue clicks into the common selection and reflects them in summary  308ms
+ ✓ src/test/group-action-focus.test.tsx (3 tests) 260ms
+ ✓ src/test/viewer-adapter.test.ts (6 tests) 125ms
+ ✓ src/test/project-navigation.test.tsx (10 tests) 3205ms
+   ✓ keeps explicit browsing independent of selection, remembers expansion across targets and remounts  806ms
+   ✓ retains filtered browsing, clears deletion and project changes, and does not reactivate on Undo  353ms
+   ✓ exposes complete metadata and warnings by keyboard and returns to the entry menu  430ms
+   ✓ separates disclosure, label and Details and restores the component launcher  409ms
+   ✓ preserves coordinate expansion and reconciles a removed focused category to the pane heading  415ms
+ ✓ src/test/history.test.tsx (2 tests) 255ms
+ ✓ src/test/viewer-controls.test.tsx (1 test) 339ms
+   ✓ viewer controls > exposes the non-polar preference with an explicit master dependency  338ms
+ ✓ src/test/interactive-transform.test.ts (21 tests) 134ms
+ ✓ src/test/component-membership.test.ts (2 tests) 66ms
+ ✓ src/test/viewer-presentation.test.ts (2 tests) 62ms
+ ✓ src/test/interactive-transform-queue.test.ts (4 tests) 17ms
+ ✓ src/test/focus-targets.test.ts (3 tests) 14ms
+ ✓ src/test/selection-surface-worker.test.ts (4 tests) 12ms
+ ✓ src/test/group-drag.test.tsx (2 tests) 32ms
+ ✓ src/test/selection.test.ts (3 tests) 12ms
+ ✓ src/test/representations.test.ts (9 tests) 12ms
+ ✓ src/test/theme.test.ts (4 tests) 13ms
+ ✓ src/test/pocket-inputs.test.ts (4 tests) 6ms
+ ✓ src/test/surface-warnings.test.ts (2 tests) 4ms
+ ✓ src/test/transforms.test.ts (3 tests) 3ms
+ ✓ src/test/measurements.test.ts (2 tests) 2ms
+ ✓ src/test/selection-surface-allocation.test.ts (3 tests) 35ms
+ ✓ src/test/pocket-surface-geometry.test.ts (4 tests) 105ms
+ ✓ src/test/selection-surface-runtime.test.ts (7 tests) 417ms
+ ✓ src/test/selection-colors.test.ts (1 test) 3ms
+ ✓ src/test/interaction-native-geometry.test.ts (2 tests) 19ms
+ ✓ src/test/interactions.test.ts (7 tests) 38ms
+ ✓ src/test/surface-objects.test.ts (4 tests) 8ms
+ ✓ src/test/selection-surface-geometry.test.ts (7 tests) 85ms
+ ✓ src/test/viewer-interaction.test.ts (4 tests) 5ms
+
+ Test Files  49 passed (49)
+      Tests  227 passed (227)
+   Start at  23:36:53
+   Duration  8.76s (transform 5.29s, setup 4.28s, collect 33.35s, tests 29.94s, environment 22.82s, prepare 5.14s)

@@ -1,0 +1,64 @@
+{
+  "release_version": "0.15.0",
+  "release_url": "https://github.com/ManuelSe/Neistra/releases/tag/v0.15.0",
+  "release_id": 413230310,
+  "released_commit": "dccc5e6d2f3dc3d392144165ffd1f4237db4a2e5",
+  "tag_object": "d82163429bb6b9f225e4dc1244fa9329cd077bcf",
+  "tag_remote_verified": true,
+  "release_remote_verified": true,
+  "notes_exact": true,
+  "release_draft": false,
+  "release_prerelease": false,
+  "published_at": "2026-10-14T22:13:12Z",
+  "local_release_date": "2026-10-15",
+  "verification_archive": {
+    "archive": "neistra-v0.15.0-verification.tar.gz",
+    "bytes": 2153880,
+    "sha256": "27ad5fe96c69e7e368839a03ed3a6596b4c3326f81215a4a9244994a737e3051",
+    "internal_files": 132,
+    "downloaded_bytes_sha256_verified": true,
+    "internal_checksums_verified": true
+  },
+  "assets": [
+    {
+      "name": "neistra-v0.15.0-verification.tar.gz",
+      "size": 2153880,
+      "digest": "sha256:27ad5fe96c69e7e368839a03ed3a6596b4c3326f81215a4a9244994a737e3051",
+      "url": "https://github.com/ManuelSe/Neistra/releases/download/v0.15.0/neistra-v0.15.0-verification.tar.gz"
+    },
+    {
+      "name": "SHA256SUMS.json",
+      "size": 16693,
+      "digest": "sha256:f599aa20bbba7fc9a0d815b30182e7f5dee0221f95013bc638de0c21a6b4782a",
+      "url": "https://github.com/ManuelSe/Neistra/releases/download/v0.15.0/SHA256SUMS.json"
+    }
+  ],
+  "pr": "https://github.com/ManuelSe/Neistra/pull/67",
+  "review": "local self-review; Codex request verified, no independent review at merge/publication audit; no protections/checks/reviews/threads bypassed",
+  "candidate_results": {
+    "python": 557,
+    "frontend": 227,
+    "supervisor": 8,
+    "browser": 197,
+    "intentional_skips": 45,
+    "failures": 0,
+    "retries": 0
+  },
+  "merged_results": {
+    "python": 557,
+    "frontend": 227,
+    "supervisor": 8,
+    "browser": 197,
+    "intentional_skips": 45,
+    "failures": 0,
+    "retries": 0
+  },
+  "compatibility": "actual v0.14.0 API/core reader accepts final0.15.0 candidate and merged data; exact originals/coordinates/history/jobs/scenes/surfaces and archive seed remapping",
+  "issue_reply_verified": true,
+  "issue_reply_url": "https://github.com/ManuelSe/Neistra/issues/59#issuecomment-6179659377",
+  "issue_reply_graphql_id": "IC_kwDOTqyhK88AAAABcFYecQ",
+  "issue_state": "CLOSED",
+  "issue_reply_body_sha256_at_initial_verification": "945ccb8997660b7439130da5de477b13da77377835bdfefa80db34fcc380d7b7",
+  "issue_reply_verification_phase": "Initial publication reply verified exactly; final documentation merge and branch/clean-master audit updates the same comment after verification.",
+  "final_documentation_cleanup_audit": "https://github.com/ManuelSe/Neistra/issues/59#issuecomment-6179659377"
+}
