@@ -24,3 +24,8 @@ Object.defineProperty(window, "ResizeObserver", {
   writable: true,
   value: TestResizeObserver,
 });
+
+// Component browsing must not leak between independent test projects.
+import { afterEach } from "vitest";
+import { useNavigationStore } from "../store/navigation";
+afterEach(() => useNavigationStore.getState().setProject(null));

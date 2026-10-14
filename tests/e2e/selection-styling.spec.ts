@@ -1,3 +1,4 @@
+import { browseComponents } from "./support/navigation";
 import AxeBuilder from "@axe-core/playwright";
 import { resolve } from "node:path";
 import {
@@ -255,7 +256,7 @@ test("styles a 1STP complex without changing scientific or transient state", asy
     (scene) => scene.name === "Before selection styling",
   )!.camera;
 
-  await page.getByLabel(`Component hierarchy for ${entry.name}`).click();
+  await browseComponents(page, entry.name);
   const ligands = page.locator("details.hierarchy-category").filter({ hasText: "Ligands / cofactors" });
   await ligands.locator("summary").click();
   await page.getByLabel(`Select Ligands / cofactors in ${entry.name}`).click();
@@ -387,7 +388,7 @@ test("keeps ion, water, and covalent-boundary targets exact", async ({
   let current = await readProject(request, project.id);
   const entry = current.entries[0];
   const structure = await readStructure(request, project.id, entry.id);
-  await page.getByLabel(`Component hierarchy for ${entry.name}`).click();
+  await browseComponents(page, entry.name);
 
   const chooseComponent = async (category: string, component: RegExp) => {
     const details = page.locator("details.hierarchy-category").filter({ hasText: category });
@@ -449,7 +450,7 @@ test("keeps the selection styling dialog bounded and keyboard-operable on Pixel 
   });
   await projectBrowser.click();
   const drawer = page.getByRole("dialog", { name: "Project browser panel" });
-  await drawer.getByLabel(`Component hierarchy for ${entry.name}`).click();
+  await browseComponents(page, entry.name);
   const ions = drawer
     .locator("details.hierarchy-category")
     .filter({ hasText: "Ions / metals" });

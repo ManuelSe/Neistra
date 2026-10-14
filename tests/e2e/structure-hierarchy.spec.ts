@@ -1,3 +1,4 @@
+import { browseComponents } from "./support/navigation";
 import AxeBuilder from "@axe-core/playwright";
 import { resolve } from "node:path";
 import {
@@ -160,7 +161,7 @@ test("synchronizes hierarchy selection, visibility, focus, persistence, and WebG
   await saveScene(page, "Before hierarchy selection");
   const beforeSelection = await readProject(request, project.id);
 
-  await page.getByLabel(`Component hierarchy for ${entry.name}`).click();
+  await browseComponents(page, entry.name);
   await expect(page.getByText("Polymers", { exact: true })).toBeVisible();
   await expect(page.getByText("Other heterogens", { exact: true })).toBeVisible();
   expect(structureRequests).toHaveLength(1);
@@ -264,9 +265,7 @@ test("keeps the hierarchy keyboard-operable and bounded in the Pixel 7 drawer", 
   await page.keyboard.press("Enter");
   const drawer = page.getByRole("dialog", { name: "Project browser panel" });
   await expect(drawer).toBeVisible();
-  const hierarchy = drawer.getByLabel(`Component hierarchy for ${entry.name}`);
-  await hierarchy.focus();
-  await page.keyboard.press("Enter");
+  await browseComponents(page, entry.name);
   await expect(drawer.getByText("Polymers", { exact: true })).toBeVisible();
   const ligandSummary = categoryDetails(page, "Ligands / cofactors").locator("summary");
   await ligandSummary.focus();

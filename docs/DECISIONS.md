@@ -3478,3 +3478,17 @@ Consequences:
   not a database migration; rollback restores the earlier navigation workflow.
 - Entry-list virtualization, durable browsing context, component overrides/export,
   surface redesign, carbon defaults, and charge chemistry remain outside scope.
+
+### D-097 implementation note — issue #59 C1, 2026-10-14
+
+The new browser reuses the existing revisioned entry/group/viewer actions and
+artifact-keyed query. App-level project/deletion reconciliation keeps navigation
+correct even while a desktop panel or mobile drawer is unmounted. Only split/
+collapse preferences are persisted; expansion and scroll remain session state.
+
+Components/Details handoff suppresses outgoing menu launcher restoration. Entry
+Details initially focuses its dialog container, rather than its tooltip-bearing
+Close action: a focused tooltip otherwise consumes the first Escape. Both mobile
+tab-panel identifiers remain in the DOM even when their inactive content is
+unmounted, preserving valid aria-controls. These are focus/semantics corrections,
+not changes to molecular selection, scientific state, or the API.

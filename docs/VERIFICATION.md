@@ -1,5 +1,13 @@
 # V0.1 Requirement Evidence
 
+Issue #59 follows the [approved compact navigation plan](plans/issue-59-compact-project-navigation.md).
+[C1 evidence](assets/project-navigation/c1-verification.json) qualifies compact
+entries/Details, independent desktop split/mobile tabs, pinned context, scoped
+loads/Retry, deletion/project reconciliation and retained selection/group actions.
+All218 frontend/12 integration tests plus static/build checks and17 browser passes/
+3 intentional skips pass; earlier diagnostics stay separate. C2–C4 and release
+qualification remain pending. No new API/schema/migration or release claim.
+
 Issue #57 follows the [approved surface-object plan](plans/issue-57-independent-surface-objects.md).
 [C1](assets/surface-objects/c1-verification.json) qualifies disposable identity,
 whole-object activation/highlighting and bounded mesh lines. [C2](assets/surface-objects/c2-verification.json)

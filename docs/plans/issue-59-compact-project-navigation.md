@@ -2,9 +2,10 @@
 
 ## 1. Status, outcome, and authority
 
-**Status:** approved implementation contract; C0 documentation prepared and validated.
-M1/C1–M4/C4 are approved and not started. Stop after committing, pushing, and
-verifying C0; await `/goal` before implementation.
+**Status:** implementation authorized by `/goal` on 2026-10-14. C0 was committed
+and remotely verified at `9f454c0eee7912aca623a3d239f9593a40b65235`. M1/C1 is
+implemented and qualified; M2/C2–M4/C4 remain approved and unstarted.
+
 
 - **Issue:** [#59 — Redesign the entry list and component hierarchy for compact,
   uncluttered navigation](https://github.com/ManuelSe/Neistra/issues/59), open,
@@ -459,3 +460,33 @@ feature plan remains the detailed contract.
 For each later checkpoint append actual source/commit identity, commands/results,
 acceptance evidence, scope deviations, blockers, and next action. Never claim an
 unimplemented behavior, unrun check, or unverified remote action as complete.
+
+### 2026-10-14 — M1/C1 complete: separate navigation and compact entries
+
+- `/goal` authorizes implementation and full delivery. The planned feature branch
+  is clean at C0; refreshed origin/master remains430e7d0 with no release collision.
+- Compact single-line entry rows retain selection/modifiers, group scopes and
+  existing actions. Details exposes full metadata/warnings with keyboard/touch
+  focus restoration. Explicit Components changes browsing alone; entry-name
+  activation also selects. Desktop split/collapse and mobile tabs are functional.
+- Transient navigation remembers expansion/scroll across targets and remounts,
+  retains filtered/hidden context, scopes queries and Retry to the current target,
+  and clears project/deleted state without Undo auto-reactivation. App-level
+  reconciliation also runs while the browser is unmounted. D-097 implementation
+  note records focus/ARIA corrections without altering historical decisions.
+- [Exact C1 evidence](../assets/project-navigation/c1-verification.json):10 focused
+  and all218 frontend tests,12 Python integration tests, Ruff/mypy61, lint/types/
+  build/diff pass. Final complete focused browser suite:17 passes/3 intentional
+  layout skips in2.0minutes, no failures/retries. Native tests retain grouping,
+  stale feedback, viewer/surface invariance, camera/selection, reload and axe.
+- Initial JSDOM geometry and dialog-tooltip Escape findings were repaired.
+  The first browser run's four filter-disclosure fixture failures are separate
+  diagnostic evidence; all original late-response focus assertions remain and
+  the complete corrected run passes. Earlier diagnostics are not passing gates.
+- User guidance and architecture explain ownership and available C1 workflow.
+  Versions remain0.14.0; no dependencies/backend/schema/migration/jobs change.
+  C2 compact direct/virtual component rows remain unimplemented. Pinned emulation
+  and existing lazy bundle advisory remain limitations, not new certification.
+- Local full checkpoint diff review found no scope expansion, loss of warnings,
+  molecular authority violation, migration or compatibility change. Not independent
+  review. No blocker. Next: commit passing C1, then implement M2/C2.

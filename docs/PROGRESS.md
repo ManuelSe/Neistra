@@ -3,25 +3,20 @@
 ## Current milestone
 
 Issue #59 — [approved compact navigation contract](plans/issue-59-compact-project-navigation.md).
-C0 documentation is prepared and validated on `feat/issue-59-compact-project-navigation`,
-from verified master `430e7d0ccfb8643710ea13a26509e284e26550a7`. The user approved
-entry-click selection plus explicit browse-only Components, pinned component/viewer
-context, desktop split/mobile tabs, and continuous virtual component scrolling.
-D-097 records independent session browsing ownership; existing molecular selection,
-classification, shared visibility and surface authority remain unchanged.
+`/goal` authorizes full implementation/delivery on the planned feature branch.
+C0 is remotely verified at9f454c0. M1/C1 is complete: compact entries and accessible
+Details, independent desktop split/mobile tabs, pinned transient browse context,
+query/Retry/deletion/project reconciliation and retained group/selection actions.
+D-097 and [user guidance](PROJECT_NAVIGATION.md) record ownership and focus.
 
-Completed work: repository/issue/release inspection, clean fast-forward-only master
-update, dedicated branch, approved feature plan and architectural decision.
-Verification: diff check, all 51 local Markdown links, six plan sections/five
-checkpoints, unique D-097, exact three-file scope and unchanged versions/global PLAN
-pass. Commit/remote verification is reported in the handoff; no runtime tests or
-implementation claims. Detailed evidence stays in the plan log.
-M1/C1–M4/C4 are approved and unstarted. All application versions remain0.14.0;
-planned target0.15.0 is a minor user-visible feature release with no new API,
-database, molecular, job/plugin or archive shape change (head0014/schemas2/1).
-Known limits: session-only browse context; existing shared-group visibility;
-entry virtualization, overrides/export and related #52/#58/#64 remain separate.
-No planning blocker. Next: commit/push/verify C0, then stop ready for `/goal`.
+[C1 evidence](assets/project-navigation/c1-verification.json):10 focused/all218
+frontend,12 integration, Ruff/mypy61/lint/types/build/diff pass. Final focused
+browser17 passes/3 intentional layout skips, zero failures/retries. Prior four
+filter-disclosure fixture diagnostics are separate; full rerun retains assertions.
+Versions0.14.0; target0.15.0 minor, no new migration/API/persisted shape. Known limits:
+C1 still uses the original multiline hierarchy within the new pane; compact direct
+virtual rows are next. Session navigation, shared visibility and pinned emulation
+boundaries remain. No blocker. Next: commit C1, implement M2/C2, then C3/C4.
 
 ### Previous delivery baseline — v0.14.0
 
@@ -2406,13 +2401,11 @@ Results:
 
 ## Blockers
 
-No current planning blocker. Issue #59 C0 is documentation-only; implementation
-and all runtime qualification remain unstarted. Issue #57 release and closeout
-remain verified.
+No current blocker. Issue #59 M1/C1 passes its gates; C2/C3/C4 and release delivery
+remain. Issue #57 release and closeout remain verified.
 
 ## Next action
 
-Commit, push, and remotely verify issue #59 C0, then stop ready for `/goal`.
-Do not start M1/C1 until that implementation instruction. Use the approved
-[feature plan](plans/issue-59-compact-project-navigation.md) as the detailed contract;
-do not add deferred charge/carbon/override/export scope.
+Commit passing issue #59 C1, implement M2/C2, then qualify C3 and complete C4
+release delivery. The [feature plan](plans/issue-59-compact-project-navigation.md)
+is the detailed contract; do not reintroduce deferred scope.

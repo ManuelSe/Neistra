@@ -3,7 +3,7 @@ import * as Tooltip from "@radix-ui/react-tooltip";
 import { fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import type { ReactNode } from "react";
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { molecularApi } from "../api/client";
 import type {
   ComponentHierarchy,
@@ -221,7 +221,8 @@ describe("component hierarchy", () => {
 
     expect(request).not.toHaveBeenCalled();
     expect(screen.queryByText("Protein chain A")).not.toBeInTheDocument();
-    await user.click(screen.getByLabelText("Component hierarchy for Complex"));
+    await user.click(screen.getByRole("button", { name: "Actions for Complex" }));
+    await user.click(screen.getByRole("menuitem", { name: "Components" }));
     await screen.findByText("Polymers");
     expect(request).toHaveBeenCalledTimes(1);
     expect(screen.getByText("1 component assignment remains unclassified.")).toBeVisible();
@@ -260,8 +261,8 @@ describe("component hierarchy", () => {
     );
     expect(onVisibility).toHaveBeenCalledWith(entry, "solvent");
 
-    await user.click(screen.getByLabelText("Component hierarchy for Complex"));
-    await user.click(screen.getByLabelText("Component hierarchy for Complex"));
+    await user.click(screen.getByRole("button", { name: "Actions for Complex" }));
+    await user.click(screen.getByRole("menuitem", { name: "Components" }));
     await screen.findByText("Polymers");
     expect(request).toHaveBeenCalledTimes(1);
   });
@@ -312,5 +313,12 @@ describe("component hierarchy", () => {
       settings: hiddenKnownSettings,
     };
     expect(visibleComponentAtomIds(viewerStructure)).toEqual([7, 8]);
+  });
+});
+
+beforeEach(() => {
+  // JSDOM has no layout: place resize handles away from pointer origin.
+  vi.spyOn(HTMLElement.prototype, "getBoundingClientRect").mockImplementation(function (this: HTMLElement) {
+    return this.hasAttribute("data-panel-resize-handle-id") ? new DOMRect(1000, 1000, 6, 100) : new DOMRect(0, 0, 320, 800);
   });
 });

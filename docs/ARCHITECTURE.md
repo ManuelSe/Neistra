@@ -64,6 +64,15 @@ flowchart TB
 
 ## Component Hierarchy Ownership
 
+Issue #59 separates compact entry management from a named-entry component pane.
+The application owns inspected entry, per-entry expansion, and scroll position in
+a transient navigation store; these survive responsive remounts but reset on
+project change and reconcile deletion/topology. Entry-name activation both selects
+and inspects; explicit Components only inspects. Molecular selection and surface
+activation do not implicitly change browsing context. TanStack Query retains the
+artifact-keyed normalized payload. Only split/collapse layout preferences enter
+safe browser storage. See [navigation guidance](PROJECT_NAVIGATION.md) and D-097.
+
 `molweave_core.components` deterministically derives `ComponentHierarchyV1`
 from the current `NormalizedStructureV1` artifact. Gemmi contributes optional
 source entity, subchain, polymer-type, and tabulated-residue facts only at the

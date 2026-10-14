@@ -1,3 +1,4 @@
+import { browseComponents, showEntries } from "./support/navigation";
 import AxeBuilder from "@axe-core/playwright";
 import { resolve } from "node:path";
 import { expect, test, type APIRequestContext, type Page, type TestInfo } from "@playwright/test";
@@ -41,6 +42,7 @@ async function dialogAccessibility(page: Page) {
 
 function row(page: Page, entryId: string) { return page.locator(`.entry-row[data-entry-id="${entryId}"]`); }
 async function action(page: Page, entryId: string, name: string) {
+  await showEntries(page);
   const trigger = row(page, entryId).locator(".entry-menu-trigger");
   await trigger.focus();
   await page.keyboard.press("Enter");
@@ -121,7 +123,7 @@ test("moves filtered selected batches, preserves molecular state, and supports k
 test("rejects stale-tab actions and keeps a partial selection scoped to its complete entry", async ({ page, request }, info) => {
   const initial = await setup(page, request, info);
   const entry = initial.entries.find(entry => entry.source_format === "pdb")!;
-  await page.getByLabel(`Component hierarchy for ${entry.name}`).click();
+  await browseComponents(page, entry.name);
   const unclassified = page.locator(".hierarchy-category").filter({ has: page.getByText("Protein", { exact: true }) });
   await unclassified.locator("summary").click();
   await unclassified.locator(".hierarchy-component").first().click();
@@ -313,6 +315,7 @@ for (const outcome of ["success", "conflict"] as const) {
     if (info.project.name === "mobile-chromium") await page.getByRole("button", { name: "Project browser", exact: true }).click();
     const search = page.getByPlaceholder("Search structures");
     await search.fill("Keep this workspace focus");
+    await page.locator(".browser-filter-details summary").click();
     const currentFocus = page.getByRole("combobox", { name: "Filter structure type" });
     await currentFocus.focus();
     const noticeBefore = await page.locator(".notice").allTextContents();

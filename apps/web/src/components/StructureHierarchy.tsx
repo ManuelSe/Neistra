@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { AlertTriangle, ChevronDown, Eye, EyeOff, LoaderCircle } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useMemo, useEffect, useLayoutEffect, useRef } from "react";
 import { molecularApi } from "../api/client";
 import type {
   ComponentCategory,
@@ -17,6 +17,7 @@ import {
   selectedState,
 } from "../selection/components";
 import { selectionMode } from "../selection/selection";
+import { emptyBrowsingState, useNavigationStore } from "../store/navigation";
 import { IconButton } from "./IconButton";
 
 type VisibilityKey = keyof Omit<ViewerSettings["components"], "hydrogens">;
@@ -88,15 +89,24 @@ function LoadedHierarchy({
   onSelect,
   onVisibility,
 }: StructureHierarchyProps) {
-  const [openCategories, setOpenCategories] = useState<Set<ComponentCategory>>(
-    new Set(),
-  );
+  const browsing = useNavigationStore(state => state.projectId === projectId ? state.entries[entry.id] ?? emptyBrowsingState : emptyBrowsingState);
+  const openCategories = new Set(browsing.categories);
+  const scroller = useRef<HTMLDivElement>(null);
   const query = useQuery({
     queryKey: ["structure", projectId, entry.id, entry.current_artifact_id],
     queryFn: () => molecularApi.structure(projectId, entry.id),
     retry: false,
     staleTime: Number.POSITIVE_INFINITY,
   });
+  useLayoutEffect(() => {
+    if (query.data && scroller.current) scroller.current.scrollTop = useNavigationStore.getState().entries[entry.id]?.scrollTop ?? 0;
+  }, [entry.id, projectId, query.data]);
+  useEffect(() => {
+    if (!query.data) return;
+    const present = new Set(query.data.hierarchy.components.map(component => component.category));
+    const next = browsing.categories.filter(category => present.has(category));
+    if (next.length !== browsing.categories.length) useNavigationStore.getState().updateEntry(projectId, entry.id, { categories: next });
+  }, [browsing.categories, entry.id, projectId, query.data]);
   const grouped = useMemo(() => {
     if (!query.data) return [];
     return GROUPS.map((group) => ({
@@ -123,13 +133,15 @@ function LoadedHierarchy({
     return (
       <div className="hierarchy-error" role="alert">
         Component hierarchy unavailable
+        <button type="button" onClick={() => void query.refetch()}>Retry components</button>
       </div>
     );
   }
 
   const { hierarchy, structure } = query.data;
   return (
-    <div className="hierarchy-groups">
+    <div className="hierarchy-groups panel-scroll component-scroll" ref={scroller}
+      onScroll={event => useNavigationStore.getState().updateEntry(projectId, entry.id, { scrollTop: event.currentTarget.scrollTop })}>
       {hierarchy.warnings.map((warning) => (
         <p className="hierarchy-warning" key={`${warning.code}:${warning.message}`}>
           <AlertTriangle size={13} aria-hidden="true" /> {warning.message}
@@ -157,12 +169,10 @@ function LoadedHierarchy({
                 open={open}
                 onToggle={(event) => {
                   const isOpen = event.currentTarget.open;
-                  setOpenCategories((current) => {
-                    const next = new Set(current);
-                    if (isOpen) next.add(category.category);
-                    else next.delete(category.category);
-                    return next;
-                  });
+                  const next = new Set(useNavigationStore.getState().entries[entry.id]?.categories ?? []);
+                  if (isOpen) next.add(category.category);
+                  else next.delete(category.category);
+                  useNavigationStore.getState().updateEntry(projectId, entry.id, { categories: [...next] });
                 }}
               >
                 <summary>
@@ -237,17 +247,5 @@ function LoadedHierarchy({
 }
 
 export function StructureHierarchy(props: StructureHierarchyProps) {
-  const [expanded, setExpanded] = useState(false);
-  return (
-    <details
-      className="structure-hierarchy"
-      open={expanded}
-      onToggle={(event) => setExpanded(event.currentTarget.open)}
-    >
-      <summary aria-label={`Component hierarchy for ${props.entry.name}`}>
-        <ChevronDown size={14} aria-hidden="true" /> Components
-      </summary>
-      {expanded ? <LoadedHierarchy {...props} /> : null}
-    </details>
-  );
+  return <LoadedHierarchy key={`${props.projectId}:${props.entry.id}`} {...props} />;
 }
