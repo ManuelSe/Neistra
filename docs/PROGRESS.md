@@ -31,7 +31,9 @@ unaddressable archive IDs and stale native pixel hits were reproduced and repair
 (D-093–D-096). Focused Python183 and frontend214 tests pass; final pointer/static
 counts and source hashes are retained in [C4 evidence](assets/surface-objects/c4-verification.json).
 C5 candidate/merged release gates,0.14.0 preparation, PR/review and publication remain.
-No blocker. Next: prepare and qualify the release candidate. C4 committed as `ab5aac1`.
+No blocker. First C5 gate found legacy hydrogen/viewer-control browser fixtures;
+dedicated-command fixtures pass2focused cases/2layout skips. Repeat the full clean
+candidate gate before PR. Next: qualify the corrected release candidate. C4 committed as `ab5aac1`.
 All five versions advance to0.14.0; charge follow-up [#64](https://github.com/ManuelSe/Neistra/issues/64)
 is created. Remote collision/base/protection/workflow audit is clear.
 

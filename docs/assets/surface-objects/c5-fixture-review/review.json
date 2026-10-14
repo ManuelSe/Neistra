@@ -1,0 +1,21 @@
+{
+  "candidate_commit": "76c08a375c51c7770f3c83eb9536acec3efaa940",
+  "status": "diagnostic candidate interrupted after one obsolete fixture failure; not a passing full gate",
+  "diagnostic_counts": {
+    "passed": 50,
+    "failed": 1,
+    "interrupted": 1,
+    "skipped": 4,
+    "not_run": 178
+  },
+  "finding": "Hydrogen-durability still writes ordinary style surface, correctly rejected422. Static full-diff search also found viewer-controls old schema/representation assumption.",
+  "resolution": "Use explicit schema2 and dedicated entry-surface creation; retain native display, ordinary styles, appearance in manager, hydrogen/scenes/history and navigation assertions.",
+  "focused_passed": 2,
+  "intentional_layout_skipped": 2,
+  "implementation_change": false,
+  "full_candidate_gate_must_repeat": true,
+  "sha256": {
+    "focused-pass.log": "cd7225ad3a809c97a3577d23960e04ac36eeee50b61df64e54e48630b658dd26",
+    "candidate-diagnostic.log": "a6e207d477762a587351a5e8533e0c9ba4f38690755b0bd321a6792a71ef508b"
+  }
+}

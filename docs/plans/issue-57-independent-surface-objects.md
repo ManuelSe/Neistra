@@ -657,3 +657,16 @@ created with scientific quantity/provenance/validation decisions, distinct from
 existing#58/#59. Release notes document migration0014, legacy410 guidance,
 archive2 refusal/backup restore, accepted simplifications and scientific limits.
 Complete clean-candidate gate and final0.14 compatibility qualification follow.
+
+
+C5 first full candidate at76c08a3 passes556Python/214frontend/8supervisor and
+all setup/static/build commands, then exposes one obsolete hydrogen-durability
+fixture writing ordinary surface style (correctly422). The run is interrupted:
+50browser passes,1failure,1interrupted,4skips,178not run; it is not a passing gate.
+A static legacy-write search also finds the viewer-controls fixture's old schema/
+representation assumption. Both now use schema2 and dedicated entry-surface
+creation while preserving original hydrogen, ordinary styles, native appearance,
+scene/history and navigation assertions. Focused browser2passes/2intentional mobile
+skips. [Diagnostic and repair](../assets/surface-objects/c5-fixture-review/review.json)
+are retained. No application implementation or approved scope changes. Repeat the
+complete clean candidate gate from a new passing checkpoint before the PR.

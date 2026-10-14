@@ -472,7 +472,6 @@ test("persists polar-only mode across viewer workflows without transient or mole
     "thick-stick",
     "ball-and-stick",
     "space-filling",
-    "surface",
   ]) {
     const settings = state.entries[0].viewer_settings;
     const response = await request.put(
@@ -501,6 +500,24 @@ test("persists polar-only mode across viewer workflows without transient or mole
     });
     expect(await canvasSignature(page)).not.toBe(0);
   }
+
+  // Entry surfaces use the dedicated schema-2 command, independently of atom styles.
+  const atomicSettings = state.entries[0].viewer_settings;
+  const surfaceOnly = await request.put(
+    `/api/v1/projects/${project.id}/entries/${entry.id}/viewer-settings`,
+    { data: { expected_revision: state.revision, settings: { ...atomicSettings, representations: [] } } },
+  );
+  expect(surfaceOnly.status()).toBe(200);
+  state = await surfaceOnly.json() as ProjectRead;
+  const nativeSurface = await request.post(`/api/v1/projects/${project.id}/surfaces`, {
+    data: { expected_revision: state.revision, surfaces: [{ entry_id: entry.id, source: { kind: "entry" },
+      appearance: { color_by: "element", custom_color: "#3b82f6", opacity: 1, mode: "solid", inherit_atom_colors: true } }] },
+  });
+  expect(nativeSurface.status()).toBe(200);
+  state = await nativeSurface.json() as ProjectRead;
+  await page.reload();
+  await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded", { timeout: 45_000 });
+  expect(await canvasSignature(page)).not.toBe(0);
 
   const polarScene = state.scenes.find((scene) => scene.name === "Polar-only scene")!;
   const allSettings = state.entries[0].viewer_settings;
