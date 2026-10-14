@@ -3,6 +3,8 @@ from __future__ import annotations
 from copy import deepcopy
 from typing import Any
 
+import pytest
+
 from tests.integration.test_archive_roundtrip import export_archive, import_archive
 from tests.integration.test_pocket_surfaces import fixture, history, save_scene
 from tests.support.api_client import ApiClient
@@ -311,3 +313,142 @@ def test_surface_display_edits_remain_allowed_on_locked_entries_and_keep_identit
     assert objects(removed.json(), receptor["id"]) == []
     restored = history(client, removed.json(), "undo")
     assert objects(restored, receptor["id"])[0]["id"] == surface["id"]
+
+
+def test_multiple_fragments_and_pockets_prune_duplicate_and_archive_without_cross_object_loss(
+    client: ApiClient,
+):
+    from tests.integration.test_ligand_edits import edit
+
+    project, receptor, ligand = fixture(client)
+    first_pocket = pocket(receptor["id"], ligand["id"])
+    second_pocket = deepcopy(first_pocket)
+    second_pocket["source"]["seed_atom_references"][0]["atom_id"] = 3
+    self_pocket = pocket(receptor["id"], receptor["id"])
+    project = create(
+        client,
+        project,
+        fragment(ligand["id"], 1, 2),
+        fragment(ligand["id"], 2, 3),
+        {"entry_id": ligand["id"], "source": {"kind": "entry"}},
+        first_pocket,
+        second_pocket,
+        self_pocket,
+    ).json()
+    project = save_scene(client, project, [])
+    before = deepcopy(project)
+    original_ligand_objects = deepcopy(objects(project, ligand["id"]))
+    original_pockets = deepcopy(objects(project, receptor["id"]))
+    path = f"/api/v1/projects/{project['id']}"
+    project = edit(client, project, ligand["id"], {"operation": "atom.delete", "atom_ids": [1]})[
+        "project"
+    ]
+    changed_fragments = objects(project, ligand["id"])
+    assert changed_fragments[0] == {
+        **original_ligand_objects[0],
+        "source": {"kind": "fragment", "profile": "molecular-v1", "atom_ids": [2]},
+    }
+    assert changed_fragments[1:] == original_ligand_objects[1:]
+    assert objects(project, receptor["id"]) == original_pockets[1:]
+    for state in project["scenes"][0]["entry_states"]:
+        assert state["viewer_settings"]["surface_objects"] == objects(project, state["entry_id"])
+    project = history(client, project, "undo")
+    for owner in [receptor, ligand]:
+        assert objects(project, owner["id"]) == objects(before, owner["id"])
+    project = history(client, project, "redo")
+    duplicated = client.post(
+        f"{path}/entries/{receptor['id']}/duplicate",
+        json={"expected_revision": project["revision"]},
+    )
+    assert duplicated.status_code == 200, duplicated.text
+    project = duplicated.json()
+    copied = next(
+        entry for entry in project["entries"] if entry["id"] not in {receptor["id"], ligand["id"]}
+    )
+    assert [obj["id"] for obj in objects(project, copied["id"])] == [
+        obj["id"] for obj in original_pockets[1:]
+    ]
+    assert objects(project, copied["id"])[1]["source"]["seed_atom_references"] == [
+        {"structure_id": copied["id"], "atom_id": 1}
+    ]
+    exported = export_archive(client, project["id"], "multiple-pocket-remapping")
+    restored = import_archive(client, client.get(exported["artifact"]["download_url"]).content)[
+        "project"
+    ]
+    by_name = {entry["name"]: entry for entry in restored["entries"]}
+    for original in [receptor, copied]:
+        owner = by_name[original["name"]]
+        refs = objects(restored, owner["id"])
+        assert refs[0]["source"]["seed_atom_references"] == [
+            {"structure_id": by_name[ligand["name"]]["id"], "atom_id": 3}
+        ]
+        assert refs[1]["source"]["seed_atom_references"] == [
+            {"structure_id": owner["id"], "atom_id": 1}
+        ]
+
+
+@pytest.mark.parametrize("location", ["entry", "scene"])
+def test_archive_rejects_surface_identifiers_that_cannot_be_addressed_as_uuid_segments(
+    client: ApiClient, location: str
+):
+    import io
+    import json
+    import zipfile
+
+    project, receptor, _ = fixture(client)
+    project = create(client, project, fragment(receptor["id"], 1, 2)).json()
+    project = save_scene(client, project, [])
+    exported = export_archive(client, project["id"], f"invalid-surface-id-{location}")
+    archive = client.get(exported["artifact"]["download_url"]).content
+    output = io.BytesIO()
+    with zipfile.ZipFile(io.BytesIO(archive)) as source, zipfile.ZipFile(output, "w") as target:
+        for member in source.infolist():
+            data = source.read(member)
+            if member.filename == "manifest.json":
+                manifest = json.loads(data)
+                states = (
+                    manifest["entries"]
+                    if location == "entry"
+                    else manifest["scenes"][0]["entry_states"]
+                )
+                owner = next(
+                    state
+                    for state in states
+                    if state.get("entry_id", state.get("id")) == receptor["id"]
+                )
+                owner["viewer_settings"]["surface_objects"][0]["id"] = "../../not-a-surface-uuid"
+                data = json.dumps(manifest).encode()
+            target.writestr(member, data)
+    before = client.get("/api/v1/projects").json()
+    rejected = client.post(
+        "/api/v1/projects/import-archive",
+        data={"operation_id": f"bad-id-{location}"},
+        files={"file": ("invalid.molweave.zip", output.getvalue(), "application/zip")},
+    )
+    assert rejected.status_code == 422, rejected.text
+    assert rejected.json()["detail"]["code"] == "invalid_archive_manifest"
+    assert client.get("/api/v1/projects").json() == before
+
+
+def test_legacy_archive_surface_identity_uses_canonical_owner_uuid():
+    from molweave_api.archive_service import _upgrade_legacy_manifest
+
+    from tests.integration.test_migrations import legacy_viewer_settings
+
+    owner = "01924673-abcd-7000-8000-123456789abc"
+    settings = {
+        **legacy_viewer_settings(),
+        "selection_surface": {"profile": "molecular-v1", "atom_ids": [1]},
+    }
+    converted = _upgrade_legacy_manifest(
+        {
+            "schema_version": 1,
+            "entries": [{"id": owner.upper(), "viewer_settings": deepcopy(settings)}],
+            "scenes": [
+                {"entry_states": [{"entry_id": owner, "viewer_settings": deepcopy(settings)}]}
+            ],
+        }
+    )
+    live = converted["entries"][0]["viewer_settings"]["surface_objects"][0]
+    scene = converted["scenes"][0]["entry_states"][0]["viewer_settings"]["surface_objects"][0]
+    assert live == scene

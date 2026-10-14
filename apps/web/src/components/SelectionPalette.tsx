@@ -4,9 +4,10 @@ import { useCallback, useEffect, useRef, useState, type ReactNode } from "react"
 import { IconButton } from "./IconButton";
 
 /** Non-modal workspace tool: outside interactions belong to the workspace. */
-export function SelectionPalette({ open, onOpenChange, children, count }: {
+export function SelectionPalette({ open, onOpenChange, children, count, restoreFocus = true }: {
   open: boolean;
   count: number;
+  restoreFocus?: boolean;
   onOpenChange: (open: boolean) => void;
   children: ReactNode;
 }) {
@@ -56,7 +57,7 @@ export function SelectionPalette({ open, onOpenChange, children, count }: {
       }}
       onCloseAutoFocus={(event) => {
         event.preventDefault();
-        if (returnFocus.current?.isConnected) returnFocus.current.focus();
+        if (restoreFocus && returnFocus.current?.isConnected) returnFocus.current.focus();
       }}>
       <div className="dialog-heading">
         <div><Dialog.Title>Style selection</Dialog.Title>

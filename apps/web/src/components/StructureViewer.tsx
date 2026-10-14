@@ -639,6 +639,7 @@ export function StructureViewer({
           } : undefined}
           onLoadPocketStructures={onLoadPocketStructures}
           open={styleDialogOpen}
+          restoreFocus={surfaceProjectId !== project.id}
           selection={selection}
           entries={project.entries}
           structures={styleStructures}

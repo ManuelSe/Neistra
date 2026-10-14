@@ -29,6 +29,7 @@ export function SurfaceManager(props: Props) {
   const content = useRef<HTMLDivElement>(null);
   const returnFocus = useRef<HTMLElement | null>(null);
   const restoreFocus = useRef(false);
+  const closingWithFocus = useRef(false);
   const pending = useRef(false);
   const [working, setWorking] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -41,7 +42,10 @@ export function SurfaceManager(props: Props) {
     catch (failure) { setError(`${name}: ${failure instanceof Error ? failure.message : "Surface change failed."}`); }
     finally { pending.current = false; setWorking(false); }
   };
-  return <Dialog.Root modal={false} open={props.open} onOpenChange={props.onOpenChange}>
+  return <Dialog.Root modal={false} open={props.open} onOpenChange={open => {
+    closingWithFocus.current = !open && Boolean(content.current?.contains(document.activeElement));
+    props.onOpenChange(open);
+  }}>
     <Dialog.Portal><Dialog.Content ref={content} className="dialog-content surface-manager" aria-describedby={undefined}
       onInteractOutside={event => event.preventDefault()}
       onEscapeKeyDown={event => {
@@ -50,14 +54,15 @@ export function SurfaceManager(props: Props) {
       }}
       onOpenAutoFocus={event => {
         event.preventDefault();
+        closingWithFocus.current = false;
         returnFocus.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
         restoreFocus.current = props.autoFocus;
         if (props.autoFocus) content.current?.focus();
       }}
       onCloseAutoFocus={event => {
         event.preventDefault();
-        if (restoreFocus.current) {
-          if (returnFocus.current?.isConnected) returnFocus.current.focus();
+        if (restoreFocus.current || closingWithFocus.current) {
+          if (returnFocus.current?.isConnected && returnFocus.current !== document.body && !returnFocus.current.matches(":disabled")) returnFocus.current.focus();
           else props.onReturnFocus?.();
         }
       }}

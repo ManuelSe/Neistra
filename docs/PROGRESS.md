@@ -22,8 +22,16 @@ passes plus final object/picking6 passes/2 intentional layout skips cover real
 mouse/touch activation, cache reuse/no refetch, source scopes, Undo/reload, locked
 entries, stale context and unchanged molecular state. An obsolete schema fixture
 was repaired and passes its focused rerun. D-092 and user guidance are current.
-Known limits: C4 tagged compatibility/accessibility/zoom/performance qualification
-and C5 delivery remain; no PR/release yet. No blocker. Next: C4.
+C4 qualification completes with actual tagged v0.13.2 upgrade/old-reader refusal
+and backup restoration; exact unrelated database columns and8 artifact files pass.
+Multiple objects, native mesh pixels/whole-object markers, lazy serial queues,
+scientific references, capacity/movement budgets, light/dark axe, keyboard/320px
+and real100%/200%Chrome zoom pass. Focus handoff, disposed queued selectors,
+unaddressable archive IDs and stale native pixel hits were reproduced and repaired
+(D-093–D-096). Focused Python183 and frontend214 tests pass; final pointer/static
+counts and source hashes are retained in [C4 evidence](assets/surface-objects/c4-verification.json).
+C5 candidate/merged release gates,0.14.0 preparation, PR/review and publication remain.
+No blocker. Next: commit C4, then prepare and qualify the release candidate.
 
 ### Previous delivery baseline — v0.13.2
 

@@ -517,8 +517,9 @@ one request. Omitted hydrogen assignments in entry settings are also preserved.
 
 `POST /api/v1/projects/{project_id}/surfaces` accepts `expected_revision` and a
 nonempty `surfaces` batch. Each item has `entry_id`, optional `name`, `source`,
-and optional `appearance`. All targets are validated before any change; one batch
-creates one reversible command. Creation always makes distinct UUIDv7 objects,
+and optional `appearance` (1–100 definitions/request). All targets are validated before any change; one batch
+creates one reversible command. Surface IDs validate/serialize as canonical UUIDs,
+including imported entry and scene definitions. Creation always makes distinct UUIDv7 objects,
 including repeated creation from the same selection. Maximum: 16 objects/entry.
 
 Sources:

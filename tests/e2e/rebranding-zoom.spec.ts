@@ -250,17 +250,35 @@ test("keeps actions and dialogs reachable at real 100% and 200% browser zoom", a
           await action.focus(); await page.keyboard.press("Enter");
           await expect(appearance.getByRole("status")).toContainText("Atom detail");
         }
-        const addSurface = appearance.getByRole("button", { name: "Add surface" });
-        const removeSurface = appearance.getByRole("button", { name: "Remove surface" });
-        for (const action of [addSurface, removeSurface]) {
-          await action.scrollIntoViewIfNeeded();
-          const bounds = await action.boundingBox();
-          expect(bounds!.width).toBeGreaterThanOrEqual(44);
-          expect(bounds!.height).toBeGreaterThanOrEqual(44);
-          await action.focus(); await page.keyboard.press("Enter");
-          await expect(appearance.getByRole("status")).toContainText("Surface membership");
+        const createSurface = appearance.getByRole("button", { name: "Create fragment surface" });
+        await createSurface.scrollIntoViewIfNeeded();
+        await createSurface.focus(); await page.keyboard.press("Enter");
+        await expect(appearance.getByRole("status")).toContainText("Surface definition saved");
+        await appearance.getByRole("button", { name: /^Manage surfaces/ }).focus(); await page.keyboard.press("Enter");
+        const manager = page.getByRole("dialog", { name: "Surfaces", exact: true });
+        await expect(manager).toBeFocused();
+        await manager.getByRole("button", { name: /Captured fragment/ }).focus(); await page.keyboard.press("Enter");
+        await manager.getByLabel("Surface color scheme").selectOption("custom");
+        await manager.getByLabel("Surface opacity").fill("0.3");
+        await manager.getByLabel("Surface display").selectOption("mesh");
+        await manager.getByRole("button", { name: "Apply appearance" }).focus(); await page.keyboard.press("Enter");
+        await expect.poll(() => manager.evaluate(node => getComputedStyle(node).opacity)).toBe("1");
+        expect((await new AxeBuilder({ page }).include(".surface-manager").withTags(["wcag2a", "wcag2aa", "wcag21aa"]).analyze()).violations).toEqual([]);
+        for (const control of await manager.locator("button:visible, input:visible, select:visible").all()) {
+          await control.scrollIntoViewIfNeeded();
+          const box = (await control.boundingBox())!;
+          const viewport = await page.evaluate(() => ({ width: innerWidth, height: innerHeight }));
+          expect(box.x).toBeGreaterThanOrEqual(0); expect(box.x + box.width).toBeLessThanOrEqual(viewport.width + 1);
+          expect(box.y + box.height).toBeLessThanOrEqual(viewport.height + 1);
         }
-        await expect(page.getByLabel("Selection surface rendering")).toHaveCount(0);
+        expect(await manager.evaluate(node => node.scrollWidth <= node.clientWidth + 1)).toBe(true);
+        await manager.getByLabel("Surface name").scrollIntoViewIfNeeded();
+        await captureZoomPage(page, info, `${theme}-${factor * 100}-surface-manager.png`);
+        await manager.getByRole("button", { name: /^Remove surface/ }).focus(); await page.keyboard.press("Enter");
+        await expect(manager.getByText(/No saved surfaces/)).toBeVisible();
+        await manager.getByRole("button", { name: "Close surfaces" }).focus(); await page.keyboard.press("Enter");
+        await expect(launcher).toBeFocused();
+        await page.keyboard.press("Enter");
         const surfaceOptions = appearance.getByRole("button", { name: "Surface options" });
         await surfaceOptions.focus(); await page.keyboard.press("Enter");
         await page.getByRole("menuitem", { name: "About surfaces" }).click();

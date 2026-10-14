@@ -1,0 +1,50 @@
+{
+  "readyMs": 398.90000000596046,
+  "longestTaskMs": 275,
+  "evidence": {
+    "cells": 1701,
+    "activeCells": 418,
+    "meshBytes": 24776,
+    "meshBoundBytes": 71212,
+    "workingBoundBytes": 2522564,
+    "durationMs": 11.300000011920929,
+    "sourceTriangles": 828,
+    "keptTriangles": 724
+  },
+  "exactReference": true,
+  "proteinIds": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "contextIds": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "proteinHydrogens": 2,
+  "detailIndependent": true,
+  "isolationIndependent": true,
+  "colorIndependent": true,
+  "cameraStable": true,
+  "hidden": "hidden",
+  "reshown": "ready",
+  "coexistence": true,
+  "empty": "empty",
+  "cancelled": "cancelled",
+  "cancellationMs": 5.5999999940395355,
+  "retried": "ready",
+  "fullMeshBytes": 30252,
+  "workers": {
+    "created": 7,
+    "terminated": 7,
+    "active": 0,
+    "maximum": 1
+  },
+  "seedId": 1,
+  "baselineRssKiB": 671420,
+  "peakRssKiB": 914596,
+  "memoryMeasurement": "Linux summed descendant RSS; includes reference calculation and display lifecycle, shared pages may be counted repeatedly"
+}

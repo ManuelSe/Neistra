@@ -44,10 +44,10 @@ from molweave_api.schemas import (
     CameraState,
     LegacyRepresentationSettings,
     MeasurementKind,
-    SceneEntryState,
+    SceneEntryStateV2,
     SelectionPocketSurface,
     SelectionSurface,
-    ViewerSettings,
+    ViewerSettingsV2,
 )
 from molweave_api.settings import Settings
 from molweave_api.surface_upgrade import upgrade_surface_settings
@@ -142,7 +142,7 @@ class ManifestEntry(ManifestModel):
     warnings: list[MolecularWarning]
     next_atom_id: int = Field(ge=1)
     next_bond_id: int = Field(ge=1)
-    viewer_settings: ViewerSettings
+    viewer_settings: ViewerSettingsV2
     visible: bool
     locked: bool
     user_metadata: dict[str, Any]
@@ -226,7 +226,7 @@ class ManifestScene(ManifestModel):
     id: str
     name: str = Field(min_length=1, max_length=120)
     camera: CameraState
-    entry_states: list[SceneEntryState]
+    entry_states: list[SceneEntryStateV2]
     selection: SelectionV1
     created_at: datetime
     modified_at: datetime
@@ -335,7 +335,7 @@ def _upgrade_legacy_manifest(manifest: dict[str, Any]) -> dict[str, Any]:
         pocket = settings.get("selection_pocket_surface")
         if pocket is not None:
             SelectionPocketSurface.model_validate(pocket)
-        return upgrade_surface_settings(settings, entry_id)
+        return upgrade_surface_settings(settings, _validate_uuid(entry_id))
 
     for entry in converted["entries"]:
         entry["viewer_settings"] = convert(entry["id"], entry["viewer_settings"])
@@ -557,7 +557,7 @@ class ProjectArchiveService:
                 warnings=[MolecularWarning.model_validate(item) for item in entry.warnings],
                 next_atom_id=entry.next_atom_id,
                 next_bond_id=entry.next_bond_id,
-                viewer_settings=ViewerSettings.model_validate(entry.viewer_settings),
+                viewer_settings=ViewerSettingsV2.model_validate(entry.viewer_settings),
                 visible=entry.visible,
                 locked=entry.locked,
                 user_metadata=deepcopy(entry.user_metadata),
@@ -682,7 +682,7 @@ class ProjectArchiveService:
                     name=item.name,
                     camera=CameraState.model_validate(item.camera),
                     entry_states=[
-                        SceneEntryState.model_validate(state) for state in item.entry_states
+                        SceneEntryStateV2.model_validate(state) for state in item.entry_states
                     ],
                     selection=SelectionV1.model_validate(item.selection),
                     created_at=item.created_at,
@@ -1220,7 +1220,7 @@ def _validate_manifest_relationships(
 
 
 def _validate_selection_assignments(
-    settings: ViewerSettings,
+    settings: ViewerSettingsV2,
     valid_atom_ids: set[int],
     structure: NormalizedStructureV1 | None,
     atom_ids_by_entry: dict[str, set[int]],

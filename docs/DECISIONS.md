@@ -3326,3 +3326,93 @@ The nonmodal manager owns focus only after explicit keyboard/list interaction;
 canvas activation leaves canvas focus in place. Source loading, pending commands
 and errors remain scoped to the active object/project. No new schema migration or
 scientific profile is introduced beyond C2/D-091.
+
+
+## D-093 — Focus ownership during nonmodal tool handoff
+
+Date: 2026-10-14. Status: implemented and keyboard/zoom-qualified during issue #57 C4.
+
+Opening Surfaces from Style selection transfers tool ownership. The closing Style
+palette suppresses its normal launcher restoration while the manager opens; normal
+palette closing retains its existing default. This also preserves canvas focus for
+surface activation. Otherwise the outgoing palette's delayed close callback steals
+focus from the newly opened manager.
+
+When a user closes the manager while focus belongs to it, capture that ownership
+before unmount/blur events, then restore the connected meaningful launcher or the
+stable Style selection action. A connected document body is not a usable launcher.
+External focus and Escape remain owned by the workspace. The manager never restores
+focus merely because it remains open while another workspace control has focus.
+
+Rationale: browser qualification reproduced both an outgoing-palette race and loss
+of close intent during unmount blur. Explicit handoff and close intent preserve
+keyboard reachability without delayed focus timers or a new application focus system.
+Project changes and renderer state do not become persisted focus authority.
+
+## D-094 — Stable calculation snapshots for lazy surface inputs
+
+Date: 2026-10-14. Status: implemented and native queue-qualified for issue #57 C4.
+
+A lazy surface request retains the calculation Structure data value and canonical
+atom-ID mapping matching its immutable dependency key. It must not look up that
+data through a disposable StateObjectSelector when the queue eventually admits
+it. An appearance rebuild can delete/recreate renderer components while unrelated
+requests wait; the old selector then has no object, although the scientific input
+snapshot remains valid.
+
+Capturing the data reference does not allocate typed coordinate/radius inputs.
+Those arrays are still created only at serial queue admission. Molecular dependency
+changes cancel obsolete requests; appearance-only rebuilds keep the same scientific
+snapshot and rebind completion to the current visual component. No molecular
+state, profile, geometry algorithm or persisted schema changes.
+
+The native regression holds the first actual worker dispatch, rebuilds components
+with four same-entry fragment/pocket requests queued, and cancels one queued pocket.
+Only one input is extracted before release and three in total; the cancelled input
+is never materialized, all remaining objects render, and maximum active workers is
+one. Desktop qualification reproduces the failure before the fix; desktop and
+mobile qualification both pass after it.
+
+## D-095 — Canonical identifiers and retained schema-2 validators
+
+Date: 2026-10-14. Status: implemented and migration/archive-qualified for issue #57 C4.
+
+Surface IDs validate as UUID strings and serialize canonically, matching generated
+UUIDv7 and migrated UUIDv5 identities and existing archive identifier conventions.
+Validate them in every surface-object model, including scene archive state, before
+publishing imported projects. Malformed strings cannot identify objects through
+the entry-owned API routes and must not become durable state. UUID normalization
+precedes per-entry uniqueness checks. Legacy archive owner UUIDs normalize before
+deriving IDs, so equivalent UUID spelling cannot split one object across snapshots.
+
+Keep explicit ViewerSettingsV2 and SceneEntryStateV2 models for migration0014 and
+manifest2 readers; application code uses current aliases. A future incompatible
+schema must introduce its own versioned models and preserve the V2 contract and
+nested semantics. Historical migration validation must not accidentally advance
+when the application's current alias changes.
+
+Rationale: negative archive tests reproduced acceptance of unaddressable entry and
+scene object IDs. Canonical UUID validation rejects both atomically. Explicit
+versioned validation also preserves the declared migration/archive boundary during
+future application development. No molecular format, profile or additional database
+revision is introduced.
+
+
+## D-096 — Requested and bound generations own structural picks
+
+Date: 2026-10-14. Status: implemented and native pointer-qualified for issue #57 C4.
+
+A structural synchronization immediately advances the requested generation and
+retires surface bindings. Ignore structural clicks until the bound generation
+matches that request and the rebuild has finished. Update the bound generation
+only after the complete current scene commits. This prevents still-visible pixels
+from retired surfaces falling through to molecular selection while the serialized
+rebuild waits. A failed rebuild cannot make unknown bindings authoritative.
+
+Keep this generation guard separate from the existing rebuilding flag because
+camera capture/navigation uses that flag. Navigation keeps its existing ownership;
+application molecular state remains authoritative. Modifier selection resumes with
+the current scene. Native desktop/mobile tests deliberately hold the rebuild queue,
+click old surface pixels, verify unchanged atom selection, then release the rebuild
+and activate the current complete object. The diagnostic reproduced zero-to-one
+atom selection before this guard; both viewports pass after it.

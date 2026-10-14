@@ -1,0 +1,6 @@
+{
+  "actual_reader": "0.13.2",
+  "reader_module": "/datadisk/dev/neistra/.molweave-e2e/issue57/legacy-v0.13.2/apps/api/src/molweave_api/main.py",
+  "schema2_archives_cleanly_rejected": 2,
+  "no_projects_created": true
+}

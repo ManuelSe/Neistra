@@ -19,6 +19,7 @@ const LABELS: Record<SelectionRepresentationStyle, string> = {
 
 interface SelectionStyleDialogProps {
   open: boolean;
+  restoreFocus?: boolean;
   selection: Selection;
   entries: Entry[];
   structures: ReadonlyMap<string, StructureProjection>;
@@ -38,7 +39,7 @@ interface SelectionStyleDialogProps {
 
 export function SelectionStyleDialog(props: SelectionStyleDialogProps) {
   return <SelectionPalette open={props.open} onOpenChange={props.onOpenChange}
-    count={props.selection.atoms.length}>
+    count={props.selection.atoms.length} restoreFocus={props.restoreFocus}>
     {props.open ? <SelectionStyleContent {...props} /> : null}
   </SelectionPalette>;
 }

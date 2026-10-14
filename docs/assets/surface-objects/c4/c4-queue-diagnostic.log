@@ -1,0 +1,71 @@
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+[2m[WebServer] [22mINFO:     Started server process [647428]
+[2m[WebServer] [22mINFO:     Waiting for application startup.
+[2m[WebServer] [22mINFO:     Application startup complete.
+[2m[WebServer] [22mINFO:     Uvicorn running on http://127.0.0.1:8020 (Press CTRL+C to quit)
+[2m[WebServer] [22m(node:647485) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:647497) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:647525) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:647525) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 [chromium] › tests/e2e/surface-objects.spec.ts:358:5 › keeps queued same-entry surface inputs lazy and valid across a renderer rebuild (4.7s)
+
+
+  1) [chromium] › tests/e2e/surface-objects.spec.ts:358:5 › keeps queued same-entry surface inputs lazy and valid across a renderer rebuild
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 2[39m
+    [31m+ Received  + 2[39m
+
+    [33m@@ -3,15 +3,15 @@[39m
+    [2m      "fragmentA",[22m
+    [2m      "ready",[22m
+    [2m    ],[22m
+    [2m    Array [[22m
+    [2m      "fragmentB",[22m
+    [32m-     "ready",[39m
+    [31m+     "fallback",[39m
+    [2m    ],[22m
+    [2m    Array [[22m
+    [2m      "pocketA",[22m
+    [32m-     "ready",[39m
+    [31m+     "fallback",[39m
+    [2m    ],[22m
+    [2m    Array [[22m
+    [2m      "pocketB",[22m
+    [2m      "cancelled",[22m
+    [2m    ],[22m
+
+      414 |   expect(result.beforeRelease).toEqual({ descriptors: 4, extractions: 1 });
+      415 |   expect(result.after).toEqual({ descriptors: 4, extractions: 3 });
+    > 416 |   expect(result.final.statuses.map(status => [status.surfaceId, status.state])).toEqual([
+          |                                                                                 ^
+      417 |     ["fragmentA", "ready"], ["fragmentB", "ready"], ["pocketA", "ready"], ["pocketB", "cancelled"],
+      418 |   ]);
+      419 |   expect(result.final.workers.maximum).toBe(1); expect(result.final.workers.active).toBe(0);
+        at /datadisk/dev/neistra/tests/e2e/surface-objects.spec.ts:416:81
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .molweave-e2e/issue57/c4-queue-diagnostic-results/surface-objects-keeps-queu-16a8a-d-across-a-renderer-rebuild-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: .molweave-e2e/issue57/c4-queue-diagnostic-results/surface-objects-keeps-queu-16a8a-d-across-a-renderer-rebuild-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    .molweave-e2e/issue57/c4-queue-diagnostic-results/surface-objects-keeps-queu-16a8a-d-across-a-renderer-rebuild-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace .molweave-e2e/issue57/c4-queue-diagnostic-results/surface-objects-keeps-queu-16a8a-d-across-a-renderer-rebuild-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [chromium] › tests/e2e/surface-objects.spec.ts:358:5 › keeps queued same-entry surface inputs lazy and valid across a renderer rebuild

@@ -11,9 +11,15 @@ focused fixes remain explicit. [C3](assets/surface-objects/c3-verification.json)
 explicit source scopes/replacement, locked-entry display editing, cache reuse and
 real production mouse/touch activation with unchanged atom selection/camera/project.
 All214frontend/5API and final6browser checks pass; adjacent43 browser checks pass
-and the obsolete selection fixture passes its focused final rerun. C4 comprehensive
-compatibility/accessibility/performance qualification remains; no release claim is
-made. Earlier issue evidence
+and the obsolete selection fixture passes its focused final rerun.
+[C4](assets/surface-objects/c4-verification.json) qualifies actual tagged v0.13.2
+upgrade, old-reader schema2 refusal and full backup restoration; focused Python183,
+multiple same-entry fragments/pockets, native entry wireframe GPU pixels/complete
+marker buffers, source editing, lazy serial queue lifecycle and stale-pixel ownership.
+Existing capacity/scientific/movement budgets, scoped light/dark axe, keyboard,
+320px/long names/coarse targets and actual100%/200%Chrome zoom pass. Resolved
+diagnostics remain separate from passing evidence. Candidate and exact merged
+release gates remain C5 work; no release claim is made. Earlier issue evidence
 below is historical and predates the schema2 boundary.
 
 Issue #56 follows the [approved notification plan](plans/issue-56-viewer-notification-timeout.md).

@@ -3,6 +3,7 @@ from __future__ import annotations
 from datetime import datetime
 from math import isfinite
 from typing import Annotated, Any, Literal
+from uuid import UUID
 
 from molweave_core.components import ComponentHierarchyV1
 from molweave_core.molecular import MolecularWarning, NormalizedStructureV1
@@ -356,7 +357,7 @@ class SurfaceAppearance(BaseModel):
 
 class SurfaceObject(BaseModel):
     model_config = ConfigDict(extra="forbid")
-    id: str = Field(min_length=1, max_length=64)
+    id: str = Field(min_length=1, max_length=64, json_schema_extra={"format": "uuid"})
     name: str = Field(min_length=1, max_length=120)
     visible: bool = Field(default=True, strict=True)
     source: SurfaceSource
@@ -367,8 +368,16 @@ class SurfaceObject(BaseModel):
     def nonblank_name(cls, value: str) -> str:
         return ProjectCreate.name_must_not_be_blank(value)
 
+    @field_validator("id")
+    @classmethod
+    def canonical_uuid(cls, value: str) -> str:
+        try:
+            return str(UUID(value))
+        except ValueError as error:
+            raise ValueError("Surface identifier must be a UUID") from error
 
-class ViewerSettings(BaseModel):
+
+class ViewerSettingsV2(BaseModel):
     model_config = ConfigDict(extra="forbid")
     schema_version: Literal[2] = 2
     surface_objects: list[SurfaceObject] = Field(default_factory=list, max_length=16)
@@ -457,6 +466,11 @@ class ViewerSettings(BaseModel):
         return value
 
 
+# Retain versioned validators for historical migration and archive readers.
+# A future current schema must introduce a new class rather than change V2.
+ViewerSettings = ViewerSettingsV2
+
+
 class EntryRead(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
@@ -531,10 +545,13 @@ class CameraState(BaseModel):
     radius: float = Field(gt=0)
 
 
-class SceneEntryState(BaseModel):
+class SceneEntryStateV2(BaseModel):
     entry_id: str
     visible: bool
-    viewer_settings: ViewerSettings
+    viewer_settings: ViewerSettingsV2
+
+
+SceneEntryState = SceneEntryStateV2
 
 
 class SceneRead(BaseModel):

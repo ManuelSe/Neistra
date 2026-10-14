@@ -1,0 +1,137 @@
+
+$ corepack pnpm --dir apps/web lint
+
+> @neistra/web@0.13.2 lint /datadisk/dev/neistra/apps/web
+> eslint . --max-warnings 0
+
+Exit: 0
+
+$ corepack pnpm --dir apps/web typecheck
+
+> @neistra/web@0.13.2 typecheck /datadisk/dev/neistra/apps/web
+> tsc -b --pretty false
+
+Exit: 0
+
+$ corepack pnpm --dir apps/web test
+
+> @neistra/web@0.13.2 test /datadisk/dev/neistra/apps/web
+> vitest run
+
+
+ RUN  v3.2.4 /datadisk/dev/neistra/apps/web
+
+ ✓ src/test/surface-editor.test.tsx (5 tests) 671ms
+   ✓ applies independent appearance as one command and restores a draft after undo  318ms
+ ✓ src/test/group-membership.test.tsx (5 tests) 620ms
+ ✓ src/test/surface-manager.test.tsx (5 tests) 767ms
+ ✓ src/test/jobs.test.tsx (3 tests) 905ms
+   ✓ jobs > submits validated generic parameters and immutable role inputs  551ms
+ ✓ src/test/project-browser.test.tsx (4 tests) 1017ms
+   ✓ project browser selection and discovery > searches, filters, sorts, and collapses grouped entries  480ms
+   ✓ project browser selection and discovery > hands focus to the replacement row when membership completes before menu teardown  323ms
+ ✓ src/test/ligand-editor.test.tsx (3 tests) 1270ms
+   ✓ ligand editor > submits atom, bond, hydrogen, rotation, movement, and cleanup commands  932ms
+ ✓ src/test/notification-producers.test.tsx (3 tests) 880ms
+   ✓ classifies import results from structured warnings, independently of success styling  453ms
+ ✓ src/test/export-dialog.test.tsx (7 tests) 1355ms
+   ✓ export dialog > submits scope, supported output mode, and molecular filters then exposes the artifact  483ms
+ ✓ src/test/numeric-preview-ownership.test.tsx (1 test) 1123ms
+   ✓ discards a delayed numerical preview cleared by movement while retaining valid numerical previews  1122ms
+ ✓ src/test/protein-editor.test.tsx (4 tests) 1634ms
+   ✓ protein editor > submits destructive, metadata, mutation, hydrogen, and movement commands  1140ms
+ ✓ src/test/pocket-controls.test.tsx (6 tests) 1841ms
+   ✓ captures selection, preserves draft across selection changes, and explicitly recaptures  478ms
+   ✓ starts a new captured pocket independently of existing objects, validates radius and discards drafts  437ms
+   ✓ requires explicit choice for multiple receptors and explains no receptor  417ms
+ ✓ src/test/selection-style-dialog.test.tsx (13 tests) 1933ms
+   ✓ selection style dialog > shows mixed colors and applies or resets only the requested property  362ms
+   ✓ uses one action status, blocks overlapping properties, and preserves errors across selection changes  314ms
+ ✓ src/test/selection-expansion.test.tsx (5 tests) 546ms
+   ✓ distance expansion > offers defaults, custom residue expansion, cancel, and visible failures  409ms
+ ✓ src/test/structure-loading.test.tsx (13 tests) 1825ms
+   ✓ ignores stale styling eligibility and closes the palette across project switches  455ms
+ ✓ src/test/project-workspace.test.tsx (3 tests) 1871ms
+   ✓ project workspace > creates a real project and exposes its durable checkpoint state  1352ms
+ ✓ src/test/interactive-transform-controls.test.tsx (4 tests) 2276ms
+   ✓ shares keyboard steps with one Apply and restores launcher focus after Cancel  821ms
+   ✓ retains one capture and pose across scoped Space and explicit view-toggle ownership  304ms
+   ✓ keeps primary actions textless and exposes scientific help without hiding the transaction  933ms
+ ✓ src/test/viewer-toolbar.test.tsx (3 tests) 606ms
+   ✓ viewer toolbar > exposes every picking mode as one controlled keyboard-accessible value  464ms
+ ✓ src/test/viewer-controls.test.tsx (1 test) 341ms
+   ✓ viewer controls > exposes the non-polar preference with an explicit master dependency  340ms
+ ✓ src/test/component-hierarchy.test.tsx (2 tests) 492ms
+   ✓ component hierarchy > loads lazily, renders categories lazily, and emits canonical modifier selections  489ms
+ ✓ src/test/sequence.test.tsx (2 tests) 430ms
+   ✓ bidirectional sequence selection > turns sequence residue clicks into the common selection and reflects them in summary  330ms
+ ✓ src/test/notifications.test.tsx (9 tests) 316ms
+ ✓ src/test/viewer-adapter.test.ts (6 tests) 128ms
+ ✓ src/test/movement-navigation.test.tsx (1 test) 372ms
+   ✓ clears stale navigation for focus, blur, visibility, modal and phase interruptions  371ms
+ ✓ src/test/group-action-focus.test.tsx (3 tests) 280ms
+ ✓ src/test/history.test.tsx (2 tests) 225ms
+ ✓ src/test/interactive-transform.test.ts (21 tests) 127ms
+ ✓ src/test/viewer-presentation.test.ts (2 tests) 67ms
+ ✓ src/test/group-drag.test.tsx (2 tests) 30ms
+ ✓ src/test/interactive-transform-queue.test.ts (4 tests) 14ms
+ ✓ src/test/representations.test.ts (9 tests) 13ms
+ ✓ src/test/focus-targets.test.ts (3 tests) 12ms
+ ✓ src/test/selection.test.ts (3 tests) 13ms
+ ✓ src/test/selection-surface-worker.test.ts (4 tests) 15ms
+ ✓ src/test/theme.test.ts (3 tests) 10ms
+ ✓ src/test/surface-warnings.test.ts (2 tests) 5ms
+ ✓ src/test/pocket-inputs.test.ts (4 tests) 5ms
+ ✓ src/test/transforms.test.ts (3 tests) 4ms
+ ✓ src/test/measurements.test.ts (2 tests) 3ms
+ ✓ src/test/selection-surface-allocation.test.ts (3 tests) 32ms
+ ✓ src/test/pocket-surface-geometry.test.ts (4 tests) 115ms
+ ✓ src/test/selection-surface-runtime.test.ts (7 tests) 415ms
+ ✓ src/test/selection-colors.test.ts (1 test) 3ms
+ ✓ src/test/interaction-native-geometry.test.ts (2 tests) 23ms
+ ✓ src/test/interactions.test.ts (7 tests) 35ms
+ ✓ src/test/surface-objects.test.ts (4 tests) 9ms
+ ✓ src/test/selection-surface-geometry.test.ts (7 tests) 87ms
+ ✓ src/test/viewer-interaction.test.ts (4 tests) 5ms
+
+ Test Files  47 passed (47)
+      Tests  214 passed (214)
+   Start at  18:38:01
+   Duration  8.19s (transform 5.16s, setup 3.41s, collect 32.81s, tests 24.77s, environment 21.71s, prepare 4.97s)
+
+Exit: 0
+
+$ corepack pnpm --dir apps/web build
+
+> @neistra/web@0.13.2 build /datadisk/dev/neistra/apps/web
+> tsc -b && vite build
+
+vite v7.1.5 building for production...
+transforming...
+✓ 3403 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/assets/spatial.worker-CH8rhhsF.js      0.81 kB
+dist/index.html                             3.12 kB │ gzip:   1.34 kB
+dist/assets/surface.worker-u37-1hNj.js    479.78 kB
+dist/assets/index-BmAqPl-f.css            138.97 kB │ gzip:  28.08 kB
+dist/assets/index-LSsIMvQn.js             608.96 kB │ gzip: 182.48 kB
+dist/assets/MolstarEngine-BsjXo9IH.js   3,451.55 kB │ gzip: 979.16 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 7.41s
+Exit: 0
+
+$ .venv/bin/uv run ruff check .
+All checks passed!
+Exit: 0
+
+$ .venv/bin/uv run mypy apps/api packages/molweave_core
+Success: no issues found in 61 source files
+Exit: 0
+
+$ git diff --check
+Exit: 0

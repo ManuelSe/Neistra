@@ -82,6 +82,7 @@ export class MolstarEngine implements MolecularViewer {
   // Each caller observes its rejection; later restoration commands must still run.
   private syncQueue: Promise<void> = Promise.resolve();
   private generation = 0;
+  private boundGeneration = 0;
   private pickingGranularity: SelectionGranularity = "atom";
   private pendingSelection: AtomReference[] = [];
   private loaded = new Map<string, LoadedStructure>();
@@ -228,7 +229,7 @@ export class MolstarEngine implements MolecularViewer {
     this.setBackgroundColor(this.backgroundColor);
     this.clickSubscription = plugin.behaviors.interaction.click.subscribe(
       ({ current, button, modifiers }) => {
-        if (this.movementInteraction !== "inactive" || !isPrimarySelectionActivation(button)) return;
+        if (this.boundGeneration !== this.generation || this.rebuilding || this.movementInteraction !== "inactive" || !isPrimarySelectionActivation(button)) return;
         const mode = selectionModeForModifiers(modifiers);
         if (mode === "replace" && this.surfaceVisuals.pick(current.repr)) {
           plugin.canvas3d?.requestDraw();
@@ -304,6 +305,8 @@ export class MolstarEngine implements MolecularViewer {
   }
 
   syncStructures(structures: ViewerStructure[]): Promise<void> {
+    // The generation invalidates retired visual hits immediately, even if the
+    // serialized rebuild waits. Camera navigation retains its existing owner.
     this.structures = structures;
     this.surfaces.retain(new Set(structures.flatMap(item => item.settings.surface_objects
       .map(surface => surfaceKey(item.entryId, surface.source.kind, surface.id)))));
@@ -339,6 +342,7 @@ export class MolstarEngine implements MolecularViewer {
         await this.applyMeasurements();
         await this.applyInteractions();
         this.commitScene(camera);
+        this.boundGeneration = generation;
       } finally {
         this.rebuilding = false;
       }
@@ -1191,8 +1195,12 @@ export class MolstarEngine implements MolecularViewer {
       });
     };
     const reduced = source.normalized.atoms.length >= 250_000 ? "Large entry uses reduced detail." : undefined;
+    // Capture the matching immutable calculation snapshot, not a disposable selector.
+    // A queued request can outlive its renderer component during an appearance rebuild.
+    // Typed inputs remain lazy; changed molecular dependencies cancel this request.
+    const calculationStructure = component.obj.data;
     this.surfaces.request(entryId, channel, label, dependencyKey, reduced ? null : () => {
-      const input = surfaceInput(component.obj!.data, loaded.atomIds);
+      const input = surfaceInput(calculationStructure, loaded.atomIds);
       if (pocket) input.pocket = createPocketCrop(pocket.seeds, pocket.radius);
       return input;
     }, notify, reduced, surfaceId);

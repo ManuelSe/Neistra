@@ -404,7 +404,10 @@ settings location and refuses downgrade while either has non-default data.
 
 Each `SurfaceObject` contains a stable entry-local `id`, nonblank name (120 characters),
 strict requested `visible`, discriminated `source`, and complete `appearance`.
-IDs are server UUIDv7 for new objects and deterministic UUIDv5 for migrated ones.
+IDs are canonical UUID strings: server UUIDv7 for new objects and deterministic
+UUIDv5 for migrated ones. Malformed entry/scene archive IDs fail before import.
+Explicit ViewerSettingsV2/SceneEntryStateV2 validators remain available for retained
+migration and archive contracts when current application aliases advance.
 Source kinds are `entry`; `fragment` with fixed `molecular-v1` and captured
 canonical `atom_ids`; or `pocket` with fixed `pocket-v1`, canonical cross-entry
 `seed_atom_references`, and radius 2–12 Å in 0.5 Å steps. No mesh, coordinates,

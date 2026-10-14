@@ -2,7 +2,7 @@
 
 ## Status, outcome, and authority
 
-**Status:** approved implementation contract; implementation authorized by the subsequent `/goal`; M1/C1–M3/C3 complete; C4 next.
+**Status:** approved implementation contract; implementation authorized by the subsequent `/goal`; M1/C1–M4/C4 complete; C5 release preparation next.
 
 - Issue: [#57 — Manage molecular surfaces as independent, editable objects](https://github.com/ManuelSe/Neistra/issues/57), open at planning inspection.
 - Plan: `docs/plans/issue-57-independent-surface-objects.md`.
@@ -386,7 +386,7 @@ The initial plan is the sole first-commit change. Project progress and supersedi
 | 2026-10-14 | M1 / C1 complete | D-090, 202 frontend tests/lint/types/build, Python lint/types, 23 browser passes/three intentional skips, two final native passes; evidence below. |
 | Pending | M2 / C2 | Durable object-management vertical slice and migration. |
 | Pending | M3 / C3 | Complete appearance and interaction workflow. |
-| Pending | M4 / C4 | Scientific, accessibility, performance and compatibility qualification. |
+| Complete 2026-10-14 | M4 / C4 | Native workflows, scientific/accessibility/capacity/lifecycle and actual tagged compatibility qualified; see retained C4 evidence. |
 | Pending | M4 / C5 | Candidate, review, merged qualification and verified delivery. |
 
 Current limitation: C1 renderer primitives are qualified; the production surface manager is not implemented. No feature PR, follow-up issue, tag, merge, or release exists yet. No blocker; continue C2.
@@ -556,3 +556,89 @@ C1 harness provider registration was removed because the production engine now
 owns it. No consequential C3 self-review finding remains; no migration beyond0014.
 Next: C4 tagged compatibility, full accessibility/zoom/performance and lifecycle
 qualification, followed by C5 release delivery. No PR or release exists yet.
+
+
+### M4/C4 qualification in progress — 2026-10-14
+
+C3 is committed and pushed as `a8c7276`. A detached actual v0.13.2 checkout at
+`c21de2e3f76241acb1705d7ec80aae9baf499bdf` produced clean and dirty projects with
+12 native surfaces plus both singleton kinds, retained Undo/Redo, scenes, hidden
+cross-entry seeds, molecular warnings/originals and completed jobs. Migration0014
+preserves every unrelated database column and all8 artifact files. API checks
+preserve appearance, identity, dirty state, timestamps and redo; Undo restores a
+clean checkpoint. Actual schema1 archives import with seed remapping. The actual
+old reader rejects both new schema2 archives atomically, and a complete pre-upgrade
+backup restores and reads exactly. The reusable qualification script records source
+module paths rather than simulating producer/reader provenance.
+
+Manager keyboard/light/dark axe/long-name/320px qualification found two focus races:
+the outgoing Style palette restored focus after manager opening, and unmount blur
+lost manager-owned close intent. Explicit handoff and captured close ownership fix
+both; D-093 records the policy. All focused access cases and real Chrome100%/200%
+zoom pass. Multiple fragment/pocket topology/scene/duplication/archive reconciliation
+passes. A native entry wireframe renders actual green pixels and native line draw
+objects without new fragment/pocket field calculations. Final native/multi-object/
+capacity/movement/release-hardening gates run without competing builds/profilers.
+Focused Python180 and all214frontend tests, lint/types/build/Ruff/mypy pass so far.
+C5 versions, complete candidate/merged gates, PR/review and publication remain.
+
+
+C4 queue qualification additionally reproduced a consequential lifecycle failure:
+appearance rebuilds disposed the selectors referenced by queued lazy factories,
+causing unrelated later fragments/pockets to fall back. D-094 captures the matching
+calculation data snapshot before queuing while retaining admission-time typed-array
+allocation and cancellation. A gated actual-worker test now passes on both viewports:
+4descriptors/1extraction before release,3extractions after cancelling one queued
+pocket, all3 remaining objects rendered and maximum1active worker. Full affected
+surface/pocket/capacity/movement/accessibility gates are repeated on this fix before
+checkpoint completion; the earlier passing performance run remains distinct.
+
+
+C4 boundary review also reproduced schema2 archives accepting malformed entry/scene
+surface identifiers that could not be addressed by object routes. Central UUID
+validation now rejects those imports atomically; explicit ViewerSettingsV2 and
+SceneEntryStateV2 keep historical validation independent of future current aliases
+(D-095). Final focused migration/API/archive/security182 tests pass. The bounded
+creation command accepts1–100 definitions per request, rejects excess atomically,
+and retains the approved16objects/entry limit; this routine request guard is now
+explicit in API guidance. Native mesh qualification waits for actual line render
+objects after the API response, rather than assuming persistence and display commit
+finish simultaneously; this repaired one diagnostic timing assertion without
+weakening pixel/identity checks.
+
+
+### M4/C4 complete — 2026-10-14
+
+[C4 evidence](../assets/surface-objects/c4-verification.json) retains command logs,
+source hashes, compatibility provenance, raw native/scientific/performance data and
+screenshots. Focused Python183 pass. Full affected browser qualification produced
+40 passes/5 intentional skips and one diagnostic native-render commit timing
+assertion; waiting for actual native line objects repairs that assertion. The final
+production native flow passes both viewports with stronger actual UUID and complete
+marker-buffer checks. Final pointer/object/queue/access and frontend gates are
+recorded separately rather than claiming the diagnostic run passed.
+
+The final native regression also reproduced a stale ownership gap: while a rebuild
+waited, clicking still-visible retired surface pixels fell through to atom selection.
+D-096 separates requested/bound structural generations and rejects those hits until
+the current scene commits, preserving camera ownership. Desktop/mobile now retain
+atom selection during the held rebuild and activate the complete current object
+afterward. Local self-review covered the complete checkpoint diff, scientific
+boundaries, migration/archive atomicity, queued allocations and focus ownership.
+All consequential findings were resolved; this is local self-review, not independent
+review. No additional schema migration/profile or deferred issue scope was added.
+
+Actual tagged producer code atc21de2e, explicit source module paths, schema1
+archives, eight exact artifact hashes, clean/dirty history and full backup restore
+are retained. Development compatibility results report application version0.13.2
+because release preparation is C5; they are not evidence that published v0.13.2
+produces schema2. Final0.14.0 candidate and exact merged compatibility must repeat.
+Capacity and accessibility limitations are explicit in PERFORMANCE/ACCESSIBILITY;
+2GiB calculation and1GiB retained mesh bounds are not whole-browser/GPU caps.
+Next: C5 version/collision audit, focused charge follow-up, clean candidate/full-diff
+review, PR, protected merge and exact merged qualification/publication.
+
+Final C4 pointer/object/queue/access gate:10 passed,2 intentional layout skips,
+zero failures. Final shared gate:214 frontend tests, lint/types/build, Ruff/mypy61
+and diff check all exit0. Focused Python183 pass. No consequential checkpoint
+finding remains. Evidence hashes bind these results to the implemented sources.

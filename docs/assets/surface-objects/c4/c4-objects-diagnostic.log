@@ -1,0 +1,111 @@
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+[2m[WebServer] [22mINFO:     Started server process [641665]
+[2m[WebServer] [22mINFO:     Waiting for application startup.
+[2m[WebServer] [22mINFO:     Application startup complete.
+[2m[WebServer] [22mINFO:     Uvicorn running on http://127.0.0.1:8020 (Press CTRL+C to quit)
+[2m[WebServer] [22m(node:641726) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:641738) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 6 tests using 1 worker
+
+(node:641764) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:641764) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/e2e/surface-objects.spec.ts:12:5 › native same-entry surface objects have independent identity, colors, mesh and whole-object activation (14.5s)
+  ✓  2 [chromium] › tests/e2e/surface-objects.spec.ts:124:5 › manages production object appearance and explicit sources independently through reload and undo (14.9s)
+  ✘  3 [chromium] › tests/e2e/surface-objects.spec.ts:249:5 › keeps manager controls keyboard reachable, bounded and accessible with long names and narrow layouts (7.2s)
+(node:641978) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:641978) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  4 [mobile-chromium] › tests/e2e/surface-objects.spec.ts:12:5 › native same-entry surface objects have independent identity, colors, mesh and whole-object activation (7.4s)
+  ✓  5 [mobile-chromium] › tests/e2e/surface-objects.spec.ts:124:5 › manages production object appearance and explicit sources independently through reload and undo (13.5s)
+  ✘  6 [mobile-chromium] › tests/e2e/surface-objects.spec.ts:249:5 › keeps manager controls keyboard reachable, bounded and accessible with long names and narrow layouts (9.6s)
+
+
+  1) [chromium] › tests/e2e/surface-objects.spec.ts:249:5 › keeps manager controls keyboard reachable, bounded and accessible with long names and narrow layouts
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeFocused[2m()[22m failed
+
+    Locator:  getByRole('dialog', { name: 'Surfaces', exact: true })
+    Expected: focused
+    Received: inactive
+    Timeout:  5000ms
+
+    Call log:
+    [2m  - Expect "toBeFocused" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('dialog', { name: 'Surfaces', exact: true })[22m
+    [2m    9 × locator resolved to <div role="dialog" tabindex="-1" id="radix-«r1t»" data-state="open" aria-labelledby="radix-«r1u»" class="dialog-content surface-manager">…</div>[22m
+    [2m      - unexpected value "inactive"[22m
+
+
+      270 |       await launcher.focus(); await page.keyboard.press("Enter");
+      271 |       await page.getByRole("button", { name: /^Manage surfaces/ }).focus(); await page.keyboard.press("Enter");
+    > 272 |       await expect(manager).toBeFocused();
+          |                             ^
+      273 |       await page.keyboard.press("Tab");
+      274 |       await expect(manager.getByRole("button", { name: "Close surfaces" })).toBeFocused();
+      275 |       await page.keyboard.press("Tab"); await page.keyboard.press("Enter");
+        at /datadisk/dev/neistra/tests/e2e/surface-objects.spec.ts:272:29
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .molweave-e2e/issue57/c4-objects-results/surface-objects-keeps-mana-e8456-ng-names-and-narrow-layouts-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: .molweave-e2e/issue57/c4-objects-results/surface-objects-keeps-mana-e8456-ng-names-and-narrow-layouts-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    .molweave-e2e/issue57/c4-objects-results/surface-objects-keeps-mana-e8456-ng-names-and-narrow-layouts-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace .molweave-e2e/issue57/c4-objects-results/surface-objects-keeps-mana-e8456-ng-names-and-narrow-layouts-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [mobile-chromium] › tests/e2e/surface-objects.spec.ts:249:5 › keeps manager controls keyboard reachable, bounded and accessible with long names and narrow layouts
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeFocused[2m()[22m failed
+
+    Locator:  getByRole('button', { name: 'Style selection', exact: true })
+    Expected: focused
+    Received: inactive
+    Timeout:  5000ms
+
+    Call log:
+    [2m  - Expect "toBeFocused" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('button', { name: 'Style selection', exact: true })[22m
+    [2m    9 × locator resolved to <button type="button" data-state="closed" aria-disabled="false" aria-expanded="false" aria-haspopup="dialog" class="viewer-action-button" aria-label="Style selection">…</button>[22m
+    [2m      - unexpected value "inactive"[22m
+
+
+      290 |       await manager.getByLabel("Surface opacity").focus();
+      291 |       await page.screenshot({ path: info.outputPath(`manager-${theme}-${width}.png`) });
+    > 292 |       await page.keyboard.press("Escape");
+          |                                           ^
+      293 |       await expect(manager).toBeHidden(); await expect(launcher).toBeFocused();
+      294 |     }
+      295 |   }
+        at /datadisk/dev/neistra/tests/e2e/surface-objects.spec.ts:292:66
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .molweave-e2e/issue57/c4-objects-results/surface-objects-keeps-mana-e8456-ng-names-and-narrow-layouts-mobile-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: .molweave-e2e/issue57/c4-objects-results/surface-objects-keeps-mana-e8456-ng-names-and-narrow-layouts-mobile-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    .molweave-e2e/issue57/c4-objects-results/surface-objects-keeps-mana-e8456-ng-names-and-narrow-layouts-mobile-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace .molweave-e2e/issue57/c4-objects-results/surface-objects-keeps-mana-e8456-ng-names-and-narrow-layouts-mobile-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    [chromium] › tests/e2e/surface-objects.spec.ts:249:5 › keeps manager controls keyboard reachable, bounded and accessible with long names and narrow layouts
+    [mobile-chromium] › tests/e2e/surface-objects.spec.ts:249:5 › keeps manager controls keyboard reachable, bounded and accessible with long names and narrow layouts
+  4 passed (1.2m)

@@ -1,0 +1,107 @@
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+[2m[WebServer] [22mINFO:     Started server process [649633]
+[2m[WebServer] [22mINFO:     Waiting for application startup.
+[2m[WebServer] [22mINFO:     Application startup complete.
+[2m[WebServer] [22mINFO:     Uvicorn running on http://127.0.0.1:8020 (Press CTRL+C to quit)
+[2m[WebServer] [22m(node:649692) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:649704) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 46 tests using 1 worker
+
+(node:649730) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:649730) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [chromium] › tests/e2e/interactive-transform-performance.spec.ts:6:5 › bounds native protein/ligand preview work and measures exact cancellation (11.1s)
+  ✓   2 [chromium] › tests/e2e/pocket-surfaces.spec.ts:12:7 › qualifies native full-protein pocket geometry and independent display for complex/1stp.pdb (11.0s)
+  ✓   3 [chromium] › tests/e2e/pocket-surfaces.spec.ts:12:7 › qualifies native full-protein pocket geometry and independent display for hydrogens/polar_hydrogens_protein.pdb (9.3s)
+  ✓   4 [chromium] › tests/e2e/pocket-surfaces.spec.ts:12:7 › qualifies native full-protein pocket geometry and independent display for surfaces/1aon.cif (52.2s)
+  ✓   5 [chromium] › tests/e2e/pocket-surfaces.spec.ts:158:5 › invalidates native pockets for hidden seed and receptor preview, cancel and commit (7.1s)
+  ✓   6 [chromium] › tests/e2e/pocket-surfaces.spec.ts:223:5 › saves pockets through the compact panel and restores hidden seed inputs (10.5s)
+  ✓   7 [chromium] › tests/e2e/rebranding-zoom.spec.ts:58:5 › keeps actions and dialogs reachable at real 100% and 200% browser zoom (1.4m)
+  ✓   8 [chromium] › tests/e2e/rebranding-zoom.spec.ts:309:5 › keeps shell and inspector controls bounded around both responsive breakpoints (9.7s)
+  ✓   9 [chromium] › tests/e2e/release-hardening.spec.ts:65:5 › passes automated accessibility checks in both themes (4.6s)
+  ✓  10 [chromium] › tests/e2e/release-hardening.spec.ts:79:5 › supports keyboard focus and bounded responsive controls (3.5s)
+  ✓  11 [chromium] › tests/e2e/release-hardening.spec.ts:164:5 › keeps representative-project interactions responsive and projection-scoped (6.3s)
+  ✓  12 [chromium] › tests/e2e/selection-surfaces.spec.ts:16:5 › qualifies worker geometry, real element colors, picking and cancellation (4.5s)
+  ✓  13 [chromium] › tests/e2e/selection-surfaces.spec.ts:114:5 › adds and removes saved surfaces from the compact palette with reload and undo (14.9s)
+  ✓  14 [chromium] › tests/e2e/selection-surfaces.spec.ts:187:7 › qualifies production surface lifecycle for formats/ethanol.mol (8.4s)
+  ✓  15 [chromium] › tests/e2e/selection-surfaces.spec.ts:187:7 › qualifies production surface lifecycle for hydrogens/polar_hydrogens_ligand.mol (4.0s)
+  ✓  16 [chromium] › tests/e2e/selection-surfaces.spec.ts:358:5 › qualifies production 1STP surface response and partial-fragment boundaries (3.5s)
+  ✓  17 [chromium] › tests/e2e/surface-capacity.spec.ts:34:7 › renders the complete 6vxx selection within bounded capacity (14.8s)
+  ✓  18 [chromium] › tests/e2e/surface-capacity.spec.ts:34:7 › renders the complete 1aon selection within bounded capacity (35.7s)
+  ✓  19 [chromium] › tests/e2e/surface-capacity.spec.ts:34:7 › renders the complete synthetic-100k selection within bounded capacity (30.0s)
+  ✓  20 [chromium] › tests/e2e/surface-objects.spec.ts:12:5 › native same-entry surface objects have independent identity, colors, mesh and whole-object activation (14.9s)
+  ✘  21 [chromium] › tests/e2e/surface-objects.spec.ts:124:5 › manages production object appearance and explicit sources independently through reload and undo (15.3s)
+(node:651253) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:651253) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  22 [chromium] › tests/e2e/surface-objects.spec.ts:305:5 › keeps manager controls keyboard reachable, bounded and accessible with long names and narrow layouts (12.4s)
+  ✓  23 [chromium] › tests/e2e/surface-objects.spec.ts:358:5 › keeps queued same-entry surface inputs lazy and valid across a renderer rebuild (6.5s)
+(node:651454) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:651454) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  -  24 [mobile-chromium] › tests/e2e/interactive-transform-performance.spec.ts:6:5 › bounds native protein/ligand preview work and measures exact cancellation
+  ✓  25 [mobile-chromium] › tests/e2e/pocket-surfaces.spec.ts:12:7 › qualifies native full-protein pocket geometry and independent display for complex/1stp.pdb (6.4s)
+  ✓  26 [mobile-chromium] › tests/e2e/pocket-surfaces.spec.ts:12:7 › qualifies native full-protein pocket geometry and independent display for hydrogens/polar_hydrogens_protein.pdb (4.8s)
+  ✓  27 [mobile-chromium] › tests/e2e/pocket-surfaces.spec.ts:12:7 › qualifies native full-protein pocket geometry and independent display for surfaces/1aon.cif (50.6s)
+  ✓  28 [mobile-chromium] › tests/e2e/pocket-surfaces.spec.ts:158:5 › invalidates native pockets for hidden seed and receptor preview, cancel and commit (4.1s)
+  ✓  29 [mobile-chromium] › tests/e2e/pocket-surfaces.spec.ts:223:5 › saves pockets through the compact panel and restores hidden seed inputs (10.7s)
+  -  30 [mobile-chromium] › tests/e2e/rebranding-zoom.spec.ts:58:5 › keeps actions and dialogs reachable at real 100% and 200% browser zoom
+  -  31 [mobile-chromium] › tests/e2e/rebranding-zoom.spec.ts:309:5 › keeps shell and inspector controls bounded around both responsive breakpoints
+  ✓  32 [mobile-chromium] › tests/e2e/release-hardening.spec.ts:65:5 › passes automated accessibility checks in both themes (4.1s)
+  ✓  33 [mobile-chromium] › tests/e2e/release-hardening.spec.ts:79:5 › supports keyboard focus and bounded responsive controls (3.7s)
+  -  34 [mobile-chromium] › tests/e2e/release-hardening.spec.ts:164:5 › keeps representative-project interactions responsive and projection-scoped
+  ✓  35 [mobile-chromium] › tests/e2e/selection-surfaces.spec.ts:16:5 › qualifies worker geometry, real element colors, picking and cancellation (3.4s)
+  -  36 [mobile-chromium] › tests/e2e/selection-surfaces.spec.ts:114:5 › adds and removes saved surfaces from the compact palette with reload and undo
+  ✓  37 [mobile-chromium] › tests/e2e/selection-surfaces.spec.ts:187:7 › qualifies production surface lifecycle for formats/ethanol.mol (4.6s)
+  ✓  38 [mobile-chromium] › tests/e2e/selection-surfaces.spec.ts:187:7 › qualifies production surface lifecycle for hydrogens/polar_hydrogens_ligand.mol (2.6s)
+  ✓  39 [mobile-chromium] › tests/e2e/selection-surfaces.spec.ts:358:5 › qualifies production 1STP surface response and partial-fragment boundaries (2.5s)
+  ✓  40 [mobile-chromium] › tests/e2e/surface-capacity.spec.ts:34:7 › renders the complete 6vxx selection within bounded capacity (14.4s)
+  ✓  41 [mobile-chromium] › tests/e2e/surface-capacity.spec.ts:34:7 › renders the complete 1aon selection within bounded capacity (34.2s)
+  ✓  42 [mobile-chromium] › tests/e2e/surface-capacity.spec.ts:34:7 › renders the complete synthetic-100k selection within bounded capacity (29.2s)
+  ✓  43 [mobile-chromium] › tests/e2e/surface-objects.spec.ts:12:5 › native same-entry surface objects have independent identity, colors, mesh and whole-object activation (7.3s)
+  ✓  44 [mobile-chromium] › tests/e2e/surface-objects.spec.ts:124:5 › manages production object appearance and explicit sources independently through reload and undo (15.4s)
+  ✓  45 [mobile-chromium] › tests/e2e/surface-objects.spec.ts:305:5 › keeps manager controls keyboard reachable, bounded and accessible with long names and narrow layouts (11.5s)
+  ✓  46 [mobile-chromium] › tests/e2e/surface-objects.spec.ts:358:5 › keeps queued same-entry surface inputs lazy and valid across a renderer rebuild (5.5s)
+
+
+  1) [chromium] › tests/e2e/surface-objects.spec.ts:124:5 › manages production object appearance and explicit sources independently through reload and undo
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m
+
+    Expected: [32mtrue[39m
+    Received: [31mfalse[39m
+
+      251 |   }, saved[0].id);
+      252 |   expect(nativeDisplay.length).toBeGreaterThan(0);
+    > 253 |   expect(nativeDisplay.every(object => object.type === "lines" && object.drawCount > 0)).toBe(true);
+          |                                                                                          ^
+      254 |   const nativeGreenPixels = () => page.locator(".molstar-host canvas").first().evaluate((canvas: HTMLCanvasElement) => {
+      255 |     const gl = canvas.getContext("webgl2") ?? canvas.getContext("webgl"); if (!gl) throw new Error("WebGL unavailable");
+      256 |     gl.finish(); const pixels = new Uint8Array(canvas.width * canvas.height * 4);
+        at /datadisk/dev/neistra/tests/e2e/surface-objects.spec.ts:253:90
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .molweave-e2e/issue57/c4-qualified-results/surface-objects-manages-pr-53afa-tly-through-reload-and-undo-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: .molweave-e2e/issue57/c4-qualified-results/surface-objects-manages-pr-53afa-tly-through-reload-and-undo-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    .molweave-e2e/issue57/c4-qualified-results/surface-objects-manages-pr-53afa-tly-through-reload-and-undo-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace .molweave-e2e/issue57/c4-qualified-results/surface-objects-manages-pr-53afa-tly-through-reload-and-undo-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [chromium] › tests/e2e/surface-objects.spec.ts:124:5 › manages production object appearance and explicit sources independently through reload and undo
+  5 skipped
+  40 passed (9.9m)

@@ -10,7 +10,7 @@ from typing import Any
 
 import sqlalchemy as sa
 from alembic import op
-from molweave_api.schemas import ViewerSettings
+from molweave_api.schemas import ViewerSettingsV2
 from molweave_api.surface_upgrade import upgrade_surface_settings
 
 revision = "0014"
@@ -78,7 +78,7 @@ def _migrate(*, downgrade: bool) -> None:
                                 f"Cannot downgrade 0014: {name}.{field} retains surface objects "
                                 "or an empty representation set; restore the pre-upgrade backup"
                             )
-                        ViewerSettings.model_validate(settings)
+                        ViewerSettingsV2.model_validate(settings)
                         settings.pop("schema_version", None)
                         settings.pop("surface_objects", None)
                         settings["selection_surface"] = None
@@ -89,7 +89,7 @@ def _migrate(*, downgrade: bool) -> None:
                             raise RuntimeError(
                                 "Cannot migrate surface state without its owner entry ID"
                             )
-                        ViewerSettings.model_validate(converted)
+                        ViewerSettingsV2.model_validate(converted)
                         settings.clear()
                         settings.update(converted)
                 if name == "projects":
