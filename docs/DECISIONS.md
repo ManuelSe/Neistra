@@ -3199,3 +3199,13 @@ and explicit movement lifetime metadata preserve success-styled consequential te
 Manual focus restoration respects an open modal and connected prior targets; expiry
 while focused waits for departure without moving focus. C1 qualifies these policies
 without changing project/API/archive schemas, molecular state, or CSS.
+
+### D-089 stale callback qualification note — issue #56 C3 review, 2026-10-14
+
+A reproduced obsolete-callback case could preserve the wrong expiration marker
+while a newer focused notice was overdue. Cleanup explicitly invalidates its
+closure before clearing the timer, so obsolete callbacks cannot modify lifecycle
+refs, in addition to the existing functional state identity guard. A regression
+invokes the old callback after the new deadline, then leaves keyboard focus and
+requires removal without focus theft. This implements the accepted stale-work
+boundary; no new notification scope or scientific/persisted behavior is introduced.

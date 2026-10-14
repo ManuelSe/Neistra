@@ -557,3 +557,27 @@ environment/source identity, scope deviations, blockers, and next action. Keep
 - Complete clean-candidate gate and full-diff review remain pending. No PR,
   tag/release, merged gate, or completed C3 is claimed by this preparation commit.
 - Next: complete candidate gate, final reader qualification, review and PR.
+
+### 2026-10-14 — C3 local review correction before PR
+
+- Local complete-diff review found a lifecycle side effect not covered by the
+  original stale-dismissal assertion: an obsolete callback could overwrite the
+  expiry marker after a focused replacement reached its deadline, preventing
+  removal on focus departure. A focused fake-timer regression reproduces the
+  old behavior (one failed/eight passed) without relying on browser cancellation.
+- Cleanup now invalidates the callback before clearing its timer. Obsolete
+  callbacks cannot touch the expiry marker; the functional emission-identity
+  guard remains for queued state updates. This strengthens accepted D-089 and
+  adds no new scope, API/schema/scientific behavior, or dependency.
+- Repaired qualification passes 39 focused and all **194 frontend tests**,
+  ESLint, TypeScript, production build and diff checks. Reproduction and passing
+  logs are retained as `c3-review-*.log`; the failing reproduction is diagnostic,
+  not passing verification.
+- The earlier candidate at `99be770` passed frozen installs/fresh 0013/Ruff/mypy,
+  492 Python, 193 frontend, eight supervisor and build checks. Its browser gate
+  was intentionally interrupted for this correction after 73 passes/five skips;
+  147 cases did not run and one was interrupted. It is **not** a completed release
+  gate and cannot authorize merge or publication. Diagnostic files remain in
+  `/tmp/neistra-issue56-candidate-interrupted-evidence`.
+- Next: restart the entire release gate on the clean repaired commit with fresh
+  browser and migration storage; final candidate/merged gates remain pending.

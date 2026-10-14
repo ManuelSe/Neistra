@@ -22,7 +22,10 @@ keyboard focus can extend duration. No blocker. [Browser evidence](assets/viewer
 plus three intentional layout skips, final 10 notification workflows, light/dark
 axe and keyboard/native invariance pass with zero failures/retries. Frontend
 gates repeat all 193 tests/lint/types/build. User/accessibility guidance updated.
-Next: M3/C3 candidate/release gates, review and verified delivery.
+C3 local review reproduced and fixed obsolete-callback expiry-marker poisoning;
+39 focused and all 194 frontend tests/lint/types/build pass. The first browser
+gate was deliberately interrupted for this correction and is not passing release
+evidence. Next: restart the complete clean-candidate gate, then review/delivery.
 
 ### Previous delivery baseline — v0.13.1
 

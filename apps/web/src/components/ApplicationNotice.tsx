@@ -20,13 +20,16 @@ export function ApplicationNotice({ notice, setNotice }: {
     expired.current = null;
     if (!notice) returnFocus.current = null;
     if (!notice || notice.kind === "error" || notice.lifetime === "persistent") return;
+    let active = true;
     const timer = window.setTimeout(() => {
+      if (!active) return;
       expired.current = notice;
       if (!root.current?.contains(document.activeElement)) {
         setNotice(current => current === notice ? null : current);
       }
     }, 10_000);
     return () => {
+      active = false;
       window.clearTimeout(timer);
       expired.current = null;
     };
