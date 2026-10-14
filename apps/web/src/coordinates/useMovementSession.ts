@@ -34,7 +34,7 @@ export function useMovementSession(ports: MovementSessionPorts & { beforeStart?:
     commit: (project, transform) => portsRef.current.commit(project, transform),
     refresh: id => portsRef.current.refresh(id),
     accept: project => portsRef.current.accept(project),
-    notice: (id, text, error) => portsRef.current.notice(id, text, error),
+    notice: (id, text, error, lifetime) => portsRef.current.notice(id, text, error, lifetime),
   }));
   const state = useSyncExternalStore(session.subscribe, session.snapshot);
   const navigation = useMovementNavigation(state.phase === "active");

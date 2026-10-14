@@ -2,10 +2,10 @@
 
 ## 1. Status, metadata, and approved outcome
 
-**Status:** approved implementation contract; documentation persistence only.
+**Status:** implementation in progress; M1/C1 complete, M2/C2 and M3/C3 pending.
 The user approved the proposal on 2026-10-14 with “I approve the plan.”
-Implementation requires a subsequent `/goal`; this planning handoff must stop
-after committing, pushing, and verifying the approved documentation.
+The user authorized implementation and complete delivery through `/goal` on
+2026-10-14. Historical C0 instructions below retain the planning-only stop.
 
 - **Issue:** [#56 — Automatically dismiss viewer notifications after 10 seconds](https://github.com/ManuelSe/Neistra/issues/56).
 - **Issue metadata:** open; created and last updated 2026-10-13 at 06:02:17 UTC;
@@ -480,3 +480,28 @@ by this approved-plan commit.
 For every later checkpoint append its commit, verification commands/results,
 environment/source identity, scope deviations, blockers, and next action. Keep
 `docs/PROGRESS.md` concise; this document remains the detailed source of truth.
+
+### 2026-10-14 — M1/C1 lifecycle implementation and focused qualification
+
+- C0 commit `e14b8fea2f684b564de5d1fe991a781eb178cd93` was pushed and verified remotely.
+- Added the application notice component with stable emission identity, one
+  10,000 ms timeout, obsolete-callback guards, cleanup, keyboard-focus deferral,
+  and modal-aware manual focus restoration. No CSS or scientific state changed.
+- Producer audit: routine success/recovery/organization/save/style/superposition/
+  job confirmations expire; all errors remain persistent. Import, ligand edit,
+  and protein edit summaries use structured warning counts. Pending previous-
+  project movement and reconciled-coordinate/history instructions are persistent
+  through typed metadata; no text matching. Separate warning/status displays stay
+  unchanged. Job result import has no warning-bearing popup or warning field in
+  its response; its ordinary acknowledgment remains transient.
+- [Exact commands, source hashes, results and limitations](../assets/viewer-notifications/c1-verification.json):
+  38 focused tests, all 193 frontend tests, ESLint, TypeScript, production build,
+  and diff checks pass. Actual App handlers qualify both warned and warning-free
+  import/ligand/protein outcomes; movement reconciliation metadata is covered.
+- Existing nonblocking lazy Mol* chunk warning remains 976.99 KiB gzip; initial
+  application chunk is 178.53 KiB gzip. No dependency/version/migration change.
+- Local checkpoint diff reviewed for ownership, warning retention, scope, cleanup,
+  and focus. No consequential finding remains; no independent review claimed.
+- Initial harness and lint failures were fixed before commit; they are not passing
+  qualification evidence. C1 command logs are retained beside the JSON record.
+- No blocker. Next action: M2/C2 native browser, accessibility, and state invariance.

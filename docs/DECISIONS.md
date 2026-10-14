@@ -3187,3 +3187,15 @@ Consequences:
   replacement, repeated text, persistence, cleanup, focus, and state invariance.
 - Scope, delivery gates, release impact, and the planning-only stop are governed
   by the approved feature plan; approval currently authorizes documentation only.
+
+### D-089 implementation note — issue #56 M1/C1, 2026-10-14
+
+Implementation is authorized by the subsequent `/goal`. The React notice component
+uses each published value's object identity with a functional state update to reject
+obsolete expiry/dismissal. Its effect depends only on notice identity and the stable
+setter, preserving lifetimes across unrelated renders and viewer remounts. Error
+notices never receive a timeout, even if marked transient. Structured warning counts
+and explicit movement lifetime metadata preserve success-styled consequential text.
+Manual focus restoration respects an open modal and connected prior targets; expiry
+while focused waits for departure without moving focus. C1 qualifies these policies
+without changing project/API/archive schemas, molecular state, or CSS.

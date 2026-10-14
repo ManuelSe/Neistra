@@ -2,29 +2,22 @@
 
 ## Current milestone
 
-Issue #56 — approved viewer notification timeout plan; documentation handoff
-only. The user approved the proposal on 2026-10-14. The
-[implementation contract and detailed log](plans/issue-56-viewer-notification-timeout.md)
-is persisted on `fix/issue-56-viewer-notification-timeout`, based on clean,
-fast-forward-updated master `d81650ee0939d03a673c2a48ea44904213a8dd2f`.
+Issue #56 — M1/C1 complete under the [approved contract](plans/issue-56-viewer-notification-timeout.md);
+implementation/full delivery authorized through `/goal` on 2026-10-14. Application
+notices expire after 10 seconds with fresh replacement lifetimes and safe cleanup.
+Errors, warning-bearing import/edit summaries and action-required movement guidance
+remain visible. Manual dismissal, focused-notice deferral and modal-aware focus
+restoration retain existing single-slot styling and molecular/viewer ownership.
 
-Completed work: repository/issue/release inspection, approved scope, M1–M3/C1–C3
-checkpoints, patch release strategy, and accepted D-089. Routine confirmations
-will expire after 10 seconds; errors, warning-bearing results, and action-required
-guidance will remain visible. Retain one visible notice with independent
-successive-emission lifetimes; no notification stack.
+[Focused evidence](assets/viewer-notifications/c1-verification.json): 38 focused and
+193 frontend tests, lint/types/build/diff pass. Producer audit and actual App handler
+tests cover warning policy; Strict Mode and obsolete callback tests pass. Existing
+bundle advisory remains. Runtime version is still 0.13.1; no schema/migration change.
+Planned release: patch 0.13.2 with all five version sources updated during C3.
 
-Verification: issue/base/latest release rechecked after approval; working tree
-clean before branching. Staged diff checks, all 36 local documentation links,
-plan structure/metadata, unique D-089, and documentation-only scope passed. First
-commit and remote branch verification are recorded in the planning handoff.
-No issue #56 implementation, runtime test/build, PR, tag, or release is claimed.
-
-Known limitations: single visible notice, conservative persistent exceptions,
-browser timer throttling, and focused-notice expiration deferral. No blocker
-identified for planning. Planned release is patch **0.13.2**, with five version
-sources updated during M3/C3; no API/schema/migration change is planned.
-Next action: await `/goal`; implementation remains unstarted.
+Known limitations: one visible notice; persistent exceptions; timer throttling and
+keyboard focus can extend duration. No blocker. Next: M2/C2 browser qualification,
+then M3/C3 candidate/release gates, review and verified delivery.
 
 ### Previous delivery baseline — v0.13.1
 

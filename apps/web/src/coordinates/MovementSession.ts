@@ -1,4 +1,5 @@
 import { ApiError } from "../api/client";
+import type { NoticeLifetime } from "../components/ApplicationNotice";
 import type { AtomReference, Project, Selection, SelectionTransform, StructureProjection } from "../api/types";
 import {
   captureMovement, initialMovementPose, movementContextMatches, movementRequest,
@@ -17,7 +18,7 @@ export interface MovementSessionPorts {
   commit: (project: Project, transform: SelectionTransform) => Promise<Project>;
   refresh: (projectId: string) => Promise<Project>;
   accept: (project: Project) => void;
-  notice: (projectId: string, text: string, error?: boolean) => void;
+  notice: (projectId: string, text: string, error?: boolean, lifetime?: NoticeLifetime) => void;
 }
 
 const idle = (): MovementSessionState => ({ phase: "idle", capture: null, pose: initialMovementPose() });
@@ -134,7 +135,7 @@ export class MovementSession {
       this.ports.accept(current);
       if (generation !== this.generation) return;
       this.publish(idle());
-      this.ports.notice(projectId, "Project refreshed. Check its coordinates and history before starting a new movement.");
+      this.ports.notice(projectId, "Project refreshed. Check its coordinates and history before starting a new movement.", false, "persistent");
     } catch {
       if (generation !== this.generation) return;
       this.publish({ ...this.state, phase: "uncertain" });
