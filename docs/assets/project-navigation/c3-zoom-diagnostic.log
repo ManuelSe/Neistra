@@ -1,0 +1,72 @@
+[1A[2K[WebServer] INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+
+[1A[2K[WebServer] INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+
+[1A[2K[WebServer] INFO  [alembic.runtime.migration] Running upgrade  -> 0001, Create Milestone 1 project workspace tables.
+
+[1A[2K[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0001 -> 0002, Version existing project checkpoint snapshots.
+
+[1A[2K[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0002 -> 0003, Add artifact-backed molecular entry summaries.
+
+[1A[2K[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0003 -> 0004, Add durable named atom selections.
+
+[1A[2K[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0004 -> 0005, Add viewer settings, measurements, and named scenes.
+
+[1A[2K[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0005 -> 0006, Add exact atom identity summaries and monotonic edit allocators.
+
+[1A[2K[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0006 -> 0007, Add durable generic job lifecycle tables.
+
+[1A[2K[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0007 -> 0008, Add durable selection representation assignments to viewer settings.
+
+[1A[2K[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0008 -> 0009, Add durable nonpolar-hydrogen visibility to viewer settings.
+
+[1A[2K[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0009 -> 0010, Add selection appearance defaults without losing retained history.
+
+[1A[2K[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0010 -> 0011, Add selection surface defaults without losing retained history.
+
+[1A[2K[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0011 -> 0012, Add atomic-detail visibility defaults without losing retained history.
+
+[1A[2K[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0012 -> 0013, Add pocket surface defaults without losing retained history.
+
+[1A[2K[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0013 -> 0014, Migrate every retained viewer snapshot to identified surface objects.
+
+[1A[2K[WebServer] INFO:     Started server process [725421]
+
+[1A[2K[WebServer] INFO:     Waiting for application startup.
+[WebServer] INFO:     Application startup complete.
+
+[1A[2K[WebServer] INFO:     Uvicorn running on http://127.0.0.1:8022 (Press CTRL+C to quit)
+
+[1A[2K[WebServer] (node:725487) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[1A[2K[WebServer] (node:725499) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+
+Running 1 test using 1 worker
+
+[1A[2K(node:725526) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K(node:725526) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1A[2K[1/1] [chromium] › tests/e2e/rebranding-zoom.spec.ts:59:5 › keeps actions and dialogs reachable at real 100% and 200% browser zoom
+[1A[2K  1) [chromium] › tests/e2e/rebranding-zoom.spec.ts:59:5 › keeps actions and dialogs reachable at real 100% and 200% browser zoom
+
+    Test timeout of 120000ms exceeded.
+
+    Error: End of central directory record signature not found. Either not a zip file, or file is truncated.
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../../tmp/neistra-issue59/c3/zoom-diagnostic/rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../../tmp/neistra-issue59/c3/zoom-diagnostic/rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/error-context.md
+
+
+[1A[2K  1 failed
+    [chromium] › tests/e2e/rebranding-zoom.spec.ts:59:5 › keeps actions and dialogs reachable at real 100% and 200% browser zoom

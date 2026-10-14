@@ -13,7 +13,13 @@ export function EntryDetails({ entry, onClose, onReturnFocus }: {
   return <Dialog.Root open={Boolean(entry)} onOpenChange={open => { if (!open) onClose(); }}>
     <Dialog.Portal><Dialog.Content ref={content} className="dialog-content entry-details" aria-describedby={undefined}
       onOpenAutoFocus={event => { event.preventDefault(); content.current?.focus(); }}
-      onCloseAutoFocus={event => { event.preventDefault(); onReturnFocus(); }}>
+      onCloseAutoFocus={event => {
+        event.preventDefault();
+        const focused = document.activeElement;
+        if (focused instanceof HTMLElement && focused !== document.body && focused.isConnected
+          && !focused.hasAttribute("data-radix-focus-guard") && !content.current?.contains(focused)) return;
+        onReturnFocus();
+      }}>
       <div className="dialog-heading"><Dialog.Title>Entry details</Dialog.Title>
         <Dialog.Close asChild><IconButton label="Close entry details"><X size={18} /></IconButton></Dialog.Close>
       </div>

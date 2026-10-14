@@ -1,0 +1,148 @@
+[WebServer] INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+[WebServer] INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade  -> 0001, Create Milestone 1 project workspace tables.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0001 -> 0002, Version existing project checkpoint snapshots.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0002 -> 0003, Add artifact-backed molecular entry summaries.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0003 -> 0004, Add durable named atom selections.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0004 -> 0005, Add viewer settings, measurements, and named scenes.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0005 -> 0006, Add exact atom identity summaries and monotonic edit allocators.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0006 -> 0007, Add durable generic job lifecycle tables.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0007 -> 0008, Add durable selection representation assignments to viewer settings.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0008 -> 0009, Add durable nonpolar-hydrogen visibility to viewer settings.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0009 -> 0010, Add selection appearance defaults without losing retained history.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0010 -> 0011, Add selection surface defaults without losing retained history.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0011 -> 0012, Add atomic-detail visibility defaults without losing retained history.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0012 -> 0013, Add pocket surface defaults without losing retained history.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0013 -> 0014, Migrate every retained viewer snapshot to identified surface objects.
+[WebServer] INFO:     Started server process [732227]
+[WebServer] INFO:     Waiting for application startup.
+[WebServer] INFO:     Application startup complete.
+[WebServer] INFO:     Uvicorn running on http://127.0.0.1:8020 (Press CTRL+C to quit)
+[WebServer] (node:732289) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:732301) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 54 tests using 1 worker
+
+(node:732330) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:732330) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:65:5 › qualifies keyboard/touch controls, focus and scoped accessibility in both themes (8.0s)
+  ✓   2 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:119:5 › reconciles an interrupted response after server commit without replaying Apply (4.7s)
+  ✓   3 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:143:5 › blocks Apply while outcome is unknown and recovers only after explicit refresh (4.5s)
+  ✓   4 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:162:5 › captures hidden multi-entry targets, previews multiple drags, cancels, and applies one reversible command (13.9s)
+  ✓   5 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:246:5 › qualifies native proper-rotation previews, camera suspension, zoom and surface restoration in both projections (12.2s)
+  ✓   6 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:349:5 › discards previews with feedback on task, selection and project changes (8.7s)
+  ✓   7 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:393:5 › restores canceled or lost pointer drags and supports secondary and Ctrl translation (8.0s)
+  ✓   8 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:433:5 › rejects stale Apply without replay or partial movement (4.6s)
+  ✓   9 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:454:5 › explains empty, locked and wholly hidden movement targets without changing them (6.9s)
+  ✓  10 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:491:5 › preserves no-op history, pauses measurements and discards unapplied movement on reload (15.0s)
+  ✓  11 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:548:5 › retains the native preview and held camera across responsive viewer remounts (6.8s)
+  ✓  12 [chromium] › tests/e2e/project-navigation.spec.ts:25:5 › keeps compact entries independent from component expansion, selection and metadata (4.7s)
+  ✓  13 [chromium] › tests/e2e/project-navigation.spec.ts:69:5 › keeps two hundred grouped long-name entries usable at narrow widths and responsive remounts (26.4s)
+  ✓  14 [chromium] › tests/e2e/project-navigation.spec.ts:151:5 › virtualizes ten thousand real normalized components and reaches off-screen rows by keyboard (27.2s)
+[WebServer] INFO:     127.0.0.1:33024 - "WebSocket /ws/jobs?project_id=01a13c01-38c6-7aac-ae84-0fc56e9d84ad" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:33036 - "WebSocket /ws/jobs?project_id=01a13c01-38c6-7aac-ae84-0fc56e9d84ad" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:51900 - "WebSocket /ws/jobs?project_id=01a13c01-38c6-7aac-ae84-0fc56e9d84ad" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:51910 - "WebSocket /ws/jobs?project_id=01a13c01-38c6-7aac-ae84-0fc56e9d84ad" [accepted]
+[WebServer] INFO:     connection open
+  ✓  15 [chromium] › tests/e2e/rebranding-surfaces.spec.ts:52:5 › reviews all Neistra workflow surfaces in both themes (39.7s)
+[WebServer] INFO:     127.0.0.1:42948 - "WebSocket /ws/jobs?project_id=01a13c01-d3e1-746f-9077-280174e4f4da" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:42952 - "WebSocket /ws/jobs?project_id=01a13c01-d3e1-746f-9077-280174e4f4da" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:42988 - "WebSocket /ws/jobs?project_id=01a13c01-d3e1-746f-9077-280174e4f4da" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:43232 - "WebSocket /ws/jobs?project_id=01a13c01-d3e1-746f-9077-280174e4f4da" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:43580 - "WebSocket /ws/jobs?project_id=01a13c01-d3e1-746f-9077-280174e4f4da" [accepted]
+[WebServer] INFO:     connection open
+  ✓  16 [chromium] › tests/e2e/rebranding-surfaces.spec.ts:162:7 › reviews warning, failure, recovery and job states in light (17.6s)
+[WebServer] INFO:     127.0.0.1:48090 - "WebSocket /ws/jobs?project_id=01a13c02-18b6-71a3-8ae1-77dc45632b35" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:48106 - "WebSocket /ws/jobs?project_id=01a13c02-18b6-71a3-8ae1-77dc45632b35" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:48144 - "WebSocket /ws/jobs?project_id=01a13c02-18b6-71a3-8ae1-77dc45632b35" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:35078 - "WebSocket /ws/jobs?project_id=01a13c02-18b6-71a3-8ae1-77dc45632b35" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:35368 - "WebSocket /ws/jobs?project_id=01a13c02-18b6-71a3-8ae1-77dc45632b35" [accepted]
+[WebServer] INFO:     connection open
+  ✓  17 [chromium] › tests/e2e/rebranding-surfaces.spec.ts:162:7 › reviews warning, failure, recovery and job states in dark (18.2s)
+  ✓  18 [chromium] › tests/e2e/rebranding-surfaces.spec.ts:247:5 › keeps ambiguous classification warnings and legacy user copy visible (6.5s)
+  ✓  19 [chromium] › tests/e2e/rebranding-zoom.spec.ts:59:5 › keeps actions and dialogs reachable at real 100% and 200% browser zoom (1.4m)
+  ✓  20 [chromium] › tests/e2e/rebranding-zoom.spec.ts:323:5 › keeps shell and inspector controls bounded around both responsive breakpoints (8.6s)
+  ✓  21 [chromium] › tests/e2e/release-hardening.spec.ts:65:5 › passes automated accessibility checks in both themes (4.4s)
+  ✓  22 [chromium] › tests/e2e/release-hardening.spec.ts:79:5 › supports keyboard focus and bounded responsive controls (3.6s)
+  ✓  23 [chromium] › tests/e2e/release-hardening.spec.ts:164:5 › keeps representative-project interactions responsive and projection-scoped (5.8s)
+  ✓  24 [chromium] › tests/e2e/surface-objects.spec.ts:12:5 › native same-entry surface objects have independent identity, colors, mesh and whole-object activation (15.5s)
+  ✓  25 [chromium] › tests/e2e/surface-objects.spec.ts:124:5 › manages production object appearance and explicit sources independently through reload and undo (22.8s)
+  ✓  26 [chromium] › tests/e2e/surface-objects.spec.ts:361:5 › keeps manager controls keyboard reachable, bounded and accessible with long names and narrow layouts (11.2s)
+  ✓  27 [chromium] › tests/e2e/surface-objects.spec.ts:414:5 › keeps queued same-entry surface inputs lazy and valid across a renderer rebuild (6.6s)
+(node:735296) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:735296) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  28 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:65:5 › qualifies keyboard/touch controls, focus and scoped accessibility in both themes (8.5s)
+  ✓  29 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:119:5 › reconciles an interrupted response after server commit without replaying Apply (4.5s)
+  ✓  30 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:143:5 › blocks Apply while outcome is unknown and recovers only after explicit refresh (4.3s)
+  ✓  31 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:162:5 › captures hidden multi-entry targets, previews multiple drags, cancels, and applies one reversible command (13.1s)
+  ✓  32 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:246:5 › qualifies native proper-rotation previews, camera suspension, zoom and surface restoration in both projections (7.7s)
+  ✓  33 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:349:5 › discards previews with feedback on task, selection and project changes (7.9s)
+  ✓  34 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:393:5 › restores canceled or lost pointer drags and supports secondary and Ctrl translation (7.4s)
+  ✓  35 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:433:5 › rejects stale Apply without replay or partial movement (4.4s)
+  ✓  36 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:454:5 › explains empty, locked and wholly hidden movement targets without changing them (7.0s)
+  ✘  37 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:491:5 › preserves no-op history, pauses measurements and discards unapplied movement on reload (718ms)
+
+
+  1) [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:491:5 › preserves no-op history, pauses measurements and discards unapplied movement on reload
+
+    Test was interrupted.
+
+    Error: locator.click: Test ended.
+    Call log:
+      - waiting for getByRole('dialog', { name: 'Projects', exact: true }).getByRole('button', { name: /^Movement lifecycle 1792008384451/ })
+        - locator resolved to <button class="" type="button">…</button>
+      - attempting click action
+        2 × waiting for element to be visible, enabled and stable
+          - element is not stable
+        - retrying click action
+        - waiting 20ms
+        - waiting for element to be visible, enabled and stable
+        - element is not stable
+      - retrying click action
+        - waiting 100ms
+        - waiting for element to be visible, enabled and stable
+
+
+      42 |   await page.goto("/");
+      43 |   await page.getByRole("button", { name: "Projects", exact: true }).click();
+    > 44 |   await page.getByRole("dialog", { name: "Projects", exact: true }).getByRole("button", { name: new RegExp(`^${project.name}`) }).click();
+         |                                                                                                                                   ^
+      45 |   await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded", { timeout: 30_000 });
+      46 |   if (mobile) await page.getByRole("button", { name: "Inspector", exact: true }).click();
+      47 |   await page.getByLabel("Select by").selectOption("structure");
+        at simpleMovement (/datadisk/dev/neistra/tests/e2e/interactive-selection-transform.spec.ts:44:131)
+        at /datadisk/dev/neistra/tests/e2e/interactive-selection-transform.spec.ts:494:17
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/interactive-selection-tran-57c4f-napplied-movement-on-reload-mobile-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/interactive-selection-tran-57c4f-napplied-movement-on-reload-mobile-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/interactive-selection-tran-57c4f-napplied-movement-on-reload-mobile-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 interrupted
+    [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:491:5 › preserves no-op history, pauses measurements and discards unapplied movement on reload
+  17 did not run
+  36 passed (7.8m)

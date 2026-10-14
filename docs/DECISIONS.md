@@ -3514,3 +3514,40 @@ Pin the approved TanStack adapter3.14.19/core3.19.4 without incidental dependenc
 upgrades. React19 ref props add typed IconButton ref support for focus restoration.
 Generated O-only water fixtures qualify navigation with real normalized identities;
 they do not certify preparation chemistry or a realistic solvent environment.
+
+### D-097 qualification note — issue #59 C3, 2026-10-14
+
+Qualification reproduced loss of owned focus when an artifact-key change replaces
+the hierarchy with a loading state. A stable shell tracks focus ownership across
+that transition and returns it to the pane heading; an external text interaction
+keeps its focus. Removed current rows return to their surviving category or the
+heading. No stale molecular payload is retained as selectable placeholder data.
+
+The many-entry case reproduced insufficient contrast from hidden-row opacity.
+Use the existing contrast-qualified muted text token while preserving readable
+controls and warning indicators. Component warning counts are explicit accessible
+descriptions, rather than relying on an SVG inside an explicitly named button.
+
+Actual200% browser zoom reproduced an entry menu extending beyond the viewport.
+Bound the existing Radix portal menu to its runtime available height and viewport,
+with internal scrolling. This preserves all entry actions and their keyboard
+behavior. The expanded four-theme/zoom workflow has a240-second harness deadline;
+its geometry, hit-testing, contrast, focus and scientific assertions are unchanged.
+The pinned Radix runtime height variable is explicitly identified in token tests.
+
+These repairs stay within navigation/focus/accessibility scope. No API, molecular
+model, classification, job, archive shape or migration change is introduced.
+
+Local C3 review also reproduced a queued Components focus callback targeting a
+new project's heading after a switch. Guard the callback with its captured project
+and inspected entry. The fake-frame regression fails before repair and passes
+afterward; superseded browser qualification is recorded separately and restarted
+on corrected source. No older project's delayed UI work owns current focus.
+
+The real-zoom workflow subsequently reproduced a Details closing callback taking
+focus from the already focused Interactions launcher; Enter then reopened the old
+entry menu. Both Details dialogs now preserve a later meaningful connected control
+and restore only when their closing scope still needs restoration. Entry return
+targets retain project/entry identity and resolve remounted launchers by ID; an
+old project cannot focus a new project's heading. Focused regressions cover both
+dialog kinds, while the complete corrected browser gate is repeated.

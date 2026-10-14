@@ -1,10 +1,13 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import * as Tooltip from "@radix-ui/react-tooltip";
-import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { act, cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, expect, it, vi } from "vitest";
 import type { Project, StructureProjection } from "../api/types";
 import { molecularApi } from "../api/client";
+import { useState } from "react";
+import { EntryDetails } from "../components/EntryDetails";
+import { ComponentDetails } from "../components/ComponentDetails";
 import { ProjectBrowser } from "../components/ProjectBrowser";
 import { useNavigationStore } from "../store/navigation";
 import { useWorkspaceStore } from "../store/workspace";
@@ -20,6 +23,7 @@ beforeEach(() => {
   vi.spyOn(HTMLElement.prototype, "offsetHeight", "get").mockReturnValue(400);
   vi.spyOn(HTMLElement.prototype, "offsetWidth", "get").mockReturnValue(320);
   vi.spyOn(HTMLElement.prototype, "clientHeight", "get").mockReturnValue(400);
+  vi.spyOn(document, "hasFocus").mockReturnValue(true);
   useWorkspaceStore.setState({ browserLayout: [60, 40], componentsCollapsed: false });
   vi.spyOn(HTMLElement.prototype, "getBoundingClientRect").mockImplementation(function (this: HTMLElement) {
     return this.hasAttribute("data-panel-resize-handle-id") ? new DOMRect(1000, 1000, 6, 100) : new DOMRect(0, 0, 320, 800);
@@ -134,3 +138,91 @@ it("separates disclosure, label and Details and restores the component launcher"
   await waitFor(() => expect(details).toHaveFocus());
   expect(hierarchySelect).toHaveBeenCalledTimes(1);
 });
+
+it("preserves coordinate expansion and reconciles a removed focused category to the pane heading", async () => {
+  const user = userEvent.setup();
+  const project = molecularProject();
+  const waterProjection: StructureProjection = structuredClone(projection);
+  waterProjection.structure.atoms[2].residue_id = 2;
+  waterProjection.structure.residues[1] = { ...waterProjection.structure.residues[1], name: "HOH", component_type: "water" };
+  waterProjection.hierarchy.components[0].residue_ids = [1];
+  waterProjection.hierarchy.components.push({ id: "water", category: "water", display_label: "Water residue", chain_ids: [1], residue_ids: [2], atom_ids: [], classification_source: "fallback", classification_status: "assigned", warnings: [] });
+  vi.mocked(molecularApi.structure).mockResolvedValue(waterProjection);
+  const client = new QueryClient();
+  const content = (value: Project) => <QueryClientProvider client={client}><Tooltip.Provider><ProjectBrowser project={value} {...actions} /></Tooltip.Provider></QueryClientProvider>;
+  const view = render(content(project));
+  fireEvent.click(document.querySelector('[data-entry-id="protein"] .entry-select')!);
+  await screen.findByRole("button", { name: "Expand Water in Receptor" });
+  await user.click(screen.getByRole("button", { name: "Expand Water in Receptor" }));
+  const moved = structuredClone(waterProjection);
+  moved.structure.atoms[0].coordinates[0] += 1;
+  vi.mocked(molecularApi.structure).mockResolvedValue(moved);
+  const movedProject = { ...project, entries: project.entries.map(entry => entry.id === "protein" ? { ...entry, current_artifact_id: "coordinate-revision" } : entry) };
+  view.rerender(content(movedProject));
+  await screen.findByRole("button", { name: "Select Water residue in Receptor" });
+  expect(useNavigationStore.getState().entries.protein.categories).toContain("water");
+  const focused = screen.getByRole("button", { name: "Select Water residue in Receptor" });
+  focused.focus();
+  const removed = structuredClone(moved);
+  removed.structure.atoms = removed.structure.atoms.filter(atom => atom.residue_id !== 2);
+  removed.hierarchy.components = removed.hierarchy.components.filter(component => component.category !== "water");
+  vi.mocked(molecularApi.structure).mockResolvedValue(removed);
+  view.rerender(content({ ...movedProject, entries: movedProject.entries.map(entry => entry.id === "protein" ? { ...entry, current_artifact_id: "topology-revision" } : entry) }));
+  await waitFor(() => expect(screen.queryByRole("button", { name: "Select Water residue in Receptor" })).not.toBeInTheDocument());
+  await waitFor(() => expect(screen.getByRole("heading", { name: "Components" })).toHaveFocus());
+  expect(useNavigationStore.getState().entries.protein.categories).not.toContain("water");
+  expect(useNavigationStore.getState().inspectedEntryId).toBe("protein");
+});
+
+it("keeps an external text interaction focused when molecular artifacts refresh", async () => {
+  const project = molecularProject();
+  const client = new QueryClient();
+  const content = (value: Project) => <QueryClientProvider client={client}><Tooltip.Provider><ProjectBrowser project={value} {...actions} /></Tooltip.Provider></QueryClientProvider>;
+  const view = render(content(project));
+  fireEvent.click(document.querySelector('[data-entry-id="protein"] .entry-select')!);
+  await screen.findByRole("button", { name: "Select Protein in Receptor" });
+  const search = screen.getByPlaceholderText("Search structures");
+  search.focus(); fireEvent.change(search, { target:{ value:"Receptor" } });
+  view.rerender(content({ ...project, entries:project.entries.map(entry => entry.id === "protein" ? { ...entry, current_artifact_id:"refreshed-artifact" } : entry) }));
+  await screen.findByRole("button", { name:"Select Protein in Receptor" });
+  expect(search).toHaveFocus(); expect(search).toHaveValue("Receptor");
+});
+
+it("discards an outgoing Components focus callback after a project switch", async () => {
+  const user = userEvent.setup();
+  const frames: FrameRequestCallback[] = [];
+  vi.spyOn(window, "requestAnimationFrame").mockImplementation(callback => { frames.push(callback); return frames.length; });
+  const project = molecularProject();
+  const client = new QueryClient();
+  const content = (value: Project) => <QueryClientProvider client={client}><Tooltip.Provider><ProjectBrowser project={value} {...actions} /></Tooltip.Provider></QueryClientProvider>;
+  const view = render(content(project));
+  await user.click(screen.getByRole("button", { name:"Actions for Receptor" }));
+  await user.click(screen.getByRole("menuitem", { name:"Components" }));
+  const pending = frames.splice(0);
+  view.rerender(content({ ...project, id:"new-project" }));
+  const search = screen.getByPlaceholderText("Search structures"); search.focus();
+  for (const callback of pending) callback(0);
+  expect(search).toHaveFocus();
+  expect(useNavigationStore.getState().inspectedEntryId).toBeNull();
+});
+
+for (const kind of ["entry", "component"] as const) {
+  it(`preserves a later focused tool while ${kind} Details finishes closing`, async () => {
+    const returned = vi.fn();
+    function DialogHarness() {
+      const [open, setOpen] = useState(true);
+      return <>{kind === "entry" ? <EntryDetails entry={open ? molecularProject().entries[0] : undefined}
+        onClose={() => setOpen(false)} onReturnFocus={returned} /> : <ComponentDetails
+          details={open ? { title:"Source", parent:"Entry", atomCount:1, components:[], warnings:[] } : null}
+          onClose={() => setOpen(false)} onReturnFocus={returned} />}
+        <button type="button" data-next-tool>Next tool</button></>;
+    }
+    render(<Tooltip.Provider><DialogHarness /></Tooltip.Provider>);
+    const next = document.querySelector<HTMLButtonElement>("[data-next-tool]")!;
+    fireEvent.keyDown(document.activeElement!, { key:"Escape", code:"Escape" });
+    next.focus();
+    await act(async () => { await new Promise(resolve => setTimeout(resolve, 1)); });
+    expect(next).toHaveFocus();
+    expect(returned).not.toHaveBeenCalled();
+  });
+}

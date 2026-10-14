@@ -32,12 +32,14 @@ def original_hash(client: ApiClient, project_id: str, entry_id: str) -> str:
     return hashlib.sha256(response.content).hexdigest()
 
 
-def produce(client: ApiClient, data_dir: Path) -> dict[str, Any]:
+def produce(
+    client: ApiClient, data_dir: Path, project: dict[str, Any] | None = None
+) -> dict[str, Any]:
     from tests.integration.test_archive_roundtrip import build_rich_project, export_archive
     from tests.integration.test_coordinate_commands import _selection_payload
     from tests.integration.test_job_lifecycle import _submit, _worker
 
-    project = build_rich_project(client)
+    project = build_rich_project(client) if project is None else project
     project_id = project["id"]
     ligand = next(entry for entry in project["entries"] if entry["source_format"] == "mol")
     unlocked = client.post(

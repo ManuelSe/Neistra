@@ -4,8 +4,8 @@
 
 **Status:** implementation authorized by `/goal` on 2026-10-14. C0 was committed
 and remotely verified at `9f454c0eee7912aca623a3d239f9593a40b65235`. M1/C1 is
-implemented and qualified. M2/C2 is complete; M3/C3–M4/C4 remain approved and
-unstarted.
+implemented and qualified. M2/C2 and M3/C3 are complete; M4/C4 release delivery
+remains approved and pending.
 
 
 - **Issue:** [#59 — Redesign the entry list and component hierarchy for compact,
@@ -520,3 +520,31 @@ unimplemented behavior, unrun check, or unverified remote action as complete.
   classification, source loss, scope expansion or incidental dependency upgrade.
   Not independent review. C3 broader lifecycle/performance/zoom/compatibility and C4
   full gates/publication remain. No blocker. Next: commit C2, implement/qualify C3.
+
+### 2026-10-14 — M3/C3 complete: workflow and compatibility qualification
+
+- C2 committed and remotely verified1b53671. Qualified200 actual grouped entries
+  with long/duplicate names,32/44px rows,240px desktop/320px mobile,10k normalized
+  components, light/dark and actual100/200% Chromium zoom. Exact camera/mount,
+  normalized-request, canonical selection and project snapshots remain invariant
+  for browse-only work. Surface/movement and adjacent grouping/style workflows pass.
+- [C3 evidence](../assets/project-navigation/c3-verification.json):14focused/all227
+  frontend;176archive/migration/viewer/surface/component Python plus22domain tests
+  (2overlap); Ruff/mypy61/lint/types/build. Final broad browser51passes/3intentional
+  skips in11.2m; adjacent25passes/7intentional skips in3.9m; zero failures/retries.
+- Reproduced contrast, viewport-menu overflow, artifact/topology-owned focus,
+  queued old-project focus and Details closing over a later tool were repaired.
+  Focused regressions and complete corrected browser gates pass; earlier failed
+  or interrupted diagnostics remain explicitly separate. D-097 appends rationale.
+- Actual tagged v0.14.0 API/core module paths are asserted; preliminary reader
+  accepts exact originals/coordinates/history/jobs/scenes/three surfaces and archive
+  seed remapping. Producer still0.14.0 at this checkpoint: final0.15.0 producer
+  qualification remains mandatory on candidate and exact merged master in C4.
+- Manual screenshot inspection is recorded separately from automated keyboard/axe;
+  no interactive screen-reader or hardware/cross-browser certification is claimed.
+  Generated O-only waters qualify navigation, not preparation chemistry. Existing
+  session/shared-visibility limits and pinned-browser/bundle/Alembic advisories remain.
+- Local complete checkpoint diff review found no unrelated scope, scientific/API/
+  persisted authority change, dead hierarchy controls or migration risk. Versions
+  remain0.14.0 and Alembic0014; no new migration. No blocker. Next: commit C3 and
+  begin C4 version preparation and complete candidate release gate.

@@ -3,21 +3,25 @@
 ## Current milestone
 
 Issue #59 — [approved contract](plans/issue-59-compact-project-navigation.md).
-C1 committed193b2e1; C2 is complete: compact direct rows, full provenance/warnings
-Details, explicit shared visibility, artifact-keyed exact membership indexing and
-continuous virtual scrolling with off-screen keyboard/focus retention. D-097 and
-[user guidance](PROJECT_NAVIGATION.md) remain authoritative.
+C1 committed193b2e1; C2 committed/remotely verified1b53671; C3 complete. Compact
+entries and independent split/mobile tabs, pinned session context, direct virtual
+rows, exact indexed membership and accessible full Details are implemented. D-097
+and [user guidance](PROJECT_NAVIGATION.md) record ownership and interaction limits.
 
-[C2 evidence](assets/project-navigation/c2-verification.json):9focused/all221frontend,
-22Python and static/build checks pass; native23passes/7intentional layout skips,
-zero failures/retries. Real10k normalized components, full-category operands,
-1request/project invariance and adjacent group/style/camera workflows pass. Prior
-shared-control fixture ambiguity is diagnostic; complete corrected gate passes.
-Only approved virtualizer dependencies added; versions0.14.0, target0.15.0minor,
-no new migration/API/persisted shape. Known limits: generated O-only fixture is
-navigation data, shared visibility/session context/pinned emulation remain; C3
-broader lifecycle/200entries/zoom/compatibility and C4 full release delivery pending.
-No blocker. Next: commit C2, implement/qualify M3/C3.
+[C3 evidence](assets/project-navigation/c3-verification.json):14focused/all227frontend,
+176integration +22domain Python (2overlap), Ruff/mypy61/lint/types/build pass. Final
+broad native51passes/3intentional skips; adjacent25passes/7intentional skips, no
+failures/retries.200entries/10kcomponents, narrow layouts, actual200% zoom,
+keyboard/axe and camera/project/request invariance pass. Reproduced focus/contrast/
+viewport issues are repaired; diagnostic runs remain separate. Actual tagged0.14.0
+reader passes preliminary originals/coordinates/history/jobs/scenes/surface/archive
+checks; final0.15.0 producer remains mandatory in C4.
+
+Versions0.14.0, planned0.15.0minor; no new migration/API/persisted shape. Known limits:
+session context/shared visibility,200unvirtualized entries, generated navigation
+fixture and pinned emulation; no interactive screen-reader certification. C4 full
+candidate/merged gates and release delivery pending. No blocker. Next: commit C3,
+prepare final versions and run complete release gate.
 
 ### Previous delivery baseline — v0.14.0
 

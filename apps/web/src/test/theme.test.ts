@@ -21,6 +21,8 @@ describe("Neistra presentation contract", () => {
 
   it("defines every UI token and keeps text, action, status and focus contrast in both themes", () => {
     const definitions = new Set([...`${css}\n${themeStyles()}`.matchAll(/(--[\w-]+)\s*:/g)].map((m) => m[1]));
+    // The pinned Radix Content supplies this variable at runtime; CSS has a viewport fallback.
+    definitions.add("--radix-dropdown-menu-content-available-height");
     const consumed = [...css.matchAll(/var\((--[\w-]+)/g)].map((m) => m[1]);
     expect(consumed.filter((token) => !definitions.has(token))).toEqual([]);
     for (const tokens of Object.values(THEME_TOKENS)) {
@@ -67,4 +69,25 @@ describe("Neistra presentation contract", () => {
     expect(() => useWorkspaceStore.getState().setTheme("dark")).not.toThrow();
     expect(useWorkspaceStore.getState().theme).toBe("dark");
   });
+  it("restores navigation layout preferences while rejecting invalid layouts, actions and scientific state", async () => {
+    useWorkspaceStore.setState({ browserLayout: [60, 40], componentsCollapsed: false });
+    localStorage.setItem(WORKSPACE_STORAGE_KEY, JSON.stringify({ state: {
+      browserLayout: [45, 55], componentsCollapsed: true, inspectedEntryId: "must-not-persist",
+      entries: { fake: { atoms: [1] } }, setComponentsCollapsed: "not-a-function",
+    }, version: 0 }));
+    await useWorkspaceStore.persist.rehydrate();
+    expect(useWorkspaceStore.getState().browserLayout).toEqual([45, 55]);
+    expect(useWorkspaceStore.getState().componentsCollapsed).toBe(true);
+    expect(typeof useWorkspaceStore.getState().setComponentsCollapsed).toBe("function");
+    expect(useWorkspaceStore.getState()).not.toHaveProperty("inspectedEntryId");
+    expect(useWorkspaceStore.getState()).not.toHaveProperty("entries");
+    useWorkspaceStore.setState({ browserLayout: [60, 40], componentsCollapsed: false });
+    localStorage.setItem(WORKSPACE_STORAGE_KEY, JSON.stringify({ state: {
+      browserLayout: [120, -20], componentsCollapsed: "yes",
+    }, version: 0 }));
+    await useWorkspaceStore.persist.rehydrate();
+    expect(useWorkspaceStore.getState().browserLayout).toEqual([60, 40]);
+    expect(useWorkspaceStore.getState().componentsCollapsed).toBe(false);
+  });
+
 });

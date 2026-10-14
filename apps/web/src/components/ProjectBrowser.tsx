@@ -248,7 +248,7 @@ export function ProjectBrowser({
   const { browserLayout, componentsCollapsed, setBrowserLayout, setComponentsCollapsed } = useWorkspaceStore();
   const componentPanel = useRef<ImperativePanelHandle>(null);
   const paneHeading = useRef<HTMLHeadingElement>(null);
-  const detailsReturn = useRef<HTMLElement | null>(null);
+  const detailsReturn = useRef<{ projectId: string; entryId: string; launcher: HTMLElement | null } | null>(null);
   const [detailsEntryId, setDetailsEntryId] = useState<string | null>(null);
   useEffect(() => {
     if (!project) return;
@@ -269,7 +269,10 @@ export function ProjectBrowser({
     if (!project) return;
     useNavigationStore.getState().inspect(project.id, entry.id, explicit && compact);
     if (explicit && componentsCollapsed) setComponentsCollapsed(false);
-    if (explicit) requestAnimationFrame(() => paneHeading.current?.focus());
+    if (explicit) requestAnimationFrame(() => {
+      const current = useNavigationStore.getState();
+      if (current.projectId === project.id && current.inspectedEntryId === entry.id) paneHeading.current?.focus();
+    });
   };
   const drag = useGroupDrag(project, actions.busy ?? false, onMoveMembership);
   const [search, setSearch] = useState("");
@@ -351,7 +354,7 @@ export function ProjectBrowser({
         onSelect={(mode) => { inspect(entry); onSelectEntries?.([entry], mode); }}
         onInspect={() => inspect(entry, true)}
         onDetails={() => {
-          detailsReturn.current = document.querySelector<HTMLElement>(`[data-entry-id="${entry.id}"] .entry-menu-trigger`);
+          detailsReturn.current = { projectId: project!.id, entryId: entry.id, launcher: document.querySelector<HTMLElement>(`[data-entry-id="${entry.id}"] .entry-menu-trigger`) };
           setDetailsEntryId(entry.id);
         }}
         {...actions}
@@ -450,7 +453,7 @@ export function ProjectBrowser({
     </div> : null}
     {project && inspected?.current_artifact_id ? <StructureHierarchy
       projectId={project.id} entry={inspected} selection={selection}
-      onSelect={onSelectHierarchy} onVisibility={onHierarchyVisibility} />
+      onSelect={onSelectHierarchy} onVisibility={onHierarchyVisibility} onFocusFallback={() => paneHeading.current?.focus()} />
       : <p className="empty-label">{inspected ? "No normalized structure available" : "Choose an entry to browse components"}</p>}
   </section>;
   return <section className="panel-content project-browser" aria-label="Project browser">
@@ -489,7 +492,11 @@ export function ProjectBrowser({
     </PanelGroup>}
     <EntryDetails entry={project?.entries.find(entry => entry.id === detailsEntryId)} onClose={() => setDetailsEntryId(null)}
       onReturnFocus={() => {
-        if (detailsReturn.current?.isConnected) detailsReturn.current.focus();
+        const origin = detailsReturn.current;
+        if (!origin || useNavigationStore.getState().projectId !== origin.projectId) return;
+        const launcher = origin.launcher?.isConnected ? origin.launcher
+          : document.querySelector<HTMLElement>(`[data-entry-id="${origin.entryId}"] .entry-menu-trigger`);
+        if (launcher?.isConnected) launcher.focus();
         else paneHeading.current?.focus();
       }} />
   </section>;

@@ -279,6 +279,7 @@ test("keeps ambiguous classification warnings and legacy user copy visible", asy
     await browseComponents(page, "Ethanol");
     const category = page.locator(".hierarchy-category");
     if (await category.locator(".hierarchy-disclosure").getAttribute("aria-expanded") === "false") await category.locator(".hierarchy-disclosure").click();
+    await expect(page.locator(".hierarchy-component-row .hierarchy-component")).toHaveAccessibleDescription("1 warning. Open Details for complete messages.");
     await page.locator(".hierarchy-component-row").getByRole("button", { name: /^Details for/ }).click();
     const details = page.getByRole("dialog", { name: "Component details" });
     await expect(details).toContainText("The available evidence does not support a narrower assignment");

@@ -1,0 +1,747 @@
+[WebServer] INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+[WebServer] INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade  -> 0001, Create Milestone 1 project workspace tables.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0001 -> 0002, Version existing project checkpoint snapshots.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0002 -> 0003, Add artifact-backed molecular entry summaries.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0003 -> 0004, Add durable named atom selections.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0004 -> 0005, Add viewer settings, measurements, and named scenes.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0005 -> 0006, Add exact atom identity summaries and monotonic edit allocators.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0006 -> 0007, Add durable generic job lifecycle tables.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0007 -> 0008, Add durable selection representation assignments to viewer settings.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0008 -> 0009, Add durable nonpolar-hydrogen visibility to viewer settings.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0009 -> 0010, Add selection appearance defaults without losing retained history.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0010 -> 0011, Add selection surface defaults without losing retained history.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0011 -> 0012, Add atomic-detail visibility defaults without losing retained history.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0012 -> 0013, Add pocket surface defaults without losing retained history.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0013 -> 0014, Migrate every retained viewer snapshot to identified surface objects.
+[WebServer] INFO:     Started server process [720428]
+[WebServer] INFO:     Waiting for application startup.
+[WebServer] INFO:     Application startup complete.
+[WebServer] INFO:     Uvicorn running on http://127.0.0.1:8020 (Press CTRL+C to quit)
+[WebServer] (node:720487) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:720499) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 54 tests using 1 worker
+
+(node:720527) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:720527) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:65:5 › qualifies keyboard/touch controls, focus and scoped accessibility in both themes (8.2s)
+  ✓   2 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:119:5 › reconciles an interrupted response after server commit without replaying Apply (4.6s)
+  ✓   3 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:143:5 › blocks Apply while outcome is unknown and recovers only after explicit refresh (4.2s)
+  ✓   4 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:162:5 › captures hidden multi-entry targets, previews multiple drags, cancels, and applies one reversible command (13.9s)
+  ✓   5 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:246:5 › qualifies native proper-rotation previews, camera suspension, zoom and surface restoration in both projections (11.8s)
+  ✓   6 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:349:5 › discards previews with feedback on task, selection and project changes (8.9s)
+  ✓   7 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:393:5 › restores canceled or lost pointer drags and supports secondary and Ctrl translation (9.2s)
+  ✓   8 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:433:5 › rejects stale Apply without replay or partial movement (5.1s)
+  ✓   9 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:454:5 › explains empty, locked and wholly hidden movement targets without changing them (8.2s)
+  ✓  10 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:491:5 › preserves no-op history, pauses measurements and discards unapplied movement on reload (14.7s)
+  ✓  11 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:548:5 › retains the native preview and held camera across responsive viewer remounts (6.5s)
+  ✓  12 [chromium] › tests/e2e/project-navigation.spec.ts:25:5 › keeps compact entries independent from component expansion, selection and metadata (4.8s)
+  ✘  13 [chromium] › tests/e2e/project-navigation.spec.ts:69:5 › keeps two hundred grouped long-name entries usable at narrow widths and responsive remounts (19.0s)
+(node:721461) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:721461) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  14 [chromium] › tests/e2e/project-navigation.spec.ts:151:5 › virtualizes ten thousand real normalized components and reaches off-screen rows by keyboard (29.6s)
+[WebServer] INFO:     127.0.0.1:53140 - "WebSocket /ws/jobs?project_id=01a13bf6-199a-7da9-8cff-03d6a57e7a24" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:53144 - "WebSocket /ws/jobs?project_id=01a13bf6-199a-7da9-8cff-03d6a57e7a24" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:56430 - "WebSocket /ws/jobs?project_id=01a13bf6-199a-7da9-8cff-03d6a57e7a24" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:56444 - "WebSocket /ws/jobs?project_id=01a13bf6-199a-7da9-8cff-03d6a57e7a24" [accepted]
+[WebServer] INFO:     connection open
+  ✓  15 [chromium] › tests/e2e/rebranding-surfaces.spec.ts:52:5 › reviews all Neistra workflow surfaces in both themes (45.9s)
+[WebServer] INFO:     127.0.0.1:44108 - "WebSocket /ws/jobs?project_id=01a13bf6-ccf8-7d57-ae0a-e2f415ed7c39" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:44112 - "WebSocket /ws/jobs?project_id=01a13bf6-ccf8-7d57-ae0a-e2f415ed7c39" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:57500 - "WebSocket /ws/jobs?project_id=01a13bf6-ccf8-7d57-ae0a-e2f415ed7c39" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:57724 - "WebSocket /ws/jobs?project_id=01a13bf6-ccf8-7d57-ae0a-e2f415ed7c39" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:58104 - "WebSocket /ws/jobs?project_id=01a13bf6-ccf8-7d57-ae0a-e2f415ed7c39" [accepted]
+[WebServer] INFO:     connection open
+  ✓  16 [chromium] › tests/e2e/rebranding-surfaces.spec.ts:162:7 › reviews warning, failure, recovery and job states in light (20.2s)
+[WebServer] INFO:     127.0.0.1:55626 - "WebSocket /ws/jobs?project_id=01a13bf7-1bac-75d9-9c96-59f489e99eee" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:55634 - "WebSocket /ws/jobs?project_id=01a13bf7-1bac-75d9-9c96-59f489e99eee" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:55678 - "WebSocket /ws/jobs?project_id=01a13bf7-1bac-75d9-9c96-59f489e99eee" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:35612 - "WebSocket /ws/jobs?project_id=01a13bf7-1bac-75d9-9c96-59f489e99eee" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:35912 - "WebSocket /ws/jobs?project_id=01a13bf7-1bac-75d9-9c96-59f489e99eee" [accepted]
+[WebServer] INFO:     connection open
+  ✓  17 [chromium] › tests/e2e/rebranding-surfaces.spec.ts:162:7 › reviews warning, failure, recovery and job states in dark (18.2s)
+  ✓  18 [chromium] › tests/e2e/rebranding-surfaces.spec.ts:247:5 › keeps ambiguous classification warnings and legacy user copy visible (6.5s)
+Internal error: step id not found: fixture@965
+  ✘  19 [chromium] › tests/e2e/rebranding-zoom.spec.ts:59:5 › keeps actions and dialogs reachable at real 100% and 200% browser zoom (39.6s)
+(node:724685) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:724685) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  20 [chromium] › tests/e2e/rebranding-zoom.spec.ts:323:5 › keeps shell and inspector controls bounded around both responsive breakpoints (9.8s)
+  ✓  21 [chromium] › tests/e2e/release-hardening.spec.ts:65:5 › passes automated accessibility checks in both themes (4.7s)
+  ✓  22 [chromium] › tests/e2e/release-hardening.spec.ts:79:5 › supports keyboard focus and bounded responsive controls (3.7s)
+  ✓  23 [chromium] › tests/e2e/release-hardening.spec.ts:164:5 › keeps representative-project interactions responsive and projection-scoped (5.9s)
+  ✓  24 [chromium] › tests/e2e/surface-objects.spec.ts:12:5 › native same-entry surface objects have independent identity, colors, mesh and whole-object activation (15.1s)
+  ✓  25 [chromium] › tests/e2e/surface-objects.spec.ts:124:5 › manages production object appearance and explicit sources independently through reload and undo (29.9s)
+  ✓  26 [chromium] › tests/e2e/surface-objects.spec.ts:361:5 › keeps manager controls keyboard reachable, bounded and accessible with long names and narrow layouts (14.3s)
+  ✓  27 [chromium] › tests/e2e/surface-objects.spec.ts:414:5 › keeps queued same-entry surface inputs lazy and valid across a renderer rebuild (6.7s)
+(node:725885) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:725885) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  28 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:65:5 › qualifies keyboard/touch controls, focus and scoped accessibility in both themes (11.8s)
+  ✓  29 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:119:5 › reconciles an interrupted response after server commit without replaying Apply (6.6s)
+  ✓  30 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:143:5 › blocks Apply while outcome is unknown and recovers only after explicit refresh (6.4s)
+  ✓  31 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:162:5 › captures hidden multi-entry targets, previews multiple drags, cancels, and applies one reversible command (18.1s)
+  ✓  32 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:246:5 › qualifies native proper-rotation previews, camera suspension, zoom and surface restoration in both projections (11.0s)
+  ✓  33 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:349:5 › discards previews with feedback on task, selection and project changes (10.5s)
+  ✓  34 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:393:5 › restores canceled or lost pointer drags and supports secondary and Ctrl translation (11.2s)
+  ✓  35 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:433:5 › rejects stale Apply without replay or partial movement (4.4s)
+  ✓  36 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:454:5 › explains empty, locked and wholly hidden movement targets without changing them (6.8s)
+  ✓  37 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:491:5 › preserves no-op history, pauses measurements and discards unapplied movement on reload (15.3s)
+  ✓  38 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:548:5 › retains the native preview and held camera across responsive viewer remounts (8.4s)
+  ✓  39 [mobile-chromium] › tests/e2e/project-navigation.spec.ts:25:5 › keeps compact entries independent from component expansion, selection and metadata (6.7s)
+  ✓  40 [mobile-chromium] › tests/e2e/project-navigation.spec.ts:69:5 › keeps two hundred grouped long-name entries usable at narrow widths and responsive remounts (19.3s)
+  ✓  41 [mobile-chromium] › tests/e2e/project-navigation.spec.ts:151:5 › virtualizes ten thousand real normalized components and reaches off-screen rows by keyboard (13.7s)
+[WebServer] INFO:     127.0.0.1:51250 - "WebSocket /ws/jobs?project_id=01a13bfb-caa4-764f-9044-93e3f8c71d71" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:51252 - "WebSocket /ws/jobs?project_id=01a13bfb-caa4-764f-9044-93e3f8c71d71" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:51260 - "WebSocket /ws/jobs?project_id=01a13bfb-caa4-764f-9044-93e3f8c71d71" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:51268 - "WebSocket /ws/jobs?project_id=01a13bfb-caa4-764f-9044-93e3f8c71d71" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:48030 - "WebSocket /ws/jobs?project_id=01a13bfb-caa4-764f-9044-93e3f8c71d71" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:48032 - "WebSocket /ws/jobs?project_id=01a13bfb-caa4-764f-9044-93e3f8c71d71" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:48046 - "WebSocket /ws/jobs?project_id=01a13bfb-caa4-764f-9044-93e3f8c71d71" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:48056 - "WebSocket /ws/jobs?project_id=01a13bfb-caa4-764f-9044-93e3f8c71d71" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:48072 - "WebSocket /ws/jobs?project_id=01a13bfb-caa4-764f-9044-93e3f8c71d71" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:48084 - "WebSocket /ws/jobs?project_id=01a13bfb-caa4-764f-9044-93e3f8c71d71" [accepted]
+[WebServer] INFO:     connection open
+  ✓  42 [mobile-chromium] › tests/e2e/rebranding-surfaces.spec.ts:52:5 › reviews all Neistra workflow surfaces in both themes (41.6s)
+[WebServer] INFO:     127.0.0.1:51546 - "WebSocket /ws/jobs?project_id=01a13bfc-6d0e-726f-9e74-ce56dfbe7759" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:51562 - "WebSocket /ws/jobs?project_id=01a13bfc-6d0e-726f-9e74-ce56dfbe7759" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:51620 - "WebSocket /ws/jobs?project_id=01a13bfc-6d0e-726f-9e74-ce56dfbe7759" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:47218 - "WebSocket /ws/jobs?project_id=01a13bfc-6d0e-726f-9e74-ce56dfbe7759" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:47224 - "WebSocket /ws/jobs?project_id=01a13bfc-6d0e-726f-9e74-ce56dfbe7759" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] 9:56:09 PM [vite] ws proxy error:
+[WebServer] Error: write ECONNRESET
+[WebServer]     at afterWriteDispatched (node:internal/stream_base_commons:159:15)
+[WebServer]     at writeGeneric (node:internal/stream_base_commons:150:3)
+[WebServer]     at Socket._writeGeneric (node:net:966:11)
+[WebServer]     at Socket._write (node:net:978:8)
+[WebServer]     at writeOrBuffer (node:internal/streams/writable:572:12)
+[WebServer]     at _write (node:internal/streams/writable:501:10)
+[WebServer]     at Writable.write (node:internal/streams/writable:510:10)
+[WebServer]     at Socket.ondata (node:internal/streams/readable:1009:22)
+[WebServer]     at Socket.emit (node:events:519:28)
+[WebServer]     at addChunk (node:internal/streams/readable:561:12)
+[WebServer]     at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
+[WebServer]     at Readable.push (node:internal/streams/readable:392:5)
+[WebServer]     at TCP.onStreamRead (node:internal/stream_base_commons:189:23)
+[WebServer] 9:56:09 PM [vite] ws proxy socket error:
+[WebServer] Error: write ECONNRESET
+[WebServer]     at afterWriteDispatched (node:internal/stream_base_commons:159:15)
+[WebServer]     at writeGeneric (node:internal/stream_base_commons:150:3)
+[WebServer]     at Socket._writeGeneric (node:net:966:11)
+[WebServer]     at Socket._write (node:net:978:8)
+[WebServer]     at writeOrBuffer (node:internal/streams/writable:572:12)
+[WebServer]     at _write (node:internal/streams/writable:501:10)
+[WebServer]     at Writable.write (node:internal/streams/writable:510:10)
+[WebServer]     at Socket.ondata (node:internal/streams/readable:1009:22)
+[WebServer]     at Socket.emit (node:events:519:28)
+[WebServer]     at addChunk (node:internal/streams/readable:561:12)
+[WebServer]     at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
+[WebServer]     at Readable.push (node:internal/streams/readable:392:5)
+[WebServer]     at TCP.onStreamRead (node:internal/stream_base_commons:189:23)
+[WebServer] INFO:     127.0.0.1:47418 - "WebSocket /ws/jobs?project_id=01a13bfc-6d0e-726f-9e74-ce56dfbe7759" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:47670 - "WebSocket /ws/jobs?project_id=01a13bfc-6d0e-726f-9e74-ce56dfbe7759" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:47684 - "WebSocket /ws/jobs?project_id=01a13bfc-6d0e-726f-9e74-ce56dfbe7759" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] 9:56:12 PM [vite] ws proxy error:
+[WebServer] Error: read ECONNRESET
+[WebServer]     at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[WebServer] 9:56:12 PM [vite] ws proxy socket error:
+[WebServer] Error: read ECONNRESET
+[WebServer]     at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[WebServer] INFO:     127.0.0.1:47988 - "WebSocket /ws/jobs?project_id=01a13bfc-6d0e-726f-9e74-ce56dfbe7759" [accepted]
+[WebServer] INFO:     connection open
+  ✓  43 [mobile-chromium] › tests/e2e/rebranding-surfaces.spec.ts:162:7 › reviews warning, failure, recovery and job states in light (19.4s)
+[WebServer] INFO:     127.0.0.1:55696 - "WebSocket /ws/jobs?project_id=01a13bfc-b8f8-746e-980b-f76b0b7c9ab9" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:55698 - "WebSocket /ws/jobs?project_id=01a13bfc-b8f8-746e-980b-f76b0b7c9ab9" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:55734 - "WebSocket /ws/jobs?project_id=01a13bfc-b8f8-746e-980b-f76b0b7c9ab9" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:37298 - "WebSocket /ws/jobs?project_id=01a13bfc-b8f8-746e-980b-f76b0b7c9ab9" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:37308 - "WebSocket /ws/jobs?project_id=01a13bfc-b8f8-746e-980b-f76b0b7c9ab9" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:37508 - "WebSocket /ws/jobs?project_id=01a13bfc-b8f8-746e-980b-f76b0b7c9ab9" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:37762 - "WebSocket /ws/jobs?project_id=01a13bfc-b8f8-746e-980b-f76b0b7c9ab9" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:37766 - "WebSocket /ws/jobs?project_id=01a13bfc-b8f8-746e-980b-f76b0b7c9ab9" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] 9:56:33 PM [vite] ws proxy error:
+[WebServer] Error: write ECONNRESET
+[WebServer]     at afterWriteDispatched (node:internal/stream_base_commons:159:15)
+[WebServer]     at writeGeneric (node:internal/stream_base_commons:150:3)
+[WebServer]     at Socket._writeGeneric (node:net:966:11)
+[WebServer]     at Socket._write (node:net:978:8)
+[WebServer]     at writeOrBuffer (node:internal/streams/writable:572:12)
+[WebServer]     at _write (node:internal/streams/writable:501:10)
+[WebServer]     at Writable.write (node:internal/streams/writable:510:10)
+[WebServer]     at Socket.ondata (node:internal/streams/readable:1009:22)
+[WebServer]     at Socket.emit (node:events:519:28)
+[WebServer]     at addChunk (node:internal/streams/readable:561:12)
+[WebServer]     at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
+[WebServer]     at Readable.push (node:internal/streams/readable:392:5)
+[WebServer]     at TCP.onStreamRead (node:internal/stream_base_commons:189:23)
+[WebServer] 9:56:33 PM [vite] ws proxy socket error:
+[WebServer] Error: write ECONNRESET
+[WebServer]     at afterWriteDispatched (node:internal/stream_base_commons:159:15)
+[WebServer]     at writeGeneric (node:internal/stream_base_commons:150:3)
+[WebServer]     at Socket._writeGeneric (node:net:966:11)
+[WebServer]     at Socket._write (node:net:978:8)
+[WebServer]     at writeOrBuffer (node:internal/streams/writable:572:12)
+[WebServer]     at _write (node:internal/streams/writable:501:10)
+[WebServer]     at Writable.write (node:internal/streams/writable:510:10)
+[WebServer]     at Socket.ondata (node:internal/streams/readable:1009:22)
+[WebServer]     at Socket.emit (node:events:519:28)
+[WebServer]     at addChunk (node:internal/streams/readable:561:12)
+[WebServer]     at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
+[WebServer]     at Readable.push (node:internal/streams/readable:392:5)
+[WebServer]     at TCP.onStreamRead (node:internal/stream_base_commons:189:23)
+[WebServer] INFO:     127.0.0.1:38166 - "WebSocket /ws/jobs?project_id=01a13bfc-b8f8-746e-980b-f76b0b7c9ab9" [accepted]
+[WebServer] INFO:     connection open
+  ✓  44 [mobile-chromium] › tests/e2e/rebranding-surfaces.spec.ts:162:7 › reviews warning, failure, recovery and job states in dark (25.3s)
+  ✓  45 [mobile-chromium] › tests/e2e/rebranding-surfaces.spec.ts:247:5 › keeps ambiguous classification warnings and legacy user copy visible (6.7s)
+  -  46 [mobile-chromium] › tests/e2e/rebranding-zoom.spec.ts:59:5 › keeps actions and dialogs reachable at real 100% and 200% browser zoom
+  -  47 [mobile-chromium] › tests/e2e/rebranding-zoom.spec.ts:323:5 › keeps shell and inspector controls bounded around both responsive breakpoints
+  ✓  48 [mobile-chromium] › tests/e2e/release-hardening.spec.ts:65:5 › passes automated accessibility checks in both themes (4.0s)
+  ✓  49 [mobile-chromium] › tests/e2e/release-hardening.spec.ts:79:5 › supports keyboard focus and bounded responsive controls (3.5s)
+  -  50 [mobile-chromium] › tests/e2e/release-hardening.spec.ts:164:5 › keeps representative-project interactions responsive and projection-scoped
+  ✓  51 [mobile-chromium] › tests/e2e/surface-objects.spec.ts:12:5 › native same-entry surface objects have independent identity, colors, mesh and whole-object activation (7.4s)
+  ✓  52 [mobile-chromium] › tests/e2e/surface-objects.spec.ts:124:5 › manages production object appearance and explicit sources independently through reload and undo (20.8s)
+  ✓  53 [mobile-chromium] › tests/e2e/surface-objects.spec.ts:361:5 › keeps manager controls keyboard reachable, bounded and accessible with long names and narrow layouts (10.7s)
+  ✓  54 [mobile-chromium] › tests/e2e/surface-objects.spec.ts:414:5 › keeps queued same-entry surface inputs lazy and valid across a renderer rebuild (5.8s)
+
+
+  1) [chromium] › tests/e2e/project-navigation.spec.ts:69:5 › keeps two hundred grouped long-name entries usable at narrow widths and responsive remounts
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  -   1
+    + Received  + 406
+
+    - Array []
+    + Array [
+    +   Object {
+    +     "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+    +     "help": "Elements must meet minimum color contrast ratio thresholds",
+    +     "helpUrl": "https://dequeuniversity.com/rules/axe/4.10/color-contrast?application=playwright",
+    +     "id": "color-contrast",
+    +     "impact": "serious",
+    +     "nodes": Array [
+    +       Object {
+    +         "all": Array [],
+    +         "any": Array [
+    +           Object {
+    +             "data": Object {
+    +               "bgColor": "#ffffff",
+    +               "contrastRatio": 4.3,
+    +               "expectedContrastRatio": "4.5:1",
+    +               "fgColor": "#787a7d",
+    +               "fontSize": "9.0pt (12px)",
+    +               "fontWeight": "normal",
+    +               "messageKey": null,
+    +             },
+    +             "id": "color-contrast",
+    +             "impact": "serious",
+    +             "message": "Element has insufficient color contrast of 4.3 (foreground color: #787a7d, background color: #ffffff, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +             "relatedNodes": Array [
+    +               Object {
+    +                 "html": "<section class=\"panel-content project-browser\" aria-label=\"Project browser\">",
+    +                 "target": Array [
+    +                   ".project-browser",
+    +                 ],
+    +               },
+    +             ],
+    +           },
+    +         ],
+    +         "failureSummary": "Fix any of the following:
+    +   Element has insufficient color contrast of 4.3 (foreground color: #787a7d, background color: #ffffff, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +         "html": "<span>Navigation candidate long reference long reference long reference long reference long reference long reference long reference end copy 9</span>",
+    +         "impact": "serious",
+    +         "none": Array [],
+    +         "target": Array [
+    +           ".entry-group:nth-child(4) > .entry-node:nth-child(40) > .entry-row.entry-hidden > .entry-select[type=\"button\"] > .entry-copy > span",
+    +         ],
+    +       },
+    +       Object {
+    +         "all": Array [],
+    +         "any": Array [
+    +           Object {
+    +             "data": Object {
+    +               "bgColor": "#ffffff",
+    +               "contrastRatio": 4.3,
+    +               "expectedContrastRatio": "4.5:1",
+    +               "fgColor": "#787a7d",
+    +               "fontSize": "9.0pt (12px)",
+    +               "fontWeight": "normal",
+    +               "messageKey": null,
+    +             },
+    +             "id": "color-contrast",
+    +             "impact": "serious",
+    +             "message": "Element has insufficient color contrast of 4.3 (foreground color: #787a7d, background color: #ffffff, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +             "relatedNodes": Array [
+    +               Object {
+    +                 "html": "<section class=\"panel-content project-browser\" aria-label=\"Project browser\">",
+    +                 "target": Array [
+    +                   ".project-browser",
+    +                 ],
+    +               },
+    +             ],
+    +           },
+    +         ],
+    +         "failureSummary": "Fix any of the following:
+    +   Element has insufficient color contrast of 4.3 (foreground color: #787a7d, background color: #ffffff, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +         "html": "<span>Navigation candidate long reference long reference long reference long reference long reference long reference long reference end copy 90</span>",
+    +         "impact": "serious",
+    +         "none": Array [],
+    +         "target": Array [
+    +           ".entry-group:nth-child(4) > .entry-node:nth-child(41) > .entry-row.entry-hidden > .entry-select[type=\"button\"] > .entry-copy > span",
+    +         ],
+    +       },
+    +       Object {
+    +         "all": Array [],
+    +         "any": Array [
+    +           Object {
+    +             "data": Object {
+    +               "bgColor": "#ffffff",
+    +               "contrastRatio": 4.3,
+    +               "expectedContrastRatio": "4.5:1",
+    +               "fgColor": "#787a7d",
+    +               "fontSize": "9.0pt (12px)",
+    +               "fontWeight": "normal",
+    +               "messageKey": null,
+    +             },
+    +             "id": "color-contrast",
+    +             "impact": "serious",
+    +             "message": "Element has insufficient color contrast of 4.3 (foreground color: #787a7d, background color: #ffffff, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +             "relatedNodes": Array [
+    +               Object {
+    +                 "html": "<section class=\"panel-content project-browser\" aria-label=\"Project browser\">",
+    +                 "target": Array [
+    +                   ".project-browser",
+    +                 ],
+    +               },
+    +             ],
+    +           },
+    +         ],
+    +         "failureSummary": "Fix any of the following:
+    +   Element has insufficient color contrast of 4.3 (foreground color: #787a7d, background color: #ffffff, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +         "html": "<span>Navigation candidate long reference long reference long reference long reference long reference long reference long reference end copy 91</span>",
+    +         "impact": "serious",
+    +         "none": Array [],
+    +         "target": Array [
+    +           ".entry-group:nth-child(4) > .entry-node:nth-child(42) > .entry-row.entry-hidden > .entry-select[type=\"button\"] > .entry-copy > span",
+    +         ],
+    +       },
+    +       Object {
+    +         "all": Array [],
+    +         "any": Array [
+    +           Object {
+    +             "data": Object {
+    +               "bgColor": "#ffffff",
+    +               "contrastRatio": 4.3,
+    +               "expectedContrastRatio": "4.5:1",
+    +               "fgColor": "#787a7d",
+    +               "fontSize": "9.0pt (12px)",
+    +               "fontWeight": "normal",
+    +               "messageKey": null,
+    +             },
+    +             "id": "color-contrast",
+    +             "impact": "serious",
+    +             "message": "Element has insufficient color contrast of 4.3 (foreground color: #787a7d, background color: #ffffff, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +             "relatedNodes": Array [
+    +               Object {
+    +                 "html": "<section class=\"panel-content project-browser\" aria-label=\"Project browser\">",
+    +                 "target": Array [
+    +                   ".project-browser",
+    +                 ],
+    +               },
+    +             ],
+    +           },
+    +         ],
+    +         "failureSummary": "Fix any of the following:
+    +   Element has insufficient color contrast of 4.3 (foreground color: #787a7d, background color: #ffffff, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +         "html": "<span>Navigation candidate long reference long reference long reference long reference long reference long reference long reference end copy 92</span>",
+    +         "impact": "serious",
+    +         "none": Array [],
+    +         "target": Array [
+    +           ".entry-group:nth-child(4) > .entry-node:nth-child(43) > .entry-row.entry-hidden > .entry-select[type=\"button\"] > .entry-copy > span",
+    +         ],
+    +       },
+    +       Object {
+    +         "all": Array [],
+    +         "any": Array [
+    +           Object {
+    +             "data": Object {
+    +               "bgColor": "#ffffff",
+    +               "contrastRatio": 4.3,
+    +               "expectedContrastRatio": "4.5:1",
+    +               "fgColor": "#787a7d",
+    +               "fontSize": "9.0pt (12px)",
+    +               "fontWeight": "normal",
+    +               "messageKey": null,
+    +             },
+    +             "id": "color-contrast",
+    +             "impact": "serious",
+    +             "message": "Element has insufficient color contrast of 4.3 (foreground color: #787a7d, background color: #ffffff, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +             "relatedNodes": Array [
+    +               Object {
+    +                 "html": "<section class=\"panel-content project-browser\" aria-label=\"Project browser\">",
+    +                 "target": Array [
+    +                   ".project-browser",
+    +                 ],
+    +               },
+    +             ],
+    +           },
+    +         ],
+    +         "failureSummary": "Fix any of the following:
+    +   Element has insufficient color contrast of 4.3 (foreground color: #787a7d, background color: #ffffff, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +         "html": "<span>Navigation candidate long reference long reference long reference long reference long reference long reference long reference end copy 93</span>",
+    +         "impact": "serious",
+    +         "none": Array [],
+    +         "target": Array [
+    +           ".entry-group:nth-child(4) > .entry-node:nth-child(44) > .entry-row.entry-hidden > .entry-select[type=\"button\"] > .entry-copy > span",
+    +         ],
+    +       },
+    +       Object {
+    +         "all": Array [],
+    +         "any": Array [
+    +           Object {
+    +             "data": Object {
+    +               "bgColor": "#ffffff",
+    +               "contrastRatio": 4.3,
+    +               "expectedContrastRatio": "4.5:1",
+    +               "fgColor": "#787a7d",
+    +               "fontSize": "9.0pt (12px)",
+    +               "fontWeight": "normal",
+    +               "messageKey": null,
+    +             },
+    +             "id": "color-contrast",
+    +             "impact": "serious",
+    +             "message": "Element has insufficient color contrast of 4.3 (foreground color: #787a7d, background color: #ffffff, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +             "relatedNodes": Array [
+    +               Object {
+    +                 "html": "<section class=\"panel-content project-browser\" aria-label=\"Project browser\">",
+    +                 "target": Array [
+    +                   ".project-browser",
+    +                 ],
+    +               },
+    +             ],
+    +           },
+    +         ],
+    +         "failureSummary": "Fix any of the following:
+    +   Element has insufficient color contrast of 4.3 (foreground color: #787a7d, background color: #ffffff, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +         "html": "<span>Navigation candidate long reference long reference long reference long reference long reference long reference long reference end copy 94</span>",
+    +         "impact": "serious",
+    +         "none": Array [],
+    +         "target": Array [
+    +           ".entry-group:nth-child(4) > .entry-node:nth-child(45) > .entry-row.entry-hidden > .entry-select[type=\"button\"] > .entry-copy > span",
+    +         ],
+    +       },
+    +       Object {
+    +         "all": Array [],
+    +         "any": Array [
+    +           Object {
+    +             "data": Object {
+    +               "bgColor": "#ffffff",
+    +               "contrastRatio": 4.3,
+    +               "expectedContrastRatio": "4.5:1",
+    +               "fgColor": "#787a7d",
+    +               "fontSize": "9.0pt (12px)",
+    +               "fontWeight": "normal",
+    +               "messageKey": null,
+    +             },
+    +             "id": "color-contrast",
+    +             "impact": "serious",
+    +             "message": "Element has insufficient color contrast of 4.3 (foreground color: #787a7d, background color: #ffffff, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +             "relatedNodes": Array [
+    +               Object {
+    +                 "html": "<section class=\"panel-content project-browser\" aria-label=\"Project browser\">",
+    +                 "target": Array [
+    +                   ".project-browser",
+    +                 ],
+    +               },
+    +             ],
+    +           },
+    +         ],
+    +         "failureSummary": "Fix any of the following:
+    +   Element has insufficient color contrast of 4.3 (foreground color: #787a7d, background color: #ffffff, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +         "html": "<span>Navigation candidate long reference long reference long reference long reference long reference long reference long reference end copy 95</span>",
+    +         "impact": "serious",
+    +         "none": Array [],
+    +         "target": Array [
+    +           ".entry-group:nth-child(4) > .entry-node:nth-child(46) > .entry-row.entry-hidden > .entry-select[type=\"button\"] > .entry-copy > span",
+    +         ],
+    +       },
+    +       Object {
+    +         "all": Array [],
+    +         "any": Array [
+    +           Object {
+    +             "data": Object {
+    +               "bgColor": "#ffffff",
+    +               "contrastRatio": 4.3,
+    +               "expectedContrastRatio": "4.5:1",
+    +               "fgColor": "#787a7d",
+    +               "fontSize": "9.0pt (12px)",
+    +               "fontWeight": "normal",
+    +               "messageKey": null,
+    +             },
+    +             "id": "color-contrast",
+    +             "impact": "serious",
+    +             "message": "Element has insufficient color contrast of 4.3 (foreground color: #787a7d, background color: #ffffff, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +             "relatedNodes": Array [
+    +               Object {
+    +                 "html": "<section class=\"panel-content project-browser\" aria-label=\"Project browser\">",
+    +                 "target": Array [
+    +                   ".project-browser",
+    +                 ],
+    +               },
+    +             ],
+    +           },
+    +         ],
+    +         "failureSummary": "Fix any of the following:
+    +   Element has insufficient color contrast of 4.3 (foreground color: #787a7d, background color: #ffffff, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +         "html": "<span>Navigation candidate long reference long reference long reference long reference long reference long reference long reference end copy 96</span>",
+    +         "impact": "serious",
+    +         "none": Array [],
+    +         "target": Array [
+    +           ".entry-group:nth-child(4) > .entry-node:nth-child(47) > .entry-row.entry-hidden > .entry-select[type=\"button\"] > .entry-copy > span",
+    +         ],
+    +       },
+    +       Object {
+    +         "all": Array [],
+    +         "any": Array [
+    +           Object {
+    +             "data": Object {
+    +               "bgColor": "#ffffff",
+    +               "contrastRatio": 4.3,
+    +               "expectedContrastRatio": "4.5:1",
+    +               "fgColor": "#787a7d",
+    +               "fontSize": "9.0pt (12px)",
+    +               "fontWeight": "normal",
+    +               "messageKey": null,
+    +             },
+    +             "id": "color-contrast",
+    +             "impact": "serious",
+    +             "message": "Element has insufficient color contrast of 4.3 (foreground color: #787a7d, background color: #ffffff, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +             "relatedNodes": Array [
+    +               Object {
+    +                 "html": "<section class=\"panel-content project-browser\" aria-label=\"Project browser\">",
+    +                 "target": Array [
+    +                   ".project-browser",
+    +                 ],
+    +               },
+    +             ],
+    +           },
+    +         ],
+    +         "failureSummary": "Fix any of the following:
+    +   Element has insufficient color contrast of 4.3 (foreground color: #787a7d, background color: #ffffff, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +         "html": "<span>Navigation candidate long reference long reference long reference long reference long reference long reference long reference end copy 97</span>",
+    +         "impact": "serious",
+    +         "none": Array [],
+    +         "target": Array [
+    +           ".entry-group:nth-child(4) > .entry-node:nth-child(48) > .entry-row.entry-hidden > .entry-select[type=\"button\"] > .entry-copy > span",
+    +         ],
+    +       },
+    +       Object {
+    +         "all": Array [],
+    +         "any": Array [
+    +           Object {
+    +             "data": Object {
+    +               "bgColor": "#ffffff",
+    +               "contrastRatio": 4.3,
+    +               "expectedContrastRatio": "4.5:1",
+    +               "fgColor": "#787a7d",
+    +               "fontSize": "9.0pt (12px)",
+    +               "fontWeight": "normal",
+    +               "messageKey": null,
+    +             },
+    +             "id": "color-contrast",
+    +             "impact": "serious",
+    +             "message": "Element has insufficient color contrast of 4.3 (foreground color: #787a7d, background color: #ffffff, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +             "relatedNodes": Array [
+    +               Object {
+    +                 "html": "<section class=\"panel-content project-browser\" aria-label=\"Project browser\">",
+    +                 "target": Array [
+    +                   ".project-browser",
+    +                 ],
+    +               },
+    +             ],
+    +           },
+    +         ],
+    +         "failureSummary": "Fix any of the following:
+    +   Element has insufficient color contrast of 4.3 (foreground color: #787a7d, background color: #ffffff, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +         "html": "<span>Navigation candidate long reference long reference long reference long reference long reference long reference long reference end copy 98</span>",
+    +         "impact": "serious",
+    +         "none": Array [],
+    +         "target": Array [
+    +           ".entry-group:nth-child(4) > .entry-node:nth-child(49) > .entry-row.entry-hidden > .entry-select[type=\"button\"] > .entry-copy > span",
+    +         ],
+    +       },
+    +       Object {
+    +         "all": Array [],
+    +         "any": Array [
+    +           Object {
+    +             "data": Object {
+    +               "bgColor": "#ffffff",
+    +               "contrastRatio": 4.3,
+    +               "expectedContrastRatio": "4.5:1",
+    +               "fgColor": "#787a7d",
+    +               "fontSize": "9.0pt (12px)",
+    +               "fontWeight": "normal",
+    +               "messageKey": null,
+    +             },
+    +             "id": "color-contrast",
+    +             "impact": "serious",
+    +             "message": "Element has insufficient color contrast of 4.3 (foreground color: #787a7d, background color: #ffffff, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +             "relatedNodes": Array [
+    +               Object {
+    +                 "html": "<section class=\"panel-content project-browser\" aria-label=\"Project browser\">",
+    +                 "target": Array [
+    +                   ".project-browser",
+    +                 ],
+    +               },
+    +             ],
+    +           },
+    +         ],
+    +         "failureSummary": "Fix any of the following:
+    +   Element has insufficient color contrast of 4.3 (foreground color: #787a7d, background color: #ffffff, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1",
+    +         "html": "<span>Navigation candidate long reference long reference long reference long reference long reference long reference long reference end copy 99</span>",
+    +         "impact": "serious",
+    +         "none": Array [],
+    +         "target": Array [
+    +           ".entry-group:nth-child(4) > .entry-node:nth-child(50) > .entry-row.entry-hidden > .entry-select[type=\"button\"] > .entry-copy > span",
+    +         ],
+    +       },
+    +     ],
+    +     "tags": Array [
+    +       "cat.color",
+    +       "wcag2aa",
+    +       "wcag143",
+    +       "TTv5",
+    +       "TT13.c",
+    +       "EN-301-549",
+    +       "EN-9.1.4.3",
+    +       "ACT",
+    +     ],
+    +   },
+    + ]
+
+      129 |   for (const theme of ["light", "dark"] as const) {
+      130 |     if (theme === "dark") await page.getByRole("button", { name:"Use dark theme", exact:true }).click();
+    > 131 |     expect((await new AxeBuilder({ page }).include(".project-browser").withTags(["wcag2a","wcag2aa","wcag21aa","wcag22aa"]).analyze()).violations).toEqual([]);
+          |                                                                                                                                                    ^
+      132 |     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+      133 |     await page.screenshot({ path:info.outputPath(`many-entries-${theme}.png`) });
+      134 |   }
+        at /datadisk/dev/neistra/tests/e2e/project-navigation.spec.ts:131:148
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/project-navigation-keeps-t-0681d-ths-and-responsive-remounts-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/project-navigation-keeps-t-0681d-ths-and-responsive-remounts-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/project-navigation-keeps-t-0681d-ths-and-responsive-remounts-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/project-navigation-keeps-t-0681d-ths-and-responsive-remounts-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [chromium] › tests/e2e/rebranding-zoom.spec.ts:59:5 › keeps actions and dialogs reachable at real 100% and 200% browser zoom
+
+    TimeoutError: locator.click: Timeout 15000ms exceeded.
+    Call log:
+      - waiting for getByRole('menuitem', { name: 'Components', exact: true })
+        - locator resolved to <div tabindex="-1" role="menuitem" class="dropdown-item" data-orientation="vertical" data-radix-collection-item="">…</div>
+      - attempting click action
+        2 × waiting for element to be visible, enabled and stable
+          - element is visible, enabled and stable
+          - scrolling into view if needed
+          - done scrolling
+          - element is outside of the viewport
+        - retrying click action
+        - waiting 20ms
+        2 × waiting for element to be visible, enabled and stable
+          - element is visible, enabled and stable
+          - scrolling into view if needed
+          - done scrolling
+          - element is outside of the viewport
+        - retrying click action
+          - waiting 100ms
+        28 × waiting for element to be visible, enabled and stable
+           - element is visible, enabled and stable
+           - scrolling into view if needed
+           - done scrolling
+           - element is outside of the viewport
+         - retrying click action
+           - waiting 500ms
+
+
+       at support/navigation.ts:11
+
+       9 |   await showEntries(page);
+      10 |   await page.getByRole("button", { name: `Actions for ${entryName}`, exact: true }).click();
+    > 11 |   await page.getByRole("menuitem", { name: "Components", exact: true }).click();
+         |                                                                         ^
+      12 |   await expect(page.locator(".component-parent")).toContainText(entryName);
+      13 | }
+      14 |
+        at browseComponents (/datadisk/dev/neistra/tests/e2e/support/navigation.ts:11:73)
+        at /datadisk/dev/neistra/tests/e2e/rebranding-zoom.spec.ts:101:9
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/rebranding-zoom-keeps-acti-776d5-al-100-and-200-browser-zoom-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    [chromium] › tests/e2e/project-navigation.spec.ts:69:5 › keeps two hundred grouped long-name entries usable at narrow widths and responsive remounts
+    [chromium] › tests/e2e/rebranding-zoom.spec.ts:59:5 › keeps actions and dialogs reachable at real 100% and 200% browser zoom
+  3 skipped
+  49 passed (11.2m)

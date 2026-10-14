@@ -1,0 +1,57 @@
+
+ RUN  v3.2.4 /datadisk/dev/neistra/apps/web
+
+ ❯ src/test/project-navigation.test.tsx (8 tests | 1 failed | 7 skipped) 390ms
+   ↓ keeps explicit browsing independent of selection, remembers expansion across targets and remounts
+   ↓ retains filtered browsing, clears deletion and project changes, and does not reactivate on Undo
+   ↓ exposes complete metadata and warnings by keyboard and returns to the entry menu
+   ↓ keeps late previous-entry data out of the current pane and retries a failed load
+   ↓ separates disclosure, label and Details and restores the component launcher
+   ↓ preserves coordinate expansion and reconciles a removed focused category to the pane heading
+   ↓ keeps an external text interaction focused when molecular artifacts refresh
+   × discards an outgoing Components focus callback after a project switch 389ms
+     → expect(element).toHaveFocus()
+
+Expected element with focus:
+  <input
+  placeholder="Search structures"
+  value=""
+/>
+Received element with focus:
+  <h3
+  tabindex="-1"
+>
+  Components
+</h3>
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/test/project-navigation.test.tsx > discards an outgoing Components focus callback after a project switch
+Error: expect(element).toHaveFocus()
+
+Expected element with focus:
+  <input
+  placeholder="Search structures"
+  value=""
+/>
+Received element with focus:
+  <h3
+  tabindex="-1"
+>
+  Components
+</h3>
+ ❯ src/test/project-navigation.test.tsx:202:18
+    200|   const search = screen.getByPlaceholderText("Search structures"); sea…
+    201|   for (const callback of pending) callback(0);
+    202|   expect(search).toHaveFocus();
+       |                  ^
+    203|   expect(useNavigationStore.getState().inspectedEntryId).toBeNull();
+    204| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 7 skipped (8)
+   Start at  22:04:55
+   Duration  1.55s (transform 199ms, setup 91ms, collect 449ms, tests 390ms, environment 322ms, prepare 74ms)

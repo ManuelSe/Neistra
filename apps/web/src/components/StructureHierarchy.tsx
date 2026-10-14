@@ -16,6 +16,7 @@ interface StructureHierarchyProps {
   projectId: string; entry: Entry; selection: Selection;
   onSelect: (selection: Selection, mode: SelectionMode) => void;
   onVisibility: (entry: Entry, key: VisibilityKey) => void;
+  onFocusFallback?: () => void;
 }
 interface CategoryDefinition { category: ComponentCategory; label: string; visibility?: VisibilityKey }
 const CATEGORIES: CategoryDefinition[] = [
@@ -35,7 +36,7 @@ type HierarchyRow = { key: string; definition: CategoryDefinition; members: numb
   { kind: "category"; components: MolecularComponent[] } | { kind: "component"; component: MolecularComponent }
 );
 
-function VirtualHierarchy({ projectId, entry, selection, onSelect, onVisibility, projection }: StructureHierarchyProps & { projection: StructureProjection }) {
+function VirtualHierarchy({ projectId, entry, selection, onSelect, onVisibility, onFocusFallback, projection }: StructureHierarchyProps & { projection: StructureProjection }) {
   const browsing = useNavigationStore(state => state.projectId === projectId ? state.entries[entry.id] ?? emptyBrowsingState : emptyBrowsingState);
   const coarse = useMediaQuery("(any-pointer: coarse), (max-width: 840px)");
   const rowHeight = coarse ? 44 : 32;
@@ -81,10 +82,13 @@ function VirtualHierarchy({ projectId, entry, selection, onSelect, onVisibility,
       const parent = `category:${focusedCategory.current}`;
       const fallback = positions.has(parent) ? parent : rows[0]?.key ?? null;
       setFocusedKey(fallback);
-      if (ownsFocus.current && document.hasFocus()) setFocusRequest(fallback);
+      if (ownsFocus.current && document.hasFocus()) {
+        if (positions.has(parent)) setFocusRequest(parent);
+        else onFocusFallback?.();
+      }
     }
     if (detailsKey && detailsKey !== "warnings" && !positions.has(detailsKey)) setDetailsKey(null);
-  }, [focusedKey, positions, rows, detailsKey]);
+  }, [focusedKey, positions, rows, detailsKey, onFocusFallback]);
   useLayoutEffect(() => {
     if (focusRequest && labelNodes.current.has(focusRequest)) {
       labelNodes.current.get(focusRequest)?.focus(); setFocusRequest(null);
@@ -136,7 +140,11 @@ function VirtualHierarchy({ projectId, entry, selection, onSelect, onVisibility,
     if (useNavigationStore.getState().projectId !== projectId || useNavigationStore.getState().inspectedEntryId !== entry.id) return;
     const node = lastDetailsKey.current === "warnings" ? warningsLauncher.current : detailsNodes.current.get(lastDetailsKey.current ?? "");
     if (node?.isConnected) node.focus();
-    else { const fallback = rows.find(row => row.kind === "category")?.key; if (fallback) { setFocusedKey(fallback); setFocusRequest(fallback); virtualizer.scrollToIndex(positions.get(fallback) ?? 0); } else scroller.current?.focus(); }
+    else {
+      const parent = `category:${focusedCategory.current}`;
+      if (positions.has(parent)) { setFocusedKey(parent); setFocusRequest(parent); virtualizer.scrollToIndex(positions.get(parent)!); }
+      else onFocusFallback?.();
+    }
   };
   return <>
     {projection.hierarchy.warnings.length ? <button ref={warningsLauncher} type="button" className="hierarchy-warning-summary"
@@ -165,11 +173,12 @@ function VirtualHierarchy({ projectId, entry, selection, onSelect, onVisibility,
               onFocus={() => focusRow(row)} onClick={() => toggle(row)}>{open ? <ChevronDown size={14} /> : <ChevronRight size={14} />}</button> : <span className="hierarchy-indent" aria-hidden="true" />}
             <button ref={node => { if (node) labelNodes.current.set(row.key, node); else labelNodes.current.delete(row.key); }}
               type="button" className={isCategory ? "hierarchy-select" : "hierarchy-component"} tabIndex={active ? 0 : -1}
-              aria-label={`Select ${label} in ${entry.name}`} aria-pressed={membershipSelectedState(row.members, selectedIds)}
+              aria-label={`Select ${label} in ${entry.name}`} aria-describedby={warningCount ? `${entry.id}-${row.key}-warnings` : undefined} aria-pressed={membershipSelectedState(row.members, selectedIds)}
               onFocus={() => focusRow(row)} onClick={event => onSelect(isCategory ? indexedCategorySelection(entry.id, row.members) : indexedComponentSelection(entry.id, row.component, row.members), selectionMode(event.nativeEvent))}>
               <span>{label}</span>{isCategory ? <small aria-label={`${row.components.length} components`}>{row.components.length}</small> : null}
-              {warningCount ? <AlertTriangle size={13} className="entry-warning" aria-label={`${warningCount} warnings; open Details`} /> : null}
+              {warningCount ? <AlertTriangle size={13} className="entry-warning" aria-hidden="true" /> : null}
             </button>
+            {warningCount ? <span className="sr-only" id={`${entry.id}-${row.key}-warnings`}>{warningCount} {warningCount === 1 ? "warning" : "warnings"}. Open Details for complete messages.</span> : null}
             {isCategory && visibility ? <IconButton tabIndex={active ? 0 : -1} label={`${visible ? "Hide" : "Show"} ${visibilityScope(visibility)} in ${entry.name}`}
               onFocus={() => focusRow(row)} onClick={() => onVisibility(entry, visibility)}>{visible ? <Eye size={14} /> : <EyeOff size={14} />}</IconButton> : null}
             <IconButton ref={node => { if (node) detailsNodes.current.set(row.key, node); else detailsNodes.current.delete(row.key); }} tabIndex={active ? 0 : -1}
@@ -183,11 +192,20 @@ function VirtualHierarchy({ projectId, entry, selection, onSelect, onVisibility,
 }
 
 export function StructureHierarchy(props: StructureHierarchyProps) {
-  const { projectId, entry } = props;
+  const { projectId, entry, onFocusFallback } = props;
+  const ownsFocus = useRef(false);
+  const artifact = useRef(entry.current_artifact_id);
   const query = useQuery({ queryKey: ["structure", projectId, entry.id, entry.current_artifact_id],
     queryFn: () => molecularApi.structure(projectId, entry.id), retry: false, staleTime: Number.POSITIVE_INFINITY });
-  if (query.isPending) return <div className="hierarchy-loading" role="status"><LoaderCircle size={14} /> Loading components</div>;
-  if (query.isError || !query.data) return <div className="hierarchy-error" role="alert">Component hierarchy unavailable
-    <button type="button" onClick={() => void query.refetch()}>Retry components</button></div>;
-  return <VirtualHierarchy key={`${projectId}:${entry.id}`} {...props} projection={query.data} />;
+  useLayoutEffect(() => {
+    if (artifact.current !== entry.current_artifact_id && ownsFocus.current && document.hasFocus()) onFocusFallback?.();
+    artifact.current = entry.current_artifact_id;
+  }, [entry.current_artifact_id, onFocusFallback]);
+  return <div className="hierarchy-shell" onFocusCapture={() => { ownsFocus.current = true; }}
+    onBlurCapture={event => { if (event.relatedTarget instanceof Node && !event.currentTarget.contains(event.relatedTarget)) ownsFocus.current = false; }}>
+    {query.isPending ? <div className="hierarchy-loading" role="status"><LoaderCircle size={14} /> Loading components</div>
+      : query.isError || !query.data ? <div className="hierarchy-error" role="alert">Component hierarchy unavailable
+        <button type="button" onClick={() => void query.refetch()}>Retry components</button></div>
+        : <VirtualHierarchy key={`${projectId}:${entry.id}`} {...props} projection={query.data} />}
+  </div>;
 }

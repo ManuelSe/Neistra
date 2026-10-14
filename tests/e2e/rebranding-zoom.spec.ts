@@ -1,3 +1,4 @@
+import { browseComponents, showEntries } from "./support/navigation";
 import type { Project } from "../../apps/web/src/api/types";
 import AxeBuilder from "@axe-core/playwright";
 import { chromium, expect, test, type Page, type TestInfo, type Worker } from "@playwright/test";
@@ -57,7 +58,7 @@ async function captureZoomPage(page: Page, info: TestInfo, name: string) {
 
 test("keeps actions and dialogs reachable at real 100% and 200% browser zoom", async ({ request, baseURL }, info) => {
   test.skip(info.project.name !== "chromium", "Real desktop browser zoom is separate from mobile emulation.");
-  test.setTimeout(120_000);
+  test.setTimeout(240_000);
   const extension = resolve("tests/e2e/support/zoom-extension");
   const profile = await mkdtemp(join(tmpdir(), "neistra-zoom-qualification-"));
   // A null emulated viewport is essential: a forced CSS viewport masks real zoom.
@@ -96,6 +97,19 @@ test("keeps actions and dialogs reachable at real 100% and 200% browser zoom", a
         await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded");
         await expectBoundedActions(page);
         await captureZoomPage(page, info, `${theme}-${factor * 100}-workspace.png`);
+        if (factor === 2) await page.getByRole("button", { name: "Project browser", exact: true }).click();
+        await browseComponents(page, imported.entries[0].name);
+        const navigation = page.locator(".project-browser");
+        await expect(page.locator(".hierarchy-category").first()).toBeVisible();
+        expect((await new AxeBuilder({ page }).include(".project-browser").analyze()).violations).toEqual([]);
+        expect(await navigation.evaluate(node => node.scrollWidth <= node.clientWidth + 1)).toBe(true);
+        await captureZoomPage(page, info, `${theme}-${factor * 100}-navigation.png`);
+        await showEntries(page);
+        await page.getByRole("button", { name: `Actions for ${imported.entries[0].name}`, exact: true }).click();
+        await page.getByRole("menuitem", { name: "Details", exact: true }).click();
+        await expect(page.getByRole("dialog", { name: "Entry details" })).toContainText(imported.entries[0].original_filename!);
+        await page.keyboard.press("Escape");
+        if (factor === 2) await page.getByRole("button", { name: "Close panel", exact: true }).click();
         const interactionsLauncher = page.getByRole("button", { name: "Interactions", exact: true });
         await interactionsLauncher.focus(); await page.keyboard.press("Enter");
         const interactions = page.getByRole("dialog", { name: "Interactions", exact: true });

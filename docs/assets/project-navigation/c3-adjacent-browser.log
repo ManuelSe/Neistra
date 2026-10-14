@@ -1,0 +1,70 @@
+[WebServer] INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+[WebServer] INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade  -> 0001, Create Milestone 1 project workspace tables.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0001 -> 0002, Version existing project checkpoint snapshots.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0002 -> 0003, Add artifact-backed molecular entry summaries.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0003 -> 0004, Add durable named atom selections.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0004 -> 0005, Add viewer settings, measurements, and named scenes.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0005 -> 0006, Add exact atom identity summaries and monotonic edit allocators.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0006 -> 0007, Add durable generic job lifecycle tables.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0007 -> 0008, Add durable selection representation assignments to viewer settings.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0008 -> 0009, Add durable nonpolar-hydrogen visibility to viewer settings.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0009 -> 0010, Add selection appearance defaults without losing retained history.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0010 -> 0011, Add selection surface defaults without losing retained history.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0011 -> 0012, Add atomic-detail visibility defaults without losing retained history.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0012 -> 0013, Add pocket surface defaults without losing retained history.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0013 -> 0014, Migrate every retained viewer snapshot to identified surface objects.
+[WebServer] INFO:     Started server process [750907]
+[WebServer] INFO:     Waiting for application startup.
+[WebServer] INFO:     Application startup complete.
+[WebServer] INFO:     Uvicorn running on http://127.0.0.1:8020 (Press CTRL+C to quit)
+[WebServer] (node:751034) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:751046) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 32 tests using 1 worker
+
+(node:751072) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:751072) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [chromium] › tests/e2e/group-membership.spec.ts:53:5 › moves filtered selected batches, preserves molecular state, and supports keyboard/touch and history (10.0s)
+  ✓   2 [chromium] › tests/e2e/group-membership.spec.ts:123:5 › rejects stale-tab actions and keeps a partial selection scoped to its complete entry (5.8s)
+  ✓   3 [chromium] › tests/e2e/group-membership.spec.ts:148:5 › uses real desktop drags for batches, collapsed/empty destinations, Ungrouped, and exact no-ops (6.0s)
+  ✓   4 [chromium] › tests/e2e/group-membership.spec.ts:212:5 › keeps a live molecular viewer and prepared surface unchanged during membership edits (7.8s)
+  ✓   5 [chromium] › tests/e2e/group-membership.spec.ts:287:7 › keeps late membership success feedback and focus in its captured project (4.8s)
+  ✓   6 [chromium] › tests/e2e/group-membership.spec.ts:287:7 › keeps late membership conflict feedback and focus in its captured project (4.8s)
+  ✓   7 [chromium] › tests/e2e/group-membership.spec.ts:336:5 › restores group action focus across repeated accepted row remounts (8.3s)
+  ✓   8 [chromium] › tests/e2e/project-navigation.spec.ts:25:5 › keeps compact entries independent from component expansion, selection and metadata (4.8s)
+  ✓   9 [chromium] › tests/e2e/project-navigation.spec.ts:69:5 › keeps two hundred grouped long-name entries usable at narrow widths and responsive remounts (26.4s)
+  ✓  10 [chromium] › tests/e2e/project-navigation.spec.ts:151:5 › virtualizes ten thousand real normalized components and reaches off-screen rows by keyboard (27.2s)
+  ✓  11 [chromium] › tests/e2e/selection-styling.spec.ts:224:5 › styles a 1STP complex without changing scientific or transient state (14.0s)
+  ✓  12 [chromium] › tests/e2e/selection-styling.spec.ts:374:5 › keeps ion, water, and covalent-boundary targets exact (6.3s)
+  -  13 [chromium] › tests/e2e/selection-styling.spec.ts:437:5 › keeps the selection styling dialog bounded and keyboard-operable on Pixel 7
+  ✓  14 [chromium] › tests/e2e/structure-hierarchy.spec.ts:116:5 › synchronizes hierarchy selection, visibility, focus, persistence, and WebGL (9.6s)
+  -  15 [chromium] › tests/e2e/structure-hierarchy.spec.ts:249:5 › keeps the hierarchy keyboard-operable and bounded in the Pixel 7 drawer
+  ✓  16 [chromium] › tests/e2e/synchronized-selection.spec.ts:103:5 › keeps browser, sequence, inspector, viewer, and saved selection synchronized (11.3s)
+(node:751712) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:751712) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  17 [mobile-chromium] › tests/e2e/group-membership.spec.ts:53:5 › moves filtered selected batches, preserves molecular state, and supports keyboard/touch and history (9.8s)
+  ✓  18 [mobile-chromium] › tests/e2e/group-membership.spec.ts:123:5 › rejects stale-tab actions and keeps a partial selection scoped to its complete entry (5.8s)
+  -  19 [mobile-chromium] › tests/e2e/group-membership.spec.ts:148:5 › uses real desktop drags for batches, collapsed/empty destinations, Ungrouped, and exact no-ops
+  ✓  20 [mobile-chromium] › tests/e2e/group-membership.spec.ts:212:5 › keeps a live molecular viewer and prepared surface unchanged during membership edits (8.3s)
+  ✓  21 [mobile-chromium] › tests/e2e/group-membership.spec.ts:287:7 › keeps late membership success feedback and focus in its captured project (4.8s)
+  ✓  22 [mobile-chromium] › tests/e2e/group-membership.spec.ts:287:7 › keeps late membership conflict feedback and focus in its captured project (4.4s)
+  ✓  23 [mobile-chromium] › tests/e2e/group-membership.spec.ts:336:5 › restores group action focus across repeated accepted row remounts (9.0s)
+  ✓  24 [mobile-chromium] › tests/e2e/project-navigation.spec.ts:25:5 › keeps compact entries independent from component expansion, selection and metadata (4.7s)
+  ✓  25 [mobile-chromium] › tests/e2e/project-navigation.spec.ts:69:5 › keeps two hundred grouped long-name entries usable at narrow widths and responsive remounts (14.5s)
+  ✓  26 [mobile-chromium] › tests/e2e/project-navigation.spec.ts:151:5 › virtualizes ten thousand real normalized components and reaches off-screen rows by keyboard (13.6s)
+  -  27 [mobile-chromium] › tests/e2e/selection-styling.spec.ts:224:5 › styles a 1STP complex without changing scientific or transient state
+  -  28 [mobile-chromium] › tests/e2e/selection-styling.spec.ts:374:5 › keeps ion, water, and covalent-boundary targets exact
+  ✓  29 [mobile-chromium] › tests/e2e/selection-styling.spec.ts:437:5 › keeps the selection styling dialog bounded and keyboard-operable on Pixel 7 (4.1s)
+  -  30 [mobile-chromium] › tests/e2e/structure-hierarchy.spec.ts:116:5 › synchronizes hierarchy selection, visibility, focus, persistence, and WebGL
+  ✓  31 [mobile-chromium] › tests/e2e/structure-hierarchy.spec.ts:249:5 › keeps the hierarchy keyboard-operable and bounded in the Pixel 7 drawer (3.4s)
+  -  32 [mobile-chromium] › tests/e2e/synchronized-selection.spec.ts:103:5 › keeps browser, sequence, inspector, viewer, and saved selection synchronized
+
+  7 skipped
+  25 passed (3.9m)
