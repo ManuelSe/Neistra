@@ -1,8 +1,9 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import * as Tooltip from "@radix-ui/react-tooltip";
 import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { useState, type ReactElement } from "react";
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { ProjectBrowser } from "../components/ProjectBrowser";
 import type { Entry, SelectionMode } from "../api/types";
 import { molecularProject } from "./molecular-fixtures";
@@ -20,13 +21,14 @@ const actions = {
 };
 
 function renderBrowser(element: ReactElement) {
-  return render(<Tooltip.Provider>{element}</Tooltip.Provider>);
+  return render(<QueryClientProvider client={new QueryClient({ defaultOptions: { queries: { retry: false } } })}><Tooltip.Provider>{element}</Tooltip.Provider></QueryClientProvider>);
 }
 
 describe("project browser selection and discovery", () => {
   afterEach(() => {
     cleanup();
     vi.clearAllMocks();
+    vi.restoreAllMocks();
   });
 
   it("searches, filters, sorts, and collapses grouped entries", async () => {
@@ -38,6 +40,7 @@ describe("project browser selection and discovery", () => {
       expect.stringContaining("Receptor"),
       expect.stringContaining("Ligand"),
     ]);
+    await user.click(screen.getByText("Filter and sort"));
     await user.selectOptions(screen.getByLabelText("Sort structures"), "atoms");
     expect(listbox.querySelectorAll(".entry-select")[0]).toHaveTextContent("Receptor");
     await user.type(screen.getByPlaceholderText("Search structures"), "lig");
@@ -91,7 +94,7 @@ describe("project browser selection and discovery", () => {
     expect(screen.getByText("No matching structures")).toBeVisible();
     expect(screen.getByText("Empty")).toBeVisible();
     expect(screen.getByText("Target")).toBeVisible();
-    rerender(<Tooltip.Provider><ProjectBrowser project={{ ...project, entries: [] }} {...actions} /></Tooltip.Provider>);
+    rerender(<QueryClientProvider client={new QueryClient()}><Tooltip.Provider><ProjectBrowser project={{ ...project, entries: [] }} {...actions} /></Tooltip.Provider></QueryClientProvider>);
     expect(screen.getByText("No structures")).toBeVisible();
     expect(screen.getByText("Target")).toBeVisible();
     expect(screen.getByText("Empty")).toBeVisible();
@@ -120,5 +123,12 @@ describe("project browser selection and discovery", () => {
     await waitFor(() => expect(onMenuClose).toHaveBeenCalledOnce());
     expect(original.isConnected).toBe(false);
     expect(screen.getByRole("button", { name: "Actions for Receptor" })).toHaveFocus();
+  });
+});
+
+beforeEach(() => {
+  // JSDOM has no layout: place resize handles away from pointer origin.
+  vi.spyOn(HTMLElement.prototype, "getBoundingClientRect").mockImplementation(function (this: HTMLElement) {
+    return this.hasAttribute("data-panel-resize-handle-id") ? new DOMRect(1000, 1000, 6, 100) : new DOMRect(0, 0, 320, 800);
   });
 });

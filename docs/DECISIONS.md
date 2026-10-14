@@ -3416,3 +3416,146 @@ the current scene. Native desktop/mobile tests deliberately hold the rebuild que
 click old surface pixels, verify unchanged atom selection, then release the rebuild
 and activate the current complete object. The diagnostic reproduced zero-to-one
 atom selection before this guard; both viewports pass after it.
+
+## D-097 — Independent component browsing context
+
+Date: 2026-10-14. Status: accepted by explicit approval of the issue #59 plan;
+runtime implementation not started.
+
+Decision:
+
+Separate compact entry management from component browsing using a desktop
+vertical split and mobile Entries/Components tabs. Entry-name activation retains
+the existing canonical molecular-selection operation and synchronously sets the
+inspected entry. An explicit Components action changes browsing context alone.
+Component/category selection, viewer picks, group selection, visibility changes,
+and surface activation do not implicitly retarget the browser.
+
+Own the inspected entry, per-entry expansion, and scroll state in a typed transient
+application session store that survives responsive component remounts. Keep the
+target while its entry is filtered, regrouped, collapsed, hidden, renamed, or
+deselected. Clear on project change and target deletion; Undo does not implicitly
+reactivate it. Reconcile current IDs and focus/scroll after topology changes.
+Persist only panel size/collapse preferences through the existing safe workspace
+storage. Never copy molecular payloads, derived hierarchy, or this browse context
+into project snapshots, history, named scenes, or archives.
+
+Use existing artifact-keyed TanStack Query structures and D-045 memberships.
+Selection continues to consume D-018 canonical atom references. Separate label,
+disclosure, visibility, and Details controls so browsing and focus cannot become
+another molecular-selection authority. Expose all classification provenance and
+warnings through keyboard/touch-accessible details. Preserve explicit shared
+Protein/Ligands/Solvent/Ions visibility scope; individual persisted component
+visibility is outside this contract.
+
+The approved continuous virtual component list uses stable IDs, bounded overscan,
+focus retention, and keyboard navigation to off-screen rows. Full-category
+selection includes unmounted members. Build an artifact-keyed membership index
+instead of rescanning every atom for each row. Native list/button semantics remain
+application-owned; an incomplete ARIA tree is not introduced.
+
+Rationale:
+
+Inline expanded hierarchies displace other entries and conflate the molecule being
+inspected with the current molecular selection. Independent browsing preserves a
+scientist's context while selections span components or entries. Session ownership
+keeps scientific project state authoritative and avoids migrations for navigation.
+Virtualization bounds DOM growth while explicit provenance, visibility scope, and
+complete canonical operands preserve scientific meaning.
+
+Consequences:
+
+- [Issue #59 contract](plans/issue-59-compact-project-navigation.md) governs
+  implementation and evidence. C0 approval/persistence does not claim runtime
+  functionality; stop ready for `/goal`.
+- This supersedes only D-045's inline per-entry hierarchy presentation, not its
+  classification, stable identity, membership, query, or scientific boundaries.
+  D-013, D-018/019, D-071, and D-090–096 remain authoritative.
+- No API, molecular, job/plugin, migration, or archive shape change. Head remains
+  0014; project/viewer/archive schemas2 and normalized/selection schemas1 remain.
+- The planned minor release is0.15.0, with actual taggedv0.14.0 compatibility
+  qualification before claiming rollback safety. Additive layout preferences are
+  not a database migration; rollback restores the earlier navigation workflow.
+- Entry-list virtualization, durable browsing context, component overrides/export,
+  surface redesign, carbon defaults, and charge chemistry remain outside scope.
+
+### D-097 implementation note — issue #59 C1, 2026-10-14
+
+The new browser reuses the existing revisioned entry/group/viewer actions and
+artifact-keyed query. App-level project/deletion reconciliation keeps navigation
+correct even while a desktop panel or mobile drawer is unmounted. Only split/
+collapse preferences are persisted; expansion and scroll remain session state.
+
+Components/Details handoff suppresses outgoing menu launcher restoration. Entry
+Details initially focuses its dialog container, rather than its tooltip-bearing
+Close action: a focused tooltip otherwise consumes the first Escape. Both mobile
+tab-panel identifiers remain in the DOM even when their inactive content is
+unmounted, preserving valid aria-controls. These are focus/semantics corrections,
+not changes to molecular selection, scientific state, or the API.
+
+### D-097 implementation note — issue #59 C2, 2026-10-14
+
+The compact pane uses native list/listitem/button semantics, logical row positions
+and total count, complete Up/Down/Home/End navigation, and independent controls.
+Only the active row's controls join the tab sequence; keyboard movement focuses
+off-screen labels without selecting. Stable ID keys and at most two additional
+focus/Details rows keep virtual DOM membership bounded. Category activation uses
+the complete cached operand, never the visible window.
+
+Build normalized residue-to-atom and component/category indexes from the current
+artifact projection. Preserve the existing component granularity and canonical
+selection algebra exactly, including covalent boundaries and explicit orphan IDs.
+This is a browser lookup optimization, not scientific reclassification. Warning
+and provenance Details retains complete text. Water and other solvent keep their
+shared Solvent control; duplicate shared-control names are scoped to their category
+row in tests, rather than inventing separate visibility preferences.
+
+Pin the approved TanStack adapter3.14.19/core3.19.4 without incidental dependency
+upgrades. React19 ref props add typed IconButton ref support for focus restoration.
+Generated O-only water fixtures qualify navigation with real normalized identities;
+they do not certify preparation chemistry or a realistic solvent environment.
+
+### D-097 qualification note — issue #59 C3, 2026-10-14
+
+Qualification reproduced loss of owned focus when an artifact-key change replaces
+the hierarchy with a loading state. A stable shell tracks focus ownership across
+that transition and returns it to the pane heading; an external text interaction
+keeps its focus. Removed current rows return to their surviving category or the
+heading. No stale molecular payload is retained as selectable placeholder data.
+
+The many-entry case reproduced insufficient contrast from hidden-row opacity.
+Use the existing contrast-qualified muted text token while preserving readable
+controls and warning indicators. Component warning counts are explicit accessible
+descriptions, rather than relying on an SVG inside an explicitly named button.
+
+Actual200% browser zoom reproduced an entry menu extending beyond the viewport.
+Bound the existing Radix portal menu to its runtime available height and viewport,
+with internal scrolling. This preserves all entry actions and their keyboard
+behavior. The expanded four-theme/zoom workflow has a240-second harness deadline;
+its geometry, hit-testing, contrast, focus and scientific assertions are unchanged.
+The pinned Radix runtime height variable is explicitly identified in token tests.
+
+These repairs stay within navigation/focus/accessibility scope. No API, molecular
+model, classification, job, archive shape or migration change is introduced.
+
+Local C3 review also reproduced a queued Components focus callback targeting a
+new project's heading after a switch. Guard the callback with its captured project
+and inspected entry. The fake-frame regression fails before repair and passes
+afterward; superseded browser qualification is recorded separately and restarted
+on corrected source. No older project's delayed UI work owns current focus.
+
+The real-zoom workflow subsequently reproduced a Details closing callback taking
+focus from the already focused Interactions launcher; Enter then reopened the old
+entry menu. Both Details dialogs now preserve a later meaningful connected control
+and restore only when their closing scope still needs restoration. Entry return
+targets retain project/entry identity and resolve remounted launchers by ID; an
+old project cannot focus a new project's heading. Focused regressions cover both
+dialog kinds, while the complete corrected browser gate is repeated.
+
+D-097 final review note — percentage-only desktop minima reproduced only44px
+for two32px component rows at1200×600 with hidden/outside-list parent status.
+Measure available pane space, current controls/header overhead and two row heights
+to constrain the existing divider. ResizeObserver handles layout changes without
+per-component requests or molecular state. Impossible combined minima share the
+viewport rather than creating invalid panel constraints; mobile full-height tabs
+remain unchanged. A pre-fix failing native regression and passing repair are retained.

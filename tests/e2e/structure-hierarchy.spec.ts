@@ -1,3 +1,4 @@
+import { browseComponents } from "./support/navigation";
 import AxeBuilder from "@axe-core/playwright";
 import { resolve } from "node:path";
 import {
@@ -86,8 +87,8 @@ async function saveScene(page: Page, name: string): Promise<void> {
 
 function categoryDetails(page: Page, label: string) {
   return page
-    .locator("details.hierarchy-category")
-    .filter({ has: page.locator("summary", { hasText: label }) });
+    .locator(".hierarchy-category")
+    .filter({ has: page.getByRole("button", { name: `Select ${label} in`, exact: false }) });
 }
 
 function componentMembers(payload: StructureRead, category: string): number[] {
@@ -160,24 +161,24 @@ test("synchronizes hierarchy selection, visibility, focus, persistence, and WebG
   await saveScene(page, "Before hierarchy selection");
   const beforeSelection = await readProject(request, project.id);
 
-  await page.getByLabel(`Component hierarchy for ${entry.name}`).click();
-  await expect(page.getByText("Polymers", { exact: true })).toBeVisible();
+  await browseComponents(page, entry.name);
+  await expect(page.getByRole("button", { name: /^Select Protein in/ })).toBeVisible();
   await expect(page.getByText("Other heterogens", { exact: true })).toBeVisible();
   expect(structureRequests).toHaveLength(1);
 
   const ions = categoryDetails(page, "Ions / metals");
-  await ions.locator("summary").click();
-  await ions.getByRole("button", { name: /ZN 401/ }).click();
+  await ions.locator(".hierarchy-disclosure").click();
+  await page.getByRole("button", { name: /Select ZN 401/ }).click();
   await expectSelectionAtoms(page, 1);
   const water = categoryDetails(page, "Water");
-  await water.locator("summary").click();
-  await water.getByRole("button", { name: /HOH 201/ }).click({ modifiers: ["Control"] });
+  await water.locator(".hierarchy-disclosure").click();
+  await page.getByRole("button", { name: /Select HOH 201/ }).click({ modifiers: ["Control"] });
   await expectSelectionAtoms(page, 2);
-  await water.getByRole("button", { name: /HOH 201/ }).click({ modifiers: ["Alt"] });
+  await page.getByRole("button", { name: /Select HOH 201/ }).click({ modifiers: ["Alt"] });
   await expectSelectionAtoms(page, 1);
 
   const ligands = categoryDetails(page, "Ligands / cofactors");
-  await ligands.locator("summary").click();
+  await ligands.locator(".hierarchy-disclosure").click();
   await page.getByLabel(`Select Ligands / cofactors in ${entry.name}`).click();
   await expectSelectionAtoms(page, ligandAtoms.length);
   expect(await readProject(request, project.id)).toEqual(beforeSelection);
@@ -202,16 +203,16 @@ test("synchronizes hierarchy selection, visibility, focus, persistence, and WebG
   ).not.toEqual(afterCamera);
 
   const solvent = categoryDetails(page, "Other solvent / additives");
-  await solvent.locator("summary").click();
-  await page
-    .getByLabel(`Hide Other solvent / additives visibility group in ${entry.name}`)
+  await solvent.locator(".hierarchy-disclosure").click();
+  await solvent
+    .getByLabel(`Hide all solvent, including water and additives in ${entry.name}`)
     .click();
   await expect
     .poll(async () => (await readProject(request, project.id)).entries[0].viewer_settings.components.solvent)
     .toBe(false);
   await expect(page.locator(".viewer-error")).toBeHidden();
-  await page
-    .getByLabel(`Show Other solvent / additives visibility group in ${entry.name}`)
+  await solvent
+    .getByLabel(`Show all solvent, including water and additives in ${entry.name}`)
     .click();
   await expect
     .poll(async () => (await readProject(request, project.id)).entries[0].viewer_settings.components.solvent)
@@ -264,14 +265,12 @@ test("keeps the hierarchy keyboard-operable and bounded in the Pixel 7 drawer", 
   await page.keyboard.press("Enter");
   const drawer = page.getByRole("dialog", { name: "Project browser panel" });
   await expect(drawer).toBeVisible();
-  const hierarchy = drawer.getByLabel(`Component hierarchy for ${entry.name}`);
-  await hierarchy.focus();
-  await page.keyboard.press("Enter");
-  await expect(drawer.getByText("Polymers", { exact: true })).toBeVisible();
-  const ligandSummary = categoryDetails(page, "Ligands / cofactors").locator("summary");
+  await browseComponents(page, entry.name);
+  await expect(drawer.getByRole("button", { name: /^Select Protein in/ })).toBeVisible();
+  const ligandSummary = categoryDetails(page, "Ligands / cofactors").locator(".hierarchy-disclosure");
   await ligandSummary.focus();
   await page.keyboard.press("Enter");
-  const ligand = drawer.getByRole("button", { name: /LIG 101/ });
+  const ligand = drawer.getByRole("button", { name: /Select LIG 101/ });
   await ligand.focus();
   await page.keyboard.press("Enter");
   await expect(page.locator(".viewer-status")).toContainText("/ 2 selected");

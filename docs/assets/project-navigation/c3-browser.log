@@ -1,0 +1,212 @@
+[WebServer] INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+[WebServer] INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade  -> 0001, Create Milestone 1 project workspace tables.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0001 -> 0002, Version existing project checkpoint snapshots.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0002 -> 0003, Add artifact-backed molecular entry summaries.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0003 -> 0004, Add durable named atom selections.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0004 -> 0005, Add viewer settings, measurements, and named scenes.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0005 -> 0006, Add exact atom identity summaries and monotonic edit allocators.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0006 -> 0007, Add durable generic job lifecycle tables.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0007 -> 0008, Add durable selection representation assignments to viewer settings.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0008 -> 0009, Add durable nonpolar-hydrogen visibility to viewer settings.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0009 -> 0010, Add selection appearance defaults without losing retained history.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0010 -> 0011, Add selection surface defaults without losing retained history.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0011 -> 0012, Add atomic-detail visibility defaults without losing retained history.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0012 -> 0013, Add pocket surface defaults without losing retained history.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0013 -> 0014, Migrate every retained viewer snapshot to identified surface objects.
+[WebServer] INFO:     Started server process [744685]
+[WebServer] INFO:     Waiting for application startup.
+[WebServer] INFO:     Application startup complete.
+[WebServer] INFO:     Uvicorn running on http://127.0.0.1:8020 (Press CTRL+C to quit)
+[WebServer] (node:744742) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:744754) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 54 tests using 1 worker
+
+(node:744782) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:744782) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:65:5 › qualifies keyboard/touch controls, focus and scoped accessibility in both themes (9.1s)
+  ✓   2 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:119:5 › reconciles an interrupted response after server commit without replaying Apply (8.7s)
+  ✓   3 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:143:5 › blocks Apply while outcome is unknown and recovers only after explicit refresh (6.0s)
+  ✓   4 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:162:5 › captures hidden multi-entry targets, previews multiple drags, cancels, and applies one reversible command (15.5s)
+  ✓   5 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:246:5 › qualifies native proper-rotation previews, camera suspension, zoom and surface restoration in both projections (12.7s)
+  ✓   6 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:349:5 › discards previews with feedback on task, selection and project changes (8.5s)
+  ✓   7 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:393:5 › restores canceled or lost pointer drags and supports secondary and Ctrl translation (8.0s)
+  ✓   8 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:433:5 › rejects stale Apply without replay or partial movement (4.4s)
+  ✓   9 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:454:5 › explains empty, locked and wholly hidden movement targets without changing them (6.7s)
+  ✓  10 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:491:5 › preserves no-op history, pauses measurements and discards unapplied movement on reload (15.0s)
+  ✓  11 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:548:5 › retains the native preview and held camera across responsive viewer remounts (7.1s)
+  ✓  12 [chromium] › tests/e2e/project-navigation.spec.ts:25:5 › keeps compact entries independent from component expansion, selection and metadata (4.9s)
+  ✓  13 [chromium] › tests/e2e/project-navigation.spec.ts:69:5 › keeps two hundred grouped long-name entries usable at narrow widths and responsive remounts (26.4s)
+  ✓  14 [chromium] › tests/e2e/project-navigation.spec.ts:151:5 › virtualizes ten thousand real normalized components and reaches off-screen rows by keyboard (29.7s)
+[WebServer] INFO:     127.0.0.1:58592 - "WebSocket /ws/jobs?project_id=01a13c19-019c-7d88-860b-3bc9968fb52f" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:58608 - "WebSocket /ws/jobs?project_id=01a13c19-019c-7d88-860b-3bc9968fb52f" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:35846 - "WebSocket /ws/jobs?project_id=01a13c19-019c-7d88-860b-3bc9968fb52f" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:35858 - "WebSocket /ws/jobs?project_id=01a13c19-019c-7d88-860b-3bc9968fb52f" [accepted]
+[WebServer] INFO:     connection open
+  ✓  15 [chromium] › tests/e2e/rebranding-surfaces.spec.ts:52:5 › reviews all Neistra workflow surfaces in both themes (40.1s)
+[WebServer] INFO:     127.0.0.1:34976 - "WebSocket /ws/jobs?project_id=01a13c19-9e3a-7947-8f48-687f66164ffc" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:34986 - "WebSocket /ws/jobs?project_id=01a13c19-9e3a-7947-8f48-687f66164ffc" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:35040 - "WebSocket /ws/jobs?project_id=01a13c19-9e3a-7947-8f48-687f66164ffc" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:35286 - "WebSocket /ws/jobs?project_id=01a13c19-9e3a-7947-8f48-687f66164ffc" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:35596 - "WebSocket /ws/jobs?project_id=01a13c19-9e3a-7947-8f48-687f66164ffc" [accepted]
+[WebServer] INFO:     connection open
+  ✓  16 [chromium] › tests/e2e/rebranding-surfaces.spec.ts:162:7 › reviews warning, failure, recovery and job states in light (18.2s)
+[WebServer] INFO:     127.0.0.1:35782 - "WebSocket /ws/jobs?project_id=01a13c19-e580-7ab3-9721-d819a771cf90" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:35790 - "WebSocket /ws/jobs?project_id=01a13c19-e580-7ab3-9721-d819a771cf90" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:35840 - "WebSocket /ws/jobs?project_id=01a13c19-e580-7ab3-9721-d819a771cf90" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:60004 - "WebSocket /ws/jobs?project_id=01a13c19-e580-7ab3-9721-d819a771cf90" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:60374 - "WebSocket /ws/jobs?project_id=01a13c19-e580-7ab3-9721-d819a771cf90" [accepted]
+[WebServer] INFO:     connection open
+  ✓  17 [chromium] › tests/e2e/rebranding-surfaces.spec.ts:162:7 › reviews warning, failure, recovery and job states in dark (18.1s)
+  ✓  18 [chromium] › tests/e2e/rebranding-surfaces.spec.ts:247:5 › keeps ambiguous classification warnings and legacy user copy visible (6.6s)
+  ✓  19 [chromium] › tests/e2e/rebranding-zoom.spec.ts:59:5 › keeps actions and dialogs reachable at real 100% and 200% browser zoom (1.4m)
+  ✓  20 [chromium] › tests/e2e/rebranding-zoom.spec.ts:323:5 › keeps shell and inspector controls bounded around both responsive breakpoints (8.7s)
+  ✓  21 [chromium] › tests/e2e/release-hardening.spec.ts:65:5 › passes automated accessibility checks in both themes (4.4s)
+  ✓  22 [chromium] › tests/e2e/release-hardening.spec.ts:79:5 › supports keyboard focus and bounded responsive controls (3.5s)
+  ✓  23 [chromium] › tests/e2e/release-hardening.spec.ts:164:5 › keeps representative-project interactions responsive and projection-scoped (5.9s)
+  ✓  24 [chromium] › tests/e2e/surface-objects.spec.ts:12:5 › native same-entry surface objects have independent identity, colors, mesh and whole-object activation (15.3s)
+  ✓  25 [chromium] › tests/e2e/surface-objects.spec.ts:124:5 › manages production object appearance and explicit sources independently through reload and undo (22.5s)
+  ✓  26 [chromium] › tests/e2e/surface-objects.spec.ts:361:5 › keeps manager controls keyboard reachable, bounded and accessible with long names and narrow layouts (11.3s)
+  ✓  27 [chromium] › tests/e2e/surface-objects.spec.ts:414:5 › keeps queued same-entry surface inputs lazy and valid across a renderer rebuild (6.6s)
+(node:748795) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:748795) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  28 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:65:5 › qualifies keyboard/touch controls, focus and scoped accessibility in both themes (8.6s)
+  ✓  29 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:119:5 › reconciles an interrupted response after server commit without replaying Apply (4.6s)
+  ✓  30 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:143:5 › blocks Apply while outcome is unknown and recovers only after explicit refresh (4.4s)
+  ✓  31 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:162:5 › captures hidden multi-entry targets, previews multiple drags, cancels, and applies one reversible command (13.0s)
+  ✓  32 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:246:5 › qualifies native proper-rotation previews, camera suspension, zoom and surface restoration in both projections (7.8s)
+  ✓  33 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:349:5 › discards previews with feedback on task, selection and project changes (7.6s)
+  ✓  34 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:393:5 › restores canceled or lost pointer drags and supports secondary and Ctrl translation (7.6s)
+  ✓  35 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:433:5 › rejects stale Apply without replay or partial movement (4.4s)
+  ✓  36 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:454:5 › explains empty, locked and wholly hidden movement targets without changing them (6.8s)
+  ✓  37 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:491:5 › preserves no-op history, pauses measurements and discards unapplied movement on reload (14.0s)
+  ✓  38 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:548:5 › retains the native preview and held camera across responsive viewer remounts (7.1s)
+  ✓  39 [mobile-chromium] › tests/e2e/project-navigation.spec.ts:25:5 › keeps compact entries independent from component expansion, selection and metadata (4.6s)
+  ✓  40 [mobile-chromium] › tests/e2e/project-navigation.spec.ts:69:5 › keeps two hundred grouped long-name entries usable at narrow widths and responsive remounts (14.8s)
+  ✓  41 [mobile-chromium] › tests/e2e/project-navigation.spec.ts:151:5 › virtualizes ten thousand real normalized components and reaches off-screen rows by keyboard (13.5s)
+[WebServer] INFO:     127.0.0.1:49216 - "WebSocket /ws/jobs?project_id=01a13c1e-9165-7582-bd7c-83ef398606e3" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:49226 - "WebSocket /ws/jobs?project_id=01a13c1e-9165-7582-bd7c-83ef398606e3" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:49228 - "WebSocket /ws/jobs?project_id=01a13c1e-9165-7582-bd7c-83ef398606e3" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:49244 - "WebSocket /ws/jobs?project_id=01a13c1e-9165-7582-bd7c-83ef398606e3" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:48970 - "WebSocket /ws/jobs?project_id=01a13c1e-9165-7582-bd7c-83ef398606e3" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:48974 - "WebSocket /ws/jobs?project_id=01a13c1e-9165-7582-bd7c-83ef398606e3" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:48990 - "WebSocket /ws/jobs?project_id=01a13c1e-9165-7582-bd7c-83ef398606e3" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:48998 - "WebSocket /ws/jobs?project_id=01a13c1e-9165-7582-bd7c-83ef398606e3" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:49012 - "WebSocket /ws/jobs?project_id=01a13c1e-9165-7582-bd7c-83ef398606e3" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:49020 - "WebSocket /ws/jobs?project_id=01a13c1e-9165-7582-bd7c-83ef398606e3" [accepted]
+[WebServer] INFO:     connection open
+  ✓  42 [mobile-chromium] › tests/e2e/rebranding-surfaces.spec.ts:52:5 › reviews all Neistra workflow surfaces in both themes (41.6s)
+[WebServer] INFO:     127.0.0.1:57660 - "WebSocket /ws/jobs?project_id=01a13c1f-33ce-7337-8dc9-34a459958ab3" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:57668 - "WebSocket /ws/jobs?project_id=01a13c1f-33ce-7337-8dc9-34a459958ab3" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:57696 - "WebSocket /ws/jobs?project_id=01a13c1f-33ce-7337-8dc9-34a459958ab3" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:46338 - "WebSocket /ws/jobs?project_id=01a13c1f-33ce-7337-8dc9-34a459958ab3" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:46354 - "WebSocket /ws/jobs?project_id=01a13c1f-33ce-7337-8dc9-34a459958ab3" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] 10:34:08 PM [vite] ws proxy error:
+[WebServer] Error: read ECONNRESET
+[WebServer]     at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[WebServer] 10:34:08 PM [vite] ws proxy socket error:
+[WebServer] Error: read ECONNRESET
+[WebServer]     at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[WebServer] INFO:     127.0.0.1:46600 - "WebSocket /ws/jobs?project_id=01a13c1f-33ce-7337-8dc9-34a459958ab3" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:46848 - "WebSocket /ws/jobs?project_id=01a13c1f-33ce-7337-8dc9-34a459958ab3" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:46854 - "WebSocket /ws/jobs?project_id=01a13c1f-33ce-7337-8dc9-34a459958ab3" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:47170 - "WebSocket /ws/jobs?project_id=01a13c1f-33ce-7337-8dc9-34a459958ab3" [accepted]
+[WebServer] INFO:     connection open
+  ✓  43 [mobile-chromium] › tests/e2e/rebranding-surfaces.spec.ts:162:7 › reviews warning, failure, recovery and job states in light (18.7s)
+[WebServer] INFO:     127.0.0.1:59176 - "WebSocket /ws/jobs?project_id=01a13c1f-7cf6-7fad-bea3-d8d3dda73aaa" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:59184 - "WebSocket /ws/jobs?project_id=01a13c1f-7cf6-7fad-bea3-d8d3dda73aaa" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:59210 - "WebSocket /ws/jobs?project_id=01a13c1f-7cf6-7fad-bea3-d8d3dda73aaa" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:59402 - "WebSocket /ws/jobs?project_id=01a13c1f-7cf6-7fad-bea3-d8d3dda73aaa" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:59404 - "WebSocket /ws/jobs?project_id=01a13c1f-7cf6-7fad-bea3-d8d3dda73aaa" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] 10:34:27 PM [vite] ws proxy error:
+[WebServer] Error: write ECONNRESET
+[WebServer]     at afterWriteDispatched (node:internal/stream_base_commons:159:15)
+[WebServer]     at writeGeneric (node:internal/stream_base_commons:150:3)
+[WebServer]     at Socket._writeGeneric (node:net:966:11)
+[WebServer]     at Socket._write (node:net:978:8)
+[WebServer]     at writeOrBuffer (node:internal/streams/writable:572:12)
+[WebServer]     at _write (node:internal/streams/writable:501:10)
+[WebServer]     at Writable.write (node:internal/streams/writable:510:10)
+[WebServer]     at Socket.ondata (node:internal/streams/readable:1009:22)
+[WebServer]     at Socket.emit (node:events:519:28)
+[WebServer]     at addChunk (node:internal/streams/readable:561:12)
+[WebServer]     at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
+[WebServer]     at Readable.push (node:internal/streams/readable:392:5)
+[WebServer]     at TCP.onStreamRead (node:internal/stream_base_commons:189:23)
+[WebServer] 10:34:27 PM [vite] ws proxy socket error:
+[WebServer] Error: write ECONNRESET
+[WebServer]     at afterWriteDispatched (node:internal/stream_base_commons:159:15)
+[WebServer]     at writeGeneric (node:internal/stream_base_commons:150:3)
+[WebServer]     at Socket._writeGeneric (node:net:966:11)
+[WebServer]     at Socket._write (node:net:978:8)
+[WebServer]     at writeOrBuffer (node:internal/streams/writable:572:12)
+[WebServer]     at _write (node:internal/streams/writable:501:10)
+[WebServer]     at Writable.write (node:internal/streams/writable:510:10)
+[WebServer]     at Socket.ondata (node:internal/streams/readable:1009:22)
+[WebServer]     at Socket.emit (node:events:519:28)
+[WebServer]     at addChunk (node:internal/streams/readable:561:12)
+[WebServer]     at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
+[WebServer]     at Readable.push (node:internal/streams/readable:392:5)
+[WebServer]     at TCP.onStreamRead (node:internal/stream_base_commons:189:23)
+[WebServer] INFO:     127.0.0.1:59582 - "WebSocket /ws/jobs?project_id=01a13c1f-7cf6-7fad-bea3-d8d3dda73aaa" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:56634 - "WebSocket /ws/jobs?project_id=01a13c1f-7cf6-7fad-bea3-d8d3dda73aaa" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:56636 - "WebSocket /ws/jobs?project_id=01a13c1f-7cf6-7fad-bea3-d8d3dda73aaa" [accepted]
+[WebServer] INFO:     connection open
+[WebServer] INFO:     127.0.0.1:56984 - "WebSocket /ws/jobs?project_id=01a13c1f-7cf6-7fad-bea3-d8d3dda73aaa" [accepted]
+[WebServer] INFO:     connection open
+  ✓  44 [mobile-chromium] › tests/e2e/rebranding-surfaces.spec.ts:162:7 › reviews warning, failure, recovery and job states in dark (18.9s)
+  ✓  45 [mobile-chromium] › tests/e2e/rebranding-surfaces.spec.ts:247:5 › keeps ambiguous classification warnings and legacy user copy visible (6.8s)
+  -  46 [mobile-chromium] › tests/e2e/rebranding-zoom.spec.ts:59:5 › keeps actions and dialogs reachable at real 100% and 200% browser zoom
+  -  47 [mobile-chromium] › tests/e2e/rebranding-zoom.spec.ts:323:5 › keeps shell and inspector controls bounded around both responsive breakpoints
+  ✓  48 [mobile-chromium] › tests/e2e/release-hardening.spec.ts:65:5 › passes automated accessibility checks in both themes (3.8s)
+  ✓  49 [mobile-chromium] › tests/e2e/release-hardening.spec.ts:79:5 › supports keyboard focus and bounded responsive controls (3.4s)
+  -  50 [mobile-chromium] › tests/e2e/release-hardening.spec.ts:164:5 › keeps representative-project interactions responsive and projection-scoped
+  ✓  51 [mobile-chromium] › tests/e2e/surface-objects.spec.ts:12:5 › native same-entry surface objects have independent identity, colors, mesh and whole-object activation (7.3s)
+  ✓  52 [mobile-chromium] › tests/e2e/surface-objects.spec.ts:124:5 › manages production object appearance and explicit sources independently through reload and undo (20.9s)
+  ✓  53 [mobile-chromium] › tests/e2e/surface-objects.spec.ts:361:5 › keeps manager controls keyboard reachable, bounded and accessible with long names and narrow layouts (10.8s)
+  ✓  54 [mobile-chromium] › tests/e2e/surface-objects.spec.ts:414:5 › keeps queued same-entry surface inputs lazy and valid across a renderer rebuild (5.5s)
+
+  3 skipped
+  51 passed (11.2m)

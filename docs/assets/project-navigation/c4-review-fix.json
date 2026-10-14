@@ -1,0 +1,77 @@
+{
+  "checkpoint": "C4 full-diff review correction",
+  "parent_commit": "fb099b4",
+  "review": "local self-review; not independent",
+  "finding": "Fixed percentage-only pane minima left44px for two32px rows at1200x600 with hidden/outside parent status. Reproduced failing native regression before repair.",
+  "repair": "Measure available panel size, visible header/control overhead and two virtual rows; ResizeObserver updates constraints without molecular state or per-row work. Physically impossible combined minima share available space rather than generating invalid library constraints. Mobile tabs remain unchanged.",
+  "results": {
+    "frontend": 227,
+    "python": 24,
+    "browser_passed": 7,
+    "browser_skipped": 1,
+    "lint_typecheck_build_ruff_mypy": "pass"
+  },
+  "diagnostics": {
+    "minimum-reproduction": "new fixture used nonunique library group-ID selector; corrected locator",
+    "minimum-reproduction2": "pre-fix code:1failure/1intentional skip, actual44px <64px",
+    "superseded_candidate": "stopped during Python gate for consequential review finding; earlier static steps passed, not a passing full gate"
+  },
+  "source_sha256": {
+    "apps/web/src/components/ProjectBrowser.tsx": "90fd4261519f57cea1f91bf1e496dc7c069fdfb9b1d4dc6a33efd0587d6926ec",
+    "apps/web/src/components/StructureHierarchy.tsx": "46f2905b6a70df32862c008cf3dfd3b94d3b6eda70742629b3810afc1eac8dba",
+    "tests/e2e/project-navigation.spec.ts": "856f7afbed58f5529312e15e9b62727fd581a1fd27efe4b102507fda50ab5269"
+  },
+  "logs": {
+    "minimum-reproduction": {
+      "path": "docs/assets/project-navigation/c4-minimum-reproduction.log",
+      "raw_sha256": "0947f9deb2d4de76afe33cb663b7912d2ea5b04f8850eb1591c4c2912c1fb31b",
+      "sha256": "cf1f47c9c5c1e07f82a36954723b013757bb4a1c59e51bcbb1c312b4bf6b3ae0"
+    },
+    "minimum-reproduction2": {
+      "path": "docs/assets/project-navigation/c4-minimum-reproduction2.log",
+      "raw_sha256": "a92ffa0b723fca519a067d962f09134effe13f971b6f077b8887880cdb1a1425",
+      "sha256": "2133552bd9a218d45f650fc37e83a82e0015cf71fb653aedadb1dd5133d80a93"
+    },
+    "minimum-browser": {
+      "path": "docs/assets/project-navigation/c4-minimum-browser.log",
+      "raw_sha256": "9d7ec13a78d7782e438f39abb7e02478f74279da295ed496954b766f1adc35b6",
+      "sha256": "6166b90eaff34c64a526678b1b7791f16e24afb66a25ada669718f6f057265f7"
+    },
+    "minimum-focused": {
+      "path": "docs/assets/project-navigation/c4-minimum-focused.log",
+      "raw_sha256": "108868f37d1d76baded817078c081f061b970c29411619355ecfca116a4f1dc5",
+      "sha256": "ff9720e03a300d51f615abcb8bd9b23280507dbe6c459c171b715ff861fd5898"
+    },
+    "minimum-typecheck": {
+      "path": "docs/assets/project-navigation/c4-minimum-typecheck.log",
+      "raw_sha256": "e005c68e8337f5040cac93f2f988120e42643600a28b5789494b60adb82cb779",
+      "sha256": "8108e2f95a1d21be691f59513bc37319b1d328e60ec0f5488008f613251eceff"
+    },
+    "minimum-lint": {
+      "path": "docs/assets/project-navigation/c4-minimum-lint.log",
+      "raw_sha256": "59711ebe6f373913f0bba3d256a46216159a872a38b82119ff51a233ccfbed9f",
+      "sha256": "5920634920570a2e33937a4db878f6e9309b842df9fcfa448ffaa4f87b1439be"
+    },
+    "minimum-build": {
+      "path": "docs/assets/project-navigation/c4-minimum-build.log",
+      "raw_sha256": "a5574276f9acc29be58d8e91c8df95ae2c12bd667f5a99dab37f457af326e8f1",
+      "sha256": "a5574276f9acc29be58d8e91c8df95ae2c12bd667f5a99dab37f457af326e8f1"
+    },
+    "minimum-python": {
+      "path": "docs/assets/project-navigation/c4-minimum-python.log",
+      "raw_sha256": "b8469fea16cb19038bca421a5e81945a8721ea75c29cea8fbe8c4baad454cdcb",
+      "sha256": "b8469fea16cb19038bca421a5e81945a8721ea75c29cea8fbe8c4baad454cdcb"
+    },
+    "minimum-ruff": {
+      "path": "docs/assets/project-navigation/c4-minimum-ruff.log",
+      "raw_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    "minimum-mypy": {
+      "path": "docs/assets/project-navigation/c4-minimum-mypy.log",
+      "raw_sha256": "b85ebe13f9e1d95db5aea5d2a2cb068ea397cb6d345a2925a7599753d574c762",
+      "sha256": "b85ebe13f9e1d95db5aea5d2a2cb068ea397cb6d345a2925a7599753d574c762"
+    }
+  },
+  "next": "commit coherent repair and restart complete clean candidate gate"
+}

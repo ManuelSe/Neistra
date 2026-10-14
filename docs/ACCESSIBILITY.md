@@ -6,6 +6,31 @@ Neistra targets WCAG 2.2 Level AA for the local application shell. The
 qualification combines deterministic browser automation with keyboard and
 visual checks; an axe pass alone is not treated as complete coverage.
 
+## Compact project navigation (issue #59)
+
+Entries have single-line32px fine-pointer/44px coarse-pointer rows with explicit
+visibility, lock, action and status controls. Full metadata/warnings are available
+through keyboard/touch Details. Hidden rows use muted text without dimming controls
+below contrast requirements. Entry menus scroll within the real available viewport,
+including200% browser zoom. Details initially focuses its dialog container so its
+Close tooltip does not consume the first Escape; dismissal restores the launcher.
+
+The separate component pane uses native list/listitem/button semantics with logical
+positions/counts, labelled disclosure/selection/shared-visibility/Details actions,
+pressed/mixed selection state and explicit warning descriptions. Up/Down/Home/End
+reach unmounted rows through the complete expanded model; focus movement does not
+select. Current-row controls join the tab sequence. Focus/Details rows are retained
+within a bounded virtual window. Removed rows/loading transitions return owned
+focus to the surviving category or pane heading; other workspace focus is preserved.
+
+Desktop split/collapse controls are keyboard accessible; narrow drawers use labelled
+tabs with valid panel references. Browsing state survives responsive remounts but
+does not become molecular selection or persisted scientific data. See the
+[approved contract](plans/issue-59-compact-project-navigation.md) and
+[user guide](PROJECT_NAVIGATION.md). Automated keyboard, axe, screenshots and real
+zoom evidence are recorded separately from manual inspection. No interactive
+screen-reader certification or physical-device/cross-browser claim is made.
+
 ## Application notifications (issue #56)
 
 Routine application notices expire after 10 seconds, using the existing `status`

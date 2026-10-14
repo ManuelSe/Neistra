@@ -452,3 +452,27 @@ sets; removing live objects does not erase historical ones. Restore the complete
 pre-upgrade backup to roll back safely. Do not delete history or edit database JSON
 to bypass refusal. Actual tagged v0.13.2 producer/reader qualification is recorded
 in the issue #57 feature plan before release.
+
+
+## Compact navigation compatibility (0.15.0)
+
+This minor release adds compact entries and independent virtual component browsing.
+Restart services and reload the workspace on upgrade/rollback to reset transient
+browsing state. No new migration is needed from0.14.0: head0014, project/viewer/
+archive2 and normalized/selection1 remain. Only split/collapse preferences persist;
+older clients ignore additive browser preferences. Molecular state and originals
+are unchanged. Rollback to qualified0.14.0 needs no downgrade/data stripping and
+restores its previous browser layout. Earlier0014 downgrade guards remain in force.
+
+Run the complete candidate and exact merged-master release gates above. With fresh
+disposable data, run `tests.support.navigation_reader_qualification produce` from
+the final0.15.0 checkout, then `read --expected-reader 0.14.0 --reader-root <tagged-tree>`
+with actual detached v0.14.0 API/core/plugin paths first on PYTHONPATH. The harness
+asserts the implementation paths, original bytes/coordinates, retained Undo/Redo,
+completed jobs, exact scenes/three surfaces, save/reexport, archive history omission
+and cross-entry pocket seed remapping. Provenance-string archive tests are
+additional coverage, not evidence of an actual old reader.
+
+See [approved contract](plans/issue-59-compact-project-navigation.md),
+[user guidance](PROJECT_NAVIGATION.md), [accessibility](ACCESSIBILITY.md) and
+[performance](PERFORMANCE.md) for qualified layouts, keyboard semantics and limits.

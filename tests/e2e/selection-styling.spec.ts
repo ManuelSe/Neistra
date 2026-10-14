@@ -1,3 +1,4 @@
+import { browseComponents } from "./support/navigation";
 import AxeBuilder from "@axe-core/playwright";
 import { resolve } from "node:path";
 import {
@@ -255,9 +256,9 @@ test("styles a 1STP complex without changing scientific or transient state", asy
     (scene) => scene.name === "Before selection styling",
   )!.camera;
 
-  await page.getByLabel(`Component hierarchy for ${entry.name}`).click();
-  const ligands = page.locator("details.hierarchy-category").filter({ hasText: "Ligands / cofactors" });
-  await ligands.locator("summary").click();
+  await browseComponents(page, entry.name);
+  const ligands = page.locator(".hierarchy-category").filter({ hasText: "Ligands / cofactors" });
+  await ligands.locator(".hierarchy-disclosure").click();
   await page.getByLabel(`Select Ligands / cofactors in ${entry.name}`).click();
   const selectedStatus = await page.locator(".viewer-status").textContent();
   await page.getByPlaceholder("Selection name").fill("Biotin styling target");
@@ -387,12 +388,12 @@ test("keeps ion, water, and covalent-boundary targets exact", async ({
   let current = await readProject(request, project.id);
   const entry = current.entries[0];
   const structure = await readStructure(request, project.id, entry.id);
-  await page.getByLabel(`Component hierarchy for ${entry.name}`).click();
+  await browseComponents(page, entry.name);
 
   const chooseComponent = async (category: string, component: RegExp) => {
-    const details = page.locator("details.hierarchy-category").filter({ hasText: category });
-    if (!(await details.getAttribute("open"))) await details.locator("summary").click();
-    await details.getByRole("button", { name: component }).click();
+    const details = page.locator(".hierarchy-category").filter({ hasText: category });
+    if (await details.locator(".hierarchy-disclosure").getAttribute("aria-expanded") === "false") await details.locator(".hierarchy-disclosure").click();
+    await page.getByRole("button", { name: component }).filter({ hasNot: page.locator("svg.lucide-info") }).click();
   };
 
   await chooseComponent("Ions / metals", /ZN 401/);
@@ -449,12 +450,12 @@ test("keeps the selection styling dialog bounded and keyboard-operable on Pixel 
   });
   await projectBrowser.click();
   const drawer = page.getByRole("dialog", { name: "Project browser panel" });
-  await drawer.getByLabel(`Component hierarchy for ${entry.name}`).click();
+  await browseComponents(page, entry.name);
   const ions = drawer
-    .locator("details.hierarchy-category")
+    .locator(".hierarchy-category")
     .filter({ hasText: "Ions / metals" });
-  await ions.locator("summary").click();
-  await ions.getByRole("button", { name: /ZN 401/ }).click();
+  await ions.locator(".hierarchy-disclosure").click();
+  await page.getByRole("button", { name: /Select ZN 401/ }).click();
   await expect(page.locator(".viewer-status")).toContainText("/ 1 selected");
   await page.keyboard.press("Escape");
   await expect(drawer).toBeHidden();

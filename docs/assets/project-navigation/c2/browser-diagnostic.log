@@ -1,0 +1,106 @@
+[WebServer] INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+[WebServer] INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade  -> 0001, Create Milestone 1 project workspace tables.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0001 -> 0002, Version existing project checkpoint snapshots.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0002 -> 0003, Add artifact-backed molecular entry summaries.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0003 -> 0004, Add durable named atom selections.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0004 -> 0005, Add viewer settings, measurements, and named scenes.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0005 -> 0006, Add exact atom identity summaries and monotonic edit allocators.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0006 -> 0007, Add durable generic job lifecycle tables.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0007 -> 0008, Add durable selection representation assignments to viewer settings.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0008 -> 0009, Add durable nonpolar-hydrogen visibility to viewer settings.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0009 -> 0010, Add selection appearance defaults without losing retained history.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0010 -> 0011, Add selection surface defaults without losing retained history.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0011 -> 0012, Add atomic-detail visibility defaults without losing retained history.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0012 -> 0013, Add pocket surface defaults without losing retained history.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0013 -> 0014, Migrate every retained viewer snapshot to identified surface objects.
+[WebServer] INFO:     Started server process [714203]
+[WebServer] INFO:     Waiting for application startup.
+[WebServer] INFO:     Application startup complete.
+[WebServer] INFO:     Uvicorn running on http://127.0.0.1:8020 (Press CTRL+C to quit)
+[WebServer] (node:714261) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:714273) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 28 tests using 1 worker
+
+(node:714305) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:714305) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [chromium] › tests/e2e/group-membership.spec.ts:53:5 › moves filtered selected batches, preserves molecular state, and supports keyboard/touch and history (10.2s)
+  ✓   2 [chromium] › tests/e2e/group-membership.spec.ts:123:5 › rejects stale-tab actions and keeps a partial selection scoped to its complete entry (5.7s)
+  ✓   3 [chromium] › tests/e2e/group-membership.spec.ts:148:5 › uses real desktop drags for batches, collapsed/empty destinations, Ungrouped, and exact no-ops (6.3s)
+  ✓   4 [chromium] › tests/e2e/group-membership.spec.ts:212:5 › keeps a live molecular viewer and prepared surface unchanged during membership edits (7.7s)
+  ✓   5 [chromium] › tests/e2e/group-membership.spec.ts:287:7 › keeps late membership success feedback and focus in its captured project (4.9s)
+  ✓   6 [chromium] › tests/e2e/group-membership.spec.ts:287:7 › keeps late membership conflict feedback and focus in its captured project (5.5s)
+  ✓   7 [chromium] › tests/e2e/group-membership.spec.ts:336:5 › restores group action focus across repeated accepted row remounts (9.6s)
+  ✓   8 [chromium] › tests/e2e/project-navigation.spec.ts:24:5 › keeps compact entries independent from component expansion, selection and metadata (5.1s)
+  ✓   9 [chromium] › tests/e2e/selection-styling.spec.ts:224:5 › styles a 1STP complex without changing scientific or transient state (13.9s)
+  ✓  10 [chromium] › tests/e2e/selection-styling.spec.ts:374:5 › keeps ion, water, and covalent-boundary targets exact (7.3s)
+  -  11 [chromium] › tests/e2e/selection-styling.spec.ts:437:5 › keeps the selection styling dialog bounded and keyboard-operable on Pixel 7
+  ✘  12 [chromium] › tests/e2e/structure-hierarchy.spec.ts:116:5 › synchronizes hierarchy selection, visibility, focus, persistence, and WebGL (6.6s)
+(node:715255) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:715255) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  -  13 [chromium] › tests/e2e/structure-hierarchy.spec.ts:249:5 › keeps the hierarchy keyboard-operable and bounded in the Pixel 7 drawer
+  ✓  14 [chromium] › tests/e2e/synchronized-selection.spec.ts:103:5 › keeps browser, sequence, inspector, viewer, and saved selection synchronized (11.9s)
+(node:715402) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:715402) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  15 [mobile-chromium] › tests/e2e/group-membership.spec.ts:53:5 › moves filtered selected batches, preserves molecular state, and supports keyboard/touch and history (9.3s)
+  ✓  16 [mobile-chromium] › tests/e2e/group-membership.spec.ts:123:5 › rejects stale-tab actions and keeps a partial selection scoped to its complete entry (5.7s)
+  -  17 [mobile-chromium] › tests/e2e/group-membership.spec.ts:148:5 › uses real desktop drags for batches, collapsed/empty destinations, Ungrouped, and exact no-ops
+  ✓  18 [mobile-chromium] › tests/e2e/group-membership.spec.ts:212:5 › keeps a live molecular viewer and prepared surface unchanged during membership edits (8.3s)
+  ✓  19 [mobile-chromium] › tests/e2e/group-membership.spec.ts:287:7 › keeps late membership success feedback and focus in its captured project (4.5s)
+  ✓  20 [mobile-chromium] › tests/e2e/group-membership.spec.ts:287:7 › keeps late membership conflict feedback and focus in its captured project (4.7s)
+  ✓  21 [mobile-chromium] › tests/e2e/group-membership.spec.ts:336:5 › restores group action focus across repeated accepted row remounts (9.2s)
+  ✓  22 [mobile-chromium] › tests/e2e/project-navigation.spec.ts:24:5 › keeps compact entries independent from component expansion, selection and metadata (4.7s)
+  -  23 [mobile-chromium] › tests/e2e/selection-styling.spec.ts:224:5 › styles a 1STP complex without changing scientific or transient state
+  -  24 [mobile-chromium] › tests/e2e/selection-styling.spec.ts:374:5 › keeps ion, water, and covalent-boundary targets exact
+  ✓  25 [mobile-chromium] › tests/e2e/selection-styling.spec.ts:437:5 › keeps the selection styling dialog bounded and keyboard-operable on Pixel 7 (4.2s)
+  -  26 [mobile-chromium] › tests/e2e/structure-hierarchy.spec.ts:116:5 › synchronizes hierarchy selection, visibility, focus, persistence, and WebGL
+  ✓  27 [mobile-chromium] › tests/e2e/structure-hierarchy.spec.ts:249:5 › keeps the hierarchy keyboard-operable and bounded in the Pixel 7 drawer (3.4s)
+  -  28 [mobile-chromium] › tests/e2e/synchronized-selection.spec.ts:103:5 › keeps browser, sequence, inspector, viewer, and saved selection synchronized
+
+
+  1) [chromium] › tests/e2e/structure-hierarchy.spec.ts:116:5 › synchronizes hierarchy selection, visibility, focus, persistence, and WebGL
+
+    Error: locator.click: Error: strict mode violation: getByLabel('Hide all solvent, including water and additives in string') resolved to 2 elements:
+        1) <button type="button" tabindex="-1" data-state="closed" class="icon-button " aria-label="Hide all solvent, including water and additives in string">…</button> aka getByRole('listitem').filter({ hasText: 'Water1' }).getByLabel('Hide all solvent, including')
+        2) <button tabindex="0" type="button" data-state="closed" class="icon-button " aria-label="Hide all solvent, including water and additives in string">…</button> aka getByRole('listitem').filter({ hasText: 'Other solvent / additives1' }).getByLabel('Hide all solvent, including')
+
+    Call log:
+      - waiting for getByLabel('Hide all solvent, including water and additives in string')
+
+
+      207 |   await page
+      208 |     .getByLabel(`Hide all solvent, including water and additives in ${entry.name}`)
+    > 209 |     .click();
+          |      ^
+      210 |   await expect
+      211 |     .poll(async () => (await readProject(request, project.id)).entries[0].viewer_settings.components.solvent)
+      212 |     .toBe(false);
+        at /datadisk/dev/neistra/tests/e2e/structure-hierarchy.spec.ts:209:6
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/structure-hierarchy-synchr-083d6-focus-persistence-and-WebGL-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/structure-hierarchy-synchr-083d6-focus-persistence-and-WebGL-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/structure-hierarchy-synchr-083d6-focus-persistence-and-WebGL-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/structure-hierarchy-synchr-083d6-focus-persistence-and-WebGL-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [chromium] › tests/e2e/structure-hierarchy.spec.ts:116:5 › synchronizes hierarchy selection, visibility, focus, persistence, and WebGL
+  7 skipped
+  20 passed (2.6m)

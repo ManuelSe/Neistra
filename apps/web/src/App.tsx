@@ -44,6 +44,7 @@ import { ExportDialog } from "./components/ExportDialog";
 import { GroupMembershipDialog, type GroupDialogRequest } from "./components/GroupMembershipDialog";
 import { groupReturnFocus, type GroupScope } from "./groups/membership";
 import { useGroupActionFocus } from "./groups/useGroupActionFocus";
+import { useNavigationStore } from "./store/navigation";
 import { ProjectBrowser } from "./components/ProjectBrowser";
 import { ProjectInspector } from "./components/ProjectInspector";
 import { TopBar } from "./components/TopBar";
@@ -176,6 +177,14 @@ export default function App() {
     retry: false,
   });
   const project = projectQuery.data;
+
+  useEffect(() => {
+    useNavigationStore.getState().setProject(activeProjectId);
+  }, [activeProjectId]);
+
+  useEffect(() => {
+    if (project) useNavigationStore.getState().reconcile(project.id, project.entries.map(entry => entry.id));
+  }, [project]);
   const focusGroupAction = useGroupActionFocus(project, activeProjectId);
 
   useEffect(() => {

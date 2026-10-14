@@ -6,6 +6,30 @@ Performance thresholds are regression gates on the pinned Playwright desktop
 Chromium host. They are not hardware-independent throughput promises or
 recommended maximum scientific system sizes.
 
+## Compact component navigation (issue #59)
+
+The artifact-keyed membership index visits the normalized atom collection once,
+then materializes actual component/category membership. Scroll and appearance
+changes reuse it; current selection coverage uses one entry-local ID set.
+The 10,000-component unit case verifies one atom-collection visit and complete
+category operands, independent of how many rows are mounted.
+
+The component pane uses fixed32px fine-pointer/44px coarse-pointer rows with eight
+overscan rows on either side and at most two retained focus/Details rows. Native
+tests bound rendered DOM by viewport rows plus16overscan plus2retained rows and
+reach off-screen endpoints by keyboard. Every member remains selectable; virtual
+window membership never defines scientific selection. Opening a previously
+unloaded hidden entry is an explicit on-demand read; reuse and scrolling add no
+normalized requests. Full entry-list virtualization remains deferred.
+
+Qualification uses 200 grouped entries with long names and actual normalized
+10,000-component synthetic O-only waters, narrow widths, responsive remounts and
+real browser zoom. These are navigation/caching/DOM regression cases, not realistic
+solvent preparation, throughput promises, or larger molecular-size guarantees.
+Existing movement, surface and molecular resource budgets retain their owners.
+Exact evidence and limitations are recorded in the
+[feature plan](plans/issue-59-compact-project-navigation.md).
+
 ## Viewer toolbar/navigation (issue #46)
 
 The native movement benchmark now cycles camera/transform ownership six times

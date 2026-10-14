@@ -1,5 +1,9 @@
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import {
+  AlertTriangle,
+  Info,
+  ListTree,
+  ChevronUp,
   ChevronDown,
   ChevronLeft,
   ChevronRight,
@@ -19,7 +23,7 @@ import {
   Search,
   Trash2,
 } from "lucide-react";
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import type {
   Entry,
   Project,
@@ -34,6 +38,11 @@ import type { DragEvent } from "react";
 import { emptySelection, selectionMode } from "../selection/selection";
 import { IconButton } from "./IconButton";
 import { StructureHierarchy } from "./StructureHierarchy";
+import { EntryDetails } from "./EntryDetails";
+import { useNavigationStore } from "../store/navigation";
+import { useWorkspaceStore } from "../store/workspace";
+import { useMediaQuery } from "../hooks/useMediaQuery";
+import { Panel, PanelGroup, PanelResizeHandle, type ImperativePanelHandle } from "react-resizable-panels";
 
 interface ProjectBrowserProps {
   project: Project | undefined;
@@ -94,9 +103,15 @@ function EntryRow({
   onDragEnd,
   onDelete,
   onExport,
+  inspected,
+  onInspect,
+  onDetails,
 }: BrowserActions & {
   entry: Entry;
   selected: boolean;
+  inspected: boolean;
+  onInspect: () => void;
+  onDetails: () => void;
   captureScope: () => GroupScope;
   canUngroup: boolean;
   scopeSummary: string;
@@ -105,10 +120,12 @@ function EntryRow({
   onSelect: (mode: SelectionMode) => void;
 }) {
   const membershipMenuScope = useRef<GroupScope | null>(null);
+  const openingDetails = useRef(false);
   return (
     <div
       className={`entry-row ${entry.visible ? "" : "entry-hidden"} ${selected ? "selected" : ""}`}
       data-entry-id={entry.id}
+      data-inspected={inspected || undefined}
     >
       {onDragStart ? <span className="entry-drag-handle" draggable={!busy}
         aria-hidden="true" title={`Drag ${entry.name} to a group`}
@@ -122,12 +139,10 @@ function EntryRow({
         <FlaskConical size={16} className="entry-type-icon" />
         <span className="entry-copy">
           <span>{entry.name}</span>
-          <small title={entry.warnings.map((warning) => warning.message).join("\n")}>
-            {entry.source_format ?? entry.structure_type} / {entry.atom_count} atoms
-            {entry.warnings.length > 0 ? ` / ${entry.warnings.length} warnings` : ""}
-          </small>
+
         </span>
-        {entry.dirty ? <span className="entry-dirty" aria-label="Modified" /> : null}
+        {entry.warnings.length ? <span className="entry-warning"><AlertTriangle size={13} aria-hidden="true" /><span className="sr-only">{entry.warnings.length} warnings; open Details for messages</span></span> : null}
+        {entry.dirty ? <span className="entry-dirty"><span className="sr-only">Modified</span></span> : null}
       </button>
       <div className="entry-actions">
         <IconButton
@@ -151,6 +166,7 @@ function EntryRow({
           <DropdownMenu.Portal>
             <DropdownMenu.Content className="dropdown-content" sideOffset={5} align="end"
               onCloseAutoFocus={event => {
+                if (openingDetails.current) { openingDetails.current = false; event.preventDefault(); return; }
                 const scope = membershipMenuScope.current;
                 if (!scope || !onMembershipMenuClose) return;
                 membershipMenuScope.current = null;
@@ -159,6 +175,13 @@ function EntryRow({
                 event.preventDefault();
                 onMembershipMenuClose(scope);
               }}>
+              <DropdownMenu.Item className="dropdown-item" onSelect={() => { openingDetails.current = true; onInspect(); }}>
+                <ListTree size={15} /> Components
+              </DropdownMenu.Item>
+              <DropdownMenu.Item className="dropdown-item" onSelect={() => { openingDetails.current = true; onDetails(); }}>
+                <Info size={15} /> Details
+              </DropdownMenu.Item>
+              <DropdownMenu.Separator className="dropdown-separator" />
               <DropdownMenu.Item className="dropdown-item" onSelect={() => onRename(entry)}>
                 <Pencil size={15} /> Rename
               </DropdownMenu.Item>
@@ -220,6 +243,41 @@ export function ProjectBrowser({
   onMoveMembership,
   ...actions
 }: ProjectBrowserProps) {
+  const compact = useMediaQuery("(max-width: 840px)");
+  const coarse = useMediaQuery("(any-pointer: coarse), (max-width: 840px)");
+  const browserRoot = useRef<HTMLElement>(null);
+  const [componentContentMinimum, setComponentContentMinimum] = useState(64);
+  const [minimums, setMinimums] = useState([30, 25]);
+  const navigation = useNavigationStore();
+  const { browserLayout, componentsCollapsed, setBrowserLayout, setComponentsCollapsed } = useWorkspaceStore();
+  const componentPanel = useRef<ImperativePanelHandle>(null);
+  const paneHeading = useRef<HTMLHeadingElement>(null);
+  const detailsReturn = useRef<{ projectId: string; entryId: string; launcher: HTMLElement | null } | null>(null);
+  const [detailsEntryId, setDetailsEntryId] = useState<string | null>(null);
+  useEffect(() => {
+    if (!project) return;
+    const state = useNavigationStore.getState();
+    state.setProject(project.id);
+    state.reconcile(project.id, project.entries.map(entry => entry.id));
+  }, [project]);
+  useEffect(() => { setDetailsEntryId(null); }, [project?.id]);
+  useEffect(() => {
+    if (!compact && componentPanel.current) {
+      if (componentsCollapsed) componentPanel.current.collapse();
+      else componentPanel.current.expand();
+    }
+  }, [compact, componentsCollapsed]);
+  const inspected = project && navigation.projectId === project.id
+    ? project.entries.find(entry => entry.id === navigation.inspectedEntryId) : undefined;
+  const inspect = (entry: Entry, explicit = false) => {
+    if (!project) return;
+    useNavigationStore.getState().inspect(project.id, entry.id, explicit && compact);
+    if (explicit && componentsCollapsed) setComponentsCollapsed(false);
+    if (explicit) requestAnimationFrame(() => {
+      const current = useNavigationStore.getState();
+      if (current.projectId === project.id && current.inspectedEntryId === entry.id) paneHeading.current?.focus();
+    });
+  };
   const drag = useGroupDrag(project, actions.busy ?? false, onMoveMembership);
   const [search, setSearch] = useState("");
   const [typeFilter, setTypeFilter] = useState<StructureType | "all">("all");
@@ -296,7 +354,13 @@ export function ProjectBrowser({
       <EntryRow
         entry={entry}
         selected={selectedEntryIds.has(entry.id)}
-        onSelect={(mode) => onSelectEntries?.([entry], mode)}
+        inspected={inspected?.id === entry.id}
+        onSelect={(mode) => { inspect(entry); onSelectEntries?.([entry], mode); }}
+        onInspect={() => inspect(entry, true)}
+        onDetails={() => {
+          detailsReturn.current = { projectId: project!.id, entryId: entry.id, launcher: document.querySelector<HTMLElement>(`[data-entry-id="${entry.id}"] .entry-menu-trigger`) };
+          setDetailsEntryId(entry.id);
+        }}
         {...actions}
         onDragStart={onMoveMembership ? (event) => drag.start(captureScope(entry), event) : undefined}
         onDragEnd={drag.cancel}
@@ -304,31 +368,11 @@ export function ProjectBrowser({
         canUngroup={canonicalIds.has(entry.id) ? selectedGrouped : entry.group_id !== null}
         scopeSummary={canonicalIds.has(entry.id) ? selectedSummary : groupScopeSummary({ entryIds: [entry.id], hiddenCount: 0 })}
       />
-      {project && entry.current_artifact_id ? (
-        <StructureHierarchy
-          projectId={project.id}
-          entry={entry}
-          selection={selection}
-          onSelect={onSelectHierarchy}
-          onVisibility={onHierarchyVisibility}
-        />
-      ) : null}
+
     </div>
   );
 
-  return (
-    <section className="panel-content project-browser" aria-label="Project browser">
-      <div className="panel-header">
-        <div>
-          <span className="panel-eyebrow">Project</span>
-          <h2>Structures</h2>
-        </div>
-        {onCollapse ? (
-          <IconButton label="Collapse project browser" onClick={onCollapse}>
-            <ChevronLeft size={17} />
-          </IconButton>
-        ) : null}
-      </div>
+  const entryList = <div className="entry-pane">
       <div className="browser-controls">
         <label className="browser-search">
           <Search size={14} />
@@ -339,6 +383,7 @@ export function ProjectBrowser({
             onChange={(event) => setSearch(event.target.value)}
           />
         </label>
+        <details className="browser-filter-details"><summary>Filter and sort{typeFilter !== "all" ? " · filtered" : ""}</summary>
         <div className="browser-selects">
           <select
             aria-label="Filter structure type"
@@ -362,7 +407,7 @@ export function ProjectBrowser({
             <option value="atoms">Atom count</option>
             <option value="modified">Modified</option>
           </select>
-        </div>
+        </div></details>
       </div>
       {drag.scope ? <p className="group-drag-status" role="status">{groupScopeSummary(drag.scope)} Drop on a group or Ungrouped. Escape cancels.</p> : null}
       <div
@@ -399,6 +444,91 @@ export function ProjectBrowser({
           </>
         )}
       </div>
-    </section>
-  );
+  </div>;
+  useLayoutEffect(() => {
+    if (compact || !browserRoot.current) return;
+    const root = browserRoot.current;
+    const group = root.querySelector<HTMLElement>("[data-panel-group]");
+    const controls = root.querySelector<HTMLElement>(".browser-controls");
+    const header = root.querySelector<HTMLElement>(".component-pane-header");
+    const parent = root.querySelector<HTMLElement>(".component-parent");
+    const measure = () => {
+      const available = (group?.clientHeight ?? 0) - (root.querySelector<HTMLElement>("[data-panel-resize-handle-id]")?.offsetHeight ?? 0);
+      if (available <= 0) return;
+      const entries = root.querySelector<HTMLElement>(".entry-pane");
+      const results = root.querySelector<HTMLElement>(".browser-results");
+      const pane = root.querySelector<HTMLElement>(".component-pane");
+      const shell = root.querySelector<HTMLElement>(".hierarchy-shell");
+      const entryPixels = (entries && results ? entries.clientHeight - results.clientHeight : 0) + 2 * (coarse ? 44 : 32);
+      const componentPixels = (pane && shell ? pane.clientHeight - shell.clientHeight : 0) + componentContentMinimum;
+      const requested = [Math.max(30, Math.ceil(entryPixels / available * 100)), Math.max(25, Math.ceil(componentPixels / available * 100))];
+      // If the viewport cannot fit both minima, share available space without invalid panel constraints.
+      const scale = Math.min(1, 96 / (requested[0] + requested[1]));
+      const next = requested.map(value => value * scale);
+      setMinimums(previous => previous.every((value, index) => value === next[index]) ? previous : next);
+    };
+    measure();
+    const observer = new ResizeObserver(measure);
+    for (const element of [group, controls, header, parent]) if (element) observer.observe(element);
+    return () => observer.disconnect();
+  }, [compact, coarse, componentContentMinimum, componentsCollapsed, inspected?.id, search, typeFilter, drag.scope]);
+  const components = <section className="component-pane" aria-label="Component browser">
+    <div className="component-pane-header">
+      <h3 ref={paneHeading} tabIndex={-1}>Components</h3>
+      {!compact ? <IconButton label="Collapse components" onClick={() => componentPanel.current?.collapse()}><ChevronDown size={15} /></IconButton> : null}
+    </div>
+    {inspected ? <div className="component-parent" data-inspected-entry-id={inspected.id}>
+      <span title={inspected.name}>{inspected.name}</span>
+      {!inspected.visible ? <small>Parent hidden</small> : null}
+      {!displayedIds.has(inspected.id) || collapsedGroups.has(inspected.group_id ?? "ungrouped") ? <small>Outside displayed entry list</small> : null}
+    </div> : null}
+    {project && inspected?.current_artifact_id ? <StructureHierarchy
+      projectId={project.id} entry={inspected} selection={selection}
+      onSelect={onSelectHierarchy} onVisibility={onHierarchyVisibility} onFocusFallback={() => paneHeading.current?.focus()} onMinimumHeight={setComponentContentMinimum} />
+      : <p className="empty-label">{inspected ? "No normalized structure available" : "Choose an entry to browse components"}</p>}
+  </section>;
+  return <section ref={browserRoot} className="panel-content project-browser" aria-label="Project browser">
+      <div className="panel-header">
+        <div>
+          <span className="panel-eyebrow">Project</span>
+          <h2>Structures</h2>
+        </div>
+        {onCollapse ? (
+          <IconButton label="Collapse project browser" onClick={onCollapse}>
+            <ChevronLeft size={17} />
+          </IconButton>
+        ) : null}
+      </div>
+    {compact ? <>
+      <div className="browser-tabs" role="tablist" aria-label="Project navigation">
+        {(["entries", "components"] as const).map(tab => <button key={tab} type="button" role="tab"
+          id={`browser-${tab}-tab`} aria-selected={navigation.tab === tab} aria-controls={`browser-${tab}-panel`}
+          tabIndex={navigation.tab === tab ? 0 : -1}
+          onKeyDown={event => { if (["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) {
+            event.preventDefault(); const next = event.key === "Home" ? "entries" : event.key === "End" ? "components" : tab === "entries" ? "components" : "entries";
+            navigation.setTab(next); document.getElementById(`browser-${next}-tab`)?.focus();
+          } }} onClick={() => navigation.setTab(tab)}>{tab === "entries" ? "Entries" : "Components"}</button>)}
+      </div>
+      {(["entries", "components"] as const).map(tab => <div key={tab} id={`browser-${tab}-panel`}
+        role="tabpanel" aria-labelledby={`browser-${tab}-tab`} className="browser-tab-panel" hidden={navigation.tab !== tab}>
+        {navigation.tab === tab ? tab === "entries" ? entryList : components : null}
+      </div>)}
+    </> : <PanelGroup direction="vertical" id="project-navigation-panels" onLayout={setBrowserLayout}>
+      <Panel id="entry-list-panel" defaultSize={browserLayout[0]} minSize={minimums[0]}>{entryList}</Panel>
+      <PanelResizeHandle className="resize-handle vertical" aria-label="Resize entries and components" />
+      <Panel id="component-browser-panel" ref={componentPanel} defaultSize={browserLayout[1]}
+        minSize={minimums[1]} collapsible collapsedSize={7} onCollapse={() => setComponentsCollapsed(true)} onExpand={() => setComponentsCollapsed(false)}>
+        {componentsCollapsed ? <button type="button" className="component-restore" onClick={() => componentPanel.current?.expand()}><ChevronUp size={15} /> Components</button> : components}
+      </Panel>
+    </PanelGroup>}
+    <EntryDetails entry={project?.entries.find(entry => entry.id === detailsEntryId)} onClose={() => setDetailsEntryId(null)}
+      onReturnFocus={() => {
+        const origin = detailsReturn.current;
+        if (!origin || useNavigationStore.getState().projectId !== origin.projectId) return;
+        const launcher = origin.launcher?.isConnected ? origin.launcher
+          : document.querySelector<HTMLElement>(`[data-entry-id="${origin.entryId}"] .entry-menu-trigger`);
+        if (launcher?.isConnected) launcher.focus();
+        else paneHeading.current?.focus();
+      }} />
+  </section>;
 }

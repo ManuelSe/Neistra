@@ -1,5 +1,26 @@
 # V0.1 Requirement Evidence
 
+Issue #59 follows the [approved navigation plan](plans/issue-59-compact-project-navigation.md).
+[C1](assets/project-navigation/c1-verification.json) qualifies independent compact
+entry/component ownership; [C2](assets/project-navigation/c2-verification.json)
+qualifies exact membership and bounded direct virtualization.
+[C3](assets/project-navigation/c3-verification.json):all227frontend,176integration
+and22domain Python (2overlap), static/build; final51broad/25adjacent browser passes
+with3/7intentional skips and no failures/retries.200entries/10kcomponents,
+240pxdesktop/320pxmobile, actual100/200% zoom, source warnings, keyboard/axe,
+focus lifecycle and unchanged camera/project/cache are qualified. Earlier failed/
+interrupted diagnostics are separate. Actual tagged0.14.0 reader preliminarily
+accepts exact surfaces/scenes/originals/coordinates/history/jobs/archive remapping;
+[Complete clean candidate](assets/project-navigation/c4-candidate-gate.json) at9a176a1
+passes557Python/227frontend/8supervisor/197browser with45intentional skips and no
+failures/retries, frozen installs/fresh0014/static/build/diff. Final0.15.0 producer
+passes the actual tagged0.14.0 reader including exact surfaces/scenes/originals/
+coordinates/history/jobs/archive remapping. Exact merged gate/publication remain
+pending. [Full-diff local self-review](assets/project-navigation/c4-local-review.md)
+claims no independent review; consequential findings are repaired. Manual screenshot review is distinct from automated accessibility;
+no interactive screen-reader, physical-device or cross-browser certification.
+No API/schema/migration change.
+
 Issue #57 follows the [approved surface-object plan](plans/issue-57-independent-surface-objects.md).
 [C1](assets/surface-objects/c1-verification.json) qualifies disposable identity,
 whole-object activation/highlighting and bounded mesh lines. [C2](assets/surface-objects/c2-verification.json)

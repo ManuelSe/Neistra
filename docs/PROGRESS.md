@@ -2,6 +2,28 @@
 
 ## Current milestone
 
+Issue #59 — [approved contract](plans/issue-59-compact-project-navigation.md).
+C1–C3 implemented/qualified; C4 clean candidate9a176a1 passes the full release gate.
+Independent compact entries/component panes and mobile tabs, pinned session context,
+direct virtual rows, exact indexed membership and full accessible Details are complete.
+D-097 records ownership and reproduced/repaired focus/contrast/menu/minimum-height
+findings; [user guidance](PROJECT_NAVIGATION.md) documents interactions and scope.
+
+[Candidate evidence](assets/project-navigation/c4-candidate-gate.json):557Python,
+227frontend,8supervisor,197browser/45intentional skips in34.3m, no failures/retries;
+frozen installs/fresh0014/Ruff/mypy61/lint/types/build/diff pass. Actual tagged0.14.0
+reads final0.15.0 exact originals/coordinates/history/jobs/scenes/three surfaces and
+archive remapping. [Full-diff review](assets/project-navigation/c4-local-review.md)
+is local self-review; no unresolved consequential finding. Diagnostics stay separate.
+
+All five versions0.15.0minor; no new migration/API/persisted shape. Known limits:
+session context/shared visibility,200unvirtualized entries, generated navigation
+fixture and pinned emulation; no interactive screen-reader certification. PR/review/
+normal merge, exact merged gate, release/reply/cleanup pending. No blocker. Next:
+commit passing evidence, push/open PR, request review and audit merge requirements.
+
+### Previous delivery baseline — v0.14.0
+
 Issue #57 delivered as [v0.14.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.14.0) through [PR #65](https://github.com/ManuelSe/Neistra/pull/65), following the [approved plan](plans/issue-57-independent-surface-objects.md). C1–C5 complete: independent entry/fragment/pocket identities and whole-object activation, compact ownership/appearance/source controls, reversible durable state and migration0014. D-090–D-096 record authority, scientific, compatibility, queue, focus and pointer decisions.
 
 [Clean candidate](assets/surface-objects/c5-candidate-gate.json) atb6281bc and [exact released master](assets/surface-objects/c5-merged-gate.json) at`88e84b27a0fb6c4520333df236d788065fd7a788` each pass **556Python/214frontend/8supervisor/190browser with44 intentional skips**, zero failures/flakes/retries, plus frozen installs/fresh0014/static/build/diff. Actual tagged0.13.2 upgrade, schema1 import, old-reader schema2 refusal and full backup restore pass; unrelated DB columns and original/normalized bytes are exact. Diagnostic fixture repairs remain separate.
@@ -2383,8 +2405,11 @@ Results:
 
 ## Blockers
 
-No current blocker. Issue #57 approved scope, release and closeout are verified.
+No current blocker. Issue #59 C1/C2 pass their gates; C3/C4 and release delivery
+remain. Issue #57 release and closeout remain verified.
 
 ## Next action
 
-Final documentation/clean-master audit is maintained in the verified issue reply. Plan a separately approved backlog issue; do not add deferred charge/carbon/browser scope here.
+Commit passing issue #59 C2, qualify M3/C3, then complete C4
+release delivery. The [feature plan](plans/issue-59-compact-project-navigation.md)
+is the detailed contract; do not reintroduce deferred scope.

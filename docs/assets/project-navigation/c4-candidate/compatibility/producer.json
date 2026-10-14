@@ -1,0 +1,10 @@
+{
+  "producer": "0.15.0",
+  "entries": 2,
+  "atomic_batch": true,
+  "jobs_unchanged": true,
+  "archive_sha256": "fcb910d0c5961f4d0e9c36e5c6dfc8ca3dfdeff82a7df8cbe0804b9a1b1fbe0d",
+  "api_module": "/datadisk/dev/neistra/apps/api/src/molweave_api/main.py",
+  "core_module": "/datadisk/dev/neistra/packages/molweave_core/src/molweave_core/__init__.py",
+  "application_version": "0.15.0"
+}

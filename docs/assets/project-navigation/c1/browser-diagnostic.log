@@ -1,0 +1,208 @@
+[WebServer] INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+[WebServer] INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade  -> 0001, Create Milestone 1 project workspace tables.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0001 -> 0002, Version existing project checkpoint snapshots.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0002 -> 0003, Add artifact-backed molecular entry summaries.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0003 -> 0004, Add durable named atom selections.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0004 -> 0005, Add viewer settings, measurements, and named scenes.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0005 -> 0006, Add exact atom identity summaries and monotonic edit allocators.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0006 -> 0007, Add durable generic job lifecycle tables.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0007 -> 0008, Add durable selection representation assignments to viewer settings.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0008 -> 0009, Add durable nonpolar-hydrogen visibility to viewer settings.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0009 -> 0010, Add selection appearance defaults without losing retained history.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0010 -> 0011, Add selection surface defaults without losing retained history.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0011 -> 0012, Add atomic-detail visibility defaults without losing retained history.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0012 -> 0013, Add pocket surface defaults without losing retained history.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0013 -> 0014, Migrate every retained viewer snapshot to identified surface objects.
+[WebServer] INFO:     Started server process [708830]
+[WebServer] INFO:     Waiting for application startup.
+[WebServer] INFO:     Application startup complete.
+[WebServer] INFO:     Uvicorn running on http://127.0.0.1:8020 (Press CTRL+C to quit)
+[WebServer] (node:708890) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:708902) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 20 tests using 1 worker
+
+(node:708934) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:708934) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [chromium] › tests/e2e/group-membership.spec.ts:53:5 › moves filtered selected batches, preserves molecular state, and supports keyboard/touch and history (10.5s)
+  ✓   2 [chromium] › tests/e2e/group-membership.spec.ts:123:5 › rejects stale-tab actions and keeps a partial selection scoped to its complete entry (6.1s)
+  ✓   3 [chromium] › tests/e2e/group-membership.spec.ts:148:5 › uses real desktop drags for batches, collapsed/empty destinations, Ungrouped, and exact no-ops (6.4s)
+  ✓   4 [chromium] › tests/e2e/group-membership.spec.ts:212:5 › keeps a live molecular viewer and prepared surface unchanged during membership edits (7.6s)
+  ✘   5 [chromium] › tests/e2e/group-membership.spec.ts:287:7 › keeps late membership success feedback and focus in its captured project (30.2s)
+(node:709698) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:709698) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘   6 [chromium] › tests/e2e/group-membership.spec.ts:287:7 › keeps late membership conflict feedback and focus in its captured project (30.2s)
+(node:709848) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:709848) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   7 [chromium] › tests/e2e/group-membership.spec.ts:335:5 › restores group action focus across repeated accepted row remounts (9.8s)
+  ✓   8 [chromium] › tests/e2e/project-navigation.spec.ts:24:5 › keeps compact entries independent from component expansion, selection and metadata (4.9s)
+  ✓   9 [chromium] › tests/e2e/structure-hierarchy.spec.ts:116:5 › synchronizes hierarchy selection, visibility, focus, persistence, and WebGL (9.7s)
+  -  10 [chromium] › tests/e2e/structure-hierarchy.spec.ts:249:5 › keeps the hierarchy keyboard-operable and bounded in the Pixel 7 drawer
+(node:710501) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:710501) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  11 [mobile-chromium] › tests/e2e/group-membership.spec.ts:53:5 › moves filtered selected batches, preserves molecular state, and supports keyboard/touch and history (9.8s)
+  ✓  12 [mobile-chromium] › tests/e2e/group-membership.spec.ts:123:5 › rejects stale-tab actions and keeps a partial selection scoped to its complete entry (5.6s)
+  -  13 [mobile-chromium] › tests/e2e/group-membership.spec.ts:148:5 › uses real desktop drags for batches, collapsed/empty destinations, Ungrouped, and exact no-ops
+  ✓  14 [mobile-chromium] › tests/e2e/group-membership.spec.ts:212:5 › keeps a live molecular viewer and prepared surface unchanged during membership edits (7.9s)
+  ✘  15 [mobile-chromium] › tests/e2e/group-membership.spec.ts:287:7 › keeps late membership success feedback and focus in its captured project (30.4s)
+(node:712252) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:712252) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  16 [mobile-chromium] › tests/e2e/group-membership.spec.ts:287:7 › keeps late membership conflict feedback and focus in its captured project (30.4s)
+(node:712398) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:712398) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  17 [mobile-chromium] › tests/e2e/group-membership.spec.ts:335:5 › restores group action focus across repeated accepted row remounts (9.8s)
+  ✓  18 [mobile-chromium] › tests/e2e/project-navigation.spec.ts:24:5 › keeps compact entries independent from component expansion, selection and metadata (4.8s)
+  -  19 [mobile-chromium] › tests/e2e/structure-hierarchy.spec.ts:116:5 › synchronizes hierarchy selection, visibility, focus, persistence, and WebGL
+  ✓  20 [mobile-chromium] › tests/e2e/structure-hierarchy.spec.ts:249:5 › keeps the hierarchy keyboard-operable and bounded in the Pixel 7 drawer (3.3s)
+
+
+  1) [chromium] › tests/e2e/group-membership.spec.ts:287:7 › keeps late membership success feedback and focus in its captured project
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.focus: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for getByRole('combobox', { name: 'Filter structure type' })
+
+
+      317 |     await search.fill("Keep this workspace focus");
+      318 |     const currentFocus = page.getByRole("combobox", { name: "Filter structure type" });
+    > 319 |     await currentFocus.focus();
+          |                        ^
+      320 |     const noticeBefore = await page.locator(".notice").allTextContents();
+      321 |     const reply = page.waitForResponse(response => response.request().method() === "POST" && response.url().endsWith("/group-membership"));
+      322 |     release();
+        at /datadisk/dev/neistra/tests/e2e/group-membership.spec.ts:319:24
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/group-membership-keeps-lat-8611f-cus-in-its-captured-project-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/group-membership-keeps-lat-8611f-cus-in-its-captured-project-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/group-membership-keeps-lat-8611f-cus-in-its-captured-project-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/group-membership-keeps-lat-8611f-cus-in-its-captured-project-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [chromium] › tests/e2e/group-membership.spec.ts:287:7 › keeps late membership conflict feedback and focus in its captured project
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.focus: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for getByRole('combobox', { name: 'Filter structure type' })
+
+
+      317 |     await search.fill("Keep this workspace focus");
+      318 |     const currentFocus = page.getByRole("combobox", { name: "Filter structure type" });
+    > 319 |     await currentFocus.focus();
+          |                        ^
+      320 |     const noticeBefore = await page.locator(".notice").allTextContents();
+      321 |     const reply = page.waitForResponse(response => response.request().method() === "POST" && response.url().endsWith("/group-membership"));
+      322 |     release();
+        at /datadisk/dev/neistra/tests/e2e/group-membership.spec.ts:319:24
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/group-membership-keeps-lat-6432e-cus-in-its-captured-project-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/group-membership-keeps-lat-6432e-cus-in-its-captured-project-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/group-membership-keeps-lat-6432e-cus-in-its-captured-project-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/group-membership-keeps-lat-6432e-cus-in-its-captured-project-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [mobile-chromium] › tests/e2e/group-membership.spec.ts:287:7 › keeps late membership success feedback and focus in its captured project
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.focus: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for getByRole('combobox', { name: 'Filter structure type' })
+
+
+      317 |     await search.fill("Keep this workspace focus");
+      318 |     await page.locator(".browser-filter-details summary").click();
+    > 319 |     const currentFocus = page.getByRole("combobox", { name: "Filter structure type" });
+          |                        ^
+      320 |     await currentFocus.focus();
+      321 |     const noticeBefore = await page.locator(".notice").allTextContents();
+      322 |     const reply = page.waitForResponse(response => response.request().method() === "POST" && response.url().endsWith("/group-membership"));
+        at /datadisk/dev/neistra/tests/e2e/group-membership.spec.ts:319:24
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/group-membership-keeps-lat-8611f-cus-in-its-captured-project-mobile-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/group-membership-keeps-lat-8611f-cus-in-its-captured-project-mobile-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/group-membership-keeps-lat-8611f-cus-in-its-captured-project-mobile-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/group-membership-keeps-lat-8611f-cus-in-its-captured-project-mobile-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) [mobile-chromium] › tests/e2e/group-membership.spec.ts:287:7 › keeps late membership conflict feedback and focus in its captured project
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.focus: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for getByRole('combobox', { name: 'Filter structure type' })
+
+
+      317 |     await search.fill("Keep this workspace focus");
+      318 |     await page.locator(".browser-filter-details summary").click();
+    > 319 |     const currentFocus = page.getByRole("combobox", { name: "Filter structure type" });
+          |                        ^
+      320 |     await currentFocus.focus();
+      321 |     const noticeBefore = await page.locator(".notice").allTextContents();
+      322 |     const reply = page.waitForResponse(response => response.request().method() === "POST" && response.url().endsWith("/group-membership"));
+        at /datadisk/dev/neistra/tests/e2e/group-membership.spec.ts:319:24
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/group-membership-keeps-lat-6432e-cus-in-its-captured-project-mobile-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/group-membership-keeps-lat-6432e-cus-in-its-captured-project-mobile-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/group-membership-keeps-lat-6432e-cus-in-its-captured-project-mobile-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/group-membership-keeps-lat-6432e-cus-in-its-captured-project-mobile-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4 failed
+    [chromium] › tests/e2e/group-membership.spec.ts:287:7 › keeps late membership success feedback and focus in its captured project
+    [chromium] › tests/e2e/group-membership.spec.ts:287:7 › keeps late membership conflict feedback and focus in its captured project
+    [mobile-chromium] › tests/e2e/group-membership.spec.ts:287:7 › keeps late membership success feedback and focus in its captured project
+    [mobile-chromium] › tests/e2e/group-membership.spec.ts:287:7 › keeps late membership conflict feedback and focus in its captured project
+  3 skipped
+  13 passed (3.8m)

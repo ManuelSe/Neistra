@@ -10,6 +10,8 @@ interface WorkspaceState {
   activeProjectId: string | null;
   horizontalLayout: number[];
   verticalLayout: number[];
+  browserLayout: number[];
+  componentsCollapsed: boolean;
   leftCollapsed: boolean;
   rightCollapsed: boolean;
   lowerCollapsed: boolean;
@@ -18,6 +20,8 @@ interface WorkspaceState {
   setActiveProjectId: (projectId: string | null) => void;
   setHorizontalLayout: (layout: number[]) => void;
   setVerticalLayout: (layout: number[]) => void;
+  setBrowserLayout: (layout: number[]) => void;
+  setComponentsCollapsed: (collapsed: boolean) => void;
   setLeftCollapsed: (collapsed: boolean) => void;
   setRightCollapsed: (collapsed: boolean) => void;
   setLowerCollapsed: (collapsed: boolean) => void;
@@ -45,6 +49,8 @@ export const useWorkspaceStore = create<WorkspaceState>()(
       activeProjectId: null,
       horizontalLayout: [22, 56, 22],
       verticalLayout: [74, 26],
+      browserLayout: [60, 40],
+      componentsCollapsed: false,
       leftCollapsed: false,
       rightCollapsed: false,
       lowerCollapsed: false,
@@ -53,6 +59,8 @@ export const useWorkspaceStore = create<WorkspaceState>()(
       setActiveProjectId: (activeProjectId) => set({ activeProjectId }),
       setHorizontalLayout: (horizontalLayout) => set({ horizontalLayout }),
       setVerticalLayout: (verticalLayout) => set({ verticalLayout }),
+      setBrowserLayout: (browserLayout) => set({ browserLayout }),
+      setComponentsCollapsed: (componentsCollapsed) => set({ componentsCollapsed }),
       setLeftCollapsed: (leftCollapsed) => set({ leftCollapsed }),
       setRightCollapsed: (rightCollapsed) => set({ rightCollapsed }),
       setLowerCollapsed: (lowerCollapsed) => set({ lowerCollapsed }),
@@ -70,6 +78,8 @@ export const useWorkspaceStore = create<WorkspaceState>()(
           activeProjectId: typeof saved.activeProjectId === "string" ? saved.activeProjectId : null,
           horizontalLayout: validLayout(saved.horizontalLayout, 3) ? saved.horizontalLayout : current.horizontalLayout,
           verticalLayout: validLayout(saved.verticalLayout, 2) ? saved.verticalLayout : current.verticalLayout,
+          browserLayout: validLayout(saved.browserLayout, 2) ? saved.browserLayout : current.browserLayout,
+          componentsCollapsed: typeof saved.componentsCollapsed === "boolean" ? saved.componentsCollapsed : current.componentsCollapsed,
           leftCollapsed: typeof saved.leftCollapsed === "boolean" ? saved.leftCollapsed : current.leftCollapsed,
           rightCollapsed: typeof saved.rightCollapsed === "boolean" ? saved.rightCollapsed : current.rightCollapsed,
           lowerCollapsed: typeof saved.lowerCollapsed === "boolean" ? saved.lowerCollapsed : current.lowerCollapsed,
@@ -80,6 +90,8 @@ export const useWorkspaceStore = create<WorkspaceState>()(
         activeProjectId: state.activeProjectId,
         horizontalLayout: state.horizontalLayout,
         verticalLayout: state.verticalLayout,
+        browserLayout: state.browserLayout,
+        componentsCollapsed: state.componentsCollapsed,
         leftCollapsed: state.leftCollapsed,
         rightCollapsed: state.rightCollapsed,
         lowerCollapsed: state.lowerCollapsed,

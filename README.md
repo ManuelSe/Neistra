@@ -160,6 +160,11 @@ corepack pnpm --dir apps/web dev
 Structure organization: see [Structure groups](docs/GROUPS.md) for batch move,
 ungroup and group-creation controls.
 
+The compact entry list and separate component pane share the current molecular
+selection while keeping browsing context independent. See
+[Project navigation](docs/PROJECT_NAVIGATION.md) for entry Details, warnings,
+desktop resizing, mobile tabs, and selection/visibility scope.
+
 Routine notifications above the viewer disappear after 10 seconds. Close dismisses
 them earlier. Errors, warning-bearing import/edit summaries, and instructions to
 check or reconcile a movement remain until dismissed or replaced by a new notice.

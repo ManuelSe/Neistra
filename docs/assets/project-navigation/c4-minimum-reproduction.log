@@ -1,0 +1,77 @@
+[WebServer] INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+[WebServer] INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade  -> 0001, Create Milestone 1 project workspace tables.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0001 -> 0002, Version existing project checkpoint snapshots.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0002 -> 0003, Add artifact-backed molecular entry summaries.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0003 -> 0004, Add durable named atom selections.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0004 -> 0005, Add viewer settings, measurements, and named scenes.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0005 -> 0006, Add exact atom identity summaries and monotonic edit allocators.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0006 -> 0007, Add durable generic job lifecycle tables.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0007 -> 0008, Add durable selection representation assignments to viewer settings.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0008 -> 0009, Add durable nonpolar-hydrogen visibility to viewer settings.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0009 -> 0010, Add selection appearance defaults without losing retained history.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0010 -> 0011, Add selection surface defaults without losing retained history.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0011 -> 0012, Add atomic-detail visibility defaults without losing retained history.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0012 -> 0013, Add pocket surface defaults without losing retained history.
+[WebServer] INFO  [alembic.runtime.migration] Running upgrade 0013 -> 0014, Migrate every retained viewer snapshot to identified surface objects.
+[WebServer] INFO:     Started server process [753794]
+[WebServer] INFO:     Waiting for application startup.
+[WebServer] INFO:     Application startup complete.
+[WebServer] INFO:     Uvicorn running on http://127.0.0.1:8020 (Press CTRL+C to quit)
+[WebServer] (node:753851) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:753863) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 2 tests using 1 worker
+
+(node:753891) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:753891) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 [chromium] › tests/e2e/project-navigation.spec.ts:220:5 › retains two component rows at the minimum expanded desktop pane height (4.6s)
+(node:754019) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:754019) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  -  2 [mobile-chromium] › tests/e2e/project-navigation.spec.ts:220:5 › retains two component rows at the minimum expanded desktop pane height
+
+
+  1) [chromium] › tests/e2e/project-navigation.spec.ts:220:5 › retains two component rows at the minimum expanded desktop pane height
+
+    Error: locator.boundingBox: Error: strict mode violation: locator('[data-panel-group-id="project-navigation-panels"]') resolved to 4 elements:
+        1) <div class="" data-panel-group="" id="project-navigation-panels" data-panel-group-direction="vertical" data-panel-group-id="project-navigation-panels">…</div> aka locator('#project-navigation-panels')
+        2) <div class="" data-panel="" id="entry-list-panel" data-panel-size="60.0" data-panel-id="entry-list-panel" data-panel-group-id="project-navigation-panels">…</div> aka locator('#entry-list-panel')
+        3) <div tabindex="0" role="separator" aria-valuemax="75" aria-valuemin="30" aria-valuenow="60" data-resize-handle="" class="resize-handle vertical" aria-controls="entry-list-panel" data-panel-resize-handle-id="«rc»" data-resize-handle-state="inactive" data-panel-group-direction="vertical" data-panel-resize-handle-enabled="true" aria-label="Resize entries and components" data-panel-group-id="project-navigation-panels"></div> aka getByRole('separator', { name: 'Resize entries and components' })
+        4) <div class="" data-panel="" data-panel-size="40.0" id="component-browser-panel" data-panel-collapsible="true" data-panel-id="component-browser-panel" data-panel-group-id="project-navigation-panels">…</div> aka locator('#component-browser-panel')
+
+    Call log:
+      - waiting for locator('[data-panel-group-id="project-navigation-panels"]')
+
+
+      231 |   const divider = page.getByRole("separator", { name:"Resize entries and components", exact:true });
+      232 |   const box = (await divider.boundingBox())!;
+    > 233 |   const group = (await page.locator('[data-panel-group-id="project-navigation-panels"]').boundingBox())!;
+          |                                                                                          ^
+      234 |   await page.mouse.move(box.x+box.width/2,box.y+box.height/2);
+      235 |   await page.mouse.down(); await page.mouse.move(box.x+box.width/2,group.y+group.height-125,{ steps:5 }); await page.mouse.up();
+      236 |   await expect(page.getByRole("button", { name:"Collapse components", exact:true })).toBeVisible();
+        at /datadisk/dev/neistra/tests/e2e/project-navigation.spec.ts:233:90
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/project-navigation-retains-510d8-xpanded-desktop-pane-height-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/project-navigation-retains-510d8-xpanded-desktop-pane-height-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/project-navigation-retains-510d8-xpanded-desktop-pane-height-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/project-navigation-retains-510d8-xpanded-desktop-pane-height-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [chromium] › tests/e2e/project-navigation.spec.ts:220:5 › retains two component rows at the minimum expanded desktop pane height
+  1 skipped
