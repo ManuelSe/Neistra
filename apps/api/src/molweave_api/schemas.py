@@ -195,12 +195,30 @@ ColorScheme = Literal[
 ]
 
 
-class RepresentationSettings(BaseModel):
+class LegacyRepresentationSettings(BaseModel):
     id: str = Field(min_length=1, max_length=64)
     style: RepresentationStyle
     color_by: ColorScheme = "element"
     custom_color: str = Field(default="#3b82f6", pattern=r"^#[0-9a-fA-F]{6}$")
     opacity: float = Field(default=1.0, ge=0, le=1)
+
+
+class RepresentationSettings(BaseModel):
+    id: str = Field(min_length=1, max_length=64)
+    style: SelectionRepresentationStyle
+    color_by: ColorScheme = "element"
+    custom_color: str = Field(default="#3b82f6", pattern=r"^#[0-9a-fA-F]{6}$")
+    opacity: float = Field(default=1.0, ge=0, le=1)
+
+    @field_validator("style", mode="before")
+    @classmethod
+    def surface_is_an_object(cls, value: Any) -> Any:
+        if value == "surface":
+            raise ValueError(
+                "Create an entry surface with POST /api/v1/projects/{project_id}/surfaces; "
+                "surface is no longer an ordinary representation style"
+            )
+        return value
 
 
 class ComponentVisibility(BaseModel):
@@ -309,8 +327,51 @@ class SelectionPocketSurface(BaseModel):
         return value
 
 
+class EntrySurfaceSource(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    kind: Literal["entry"] = "entry"
+
+
+class FragmentSurfaceSource(SelectionSurface):
+    kind: Literal["fragment"] = "fragment"
+
+
+class PocketSurfaceSource(SelectionPocketSurface):
+    kind: Literal["pocket"] = "pocket"
+
+
+SurfaceSource = Annotated[
+    EntrySurfaceSource | FragmentSurfaceSource | PocketSurfaceSource, Field(discriminator="kind")
+]
+
+
+class SurfaceAppearance(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    color_by: ColorScheme = "element"
+    custom_color: str = Field(default="#3b82f6", pattern=r"^#[0-9a-fA-F]{6}$")
+    opacity: float = Field(default=0.45, ge=0, le=1, allow_inf_nan=False)
+    mode: Literal["solid", "mesh"] = "solid"
+    inherit_atom_colors: bool = Field(default=False, strict=True)
+
+
+class SurfaceObject(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    id: str = Field(min_length=1, max_length=64)
+    name: str = Field(min_length=1, max_length=120)
+    visible: bool = Field(default=True, strict=True)
+    source: SurfaceSource
+    appearance: SurfaceAppearance = Field(default_factory=SurfaceAppearance)
+
+    @field_validator("name")
+    @classmethod
+    def nonblank_name(cls, value: str) -> str:
+        return ProjectCreate.name_must_not_be_blank(value)
+
+
 class ViewerSettings(BaseModel):
-    selection_pocket_surface: SelectionPocketSurface | None = None
+    model_config = ConfigDict(extra="forbid")
+    schema_version: Literal[2] = 2
+    surface_objects: list[SurfaceObject] = Field(default_factory=list, max_length=16)
     selection_hidden_atoms: list[int] = Field(default_factory=list, strict=True)
 
     @field_validator("selection_hidden_atoms", mode="before")
@@ -320,8 +381,7 @@ class ViewerSettings(BaseModel):
             raise ValueError("Hidden atom IDs must be integers")
         return SelectionRepresentation.atom_ids_are_canonical(value)
 
-    selection_surface: SelectionSurface | None = None
-    representations: list[RepresentationSettings] = Field(min_length=1, max_length=12)
+    representations: list[RepresentationSettings] = Field(max_length=12)
     selection_representations: list[SelectionRepresentation] = Field(
         default_factory=list, max_length=7
     )
@@ -331,6 +391,13 @@ class ViewerSettings(BaseModel):
     )
     components: ComponentVisibility = Field(default_factory=ComponentVisibility)
     labels: LabelVisibility = Field(default_factory=LabelVisibility)
+
+    @field_validator("surface_objects")
+    @classmethod
+    def unique_surface_ids(cls, value: list[SurfaceObject]) -> list[SurfaceObject]:
+        if len({item.id for item in value}) != len(value):
+            raise ValueError("Surface IDs must be unique within an entry")
+        return value
 
     @field_validator("selection_nonpolar_hydrogens")
     @classmethod
@@ -505,7 +572,7 @@ class TopologyPatch(BaseModel):
 
 
 class ProjectRead(BaseModel):
-    schema_version: Literal[1] = 1
+    schema_version: Literal[2] = 2
     id: str
     name: str
     description: str | None
@@ -587,9 +654,42 @@ class SavedSelectionCreate(BaseModel):
         return normalized
 
 
+class ViewerSettingsWrite(ViewerSettings):
+    schema_version: Literal[2] = Field(...)
+
+
 class ViewerSettingsUpdate(BaseModel):
     expected_revision: int = Field(ge=0)
-    settings: ViewerSettings
+    settings: ViewerSettingsWrite
+
+
+class SurfaceCreateItem(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    entry_id: str = Field(min_length=1)
+    name: str | None = Field(default=None, min_length=1, max_length=120)
+    source: SurfaceSource
+    appearance: SurfaceAppearance = Field(default_factory=SurfaceAppearance)
+
+
+class SurfaceCreate(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    expected_revision: int = Field(ge=0)
+    surfaces: list[SurfaceCreateItem] = Field(min_length=1, max_length=100)
+
+
+class SurfaceUpdate(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    expected_revision: int = Field(ge=0)
+    name: str | None = Field(default=None, min_length=1, max_length=120)
+    visible: bool | None = Field(default=None, strict=True)
+    source: SurfaceSource | None = None
+    appearance: SurfaceAppearance | None = None
+
+    @model_validator(mode="after")
+    def reject_explicit_nulls(self) -> SurfaceUpdate:
+        if any(getattr(self, key) is None for key in self.model_fields_set):
+            raise ValueError("Surface changes cannot be null")
+        return self
 
 
 class SelectionRepresentationUpdate(BaseModel):
@@ -606,33 +706,6 @@ class SelectionRepresentationUpdate(BaseModel):
             raise ValueError("Style is required when applying a selection representation")
         if self.action == "reset" and self.style is not None:
             raise ValueError("Style must be omitted when resetting selection representations")
-        return self
-
-
-class SelectionSurfaceUpdate(BaseModel):
-    model_config = ConfigDict(extra="forbid")
-    expected_revision: int = Field(ge=0)
-    selection: SelectionV1
-    action: Literal["add", "remove"]
-
-    @model_validator(mode="after")
-    def nonempty_selection(self) -> SelectionSurfaceUpdate:
-        if not self.selection.atoms:
-            raise ValueError("Select at least one atom to change its surface")
-        return self
-
-
-class SelectionPocketSurfaceUpdate(BaseModel):
-    model_config = ConfigDict(extra="forbid")
-    expected_revision: int = Field(ge=0)
-    receptor_entry_id: str = Field(min_length=1)
-    action: Literal["apply", "remove"]
-    pocket: SelectionPocketSurface | None = None
-
-    @model_validator(mode="after")
-    def action_definition(self) -> SelectionPocketSurfaceUpdate:
-        if (self.action == "apply") != (self.pocket is not None):
-            raise ValueError("Apply requires a pocket definition; Remove must not include one")
         return self
 
 
@@ -1148,7 +1221,7 @@ class ArchiveExportCreate(BaseModel):
 
 class ArchiveExportRead(BaseModel):
     artifact: ArtifactRead
-    manifest_schema_version: Literal[1] = 1
+    manifest_schema_version: Literal[2] = 2
     source_revision: int = Field(ge=0)
 
 

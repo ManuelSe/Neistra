@@ -167,8 +167,8 @@ class LazyMolstarViewer implements MolecularViewer {
     const unsubscribe = this.engine?.subscribeSurfaces(listener);
     return () => { this.surfaceListeners.delete(listener); unsubscribe?.(); };
   }
-  cancelSurface(entryId: string, channel: SurfaceChannel = "fragment"): void { this.engine?.cancelSurface(entryId, channel); }
-  retrySurface(entryId: string, channel: SurfaceChannel = "fragment"): void { this.engine?.retrySurface(entryId, channel); }
+  cancelSurface(entryId: string, channel: SurfaceChannel = "fragment", surfaceId?: string): void { if (surfaceId === undefined) this.engine?.cancelSurface(entryId, channel); else this.engine?.cancelSurface(entryId, channel, surfaceId); }
+  retrySurface(entryId: string, channel: SurfaceChannel = "fragment", surfaceId?: string): void { if (surfaceId === undefined) this.engine?.retrySurface(entryId, channel); else this.engine?.retrySurface(entryId, channel, surfaceId); }
 
   setActiveSurface(surface: SurfaceIdentity | null): void {
     this.activeSurface = surface ? { ...surface } : null;

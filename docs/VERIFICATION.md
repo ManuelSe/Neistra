@@ -1,5 +1,16 @@
 # V0.1 Requirement Evidence
 
+Issue #57 follows the [approved surface-object plan](plans/issue-57-independent-surface-objects.md).
+[C1](assets/surface-objects/c1-verification.json) qualifies disposable identity,
+whole-object activation/highlighting and bounded mesh lines. [C2](assets/surface-objects/c2-verification.json)
+qualifies canonical schema2 objects, migration0014 retained paths/atomic refusals,
+revisioned commands, archives, topology and minimal grouped management. Final focused
+Python178 and frontend209 pass, alongside lint/types/build/Ruff/mypy; fragment/pocket
+browser19 and separate full application journey1 pass. Diagnostic failures and their
+focused fixes remain explicit. C3 editors and C4 comprehensive compatibility/access/
+performance qualification remain; no release claim is made. Earlier issue evidence
+below is historical and predates the schema2 boundary.
+
 Issue #56 follows the [approved notification plan](plans/issue-56-viewer-notification-timeout.md).
 [C1 evidence](assets/viewer-notifications/c1-verification.json) qualifies exact
 10-second boundaries, replacement/repeated text, stale callbacks, cleanup, warning

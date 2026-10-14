@@ -1,0 +1,92 @@
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+[2m[WebServer] [22mINFO:     Started server process [632168]
+[2m[WebServer] [22mINFO:     Waiting for application startup.
+[2m[WebServer] [22mINFO:     Application startup complete.
+[2m[WebServer] [22mINFO:     Uvicorn running on http://127.0.0.1:8020 (Press CTRL+C to quit)
+[2m[WebServer] [22m(node:632243) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:632255) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 22 tests using 1 worker
+
+(node:632286) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:632286) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [chromium] › tests/e2e/pocket-surfaces.spec.ts:12:7 › qualifies native full-protein pocket geometry and independent display for complex/1stp.pdb (10.5s)
+  ✓   2 [chromium] › tests/e2e/pocket-surfaces.spec.ts:12:7 › qualifies native full-protein pocket geometry and independent display for hydrogens/polar_hydrogens_protein.pdb (9.2s)
+  ✓   3 [chromium] › tests/e2e/pocket-surfaces.spec.ts:12:7 › qualifies native full-protein pocket geometry and independent display for surfaces/1aon.cif (54.5s)
+  ✓   4 [chromium] › tests/e2e/pocket-surfaces.spec.ts:158:5 › invalidates native pockets for hidden seed and receptor preview, cancel and commit (7.3s)
+  ✓   5 [chromium] › tests/e2e/pocket-surfaces.spec.ts:223:5 › saves pockets through the compact panel and restores hidden seed inputs (10.6s)
+  ✘   6 [chromium] › tests/e2e/release-journey.spec.ts:154:5 › completes the MolWeave v0.1 definition-of-done journey (14.0s)
+(node:632892) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:632892) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   7 [chromium] › tests/e2e/selection-surfaces.spec.ts:16:5 › qualifies worker geometry, real element colors, picking and cancellation (4.4s)
+  ✓   8 [chromium] › tests/e2e/selection-surfaces.spec.ts:114:5 › adds and removes saved surfaces from the compact palette with reload and undo (14.3s)
+  ✓   9 [chromium] › tests/e2e/selection-surfaces.spec.ts:187:7 › qualifies production surface lifecycle for formats/ethanol.mol (8.0s)
+  ✓  10 [chromium] › tests/e2e/selection-surfaces.spec.ts:187:7 › qualifies production surface lifecycle for hydrogens/polar_hydrogens_ligand.mol (3.9s)
+  ✓  11 [chromium] › tests/e2e/selection-surfaces.spec.ts:358:5 › qualifies production 1STP surface response and partial-fragment boundaries (3.1s)
+(node:633194) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:633194) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  12 [mobile-chromium] › tests/e2e/pocket-surfaces.spec.ts:12:7 › qualifies native full-protein pocket geometry and independent display for complex/1stp.pdb (6.6s)
+  ✓  13 [mobile-chromium] › tests/e2e/pocket-surfaces.spec.ts:12:7 › qualifies native full-protein pocket geometry and independent display for hydrogens/polar_hydrogens_protein.pdb (4.8s)
+  ✓  14 [mobile-chromium] › tests/e2e/pocket-surfaces.spec.ts:12:7 › qualifies native full-protein pocket geometry and independent display for surfaces/1aon.cif (51.8s)
+  ✓  15 [mobile-chromium] › tests/e2e/pocket-surfaces.spec.ts:158:5 › invalidates native pockets for hidden seed and receptor preview, cancel and commit (3.9s)
+  ✓  16 [mobile-chromium] › tests/e2e/pocket-surfaces.spec.ts:223:5 › saves pockets through the compact panel and restores hidden seed inputs (9.7s)
+  -  17 [mobile-chromium] › tests/e2e/release-journey.spec.ts:154:5 › completes the MolWeave v0.1 definition-of-done journey
+  ✓  18 [mobile-chromium] › tests/e2e/selection-surfaces.spec.ts:16:5 › qualifies worker geometry, real element colors, picking and cancellation (3.3s)
+  -  19 [mobile-chromium] › tests/e2e/selection-surfaces.spec.ts:114:5 › adds and removes saved surfaces from the compact palette with reload and undo
+  ✓  20 [mobile-chromium] › tests/e2e/selection-surfaces.spec.ts:187:7 › qualifies production surface lifecycle for formats/ethanol.mol (4.4s)
+  ✓  21 [mobile-chromium] › tests/e2e/selection-surfaces.spec.ts:187:7 › qualifies production surface lifecycle for hydrogens/polar_hydrogens_ligand.mol (2.4s)
+  ✓  22 [mobile-chromium] › tests/e2e/selection-surfaces.spec.ts:358:5 › qualifies production 1STP surface response and partial-fragment boundaries (2.4s)
+
+
+  1) [chromium] › tests/e2e/release-journey.spec.ts:154:5 › completes the MolWeave v0.1 definition-of-done journey 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoContainText[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: locator('.selection-meta')
+    Expected string: [32m"from viewer"[39m
+    Received string: [31m"residuefrom sequence"[39m
+    Timeout: 5000ms
+
+    Call log:
+    [2m  - Expect "toContainText" with timeout 5000ms[22m
+    [2m  - waiting for locator('.selection-meta')[22m
+    [2m    9 × locator resolved to <div class="selection-meta">…</div>[22m
+    [2m      - unexpected value "residuefrom sequence"[22m
+
+
+      232 |     .click();
+      233 |   await pickVisibleStructure(page);
+    > 234 |   await expect(page.locator(".selection-meta")).toContainText("from viewer");
+          |                                                 ^
+      235 |
+      236 |   await createMeasurement(page, protein!.id, [1, 2], "distance");
+      237 |   await createMeasurement(page, protein!.id, [1, 2, 3], "angle");
+        at /datadisk/dev/neistra/tests/e2e/release-journey.spec.ts:234:49
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/release-journey-completes--19aa5--definition-of-done-journey-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/release-journey-completes--19aa5--definition-of-done-journey-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/release-journey-completes--19aa5--definition-of-done-journey-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/release-journey-completes--19aa5--definition-of-done-journey-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [chromium] › tests/e2e/release-journey.spec.ts:154:5 › completes the MolWeave v0.1 definition-of-done journey 
+  2 skipped
+  19 passed (3.9m)

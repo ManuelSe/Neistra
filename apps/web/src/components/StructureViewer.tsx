@@ -1,5 +1,5 @@
 import type { SurfaceStatus } from "../viewer/surface/runtime";
-import type { ChangePocketSurface, ChangeSelectionAppearance } from "../api/types";
+import type { SurfaceActions, ChangeSelectionAppearance } from "../api/types";
 import type { ExpandSelection } from "../selection/expansion";
 import { useQueries } from "@tanstack/react-query";
 import * as Tooltip from "@radix-ui/react-tooltip";
@@ -33,6 +33,9 @@ import type { Theme } from "../store/workspace";
 import { THEME_TOKENS } from "../theme";
 import { ViewerControls } from "./ViewerControls";
 import { ViewerToolbar } from "./ViewerToolbar";
+import { SurfaceManager } from "./SurfaceManager";
+import type { SurfaceIdentity } from "../viewer/surface/objects";
+import { surfaceKey } from "../viewer/surface/protocol";
 import { resolvePocketInputs } from "../selection/pocketInputs";
 import { SelectionStyleDialog } from "./SelectionStyleDialog";
 import { MovementOverlay, MovementControls } from "./MovementOverlay";
@@ -66,9 +69,8 @@ interface StructureViewerProps {
   onLoadSelectionStructures?: () => Promise<Map<string, StructureProjection>>;
   onExpandDistance?: ExpandSelection;
   onAtomVisibility?: (action: "hide" | "show") => Promise<void>;
-  onPocket?: ChangePocketSurface;
+  onSurfaces?: SurfaceActions;
   onLoadPocketStructures?: () => Promise<Map<string, StructureProjection>>;
-  onSurface?: (action: "add" | "remove") => Promise<void>;
   onAppearance?: ChangeSelectionAppearance;
   onSelectionStyle?: (
     action: "apply" | "reset",
@@ -96,8 +98,7 @@ export function StructureViewer({
   onSelectionStyle,
   onExpandDistance,
   onAtomVisibility,
-  onSurface,
-  onPocket,
+  onSurfaces,
   onLoadPocketStructures,
   onAppearance,
   createViewer = createMolstarViewer,
@@ -117,6 +118,13 @@ export function StructureViewer({
   currentMovement.current = movement;
   const initialSceneReady = useRef(false);
   const [surfaceStatuses, setSurfaceStatuses] = useState<SurfaceStatus[]>([]);
+  const [surfaceProjectId, setSurfaceProjectId] = useState<string | null>(null);
+  const [activeSurface, setActiveSurface] = useState<SurfaceIdentity | null>(null);
+  const surfaceOpenedByCanvas = useRef(false);
+  const openSurfaces = () => {
+    surfaceOpenedByCanvas.current = false;
+    setStyleProjectId(null); setSurfaceProjectId(project.id);
+  };
   const [viewerReady, setViewerReady] = useState(false);
   const [viewerError, setViewerError] = useState<string | null>(null);
   const [activeEntryId, setActiveEntryId] = useState("");
@@ -152,7 +160,8 @@ export function StructureViewer({
 
   const hiddenSeedEntries = useMemo(() => {
     const needed = new Set(visibleEntries.flatMap((entry) =>
-      entry.viewer_settings.selection_pocket_surface?.seed_atom_references.map((seed) => seed.structure_id) ?? []));
+      entry.viewer_settings.surface_objects.flatMap(surface => surface.source.kind === "pocket" && surface.visible && surface.appearance.opacity > 0
+        ? surface.source.seed_atom_references.map(seed => seed.structure_id) : [])));
     return project.entries.filter((entry) => !entry.visible && needed.has(entry.id));
   }, [project.entries, visibleEntries]);
   const hiddenSeedQueries = useQueries({
@@ -215,6 +224,10 @@ export function StructureViewer({
       );
     });
     const unsubscribeSurfaces = viewer.subscribeSurfaces(setSurfaceStatuses);
+    const unsubscribeSurfaceSelection = viewer.subscribeSurfaceSelection(identity => {
+      surfaceOpenedByCanvas.current = true;
+      setActiveSurface(identity); setStyleProjectId(null); setSurfaceProjectId(project.id);
+    });
     initialSceneReady.current = false;
     const unsubscribeCamera = viewer.subscribeCamera(camera => {
       setCamera(camera);
@@ -227,13 +240,14 @@ export function StructureViewer({
       unsubscribe();
       unsubscribeCamera();
       unsubscribeSurfaces();
+      unsubscribeSurfaceSelection();
       observer.disconnect();
       previewQueue.current?.dispose();
       previewQueue.current = null;
       viewer.dispose();
       viewerRef.current = undefined;
     };
-  }, [createViewer]);
+  }, [createViewer, project.id]);
 
   useEffect(() => {
     viewerRef.current?.setBackgroundColor(VIEWER_BACKGROUND_COLORS[theme]);
@@ -246,7 +260,10 @@ export function StructureViewer({
           ? [
               {
                 entryId: visibleEntries[index].id,
-                pocket: pockets.get(visibleEntries[index].id),
+                pockets: Object.fromEntries(visibleEntries[index].viewer_settings.surface_objects.flatMap(surface => {
+                  const resolved = pockets.get(surfaceKey(visibleEntries[index].id, "pocket", surface.id));
+                  return surface.source.kind === "pocket" && resolved ? [[surface.id, resolved]] : [];
+                })),
                 label: visibleEntries[index].name,
                 projection: query.data.viewer,
                 atomIds: query.data.structure.atoms.map((atom) => atom.id),
@@ -256,13 +273,6 @@ export function StructureViewer({
                   visibleEntries[index].atom_count >= 250_000
                     ? {
                         ...visibleEntries[index].viewer_settings,
-                        representations: visibleEntries[
-                          index
-                        ].viewer_settings.representations.map((representation) =>
-                          representation.style === "surface"
-                            ? { ...representation, style: "line" as const }
-                            : representation,
-                        ),
                         labels: {
                           atoms: false,
                           residues: false,
@@ -281,7 +291,7 @@ export function StructureViewer({
   const syncKey = viewerStructures
     .map(
       (structure) =>
-        `${structure.entryId}:${JSON.stringify(structure.settings)}:${structure.pocket?.dependencyKey ?? ""}`,
+        `${structure.entryId}:${JSON.stringify(structure.settings)}:${Object.values(structure.pockets ?? {}).map(pocket => pocket.dependencyKey).join(";")}`,
     )
     .join("|");
   const structuresPending = structureQueries.some((query) => query.isPending);
@@ -472,18 +482,24 @@ export function StructureViewer({
     (ligandAtoms.length === 0 ? "No ligand detected in visible structures" : null);
   const selectionStyleUnavailableReason = busy
     ? "Finish the current project change before styling the selection"
-    : selection.atoms.length === 0 && !project.entries.some((entry) => entry.viewer_settings.selection_pocket_surface)
+    : selection.atoms.length === 0 && !project.entries.some(entry => entry.viewer_settings.surface_objects.length)
       ? "Select atoms before styling the selection"
       : onSelectionStyle
         ? null
         : "Selection styling is unavailable in this workspace";
 
-  useEffect(() => { if (movementActive) setStyleProjectId(null); }, [movementActive]);
+  useEffect(() => { if (movementActive) { setStyleProjectId(null); setSurfaceProjectId(null); } }, [movementActive]);
+  useEffect(() => {
+    if (activeSurface && !project.entries.some(entry => entry.id === activeSurface.entryId && entry.viewer_settings.surface_objects.some(surface => surface.id === activeSurface.surfaceId))) {
+      setActiveSurface(null); viewerRef.current?.setActiveSurface(null);
+    }
+  }, [activeSurface, project.entries]);
+  useEffect(() => { viewerRef.current?.setActiveSurface(activeSurface); }, [activeSurface, syncKey, viewerReady]);
 
   const openStyleDialog = () => {
     if (styleDialogOpen) { setStyleDialogOpen(false); return; }
     if (selectionStyleUnavailableReason) return;
-    setStyleDialogOpen(true);
+    setSurfaceProjectId(null); setStyleDialogOpen(true);
     const visible = new Map(
       structureQueries.flatMap((query, index) =>
         query.data ? [[visibleEntries[index].id, query.data] as const] : [],
@@ -609,8 +625,17 @@ export function StructureViewer({
           onAppearance={onAppearance}
           onAtomVisibility={onAtomVisibility}
           key={project.id}
-          onSurface={onSurface}
-          onPocket={onPocket}
+          onSurfaces={onSurfaces}
+          onManageSurfaces={openSurfaces}
+          onCreateFragment={onSurfaces ? async () => {
+            const grouped = new Map<string, number[]>();
+            for (const atom of selection.atoms) {
+              const ids = grouped.get(atom.structure_id) ?? [];
+              ids.push(atom.atom_id); grouped.set(atom.structure_id, ids);
+            }
+            await onSurfaces.create([...grouped].map(([entry_id, ids]) => ({ entry_id,
+              source: { kind: "fragment", profile: "molecular-v1", atom_ids: [...new Set(ids)].sort((a, b) => a - b) } })));
+          } : undefined}
           onLoadPocketStructures={onLoadPocketStructures}
           open={styleDialogOpen}
           selection={selection}
@@ -634,6 +659,10 @@ export function StructureViewer({
         busy={busy}
         isolated={isolation !== null}
         onActiveEntry={setActiveEntryId}
+        onManageSurfaces={openSurfaces}
+        onCreateSurface={onSurfaces ? entryId => {
+          void onSurfaces.create([{ entry_id: entryId, source: { kind: "entry" } }]).then(openSurfaces).catch(() => undefined);
+        } : undefined}
         onSettings={(entryId, settings) => {
           void onUpdateSettings?.(entryId, settings);
         }}
@@ -654,6 +683,7 @@ export function StructureViewer({
         onApplyScene={(scene) => {
           void (async () => {
             if (onApplyScene) await onApplyScene(scene);
+            setActiveSurface(null); viewerRef.current?.setActiveSurface(null);
             setIsolation(null);
             viewerRef.current?.setCamera(scene.camera);
             onViewerSelection(scene.selection, "replace");
@@ -664,14 +694,16 @@ export function StructureViewer({
         }}
         /> : null}
       </Tooltip.Provider>
-      {surfaceStatuses.length ? <div className="surface-runtime-status" aria-label="Selection surface rendering">
-        {surfaceStatuses.map((status) => <div key={`${status.channel}:${status.entryId}`}>
-          <span role="status">{status.label} · {status.channel === "pocket" ? "Pocket" : "Fragment"}: {status.message}</span>
-          {["queued", "rendering"].includes(status.state) ? <button type="button"
-            aria-label={`Cancel ${status.channel} surface for ${status.label}`} onClick={() => viewerRef.current?.cancelSurface(status.entryId, status.channel)}>Cancel</button> : null}
-          {["cancelled", "fallback"].includes(status.state) ? <button type="button"
-            aria-label={`Retry ${status.channel} surface for ${status.label}`} onClick={() => viewerRef.current?.retrySurface(status.entryId, status.channel)}>Retry</button> : null}
-        </div>)}
+      {onSurfaces ? <SurfaceManager key={project.id} open={surfaceProjectId === project.id}
+        onOpenChange={open => setSurfaceProjectId(open ? project.id : null)} entries={project.entries}
+        active={activeSurface} onActivate={setActiveSurface} actions={onSurfaces} statuses={surfaceStatuses} busy={busy}
+        autoFocus={!surfaceOpenedByCanvas.current}
+        onReturnFocus={() => targetRef.current?.closest(".structure-viewer")?.querySelector<HTMLButtonElement>('[aria-label="Style selection"]')?.focus()}
+        onCancel={(entryId, surface) => viewerRef.current?.cancelSurface(entryId, surface.source.kind, surface.id)}
+        onRetry={(entryId, surface) => viewerRef.current?.retrySurface(entryId, surface.source.kind, surface.id)} /> : null}
+      {surfaceStatuses.some(status => ["queued", "rendering", "fallback", "cancelled"].includes(status.state)) ? <div className="surface-runtime-status">
+        <button type="button" onClick={openSurfaces}>Surfaces · {surfaceStatuses.filter(status => ["queued", "rendering"].includes(status.state)).length} calculating
+          {surfaceStatuses.some(status => ["fallback", "cancelled"].includes(status.state)) ? " · needs attention" : ""}</button>
       </div> : null}
       {loading ? (
         <div className="viewer-loading" aria-label="Loading molecular structures">

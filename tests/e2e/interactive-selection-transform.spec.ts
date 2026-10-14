@@ -258,13 +258,15 @@ test("qualifies native proper-rotation previews, camera suspension, zoom and sur
     const path = "/src/test/interactiveTransformHarness.ts";
     const mathPath = "/src/coordinates/interactiveTransform.ts";
     const { mountInteractiveTransformHarness } = await import(/* @vite-ignore */ path);
+    const fixturePath = "/src/test/selectionSurfaceHarness.ts";
+    const { fixtureSurface } = await import(/* @vite-ignore */ fixturePath);
     const { captureMovement, initialMovementPose, movePose, movementPreview } = await import(/* @vite-ignore */ mathPath);
     const target = document.createElement("div");
     Object.assign(target.style, { position: "fixed", inset: "0" }); document.body.appendChild(target);
     window.movementHarness = await mountInteractiveTransformHarness(target, {
       entryId: entry.id, label: entry.name, projection: projection.viewer,
       normalized: projection.structure, hierarchy: projection.hierarchy,
-      atomIds: entry.atom_ids, settings: { ...entry.viewer_settings, representations: [{ ...entry.viewer_settings.representations[0], style: "surface" }] },
+      atomIds: entry.atom_ids, settings: { ...entry.viewer_settings, representations: [], surface_objects: [fixtureSurface({ kind: "entry" })] },
     });
     const h = window.movementHarness;
     const before = h.inspect();
@@ -299,7 +301,7 @@ test("qualifies native proper-rotation previews, camera suspension, zoom and sur
       results.push({ mode, camera, heldCamera, preview, depth, expected, restored: h.inspect() });
     }
     await h.engine.syncStructures([{ ...h.source, settings: { ...entry.viewer_settings,
-      representations: [], selection_surface: { profile: "molecular-v1", atom_ids: entry.atom_ids } } }]);
+      representations: [], surface_objects: [fixtureSurface({ kind: "fragment", profile: "molecular-v1", atom_ids: entry.atom_ids })] } }]);
     const waitForRendered = async () => {
       const deadline = performance.now() + 20_000;
       while (!h.engine.getRenderedAtomReferences().length) {

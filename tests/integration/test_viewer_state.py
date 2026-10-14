@@ -39,18 +39,11 @@ def viewer_settings() -> dict[str, Any]:
                 "custom_color": "#22c55e",
                 "opacity": 0.65,
             },
-            {
-                "id": "surface",
-                "style": "surface",
-                "color_by": "element",
-                "custom_color": "#3b82f6",
-                "opacity": 0.3,
-            },
         ],
+        "schema_version": 2,
+        "surface_objects": [],
         "selection_representations": [],
-        "selection_surface": None,
         "selection_hidden_atoms": [],
-        "selection_pocket_surface": None,
         "selection_colors": [],
         "selection_nonpolar_hydrogens": [],
         "components": {
@@ -422,7 +415,7 @@ def test_viewer_measurement_and_scene_state_are_undoable(client: ApiClient) -> N
         f"/api/v1/projects/{project['id']}/entries/{entry['id']}/viewer-settings",
         json={"expected_revision": project["revision"], "settings": viewer_settings()},
     ).json()
-    assert len(project["entries"][0]["viewer_settings"]["representations"]) == 2
+    assert len(project["entries"][0]["viewer_settings"]["representations"]) == 1
     assert project["entries"][0]["viewer_settings"]["components"]["nonpolar_hydrogens"] is False
     assert project["history"]["undo_description"] == "Update viewer settings for Ethanol"
 

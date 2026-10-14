@@ -16,18 +16,78 @@ from tests.integration.test_viewer_state import import_ligand, selection
 from tests.support.api_client import ApiClient
 
 
-def change(client: ApiClient, project: dict[str, Any], target: dict[str, Any], action="add"):
+def fragment(settings):
+    obj = next(
+        (item for item in settings["surface_objects"] if item["source"]["kind"] == "fragment"), None
+    )
+    return {key: value for key, value in obj["source"].items() if key != "kind"} if obj else None
+
+
+def change(client: ApiClient, project: dict[str, Any], target: dict[str, Any], action="replace"):
+    """Explicitly replace the first test object's source, or create/remove it."""
+    path = f"/api/v1/projects/{project['id']}"
+    grouped: dict[str, list[int]] = {}
+    for ref in target["atoms"]:
+        grouped.setdefault(ref["structure_id"], []).append(ref["atom_id"])
+    # Multi-entry creation is one atomic command.
+    if len(grouped) != 1 or not target["atoms"]:
+        return client.post(
+            f"{path}/surfaces",
+            json={
+                "expected_revision": project["revision"],
+                "surfaces": [
+                    {
+                        "entry_id": owner,
+                        "source": {
+                            "kind": "fragment",
+                            "profile": "molecular-v1",
+                            "atom_ids": atoms,
+                        },
+                    }
+                    for owner, atoms in grouped.items()
+                ],
+            },
+        )
+    owner, atoms = next(iter(grouped.items()))
+    entry = next((entry for entry in project["entries"] if entry["id"] == owner), None)
+    obj = (
+        next(
+            (
+                obj
+                for obj in entry["viewer_settings"]["surface_objects"]
+                if obj["source"]["kind"] == "fragment"
+            ),
+            None,
+        )
+        if entry
+        else None
+    )
+    source = {"kind": "fragment", "profile": "molecular-v1", "atom_ids": atoms}
+    if obj:
+        return client.request(
+            "DELETE" if action == "remove" else "PATCH",
+            f"{path}/entries/{owner}/surfaces/{obj['id']}",
+            json={
+                "expected_revision": project["revision"],
+                **({"source": source} if action != "remove" else {}),
+            },
+        )
     return client.post(
-        f"/api/v1/projects/{project['id']}/selection-surface",
-        json={"expected_revision": project["revision"], "selection": target, "action": action},
+        f"{path}/surfaces",
+        json={
+            "expected_revision": project["revision"],
+            "surfaces": [{"entry_id": owner, "source": source}],
+        },
     )
 
 
 def surface(project: dict[str, Any]):
-    return project["entries"][0]["viewer_settings"]["selection_surface"]
+    return fragment(project["entries"][0]["viewer_settings"])
 
 
-def test_surface_union_remove_noop_history_and_molecular_invariance(client: ApiClient) -> None:
+def test_surface_explicit_replace_remove_noop_history_and_molecular_invariance(
+    client: ApiClient,
+) -> None:
     project = import_ligand(client)
     entry = project["entries"][0]
     path = f"/api/v1/projects/{project['id']}"
@@ -38,12 +98,11 @@ def test_surface_union_remove_noop_history_and_molecular_invariance(client: ApiC
     project = change(client, project, selection(entry["id"], 1, 2)).json()
     assert surface(project) == {"profile": "molecular-v1", "atom_ids": [1, 2]}
     before_noop = client.get(path).json()
-    assert change(client, project, selection(entry["id"], 1)).json() == before_noop
-    assert change(client, project, selection(entry["id"], 3), "remove").json() == before_noop
-    project = change(client, project, selection(entry["id"], 2, 3)).json()
+    assert change(client, project, selection(entry["id"], 1, 2)).json() == before_noop
+    project = change(client, project, selection(entry["id"], 1, 2, 3)).json()
     assert surface(project)["atom_ids"] == [1, 2, 3]
     before_remove = deepcopy(project)
-    project = change(client, project, selection(entry["id"], 2), "remove").json()
+    project = change(client, project, selection(entry["id"], 1, 3)).json()
     assert surface(project)["atom_ids"] == [1, 3]
     project = client.post(
         f"{path}/history/undo", json={"expected_revision": project["revision"]}
@@ -81,15 +140,14 @@ def test_surface_validation_atomicity_and_entry_update_guard(client: ApiClient) 
     changed_project = changed.json()
     assert changed_project["revision"] == project["revision"] + 1
     assert all(
-        e["viewer_settings"]["selection_surface"]["atom_ids"] == [1]
-        for e in changed_project["entries"]
+        fragment(e["viewer_settings"])["atom_ids"] == [1] for e in changed_project["entries"]
     )
     assert change(client, project, target).status_code == 409
     project = changed_project
     for invalid_target in [selection(entries[0]["id"]), {**target, "atoms": refs + refs}]:
         assert change(client, project, invalid_target).status_code == 422
     settings = deepcopy(project["entries"][0]["viewer_settings"])
-    settings.pop("selection_surface")
+    settings.pop("surface_objects")
     url = f"{path}/entries/{project['entries'][0]['id']}/viewer-settings"
     updated = client.request(
         "PUT", url, json={"expected_revision": project["revision"], "settings": settings}
@@ -98,7 +156,7 @@ def test_surface_validation_atomicity_and_entry_update_guard(client: ApiClient) 
     project = updated.json()
     assert surface(project)["atom_ids"] == [1]
     persisted = client.get(path).json()
-    settings["selection_surface"] = None
+    settings["surface_objects"] = []
     assert (
         client.request(
             "PUT", url, json={"expected_revision": project["revision"], "settings": settings}
@@ -146,15 +204,13 @@ def test_surface_scene_checkpoint_archive_and_topology_reconciliation(client: Ap
     assert restored["id"] != project["id"]
     assert restored["entries"][0]["id"] != entry["id"]
     assert surface(restored) == expected
-    assert (
-        restored["scenes"][0]["entry_states"][0]["viewer_settings"]["selection_surface"] == expected
-    )
+    assert fragment(restored["scenes"][0]["entry_states"][0]["viewer_settings"]) == expected
     duplicate = client.post(
         f"{path}/entries/{entry['id']}/duplicate", json={"expected_revision": project["revision"]}
     )
     assert duplicate.status_code == 200, duplicate.text
     project = duplicate.json()
-    assert all(e["viewer_settings"]["selection_surface"] == expected for e in project["entries"])
+    assert all(fragment(e["viewer_settings"]) == expected for e in project["entries"])
     edited = client.post(
         f"{path}/entries/{entry['id']}/ligand-edits",
         json={
@@ -166,17 +222,16 @@ def test_surface_scene_checkpoint_archive_and_topology_reconciliation(client: Ap
     assert edited.status_code == 200, edited.text
     project = edited.json()["project"]
     changed = next(e for e in project["entries"] if e["id"] == entry["id"])
-    assert changed["viewer_settings"]["selection_surface"]["atom_ids"] == [1, 2]
-    assert project["scenes"][0]["entry_states"][0]["viewer_settings"]["selection_surface"][
-        "atom_ids"
-    ] == [1, 2]
+    assert fragment(changed["viewer_settings"])["atom_ids"] == [1, 2]
+    assert fragment(project["scenes"][0]["entry_states"][0]["viewer_settings"])["atom_ids"] == [
+        1,
+        2,
+    ]
     project = client.post(
         f"{path}/history/undo", json={"expected_revision": project["revision"]}
     ).json()
-    assert all(e["viewer_settings"]["selection_surface"] == expected for e in project["entries"])
-    assert (
-        project["scenes"][0]["entry_states"][0]["viewer_settings"]["selection_surface"] == expected
-    )
+    assert all(fragment(e["viewer_settings"]) == expected for e in project["entries"])
+    assert fragment(project["scenes"][0]["entry_states"][0]["viewer_settings"]) == expected
 
 
 @pytest.mark.parametrize("ids", [[], [0], [-1], [2, 1], [1, 1], [True], ["1"], [1.5]])
@@ -213,12 +268,14 @@ def test_surface_archive_compatibility_and_referential_validation(
                 manifest = json.loads(data)
                 settings = manifest["entries"][0]["viewer_settings"]
                 if mode == "legacy":
-                    settings.pop("selection_surface")
+                    settings.pop("surface_objects")
+                    settings.pop("schema_version")
+                    manifest["schema_version"] = 1
                     manifest["application_version"] = "0.6.1"
                 elif mode == "missing-atom":
-                    settings["selection_surface"]["atom_ids"] = [99999]
+                    settings["surface_objects"][0]["source"]["atom_ids"] = [99999]
                 else:
-                    settings["selection_surface"]["profile"] = "unknown"
+                    settings["surface_objects"][0]["source"]["profile"] = "unknown"
                 data = json.dumps(manifest).encode()
             destination.writestr(info, data)
     if mode == "legacy":
@@ -299,9 +356,16 @@ def test_new_atoms_do_not_inherit_surface_membership(client: ApiClient) -> None:
     project = import_ligand(client)
     entry = project["entries"][0]
     project = change(client, project, selection(entry["id"], 1, 2, 3)).json()
-    added = edit(client, project, entry["id"], {
-        "operation": "atom.add", "element": "F", "coordinates": [3.5, 0, 0],
-    })
+    added = edit(
+        client,
+        project,
+        entry["id"],
+        {
+            "operation": "atom.add",
+            "element": "F",
+            "coordinates": [3.5, 0, 0],
+        },
+    )
     assert added["report"]["created_atom_ids"] == [4]
     assert surface(added["project"])["atom_ids"] == [1, 2, 3]
     undone = client.post(

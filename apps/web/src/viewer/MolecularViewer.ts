@@ -24,7 +24,7 @@ export interface ResolvedPocket {
 }
 
 export interface ViewerStructure {
-  pocket?: ResolvedPocket;
+  pockets?: Readonly<Record<string, ResolvedPocket>>;
   entryId: string;
   label: string;
   projection: StructureProjection["viewer"];
@@ -71,8 +71,8 @@ export interface MolecularViewer {
   subscribeSurfaces(listener: (statuses: SurfaceStatus[]) => void): () => void;
   subscribeSurfaceSelection(listener: (surface: SurfaceIdentity) => void): () => void;
   setActiveSurface(surface: SurfaceIdentity | null): void;
-  cancelSurface(entryId: string, channel?: SurfaceChannel): void;
-  retrySurface(entryId: string, channel?: SurfaceChannel): void;
+  cancelSurface(entryId: string, channel?: SurfaceChannel, surfaceId?: string): void;
+  retrySurface(entryId: string, channel?: SurfaceChannel, surfaceId?: string): void;
   resize(): void;
   dispose(): void;
 }

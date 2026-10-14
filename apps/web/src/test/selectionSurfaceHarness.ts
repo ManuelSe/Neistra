@@ -7,6 +7,7 @@ import { MolstarEngine } from "../viewer/MolstarEngine";
 import type { ViewerStructure, ViewerSelectionEvent } from "../viewer/MolecularViewer";
 import { SurfaceCalculator } from "../viewer/surface/client";
 import { SelectionSurfaceProvider, surfaceInput, attachSurfaceGeometry } from "../viewer/surface/visual";
+import type { SurfaceObject, SurfaceSource } from "../api/types";
 import type { SurfaceStatus } from "../viewer/surface/runtime";
 import type { SurfaceGeometry } from "../viewer/surface/protocol";
 import { SURFACE_PROFILE } from "../viewer/surface/protocol";
@@ -143,4 +144,10 @@ export async function mountProductionSurfaceHarness(container: HTMLElement, sour
       return () => { builder.addRepresentation = original; };
     },
     dispose() { engine.dispose(); window.Worker = originalWorker; } };
+}
+
+/** Fixture definitions use production schema 2; no legacy writable authority. */
+export function fixtureSurface(source: SurfaceSource, inherit = true): SurfaceObject {
+  return { id: source.kind, name: `Test ${source.kind}`, visible: true, source,
+    appearance: { color_by: "element", custom_color: "#3b82f6", opacity: 0.45, mode: "solid", inherit_atom_colors: inherit } };
 }

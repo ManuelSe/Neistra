@@ -123,18 +123,19 @@ from molweave_api.schemas import (
     SceneCreate,
     SelectionAppearanceUpdate,
     SelectionAtomVisibilityUpdate,
-    SelectionPocketSurfaceUpdate,
     SelectionRepresentationUpdate,
-    SelectionSurfaceUpdate,
     SelectionTransformCreate,
     StructureRead,
     SuperpositionCreate,
     SuperpositionRead,
+    SurfaceCreate,
+    SurfaceUpdate,
     TestEntryCreate,
     ViewerSettingsUpdate,
 )
 from molweave_api.selection_style_service import SelectionStyleService
 from molweave_api.settings import Settings
+from molweave_api.surface_service import SurfaceService
 
 
 def _prepare_import_child(
@@ -782,22 +783,53 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             lambda: SelectionStyleService(session, app_settings).update(project_id, payload)
         )
 
-    @router.post("/projects/{project_id}/selection-surface", response_model=ProjectRead)
-    async def update_selection_surface(
-        project_id: str,
-        payload: SelectionSurfaceUpdate,
-        session: Session = Depends(session_dependency),
-    ) -> ProjectRead:
-        return _call(lambda: _service(session).update_selection_surface(project_id, payload))
+    @router.post("/projects/{project_id}/selection-surface", deprecated=True)
+    @router.post("/projects/{project_id}/selection-pocket-surface", deprecated=True)
+    async def obsolete_singleton_surface(project_id: str) -> None:
+        raise _error(
+            410,
+            "surface_api_migrated",
+            "Upgrade the client to project/viewer schema 2 and use surface object actions",
+        )
 
-    @router.post("/projects/{project_id}/selection-pocket-surface", response_model=ProjectRead)
-    async def update_selection_pocket_surface(
+    @router.post("/projects/{project_id}/surfaces", response_model=ProjectRead)
+    async def create_surface_objects(
+        project_id: str, payload: SurfaceCreate, session: Session = Depends(session_dependency)
+    ) -> ProjectRead:
+        return _call(lambda: SurfaceService(session, app_settings).create(project_id, payload))
+
+    @router.patch(
+        "/projects/{project_id}/entries/{entry_id}/surfaces/{surface_id}",
+        response_model=ProjectRead,
+    )
+    async def update_surface_object(
         project_id: str,
-        payload: SelectionPocketSurfaceUpdate,
+        entry_id: str,
+        surface_id: str,
+        payload: SurfaceUpdate,
         session: Session = Depends(session_dependency),
     ) -> ProjectRead:
         return _call(
-            lambda: SelectionStyleService(session, app_settings).update_pocket(project_id, payload)
+            lambda: SurfaceService(session, app_settings).update(
+                project_id, entry_id, surface_id, payload
+            )
+        )
+
+    @router.delete(
+        "/projects/{project_id}/entries/{entry_id}/surfaces/{surface_id}",
+        response_model=ProjectRead,
+    )
+    async def remove_surface_object(
+        project_id: str,
+        entry_id: str,
+        surface_id: str,
+        payload: RevisionRequest,
+        session: Session = Depends(session_dependency),
+    ) -> ProjectRead:
+        return _call(
+            lambda: _service(session).remove_surface_object(
+                project_id, entry_id, surface_id, payload.expected_revision
+            )
         )
 
     @router.post("/projects/{project_id}/selection-atom-visibility", response_model=ProjectRead)

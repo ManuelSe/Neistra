@@ -31,8 +31,10 @@ from molweave_api.schemas import (
     SceneRead,
     SelectionAppearanceUpdate,
     SelectionAtomVisibilityUpdate,
-    SelectionPocketSurfaceUpdate,
-    SelectionSurfaceUpdate,
+    SurfaceCreate,
+    SurfaceObject,
+    SurfaceSource,
+    SurfaceUpdate,
     TopologyPatch,
     ViewerSettings,
 )
@@ -48,7 +50,7 @@ from molweave_api.viewer_state import (
 )
 
 HISTORY_LIMIT = 200
-PROJECT_STATE_SCHEMA_VERSION = 1
+PROJECT_STATE_SCHEMA_VERSION = 2
 
 
 class ProjectNotFoundError(LookupError):
@@ -466,21 +468,16 @@ class ProjectService:
                 values[field] = deepcopy(current)
             elif values[field] != current:
                 raise InvalidProjectOperationError("Use the selection appearance action")
-        current_pocket = entry.viewer_settings.get("selection_pocket_surface")
-        if "selection_pocket_surface" not in settings.model_fields_set:
-            values["selection_pocket_surface"] = deepcopy(current_pocket)
-        elif values["selection_pocket_surface"] != current_pocket:
-            raise InvalidProjectOperationError("Use the selection pocket surface action")
+        current_surfaces = entry.viewer_settings.get("surface_objects", [])
+        if "surface_objects" not in settings.model_fields_set:
+            values["surface_objects"] = deepcopy(current_surfaces)
+        elif values["surface_objects"] != current_surfaces:
+            raise InvalidProjectOperationError("Use the surface object actions")
         current_hidden = entry.viewer_settings.get("selection_hidden_atoms", [])
         if "selection_hidden_atoms" not in settings.model_fields_set:
             values["selection_hidden_atoms"] = deepcopy(current_hidden)
         elif values["selection_hidden_atoms"] != current_hidden:
             raise InvalidProjectOperationError("Use the selection atom visibility action")
-        current_surface = entry.viewer_settings.get("selection_surface")
-        if "selection_surface" not in settings.model_fields_set:
-            values["selection_surface"] = deepcopy(current_surface)
-        elif values["selection_surface"] != current_surface:
-            raise InvalidProjectOperationError("Use the selection surface action")
         current_assignments = entry.viewer_settings.get("selection_representations", [])
         if values["selection_representations"] != current_assignments:
             raise InvalidProjectOperationError(
@@ -586,33 +583,129 @@ class ProjectService:
             selection_snapshot=deepcopy(atom_references),
         )
 
-    def update_selection_surface(
-        self, project_id: str, payload: SelectionSurfaceUpdate
+    def create_surface_objects(self, project_id: str, payload: SurfaceCreate) -> ProjectRead:
+        project = self._project(project_id)
+        self._check_revision(project, payload.expected_revision)
+        changes: dict[str, dict[str, Any]] = {}
+        references: list[dict[str, Any]] = []
+        for item in payload.surfaces:
+            entry = self._entry(project, item.entry_id)
+            references.extend(self._validate_surface_source(project, entry, item.source))
+            after = changes.setdefault(entry.id, deepcopy(entry.viewer_settings))
+            objects = after["surface_objects"]
+            if len(objects) >= 16:
+                raise InvalidProjectOperationError(
+                    "An entry can contain at most 16 surface objects"
+                )
+            label = {
+                "entry": "Entry surface",
+                "fragment": "Fragment surface",
+                "pocket": "Protein pocket",
+            }[item.source.kind]
+            ordinal = 1
+            existing_names = {surface["name"] for surface in objects}
+            while f"{label} {ordinal}" in existing_names:
+                ordinal += 1
+            try:
+                surface = SurfaceObject(
+                    id=_uuid(),
+                    name=item.name or f"{label} {ordinal}",
+                    source=item.source,
+                    appearance=item.appearance,
+                )
+            except ValueError as error:
+                raise InvalidProjectOperationError(str(error)) from error
+            objects.append(surface.model_dump(mode="json"))
+        return self._record_surface_changes(
+            project,
+            changes,
+            "surface.create",
+            f"Create {len(payload.surfaces)} surface objects",
+            references,
+        )
+
+    def update_surface_object(
+        self, project_id: str, entry_id: str, surface_id: str, payload: SurfaceUpdate
     ) -> ProjectRead:
         project = self._project(project_id)
         self._check_revision(project, payload.expected_revision)
-        references = [item.model_dump(mode="json") for item in payload.selection.atoms]
+        entry = self._entry(project, entry_id)
+        before = entry.viewer_settings
+        surface = next(
+            (item for item in before["surface_objects"] if item["id"] == surface_id), None
+        )
+        if surface is None:
+            raise InvalidProjectOperationError("Surface object is unavailable")
+        references = []
+        if payload.source is not None:
+            if payload.source.kind != surface["source"]["kind"]:
+                raise InvalidProjectOperationError("A surface source cannot change kind")
+            references = self._validate_surface_source(project, entry, payload.source)
+        values = payload.model_dump(mode="json", exclude_unset=True, exclude={"expected_revision"})
+        try:
+            updated = SurfaceObject.model_validate({**surface, **values}).model_dump(mode="json")
+        except ValueError as error:
+            raise InvalidProjectOperationError(str(error)) from error
+        if updated == surface:
+            return self.get_project(project_id)
+        after = {
+            **deepcopy(before),
+            "surface_objects": [
+                updated if item["id"] == surface_id else deepcopy(item)
+                for item in before["surface_objects"]
+            ],
+        }
+        return self._record_surface_changes(
+            project,
+            {entry_id: after},
+            "surface.update",
+            f"Update surface {updated['name']}",
+            references,
+        )
+
+    def remove_surface_object(
+        self, project_id: str, entry_id: str, surface_id: str, expected_revision: int
+    ) -> ProjectRead:
+        project = self._project(project_id)
+        self._check_revision(project, expected_revision)
+        entry = self._entry(project, entry_id)
+        objects = entry.viewer_settings["surface_objects"]
+        surface = next((item for item in objects if item["id"] == surface_id), None)
+        if surface is None:
+            raise InvalidProjectOperationError("Surface object is unavailable")
+        after = {
+            **deepcopy(entry.viewer_settings),
+            "surface_objects": [deepcopy(item) for item in objects if item["id"] != surface_id],
+        }
+        return self._record_surface_changes(
+            project, {entry_id: after}, "surface.remove", f"Remove surface {surface['name']}", []
+        )
+
+    def _validate_surface_source(
+        self, project: Project, entry: StructureEntry, source: SurfaceSource
+    ) -> list[dict[str, Any]]:
+        references: list[dict[str, Any]] = []
+        if source.kind == "fragment":
+            references = [
+                {"structure_id": entry.id, "atom_id": atom_id} for atom_id in source.atom_ids
+            ]
+        elif source.kind == "pocket":
+            references = [ref.model_dump(mode="json") for ref in source.seed_atom_references]
         self._validate_atom_references(project, references)
-        targets: dict[str, set[int]] = {}
-        for item in payload.selection.atoms:
-            targets.setdefault(item.structure_id, set()).add(item.atom_id)
+        return references
+
+    def _record_surface_changes(
+        self,
+        project: Project,
+        changes: dict[str, dict[str, Any]],
+        command_type: str,
+        description: str,
+        references: list[dict[str, Any]],
+    ) -> ProjectRead:
         forward: list[dict[str, Any]] = []
         inverse: list[dict[str, Any]] = []
-        affected: list[str] = []
-        for entry_id, ids in sorted(targets.items()):
-            entry = self._entry(project, entry_id)
-            before = deepcopy(entry.viewer_settings)
-            surface = before.get("selection_surface")
-            current = set(surface["atom_ids"]) if surface else set()
-            result = current | ids if payload.action == "add" else current - ids
-            if result == current:
-                continue
-            after = {
-                **before,
-                "selection_surface": (
-                    {"profile": "molecular-v1", "atom_ids": sorted(result)} if result else None
-                ),
-            }
+        for entry_id, after in changes.items():
+            ViewerSettings.model_validate(after)
             forward.append(
                 {"kind": "entry.update", "entry_id": entry_id, "values": {"viewer_settings": after}}
             )
@@ -621,55 +714,24 @@ class ProjectService:
                 {
                     "kind": "entry.update",
                     "entry_id": entry_id,
-                    "values": {"viewer_settings": before},
+                    "values": {
+                        "viewer_settings": deepcopy(self._entry(project, entry_id).viewer_settings)
+                    },
                 },
             )
-            affected.append(entry_id)
-        if not affected:
-            return self.get_project(project_id)
         return self._record(
             project,
-            "selection.surface",
-            f"{payload.action.title()} selection surface membership for {len(references)} atoms",
+            command_type,
+            description,
             forward,
             inverse,
-            affected,
-            selection_snapshot=references,
-        )
-
-    def update_selection_pocket_surface(
-        self, project_id: str, payload: SelectionPocketSurfaceUpdate
-    ) -> ProjectRead:
-        project = self._project(project_id)
-        self._check_revision(project, payload.expected_revision)
-        receptor = self._entry(project, payload.receptor_entry_id)
-        definition = payload.pocket.model_dump(mode="json") if payload.pocket else None
-        references = definition["seed_atom_references"] if definition else []
-        self._validate_atom_references(project, references)
-        before = deepcopy(receptor.viewer_settings)
-        if before.get("selection_pocket_surface") == definition:
-            return self.get_project(project_id)
-        after = {**before, "selection_pocket_surface": definition}
-        return self._record(
-            project,
-            "selection.pocket_surface",
-            f"{payload.action.title()} protein pocket for {receptor.name}",
-            [
-                {
-                    "kind": "entry.update",
-                    "entry_id": receptor.id,
-                    "values": {"viewer_settings": after},
-                }
+            sorted(changes),
+            selection_snapshot=[
+                {"structure_id": owner, "atom_id": atom_id}
+                for owner, atom_id in sorted(
+                    {(str(ref["structure_id"]), int(ref["atom_id"])) for ref in references}
+                )
             ],
-            [
-                {
-                    "kind": "entry.update",
-                    "entry_id": receptor.id,
-                    "values": {"viewer_settings": before},
-                }
-            ],
-            [receptor.id],
-            selection_snapshot=references,
         )
 
     def update_selection_atom_visibility(
@@ -1237,9 +1299,7 @@ class ProjectService:
     def _group_selection(
         self, project: Project, selection: SelectionV1 | None
     ) -> list[dict[str, Any]]:
-        references = (
-            [item.model_dump(mode="json") for item in selection.atoms] if selection else []
-        )
+        references = [item.model_dump(mode="json") for item in selection.atoms] if selection else []
         self._validate_atom_references(project, references)
         return references
 

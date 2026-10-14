@@ -2,7 +2,7 @@
 
 ## Status, outcome, and authority
 
-**Status:** approved implementation contract; implementation authorized by the subsequent `/goal`; M1/C1 complete; C2 next.
+**Status:** approved implementation contract; implementation authorized by the subsequent `/goal`; M1/C1 and M2/C2 complete; C3 next.
 
 - Issue: [#57 — Manage molecular surfaces as independent, editable objects](https://github.com/ManuelSe/Neistra/issues/57), open at planning inspection.
 - Plan: `docs/plans/issue-57-independent-surface-objects.md`.
@@ -455,3 +455,58 @@ git diff --check
 The first combined run overlapped initial frontend verification; it is adjacent
 correctness/regression evidence, not a new isolated performance qualification.
 Dedicated host performance qualification remains mandatory in C4 and release gates.
+
+
+### M2/C2 implementation and verification in progress — 2026-10-14
+
+Implemented ViewerSettingsV2 surface objects, project/archive schema 2, revisioned
+batch create/update/remove commands, explicit source validation and generic-write
+guards. Obsolete singleton routes return structured 410; legacy ordinary surface
+writes explain the object endpoint. New IDs are UUIDv7; deterministic UUIDv5
+conversion retains historical identity independently of membership. Migration 0014
+covers live/checkpoint/nested-scene/scene and all forward/inverse action paths,
+prevalidates all rows, and refuses unsafe downgrades before writes. Molecular
+bytes, warnings, metadata and revision/history/timestamp fields are preserved.
+
+Production entry objects retain native geometry and native wireframe; workers,
+status, cancellation, projection loading, previews and disposal now use object IDs.
+Minimal nonmodal manager provides grouped activation, rename, requested visibility,
+removal, per-object status, Cancel/Retry and scientific help. Fragment creation
+captures one object per selected entry; pocket creation always creates a fresh
+object. Native surface creation uses the existing Display control. All topology,
+scene/history, duplication and archive paths handle the full collection. Persistent
+application notices explain affected live/scene definitions without altering
+molecular warnings. D-091 records the compatibility/ownership decisions.
+
+Evidence so far: complete Python suite 547 passed; strengthened migration/object
+suite 135 passed; complete frontend 209 tests/46 files, ESLint/types/build and
+Python Ruff/strict mypy (61 files) pass. Browser diagnostics passed pocket scientific
+references (1STP, hydrogen fixture, 1AON), dependency preview/Cancel/commit, manager
+creation/reload/Undo and fragment reference boundaries. Diagnostics identified a
+hidden-surface threshold regression and an incomplete double-rendering-failure
+message; both are fixed. Final focused command and desktop/mobile browser evidence
+will be recorded before the checkpoint commit. C3 editors and C4 actual tagged
+compatibility/accessibility/performance qualification remain; no release is claimed.
+
+
+### M2/C2 complete — 2026-10-14
+
+[Retained evidence](../assets/surface-objects/c2-verification.json) records exact
+commands, source hashes, outcomes and local self-review. Final focused Python
+178 passed; all 209 frontend tests/46 files, lint/types/build, Ruff/strict mypy61
+and diff checks pass. The complete Python baseline was547 passed before three
+additional passing migration cases (stable historical identity, late invalid-path
+atomic upgrade refusal, empty-ordinary downgrade refusal). All fragment/pocket
+browser workflows pass on desktop/mobile (19); the full application/scene/history/
+edit/export/job journey passes separately (1, mobile-layout skip), after adapting
+its molecular pick to modifier semantics and requiring actual viewer feedback.
+The manager workflow was repeated successfully for its retained screenshot.
+Diagnostic failures remain explicitly distinguished from passing evidence.
+
+Local checkpoint self-review addressed rendered picking-threshold reset, precise
+double-rendering failure feedback, canonical deduplicated history references and
+obsolete regression fixture semantics. No consequential C2 finding remains.
+Schema/API, architecture, development/rollback and D-091 are current. No molecular
+profile, original file or normalized schema changed. C3 completes appearance and
+explicit source editors; C4 qualifies tagged compatibility, accessibility and
+performance. Release remains0.14.0; no PR/tag/release exists yet.

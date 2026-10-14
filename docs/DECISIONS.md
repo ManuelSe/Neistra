@@ -3257,3 +3257,46 @@ worker admission. Preserving molecular selection and existing scientific geometr
 keeps this checkpoint independently verifiable without a persisted-state change.
 The production object model, migration and superseding singleton/minimum-display
 rules will be recorded separately in C2; earlier scientific decisions remain intact.
+
+
+## D-091 — Canonical surface objects and the schema-2 compatibility boundary
+
+Date: 2026-10-14. Status: implemented for issue #57 C2; appearance/source editing
+and full release qualification follow in C3/C4.
+
+ViewerSettingsV2 owns up to sixteen ordered surface objects per entry, with stable
+identity, explicit entry/fragment/pocket source, independent appearance, requested
+visibility and distinguishable names. This supersedes the singleton ownership in
+D-057/D-066 and the minimum-one ordinary representation restriction in D-022.
+Removing the last surface or ordinary representation does not invent geometry.
+New fragment creation captures selection separately per entry; repeated creation
+creates another object, without implicit union/subtraction. Historical effects
+remain exact through migrated before/after snapshots.
+
+Server-generated UUIDv7 identifies new objects. Migration 0014 and legacy archive
+conversion derive UUIDv5 from entry ID plus legacy channel/representation identity,
+not membership or appearance; the same historical object keeps identity across
+retained snapshots. Duplication preserves local IDs and remaps self seeds; archive
+import remaps all entry references. Molecular originals, normalized artifacts,
+chemistry warnings, revision/history positions and timestamps are unchanged.
+Topology reconciliation prunes every affected live/scene captured source with exact
+inverse state. Application notices name affected definitions and persist under
+D-089; they do not become fabricated molecular warnings.
+
+Project/viewer payloads and archive manifests advance to schema 2, while normalized
+molecules and selections stay schema 1. `/api/v1` routes remain, with explicit
+schema-2 write discrimination, dedicated revisioned object commands, and structured
+410 guidance for obsolete singleton endpoints. Generic viewer writes cannot mutate
+objects. This is an explicit old-client compatibility break, carried by the approved
+pre-1.0 minor release, rather than parallel writable legacy authorities.
+
+All retained migration paths prevalidate before writes. Downgrade refuses any saved
+object or empty ordinary representation set, including retained history. Restore a
+pre-upgrade database-and-artifact backup for rollback. Schema-1 archives validate
+before conversion; schema-2 exports require an upgraded reader. Actual tagged
+producer/reader compatibility remains a C4 release gate.
+
+The compact nonmodal manager is application-owned. Requested object visibility is
+bounded by parent visibility; unavailable objects remain removable. Saving a
+definition never asserts successful rendering. Native entry calculations stay native;
+worker accounting and deadlines apply to fragment/pocket work only.

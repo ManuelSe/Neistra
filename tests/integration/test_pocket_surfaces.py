@@ -37,15 +37,51 @@ def definition(*references: tuple[str, int], radius: float = 5):
 
 
 def change(client: ApiClient, project, receptor_id: str, pocket=None):
+    path = f"/api/v1/projects/{project['id']}"
+    entry = next((entry for entry in project["entries"] if entry["id"] == receptor_id), None)
+    obj = (
+        next(
+            (
+                obj
+                for obj in entry["viewer_settings"]["surface_objects"]
+                if obj["source"]["kind"] == "pocket"
+            ),
+            None,
+        )
+        if entry
+        else None
+    )
+    if obj:
+        return client.request(
+            "DELETE" if pocket is None else "PATCH",
+            f"{path}/entries/{receptor_id}/surfaces/{obj['id']}",
+            json={
+                "expected_revision": project["revision"],
+                **({"source": {"kind": "pocket", **pocket}} if pocket else {}),
+            },
+        )
+    if pocket is None:
+        # There is no object to remove. This test helper performs a read, not a command.
+        return client.get(path)
     return client.post(
-        f"/api/v1/projects/{project['id']}/selection-pocket-surface",
+        f"{path}/surfaces",
         json={
             "expected_revision": project["revision"],
-            "receptor_entry_id": receptor_id,
-            "action": "apply" if pocket is not None else "remove",
-            "pocket": pocket,
+            "surfaces": [
+                {
+                    "entry_id": receptor_id,
+                    "source": {"kind": "pocket", **pocket},
+                }
+            ],
         },
     )
+
+
+def pocket(settings):
+    obj = next(
+        (obj for obj in settings["surface_objects"] if obj["source"]["kind"] == "pocket"), None
+    )
+    return {key: value for key, value in obj["source"].items() if key != "kind"} if obj else None
 
 
 def settings(project, entry_id: str):
@@ -112,14 +148,17 @@ def test_revisioned_pockets_noops_hidden_seeds_and_independent_channels(client: 
     assert response.status_code == 200, response.text
     updated = response.json()
     assert updated["revision"] == project["revision"] + 1
-    assert settings(updated, receptor["id"]) == {**before, "selection_pocket_surface": value}
+    assert pocket(settings(updated, receptor["id"])) == value
+    assert {
+        k: v for k, v in settings(updated, receptor["id"]).items() if k != "surface_objects"
+    } == {k: v for k, v in before.items() if k != "surface_objects"}
     assert change(client, project, receptor["id"], value).status_code == 409
     persisted = client.get(path).json()
     assert change(client, updated, receptor["id"], value).json() == persisted
     project = history(client, updated, "undo")
-    assert settings(project, receptor["id"])["selection_pocket_surface"] is None
+    assert pocket(settings(project, receptor["id"])) is None
     project = history(client, project, "redo")
-    assert settings(project, receptor["id"])["selection_pocket_surface"] == value
+    assert pocket(settings(project, receptor["id"])) == value
     for action, style in [("apply", "line"), ("reset", None)]:
         project = client.post(
             f"{path}/selection-representations",
@@ -130,26 +169,31 @@ def test_revisioned_pockets_noops_hidden_seeds_and_independent_channels(client: 
                 "style": style,
             },
         ).json()
-        assert settings(project, receptor["id"])["selection_pocket_surface"] == value
-    for action in ["add", "remove"]:
-        project = client.post(
-            f"{path}/selection-surface",
-            json={
-                "expected_revision": project["revision"],
-                "selection": selection(receptor["id"], 1),
-                "action": action,
-            },
-        ).json()
-        assert settings(project, receptor["id"])["selection_pocket_surface"] == value
+        assert pocket(settings(project, receptor["id"])) == value
+    fragment_created = client.post(
+        f"{path}/surfaces",
+        json={
+            "expected_revision": project["revision"],
+            "surfaces": [
+                {
+                    "entry_id": receptor["id"],
+                    "source": {"kind": "fragment", "profile": "molecular-v1", "atom_ids": [1]},
+                }
+            ],
+        },
+    )
+    assert fragment_created.status_code == 200, fragment_created.text
+    project = fragment_created.json()
+    assert pocket(settings(project, receptor["id"])) == value
     copied = deepcopy(settings(project, receptor["id"]))
-    copied.pop("selection_pocket_surface")
+    copied.pop("surface_objects")
     project = client.request(
         "PUT",
         f"{path}/entries/{receptor['id']}/viewer-settings",
         json={"expected_revision": project["revision"], "settings": copied},
     ).json()
-    assert settings(project, receptor["id"])["selection_pocket_surface"] == value
-    copied["selection_pocket_surface"] = None
+    assert pocket(settings(project, receptor["id"])) == value
+    copied["surface_objects"] = []
     assert (
         client.request(
             "PUT",
@@ -159,7 +203,7 @@ def test_revisioned_pockets_noops_hidden_seeds_and_independent_channels(client: 
         == 422
     )
     project = change(client, project, receptor["id"]).json()
-    assert settings(project, receptor["id"])["selection_pocket_surface"] is None
+    assert pocket(settings(project, receptor["id"])) is None
     for entry_id in originals:
         assert client.get(f"{path}/entries/{entry_id}/original").content == originals[entry_id]
         assert client.get(f"{path}/entries/{entry_id}/structure").json() == structures[entry_id]
@@ -189,7 +233,7 @@ def test_invalid_definitions_reject_before_any_mutation(client: ApiClient):
                     "pocket": value,
                 },
             ).status_code
-            == 422
+            == 410
         )
     assert client.get(path).json() == before
 
@@ -239,38 +283,40 @@ def test_topology_cross_entry_pruning_scene_history_and_new_atoms(client: ApiCli
     result = edit(client, project, ligand["id"], {"operation": "atom.delete", "atom_ids": [3]})
     project = result["project"]
     pruned = definition((ligand["id"], 1))
-    assert settings(project, receptor["id"])["selection_pocket_surface"] == pruned
+    assert pocket(settings(project, receptor["id"])) == pruned
     scene_state = next(
         s for s in project["scenes"][0]["entry_states"] if s["entry_id"] == receptor["id"]
     )
-    assert scene_state["viewer_settings"]["selection_pocket_surface"] == pruned
+    assert pocket(scene_state["viewer_settings"]) == pruned
     project = history(client, project, "undo")
-    assert settings(project, receptor["id"])["selection_pocket_surface"] == value
+    assert pocket(settings(project, receptor["id"])) == value
     project = history(client, project, "redo")
-    assert settings(project, receptor["id"])["selection_pocket_surface"] == pruned
+    assert pocket(settings(project, receptor["id"])) == pruned
     project = edit(
         client,
         project,
         ligand["id"],
         {"operation": "atom.add", "element": "F", "coordinates": [4, 0, 0]},
     )["project"]
-    assert settings(project, receptor["id"])["selection_pocket_surface"] == pruned
+    assert pocket(settings(project, receptor["id"])) == pruned
     project = client.post(
         f"{path}/scenes/{scene_id}/apply", json={"expected_revision": project["revision"]}
     ).json()
-    assert settings(project, receptor["id"])["selection_pocket_surface"] == pruned
+    assert pocket(settings(project, receptor["id"])) == pruned
     project = edit(client, project, ligand["id"], {"operation": "atom.delete", "atom_ids": [1]})[
         "project"
     ]
-    assert settings(project, receptor["id"])["selection_pocket_surface"] is None
+    assert pocket(settings(project, receptor["id"])) is None
     assert (
-        next(s for s in project["scenes"][0]["entry_states"] if s["entry_id"] == receptor["id"])[
-            "viewer_settings"
-        ]["selection_pocket_surface"]
+        pocket(
+            next(
+                s for s in project["scenes"][0]["entry_states"] if s["entry_id"] == receptor["id"]
+            )["viewer_settings"]
+        )
         is None
     )
     project = history(client, project, "undo")
-    assert settings(project, receptor["id"])["selection_pocket_surface"] == pruned
+    assert pocket(settings(project, receptor["id"])) == pruned
 
 
 def test_receptor_duplication_and_seed_entry_deletion_are_exactly_reversible(client: ApiClient):
@@ -284,7 +330,7 @@ def test_receptor_duplication_and_seed_entry_deletion_are_exactly_reversible(cli
         json={"expected_revision": project["revision"]},
     ).json()
     copied = next(e for e in project["entries"] if e["id"] not in {receptor["id"], ligand["id"]})
-    assert settings(project, copied["id"])["selection_pocket_surface"] == definition(
+    assert pocket(settings(project, copied["id"])) == definition(
         (copied["id"], 2), (ligand["id"], 1)
     )
     before = {e["id"]: deepcopy(e["viewer_settings"]) for e in project["entries"]}
@@ -295,9 +341,7 @@ def test_receptor_duplication_and_seed_entry_deletion_are_exactly_reversible(cli
     assert response.status_code == 200, response.text
     project = response.json()
     for owner in [receptor, copied]:
-        assert settings(project, owner["id"])["selection_pocket_surface"] == definition(
-            (owner["id"], 2)
-        )
+        assert pocket(settings(project, owner["id"])) == definition((owner["id"], 2))
     project = history(client, project, "undo")
     assert {e["id"]: e["viewer_settings"] for e in project["entries"]} == before
     assert [
@@ -308,7 +352,7 @@ def test_receptor_duplication_and_seed_entry_deletion_are_exactly_reversible(cli
     ).json()
     assert all(e["id"] != receptor["id"] for e in project["entries"])
     project = history(client, project, "undo")
-    assert settings(project, receptor["id"])["selection_pocket_surface"] == value
+    assert pocket(settings(project, receptor["id"])) == value
 
 
 @pytest.mark.parametrize("mode", ["roundtrip", "legacy", "entry-atom", "scene-entry", "profile"])
@@ -336,18 +380,25 @@ def test_archive_remaps_all_exported_paths_and_validates_atomically(client: ApiC
                 )
                 if mode == "legacy":
                     for entry in manifest["entries"]:
-                        entry["viewer_settings"].pop("selection_pocket_surface")
+                        entry["viewer_settings"].pop("surface_objects")
+                        entry["viewer_settings"].pop("schema_version")
                     for state in manifest["scenes"][0]["entry_states"]:
-                        state["viewer_settings"].pop("selection_pocket_surface")
+                        state["viewer_settings"].pop("surface_objects")
+                        state["viewer_settings"].pop("schema_version")
                     manifest["application_version"] = "0.8.0"
+                    manifest["schema_version"] = 1
                 elif mode == "entry-atom":
-                    owner["viewer_settings"]["selection_pocket_surface"] = definition(
-                        (ligand["id"], 99999)
-                    )
+                    owner["viewer_settings"]["surface_objects"][0]["source"] = {
+                        "kind": "pocket",
+                        **definition((ligand["id"], 99999)),
+                    }
                 elif mode == "scene-entry":
-                    scene["viewer_settings"]["selection_pocket_surface"] = definition(("absent", 1))
+                    scene["viewer_settings"]["surface_objects"][0]["source"] = {
+                        "kind": "pocket",
+                        **definition(("absent", 1)),
+                    }
                 elif mode == "profile":
-                    owner["viewer_settings"]["selection_pocket_surface"]["profile"] = "unknown"
+                    owner["viewer_settings"]["surface_objects"][0]["source"]["profile"] = "unknown"
                 data = json.dumps(manifest).encode()
             dest.writestr(info, data)
     before = client.get("/api/v1/projects").json()
@@ -359,19 +410,19 @@ def test_archive_remaps_all_exported_paths_and_validates_atomically(client: ApiC
             if mode == "legacy"
             else definition((entries["mol"]["id"], 1), (entries["pdb"]["id"], 2))
         )
-        assert settings(restored, entries["pdb"]["id"])["selection_pocket_surface"] == expected
+        assert pocket(settings(restored, entries["pdb"]["id"])) == expected
         state = next(
             s
             for s in restored["scenes"][0]["entry_states"]
             if s["entry_id"] == entries["pdb"]["id"]
         )
-        assert state["viewer_settings"]["selection_pocket_surface"] == expected
+        assert pocket(state["viewer_settings"]) == expected
         assert not restored["has_uncheckpointed_changes"]
         assert all(e["id"] not in {receptor["id"], ligand["id"]} for e in restored["entries"])
         if expected is not None:
             changed = change(client, restored, entries["pdb"]["id"]).json()
             undone = history(client, changed, "undo")
-            assert settings(undone, entries["pdb"]["id"])["selection_pocket_surface"] == expected
+            assert pocket(settings(undone, entries["pdb"]["id"])) == expected
             assert not undone["has_uncheckpointed_changes"]
     else:
         response = client.post(
@@ -407,14 +458,14 @@ def test_checkpoint_and_cross_entry_undo_survive_restart(tmp_path: Path):
     project = client.request(
         "DELETE", f"{path}/entries/{ligand['id']}?expected_revision={project['revision']}"
     ).json()
-    assert settings(project, receptor["id"])["selection_pocket_surface"] is None
+    assert pocket(settings(project, receptor["id"])) is None
     app.state.engine.dispose()
     restarted = create_app(config)
     client = ApiClient(restarted)
     recovered = client.get(path).json()
     assert recovered["has_uncheckpointed_changes"]
     restored = history(client, recovered, "undo")
-    assert settings(restored, receptor["id"])["selection_pocket_surface"] == value
+    assert pocket(settings(restored, receptor["id"])) == value
     assert not restored["has_uncheckpointed_changes"]
     restarted.state.engine.dispose()
 
@@ -430,17 +481,15 @@ def test_receptor_topology_preserves_context_intent_and_prunes_self_seeds(client
     )
     assert added["report"]["created_atom_ids"]
     project = added["project"]
-    assert settings(project, receptor["id"])["selection_pocket_surface"] == value
+    assert pocket(settings(project, receptor["id"])) == value
     deleted = protein_edit(
         client, project, receptor["id"], {"operation": "protein.residue.delete", "residue_ids": [2]}
     )
     assert 7 in deleted["report"]["deleted_atom_ids"]
     project = deleted["project"]
-    assert settings(project, receptor["id"])["selection_pocket_surface"] == definition(
-        (ligand["id"], 1)
-    )
+    assert pocket(settings(project, receptor["id"])) == definition((ligand["id"], 1))
     project = history(client, project, "undo")
-    assert settings(project, receptor["id"])["selection_pocket_surface"] == value
+    assert pocket(settings(project, receptor["id"])) == value
 
 
 def test_pockets_preserve_conformers_warnings_and_originals(client: ApiClient):
@@ -474,19 +523,19 @@ def test_empty_protein_context_keeps_seed_intent_until_explicit_removal(client: 
     project = deleted["project"]
     remaining = next(e for e in project["entries"] if e["id"] == receptor["id"])
     assert remaining["atom_ids"] == [21, 22]
-    assert settings(project, receptor["id"])["selection_pocket_surface"] == value
+    assert pocket(settings(project, receptor["id"])) == value
     assert change(client, project, receptor["id"], value).status_code == 422
     exported = export_archive(client, project["id"], "empty-context-pocket")
     restored = import_archive(client, client.get(exported["artifact"]["download_url"]).content)[
         "project"
     ]
-    assert any(e["viewer_settings"]["selection_pocket_surface"] for e in restored["entries"])
+    assert any(pocket(e["viewer_settings"]) for e in restored["entries"])
     removed = change(client, project, receptor["id"])
     assert removed.status_code == 200, removed.text
-    assert settings(removed.json(), receptor["id"])["selection_pocket_surface"] is None
+    assert pocket(settings(removed.json(), receptor["id"])) is None
     project = history(client, removed.json(), "undo")
     project = history(client, project, "undo")
-    assert settings(project, receptor["id"])["selection_pocket_surface"] == value
+    assert pocket(settings(project, receptor["id"])) == value
     assert (
         next(e for e in project["entries"] if e["id"] == receptor["id"])["atom_ids"]
         == receptor["atom_ids"]

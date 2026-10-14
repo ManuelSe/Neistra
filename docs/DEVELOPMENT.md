@@ -1,6 +1,9 @@
 # Development And Troubleshooting
 
-Status: Neistra development guide; existing configuration contracts retained.
+Status: Neistra development guide; current Alembic head is 0014, project/viewer/
+archive schemas are 2, and normalized/selection schemas remain 1. See
+[upgrade instructions](#upgrading-independent-surfaces-0014). Earlier issue upgrade
+sections are historical; configuration names and process commands are retained.
 
 The private JavaScript packages are `neistra` and `@neistra/web`. Workspace
 commands below are unchanged. Python modules, environment variables and data
@@ -430,3 +433,22 @@ archive tests also cover preceding producer provenance. Qualified rollback needs
 no downgrade/data stripping; reload the frontend to restore the old notice lifetime.
 The [approved plan](plans/issue-56-viewer-notification-timeout.md) and its evidence
 log govern release blockers and verification.
+
+
+## Upgrading independent surfaces (0014)
+
+Stop API and worker processes before upgrading. Back up the complete managed data
+directory, including SQLite and artifacts, before `alembic upgrade head`. Migration
+0014 converts live settings, saved checkpoints/scenes, and retained forward/inverse
+history to project/viewer schema 2 without rewriting molecular files. Keep client
+and API deployments together: `/api/v1` remains, but schema-1 viewer writes and
+obsolete singleton surface endpoints are no longer writable contracts.
+
+Schema-1 archives remain importable after strict validation and conversion. New
+exports use manifest schema 2 and require an upgraded reader. Keep pre-upgrade
+archives/backups when older readers must remain usable. Downgrade prevalidates all
+retained snapshots and refuses any surface objects or empty ordinary representation
+sets; removing live objects does not erase historical ones. Restore the complete
+pre-upgrade backup to roll back safely. Do not delete history or edit database JSON
+to bypass refusal. Actual tagged v0.13.2 producer/reader qualification is recorded
+in the issue #57 feature plan before release.

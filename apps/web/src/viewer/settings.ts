@@ -115,7 +115,7 @@ export function molstarRepresentationProfile(
 
 export function addRepresentation(
   settings: ViewerSettings,
-  style: RepresentationStyle,
+  style: SelectionRepresentationStyle,
   id: string = crypto.randomUUID(),
 ): ViewerSettings {
   const representation: RepresentationSettings = {
@@ -123,7 +123,7 @@ export function addRepresentation(
     style,
     color_by: "element",
     custom_color: "#3b82f6",
-    opacity: style === "surface" ? 0.45 : 1,
+    opacity: 1,
   };
   return {
     ...settings,
@@ -135,7 +135,6 @@ export function removeRepresentation(
   settings: ViewerSettings,
   id: string,
 ): ViewerSettings {
-  if (settings.representations.length === 1) return settings;
   return {
     ...settings,
     representations: settings.representations.filter((item) => item.id !== id),

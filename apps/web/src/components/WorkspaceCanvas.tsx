@@ -1,4 +1,4 @@
-import type { ChangePocketSurface, ChangeSelectionAppearance } from "../api/types";
+import type { SurfaceActions, ChangeSelectionAppearance } from "../api/types";
 import type { ExpandSelection } from "../selection/expansion";
 import { FolderPlus, Upload } from "lucide-react";
 import type {
@@ -40,9 +40,8 @@ interface WorkspaceCanvasProps {
   onLoadSelectionStructures?: () => Promise<Map<string, StructureProjection>>;
   onExpandDistance?: ExpandSelection;
   onAtomVisibility?: (action: "hide" | "show") => Promise<void>;
-  onPocket?: ChangePocketSurface;
+  onSurfaces?: SurfaceActions;
   onLoadPocketStructures?: () => Promise<Map<string, StructureProjection>>;
-  onSurface?: (action: "add" | "remove") => Promise<void>;
   onAppearance?: ChangeSelectionAppearance;
   onSelectionStyle?: (
     action: "apply" | "reset",
@@ -72,8 +71,7 @@ export function WorkspaceCanvas({
   onSelectionStyle,
   onExpandDistance,
   onAtomVisibility,
-  onSurface,
-  onPocket,
+  onSurfaces,
   onLoadPocketStructures,
   onAppearance,
 }: WorkspaceCanvasProps) {
@@ -139,8 +137,7 @@ export function WorkspaceCanvas({
           onExpandDistance={onExpandDistance}
           onAppearance={onAppearance}
           onAtomVisibility={onAtomVisibility}
-          onSurface={onSurface}
-          onPocket={onPocket}
+          onSurfaces={onSurfaces}
           onLoadPocketStructures={onLoadPocketStructures}
         />
       )}

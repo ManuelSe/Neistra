@@ -1,4 +1,5 @@
 import type { Entry, StructureProjection } from "../api/types";
+import { surfaceKey } from "../viewer/surface/protocol";
 import type { ResolvedPocket } from "../viewer/MolecularViewer";
 
 export interface PocketProjection {
@@ -15,8 +16,10 @@ export function resolvePocketInputs(
   const atomMaps = new Map<string, Map<number, [number, number, number]>>();
   const result = new Map<string, ResolvedPocket>();
   for (const owner of entries) {
-    const definition = owner.viewer_settings.selection_pocket_surface;
-    if (!owner.visible || !definition) continue;
+    if (!owner.visible) continue;
+    for (const surface of owner.viewer_settings.surface_objects) {
+    const definition = surface.source;
+    if (definition.kind !== "pocket" || !surface.visible || surface.appearance.opacity <= 0) continue;
     const sources = [...new Set([owner.id, ...definition.seed_atom_references.map((seed) => seed.structure_id)])].sort();
     const dependencyKey = JSON.stringify([definition, sources.map((id) => [
       id, byId.get(id)?.current_artifact_id, projections.get(id)?.current ?? false,
@@ -43,7 +46,8 @@ export function resolvePocketInputs(
         seeds.push({ reference, coordinates: [...point] });
       }
     }
-    result.set(owner.id, { radius: definition.radius, seeds, dependencyKey, unavailable });
+    result.set(surfaceKey(owner.id, "pocket", surface.id), { radius: definition.radius, seeds, dependencyKey, unavailable });
+    }
   }
   return result;
 }

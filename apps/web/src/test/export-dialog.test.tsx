@@ -226,7 +226,7 @@ describe("export dialog", () => {
         download_url:
           "/api/v1/artifacts/artifact-1?filename=selection-project.molweave.zip",
       },
-      manifest_schema_version: 1,
+      manifest_schema_version: 2,
       source_revision: 2,
     };
     const archiveSpy = vi.spyOn(molecularApi, "exportArchive").mockReturnValue({

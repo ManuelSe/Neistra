@@ -1,0 +1,34 @@
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+[2m[WebServer] [22mINFO:     Started server process [633716]
+[2m[WebServer] [22mINFO:     Waiting for application startup.
+[2m[WebServer] [22mINFO:     Application startup complete.
+[2m[WebServer] [22mINFO:     Uvicorn running on http://127.0.0.1:8020 (Press CTRL+C to quit)
+[2m[WebServer] [22m(node:633777) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:633791) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 2 tests using 1 worker
+
+(node:633817) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:633817) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22mINFO:     127.0.0.1:48990 - "WebSocket /ws/jobs?project_id=01a13aea-e38b-743e-8949-305c8eb43a3c" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:49000 - "WebSocket /ws/jobs?project_id=01a13aea-e38b-743e-8949-305c8eb43a3c" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:49042 - "WebSocket /ws/jobs?project_id=01a13aea-e38b-743e-8949-305c8eb43a3c" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:49288 - "WebSocket /ws/jobs?project_id=01a13aea-e38b-743e-8949-305c8eb43a3c" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+  ✓  1 [chromium] › tests/e2e/release-journey.spec.ts:155:5 › completes the MolWeave v0.1 definition-of-done journey (34.1s)
+(node:634012) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:634012) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  -  2 [mobile-chromium] › tests/e2e/release-journey.spec.ts:155:5 › completes the MolWeave v0.1 definition-of-done journey
+
+  1 skipped
+  1 passed (39.0s)

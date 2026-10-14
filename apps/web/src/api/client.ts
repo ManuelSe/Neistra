@@ -29,7 +29,8 @@ import type {
   SuperpositionRequest,
   SuperpositionResult,
   ViewerSettings,
-  SelectionPocketSurface,
+  SurfaceCreateItem,
+  SurfaceChange,
   Job,
   JobDefinition,
   JobEvent,
@@ -268,16 +269,17 @@ export const projectApi = {
       method: "POST",
       body: JSON.stringify({ expected_revision: project.revision, selection, action }),
     }),
-  updatePocketSurface: (project: Project, receptorId: string, pocket: SelectionPocketSurface | null) =>
-    request<Project>(`/api/v1/projects/${project.id}/selection-pocket-surface`, {
-      method: "POST",
-      body: JSON.stringify({ expected_revision: project.revision, receptor_entry_id: receptorId,
-        action: pocket ? "apply" : "remove", pocket }),
+  createSurfaceObjects: (project: Project, surfaces: SurfaceCreateItem[]) =>
+    request<Project>(`/api/v1/projects/${project.id}/surfaces`, {
+      method: "POST", body: JSON.stringify({ expected_revision: project.revision, surfaces }),
     }),
-  updateSelectionSurface: (project: Project, selection: Selection, action: "add" | "remove") =>
-    request<Project>(`/api/v1/projects/${project.id}/selection-surface`, {
-      method: "POST",
-      body: JSON.stringify({ expected_revision: project.revision, selection, action }),
+  updateSurfaceObject: (project: Project, entryId: string, surfaceId: string, change: SurfaceChange) =>
+    request<Project>(`/api/v1/projects/${project.id}/entries/${entryId}/surfaces/${surfaceId}`, {
+      method: "PATCH", body: JSON.stringify({ expected_revision: project.revision, ...change }),
+    }),
+  removeSurfaceObject: (project: Project, entryId: string, surfaceId: string) =>
+    request<Project>(`/api/v1/projects/${project.id}/entries/${entryId}/surfaces/${surfaceId}`, {
+      method: "DELETE", body: JSON.stringify({ expected_revision: project.revision }),
     }),
   updateSelectionAppearance: (project: Project, selection: Selection, change: SelectionAppearanceChange) =>
     request<Project>(`/api/v1/projects/${project.id}/selection-appearance`, {

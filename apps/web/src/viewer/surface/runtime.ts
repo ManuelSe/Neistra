@@ -42,6 +42,7 @@ export class SurfaceRuntime {
     this.emit();
   }
   cancel(entryId: string, channel: SurfaceChannel, surfaceId: string = channel) {
+    if (channel === "entry") return; // Native task cancellation is not a worker capability.
     const id = surfaceKey(entryId, channel, surfaceId);
     const request = this.requests.get(id);
     if (!request || !["queued", "rendering"].includes(request.status.state)) return;
@@ -50,12 +51,12 @@ export class SurfaceRuntime {
     request.notify();
     this.emit();
   }
-  fail(entryId: string, channel: SurfaceChannel, message: string, linesShown = true, surfaceId: string = channel) {
+  fail(entryId: string, channel: SurfaceChannel, message: string, linesShown = true, surfaceId: string = channel, keepGeometry = false) {
     const id = surfaceKey(entryId, channel, surfaceId);
     const request = this.requests.get(id);
     if (!request) return;
     request.controller.abort();
-    request.geometry = undefined;
+    if (!keepGeometry) request.geometry = undefined;
     request.displayBytes = 0;
     request.status = { ...request.status, state: "fallback", message: `${message}${linesShown && channel === "fragment" ? " Lines shown." : ""} ${channel === "pocket" ? "Definition" : "Membership"} kept.` };
     this.emit();
@@ -63,6 +64,7 @@ export class SurfaceRuntime {
   request(entryId: string, channel: SurfaceChannel, label: string, dependencyKey: string, createInput: (() => SurfaceInput) | null,
     notify: (geometry?: SurfaceGeometry) => void, unavailable?: string, surfaceId: string = channel) {
     const id = surfaceKey(entryId, channel, surfaceId);
+    if (channel === "entry") throw new Error("Entry surfaces use native geometry, not the fragment worker.");
     // Revision + effective membership identifies geometry. Input allocation is lazy:
     // cached color-only rebuilds neither serialize coordinates nor extract atoms.
     const key = JSON.stringify([dependencyKey, unavailable, Boolean(createInput)]);
@@ -110,6 +112,12 @@ export class SurfaceRuntime {
       this.fail(entryId, channel, error instanceof Error ? error.message : "Surface rendering failed.", true, surfaceId);
       request.notify();
     });
+  }
+  reportNative(entryId: string, surfaceId: string, label: string, state: SurfaceStatus["state"], message: string) {
+    const id = surfaceKey(entryId, "entry", surfaceId);
+    this.requests.set(id, { key: id, controller: new AbortController(), displayBytes: 0, notify: () => {},
+      status: { entryId, surfaceId, channel: "entry", label, state, message } });
+    this.emit();
   }
   /** Reserve auxiliary display arrays before allocation, separately from calculation buffers. */
   reserveDisplayBytes(entryId: string, channel: SurfaceChannel, bytes: number, surfaceId: string = channel) {

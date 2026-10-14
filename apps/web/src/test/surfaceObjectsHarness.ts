@@ -21,7 +21,7 @@ export async function mountSurfaceObjectsHarness(container: HTMLElement, source:
     plugin: PluginUIContext; surfaceVisuals: SurfaceVisualRegistry;
     loaded: Map<string, { structure: Structure; structureRef: string; atomIds: number[] }>;
   };
-  await engine.syncStructures([{ ...source, settings: { ...source.settings, representations: [], selection_surface: null, selection_pocket_surface: null }, pocket: undefined }]);
+  await engine.syncStructures([{ ...source, settings: { ...source.settings, representations: [], surface_objects: [] }, pockets: undefined }]);
   const { plugin } = internals;
   plugin.representation.structure.registry.add(SelectionSurfaceWireframeProvider);
   const loaded = internals.loaded.get(source.entryId)!;

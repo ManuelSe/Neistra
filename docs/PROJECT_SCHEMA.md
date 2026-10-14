@@ -1,6 +1,6 @@
 # Project Schema
 
-Status: Neistra, `ProjectStateV1` and `ProjectManifestV1`
+Status: Neistra, `ProjectStateV2`, `ViewerSettingsV2`, and `ProjectManifestV2`
 
 Neistra separates the relational working model, checkpoint snapshots, immutable
 artifacts, and browser preferences. The API and database are authoritative;
@@ -8,21 +8,24 @@ browser layout state is not project state.
 
 ## Versioning
 
-The checkpoint payload is `ProjectStateV1` and contains
-`"schema_version": 1`. The API exposes the same version on complete project
-responses. Alembic migration `0002` upgrades snapshots created before the
-version field was introduced.
+The checkpoint payload is `ProjectStateV2` and contains
+`"schema_version": 2`. The API exposes the same version on complete project
+responses. Alembic migration `0014` upgrades every retained viewer snapshot and checkpoint
+root. Migration `0002` originally introduced the project discriminator.
+
+Migration notes for 0002–0013 below describe their historical schema-1 changes;
+the current contract is schema 2 under 0014.
 
 Any incompatible change requires a new schema number and a migration. Readers
 must reject unknown newer versions rather than guessing. The portable
-`ProjectManifestV1` archive defined in `docs/PLAN.md` is delivered in M8 and is a
+`ProjectManifestV2` archive defined in `docs/PLAN.md` is delivered in M8 and is a
 separate, documented transport schema.
 
-## ProjectStateV1
+## ProjectStateV2
 
 ```text
-ProjectStateV1
-  schema_version: 1
+ProjectStateV2
+  schema_version: 2
   name: string
   description: string | null
   entries: StructureEntryV1[] sorted by stable ID
@@ -53,7 +56,7 @@ bond_count: integer
 residue_count: integer
 conformer_count: integer
 warnings: MolecularWarning[]
-viewer_settings: ViewerSettingsV1
+viewer_settings: ViewerSettingsV2
 visible: boolean
 locked: boolean
 user_metadata: JSON object
@@ -121,13 +124,15 @@ Complete project API responses also include the relational `modified_at`
 timestamp for each saved selection; checkpoint payloads omit derived update
 timestamps.
 
-## ViewerSettingsV1
+## ViewerSettingsV2
 
 ```text
+schema_version: 2
+surface_objects: SurfaceObject[] (0–16)
 representations:
   - id: unique string within the entry
     style: cartoon | backbone | line | stick | ball-and-stick |
-      thick-stick | space-filling | surface
+      thick-stick | space-filling
     color_by: element | chain | residue | secondary-structure | structure |
       custom
     custom_color: six-digit CSS hex color
@@ -150,7 +155,8 @@ labels:
   structure: boolean
 ```
 
-Every structure entry has at least one representation. These settings are
+Ordinary representations may be empty (0–12). Surface objects are a separate
+collection (0–16); removing the last display does not invent a fallback. These settings are
 application-owned project state; Mol* consumes them but is not their persistence
 format. Selection representations contain at most one record per style. Atom
 IDs are disjoint within the atomic channel and within the polymer channel, but
@@ -220,7 +226,7 @@ camera:
 entry_states:
   - entry_id: UUIDv7 string
     visible: boolean
-    viewer_settings: ViewerSettingsV1
+    viewer_settings: ViewerSettingsV2
 selection: SelectionV1
 created_at: ISO-8601 timestamp
 ```
@@ -256,7 +262,7 @@ the redo branch. Undo and redo are themselves revision-checked operations and
 increment the working revision.
 
 Complete project mutation responses expose `structure_patches` as a transient
-transport field. It is excluded from `ProjectStateV1`, checkpoints, dirty-state
+transport field. It is excluded from `ProjectStateV2`, checkpoints, dirty-state
 comparison, and ordinary project reads.
 
 Ligand-capable structure entries also persist an exact ordered `atom_ids`
@@ -283,7 +289,7 @@ display filename and source format.
 
 ## Job Records
 
-Jobs are relational operational state, not part of `ProjectStateV1` and not
+Jobs are relational operational state, not part of `ProjectStateV2` and not
 project edit commands. A job stores its stable ID, parent project, plugin/job
 identity and implementation version, canonical parameters, lifecycle state,
 progress/message, timestamps, values, warnings, structured error, worker ID,
@@ -301,7 +307,7 @@ molecular file format. `job_links`, `generated_results`, and metadata link the
 job, result, implementation, parameters, inputs, and immutable hashes. Import
 is one normal undoable command.
 
-## ProjectManifestV1 Archive
+## ProjectManifestV2 Archive
 
 A portable project is a ZIP archive with safe relative member names:
 
@@ -313,7 +319,7 @@ artifacts/<sha256>
 `manifest.json` is strict JSON with:
 
 ```text
-schema_version: 1
+schema_version: 2
 application_version: semantic-version producer provenance
 source_project_id: UUID string
 source_revision: non-negative integer
@@ -338,10 +344,10 @@ files[]:
 
 `schema_version` selects the structural archive contract. The separately
 validated `application_version` records which MolWeave release produced the
-archive and is not an exact-version import gate. Consequently, a valid archive
-produced by 0.1.0 remains readable by 0.1.1 while both releases use
-`ProjectManifestV1` schema version 1. Malformed semantic versions and unknown
-archive schema versions are rejected.
+archive and is not an exact-version import gate. Schema-1 archives from older
+releases validate and convert into the current structural contract. New schema-2
+archives require an upgraded reader. Malformed semantic versions, mixed surface
+authorities and unknown archive schema versions are rejected.
 
 The archive includes every original/current artifact referenced by an entry
 and every immutable job input/result artifact required for provenance. Export
@@ -394,29 +400,43 @@ prunes stable IDs transactionally. Master hydrogen visibility remains an upper
 bound. Migration 0010 defaults both appearance collections in every retained
 settings location and refuses downgrade while either has non-default data.
 
-## Selection surface membership (issue #30)
+## Independent surface objects (migration 0014)
 
-`ViewerSettingsV1.selection_surface` defaults to null. Its non-null form has
-`profile: "molecular-v1"` and positive, sorted, unique, nonempty normalized
-`atom_ids`. It is independent of atomic/polymer assignments, local colors and H
-preferences. One per-entry union is updated by the revisioned selection-surface
-command; it is not a generic layer collection or a live binding to selection.
-Scenes/checkpoints/duplication preserve the setting; deleting atoms prunes live
-and scene memberships with exact inverse history. Added atoms do not inherit it.
+Each `SurfaceObject` contains a stable entry-local `id`, nonblank name (120 characters),
+strict requested `visible`, discriminated `source`, and complete `appearance`.
+IDs are server UUIDv7 for new objects and deterministic UUIDv5 for migrated ones.
+Source kinds are `entry`; `fragment` with fixed `molecular-v1` and captured
+canonical `atom_ids`; or `pocket` with fixed `pocket-v1`, canonical cross-entry
+`seed_atom_references`, and radius 2–12 Å in 0.5 Å steps. No mesh, coordinates,
+renderer reference, runtime status or active-object identity is persisted.
 
-Migration 0011 adds null defaults to every documented live, checkpoint, scene and
-forward/inverse command settings path. It does not traverse metadata or rewrite
-molecular artifacts. Downgrade validates all retained locations before writes
-and refuses any non-null surface state, including history that could restore it.
-New readers default absent fields from older archives, remap entry identities
-and validate atom targets. Archive history remains omitted. API, project,
-archive and normalized schema majors remain 1; older readers are not guaranteed
-to retain new surface state. See [development](DEVELOPMENT.md) for rollback.
+Appearance has existing `color_by` themes, six-digit `custom_color`, finite
+`opacity` in [0,1], `mode: solid | mesh`, and strict `inherit_atom_colors`.
+New defaults are element/#3b82f6/0.45/solid/false. Migration preserves legacy
+appearance and atom-color inheritance. Choosing an independent surface theme
+cannot recolor atoms or neighboring surfaces. Entry surfaces follow current
+content; captured fragment atoms and pocket seeds never grow implicitly.
 
+Migration 0014 replaces legacy entry-surface representations and singleton
+`selection_surface`/`selection_pocket_surface` with objects in every documented
+live, checkpoint, nested-scene, named-scene, and forward/inverse action path.
+UUIDv5 derives from entry ID plus legacy representation/channel identity, remaining
+stable across snapshots with different captured membership. Unrelated metadata,
+molecular artifacts/warnings, revision positions and timestamps remain exact.
+History retains complete before/after state. Removing the final captured atom or
+seed removes its object reversibly; partial deletion prunes only affected sources.
+
+Project/viewer payloads and archive manifests are now schema 2; normalized molecular
+schema and selection schema remain 1. No new tables or molecular formats are added.
+Schema-1 archives validate before conversion; schema-2 exports require a new reader.
+Mixed legacy/current settings and unknown schema versions fail validation. Migration
+and downgrade prevalidate all retained paths before writing. Downgrade refuses any
+objects or empty ordinary representation sets, even when retained only in history.
+Restore a complete pre-upgrade database/artifact backup for rollback.
 
 ## Selection atom-detail visibility (issue #38)
 
-`ViewerSettingsV1.selection_hidden_atoms: number[]` defaults to `[]`. Values must
+`ViewerSettingsV2.selection_hidden_atoms: number[]` defaults to `[]`. Values must
 be strict positive integers, sorted and unique; booleans, coercions, null and
 duplicate/unsorted IDs are rejected. This independent atomic-detail mask preserves
 representation assignments and does not change polymer/surface inputs or molecular
@@ -436,30 +456,10 @@ normalized schema majors remain 1; new readers default absent masks in supported
 older archives. Older readers are unsupported for new visibility-bearing archives.
 See DEVELOPMENT for backup/rollback and the feature plan for exact verification.
 
-### Pocket definitions (migration 0013)
+### Historical pocket migration
 
-`ViewerSettingsV1.selection_pocket_surface` defaults to null, or contains
-`profile: "pocket-v1"`, canonical cross-entry `seed_atom_references` and a
-2–12 Å half-step `radius` (default 5 Å). The owner is the receptor. No copied
-receptor membership, seed coordinates or generated mesh is persisted: current
-normalized protein context and current seed coordinates are resolved at render time.
-
-Scene snapshots, checkpoints and reversible command payloads retain this setting.
-Receptor duplication remaps self-seeds to the new entry and preserves other-entry
-seeds. Topology/entry deletion reversibly prunes every affected live and scene
-definition, clearing only when no seeds remain. New atoms never become captured
-seeds automatically. A definition can remain valid while receptor protein context
-is temporarily empty.
-
-Archive major remains 1. Current entry and scene definitions are validated against
-the exported molecular snapshot, then all seed entry IDs are remapped. The imported
-checkpoint is derived from that remapped state. As established in D-035, command
-history is not portable; archive import does not invent historical state (D-069).
-Older archives omitting this setting load null. Older readers are unsupported for
-pocket-bearing archives.
-
-Migration 0013 adds null only at documented viewer-settings paths in entries,
-checkpoint entries/scenes, scenes and forward/inverse entry/scene command actions.
-It does not traverse user metadata. Downgrade prevalidates every retained location
-and refuses any non-null pocket before writes. Removing a live pocket does not
-erase undo history; restore a pre-upgrade backup when a lossless downgrade refuses.
+Migration 0013 introduced the nullable singleton pocket setting. Migration 0014
+converts it to an independently identified pocket object, preserving the fixed
+profile, seed intent, radius, history and self-reference remapping. D-066 and
+other historical singleton restrictions are superseded by D-091; their scientific
+geometry and immutable-artifact boundaries remain applicable.

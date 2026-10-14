@@ -313,7 +313,7 @@ def test_archive_round_trip_preserves_project_and_originals(
     source = build_rich_project(client)
     first = export_archive(client, source["id"], "archive-first")
     second = export_archive(client, source["id"], "archive-second")
-    assert first["manifest_schema_version"] == 1
+    assert first["manifest_schema_version"] == 2
     assert first["source_revision"] == source["revision"]
     assert first["artifact"]["filename"] == "Portable_study.molweave.zip"
     assert first["artifact"]["sha256"] == second["artifact"]["sha256"]

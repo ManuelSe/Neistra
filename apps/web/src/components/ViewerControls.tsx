@@ -34,6 +34,8 @@ interface ViewerControlsProps {
   isolated: boolean;
   onActiveEntry: (entryId: string) => void;
   onSettings: (entryId: string, settings: ViewerSettings) => void;
+  onCreateSurface?: (entryId: string) => void;
+  onManageSurfaces?: () => void;
   onCameraMode: (mode: CameraState["mode"]) => void;
   onZoom: (factor: number) => void;
   onIsolation: (isolated: boolean) => void;
@@ -105,7 +107,7 @@ export function ViewerControls(props: ViewerControlsProps) {
                     )
                   }
                 >
-                  {representationStyles.map((style) => (
+                  {representationStyles.filter(style => style !== "surface").map((style) => (
                     <option key={style} value={style}>
                       {style}
                     </option>
@@ -164,7 +166,7 @@ export function ViewerControls(props: ViewerControlsProps) {
                 </label>
                 <IconButton
                   label={`Remove ${representation.style} representation`}
-                  disabled={settings.representations.length === 1 || props.busy}
+                  disabled={props.busy}
                   onClick={() =>
                     props.onSettings(
                       active.id,
@@ -184,6 +186,7 @@ export function ViewerControls(props: ViewerControlsProps) {
               value=""
               onChange={(event) => {
                 if (!event.target.value) return;
+                if (event.target.value === "surface") { props.onCreateSurface?.(active.id); return; }
                 props.onSettings(
                   active.id,
                   addRepresentation(
@@ -195,13 +198,14 @@ export function ViewerControls(props: ViewerControlsProps) {
             >
               <option value="">Choose style</option>
               {representationStyles.map((style) => (
-                <option key={style} value={style}>
+                <option key={style} value={style} disabled={style === "surface" && !props.onCreateSurface}>
                   {style}
                 </option>
               ))}
             </select>
           </label>
 
+          <button type="button" className="secondary-button" disabled={!props.onManageSurfaces} onClick={props.onManageSurfaces}>Manage surfaces</button>
           <fieldset>
             <legend>Components</legend>
             <label className="check-label">

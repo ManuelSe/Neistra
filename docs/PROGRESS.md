@@ -3,15 +3,20 @@
 ## Current milestone
 
 Issue #57 — [approved surface-object contract](plans/issue-57-independent-surface-objects.md).
-M1/C1 rendering primitives are complete on
-`feat/issue-57-independent-surface-objects`. Application-owned surface identities,
-whole-representation activation, bounded solid/mesh visuals and lazy worker-input
-admission are implemented; production object persistence and management await C2.
-D-090 records the renderer boundary. Full frontend lint/types/202 tests/build and
-Python Ruff/strict mypy pass; native desktop/mobile primitive checks pass. Adjacent fragment/pocket/click regressions pass 23 workflows/three intentional
-layout skips, with two final native passes; [C1 evidence](assets/surface-objects/c1-verification.json). No schema/API/version/migration changes yet (0013 and majors 1).
-Known limits: this checkpoint exposes primitives through a development harness,
-not a working end-user manager. No blocker. Next action: C2 persistence, migration and production controls.
+M1/C1 and M2/C2 are complete on `feat/issue-57-independent-surface-objects`.
+Canonical schema-2 entry/fragment/pocket objects, revisioned atomic commands,
+retained-snapshot migration0014, legacy archive conversion, topology reconciliation
+and compact grouped management are implemented. D-090/D-091 record renderer,
+ownership and compatibility decisions.
+
+[C2 evidence](assets/surface-objects/c2-verification.json): complete Python baseline
+547 passed, final focused migration/object/archive/security178 passed (including
+three new migration cases); all209frontend/lint/types/build, Ruff/mypy61 and diff
+checks pass. Desktop/mobile fragment/pocket19 browser checks and separate complete
+application journey1 pass; two intentional layout skips. Manager evidence repeated
+successfully. Local self-review resolved threshold/failure-message/fixture findings.
+Known limits: C3 appearance/source editors and C4 tagged compatibility/accessibility/
+performance qualification remain; no PR or release yet. No blocker. Next: C3.
 
 ### Previous delivery baseline — v0.13.2
 

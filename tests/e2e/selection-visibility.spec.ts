@@ -23,7 +23,7 @@ test("hiding the middle atom removes every incident native bond and its label", 
   await page.goto("/selection-surface-test.html");
   const result = await page.evaluate(async ({ entry, projection }) => {
     const path = "/src/test/selectionSurfaceHarness.ts";
-    const { mountProductionSurfaceHarness } = await import(/* @vite-ignore */ path);
+    const { mountProductionSurfaceHarness, fixtureSurface } = await import(/* @vite-ignore */ path);
     const container = document.createElement("div"); Object.assign(container.style, { position: "fixed", inset: "0" }); document.body.appendChild(container);
     const source = { entryId: entry.id, label: entry.name, projection: projection.viewer,
       atomIds: entry.atom_ids, normalized: projection.structure, hierarchy: projection.hierarchy, settings: structuredClone(entry.viewer_settings) };
@@ -77,14 +77,14 @@ test("trace, residue and all-atom hiding preserve native polymers, surfaces and 
   await page.goto("/selection-surface-test.html");
   const result = await page.evaluate(async ({ entry, projection }) => {
     const path = "/src/test/selectionSurfaceHarness.ts";
-    const { mountProductionSurfaceHarness } = await import(/* @vite-ignore */ path);
+    const { mountProductionSurfaceHarness, fixtureSurface } = await import(/* @vite-ignore */ path);
     const container = document.createElement("div"); Object.assign(container.style, { position: "fixed", inset: "0" }); document.body.appendChild(container);
     const source = { entryId: entry.id, label: entry.name, projection: projection.viewer, atomIds: entry.atom_ids,
       normalized: projection.structure, hierarchy: projection.hierarchy, settings: structuredClone(entry.viewer_settings) };
     source.settings.representations = (["ball-and-stick", "cartoon", "backbone"] as const)
       .map((style) => ({ ...entry.viewer_settings.representations[0], id: style, style }));
     source.settings.labels = { atoms: true, residues: true, chains: true, structure: false };
-    source.settings.selection_surface = { profile: "molecular-v1", atom_ids: entry.atom_ids };
+    source.settings.surface_objects = [...source.settings.surface_objects.filter(s => s.source.kind !== "fragment"), fixtureSurface({ kind: "fragment", profile: "molecular-v1", atom_ids: entry.atom_ids })];
     const h = await mountProductionSurfaceHarness(container, source);
     await h.engine.setMeasurements([{ id: "distance", name: "Distance", kind: "distance", label: "Distance", visible: true,
       atom_references: [1, 2].map((atom_id) => ({ structure_id: entry.id, atom_id })), warnings: [], created_at: "", modified_at: "" }]);

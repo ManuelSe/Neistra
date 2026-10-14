@@ -174,7 +174,7 @@ are hash-addressed beneath the managed root and published with temporary-file,
 `expected_revision`; artifacts may be orphaned by a failed transaction but a
 project never points to unpublished bytes.
 
-Portable `.molweave.zip` archives use `ProjectManifestV1`, checksums, safe
+Portable `.molweave.zip` archives use `ProjectManifestV2`, checksums, safe
 relative member paths, and an allowlisted media/type model. They contain the
 current checkpoint-compatible state and required immutable artifacts, not an
 executable process or opaque viewer snapshot.
@@ -225,8 +225,12 @@ is added. Empty appearance collections avoid the additional palette-resolution p
 
 ## Selection surface runtime
 
-`selection_surface` is durable application state. `SurfaceRuntime` owns only
-transient per-entry request identity, worker cancellation, bounded cached geometry
+`ViewerSettingsV2.surface_objects` is durable application state. Entry, fragment,
+and pocket objects have stable entry-local identities and independent appearance.
+Entry objects retain native geometry; captured fragment/pocket objects use the
+existing fixed worker profiles. Renderer refs, statuses and active object identity
+are transient. `SurfaceRuntime` owns only
+transient per-object request identity, worker cancellation, bounded cached geometry
 and status. Exact identity includes the immutable coordinate/topology snapshot revision,
 profile and effective atom IDs (D-067); current selection, camera and colors do
 not enter the key. Cache hits avoid coordinate serialization and input allocation. The viewer has
@@ -236,8 +240,8 @@ attachment is serialized with scene updates, preserving the current camera.
 
 The adapter classifies nonpolar hydrogen on the full disposable structure before
 selecting the effective fragment. It uses structural element groups/loci for
-coloring, picking and application selection. The fixed 0.45-opacity surface lowers
-the canvas picking threshold to 0.45; inherited layers below the former 0.5
+coloring, picking and application selection. A rendered positive-opacity surface lowers
+the canvas picking threshold to the minimum rendered surface opacity or 0.5; inherited layers below the former 0.5
 threshold remain explicitly unpickable (D-059). Coordinate previews remove the
 surface component before coordinate model updates; commits/cancellation regenerate.
 No normalized-structure request is issued by surface rendering or retry.
@@ -336,3 +340,17 @@ The typed viewer adapter renders one batched, nonpickable patterned shape separa
 from measurements. Native hydrogen/representation visibility is a final projection
 filter. Previews pause/clear it; Cancel restores committed cached coordinates, and
 Apply/Undo/Redo require current artifacts. Schema majors 1 and Alembic 0013 are unchanged.
+
+
+### Schema-2 surface migration boundary
+
+Migration 0014 traverses documented live, checkpoint, nested-scene, named-scene,
+and forward/inverse action paths. Frozen conversion derives UUIDv5 identities from
+entry ID and historical surface identity, independent of snapshot membership.
+New objects use UUIDv7. Complete before/after viewer-setting actions preserve
+history, dirty-state semantics and exact topology inverses. Ordinary representation
+collections may be empty; no implicit fallback is persisted. All migration rows
+prevalidate before writes, including downgrade refusals. Molecular formats and
+normalized schema 1 remain unchanged. Portable schema-1 archives are validated
+and converted into schema 2; only schema-2 archives are written. Generic viewer
+PUTs cannot mutate object collections and obsolete singleton routes return 410.

@@ -1,3 +1,4 @@
+import { surfacePruningWarnings } from "./selection/surfaceWarnings";
 import { expandByDistance } from "./selection/expansion";
 import * as Tooltip from "@radix-ui/react-tooltip";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -30,6 +31,8 @@ import type {
   SelectionAppearanceChange,
   StructureProjection,
   SuperpositionRequest,
+  SurfaceCreateItem,
+  SurfaceChange,
 } from "./api/types";
 import { LowerPanel } from "./components/LowerPanel";
 import type { LowerPanelTab } from "./components/LowerPanel";
@@ -319,10 +322,12 @@ export default function App() {
       return { projectId: useWorkspaceStore.getState().activeProjectId };
     },
     onSuccess: (next) => {
+      const previous = queryClient.getQueryData<Project>(["project", next.id]);
+      const warnings = previous ? surfacePruningWarnings(previous, next) : [];
       updateProjectCache(next);
       if (useWorkspaceStore.getState().activeProjectId !== next.id) return;
       setEditedThisSession(true);
-      setNotice({ kind: "success", text: "Change stored locally." });
+      setNotice({ kind: "success", text: ["Change stored locally.", ...warnings].join(" "), lifetime: warnings.length ? "persistent" : "transient" });
     },
     onError: (error, _operation, context) => {
       if (error instanceof ApiError && error.code === "revision_conflict" && context?.projectId) {
@@ -676,8 +681,8 @@ export default function App() {
             : "";
         setNotice({
           kind: "success",
-          text: `Ligand edit stored.${warningText}`,
-          lifetime: result.warnings.length ? "persistent" : "transient",
+          text: [`Ligand edit stored.${warningText}`, ...surfacePruningWarnings(project, result.project)].join(" "),
+          lifetime: result.warnings.length || surfacePruningWarnings(project, result.project).length ? "persistent" : "transient",
         });
         return result;
       } catch (error) {
@@ -724,8 +729,8 @@ export default function App() {
             : "";
         setNotice({
           kind: "success",
-          text: `Protein edit stored.${warningText}`,
-          lifetime: result.warnings.length ? "persistent" : "transient",
+          text: [`Protein edit stored.${warningText}`, ...surfacePruningWarnings(project, result.project)].join(" "),
+          lifetime: result.warnings.length || surfacePruningWarnings(project, result.project).length ? "persistent" : "transient",
         });
         return result;
       } catch (error) {
@@ -780,13 +785,19 @@ export default function App() {
       await projectMutation.mutateAsync(() => projectApi.updateSelectionAtomVisibility(project, selection, action));
     },
     onLoadPocketStructures: () => loadStructureProjections(project?.entries.map((entry) => entry.id) ?? []),
-    onPocket: async (receptorId: string, pocket: Entry["viewer_settings"]["selection_pocket_surface"]) => {
-      if (!project) return;
-      await projectMutation.mutateAsync(() => projectApi.updatePocketSurface(project, receptorId, pocket));
-    },
-    onSurface: async (action: "add" | "remove") => {
-      if (!project) return;
-      await projectMutation.mutateAsync(() => projectApi.updateSelectionSurface(project, selection, action));
+    onSurfaces: {
+      create: async (items: SurfaceCreateItem[]) => {
+        if (!project) return;
+        await projectMutation.mutateAsync(() => projectApi.createSurfaceObjects(project, items));
+      },
+      update: async (entryId: string, surfaceId: string, change: SurfaceChange) => {
+        if (!project) return;
+        await projectMutation.mutateAsync(() => projectApi.updateSurfaceObject(project, entryId, surfaceId, change));
+      },
+      remove: async (entryId: string, surfaceId: string) => {
+        if (!project) return;
+        await projectMutation.mutateAsync(() => projectApi.removeSurfaceObject(project, entryId, surfaceId));
+      },
     },
     onAppearance: async (change: SelectionAppearanceChange) => {
       if (!project) return;
