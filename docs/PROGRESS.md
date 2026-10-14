@@ -2,6 +2,29 @@
 
 ## Current milestone
 
+Issue #59 — [approved compact navigation contract](plans/issue-59-compact-project-navigation.md).
+C0 documentation is prepared and validated on `feat/issue-59-compact-project-navigation`,
+from verified master `430e7d0ccfb8643710ea13a26509e284e26550a7`. The user approved
+entry-click selection plus explicit browse-only Components, pinned component/viewer
+context, desktop split/mobile tabs, and continuous virtual component scrolling.
+D-097 records independent session browsing ownership; existing molecular selection,
+classification, shared visibility and surface authority remain unchanged.
+
+Completed work: repository/issue/release inspection, clean fast-forward-only master
+update, dedicated branch, approved feature plan and architectural decision.
+Verification: diff check, all 51 local Markdown links, six plan sections/five
+checkpoints, unique D-097, exact three-file scope and unchanged versions/global PLAN
+pass. Commit/remote verification is reported in the handoff; no runtime tests or
+implementation claims. Detailed evidence stays in the plan log.
+M1/C1–M4/C4 are approved and unstarted. All application versions remain0.14.0;
+planned target0.15.0 is a minor user-visible feature release with no new API,
+database, molecular, job/plugin or archive shape change (head0014/schemas2/1).
+Known limits: session-only browse context; existing shared-group visibility;
+entry virtualization, overrides/export and related #52/#58/#64 remain separate.
+No planning blocker. Next: commit/push/verify C0, then stop ready for `/goal`.
+
+### Previous delivery baseline — v0.14.0
+
 Issue #57 delivered as [v0.14.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.14.0) through [PR #65](https://github.com/ManuelSe/Neistra/pull/65), following the [approved plan](plans/issue-57-independent-surface-objects.md). C1–C5 complete: independent entry/fragment/pocket identities and whole-object activation, compact ownership/appearance/source controls, reversible durable state and migration0014. D-090–D-096 record authority, scientific, compatibility, queue, focus and pointer decisions.
 
 [Clean candidate](assets/surface-objects/c5-candidate-gate.json) atb6281bc and [exact released master](assets/surface-objects/c5-merged-gate.json) at`88e84b27a0fb6c4520333df236d788065fd7a788` each pass **556Python/214frontend/8supervisor/190browser with44 intentional skips**, zero failures/flakes/retries, plus frozen installs/fresh0014/static/build/diff. Actual tagged0.13.2 upgrade, schema1 import, old-reader schema2 refusal and full backup restore pass; unrelated DB columns and original/normalized bytes are exact. Diagnostic fixture repairs remain separate.
@@ -2383,8 +2406,13 @@ Results:
 
 ## Blockers
 
-No current blocker. Issue #57 approved scope, release and closeout are verified.
+No current planning blocker. Issue #59 C0 is documentation-only; implementation
+and all runtime qualification remain unstarted. Issue #57 release and closeout
+remain verified.
 
 ## Next action
 
-Final documentation/clean-master audit is maintained in the verified issue reply. Plan a separately approved backlog issue; do not add deferred charge/carbon/browser scope here.
+Commit, push, and remotely verify issue #59 C0, then stop ready for `/goal`.
+Do not start M1/C1 until that implementation instruction. Use the approved
+[feature plan](plans/issue-59-compact-project-navigation.md) as the detailed contract;
+do not add deferred charge/carbon/override/export scope.

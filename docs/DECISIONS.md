@@ -3416,3 +3416,65 @@ the current scene. Native desktop/mobile tests deliberately hold the rebuild que
 click old surface pixels, verify unchanged atom selection, then release the rebuild
 and activate the current complete object. The diagnostic reproduced zero-to-one
 atom selection before this guard; both viewports pass after it.
+
+## D-097 — Independent component browsing context
+
+Date: 2026-10-14. Status: accepted by explicit approval of the issue #59 plan;
+runtime implementation not started.
+
+Decision:
+
+Separate compact entry management from component browsing using a desktop
+vertical split and mobile Entries/Components tabs. Entry-name activation retains
+the existing canonical molecular-selection operation and synchronously sets the
+inspected entry. An explicit Components action changes browsing context alone.
+Component/category selection, viewer picks, group selection, visibility changes,
+and surface activation do not implicitly retarget the browser.
+
+Own the inspected entry, per-entry expansion, and scroll state in a typed transient
+application session store that survives responsive component remounts. Keep the
+target while its entry is filtered, regrouped, collapsed, hidden, renamed, or
+deselected. Clear on project change and target deletion; Undo does not implicitly
+reactivate it. Reconcile current IDs and focus/scroll after topology changes.
+Persist only panel size/collapse preferences through the existing safe workspace
+storage. Never copy molecular payloads, derived hierarchy, or this browse context
+into project snapshots, history, named scenes, or archives.
+
+Use existing artifact-keyed TanStack Query structures and D-045 memberships.
+Selection continues to consume D-018 canonical atom references. Separate label,
+disclosure, visibility, and Details controls so browsing and focus cannot become
+another molecular-selection authority. Expose all classification provenance and
+warnings through keyboard/touch-accessible details. Preserve explicit shared
+Protein/Ligands/Solvent/Ions visibility scope; individual persisted component
+visibility is outside this contract.
+
+The approved continuous virtual component list uses stable IDs, bounded overscan,
+focus retention, and keyboard navigation to off-screen rows. Full-category
+selection includes unmounted members. Build an artifact-keyed membership index
+instead of rescanning every atom for each row. Native list/button semantics remain
+application-owned; an incomplete ARIA tree is not introduced.
+
+Rationale:
+
+Inline expanded hierarchies displace other entries and conflate the molecule being
+inspected with the current molecular selection. Independent browsing preserves a
+scientist's context while selections span components or entries. Session ownership
+keeps scientific project state authoritative and avoids migrations for navigation.
+Virtualization bounds DOM growth while explicit provenance, visibility scope, and
+complete canonical operands preserve scientific meaning.
+
+Consequences:
+
+- [Issue #59 contract](plans/issue-59-compact-project-navigation.md) governs
+  implementation and evidence. C0 approval/persistence does not claim runtime
+  functionality; stop ready for `/goal`.
+- This supersedes only D-045's inline per-entry hierarchy presentation, not its
+  classification, stable identity, membership, query, or scientific boundaries.
+  D-013, D-018/019, D-071, and D-090–096 remain authoritative.
+- No API, molecular, job/plugin, migration, or archive shape change. Head remains
+  0014; project/viewer/archive schemas2 and normalized/selection schemas1 remain.
+- The planned minor release is0.15.0, with actual taggedv0.14.0 compatibility
+  qualification before claiming rollback safety. Additive layout preferences are
+  not a database migration; rollback restores the earlier navigation workflow.
+- Entry-list virtualization, durable browsing context, component overrides/export,
+  surface redesign, carbon defaults, and charge chemistry remain outside scope.
