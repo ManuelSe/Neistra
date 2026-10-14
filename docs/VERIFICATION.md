@@ -12,8 +12,13 @@ at `494d533` passes492Python/194frontend/8supervisor/182browser with44intentiona
 skips and zero failures/flakes/retries; frozen installs/fresh0013/lint/types/build.
 [Actual tagged v0.13.1 reader](assets/viewer-notifications/c3-candidate-reader.json)
 accepts final0.13.2 data/history/archives/jobs. [Local full-diff review](assets/viewer-notifications/c3-local-review.json)
-is not independent and has no unresolved consequential finding. Exact merged
-qualification/publication remain pending; historical evidence below stays distinct.
+is not independent and has no unresolved consequential finding. [Exact released-master gate](assets/viewer-notifications/c3-merged-gate.json) at
+c21de2e repeats every command/count with zero failures/flakes/retries; [actual
+preceding reader](assets/viewer-notifications/c3-merged-reader.json) accepts final
+merged data. Annotated v0.13.2/exact target, stable release/notes and downloaded
+evidence bytes/SHA256 plus72 internal checksums are verified; [publication](assets/viewer-notifications/c3-publication.json).
+Final documentation merge/branch-cleanup audit is maintained in the verified issue
+reply linked from the approved plan. Historical evidence below stays distinct.
 
 Issue #55 correction evidence follows the [approved plan](plans/issue-55-interaction-corrections.md).
 C1 native buffer/group/capacity/coordinate and toolbar checks, C2 independent

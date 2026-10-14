@@ -1,0 +1,127 @@
+{
+  "stage": "merged",
+  "source_commit": "c21de2e3f76241acb1705d7ec80aae9baf499bdf",
+  "source_inventory_sha256": "0b9274b20a96b82f0a2395143d3161a659b01d5732e10caafaca15bcab394f6e",
+  "started_utc": "2026-10-14T11:08:49.636973+00:00",
+  "clean_start": true,
+  "browser_environment": {
+    "MOLWEAVE_E2E_API_PORT": "8020",
+    "MOLWEAVE_E2E_WORKER_PORT": "8021",
+    "MOLWEAVE_E2E_WEB_PORT": "5183",
+    "MOLWEAVE_E2E_DATA_DIR": "/tmp/neistra-issue56-merged-browser-1791976129",
+    "PLAYWRIGHT_BROWSERS_PATH": ".playwright"
+  },
+  "migration_data": "/tmp/neistra-issue56-merged-migration-1791976129",
+  "steps": [
+    {
+      "name": "uv-sync",
+      "command": ".venv/bin/uv sync --frozen",
+      "exit_code": 0,
+      "duration_seconds": 0.03,
+      "log": "c3-merged-uv-sync.log"
+    },
+    {
+      "name": "pnpm-install",
+      "command": "corepack pnpm install --frozen-lockfile",
+      "exit_code": 0,
+      "duration_seconds": 0.633,
+      "log": "c3-merged-pnpm-install.log"
+    },
+    {
+      "name": "migration",
+      "command": "MOLWEAVE_DATA_DIR=/tmp/neistra-issue56-merged-migration-1791976129 .venv/bin/uv run alembic upgrade head",
+      "exit_code": 0,
+      "duration_seconds": 0.568,
+      "log": "c3-merged-migration.log"
+    },
+    {
+      "name": "ruff",
+      "command": ".venv/bin/uv run ruff check .",
+      "exit_code": 0,
+      "duration_seconds": 0.038,
+      "log": "c3-merged-ruff.log"
+    },
+    {
+      "name": "mypy",
+      "command": ".venv/bin/uv run mypy apps/api packages/molweave_core",
+      "exit_code": 0,
+      "duration_seconds": 0.171,
+      "log": "c3-merged-mypy.log"
+    },
+    {
+      "name": "pytest",
+      "command": ".venv/bin/uv run pytest",
+      "exit_code": 0,
+      "duration_seconds": 77.103,
+      "log": "c3-merged-pytest.log"
+    },
+    {
+      "name": "lint",
+      "command": "corepack pnpm --dir apps/web lint",
+      "exit_code": 0,
+      "duration_seconds": 8.146,
+      "log": "c3-merged-lint.log"
+    },
+    {
+      "name": "typecheck",
+      "command": "corepack pnpm --dir apps/web typecheck",
+      "exit_code": 0,
+      "duration_seconds": 4.274,
+      "log": "c3-merged-typecheck.log"
+    },
+    {
+      "name": "vitest",
+      "command": "corepack pnpm --dir apps/web test",
+      "exit_code": 0,
+      "duration_seconds": 8.218,
+      "log": "c3-merged-vitest.log"
+    },
+    {
+      "name": "supervisor",
+      "command": "corepack pnpm test:dev",
+      "exit_code": 0,
+      "duration_seconds": 1.448,
+      "log": "c3-merged-supervisor.log"
+    },
+    {
+      "name": "build",
+      "command": "corepack pnpm --dir apps/web build",
+      "exit_code": 0,
+      "duration_seconds": 11.922,
+      "log": "c3-merged-build.log"
+    },
+    {
+      "name": "browser",
+      "command": "corepack pnpm exec playwright test --reporter=list,json",
+      "exit_code": 0,
+      "duration_seconds": 1833.908,
+      "log": "c3-merged-browser.log"
+    },
+    {
+      "name": "diff",
+      "command": "git diff --check",
+      "exit_code": 0,
+      "duration_seconds": 0.004,
+      "log": "c3-merged-diff.log"
+    }
+  ],
+  "completed_utc": "2026-10-14T11:41:16.104167+00:00",
+  "all_passed": true,
+  "browser_stats": {
+    "startTime": "2026-10-14T11:10:42.859Z",
+    "duration": 1833200.864,
+    "expected": 182,
+    "skipped": 44,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "python_summary": [
+    "492 passed, 237 warnings in 74.57s (0:01:14)"
+  ],
+  "frontend_summary": [
+    "194 passed (194)"
+  ],
+  "source_unchanged": true,
+  "application_version": "0.13.2",
+  "previous_reader": "0.13.1"
+}

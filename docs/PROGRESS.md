@@ -2,26 +2,33 @@
 
 ## Current milestone
 
-Issue #56 — implementation and clean-candidate qualification complete under the
-[approved plan](plans/issue-56-viewer-notification-timeout.md). Routine notices
-expire after ten seconds; persistent errors/warning-bearing results/action-required
-movement guidance, fresh replacement lifetimes, cleanup and keyboard focus are
-qualified. Local C3 review reproduced/fixed stale expiry-marker poisoning; D-089
-and its implementation notes remain authoritative.
+Issue #56 delivered as [v0.13.2](https://github.com/ManuelSe/Neistra/releases/tag/v0.13.2)
+through [PR #62](https://github.com/ManuelSe/Neistra/pull/62), following the
+[approved plan and detailed completion log](plans/issue-56-viewer-notification-timeout.md).
+C1–C3 complete: routine notices expire after ten seconds; persistent errors/warned
+results/action-required guidance, independent successive lifetimes, safe cleanup,
+keyboard deferral/manual focus, remounts and unchanged scientific/viewer state.
+D-089 and the reproduced/repaired stale-marker regression remain authoritative.
 
-[Exact clean-candidate gate](assets/viewer-notifications/c3-candidate-gate.json)
-at `494d533` passes 492 Python,194 frontend,eight supervisor,182 browser/44
-intentional skips, zero failures/flakes/retries; frozen installs/fresh0013/Ruff/
-mypy/lint/types/build/diff. [Actual tagged v0.13.1 reader](assets/viewer-notifications/c3-candidate-reader.json)
-accepts final0.13.2 originals/coordinates/history/archives/jobs. Review is local,
-not independent; no consequential finding remains. All five versions0.13.2;
-no dependency/API shape/schema/migration/scientific change.
+[Clean candidate](assets/viewer-notifications/c3-candidate-gate.json) at494d533 and
+[exact released master](assets/viewer-notifications/c3-merged-gate.json) at
+`c21de2e3f76241acb1705d7ec80aae9baf499bdf` each pass492Python/194frontend/8supervisor/
+182browser with44intentional skips, zero failures/flakes/retries; frozen installs,
+fresh0013/lint/types/build/diff. [Actual tagged v0.13.1 reader](assets/viewer-notifications/c3-merged-reader.json)
+accepts final0.13.2 originals/coordinates/history/archives/jobs. All five versions
+0.13.2; patch, no dependency/API shape/schema/migration/scientific change.
 
-Known limits: single visible notice; conservative persistent exceptions; browser
-throttling and keyboard focus can extend duration; pinned browser emulation and
-existing Alembic/bundle/environment advisories. No blocker. No PR/tag/release
-claim yet. Next: PR/review/normal merge, exact merged gates, verified release and
-issue close-out, final documentation and branch cleanup.
+Annotated tag/exact target, stable release/notes and downloaded evidence bytes/
+SHA256 plus72 internal checksums verified; [publication](assets/viewer-notifications/c3-publication.json).
+[Issue reply](https://github.com/ManuelSe/Neistra/issues/56#issuecomment-6167534526)
+verified; issue closed. Review local, not independent; Codex request returned no
+review at merge audit. No required approval/protection bypass or unresolved finding.
+
+Known limits: single visible notice, conservative persistent exceptions, keyboard
+focus/browser throttling duration extension, pinned emulation and existing
+advisories. No blocker or remaining implementation. Final documentation merge,
+branch cleanup and clean-master audit are maintained in the verified issue reply.
+Next product action: approve a separate backlog plan; no excluded scope is added.
 
 ### Previous delivery baseline — v0.13.1
 

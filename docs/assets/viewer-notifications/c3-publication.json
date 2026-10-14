@@ -1,0 +1,19 @@
+{
+  "version": "0.13.2",
+  "released_master": "c21de2e3f76241acb1705d7ec80aae9baf499bdf",
+  "annotated_tag_object": "9669de65b026b1f620d965fb92d833b608557134",
+  "tag_verified_remotely": true,
+  "release_url": "https://github.com/ManuelSe/Neistra/releases/tag/v0.13.2",
+  "release_published_at": "2026-10-14T11:41:47Z",
+  "draft": false,
+  "prerelease": false,
+  "release_notes_exact_match": true,
+  "archive_sha256": "ccf89e0065a650f26c80edaed1a931cb45e31de07b80e560d67b1b9216028c8d",
+  "downloaded_bytes_verified": true,
+  "internal_checksums_verified": 72,
+  "merged_pr": "https://github.com/ManuelSe/Neistra/pull/62",
+  "review": "Local full-diff review; Codex request returned no independent review at merge audit; no unresolved consequential finding or required approval bypass.",
+  "issue_reply_id": 6167534526,
+  "issue_reply_url": "https://github.com/ManuelSe/Neistra/issues/56#issuecomment-6167534526",
+  "issue_reply_verified": true
+}

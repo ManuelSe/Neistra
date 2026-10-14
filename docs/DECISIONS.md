@@ -3209,3 +3209,14 @@ refs, in addition to the existing functional state identity guard. A regression
 invokes the old callback after the new deadline, then leaves keyboard focus and
 requires removal without focus theft. This implements the accepted stale-work
 boundary; no new notification scope or scientific/persisted behavior is introduced.
+
+### D-089 released qualification note — issue #56 C3, 2026-10-14
+
+Released in v0.13.2 through PR #62. Clean candidate and exact merged master c21de2e
+repeat the complete gates, with194 frontend and182 browser workflows/44 intentional
+skips plus492 Python/eight supervisor tests, zero failures/retries. Actual preceding
+v0.13.1 reader accepts final data/history/originals/archives/jobs. Typed lifetime,
+closure cleanup, state identity, focused-notice deferral and producer warning/action
+policy retain application ownership without scientific, API shape, schema, migration
+or dependency changes. Publication and issue response are remotely verified; the
+approved feature plan retains the detailed evidence and final cleanup audit link.
