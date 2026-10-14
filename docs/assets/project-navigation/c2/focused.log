@@ -1,0 +1,13 @@
+
+ RUN  v3.2.4 /datadisk/dev/neistra/apps/web
+
+ ✓ src/test/component-membership.test.ts (2 tests) 30ms
+ ✓ src/test/component-hierarchy.test.tsx (2 tests) 629ms
+   ✓ component hierarchy > loads lazily, renders categories lazily, and emits canonical modifier selections  627ms
+ ✓ src/test/project-navigation.test.tsx (5 tests) 754ms
+   ✓ keeps explicit browsing independent of selection, remembers expansion across targets and remounts  330ms
+
+ Test Files  3 passed (3)
+      Tests  9 passed (9)
+   Start at  21:30:34
+   Duration  1.56s (transform 174ms, setup 134ms, collect 673ms, tests 1.41s, environment 676ms, prepare 214ms)

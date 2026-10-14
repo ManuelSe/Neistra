@@ -17,6 +17,9 @@ const projection: StructureProjection = { entry_id: "protein", structure,
   hierarchy: componentHierarchy(structure), viewer: { format: "mmcif", data: "projection" } };
 
 beforeEach(() => {
+  vi.spyOn(HTMLElement.prototype, "offsetHeight", "get").mockReturnValue(400);
+  vi.spyOn(HTMLElement.prototype, "offsetWidth", "get").mockReturnValue(320);
+  vi.spyOn(HTMLElement.prototype, "clientHeight", "get").mockReturnValue(400);
   useWorkspaceStore.setState({ browserLayout: [60, 40], componentsCollapsed: false });
   vi.spyOn(HTMLElement.prototype, "getBoundingClientRect").mockImplementation(function (this: HTMLElement) {
     return this.hasAttribute("data-panel-resize-handle-id") ? new DOMRect(1000, 1000, 6, 100) : new DOMRect(0, 0, 320, 800);
@@ -40,9 +43,9 @@ it("keeps explicit browsing independent of selection, remembers expansion across
   expect(molecularApi.structure).not.toHaveBeenCalled();
   await user.click(screen.getByRole("button", { name: "Actions for Receptor" }));
   await user.click(screen.getByRole("menuitem", { name: "Components" }));
-  await screen.findByText("Polymers");
+  await screen.findByRole("button", { name: /^Select Protein in/ });
   expect(select).not.toHaveBeenCalled();
-  await user.click(screen.getByText("Protein", { selector: "summary span" }));
+  await user.click(screen.getByRole("button", { name: /^Expand Protein in/ }));
   expect(screen.getByText("Protein chain A")).toBeVisible();
   fireEvent.click(document.querySelector('[data-entry-id="ligand"] .entry-select')!, { ctrlKey: true });
   expect(select).toHaveBeenLastCalledWith([project.entries[1]], "add");
@@ -60,7 +63,7 @@ it("retains filtered browsing, clears deletion and project changes, and does not
   const project = molecularProject();
   const view = render(browser(project));
   fireEvent.click(document.querySelector('[data-entry-id="protein"] .entry-select')!);
-  await screen.findByText("Polymers");
+  await screen.findByRole("button", { name: /^Select Protein in/ });
   fireEvent.change(screen.getByPlaceholderText("Search structures"), { target: { value: "Ligand" } });
   expect(screen.getByText("Outside displayed entry list")).toBeVisible();
   expect(useNavigationStore.getState().inspectedEntryId).toBe("protein");
@@ -102,9 +105,32 @@ it("keeps late previous-entry data out of the current pane and retries a failed 
   fireEvent.click(document.querySelector('[data-entry-id="ligand"] .entry-select')!);
   await screen.findByText("Component hierarchy unavailable");
   resolveOld(projection);
-  await waitFor(() => expect(screen.queryByText("Polymers")).not.toBeInTheDocument());
+  await waitFor(() => expect(screen.queryByRole("button", { name: /^Select Protein in/ })).not.toBeInTheDocument());
   vi.mocked(molecularApi.structure).mockResolvedValue(projection);
   await user.click(screen.getByRole("button", { name: "Retry components" }));
-  await screen.findByText("Polymers");
+  await screen.findByRole("button", { name: /^Select Protein in/ });
   expect(useNavigationStore.getState().inspectedEntryId).toBe("ligand");
+});
+
+it("separates disclosure, label and Details and restores the component launcher", async () => {
+  const user = userEvent.setup();
+  const project = molecularProject();
+  const select = vi.fn();
+  const hierarchySelect = vi.fn();
+  const client = new QueryClient();
+  render(<QueryClientProvider client={client}><Tooltip.Provider><ProjectBrowser
+    project={project} onSelectEntries={select} onSelectHierarchy={hierarchySelect} {...actions} /></Tooltip.Provider></QueryClientProvider>);
+  fireEvent.click(document.querySelector('[data-entry-id="protein"] .entry-select')!);
+  await screen.findByRole("button", { name: "Expand Protein in Receptor" });
+  await user.click(screen.getByRole("button", { name: "Expand Protein in Receptor" }));
+  expect(hierarchySelect).not.toHaveBeenCalled();
+  const label = screen.getByRole("button", { name: "Select Protein chain A in Receptor" });
+  fireEvent.click(label, { altKey: true });
+  expect(hierarchySelect).toHaveBeenLastCalledWith(expect.objectContaining({ granularity: "chain" }), "subtract");
+  const details = screen.getByRole("button", { name: "Details for Protein chain A in Receptor" });
+  await user.click(details);
+  expect(screen.getByRole("dialog", { name: "Component details" })).toHaveTextContent("Assigned by a documented residue or element fallback");
+  await user.keyboard("{Escape}");
+  await waitFor(() => expect(details).toHaveFocus());
+  expect(hierarchySelect).toHaveBeenCalledTimes(1);
 });

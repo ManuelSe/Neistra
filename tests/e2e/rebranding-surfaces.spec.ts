@@ -1,3 +1,4 @@
+import { browseComponents, showEntries } from "./support/navigation";
 import AxeBuilder from "@axe-core/playwright";
 import { resolve } from "node:path";
 import { readFileSync } from "node:fs";
@@ -88,12 +89,12 @@ test("reviews all Neistra workflow surfaces in both themes", async ({ page, requ
     }
     await panel(page, "Project browser");
     await page.locator(".entry-select").filter({ hasText: "Ethanol" }).click();
-    const hierarchy = page.locator(".structure-hierarchy").first();
-    if (await hierarchy.getAttribute("open") === null) await hierarchy.locator("summary").first().click();
-    const category = hierarchy.locator("details.hierarchy-category").first();
+    await browseComponents(page, "Ethanol");
+    const category = page.locator(".hierarchy-category").first();
     await expect(category).toBeVisible();
-    if (await category.getAttribute("open") === null) await category.locator("summary").click();
+    if (await category.locator(".hierarchy-disclosure").getAttribute("aria-expanded") === "false") await category.locator(".hierarchy-disclosure").click();
     await review(page, info, `${theme}-hierarchy`);
+    await showEntries(page);
     await page.getByRole("button", { name: "Actions for Ethanol", exact: true }).click();
     await review(page, info, `${theme}-entry-menu`, '[role="menu"]');
     await page.getByRole("menuitem", { name: "Rename", exact: true }).click();
@@ -275,12 +276,16 @@ test("keeps ambiguous classification warnings and legacy user copy visible", asy
   for (const theme of ["light", "dark"]) {
     if (theme === "dark") await page.getByRole("button", { name: "Use dark theme" }).click();
     await panel(page, "Project browser");
-    const hierarchy = page.locator(".structure-hierarchy");
-    if (await hierarchy.getAttribute("open") === null) await hierarchy.locator("summary").first().click();
+    await browseComponents(page, "Ethanol");
     const category = page.locator(".hierarchy-category");
-    if (await category.getAttribute("open") === null) await category.locator("summary").click();
-    await expect(page.locator(".classification-source.ambiguous")).toBeVisible();
-    await expect(page.locator(".component-warning")).toContainText(warning);
+    if (await category.locator(".hierarchy-disclosure").getAttribute("aria-expanded") === "false") await category.locator(".hierarchy-disclosure").click();
+    await page.locator(".hierarchy-component-row").getByRole("button", { name: /^Details for/ }).click();
+    const details = page.getByRole("dialog", { name: "Component details" });
+    await expect(details).toContainText("The available evidence does not support a narrower assignment");
+    await expect(details).toContainText(warning);
+    await review(page, info, `${theme}-component-provenance`, ".component-details");
+    await page.getByRole("button", { name: "Close component details", exact: true }).click();
+    await showEntries(page);
     await expect(page.locator(".project-switcher")).toContainText(project.name);
     await page.getByRole("button", { name: "Lock Ethanol", exact: true }).click();
     await expect(page.getByRole("button", { name: "Unlock Ethanol", exact: true })).toBeVisible();

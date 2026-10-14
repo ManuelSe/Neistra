@@ -3492,3 +3492,25 @@ Close action: a focused tooltip otherwise consumes the first Escape. Both mobile
 tab-panel identifiers remain in the DOM even when their inactive content is
 unmounted, preserving valid aria-controls. These are focus/semantics corrections,
 not changes to molecular selection, scientific state, or the API.
+
+### D-097 implementation note — issue #59 C2, 2026-10-14
+
+The compact pane uses native list/listitem/button semantics, logical row positions
+and total count, complete Up/Down/Home/End navigation, and independent controls.
+Only the active row's controls join the tab sequence; keyboard movement focuses
+off-screen labels without selecting. Stable ID keys and at most two additional
+focus/Details rows keep virtual DOM membership bounded. Category activation uses
+the complete cached operand, never the visible window.
+
+Build normalized residue-to-atom and component/category indexes from the current
+artifact projection. Preserve the existing component granularity and canonical
+selection algebra exactly, including covalent boundaries and explicit orphan IDs.
+This is a browser lookup optimization, not scientific reclassification. Warning
+and provenance Details retains complete text. Water and other solvent keep their
+shared Solvent control; duplicate shared-control names are scoped to their category
+row in tests, rather than inventing separate visibility preferences.
+
+Pin the approved TanStack adapter3.14.19/core3.19.4 without incidental dependency
+upgrades. React19 ref props add typed IconButton ref support for focus restoration.
+Generated O-only water fixtures qualify navigation with real normalized identities;
+they do not certify preparation chemistry or a realistic solvent environment.

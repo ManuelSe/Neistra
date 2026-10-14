@@ -4,7 +4,8 @@
 
 **Status:** implementation authorized by `/goal` on 2026-10-14. C0 was committed
 and remotely verified at `9f454c0eee7912aca623a3d239f9593a40b65235`. M1/C1 is
-implemented and qualified; M2/C2–M4/C4 remain approved and unstarted.
+implemented and qualified. M2/C2 is complete; M3/C3–M4/C4 remain approved and
+unstarted.
 
 
 - **Issue:** [#59 — Redesign the entry list and component hierarchy for compact,
@@ -490,3 +491,32 @@ unimplemented behavior, unrun check, or unverified remote action as complete.
 - Local full checkpoint diff review found no scope expansion, loss of warnings,
   molecular authority violation, migration or compatibility change. Not independent
   review. No blocker. Next: commit passing C1, then implement M2/C2.
+
+### 2026-10-14 — M2/C2 complete: direct virtual component navigation
+
+- C1 committed193b2e1. Replaced repeated headings, expanded selection-action rows,
+  and inline provenance with compact direct category/component rows and accessible
+  Details. Disclosure, selection, visibility and Details stay independent; shared
+  Solvent controls explicitly include water and additives. Requested visibility
+  retains hidden-parent context and current application membership authority.
+- Added artifact-keyed atom/residue/component/category indexes with exact established
+  canonical operands/granularities and one current selected-ID set.10k components
+  visit the atom collection once. Stable virtual IDs,8-row overscan, bounded focus/
+  Details retention and complete Up/Down/Home/End navigation keep off-screen members
+  accessible. Complete-category selection never uses only the mounted window.
+- [C2 evidence](../assets/project-navigation/c2-verification.json):9 focused/all221
+  frontend and22 Python tests, Ruff/mypy61/lint/types/build/diff pass. Native broad
+  suite23 passes/7 intentional layout skips in3.4minutes, zero failures/retries.
+  Real normalized10k O-only water components pass both layouts: bounded DOM, last-row
+  keyboard selection, Details return, complete10k category,1 normalized request and
+  exact project invariance. Generated coordinates do not certify preparation science.
+- Shared Solvent control fixture ambiguity is recorded separately: first broad run
+ 20passes/7skips/1failure; corrected category-scoped locator preserves shared scope,
+  and the complete final run passes. No scientific rule or visibility field changed.
+- Approved adapter3.14.19/core3.19.4 are the only new dependencies; versions stay0.14.0,
+  head0014/schemas2/1. Legacy dead hierarchy styles were removed; current user/architecture
+  guidance and D-097 implementation note record ownership and keyboard semantics.
+- Local complete checkpoint review finds no new API/persisted/molecular authority,
+  classification, source loss, scope expansion or incidental dependency upgrade.
+  Not independent review. C3 broader lifecycle/performance/zoom/compatibility and C4
+  full gates/publication remain. No blocker. Next: commit C2, implement/qualify C3.

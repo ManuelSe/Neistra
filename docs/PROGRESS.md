@@ -2,21 +2,22 @@
 
 ## Current milestone
 
-Issue #59 — [approved compact navigation contract](plans/issue-59-compact-project-navigation.md).
-`/goal` authorizes full implementation/delivery on the planned feature branch.
-C0 is remotely verified at9f454c0. M1/C1 is complete: compact entries and accessible
-Details, independent desktop split/mobile tabs, pinned transient browse context,
-query/Retry/deletion/project reconciliation and retained group/selection actions.
-D-097 and [user guidance](PROJECT_NAVIGATION.md) record ownership and focus.
+Issue #59 — [approved contract](plans/issue-59-compact-project-navigation.md).
+C1 committed193b2e1; C2 is complete: compact direct rows, full provenance/warnings
+Details, explicit shared visibility, artifact-keyed exact membership indexing and
+continuous virtual scrolling with off-screen keyboard/focus retention. D-097 and
+[user guidance](PROJECT_NAVIGATION.md) remain authoritative.
 
-[C1 evidence](assets/project-navigation/c1-verification.json):10 focused/all218
-frontend,12 integration, Ruff/mypy61/lint/types/build/diff pass. Final focused
-browser17 passes/3 intentional layout skips, zero failures/retries. Prior four
-filter-disclosure fixture diagnostics are separate; full rerun retains assertions.
-Versions0.14.0; target0.15.0 minor, no new migration/API/persisted shape. Known limits:
-C1 still uses the original multiline hierarchy within the new pane; compact direct
-virtual rows are next. Session navigation, shared visibility and pinned emulation
-boundaries remain. No blocker. Next: commit C1, implement M2/C2, then C3/C4.
+[C2 evidence](assets/project-navigation/c2-verification.json):9focused/all221frontend,
+22Python and static/build checks pass; native23passes/7intentional layout skips,
+zero failures/retries. Real10k normalized components, full-category operands,
+1request/project invariance and adjacent group/style/camera workflows pass. Prior
+shared-control fixture ambiguity is diagnostic; complete corrected gate passes.
+Only approved virtualizer dependencies added; versions0.14.0, target0.15.0minor,
+no new migration/API/persisted shape. Known limits: generated O-only fixture is
+navigation data, shared visibility/session context/pinned emulation remain; C3
+broader lifecycle/200entries/zoom/compatibility and C4 full release delivery pending.
+No blocker. Next: commit C2, implement/qualify M3/C3.
 
 ### Previous delivery baseline — v0.14.0
 
@@ -2401,11 +2402,11 @@ Results:
 
 ## Blockers
 
-No current blocker. Issue #59 M1/C1 passes its gates; C2/C3/C4 and release delivery
+No current blocker. Issue #59 C1/C2 pass their gates; C3/C4 and release delivery
 remain. Issue #57 release and closeout remain verified.
 
 ## Next action
 
-Commit passing issue #59 C1, implement M2/C2, then qualify C3 and complete C4
+Commit passing issue #59 C2, qualify M3/C3, then complete C4
 release delivery. The [feature plan](plans/issue-59-compact-project-navigation.md)
 is the detailed contract; do not reintroduce deferred scope.

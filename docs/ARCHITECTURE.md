@@ -73,6 +73,14 @@ activation do not implicitly change browsing context. TanStack Query retains the
 artifact-keyed normalized payload. Only split/collapse layout preferences enter
 safe browser storage. See [navigation guidance](PROJECT_NAVIGATION.md) and D-097.
 
+The component pane projects a flat sequence of category and expanded component
+rows through the pinned headless TanStack virtualizer. Stable category/component
+keys, bounded overscan, focus retention and application keyboard navigation keep
+off-screen membership accessible without another selection authority. An
+artifact-keyed membership index visits atoms once and caches exact component/
+category operands. Selection coverage uses a current entry-local canonical-ID
+set; scrolling/appearance changes do not rebuild the molecular index.
+
 `molweave_core.components` deterministically derives `ComponentHierarchyV1`
 from the current `NormalizedStructureV1` artifact. Gemmi contributes optional
 source entity, subchain, polymer-type, and tabulated-residue facts only at the

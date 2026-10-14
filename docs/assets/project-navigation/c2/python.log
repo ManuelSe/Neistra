@@ -1,0 +1,13 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.2, pluggy-1.6.0
+rootdir: /datadisk/dev/neistra
+configfile: pyproject.toml
+plugins: cov-6.3.0, anyio-4.9.0
+collected 22 items
+
+tests/integration/test_component_hierarchy.py ..                         [  9%]
+tests/unit/test_components.py ....                                       [ 27%]
+tests/unit/test_selection.py .............                               [ 86%]
+tests/scientific/test_component_classification.py ...                    [100%]
+
+============================== 22 passed in 0.65s ==============================

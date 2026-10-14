@@ -39,6 +39,18 @@ groups; Water and other solvent/additives share one Solvent preference. A hidden
 parent can prevent a requested-visible category from rendering. No individual
 persisted component visibility or classification override is introduced.
 
+Categories and components use single-line rows. Click a label to select its exact
+members, including members outside the visible scroll window. A category's arrow
+only expands/collapses it; its eye only changes the named shared visibility group.
+Each row's Details action exposes full labels, counts, provenance and warnings.
+Hierarchy warnings have a separate Details launcher above the list.
+
+Focus a row label and use Up/Down or Home/End to reach every expanded row, including
+off-screen components. Focus movement and scrolling do not select; Enter/Space
+activates the focused control. Tab reaches the active row's disclosure, visibility,
+and Details controls. Virtual scrolling renders the visible window plus bounded
+overscan and retains focused/Details rows while they need to remain available.
+
 Browsing, disclosure, search, scrolling, and resizing create no project command
 or molecular edit. Explicit selection uses canonical atom references; durable
 visibility and entry actions retain their existing history and revision rules.

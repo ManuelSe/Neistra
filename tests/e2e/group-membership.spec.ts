@@ -125,8 +125,8 @@ test("rejects stale-tab actions and keeps a partial selection scoped to its comp
   const entry = initial.entries.find(entry => entry.source_format === "pdb")!;
   await browseComponents(page, entry.name);
   const unclassified = page.locator(".hierarchy-category").filter({ has: page.getByText("Protein", { exact: true }) });
-  await unclassified.locator("summary").click();
-  await unclassified.locator(".hierarchy-component").first().click();
+  await unclassified.locator(".hierarchy-disclosure").click();
+  await page.locator(".hierarchy-component").first().click();
   await action(page, entry.id, "Move to group…");
   const dialog = page.getByRole("dialog", { name: "Move to group" });
   await expect(dialog).toContainText("1 complete structure.");

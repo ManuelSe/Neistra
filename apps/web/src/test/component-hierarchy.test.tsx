@@ -223,12 +223,14 @@ describe("component hierarchy", () => {
     expect(screen.queryByText("Protein chain A")).not.toBeInTheDocument();
     await user.click(screen.getByRole("button", { name: "Actions for Complex" }));
     await user.click(screen.getByRole("menuitem", { name: "Components" }));
-    await screen.findByText("Polymers");
+    await screen.findByRole("button", { name: /^Select Protein in/ });
     expect(request).toHaveBeenCalledTimes(1);
+    await user.click(screen.getByRole("button", { name: /hierarchy warnings/ }));
     expect(screen.getByText("1 component assignment remains unclassified.")).toBeVisible();
+    await user.click(screen.getByRole("button", { name: "Close component details" }));
     expect(screen.queryByText("HOH 21")).not.toBeInTheDocument();
 
-    await user.click(screen.getByText("Water"));
+    await user.click(screen.getByRole("button", { name: /^Expand Water in/ }));
     expect(screen.getByText("HOH 21")).toBeVisible();
     expect(screen.getByText("HOH 25")).toBeVisible();
     await user.click(screen.getByLabelText("Select Water in Complex"));
@@ -244,8 +246,8 @@ describe("component hierarchy", () => {
       "replace",
     );
 
-    await user.click(screen.getByText("Ligands / cofactors", { selector: "summary span" }));
-    const ligand = screen.getByRole("button", { name: /LIG 20/ });
+    await user.click(screen.getByRole("button", { name: /^Expand Ligands \/ cofactors in/ }));
+    const ligand = screen.getByRole("button", { name: /^Select LIG 20/ });
     fireEvent.click(ligand, { ctrlKey: true });
     expect(onSelect).toHaveBeenLastCalledWith(
       expect.objectContaining({
@@ -254,16 +256,18 @@ describe("component hierarchy", () => {
       }),
       "add",
     );
+    await user.click(screen.getByRole("button", { name: "Details for LIG 20 in Complex" }));
     expect(screen.getByText("Assigned by a documented residue or element fallback")).toBeVisible();
+    await user.click(screen.getByRole("button", { name: "Close component details" }));
 
     await user.click(
-      screen.getByLabelText("Hide Water visibility group in Complex"),
+      screen.getByLabelText("Hide all solvent, including water and additives in Complex"),
     );
     expect(onVisibility).toHaveBeenCalledWith(entry, "solvent");
 
     await user.click(screen.getByRole("button", { name: "Actions for Complex" }));
     await user.click(screen.getByRole("menuitem", { name: "Components" }));
-    await screen.findByText("Polymers");
+    await screen.findByRole("button", { name: /^Select Protein in/ });
     expect(request).toHaveBeenCalledTimes(1);
   });
 
@@ -317,6 +321,9 @@ describe("component hierarchy", () => {
 });
 
 beforeEach(() => {
+  vi.spyOn(HTMLElement.prototype, "offsetHeight", "get").mockReturnValue(400);
+  vi.spyOn(HTMLElement.prototype, "offsetWidth", "get").mockReturnValue(320);
+  vi.spyOn(HTMLElement.prototype, "clientHeight", "get").mockReturnValue(400);
   // JSDOM has no layout: place resize handles away from pointer origin.
   vi.spyOn(HTMLElement.prototype, "getBoundingClientRect").mockImplementation(function (this: HTMLElement) {
     return this.hasAttribute("data-panel-resize-handle-id") ? new DOMRect(1000, 1000, 6, 100) : new DOMRect(0, 0, 320, 800);
