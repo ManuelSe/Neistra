@@ -2,30 +2,26 @@
 
 ## Current milestone
 
-Issue #56 — M1/C1 and M2/C2 complete under the [approved contract](plans/issue-56-viewer-notification-timeout.md);
-implementation/full delivery authorized through `/goal` on 2026-10-14. Application
-notices expire after 10 seconds with fresh replacement lifetimes and safe cleanup.
-Errors, warning-bearing import/edit summaries and action-required movement guidance
-remain visible. Manual dismissal, focused-notice deferral and modal-aware focus
-restoration retain existing single-slot styling and molecular/viewer ownership.
+Issue #56 — implementation and clean-candidate qualification complete under the
+[approved plan](plans/issue-56-viewer-notification-timeout.md). Routine notices
+expire after ten seconds; persistent errors/warning-bearing results/action-required
+movement guidance, fresh replacement lifetimes, cleanup and keyboard focus are
+qualified. Local C3 review reproduced/fixed stale expiry-marker poisoning; D-089
+and its implementation notes remain authoritative.
 
-[Focused evidence](assets/viewer-notifications/c1-verification.json): 38 focused and
-193 frontend tests, lint/types/build/diff pass. Producer audit and actual App handler
-tests cover warning policy; Strict Mode and obsolete callback tests pass. Existing
-bundle advisory remains. C3 preparation updates all five versions to 0.13.2 without dependency/schema/
-migration changes. Frozen sync/Ruff and 99 archive/migration tests pass; actual
-tagged v0.13.1 reader accepts final-version originals/coordinates/history/archives/
-jobs. Complete candidate and merged release gates remain pending.
+[Exact clean-candidate gate](assets/viewer-notifications/c3-candidate-gate.json)
+at `494d533` passes 492 Python,194 frontend,eight supervisor,182 browser/44
+intentional skips, zero failures/flakes/retries; frozen installs/fresh0013/Ruff/
+mypy/lint/types/build/diff. [Actual tagged v0.13.1 reader](assets/viewer-notifications/c3-candidate-reader.json)
+accepts final0.13.2 originals/coordinates/history/archives/jobs. Review is local,
+not independent; no consequential finding remains. All five versions0.13.2;
+no dependency/API shape/schema/migration/scientific change.
 
-Known limitations: one visible notice; persistent exceptions; timer throttling and
-keyboard focus can extend duration. No blocker. [Browser evidence](assets/viewer-notifications/c2-verification.json): 39 workflows
-plus three intentional layout skips, final 10 notification workflows, light/dark
-axe and keyboard/native invariance pass with zero failures/retries. Frontend
-gates repeat all 193 tests/lint/types/build. User/accessibility guidance updated.
-C3 local review reproduced and fixed obsolete-callback expiry-marker poisoning;
-39 focused and all 194 frontend tests/lint/types/build pass. The first browser
-gate was deliberately interrupted for this correction and is not passing release
-evidence. Next: restart the complete clean-candidate gate, then review/delivery.
+Known limits: single visible notice; conservative persistent exceptions; browser
+throttling and keyboard focus can extend duration; pinned browser emulation and
+existing Alembic/bundle/environment advisories. No blocker. No PR/tag/release
+claim yet. Next: PR/review/normal merge, exact merged gates, verified release and
+issue close-out, final documentation and branch cleanup.
 
 ### Previous delivery baseline — v0.13.1
 

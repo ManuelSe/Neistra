@@ -50,9 +50,14 @@ The [approved contract](plans/issue-56-viewer-notification-timeout.md),
 warning-producer, stale callback, cleanup, focus, actual native-state/network
 invariance, and desktop/mobile light/dark accessibility checks. The focused browser
 gate passes 39 workflows with three intentional layout skips; all 10 notification
-workflows and 193 frontend tests pass. Complete candidate/merged release gates and
-actual preceding-reader qualification are pending; this entry is release preparation,
-not a publication claim. Local review is not independent review.
+workflows and 193 frontend tests pass. The [complete clean-candidate gate](assets/viewer-notifications/c3-candidate-gate.json)
+at `494d533` passes **492 Python,194 frontend,eight supervisor,182 browser/44
+intentional layout skips**, zero failures/flakes/retries, frozen installs/fresh0013/
+lint/types/build/diff. [Actual tagged v0.13.1 reader](assets/viewer-notifications/c3-candidate-reader.json)
+accepts final0.13.2 data/history/archives/jobs. [Local full-diff review](assets/viewer-notifications/c3-local-review.json)
+reproduced/fixed stale-marker poisoning; no consequential finding remains and no
+independent review is claimed. Exact merged release and reader gates must repeat
+before tag/publication; this entry does not claim a release already exists.
 
 ## 0.13.1 - 2026-10-13 - Interaction corrections
 

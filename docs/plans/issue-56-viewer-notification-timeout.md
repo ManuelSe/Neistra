@@ -2,7 +2,8 @@
 
 ## 1. Status, metadata, and approved outcome
 
-**Status:** implementation in progress; M1/C1 and M2/C2 complete; M3/C3 pending.
+**Status:** implementation and clean-candidate qualification complete; PR, exact
+merged qualification, publication and close-out pending.
 The user approved the proposal on 2026-10-14 with “I approve the plan.”
 The user authorized implementation and complete delivery through `/goal` on
 2026-10-14. Historical C0 instructions below retain the planning-only stop.
@@ -581,3 +582,32 @@ environment/source identity, scope deviations, blockers, and next action. Keep
   `/tmp/neistra-issue56-candidate-interrupted-evidence`.
 - Next: restart the entire release gate on the clean repaired commit with fresh
   browser and migration storage; final candidate/merged gates remain pending.
+
+### 2026-10-14 — C3 complete clean-candidate gate and local full-diff review
+
+- Corrected clean source `494d533a33e920253815a4713d38857de0e96d5e` passes every
+  release command: frozen Python/JavaScript installs, fresh migration 0013, Ruff,
+  strict mypy (58 source files), **492 Python / 194 frontend / eight supervisor /
+  182 browser passes with 44 intentional layout skips**, zero failures/flakes/
+  retries. Browser matrix completes in 30.5 minutes. Source remains clean and
+  unchanged throughout. [Exact gate and command logs](../assets/viewer-notifications/c3-candidate-gate.json).
+- Final-version producer and actual detached tagged v0.13.1 reader repeat on
+  fresh final-candidate data: originals/coordinates, retained atomic Undo/Redo,
+  save/re-export, archive import/history omission and completed jobs all pass.
+  [Producer](../assets/viewer-notifications/c3-candidate-producer.json),
+  [reader](../assets/viewer-notifications/c3-candidate-reader.json).
+- [Actual candidate notification timings](../assets/viewer-notifications/c3-candidate-timing.json)
+  retain minimum-ten-second and unchanged project/native/network assertions in
+  both layouts. All ten notification workflows pass in the complete matrix.
+- [Full-diff local review](../assets/viewer-notifications/c3-local-review.json)
+  covers all runtime/tests/versions/docs/evidence and approved dispositions. The
+  reproduced stale-marker finding is repaired; no consequential finding remains.
+  Review is local by the primary Codex agent, not independent.
+- Existing 237 Alembic/bundle/color-environment advisories remain; lazy Mol* is
+  976.99 KiB gzip, initial application 178.55 KiB gzip. No new migration/dependency
+  or scientific/persisted/API shape change. Five versions agree on 0.13.2.
+- Refetched origin/master: base remains d81650e, stable latest v0.13.1; no v0.13.2
+  tag collision. Evidence/documentation commit changes no tested runtime, tests,
+  fixtures or versions; inventory equality guards the final PR head.
+- Next: push/open PR, review integration/local audit, normal merge, repeat every
+  release/reader gate on exact merged master, then tag/release/reply/docs/cleanup.
