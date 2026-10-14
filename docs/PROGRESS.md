@@ -2,6 +2,29 @@
 
 ## Current milestone
 
+Issue #56 — implementation and clean-candidate qualification complete under the
+[approved plan](plans/issue-56-viewer-notification-timeout.md). Routine notices
+expire after ten seconds; persistent errors/warning-bearing results/action-required
+movement guidance, fresh replacement lifetimes, cleanup and keyboard focus are
+qualified. Local C3 review reproduced/fixed stale expiry-marker poisoning; D-089
+and its implementation notes remain authoritative.
+
+[Exact clean-candidate gate](assets/viewer-notifications/c3-candidate-gate.json)
+at `494d533` passes 492 Python,194 frontend,eight supervisor,182 browser/44
+intentional skips, zero failures/flakes/retries; frozen installs/fresh0013/Ruff/
+mypy/lint/types/build/diff. [Actual tagged v0.13.1 reader](assets/viewer-notifications/c3-candidate-reader.json)
+accepts final0.13.2 originals/coordinates/history/archives/jobs. Review is local,
+not independent; no consequential finding remains. All five versions0.13.2;
+no dependency/API shape/schema/migration/scientific change.
+
+Known limits: single visible notice; conservative persistent exceptions; browser
+throttling and keyboard focus can extend duration; pinned browser emulation and
+existing Alembic/bundle/environment advisories. No blocker. No PR/tag/release
+claim yet. Next: PR/review/normal merge, exact merged gates, verified release and
+issue close-out, final documentation and branch cleanup.
+
+### Previous delivery baseline — v0.13.1
+
 Issue #55 delivered as [v0.13.1](https://github.com/ManuelSe/Neistra/releases/tag/v0.13.1)
 through [PR #60](https://github.com/ManuelSe/Neistra/pull/60), following the
 [approved plan and detailed completion log](plans/issue-55-interaction-corrections.md).

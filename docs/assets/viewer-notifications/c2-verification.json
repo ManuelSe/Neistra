@@ -1,0 +1,49 @@
+{
+  "checkpoint": "M2/C2",
+  "date": "2026-10-14",
+  "runtime_checkpoint": "63a6662",
+  "test_sha256": "0e632e0a1ed08378be9198b9d23c9038943aa81cce71cf50a0eac1474cc2910a",
+  "browser_environment": {
+    "api_port": 8020,
+    "worker_port": 8021,
+    "web_port": 5183,
+    "data_dir": "/tmp/neistra-issue56-c2-browser",
+    "browsers": ".playwright"
+  },
+  "browser_gate": {
+    "passed": 39,
+    "intentional_layout_skips": 3,
+    "failed": 0,
+    "retried": 0,
+    "duration": "4.7 minutes"
+  },
+  "final_notification_evidence_run": {
+    "startTime": "2026-10-14T10:08:42.232Z",
+    "duration": 64164.284,
+    "expected": 10,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "real_time_measurements": {
+    "chromium": {
+      "elapsedMs": 10040.799999982119,
+      "noUnexpectedRequests": true,
+      "projectUnchanged": true,
+      "nativeUnchanged": true
+    },
+    "mobile-chromium": {
+      "elapsedMs": 10033.800000011921,
+      "noUnexpectedRequests": true,
+      "projectUnchanged": true,
+      "nativeUnchanged": true
+    }
+  },
+  "frontend_tests": 193,
+  "lint": true,
+  "typecheck": true,
+  "build": true,
+  "diff_check": true,
+  "review": "Local checkpoint diff and mobile warning screenshot reviewed; no consequential finding remains.",
+  "diagnostics": "Initial browser harness failed before notification assertions on native mount readiness and an externally seeded project absent from the cached list. Wait for instrumented mount and seed the switch target before navigation. Passing gates use explicit readiness and no retries. Final attachment capture moved to test output so future gates do not rewrite repository screenshots."
+}

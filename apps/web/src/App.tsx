@@ -67,6 +67,7 @@ import { useWorkspaceStore } from "./store/workspace";
 import { useInteractionStore } from "./store/interactions";
 import { applyTheme } from "./theme";
 import { useMovementSession } from "./coordinates/useMovementSession";
+import { ApplicationNotice, type ApplicationNoticeValue } from "./components/ApplicationNotice";
 
 type EntryDialog = { mode: "rename" | "delete"; entry: Entry } | null;
 
@@ -110,7 +111,7 @@ export default function App() {
   const [entryName, setEntryName] = useState("");
   const [entryDescription, setEntryDescription] = useState("");
   const [groupDialog, setGroupDialog] = useState<GroupDialogRequest | null>(null);
-  const [notice, setNotice] = useState<{ kind: "success" | "error"; text: string } | null>(null);
+  const [notice, setNotice] = useState<ApplicationNoticeValue | null>(null);
   const [editedThisSession, setEditedThisSession] = useState(false);
   const [selectionBusy, setSelectionBusy] = useState(false);
   const [coordinatePreview, setCoordinatePreview] =
@@ -285,8 +286,8 @@ export default function App() {
       updateProjectCache(next);
       if (next.id === useWorkspaceStore.getState().activeProjectId && next.structure_patches?.length) setEditedThisSession(true);
     },
-    notice: (id, text, error) => {
-      if (id === useWorkspaceStore.getState().activeProjectId) setNotice({ kind: error ? "error" : "success", text });
+    notice: (id, text, error, lifetime) => {
+      if (id === useWorkspaceStore.getState().activeProjectId) setNotice({ kind: error ? "error" : "success", text, lifetime });
     },
   });
   const movementBlocked = ["submitting", "reconciling", "uncertain"].includes(movement.state.phase);
@@ -302,7 +303,7 @@ export default function App() {
       setNotice(phase === "active" || phase === "loading"
         ? { kind: "success", text: "Unapplied movement was discarded after changing projects." }
         : ["submitting", "reconciling", "uncertain"].includes(phase)
-          ? { kind: "success", text: "Movement for the previous project may be pending. Reopen it to check its coordinates and history." }
+          ? { kind: "success", lifetime: "persistent", text: "Movement for the previous project may be pending. Reopen it to check its coordinates and history." }
           : null);
     }
   }), [movementSession, clearCoordinatePreview]);
@@ -676,6 +677,7 @@ export default function App() {
         setNotice({
           kind: "success",
           text: `Ligand edit stored.${warningText}`,
+          lifetime: result.warnings.length ? "persistent" : "transient",
         });
         return result;
       } catch (error) {
@@ -723,6 +725,7 @@ export default function App() {
         setNotice({
           kind: "success",
           text: `Protein edit stored.${warningText}`,
+          lifetime: result.warnings.length ? "persistent" : "transient",
         });
         return result;
       } catch (error) {
@@ -874,17 +877,7 @@ export default function App() {
           onMobilePanel={openMobilePanel}
         />
 
-        {notice ? (
-          <div
-            className={`notice ${notice.kind}`}
-            role={notice.kind === "error" ? "alert" : "status"}
-          >
-            <span>{notice.text}</span>
-            <button type="button" onClick={() => setNotice(null)} aria-label="Dismiss message">
-              Close
-            </button>
-          </div>
-        ) : null}
+        <ApplicationNotice notice={notice} setNotice={setNotice} />
 
         {projectsQuery.isError || projectQuery.isError ? (
           <div className="api-failure" role="alert">
@@ -1262,6 +1255,7 @@ export default function App() {
             text: `${result.imported_entry_ids.length} ${
               result.imported_entry_ids.length === 1 ? "structure" : "structures"
             } imported${result.warnings.length > 0 ? ` with ${result.warnings.length} warnings` : ""}.`,
+            lifetime: result.warnings.length ? "persistent" : "transient",
           });
         }}
       />

@@ -189,6 +189,7 @@ describe("interactive-transform transaction", () => {
     ports.refresh.mockResolvedValue(ports.context().project!);
     await session.reconcile();
     expect(session.snapshot().phase).toBe("idle");
+    expect(ports.notice).toHaveBeenCalledWith("project-1", expect.stringContaining("Check its coordinates and history"), false, "persistent");
   });
 
   it("routes a late successful response to captured authority without reviving UI or feedback", async () => {

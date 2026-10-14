@@ -1,0 +1,40 @@
+{
+  "checkpoint": "M1/C1",
+  "date": "2026-10-14",
+  "base_commit": "e14b8fea2f684b564de5d1fe991a781eb178cd93",
+  "source_sha256": {
+    "apps/web/src/App.tsx": "3aaf576f85c67ac3daefb1ca231dfe4dc14c0b1e4352715e4caf4972f0757b1d",
+    "apps/web/src/components/ApplicationNotice.tsx": "5c2fd4439175a89025e4c679180bb938b0ea858f44fafc0737e7d19a49e580bc",
+    "apps/web/src/coordinates/MovementSession.ts": "03888b18211af0e6ebbe340101d3c1e1eba9d95606ae88fb909241fd17b6a048",
+    "apps/web/src/coordinates/useMovementSession.ts": "0e6720c17fb00b5318594aba3b84600814060cee67a7f0c901bb14c7adf602d7",
+    "apps/web/src/test/notifications.test.tsx": "eda5fa8af6a0f30b0d92b40016aade4d2264a82abda47cb1c8e0a61a296e30f3",
+    "apps/web/src/test/notification-producers.test.tsx": "3ee0768072ee41aa026b44c69461c1f0f0db887a832f1e08e8131994530b67ac",
+    "apps/web/src/test/interactive-transform.test.ts": "baf6052a360d03eb7970dec7829bc8f713fcb9b25b10c19b4ab4fdbe037f2645"
+  },
+  "results": {
+    "focused_tests": 38,
+    "frontend_tests": 193,
+    "lint": true,
+    "typecheck": true,
+    "build": true,
+    "diff_check": true
+  },
+  "commands": [
+    "corepack pnpm --dir apps/web exec vitest run src/test/notifications.test.tsx src/test/notification-producers.test.tsx src/test/project-workspace.test.tsx src/test/interactive-transform.test.ts src/test/jobs.test.tsx",
+    "corepack pnpm --dir apps/web lint",
+    "corepack pnpm --dir apps/web typecheck",
+    "corepack pnpm --dir apps/web test",
+    "corepack pnpm --dir apps/web build",
+    "git diff --check"
+  ],
+  "review": "Local full checkpoint diff reviewed; no consequential finding remains. No independent review claimed.",
+  "limitations": [
+    "single visible notice",
+    "persistent errors/warnings/action-required guidance",
+    "browser timer throttling and keyboard focus can extend duration"
+  ],
+  "advisories": [
+    "Existing lazy Mol* bundle warning: 976.99 KiB gzip; initial application chunk 178.53 KiB gzip."
+  ],
+  "diagnostics": "Initial test harness failures were corrected (mocked project-list ownership and unrelated global timer count). Lint findings corrected before passing qualification."
+}

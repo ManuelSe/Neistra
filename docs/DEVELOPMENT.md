@@ -412,3 +412,21 @@ Earlier migration guards still apply. [Contract](plans/issue-55-interaction-corr
 Restart services and reload the workspace on upgrade/rollback to reset transient
 interaction caches. Rollback restores both the native renderer defect and the
 old contradictory-acid assignment limitation. Persisted compatibility is unchanged.
+
+## Notification timeout compatibility (0.13.2)
+
+Routine application notices expire after ten seconds; errors, warning-bearing
+summaries, and action-required movement guidance remain visible. Focused notices
+wait for keyboard focus departure. Existing detailed warning/status displays retain
+their lifecycles. No new migration or persisted preference is introduced; head 0013
+and project/normalized/archive majors 1 remain. Update all five version sources
+without dependency upgrades and run the complete candidate and exact merged gates.
+
+Use `tests.support.transform_reader_qualification` with final 0.13.2 producer
+metadata and an actual detached v0.13.1 checkout (`--expected-reader 0.13.1`),
+with fresh disposable data. Check exact originals/coordinates, retained Undo/Redo,
+save/re-export, current-state archive import, and completed jobs. Existing exhaustive
+archive tests also cover preceding producer provenance. Qualified rollback needs
+no downgrade/data stripping; reload the frontend to restore the old notice lifetime.
+The [approved plan](plans/issue-56-viewer-notification-timeout.md) and its evidence
+log govern release blockers and verification.

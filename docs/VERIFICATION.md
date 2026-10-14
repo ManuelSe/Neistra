@@ -1,5 +1,20 @@
 # V0.1 Requirement Evidence
 
+Issue #56 follows the [approved notification plan](plans/issue-56-viewer-notification-timeout.md).
+[C1 evidence](assets/viewer-notifications/c1-verification.json) qualifies exact
+10-second boundaries, replacement/repeated text, stale callbacks, cleanup, warning
+producer policy and keyboard focus. [C2 evidence](assets/viewer-notifications/c2-verification.json)
+records 39 focused browser passes/three intentional layout skips, all 10 native
+notification workflows, actual real-time expiration/state invariance, light/dark
+axe and unchanged adjacent movement/recovery/performance. Both checkpoints pass
+all 193 frontend tests/lint/types/build. The [complete clean-candidate gate](assets/viewer-notifications/c3-candidate-gate.json)
+at `494d533` passes492Python/194frontend/8supervisor/182browser with44intentional
+skips and zero failures/flakes/retries; frozen installs/fresh0013/lint/types/build.
+[Actual tagged v0.13.1 reader](assets/viewer-notifications/c3-candidate-reader.json)
+accepts final0.13.2 data/history/archives/jobs. [Local full-diff review](assets/viewer-notifications/c3-local-review.json)
+is not independent and has no unresolved consequential finding. Exact merged
+qualification/publication remain pending; historical evidence below stays distinct.
+
 Issue #55 correction evidence follows the [approved plan](plans/issue-55-interaction-corrections.md).
 C1 native buffer/group/capacity/coordinate and toolbar checks, C2 independent
 six-type and frozen2REG science/API invariance, and C3 actual marker pixels,256

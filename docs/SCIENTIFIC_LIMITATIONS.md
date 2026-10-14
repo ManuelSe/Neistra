@@ -5,6 +5,11 @@ Status: Neistra scientific limits; originally documented for MolWeave v0.2.0.
 Neistra reports known uncertainty but does not replace specialist
 structure preparation or validation software.
 
+Notification timeout applies to routine confirmations. Errors, warning-bearing
+import/edit summaries, and action-required movement guidance remain visible until
+dismissed or replaced; detailed scientific warning records and panels are unchanged.
+Hiding a confirmation does not change or validate molecular data.
+
 ## Molecular interactions
 
 Transient `interaction-v1` analysis is geometric screening, not binding energy.

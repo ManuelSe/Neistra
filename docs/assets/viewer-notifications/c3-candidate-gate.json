@@ -1,0 +1,127 @@
+{
+  "stage": "candidate",
+  "source_commit": "494d533a33e920253815a4713d38857de0e96d5e",
+  "source_inventory_sha256": "0b9274b20a96b82f0a2395143d3161a659b01d5732e10caafaca15bcab394f6e",
+  "started_utc": "2026-10-14T10:29:59.846304+00:00",
+  "clean_start": true,
+  "browser_environment": {
+    "MOLWEAVE_E2E_API_PORT": "8020",
+    "MOLWEAVE_E2E_WORKER_PORT": "8021",
+    "MOLWEAVE_E2E_WEB_PORT": "5183",
+    "MOLWEAVE_E2E_DATA_DIR": "/tmp/neistra-issue56-candidate-browser-1791973799",
+    "PLAYWRIGHT_BROWSERS_PATH": ".playwright"
+  },
+  "migration_data": "/tmp/neistra-issue56-candidate-migration-1791973799",
+  "steps": [
+    {
+      "name": "uv-sync",
+      "command": ".venv/bin/uv sync --frozen",
+      "exit_code": 0,
+      "duration_seconds": 0.032,
+      "log": "c3-candidate-uv-sync.log"
+    },
+    {
+      "name": "pnpm-install",
+      "command": "corepack pnpm install --frozen-lockfile",
+      "exit_code": 0,
+      "duration_seconds": 0.637,
+      "log": "c3-candidate-pnpm-install.log"
+    },
+    {
+      "name": "migration",
+      "command": "MOLWEAVE_DATA_DIR=/tmp/neistra-issue56-candidate-migration-1791973799 .venv/bin/uv run alembic upgrade head",
+      "exit_code": 0,
+      "duration_seconds": 0.56,
+      "log": "c3-candidate-migration.log"
+    },
+    {
+      "name": "ruff",
+      "command": ".venv/bin/uv run ruff check .",
+      "exit_code": 0,
+      "duration_seconds": 0.036,
+      "log": "c3-candidate-ruff.log"
+    },
+    {
+      "name": "mypy",
+      "command": ".venv/bin/uv run mypy apps/api packages/molweave_core",
+      "exit_code": 0,
+      "duration_seconds": 0.184,
+      "log": "c3-candidate-mypy.log"
+    },
+    {
+      "name": "pytest",
+      "command": ".venv/bin/uv run pytest",
+      "exit_code": 0,
+      "duration_seconds": 76.64,
+      "log": "c3-candidate-pytest.log"
+    },
+    {
+      "name": "lint",
+      "command": "corepack pnpm --dir apps/web lint",
+      "exit_code": 0,
+      "duration_seconds": 8.217,
+      "log": "c3-candidate-lint.log"
+    },
+    {
+      "name": "typecheck",
+      "command": "corepack pnpm --dir apps/web typecheck",
+      "exit_code": 0,
+      "duration_seconds": 4.288,
+      "log": "c3-candidate-typecheck.log"
+    },
+    {
+      "name": "vitest",
+      "command": "corepack pnpm --dir apps/web test",
+      "exit_code": 0,
+      "duration_seconds": 8.152,
+      "log": "c3-candidate-vitest.log"
+    },
+    {
+      "name": "supervisor",
+      "command": "corepack pnpm test:dev",
+      "exit_code": 0,
+      "duration_seconds": 1.449,
+      "log": "c3-candidate-supervisor.log"
+    },
+    {
+      "name": "build",
+      "command": "corepack pnpm --dir apps/web build",
+      "exit_code": 0,
+      "duration_seconds": 11.878,
+      "log": "c3-candidate-build.log"
+    },
+    {
+      "name": "browser",
+      "command": "corepack pnpm exec playwright test --reporter=list,json",
+      "exit_code": 0,
+      "duration_seconds": 1830.68,
+      "log": "c3-candidate-browser.log"
+    },
+    {
+      "name": "diff",
+      "command": "git diff --check",
+      "exit_code": 0,
+      "duration_seconds": 0.004,
+      "log": "c3-candidate-diff.log"
+    }
+  ],
+  "completed_utc": "2026-10-14T11:02:22.605671+00:00",
+  "all_passed": true,
+  "browser_stats": {
+    "startTime": "2026-10-14T10:31:52.587Z",
+    "duration": 1829974.045,
+    "expected": 182,
+    "skipped": 44,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "python_summary": [
+    "492 passed, 237 warnings in 74.06s (0:01:14)"
+  ],
+  "frontend_summary": [
+    "194 passed (194)"
+  ],
+  "source_unchanged": true,
+  "application_version": "0.13.2",
+  "previous_reader": "0.13.1"
+}

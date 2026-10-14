@@ -1,0 +1,14 @@
+
+ RUN  v3.2.4 /datadisk/dev/neistra/apps/web
+
+ ✓ src/test/interactive-transform.test.ts (21 tests) 49ms
+ ✓ src/test/notifications.test.tsx (8 tests) 137ms
+ ✓ src/test/jobs.test.tsx (3 tests) 413ms
+ ✓ src/test/notification-producers.test.tsx (3 tests) 356ms
+ ✓ src/test/project-workspace.test.tsx (3 tests) 616ms
+   ✓ project workspace > creates a real project and exposes its durable checkpoint state  476ms
+
+ Test Files  5 passed (5)
+      Tests  38 passed (38)
+   Start at  11:58:02
+   Duration  1.74s (transform 516ms, setup 227ms, collect 1.72s, tests 1.57s, environment 1.24s, prepare 375ms)

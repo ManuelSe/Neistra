@@ -1,0 +1,33 @@
+[WebServer] INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+[WebServer] INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+[WebServer] INFO:     Started server process [566505]
+[WebServer] INFO:     Waiting for application startup.
+[WebServer] INFO:     Application startup complete.
+[WebServer] INFO:     Uvicorn running on http://127.0.0.1:8020 (Press CTRL+C to quit)
+[WebServer] (node:566564) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:566576) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 10 tests using 1 worker
+
+(node:566603) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:566603) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [chromium] › tests/e2e/viewer-notifications.spec.ts:61:5 › expires after ten real seconds without molecular, camera, network or renderer changes (14.0s)
+  ✓   2 [chromium] › tests/e2e/viewer-notifications.spec.ts:95:5 › successive identical confirmations receive fresh deadlines across theme changes (4.1s)
+  ✓   3 [chromium] › tests/e2e/viewer-notifications.spec.ts:112:5 › warning summaries and actionable errors persist with unchanged styling and accessible dismissal (5.2s)
+  ✓   4 [chromium] › tests/e2e/viewer-notifications.spec.ts:145:5 › keyboard focus defers expiration, departure preserves focus, and manual dismissal returns it (2.7s)
+  ✓   5 [chromium] › tests/e2e/viewer-notifications.spec.ts:168:5 › viewer remounts retain the deadline and project changes invalidate old notices (4.2s)
+(node:566852) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:566852) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   6 [mobile-chromium] › tests/e2e/viewer-notifications.spec.ts:61:5 › expires after ten real seconds without molecular, camera, network or renderer changes (12.7s)
+  ✓   7 [mobile-chromium] › tests/e2e/viewer-notifications.spec.ts:95:5 › successive identical confirmations receive fresh deadlines across theme changes (4.0s)
+  ✓   8 [mobile-chromium] › tests/e2e/viewer-notifications.spec.ts:112:5 › warning summaries and actionable errors persist with unchanged styling and accessible dismissal (5.1s)
+  ✓   9 [mobile-chromium] › tests/e2e/viewer-notifications.spec.ts:145:5 › keyboard focus defers expiration, departure preserves focus, and manual dismissal returns it (2.8s)
+  ✓  10 [mobile-chromium] › tests/e2e/viewer-notifications.spec.ts:168:5 › viewer remounts retain the deadline and project changes invalidate old notices (4.6s)
+
+  10 passed (1.1m)

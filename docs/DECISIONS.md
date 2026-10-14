@@ -3135,3 +3135,77 @@ charges/coordinates; do not choose a replacement protonation state. Neutral acid
 and ordinary deprotonated sites retain their existing behavior. This implements
 the accepted contradictory-evidence boundary; no threshold/profile/API/schema
 change. Negative salt and aligned donor-H regressions cover both ASP and GLU.
+
+## D-089 — Application-owned notification lifetime and conservative persistence
+
+Date: 2026-10-14. Status: accepted by explicit user approval of the
+[issue #56 plan](plans/issue-56-viewer-notification-timeout.md); implementation
+requires a subsequent `/goal` and has not started.
+
+Decision:
+
+Keep application popup notification lifetime in transient React state, separate
+from presentation color, server/project state, persisted workspace preferences,
+and disposable Mol* state. Routine confirmations expire after 10,000 ms. Errors,
+warning-bearing summaries, and guidance requiring inspection, retry, refresh, or
+reconciliation remain visible until manually dismissed or replaced under existing
+behavior. Declare exceptional lifetime with typed producer metadata, not message
+text matching or inference from success/error styling.
+
+Retain the single visible notification. Each new emission, including identical
+text, receives a fresh lifetime. Cancel obsolete timers and guard callbacks by
+emission identity so a superseded notice cannot dismiss its replacement. Unrelated
+renders/theme changes and viewer remounts do not restart the lifetime. Dismissal,
+context changes, and application unmount invalidate obsolete work.
+
+Retain accessible roles and manual dismissal. Defer expiration while keyboard
+focus is inside the notice; remove it after focus leaves if its deadline passed.
+Manual dismissal leaves focus at a sensible connected workspace target without
+stealing unrelated focus or overriding modal/native input ownership. Browser timer
+throttling may delay callbacks; notices must never expire early.
+
+Rationale:
+
+Routine notifications clutter the viewer, while success-styled messages can also
+contain scientific warnings or uncertain movement instructions. Explicit lifetime
+preserves consequential information without introducing a queue, new persistence,
+or scientific authority. This continues D-013's transient UI boundary and D-084's
+visible meaningful-error/uncertain-outcome policy.
+
+Consequences:
+
+- Existing single-slot replacement, wording, position, colors, and Close control
+  remain. Persistent means no automatic timeout, not immunity from replacement.
+- Independent successive-emission lifetimes satisfy the explicitly approved
+  interpretation of issue #56; simultaneous notification stacks are excluded.
+- Scientific warnings, API retry displays, viewer failures, job state, dialogs,
+  interaction coverage, and vendor feedback retain their separate lifecycles.
+- Expiration cannot change molecular data, originals, artifacts, history, project
+  revisions, jobs, selection, camera, or renderer initialization. No API/schema,
+  migration, dependency, or durable notification preference is introduced.
+- Fake-timer/component coverage and real browser workflows must qualify deadline,
+  replacement, repeated text, persistence, cleanup, focus, and state invariance.
+- Scope, delivery gates, release impact, and the planning-only stop are governed
+  by the approved feature plan; approval currently authorizes documentation only.
+
+### D-089 implementation note — issue #56 M1/C1, 2026-10-14
+
+Implementation is authorized by the subsequent `/goal`. The React notice component
+uses each published value's object identity with a functional state update to reject
+obsolete expiry/dismissal. Its effect depends only on notice identity and the stable
+setter, preserving lifetimes across unrelated renders and viewer remounts. Error
+notices never receive a timeout, even if marked transient. Structured warning counts
+and explicit movement lifetime metadata preserve success-styled consequential text.
+Manual focus restoration respects an open modal and connected prior targets; expiry
+while focused waits for departure without moving focus. C1 qualifies these policies
+without changing project/API/archive schemas, molecular state, or CSS.
+
+### D-089 stale callback qualification note — issue #56 C3 review, 2026-10-14
+
+A reproduced obsolete-callback case could preserve the wrong expiration marker
+while a newer focused notice was overdue. Cleanup explicitly invalidates its
+closure before clearing the timer, so obsolete callbacks cannot modify lifecycle
+refs, in addition to the existing functional state identity guard. A regression
+invokes the old callback after the new deadline, then leaves keyboard focus and
+requires removal without focus theft. This implements the accepted stale-work
+boundary; no new notification scope or scientific/persisted behavior is introduced.

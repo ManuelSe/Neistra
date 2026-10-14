@@ -6,6 +6,25 @@ Neistra targets WCAG 2.2 Level AA for the local application shell. The
 qualification combines deterministic browser automation with keyboard and
 visual checks; an axe pass alone is not treated as complete coverage.
 
+## Application notifications (issue #56)
+
+Routine application notices expire after 10 seconds, using the existing `status`
+role and Close control. Errors keep their `alert` role and remain visible;
+warning-bearing summaries and action-required movement instructions also stay
+visible regardless of success styling. Separate molecular warnings, progress,
+viewer failures, and retry controls retain their existing displays.
+
+Keyboard focus inside a notice defers expiration until focus leaves. Departure
+does not move focus. Manual dismissal restores a connected prior workspace target
+or an appropriate toolbar fallback, respecting an open modal's focus ownership.
+New emissions receive fresh deadlines; theme changes and viewer remounts do not
+restart the timer. Browser throttling may delay removal.
+
+The approved [notification plan](plans/issue-56-viewer-notification-timeout.md)
+defines component/fake-timer and desktop/Pixel 7 browser qualification, including
+real-time expiration, keyboard entry/departure/dismissal, and scoped axe checks
+in both themes. Evidence and known limits are recorded in its checkpoint log.
+
 ## Viewer transformation toolbar (issue #46)
 
 The separate viewer bar exposes an icon-only Transform selection action and

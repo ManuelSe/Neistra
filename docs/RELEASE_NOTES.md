@@ -1,5 +1,64 @@
 # Neistra Release Notes
 
+
+## 0.13.2 - 2026-10-14 - Viewer notification timeout
+
+### Fixes and notification lifetime
+
+Routine application notifications above the molecular viewer disappear after
+10 seconds and can still be closed manually. Each replacement, including identical
+text, receives a fresh lifetime; an obsolete callback cannot dismiss a newer
+notice. Theme changes and viewer remounts retain the existing deadline.
+
+Errors, warning-bearing import/ligand/protein edit summaries, and instructions to
+inspect, retry, refresh, or reconcile movement remain visible until dismissed or
+replaced. Presentation color is separate from lifetime; no warning text is
+classified by string matching. Detailed scientific warnings, progress, viewer
+failures, API retry controls, dialogs, job state, and vendor feedback retain their
+existing lifecycles. Scientific calculations and supported chemistry are unchanged.
+
+### Accessibility and limitations
+
+Existing position, styling, wording, Close control, and status/alert roles remain.
+Keyboard focus inside a notice defers automatic removal until focus leaves;
+departure does not steal focus. Manual dismissal restores an appropriate connected
+workspace target while respecting modal ownership. Browser timer throttling may
+delay callbacks; ten seconds is the minimum ordinary lifetime, not a hard real-time
+promise.
+
+The approved interpretation retains one visible notification with independent
+successive-emission lifetimes. Simultaneous stacks, queues/history, configurable
+duration, animations, and timing every status display were excluded because they
+add unrelated UI contracts or hide information with a different lifecycle. No new
+follow-up issue is created. Ligand chemistry assignment remains separate #52.
+
+### Data, API, archive compatibility and rollback
+
+Patch **0.13.1 → 0.13.2** changes transient presentation only. All five application
+version sources advance together without dependency upgrades. No new endpoint,
+request/response field, molecular or project state, durable preference, or migration
+is introduced. Alembic head remains 0013 and project/normalized/archive majors 1.
+Original uploads, artifacts, coordinates, history, scenes, and jobs retain their
+contracts. Rollback to qualified v0.13.1 requires no schema downgrade or data
+stripping; reload the frontend to restore the earlier notice behavior.
+
+### Verification and review
+
+The [approved contract](plans/issue-56-viewer-notification-timeout.md),
+[C1 evidence](assets/viewer-notifications/c1-verification.json), and
+[C2 evidence](assets/viewer-notifications/c2-verification.json) record exact timing,
+warning-producer, stale callback, cleanup, focus, actual native-state/network
+invariance, and desktop/mobile light/dark accessibility checks. The focused browser
+gate passes 39 workflows with three intentional layout skips; all 10 notification
+workflows and 193 frontend tests pass. The [complete clean-candidate gate](assets/viewer-notifications/c3-candidate-gate.json)
+at `494d533` passes **492 Python,194 frontend,eight supervisor,182 browser/44
+intentional layout skips**, zero failures/flakes/retries, frozen installs/fresh0013/
+lint/types/build/diff. [Actual tagged v0.13.1 reader](assets/viewer-notifications/c3-candidate-reader.json)
+accepts final0.13.2 data/history/archives/jobs. [Local full-diff review](assets/viewer-notifications/c3-local-review.json)
+reproduced/fixed stale-marker poisoning; no consequential finding remains and no
+independent review is claimed. Exact merged release and reader gates must repeat
+before tag/publication; this entry does not claim a release already exists.
+
 ## 0.13.1 - 2026-10-13 - Interaction corrections
 
 ### Highlights and fixes

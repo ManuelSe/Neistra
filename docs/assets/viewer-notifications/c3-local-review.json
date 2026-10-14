@@ -1,0 +1,25 @@
+{
+  "source_commit": "494d533a33e920253815a4713d38857de0e96d5e",
+  "base_commit": "d81650ee0939d03a673c2a48ea44904213a8dd2f",
+  "reviewer": "Primary Codex agent",
+  "independent": false,
+  "scope": "Complete branch diff: runtime, tests, version sources, approved plan, decisions, progress, user/development/scientific/accessibility/release guidance and evidence.",
+  "findings": [
+    {
+      "finding": "Obsolete callback overwrote the expiry marker of an overdue focused replacement.",
+      "resolution": "Reproduced in a failing regression; cleanup invalidates its closure, functional state identity remains; 194 frontend tests and complete candidate gate pass.",
+      "commit": "494d533a33e920253815a4713d38857de0e96d5e"
+    }
+  ],
+  "unresolved_consequential_findings": [],
+  "checks": [
+    "Typed transient owner outside project/API/archive/renderer state",
+    "All errors and structured warning/action-required results persistent",
+    "Minimum deadline, identical replacement, cleanup/Strict Mode and focus behavior",
+    "Existing CSS, roles, manual replacement and separate warning/status owners retained",
+    "No science/chemistry/geometry/dependency/schema/migration scope expansion",
+    "All five 0.13.2 sources and actual 0.13.1 reader qualification",
+    "Complete clean source gate and exact source inventory",
+    "Full base whitespace diff and local Markdown links"
+  ]
+}

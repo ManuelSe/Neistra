@@ -1,0 +1,64 @@
+
+ RUN  v3.2.4 /datadisk/dev/neistra/apps/web
+
+ ❯ src/test/notifications.test.tsx (9 tests | 1 failed) 201ms
+   ✓ application notification lifetime > expires at ten seconds without restarting on unrelated renders 75ms
+   ✓ application notification lifetime > gives repeated text a fresh lifetime and guards even an obsolete callback 18ms
+   ✓ application notification lifetime > keeps errors and warning-bearing success notices visible, with replacement intact 14ms
+   × application notification lifetime > ignores an obsolete callback after a focused replacement has reached its deadline 23ms
+     → expect(element).not.toBeInTheDocument()
+
+expected document not to contain element, found <div
+  class="notice success"
+  role="status"
+>
+  <span>
+    Saved.
+  </span>
+  <button
+    aria-label="Dismiss message"
+    type="button"
+  >
+    Close
+  </button>
+</div> instead
+   ✓ application notification lifetime > defers expiry during keyboard focus and removes it on departure without stealing focus 13ms
+   ✓ application notification lifetime > dismisses manually before the deadline and returns keyboard focus 17ms
+   ✓ application notification lifetime > uses the connected toolbar fallback when prior focus disappears 14ms
+   ✓ application notification lifetime > does not restore focus behind an open modal 19ms
+   ✓ application notification lifetime > cleans up on project changes and unmount in Strict Mode 5ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/test/notifications.test.tsx > application notification lifetime > ignores an obsolete callback after a focused replacement has reached its deadline
+Error: expect(element).not.toBeInTheDocument()
+
+expected document not to contain element, found <div
+  class="notice success"
+  role="status"
+>
+  <span>
+    Saved.
+  </span>
+  <button
+    aria-label="Dismiss message"
+    type="button"
+  >
+    Close
+  </button>
+</div> instead
+ ❯ src/test/notifications.test.tsx:74:46
+     72|     act(obsolete);
+     73|     act(() => screen.getByText("Theme").focus());
+     74|     expect(screen.queryByRole("status")).not.toBeInTheDocument();
+       |                                              ^
+     75|     expect(screen.getByText("Theme")).toHaveFocus();
+     76|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 8 passed (9)
+   Start at  12:28:24
+   Duration  1.08s (transform 65ms, setup 66ms, collect 144ms, tests 201ms, environment 339ms, prepare 81ms)
