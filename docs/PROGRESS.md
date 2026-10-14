@@ -2,6 +2,32 @@
 
 ## Current milestone
 
+Issue #56 — approved viewer notification timeout plan; documentation handoff
+only. The user approved the proposal on 2026-10-14. The
+[implementation contract and detailed log](plans/issue-56-viewer-notification-timeout.md)
+is persisted on `fix/issue-56-viewer-notification-timeout`, based on clean,
+fast-forward-updated master `d81650ee0939d03a673c2a48ea44904213a8dd2f`.
+
+Completed work: repository/issue/release inspection, approved scope, M1–M3/C1–C3
+checkpoints, patch release strategy, and accepted D-089. Routine confirmations
+will expire after 10 seconds; errors, warning-bearing results, and action-required
+guidance will remain visible. Retain one visible notice with independent
+successive-emission lifetimes; no notification stack.
+
+Verification: issue/base/latest release rechecked after approval; working tree
+clean before branching. Staged diff checks, all 36 local documentation links,
+plan structure/metadata, unique D-089, and documentation-only scope passed. First
+commit and remote branch verification are recorded in the planning handoff.
+No issue #56 implementation, runtime test/build, PR, tag, or release is claimed.
+
+Known limitations: single visible notice, conservative persistent exceptions,
+browser timer throttling, and focused-notice expiration deferral. No blocker
+identified for planning. Planned release is patch **0.13.2**, with five version
+sources updated during M3/C3; no API/schema/migration change is planned.
+Next action: await `/goal`; implementation remains unstarted.
+
+### Previous delivery baseline — v0.13.1
+
 Issue #55 delivered as [v0.13.1](https://github.com/ManuelSe/Neistra/releases/tag/v0.13.1)
 through [PR #60](https://github.com/ManuelSe/Neistra/pull/60), following the
 [approved plan and detailed completion log](plans/issue-55-interaction-corrections.md).
