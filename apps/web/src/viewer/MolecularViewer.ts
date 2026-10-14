@@ -1,4 +1,5 @@
 import type { SurfaceChannel } from "./surface/protocol";
+import type { SurfaceIdentity } from "./surface/objects";
 import type { InteractionRecord } from "../interactions/types";
 import type { SurfaceStatus } from "./surface/runtime";
 import type { MovementView } from "../coordinates/interactiveTransform";
@@ -68,6 +69,8 @@ export interface MolecularViewer {
   subscribeCamera(listener: (camera: CameraState) => void): () => void;
   subscribeSelection(listener: (event: ViewerSelectionEvent) => void): () => void;
   subscribeSurfaces(listener: (statuses: SurfaceStatus[]) => void): () => void;
+  subscribeSurfaceSelection(listener: (surface: SurfaceIdentity) => void): () => void;
+  setActiveSurface(surface: SurfaceIdentity | null): void;
   cancelSurface(entryId: string, channel?: SurfaceChannel): void;
   retrySurface(entryId: string, channel?: SurfaceChannel): void;
   resize(): void;

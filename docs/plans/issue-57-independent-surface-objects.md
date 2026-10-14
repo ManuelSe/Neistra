@@ -2,7 +2,7 @@
 
 ## Status, outcome, and authority
 
-**Status:** approved implementation contract; implementation has not started.
+**Status:** approved implementation contract; implementation authorized by the subsequent `/goal`; M1/C1 complete; C2 next.
 
 - Issue: [#57 — Manage molecular surfaces as independent, editable objects](https://github.com/ManuelSe/Neistra/issues/57), open at planning inspection.
 - Plan: `docs/plans/issue-57-independent-surface-objects.md`.
@@ -10,7 +10,7 @@
 - Base: `master` / `origin/master` at `1c5467c7639d8152d136044d4ae208eb479c8c95`.
 - Feature branch: `feat/issue-57-independent-surface-objects`.
 - Target release: **0.14.0**, subject to a collision check before release preparation.
-- Implementation starts only under a subsequent `/goal`. This handoff persists the approved plan, commits and pushes its branch, then stops.
+- Planning handoff completed in commit `21ac1525d0018ed2d45286015bfc76b5f0c35f72`, verified on the remote feature branch. The subsequent `/goal` authorizes implementation and complete delivery.
 
 Scientists should be able to identify, select, hide, remove, and restyle individual surfaces without manipulating their constituent residues or replacing another surface belonging to the same entry.
 
@@ -383,10 +383,75 @@ The initial plan is the sole first-commit change. Project progress and supersedi
 | 2026-10-14 | Planning inspection complete | Repository and remote delivery baseline inspected; four product choices confirmed; 125 Python and 194 frontend baseline tests pass. |
 | 2026-10-14 | Complete contract approved | User instructed “Implement the plan.”; retain the approved persistence-only handoff before `/goal`. |
 | 2026-10-14 | Persistence prepared | Clean `master` fetched and fast-forward-only update confirmed at `1c5467c7639d8152d136044d4ae208eb479c8c95`; feature branch created; this document is its first change. Commit/push identity is verified and reported at handoff. |
-| Pending | M1 / C1 | Identified rendering primitives; no implementation performed. |
+| 2026-10-14 | M1 / C1 complete | D-090, 202 frontend tests/lint/types/build, Python lint/types, 23 browser passes/three intentional skips, two final native passes; evidence below. |
 | Pending | M2 / C2 | Durable object-management vertical slice and migration. |
 | Pending | M3 / C3 | Complete appearance and interaction workflow. |
 | Pending | M4 / C4 | Scientific, accessibility, performance and compatibility qualification. |
 | Pending | M4 / C5 | Candidate, review, merged qualification and verified delivery. |
 
-Current limitation: this is an approved contract, not an implemented feature. No feature PR, follow-up issue, tag, merge, or release has been created by the planning handoff. No known blocker to starting C1 under a subsequent `/goal`.
+Current limitation: C1 renderer primitives are qualified; the production surface manager is not implemented. No feature PR, follow-up issue, tag, merge, or release exists yet. No blocker; continue C2.
+
+
+### M1 / C1 implementation and qualification — 2026-10-14
+
+Implemented typed application surface identity and activation through the lazy
+viewer boundary, disposable representation binding and whole-object highlighting,
+native mesh-line display derived from unchanged triangles, per-object runtime keys,
+aggregate auxiliary display allocation admission, and lazy serial worker inputs.
+The development harness renders two independently colored same-entry fragments;
+it does not expose an unfinished production manager. D-090 records ownership.
+
+Unit cases compare every derived line buffer against pinned native Lines.fromMesh,
+retain original vertex/normal/index/group/atom buffers, reject unsafe/reservation
+and cancellation cases, prove same-entry cancellation isolation and aggregate
+retention, and prove cancelled queued descriptors never allocate inputs.
+
+Frontend lint/types/all 199 tests/build pass; Python Ruff and strict mypy (58 source
+files) pass. Build retains the existing lazy-chunk advisory. Initial browser runs
+exposed development dependency optimization reloading the page; the development
+entry now statically imports the harness. Native pixel candidates are qualified
+against the read-only GPU pick buffer before genuine mouse/touch activation, with
+native input settling. No synthetic selection events or substituted loci are used.
+The isolated desktop/mobile primitive workflow passed both configurations; the
+combined adjacent regression run is pending. Diagnostic runs are not passing gates.
+
+Commands use API 8020, worker 8021, web 5183 and dedicated ignored storage
+`.molweave-e2e/issue57`; Playwright browser path `.playwright`. No application
+version, molecular schema, API payload or Alembic migration change exists in C1.
+
+
+C1 final qualification: all **202 frontend tests / 44 files**, ESLint, TypeScript
+and production build pass. Ruff and strict mypy across 58 Python source files
+pass. Combined native object/fragment/pocket/click browser regression passes **23
+workflows with three intentional cross-layout skips in 4.5 minutes**, zero failed
+cases or retries. Final stricter native desktop/mobile rerun passes **2/2 in
+24.1 seconds**, requiring every source-group marker in the active representation
+and unchanged camera/project/atom-selection events, geometry membership and worker
+count after independent appearance changes.
+
+Local complete checkpoint review repaired a lazy subscription lifecycle gap for
+listeners registered before/during asynchronous mount; unit regressions now
+require exactly one binding and exactly one unsubscribe. Switching display bindings
+releases the prior mode's WeakMap binding, with a disposal regression. The final
+unit/native gates include these corrections. No consequential finding remains;
+review is local and is not independent.
+
+Raw [C1 verification](../assets/surface-objects/c1-verification.json), browser logs,
+final native JSON and screenshots are retained under `docs/assets/surface-objects/`.
+The full frontend and combined browser commands are:
+
+```bash
+corepack pnpm --dir apps/web lint
+corepack pnpm --dir apps/web typecheck
+corepack pnpm --dir apps/web test
+corepack pnpm --dir apps/web build
+.venv/bin/uv run ruff check .
+.venv/bin/uv run mypy apps/api packages/molweave_core
+MOLWEAVE_E2E_API_PORT=8020 MOLWEAVE_E2E_WORKER_PORT=8021 MOLWEAVE_E2E_WEB_PORT=5183 MOLWEAVE_E2E_DATA_DIR=.molweave-e2e/issue57 PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test tests/e2e/surface-objects.spec.ts tests/e2e/selection-surfaces.spec.ts tests/e2e/pocket-surfaces.spec.ts tests/e2e/viewer-click-selection.spec.ts --reporter=list
+MOLWEAVE_E2E_API_PORT=8020 MOLWEAVE_E2E_WORKER_PORT=8021 MOLWEAVE_E2E_WEB_PORT=5183 MOLWEAVE_E2E_DATA_DIR=.molweave-e2e/issue57 PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test tests/e2e/surface-objects.spec.ts --reporter=list
+git diff --check
+```
+
+The first combined run overlapped initial frontend verification; it is adjacent
+correctness/regression evidence, not a new isolated performance qualification.
+Dedicated host performance qualification remains mandatory in C4 and release gates.

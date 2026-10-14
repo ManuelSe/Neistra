@@ -1,4 +1,5 @@
 import type { SurfaceChannel } from "./surface/protocol";
+import type { SurfaceIdentity } from "./surface/objects";
 import type { InteractionRecord } from "../interactions/types";
 import type { SurfaceStatus } from "./surface/runtime";
 import type { MovementView } from "../coordinates/interactiveTransform";
@@ -28,6 +29,9 @@ class LazyMolstarViewer implements MolecularViewer {
   private selectionListeners = new Set<(event: ViewerSelectionEvent) => void>();
   private cameraListeners = new Set<(camera: CameraState) => void>();
   private surfaceListeners = new Set<(statuses: SurfaceStatus[]) => void>();
+  private surfaceSelectionListeners = new Set<(surface: SurfaceIdentity) => void>();
+  private surfaceSelectionBindings = new Map<(surface: SurfaceIdentity) => void, () => void>();
+  private activeSurface: SurfaceIdentity | null = null;
   private engineUnsubscribers: (() => void)[] = [];
 
   async mount(target: HTMLElement): Promise<void> {
@@ -40,11 +44,17 @@ class LazyMolstarViewer implements MolecularViewer {
     if (this.disposed || this.engine !== engine) { engine.dispose(); return; }
     this.engine.setPickingGranularity(this.pickingGranularity);
     this.engine.setSelection(this.selection);
+    this.engine.setActiveSurface(this.activeSurface);
     this.engine.setMovementMode(this.movementInteraction);
     this.engineUnsubscribers = [...this.selectionListeners].map((listener) =>
       this.engine!.subscribeSelection(listener),
     );
     this.engineUnsubscribers.push(...[...this.surfaceListeners].map((listener) => this.engine!.subscribeSurfaces(listener)));
+    for (const listener of this.surfaceSelectionListeners) {
+      if (!this.surfaceSelectionBindings.has(listener)) {
+        this.surfaceSelectionBindings.set(listener, this.engine.subscribeSurfaceSelection(listener));
+      }
+    }
     this.engineUnsubscribers.push(
       ...[...this.cameraListeners].map((listener) =>
         this.engine!.subscribeCamera(listener),
@@ -160,6 +170,20 @@ class LazyMolstarViewer implements MolecularViewer {
   cancelSurface(entryId: string, channel: SurfaceChannel = "fragment"): void { this.engine?.cancelSurface(entryId, channel); }
   retrySurface(entryId: string, channel: SurfaceChannel = "fragment"): void { this.engine?.retrySurface(entryId, channel); }
 
+  setActiveSurface(surface: SurfaceIdentity | null): void {
+    this.activeSurface = surface ? { ...surface } : null;
+    this.engine?.setActiveSurface(surface);
+  }
+  subscribeSurfaceSelection(listener: (surface: SurfaceIdentity) => void): () => void {
+    this.surfaceSelectionListeners.add(listener);
+    if (this.engine) this.surfaceSelectionBindings.set(listener, this.engine.subscribeSurfaceSelection(listener));
+    return () => {
+      this.surfaceSelectionListeners.delete(listener);
+      this.surfaceSelectionBindings.get(listener)?.();
+      this.surfaceSelectionBindings.delete(listener);
+    };
+  }
+
   resize(): void {
     this.engine?.resize();
   }
@@ -171,6 +195,9 @@ class LazyMolstarViewer implements MolecularViewer {
     this.selectionListeners.clear();
     this.cameraListeners.clear();
     this.surfaceListeners.clear();
+    this.surfaceSelectionListeners.clear();
+    for (const unsubscribe of this.surfaceSelectionBindings.values()) unsubscribe();
+    this.surfaceSelectionBindings.clear();
     this.engine?.dispose();
     this.engine = undefined;
   }

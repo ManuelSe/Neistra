@@ -2,6 +2,19 @@
 
 ## Current milestone
 
+Issue #57 — [approved surface-object contract](plans/issue-57-independent-surface-objects.md).
+M1/C1 rendering primitives are complete on
+`feat/issue-57-independent-surface-objects`. Application-owned surface identities,
+whole-representation activation, bounded solid/mesh visuals and lazy worker-input
+admission are implemented; production object persistence and management await C2.
+D-090 records the renderer boundary. Full frontend lint/types/202 tests/build and
+Python Ruff/strict mypy pass; native desktop/mobile primitive checks pass. Adjacent fragment/pocket/click regressions pass 23 workflows/three intentional
+layout skips, with two final native passes; [C1 evidence](assets/surface-objects/c1-verification.json). No schema/API/version/migration changes yet (0013 and majors 1).
+Known limits: this checkpoint exposes primitives through a development harness,
+not a working end-user manager. No blocker. Next action: C2 persistence, migration and production controls.
+
+### Previous delivery baseline — v0.13.2
+
 Issue #56 delivered as [v0.13.2](https://github.com/ManuelSe/Neistra/releases/tag/v0.13.2)
 through [PR #62](https://github.com/ManuelSe/Neistra/pull/62), following the
 [approved plan and detailed completion log](plans/issue-56-viewer-notification-timeout.md).

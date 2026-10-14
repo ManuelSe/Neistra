@@ -1,0 +1,50 @@
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+[2m[WebServer] [22mINFO:     Started server process [615101]
+[2m[WebServer] [22mINFO:     Waiting for application startup.
+[2m[WebServer] [22mINFO:     Application startup complete.
+[2m[WebServer] [22mINFO:     Uvicorn running on http://127.0.0.1:8020 (Press CTRL+C to quit)
+[2m[WebServer] [22m(node:615189) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:615201) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 26 tests using 1 worker
+
+(node:615229) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:615229) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [chromium] › tests/e2e/pocket-surfaces.spec.ts:12:7 › qualifies native full-protein pocket geometry and independent display for complex/1stp.pdb (11.7s)
+  ✓   2 [chromium] › tests/e2e/pocket-surfaces.spec.ts:12:7 › qualifies native full-protein pocket geometry and independent display for hydrogens/polar_hydrogens_protein.pdb (14.3s)
+  ✓   3 [chromium] › tests/e2e/pocket-surfaces.spec.ts:12:7 › qualifies native full-protein pocket geometry and independent display for surfaces/1aon.cif (54.1s)
+  ✓   4 [chromium] › tests/e2e/pocket-surfaces.spec.ts:155:5 › invalidates native pockets for hidden seed and receptor preview, cancel and commit (7.0s)
+  ✓   5 [chromium] › tests/e2e/pocket-surfaces.spec.ts:219:5 › saves pockets through the compact panel and restores hidden seed inputs (9.4s)
+  ✓   6 [chromium] › tests/e2e/selection-surfaces.spec.ts:16:5 › qualifies worker geometry, real element colors, picking and cancellation (4.3s)
+  ✓   7 [chromium] › tests/e2e/selection-surfaces.spec.ts:114:5 › adds and removes saved surfaces from the compact palette with reload and undo (12.1s)
+  ✓   8 [chromium] › tests/e2e/selection-surfaces.spec.ts:177:7 › qualifies production surface lifecycle for formats/ethanol.mol (8.3s)
+  ✓   9 [chromium] › tests/e2e/selection-surfaces.spec.ts:177:7 › qualifies production surface lifecycle for hydrogens/polar_hydrogens_ligand.mol (4.0s)
+  ✓  10 [chromium] › tests/e2e/selection-surfaces.spec.ts:348:5 › qualifies production 1STP surface response and partial-fragment boundaries (3.2s)
+  ✓  11 [chromium] › tests/e2e/surface-objects.spec.ts:11:5 › native same-entry surface objects have independent identity, colors, mesh and whole-object activation (12.3s)
+  ✓  12 [chromium] › tests/e2e/viewer-click-selection.spec.ts:198:5 › keeps primary selection and empty clearing independent from the camera (17.5s)
+  -  13 [chromium] › tests/e2e/viewer-click-selection.spec.ts:362:5 › uses the compact trigger path for selection and empty clearing
+(node:617057) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:617057) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  14 [mobile-chromium] › tests/e2e/pocket-surfaces.spec.ts:12:7 › qualifies native full-protein pocket geometry and independent display for complex/1stp.pdb (6.2s)
+  ✓  15 [mobile-chromium] › tests/e2e/pocket-surfaces.spec.ts:12:7 › qualifies native full-protein pocket geometry and independent display for hydrogens/polar_hydrogens_protein.pdb (4.6s)
+  ✓  16 [mobile-chromium] › tests/e2e/pocket-surfaces.spec.ts:12:7 › qualifies native full-protein pocket geometry and independent display for surfaces/1aon.cif (51.7s)
+  ✓  17 [mobile-chromium] › tests/e2e/pocket-surfaces.spec.ts:155:5 › invalidates native pockets for hidden seed and receptor preview, cancel and commit (3.8s)
+  ✓  18 [mobile-chromium] › tests/e2e/pocket-surfaces.spec.ts:219:5 › saves pockets through the compact panel and restores hidden seed inputs (9.2s)
+  ✓  19 [mobile-chromium] › tests/e2e/selection-surfaces.spec.ts:16:5 › qualifies worker geometry, real element colors, picking and cancellation (3.7s)
+  -  20 [mobile-chromium] › tests/e2e/selection-surfaces.spec.ts:114:5 › adds and removes saved surfaces from the compact palette with reload and undo
+  ✓  21 [mobile-chromium] › tests/e2e/selection-surfaces.spec.ts:177:7 › qualifies production surface lifecycle for formats/ethanol.mol (5.0s)
+  ✓  22 [mobile-chromium] › tests/e2e/selection-surfaces.spec.ts:177:7 › qualifies production surface lifecycle for hydrogens/polar_hydrogens_ligand.mol (2.8s)
+  ✓  23 [mobile-chromium] › tests/e2e/selection-surfaces.spec.ts:348:5 › qualifies production 1STP surface response and partial-fragment boundaries (2.7s)
+  ✓  24 [mobile-chromium] › tests/e2e/surface-objects.spec.ts:11:5 › native same-entry surface objects have independent identity, colors, mesh and whole-object activation (13.6s)
+  -  25 [mobile-chromium] › tests/e2e/viewer-click-selection.spec.ts:198:5 › keeps primary selection and empty clearing independent from the camera
+  ✓  26 [mobile-chromium] › tests/e2e/viewer-click-selection.spec.ts:362:5 › uses the compact trigger path for selection and empty clearing (4.2s)
+
+  3 skipped
+  23 passed (4.5m)

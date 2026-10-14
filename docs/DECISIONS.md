@@ -3220,3 +3220,40 @@ closure cleanup, state identity, focused-notice deferral and producer warning/ac
 policy retain application ownership without scientific, API shape, schema, migration
 or dependency changes. Publication and issue response are remotely verified; the
 approved feature plan retains the detailed evidence and final cleanup audit link.
+
+
+## D-090 — Identified disposable surface visuals and lazy calculation admission
+
+Date: 2026-10-14. Status: implemented renderer primitives for issue #57 M1/C1;
+production surface-object persistence and management require C2.
+
+Use application `(entryId, surfaceId)` identities independently of molecular atom
+selection. A disposable registry binds native representations to these identities,
+activates the entire representation, and emits only application identity on an
+unmodified primary hit. Modified structural hits retain canonical add/subtract
+selection. Renderer refs never enter project state. The typed lazy viewer boundary
+buffers active identity and forwards surface activation subscriptions; renderer
+rebuilds rebind matching representations without changing molecular selection.
+
+Retain current solid surface geometry. For fragment/pocket mesh display derive the
+same three triangle edges and owner groups as pinned Mol* Lines.fromMesh. Allocate
+exact native wide-line buffers after admission and yield cooperatively during edge
+conversion. Account retained buffers, native group-mapping output and temporary
+mapping arrays; reserve aggregate display bytes before allocation. This is display
+conversion, not a new scientific profile, field calculation or molecular authority.
+Native entry surfaces retain their existing native geometry/wireframe path in C2.
+
+Surface runtime requests distinguish same-entry objects and retain separate
+cancellation/current-component guards. The one-worker serial queue accepts lazy
+input factories, invoking them only after checking request cancellation and viewer
+lifetime at execution admission. A cancelled queued request never extracts typed
+coordinates/radii. Geometry reuse avoids both calculation and input allocation;
+new display arrays share the existing retained worker-output budget. These are
+accounted buffers, not a browser/GPU memory cap or native entry-calculation bound.
+
+Rationale: singleton channel identity cannot support independent same-entry
+objects, and constructing every queued surface input would multiply memory before
+worker admission. Preserving molecular selection and existing scientific geometry
+keeps this checkpoint independently verifiable without a persisted-state change.
+The production object model, migration and superseding singleton/minimum-display
+rules will be recorded separately in C2; earlier scientific decisions remain intact.

@@ -1,0 +1,104 @@
+{
+  "issue": 57,
+  "checkpoint": "M1/C1",
+  "status": "passed",
+  "date": "2026-10-14",
+  "base_commit": "21ac1525d0018ed2d45286015bfc76b5f0c35f72",
+  "branch": "feat/issue-57-independent-surface-objects",
+  "source_sha256": {
+    "apps/web/selection-surface-test.html": "f876db1845c46a8fcd0d93dfd079628595bc96a42dd0fc8589cd1eddd339d1c6",
+    "apps/web/src/test/selection-surface-runtime.test.ts": "b8d71f0fa2f62ef3486de99bb83606284df5b03ea03a132c16152390794fe69e",
+    "apps/web/src/test/selection-surface-worker.test.ts": "243277c72b9180a9f244926561c222f5618fb2977dd6702bf4d21dcc4734944a",
+    "apps/web/src/test/structure-loading.test.tsx": "d692be067afdf3d3764e4de23879281cd888e20bcc750f8c82f90d7ce117fb07",
+    "apps/web/src/test/surface-objects.test.ts": "1091c0365df5d6318d3ff061b608b4bd5c3b35c3dfd1f5932c40ae6a2c5cf899",
+    "apps/web/src/test/surfaceObjectsHarness.ts": "b17d8b19724b8339f1fe95e95aaee7378d62a1ce1273b10653e0c8c9a7506048",
+    "apps/web/src/test/viewer-adapter.test.ts": "3fd4c7a8dc1f4fa77b68f4f3cfb396ecfaddb0fcd502cc2d0a60d7ae344556dd",
+    "apps/web/src/viewer/MolecularViewer.ts": "a4d605a6c61af7cc5895f0cfd6336a3b25adba11b0483d86fc33b81c6e0dc33b",
+    "apps/web/src/viewer/MolstarEngine.ts": "26ddacf8255a0be67eb21ab14832ba0c0ccd7c50517b8b018aaa98fe54a9179d",
+    "apps/web/src/viewer/MolstarViewer.ts": "8fdd17dfb1deab3f82bf022278d4134e0cbcccb1617be2ce11ece035f3cc6a8c",
+    "apps/web/src/viewer/surface/client.ts": "e395e6cbe5d76e12ad9b7d26bb0c63dcd636d492bcee85b8812ab055cb59c4f1",
+    "apps/web/src/viewer/surface/objects.ts": "46fe4d5de915e8f9323d9bf6f781fbfc4bfc3a33acbad5b2ec2cf4b0d8ef5957",
+    "apps/web/src/viewer/surface/protocol.ts": "0603e4587ec68eeb7af092bff8fef2180519b35cd456c2b1fe20c6ad27ef948c",
+    "apps/web/src/viewer/surface/runtime.ts": "51417ee2f282e55251af9577e5cb94c36e3243f62f0fdfa9e63f875070693f8d",
+    "apps/web/src/viewer/surface/visual.ts": "c0afb0eb41915280fa510ece3cd73fa00eba7eda510644a349cb97e59226f987",
+    "apps/web/src/viewer/surface/wireframe.ts": "2c7f0a43239d7ff643ab951454131e8ce6c64082824fc42fd8534419af3bd311",
+    "tests/e2e/surface-objects.spec.ts": "4a227e049b9890d885cbf115487f3c27a61d590482a63fb36f51bda6e0d26cf0"
+  },
+  "verification": [
+    {
+      "command": "corepack pnpm --dir apps/web lint",
+      "exit_code": 0
+    },
+    {
+      "command": "corepack pnpm --dir apps/web typecheck",
+      "exit_code": 0
+    },
+    {
+      "command": "corepack pnpm --dir apps/web test",
+      "exit_code": 0,
+      "tests": 202,
+      "files": 44,
+      "log": "c1-final-vitest.log"
+    },
+    {
+      "command": "corepack pnpm --dir apps/web build",
+      "exit_code": 0,
+      "log": "c1-final-build.log"
+    },
+    {
+      "command": ".venv/bin/uv run ruff check .",
+      "exit_code": 0
+    },
+    {
+      "command": ".venv/bin/uv run mypy apps/api packages/molweave_core",
+      "exit_code": 0,
+      "source_files": 58
+    },
+    {
+      "command": "MOLWEAVE_E2E_API_PORT=8020 MOLWEAVE_E2E_WORKER_PORT=8021 MOLWEAVE_E2E_WEB_PORT=5183 MOLWEAVE_E2E_DATA_DIR=.molweave-e2e/issue57 PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test tests/e2e/surface-objects.spec.ts tests/e2e/selection-surfaces.spec.ts tests/e2e/pocket-surfaces.spec.ts tests/e2e/viewer-click-selection.spec.ts --reporter=list",
+      "exit_code": 0,
+      "passed": 23,
+      "intentional_skips": 3,
+      "duration": "4.5m",
+      "log": "c1-browser.log"
+    },
+    {
+      "command": "MOLWEAVE_E2E_API_PORT=8020 MOLWEAVE_E2E_WORKER_PORT=8021 MOLWEAVE_E2E_WEB_PORT=5183 MOLWEAVE_E2E_DATA_DIR=.molweave-e2e/issue57 PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test tests/e2e/surface-objects.spec.ts --reporter=list",
+      "exit_code": 0,
+      "passed": 2,
+      "duration_seconds": 24.1,
+      "log": "c1-final-native.log"
+    }
+  ],
+  "native_evidence": [
+    "c1-chromium.json",
+    "c1-mobile-chromium.json",
+    "c1-chromium.png",
+    "c1-mobile-chromium.png"
+  ],
+  "review": {
+    "kind": "local, not independent",
+    "consequential_findings_remaining": 0,
+    "corrections": [
+      "lazy listener registered before/during mount binds and unsubscribes exactly once",
+      "mode switch releases previous disposable geometry binding"
+    ]
+  },
+  "limits": [
+    "Renderer primitives qualified through development harness; production manager/persistence await C2.",
+    "No API/persisted schema/version/scientific profile changes; Alembic head 0013.",
+    "Existing lazy bundle and color-environment advisories remain.",
+    "Combined browser run overlaps initial frontend verification; not isolated performance qualification.",
+    "Native final checks cover engine/registry/visual; final lazy adapter corrections additionally pass unit tests."
+  ],
+  "evidence_sha256": {
+    "c1-mobile-chromium.png": "7dc0da6702f0424b7e194c29e280f7d2290983258520e4f194c1ead8d3967e1f",
+    "c1-mobile-chromium.json": "d9c417a6c4712a7d9650d16afce864f9cd0ae67420ef248441c002d39d6b2d85",
+    "c1-final-native.log": "b94f3794e4266682abd5bf0dd6d7d09b38b12972c5c030d888ca7711db0f460f",
+    "c1-browser.log": "46f5f68c4e911eecb823f492b3a7d65b522c7909ee12da37b8793586a96a3452",
+    "c1-final-build.log": "2dd4c8785ad1aa797bc0272eec183d3ad8e137493eb557916f5d3c96e2fafdd7",
+    "c1-final-vitest.log": "c78452b92424ea0d49fcd763e065efb2ef9900b0bed1faff7e1eb4865d3d7977",
+    "c1-chromium.json": "0df55f859fd9d69bb0df7ea4d59308425a18a2d7a181828e1e0c547a8e6e886f",
+    "c1-chromium.png": "8429c276e56ecd47c7f3ad879997e2a269f00bfc4828f2222c22f96880e297f9"
+  }
+}

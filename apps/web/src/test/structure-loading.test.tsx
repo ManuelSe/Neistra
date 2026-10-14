@@ -251,6 +251,8 @@ class FakeViewer implements MolecularViewer {
   }
 
   subscribeSurfaces(): () => void { return () => {}; }
+  subscribeSurfaceSelection(): () => void { return () => {}; }
+  setActiveSurface(): void {}
   cancelSurface(): void {}
   retrySurface(): void {}
   resize(): void {}

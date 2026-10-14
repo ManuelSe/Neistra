@@ -5,6 +5,7 @@ import { filterInteractions } from "../interactions/filter";
 import { createPocketCrop, isolatePocketSurface } from "./surface/pocket";
 import { ElementSymbolColorThemeProvider } from "molstar/lib/mol-theme/color/element-symbol";
 import { SurfaceRuntime, type SurfaceStatus } from "./surface/runtime";
+import { SurfaceVisualRegistry, type SurfaceIdentity } from "./surface/objects";
 import { attachSurfaceGeometry, detachSurfaceGeometry, SelectionSurfaceProvider, surfaceInput } from "./surface/visual";
 import { SURFACE_PROFILE, surfaceKey, type SurfaceChannel, type SurfaceGeometry } from "./surface/protocol";
 import { isHydrogen } from "molstar/lib/mol-repr/structure/visual/util/common";
@@ -112,6 +113,7 @@ export class MolstarEngine implements MolecularViewer {
   private nonpolarHydrogenIds = new Map<string, Set<number>>();
   private isolation: AtomReference[] | null = null;
   private surfaces = new SurfaceRuntime();
+  private surfaceVisuals = new SurfaceVisualRegistry();
   private surfaceSourceRevisions = new WeakMap<ViewerStructure["normalized"], number>();
   private nextSurfaceSourceRevision = 0;
   private surfaceMeshEntries = new Set<string>();
@@ -227,6 +229,10 @@ export class MolstarEngine implements MolecularViewer {
       ({ current, button, modifiers }) => {
         if (this.movementInteraction !== "inactive" || !isPrimarySelectionActivation(button)) return;
         const mode = selectionModeForModifiers(modifiers);
+        if (mode === "replace" && this.surfaceVisuals.pick(current.repr)) {
+          plugin.canvas3d?.requestDraw();
+          return;
+        }
         if (Loci.isEmpty(current.loci)) {
           if (
             shouldClearSelectionForEmptyPick(
@@ -303,6 +309,7 @@ export class MolstarEngine implements MolecularViewer {
       ...(item.pocket ? [surfaceKey(item.entryId, "pocket")] : []),
     ])));
     this.surfaceBindings.clear();
+    this.surfaceVisuals.clearVisuals();
     this.inheritedSurfaceRefs.clear();
     this.movementCueRefs.clear();
     this.renderedAtomReferences.clear();
@@ -683,6 +690,14 @@ export class MolstarEngine implements MolecularViewer {
     return this.surfaces.subscribe(listener);
   }
 
+  subscribeSurfaceSelection(listener: (surface: SurfaceIdentity) => void): () => void {
+    return this.surfaceVisuals.subscribe(listener);
+  }
+  setActiveSurface(surface: SurfaceIdentity | null): void {
+    this.surfaceVisuals.select(surface);
+    this.plugin?.canvas3d?.requestDraw();
+  }
+
   cancelSurface(entryId: string, channel: SurfaceChannel = "fragment"): void { this.surfaces.cancel(entryId, channel); }
 
   retrySurface(entryId: string, channel: SurfaceChannel = "fragment"): void {
@@ -707,6 +722,7 @@ export class MolstarEngine implements MolecularViewer {
     this.stopAttributionObserver = undefined;
     this.generation += 1;
     this.surfaces.dispose();
+    this.surfaceVisuals.dispose();
     this.surfaceBindings.clear();
     this.surfaceRefs.clear();
     this.surfaceMeshEntries.clear();
