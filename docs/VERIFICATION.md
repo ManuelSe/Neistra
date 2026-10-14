@@ -1,5 +1,15 @@
 # V0.1 Requirement Evidence
 
+Issue #56 follows the [approved notification plan](plans/issue-56-viewer-notification-timeout.md).
+[C1 evidence](assets/viewer-notifications/c1-verification.json) qualifies exact
+10-second boundaries, replacement/repeated text, stale callbacks, cleanup, warning
+producer policy and keyboard focus. [C2 evidence](assets/viewer-notifications/c2-verification.json)
+records 39 focused browser passes/three intentional layout skips, all 10 native
+notification workflows, actual real-time expiration/state invariance, light/dark
+axe and unchanged adjacent movement/recovery/performance. Both checkpoints pass
+all 193 frontend tests/lint/types/build. No candidate or release gate is claimed
+for issue #56 yet; historical release evidence below remains distinct.
+
 Issue #55 correction evidence follows the [approved plan](plans/issue-55-interaction-corrections.md).
 C1 native buffer/group/capacity/coordinate and toolbar checks, C2 independent
 six-type and frozen2REG science/API invariance, and C3 actual marker pixels,256

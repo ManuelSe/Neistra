@@ -2,7 +2,7 @@
 
 ## 1. Status, metadata, and approved outcome
 
-**Status:** implementation in progress; M1/C1 complete, M2/C2 and M3/C3 pending.
+**Status:** implementation in progress; M1/C1 and M2/C2 complete; M3/C3 pending.
 The user approved the proposal on 2026-10-14 with “I approve the plan.”
 The user authorized implementation and complete delivery through `/goal` on
 2026-10-14. Historical C0 instructions below retain the planning-only stop.
@@ -505,3 +505,30 @@ environment/source identity, scope deviations, blockers, and next action. Keep
 - Initial harness and lint failures were fixed before commit; they are not passing
   qualification evidence. C1 command logs are retained beside the JSON record.
 - No blocker. Next action: M2/C2 native browser, accessibility, and state invariance.
+
+### 2026-10-14 — M2/C2 browser and accessibility qualification
+
+- C1 committed at `63a6662`. New native browser workflows cover real expiration,
+  successive identical emissions/theme rerenders, warning/error persistence,
+  keyboard focus/departure/manual dismissal, responsive remounts, and project
+  changes. Actual project snapshots, camera/native coordinates, renderer mounts,
+  and mutation/normalized-request counts remain unchanged across expiration.
+- [Exact results/environment/timing](../assets/viewer-notifications/c2-verification.json):
+  full focused browser gate passes 39 workflows with three intentional layout
+  skips in 4.7 minutes, no failures/retries. Final notification evidence capture
+  passes all 10 desktop/mobile workflows, no skips/failures/flakes. Scoped axe
+  passes light/dark warning notices; adjacent shell, recovery, API Retry, native
+  movement, focus, interruption, accessibility and performance workflows pass.
+- Repeated milestone frontend gates pass ESLint, TypeScript, all 193 frontend
+  tests, production build and diff checks. No product code changed after C1.
+- README explains the user-visible lifetime and exceptions; accessibility guidance
+  records focus behavior. Screenshots and exact command logs are retained beside
+  the evidence JSON. Attachments use test output, preserving clean future gates.
+- Initial browser harness diagnostics were resolved before qualification: wait
+  explicitly for the native instrumentation mount and seed the switch target
+  before navigation so the application's cached project list owns it. These are
+  test setup fixes, not product behavior changes or passing evidence.
+- Local checkpoint review found no scope expansion, schema/migration change,
+  scientific mutation, or consequential regression. No independent review claimed.
+- No blocker. Next: M3/C3 version preparation, complete candidate and actual
+  preceding-reader gates, full-diff review, PR and verified release delivery.

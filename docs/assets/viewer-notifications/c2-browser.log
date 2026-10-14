@@ -1,0 +1,66 @@
+[WebServer] INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+[WebServer] INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+[WebServer] INFO:     Started server process [564907]
+[WebServer] INFO:     Waiting for application startup.
+[WebServer] INFO:     Application startup complete.
+[WebServer] INFO:     Uvicorn running on http://127.0.0.1:8020 (Press CTRL+C to quit)
+[WebServer] (node:564969) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:564981) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 42 tests using 1 worker
+
+(node:565007) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:565007) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [chromium] › tests/e2e/project-lifecycle.spec.ts:55:5 › creates, recovers, reverses, saves, and reopens a project (3.0s)
+  ✓   2 [chromium] › tests/e2e/project-lifecycle.spec.ts:127:5 › reports an unavailable API and recovers after retry (473ms)
+  ✓   3 [chromium] › tests/e2e/project-lifecycle.spec.ts:148:5 › entry commands are durable and reversible through the workspace (3.7s)
+  ✓   4 [chromium] › tests/e2e/release-hardening.spec.ts:65:5 › passes automated accessibility checks in both themes (4.6s)
+  ✓   5 [chromium] › tests/e2e/release-hardening.spec.ts:79:5 › supports keyboard focus and bounded responsive controls (3.5s)
+  ✓   6 [chromium] › tests/e2e/release-hardening.spec.ts:164:5 › keeps representative-project interactions responsive and projection-scoped (5.8s)
+  ✓   7 [chromium] › tests/e2e/viewer-notifications.spec.ts:61:5 › expires after ten real seconds without molecular, camera, network or renderer changes (13.1s)
+  ✓   8 [chromium] › tests/e2e/viewer-notifications.spec.ts:95:5 › successive identical confirmations receive fresh deadlines across theme changes (4.1s)
+  ✓   9 [chromium] › tests/e2e/viewer-notifications.spec.ts:112:5 › warning summaries and actionable errors persist with unchanged styling and accessible dismissal (5.2s)
+  ✓  10 [chromium] › tests/e2e/viewer-notifications.spec.ts:145:5 › keyboard focus defers expiration, departure preserves focus, and manual dismissal returns it (3.0s)
+  ✓  11 [chromium] › tests/e2e/viewer-notifications.spec.ts:168:5 › viewer remounts retain the deadline and project changes invalidate old notices (4.1s)
+  ✓  12 [chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:60:5 › transforms from the viewer with fixed mouse gestures, exact Cancel and one Apply/undo/redo (11.0s)
+  ✓  13 [chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:108:5 › temporarily navigates the native camera with Space and the view toggle without changing the captured preview (20.6s)
+  ✓  14 [chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:179:5 › returns the mouse from movement tools for Space without stealing editable or unrelated focus (10.4s)
+  ✓  15 [chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:248:5 › ends held mouse gestures at accepted coordinates and camera before ownership changes (10.3s)
+  ✓  16 [chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:290:5 › clears temporary navigation on interruption and remount while preserving preview and camera (13.9s)
+  -  17 [chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:365:5 › qualifies native touch navigation, secondary tools and accessible theme layouts
+  ✓  18 [chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:456:59 › ignores a held camera pointer release after Cancel and restores selection on a fresh click (4.9s)
+  ✓  19 [chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:456:59 › ignores a held transform pointer release after Cancel and restores selection on a fresh click (4.6s)
+  ✓  20 [chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:479:5 › keeps viewer errors readable and primary transform actions reachable (4.4s)
+  ✓  21 [chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:509:5 › releases native navigation keys held before movement starts (5.3s)
+(node:565733) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:565733) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  22 [mobile-chromium] › tests/e2e/project-lifecycle.spec.ts:55:5 › creates, recovers, reverses, saves, and reopens a project (2.5s)
+  ✓  23 [mobile-chromium] › tests/e2e/project-lifecycle.spec.ts:127:5 › reports an unavailable API and recovers after retry (676ms)
+  -  24 [mobile-chromium] › tests/e2e/project-lifecycle.spec.ts:148:5 › entry commands are durable and reversible through the workspace
+  ✓  25 [mobile-chromium] › tests/e2e/release-hardening.spec.ts:65:5 › passes automated accessibility checks in both themes (4.0s)
+  ✓  26 [mobile-chromium] › tests/e2e/release-hardening.spec.ts:79:5 › supports keyboard focus and bounded responsive controls (3.5s)
+  -  27 [mobile-chromium] › tests/e2e/release-hardening.spec.ts:164:5 › keeps representative-project interactions responsive and projection-scoped
+  ✓  28 [mobile-chromium] › tests/e2e/viewer-notifications.spec.ts:61:5 › expires after ten real seconds without molecular, camera, network or renderer changes (12.3s)
+  ✓  29 [mobile-chromium] › tests/e2e/viewer-notifications.spec.ts:95:5 › successive identical confirmations receive fresh deadlines across theme changes (4.0s)
+  ✓  30 [mobile-chromium] › tests/e2e/viewer-notifications.spec.ts:112:5 › warning summaries and actionable errors persist with unchanged styling and accessible dismissal (5.1s)
+  ✓  31 [mobile-chromium] › tests/e2e/viewer-notifications.spec.ts:145:5 › keyboard focus defers expiration, departure preserves focus, and manual dismissal returns it (2.7s)
+  ✓  32 [mobile-chromium] › tests/e2e/viewer-notifications.spec.ts:168:5 › viewer remounts retain the deadline and project changes invalidate old notices (4.0s)
+  ✓  33 [mobile-chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:60:5 › transforms from the viewer with fixed mouse gestures, exact Cancel and one Apply/undo/redo (10.1s)
+  ✓  34 [mobile-chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:108:5 › temporarily navigates the native camera with Space and the view toggle without changing the captured preview (18.9s)
+  ✓  35 [mobile-chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:179:5 › returns the mouse from movement tools for Space without stealing editable or unrelated focus (9.6s)
+  ✓  36 [mobile-chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:248:5 › ends held mouse gestures at accepted coordinates and camera before ownership changes (9.8s)
+  ✓  37 [mobile-chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:290:5 › clears temporary navigation on interruption and remount while preserving preview and camera (14.0s)
+  ✓  38 [mobile-chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:365:5 › qualifies native touch navigation, secondary tools and accessible theme layouts (21.8s)
+  ✓  39 [mobile-chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:456:59 › ignores a held camera pointer release after Cancel and restores selection on a fresh click (4.7s)
+  ✓  40 [mobile-chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:456:59 › ignores a held transform pointer release after Cancel and restores selection on a fresh click (4.5s)
+  ✓  41 [mobile-chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:479:5 › keeps viewer errors readable and primary transform actions reachable (4.2s)
+  ✓  42 [mobile-chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:509:5 › releases native navigation keys held before movement starts (5.0s)
+
+  3 skipped
+  39 passed (4.7m)

@@ -2,7 +2,7 @@
 
 ## Current milestone
 
-Issue #56 — M1/C1 complete under the [approved contract](plans/issue-56-viewer-notification-timeout.md);
+Issue #56 — M1/C1 and M2/C2 complete under the [approved contract](plans/issue-56-viewer-notification-timeout.md);
 implementation/full delivery authorized through `/goal` on 2026-10-14. Application
 notices expire after 10 seconds with fresh replacement lifetimes and safe cleanup.
 Errors, warning-bearing import/edit summaries and action-required movement guidance
@@ -16,8 +16,11 @@ bundle advisory remains. Runtime version is still 0.13.1; no schema/migration ch
 Planned release: patch 0.13.2 with all five version sources updated during C3.
 
 Known limitations: one visible notice; persistent exceptions; timer throttling and
-keyboard focus can extend duration. No blocker. Next: M2/C2 browser qualification,
-then M3/C3 candidate/release gates, review and verified delivery.
+keyboard focus can extend duration. No blocker. [Browser evidence](assets/viewer-notifications/c2-verification.json): 39 workflows
+plus three intentional layout skips, final 10 notification workflows, light/dark
+axe and keyboard/native invariance pass with zero failures/retries. Frontend
+gates repeat all 193 tests/lint/types/build. User/accessibility guidance updated.
+Next: M3/C3 candidate/release gates, review and verified delivery.
 
 ### Previous delivery baseline — v0.13.1
 

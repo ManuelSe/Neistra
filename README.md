@@ -154,6 +154,13 @@ corepack pnpm --dir apps/web dev
 Structure organization: see [Structure groups](docs/GROUPS.md) for batch move,
 ungroup and group-creation controls.
 
+Routine notifications above the viewer disappear after 10 seconds. Close dismisses
+them earlier. Errors, warning-bearing import/edit summaries, and instructions to
+check or reconcile a movement remain until dismissed or replaced by a new notice.
+Each replacement gets a fresh lifetime. A notice stays while its Close control has
+keyboard focus; browser timer throttling may also delay removal. Detailed molecular
+warnings and job/status displays remain available through their existing panels.
+
 ## Architecture
 
 ```mermaid
