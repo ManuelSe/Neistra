@@ -1,0 +1,107 @@
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+[2m[WebServer] [22mINFO:     Started server process [638047]
+[2m[WebServer] [22mINFO:     Waiting for application startup.
+[2m[WebServer] [22mINFO:     Application startup complete.
+[2m[WebServer] [22mINFO:     Uvicorn running on http://127.0.0.1:8020 (Press CTRL+C to quit)
+[2m[WebServer] [22m(node:638106) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:638118) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 46 tests using 1 worker
+
+(node:638145) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:638145) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:65:5 › qualifies keyboard/touch controls, focus and scoped accessibility in both themes (9.1s)
+  ✓   2 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:119:5 › reconciles an interrupted response after server commit without replaying Apply (4.7s)
+  ✓   3 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:143:5 › blocks Apply while outcome is unknown and recovers only after explicit refresh (4.4s)
+  ✓   4 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:162:5 › captures hidden multi-entry targets, previews multiple drags, cancels, and applies one reversible command (13.6s)
+  ✓   5 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:246:5 › qualifies native proper-rotation previews, camera suspension, zoom and surface restoration in both projections (11.5s)
+  ✓   6 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:349:5 › discards previews with feedback on task, selection and project changes (8.3s)
+  ✓   7 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:393:5 › restores canceled or lost pointer drags and supports secondary and Ctrl translation (7.9s)
+  ✓   8 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:433:5 › rejects stale Apply without replay or partial movement (4.3s)
+  ✓   9 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:454:5 › explains empty, locked and wholly hidden movement targets without changing them (6.7s)
+  ✓  10 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:491:5 › preserves no-op history, pauses measurements and discards unapplied movement on reload (15.2s)
+  ✓  11 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:548:5 › retains the native preview and held camera across responsive viewer remounts (6.7s)
+  ✓  12 [chromium] › tests/e2e/pocket-surfaces.spec.ts:12:7 › qualifies native full-protein pocket geometry and independent display for complex/1stp.pdb (10.5s)
+  ✓  13 [chromium] › tests/e2e/pocket-surfaces.spec.ts:12:7 › qualifies native full-protein pocket geometry and independent display for hydrogens/polar_hydrogens_protein.pdb (9.0s)
+  ✓  14 [chromium] › tests/e2e/pocket-surfaces.spec.ts:12:7 › qualifies native full-protein pocket geometry and independent display for surfaces/1aon.cif (53.1s)
+  ✓  15 [chromium] › tests/e2e/pocket-surfaces.spec.ts:158:5 › invalidates native pockets for hidden seed and receptor preview, cancel and commit (6.8s)
+  ✓  16 [chromium] › tests/e2e/pocket-surfaces.spec.ts:223:5 › saves pockets through the compact panel and restores hidden seed inputs (9.6s)
+  ✘  17 [chromium] › tests/e2e/viewer-click-selection.spec.ts:198:5 › keeps primary selection and empty clearing independent from the camera (2.9s)
+(node:639097) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:639097) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  -  18 [chromium] › tests/e2e/viewer-click-selection.spec.ts:362:5 › uses the compact trigger path for selection and empty clearing
+  ✓  19 [chromium] › tests/e2e/viewer-notifications.spec.ts:61:5 › expires after ten real seconds without molecular, camera, network or renderer changes (13.8s)
+  ✓  20 [chromium] › tests/e2e/viewer-notifications.spec.ts:95:5 › successive identical confirmations receive fresh deadlines across theme changes (4.2s)
+  ✓  21 [chromium] › tests/e2e/viewer-notifications.spec.ts:112:5 › warning summaries and actionable errors persist with unchanged styling and accessible dismissal (4.9s)
+  ✓  22 [chromium] › tests/e2e/viewer-notifications.spec.ts:145:5 › keyboard focus defers expiration, departure preserves focus, and manual dismissal returns it (3.0s)
+  ✓  23 [chromium] › tests/e2e/viewer-notifications.spec.ts:168:5 › viewer remounts retain the deadline and project changes invalidate old notices (4.2s)
+(node:639364) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:639364) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  24 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:65:5 › qualifies keyboard/touch controls, focus and scoped accessibility in both themes (8.8s)
+  ✓  25 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:119:5 › reconciles an interrupted response after server commit without replaying Apply (4.4s)
+  ✓  26 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:143:5 › blocks Apply while outcome is unknown and recovers only after explicit refresh (4.2s)
+  ✓  27 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:162:5 › captures hidden multi-entry targets, previews multiple drags, cancels, and applies one reversible command (12.7s)
+  ✓  28 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:246:5 › qualifies native proper-rotation previews, camera suspension, zoom and surface restoration in both projections (7.8s)
+  ✓  29 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:349:5 › discards previews with feedback on task, selection and project changes (7.8s)
+  ✓  30 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:393:5 › restores canceled or lost pointer drags and supports secondary and Ctrl translation (7.3s)
+  ✓  31 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:433:5 › rejects stale Apply without replay or partial movement (4.2s)
+  ✓  32 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:454:5 › explains empty, locked and wholly hidden movement targets without changing them (6.4s)
+  ✓  33 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:491:5 › preserves no-op history, pauses measurements and discards unapplied movement on reload (14.4s)
+  ✓  34 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:548:5 › retains the native preview and held camera across responsive viewer remounts (6.9s)
+  ✓  35 [mobile-chromium] › tests/e2e/pocket-surfaces.spec.ts:12:7 › qualifies native full-protein pocket geometry and independent display for complex/1stp.pdb (6.4s)
+  ✓  36 [mobile-chromium] › tests/e2e/pocket-surfaces.spec.ts:12:7 › qualifies native full-protein pocket geometry and independent display for hydrogens/polar_hydrogens_protein.pdb (4.9s)
+  ✓  37 [mobile-chromium] › tests/e2e/pocket-surfaces.spec.ts:12:7 › qualifies native full-protein pocket geometry and independent display for surfaces/1aon.cif (50.7s)
+  ✓  38 [mobile-chromium] › tests/e2e/pocket-surfaces.spec.ts:158:5 › invalidates native pockets for hidden seed and receptor preview, cancel and commit (3.9s)
+  ✓  39 [mobile-chromium] › tests/e2e/pocket-surfaces.spec.ts:223:5 › saves pockets through the compact panel and restores hidden seed inputs (9.4s)
+  -  40 [mobile-chromium] › tests/e2e/viewer-click-selection.spec.ts:198:5 › keeps primary selection and empty clearing independent from the camera
+  ✓  41 [mobile-chromium] › tests/e2e/viewer-click-selection.spec.ts:362:5 › uses the compact trigger path for selection and empty clearing (3.7s)
+  ✓  42 [mobile-chromium] › tests/e2e/viewer-notifications.spec.ts:61:5 › expires after ten real seconds without molecular, camera, network or renderer changes (13.3s)
+  ✓  43 [mobile-chromium] › tests/e2e/viewer-notifications.spec.ts:95:5 › successive identical confirmations receive fresh deadlines across theme changes (4.0s)
+  ✓  44 [mobile-chromium] › tests/e2e/viewer-notifications.spec.ts:112:5 › warning summaries and actionable errors persist with unchanged styling and accessible dismissal (5.1s)
+  ✓  45 [mobile-chromium] › tests/e2e/viewer-notifications.spec.ts:145:5 › keyboard focus defers expiration, departure preserves focus, and manual dismissal returns it (2.8s)
+  ✓  46 [mobile-chromium] › tests/e2e/viewer-notifications.spec.ts:168:5 › viewer remounts retain the deadline and project changes invalidate old notices (4.0s)
+
+
+  1) [chromium] › tests/e2e/viewer-click-selection.spec.ts:198:5 › keeps primary selection and empty clearing independent from the camera 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m
+
+    Expected: [32m200[39m
+    Received: [31m422[39m
+
+      240 |     { data: { expected_revision: current.revision, settings } },
+      241 |   );
+    > 242 |   expect(configured.status()).toBe(200);
+          |                               ^
+      243 |   await page.reload();
+      244 |   await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded", {
+      245 |     timeout: 30_000,
+        at /datadisk/dev/neistra/tests/e2e/viewer-click-selection.spec.ts:242:31
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .molweave-e2e/issue57/c3-regression-results/viewer-click-selection-kee-b8e28-independent-from-the-camera-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: .molweave-e2e/issue57/c3-regression-results/viewer-click-selection-kee-b8e28-independent-from-the-camera-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    .molweave-e2e/issue57/c3-regression-results/viewer-click-selection-kee-b8e28-independent-from-the-camera-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace .molweave-e2e/issue57/c3-regression-results/viewer-click-selection-kee-b8e28-independent-from-the-camera-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [chromium] › tests/e2e/viewer-click-selection.spec.ts:198:5 › keeps primary selection and empty clearing independent from the camera 
+  2 skipped
+  43 passed (6.9m)

@@ -3756,3 +3756,18 @@ div[data-radix-popper-content-wrapper]:has(.tooltip) {
   .surface-manager button, .surface-manager input { min-height: 44px; }
   .surface-manager .icon-button { min-width: 44px; }
 }
+
+.surface-object-editor fieldset { margin: 8px 0; padding: 8px; border: 1px solid var(--border); min-width: 0; }
+.surface-object-editor legend { font-size: 12px; font-weight: 600; }
+.surface-object-editor form { min-width: 0; }
+.surface-object-editor label { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 6px 0; font-size: 12px; }
+.surface-object-editor select { min-width: 0; max-width: 62%; }
+.surface-object-editor input[type="number"] { width: 80px; }
+.surface-object-editor input[type="color"] { width: 64px; }
+.surface-object-editor p { overflow-wrap: anywhere; font-size: 12px; }
+.surface-object-editor .checkbox-row { justify-content: flex-start; }
+.surface-details-editor { display: block; }
+.surface-object-editor input[type="checkbox"] { width: 18px; height: 18px; min-height: 0; flex: none; }
+@media (pointer: coarse) {
+  .surface-manager select, .surface-manager .checkbox-row { min-height: 44px; }
+}

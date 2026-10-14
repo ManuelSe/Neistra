@@ -257,3 +257,57 @@ def test_surface_capacity_is_atomic_and_last_surface_can_be_removed_without_a_fa
         == owner["viewer_settings"]["surface_objects"]
         == []
     )
+
+
+def test_surface_display_edits_remain_allowed_on_locked_entries_and_keep_identity(
+    client: ApiClient,
+):
+    project, receptor, _ = fixture(client)
+    project = create(client, project, fragment(receptor["id"], 1, 2)).json()
+    surface = deepcopy(objects(project, receptor["id"])[0])
+    path = f"/api/v1/projects/{project['id']}"
+    project = client.post(
+        f"{path}/entries/{receptor['id']}/lock",
+        json={"expected_revision": project["revision"], "value": True},
+    ).json()
+    for theme in ["element", "chain", "residue", "secondary-structure", "structure", "custom"]:
+        response = change(
+            client,
+            project,
+            receptor["id"],
+            surface["id"],
+            appearance={
+                "color_by": theme,
+                "custom_color": "#ff00ff",
+                "opacity": 0.25,
+                "mode": "mesh",
+                "inherit_atom_colors": False,
+            },
+        )
+        assert response.status_code == 200, response.text
+        project = response.json()
+        assert objects(project, receptor["id"])[0]["id"] == surface["id"]
+        assert next(entry for entry in project["entries"] if entry["id"] == receptor["id"])[
+            "locked"
+        ]
+    changed = change(
+        client,
+        project,
+        receptor["id"],
+        surface["id"],
+        source={"kind": "fragment", "profile": "molecular-v1", "atom_ids": [3]},
+    )
+    assert changed.status_code == 200, changed.text
+    project = changed.json()
+    assert objects(project, receptor["id"])[0]["source"]["atom_ids"] == [3]
+    assert (
+        next(entry for entry in project["entries"] if entry["id"] == receptor["id"])[
+            "current_artifact_id"
+        ]
+        == receptor["current_artifact_id"]
+    )
+    removed = remove(client, project, receptor["id"], surface["id"])
+    assert removed.status_code == 200, removed.text
+    assert objects(removed.json(), receptor["id"]) == []
+    restored = history(client, removed.json(), "undo")
+    assert objects(restored, receptor["id"])[0]["id"] == surface["id"]

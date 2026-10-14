@@ -3300,3 +3300,29 @@ The compact nonmodal manager is application-owned. Requested object visibility i
 bounded by parent visibility; unavailable objects remain removable. Saving a
 definition never asserts successful rendering. Native entry calculations stay native;
 worker accounting and deadlines apply to fragment/pocket work only.
+
+
+## D-092 — Explicit source selection and independent surface appearance
+
+Date: 2026-10-14. Status: implemented and checkpoint-qualified for issue #57 C3.
+
+Surface appearance uses the existing supported themes, uniform color, finite
+opacity and solid/mesh display as one revisioned object update. Choosing a theme
+clears atom-color inheritance for that object; the explicit inheritance checkbox
+can restore overpaint precedence. New objects remain independent; migrated ones
+retain prior inheritance. Scientific field keys exclude appearance.
+
+Select source atoms is an explicit molecular-selection action: current entry,
+captured fragment, or complete current protein calculation context. Pocket seeds
+locate the crop and never masquerade as surface membership. Context loading uses
+application-owned artifact-keyed queries, discards stale responses and makes no
+viewer-derived molecular authority. Fragment replacement rejects mixed-owner
+selection rather than silently discarding selected atoms. Pocket radius and seed
+replacement are explicit, retain identity and owner, and require current protein
+context; changing receptor creates a new owner-bound object. Existing display-edit
+policy permits these operations on locked entries while molecular edits stay locked.
+
+The nonmodal manager owns focus only after explicit keyboard/list interaction;
+canvas activation leaves canvas focus in place. Source loading, pending commands
+and errors remain scoped to the active object/project. No new schema migration or
+scientific profile is introduced beyond C2/D-091.

@@ -15,8 +15,15 @@ three new migration cases); all209frontend/lint/types/build, Ruff/mypy61 and dif
 checks pass. Desktop/mobile fragment/pocket19 browser checks and separate complete
 application journey1 pass; two intentional layout skips. Manager evidence repeated
 successfully. Local self-review resolved threshold/failure-message/fixture findings.
-Known limits: C3 appearance/source editors and C4 tagged compatibility/accessibility/
-performance qualification remain; no PR or release yet. No blocker. Next: C3.
+M3/C3 is complete: independent themes/uniform color, opacity, solid/mesh, inheritance,
+explicit source editing and source-atom selection. [C3 evidence](assets/surface-objects/c3-verification.json):
+all214frontend and5API checks, lint/types/build/Ruff/mypy61 pass. Adjacent browser43
+passes plus final object/picking6 passes/2 intentional layout skips cover real
+mouse/touch activation, cache reuse/no refetch, source scopes, Undo/reload, locked
+entries, stale context and unchanged molecular state. An obsolete schema fixture
+was repaired and passes its focused rerun. D-092 and user guidance are current.
+Known limits: C4 tagged compatibility/accessibility/zoom/performance qualification
+and C5 delivery remain; no PR/release yet. No blocker. Next: C4.
 
 ### Previous delivery baseline — v0.13.2
 

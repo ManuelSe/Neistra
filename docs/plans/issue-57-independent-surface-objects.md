@@ -2,7 +2,7 @@
 
 ## Status, outcome, and authority
 
-**Status:** approved implementation contract; implementation authorized by the subsequent `/goal`; M1/C1 and M2/C2 complete; C3 next.
+**Status:** approved implementation contract; implementation authorized by the subsequent `/goal`; M1/C1–M3/C3 complete; C4 next.
 
 - Issue: [#57 — Manage molecular surfaces as independent, editable objects](https://github.com/ManuelSe/Neistra/issues/57), open at planning inspection.
 - Plan: `docs/plans/issue-57-independent-surface-objects.md`.
@@ -510,3 +510,49 @@ Schema/API, architecture, development/rollback and D-091 are current. No molecul
 profile, original file or normalized schema changed. C3 completes appearance and
 explicit source editors; C4 qualifies tagged compatibility, accessibility and
 performance. Release remains0.14.0; no PR/tag/release exists yet.
+
+
+### M3/C3 implementation in progress — 2026-10-14
+
+C2 is committed and pushed as `bc54a8e`.
+
+The active object exposes independent existing themes/uniform color, opacity,
+solid/mesh and explicit atom-color inheritance, applied as one revisioned update.
+Source selection uses application-owned canonical entry/fragment/full protein-context
+atoms with labeled counts; it never substitutes pocket seeds or viewer visibility.
+Explicit fragment, radius and seed replacement preserve object identity/owner.
+Mixed-owner fragment replacements fail visibly. Context queries are artifact-keyed
+and stale completions are ignored. D-092 records these choices; user guidance is
+current in SURFACES/SELECTION_STYLING, README and scientific limitations.
+
+All214frontend tests/47files, lint/types/build and Ruff/mypy61 pass. Native/production
+surface-object workflows pass4 desktop/mobile cases, including independent settings,
+worker cache reuse/no refetch, source scopes, Undo/reload, actual canvas clicks/taps
+and unchanged atom selection/camera/project on activation. Pointer hover cleanup
+preserves complete active-object highlighting. The C1 development harness's redundant
+wireframe-provider registration was removed after C2 made registration a production
+engine responsibility. Adjacent movement/pocket/selection/notification gates and
+final API display-lock validation are pending before commit.
+
+
+### M3/C3 complete — 2026-10-14
+
+[Retained evidence](../assets/surface-objects/c3-verification.json) records source
+hashes, commands, native screenshots and local self-review. All214frontend tests,
+lint/types/build, five surface API tests, Ruff/mypy61 and diff checks pass. Adjacent
+movement, pocket, notification and applicable selection workflows pass43 cases;
+one obsolete schema-1 ordinary-surface fixture was adapted to schema2/all ordinary
+styles, then final desktop/mobile object+picking checks pass6 with2 intentional
+layout skips. Native surface primary activation remains explicitly qualified by
+real mouse/touch events; complete highlighting survives hover cleanup.
+
+Appearance edits reuse valid worker geometry and make no normalized refetch.
+Source selection distinguishes captured fragments/current entries/full protein
+context from pocket seeds. Explicit source changes preserve identity and remain
+allowed under the existing locked-entry display policy. Stale context completion,
+invalid/empty opacity drafts, mixed-owner fragment replacements and command errors
+are handled visibly. User/scientific guidance and D-092 are current. The redundant
+C1 harness provider registration was removed because the production engine now
+owns it. No consequential C3 self-review finding remains; no migration beyond0014.
+Next: C4 tagged compatibility, full accessibility/zoom/performance and lifecycle
+qualification, followed by C5 release delivery. No PR or release exists yet.

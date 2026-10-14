@@ -1,7 +1,7 @@
 import type { SurfaceStatus } from "../viewer/surface/runtime";
 import type { SurfaceActions, ChangeSelectionAppearance } from "../api/types";
 import type { ExpandSelection } from "../selection/expansion";
-import { useQueries } from "@tanstack/react-query";
+import { useQueries, useQueryClient } from "@tanstack/react-query";
 import * as Tooltip from "@radix-ui/react-tooltip";
 import { AlertTriangle, LoaderCircle, RotateCcw } from "lucide-react";
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
@@ -103,6 +103,7 @@ export function StructureViewer({
   onAppearance,
   createViewer = createMolstarViewer,
 }: StructureViewerProps) {
+  const queryClient = useQueryClient();
   const targetRef = useRef<HTMLDivElement>(null);
   const viewerRef = useRef<MolecularViewer | undefined>(undefined);
   const themeRef = useRef(theme);
@@ -697,6 +698,14 @@ export function StructureViewer({
       {onSurfaces ? <SurfaceManager key={project.id} open={surfaceProjectId === project.id}
         onOpenChange={open => setSurfaceProjectId(open ? project.id : null)} entries={project.entries}
         active={activeSurface} onActivate={setActiveSurface} actions={onSurfaces} statuses={surfaceStatuses} busy={busy}
+        selection={selection.atoms}
+        onSelectAtoms={atoms => onViewerSelection({ schema_version: 1, atoms, granularity: "atom", source: "inspector" }, "replace")}
+        loadSource={async entryId => {
+          const entry = project.entries.find(item => item.id === entryId);
+          if (!entry?.current_artifact_id) throw new Error("This source has no current molecular artifact.");
+          return queryClient.fetchQuery({ queryKey: ["structure", project.id, entry.id, entry.current_artifact_id],
+            queryFn: () => molecularApi.structure(project.id, entry.id), staleTime: Number.POSITIVE_INFINITY });
+        }}
         autoFocus={!surfaceOpenedByCanvas.current}
         onReturnFocus={() => targetRef.current?.closest(".structure-viewer")?.querySelector<HTMLButtonElement>('[aria-label="Style selection"]')?.focus()}
         onCancel={(entryId, surface) => viewerRef.current?.cancelSurface(entryId, surface.source.kind, surface.id)}

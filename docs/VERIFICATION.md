@@ -7,8 +7,13 @@ qualifies canonical schema2 objects, migration0014 retained paths/atomic refusal
 revisioned commands, archives, topology and minimal grouped management. Final focused
 Python178 and frontend209 pass, alongside lint/types/build/Ruff/mypy; fragment/pocket
 browser19 and separate full application journey1 pass. Diagnostic failures and their
-focused fixes remain explicit. C3 editors and C4 comprehensive compatibility/access/
-performance qualification remain; no release claim is made. Earlier issue evidence
+focused fixes remain explicit. [C3](assets/surface-objects/c3-verification.json) qualifies independent appearance,
+explicit source scopes/replacement, locked-entry display editing, cache reuse and
+real production mouse/touch activation with unchanged atom selection/camera/project.
+All214frontend/5API and final6browser checks pass; adjacent43 browser checks pass
+and the obsolete selection fixture passes its focused final rerun. C4 comprehensive
+compatibility/accessibility/performance qualification remains; no release claim is
+made. Earlier issue evidence
 below is historical and predates the schema2 boundary.
 
 Issue #56 follows the [approved notification plan](plans/issue-56-viewer-notification-timeout.md).

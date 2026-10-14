@@ -360,11 +360,11 @@ This is a proximity view, not automatic cavity discovery, a volume/area measurem
 or evidence of binding. The cutoff may leave jagged open boundaries, disconnected
 pieces, or no triangles. Empty output is explicitly explained. Atomic Hide and H
 detail preferences do not reshape protein context; entry/protein visibility hides
-the view and isolation filters displayed owner triangles only. Colors and picks
+the view and isolation filters displayed owner triangles only. Colors and modified molecular picks
 belong to receptor atoms, not seed atoms. Fragment surfaces retain their different
 selected-atom context and may coexist with pockets.
 
-Both channels share one worker and the released capacity bounds. Temporary full
+All fragment/pocket objects share one worker and the released capacity bounds. Temporary full
 geometry, crop marks/remapping, seed index and compact output count toward active
 allocation; only the compact patch and receptor identity mapping are retained.
 Pocket failure/cancellation retains intent without substituting fragment geometry.
@@ -414,3 +414,23 @@ so it is not a salt bridge under the4.5Å profile. CCD assignment remains#52.
 Contradictory observed acid H and supplied negative ASP/GLU side-chain charge
 are skipped for ionic and H-bond assignments, with a structured warning. This
 conservative correction does not infer a new protonation state or modify uploads.
+
+
+## Independent surface appearance and source selection (issue #57)
+
+Object identity is independent of residue/atom ownership used for themes and
+modified molecular picking. Whole-object activation changes neither molecular
+selection nor scientific state. Select source atoms explicitly selects current
+entry content, captured fragment atoms, or full pocket protein context; seeds are
+not pocket membership. Overlapping geometry uses the native foremost hit; the list
+provides deterministic access to obscured and zero-opacity objects.
+
+Solid/mesh mode uses the same geometry and fixed profile. Independent colors,
+opacity and atom-color inheritance change presentation only. No surface charge,
+partial-charge or electrostatic-potential contract is inferred from existing atom
+fields. A focused scientific follow-up is required before offering charge colors.
+
+Worker-output/allocation bounds include additional mesh-line/isolation buffers and
+apply across identified fragment/pocket requests. They do not cap native entry
+calculations, browser memory or GPU memory. A saved object can exceed rendering
+limits; status retains and explains it. Hiding/removing it releases runtime work.

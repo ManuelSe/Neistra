@@ -23,7 +23,6 @@ export async function mountSurfaceObjectsHarness(container: HTMLElement, source:
   };
   await engine.syncStructures([{ ...source, settings: { ...source.settings, representations: [], surface_objects: [] }, pockets: undefined }]);
   const { plugin } = internals;
-  plugin.representation.structure.registry.add(SelectionSurfaceWireframeProvider);
   const loaded = internals.loaded.get(source.entryId)!;
   const workers = { created: 0, terminated: 0, active: 0, maximum: 0, inputs: 0 };
   const calculator = new SurfaceCalculator(() => {

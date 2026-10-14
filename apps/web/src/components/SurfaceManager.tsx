@@ -1,9 +1,10 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { Eye, EyeOff, Trash2, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import type { Entry, SurfaceActions, SurfaceObject } from "../api/types";
+import type { AtomReference, Entry, StructureProjection, SurfaceActions, SurfaceObject } from "../api/types";
 import type { SurfaceIdentity } from "../viewer/surface/objects";
 import type { SurfaceStatus } from "../viewer/surface/runtime";
+import { SurfaceEditor } from "./SurfaceEditor";
 import { IconButton } from "./IconButton";
 
 interface Props {
@@ -14,6 +15,9 @@ interface Props {
   onActivate: (identity: SurfaceIdentity) => void;
   actions: SurfaceActions;
   statuses: SurfaceStatus[];
+  selection?: AtomReference[];
+  onSelectAtoms?: (atoms: AtomReference[]) => void;
+  loadSource?: (entryId: string) => Promise<StructureProjection>;
   busy: boolean;
   autoFocus: boolean;
   onReturnFocus?: () => void;
@@ -89,8 +93,13 @@ export function SurfaceManager(props: Props) {
                 onClick={() => props.onCancel(entry.id, surface)}>Cancel calculation</button> : null}
               {status && ["cancelled", "fallback"].includes(status.state) ? <button type="button" disabled={disabled}
                 onClick={() => props.onRetry(entry.id, surface)}>Retry surface</button> : null}
-              {active ? <SurfaceName key={`${entry.id}:${surface.id}`} surface={surface} busy={disabled}
-                onSave={name => perform(() => props.actions.update(entry.id, surface.id, { name }), surface.name)} /> : null}
+              {active ? <div key={`${entry.id}:${surface.id}`}>
+                <SurfaceName surface={surface} busy={disabled}
+                  onSave={name => perform(() => props.actions.update(entry.id, surface.id, { name }), surface.name)} />
+                <SurfaceEditor entry={entry} surface={surface} busy={disabled} selection={props.selection ?? []}
+                  load={props.loadSource} onSelect={props.onSelectAtoms}
+                  onSave={change => perform(() => props.actions.update(entry.id, surface.id, change), surface.name)} />
+              </div> : null}
             </div>;
           })}
         </section>)}
