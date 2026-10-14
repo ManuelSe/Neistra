@@ -1,0 +1,133 @@
+{
+  "stage": "merged",
+  "source_commit": "88e84b27a0fb6c4520333df236d788065fd7a788",
+  "clean_start": true,
+  "started_utc": "2026-10-14T17:51:45.470656+00:00",
+  "host": "Linux-6.17.0-119029-tuxedo-x86_64-with-glibc2.39",
+  "source_inventory_sha256": "f882d306320e27e915eeb3e3e36220c3bbef7d40040dd5ead51dc06d91d13cfa",
+  "browser_environment": {
+    "MOLWEAVE_E2E_API_PORT": "8020",
+    "MOLWEAVE_E2E_WORKER_PORT": "8021",
+    "MOLWEAVE_E2E_WEB_PORT": "5183",
+    "MOLWEAVE_E2E_DATA_DIR": "/datadisk/dev/neistra/.molweave-e2e/issue57/c5-merged/browser-data",
+    "PLAYWRIGHT_BROWSERS_PATH": ".playwright"
+  },
+  "steps": [
+    {
+      "name": "uv-sync",
+      "command": ".venv/bin/uv sync --frozen",
+      "environment_override": {},
+      "exit_code": 0,
+      "duration_seconds": 0.027,
+      "log": "uv-sync.log"
+    },
+    {
+      "name": "pnpm-install",
+      "command": "corepack pnpm install --frozen-lockfile",
+      "environment_override": {},
+      "exit_code": 0,
+      "duration_seconds": 0.639,
+      "log": "pnpm-install.log"
+    },
+    {
+      "name": "migration",
+      "command": ".venv/bin/uv run alembic upgrade head",
+      "environment_override": {
+        "MOLWEAVE_DATA_DIR": "/datadisk/dev/neistra/.molweave-e2e/issue57/c5-merged/fresh-migration"
+      },
+      "exit_code": 0,
+      "duration_seconds": 0.644,
+      "log": "migration.log"
+    },
+    {
+      "name": "ruff",
+      "command": ".venv/bin/uv run ruff check .",
+      "environment_override": {},
+      "exit_code": 0,
+      "duration_seconds": 0.041,
+      "log": "ruff.log"
+    },
+    {
+      "name": "mypy",
+      "command": ".venv/bin/uv run mypy apps/api packages/molweave_core",
+      "environment_override": {},
+      "exit_code": 0,
+      "duration_seconds": 0.176,
+      "log": "mypy.log"
+    },
+    {
+      "name": "pytest",
+      "command": ".venv/bin/uv run pytest",
+      "environment_override": {},
+      "exit_code": 0,
+      "duration_seconds": 93.63,
+      "log": "pytest.log"
+    },
+    {
+      "name": "lint",
+      "command": "corepack pnpm --dir apps/web lint",
+      "environment_override": {},
+      "exit_code": 0,
+      "duration_seconds": 8.547,
+      "log": "lint.log"
+    },
+    {
+      "name": "typecheck",
+      "command": "corepack pnpm --dir apps/web typecheck",
+      "environment_override": {},
+      "exit_code": 0,
+      "duration_seconds": 4.496,
+      "log": "typecheck.log"
+    },
+    {
+      "name": "vitest",
+      "command": "corepack pnpm --dir apps/web test",
+      "environment_override": {},
+      "exit_code": 0,
+      "duration_seconds": 8.747,
+      "log": "vitest.log"
+    },
+    {
+      "name": "supervisor",
+      "command": "corepack pnpm test:dev",
+      "environment_override": {},
+      "exit_code": 0,
+      "duration_seconds": 1.447,
+      "log": "supervisor.log"
+    },
+    {
+      "name": "build",
+      "command": "corepack pnpm --dir apps/web build",
+      "environment_override": {},
+      "exit_code": 0,
+      "duration_seconds": 12.079,
+      "log": "build.log"
+    },
+    {
+      "name": "playwright",
+      "command": "corepack pnpm exec playwright test --output=/datadisk/dev/neistra/.molweave-e2e/issue57/c5-merged/browser-results",
+      "environment_override": {
+        "MOLWEAVE_E2E_API_PORT": "8020",
+        "MOLWEAVE_E2E_WORKER_PORT": "8021",
+        "MOLWEAVE_E2E_WEB_PORT": "5183",
+        "MOLWEAVE_E2E_DATA_DIR": "/datadisk/dev/neistra/.molweave-e2e/issue57/c5-merged/browser-data",
+        "PLAYWRIGHT_BROWSERS_PATH": ".playwright"
+      },
+      "exit_code": 0,
+      "duration_seconds": 1981.3,
+      "log": "playwright.log"
+    },
+    {
+      "name": "diff-check",
+      "command": "git diff --check",
+      "environment_override": {},
+      "exit_code": 0,
+      "duration_seconds": 0.004,
+      "log": "diff-check.log"
+    }
+  ],
+  "clean_end": true,
+  "unchanged_source": true,
+  "completed_utc": "2026-10-14T18:26:57.870898+00:00",
+  "all_passed": true
+}
