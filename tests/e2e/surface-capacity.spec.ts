@@ -60,7 +60,7 @@ for (const fixture of ["6vxx", "1aon", "synthetic-100k"]) {
     try {
       const evidence = await page.evaluate(async ({ entry, projection }) => {
         const path = "/src/test/selectionSurfaceHarness.ts";
-        const { mountProductionSurfaceHarness } = await import(/* @vite-ignore */ path);
+        const { mountProductionSurfaceHarness, fixtureSurface } = await import(/* @vite-ignore */ path);
         const container = document.createElement("div");
         Object.assign(container.style, { position: "fixed", inset: "0" }); document.body.appendChild(container);
         const settings = structuredClone(entry.viewer_settings); settings.representations = [];
@@ -71,7 +71,7 @@ for (const fixture of ["6vxx", "1aon", "synthetic-100k"]) {
         const observer = new PerformanceObserver((list) => list.getEntries().forEach((task) => tasks.push(task.duration)));
         observer.observe({ type: "longtask", buffered: false });
         const started = performance.now();
-        h.source.settings.selection_surface = { profile: "molecular-v1", atom_ids: entry.atom_ids };
+        h.source.settings.surface_objects = [...h.source.settings.surface_objects.filter(s => s.source.kind !== "fragment"), fixtureSurface({ kind: "fragment", profile: "molecular-v1", atom_ids: entry.atom_ids })];
         await h.sync([h.source]);
         const readyMs = performance.now() - started;
         await new Promise((resolve) => setTimeout(resolve, 100)); observer.disconnect();

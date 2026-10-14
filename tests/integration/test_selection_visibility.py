@@ -131,8 +131,16 @@ def test_atomic_apply_and_reset_reveal_in_one_command_preserving_other_propertie
     target = selection(entry["id"], *ids)
     # Independent channels must survive every visibility/style operation.
     project = client.post(
-        f"{path}/selection-surface",
-        json={"expected_revision": project["revision"], "selection": target, "action": "add"},
+        f"{path}/surfaces",
+        json={
+            "expected_revision": project["revision"],
+            "surfaces": [
+                {
+                    "entry_id": entry["id"],
+                    "source": {"kind": "fragment", "profile": "molecular-v1", "atom_ids": ids},
+                }
+            ],
+        },
     ).json()
     project = client.post(
         f"{path}/selection-appearance",
@@ -161,7 +169,7 @@ def test_atomic_apply_and_reset_reveal_in_one_command_preserving_other_propertie
     assert hidden(updated) == (ids if style in {"backbone", "cartoon"} else [])
     after = updated["entries"][0]["viewer_settings"]
     for field in [
-        "selection_surface",
+        "surface_objects",
         "selection_colors",
         "selection_nonpolar_hydrogens",
         "components",

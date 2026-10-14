@@ -89,7 +89,7 @@ export type ColorScheme =
 
 export interface RepresentationSettings {
   id: string;
-  style: RepresentationStyle;
+  style: SelectionRepresentationStyle;
   color_by: ColorScheme;
   custom_color: string;
   opacity: number;
@@ -101,12 +101,42 @@ export interface SelectionPocketSurface {
   radius: number;
 }
 
-export type ChangePocketSurface = (receptorId: string, pocket: SelectionPocketSurface | null) => Promise<void>;
+export type SurfaceSource =
+  | { kind: "entry" }
+  | { kind: "fragment"; profile: "molecular-v1"; atom_ids: number[] }
+  | ({ kind: "pocket" } & SelectionPocketSurface);
+
+export interface SurfaceAppearance {
+  color_by: ColorScheme;
+  custom_color: string;
+  opacity: number;
+  mode: "solid" | "mesh";
+  inherit_atom_colors: boolean;
+}
+export interface SurfaceObject {
+  id: string;
+  name: string;
+  visible: boolean;
+  source: SurfaceSource;
+  appearance: SurfaceAppearance;
+}
+export interface SurfaceCreateItem {
+  entry_id: string;
+  name?: string;
+  source: SurfaceSource;
+  appearance?: SurfaceAppearance;
+}
+export type SurfaceChange = Partial<Pick<SurfaceObject, "name" | "visible" | "source" | "appearance">>;
+export interface SurfaceActions {
+  create: (items: SurfaceCreateItem[]) => Promise<void>;
+  update: (entryId: string, surfaceId: string, change: SurfaceChange) => Promise<void>;
+  remove: (entryId: string, surfaceId: string) => Promise<void>;
+}
 
 export interface ViewerSettings {
-  selection_pocket_surface: SelectionPocketSurface | null;
+  schema_version: 2;
+  surface_objects: SurfaceObject[];
   selection_hidden_atoms: number[];
-  selection_surface: { profile: "molecular-v1"; atom_ids: number[] } | null;
   representations: RepresentationSettings[];
   selection_representations: SelectionRepresentation[];
   selection_colors: SelectionColor[];
@@ -191,7 +221,7 @@ export interface History {
 }
 
 export interface Project {
-  schema_version: 1;
+  schema_version: 2;
   id: string;
   name: string;
   description: string | null;
@@ -664,7 +694,7 @@ export interface BatchExportResult {
 
 export interface ArchiveExportResult {
   artifact: Artifact;
-  manifest_schema_version: 1;
+  manifest_schema_version: 2;
   source_revision: number;
 }
 

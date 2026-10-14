@@ -311,3 +311,20 @@ Interaction contrast qualification waits for the panel's fade-in to reach
 `opacity: 1` before running axe. This samples the settled user interface while
 retaining all WCAG assertions; it does not change production colors or disable
 animation. The issue55 plan retains the initial transient sample separately.
+
+
+## Independent surface management (issue #57)
+
+C4 qualifies keyboard-only Style-to-Surfaces handoff, grouped-row activation,
+editor controls and close restoration. The nonmodal manager preserves external
+workspace focus and Escape ownership. Closing while focus belongs to the manager
+restores a meaningful connected launcher or Style selection. Canvas activation
+leaves canvas focus in place. D-093 records two reproduced and repaired focus races.
+
+Scoped light/dark axe checks,120-character names, desktop/mobile/320px layouts,
+coarse-pointer44px targets and real Chrome100%/200% zoom pass. Actual native mouse
+and touch surface activation does not change molecular selection, camera or project
+state. Pending structural rebuilds reject retired pixel hits (D-096). Complete
+object highlighting is verified in native marker buffers. These checks qualify the
+repository's pinned Chromium/SwiftShader and Pixel 7 emulation, not whole-product
+accessibility or physical-device/cross-browser support. See [retained evidence](assets/surface-objects/c4-verification.json).

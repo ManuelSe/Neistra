@@ -11,6 +11,7 @@ import {
   representationStyles,
 } from "../viewer/settings";
 import {
+  surfaceObject,
   componentHierarchy,
   proteinStructure,
 } from "./molecular-fixtures";
@@ -28,8 +29,7 @@ const settings: ViewerSettings = {
   selection_representations: [],
     selection_colors: [],
     selection_nonpolar_hydrogens: [],
-    selection_surface: null,
-    selection_pocket_surface: null, selection_hidden_atoms: [],
+    schema_version: 2, surface_objects: [], selection_hidden_atoms: [],
   components: {
     hydrogens: true,
     nonpolar_hydrogens: true,
@@ -63,14 +63,14 @@ describe("representation settings", () => {
     ]);
   });
 
-  it("supports coexistence and preserves at least one representation", () => {
-    const expanded = addRepresentation(settings, "surface", "surface");
+  it("supports independent ordinary representations and permits removing the last one", () => {
+    const expanded = addRepresentation(settings, "stick", "detail");
     expect(expanded.representations.map((item) => item.style)).toEqual([
       "cartoon",
-      "surface",
+      "stick",
     ]);
-    expect(removeRepresentation(expanded, "surface").representations).toHaveLength(1);
-    expect(removeRepresentation(settings, "primary")).toBe(settings);
+    expect(removeRepresentation(expanded, "detail").representations).toHaveLength(1);
+    expect(removeRepresentation(settings, "primary").representations).toEqual([]);
   });
 
   it("projects inherited and exact selection channels independently", () => {
@@ -93,14 +93,8 @@ describe("representation settings", () => {
             custom_color: "#ff0000",
             opacity: 0.5,
           },
-          {
-            id: "surface",
-            style: "surface",
-            color_by: "chain",
-            custom_color: "#3b82f6",
-            opacity: 0.25,
-          },
         ],
+        surface_objects: [surfaceObject("surface", { kind: "entry" }, { color_by: "chain", opacity: 0.25 })],
         selection_representations: [
           { style: "stick", atom_ids: [1, 2] },
           { style: "cartoon", atom_ids: [1, 2] },
@@ -111,7 +105,7 @@ describe("representation settings", () => {
       expect.objectContaining({ id: "inherited-primary", atomIds: [3] }),
       expect.objectContaining({ id: "inherited-detail", atomIds: [3] }),
       expect.objectContaining({
-        id: "inherited-surface",
+        id: "surface-surface",
         atomIds: [1, 2, 3],
         opacity: 0.25,
       }),
@@ -314,7 +308,7 @@ it("applies full-projection nonpolar classification to all layers with visibilit
     entryId: "protein", label: "Protein", projection: { format: "mmcif", data: "projection" },
     atomIds: [1, 2, 3], normalized, hierarchy: componentHierarchy(normalized),
     settings: { ...settings,
-      representations: [{ ...settings.representations[0], style: "surface" }],
+      representations: [], surface_objects: [surfaceObject("surface", { kind: "entry" })],
       selection_representations: [{ style: "space-filling", atom_ids: [1, 2, 3] }],
       components: { ...settings.components, nonpolar_hydrogens: false },
       selection_nonpolar_hydrogens: [{ show: true, atom_ids: [2] }, { show: false, atom_ids: [3] }],
@@ -336,9 +330,9 @@ it("hides atomic layers after assignment while preserving polymer and surface co
   const normalized = proteinStructure();
   const source: ViewerStructure = { entryId: "protein", label: "Protein", normalized,
     hierarchy: componentHierarchy(normalized), atomIds: [1, 2, 3], projection: { format: "mmcif", data: "" },
-    settings: { ...settings, representations: (["line", "cartoon", "backbone", "surface"] as const)
+    settings: { ...settings, representations: (["line", "cartoon", "backbone"] as const)
       .map((style) => ({ ...settings.representations[0], id: style, style })),
-    selection_representations: [{ style: "stick", atom_ids: [2] }], selection_pocket_surface: null, selection_hidden_atoms: [] } };
+    surface_objects: [surfaceObject("surface", { kind: "entry" })], selection_representations: [{ style: "stick", atom_ids: [2] }], selection_hidden_atoms: [] } };
   const before = representationLayers(source);
   const assignments = structuredClone(source.settings.selection_representations);
   source.settings.selection_hidden_atoms = [1, 2];

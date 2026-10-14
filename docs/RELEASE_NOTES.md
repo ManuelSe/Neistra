@@ -1,6 +1,72 @@
 # Neistra Release Notes
 
 
+## 0.14.0 - 2026-10-14 - Independent surface objects
+
+### Highlights and changed workflows
+
+Entry, captured-fragment and full-protein-context pocket surfaces are independently
+named, selected as whole objects, highlighted, shown/hidden and removed. Multiple
+surfaces may share an entry. The compact nonmodal Surfaces manager groups ownership
+and edits existing themes/uniform color, opacity, solid/mesh and explicit atom-color
+inheritance. Source-atom selection is explicit; pocket seeds are not surface membership.
+Fragment replacement and pocket radius/seed replacement preserve identity. Repeated
+creation creates distinct objects. Scenes, save/reload, Undo/Redo, duplication,
+topology reconciliation and archive remapping preserve independent definitions.
+
+### Persisted data, API, migration and rollback
+
+This is a pre-1.0 **minor0.13.2 →0.14.0**, with documented persisted/API changes,
+not a compatible patch. Project, viewer settings and portable archive majors become2;
+normalized molecules and selections stay1; the route namespace remains `/api/v1`.
+All five authoritative application versions advance together without dependency upgrades.
+
+Back up the complete data directory before running Alembic0014. Migration converts
+legacy native/singleton definitions in live state, checkpoints, scenes and retained
+forward/inverse history, preserving original molecular bytes, warnings, timestamps,
+revision/dirty state and jobs. New creation is atomic and revisioned; object PATCH/
+DELETE is entry-owned. Legacy singleton POST commands return410 with guidance;
+ordinary representation writes cannot create surfaces. General viewer updates
+preserve objects and cannot bypass their commands. See [API](API.md),
+[project schema](PROJECT_SCHEMA.md) and [upgrade/rollback](DEVELOPMENT.md#upgrading-independent-surfaces-0014).
+
+Schema1 archives import and convert; exports are schema2. Actual tagged v0.13.2
+readers reject schema2 archives cleanly. Downgrade refuses retained objects or empty
+ordinary representation sets, including history; restore the complete pre-upgrade
+backup rather than strip scientific state. Archives remain current snapshots and
+omit Undo/Redo history. There is no preceding-reader round-trip claim.
+
+### Scientific scope, accessibility and performance
+
+Existing fragment/pocket geometry and native entry calculation paths are retained;
+no new chemical assignment, surface profile, cavity/area/volume or export capability.
+Pocket context remains the full current protein context, with captured cross-entry
+seeds and explicit radius. Warnings and over-budget statuses remain visible.
+Existing six color themes are supported. Ambiguous charge coloring is deferred to
+[#64](https://github.com/ManuelSe/Neistra/issues/64), which must distinguish supplied
+formal charge, partial charge and electrostatic potential scientifically. Carbon
+color defaults [#58](https://github.com/ManuelSe/Neistra/issues/58) and a broader
+browser redesign [#59](https://github.com/ManuelSe/Neistra/issues/59) remain separate.
+
+C4 qualifies native GPU mesh pixels/whole-object marker buffers, actual mouse/touch
+activation, keyboard/focus restoration, scoped light/dark axe,320px/long names and
+real100%/200%Chrome zoom. Lazy input allocation, serial workers, individual cancellation,
+retained-output accounting and established capacity/movement budgets pass.
+Calculation2GiB/retained meshes1GiB bounds do not cap whole-browser or GPU memory.
+Pinned Chromium/SwiftShader and Pixel 7 emulation do not establish physical-device,
+cross-browser or hardware-GPU qualification. Native250k-atom reduced detail remains.
+
+### Verification and review
+
+The [approved plan](plans/issue-57-independent-surface-objects.md),
+[C1](assets/surface-objects/c1-verification.json), [C2](assets/surface-objects/c2-verification.json),
+[C3](assets/surface-objects/c3-verification.json) and [C4](assets/surface-objects/c4-verification.json)
+record independently checked milestones, actual tagged producer/reader/backup
+qualification and resolved diagnostic findings. C4 passes183 focused Python,
+214frontend and10 final pointer/object/queue/access cases with2 intentional layout
+skips; separate scientific/capacity/movement/zoom evidence is retained. [Complete clean candidate](assets/surface-objects/c5-candidate-gate.json) at`b6281bc` passes **556Python, 214frontend, 8supervisor, 190browser/44 intentional skips**, zero failures/flakes/retries; frozen installs/fresh0014/lint/types/build/diff all pass. Actual tagged0.13.2 upgrade/refusal/backup checks pass with final0.14.0. Exact merged gate and publication evidence remain required before delivery is declared complete. Local review is self-review unless
+an actual independent GitHub review is recorded. See [surface guidance](SURFACES.md).
+
 ## 0.13.2 - 2026-10-14 - Viewer notification timeout
 
 ### Fixes and notification lifetime

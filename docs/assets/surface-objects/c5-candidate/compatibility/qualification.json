@@ -1,0 +1,64 @@
+{
+  "stage": "candidate",
+  "source_commit": "b6281bc5047f5bfd9b96bba0b2d31728f4d4a2ff",
+  "actual_old_tag_commit": "c21de2e3f76241acb1705d7ec80aae9baf499bdf",
+  "all_passed": true,
+  "results": [
+    {
+      "name": "old-migration",
+      "exit_code": 0,
+      "source": "v0.13.2@c21de2e",
+      "duration_seconds": 0.553,
+      "log": "old-migration.log"
+    },
+    {
+      "name": "producer",
+      "exit_code": 0,
+      "source": "v0.13.2@c21de2e",
+      "duration_seconds": 3.86,
+      "log": "producer.log"
+    },
+    {
+      "name": "new-migration",
+      "exit_code": 0,
+      "source": "b6281bc5047f5bfd9b96bba0b2d31728f4d4a2ff",
+      "duration_seconds": 0.478,
+      "log": "new-migration.log"
+    },
+    {
+      "name": "upgrade",
+      "exit_code": 0,
+      "source": "b6281bc5047f5bfd9b96bba0b2d31728f4d4a2ff",
+      "duration_seconds": 1.53,
+      "log": "upgrade.log"
+    },
+    {
+      "name": "reader-migration",
+      "exit_code": 0,
+      "source": "v0.13.2@c21de2e",
+      "duration_seconds": 0.547,
+      "log": "reader-migration.log"
+    },
+    {
+      "name": "reader",
+      "exit_code": 0,
+      "source": "v0.13.2@c21de2e",
+      "duration_seconds": 1.199,
+      "log": "reader.log"
+    },
+    {
+      "name": "rollback",
+      "exit_code": 0,
+      "source": "v0.13.2@c21de2e",
+      "duration_seconds": 1.155,
+      "log": "rollback.log"
+    }
+  ],
+  "bundle_sha256": {
+    "legacy-False.molweave.zip": "6330fa68a7da066dc9247690a8440d40dc158e0634f2e1d4bbfdbe0ea8d70df1",
+    "expectations.json": "b21e472322475dbf98bfbc76a438b3477750b5c0a848e544ad34bfe6cc45bf0d",
+    "schema2-False.molweave.zip": "f1235c7904fbbf04b7946baca91cf9953b7a9c875c4f43156d96da95ddd923c4",
+    "schema2-True.molweave.zip": "4f01e528e0b0fff57a50e8aa2b1320f636f416917131a986c7ed70dfff1ff528",
+    "legacy-True.molweave.zip": "0fb32dbdb7ea6fb00b4310399fd2c41de0ad0398134a0340cbd4bf714b5c0a86"
+  }
+}

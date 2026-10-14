@@ -55,9 +55,9 @@ See [Structure groups](docs/GROUPS.md).
 
 Saved **protein pocket views** remain behind
 **Surface options → Pocket…**. Capture ligand or site atoms, choose a protein
-receptor and apply a radius. The view crops a complete protein molecular surface;
+receptor and create a view at the chosen radius. The view crops a complete protein molecular surface;
 it does not discover cavities or infer binding. Hidden seed entries remain valid.
-One pocket is saved per receptor; scenes retain alternatives.
+Several independent pockets can belong to one receptor.
 
 Reversible **Hide / Show** remains in the existing Atom detail row. Hide selected
 atoms while retaining polymer and surface geometry; Show restores prior styles.
@@ -72,20 +72,26 @@ qualified on desktop and Pixel 7 emulation; this is not an arbitrary-device guar
 Select atoms or an entry and open **Style selection**. The compact palette stays
 open while you pick another selection or move the camera. Apply an illustrated
 representation or color swatch immediately, choose **All atoms** or **Carbon only**,
-or use **Surface → Add / Remove**. Representation, surface, color and hydrogen
+or use **Surface → Create / Manage**. Representation, surface, color and hydrogen
 changes remain independently reversible. Scientific help stays on demand.
 
 Fragment surfaces enclose the selected atoms alone. Cut boundaries can create artificial
 faces; they are not context-aware patches. The fixed profile uses a 1.4 Å probe,
-0.5 Å grid and translucent element/selection colors. Visibility and hydrogen
+0.5 Å grid and independently editable appearance. Visibility and hydrogen
 preferences filter the fragment. Existing entry surfaces can remain enabled.
 See the [styling workflow](docs/SELECTION_STYLING.md) and
 [scientific limitations](docs/SCIENTIFIC_LIMITATIONS.md).
 
-Back up managed data and upgrade to migration **0013** before startup. Older
-projects/archives remain readable by v0.12.0. Downgrade to 0012 requires every retained
-pocket definition, including history and scenes, to be null; otherwise restore the
-pre-upgrade backup. Older readers are unsupported for pocket-bearing archives.
+Use **Manage surfaces** to activate, rename, hide, remove and restyle entry,
+fragment and pocket objects. Click/tap a surface to activate it independently of
+atom selection; choose **Select source atoms** when you want its molecular source.
+See the [surface workflow](docs/SURFACES.md).
+
+Back up the complete managed database and artifacts before migration **0014**.
+Project/viewer payloads and new archives use schema **2**; validated schema-1
+archives still import. Upgrade client and server together. New exports require an
+upgraded reader. Downgrade refuses retained objects or empty ordinary representation
+sets, including history; restore the complete pre-upgrade backup for rollback.
 Atomic hiding does not change entry-based Visible export.
 `.molweave.zip`, Python module names, `MOLWEAVE_*` settings and data paths remain
 compatible. See [release notes](docs/RELEASE_NOTES.md) and

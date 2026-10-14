@@ -1,4 +1,5 @@
 import type { SurfaceChannel } from "./surface/protocol";
+import type { SurfaceIdentity } from "./surface/objects";
 import type { InteractionRecord } from "../interactions/types";
 import type { SurfaceStatus } from "./surface/runtime";
 import type { MovementView } from "../coordinates/interactiveTransform";
@@ -23,7 +24,7 @@ export interface ResolvedPocket {
 }
 
 export interface ViewerStructure {
-  pocket?: ResolvedPocket;
+  pockets?: Readonly<Record<string, ResolvedPocket>>;
   entryId: string;
   label: string;
   projection: StructureProjection["viewer"];
@@ -68,8 +69,10 @@ export interface MolecularViewer {
   subscribeCamera(listener: (camera: CameraState) => void): () => void;
   subscribeSelection(listener: (event: ViewerSelectionEvent) => void): () => void;
   subscribeSurfaces(listener: (statuses: SurfaceStatus[]) => void): () => void;
-  cancelSurface(entryId: string, channel?: SurfaceChannel): void;
-  retrySurface(entryId: string, channel?: SurfaceChannel): void;
+  subscribeSurfaceSelection(listener: (surface: SurfaceIdentity) => void): () => void;
+  setActiveSurface(surface: SurfaceIdentity | null): void;
+  cancelSurface(entryId: string, channel?: SurfaceChannel, surfaceId?: string): void;
+  retrySurface(entryId: string, channel?: SurfaceChannel, surfaceId?: string): void;
   resize(): void;
   dispose(): void;
 }

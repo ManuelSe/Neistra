@@ -1,4 +1,4 @@
-import type { ColorScheme, RepresentationStyle } from "../api/types";
+import type { ColorScheme, RepresentationStyle, SurfaceObject } from "../api/types";
 import type { ViewerStructure } from "./MolecularViewer";
 import { visibleComponentAtomIds } from "./componentVisibility";
 import {
@@ -10,6 +10,7 @@ import {
 export type RepresentationChannel = "atomic" | "polymer" | "independent";
 
 export interface RepresentationLayer {
+  surface?: SurfaceObject;
   id: string;
   style: RepresentationStyle;
   atomIds: number[];
@@ -88,7 +89,13 @@ export function representationLayers(
         ]
       : [],
   );
-  const layers = [...inherited, ...selectionSpecific];
+  const entrySurfaces = structure.settings.surface_objects.flatMap<RepresentationLayer>(surface =>
+    surface.source.kind === "entry" && surface.visible && surface.appearance.opacity > 0 && visibleIds.size
+      ? [{ id: `surface-${surface.id}`, surface, style: "surface", atomIds: [...visibleIds],
+        colorBy: surface.appearance.color_by, customColor: surface.appearance.custom_color,
+        opacity: surface.appearance.opacity, exactTarget: false }]
+      : []);
+  const layers = [...inherited, ...entrySurfaces, ...selectionSpecific];
   const hidden = new Set(structure.settings.selection_hidden_atoms);
   if (!hidden.size) return layers;
   // Apply only after channel assignment. Shared visibility, polymers and surfaces

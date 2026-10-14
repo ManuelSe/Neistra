@@ -76,10 +76,16 @@ def prune_selection_representations(
         for item in settings.get("selection_nonpolar_hydrogens", [])
         if (retained := sorted(set(item["atom_ids"]) - deleted_atom_ids))
     ]
-    surface = settings.get("selection_surface")
-    if surface is not None:
-        retained = sorted(set(surface["atom_ids"]) - deleted_atom_ids)
-        updated["selection_surface"] = {**surface, "atom_ids": retained} if retained else None
+    surfaces = []
+    for surface in settings.get("surface_objects", []):
+        source = surface["source"]
+        if source["kind"] != "fragment":
+            surfaces.append(surface)
+            continue
+        retained = sorted(set(source["atom_ids"]) - deleted_atom_ids)
+        if retained:
+            surfaces.append({**surface, "source": {**source, "atom_ids": retained}})
+    updated["surface_objects"] = surfaces
     return updated
 
 
@@ -150,6 +156,7 @@ def validate_polymer_selection(structure: NormalizedStructureV1, selected: set[i
 def default_viewer_settings(structure_type: str) -> dict[str, Any]:
     style = "cartoon" if structure_type in {"protein", "complex"} else "ball-and-stick"
     return {
+        "schema_version": 2,
         "representations": [
             {
                 "id": "primary",
@@ -159,8 +166,7 @@ def default_viewer_settings(structure_type: str) -> dict[str, Any]:
                 "opacity": 1.0,
             }
         ],
-        "selection_surface": None,
-        "selection_pocket_surface": None,
+        "surface_objects": [],
         "selection_hidden_atoms": [],
         "selection_representations": [],
         "selection_colors": [],
@@ -185,44 +191,39 @@ def default_viewer_settings(structure_type: str) -> dict[str, Any]:
 def prune_pocket_seeds(
     settings: dict[str, Any], seed_entry_id: str, deleted_atom_ids: set[int] | None
 ) -> dict[str, Any]:
-    pocket = settings.get("selection_pocket_surface")
-    if pocket is None:
-        return settings
-    retained = [
-        reference
-        for reference in pocket["seed_atom_references"]
-        if not (
-            reference["structure_id"] == seed_entry_id
-            and (deleted_atom_ids is None or reference["atom_id"] in deleted_atom_ids)
-        )
-    ]
-    if len(retained) == len(pocket["seed_atom_references"]):
-        return settings
-    return {
-        **settings,
-        "selection_pocket_surface": (
-            {**pocket, "seed_atom_references": retained} if retained else None
-        ),
-    }
+    surfaces = []
+    for surface in settings.get("surface_objects", []):
+        source = surface["source"]
+        if source["kind"] != "pocket":
+            surfaces.append(surface)
+            continue
+        retained = [
+            reference
+            for reference in source["seed_atom_references"]
+            if not (
+                reference["structure_id"] == seed_entry_id
+                and (deleted_atom_ids is None or reference["atom_id"] in deleted_atom_ids)
+            )
+        ]
+        if retained:
+            surfaces.append({**surface, "source": {**source, "seed_atom_references": retained}})
+    return {**settings, "surface_objects": surfaces}
 
 
 def remap_pocket_seeds(settings: dict[str, Any], entry_ids: dict[str, str]) -> dict[str, Any]:
-    pocket = settings.get("selection_pocket_surface")
-    if pocket is None:
-        return settings
-    references = [
-        {
-            **reference,
-            "structure_id": entry_ids.get(reference["structure_id"], reference["structure_id"]),
-        }
-        for reference in pocket["seed_atom_references"]
-    ]
-    return {
-        **settings,
-        "selection_pocket_surface": {
-            **pocket,
-            "seed_atom_references": sorted(
-                references, key=lambda reference: (reference["structure_id"], reference["atom_id"])
-            ),
-        },
-    }
+    surfaces = []
+    for surface in settings.get("surface_objects", []):
+        source = surface["source"]
+        if source["kind"] == "pocket":
+            references = [
+                {**ref, "structure_id": entry_ids.get(ref["structure_id"], ref["structure_id"])}
+                for ref in source["seed_atom_references"]
+            ]
+            source = {
+                **source,
+                "seed_atom_references": sorted(
+                    references, key=lambda ref: (ref["structure_id"], ref["atom_id"])
+                ),
+            }
+        surfaces.append({**surface, "source": source})
+    return {**settings, "surface_objects": surfaces}

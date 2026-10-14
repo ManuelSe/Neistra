@@ -1,0 +1,32 @@
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+[2m[WebServer] [22mINFO:     Started server process [640269]
+[2m[WebServer] [22mINFO:     Waiting for application startup.
+[2m[WebServer] [22mINFO:     Application startup complete.
+[2m[WebServer] [22mINFO:     Uvicorn running on http://127.0.0.1:8020 (Press CTRL+C to quit)
+[2m[WebServer] [22m(node:640329) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:640341) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 8 tests using 1 worker
+
+(node:640367) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:640367) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/e2e/surface-objects.spec.ts:11:5 › native same-entry surface objects have independent identity, colors, mesh and whole-object activation (14.8s)
+  ✓  2 [chromium] › tests/e2e/surface-objects.spec.ts:123:5 › manages production object appearance and explicit sources independently through reload and undo (12.7s)
+  ✓  3 [chromium] › tests/e2e/viewer-click-selection.spec.ts:198:5 › keeps primary selection and empty clearing independent from the camera (18.4s)
+  -  4 [chromium] › tests/e2e/viewer-click-selection.spec.ts:365:5 › uses the compact trigger path for selection and empty clearing
+(node:640626) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:640626) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  5 [mobile-chromium] › tests/e2e/surface-objects.spec.ts:11:5 › native same-entry surface objects have independent identity, colors, mesh and whole-object activation (7.6s)
+  ✓  6 [mobile-chromium] › tests/e2e/surface-objects.spec.ts:123:5 › manages production object appearance and explicit sources independently through reload and undo (12.5s)
+  -  7 [mobile-chromium] › tests/e2e/viewer-click-selection.spec.ts:198:5 › keeps primary selection and empty clearing independent from the camera
+  ✓  8 [mobile-chromium] › tests/e2e/viewer-click-selection.spec.ts:365:5 › uses the compact trigger path for selection and empty clearing (3.7s)
+
+  2 skipped
+  6 passed (1.2m)

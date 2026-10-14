@@ -1,0 +1,67 @@
+{
+  "queued": {
+    "descriptors": 4,
+    "extractions": 1,
+    "states": [
+      "queued",
+      "queued",
+      "queued",
+      "queued"
+    ]
+  },
+  "beforeRelease": {
+    "descriptors": 4,
+    "extractions": 1
+  },
+  "after": {
+    "descriptors": 4,
+    "extractions": 3
+  },
+  "final": {
+    "statuses": [
+      {
+        "entryId": "01a13b46-aae3-7380-9454-a2902518f829",
+        "channel": "fragment",
+        "surfaceId": "fragmentA",
+        "label": "string · Renamed while queued",
+        "state": "ready",
+        "message": "1,001 atoms · ready"
+      },
+      {
+        "entryId": "01a13b46-aae3-7380-9454-a2902518f829",
+        "channel": "fragment",
+        "surfaceId": "fragmentB",
+        "label": "string · fragmentB",
+        "state": "ready",
+        "message": "1,001 atoms · ready"
+      },
+      {
+        "entryId": "01a13b46-aae3-7380-9454-a2902518f829",
+        "channel": "pocket",
+        "surfaceId": "pocketA",
+        "label": "string · pocketA",
+        "state": "ready",
+        "message": "901 atoms · ready"
+      },
+      {
+        "entryId": "01a13b46-aae3-7380-9454-a2902518f829",
+        "channel": "pocket",
+        "surfaceId": "pocketB",
+        "label": "string · pocketB",
+        "state": "cancelled",
+        "message": "Cancelled · definition kept."
+      }
+    ],
+    "workers": {
+      "created": 3,
+      "terminated": 3,
+      "active": 0,
+      "maximum": 1
+    },
+    "meshes": [
+      "[\"01a13b46-aae3-7380-9454-a2902518f829\",\"fragmentA\"]",
+      "[\"01a13b46-aae3-7380-9454-a2902518f829\",\"fragmentB\"]",
+      "[\"01a13b46-aae3-7380-9454-a2902518f829\",\"pocketA\"]"
+    ]
+  }
+}

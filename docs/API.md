@@ -16,7 +16,7 @@ generates OpenAPI at `/api/v1/openapi.json`. Swagger UI is available at
   `{"detail":{"code":"revision_conflict","message":"..."}}`.
 - Molecular parse and format errors use HTTP 422 with file, operation, and
   optional record index. Upload/atom hard limits use HTTP 413.
-- Project responses declare `schema_version: 1`.
+- Project responses declare `schema_version: 2`; normalized structures and selections remain schema 1.
 - Mutation, undo, and redo responses may include transient coordinate
   `structure_patches` or affected-entry `topology_patches`; ordinary project
   reads return empty patch lists.
@@ -36,7 +36,8 @@ generates OpenAPI at `/api/v1/openapi.json`. Swagger UI is available at
 | `POST` | `/api/v1/projects/{project_id}/history/undo` | Apply the latest inverse command. |
 | `POST` | `/api/v1/projects/{project_id}/history/redo` | Reapply the next command. |
 | `POST` | `/api/v1/projects/{project_id}/selection-atom-visibility` | Hide or show canonical selected atom detail as one reversible multi-entry command. |
-| `POST` | `/api/v1/projects/{project_id}/selection-pocket-surface` | Apply or remove one saved, seed-centered protein pocket per receptor. |
+| `POST` | `/api/v1/projects/{project_id}/surfaces` | Atomically create entry-owned surface objects. |
+| `PATCH` / `DELETE` | `/api/v1/projects/{project_id}/entries/{entry_id}/surfaces/{surface_id}` | Update or remove one surface object. |
 | `POST` | `/api/v1/projects/{project_id}/selection-representations` | Apply or reset a representation for a canonical selection as one reversible multi-entry command. |
 
 ## Entry and Group Endpoints
@@ -194,13 +195,12 @@ document without duplicating category atom arrays. Classification source is
 
 The projection is read-only. Neistra exposes no component rename,
 reclassification, individual-style, individual-visibility, ligand-designation,
-or subset-export endpoint in this release. `/api/v1` and project/archive schema
-version 1 are unchanged. Alembic head is `0008` for the additive selection-
-representation viewer-settings field.
+or subset-export endpoint. `/api/v1` remains the transport prefix; project/archive
+schema 2 and Alembic head 0014 cover independent surface objects.
 
 ## Selection Contract
 
-Every selection surface uses `SelectionV1`:
+Molecular selection uses `SelectionV1`:
 
 ```json
 {
@@ -280,9 +280,11 @@ validation, atomicity, history, and topology reconciliation cannot be bypassed.
 
 ## Viewer, Measurement, And Scene Contracts
 
-Viewer settings require one or more uniquely identified representations.
+Viewer settings require `schema_version: 2` on writes. Ordinary representations
+may be empty and must have unique IDs.
 Supported entry-level styles are `cartoon`, `backbone`, `line`, `stick`,
-`thick-stick`, `ball-and-stick`, `space-filling`, and `surface`. Color schemes are `element`,
+`thick-stick`, `ball-and-stick`, and `space-filling`. Whole-entry surfaces
+are independent objects in `surface_objects`. Color schemes are `element`,
 `chain`, `residue`, `secondary-structure`, `structure`, and `custom`; opacity
 is in `[0, 1]`. Component and label visibility use explicit booleans.
 Selection representation records contain a style and canonical entry-local atom
@@ -349,7 +351,8 @@ Movement no greater than `1e-9` angstrom on any coordinate in any conformer is a
 no-op: return the unchanged project without artifacts, history, revision/timestamp
 changes or redo truncation. This endpoint is additive; the numerical endpoint
 below retains its existing identity-transform rejection and Euler convention.
-No migration or project/archive/normalized schema change is introduced.
+The transform endpoint itself requires no additional migration; see the current
+project/viewer/archive schema-2 boundary for independent surfaces.
 
 ### Numerical transform and superposition
 
@@ -510,25 +513,54 @@ viewer on full projected connectivity, so selecting polar H can store a preferen
 without changing its visibility. Color and hydrogen values cannot be combined in
 one request. Omitted hydrogen assignments in entry settings are also preserved.
 
-## Selection surface membership (issue #30)
+## Independent surface objects (issue #57)
 
-`POST /api/v1/projects/{project_id}/selection-surface` accepts `expected_revision`,
-the canonical `SelectionV1`, and `action: add | remove`. Add unions exact IDs per
-entry; Remove subtracts them and converts empty membership to null. The fixed
-profile is `molecular-v1`; callers cannot supply arbitrary scientific parameters.
-Invalid references/empty selections fail atomically; stale revisions return 409.
-One changed multi-entry action increments the revision once with exact undo/redo
-settings; unchanged membership creates no command or revision. The response is
-`ProjectRead`, not generated surface geometry or a backend job.
+`POST /api/v1/projects/{project_id}/surfaces` accepts `expected_revision` and a
+nonempty `surfaces` batch. Each item has `entry_id`, optional `name`, `source`,
+and optional `appearance` (1–100 definitions/request). All targets are validated before any change; one batch
+creates one reversible command. Surface IDs validate/serialize as canonical UUIDs,
+including imported entry and scene definitions. Creation always makes distinct UUIDv7 objects,
+including repeated creation from the same selection. Maximum: 16 objects/entry.
 
-`ViewerSettings.selection_surface` is null or `{profile: "molecular-v1", atom_ids}`.
-Existing entry-settings PUTs preserve omitted surface state and reject changes
-through that route. Scenes, checkpoints, duplication and archives retain the
-setting; topology deletion prunes live/scene targets reversibly. Geometry is
-computed later in the disposable browser renderer. API success confirms saved
-membership, not rendering success. See the [approved plan](plans/issue-30-selection-surfaces.md)
-for scientific interpretation, rendering limits and release qualification.
+Sources:
 
+- `{"kind":"entry"}` follows the owner's current topology using native geometry.
+- `{"kind":"fragment","profile":"molecular-v1","atom_ids":[1,2]}` captures
+  sorted, unique, positive entry-local IDs.
+- `{"kind":"pocket","profile":"pocket-v1","radius":5,"seed_atom_references":[{"structure_id":"entry-id","atom_id":1}]}`
+  captures canonical sorted seed references across project entries. Hidden seeds
+  are valid. Creation/source replacement requires current protein context on the
+  owner. Radius is finite, 2–12 Å in 0.5 Å steps.
+
+`PATCH /api/v1/projects/{project_id}/entries/{entry_id}/surfaces/{surface_id}`
+accepts `expected_revision` and optional `name`, `visible`, `source`, `appearance`.
+Source replacement is explicit and cannot change kind. Appearance is a complete
+object: `color_by`, `custom_color`, `opacity`, `mode` (`solid`/`mesh`),
+`inherit_atom_colors`. Defaults are element, #3b82f6, 0.45, solid, false.
+Supported themes are the existing entry themes. Exact unchanged updates create no
+history. `DELETE` on the same route accepts `{"expected_revision":N}` and removes
+only that object, including when protein context is unavailable. Hiding/removal
+never creates a replacement representation. Stale revisions return 409; invalid
+operations return 422 without partial changes.
+
+Viewer settings contain `surface_objects` and no legacy singleton fields. Generic
+viewer-settings PUT preserves omitted objects and rejects altered objects. Scenes,
+checkpoints, duplication, retained history and archives preserve complete settings.
+Topology deletion prunes fragment atoms and all affected live/scene pocket seeds;
+empty captured definitions are removed with exact inverse state. New atoms never
+join captured sources. UI notices explain affected definitions. Runtime status,
+meshes, and transient active-object selection are excluded from persisted state.
+API success means a definition was saved, not that rendering succeeded.
+
+**Compatibility:** project/viewer payloads and archive manifests are schema 2;
+transport remains `/api/v1`. Legacy singleton endpoints `selection-surface` and
+`selection-pocket-surface` return structured 410 migration guidance. Legacy surface
+representation writes fail with guidance to the object endpoint. Upgrade old
+clients together with the server. Schema-1 archives validate and convert on import;
+schema-2 exports require an upgraded reader. Migration 0014 converts every retained
+viewer snapshot. Back up both database and artifacts before upgrade. Downgrade
+refuses any retained objects or empty ordinary representation sets; restoring the
+complete pre-upgrade backup is the supported rollback.
 
 ## Selection atom-detail visibility (issue #38)
 
@@ -563,32 +595,6 @@ Generic viewer-settings PUT preserves an omitted mask and rejects a changed mask
 use the dedicated action, representation Apply/Reset, or existing scene/history
 operations. This is atomic-detail visibility, not atom deletion or subset export.
 
-### Saved protein pocket surfaces
-
-`POST /api/v1/projects/{project_id}/selection-pocket-surface` accepts
-`expected_revision`, `receptor_entry_id`, `action: "apply" | "remove"`, and
-`pocket` (required for Apply, null/omitted for Remove). The definition is:
-
-```json
-{
-  "profile": "pocket-v1",
-  "seed_atom_references": [{"structure_id": "entry-id", "atom_id": 1}],
-  "radius": 5.0
-}
-```
-
-References must be nonempty, unique, canonically sorted and currently valid across
-the project. Hidden entries/atoms remain valid seeds. Radius is finite, 2–12 Å in
-0.5 Å steps. Apply requires current normalized protein context in the receptor;
-Remove remains available if that context later disappears. Validation and revision
-checks precede mutation. Identical Apply and absent Remove are exact no-ops.
-
-The command stores one nullable `ViewerSettings.selection_pocket_surface` on its
-owner, with exact reversible settings changes. Generic viewer-settings PUT preserves
-an omitted pocket field and rejects changed pocket state; use this action instead.
-Atomic styles, colors, hiding and fragment Add/Remove are independent. Seed deletion
-prunes all affected owners and scenes in the originating reversible command; the
-last deleted seed clears the definition. Meshes and runtime failures are not API state.
 # Transient molecular interaction analysis
 
 `POST /api/v1/projects/{project_id}/interactions` is read-only and requires

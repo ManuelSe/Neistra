@@ -1,6 +1,6 @@
 import { Eye, EyeOff, Info, RotateCcw } from "lucide-react";
 import { useMemo, useRef, useState } from "react";
-import type { ChangePocketSurface, ChangeSelectionAppearance, Entry, Selection, SelectionRepresentationStyle, StructureProjection } from "../api/types";
+import type { SurfaceActions, ChangeSelectionAppearance, Entry, Selection, SelectionRepresentationStyle, StructureProjection } from "../api/types";
 import type { ExpandSelection } from "../selection/expansion";
 import { polymerStyleUnavailableReason } from "../viewer/selectionStyleEligibility";
 import { atomicRepresentationStyles, polymerRepresentationStyles } from "../viewer/settings";
@@ -19,6 +19,7 @@ const LABELS: Record<SelectionRepresentationStyle, string> = {
 
 interface SelectionStyleDialogProps {
   open: boolean;
+  restoreFocus?: boolean;
   selection: Selection;
   entries: Entry[];
   structures: ReadonlyMap<string, StructureProjection>;
@@ -28,22 +29,23 @@ interface SelectionStyleDialogProps {
   onOpenChange: (open: boolean) => void;
   onExpandDistance?: ExpandSelection;
   onAtomVisibility?: (action: "hide" | "show") => Promise<void>;
-  onPocket?: ChangePocketSurface;
+  onSurfaces?: SurfaceActions;
+  onManageSurfaces?: () => void;
   onLoadPocketStructures?: () => Promise<Map<string, StructureProjection>>;
-  onSurface?: (action: "add" | "remove") => Promise<void>;
+  onCreateFragment?: () => Promise<void>;
   onAppearance?: ChangeSelectionAppearance;
   onAction: (action: "apply" | "reset", style?: SelectionRepresentationStyle) => Promise<void>;
 }
 
 export function SelectionStyleDialog(props: SelectionStyleDialogProps) {
   return <SelectionPalette open={props.open} onOpenChange={props.onOpenChange}
-    count={props.selection.atoms.length}>
+    count={props.selection.atoms.length} restoreFocus={props.restoreFocus}>
     {props.open ? <SelectionStyleContent {...props} /> : null}
   </SelectionPalette>;
 }
 
 function SelectionStyleContent({ selection, entries, structures, eligibilityBusy,
-  eligibilityError, busy, onAction, onExpandDistance, onAppearance, onSurface, onAtomVisibility, onPocket, onLoadPocketStructures }: SelectionStyleDialogProps) {
+  eligibilityError, busy, onAction, onExpandDistance, onAppearance, onCreateFragment, onAtomVisibility, onSurfaces, onManageSurfaces, onLoadPocketStructures }: SelectionStyleDialogProps) {
   const [pending, setPending] = useState(false);
   const locked = useRef(false);
   const [message, setMessage] = useState<{ text: string; failed: boolean; context: string } | null>(null);
@@ -62,13 +64,7 @@ function SelectionStyleContent({ selection, entries, structures, eligibilityBusy
   const hiddenCount = selection.atoms.filter((atom) => hiddenMemberships.get(atom.structure_id)?.has(atom.atom_id)).length;
   const allHidden = selection.atoms.length > 0 && hiddenCount === selection.atoms.length;
   const mixedHidden = hiddenCount > 0 && !allHidden;
-  const surfaceMemberships = useMemo(() => new Map(entries.map((entry) => [
-    entry.id, new Set(entry.viewer_settings.selection_surface?.atom_ids ?? []),
-  ])), [entries]);
-  const surfaceCount = selection.atoms.filter((atom) => surfaceMemberships.get(atom.structure_id)?.has(atom.atom_id)).length;
-  const selectedEntries = new Set(selection.atoms.map((atom) => atom.structure_id));
-  const entrySurface = entries.some((entry) => selectedEntries.has(entry.id)
-    && entry.viewer_settings.representations.some((item) => item.style === "surface"));
+  const surfaceCount = entries.reduce((sum, entry) => sum + entry.viewer_settings.surface_objects.length, 0);
   const assigned = (style: SelectionRepresentationStyle) => {
     const count = selection.atoms.filter((atom) => memberships.get(atom.structure_id)?.get(style)?.has(atom.atom_id)).length;
     return count === 0 ? false : count === selection.atoms.length ? true : "mixed" as const;
@@ -129,17 +125,18 @@ function SelectionStyleContent({ selection, entries, structures, eligibilityBusy
       </details> : null}
     </fieldset>
     {eligibilityError ? <p role="alert" id="selection-polymer-reason">{eligibilityError}</p> : null}
-    {onSurface ? <div className="selection-surface-controls" role="group" aria-label="Surface"><span><strong>Surface</strong><br /><span aria-live="polite">{surfaceCount}/{selection.atoms.length}{surfaceCount > 0 && surfaceCount < selection.atoms.length ? " · mixed" : ""}</span></span>
-      <button type="button" aria-label="Add surface" disabled={disabled || surfaceCount === selection.atoms.length}
-        onClick={() => void perform(() => onSurface("add"), "Surface membership added.")}>Add</button>
-      <button type="button" aria-label="Remove surface" disabled={disabled || surfaceCount === 0}
-        onClick={() => void perform(() => onSurface("remove"), "Surface membership removed.")}>Remove</button>
-      {onPocket && onLoadPocketStructures ? <PocketSurfaceControls entries={entries} selection={selection}
-        busy={busy || pending} onPocket={onPocket} load={onLoadPocketStructures} /> : <details className="selection-help surface-help"><summary aria-label="About surfaces"><Info size={16} aria-hidden="true" /></summary>
-        <p>A translucent molecular surface of these atoms alone. Cut boundaries can create artificial faces; this is not a patch on the surrounding molecule.
-          Changing the selection leaves the surface in place. Visibility filters still apply. Atom detail, polymer styles and their resets remain independent.</p>
-        {entrySurface ? <p>An entry surface is also enabled. Both surfaces remain visible and may overlap.</p> : null}
-      </details>}
+    {onCreateFragment ? <div className="selection-surface-controls" role="group" aria-label="Surface">
+      <span><strong>Surface</strong><br /><span>{surfaceCount} saved</span></span>
+      <button type="button" aria-label="Create fragment surface" disabled={disabled}
+        onClick={() => void perform(onCreateFragment, "Surface definition saved; check rendering in Surfaces.")}>Create</button>
+      <button type="button" aria-label={`Manage surfaces (${surfaceCount})`} disabled={busy || pending}
+        onClick={onManageSurfaces}>Manage</button>
+      {onSurfaces && onLoadPocketStructures ? <PocketSurfaceControls entries={entries} selection={selection}
+        busy={busy || pending} onCreate={onSurfaces.create} load={onLoadPocketStructures} />
+        : <details className="selection-help surface-help"><summary aria-label="About surfaces"><Info size={16} aria-hidden="true" /></summary>
+          <p>A fragment surface uses only captured atoms. Cut boundaries can create artificial faces.
+            Selection changes do not retarget saved surfaces. Atomic and polymer styles remain independent.</p>
+        </details>}
     </div> : null}
     {onAppearance ? <SelectionColorControls selection={selection} entries={entries} busy={disabled} onChange={appearance} /> : null}
     {onAppearance && !eligibilityError ? <SelectionHydrogenControls selection={selection} entries={entries}

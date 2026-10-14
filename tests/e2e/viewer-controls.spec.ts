@@ -123,7 +123,6 @@ test("applies complete representations, navigation, isolation, and named scenes"
     "stick",
     "ball-and-stick",
     "space-filling",
-    "surface",
   ];
   const colors = [
     "element",
@@ -132,15 +131,15 @@ test("applies complete representations, navigation, isolation, and named scenes"
     "secondary-structure",
     "structure",
     "custom",
-    "element",
   ];
   const settings = {
+    schema_version: 2,
     representations: styles.map((style, index) => ({
       id: `representation-${index}`,
       style,
       color_by: colors[index],
       custom_color: index === 5 ? "#e11d48" : "#3b82f6",
-      opacity: style === "surface" ? 0.35 : 1,
+      opacity: 1,
     })),
     components: {
       hydrogens: false,
@@ -162,6 +161,12 @@ test("applies complete representations, navigation, isolation, and named scenes"
     { data: { expected_revision: current.revision, settings } },
   );
   expect(configured.status()).toBe(200);
+  current = await configured.json() as ProjectRead;
+  const nativeSurface = await request.post(`/api/v1/projects/${project.id}/surfaces`, {
+    data: { expected_revision: current.revision, surfaces: [{ entry_id: protein!.id, name: "Qualification surface",
+      source: { kind: "entry" }, appearance: { color_by: "element", custom_color: "#3b82f6", opacity: 0.35, mode: "solid", inherit_atom_colors: true } }] },
+  });
+  expect(nativeSurface.status()).toBe(200);
   await page.reload();
   await expect(page.locator(".viewer-status")).toContainText("2 visible / 2 loaded", {
     timeout: 30_000,
@@ -213,9 +218,14 @@ test("applies complete representations, navigation, isolation, and named scenes"
 
   await page.getByRole("button", { name: "Open viewer controls" }).click();
   await page.getByLabel("Controlled structure").selectOption(protein!.id);
-  await expect(page.getByLabel(`Representation style for ${protein!.name}`)).toHaveCount(7);
-  await expect(page.getByLabel("Color scheme for surface")).toHaveValue("element");
+  await expect(page.getByLabel(`Representation style for ${protein!.name}`)).toHaveCount(6);
   await expect(page.getByLabel("Custom color for space-filling")).toHaveValue("#e11d48");
+  await page.getByRole("button", { name: "Manage surfaces", exact: true }).click();
+  const surfaces = page.getByRole("dialog", { name: "Surfaces", exact: true });
+  await surfaces.getByRole("button", { name: /^Qualification surface/ }).click();
+  await expect(surfaces.getByLabel("Surface color scheme")).toHaveValue("element");
+  await expect(surfaces.getByLabel("Surface opacity")).toHaveValue("0.35");
+  await surfaces.getByRole("button", { name: "Close surfaces" }).click();
   await expect(page.getByLabel("Viewer navigation")).toBeVisible();
 
   const navigation = page.getByLabel("Viewer navigation");
@@ -269,7 +279,8 @@ test("applies complete representations, navigation, isolation, and named scenes"
       current.entries.find((entry) => entry.id === protein!.id)
         ?.viewer_settings as typeof settings
     ).representations,
-  ).toHaveLength(7);
+  ).toHaveLength(6);
+  expect((current.entries.find(entry => entry.id === protein!.id)!.viewer_settings as { surface_objects: unknown[] }).surface_objects).toHaveLength(1);
 
   await page.getByRole("button", { name: "Delete scene Inspection scene" }).click();
   await expect(

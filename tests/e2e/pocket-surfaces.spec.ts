@@ -23,7 +23,7 @@ for (const file of ["complex/1stp.pdb", "hydrogens/polar_hydrogens_protein.pdb",
     memoryTimer = setInterval(() => { peakRssKiB = Math.max(peakRssKiB, browserRssKiB()); }, 100);
     const result = await page.evaluate(async ({ entry, projection, large }) => {
       const harnessPath = "/src/test/selectionSurfaceHarness.ts", geometryPath = "/src/viewer/surface/geometry.ts", componentPath = "/src/selection/components.ts";
-      const { mountProductionSurfaceHarness } = await import(/* @vite-ignore */ harnessPath);
+      const { mountProductionSurfaceHarness, fixtureSurface } = await import(/* @vite-ignore */ harnessPath);
       const { computeSurface } = await import(/* @vite-ignore */ geometryPath);
       const { componentAtomIds } = await import(/* @vite-ignore */ componentPath);
       const proteinIds = [...new Set(projection.hierarchy.components.filter((c) => c.category === "protein")
@@ -37,7 +37,8 @@ for (const file of ["complex/1stp.pdb", "hydrogens/polar_hydrogens_protein.pdb",
         atomIds: entry.atom_ids, normalized: projection.structure, hierarchy: projection.hierarchy, settings }, 125_000);
       const tasks: number[] = [], observer = new PerformanceObserver((list) => list.getEntries().forEach((task) => tasks.push(task.duration)));
       observer.observe({ type: "longtask", buffered: false });
-      h.source.pocket = { radius: 5, seeds: [{ reference: { structure_id: entry.id, atom_id: seed.id }, coordinates: seed.coordinates }], dependencyKey: "initial" };
+      h.source.settings.surface_objects.push(fixtureSurface({ kind: "pocket", profile: "pocket-v1", radius: 5, seed_atom_references: [{ structure_id: entry.id, atom_id: seed.id }] }));
+      h.source.pockets = { pocket: { radius: 5, seeds: [{ reference: { structure_id: entry.id, atom_id: seed.id }, coordinates: seed.coordinates }], dependencyKey: "initial" } };
       const start = performance.now(); await h.sync([h.source]); const readyMs = performance.now() - start;
       await new Promise((resolve) => setTimeout(resolve, 100)); observer.disconnect();
       const patch = h.geometry(entry.id, "pocket");
@@ -68,10 +69,10 @@ for (const file of ["complex/1stp.pdb", "hydrogens/polar_hydrogens_protein.pdb",
       // For small fixtures exercise coexistence and an explained empty patch.
       let coexistence = true, empty = "not exercised", cancelled = "not exercised", cancellationMs = 0, retried = "not exercised";
       if (!large) {
-        h.source.settings.selection_surface = { profile: "molecular-v1", atom_ids: [seed.id] };
+        h.source.settings.surface_objects = [...h.source.settings.surface_objects.filter(s => s.source.kind !== "fragment"), fixtureSurface({ kind: "fragment", profile: "molecular-v1", atom_ids: [seed.id] })];
         await h.sync([h.source]); coexistence = h.inspect().meshes.length === 2;
         const fragment = h.geometry(entry.id);
-        h.source.pocket = { ...h.source.pocket!, dependencyKey: "cancel" };
+        h.source.pockets!.pocket = { ...h.source.pockets!.pocket, dependencyKey: "cancel" };
         await h.engine.syncStructures([h.source]);
         const cancelledAt = performance.now(); h.engine.cancelSurface(entry.id, "pocket"); await h.wait();
         cancellationMs = performance.now() - cancelledAt;
@@ -79,10 +80,10 @@ for (const file of ["complex/1stp.pdb", "hydrogens/polar_hydrogens_protein.pdb",
         coexistence &&= h.geometry(entry.id) === fragment && h.inspect().statuses.find((s) => s.channel === "fragment")?.state === "ready";
         h.engine.retrySurface(entry.id, "pocket"); await h.wait();
         retried = h.inspect().statuses.find((s) => s.channel === "pocket")!.state;
-        h.source.pocket = { ...h.source.pocket!, dependencyKey: "distant", seeds: [{ reference: { structure_id: entry.id, atom_id: seed.id }, coordinates: [1000, 1000, 1000] }] };
+        h.source.pockets!.pocket = { ...h.source.pockets!.pocket, dependencyKey: "distant", seeds: [{ reference: { structure_id: entry.id, atom_id: seed.id }, coordinates: [1000, 1000, 1000] }] };
         await h.sync([h.source]); empty = h.inspect().statuses.find((s) => s.channel === "pocket")!.state;
-        h.source.settings.selection_surface = null;
-        h.source.pocket = { ...h.source.pocket, dependencyKey: "restored", seeds: [{ reference: { structure_id: entry.id, atom_id: seed.id }, coordinates: seed.coordinates }] };
+        h.source.settings.surface_objects = h.source.settings.surface_objects.filter(s => s.source.kind !== "fragment");
+        h.source.pockets!.pocket = { ...h.source.pockets!.pocket, dependencyKey: "restored", seeds: [{ reference: { structure_id: entry.id, atom_id: seed.id }, coordinates: seed.coordinates }] };
         await h.sync([h.source]);
       }
       const uncolored = h.geometry(entry.id, "pocket");
@@ -140,7 +141,9 @@ for (const file of ["complex/1stp.pdb", "hydrogens/polar_hydrogens_protein.pdb",
     });
     expect(candidates.length).toBeGreaterThan(0);
     for (const { x, y } of candidates) {
+      await page.keyboard.down("Shift");
       await page.mouse.click(box.x + box.width * x, box.y + box.height * y);
+      await page.keyboard.up("Shift");
       if (await page.waitForFunction(() => window.pocketPicks.length > 0, undefined, { timeout: 500 }).then(() => true, () => false)) break;
     }
     const picked = await page.evaluate(() => window.pocketPicks);
@@ -163,13 +166,14 @@ test("invalidates native pockets for hidden seed and receptor preview, cancel an
   await page.goto("/selection-surface-test.html");
   const result = await page.evaluate(async ({ entry, projection }) => {
     const path = "/src/test/selectionSurfaceHarness.ts";
-    const { mountProductionSurfaceHarness } = await import(/* @vite-ignore */ path);
+    const { mountProductionSurfaceHarness, fixtureSurface } = await import(/* @vite-ignore */ path);
     const container = document.createElement("div"); Object.assign(container.style, { position: "fixed", inset: "0" }); document.body.appendChild(container);
     const point = projection.structure.atoms[0].coordinates;
     const source = { entryId: entry.id, label: entry.name, projection: projection.viewer, atomIds: entry.atom_ids,
       normalized: projection.structure, hierarchy: projection.hierarchy, settings: structuredClone(entry.viewer_settings),
-      pocket: { radius: 5, dependencyKey: "hidden-seed", seeds: [{ reference: { structure_id: "hidden-seed", atom_id: 1 }, coordinates: point }] } };
-    source.settings.selection_surface = { profile: "molecular-v1", atom_ids: [1, 2] };
+      pockets: { pocket: { radius: 5, dependencyKey: "hidden-seed", seeds: [{ reference: { structure_id: "hidden-seed", atom_id: 1 }, coordinates: point }] } } };
+    source.settings.surface_objects.push(fixtureSurface({ kind: "pocket", profile: "pocket-v1", radius: 5, seed_atom_references: [{ structure_id: "hidden-seed", atom_id: 1 }] }));
+    source.settings.surface_objects = [...source.settings.surface_objects.filter(s => s.source.kind !== "fragment"), fixtureSurface({ kind: "fragment", profile: "molecular-v1", atom_ids: [1, 2] })];
     const h = await mountProductionSurfaceHarness(container, source);
     const original = h.geometry(entry.id, "pocket")!, fragment = h.geometry(entry.id)!;
     const originalVertices = [...original.vertices], camera = h.engine.getCamera();
@@ -249,20 +253,22 @@ test("saves pockets through the compact panel and restores hidden seed inputs", 
   await expect(pocket.getByRole("combobox", { name: "Pocket receptor" })).toBeFocused();
   await expect(pocket.getByText("22 captured seeds")).toBeVisible();
   await pocket.getByRole("spinbutton", { name: "Pocket radius" }).fill("5.5");
-  await pocket.getByRole("button", { name: "Apply pocket" }).focus();
+  await pocket.getByRole("button", { name: "Create pocket" }).focus();
   await page.keyboard.press("Enter");
-  await expect(pocket.getByText("Pocket saved.")).toBeVisible();
-  await expect(page.getByLabel("Selection surface rendering")).toContainText(/Pocket: .*ready/, { timeout: 30_000 });
+  await expect(pocket.getByText("Pocket definition saved. Check rendering in Surfaces.")).toBeVisible();
+  await expect.poll(async () => (await (await request.get(`/api/v1/projects/${project.id}`)).json()).entries.find((e: { id: string }) => e.id === receptor.id).viewer_settings.surface_objects.length).toBeGreaterThan(0);
   let reads = 0;
   page.on("request", (r) => { if (r.method() === "GET" && /\/entries\/[^/]+\/structure$/.test(r.url())) reads++; });
   project = await (await request.get(`/api/v1/projects/${project.id}`)).json();
-  const saved = project.entries.find((e) => e.id === receptor.id)!.viewer_settings.selection_pocket_surface!;
+  const savedObject = project.entries.find(e => e.id === receptor.id)!.viewer_settings.surface_objects[0];
+  const saved = savedObject.source;
+  if (saved.kind !== "pocket") throw new Error("Expected pocket");
   expect(saved.radius).toBe(5.5); expect(saved.seed_atom_references).toHaveLength(22);
-  // Repeated Apply remains a no-op and uses cached projections.
-  await pocket.getByRole("button", { name: "Apply pocket" }).focus();
+  // Repeated creation makes another independently owned definition using cached projections.
+  await pocket.getByRole("button", { name: "Create pocket" }).focus();
   await page.keyboard.press("Enter");
-  await expect(pocket.getByText("Pocket saved.")).toBeVisible();
-  expect((await (await request.get(`/api/v1/projects/${project.id}`)).json()).revision).toBe(project.revision);
+  await expect(pocket.getByText("Pocket definition saved. Check rendering in Surfaces.")).toBeVisible();
+  expect((await (await request.get(`/api/v1/projects/${project.id}`)).json()).revision).toBe(project.revision + 1);
   for (const theme of ["light", "dark"]) {
     const switcher = page.getByRole("button", { name: `Use ${theme} theme` });
     if (await switcher.count()) await switcher.click();
@@ -283,22 +289,21 @@ test("saves pockets through the compact panel and restores hidden seed inputs", 
   // Persist a cross-entry seed, then reload: the hidden ligand must supply its
   // current projection without becoming a visible molecular object.
   project = await (await request.get(`/api/v1/projects/${project.id}`)).json();
-  const response = await request.post(`/api/v1/projects/${project.id}/selection-pocket-surface`, { data: {
-    expected_revision: project.revision, receptor_entry_id: receptor.id, action: "apply",
-    pocket: { profile: "pocket-v1", radius: 5, seed_atom_references: [{ structure_id: seed.id, atom_id: 1 }] },
+  const response = await request.patch(`/api/v1/projects/${project.id}/entries/${receptor.id}/surfaces/${savedObject.id}`, { data: {
+    expected_revision: project.revision,
+    source: { kind: "pocket", profile: "pocket-v1", radius: 5, seed_atom_references: [{ structure_id: seed.id, atom_id: 1 }] },
   } });
   expect(response.status()).toBe(200);
   await page.reload();
   await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded", { timeout: 30_000 });
-  await expect(page.getByLabel("Selection surface rendering")).toContainText(/Pocket: .*ready/, { timeout: 30_000 });
   for (const notice of await page.getByRole("button", { name: "Dismiss message" }).all()) await notice.click();
-  // Saved pockets remain accessible with an empty current selection.
+  // Objects remain manageable with an empty current atom selection.
   await page.getByRole("button", { name: "Style selection", exact: true }).click();
-  await openPocket();
-  await expect(pocket.getByText("1 captured seeds")).toBeVisible();
-  await pocket.getByRole("button", { name: "Remove pocket" }).click();
-  await expect(pocket.getByText("Pocket removed.")).toBeVisible();
-  await expect(page.getByLabel("Selection surface rendering")).toHaveCount(0);
+  await palette.getByRole("button", { name: "Manage surfaces" }).click();
+  const manager = page.getByRole("dialog", { name: "Surfaces", exact: true });
+  await expect(manager.locator(".surface-object-status").filter({ hasText: "ready" })).toHaveCount(2);
+  await manager.getByRole("button", { name: `Remove surface ${savedObject.name}`, exact: true }).click();
+  await expect(manager.locator(".surface-object")).toHaveCount(1);
   project = await (await request.get(`/api/v1/projects/${project.id}`)).json();
-  expect(project.entries.find((e) => e.id === seed.id)!.visible).toBe(false);
+  expect(project.entries.find(e => e.id === seed.id)!.visible).toBe(false);
 });

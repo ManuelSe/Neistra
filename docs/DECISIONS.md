@@ -3220,3 +3220,199 @@ closure cleanup, state identity, focused-notice deferral and producer warning/ac
 policy retain application ownership without scientific, API shape, schema, migration
 or dependency changes. Publication and issue response are remotely verified; the
 approved feature plan retains the detailed evidence and final cleanup audit link.
+
+
+## D-090 — Identified disposable surface visuals and lazy calculation admission
+
+Date: 2026-10-14. Status: implemented renderer primitives for issue #57 M1/C1;
+production surface-object persistence and management require C2.
+
+Use application `(entryId, surfaceId)` identities independently of molecular atom
+selection. A disposable registry binds native representations to these identities,
+activates the entire representation, and emits only application identity on an
+unmodified primary hit. Modified structural hits retain canonical add/subtract
+selection. Renderer refs never enter project state. The typed lazy viewer boundary
+buffers active identity and forwards surface activation subscriptions; renderer
+rebuilds rebind matching representations without changing molecular selection.
+
+Retain current solid surface geometry. For fragment/pocket mesh display derive the
+same three triangle edges and owner groups as pinned Mol* Lines.fromMesh. Allocate
+exact native wide-line buffers after admission and yield cooperatively during edge
+conversion. Account retained buffers, native group-mapping output and temporary
+mapping arrays; reserve aggregate display bytes before allocation. This is display
+conversion, not a new scientific profile, field calculation or molecular authority.
+Native entry surfaces retain their existing native geometry/wireframe path in C2.
+
+Surface runtime requests distinguish same-entry objects and retain separate
+cancellation/current-component guards. The one-worker serial queue accepts lazy
+input factories, invoking them only after checking request cancellation and viewer
+lifetime at execution admission. A cancelled queued request never extracts typed
+coordinates/radii. Geometry reuse avoids both calculation and input allocation;
+new display arrays share the existing retained worker-output budget. These are
+accounted buffers, not a browser/GPU memory cap or native entry-calculation bound.
+
+Rationale: singleton channel identity cannot support independent same-entry
+objects, and constructing every queued surface input would multiply memory before
+worker admission. Preserving molecular selection and existing scientific geometry
+keeps this checkpoint independently verifiable without a persisted-state change.
+The production object model, migration and superseding singleton/minimum-display
+rules will be recorded separately in C2; earlier scientific decisions remain intact.
+
+
+## D-091 — Canonical surface objects and the schema-2 compatibility boundary
+
+Date: 2026-10-14. Status: implemented for issue #57 C2; appearance/source editing
+and full release qualification follow in C3/C4.
+
+ViewerSettingsV2 owns up to sixteen ordered surface objects per entry, with stable
+identity, explicit entry/fragment/pocket source, independent appearance, requested
+visibility and distinguishable names. This supersedes the singleton ownership in
+D-057/D-066 and the minimum-one ordinary representation restriction in D-022.
+Removing the last surface or ordinary representation does not invent geometry.
+New fragment creation captures selection separately per entry; repeated creation
+creates another object, without implicit union/subtraction. Historical effects
+remain exact through migrated before/after snapshots.
+
+Server-generated UUIDv7 identifies new objects. Migration 0014 and legacy archive
+conversion derive UUIDv5 from entry ID plus legacy channel/representation identity,
+not membership or appearance; the same historical object keeps identity across
+retained snapshots. Duplication preserves local IDs and remaps self seeds; archive
+import remaps all entry references. Molecular originals, normalized artifacts,
+chemistry warnings, revision/history positions and timestamps are unchanged.
+Topology reconciliation prunes every affected live/scene captured source with exact
+inverse state. Application notices name affected definitions and persist under
+D-089; they do not become fabricated molecular warnings.
+
+Project/viewer payloads and archive manifests advance to schema 2, while normalized
+molecules and selections stay schema 1. `/api/v1` routes remain, with explicit
+schema-2 write discrimination, dedicated revisioned object commands, and structured
+410 guidance for obsolete singleton endpoints. Generic viewer writes cannot mutate
+objects. This is an explicit old-client compatibility break, carried by the approved
+pre-1.0 minor release, rather than parallel writable legacy authorities.
+
+All retained migration paths prevalidate before writes. Downgrade refuses any saved
+object or empty ordinary representation set, including retained history. Restore a
+pre-upgrade database-and-artifact backup for rollback. Schema-1 archives validate
+before conversion; schema-2 exports require an upgraded reader. Actual tagged
+producer/reader compatibility remains a C4 release gate.
+
+The compact nonmodal manager is application-owned. Requested object visibility is
+bounded by parent visibility; unavailable objects remain removable. Saving a
+definition never asserts successful rendering. Native entry calculations stay native;
+worker accounting and deadlines apply to fragment/pocket work only.
+
+
+## D-092 — Explicit source selection and independent surface appearance
+
+Date: 2026-10-14. Status: implemented and checkpoint-qualified for issue #57 C3.
+
+Surface appearance uses the existing supported themes, uniform color, finite
+opacity and solid/mesh display as one revisioned object update. Choosing a theme
+clears atom-color inheritance for that object; the explicit inheritance checkbox
+can restore overpaint precedence. New objects remain independent; migrated ones
+retain prior inheritance. Scientific field keys exclude appearance.
+
+Select source atoms is an explicit molecular-selection action: current entry,
+captured fragment, or complete current protein calculation context. Pocket seeds
+locate the crop and never masquerade as surface membership. Context loading uses
+application-owned artifact-keyed queries, discards stale responses and makes no
+viewer-derived molecular authority. Fragment replacement rejects mixed-owner
+selection rather than silently discarding selected atoms. Pocket radius and seed
+replacement are explicit, retain identity and owner, and require current protein
+context; changing receptor creates a new owner-bound object. Existing display-edit
+policy permits these operations on locked entries while molecular edits stay locked.
+
+The nonmodal manager owns focus only after explicit keyboard/list interaction;
+canvas activation leaves canvas focus in place. Source loading, pending commands
+and errors remain scoped to the active object/project. No new schema migration or
+scientific profile is introduced beyond C2/D-091.
+
+
+## D-093 — Focus ownership during nonmodal tool handoff
+
+Date: 2026-10-14. Status: implemented and keyboard/zoom-qualified during issue #57 C4.
+
+Opening Surfaces from Style selection transfers tool ownership. The closing Style
+palette suppresses its normal launcher restoration while the manager opens; normal
+palette closing retains its existing default. This also preserves canvas focus for
+surface activation. Otherwise the outgoing palette's delayed close callback steals
+focus from the newly opened manager.
+
+When a user closes the manager while focus belongs to it, capture that ownership
+before unmount/blur events, then restore the connected meaningful launcher or the
+stable Style selection action. A connected document body is not a usable launcher.
+External focus and Escape remain owned by the workspace. The manager never restores
+focus merely because it remains open while another workspace control has focus.
+
+Rationale: browser qualification reproduced both an outgoing-palette race and loss
+of close intent during unmount blur. Explicit handoff and close intent preserve
+keyboard reachability without delayed focus timers or a new application focus system.
+Project changes and renderer state do not become persisted focus authority.
+
+## D-094 — Stable calculation snapshots for lazy surface inputs
+
+Date: 2026-10-14. Status: implemented and native queue-qualified for issue #57 C4.
+
+A lazy surface request retains the calculation Structure data value and canonical
+atom-ID mapping matching its immutable dependency key. It must not look up that
+data through a disposable StateObjectSelector when the queue eventually admits
+it. An appearance rebuild can delete/recreate renderer components while unrelated
+requests wait; the old selector then has no object, although the scientific input
+snapshot remains valid.
+
+Capturing the data reference does not allocate typed coordinate/radius inputs.
+Those arrays are still created only at serial queue admission. Molecular dependency
+changes cancel obsolete requests; appearance-only rebuilds keep the same scientific
+snapshot and rebind completion to the current visual component. No molecular
+state, profile, geometry algorithm or persisted schema changes.
+
+The native regression holds the first actual worker dispatch, rebuilds components
+with four same-entry fragment/pocket requests queued, and cancels one queued pocket.
+Only one input is extracted before release and three in total; the cancelled input
+is never materialized, all remaining objects render, and maximum active workers is
+one. Desktop qualification reproduces the failure before the fix; desktop and
+mobile qualification both pass after it.
+
+## D-095 — Canonical identifiers and retained schema-2 validators
+
+Date: 2026-10-14. Status: implemented and migration/archive-qualified for issue #57 C4.
+
+Surface IDs validate as UUID strings and serialize canonically, matching generated
+UUIDv7 and migrated UUIDv5 identities and existing archive identifier conventions.
+Validate them in every surface-object model, including scene archive state, before
+publishing imported projects. Malformed strings cannot identify objects through
+the entry-owned API routes and must not become durable state. UUID normalization
+precedes per-entry uniqueness checks. Legacy archive owner UUIDs normalize before
+deriving IDs, so equivalent UUID spelling cannot split one object across snapshots.
+
+Keep explicit ViewerSettingsV2 and SceneEntryStateV2 models for migration0014 and
+manifest2 readers; application code uses current aliases. A future incompatible
+schema must introduce its own versioned models and preserve the V2 contract and
+nested semantics. Historical migration validation must not accidentally advance
+when the application's current alias changes.
+
+Rationale: negative archive tests reproduced acceptance of unaddressable entry and
+scene object IDs. Canonical UUID validation rejects both atomically. Explicit
+versioned validation also preserves the declared migration/archive boundary during
+future application development. No molecular format, profile or additional database
+revision is introduced.
+
+
+## D-096 — Requested and bound generations own structural picks
+
+Date: 2026-10-14. Status: implemented and native pointer-qualified for issue #57 C4.
+
+A structural synchronization immediately advances the requested generation and
+retires surface bindings. Ignore structural clicks until the bound generation
+matches that request and the rebuild has finished. Update the bound generation
+only after the complete current scene commits. This prevents still-visible pixels
+from retired surfaces falling through to molecular selection while the serialized
+rebuild waits. A failed rebuild cannot make unknown bindings authoritative.
+
+Keep this generation guard separate from the existing rebuilding flag because
+camera capture/navigation uses that flag. Navigation keeps its existing ownership;
+application molecular state remains authoritative. Modifier selection resumes with
+the current scene. Native desktop/mobile tests deliberately hold the rebuild queue,
+click old surface pixels, verify unchanged atom selection, then release the rebuild
+and activate the current complete object. The diagnostic reproduced zero-to-one
+atom selection before this guard; both viewports pass after it.

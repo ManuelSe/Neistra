@@ -1,5 +1,26 @@
 # V0.1 Requirement Evidence
 
+Issue #57 follows the [approved surface-object plan](plans/issue-57-independent-surface-objects.md).
+[C1](assets/surface-objects/c1-verification.json) qualifies disposable identity,
+whole-object activation/highlighting and bounded mesh lines. [C2](assets/surface-objects/c2-verification.json)
+qualifies canonical schema2 objects, migration0014 retained paths/atomic refusals,
+revisioned commands, archives, topology and minimal grouped management. Final focused
+Python178 and frontend209 pass, alongside lint/types/build/Ruff/mypy; fragment/pocket
+browser19 and separate full application journey1 pass. Diagnostic failures and their
+focused fixes remain explicit. [C3](assets/surface-objects/c3-verification.json) qualifies independent appearance,
+explicit source scopes/replacement, locked-entry display editing, cache reuse and
+real production mouse/touch activation with unchanged atom selection/camera/project.
+All214frontend/5API and final6browser checks pass; adjacent43 browser checks pass
+and the obsolete selection fixture passes its focused final rerun.
+[C4](assets/surface-objects/c4-verification.json) qualifies actual tagged v0.13.2
+upgrade, old-reader schema2 refusal and full backup restoration; focused Python183,
+multiple same-entry fragments/pockets, native entry wireframe GPU pixels/complete
+marker buffers, source editing, lazy serial queue lifecycle and stale-pixel ownership.
+Existing capacity/scientific/movement budgets, scoped light/dark axe, keyboard,
+320px/long names/coarse targets and actual100%/200%Chrome zoom pass. Resolved
+diagnostics remain separate from passing evidence. [C5 clean candidate](assets/surface-objects/c5-candidate-gate.json) at`b6281bc` passes 556Python/214frontend/8supervisor/190browser with44 intentional skips and zero failures/flakes/retries, plus every frozen-install/fresh0014/static/build command. Actual tagged0.13.2 compatibility against final0.14.0 passes. Exact merged gate/publication remain; no release claim is made. Earlier issue evidence
+below is historical and predates the schema2 boundary.
+
 Issue #56 follows the [approved notification plan](plans/issue-56-viewer-notification-timeout.md).
 [C1 evidence](assets/viewer-notifications/c1-verification.json) qualifies exact
 10-second boundaries, replacement/repeated text, stale callbacks, cleanup, warning

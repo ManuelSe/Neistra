@@ -1,0 +1,18 @@
+{
+  "candidate_commit": "1bfb4b8",
+  "status": "interrupted diagnostic, not a passing release gate",
+  "passed": 82,
+  "failed": 1,
+  "interrupted": 1,
+  "skipped": 6,
+  "not_run": 144,
+  "finding": "Visibility fixture expects primary surface hits to select atoms; approved object activation intercepts them.",
+  "resolution": "Shift-modified native click retains molecular picking; all polymer/geometry/label/measurement/selection/camera assertions unchanged. Audited other surface-picking workflows.",
+  "focused_desktop_mobile_passed": 2,
+  "application_change": false,
+  "full_gate_must_repeat": true,
+  "sha256": {
+    "focused-pass.log": "d0091e5932cf21ce29237ebb81c10087b147432cc143d8e30b83429cec2ed1ff",
+    "candidate-diagnostic.log": "5267b395ff7f7ffe92d97957f4a542e9bf64ada55184fa149956267ce7bdaafe"
+  }
+}

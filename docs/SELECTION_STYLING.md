@@ -60,42 +60,16 @@ browser support. These v0.6.1 comparison captures predate the later surface and 
 The compact-layout release itself added no persisted setting or public API; current
 surface and visibility behavior is described here. No presets or hover previews are added.
 
-## Selection surfaces
+## Independent surface objects
 
-In **Style selection → Surface**, **Add surface** adds the selected atoms to a
-saved surface membership; **Remove surface** subtracts them. The count reports how
-many currently selected atoms are members (including mixed selections). Each
-entry has one membership and its own geometry. Changing or clearing the current
-selection does not retarget it. Representation, color and hydrogen resets remain
-independent. Entry-level surfaces can coexist; overlapping translucent surfaces
-can obscure each other.
-
-The surface encloses the member atoms alone, with a fixed molecular profile
-(1.4 Å probe, 0.5 Å grid, opacity 0.45). It is a fragment surface: cut boundaries
-can produce artificial faces. It is not a context-aware patch, a solvent-accessible
-surface, or a chemistry repair. **About surfaces** explains this in the palette.
-Element colors and selection color overrides, including carbon-only coloring,
-apply. Entry/component visibility, isolation and hydrogen preferences filter the
-visible fragment without changing saved membership.
-
-Rendering runs asynchronously, with status outside the palette. **Cancel** stops
-rendering and keeps membership; **Retry** retries a cancelled or failed request.
-Failures or resource limits show lines for the same target. Smaller memberships
-can fit limits of 100,000 visible atoms, 64 million padded grid cells, 512 MiB mesh
-allocation per surface and 1 GiB retained meshes per viewer. Each active calculation
-is admitted against a 2 GiB buffer budget and stops after 120 seconds. Entries with at least 250,000 atoms retain reduced-detail behavior.
-These are allocation/work limits, not a browser or GPU memory guarantee.
-
-Coordinate previews hide stale geometry. Committing coordinates or cancelling a
-preview regenerates the appropriate surface. Undo/redo, scenes, project saves and
-archives retain memberships. Deleted atoms are pruned reversibly; newly added atoms
-do not automatically join. Migration 0011 and rollback restrictions are documented
-in [Development](DEVELOPMENT.md).
-
-C4 visual qualification: [light, 100% zoom](assets/selection-surfaces/palette-light-100.png)
-and [dark, actual 200% browser zoom](assets/selection-surfaces/palette-dark-200.png).
-These show the compact action row after a removal; the narrow palette scrolls
-within its bounds with its close control retained in the sticky header.
+Use **Surface → Create** for captured fragments and **Manage** for saved objects.
+Repeated creation makes distinct objects; selections spanning entries create one
+object per owner atomically. Entry surfaces come from Display; protein pockets
+come from Surface options. The manager provides whole-object activation, independent
+appearance, source selection/replacement, visibility, removal and per-object status.
+Molecular selection remains separate from object activation. See the current
+[surface workflow](SURFACES.md) for controls, source scopes, scientific limits,
+compatibility and rollback. Historical singleton Add/Remove controls are retired.
 
 
 ## Hiding, saving and exporting
@@ -118,35 +92,11 @@ instructions are in DEVELOPMENT. The feature plan records actual verification.
 
 ## Saved protein pocket views
 
-Choose **Surface options → Pocket…** in the selection palette. Choose a receptor
-when more than one entry contains protein, set the radius (5 Å initially), and
-Apply. The initial selection becomes captured seeds. Later selection changes do
-not retarget that view; **Use selection** explicitly captures a replacement.
-Reopening an existing pocket loads its saved seeds and radius. Closing the panel
-discards unapplied changes. Remove clears the pocket even with an empty selection;
-the Style selection launcher remains available while saved pockets exist.
-
-This view crops the molecular surface calculated from the complete current protein
-component. Radius is the inclusive distance from a surface triangle's centroid to
-any seed center, from 2–12 Å in 0.5 Å steps. It is a nearby surface view, not cavity
-detection or evidence of binding. Cut edges are open and can look stepped; separate
-seed regions may yield disconnected pieces. Empty output is explained without
-inventing geometry or enlarging the radius.
-
-Supplied protein hydrogens contribute even when atom detail is hidden. Separately
-classified ligands, water, ions and cofactors do not provide receptor context.
-Hidden seeds still supply current coordinates. Hiding the receptor/protein hides
-its pocket; isolation filters receptor-owned display triangles while preserving
-full calculation context. Colors and picks belong to the receptor, not the seeds.
-
-One pocket is stored per receptor. Scenes provide alternate views. Fragment,
-pocket and whole-entry surfaces can coexist and overlap; fragment Remove and atom/
-color resets do not remove the pocket. Fragment/Pocket status labels route Cancel
-and Retry to the requested calculation. Failed or cancelled pockets retain their
-definition without substituting a scientifically different fragment or line mesh.
-
-Coordinate previews hide obsolete dependent pockets, including previews of hidden
-seed entries. Cancel restores committed geometry; commit uses current coordinates.
-Deleted seeds are pruned reversibly across owners/scenes; the last seed clears the
-definition. Checkpoints, restart, duplication and project archives retain intent.
-No mesh, inferred alignment, preparation, volume or score is stored.
+Choose **Surface options → Pocket…** to create a new owner-bound view from captured
+seeds and radius (default5Å). Each creation makes another independent object. Edit
+existing radius/seeds in **Manage surfaces**, and use **Select source atoms** to
+select complete protein calculation context rather than seeds. Multiple pockets,
+fragments and entry surfaces coexist. Saved definitions survive scene/history,
+checkpoint/restart/duplication and archives. Hidden seed coordinates remain valid;
+previews hide obsolete dependent patches. See [Surfaces](SURFACES.md) and
+[scientific limits](SCIENTIFIC_LIMITATIONS.md#protein-pocket-geometry-issue-36).

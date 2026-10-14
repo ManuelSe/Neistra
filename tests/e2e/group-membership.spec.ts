@@ -221,15 +221,17 @@ test("keeps a live molecular viewer and prepared surface unchanged during member
   });
   const initial = await setup(page, request, info);
   const receptor = initial.entries.find(entry => entry.source_format === "pdb")!;
-  const surface = await request.post(`/api/v1/projects/${initial.id}/selection-surface`, { data: {
+  const surface = await request.post(`/api/v1/projects/${initial.id}/surfaces`, { data: {
     expected_revision: initial.revision,
-    selection: { schema_version: 1, granularity: "atom", source: "project", atoms: receptor.atom_ids.map(atom_id => ({ structure_id: receptor.id, atom_id })) },
-    action: "add",
+    surfaces: [{ entry_id: receptor.id, source: { kind: "fragment", profile: "molecular-v1", atom_ids: receptor.atom_ids } }],
   } });
   expect(surface.status(), await surface.text()).toBe(200);
   await page.reload();
   await expect(page.locator(".viewer-status")).toContainText("2 visible / 2 loaded", { timeout: 30000 });
-  await expect(page.getByLabel("Selection surface rendering")).toContainText("ready", { timeout: 30000 });
+  await page.getByRole("button", { name: "Style selection", exact: true }).click();
+  await page.getByRole("button", { name: "Manage surfaces" }).click();
+  await expect(page.locator(".surface-object-status")).toContainText("ready", { timeout: 30000 });
+  await page.getByRole("button", { name: "Close surfaces" }).click();
   // Instrument the loaded production module in this test context; no product debug API.
   await page.evaluate(async () => {
     const moduleUrl = "/src/viewer/MolstarEngine.ts";
@@ -269,13 +271,12 @@ test("keeps a live molecular viewer and prepared surface unchanged during member
   await page.getByRole("button", { name: "Move structures" }).click();
   await expect(page.getByRole("dialog", { name: "Move to group" })).toBeHidden();
   await expect(page.locator(".viewer-status")).toHaveText(selected!);
-  await expect(page.getByLabel("Selection surface rendering")).toContainText("ready");
   const after = await readEvidence();
   expect(after).toEqual(before);
   expect(Object.values(after.counts)).toEqual(Object.values(after.counts).map(() => 0));
   expect(gets).toEqual([]);
   const state = await getProject(request, initial.id);
-  expect(state.entries.find(entry => entry.id === receptor.id)?.viewer_settings.selection_surface?.atom_ids).toEqual(receptor.atom_ids);
+  expect(state.entries.find(entry => entry.id === receptor.id)?.viewer_settings.surface_objects[0].source.atom_ids).toEqual(receptor.atom_ids);
   await info.attach("membership-viewer-invariance", { body: JSON.stringify({ before, after, normalizedRequests: gets }), contentType: "application/json" });
 });
 

@@ -7,11 +7,12 @@ export class SurfaceCalculator {
   private disposed = false;
   constructor(private readonly makeWorker = () => new Worker(new URL("./surface.worker.ts", import.meta.url), { type: "module" })) {}
 
-  compute(input: SurfaceInput, signal: AbortSignal, progress?: (message: string) => void): Promise<SurfaceGeometry> {
+  compute(input: SurfaceInput | (() => SurfaceInput), signal: AbortSignal, progress?: (message: string) => void): Promise<SurfaceGeometry> {
     const next = this.queue.then(() => {
       signal.throwIfAborted();
       if (this.disposed) throw new DOMException("Surface viewer disposed.", "AbortError");
-      return this.run(input, signal, progress);
+      // Queued requests retain a descriptor, not full coordinate/radius arrays.
+      return this.run(typeof input === "function" ? input() : input, signal, progress);
     });
     this.queue = next.catch(() => {});
     return next;

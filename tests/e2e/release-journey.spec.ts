@@ -142,9 +142,10 @@ async function pickVisibleStructure(page: Page): Promise<void> {
     [0.45, 0.65],
     [0.55, 0.65],
   ]) {
-    await canvas.click({ position: { x: box!.width * x, y: box!.height * y } });
+    // Modified surface hits retain molecular selection; unmodified hits activate the object.
+    await canvas.click({ modifiers: ["Shift"], position: { x: box!.width * x, y: box!.height * y } });
     await page.waitForTimeout(100);
-    if (((await page.locator(".viewer-status").textContent()) ?? "").match(/\/ [1-9]\d* selected/)) {
+    if ((await page.locator(".selection-meta").textContent())?.includes("from viewer")) {
       return;
     }
   }
@@ -196,14 +197,16 @@ test("completes the MolWeave v0.1 definition-of-done journey", async ({
   await page.getByRole("button", { name: "Open viewer controls" }).click();
   await page.getByLabel("Controlled structure").selectOption(protein!.id);
   await page.getByLabel("Add representation").selectOption("surface");
-  await expect(page.getByLabel(`Representation style for ${protein!.name}`)).toHaveCount(2);
+  await expect(page.getByRole("dialog", { name: "Surfaces", exact: true })).toBeVisible();
+  await page.getByRole("button", { name: "Close surfaces" }).click();
+  await expect(page.getByLabel(`Representation style for ${protein!.name}`)).toHaveCount(1);
   await page.getByLabel("Controlled structure").selectOption(ligand!.id);
   await page.getByLabel("Add representation").selectOption("space-filling");
   await expect(page.getByLabel(`Representation style for ${ligand!.name}`)).toHaveCount(2);
   await expectNonblankCanvas(page);
   state = await currentProject(request, project!.id);
-  expect(state.entries.find((entry) => entry.id === protein!.id)?.viewer_settings.representations)
-    .toEqual(expect.arrayContaining([expect.objectContaining({ style: "surface" })]));
+  expect(state.entries.find((entry) => entry.id === protein!.id)?.viewer_settings.surface_objects)
+    .toEqual(expect.arrayContaining([expect.objectContaining({ source: { kind: "entry" } })]));
   expect(state.entries.find((entry) => entry.id === ligand!.id)?.viewer_settings.representations)
     .toEqual(expect.arrayContaining([expect.objectContaining({ style: "space-filling" })]));
   await dismissNotice(page);

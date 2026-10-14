@@ -1,3 +1,4 @@
+import { surfaceObject } from "./molecular-fixtures";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { act, cleanup, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -68,7 +69,7 @@ function entry(id: string, visible: boolean) {
 
 function project(proteinVisible = true, ligandVisible = false): Project {
   return {
-    schema_version: 1,
+    schema_version: 2,
     id: "project-1",
     name: "Viewer project",
     description: null,
@@ -251,6 +252,8 @@ class FakeViewer implements MolecularViewer {
   }
 
   subscribeSurfaces(): () => void { return () => {}; }
+  subscribeSurfaceSelection(): () => void { return () => {}; }
+  setActiveSurface(): void {}
   cancelSurface(): void {}
   retrySurface(): void {}
   resize(): void {}
@@ -728,15 +731,8 @@ describe("lazy structure loading", () => {
         selection_representations: [
           { style: "space-filling", atom_ids: [1] },
         ],
-        representations: [
-          {
-            id: "surface",
-            style: "surface",
-            color_by: "element",
-            custom_color: "#3b82f6",
-            opacity: 0.5,
-          },
-        ],
+        representations: [],
+        surface_objects: [surfaceObject("surface", { kind: "entry" }, { opacity: 0.5 })],
         labels: {
           atoms: true,
           residues: true,
@@ -768,7 +764,7 @@ describe("lazy structure loading", () => {
 
     expect(await screen.findByText("reduced detail")).toBeVisible();
     await waitFor(() => {
-      expect(fake.syncs.at(-1)?.[0].settings.representations[0].style).toBe("line");
+      expect(fake.syncs.at(-1)?.[0].settings.surface_objects[0].source.kind).toBe("entry");
     });
     expect(
       fake.syncs.at(-1)?.[0].settings.selection_representations,
@@ -909,29 +905,29 @@ it("loads hidden pocket seeds by artifact, keeps them invisible, and reuses styl
   });
   const queryClient = new QueryClient({ defaultOptions: { queries: { retry: false } } });
   const current = project();
-  current.entries[0].viewer_settings.selection_pocket_surface = {
-    profile: "pocket-v1", radius: 5, seed_atom_references: [{ structure_id: "ligand", atom_id: 1 }],
-  };
+  current.entries[0].viewer_settings.surface_objects = [surfaceObject("pocket", {
+    kind: "pocket", profile: "pocket-v1", radius: 5, seed_atom_references: [{ structure_id: "ligand", atom_id: 1 }],
+  })];
   const props: StructureViewerProps = { project: current, theme: "light", selection: emptySelection,
     pickingGranularity: "atom", onViewerSelection: () => undefined, createViewer };
   const view = render(<StructureViewer {...props} />, { wrapper: wrapper(queryClient) });
-  await waitFor(() => expect(fake.syncs.at(-1)?.[0].pocket?.seeds).toHaveLength(1));
+  await waitFor(() => expect(fake.syncs.at(-1)?.[0].pockets?.pocket?.seeds).toHaveLength(1));
   expect(fake.syncs.at(-1)?.map((s) => s.entryId)).toEqual(["protein"]);
   expect(fetchSpy).toHaveBeenCalledTimes(2);
-  const key = fake.syncs.at(-1)![0].pocket!.dependencyKey;
+  const key = fake.syncs.at(-1)![0].pockets!.pocket.dependencyKey;
   const styled = structuredClone(current);
   styled.entries[0].viewer_settings.selection_hidden_atoms = [1];
   view.rerender(<StructureViewer {...props} project={styled} selection={{ ...emptySelection, atoms: [{ structure_id: "protein", atom_id: 1 }] }} />);
   await waitFor(() => expect(fake.syncs.at(-1)?.[0].settings.selection_hidden_atoms).toEqual([1]));
-  expect(fake.syncs.at(-1)![0].pocket!.dependencyKey).toBe(key);
+  expect(fake.syncs.at(-1)![0].pockets!.pocket.dependencyKey).toBe(key);
   expect(fetchSpy).toHaveBeenCalledTimes(2);
   const moved = structuredClone(styled);
   moved.entries[1].current_artifact_id = "new-ligand-coordinates";
   moved.structure_patches = [{ entry_id: "ligand", artifact_id: "new-ligand-coordinates", atom_ids: [1], coordinates: [[1, 2, 3]] }];
   view.rerender(<StructureViewer {...props} project={moved} />);
   await waitFor(() => expect(fake.coordinatePatches.some((item) => item.patch.entry_id === "ligand" && item.mode === "commit")).toBe(true));
-  await waitFor(() => expect(fake.syncs.at(-1)?.[0].pocket?.unavailable).toBeUndefined());
+  await waitFor(() => expect(fake.syncs.at(-1)?.[0].pockets?.pocket?.unavailable).toBeUndefined());
   expect(fetchSpy).toHaveBeenCalledTimes(3);
   expect(fake.syncs.at(-1)?.map((s) => s.entryId)).toEqual(["protein"]);
-  expect(fake.syncs.at(-1)![0].pocket!.dependencyKey).not.toBe(key);
+  expect(fake.syncs.at(-1)![0].pockets!.pocket.dependencyKey).not.toBe(key);
 });

@@ -5,6 +5,7 @@ import { SURFACE_LIMITS, surfaceKey, type SurfaceChannel, type SurfaceGeometry, 
 export interface SurfaceStatus {
   entryId: string;
   channel: SurfaceChannel;
+  surfaceId: string;
   label: string;
   state: "queued" | "rendering" | "ready" | "cancelled" | "fallback" | "hidden" | "empty";
   message: string;
@@ -13,6 +14,7 @@ interface Request {
   key: string;
   controller: AbortController;
   geometry?: SurfaceGeometry;
+  displayBytes: number;
   status: SurfaceStatus;
   notify: (geometry?: SurfaceGeometry) => void;
 }
@@ -30,17 +32,18 @@ export class SurfaceRuntime {
   }
   statuses() { return [...this.requests.values()].map((request) => request.status); }
   retain(entries: ReadonlySet<string>) {
-    for (const [key, request] of this.requests) if (!entries.has(key)) this.remove(request.status.entryId, request.status.channel);
+    for (const [key, request] of this.requests) if (!entries.has(key)) this.remove(request.status.entryId, request.status.channel, request.status.surfaceId);
   }
-  remove(entryId: string, channel: SurfaceChannel) {
-    const id = surfaceKey(entryId, channel);
+  remove(entryId: string, channel: SurfaceChannel, surfaceId: string = channel) {
+    const id = surfaceKey(entryId, channel, surfaceId);
     const request = this.requests.get(id);
     this.requests.delete(id);
     request?.controller.abort();
     this.emit();
   }
-  cancel(entryId: string, channel: SurfaceChannel) {
-    const id = surfaceKey(entryId, channel);
+  cancel(entryId: string, channel: SurfaceChannel, surfaceId: string = channel) {
+    if (channel === "entry") return; // Native task cancellation is not a worker capability.
+    const id = surfaceKey(entryId, channel, surfaceId);
     const request = this.requests.get(id);
     if (!request || !["queued", "rendering"].includes(request.status.state)) return;
     request.controller.abort();
@@ -48,18 +51,20 @@ export class SurfaceRuntime {
     request.notify();
     this.emit();
   }
-  fail(entryId: string, channel: SurfaceChannel, message: string, linesShown = true) {
-    const id = surfaceKey(entryId, channel);
+  fail(entryId: string, channel: SurfaceChannel, message: string, linesShown = true, surfaceId: string = channel, keepGeometry = false) {
+    const id = surfaceKey(entryId, channel, surfaceId);
     const request = this.requests.get(id);
     if (!request) return;
     request.controller.abort();
-    request.geometry = undefined;
+    if (!keepGeometry) request.geometry = undefined;
+    request.displayBytes = 0;
     request.status = { ...request.status, state: "fallback", message: `${message}${linesShown && channel === "fragment" ? " Lines shown." : ""} ${channel === "pocket" ? "Definition" : "Membership"} kept.` };
     this.emit();
   }
   request(entryId: string, channel: SurfaceChannel, label: string, dependencyKey: string, createInput: (() => SurfaceInput) | null,
-    notify: (geometry?: SurfaceGeometry) => void, unavailable?: string) {
-    const id = surfaceKey(entryId, channel);
+    notify: (geometry?: SurfaceGeometry) => void, unavailable?: string, surfaceId: string = channel) {
+    const id = surfaceKey(entryId, channel, surfaceId);
+    if (channel === "entry") throw new Error("Entry surfaces use native geometry, not the fragment worker.");
     // Revision + effective membership identifies geometry. Input allocation is lazy:
     // cached color-only rebuilds neither serialize coordinates nor extract atoms.
     const key = JSON.stringify([dependencyKey, unavailable, Boolean(createInput)]);
@@ -71,43 +76,61 @@ export class SurfaceRuntime {
       this.emit();
       return;
     }
-    this.remove(entryId, channel);
-    const request: Request = { key, controller: new AbortController(), notify,
-      status: { entryId, channel, label, state: createInput ? "queued" : "hidden", message: createInput ? "Queued" : "Hidden by visibility filters" } };
+    this.remove(entryId, channel, surfaceId);
+    const request: Request = { key, controller: new AbortController(), notify, displayBytes: 0,
+      status: { entryId, channel, surfaceId, label, state: createInput ? "queued" : "hidden", message: createInput ? "Queued" : "Hidden by visibility filters" } };
     this.requests.set(id, request);
     this.emit();
     if (!createInput) {
-      if (unavailable) { this.fail(entryId, channel, unavailable); notify(); }
+      if (unavailable) { this.fail(entryId, channel, unavailable, true, surfaceId); notify(); }
       return;
     }
-    let input: SurfaceInput;
-    try {
-      if (unavailable) throw new Error(unavailable);
-      input = createInput();
+    if (unavailable) {
+      this.fail(entryId, channel, unavailable, true, surfaceId); notify();
+      return;
+    }
+    void this.calculator.compute(() => {
+      request.controller.signal.throwIfAborted();
+      const input = createInput();
       if ((channel === "pocket") !== Boolean(input.pocket)) throw new Error("Surface channel/profile mismatch.");
       surfaceAdmission(input);
-    } catch (error) {
-      this.fail(entryId, channel, error instanceof Error ? error.message : "Surface input is unavailable.");
-      notify();
-      return;
-    }
-    void this.calculator.compute(input, request.controller.signal, (message) => {
+      return input;
+    }, request.controller.signal, (message) => {
       if (this.requests.get(id) !== request || request.controller.signal.aborted) return;
       request.status = { ...request.status, state: "rendering", message };
       this.emit();
     }).then((geometry) => {
       if (this.requests.get(id) !== request || request.controller.signal.aborted) return;
-      const retained = [...this.requests.values()].reduce((sum, value) => sum + (value.geometry ? value.geometry.evidence.meshBytes + (value.status.channel === "pocket" ? value.geometry.indices.byteLength : 0) : 0), 0);
+      const retained = this.retainedBytes();
       if (retained + geometry.evidence.meshBytes + (channel === "pocket" ? geometry.indices.byteLength : 0) > SURFACE_LIMITS.retainedBytes) throw new Error("Viewer surface memory limit reached.");
       request.geometry = geometry;
-      request.status = { ...request.status, state: channel === "pocket" && !geometry.indices.length ? "empty" : "ready", message: channel === "pocket" && !geometry.indices.length ? "No protein surface within this radius. Definition kept." : `${input.atomIds.length.toLocaleString()} atoms · ready` };
+      request.status = { ...request.status, state: channel === "pocket" && !geometry.indices.length ? "empty" : "ready", message: channel === "pocket" && !geometry.indices.length ? "No protein surface within this radius. Definition kept." : `${geometry.atomIds.length.toLocaleString()} atoms · ready` };
       request.notify(geometry);
       this.emit();
     }).catch((error: unknown) => {
       if (this.requests.get(id) !== request || request.controller.signal.aborted) return;
-      this.fail(entryId, channel, error instanceof Error ? error.message : "Surface rendering failed.");
+      this.fail(entryId, channel, error instanceof Error ? error.message : "Surface rendering failed.", true, surfaceId);
       request.notify();
     });
+  }
+  reportNative(entryId: string, surfaceId: string, label: string, state: SurfaceStatus["state"], message: string) {
+    const id = surfaceKey(entryId, "entry", surfaceId);
+    this.requests.set(id, { key: id, controller: new AbortController(), displayBytes: 0, notify: () => {},
+      status: { entryId, surfaceId, channel: "entry", label, state, message } });
+    this.emit();
+  }
+  /** Reserve auxiliary display arrays before allocation, separately from calculation buffers. */
+  reserveDisplayBytes(entryId: string, channel: SurfaceChannel, bytes: number, surfaceId: string = channel) {
+    const request = this.requests.get(surfaceKey(entryId, channel, surfaceId));
+    if (!request) throw new Error("Surface request is no longer current.");
+    if (!Number.isSafeInteger(bytes) || bytes < 0 || this.retainedBytes() - request.displayBytes + bytes > SURFACE_LIMITS.retainedBytes) {
+      throw new Error("Viewer surface memory limit reached.");
+    }
+    request.displayBytes = bytes;
+  }
+  private retainedBytes() {
+    return [...this.requests.values()].reduce((sum, value) => sum + value.displayBytes +
+      (value.geometry ? value.geometry.evidence.meshBytes + (value.status.channel === "pocket" ? value.geometry.indices.byteLength : 0) : 0), 0);
   }
   dispose() { this.retain(new Set()); this.calculator.dispose(); this.listeners.clear(); }
   private emit() { for (const listener of this.listeners) listener(this.statuses()); }

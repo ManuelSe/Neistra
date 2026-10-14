@@ -1,0 +1,90 @@
+{
+  "checkpoint": "M3/C3",
+  "date": "2026-10-14",
+  "base_commit": "bc54a8e29e4ec7b579c9d9e8e9329e1e2de644cc",
+  "source_sha256": {
+    "apps/web/src/components/StructureViewer.tsx": "9a09d39dfb6aa471331b900aabd7f84380546630df9084c75745d77c95fd6cc6",
+    "apps/web/src/components/SurfaceManager.tsx": "f5bd3f08a96fa74ee0d10b0d9513c4c8612534d432f15227a0fb25028f482959",
+    "apps/web/src/test/surfaceObjectsHarness.ts": "5a2ad3127f5cbbb13b965d196e388d902a5b9c553483e2c230440ff008de41b1",
+    "tests/e2e/surface-objects.spec.ts": "8eed0431d805ee02ff4d37d1bd586c39b1826152edb4ae45a79002c60bf0b0f0",
+    "tests/e2e/viewer-click-selection.spec.ts": "dc18c30654dfe3cbf19b3f5820c4d3b23cca11461fa8332dc5c4dd9234160369",
+    "tests/integration/test_surface_objects.py": "5d6fa44cd63ba2496892892c8f3aa0e0f31b43e18f964cd673d7545b8a102b7c",
+    "apps/web/src/components/SurfaceEditor.tsx": "2082e863e528d6e6938c608fbd7ada14496fe838527770ba43478c2f847be4b2",
+    "apps/web/src/selection/surfaceSources.ts": "a67530daf30398ecce8794384d300c2acd2215ade2e6f1684aef2ebe50388918",
+    "apps/web/src/test/surface-editor.test.tsx": "7f64fb86b5d86c7e46e4733ca2f0d9eff5c1f75ff4138ec4a1c7521702fc5ac8"
+  },
+  "validation": [
+    {
+      "command": "corepack pnpm --dir apps/web lint && corepack pnpm --dir apps/web typecheck && corepack pnpm --dir apps/web test",
+      "exit_code": 0,
+      "passed": 214,
+      "files": 47,
+      "log": "c3-frontend.log"
+    },
+    {
+      "command": "corepack pnpm --dir apps/web lint && corepack pnpm --dir apps/web typecheck && corepack pnpm --dir apps/web build",
+      "exit_code": 0,
+      "log": "c3-build.log",
+      "note": "Expected Molstar chunk warning."
+    },
+    {
+      "command": ".venv/bin/uv run pytest tests/integration/test_surface_objects.py -q --tb=short",
+      "exit_code": 0,
+      "passed": 5,
+      "log": "c3-api-final.log"
+    },
+    {
+      "command": ".venv/bin/uv run ruff check .; .venv/bin/uv run mypy apps/api packages/molweave_core; git diff --check",
+      "exit_code": 0,
+      "mypy_files": 61
+    },
+    {
+      "command": "playwright test viewer-click-selection.spec.ts pocket-surfaces.spec.ts interactive-selection-transform.spec.ts viewer-notifications.spec.ts",
+      "exit_code": 1,
+      "passed": 43,
+      "skipped": 2,
+      "failed": 1,
+      "log": "c3-regressions-diagnostic.log",
+      "note": "One obsolete schema-1/native-surface ordinary-representation fixture failed before any canvas checks. Updated to schema 2/all ordinary styles, with native surface primary activation covered in the object suite. Focused final rerun passes."
+    },
+    {
+      "command": "playwright test surface-objects.spec.ts viewer-click-selection.spec.ts --output=.molweave-e2e/issue57/c3-final-results",
+      "exit_code": 0,
+      "passed": 6,
+      "skipped": 2,
+      "log": "c3-final-browser.log",
+      "note": "All four native/production object cases and both applicable ordinary molecular-picking workflows pass; two mutually exclusive layout skips."
+    }
+  ],
+  "browser_environment": {
+    "api_port": 8020,
+    "worker_port": 8021,
+    "web_port": 5183,
+    "data_dir": ".molweave-e2e/issue57",
+    "browser_path": ".playwright",
+    "renderer": "Chromium SwiftShader"
+  },
+  "outcomes": [
+    "Independent complete appearance updates persist without worker field recomputation or normalized refetch",
+    "Source replacement retains object identity; entry/fragment/full protein context selection counts are explicit",
+    "Whole-object activation and marker coverage survive native hover cleanup",
+    "Real production mouse/touch canvas activation opens the matching object without atom-selection/camera/project changes",
+    "Undo/reload/original bytes and locked-entry display editing remain correct",
+    "Artifact context updates discard stale loader completion"
+  ],
+  "review": {
+    "kind": "local self-review, not independent",
+    "unresolved_consequential_findings": [],
+    "addressed": [
+      "Removed redundant C1 development provider registration now owned by production engine",
+      "Empty opacity drafts stay editable and cannot publish NaN",
+      "Pocket source context is artifact-keyed and stale results are discarded",
+      "Ordinary primary-pick fixture now uses schema 2 and all ordinary styles; object primary-pick coverage remains explicit"
+    ]
+  },
+  "limitations": [
+    "C4 actual tagged producer/reader and complete compatibility qualification remain",
+    "C4 comprehensive manager accessibility, real zoom and performance qualification remain",
+    "No additional schema migration beyond C2; no release/PR claimed"
+  ]
+}

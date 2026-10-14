@@ -7,11 +7,32 @@ const pocketInput = () => ({ ...input(), pocket: { profile: "pocket-v1" as const
 const geometry = (meshBytes = 100): SurfaceGeometry => ({ vertices: new Float32Array(), normals: new Float32Array(), indices: new Uint32Array(), groups: new Float32Array(), atomIds: Uint32Array.of(1), evidence: { meshBytes, cells: 1, activeCells: 1, meshBoundBytes: meshBytes, workingBoundBytes: meshBytes, durationMs: 1 } });
 function setup() {
   const pending: { resolve: (geometry: SurfaceGeometry) => void; reject: (error: Error) => void; signal: AbortSignal }[] = [];
-  const compute = vi.fn((_input: SurfaceInput, signal: AbortSignal) => new Promise<SurfaceGeometry>((resolve, reject) => pending.push({ resolve, reject, signal })));
+  const compute = vi.fn((source: SurfaceInput | (() => SurfaceInput), signal: AbortSignal) => {
+    if (typeof source === "function") source();
+    return new Promise<SurfaceGeometry>((resolve, reject) => pending.push({ resolve, reject, signal }));
+  });
   const dispose = vi.fn();
   return { runtime: new SurfaceRuntime({ compute, dispose } as unknown as SurfaceCalculator), pending, compute, dispose };
 }
 describe("transient surface lifecycle", () => {
+  it("keeps multiple same-entry fragments independent and accounts auxiliary display arrays", async () => {
+    const { runtime, pending } = setup();
+    const first = vi.fn(), second = vi.fn();
+    runtime.request("a", "fragment", "First", "pose", () => input(), first, undefined, "first");
+    runtime.request("a", "fragment", "Second", "pose", () => input(), second, undefined, "second");
+    runtime.cancel("a", "fragment", "second");
+    expect(pending[0].signal.aborted).toBe(false);
+    expect(pending[1].signal.aborted).toBe(true);
+    pending[0].resolve(geometry(100)); pending[1].resolve(geometry());
+    await vi.waitFor(() => expect(first).toHaveBeenCalledOnce());
+    expect(second).toHaveBeenCalledOnce(); // Immediate cancellation fallback only.
+    runtime.reserveDisplayBytes("a", "fragment", SURFACE_LIMITS.retainedBytes - 100, "first");
+    expect(() => runtime.reserveDisplayBytes("a", "fragment", SURFACE_LIMITS.retainedBytes, "first")).toThrow("memory limit");
+    runtime.remove("a", "fragment", "first");
+    expect(runtime.statuses().map(s => s.surfaceId)).toEqual(["second"]);
+    expect(() => runtime.reserveDisplayBytes("a", "fragment", 1, "first")).toThrow("no longer current");
+    runtime.dispose();
+  });
   it("reuses pending and completed geometry, rebinding only the current disposable component", async () => {
     const { runtime, pending, compute } = setup();
     const old = vi.fn(), current = vi.fn();

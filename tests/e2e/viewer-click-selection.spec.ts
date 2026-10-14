@@ -215,15 +215,18 @@ test("keeps primary selection and empty clearing independent from the camera", a
     "stick",
     "ball-and-stick",
     "space-filling",
-    "surface",
+    "thick-stick",
   ];
+  // Whole-entry surface activation is qualified in surface-objects.spec.ts.
+  // This workflow retains primary molecular picking across ordinary styles.
   const settings = {
+    schema_version: 2,
     representations: styles.map((style, index) => ({
       id: `click-representation-${index}`,
       style,
       color_by: "element",
       custom_color: "#3b82f6",
-      opacity: style === "surface" ? 0.35 : 1,
+      opacity: 1,
     })),
     components: {
       hydrogens: true,

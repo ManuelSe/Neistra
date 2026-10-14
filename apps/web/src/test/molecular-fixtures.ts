@@ -1,3 +1,4 @@
+import type { SurfaceObject, SurfaceSource, SurfaceAppearance } from "../api/types";
 import type {
   ComponentCategory,
   ComponentHierarchy,
@@ -88,8 +89,7 @@ export function viewerSettings(
     selection_representations: [],
     selection_colors: [],
     selection_nonpolar_hydrogens: [],
-    selection_surface: null,
-    selection_pocket_surface: null, selection_hidden_atoms: [],
+    schema_version: 2, surface_objects: [], selection_hidden_atoms: [],
     components: {
       hydrogens: true,
       nonpolar_hydrogens: true,
@@ -138,7 +138,7 @@ export function molecularEntry(
 
 export function molecularProject(entries?: Entry[]): Project {
   return {
-    schema_version: 1,
+    schema_version: 2,
     id: "project-1",
     name: "Selection project",
     description: null,
@@ -258,4 +258,11 @@ export function proteinProjection(): StructureProjection {
     hierarchy: componentHierarchy(structure),
     viewer: { format: "mmcif", data: "viewer projection" },
   };
+}
+
+
+export function surfaceObject(id: string, source: SurfaceSource, appearance: Partial<SurfaceAppearance> = {}): SurfaceObject {
+  return { id, name: `${source.kind} surface`, visible: true, source,
+    appearance: { color_by: "element", custom_color: "#3b82f6", opacity: 0.45,
+      mode: "solid", inherit_atom_colors: false, ...appearance } };
 }

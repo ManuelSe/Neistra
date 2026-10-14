@@ -11,6 +11,22 @@ class FakeWorker {
 }
 afterEach(() => vi.useRealTimers());
 describe("surface worker lifecycle", () => {
+  it("allocates only the running descriptor and never allocates a cancelled queued descriptor", async () => {
+    const worker = new FakeWorker();
+    const calculator = new SurfaceCalculator(() => worker as unknown as Worker);
+    const first = vi.fn(() => input), queued = vi.fn(() => input);
+    const a = calculator.compute(first, new AbortController().signal);
+    const controller = new AbortController();
+    const b = calculator.compute(queued, controller.signal);
+    const rejection = expect(b).rejects.toThrow();
+    await Promise.resolve();
+    expect(first).toHaveBeenCalledOnce(); expect(queued).not.toHaveBeenCalled();
+    controller.abort();
+    worker.onmessage?.({ data: { kind: "complete", geometry: {} as SurfaceGeometry } } as MessageEvent);
+    await a; await rejection;
+    expect(queued).not.toHaveBeenCalled();
+    calculator.dispose();
+  });
   it("serializes entries and terminates workers on completion", async () => {
     const workers: FakeWorker[] = [];
     const calculator = new SurfaceCalculator(() => { const w = new FakeWorker(); workers.push(w); return w as unknown as Worker; });

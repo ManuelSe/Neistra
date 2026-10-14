@@ -3,13 +3,15 @@ import { Mesh } from "molstar/lib/mol-geo/geometry/mesh/mesh";
 import { ValueCell } from "molstar/lib/mol-util";
 import { Unit, type Structure } from "molstar/lib/mol-model/structure";
 import { getPhysicalRadius } from "molstar/lib/mol-theme/size/physical";
-import { ComplexMeshParams, ComplexMeshVisual } from "molstar/lib/mol-repr/structure/complex-visual";
+import { ComplexLinesParams, ComplexLinesVisual, ComplexMeshParams, ComplexMeshVisual } from "molstar/lib/mol-repr/structure/complex-visual";
+import type { Lines } from "molstar/lib/mol-geo/geometry/lines/lines";
 import { ComplexRepresentation, StructureRepresentationProvider } from "molstar/lib/mol-repr/structure/representation";
 import { ElementIterator, getSerialElementLoci, eachSerialElement } from "molstar/lib/mol-repr/structure/visual/util/element";
 import type { SurfaceGeometry, SurfaceInput } from "./protocol";
 import { SURFACE_LIMITS, SURFACE_PROFILE } from "./protocol";
 
 const geometryByStructure = new WeakMap<Structure, SurfaceGeometry>();
+const wireframeByStructure = new WeakMap<Structure, Lines>();
 const params = { ...ComplexMeshParams, alpha: PD.Numeric(SURFACE_PROFILE.opacity) };
 
 export function surfaceInput(structure: Structure, sourceAtomIds: readonly number[]): SurfaceInput {
@@ -35,10 +37,16 @@ export function surfaceInput(structure: Structure, sourceAtomIds: readonly numbe
   return { atomIds, x, y, z, radii };
 }
 
-export function detachSurfaceGeometry(structure: Structure) { geometryByStructure.delete(structure); }
+export function detachSurfaceGeometry(structure: Structure) { geometryByStructure.delete(structure); wireframeByStructure.delete(structure); }
+
+export function attachSurfaceWireframe(structure: Structure, lines: Lines) {
+  geometryByStructure.delete(structure);
+  wireframeByStructure.set(structure, lines);
+}
 
 export function attachSurfaceGeometry(structure: Structure, geometry: SurfaceGeometry) {
   if (structure.elementCount !== geometry.atomIds.length) throw new Error("Surface component membership changed.");
+  wireframeByStructure.delete(structure);
   geometryByStructure.set(structure, geometry);
 }
 
@@ -66,4 +74,28 @@ export const SelectionSurfaceProvider = StructureRepresentationProvider({
   defaultColorTheme: { name: "element-symbol" },
   defaultSizeTheme: { name: "physical" },
   isApplicable: (structure) => geometryByStructure.has(structure),
+});
+
+const lineParams = { ...ComplexLinesParams, alpha: PD.Numeric(SURFACE_PROFILE.opacity), sizeFactor: PD.Numeric(1) };
+export const SelectionSurfaceWireframeProvider = StructureRepresentationProvider({
+  name: "neistra-selection-surface-wireframe", label: "Surface mesh",
+  description: "Triangle edges of the unchanged precomputed molecular surface.",
+  factory: (ctx, getParams) => ComplexRepresentation("Surface mesh", ctx, getParams,
+    materialId => ComplexLinesVisual({
+      defaultProps: PD.getDefaultValues(lineParams),
+      createGeometry: (_ctx, structure) => {
+        const lines = wireframeByStructure.get(structure);
+        if (!lines) throw new Error("Surface mesh is not ready.");
+        return lines;
+      },
+      createLocationIterator: ElementIterator.fromStructure,
+      getLoci: getSerialElementLoci,
+      eachLocation: eachSerialElement,
+      setUpdateState: () => {},
+    }, materialId)),
+  getParams: () => lineParams,
+  defaultValues: PD.getDefaultValues(lineParams),
+  defaultColorTheme: { name: "element-symbol" },
+  defaultSizeTheme: { name: "physical" },
+  isApplicable: structure => wireframeByStructure.has(structure),
 });

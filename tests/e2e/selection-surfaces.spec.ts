@@ -138,39 +138,49 @@ test("adds and removes saved surfaces from the compact palette with reload and u
   const palette = page.getByRole("dialog", { name: "Style selection" });
   let structureGets = 0;
   page.on("request", (req) => { if (req.method() === "GET" && /\/entries\/[^/]+\/structure(?:\?|$)/.test(req.url())) structureGets++; });
-  await palette.getByRole("button", { name: "Add surface", exact: true }).click();
-  await expect(page.getByLabel("Selection surface rendering")).toContainText("ready");
-  await expect(palette.getByRole("button", { name: "Add surface" })).toBeDisabled();
+  await palette.getByRole("button", { name: "Create fragment surface" }).click();
+  await expect(palette.getByRole("status")).toContainText("Surface definition saved");
   project = await (await request.get(`/api/v1/projects/${project.id}`)).json();
-  expect(project.entries[0].viewer_settings.selection_surface).toEqual({ profile: "molecular-v1", atom_ids: entry.atom_ids });
+  expect(project.entries[0].viewer_settings.surface_objects[0].source).toEqual({ kind: "fragment", profile: "molecular-v1", atom_ids: entry.atom_ids });
   expect(project.entries[0].current_artifact_id).toBe(entry.current_artifact_id);
-  await palette.getByRole("button", { name: "Reset representation" }).click();
-  await expect(palette.getByRole("status")).toContainText("Reset representation");
-  await expect(page.getByLabel("Selection surface rendering")).toContainText("ready");
-  await page.keyboard.press("Escape");
-  await page.getByRole("button", { name: "Clear", exact: true }).click();
-  await expect(page.getByLabel("Selection surface rendering")).toContainText("ready");
+  // Creation always makes a distinct object, including from the same selection.
+  await palette.getByRole("button", { name: "Create fragment surface" }).click();
+  await expect.poll(async () => (await (await request.get(`/api/v1/projects/${project.id}`)).json()).entries[0].viewer_settings.surface_objects.length).toBe(2);
+  await palette.getByRole("button", { name: "Manage surfaces" }).click();
+  const manager = page.getByRole("dialog", { name: "Surfaces", exact: true });
+  await expect(manager.locator(".surface-object-status").filter({ hasText: "ready" })).toHaveCount(2);
+  const names = (await (await request.get(`/api/v1/projects/${project.id}`)).json()).entries[0].viewer_settings.surface_objects.map((s: { name: string }) => s.name);
+  await manager.getByRole("button", { name: `Hide surface ${names[0]}`, exact: true }).click();
+  await expect(manager.locator(".surface-object-status").filter({ hasText: "Hidden" })).toHaveCount(1);
+  await manager.getByRole("button", { name: `Show surface ${names[0]}`, exact: true }).click();
+  await expect(manager.locator(".surface-object-status").filter({ hasText: "ready" })).toHaveCount(2);
   expect(structureGets).toBe(0);
+  await manager.getByRole("button", { name: "Close surfaces" }).click();
   await page.reload();
-  await expect(page.getByLabel("Selection surface rendering")).toContainText("ready", { timeout: 30_000 });
-  await row.locator(".entry-select").click();
+  await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded", { timeout: 30_000 });
   await page.getByRole("button", { name: "Style selection", exact: true }).click();
-  await palette.getByRole("button", { name: "Remove surface" }).click();
-  await expect(page.getByLabel("Selection surface rendering")).toHaveCount(0);
-  await page.keyboard.press("Escape");
+  await palette.getByRole("button", { name: "Manage surfaces" }).click();
+  await expect(manager.locator(".surface-object-status").filter({ hasText: "ready" })).toHaveCount(2);
+  await manager.getByRole("button", { name: `Remove surface ${names[0]}`, exact: true }).click();
+  await expect(manager.locator(".surface-object")).toHaveCount(1);
+  await manager.getByRole("button", { name: "Close surfaces" }).click();
   await page.getByRole("button", { name: /^Undo:/ }).click();
-  await expect(page.getByLabel("Selection surface rendering")).toContainText("ready");
+  await page.getByRole("button", { name: "Style selection", exact: true }).click();
+  await palette.getByRole("button", { name: "Manage surfaces" }).click();
+  await expect(manager.locator(".surface-object-status").filter({ hasText: "ready" })).toHaveCount(2);
   await page.screenshot({ path: info.outputPath("selection-surface-workflow.png") });
-  // Returning to an already cached project must dispose the previous viewer too.
+  await manager.getByRole("button", { name: "Close surfaces" }).click();
+  // Returning to a cached project must dispose the previous viewer too.
   await page.getByRole("button", { name: "Projects", exact: true }).click();
   await page.getByRole("dialog", { name: "Projects" }).getByRole("button", { name: new RegExp(`^${other.name}`) }).click();
-  await expect(page.getByLabel("Selection surface rendering")).toHaveCount(0);
   await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded");
   const otherCanvas = await page.locator(".molstar-host canvas").first().elementHandle();
   await page.getByRole("button", { name: "Projects", exact: true }).click();
   await page.getByRole("dialog", { name: "Projects" }).getByRole("button", { name: new RegExp(`^${project.name}`) }).click();
-  await expect(page.getByLabel("Selection surface rendering")).toContainText("ready");
-  expect(await otherCanvas!.evaluate((canvas) => canvas.isConnected)).toBe(false);
+  await page.getByRole("button", { name: "Style selection", exact: true }).click();
+  await palette.getByRole("button", { name: "Manage surfaces" }).click();
+  await expect(manager.locator(".surface-object-status").filter({ hasText: "ready" })).toHaveCount(2);
+  expect(await otherCanvas!.evaluate(canvas => canvas.isConnected)).toBe(false);
 });
 
 for (const fixture of ["formats/ethanol.mol", "hydrogens/polar_hydrogens_ligand.mol"]) {
@@ -189,13 +199,13 @@ for (const fixture of ["formats/ethanol.mol", "hydrogens/polar_hydrogens_ligand.
     await page.goto("/selection-surface-test.html");
     const initialState = await page.evaluate(async ({ entry, projection, hydrogen }) => {
       const path = "/src/test/selectionSurfaceHarness.ts";
-      const { mountProductionSurfaceHarness } = await import(/* @vite-ignore */ path);
+      const { mountProductionSurfaceHarness, fixtureSurface } = await import(/* @vite-ignore */ path);
       const container = document.createElement("div");
       Object.assign(container.style, { position: "fixed", inset: "0" }); document.body.appendChild(container);
       const settings = structuredClone(entry.viewer_settings);
       settings.representations = [];
       settings.components.hydrogens = true; settings.components.nonpolar_hydrogens = false;
-      settings.selection_surface = { profile: "molecular-v1", atom_ids: hydrogen ? [2, 4] : entry.atom_ids };
+      settings.surface_objects = [...settings.surface_objects.filter(s => s.source.kind !== "fragment"), fixtureSurface({ kind: "fragment", profile: "molecular-v1", atom_ids: hydrogen ? [2, 4] : entry.atom_ids })];
       if (!hydrogen) settings.selection_colors = [{ color: "#ff00ff", atom_ids: [1, 2] }, { color: "element", atom_ids: [3] }];
       window.productionSurface = await mountProductionSurfaceHarness(container, { entryId: entry.id, label: entry.name,
         projection: projection.viewer, atomIds: entry.atom_ids, normalized: projection.structure, hierarchy: projection.hierarchy, settings });
@@ -218,7 +228,7 @@ for (const fixture of ["formats/ethanol.mol", "hydrogens/polar_hydrogens_ligand.
         invalid.entryId = "separate-entry";
         invalid.normalized.atoms.find((a) => a.id === 2)!.coordinates[0] = 1e8;
         await h.sync([invalid, h.source]);
-        return { local, hidden, multiple: h.inspect(), membership: h.source.settings.selection_surface };
+        return { local, hidden, multiple: h.inspect(), membership: h.source.settings.surface_objects.find(s => s.source.kind === "fragment")?.source };
       });
       expect(states.local.geometry[0].atomIds).toEqual([2, 4]);
       expect(states.hidden.meshes).toEqual([]);
@@ -291,7 +301,7 @@ for (const fixture of ["formats/ethanol.mol", "hydrogens/polar_hydrogens_ligand.
         await h.engine.clearCoordinatePreview(id); await h.wait(); const restored = [...h.geometry(id)!.vertices];
         await h.engine.applyCoordinatePatch(patch, "commit"); await h.wait(); const committed = [...h.geometry(id)!.vertices];
         await h.engine.setIsolation([{ structure_id: id, atom_id: 1 }]); await h.wait();
-        return { original, preview, previewX, restored, committed, editedCenter: patch.coordinates[0], sourceCoordinates: h.source.normalized.atoms[0].coordinates, isolated: h.inspect(), membership: h.source.settings.selection_surface };
+        return { original, preview, previewX, restored, committed, editedCenter: patch.coordinates[0], sourceCoordinates: h.source.normalized.atoms[0].coordinates, isolated: h.inspect(), membership: h.source.settings.surface_objects.find(s => s.source.kind === "fragment")?.source };
       });
       expect(edits.preview.meshes).toEqual([]);
       expect(edits.previewX).toBeCloseTo(edits.editedCenter[0], 5);
@@ -358,7 +368,7 @@ test("qualifies production 1STP surface response and partial-fragment boundaries
   await page.goto("/selection-surface-test.html");
   const result = await page.evaluate(async ({ entry, projection }) => {
     const path = "/src/test/selectionSurfaceHarness.ts";
-    const { mountProductionSurfaceHarness } = await import(/* @vite-ignore */ path);
+    const { mountProductionSurfaceHarness, fixtureSurface } = await import(/* @vite-ignore */ path);
     const container = document.createElement("div"); Object.assign(container.style, { position: "fixed", inset: "0" }); document.body.appendChild(container);
     const settings = structuredClone(entry.viewer_settings); settings.representations = [];
     settings.components.solvent = true; settings.components.ions = true; settings.components.hydrogens = true; settings.components.nonpolar_hydrogens = true;
@@ -368,14 +378,14 @@ test("qualifies production 1STP surface response and partial-fragment boundaries
     const observer = new PerformanceObserver((list) => list.getEntries().forEach((task) => tasks.push(task.duration)));
     observer.observe({ type: "longtask", buffered: false });
     const started = performance.now();
-    h.source.settings.selection_surface = { profile: "molecular-v1", atom_ids: entry.atom_ids };
+    h.source.settings.surface_objects = [...h.source.settings.surface_objects.filter(s => s.source.kind !== "fragment"), fixtureSurface({ kind: "fragment", profile: "molecular-v1", atom_ids: entry.atom_ids })];
     await h.sync([h.source]);
     const readyMs = performance.now() - started;
     await new Promise((resolve) => setTimeout(resolve, 100)); observer.disconnect();
     const full = h.geometry(entry.id)!;
     const fullSummary = { ...full.evidence, atoms: [...full.atomIds], groups: [...new Set(full.groups)] };
     const first = entry.atom_ids[0];
-    h.source.settings.selection_surface.atom_ids = [first];
+    h.source.settings.surface_objects.find(s => s.source.kind === "fragment")!.source = { kind: "fragment", profile: "molecular-v1", atom_ids: [first] };
     await h.sync([h.source]);
     const fragment = h.geometry(entry.id)!;
     const center = h.source.normalized.atoms.find((atom) => atom.id === first)!.coordinates;

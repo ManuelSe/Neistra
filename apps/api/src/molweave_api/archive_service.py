@@ -42,11 +42,15 @@ from molweave_api.schemas import (
     ArchiveExportRead,
     ArchiveImportRead,
     CameraState,
+    LegacyRepresentationSettings,
     MeasurementKind,
-    SceneEntryState,
-    ViewerSettings,
+    SceneEntryStateV2,
+    SelectionPocketSurface,
+    SelectionSurface,
+    ViewerSettingsV2,
 )
 from molweave_api.settings import Settings
+from molweave_api.surface_upgrade import upgrade_surface_settings
 from molweave_api.viewer_state import (
     POLYMER_SELECTION_STYLES,
     remap_pocket_seeds,
@@ -54,8 +58,8 @@ from molweave_api.viewer_state import (
 )
 
 ARCHIVE_MEDIA_TYPE = "application/vnd.molweave.project+zip"
-ARCHIVE_SCHEMA_VERSION = 1
-APPLICATION_VERSION = "0.13.2"
+ARCHIVE_SCHEMA_VERSION = 2
+APPLICATION_VERSION = "0.14.0"
 MANIFEST_PATH = "manifest.json"
 _SHA256_PATTERN = re.compile(r"^[0-9a-f]{64}$")
 _APPLICATION_VERSION_PATTERN = re.compile(
@@ -138,7 +142,7 @@ class ManifestEntry(ManifestModel):
     warnings: list[MolecularWarning]
     next_atom_id: int = Field(ge=1)
     next_bond_id: int = Field(ge=1)
-    viewer_settings: ViewerSettings
+    viewer_settings: ViewerSettingsV2
     visible: bool
     locked: bool
     user_metadata: dict[str, Any]
@@ -222,7 +226,7 @@ class ManifestScene(ManifestModel):
     id: str
     name: str = Field(min_length=1, max_length=120)
     camera: CameraState
-    entry_states: list[SceneEntryState]
+    entry_states: list[SceneEntryStateV2]
     selection: SelectionV1
     created_at: datetime
     modified_at: datetime
@@ -284,8 +288,8 @@ class ManifestJobSummary(ManifestModel):
     _job_uuid = field_validator("id")(_validate_uuid)
 
 
-class ProjectManifestV1(ManifestModel):
-    schema_version: Literal[1] = 1
+class ProjectManifestV2(ManifestModel):
+    schema_version: Literal[2] = 2
     application_version: str = Field(min_length=5, max_length=64)
     source_project_id: str
     source_revision: int = Field(ge=0)
@@ -312,15 +316,45 @@ class ProjectManifestV1(ManifestModel):
         return value
 
 
+def _upgrade_legacy_manifest(manifest: dict[str, Any]) -> dict[str, Any]:
+    """Validate the original surface contracts before converting documented settings paths."""
+    converted = deepcopy(manifest)
+
+    def convert(entry_id: str, settings: dict[str, Any]) -> dict[str, Any]:
+        representations = [
+            LegacyRepresentationSettings.model_validate(item)
+            for item in settings["representations"]
+        ]
+        if not 1 <= len(representations) <= 12 or len({item.id for item in representations}) != len(
+            representations
+        ):
+            raise ValueError("Legacy representations require 1-12 unique records")
+        fragment = settings.get("selection_surface")
+        if fragment is not None:
+            SelectionSurface.model_validate(fragment)
+        pocket = settings.get("selection_pocket_surface")
+        if pocket is not None:
+            SelectionPocketSurface.model_validate(pocket)
+        return upgrade_surface_settings(settings, _validate_uuid(entry_id))
+
+    for entry in converted["entries"]:
+        entry["viewer_settings"] = convert(entry["id"], entry["viewer_settings"])
+    for scene in converted["scenes"]:
+        for state in scene["entry_states"]:
+            state["viewer_settings"] = convert(state["entry_id"], state["viewer_settings"])
+    converted["schema_version"] = 2
+    return converted
+
+
 @dataclass(frozen=True, slots=True)
 class ArchiveBuildInput:
-    manifest: ProjectManifestV1
+    manifest: ProjectManifestV2
     contents: dict[str, bytes]
 
 
 @dataclass(frozen=True, slots=True)
 class PreparedArchive:
-    manifest: ProjectManifestV1
+    manifest: ProjectManifestV2
     contents: dict[str, bytes]
 
 
@@ -420,14 +454,16 @@ def read_project_archive(data: bytes, limits: ArchiveLimits) -> PreparedArchive:
                 "Archive manifest must be a JSON object.",
             )
         schema_version = raw_manifest.get("schema_version")
-        if schema_version != ARCHIVE_SCHEMA_VERSION:
+        if type(schema_version) is not int or schema_version not in {1, ARCHIVE_SCHEMA_VERSION}:
             raise ArchiveValidationError(
                 "unsupported_archive_schema",
                 f"Archive schema {schema_version!r} is not supported.",
             )
         try:
-            manifest = ProjectManifestV1.model_validate(raw_manifest)
-        except ValueError as error:
+            if schema_version == 1:
+                raw_manifest = _upgrade_legacy_manifest(raw_manifest)
+            manifest = ProjectManifestV2.model_validate(raw_manifest)
+        except (ValueError, TypeError, KeyError, AttributeError) as error:
             raise ArchiveValidationError(
                 "invalid_archive_manifest",
                 f"Archive manifest validation failed: {error}",
@@ -521,7 +557,7 @@ class ProjectArchiveService:
                 warnings=[MolecularWarning.model_validate(item) for item in entry.warnings],
                 next_atom_id=entry.next_atom_id,
                 next_bond_id=entry.next_bond_id,
-                viewer_settings=ViewerSettings.model_validate(entry.viewer_settings),
+                viewer_settings=ViewerSettingsV2.model_validate(entry.viewer_settings),
                 visible=entry.visible,
                 locked=entry.locked,
                 user_metadata=deepcopy(entry.user_metadata),
@@ -585,7 +621,7 @@ class ProjectArchiveService:
             )
             for job in sorted(project.jobs, key=lambda item: item.id)
         ]
-        manifest = ProjectManifestV1(
+        manifest = ProjectManifestV2(
             application_version=APPLICATION_VERSION,
             source_project_id=project.id,
             source_revision=project.revision,
@@ -646,7 +682,7 @@ class ProjectArchiveService:
                     name=item.name,
                     camera=CameraState.model_validate(item.camera),
                     entry_states=[
-                        SceneEntryState.model_validate(state) for state in item.entry_states
+                        SceneEntryStateV2.model_validate(state) for state in item.entry_states
                     ],
                     selection=SelectionV1.model_validate(item.selection),
                     created_at=item.created_at,
@@ -1002,7 +1038,7 @@ def _validate_member(info: zipfile.ZipInfo, limits: ArchiveLimits) -> None:
 
 
 def _validate_manifest_relationships(
-    manifest: ProjectManifestV1,
+    manifest: ProjectManifestV2,
     contents: dict[str, bytes],
 ) -> None:
     _require_unique("entry", [item.id for item in manifest.entries])
@@ -1184,21 +1220,24 @@ def _validate_manifest_relationships(
 
 
 def _validate_selection_assignments(
-    settings: ViewerSettings,
+    settings: ViewerSettingsV2,
     valid_atom_ids: set[int],
     structure: NormalizedStructureV1 | None,
     atom_ids_by_entry: dict[str, set[int]],
 ) -> None:
-    if settings.selection_pocket_surface is not None:
-        _validate_references(
-            settings.selection_pocket_surface.seed_atom_references,
-            set(atom_ids_by_entry),
-            atom_ids_by_entry,
-        )
+    for surface in settings.surface_objects:
+        if surface.source.kind == "pocket":
+            _validate_references(
+                surface.source.seed_atom_references, set(atom_ids_by_entry), atom_ids_by_entry
+            )
     for atom_ids in [
         settings.selection_hidden_atoms,
         *(item.atom_ids for item in settings.selection_colors),
-        *([settings.selection_surface.atom_ids] if settings.selection_surface else []),
+        *(
+            surface.source.atom_ids
+            for surface in settings.surface_objects
+            if surface.source.kind == "fragment"
+        ),
         *(item.atom_ids for item in settings.selection_nonpolar_hydrogens),
     ]:
         if not set(atom_ids).issubset(valid_atom_ids):

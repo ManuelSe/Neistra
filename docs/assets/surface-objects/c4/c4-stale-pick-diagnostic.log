@@ -1,0 +1,52 @@
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+[2m[WebServer] [22mINFO:     Started server process [655362]
+[2m[WebServer] [22mINFO:     Waiting for application startup.
+[2m[WebServer] [22mINFO:     Application startup complete.
+[2m[WebServer] [22mINFO:     Uvicorn running on http://127.0.0.1:8020 (Press CTRL+C to quit)
+[2m[WebServer] [22m(node:655425) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:655437) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:655464) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:655464) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 [chromium] › tests/e2e/surface-objects.spec.ts:124:5 › manages production object appearance and explicit sources independently through reload and undo (23.6s)
+
+
+  1) [chromium] › tests/e2e/surface-objects.spec.ts:124:5 › manages production object appearance and explicit sources independently through reload and undo
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m
+
+    Expected: [32m"1 visible / 1 loaded / [7m0[27m selected"[39m
+    Received: [31m"1 visible / 1 loaded / [7m1[27m selected"[39m
+
+      329 |   await clickSurface();
+      330 |   await page.waitForTimeout(250);
+    > 331 |   expect(await page.locator(".viewer-status").textContent()).toBe(selectionBeforeClick);
+          |                                                              ^
+      332 |   await expect(manager).toBeHidden();
+      333 |   await page.evaluate(() => (window as unknown as { finishManagedRebuild: () => Promise<void> }).finishManagedRebuild());
+      334 |   await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
+        at /datadisk/dev/neistra/tests/e2e/surface-objects.spec.ts:331:62
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .molweave-e2e/issue57/c4-stale-pick-diagnostic-results/surface-objects-manages-pr-53afa-tly-through-reload-and-undo-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: .molweave-e2e/issue57/c4-stale-pick-diagnostic-results/surface-objects-manages-pr-53afa-tly-through-reload-and-undo-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    .molweave-e2e/issue57/c4-stale-pick-diagnostic-results/surface-objects-manages-pr-53afa-tly-through-reload-and-undo-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace .molweave-e2e/issue57/c4-stale-pick-diagnostic-results/surface-objects-manages-pr-53afa-tly-through-reload-and-undo-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [chromium] › tests/e2e/surface-objects.spec.ts:124:5 › manages production object appearance and explicit sources independently through reload and undo

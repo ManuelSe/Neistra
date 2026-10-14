@@ -22,6 +22,8 @@ test("bounds native protein/ligand preview work and measures exact cancellation"
   const evidence = await page.evaluate(async ({ project, entry, projection }) => {
     const harnessPath = "/src/test/interactiveTransformHarness.ts", mathPath = "/src/coordinates/interactiveTransform.ts", queuePath = "/src/viewer/CoordinatePreviewQueue.ts";
     const { mountInteractiveTransformHarness } = await import(/* @vite-ignore */ harnessPath);
+    const fixturePath = "/src/test/selectionSurfaceHarness.ts";
+    const { fixtureSurface } = await import(/* @vite-ignore */ fixturePath);
     const { captureMovement, initialMovementPose, movePose, movementPreview } = await import(/* @vite-ignore */ mathPath);
     const { CoordinatePreviewQueue } = await import(/* @vite-ignore */ queuePath);
     const target = document.createElement("div"); Object.assign(target.style, { position: "fixed", inset: "0" }); document.body.appendChild(target);
@@ -100,7 +102,7 @@ test("bounds native protein/ligand preview work and measures exact cancellation"
         changed: JSON.stringify(changed) !== JSON.stringify(original), exactRestore: JSON.stringify(h.inspect().coordinates) === JSON.stringify(original), errors });
     }
     // Expensive surface regeneration is reported separately from coordinate restoration.
-    await h.engine.syncStructures([{ ...h.source, settings: { ...entry.viewer_settings, representations: [{ ...entry.viewer_settings.representations[0], style: "surface" }] } }]);
+    await h.engine.syncStructures([{ ...h.source, settings: { ...entry.viewer_settings, representations: [], surface_objects: [fixtureSurface({ kind: "entry" })] } }]);
     const selection = { schema_version: 1, atoms: ligand.atom_ids.map(atom_id => ({ structure_id: entry.id, atom_id })), granularity: "atom", source: "inspector" };
     const capture = captureMovement(project, selection, new Map([[entry.id, projection]]), h.engine.getRenderedAtomReferences());
     h.engine.setMovementMode("transform");

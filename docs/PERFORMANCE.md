@@ -309,3 +309,31 @@ budgets (first analysis/display<5s, cached toggle<500ms, longest task<750ms; one
 279-byte analysis request and zero additional structure GETs). Measured desktop/
 Pixel7 values are in [evidence](assets/interaction-corrections/c3-verification.json).
 Scientific fixtures and projection/pixel inspection remain test-only.
+
+
+## Independent surface objects (issue #57)
+
+C4 repeats the existing scientific, capacity and movement budgets with multiple
+independent objects. The actual worker queue admits one calculation at a time and
+materializes inputs only at admission. Appearance rebuilds retain valid scientific
+snapshots; cancelling a queued object never extracts its inputs. A gated native
+four-object regression observes one extraction while blocked, three after one
+queued cancellation, maximum one worker, and all remaining objects ready.
+
+Pinned Chromium/SwiftShader ready times (desktop / Pixel 7 emulation): 6VXX
+23,694 atoms 4.225 / 4.074 s; 1AON 58,870 atoms 9.834 / 9.264 s; synthetic
+100,000 atoms 8.557 / 8.214 s. Longest tasks respectively225/231,548/534 and
+158/189 ms. Worker mesh/working bytes respectively85,392,860/606,979,788;
+219,986,372/1,326,940,068;49,639,320/381,667,584. All readiness and main-thread
+budgets pass. Summed Linux descendant RSS reaches3,437,848 KiB; shared pages can
+be counted more than once. Neither this observation nor the2GiB calculation and
+1GiB retained-mesh bounds promises a browser or GPU memory cap.
+
+Fragment/bound-ligand first movement preview86.2/23 ms, coordinate preview77/12.7 ms,
+cancel14.1/16.3 ms; surface cancellation7.8 ms and separate regeneration1026.5 ms.
+Appearance edits perform no field recomputation or normalized refetch. Native entry
+mesh uses Mol* line geometry and actual canvas pixels without another worker field.
+See [C4 evidence](assets/surface-objects/c4-verification.json) for exact commands,
+raw data, resolved diagnostics and environment limits. Candidate and merged release
+gates remain separate evidence; these measurements do not qualify physical devices,
+other browsers or hardware GPUs.

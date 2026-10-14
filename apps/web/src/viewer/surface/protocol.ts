@@ -8,8 +8,9 @@ export const SURFACE_LIMITS = {
   retainedBytes: 1024 * 1024 * 1024, workingBytes: 2 * 1024 * 1024 * 1024, deadlineMs: 120_000,
 } as const;
 
-export type SurfaceChannel = "fragment" | "pocket";
-export const surfaceKey = (entryId: string, channel: SurfaceChannel) => `${channel}:${entryId}`;
+export type SurfaceChannel = "entry" | "fragment" | "pocket";
+export const surfaceKey = (entryId: string, channel: SurfaceChannel, surfaceId: string = channel) =>
+  surfaceId === channel ? `${channel}:${entryId}` : JSON.stringify([entryId, surfaceId]);
 export interface PocketCrop { profile: "pocket-v1"; seeds: Float64Array; radius: number }
 
 /** Dense serial groups map to the component's structural element iterator. */
