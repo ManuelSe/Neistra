@@ -670,3 +670,13 @@ scene/history and navigation assertions. Focused browser2passes/2intentional mob
 skips. [Diagnostic and repair](../assets/surface-objects/c5-fixture-review/review.json)
 are retained. No application implementation or approved scope changes. Repeat the
 complete clean candidate gate from a new passing checkpoint before the PR.
+
+
+C5 second diagnostic at1bfb4b8 passes all non-browser gates and82browser cases,
+then finds the visibility fixture expecting atom selection from a primary surface
+hit. Approved primary hits activate an object; the test now uses Shift-modified
+native picking, retaining every polymer/geometry/label/measurement/selection/camera
+assertion. Focused desktop/mobile2pass. Other surface-picking workflows were
+searched and already use the correct modified path. [Diagnostic](../assets/surface-objects/c5-pick-fixture-review/review.json):1failure,1interrupted,6skips,144not run; not a passing release gate.
+No application behavior/scope change. Commit the passing fixture and repeat the
+complete clean gate before PR. These diagnostics remain distinct from final evidence.

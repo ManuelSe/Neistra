@@ -127,7 +127,10 @@ test("trace, residue and all-atom hiding preserve native polymers, surfaces and 
   expect(result.restored.labels).toBe(result.before.labels);
   const canvas = page.locator("canvas").first(), box = (await canvas.boundingBox())!;
   for (const [x, y] of [[0.5, 0.5], [0.4, 0.5], [0.6, 0.5], [0.4, 0.4], [0.6, 0.6], [0.3, 0.6], [0.7, 0.4]]) {
+    // Primary surface hits activate the object; modified hits retain molecular picking.
+    await page.keyboard.down("Shift");
     await page.mouse.click(box.x + box.width * x, box.y + box.height * y);
+    await page.keyboard.up("Shift");
     if (await page.waitForFunction(() => window.visibilityPicks.length > 0, undefined, { timeout: 500 }).then(() => true, () => false)) break;
   }
   const picked = await page.evaluate(() => window.visibilityPicks);
