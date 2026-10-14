@@ -2,40 +2,13 @@
 
 ## Current milestone
 
-Issue #57 — [approved surface-object contract](plans/issue-57-independent-surface-objects.md).
-M1/C1 and M2/C2 are complete on `feat/issue-57-independent-surface-objects`.
-Canonical schema-2 entry/fragment/pocket objects, revisioned atomic commands,
-retained-snapshot migration0014, legacy archive conversion, topology reconciliation
-and compact grouped management are implemented. D-090/D-091 record renderer,
-ownership and compatibility decisions.
+Issue #57 delivered as [v0.14.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.14.0) through [PR #65](https://github.com/ManuelSe/Neistra/pull/65), following the [approved plan](plans/issue-57-independent-surface-objects.md). C1–C5 complete: independent entry/fragment/pocket identities and whole-object activation, compact ownership/appearance/source controls, reversible durable state and migration0014. D-090–D-096 record authority, scientific, compatibility, queue, focus and pointer decisions.
 
-[C2 evidence](assets/surface-objects/c2-verification.json): complete Python baseline
-547 passed, final focused migration/object/archive/security178 passed (including
-three new migration cases); all209frontend/lint/types/build, Ruff/mypy61 and diff
-checks pass. Desktop/mobile fragment/pocket19 browser checks and separate complete
-application journey1 pass; two intentional layout skips. Manager evidence repeated
-successfully. Local self-review resolved threshold/failure-message/fixture findings.
-M3/C3 is complete: independent themes/uniform color, opacity, solid/mesh, inheritance,
-explicit source editing and source-atom selection. [C3 evidence](assets/surface-objects/c3-verification.json):
-all214frontend and5API checks, lint/types/build/Ruff/mypy61 pass. Adjacent browser43
-passes plus final object/picking6 passes/2 intentional layout skips cover real
-mouse/touch activation, cache reuse/no refetch, source scopes, Undo/reload, locked
-entries, stale context and unchanged molecular state. An obsolete schema fixture
-was repaired and passes its focused rerun. D-092 and user guidance are current.
-C4 qualification completes with actual tagged v0.13.2 upgrade/old-reader refusal
-and backup restoration; exact unrelated database columns and8 artifact files pass.
-Multiple objects, native mesh pixels/whole-object markers, lazy serial queues,
-scientific references, capacity/movement budgets, light/dark axe, keyboard/320px
-and real100%/200%Chrome zoom pass. Focus handoff, disposed queued selectors,
-unaddressable archive IDs and stale native pixel hits were reproduced and repaired
-(D-093–D-096). Focused Python183 and frontend214 tests pass; final pointer/static
-counts and source hashes are retained in [C4 evidence](assets/surface-objects/c4-verification.json).
-C5 clean candidate `b6281bc` passes 556Python/214frontend/8supervisor/190browser with44 intentional skips, zero failures/flakes/retries; frozen installs/fresh0014/lint/types/build/diff pass. [Evidence](assets/surface-objects/c5-candidate-gate.json). Actual v0.13.2 producer/reader refusal/backup checks pass against final0.14.0. Local full-diff self-review has no unresolved finding; independent review is not claimed. PR/review, exact merged gate and publication remain.
-No blocker. Both legacy browser fixture findings are corrected and the fresh
-complete gate passes. C4 committed as `ab5aac1`; next: open/review the PR, qualify
-exact merged master and publish the verified release.
-All five versions advance to0.14.0; charge follow-up [#64](https://github.com/ManuelSe/Neistra/issues/64)
-is created. Remote collision/base/protection/workflow audit is clear.
+[Clean candidate](assets/surface-objects/c5-candidate-gate.json) atb6281bc and [exact released master](assets/surface-objects/c5-merged-gate.json) at`88e84b27a0fb6c4520333df236d788065fd7a788` each pass **556Python/214frontend/8supervisor/190browser with44 intentional skips**, zero failures/flakes/retries, plus frozen installs/fresh0014/static/build/diff. Actual tagged0.13.2 upgrade, schema1 import, old-reader schema2 refusal and full backup restore pass; unrelated DB columns and original/normalized bytes are exact. Diagnostic fixture repairs remain separate.
+
+All five versions0.14.0; pre-1.0 minor with documented project/viewer/archive2/API break, normalized/selection1 unchanged. Back up full data before upgrade; retained-object downgrade refuses, restore backup. Annotated exact tag, stable release/notes, downloaded evidence SHA256 and930 internal checksums verified; [publication](assets/surface-objects/c5-publication.json). [Issue reply](https://github.com/ManuelSe/Neistra/issues/57#issuecomment-6175474825) verified; issue closed. Local self-review, no independent Codex review returned and no protection/approval bypass.
+
+Known limits: fixed geometry, fragment cut faces/pocket crop interpretation,16objects/entry, existing per-calculation/retained bounds (no whole-browser/GPU cap), pinned emulation. Charge coloring[#64](https://github.com/ManuelSe/Neistra/issues/64), carbon defaults#58 and browser redesign#59 remain separate. Feature branch/old qualification worktree cleanup verified. No blocker or remaining approved-scope implementation. Final docs merge/clean-master audit lives in the verified issue reply; next product work needs a separate approved plan.
 
 ### Previous delivery baseline — v0.13.2
 
@@ -2410,8 +2383,8 @@ Results:
 
 ## Blockers
 
-No current blocker. Issue #57 C1–C4 and clean0.14.0 candidate qualification pass. Required remote review/protections and exact merged release qualification/publication remain. Released baseline isv0.13.2.
+No current blocker. Issue #57 approved scope, release and closeout are verified.
 
 ## Next action
 
-Complete issue #57 PR/review, exact merged release gate and tagged compatibility, then verifyv0.14.0 tag/release/issue closeout and branch cleanup.
+Final documentation/clean-master audit is maintained in the verified issue reply. Plan a separately approved backlog issue; do not add deferred charge/carbon/browser scope here.

@@ -1,0 +1,51 @@
+[
+  {
+    "name": "old-migration",
+    "exit_code": 0,
+    "source": "v0.13.2@c21de2e",
+    "duration_seconds": 0.556,
+    "log": "old-migration.log"
+  },
+  {
+    "name": "producer",
+    "exit_code": 0,
+    "source": "v0.13.2@c21de2e",
+    "duration_seconds": 3.877,
+    "log": "producer.log"
+  },
+  {
+    "name": "new-migration",
+    "exit_code": 0,
+    "source": "88e84b27a0fb6c4520333df236d788065fd7a788",
+    "duration_seconds": 0.476,
+    "log": "new-migration.log"
+  },
+  {
+    "name": "upgrade",
+    "exit_code": 0,
+    "source": "88e84b27a0fb6c4520333df236d788065fd7a788",
+    "duration_seconds": 1.59,
+    "log": "upgrade.log"
+  },
+  {
+    "name": "reader-migration",
+    "exit_code": 0,
+    "source": "v0.13.2@c21de2e",
+    "duration_seconds": 0.571,
+    "log": "reader-migration.log"
+  },
+  {
+    "name": "reader",
+    "exit_code": 0,
+    "source": "v0.13.2@c21de2e",
+    "duration_seconds": 1.204,
+    "log": "reader.log"
+  },
+  {
+    "name": "rollback",
+    "exit_code": 0,
+    "source": "v0.13.2@c21de2e",
+    "duration_seconds": 1.16,
+    "log": "rollback.log"
+  }
+]

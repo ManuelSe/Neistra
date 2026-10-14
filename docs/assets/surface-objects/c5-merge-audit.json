@@ -1,0 +1,20 @@
+{
+  "pr": "https://github.com/ManuelSe/Neistra/pull/65",
+  "merge_commit": "88e84b27a0fb6c4520333df236d788065fd7a788",
+  "expected_first_parent": "1c5467c7639d8152d136044d4ae208eb479c8c95",
+  "expected_feature_parent": "7c2c7eabad48402f17881e08c304ffdadb3508fd",
+  "normal_merge_preserves_checkpoints": true,
+  "local_master_fast_forwarded": true,
+  "local_clean": true,
+  "protection": "HTTP404 Branch not protected",
+  "rulesets": [],
+  "workflows": [],
+  "required_status_checks": [],
+  "required_approvals": [],
+  "review_threads": [],
+  "independent_review_received": false,
+  "codex_request": "https://github.com/ManuelSe/Neistra/pull/65#issuecomment-6174695414",
+  "local_review_reply": "https://github.com/ManuelSe/Neistra/pull/65#issuecomment-6174723531",
+  "candidate_source": "b6281bc",
+  "tested_application_and_dependencies_unchanged_at_merge": true
+}

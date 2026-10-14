@@ -1,0 +1,46 @@
+{
+  "release_version": "0.14.0",
+  "release_url": "https://github.com/ManuelSe/Neistra/releases/tag/v0.14.0",
+  "release_id": 413048192,
+  "released_commit": "88e84b27a0fb6c4520333df236d788065fd7a788",
+  "tag_object": "7fd796e86235b62904bb3463ecb1d23f7679d068",
+  "tag_remote_verified": true,
+  "release_remote_verified": true,
+  "notes_exact": true,
+  "release_draft": false,
+  "release_prerelease": false,
+  "verification_archive": {
+    "archive": "/datadisk/dev/neistra/.molweave-e2e/issue57/release-artifacts/neistra-v0.14.0-verification.tar.gz",
+    "bytes": 80692637,
+    "sha256": "d7384c09ed9d89a23d30c3ec0dd891c8686049b64f9a9038c3737be69e6b74bc",
+    "internal_files": 930,
+    "downloaded_bytes_sha256_verified": true,
+    "internal_checksums_verified": true
+  },
+  "assets": [
+    {
+      "name": "neistra-v0.14.0-verification.tar.gz",
+      "size": 80692637,
+      "digest": "sha256:d7384c09ed9d89a23d30c3ec0dd891c8686049b64f9a9038c3737be69e6b74bc",
+      "url": "https://github.com/ManuelSe/Neistra/releases/download/v0.14.0/neistra-v0.14.0-verification.tar.gz"
+    },
+    {
+      "name": "SHA256SUMS.json",
+      "size": 166345,
+      "digest": "sha256:ee09fad0d92e51136de660c4e736693f52f76537f044034bc20699941323257a",
+      "url": "https://github.com/ManuelSe/Neistra/releases/download/v0.14.0/SHA256SUMS.json"
+    }
+  ],
+  "pr": "https://github.com/ManuelSe/Neistra/pull/65",
+  "review": "local self-review; no independent Codex review returned at merge audit",
+  "issue_reply_verified": true,
+  "feature_cleanup_verified": true,
+  "issue_reply_url": "https://github.com/ManuelSe/Neistra/issues/57#issuecomment-6175474825",
+  "issue_reply_id": 6175474825,
+  "issue_state": "CLOSED",
+  "deleted_feature_branch": "feat/issue-57-independent-surface-objects",
+  "old_tagged_worktree_removed": true,
+  "clean_master_after_publication": "88e84b27a0fb6c4520333df236d788065fd7a788",
+  "issue_reply_body_sha256_at_initial_verification": "92745ddabcfad6956d71152ca3e5489f534fc98acddef469a25ced48b2f4e3d1",
+  "issue_reply_verification_phase": "Initial publication reply verified exactly; final documentation/master audit updates the same comment after its verification."
+}

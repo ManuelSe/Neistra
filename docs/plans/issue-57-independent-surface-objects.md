@@ -2,7 +2,7 @@
 
 ## Status, outcome, and authority
 
-**Status:** approved implementation contract; implementation authorized by the subsequent `/goal`; M1/C1–M4/C4 complete; C5 clean candidate qualified; PR/review and merged publication pending.
+**Status:** approved contract fully implemented and qualified; C1–C5 delivered in v0.14.0. Publication, issue closeout and feature cleanup verified; final documentation/clean-master audit is maintained in the verified issue reply.
 
 - Issue: [#57 — Manage molecular surfaces as independent, editable objects](https://github.com/ManuelSe/Neistra/issues/57), open at planning inspection.
 - Plan: `docs/plans/issue-57-independent-surface-objects.md`.
@@ -387,9 +387,9 @@ The initial plan is the sole first-commit change. Project progress and supersedi
 | 2026-10-14 | M2 / C2 complete | bc54a8e: canonical objects, migration0014, revisioned commands and durable vertical slice; C2 evidence below. |
 | 2026-10-14 | M3 / C3 complete | a8c7276: independent appearance and explicit source workflow; C3 evidence below. |
 | Complete 2026-10-14 | M4 / C4 | Native workflows, scientific/accessibility/capacity/lifecycle and actual tagged compatibility qualified; see retained C4 evidence. |
-| Pending | M4 / C5 | Candidate, review, merged qualification and verified delivery. |
+| 2026-10-14 | M4 / C5 complete | Clean candidate and exact merged gates, tagged compatibility, normal PR merge, verified annotated tag/release/evidence/issue reply and feature cleanup. |
 
-Current delivery state: C1–C4 are implemented/qualified, C5 candidate qualification passes; follow-up#64 exists. PR/review, exact merged qualification, tag/release and issue closeout remain. No blocker.
+Current delivery state: approved scope implemented/qualified; PR#65 merged, v0.14.0 tag/release/evidence and issue closeout verified; charge follow-up#64 remains separate. Feature branch and old qualification worktree removed. Final documentation merge/clean-master audit lives in [the verified issue reply](https://github.com/ManuelSe/Neistra/issues/57#issuecomment-6175474825). No blocker.
 
 
 ### M1 / C1 implementation and qualification — 2026-10-14
@@ -701,3 +701,12 @@ trailing whitespace/blank EOF lines only, preserving substantive historical resu
 The final review correction is documentation only; tested application/test/dependency
 sources remain exactly those of clean candidateb6281bc. Recheck current head, base,
 checks, protections, review threads and version collision before normal merge.
+
+
+### M4/C5 exact merged qualification and verified publication — 2026-10-14
+
+PR [#65](https://github.com/ManuelSe/Neistra/pull/65) normal-merges feature head7c2c7ea into exactmaster `88e84b27a0fb6c4520333df236d788065fd7a788`, preserving all checkpoints; both parents and origin/master are verified. Local master fast-forwards and starts/ends clean. [Exact merged gate](../assets/surface-objects/c5-merged-gate.json) repeats every complete command: 556Python/214frontend/8supervisor/190browser with44 intentional skips, zero failures/flakes/retries; frozen installs/fresh0014/Ruff/mypy61/lint/types/build/diff. Actual tagged0.13.2 producer, final0.14 upgrade/schema1 imports, old-reader schema2 refusal and full backup restoration repeat successfully.
+
+All five authoritative versions0.14.0. Annotatedv0.14.0 targets exactly `88e84b27a0fb6c4520333df236d788065fd7a788`; tag object/peeled commit, [stable release](https://github.com/ManuelSe/Neistra/releases/tag/v0.14.0), notes and downloaded evidence archive SHA256 plus930 internal checksums are remotely verified. [Publication](../assets/surface-objects/c5-publication.json) and [merge audit](../assets/surface-objects/c5-merge-audit.json) retain facts. Local review is self-review; Codex request returned no independent review at merge audit. No required approval, protection, check or unresolved conversation was bypassed.
+
+[Issue closeout](https://github.com/ManuelSe/Neistra/issues/57#issuecomment-6175474825) is verified; issue is closed. It documents delivered workflows, compatibility/rollback, exact verification, charge follow-up#64, existing#58/#59 and excluded capabilities. Remote/local feature branch deletion and old tagged worktree cleanup are verified after merge/tag/release/reply. Final documentation uses a separate docs PR; no application/test/dependency changes after qualification. Its merge and final clean-master audit are maintained in the verified issue reply. No implementation blocker or approved-scope work remains.
