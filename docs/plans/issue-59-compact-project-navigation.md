@@ -560,3 +560,22 @@ unimplemented behavior, unrun check, or unverified remote action as complete.
   exact unchanged persisted/API contracts remain as approved.
 - Candidate/merged full release gates, final-version actual tagged-reader checks,
   PR/review/merge/tag/release/reply and cleanup remain pending. No publication claim.
+
+### 2026-10-14 — C4 full-diff review correction
+
+- Version preparation committedfb099b4. Local full-diff review found percentage-only
+  pane minima could violate the approved two-row minimum: actual44px for two32px
+  rows with extra parent status at1200×600. A new native regression failed before
+  repair. Measured control/header/content minima now constrain the existing divider;
+  ResizeObserver keeps dimensions current without per-component work. No molecular/
+  API/persisted change. D-097 appends rationale and physically constrained behavior.
+- [Review repair evidence](../assets/project-navigation/c4-review-fix.json):all227
+  frontend,24archive Python, lint/types/build/Ruff/mypy, final7native navigation
+  passes/1intentional mobile-divider skip. Initial fixture selector ambiguity and
+  pre-fix failing geometry remain diagnostic. Candidate gate was interrupted during
+  Python checks to repair the finding; it is not passing evidence and is restarted
+  on the corrected clean commit.
+- Final0.15.0 producer already passes the actual tagged0.14.0 API/core reader with
+  exact originals/coordinates/history/jobs/scenes/three surfaces/archive remapping.
+  Repeat complete corrected candidate and exact merged gates before publication.
+  No unresolved review finding or new product scope. Next: commit passing repair.

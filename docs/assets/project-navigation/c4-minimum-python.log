@@ -1,0 +1,10 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.2, pluggy-1.6.0
+rootdir: /datadisk/dev/neistra
+configfile: pyproject.toml
+plugins: cov-6.3.0, anyio-4.9.0
+collected 24 items
+
+tests/integration/test_archive_roundtrip.py ........................     [100%]
+
+============================= 24 passed in 11.05s ==============================

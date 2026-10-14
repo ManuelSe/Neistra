@@ -17,6 +17,7 @@ interface StructureHierarchyProps {
   onSelect: (selection: Selection, mode: SelectionMode) => void;
   onVisibility: (entry: Entry, key: VisibilityKey) => void;
   onFocusFallback?: () => void;
+  onMinimumHeight?: (height: number) => void;
 }
 interface CategoryDefinition { category: ComponentCategory; label: string; visibility?: VisibilityKey }
 const CATEGORIES: CategoryDefinition[] = [
@@ -36,7 +37,7 @@ type HierarchyRow = { key: string; definition: CategoryDefinition; members: numb
   { kind: "category"; components: MolecularComponent[] } | { kind: "component"; component: MolecularComponent }
 );
 
-function VirtualHierarchy({ projectId, entry, selection, onSelect, onVisibility, onFocusFallback, projection }: StructureHierarchyProps & { projection: StructureProjection }) {
+function VirtualHierarchy({ projectId, entry, selection, onSelect, onVisibility, onFocusFallback, onMinimumHeight, projection }: StructureHierarchyProps & { projection: StructureProjection }) {
   const browsing = useNavigationStore(state => state.projectId === projectId ? state.entries[entry.id] ?? emptyBrowsingState : emptyBrowsingState);
   const coarse = useMediaQuery("(any-pointer: coarse), (max-width: 840px)");
   const rowHeight = coarse ? 44 : 32;
@@ -103,6 +104,10 @@ function VirtualHierarchy({ projectId, entry, selection, onSelect, onVisibility,
   }, [entry.id, rows.length, rowHeight]);
   useLayoutEffect(() => { if (detailsKey) lastDetailsKey.current = detailsKey; }, [detailsKey]);
   useLayoutEffect(() => { virtualizer.measure(); }, [rowHeight, virtualizer]);
+  useLayoutEffect(() => {
+    const element = scroller.current;
+    if (element?.parentElement) onMinimumHeight?.(2 * rowHeight + element.parentElement.clientHeight - element.clientHeight);
+  }, [rowHeight, projection.hierarchy.warnings.length, onMinimumHeight]);
   const focusRow = (row: HierarchyRow) => { focusedCategory.current = row.definition.category; setFocusedKey(row.key); };
   const toggle = (row: HierarchyRow) => {
     const categories = new Set(useNavigationStore.getState().entries[entry.id]?.categories ?? []);

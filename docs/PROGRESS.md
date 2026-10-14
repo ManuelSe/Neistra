@@ -21,8 +21,11 @@ C3 committed/remotely verified3adcc53. Release preparation advances five version
 to0.15.0minor; no new migration/API/persisted shape. Known limits:
 session context/shared visibility,200unvirtualized entries, generated navigation
 fixture and pinned emulation; no interactive screen-reader certification. C4 full
-candidate/merged gates and release delivery pending. No blocker. Next: commit release preparation and run complete candidate gate
-and final-version actual tagged-reader qualification.
+candidate/merged gates and release delivery pending. Release prep committedfb099b4. Full-diff review reproduced/repaired pane minimum
+geometry; [repair evidence](assets/project-navigation/c4-review-fix.json) passes227
+frontend/24Python/static/build/7native with1intentional skip. Final0.15.0 actual0.14.0
+reader passes. Superseded candidate stopped for repair, no full-gate claim. No
+blocker. Next: commit repair and run corrected complete clean candidate gate.
 
 ### Previous delivery baseline — v0.14.0
 

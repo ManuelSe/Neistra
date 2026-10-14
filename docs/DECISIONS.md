@@ -3551,3 +3551,11 @@ and restore only when their closing scope still needs restoration. Entry return
 targets retain project/entry identity and resolve remounted launchers by ID; an
 old project cannot focus a new project's heading. Focused regressions cover both
 dialog kinds, while the complete corrected browser gate is repeated.
+
+D-097 final review note — percentage-only desktop minima reproduced only44px
+for two32px component rows at1200×600 with hidden/outside-list parent status.
+Measure available pane space, current controls/header overhead and two row heights
+to constrain the existing divider. ResizeObserver handles layout changes without
+per-component requests or molecular state. Impossible combined minima share the
+viewport rather than creating invalid panel constraints; mobile full-height tabs
+remain unchanged. A pre-fix failing native regression and passing repair are retained.

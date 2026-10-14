@@ -216,3 +216,24 @@ test("virtualizes ten thousand real normalized components and reaches off-screen
   await info.attach("virtual-window", { body: JSON.stringify({ ...bounded, components:10000, normalizedRequests:loads }), contentType: "application/json" });
   await page.screenshot({ path: info.outputPath("virtual-components.png") });
 });
+
+test("retains two component rows at the minimum expanded desktop pane height", async ({ page, request }, info) => {
+  test.skip(info.project.name !== "chromium", "Desktop divider minimum; mobile uses full-height tabs.");
+  const project = await setup(page, request, info);
+  const complex = project.entries.find(entry => entry.source_format === "pdb")!;
+  await page.setViewportSize({ width:1200, height:600 });
+  await browseComponents(page, complex.name);
+  await page.getByRole("button", { name:`Expand Water in ${complex.name}`, exact:true }).click();
+  await page.locator(`[data-entry-id="${complex.id}"]`).getByRole("button", { name:`Hide ${complex.name}`, exact:true }).click();
+  await page.getByPlaceholder("Search structures").fill("Ethanol");
+  await expect(page.locator(".component-parent")).toContainText("Parent hidden");
+  await expect(page.locator(".component-parent")).toContainText("Outside displayed entry list");
+  const divider = page.getByRole("separator", { name:"Resize entries and components", exact:true });
+  const box = (await divider.boundingBox())!;
+  const group = (await page.locator('#project-navigation-panels').boundingBox())!;
+  await page.mouse.move(box.x+box.width/2,box.y+box.height/2);
+  await page.mouse.down(); await page.mouse.move(box.x+box.width/2,group.y+group.height-125,{ steps:5 }); await page.mouse.up();
+  await expect(page.getByRole("button", { name:"Collapse components", exact:true })).toBeVisible();
+  await expect.poll(() => page.locator(".component-scroll").evaluate(node => node.clientHeight)).toBeGreaterThanOrEqual(64);
+  await page.screenshot({ path:info.outputPath("minimum-pane.png") });
+});

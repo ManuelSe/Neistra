@@ -23,7 +23,7 @@ import {
   Search,
   Trash2,
 } from "lucide-react";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import type {
   Entry,
   Project,
@@ -244,6 +244,10 @@ export function ProjectBrowser({
   ...actions
 }: ProjectBrowserProps) {
   const compact = useMediaQuery("(max-width: 840px)");
+  const coarse = useMediaQuery("(any-pointer: coarse), (max-width: 840px)");
+  const browserRoot = useRef<HTMLElement>(null);
+  const [componentContentMinimum, setComponentContentMinimum] = useState(64);
+  const [minimums, setMinimums] = useState([30, 25]);
   const navigation = useNavigationStore();
   const { browserLayout, componentsCollapsed, setBrowserLayout, setComponentsCollapsed } = useWorkspaceStore();
   const componentPanel = useRef<ImperativePanelHandle>(null);
@@ -441,6 +445,33 @@ export function ProjectBrowser({
         )}
       </div>
   </div>;
+  useLayoutEffect(() => {
+    if (compact || !browserRoot.current) return;
+    const root = browserRoot.current;
+    const group = root.querySelector<HTMLElement>("[data-panel-group]");
+    const controls = root.querySelector<HTMLElement>(".browser-controls");
+    const header = root.querySelector<HTMLElement>(".component-pane-header");
+    const parent = root.querySelector<HTMLElement>(".component-parent");
+    const measure = () => {
+      const available = (group?.clientHeight ?? 0) - (root.querySelector<HTMLElement>("[data-panel-resize-handle-id]")?.offsetHeight ?? 0);
+      if (available <= 0) return;
+      const entries = root.querySelector<HTMLElement>(".entry-pane");
+      const results = root.querySelector<HTMLElement>(".browser-results");
+      const pane = root.querySelector<HTMLElement>(".component-pane");
+      const shell = root.querySelector<HTMLElement>(".hierarchy-shell");
+      const entryPixels = (entries && results ? entries.clientHeight - results.clientHeight : 0) + 2 * (coarse ? 44 : 32);
+      const componentPixels = (pane && shell ? pane.clientHeight - shell.clientHeight : 0) + componentContentMinimum;
+      const requested = [Math.max(30, Math.ceil(entryPixels / available * 100)), Math.max(25, Math.ceil(componentPixels / available * 100))];
+      // If the viewport cannot fit both minima, share available space without invalid panel constraints.
+      const scale = Math.min(1, 96 / (requested[0] + requested[1]));
+      const next = requested.map(value => value * scale);
+      setMinimums(previous => previous.every((value, index) => value === next[index]) ? previous : next);
+    };
+    measure();
+    const observer = new ResizeObserver(measure);
+    for (const element of [group, controls, header, parent]) if (element) observer.observe(element);
+    return () => observer.disconnect();
+  }, [compact, coarse, componentContentMinimum, componentsCollapsed, inspected?.id, search, typeFilter, drag.scope]);
   const components = <section className="component-pane" aria-label="Component browser">
     <div className="component-pane-header">
       <h3 ref={paneHeading} tabIndex={-1}>Components</h3>
@@ -453,10 +484,10 @@ export function ProjectBrowser({
     </div> : null}
     {project && inspected?.current_artifact_id ? <StructureHierarchy
       projectId={project.id} entry={inspected} selection={selection}
-      onSelect={onSelectHierarchy} onVisibility={onHierarchyVisibility} onFocusFallback={() => paneHeading.current?.focus()} />
+      onSelect={onSelectHierarchy} onVisibility={onHierarchyVisibility} onFocusFallback={() => paneHeading.current?.focus()} onMinimumHeight={setComponentContentMinimum} />
       : <p className="empty-label">{inspected ? "No normalized structure available" : "Choose an entry to browse components"}</p>}
   </section>;
-  return <section className="panel-content project-browser" aria-label="Project browser">
+  return <section ref={browserRoot} className="panel-content project-browser" aria-label="Project browser">
       <div className="panel-header">
         <div>
           <span className="panel-eyebrow">Project</span>
@@ -483,10 +514,10 @@ export function ProjectBrowser({
         {navigation.tab === tab ? tab === "entries" ? entryList : components : null}
       </div>)}
     </> : <PanelGroup direction="vertical" id="project-navigation-panels" onLayout={setBrowserLayout}>
-      <Panel id="entry-list-panel" defaultSize={browserLayout[0]} minSize={30}>{entryList}</Panel>
+      <Panel id="entry-list-panel" defaultSize={browserLayout[0]} minSize={minimums[0]}>{entryList}</Panel>
       <PanelResizeHandle className="resize-handle vertical" aria-label="Resize entries and components" />
       <Panel id="component-browser-panel" ref={componentPanel} defaultSize={browserLayout[1]}
-        minSize={25} collapsible collapsedSize={7} onCollapse={() => setComponentsCollapsed(true)} onExpand={() => setComponentsCollapsed(false)}>
+        minSize={minimums[1]} collapsible collapsedSize={7} onCollapse={() => setComponentsCollapsed(true)} onExpand={() => setComponentsCollapsed(false)}>
         {componentsCollapsed ? <button type="button" className="component-restore" onClick={() => componentPanel.current?.expand()}><ChevronUp size={15} /> Components</button> : components}
       </Panel>
     </PanelGroup>}
