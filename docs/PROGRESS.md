@@ -2,25 +2,33 @@
 
 ## Current milestone
 
-Issue #59 — [approved contract](plans/issue-59-compact-project-navigation.md).
-C1–C3 implemented/qualified; C4 clean candidate9a176a1 passes the full release gate.
-Independent compact entries/component panes and mobile tabs, pinned session context,
-direct virtual rows, exact indexed membership and full accessible Details are complete.
-D-097 records ownership and reproduced/repaired focus/contrast/menu/minimum-height
-findings; [user guidance](PROJECT_NAVIGATION.md) documents interactions and scope.
+Issue #59 delivered as [v0.15.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.15.0)
+through [PR #67](https://github.com/ManuelSe/Neistra/pull/67), following the
+[approved plan and completion log](plans/issue-59-compact-project-navigation.md).
+C0–C4 complete: compact entries, independent desktop panes/mobile tabs, pinned
+session context, exact direct virtual component selection and accessible full
+metadata/warnings. D-097 records ownership and reproduced/repaired findings.
 
-[Candidate evidence](assets/project-navigation/c4-candidate-gate.json):557Python,
-227frontend,8supervisor,197browser/45intentional skips in34.3m, no failures/retries;
-frozen installs/fresh0014/Ruff/mypy61/lint/types/build/diff pass. Actual tagged0.14.0
-reads final0.15.0 exact originals/coordinates/history/jobs/scenes/three surfaces and
-archive remapping. [Full-diff review](assets/project-navigation/c4-local-review.md)
-is local self-review; no unresolved consequential finding. Diagnostics stay separate.
+[Clean candidate](assets/project-navigation/c4-candidate-gate.json) at9a176a1 and
+[exact released master](assets/project-navigation/c4-merged-gate.json) at
+`dccc5e6d2f3dc3d392144165ffd1f4237db4a2e5` each pass557Python/227frontend/8supervisor/
+197browser with45intentional skips, zero failures/retries; frozen installs/fresh0014/
+Ruff/mypy61/lint/types/build/diff. Actual tagged0.14.0 reads final0.15.0 exact
+originals/coordinates/history/jobs/scenes/surfaces/archive remapping.200entries/
+10kcomponents, narrow layouts, actual200% zoom and keyboard/axe pass. Diagnostic
+findings stay separate. Review local, no independent Codex review returned at
+merge/publication audit; no required protection/approval bypass.
 
-All five versions0.15.0minor; no new migration/API/persisted shape. Known limits:
-session context/shared visibility,200unvirtualized entries, generated navigation
-fixture and pinned emulation; no interactive screen-reader certification. PR/review/
-normal merge, exact merged gate, release/reply/cleanup pending. No blocker. Next:
-commit passing evidence, push/open PR, request review and audit merge requirements.
+Five versions0.15.0minor; no new migration/API/persisted shape. Annotated exact tag,
+stable release/notes, downloaded archive SHA256 and132internal checksums verified;
+[publication](assets/project-navigation/c4-publication.json).
+[Issue reply](https://github.com/ManuelSe/Neistra/issues/59#issuecomment-6179659377)
+verified; issue closed. Final documentation merge/branch cleanup/clean-master audit
+is maintained in that reply. Known limits: session context/shared visibility,
+200unvirtualized entries, generated navigation fixture and pinned emulation; no
+interactive screen-reader certification. [User guide](PROJECT_NAVIGATION.md).
+No blocker or remaining approved-scope implementation. Next product action:
+approve a separate backlog plan; no deferred scope is added.
 
 ### Previous delivery baseline — v0.14.0
 

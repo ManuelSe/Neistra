@@ -2,15 +2,14 @@
 
 ## 1. Status, outcome, and authority
 
-**Status:** implementation authorized by `/goal` on 2026-10-14. C0 was committed
-and remotely verified at `9f454c0eee7912aca623a3d239f9593a40b65235`. M1/C1 is
-implemented and qualified. M2/C2 and M3/C3 are complete; M4/C4 release delivery
-has a passing clean candidate; PR/merge/publication remain pending.
-
+**Status:** C0–C4 delivered, qualified, merged and released as0.15.0. `/goal`
+authorized full delivery after the C0 planning handoff. The exact released commit is
+`dccc5e6d2f3dc3d392144165ffd1f4237db4a2e5`; final documentation/clean-master/branch
+cleanup audit is maintained in the verified issue reply below.
 
 - **Issue:** [#59 — Redesign the entry list and component hierarchy for compact,
-  uncluttered navigation](https://github.com/ManuelSe/Neistra/issues/59), open,
-  with no comments at planning inspection.
+  uncluttered navigation](https://github.com/ManuelSe/Neistra/issues/59), closed through [PR #67](https://github.com/ManuelSe/Neistra/pull/67);
+  [verified close-out reply](https://github.com/ManuelSe/Neistra/issues/59#issuecomment-6179659377). Initial planning inspection found it open with no comments.
 - **Persistent plan:** `docs/plans/issue-59-compact-project-navigation.md`.
 - **Approval:** user instruction “Implement the plan.” on 2026-10-14, following
   the complete proposal and confirmation of the product choices below. The
@@ -18,9 +17,10 @@ has a passing clean candidate; PR/merge/publication remain pending.
   runtime implementation.
 - **Base:** `master` / `origin/master` at
   `430e7d0ccfb8643710ea13a26509e284e26550a7`.
-- **Feature branch:** `feat/issue-59-compact-project-navigation`.
-- **Proposed release:** **0.15.0**, annotated tag `v0.15.0`, subject to a collision
-  recheck before release preparation.
+- **Feature branch:** `feat/issue-59-compact-project-navigation` (delivery history;
+  final cleanup audit is maintained in the verified issue reply).
+- **Released version:** **0.15.0**, remotely verified annotated `v0.15.0` and
+  [stable release](https://github.com/ManuelSe/Neistra/releases/tag/v0.15.0). Collision rechecks passed.
 - **Audience:** scientists navigating projects containing multiple entries and
   large molecular component collections.
 
@@ -606,3 +606,39 @@ unimplemented behavior, unrun check, or unverified remote action as complete.
   candidate evidence and release notes, push, open normal-merge PR with Closes#59,
   request Codex review and audit protections/checks/reviews/conversations. Exact
   merged-master gate, annotated tag/release/reply and cleanup remain pending.
+
+### 2026-10-15 — C4 complete: merged release and verified issue close-out
+
+- [PR #67](https://github.com/ManuelSe/Neistra/pull/67) merged normally, preserving
+  C0–C3 checkpoints and release/fix/evidence commits. Refreshed merge audit found
+  current base/head, no master protection/ruleset/workflow/check/required review,
+  no unresolved conversation, and no local consequential finding. Codex request
+  was verified; no independent review returned at merge/publication audit. No bypass.
+- Exact merged master `dccc5e6d2f3dc3d392144165ffd1f4237db4a2e5` was remotely
+  verified, switched to clean master and fast-forwarded.
+  [Complete merged gate](../assets/project-navigation/c4-merged-gate.json):all13
+  README/DEVELOPMENT commands pass,557Python/227frontend/8supervisor/197browser with
+  45intentional layout skips in34.2m, zero failures/retries; frozen installs,
+  fresh0014/static/build/diff. Exact source inventories and raw/retained log hashes
+  accompany evidence. Actual tagged0.14.0 reader again accepts final0.15.0 exact
+  originals/coordinates/history/jobs/scenes/three surfaces and archive remapping.
+- Annotated tag object `d82163429bb6b9f225e4dc1244fa9329cd077bcf` points exactly
+  to qualified released master. Remote tag object/peeled target verified.
+  [Stable0.15.0 release](https://github.com/ManuelSe/Neistra/releases/tag/v0.15.0),
+  draft/prerelease flags, exact notes and downloaded2153880-byte verification
+  archive match; SHA256 `27ad5fe96c69e7e368839a03ed3a6596b4c3326f81215a4a9244994a737e3051`
+  and132internal payload checksums verify. [Publication](../assets/project-navigation/c4-publication.json).
+- [Issue reply](https://github.com/ManuelSe/Neistra/issues/59#issuecomment-6179659377)
+  was posted and verified exactly; issue is closed. It records implemented scope,
+  PR/release, exact gates, compatibility/rollback, scientific/accessibility limits,
+  simplifications/rejections/deferrals and existing#20/#21/#52/#58/#64 follow-ups.
+  No speculative issue created; no deferred scope reintroduced.
+- Five versions0.15.0minor; no new migration/API/persisted shape. Known limitations
+  remain as qualified. No outstanding approved-scope implementation or blocker.
+  Returned to the planned feature branch and fast-forwarded it to released master
+  for this documentation-only completion record; tested runtime/test/dependency
+  inventory is unchanged. Global PLAN and historical decisions remain intact.
+- The final documentation PR/merge and subsequent feature-branch/old-reader-worktree
+  cleanup/clean-master verification are maintained in the verified issue reply,
+  updated only after those actions are observed. Release tag remains on the exact
+  qualified runtime commit. Future backlog work requires its own approved plan.

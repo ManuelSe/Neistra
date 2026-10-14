@@ -15,8 +15,12 @@ accepts exact surfaces/scenes/originals/coordinates/history/jobs/archive remappi
 passes557Python/227frontend/8supervisor/197browser with45intentional skips and no
 failures/retries, frozen installs/fresh0014/static/build/diff. Final0.15.0 producer
 passes the actual tagged0.14.0 reader including exact surfaces/scenes/originals/
-coordinates/history/jobs/archive remapping. Exact merged gate/publication remain
-pending. [Full-diff local self-review](assets/project-navigation/c4-local-review.md)
+coordinates/history/jobs/archive remapping. [Exact released master](assets/project-navigation/c4-merged-gate.json) at
+`dccc5e6d2f3dc3d392144165ffd1f4237db4a2e5` repeats every gate/count and actual reader
+with no failures/retries. [Publication](assets/project-navigation/c4-publication.json)
+verifies annotated exact tag/stable release/notes/downloaded archive and132internal
+checksums. [Issue reply](https://github.com/ManuelSe/Neistra/issues/59#issuecomment-6179659377)
+verified; issue closed. Final docs/master/cleanup audit is maintained in the reply. [Full-diff local self-review](assets/project-navigation/c4-local-review.md)
 claims no independent review; consequential findings are repaired. Manual screenshot review is distinct from automated accessibility;
 no interactive screen-reader, physical-device or cross-browser certification.
 No API/schema/migration change.
