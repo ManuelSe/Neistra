@@ -71,7 +71,7 @@ Running 46 tests using 1 worker
   ✓  46 [mobile-chromium] › tests/e2e/viewer-notifications.spec.ts:168:5 › viewer remounts retain the deadline and project changes invalidate old notices (4.0s)
 
 
-  1) [chromium] › tests/e2e/viewer-click-selection.spec.ts:198:5 › keeps primary selection and empty clearing independent from the camera 
+  1) [chromium] › tests/e2e/viewer-click-selection.spec.ts:198:5 › keeps primary selection and empty clearing independent from the camera
 
     Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m
 
@@ -102,6 +102,6 @@ Running 46 tests using 1 worker
     ────────────────────────────────────────────────────────────────────────────────────────────────
 
   1 failed
-    [chromium] › tests/e2e/viewer-click-selection.spec.ts:198:5 › keeps primary selection and empty clearing independent from the camera 
+    [chromium] › tests/e2e/viewer-click-selection.spec.ts:198:5 › keeps primary selection and empty clearing independent from the camera
   2 skipped
   43 passed (6.9m)

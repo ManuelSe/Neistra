@@ -691,3 +691,13 @@ Actual tagged v0.13.2 produces fresh schema1 projects/archives; final0.14 upgrad
 Requirement evidence: C1/native object suite covers whole-object activation/highlight and independent native pixels; C2/API/migration/archive suites cover commands/no-ops/history/scenes/topology and ownership; C3/editor tests and production native flow cover appearance/source scope/cache reuse; C4 queue/capacity/scientific/access/zoom suites cover lifecycle, limits and accessibility. All accepted matrix rows are implemented; deferred/rejected/excluded rows remain unchanged, charge follow-up#64 created.
 
 This evidence/documentation update follows the gate without application/test/dependency changes. Exact merged master must repeat every release command and actual compatibility before publication. PR uses normal merge, closes#57, links#64/#58/#59 and requests Codex review. Protections/checks/reviews and version/tag collision are rechecked before merge/release.
+
+
+PR [#65](https://github.com/ManuelSe/Neistra/pull/65) is verified open against
+master. [Codex review request](https://github.com/ManuelSe/Neistra/pull/65#issuecomment-6174695414)
+is posted; no independent review has returned at this audit. Final base-to-head
+whitespace validation found four retained C2/C3 log presentation issues; normalize
+trailing whitespace/blank EOF lines only, preserving substantive historical results.
+The final review correction is documentation only; tested application/test/dependency
+sources remain exactly those of clean candidateb6281bc. Recheck current head, base,
+checks, protections, review threads and version collision before normal merge.

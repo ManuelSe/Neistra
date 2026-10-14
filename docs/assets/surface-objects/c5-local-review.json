@@ -96,8 +96,10 @@
     "Requested-vs-bound structural picks D-096",
     "Browser native render commit synchronization",
     "First full gate exposes obsolete hydrogen fixture; static search identifies viewer-controls fixture too. Both retain assertions through dedicated schema2 entry commands; focused2pass/2layoutskip.",
-    "Second diagnostic expects primary surface hit atom selection; Shift native picking matches contract. All original invariance assertions retained; desktop/mobile2pass and remaining surface-pick paths audited."
+    "Second diagnostic expects primary surface hit atom selection; Shift native picking matches contract. All original invariance assertions retained; desktop/mobile2pass and remaining surface-pick paths audited.",
+    "Final base-to-head diff check found trailing whitespace/blank EOF lines in four retained C2/C3 logs. Normalize presentation only; historical outcomes/source hashes unchanged."
   ],
   "unresolved_actionable_findings": [],
-  "remaining_gate": "Complete candidate browser regression and exact merged gate before publication; required remote reviews/protections must still pass."
+  "remaining_gate": "Complete candidate browser regression and exact merged gate before publication; required remote reviews/protections must still pass.",
+  "final_reviewed_pr_head": "a3564777f226e224b0828f923e689e7c895e1733"
 }
