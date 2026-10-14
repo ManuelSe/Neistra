@@ -12,8 +12,10 @@ restoration retain existing single-slot styling and molecular/viewer ownership.
 [Focused evidence](assets/viewer-notifications/c1-verification.json): 38 focused and
 193 frontend tests, lint/types/build/diff pass. Producer audit and actual App handler
 tests cover warning policy; Strict Mode and obsolete callback tests pass. Existing
-bundle advisory remains. Runtime version is still 0.13.1; no schema/migration change.
-Planned release: patch 0.13.2 with all five version sources updated during C3.
+bundle advisory remains. C3 preparation updates all five versions to 0.13.2 without dependency/schema/
+migration changes. Frozen sync/Ruff and 99 archive/migration tests pass; actual
+tagged v0.13.1 reader accepts final-version originals/coordinates/history/archives/
+jobs. Complete candidate and merged release gates remain pending.
 
 Known limitations: one visible notice; persistent exceptions; timer throttling and
 keyboard focus can extend duration. No blocker. [Browser evidence](assets/viewer-notifications/c2-verification.json): 39 workflows

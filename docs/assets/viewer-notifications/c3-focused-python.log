@@ -1,0 +1,18 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.2, pluggy-1.6.0
+rootdir: /datadisk/dev/neistra
+configfile: pyproject.toml
+plugins: cov-6.3.0, anyio-4.9.0
+collected 99 items
+
+tests/integration/test_archive_roundtrip.py ......................       [ 22%]
+tests/integration/test_migrations.py ................................... [ 57%]
+..........................................                               [100%]
+
+=============================== warnings summary ===============================
+tests/integration/test_migrations.py: 237 warnings
+  /datadisk/dev/neistra/.venv/lib/python3.12/site-packages/alembic/config.py:612: DeprecationWarning: No path_separator found in configuration; falling back to legacy splitting on spaces, commas, and colons for prepend_sys_path.  Consider adding path_separator=os to Alembic config.
+    util.warn_deprecated(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+====================== 99 passed, 237 warnings in 27.39s =======================

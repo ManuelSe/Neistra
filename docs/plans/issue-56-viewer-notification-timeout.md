@@ -532,3 +532,28 @@ environment/source identity, scope deviations, blockers, and next action. Keep
   scientific mutation, or consequential regression. No independent review claimed.
 - No blocker. Next: M3/C3 version preparation, complete candidate and actual
   preceding-reader gates, full-diff review, PR and verified release delivery.
+
+### 2026-10-14 — M3/C3 release preparation, complete gate pending
+
+- C2 committed at `55823e9`. Refetched origin/master and safely incorporated it;
+  no upstream change, new release, or v0.13.2 collision was found.
+- All five authoritative sources now agree on 0.13.2. Only root application
+  provenance changed in uv.lock; dependencies remain pinned. Added 0.13.0/0.13.1
+  archive producer cases and updated the authoritative-version assertion.
+- Release notes, development upgrade/rollback guidance and scientific-warning
+  presentation guidance reflect the approved scope. No migration/API shape,
+  scientific rule, or durable-state change.
+- Frozen Python sync, Ruff and focused archive/migration tests pass: **99 tests**,
+  with the existing 237 Alembic advisories. Migration upgrade/downgrade policies
+  remain qualified by the existing migration suite.
+- Preliminary final-version producer/actual tagged v0.13.1 reader qualification
+  passes: exact originals/coordinates, retained atomic Undo/Redo, save/re-export,
+  current-state archive import/history omission and unchanged completed jobs.
+  [Producer](../assets/viewer-notifications/c3-preliminary-producer.json),
+  [actual reader](../assets/viewer-notifications/c3-preliminary-reader.json).
+  Reader source is a detached actual v0.13.1 worktree, not simulated version text.
+- Local release-preparation diff review found no accidental dependency upgrade,
+  schema/migration risk, scope expansion, or consequential finding.
+- Complete clean-candidate gate and full-diff review remain pending. No PR,
+  tag/release, merged gate, or completed C3 is claimed by this preparation commit.
+- Next: complete candidate gate, final reader qualification, review and PR.
