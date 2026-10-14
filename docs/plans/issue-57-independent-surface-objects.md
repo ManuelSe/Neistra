@@ -2,7 +2,7 @@
 
 ## Status, outcome, and authority
 
-**Status:** approved implementation contract; implementation authorized by the subsequent `/goal`; M1/C1–M4/C4 complete; C5 release preparation next.
+**Status:** approved implementation contract; implementation authorized by the subsequent `/goal`; M1/C1–M4/C4 complete; C5 release preparation in progress.
 
 - Issue: [#57 — Manage molecular surfaces as independent, editable objects](https://github.com/ManuelSe/Neistra/issues/57), open at planning inspection.
 - Plan: `docs/plans/issue-57-independent-surface-objects.md`.
@@ -642,3 +642,18 @@ Final C4 pointer/object/queue/access gate:10 passed,2 intentional layout skips,
 zero failures. Final shared gate:214 frontend tests, lint/types/build, Ruff/mypy61
 and diff check all exit0. Focused Python183 pass. No consequential checkpoint
 finding remains. Evidence hashes bind these results to the implemented sources.
+
+
+### M4/C5 release preparation — 2026-10-14
+
+C4 committed/pushed as `ab5aac15f04904576b4e77b45acc467c36c643c1`.
+Fresh remote audit confirms origin/master remains1c5467c, latest releasev0.13.2,
+no v0.14.0 tag collision, no branch protections/rulesets or workflows. Safe
+`git merge --ff-only origin/master` reports already up to date. Planned0.14.0
+remains correct for new user functionality and explicit pre-1.0 schema/API break.
+All five authoritative versions advance together; no dependency updates.
+[Charge-coloring follow-up #64](https://github.com/ManuelSe/Neistra/issues/64) is
+created with scientific quantity/provenance/validation decisions, distinct from
+existing#58/#59. Release notes document migration0014, legacy410 guidance,
+archive2 refusal/backup restore, accepted simplifications and scientific limits.
+Complete clean-candidate gate and final0.14 compatibility qualification follow.
