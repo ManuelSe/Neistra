@@ -1,0 +1,7 @@
+{
+  "producer": "0.13.2",
+  "entries": 2,
+  "atomic_batch": true,
+  "jobs_unchanged": true,
+  "archive_sha256": "31f98464709cd1b3f3ea1c2f6f2eb14db7047b27497c25936140cb0aa25583c1"
+}

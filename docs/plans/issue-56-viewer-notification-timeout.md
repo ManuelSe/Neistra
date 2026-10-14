@@ -2,14 +2,14 @@
 
 ## 1. Status, metadata, and approved outcome
 
-**Status:** implementation and clean-candidate qualification complete; PR, exact
-merged qualification, publication and close-out pending.
+**Status:** implemented and released as v0.13.2; M1/C1, M2/C2 and M3/C3 complete.
+Verified final documentation/branch-cleanup audit is maintained in the issue reply.
 The user approved the proposal on 2026-10-14 with “I approve the plan.”
 The user authorized implementation and complete delivery through `/goal` on
 2026-10-14. Historical C0 instructions below retain the planning-only stop.
 
 - **Issue:** [#56 — Automatically dismiss viewer notifications after 10 seconds](https://github.com/ManuelSe/Neistra/issues/56).
-- **Issue metadata:** open; created and last updated 2026-10-13 at 06:02:17 UTC;
+- **Issue metadata at planning:** open; created and last updated 2026-10-13 at 06:02:17 UTC;
   no comments, labels, assignees, or milestone at planning inspection.
 - **Plan path:** `docs/plans/issue-56-viewer-notification-timeout.md`.
 - **Base branch:** `master`.
@@ -611,3 +611,44 @@ environment/source identity, scope deviations, blockers, and next action. Keep
   fixtures or versions; inventory equality guards the final PR head.
 - Next: push/open PR, review integration/local audit, normal merge, repeat every
   release/reader gate on exact merged master, then tag/release/reply/docs/cleanup.
+
+### 2026-10-14 — C3 exact merged qualification and verified release
+
+- [PR #62](https://github.com/ManuelSe/Neistra/pull/62) normally merged as exact
+  released master `c21de2e3f76241acb1705d7ec80aae9baf499bdf`; meaningful checkpoint
+  history is preserved. Refetched origin and fast-forwarded clean local master;
+  runtime/test/version inventory matches the qualified candidate exactly.
+- Live audit found no protected master/rulesets/workflows/required checks/reviews,
+  clean mergeability and no review threads/findings. The verified
+  [Codex request](https://github.com/ManuelSe/Neistra/pull/62#issuecomment-6166930146)
+  returned no independent review at the
+  [local merge audit](https://github.com/ManuelSe/Neistra/pull/62#issuecomment-6166972559).
+  No required approval/protection was bypassed; local review remains nonindependent.
+- [Exact merged gate](../assets/viewer-notifications/c3-merged-gate.json) repeats
+  every command: **492 Python / 194 frontend / eight supervisor / 182 browser
+  passes with 44 intentional layout skips**, zero failures/flakes/retries, frozen
+  installs/fresh0013/lint/types/build/diff. Browser matrix:30.6minutes; exact source
+  remains clean throughout. [Actual merged timings](../assets/viewer-notifications/c3-merged-timing.json)
+  establish minimum-ten-second and unchanged native/project/network behavior.
+- [Merged producer](../assets/viewer-notifications/c3-merged-producer.json) and
+  [actual tagged v0.13.1 reader](../assets/viewer-notifications/c3-merged-reader.json)
+  repeat against fresh data: exact originals/coordinates, retained Undo/Redo,
+  save/re-export, archive/history omission and completed jobs all pass.
+- Annotated tag `v0.13.2` object `9669de65b026b1f620d965fb92d833b608557134`
+  and exact peeled target c21de2e are remotely verified. Stable
+  [release](https://github.com/ManuelSe/Neistra/releases/tag/v0.13.2), notes and
+  uploaded/downloaded evidence bytes/SHA256 plus72 internal checksums are verified.
+  [Publication record](../assets/viewer-notifications/c3-publication.json).
+- Issue #56 is closed and the verified
+  [delivery reply](https://github.com/ManuelSe/Neistra/issues/56#issuecomment-6167534526)
+  describes implementation, all approved simplifications/exclusions, verification,
+  compatibility, limits and no new follow-ups. Existing #52 remains separate.
+- Final completion documents/evidence are written only on the planned feature
+  branch, fast-forwarded to released master first. This documentation commit
+  changes no qualified runtime, tests, fixtures, versions, API or persisted data.
+  Local link/diff/inventory review qualifies the documentation-only closeout PR.
+- No remaining approved implementation work or blocker. Known limits remain one
+  notice, conservative persistent exceptions, focus/throttling duration extension,
+  pinned emulation and existing advisories. Final documentation merge, branch
+  deletion and clean-master audit are appended to the verified issue reply after
+  remote verification; no unverified cleanup is claimed by this commit.

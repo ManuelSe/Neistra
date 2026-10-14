@@ -1,0 +1,14 @@
+{
+  "chromium": {
+    "elapsedMs": 10047.299999982119,
+    "noUnexpectedRequests": true,
+    "projectUnchanged": true,
+    "nativeUnchanged": true
+  },
+  "mobile-chromium": {
+    "elapsedMs": 10039.59999999404,
+    "noUnexpectedRequests": true,
+    "projectUnchanged": true,
+    "nativeUnchanged": true
+  }
+}

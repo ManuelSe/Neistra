@@ -56,8 +56,13 @@ intentional layout skips**, zero failures/flakes/retries, frozen installs/fresh0
 lint/types/build/diff. [Actual tagged v0.13.1 reader](assets/viewer-notifications/c3-candidate-reader.json)
 accepts final0.13.2 data/history/archives/jobs. [Local full-diff review](assets/viewer-notifications/c3-local-review.json)
 reproduced/fixed stale-marker poisoning; no consequential finding remains and no
-independent review is claimed. Exact merged release and reader gates must repeat
-before tag/publication; this entry does not claim a release already exists.
+independent review is claimed. [Exact released-master gate](assets/viewer-notifications/c3-merged-gate.json) at
+`c21de2e3f76241acb1705d7ec80aae9baf499bdf` repeats every complete command/count
+with zero failures/flakes/retries; actual tagged v0.13.1 accepts final merged data.
+Annotated v0.13.2/exact target, [stable release](https://github.com/ManuelSe/Neistra/releases/tag/v0.13.2),
+notes and downloaded verification bytes/SHA256 plus72 internal checksums are
+verified; [publication](assets/viewer-notifications/c3-publication.json).
+Final documentation/cleanup audit is maintained in the verified issue reply.
 
 ## 0.13.1 - 2026-10-13 - Interaction corrections
 
