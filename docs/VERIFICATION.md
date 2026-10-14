@@ -18,8 +18,7 @@ multiple same-entry fragments/pockets, native entry wireframe GPU pixels/complet
 marker buffers, source editing, lazy serial queue lifecycle and stale-pixel ownership.
 Existing capacity/scientific/movement budgets, scoped light/dark axe, keyboard,
 320px/long names/coarse targets and actual100%/200%Chrome zoom pass. Resolved
-diagnostics remain separate from passing evidence. Candidate and exact merged
-release gates remain C5 work; no release claim is made. Earlier issue evidence
+diagnostics remain separate from passing evidence. [C5 clean candidate](assets/surface-objects/c5-candidate-gate.json) at`b6281bc` passes 556Python/214frontend/8supervisor/190browser with44 intentional skips and zero failures/flakes/retries, plus every frozen-install/fresh0014/static/build command. Actual tagged0.13.2 compatibility against final0.14.0 passes. Exact merged gate/publication remain; no release claim is made. Earlier issue evidence
 below is historical and predates the schema2 boundary.
 
 Issue #56 follows the [approved notification plan](plans/issue-56-viewer-notification-timeout.md).

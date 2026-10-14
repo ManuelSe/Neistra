@@ -1,0 +1,9 @@
+{
+  "actual_producer": "0.13.2",
+  "producer_module": "/datadisk/dev/neistra/.molweave-e2e/issue57/legacy-v0.13.2/apps/api/src/molweave_api/main.py",
+  "projects": 2,
+  "legacy_objects_per_receptor": 14,
+  "clean_and_dirty_checkpoints": true,
+  "retained_redo": true,
+  "jobs_and_archives": true
+}

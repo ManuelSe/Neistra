@@ -1,0 +1,133 @@
+{
+  "stage": "candidate",
+  "source_commit": "b6281bc5047f5bfd9b96bba0b2d31728f4d4a2ff",
+  "clean_start": true,
+  "started_utc": "2026-10-14T17:13:38.702392+00:00",
+  "host": "Linux-6.17.0-119029-tuxedo-x86_64-with-glibc2.39",
+  "source_inventory_sha256": "93cdb6b717652693de84f745f28c8a152f37dbed9c598bcb4fe16f9348470331",
+  "browser_environment": {
+    "MOLWEAVE_E2E_API_PORT": "8020",
+    "MOLWEAVE_E2E_WORKER_PORT": "8021",
+    "MOLWEAVE_E2E_WEB_PORT": "5183",
+    "MOLWEAVE_E2E_DATA_DIR": "/datadisk/dev/neistra/.molweave-e2e/issue57/c5-candidate/browser-data",
+    "PLAYWRIGHT_BROWSERS_PATH": ".playwright"
+  },
+  "steps": [
+    {
+      "name": "uv-sync",
+      "command": ".venv/bin/uv sync --frozen",
+      "environment_override": {},
+      "exit_code": 0,
+      "duration_seconds": 0.023,
+      "log": "uv-sync.log"
+    },
+    {
+      "name": "pnpm-install",
+      "command": "corepack pnpm install --frozen-lockfile",
+      "environment_override": {},
+      "exit_code": 0,
+      "duration_seconds": 0.625,
+      "log": "pnpm-install.log"
+    },
+    {
+      "name": "migration",
+      "command": ".venv/bin/uv run alembic upgrade head",
+      "environment_override": {
+        "MOLWEAVE_DATA_DIR": "/datadisk/dev/neistra/.molweave-e2e/issue57/c5-candidate/fresh-migration"
+      },
+      "exit_code": 0,
+      "duration_seconds": 0.617,
+      "log": "migration.log"
+    },
+    {
+      "name": "ruff",
+      "command": ".venv/bin/uv run ruff check .",
+      "environment_override": {},
+      "exit_code": 0,
+      "duration_seconds": 0.034,
+      "log": "ruff.log"
+    },
+    {
+      "name": "mypy",
+      "command": ".venv/bin/uv run mypy apps/api packages/molweave_core",
+      "environment_override": {},
+      "exit_code": 0,
+      "duration_seconds": 0.184,
+      "log": "mypy.log"
+    },
+    {
+      "name": "pytest",
+      "command": ".venv/bin/uv run pytest",
+      "environment_override": {},
+      "exit_code": 0,
+      "duration_seconds": 92.836,
+      "log": "pytest.log"
+    },
+    {
+      "name": "lint",
+      "command": "corepack pnpm --dir apps/web lint",
+      "environment_override": {},
+      "exit_code": 0,
+      "duration_seconds": 8.771,
+      "log": "lint.log"
+    },
+    {
+      "name": "typecheck",
+      "command": "corepack pnpm --dir apps/web typecheck",
+      "environment_override": {},
+      "exit_code": 0,
+      "duration_seconds": 4.532,
+      "log": "typecheck.log"
+    },
+    {
+      "name": "vitest",
+      "command": "corepack pnpm --dir apps/web test",
+      "environment_override": {},
+      "exit_code": 0,
+      "duration_seconds": 8.699,
+      "log": "vitest.log"
+    },
+    {
+      "name": "supervisor",
+      "command": "corepack pnpm test:dev",
+      "environment_override": {},
+      "exit_code": 0,
+      "duration_seconds": 1.445,
+      "log": "supervisor.log"
+    },
+    {
+      "name": "build",
+      "command": "corepack pnpm --dir apps/web build",
+      "environment_override": {},
+      "exit_code": 0,
+      "duration_seconds": 12.212,
+      "log": "build.log"
+    },
+    {
+      "name": "playwright",
+      "command": "corepack pnpm exec playwright test --output=/datadisk/dev/neistra/.molweave-e2e/issue57/c5-candidate/browser-results",
+      "environment_override": {
+        "MOLWEAVE_E2E_API_PORT": "8020",
+        "MOLWEAVE_E2E_WORKER_PORT": "8021",
+        "MOLWEAVE_E2E_WEB_PORT": "5183",
+        "MOLWEAVE_E2E_DATA_DIR": "/datadisk/dev/neistra/.molweave-e2e/issue57/c5-candidate/browser-data",
+        "PLAYWRIGHT_BROWSERS_PATH": ".playwright"
+      },
+      "exit_code": 0,
+      "duration_seconds": 1927.914,
+      "log": "playwright.log"
+    },
+    {
+      "name": "diff-check",
+      "command": "git diff --check",
+      "environment_override": {},
+      "exit_code": 0,
+      "duration_seconds": 0.003,
+      "log": "diff-check.log"
+    }
+  ],
+  "clean_end": true,
+  "unchanged_source": true,
+  "completed_utc": "2026-10-14T17:47:57.145272+00:00",
+  "all_passed": true
+}

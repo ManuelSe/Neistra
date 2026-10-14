@@ -2,7 +2,7 @@
 
 ## Status, outcome, and authority
 
-**Status:** approved implementation contract; implementation authorized by the subsequent `/goal`; M1/C1–M4/C4 complete; C5 release preparation in progress.
+**Status:** approved implementation contract; implementation authorized by the subsequent `/goal`; M1/C1–M4/C4 complete; C5 clean candidate qualified; PR/review and merged publication pending.
 
 - Issue: [#57 — Manage molecular surfaces as independent, editable objects](https://github.com/ManuelSe/Neistra/issues/57), open at planning inspection.
 - Plan: `docs/plans/issue-57-independent-surface-objects.md`.
@@ -41,7 +41,7 @@ Planning inspected AGENTS, product/global plan/progress/decision/verification do
 | Compact management UI | Essential | One on-demand nonmodal manager using existing surface controls; no permanent layer sidebar. |
 | Appearance editable after creation | Essential | Independent color scheme/custom color, opacity, solid/mesh mode. |
 | Uniform, element, residue, and other existing supported colors | Supporting, accepted | Reuse existing element, chain, residue, secondary-structure, structure, and custom themes. |
-| Charge coloring | Deferred | Formal charge, partial charge, and electrostatic potential require different scientific contracts. Create one focused follow-up proposing those distinctions and validation requirements. |
+| Charge coloring | Deferred | Formal charge, partial charge, and electrostatic potential require different scientific contracts. Follow-up [#64](https://github.com/ManuelSe/Neistra/issues/64) defines those distinctions and validation requirements. |
 | “Etc.” as unrestricted themes or representations | Rejected as proposed | An open-ended renderer/theme framework adds unsupported scope. No follow-up for unspecified capabilities. |
 | Scenes, saves, reloads, undo/redo | Essential | Preserve complete object definitions through all durable paths, including retained command history. |
 | Existing fragment/pocket geometry and immutable originals | Already satisfied | Preserve and requalify; do not replace either algorithm. |
@@ -384,12 +384,12 @@ The initial plan is the sole first-commit change. Project progress and supersedi
 | 2026-10-14 | Complete contract approved | User instructed “Implement the plan.”; retain the approved persistence-only handoff before `/goal`. |
 | 2026-10-14 | Persistence prepared | Clean `master` fetched and fast-forward-only update confirmed at `1c5467c7639d8152d136044d4ae208eb479c8c95`; feature branch created; this document is its first change. Commit/push identity is verified and reported at handoff. |
 | 2026-10-14 | M1 / C1 complete | D-090, 202 frontend tests/lint/types/build, Python lint/types, 23 browser passes/three intentional skips, two final native passes; evidence below. |
-| Pending | M2 / C2 | Durable object-management vertical slice and migration. |
-| Pending | M3 / C3 | Complete appearance and interaction workflow. |
+| 2026-10-14 | M2 / C2 complete | bc54a8e: canonical objects, migration0014, revisioned commands and durable vertical slice; C2 evidence below. |
+| 2026-10-14 | M3 / C3 complete | a8c7276: independent appearance and explicit source workflow; C3 evidence below. |
 | Complete 2026-10-14 | M4 / C4 | Native workflows, scientific/accessibility/capacity/lifecycle and actual tagged compatibility qualified; see retained C4 evidence. |
 | Pending | M4 / C5 | Candidate, review, merged qualification and verified delivery. |
 
-Current limitation: C1 renderer primitives are qualified; the production surface manager is not implemented. No feature PR, follow-up issue, tag, merge, or release exists yet. No blocker; continue C2.
+Current delivery state: C1–C4 are implemented/qualified, C5 candidate qualification passes; follow-up#64 exists. PR/review, exact merged qualification, tag/release and issue closeout remain. No blocker.
 
 
 ### M1 / C1 implementation and qualification — 2026-10-14
@@ -680,3 +680,14 @@ assertion. Focused desktop/mobile2pass. Other surface-picking workflows were
 searched and already use the correct modified path. [Diagnostic](../assets/surface-objects/c5-pick-fixture-review/review.json):1failure,1interrupted,6skips,144not run; not a passing release gate.
 No application behavior/scope change. Commit the passing fixture and repeat the
 complete clean gate before PR. These diagnostics remain distinct from final evidence.
+
+
+### M4/C5 clean candidate qualified — 2026-10-14
+
+Candidate `b6281bc5047f5bfd9b96bba0b2d31728f4d4a2ff` starts/ends clean with unchanged tracked source. [Complete gate](../assets/surface-objects/c5-candidate-gate.json): 556 Python, 214 frontend, 8 supervisor and 190 browser passes/44 intentional skips; zero failures/flakes/retries. Frozen installs, fresh0014, Ruff/mypy61, lint/types/build/diff all pass. Raw command logs and compatibility are retained separately from C4 diagnostics.
+
+Actual tagged v0.13.2 produces fresh schema1 projects/archives; final0.14 upgrades preserve all unrelated DB columns/eight exact artifact files, clean/dirty checkpoints, retained history/redo, appearance/identity and jobs. Old readers reject both schema2 variants atomically; complete backup restoration reads exactly. [Local full-diff self-review](../assets/surface-objects/c5-local-review.json) records source hashes, ownership/memory/migration/scientific/accessibility boundaries and resolved findings. No unresolved actionable finding remains; no independent review is claimed. Existing Alembic configuration, bundler and color-environment advisories remain.
+
+Requirement evidence: C1/native object suite covers whole-object activation/highlight and independent native pixels; C2/API/migration/archive suites cover commands/no-ops/history/scenes/topology and ownership; C3/editor tests and production native flow cover appearance/source scope/cache reuse; C4 queue/capacity/scientific/access/zoom suites cover lifecycle, limits and accessibility. All accepted matrix rows are implemented; deferred/rejected/excluded rows remain unchanged, charge follow-up#64 created.
+
+This evidence/documentation update follows the gate without application/test/dependency changes. Exact merged master must repeat every release command and actual compatibility before publication. PR uses normal merge, closes#57, links#64/#58/#59 and requests Codex review. Protections/checks/reviews and version/tag collision are rechecked before merge/release.

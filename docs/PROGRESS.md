@@ -30,11 +30,10 @@ and real100%/200%Chrome zoom pass. Focus handoff, disposed queued selectors,
 unaddressable archive IDs and stale native pixel hits were reproduced and repaired
 (D-093–D-096). Focused Python183 and frontend214 tests pass; final pointer/static
 counts and source hashes are retained in [C4 evidence](assets/surface-objects/c4-verification.json).
-C5 candidate/merged release gates,0.14.0 preparation, PR/review and publication remain.
-No blocker. First C5 gate found legacy hydrogen/viewer-control browser fixtures;
-dedicated-command fixtures pass2focused cases/2layout skips. Visibility picking
-fixture also now uses approved Shift semantics and passes desktop/mobile2. Repeat the full clean
-candidate gate before PR. Next: qualify the corrected release candidate. C4 committed as `ab5aac1`.
+C5 clean candidate `b6281bc` passes 556Python/214frontend/8supervisor/190browser with44 intentional skips, zero failures/flakes/retries; frozen installs/fresh0014/lint/types/build/diff pass. [Evidence](assets/surface-objects/c5-candidate-gate.json). Actual v0.13.2 producer/reader refusal/backup checks pass against final0.14.0. Local full-diff self-review has no unresolved finding; independent review is not claimed. PR/review, exact merged gate and publication remain.
+No blocker. Both legacy browser fixture findings are corrected and the fresh
+complete gate passes. C4 committed as `ab5aac1`; next: open/review the PR, qualify
+exact merged master and publish the verified release.
 All five versions advance to0.14.0; charge follow-up [#64](https://github.com/ManuelSe/Neistra/issues/64)
 is created. Remote collision/base/protection/workflow audit is clear.
 
@@ -2315,8 +2314,7 @@ Results:
 
 ## Known limitations
 
-- Issue #55 C1–C3 are implemented and qualified on the feature branch; release
-  preparation and publication remain pending. Released v0.13.0 still has the
+- Historical pre-release issue #55 C1–C3 qualification recorded that v0.13.0 had the
   native-buffer defect until this correction is delivered.
   Scientific scope remains bounded by `interaction-v1`; #52 owns raw ligand
   chemistry assignment. The feature plan contains the detailed acceptance gates.
@@ -2412,11 +2410,8 @@ Results:
 
 ## Blockers
 
-No current blocker. Issue #55 implementation/delivery is authorized by `/goal`;
-C1–C3 pass. C4 versions, complete candidate/merged qualification, review and
-publication remain. Issue #49 remains the released baseline.
+No current blocker. Issue #57 C1–C4 and clean0.14.0 candidate qualification pass. Required remote review/protections and exact merged release qualification/publication remain. Released baseline isv0.13.2.
 
 ## Next action
 
-Complete C4 candidate/reader qualification and review under the issue #55 plan. Released baseline v0.13.0;
-planned correction patch v0.13.1.
+Complete issue #57 PR/review, exact merged release gate and tagged compatibility, then verifyv0.14.0 tag/release/issue closeout and branch cleanup.

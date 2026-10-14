@@ -1,0 +1,12 @@
+{
+  "candidate": "0.14.0",
+  "candidate_module": "/datadisk/dev/neistra/apps/api/src/molweave_api/main.py",
+  "actual_tagged_producer_upgrade": true,
+  "all_database_columns_except_documented_conversion_exact": true,
+  "all_artifact_bytes_exact": true,
+  "appearance_and_identity_preserved": true,
+  "clean_dirty_and_retained_redo_preserved": true,
+  "undo_restores_clean_checkpoint": true,
+  "actual_schema1_archive_import_and_seed_remapping": true,
+  "schema2_exports": true
+}

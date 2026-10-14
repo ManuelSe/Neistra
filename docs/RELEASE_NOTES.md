@@ -64,9 +64,7 @@ The [approved plan](plans/issue-57-independent-surface-objects.md),
 record independently checked milestones, actual tagged producer/reader/backup
 qualification and resolved diagnostic findings. C4 passes183 focused Python,
 214frontend and10 final pointer/object/queue/access cases with2 intentional layout
-skips; separate scientific/capacity/movement/zoom evidence is retained. Full clean
-candidate and exact merged release gates and publication evidence are recorded
-under C5 before delivery is declared complete. Local review is self-review unless
+skips; separate scientific/capacity/movement/zoom evidence is retained. [Complete clean candidate](assets/surface-objects/c5-candidate-gate.json) at`b6281bc` passes **556Python, 214frontend, 8supervisor, 190browser/44 intentional skips**, zero failures/flakes/retries; frozen installs/fresh0014/lint/types/build/diff all pass. Actual tagged0.13.2 upgrade/refusal/backup checks pass with final0.14.0. Exact merged gate and publication evidence remain required before delivery is declared complete. Local review is self-review unless
 an actual independent GitHub review is recorded. See [surface guidance](SURFACES.md).
 
 ## 0.13.2 - 2026-10-14 - Viewer notification timeout
