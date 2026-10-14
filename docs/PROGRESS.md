@@ -17,11 +17,12 @@ viewport issues are repaired; diagnostic runs remain separate. Actual tagged0.14
 reader passes preliminary originals/coordinates/history/jobs/scenes/surface/archive
 checks; final0.15.0 producer remains mandatory in C4.
 
-Versions0.14.0, planned0.15.0minor; no new migration/API/persisted shape. Known limits:
+C3 committed/remotely verified3adcc53. Release preparation advances five versions
+to0.15.0minor; no new migration/API/persisted shape. Known limits:
 session context/shared visibility,200unvirtualized entries, generated navigation
 fixture and pinned emulation; no interactive screen-reader certification. C4 full
-candidate/merged gates and release delivery pending. No blocker. Next: commit C3,
-prepare final versions and run complete release gate.
+candidate/merged gates and release delivery pending. No blocker. Next: commit release preparation and run complete candidate gate
+and final-version actual tagged-reader qualification.
 
 ### Previous delivery baseline — v0.14.0
 

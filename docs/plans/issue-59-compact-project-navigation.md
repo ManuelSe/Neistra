@@ -548,3 +548,15 @@ unimplemented behavior, unrun check, or unverified remote action as complete.
   persisted authority change, dead hierarchy controls or migration risk. Versions
   remain0.14.0 and Alembic0014; no new migration. No blocker. Next: commit C3 and
   begin C4 version preparation and complete candidate release gate.
+
+### 2026-10-14 — M4/C4 release preparation
+
+- Passing C3 committed3adcc53 and pushed; remote branch verified. Fetched origin:master
+  remains430e7d0, no newer base to incorporate. Stable release remainsv0.14.0;
+  proposedv0.15.0 has no remote tag/release collision.
+- Advance all five authoritative versions to0.15.0, add0.14.0 producer-provenance
+  archive coverage, and prepare scoped release/upgrade notes. No dependency resolver
+  or unrelated graph update; only root uv metadata advances. Minor rationale and
+  exact unchanged persisted/API contracts remain as approved.
+- Candidate/merged full release gates, final-version actual tagged-reader checks,
+  PR/review/merge/tag/release/reply and cleanup remain pending. No publication claim.

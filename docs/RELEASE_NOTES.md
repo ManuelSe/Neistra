@@ -1,5 +1,77 @@
 # Neistra Release Notes
 
+## 0.15.0 - 2026-10-14 - Compact project navigation
+
+Status: release preparation; complete candidate and exact merged-master gates
+remain mandatory before publication.
+
+### Added and changed navigation
+
+Compact single-line entries retain selection, grouping, visibility, lock and entry
+actions; Details exposes complete metadata and warnings. An independent desktop
+split pane and mobile Entries/Components tabs keep expanded components from
+displacing entries. Explicit Components browses without selecting; entry-name
+activation selects and browses. Component/viewer selections keep the browse target
+pinned. Session expansion/scroll survive entry switches and responsive remounts.
+
+Direct category/component labels select exact canonical memberships. Disclosure,
+shared visibility and full provenance Details are independent. Continuous virtual
+scrolling reaches off-screen components by Up/Down/Home/End, preserving focus and
+selecting full categories regardless of the mounted window. The artifact-keyed
+index avoids repeated full-atom scans. Water and other solvent explicitly share
+the existing Solvent switch.
+
+### Fixes, accessibility and performance
+
+Hidden-entry text preserves contrast, portal menus fit actual200% zoom, warnings
+have explicit accessible descriptions, and loading/topology/project changes retain
+correct focus ownership. Closing Details preserves a later focused tool. Qualified
+200 grouped long-name entries and10,000 actual normalized components have32/44px
+rows, bounded virtual DOM,240pxdesktop/320pxmobile layouts and light/dark actual
+100/200% Chromium zoom. Automated keyboard/axe checks are distinct from manual
+screenshot inspection; no screen-reader/device/cross-browser certification is claimed.
+
+### Compatibility, migration and rollback
+
+**Minor0.14.0 →0.15.0** adds meaningful navigation capability, beyond a patch fix.
+No breaking public API or persisted contract warrants a major increment; complete
+qualification supports a stable release. All five authoritative versions advance
+together. Alembic stays0014, project/viewer/archive schemas2 and normalized/selection
+schemas1. No new migration or endpoint/job/plugin change. Original molecular files,
+coordinates, atom identities, classifications, history/scenes/surfaces and archives
+retain their contracts. Only layout/collapse preferences persist in browser storage.
+
+Final0.15.0 producer data must pass the actual tagged v0.14.0 API/core reader,
+including exact originals/coordinates, history/jobs/scenes/surfaces and archive
+seed remapping. Runtime rollback to qualified0.14.0 needs no schema downgrade or
+data stripping and restores the previous layout; earlier0014 guards still apply.
+See [upgrade/rollback](DEVELOPMENT.md#compact-navigation-compatibility-0150).
+
+### Scientific interpretation, limitations and follow-up work
+
+Classification remains source/fallback/ambiguous evidence, not biological-function
+or binding significance. Navigation never changes molecular state. The generated
+O-only water fixture qualifies navigation, not solvent preparation. Existing surface,
+interaction and chemistry limits remain. Browsing target/expansion/scroll are
+session-only; visibility remains shared-category scope. Entry virtualization is
+deferred after200-entry qualification; durable browsing has no approved requirement.
+Duplicated headings/selection rows and per-component visibility were rejected as
+proposed; direct labels and honest existing visibility deliver the accepted scope.
+Mobile tabs replace the proposed split. No speculative follow-up issue is created.
+Component override/extraction/export remain[#20](https://github.com/ManuelSe/Neistra/issues/20)/
+[#21](https://github.com/ManuelSe/Neistra/issues/21); carbon defaults[#58](https://github.com/ManuelSe/Neistra/issues/58),
+charge color[#64](https://github.com/ManuelSe/Neistra/issues/64) and ligand chemistry
+[#52](https://github.com/ManuelSe/Neistra/issues/52) remain separate.
+
+### Verification
+
+[C3 qualification](assets/project-navigation/c3-verification.json):227frontend,
+176integration +22domain Python (2overlap), static/build;51broad/25adjacent browser
+passes with3/7intentional skips, no failures/retries. Repaired diagnostic findings
+remain separate. Complete release-gate counts and exact commits will be recorded
+before publication. [Approved plan](plans/issue-59-compact-project-navigation.md)
+and [user guidance](PROJECT_NAVIGATION.md) retain dispositions and ownership.
+
 
 ## 0.14.0 - 2026-10-14 - Independent surface objects
 
