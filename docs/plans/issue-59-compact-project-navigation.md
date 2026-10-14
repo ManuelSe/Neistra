@@ -5,7 +5,7 @@
 **Status:** implementation authorized by `/goal` on 2026-10-14. C0 was committed
 and remotely verified at `9f454c0eee7912aca623a3d239f9593a40b65235`. M1/C1 is
 implemented and qualified. M2/C2 and M3/C3 are complete; M4/C4 release delivery
-remains approved and pending.
+has a passing clean candidate; PR/merge/publication remain pending.
 
 
 - **Issue:** [#59 — Redesign the entry list and component hierarchy for compact,
@@ -579,3 +579,30 @@ unimplemented behavior, unrun check, or unverified remote action as complete.
   exact originals/coordinates/history/jobs/scenes/three surfaces/archive remapping.
   Repeat complete corrected candidate and exact merged gates before publication.
   No unresolved review finding or new product scope. Next: commit passing repair.
+
+### 2026-10-14 — C4 clean candidate qualified, ready for PR
+
+- Corrected clean candidate9a176a1d0119bafbf7a403f4faa1e545c8c0cc84 passes every
+  README/DEVELOPMENT command: frozen uv/pnpm installs, fresh Alembic0014, Ruff,
+  mypy61,557Python (398existing Alembic warnings), frontend lint/types,227Vitest,
+  8supervisor, production build and197native browser tests/45intentional layout
+  skips in34.3m, no failures/retries; diff check passes.
+- [Exact candidate evidence](../assets/project-navigation/c4-candidate-gate.json)
+  retains command argv/exit/duration, source inventories, environment overrides and
+  normalized logs with raw/retained checksums. Ports8020/8021/5183 and dedicated
+  disposable data avoid existing user stacks. Source inventory is unchanged by
+  the documentation/evidence commit.
+- Repeated final0.15.0 producer/actual tagged0.14.0 API/core reader qualification
+  on this clean candidate: exact originals/coordinates, retained Undo/Redo,
+  completed jobs, scenes/three surfaces, save/reexport, history-free archive import
+  and pocket seed remapping pass. The tagged checkout is clean at88e84b2.
+- [Complete diff review](../assets/project-navigation/c4-local-review.md) is local
+  self-review, not independent. All consequential reproduced findings are repaired;
+  no unresolved local finding. Five versions0.15.0, unchanged schema2/1/Alembic0014
+  and approved minor impact are verified. Existing emulation/scientific/session/
+  visibility limits remain; no new follow-up issue. Global PLAN unchanged.
+- Fetched origin again;master remains430e7d0, no newer base to incorporate. No
+  remote v0.15.0 collision; newest stable release stillv0.14.0. Record passing
+  candidate evidence and release notes, push, open normal-merge PR with Closes#59,
+  request Codex review and audit protections/checks/reviews/conversations. Exact
+  merged-master gate, annotated tag/release/reply and cleanup remain pending.

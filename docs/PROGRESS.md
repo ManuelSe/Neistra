@@ -3,29 +3,24 @@
 ## Current milestone
 
 Issue #59 — [approved contract](plans/issue-59-compact-project-navigation.md).
-C1 committed193b2e1; C2 committed/remotely verified1b53671; C3 complete. Compact
-entries and independent split/mobile tabs, pinned session context, direct virtual
-rows, exact indexed membership and accessible full Details are implemented. D-097
-and [user guidance](PROJECT_NAVIGATION.md) record ownership and interaction limits.
+C1–C3 implemented/qualified; C4 clean candidate9a176a1 passes the full release gate.
+Independent compact entries/component panes and mobile tabs, pinned session context,
+direct virtual rows, exact indexed membership and full accessible Details are complete.
+D-097 records ownership and reproduced/repaired focus/contrast/menu/minimum-height
+findings; [user guidance](PROJECT_NAVIGATION.md) documents interactions and scope.
 
-[C3 evidence](assets/project-navigation/c3-verification.json):14focused/all227frontend,
-176integration +22domain Python (2overlap), Ruff/mypy61/lint/types/build pass. Final
-broad native51passes/3intentional skips; adjacent25passes/7intentional skips, no
-failures/retries.200entries/10kcomponents, narrow layouts, actual200% zoom,
-keyboard/axe and camera/project/request invariance pass. Reproduced focus/contrast/
-viewport issues are repaired; diagnostic runs remain separate. Actual tagged0.14.0
-reader passes preliminary originals/coordinates/history/jobs/scenes/surface/archive
-checks; final0.15.0 producer remains mandatory in C4.
+[Candidate evidence](assets/project-navigation/c4-candidate-gate.json):557Python,
+227frontend,8supervisor,197browser/45intentional skips in34.3m, no failures/retries;
+frozen installs/fresh0014/Ruff/mypy61/lint/types/build/diff pass. Actual tagged0.14.0
+reads final0.15.0 exact originals/coordinates/history/jobs/scenes/three surfaces and
+archive remapping. [Full-diff review](assets/project-navigation/c4-local-review.md)
+is local self-review; no unresolved consequential finding. Diagnostics stay separate.
 
-C3 committed/remotely verified3adcc53. Release preparation advances five versions
-to0.15.0minor; no new migration/API/persisted shape. Known limits:
+All five versions0.15.0minor; no new migration/API/persisted shape. Known limits:
 session context/shared visibility,200unvirtualized entries, generated navigation
-fixture and pinned emulation; no interactive screen-reader certification. C4 full
-candidate/merged gates and release delivery pending. Release prep committedfb099b4. Full-diff review reproduced/repaired pane minimum
-geometry; [repair evidence](assets/project-navigation/c4-review-fix.json) passes227
-frontend/24Python/static/build/7native with1intentional skip. Final0.15.0 actual0.14.0
-reader passes. Superseded candidate stopped for repair, no full-gate claim. No
-blocker. Next: commit repair and run corrected complete clean candidate gate.
+fixture and pinned emulation; no interactive screen-reader certification. PR/review/
+normal merge, exact merged gate, release/reply/cleanup pending. No blocker. Next:
+commit passing evidence, push/open PR, request review and audit merge requirements.
 
 ### Previous delivery baseline — v0.14.0
 

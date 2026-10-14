@@ -11,8 +11,13 @@ with3/7intentional skips and no failures/retries.200entries/10kcomponents,
 focus lifecycle and unchanged camera/project/cache are qualified. Earlier failed/
 interrupted diagnostics are separate. Actual tagged0.14.0 reader preliminarily
 accepts exact surfaces/scenes/originals/coordinates/history/jobs/archive remapping;
-final0.15.0 producer compatibility and complete candidate/merged release gates remain
-pending in C4. Manual screenshot review is distinct from automated accessibility;
+[Complete clean candidate](assets/project-navigation/c4-candidate-gate.json) at9a176a1
+passes557Python/227frontend/8supervisor/197browser with45intentional skips and no
+failures/retries, frozen installs/fresh0014/static/build/diff. Final0.15.0 producer
+passes the actual tagged0.14.0 reader including exact surfaces/scenes/originals/
+coordinates/history/jobs/archive remapping. Exact merged gate/publication remain
+pending. [Full-diff local self-review](assets/project-navigation/c4-local-review.md)
+claims no independent review; consequential findings are repaired. Manual screenshot review is distinct from automated accessibility;
 no interactive screen-reader, physical-device or cross-browser certification.
 No API/schema/migration change.
 

@@ -2,8 +2,8 @@
 
 ## 0.15.0 - 2026-10-14 - Compact project navigation
 
-Status: release preparation; complete candidate and exact merged-master gates
-remain mandatory before publication.
+Status: complete clean candidate qualified; PR/merge and exact merged-master
+qualification remain mandatory before publication.
 
 ### Added and changed navigation
 
@@ -68,8 +68,13 @@ charge color[#64](https://github.com/ManuelSe/Neistra/issues/64) and ligand chem
 [C3 qualification](assets/project-navigation/c3-verification.json):227frontend,
 176integration +22domain Python (2overlap), static/build;51broad/25adjacent browser
 passes with3/7intentional skips, no failures/retries. Repaired diagnostic findings
-remain separate. Complete release-gate counts and exact commits will be recorded
-before publication. [Approved plan](plans/issue-59-compact-project-navigation.md)
+remain separate. [Complete clean candidate](assets/project-navigation/c4-candidate-gate.json) at
+`9a176a1` passes557Python,227frontend,8supervisor and197browser/45intentional
+skips in34.3m, with zero failures/retries; frozen installs/fresh0014/static/build/
+diff pass. Actual tagged0.14.0 reader accepts final0.15.0 exact originals/coordinates/
+history/jobs/scenes/surfaces/archive remapping. [Local complete-diff review](assets/project-navigation/c4-local-review.md)
+is self-review, not independent; all consequential findings repaired. Exact merged
+master must repeat the full gate before publication. [Approved plan](plans/issue-59-compact-project-navigation.md)
 and [user guidance](PROJECT_NAVIGATION.md) retain dispositions and ownership.
 
 
