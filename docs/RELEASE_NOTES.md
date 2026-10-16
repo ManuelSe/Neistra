@@ -2,8 +2,8 @@
 
 ## 0.16.0 - 2026-10-16 - Compact molecular editing
 
-Status: release candidate; full candidate and exact merged-master gates,
-PR/review/merge and verified publication are still required. Follow the
+Status: clean candidate qualified; PR/review/merge, exact merged-master gates
+and verified publication are still required. Follow the
 [approved plan](plans/issue-69-compact-molecular-editor.md).
 
 ### Added editing workflows
@@ -76,8 +76,14 @@ remain unchanged.
 Ruff/mypy64/lint/types/build/diff and actual taggedv0.15.0 reader pass. Scientific
 stereo/graphs/H/geometry, reference reconciliation/branching allocation, originals,
 archives/jobs/scenes/surfaces, async ownership and remounts are covered. Diagnostics
-remain separate. C5 clean-candidate/exact-master release evidence and final local
-self-review will be recorded before publication; no independent review is claimed.
+remain separate. [Final clean candidate](assets/molecular-editing/c5-candidate-gate.json) at12a4375
+passes613Python/236frontend/8supervisor/216browser with46intentional skips and no
+failures/flakes/retries; every frozen-install/fresh0014/static/build/diff command
+and actualv0.15.0 reader passes against final0.16.0 data. The initial mobile vendor
+popup failure and cross-visit pending finding were repaired without weakening
+checks. [Complete-diff local self-review](assets/molecular-editing/c5-local-review.md)
+has no unresolved consequential finding and is not independent. Exact merged-master
+qualification and publication remain mandatory.
 
 ### Deferred features and known limitations
 

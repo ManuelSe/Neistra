@@ -2,41 +2,30 @@
 
 ## Current milestone
 
-Issue #69 M5/C5 release-review repairs in progress under the
+Issue #69 M5/C5 final candidate qualified under the
 [approved contract](plans/issue-69-compact-molecular-editor.md).
-C1–C4 are committed/remotely verified through42da0eb on the planned feature branch.
-All four compact sections work within the approved prepared-component/template
-limits. C4 tightens mapped/new stereo, rejects explicit side-chain crosslinks,
-qualifies reference reconciliation/branching allocation and preserves camera
-through responsive remounts. D-098–100 qualification notes record these refinements.
+C1–C4 are complete; review repairs are committed/pushed at12a4375. Four compact
+sections deliver bounded atomic atom/local H, endpoint bonds, six illustrated H
+substitutions and all20 existing constrained residue mutations. D-098–100 retain
+scope/scientific/state authority; append-only qualification notes record repairs.
 
-Current [C4 evidence](assets/molecular-editing/c4-verification.json):612Python,
-all235frontend and Ruff/mypy64/lint/types/build/diff pass. Actual taggedv0.15.0
-reader opens, saves, reexports and imports edited data and undoes/redoes five new
-commands, preserving originals/jobs/scenes/three surface kinds. Final broad C4
-browser gate passes62/10intentional skips in11.0m with no failures/retries.
-Real zoom, native picks, async ownership, remount camera/focus and old budgets pass;
-preliminary diagnostics remain separate. No independent
-review is claimed. Five authoritative versions are being prepared as0.16.0; C5 still owes full
-clean-candidate/exact-master gates and verified release delivery.
+[Clean0.16.0 candidate](assets/molecular-editing/c5-candidate-gate.json) at12a4375
+passes all16release commands: frozen installs/fresh0014/static/build/diff,
+613Python,236frontend,8supervisor and216browser/46intentional skips in39.9m;
+zero failures/flakes/retries. Actual taggedv0.15.0 reader passes final0.16.0 data,
+new retained command Undo/Redo, archives/jobs/scenes/surfaces/originals. Source
+hashes and clean start/end are verified. [Full-diff local self-review](assets/molecular-editing/c5-local-review.md)
+is not independent. Initial vendor-popup axe failure and reproduced cross-visit
+pending race are repaired; failed diagnostics remain separate from final evidence.
 
-Initial clean0.16.0 candidate at03ced37 passes613Python/235frontend/8supervisor,
-frozen installs/fresh0014/static/build and actual taggedv0.15.0 reader. Full browser
-run:213pass/46intentional skips/1mobile vendor-popup axe failure. Local review also
-reproduces old visit completion clearing a newer pending edit. Both are repaired
-with measured header clearance and transient session generation. Focused repair
-gate passes68Python/236frontend/static/build and native roundtrip/vendor/real zoom;
-final full-shell vendor run2/2passes. Retain diagnostics separately and repeat a
-fresh complete gate before PR/merge/release.
-
-Known limits: prepared bounded single-conformer components, valence/H inference,
-unoptimized geometry, supported tetrahedral stereo and existing protein templates.
-Raw PDB chemistry, E/Z building, Grow, fusion and broader chemistry remain separate.
-Planned0.16.0minor; no migration (0014; project/viewer/archive2,
-normalized/selection1). No release claim yet. No blocker.
-Next: commit passing review repairs, then fresh C5 clean-candidate/exact-master gates,
-PR/review/merge/release and issue closeout remain. Deferred work is tracked in
-verified#70/#71, reusing#12/#20/#21/#52.
+Five authoritative versions0.16.0minor; no new migration or persisted break
+(0014; project/viewer/archive2, normalized/selection1). Known limits remain prepared
+bounded single-conformer components, local valence/H inference, supported tetrahedral
+stereo/unoptimized geometry and existing protein templates. Grow and expanded
+fragment/element/ring chemistry are verified#70/#71, reusing#12/#20/#21/#52.
+No released-feature claim yet. No blocker.
+Next: PR/review/check audit and normal merge, then complete exact-master gates and
+verified annotated tag/release/issue/docs/branch closeout. Never bypass protections.
 
 ### Previous delivery baseline — v0.15.0
 

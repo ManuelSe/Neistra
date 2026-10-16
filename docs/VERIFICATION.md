@@ -18,9 +18,13 @@ retries; static/build/diff and actual taggedv0.15.0 reader pass. New stereo,
 crosslink refusal, reference/allocator/archive workflows, native prepared-complex
 H/new-atom picking, exact camera through remount/edit, async project/selection/
 read-failure ownership, real100/200%Chrome zoom and existing performance budgets
-are qualified. Diagnostics and local self-review remain separate. C5 complete
-candidate/exact-master gates against final0.16.0 and publication remain; this is
-not yet released.
+are qualified. Diagnostics and local self-review remain separate. [Final clean0.16.0 candidate](assets/molecular-editing/c5-candidate-gate.json) at12a4375
+passes613Python/236frontend/8supervisor/216browser with46intentional skips and no
+failures/flakes/retries; all16frozen-install/fresh0014/static/build/diff/actual-reader
+commands pass. [Local full-diff self-review](assets/molecular-editing/c5-local-review.md)
+records repaired cross-visit pending and vendor-popup findings; earlier failed gate
+is diagnostic only. Exact merged-master gates and verified publication remain;
+this is not yet released.
 
 Issue #59 follows the [approved navigation plan](plans/issue-59-compact-project-navigation.md).
 [C1](assets/project-navigation/c1-verification.json) qualifies independent compact

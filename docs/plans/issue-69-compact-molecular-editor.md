@@ -764,3 +764,33 @@ delivered merely because a follow-up exists.
   local finding remains; no independent review is claimed. Commit these passing
   repairs, then freeze runtime and rerun the entire clean candidate gate using
   fresh `/tmp/neistra-issue69-c5-candidate-final` data.0.16.0minor/no migration remains.
+
+
+### M5/C5 final clean candidate qualification — 2026-10-16
+
+- Review repairs committed/pushed and remotely verified at
+  `12a437571fce497d853df9ae0ebba1b5ca70c931`. Full fresh candidate uses
+  `/tmp/neistra-issue69-c5-candidate-final/{migration,reader,e2e}` and isolated
+  ports8260/8261/5460. [Final evidence](../assets/molecular-editing/c5-candidate-gate.json)
+  binds exact source and clean start/end to all16mandatory commands: frozen
+  Python/JS installs; fresh0014; Ruff/mypy64;613Python; lint/types;236frontend;
+  8supervisor; build; actual-reader migration/produce/read; complete262-case
+  browser run; diff.216browser pass/46intentional skips in39.9m, zero failures,
+  flakes or retries. Detailed argv/env/exits/durations/log hashes and14native
+  performance profiles are retained; earlier failed source/diagnostics stay separate.
+- Final0.16.0 producer passes actual taggedv0.15.0 API/core reader atdccc5e6,
+  with clean reader checkout/module paths, exact originals/coordinates, five new
+  edit commands plus generic transform Undo/Redo, save/reexport/archive import,
+  history omission, completed jobs, scenes/three surfaces and seed remapping.
+- [Complete-diff local self-review](../assets/molecular-editing/c5-local-review.md)
+  is not independent. All consequential findings repaired/qualified; no unresolved
+  local finding. Repeat actual GitHub review/check/conversation audit before merge.
+- Fetched/rechecked origin/master: unchangedf34d4ae, already incorporated by
+  `merge --ff-only`. No tag/release collision; latestv0.15.0. All five authoritative
+  versions are0.16.0. No workflows/protections/rulesets; normal merge remains allowed
+  and automatic branch deletion is disabled. No bypass is authorized.
+- This evidence/documentation commit changes no qualified runtime/test/config source.
+  Next: push, open approved-title normal-merge PR with Closes#69 and scoped outcomes,
+  request Codex where available, address actual findings, merge only when eligible,
+  then verify exact master and repeat every release gate before tag/release/closeout.
+  No PR/tag/release for this issue exists at this log entry. No blocker.
