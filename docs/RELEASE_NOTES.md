@@ -1,10 +1,10 @@
 # Neistra Release Notes
 
-## 0.17.0 - 2026-10-16 - Direct molecular modeling
+## 0.17.0 - 2026-10-17 - Direct molecular modeling
 
-Prepared under the [approved issue #74 plan](plans/issue-74-direct-molecular-modeling.md).
-Publication, exact merged-master verification and remote release state remain
-explicit C5 gates; a prepared version is not a release claim.
+Implemented under the [approved issue #74 plan](plans/issue-74-direct-molecular-modeling.md).
+The clean candidate is qualified; exact merged-master verification and remote
+publication are the remaining release gates.
 
 ### Highlights and fixes
 
@@ -60,9 +60,15 @@ Ruff/mypy68/lint/types/build/diff and the actual tagged preceding reader pass.
 Ten native performance profiles and18screenshots are retained; diagnostic failures
 and interrupted/pre-review results are clearly separated from final qualification.
 
-C4 and final candidate/merged evidence are recorded in the feature plan and
-[verification index](VERIFICATION.md). Local full-diff review is self-review, not
-independent approval. Required reviews/protections/checks must pass before merge.
+[Final clean candidate](assets/direct-modeling/c5-candidate-gate.json) atb3238c0
+passes all16release commands:693Python/248frontend/8supervisor/233native with47
+intentional skips, zero failures/flakes/retries; frozen installs/fresh0014/static/
+build/diff and actual tagged0.16.0 reader including recreated allocator floors.
+Fifteen native performance profiles and clean/source/log evidence are retained.
+[Full-diff local self-review](assets/direct-modeling/c5-local-review.md) records
+resolved scientific/focus/allocator findings and is not independent approval.
+Actual PR reviews/checks/protections must pass; exact-master gate and remote
+publication evidence follow merge. See the [verification index](VERIFICATION.md).
 Both themes, narrow320px layouts, expanded forms, keyboard/touch hit targets, real
 100/200% browser zoom and scoped axe are covered. Existing performance budgets
 remain; native movement also runs an authored1STP draft with bond overlay active.

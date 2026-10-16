@@ -50,6 +50,17 @@ refusal do not write counters. Actual reader retains produced recreation/archive
 floors. Earlier partial candidates remain diagnostic; complete final candidate and
 exact-master release gates are still required. D-104 records the compatible design.
 
+[Final clean0.17.0 candidate](assets/direct-modeling/c5-candidate-gate.json)
+at`b3238c018649410a3bcc1efd2f45e11def61f0d8` passes all16release commands:693Python,
+248frontend,8supervisor,233native with47intentional skips, no failures/flakes/
+retries. Both trees clean; frozen installs/fresh0014/static/build/diff and actual
+v0.16.0 reader against final0.17.0 data pass, including recreated allocator floors.
+Fifteen native profiles retain unchanged budgets. [Full-diff local self-review](assets/direct-modeling/c5-local-review.md)
+is not independent; [initial policy audit](assets/direct-modeling/c5-candidate-policy.json)
+shows no configured rulesets/protection/workflows. Actual PR review/check audit and
+exact-master complete qualification/publication remain. Failed/interrupted runs
+are clearly separate and do not qualify the final source.
+
 Issue #69 follows the [approved editing plan](plans/issue-69-compact-molecular-editor.md).
 C1/C2 implement bounded atomic atom/H, canonical endpoint bonds and six illustrated
 fragment substitutions. C3 adds exact complete-residue template mutation and

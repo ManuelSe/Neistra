@@ -2,20 +2,22 @@
 
 ## Current milestone
 
-Issue #74 C5 repair checkpoint complete under the [approved contract](plans/issue-74-direct-molecular-modeling.md).
-D-104 fixes ID reuse across entry recreation/branching using existing retained
-history fields. [Repair gate](assets/direct-modeling/c5-allocator-verification.json)
-passes693Python/248frontend/39native with7intentional skips, zero failures/flakes/
-retries; Ruff/mypy68/lint/types/build/diff and extended actual0.16.0 reader pass,
-including recreated/archive counter fidelity. Review is local, not independent.
+Issue #74 C5 clean candidate complete under the [approved contract](plans/issue-74-direct-molecular-modeling.md).
+Tested/pushed implementation `b3238c018649410a3bcc1efd2f45e11def61f0d8` passes the
+[complete gate](assets/direct-modeling/c5-candidate-gate.json):693Python/248frontend/
+8supervisor/233native with47intentional skips, zero failures/flakes/retries; all16
+frozen-install/fresh0014/static/build/actual0.16reader/diff commands pass. Clean
+start/end and source/log hashes,15native performance profiles retained. Old-reader
+canonical/history/archive and recreated allocator floors pass with documented
+renderer/helper/continued-authoring limits. Earlier diagnostics are distinct.
 
-C0–C4 are pushed; five versions prepared0.17.0. Earlier version-guard and partial
-candidate runs are diagnostic only. No new migration/schema/dependency/chemistry
-gate. Native drafts/unknowns, literal H and original bytes remain exact; old-reader
-rendering/helpers/continued authoring have documented limits. No external blocker.
-Next: commit/push this passing repair, restart complete clean final candidate gate,
-then normal PR/review/eligible merge/exact-master gate/tag/release/issue/docs/cleanup.
-No PR/publication/completion claim yet. Approved deferred scope remains excluded.
+D101–104 implement direct drafts/building/creation and persistent monotonic IDs.
+Five versions0.17.0 minor; no migration/schema/dependency change. Local full-diff
+self-review is documented, not independent. Master is current/unprotected, rulesets
+empty/workflows0; premerge PR checks/reviews/policy audit remains. No external
+blocker. Next: evidence/docs commit, push/PR/Codex request/review/normal merge,
+exact-master complete gate, annotated tag/release/asset/issue/docs/branch cleanup.
+No merged/released/completion claim yet. Approved deferred scope stays excluded.
 
 ### Previous delivery baseline — v0.16.0
 

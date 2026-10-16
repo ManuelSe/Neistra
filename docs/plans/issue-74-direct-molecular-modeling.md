@@ -3,7 +3,7 @@
 ## Status and metadata
 
 Approved by the user's “Implement the plan.” on 2026-10-16 after the complete
-proposal and four confirmed product choices. C0–C4 implementation/qualification checkpoints are complete; C5 release delivery is next. This document is the implementation
+proposal and four confirmed product choices. C0–C4 and the C5 repair checkpoint are complete; the clean final candidate passes. PR review/merge and exact-master release delivery remain. This document is the implementation
 contract. Historical checkpoint entries record their state at that time.
 
 - Issue: [#74](https://github.com/ManuelSe/Neistra/issues/74).
@@ -548,3 +548,27 @@ plugin/job type or dependency upgrade is implied.
   counters. D-104 documents bounded known-path bookkeeping, not chemical validation.
   Local self-review is not independent. Commit/push repair, then run every clean
   final-version release command again with fresh data before opening the PR.
+
+
+### C5 clean candidate complete — 2026-10-17
+
+- [Complete candidate gate](../assets/direct-modeling/c5-candidate-gate.json) on
+  `b3238c018649410a3bcc1efd2f45e11def61f0d8` passes all16commands in42.0minutes:693Python,
+  248frontend,8supervisor,233native/47intentional skips, no failures/flakes/retries.
+  Frozen installs/fresh0014/Ruff/mypy68/lint/types/build/diff and actual tagged
+  v0.16.0 reader pass against final0.17.0 data, including allocator recreation.
+  Fifteen native performance profiles retain unchanged budgets. Exact raw/retained
+  log/source hashes and clean start/end proofs distinguish this final gate from
+  earlier failed/interrupted diagnostics. No source change follows qualification.
+- Fetched master/tags again; base remainsa0ad65b, normal incorporation is already
+  current, and no0.17.0 tag/release collision exists. Five authoritative versions
+  match0.17.0. [Local full-diff self-review](../assets/direct-modeling/c5-local-review.md)
+  records resolved scientific/focus/allocator findings and is not independent.
+- [Policy audit](../assets/direct-modeling/c5-candidate-policy.json): master is
+  unprotected, rulesets empty, workflows0, normal merge allowed. Actual PR checks,
+  review conversations and policy must be audited again before merge; no approval
+  or protection bypass is authorized. Request @codex review on the PR.
+- Finalize/commit this evidence and release notes as documentation only, preserving
+  source equivalence to b3238c0. Next: push/open normal PR, review/eligible merge,
+  verify remote master, run every exact-master release command, then tag/release/
+  asset verification/issue response/final docs/branch cleanup. No publication yet.
