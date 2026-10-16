@@ -2,8 +2,9 @@
 
 ## 0.16.0 - 2026-10-16 - Compact molecular editing
 
-Status: clean candidate qualified; PR/review/merge, exact merged-master gates
-and verified publication are still required. Follow the
+Released in [PR #72](https://github.com/ManuelSe/Neistra/pull/72) as stable
+[v0.16.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.16.0), from verified
+master `1ef42b1cc94c472a51a56e0420ea9b2df7cb3678`. Follow the
 [approved plan](plans/issue-69-compact-molecular-editor.md).
 
 ### Added editing workflows
@@ -13,7 +14,7 @@ panel. Canonical selection drives element/charge changes, heavy-atom deletion,
 heavy-endpoint bond creation/breaking/order and six illustrated substitutions:
 methyl, ethyl, hydroxyl, amino, carboxylic acid and phenyl. Select a terminal H;
 there is no manual ID/coordinate form or hidden attachment mode. Complete standard
-amino acids expose all20 existing constrained template mutations and retain complete
+amino acids expose all 20 existing constrained template mutations and retain complete
 result selection for successive operations. One edit produces one reversible
 molecular command with monotonic identities and exact artifact Undo/Redo.
 
@@ -44,9 +45,9 @@ Complete supported workflows and release gates justify a stable minor, without a
 prerelease suffix. All five authoritative versions advance consistently.
 
 No new migration: Alembic0014; project/viewer/archive2, normalized/selection1.
-Edited data uses existing generic history/actions. Actual taggedv0.15.0 reading,
-save/reexport/archive import and new-command Undo/Redo are qualified in C4 and must
-repeat against final0.16.0 candidate/exact-master before publication. Back up full
+Edited data uses existing generic history/actions. Actual tagged v0.15.0 reading,
+save/reexport/archive import and new-command Undo/Redo pass on both final 0.16.0
+candidate and exact released master. Back up full
 managed data and restart matching client/server together. Qualified runtime rollback
 needs no data stripping/schema downgrade; older0014 guards still apply. See
 [compatibility guidance](DEVELOPMENT.md#selection-editing-compatibility-0160).
@@ -73,17 +74,23 @@ remain unchanged.
 
 [C4 qualification](assets/molecular-editing/c4-verification.json):612Python,
 235frontend,62broad browser passes/10intentional skips with no failures/retries;
-Ruff/mypy64/lint/types/build/diff and actual taggedv0.15.0 reader pass. Scientific
+Ruff/mypy (64 files)/lint/types/build/diff and actual tagged v0.15.0 reader pass. Scientific
 stereo/graphs/H/geometry, reference reconciliation/branching allocation, originals,
 archives/jobs/scenes/surfaces, async ownership and remounts are covered. Diagnostics
-remain separate. [Final clean candidate](assets/molecular-editing/c5-candidate-gate.json) at12a4375
-passes613Python/236frontend/8supervisor/216browser with46intentional skips and no
-failures/flakes/retries; every frozen-install/fresh0014/static/build/diff command
-and actualv0.15.0 reader passes against final0.16.0 data. The initial mobile vendor
+remain separate. [Final clean candidate](assets/molecular-editing/c5-candidate-gate.json) at `12a4375`
+passes613 Python/236 frontend/8 supervisor/216 browser with46 intentional skips and no
+failures/flakes/retries; every frozen-install/fresh 0014/static/build/diff command
+and actual v0.15.0 reader passes against final 0.16.0 data. The initial mobile vendor
 popup failure and cross-visit pending finding were repaired without weakening
 checks. [Complete-diff local self-review](assets/molecular-editing/c5-local-review.md)
-has no unresolved consequential finding and is not independent. Exact merged-master
-qualification and publication remain mandatory.
+has no unresolved consequential finding and is not independent. Codex was requested;
+no integration review returned at merge/publication audit. The [exact merged-master
+gate](assets/molecular-editing/c5-merged-gate.json) repeats all commands, counts
+and actual reader with zero failures/flakes/retries in 40.0 minutes. Annotated tag,
+stable/latest release/notes and downloaded evidence ZIP SHA256/CRC/all 189 internal
+checksums are [verified](assets/molecular-editing/c5-publication.json).
+[Issue closeout](https://github.com/ManuelSe/Neistra/issues/69#issuecomment-6220230454)
+records final documentation/cleanup audit. No new migration or version deviation.
 
 ### Deferred features and known limitations
 
