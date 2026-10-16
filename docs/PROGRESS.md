@@ -2,6 +2,17 @@
 
 ## Current milestone
 
+Issue #74 C0: approved [direct-modeling contract](plans/issue-74-direct-molecular-modeling.md).
+Issue created and remotely verified; clean up-to-date master a0ad65b seeded
+`feat/issue-74-direct-molecular-modeling`. D-101–103 amend direct chemistry,
+navigation/ownership and draft rendering policy without rewriting history.
+Confirmed: direct editing/H optional, new molecules, compact previews, one entry.
+No implementation or version change yet; planned0.17.0minor, no migration.
+Verification: C0 links/diff/source/remote checks pending. No blocker.
+Next: commit/push approved C0, then reproduce and fix bonded-H membership (C1).
+
+### Previous delivery baseline — v0.16.0
+
 Issue #69 delivered under the [approved contract](plans/issue-69-compact-molecular-editor.md)
 in [PR #72](https://github.com/ManuelSe/Neistra/pull/72) and stable
 [v0.16.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.16.0).

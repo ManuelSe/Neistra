@@ -3793,3 +3793,54 @@ layout; no molecular/viewer state is copied into React or persisted.
 The static theme contract also requires every consumed CSS variable to have a
 source declaration. Declare the geometry clearance's72px fallback in the viewer
 scope; keep its measured inline value transient. No assertion is weakened.
+
+
+## D-101 — Direct molecular edits preserve incomplete chemistry
+
+Date: 2026-10-16. Status: accepted by explicit approval of issue #74 plan.
+
+Direct atom/bond editing operates on normalized records independently of source
+format, navigation category and complete chemistry. Unknown remains unknown.
+Requested incomplete/over-valent/aromatic/stereo states publish with scientific
+warnings, not blanket sanitization rejection. Structural integrity, locks,
+revisions/artifacts, stable IDs and resource limits still apply. Direct element
+assignment retains identity/coordinates; deletion removes selected atoms and
+incident bonds only. Optional H completion defaults off and cannot block the
+requested direct change or reverse explicit H deletion. Chemistry helpers retain
+operation-specific prerequisites. No whole protein is sanitized as a ligand.
+
+This explicitly supersedes the mandatory preparation/sanitization/saturation and
+closed-component restrictions of D-028/D-098/D-099 for the new direct service.
+Their legacy API contracts and historical rationale remain. D-002/005/007/018/
+020/029 and captured UI ownership remain authoritative. Full scope is in
+[issue #74 plan](plans/issue-74-direct-molecular-modeling.md).
+
+## D-102 — Navigation membership is not a molecular-edit boundary
+
+Date: 2026-10-16. Status: accepted by explicit approval of issue #74 plan.
+
+Preserve source-based navigation hierarchy (D-045), but do not constrain direct
+edits to its categories or closed components. Explicit same-entry connectivity
+can cross residues, ligands, protein and unclassified material. New generated H
+inherit valid bonded-parent membership. Historical orphan H with an unambiguous
+explicit heavy parent derive membership without artifact rewrites or proximity
+inference. Ambiguous atoms remain visible/editable. Combining entries is excluded.
+
+## D-103 — Render and persist authored draft topology independently of chemistry
+
+Date: 2026-10-16. Status: accepted by explicit approval of issue #74 plan.
+
+Viewer projection must display incomplete normalized states without chemistry
+normalization. A display-only non-kekulizing ligand projection and application-
+owned bond overlay retain authored orders and suppress explicitly removed native
+inferred display bonds. Versioned neistra_modeling metadata stores stable endpoint
+exclusions in the same immutable artifact/history transaction; additions/deletions
+reconcile it. Viewing inferred bonds assigns no chemistry. Preserve native protein
+display inference elsewhere. Mol* remains disposable, not molecular authority.
+
+New generated entries use existing nullable original/source fields and explicit
+provenance. Native archives/save/Undo must preserve all draft values and empty
+entries; chemical-format export reports limits rather than repairing chemistry.
+No top-level schema/database migration is planned. Actual v0.16.0 data/history/
+archive reader qualification must distinguish its unsupported draft rendering/
+chemistry from lossless retention; unrestricted runtime rollback is not promised.
