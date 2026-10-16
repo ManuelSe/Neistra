@@ -42,6 +42,14 @@ is distinct from expected renderer/helper refusal. Diagnostics/interruption and
 [local self-review](assets/direct-modeling/c4-local-review.md) remain separate;
 final-version candidate/merged complete release qualification remains C5.
 
+[C5 allocator repair](assets/direct-modeling/c5-allocator-verification.json) passes
+693Python/248frontend/39native with7intentional skips and no failures/flakes/retries,
+plus static/build/diff and extended actual0.16.0 reader. Five API red/green cases and
+native Undo/Redo creation/branch/picking protect monotonic identities; preview and
+refusal do not write counters. Actual reader retains produced recreation/archive
+floors. Earlier partial candidates remain diagnostic; complete final candidate and
+exact-master release gates are still required. D-104 records the compatible design.
+
 Issue #69 follows the [approved editing plan](plans/issue-69-compact-molecular-editor.md).
 C1/C2 implement bounded atomic atom/H, canonical endpoint bonds and six illustrated
 fragment substitutions. C3 adds exact complete-residue template mutation and

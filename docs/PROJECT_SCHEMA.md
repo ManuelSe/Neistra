@@ -480,3 +480,10 @@ representations/surfaces. Archives omit history as before, preserve native draft
 artifacts and original bytes, and remap project entry references normally. No new
 migration or top-level schema version is required. The actual v0.16.0 reader's
 verified data retention has documented renderer/helper limits; see DEVELOPMENT.
+
+D-104 retains allocator floors in existing generic entry.create action snapshots
+when a molecular write or recreation/deletion commits. Floors are read from live
+rows and known retained identity-bearing actions before editing. Allocation metadata
+intentionally does not undo, including across entry Undo/Redo and history branching;
+molecular artifacts and all other history state remain exact. Preview/refusal only
+reads the floor. No additional command, migration, field or schema is introduced.

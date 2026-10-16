@@ -1,0 +1,242 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.2, pluggy-1.6.0
+rootdir: /datadisk/dev/neistra
+configfile: pyproject.toml
+plugins: cov-6.3.0, anyio-4.9.0
+collected 5 items
+
+tests/integration/test_allocator_recreation.py FFFFF                     [100%]
+
+=================================== FAILURES ===================================
+_ test_entry_recreation_and_branching_keep_atom_and_bond_allocation_floors[False] _
+
+client = <tests.support.api_client.ApiClient object at 0x7802d13300e0>
+generated = False
+
+    @pytest.mark.parametrize("generated", [False, True])
+    def test_entry_recreation_and_branching_keep_atom_and_bond_allocation_floors(
+        client: ApiClient, generated: bool
+    ) -> None:
+        if generated:
+            result = create(client)
+            project, entry_id = result["project"], result["entry_id"]
+        else:
+            project, entry_id = project_with_ligand(client)
+        initial = structure(client, project["id"], entry_id)
+        old_atoms, old_bonds = [], []
+        for element in ["N", "P"]:
+            response = edit(
+                client, project, entry_id, [1], {"operation": "atom.add", "element": element}
+            )
+            assert response.status_code == 200, response.text
+            result = response.json()
+            project = result["project"]
+            old_atoms.extend(result["report"]["created_atom_ids"])
+            old_bonds.extend(result["report"]["created_bond_ids"])
+        for _ in range(3):
+            project = history(client, project, "undo")
+        assert project["entries"] == []
+        project = history(client, project, "redo")
+        assert structure(client, project["id"], entry_id) == initial
+        response = edit(client, project, entry_id, [1], {"operation": "atom.add", "element": "O"})
+        assert response.status_code == 200, response.text
+        result = response.json()
+>       assert min(result["report"]["created_atom_ids"]) > max(old_atoms)
+E       assert 4 > 5
+E        +  where 4 = min([4])
+E        +  and   5 = max([4, 5])
+
+tests/integration/test_allocator_recreation.py:56: AssertionError
+_ test_entry_recreation_and_branching_keep_atom_and_bond_allocation_floors[True] _
+
+client = <tests.support.api_client.ApiClient object at 0x780306b18b00>
+generated = True
+
+    @pytest.mark.parametrize("generated", [False, True])
+    def test_entry_recreation_and_branching_keep_atom_and_bond_allocation_floors(
+        client: ApiClient, generated: bool
+    ) -> None:
+        if generated:
+            result = create(client)
+            project, entry_id = result["project"], result["entry_id"]
+        else:
+            project, entry_id = project_with_ligand(client)
+        initial = structure(client, project["id"], entry_id)
+        old_atoms, old_bonds = [], []
+        for element in ["N", "P"]:
+            response = edit(
+                client, project, entry_id, [1], {"operation": "atom.add", "element": element}
+            )
+            assert response.status_code == 200, response.text
+            result = response.json()
+            project = result["project"]
+            old_atoms.extend(result["report"]["created_atom_ids"])
+            old_bonds.extend(result["report"]["created_bond_ids"])
+        for _ in range(3):
+            project = history(client, project, "undo")
+        assert project["entries"] == []
+        project = history(client, project, "redo")
+        assert structure(client, project["id"], entry_id) == initial
+        response = edit(client, project, entry_id, [1], {"operation": "atom.add", "element": "O"})
+        assert response.status_code == 200, response.text
+        result = response.json()
+>       assert min(result["report"]["created_atom_ids"]) > max(old_atoms)
+E       assert 2 > 3
+E        +  where 2 = min([2])
+E        +  and   3 = max([2, 3])
+
+tests/integration/test_allocator_recreation.py:56: AssertionError
+____ test_legacy_helper_allocation_survives_import_undo_redo_and_branching _____
+
+client = <tests.support.api_client.ApiClient object at 0x780306813a10>
+
+    def test_legacy_helper_allocation_survives_import_undo_redo_and_branching(
+        client: ApiClient,
+    ) -> None:
+        project, entry_id = project_with_ligand(client)
+        response = helper_edit(client, project, entry_id, [1], {"operation": "hydrogens.prepare"})
+        assert response.status_code == 200, response.text
+        result = response.json()
+        old_atoms = result["report"]["created_atom_ids"]
+        old_bonds = result["report"]["created_bond_ids"]
+        assert old_atoms and old_bonds
+        project = result["project"]
+        for direction in ["undo", "undo", "redo"]:
+            project = history(client, project, direction)
+        response = helper_edit(client, project, entry_id, [1], {"operation": "hydrogens.prepare"})
+        assert response.status_code == 200, response.text
+>       assert min(response.json()["report"]["created_atom_ids"]) > max(old_atoms)
+E       assert 4 > 9
+E        +  where 4 = min([4, 5, 6, 7, 8, 9])
+E        +  and   9 = max([4, 5, 6, 7, 8, 9])
+
+tests/integration/test_allocator_recreation.py:89: AssertionError
+_ test_retained_older_low_floor_is_recovered_without_preview_or_refusal_writes[False] _
+
+client = <tests.support.api_client.ApiClient object at 0x78030679a960>
+allocate = False
+
+    @pytest.mark.parametrize("allocate", [False, True])
+    def test_retained_older_low_floor_is_recovered_without_preview_or_refusal_writes(
+        client: ApiClient, allocate: bool
+    ) -> None:
+        result = create(client)
+        project, entry_id = result["project"], result["entry_id"]
+        result = edit(client, project, entry_id, [1], {"operation": "atom.add", "element": "N"}).json()
+        old_atom = result["report"]["created_atom_ids"][0]
+        old_bond = result["report"]["created_bond_ids"][0]
+        project = history(client, result["project"], "undo")
+        # Model the preceding service's stale recreation counters, keeping its real
+        # retained forward molecular action as evidence of the earlier allocations.
+        with client.app.state.session_factory() as session:
+            entry = session.get(StructureEntry, entry_id)
+            assert entry is not None
+            entry.next_atom_id, entry.next_bond_id = 2, 1
+            for command in session.scalars(select(CommandRecord)):
+                actions = deepcopy(command.forward_actions)
+                for action in actions:
+                    if action["kind"] == "entry.create" and action["entry"]["id"] == entry_id:
+                        action["entry"].update(next_atom_id=2, next_bond_id=1)
+                command.forward_actions = actions
+            session.commit()
+        path = f"/api/v1/projects/{project['id']}"
+        baseline = client.get(path).json()
+        payload = {
+            "expected_revision": project["revision"],
+            "expected_artifact_id": baseline["entries"][0]["current_artifact_id"],
+            "selection": selection(entry_id, [1]),
+            "action": {"operation": "atom.add", "element": "O"},
+        }
+        preview = client.post(f"{path}/entries/{entry_id}/model-edits/preview", json=payload)
+        assert preview.status_code == 200, preview.text
+        assert client.get(path).json() == baseline
+        refusal = edit(client, project, entry_id, [1, 1], {"operation": "bond.set", "order": 1})
+        assert refusal.status_code == 422
+        assert client.get(path).json() == baseline
+        action = (
+            {"operation": "atom.add", "element": "O"}
+            if allocate
+            else {"operation": "atom.element", "element": "O"}
+        )
+        response = edit(client, project, entry_id, [1], action)
+        assert response.status_code == 200, response.text
+        result = response.json()
+        if not allocate:
+            response = edit(
+                client, result["project"], entry_id, [1], {"operation": "atom.add", "element": "P"}
+            )
+            assert response.status_code == 200, response.text
+            result = response.json()
+>       assert min(result["report"]["created_atom_ids"]) > old_atom
+E       assert 2 > 2
+E        +  where 2 = min([2])
+
+tests/integration/test_allocator_recreation.py:144: AssertionError
+_ test_retained_older_low_floor_is_recovered_without_preview_or_refusal_writes[True] _
+
+client = <tests.support.api_client.ApiClient object at 0x780306a09cd0>
+allocate = True
+
+    @pytest.mark.parametrize("allocate", [False, True])
+    def test_retained_older_low_floor_is_recovered_without_preview_or_refusal_writes(
+        client: ApiClient, allocate: bool
+    ) -> None:
+        result = create(client)
+        project, entry_id = result["project"], result["entry_id"]
+        result = edit(client, project, entry_id, [1], {"operation": "atom.add", "element": "N"}).json()
+        old_atom = result["report"]["created_atom_ids"][0]
+        old_bond = result["report"]["created_bond_ids"][0]
+        project = history(client, result["project"], "undo")
+        # Model the preceding service's stale recreation counters, keeping its real
+        # retained forward molecular action as evidence of the earlier allocations.
+        with client.app.state.session_factory() as session:
+            entry = session.get(StructureEntry, entry_id)
+            assert entry is not None
+            entry.next_atom_id, entry.next_bond_id = 2, 1
+            for command in session.scalars(select(CommandRecord)):
+                actions = deepcopy(command.forward_actions)
+                for action in actions:
+                    if action["kind"] == "entry.create" and action["entry"]["id"] == entry_id:
+                        action["entry"].update(next_atom_id=2, next_bond_id=1)
+                command.forward_actions = actions
+            session.commit()
+        path = f"/api/v1/projects/{project['id']}"
+        baseline = client.get(path).json()
+        payload = {
+            "expected_revision": project["revision"],
+            "expected_artifact_id": baseline["entries"][0]["current_artifact_id"],
+            "selection": selection(entry_id, [1]),
+            "action": {"operation": "atom.add", "element": "O"},
+        }
+        preview = client.post(f"{path}/entries/{entry_id}/model-edits/preview", json=payload)
+        assert preview.status_code == 200, preview.text
+        assert client.get(path).json() == baseline
+        refusal = edit(client, project, entry_id, [1, 1], {"operation": "bond.set", "order": 1})
+        assert refusal.status_code == 422
+        assert client.get(path).json() == baseline
+        action = (
+            {"operation": "atom.add", "element": "O"}
+            if allocate
+            else {"operation": "atom.element", "element": "O"}
+        )
+        response = edit(client, project, entry_id, [1], action)
+        assert response.status_code == 200, response.text
+        result = response.json()
+        if not allocate:
+            response = edit(
+                client, result["project"], entry_id, [1], {"operation": "atom.add", "element": "P"}
+            )
+            assert response.status_code == 200, response.text
+            result = response.json()
+>       assert min(result["report"]["created_atom_ids"]) > old_atom
+E       assert 2 > 2
+E        +  where 2 = min([2])
+
+tests/integration/test_allocator_recreation.py:144: AssertionError
+=========================== short test summary info ============================
+FAILED tests/integration/test_allocator_recreation.py::test_entry_recreation_and_branching_keep_atom_and_bond_allocation_floors[False]
+FAILED tests/integration/test_allocator_recreation.py::test_entry_recreation_and_branching_keep_atom_and_bond_allocation_floors[True]
+FAILED tests/integration/test_allocator_recreation.py::test_legacy_helper_allocation_survives_import_undo_redo_and_branching
+FAILED tests/integration/test_allocator_recreation.py::test_retained_older_low_floor_is_recovered_without_preview_or_refusal_writes[False]
+FAILED tests/integration/test_allocator_recreation.py::test_retained_older_low_floor_is_recovered_without_preview_or_refusal_writes[True]
+============================== 5 failed in 1.37s ===============================

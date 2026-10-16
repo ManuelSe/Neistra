@@ -3960,3 +3960,30 @@ Three regression exports demonstrate that interpretation without changing canoni
 atoms. Add a blocking explicit warning requiring acknowledgement rather than
 claiming those formats preserve the literal draft as protonation intent. Native
 archives retain the exact graph; this does not change direct deletion or add H.
+
+## D-104 — Retain identity allocation floors across entry recreation
+
+Date: 2026-10-16. Status: accepted implementation of issue #74's approved monotonic
+identity contract, found during final local self-review.
+
+Undoing an allocation, then undoing/recreating its entry could reset the row's
+counter and reuse an earlier atom/bond ID on branching. A real API probe and five
+regressions reproduce it for generated/imported entries and legacy helper edits.
+Read floors from the existing bounded retained entry.create/entry.molecule action
+paths as well as the live row. Core editors receive that floor; publication advances
+past actual created IDs, including a branch that first changes only an element.
+Preview/refusal reads do not reserve or persist any identities.
+
+Within the same command transaction, retain higher floors in existing entry.create
+snapshots before molecular publication/recreation/deletion. Allocation bookkeeping
+intentionally never undoes; chemical artifacts, original uploads, other action
+values and history counts stay exact. This lets generic recreation survive later
+branch truncation without a new table, namespace or schema migration. Inspect only
+known action paths, never recursively rewrite arbitrary metadata. Legacy helper
+chemistry prerequisites and HTTP shapes remain unchanged.
+
+The actual v0.16.0 reader qualifies retained floors through generic new-command
+Undo/Redo and archive re-export. Its older authoring does not implement the new
+floor propagation for future writes; use the current version for continued editing.
+This supplements the existing expected old-renderer/helper limitations, not a claim
+of unrestricted runtime rollback or retroactive repair of already-reused IDs.

@@ -27,7 +27,9 @@ native inferred bond survives reload/Undo. Delayed replies cannot restore cancel
 previews or take over a newer selection/project visit. Unknown XYZ charges remain
 unknown on new imports. MOL2 current output no longer reuses stale source types;
 chemical export losses/refusals are explicit. Sparse-ID mmCIF model row serials and
-PDB fixed-width overflow are handled without changing canonical data.
+PDB fixed-width overflow are handled without changing canonical data. Monotonic
+atom/bond IDs also survive Undo/Redo of entry creation and later branching; higher
+floors persist through existing generic history fields without another migration.
 
 ### Data, migrations, API and rollback
 

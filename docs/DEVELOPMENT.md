@@ -521,3 +521,10 @@ sites. It separately asserts expected old aromatic-renderer/helper refusals.
 Repeat with the final version on both clean candidate and exact merged master.
 Back up complete managed data before rollback; data retention does not certify
 old rendering, the new UI or helper eligibility. No automatic stripping/repair.
+
+D-104 additionally qualifies monotonic IDs after undoing and redoing entry creation.
+Retained generic entry.create snapshots carry higher allocator floors in the same
+transaction; current direct/legacy editors consult bounded historical evidence.
+The old reader retains these produced floors, but its future authoring does not
+implement the new propagation. Continue modeling with the current client/server.
+Previously reused historical identities cannot be retroactively disentangled.

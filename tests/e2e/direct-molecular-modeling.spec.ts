@@ -240,3 +240,45 @@ test("does not restore a late proposal or steal selection after a closed creatio
   await expect(panel.locator(".edit-target")).toContainText(entry.name);
   await expect.poll(async () => (await previewState(page)).preview).toBeNull();
 });
+
+test("keeps identities above earlier allocations after undoing and redoing molecule creation", async ({ page, request }, info) => {
+  test.setTimeout(120000);
+  const initial = await newEmptyProject(page, request);
+  await page.locator(".project-stage").getByRole("button", { name: "New molecule", exact: true }).click();
+  await page.getByRole("dialog", { name: "New molecule", exact: true }).getByRole("button", { name: "Create molecule", exact: true }).click();
+  const panel = page.getByRole("dialog", { name: "Edit molecule", exact: true });
+  await expect(panel).toBeVisible();
+  const project = await (await request.get(`/api/v1/projects/${initial.id}`)).json() as Project;
+  const entry = project.entries[0];
+  const path = `/api/v1/projects/${project.id}/entries/${entry.id}/structure`;
+  const place = async (element: string) => {
+    const add = panel.getByText("Add atom", { exact: true });
+    if (!(await add.evaluate(node => node.closest("details")!.open))) await add.click();
+    await panel.getByLabel("Added element", { exact: true }).fill(element);
+    await panel.getByRole("button", { name: "Preview atom", exact: true }).click();
+    await expect(panel.getByRole("button", { name: "Apply placement", exact: true })).toBeEnabled();
+    await panel.getByRole("button", { name: "Apply placement", exact: true }).click();
+    await expect.poll(async () => (await (await request.get(path)).json() as StructureProjection).structure.atoms.length).toBe(2);
+  };
+  await place("N");
+  const first = (await (await request.get(path)).json() as StructureProjection).structure;
+  await panel.getByRole("button", { name: "Close molecular editor", exact: true }).click();
+  await page.getByRole("button", { name: /^Undo:/ }).click();
+  await expect.poll(async () => (await (await request.get(path)).json() as StructureProjection).structure.atoms.length).toBe(1);
+  await page.getByRole("button", { name: /^Undo:/ }).click();
+  await expect.poll(async () => (await (await request.get(`/api/v1/projects/${project.id}`)).json()).entries.length).toBe(0);
+  await page.getByRole("button", { name: /^Redo:/ }).click();
+  await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded", { timeout: 30000 });
+  await selectPair(page, entry.id, [1], info.project.name === "mobile-chromium");
+  await page.getByRole("button", { name: "Edit molecule", exact: true }).click();
+  await place("O");
+  const second = (await (await request.get(path)).json() as StructureProjection).structure;
+  expect(second.atoms[0]).toEqual(first.atoms[0]);
+  expect(second.atoms[1].id).toBeGreaterThan(first.atoms[1].id);
+  expect(second.bonds[0].id).toBeGreaterThan(first.bonds[0].id);
+  await panel.getByRole("button", { name: "Close molecular editor", exact: true }).click();
+  await observe(page);
+  const point = await page.evaluate(p => window.editingPicks.point(p), second.atoms[1].coordinates);
+  await page.locator(".molstar-host canvas").first().click({ position: point });
+  await expect.poll(() => page.evaluate(() => window.editingPicks.events.flatMap(e => e.selection?.atoms ?? []).map(a => a.atom_id))).toContain(second.atoms[1].id);
+});

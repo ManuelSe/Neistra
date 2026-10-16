@@ -33,6 +33,18 @@ def canonical(client: ApiClient, project: dict[str, Any]) -> dict[str, Any]:
     return result
 
 
+def allocation_counters(client: ApiClient, project: dict[str, Any]) -> dict[str, list[int]]:
+    from molweave_api.models import StructureEntry
+
+    with client.app.state.session_factory() as session:
+        result = {}
+        for entry in project["entries"]:
+            row = session.get(StructureEntry, entry["id"])
+            assert row is not None
+            result[entry["name"]] = [row.next_atom_id, row.next_bond_id]
+        return result
+
+
 def produce_models(client: ApiClient, data_dir: Path) -> dict[str, Any]:
     from tests.integration.test_direct_modeling_qualification import imported
     from tests.integration.test_model_edits import edit
@@ -76,7 +88,8 @@ def produce_models(client: ApiClient, data_dir: Path) -> dict[str, Any]:
     project = response.json()["project"]
     generated_id = response.json()["entry_id"]
     transitions.append({"before": before, "after": canonical(client, project)})
-    apply(generated_id, [1], {"operation": "atom.delete"})
+    apply(generated_id, [1], {"operation": "atom.add", "element": "N", "charge": None})
+    apply(generated_id, [1, 2], {"operation": "atom.delete"})
     saved = client.post(f"{path}/save", json={"expected_revision": project["revision"]})
     assert saved.status_code == 200, saved.text
     project = saved.json()
@@ -100,6 +113,7 @@ def produce_models(client: ApiClient, data_dir: Path) -> dict[str, Any]:
         "producer": APPLICATION_VERSION,
         "project": project,
         "canonical": canonical(client, project),
+        "allocation_counters": allocation_counters(client, project),
         "transitions": transitions,
         "original_sha256": hashlib.sha256(original).hexdigest(),
         "original_entry": entry_id,
@@ -139,6 +153,8 @@ def read_models(client: ApiClient, data_dir: Path, version: str) -> dict[str, An
             )
     restored = import_archive(client, (data_dir / "drafts.molweave.zip").read_bytes())["project"]
     assert canonical(client, restored) == state["canonical"]
+    assert allocation_counters(client, project) == state["allocation_counters"]
+    assert allocation_counters(client, restored) == state["allocation_counters"]
     empty = next(e for e in restored["entries"] if e["name"] == "Generated empty")
     assert empty["atom_count"] == 0 and empty["original_artifact_id"] is None
     assert empty["source_format"] is None
@@ -173,6 +189,7 @@ def read_models(client: ApiClient, data_dir: Path, version: str) -> dict[str, An
         "reader": APPLICATION_VERSION,
         "canonical_drafts_unknowns_exclusions_exact": True,
         "direct_history_undo_redo_exact": True,
+        "recreated_entry_allocator_floors_exact": True,
         "generated_empty_archive_reexport_exact": True,
         "multiconformer_altloc_exact": True,
         "original_bytes_exact": True,

@@ -62,6 +62,7 @@ class ProteinEditService:
         self._project(project_id, payload.expected_revision)
         entry = self._entry(project_id, entry_id)
         before = self._structure(entry)
+        atom_floor, bond_floor = ProjectService(self.session).allocation_floor(entry)
         try:
             result = self._apply(entry, before, payload)
         except InvalidProteinEditError as error:
@@ -88,8 +89,8 @@ class ProteinEditService:
                 "after_artifact_id": after_artifact.id,
                 "before_values": self._summary(before),
                 "after_values": self._summary(result.structure),
-                "next_atom_id": entry.next_atom_id + len(result.created_atom_ids),
-                "next_bond_id": entry.next_bond_id + len(result.created_bond_ids),
+                "next_atom_id": max(atom_floor, max(result.created_atom_ids, default=0) + 1),
+                "next_bond_id": max(bond_floor, max(result.created_bond_ids, default=0) + 1),
             },
             list(result.deleted_atom_ids),
         )
@@ -116,6 +117,7 @@ class ProteinEditService:
         structure: NormalizedStructureV1,
         payload: ProteinEditCreate,
     ) -> ProteinEditResult:
+        atom_floor, bond_floor = ProjectService(self.session).allocation_floor(entry)
         if isinstance(payload, ProteinAtomDeleteEdit):
             return self.editor.delete_atoms(structure, payload.atom_ids)
         if isinstance(payload, ProteinResidueDeleteEdit):
@@ -140,14 +142,14 @@ class ProteinEditService:
                 structure,
                 payload.residue_id,
                 payload.target_name,
-                next_atom_id=entry.next_atom_id,
-                next_bond_id=entry.next_bond_id,
+                next_atom_id=atom_floor,
+                next_bond_id=bond_floor,
             )
         if isinstance(payload, ProteinHydrogenAddEdit):
             return self.editor.add_hydrogens(
                 structure,
-                next_atom_id=entry.next_atom_id,
-                next_bond_id=entry.next_bond_id,
+                next_atom_id=atom_floor,
+                next_bond_id=bond_floor,
                 residue_ids=payload.residue_ids,
                 ph=payload.ph,
             )

@@ -511,3 +511,40 @@ plugin/job type or dependency upgrade is implied.
 - Corrected focused archive suite passes26cases in12.31s; Ruff passes. Retain the
   explicit producer guard and every historical assertion, plus preceding0.16.0.
   Amend only the unpublished preparation commit, then rerun all release commands.
+
+
+### C5 allocator review finding and repair — 2026-10-16
+
+- Full-diff self-review reproduces ID reuse: addatom2, Undo Add, Undo New molecule,
+  Redo New molecule, then another add allocates2again. Stop the candidate browser
+  gate after71passes/3skips (one interrupted/203notrun), retaining it as diagnostic,
+  not qualification. Five new API regressions fail on previous source.
+- D-104 implements the approved stable-ID contract using bounded existing history
+  fields, with no migration or chemical normalization. Direct and legacy cores read
+  floors; publication advances past actual new IDs; committed creation snapshots
+  retain floors across row recreation/branching. Preview/refusal counters stay exact.
+- Focused76Python/mypy68/Ruff/type checks pass; native desktop/mobile Undo Creation/
+  Redo/branch/new-atom picking passes2/2. Extend the actual preceding-reader harness
+  to grow then empty a generated entry and assert recreated/archive counters exact.
+- Run the coherent repair checkpoint's full Python/frontend/static/build/focused
+  native/actual-reader gate, commit/push passing state, then restart the complete
+  clean final0.17.0 release gate with fresh data. No PR/merge/tag/release yet.
+
+
+### C5 allocator repair checkpoint complete — 2026-10-16
+
+- [Source-bound repair gate](../assets/direct-modeling/c5-allocator-verification.json)
+  passes693Python/248frontend/39native with7intentional skips, zero failures/flakes/
+  retries; Ruff/mypy68/lint/types/build/diff and extended actual v0.16.0 reader pass.
+  Reader retains produced allocator floors through grown/empty entry Undo/Redo and
+  archive re-export. No migration/version/dependency change beyond prepared0.17.0.
+- Five API cases fail before and pass after repair. Native desktop/mobile confirms
+  a new atom is pickable with an ID above prior allocations after creation Undo/
+  Redo and branching. Initial test harness read private counters from ProjectRead;
+  use actual DB/archive values without weakening domain assertions. Earlier partial
+  candidate and diagnostics remain distinct from this passing checkpoint.
+- Reviewed only allocator-related service changes, removed unrelated formatter
+  churn, retained chemical artifacts/other history values and pure preview/refusal
+  counters. D-104 documents bounded known-path bookkeeping, not chemical validation.
+  Local self-review is not independent. Commit/push repair, then run every clean
+  final-version release command again with fresh data before opening the PR.

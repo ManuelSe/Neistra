@@ -1,0 +1,13 @@
+{
+  "stats": {
+    "startTime": "2026-10-16T20:57:45.630Z",
+    "duration": 682484.219,
+    "expected": 71,
+    "skipped": 207,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "reason": "Interrupted for separately reproduced ID reuse; not release qualification.",
+  "raw_report_sha256": "8552a5bc681328e8ad4b960c16ef455991e9be7f58c85dd55c8a499bc6a6940b",
+  "raw_report_location": "External initial-candidate raw evidence, included in release archive."
+}

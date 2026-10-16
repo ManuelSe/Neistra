@@ -38,6 +38,7 @@ class SelectionEditService(LigandEditService):
             payload.expected_artifact_id,
             payload.selection,
         )
+        atom_floor, bond_floor = ProjectService(self.session).allocation_floor(entry)
         selected = [ref.atom_id for ref in payload.selection.atoms]
         after_selection: SelectionV1 | None = None
         try:
@@ -75,8 +76,8 @@ class SelectionEditService(LigandEditService):
                     before,
                     residue_id,
                     payload.action.target_name,
-                    next_atom_id=entry.next_atom_id,
-                    next_bond_id=entry.next_bond_id,
+                    next_atom_id=atom_floor,
+                    next_bond_id=bond_floor,
                 )
                 result = SelectionEditResult(
                     EditResult(
@@ -104,8 +105,8 @@ class SelectionEditService(LigandEditService):
                     before,
                     selected,
                     payload.action,
-                    next_atom_id=entry.next_atom_id,
-                    next_bond_id=entry.next_bond_id,
+                    next_atom_id=atom_floor,
+                    next_bond_id=bond_floor,
                 )
         except (InvalidSelectionEdit, InvalidProteinEditError) as error:
             raise InvalidProjectOperationError(str(error)) from error
@@ -158,6 +159,7 @@ class SelectionEditService(LigandEditService):
         command_prefix: str = "selection",
     ) -> SelectionEditRead:
         edit = result.edit
+        atom_floor, bond_floor = ProjectService(self.session).allocation_floor(entry)
         artifact = self.artifacts.publish(
             edit.structure.to_bytes(),
             f"{safe_filename_stem(entry.name)}-edit.normalized.json",
@@ -174,8 +176,8 @@ class SelectionEditService(LigandEditService):
                 "after_artifact_id": artifact.id,
                 "before_values": self._summary(before),
                 "after_values": self._summary(edit.structure),
-                "next_atom_id": entry.next_atom_id + len(edit.created_atom_ids),
-                "next_bond_id": entry.next_bond_id + len(edit.created_bond_ids),
+                "next_atom_id": max(atom_floor, max(edit.created_atom_ids, default=0) + 1),
+                "next_bond_id": max(bond_floor, max(edit.created_bond_ids, default=0) + 1),
             },
             list(edit.deleted_atom_ids),
             selection_snapshot=[ref.model_dump(mode="json") for ref in selection.atoms],

@@ -2,25 +2,20 @@
 
 ## Current milestone
 
-Issue #74 C5 release preparation under the [approved contract](plans/issue-74-direct-molecular-modeling.md).
-C0–C4 are committed/pushed; C4:1500af0027bac4c1e72b20af26ddfa8d33166261.
-Approved direct editing/building/creation, native draft display, orphan-H repair,
-literal H, optional helpers, pure placement/empty rebuilding and qualification
-are complete. [C4 evidence](assets/direct-modeling/c4-verification.json):687Python/
-248frontend, broad desktop/mobile/native/actual-reader and static/build checks pass;
-exact counts/source/evidence/limitations are in the feature plan. Local self-review
-is not independent; earlier failures/interruption remain diagnostic.
+Issue #74 C5 repair checkpoint complete under the [approved contract](plans/issue-74-direct-molecular-modeling.md).
+D-104 fixes ID reuse across entry recreation/branching using existing retained
+history fields. [Repair gate](assets/direct-modeling/c5-allocator-verification.json)
+passes693Python/248frontend/39native with7intentional skips, zero failures/flakes/
+retries; Ruff/mypy68/lint/types/build/diff and extended actual0.16.0 reader pass,
+including recreated/archive counter fidelity. Review is local, not independent.
 
-All five versions prepared for stable0.17.0 minor; no schema/database/dependency
-change. Actual0.16.0 retains draft data/history/archive with expected old renderer/
-helper refusals; unrestricted runtime rollback is unsupported. Source bytes and
-literal unknowns remain exact. Chemical-format interpretation/loss requires consent.
-Initial candidate frozen installs/migration/static pass; an outdated explicit
-archive producer-version test guard is corrected to0.17.0 and the preceding0.16.0
-matrix case is added. Failed diagnostic is retained; full clean gate restarts.
-No external blocker. Next: clean final-version full candidate gate, complete-diff
-review, normal PR/eligible merge, exact-master full gate, verified tag/release/
-evidence/issue closeout/docs/branch cleanup. No publication claim yet.
+C0–C4 are pushed; five versions prepared0.17.0. Earlier version-guard and partial
+candidate runs are diagnostic only. No new migration/schema/dependency/chemistry
+gate. Native drafts/unknowns, literal H and original bytes remain exact; old-reader
+rendering/helpers/continued authoring have documented limits. No external blocker.
+Next: commit/push this passing repair, restart complete clean final candidate gate,
+then normal PR/review/eligible merge/exact-master gate/tag/release/issue/docs/cleanup.
+No PR/publication/completion claim yet. Approved deferred scope remains excluded.
 
 ### Previous delivery baseline — v0.16.0
 

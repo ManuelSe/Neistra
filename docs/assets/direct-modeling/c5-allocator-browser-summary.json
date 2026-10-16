@@ -1,0 +1,109 @@
+{
+  "stats": {
+    "startTime": "2026-10-16T21:21:21.254Z",
+    "duration": 296216.879,
+    "expected": 39,
+    "skipped": 7,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "retries": 0,
+  "profiles": [
+    {
+      "test": "bounds native original protein/ligand preview work and measures exact cancellation",
+      "project": "chromium",
+      "data": {
+        "fixture": "RCSB 1STP",
+        "atoms": 1001,
+        "renderer": "pinned Chromium / SwiftShader",
+        "cases": [
+          {
+            "name": "protein-fragment",
+            "atoms": 3,
+            "navigationCycles": 6,
+            "previewMs": 168.69999998807907,
+            "coordinatePreviewMs": 146.69999998807907,
+            "coordinateCancelMs": 9.800000011920929,
+            "maxActive": 1,
+            "submittedFrames": 40,
+            "renderedFrames": 2,
+            "longestTaskMs": 150,
+            "changed": true,
+            "exactRestore": true,
+            "errors": []
+          },
+          {
+            "name": "bound-ligand",
+            "atoms": 16,
+            "navigationCycles": 6,
+            "previewMs": 34.90000003576279,
+            "coordinatePreviewMs": 17.200000047683716,
+            "coordinateCancelMs": 14.100000023841858,
+            "maxActive": 1,
+            "submittedFrames": 40,
+            "renderedFrames": 2,
+            "longestTaskMs": 0,
+            "changed": true,
+            "exactRestore": true,
+            "errors": []
+          }
+        ],
+        "surface": {
+          "coordinateCancelMs": 13,
+          "regenerationCompleteMs": 1366.699999988079,
+          "inheritedRestored": true
+        },
+        "requests": []
+      }
+    },
+    {
+      "test": "bounds native authored draft protein/ligand preview work and measures exact cancellation",
+      "project": "chromium",
+      "data": {
+        "fixture": "RCSB 1STP",
+        "atoms": 1002,
+        "renderer": "pinned Chromium / SwiftShader",
+        "cases": [
+          {
+            "name": "protein-fragment",
+            "atoms": 3,
+            "navigationCycles": 6,
+            "previewMs": 125.5,
+            "coordinatePreviewMs": 112,
+            "coordinateCancelMs": 13.399999976158142,
+            "maxActive": 1,
+            "submittedFrames": 40,
+            "renderedFrames": 2,
+            "longestTaskMs": 111,
+            "changed": true,
+            "exactRestore": true,
+            "errors": []
+          },
+          {
+            "name": "bound-ligand",
+            "atoms": 16,
+            "navigationCycles": 6,
+            "previewMs": 26.5,
+            "coordinatePreviewMs": 15.200000047683716,
+            "coordinateCancelMs": 14.900000035762787,
+            "maxActive": 1,
+            "submittedFrames": 40,
+            "renderedFrames": 2,
+            "longestTaskMs": 0,
+            "changed": true,
+            "exactRestore": true,
+            "errors": []
+          }
+        ],
+        "surface": {
+          "coordinateCancelMs": 8.600000023841858,
+          "regenerationCompleteMs": 1056.800000011921,
+          "inheritedRestored": true
+        },
+        "requests": []
+      }
+    }
+  ],
+  "raw_report_sha256": "e1c327730f04609f09667f25e032fa92ba9f41cb26ce88d82c3ef1aaafa1a83f",
+  "raw_report_location": "Full report retained externally for the release verification archive."
+}

@@ -48,13 +48,14 @@ class ModelEditService(SelectionEditService):
             payload.expected_artifact_id,
             payload.selection,
         )
+        atom_floor, bond_floor = ProjectService(self.session).allocation_floor(entry)
         try:
             result = DirectMolecularEditor().edit(
                 before,
                 [ref.atom_id for ref in payload.selection.atoms],
                 payload.action,
-                next_atom_id=entry.next_atom_id,
-                next_bond_id=entry.next_bond_id,
+                next_atom_id=atom_floor,
+                next_bond_id=bond_floor,
                 hydrogen_policy=payload.hydrogen_policy,
                 atom_limit=self.atom_limit,
             )
@@ -100,6 +101,7 @@ class ModelEditService(SelectionEditService):
             payload.expected_artifact_id,
             payload.selection,
         )
+        atom_floor, bond_floor = ProjectService(self.session).allocation_floor(entry)
         try:
             result = (
                 DirectMolecularEditor()
@@ -107,8 +109,8 @@ class ModelEditService(SelectionEditService):
                     before,
                     [ref.atom_id for ref in payload.selection.atoms],
                     payload.action,
-                    next_atom_id=entry.next_atom_id,
-                    next_bond_id=entry.next_bond_id,
+                    next_atom_id=atom_floor,
+                    next_bond_id=bond_floor,
                     hydrogen_policy=payload.hydrogen_policy,
                     atom_limit=self.atom_limit,
                 )
