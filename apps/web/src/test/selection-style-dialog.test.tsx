@@ -65,6 +65,9 @@ describe("selection style dialog", () => {
     render(<SelectionColorControls selection={completeResidue} entries={[entry]}
       busy={false} onChange={onChange} />);
     expect(screen.getByText("Mixed")).toBeVisible();
+    expect(screen.getByRole("button", { name: "Carbon only" })).toHaveAttribute("aria-pressed", "true");
+    expect(screen.getByText(/Other selected atoms use element colors/)).toBeVisible();
+    await user.click(screen.getByRole("button", { name: "All atoms" }));
     await user.click(screen.getByRole("button", { name: "Apply blue color" }));
     expect(onChange).toHaveBeenCalledWith({ property: "color", action: "set", color: "#3b82f6" });
     await user.click(screen.getByRole("button", { name: "Carbon only" }));
@@ -236,7 +239,7 @@ it("shows mixed style membership and resets only draft controls when reopened", 
   expect(screen.getByLabelText("Custom selection color")).toBeVisible();
   view.rerender(<Tooltip.Provider><SelectionStyleDialog {...props} open={false} /></Tooltip.Provider>);
   view.rerender(<Tooltip.Provider><SelectionStyleDialog {...props} /></Tooltip.Provider>);
-  expect(screen.getByRole("button", { name: "All atoms" })).toHaveAttribute("aria-pressed", "true");
+  expect(screen.getByRole("button", { name: "Carbon only" })).toHaveAttribute("aria-pressed", "true");
   expect(screen.getByLabelText("Custom selection color")).not.toBeVisible();
   expect(props.onAppearance).not.toHaveBeenCalled();
   expect(screen.getByRole("button", { name: "Thin sticks" })).toHaveAttribute("aria-pressed", "mixed");

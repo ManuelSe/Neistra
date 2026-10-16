@@ -10,7 +10,7 @@ const SWATCHES = [
 export function SelectionColorControls({ selection, entries, busy, onChange }: {
   selection: Selection; entries: Entry[]; busy: boolean; onChange: ChangeSelectionAppearance;
 }) {
-  const [mode, setMode] = useState<"all" | "carbon">("all");
+  const [mode, setMode] = useState<"all" | "carbon">("carbon");
   const [color, setColor] = useState("#3b82f6");
   const byEntry = useMemo(() => new Map(entries.map((entry) => [entry.id,
     new Map(entry.viewer_settings.selection_colors.flatMap((item) =>

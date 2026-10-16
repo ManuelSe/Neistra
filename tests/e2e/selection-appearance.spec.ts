@@ -4,7 +4,7 @@ import { expect, test } from "@playwright/test";
 import type { Project, Selection } from "../../apps/web/src/api/types";
 
 test("expands from styling across hidden entries without durable changes", async ({ page, request }, info) => {
-  test.setTimeout(90_000);
+  test.setTimeout(240_000); // CPU-only CI headroom: this multi-step test runs ~100-120s here (a 90s budget timed out; Playwright default is 30s).
   test.skip(info.project.name !== "chromium", "Project-wide fixture setup uses desktop panels.");
   await page.setViewportSize({ width: 1366, height: 768 });
   const created = await request.post("/api/v1/projects", {
@@ -38,7 +38,9 @@ test("expands from styling across hidden entries without durable changes", async
   const before = await (await request.get(`/api/v1/projects/${project.id}`)).json();
   await page.getByRole("button", { name: "Style selection", exact: true }).click();
   const dialog = page.getByRole("dialog", { name: "Style selection" });
+  await expect(dialog.getByRole("button", { name: "Carbon only", exact: true })).toHaveAttribute("aria-pressed", "true");
   await expect(dialog.getByRole("button", { name: "Apply blue color" })).toBeInViewport();
+  await dialog.getByRole("button", { name: "All atoms", exact: true }).click();
   expect(await dialog.evaluate((el) => el.scrollHeight <= el.clientHeight + 1)).toBe(true);
   await page.screenshot({ path: info.outputPath("selection-palette-desktop.png") });
   await dialog.getByText("Expand by distance", { exact: true }).click();
@@ -123,6 +125,7 @@ test("expands from styling across hidden entries without durable changes", async
   await row.locator(".entry-select").click();
   const launcher = page.getByRole("button", { name: "Style selection", exact: true });
   await launcher.click();
+  await dialog.getByRole("button", { name: "All atoms", exact: true }).click();
   const canvas = page.locator(".molstar-host canvas").first();
   const box = (await canvas.boundingBox())!;
   for (const fraction of [0.65, 0.6, 0.55, 0.7, 0.75]) {
