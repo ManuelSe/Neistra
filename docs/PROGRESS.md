@@ -2,9 +2,9 @@
 
 ## Current milestone
 
-Issue #69 M4/C4 complete under the
+Issue #69 M5/C5 release preparation in progress under the
 [approved contract](plans/issue-69-compact-molecular-editor.md).
-C1–C3 are committed/remotely verified through4a0ca07 on the planned feature branch.
+C1–C4 are committed/remotely verified through42da0eb on the planned feature branch.
 All four compact sections work within the approved prepared-component/template
 limits. C4 tightens mapped/new stereo, rejects explicit side-chain crosslinks,
 qualifies reference reconciliation/branching allocation and preserves camera
@@ -17,14 +17,15 @@ commands, preserving originals/jobs/scenes/three surface kinds. Final broad C4
 browser gate passes62/10intentional skips in11.0m with no failures/retries.
 Real zoom, native picks, async ownership, remount camera/focus and old budgets pass;
 preliminary diagnostics remain separate. No independent
-review is claimed. Versions remain0.15.0; C5 still owes complete release delivery.
+review is claimed. Five authoritative versions are being prepared as0.16.0; C5 still owes full
+clean-candidate/exact-master gates and verified release delivery.
 
 Known limits: prepared bounded single-conformer components, valence/H inference,
 unoptimized geometry, supported tetrahedral stereo and existing protein templates.
 Raw PDB chemistry, E/Z building, Grow, fusion and broader chemistry remain separate.
 Planned0.16.0minor; no migration (0014; project/viewer/archive2,
 normalized/selection1). No release claim yet. No blocker.
-Next: commit passing C4 and prepare0.16.0; C5 clean-candidate/exact-master gates,
+Next: commit release preparation, then C5 clean-candidate/exact-master gates,
 PR/review/merge/release and issue closeout remain. Deferred work is tracked in
 verified#70/#71, reusing#12/#20/#21/#52.
 

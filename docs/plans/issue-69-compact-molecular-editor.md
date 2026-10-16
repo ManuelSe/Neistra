@@ -3,7 +3,7 @@
 ## 1. Status, metadata, and approved outcome
 
 **Status:** `/goal` authorized full implementation/delivery on 2026-10-16.
-C0 through M4/C4 are complete; M5/C5 release preparation/delivery is next.
+C0 through M4/C4 are complete; M5/C5 release preparation/delivery is in progress.
 
 - **Issue:** [#69 — Add a compact, interactive molecular Edit panel to the
   viewer](https://github.com/ManuelSe/Neistra/issues/69), open with no comments at
@@ -526,7 +526,7 @@ After explicit approval, C0 only:
 | M2/C2 | Complete; passing checkpoint | Endpoint bond operations and six qualified fragments; evidence below. |
 | M3/C3 | Complete; passing checkpoint | Standard-residue workflow, result selection, focus/position/accessibility; evidence below. |
 | M4/C4 | Complete; passing |612Python/235frontend/62browser with10intentional skips; actual tagged reader, science/lifecycle/real zoom and existing budgets. |
-| M5/C5 | Approved; not started | Full gates, reviewed PR and verified release delivery. |
+| M5/C5 | In progress |0.16.0 preparation; full candidate/exact-master gates, reviewed PR and publication remain. |
 
 ### 2026-10-16 — M1/C1 complete: atomic atom/H editing
 
@@ -695,3 +695,22 @@ delivered merely because a follow-up exists.
 - No blocker or remaining C4 implementation. Next: commit passing C4, fetch/recheck
   base/version/protections, prepare0.16.0, then complete candidate/exact-master
   gates, review/PR/merge and verified publication/closeout under M5/C5.
+
+
+### M5/C5 release preparation — 2026-10-16
+
+- C4 committed and remotely verified at42da0ebb4f7bb3b01466349a6b80f4f800e31cc5.
+- Fetched origin/master; unchangedf34d4aeb52076584108e33ce3cc908ed2945049e is an
+  ancestor of the feature branch (`merge --ff-only` reports already up to date).
+  Clean tree confirmed before preparation. No local/remotev0.16.0 tag, newer
+  release or open PR collision. Master remains unprotected, rulesets empty,
+  no CI workflow and normal merge allowed; recheck again before merge.
+- Advance the five authoritative sources to0.16.0; extend legacy archive
+  qualification through0.15.0 and update the release expectation. Document workflows, scientific
+  limits, rollback and release notes. Minor/stable reasoning remains unchanged:
+  meaningful new UI/API capability, no schema/legacy/archive break; no patch-only,
+  major or prerelease rationale. Final0.16.0 actual reader and full gates remain
+  mandatory. No tag/release/PR exists yet for this issue.
+- Next: commit `chore(release): prepare v0.16.0`, then run the complete release
+  gate from a clean candidate, capture evidence externally, perform final full-diff
+  local review and open the normal-merge PR. No protection bypass is authorized.
