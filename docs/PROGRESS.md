@@ -2,6 +2,36 @@
 
 ## Current milestone
 
+Issue #69 approved planning handoff (C0), following the
+[implementation contract](plans/issue-69-compact-molecular-editor.md). User
+approved the complete proposal on 2026-10-16. The feature branch is
+`feat/issue-69-compact-molecular-editor`, based on clean, fast-forward-verified
+master `f34d4aeb52076584108e33ce3cc908ed2945049e`. The plan is its first change;
+D-098–100 record accepted component, chemistry and UI ownership decisions.
+
+Completed work is planning only. M1/C1 atom edits, M2/C2 bonds/six fragments,
+M3/C3 residue workflow/interaction, M4/C4 qualification and M5/C5 release delivery
+are approved and not started. No runtime behavior, dependency, version or schema
+change is claimed. Planned release is **0.16.0 minor**, based on the established
+v0.15.0 history; no migration is planned (head0014, project/viewer/archive2,
+normalized/selection1).
+
+Approved limits: prepared closed single-conformer small-molecule components,
+automatic local H for supported edits, six fragments, existing constrained
+protein mutation; initial H preparation may be needed. Grow, ring fusion, broad
+element/fragment chemistry and raw ligand preparation remain separate. Full
+scope, acceptance evidence requirements and follow-up strategy live in the plan.
+
+C0 verification passed clean-base/collision checks, documentation diff checks,
+all six added local Markdown links, plan/checkpoint completeness, unique decision
+IDs and documentation-only scope review. Commit/push and remote verification are
+the final handoff step; its exact commit/result is reported there. No application
+tests are claimed for documentation preparation. No blocker is established;
+science and compatibility remain future implementation gates. Stop ready for
+`/goal` after C0 publication; do not start C1 under planning approval.
+
+### Previous delivery baseline — v0.15.0
+
 Issue #59 delivered as [v0.15.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.15.0)
 through [PR #67](https://github.com/ManuelSe/Neistra/pull/67), following the
 [approved plan and completion log](plans/issue-59-compact-project-navigation.md).
@@ -2413,11 +2443,15 @@ Results:
 
 ## Blockers
 
-No current blocker. Issue #59 C1/C2 pass their gates; C3/C4 and release delivery
-remain. Issue #57 release and closeout remain verified.
+No current planning blocker. Issue #69 C0 is documentation only; implementation
+science, performance and compatibility must pass the approved future gates.
+Issue #59 is released as v0.15.0; its former implementation next-action text is
+superseded by the current milestone and its completed feature-plan log.
 
 ## Next action
 
-Commit passing issue #59 C2, qualify M3/C3, then complete C4
-release delivery. The [feature plan](plans/issue-59-compact-project-navigation.md)
-is the detailed contract; do not reintroduce deferred scope.
+Publish and remotely verify the issue #69 C0 planning commit, then await `/goal`.
+No implementation follows the planning handoff. The
+[approved feature plan](plans/issue-69-compact-molecular-editor.md) is the detailed
+contract. Do not start runtime implementation or reintroduce deferred scope
+under planning approval.
