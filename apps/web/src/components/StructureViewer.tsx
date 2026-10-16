@@ -1,5 +1,9 @@
 import type { SurfaceStatus } from "../viewer/surface/runtime";
-import type { SurfaceActions, ChangeSelectionAppearance } from "../api/types";
+import type { SurfaceActions, ChangeSelectionAppearance, ApplySelectionEdit } from "../api/types";
+import { useChromeClearance } from "../viewer/useChromeClearance";
+import { MolecularEditPanel } from "./MolecularEditPanel";
+import { useViewerCameraStore } from "../store/viewerCamera";
+import { useEditingStore } from "../store/editing";
 import type { ExpandSelection } from "../selection/expansion";
 import { useQueries, useQueryClient } from "@tanstack/react-query";
 import * as Tooltip from "@radix-ui/react-tooltip";
@@ -52,6 +56,7 @@ const VIEWER_BACKGROUND_COLORS: Record<Theme, string> = {
 };
 
 interface StructureViewerProps {
+  onEdit?: ApplySelectionEdit;
   project: Project;
   theme: Theme;
   selection: Selection;
@@ -101,10 +106,12 @@ export function StructureViewer({
   onSurfaces,
   onLoadPocketStructures,
   onAppearance,
+  onEdit,
   createViewer = createMolstarViewer,
 }: StructureViewerProps) {
   const queryClient = useQueryClient();
   const targetRef = useRef<HTMLDivElement>(null);
+  useChromeClearance(targetRef);
   const viewerRef = useRef<MolecularViewer | undefined>(undefined);
   const themeRef = useRef(theme);
   themeRef.current = theme;
@@ -114,6 +121,7 @@ export function StructureViewer({
   const appliedTopologyArtifactsRef = useRef(new Map<string, string>());
   const previewQueue = useRef<CoordinatePreviewQueue | null>(null);
   const movementActive = Boolean(movement?.state.capture && movement.state.phase !== "idle");
+  const editOpen = useEditingStore(state => state.projectId === project.id && state.open);
   const movementInteraction = !movementActive ? "inactive" : movement?.cameraNavigation ? "camera" : "transform";
   const currentMovement = useRef(movement);
   currentMovement.current = movement;
@@ -123,6 +131,7 @@ export function StructureViewer({
   const [activeSurface, setActiveSurface] = useState<SurfaceIdentity | null>(null);
   const surfaceOpenedByCanvas = useRef(false);
   const openSurfaces = () => {
+    if (useEditingStore.getState().projectId === project.id) useEditingStore.getState().setOpen(false);
     surfaceOpenedByCanvas.current = false;
     setStyleProjectId(null); setSurfaceProjectId(project.id);
   };
@@ -201,6 +210,12 @@ export function StructureViewer({
       .mount(target)
       .then(() => {
         if (active) {
+          // Seed the disposable viewer before its first scene commit. A later
+          // restoration can lose to Mol*'s queued initial fit request.
+          const retained = useViewerCameraStore.getState();
+          const remembered = currentMovement.current?.camera()
+            ?? (retained.projectId === project.id ? retained.camera : null);
+          if (remembered) viewer.setCamera(remembered);
           setViewerReady(true);
         }
       })
@@ -226,17 +241,24 @@ export function StructureViewer({
     });
     const unsubscribeSurfaces = viewer.subscribeSurfaces(setSurfaceStatuses);
     const unsubscribeSurfaceSelection = viewer.subscribeSurfaceSelection(identity => {
+      if (useEditingStore.getState().projectId === project.id) useEditingStore.getState().setOpen(false);
       surfaceOpenedByCanvas.current = true;
       setActiveSurface(identity); setStyleProjectId(null); setSurfaceProjectId(project.id);
     });
     initialSceneReady.current = false;
     const unsubscribeCamera = viewer.subscribeCamera(camera => {
       setCamera(camera);
-      if (initialSceneReady.current) currentMovement.current?.rememberCamera(camera);
+      if (initialSceneReady.current) {
+        currentMovement.current?.rememberCamera(camera);
+        useViewerCameraStore.getState().remember(project.id, camera);
+      }
     });
     return () => {
       active = false;
-      if (initialSceneReady.current) currentMovement.current?.rememberCamera(viewer.getCamera());
+      if (initialSceneReady.current) {
+        currentMovement.current?.rememberCamera(viewer.getCamera());
+        useViewerCameraStore.getState().remember(project.id, viewer.getCamera());
+      }
       currentMovement.current?.clearNavigation();
       unsubscribe();
       unsubscribeCamera();
@@ -333,9 +355,11 @@ export function StructureViewer({
         if (!viewer || viewer !== syncedViewer) return;
         const workflow = currentMovement.current;
         const active = Boolean(workflow?.state.capture && workflow.state.phase !== "idle");
-        if (!initialSceneReady.current) {
-          const camera = workflow?.camera();
-          if (active && camera) {
+        if (!initialSceneReady.current && !structuresPending && viewerStructuresRef.current.length) {
+          const retained = useViewerCameraStore.getState();
+          const camera = (active ? workflow?.camera() : null)
+            ?? (retained.projectId === project.id ? retained.camera : null);
+          if (camera) {
             viewer.setMovementMode("inactive");
             viewer.setCamera(camera);
           }
@@ -347,7 +371,7 @@ export function StructureViewer({
       .catch((error: unknown) =>
         setViewerError(error instanceof Error ? error.message : "The viewer rejected a structure."),
       );
-  }, [structuresPending, syncKey, viewerReady]);
+  }, [structuresPending, syncKey, viewerReady, project.id]);
 
   useEffect(() => {
     if (!viewerReady) return;
@@ -489,7 +513,7 @@ export function StructureViewer({
         ? null
         : "Selection styling is unavailable in this workspace";
 
-  useEffect(() => { if (movementActive) { setStyleProjectId(null); setSurfaceProjectId(null); } }, [movementActive]);
+  useEffect(() => { if (movementActive) { setStyleProjectId(null); setSurfaceProjectId(null); useEditingStore.getState().setOpen(false); } }, [movementActive]);
   useEffect(() => {
     if (activeSurface && !project.entries.some(entry => entry.id === activeSurface.entryId && entry.viewer_settings.surface_objects.some(surface => surface.id === activeSurface.surfaceId))) {
       setActiveSurface(null); viewerRef.current?.setActiveSurface(null);
@@ -500,6 +524,7 @@ export function StructureViewer({
   const openStyleDialog = () => {
     if (styleDialogOpen) { setStyleDialogOpen(false); return; }
     if (selectionStyleUnavailableReason) return;
+    useEditingStore.getState().setOpen(false);
     setSurfaceProjectId(null); setStyleDialogOpen(true);
     const visible = new Map(
       structureQueries.flatMap((query, index) =>
@@ -598,7 +623,7 @@ export function StructureViewer({
           ) : null}
           <ViewerToolbar
             interactionsOpen={interactionProjectId === project.id}
-            onInteractions={() => setInteractionProjectId(interactionProjectId === project.id ? null : project.id)}
+            onInteractions={() => { useEditingStore.getState().setOpen(false); setInteractionProjectId(interactionProjectId === project.id ? null : project.id); }}
             pickingUnavailableReason={movementActive ? "Finish movement before changing selection" : null}
             pickingGranularity={pickingGranularity}
             onPickingGranularity={onPickingGranularity}
@@ -612,12 +637,18 @@ export function StructureViewer({
             onFocusLigands={() => viewerRef.current?.focusAtoms(ligandAtoms)}
             onSelectionStyle={openStyleDialog}
           />
+          <div className="viewer-edit-transform-actions">
           {movement ? <MovementControls movement={movement}
             view={() => viewerRef.current?.getMovementView() ?? null}
             zoom={factor => viewerRef.current?.zoom(factor)}
             unavailableReason={movement.state.phase !== "idle" ? "Selection capture is in progress"
               : busy ? "Finish the current project change before moving selection"
               : viewerUnavailableReason ?? movementUnavailableReason(project, selection, () => viewerRef.current?.getRenderedAtomReferences() ?? [])} /> : null}
+          {onEdit && !movementActive ? <MolecularEditPanel project={project} selection={selection} busy={busy}
+            onOpen={() => { setStyleProjectId(null); setSurfaceProjectId(null); setInteractionProjectId(null); }}
+            unavailable={coordinatePreview ? "Finish coordinate preview before editing chemistry." : null}
+            onEdit={onEdit} onSettings={onUpdateSettings} /> : null}
+          </div>
         </div>
         <InteractionPanel open={interactionProjectId === project.id} onOpenChange={open => setInteractionProjectId(open ? project.id : null)} choices={interactions.choices} result={interactions.result} onRetry={interactions.error ? interactions.retry : undefined}
           status={interactionPaused ? "Paused during preview" : interactions.error ?? (interactions.loading ? "Analyzing…" : !interactions.enabled ? "Off" : !interactionInputs.length ? "No visible inputs" : !interactions.result || !interactionViewReady ? "Waiting…" : interactions.choices.types.every(kind => interactions.result!.coverage[kind].status === "unavailable") ? "Unavailable · see Help" : `${interactionRecords.length} detected${interactions.choices.types.some(kind => interactions.result!.coverage[kind].status !== "complete") ? " · partial coverage" : ""}`)} />
@@ -639,7 +670,7 @@ export function StructureViewer({
           } : undefined}
           onLoadPocketStructures={onLoadPocketStructures}
           open={styleDialogOpen}
-          restoreFocus={surfaceProjectId !== project.id}
+          restoreFocus={surfaceProjectId !== project.id && !editOpen}
           selection={selection}
           entries={project.entries}
           structures={styleStructures}

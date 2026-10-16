@@ -1,5 +1,27 @@
 export type StructureType = "protein" | "ligand" | "complex" | "solvent" | "unknown";
 
+export type SelectionEditAction =
+  | { operation: "atom.element"; element: "C" | "N" | "O" | "S" | "F" | "Cl" | "Br" | "I" }
+  | { operation: "atom.charge"; delta: -1 | 1 }
+  | { operation: "atom.delete" }
+  | { operation: "hydrogens.prepare" }
+  | { operation: "bond.create" | "bond.delete" }
+  | { operation: "bond.order"; order: 1 | 2 | 3 }
+  | { operation: "fragment.replace"; fragment: FragmentName }
+  | { operation: "residue.mutate"; target_name: StandardAminoAcid };
+
+export type FragmentName = "methyl" | "ethyl" | "hydroxyl" | "amino" | "carboxylic_acid" | "phenyl";
+
+export interface SelectionEditResult extends Omit<LigandEditResult, "report"> {
+  selection_after: Selection;
+  report: Omit<LigandEditResult["report"], "operation"> & { operation: SelectionEditAction["operation"] };
+  replacements: Record<string, number>;
+}
+
+export type ApplySelectionEdit = (
+  entryId: string, artifactId: string, selection: Selection, action: SelectionEditAction,
+) => Promise<SelectionEditResult>;
+
 export interface MolecularWarning {
   code: string;
   message: string;

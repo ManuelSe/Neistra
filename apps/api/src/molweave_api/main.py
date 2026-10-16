@@ -123,6 +123,8 @@ from molweave_api.schemas import (
     SceneCreate,
     SelectionAppearanceUpdate,
     SelectionAtomVisibilityUpdate,
+    SelectionEditCreate,
+    SelectionEditRead,
     SelectionRepresentationUpdate,
     SelectionTransformCreate,
     StructureRead,
@@ -133,6 +135,7 @@ from molweave_api.schemas import (
     TestEntryCreate,
     ViewerSettingsUpdate,
 )
+from molweave_api.selection_edit_service import SelectionEditService
 from molweave_api.selection_style_service import SelectionStyleService
 from molweave_api.settings import Settings
 from molweave_api.surface_service import SurfaceService
@@ -479,7 +482,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     app = FastAPI(
         title="MolWeave API",
-        version="0.15.0",
+        version="0.16.0",
         lifespan=lifespan,
         openapi_url="/api/v1/openapi.json",
         docs_url="/api/docs",
@@ -1100,6 +1103,20 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         return _call(
             lambda: CoordinateService(session, app_settings).transform(project_id, payload)
         )
+
+    @router.post(
+        "/projects/{project_id}/entries/{entry_id}/selection-edits",
+        response_model=SelectionEditRead,
+    )
+    async def edit_selection(
+        project_id: str,
+        entry_id: str,
+        payload: SelectionEditCreate,
+        session: Session = Depends(session_dependency),
+    ) -> SelectionEditRead:
+        return _call(lambda: SelectionEditService(session, app_settings).selection_edit(
+            project_id, entry_id, payload,
+        ))
 
     @router.post(
         "/projects/{project_id}/entries/{entry_id}/ligand-edits",

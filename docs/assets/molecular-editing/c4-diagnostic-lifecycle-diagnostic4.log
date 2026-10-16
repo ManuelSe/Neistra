@@ -1,0 +1,181 @@
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+[2m[WebServer] [22mINFO:     Started server process [887214]
+[2m[WebServer] [22mINFO:     Waiting for application startup.
+[2m[WebServer] [22mINFO:     Application startup complete.
+[2m[WebServer] [22mINFO:     Uvicorn running on http://127.0.0.1:8160 (Press CTRL+C to quit)
+[2m[WebServer] [22m(node:887286) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:887298) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 6 tests using 1 worker
+
+(node:887325) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:887325) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 [chromium] › tests/e2e/molecular-editing.spec.ts:192:5 › edits a prepared complex with native H/new-atom picks, fixed camera and one affected reload (5.8s)
+(node:887450) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:887450) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  2 [chromium] › tests/e2e/molecular-editing.spec.ts:280:5 › keeps late edit responses owned by their original project (6.6s)
+  ✘  3 [chromium] › tests/e2e/molecular-editing.spec.ts:310:5 › retains a newer native selection and recovers an affected-artifact refetch failure (10.0s)
+(node:888014) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:888014) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  4 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:192:5 › edits a prepared complex with native H/new-atom picks, fixed camera and one affected reload (5.7s)
+(node:888243) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:888243) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  5 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:280:5 › keeps late edit responses owned by their original project (6.1s)
+  ✘  6 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:310:5 › retains a newer native selection and recovers an affected-artifact refetch failure (9.6s)
+
+
+  1) [chromium] › tests/e2e/molecular-editing.spec.ts:192:5 › edits a prepared complex with native H/new-atom picks, fixed camera and one affected reload
+
+    Error: [{"target":26,"point":{"x":373.2482296062702,"y":235.00765311826706},"picks":[]},{"target":27,"point":{"x":380.14473172828133,"y":269.9633095376174},"picks":[]},{"target":28,"point":{"x":349.1561993217554,"y":208.75820104785976},"picks":[]},{"target":29,"point":{"x":305.9345497392014,"y":313.9746778218096},"picks":[]},{"target":30,"point":{"x":282.10688044499767,"y":266.5173705201748},"picks":[]},{"target":31,"point":{"x":236.80709341176555,"y":233.33877534883237},"picks":[]}]
+
+    [2mexpect([22m[31mreceived[39m[2m).[22mtoBeGreaterThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: > [32m0[39m
+    Received:   [31m0[39m
+
+      246 |     if (picks.length === 1 && picks[0].atom_id === atom.id) { hydrogen = atom.id; break; }
+      247 |   }
+    > 248 |   expect(hydrogen, JSON.stringify(attempts)).toBeGreaterThan(0);
+          |                                              ^
+      249 |   expect(await page.evaluate(() => window.editingPicks.camera())).toEqual(camera);
+      250 |   const reads: string[] = [];
+      251 |   page.on("request", req => { if (req.url().endsWith("/structure")) reads.push(req.url()); });
+        at /datadisk/dev/neistra/tests/e2e/molecular-editing.spec.ts:248:46
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/molecular-editing-edits-a--27939-era-and-one-affected-reload-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/molecular-editing-edits-a--27939-era-and-one-affected-reload-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/molecular-editing-edits-a--27939-era-and-one-affected-reload-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/molecular-editing-edits-a--27939-era-and-one-affected-reload-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [chromium] › tests/e2e/molecular-editing.spec.ts:310:5 › retains a newer native selection and recovers an affected-artifact refetch failure
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m()[22m failed
+
+    Locator:  getByRole('dialog', { name: 'Edit molecule', exact: true }).getByText('The selected molecule could not be loaded.', { exact: true })
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('dialog', { name: 'Edit molecule', exact: true }).getByText('The selected molecule could not be loaded.', { exact: true })[22m
+
+
+      342 |   await launcher.click();
+      343 |   const panel = page.getByRole("dialog", { name: "Edit molecule", exact: true });
+    > 344 |   await expect(panel.getByText("The selected molecule could not be loaded.", { exact: true })).toBeVisible();
+          |                                                                                                ^
+      345 |   failReads = false;
+      346 |   await panel.getByRole("button", { name: "Retry molecule", exact: true }).click();
+      347 |   await expect(panel.getByRole("button", { name: "Replace selected atom with N", exact: true })).toBeEnabled();
+        at /datadisk/dev/neistra/tests/e2e/molecular-editing.spec.ts:344:96
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/molecular-editing-retains--69c32-ed-artifact-refetch-failure-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/molecular-editing-retains--69c32-ed-artifact-refetch-failure-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/molecular-editing-retains--69c32-ed-artifact-refetch-failure-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/molecular-editing-retains--69c32-ed-artifact-refetch-failure-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:192:5 › edits a prepared complex with native H/new-atom picks, fixed camera and one affected reload
+
+    Error: [{"target":26,"point":{"x":220.20654451375276,"y":384.8008306155596},"picks":[]},{"target":27,"point":{"x":226.88104414176172,"y":414.226247944076},"picks":[]},{"target":28,"point":{"x":200.44046942021626,"y":362.00376050472454},"picks":[]},{"target":29,"point":{"x":164.28352177397215,"y":450.7464322188186},"picks":[]},{"target":30,"point":{"x":146.78880045081317,"y":410.2041348235381},"picks":[]},{"target":31,"point":{"x":105.71786294274118,"y":383.0847321842347},"picks":[]}]
+
+    [2mexpect([22m[31mreceived[39m[2m).[22mtoBeGreaterThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: > [32m0[39m
+    Received:   [31m0[39m
+
+      246 |     if (picks.length === 1 && picks[0].atom_id === atom.id) { hydrogen = atom.id; break; }
+      247 |   }
+    > 248 |   expect(hydrogen, JSON.stringify(attempts)).toBeGreaterThan(0);
+          |                                              ^
+      249 |   expect(await page.evaluate(() => window.editingPicks.camera())).toEqual(camera);
+      250 |   const reads: string[] = [];
+      251 |   page.on("request", req => { if (req.url().endsWith("/structure")) reads.push(req.url()); });
+        at /datadisk/dev/neistra/tests/e2e/molecular-editing.spec.ts:248:46
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/molecular-editing-edits-a--27939-era-and-one-affected-reload-mobile-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/molecular-editing-edits-a--27939-era-and-one-affected-reload-mobile-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/molecular-editing-edits-a--27939-era-and-one-affected-reload-mobile-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/molecular-editing-edits-a--27939-era-and-one-affected-reload-mobile-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:310:5 › retains a newer native selection and recovers an affected-artifact refetch failure
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m()[22m failed
+
+    Locator:  getByRole('dialog', { name: 'Edit molecule', exact: true }).getByText('The selected molecule could not be loaded.', { exact: true })
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('dialog', { name: 'Edit molecule', exact: true }).getByText('The selected molecule could not be loaded.', { exact: true })[22m
+
+
+      342 |   await launcher.click();
+      343 |   const panel = page.getByRole("dialog", { name: "Edit molecule", exact: true });
+    > 344 |   await expect(panel.getByText("The selected molecule could not be loaded.", { exact: true })).toBeVisible();
+          |                                                                                                ^
+      345 |   failReads = false;
+      346 |   await panel.getByRole("button", { name: "Retry molecule", exact: true }).click();
+      347 |   await expect(panel.getByRole("button", { name: "Replace selected atom with N", exact: true })).toBeEnabled();
+        at /datadisk/dev/neistra/tests/e2e/molecular-editing.spec.ts:344:96
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/molecular-editing-retains--69c32-ed-artifact-refetch-failure-mobile-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/molecular-editing-retains--69c32-ed-artifact-refetch-failure-mobile-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/molecular-editing-retains--69c32-ed-artifact-refetch-failure-mobile-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/molecular-editing-retains--69c32-ed-artifact-refetch-failure-mobile-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4 failed
+    [chromium] › tests/e2e/molecular-editing.spec.ts:192:5 › edits a prepared complex with native H/new-atom picks, fixed camera and one affected reload
+    [chromium] › tests/e2e/molecular-editing.spec.ts:310:5 › retains a newer native selection and recovers an affected-artifact refetch failure
+    [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:192:5 › edits a prepared complex with native H/new-atom picks, fixed camera and one affected reload
+    [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:310:5 › retains a newer native selection and recovers an affected-artifact refetch failure
+  2 passed (50.2s)

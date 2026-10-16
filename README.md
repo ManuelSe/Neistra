@@ -22,7 +22,19 @@ Real workspace screenshots: [light](docs/assets/neistra-workspace-light.png) ·
 [dark](docs/assets/neistra-workspace-dark.png). These show the existing local
 workspace, not proposed account, docking or marketplace features.
 
-Version **0.13.1** offers the **Transform selection** icon in a separate bar above the viewer.
+Open **Edit molecule** beside Transform for selection-driven atom/charge/deletion,
+endpoint bond changes, six illustrated H substitutions and standard-residue
+mutation. Supported small-molecule edits reconcile local explicit H in one
+reversible command; prepared ligand components inside complexes are eligible.
+Select a terminal H for fragment growth. Hydrogen-free input may first need
+**Prepare component hydrogens**; **Show explicit H** changes display only and an
+atomic Style is needed. Unknown raw PDB chemistry, unsupported stereo and explicit
+residue crosslinks refuse with a reason. Geometry is inferred and unoptimized.
+See [Molecular editing](docs/MOLECULAR_EDITING.md) and the
+[approved plan and release qualification](docs/plans/issue-69-compact-molecular-editor.md).
+Peptide growth and ring fusion remain separate follow-ups.
+
+Interactive transforms offer the **Transform selection** icon in a separate bar above the viewer.
 Left mouse drag rotates; right or Ctrl-drag translates in the current view plane.
 Hold **Space** on the movement canvas to adjust the camera, then release to resume.
 Touch and keyboard users have **Adjust view / Resume transform**, with sensitivity,

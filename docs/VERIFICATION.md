@@ -1,5 +1,31 @@
 # V0.1 Requirement Evidence
 
+Issue #69 follows the [approved editing plan](plans/issue-69-compact-molecular-editor.md).
+C1/C2 implement bounded atomic atom/H, canonical endpoint bonds and six illustrated
+fragment substitutions. C3 adds exact complete-residue template mutation and
+transient result selection, plus focus/tool handoff, notice-aware portal placement
+and accessible controls. [C1](assets/molecular-editing/c1-verification.json),
+[C2](assets/molecular-editing/c2-verification.json) and
+[C3](assets/molecular-editing/c3-verification.json) retain exact commands, source/
+log/screenshot checksums and diagnostic separation. C3 passes72Python,
+all234frontend,31browser/3intentional layout skips and static/build/diff gates;
+all20 amino acids pass API backbone/unrelated-state/Undo. Native atom/bond/residue
+workflows, both themes,320px, keyboard/notice hit testing and scoped axe pass.
+Manual screenshot inspection is distinct; no independent review or broader device
+certification is claimed. [C4](assets/molecular-editing/c4-verification.json)
+passes612Python/235frontend/62broad browser with10intentional skips, no failures/
+retries; static/build/diff and actual taggedv0.15.0 reader pass. New stereo,
+crosslink refusal, reference/allocator/archive workflows, native prepared-complex
+H/new-atom picking, exact camera through remount/edit, async project/selection/
+read-failure ownership, real100/200%Chrome zoom and existing performance budgets
+are qualified. Diagnostics and local self-review remain separate. [Final clean0.16.0 candidate](assets/molecular-editing/c5-candidate-gate.json) at12a4375
+passes613Python/236frontend/8supervisor/216browser with46intentional skips and no
+failures/flakes/retries; all16frozen-install/fresh0014/static/build/diff/actual-reader
+commands pass. [Local full-diff self-review](assets/molecular-editing/c5-local-review.md)
+records repaired cross-visit pending and vendor-popup findings; earlier failed gate
+is diagnostic only. Exact merged-master gates and verified publication remain;
+this is not yet released.
+
 Issue #59 follows the [approved navigation plan](plans/issue-59-compact-project-navigation.md).
 [C1](assets/project-navigation/c1-verification.json) qualifies independent compact
 entry/component ownership; [C2](assets/project-navigation/c2-verification.json)

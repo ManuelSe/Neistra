@@ -433,6 +433,49 @@ bond rotation, and stale revisions fail without publishing an artifact or
 advancing the project revision. Stable per-entry atom and bond allocators do not
 rewind through undo, redo, or a discarded history branch.
 
+## Selection-driven molecular edits (issue #69)
+
+`POST /api/v1/projects/{project_id}/entries/{entry_id}/selection-edits` is additive;
+existing low-level ligand/protein contracts retain their behavior. Send
+`expected_revision`, `expected_artifact_id`, a canonical `SelectionV1`, and an
+`action` discriminated by `operation`:
+
+- `atom.element`: `element` in C/N/O/S/F/Cl/Br/I, one selected atom. A supported
+  terminal H is replaced with a new heavy-atom identity.
+- `atom.charge`: `delta` equal to -1 or 1, one selected heavy atom; result must
+  remain within -1/0/+1 and pass chemistry validation.
+- `atom.delete`: selected heavy atoms within one eligible component.
+- `hydrogens.prepare`: complete valence H on the selected eligible component.
+- C2 adds `fragment.replace` with `fragment` equal to `methyl`, `ethyl`,
+  `hydroxyl`, `amino`, `carboxylic_acid` or `phenyl`, targeting one terminal H.
+- C2 adds `bond.create`, `bond.delete`, and `bond.order` (integer `order`1/2/3),
+  targeting exactly two selected heavy endpoints. No bond ID is accepted.
+- C3 adds `residue.mutate` with `target_name` from the existing 20 standard
+  amino-acid names, targeting exactly one complete polymer residue in a protein
+  or complex. The service delegates to the existing constrained protein template
+  editor; it does not apply small-molecule saturation/protonation to the protein.
+
+The result contains `project`, structured `warnings`, a created/deleted/changed
+identity `report`, `replacements` mapping consumed H IDs to new heavy IDs, and
+transient `selection_after: SelectionV1`. The latter preserves surviving operand
+IDs/maps replacements, or selects the complete new residue after mutation.
+Clients apply it only if the captured project/revision/selection still owns the
+response. It is not project/checkpoint/archive state or a new selection schema.
+Automatic local hydrogen changes form part of the same artifact/history command.
+The complete operand selection is retained in the history snapshot. Existing
+affected-entry topology patches and deleted-reference reconciliation apply.
+
+The backend verifies one unlocked entry, a current revision/artifact, a connected
+prepared closed ligand component and the documented chemistry/geometry limits
+before publication. This supports eligible components inside complexes without
+sanitizing or changing the surrounding protein. Unknown charges/orders, invalid
+valence/geometry, ambiguous boundary/alternate/stereo chemistry, empty/mixed
+selection and unsupported operations reject atomically with existing structured
+API errors. Aromatic changes, ambiguous E/Z order edits and unsupported generated
+geometry reject; local saturation is part of bond/fragment commands. Partial,
+mixed or ambiguous residue selection rejects without choosing a default target.
+See [editing guidance](MOLECULAR_EDITING.md).
+
 ## Protein Edit Contract
 
 Protein edits use a discriminated `operation` field and always include

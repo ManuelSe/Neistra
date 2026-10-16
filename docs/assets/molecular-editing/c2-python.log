@@ -1,0 +1,14 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.2, pluggy-1.6.0
+rootdir: /datadisk/dev/neistra
+configfile: pyproject.toml
+plugins: cov-6.3.0, anyio-4.9.0
+collected 38 items
+
+tests/unit/editing/test_ligand_editor.py ........                        [ 21%]
+tests/unit/editing/test_protein_editor.py .....                          [ 34%]
+tests/scientific/test_selection_editing.py .......                       [ 52%]
+tests/integration/test_selection_edits.py .........                      [ 76%]
+tests/scientific/test_edit_fragments.py .........                        [100%]
+
+============================== 38 passed in 3.24s ==============================

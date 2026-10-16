@@ -2,6 +2,33 @@
 
 ## Current milestone
 
+Issue #69 M5/C5 final candidate qualified under the
+[approved contract](plans/issue-69-compact-molecular-editor.md).
+C1–C4 are complete; review repairs are committed/pushed at12a4375. Four compact
+sections deliver bounded atomic atom/local H, endpoint bonds, six illustrated H
+substitutions and all20 existing constrained residue mutations. D-098–100 retain
+scope/scientific/state authority; append-only qualification notes record repairs.
+
+[Clean0.16.0 candidate](assets/molecular-editing/c5-candidate-gate.json) at12a4375
+passes all16release commands: frozen installs/fresh0014/static/build/diff,
+613Python,236frontend,8supervisor and216browser/46intentional skips in39.9m;
+zero failures/flakes/retries. Actual taggedv0.15.0 reader passes final0.16.0 data,
+new retained command Undo/Redo, archives/jobs/scenes/surfaces/originals. Source
+hashes and clean start/end are verified. [Full-diff local self-review](assets/molecular-editing/c5-local-review.md)
+is not independent. Initial vendor-popup axe failure and reproduced cross-visit
+pending race are repaired; failed diagnostics remain separate from final evidence.
+
+Five authoritative versions0.16.0minor; no new migration or persisted break
+(0014; project/viewer/archive2, normalized/selection1). Known limits remain prepared
+bounded single-conformer components, local valence/H inference, supported tetrahedral
+stereo/unoptimized geometry and existing protein templates. Grow and expanded
+fragment/element/ring chemistry are verified#70/#71, reusing#12/#20/#21/#52.
+No released-feature claim yet. No blocker.
+Next: PR/review/check audit and normal merge, then complete exact-master gates and
+verified annotated tag/release/issue/docs/branch closeout. Never bypass protections.
+
+### Previous delivery baseline — v0.15.0
+
 Issue #59 delivered as [v0.15.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.15.0)
 through [PR #67](https://github.com/ManuelSe/Neistra/pull/67), following the
 [approved plan and completion log](plans/issue-59-compact-project-navigation.md).
@@ -2413,11 +2440,12 @@ Results:
 
 ## Blockers
 
-No current blocker. Issue #59 C1/C2 pass their gates; C3/C4 and release delivery
-remain. Issue #57 release and closeout remain verified.
+No current blocker. Issue #69 C1–C3 pass their checkpoint gates; C4/C5 and complete
+release delivery remain. Scientific scope and compatibility retain the approved
+contract and must pass their remaining qualification gates.
 
 ## Next action
 
-Commit passing issue #59 C2, qualify M3/C3, then complete C4
-release delivery. The [feature plan](plans/issue-59-compact-project-navigation.md)
-is the detailed contract; do not reintroduce deferred scope.
+Commit issue #69 C3, then implement and qualify M4/C4 science, lifecycle, real zoom, performance and actual-reader compatibility.
+The [feature plan](plans/issue-69-compact-molecular-editor.md) remains the detailed
+contract; do not reintroduce deferred or rejected scope.

@@ -1,0 +1,102 @@
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+[2m[WebServer] [22mINFO:     Started server process [914418]
+[2m[WebServer] [22mINFO:     Waiting for application startup.
+[2m[WebServer] [22mINFO:     Application startup complete.
+[2m[WebServer] [22mINFO:     Uvicorn running on http://127.0.0.1:8160 (Press CTRL+C to quit)
+[2m[WebServer] [22m(node:914490) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:914502) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 2 tests using 1 worker
+
+(node:914528) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:914528) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 [chromium] › tests/e2e/molecular-editing.spec.ts:364:5 › keeps a newer pending edit owned after leaving and returning to the same project (10.7s)
+(node:914662) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:914662) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  2 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:364:5 › keeps a newer pending edit owned after leaving and returning to the same project (9.9s)
+
+
+  1) [chromium] › tests/e2e/molecular-editing.spec.ts:364:5 › keeps a newer pending edit owned after leaving and returning to the same project
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m()[22m failed
+
+    Locator:  getByRole('button', { name: /^Undo: Prepare component hydrogens/ })
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('button', { name: /^Undo: Prepare component hydrogens/ })[22m
+
+
+      393 |   await expect(page.getByRole("heading", { name: other.name, exact: true })).toBeVisible();
+      394 |   await switchProject(project.name);
+    > 395 |   await expect(page.getByRole("button", { name: /^Undo: Prepare component hydrogens/ })).toBeVisible();
+          |                                                                                          ^
+      396 |   await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded", { timeout: 30000 });
+      397 |   await selectAtom(page, entry.id, 3, info.project.name === "mobile-chromium");
+      398 |   await page.getByRole("button", { name: "Edit molecule", exact: true }).click();
+        at /datadisk/dev/neistra/tests/e2e/molecular-editing.spec.ts:395:90
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/molecular-editing-keeps-a--46e12-turning-to-the-same-project-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/molecular-editing-keeps-a--46e12-turning-to-the-same-project-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/molecular-editing-keeps-a--46e12-turning-to-the-same-project-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/molecular-editing-keeps-a--46e12-turning-to-the-same-project-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:364:5 › keeps a newer pending edit owned after leaving and returning to the same project
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m()[22m failed
+
+    Locator:  getByRole('button', { name: /^Undo: Prepare component hydrogens/ })
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByRole('button', { name: /^Undo: Prepare component hydrogens/ })[22m
+
+
+      393 |   await expect(page.getByRole("heading", { name: other.name, exact: true })).toBeVisible();
+      394 |   await switchProject(project.name);
+    > 395 |   await expect(page.getByRole("button", { name: /^Undo: Prepare component hydrogens/ })).toBeVisible();
+          |                                                                                          ^
+      396 |   await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded", { timeout: 30000 });
+      397 |   await selectAtom(page, entry.id, 3, info.project.name === "mobile-chromium");
+      398 |   await page.getByRole("button", { name: "Edit molecule", exact: true }).click();
+        at /datadisk/dev/neistra/tests/e2e/molecular-editing.spec.ts:395:90
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/molecular-editing-keeps-a--46e12-turning-to-the-same-project-mobile-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/molecular-editing-keeps-a--46e12-turning-to-the-same-project-mobile-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/molecular-editing-keeps-a--46e12-turning-to-the-same-project-mobile-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/molecular-editing-keeps-a--46e12-turning-to-the-same-project-mobile-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    [chromium] › tests/e2e/molecular-editing.spec.ts:364:5 › keeps a newer pending edit owned after leaving and returning to the same project
+    [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:364:5 › keeps a newer pending edit owned after leaving and returning to the same project

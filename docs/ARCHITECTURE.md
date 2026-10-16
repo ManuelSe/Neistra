@@ -182,6 +182,40 @@ reuse the artifact-keyed normalized-structure query. Ligand focus uses only
 heavy atoms in polar-only and none modes so navigation remains deterministic
 without asking Mol* to expose its per-representation hydrogen classification.
 
+## Selection-driven editing boundary (issue #69)
+
+The additive selection-edit route captures revision/artifact/canonical operands.
+`SelectionMolecularEditor` checks prepared-component eligibility before RDKit
+conversion, operates on a temporary bounded component and merges by stable IDs.
+Unrelated protein/components and coordinates remain authoritative and untouched.
+Local H changes publish with the graph change as one immutable artifact and one
+existing generic molecular history action, including deleted-reference pruning.
+`record_molecular_change` accepts an explicit operand snapshot while preserving
+its legacy default for old callers. No new durable action kind or migration.
+
+Transient `useEditingStore` owns panel visibility/pending state above responsive
+viewer remounts. TanStack Query retains artifact-keyed molecular payloads. The
+application captures project/selection ownership for asynchronous mutation
+feedback and selection replacement, while Mol* remains a disposable projection.
+Normal canvas gestures remain selection/navigation; movement blocks chemistry.
+See D-098–100, the approved plan and [user guidance](MOLECULAR_EDITING.md).
+
+The C3 residue action resolves exactly one complete canonical residue and delegates
+to the existing protein template service before the same atomic publication. Its
+transient `selection_after` returns the complete resulting residue; other actions
+retain surviving operands and explicit replacement mapping. This avoids refetching
+molecular data merely to decide selection and adds no persisted schema. Older
+low-level edit callers retain their history-snapshot defaults.
+
+The nonmodal Edit content uses a portal and viewport bounds. Its positioning hook
+observes launcher/workspace/notice geometry and coalesces resize/mutation updates;
+it does not read molecular state. Project-scoped visibility, focus intent and
+pending state survive responsive remounts. Opening another tool relinquishes Edit
+without focus restoration; opening Edit suppresses outgoing Style restoration.
+Pending operations focus a stable container before disabling controls. Expensive
+eligibility derivation is memoized by the current immutable projection/selection,
+so camera updates do not repeatedly scan molecules.
+
 ## Persistence
 
 SQLite stores projects, entries, groups, checkpoints, bounded command history,

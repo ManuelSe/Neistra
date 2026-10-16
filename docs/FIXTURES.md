@@ -1,5 +1,28 @@
 # Fixture Provenance And Assertions
 
+Issue #69 adds `tests/fixtures/editing/ethanol-3d.mol`: synthetic ethanol from
+RDKit2026.3.4 ETKDGv3 with explicit H during embedding, seed690, then H removed.
+It supplies usable fixed heavy coordinates for local H/building assertions; it
+is not experimental or force-field-optimized geometry. Expected formulas and
+connectivity are independently asserted. The historical collinear ethanol fixture
+remains unchanged and is a negative generated-geometry case.
+
+`tests/fixtures/editing/prepared-complex.molweave.zip` is deterministically built
+by `tests.support.editing_fixture` from the existing repository peptide fixture
+and this ethanol translated +20Å along X, with remapped stable IDs. It is a
+synthetic prepared-component/navigation fixture, not an observed complex or raw
+PDB chemistry assignment. Its archived original is the synthetic normalized JSON
+itself. Normal public archive import validates/remaps the fixture; tests compare
+the rebuilt archive byte-for-byte and preserve all unrelated protein records and
+original bytes through molecular editing and Undo/Redo. SHA256:
+`30c24db3f4af10144b35d2e611137e15ae38b976e16fdd1f25b80f4a6299a466`.
+
+Regenerate the archive from the repository root with:
+
+```bash
+PYTHONPATH=apps/api/src:packages/molweave_core/src .venv/bin/python -m tests.support.editing_fixture
+```
+
 Status: MolWeave v0.1
 
 Provenance below retains the original product name. Neistra uses these fixtures

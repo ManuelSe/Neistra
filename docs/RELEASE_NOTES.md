@@ -1,5 +1,108 @@
 # Neistra Release Notes
 
+## 0.16.0 - 2026-10-16 - Compact molecular editing
+
+Status: clean candidate qualified; PR/review/merge, exact merged-master gates
+and verified publication are still required. Follow the
+[approved plan](plans/issue-69-compact-molecular-editor.md).
+
+### Added editing workflows
+
+Edit beside Transform opens a compact nonmodal Atoms/Bonds/Fragments/Residues
+panel. Canonical selection drives element/charge changes, heavy-atom deletion,
+heavy-endpoint bond creation/breaking/order and six illustrated substitutions:
+methyl, ethyl, hydroxyl, amino, carboxylic acid and phenyl. Select a terminal H;
+there is no manual ID/coordinate form or hidden attachment mode. Complete standard
+amino acids expose all20 existing constrained template mutations and retain complete
+result selection for successive operations. One edit produces one reversible
+molecular command with monotonic identities and exact artifact Undo/Redo.
+
+### Chemistry and hydrogen policy
+
+Prepared connected ligand components inside standalone entries or complexes use
+known orders/charges, one conformer, supported elements and usable coordinates;
+protein, waters and unrelated atoms stay exact. Local valence reconciliation adds
+actual explicit H within the same command. Hydrogen-free input may need one
+explicit Prepare component hydrogens action before picking H. Show explicit H is
+presentation only; cartoon needs an atomic Style to display atom detail.
+
+Six fixed templates use deterministic bounded placement, preserving existing heavy
+coordinates and validating generated distance/angle/overlap bounds. Geometry is
+inferred and unoptimized, not protonation/pKa/tautomer or binding-pose validation.
+Supported tetrahedral stereo follows fixed3D geometry in saved bond order; newly
+created centers are marked inferred. Unspecified/conflicting source stereo, E/Z
+decisions, aromatic direct changes and unsupported valence/coordination refuse.
+Explicit side-chain crosslinks refuse template mutation. Protein mutation does not
+implicitly prepare/protonate a protein. Full warnings/provenance remain available.
+
+### Compatibility and rollback
+
+**Minor0.15.0 →0.16.0** adds meaningful user-visible molecular building and an
+additive API, beyond a patch fix. Public legacy routes, persisted schemas,
+originals, archives/history/jobs remain compatible; no major break is introduced.
+Complete supported workflows and release gates justify a stable minor, without a
+prerelease suffix. All five authoritative versions advance consistently.
+
+No new migration: Alembic0014; project/viewer/archive2, normalized/selection1.
+Edited data uses existing generic history/actions. Actual taggedv0.15.0 reading,
+save/reexport/archive import and new-command Undo/Redo are qualified in C4 and must
+repeat against final0.16.0 candidate/exact-master before publication. Back up full
+managed data and restart matching client/server together. Qualified runtime rollback
+needs no data stripping/schema downgrade; older0014 guards still apply. See
+[compatibility guidance](DEVELOPMENT.md#selection-editing-compatibility-0160).
+
+### Fixes, accessibility and performance
+
+Preserve the focused camera across responsive viewer remounts; retain panel section
+and owned focus. Capture project/revision/artifact/selection, preserve newer picks
+and ignore other-project or previous-visit late replies. A previous visit cannot
+clear a newer pending edit. Vendor popups clear the full measured launcher/header
+area. Failed artifact reads offer explicit retry.
+Native H/bond/residue/new-atom picking, keyboard/focus/notice hit testing,
+light/dark320px layouts, actual100%/200%Chrome zoom and scoped axe are qualified.
+These checks are distinct from manual screenshot review and do not certify
+interactive screen-reader, physical-device or cross-browser support.
+
+Only the affected entry reloads after topology changes; section/camera browsing
+reuses artifact queries. Chemistry is bounded to256heavy/1,024resulting component
+atoms, uses component RDKit projections and spatial context checks. These bounds
+are not throughput promises. Existing native movement/surface/project budgets
+remain unchanged.
+
+### Verification
+
+[C4 qualification](assets/molecular-editing/c4-verification.json):612Python,
+235frontend,62broad browser passes/10intentional skips with no failures/retries;
+Ruff/mypy64/lint/types/build/diff and actual taggedv0.15.0 reader pass. Scientific
+stereo/graphs/H/geometry, reference reconciliation/branching allocation, originals,
+archives/jobs/scenes/surfaces, async ownership and remounts are covered. Diagnostics
+remain separate. [Final clean candidate](assets/molecular-editing/c5-candidate-gate.json) at12a4375
+passes613Python/236frontend/8supervisor/216browser with46intentional skips and no
+failures/flakes/retries; every frozen-install/fresh0014/static/build/diff command
+and actualv0.15.0 reader passes against final0.16.0 data. The initial mobile vendor
+popup failure and cross-visit pending finding were repaired without weakening
+checks. [Complete-diff local self-review](assets/molecular-editing/c5-local-review.md)
+has no unresolved consequential finding and is not independent. Exact merged-master
+qualification and publication remain mandatory.
+
+### Deferred features and known limitations
+
+Prepared closed components only; raw PDB/mmCIF chemistry is not guessed. C/N/O/S/F/
+Cl/Br/I shortcuts, neutral divalent S and local charges-1/0/+1 are bounded, not a
+full periodic table. H deletion is omitted because local saturation would restore
+it; existing explicit removal tools remain. No Grow, ring fusion, arbitrary
+catalogue, optimization, rotamer search or automatic protein-H policy is implied.
+
+Terminal peptide growth is[#70](https://github.com/ManuelSe/Neistra/issues/70);
+expanded fragment/element/ring-building qualification is[#71](https://github.com/ManuelSe/Neistra/issues/71).
+Broader protein preparation remains[#12](https://github.com/ManuelSe/Neistra/issues/12),
+CCD ligand assignment[#52](https://github.com/ManuelSe/Neistra/issues/52), component
+names/classification[#20](https://github.com/ManuelSe/Neistra/issues/20) and subset
+export[#21](https://github.com/ManuelSe/Neistra/issues/21). Source labels describe
+the original molecule; review scientific warnings and use explicit cleanup tools
+separately. The issue's complete speculative checklist is not claimed delivered.
+
+
 ## 0.15.0 - 2026-10-15 - Compact project navigation
 
 Status: [released as v0.15.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.15.0)

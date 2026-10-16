@@ -1,0 +1,33 @@
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+[2m[WebServer] [22mINFO:     Started server process [871574]
+[2m[WebServer] [22mINFO:     Waiting for application startup.
+[2m[WebServer] [22mINFO:     Application startup complete.
+[2m[WebServer] [22mINFO:     Uvicorn running on http://127.0.0.1:8160 (Press CTRL+C to quit)
+[2m[WebServer] [22m(node:871648) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:871660) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 10 tests using 1 worker
+
+(node:871685) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:871685) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [chromium] › tests/e2e/molecular-editing.spec.ts:20:5 › performs one selection-driven atom/H edit with exact undo and unchanged original (6.9s)
+  ✓   2 [chromium] › tests/e2e/molecular-editing.spec.ts:53:5 › maps a native bond hit to canonical endpoints and changes its order from the panel (5.3s)
+  ✓   3 [chromium] › tests/e2e/molecular-editing.spec.ts:85:5 › substitutes a selected H with illustrated COOH without an attachment mode (5.6s)
+  ✓   4 [chromium] › tests/e2e/molecular-editing.spec.ts:111:5 › mutates a natively picked residue successively and preserves exact backbone and undo (5.4s)
+  ✓   5 [chromium] › tests/e2e/molecular-editing.spec.ts:151:5 › keeps tool focus, notices and all controls accessible in both themes and narrow layouts (6.0s)
+(node:871975) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:871975) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   6 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:20:5 › performs one selection-driven atom/H edit with exact undo and unchanged original (6.6s)
+  ✓   7 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:53:5 › maps a native bond hit to canonical endpoints and changes its order from the panel (4.9s)
+  ✓   8 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:85:5 › substitutes a selected H with illustrated COOH without an attachment mode (5.1s)
+  ✓   9 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:111:5 › mutates a natively picked residue successively and preserves exact backbone and undo (4.9s)
+  ✓  10 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:151:5 › keeps tool focus, notices and all controls accessible in both themes and narrow layouts (5.7s)
+
+  10 passed (1.0m)

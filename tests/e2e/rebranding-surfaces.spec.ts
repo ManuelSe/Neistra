@@ -83,6 +83,12 @@ test("reviews all Neistra workflow surfaces in both themes", async ({ page, requ
         const host = node.closest(".structure-viewer")!.getBoundingClientRect();
         return box.left >= host.left && box.right <= host.right && box.bottom <= host.bottom;
       })).toBe(true);
+      const edit = page.getByRole("button", { name: "Edit molecule", exact: true });
+      expect(await edit.evaluate(node => {
+        const box = node.getBoundingClientRect();
+        return node.contains(document.elementFromPoint(box.x + box.width / 2, box.y + box.height / 2));
+      })).toBe(true);
+      expect((await popup.boundingBox())!.y).toBeGreaterThanOrEqual((await edit.boundingBox())!.y + (await edit.boundingBox())!.height);
       await review(page, info, `${theme}-vendor-${title.startsWith("Screenshot") ? "screenshot" : "settings"}`);
       await trigger.click();
       await expect(popup).toBeHidden();

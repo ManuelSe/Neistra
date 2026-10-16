@@ -1,0 +1,198 @@
+..............................FF..                                       [100%]
+=================================== FAILURES ===================================
+______ test_deleted_id_reconciles_all_references_and_exact_inverse[False] ______
+
+client = <tests.support.api_client.ApiClient object at 0x7ba0e1817d70>
+replacement = False
+
+    @pytest.mark.parametrize("replacement", [False, True])
+    def test_deleted_id_reconciles_all_references_and_exact_inverse(
+        client: ApiClient, replacement: bool
+    ) -> None:
+        from tests.integration.test_archive_roundtrip import export_archive
+
+        project = import_archive(client, FIXTURE.read_bytes())["project"]
+        entry_id = project["entries"][0]["id"]
+        initial = structure(client, project["id"], entry_id)
+        anchor = next(
+            a["id"] for a in initial["atoms"] if a["element"] == "C" and a["formal_charge"] == 0
+        )
+        if replacement:
+            project = edit(
+                client, project, entry_id, [anchor], {"operation": "hydrogens.prepare"}
+            ).json()["project"]
+        before = structure(client, project["id"], entry_id)
+        target = (
+            next(a["id"] for a in before["atoms"] if a["element"] == "H")
+            if replacement
+            else next(
+                a["id"] for a in before["atoms"] if a["element"] == "O" and a["formal_charge"] == 0
+            )
+        )
+        refs = selection(entry_id, [anchor, target])
+        single = selection(entry_id, [target])
+        path = f"/api/v1/projects/{project['id']}"
+
+        def command(suffix: str, **payload: Any) -> None:
+            nonlocal project
+            response = client.post(
+                f"{path}/{suffix}", json={"expected_revision": project["revision"], **payload}
+            )
+            assert response.status_code in {200, 201}, response.text
+            project = response.json()
+
+        command("selections", name="Deleted identity", selection=single)
+        command("measurements", name="Deleted span", kind="distance", atom_references=refs["atoms"])
+        command("selection-representations", selection=refs, action="apply", style="thick-stick")
+        command("selection-atom-visibility", selection=single, action="hide")
+        command(
+            "surfaces",
+            surfaces=[
+                {"entry_id": entry_id, "source": {"kind": "fragment", "atom_ids": [anchor, target]}},
+                {
+                    "entry_id": entry_id,
+                    "source": {"kind": "pocket", "radius": 5, "seed_atom_references": single["atoms"]},
+                },
+            ],
+        )
+        command(
+            "scenes",
+            name="Deleted identity view",
+            selection=single,
+            camera={
+                "mode": "orthographic",
+                "position": [0, 0, 50],
+                "target": [0, 0, 0],
+                "up": [0, 1, 0],
+                "radius": 20,
+            },
+        )
+        baseline = project
+        original = client.get(f"{path}/entries/{entry_id}/original").content
+        action = (
+            {"operation": "atom.element", "element": "C"}
+            if replacement
+            else {"operation": "atom.delete"}
+        )
+        response = edit(client, project, entry_id, [target], action)
+        assert response.status_code == 200, response.text
+        project = response.json()["project"]
+        assert project["saved_selections"][0]["atom_references"] == []
+        assert project["measurements"] == []
+        assert project["scenes"][0]["selection"]["atoms"] == []
+        settings = project["entries"][0]["viewer_settings"]
+        assert settings["selection_hidden_atoms"] == []
+        assert settings["surface_objects"][0]["source"]["atom_ids"] == [anchor]
+        assert len(settings["surface_objects"]) == 1  # deleted pocket seed removes surface
+        assert all(target not in r["atom_ids"] for r in settings["selection_representations"])
+        after = structure(client, project["id"], entry_id)
+        command("history/undo")
+        assert structure(client, project["id"], entry_id) == before
+        for key in ["saved_selections", "measurements", "scenes"]:
+>           assert project[key] == baseline[key]
+E           AssertionError: assert [{'atom_refer...bf4909', ...}] == [{'atom_refer...bf4909', ...}]
+E
+E             At index 0 diff: {'id': '01a144f6-5991-7978-8da0-6e6bbbbf4909', 'name': 'Deleted identity', 'atom_references': [{'structure_id': '01a144f6-5973-7a26-bba1-857757bbc2ec', 'atom_id': 25}], 'granularity': 'atom', 'warnings': [], 'created_at': '2026-10-16T13:45:57.905184', 'modified_at': '2026-10-16T13:45:58.001492'} != {'id': '01a144f6-5991-7978-8da0-6e6bbbbf4909', 'name': 'Deleted identity', 'atom_references': [{'structure_id': '01a144f6-5973-7a26-bba1-857757bbc2ec', 'atom_id': 25}], 'granularity': 'atom', 'warnings': [], 'created_at': '2026-10-16T13:45:57.905184', 'modified_at': '2026-10-16T13:45:57.907358'}
+E             Use -v to get more diff
+
+tests/integration/test_selection_edits.py:298: AssertionError
+______ test_deleted_id_reconciles_all_references_and_exact_inverse[True] _______
+
+client = <tests.support.api_client.ApiClient object at 0x7ba116c94800>
+replacement = True
+
+    @pytest.mark.parametrize("replacement", [False, True])
+    def test_deleted_id_reconciles_all_references_and_exact_inverse(
+        client: ApiClient, replacement: bool
+    ) -> None:
+        from tests.integration.test_archive_roundtrip import export_archive
+
+        project = import_archive(client, FIXTURE.read_bytes())["project"]
+        entry_id = project["entries"][0]["id"]
+        initial = structure(client, project["id"], entry_id)
+        anchor = next(
+            a["id"] for a in initial["atoms"] if a["element"] == "C" and a["formal_charge"] == 0
+        )
+        if replacement:
+            project = edit(
+                client, project, entry_id, [anchor], {"operation": "hydrogens.prepare"}
+            ).json()["project"]
+        before = structure(client, project["id"], entry_id)
+        target = (
+            next(a["id"] for a in before["atoms"] if a["element"] == "H")
+            if replacement
+            else next(
+                a["id"] for a in before["atoms"] if a["element"] == "O" and a["formal_charge"] == 0
+            )
+        )
+        refs = selection(entry_id, [anchor, target])
+        single = selection(entry_id, [target])
+        path = f"/api/v1/projects/{project['id']}"
+
+        def command(suffix: str, **payload: Any) -> None:
+            nonlocal project
+            response = client.post(
+                f"{path}/{suffix}", json={"expected_revision": project["revision"], **payload}
+            )
+            assert response.status_code in {200, 201}, response.text
+            project = response.json()
+
+        command("selections", name="Deleted identity", selection=single)
+        command("measurements", name="Deleted span", kind="distance", atom_references=refs["atoms"])
+        command("selection-representations", selection=refs, action="apply", style="thick-stick")
+        command("selection-atom-visibility", selection=single, action="hide")
+        command(
+            "surfaces",
+            surfaces=[
+                {"entry_id": entry_id, "source": {"kind": "fragment", "atom_ids": [anchor, target]}},
+                {
+                    "entry_id": entry_id,
+                    "source": {"kind": "pocket", "radius": 5, "seed_atom_references": single["atoms"]},
+                },
+            ],
+        )
+        command(
+            "scenes",
+            name="Deleted identity view",
+            selection=single,
+            camera={
+                "mode": "orthographic",
+                "position": [0, 0, 50],
+                "target": [0, 0, 0],
+                "up": [0, 1, 0],
+                "radius": 20,
+            },
+        )
+        baseline = project
+        original = client.get(f"{path}/entries/{entry_id}/original").content
+        action = (
+            {"operation": "atom.element", "element": "C"}
+            if replacement
+            else {"operation": "atom.delete"}
+        )
+        response = edit(client, project, entry_id, [target], action)
+        assert response.status_code == 200, response.text
+        project = response.json()["project"]
+        assert project["saved_selections"][0]["atom_references"] == []
+        assert project["measurements"] == []
+        assert project["scenes"][0]["selection"]["atoms"] == []
+        settings = project["entries"][0]["viewer_settings"]
+        assert settings["selection_hidden_atoms"] == []
+        assert settings["surface_objects"][0]["source"]["atom_ids"] == [anchor]
+        assert len(settings["surface_objects"]) == 1  # deleted pocket seed removes surface
+        assert all(target not in r["atom_ids"] for r in settings["selection_representations"])
+        after = structure(client, project["id"], entry_id)
+        command("history/undo")
+        assert structure(client, project["id"], entry_id) == before
+        for key in ["saved_selections", "measurements", "scenes"]:
+>           assert project[key] == baseline[key]
+E           AssertionError: assert [{'atom_refer...69397e', ...}] == [{'atom_refer...69397e', ...}]
+E
+E             At index 0 diff: {'id': '01a144f6-5ba5-7696-b3b0-febabe69397e', 'name': 'Deleted identity', 'atom_references': [{'structure_id': '01a144f6-5b84-7a0b-9845-10e0bc1b9517', 'atom_id': 26}], 'granularity': 'atom', 'warnings': [], 'created_at': '2026-10-16T13:45:58.437641', 'modified_at': '2026-10-16T13:45:58.505289'} != {'id': '01a144f6-5ba5-7696-b3b0-febabe69397e', 'name': 'Deleted identity', 'atom_references': [{'structure_id': '01a144f6-5b84-7a0b-9845-10e0bc1b9517', 'atom_id': 26}], 'granularity': 'atom', 'warnings': [], 'created_at': '2026-10-16T13:45:58.437641', 'modified_at': '2026-10-16T13:45:58.438362'}
+E             Use -v to get more diff
+
+tests/integration/test_selection_edits.py:298: AssertionError
+=========================== short test summary info ============================
+FAILED tests/integration/test_selection_edits.py::test_deleted_id_reconciles_all_references_and_exact_inverse[False]
+FAILED tests/integration/test_selection_edits.py::test_deleted_id_reconciles_all_references_and_exact_inverse[True]
+2 failed, 32 passed in 10.99s

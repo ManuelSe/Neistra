@@ -1,0 +1,58 @@
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+[2m[WebServer] [22mINFO:     Started server process [869718]
+[2m[WebServer] [22mINFO:     Waiting for application startup.
+[2m[WebServer] [22mINFO:     Application startup complete.
+[2m[WebServer] [22mINFO:     Uvicorn running on http://127.0.0.1:8160 (Press CTRL+C to quit)
+[2m[WebServer] [22m(node:869793) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:869805) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 10 tests using 1 worker
+
+(node:869830) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:869830) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [chromium] › tests/e2e/molecular-editing.spec.ts:18:5 › performs one selection-driven atom/H edit with exact undo and unchanged original (7.0s)
+  ✓   2 [chromium] › tests/e2e/molecular-editing.spec.ts:51:5 › maps a native bond hit to canonical endpoints and changes its order from the panel (5.4s)
+  ✓   3 [chromium] › tests/e2e/molecular-editing.spec.ts:83:5 › substitutes a selected H with illustrated COOH without an attachment mode (5.9s)
+  ✓   4 [chromium] › tests/e2e/molecular-editing.spec.ts:109:5 › mutates a natively picked residue successively and preserves exact backbone and undo (10.6s)
+  ✘   5 [chromium] › tests/e2e/molecular-editing.spec.ts:149:5 › keeps tool focus, notices and all controls accessible in both themes and narrow layouts (18.2s)
+
+
+  1) [chromium] › tests/e2e/molecular-editing.spec.ts:149:5 › keeps tool focus, notices and all controls accessible in both themes and narrow layouts
+
+    Test was interrupted.
+
+    Error: locator.click: Test ended.
+    Call log:
+    [2m  - waiting for getByRole('button', { name: /Switch to (dark|light) theme/ })[22m
+
+
+      157 |   const panel = page.getByRole("dialog", { name: "Edit molecule", exact: true });
+      158 |   await expect(panel).toBeFocused();
+    > 159 |   for (const dark of [false, true]) {
+          |                                      ^
+      160 |     const theme = await page.locator("html").getAttribute("data-theme");
+      161 |     if ((theme === "dark") !== dark) await page.getByRole("button", { name: /Use (dark|light) theme/ }).click();
+      162 |     if (info.project.name === "mobile-chromium") await page.setViewportSize({ width: 320, height: 700 });
+        at /datadisk/dev/neistra/tests/e2e/molecular-editing.spec.ts:159:111
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/molecular-editing-keeps-to-cded0-h-themes-and-narrow-layouts-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/molecular-editing-keeps-to-cded0-h-themes-and-narrow-layouts-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/molecular-editing-keeps-to-cded0-h-themes-and-narrow-layouts-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 interrupted
+    [chromium] › tests/e2e/molecular-editing.spec.ts:149:5 › keeps tool focus, notices and all controls accessible in both themes and narrow layouts
+  5 did not run
+  4 passed (53.1s)

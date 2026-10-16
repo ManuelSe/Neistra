@@ -1,3 +1,4 @@
+import { prepare } from "./support/interactions";
 import { browseComponents, showEntries } from "./support/navigation";
 import type { Project } from "../../apps/web/src/api/types";
 import AxeBuilder from "@axe-core/playwright";
@@ -352,4 +353,62 @@ test("keeps shell and inspector controls bounded around both responsive breakpoi
       await page.screenshot({ path: info.outputPath(`${theme}-${width}.png`) });
     }
   }
+});
+
+test("keeps the molecular editor keyboard controls reachable at actual browser zoom", async ({ request, baseURL }, info) => {
+  test.skip(info.project.name !== "chromium", "Desktop zoom is independent of touch emulation.");
+  test.setTimeout(180000);
+  const extension = resolve("tests/e2e/support/zoom-extension");
+  const profile = await mkdtemp(join(tmpdir(), "neistra-edit-zoom-"));
+  const context = await chromium.launchPersistentContext(profile, {
+    channel: "chromium", headless: true, viewport: null, deviceScaleFactor: undefined, baseURL,
+    args: ["--window-size=1440,1000", `--disable-extensions-except=${extension}`, `--load-extension=${extension}`,
+      "--enable-webgl", "--ignore-gpu-blocklist", "--use-angle=swiftshader", "--enable-unsafe-swiftshader"],
+  });
+  try {
+    const worker = context.serviceWorkers()[0] ?? await context.waitForEvent("serviceworker");
+    const page = context.pages()[0];
+    page.setDefaultTimeout(10000);
+    const project = await prepare(page, request, ["tests/fixtures/editing/ethanol-3d.mol"], "Edit zoom");
+    const select = async () => {
+      if (await page.getByRole("button", { name: "Inspector", exact: true }).isVisible()) await page.getByRole("button", { name: "Inspector", exact: true }).click();
+      await page.getByRole("tab", { name: "selection", exact: true }).click();
+      await page.getByRole("combobox", { name: "Select by", exact: true }).selectOption("atom_reference");
+      await page.getByRole("textbox", { name: "Value", exact: true }).fill(`${project.entries[0].id}:1`);
+      await page.getByRole("button", { name: "Apply query", exact: true }).click();
+      if (await page.locator(".mobile-panel").isVisible()) await page.getByRole("button", { name: "Close panel", exact: true }).click({ position: { x: 2, y: 100 } });
+    };
+    await select();
+    const launcher = page.getByRole("button", { name: "Edit molecule", exact: true });
+    await launcher.click();
+    const panel = page.getByRole("dialog", { name: "Edit molecule", exact: true });
+    await panel.getByRole("button", { name: "Prepare component hydrogens", exact: true }).click();
+    await expect(page.getByText(/Molecular edit stored/)).toBeVisible();
+    await panel.getByRole("button", { name: "Close molecular editor" }).click();
+    for (const theme of ["light", "dark"]) {
+      if (theme === "dark") await page.getByRole("button", { name: "Use dark theme" }).click();
+      for (const factor of [1, 2]) {
+        expect(await setZoom(worker, baseURL!, factor)).toBe(factor);
+        await expect.poll(() => page.evaluate(() => devicePixelRatio)).toBe(factor);
+        await expect.poll(() => page.evaluate(() => innerWidth)).toBe(1440 / factor);
+        await launcher.focus(); await page.keyboard.press("Enter");
+        await expect(panel).toBeFocused();
+        for (const section of ["Atoms", "Bonds", "Fragments", "Residues"]) {
+          await panel.getByRole("button", { name: section, exact: true }).click();
+          for (const control of await panel.locator("button:visible:enabled, summary:visible").all()) {
+            await control.focus();
+            await expect(control).toBeFocused();
+            expect(await control.evaluate(node => {
+              const b = node.getBoundingClientRect();
+              return b.x >= 0 && b.right <= innerWidth && b.y >= 0 && b.bottom <= innerHeight &&
+                node.contains(document.elementFromPoint(b.x + b.width / 2, b.y + b.height / 2));
+            })).toBe(true);
+          }
+        }
+        expect((await new AxeBuilder({ page }).include(".molecular-edit-panel").withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"]).analyze()).violations).toEqual([]);
+        await captureZoomPage(page, info, `${theme}-${factor * 100}-molecular-edit.png`);
+        await page.keyboard.press("Escape"); await expect(launcher).toBeFocused();
+      }
+    }
+  } finally { await context.close(); }
 });

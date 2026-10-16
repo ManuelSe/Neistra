@@ -1,0 +1,58 @@
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+[2m[WebServer] [22mINFO:     Started server process [874673]
+[2m[WebServer] [22mINFO:     Waiting for application startup.
+[2m[WebServer] [22mINFO:     Application startup complete.
+[2m[WebServer] [22mINFO:     Uvicorn running on http://127.0.0.1:8160 (Press CTRL+C to quit)
+[2m[WebServer] [22m(node:874745) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:874759) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 34 tests using 1 worker
+
+(node:874783) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:874783) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [chromium] › tests/e2e/molecular-editing.spec.ts:20:5 › performs one selection-driven atom/H edit with exact undo and unchanged original (6.9s)
+  ✓   2 [chromium] › tests/e2e/molecular-editing.spec.ts:53:5 › maps a native bond hit to canonical endpoints and changes its order from the panel (5.3s)
+  ✓   3 [chromium] › tests/e2e/molecular-editing.spec.ts:85:5 › substitutes a selected H with illustrated COOH without an attachment mode (5.5s)
+  ✓   4 [chromium] › tests/e2e/molecular-editing.spec.ts:111:5 › mutates a natively picked residue successively and preserves exact backbone and undo (5.4s)
+  ✓   5 [chromium] › tests/e2e/molecular-editing.spec.ts:151:5 › keeps tool focus, notices and all controls accessible in both themes and narrow layouts (5.9s)
+  ✓   6 [chromium] › tests/e2e/protein-editing.spec.ts:152:5 › edits protein hierarchy and chemistry with exact history and validation (13.4s)
+  -   7 [chromium] › tests/e2e/protein-editing.spec.ts:426:5 › keeps protein editing usable in the mobile inspector
+  ✓   8 [chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:60:5 › transforms from the viewer with fixed mouse gestures, exact Cancel and one Apply/undo/redo (9.5s)
+  ✓   9 [chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:108:5 › temporarily navigates the native camera with Space and the view toggle without changing the captured preview (19.7s)
+  ✓  10 [chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:179:5 › returns the mouse from movement tools for Space without stealing editable or unrelated focus (11.0s)
+  ✓  11 [chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:248:5 › ends held mouse gestures at accepted coordinates and camera before ownership changes (9.4s)
+  ✓  12 [chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:290:5 › clears temporary navigation on interruption and remount while preserving preview and camera (14.0s)
+  -  13 [chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:365:5 › qualifies native touch navigation, secondary tools and accessible theme layouts
+  ✓  14 [chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:456:59 › ignores a held camera pointer release after Cancel and restores selection on a fresh click (5.3s)
+  ✓  15 [chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:456:59 › ignores a held transform pointer release after Cancel and restores selection on a fresh click (5.2s)
+  ✓  16 [chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:479:5 › keeps viewer errors readable and primary transform actions reachable (4.9s)
+  ✓  17 [chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:509:5 › releases native navigation keys held before movement starts (5.9s)
+(node:875441) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:875441) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  18 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:20:5 › performs one selection-driven atom/H edit with exact undo and unchanged original (6.7s)
+  ✓  19 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:53:5 › maps a native bond hit to canonical endpoints and changes its order from the panel (4.9s)
+  ✓  20 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:85:5 › substitutes a selected H with illustrated COOH without an attachment mode (5.5s)
+  ✓  21 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:111:5 › mutates a natively picked residue successively and preserves exact backbone and undo (5.1s)
+  ✓  22 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:151:5 › keeps tool focus, notices and all controls accessible in both themes and narrow layouts (5.7s)
+  -  23 [mobile-chromium] › tests/e2e/protein-editing.spec.ts:152:5 › edits protein hierarchy and chemistry with exact history and validation
+  ✓  24 [mobile-chromium] › tests/e2e/protein-editing.spec.ts:426:5 › keeps protein editing usable in the mobile inspector (3.4s)
+  ✓  25 [mobile-chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:60:5 › transforms from the viewer with fixed mouse gestures, exact Cancel and one Apply/undo/redo (8.6s)
+  ✓  26 [mobile-chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:108:5 › temporarily navigates the native camera with Space and the view toggle without changing the captured preview (17.7s)
+  ✓  27 [mobile-chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:179:5 › returns the mouse from movement tools for Space without stealing editable or unrelated focus (9.7s)
+  ✓  28 [mobile-chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:248:5 › ends held mouse gestures at accepted coordinates and camera before ownership changes (8.8s)
+  ✓  29 [mobile-chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:290:5 › clears temporary navigation on interruption and remount while preserving preview and camera (14.2s)
+  ✓  30 [mobile-chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:365:5 › qualifies native touch navigation, secondary tools and accessible theme layouts (20.7s)
+  ✓  31 [mobile-chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:456:59 › ignores a held camera pointer release after Cancel and restores selection on a fresh click (4.9s)
+  ✓  32 [mobile-chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:456:59 › ignores a held transform pointer release after Cancel and restores selection on a fresh click (4.7s)
+  ✓  33 [mobile-chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:479:5 › keeps viewer errors readable and primary transform actions reachable (4.5s)
+  ✓  34 [mobile-chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:509:5 › releases native navigation keys held before movement starts (5.2s)
+
+  3 skipped
+  31 passed (4.4m)

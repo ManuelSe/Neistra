@@ -81,6 +81,30 @@ CCD assignment remains [follow-up #52](https://github.com/ManuelSe/Neistra/issue
 - Stable atom and bond IDs describe Neistra project identity, not source-file
   serials. Deleted IDs leave gaps and newly allocated IDs are never reused.
 
+## Selection-driven small-molecule editing (issue #69 C1)
+
+The compact editor accepts prepared, connected, closed ligand components with
+known charges/orders and usable single-conformer geometry, including eligible
+components inside complexes. It rejects uncertainty before RDKit's low-level
+conversion defaults. Raw PDB/mmCIF ligand chemistry is not automatically repaired.
+Existing protein/ligand inspector endpoints retain their scientific contracts.
+
+Local H inference does not determine pH, tautomer, metal coordination or an
+optimized pose. Unsupported aromatic changes, non-divalent S, radicals,
+unrepresented stereo and covalent component boundaries reject. Initial H
+preparation may be necessary. Fixed heavy atoms mean degenerate input can make H
+generation fail; it is not silently re-embedded. Generated distance/angle/overlap
+screens and supported tetrahedral orientation handling are documented in
+[Molecular editing](MOLECULAR_EDITING.md); they do not certify preparation.
+C2 adds six bounded fragment templates and endpoint-based bond actions.
+Template-only ETKDGv3 seed690 and six fixed torsions do not optimize an environment;
+ring fusion, wider element/catalogue chemistry and E/Z decisions remain unsupported.
+Some bond breaks cannot saturate at fixed coordinates without clashes/angle
+failures and reject atomically. See the editing guide for exact placement rules.
+C3 compact mutation delegates to the existing protein service, with exactly one
+complete residue operand and a complete transient result selection. It does not
+extend template eligibility, automatically reconcile protein H or add Grow.
+
 ## Protein Editing
 
 - Neistra pins PDBFixer 1.12 source commit
@@ -434,3 +458,15 @@ Worker-output/allocation bounds include additional mesh-line/isolation buffers a
 apply across identified fragment/pocket requests. They do not cap native entry
 calculations, browser memory or GPU memory. A saved object can exceed rendering
 limits; status retains and explains it. Hiding/removing it releases runtime work.
+
+
+### Issue #69 qualification refinements
+
+Selection edits reject unspecified potential stereo and supplied tetrahedral tags
+that conflict with 3D coordinates. Final tetrahedral tags are perceived in actual
+serialized bond order; newly created centers are inferred from fixed geometry,
+with explicit provenance/warnings. A CIP-label change need not mean spatial
+inversion. E/Z building remains unsupported. The compact mutation route refuses
+explicit side-chain crosslinks rather than losing a disulfide or ligand connection;
+legacy editor behavior is unchanged. An atomic representation is needed to see
+explicit H; toggling H display never creates atoms or enables cartoon atom detail.

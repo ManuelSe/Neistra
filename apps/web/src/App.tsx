@@ -1,4 +1,6 @@
 import { surfacePruningWarnings } from "./selection/surfaceWarnings";
+import { useViewerCameraStore } from "./store/viewerCamera";
+import { useEditingStore } from "./store/editing";
 import { expandByDistance } from "./selection/expansion";
 import * as Tooltip from "@radix-ui/react-tooltip";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -18,6 +20,8 @@ import type {
   CoordinatePatch,
   CoordinateTransform,
   LigandEdit,
+  Selection,
+  SelectionEditAction,
   Measurement,
   MeasurementKind,
   ProteinEdit,
@@ -180,6 +184,8 @@ export default function App() {
 
   useEffect(() => {
     useNavigationStore.getState().setProject(activeProjectId);
+    useEditingStore.getState().setProject(activeProjectId);
+    useViewerCameraStore.getState().setProject(activeProjectId);
   }, [activeProjectId]);
 
   useEffect(() => {
@@ -362,7 +368,8 @@ export default function App() {
     onError: (error) => setNotice({ kind: "error", text: errorMessage(error) }),
   });
 
-  const busy = projectMutation.isPending || createMutation.isPending || movementBlocked;
+  const editingPending = useEditingStore(state => state.pending);
+  const busy = projectMutation.isPending || createMutation.isPending || movementBlocked || editingPending;
 
   const moveMembership = (scope: GroupScope, groupId: string | null) => {
     if (!project || project.id !== scope.projectId || projectMutation.isPending) return;
@@ -760,6 +767,31 @@ export default function App() {
 
   const projects = projectsQuery.data ?? [];
   const viewerActions = {
+    onEdit: async (entryId: string, artifactId: string, operand: Selection, action: SelectionEditAction) => {
+      if (!project) throw new Error("Open a project before editing.");
+      const owner = project.id;
+      const generation = useEditingStore.getState().generation;
+      const captured = useSelectionStore.getState().selection;
+      try {
+        const result = await projectApi.selectionEdit(project, entryId, artifactId, operand, action);
+        updateProjectCache(result.project);
+        if (useWorkspaceStore.getState().activeProjectId === owner && useEditingStore.getState().generation === generation) {
+          const latest = queryClient.getQueryData<Project>(["project", owner]);
+          if (latest?.revision === result.project.revision && useSelectionStore.getState().selection === captured) {
+            replaceSelection(result.selection_after);
+          }
+          setEditedThisSession(true);
+          setNotice({ kind: "success", text: [`Molecular edit stored. ${result.warnings.length} scientific warnings; see entry Details.`, ...surfacePruningWarnings(project, result.project)].join(" "), lifetime: "persistent" });
+        }
+        return result;
+      } catch (error) {
+        if (useWorkspaceStore.getState().activeProjectId === owner && useEditingStore.getState().generation === generation) {
+          setNotice({ kind: "error", text: errorMessage(error) });
+          void queryClient.invalidateQueries({ queryKey: ["project", owner] });
+        }
+        throw error;
+      }
+    },
     busy,
     coordinatePreview,
     movement,

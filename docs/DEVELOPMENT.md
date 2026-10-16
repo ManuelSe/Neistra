@@ -476,3 +476,27 @@ additional coverage, not evidence of an actual old reader.
 See [approved contract](plans/issue-59-compact-project-navigation.md),
 [user guidance](PROJECT_NAVIGATION.md), [accessibility](ACCESSIBILITY.md) and
 [performance](PERFORMANCE.md) for qualified layouts, keyboard semantics and limits.
+
+
+## Selection editing compatibility (0.16.0)
+
+Upgrade client and API together to use the additive selection-edit endpoint and
+compact controls. No new migration is required: head0014 and project/viewer/archive
+schemas2, normalized/selection1 remain unchanged. Preserve a full managed-data
+backup (database, artifacts and worker state) before changing application versions.
+
+Edits use ordinary immutable artifacts, monotonic IDs and existing generic
+molecular-history actions. Originals and completed jobs remain unchanged. The
+actual taggedv0.15.0 reader is qualified during C4; final0.16.0 candidate and exact
+merged-master qualification is mandatory before release. Runtime rollback to that
+qualified reader removes the new controls/route but retains edited structures and
+old generic Undo/Redo/archive operations, without a schema downgrade or stripping
+history. Existing0014 downgrade guards still apply for earlier schema readers.
+Do not run incompatible client/server versions concurrently against one data store.
+
+Scientific eligibility, initial H preparation, fixed geometry/stereo limits and
+explicit retry after an artifact read failure are documented in
+[MOLECULAR_EDITING](MOLECULAR_EDITING.md). A successful edit is already stored even
+if subsequent rendering/refetch fails; retry the read rather than repeating the
+mutation blindly. Release evidence and publication state live in the
+[feature plan](plans/issue-69-compact-molecular-editor.md).

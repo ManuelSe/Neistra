@@ -3559,3 +3559,237 @@ to constrain the existing divider. ResizeObserver handles layout changes without
 per-component requests or molecular state. Impossible combined minima share the
 viewport rather than creating invalid panel constraints; mobile full-height tabs
 remain unchanged. A pre-fix failing native regression and passing repair are retained.
+
+## D-098 — Conservative prepared-component editing and projection ownership
+
+Date: 2026-10-16. Status: accepted by explicit approval of the issue #69 plan;
+runtime implementation not started.
+
+Add selection-driven small-molecule editing for one eligible closed component
+within one unlocked entry, including prepared components inside complexes.
+Resolve targets from current authoritative normalized identity and reject missing
+bond orders/formal charges before RDKit conversion. Existing conversion defaults
+must not turn unknown source chemistry into a prepared editable molecule.
+
+Use a temporary component chemistry projection and merge the validated result
+back by stable IDs. Preserve unrelated components, protein/water records,
+coordinates, hierarchy and source facts. Never sanitize an entire protein as a
+ligand or infer preparation from component classification. Initial eligibility
+requires one conformer, usable finite coordinates, supported known chemistry,
+no ambiguous alternate site, covalent external boundary, unsupported metal,
+radical or stereo encoding, and at most 256 heavy/1,024 resulting component atoms.
+These are admission bounds, not speed guarantees.
+
+The accepted contract is [issue #69](plans/issue-69-compact-molecular-editor.md).
+Its prepared-complex workflow must be qualified through normal archive import;
+raw PDB/mmCIF ligands with incomplete chemistry remain visibly unsupported.
+Existing #52 assignment analysis, #12 preparation and #20/#21 component override/
+extraction concerns do not become implicit editing prerequisites or capabilities.
+
+Rationale: entry-level ligand restrictions prevent useful in-place editing, while
+unknown-to-single/neutral conversion and whole-complex sanitization would invent
+scientific certainty. A bounded component adapter extends D-002/003/028 without
+giving chemistry libraries, component labels or the viewer molecular authority.
+
+Consequences: no normalized schema or database migration is planned. Existing
+low-level editing endpoints retain their behavior. Material compatibility or
+scope changes require an amended approved plan, not silent data stripping.
+
+## D-099 — Local hydrogen and geometry changes form one molecular command
+
+Date: 2026-10-16. Status: accepted by explicit approval of the issue #69 plan;
+runtime implementation not started.
+
+Supported selection-driven small-molecule edits reconcile explicit H locally on
+edited atoms and immediate affected neighbors. Preserve unaffected H/coordinates;
+new atoms/bonds consume monotonic identities. Replacing a terminal singly bonded
+H consumes that H identity and allocates a new heavy-atom identity. Each complete
+edit, including generated H and reference reconciliation, publishes one immutable
+result and one reversible command using existing generic molecular actions.
+
+Use fixed attachment definitions for methyl, ethyl, hydroxyl, amino, carboxylic
+acid and phenyl, deterministic bounded coordinate generation, and explicit
+bond-length/angle/overlap validation. Preserve unaffected heavy coordinates
+exactly; report unoptimized retained geometry where element/order changes require
+review. Validate supported mapped stereochemistry; unsupported encodings reject
+rather than silently disappearing. Record method/version, generated identities,
+coordinates and seeds through existing inference/metadata facilities, invalidate
+stale derived chemistry and expose modified-source-label limitations.
+
+Do not silently choose pH, tautomer, aromatic protonation, global embedding or
+force-field fallback. The new UI rejects direct aromatic order cycling,
+unsupported aromatic element/charge changes and automatically saturated H
+deletion. Initial element shortcuts are C/N/O/S/F/Cl/Br/I, with neutral divalent
+S only; broader elements, fragment chemistry, ring fusion and peptide growth
+remain follow-ups. A hydrogen-free input may require one explicit initial
+Prepare component hydrogens action. Opening Edit/showing H never adds atoms.
+Existing protein mutation and hydrogen-removal semantics remain documented and
+available; local small-molecule saturation does not imply protein preparation.
+
+Rationale: automatic H must be real molecular state with exact history, not a
+viewer effect or a second independently failing edit. Bounded chemistry and
+visible uncertainty provide useful building without pretending valence inference
+determines protonation or an optimized binding pose.
+
+Consequences: failed validation/stale targets publish no molecular change.
+Original bytes remain immutable. Reuse existing reconciliation for saved
+selections, scenes, measurements, appearance masks and surface sources. Preserve
+D-028 monotonic allocators through Undo/Redo and branching. No new persisted
+action discriminator or schema major is planned; actual v0.15.0 reader proof is a
+release gate. Full contract and approved exceptions live in the issue #69 plan.
+
+## D-100 — Selection-driven Edit panel and captured target ownership
+
+Date: 2026-10-16. Status: accepted by explicit approval of the issue #69 plan;
+runtime implementation not started.
+
+Place Edit beside Transform and keep its compact Atoms/Bonds/Fragments/Residues
+panel nonmodal and open for successive actions. Canonical selection supplies all
+operands; never default to the first entry/residue. Resolve bonds from exactly
+two canonical endpoints and qualify native bond-hit mapping without adding a
+persisted bond-selection schema. Reuse existing standard-amino-acid mutation;
+omit Grow until separately implemented. Keep advanced inspector tools accessible.
+
+Introduce an additive typed selection-driven API under `/api/v1`, capturing
+project revision, current artifact, complete operand selection and bounded action
+parameters. Existing ligand/protein endpoints retain behavior. The service owns
+eligibility, complete preparation and one publication; the viewer remains a
+disposable renderer. Record the actual operand selection in history.
+
+Own panel state transiently above responsive remounts. Guard async work by its
+captured project/artifact/selection: a late response must not mutate another
+project's UI or overwrite a later selection. Preserve surviving references and
+explicitly map substituted H to replacement; do not select all new H. Opening or
+browsing tools creates no chemistry command. Existing hydrogen display settings
+remain presentation commands with visible isolation/atom-hide limitations.
+
+Canvas gestures keep normal selection/navigation. Active movement blocks
+chemistry edits until explicit completion/cancellation. Reuse focus handoff and
+warning lifetime ownership from D-089/D-093 rather than introducing competing
+timers or focus restoration. Require labelled, keyboard/touch-accessible controls,
+explained availability, full scientific feedback and light/dark/narrow/zoom tests.
+
+Rationale: rapid editing needs one selection authority, explicit tool ownership
+and atomic backend edits. Panel visibility, native loci or late closure state
+cannot become molecular targets or overwrite newer workspace intent.
+
+Consequences: no durable panel state, new job/plugin type or migration. Project/
+viewer/archive2 and normalized/selection1 remain; head0014 stays. Planned minor
+0.16.0 adds meaningful functionality while retaining prior contracts, subject to
+actual reader and complete candidate/exact-master release gates. C0 records the
+approved plan/decisions only and stops ready for `/goal`.
+
+### D-098–100 implementation note — issue #69 M1/C1, 2026-10-16
+
+`/goal` now authorizes implementation and complete delivery. The additive
+selection-edit service uses the existing generic `entry.molecule` action with an
+explicit captured operand snapshot. New-ID bounds and duplicate/order/aromaticity
+guards reject before RDKit's permissive conversion defaults. Component membership
+is indexed once rather than scanning all atoms for every component; no whole-
+protein chemistry validation is introduced.
+
+Local H reconciliation retains viable existing H and removes only surplus H,
+then fills deficits on affected atoms. New geometry uses 0.65–1.35 covalent-radius
+sums, hybridization angle screens and a0.4Å overlap refusal. These are documented
+admission checks; fixed legacy collinear input can reject rather than silently
+moving its heavy atoms. The reproducible positive3D fixture and synthetic complex
+archive are scientific test inputs, not a preparation/import capability.
+
+Raw tetrahedral tags depend on bond-neighbor order. Retained supplied supported
+centers are re-perceived from fixed3D geometry after normalized bond ordering,
+with explicit review warnings; CIP-priority changes do not imply inversion.
+Unsupported encodings reject. App-owned pending state blocks competing workspace
+mutations; project/selection/revision guards own response feedback and replacement.
+Desktop/mobile C1 workflows pass. Broader lifecycle, science and actual old-reader
+qualification still require C4/C5; no migration or compatibility claim is inferred.
+
+### D-099 implementation note — issue #69 M2/C2, 2026-10-16
+
+Fragment-v1 embeds only six methyl-capped templates with pinned ETKDGv3 seed690
+and200iterations maximum. Remove cap/H, align the root axis by a proper rotation,
+set attachment length by covalent radii and compare six60° torsions against
+retained non-anchor coordinates. Fixed heavy atoms and complete template H remain
+explicit; deterministic first-best ties, method/template/seed provenance and final
+distance/angle/overlap validation are qualified. No parent embedding, implicit
+minimizer or fusion builder is introduced.
+
+Endpoint bond controls reuse canonical atom selection. Real native bond-loci hits
+map to exactly the normalized pair at Atom granularity, with unchanged camera;
+no new persisted bond reference is needed. Creating a bond requires nearby
+unbonded heavy endpoints inside the closed component; aromatic direct changes and
+order changes requiring E/Z decisions reject. Local saturation can make a break
+geometrically impossible at fixed coordinates and then rejects the whole edit.
+Disconnected accepted results warn that subsequent building needs connected
+topology. Generic artifact actions, publication and monotonic allocation remain
+unchanged, including all pre-tagged fragment IDs and generated H in one allocator
+advance. C2 science/API/native gates pass; C3/C4/C5 remain required.
+
+### D-100 implementation note — issue #69 M3/C3, 2026-10-16
+
+The residue action resolves exactly one complete canonical amino acid and calls
+the existing protein editor before the same generic molecular publication. Return
+transient `selection_after` for complete new-residue selection or surviving/mapped
+small-molecule operands. This avoids another molecular fetch for selection and
+does not become project/checkpoint/archive data. The client retains captured
+project/revision/selection guards. Existing low-level edit routes and template
+semantics remain unchanged; all20 targets are qualified through the new route.
+
+Use a portal bounded to the viewport and observed notice geometry; coalesce
+resize/mutation work by animation frame. Pending actions focus a stable container
+before controls disable. Keyboard opening and responsive owned-focus restoration
+use transient intent, reset on project change; outside interactions keep focus.
+Opening Edit suppresses outgoing Style restoration; other tools/movement close
+Edit without competing focus restoration. Numeric preview blocks chemistry.
+Coarse44px targets, persistent warning disclosures, current-type no-op availability
+and native selection/mutation/Undo are qualified on desktop/mobile in both themes
+and320px. Source identity, schema majors and migration head remain unchanged.
+Real200% zoom, broader lifecycle/scientific/compatibility and release gates still
+belong to C4/C5. These C3 checks are local self-review, not independent review.
+
+
+### D-098–100 qualification note — issue #69 M4/C4, 2026-10-16
+
+Use fixed 3D geometry as stereo authority only after refusing unspecified potential
+stereo and conflicts between source tetrahedral tags and coordinates. Rebuild the
+edited component in final serialized atom/bond order before assigning tetrahedral
+tags. New centers receive inferred stereo fields, center IDs/method provenance and
+review warnings. Opposite enantiotopic H substitutions and CIP-priority changes
+are qualified separately from geometric inversion. Unsupported E/Z remains refused.
+Nonfinite surrounding coordinates refuse clash validation without publication.
+The compact residue route refuses explicit side-chain crosslinks before template
+replacement; legacy routes retain their prior behavior.
+
+Native qualification reproduced a camera reset when an ordinarily focused ligand
+crossed a responsive viewer remount. Retain only the active project's camera in a
+transient presentation store, seed the new disposable viewer before its first
+scene load, and clear on project change. This avoids a queued initial fit winning
+over late restoration, without putting molecular state into the viewer or changing
+persisted scenes. Movement retains its existing transaction camera authority.
+Artifact-query failure uses explicit retry, consistent with the viewer's query;
+late edit responses retain project/revision/selection guards. Audit modification
+timestamps advance during Undo; artifact bytes and reference content restore
+exactly. No schema/migration/legacy API changes are introduced by these refinements.
+
+
+### D-100 release-review note — issue #69 M5/C5, 2026-10-16
+
+Project ID alone does not own an asynchronous UI operation after leaving and
+returning to the same project. Each active-project change advances a transient
+editing-session generation. Capture it at submission; only matching current
+project/generation can publish feedback, clear pending, change selection or show
+completion/error notices. Project-cache acceptance still follows revision ordering,
+including inactive owners. Responsive remounts keep the same generation. A red/green
+component regression reproduces old completion clearing a newer pending edit;
+native qualification holds two server-committed responses across a project roundtrip.
+No API, molecular state, schema or version impact changes.
+
+The full candidate gate found a mobile target-size failure where a vendor screenshot
+popup overlapped the new Edit launcher. Observe the complete application header's
+actual bounds and reserve that clearance above vendor popups, rather than assuming
+the picking toolbar has fixed height. Keep popup scroll bounds, launcher hit targets
+and keyboard access at responsive widths and real zoom. This is presentation-only
+layout; no molecular/viewer state is copied into React or persisted.
+
+The static theme contract also requires every consumed CSS variable to have a
+source declaration. Declare the geometry clearance's72px fallback in the viewer
+scope; keep its measured inline value transient. No assertion is weakened.

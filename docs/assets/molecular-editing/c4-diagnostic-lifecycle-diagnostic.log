@@ -1,0 +1,186 @@
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+[2m[WebServer] [22mINFO:     Started server process [883405]
+[2m[WebServer] [22mINFO:     Waiting for application startup.
+[2m[WebServer] [22mINFO:     Application startup complete.
+[2m[WebServer] [22mINFO:     Uvicorn running on http://127.0.0.1:8160 (Press CTRL+C to quit)
+[2m[WebServer] [22m(node:883580) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:883608) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 4 tests using 1 worker
+
+(node:883668) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:883668) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 [chromium] › tests/e2e/molecular-editing.spec.ts:192:5 › edits a prepared complex with native H/new-atom picks, fixed camera and one affected reload (14.9s)
+(node:883873) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:883873) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  2 [chromium] › tests/e2e/molecular-editing.spec.ts:265:5 › keeps late edit responses owned by their original project (14.4s)
+(node:884040) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:884040) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  3 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:192:5 › edits a prepared complex with native H/new-atom picks, fixed camera and one affected reload (1.4s)
+(node:884147) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:884147) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  4 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:265:5 › keeps late edit responses owned by their original project (14.3s)
+
+
+  1) [chromium] › tests/e2e/molecular-editing.spec.ts:192:5 › edits a prepared complex with native H/new-atom picks, fixed camera and one affected reload
+
+    TimeoutError: locator.click: Timeout 10000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('.molstar-host canvas').first()[22m
+    [2m    - locator resolved to <canvas width="709" height="489"></canvas>[22m
+    [2m  - attempting click action[22m
+    [2m    2 × waiting for element to be visible, enabled and stable[22m
+    [2m      - element is visible, enabled and stable[22m
+    [2m      - scrolling into view if needed[22m
+    [2m      - done scrolling[22m
+    [2m      - <label>…</label> from <div class="" data-panel="" id="inspector-panel" data-panel-size="22.0" data-panel-collapsible="true" data-panel-id="inspector-panel" data-panel-group-id="workspace-horizontal-panels">…</div> subtree intercepts pointer events[22m
+    [2m    - retrying click action[22m
+    [2m    - waiting 20ms[22m
+    [2m    2 × waiting for element to be visible, enabled and stable[22m
+    [2m      - element is visible, enabled and stable[22m
+    [2m      - scrolling into view if needed[22m
+    [2m      - done scrolling[22m
+    [2m      - <label>…</label> from <div class="" data-panel="" id="inspector-panel" data-panel-size="22.0" data-panel-collapsible="true" data-panel-id="inspector-panel" data-panel-group-id="workspace-horizontal-panels">…</div> subtree intercepts pointer events[22m
+    [2m    - retrying click action[22m
+    [2m      - waiting 100ms[22m
+    [2m    18 × waiting for element to be visible, enabled and stable[22m
+    [2m       - element is visible, enabled and stable[22m
+    [2m       - scrolling into view if needed[22m
+    [2m       - done scrolling[22m
+    [2m       - <label>…</label> from <div class="" data-panel="" id="inspector-panel" data-panel-size="22.0" data-panel-collapsible="true" data-panel-id="inspector-panel" data-panel-group-id="workspace-horizontal-panels">…</div> subtree intercepts pointer events[22m
+    [2m     - retrying click action[22m
+    [2m       - waiting 500ms[22m
+
+
+      234 |   for (const atom of prepared.atoms.filter(a => a.element === "H")) {
+      235 |     const point = await page.evaluate(p => window.editingPicks.point(p), atom.coordinates);
+    > 236 |     await page.locator(".molstar-host canvas").first().click({ position: point });
+          |                                                        ^
+      237 |     const picks = await page.evaluate(() => window.editingPicks.events.at(-1)?.selection?.atoms ?? []);
+      238 |     if (picks.length === 1 && picks[0].atom_id === atom.id) { hydrogen = atom.id; break; }
+      239 |   }
+        at /datadisk/dev/neistra/tests/e2e/molecular-editing.spec.ts:236:56
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/molecular-editing-edits-a--27939-era-and-one-affected-reload-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/molecular-editing-edits-a--27939-era-and-one-affected-reload-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/molecular-editing-edits-a--27939-era-and-one-affected-reload-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/molecular-editing-edits-a--27939-era-and-one-affected-reload-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [chromium] › tests/e2e/molecular-editing.spec.ts:265:5 › keeps late edit responses owned by their original project
+
+    TimeoutError: locator.click: Timeout 10000ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('dialog', { name: 'Projects' }).getByRole('button', { name: /^Other edit owner 1792158480747/ })[22m
+
+
+      280 |   await committed;
+      281 |   await page.getByRole("button", { name: "Projects", exact: true }).click();
+    > 282 |   await page.getByRole("dialog", { name: "Projects" }).getByRole("button", { name: new RegExp(`^${other.name}`) }).click();
+          |                                                                                                                    ^
+      283 |   await expect(page.getByRole("dialog", { name: "Edit molecule", exact: true })).toBeHidden();
+      284 |   release();
+      285 |   await expect.poll(async () => (await (await request.get(`/api/v1/projects/${project.id}`)).json()).entries[0].atom_count).toBe(9);
+        at /datadisk/dev/neistra/tests/e2e/molecular-editing.spec.ts:282:116
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/molecular-editing-keeps-la-f8eeb-d-by-their-original-project-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/molecular-editing-keeps-la-f8eeb-d-by-their-original-project-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/molecular-editing-keeps-la-f8eeb-d-by-their-original-project-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/molecular-editing-keeps-la-f8eeb-d-by-their-original-project-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:192:5 › edits a prepared complex with native H/new-atom picks, fixed camera and one affected reload
+
+    Error: locator.click: Error: strict mode violation: getByRole('dialog', { name: 'Projects' }).getByRole('button', { name: /^Prepared editing fixture/ }) resolved to 2 elements:
+        1) <button class="" type="button">…</button> aka getByRole('button', { name: 'Prepared editing fixture 1 structures', exact: true })
+        2) <button class="" type="button">…</button> aka getByRole('button', { name: 'Prepared editing fixture 1 structures - unsaved' })
+
+    Call log:
+    [2m  - waiting for getByRole('dialog', { name: 'Projects' }).getByRole('button', { name: /^Prepared editing fixture/ })[22m
+
+
+      204 |   await page.goto("/");
+      205 |   await page.getByRole("button", { name: "Projects", exact: true }).click();
+    > 206 |   await page.getByRole("dialog", { name: "Projects" }).getByRole("button", { name: new RegExp(`^${project.name}`) }).click();
+          |                                                                                                                      ^
+      207 |   await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded", { timeout: 30000 });
+      208 |   const entry = project.entries[0];
+      209 |   const path = `/api/v1/projects/${project.id}`;
+        at /datadisk/dev/neistra/tests/e2e/molecular-editing.spec.ts:206:118
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/molecular-editing-edits-a--27939-era-and-one-affected-reload-mobile-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/molecular-editing-edits-a--27939-era-and-one-affected-reload-mobile-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/molecular-editing-edits-a--27939-era-and-one-affected-reload-mobile-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/molecular-editing-edits-a--27939-era-and-one-affected-reload-mobile-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:265:5 › keeps late edit responses owned by their original project
+
+    TimeoutError: locator.click: Timeout 10000ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('dialog', { name: 'Projects' }).getByRole('button', { name: /^Other edit owner 1792158497670/ })[22m
+
+
+      280 |   await committed;
+      281 |   await page.getByRole("button", { name: "Projects", exact: true }).click();
+    > 282 |   await page.getByRole("dialog", { name: "Projects" }).getByRole("button", { name: new RegExp(`^${other.name}`) }).click();
+          |                                                                                                                    ^
+      283 |   await expect(page.getByRole("dialog", { name: "Edit molecule", exact: true })).toBeHidden();
+      284 |   release();
+      285 |   await expect.poll(async () => (await (await request.get(`/api/v1/projects/${project.id}`)).json()).entries[0].atom_count).toBe(9);
+        at /datadisk/dev/neistra/tests/e2e/molecular-editing.spec.ts:282:116
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/molecular-editing-keeps-la-f8eeb-d-by-their-original-project-mobile-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/molecular-editing-keeps-la-f8eeb-d-by-their-original-project-mobile-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/molecular-editing-keeps-la-f8eeb-d-by-their-original-project-mobile-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/molecular-editing-keeps-la-f8eeb-d-by-their-original-project-mobile-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4 failed
+    [chromium] › tests/e2e/molecular-editing.spec.ts:192:5 › edits a prepared complex with native H/new-atom picks, fixed camera and one affected reload
+    [chromium] › tests/e2e/molecular-editing.spec.ts:265:5 › keeps late edit responses owned by their original project
+    [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:192:5 › edits a prepared complex with native H/new-atom picks, fixed camera and one affected reload
+    [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:265:5 › keeps late edit responses owned by their original project

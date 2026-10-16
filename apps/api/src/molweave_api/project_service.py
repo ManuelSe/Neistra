@@ -1366,6 +1366,7 @@ class ProjectService:
         description: str,
         change: dict[str, Any],
         deleted_atom_ids: list[int],
+        selection_snapshot: list[dict[str, Any]] | None = None,
     ) -> ProjectRead:
         project = self._project(project_id)
         self._check_revision(project, expected_revision)
@@ -1407,7 +1408,7 @@ class ProjectService:
             forward,
             inverse,
             [entry.id],
-            selection_snapshot=[
+            selection_snapshot=selection_snapshot if selection_snapshot is not None else [
                 {"structure_id": entry.id, "atom_id": atom_id} for atom_id in sorted(deleted)
             ],
             topology_patches=[

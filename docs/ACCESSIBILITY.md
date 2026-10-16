@@ -6,6 +6,41 @@ Neistra targets WCAG 2.2 Level AA for the local application shell. The
 qualification combines deterministic browser automation with keyboard and
 visual checks; an axe pass alone is not treated as complete coverage.
 
+## Compact molecular editor (issue #69)
+
+The nonmodal Edit launcher sits beside Transform with a named, viewport-bounded
+panel. Native buttons expose symbols/fragment structures plus accessible names;
+section buttons use pressed state rather than an incomplete ARIA tab pattern.
+All20 mutation names are available for one complete eligible residue, with a
+clear reason for partial/mixed/unsupported selection and no inferred default.
+Current-type/no-op actions remain unavailable. Scientific limits and full
+operation warnings are reachable through native keyboard-accessible disclosures.
+
+Keyboard opening focuses a stable dialog container. An operation focuses that
+container before pending controls disable, preserving focus through topology
+replacement. Escape while the panel owns focus returns to its launcher. Outside
+canvas/control interactions remain available and retain focus. Project-scoped
+section/focus intent survives responsive remounts; project change clears it.
+Tool handoffs suppress outgoing Style restoration; movement owns its controls
+while active and numeric preview blocks chemistry editing.
+
+Portal placement observes resize/zoom and notification bounds, coalescing updates
+without focus timers; persistent notices do not cover the heading/Close action.
+The launcher and coarse-pointer controls use44px targets. Dedicated C3 browser
+coverage asserts actual native picks/controls, keyboard focus and notice hit
+testing, light/dark scoped axe and320px layout. C4 also passes actual100%/200%Chrome zoom in both themes, all enabled panel
+controls/disclosures by keyboard, responsive owned-focus restoration and async
+read-failure recovery. [Evidence](assets/molecular-editing/c4-verification.json)
+retains exact commands and screenshots. Evidence and manual screenshot inspection are
+separate; no interactive screen-reader or physical-device certification is claimed.
+
+C5 full-gate review additionally found a mobile vendor-popup overlap with the new
+Edit launcher. Measured complete-header clearance, bounded vendor scrolling,
+launcher hit testing and unchanged full-shell axe assertions qualify the repair.
+A session generation prevents a previous project visit's completion from clearing
+or publishing feedback over a newer pending operation. Exact evidence is retained
+in the editing plan's C5 repair log; the complete release gate remains mandatory.
+
 ## Compact project navigation (issue #59)
 
 Entries have single-line32px fine-pointer/44px coarse-pointer rows with explicit

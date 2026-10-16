@@ -1,0 +1,47 @@
+
+> @neistra/web@0.16.0 test /datadisk/dev/neistra/apps/web
+> vitest run --run src/test/molecular-edit-panel.test.tsx
+
+
+ RUN  v3.2.4 /datadisk/dev/neistra/apps/web
+
+ ❯ src/test/molecular-edit-panel.test.tsx (9 tests | 1 failed) 526ms
+   ✓ captures canonical operands, stays open, and restores owned launcher focus 113ms
+   ✓ explains empty selection and does not execute an inferred default target 27ms
+   ✓ preserves open state across responsive remounts but resets on project switch 55ms
+   ✓ uses two canonical endpoints for bond order without a manual bond ID 48ms
+   ✓ shows six structural previews and substitutes an H through one fragment action 58ms
+   ✓ opens by keyboard into the dialog and closes with owned focus 27ms
+   ✓ mutates a complete standard residue through one action and explains partial selection 79ms
+   ✓ surfaces failed chemistry without closing the panel or repeating a pending command 53ms
+   × does not let an old project visit clear a newer visit's pending edit 64ms
+     → expected false to be true // Object.is equality
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/test/molecular-edit-panel.test.tsx > does not let an old project visit clear a newer visit's pending edit
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ src/test/molecular-edit-panel.test.tsx:155:48
+    153|   await act(async () => { finishFirst(); await Promise.resolve(); });
+    154|   try {
+    155|     expect(useEditingStore.getState().pending).toBe(true);
+       |                                                ^
+    156|     expect(screen.getByRole("button", { name: "Replace selected atom w…
+    157|   } finally {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 8 passed (9)
+   Start at  16:55:42
+   Duration  1.23s (transform 104ms, setup 54ms, collect 224ms, tests 526ms, environment 209ms, prepare 63ms)
+
+ ELIFECYCLE  Test failed. See above for more details.

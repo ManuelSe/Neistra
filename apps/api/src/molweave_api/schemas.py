@@ -6,6 +6,7 @@ from typing import Annotated, Any, Literal
 from uuid import UUID
 
 from molweave_core.components import ComponentHierarchyV1
+from molweave_core.editing.selection import SelectionAction
 from molweave_core.molecular import MolecularWarning, NormalizedStructureV1
 from molweave_core.selection import AtomReference, SelectionGranularity, SelectionV1
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
@@ -1071,6 +1072,25 @@ class ProteinResidueMutateEdit(ProteinEditBase):
     operation: Literal["protein.residue.mutate"]
     residue_id: int = Field(ge=1)
     target_name: StandardAminoAcid
+
+
+class SelectionResidueMutation(BaseModel):
+    model_config = ConfigDict(extra="forbid", frozen=True)
+    operation: Literal["residue.mutate"]
+    target_name: StandardAminoAcid
+
+
+class SelectionEditCreate(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    expected_revision: int = Field(ge=0)
+    expected_artifact_id: str = Field(min_length=1)
+    selection: SelectionV1
+    action: Annotated[SelectionAction | SelectionResidueMutation, Field(discriminator="operation")]
+
+
+class SelectionEditRead(LigandEditRead):
+    replacements: dict[int, int] = Field(default_factory=dict)
+    selection_after: SelectionV1
 
 
 class ProteinHydrogenAddEdit(ProteinEditBase):
