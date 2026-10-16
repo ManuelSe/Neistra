@@ -3769,3 +3769,27 @@ Artifact-query failure uses explicit retry, consistent with the viewer's query;
 late edit responses retain project/revision/selection guards. Audit modification
 timestamps advance during Undo; artifact bytes and reference content restore
 exactly. No schema/migration/legacy API changes are introduced by these refinements.
+
+
+### D-100 release-review note — issue #69 M5/C5, 2026-10-16
+
+Project ID alone does not own an asynchronous UI operation after leaving and
+returning to the same project. Each active-project change advances a transient
+editing-session generation. Capture it at submission; only matching current
+project/generation can publish feedback, clear pending, change selection or show
+completion/error notices. Project-cache acceptance still follows revision ordering,
+including inactive owners. Responsive remounts keep the same generation. A red/green
+component regression reproduces old completion clearing a newer pending edit;
+native qualification holds two server-committed responses across a project roundtrip.
+No API, molecular state, schema or version impact changes.
+
+The full candidate gate found a mobile target-size failure where a vendor screenshot
+popup overlapped the new Edit launcher. Observe the complete application header's
+actual bounds and reserve that clearance above vendor popups, rather than assuming
+the picking toolbar has fixed height. Keep popup scroll bounds, launcher hit targets
+and keyboard access at responsive widths and real zoom. This is presentation-only
+layout; no molecular/viewer state is copied into React or persisted.
+
+The static theme contract also requires every consumed CSS variable to have a
+source declaration. Declare the geometry clearance's72px fallback in the viewer
+scope; keep its measured inline value transient. No assertion is weakened.

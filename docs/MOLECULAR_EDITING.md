@@ -56,7 +56,8 @@ Warnings remain attached to the entry and are available through entry Details.
 Active coordinate movement blocks chemistry edits. Complete movement explicitly
 before using Edit; normal camera and molecular-selection gestures are preserved.
 Empty/mixed/stale/locked targets fail with a reason rather than modifying another
-entry. Project-owned asynchronous responses cannot select atoms in another project.
+entry. Project/session-owned asynchronous responses cannot select atoms in another project
+or clear a newer operation after leaving and returning to the same project.
 
 No new database migration is introduced. Existing project/viewer/archive2 and
 normalized/selection1 remain, with Alembic0014. Prior-reader compatibility and

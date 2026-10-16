@@ -133,3 +133,29 @@ it("surfaces failed chemistry without closing the panel or repeating a pending c
   expect(screen.getByRole("dialog", { name: "Edit molecule" })).toBeVisible();
   expect(screen.getByRole("button", { name: "Replace selected atom with N" })).toBeEnabled();
 });
+
+it("does not let an old project visit clear a newer visit's pending edit", async () => {
+  const completed = { project, warnings: [], report: {}, replacements: {} };
+  const first = setup();
+  let finishFirst!: () => void;
+  first.onEdit.mockImplementationOnce(() => new Promise(resolve => { finishFirst = () => resolve(completed); }));
+  await first.user.click(screen.getByRole("button", { name: "Edit molecule" }));
+  await first.user.click(screen.getByRole("button", { name: "Replace selected atom with N" }));
+  expect(useEditingStore.getState().pending).toBe(true);
+  act(() => { useEditingStore.getState().setProject("another-project"); });
+  cleanup();
+  act(() => { useEditingStore.getState().setProject(project.id); });
+  const second = setup();
+  let finishSecond!: () => void;
+  second.onEdit.mockImplementationOnce(() => new Promise(resolve => { finishSecond = () => resolve(completed); }));
+  await second.user.click(screen.getByRole("button", { name: "Edit molecule" }));
+  await second.user.click(screen.getByRole("button", { name: "Replace selected atom with N" }));
+  await act(async () => { finishFirst(); await Promise.resolve(); });
+  try {
+    expect(useEditingStore.getState().pending).toBe(true);
+    expect(screen.getByRole("button", { name: "Replace selected atom with F" })).toBeDisabled();
+  } finally {
+    await act(async () => { finishSecond(); await Promise.resolve(); });
+  }
+  expect(useEditingStore.getState().pending).toBe(false);
+});

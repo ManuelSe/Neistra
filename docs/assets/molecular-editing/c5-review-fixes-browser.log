@@ -1,0 +1,60 @@
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+[2m[WebServer] [22mINFO:     Started server process [914971]
+[2m[WebServer] [22mINFO:     Waiting for application startup.
+[2m[WebServer] [22mINFO:     Application startup complete.
+[2m[WebServer] [22mINFO:     Uvicorn running on http://127.0.0.1:8160 (Press CTRL+C to quit)
+[2m[WebServer] [22m(node:915043) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:915055) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 8 tests using 1 worker
+
+(node:915082) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:915082) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/e2e/molecular-editing.spec.ts:364:5 › keeps a newer pending edit owned after leaving and returning to the same project (18.9s)
+[2m[WebServer] [22mINFO:     127.0.0.1:58976 - "WebSocket /ws/jobs?project_id=01a1453a-9243-7048-aece-2f36e4adcdb8" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:58986 - "WebSocket /ws/jobs?project_id=01a1453a-9243-7048-aece-2f36e4adcdb8" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:49396 - "WebSocket /ws/jobs?project_id=01a1453a-9243-7048-aece-2f36e4adcdb8" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:49408 - "WebSocket /ws/jobs?project_id=01a1453a-9243-7048-aece-2f36e4adcdb8" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+  ✓  2 [chromium] › tests/e2e/rebranding-surfaces.spec.ts:52:5 › reviews all Neistra workflow surfaces in both themes (42.5s)
+  ✓  3 [chromium] › tests/e2e/rebranding-zoom.spec.ts:60:5 › keeps actions and dialogs reachable at real 100% and 200% browser zoom (1.5m)
+  ✓  4 [chromium] › tests/e2e/rebranding-zoom.spec.ts:358:5 › keeps the molecular editor keyboard controls reachable at actual browser zoom (20.6s)
+(node:916503) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:916503) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  5 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:364:5 › keeps a newer pending edit owned after leaving and returning to the same project (18.0s)
+[2m[WebServer] [22mINFO:     127.0.0.1:59098 - "WebSocket /ws/jobs?project_id=01a1453d-328a-7bfa-93e0-666a58ddc166" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:59106 - "WebSocket /ws/jobs?project_id=01a1453d-328a-7bfa-93e0-666a58ddc166" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:59116 - "WebSocket /ws/jobs?project_id=01a1453d-328a-7bfa-93e0-666a58ddc166" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:59132 - "WebSocket /ws/jobs?project_id=01a1453d-328a-7bfa-93e0-666a58ddc166" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:49070 - "WebSocket /ws/jobs?project_id=01a1453d-328a-7bfa-93e0-666a58ddc166" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:49078 - "WebSocket /ws/jobs?project_id=01a1453d-328a-7bfa-93e0-666a58ddc166" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:49086 - "WebSocket /ws/jobs?project_id=01a1453d-328a-7bfa-93e0-666a58ddc166" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:49098 - "WebSocket /ws/jobs?project_id=01a1453d-328a-7bfa-93e0-666a58ddc166" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:49106 - "WebSocket /ws/jobs?project_id=01a1453d-328a-7bfa-93e0-666a58ddc166" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:49112 - "WebSocket /ws/jobs?project_id=01a1453d-328a-7bfa-93e0-666a58ddc166" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+  ✓  6 [mobile-chromium] › tests/e2e/rebranding-surfaces.spec.ts:52:5 › reviews all Neistra workflow surfaces in both themes (44.3s)
+  -  7 [mobile-chromium] › tests/e2e/rebranding-zoom.spec.ts:60:5 › keeps actions and dialogs reachable at real 100% and 200% browser zoom
+  -  8 [mobile-chromium] › tests/e2e/rebranding-zoom.spec.ts:358:5 › keeps the molecular editor keyboard controls reachable at actual browser zoom
+
+  2 skipped
+  6 passed (4.0m)

@@ -1,0 +1,13 @@
+
+> @neistra/web@0.16.0 test /datadisk/dev/neistra/apps/web
+> vitest run --run src/test/molecular-edit-panel.test.tsx
+
+
+ RUN  v3.2.4 /datadisk/dev/neistra/apps/web
+
+ ✓ src/test/molecular-edit-panel.test.tsx (9 tests) 524ms
+
+ Test Files  1 passed (1)
+      Tests  9 passed (9)
+   Start at  16:57:03
+   Duration  1.28s (transform 117ms, setup 56ms, collect 254ms, tests 524ms, environment 227ms, prepare 58ms)

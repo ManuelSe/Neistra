@@ -714,3 +714,53 @@ delivered merely because a follow-up exists.
 - Next: commit `chore(release): prepare v0.16.0`, then run the complete release
   gate from a clean candidate, capture evidence externally, perform final full-diff
   local review and open the normal-merge PR. No protection bypass is authorized.
+
+
+### M5/C5 initial candidate and consequential review repairs — 2026-10-16
+
+- Release preparation committed/pushed at03ced3772dd5bed2393f8d5a0c859005f1335ccd.
+  Frozen installs/fresh0014/Ruff/mypy64/613Python/lint/types/235frontend/8supervisor/
+  build and final0.16.0-vs-actual-v0.15.0 reader pass. Complete260-case browser run
+  reports213passes/46intentional skips/1failure in35.8m: mobile axe target-size
+  detects partially obscured Edit launcher under vendor screenshot controls.
+  [Diagnostic evidence](../assets/molecular-editing/c5-candidate-diagnostic-gate.json)
+  is explicitly not final passing qualification. No PR/merge/tag/release occurred.
+- Local complete-diff review additionally finds a cross-visit pending ownership
+  gap: first edit, leave/return, second edit, first completion could clear second
+  pending state. A new component regression fails on prior source, then passes
+  with a transient editing-session generation and owner checks for pending,
+  selection/feedback/notices. Server revision checks always protected molecular data.
+- Reserve measured complete-header clearance above vendor popups, keeping the
+  Edit launcher and popup controls reachable rather than weakening axe assertions.
+  New hit testing, roundtrip/two-response workflow and real zoom are required.
+  A native test setup initially returned within the existing10s project-cache
+  freshness interval; allow that interval to expire while away before capturing
+  the second valid revision. This is separate harness evidence, not a product fix.
+- D-100 release-review note records the refinements. No approved scope expansion,
+  migration or SemVer change. Focused repair gate and a fresh complete candidate
+  gate must pass before opening the PR; exact merged-master gate remains mandatory.
+
+
+### M5/C5 repair checkpoint validation — 2026-10-16
+
+- Final focused static gate:68Python domain/editing/API, all236frontend, Ruff,
+  mypy64, lint/types/build/diff pass. The first static attempt caught a missing
+  source declaration for the runtime layout CSS variable; declare its existing
+  72px fallback in viewer scope, without weakening the theme contract.
+- Native roundtrip/two-held-response, vendor screenshot/settings light/dark and
+  actual100%/200%Chrome zoom pass6cases/2intentional mobile zoom skips. Added
+  final source declaration only preserves the existing72px fallback; repeat the
+  full vendor workflow on final source, then freeze runtime for a fresh complete
+  candidate gate. No revision is qualified for merge by the failed initial gate.
+
+
+- Repair checkpoint complete: [passing evidence](../assets/molecular-editing/c5-review-fixes-verification.json)
+  binds final source to68focused Python/236frontend, all static/build/diff checks
+  and final full-shell vendor workflows2/2 in both themes on desktop/mobile.
+  Preceding roundtrip/vendor/real-zoom6passes/2intentional skips and red/green proof
+  remain explicit. Static-only declaration of the existing72px fallback is
+  distinguished from that preceding browser source; final vendor run is exact.
+  Manually inspected the retained mobile clearance screenshot. No consequential
+  local finding remains; no independent review is claimed. Commit these passing
+  repairs, then freeze runtime and rerun the entire clean candidate gate using
+  fresh `/tmp/neistra-issue69-c5-candidate-final` data.0.16.0minor/no migration remains.

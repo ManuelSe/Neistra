@@ -360,3 +360,57 @@ test("retains a newer native selection and recovers an affected-artifact refetch
   const persisted = await (await request.get(path)).json() as Project;
   expect(persisted.revision).toBe(project.revision + 1);
 });
+
+test("keeps a newer pending edit owned after leaving and returning to the same project", async ({ page, request }, info) => {
+  test.setTimeout(120000);
+  const other = await (await request.post("/api/v1/projects", { data: { name: `Roundtrip owner ${Date.now()}` } })).json() as Project;
+  const project = await prepare(page, request, ["tests/fixtures/editing/ethanol-3d.mol"], "Edit visit ownership");
+  const entry = project.entries[0];
+  const path = `/api/v1/projects/${project.id}`;
+  let releaseFirst!: () => void; let releaseSecond!: () => void;
+  let receivedFirst!: () => void; let receivedSecond!: () => void;
+  const heldFirst = new Promise<void>(resolve => { releaseFirst = resolve; });
+  const heldSecond = new Promise<void>(resolve => { releaseSecond = resolve; });
+  const committedFirst = new Promise<void>(resolve => { receivedFirst = resolve; });
+  const committedSecond = new Promise<void>(resolve => { receivedSecond = resolve; });
+  let requests = 0;
+  await page.route("**/selection-edits", async route => {
+    const ordinal = ++requests;
+    const response = await route.fetch();
+    if (ordinal === 1) { receivedFirst(); await heldFirst; }
+    else { receivedSecond(); await heldSecond; }
+    await route.fulfill({ response });
+  });
+  const switchProject = async (name: string) => {
+    await page.getByRole("button", { name: "Projects", exact: true }).click();
+    await page.getByRole("dialog", { name: "Projects" }).getByRole("button", { name: new RegExp(`^${name}`) }).click();
+  };
+  await selectAtom(page, entry.id, 1, info.project.name === "mobile-chromium");
+  await page.getByRole("button", { name: "Edit molecule", exact: true }).click();
+  await page.getByRole("button", { name: "Prepare component hydrogens", exact: true }).click();
+  await committedFirst;
+  await switchProject(other.name);
+  await expect(page.getByRole("heading", { name: other.name, exact: true })).toBeVisible();
+  // Let the existing 10-second project-query freshness interval expire while
+  // away so the second valid command captures the committed first revision.
+  await page.waitForTimeout(10_100);
+  await switchProject(project.name);
+  await expect(page.getByRole("button", { name: /^Undo: Prepare component hydrogens/ })).toBeVisible();
+  await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded", { timeout: 30000 });
+  await selectAtom(page, entry.id, 3, info.project.name === "mobile-chromium");
+  await page.getByRole("button", { name: "Edit molecule", exact: true }).click();
+  const panel = page.getByRole("dialog", { name: "Edit molecule", exact: true });
+  await panel.getByRole("button", { name: "Replace selected atom with N", exact: true }).click();
+  await committedSecond;
+  try {
+    const refreshedList = page.waitForResponse(response => new URL(response.url()).pathname === "/api/v1/projects" && response.request().method() === "GET");
+    releaseFirst(); await refreshedList;
+    await expect(panel.getByRole("button", { name: "Replace selected atom with C", exact: true })).toBeDisabled();
+    await expect(panel.getByText("Finish the current operation.", { exact: true })).toBeVisible();
+    await expect(page.getByText(/Molecular edit stored/)).toBeHidden();
+    expect(requests).toBe(2);
+  } finally { releaseFirst(); releaseSecond(); }
+  await expect(panel.getByRole("button", { name: "Replace selected atom with O", exact: true })).toBeEnabled();
+  const result = await (await request.get(path)).json() as Project;
+  expect(result.revision).toBe(project.revision + 2);
+});

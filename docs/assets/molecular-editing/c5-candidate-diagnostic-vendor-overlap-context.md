@@ -1,0 +1,125 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - button "Projects" [ref=e5] [cursor=pointer]:
+      - generic [ref=e7] [cursor=pointer]: Neistra
+    - button "Brand surfaces mobile-chromium 1792162118820 Unsaved changes" [ref=e8] [cursor=pointer]:
+      - generic [ref=e9] [cursor=pointer]: Brand surfaces mobile-chromium 1792162118820
+    - generic [ref=e11]:
+      - button "Project browser" [ref=e12] [cursor=pointer]:
+        - img [ref=e13] [cursor=pointer]
+      - button "History" [ref=e18] [cursor=pointer]:
+        - img [ref=e19] [cursor=pointer]
+      - button "Inspector" [ref=e23] [cursor=pointer]:
+        - img [ref=e24] [cursor=pointer]
+      - button "Import structures" [ref=e26] [cursor=pointer]:
+        - img [ref=e27] [cursor=pointer]
+      - button "Export" [ref=e30] [cursor=pointer]:
+        - img [ref=e31] [cursor=pointer]
+      - button "Jobs" [ref=e37] [cursor=pointer]:
+        - img [ref=e38] [cursor=pointer]
+      - 'button "Undo: Import 2 structures from 2 files" [ref=e42] [cursor=pointer]':
+        - img [ref=e43] [cursor=pointer]
+      - button "Redo" [disabled] [ref=e46]:
+        - img [ref=e47]
+      - button "Save checkpoint" [ref=e50] [cursor=pointer]:
+        - img [ref=e51] [cursor=pointer]
+      - button "Use dark theme" [ref=e55] [cursor=pointer]:
+        - img [ref=e56] [cursor=pointer]
+  - main [ref=e59]:
+    - generic [ref=e60]:
+      - generic [ref=e65]:
+        - button "Select Animation" [ref=e73] [cursor=pointer]:
+          - img [ref=e75] [cursor=pointer]
+        - generic [ref=e77]:
+          - generic [ref=e78]:
+            - button "Reset Zoom" [ref=e81] [cursor=pointer]:
+              - img [ref=e83] [cursor=pointer]
+            - button "Screenshot / State Snapshot" [ref=e87] [cursor=pointer]:
+              - img [ref=e89] [cursor=pointer]
+            - generic [ref=e91]:
+              - button "Toggle Controls Panel" [ref=e93] [cursor=pointer]:
+                - img [ref=e95] [cursor=pointer]
+              - button "Toggle Expanded Viewport" [ref=e98] [cursor=pointer]:
+                - img [ref=e100] [cursor=pointer]
+              - button "Settings / Controls Info" [ref=e102] [cursor=pointer]:
+                - img [ref=e104] [cursor=pointer]
+              - button "Illumination" [ref=e106] [cursor=pointer]:
+                - img [ref=e108] [cursor=pointer]
+              - button "Augmented/Virtual Reality unavailable" [disabled] [ref=e110]:
+                - img [ref=e112]
+            - button "Toggle Selection Mode" [ref=e117] [cursor=pointer]:
+              - img [ref=e119] [cursor=pointer]
+          - generic [ref=e122]:
+            - button "Screenshot / State" [ref=e124] [cursor=pointer]:
+              - img [ref=e126] [cursor=pointer]
+              - generic [ref=e128] [cursor=pointer]: Screenshot / State
+            - generic [ref=e130]:
+              - button "Auto-crop On" [ref=e144] [cursor=pointer]:
+                - img [ref=e146] [cursor=pointer]
+                - generic [ref=e148] [cursor=pointer]: Auto-crop On
+              - generic [ref=e149]:
+                - button "Copy" [ref=e150] [cursor=pointer]:
+                  - img [ref=e152] [cursor=pointer]
+                  - text: Copy
+                - button "Download" [ref=e154] [cursor=pointer]:
+                  - img [ref=e156] [cursor=pointer]
+                  - text: Download
+              - button "Viewport" [ref=e161] [cursor=pointer]
+              - button "PNG" [ref=e165] [cursor=pointer]
+              - button "Off" [ref=e169] [cursor=pointer]:
+                - img [ref=e171] [cursor=pointer]
+                - text: "Off"
+              - generic [ref=e173]:
+                - generic "Axes. Click for help." [ref=e174]:
+                  - text: Axes
+                  - button "Axes. Click for help." [ref=e175] [cursor=pointer]
+                - button "Off" [ref=e177] [cursor=pointer]:
+                  - img [ref=e179] [cursor=pointer]
+                  - text: "Off"
+              - button "Illumination" [ref=e183] [cursor=pointer]:
+                - img [ref=e185] [cursor=pointer]
+                - text: Illumination
+              - button "State" [ref=e188] [cursor=pointer]:
+                - img [ref=e190] [cursor=pointer]
+                - text: State
+              - button "Camera" [ref=e193] [cursor=pointer]:
+                - img [ref=e195] [cursor=pointer]
+                - text: Camera
+      - generic:
+        - status:
+          - generic: 2 visible / 2 loaded / 0 selected
+          - generic:
+            - img
+            - text: 1 warning
+        - toolbar "Viewer quick actions" [ref=e197]:
+          - generic [ref=e198]: Pick
+          - generic [ref=e199]:
+            - generic [ref=e200]: Viewer picking mode
+            - combobox "Viewer picking mode" [ref=e201]:
+              - option "Atom" [selected]
+              - option "Residue"
+              - option "Chain"
+              - option "Structure"
+          - group "Viewer focus actions" [ref=e202]:
+            - button "Fit all visible" [ref=e203] [cursor=pointer]:
+              - img [ref=e204] [cursor=pointer]
+            - button "Focus selection" [disabled] [ref=e205]:
+              - img [ref=e206]
+            - button "Focus visible ligands" [ref=e212] [cursor=pointer]:
+              - img [ref=e213] [cursor=pointer]
+            - button "Style selection" [disabled] [ref=e216]:
+              - img [ref=e217]
+            - button "Interactions" [ref=e223] [cursor=pointer]:
+              - img [ref=e224] [cursor=pointer]
+        - generic [ref=e229]:
+          - region "Transformation tools" [ref=e230]:
+            - button "Transform selection" [disabled] [ref=e231]:
+              - img [ref=e232]
+          - button "Edit molecule" [ref=e238] [cursor=pointer]:
+            - img [ref=e239] [cursor=pointer]
+      - button "Open viewer controls" [ref=e243] [cursor=pointer]:
+        - img [ref=e244] [cursor=pointer]
+```

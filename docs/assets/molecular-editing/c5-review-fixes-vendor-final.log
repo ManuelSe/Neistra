@@ -1,0 +1,53 @@
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+[2m[WebServer] [22mINFO:     Started server process [921142]
+[2m[WebServer] [22mINFO:     Waiting for application startup.
+[2m[WebServer] [22mINFO:     Application startup complete.
+[2m[WebServer] [22mINFO:     Uvicorn running on http://127.0.0.1:8160 (Press CTRL+C to quit)
+[2m[WebServer] [22m(node:921218) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:921230) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 2 tests using 1 worker
+
+(node:921256) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:921256) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22mINFO:     127.0.0.1:51294 - "WebSocket /ws/jobs?project_id=01a14540-612e-7dd8-9622-2a38723dcb15" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:51306 - "WebSocket /ws/jobs?project_id=01a14540-612e-7dd8-9622-2a38723dcb15" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:44814 - "WebSocket /ws/jobs?project_id=01a14540-612e-7dd8-9622-2a38723dcb15" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:44822 - "WebSocket /ws/jobs?project_id=01a14540-612e-7dd8-9622-2a38723dcb15" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+  ✓  1 [chromium] › tests/e2e/rebranding-surfaces.spec.ts:52:5 › reviews all Neistra workflow surfaces in both themes (43.2s)
+(node:921981) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:921981) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22mINFO:     127.0.0.1:59796 - "WebSocket /ws/jobs?project_id=01a14541-0b97-76a2-b30f-040cc8188dca" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:59808 - "WebSocket /ws/jobs?project_id=01a14541-0b97-76a2-b30f-040cc8188dca" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:59820 - "WebSocket /ws/jobs?project_id=01a14541-0b97-76a2-b30f-040cc8188dca" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:59842 - "WebSocket /ws/jobs?project_id=01a14541-0b97-76a2-b30f-040cc8188dca" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:34260 - "WebSocket /ws/jobs?project_id=01a14541-0b97-76a2-b30f-040cc8188dca" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:34264 - "WebSocket /ws/jobs?project_id=01a14541-0b97-76a2-b30f-040cc8188dca" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:34272 - "WebSocket /ws/jobs?project_id=01a14541-0b97-76a2-b30f-040cc8188dca" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:34288 - "WebSocket /ws/jobs?project_id=01a14541-0b97-76a2-b30f-040cc8188dca" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:34300 - "WebSocket /ws/jobs?project_id=01a14541-0b97-76a2-b30f-040cc8188dca" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:34314 - "WebSocket /ws/jobs?project_id=01a14541-0b97-76a2-b30f-040cc8188dca" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+  ✓  2 [mobile-chromium] › tests/e2e/rebranding-surfaces.spec.ts:52:5 › reviews all Neistra workflow surfaces in both themes (44.9s)
+
+  2 passed (1.5m)

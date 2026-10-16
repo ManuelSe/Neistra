@@ -34,6 +34,13 @@ read-failure recovery. [Evidence](assets/molecular-editing/c4-verification.json)
 retains exact commands and screenshots. Evidence and manual screenshot inspection are
 separate; no interactive screen-reader or physical-device certification is claimed.
 
+C5 full-gate review additionally found a mobile vendor-popup overlap with the new
+Edit launcher. Measured complete-header clearance, bounded vendor scrolling,
+launcher hit testing and unchanged full-shell axe assertions qualify the repair.
+A session generation prevents a previous project visit's completion from clearing
+or publishing feedback over a newer pending operation. Exact evidence is retained
+in the editing plan's C5 repair log; the complete release gate remains mandatory.
+
 ## Compact project navigation (issue #59)
 
 Entries have single-line32px fine-pointer/44px coarse-pointer rows with explicit

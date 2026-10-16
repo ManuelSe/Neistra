@@ -55,7 +55,9 @@ needs no data stripping/schema downgrade; older0014 guards still apply. See
 
 Preserve the focused camera across responsive viewer remounts; retain panel section
 and owned focus. Capture project/revision/artifact/selection, preserve newer picks
-and ignore other-project late replies. Failed artifact reads offer explicit retry.
+and ignore other-project or previous-visit late replies. A previous visit cannot
+clear a newer pending edit. Vendor popups clear the full measured launcher/header
+area. Failed artifact reads offer explicit retry.
 Native H/bond/residue/new-atom picking, keyboard/focus/notice hit testing,
 light/dark320px layouts, actual100%/200%Chrome zoom and scoped axe are qualified.
 These checks are distinct from manual screenshot review and do not certify

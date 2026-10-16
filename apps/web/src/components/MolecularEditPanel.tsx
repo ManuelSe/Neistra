@@ -52,28 +52,30 @@ export function MolecularEditPanel({ project, selection, busy, unavailable, onEd
   const execute = async (action: SelectionEditAction) => {
     if (reason || !entry || !artifact || useEditingStore.getState().pending) return;
     const owner = project.id;
+    const generation = useEditingStore.getState().generation;
     if (panel.current?.contains(document.activeElement)) panel.current.focus();
     setPending(true); setError(null);
     try {
       const result = await onEdit(entry.id, artifact, selection, action);
-      if (useEditingStore.getState().projectId === owner) setFeedback({ entry: entry.name, warnings: result.warnings });
+      if (useEditingStore.getState().projectId === owner && useEditingStore.getState().generation === generation) setFeedback({ entry: entry.name, warnings: result.warnings });
     }
     catch (failure) {
-      if (useEditingStore.getState().projectId === owner) setError(`${entry.name}: ${failure instanceof Error ? failure.message : "Edit failed."}`);
+      if (useEditingStore.getState().projectId === owner && useEditingStore.getState().generation === generation) setError(`${entry.name}: ${failure instanceof Error ? failure.message : "Edit failed."}`);
     } finally {
-      if (useEditingStore.getState().projectId === owner) setPending(false);
+      if (useEditingStore.getState().projectId === owner && useEditingStore.getState().generation === generation) setPending(false);
     }
   };
   const showHydrogens = async () => {
     if (!onSettings || !entry || busy || pending) return;
     const owner = project.id;
+    const generation = useEditingStore.getState().generation;
     if (panel.current?.contains(document.activeElement)) panel.current.focus();
     try {
       await onSettings(entry.id, { ...entry.viewer_settings, components: {
         ...entry.viewer_settings.components, hydrogens: true, nonpolar_hydrogens: true,
       } });
     } catch (failure) {
-      if (useEditingStore.getState().projectId === owner) setError(`${entry.name}: ${String(failure)}`);
+      if (useEditingStore.getState().projectId === owner && useEditingStore.getState().generation === generation) setError(`${entry.name}: ${String(failure)}`);
     }
   };
   return <div className="molecular-edit-tools">

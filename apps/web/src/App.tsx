@@ -770,11 +770,12 @@ export default function App() {
     onEdit: async (entryId: string, artifactId: string, operand: Selection, action: SelectionEditAction) => {
       if (!project) throw new Error("Open a project before editing.");
       const owner = project.id;
+      const generation = useEditingStore.getState().generation;
       const captured = useSelectionStore.getState().selection;
       try {
         const result = await projectApi.selectionEdit(project, entryId, artifactId, operand, action);
         updateProjectCache(result.project);
-        if (useWorkspaceStore.getState().activeProjectId === owner) {
+        if (useWorkspaceStore.getState().activeProjectId === owner && useEditingStore.getState().generation === generation) {
           const latest = queryClient.getQueryData<Project>(["project", owner]);
           if (latest?.revision === result.project.revision && useSelectionStore.getState().selection === captured) {
             replaceSelection(result.selection_after);
@@ -784,7 +785,7 @@ export default function App() {
         }
         return result;
       } catch (error) {
-        if (useWorkspaceStore.getState().activeProjectId === owner) {
+        if (useWorkspaceStore.getState().activeProjectId === owner && useEditingStore.getState().generation === generation) {
           setNotice({ kind: "error", text: errorMessage(error) });
           void queryClient.invalidateQueries({ queryKey: ["project", owner] });
         }

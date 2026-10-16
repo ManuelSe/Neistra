@@ -1,5 +1,6 @@
 import type { SurfaceStatus } from "../viewer/surface/runtime";
 import type { SurfaceActions, ChangeSelectionAppearance, ApplySelectionEdit } from "../api/types";
+import { useChromeClearance } from "../viewer/useChromeClearance";
 import { MolecularEditPanel } from "./MolecularEditPanel";
 import { useViewerCameraStore } from "../store/viewerCamera";
 import { useEditingStore } from "../store/editing";
@@ -110,6 +111,7 @@ export function StructureViewer({
 }: StructureViewerProps) {
   const queryClient = useQueryClient();
   const targetRef = useRef<HTMLDivElement>(null);
+  useChromeClearance(targetRef);
   const viewerRef = useRef<MolecularViewer | undefined>(undefined);
   const themeRef = useRef(theme);
   themeRef.current = theme;

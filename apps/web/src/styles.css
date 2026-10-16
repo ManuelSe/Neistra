@@ -379,6 +379,7 @@ select:focus-visible,
 }
 
 .structure-viewer {
+  --viewer-chrome-bottom: 72px;
   position: relative;
   container-type: size;
   z-index: 1;
@@ -550,10 +551,10 @@ select:focus-visible,
 /* Theme nested vendor forms, but preserve inline scientific color swatches. */
 .molstar-host .msp-plugin .msp-viewport-controls-panel {
   z-index: 9;
-  /* Leave the wrapping application picking toolbar reachable above popups. */
-  top: 72px;
+  /* Leave the complete wrapping application header/launchers reachable. */
+  top: var(--viewer-chrome-bottom, 72px);
   width: min(290px, calc(100cqw - 52px));
-  max-height: calc(100cqh - 92px);
+  max-height: max(80px, calc(100cqh - var(--viewer-chrome-bottom, 72px) - 20px));
   overflow: auto;
 }
 
