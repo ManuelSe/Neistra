@@ -1,0 +1,46 @@
+{
+  "audited_utc": "2026-10-16T22:15:51.994984+00:00",
+  "pr": {
+    "baseRefName": "master",
+    "headRefOid": "e236089a418ca313d9c2d07d8642e0027c84a6bc",
+    "mergeStateStatus": "CLEAN",
+    "mergeable": "MERGEABLE",
+    "reviewDecision": "",
+    "state": "OPEN",
+    "statusCheckRollup": []
+  },
+  "master": {
+    "name": "master",
+    "protected": false,
+    "sha": "a0ad65b5509bef15935ff97f46633a2a45cd0602"
+  },
+  "rulesets": [],
+  "review": {
+    "reviewThreads": {
+      "nodes": []
+    },
+    "reviews": {
+      "nodes": []
+    },
+    "comments": {
+      "nodes": [
+        {
+          "databaseId": 6225708799,
+          "author": {
+            "login": "ManuelSe"
+          },
+          "body": "@codex review",
+          "url": "https://github.com/ManuelSe/Neistra/pull/75#issuecomment-6225708799",
+          "reactions": {
+            "totalCount": 0,
+            "nodes": []
+          }
+        }
+      ]
+    }
+  },
+  "source_equivalent_to_candidate": "b3238c018649410a3bcc1efd2f45e11def61f0d8",
+  "local_review_complete": true,
+  "unresolved_findings": [],
+  "normal_merge_eligible": true
+}

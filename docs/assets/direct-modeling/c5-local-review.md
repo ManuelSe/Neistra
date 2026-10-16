@@ -77,3 +77,16 @@ Request Codex review after PR creation; this document claims only local self-rev
 No unresolved consequential finding remains. Exact merged-master full qualification,
 annotated tag, remote release/asset/issue verification and final cleanup remain.
 
+
+Publication audit — 2026-10-17: PR #75 merged normally at `a6d62c85fbdefdf579fce68cf535285129364743`
+after the retained premerge review/thread/check/policy audit. Codex request
+https://github.com/ManuelSe/Neistra/pull/75#issuecomment-6225708799 returned no
+integration review at publication audit; no independent review is claimed. No
+required human approval/check/protection was bypassed. The exact clean merged
+master passes every complete release command and actual preceding-reader check,
+with the same 693/248/8/233 passes and 47 intentional layout skips, zero failures,
+flakes or retries. Source hashes equal the clean candidate. Annotated exact tag,
+stable release, downloaded evidence SHA256/CRC/internal hashes and issue reply are
+verified in c5-publication.json. No unresolved consequential finding remains.
+Final documentation integration is source-equivalent; branch cleanup and clean
+master are audited in the verified issue reply after their actual completion.

@@ -3,8 +3,11 @@
 ## Status and metadata
 
 Approved by the user's “Implement the plan.” on 2026-10-16 after the complete
-proposal and four confirmed product choices. C0–C4 and the C5 repair checkpoint are complete; the clean final candidate passes. PR review/merge and exact-master release delivery remain. This document is the implementation
-contract. Historical checkpoint entries record their state at that time.
+proposal and four confirmed product choices. C0–C5 implementation, candidate and
+exact-master qualification, normal PR merge, annotated tag, stable release and
+issue reply are verified. Final documentation integration and branch cleanup are
+recorded in the verified issue reply after completion. This document is the
+implementation contract. Historical checkpoint entries record their state at that time.
 
 - Issue: [#74](https://github.com/ManuelSe/Neistra/issues/74).
 - Base: master/origin/master `a0ad65b5509bef15935ff97f46633a2a45cd0602`.
@@ -572,3 +575,36 @@ plugin/job type or dependency upgrade is implied.
   source equivalence to b3238c0. Next: push/open normal PR, review/eligible merge,
   verify remote master, run every exact-master release command, then tag/release/
   asset verification/issue response/final docs/branch cleanup. No publication yet.
+
+
+### C5 release publication — 2026-10-17
+
+- [PR #75](https://github.com/ManuelSe/Neistra/pull/75) merged normally, preserving
+  checkpoints, at `a6d62c85fbdefdf579fce68cf535285129364743`.
+  [Premerge audit](../assets/direct-modeling/c5-premerge-audit.json) verifies
+  no configured required checks/reviews/protections, no unresolved conversations,
+  and normal merge eligibility. Codex was requested; no integration review returned
+  at publication audit. Full local self-review is not independent approval.
+- [Exact merged-master gate](../assets/direct-modeling/c5-merged-gate.json) passes
+  all 16 commands: 693 Python, 248 frontend, 8 supervisor, 233 native browser
+  passes / 47 intentional skips, zero failures/flakes/retries. Frozen installs,
+  fresh 0014, Ruff/mypy/lint/types/build/diff and actual tagged v0.16.0 reader
+  pass, including recreated allocation floors. Clean start/end and source/log
+  hashes verify source equivalence to the qualified candidate; 15 native
+  performance profiles retain existing budgets. Earlier diagnostics stay separate.
+- [Publication record](../assets/direct-modeling/c5-publication.json) verifies
+  annotated v0.17.0 targeting that exact master commit, stable latest
+  [release](https://github.com/ManuelSe/Neistra/releases/tag/v0.17.0), exact notes
+  and downloaded verification ZIP SHA256/CRC plus all 339 internal checksums.
+  [Issue close-out](https://github.com/ManuelSe/Neistra/issues/74#issuecomment-6226274182) verified; #74 is closed.
+- All five versions 0.17.0; stable minor for new direct building/creation, no
+  migration or schema/dependency change (0014; project/viewer/archive 2,
+  normalized/selection 1). Native draft data remain exact. Actual old-reader
+  data/history/archive retention is distinct from expected old renderer/helper
+  refusal and unsupported continued old-version authoring/runtime rollback.
+- No remaining approved-scope implementation or known blocker. Scientific limits
+  and approved exclusions remain documented; existing #70/#71/#12/#52/#20/#21
+  retain follow-up work. Final evidence/docs integrate by a normal documentation
+  PR on the planned feature branch with runtime sources unchanged. Its merge,
+  branch deletion and clean-master/source-equivalence audit update the same
+  verified issue reply after completion; tag remains on the tested runtime merge.
