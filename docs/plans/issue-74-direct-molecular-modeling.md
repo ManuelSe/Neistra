@@ -479,3 +479,35 @@ plugin/job type or dependency upgrade is implied.
   unrestricted runtime rollback or data stripping. Repeat with final0.17 producer.
 - C4 passing state ready to commit/push; next C5 versions/release notes/clean full
   candidate gate/full review/normal PR/merge/exact-master gate/tag/release/closeout.
+
+
+### C4 publication and C5 preparation — 2026-10-16
+
+- C4 committed/pushed as1500af0027bac4c1e72b20af26ddfa8d33166261; clean tree/remote branch verified before preparation.
+  Fetch origin/master/tags and safely incorporate current basea0ad65b5509bef15935ff97f46633a2a45cd0602.
+  No0.17.0 tag/release collision; preceding stable release remains0.16.0.
+- Advance all five authoritative versions to0.17.0 without dependency changes.
+  Stable minor adds direct building/creation; no top-level schema/database/API
+  redesign requires a major. Honest chemical export refusal/loss acknowledgement
+  corrects unrepresentable drafts without changing legacy helper edit contracts.
+- README/user/API/schema/science/compatibility/release notes describe implemented
+  scope and limits. No migration:0014; project/viewer/archive2, normalized/selection1.
+  Complete clean final-version candidate gate and full-diff self-review are next;
+  no PR/merge/tag/release claim yet. Exact-master qualification follows eligible
+  normal merge, then annotated tag/release/evidence/issue/docs/branch closeout.
+
+
+### C5 initial version guard diagnostic — 2026-10-16
+
+- First unpublished release-preparation candidate passes frozen installs/fresh0014/
+  Ruff/mypy, then21archive matrix cases fail only because their explicit producer
+  guard still expects0.16.0. The other666Python cases pass. This failed gate is
+  retained as c5-diagnostic-version evidence, never final release qualification.
+- Update the guard to0.17.0 and add0.16.0 to the preceding-producer matrix without
+  changing historical fixtures. Focused archive checks must pass before amending
+  the unpublished release-preparation commit; no shared history/force push.
+  Restart the entire clean final-version gate with fresh disposable data.
+
+- Corrected focused archive suite passes26cases in12.31s; Ruff passes. Retain the
+  explicit producer guard and every historical assertion, plus preceding0.16.0.
+  Amend only the unpublished preparation commit, then rerun all release commands.

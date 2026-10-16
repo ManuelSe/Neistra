@@ -2,25 +2,25 @@
 
 ## Current milestone
 
-Issue #74 C4 complete under the [approved contract](plans/issue-74-direct-molecular-modeling.md).
-C0–C3 are pushed; C4 scientific/persistence/native qualification is ready to commit.
-Direct drafts/building/creation work across formats/component boundaries, with
-literal H, optional helpers and pure preview. Compact inspection, theme/zoom/focus,
-reference/conformer/archive/export repairs and actual preceding reader qualify.
+Issue #74 C5 release preparation under the [approved contract](plans/issue-74-direct-molecular-modeling.md).
+C0–C4 are committed/pushed; C4:1500af0027bac4c1e72b20af26ddfa8d33166261.
+Approved direct editing/building/creation, native draft display, orphan-H repair,
+literal H, optional helpers, pure placement/empty rebuilding and qualification
+are complete. [C4 evidence](assets/direct-modeling/c4-verification.json):687Python/
+248frontend, broad desktop/mobile/native/actual-reader and static/build checks pass;
+exact counts/source/evidence/limitations are in the feature plan. Local self-review
+is not independent; earlier failures/interruption remain diagnostic.
 
-[Final C4 evidence](assets/direct-modeling/c4-verification.json):687Python,
-248frontend,99native/13intentional skips, no failures/flakes/retries;
-Ruff/mypy68/lint/types/build/diff and actual tagged0.16.0 reader pass. Earlier
-failed/interrupted runs remain diagnostic; local self-review is not independent.
-No new migration/schema/dependency/version change. Old-reader data retention has
-expected aromatic renderer/helper refusals; unrestricted runtime rollback is not
-supported. Scientific warnings are not preparation/geometry certification.
-
-No external blocker. Next: commit/push C4, prepare stable0.17.0 minor in all five
-version sources, run complete clean candidate/exact-master gates and deliver
-reviewed normal PR/merge/tag/release/issue response/docs/branch cleanup. C5 is
-pending; no release claim yet. Separate-entry combination/catalogue/ring/peptide/
-preparation scope remains excluded as approved.
+All five versions prepared for stable0.17.0 minor; no schema/database/dependency
+change. Actual0.16.0 retains draft data/history/archive with expected old renderer/
+helper refusals; unrestricted runtime rollback is unsupported. Source bytes and
+literal unknowns remain exact. Chemical-format interpretation/loss requires consent.
+Initial candidate frozen installs/migration/static pass; an outdated explicit
+archive producer-version test guard is corrected to0.17.0 and the preceding0.16.0
+matrix case is added. Failed diagnostic is retained; full clean gate restarts.
+No external blocker. Next: clean final-version full candidate gate, complete-diff
+review, normal PR/eligible merge, exact-master full gate, verified tag/release/
+evidence/issue closeout/docs/branch cleanup. No publication claim yet.
 
 ### Previous delivery baseline — v0.16.0
 

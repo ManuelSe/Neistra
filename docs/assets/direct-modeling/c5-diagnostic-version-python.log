@@ -1,0 +1,644 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.2, pluggy-1.6.0
+rootdir: /datadisk/dev/neistra
+configfile: pyproject.toml
+testpaths: tests
+plugins: cov-6.3.0, anyio-4.9.0
+collected 687 items
+
+tests/integration/test_archive_roundtrip.py ...FFFFFFFFFFFFFFFFFFFFF.    [  3%]
+tests/integration/test_component_hierarchy.py ..                         [  3%]
+tests/integration/test_coordinate_commands.py ...............            [  6%]
+tests/integration/test_direct_modeling_qualification.py ............     [  7%]
+tests/integration/test_group_membership.py ..........                    [  9%]
+tests/integration/test_import_export.py ...................              [ 12%]
+tests/integration/test_interactions.py ......                            [ 12%]
+tests/integration/test_job_lifecycle.py .....                            [ 13%]
+tests/integration/test_ligand_edits.py ...                               [ 14%]
+tests/integration/test_migrations.py ................................... [ 19%]
+........................................................................ [ 29%]
+........................                                                 [ 33%]
+tests/integration/test_model_edits.py ..........                         [ 34%]
+tests/integration/test_molecule_creation.py ....                         [ 35%]
+tests/integration/test_pocket_surfaces.py .............................. [ 39%]
+                                                                         [ 39%]
+tests/integration/test_project_lifecycle.py ...                          [ 40%]
+tests/integration/test_protein_edits.py ....                             [ 40%]
+tests/integration/test_saved_selections.py ...                           [ 41%]
+tests/integration/test_selection_edits.py .............................. [ 45%]
+....                                                                     [ 45%]
+tests/integration/test_selection_surfaces.py ..................          [ 48%]
+tests/integration/test_selection_visibility.py ......................... [ 52%]
+..                                                                       [ 52%]
+tests/integration/test_surface_objects.py .........                      [ 53%]
+tests/integration/test_viewer_state.py ...........                       [ 55%]
+tests/integration/test_worker_recovery.py ..                             [ 55%]
+tests/scientific/test_component_classification.py ...                    [ 56%]
+tests/scientific/test_direct_modeling.py ...................             [ 58%]
+tests/scientific/test_edit_fragments.py .........                        [ 60%]
+tests/scientific/test_format_fidelity.py .......                         [ 61%]
+tests/scientific/test_interaction_qualification.py ..............        [ 63%]
+tests/scientific/test_interactions.py .................................. [ 68%]
+......................                                                   [ 71%]
+tests/scientific/test_ligand_validation.py ...                           [ 71%]
+tests/scientific/test_protein_templates.py .........                     [ 73%]
+tests/scientific/test_release_fixture.py ..                              [ 73%]
+tests/scientific/test_selection_editing.py ............                  [ 75%]
+tests/security/test_archive_safety.py .....................              [ 78%]
+tests/unit/adapters/test_exports.py .........                            [ 79%]
+tests/unit/adapters/test_registry.py ..........                          [ 81%]
+tests/unit/editing/test_direct_modeling.py .............                 [ 82%]
+tests/unit/editing/test_direct_placement.py .............                [ 84%]
+tests/unit/editing/test_ligand_editor.py ........                        [ 86%]
+tests/unit/editing/test_protein_editor.py .....                          [ 86%]
+tests/unit/jobs/test_demo_plugin.py ...                                  [ 87%]
+tests/unit/jobs/test_registry.py ...                                     [ 87%]
+tests/unit/test_artifacts.py ....                                        [ 88%]
+tests/unit/test_commands.py ......                                       [ 89%]
+tests/unit/test_components.py ....                                       [ 89%]
+tests/unit/test_contacts.py .....                                        [ 90%]
+tests/unit/test_export_policy.py ............                            [ 92%]
+tests/unit/test_history.py .                                             [ 92%]
+tests/unit/test_hydrogen_membership.py ...                               [ 92%]
+tests/unit/test_interactions.py .............                            [ 94%]
+tests/unit/test_measurements.py ...                                      [ 95%]
+tests/unit/test_selection.py .............                               [ 96%]
+tests/unit/test_superposition.py .....                                   [ 97%]
+tests/unit/test_transforms.py ................                           [100%]
+
+=================================== FAILURES ===================================
+________ test_archive_round_trip_preserves_project_and_originals[0.1.0] ________
+
+client = <tests.support.api_client.ApiClient object at 0x7b828115df10>
+archive_version = '0.1.0'
+
+    @pytest.mark.parametrize(
+        "archive_version",
+        [
+            "0.1.0", "0.1.1", "0.2.0", "0.2.1", "0.3.0", "0.4.0",
+            "0.5.0", "0.6.0", "0.6.1", "0.7.0", "0.8.0", "0.9.0", "0.10.0", "0.11.0",
+            "0.12.0", "0.12.1", "0.13.0", "0.13.1", "0.13.2", "0.14.0", "0.15.0",
+        ],
+    )
+    def test_archive_round_trip_preserves_project_and_originals(
+        client: ApiClient,
+        archive_version: str,
+    ) -> None:
+>       assert APPLICATION_VERSION == "0.16.0"
+E       AssertionError: assert '0.17.0' == '0.16.0'
+E
+E         - 0.16.0
+E         ?    ^
+E         + 0.17.0
+E         ?    ^
+
+tests/integration/test_archive_roundtrip.py:312: AssertionError
+________ test_archive_round_trip_preserves_project_and_originals[0.1.1] ________
+
+client = <tests.support.api_client.ApiClient object at 0x7b82810736e0>
+archive_version = '0.1.1'
+
+    @pytest.mark.parametrize(
+        "archive_version",
+        [
+            "0.1.0", "0.1.1", "0.2.0", "0.2.1", "0.3.0", "0.4.0",
+            "0.5.0", "0.6.0", "0.6.1", "0.7.0", "0.8.0", "0.9.0", "0.10.0", "0.11.0",
+            "0.12.0", "0.12.1", "0.13.0", "0.13.1", "0.13.2", "0.14.0", "0.15.0",
+        ],
+    )
+    def test_archive_round_trip_preserves_project_and_originals(
+        client: ApiClient,
+        archive_version: str,
+    ) -> None:
+>       assert APPLICATION_VERSION == "0.16.0"
+E       AssertionError: assert '0.17.0' == '0.16.0'
+E
+E         - 0.16.0
+E         ?    ^
+E         + 0.17.0
+E         ?    ^
+
+tests/integration/test_archive_roundtrip.py:312: AssertionError
+________ test_archive_round_trip_preserves_project_and_originals[0.2.0] ________
+
+client = <tests.support.api_client.ApiClient object at 0x7b8280f73290>
+archive_version = '0.2.0'
+
+    @pytest.mark.parametrize(
+        "archive_version",
+        [
+            "0.1.0", "0.1.1", "0.2.0", "0.2.1", "0.3.0", "0.4.0",
+            "0.5.0", "0.6.0", "0.6.1", "0.7.0", "0.8.0", "0.9.0", "0.10.0", "0.11.0",
+            "0.12.0", "0.12.1", "0.13.0", "0.13.1", "0.13.2", "0.14.0", "0.15.0",
+        ],
+    )
+    def test_archive_round_trip_preserves_project_and_originals(
+        client: ApiClient,
+        archive_version: str,
+    ) -> None:
+>       assert APPLICATION_VERSION == "0.16.0"
+E       AssertionError: assert '0.17.0' == '0.16.0'
+E
+E         - 0.16.0
+E         ?    ^
+E         + 0.17.0
+E         ?    ^
+
+tests/integration/test_archive_roundtrip.py:312: AssertionError
+________ test_archive_round_trip_preserves_project_and_originals[0.2.1] ________
+
+client = <tests.support.api_client.ApiClient object at 0x7b828109e150>
+archive_version = '0.2.1'
+
+    @pytest.mark.parametrize(
+        "archive_version",
+        [
+            "0.1.0", "0.1.1", "0.2.0", "0.2.1", "0.3.0", "0.4.0",
+            "0.5.0", "0.6.0", "0.6.1", "0.7.0", "0.8.0", "0.9.0", "0.10.0", "0.11.0",
+            "0.12.0", "0.12.1", "0.13.0", "0.13.1", "0.13.2", "0.14.0", "0.15.0",
+        ],
+    )
+    def test_archive_round_trip_preserves_project_and_originals(
+        client: ApiClient,
+        archive_version: str,
+    ) -> None:
+>       assert APPLICATION_VERSION == "0.16.0"
+E       AssertionError: assert '0.17.0' == '0.16.0'
+E
+E         - 0.16.0
+E         ?    ^
+E         + 0.17.0
+E         ?    ^
+
+tests/integration/test_archive_roundtrip.py:312: AssertionError
+________ test_archive_round_trip_preserves_project_and_originals[0.3.0] ________
+
+client = <tests.support.api_client.ApiClient object at 0x7b828115da90>
+archive_version = '0.3.0'
+
+    @pytest.mark.parametrize(
+        "archive_version",
+        [
+            "0.1.0", "0.1.1", "0.2.0", "0.2.1", "0.3.0", "0.4.0",
+            "0.5.0", "0.6.0", "0.6.1", "0.7.0", "0.8.0", "0.9.0", "0.10.0", "0.11.0",
+            "0.12.0", "0.12.1", "0.13.0", "0.13.1", "0.13.2", "0.14.0", "0.15.0",
+        ],
+    )
+    def test_archive_round_trip_preserves_project_and_originals(
+        client: ApiClient,
+        archive_version: str,
+    ) -> None:
+>       assert APPLICATION_VERSION == "0.16.0"
+E       AssertionError: assert '0.17.0' == '0.16.0'
+E
+E         - 0.16.0
+E         ?    ^
+E         + 0.17.0
+E         ?    ^
+
+tests/integration/test_archive_roundtrip.py:312: AssertionError
+________ test_archive_round_trip_preserves_project_and_originals[0.4.0] ________
+
+client = <tests.support.api_client.ApiClient object at 0x7b828135b290>
+archive_version = '0.4.0'
+
+    @pytest.mark.parametrize(
+        "archive_version",
+        [
+            "0.1.0", "0.1.1", "0.2.0", "0.2.1", "0.3.0", "0.4.0",
+            "0.5.0", "0.6.0", "0.6.1", "0.7.0", "0.8.0", "0.9.0", "0.10.0", "0.11.0",
+            "0.12.0", "0.12.1", "0.13.0", "0.13.1", "0.13.2", "0.14.0", "0.15.0",
+        ],
+    )
+    def test_archive_round_trip_preserves_project_and_originals(
+        client: ApiClient,
+        archive_version: str,
+    ) -> None:
+>       assert APPLICATION_VERSION == "0.16.0"
+E       AssertionError: assert '0.17.0' == '0.16.0'
+E
+E         - 0.16.0
+E         ?    ^
+E         + 0.17.0
+E         ?    ^
+
+tests/integration/test_archive_roundtrip.py:312: AssertionError
+________ test_archive_round_trip_preserves_project_and_originals[0.5.0] ________
+
+client = <tests.support.api_client.ApiClient object at 0x7b8281419ca0>
+archive_version = '0.5.0'
+
+    @pytest.mark.parametrize(
+        "archive_version",
+        [
+            "0.1.0", "0.1.1", "0.2.0", "0.2.1", "0.3.0", "0.4.0",
+            "0.5.0", "0.6.0", "0.6.1", "0.7.0", "0.8.0", "0.9.0", "0.10.0", "0.11.0",
+            "0.12.0", "0.12.1", "0.13.0", "0.13.1", "0.13.2", "0.14.0", "0.15.0",
+        ],
+    )
+    def test_archive_round_trip_preserves_project_and_originals(
+        client: ApiClient,
+        archive_version: str,
+    ) -> None:
+>       assert APPLICATION_VERSION == "0.16.0"
+E       AssertionError: assert '0.17.0' == '0.16.0'
+E
+E         - 0.16.0
+E         ?    ^
+E         + 0.17.0
+E         ?    ^
+
+tests/integration/test_archive_roundtrip.py:312: AssertionError
+________ test_archive_round_trip_preserves_project_and_originals[0.6.0] ________
+
+client = <tests.support.api_client.ApiClient object at 0x7b8280c4b0e0>
+archive_version = '0.6.0'
+
+    @pytest.mark.parametrize(
+        "archive_version",
+        [
+            "0.1.0", "0.1.1", "0.2.0", "0.2.1", "0.3.0", "0.4.0",
+            "0.5.0", "0.6.0", "0.6.1", "0.7.0", "0.8.0", "0.9.0", "0.10.0", "0.11.0",
+            "0.12.0", "0.12.1", "0.13.0", "0.13.1", "0.13.2", "0.14.0", "0.15.0",
+        ],
+    )
+    def test_archive_round_trip_preserves_project_and_originals(
+        client: ApiClient,
+        archive_version: str,
+    ) -> None:
+>       assert APPLICATION_VERSION == "0.16.0"
+E       AssertionError: assert '0.17.0' == '0.16.0'
+E
+E         - 0.16.0
+E         ?    ^
+E         + 0.17.0
+E         ?    ^
+
+tests/integration/test_archive_roundtrip.py:312: AssertionError
+________ test_archive_round_trip_preserves_project_and_originals[0.6.1] ________
+
+client = <tests.support.api_client.ApiClient object at 0x7b82814c2060>
+archive_version = '0.6.1'
+
+    @pytest.mark.parametrize(
+        "archive_version",
+        [
+            "0.1.0", "0.1.1", "0.2.0", "0.2.1", "0.3.0", "0.4.0",
+            "0.5.0", "0.6.0", "0.6.1", "0.7.0", "0.8.0", "0.9.0", "0.10.0", "0.11.0",
+            "0.12.0", "0.12.1", "0.13.0", "0.13.1", "0.13.2", "0.14.0", "0.15.0",
+        ],
+    )
+    def test_archive_round_trip_preserves_project_and_originals(
+        client: ApiClient,
+        archive_version: str,
+    ) -> None:
+>       assert APPLICATION_VERSION == "0.16.0"
+E       AssertionError: assert '0.17.0' == '0.16.0'
+E
+E         - 0.16.0
+E         ?    ^
+E         + 0.17.0
+E         ?    ^
+
+tests/integration/test_archive_roundtrip.py:312: AssertionError
+________ test_archive_round_trip_preserves_project_and_originals[0.7.0] ________
+
+client = <tests.support.api_client.ApiClient object at 0x7b828135bec0>
+archive_version = '0.7.0'
+
+    @pytest.mark.parametrize(
+        "archive_version",
+        [
+            "0.1.0", "0.1.1", "0.2.0", "0.2.1", "0.3.0", "0.4.0",
+            "0.5.0", "0.6.0", "0.6.1", "0.7.0", "0.8.0", "0.9.0", "0.10.0", "0.11.0",
+            "0.12.0", "0.12.1", "0.13.0", "0.13.1", "0.13.2", "0.14.0", "0.15.0",
+        ],
+    )
+    def test_archive_round_trip_preserves_project_and_originals(
+        client: ApiClient,
+        archive_version: str,
+    ) -> None:
+>       assert APPLICATION_VERSION == "0.16.0"
+E       AssertionError: assert '0.17.0' == '0.16.0'
+E
+E         - 0.16.0
+E         ?    ^
+E         + 0.17.0
+E         ?    ^
+
+tests/integration/test_archive_roundtrip.py:312: AssertionError
+________ test_archive_round_trip_preserves_project_and_originals[0.8.0] ________
+
+client = <tests.support.api_client.ApiClient object at 0x7b824b0d3a10>
+archive_version = '0.8.0'
+
+    @pytest.mark.parametrize(
+        "archive_version",
+        [
+            "0.1.0", "0.1.1", "0.2.0", "0.2.1", "0.3.0", "0.4.0",
+            "0.5.0", "0.6.0", "0.6.1", "0.7.0", "0.8.0", "0.9.0", "0.10.0", "0.11.0",
+            "0.12.0", "0.12.1", "0.13.0", "0.13.1", "0.13.2", "0.14.0", "0.15.0",
+        ],
+    )
+    def test_archive_round_trip_preserves_project_and_originals(
+        client: ApiClient,
+        archive_version: str,
+    ) -> None:
+>       assert APPLICATION_VERSION == "0.16.0"
+E       AssertionError: assert '0.17.0' == '0.16.0'
+E
+E         - 0.16.0
+E         ?    ^
+E         + 0.17.0
+E         ?    ^
+
+tests/integration/test_archive_roundtrip.py:312: AssertionError
+________ test_archive_round_trip_preserves_project_and_originals[0.9.0] ________
+
+client = <tests.support.api_client.ApiClient object at 0x7b8280eafe30>
+archive_version = '0.9.0'
+
+    @pytest.mark.parametrize(
+        "archive_version",
+        [
+            "0.1.0", "0.1.1", "0.2.0", "0.2.1", "0.3.0", "0.4.0",
+            "0.5.0", "0.6.0", "0.6.1", "0.7.0", "0.8.0", "0.9.0", "0.10.0", "0.11.0",
+            "0.12.0", "0.12.1", "0.13.0", "0.13.1", "0.13.2", "0.14.0", "0.15.0",
+        ],
+    )
+    def test_archive_round_trip_preserves_project_and_originals(
+        client: ApiClient,
+        archive_version: str,
+    ) -> None:
+>       assert APPLICATION_VERSION == "0.16.0"
+E       AssertionError: assert '0.17.0' == '0.16.0'
+E
+E         - 0.16.0
+E         ?    ^
+E         + 0.17.0
+E         ?    ^
+
+tests/integration/test_archive_roundtrip.py:312: AssertionError
+_______ test_archive_round_trip_preserves_project_and_originals[0.10.0] ________
+
+client = <tests.support.api_client.ApiClient object at 0x7b8280e5fe30>
+archive_version = '0.10.0'
+
+    @pytest.mark.parametrize(
+        "archive_version",
+        [
+            "0.1.0", "0.1.1", "0.2.0", "0.2.1", "0.3.0", "0.4.0",
+            "0.5.0", "0.6.0", "0.6.1", "0.7.0", "0.8.0", "0.9.0", "0.10.0", "0.11.0",
+            "0.12.0", "0.12.1", "0.13.0", "0.13.1", "0.13.2", "0.14.0", "0.15.0",
+        ],
+    )
+    def test_archive_round_trip_preserves_project_and_originals(
+        client: ApiClient,
+        archive_version: str,
+    ) -> None:
+>       assert APPLICATION_VERSION == "0.16.0"
+E       AssertionError: assert '0.17.0' == '0.16.0'
+E
+E         - 0.16.0
+E         ?    ^
+E         + 0.17.0
+E         ?    ^
+
+tests/integration/test_archive_roundtrip.py:312: AssertionError
+_______ test_archive_round_trip_preserves_project_and_originals[0.11.0] ________
+
+client = <tests.support.api_client.ApiClient object at 0x7b82810e5a90>
+archive_version = '0.11.0'
+
+    @pytest.mark.parametrize(
+        "archive_version",
+        [
+            "0.1.0", "0.1.1", "0.2.0", "0.2.1", "0.3.0", "0.4.0",
+            "0.5.0", "0.6.0", "0.6.1", "0.7.0", "0.8.0", "0.9.0", "0.10.0", "0.11.0",
+            "0.12.0", "0.12.1", "0.13.0", "0.13.1", "0.13.2", "0.14.0", "0.15.0",
+        ],
+    )
+    def test_archive_round_trip_preserves_project_and_originals(
+        client: ApiClient,
+        archive_version: str,
+    ) -> None:
+>       assert APPLICATION_VERSION == "0.16.0"
+E       AssertionError: assert '0.17.0' == '0.16.0'
+E
+E         - 0.16.0
+E         ?    ^
+E         + 0.17.0
+E         ?    ^
+
+tests/integration/test_archive_roundtrip.py:312: AssertionError
+_______ test_archive_round_trip_preserves_project_and_originals[0.12.0] ________
+
+client = <tests.support.api_client.ApiClient object at 0x7b8280e29ca0>
+archive_version = '0.12.0'
+
+    @pytest.mark.parametrize(
+        "archive_version",
+        [
+            "0.1.0", "0.1.1", "0.2.0", "0.2.1", "0.3.0", "0.4.0",
+            "0.5.0", "0.6.0", "0.6.1", "0.7.0", "0.8.0", "0.9.0", "0.10.0", "0.11.0",
+            "0.12.0", "0.12.1", "0.13.0", "0.13.1", "0.13.2", "0.14.0", "0.15.0",
+        ],
+    )
+    def test_archive_round_trip_preserves_project_and_originals(
+        client: ApiClient,
+        archive_version: str,
+    ) -> None:
+>       assert APPLICATION_VERSION == "0.16.0"
+E       AssertionError: assert '0.17.0' == '0.16.0'
+E
+E         - 0.16.0
+E         ?    ^
+E         + 0.17.0
+E         ?    ^
+
+tests/integration/test_archive_roundtrip.py:312: AssertionError
+_______ test_archive_round_trip_preserves_project_and_originals[0.12.1] ________
+
+client = <tests.support.api_client.ApiClient object at 0x7b824b107110>
+archive_version = '0.12.1'
+
+    @pytest.mark.parametrize(
+        "archive_version",
+        [
+            "0.1.0", "0.1.1", "0.2.0", "0.2.1", "0.3.0", "0.4.0",
+            "0.5.0", "0.6.0", "0.6.1", "0.7.0", "0.8.0", "0.9.0", "0.10.0", "0.11.0",
+            "0.12.0", "0.12.1", "0.13.0", "0.13.1", "0.13.2", "0.14.0", "0.15.0",
+        ],
+    )
+    def test_archive_round_trip_preserves_project_and_originals(
+        client: ApiClient,
+        archive_version: str,
+    ) -> None:
+>       assert APPLICATION_VERSION == "0.16.0"
+E       AssertionError: assert '0.17.0' == '0.16.0'
+E
+E         - 0.16.0
+E         ?    ^
+E         + 0.17.0
+E         ?    ^
+
+tests/integration/test_archive_roundtrip.py:312: AssertionError
+_______ test_archive_round_trip_preserves_project_and_originals[0.13.0] ________
+
+client = <tests.support.api_client.ApiClient object at 0x7b824b215f10>
+archive_version = '0.13.0'
+
+    @pytest.mark.parametrize(
+        "archive_version",
+        [
+            "0.1.0", "0.1.1", "0.2.0", "0.2.1", "0.3.0", "0.4.0",
+            "0.5.0", "0.6.0", "0.6.1", "0.7.0", "0.8.0", "0.9.0", "0.10.0", "0.11.0",
+            "0.12.0", "0.12.1", "0.13.0", "0.13.1", "0.13.2", "0.14.0", "0.15.0",
+        ],
+    )
+    def test_archive_round_trip_preserves_project_and_originals(
+        client: ApiClient,
+        archive_version: str,
+    ) -> None:
+>       assert APPLICATION_VERSION == "0.16.0"
+E       AssertionError: assert '0.17.0' == '0.16.0'
+E
+E         - 0.16.0
+E         ?    ^
+E         + 0.17.0
+E         ?    ^
+
+tests/integration/test_archive_roundtrip.py:312: AssertionError
+_______ test_archive_round_trip_preserves_project_and_originals[0.13.1] ________
+
+client = <tests.support.api_client.ApiClient object at 0x7b8280d7e150>
+archive_version = '0.13.1'
+
+    @pytest.mark.parametrize(
+        "archive_version",
+        [
+            "0.1.0", "0.1.1", "0.2.0", "0.2.1", "0.3.0", "0.4.0",
+            "0.5.0", "0.6.0", "0.6.1", "0.7.0", "0.8.0", "0.9.0", "0.10.0", "0.11.0",
+            "0.12.0", "0.12.1", "0.13.0", "0.13.1", "0.13.2", "0.14.0", "0.15.0",
+        ],
+    )
+    def test_archive_round_trip_preserves_project_and_originals(
+        client: ApiClient,
+        archive_version: str,
+    ) -> None:
+>       assert APPLICATION_VERSION == "0.16.0"
+E       AssertionError: assert '0.17.0' == '0.16.0'
+E
+E         - 0.16.0
+E         ?    ^
+E         + 0.17.0
+E         ?    ^
+
+tests/integration/test_archive_roundtrip.py:312: AssertionError
+_______ test_archive_round_trip_preserves_project_and_originals[0.13.2] ________
+
+client = <tests.support.api_client.ApiClient object at 0x7b828103fe30>
+archive_version = '0.13.2'
+
+    @pytest.mark.parametrize(
+        "archive_version",
+        [
+            "0.1.0", "0.1.1", "0.2.0", "0.2.1", "0.3.0", "0.4.0",
+            "0.5.0", "0.6.0", "0.6.1", "0.7.0", "0.8.0", "0.9.0", "0.10.0", "0.11.0",
+            "0.12.0", "0.12.1", "0.13.0", "0.13.1", "0.13.2", "0.14.0", "0.15.0",
+        ],
+    )
+    def test_archive_round_trip_preserves_project_and_originals(
+        client: ApiClient,
+        archive_version: str,
+    ) -> None:
+>       assert APPLICATION_VERSION == "0.16.0"
+E       AssertionError: assert '0.17.0' == '0.16.0'
+E
+E         - 0.16.0
+E         ?    ^
+E         + 0.17.0
+E         ?    ^
+
+tests/integration/test_archive_roundtrip.py:312: AssertionError
+_______ test_archive_round_trip_preserves_project_and_originals[0.14.0] ________
+
+client = <tests.support.api_client.ApiClient object at 0x7b8280ed96d0>
+archive_version = '0.14.0'
+
+    @pytest.mark.parametrize(
+        "archive_version",
+        [
+            "0.1.0", "0.1.1", "0.2.0", "0.2.1", "0.3.0", "0.4.0",
+            "0.5.0", "0.6.0", "0.6.1", "0.7.0", "0.8.0", "0.9.0", "0.10.0", "0.11.0",
+            "0.12.0", "0.12.1", "0.13.0", "0.13.1", "0.13.2", "0.14.0", "0.15.0",
+        ],
+    )
+    def test_archive_round_trip_preserves_project_and_originals(
+        client: ApiClient,
+        archive_version: str,
+    ) -> None:
+>       assert APPLICATION_VERSION == "0.16.0"
+E       AssertionError: assert '0.17.0' == '0.16.0'
+E
+E         - 0.16.0
+E         ?    ^
+E         + 0.17.0
+E         ?    ^
+
+tests/integration/test_archive_roundtrip.py:312: AssertionError
+_______ test_archive_round_trip_preserves_project_and_originals[0.15.0] ________
+
+client = <tests.support.api_client.ApiClient object at 0x7b828141b290>
+archive_version = '0.15.0'
+
+    @pytest.mark.parametrize(
+        "archive_version",
+        [
+            "0.1.0", "0.1.1", "0.2.0", "0.2.1", "0.3.0", "0.4.0",
+            "0.5.0", "0.6.0", "0.6.1", "0.7.0", "0.8.0", "0.9.0", "0.10.0", "0.11.0",
+            "0.12.0", "0.12.1", "0.13.0", "0.13.1", "0.13.2", "0.14.0", "0.15.0",
+        ],
+    )
+    def test_archive_round_trip_preserves_project_and_originals(
+        client: ApiClient,
+        archive_version: str,
+    ) -> None:
+>       assert APPLICATION_VERSION == "0.16.0"
+E       AssertionError: assert '0.17.0' == '0.16.0'
+E
+E         - 0.16.0
+E         ?    ^
+E         + 0.17.0
+E         ?    ^
+
+tests/integration/test_archive_roundtrip.py:312: AssertionError
+=============================== warnings summary ===============================
+tests/integration/test_migrations.py: 398 warnings
+  /datadisk/dev/neistra/.venv/lib/python3.12/site-packages/alembic/config.py:612: DeprecationWarning: No path_separator found in configuration; falling back to legacy splitting on spaces, commas, and colons for prepend_sys_path.  Consider adding path_separator=os to Alembic config.
+    util.warn_deprecated(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/integration/test_archive_roundtrip.py::test_archive_round_trip_preserves_project_and_originals[0.1.0]
+FAILED tests/integration/test_archive_roundtrip.py::test_archive_round_trip_preserves_project_and_originals[0.1.1]
+FAILED tests/integration/test_archive_roundtrip.py::test_archive_round_trip_preserves_project_and_originals[0.2.0]
+FAILED tests/integration/test_archive_roundtrip.py::test_archive_round_trip_preserves_project_and_originals[0.2.1]
+FAILED tests/integration/test_archive_roundtrip.py::test_archive_round_trip_preserves_project_and_originals[0.3.0]
+FAILED tests/integration/test_archive_roundtrip.py::test_archive_round_trip_preserves_project_and_originals[0.4.0]
+FAILED tests/integration/test_archive_roundtrip.py::test_archive_round_trip_preserves_project_and_originals[0.5.0]
+FAILED tests/integration/test_archive_roundtrip.py::test_archive_round_trip_preserves_project_and_originals[0.6.0]
+FAILED tests/integration/test_archive_roundtrip.py::test_archive_round_trip_preserves_project_and_originals[0.6.1]
+FAILED tests/integration/test_archive_roundtrip.py::test_archive_round_trip_preserves_project_and_originals[0.7.0]
+FAILED tests/integration/test_archive_roundtrip.py::test_archive_round_trip_preserves_project_and_originals[0.8.0]
+FAILED tests/integration/test_archive_roundtrip.py::test_archive_round_trip_preserves_project_and_originals[0.9.0]
+FAILED tests/integration/test_archive_roundtrip.py::test_archive_round_trip_preserves_project_and_originals[0.10.0]
+FAILED tests/integration/test_archive_roundtrip.py::test_archive_round_trip_preserves_project_and_originals[0.11.0]
+FAILED tests/integration/test_archive_roundtrip.py::test_archive_round_trip_preserves_project_and_originals[0.12.0]
+FAILED tests/integration/test_archive_roundtrip.py::test_archive_round_trip_preserves_project_and_originals[0.12.1]
+FAILED tests/integration/test_archive_roundtrip.py::test_archive_round_trip_preserves_project_and_originals[0.13.0]
+FAILED tests/integration/test_archive_roundtrip.py::test_archive_round_trip_preserves_project_and_originals[0.13.1]
+FAILED tests/integration/test_archive_roundtrip.py::test_archive_round_trip_preserves_project_and_originals[0.13.2]
+FAILED tests/integration/test_archive_roundtrip.py::test_archive_round_trip_preserves_project_and_originals[0.14.0]
+FAILED tests/integration/test_archive_roundtrip.py::test_archive_round_trip_preserves_project_and_originals[0.15.0]
+=========== 21 failed, 666 passed, 398 warnings in 105.47s (0:01:45) ===========
