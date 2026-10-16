@@ -11,7 +11,13 @@ from rdkit import Chem
 from scipy.spatial import cKDTree  # type: ignore[import-untyped]
 
 from molweave_core.editing.fragments import FRAGMENT_SEED, FragmentName, fragment_template
-from molweave_core.molecular import Atom, Bond, InferenceRecord, NormalizedStructureV1
+from molweave_core.molecular import (
+    Atom,
+    Bond,
+    InferenceRecord,
+    MolecularWarning,
+    NormalizedStructureV1,
+)
 
 
 @dataclass(frozen=True)
@@ -19,6 +25,7 @@ class Placement:
     structure: NormalizedStructureV1
     replacements: dict[int, int]
     touched: set[int]
+    warnings: tuple[MolecularWarning, ...] = ()
 
 
 def _frame(axis: Any) -> Any:
@@ -56,11 +63,30 @@ def _direction(
     return candidates[index]
 
 
-def _length(first: str, second: str) -> float:
+_ELEMENTS = frozenset(Chem.GetPeriodicTable().GetElementSymbol(i) for i in range(1, 119))
+
+
+def _radius(element: str) -> float | None:
+    if element not in _ELEMENTS:
+        return None
     table = Chem.GetPeriodicTable()
-    return float(
-        table.GetRcovalent(table.GetAtomicNumber(first))
-        + table.GetRcovalent(table.GetAtomicNumber(second))
+    return float(table.GetRcovalent(table.GetAtomicNumber(element)))
+
+
+def _length(first: str, second: str) -> float:
+    left, right = _radius(first), _radius(second)
+    return 1.5 if left is None or right is None else left + right
+
+
+def _radius_warning(element: str, operation: str) -> tuple[MolecularWarning, ...]:
+    return (
+        MolecularWarning(
+            code="model_placement_radius_unknown",
+            message=f"Attachment radius for {element} is unknown; local placement used an "
+            "unoptimized 1.5 angstrom distance. Review the proposal.",
+            operation=f"model.{operation}",
+            field="coordinates",
+        ),
     )
 
 
@@ -144,6 +170,7 @@ def place_atom(
         coordinates=frames[active][0],
         formal_charge=charge,
         residue_id=_residue(before, anchor),
+        alternate_location=anchor.alternate_location if anchor is not None else None,
         source_index=max((a.source_index for a in before.atoms), default=-1) + 1,
         inferred_fields=[] if coordinates is not None else ["coordinates"],
     )
@@ -160,9 +187,17 @@ def place_atom(
         None,
         "Direct atom placement v1: explicit coordinates, origin or "
         f"local direction{direction} of six; "
-        "covalent-radii placement in each conformer; no parent embedding/minimization.",
+        "unoptimized covalent-radii or explicitly warned fallback distance in each "
+        "conformer; no parent embedding/minimization.",
     )
-    return Placement(after, {}, {next_atom_id, *selected})
+    return Placement(
+        after,
+        {},
+        {next_atom_id, *selected},
+        _radius_warning(anchor.element, "atom.add")
+        if anchor is not None and coordinates is None and _radius(anchor.element) is None
+        else (),
+    )
 
 
 def place_fragment(
@@ -240,6 +275,9 @@ def place_fragment(
             formal_charge=template.GetAtomWithIdx(idx).GetFormalCharge(),
             coordinates=frames[active][i],
             residue_id=_residue(before, anchor),
+            alternate_location=(target.alternate_location or anchor.alternate_location)
+            if replaced is not None
+            else anchor.alternate_location,
             source_index=source_index + i,
             inferred_fields=["coordinates"],
         )
@@ -274,4 +312,7 @@ def place_fragment(
         after,
         {} if replaced is None else {replaced: mapping[1]},
         {anchor.id, *[a.id for a in new_atoms]},
+        _radius_warning(anchor.element, "fragment.attach")
+        if _radius(anchor.element) is None
+        else (),
     )

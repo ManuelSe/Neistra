@@ -134,10 +134,10 @@ def build_fixture(
                         atom_ids=[a.id for a in structure.atoms],
                         bond_count=len(structure.bonds),
                         residue_count=len(structure.residues),
-                        conformer_count=1,
+                        conformer_count=len(structure.conformers),
                         warnings=list(structure.warnings),
-                        next_atom_id=max(a.id for a in structure.atoms) + 1,
-                        next_bond_id=max(b.id for b in structure.bonds) + 1,
+                        next_atom_id=max((a.id for a in structure.atoms), default=0) + 1,
+                        next_bond_id=max((b.id for b in structure.bonds), default=0) + 1,
                         viewer_settings=ViewerSettingsV2.model_validate(
                             default_viewer_settings(structure.structure_type)
                         ),

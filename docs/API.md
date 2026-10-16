@@ -678,7 +678,7 @@ exclusions. Native rendering applies them without assigning inferred chemistry;
 adding a canonical bond clears its exclusion, atom deletion prunes references,
 and Undo restores metadata exactly. Existing selection-edits and ligand-edits
 HTTP semantics remain unchanged. See [molecular editing](MOLECULAR_EDITING.md)
-for the current checkpoint scope and remaining creation/preview qualification.
+for the implemented workflow, verification and scientific limits.
 
 
 `POST /api/v1/projects/{project_id}/molecules` creates an entry and first atom in
@@ -706,3 +706,15 @@ Generated coordinates cover all conformers; retained coordinates stay exact.
 Optional H merges only new H/bonds from an eligible helper, retaining the direct
 candidate exactly when completion is unavailable. Existing legacy HTTP endpoints
 retain their behavior; compact and advanced manual atom/bond UI share direct edits.
+
+Draft chemical export remains distinct from the structure viewer projection.
+A representational loss requiring acknowledgement returns409 without publishing an
+export artifact; retry with the existing acknowledgement field only after reviewing
+warnings. Unsupported chemistry/field representation returns a typed422; use a
+native project archive rather than repairing canonical records to force export.
+Unknown-charge defaults in MOL/SDF/MOL2, unknown-order defaults in MOL/SDF, modeled
+MOL2 types and native bond-exclusion loss are explicit. SMILES refuses unknown
+charge/order or invalid assigned chemistry. None of these checks gates direct edits.
+Modeled MOL/SDF/SMILES also report blocking `implicit_valence_interpretation`:
+external readers may interpret absent H through valence defaults even after literal
+H deletion. Acknowledgement authorizes that representation, never canonical repair.

@@ -1,0 +1,46 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.2, pluggy-1.6.0
+rootdir: /datadisk/dev/neistra
+configfile: pyproject.toml
+plugins: cov-6.3.0, anyio-4.9.0
+collected 16 items / 15 deselected / 1 selected
+
+tests/scientific/test_direct_modeling.py F                               [100%]
+
+=================================== FAILURES ===================================
+___ test_mmcif_multimodel_serials_remain_unique_after_sparse_identity_edits ____
+
+    def test_mmcif_multimodel_serials_remain_unique_after_sparse_identity_edits() -> None:
+        import gemmi
+        from molweave_core.molecular import Conformer
+
+        before = paracetamol()
+        # Valid stable identities can have arbitrary allocator gaps after branching.
+        before = before.model_copy(
+            update={
+                "atoms": [
+                    before.atoms[i].model_copy(update={"id": atom_id})
+                    for i, atom_id in enumerate([1, 3, 4])
+                ],
+                "bonds": [],
+                "conformers": [
+                    Conformer(
+                        id=number, name=f"Model {number}", coordinates=before.active_coordinates[:3]
+                    )
+                    for number in [1, 17]
+                ],
+            }
+        )
+        output = create_default_registry().for_format("mmcif").export(before, "sparse-models")
+        block = gemmi.cif.read_string(output.data.decode()).sole_block()
+        ids = list(block.find_values("_atom_site.id"))
+>       assert len(ids) == len(set(ids)) == 6
+E       AssertionError: assert 6 == 5
+E        +  where 6 = len(['1', '3', '4', '4', '6', '7'])
+E        +  and   5 = len({'1', '3', '4', '6', '7'})
+E        +    where {'1', '3', '4', '6', '7'} = set(['1', '3', '4', '4', '6', '7'])
+
+tests/scientific/test_direct_modeling.py:266: AssertionError
+=========================== short test summary info ============================
+FAILED tests/scientific/test_direct_modeling.py::test_mmcif_multimodel_serials_remain_unique_after_sparse_identity_edits
+======================= 1 failed, 15 deselected in 0.11s =======================

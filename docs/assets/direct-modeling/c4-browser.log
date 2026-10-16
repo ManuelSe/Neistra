@@ -1,0 +1,152 @@
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade  -> 0001, Create Milestone 1 project workspace tables.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0001 -> 0002, Version existing project checkpoint snapshots.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0002 -> 0003, Add artifact-backed molecular entry summaries.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0003 -> 0004, Add durable named atom selections.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0004 -> 0005, Add viewer settings, measurements, and named scenes.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0005 -> 0006, Add exact atom identity summaries and monotonic edit allocators.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0006 -> 0007, Add durable generic job lifecycle tables.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0007 -> 0008, Add durable selection representation assignments to viewer settings.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0008 -> 0009, Add durable nonpolar-hydrogen visibility to viewer settings.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0009 -> 0010, Add selection appearance defaults without losing retained history.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0010 -> 0011, Add selection surface defaults without losing retained history.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0011 -> 0012, Add atomic-detail visibility defaults without losing retained history.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0012 -> 0013, Add pocket surface defaults without losing retained history.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0013 -> 0014, Migrate every retained viewer snapshot to identified surface objects.
+[2m[WebServer] [22mINFO:     Started server process [1030143]
+[2m[WebServer] [22mINFO:     Waiting for application startup.
+[2m[WebServer] [22mINFO:     Application startup complete.
+[2m[WebServer] [22mINFO:     Uvicorn running on http://127.0.0.1:8270 (Press CTRL+C to quit)
+[2m[WebServer] [22m(node:1030218) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:1030230) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 112 tests using 1 worker
+
+(node:1030258) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:1030258) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓    1 [chromium] › tests/e2e/direct-modeling-accessibility.spec.ts:7:5 › reveals a nonpickable placement with reachable controls in both themes and narrow layouts (9.7s)
+  ✓    2 [chromium] › tests/e2e/direct-molecular-modeling.spec.ts:7:5 › breaks an aromatic bond and keeps the incomplete draft visible and pickable (5.1s)
+  ✓    3 [chromium] › tests/e2e/direct-molecular-modeling.spec.ts:52:5 › removes a native inferred protein bond durably and restores it on Undo (6.5s)
+  ✓    4 [chromium] › tests/e2e/direct-molecular-modeling.spec.ts:81:5 › creates a molecule, previews/cancels without mutation, applies and rebuilds the last atom (9.7s)
+  ✓    5 [chromium] › tests/e2e/direct-molecular-modeling.spec.ts:159:5 › attaches directly with unknown chemistry and saves an edit when optional H cannot run (5.9s)
+  ✓    6 [chromium] › tests/e2e/direct-molecular-modeling.spec.ts:190:5 › does not restore a late proposal or steal selection after a closed creation dialog (5.0s)
+  ✓    7 [chromium] › tests/e2e/hydrogen-membership.spec.ts:8:5 › keeps bonded orphan H in the ligand and enables editing an unrelated native atom (3.9s)
+  ✓    8 [chromium] › tests/e2e/interactions-lifecycle.spec.ts:4:5 › keeps centroid overlays current through scenes, deletion and project changes (13.1s)
+  ✓    9 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:65:5 › qualifies keyboard/touch controls, focus and scoped accessibility in both themes (7.4s)
+  ✓   10 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:119:5 › reconciles an interrupted response after server commit without replaying Apply (4.5s)
+  ✓   11 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:143:5 › blocks Apply while outcome is unknown and recovers only after explicit refresh (4.3s)
+  ✓   12 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:162:5 › captures hidden multi-entry targets, previews multiple drags, cancels, and applies one reversible command (14.2s)
+  ✓   13 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:246:5 › qualifies native proper-rotation previews, camera suspension, zoom and surface restoration in both projections (12.2s)
+  ✓   14 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:349:5 › discards previews with feedback on task, selection and project changes (8.4s)
+  ✓   15 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:393:5 › restores canceled or lost pointer drags and supports secondary and Ctrl translation (8.0s)
+  ✓   16 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:433:5 › rejects stale Apply without replay or partial movement (4.7s)
+  ✓   17 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:454:5 › explains empty, locked and wholly hidden movement targets without changing them (6.9s)
+  ✓   18 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:491:5 › preserves no-op history, pauses measurements and discards unapplied movement on reload (15.2s)
+  ✓   19 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:548:5 › retains the native preview and held camera across responsive viewer remounts (6.5s)
+  ✓   20 [chromium] › tests/e2e/interactive-transform-performance.spec.ts:6:42 › bounds native original protein/ligand preview work and measures exact cancellation (11.2s)
+  ✓   21 [chromium] › tests/e2e/interactive-transform-performance.spec.ts:6:42 › bounds native authored draft protein/ligand preview work and measures exact cancellation (11.2s)
+[2m[WebServer] [22m[22:36:21] Molecule does not have explicit Hs. Consider calling AddHs()
+[2m[WebServer] [22m[22:36:21] Molecule does not have explicit Hs. Consider calling AddHs()
+  ✓   22 [chromium] › tests/e2e/ligand-editing.spec.ts:131:5 › edits draft chemistry with warnings, retains helper refusals, and round-trips history (11.5s)
+  -   23 [chromium] › tests/e2e/ligand-editing.spec.ts:274:5 › keeps ligand editing functional in the mobile inspector
+  ✓   24 [chromium] › tests/e2e/molecular-editing.spec.ts:21:5 › performs one selection-driven atom/H edit with exact undo and unchanged original (5.8s)
+  ✓   25 [chromium] › tests/e2e/molecular-editing.spec.ts:54:5 › maps a native bond hit to canonical endpoints and changes its order from the panel (4.8s)
+  ✓   26 [chromium] › tests/e2e/molecular-editing.spec.ts:86:5 › previews and substitutes a selected H with illustrated COOH (5.6s)
+  ✓   27 [chromium] › tests/e2e/molecular-editing.spec.ts:114:5 › mutates a natively picked residue successively and preserves exact backbone and undo (5.2s)
+  ✓   28 [chromium] › tests/e2e/molecular-editing.spec.ts:154:5 › keeps tool focus, notices and all controls accessible in both themes and narrow layouts (5.9s)
+  ✓   29 [chromium] › tests/e2e/molecular-editing.spec.ts:194:5 › edits a prepared complex with native H/new-atom picks, fixed camera and one affected reload (9.1s)
+  ✓   30 [chromium] › tests/e2e/molecular-editing.spec.ts:295:5 › keeps late edit responses owned by their original project (5.8s)
+  ✓   31 [chromium] › tests/e2e/molecular-editing.spec.ts:325:5 › retains a newer native selection and recovers an affected-artifact refetch failure (5.6s)
+  ✓   32 [chromium] › tests/e2e/molecular-editing.spec.ts:368:5 › keeps a newer pending edit owned after leaving and returning to the same project (17.5s)
+  ✓   33 [chromium] › tests/e2e/pocket-surfaces.spec.ts:12:7 › qualifies native full-protein pocket geometry and independent display for complex/1stp.pdb (10.8s)
+  ✓   34 [chromium] › tests/e2e/pocket-surfaces.spec.ts:12:7 › qualifies native full-protein pocket geometry and independent display for hydrogens/polar_hydrogens_protein.pdb (9.1s)
+  ✓   35 [chromium] › tests/e2e/pocket-surfaces.spec.ts:12:7 › qualifies native full-protein pocket geometry and independent display for surfaces/1aon.cif (53.0s)
+  ✓   36 [chromium] › tests/e2e/pocket-surfaces.spec.ts:158:5 › invalidates native pockets for hidden seed and receptor preview, cancel and commit (6.8s)
+  ✓   37 [chromium] › tests/e2e/pocket-surfaces.spec.ts:223:5 › saves pockets through the compact panel and restores hidden seed inputs (9.8s)
+  ✓   38 [chromium] › tests/e2e/project-navigation.spec.ts:25:5 › keeps compact entries independent from component expansion, selection and metadata (5.0s)
+  ✓   39 [chromium] › tests/e2e/project-navigation.spec.ts:69:5 › keeps two hundred grouped long-name entries usable at narrow widths and responsive remounts (26.6s)
+  ✓   40 [chromium] › tests/e2e/project-navigation.spec.ts:151:5 › virtualizes ten thousand real normalized components and reaches off-screen rows by keyboard (28.1s)
+  ✓   41 [chromium] › tests/e2e/project-navigation.spec.ts:220:5 › retains two component rows at the minimum expanded desktop pane height (4.7s)
+  ✓   42 [chromium] › tests/e2e/protein-editing.spec.ts:152:5 › edits protein hierarchy and chemistry with exact history and validation (13.3s)
+  -   43 [chromium] › tests/e2e/protein-editing.spec.ts:426:5 › keeps protein editing usable in the mobile inspector
+  ✓   44 [chromium] › tests/e2e/rebranding-zoom.spec.ts:60:5 › keeps actions and dialogs reachable at real 100% and 200% browser zoom (1.4m)
+  ✓   45 [chromium] › tests/e2e/rebranding-zoom.spec.ts:324:5 › keeps shell and inspector controls bounded around both responsive breakpoints (9.0s)
+  ✓   46 [chromium] › tests/e2e/rebranding-zoom.spec.ts:358:5 › keeps the molecular editor keyboard controls reachable at actual browser zoom (28.9s)
+  ✓   47 [chromium] › tests/e2e/selection-surfaces.spec.ts:16:5 › qualifies worker geometry, real element colors, picking and cancellation (4.3s)
+  ✓   48 [chromium] › tests/e2e/selection-surfaces.spec.ts:114:5 › adds and removes saved surfaces from the compact palette with reload and undo (14.5s)
+  ✓   49 [chromium] › tests/e2e/selection-surfaces.spec.ts:187:7 › qualifies production surface lifecycle for formats/ethanol.mol (8.2s)
+  ✓   50 [chromium] › tests/e2e/selection-surfaces.spec.ts:187:7 › qualifies production surface lifecycle for hydrogens/polar_hydrogens_ligand.mol (4.0s)
+  ✓   51 [chromium] › tests/e2e/selection-surfaces.spec.ts:358:5 › qualifies production 1STP surface response and partial-fragment boundaries (3.3s)
+  ✓   52 [chromium] › tests/e2e/surface-objects.spec.ts:12:5 › native same-entry surface objects have independent identity, colors, mesh and whole-object activation (15.6s)
+  ✓   53 [chromium] › tests/e2e/surface-objects.spec.ts:124:5 › manages production object appearance and explicit sources independently through reload and undo (22.4s)
+  ✓   54 [chromium] › tests/e2e/surface-objects.spec.ts:361:5 › keeps manager controls keyboard reachable, bounded and accessible with long names and narrow layouts (11.3s)
+  ✓   55 [chromium] › tests/e2e/surface-objects.spec.ts:414:5 › keeps queued same-entry surface inputs lazy and valid across a renderer rebuild (6.6s)
+  ✓   56 [chromium] › tests/e2e/viewer-theme.spec.ts:107:5 › keeps the persisted theme through the real viewer lifecycle (19.5s)
+(node:1033226) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:1033226) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   57 [mobile-chromium] › tests/e2e/direct-modeling-accessibility.spec.ts:7:5 › reveals a nonpickable placement with reachable controls in both themes and narrow layouts (7.8s)
+  ✓   58 [mobile-chromium] › tests/e2e/direct-molecular-modeling.spec.ts:7:5 › breaks an aromatic bond and keeps the incomplete draft visible and pickable (5.0s)
+  ✓   59 [mobile-chromium] › tests/e2e/direct-molecular-modeling.spec.ts:52:5 › removes a native inferred protein bond durably and restores it on Undo (6.0s)
+  ✓   60 [mobile-chromium] › tests/e2e/direct-molecular-modeling.spec.ts:81:5 › creates a molecule, previews/cancels without mutation, applies and rebuilds the last atom (9.2s)
+  ✓   61 [mobile-chromium] › tests/e2e/direct-molecular-modeling.spec.ts:159:5 › attaches directly with unknown chemistry and saves an edit when optional H cannot run (6.1s)
+  ✓   62 [mobile-chromium] › tests/e2e/direct-molecular-modeling.spec.ts:190:5 › does not restore a late proposal or steal selection after a closed creation dialog (4.7s)
+  ✓   63 [mobile-chromium] › tests/e2e/hydrogen-membership.spec.ts:8:5 › keeps bonded orphan H in the ligand and enables editing an unrelated native atom (3.9s)
+  -   64 [mobile-chromium] › tests/e2e/interactions-lifecycle.spec.ts:4:5 › keeps centroid overlays current through scenes, deletion and project changes
+  ✓   65 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:65:5 › qualifies keyboard/touch controls, focus and scoped accessibility in both themes (7.7s)
+  ✓   66 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:119:5 › reconciles an interrupted response after server commit without replaying Apply (4.3s)
+  ✓   67 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:143:5 › blocks Apply while outcome is unknown and recovers only after explicit refresh (4.1s)
+  ✓   68 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:162:5 › captures hidden multi-entry targets, previews multiple drags, cancels, and applies one reversible command (13.1s)
+  ✓   69 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:246:5 › qualifies native proper-rotation previews, camera suspension, zoom and surface restoration in both projections (7.8s)
+  ✓   70 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:349:5 › discards previews with feedback on task, selection and project changes (7.7s)
+  ✓   71 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:393:5 › restores canceled or lost pointer drags and supports secondary and Ctrl translation (7.4s)
+  ✓   72 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:433:5 › rejects stale Apply without replay or partial movement (4.2s)
+  ✓   73 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:454:5 › explains empty, locked and wholly hidden movement targets without changing them (6.8s)
+  ✓   74 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:491:5 › preserves no-op history, pauses measurements and discards unapplied movement on reload (14.3s)
+  ✓   75 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:548:5 › retains the native preview and held camera across responsive viewer remounts (6.9s)
+  -   76 [mobile-chromium] › tests/e2e/interactive-transform-performance.spec.ts:6:42 › bounds native original protein/ligand preview work and measures exact cancellation
+  -   77 [mobile-chromium] › tests/e2e/interactive-transform-performance.spec.ts:6:42 › bounds native authored draft protein/ligand preview work and measures exact cancellation
+  -   78 [mobile-chromium] › tests/e2e/ligand-editing.spec.ts:131:5 › edits draft chemistry with warnings, retains helper refusals, and round-trips history
+  ✓   79 [mobile-chromium] › tests/e2e/ligand-editing.spec.ts:274:5 › keeps ligand editing functional in the mobile inspector (4.3s)
+  ✓   80 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:21:5 › performs one selection-driven atom/H edit with exact undo and unchanged original (5.5s)
+  ✓   81 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:54:5 › maps a native bond hit to canonical endpoints and changes its order from the panel (4.4s)
+  ✓   82 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:86:5 › previews and substitutes a selected H with illustrated COOH (5.7s)
+  ✓   83 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:114:5 › mutates a natively picked residue successively and preserves exact backbone and undo (5.1s)
+  ✓   84 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:154:5 › keeps tool focus, notices and all controls accessible in both themes and narrow layouts (5.4s)
+  ✓   85 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:194:5 › edits a prepared complex with native H/new-atom picks, fixed camera and one affected reload (8.5s)
+  ✓   86 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:295:5 › keeps late edit responses owned by their original project (5.5s)
+  ✓   87 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:325:5 › retains a newer native selection and recovers an affected-artifact refetch failure (5.2s)
+  ✓   88 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:368:5 › keeps a newer pending edit owned after leaving and returning to the same project (17.2s)
+  ✓   89 [mobile-chromium] › tests/e2e/pocket-surfaces.spec.ts:12:7 › qualifies native full-protein pocket geometry and independent display for complex/1stp.pdb (6.2s)
+  ✓   90 [mobile-chromium] › tests/e2e/pocket-surfaces.spec.ts:12:7 › qualifies native full-protein pocket geometry and independent display for hydrogens/polar_hydrogens_protein.pdb (4.7s)
+  ✓   91 [mobile-chromium] › tests/e2e/pocket-surfaces.spec.ts:12:7 › qualifies native full-protein pocket geometry and independent display for surfaces/1aon.cif (51.4s)
+  ✓   92 [mobile-chromium] › tests/e2e/pocket-surfaces.spec.ts:158:5 › invalidates native pockets for hidden seed and receptor preview, cancel and commit (3.9s)
+  ✓   93 [mobile-chromium] › tests/e2e/pocket-surfaces.spec.ts:223:5 › saves pockets through the compact panel and restores hidden seed inputs (9.1s)
+  ✓   94 [mobile-chromium] › tests/e2e/project-navigation.spec.ts:25:5 › keeps compact entries independent from component expansion, selection and metadata (4.6s)
+  ✓   95 [mobile-chromium] › tests/e2e/project-navigation.spec.ts:69:5 › keeps two hundred grouped long-name entries usable at narrow widths and responsive remounts (14.9s)
+  ✓   96 [mobile-chromium] › tests/e2e/project-navigation.spec.ts:151:5 › virtualizes ten thousand real normalized components and reaches off-screen rows by keyboard (14.7s)
+  -   97 [mobile-chromium] › tests/e2e/project-navigation.spec.ts:220:5 › retains two component rows at the minimum expanded desktop pane height
+  -   98 [mobile-chromium] › tests/e2e/protein-editing.spec.ts:152:5 › edits protein hierarchy and chemistry with exact history and validation
+  ✓   99 [mobile-chromium] › tests/e2e/protein-editing.spec.ts:426:5 › keeps protein editing usable in the mobile inspector (3.2s)
+  -  100 [mobile-chromium] › tests/e2e/rebranding-zoom.spec.ts:60:5 › keeps actions and dialogs reachable at real 100% and 200% browser zoom
+  -  101 [mobile-chromium] › tests/e2e/rebranding-zoom.spec.ts:324:5 › keeps shell and inspector controls bounded around both responsive breakpoints
+  -  102 [mobile-chromium] › tests/e2e/rebranding-zoom.spec.ts:358:5 › keeps the molecular editor keyboard controls reachable at actual browser zoom
+  ✓  103 [mobile-chromium] › tests/e2e/selection-surfaces.spec.ts:16:5 › qualifies worker geometry, real element colors, picking and cancellation (3.3s)
+  -  104 [mobile-chromium] › tests/e2e/selection-surfaces.spec.ts:114:5 › adds and removes saved surfaces from the compact palette with reload and undo
+  ✓  105 [mobile-chromium] › tests/e2e/selection-surfaces.spec.ts:187:7 › qualifies production surface lifecycle for formats/ethanol.mol (4.4s)
+  ✓  106 [mobile-chromium] › tests/e2e/selection-surfaces.spec.ts:187:7 › qualifies production surface lifecycle for hydrogens/polar_hydrogens_ligand.mol (2.5s)
+  ✓  107 [mobile-chromium] › tests/e2e/selection-surfaces.spec.ts:358:5 › qualifies production 1STP surface response and partial-fragment boundaries (2.3s)
+  ✓  108 [mobile-chromium] › tests/e2e/surface-objects.spec.ts:12:5 › native same-entry surface objects have independent identity, colors, mesh and whole-object activation (7.4s)
+  ✓  109 [mobile-chromium] › tests/e2e/surface-objects.spec.ts:124:5 › manages production object appearance and explicit sources independently through reload and undo (19.8s)
+  ✓  110 [mobile-chromium] › tests/e2e/surface-objects.spec.ts:361:5 › keeps manager controls keyboard reachable, bounded and accessible with long names and narrow layouts (10.3s)
+  ✓  111 [mobile-chromium] › tests/e2e/surface-objects.spec.ts:414:5 › keeps queued same-entry surface inputs lazy and valid across a renderer rebuild (5.4s)
+  -  112 [mobile-chromium] › tests/e2e/viewer-theme.spec.ts:107:5 › keeps the persisted theme through the real viewer lifecycle
+
+  13 skipped
+  99 passed (17.0m)

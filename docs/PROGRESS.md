@@ -2,26 +2,25 @@
 
 ## Current milestone
 
-Issue #74 C3 checkpoint complete under the [approved contract](plans/issue-74-direct-molecular-modeling.md).
-C0–C2 are pushed (C2:4d192766cabec8fb3ee626dc3e9c476cb6a92bf2);
-C3 is ready to commit/push on `feat/issue-74-direct-molecular-modeling`.
-Direct atom/bond editing, generated New molecule, attached atoms/six fragments,
-pure preview/Cancel/Apply, optional H fallback and explicit empty rebuilding are
-implemented. Original bytes/unknown values and retained records stay exact.
-Advanced controls share direct semantics; new XYZ imports retain unknown charges.
+Issue #74 C4 complete under the [approved contract](plans/issue-74-direct-molecular-modeling.md).
+C0–C3 are pushed; C4 scientific/persistence/native qualification is ready to commit.
+Direct drafts/building/creation work across formats/component boundaries, with
+literal H, optional helpers and pure preview. Compact inspection, theme/zoom/focus,
+reference/conformer/archive/export repairs and actual preceding reader qualify.
 
-[C3 evidence](assets/direct-modeling/c3-verification.json):108Python,246frontend,
-31native desktop/mobile passes with3intentional layout skips, no failures/flakes/
-retries; Ruff/mypy68/lint/types/build/diff pass. Local self-review repairs H-only
-merging, empty-target ownership, remount inputs and permissive advanced workflow
-assertions. Earlier evidence remains distinct. No independent review claimed.
+[Final C4 evidence](assets/direct-modeling/c4-verification.json):687Python,
+248frontend,99native/13intentional skips, no failures/flakes/retries;
+Ruff/mypy68/lint/types/build/diff and actual tagged0.16.0 reader pass. Earlier
+failed/interrupted runs remain diagnostic; local self-review is not independent.
+No new migration/schema/dependency/version change. Old-reader data retention has
+expected aromatic renderer/helper refusals; unrestricted runtime rollback is not
+supported. Scientific warnings are not preparation/geometry certification.
 
-Required C4 work remains: mobile's full panel can obscure a proposal; qualify a
-compact inspection presentation plus expanded forms/contrast/real zoom, scientific
-edge cases, persistence/references, actual v0.16.0 reader and existing performance
-budgets. C5 release gates/PR/merge/tag/release/closeout remain. No external blocker;
-next: commit C3, implement/qualify C4. Five versions remain0.16.0; planned0.17.0
-minor with no top-level schema/database migration. No release claim yet.
+No external blocker. Next: commit/push C4, prepare stable0.17.0 minor in all five
+version sources, run complete clean candidate/exact-master gates and deliver
+reviewed normal PR/merge/tag/release/issue response/docs/branch cleanup. C5 is
+pending; no release claim yet. Separate-entry combination/catalogue/ring/peptide/
+preparation scope remains excluded as approved.
 
 ### Previous delivery baseline — v0.16.0
 

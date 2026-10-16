@@ -268,10 +268,8 @@ def export_loss_warnings(
     )
     has_named_chains = any(chain.name for chain in structure.chains)
     has_metadata = bool(structure.metadata.get("properties"))
-    has_charges = any((atom.formal_charge or 0) != 0 for atom in structure.atoms)
-    has_known_bond_orders = any(
-        bond.order not in (None, 1.0) or bond.aromatic for bond in structure.bonds
-    )
+    has_charges = any(atom.formal_charge is not None for atom in structure.atoms)
+    has_known_bond_orders = any(bond.order is not None or bond.aromatic for bond in structure.bonds)
     has_stereo = any(bond.stereo for bond in structure.bonds) or bool(
         structure.metadata.get("canonical_smiles")
     )
@@ -288,7 +286,7 @@ def export_loss_warnings(
             "Atom names are not represented by this format.",
             "atom.name",
         )
-    if target_format in {"smiles", "xyz", "mol"} and multiple_conformers:
+    if target_format in {"smiles", "xyz", "mol", "mol2"} and multiple_conformers:
         add(
             "conformers_reduced",
             "Only the active conformer can be represented.",
@@ -336,5 +334,77 @@ def export_loss_warnings(
             "Stereochemical annotations may not round-trip through this format.",
             "stereochemistry",
             blocking=True,
+        )
+    if target_format in {"pdb"} and any(atom.formal_charge == 0 for atom in structure.atoms):
+        add(
+            "neutral_charge_assignment_lost",
+            "PDB blank charge fields do not retain an explicitly "
+            "assigned neutral charge distinctly from unknown.",
+            "atoms.formal_charge",
+            blocking=True,
+        )
+    if target_format in {"mol", "sdf", "mol2"} and any(
+        a.formal_charge is None for a in structure.atoms
+    ):
+        add(
+            "unknown_formal_charges_mapped",
+            "This output maps unknown formal charges to neutral/zero "
+            "representation defaults; canonical project values remain unknown. "
+            "Use a native archive "
+            "for exact draft data.",
+            "atoms.formal_charge",
+            blocking=True,
+        )
+    if target_format in {"mol", "sdf"} and any(b.order is None for b in structure.bonds):
+        add(
+            "unknown_bond_orders_mapped",
+            "This output maps unknown bond orders to single representation "
+            "defaults; canonical project values remain unknown. "
+            "Use a native archive for exact draft data.",
+            "bonds.order",
+            blocking=True,
+        )
+    if "neistra_modeling" in structure.metadata:
+        add(
+            "draft_chemistry_unvalidated",
+            "This modeled structure is chemically unvalidated; "
+            "export does not certify chemical validity or preparation.",
+            "chemistry",
+        )
+        if target_format in {"mol", "sdf", "smiles"}:
+            add(
+                "implicit_valence_interpretation",
+                "This chemical format can interpret absent H through valence defaults, "
+                "including after explicit H deletion. It cannot preserve the draft's "
+                "literal atom graph as a protonation specification. Review the output "
+                "or use a native archive; no H is added to canonical data.",
+                "atoms.hydrogens",
+                blocking=True,
+            )
+        modeling = structure.metadata["neistra_modeling"]
+        if isinstance(modeling, dict) and modeling.get("excluded_bonds"):
+            add(
+                "authored_bond_exclusions_lost",
+                "Chemical files cannot retain native-display bond "
+                "exclusions; other viewers may infer removed connectivity. "
+                "Native archives preserve "
+                "the explicit modeling intent.",
+                "metadata.neistra_modeling",
+                blocking=True,
+            )
+        if target_format == "mol2":
+            add(
+                "mol2_draft_typing",
+                "MOL2 atom types are derived from the current draft and require "
+                "chemistry review; source types are not blindly reused.",
+                "atoms.type",
+                blocking=True,
+            )
+    if target_format == "sdf" and multiple_conformers:
+        add(
+            "conformer_relationship_reduced",
+            "SDF writes separate conformer records; project entry "
+            "relationships and conformer identities/names require a native archive.",
+            "conformers",
         )
     return warnings

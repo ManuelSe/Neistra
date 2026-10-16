@@ -30,6 +30,18 @@ and screenshots identify mobile panel occlusion for required C4 inspection/a11y
 qualification. No independent review, unobstructed mobile preview, full preceding-
 reader/performance qualification or release claim is made by this checkpoint.
 
+[C4](assets/direct-modeling/c4-verification.json) passes687Python/248frontend/
+99broad native cases/13intentional layout skips, zero failures/flakes/
+retries; Ruff/mypy68/lint/types/build/diff and actual clean tagged0.16.0 reader.
+Scientific export/stereo/unknowns, sparse model IDs, literal-H interpretation,
+all formats/conformers/alternate sites, rich references/archives, pure preview and
+allocator guards pass. Both themes/320px/expanded forms/44px/keyboard/real100/200%
+zoom and native late-response ownership pass. Original/authored1STP movement and
+existing selected surface/navigation budgets remain. Old-reader exact retention
+is distinct from expected renderer/helper refusal. Diagnostics/interruption and
+[local self-review](assets/direct-modeling/c4-local-review.md) remain separate;
+final-version candidate/merged complete release qualification remains C5.
+
 Issue #69 follows the [approved editing plan](plans/issue-69-compact-molecular-editor.md).
 C1/C2 implement bounded atomic atom/H, canonical endpoint bonds and six illustrated
 fragment substitutions. C3 adds exact complete-residue template mutation and

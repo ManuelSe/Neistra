@@ -1,0 +1,360 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.2, pluggy-1.6.0
+rootdir: /datadisk/dev/neistra
+configfile: pyproject.toml
+plugins: cov-6.3.0, anyio-4.9.0
+collected 10 items
+
+tests/scientific/test_direct_modeling.py FFFFFFFFFF                      [100%]
+
+=================================== FAILURES ===================================
+_ test_remote_stereo_dependencies_clear_bond_labels_but_keep_disconnected_stereo _
+
+    def test_remote_stereo_dependencies_clear_bond_labels_but_keep_disconnected_stereo() -> None:
+        before = ligand("CCCC/C(CCCCC)=C(/F)Cl.C/C=C/C.C[C@H](F)O")
+        component = {1}
+        while True:
+            expanded = component | {
+                i
+                for b in before.bonds
+                if component & {b.atom_1_id, b.atom_2_id}
+                for i in (b.atom_1_id, b.atom_2_id)
+            }
+            if expanded == component:
+                break
+            component = expanded
+        assigned = [b for b in before.bonds if b.stereo not in {None, "NONE"}]
+        assert any(b.atom_1_id in component for b in assigned)
+        assert any(b.atom_1_id not in component for b in assigned)
+        result = (
+            DirectMolecularEditor()
+            .edit(
+                before,
+                [1],
+                ModelElement(operation="atom.element", element="Br"),
+                next_atom_id=100,
+                next_bond_id=100,
+            )
+            .edit
+        )
+        for old, new in zip(before.bonds, result.structure.bonds, strict=True):
+            if old in assigned and old.atom_1_id in component:
+>               assert new.stereo is None
+E               AssertionError: assert 'E' is None
+E                +  where 'E' = Bond(id=10, atom_1_id=5, atom_2_id=11, order=2.0, aromatic=False, stereo='E', inferred=False).stereo
+
+tests/scientific/test_direct_modeling.py:48: AssertionError
+----------------------------- Captured stderr call -----------------------------
+[21:58:03] Molecule does not have explicit Hs. Consider calling AddHs()
+____ test_unknown_anchor_coordinates_are_finite_and_explicitly_unvalidated _____
+
+    def test_unknown_anchor_coordinates_are_finite_and_explicitly_unvalidated() -> None:
+        before = ligand("C")
+        before = before.model_copy(
+            update={"atoms": [before.atoms[0].model_copy(update={"element": "X"})]}
+        )
+        result = (
+            DirectMolecularEditor()
+>           .edit(
+                before,
+                [1],
+                ModelAtomAdd(operation="atom.add", element="C"),
+                next_atom_id=2,
+                next_bond_id=1,
+            )
+            .edit
+        )
+
+tests/scientific/test_direct_modeling.py:65:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+packages/molweave_core/src/molweave_core/editing/model.py:190: in edit
+    place_atom(
+packages/molweave_core/src/molweave_core/editing/placement.py:136: in place_atom
+    * _length(anchor.element, element)
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+first = 'X', second = 'C'
+
+    def _length(first: str, second: str) -> float:
+        table = Chem.GetPeriodicTable()
+        return float(
+>           table.GetRcovalent(table.GetAtomicNumber(first))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            + table.GetRcovalent(table.GetAtomicNumber(second))
+        )
+E       RuntimeError: Post-condition Violation
+E       	Element 'X' not found
+E       	Violation occurred on line 93 in file Code/GraphMol/PeriodicTable.h
+E       	Failed Expression: anum > -1
+E       	RDKIT: 2026.03.4
+E       	BOOST: 1_85
+
+packages/molweave_core/src/molweave_core/editing/placement.py:62: RuntimeError
+----------------------------- Captured stderr call -----------------------------
+[21:58:03] Molecule does not have explicit Hs. Consider calling AddHs()
+[21:58:03]
+
+****
+Post-condition Violation
+Element 'X' not found
+Violation occurred on line 93 in file /project/build/temp.linux-x86_64-cpython-312/rdkit/Code/GraphMol/PeriodicTable.h
+Failed Expression: anum > -1
+----------
+Stacktrace:
+----------
+****
+
+________ test_extreme_authored_charge_remains_persisted_and_displayable ________
+
+    def test_extreme_authored_charge_remains_persisted_and_displayable() -> None:
+        before = paracetamol()
+        after = (
+            DirectMolecularEditor()
+            .edit(
+                before,
+                [1],
+                ModelCharge(operation="atom.charge.set", charge=2**32),
+                next_atom_id=100,
+                next_bond_id=100,
+            )
+            .edit.structure
+        )
+        snapshot = after.to_bytes()
+>       assert "M  END" in ligand_viewer_sdf(after)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/scientific/test_direct_modeling.py:93:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+packages/molweave_core/src/molweave_core/viewer_projection.py:10: in ligand_viewer_sdf
+    mol = normalized_to_mol(structure)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+structure = NormalizedStructureV1(schema_version=1, title='paracetamol', structure_type='ligand', source=SourceFacts(filename='par...res review.', operation='model.atom.charge.set', severity='warning', field='metadata', blocking=False)], inferences=[])
+
+    def normalized_to_mol(structure: NormalizedStructureV1) -> Any:
+        editable = Chem.RWMol()
+        residue_by_id = {residue.id: residue for residue in structure.residues}
+        chain_by_id = {chain.id: chain for chain in structure.chains}
+        atom_indices: dict[int, int] = {}
+        aromatic_atom_ids: set[int] = set()
+        for bond in structure.bonds:
+            if bond.aromatic:
+                aromatic_atom_ids.update((bond.atom_1_id, bond.atom_2_id))
+
+        for atom in structure.atoms:
+            rd_atom = Chem.Atom(atom.element)
+>           rd_atom.SetFormalCharge(atom.formal_charge or 0)
+E           OverflowError: bad numeric conversion: positive overflow
+
+packages/molweave_core/src/molweave_core/adapters/rdkit_common.py:192: OverflowError
+__________ test_chemical_exports_explain_unknown_charge_mapping[mol] ___________
+
+format_name = 'mol'
+
+    @pytest.mark.parametrize("format_name", ["mol", "sdf", "mol2"])
+    def test_chemical_exports_explain_unknown_charge_mapping(format_name: str) -> None:
+        before = paracetamol()
+        after = (
+            DirectMolecularEditor()
+            .edit(
+                before,
+                [1],
+                ModelCharge(operation="atom.charge.set", charge=None),
+                next_atom_id=100,
+                next_bond_id=100,
+            )
+            .edit.structure
+        )
+        snapshot = after.to_bytes()
+        result = create_default_registry().for_format(format_name).export(after, "unknown")
+>       assert any(w.blocking and w.code == "unknown_formal_charges_mapped" for w in result.warnings)
+E       assert False
+E        +  where False = any(<generator object test_chemical_exports_explain_unknown_charge_mapping.<locals>.<genexpr> at 0x78489dd75490>)
+
+tests/scientific/test_direct_modeling.py:114: AssertionError
+__________ test_chemical_exports_explain_unknown_charge_mapping[sdf] ___________
+
+format_name = 'sdf'
+
+    @pytest.mark.parametrize("format_name", ["mol", "sdf", "mol2"])
+    def test_chemical_exports_explain_unknown_charge_mapping(format_name: str) -> None:
+        before = paracetamol()
+        after = (
+            DirectMolecularEditor()
+            .edit(
+                before,
+                [1],
+                ModelCharge(operation="atom.charge.set", charge=None),
+                next_atom_id=100,
+                next_bond_id=100,
+            )
+            .edit.structure
+        )
+        snapshot = after.to_bytes()
+        result = create_default_registry().for_format(format_name).export(after, "unknown")
+>       assert any(w.blocking and w.code == "unknown_formal_charges_mapped" for w in result.warnings)
+E       assert False
+E        +  where False = any(<generator object test_chemical_exports_explain_unknown_charge_mapping.<locals>.<genexpr> at 0x78489f8e65a0>)
+
+tests/scientific/test_direct_modeling.py:114: AssertionError
+__________ test_chemical_exports_explain_unknown_charge_mapping[mol2] __________
+
+format_name = 'mol2'
+
+    @pytest.mark.parametrize("format_name", ["mol", "sdf", "mol2"])
+    def test_chemical_exports_explain_unknown_charge_mapping(format_name: str) -> None:
+        before = paracetamol()
+        after = (
+            DirectMolecularEditor()
+            .edit(
+                before,
+                [1],
+                ModelCharge(operation="atom.charge.set", charge=None),
+                next_atom_id=100,
+                next_bond_id=100,
+            )
+            .edit.structure
+        )
+        snapshot = after.to_bytes()
+        result = create_default_registry().for_format(format_name).export(after, "unknown")
+>       assert any(w.blocking and w.code == "unknown_formal_charges_mapped" for w in result.warnings)
+E       assert False
+E        +  where False = any(<generator object test_chemical_exports_explain_unknown_charge_mapping.<locals>.<genexpr> at 0x78489dc03ac0>)
+
+tests/scientific/test_direct_modeling.py:114: AssertionError
+__ test_smiles_refuses_unknown_chemistry_instead_of_inventing_neutral_smiles ___
+
+    def test_smiles_refuses_unknown_chemistry_instead_of_inventing_neutral_smiles() -> None:
+        before = paracetamol()
+        before = before.model_copy(
+            update={"atoms": [a.model_copy(update={"formal_charge": None}) for a in before.atoms]}
+        )
+>       with pytest.raises(AdapterError, match="assigned formal charges and bond orders"):
+E       Failed: DID NOT RAISE <class 'molweave_core.adapters.base.AdapterError'>
+
+tests/scientific/test_direct_modeling.py:123: Failed
+_____ test_unrepresentable_broken_aromatic_export_is_a_typed_refusal[mol] ______
+
+format_name = 'mol'
+
+    @pytest.mark.parametrize("format_name", ["mol", "sdf", "smiles"])
+    def test_unrepresentable_broken_aromatic_export_is_a_typed_refusal(format_name: str) -> None:
+        before = paracetamol()
+        bond = next(b for b in before.bonds if b.aromatic)
+        after = (
+            DirectMolecularEditor()
+            .edit(
+                before,
+                [bond.atom_1_id, bond.atom_2_id],
+                ModelBondDelete(operation="bond.delete"),
+                next_atom_id=100,
+                next_bond_id=100,
+            )
+            .edit.structure
+        )
+        assert "M  END" in ligand_viewer_sdf(after)
+        with pytest.raises(AdapterError, match="represent"):
+>           create_default_registry().for_format(format_name).export(after, "aromatic-draft")
+
+tests/scientific/test_direct_modeling.py:144:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <molweave_core.adapters.ligand.MolAdapter object at 0x78489dc63f50>
+structure = NormalizedStructureV1(schema_version=1, title='paracetamol', structure_type='ligand', source=SourceFacts(filename='par...olved aromaticity.', operation='model.bond.delete', severity='warning', field='bonds', blocking=False)], inferences=[])
+filename_stem = 'aromatic-draft'
+
+    def export(self, structure: NormalizedStructureV1, filename_stem: str) -> ExportResult:
+        mol = normalized_to_mol(structure)
+>       block = Chem.MolToMolBlock(
+            mol,
+            confId=max(structure.active_conformer_id - 1, 0),
+            forceV3000=mol.GetNumAtoms() > 999 or mol.GetNumBonds() > 999,
+        )
+E       rdkit.Chem.rdchem.AtomKekulizeException: non-ring atom 4 marked aromatic
+
+packages/molweave_core/src/molweave_core/adapters/ligand.py:131: AtomKekulizeException
+----------------------------- Captured stderr call -----------------------------
+[21:58:03] non-ring atom 4 marked aromatic
+_____ test_unrepresentable_broken_aromatic_export_is_a_typed_refusal[sdf] ______
+
+format_name = 'sdf'
+
+    @pytest.mark.parametrize("format_name", ["mol", "sdf", "smiles"])
+    def test_unrepresentable_broken_aromatic_export_is_a_typed_refusal(format_name: str) -> None:
+        before = paracetamol()
+        bond = next(b for b in before.bonds if b.aromatic)
+        after = (
+            DirectMolecularEditor()
+            .edit(
+                before,
+                [bond.atom_1_id, bond.atom_2_id],
+                ModelBondDelete(operation="bond.delete"),
+                next_atom_id=100,
+                next_bond_id=100,
+            )
+            .edit.structure
+        )
+        assert "M  END" in ligand_viewer_sdf(after)
+        with pytest.raises(AdapterError, match="represent"):
+>           create_default_registry().for_format(format_name).export(after, "aromatic-draft")
+
+tests/scientific/test_direct_modeling.py:144:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <molweave_core.adapters.ligand.SdfAdapter object at 0x78489dd6b9e0>
+structure = NormalizedStructureV1(schema_version=1, title='paracetamol', structure_type='ligand', source=SourceFacts(filename='par...olved aromaticity.', operation='model.bond.delete', severity='warning', field='bonds', blocking=False)], inferences=[])
+filename_stem = 'aromatic-draft'
+
+    def export(self, structure: NormalizedStructureV1, filename_stem: str) -> ExportResult:
+        mol = normalized_to_mol(structure)
+        records: list[str] = []
+        properties = structure.metadata.get("properties", {})
+        for conformer_index in range(mol.GetNumConformers()):
+>           block = Chem.MolToMolBlock(
+                mol,
+                confId=conformer_index,
+                forceV3000=mol.GetNumAtoms() > 999 or mol.GetNumBonds() > 999,
+            )
+E           rdkit.Chem.rdchem.AtomKekulizeException: non-ring atom 4 marked aromatic
+
+packages/molweave_core/src/molweave_core/adapters/ligand.py:90: AtomKekulizeException
+----------------------------- Captured stderr call -----------------------------
+[21:58:03] non-ring atom 4 marked aromatic
+____ test_unrepresentable_broken_aromatic_export_is_a_typed_refusal[smiles] ____
+
+format_name = 'smiles'
+
+    @pytest.mark.parametrize("format_name", ["mol", "sdf", "smiles"])
+    def test_unrepresentable_broken_aromatic_export_is_a_typed_refusal(format_name: str) -> None:
+        before = paracetamol()
+        bond = next(b for b in before.bonds if b.aromatic)
+        after = (
+            DirectMolecularEditor()
+            .edit(
+                before,
+                [bond.atom_1_id, bond.atom_2_id],
+                ModelBondDelete(operation="bond.delete"),
+                next_atom_id=100,
+                next_bond_id=100,
+            )
+            .edit.structure
+        )
+        assert "M  END" in ligand_viewer_sdf(after)
+>       with pytest.raises(AdapterError, match="represent"):
+E       Failed: DID NOT RAISE <class 'molweave_core.adapters.base.AdapterError'>
+
+tests/scientific/test_direct_modeling.py:143: Failed
+=========================== short test summary info ============================
+FAILED tests/scientific/test_direct_modeling.py::test_remote_stereo_dependencies_clear_bond_labels_but_keep_disconnected_stereo
+FAILED tests/scientific/test_direct_modeling.py::test_unknown_anchor_coordinates_are_finite_and_explicitly_unvalidated
+FAILED tests/scientific/test_direct_modeling.py::test_extreme_authored_charge_remains_persisted_and_displayable
+FAILED tests/scientific/test_direct_modeling.py::test_chemical_exports_explain_unknown_charge_mapping[mol]
+FAILED tests/scientific/test_direct_modeling.py::test_chemical_exports_explain_unknown_charge_mapping[sdf]
+FAILED tests/scientific/test_direct_modeling.py::test_chemical_exports_explain_unknown_charge_mapping[mol2]
+FAILED tests/scientific/test_direct_modeling.py::test_smiles_refuses_unknown_chemistry_instead_of_inventing_neutral_smiles
+FAILED tests/scientific/test_direct_modeling.py::test_unrepresentable_broken_aromatic_export_is_a_typed_refusal[mol]
+FAILED tests/scientific/test_direct_modeling.py::test_unrepresentable_broken_aromatic_export_is_a_typed_refusal[sdf]
+FAILED tests/scientific/test_direct_modeling.py::test_unrepresentable_broken_aromatic_export_is_a_typed_refusal[smiles]
+============================== 10 failed in 0.18s ==============================

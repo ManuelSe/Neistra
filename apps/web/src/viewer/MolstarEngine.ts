@@ -1,4 +1,4 @@
-import { createModelPreviewRepresentation } from "./modelPreviewGeometry";
+import { createModelPreviewRepresentation, modelPreviewColor } from "./modelPreviewGeometry";
 import type { ModelPreview } from "../api/types";
 import { componentAtomIds } from "../selection/components";
 import type { InteractionRecord } from "../interactions/types";
@@ -114,7 +114,7 @@ export class MolstarEngine implements MolecularViewer {
   private measurements: ViewerMeasurement[] = [];
   private interactions: InteractionRecord[] = [];
   private modelPreview: ModelPreview | null = null;
-  private modelPreviewRepresentation = createModelPreviewRepresentation();
+  private modelPreviewRepresentation = createModelPreviewRepresentation(() => modelPreviewColor(this.backgroundColor));
   private interactionRepresentation = createInteractionRepresentation();
   private nonpolarHydrogenIds = new Map<string, Set<number>>();
   private isolation: AtomReference[] | null = null;
@@ -303,6 +303,7 @@ export class MolstarEngine implements MolecularViewer {
 
   setBackgroundColor(cssColor: string): void {
     this.backgroundColor = cssColor;
+    if (this.modelPreview) void this.setModelPreview(this.modelPreview).catch(() => undefined);
     this.plugin?.canvas3d?.setProps({
       renderer: { backgroundColor: Color.fromHexStyle(cssColor) },
       transparentBackground: false,
@@ -538,7 +539,7 @@ export class MolstarEngine implements MolecularViewer {
     const preview = this.modelPreview;
     if (!canvas) return;
     if (!preview) { canvas.remove(this.modelPreviewRepresentation); return; }
-    await this.modelPreviewRepresentation.createOrUpdate({ alpha: 0.55, ignoreLight: true }, preview).run();
+    await this.modelPreviewRepresentation.createOrUpdate({ alpha: 0.85, ignoreLight: true }, preview).run();
     if (this.modelPreview !== preview) return;
     this.modelPreviewRepresentation.setState({ pickable: false, markerActions: 0 });
     canvas.add(this.modelPreviewRepresentation);

@@ -238,7 +238,7 @@ it("does not allow retargeting an empty-entry write while it is pending", async 
   await user.click(screen.getByText("Add atom", { exact: true }));
   await user.click(screen.getByRole("button", { name: "Preview atom" }));
   await user.click(await screen.findByRole("button", { name: "Apply placement" }));
-  expect(screen.getByRole("combobox", { name: "Empty target entry" })).toBeDisabled();
+  expect(screen.getByLabelText("Empty target entry")).toBeDisabled();
   await act(async () => { finish(); await Promise.resolve(); });
   expect(screen.getByRole("combobox", { name: "Empty target entry" })).toBeEnabled();
 });
@@ -269,8 +269,31 @@ it("retains placement inputs and the captured proposal across responsive remount
   cleanup();
   const second = setup();
   // The disclosure itself is local presentation state; its draft is project-owned.
+  await second.user.click(screen.getByRole("button", { name: "Placement tools" }));
   await second.user.click(screen.getByText("Add atom", { exact: true }));
   expect(screen.getByRole("combobox", { name: "Added element" })).toHaveValue("P");
   await second.user.click(screen.getByRole("button", { name: "Apply placement" }));
   expect(second.onEdit).toHaveBeenCalledWith(entry.id, entry.current_artifact_id, selection, { operation: "atom.add", element: "P", charge: 0, direction: 0 });
+});
+
+it("retains a closed launcher's owned keyboard focus across a responsive remount", async () => {
+  const first = setup();
+  await first.user.tab();
+  expect(screen.getByRole("button", { name: "Edit molecule" })).toHaveFocus();
+  cleanup();
+  setup();
+  expect(screen.getByRole("button", { name: "Edit molecule" })).toHaveFocus();
+  expect(screen.queryByRole("dialog", { name: "Edit molecule" })).toBeNull();
+});
+
+it("does not restore launcher focus over another control's newer focus", async () => {
+  const first = setup();
+  await first.user.tab();
+  cleanup();
+  const outside = document.createElement("button"); outside.textContent = "Other task";
+  document.body.append(outside); outside.focus();
+  try {
+    setup();
+    expect(outside).toHaveFocus();
+  } finally { outside.remove(); }
 });

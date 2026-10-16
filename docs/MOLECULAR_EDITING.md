@@ -1,8 +1,8 @@
 # Molecular editing
 
 The current direct atom/bond workflow follows the
-[issue #74 contract](plans/issue-74-direct-molecular-modeling.md). C3 implements direct editing and compact building; final scientific, persistence,
-compatibility and release qualification remain C4/C5 checkpoints.
+[issue #74 contract](plans/issue-74-direct-molecular-modeling.md). Direct editing and compact building are implemented; qualification and
+release evidence are recorded checkpoint by checkpoint in that contract.
 
 Select atoms, open **Edit molecule** beside **Transform selection**, and use
 **Atoms** or **Bonds**. Direct editing works on incomplete normalized structures
@@ -29,7 +29,9 @@ records; its exclusion persists across reload and Undo/Redo.
 
 Direct edits preserve unrelated records, coordinates, original uploaded bytes and
 source facts. They invalidate computed chemistry descriptors, clear affected
-unjustified stereo labels and attach review warnings. Unchanged stereo remains.
+unjustified stereo labels and attach review warnings. Disconnected bond stereo remains; bond labels in an edited connected graph are
+conservatively cleared because remote substituent priorities can change. Unaffected
+local tetrahedral tags remain.
 An unvalidated draft is not a protonation, preparation or optimized-geometry claim.
 Source labels/properties can describe the original rather than modified chemistry.
 Viewer projection displays drafts independently of chemical-format export.
@@ -61,9 +63,13 @@ carboxylic acid or phenyl, or select a terminal explicit H to replace it. Termin
 replacement needs an explicit heavy parent, but not complete charge/order chemistry.
 The parent stays fixed and other H are preserved. Replacement consumes H identity
 and maps it to the new root; ordinary element assignment instead retains identity.
-All new records inherit their anchor's valid residue membership.
+All new records inherit their anchor's valid residue membership and alternate-site
+label; terminal-H replacement prefers that H's alternate label.
 
-A cyan, nonpickable **Placement preview** shows proposed atoms/bonds. Use **Next
+A cyan, nonpickable **Placement preview** shows proposed atoms/bonds. The panel
+collapses to a compact inspection bar at the bottom of the workspace so the
+proposal stays visible. **Placement tools** restores inputs and warnings;
+**Inspect placement** returns to the bar without recomputing. Use **Next
 direction** to cycle six local directions and **Rotate fragment** for six60-degree
 turns. **Apply placement** recomputes and saves one command; **Cancel placement**
 discards the proposal without an artifact/history/allocator change. Selection,
@@ -95,8 +101,15 @@ persist in entry Details. Locks, revisions, artifact ownership, valid references
 finite coordinates and aligned conformers remain required. The application entry
 atom limit applies; the helper's256-heavy-atom limit is not a direct-edit limit.
 No database or top-level schema migration is introduced (Alembic0014;
-project/viewer/archive2, normalized/selection1). Broader native save/archive qualification,
-actual preceding-reader limitations and release publication remain C4/C5 work.
+project/viewer/archive2, normalized/selection1). Native archives preserve drafts,
+unknowns, generated/empty entries and conformers exactly. Chemical exports explain
+representational defaults/losses or refuse a graph the format cannot represent;
+SMILES requires assigned valid chemistry. Native bond exclusions are not portable
+in chemical files. MOL2 types derive from the current draft with a review warning.
+Use native archives for exact draft persistence. The actual v0.16.0 reader retains
+data/history/archives but its old aromatic renderer/helpers can refuse drafts;
+unrestricted runtime rollback is not supported. Back up complete managed data.
+See [compatibility guidance](DEVELOPMENT.md#direct-molecular-modeling-compatibility-issue-74).
 
 In **Residues**, pick exactly one complete amino-acid residue and click one of
 the 20 replacement names. Selecting only an atom, multiple residues or an
@@ -131,3 +144,8 @@ the heading/Close action reachable. Scientific limits and full operation warning
 are available in labelled disclosures; persisted entry Details remains the durable
 warning source. Touch controls/launcher use44px targets. H display is presentation
 only and local H preferences/isolation/exact hiding can still hide an atom.
+
+MOL/SDF/SMILES may interpret missing H through format valence defaults, even after
+explicit H deletion. Modeled exports require acknowledgement of this limitation;
+no H is added to canonical records. Use native archives to preserve the literal
+draft rather than treating a chemical format as a protonation specification.

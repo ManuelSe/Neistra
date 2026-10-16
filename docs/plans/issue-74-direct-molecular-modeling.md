@@ -3,7 +3,7 @@
 ## Status and metadata
 
 Approved by the user's “Implement the plan.” on 2026-10-16 after the complete
-proposal and four confirmed product choices. C0–C3 implementation checkpoints are complete; C4 qualification is next. This document is the implementation
+proposal and four confirmed product choices. C0–C4 implementation/qualification checkpoints are complete; C5 release delivery is next. This document is the implementation
 contract. Historical checkpoint entries record their state at that time.
 
 - Issue: [#74](https://github.com/ManuelSe/Neistra/issues/74).
@@ -406,3 +406,76 @@ plugin/job type or dependency upgrade is implied.
   literal direct actions, helper fallback and honest new XYZ unknown charges. No
   migration/version/release change. No external blocker. Commit/push C3, then C4
   scientific/persistence/reference/actual-reader/performance/accessibility gates.
+
+
+### C3 publication and C4 qualification — 2026-10-16
+
+- C3 de9877f86453fa23357378608091093767ebbc29 committed/pushed with remote SHA
+  verified and clean tree. C4 addresses the required preview inspection gap with
+  a bottom-docked compact bar, retained inputs/warnings and theme-adaptive ghosts.
+- New scientific red/green cases cover remote bond-stereo dependencies, unknown
+  attachment radii, extreme charges, typed export refusals and explicit unknown
+  representation losses. MOL2 output follows authored elements, preserving source
+  types as facts. Alternate-site additions inherit the actual anchor/H label.
+- New integration cases cover all seven supported loaded formats, real conformers/
+  alternate sites, rich reference reconciliation, pure preview DB counters and
+  acknowledged chemical export. Initial683Python tests pass; native narrow/theme/
+  expanded-form axe and actual100/200% zoom pass, plus delayed preview/closed
+  creation ownership. These are diagnostic results, not the final source gate.
+- The actual tagged v0.16.0 reader retains new direct data/history/archives and
+  generated empty/multiconformer states. Its old broken-aromatic projection refuses
+  as expected; no full runtime rollback claim. C5 repeats with final0.17 producer.
+- Full-diff self-review reproduced sparse-ID multi-model mmCIF row collisions;
+  six rows had five unique IDs. Fix serial stride without changing canonical IDs.
+  Interrupt the incomplete pre-review gate and repeat all C4 commands on reviewed
+  source; no interrupted run is represented as passing final qualification.
+- No version/migration/dependency change. Final broad C4 gate is running.
+
+
+### C4 additional review and restart — 2026-10-16
+
+- Broad native run49passes found a real closed-launcher focus race across the
+  actual200% responsive remount. Interrupt the remaining tests, retain the failed
+  report/trace and reproduce in a component regression. Preserve focus only for
+  the captured project visit; a newer external focus remains authoritative.
+  Targeted broad zoom/placement then passes5cases/3intentional layout skips.
+- Three real chemical exports of a literal H-free draft demonstrate implicit H
+  interpretation on re-read. Require acknowledgement for MOL/SDF/SMILES while
+  keeping canonical H deleted; native archives remain exact. Red/green evidence
+  is retained. This is representation honesty, not forced chemistry completion.
+- Final reviewed-source C4 rerun passes687Python/248frontend and all static/build
+  checks; broad native and actual-reader commands remain running. No passing
+  milestone/release claim is based on the interrupted run.
+
+
+### C4 complete — 2026-10-16
+
+- [Final reviewed-source gate](../assets/direct-modeling/c4-verification.json)
+  passes687Python,248frontend,99native cases/13intentional layout skips in
+  17.0minutes, zero failures/flakes/retries; Ruff/mypy68/lint/types/build/diff
+  and actual clean tagged v0.16.0 reader pass. Exact commands/env/source/log/report/
+  reader/profile/screenshot hashes retained. No migration or version change.
+- All seven loaded formats remain directly editable. Real alternate sites and
+  conformers retain every unaffected coordinate, including empty protein archives.
+  Rich references/scenes/surfaces reconcile through deletion/H replacement and
+  Undo/Redo. Pure previews leave DB artifacts/history/allocators unchanged.
+- Scientific red/green cases cover remote bond stereo, unknown-radius fallback,
+  extreme charge display, unknown mapping/typed export refusal, current MOL2 types,
+  fixed-width PDB fields, sparse-ID mmCIF rows and implicit-H format interpretation.
+  Literal H deletion remains exact; chemical export interpretation needs consent.
+- Compact inspection exposes native nonpickable ghosts in both themes/320px and
+  actual100/200% zoom, with scoped axe/44px/focus/hit checks. Fix reproduced closed-
+  launcher responsive-focus loss without overriding newer external focus. Native
+  delayed preview/closed creation guards pass. Earlier failures/interrupted runs
+  remain diagnostic; [self-review](../assets/direct-modeling/c4-local-review.md) is
+  not independent. Final mobile/200%zoom screenshots inspected in both themes.
+- Native original/authored1STP movement retains unchanged budgets, with surface/
+  navigation/pocket regressions. The25k parent test forbids whole-parent helper
+  conversion; it is a scope test, not a throughput guarantee. Complete C5 repeats
+  all existing capacity/interaction/performance suites on both final-version trees.
+- Actual0.16.0 reader retains new direct canonical data, generic history, generated
+  empty/multiconformer archives/re-export, originals/jobs/scenes/surfaces, while
+  old broken-aromatic projection/helper refusals are expected and recorded. No
+  unrestricted runtime rollback or data stripping. Repeat with final0.17 producer.
+- C4 passing state ready to commit/push; next C5 versions/release notes/clean full
+  candidate gate/full review/normal PR/merge/exact-master gate/tag/release/closeout.

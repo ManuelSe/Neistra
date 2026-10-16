@@ -246,3 +246,55 @@ def test_successful_optional_h_adds_only_h_and_keeps_direct_records_exact() -> N
         )
         parent = parents[bond.atom_2_id if bond.atom_1_id == hydrogen.id else bond.atom_1_id]
         assert hydrogen.residue_id == parent.residue_id
+
+
+@pytest.mark.parametrize(
+    "metadata",
+    [
+        {"schema_version": 2, "excluded_bonds": []},
+        {"schema_version": 1, "excluded_bonds": [[1, 1]]},
+        {"schema_version": 1, "excluded_bonds": [[1, 99999]]},
+        {"schema_version": 1, "excluded_bonds": [[True, 2]]},
+    ],
+)
+def test_invalid_authored_metadata_is_not_silently_repaired(metadata: dict) -> None:
+    before = paracetamol().model_copy(update={"metadata": {"neistra_modeling": metadata}})
+    snapshot = before.to_bytes()
+    with pytest.raises(InvalidModelEdit):
+        DirectMolecularEditor().edit(
+            before,
+            [1],
+            ModelCharge(operation="atom.charge.set", charge=1),
+            next_atom_id=100,
+            next_bond_id=100,
+        )
+    assert before.to_bytes() == snapshot
+
+
+def test_authored_values_clear_inference_labels_without_rewriting_historical_provenance() -> None:
+    before = paracetamol()
+    before = before.model_copy(
+        update={
+            "atoms": [
+                a.model_copy(
+                    update={"inferred_fields": ["formal_charge", "chemistry", "coordinates"]}
+                )
+                if a.id == 1
+                else a
+                for a in before.atoms
+            ]
+        }
+    )
+    after = (
+        DirectMolecularEditor()
+        .edit(
+            before,
+            [1],
+            ModelCharge(operation="atom.charge.set", charge=2),
+            next_atom_id=100,
+            next_bond_id=100,
+        )
+        .edit.structure
+    )
+    assert after.atoms[0].inferred_fields == ["coordinates"]
+    assert after.inferences == before.inferences

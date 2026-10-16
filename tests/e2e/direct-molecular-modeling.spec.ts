@@ -1,40 +1,8 @@
+import { selectPair, bonds, observe, previewState, newEmptyProject } from "./support/modeling";
 import { readFile } from "node:fs/promises";
-import { expect, test, type Page } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 import type { Project, StructureProjection } from "../../apps/web/src/api/types";
 import { prepare } from "./support/interactions";
-
-async function selectPair(page: Page, entry: string, ids: number[], mobile: boolean) {
-  if (mobile) await page.getByRole("button", { name: "Inspector", exact: true }).click();
-  await page.getByRole("tab", { name: "selection", exact: true }).click();
-  await page.getByRole("combobox", { name: "Select by", exact: true }).selectOption("atom_reference");
-  const mode = page.getByRole("group", { name: "Operation mode" });
-  await mode.getByRole("button", { name: "replace", exact: true }).click();
-  for (const [index, id] of ids.entries()) {
-    if (index) await mode.getByRole("button", { name: "add", exact: true }).click();
-    await page.getByRole("textbox", { name: "Value", exact: true }).fill(`${entry}:${id}`);
-    await page.getByRole("button", { name: "Apply query", exact: true }).click();
-    await expect(page.locator(".viewer-status")).toContainText(`/ ${index + 1} selected`);
-  }
-  if (mobile) await page.getByRole("button", { name: "Close panel", exact: true }).click({ position: { x: 2, y: 100 } });
-}
-
-async function bonds(page: Page, entry: string) {
-  return page.evaluate(async id => {
-    const path = "/src/test/modelingHarness.ts";
-    const { displayedBonds } = await import(/* @vite-ignore */ path);
-    return displayedBonds(window.interactionEngines.at(-1)!, id);
-  }, entry);
-}
-
-async function observe(page: Page) {
-  await expect.poll(() => page.evaluate(() => window.interactionEngines?.length ?? 0)).toBeGreaterThan(0);
-  await page.evaluate(async () => {
-    const path = "/src/test/molecularEditHarness.ts";
-    const { observeEditPicks } = await import(/* @vite-ignore */ path);
-    window.editingPicks = await observeEditPicks(window.interactionEngines.at(-1)!);
-    await window.editingPicks.settled();
-  });
-}
 
 test("breaks an aromatic bond and keeps the incomplete draft visible and pickable", async ({ page, request }, info) => {
   test.setTimeout(120000);
@@ -109,26 +77,6 @@ test("removes a native inferred protein bond durably and restores it on Undo", a
   expect((await (await request.get(path)).json() as StructureProjection).structure).toEqual(before);
   await page.screenshot({ path: info.outputPath("native-inferred-removal-undo.png") });
 });
-
-async function previewState(page: Page) {
-  return page.evaluate(async () => {
-    const path = "/src/test/modelingHarness.ts";
-    const { inspectModelPreview } = await import(/* @vite-ignore */ path);
-    return inspectModelPreview(window.interactionEngines.at(-1)!);
-  });
-}
-
-async function newEmptyProject(page: Page, request: import("@playwright/test").APIRequestContext) {
-  const project = await (await request.post("/api/v1/projects", { data: { name: `Molecule from scratch ${Date.now()}` } })).json() as Project;
-  await page.route("**/src/viewer/MolstarEngine.ts*", async route => {
-    const response = await route.fetch();
-    await route.fulfill({ response, body: `${await response.text()}\nconst buildingMount = MolstarEngine.prototype.mount;\nMolstarEngine.prototype.mount = async function(target) { await buildingMount.call(this,target); (window.interactionEngines ??= []).push(this); };` });
-  });
-  await page.goto("/");
-  await page.getByRole("button", { name: "Projects", exact: true }).click();
-  await page.getByRole("dialog", { name: "Projects" }).getByRole("button", { name: new RegExp(`^${project.name}`) }).click();
-  return project;
-}
 
 test("creates a molecule, previews/cancels without mutation, applies and rebuilds the last atom", async ({ page, request }, info) => {
   test.setTimeout(150000);
@@ -237,4 +185,58 @@ test("attaches directly with unknown chemistry and saves an edit when optional H
   after = (await (await request.get(path)).json() as StructureProjection).structure;
   expect(after.atoms.slice(1, before.atoms.length)).toEqual(before.atoms.slice(1));
   await page.screenshot({ path: info.outputPath("unknown-chemistry-direct-fragment.png") });
+});
+
+test("does not restore a late proposal or steal selection after a closed creation dialog", async ({ page, request }, info) => {
+  test.setTimeout(120000);
+  const initial = await newEmptyProject(page, request);
+  await page.locator(".project-stage").getByRole("button", { name: "New molecule", exact: true }).click();
+  const creation = page.getByRole("dialog", { name: "New molecule", exact: true });
+  await creation.getByRole("button", { name: "Create molecule", exact: true }).click();
+  const panel = page.getByRole("dialog", { name: "Edit molecule", exact: true });
+  await expect(panel).toBeVisible();
+  await observe(page);
+  const project = await (await request.get(`/api/v1/projects/${initial.id}`)).json() as Project;
+  const entry = project.entries[0];
+  let releasePreview!: () => void;
+  const heldPreview = new Promise<void>(resolve => { releasePreview = resolve; });
+  let previewFetched = false;
+  await page.route("**/model-edits/preview", async route => {
+    const response = await route.fetch(); previewFetched = true;
+    await heldPreview; await route.fulfill({ response });
+  });
+  await panel.getByText("Add atom", { exact: true }).click();
+  await panel.getByRole("button", { name: "Preview atom", exact: true }).click();
+  await expect.poll(() => previewFetched).toBe(true);
+  await page.keyboard.press("Escape");
+  await expect(panel).toBeHidden();
+  await selectPair(page, entry.id, [1], info.project.name === "mobile-chromium");
+  releasePreview();
+  await page.unroute("**/model-edits/preview");
+  await expect.poll(async () => (await previewState(page)).preview).toBeNull();
+  expect((await (await request.get(`/api/v1/projects/${initial.id}`)).json()).revision).toBe(project.revision);
+  let releaseCreation!: () => void;
+  const heldCreation = new Promise<void>(resolve => { releaseCreation = resolve; });
+  let creationFetched = false;
+  await page.route("**/molecules", async route => {
+    const response = await route.fetch(); creationFetched = true;
+    await heldCreation; await route.fulfill({ response });
+  });
+  const browser = page.getByRole("button", { name: "Project browser", exact: true });
+  if (await browser.isVisible()) await browser.click();
+  await page.getByRole("button", { name: "New molecule", exact: true }).click();
+  await creation.getByLabel("Molecule name", { exact: true }).fill("Closed pending creation");
+  await creation.getByRole("button", { name: "Create molecule", exact: true }).click();
+  await expect.poll(() => creationFetched).toBe(true);
+  await creation.getByRole("button", { name: "Close", exact: true }).click();
+  releaseCreation();
+  await expect(page.getByRole("dialog", { name: "New molecule", exact: true })).toBeHidden();
+  await expect(panel).toBeHidden();
+  await expect.poll(async () => (await (await request.get(`/api/v1/projects/${initial.id}`)).json()).entries.length).toBe(2);
+  // The write completes, but its cancelled UI owner cannot select/focus its atom.
+  await expect(page.locator(".viewer-status")).toContainText("1 selected");
+  await expect.poll(() => page.evaluate(() => window.interactionEngines.at(-1)!.getRenderedAtomReferences().length)).toBe(2);
+  await page.getByRole("button", { name: "Edit molecule", exact: true }).click();
+  await expect(panel.locator(".edit-target")).toContainText(entry.name);
+  await expect.poll(async () => (await previewState(page)).preview).toBeNull();
 });

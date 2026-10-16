@@ -1,0 +1,16 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.2, pluggy-1.6.0
+rootdir: /datadisk/dev/neistra
+configfile: pyproject.toml
+testpaths: tests
+plugins: cov-6.3.0, anyio-4.9.0
+collected 683 items
+
+tests/integration/test_archive_roundtrip.py .........................    [  3%]
+tests/integration/test_component_hierarchy.py ..                         [  3%]
+tests/integration/test_coordinate_commands.py ...............            [  6%]
+tests/integration/test_direct_modeling_qualification.py ............     [  7%]
+tests/integration/test_group_membership.py ..........                    [  9%]
+tests/integration/test_import_export.py ...................              [ 12%]
+tests/integration/test_interactions.py ......                            [ 13%]
+tests/integration/test_job_lifecycle.py .

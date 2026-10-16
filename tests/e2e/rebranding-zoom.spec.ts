@@ -407,6 +407,25 @@ test("keeps the molecular editor keyboard controls reachable at actual browser z
         }
         expect((await new AxeBuilder({ page }).include(".molecular-edit-panel").withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"]).analyze()).violations).toEqual([]);
         await captureZoomPage(page, info, `${theme}-${factor * 100}-molecular-edit.png`);
+        await panel.getByRole("button", { name: "Atoms", exact: true }).click();
+        await panel.getByText("Add atom", { exact: true }).click();
+        const more = panel.getByText("More elements and formal charge", { exact: true });
+        if (!(await more.evaluate(node => node.closest("details")!.open))) await more.click();
+        expect((await new AxeBuilder({ page }).include(".molecular-edit-panel").withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"]).analyze()).violations).toEqual([]);
+        await panel.getByRole("button", { name: "Preview atom", exact: true }).click();
+        await expect(panel.getByRole("button", { name: "Apply placement", exact: true })).toBeEnabled();
+        expect((await panel.boundingBox())!.height).toBeLessThanOrEqual(70);
+        for (const control of await panel.getByRole("button").all()) {
+          await control.focus(); await expect(control).toBeFocused();
+          expect(await control.evaluate(node => {
+            const b = node.getBoundingClientRect();
+            return b.width >= 44 && b.height >= 44 && b.x >= 0 && b.right <= innerWidth &&
+              b.y >= 0 && b.bottom <= innerHeight && node.contains(document.elementFromPoint(b.x + b.width / 2, b.y + b.height / 2));
+          })).toBe(true);
+        }
+        expect((await new AxeBuilder({ page }).include(".molecular-edit-panel").withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"]).analyze()).violations).toEqual([]);
+        await captureZoomPage(page, info, `${theme}-${factor * 100}-placement-inspection.png`);
+        await panel.getByRole("button", { name: "Cancel placement", exact: true }).click();
         await page.keyboard.press("Escape"); await expect(launcher).toBeFocused();
       }
     }

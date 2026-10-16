@@ -29,13 +29,13 @@ export function NewMoleculeDialog({ open, onOpenChange, onCreate }: Props) {
     finally { if (ownsResponse()) setPending(false); }
   };
   return <Modal open={open} onOpenChange={close} title="New molecule" description="Start with one atom at the origin, then build in Edit. Chemistry can remain incomplete.">
-    <form aria-busy={pending} onSubmit={event => { event.preventDefault(); void submit(); }}>
+    <form className="new-molecule-form" aria-busy={pending} onSubmit={event => { event.preventDefault(); void submit(); }}>
       <fieldset disabled={pending}>
         <label>Molecule name<input value={name} maxLength={160} onChange={event => setName(event.target.value)} /></label>
         <label>First element<input list="first-atom-elements" value={element} onChange={event => setElement(event.target.value)} /></label>
         <datalist id="first-atom-elements">{ELEMENTS.map(symbol => <option key={symbol} value={symbol} />)}</datalist>
         <label>First formal charge<input type="number" step="1" value={charge} disabled={unknown} onChange={event => setCharge(event.target.value)} /></label>
-        <label><input type="checkbox" checked={unknown} onChange={event => setUnknown(event.target.checked)} />Charge unknown</label>
+        <label className="modeling-check"><input type="checkbox" checked={unknown} onChange={event => setUnknown(event.target.checked)} />Charge unknown</label>
       </fieldset>
       {pending ? <p role="status">Creation continues if you close this dialog.</p> : null}
       {error ? <p role="alert">{error}</p> : null}

@@ -1,6 +1,6 @@
 import { placementContext } from "../editing/placement";
 import { useQuery } from "@tanstack/react-query";
-import { Pencil, X, Trash2, Plus, Minus } from "lucide-react";
+import { Pencil, X, Trash2, Plus, Minus, ChevronRight, RotateCw } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { molecularApi, projectApi } from "../api/client";
@@ -30,7 +30,6 @@ export function MolecularEditPanel({ project, selection, busy, unavailable, onEd
   const pending = editing.projectId === project.id && editing.pending;
   const launcher = useRef<HTMLButtonElement>(null);
   const panel = useRef<HTMLElement>(null);
-  useEditPanelPosition(open, project.id, launcher, panel);
   const { element: addElement, charge: addCharge, unknown: addUnknown } = editing.atomDraft;
   const [elementChoice, setElementChoice] = useState("P");
   const [chargeChoice, setChargeChoice] = useState("0");
@@ -57,6 +56,8 @@ export function MolecularEditPanel({ project, selection, busy, unavailable, onEd
   const { placement: ownedPlacement, hydrogenPolicy, setPlacement } = editing;
   const context = placementContext(project, entry?.id, selection, editing.generation, editing.hydrogenPolicy);
   const draft = editing.placement?.context === context ? editing.placement : null;
+  const inspecting = Boolean(draft && editing.inspectingPlacement && !draft.error);
+  useEditPanelPosition(open, project.id, launcher, panel, inspecting);
   useEffect(() => {
     const current = ownedPlacement;
     if (!current) return;
@@ -73,7 +74,8 @@ export function MolecularEditPanel({ project, selection, busy, unavailable, onEd
   }, [artifact, context, ownedPlacement, hydrogenPolicy, setPlacement, entry, open, project, selection, unavailable, query.isError]);
   const preview = (action: ModelPlacementAction) => {
     if (reason || pending || !entry || !artifact) return;
-    setError(null); editing.setPlacement({ context, action });
+    if (panel.current?.contains(document.activeElement)) panel.current.focus();
+    setError(null); editing.setPlacement({ context, action }); editing.setInspectingPlacement(true);
   };
   const close = (owned: boolean) => { setOpen(false); if (owned) launcher.current?.focus(); };
   const execute = async (action: SelectionEditAction) => {
@@ -113,8 +115,9 @@ export function MolecularEditPanel({ project, selection, busy, unavailable, onEd
     <button ref={launcher} type="button" className="viewer-action-button" aria-label="Edit molecule" title={unavailable ?? "Edit selected atoms"}
       aria-haspopup="dialog" aria-expanded={open} aria-disabled={Boolean(unavailable)}
       onClick={event => { if (!unavailable) { useEditingStore.getState().setFocusRequested(!open && event.detail === 0); setOpen(!open); if (!open) onOpen?.(); } }}><Pencil size={16} /></button>
-    {open ? createPortal(<section ref={panel} tabIndex={-1} className="molecular-edit-panel" role="dialog" aria-modal="false" aria-label="Edit molecule"
+    {open ? createPortal(<section ref={panel} tabIndex={-1} className={`molecular-edit-panel${inspecting ? " is-inspecting" : ""}`} role="dialog" aria-modal="false" aria-label="Edit molecule"
       onKeyDown={event => { if (event.key === "Escape") { event.stopPropagation(); close(true); } }}>
+      <div hidden={inspecting}>
       <div className="dialog-heading"><strong>Edit</strong><button type="button" aria-label="Close molecular editor" onClick={() => close(true)}><X size={16} /></button></div>
       <p className="edit-target">{entry?.name ?? "Select a molecular target"} · {selection.atoms.length} selected</p>
       {!selection.atoms.length && project.entries.some(e => e.atom_count === 0) ? <label>Empty target entry<select disabled={busy || pending || Boolean(unavailable)} value={entry?.id ?? ""} onChange={event => editing.setTargetEntryId(event.target.value || null)}><option value="">Choose an empty entry…</option>{project.entries.filter(e => e.atom_count === 0).map(e => <option key={e.id} value={e.id}>{e.name}{e.locked ? " (locked)" : ""}</option>)}</select></label> : null}
@@ -134,7 +137,7 @@ export function MolecularEditPanel({ project, selection, busy, unavailable, onEd
           <label>Added element<input list="added-elements" value={addElement} onChange={event => { editing.setAtomDraft({ element: event.target.value }); }} /></label>
           <datalist id="added-elements">{ELEMENTS.map(element => <option key={element} value={element} />)}</datalist>
           <label>Added formal charge<input type="number" step="1" disabled={addUnknown} value={addCharge} onChange={event => { editing.setAtomDraft({ charge: event.target.value }); }} /></label>
-          <label><input type="checkbox" checked={addUnknown} onChange={event => { editing.setAtomDraft({ unknown: event.target.checked }); }} />Added charge unknown</label>
+          <label className="modeling-check"><input type="checkbox" checked={addUnknown} onChange={event => { editing.setAtomDraft({ unknown: event.target.checked }); }} />Added charge unknown</label>
           <button type="button" disabled={(!selectedAtom && entry?.atom_count !== 0) || !ELEMENTS.includes(addElement) || (!addUnknown && (!addCharge.trim() || !Number.isSafeInteger(Number(addCharge))))} onClick={() => preview({ operation: "atom.add", element: addElement, charge: addUnknown ? null : Number(addCharge), direction: 0 })}>Preview atom</button>
         </details>
         <details><summary>More elements and formal charge</summary>
@@ -171,6 +174,7 @@ export function MolecularEditPanel({ project, selection, busy, unavailable, onEd
       {draft ? <fieldset disabled={busy || pending || Boolean(unavailable)}><legend>Placement preview</legend>
         <p>{draft.action.operation === "atom.add" ? `Add ${draft.action.element}` : `Attach ${draft.action.fragment}`} · direction {draft.action.direction + 1} of 6{draft.action.operation === "fragment.attach" ? ` · rotation ${draft.action.rotation * 60}°` : ""}. Ghost atoms are proposals; Apply saves the edit.</p>
         <div className="edit-compact-actions">
+          <button type="button" onClick={() => { panel.current?.focus(); editing.setInspectingPlacement(true); }}>Inspect placement</button>
           <button type="button" onClick={() => preview({ ...draft.action, direction: (draft.action.direction + 1) % 6 })}>Next direction</button>
           {draft.action.operation === "fragment.attach" ? <button type="button" onClick={() => { if (draft.action.operation === "fragment.attach") preview({ ...draft.action, rotation: (draft.action.rotation + 1) % 6 }); }}>Rotate fragment</button> : null}
           <button type="button" disabled={!draft.result} onClick={() => void execute(draft.action)}>Apply placement</button>
@@ -180,7 +184,7 @@ export function MolecularEditPanel({ project, selection, busy, unavailable, onEd
         {draft.error ? <p role="alert">{draft.error}</p> : null}
         {draft.result?.warnings.length ? <details><summary>Placement warnings ({draft.result.warnings.length})</summary>{draft.result.warnings.map((warning, i) => <p key={i}>{warning.message}</p>)}</details> : null}
       </fieldset> : null}
-      {section !== "residues" ? <label><input type="checkbox" disabled={busy || pending} checked={editing.hydrogenPolicy === "complete_if_possible"} onChange={event => editing.setHydrogenPolicy(event.target.checked ? "complete_if_possible" : "preserve")} />Complete hydrogens when possible</label> : null}
+      {section !== "residues" ? <label className="modeling-check"><input type="checkbox" disabled={busy || pending} checked={editing.hydrogenPolicy === "complete_if_possible"} onChange={event => editing.setHydrogenPolicy(event.target.checked ? "complete_if_possible" : "preserve")} />Complete hydrogens when possible</label> : null}
       {section !== "residues" ? <div className="edit-hydrogens">
         <button type="button" disabled={Boolean(reason || helperReason)} onClick={() => void execute({ operation: "hydrogens.prepare" })}>Prepare component hydrogens</button>
         {onSettings && entry ? <button type="button" disabled={busy || pending} onClick={() => void showHydrogens()}>Show explicit H</button> : null}
@@ -190,6 +194,15 @@ export function MolecularEditPanel({ project, selection, busy, unavailable, onEd
       {error ? <p role="alert">{error}</p> : null}
       {feedback ? <details className="edit-scientific-note"><summary>{feedback.entry}: {feedback.warnings.length} chemistry warnings</summary>{feedback.warnings.map((warning, index) => <p key={`${warning.code}-${index}`}>{warning.message}</p>)}</details> : null}
       <details className="edit-scientific-note"><summary>Limits and chemistry</summary><p>{section === "residues" ? "Standard-residue template restrictions apply; this is not complete protein preparation." : "Direct edits preserve incomplete chemistry and existing H. Review warnings; protonation and optimized geometry are not determined. Chemistry helpers have separate prerequisites. Source labels describe the original molecule. Isolation, local H preferences and atom hiding can still hide H."}</p></details>
+      </div>
+      {inspecting && draft ? <div className="edit-placement-inspection" role="group" aria-label="Placement inspection">
+        <p className="sr-only" role="status">{draft.result ? `Placement ready with ${draft.result.warnings.length} warnings. Open Placement tools to review inputs and warnings.` : "Computing placement preview…"}</p>
+        <button type="button" aria-label="Placement tools" title="Placement tools and warnings" onClick={() => { panel.current?.focus(); editing.setInspectingPlacement(false); }}><Pencil size={16} /></button>
+        <button type="button" aria-label="Next direction" title="Next direction" disabled={Boolean(reason)} onClick={() => preview({ ...draft.action, direction: (draft.action.direction + 1) % 6 })}><ChevronRight size={16} /></button>
+        {draft.action.operation === "fragment.attach" ? <button type="button" aria-label="Rotate fragment" title="Rotate fragment" disabled={Boolean(reason)} onClick={() => { if (draft.action.operation === "fragment.attach") preview({ ...draft.action, rotation: (draft.action.rotation + 1) % 6 }); }}><RotateCw size={16} /></button> : null}
+        <button type="button" aria-label="Apply placement" disabled={!draft.result || Boolean(reason)} onClick={() => void execute(draft.action)}>Apply</button>
+        <button type="button" aria-label="Cancel placement" disabled={pending} onClick={() => { panel.current?.focus(); editing.setPlacement(null); }}>Cancel</button>
+      </div> : null}
     </section>, document.body) : null}
   </div>;
 }

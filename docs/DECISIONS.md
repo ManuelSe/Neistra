@@ -3914,3 +3914,49 @@ SMILES descriptor. Original bytes and historical saved structures remain exact;
 there is no automatic reinterpretation or migration. This is within D101's
 unknown-chemistry contract, not expanded malformed-file acceptance or chemistry
 inference. Existing schema/API shapes already support null values.
+
+### D-101/103 qualification note — issue #74 C4, 2026-10-16
+
+Direct edits remain permissive; chemical-format export is a separate representability
+boundary. Native artifacts preserve nullable charges/orders, unusual charges,
+explicit bond exclusions, generated/empty entries and all conformers exactly.
+MOL/SDF/MOL2 representation defaults for unknown charge/order need explicit loss
+acknowledgement. SMILES requires assigned valid chemistry; unrepresentable draft
+writers return typed refusals rather than repairing a graph or publishing a partial
+export. Modeled MOL2 derives current types instead of copying immutable source types.
+PDB refuses overflowing charge/serial/coordinate fields. Sparse stable identities
+use the maximum ID as the mmCIF model serial stride, avoiding duplicate row IDs.
+
+Disposable ligand display may substitute a representable charge for an integer
+outside its C++ field; exact canonical charge remains in inspection/artifacts.
+Unusual charge warns. Unknown attachment radii use an explicitly warned unoptimized
+1.5 angstrom fallback. New atoms inherit the anchor's alternate-site label (terminal
+H replacement prefers that H's label); no alternate site is chosen automatically.
+Bond stereo labels can depend on remote substituent priorities: conservatively
+unassign them in the edited explicit connected graph, with warning, while retaining
+disconnected annotations. Local tetrahedral tags remain outside that broader rule.
+No whole-parent chemistry normalization or distance matrix is introduced.
+
+Placement inspection temporarily collapses the full panel into a bottom-docked
+nonmodal bar; Tools restores inputs and warnings without losing the proposal.
+Theme-adaptive ghost colors and labelled 44px controls keep native proposals visible
+at narrow widths/real zoom. This remains compact-panel building, not canvas drawing.
+The actual tagged v0.16.0 reader qualifies data/history/archive retention separately
+from its expected broken-aromatic renderer and chemistry-helper refusals. Do not
+promise unrestricted runtime rollback or strip new draft data. No migration.
+
+### D-101/103 additional qualification findings — issue #74 C4, 2026-10-16
+
+A broad native zoom run reproduced lost focus when a closed Edit launcher was
+replaced by the responsive viewer mount between focus and Enter. Preserve captured
+launcher focus for the same project visit across that remount; do not reopen a
+closed tool or override another control's newer focus. Deterministic component and
+native breakpoint regressions supplement the actual zoom test. Failed/interrupted
+runs remain diagnostic and require a new passing source-bound milestone gate.
+
+Literal H-free drafts expose another real representation boundary: MOL/SDF/SMILES
+readers interpret absent H using valence defaults even after explicit H deletion.
+Three regression exports demonstrate that interpretation without changing canonical
+atoms. Add a blocking explicit warning requiring acknowledgement rather than
+claiming those formats preserve the literal draft as protonation intent. Native
+archives retain the exact graph; this does not change direct deletion or add H.

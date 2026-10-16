@@ -215,6 +215,7 @@ class DirectMolecularEditor:
                 placement.replacements,
                 placement.touched,
             )
+            warnings.extend(placement.warnings)
         elif isinstance(action, ModelDelete):
             retained = [i for i, a in enumerate(before.atoms) if a.id not in chosen]
             for bond in before.bonds:
@@ -328,14 +329,30 @@ class DirectMolecularEditor:
         for bond in before.bonds:
             if touched & {bond.atom_1_id, bond.atom_2_id}:
                 stereo_scope.update((bond.atom_1_id, bond.atom_2_id))
+        # E/Z labels depend on substituent priorities beyond the immediate edit.
+        # Preserve disconnected annotations; conservatively unassign dependent
+        # bond labels without converting/sanitizing the complete parent.
+        bond_stereo_scope: set[int] = set()
+        if any(b.stereo not in {None, "NONE"} for b in [*before.bonds, *after.bonds]):
+            adjacency: dict[int, set[int]] = {}
+            for bond in [*before.bonds, *after.bonds]:
+                adjacency.setdefault(bond.atom_1_id, set()).add(bond.atom_2_id)
+                adjacency.setdefault(bond.atom_2_id, set()).add(bond.atom_1_id)
+            stack = list(touched)
+            while stack:
+                node = stack.pop()
+                if node in bond_stereo_scope:
+                    continue
+                bond_stereo_scope.add(node)
+                stack.extend(adjacency.get(node, set()) - bond_stereo_scope)
         if any(a.stereo not in {None, "NONE"} and a.id in stereo_scope for a in after.atoms) or any(
-            b.stereo not in {None, "NONE"} and stereo_scope & {b.atom_1_id, b.atom_2_id}
-            for b in after.bonds
+            b.stereo not in {None, "NONE"} and bond_stereo_scope & {b.atom_1_id, b.atom_2_id}
+            for b in [*before.bonds, *after.bonds]
         ):
             warnings.append(
                 model_warning(
                     "model_stereo_unassigned",
-                    "Stereo annotations in the changed neighborhood "
+                    "Stereo annotations affected by the edit or connected substituent priorities "
                     "were cleared; retained coordinates do not establish a new stereo assignment.",
                     action.operation,
                     "stereo",
@@ -358,7 +375,8 @@ class DirectMolecularEditor:
                 ],
                 "bonds": [
                     b.model_copy(update={"stereo": None})
-                    if b.stereo not in {None, "NONE"} and stereo_scope & {b.atom_1_id, b.atom_2_id}
+                    if b.stereo not in {None, "NONE"}
+                    and bond_stereo_scope & {b.atom_1_id, b.atom_2_id}
                     else b
                     for b in after.bonds
                 ],
@@ -473,7 +491,7 @@ class DirectMolecularEditor:
                         }
                     )
                     warnings.extend(completed.warnings)
-                except (ValueError, RuntimeError) as error:
+                except (ValueError, RuntimeError, OverflowError) as error:
                     warnings.append(
                         model_warning(
                             "model_hydrogen_completion_skipped",
@@ -589,6 +607,17 @@ class DirectMolecularEditor:
         typical = {"H": 1, "C": 4, "N": 3, "O": 2, "F": 1, "Cl": 1, "Br": 1, "I": 1}
         for i, bonds in neighbors.items():
             atom = atoms[i]
+            if atom.formal_charge is not None and abs(atom.formal_charge) > 8:
+                result.append(
+                    model_warning(
+                        "model_unusual_charge",
+                        f"Atom {i} has formal charge {atom.formal_charge}; chemistry and "
+                        "chemical-format representability need review. "
+                        "Canonical charge was retained.",
+                        operation,
+                        f"atoms.{i}.formal_charge",
+                    )
+                )
             if atom.formal_charge is None or any(b.order is None for b in bonds):
                 result.append(
                     model_warning(

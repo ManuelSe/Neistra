@@ -76,3 +76,28 @@ Coordinates, list order, and labels are not component identity.
 
 Incompatible changes require `NormalizedStructureV2` and explicit migration or
 conversion. Readers must not guess at unknown schema versions.
+
+## Authored draft metadata (issue #74)
+
+Normalized schema1 remains authoritative for incomplete chemistry. Null charge/order
+means unknown, never an implicit neutral/single assignment. Direct edits preserve
+source facts, retained coordinates and stable identities, invalidate computed
+chemistry descriptors and expose scientific warnings. Generated entries use
+`source.format = "generated"` and explicit origin facts without an original upload.
+Empty atoms/bonds with aligned empty conformers remain valid native data.
+
+The reserved metadata namespace is:
+
+```json
+{"neistra_modeling": {"schema_version": 1, "excluded_bonds": [[1, 7]]}}
+```
+
+Each exclusion contains two distinct positive retained atom IDs, sorted within
+pairs; pairs are unique/sorted. Exclusions suppress native display inference and
+cannot contradict a canonical bond. Adding a bond clears that exclusion; atom
+removal prunes it; generic history restores exact artifact bytes. Unknown versions,
+malformed/missing references or contradictory authored state refuse further direct
+publication rather than guessing. This namespace is separate from the top-level
+normalized schema. Native archives retain it; chemical files cannot encode this
+intent reliably. Disposable SDF defaults and Mol* overlays never write chemistry
+back into these records. See [D-101–103](DECISIONS.md#d-101--direct-molecular-edits-preserve-incomplete-chemistry).

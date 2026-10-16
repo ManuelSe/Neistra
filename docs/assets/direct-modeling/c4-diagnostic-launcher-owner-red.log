@@ -1,0 +1,210 @@
+
+> @neistra/web@0.16.0 test /datadisk/dev/neistra/apps/web
+> vitest run -- molecular-edit-panel
+
+
+ RUN  v3.2.4 /datadisk/dev/neistra/apps/web
+
+ ✓ src/test/jobs.test.tsx (3 tests) 974ms
+   ✓ jobs > submits validated generic parameters and immutable role inputs  579ms
+ ✓ src/test/export-dialog.test.tsx (7 tests) 1389ms
+   ✓ export dialog > submits scope, supported output mode, and molecular filters then exposes the artifact  503ms
+ ✓ src/test/ligand-editor.test.tsx (3 tests) 1515ms
+   ✓ ligand editor > submits atom, bond, hydrogen, rotation, movement, and cleanup commands  1085ms
+   ✓ ligand editor > uses one selected atom for element/charge and disables locked edits  324ms
+ ✓ src/test/project-browser.test.tsx (4 tests) 1569ms
+   ✓ project browser selection and discovery > searches, filters, sorts, and collapses grouped entries  653ms
+   ✓ project browser selection and discovery > retains empty group headings while filtering and in projects without entries  344ms
+   ✓ project browser selection and discovery > hands focus to the replacement row when membership completes before menu teardown  388ms
+ ✓ src/test/protein-editor.test.tsx (4 tests) 1853ms
+   ✓ protein editor > submits destructive, metadata, mutation, hydrogen, and movement commands  1263ms
+ ✓ src/test/notification-producers.test.tsx (3 tests) 1134ms
+   ✓ classifies import results from structured warnings, independently of success styling  565ms
+   ✓ classifies ligand results from structured warnings, independently of success styling  330ms
+ ✓ src/test/pocket-controls.test.tsx (6 tests) 1917ms
+   ✓ captures selection, preserves draft across selection changes, and explicitly recaptures  501ms
+   ✓ starts a new captured pocket independently of existing objects, validates radius and discards drafts  459ms
+   ✓ requires explicit choice for multiple receptors and explains no receptor  418ms
+ ✓ src/test/numeric-preview-ownership.test.tsx (1 test) 1434ms
+   ✓ discards a delayed numerical preview cleared by movement while retaining valid numerical previews  1433ms
+ ✓ src/test/component-hierarchy.test.tsx (2 tests) 2013ms
+   ✓ component hierarchy > loads lazily, renders categories lazily, and emits canonical modifier selections  2009ms
+ ✓ src/test/selection-style-dialog.test.tsx (13 tests) 2168ms
+   ✓ selection style dialog > shows mixed colors and applies or resets only the requested property  373ms
+ ✓ src/test/interactive-transform-controls.test.tsx (4 tests) 2471ms
+   ✓ shares keyboard steps with one Apply and restores launcher focus after Cancel  799ms
+   ✓ retains one capture and pose across scoped Space and explicit view-toggle ownership  358ms
+   ✓ keeps primary actions textless and exposes scientific help without hiding the transaction  1065ms
+ ✓ src/test/structure-loading.test.tsx (13 tests) 2230ms
+   ✓ lazy structure loading > requests only visible entries and synchronizes multiple projections  311ms
+   ✓ ignores stale styling eligibility and closes the palette across project switches  519ms
+ ✓ src/test/project-workspace.test.tsx (3 tests) 2678ms
+   ✓ project workspace > creates a real project and exposes its durable checkpoint state  1953ms
+   ✓ project workspace > persists and applies the theme choice  369ms
+   ✓ project workspace > surfaces an unavailable local API and recovers on retry  354ms
+ ✓ src/test/surface-editor.test.tsx (5 tests) 846ms
+   ✓ applies independent appearance as one command and restores a draft after undo  468ms
+ ✓ src/test/project-navigation.test.tsx (10 tests) 3538ms
+   ✓ keeps explicit browsing independent of selection, remembers expansion across targets and remounts  889ms
+   ✓ retains filtered browsing, clears deletion and project changes, and does not reactivate on Undo  304ms
+   ✓ exposes complete metadata and warnings by keyboard and returns to the entry menu  487ms
+   ✓ separates disclosure, label and Details and restores the component launcher  589ms
+   ✓ preserves coordinate expansion and reconciles a removed focused category to the pane heading  505ms
+ ✓ src/test/viewer-toolbar.test.tsx (3 tests) 727ms
+   ✓ viewer toolbar > exposes every picking mode as one controlled keyboard-accessible value  542ms
+ ✓ src/test/surface-manager.test.tsx (5 tests) 1039ms
+   ✓ activates one object without issuing a project mutation, and changes only the requested visibility  380ms
+   ✓ renames the active object and reflects external undo rather than keeping a stale draft  310ms
+ ✓ src/test/group-action-focus.test.tsx (3 tests) 342ms
+ ✓ src/test/selection-expansion.test.tsx (5 tests) 594ms
+   ✓ distance expansion > offers defaults, custom residue expansion, cancel, and visible failures  450ms
+ ✓ src/test/new-molecule.test.tsx (2 tests) 542ms
+   ✓ creates the visible carbon/zero defaults and supports an explicitly unknown charge  430ms
+ ✓ src/test/movement-navigation.test.tsx (1 test) 362ms
+   ✓ clears stale navigation for focus, blur, visibility, modal and phase interruptions  361ms
+ ✓ src/test/group-membership.test.tsx (5 tests) 608ms
+ ✓ src/test/sequence.test.tsx (2 tests) 449ms
+   ✓ bidirectional sequence selection > turns sequence residue clicks into the common selection and reflects them in summary  319ms
+ ✓ src/test/viewer-controls.test.tsx (1 test) 514ms
+   ✓ viewer controls > exposes the non-polar preference with an explicit master dependency  511ms
+ ✓ src/test/notifications.test.tsx (9 tests) 398ms
+ ✓ src/test/viewer-adapter.test.ts (6 tests) 133ms
+ ✓ src/test/interactive-transform.test.ts (21 tests) 120ms
+ ✓ src/test/component-membership.test.ts (2 tests) 74ms
+ ✓ src/test/history.test.tsx (2 tests) 261ms
+ ✓ src/test/viewer-presentation.test.ts (2 tests) 69ms
+ ✓ src/test/group-drag.test.tsx (2 tests) 73ms
+ ✓ src/test/interactive-transform-queue.test.ts (4 tests) 14ms
+ ✓ src/test/theme.test.ts (4 tests) 19ms
+ ❯ src/test/molecular-edit-panel.test.tsx (18 tests | 1 failed) 5629ms
+   ✓ captures canonical operands, stays open, and restores owned launcher focus  339ms
+   ✓ explains empty selection and does not execute an inferred default target 180ms
+   ✓ preserves open state across responsive remounts but resets on project switch 266ms
+   ✓ uses two canonical endpoints for bond order without a manual bond ID  312ms
+   ✓ shows six structural previews and substitutes an H through one fragment action  421ms
+   ✓ opens by keyboard into the dialog and closes with owned focus 80ms
+   ✓ mutates a complete standard residue through one action and explains partial selection  324ms
+   ✓ surfaces failed chemistry without closing the panel or repeating a pending command  322ms
+   ✓ does not let an old project visit clear a newer visit's pending edit  414ms
+   ✓ keeps direct assignment available with unknown chemistry and separate helper prerequisites  440ms
+   ✓ permits H endpoints and breaking a displayed inferred bond with no canonical edge 178ms
+   ✓ previews and cancels attached atoms without an edit, then applies the captured direction  688ms
+   ✓ requires an explicit empty-entry target for rebuilding  352ms
+   ✓ does not allow retargeting an empty-entry write while it is pending  367ms
+   ✓ does not resurrect a cancelled proposal when its delayed preview resolves 268ms
+   ✓ retains placement inputs and the captured proposal across responsive remounts  617ms
+   ✓ retains a closed launcher's owned keyboard focus across a responsive remount 23ms
+   × does not restore launcher focus over another control's newer focus 38ms
+     → expect(element).toHaveFocus()
+
+Expected element with focus:
+  <button>
+  Other task
+</button>
+Received element with focus:
+  <button
+  aria-disabled="false"
+  aria-expanded="false"
+  aria-haspopup="dialog"
+  aria-label="Edit molecule"
+  class="viewer-action-button"
+  title="Edit selected atoms"
+  type="button"
+>
+  <svg
+    aria-hidden="true"
+    class="lucide lucide-pencil"
+    fill="none"
+    height="16"
+    stroke="currentColor"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke-width="2"
+    viewBox="0 0 24 24"
+    width="16"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"
+    />
+    <path
+      d="m15 5 4 4"
+    />
+  </svg>
+</button>
+ ✓ src/test/selection.test.ts (3 tests) 13ms
+ ✓ src/test/focus-targets.test.ts (3 tests) 22ms
+ ✓ src/test/representations.test.ts (9 tests) 33ms
+ ✓ src/test/selection-surface-worker.test.ts (4 tests) 36ms
+ ✓ src/test/pocket-inputs.test.ts (4 tests) 7ms
+ ✓ src/test/surface-warnings.test.ts (2 tests) 15ms
+ ✓ src/test/transforms.test.ts (3 tests) 8ms
+ ✓ src/test/manual-modeling.test.ts (1 test) 6ms
+ ✓ src/test/measurements.test.ts (2 tests) 3ms
+ ✓ src/test/selection-surface-allocation.test.ts (3 tests) 38ms
+ ✓ src/test/pocket-surface-geometry.test.ts (4 tests) 192ms
+ ✓ src/test/selection-surface-runtime.test.ts (7 tests) 425ms
+ ✓ src/test/selection-colors.test.ts (1 test) 4ms
+ ✓ src/test/interaction-native-geometry.test.ts (2 tests) 37ms
+ ✓ src/test/interactions.test.ts (7 tests) 75ms
+ ✓ src/test/surface-objects.test.ts (4 tests) 14ms
+ ✓ src/test/selection-surface-geometry.test.ts (7 tests) 138ms
+ ✓ src/test/viewer-interaction.test.ts (4 tests) 6ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/test/molecular-edit-panel.test.tsx > does not restore launcher focus over another control's newer focus
+Error: expect(element).toHaveFocus()
+
+Expected element with focus:
+  <button>
+  Other task
+</button>
+Received element with focus:
+  <button
+  aria-disabled="false"
+  aria-expanded="false"
+  aria-haspopup="dialog"
+  aria-label="Edit molecule"
+  class="viewer-action-button"
+  title="Edit selected atoms"
+  type="button"
+>
+  <svg
+    aria-hidden="true"
+    class="lucide lucide-pencil"
+    fill="none"
+    height="16"
+    stroke="currentColor"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke-width="2"
+    viewBox="0 0 24 24"
+    width="16"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"
+    />
+    <path
+      d="m15 5 4 4"
+    />
+  </svg>
+</button>
+ ❯ src/test/molecular-edit-panel.test.tsx:297:21
+    295|   try {
+    296|     setup();
+    297|     expect(outside).toHaveFocus();
+       |                     ^
+    298|   } finally { outside.remove(); }
+    299| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 51 passed (52)
+      Tests  1 failed | 247 passed (248)
+   Start at  22:29:24
+   Duration  12.65s (transform 7.47s, setup 6.11s, collect 51.86s, tests 40.77s, environment 31.05s, prepare 6.74s)
+
+ ELIFECYCLE  Test failed. See above for more details.
