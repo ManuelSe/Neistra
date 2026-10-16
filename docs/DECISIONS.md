@@ -3856,3 +3856,21 @@ unclassified. The legacy H generator now assigns each new H its own bonded
 parent's residue, including multi-residue ligand entries. Existing single-residue
 standalone atom-add behavior remains. No migration or blanket chemistry-policy
 change occurs in C1; direct editing belongs to C2.
+
+
+### D-101/103 implementation note — issue #74 C2, 2026-10-16
+
+Direct operations have a distinct model-edits API and normalized-record service.
+They share one immutable publication/reconciliation path with legacy selection
+edits, retaining legacy HTTP semantics. Absolute nullable charges and nullable
+bond orders avoid interpreting unknown as neutral/single. Canonical atom identity
+survives element assignment, including H. Literal deletion can leave an empty
+entry; structure display skips an empty native model.
+
+The version1 neistra_modeling namespace marks authored states and stores explicit
+stable endpoint-pair bond exclusions. The disposable Mol* decorator merges
+canonical edges with baseline native protein inference, then suppresses exclusions.
+It owns a fresh dynamic bond cache, retaining other native polymer properties;
+coordinate preview updates reuse the fixed authored graph. Display-only SDF uses
+non-kekulizing output and never writes its representation defaults into normalized
+chemistry. Local warnings do not certify a chemically valid graph. No migration.

@@ -8,6 +8,17 @@ per-parent generated membership and ambiguous negatives are covered. Initial
 observer readiness failure remains diagnostic; local self-review/screenshots are
 not independent qualification. Broader direct chemistry/building/release remains.
 
+[C2](assets/direct-modeling/c2-verification.json) qualifies direct normalized
+atom/bond editing and display-only/native draft topology:83Python/238frontend/
+24desktop-mobile browser passes, no failures/flakes/retries/skips, plus Ruff/
+mypy67/lint/types/build/diff. Native broken-aromatic picking, inferred-protein bond
+removal/reload/exact Undo and existing edit/owner/focus/camera workflows pass.
+Real optional-H resource-limit regression fails before and passes after repair.
+Diagnostic and pre-review evidence are separate from final qualification; local
+[self-review](assets/direct-modeling/c2-local-review.md) is not independent.
+Creation/previews/direct fragments and advanced inspector routing remain C3,
+compatibility/scientific/performance qualification C4 and release C5.
+
 Issue #69 follows the [approved editing plan](plans/issue-69-compact-molecular-editor.md).
 C1/C2 implement bounded atomic atom/H, canonical endpoint bonds and six illustrated
 fragment substitutions. C3 adds exact complete-residue template mutation and

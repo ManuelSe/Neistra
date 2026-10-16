@@ -2,18 +2,23 @@
 
 ## Current milestone
 
-Issue #74 C1 complete under the [approved contract](plans/issue-74-direct-molecular-modeling.md).
-Planning commit932cfb3 is pushed on `feat/issue-74-direct-molecular-modeling`.
-New H follow their bonded parent's valid residue; historical unambiguous orphan
-H derive navigation membership without changing molecular records. Ambiguous H
-stay visible/unclassified. D-101–103 retain the approved expanded modeling scope.
+Issue #74 C2 complete under the [approved contract](plans/issue-74-direct-molecular-modeling.md).
+C0 plan932cfb3 and C1d494149 are pushed on
+`feat/issue-74-direct-molecular-modeling`; C2 is ready to commit/push.
+Direct normalized atom/bond actions preserve unknown chemistry, canonical identity
+and unrelated coordinates, including literal H/last-atom deletion. Draft projection
+and persistent inferred-bond exclusions work through reload and exact Undo.
+Hydrogen-helper eligibility no longer disables direct atom/bond tools.
 
-[C1 evidence](assets/direct-modeling/c1-verification.json):66Python,236frontend,
-20native desktop/mobile workflows pass, plus Ruff/mypy64/lint/types/build/diff.
-Failed initial observer-harness diagnostics are separate; local self-review and
-both screenshots inspected, not independent review. Versions remain0.16.0;
-planned0.17.0minor/no migration. C1 does not deliver direct incomplete chemistry,
-creation/previews or a release yet. No blocker. Next: commit C1, implement C2.
+[C2 evidence](assets/direct-modeling/c2-verification.json):83Python,238frontend,
+24desktop/mobile native browser cases pass, zero failures/flakes/retries/skips;
+Ruff/mypy67/lint/types/build/diff pass. Local self-review repaired optional H
+resource-limit fallback, with real helper red/green evidence. Diagnostics and
+pre-review passes remain separate. Screenshots inspected; no independent review
+claimed. C1 evidence remains historical. No migration/version change; planned
+0.17.0 minor. Creation/previews/direct fragments/advanced-inspector routing remain
+C3; full persistence/scientific/actual-reader/performance qualification C4 and
+release C5. No blocker. Next: commit C2, implement C3.
 
 ### Previous delivery baseline — v0.16.0
 

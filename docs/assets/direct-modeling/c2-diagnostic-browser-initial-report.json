@@ -1,0 +1,1324 @@
+{
+  "config": {
+    "configFile": "/datadisk/dev/neistra/playwright.config.ts",
+    "rootDir": "/datadisk/dev/neistra/tests/e2e",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "list"
+      ],
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "/datadisk/dev/neistra/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/datadisk/dev/neistra/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/datadisk/dev/neistra/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "mobile-chromium",
+        "name": "mobile-chromium",
+        "testDir": "/datadisk/dev/neistra/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.55.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "direct-molecular-modeling.spec.ts",
+      "file": "direct-molecular-modeling.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "breaks an aromatic bond and keeps the incomplete draft visible and pickable",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6022,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "steps": [
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 1159
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 28
+                    },
+                    {
+                      "title": "Expect \"poll not toContainEqual\"",
+                      "duration": 90
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 17
+                    },
+                    {
+                      "title": "Expect \"poll toContain\"",
+                      "duration": 27
+                    }
+                  ],
+                  "startTime": "2026-10-16T18:52:20.627Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "41658728061426141e89-f31183f3b3437199f4a0",
+          "file": "direct-molecular-modeling.spec.ts",
+          "line": 39,
+          "column": 5
+        },
+        {
+          "title": "removes a native inferred protein bond durably and restores it on Undo",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6701,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "steps": [
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 641
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 112
+                    },
+                    {
+                      "title": "Expect \"poll not toContainEqual\"",
+                      "duration": 136
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 740
+                    },
+                    {
+                      "title": "Expect \"poll toContainEqual\"",
+                      "duration": 434
+                    }
+                  ],
+                  "startTime": "2026-10-16T18:52:26.710Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "41658728061426141e89-d802661c3af7dad81a3e",
+          "file": "direct-molecular-modeling.spec.ts",
+          "line": 81,
+          "column": 5
+        },
+        {
+          "title": "breaks an aromatic bond and keeps the incomplete draft visible and pickable",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile-chromium",
+              "projectName": "mobile-chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 1347,
+                  "error": {
+                    "message": "Error: locator.click: Error: strict mode violation: getByRole('dialog', { name: 'Projects' }).getByRole('button', { name: /^Prepared editing fixture/ }) resolved to 2 elements:\n    1) <button class=\"\" type=\"button\">…</button> aka getByRole('button', { name: 'Prepared editing fixture 1 structures', exact: true })\n    2) <button class=\"\" type=\"button\">…</button> aka getByRole('button', { name: 'Prepared editing fixture 1 structures - unsaved' })\n\nCall log:\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Projects' }).getByRole('button', { name: /^Prepared editing fixture/ })\u001b[22m\n",
+                    "stack": "Error: locator.click: Error: strict mode violation: getByRole('dialog', { name: 'Projects' }).getByRole('button', { name: /^Prepared editing fixture/ }) resolved to 2 elements:\n    1) <button class=\"\" type=\"button\">…</button> aka getByRole('button', { name: 'Prepared editing fixture 1 structures', exact: true })\n    2) <button class=\"\" type=\"button\">…</button> aka getByRole('button', { name: 'Prepared editing fixture 1 structures - unsaved' })\n\nCall log:\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Projects' }).getByRole('button', { name: /^Prepared editing fixture/ })\u001b[22m\n\n    at /datadisk/dev/neistra/tests/e2e/direct-molecular-modeling.spec.ts:53:118",
+                    "location": {
+                      "file": "/datadisk/dev/neistra/tests/e2e/direct-molecular-modeling.spec.ts",
+                      "column": 118,
+                      "line": 53
+                    },
+                    "snippet": "  51 |   await page.goto(\"/\");\n  52 |   await page.getByRole(\"button\", { name: \"Projects\", exact: true }).click();\n> 53 |   await page.getByRole(\"dialog\", { name: \"Projects\" }).getByRole(\"button\", { name: new RegExp(`^${project.name}`) }).click();\n     |                                                                                                                      ^\n  54 |   await expect(page.locator(\".viewer-status\")).toContainText(\"1 visible / 1 loaded\", { timeout: 30000 });\n  55 |   const entry = project.entries[0];\n  56 |   const path = `/api/v1/projects/${project.id}/entries/${entry.id}/structure`;"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/datadisk/dev/neistra/tests/e2e/direct-molecular-modeling.spec.ts",
+                        "column": 118,
+                        "line": 53
+                      },
+                      "message": "Error: locator.click: Error: strict mode violation: getByRole('dialog', { name: 'Projects' }).getByRole('button', { name: /^Prepared editing fixture/ }) resolved to 2 elements:\n    1) <button class=\"\" type=\"button\">…</button> aka getByRole('button', { name: 'Prepared editing fixture 1 structures', exact: true })\n    2) <button class=\"\" type=\"button\">…</button> aka getByRole('button', { name: 'Prepared editing fixture 1 structures - unsaved' })\n\nCall log:\n\u001b[2m  - waiting for getByRole('dialog', { name: 'Projects' }).getByRole('button', { name: /^Prepared editing fixture/ })\u001b[22m\n\n\n  51 |   await page.goto(\"/\");\n  52 |   await page.getByRole(\"button\", { name: \"Projects\", exact: true }).click();\n> 53 |   await page.getByRole(\"dialog\", { name: \"Projects\" }).getByRole(\"button\", { name: new RegExp(`^${project.name}`) }).click();\n     |                                                                                                                      ^\n  54 |   await expect(page.locator(\".viewer-status\")).toContainText(\"1 visible / 1 loaded\", { timeout: 30000 });\n  55 |   const entry = project.entries[0];\n  56 |   const path = `/api/v1/projects/${project.id}/entries/${entry.id}/structure`;\n    at /datadisk/dev/neistra/tests/e2e/direct-molecular-modeling.spec.ts:53:118"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-16T18:53:43.738Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/datadisk/dev/neistra/test-results/direct-molecular-modeling--4b034--draft-visible-and-pickable-mobile-chromium/test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/datadisk/dev/neistra/test-results/direct-molecular-modeling--4b034--draft-visible-and-pickable-mobile-chromium/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/datadisk/dev/neistra/test-results/direct-molecular-modeling--4b034--draft-visible-and-pickable-mobile-chromium/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/datadisk/dev/neistra/tests/e2e/direct-molecular-modeling.spec.ts",
+                    "column": 118,
+                    "line": 53
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "41658728061426141e89-0b82316a86b2499fcdcb",
+          "file": "direct-molecular-modeling.spec.ts",
+          "line": 39,
+          "column": 5
+        },
+        {
+          "title": "removes a native inferred protein bond durably and restores it on Undo",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile-chromium",
+              "projectName": "mobile-chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6653,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "steps": [
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 794
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 7
+                    },
+                    {
+                      "title": "Expect \"poll not toContainEqual\"",
+                      "duration": 186
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 518
+                    },
+                    {
+                      "title": "Expect \"poll toContainEqual\"",
+                      "duration": 204
+                    }
+                  ],
+                  "startTime": "2026-10-16T18:53:45.561Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "41658728061426141e89-d54e14248efe28398cd5",
+          "file": "direct-molecular-modeling.spec.ts",
+          "line": 81,
+          "column": 5
+        }
+      ]
+    },
+    {
+      "title": "hydrogen-membership.spec.ts",
+      "file": "hydrogen-membership.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "keeps bonded orphan H in the ligand and enables editing an unrelated native atom",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3984,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "steps": [
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 557
+                    }
+                  ],
+                  "startTime": "2026-10-16T18:52:33.421Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "0e72e0a3d662197db28c-ff0ccca3c846c475aed6",
+          "file": "hydrogen-membership.spec.ts",
+          "line": 8,
+          "column": 5
+        },
+        {
+          "title": "keeps bonded orphan H in the ligand and enables editing an unrelated native atom",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile-chromium",
+              "projectName": "mobile-chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4093,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "steps": [
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 951
+                    }
+                  ],
+                  "startTime": "2026-10-16T18:53:52.276Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "0e72e0a3d662197db28c-a2af9af95e5d001d3e35",
+          "file": "hydrogen-membership.spec.ts",
+          "line": 8,
+          "column": 5
+        }
+      ]
+    },
+    {
+      "title": "molecular-editing.spec.ts",
+      "file": "molecular-editing.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "performs one selection-driven atom/H edit with exact undo and unchanged original",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6036,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "steps": [
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 547
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 19
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 20
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 17
+                    }
+                  ],
+                  "startTime": "2026-10-16T18:52:37.442Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "de1d676bc559fa620827-13c18fb86ca64e2a29dc",
+          "file": "molecular-editing.spec.ts",
+          "line": 21,
+          "column": 5
+        },
+        {
+          "title": "maps a native bond hit to canonical endpoints and changes its order from the panel",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4950,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "steps": [
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 1038
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 17
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 20
+                    }
+                  ],
+                  "startTime": "2026-10-16T18:52:43.486Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "de1d676bc559fa620827-44c211e76f4a749b2408",
+          "file": "molecular-editing.spec.ts",
+          "line": 54,
+          "column": 5
+        },
+        {
+          "title": "substitutes a selected H with illustrated COOH without an attachment mode",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5511,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "steps": [
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 1057
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 17
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 67
+                    }
+                  ],
+                  "startTime": "2026-10-16T18:52:48.443Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "de1d676bc559fa620827-bd4430ddfc75a22ebd4b",
+          "file": "molecular-editing.spec.ts",
+          "line": 86,
+          "column": 5
+        },
+        {
+          "title": "mutates a natively picked residue successively and preserves exact backbone and undo",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5274,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "steps": [
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 856
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 136
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 59
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 17
+                    }
+                  ],
+                  "startTime": "2026-10-16T18:52:53.960Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "de1d676bc559fa620827-10c50b1d39d36dfdc227",
+          "file": "molecular-editing.spec.ts",
+          "line": 112,
+          "column": 5
+        },
+        {
+          "title": "keeps tool focus, notices and all controls accessible in both themes and narrow layouts",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5740,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "steps": [
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 1008
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 185
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 29
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 14
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 24
+                    }
+                  ],
+                  "startTime": "2026-10-16T18:52:59.240Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "de1d676bc559fa620827-d9958040986cb045a604",
+          "file": "molecular-editing.spec.ts",
+          "line": 152,
+          "column": 5
+        },
+        {
+          "title": "edits a prepared complex with native H/new-atom picks, fixed camera and one affected reload",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 150000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 9294,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "steps": [
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 55
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 15
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 6
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 23
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 354
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 5
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 19
+                    }
+                  ],
+                  "startTime": "2026-10-16T18:53:04.986Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "de1d676bc559fa620827-977533099ea6e276d90d",
+          "file": "molecular-editing.spec.ts",
+          "line": 192,
+          "column": 5
+        },
+        {
+          "title": "keeps late edit responses owned by their original project",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5859,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "steps": [
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 554
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 12
+                    }
+                  ],
+                  "startTime": "2026-10-16T18:53:14.288Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "de1d676bc559fa620827-2547b08bee467fe1351e",
+          "file": "molecular-editing.spec.ts",
+          "line": 293,
+          "column": 5
+        },
+        {
+          "title": "retains a newer native selection and recovers an affected-artifact refetch failure",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5836,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "steps": [
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 1039
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 22
+                    }
+                  ],
+                  "startTime": "2026-10-16T18:53:20.156Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "de1d676bc559fa620827-0edcd267751da2910697",
+          "file": "molecular-editing.spec.ts",
+          "line": 323,
+          "column": 5
+        },
+        {
+          "title": "keeps a newer pending edit owned after leaving and returning to the same project",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 17301,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "steps": [
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 527
+                    }
+                  ],
+                  "startTime": "2026-10-16T18:53:26.001Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "de1d676bc559fa620827-58a4db1760fee7542ea9",
+          "file": "molecular-editing.spec.ts",
+          "line": 366,
+          "column": 5
+        },
+        {
+          "title": "performs one selection-driven atom/H edit with exact undo and unchanged original",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile-chromium",
+              "projectName": "mobile-chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5638,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "steps": [
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 907
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 25
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 17
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 17
+                    }
+                  ],
+                  "startTime": "2026-10-16T18:53:56.408Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "de1d676bc559fa620827-788c77742a19e3d496ce",
+          "file": "molecular-editing.spec.ts",
+          "line": 21,
+          "column": 5
+        },
+        {
+          "title": "maps a native bond hit to canonical endpoints and changes its order from the panel",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile-chromium",
+              "projectName": "mobile-chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4666,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "steps": [
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 885
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 13
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 45
+                    }
+                  ],
+                  "startTime": "2026-10-16T18:54:02.055Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "de1d676bc559fa620827-5034a3df532575d1f603",
+          "file": "molecular-editing.spec.ts",
+          "line": 54,
+          "column": 5
+        },
+        {
+          "title": "substitutes a selected H with illustrated COOH without an attachment mode",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile-chromium",
+              "projectName": "mobile-chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5030,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "steps": [
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 499
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 28
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 24
+                    }
+                  ],
+                  "startTime": "2026-10-16T18:54:06.730Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "de1d676bc559fa620827-8f31d3e49b1c3673a808",
+          "file": "molecular-editing.spec.ts",
+          "line": 86,
+          "column": 5
+        },
+        {
+          "title": "mutates a natively picked residue successively and preserves exact backbone and undo",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile-chromium",
+              "projectName": "mobile-chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4947,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "steps": [
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 752
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 41
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 169
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 16
+                    }
+                  ],
+                  "startTime": "2026-10-16T18:54:11.768Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "de1d676bc559fa620827-92675af82fb66fb6aec7",
+          "file": "molecular-editing.spec.ts",
+          "line": 112,
+          "column": 5
+        },
+        {
+          "title": "keeps tool focus, notices and all controls accessible in both themes and narrow layouts",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile-chromium",
+              "projectName": "mobile-chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5458,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "steps": [
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 522
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 18
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 66
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 17
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 17
+                    }
+                  ],
+                  "startTime": "2026-10-16T18:54:16.723Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "de1d676bc559fa620827-21a9b500c4f43fa6e0f6",
+          "file": "molecular-editing.spec.ts",
+          "line": 152,
+          "column": 5
+        },
+        {
+          "title": "edits a prepared complex with native H/new-atom picks, fixed camera and one affected reload",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 150000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile-chromium",
+              "projectName": "mobile-chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 8506,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "steps": [
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 22
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 25
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 26
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 10
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 354
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 7
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 31
+                    }
+                  ],
+                  "startTime": "2026-10-16T18:54:22.191Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "de1d676bc559fa620827-a141d0e316a62b5379e0",
+          "file": "molecular-editing.spec.ts",
+          "line": 192,
+          "column": 5
+        },
+        {
+          "title": "keeps late edit responses owned by their original project",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile-chromium",
+              "projectName": "mobile-chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5565,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "steps": [
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 861
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 11
+                    }
+                  ],
+                  "startTime": "2026-10-16T18:54:30.705Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "de1d676bc559fa620827-f38260459be9a1f4ad34",
+          "file": "molecular-editing.spec.ts",
+          "line": 293,
+          "column": 5
+        },
+        {
+          "title": "retains a newer native selection and recovers an affected-artifact refetch failure",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile-chromium",
+              "projectName": "mobile-chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5219,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "steps": [
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 948
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 24
+                    }
+                  ],
+                  "startTime": "2026-10-16T18:54:36.283Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "de1d676bc559fa620827-fcca59e4ef95d2dcb4b9",
+          "file": "molecular-editing.spec.ts",
+          "line": 323,
+          "column": 5
+        },
+        {
+          "title": "keeps a newer pending edit owned after leaving and returning to the same project",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile-chromium",
+              "projectName": "mobile-chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 17160,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "steps": [
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 864
+                    }
+                  ],
+                  "startTime": "2026-10-16T18:54:41.511Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "de1d676bc559fa620827-889c4aed63be6bcef146",
+          "file": "molecular-editing.spec.ts",
+          "line": 366,
+          "column": 5
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-16T18:52:15.415Z",
+    "duration": 163383.289,
+    "expected": 23,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

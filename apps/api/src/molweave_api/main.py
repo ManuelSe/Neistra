@@ -69,6 +69,7 @@ from molweave_api.job_service import (
     JobService,
 )
 from molweave_api.ligand_edit_service import LigandEditService
+from molweave_api.model_edit_service import ModelEditService
 from molweave_api.models import Artifact, Job, JobEvent
 from molweave_api.project_service import (
     EntryNotFoundError,
@@ -112,6 +113,7 @@ from molweave_api.schemas import (
     LigandEditRead,
     MeasurementCreate,
     MeasurementUpdate,
+    ModelEditCreate,
     ProjectCreate,
     ProjectListItem,
     ProjectRead,
@@ -1103,6 +1105,18 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         return _call(
             lambda: CoordinateService(session, app_settings).transform(project_id, payload)
         )
+
+    @router.post(
+        "/projects/{project_id}/entries/{entry_id}/model-edits",
+        response_model=SelectionEditRead,
+    )
+    async def edit_model(
+        project_id: str, entry_id: str, payload: ModelEditCreate,
+        session: Session = Depends(session_dependency),
+    ) -> SelectionEditRead:
+        return _call(lambda: ModelEditService(session, app_settings).model_edit(
+            project_id, entry_id, payload,
+        ))
 
     @router.post(
         "/projects/{project_id}/entries/{entry_id}/selection-edits",

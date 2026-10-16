@@ -6,6 +6,7 @@ from typing import Annotated, Any, Literal
 from uuid import UUID
 
 from molweave_core.components import ComponentHierarchyV1
+from molweave_core.editing.model import HydrogenPolicy, ModelAction
 from molweave_core.editing.selection import SelectionAction
 from molweave_core.molecular import MolecularWarning, NormalizedStructureV1
 from molweave_core.selection import AtomReference, SelectionGranularity, SelectionV1
@@ -1091,6 +1092,15 @@ class SelectionEditCreate(BaseModel):
 class SelectionEditRead(LigandEditRead):
     replacements: dict[int, int] = Field(default_factory=dict)
     selection_after: SelectionV1
+
+
+class ModelEditCreate(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    expected_revision: int = Field(ge=0)
+    expected_artifact_id: str = Field(min_length=1)
+    selection: SelectionV1
+    action: ModelAction
+    hydrogen_policy: HydrogenPolicy = "preserve"
 
 
 class ProteinHydrogenAddEdit(ProteinEditBase):

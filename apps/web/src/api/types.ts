@@ -1,8 +1,10 @@
 export type StructureType = "protein" | "ligand" | "complex" | "solvent" | "unknown";
 
 export type SelectionEditAction =
-  | { operation: "atom.element"; element: "C" | "N" | "O" | "S" | "F" | "Cl" | "Br" | "I" }
+  | { operation: "atom.element"; element: string }
   | { operation: "atom.charge"; delta: -1 | 1 }
+  | { operation: "atom.charge.set"; charge: number | null }
+  | { operation: "bond.set"; order: number | null }
   | { operation: "atom.delete" }
   | { operation: "hydrogens.prepare" }
   | { operation: "bond.create" | "bond.delete" }
@@ -455,6 +457,7 @@ export interface MolecularBond {
 }
 
 export interface NormalizedStructure {
+  metadata?: Record<string, unknown>;
   schema_version: 1;
   title: string;
   structure_type: StructureType;

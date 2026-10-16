@@ -71,7 +71,7 @@ it("uses two canonical endpoints for bond order without a manual bond ID", async
   await user.click(screen.getByRole("button", { name: "Edit molecule" }));
   await user.click(screen.getByRole("button", { name: "Bonds" }));
   await user.click(screen.getByRole("button", { name: "Increase bond order" }));
-  expect(onEdit).toHaveBeenCalledWith(entry.id, entry.current_artifact_id, operand, { operation: "bond.order", order: 2 });
+  expect(onEdit).toHaveBeenCalledWith(entry.id, entry.current_artifact_id, operand, { operation: "bond.set", order: 2 });
   expect(screen.queryByRole("spinbutton")).toBeNull();
 });
 
@@ -158,4 +158,33 @@ it("does not let an old project visit clear a newer visit's pending edit", async
     await act(async () => { finishSecond(); await Promise.resolve(); });
   }
   expect(useEditingStore.getState().pending).toBe(false);
+});
+
+it("keeps direct assignment available with unknown chemistry and separate helper prerequisites", async () => {
+  const molecule: StructureProjection = { ...projection, structure: { ...projection.structure,
+    structure_type: "complex", atoms: [{ ...projection.structure.atoms[0], formal_charge: null }],
+  }, hierarchy: { ...projection.hierarchy, components: [] } };
+  const { user, onEdit } = setup(selection, null, molecule);
+  await user.click(screen.getByRole("button", { name: "Edit molecule" }));
+  expect(screen.getByRole("button", { name: "Replace selected atom with N" })).toBeEnabled();
+  expect(screen.getByRole("button", { name: "Prepare component hydrogens" })).toBeDisabled();
+  expect(screen.getByRole("button", { name: "Increase formal charge" })).toBeDisabled();
+  await user.click(screen.getByText("More elements and formal charge"));
+  await user.click(screen.getByRole("button", { name: "Assign charge" }));
+  expect(onEdit).toHaveBeenCalledWith(entry.id, entry.current_artifact_id, selection, { operation: "atom.charge.set", charge: 0 });
+  await user.click(screen.getByRole("button", { name: "Assign element" }));
+  expect(onEdit).toHaveBeenLastCalledWith(entry.id, entry.current_artifact_id, selection, { operation: "atom.element", element: "P" });
+});
+
+it("permits H endpoints and breaking a displayed inferred bond with no canonical edge", async () => {
+  const second = { ...projection.structure.atoms[0], id: 2, element: "H" };
+  const molecule = { ...projection, structure: { ...projection.structure, atoms: [...projection.structure.atoms, second] } };
+  const operand = { ...selection, atoms: [1, 2].map(atom_id => ({ structure_id: entry.id, atom_id })) };
+  const { user, onEdit } = setup(operand, null, molecule);
+  await user.click(screen.getByRole("button", { name: "Edit molecule" }));
+  await user.click(screen.getByRole("button", { name: "Bonds" }));
+  await user.click(screen.getByRole("button", { name: "Break bond" }));
+  expect(onEdit).toHaveBeenCalledWith(entry.id, entry.current_artifact_id, operand, { operation: "bond.delete" });
+  await user.selectOptions(screen.getByRole("combobox", { name: "Assign bond order" }), "unknown");
+  expect(onEdit).toHaveBeenLastCalledWith(entry.id, entry.current_artifact_id, operand, { operation: "bond.set", order: null });
 });

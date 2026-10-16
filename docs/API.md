@@ -649,3 +649,33 @@ Response contains input identities, profile/frame, deterministic interaction
 records (canonical participants, endpoints, scope, geometry), per-type coverage,
 warnings and admitted candidate count. No viewer projection or job worker is
 required; no result is persisted. See [Interactions](INTERACTIONS.md).
+
+## Direct molecular edits (issue #74)
+
+`POST /api/v1/projects/{project_id}/entries/{entry_id}/model-edits` edits canonical
+normalized records without requiring complete chemistry, one conformer or a closed
+ligand component. It requires `expected_revision`, `expected_artifact_id`, one-entry
+`selection`, and discriminated `action`. Current actions:
+
+| Operation | Fields / operands |
+|---|---|
+| `atom.element` | recognized `element`; one atom, identity retained |
+| `atom.charge.set` | absolute integer or null `charge`; one atom |
+| `atom.delete` | exact selected atoms, including H and last atom |
+| `bond.set` | `order`: null,1,1.5,2,3; two distinct atoms in the same entry |
+| `bond.delete` | two endpoints; also records removal of native inferred display connectivity |
+
+Optional `hydrogen_policy` defaults to `preserve`; `complete_if_possible` attempts
+the existing eligible component helper in memory and saves the direct edit alone
+with a warning if completion fails. Explicit H deletion is never reversed.
+The result uses the selection-edit response: project, report, warnings,
+replacements and selection_after, with one reversible history command. Locks,
+stale revisions/artifacts, absent/mixed operands, invalid structural values and
+no-ops refuse publication. Incomplete chemistry produces durable warnings.
+
+`neistra_modeling` normalized metadata version1 stores authored endpoint-pair bond
+exclusions. Native rendering applies them without assigning inferred chemistry;
+adding a canonical bond clears its exclusion, atom deletion prunes references,
+and Undo restores metadata exactly. Existing selection-edits and ligand-edits
+HTTP semantics remain unchanged. See [molecular editing](MOLECULAR_EDITING.md)
+for the current checkpoint scope and remaining creation/preview qualification.

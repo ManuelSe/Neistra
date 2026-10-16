@@ -383,10 +383,12 @@ class ImportExportService:
             }
             else "sdf"
         )
-        projection = (
-            self._registry()
-            .for_format(viewer_format)
-            .export(structure, safe_filename_stem(entry.name))
+        from molweave_core.viewer_projection import ligand_viewer_sdf
+
+        # Display has no requirement to produce chemically normalized export.
+        data = ligand_viewer_sdf(structure) if viewer_format == "sdf" else (
+            self._registry().for_format(viewer_format)
+            .export(structure, safe_filename_stem(entry.name)).data.decode("utf-8")
         )
         return StructureRead(
             entry_id=entry.id,
@@ -394,7 +396,7 @@ class ImportExportService:
             hierarchy=derive_component_hierarchy(structure),
             viewer=ViewerProjection(
                 format=viewer_format,
-                data=projection.data.decode("utf-8"),
+                data=data,
             ),
         )
 

@@ -174,7 +174,7 @@ export const projectApi = {
       },
     ),
   selectionEdit: (project: Project, entryId: string, artifactId: string, selection: Selection, action: SelectionEditAction) =>
-    request<SelectionEditResult>(`/api/v1/projects/${project.id}/entries/${entryId}/selection-edits`, {
+    request<SelectionEditResult>(`/api/v1/projects/${project.id}/entries/${entryId}/${["residue.mutate", "hydrogens.prepare", "fragment.replace", "atom.charge", "bond.create", "bond.order"].includes(action.operation) ? "selection-edits" : "model-edits"}`, {
       method: "POST", body: JSON.stringify({ expected_revision: project.revision,
         expected_artifact_id: artifactId, selection, action }),
     }),

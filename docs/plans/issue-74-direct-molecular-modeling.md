@@ -3,7 +3,7 @@
 ## Status and metadata
 
 Approved by the user's “Implement the plan.” on 2026-10-16 after the complete
-proposal and four confirmed product choices. C0 and C1 are complete; C2 direct editing is next. This document is the implementation
+proposal and four confirmed product choices. C0–C2 are complete; C3 compact building is next. This document is the implementation
 contract. Historical checkpoint entries record their state at that time.
 
 - Issue: [#74](https://github.com/ManuelSe/Neistra/issues/74).
@@ -304,3 +304,54 @@ plugin/job type or dependency upgrade is implied.
   Both retained screenshots inspected; no independent review claimed.
 - No migration/version/API or direct-chemistry policy change yet. No blocker.
   Commit/push passing C1, then implement C2's direct editor and draft rendering.
+
+
+### C1 publication and C2 development — 2026-10-16
+
+- C1 committed/pushed as d494149cdb8ec29c5ef93880ed567cddbc9df34b;
+  remote branch SHA verified before C2.
+- Direct normalized-record actions now share immutable publication with legacy
+  selection edits. New HTTP model-edits endpoint preserves old endpoint behavior.
+  Compact atoms/bonds use direct actions: nullable absolute charge, all recognized
+  elements, literal H/last-atom deletion, unknown/aromatic assignment and explicit
+  inferred-display bond removal. Helper eligibility explains only helper controls.
+- Display-only non-kekulizing SDF and the native model decorator render incomplete
+  drafts while retaining canonical unknown values and protein display inference.
+  Authored exclusions survive reload; Undo restores exact graph/metadata.
+- New domain/API cases and panel assertions preserve originals, unrelated records,
+  source unknowns, reversible single-command history and structural refusals.
+  Existing native H-to-C tests now assert retained identity/coordinates, as approved;
+  the mixed helper/direct visit-ownership test observes both distinct API routes.
+- Initial lint found an unsafe untyped array element in metadata validation; add an
+  explicit unknown/number guard. Separately, first complete browser run23/24 passed;
+  duplicate imported fixture names made mobile's project chooser ambiguous. Give
+  each archived test project a unique name, keeping all native assertions. Both
+  diagnostic runs remain separately labelled and do not qualify final source.
+- No migration/version/release change. Fragment/creation/preview and advanced
+  inspector direct-routing remain C3; full persistence/science/reader audit C4.
+
+- C2 local self-review additionally reproduced a real successful H helper whose
+  result exceeds the entry atom limit. Preserve the direct-only result when that
+  optional candidate is too large; the new regression fails before and passes
+  after this repair. Retain the earlier82-Python/238-frontend/24-browser passing
+  gate as pre-review evidence and repeat the entire focused gate on final source.
+
+
+### C2 complete — 2026-10-16
+
+- [Final reviewed-source gate](../assets/direct-modeling/c2-verification.json)
+  passes83Python,238frontend and24native desktop/mobile browser cases in2.7minutes,
+  with zero failures/flakes/retries/skips. Ruff/mypy67, lint/types/build/diff pass;
+  exact argv/env/exits/durations/source/log/report/screenshot checksums retained.
+- Native checks break an aromatic ring without losing display/picking, remove an
+  inferred protein edge across reload and restore it with exact Undo. Existing
+  native atom/H/bond/fragment/residue, camera/remount/focus, themes/narrow axe and
+  asynchronous project/selection/refetch/visit ownership regressions all pass.
+- [Local self-review](../assets/direct-modeling/c2-local-review.md) is not independent.
+  Real optional-helper resource-limit red/green regression is included. Earlier
+  diagnostic and passing pre-review evidence remain distinctly labelled. Desktop/
+  mobile aromatic screenshots inspected; no broader device certification claimed.
+- Updated API, molecular-editing guide and append-only D101/103 implementation
+  note. No migration/version change. C2 does not claim creation, direct fragments,
+  placement previews, advanced-inspector routing, final compatibility or release.
+  No blocker. Commit/push passing C2, then implement C3.

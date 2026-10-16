@@ -57,6 +57,7 @@ import type { MovementView } from "../coordinates/interactiveTransform";
 import { Binding } from "molstar/lib/mol-util/binding";
 import type { Canvas3DAttribs, Canvas3DProps } from "molstar/lib/mol-canvas3d/canvas3d";
 import { observeViewerAttribution } from "./domPresentation";
+import { authoredBondInput, AuthoredModelBonds } from "./authoredBonds";
 import {
   hydrogenDisplayMode,
   molstarRepresentationProfile,
@@ -335,6 +336,7 @@ export class MolstarEngine implements MolecularViewer {
         this.models.clear();
         for (const structure of structures) {
           if (generation !== this.generation) return;
+          if (structure.normalized.atoms.length === 0) continue;
           await this.loadStructure(structure);
           await this.addStructureLabels(structure);
         }
@@ -850,8 +852,11 @@ export class MolstarEngine implements MolecularViewer {
         ),
       })
       .commit({ revertOnError: true });
+    const bondInput = authoredBondInput(structure.normalized, structure.projection.format);
+    const displayModel = bondInput ? await plugin.state.data.build().to(coordinateModel)
+      .apply(AuthoredModelBonds, { input: bondInput }).commit({ revertOnError: true }) : coordinateModel;
     const modelStructure =
-      await plugin.builders.structure.createStructure(coordinateModel);
+      await plugin.builders.structure.createStructure(displayModel);
     const structureProperties =
       await plugin.builders.structure.insertStructureProperties(modelStructure);
     const molstarStructure = structureProperties.obj?.data;
