@@ -1,0 +1,67 @@
+{
+  "verified_utc": "2026-10-16T22:59:47.944132+00:00",
+  "version": "0.17.0",
+  "release_commit": "a6d62c85fbdefdf579fce68cf535285129364743",
+  "pr": "https://github.com/ManuelSe/Neistra/pull/75",
+  "issue": "https://github.com/ManuelSe/Neistra/issues/74",
+  "issue_state": "closed",
+  "tag": {
+    "name": "v0.17.0",
+    "annotated_object": "49a32ecb2b7f0625c0eadbd2473385f8bab20130",
+    "target": "a6d62c85fbdefdf579fce68cf535285129364743",
+    "remote_verified": true
+  },
+  "release": {
+    "id": 415446446,
+    "url": "https://github.com/ManuelSe/Neistra/releases/tag/v0.17.0",
+    "published_at": "2026-10-16T22:59:32Z",
+    "draft": false,
+    "prerelease": false,
+    "latest": true,
+    "notes_exact": true
+  },
+  "asset": {
+    "release_commit": "a6d62c85fbdefdf579fce68cf535285129364743",
+    "asset": "neistra-v0.17.0-issue-74-verification.zip",
+    "sha256": "c9ad71820815c17b97d4618b918a2a137e7bd9fab8c88b720eaadbff4b7987c9",
+    "bytes": 13304754,
+    "internal_checksums": 339,
+    "url": "https://github.com/ManuelSe/Neistra/releases/download/v0.17.0/neistra-v0.17.0-issue-74-verification.zip",
+    "remote_id": 648876964,
+    "downloaded_sha256_verified": true,
+    "zip_crc_verified": true,
+    "internal_sha256_verified": 339
+  },
+  "review": {
+    "kind": "implementing-agent local self-review",
+    "codex_request": "https://github.com/ManuelSe/Neistra/pull/75#issuecomment-6225708799",
+    "integration_review_returned": false,
+    "required_review_bypassed": false
+  },
+  "issue_reply_verified": true,
+  "issue_reply_url": "https://github.com/ManuelSe/Neistra/issues/74#issuecomment-6226274182",
+  "issue_reply_numeric_id": 6226274182,
+  "issue_reply_body_sha256_at_initial_verification": "3d5f8e10178e07a15c106b9eb2277a50ebfe4acadaeb5dafd9f2fe3bf53b05e0",
+  "final_documentation_cleanup_audit": "https://github.com/ManuelSe/Neistra/issues/74#issuecomment-6226274182",
+  "final_audit_record": "Final documentation merge and branch/clean-master audit update the same verified issue comment after completion.",
+  "candidate_results": {
+    "python": 693,
+    "frontend": 248,
+    "supervisor": 8,
+    "browser": 233,
+    "intentional_skips": 47,
+    "failures": 0,
+    "flaky": 0,
+    "retries": 0
+  },
+  "merged_results": {
+    "python": 693,
+    "frontend": 248,
+    "supervisor": 8,
+    "browser": 233,
+    "intentional_skips": 47,
+    "failures": 0,
+    "flaky": 0,
+    "retries": 0
+  }
+}

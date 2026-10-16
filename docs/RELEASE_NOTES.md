@@ -3,8 +3,10 @@
 ## 0.17.0 - 2026-10-17 - Direct molecular modeling
 
 Implemented under the [approved issue #74 plan](plans/issue-74-direct-molecular-modeling.md).
-The clean candidate is qualified; exact merged-master verification and remote
-publication are the remaining release gates.
+Delivered in [PR #75](https://github.com/ManuelSe/Neistra/pull/75) as stable
+[v0.17.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.17.0);
+[publication evidence](assets/direct-modeling/c5-publication.json) and
+[issue close-out](https://github.com/ManuelSe/Neistra/issues/74#issuecomment-6226274182) are verified.
 
 ### Highlights and fixes
 
@@ -67,8 +69,14 @@ build/diff and actual tagged0.16.0 reader including recreated allocator floors.
 Fifteen native performance profiles and clean/source/log evidence are retained.
 [Full-diff local self-review](assets/direct-modeling/c5-local-review.md) records
 resolved scientific/focus/allocator findings and is not independent approval.
-Actual PR reviews/checks/protections must pass; exact-master gate and remote
-publication evidence follow merge. See the [verification index](VERIFICATION.md).
+[Exact released master](assets/direct-modeling/c5-merged-gate.json) at
+`a6d62c85fbdefdf579fce68cf535285129364743` repeats every complete gate/count,
+with clean trees and source equivalence. [Premerge audit](assets/direct-modeling/c5-premerge-audit.json)
+verifies normal merge eligibility without bypass. Codex was requested but no
+integration review returned at publication audit. Annotated exact tag, stable
+release/notes, downloaded asset SHA256/CRC and 339 internal hashes are
+[verified](assets/direct-modeling/c5-publication.json). Final documentation merge
+and branch/clean-master audit live in the issue reply. See [verification](VERIFICATION.md).
 Both themes, narrow320px layouts, expanded forms, keyboard/touch hit targets, real
 100/200% browser zoom and scoped axe are covered. Existing performance budgets
 remain; native movement also runs an authored1STP draft with bond overlay active.

@@ -57,9 +57,26 @@ retries. Both trees clean; frozen installs/fresh0014/static/build/diff and actua
 v0.16.0 reader against final0.17.0 data pass, including recreated allocator floors.
 Fifteen native profiles retain unchanged budgets. [Full-diff local self-review](assets/direct-modeling/c5-local-review.md)
 is not independent; [initial policy audit](assets/direct-modeling/c5-candidate-policy.json)
-shows no configured rulesets/protection/workflows. Actual PR review/check audit and
-exact-master complete qualification/publication remain. Failed/interrupted runs
-are clearly separate and do not qualify the final source.
+shows no configured rulesets/protection/workflows. The actual PR audit and
+exact-master qualification/publication are recorded below. Failed/interrupted
+runs are clearly separate and do not qualify the final source.
+
+[Exact released master](assets/direct-modeling/c5-merged-gate.json) at
+`a6d62c85fbdefdf579fce68cf535285129364743` repeats all 16 commands with
+693 Python / 248 frontend / 8 supervisor / 233 browser passes, 47 intentional
+skips, zero failures/flakes/retries, clean start/end and source/hash evidence.
+Actual clean tagged v0.16.0 retains final 0.17.0 canonical/history/archive data
+and recreated allocation floors; old renderer/helper refusals remain expected.
+Fifteen native performance profiles retain unchanged budgets.
+[Premerge audit](assets/direct-modeling/c5-premerge-audit.json) records normal
+PR #75 merge eligibility without protection/review/check bypass. No independent
+Codex review returned at publication audit; full local review remains self-review.
+[Publication](assets/direct-modeling/c5-publication.json) verifies annotated exact
+tag, stable release/notes, downloaded asset SHA256/CRC and 339 internal hashes,
+plus the closed issue's verified reply. Five versions 0.17.0, no new migration or
+schema/dependency change. Final documentation merge and branch/clean-master audit
+are maintained in that reply. Earlier checkpoint entries describe their historical
+state; they do not override this completed qualification.
 
 Issue #69 follows the [approved editing plan](plans/issue-69-compact-molecular-editor.md).
 C1/C2 implement bounded atomic atom/H, canonical endpoint bonds and six illustrated

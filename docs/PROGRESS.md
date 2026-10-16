@@ -2,22 +2,37 @@
 
 ## Current milestone
 
-Issue #74 C5 clean candidate complete under the [approved contract](plans/issue-74-direct-molecular-modeling.md).
-Tested/pushed implementation `b3238c018649410a3bcc1efd2f45e11def61f0d8` passes the
-[complete gate](assets/direct-modeling/c5-candidate-gate.json):693Python/248frontend/
-8supervisor/233native with47intentional skips, zero failures/flakes/retries; all16
-frozen-install/fresh0014/static/build/actual0.16reader/diff commands pass. Clean
-start/end and source/log hashes,15native performance profiles retained. Old-reader
-canonical/history/archive and recreated allocator floors pass with documented
-renderer/helper/continued-authoring limits. Earlier diagnostics are distinct.
+Issue #74 delivered under the [approved contract](plans/issue-74-direct-molecular-modeling.md)
+through [PR #75](https://github.com/ManuelSe/Neistra/pull/75) and stable
+[v0.17.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.17.0).
+C0–C5 implement direct incomplete-chemistry atom/bond edits, generated first-atom
+creation, six-fragment/atom previews, optional H off/nonfatal, native draft
+rendering/exclusions, exact persistence and monotonic IDs. D-101–104 record decisions.
 
-D101–104 implement direct drafts/building/creation and persistent monotonic IDs.
-Five versions0.17.0 minor; no migration/schema/dependency change. Local full-diff
-self-review is documented, not independent. Master is current/unprotected, rulesets
-empty/workflows0; premerge PR checks/reviews/policy audit remains. No external
-blocker. Next: evidence/docs commit, push/PR/Codex request/review/normal merge,
-exact-master complete gate, annotated tag/release/asset/issue/docs/branch cleanup.
-No merged/released/completion claim yet. Approved deferred scope stays excluded.
+Both [clean candidate](assets/direct-modeling/c5-candidate-gate.json) at b3238c0
+and [exact released master](assets/direct-modeling/c5-merged-gate.json) at
+`a6d62c85fbdefdf579fce68cf535285129364743` pass all 16 release commands:
+693 Python / 248 frontend / 8 supervisor / 233 browser, 47 intentional skips,
+zero failures/flakes/retries. Frozen installs/fresh 0014/static/build/diff and
+actual v0.16.0 canonical/history/archive/recreated-floor retention pass; 15
+native performance profiles per full gate retain unchanged budgets. Clean trees
+and source/log hashes are retained, distinct from earlier diagnostics.
+
+Five versions 0.17.0 minor; no migration/schema/dependency change. Annotated exact
+tag, stable release/notes and downloaded ZIP SHA256/CRC / 339 internal checksums
+are [verified](assets/direct-modeling/c5-publication.json).
+[Issue reply](https://github.com/ManuelSe/Neistra/issues/74#issuecomment-6226274182) verified; issue closed.
+Local full-diff self-review, no independent Codex review returned at publication
+audit; no required protection/review/check bypass. Final documentation integration,
+branch cleanup and clean-master audit are recorded in the same verified issue reply.
+
+Known limits: direct drafts are not chemistry/force-field certification; chemical
+export can warn/refuse or interpret implicit H, while native archives retain the
+literal graph. Old-reader retention does not imply old-version continued authoring
+or unrestricted runtime rollback. Separate-entry combining/canvas drawing excluded;
+expanded catalogue/rings/peptides/preparation remain #70/#71/#12/#52; names/subset
+export #20/#21. No blocker or remaining approved-scope implementation. Next product
+action: approve a separate backlog plan; deferred scope is not reintroduced.
 
 ### Previous delivery baseline — v0.16.0
 

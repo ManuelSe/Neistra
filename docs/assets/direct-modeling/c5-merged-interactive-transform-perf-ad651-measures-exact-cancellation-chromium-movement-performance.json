@@ -1,0 +1,43 @@
+{
+  "fixture": "RCSB 1STP",
+  "atoms": 1002,
+  "renderer": "pinned Chromium / SwiftShader",
+  "cases": [
+    {
+      "name": "protein-fragment",
+      "atoms": 3,
+      "navigationCycles": 6,
+      "previewMs": 91.10000002384186,
+      "coordinatePreviewMs": 82.10000002384186,
+      "coordinateCancelMs": 18.599999964237213,
+      "maxActive": 1,
+      "submittedFrames": 40,
+      "renderedFrames": 2,
+      "longestTaskMs": 74,
+      "changed": true,
+      "exactRestore": true,
+      "errors": []
+    },
+    {
+      "name": "bound-ligand",
+      "atoms": 16,
+      "navigationCycles": 6,
+      "previewMs": 30.099999964237213,
+      "coordinatePreviewMs": 19.099999964237213,
+      "coordinateCancelMs": 13.099999964237213,
+      "maxActive": 1,
+      "submittedFrames": 40,
+      "renderedFrames": 2,
+      "longestTaskMs": 0,
+      "changed": true,
+      "exactRestore": true,
+      "errors": []
+    }
+  ],
+  "surface": {
+    "coordinateCancelMs": 7.800000011920929,
+    "regenerationCompleteMs": 1019.1000000238419,
+    "inheritedRestored": true
+  },
+  "requests": []
+}
