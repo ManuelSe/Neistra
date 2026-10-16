@@ -122,3 +122,39 @@ def test_refusals_leave_revision_artifact_and_allocator_unchanged(client: ApiCli
         response = edit(client, project, entry_id, ids, action)
         assert response.status_code == 422, response.text
         assert client.get(f"/api/v1/projects/{project['id']}").json() == baseline
+
+
+@pytest.mark.parametrize(
+    "fragment", ["methyl", "ethyl", "hydroxyl", "amino", "carboxylic_acid", "phenyl"]
+)
+def test_fragment_actions_publish_one_complete_reversible_command(
+    client: ApiClient, fragment: str
+) -> None:
+    project, entry_id = project_with_ligand(client)
+    first = edit(client, project, entry_id, [1], {"operation": "hydrogens.prepare"}).json()
+    before = structure(client, project["id"], entry_id)
+    h = next(
+        a["id"]
+        for a in before["atoms"]
+        if a["element"] == "H"
+        and any({b["atom_1_id"], b["atom_2_id"]} == {a["id"], 1} for b in before["bonds"])
+    )
+    response = edit(
+        client,
+        first["project"],
+        entry_id,
+        [h],
+        {"operation": "fragment.replace", "fragment": fragment},
+    )
+    assert response.status_code == 200, response.text
+    result = response.json()
+    assert result["project"]["revision"] == first["project"]["revision"] + 1
+    after = structure(client, project["id"], entry_id)
+    assert h not in {a["id"] for a in after["atoms"]}
+    assert after["inferences"][-1]["bond_ids"] == result["report"]["created_bond_ids"]
+    undone = client.post(
+        f"/api/v1/projects/{project['id']}/history/undo",
+        json={"expected_revision": result["project"]["revision"]},
+    )
+    assert undone.status_code == 200
+    assert structure(client, project["id"], entry_id) == before

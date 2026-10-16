@@ -2,31 +2,28 @@
 
 ## Current milestone
 
-Issue #69 M1/C1 complete under the [approved contract](plans/issue-69-compact-molecular-editor.md).
-`/goal` authorized full delivery on 2026-10-16 after remotely verified planning
-commit238e5dd. Work stays on `feat/issue-69-compact-molecular-editor`.
+Issue #69 M2/C2 complete under the [approved contract](plans/issue-69-compact-molecular-editor.md).
+C1 is committed/remotely verified at e26419f; work remains on the planned branch.
+The Edit panel now supports atoms/local H, endpoint bond create/break/order and
+six illustrated H-substitution fragments. Generic molecular history, originals,
+fixed unaffected coordinates and prepared-component boundaries remain intact.
+D-098–100 and implementation notes document authority and bounded geometry.
 
-Implemented the compact Edit launcher/Atoms section, additive revision/artifact/
-selection-driven API, prepared-component projection/merge, atomic local H,
-substitution/element/charge/heavy deletion and exact molecular history. Synthetic
-prepared complexes enter through public archive import; unrelated records and
-original bytes are preserved. Transient panel and captured response ownership
-retain canonical selection and camera boundaries. D-098–100 record the policy.
+[C2 evidence](assets/molecular-editing/c2-verification.json):38Python,
+all232frontend,8native browser passes/2intentional layout skips; Ruff/mypy64/
+lint/types/build/diff pass. Actual bond-loci picks retain canonical endpoints and
+camera in both layouts. Independent six-graph/formula/explicit-H/determinism and
+API atomic Undo gates pass. Commands/source/log/screenshot hashes are retained;
+preliminary diagnostics stay separate. Review is local self-review, not independent.
 
-[C1 evidence](assets/molecular-editing/c1-verification.json):23focused Python,
-all230frontend,2desktop/mobile browser tests pass, plus Ruff/mypy63/lint/types/
-build/diff; legacy ligand/protein integration separately16passes. Exact commands,
-source/log/screenshot hashes and timings are retained. Failed diagnostics are
-separate: formula/degenerate input and exact-label/mobile-close helpers are
-explained in the plan. Local review is self-review, not independent.
-
-Known limits: prepared closed single-conformer components, bounded valence/geometry,
-six future fragments, existing constrained mutation. Degenerate input rejects
-rather than re-embedding; initial H preparation may be needed. Raw PDB chemistry,
-Grow and fusion stay separate. C2–C5 are approved and not started. Versions remain
-0.15.0; planned0.16.0minor, no migration (0014; project/viewer/archive2,
-normalized/selection1). Actual reader/full release gates remain unclaimed.
-No blocker. Next: commit passing C1, then M2/C2 bonds and six fragments.
+Known limits: prepared closed single-conformer components; local valence H and
+bounded initial geometry do not establish protonation/pose validity. E/Z decisions,
+raw PDB chemistry, Grow, fusion and wider chemistry remain separate. C3 retains
+compact residue mutation and complete focus/layout/accessibility work, including
+notification/header overlap positioning; C4/C5 retain actual-reader/full gates
+and release. Versions remain0.15.0; planned0.16.0minor, no migration (0014;
+project/viewer/archive2, normalized/selection1). No release/rollback claim yet.
+Next: commit passing C2, then implement M3/C3. No blocker.
 
 ### Previous delivery baseline — v0.15.0
 
@@ -2441,12 +2438,12 @@ Results:
 
 ## Blockers
 
-No current blocker. Issue #69 C1 passes its checkpoint gates; C2–C5 and complete
+No current blocker. Issue #69 C1/C2 pass their checkpoint gates; C3–C5 and complete
 release delivery remain. Scientific scope and compatibility retain the approved
 contract and must pass their remaining qualification gates.
 
 ## Next action
 
-Commit issue #69 C1, then implement and qualify M2/C2 bond and six-fragment edits.
+Commit issue #69 C2, then implement and qualify M3/C3 residue mutation and complete panel interaction.
 The [feature plan](plans/issue-69-compact-molecular-editor.md) remains the detailed
 contract; do not reintroduce deferred or rejected scope.

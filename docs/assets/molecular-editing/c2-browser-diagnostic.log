@@ -1,0 +1,29 @@
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+[2m[WebServer] [22mINFO:     Started server process [864868]
+[2m[WebServer] [22mINFO:     Waiting for application startup.
+[2m[WebServer] [22mINFO:     Application startup complete.
+[2m[WebServer] [22mINFO:     Uvicorn running on http://127.0.0.1:8160 (Press CTRL+C to quit)
+[2m[WebServer] [22m(node:864943) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:864955) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 6 tests using 1 worker
+
+(node:864978) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:864978) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/e2e/molecular-editing.spec.ts:17:5 › performs one selection-driven atom/H edit with exact undo and unchanged original (6.8s)
+  ✓  2 [chromium] › tests/e2e/molecular-editing.spec.ts:50:5 › maps a native bond hit to canonical endpoints and changes its order from the panel (5.2s)
+  ✓  3 [chromium] › tests/e2e/molecular-editing.spec.ts:82:5 › substitutes a selected H with illustrated COOH without an attachment mode (5.4s)
+(node:865202) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:865202) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  4 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:17:5 › performs one selection-driven atom/H edit with exact undo and unchanged original (7.3s)
+  ✓  5 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:50:5 › maps a native bond hit to canonical endpoints and changes its order from the panel (5.5s)
+  ✓  6 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:82:5 › substitutes a selected H with illustrated COOH without an attachment mode (5.4s)
+
+  6 passed (41.7s)

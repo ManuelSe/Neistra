@@ -96,7 +96,12 @@ preparation may be necessary. Fixed heavy atoms mean degenerate input can make H
 generation fail; it is not silently re-embedded. Generated distance/angle/overlap
 screens and supported tetrahedral orientation handling are documented in
 [Molecular editing](MOLECULAR_EDITING.md); they do not certify preparation.
-No compact bonds/fragments/residue workflow is claimed until its checkpoint.
+C2 adds six bounded fragment templates and endpoint-based bond actions.
+Template-only ETKDGv3 seed690 and six fixed torsions do not optimize an environment;
+ring fusion, wider element/catalogue chemistry and E/Z decisions remain unsupported.
+Some bond breaks cannot saturate at fixed coordinates without clashes/angle
+failures and reject atomically. See the editing guide for exact placement rules.
+Compact residue mutation still requires C3.
 
 ## Protein Editing
 

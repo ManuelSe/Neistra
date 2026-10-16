@@ -1,9 +1,9 @@
 # Selection-driven molecular editing
 
 Issue #69 follows the [approved contract](plans/issue-69-compact-molecular-editor.md).
-This document currently describes C1 only; bonds, fragments and compact residue
-mutation are not yet implemented by this checkpoint. Existing advanced inspector
-tools remain available.
+This document currently describes C1/C2. Compact residue mutation is not yet
+implemented by these checkpoints. Existing advanced inspector tools remain
+available.
 
 Select atoms, open **Edit molecule** beside **Transform selection**, and choose
 an element, charge adjustment or heavy-atom deletion. The nonmodal panel stays
@@ -57,3 +57,34 @@ No new database migration is introduced. Existing project/viewer/archive2 and
 normalized/selection1 remain, with Alembic0014. Prior-reader compatibility and
 release publication require the later qualification checkpoints; no released
 feature or rollback qualification is claimed at C1.
+
+In **Bonds**, select two heavy-atom endpoints, either by a rendered bond hit in
+Atom picking mode or by additive atom selection. Create a single bond when none
+exists, break a known nonaromatic bond, or increase/decrease its order from one
+through three. No typed bond IDs are needed. Creating a bond requires endpoints
+already within the documented covalent-distance bound. Direct aromatic bond
+changes and order changes requiring an E/Z stereochemistry decision reject.
+Breaking a bond can disconnect a source component; a warning explains that
+subsequent building requires connected topology. Fixed coordinates can make
+newly saturated fragments clash or have unsupported angles; the entire edit then
+rejects. Explicit movement/cleanup remains separate.
+
+In **Fragments**, select one terminal explicit H and choose methyl, ethyl,
+hydroxyl, amino, carboxylic acid or phenyl. The root replaces that H at its
+original attachment direction, with new monotonic identities, complete explicit
+fragment H and one history command. Source heavy coordinates remain exact.
+Structural previews mark the attachment with a dot. There is no Add/Attach mode,
+ring-fusion action or unrestricted fragment catalogue.
+
+Fragment-v1 uses methyl-capped templates `CC`, `CCC`, `CO`, `CN`, `CC(=O)O`,
+and `Cc1ccccc1`. The first carbon is the removable cap, and atom1 is the root.
+Only the template is embedded using pinned RDKit ETKDGv3, seed690, at most200
+iterations. A proper rotation aligns its cap/root axis to the selected H direction;
+the root distance uses covalent radii. Six fixed 60° torsions are compared by
+minimum distance to retained non-anchor atoms, with deterministic first-best
+ties. The generated geometry still passes distance/angle/overlap admission.
+This limited placement is not environment minimization, ring fusion, pKa
+assignment, conformer ranking or proof of a favorable pose. Template/version/seed
+are retained in inference provenance. All six reference graphs/formulas and
+explicit H, deterministic bytes and exact unchanged atoms are scientifically
+tested. Publication and actual old-reader qualification still require C4/C5.

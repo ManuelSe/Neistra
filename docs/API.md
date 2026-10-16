@@ -446,6 +446,10 @@ existing low-level ligand/protein contracts retain their behavior. Send
   remain within -1/0/+1 and pass chemistry validation.
 - `atom.delete`: selected heavy atoms within one eligible component.
 - `hydrogens.prepare`: complete valence H on the selected eligible component.
+- C2 adds `fragment.replace` with `fragment` equal to `methyl`, `ethyl`,
+  `hydroxyl`, `amino`, `carboxylic_acid` or `phenyl`, targeting one terminal H.
+- C2 adds `bond.create`, `bond.delete`, and `bond.order` (integer `order`1/2/3),
+  targeting exactly two selected heavy endpoints. No bond ID is accepted.
 
 The result contains `project`, structured `warnings`, a created/deleted/changed
 identity `report` and `replacements` mapping consumed H IDs to new heavy IDs.
@@ -459,9 +463,9 @@ before publication. This supports eligible components inside complexes without
 sanitizing or changing the surrounding protein. Unknown charges/orders, invalid
 valence/geometry, ambiguous boundary/alternate/stereo chemistry, empty/mixed
 selection and unsupported operations reject atomically with existing structured
-API errors. See [editing guidance](MOLECULAR_EDITING.md). Later issue checkpoints
-extend actions only after their gates; no compact bond/fragment/residue capability
-is claimed by C1.
+API errors. Aromatic changes, ambiguous E/Z order edits and unsupported generated
+geometry reject; local saturation is part of bond/fragment commands. See
+[editing guidance](MOLECULAR_EDITING.md). Compact residue mutation requires C3.
 
 ## Protein Edit Contract
 

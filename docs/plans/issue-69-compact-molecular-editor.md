@@ -3,7 +3,7 @@
 ## 1. Status, metadata, and approved outcome
 
 **Status:** `/goal` authorized full implementation/delivery on 2026-10-16.
-C0 and M1/C1 are complete; M2/C2 through M5/C5 are approved and not started.
+C0 through M2/C2 are complete; M3/C3 through M5/C5 are approved and not started.
 
 - **Issue:** [#69 — Add a compact, interactive molecular Edit panel to the
   viewer](https://github.com/ManuelSe/Neistra/issues/69), open with no comments at
@@ -523,7 +523,7 @@ After explicit approval, C0 only:
 |---|---|---|
 | C0 | Complete | Planning commit238e5dd remotely verified; `/goal` now authorizes delivery. |
 | M1/C1 | Complete; passing checkpoint | Atomic atom/H edit vertical slice; evidence below. |
-| M2/C2 | Approved; not started | Bonds and six fragments after passing C1. |
+| M2/C2 | Complete; passing checkpoint | Endpoint bond operations and six qualified fragments; evidence below. |
 | M3/C3 | Approved; not started | Residue workflow and complete interaction after C2. |
 | M4/C4 | Approved; not started | Scientific/lifecycle/accessibility/compatibility qualification. |
 | M5/C5 | Approved; not started | Full gates, reviewed PR and verified release delivery. |
@@ -561,3 +561,36 @@ After explicit approval, C0 only:
 - C1 does not claim compact bond, fragment or residue operations, full preparation,
   raw PDB chemistry assignment, prior-reader compatibility or release completion.
   No blocker. Next: commit passing C1, then implement M2/C2.
+
+### 2026-10-16 — M2/C2 complete: bonds and six fragments
+
+- C1 committed and remotely verified at e26419f. Added single/double/triple bond
+  controls using two canonical endpoints and single-H substitutions for methyl,
+  ethyl, hydroxyl, amino, carboxylic acid and phenyl. There is no bond-ID input,
+  new persisted bond selection, Add/Attach mode, ring fusion or broader catalogue.
+- Cap-only ETKDGv3 templates use seed690, bounded embedding, a proper alignment
+  and six fixed torsions. All parent heavy atoms remain fixed; complete explicit
+  fragment H and local endpoint H changes publish in the same molecular command.
+  Fixed attachment/cap SMILES and geometry criteria are documented. Source
+  metadata/history/original preservation and monotonic allocators remain intact.
+- Aromatic changes, missing/invalid endpoints, distant creation, impossible
+  geometry and order changes requiring E/Z decisions reject atomically. Positive
+  creation, break/order changes and all six graphs/formulas are independently
+  asserted; fragment H are actual atoms with zero implicit H in the prepared case.
+- [C2 evidence](../assets/molecular-editing/c2-verification.json):38Python,
+  all232frontend and8browser workflows/2intentional layout skips pass; Ruff,
+  mypy64, lint/types/build/diff pass. Both layouts use a real native bond-loci hit,
+  assert exact canonical endpoints and unchanged camera, then change bond order.
+  Both layouts perform illustrated COOH substitution and preserve unchanged atoms.
+- Exact source/log/screenshot hashes and commands are retained. Preliminary
+  diagnostics remain separate: temporary untagged generated H are omitted from
+  the post-reconciliation ID lookup; catalogue constants moved out of a component
+  for Fast Refresh; Testing Library role options corrected. Final gates use the
+  corrected source. Local self-review removed unrelated formatter changes and
+  corrected the ethyl drawing to two carbons; no independent review is claimed.
+- Compact residue mutation and final focus/layout/lifecycle/accessibility work
+  remain C3; actual preceding-reader/performance/release qualification remain
+  C4/C5. The notification can overlap the open panel header; launcher/Escape
+  closing remains available, and C3 will qualify positioning/tool handoff.
+  No migration/version/dependency/API removal or scope expansion. Next: commit
+  passing C2, then implement M3/C3.

@@ -4,7 +4,12 @@ export type SelectionEditAction =
   | { operation: "atom.element"; element: "C" | "N" | "O" | "S" | "F" | "Cl" | "Br" | "I" }
   | { operation: "atom.charge"; delta: -1 | 1 }
   | { operation: "atom.delete" }
-  | { operation: "hydrogens.prepare" };
+  | { operation: "hydrogens.prepare" }
+  | { operation: "bond.create" | "bond.delete" }
+  | { operation: "bond.order"; order: 1 | 2 | 3 }
+  | { operation: "fragment.replace"; fragment: FragmentName };
+
+export type FragmentName = "methyl" | "ethyl" | "hydroxyl" | "amino" | "carboxylic_acid" | "phenyl";
 
 export interface SelectionEditResult extends Omit<LigandEditResult, "report"> {
   report: Omit<LigandEditResult["report"], "operation"> & { operation: SelectionEditAction["operation"] };

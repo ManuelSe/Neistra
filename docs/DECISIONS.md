@@ -3702,3 +3702,24 @@ Unsupported encodings reject. App-owned pending state blocks competing workspace
 mutations; project/selection/revision guards own response feedback and replacement.
 Desktop/mobile C1 workflows pass. Broader lifecycle, science and actual old-reader
 qualification still require C4/C5; no migration or compatibility claim is inferred.
+
+### D-099 implementation note — issue #69 M2/C2, 2026-10-16
+
+Fragment-v1 embeds only six methyl-capped templates with pinned ETKDGv3 seed690
+and200iterations maximum. Remove cap/H, align the root axis by a proper rotation,
+set attachment length by covalent radii and compare six60° torsions against
+retained non-anchor coordinates. Fixed heavy atoms and complete template H remain
+explicit; deterministic first-best ties, method/template/seed provenance and final
+distance/angle/overlap validation are qualified. No parent embedding, implicit
+minimizer or fusion builder is introduced.
+
+Endpoint bond controls reuse canonical atom selection. Real native bond-loci hits
+map to exactly the normalized pair at Atom granularity, with unchanged camera;
+no new persisted bond reference is needed. Creating a bond requires nearby
+unbonded heavy endpoints inside the closed component; aromatic direct changes and
+order changes requiring E/Z decisions reject. Local saturation can make a break
+geometrically impossible at fixed coordinates and then rejects the whole edit.
+Disconnected accepted results warn that subsequent building needs connected
+topology. Generic artifact actions, publication and monotonic allocation remain
+unchanged, including all pre-tagged fragment IDs and generated H in one allocator
+advance. C2 science/API/native gates pass; C3/C4/C5 remain required.

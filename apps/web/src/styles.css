@@ -445,6 +445,13 @@ select:focus-visible,
 .edit-scientific-note { color: var(--text-soft); line-height: 1.5; }
 .edit-element-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; margin: 6px 0; }
 .edit-element-grid button { font-size: 16px; font-weight: 600; }
+.edit-sections { display: flex; flex-wrap: wrap; gap: 4px; }
+.edit-sections [aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); }
+.edit-fragment-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 5px; }
+.edit-fragment-grid button { display: flex; flex-direction: column; align-items: center; overflow-wrap: anywhere; }
+.edit-fragment-grid svg { max-width: 100%; }
+.edit-hydrogens { display: flex; flex-direction: column; gap: 5px; }
+.molecular-edit-panel .edit-compact-actions { flex-wrap: wrap; }
 .edit-compact-actions { display: flex; gap: 5px; margin: 6px 0; }
 .edit-compact-actions button { display: inline-flex; align-items: center; gap: 3px; }
 @media (pointer: coarse) { .molecular-edit-panel button { min-height: 44px; min-width: 44px; } }

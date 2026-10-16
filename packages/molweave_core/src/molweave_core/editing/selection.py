@@ -16,6 +16,12 @@ from scipy.spatial import cKDTree  # type: ignore[import-untyped]
 
 from molweave_core.adapters.rdkit_common import normalized_to_mol
 from molweave_core.components import derive_component_hierarchy
+from molweave_core.editing.fragments import (
+    FRAGMENT_CAP_SMILES,
+    FRAGMENT_SEED,
+    FragmentName,
+    graft_fragment,
+)
 from molweave_core.editing.ligand import EditResult
 from molweave_core.molecular import (
     Atom,
@@ -55,8 +61,33 @@ class HydrogenPrepare(Action):
     operation: Literal["hydrogens.prepare"]
 
 
+class FragmentReplace(Action):
+    operation: Literal["fragment.replace"]
+    fragment: FragmentName
+
+
+class BondCreate(Action):
+    operation: Literal["bond.create"]
+
+
+class BondDelete(Action):
+    operation: Literal["bond.delete"]
+
+
+class BondOrder(Action):
+    operation: Literal["bond.order"]
+    order: Literal[1, 2, 3]
+
+
 SelectionAction = Annotated[
-    ElementChange | ChargeChange | AtomDelete | HydrogenPrepare,
+    ElementChange
+    | ChargeChange
+    | AtomDelete
+    | HydrogenPrepare
+    | FragmentReplace
+    | BondCreate
+    | BondDelete
+    | BondOrder,
     Field(discriminator="operation"),
 ]
 
@@ -172,7 +203,11 @@ def sanitized(mol: Any) -> None:
 
 
 def indices(mol: Any) -> dict[int, int]:
-    return {int(a.GetIntProp("_MolWeaveAtomId")): int(a.GetIdx()) for a in mol.GetAtoms()}
+    return {
+        int(a.GetIntProp("_MolWeaveAtomId")): int(a.GetIdx())
+        for a in mol.GetAtoms()
+        if a.HasProp("_MolWeaveAtomId")
+    }
 
 
 def reconcile_hydrogens(mol: Any, affected: set[int]) -> Any:
@@ -233,8 +268,65 @@ class SelectionMolecularEditor:
         ids = indices(mol)
         affected: set[int] = set()
         replacements: dict[int, int] = {}
+        details = ""
         if isinstance(action, HydrogenPrepare):
             affected = {a.id for a in before.atoms if a.element != "H"}
+        elif isinstance(action, FragmentReplace):
+            if len(selected) != 1:
+                raise InvalidSelectionEdit("Select one terminal H for fragment substitution.")
+            atom = mol.GetAtomWithIdx(ids[selected[0]])
+            if atom.GetSymbol() != "H" or atom.GetDegree() != 1:
+                raise InvalidSelectionEdit("Select one terminal H for fragment substitution.")
+            anchor_id = int(atom.GetNeighbors()[0].GetIntProp("_MolWeaveAtomId"))
+            try:
+                mol = graft_fragment(mol, selected[0], action.fragment, next_atom_id)
+            except (ValueError, RuntimeError) as error:
+                raise InvalidSelectionEdit(str(error)) from error
+            replacements[selected[0]] = next_atom_id
+            affected = {anchor_id, next_atom_id}
+            details = (
+                f"; fragment-v1={action.fragment}; "
+                f"cap-smiles={FRAGMENT_CAP_SMILES[action.fragment]}"
+                f"; ETKDGv3 seed={FRAGMENT_SEED}; six torsion candidates"
+            )
+        elif isinstance(action, (BondCreate, BondDelete, BondOrder)):
+            if len(selected) != 2:
+                raise InvalidSelectionEdit("Select exactly two heavy-atom endpoints.")
+            first, second = [mol.GetAtomWithIdx(ids[i]) for i in selected]
+            if any(a.GetSymbol() == "H" for a in (first, second)):
+                raise InvalidSelectionEdit("Bond actions require two heavy atoms.")
+            bond = mol.GetBondBetweenAtoms(first.GetIdx(), second.GetIdx())
+            if bond is not None and bond.GetIsAromatic():
+                raise InvalidSelectionEdit("Direct aromatic bond changes are unsupported.")
+            if isinstance(action, BondCreate):
+                if bond is not None:
+                    raise InvalidSelectionEdit("A bond already joins the selected atoms.")
+                table = Chem.GetPeriodicTable()
+                ideal = table.GetRcovalent(first.GetAtomicNum()) + table.GetRcovalent(
+                    second.GetAtomicNum()
+                )
+                distance = np.linalg.norm(
+                    np.array(mol.GetConformer().GetAtomPosition(first.GetIdx()))
+                    - np.array(mol.GetConformer().GetAtomPosition(second.GetIdx()))
+                )
+                if not 0.65 * ideal <= distance <= 1.35 * ideal:
+                    raise InvalidSelectionEdit(
+                        "Bond endpoints are too far apart or overlap; move them explicitly first."
+                    )
+                mol.AddBond(first.GetIdx(), second.GetIdx(), Chem.BondType.SINGLE)
+            elif bond is None:
+                raise InvalidSelectionEdit("No bond joins the selected endpoints.")
+            elif isinstance(action, BondDelete):
+                mol.RemoveBond(first.GetIdx(), second.GetIdx())
+            else:
+                if bond.GetBondTypeAsDouble() == action.order:
+                    raise InvalidSelectionEdit("The bond already has this order.")
+                bond.SetBondType(
+                    {1: Chem.BondType.SINGLE, 2: Chem.BondType.DOUBLE, 3: Chem.BondType.TRIPLE}[
+                        action.order
+                    ]
+                )
+            affected = set(selected)
         elif isinstance(action, AtomDelete):
             if any(mol.GetAtomWithIdx(ids[i]).GetSymbol() == "H" for i in selected):
                 raise InvalidSelectionEdit(
@@ -301,6 +393,15 @@ class SelectionMolecularEditor:
                 atom.SetAtomicNum(Chem.GetPeriodicTable().GetAtomicNumber(action.element))
         mol = reconcile_hydrogens(mol, affected)
         sanitized(mol)
+        if isinstance(action, BondOrder) and action.order == 2:
+            bond = mol.GetBondBetweenAtoms(indices(mol)[selected[0]], indices(mol)[selected[1]])
+            if any(
+                str(info.type) == "Bond_Double" and info.centeredOn == bond.GetIdx()
+                for info in Chem.FindPotentialStereo(mol)
+            ):
+                raise InvalidSelectionEdit(
+                    "This edit requires an E/Z stereochemistry decision; unsupported."
+                )
         return self._finish(
             structure,
             before,
@@ -310,6 +411,7 @@ class SelectionMolecularEditor:
             replacements,
             next_atom_id,
             next_bond_id,
+            details,
         )
 
     def _finish(
@@ -322,11 +424,16 @@ class SelectionMolecularEditor:
         replacements: dict[int, int],
         next_atom_id: int,
         next_bond_id: int,
+        details: str = "",
     ) -> SelectionEditResult:
         before_atoms = {a.id: a for a in before.atoms}
         before_bonds = {b.id: b for b in before.bonds}
-        created: list[int] = list(replacements.values())
-        atom_cursor = next_atom_id + len(created)
+        created: list[int] = sorted(
+            int(a.GetIntProp("_MolWeaveAtomId"))
+            for a in mol.GetAtoms()
+            if a.HasProp("_MolWeaveAtomId") and a.GetIntProp("_MolWeaveAtomId") not in before_atoms
+        )
+        atom_cursor = max([next_atom_id - 1, *created]) + 1
         for atom in mol.GetAtoms():
             if not atom.HasProp("_MolWeaveAtomId"):
                 atom.SetIntProp("_MolWeaveAtomId", atom_cursor)
@@ -453,7 +560,7 @@ class SelectionMolecularEditor:
             warnings.append(
                 warning(
                     "component_disconnected",
-                    "Deleting atoms has disconnected the component; "
+                    "The topology edit has disconnected the component; "
                     "subsequent building requires connected topology.",
                     operation,
                 )
@@ -463,7 +570,7 @@ class SelectionMolecularEditor:
         inference = InferenceRecord(
             code="selection_edit",
             message=f"selection-edit-v1; RDKit {rdBase.rdkitVersion}; {operation}; "
-            "local valence H; fixed heavy coordinates",
+            "local valence H; fixed heavy coordinates" + details,
             atom_ids=sorted(set(created) | affected),
             bond_ids=created_bonds,
         )

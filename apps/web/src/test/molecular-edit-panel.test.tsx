@@ -20,10 +20,10 @@ const projection: StructureProjection = {
 };
 
 afterEach(() => { cleanup(); useEditingStore.getState().setProject(null); });
-function setup(operand = selection, unavailable: string | null = null) {
+function setup(operand = selection, unavailable: string | null = null, molecule = projection) {
   useEditingStore.getState().setProject(project.id);
   const client = new QueryClient({ defaultOptions: { queries: { retry: false } } });
-  client.setQueryData(["structure", project.id, entry.id, entry.current_artifact_id], projection);
+  client.setQueryData(["structure", project.id, entry.id, entry.current_artifact_id], molecule);
   const onEdit = vi.fn().mockResolvedValue({ project, warnings: [], report: {}, replacements: {} });
   render(<QueryClientProvider client={client}><MolecularEditPanel project={project} selection={operand} busy={false} unavailable={unavailable} onEdit={onEdit} /></QueryClientProvider>);
   return { onEdit, user: userEvent.setup() };
@@ -51,8 +51,36 @@ it("explains empty selection and does not execute an inferred default target", a
 it("preserves open state across responsive remounts but resets on project switch", async () => {
   const { user } = setup();
   await user.click(screen.getByRole("button", { name: "Edit molecule" }));
+  await user.click(screen.getByRole("button", { name: "Fragments" }));
   cleanup(); setup();
   expect(screen.getByRole("dialog", { name: "Edit molecule" })).toBeVisible();
+  expect(screen.getByRole("button", { name: "Fragments" })).toHaveAttribute("aria-pressed", "true");
   useEditingStore.getState().setProject("another-project");
   expect(useEditingStore.getState().open).toBe(false);
+});
+
+it("uses two canonical endpoints for bond order without a manual bond ID", async () => {
+  const second = { ...projection.structure.atoms[0], id: 2, element: "O" };
+  const molecule: StructureProjection = { ...projection,
+    hierarchy: { ...projection.hierarchy, components: [{ ...projection.hierarchy.components[0], atom_ids: [1, 2] }] },
+    structure: { ...projection.structure, atoms: [...projection.structure.atoms, second], bonds: [{ id: 9, atom_1_id: 1, atom_2_id: 2, order: 1, aromatic: false, stereo: null, inferred: false }] },
+  };
+  const operand = { ...selection, atoms: [1, 2].map(atom_id => ({ structure_id: entry.id, atom_id })) };
+  const { user, onEdit } = setup(operand, null, molecule);
+  await user.click(screen.getByRole("button", { name: "Edit molecule" }));
+  await user.click(screen.getByRole("button", { name: "Bonds" }));
+  await user.click(screen.getByRole("button", { name: "Increase bond order" }));
+  expect(onEdit).toHaveBeenCalledWith(entry.id, entry.current_artifact_id, operand, { operation: "bond.order", order: 2 });
+  expect(screen.queryByRole("spinbutton")).toBeNull();
+});
+
+it("shows six structural previews and substitutes an H through one fragment action", async () => {
+  const molecule: StructureProjection = { ...projection, structure: { ...projection.structure, atoms: [{ ...projection.structure.atoms[0], element: "H" }] } };
+  const { user, onEdit } = setup(selection, null, molecule);
+  await user.click(screen.getByRole("button", { name: "Edit molecule" }));
+  await user.click(screen.getByRole("button", { name: "Fragments" }));
+  expect(document.querySelectorAll(".edit-fragment-grid svg")).toHaveLength(6);
+  await user.click(screen.getByRole("button", { name: "Replace H with Carboxylic acid" }));
+  expect(onEdit).toHaveBeenCalledWith(entry.id, entry.current_artifact_id, selection, { operation: "fragment.replace", fragment: "carboxylic_acid" });
+  expect(screen.getByRole("dialog", { name: "Edit molecule" })).toBeVisible();
 });
