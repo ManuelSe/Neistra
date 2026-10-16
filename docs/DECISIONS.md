@@ -3559,3 +3559,38 @@ to constrain the existing divider. ResizeObserver handles layout changes without
 per-component requests or molecular state. Impossible combined minima share the
 viewport rather than creating invalid panel constraints; mobile full-height tabs
 remain unchanged. A pre-fix failing native regression and passing repair are retained.
+
+## D-098 — Carbon-only selection coloring default
+
+Date: 2026-10-16. Status: accepted by explicit approval of the issue #58 plan;
+release gate pending for 0.16.0.
+
+Decision:
+
+The Style selection palette's color controls open with **Carbon only** selected, on
+every open. The initial mode state in the color controls component is the single
+source of that default; no persisted preference, project setting, or API parameter
+is introduced.
+
+The API contract is unchanged. Omitted `color_mode` keeps the released all-atoms
+semantics: every selected atom receives the applied color. `color_mode: "carbon"`
+keeps its released split semantics: selected atoms receive the applied color, then
+selected non-carbon atoms are recolored to element colors, leaving atoms outside the
+selection untouched. Both modes remain freely switchable through the existing
+aria-pressed toggle, and mode changes alone never alter atoms.
+
+Rationale:
+
+Carbon-only coloring preserves conventional element colors for heteroatoms, which
+the issue identifies as the preferable default for molecular visualization. Because
+the palette is a transient component that remounts on each open (D-055), the
+component default applies on every open and resets on reopen; this keeps the choice
+view-only and out of project state, history, scenes, and archives. The existing
+all-atoms request path remains the default for any client that does not send
+`color_mode`, so no client, archive, or persisted payload changes meaning.
+
+Compatibility:
+
+No endpoint, public type shape, migration, job, or archive-format change. Alembic
+remains 0014; project/viewer/archive schemas remain 2; normalized/selection schemas
+remain 1. Runtime rollback restores the previous default without data work.

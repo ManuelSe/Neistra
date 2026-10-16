@@ -476,3 +476,25 @@ additional coverage, not evidence of an actual old reader.
 See [approved contract](plans/issue-59-compact-project-navigation.md),
 [user guidance](PROJECT_NAVIGATION.md), [accessibility](ACCESSIBILITY.md) and
 [performance](PERFORMANCE.md) for qualified layouts, keyboard semantics and limits.
+
+## Carbon-only default compatibility (0.16.0)
+
+This minor release changes only the initial coloring mode of the transient Style
+selection palette: it opens with **Carbon only** selected. No restart or service
+redeploy is required to observe it; the palette remounts on each open, so the new
+default applies on every open and no persisted preference is introduced (D-055, D-098).
+No new migration is needed from 0.15.0: head 0014, project/viewer/archive 2 and
+normalized/selection 1 remain. No endpoint, public type, job, or archive-format change;
+molecular state and originals are unchanged. Rollback is reverting this change; it
+restores the previous **All atoms** default with no downgrade or data stripping.
+
+Run the complete candidate and exact merged-master release gates above: `corepack pnpm
+--dir apps/web` lint, typecheck, test (Vitest) and build; the repository Python checks
+(Ruff, mypy, and `tests/integration/test_archive_roundtrip.py`); and the Playwright
+`tests/e2e/selection-appearance.spec.ts` scenario. The archive roundtrip provenance list
+gains 0.15.0, proving the current export still round-trips the prior release; that
+provenance-string coverage is additional, not a substitute for an actual old reader.
+
+See [approved contract](plans/issue-58-carbon-only-default.md) and
+[selection styling](SELECTION_STYLING.md) for the on-open default, the unchanged
+all-atoms request, and carbon-only split semantics.

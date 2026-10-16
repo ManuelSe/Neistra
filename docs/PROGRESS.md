@@ -1,6 +1,29 @@
 # Neistra Progress
 
 ## Current milestone
+Issue #58 delivered in progress as **0.16.0** through the
+[approved plan](plans/issue-58-carbon-only-default.md) on branch
+`feat/issue-58-carbon-only-default` (base `f34d4ae`). The Style selection palette
+now opens in **Carbon only** coloring mode on every open; **All atoms** remains
+freely available and its request semantics (omitted `color_mode`) are unchanged,
+and no other coloring behavior is affected. D-098 records the UI default against
+the unchanged API contract and D-055 transient palette state.
+
+The one-line `SelectionColorControls` default flip plus the required Vitest and
+Playwright updates are committed; release documentation, D-098, and all five
+authoritative versions advance to 0.16.0 in the same delivery. SemVer minor: a
+changed user-visible default beyond a patch fix, with no API or persisted contract
+change. No migration, schema, endpoint, job, or archive change; Alembic stays 0014,
+project/viewer/archive 2, normalized/selection 1.
+
+Release gate (lint/types/build/Vitest/Playwright `selection-appearance` plus
+repository Python checks) and the `Closes #58` PR remain the next steps; no
+unverified remote action is claimed. Charge coloring #64 and ligand chemistry #52
+remain separate. Next: pass the gate, open the PR, and release 0.16.0 from exact
+merged master.
+
+### Previous delivery baseline — v0.15.0
+
 
 Issue #59 delivered as [v0.15.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.15.0)
 through [PR #67](https://github.com/ManuelSe/Neistra/pull/67), following the

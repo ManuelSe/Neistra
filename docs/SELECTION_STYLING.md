@@ -14,11 +14,13 @@ panels, or move the camera. Its count always describes the current selection.
   and dashed border mean mixed visibility; **Hide** then hides the whole target.
   Applying an atomic style also shows its target. Entry/component/isolation and
   hydrogen visibility still bound what can appear; hidden atoms remain selectable.
-- Choose **All atoms** or **Carbon only**, then click a color swatch. Mode changes
-  alone do not alter atoms. Carbon-only uses the chosen color on selected carbon
-  and element colors on other selected atoms; outside atoms are unchanged.
+- The palette opens in **Carbon only** mode. Choose **All atoms** or **Carbon only**,
+  then click a color swatch. Mode changes alone do not alter atoms. Carbon-only uses
+  the chosen color on selected carbon and element colors on other selected atoms;
+  outside atoms are unchanged.
 - Open **Custom…** to choose a custom color and press **Apply color**. Mode and
-  custom color are remembered while open and reset when you reopen the palette.
+  custom color are remembered while open and reset when you reopen the palette; the
+  mode always reopens as **Carbon only**.
 - Use the representation or color **Reset** independently. Representation reset
   restores both representation channels to entry defaults and shows the target. Color reset restores
   the underlying entry theme, including removal of explicit element overrides.

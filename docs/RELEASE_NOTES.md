@@ -1,5 +1,55 @@
 # Neistra Release Notes
 
+## 0.16.0 - 2026-10-16 - Carbon-only selection coloring default
+
+Status: pending the `Closes #58` pull request and the full release gate on the feature
+branch; no tag, GitHub release, or remote merge is claimed until verified. This entry
+documents the planned 0.16.0 change, scoped to the user-visible default.
+
+### Changed selection coloring default
+
+The Style selection palette now opens with **Carbon only** selected on every open;
+**All atoms** remains freely available and its requests keep the released all-atoms
+semantics (omitted `color_mode` colors every selected atom). Carbon-only keeps its
+released split semantics (selected carbons take the chosen color, other selected atoms
+use element colors). No other coloring behavior, control, or API request is affected;
+the mode choice is transient per D-055 and resets to **Carbon only** when the palette
+reopens.
+
+### Compatibility, migration and rollback
+
+**Minor 0.15.0 to 0.16.0** adds a changed user-visible default, a meaningful capability
+change beyond a patch fix, with no breaking public API or persisted contract, so no
+major increment is warranted. All five authoritative versions advance together. No new
+migration, endpoint, job, plugin, or archive-format change; Alembic stays 0014 and
+project/viewer/archive schemas stay 2, normalized/selection schemas stay 1. The archive
+roundtrip provenance list gains 0.15.0. Runtime rollback is reverting this change; it
+restores the previous **All atoms** default with no data work or schema downgrade. See
+[upgrade/rollback](DEVELOPMENT.md#carbon-only-default-compatibility-0160).
+
+### Verification and evidence
+
+Gate of record (plan checkpoint C1): `corepack pnpm --dir apps/web` lint, typecheck,
+test (Vitest) and build; the repository Python checks (Ruff, mypy, and
+`tests/integration/test_archive_roundtrip.py` proving the version list and advance); and
+the Playwright `tests/e2e/selection-appearance.spec.ts` scenario. Concrete results are
+recorded in the [feature plan](plans/issue-58-carbon-only-default.md) progress log and
+the pull request description; unrun checks are not claimed as passing.
+
+Verified (2026-10-16, checkpoint C1): full release gate green in a `node:24`
+container (glibc 2.36, CPU-only) — ruff, mypy (61 files), pytest (558), web
+lint/typecheck/test (227)/test:dev (8)/build, and the focused selection-appearance
+e2e (5 passed, 1 skipped); the first e2e test timeout was raised to 240s for
+CPU-only headroom (measured ~100–120s under swiftshader).
+
+### Scientific interpretation, limitations and follow-up work
+
+The default is view-only and does not alter molecular state, atom identities,
+coordinates, or stored appearances; it changes which coloring mode is preselected in a
+transient panel. No persisted preference is introduced per D-055; D-098 records the UI
+default against the unchanged API contract. Charge-based coloring (#64) and ligand
+chemistry (#52) remain separate follow-ups.
+
 ## 0.15.0 - 2026-10-15 - Compact project navigation
 
 Status: [released as v0.15.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.15.0)
