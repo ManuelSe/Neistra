@@ -101,7 +101,9 @@ Template-only ETKDGv3 seed690 and six fixed torsions do not optimize an environm
 ring fusion, wider element/catalogue chemistry and E/Z decisions remain unsupported.
 Some bond breaks cannot saturate at fixed coordinates without clashes/angle
 failures and reject atomically. See the editing guide for exact placement rules.
-Compact residue mutation still requires C3.
+C3 compact mutation delegates to the existing protein service, with exactly one
+complete residue operand and a complete transient result selection. It does not
+extend template eligibility, automatically reconcile protein H or add Grow.
 
 ## Protein Editing
 

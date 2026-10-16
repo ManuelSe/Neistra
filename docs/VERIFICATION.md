@@ -1,5 +1,20 @@
 # V0.1 Requirement Evidence
 
+Issue #69 follows the [approved editing plan](plans/issue-69-compact-molecular-editor.md).
+C1/C2 implement bounded atomic atom/H, canonical endpoint bonds and six illustrated
+fragment substitutions. C3 adds exact complete-residue template mutation and
+transient result selection, plus focus/tool handoff, notice-aware portal placement
+and accessible controls. [C1](assets/molecular-editing/c1-verification.json),
+[C2](assets/molecular-editing/c2-verification.json) and
+[C3](assets/molecular-editing/c3-verification.json) retain exact commands, source/
+log/screenshot checksums and diagnostic separation. C3 passes72Python,
+all234frontend,31browser/3intentional layout skips and static/build/diff gates;
+all20 amino acids pass API backbone/unrelated-state/Undo. Native atom/bond/residue
+workflows, both themes,320px, keyboard/notice hit testing and scoped axe pass.
+Manual screenshot inspection is distinct; no independent review or broader device
+certification is claimed. C4 actual-reader/real-zoom/lifecycle/performance and C5
+complete candidate/exact-master release gates remain; this is not a released feature.
+
 Issue #59 follows the [approved navigation plan](plans/issue-59-compact-project-navigation.md).
 [C1](assets/project-navigation/c1-verification.json) qualifies independent compact
 entry/component ownership; [C2](assets/project-navigation/c2-verification.json)

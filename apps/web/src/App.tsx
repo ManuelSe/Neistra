@@ -775,14 +775,10 @@ export default function App() {
         if (useWorkspaceStore.getState().activeProjectId === owner) {
           const latest = queryClient.getQueryData<Project>(["project", owner]);
           if (latest?.revision === result.project.revision && useSelectionStore.getState().selection === captured) {
-            const entry = result.project.entries.find(e => e.id === entryId);
-            replaceSelection(canonicalSelection(operand.atoms.flatMap(ref => {
-              const id = result.replacements[String(ref.atom_id)] ?? ref.atom_id;
-              return entry?.atom_ids.includes(id) ? [{ structure_id: entryId, atom_id: id }] : [];
-            }), operand.granularity, operand.source));
+            replaceSelection(result.selection_after);
           }
           setEditedThisSession(true);
-          setNotice({ kind: "success", text: `Molecular edit stored. ${result.warnings.length} scientific warnings; see entry Details.`, lifetime: "persistent" });
+          setNotice({ kind: "success", text: [`Molecular edit stored. ${result.warnings.length} scientific warnings; see entry Details.`, ...surfacePruningWarnings(project, result.project)].join(" "), lifetime: "persistent" });
         }
         return result;
       } catch (error) {

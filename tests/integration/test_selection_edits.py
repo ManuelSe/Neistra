@@ -3,9 +3,11 @@ from __future__ import annotations
 from typing import Any
 
 import pytest
+from molweave_core.editing.protein import STANDARD_AMINO_ACIDS
 
 from tests.integration.test_archive_roundtrip import import_archive
 from tests.integration.test_ligand_edits import structure
+from tests.integration.test_protein_edits import project_with_protein
 from tests.support.api_client import ApiClient
 from tests.support.editing_fixture import FIXTURE, build_fixture
 
@@ -157,4 +159,53 @@ def test_fragment_actions_publish_one_complete_reversible_command(
         json={"expected_revision": result["project"]["revision"]},
     )
     assert undone.status_code == 200
+    assert structure(client, project["id"], entry_id) == before
+
+
+@pytest.mark.parametrize("target", sorted(STANDARD_AMINO_ACIDS))
+def test_selection_mutation_preserves_backbone_and_selects_complete_result(
+    client: ApiClient, target: str
+) -> None:
+    project, entry_id = project_with_protein(client)
+    before = structure(client, project["id"], entry_id)
+    residue = next(
+        r for r in before["residues"] if r["name"] != target and r["component_type"] == "polymer"
+    )
+    selected = [a["id"] for a in before["atoms"] if a["residue_id"] == residue["id"]]
+    response = edit(
+        client, project, entry_id, selected, {"operation": "residue.mutate", "target_name": target}
+    )
+    assert response.status_code == 200, response.text
+    result = response.json()
+    after = structure(client, project["id"], entry_id)
+    assert next(r for r in after["residues"] if r["id"] == residue["id"])["name"] == target
+    backbone = [
+        a
+        for a in before["atoms"]
+        if a["residue_id"] == residue["id"] and a["name"] in {"N", "CA", "C", "O"}
+    ]
+    assert all(a in after["atoms"] for a in backbone)
+    assert all(a in after["atoms"] for a in before["atoms"] if a["residue_id"] != residue["id"])
+    assert result["selection_after"]["atoms"] == [
+        {"structure_id": entry_id, "atom_id": a["id"]}
+        for a in after["atoms"]
+        if a["residue_id"] == residue["id"]
+    ]
+    assert result["selection_after"]["granularity"] == "residue"
+    undone = client.post(
+        f"/api/v1/projects/{project['id']}/history/undo",
+        json={"expected_revision": result["project"]["revision"]},
+    )
+    assert undone.status_code == 200
+    assert structure(client, project["id"], entry_id) == before
+
+
+def test_partial_residue_mutation_has_no_fallback_target(client: ApiClient) -> None:
+    project, entry_id = project_with_protein(client)
+    before = structure(client, project["id"], entry_id)
+    response = edit(
+        client, project, entry_id, [1], {"operation": "residue.mutate", "target_name": "VAL"}
+    )
+    assert response.status_code == 422
+    assert "complete residue" in response.text
     assert structure(client, project["id"], entry_id) == before

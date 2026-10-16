@@ -25,7 +25,8 @@ function setup(operand = selection, unavailable: string | null = null, molecule 
   const client = new QueryClient({ defaultOptions: { queries: { retry: false } } });
   client.setQueryData(["structure", project.id, entry.id, entry.current_artifact_id], molecule);
   const onEdit = vi.fn().mockResolvedValue({ project, warnings: [], report: {}, replacements: {} });
-  render(<QueryClientProvider client={client}><MolecularEditPanel project={project} selection={operand} busy={false} unavailable={unavailable} onEdit={onEdit} /></QueryClientProvider>);
+  const panelProject = { ...project, entries: [{ ...entry, structure_type: molecule.structure.structure_type }] };
+  render(<QueryClientProvider client={client}><MolecularEditPanel project={panelProject} selection={operand} busy={false} unavailable={unavailable} onEdit={onEdit} /></QueryClientProvider>);
   return { onEdit, user: userEvent.setup() };
 }
 
@@ -83,4 +84,35 @@ it("shows six structural previews and substitutes an H through one fragment acti
   await user.click(screen.getByRole("button", { name: "Replace H with Carboxylic acid" }));
   expect(onEdit).toHaveBeenCalledWith(entry.id, entry.current_artifact_id, selection, { operation: "fragment.replace", fragment: "carboxylic_acid" });
   expect(screen.getByRole("dialog", { name: "Edit molecule" })).toBeVisible();
+});
+
+it("opens by keyboard into the dialog and closes with owned focus", async () => {
+  const { user } = setup();
+  await user.tab();
+  expect(screen.getByRole("button", { name: "Edit molecule" })).toHaveFocus();
+  await user.keyboard("{Enter}");
+  expect(screen.getByRole("dialog", { name: "Edit molecule" })).toHaveFocus();
+  await user.keyboard("{Escape}");
+  expect(screen.getByRole("button", { name: "Edit molecule" })).toHaveFocus();
+});
+
+it("mutates a complete standard residue through one action and explains partial selection", async () => {
+  const atoms = ["N", "CA", "C", "O", "CB"].map((name, index) => ({ ...projection.structure.atoms[0], id: index + 1, name, residue_id: 1 }));
+  const molecule: StructureProjection = { ...projection, structure: { ...projection.structure,
+    structure_type: "protein", atoms, residues: [{ id: 1, chain_id: 1, name: "ALA", author_number: 1, label_number: 1, insertion_code: null, component_type: "polymer" }],
+  } };
+  const operand = { ...selection, atoms: atoms.map(atom => ({ structure_id: entry.id, atom_id: atom.id })) };
+  const { user, onEdit } = setup(operand, null, molecule);
+  await user.click(screen.getByRole("button", { name: "Edit molecule" }));
+  await user.click(screen.getByRole("button", { name: "Residues" }));
+  expect(screen.getAllByRole("button", { name: /^Mutate residue to / })).toHaveLength(20);
+  expect(screen.getByRole("button", { name: "Mutate residue to ALA" })).toBeDisabled();
+  await user.click(screen.getByRole("button", { name: "Mutate residue to VAL" }));
+  expect(onEdit).toHaveBeenCalledWith(entry.id, entry.current_artifact_id, operand, { operation: "residue.mutate", target_name: "VAL" });
+  expect(screen.getByRole("dialog", { name: "Edit molecule" })).toHaveFocus();
+  cleanup();
+  const partial = setup(selection, null, molecule);
+  expect(screen.getByRole("status")).toHaveTextContent("complete residue");
+  expect(screen.getByRole("button", { name: "Mutate residue to VAL" })).toBeDisabled();
+  expect(partial.onEdit).not.toHaveBeenCalled();
 });

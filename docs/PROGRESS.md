@@ -2,28 +2,28 @@
 
 ## Current milestone
 
-Issue #69 M2/C2 complete under the [approved contract](plans/issue-69-compact-molecular-editor.md).
-C1 is committed/remotely verified at e26419f; work remains on the planned branch.
-The Edit panel now supports atoms/local H, endpoint bond create/break/order and
-six illustrated H-substitution fragments. Generic molecular history, originals,
-fixed unaffected coordinates and prepared-component boundaries remain intact.
-D-098–100 and implementation notes document authority and bounded geometry.
+Issue #69 M3/C3 complete under the [approved contract](plans/issue-69-compact-molecular-editor.md).
+C2 is committed/remotely verified at95ba696; work stays on the planned branch.
+All four compact sections now work: atomic atom/local H, endpoint bonds, six
+illustrated H substitutions and existing constrained residue mutation. Transient
+result selection supports successive mutations; all20 targets preserve backbone/
+unrelated atoms and exact Undo. D-098–100 notes retain authority and scope.
 
-[C2 evidence](assets/molecular-editing/c2-verification.json):38Python,
-all232frontend,8native browser passes/2intentional layout skips; Ruff/mypy64/
-lint/types/build/diff pass. Actual bond-loci picks retain canonical endpoints and
-camera in both layouts. Independent six-graph/formula/explicit-H/determinism and
-API atomic Undo gates pass. Commands/source/log/screenshot hashes are retained;
-preliminary diagnostics stay separate. Review is local self-review, not independent.
+[C3 evidence](assets/molecular-editing/c3-verification.json):72Python,
+all234frontend,31native browser passes/3intentional layout skips in4.4m, plus
+Ruff/mypy64/lint/types/build/diff. Native residue picking/successive mutation,
+notice/header hit testing, stable focus, both themes,320px and scoped axe pass.
+Commands/source/log/screenshot hashes are retained; preliminary/interrupted
+harness diagnostics are separate. Review is local self-review, not independent.
 
-Known limits: prepared closed single-conformer components; local valence H and
-bounded initial geometry do not establish protonation/pose validity. E/Z decisions,
-raw PDB chemistry, Grow, fusion and wider chemistry remain separate. C3 retains
-compact residue mutation and complete focus/layout/accessibility work, including
-notification/header overlap positioning; C4/C5 retain actual-reader/full gates
-and release. Versions remain0.15.0; planned0.16.0minor, no migration (0014;
-project/viewer/archive2, normalized/selection1). No release/rollback claim yet.
-Next: commit passing C2, then implement M3/C3. No blocker.
+Known limits remain prepared bounded single-conformer components, valence/H
+inference and unoptimized initial geometry; protein mutation retains its existing
+scientific restrictions. Raw PDB chemistry, Grow, fusion and broader chemistry are
+separate. C4 owes actual-reader, real200% zoom, broader lifecycle/science/archive/
+performance qualification; C5 owes full release delivery. Versions remain0.15.0;
+planned0.16.0minor, no migration (0014; project/viewer/archive2,
+normalized/selection1). No release/rollback claim yet. No blocker.
+Next: commit passing C3, then implement and qualify M4/C4.
 
 ### Previous delivery baseline — v0.15.0
 
@@ -2438,12 +2438,12 @@ Results:
 
 ## Blockers
 
-No current blocker. Issue #69 C1/C2 pass their checkpoint gates; C3–C5 and complete
+No current blocker. Issue #69 C1–C3 pass their checkpoint gates; C4/C5 and complete
 release delivery remain. Scientific scope and compatibility retain the approved
 contract and must pass their remaining qualification gates.
 
 ## Next action
 
-Commit issue #69 C2, then implement and qualify M3/C3 residue mutation and complete panel interaction.
+Commit issue #69 C3, then implement and qualify M4/C4 science, lifecycle, real zoom, performance and actual-reader compatibility.
 The [feature plan](plans/issue-69-compact-molecular-editor.md) remains the detailed
 contract; do not reintroduce deferred or rejected scope.

@@ -427,9 +427,10 @@ select:focus-visible,
 .viewer-header .viewer-status { position: static; flex-wrap: wrap; pointer-events: none; }
 .viewer-header .viewer-toolbar { position: static; max-width: 100%; }
 .molecular-edit-tools { position: relative; }
+.molecular-edit-tools > .viewer-action-button { width: 32px; height: 32px; border: 1px solid var(--border); border-radius: 6px; background: var(--surface); }
 .viewer-edit-transform-actions { display: flex; align-items: flex-start; gap: 6px; max-width: 100%; }
 .molecular-edit-panel {
-  position: absolute; top: calc(100% + 6px); left: 0;
+  position: fixed; z-index: 40; top: 100px; left: 8px;
   width: min(300px, calc(100vw - 84px)); max-height: min(65vh, 520px);
   overflow: auto; overscroll-behavior: contain; padding: 10px;
   border: 1px solid var(--border); border-radius: 10px;
@@ -441,8 +442,11 @@ select:focus-visible,
 .molecular-edit-panel button:disabled { opacity: .55; }
 .molecular-edit-panel button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .molecular-edit-panel .dialog-heading { display: flex; justify-content: space-between; align-items: center; }
+.molecular-edit-panel .dialog-heading { position: sticky; top: -10px; background: var(--surface); z-index: 1; padding: 4px 0; }
 .edit-target, .edit-scientific-note { overflow-wrap: anywhere; margin: 8px 0; }
 .edit-scientific-note { color: var(--text-soft); line-height: 1.5; }
+.molecular-edit-panel summary { cursor: pointer; padding: 6px 0; min-height: 32px; }
+.molecular-edit-panel summary:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 .edit-element-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; margin: 6px 0; }
 .edit-element-grid button { font-size: 16px; font-weight: 600; }
 .edit-sections { display: flex; flex-wrap: wrap; gap: 4px; }
@@ -455,6 +459,7 @@ select:focus-visible,
 .edit-compact-actions { display: flex; gap: 5px; margin: 6px 0; }
 .edit-compact-actions button { display: inline-flex; align-items: center; gap: 3px; }
 @media (pointer: coarse) { .molecular-edit-panel button { min-height: 44px; min-width: 44px; } }
+@media (any-pointer: coarse), (max-width: 840px) { .molecular-edit-tools > .viewer-action-button { width: 44px; height: 44px; } .molecular-edit-panel summary { min-height: 44px; } }
 .viewer-header .viewer-error { position: static; align-self: stretch; width: 100%; min-width: 0; transform: none; overflow-wrap: anywhere; }
 .transform-launcher, .movement-banner {
   border: 1px solid var(--border);

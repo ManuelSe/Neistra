@@ -1,8 +1,10 @@
 import { create } from "zustand";
 
 interface EditingState {
-  section: "atoms" | "bonds" | "fragments";
+  section: "atoms" | "bonds" | "fragments" | "residues";
   setSection: (section: EditingState["section"]) => void;
+  focusRequested: boolean;
+  setFocusRequested: (requested: boolean) => void;
   projectId: string | null;
   open: boolean;
   pending: boolean;
@@ -12,9 +14,10 @@ interface EditingState {
 }
 
 export const useEditingStore = create<EditingState>((set) => ({
-  projectId: null, open: false, pending: false, section: "atoms",
+  projectId: null, open: false, pending: false, section: "atoms", focusRequested: false,
+  setFocusRequested: focusRequested => set({ focusRequested }),
   setSection: section => set({ section }),
-  setProject: projectId => set(state => state.projectId === projectId ? state : { projectId, open: false, pending: false, section: "atoms" }),
+  setProject: projectId => set(state => state.projectId === projectId ? state : { projectId, open: false, pending: false, section: "atoms", focusRequested: false }),
   setOpen: open => set({ open }),
   setPending: pending => set({ pending }),
 }));

@@ -6,6 +6,24 @@ Performance thresholds are regression gates on the pinned Playwright desktop
 Chromium host. They are not hardware-independent throughput promises or
 recommended maximum scientific system sizes.
 
+## Selection-driven editing (issue #69)
+
+Small-molecule chemistry is admitted only for bounded components (256heavy/
+1,024resulting atoms). Membership uses one residue index, and only the component
+enters RDKit. Six cached cap templates/seeded embeddings and six fixed torsions
+bound fragment placement. Environment overlap checks use a spatial index rather
+than a whole-complex pairwise distance array. These controls are not throughput
+guarantees or proof of an optimized structure.
+
+The panel reuses the artifact-keyed query and memoizes eligibility by immutable
+projection/selection, avoiding camera-driven molecular rescans. Responses update
+only the affected entry through existing topology patches; transient
+`selection_after` avoids another structure fetch just to resolve new selection.
+Normal opening, section browsing and display choices do not serialize molecules
+into mutation requests. UI positioning observes layout only and coalesces work
+to animation frames. C4 retains representative complex, request-count and existing
+native performance budgets; final candidate/merged release gates must repeat them.
+
 ## Compact component navigation (issue #59)
 
 The artifact-keyed membership index visits the normalized atom collection once,

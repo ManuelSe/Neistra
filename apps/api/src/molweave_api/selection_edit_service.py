@@ -1,11 +1,14 @@
 from __future__ import annotations
 
+from molweave_core.editing.ligand import EditResult
+from molweave_core.editing.protein import InvalidProteinEditError, PdbfixerProteinEditor
 from molweave_core.editing.selection import (
     InvalidSelectionEdit,
     SelectionEditResult,
     SelectionMolecularEditor,
 )
 from molweave_core.molecular import NormalizedStructureV1
+from molweave_core.selection import AtomReference, SelectionV1
 
 from molweave_api.import_export import NORMALIZED_MEDIA_TYPE, safe_filename_stem
 from molweave_api.ligand_edit_service import LigandEditService
@@ -15,6 +18,7 @@ from molweave_api.schemas import (
     LigandEditReport,
     SelectionEditCreate,
     SelectionEditRead,
+    SelectionResidueMutation,
 )
 
 
@@ -41,17 +45,61 @@ class SelectionEditService(LigandEditService):
         if any(ref.structure_id != entry_id for ref in payload.selection.atoms):
             raise InvalidProjectOperationError("Select atoms in exactly one entry.")
         before = self._structure(entry)
+        selected = [ref.atom_id for ref in payload.selection.atoms]
+        after_selection: SelectionV1 | None = None
         try:
-            result = SelectionMolecularEditor().edit(
-                before,
-                [ref.atom_id for ref in payload.selection.atoms],
-                payload.action,
-                next_atom_id=entry.next_atom_id,
-                next_bond_id=entry.next_bond_id,
-            )
-        except InvalidSelectionEdit as error:
+            if isinstance(payload.action, SelectionResidueMutation):
+                if entry.structure_type not in {"protein", "complex"}:
+                    raise InvalidSelectionEdit("Mutation requires a protein or complex entry.")
+                atom_map = {a.id: a for a in before.atoms}
+                if not selected or not set(selected) <= atom_map.keys():
+                    raise InvalidSelectionEdit("Select one complete current amino-acid residue.")
+                residues = {atom_map[i].residue_id for i in selected}
+                if len(residues) != 1 or None in residues:
+                    raise InvalidSelectionEdit("Select one complete amino-acid residue.")
+                residue_id = atom_map[selected[0]].residue_id
+                assert residue_id is not None
+                if set(selected) != {a.id for a in before.atoms if a.residue_id == residue_id}:
+                    raise InvalidSelectionEdit("Select the complete residue using residue picking.")
+                protein_result = PdbfixerProteinEditor().mutate_residue(
+                    before,
+                    residue_id,
+                    payload.action.target_name,
+                    next_atom_id=entry.next_atom_id,
+                    next_bond_id=entry.next_bond_id,
+                )
+                result = SelectionEditResult(
+                    EditResult(
+                        structure=protein_result.structure,
+                        warnings=protein_result.warnings,
+                        created_atom_ids=protein_result.created_atom_ids,
+                        created_bond_ids=protein_result.created_bond_ids,
+                        deleted_atom_ids=protein_result.deleted_atom_ids,
+                        deleted_bond_ids=protein_result.deleted_bond_ids,
+                        changed_atom_ids=protein_result.changed_atom_ids,
+                    ),
+                    {},
+                )
+                after_selection = SelectionV1(
+                    atoms=[
+                        AtomReference(structure_id=entry.id, atom_id=a.id)
+                        for a in result.edit.structure.atoms
+                        if a.residue_id == residue_id
+                    ],
+                    granularity="residue",
+                    source=payload.selection.source,
+                )
+            else:
+                result = SelectionMolecularEditor().edit(
+                    before,
+                    selected,
+                    payload.action,
+                    next_atom_id=entry.next_atom_id,
+                    next_bond_id=entry.next_bond_id,
+                )
+        except (InvalidSelectionEdit, InvalidProteinEditError) as error:
             raise InvalidProjectOperationError(str(error)) from error
-        return self._publish_selection(entry, before, payload, result)
+        return self._publish_selection(entry, before, payload, result, after_selection)
 
     def _publish_selection(
         self,
@@ -59,6 +107,7 @@ class SelectionEditService(LigandEditService):
         before: NormalizedStructureV1,
         payload: SelectionEditCreate,
         result: SelectionEditResult,
+        after_selection: SelectionV1 | None,
     ) -> SelectionEditRead:
         edit = result.edit
         artifact = self.artifacts.publish(
@@ -70,7 +119,7 @@ class SelectionEditService(LigandEditService):
             entry.project_id,
             payload.expected_revision,
             f"selection.{payload.action.operation}",
-            f"Edit {entry.name}: {payload.action.operation}",
+            self._selection_description(entry, payload),
             {
                 "entry_id": entry.id,
                 "before_artifact_id": entry.current_artifact_id,
@@ -83,6 +132,22 @@ class SelectionEditService(LigandEditService):
             list(edit.deleted_atom_ids),
             selection_snapshot=[ref.model_dump(mode="json") for ref in payload.selection.atoms],
         )
+        remaining_ids = {a.id for a in edit.structure.atoms}
+        if after_selection is None:
+            after_selection = SelectionV1(
+                atoms=[
+                    AtomReference(structure_id=entry.id, atom_id=i)
+                    for i in sorted(
+                        {
+                            result.replacements.get(ref.atom_id, ref.atom_id)
+                            for ref in payload.selection.atoms
+                        }
+                        & remaining_ids
+                    )
+                ],
+                granularity=payload.selection.granularity,
+                source=payload.selection.source,
+            )
         return SelectionEditRead(
             project=project,
             warnings=list(edit.warnings),
@@ -95,4 +160,23 @@ class SelectionEditService(LigandEditService):
                 changed_atom_ids=list(edit.changed_atom_ids),
             ),
             replacements=result.replacements,
+            selection_after=after_selection,
         )
+
+    @staticmethod
+    def _selection_description(entry: StructureEntry, payload: SelectionEditCreate) -> str:
+        action = payload.action
+        if isinstance(action, SelectionResidueMutation):
+            label = f"Mutate selected residue to {action.target_name}"
+        else:
+            label = {
+                "atom.element": "Replace selected atom element",
+                "atom.charge": "Adjust formal charge",
+                "atom.delete": "Delete selected heavy atoms",
+                "hydrogens.prepare": "Prepare component hydrogens",
+                "fragment.replace": "Substitute selected hydrogen with fragment",
+                "bond.create": "Create selected bond",
+                "bond.delete": "Break selected bond",
+                "bond.order": "Change selected bond order",
+            }[action.operation]
+        return f"{label} in {entry.name}"

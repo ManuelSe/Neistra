@@ -1,6 +1,7 @@
 import type { SurfaceStatus } from "../viewer/surface/runtime";
 import type { SurfaceActions, ChangeSelectionAppearance, ApplySelectionEdit } from "../api/types";
 import { MolecularEditPanel } from "./MolecularEditPanel";
+import { useEditingStore } from "../store/editing";
 import type { ExpandSelection } from "../selection/expansion";
 import { useQueries, useQueryClient } from "@tanstack/react-query";
 import * as Tooltip from "@radix-ui/react-tooltip";
@@ -117,6 +118,7 @@ export function StructureViewer({
   const appliedTopologyArtifactsRef = useRef(new Map<string, string>());
   const previewQueue = useRef<CoordinatePreviewQueue | null>(null);
   const movementActive = Boolean(movement?.state.capture && movement.state.phase !== "idle");
+  const editOpen = useEditingStore(state => state.projectId === project.id && state.open);
   const movementInteraction = !movementActive ? "inactive" : movement?.cameraNavigation ? "camera" : "transform";
   const currentMovement = useRef(movement);
   currentMovement.current = movement;
@@ -126,6 +128,7 @@ export function StructureViewer({
   const [activeSurface, setActiveSurface] = useState<SurfaceIdentity | null>(null);
   const surfaceOpenedByCanvas = useRef(false);
   const openSurfaces = () => {
+    if (useEditingStore.getState().projectId === project.id) useEditingStore.getState().setOpen(false);
     surfaceOpenedByCanvas.current = false;
     setStyleProjectId(null); setSurfaceProjectId(project.id);
   };
@@ -229,6 +232,7 @@ export function StructureViewer({
     });
     const unsubscribeSurfaces = viewer.subscribeSurfaces(setSurfaceStatuses);
     const unsubscribeSurfaceSelection = viewer.subscribeSurfaceSelection(identity => {
+      if (useEditingStore.getState().projectId === project.id) useEditingStore.getState().setOpen(false);
       surfaceOpenedByCanvas.current = true;
       setActiveSurface(identity); setStyleProjectId(null); setSurfaceProjectId(project.id);
     });
@@ -492,7 +496,7 @@ export function StructureViewer({
         ? null
         : "Selection styling is unavailable in this workspace";
 
-  useEffect(() => { if (movementActive) { setStyleProjectId(null); setSurfaceProjectId(null); } }, [movementActive]);
+  useEffect(() => { if (movementActive) { setStyleProjectId(null); setSurfaceProjectId(null); useEditingStore.getState().setOpen(false); } }, [movementActive]);
   useEffect(() => {
     if (activeSurface && !project.entries.some(entry => entry.id === activeSurface.entryId && entry.viewer_settings.surface_objects.some(surface => surface.id === activeSurface.surfaceId))) {
       setActiveSurface(null); viewerRef.current?.setActiveSurface(null);
@@ -503,6 +507,7 @@ export function StructureViewer({
   const openStyleDialog = () => {
     if (styleDialogOpen) { setStyleDialogOpen(false); return; }
     if (selectionStyleUnavailableReason) return;
+    useEditingStore.getState().setOpen(false);
     setSurfaceProjectId(null); setStyleDialogOpen(true);
     const visible = new Map(
       structureQueries.flatMap((query, index) =>
@@ -601,7 +606,7 @@ export function StructureViewer({
           ) : null}
           <ViewerToolbar
             interactionsOpen={interactionProjectId === project.id}
-            onInteractions={() => setInteractionProjectId(interactionProjectId === project.id ? null : project.id)}
+            onInteractions={() => { useEditingStore.getState().setOpen(false); setInteractionProjectId(interactionProjectId === project.id ? null : project.id); }}
             pickingUnavailableReason={movementActive ? "Finish movement before changing selection" : null}
             pickingGranularity={pickingGranularity}
             onPickingGranularity={onPickingGranularity}
@@ -622,8 +627,9 @@ export function StructureViewer({
             unavailableReason={movement.state.phase !== "idle" ? "Selection capture is in progress"
               : busy ? "Finish the current project change before moving selection"
               : viewerUnavailableReason ?? movementUnavailableReason(project, selection, () => viewerRef.current?.getRenderedAtomReferences() ?? [])} /> : null}
-          {onEdit ? <MolecularEditPanel project={project} selection={selection} busy={busy}
-            unavailable={movementActive ? "Finish movement before editing chemistry." : null}
+          {onEdit && !movementActive ? <MolecularEditPanel project={project} selection={selection} busy={busy}
+            onOpen={() => { setStyleProjectId(null); setSurfaceProjectId(null); setInteractionProjectId(null); }}
+            unavailable={coordinatePreview ? "Finish coordinate preview before editing chemistry." : null}
             onEdit={onEdit} onSettings={onUpdateSettings} /> : null}
           </div>
         </div>
@@ -647,7 +653,7 @@ export function StructureViewer({
           } : undefined}
           onLoadPocketStructures={onLoadPocketStructures}
           open={styleDialogOpen}
-          restoreFocus={surfaceProjectId !== project.id}
+          restoreFocus={surfaceProjectId !== project.id && !editOpen}
           selection={selection}
           entries={project.entries}
           structures={styleStructures}

@@ -3723,3 +3723,25 @@ Disconnected accepted results warn that subsequent building needs connected
 topology. Generic artifact actions, publication and monotonic allocation remain
 unchanged, including all pre-tagged fragment IDs and generated H in one allocator
 advance. C2 science/API/native gates pass; C3/C4/C5 remain required.
+
+### D-100 implementation note — issue #69 M3/C3, 2026-10-16
+
+The residue action resolves exactly one complete canonical amino acid and calls
+the existing protein editor before the same generic molecular publication. Return
+transient `selection_after` for complete new-residue selection or surviving/mapped
+small-molecule operands. This avoids another molecular fetch for selection and
+does not become project/checkpoint/archive data. The client retains captured
+project/revision/selection guards. Existing low-level edit routes and template
+semantics remain unchanged; all20 targets are qualified through the new route.
+
+Use a portal bounded to the viewport and observed notice geometry; coalesce
+resize/mutation work by animation frame. Pending actions focus a stable container
+before controls disable. Keyboard opening and responsive owned-focus restoration
+use transient intent, reset on project change; outside interactions keep focus.
+Opening Edit suppresses outgoing Style restoration; other tools/movement close
+Edit without competing focus restoration. Numeric preview blocks chemistry.
+Coarse44px targets, persistent warning disclosures, current-type no-op availability
+and native selection/mutation/Undo are qualified on desktop/mobile in both themes
+and320px. Source identity, schema majors and migration head remain unchanged.
+Real200% zoom, broader lifecycle/scientific/compatibility and release gates still
+belong to C4/C5. These C3 checks are local self-review, not independent review.

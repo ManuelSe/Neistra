@@ -3,7 +3,7 @@
 ## 1. Status, metadata, and approved outcome
 
 **Status:** `/goal` authorized full implementation/delivery on 2026-10-16.
-C0 through M2/C2 are complete; M3/C3 through M5/C5 are approved and not started.
+C0 through M3/C3 are complete; M4/C4 and M5/C5 are approved and not started.
 
 - **Issue:** [#69 — Add a compact, interactive molecular Edit panel to the
   viewer](https://github.com/ManuelSe/Neistra/issues/69), open with no comments at
@@ -524,7 +524,7 @@ After explicit approval, C0 only:
 | C0 | Complete | Planning commit238e5dd remotely verified; `/goal` now authorizes delivery. |
 | M1/C1 | Complete; passing checkpoint | Atomic atom/H edit vertical slice; evidence below. |
 | M2/C2 | Complete; passing checkpoint | Endpoint bond operations and six qualified fragments; evidence below. |
-| M3/C3 | Approved; not started | Residue workflow and complete interaction after C2. |
+| M3/C3 | Complete; passing checkpoint | Standard-residue workflow, result selection, focus/position/accessibility; evidence below. |
 | M4/C4 | Approved; not started | Scientific/lifecycle/accessibility/compatibility qualification. |
 | M5/C5 | Approved; not started | Full gates, reviewed PR and verified release delivery. |
 
@@ -594,3 +594,39 @@ After explicit approval, C0 only:
   closing remains available, and C3 will qualify positioning/tool handoff.
   No migration/version/dependency/API removal or scope expansion. Next: commit
   passing C2, then implement M3/C3.
+
+### 2026-10-16 — M3/C3 complete: residue workflow and panel interaction
+
+- C2 committed and remotely verified at95ba696. The selection-driven residue
+  action requires one exact complete amino acid, delegates to the existing
+  PDBFixer/OpenMM service and publishes once through generic molecular history.
+  No Grow, protein saturation, rotamer search or broader template eligibility.
+- Added transient `selection_after` to the new edit response. It selects the
+  entire mutated residue (including new side-chain IDs) or preserves/maps
+  surviving small-molecule operands. The client applies it only under captured
+  project/revision/selection ownership; it adds no project/archive schema field.
+  All20 target amino acids pass API backbone/unrelated-atom/Undo assertions.
+- Completed four sections, current-element/type no-op availability, named
+  warning/limits disclosures, coarse44px controls, project-scoped visibility,
+  stable pending focus and responsive owned-focus restoration. Viewport portal
+  placement observes notices/resize; Close/header remain hit-testable. Style/
+  Surface/Interaction/movement handoffs preserve new focus ownership; numeric
+  preview blocks chemistry. Eligibility is memoized against projection/selection.
+- [C3 final evidence](../assets/molecular-editing/c3-verification.json):72Python,
+  all234frontend and31native browser workflows/3intentional layout skips pass;
+  Ruff, mypy64, ESLint, TypeScript, build and diff pass. The final browser set
+  takes4.4m and includes existing protein/transform regressions. Dedicated native
+  residue picks support successive VAL/LEU mutations without reselection and
+  exact Undo. Both themes,320px, notice clearance, keyboard and scoped axe pass.
+- Exact source/log/screenshot hashes retained; screenshots manually inspected
+  separately from automation. Preliminary diagnostics remain separate: an old
+  theme-button selector run was intentionally interrupted(exit130), a duplicate
+  test-shim method addition was reverted, and an earlier dedicated10-pass run is
+  not substituted for final source/broad gates. No independent review is claimed.
+- Local review confirms preserved low-level endpoints, actual operand history,
+  response-owned selection, surface-pruning notice propagation and no new
+  persistent fields/migration/dependency/version. Current versions0.15.0;
+  planned0.16.0minor. C4 still owes actual reader, archive/reconciliation/lifecycle,
+  real200% zoom and representative performance/scientific qualification. C5
+  still owes complete release gates, review/PR/merge and publication.
+- No blocker. Next: commit passing C3, then implement/qualify M4/C4.

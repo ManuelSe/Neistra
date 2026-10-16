@@ -1,9 +1,9 @@
 # Selection-driven molecular editing
 
 Issue #69 follows the [approved contract](plans/issue-69-compact-molecular-editor.md).
-This document currently describes C1/C2. Compact residue mutation is not yet
-implemented by these checkpoints. Existing advanced inspector tools remain
-available.
+This document describes the atom, bond, fragment and residue workflow implemented
+in C1–C3. Release qualification/publication remain later checkpoints. Existing
+advanced inspector tools remain available.
 
 Select atoms, open **Edit molecule** beside **Transform selection**, and choose
 an element, charge adjustment or heavy-atom deletion. The nonmodal panel stays
@@ -88,3 +88,32 @@ assignment, conformer ranking or proof of a favorable pose. Template/version/see
 are retained in inference provenance. All six reference graphs/formulas and
 explicit H, deterministic bytes and exact unchanged atoms are scientifically
 tested. Publication and actual old-reader qualification still require C4/C5.
+
+In **Residues**, pick exactly one complete amino-acid residue and click one of
+the 20 replacement names. Selecting only an atom, multiple residues or an
+unsupported residue explains the restriction; there is no default residue or
+typed ID. The current amino-acid name is unavailable as a no-op. The result uses
+the existing pinned PDBFixer/OpenMM template service: retain present backbone
+N/CA/C/O IDs and coordinates, preserve chain identity and unrelated records,
+allocate new side-chain identities and expose template/terminal/clash warnings.
+The complete result residue becomes selected, so another mutation needs no
+reselection. Undo/Redo restores exact molecular state; ordinary transient
+selection reconciles surviving IDs. Protein mutation does not invoke the
+small-molecule H policy, choose rotamers or determine protonation. No Grow action
+is implemented.
+
+The panel stays nonmodal: canvas selection/camera gestures remain available and
+outside controls retain focus. Open it by keyboard to focus its stable dialog
+container, Tab through named controls, and Escape while it owns focus to return
+to Edit. A submitted edit focuses the stable container before disabling pending
+actions, avoiding focus loss as topology changes. Responsive remounts retain the
+current section and owned keyboard focus; project changes reset the session.
+Opening Style, Surfaces, Interactions or active movement hands off tool ownership
+without restoring an outgoing tool over the new one. Active movement temporarily
+replaces the launchers with its own controls; numeric preview blocks chemistry.
+
+Viewport-bounded placement responds to resize/zoom and observed notices, keeping
+the heading/Close action reachable. Scientific limits and full operation warnings
+are available in labelled disclosures; persisted entry Details remains the durable
+warning source. Touch controls/launcher use44px targets. H display is presentation
+only and local H preferences/isolation/exact hiding can still hide an atom.

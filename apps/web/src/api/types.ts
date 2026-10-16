@@ -7,11 +7,13 @@ export type SelectionEditAction =
   | { operation: "hydrogens.prepare" }
   | { operation: "bond.create" | "bond.delete" }
   | { operation: "bond.order"; order: 1 | 2 | 3 }
-  | { operation: "fragment.replace"; fragment: FragmentName };
+  | { operation: "fragment.replace"; fragment: FragmentName }
+  | { operation: "residue.mutate"; target_name: StandardAminoAcid };
 
 export type FragmentName = "methyl" | "ethyl" | "hydroxyl" | "amino" | "carboxylic_acid" | "phenyl";
 
 export interface SelectionEditResult extends Omit<LigandEditResult, "report"> {
+  selection_after: Selection;
   report: Omit<LigandEditResult["report"], "operation"> & { operation: SelectionEditAction["operation"] };
   replacements: Record<string, number>;
 }
