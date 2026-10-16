@@ -739,7 +739,7 @@ export function ProjectInspector(props: ProjectInspectorProps) {
             onSuperpose={props.onSuperpose ?? (() => Promise.resolve(null))}
           />
         ) : tab === "ligand" && project ? (
-          <LigandEditorPanel
+          <LigandEditorPanel key={project.id}
             project={project}
             selection={selection}
             structures={structures}

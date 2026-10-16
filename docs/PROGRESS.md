@@ -2,6 +2,25 @@
 
 ## Current milestone
 
+Issue #74 C5 clean candidate complete under the [approved contract](plans/issue-74-direct-molecular-modeling.md).
+Tested/pushed implementation `b3238c018649410a3bcc1efd2f45e11def61f0d8` passes the
+[complete gate](assets/direct-modeling/c5-candidate-gate.json):693Python/248frontend/
+8supervisor/233native with47intentional skips, zero failures/flakes/retries; all16
+frozen-install/fresh0014/static/build/actual0.16reader/diff commands pass. Clean
+start/end and source/log hashes,15native performance profiles retained. Old-reader
+canonical/history/archive and recreated allocator floors pass with documented
+renderer/helper/continued-authoring limits. Earlier diagnostics are distinct.
+
+D101–104 implement direct drafts/building/creation and persistent monotonic IDs.
+Five versions0.17.0 minor; no migration/schema/dependency change. Local full-diff
+self-review is documented, not independent. Master is current/unprotected, rulesets
+empty/workflows0; premerge PR checks/reviews/policy audit remains. No external
+blocker. Next: evidence/docs commit, push/PR/Codex request/review/normal merge,
+exact-master complete gate, annotated tag/release/asset/issue/docs/branch cleanup.
+No merged/released/completion claim yet. Approved deferred scope stays excluded.
+
+### Previous delivery baseline — v0.16.0
+
 Issue #69 delivered under the [approved contract](plans/issue-69-compact-molecular-editor.md)
 in [PR #72](https://github.com/ManuelSe/Neistra/pull/72) and stable
 [v0.16.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.16.0).

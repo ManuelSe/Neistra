@@ -1,0 +1,22 @@
+{
+  "audited_utc": "2026-10-16T22:12:50.590049+00:00",
+  "repository": {
+    "allow_merge_commit": true,
+    "allow_rebase_merge": true,
+    "allow_squash_merge": true,
+    "default_branch": "master",
+    "delete_branch_on_merge": false
+  },
+  "master": {
+    "name": "master",
+    "protected": false,
+    "sha": "a0ad65b5509bef15935ff97f46633a2a45cd0602"
+  },
+  "rulesets": [],
+  "workflows": {
+    "total_count": 0,
+    "workflows": []
+  },
+  "candidate_commit": "b3238c018649410a3bcc1efd2f45e11def61f0d8",
+  "review": "Implementing-agent self-review; no independent review claimed. PR integration request and premerge policy/review/check audit remain."
+}

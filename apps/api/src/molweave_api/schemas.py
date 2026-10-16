@@ -6,10 +6,11 @@ from typing import Annotated, Any, Literal
 from uuid import UUID
 
 from molweave_core.components import ComponentHierarchyV1
+from molweave_core.editing.model import HydrogenPolicy, ModelAction, ModelElement
 from molweave_core.editing.selection import SelectionAction
 from molweave_core.molecular import MolecularWarning, NormalizedStructureV1
 from molweave_core.selection import AtomReference, SelectionGranularity, SelectionV1
-from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictInt, field_validator, model_validator
 
 
 class ProjectCreate(BaseModel):
@@ -1091,6 +1092,62 @@ class SelectionEditCreate(BaseModel):
 class SelectionEditRead(LigandEditRead):
     replacements: dict[int, int] = Field(default_factory=dict)
     selection_after: SelectionV1
+
+
+class ModelEditCreate(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    expected_revision: int = Field(ge=0)
+    expected_artifact_id: str = Field(min_length=1)
+    selection: SelectionV1
+    action: ModelAction
+    hydrogen_policy: HydrogenPolicy = "preserve"
+
+
+class MoleculeCreate(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    expected_revision: int = Field(ge=0)
+    name: str = Field(min_length=1, max_length=160)
+    element: str = "C"
+    charge: StrictInt | None = 0
+
+    @field_validator("element")
+    @classmethod
+    def recognized_element(cls, value: str) -> str:
+        return ModelElement.recognized_element(value)
+
+    @field_validator("name")
+    @classmethod
+    def name_must_not_be_blank(cls, value: str) -> str:
+        if not value.strip():
+            raise ValueError("Molecule name must not be blank.")
+        return value.strip()
+
+
+class MoleculeCreateRead(SelectionEditRead):
+    entry_id: str
+
+
+class ModelPreviewAtom(BaseModel):
+    preview_id: str
+    element: str
+    coordinates: tuple[float, float, float]
+
+
+class ModelPreviewBond(BaseModel):
+    start: tuple[float, float, float]
+    end: tuple[float, float, float]
+    order: float | None
+    aromatic: bool
+
+
+class ModelPreviewRead(BaseModel):
+    entry_id: str
+    expected_revision: int
+    expected_artifact_id: str
+    atoms: list[ModelPreviewAtom]
+    bonds: list[ModelPreviewBond]
+    removed_atom_ids: list[int]
+    warnings: list[MolecularWarning]
 
 
 class ProteinHydrogenAddEdit(ProteinEditBase):

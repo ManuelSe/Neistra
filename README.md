@@ -22,17 +22,23 @@ Real workspace screenshots: [light](docs/assets/neistra-workspace-light.png) ·
 [dark](docs/assets/neistra-workspace-dark.png). These show the existing local
 workspace, not proposed account, docking or marketplace features.
 
-Open **Edit molecule** beside Transform for selection-driven atom/charge/deletion,
-endpoint bond changes, six illustrated H substitutions and standard-residue
-mutation. Supported small-molecule edits reconcile local explicit H in one
-reversible command; prepared ligand components inside complexes are eligible.
-Select a terminal H for fragment growth. Hydrogen-free input may first need
-**Prepare component hydrogens**; **Show explicit H** changes display only and an
-atomic Style is needed. Unknown raw PDB chemistry, unsupported stereo and explicit
-residue crosslinks refuse with a reason. Geometry is inferred and unoptimized.
-See [Molecular editing](docs/MOLECULAR_EDITING.md) and the
-[approved plan and release qualification](docs/plans/issue-69-compact-molecular-editor.md).
-Peptide growth and ring fusion remain separate follow-ups.
+Open **Edit molecule** beside Transform for direct atom/charge/deletion and
+same-entry bond changes, including incomplete chemistry and covalently attached
+ligands. All118 elements and unknown charge/order are available. Existing H remain
+literal; optional completion is off by default and cannot block a requested edit.
+**New molecule** starts at one atom. Add atoms or six fixed fragments through a
+nonpickable placement preview, direction/rotation, Apply/Cancel and compact
+inspection controls. Deleting the last atom leaves an editable empty entry.
+Standard-residue mutation and chemistry helpers retain their own prerequisites.
+
+Draft display is separate from chemical export. Native archives preserve literal
+drafts/unknowns and explicit inferred-bond removals; chemical files explain losses
+or refuse unrepresentable graphs. Warnings do not certify preparation, protonation
+or optimized geometry. See [Molecular editing](docs/MOLECULAR_EDITING.md) and the
+[approved plan and qualification](docs/plans/issue-74-direct-molecular-modeling.md).
+Combining separate entries, peptide growth, wider catalogues and ring fusion remain
+separate work. No new migration is needed; old-reader data retention has documented
+renderer/helper limits, without an unrestricted runtime rollback claim.
 
 Interactive transforms offer the **Transform selection** icon in a separate bar above the viewer.
 Left mouse drag rotates; right or Ctrl-drag translates in the current view plane.

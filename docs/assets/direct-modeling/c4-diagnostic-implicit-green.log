@@ -1,0 +1,12 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.2, pluggy-1.6.0
+rootdir: /datadisk/dev/neistra
+configfile: pyproject.toml
+plugins: cov-6.3.0, anyio-4.9.0
+collected 50 items
+
+tests/scientific/test_direct_modeling.py ...................             [ 38%]
+tests/integration/test_direct_modeling_qualification.py ............     [ 62%]
+tests/integration/test_import_export.py ...................              [100%]
+
+============================= 50 passed in 10.76s ==============================

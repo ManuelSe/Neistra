@@ -4,8 +4,21 @@ import { useEditingStore } from "../store/editing";
 /** Viewport-owned tool placement; notification geometry never becomes domain state. */
 export function useEditPanelPosition(
   open: boolean, projectId: string, launcher: RefObject<HTMLButtonElement | null>,
-  content: RefObject<HTMLElement | null>,
+  content: RefObject<HTMLElement | null>, inspecting = false,
 ) {
+  useLayoutEffect(() => {
+    const button = launcher.current;
+    const state = useEditingStore.getState();
+    const generation = state.generation;
+    if (state.projectId === projectId && state.launcherFocusRequested) {
+      if (document.activeElement === document.body || !document.activeElement?.isConnected) button?.focus();
+      state.setLauncherFocusRequested(false);
+    }
+    return () => {
+      const current = useEditingStore.getState();
+      if (current.projectId === projectId && current.generation === generation && !current.open && button === document.activeElement) current.setLauncherFocusRequested(true);
+    };
+  }, [projectId, launcher]);
   useLayoutEffect(() => {
     if (!open || !content.current) return;
     const panel = content.current;
@@ -18,6 +31,12 @@ export function useEditPanelPosition(
       const rightBound = Math.min(window.innerWidth - 8, workspace?.right || window.innerWidth - 8);
       const width = Math.max(120, Math.min(300, rightBound - leftBound));
       const left = Math.max(leftBound, Math.min(anchor?.left ?? leftBound, rightBound - width));
+      if (inspecting) {
+        const bottom = Math.min(window.innerHeight - 8, (workspace?.bottom ?? window.innerHeight) - 8);
+        const height = panel.getBoundingClientRect().height;
+        Object.assign(panel.style, { left: `${left}px`, top: `${Math.max(8, bottom - height)}px`, width: `${width}px`, maxHeight: `${Math.max(44, bottom - (workspace?.top ?? 0) - 8)}px` });
+        return;
+      }
       let top = (anchor?.bottom ?? 60) + 6;
       const notice = document.querySelector(".notice");
       if (notice !== observedNotice) {
@@ -53,5 +72,5 @@ export function useEditPanelPosition(
       const state = useEditingStore.getState();
       if (state.projectId === projectId && state.open && panel.contains(document.activeElement)) state.setFocusRequested(true);
     };
-  }, [open, projectId, launcher, content]);
+  }, [open, projectId, launcher, content, inspecting]);
 }

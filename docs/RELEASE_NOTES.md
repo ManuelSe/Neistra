@@ -1,5 +1,102 @@
 # Neistra Release Notes
 
+## 0.17.0 - 2026-10-17 - Direct molecular modeling
+
+Implemented under the [approved issue #74 plan](plans/issue-74-direct-molecular-modeling.md).
+The clean candidate is qualified; exact merged-master verification and remote
+publication are the remaining release gates.
+
+### Highlights and fixes
+
+Direct atom/bond edits allow incomplete chemistry, unknown charges/orders,
+covalently linked ligand/protein material and any successfully loaded format.
+Navigation categories and preparation no longer disable unrelated editing. Bonded
+orphan H derive unambiguous membership without artifact rewrites; new H inherit
+their actual parent. All118 elements, absolute nullable charge, literal selected
+atom/H deletion, same-entry bonds and unknown/aromatic orders are supported.
+
+New molecule starts an honest generated entry at its first atom. Add atoms and six
+existing fragments using pure nonpickable previews, six directions/six torsions,
+Apply/Cancel and a compact inspection bar. Heavy anchors need no prepared terminal
+H; terminal-H replacement remains available. Optional H completion defaults off
+and failures retain the requested direct edit. Delete-last leaves an editable empty
+entry. Advanced manual basic actions share the direct service and explicit target.
+
+Drafts remain renderable independently of chemical export. Explicit removal of a
+native inferred bond survives reload/Undo. Delayed replies cannot restore cancelled
+previews or take over a newer selection/project visit. Unknown XYZ charges remain
+unknown on new imports. MOL2 current output no longer reuses stale source types;
+chemical export losses/refusals are explicit. Sparse-ID mmCIF model row serials and
+PDB fixed-width overflow are handled without changing canonical data. Monotonic
+atom/bond IDs also survive Undo/Redo of entry creation and later branching; higher
+floors persist through existing generic history fields without another migration.
+
+### Data, migrations, API and rollback
+
+Stable **minor0.16.0 →0.17.0** adds substantial user-visible creation/building, beyond
+a patch. Existing public schema/API shapes and legacy chemistry-edit contracts
+remain; no incompatible persisted redesign requires a major. All five authoritative
+versions advance consistently, with no dependency upgrades. Stable publication is
+conditional on both complete release gates, not the issue's labels.
+
+No new migration: Alembic0014; project/viewer/archive2, normalized/selection1.
+Original bytes/source facts, unaffected records/coordinates, generic history and
+reference reconciliation remain exact. Generated entries have nullable original/
+source fields; native archives preserve empty entries, unknowns, all conformers and
+versioned authored bond exclusions. New direct/create/preview routes are additive.
+Chemical formats may require acknowledgement or refuse an unrepresentable graph;
+SMILES requires assigned valid chemistry, and bond exclusions are not portable.
+
+Actual tagged v0.16.0 reader qualification separates positive data/history/archive
+retention from expected old aromatic-renderer/helper refusals. Unrestricted runtime
+rollback is unsupported; back up full managed data and use matching client/server.
+Never strip unknown/exclusion/draft data to force an older renderer to accept it.
+
+### Verification, accessibility and performance
+
+[C4 qualification](assets/direct-modeling/c4-verification.json) passes687Python,
+248frontend and99native cases/13intentional skips, zero failures/flakes/retries;
+Ruff/mypy68/lint/types/build/diff and the actual tagged preceding reader pass.
+Ten native performance profiles and18screenshots are retained; diagnostic failures
+and interrupted/pre-review results are clearly separated from final qualification.
+
+[Final clean candidate](assets/direct-modeling/c5-candidate-gate.json) atb3238c0
+passes all16release commands:693Python/248frontend/8supervisor/233native with47
+intentional skips, zero failures/flakes/retries; frozen installs/fresh0014/static/
+build/diff and actual tagged0.16.0 reader including recreated allocator floors.
+Fifteen native performance profiles and clean/source/log evidence are retained.
+[Full-diff local self-review](assets/direct-modeling/c5-local-review.md) records
+resolved scientific/focus/allocator findings and is not independent approval.
+Actual PR reviews/checks/protections must pass; exact-master gate and remote
+publication evidence follow merge. See the [verification index](VERIFICATION.md).
+Both themes, narrow320px layouts, expanded forms, keyboard/touch hit targets, real
+100/200% browser zoom and scoped axe are covered. Existing performance budgets
+remain; native movement also runs an authored1STP draft with bond overlay active.
+These pinned Chromium/SwiftShader and emulation checks do not certify physical
+phones, other browsers, interactive screen readers or arbitrary-size performance.
+
+### Scientific limits, simplifications and follow-up work
+
+Direct edits intentionally allow unusual valence and incomplete chemistry; warnings
+are not certification of protonation, pKa/tautomers, geometry or force-field readiness.
+Existing H and coordinates remain literal. Placement embeds only fixed small cap
+templates, never the parent; clashes and unknown-radius fallback warn. Affected
+stereo is cleared conservatively, and original labels describe source material.
+Standalone H preparation, cleanup and residue mutation retain separate prerequisites.
+The actual configured entry limit is not a throughput guarantee.
+
+No canvas drawing or combining separate entries by explicit product choice. Six
+existing fragments only; expanded catalogue/ring fusion remain[#71](https://github.com/ManuelSe/Neistra/issues/71),
+peptide growth[#70](https://github.com/ManuelSe/Neistra/issues/70), preparation/CCD
+[#12](https://github.com/ManuelSe/Neistra/issues/12)/[#52](https://github.com/ManuelSe/Neistra/issues/52).
+Component names/subset export remain[#20](https://github.com/ManuelSe/Neistra/issues/20)/[#21](https://github.com/ManuelSe/Neistra/issues/21).
+No new follow-up issue is required for the approved scope; assigning all elements
+does not claim #71's broader building work complete.
+
+MOL/SDF/SMILES may interpret absent H through format valence defaults, including
+after explicit H deletion. A modeled export requires acknowledgement; native
+archives retain the literal graph without implying a protonation specification.
+
 ## 0.16.0 - 2026-10-16 - Compact molecular editing
 
 Released in [PR #72](https://github.com/ManuelSe/Neistra/pull/72) as stable

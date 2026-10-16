@@ -1,3 +1,5 @@
+import { placementContext } from "../editing/placement";
+import { useSelectionStore } from "../store/selection";
 import type { SurfaceStatus } from "../viewer/surface/runtime";
 import type { SurfaceActions, ChangeSelectionAppearance, ApplySelectionEdit } from "../api/types";
 import { useChromeClearance } from "../viewer/useChromeClearance";
@@ -121,6 +123,7 @@ export function StructureViewer({
   const appliedTopologyArtifactsRef = useRef(new Map<string, string>());
   const previewQueue = useRef<CoordinatePreviewQueue | null>(null);
   const movementActive = Boolean(movement?.state.capture && movement.state.phase !== "idle");
+  const editingState = useEditingStore();
   const editOpen = useEditingStore(state => state.projectId === project.id && state.open);
   const movementInteraction = !movementActive ? "inactive" : movement?.cameraNavigation ? "camera" : "transform";
   const currentMovement = useRef(movement);
@@ -367,6 +370,12 @@ export function StructureViewer({
         }
         viewer.setMovementMode(!active ? "inactive" : workflow?.cameraNavigation ? "camera" : "transform");
         if (active) workflow?.rememberCamera(viewer.getCamera());
+        const editing = useEditingStore.getState();
+        const focus = editing.focusNewMolecule;
+        if (focus && editing.projectId === project.id) {
+          editing.setFocusNewMolecule(null);
+          if (!active && useSelectionStore.getState().selection === focus.selection) viewer.focusAtoms([{ structure_id: focus.entryId, atom_id: focus.atomId }]);
+        }
       })
       .catch((error: unknown) =>
         setViewerError(error instanceof Error ? error.message : "The viewer rejected a structure."),
@@ -385,6 +394,16 @@ export function StructureViewer({
     }
     if (commits.length) previewQueue.current?.commit(commits);
   }, [project.structure_patches, syncKey, viewerReady]);
+
+  const placement = editingState.placement;
+  const modelPreview = editOpen && !movementActive && !coordinatePreview && placement?.result
+    && placement.context === placementContext(project, placement.result.entry_id, selection, editingState.generation, editingState.hydrogenPolicy)
+    ? placement.result : null;
+  useEffect(() => {
+    if (!viewerReady) return;
+    const operation = viewerRef.current?.setModelPreview?.(modelPreview);
+    void operation?.catch((error: unknown) => setViewerError(error instanceof Error ? error.message : "Placement preview could not be displayed."));
+  }, [modelPreview, viewerReady]);
 
   const topologyDataKey = structureQueries
     .map((query, index) =>

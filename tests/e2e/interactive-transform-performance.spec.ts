@@ -3,7 +3,7 @@ import { resolve } from "node:path";
 import { expect, test } from "@playwright/test";
 import type { Project, StructureProjection } from "../../apps/web/src/api/types";
 
-test("bounds native protein/ligand preview work and measures exact cancellation", async ({ page, request }, info) => {
+for (const modeled of [false, true]) test(`bounds native ${modeled ? "authored draft" : "original"} protein/ligand preview work and measures exact cancellation`, async ({ page, request }, info) => {
   test.skip(info.project.name !== "chromium", "Timing budgets use pinned desktop Chromium; touch has separate qualification.");
   test.setTimeout(120_000);
   const created: Project = await (await request.post("/api/v1/projects", { data: { name: `Movement profile ${Date.now()}` } })).json();
@@ -11,7 +11,16 @@ test("bounds native protein/ligand preview work and measures exact cancellation"
     multipart: { expected_revision: "0", files: { name: "1stp.pdb", mimeType: "chemical/x-pdb", buffer: readFileSync(resolve("tests/fixtures/complex/1stp.pdb")) } },
   });
   expect(imported.status()).toBe(201);
-  const project: Project = (await imported.json()).project;
+  let project: Project = (await imported.json()).project;
+  if (modeled) {
+    const entry = project.entries[0];
+    const response = await request.post(`/api/v1/projects/${project.id}/entries/${entry.id}/model-edits`, { data: {
+      expected_revision: project.revision, expected_artifact_id: entry.current_artifact_id,
+      selection: { schema_version: 1, atoms: [{ structure_id: entry.id, atom_id: 1 }], granularity: "atom", source: "inspector" },
+      action: { operation: "atom.add", element: "P", charge: null },
+    } });
+    expect(response.status()).toBe(200); project = (await response.json()).project;
+  }
   const entry = project.entries[0];
   const projection: StructureProjection = await (await request.get(`/api/v1/projects/${project.id}/entries/${entry.id}/structure`)).json();
   const requests: string[] = [];
@@ -126,7 +135,7 @@ test("bounds native protein/ligand preview work and measures exact cancellation"
   if (profiler) { const { profile } = await profiler.send("Profiler.stop"); writeFileSync(info.outputPath("movement-cpu.json"), JSON.stringify(profile)); await profiler.detach(); }
   writeFileSync(info.outputPath("movement-performance.json"), JSON.stringify({ ...evidence, requests }, null, 2));
   await info.attach("movement-performance", { body: JSON.stringify({ ...evidence, requests }, null, 2), contentType: "application/json" });
-  expect(evidence.atoms).toBe(1001); expect(requests).toEqual([]);
+  expect(evidence.atoms).toBe(modeled ? 1002 : 1001); expect(requests).toEqual([]);
   for (const c of evidence.cases) {
     expect(c.changed).toBe(true); expect(c.exactRestore).toBe(true); expect(c.errors).toEqual([]);
     expect(c.navigationCycles).toBe(6);

@@ -83,7 +83,7 @@ test("maps a native bond hit to canonical endpoints and changes its order from t
   await expect(panel).toBeVisible();
 });
 
-test("substitutes a selected H with illustrated COOH without an attachment mode", async ({ page, request }, info) => {
+test("previews and substitutes a selected H with illustrated COOH", async ({ page, request }, info) => {
   test.setTimeout(90000);
   const project = await prepare(page, request, ["tests/fixtures/editing/ethanol-3d.mol"], "Fragment edit");
   const entry = project.entries[0];
@@ -102,6 +102,8 @@ test("substitutes a selected H with illustrated COOH without an attachment mode"
   await panel.getByRole("button", { name: "Fragments", exact: true }).click();
   await expect(panel.locator(".edit-fragment-grid svg")).toHaveCount(6);
   await panel.getByRole("button", { name: "Replace H with Carboxylic acid", exact: true }).click();
+  await expect(panel.getByRole("button", { name: "Apply placement", exact: true })).toBeEnabled();
+  await panel.getByRole("button", { name: "Apply placement", exact: true }).click();
   await expect.poll(async () => (await projection()).structure.atoms.filter(a => a.element !== "H").length).toBe(6);
   const after = (await projection()).structure;
   expect(after.atoms.filter(a => a.element === "H")).toHaveLength(6);
@@ -278,7 +280,9 @@ test("edits a prepared complex with native H/new-atom picks, fixed camera and on
   await expect.poll(() => reads.length).toBe(1);
   const after = (await projection()).structure;
   for (const atom of prepared.atoms.filter(a => a.id !== hydrogen)) expect(after.atoms.find(a => a.id === atom.id)).toEqual(atom);
-  const newCarbon = after.atoms.find(a => a.element === "C" && !prepared.atoms.some(old => old.id === a.id))!;
+  const newCarbon = after.atoms.find(a => a.id === hydrogen)!;
+  expect(newCarbon.element).toBe("C");
+  expect(newCarbon.coordinates).toEqual(prepared.atoms.find(a => a.id === hydrogen)!.coordinates);
   await panel.getByRole("button", { name: "Close molecular editor" }).click();
   await expect.poll(() => page.evaluate(id => window.interactionEngines.at(-1)!.getRenderedAtomReferences().some(a => a.atom_id === id), newCarbon.id)).toBe(true);
   await page.evaluate(() => window.editingPicks.settled());
@@ -374,7 +378,7 @@ test("keeps a newer pending edit owned after leaving and returning to the same p
   const committedFirst = new Promise<void>(resolve => { receivedFirst = resolve; });
   const committedSecond = new Promise<void>(resolve => { receivedSecond = resolve; });
   let requests = 0;
-  await page.route("**/selection-edits", async route => {
+  await page.route(/\/(selection-edits|model-edits)$/, async route => {
     const ordinal = ++requests;
     const response = await route.fetch();
     if (ordinal === 1) { receivedFirst(); await heldFirst; }

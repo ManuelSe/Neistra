@@ -3793,3 +3793,197 @@ layout; no molecular/viewer state is copied into React or persisted.
 The static theme contract also requires every consumed CSS variable to have a
 source declaration. Declare the geometry clearance's72px fallback in the viewer
 scope; keep its measured inline value transient. No assertion is weakened.
+
+
+## D-101 — Direct molecular edits preserve incomplete chemistry
+
+Date: 2026-10-16. Status: accepted by explicit approval of issue #74 plan.
+
+Direct atom/bond editing operates on normalized records independently of source
+format, navigation category and complete chemistry. Unknown remains unknown.
+Requested incomplete/over-valent/aromatic/stereo states publish with scientific
+warnings, not blanket sanitization rejection. Structural integrity, locks,
+revisions/artifacts, stable IDs and resource limits still apply. Direct element
+assignment retains identity/coordinates; deletion removes selected atoms and
+incident bonds only. Optional H completion defaults off and cannot block the
+requested direct change or reverse explicit H deletion. Chemistry helpers retain
+operation-specific prerequisites. No whole protein is sanitized as a ligand.
+
+This explicitly supersedes the mandatory preparation/sanitization/saturation and
+closed-component restrictions of D-028/D-098/D-099 for the new direct service.
+Their legacy API contracts and historical rationale remain. D-002/005/007/018/
+020/029 and captured UI ownership remain authoritative. Full scope is in
+[issue #74 plan](plans/issue-74-direct-molecular-modeling.md).
+
+## D-102 — Navigation membership is not a molecular-edit boundary
+
+Date: 2026-10-16. Status: accepted by explicit approval of issue #74 plan.
+
+Preserve source-based navigation hierarchy (D-045), but do not constrain direct
+edits to its categories or closed components. Explicit same-entry connectivity
+can cross residues, ligands, protein and unclassified material. New generated H
+inherit valid bonded-parent membership. Historical orphan H with an unambiguous
+explicit heavy parent derive membership without artifact rewrites or proximity
+inference. Ambiguous atoms remain visible/editable. Combining entries is excluded.
+
+## D-103 — Render and persist authored draft topology independently of chemistry
+
+Date: 2026-10-16. Status: accepted by explicit approval of issue #74 plan.
+
+Viewer projection must display incomplete normalized states without chemistry
+normalization. A display-only non-kekulizing ligand projection and application-
+owned bond overlay retain authored orders and suppress explicitly removed native
+inferred display bonds. Versioned neistra_modeling metadata stores stable endpoint
+exclusions in the same immutable artifact/history transaction; additions/deletions
+reconcile it. Viewing inferred bonds assigns no chemistry. Preserve native protein
+display inference elsewhere. Mol* remains disposable, not molecular authority.
+
+New generated entries use existing nullable original/source fields and explicit
+provenance. Native archives/save/Undo must preserve all draft values and empty
+entries; chemical-format export reports limits rather than repairing chemistry.
+No top-level schema/database migration is planned. Actual v0.16.0 data/history/
+archive reader qualification must distinguish its unsupported draft rendering/
+chemistry from lossless retention; unrestricted runtime rollback is not promised.
+
+
+### D-102 implementation note — issue #74 C1, 2026-10-16
+
+Historical H membership derives only for an orphan H with exactly one explicit
+bond to a heavy parent whose residue exists. Add those atom IDs to the parent's
+navigation component with fallback provenance and an informational warning;
+keep original atom/residue records unchanged. Ambiguous/unbonded/H–H cases stay
+unclassified. The legacy H generator now assigns each new H its own bonded
+parent's residue, including multi-residue ligand entries. Existing single-residue
+standalone atom-add behavior remains. No migration or blanket chemistry-policy
+change occurs in C1; direct editing belongs to C2.
+
+
+### D-101/103 implementation note — issue #74 C2, 2026-10-16
+
+Direct operations have a distinct model-edits API and normalized-record service.
+They share one immutable publication/reconciliation path with legacy selection
+edits, retaining legacy HTTP semantics. Absolute nullable charges and nullable
+bond orders avoid interpreting unknown as neutral/single. Canonical atom identity
+survives element assignment, including H. Literal deletion can leave an empty
+entry; structure display skips an empty native model.
+
+The version1 neistra_modeling namespace marks authored states and stores explicit
+stable endpoint-pair bond exclusions. The disposable Mol* decorator merges
+canonical edges with baseline native protein inference, then suppresses exclusions.
+It owns a fresh dynamic bond cache, retaining other native polymer properties;
+coordinate preview updates reuse the fixed authored graph. Display-only SDF uses
+non-kekulizing output and never writes its representation defaults into normalized
+chemistry. Local warnings do not certify a chemically valid graph. No migration.
+
+### D-101/102/103 implementation note — issue #74 C3, 2026-10-16
+
+New molecule records a generic reversible model.create command using existing
+entry.create/delete actions. Its first atom is explicitly chosen (visible C/zero
+defaults) at the origin, with generated source facts, a LIG residue and nullable
+entry source/original fields. There is no fabricated upload. Empty entries keep
+their identity/history and require an explicit target for rebuilding. Advanced
+manual atom/bond controls now translate to the direct service; chemistry helpers
+retain their existing HTTP behavior. Remove the inspector's first-ligand fallback
+and display unknown charges as unknown rather than a silent zero default.
+
+Placement uses canonical record operations plus six deterministic local directions
+and the six existing methyl-capped ETKDGv3 seed690 fragment templates. Six torsions
+rank rigid placements against retained material; user rotation is a bounded offset.
+Only the template is embedded, never a protein/parent. Generate each conformer's
+new positions independently while retaining every old coordinate exactly. Clashes
+warn, not reject. New records inherit their actual anchor's valid residue. This is
+unoptimized placement, not protonation, conformer search or preparation.
+
+The read-only preview endpoint computes the same candidate without publication or
+allocator advancement, returning string ghost identities and coordinates rather
+than new canonical atom operands. The native preview is a nonpickable shape outside
+the molecular model map. Context includes project visit, revision/artifact,
+selection and H policy; input/tool/movement/context changes invalidate it. Cancel
+removes only the proposal. Creation responses and focus obey captured ownership;
+closing a pending creation leaves any server-stored result in its original project.
+
+Optional H completion consumes only new H and their bonds from the eligible helper
+candidate. It never normalizes retained atom/bond/stereo/coordinate records, removes
+retained atoms, exceeds the entry resource limit or reverses explicit H deletion.
+Failure preserves the direct draft with a skip warning. Legacy helpers are unchanged.
+
+Native XYZ qualification exposed an existing import assumption: RDKit's neutral
+atom defaults were retained even though XYZ encodes no formal charge. New XYZ
+imports now retain null charges, an explicit warning and no assumed canonical
+SMILES descriptor. Original bytes and historical saved structures remain exact;
+there is no automatic reinterpretation or migration. This is within D101's
+unknown-chemistry contract, not expanded malformed-file acceptance or chemistry
+inference. Existing schema/API shapes already support null values.
+
+### D-101/103 qualification note — issue #74 C4, 2026-10-16
+
+Direct edits remain permissive; chemical-format export is a separate representability
+boundary. Native artifacts preserve nullable charges/orders, unusual charges,
+explicit bond exclusions, generated/empty entries and all conformers exactly.
+MOL/SDF/MOL2 representation defaults for unknown charge/order need explicit loss
+acknowledgement. SMILES requires assigned valid chemistry; unrepresentable draft
+writers return typed refusals rather than repairing a graph or publishing a partial
+export. Modeled MOL2 derives current types instead of copying immutable source types.
+PDB refuses overflowing charge/serial/coordinate fields. Sparse stable identities
+use the maximum ID as the mmCIF model serial stride, avoiding duplicate row IDs.
+
+Disposable ligand display may substitute a representable charge for an integer
+outside its C++ field; exact canonical charge remains in inspection/artifacts.
+Unusual charge warns. Unknown attachment radii use an explicitly warned unoptimized
+1.5 angstrom fallback. New atoms inherit the anchor's alternate-site label (terminal
+H replacement prefers that H's label); no alternate site is chosen automatically.
+Bond stereo labels can depend on remote substituent priorities: conservatively
+unassign them in the edited explicit connected graph, with warning, while retaining
+disconnected annotations. Local tetrahedral tags remain outside that broader rule.
+No whole-parent chemistry normalization or distance matrix is introduced.
+
+Placement inspection temporarily collapses the full panel into a bottom-docked
+nonmodal bar; Tools restores inputs and warnings without losing the proposal.
+Theme-adaptive ghost colors and labelled 44px controls keep native proposals visible
+at narrow widths/real zoom. This remains compact-panel building, not canvas drawing.
+The actual tagged v0.16.0 reader qualifies data/history/archive retention separately
+from its expected broken-aromatic renderer and chemistry-helper refusals. Do not
+promise unrestricted runtime rollback or strip new draft data. No migration.
+
+### D-101/103 additional qualification findings — issue #74 C4, 2026-10-16
+
+A broad native zoom run reproduced lost focus when a closed Edit launcher was
+replaced by the responsive viewer mount between focus and Enter. Preserve captured
+launcher focus for the same project visit across that remount; do not reopen a
+closed tool or override another control's newer focus. Deterministic component and
+native breakpoint regressions supplement the actual zoom test. Failed/interrupted
+runs remain diagnostic and require a new passing source-bound milestone gate.
+
+Literal H-free drafts expose another real representation boundary: MOL/SDF/SMILES
+readers interpret absent H using valence defaults even after explicit H deletion.
+Three regression exports demonstrate that interpretation without changing canonical
+atoms. Add a blocking explicit warning requiring acknowledgement rather than
+claiming those formats preserve the literal draft as protonation intent. Native
+archives retain the exact graph; this does not change direct deletion or add H.
+
+## D-104 — Retain identity allocation floors across entry recreation
+
+Date: 2026-10-16. Status: accepted implementation of issue #74's approved monotonic
+identity contract, found during final local self-review.
+
+Undoing an allocation, then undoing/recreating its entry could reset the row's
+counter and reuse an earlier atom/bond ID on branching. A real API probe and five
+regressions reproduce it for generated/imported entries and legacy helper edits.
+Read floors from the existing bounded retained entry.create/entry.molecule action
+paths as well as the live row. Core editors receive that floor; publication advances
+past actual created IDs, including a branch that first changes only an element.
+Preview/refusal reads do not reserve or persist any identities.
+
+Within the same command transaction, retain higher floors in existing entry.create
+snapshots before molecular publication/recreation/deletion. Allocation bookkeeping
+intentionally never undoes; chemical artifacts, original uploads, other action
+values and history counts stay exact. This lets generic recreation survive later
+branch truncation without a new table, namespace or schema migration. Inspect only
+known action paths, never recursively rewrite arbitrary metadata. Legacy helper
+chemistry prerequisites and HTTP shapes remain unchanged.
+
+The actual v0.16.0 reader qualifies retained floors through generic new-command
+Undo/Redo and archive re-export. Its older authoring does not implement the new
+floor propagation for future writes; use the current version for continued editing.
+This supplements the existing expected old-renderer/helper limitations, not a claim
+of unrestricted runtime rollback or retroactive repair of already-reused IDs.

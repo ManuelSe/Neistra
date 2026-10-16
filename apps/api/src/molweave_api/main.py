@@ -69,6 +69,7 @@ from molweave_api.job_service import (
     JobService,
 )
 from molweave_api.ligand_edit_service import LigandEditService
+from molweave_api.model_edit_service import ModelEditService
 from molweave_api.models import Artifact, Job, JobEvent
 from molweave_api.project_service import (
     EntryNotFoundError,
@@ -112,6 +113,10 @@ from molweave_api.schemas import (
     LigandEditRead,
     MeasurementCreate,
     MeasurementUpdate,
+    ModelEditCreate,
+    ModelPreviewRead,
+    MoleculeCreate,
+    MoleculeCreateRead,
     ProjectCreate,
     ProjectListItem,
     ProjectRead,
@@ -482,7 +487,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     app = FastAPI(
         title="MolWeave API",
-        version="0.16.0",
+        version="0.17.0",
         lifespan=lifespan,
         openapi_url="/api/v1/openapi.json",
         docs_url="/api/docs",
@@ -1103,6 +1108,41 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         return _call(
             lambda: CoordinateService(session, app_settings).transform(project_id, payload)
         )
+
+    @router.post(
+        "/projects/{project_id}/molecules", response_model=MoleculeCreateRead, status_code=201,
+    )
+    async def create_molecule(
+        project_id: str, payload: MoleculeCreate,
+        session: Session = Depends(session_dependency),
+    ) -> MoleculeCreateRead:
+        return _call(lambda: ModelEditService(session, app_settings).create_molecule(
+            project_id, payload,
+        ))
+
+    @router.post(
+        "/projects/{project_id}/entries/{entry_id}/model-edits/preview",
+        response_model=ModelPreviewRead,
+    )
+    async def preview_model(
+        project_id: str, entry_id: str, payload: ModelEditCreate,
+        session: Session = Depends(session_dependency),
+    ) -> ModelPreviewRead:
+        return _call(lambda: ModelEditService(session, app_settings).preview(
+            project_id, entry_id, payload,
+        ))
+
+    @router.post(
+        "/projects/{project_id}/entries/{entry_id}/model-edits",
+        response_model=SelectionEditRead,
+    )
+    async def edit_model(
+        project_id: str, entry_id: str, payload: ModelEditCreate,
+        session: Session = Depends(session_dependency),
+    ) -> SelectionEditRead:
+        return _call(lambda: ModelEditService(session, app_settings).model_edit(
+            project_id, entry_id, payload,
+        ))
 
     @router.post(
         "/projects/{project_id}/entries/{entry_id}/selection-edits",

@@ -1,0 +1,11 @@
+
+> @neistra/web@0.16.0 lint /datadisk/dev/neistra/apps/web
+> eslint . --max-warnings 0
+
+
+/datadisk/dev/neistra/apps/web/src/viewer/authoredBonds.ts
+  26:110  error  Unsafe argument of type `any` assigned to a parameter of type `number`  @typescript-eslint/no-unsafe-argument
+
+✖ 1 problem (1 error, 0 warnings)
+
+ ELIFECYCLE  Command failed with exit code 1.

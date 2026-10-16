@@ -559,6 +559,7 @@ class RdkitLigandEditor:
         Chem.AssignStereochemistry(mol, cleanIt=True, force=True)
         before_atoms = {atom.id: atom for atom in before.atoms}
         before_bonds = {bond.id: bond for bond in before.bonds}
+        valid_residues = {residue.id for residue in before.residues}
         atom_ids: list[int] = []
         for atom in mol.GetAtoms():
             if not atom.HasProp("_MolWeaveAtomId"):
@@ -607,6 +608,15 @@ class RdkitLigandEditor:
             rd_atom = mol.GetAtomWithIdx(rd_index)
             atom_id = atom_ids[rd_index]
             existing = before_atoms.get(atom_id)
+            generated_residue_id = new_atom_residue_id
+            if existing is None and rd_atom.GetSymbol() == "H":
+                parents = list(rd_atom.GetNeighbors())
+                if len(parents) == 1 and parents[0].HasProp("_MolWeaveAtomId"):
+                    parent = before_atoms.get(int(parents[0].GetIntProp("_MolWeaveAtomId")))
+                    if parent is not None and parent.element != "H":
+                        generated_residue_id = (
+                            parent.residue_id if parent.residue_id in valid_residues else None
+                        )
             chiral = str(rd_atom.GetChiralTag())
             atoms.append(
                 Atom(
@@ -615,7 +625,7 @@ class RdkitLigandEditor:
                     element=rd_atom.GetSymbol(),
                     coordinates=active[sorted_index],
                     residue_id=(
-                        existing.residue_id if existing else new_atom_residue_id
+                        existing.residue_id if existing else generated_residue_id
                     ),
                     formal_charge=int(rd_atom.GetFormalCharge()),
                     source_index=(

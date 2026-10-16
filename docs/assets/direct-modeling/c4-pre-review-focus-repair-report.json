@@ -1,0 +1,562 @@
+{
+  "config": {
+    "configFile": "/datadisk/dev/neistra/playwright.config.ts",
+    "rootDir": "/datadisk/dev/neistra/tests/e2e",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "list"
+      ],
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "/datadisk/dev/neistra/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/datadisk/dev/neistra/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/datadisk/dev/neistra/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "mobile-chromium",
+        "name": "mobile-chromium",
+        "testDir": "/datadisk/dev/neistra/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.55.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "direct-modeling-accessibility.spec.ts",
+      "file": "direct-modeling-accessibility.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "reveals a nonpickable placement with reachable controls in both themes and narrow layouts",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 9957,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "steps": [
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 9
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 958
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 10
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 170
+                    }
+                  ],
+                  "startTime": "2026-10-16T20:27:29.402Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "563555287cf135200e77-a5d0786de8de48563a88",
+          "file": "direct-modeling-accessibility.spec.ts",
+          "line": 7,
+          "column": 5
+        },
+        {
+          "title": "reveals a nonpickable placement with reachable controls in both themes and narrow layouts",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile-chromium",
+              "projectName": "mobile-chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7717,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "steps": [
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 349
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 508
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 11
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 32
+                    }
+                  ],
+                  "startTime": "2026-10-16T20:29:48.133Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "563555287cf135200e77-5f691317716f47af2fb3",
+          "file": "direct-modeling-accessibility.spec.ts",
+          "line": 7,
+          "column": 5
+        }
+      ]
+    },
+    {
+      "title": "rebranding-zoom.spec.ts",
+      "file": "rebranding-zoom.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "keeps actions and dialogs reachable at real 100% and 200% browser zoom",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 240000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 84217,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "steps": [
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 901
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 387
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 904
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 187
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 281
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 1402
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 10
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 26
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 6
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 765
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 111
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 377
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 1270
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 202
+                    }
+                  ],
+                  "startTime": "2026-10-16T20:27:39.442Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c98d953310c95df2545c-261344e71f567eecc422",
+          "file": "rebranding-zoom.spec.ts",
+          "line": 60,
+          "column": 5
+        },
+        {
+          "title": "keeps shell and inspector controls bounded around both responsive breakpoints",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 8493,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-16T20:29:03.673Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c98d953310c95df2545c-46b368dc08536d05c1a4",
+          "file": "rebranding-zoom.spec.ts",
+          "line": 324,
+          "column": 5
+        },
+        {
+          "title": "keeps the molecular editor keyboard controls reachable at actual browser zoom",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 35535,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "steps": [
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 1142
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 5
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 6
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 51
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 6
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 11
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 9
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 15
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 6
+                    }
+                  ],
+                  "startTime": "2026-10-16T20:29:12.173Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c98d953310c95df2545c-a372a4012f99599343d7",
+          "file": "rebranding-zoom.spec.ts",
+          "line": 358,
+          "column": 5
+        },
+        {
+          "title": "keeps actions and dialogs reachable at real 100% and 200% browser zoom",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Real desktop browser zoom is separate from mobile emulation.",
+                  "location": {
+                    "file": "/datadisk/dev/neistra/tests/e2e/rebranding-zoom.spec.ts",
+                    "line": 61,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "mobile-chromium",
+              "projectName": "mobile-chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 3,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-16T20:29:55.919Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Real desktop browser zoom is separate from mobile emulation.",
+                      "location": {
+                        "file": "/datadisk/dev/neistra/tests/e2e/rebranding-zoom.spec.ts",
+                        "line": 61,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "c98d953310c95df2545c-119dc2da853113ecbb55",
+          "file": "rebranding-zoom.spec.ts",
+          "line": 60,
+          "column": 5
+        },
+        {
+          "title": "keeps shell and inspector controls bounded around both responsive breakpoints",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Exact-width breakpoint sweep runs once; Pixel 7 has its own workflow matrix.",
+                  "location": {
+                    "file": "/datadisk/dev/neistra/tests/e2e/rebranding-zoom.spec.ts",
+                    "line": 325,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "mobile-chromium",
+              "projectName": "mobile-chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 112,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-16T20:29:55.927Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Exact-width breakpoint sweep runs once; Pixel 7 has its own workflow matrix.",
+                      "location": {
+                        "file": "/datadisk/dev/neistra/tests/e2e/rebranding-zoom.spec.ts",
+                        "line": 325,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "c98d953310c95df2545c-c5662d1518e2d20dfa74",
+          "file": "rebranding-zoom.spec.ts",
+          "line": 324,
+          "column": 5
+        },
+        {
+          "title": "keeps the molecular editor keyboard controls reachable at actual browser zoom",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Desktop zoom is independent of touch emulation.",
+                  "location": {
+                    "file": "/datadisk/dev/neistra/tests/e2e/rebranding-zoom.spec.ts",
+                    "line": 359,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "mobile-chromium",
+              "projectName": "mobile-chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 2,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-16T20:29:56.044Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Desktop zoom is independent of touch emulation.",
+                      "location": {
+                        "file": "/datadisk/dev/neistra/tests/e2e/rebranding-zoom.spec.ts",
+                        "line": 359,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "c98d953310c95df2545c-d8d6428c5cb5eb1261b2",
+          "file": "rebranding-zoom.spec.ts",
+          "line": 358,
+          "column": 5
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-16T20:27:24.265Z",
+    "duration": 151875.823,
+    "expected": 5,
+    "skipped": 3,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

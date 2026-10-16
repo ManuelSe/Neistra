@@ -466,3 +466,24 @@ converts it to an independently identified pocket object, preserving the fixed
 profile, seed intent, radius, history and self-reference remapping. D-066 and
 other historical singleton restrictions are superseded by D-091; their scientific
 geometry and immutable-artifact boundaries remain applicable.
+
+## Generated and empty molecular entries (issue #74)
+
+Project schema2 is unchanged. A generated entry has nullable original_artifact_id,
+original_filename and source_format; generated source provenance belongs to its
+normalized artifact. Counts and atom_ids may be empty without deleting the entry.
+Monotonic atom/bond allocators remain above historical allocations after Undo and
+branching. `model.create` uses existing entry.create/delete actions, and direct
+`model.*` commands use existing immutable artifact/reference actions. Retained
+history restores exact molecular state and pruned selections/measurements/scenes/
+representations/surfaces. Archives omit history as before, preserve native draft
+artifacts and original bytes, and remap project entry references normally. No new
+migration or top-level schema version is required. The actual v0.16.0 reader's
+verified data retention has documented renderer/helper limits; see DEVELOPMENT.
+
+D-104 retains allocator floors in existing generic entry.create action snapshots
+when a molecular write or recreation/deletion commits. Floors are read from live
+rows and known retained identity-bearing actions before editing. Allocation metadata
+intentionally does not undo, including across entry Undo/Redo and history branching;
+molecular artifacts and all other history state remain exact. Preview/refusal only
+reads the floor. No additional command, migration, field or schema is introduced.

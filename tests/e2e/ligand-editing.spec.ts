@@ -128,7 +128,7 @@ async function expectNonblankCanvas(page: Page): Promise<void> {
   expect(sum).toBeGreaterThan(0);
 }
 
-test("edits ligand chemistry, validates failures, and round-trips history", async ({
+test("edits draft chemistry with warnings, retains helper refusals, and round-trips history", async ({
   page,
   request,
 }, testInfo) => {
@@ -145,6 +145,8 @@ test("edits ligand chemistry, validates failures, and round-trips history", asyn
   await expectNonblankCanvas(page);
 
   await page.getByRole("tab", { name: "ligand" }).click();
+  await expect(page.getByRole("button", { name: "Add", exact: true })).toBeDisabled();
+  await page.getByRole("combobox", { name: "Ligand", exact: true }).selectOption(entryId);
   await page
     .getByRole("combobox", { name: "Existing bond" })
     .selectOption("2");
@@ -152,10 +154,16 @@ test("edits ligand chemistry, validates failures, and round-trips history", asyn
     .getByRole("combobox", { name: "Order", exact: true })
     .selectOption("3");
   await page.getByRole("button", { name: "Apply order" }).click();
-  await expect(page.locator(".notice[role='alert']")).toContainText(
-    "Invalid valence",
-  );
-  expect((await project(request, state.id)).revision).toBe(state.revision);
+  await expect.poll(async () => (await project(request, state.id)).revision).toBe(state.revision + 1);
+  await expect(page.locator(".notice[role='status']")).toContainText("scientific warnings");
+  const draft = (await (await request.get(`/api/v1/projects/${state.id}/entries/${entryId}/structure`)).json()).structure;
+  expect(draft.bonds.find((bond: { id: number }) => bond.id === 2).order).toBe(3);
+  expect(draft.warnings.some((warning: { code: string }) => warning.code === "model_unusual_valence")).toBe(true);
+  expect(await atoms(request, state.id, entryId)).toEqual(original);
+  state = await project(request, state.id);
+  await page.getByRole("button", { name: /^Undo: Assign bond order/ }).click();
+  await expect.poll(async () => (await project(request, state.id)).entries[0].current_artifact_id).toBe(opened.state.entries[0].current_artifact_id);
+  state = await project(request, state.id);
   expect(await atoms(request, state.id, entryId)).toEqual(original);
 
   await page
@@ -255,6 +263,7 @@ test("edits ligand chemistry, validates failures, and round-trips history", asyn
     { timeout: 30_000 },
   );
   await page.getByRole("tab", { name: "ligand" }).click();
+  await page.getByRole("combobox", { name: "Ligand", exact: true }).selectOption(entryId);
   await expect(page.getByText("Locked", { exact: true })).toBeVisible();
   await expect(page.getByRole("button", { name: "Add", exact: true })).toBeDisabled();
   await expect(page.getByRole("button", { name: "Delete selected" })).toBeDisabled();
@@ -280,6 +289,8 @@ test("keeps ligand editing functional in the mobile inspector", async ({
   const inspector = page.getByRole("region", { name: "Project inspector" });
   await inspector.getByRole("tab", { name: "ligand" }).click();
   await expect(inspector.getByLabel("Ligand editor")).toBeVisible();
+  await expect(inspector.getByRole("button", { name: "Add", exact: true })).toBeDisabled();
+  await inspector.getByRole("combobox", { name: "Ligand", exact: true }).selectOption(entryId);
 
   await inspector
     .getByRole("combobox", { name: "Existing bond" })
@@ -288,11 +299,15 @@ test("keeps ligand editing functional in the mobile inspector", async ({
     .getByRole("combobox", { name: "Order", exact: true })
     .selectOption("3");
   await inspector.getByRole("button", { name: "Apply order" }).click();
-  await expect(page.locator(".notice[role='alert']")).toContainText(
-    "Invalid valence",
-  );
-  expect((await project(request, state.id)).revision).toBe(state.revision);
+  await expect.poll(async () => (await project(request, state.id)).revision).toBe(state.revision + 1);
+  const draft = (await (await request.get(`/api/v1/projects/${state.id}/entries/${entryId}/structure`)).json()).structure;
+  expect(draft.bonds.find((bond: { id: number }) => bond.id === 2).order).toBe(3);
+  expect(draft.warnings.some((warning: { code: string }) => warning.code === "model_unusual_valence")).toBe(true);
   expect(await atoms(request, state.id, entryId)).toEqual(original);
+  await page.getByRole("button", { name: /^Undo: Assign bond order/ }).click();
+  await expect.poll(async () => (await project(request, state.id)).entries[0].current_artifact_id).toBe(opened.state.entries[0].current_artifact_id);
+  state = await project(request, state.id);
+  const beforeAddition = state.revision;
 
   await inspector
     .getByRole("spinbutton", { name: "X", exact: true })
@@ -305,7 +320,7 @@ test("keeps ligand editing functional in the mobile inspector", async ({
     .poll(async () => (await project(request, state.id)).entries[0].atom_ids)
     .toEqual([1, 2, 3, 4]);
   state = await project(request, state.id);
-  expect(state.revision).toBe(opened.state.revision + 1);
+  expect(state.revision).toBe(beforeAddition + 1);
   await expect(inspector.getByText("4 atoms / 2 bonds")).toBeVisible();
 
   expect(

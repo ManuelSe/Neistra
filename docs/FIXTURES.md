@@ -244,3 +244,22 @@ ring/hydrophobic classifications coexist. Neutral tertiary-amine and carboxylic-
 controls, realistic quaternary distance boundaries and immutable API/original
 checks supplement the prior positive/negative/angular/boundary/uncertainty suites.
 Tests read frozen files offline and never derive expectations from the detector.
+
+
+## Direct-modeling regression: orphan hydrogen membership (#74)
+
+`tests/fixtures/modeling/paracetamol-orphan-h.molweave.zip` is synthetic, not the
+user's reported file. Reproduce with:
+
+```bash
+PYTHONPATH=apps/api/src:packages/molweave_core/src .venv/bin/python -m tests.support.modeling_fixture
+```
+
+Paracetamol
+`CC(=O)Nc1ccc(O)cc1` uses pinned RDKit explicit H and ETKDGv3 seed690; the final
+three H have only their residue membership cleared. Recorded bonds, charge and
+coordinates remain. The original artifact is normalized fixture JSON, not an
+experimental source file. Manifest application_version0.16.0 identifies the
+producer. The portable archive enters browser tests through public archive import.
+It reproduces a ligand plus three unclassified atoms before the ownership fix;
+derived navigation membership must not change the normalized bytes.

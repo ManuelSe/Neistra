@@ -395,6 +395,18 @@ class ProjectService:
             entry_ids,
         )
 
+    def create_molecule(
+        self, project_id: str, expected_revision: int, entry_state: dict[str, Any],
+    ) -> ProjectRead:
+        project = self._project(project_id)
+        self._check_revision(project, expected_revision)
+        entry_id = str(entry_state["id"])
+        return self._record(
+            project, "model.create", f"Create molecule {entry_state['name']}",
+            [{"kind": "entry.create", "entry": entry_state}],
+            [{"kind": "entry.delete", "entry_id": entry_id}], [entry_id],
+        )
+
     def import_job_result(
         self,
         project_id: str,
@@ -1669,6 +1681,66 @@ class ProjectService:
             topology_patches=topology_patches,
         )
 
+    def allocation_floor(self, entry: StructureEntry) -> tuple[int, int]:
+        """Read retained allocation evidence without reserving or writing identities."""
+        return self._allocation_floor(
+            entry.project_id, entry.id, entry.next_atom_id, entry.next_bond_id
+        )
+
+    def _allocation_floor(
+        self,
+        project_id: str,
+        entry_id: str,
+        atom_floor: int,
+        bond_floor: int,
+        *,
+        retain: bool = False,
+    ) -> tuple[int, int]:
+        # History is bounded. Inspect only known identity-bearing action paths,
+        # never recursively rewrite molecular artifacts or arbitrary metadata.
+        commands = list(
+            self.session.scalars(
+                select(CommandRecord).where(CommandRecord.project_id == project_id)
+            )
+        )
+        for command in commands:
+            for action in [*command.forward_actions, *command.inverse_actions]:
+                state = action.get("entry", {}) if action["kind"] == "entry.create" else {}
+                if state.get("id") == entry_id:
+                    atom_floor = max(atom_floor, state.get("next_atom_id", 1))
+                    bond_floor = max(bond_floor, state.get("next_bond_id", 1))
+                elif action["kind"] == "entry.molecule" and action["entry_id"] == entry_id:
+                    atom_floor = max(atom_floor, action.get("next_atom_id", 1))
+                    bond_floor = max(bond_floor, action.get("next_bond_id", 1))
+        if retain:
+            # Allocators intentionally never undo. Recreated rows must retain
+            # those floors even after an allocation command is branched away.
+            for command in commands:
+                for field in ("forward_actions", "inverse_actions"):
+                    actions = getattr(command, field)
+                    changed = False
+                    updated = []
+                    for action in actions:
+                        if action["kind"] == "entry.create" and action["entry"]["id"] == entry_id:
+                            state = action["entry"]
+                            if (
+                                state.get("next_atom_id", 1) < atom_floor
+                                or state.get("next_bond_id", 1) < bond_floor
+                            ):
+                                action = {
+                                    **action,
+                                    "entry": {
+                                        **state,
+                                        "next_atom_id": atom_floor,
+                                        "next_bond_id": bond_floor,
+                                    },
+                                }
+                                changed = True
+                        updated.append(action)
+                    if changed:
+                        setattr(command, field, updated)
+        return atom_floor, bond_floor
+
     def _apply(self, project: Project, actions: list[dict[str, Any]]) -> None:
         for action in actions:
             kind = action["kind"]
@@ -1693,9 +1765,19 @@ class ProjectService:
                     entry.next_atom_id = max(entry.next_atom_id, int(action["next_atom_id"]))
                 if "next_bond_id" in action:
                     entry.next_bond_id = max(entry.next_bond_id, int(action["next_bond_id"]))
+                entry.next_atom_id, entry.next_bond_id = self._allocation_floor(
+                    project.id, entry.id, entry.next_atom_id, entry.next_bond_id, retain=True
+                )
                 entry.modified_at = datetime.now(UTC)
             elif kind == "entry.create":
                 state = action["entry"]
+                atom_floor, bond_floor = self._allocation_floor(
+                    project.id,
+                    state["id"],
+                    state.get("next_atom_id", state.get("atom_count", 0) + 1),
+                    state.get("next_bond_id", state.get("bond_count", 0) + 1),
+                    retain=True,
+                )
                 self.session.add(
                     StructureEntry(
                         id=state["id"],
@@ -1718,8 +1800,8 @@ class ProjectService:
                         residue_count=state.get("residue_count", 0),
                         conformer_count=state.get("conformer_count", 0),
                         warnings=deepcopy(state.get("warnings", [])),
-                        next_atom_id=state.get("next_atom_id", state.get("atom_count", 0) + 1),
-                        next_bond_id=state.get("next_bond_id", state.get("bond_count", 0) + 1),
+                        next_atom_id=atom_floor,
+                        next_bond_id=bond_floor,
                         viewer_settings=deepcopy(
                             state.get(
                                 "viewer_settings",
@@ -1739,6 +1821,9 @@ class ProjectService:
                 self.session.flush()
             elif kind == "entry.delete":
                 entry = self._entry(project, action["entry_id"])
+                self._allocation_floor(
+                    project.id, entry.id, entry.next_atom_id, entry.next_bond_id, retain=True
+                )
                 self.session.delete(entry)
                 self.session.flush()
             elif kind == "entries.visibility":

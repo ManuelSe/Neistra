@@ -1,3 +1,6 @@
+import { manualModelEdit } from "./editing/manual";
+import { NewMoleculeDialog, type NewMoleculeInput } from "./components/NewMoleculeDialog";
+import type { HydrogenPolicy } from "./api/types";
 import { surfacePruningWarnings } from "./selection/surfaceWarnings";
 import { useViewerCameraStore } from "./store/viewerCamera";
 import { useEditingStore } from "./store/editing";
@@ -110,6 +113,7 @@ export default function App() {
   const [newName, setNewName] = useState("");
   const [newDescription, setNewDescription] = useState("");
   const [entryDialog, setEntryDialog] = useState<EntryDialog>(null);
+  const [newMoleculeOpen, setNewMoleculeOpen] = useState(false);
   const [importDialogOpen, setImportDialogOpen] = useState(false);
   const [archiveImportDialogOpen, setArchiveImportDialogOpen] = useState(false);
   const [exportDialogOpen, setExportDialogOpen] = useState(false);
@@ -181,6 +185,7 @@ export default function App() {
     retry: false,
   });
   const project = projectQuery.data;
+  useEffect(() => setNewMoleculeOpen(false), [project?.id]);
 
   useEffect(() => {
     useNavigationStore.getState().setProject(activeProjectId);
@@ -384,6 +389,7 @@ export default function App() {
   };
 
   const entryActions = {
+    onNewMolecule: () => { setMobilePanel(null); setNewMoleculeOpen(true); },
     onRename: (entry: Entry) => {
       setEntryName(entry.name);
       setEntryDescription(entry.description ?? "");
@@ -669,6 +675,28 @@ export default function App() {
     },
     onLigandEdit: async (entryId: string, edit: LigandEdit) => {
       if (!project) throw new Error("No project is open.");
+      if (!["hydrogen.add", "hydrogen.remove", "bond.rotate", "coordinates.cleanup"].includes(edit.operation)) {
+        const editing = useEditingStore.getState();
+        if (editing.pending) throw new Error("Finish the current edit.");
+        const generation = editing.generation;
+        const captured = useSelectionStore.getState().selection;
+        const owns = () => useWorkspaceStore.getState().activeProjectId === project.id && useEditingStore.getState().generation === generation;
+        editing.setPending(true);
+        try {
+          const entry = project.entries.find(e => e.id === entryId);
+          if (!entry?.current_artifact_id) throw new Error("Load the target before editing.");
+          const structure = edit.operation === "bond.order" || edit.operation === "bond.delete"
+            ? (await molecularApi.structure(project.id, entryId)).structure : undefined;
+          if (!owns() || useSelectionStore.getState().selection !== captured) throw new Error("The target context changed; submit the edit again.");
+          const direct = manualModelEdit(entryId, edit, structure);
+          if (!direct) throw new Error("Unsupported direct action.");
+          const result = await viewerActions.onEdit(entryId, entry.current_artifact_id, direct.selection, direct.action);
+          return { ...result, report: { ...result.report, operation: edit.operation } };
+        } catch (error) {
+          if (owns()) setNotice({ kind: "error", text: errorMessage(error) });
+          throw error;
+        } finally { if (owns()) useEditingStore.getState().setPending(false); }
+      }
       try {
         const result = await projectApi.ligandEdit(project, entryId, edit);
         updateProjectCache(result.project);
@@ -765,20 +793,47 @@ export default function App() {
     },
   };
 
+  const createMolecule = async (input: NewMoleculeInput, ownsResponse: () => boolean) => {
+    if (!project) throw new Error("Open a project before creating a molecule.");
+    const owner = project.id;
+    const generation = useEditingStore.getState().generation;
+    const captured = useSelectionStore.getState().selection;
+    const result = await projectApi.createMolecule(project, input).catch((error: unknown) => {
+      if (ownsResponse() && useWorkspaceStore.getState().activeProjectId === owner && useEditingStore.getState().generation === generation && error instanceof ApiError && error.code === "revision_conflict") {
+        void queryClient.invalidateQueries({ queryKey: ["project", owner] });
+      }
+      throw error;
+    });
+    updateProjectCache(result.project);
+    if (!ownsResponse() || useWorkspaceStore.getState().activeProjectId !== owner || useEditingStore.getState().generation !== generation) return;
+    const latest = queryClient.getQueryData<Project>(["project", owner]);
+    if (latest?.revision === result.project.revision && useSelectionStore.getState().selection === captured) {
+      replaceSelection(result.selection_after);
+      const editing = useEditingStore.getState();
+      editing.setTargetEntryId(result.entry_id);
+      editing.setSection("atoms"); editing.setFocusRequested(true); editing.setOpen(true);
+      editing.setFocusNewMolecule({ entryId: result.entry_id, atomId: 1, selection: useSelectionStore.getState().selection });
+    }
+    setEditedThisSession(true); setNewMoleculeOpen(false);
+    setNotice({ kind: "success", text: "Molecule created. Build with Add atom or Fragments in Edit; review scientific warnings.", lifetime: "persistent" });
+  };
+
   const projects = projectsQuery.data ?? [];
   const viewerActions = {
-    onEdit: async (entryId: string, artifactId: string, operand: Selection, action: SelectionEditAction) => {
+    onEdit: async (entryId: string, artifactId: string, operand: Selection, action: SelectionEditAction, hydrogenPolicy: HydrogenPolicy = "preserve") => {
       if (!project) throw new Error("Open a project before editing.");
       const owner = project.id;
       const generation = useEditingStore.getState().generation;
       const captured = useSelectionStore.getState().selection;
+      const targetEntryId = useEditingStore.getState().targetEntryId;
       try {
-        const result = await projectApi.selectionEdit(project, entryId, artifactId, operand, action);
+        const result = await projectApi.selectionEdit(project, entryId, artifactId, operand, action, hydrogenPolicy);
         updateProjectCache(result.project);
         if (useWorkspaceStore.getState().activeProjectId === owner && useEditingStore.getState().generation === generation) {
           const latest = queryClient.getQueryData<Project>(["project", owner]);
-          if (latest?.revision === result.project.revision && useSelectionStore.getState().selection === captured) {
+          if (latest?.revision === result.project.revision && useSelectionStore.getState().selection === captured && useEditingStore.getState().targetEntryId === targetEntryId) {
             replaceSelection(result.selection_after);
+            if (!result.selection_after.atoms.length) useEditingStore.getState().setTargetEntryId(entryId);
           }
           setEditedThisSession(true);
           setNotice({ kind: "success", text: [`Molecular edit stored. ${result.warnings.length} scientific warnings; see entry Details.`, ...surfacePruningWarnings(project, result.project)].join(" "), lifetime: "persistent" });
@@ -963,6 +1018,7 @@ export default function App() {
                   setProjectDialogOpen(true);
                 }}
                 onImport={() => setImportDialogOpen(true)}
+                onNewMolecule={() => setNewMoleculeOpen(true)}
                 {...viewerActions}
               />
               {mobilePanel ? (
@@ -1098,6 +1154,7 @@ export default function App() {
                         setProjectDialogOpen(true);
                       }}
                       onImport={() => setImportDialogOpen(true)}
+                onNewMolecule={() => setNewMoleculeOpen(true)}
                       {...viewerActions}
                     />
                   </Panel>
@@ -1295,6 +1352,8 @@ export default function App() {
         }}
       />
 
+      {project && newMoleculeOpen ? <NewMoleculeDialog key={project.id} open={newMoleculeOpen}
+        onOpenChange={setNewMoleculeOpen} onCreate={createMolecule} /> : null}
       <ImportDialog
         open={importDialogOpen}
         project={project}

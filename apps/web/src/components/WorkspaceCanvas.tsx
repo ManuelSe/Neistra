@@ -30,6 +30,7 @@ interface WorkspaceCanvasProps {
   loading: boolean;
   onCreate: () => void;
   onImport: () => void;
+  onNewMolecule?: () => void;
   busy?: boolean;
   coordinatePreview?: CoordinatePatch | null;
   movement?: MovementWorkflow;
@@ -60,6 +61,7 @@ export function WorkspaceCanvas({
   loading,
   onCreate,
   onImport,
+  onNewMolecule,
   busy,
   coordinatePreview,
   movement,
@@ -113,6 +115,7 @@ export function WorkspaceCanvas({
           <div className={`checkpoint-state ${project.has_uncheckpointed_changes ? "dirty" : ""}`}>
             {project.has_uncheckpointed_changes ? "Changes stored locally" : "Checkpoint saved"}
           </div>
+          {onNewMolecule ? <button type="button" className="primary-button" onClick={onNewMolecule}>New molecule</button> : null}
           <button type="button" className="secondary-button stage-import" onClick={onImport}>
             <Upload size={16} /> Import structures
           </button>

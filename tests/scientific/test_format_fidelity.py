@@ -53,6 +53,9 @@ def test_xyz_connectivity_is_explicitly_inferred_with_unknown_order() -> None:
     assert all(bond.inferred and bond.order is None for bond in structure.bonds)
     assert structure.inferences[0].code == "xyz_connectivity_inferred"
     assert "xyz_bond_orders_unknown" in {warning.code for warning in structure.warnings}
+    assert all(atom.formal_charge is None for atom in structure.atoms)
+    assert "xyz_formal_charges_unknown" in {warning.code for warning in structure.warnings}
+    assert "canonical_smiles" not in structure.metadata
 
 
 def test_smiles_3d_generation_is_deterministic_and_recorded() -> None:

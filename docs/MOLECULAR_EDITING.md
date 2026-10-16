@@ -1,99 +1,115 @@
-# Selection-driven molecular editing
+# Molecular editing
 
-Issue #69 follows the [approved contract](plans/issue-69-compact-molecular-editor.md).
-This document describes the atom, bond, fragment and residue workflow implemented
-in C1–C3. Release qualification/publication remain later checkpoints. Existing
-advanced inspector tools remain available.
+The current direct atom/bond workflow follows the
+[issue #74 contract](plans/issue-74-direct-molecular-modeling.md). Direct editing and compact building are implemented; qualification and
+release evidence are recorded checkpoint by checkpoint in that contract.
 
-Select atoms, open **Edit molecule** beside **Transform selection**, and choose
-an element, charge adjustment or heavy-atom deletion. The nonmodal panel stays
-open. Operations resolve the current canonical selection; they never choose a
-default entry or require typed atom IDs/coordinates. A terminal explicit H can be
-replaced by an element to grow the molecule. H substitution consumes the H ID,
-creates a new heavy atom and adds its valence H in one command. Undo/Redo restores
-the exact molecular artifact. New IDs are never reused after undo or branching.
+Select atoms, open **Edit molecule** beside **Transform selection**, and use
+**Atoms** or **Bonds**. Direct editing works on incomplete normalized structures
+regardless of input format, navigation classification, component boundaries or
+conformer count. Covalent ligand/protein links within an entry are editable.
+Select current canonical atoms in one unlocked entry; finish active movement
+before editing. Selection, camera and molecular state remain separate.
 
-Hydrogen-free prepared input may need one **Prepare component hydrogens** action
-before an H can be selected. **Show explicit H** only changes existing viewer
-settings. Use an atomic Style representation to see H; a cartoon alone has
-no atomic detail. Isolation, component visibility, local H preferences and exact
-atom hiding can still hide those atoms. Opening Edit does not add H or change chemistry. Use advanced tools
-for explicit hydrogen removal; automatic saturation would undo H deletion here.
+Element shortcuts cover C/N/O/S/F/Cl/Br/I; **More elements and formal charge** offers
+all118 recognized element symbols and absolute integer charge assignment, including
+**Set charge unknown**. Unknown source charges/orders stay unknown until explicitly
+assigned. The q± shortcuts need a known charge. Element assignment preserves the
+selected atom's identity and coordinates, including H. **Delete selected atoms**
+removes exactly those atoms and their incident bonds; it does not saturate remaining
+atoms or delete other H. Deleting the last atom retains an empty, saveable entry.
 
-Editing requires one unlocked, connected ligand component with known formal
-charges/orders, one conformer and usable coordinates. Prepared components inside
-complexes use the same controls, preserving the protein and other components.
-Ordinary raw PDB/mmCIF ligand chemistry is generally incomplete and is rejected,
-not repaired by neutral-charge or single-bond defaults. Covalently attached
-components, alternate sites, unsupported elements/stereo/metal/radical chemistry,
-more than 256 heavy atoms or more than 1,024 resulting component atoms reject.
-Shortcuts cover C/N/O/S/F/Cl/Br/I; S is limited to neutral divalent chemistry.
-Local formal charges are -1/0/+1; aromatic element/charge edits are unsupported.
+In **Bonds**, select any two distinct atoms in one entry, including H, using a
+native bond pick or additive atom selection. Create, break or assign unknown,
+single, double, triple or aromatic order. Broken aromatic graphs and unusual
+valence are allowed as draft states. No proximity, closed-component or whole-
+molecule sanitization test blocks these direct operations. **Break bond** can
+also remove native inferred display connectivity absent from authoritative bond
+records; its exclusion persists across reload and Undo/Redo.
 
-Generated bonds must be 0.65–1.35 times the sum of RDKit covalent radii. Generated
-angles use the local hybridization reference: SP 180° ±20°, SP2 120° ±30°,
-otherwise 109.47° ±35°. Generated atoms closer than 0.4 Å to another atom reject.
-These are conservative admission screens, not a comprehensive validation of
-bonding, environment, binding pose or force-field readiness. Fixed existing heavy
-geometry may prevent valid H generation; collinear/degenerate input rejects
-rather than being silently re-embedded. Use existing explicit cleanup tools for
-input preparation. Original bytes remain unchanged.
+Direct edits preserve unrelated records, coordinates, original uploaded bytes and
+source facts. They invalidate computed chemistry descriptors, clear affected
+unjustified stereo labels and attach review warnings. Disconnected bond stereo remains; bond labels in an edited connected graph are
+conservatively cleared because remote substituent priorities can change. Unaffected
+local tetrahedral tags remain.
+An unvalidated draft is not a protonation, preparation or optimized-geometry claim.
+Source labels/properties can describe the original rather than modified chemistry.
+Viewer projection displays drafts independently of chemical-format export.
 
-Local hydrogen reconciliation is valence inference, not pH, tautomer or biological
-protonation determination. Existing heavy coordinates remain fixed; warnings mark
-unoptimized geometry and the fact that retained source labels describe the
-original molecule. Supplied supported tetrahedral centers use their fixed 3D
-orientation in the final normalized bond order. Source labels that conflict with
-3D geometry or leave potential stereo unspecified reject. Newly created tetrahedral
-centers follow the selected H direction and are marked inferred; choosing the other
-enantiotopic H can select the opposite configuration. Edits can change CIP priorities
-without geometric inversion, or remove a center; scientific review remains necessary.
-E/Z decisions and other unsupported stereo encodings reject.
-Generated identities/method/version are recorded in inference provenance. Raw
-canonical-SMILES metadata is invalidated after chemistry changes.
+**Prepare component hydrogens** is a separate chemistry helper. Its existing
+single-conformer, prepared closed small-molecule component restrictions may disable
+that button while direct edits remain available. It uses valence inference, not
+pH/tautomer/protonation determination, and may reject unsuitable geometry/stereo.
+**Show explicit H** changes viewer settings only; atomic representations, isolation,
+component visibility, local H preferences and atom hiding still control visibility.
 
-Warnings remain attached to the entry and are available through entry Details.
-Active coordinate movement blocks chemistry edits. Complete movement explicitly
-before using Edit; normal camera and molecular-selection gestures are preserved.
-Empty/mixed/stale/locked targets fail with a reason rather than modifying another
-entry. Project/session-owned asynchronous responses cannot select atoms in another project
-or clear a newer operation after leaving and returning to the same project.
+Use **New molecule** in the project browser or empty-project view to name an entry
+and choose its first element/charge. Carbon/zero defaults are visible; unknown
+charge is explicit. The first atom starts at the origin and becomes focused and
+selected only while its response still owns the active project visit/selection.
+Creation is one Undo/Redo command. There is no original-file download for a
+structure created in the application. Closing while creation is pending prevents
+a late UI takeover; a result already stored remains in its original project.
 
-No new database migration is introduced. Existing project/viewer/archive2 and
-normalized/selection1 remain, with Alembic0014. Prior-reader compatibility and
-release publication require the later qualification checkpoints; no released
-feature or rollback qualification is claimed at C1.
+In **Atoms → Add atom**, choose the added element and absolute charge (or unknown),
+then **Preview atom**. This attaches to one selected atom, preserving existing H.
+For an empty entry, choose **Empty target entry** explicitly and preview its first
+atom at the origin. Deleting the last atom leaves that entry available for rebuilding;
+there is no fallback to another loaded entry. The advanced inspector can also add
+an explicitly positioned disconnected atom; its target must be chosen explicitly.
 
-In **Bonds**, select two heavy-atom endpoints, either by a rendered bond hit in
-Atom picking mode or by additive atom selection. Create a single bond when none
-exists, break a known nonaromatic bond, or increase/decrease its order from one
-through three. No typed bond IDs are needed. Creating a bond requires endpoints
-already within the documented covalent-distance bound. Direct aromatic bond
-changes and order changes requiring an E/Z stereochemistry decision reject.
-Breaking a bond can disconnect a source component; a warning explains that
-subsequent building requires connected topology. Fixed coordinates can make
-newly saturated fragments clash or have unsupported angles; the entire edit then
-rejects. Explicit movement/cleanup remains separate.
+In **Fragments**, select a heavy atom to attach methyl, ethyl, hydroxyl, amino,
+carboxylic acid or phenyl, or select a terminal explicit H to replace it. Terminal H
+replacement needs an explicit heavy parent, but not complete charge/order chemistry.
+The parent stays fixed and other H are preserved. Replacement consumes H identity
+and maps it to the new root; ordinary element assignment instead retains identity.
+All new records inherit their anchor's valid residue membership and alternate-site
+label; terminal-H replacement prefers that H's alternate label.
 
-In **Fragments**, select one terminal explicit H and choose methyl, ethyl,
-hydroxyl, amino, carboxylic acid or phenyl. The root replaces that H at its
-original attachment direction, with new monotonic identities, complete explicit
-fragment H and one history command. Source heavy coordinates remain exact.
-Structural previews mark the attachment with a dot. There is no Add/Attach mode,
-ring-fusion action or unrestricted fragment catalogue.
+A cyan, nonpickable **Placement preview** shows proposed atoms/bonds. The panel
+collapses to a compact inspection bar at the bottom of the workspace so the
+proposal stays visible. **Placement tools** restores inputs and warnings;
+**Inspect placement** returns to the bar without recomputing. Use **Next
+direction** to cycle six local directions and **Rotate fragment** for six60-degree
+turns. **Apply placement** recomputes and saves one command; **Cancel placement**
+discards the proposal without an artifact/history/allocator change. Selection,
+project visit, revision/artifact, input, policy or tool/movement changes invalidate
+it. Ghosts are not molecular atoms and cannot become canonical operands. Normal
+canvas/camera gestures and explicit Transform remain available.
 
-Fragment-v1 uses methyl-capped templates `CC`, `CCC`, `CO`, `CN`, `CC(=O)O`,
-and `Cc1ccccc1`. The first carbon is the removable cap, and atom1 is the root.
-Only the template is embedded using pinned RDKit ETKDGv3, seed690, at most200
-iterations. A proper rotation aligns its cap/root axis to the selected H direction;
-the root distance uses covalent radii. Six fixed 60° torsions are compared by
-minimum distance to retained non-anchor atoms, with deterministic first-best
-ties. The generated geometry still passes distance/angle/overlap admission.
-This limited placement is not environment minimization, ring fusion, pKa
-assignment, conformer ranking or proof of a favorable pose. Template/version/seed
-are retained in inference provenance. All six reference graphs/formulas and
-explicit H, deterministic bytes and exact unchanged atoms are scientifically
-tested. Publication and actual old-reader qualification still require C4/C5.
+Only the six existing methyl-capped templates are embedded (ETKDGv3, seed690,
+at most200 iterations); the parent is never embedded or minimized. Proper rigid
+transforms retain template geometry. Six torsions compare distance to retained
+material, with deterministic first-best ties, followed by a user turn offset.
+Each conformer gets new coordinates without moving retained points. Overlap and
+unoptimized geometry warn rather than block the requested draft. This is not
+proof of favorable geometry, protonation or force-field readiness.
+
+**Complete hydrogens when possible** is off by default. It attempts the existing
+eligible small-component helper after the direct operation. Only new H/bonds are
+merged; retained records/coordinates remain exact. Unavailable chemistry,
+geometry or resource limits save the direct edit alone with a skip warning. It
+never reverses explicit H deletion. Standalone preparation, minimization and
+residue mutation keep separate prerequisites. New XYZ imports preserve absent
+formal charges as unknown and report that fact; historical saved records are not
+reinterpreted. Broad catalogue, ring fusion, peptide growth and combining separate
+entries remain outside #74.
+
+Each edit publishes one immutable artifact/history command. Undo/Redo restores
+exact molecular state; monotonic IDs are not reused after branching. Warnings
+persist in entry Details. Locks, revisions, artifact ownership, valid references,
+finite coordinates and aligned conformers remain required. The application entry
+atom limit applies; the helper's256-heavy-atom limit is not a direct-edit limit.
+No database or top-level schema migration is introduced (Alembic0014;
+project/viewer/archive2, normalized/selection1). Native archives preserve drafts,
+unknowns, generated/empty entries and conformers exactly. Chemical exports explain
+representational defaults/losses or refuse a graph the format cannot represent;
+SMILES requires assigned valid chemistry. Native bond exclusions are not portable
+in chemical files. MOL2 types derive from the current draft with a review warning.
+Use native archives for exact draft persistence. The actual v0.16.0 reader retains
+data/history/archives but its old aromatic renderer/helpers can refuse drafts;
+unrestricted runtime rollback is not supported. Back up complete managed data.
+See [compatibility guidance](DEVELOPMENT.md#direct-molecular-modeling-compatibility-issue-74).
 
 In **Residues**, pick exactly one complete amino-acid residue and click one of
 the 20 replacement names. Selecting only an atom, multiple residues or an
@@ -128,3 +144,8 @@ the heading/Close action reachable. Scientific limits and full operation warning
 are available in labelled disclosures; persisted entry Details remains the durable
 warning source. Touch controls/launcher use44px targets. H display is presentation
 only and local H preferences/isolation/exact hiding can still hide an atom.
+
+MOL/SDF/SMILES may interpret missing H through format valence defaults, even after
+explicit H deletion. Modeled exports require acknowledgement of this limitation;
+no H is added to canonical records. Use native archives to preserve the literal
+draft rather than treating a chemical format as a protonation specification.

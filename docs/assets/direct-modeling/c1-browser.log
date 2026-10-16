@@ -1,0 +1,57 @@
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade  -> 0001, Create Milestone 1 project workspace tables.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0001 -> 0002, Version existing project checkpoint snapshots.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0002 -> 0003, Add artifact-backed molecular entry summaries.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0003 -> 0004, Add durable named atom selections.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0004 -> 0005, Add viewer settings, measurements, and named scenes.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0005 -> 0006, Add exact atom identity summaries and monotonic edit allocators.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0006 -> 0007, Add durable generic job lifecycle tables.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0007 -> 0008, Add durable selection representation assignments to viewer settings.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0008 -> 0009, Add durable nonpolar-hydrogen visibility to viewer settings.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0009 -> 0010, Add selection appearance defaults without losing retained history.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0010 -> 0011, Add selection surface defaults without losing retained history.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0011 -> 0012, Add atomic-detail visibility defaults without losing retained history.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0012 -> 0013, Add pocket surface defaults without losing retained history.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0013 -> 0014, Migrate every retained viewer snapshot to identified surface objects.
+[2m[WebServer] [22mINFO:     Started server process [967820]
+[2m[WebServer] [22mINFO:     Waiting for application startup.
+[2m[WebServer] [22mINFO:     Application startup complete.
+[2m[WebServer] [22mINFO:     Uvicorn running on http://127.0.0.1:8270 (Press CTRL+C to quit)
+[2m[WebServer] [22m(node:967894) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:967906) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 20 tests using 1 worker
+
+(node:967931) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:967931) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [chromium] › tests/e2e/hydrogen-membership.spec.ts:8:5 › keeps bonded orphan H in the ligand and enables editing an unrelated native atom (5.2s)
+  ✓   2 [chromium] › tests/e2e/molecular-editing.spec.ts:21:5 › performs one selection-driven atom/H edit with exact undo and unchanged original (6.4s)
+  ✓   3 [chromium] › tests/e2e/molecular-editing.spec.ts:54:5 › maps a native bond hit to canonical endpoints and changes its order from the panel (5.1s)
+  ✓   4 [chromium] › tests/e2e/molecular-editing.spec.ts:86:5 › substitutes a selected H with illustrated COOH without an attachment mode (5.6s)
+  ✓   5 [chromium] › tests/e2e/molecular-editing.spec.ts:112:5 › mutates a natively picked residue successively and preserves exact backbone and undo (5.3s)
+  ✓   6 [chromium] › tests/e2e/molecular-editing.spec.ts:152:5 › keeps tool focus, notices and all controls accessible in both themes and narrow layouts (5.9s)
+  ✓   7 [chromium] › tests/e2e/molecular-editing.spec.ts:192:5 › edits a prepared complex with native H/new-atom picks, fixed camera and one affected reload (9.8s)
+  ✓   8 [chromium] › tests/e2e/molecular-editing.spec.ts:291:5 › keeps late edit responses owned by their original project (6.1s)
+  ✓   9 [chromium] › tests/e2e/molecular-editing.spec.ts:321:5 › retains a newer native selection and recovers an affected-artifact refetch failure (5.8s)
+  ✓  10 [chromium] › tests/e2e/molecular-editing.spec.ts:364:5 › keeps a newer pending edit owned after leaving and returning to the same project (17.8s)
+(node:968377) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:968377) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  11 [mobile-chromium] › tests/e2e/hydrogen-membership.spec.ts:8:5 › keeps bonded orphan H in the ligand and enables editing an unrelated native atom (4.7s)
+  ✓  12 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:21:5 › performs one selection-driven atom/H edit with exact undo and unchanged original (6.1s)
+  ✓  13 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:54:5 › maps a native bond hit to canonical endpoints and changes its order from the panel (4.9s)
+  ✓  14 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:86:5 › substitutes a selected H with illustrated COOH without an attachment mode (5.4s)
+  ✓  15 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:112:5 › mutates a natively picked residue successively and preserves exact backbone and undo (5.1s)
+  ✓  16 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:152:5 › keeps tool focus, notices and all controls accessible in both themes and narrow layouts (5.6s)
+  ✓  17 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:192:5 › edits a prepared complex with native H/new-atom picks, fixed camera and one affected reload (8.9s)
+  ✓  18 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:291:5 › keeps late edit responses owned by their original project (5.8s)
+  ✓  19 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:321:5 › retains a newer native selection and recovers an affected-artifact refetch failure (5.3s)
+  ✓  20 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:364:5 › keeps a newer pending edit owned after leaving and returning to the same project (17.4s)
+
+  20 passed (2.5m)

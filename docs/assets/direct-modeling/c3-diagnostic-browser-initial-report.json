@@ -1,0 +1,626 @@
+{
+  "config": {
+    "configFile": "/datadisk/dev/neistra/playwright.config.ts",
+    "rootDir": "/datadisk/dev/neistra/tests/e2e",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "list"
+      ],
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "/datadisk/dev/neistra/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/datadisk/dev/neistra/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/datadisk/dev/neistra/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "mobile-chromium",
+        "name": "mobile-chromium",
+        "testDir": "/datadisk/dev/neistra/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.55.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "direct-molecular-modeling.spec.ts",
+      "file": "direct-molecular-modeling.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "breaks an aromatic bond and keeps the incomplete draft visible and pickable",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5928,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "steps": [
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 1157
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 19
+                    },
+                    {
+                      "title": "Expect \"poll not toContainEqual\"",
+                      "duration": 86
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 5
+                    },
+                    {
+                      "title": "Expect \"poll toContain\"",
+                      "duration": 25
+                    }
+                  ],
+                  "startTime": "2026-10-16T19:19:51.192Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "41658728061426141e89-f31183f3b3437199f4a0",
+          "file": "direct-molecular-modeling.spec.ts",
+          "line": 39,
+          "column": 5
+        },
+        {
+          "title": "removes a native inferred protein bond durably and restores it on Undo",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6484,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "steps": [
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 752
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 17
+                    },
+                    {
+                      "title": "Expect \"poll not toContainEqual\"",
+                      "duration": 151
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 772
+                    },
+                    {
+                      "title": "Expect \"poll toContainEqual\"",
+                      "duration": 395
+                    }
+                  ],
+                  "startTime": "2026-10-16T19:19:57.179Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "41658728061426141e89-d802661c3af7dad81a3e",
+          "file": "direct-molecular-modeling.spec.ts",
+          "line": 84,
+          "column": 5
+        },
+        {
+          "title": "creates a molecule, previews/cancels without mutation, applies and rebuilds the last atom",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 150000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 4090,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThan\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: > \u001b[32m1\u001b[39m\nReceived:   \u001b[31m1\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThan\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: > \u001b[32m1\u001b[39m\nReceived:   \u001b[31m1\u001b[39m\n    at /datadisk/dev/neistra/tests/e2e/direct-molecular-modeling.spec.ts:161:33",
+                    "location": {
+                      "file": "/datadisk/dev/neistra/tests/e2e/direct-molecular-modeling.spec.ts",
+                      "column": 33,
+                      "line": 161
+                    },
+                    "snippet": "  159 |   let ghost = await previewState(page);\n  160 |   expect(ghost.preview!.atoms).toHaveLength(1);\n> 161 |   expect(ghost.representations).toBeGreaterThan(baseline.representations);\n      |                                 ^\n  162 |   expect(ghost.objects.every(object => !object.pickable && object.drawCount > 0)).toBe(true);\n  163 |   expect(ghost.canonicalAtoms).toEqual(baseline.canonicalAtoms);\n  164 |   const point = ghost.preview!.atoms[0].coordinates;"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/datadisk/dev/neistra/tests/e2e/direct-molecular-modeling.spec.ts",
+                        "column": 33,
+                        "line": 161
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThan\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: > \u001b[32m1\u001b[39m\nReceived:   \u001b[31m1\u001b[39m\n\n  159 |   let ghost = await previewState(page);\n  160 |   expect(ghost.preview!.atoms).toHaveLength(1);\n> 161 |   expect(ghost.representations).toBeGreaterThan(baseline.representations);\n      |                                 ^\n  162 |   expect(ghost.objects.every(object => !object.pickable && object.drawCount > 0)).toBe(true);\n  163 |   expect(ghost.canonicalAtoms).toEqual(baseline.canonicalAtoms);\n  164 |   const point = ghost.preview!.atoms[0].coordinates;\n    at /datadisk/dev/neistra/tests/e2e/direct-molecular-modeling.spec.ts:161:33"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "steps": [
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 529
+                    }
+                  ],
+                  "startTime": "2026-10-16T19:20:03.670Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/datadisk/dev/neistra/test-results/direct-molecular-modeling--66347--and-rebuilds-the-last-atom-chromium/test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/datadisk/dev/neistra/test-results/direct-molecular-modeling--66347--and-rebuilds-the-last-atom-chromium/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/datadisk/dev/neistra/test-results/direct-molecular-modeling--66347--and-rebuilds-the-last-atom-chromium/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/datadisk/dev/neistra/tests/e2e/direct-molecular-modeling.spec.ts",
+                    "column": 33,
+                    "line": 161
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "41658728061426141e89-4e7a6e8cfb863c8c59df",
+          "file": "direct-molecular-modeling.spec.ts",
+          "line": 133,
+          "column": 5
+        },
+        {
+          "title": "attaches directly with unknown chemistry and saves an edit when optional H cannot run",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 150000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 3671,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeNull\u001b[2m()\u001b[22m\n\nReceived: \u001b[31m0\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeNull\u001b[2m()\u001b[22m\n\nReceived: \u001b[31m0\u001b[39m\n    at /datadisk/dev/neistra/tests/e2e/direct-molecular-modeling.spec.ts:215:41",
+                    "location": {
+                      "file": "/datadisk/dev/neistra/tests/e2e/direct-molecular-modeling.spec.ts",
+                      "column": 41,
+                      "line": 215
+                    },
+                    "snippet": "  213 |   const path = `/api/v1/projects/${initial.id}/entries/${entry.id}/structure`;\n  214 |   const before = (await (await request.get(path)).json() as StructureProjection).structure;\n> 215 |   expect(before.atoms[0].formal_charge).toBeNull();\n      |                                         ^\n  216 |   await selectPair(page, entry.id, [before.atoms[0].id], info.project.name === \"mobile-chromium\");\n  217 |   await page.getByRole(\"button\", { name: \"Edit molecule\", exact: true }).click();\n  218 |   const panel = page.getByRole(\"dialog\", { name: \"Edit molecule\", exact: true });"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/datadisk/dev/neistra/tests/e2e/direct-molecular-modeling.spec.ts",
+                        "column": 41,
+                        "line": 215
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeNull\u001b[2m()\u001b[22m\n\nReceived: \u001b[31m0\u001b[39m\n\n  213 |   const path = `/api/v1/projects/${initial.id}/entries/${entry.id}/structure`;\n  214 |   const before = (await (await request.get(path)).json() as StructureProjection).structure;\n> 215 |   expect(before.atoms[0].formal_charge).toBeNull();\n      |                                         ^\n  216 |   await selectPair(page, entry.id, [before.atoms[0].id], info.project.name === \"mobile-chromium\");\n  217 |   await page.getByRole(\"button\", { name: \"Edit molecule\", exact: true }).click();\n  218 |   const panel = page.getByRole(\"dialog\", { name: \"Edit molecule\", exact: true });\n    at /datadisk/dev/neistra/tests/e2e/direct-molecular-modeling.spec.ts:215:41"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "steps": [
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 1044
+                    }
+                  ],
+                  "startTime": "2026-10-16T19:20:08.268Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/datadisk/dev/neistra/test-results/direct-molecular-modeling--dd283--when-optional-H-cannot-run-chromium/test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/datadisk/dev/neistra/test-results/direct-molecular-modeling--dd283--when-optional-H-cannot-run-chromium/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/datadisk/dev/neistra/test-results/direct-molecular-modeling--dd283--when-optional-H-cannot-run-chromium/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/datadisk/dev/neistra/tests/e2e/direct-molecular-modeling.spec.ts",
+                    "column": 41,
+                    "line": 215
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "41658728061426141e89-f73751815ca654a764c3",
+          "file": "direct-molecular-modeling.spec.ts",
+          "line": 209,
+          "column": 5
+        },
+        {
+          "title": "breaks an aromatic bond and keeps the incomplete draft visible and pickable",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile-chromium",
+              "projectName": "mobile-chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 10997,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "steps": [
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 2967
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 36
+                    },
+                    {
+                      "title": "Expect \"poll not toContainEqual\"",
+                      "duration": 216
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 15
+                    },
+                    {
+                      "title": "Expect \"poll toContain\"",
+                      "duration": 24
+                    }
+                  ],
+                  "startTime": "2026-10-16T19:20:12.475Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "41658728061426141e89-0b82316a86b2499fcdcb",
+          "file": "direct-molecular-modeling.spec.ts",
+          "line": 39,
+          "column": 5
+        },
+        {
+          "title": "removes a native inferred protein bond durably and restores it on Undo",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile-chromium",
+              "projectName": "mobile-chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6321,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "steps": [
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 732
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 54
+                    },
+                    {
+                      "title": "Expect \"poll not toContainEqual\"",
+                      "duration": 197
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 451
+                    },
+                    {
+                      "title": "Expect \"poll toContainEqual\"",
+                      "duration": 221
+                    }
+                  ],
+                  "startTime": "2026-10-16T19:20:23.528Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "41658728061426141e89-d54e14248efe28398cd5",
+          "file": "direct-molecular-modeling.spec.ts",
+          "line": 84,
+          "column": 5
+        },
+        {
+          "title": "creates a molecule, previews/cancels without mutation, applies and rebuilds the last atom",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 150000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile-chromium",
+              "projectName": "mobile-chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 8802,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "steps": [
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 943
+                    },
+                    {
+                      "title": "Expect \"poll not toEqual\"",
+                      "duration": 93
+                    },
+                    {
+                      "title": "Expect \"poll toBeNull\"",
+                      "duration": 21
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 21
+                    },
+                    {
+                      "title": "Expect \"poll toBeNull\"",
+                      "duration": 143
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 18
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 19
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 14
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 25
+                    }
+                  ],
+                  "startTime": "2026-10-16T19:20:29.858Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "41658728061426141e89-f871b4d9727d5eaf6b6a",
+          "file": "direct-molecular-modeling.spec.ts",
+          "line": 133,
+          "column": 5
+        },
+        {
+          "title": "attaches directly with unknown chemistry and saves an edit when optional H cannot run",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 150000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile-chromium",
+              "projectName": "mobile-chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 3089,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeNull\u001b[2m()\u001b[22m\n\nReceived: \u001b[31m0\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeNull\u001b[2m()\u001b[22m\n\nReceived: \u001b[31m0\u001b[39m\n    at /datadisk/dev/neistra/tests/e2e/direct-molecular-modeling.spec.ts:215:41",
+                    "location": {
+                      "file": "/datadisk/dev/neistra/tests/e2e/direct-molecular-modeling.spec.ts",
+                      "column": 41,
+                      "line": 215
+                    },
+                    "snippet": "  213 |   const path = `/api/v1/projects/${initial.id}/entries/${entry.id}/structure`;\n  214 |   const before = (await (await request.get(path)).json() as StructureProjection).structure;\n> 215 |   expect(before.atoms[0].formal_charge).toBeNull();\n      |                                         ^\n  216 |   await selectPair(page, entry.id, [before.atoms[0].id], info.project.name === \"mobile-chromium\");\n  217 |   await page.getByRole(\"button\", { name: \"Edit molecule\", exact: true }).click();\n  218 |   const panel = page.getByRole(\"dialog\", { name: \"Edit molecule\", exact: true });"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/datadisk/dev/neistra/tests/e2e/direct-molecular-modeling.spec.ts",
+                        "column": 41,
+                        "line": 215
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeNull\u001b[2m()\u001b[22m\n\nReceived: \u001b[31m0\u001b[39m\n\n  213 |   const path = `/api/v1/projects/${initial.id}/entries/${entry.id}/structure`;\n  214 |   const before = (await (await request.get(path)).json() as StructureProjection).structure;\n> 215 |   expect(before.atoms[0].formal_charge).toBeNull();\n      |                                         ^\n  216 |   await selectPair(page, entry.id, [before.atoms[0].id], info.project.name === \"mobile-chromium\");\n  217 |   await page.getByRole(\"button\", { name: \"Edit molecule\", exact: true }).click();\n  218 |   const panel = page.getByRole(\"dialog\", { name: \"Edit molecule\", exact: true });\n    at /datadisk/dev/neistra/tests/e2e/direct-molecular-modeling.spec.ts:215:41"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "steps": [
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 885
+                    }
+                  ],
+                  "startTime": "2026-10-16T19:20:38.668Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/datadisk/dev/neistra/test-results/direct-molecular-modeling--dd283--when-optional-H-cannot-run-mobile-chromium/test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/datadisk/dev/neistra/test-results/direct-molecular-modeling--dd283--when-optional-H-cannot-run-mobile-chromium/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/datadisk/dev/neistra/test-results/direct-molecular-modeling--dd283--when-optional-H-cannot-run-mobile-chromium/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/datadisk/dev/neistra/tests/e2e/direct-molecular-modeling.spec.ts",
+                    "column": 41,
+                    "line": 215
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "41658728061426141e89-0f27b30ae9bb0a369368",
+          "file": "direct-molecular-modeling.spec.ts",
+          "line": 209,
+          "column": 5
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-16T19:19:47.076Z",
+    "duration": 54855.420999999995,
+    "expected": 5,
+    "skipped": 0,
+    "unexpected": 3,
+    "flaky": 0
+  }
+}

@@ -101,7 +101,9 @@ def prepared_complex() -> NormalizedStructureV1:
     )
 
 
-def build_fixture(structure: NormalizedStructureV1 | None = None) -> bytes:
+def build_fixture(
+    structure: NormalizedStructureV1 | None = None, *, application_version: str = "0.15.0"
+) -> bytes:
     structure = prepared_complex() if structure is None else structure
     data = structure.to_bytes()
     digest = hashlib.sha256(data).hexdigest()
@@ -110,7 +112,7 @@ def build_fixture(structure: NormalizedStructureV1 | None = None) -> bytes:
     return build_project_archive(
         ArchiveBuildInput(
             manifest=ProjectManifestV2(
-                application_version="0.15.0",
+                application_version=application_version,
                 source_project_id=str(UUID(int=690)),
                 source_revision=0,
                 source_checkpoint_revision=0,
@@ -126,18 +128,18 @@ def build_fixture(structure: NormalizedStructureV1 | None = None) -> bytes:
                         id=str(UUID(int=691)),
                         group_id=None,
                         name=structure.title,
-                        structure_type="complex",
+                        structure_type=structure.structure_type,
                         normalized_data={"schema_version": 1, "storage": "artifact"},
                         atom_count=len(structure.atoms),
                         atom_ids=[a.id for a in structure.atoms],
                         bond_count=len(structure.bonds),
                         residue_count=len(structure.residues),
-                        conformer_count=1,
+                        conformer_count=len(structure.conformers),
                         warnings=list(structure.warnings),
-                        next_atom_id=max(a.id for a in structure.atoms) + 1,
-                        next_bond_id=max(b.id for b in structure.bonds) + 1,
+                        next_atom_id=max((a.id for a in structure.atoms), default=0) + 1,
+                        next_bond_id=max((b.id for b in structure.bonds), default=0) + 1,
                         viewer_settings=ViewerSettingsV2.model_validate(
-                            default_viewer_settings("complex")
+                            default_viewer_settings(structure.structure_type)
                         ),
                         visible=True,
                         locked=False,

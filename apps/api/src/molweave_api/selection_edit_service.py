@@ -31,20 +31,14 @@ class SelectionEditService(LigandEditService):
         entry_id: str,
         payload: SelectionEditCreate,
     ) -> SelectionEditRead:
-        self._project(project_id, payload.expected_revision)
-        entry = ProjectService(self.session)._entry(
-            ProjectService(self.session)._project(project_id),
+        entry, before = self._selection_target(
+            project_id,
             entry_id,
+            payload.expected_revision,
+            payload.expected_artifact_id,
+            payload.selection,
         )
-        if entry.locked:
-            raise InvalidProjectOperationError(f"Unlock {entry.name} before editing.")
-        if entry.current_artifact_id != payload.expected_artifact_id:
-            raise InvalidProjectOperationError(
-                "The molecular artifact has changed; select the target again."
-            )
-        if any(ref.structure_id != entry_id for ref in payload.selection.atoms):
-            raise InvalidProjectOperationError("Select atoms in exactly one entry.")
-        before = self._structure(entry)
+        atom_floor, bond_floor = ProjectService(self.session).allocation_floor(entry)
         selected = [ref.atom_id for ref in payload.selection.atoms]
         after_selection: SelectionV1 | None = None
         try:
@@ -82,8 +76,8 @@ class SelectionEditService(LigandEditService):
                     before,
                     residue_id,
                     payload.action.target_name,
-                    next_atom_id=entry.next_atom_id,
-                    next_bond_id=entry.next_bond_id,
+                    next_atom_id=atom_floor,
+                    next_bond_id=bond_floor,
                 )
                 result = SelectionEditResult(
                     EditResult(
@@ -111,22 +105,61 @@ class SelectionEditService(LigandEditService):
                     before,
                     selected,
                     payload.action,
-                    next_atom_id=entry.next_atom_id,
-                    next_bond_id=entry.next_bond_id,
+                    next_atom_id=atom_floor,
+                    next_bond_id=bond_floor,
                 )
         except (InvalidSelectionEdit, InvalidProteinEditError) as error:
             raise InvalidProjectOperationError(str(error)) from error
-        return self._publish_selection(entry, before, payload, result, after_selection)
+        return self._publish_molecular_result(
+            entry,
+            before,
+            payload.expected_revision,
+            payload.selection,
+            payload.action.operation,
+            self._selection_description(entry, payload),
+            result,
+            after_selection,
+        )
 
-    def _publish_selection(
+    def _selection_target(
+        self,
+        project_id: str,
+        entry_id: str,
+        expected_revision: int,
+        expected_artifact_id: str,
+        selection: SelectionV1,
+    ) -> tuple[StructureEntry, NormalizedStructureV1]:
+        self._project(project_id, expected_revision)
+        entry = ProjectService(self.session)._entry(
+            ProjectService(self.session)._project(project_id),
+            entry_id,
+        )
+        if entry.locked:
+            raise InvalidProjectOperationError(f"Unlock {entry.name} before editing.")
+        if entry.current_artifact_id != expected_artifact_id:
+            raise InvalidProjectOperationError(
+                "The molecular artifact has changed; select the target again."
+            )
+        if any(ref.structure_id != entry_id for ref in selection.atoms):
+            raise InvalidProjectOperationError("Select atoms in exactly one entry.")
+        before = self._structure(entry)
+        return entry, before
+
+    def _publish_molecular_result(
         self,
         entry: StructureEntry,
         before: NormalizedStructureV1,
-        payload: SelectionEditCreate,
+        expected_revision: int,
+        selection: SelectionV1,
+        operation: str,
+        description: str,
         result: SelectionEditResult,
-        after_selection: SelectionV1 | None,
+        after_selection: SelectionV1 | None = None,
+        *,
+        command_prefix: str = "selection",
     ) -> SelectionEditRead:
         edit = result.edit
+        atom_floor, bond_floor = ProjectService(self.session).allocation_floor(entry)
         artifact = self.artifacts.publish(
             edit.structure.to_bytes(),
             f"{safe_filename_stem(entry.name)}-edit.normalized.json",
@@ -134,20 +167,20 @@ class SelectionEditService(LigandEditService):
         )
         project = ProjectService(self.session).record_molecular_change(
             entry.project_id,
-            payload.expected_revision,
-            f"selection.{payload.action.operation}",
-            self._selection_description(entry, payload),
+            expected_revision,
+            f"{command_prefix}.{operation}",
+            description,
             {
                 "entry_id": entry.id,
                 "before_artifact_id": entry.current_artifact_id,
                 "after_artifact_id": artifact.id,
                 "before_values": self._summary(before),
                 "after_values": self._summary(edit.structure),
-                "next_atom_id": entry.next_atom_id + len(edit.created_atom_ids),
-                "next_bond_id": entry.next_bond_id + len(edit.created_bond_ids),
+                "next_atom_id": max(atom_floor, max(edit.created_atom_ids, default=0) + 1),
+                "next_bond_id": max(bond_floor, max(edit.created_bond_ids, default=0) + 1),
             },
             list(edit.deleted_atom_ids),
-            selection_snapshot=[ref.model_dump(mode="json") for ref in payload.selection.atoms],
+            selection_snapshot=[ref.model_dump(mode="json") for ref in selection.atoms],
         )
         remaining_ids = {a.id for a in edit.structure.atoms}
         if after_selection is None:
@@ -157,19 +190,19 @@ class SelectionEditService(LigandEditService):
                     for i in sorted(
                         {
                             result.replacements.get(ref.atom_id, ref.atom_id)
-                            for ref in payload.selection.atoms
+                            for ref in selection.atoms
                         }
                         & remaining_ids
                     )
                 ],
-                granularity=payload.selection.granularity,
-                source=payload.selection.source,
+                granularity=selection.granularity,
+                source=selection.source,
             )
         return SelectionEditRead(
             project=project,
             warnings=list(edit.warnings),
             report=LigandEditReport(
-                operation=payload.action.operation,
+                operation=operation,
                 created_atom_ids=list(edit.created_atom_ids),
                 created_bond_ids=list(edit.created_bond_ids),
                 deleted_atom_ids=list(edit.deleted_atom_ids),

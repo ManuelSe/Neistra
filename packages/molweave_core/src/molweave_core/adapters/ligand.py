@@ -50,6 +50,46 @@ def _parse_error(filename: str, format_name: str, record_index: int | None = Non
     )
 
 
+def _export_mol(structure: NormalizedStructureV1, filename: str) -> Any:
+    if not structure.atoms:
+        raise AdapterError(
+            "unrepresentable_draft",
+            "This chemical format cannot represent an empty "
+            "modeling entry; use a native project archive.",
+            filename=filename,
+            operation="export",
+        )
+    try:
+        return normalized_to_mol(structure)
+    except (ValueError, RuntimeError, OverflowError) as error:
+        raise AdapterError(
+            "unrepresentable_draft",
+            "This format cannot represent the authored "
+            f"draft without changes: {error}. Use a native project archive.",
+            filename=filename,
+            operation="export",
+        ) from error
+
+
+def _export_mol_block(mol: Any, filename: str, conformer_index: int) -> str:
+    try:
+        return str(
+            Chem.MolToMolBlock(
+                mol,
+                confId=conformer_index,
+                forceV3000=mol.GetNumAtoms() > 999 or mol.GetNumBonds() > 999,
+            )
+        )
+    except (ValueError, RuntimeError, OverflowError) as error:
+        raise AdapterError(
+            "unrepresentable_draft",
+            "This format cannot represent the authored "
+            f"draft without changes: {error}. Use a native project archive.",
+            filename=filename,
+            operation="export",
+        ) from error
+
+
 class SdfAdapter:
     capabilities = FormatCapabilities(
         format="sdf",
@@ -83,15 +123,11 @@ class SdfAdapter:
         return ParseResult(structures=tuple(structures))
 
     def export(self, structure: NormalizedStructureV1, filename_stem: str) -> ExportResult:
-        mol = normalized_to_mol(structure)
+        mol = _export_mol(structure, f"{filename_stem}.sdf")
         records: list[str] = []
         properties = structure.metadata.get("properties", {})
         for conformer_index in range(mol.GetNumConformers()):
-            block = Chem.MolToMolBlock(
-                mol,
-                confId=conformer_index,
-                forceV3000=mol.GetNumAtoms() > 999 or mol.GetNumBonds() > 999,
-            )
+            block = _export_mol_block(mol, f"{filename_stem}.sdf", conformer_index)
             property_lines: list[str] = []
             for key, value in sorted(properties.items()):
                 if isinstance(value, (str, int, float, bool)):
@@ -127,12 +163,11 @@ class MolAdapter:
         )
 
     def export(self, structure: NormalizedStructureV1, filename_stem: str) -> ExportResult:
-        mol = normalized_to_mol(structure)
-        block = Chem.MolToMolBlock(
-            mol,
-            confId=max(structure.active_conformer_id - 1, 0),
-            forceV3000=mol.GetNumAtoms() > 999 or mol.GetNumBonds() > 999,
+        mol = _export_mol(structure, f"{filename_stem}.mol")
+        active = next(
+            i for i, c in enumerate(structure.conformers) if c.id == structure.active_conformer_id
         )
+        block = _export_mol_block(mol, f"{filename_stem}.mol", active)
         return ExportResult(
             data=block.encode("utf-8"),
             filename=f"{filename_stem}.mol",
@@ -254,19 +289,36 @@ class XyzAdapter:
                     field="bonds",
                 )
             )
-        return ParseResult(
-            structures=(
-                mol_to_normalized(
-                    mol,
-                    filename=filename,
-                    format_name="xyz",
-                    inferences=inferences,
-                    warnings=warnings,
-                    inferred_bonds=inferred_bonds,
-                    unknown_bond_orders=unknown_orders,
+        warnings.append(
+            MolecularWarning(
+                code="xyz_formal_charges_unknown",
+                message=(
+                    "XYZ contains no formal charges; they were retained as unknown, not neutral."
                 ),
+                operation="import",
+                field="atoms.formal_charge",
             )
         )
+        structure = mol_to_normalized(
+            mol,
+            filename=filename,
+            format_name="xyz",
+            inferences=inferences,
+            warnings=warnings,
+            inferred_bonds=inferred_bonds,
+            unknown_bond_orders=unknown_orders,
+        )
+        structure = structure.model_copy(
+            update={
+                "atoms": [a.model_copy(update={"formal_charge": None}) for a in structure.atoms],
+                "metadata": {
+                    key: value
+                    for key, value in structure.metadata.items()
+                    if key != "canonical_smiles"
+                },
+            }
+        )
+        return ParseResult(structures=(structure,))
 
     def export(self, structure: NormalizedStructureV1, filename_stem: str) -> ExportResult:
         lines = [str(len(structure.atoms)), structure.title]
@@ -365,8 +417,28 @@ class SmilesAdapter:
         return ParseResult(structures=tuple(structures))
 
     def export(self, structure: NormalizedStructureV1, filename_stem: str) -> ExportResult:
-        mol = normalized_to_mol(structure)
-        smiles = Chem.MolToSmiles(mol, canonical=True, isomericSmiles=True)
+        if any(a.formal_charge is None for a in structure.atoms) or any(
+            b.order is None for b in structure.bonds
+        ):
+            raise AdapterError(
+                "incomplete_chemistry",
+                "SMILES requires assigned formal charges and bond orders; "
+                "use a native project archive for this draft.",
+                filename=f"{filename_stem}.smi",
+                operation="export",
+            )
+        mol = _export_mol(structure, f"{filename_stem}.smi")
+        try:
+            Chem.SanitizeMol(mol)
+            smiles = Chem.MolToSmiles(mol, canonical=True, isomericSmiles=True)
+        except (ValueError, RuntimeError, OverflowError) as error:
+            raise AdapterError(
+                "unrepresentable_draft",
+                "SMILES cannot represent this draft as assigned valid chemistry; "
+                f"use a native project archive: {error}",
+                filename=f"{filename_stem}.smi",
+                operation="export",
+            ) from error
         return ExportResult(
             data=f"{smiles}\t{structure.title}\n".encode(),
             filename=f"{filename_stem}.smi",
@@ -391,7 +463,11 @@ def _mol2_atom_types(text: str) -> list[str]:
 
 def _sybyl_type(atom: Any, structure: NormalizedStructureV1) -> str:
     explicit_types = structure.metadata.get("mol2_atom_types")
-    if isinstance(explicit_types, list) and atom.source_index < len(explicit_types):
+    if (
+        "neistra_modeling" not in structure.metadata
+        and isinstance(explicit_types, list)
+        and atom.source_index < len(explicit_types)
+    ):
         value = explicit_types[atom.source_index]
         if isinstance(value, str) and value:
             return value

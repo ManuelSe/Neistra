@@ -152,6 +152,7 @@ test("keeps the persisted theme through the real viewer lifecycle", async ({
   const originalArtifactId = ligand!.current_artifact_id;
 
   await page.getByRole("tab", { name: "ligand" }).click();
+  await page.getByRole("combobox", { name: "Ligand", exact: true }).selectOption(ligand!.id);
   await page
     .getByRole("combobox", { name: "Element", exact: true })
     .selectOption("C");

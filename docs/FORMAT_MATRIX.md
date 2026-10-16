@@ -9,7 +9,7 @@ Status: Neistra
 | SDF | `.sdf` | RDKit strict parsing; each record becomes a separate entry; scalar properties and conformers retained where provided. | Writes one record per conformer and scalar properties. |
 | MOL | `.mol` | RDKit V2000/V3000 parsing with coordinates, charges, connectivity, and stereo. | Writes V3000 when atom/bond counts exceed V2000 limits; one active conformer; warns for hierarchy/metadata loss. |
 | MOL2 | `.mol2` | RDKit chemistry plus source SYBYL atom types; Tripos and Corina fixtures cover aromatic and carboxylate typing. | Existing deterministic writer retains explicit source types when mapped and emits `un` for unknown bond order; warns for unsupported hierarchy/metadata/stereo semantics. |
-| XYZ | `.xyz` | Elements and coordinates are native. Optional RDKit distance/radii connectivity inference is recorded; inferred bond order remains unknown. | Writes elements and active coordinates only. Connectivity, bond order, charge, names, stereo, and multiple conformers produce explicit warnings where present. |
+| XYZ | `.xyz` | Elements and coordinates are native. Absent formal charges remain unknown with a warning; no assumed canonical SMILES is retained. Optional RDKit distance/radii connectivity inference is recorded; inferred bond order remains unknown. | Writes elements and active coordinates only. Connectivity, bond order, charge, names, stereo, and multiple conformers produce explicit warnings where present. |
 | SMILES | `.smi`, `.smiles` | Each non-comment line is an entry. Optional fixed-seed ETKDGv3 generation adds hydrogens and 3D coordinates and records inference; UFF cleanup is used only when parameterized. | Writes canonical isomeric SMILES and title. Coordinates, atom names, hierarchy, metadata, and multiple conformers produce warnings where present. |
 
 All text inputs must be UTF-8. The registry selects import adapters by safe
@@ -31,3 +31,21 @@ as a biomolecular mmCIF.
 Blocking export warnings require explicit acknowledgement before artifact
 generation. The immutable original is the only lossless record of unsupported
 source categories or producer-specific fields.
+
+## Authored drafts
+
+Successfully loaded structures remain directly editable regardless of format or
+component classification. Native project archives preserve incomplete chemistry,
+unknown values, empty/generated entries and authored native bond exclusions exactly.
+Chemical output is a separate boundary: MOL/SDF/MOL2 unknown-charge defaults and
+MOL/SDF unknown-order defaults require explicit acknowledgement. SMILES requires
+assigned, valid chemistry. Broken aromatic graphs or writer field overflow can
+produce a typed refusal; use a native archive for the draft. Source bytes stay exact.
+Modeled MOL2 types derive from the current element/order rather than stale source
+SYBYL types, with a blocking review warning. Chemical formats cannot preserve native
+bond exclusions; other viewers may infer removed connectivity. SDF writes separate
+conformer records without native conformer identity/relationship guarantees. PDB
+cannot distinguish assigned neutral from unknown charge and refuses field overflow.
+MOL/SDF/SMILES can interpret absent H through valence defaults, including after
+explicit H deletion. Modeled output requires acknowledgement of that interpretation;
+native archives preserve the literal graph without a protonation claim.

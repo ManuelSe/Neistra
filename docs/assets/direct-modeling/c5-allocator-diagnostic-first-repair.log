@@ -1,0 +1,110 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.2, pluggy-1.6.0
+rootdir: /datadisk/dev/neistra
+configfile: pyproject.toml
+plugins: cov-6.3.0, anyio-4.9.0
+collected 5 items
+
+tests/integration/test_allocator_recreation.py FF...                     [100%]
+
+=================================== FAILURES ===================================
+_ test_entry_recreation_and_branching_keep_atom_and_bond_allocation_floors[False] _
+
+client = <tests.support.api_client.ApiClient object at 0x7dd5c7e87500>
+generated = False
+
+    @pytest.mark.parametrize("generated", [False, True])
+    def test_entry_recreation_and_branching_keep_atom_and_bond_allocation_floors(
+        client: ApiClient, generated: bool
+    ) -> None:
+        if generated:
+            result = create(client)
+            project, entry_id = result["project"], result["entry_id"]
+        else:
+            project, entry_id = project_with_ligand(client)
+        initial = structure(client, project["id"], entry_id)
+        old_atoms, old_bonds = [], []
+        for element in ["N", "P"]:
+            response = edit(
+                client, project, entry_id, [1], {"operation": "atom.add", "element": element}
+            )
+            assert response.status_code == 200, response.text
+            result = response.json()
+            project = result["project"]
+            old_atoms.extend(result["report"]["created_atom_ids"])
+            old_bonds.extend(result["report"]["created_bond_ids"])
+        for _ in range(3):
+            project = history(client, project, "undo")
+        assert project["entries"] == []
+        project = history(client, project, "redo")
+        assert structure(client, project["id"], entry_id) == initial
+        response = edit(client, project, entry_id, [1], {"operation": "atom.add", "element": "O"})
+        assert response.status_code == 200, response.text
+        result = response.json()
+        assert min(result["report"]["created_atom_ids"]) > max(old_atoms)
+        assert min(result["report"]["created_bond_ids"]) > max(old_bonds)
+        project = result["project"]
+        after = structure(client, project["id"], entry_id)
+        entry = project["entries"][0]
+        archive = export_archive(client, project["id"], "recreated-identity-floor")
+        restored = import_archive(client, client.get(archive["artifact"]["download_url"]).content)[
+            "project"
+        ]
+        assert structure(client, restored["id"], restored["entries"][0]["id"]) == after
+>       assert restored["entries"][0]["next_atom_id"] == entry["next_atom_id"]
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'next_atom_id'
+
+tests/integration/test_allocator_recreation.py:66: KeyError
+_ test_entry_recreation_and_branching_keep_atom_and_bond_allocation_floors[True] _
+
+client = <tests.support.api_client.ApiClient object at 0x7dd5fd9f7e00>
+generated = True
+
+    @pytest.mark.parametrize("generated", [False, True])
+    def test_entry_recreation_and_branching_keep_atom_and_bond_allocation_floors(
+        client: ApiClient, generated: bool
+    ) -> None:
+        if generated:
+            result = create(client)
+            project, entry_id = result["project"], result["entry_id"]
+        else:
+            project, entry_id = project_with_ligand(client)
+        initial = structure(client, project["id"], entry_id)
+        old_atoms, old_bonds = [], []
+        for element in ["N", "P"]:
+            response = edit(
+                client, project, entry_id, [1], {"operation": "atom.add", "element": element}
+            )
+            assert response.status_code == 200, response.text
+            result = response.json()
+            project = result["project"]
+            old_atoms.extend(result["report"]["created_atom_ids"])
+            old_bonds.extend(result["report"]["created_bond_ids"])
+        for _ in range(3):
+            project = history(client, project, "undo")
+        assert project["entries"] == []
+        project = history(client, project, "redo")
+        assert structure(client, project["id"], entry_id) == initial
+        response = edit(client, project, entry_id, [1], {"operation": "atom.add", "element": "O"})
+        assert response.status_code == 200, response.text
+        result = response.json()
+        assert min(result["report"]["created_atom_ids"]) > max(old_atoms)
+        assert min(result["report"]["created_bond_ids"]) > max(old_bonds)
+        project = result["project"]
+        after = structure(client, project["id"], entry_id)
+        entry = project["entries"][0]
+        archive = export_archive(client, project["id"], "recreated-identity-floor")
+        restored = import_archive(client, client.get(archive["artifact"]["download_url"]).content)[
+            "project"
+        ]
+        assert structure(client, restored["id"], restored["entries"][0]["id"]) == after
+>       assert restored["entries"][0]["next_atom_id"] == entry["next_atom_id"]
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'next_atom_id'
+
+tests/integration/test_allocator_recreation.py:66: KeyError
+=========================== short test summary info ============================
+FAILED tests/integration/test_allocator_recreation.py::test_entry_recreation_and_branching_keep_atom_and_bond_allocation_floors[False]
+FAILED tests/integration/test_allocator_recreation.py::test_entry_recreation_and_branching_keep_atom_and_bond_allocation_floors[True]
+========================= 2 failed, 3 passed in 1.68s ==========================

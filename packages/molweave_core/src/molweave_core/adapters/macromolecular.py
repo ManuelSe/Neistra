@@ -140,9 +140,7 @@ def _normalized_from_gemmi(
     structure.setup_entities()
     first_model = structure[0]
     entities_by_subchain = {
-        subchain: entity
-        for entity in structure.entities
-        for subchain in entity.subchains
+        subchain: entity for entity in structure.entities for subchain in entity.subchains
     }
     chains: list[Chain] = []
     residues: list[Residue] = []
@@ -477,7 +475,7 @@ class MmcifAdapter:
 
 
 def _write_pdb(structure: NormalizedStructureV1) -> str:
-    if len(structure.atoms) > 99_999:
+    if len(structure.atoms) > 99_999 or any(a.id > 99_999 for a in structure.atoms):
         raise AdapterError(
             "pdb_atom_serial_limit",
             "PDB supports at most 99,999 atom serials; export as PDBx/mmCIF.",
@@ -491,7 +489,7 @@ def _write_pdb(structure: NormalizedStructureV1) -> str:
         if len(structure.conformers) > 1:
             lines.append(f"MODEL     {conformer_index:4d}")
         for atom, (x, y, z) in zip(structure.atoms, conformer.coordinates, strict=True):
-            if any(abs(value) >= 10_000 for value in (x, y, z)):
+            if any(len(f"{value:8.3f}") > 8 for value in (x, y, z)):
                 raise AdapterError(
                     "pdb_coordinate_limit",
                     "A coordinate exceeds the PDB fixed-width range; export as PDBx/mmCIF.",
@@ -511,6 +509,14 @@ def _write_pdb(structure: NormalizedStructureV1) -> str:
             occupancy = atom.occupancy if atom.occupancy is not None else 1.0
             b_factor = atom.b_factor or 0.0
             charge = ""
+            if atom.formal_charge is not None and abs(atom.formal_charge) > 9:
+                raise AdapterError(
+                    "pdb_charge_limit",
+                    "PDB cannot represent a formal charge outside "
+                    "-9 through +9; use a native archive or another format.",
+                    filename=f"{structure.title}.pdb",
+                    operation="export",
+                )
             if atom.formal_charge:
                 sign = "+" if atom.formal_charge > 0 else "-"
                 charge = f"{abs(atom.formal_charge)}{sign}"
@@ -561,6 +567,7 @@ def _write_mmcif(structure: NormalizedStructureV1) -> str:
     )
     residue_by_id = {residue.id: residue for residue in structure.residues}
     chain_by_id = {chain.id: chain for chain in structure.chains}
+    serial_stride = max((a.id for a in structure.atoms), default=0)
     for model_number, conformer in enumerate(structure.conformers, start=1):
         for atom, (x, y, z) in zip(structure.atoms, conformer.coordinates, strict=True):
             residue = residue_by_id.get(atom.residue_id or -1)
@@ -576,7 +583,7 @@ def _write_mmcif(structure: NormalizedStructureV1) -> str:
             atom_site.add_row(
                 [
                     "ATOM" if residue and residue.component_type == "polymer" else "HETATM",
-                    str(atom.id + (model_number - 1) * len(structure.atoms)),
+                    str(atom.id + (model_number - 1) * serial_stride),
                     atom.element,
                     atom.name,
                     atom.alternate_location or ".",

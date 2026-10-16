@@ -649,3 +649,72 @@ Response contains input identities, profile/frame, deterministic interaction
 records (canonical participants, endpoints, scope, geometry), per-type coverage,
 warnings and admitted candidate count. No viewer projection or job worker is
 required; no result is persisted. See [Interactions](INTERACTIONS.md).
+
+## Direct molecular edits (issue #74)
+
+`POST /api/v1/projects/{project_id}/entries/{entry_id}/model-edits` edits canonical
+normalized records without requiring complete chemistry, one conformer or a closed
+ligand component. It requires `expected_revision`, `expected_artifact_id`, one-entry
+`selection`, and discriminated `action`. Current actions:
+
+| Operation | Fields / operands |
+|---|---|
+| `atom.element` | recognized `element`; one atom, identity retained |
+| `atom.charge.set` | absolute integer or null `charge`; one atom |
+| `atom.delete` | exact selected atoms, including H and last atom |
+| `bond.set` | `order`: null,1,1.5,2,3; two distinct atoms in the same entry |
+| `bond.delete` | two endpoints; also records removal of native inferred display connectivity |
+
+Optional `hydrogen_policy` defaults to `preserve`; `complete_if_possible` attempts
+the existing eligible component helper in memory and saves the direct edit alone
+with a warning if completion fails. Explicit H deletion is never reversed.
+The result uses the selection-edit response: project, report, warnings,
+replacements and selection_after, with one reversible history command. Locks,
+stale revisions/artifacts, absent/mixed operands, invalid structural values and
+no-ops refuse publication. Incomplete chemistry produces durable warnings.
+
+`neistra_modeling` normalized metadata version1 stores authored endpoint-pair bond
+exclusions. Native rendering applies them without assigning inferred chemistry;
+adding a canonical bond clears its exclusion, atom deletion prunes references,
+and Undo restores metadata exactly. Existing selection-edits and ligand-edits
+HTTP semantics remain unchanged. See [molecular editing](MOLECULAR_EDITING.md)
+for the implemented workflow, verification and scientific limits.
+
+
+`POST /api/v1/projects/{project_id}/molecules` creates an entry and first atom in
+one command. Supply expected_revision, name, element (default C) and nullable
+integer charge (default0). The response adds entry_id to the ordinary edit response.
+The first atom starts at the origin; generated provenance and nullable source/
+original fields distinguish it from an upload. Undo removes the entry; Redo
+restores its identity and artifact.
+
+Additional direct actions:
+
+| Operation | Fields / operands |
+|---|---|
+| `atom.add` | recognized element, nullable charge (default0), direction0–5; one attachment atom or an explicitly selected empty entry. Optional finite coordinates explicitly position a disconnected atom with empty selection; that point is used in each conformer. |
+| `fragment.attach` | one heavy anchor or terminal H to replace; one of the six existing fragment names, direction0–5 and rotation0–5. |
+
+`POST /api/v1/projects/{project_id}/entries/{entry_id}/model-edits/preview` accepts
+the same request for placement actions, performs the same structural/ownership
+validation and candidate computation, and publishes nothing. It returns captured
+revision/artifact, entry_id, atoms with string preview_id/element/coordinates,
+coordinate-only bonds, existing removed_atom_ids and warnings. New ghost IDs are
+not canonical AtomReferences. Apply sends the captured action to model-edits,
+which validates again and recomputes it. Preview does not reserve identities.
+Generated coordinates cover all conformers; retained coordinates stay exact.
+Optional H merges only new H/bonds from an eligible helper, retaining the direct
+candidate exactly when completion is unavailable. Existing legacy HTTP endpoints
+retain their behavior; compact and advanced manual atom/bond UI share direct edits.
+
+Draft chemical export remains distinct from the structure viewer projection.
+A representational loss requiring acknowledgement returns409 without publishing an
+export artifact; retry with the existing acknowledgement field only after reviewing
+warnings. Unsupported chemistry/field representation returns a typed422; use a
+native project archive rather than repairing canonical records to force export.
+Unknown-charge defaults in MOL/SDF/MOL2, unknown-order defaults in MOL/SDF, modeled
+MOL2 types and native bond-exclusion loss are explicit. SMILES refuses unknown
+charge/order or invalid assigned chemistry. None of these checks gates direct edits.
+Modeled MOL/SDF/SMILES also report blocking `implicit_valence_interpretation`:
+external readers may interpret absent H through valence defaults even after literal
+H deletion. Acknowledgement authorizes that representation, never canonical repair.

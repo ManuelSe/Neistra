@@ -389,3 +389,24 @@ See [C4 evidence](assets/surface-objects/c4-verification.json) for exact command
 raw data, resolved diagnostics and environment limits. Candidate and merged release
 gates remain separate evidence; these measurements do not qualify physical devices,
 other browsers or hardware GPUs.
+
+## Direct molecular modeling (issue #74)
+
+Direct atom/bond changes operate on normalized records. Placement embeds only a
+fixed small template; parent clash ranking uses a spatial tree, without a whole-
+protein RDKit conversion or an N-by-N matrix. A synthetic25,000-atom domain case
+asserts retained records/coordinates and forbids parent helper conversion; it is
+a scope regression, not a throughput benchmark. The configured1,000,000-atom entry
+limit is a resource bound, not a responsive-size guarantee.
+
+The existing pinned1STP movement profile now runs both the original1,001 atoms and
+a1,002-atom authored draft with the native bond decorator active. Both retain the
+existing <500ms first-preview/cancel, <750ms longest-task, one-active-update and
+40-submitted/two-rendered-frame budgets. Surface regeneration remains measured
+separately. C4 evidence records actual observations; complete candidate/merged gates
+repeat the existing surface/capacity/navigation/interaction budgets unchanged.
+
+[C4 native profiles](assets/direct-modeling/c4-performance-profiles.json) and
+[source-bound commands](assets/direct-modeling/c4-verification.json) retain exact
+observations and host limits. Final broad gate99passes/13intentional skips;
+no timing budget was changed. Final-version complete gates remain C5.

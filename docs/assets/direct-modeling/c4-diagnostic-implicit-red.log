@@ -1,0 +1,123 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.2, pluggy-1.6.0
+rootdir: /datadisk/dev/neistra
+configfile: pyproject.toml
+plugins: cov-6.3.0, anyio-4.9.0
+collected 19 items / 16 deselected / 3 selected
+
+tests/scientific/test_direct_modeling.py FFF                             [100%]
+
+=================================== FAILURES ===================================
+___ test_h_free_draft_exports_explain_implicit_valence_h_interpretation[mol] ___
+
+format_name = 'mol'
+
+    @pytest.mark.parametrize("format_name", ["mol", "sdf", "smiles"])
+    def test_h_free_draft_exports_explain_implicit_valence_h_interpretation(format_name: str) -> None:
+        from molweave_core.editing.model import ModelDelete
+        from rdkit import Chem
+
+        before = paracetamol()
+        draft = (
+            DirectMolecularEditor()
+            .edit(
+                before,
+                [a.id for a in before.atoms if a.element == "H"],
+                ModelDelete(operation="atom.delete"),
+                next_atom_id=100,
+                next_bond_id=100,
+            )
+            .edit.structure
+        )
+        assert all(a.element != "H" for a in draft.atoms)
+        snapshot = draft.to_bytes()
+        result = create_default_registry().for_format(format_name).export(draft, "literal-h-free")
+        text = result.data.decode()
+        interpreted = (
+            Chem.MolFromSmiles(text.split()[0])
+            if format_name == "smiles"
+            else Chem.MolFromMolBlock(text.split("$$$$")[0])
+        )
+        assert sum(a.GetTotalNumHs() for a in interpreted.GetAtoms()) > 0
+>       assert any(w.code == "implicit_valence_interpretation" and w.blocking for w in result.warnings)
+E       assert False
+E        +  where False = any(<generator object test_h_free_draft_exports_explain_implicit_valence_h_interpretation.<locals>.<genexpr> at 0x74a8c76f5d80>)
+
+tests/scientific/test_direct_modeling.py:297: AssertionError
+___ test_h_free_draft_exports_explain_implicit_valence_h_interpretation[sdf] ___
+
+format_name = 'sdf'
+
+    @pytest.mark.parametrize("format_name", ["mol", "sdf", "smiles"])
+    def test_h_free_draft_exports_explain_implicit_valence_h_interpretation(format_name: str) -> None:
+        from molweave_core.editing.model import ModelDelete
+        from rdkit import Chem
+
+        before = paracetamol()
+        draft = (
+            DirectMolecularEditor()
+            .edit(
+                before,
+                [a.id for a in before.atoms if a.element == "H"],
+                ModelDelete(operation="atom.delete"),
+                next_atom_id=100,
+                next_bond_id=100,
+            )
+            .edit.structure
+        )
+        assert all(a.element != "H" for a in draft.atoms)
+        snapshot = draft.to_bytes()
+        result = create_default_registry().for_format(format_name).export(draft, "literal-h-free")
+        text = result.data.decode()
+        interpreted = (
+            Chem.MolFromSmiles(text.split()[0])
+            if format_name == "smiles"
+            else Chem.MolFromMolBlock(text.split("$$$$")[0])
+        )
+        assert sum(a.GetTotalNumHs() for a in interpreted.GetAtoms()) > 0
+>       assert any(w.code == "implicit_valence_interpretation" and w.blocking for w in result.warnings)
+E       assert False
+E        +  where False = any(<generator object test_h_free_draft_exports_explain_implicit_valence_h_interpretation.<locals>.<genexpr> at 0x74a8c5b5df20>)
+
+tests/scientific/test_direct_modeling.py:297: AssertionError
+_ test_h_free_draft_exports_explain_implicit_valence_h_interpretation[smiles] __
+
+format_name = 'smiles'
+
+    @pytest.mark.parametrize("format_name", ["mol", "sdf", "smiles"])
+    def test_h_free_draft_exports_explain_implicit_valence_h_interpretation(format_name: str) -> None:
+        from molweave_core.editing.model import ModelDelete
+        from rdkit import Chem
+
+        before = paracetamol()
+        draft = (
+            DirectMolecularEditor()
+            .edit(
+                before,
+                [a.id for a in before.atoms if a.element == "H"],
+                ModelDelete(operation="atom.delete"),
+                next_atom_id=100,
+                next_bond_id=100,
+            )
+            .edit.structure
+        )
+        assert all(a.element != "H" for a in draft.atoms)
+        snapshot = draft.to_bytes()
+        result = create_default_registry().for_format(format_name).export(draft, "literal-h-free")
+        text = result.data.decode()
+        interpreted = (
+            Chem.MolFromSmiles(text.split()[0])
+            if format_name == "smiles"
+            else Chem.MolFromMolBlock(text.split("$$$$")[0])
+        )
+        assert sum(a.GetTotalNumHs() for a in interpreted.GetAtoms()) > 0
+>       assert any(w.code == "implicit_valence_interpretation" and w.blocking for w in result.warnings)
+E       assert False
+E        +  where False = any(<generator object test_h_free_draft_exports_explain_implicit_valence_h_interpretation.<locals>.<genexpr> at 0x74a8c5bcf510>)
+
+tests/scientific/test_direct_modeling.py:297: AssertionError
+=========================== short test summary info ============================
+FAILED tests/scientific/test_direct_modeling.py::test_h_free_draft_exports_explain_implicit_valence_h_interpretation[mol]
+FAILED tests/scientific/test_direct_modeling.py::test_h_free_draft_exports_explain_implicit_valence_h_interpretation[sdf]
+FAILED tests/scientific/test_direct_modeling.py::test_h_free_draft_exports_explain_implicit_valence_h_interpretation[smiles]
+======================= 3 failed, 16 deselected in 0.20s =======================

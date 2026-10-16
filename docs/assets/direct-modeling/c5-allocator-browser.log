@@ -1,0 +1,86 @@
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade  -> 0001, Create Milestone 1 project workspace tables.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0001 -> 0002, Version existing project checkpoint snapshots.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0002 -> 0003, Add artifact-backed molecular entry summaries.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0003 -> 0004, Add durable named atom selections.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0004 -> 0005, Add viewer settings, measurements, and named scenes.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0005 -> 0006, Add exact atom identity summaries and monotonic edit allocators.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0006 -> 0007, Add durable generic job lifecycle tables.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0007 -> 0008, Add durable selection representation assignments to viewer settings.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0008 -> 0009, Add durable nonpolar-hydrogen visibility to viewer settings.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0009 -> 0010, Add selection appearance defaults without losing retained history.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0010 -> 0011, Add selection surface defaults without losing retained history.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0011 -> 0012, Add atomic-detail visibility defaults without losing retained history.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0012 -> 0013, Add pocket surface defaults without losing retained history.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0013 -> 0014, Migrate every retained viewer snapshot to identified surface objects.
+[2m[WebServer] [22mINFO:     Started server process [1048205]
+[2m[WebServer] [22mINFO:     Waiting for application startup.
+[2m[WebServer] [22mINFO:     Application startup complete.
+[2m[WebServer] [22mINFO:     Uvicorn running on http://127.0.0.1:8270 (Press CTRL+C to quit)
+[2m[WebServer] [22m(node:1048278) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:1048290) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 46 tests using 1 worker
+
+(node:1048313) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:1048313) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [chromium] › tests/e2e/direct-molecular-modeling.spec.ts:7:5 › breaks an aromatic bond and keeps the incomplete draft visible and pickable (6.0s)
+  ✓   2 [chromium] › tests/e2e/direct-molecular-modeling.spec.ts:52:5 › removes a native inferred protein bond durably and restores it on Undo (6.5s)
+  ✓   3 [chromium] › tests/e2e/direct-molecular-modeling.spec.ts:81:5 › creates a molecule, previews/cancels without mutation, applies and rebuilds the last atom (9.4s)
+  ✓   4 [chromium] › tests/e2e/direct-molecular-modeling.spec.ts:159:5 › attaches directly with unknown chemistry and saves an edit when optional H cannot run (6.1s)
+  ✓   5 [chromium] › tests/e2e/direct-molecular-modeling.spec.ts:190:5 › does not restore a late proposal or steal selection after a closed creation dialog (5.0s)
+  ✓   6 [chromium] › tests/e2e/direct-molecular-modeling.spec.ts:244:5 › keeps identities above earlier allocations after undoing and redoing molecule creation (8.9s)
+  ✓   7 [chromium] › tests/e2e/hydrogen-membership.spec.ts:8:5 › keeps bonded orphan H in the ligand and enables editing an unrelated native atom (3.9s)
+  ✓   8 [chromium] › tests/e2e/interactive-transform-performance.spec.ts:6:42 › bounds native original protein/ligand preview work and measures exact cancellation (11.0s)
+  ✓   9 [chromium] › tests/e2e/interactive-transform-performance.spec.ts:6:42 › bounds native authored draft protein/ligand preview work and measures exact cancellation (11.1s)
+[2m[WebServer] [22m[23:22:41] Molecule does not have explicit Hs. Consider calling AddHs()
+[2m[WebServer] [22m[23:22:41] Molecule does not have explicit Hs. Consider calling AddHs()
+  ✓  10 [chromium] › tests/e2e/ligand-editing.spec.ts:131:5 › edits draft chemistry with warnings, retains helper refusals, and round-trips history (12.0s)
+  -  11 [chromium] › tests/e2e/ligand-editing.spec.ts:274:5 › keeps ligand editing functional in the mobile inspector
+  ✓  12 [chromium] › tests/e2e/molecular-editing.spec.ts:21:5 › performs one selection-driven atom/H edit with exact undo and unchanged original (5.9s)
+  ✓  13 [chromium] › tests/e2e/molecular-editing.spec.ts:54:5 › maps a native bond hit to canonical endpoints and changes its order from the panel (4.8s)
+  ✓  14 [chromium] › tests/e2e/molecular-editing.spec.ts:86:5 › previews and substitutes a selected H with illustrated COOH (5.7s)
+  ✓  15 [chromium] › tests/e2e/molecular-editing.spec.ts:114:5 › mutates a natively picked residue successively and preserves exact backbone and undo (5.2s)
+  ✓  16 [chromium] › tests/e2e/molecular-editing.spec.ts:154:5 › keeps tool focus, notices and all controls accessible in both themes and narrow layouts (5.6s)
+  ✓  17 [chromium] › tests/e2e/molecular-editing.spec.ts:194:5 › edits a prepared complex with native H/new-atom picks, fixed camera and one affected reload (9.1s)
+  ✓  18 [chromium] › tests/e2e/molecular-editing.spec.ts:295:5 › keeps late edit responses owned by their original project (5.8s)
+  ✓  19 [chromium] › tests/e2e/molecular-editing.spec.ts:325:5 › retains a newer native selection and recovers an affected-artifact refetch failure (5.6s)
+  ✓  20 [chromium] › tests/e2e/molecular-editing.spec.ts:368:5 › keeps a newer pending edit owned after leaving and returning to the same project (17.4s)
+  ✓  21 [chromium] › tests/e2e/protein-editing.spec.ts:152:5 › edits protein hierarchy and chemistry with exact history and validation (12.6s)
+  -  22 [chromium] › tests/e2e/protein-editing.spec.ts:426:5 › keeps protein editing usable in the mobile inspector
+  ✓  23 [chromium] › tests/e2e/viewer-theme.spec.ts:107:5 › keeps the persisted theme through the real viewer lifecycle (19.2s)
+(node:1049157) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:1049157) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  24 [mobile-chromium] › tests/e2e/direct-molecular-modeling.spec.ts:7:5 › breaks an aromatic bond and keeps the incomplete draft visible and pickable (5.5s)
+  ✓  25 [mobile-chromium] › tests/e2e/direct-molecular-modeling.spec.ts:52:5 › removes a native inferred protein bond durably and restores it on Undo (6.3s)
+  ✓  26 [mobile-chromium] › tests/e2e/direct-molecular-modeling.spec.ts:81:5 › creates a molecule, previews/cancels without mutation, applies and rebuilds the last atom (9.4s)
+  ✓  27 [mobile-chromium] › tests/e2e/direct-molecular-modeling.spec.ts:159:5 › attaches directly with unknown chemistry and saves an edit when optional H cannot run (5.8s)
+  ✓  28 [mobile-chromium] › tests/e2e/direct-molecular-modeling.spec.ts:190:5 › does not restore a late proposal or steal selection after a closed creation dialog (4.8s)
+  ✓  29 [mobile-chromium] › tests/e2e/direct-molecular-modeling.spec.ts:244:5 › keeps identities above earlier allocations after undoing and redoing molecule creation (8.2s)
+  ✓  30 [mobile-chromium] › tests/e2e/hydrogen-membership.spec.ts:8:5 › keeps bonded orphan H in the ligand and enables editing an unrelated native atom (4.0s)
+  -  31 [mobile-chromium] › tests/e2e/interactive-transform-performance.spec.ts:6:42 › bounds native original protein/ligand preview work and measures exact cancellation
+  -  32 [mobile-chromium] › tests/e2e/interactive-transform-performance.spec.ts:6:42 › bounds native authored draft protein/ligand preview work and measures exact cancellation
+  -  33 [mobile-chromium] › tests/e2e/ligand-editing.spec.ts:131:5 › edits draft chemistry with warnings, retains helper refusals, and round-trips history
+  ✓  34 [mobile-chromium] › tests/e2e/ligand-editing.spec.ts:274:5 › keeps ligand editing functional in the mobile inspector (4.4s)
+  ✓  35 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:21:5 › performs one selection-driven atom/H edit with exact undo and unchanged original (5.5s)
+  ✓  36 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:54:5 › maps a native bond hit to canonical endpoints and changes its order from the panel (4.6s)
+  ✓  37 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:86:5 › previews and substitutes a selected H with illustrated COOH (5.5s)
+  ✓  38 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:114:5 › mutates a natively picked residue successively and preserves exact backbone and undo (4.8s)
+  ✓  39 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:154:5 › keeps tool focus, notices and all controls accessible in both themes and narrow layouts (5.5s)
+  ✓  40 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:194:5 › edits a prepared complex with native H/new-atom picks, fixed camera and one affected reload (8.6s)
+  ✓  41 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:295:5 › keeps late edit responses owned by their original project (5.4s)
+  ✓  42 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:325:5 › retains a newer native selection and recovers an affected-artifact refetch failure (5.0s)
+  ✓  43 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:368:5 › keeps a newer pending edit owned after leaving and returning to the same project (17.1s)
+  -  44 [mobile-chromium] › tests/e2e/protein-editing.spec.ts:152:5 › edits protein hierarchy and chemistry with exact history and validation
+  ✓  45 [mobile-chromium] › tests/e2e/protein-editing.spec.ts:426:5 › keeps protein editing usable in the mobile inspector (3.3s)
+  -  46 [mobile-chromium] › tests/e2e/viewer-theme.spec.ts:107:5 › keeps the persisted theme through the real viewer lifecycle
+
+  7 skipped
+  39 passed (4.9m)

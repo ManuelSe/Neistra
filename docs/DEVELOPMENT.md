@@ -500,3 +500,31 @@ explicit retry after an artifact read failure are documented in
 if subsequent rendering/refetch fails; retry the read rather than repeating the
 mutation blindly. Release evidence and publication state live in the
 [feature plan](plans/issue-69-compact-molecular-editor.md).
+
+## Direct molecular modeling compatibility (issue #74)
+
+Direct normalized-record editing adds no migration: Alembic head0014,
+project/viewer/archive2 and normalized/selection1 remain. Existing helper HTTP
+semantics persist; new direct endpoints and version1 `neistra_modeling` metadata
+are additive. Generated entries have nullable original/source fields; empty entries
+remain editable and archiveable. Native archives retain unknown chemistry and
+explicit native bond exclusions. Chemical exports may require loss acknowledgement
+or refuse an unrepresentable draft; never alter canonical state to force export.
+
+Run `tests.support.modeling_reader_qualification produce` with candidate API/core/
+plugin paths and fresh migrated data, then `read --expected-reader 0.16.0
+--reader-root <detached-v0.16.0-checkout>` with that checkout's paths on PYTHONPATH.
+The harness verifies implementation module locations and actual producer versions.
+It qualifies rich existing jobs/scenes/surfaces/originals, direct generic Undo/Redo,
+unknowns/exclusions, generated empty archives/re-export and multiconformer/alternate
+sites. It separately asserts expected old aromatic-renderer/helper refusals.
+Repeat with the final version on both clean candidate and exact merged master.
+Back up complete managed data before rollback; data retention does not certify
+old rendering, the new UI or helper eligibility. No automatic stripping/repair.
+
+D-104 additionally qualifies monotonic IDs after undoing and redoing entry creation.
+Retained generic entry.create snapshots carry higher allocator floors in the same
+transaction; current direct/legacy editors consult bounded historical evidence.
+The old reader retains these produced floors, but its future authoring does not
+implement the new propagation. Continue modeling with the current client/server.
+Previously reused historical identities cannot be retroactively disentangled.

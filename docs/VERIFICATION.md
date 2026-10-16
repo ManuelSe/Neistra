@@ -1,5 +1,66 @@
 # V0.1 Requirement Evidence
 
+Issue #74 follows the [approved direct-modeling plan](plans/issue-74-direct-molecular-modeling.md).
+[C1](assets/direct-modeling/c1-verification.json) passes66Python/236frontend/
+20native browser cases with no failures/flakes/retries and static/build/diff.
+Orphan-H paracetamol navigation/editor eligibility, unchanged source/revision,
+per-parent generated membership and ambiguous negatives are covered. Initial
+observer readiness failure remains diagnostic; local self-review/screenshots are
+not independent qualification. Broader direct chemistry/building/release remains.
+
+[C2](assets/direct-modeling/c2-verification.json) qualifies direct normalized
+atom/bond editing and display-only/native draft topology:83Python/238frontend/
+24desktop-mobile browser passes, no failures/flakes/retries/skips, plus Ruff/
+mypy67/lint/types/build/diff. Native broken-aromatic picking, inferred-protein bond
+removal/reload/exact Undo and existing edit/owner/focus/camera workflows pass.
+Real optional-H resource-limit regression fails before and passes after repair.
+Diagnostic and pre-review evidence are separate from final qualification; local
+[self-review](assets/direct-modeling/c2-local-review.md) is not independent.
+Creation/previews/direct fragments and advanced inspector routing remain C3,
+compatibility/scientific/performance qualification C4 and release C5.
+
+[C3](assets/direct-modeling/c3-verification.json) passes108Python/246frontend/
+31native cases with3intentional layout skips and no failures/flakes/retries,
+plus Ruff/mypy68/lint/types/build/diff. New creation/placement/Cancel/rebuilding,
+unknown-chemistry fragments, optional-H fallback, manual permissive edit/warning/
+exact Undo, legacy helper workflows and theme lifecycle pass. Real helper-success
+checks retain direct records, all six templates stay deterministic, and pure
+preview/allocator/generated-empty archive cases pass. [Self-review](assets/direct-modeling/c3-local-review.md)
+and screenshots identify mobile panel occlusion for required C4 inspection/a11y
+qualification. No independent review, unobstructed mobile preview, full preceding-
+reader/performance qualification or release claim is made by this checkpoint.
+
+[C4](assets/direct-modeling/c4-verification.json) passes687Python/248frontend/
+99broad native cases/13intentional layout skips, zero failures/flakes/
+retries; Ruff/mypy68/lint/types/build/diff and actual clean tagged0.16.0 reader.
+Scientific export/stereo/unknowns, sparse model IDs, literal-H interpretation,
+all formats/conformers/alternate sites, rich references/archives, pure preview and
+allocator guards pass. Both themes/320px/expanded forms/44px/keyboard/real100/200%
+zoom and native late-response ownership pass. Original/authored1STP movement and
+existing selected surface/navigation budgets remain. Old-reader exact retention
+is distinct from expected renderer/helper refusal. Diagnostics/interruption and
+[local self-review](assets/direct-modeling/c4-local-review.md) remain separate;
+final-version candidate/merged complete release qualification remains C5.
+
+[C5 allocator repair](assets/direct-modeling/c5-allocator-verification.json) passes
+693Python/248frontend/39native with7intentional skips and no failures/flakes/retries,
+plus static/build/diff and extended actual0.16.0 reader. Five API red/green cases and
+native Undo/Redo creation/branch/picking protect monotonic identities; preview and
+refusal do not write counters. Actual reader retains produced recreation/archive
+floors. Earlier partial candidates remain diagnostic; complete final candidate and
+exact-master release gates are still required. D-104 records the compatible design.
+
+[Final clean0.17.0 candidate](assets/direct-modeling/c5-candidate-gate.json)
+at`b3238c018649410a3bcc1efd2f45e11def61f0d8` passes all16release commands:693Python,
+248frontend,8supervisor,233native with47intentional skips, no failures/flakes/
+retries. Both trees clean; frozen installs/fresh0014/static/build/diff and actual
+v0.16.0 reader against final0.17.0 data pass, including recreated allocator floors.
+Fifteen native profiles retain unchanged budgets. [Full-diff local self-review](assets/direct-modeling/c5-local-review.md)
+is not independent; [initial policy audit](assets/direct-modeling/c5-candidate-policy.json)
+shows no configured rulesets/protection/workflows. Actual PR review/check audit and
+exact-master complete qualification/publication remain. Failed/interrupted runs
+are clearly separate and do not qualify the final source.
+
 Issue #69 follows the [approved editing plan](plans/issue-69-compact-molecular-editor.md).
 C1/C2 implement bounded atomic atom/H, canonical endpoint bonds and six illustrated
 fragment substitutions. C3 adds exact complete-residue template mutation and
