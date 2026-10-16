@@ -3,7 +3,7 @@
 ## 1. Status, metadata, and approved outcome
 
 **Status:** `/goal` authorized full implementation/delivery on 2026-10-16.
-C0 through M3/C3 are complete; M4/C4 and M5/C5 are approved and not started.
+C0 through M4/C4 are complete; M5/C5 release preparation/delivery is next.
 
 - **Issue:** [#69 — Add a compact, interactive molecular Edit panel to the
   viewer](https://github.com/ManuelSe/Neistra/issues/69), open with no comments at
@@ -525,7 +525,7 @@ After explicit approval, C0 only:
 | M1/C1 | Complete; passing checkpoint | Atomic atom/H edit vertical slice; evidence below. |
 | M2/C2 | Complete; passing checkpoint | Endpoint bond operations and six qualified fragments; evidence below. |
 | M3/C3 | Complete; passing checkpoint | Standard-residue workflow, result selection, focus/position/accessibility; evidence below. |
-| M4/C4 | Approved; not started | Scientific/lifecycle/accessibility/compatibility qualification. |
+| M4/C4 | Complete; passing |612Python/235frontend/62browser with10intentional skips; actual tagged reader, science/lifecycle/real zoom and existing budgets. |
 | M5/C5 | Approved; not started | Full gates, reviewed PR and verified release delivery. |
 
 ### 2026-10-16 — M1/C1 complete: atomic atom/H editing
@@ -630,3 +630,68 @@ After explicit approval, C0 only:
   real200% zoom and representative performance/scientific qualification. C5
   still owes complete release gates, review/PR/merge and publication.
 - No blocker. Next: commit passing C3, then implement/qualify M4/C4.
+
+
+### Follow-up tracking — 2026-10-16
+
+After checking open/all-state issue searches for duplicates, created and remotely
+verified [#70 — terminal peptide growth](https://github.com/ManuelSe/Neistra/issues/70)
+and [#71 — expanded fragment/element/ring-building qualification](https://github.com/ManuelSe/Neistra/issues/71).
+These are future problem briefs requiring their own approved bounded plans, not
+new implementation scope. They explain the scientific reasons for deferral and
+reuse #12/#20/#21/#52 for preparation, naming/classification and subset export.
+Optional new constrained optimization remains a separate product/scientific decision;
+existing explicit cleanup remains available. No original issue checkbox is marked
+delivered merely because a follow-up exists.
+
+
+### M4/C4 complete — 2026-10-16
+
+- [Final C4 evidence](../assets/molecular-editing/c4-verification.json) binds final
+  runtime/test source hashes to612Python,235frontend and62broad native browser
+  passes/10intentional layout or desktop-timing skips in11.0minutes. No failure or
+  retry. Ruff, mypy64, ESLint, TypeScript, production build and diff checks pass.
+  Existing Alembic deprecation and large-bundle notices remain nonfatal and logged.
+- Scientific qualification covers independent six-fragment graphs/formulae,
+  explicit local H, geometry/identity, supplied/new tetrahedral stereo and source
+  refusal, opposite enantiotopic H and CIP-priority changes without inversion.
+  Final saved bond order owns stereo tags. Explicit side-chain crosslinks and
+  nonfinite surrounding clash coordinates refuse before publication.
+- API workflows prove exact artifact Undo/Redo, non-reuse after branching,
+  revision/artifact/lock refusal, originals and saved selections/measurements/
+  scenes/appearance/hide/H masks/fragment and pocket sources. Audit modification
+  timestamps advance; scientific/reference content and artifact bytes restore.
+  Save/reopen/export/archive reimport and snapshot history omission are qualified.
+- New `tests.support.editing_reader_qualification` produces five new selection edit
+  commands alongside existing scenes/three surface kinds/measurements/selections/
+  styling/completed jobs, then runs the actual detachedv0.15.0 API/core at
+  `dccc5e6d2f3dc3d392144165ffd1f4237db4a2e5`. Module paths and clean checkout are
+  verified. It opens/saves/reexports/imports and undoes/redoes new generic history,
+  retaining originals, exact molecular records, jobs/scenes/surfaces and remapped
+  archive seeds. Exact produce/read/migration commands and zero exits are retained
+  in C4 evidence. Current producer still identifies0.15.0; C5 must repeat against
+  final0.16.0 candidate and exact merged master before release.
+- Native atom/bond/residue/H/new-atom picks, exact surrounding coordinates/camera,
+  project switches, late replies, newer selection, failed affected-artifact read/
+  explicit retry, responsive section/focus, both themes/320px/scoped axe and actual
+  Chrome100%/200% zoom pass. Fixed a real remount camera reset by seeding transient
+  active-project camera before the disposable viewer's first scene commit.
+- Prepared complex uses the normal portable archive/API path and an ordinary
+  atomic representation (cartoon alone has no H detail). Section browsing and
+  remount add zero structure reads; topology change loads one affected entry.
+  Synthetic25,000-atom context enters RDKit only as3-/9-atom component projections;
+  this is algorithmic scope evidence, not a physical/throughput claim.
+- Existing pinned movement budgets pass: first preview102.8/36.2ms, exact coordinate
+  Cancel9.8/14.4ms, longest tasks87/0ms for protein-fragment/bound-ligand cases.
+  Surface Cancel9.5ms/regeneration1034.6ms; no molecular requests during gestures.
+  Representative-project and existing native surface/toolbar/navigation budgets pass.
+- [Local self-review](../assets/molecular-editing/c4-local-review.md) records repaired
+  findings and separate harness diagnostics; no independent review is claimed.
+  Source checksums remain exact. Manually inspected retained dark200% desktop and
+  narrow mobile screenshots; no screen-reader/physical-device/cross-browser claim.
+- NORMALIZED_SCHEMA's stale contiguous-ID wording now matches accepted D-028.
+  D-098–100 qualification notes are append-only; global PLAN remains unchanged.
+  No migration/schema/legacy API change. Follow-ups#70/#71 are verified above.
+- No blocker or remaining C4 implementation. Next: commit passing C4, fetch/recheck
+  base/version/protections, prepare0.16.0, then complete candidate/exact-master
+  gates, review/PR/merge and verified publication/closeout under M5/C5.

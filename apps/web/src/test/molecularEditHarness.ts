@@ -17,6 +17,13 @@ export async function observeEditPicks(engine: MolstarEngine) {
   });
   return {
     events,
+    settled: async () => {
+      await native.syncQueue;
+      await new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve())));
+      while (native.plugin.canvas3d?.camera.transition.inTransition) {
+        await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+      }
+    },
     camera: () => engine.getCamera(),
     point: (coordinates: [number, number, number]) => {
       const canvas = document.querySelector<HTMLCanvasElement>(".molstar-host canvas")!;

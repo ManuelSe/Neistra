@@ -101,8 +101,8 @@ def prepared_complex() -> NormalizedStructureV1:
     )
 
 
-def build_fixture() -> bytes:
-    structure = prepared_complex()
+def build_fixture(structure: NormalizedStructureV1 | None = None) -> bytes:
+    structure = prepared_complex() if structure is None else structure
     data = structure.to_bytes()
     digest = hashlib.sha256(data).hexdigest()
     path = f"artifacts/{digest}"

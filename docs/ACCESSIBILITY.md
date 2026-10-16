@@ -28,8 +28,10 @@ Portal placement observes resize/zoom and notification bounds, coalescing update
 without focus timers; persistent notices do not cover the heading/Close action.
 The launcher and coarse-pointer controls use44px targets. Dedicated C3 browser
 coverage asserts actual native picks/controls, keyboard focus and notice hit
-testing, light/dark scoped axe and320px layout. Actual200% zoom and broader
-lifecycle qualification remain C4. Evidence and manual screenshot inspection are
+testing, light/dark scoped axe and320px layout. C4 also passes actual100%/200%Chrome zoom in both themes, all enabled panel
+controls/disclosures by keyboard, responsive owned-focus restoration and async
+read-failure recovery. [Evidence](assets/molecular-editing/c4-verification.json)
+retains exact commands and screenshots. Evidence and manual screenshot inspection are
 separate; no interactive screen-reader or physical-device certification is claimed.
 
 ## Compact project navigation (issue #59)

@@ -2,28 +2,31 @@
 
 ## Current milestone
 
-Issue #69 M3/C3 complete under the [approved contract](plans/issue-69-compact-molecular-editor.md).
-C2 is committed/remotely verified at95ba696; work stays on the planned branch.
-All four compact sections now work: atomic atom/local H, endpoint bonds, six
-illustrated H substitutions and existing constrained residue mutation. Transient
-result selection supports successive mutations; all20 targets preserve backbone/
-unrelated atoms and exact Undo. D-098–100 notes retain authority and scope.
+Issue #69 M4/C4 complete under the
+[approved contract](plans/issue-69-compact-molecular-editor.md).
+C1–C3 are committed/remotely verified through4a0ca07 on the planned feature branch.
+All four compact sections work within the approved prepared-component/template
+limits. C4 tightens mapped/new stereo, rejects explicit side-chain crosslinks,
+qualifies reference reconciliation/branching allocation and preserves camera
+through responsive remounts. D-098–100 qualification notes record these refinements.
 
-[C3 evidence](assets/molecular-editing/c3-verification.json):72Python,
-all234frontend,31native browser passes/3intentional layout skips in4.4m, plus
-Ruff/mypy64/lint/types/build/diff. Native residue picking/successive mutation,
-notice/header hit testing, stable focus, both themes,320px and scoped axe pass.
-Commands/source/log/screenshot hashes are retained; preliminary/interrupted
-harness diagnostics are separate. Review is local self-review, not independent.
+Current [C4 evidence](assets/molecular-editing/c4-verification.json):612Python,
+all235frontend and Ruff/mypy64/lint/types/build/diff pass. Actual taggedv0.15.0
+reader opens, saves, reexports and imports edited data and undoes/redoes five new
+commands, preserving originals/jobs/scenes/three surface kinds. Final broad C4
+browser gate passes62/10intentional skips in11.0m with no failures/retries.
+Real zoom, native picks, async ownership, remount camera/focus and old budgets pass;
+preliminary diagnostics remain separate. No independent
+review is claimed. Versions remain0.15.0; C5 still owes complete release delivery.
 
-Known limits remain prepared bounded single-conformer components, valence/H
-inference and unoptimized initial geometry; protein mutation retains its existing
-scientific restrictions. Raw PDB chemistry, Grow, fusion and broader chemistry are
-separate. C4 owes actual-reader, real200% zoom, broader lifecycle/science/archive/
-performance qualification; C5 owes full release delivery. Versions remain0.15.0;
-planned0.16.0minor, no migration (0014; project/viewer/archive2,
-normalized/selection1). No release/rollback claim yet. No blocker.
-Next: commit passing C3, then implement and qualify M4/C4.
+Known limits: prepared bounded single-conformer components, valence/H inference,
+unoptimized geometry, supported tetrahedral stereo and existing protein templates.
+Raw PDB chemistry, E/Z building, Grow, fusion and broader chemistry remain separate.
+Planned0.16.0minor; no migration (0014; project/viewer/archive2,
+normalized/selection1). No release claim yet. No blocker.
+Next: commit passing C4 and prepare0.16.0; C5 clean-candidate/exact-master gates,
+PR/review/merge/release and issue closeout remain. Deferred work is tracked in
+verified#70/#71, reusing#12/#20/#21/#52.
 
 ### Previous delivery baseline — v0.15.0
 

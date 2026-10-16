@@ -458,3 +458,15 @@ Worker-output/allocation bounds include additional mesh-line/isolation buffers a
 apply across identified fragment/pocket requests. They do not cap native entry
 calculations, browser memory or GPU memory. A saved object can exceed rendering
 limits; status retains and explains it. Hiding/removing it releases runtime work.
+
+
+### Issue #69 qualification refinements
+
+Selection edits reject unspecified potential stereo and supplied tetrahedral tags
+that conflict with 3D coordinates. Final tetrahedral tags are perceived in actual
+serialized bond order; newly created centers are inferred from fixed geometry,
+with explicit provenance/warnings. A CIP-label change need not mean spatial
+inversion. E/Z building remains unsupported. The compact mutation route refuses
+explicit side-chain crosslinks rather than losing a disulfide or ligand connection;
+legacy editor behavior is unchanged. An atomic representation is needed to see
+explicit H; toggling H display never creates atoms or enables cartoon atom detail.

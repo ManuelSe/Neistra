@@ -38,6 +38,7 @@ export function MolecularEditPanel({ project, selection, busy, unavailable, onEd
     queryKey: ["structure", project.id, entry?.id, artifact],
     queryFn: () => molecularApi.structure(project.id, entry!.id),
     enabled: open && Boolean(entry && artifact),
+    retry: false,
     staleTime: Number.POSITIVE_INFINITY,
   });
   const atoms = query.data?.structure.atoms;

@@ -1,6 +1,7 @@
 import type { SurfaceStatus } from "../viewer/surface/runtime";
 import type { SurfaceActions, ChangeSelectionAppearance, ApplySelectionEdit } from "../api/types";
 import { MolecularEditPanel } from "./MolecularEditPanel";
+import { useViewerCameraStore } from "../store/viewerCamera";
 import { useEditingStore } from "../store/editing";
 import type { ExpandSelection } from "../selection/expansion";
 import { useQueries, useQueryClient } from "@tanstack/react-query";
@@ -207,6 +208,12 @@ export function StructureViewer({
       .mount(target)
       .then(() => {
         if (active) {
+          // Seed the disposable viewer before its first scene commit. A later
+          // restoration can lose to Mol*'s queued initial fit request.
+          const retained = useViewerCameraStore.getState();
+          const remembered = currentMovement.current?.camera()
+            ?? (retained.projectId === project.id ? retained.camera : null);
+          if (remembered) viewer.setCamera(remembered);
           setViewerReady(true);
         }
       })
@@ -239,11 +246,17 @@ export function StructureViewer({
     initialSceneReady.current = false;
     const unsubscribeCamera = viewer.subscribeCamera(camera => {
       setCamera(camera);
-      if (initialSceneReady.current) currentMovement.current?.rememberCamera(camera);
+      if (initialSceneReady.current) {
+        currentMovement.current?.rememberCamera(camera);
+        useViewerCameraStore.getState().remember(project.id, camera);
+      }
     });
     return () => {
       active = false;
-      if (initialSceneReady.current) currentMovement.current?.rememberCamera(viewer.getCamera());
+      if (initialSceneReady.current) {
+        currentMovement.current?.rememberCamera(viewer.getCamera());
+        useViewerCameraStore.getState().remember(project.id, viewer.getCamera());
+      }
       currentMovement.current?.clearNavigation();
       unsubscribe();
       unsubscribeCamera();
@@ -340,9 +353,11 @@ export function StructureViewer({
         if (!viewer || viewer !== syncedViewer) return;
         const workflow = currentMovement.current;
         const active = Boolean(workflow?.state.capture && workflow.state.phase !== "idle");
-        if (!initialSceneReady.current) {
-          const camera = workflow?.camera();
-          if (active && camera) {
+        if (!initialSceneReady.current && !structuresPending && viewerStructuresRef.current.length) {
+          const retained = useViewerCameraStore.getState();
+          const camera = (active ? workflow?.camera() : null)
+            ?? (retained.projectId === project.id ? retained.camera : null);
+          if (camera) {
             viewer.setMovementMode("inactive");
             viewer.setCamera(camera);
           }
@@ -354,7 +369,7 @@ export function StructureViewer({
       .catch((error: unknown) =>
         setViewerError(error instanceof Error ? error.message : "The viewer rejected a structure."),
       );
-  }, [structuresPending, syncKey, viewerReady]);
+  }, [structuresPending, syncKey, viewerReady, project.id]);
 
   useEffect(() => {
     if (!viewerReady) return;

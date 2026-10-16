@@ -12,8 +12,15 @@ all234frontend,31browser/3intentional layout skips and static/build/diff gates;
 all20 amino acids pass API backbone/unrelated-state/Undo. Native atom/bond/residue
 workflows, both themes,320px, keyboard/notice hit testing and scoped axe pass.
 Manual screenshot inspection is distinct; no independent review or broader device
-certification is claimed. C4 actual-reader/real-zoom/lifecycle/performance and C5
-complete candidate/exact-master release gates remain; this is not a released feature.
+certification is claimed. [C4](assets/molecular-editing/c4-verification.json)
+passes612Python/235frontend/62broad browser with10intentional skips, no failures/
+retries; static/build/diff and actual taggedv0.15.0 reader pass. New stereo,
+crosslink refusal, reference/allocator/archive workflows, native prepared-complex
+H/new-atom picking, exact camera through remount/edit, async project/selection/
+read-failure ownership, real100/200%Chrome zoom and existing performance budgets
+are qualified. Diagnostics and local self-review remain separate. C5 complete
+candidate/exact-master gates against final0.16.0 and publication remain; this is
+not yet released.
 
 Issue #59 follows the [approved navigation plan](plans/issue-59-compact-project-navigation.md).
 [C1](assets/project-navigation/c1-verification.json) qualifies independent compact

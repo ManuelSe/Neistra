@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { cleanup, render, screen } from "@testing-library/react";
+import { act, cleanup, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, expect, it, vi } from "vitest";
 import { MolecularEditPanel } from "../components/MolecularEditPanel";
@@ -115,4 +115,21 @@ it("mutates a complete standard residue through one action and explains partial 
   expect(screen.getByRole("status")).toHaveTextContent("complete residue");
   expect(screen.getByRole("button", { name: "Mutate residue to VAL" })).toBeDisabled();
   expect(partial.onEdit).not.toHaveBeenCalled();
+});
+
+it("surfaces failed chemistry without closing the panel or repeating a pending command", async () => {
+  const { user, onEdit } = setup();
+  let reject!: (reason: Error) => void;
+  onEdit.mockImplementationOnce(() => new Promise((_, fail) => { reject = fail; }));
+  await user.click(screen.getByRole("button", { name: "Edit molecule" }));
+  await user.click(screen.getByRole("button", { name: "Replace selected atom with F" }));
+  expect(screen.getByRole("dialog", { name: "Edit molecule" })).toHaveFocus();
+  expect(screen.getByRole("button", { name: "Replace selected atom with N" })).toBeDisabled();
+  await user.click(screen.getByRole("button", { name: "Replace selected atom with N" }));
+  expect(onEdit).toHaveBeenCalledTimes(1);
+  await act(async () => { reject(new Error("Invalid valence; unchanged.")); await Promise.resolve(); });
+  await screen.findByRole("alert");
+  expect(screen.getByRole("alert")).toHaveTextContent("Ethanol: Invalid valence; unchanged.");
+  expect(screen.getByRole("dialog", { name: "Edit molecule" })).toBeVisible();
+  expect(screen.getByRole("button", { name: "Replace selected atom with N" })).toBeEnabled();
 });

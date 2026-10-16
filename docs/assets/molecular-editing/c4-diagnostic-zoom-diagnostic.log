@@ -1,0 +1,55 @@
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+[2m[WebServer] [22mINFO:     Started server process [880842]
+[2m[WebServer] [22mINFO:     Waiting for application startup.
+[2m[WebServer] [22mINFO:     Application startup complete.
+[2m[WebServer] [22mINFO:     Uvicorn running on http://127.0.0.1:8160 (Press CTRL+C to quit)
+[2m[WebServer] [22m(node:880968) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:880997) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 2 tests using 1 worker
+
+(node:881059) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:881059) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:881059) Warning: Failed to load the ES module: /datadisk/dev/neistra/tests/e2e/support/interactions.ts. Make sure to set "type": "module" in the nearest package.json file or use the .mjs extension.
+Internal error: step id not found: fixture@31
+  ✘  1 [chromium] › tests/e2e/rebranding-zoom.spec.ts:357:5 › keeps the molecular editor keyboard controls reachable at actual browser zoom (507ms)
+(node:881244) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:881244) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  -  2 [mobile-chromium] › tests/e2e/rebranding-zoom.spec.ts:357:5 › keeps the molecular editor keyboard controls reachable at actual browser zoom
+
+
+  1) [chromium] › tests/e2e/rebranding-zoom.spec.ts:357:5 › keeps the molecular editor keyboard controls reachable at actual browser zoom
+
+    SyntaxError: Cannot use import statement outside a module
+
+      366 |   });
+      367 |   try {
+    > 368 |     const { prepare } = await import("./support/interactions");
+          |                         ^
+      369 |     const worker = context.serviceWorkers()[0] ?? await context.waitForEvent("serviceworker");
+      370 |     const page = context.pages()[0];
+      371 |     page.setDefaultTimeout(10000);
+        at /datadisk/dev/neistra/tests/e2e/rebranding-zoom.spec.ts:368:25
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/rebranding-zoom-keeps-the--86641-able-at-actual-browser-zoom-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/rebranding-zoom-keeps-the--86641-able-at-actual-browser-zoom-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/rebranding-zoom-keeps-the--86641-able-at-actual-browser-zoom-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [chromium] › tests/e2e/rebranding-zoom.spec.ts:357:5 › keeps the molecular editor keyboard controls reachable at actual browser zoom
+  1 skipped

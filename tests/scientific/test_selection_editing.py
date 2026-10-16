@@ -146,3 +146,153 @@ def test_invalid_valence_and_unknown_adapter_orders_never_publish() -> None:
     with pytest.raises(InvalidSelectionEdit, match="bond order"):
         apply(odd_order, HydrogenPrepare(operation="hydrogens.prepare"), [1])
     assert original.to_bytes() == before
+
+
+def test_unspecified_and_conflicting_stereo_refuse_before_changes() -> None:
+    for smiles in ["CC(O)C(=O)O", "CC=CC"]:
+        source = ligand(smiles)
+        original = source.to_bytes()
+        with pytest.raises(InvalidSelectionEdit, match="Unspecified stereochemistry"):
+            apply(source, HydrogenPrepare(operation="hydrogens.prepare"), [1])
+        assert source.to_bytes() == original
+    source = ligand("N[C@@H](C)C(=O)O")
+    source = source.model_copy(
+        update={
+            "atoms": [
+                a.model_copy(
+                    update={
+                        "stereo": "TETRAHEDRAL_CW"
+                        if a.stereo == "TETRAHEDRAL_CCW"
+                        else "TETRAHEDRAL_CCW",
+                    }
+                )
+                if a.stereo
+                else a
+                for a in source.atoms
+            ]
+        }
+    )
+    with pytest.raises(InvalidSelectionEdit, match="conflicts with 3D"):
+        apply(source, HydrogenPrepare(operation="hydrogens.prepare"), [1])
+
+
+def test_enantiotopic_h_substitution_records_opposite_stereo_in_saved_order() -> None:
+    from molweave_core.adapters.rdkit_common import normalized_to_mol
+    from molweave_core.editing.selection import FragmentReplace
+    from molweave_core.molecular import NormalizedStructureV1
+    from rdkit import Chem
+
+    source = apply(
+        ligand("CCO"), HydrogenPrepare(operation="hydrogens.prepare"), [1]
+    ).edit.structure
+    hydrogens = [
+        a.id
+        for a in source.atoms
+        if a.element == "H" and any({b.atom_1_id, b.atom_2_id} == {a.id, 2} for b in source.bonds)
+    ]
+    assert len(hydrogens) == 2
+    cips = []
+    for hydrogen in hydrogens:
+        result = apply(
+            source,
+            FragmentReplace(operation="fragment.replace", fragment="carboxylic_acid"),
+            [hydrogen],
+        )
+        saved = NormalizedStructureV1.model_validate_json(result.edit.structure.to_bytes())
+        cips.append(StructureValidator.stereochemistry(saved)[2])
+        geometry = normalized_to_mol(saved)
+        Chem.SanitizeMol(geometry)
+        Chem.AssignStereochemistryFrom3D(geometry, replaceExistingTags=True)
+        assert next(a for a in saved.atoms if a.id == 2).stereo == str(
+            geometry.GetAtomWithIdx(1).GetChiralTag()
+        ).removeprefix("CHI_")
+        assert "stereochemistry_review" in {w.code for w in result.edit.warnings}
+        assert all(
+            next(a for a in saved.atoms if a.id == old.id).coordinates == old.coordinates
+            for old in source.atoms
+            if old.id != hydrogen
+        )
+    assert set(cips) == {"R", "S"}
+
+
+def test_nonfinite_surrounding_context_refuses_clash_validation() -> None:
+    original = prepared_complex()
+    target = next(a.id for a in original.atoms if a.formal_charge == 0)
+    invalid = original.model_copy(
+        update={
+            "atoms": [
+                original.atoms[0].model_copy(update={"coordinates": (float("nan"), 0, 0)}),
+                *original.atoms[1:],
+            ]
+        }
+    )
+    with pytest.raises(InvalidSelectionEdit, match="Surrounding coordinates"):
+        apply(invalid, HydrogenPrepare(operation="hydrogens.prepare"), [target])
+
+
+def test_large_context_is_never_projected_into_ligand_chemistry(monkeypatch) -> None:
+    from molweave_core.editing import selection as module
+    from molweave_core.molecular import Conformer
+
+    source = prepared_complex()
+    first_new = max(a.id for a in source.atoms) + 1
+    atoms = [
+        *source.atoms,
+        *[
+            source.atoms[0].model_copy(
+                update={
+                    "id": first_new + i,
+                    "source_index": len(source.atoms) + i,
+                    "coordinates": (100.0 + i, 100.0, 100.0),
+                }
+            )
+            for i in range(25_000)
+        ],
+    ]
+    large = source.model_copy(
+        update={
+            "atoms": atoms,
+            "conformers": [
+                Conformer(
+                    id=1, name="Synthetic context scale", coordinates=[a.coordinates for a in atoms]
+                )
+            ],
+        }
+    )
+    convert = module.normalized_to_mol
+    chemistry_sizes = []
+
+    def capture(structure):  # type: ignore[no-untyped-def]
+        chemistry_sizes.append(len(structure.atoms))
+        return convert(structure)
+
+    monkeypatch.setattr(module, "normalized_to_mol", capture)
+    target = next(a.id for a in large.atoms if a.formal_charge == 0)
+    after = apply(large, HydrogenPrepare(operation="hydrogens.prepare"), [target]).edit.structure
+    assert chemistry_sizes == [3, 9]
+    assert after.atoms[: len(source.atoms)] == source.atoms
+    assert all(a in after.atoms for a in atoms[-5:])
+
+
+def test_cip_priority_change_is_not_a_geometric_inversion() -> None:
+    import numpy as np
+
+    source = apply(
+        ligand("N[C@@H](C)C(=O)O"), HydrogenPrepare(operation="hydrogens.prepare"), [1]
+    ).edit.structure
+    hydrogen = next(
+        a.id
+        for a in source.atoms
+        if a.element == "H" and any({b.atom_1_id, b.atom_2_id} == {a.id, 2} for b in source.bonds)
+    )
+    result = apply(source, ElementChange(operation="atom.element", element="F"), [hydrogen])
+    after = result.edit.structure
+
+    def orientation(structure, fourth):  # type: ignore[no-untyped-def]
+        xyz = {a.id: np.array(a.coordinates) for a in structure.atoms}
+        return float(np.linalg.det([xyz[i] - xyz[fourth] for i in [1, 3, 4]]))
+
+    assert orientation(source, hydrogen) * orientation(after, result.replacements[hydrogen]) > 0
+    assert StructureValidator.stereochemistry(source)[2] == "S"
+    assert StructureValidator.stereochemistry(after)[2] == "R"
+    assert "stereochemistry_review" in {w.code for w in result.edit.warnings}

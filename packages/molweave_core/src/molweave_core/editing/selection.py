@@ -263,6 +263,20 @@ class SelectionMolecularEditor:
             raise InvalidSelectionEdit("New identities must exceed all retained entry IDs.")
         mol = Chem.RWMol(normalized_to_mol(before))
         sanitized(mol)
+        potential = Chem.FindPotentialStereo(mol)
+        if any(str(info.specified) == "Unspecified" for info in potential):
+            raise InvalidSelectionEdit(
+                "Unspecified stereochemistry requires an explicit preparation decision."
+            )
+        # A supplied tetrahedral label and its 3D coordinates must agree before
+        # geometry can be the authority for retaining orientation during edits.
+        geometric = Chem.Mol(mol)
+        Chem.AssignStereochemistryFrom3D(geometric, replaceExistingTags=True)
+        for atom in mol.GetAtoms():
+            if atom.GetChiralTag() != Chem.ChiralType.CHI_UNSPECIFIED and (
+                geometric.GetAtomWithIdx(atom.GetIdx()).GetChiralTag() != atom.GetChiralTag()
+            ):
+                raise InvalidSelectionEdit("Supplied stereochemistry conflicts with 3D geometry.")
         if len(Chem.GetMolFrags(mol)) != 1:
             raise InvalidSelectionEdit("The component must have complete connected topology.")
         ids = indices(mol)
@@ -531,6 +545,10 @@ class SelectionMolecularEditor:
         remaining.sort(key=lambda a: a.id)
         all_points = np.asarray([a.coordinates for a in remaining])
         if created:
+            if not np.isfinite(all_points).all():
+                raise InvalidSelectionEdit(
+                    "Surrounding coordinates must be finite for clash checks."
+                )
             tree = cKDTree(all_points)
             for idx, atom in enumerate(remaining):
                 if atom.id in created and len(tree.query_ball_point(all_points[idx], 0.4)) > 1:
@@ -595,53 +613,80 @@ class SelectionMolecularEditor:
         )
         # Revalidate the complete normalized schema, including merge identity.
         after = NormalizedStructureV1.model_validate(after.model_dump())
-        # Tetrahedral tags depend on neighbor ordering. Re-perceive retained
-        # supplied centers in final normalized bond order from fixed 3D geometry.
-        known_centers = {a.id for a in before.atoms if a.stereo is not None} & rd_atoms.keys()
-        if known_centers:
-            projected_after = before.model_copy(
-                update={
-                    "atoms": [a for a in after.atoms if a.id in rd_atoms],
-                    "bonds": bonds,
-                    "conformers": [
-                        Conformer(
-                            id=1,
-                            name="Edited",
-                            coordinates=[a.coordinates for a in after.atoms if a.id in rd_atoms],
-                        )
-                    ],
-                    "active_conformer_id": 1,
-                }
-            )
-            stereo_mol = normalized_to_mol(projected_after)
-            sanitized(stereo_mol)
-            Chem.AssignStereochemistryFrom3D(stereo_mol, replaceExistingTags=True)
-            tags = {
-                int(a.GetIntProp("_MolWeaveAtomId")): str(a.GetChiralTag()).removeprefix("CHI_")
-                for a in stereo_mol.GetAtoms()
+        # Tags are relative to neighbor order. Rebuild in the exact final
+        # serialized atom/bond order before perceiving fixed 3D orientation.
+        projected_after = before.model_copy(
+            update={
+                "atoms": [a for a in after.atoms if a.id in rd_atoms],
+                "bonds": [b for b in after.bonds if b.atom_1_id in rd_atoms],
+                "conformers": [
+                    Conformer(
+                        id=1,
+                        name="Edited",
+                        coordinates=[a.coordinates for a in after.atoms if a.id in rd_atoms],
+                    )
+                ],
+                "active_conformer_id": 1,
             }
-            after = after.model_copy(
-                update={
-                    "atoms": [
-                        a.model_copy(
-                            update={
-                                "stereo": tags[a.id] if tags[a.id] != "UNSPECIFIED" else None,
-                            }
-                        )
-                        if a.id in known_centers
-                        else a
-                        for a in after.atoms
-                    ]
-                }
-            )
+        )
+        stereo_mol = normalized_to_mol(projected_after)
+        sanitized(stereo_mol)
+        Chem.AssignStereochemistryFrom3D(stereo_mol, replaceExistingTags=True)
+        potential = Chem.FindPotentialStereo(stereo_mol)
+        if any(str(info.type) == "Bond_Double" for info in potential):
+            raise InvalidSelectionEdit("The result requires unsupported E/Z stereochemistry.")
+        if any(str(info.specified) == "Unspecified" for info in potential):
+            raise InvalidSelectionEdit("Generated geometry does not resolve tetrahedral stereo.")
+        centers = {
+            int(stereo_mol.GetAtomWithIdx(info.centeredOn).GetIntProp("_MolWeaveAtomId"))
+            for info in potential
+            if str(info.type) == "Atom_Tetrahedral"
+        }
+        supplied = {a.id for a in before.atoms if a.stereo is not None}
+        tags = {
+            int(a.GetIntProp("_MolWeaveAtomId")): str(a.GetChiralTag()).removeprefix("CHI_")
+            for a in stereo_mol.GetAtoms()
+        }
+        after = after.model_copy(
+            update={
+                "atoms": [
+                    a.model_copy(
+                        update={
+                            "stereo": tags[a.id] if a.id in centers else None,
+                            "inferred_fields": sorted(set(a.inferred_fields) | {"stereo"})
+                            if a.id in centers - supplied
+                            else a.inferred_fields,
+                        }
+                    )
+                    if a.id in (centers | supplied) and a.id in rd_atoms
+                    else a
+                    for a in after.atoms
+                ]
+            }
+        )
+        if centers or supplied:
             stereo_warning = warning(
                 "stereochemistry_review",
-                "Retained supplied centers use "
-                "their fixed 3D orientation; edits may change CIP priorities or remove a center.",
+                "Tetrahedral stereo follows fixed 3D orientation in saved bond order; "
+                "new centers are inferred and edits may change CIP priorities or remove centers.",
                 operation,
             )
             warnings.append(stereo_warning)
-            after = after.model_copy(update={"warnings": [*after.warnings, stereo_warning]})
+            after = after.model_copy(
+                update={
+                    "warnings": [*after.warnings, stereo_warning],
+                    "inferences": [
+                        *after.inferences[:-1],
+                        inference.model_copy(
+                            update={
+                                "atom_ids": sorted(set(inference.atom_ids) | centers),
+                                "message": inference.message
+                                + "; tetrahedral stereo from fixed 3D in saved bond order",
+                            }
+                        ),
+                    ],
+                }
+            )
         if after.atoms == structure.atoms and after.bonds == structure.bonds:
             raise InvalidSelectionEdit("The edit did not change molecular state.")
         return SelectionEditResult(

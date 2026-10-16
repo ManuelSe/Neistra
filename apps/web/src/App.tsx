@@ -1,4 +1,5 @@
 import { surfacePruningWarnings } from "./selection/surfaceWarnings";
+import { useViewerCameraStore } from "./store/viewerCamera";
 import { useEditingStore } from "./store/editing";
 import { expandByDistance } from "./selection/expansion";
 import * as Tooltip from "@radix-ui/react-tooltip";
@@ -184,6 +185,7 @@ export default function App() {
   useEffect(() => {
     useNavigationStore.getState().setProject(activeProjectId);
     useEditingStore.getState().setProject(activeProjectId);
+    useViewerCameraStore.getState().setProject(activeProjectId);
   }, [activeProjectId]);
 
   useEffect(() => {

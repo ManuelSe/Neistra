@@ -15,8 +15,9 @@ the exact molecular artifact. New IDs are never reused after undo or branching.
 
 Hydrogen-free prepared input may need one **Prepare component hydrogens** action
 before an H can be selected. **Show explicit H** only changes existing viewer
-settings. Isolation, component visibility and exact atom hiding can still hide
-those atoms. Opening Edit does not add H or change chemistry. Use advanced tools
+settings. Use an atomic Style representation to see H; a cartoon alone has
+no atomic detail. Isolation, component visibility, local H preferences and exact
+atom hiding can still hide those atoms. Opening Edit does not add H or change chemistry. Use advanced tools
 for explicit hydrogen removal; automatic saturation would undo H deletion here.
 
 Editing requires one unlocked, connected ligand component with known formal
@@ -42,8 +43,12 @@ Local hydrogen reconciliation is valence inference, not pH, tautomer or biologic
 protonation determination. Existing heavy coordinates remain fixed; warnings mark
 unoptimized geometry and the fact that retained source labels describe the
 original molecule. Supplied supported tetrahedral centers use their fixed 3D
-orientation in the final normalized bond order; edits can change CIP priorities
-or remove centers and require scientific review. Other stereo encodings reject.
+orientation in the final normalized bond order. Source labels that conflict with
+3D geometry or leave potential stereo unspecified reject. Newly created tetrahedral
+centers follow the selected H direction and are marked inferred; choosing the other
+enantiotopic H can select the opposite configuration. Edits can change CIP priorities
+without geometric inversion, or remove a center; scientific review remains necessary.
+E/Z decisions and other unsupported stereo encodings reject.
 Generated identities/method/version are recorded in inference provenance. Raw
 canonical-SMILES metadata is invalidated after chemistry changes.
 
@@ -99,7 +104,9 @@ allocate new side-chain identities and expose template/terminal/clash warnings.
 The complete result residue becomes selected, so another mutation needs no
 reselection. Undo/Redo restores exact molecular state; ordinary transient
 selection reconciles surviving IDs. Protein mutation does not invoke the
-small-molecule H policy, choose rotamers or determine protonation. No Grow action
+small-molecule H policy, choose rotamers or determine protonation. Explicit
+side-chain crosslinks (including disulfides and ligand attachments) are refused
+before template replacement. Resolve modified-residue chemistry separately. No Grow action
 is implemented.
 
 The panel stays nonmodal: canvas selection/camera gestures remain available and
@@ -107,7 +114,10 @@ outside controls retain focus. Open it by keyboard to focus its stable dialog
 container, Tab through named controls, and Escape while it owns focus to return
 to Edit. A submitted edit focuses the stable container before disabling pending
 actions, avoiding focus loss as topology changes. Responsive remounts retain the
-current section and owned keyboard focus; project changes reset the session.
+current section, owned keyboard focus and camera; project changes reset the session.
+Camera retention is transient presentation state, separate from molecular artifacts.
+A failed affected-artifact read disables edits and offers Retry molecule; it does
+not undo a successful server command or overwrite newer selection.
 Opening Style, Surfaces, Interactions or active movement hands off tool ownership
 without restoring an outgoing tool over the new one. Active movement temporarily
 replaces the launchers with its own controls; numeric preview blocks chemistry.

@@ -61,6 +61,23 @@ class SelectionEditService(LigandEditService):
                 assert residue_id is not None
                 if set(selected) != {a.id for a in before.atoms if a.residue_id == residue_id}:
                     raise InvalidSelectionEdit("Select the complete residue using residue picking.")
+                # Preserve peptide connectivity, but never silently discard a
+                # disulfide, ligand attachment or other explicit side-chain link.
+                selected_set = set(selected)
+                for bond in before.bonds:
+                    if (bond.atom_1_id in selected_set) == (bond.atom_2_id in selected_set):
+                        continue
+                    inside = atom_map[
+                        bond.atom_1_id if bond.atom_1_id in selected_set else bond.atom_2_id
+                    ]
+                    outside = atom_map[
+                        bond.atom_2_id if bond.atom_1_id in selected_set else bond.atom_1_id
+                    ]
+                    if {inside.name.strip(), outside.name.strip()} != {"N", "C"}:
+                        raise InvalidSelectionEdit(
+                            "Explicit residue crosslinks are unsupported; "
+                            "resolve them before mutation."
+                        )
                 protein_result = PdbfixerProteinEditor().mutate_residue(
                     before,
                     residue_id,

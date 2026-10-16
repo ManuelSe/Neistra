@@ -1,0 +1,138 @@
+..............................FF..                                       [100%]
+=================================== FAILURES ===================================
+______ test_deleted_id_reconciles_all_references_and_exact_inverse[False] ______
+
+client = <tests.support.api_client.ApiClient object at 0x737ab8d430e0>
+replacement = False
+
+    @pytest.mark.parametrize("replacement", [False, True])
+    def test_deleted_id_reconciles_all_references_and_exact_inverse(
+        client: ApiClient, replacement: bool
+    ) -> None:
+        from tests.integration.test_archive_roundtrip import export_archive
+
+        project, entry_id = project_with_ligand(client)
+        if replacement:
+            project = edit(client, project, entry_id, [1], {"operation": "hydrogens.prepare"}).json()[
+                "project"
+            ]
+        before = structure(client, project["id"], entry_id)
+        target = next(a["id"] for a in before["atoms"] if a["element"] == "H") if replacement else 3
+        refs = selection(entry_id, [1, target])
+        single = selection(entry_id, [target])
+        path = f"/api/v1/projects/{project['id']}"
+
+        def command(suffix: str, **payload: Any) -> None:
+            nonlocal project
+            response = client.post(
+                f"{path}/{suffix}", json={"expected_revision": project["revision"], **payload}
+            )
+            assert response.status_code in {200, 201}, response.text
+            project = response.json()
+
+        command("selections", name="Deleted identity", selection=single)
+        command("measurements", name="Deleted span", kind="distance", atom_references=refs["atoms"])
+        command("selection-representations", selection=refs, action="apply", style="thick-stick")
+        command("selection-atom-visibility", selection=single, action="hide")
+>       command(
+            "surfaces",
+            surfaces=[
+                {"entry_id": entry_id, "source": {"kind": "fragment", "atom_ids": [1, target]}},
+                {
+                    "entry_id": entry_id,
+                    "source": {"kind": "pocket", "radius": 5, "seed_atom_references": single["atoms"]},
+                },
+            ],
+        )
+
+tests/integration/test_selection_edits.py:243:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+suffix = 'surfaces'
+payload = {'surfaces': [{'entry_id': '01a144f6-1e2d-78e5-86e6-9a3cb8bfb42c', 'source': {'atom_ids': [1, 3], 'kind': 'fragment'}}...ket', 'radius': 5, 'seed_atom_references': [{'atom_id': 3, 'structure_id': '01a144f6-1e2d-78e5-86e6-9a3cb8bfb42c'}]}}]}
+response = <Response [422 Unprocessable Entity]>, @py_assert1 = 422
+@py_assert4 = {200, 201}, @py_assert3 = False
+@py_format6 = '422\n{422 = <Response [422 Unprocessable Entity]>.status_code\n} in {200, 201}'
+@py_format8 = '{"detail":{"code":"invalid_project_operation","message":"Choose an entry containing protein context"}}\n>assert 422\n{422 = <Response [422 Unprocessable Entity]>.status_code\n} in {200, 201}'
+
+    def command(suffix: str, **payload: Any) -> None:
+        nonlocal project
+        response = client.post(
+            f"{path}/{suffix}", json={"expected_revision": project["revision"], **payload}
+        )
+>       assert response.status_code in {200, 201}, response.text
+E       AssertionError: {"detail":{"code":"invalid_project_operation","message":"Choose an entry containing protein context"}}
+E       assert 422 in {200, 201}
+E        +  where 422 = <Response [422 Unprocessable Entity]>.status_code
+
+tests/integration/test_selection_edits.py:236: AssertionError
+______ test_deleted_id_reconciles_all_references_and_exact_inverse[True] _______
+
+client = <tests.support.api_client.ApiClient object at 0x737a833fe750>
+replacement = True
+
+    @pytest.mark.parametrize("replacement", [False, True])
+    def test_deleted_id_reconciles_all_references_and_exact_inverse(
+        client: ApiClient, replacement: bool
+    ) -> None:
+        from tests.integration.test_archive_roundtrip import export_archive
+
+        project, entry_id = project_with_ligand(client)
+        if replacement:
+            project = edit(client, project, entry_id, [1], {"operation": "hydrogens.prepare"}).json()[
+                "project"
+            ]
+        before = structure(client, project["id"], entry_id)
+        target = next(a["id"] for a in before["atoms"] if a["element"] == "H") if replacement else 3
+        refs = selection(entry_id, [1, target])
+        single = selection(entry_id, [target])
+        path = f"/api/v1/projects/{project['id']}"
+
+        def command(suffix: str, **payload: Any) -> None:
+            nonlocal project
+            response = client.post(
+                f"{path}/{suffix}", json={"expected_revision": project["revision"], **payload}
+            )
+            assert response.status_code in {200, 201}, response.text
+            project = response.json()
+
+        command("selections", name="Deleted identity", selection=single)
+        command("measurements", name="Deleted span", kind="distance", atom_references=refs["atoms"])
+        command("selection-representations", selection=refs, action="apply", style="thick-stick")
+        command("selection-atom-visibility", selection=single, action="hide")
+>       command(
+            "surfaces",
+            surfaces=[
+                {"entry_id": entry_id, "source": {"kind": "fragment", "atom_ids": [1, target]}},
+                {
+                    "entry_id": entry_id,
+                    "source": {"kind": "pocket", "radius": 5, "seed_atom_references": single["atoms"]},
+                },
+            ],
+        )
+
+tests/integration/test_selection_edits.py:243:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+suffix = 'surfaces'
+payload = {'surfaces': [{'entry_id': '01a144f6-1fd5-7dc7-b3d7-6f86ddf5e0db', 'source': {'atom_ids': [1, 4], 'kind': 'fragment'}}...ket', 'radius': 5, 'seed_atom_references': [{'atom_id': 4, 'structure_id': '01a144f6-1fd5-7dc7-b3d7-6f86ddf5e0db'}]}}]}
+response = <Response [422 Unprocessable Entity]>, @py_assert1 = 422
+@py_assert4 = {200, 201}, @py_assert3 = False
+@py_format6 = '422\n{422 = <Response [422 Unprocessable Entity]>.status_code\n} in {200, 201}'
+@py_format8 = '{"detail":{"code":"invalid_project_operation","message":"Choose an entry containing protein context"}}\n>assert 422\n{422 = <Response [422 Unprocessable Entity]>.status_code\n} in {200, 201}'
+
+    def command(suffix: str, **payload: Any) -> None:
+        nonlocal project
+        response = client.post(
+            f"{path}/{suffix}", json={"expected_revision": project["revision"], **payload}
+        )
+>       assert response.status_code in {200, 201}, response.text
+E       AssertionError: {"detail":{"code":"invalid_project_operation","message":"Choose an entry containing protein context"}}
+E       assert 422 in {200, 201}
+E        +  where 422 = <Response [422 Unprocessable Entity]>.status_code
+
+tests/integration/test_selection_edits.py:236: AssertionError
+=========================== short test summary info ============================
+FAILED tests/integration/test_selection_edits.py::test_deleted_id_reconciles_all_references_and_exact_inverse[False]
+FAILED tests/integration/test_selection_edits.py::test_deleted_id_reconciles_all_references_and_exact_inverse[True]
+2 failed, 32 passed in 9.80s

@@ -3745,3 +3745,27 @@ and native selection/mutation/Undo are qualified on desktop/mobile in both theme
 and320px. Source identity, schema majors and migration head remain unchanged.
 Real200% zoom, broader lifecycle/scientific/compatibility and release gates still
 belong to C4/C5. These C3 checks are local self-review, not independent review.
+
+
+### D-098–100 qualification note — issue #69 M4/C4, 2026-10-16
+
+Use fixed 3D geometry as stereo authority only after refusing unspecified potential
+stereo and conflicts between source tetrahedral tags and coordinates. Rebuild the
+edited component in final serialized atom/bond order before assigning tetrahedral
+tags. New centers receive inferred stereo fields, center IDs/method provenance and
+review warnings. Opposite enantiotopic H substitutions and CIP-priority changes
+are qualified separately from geometric inversion. Unsupported E/Z remains refused.
+Nonfinite surrounding coordinates refuse clash validation without publication.
+The compact residue route refuses explicit side-chain crosslinks before template
+replacement; legacy routes retain their prior behavior.
+
+Native qualification reproduced a camera reset when an ordinarily focused ligand
+crossed a responsive viewer remount. Retain only the active project's camera in a
+transient presentation store, seed the new disposable viewer before its first
+scene load, and clear on project change. This avoids a queued initial fit winning
+over late restoration, without putting molecular state into the viewer or changing
+persisted scenes. Movement retains its existing transaction camera authority.
+Artifact-query failure uses explicit retry, consistent with the viewer's query;
+late edit responses retain project/revision/selection guards. Audit modification
+timestamps advance during Undo; artifact bytes and reference content restore
+exactly. No schema/migration/legacy API changes are introduced by these refinements.

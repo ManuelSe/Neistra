@@ -1,0 +1,153 @@
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+[2m[WebServer] [22mINFO:     Started server process [889442]
+[2m[WebServer] [22mINFO:     Waiting for application startup.
+[2m[WebServer] [22mINFO:     Application startup complete.
+[2m[WebServer] [22mINFO:     Uvicorn running on http://127.0.0.1:8160 (Press CTRL+C to quit)
+[2m[WebServer] [22m(node:889514) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:889526) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 6 tests using 1 worker
+
+(node:889553) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:889553) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 [chromium] › tests/e2e/molecular-editing.spec.ts:192:5 › edits a prepared complex with native H/new-atom picks, fixed camera and one affected reload (11.3s)
+(node:889756) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:889756) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  2 [chromium] › tests/e2e/molecular-editing.spec.ts:289:5 › keeps late edit responses owned by their original project (7.1s)
+  ✓  3 [chromium] › tests/e2e/molecular-editing.spec.ts:319:5 › retains a newer native selection and recovers an affected-artifact refetch failure (5.3s)
+(node:889909) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:889909) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  4 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:192:5 › edits a prepared complex with native H/new-atom picks, fixed camera and one affected reload (9.8s)
+(node:890032) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:890032) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  5 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:289:5 › keeps late edit responses owned by their original project (6.1s)
+  ✓  6 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:319:5 › retains a newer native selection and recovers an affected-artifact refetch failure (5.2s)
+
+
+  1) [chromium] › tests/e2e/molecular-editing.spec.ts:192:5 › edits a prepared complex with native H/new-atom picks, fixed camera and one affected reload
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 7[39m
+    [31m+ Received  + 7[39m
+
+    [33m@@ -1,17 +1,17 @@[39m
+    [2m  Object {[22m
+    [2m    "mode": "perspective",[22m
+    [2m    "position": Array [[22m
+    [32m-     20.894199999999994,[39m
+    [32m-     0.2089999999999999,[39m
+    [32m-     14.891017799590712,[39m
+    [31m+     9.82054612633611,[39m
+    [31m+     5.996976100632266,[39m
+    [31m+     53.700930586456955,[39m
+    [2m    ],[22m
+    [32m-   "radius": 5.700000000000007,[39m
+    [31m+   "radius": 17.693538026161388,[39m
+    [2m    "target": Array [[22m
+    [32m-     20.894199999999994,[39m
+    [32m-     0.2089999999999999,[39m
+    [32m-     -0.003800000000000023,[39m
+    [31m+     9.82054612633611,[39m
+    [31m+     5.996976100632266,[39m
+    [31m+     4.285972875997662,[39m
+    [2m    ],[22m
+    [2m    "up": Array [[22m
+    [2m      0,[22m
+    [2m      1,[22m
+    [2m      0,[22m
+
+      284 |   await page.locator(".molstar-host canvas").first().click({ position: point });
+      285 |   await expect.poll(() => page.evaluate(() => window.editingPicks.events.filter(event => event.selection).at(-1)?.selection?.atoms.map(a => a.atom_id))).toEqual([newCarbon.id]);
+    > 286 |   expect(await page.evaluate(() => window.editingPicks.camera())).toEqual(camera);
+          |                                                                   ^
+      287 | });
+      288 |
+      289 | test("keeps late edit responses owned by their original project", async ({ page, request }, info) => {
+        at /datadisk/dev/neistra/tests/e2e/molecular-editing.spec.ts:286:67
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/molecular-editing-edits-a--27939-era-and-one-affected-reload-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/molecular-editing-edits-a--27939-era-and-one-affected-reload-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/molecular-editing-edits-a--27939-era-and-one-affected-reload-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/molecular-editing-edits-a--27939-era-and-one-affected-reload-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:192:5 › edits a prepared complex with native H/new-atom picks, fixed camera and one affected reload
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 7[39m
+    [31m+ Received  + 7[39m
+
+    [33m@@ -1,17 +1,17 @@[39m
+    [2m  Object {[22m
+    [2m    "mode": "perspective",[22m
+    [2m    "position": Array [[22m
+    [32m-     20.894199999999994,[39m
+    [32m-     0.2089999999999999,[39m
+    [32m-     28.514326762631,[39m
+    [31m+     9.82054612633611,[39m
+    [31m+     5.996976100632266,[39m
+    [31m+     50.52141588122633,[39m
+    [2m    ],[22m
+    [32m-   "radius": 5.700000000000007,[39m
+    [31m+   "radius": 17.693538026161388,[39m
+    [2m    "target": Array [[22m
+    [32m-     20.894199999999994,[39m
+    [32m-     0.2089999999999999,[39m
+    [32m-     -0.003800000000000023,[39m
+    [31m+     9.82054612633611,[39m
+    [31m+     5.996976100632266,[39m
+    [31m+     4.285972875997662,[39m
+    [2m    ],[22m
+    [2m    "up": Array [[22m
+    [2m      0,[22m
+    [2m      1,[22m
+    [2m      0,[22m
+
+      284 |   await page.locator(".molstar-host canvas").first().click({ position: point });
+      285 |   await expect.poll(() => page.evaluate(() => window.editingPicks.events.filter(event => event.selection).at(-1)?.selection?.atoms.map(a => a.atom_id))).toEqual([newCarbon.id]);
+    > 286 |   expect(await page.evaluate(() => window.editingPicks.camera())).toEqual(camera);
+          |                                                                   ^
+      287 | });
+      288 |
+      289 | test("keeps late edit responses owned by their original project", async ({ page, request }, info) => {
+        at /datadisk/dev/neistra/tests/e2e/molecular-editing.spec.ts:286:67
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/molecular-editing-edits-a--27939-era-and-one-affected-reload-mobile-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/molecular-editing-edits-a--27939-era-and-one-affected-reload-mobile-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/molecular-editing-edits-a--27939-era-and-one-affected-reload-mobile-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/molecular-editing-edits-a--27939-era-and-one-affected-reload-mobile-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    [chromium] › tests/e2e/molecular-editing.spec.ts:192:5 › edits a prepared complex with native H/new-atom picks, fixed camera and one affected reload
+    [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:192:5 › edits a prepared complex with native H/new-atom picks, fixed camera and one affected reload
+  4 passed (50.9s)

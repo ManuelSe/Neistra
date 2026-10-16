@@ -8,7 +8,8 @@ project state.
 
 ## Identity And Coordinates
 
-- Atom and bond IDs are stable, entry-local, contiguous one-based integers.
+- Atom and bond IDs are stable, entry-local, positive, unique integers in increasing
+  order. Deletions leave gaps; IDs are never compacted or reused (D-028).
 - Every bond endpoint must reference a current atom and cannot self-reference.
 - Every conformer contains one float64 `(x, y, z)` tuple per atom.
 - `active_conformer_id` names the coordinate set projected onto each atom's
