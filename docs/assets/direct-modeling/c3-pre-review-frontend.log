@@ -1,0 +1,93 @@
+
+> @neistra/web@0.16.0 test /datadisk/dev/neistra/apps/web
+> vitest run
+
+
+ RUN  v3.2.4 /datadisk/dev/neistra/apps/web
+
+ ✓ src/test/jobs.test.tsx (3 tests) 1000ms
+   ✓ jobs > submits validated generic parameters and immutable role inputs  611ms
+ ✓ src/test/ligand-editor.test.tsx (3 tests) 1337ms
+   ✓ ligand editor > submits atom, bond, hydrogen, rotation, movement, and cleanup commands  967ms
+ ✓ src/test/protein-editor.test.tsx (4 tests) 1562ms
+   ✓ protein editor > submits destructive, metadata, mutation, hydrogen, and movement commands  1089ms
+ ✓ src/test/export-dialog.test.tsx (7 tests) 1391ms
+   ✓ export dialog > submits scope, supported output mode, and molecular filters then exposes the artifact  517ms
+ ✓ src/test/project-browser.test.tsx (4 tests) 1319ms
+   ✓ project browser selection and discovery > searches, filters, sorts, and collapses grouped entries  561ms
+   ✓ project browser selection and discovery > hands focus to the replacement row when membership completes before menu teardown  373ms
+ ✓ src/test/notification-producers.test.tsx (3 tests) 971ms
+   ✓ classifies import results from structured warnings, independently of success styling  501ms
+ ✓ src/test/numeric-preview-ownership.test.tsx (1 test) 1239ms
+   ✓ discards a delayed numerical preview cleared by movement while retaining valid numerical previews  1238ms
+ ✓ src/test/pocket-controls.test.tsx (6 tests) 1968ms
+   ✓ captures selection, preserves draft across selection changes, and explicitly recaptures  505ms
+   ✓ starts a new captured pocket independently of existing objects, validates radius and discards drafts  468ms
+   ✓ requires explicit choice for multiple receptors and explains no receptor  430ms
+ ✓ src/test/selection-style-dialog.test.tsx (13 tests) 1785ms
+ ✓ src/test/component-hierarchy.test.tsx (2 tests) 1795ms
+   ✓ component hierarchy > loads lazily, renders categories lazily, and emits canonical modifier selections  1790ms
+ ✓ src/test/interactive-transform-controls.test.tsx (4 tests) 2373ms
+   ✓ shares keyboard steps with one Apply and restores launcher focus after Cancel  786ms
+   ✓ retains one capture and pose across scoped Space and explicit view-toggle ownership  339ms
+   ✓ keeps primary actions textless and exposes scientific help without hiding the transaction  1029ms
+ ✓ src/test/structure-loading.test.tsx (13 tests) 1868ms
+   ✓ ignores stale styling eligibility and closes the palette across project switches  508ms
+ ✓ src/test/project-workspace.test.tsx (3 tests) 2137ms
+   ✓ project workspace > creates a real project and exposes its durable checkpoint state  1483ms
+   ✓ project workspace > persists and applies the theme choice  368ms
+ ✓ src/test/surface-editor.test.tsx (5 tests) 733ms
+   ✓ applies independent appearance as one command and restores a draft after undo  400ms
+ ✓ src/test/new-molecule.test.tsx (2 tests) 496ms
+   ✓ creates the visible carbon/zero defaults and supports an explicitly unknown charge  369ms
+ ✓ src/test/project-navigation.test.tsx (10 tests) 3061ms
+   ✓ keeps explicit browsing independent of selection, remembers expansion across targets and remounts  849ms
+   ✓ retains filtered browsing, clears deletion and project changes, and does not reactivate on Undo  304ms
+   ✓ exposes complete metadata and warnings by keyboard and returns to the entry menu  446ms
+   ✓ separates disclosure, label and Details and restores the component launcher  359ms
+   ✓ preserves coordinate expansion and reconciles a removed focused category to the pane heading  393ms
+ ✓ src/test/selection-expansion.test.tsx (5 tests) 476ms
+   ✓ distance expansion > offers defaults, custom residue expansion, cancel, and visible failures  338ms
+ ✓ src/test/group-membership.test.tsx (5 tests) 510ms
+ ✓ src/test/viewer-toolbar.test.tsx (3 tests) 613ms
+   ✓ viewer toolbar > exposes every picking mode as one controlled keyboard-accessible value  479ms
+ ✓ src/test/surface-manager.test.tsx (5 tests) 825ms
+ ✓ src/test/molecular-edit-panel.test.tsx (13 tests) 3168ms
+   ✓ captures canonical operands, stays open, and restores owned launcher focus  329ms
+   ✓ previews and cancels attached atoms without an edit, then applies the captured direction  469ms
+ ✓ src/test/viewer-controls.test.tsx (1 test) 290ms
+ ✓ src/test/movement-navigation.test.tsx (1 test) 288ms
+ ✓ src/test/sequence.test.tsx (2 tests) 351ms
+ ✓ src/test/notifications.test.tsx (9 tests) 331ms
+ ✓ src/test/group-action-focus.test.tsx (3 tests) 368ms
+ ✓ src/test/history.test.tsx (2 tests) 241ms
+ ✓ src/test/viewer-adapter.test.ts (6 tests) 124ms
+ ✓ src/test/component-membership.test.ts (2 tests) 69ms
+ ✓ src/test/interactive-transform.test.ts (21 tests) 92ms
+ ✓ src/test/viewer-presentation.test.ts (2 tests) 75ms
+ ✓ src/test/group-drag.test.tsx (2 tests) 31ms
+ ✓ src/test/interactive-transform-queue.test.ts (4 tests) 18ms
+ ✓ src/test/selection-surface-worker.test.ts (4 tests) 15ms
+ ✓ src/test/focus-targets.test.ts (3 tests) 14ms
+ ✓ src/test/representations.test.ts (9 tests) 11ms
+ ✓ src/test/theme.test.ts (4 tests) 12ms
+ ✓ src/test/selection.test.ts (3 tests) 13ms
+ ✓ src/test/pocket-inputs.test.ts (4 tests) 5ms
+ ✓ src/test/transforms.test.ts (3 tests) 6ms
+ ✓ src/test/manual-modeling.test.ts (1 test) 3ms
+ ✓ src/test/surface-warnings.test.ts (2 tests) 4ms
+ ✓ src/test/measurements.test.ts (2 tests) 3ms
+ ✓ src/test/selection-surface-allocation.test.ts (3 tests) 44ms
+ ✓ src/test/pocket-surface-geometry.test.ts (4 tests) 108ms
+ ✓ src/test/selection-surface-runtime.test.ts (7 tests) 418ms
+ ✓ src/test/selection-colors.test.ts (1 test) 3ms
+ ✓ src/test/interaction-native-geometry.test.ts (2 tests) 22ms
+ ✓ src/test/interactions.test.ts (7 tests) 36ms
+ ✓ src/test/surface-objects.test.ts (4 tests) 10ms
+ ✓ src/test/selection-surface-geometry.test.ts (7 tests) 83ms
+ ✓ src/test/viewer-interaction.test.ts (4 tests) 5ms
+
+ Test Files  52 passed (52)
+      Tests  243 passed (243)
+   Start at  21:26:59
+   Duration  9.22s (transform 5.23s, setup 4.52s, collect 35.00s, tests 33.72s, environment 24.04s, prepare 5.35s)

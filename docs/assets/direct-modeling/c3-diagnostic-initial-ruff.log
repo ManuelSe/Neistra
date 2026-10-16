@@ -1,0 +1,12 @@
+E501 Line too long (103 > 100)
+   --> packages/molweave_core/src/molweave_core/editing/model.py:418:101
+    |
+416 |                     valid_residues = {r.id for r in after.residues}
+417 |                     for atom in added:
+418 |                         incident = [b for b in hydrogen_bonds if atom.id in {b.atom_1_id, b.atom_2_id}]
+    |                                                                                                     ^^^
+419 |                         if len(incident) != 1:
+420 |                             raise InvalidModelEdit(
+    |
+
+Found 1 error.

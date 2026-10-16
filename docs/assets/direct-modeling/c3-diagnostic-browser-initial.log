@@ -1,0 +1,142 @@
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade  -> 0001, Create Milestone 1 project workspace tables.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0001 -> 0002, Version existing project checkpoint snapshots.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0002 -> 0003, Add artifact-backed molecular entry summaries.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0003 -> 0004, Add durable named atom selections.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0004 -> 0005, Add viewer settings, measurements, and named scenes.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0005 -> 0006, Add exact atom identity summaries and monotonic edit allocators.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0006 -> 0007, Add durable generic job lifecycle tables.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0007 -> 0008, Add durable selection representation assignments to viewer settings.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0008 -> 0009, Add durable nonpolar-hydrogen visibility to viewer settings.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0009 -> 0010, Add selection appearance defaults without losing retained history.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0010 -> 0011, Add selection surface defaults without losing retained history.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0011 -> 0012, Add atomic-detail visibility defaults without losing retained history.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0012 -> 0013, Add pocket surface defaults without losing retained history.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0013 -> 0014, Migrate every retained viewer snapshot to identified surface objects.
+[2m[WebServer] [22mINFO:     Started server process [990490]
+[2m[WebServer] [22mINFO:     Waiting for application startup.
+[2m[WebServer] [22mINFO:     Application startup complete.
+[2m[WebServer] [22mINFO:     Uvicorn running on http://127.0.0.1:8270 (Press CTRL+C to quit)
+[2m[WebServer] [22m(node:990562) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:990574) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 8 tests using 1 worker
+
+(node:990601) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:990601) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/e2e/direct-molecular-modeling.spec.ts:39:5 › breaks an aromatic bond and keeps the incomplete draft visible and pickable (5.9s)
+  ✓  2 [chromium] › tests/e2e/direct-molecular-modeling.spec.ts:84:5 › removes a native inferred protein bond durably and restores it on Undo (6.5s)
+  ✘  3 [chromium] › tests/e2e/direct-molecular-modeling.spec.ts:133:5 › creates a molecule, previews/cancels without mutation, applies and rebuilds the last atom (4.1s)
+(node:990798) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:990798) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  4 [chromium] › tests/e2e/direct-molecular-modeling.spec.ts:209:5 › attaches directly with unknown chemistry and saves an edit when optional H cannot run (3.7s)
+(node:990919) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:990919) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  5 [mobile-chromium] › tests/e2e/direct-molecular-modeling.spec.ts:39:5 › breaks an aromatic bond and keeps the incomplete draft visible and pickable (11.0s)
+  ✓  6 [mobile-chromium] › tests/e2e/direct-molecular-modeling.spec.ts:84:5 › removes a native inferred protein bond durably and restores it on Undo (6.3s)
+  ✓  7 [mobile-chromium] › tests/e2e/direct-molecular-modeling.spec.ts:133:5 › creates a molecule, previews/cancels without mutation, applies and rebuilds the last atom (8.8s)
+  ✘  8 [mobile-chromium] › tests/e2e/direct-molecular-modeling.spec.ts:209:5 › attaches directly with unknown chemistry and saves an edit when optional H cannot run (3.1s)
+
+
+  1) [chromium] › tests/e2e/direct-molecular-modeling.spec.ts:133:5 › creates a molecule, previews/cancels without mutation, applies and rebuilds the last atom
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeGreaterThan[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected: > [32m1[39m
+    Received:   [31m1[39m
+
+      159 |   let ghost = await previewState(page);
+      160 |   expect(ghost.preview!.atoms).toHaveLength(1);
+    > 161 |   expect(ghost.representations).toBeGreaterThan(baseline.representations);
+          |                                 ^
+      162 |   expect(ghost.objects.every(object => !object.pickable && object.drawCount > 0)).toBe(true);
+      163 |   expect(ghost.canonicalAtoms).toEqual(baseline.canonicalAtoms);
+      164 |   const point = ghost.preview!.atoms[0].coordinates;
+        at /datadisk/dev/neistra/tests/e2e/direct-molecular-modeling.spec.ts:161:33
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/direct-molecular-modeling--66347--and-rebuilds-the-last-atom-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/direct-molecular-modeling--66347--and-rebuilds-the-last-atom-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/direct-molecular-modeling--66347--and-rebuilds-the-last-atom-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/direct-molecular-modeling--66347--and-rebuilds-the-last-atom-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [chromium] › tests/e2e/direct-molecular-modeling.spec.ts:209:5 › attaches directly with unknown chemistry and saves an edit when optional H cannot run
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeNull[2m()[22m
+
+    Received: [31m0[39m
+
+      213 |   const path = `/api/v1/projects/${initial.id}/entries/${entry.id}/structure`;
+      214 |   const before = (await (await request.get(path)).json() as StructureProjection).structure;
+    > 215 |   expect(before.atoms[0].formal_charge).toBeNull();
+          |                                         ^
+      216 |   await selectPair(page, entry.id, [before.atoms[0].id], info.project.name === "mobile-chromium");
+      217 |   await page.getByRole("button", { name: "Edit molecule", exact: true }).click();
+      218 |   const panel = page.getByRole("dialog", { name: "Edit molecule", exact: true });
+        at /datadisk/dev/neistra/tests/e2e/direct-molecular-modeling.spec.ts:215:41
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/direct-molecular-modeling--dd283--when-optional-H-cannot-run-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/direct-molecular-modeling--dd283--when-optional-H-cannot-run-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/direct-molecular-modeling--dd283--when-optional-H-cannot-run-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/direct-molecular-modeling--dd283--when-optional-H-cannot-run-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [mobile-chromium] › tests/e2e/direct-molecular-modeling.spec.ts:209:5 › attaches directly with unknown chemistry and saves an edit when optional H cannot run
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeNull[2m()[22m
+
+    Received: [31m0[39m
+
+      213 |   const path = `/api/v1/projects/${initial.id}/entries/${entry.id}/structure`;
+      214 |   const before = (await (await request.get(path)).json() as StructureProjection).structure;
+    > 215 |   expect(before.atoms[0].formal_charge).toBeNull();
+          |                                         ^
+      216 |   await selectPair(page, entry.id, [before.atoms[0].id], info.project.name === "mobile-chromium");
+      217 |   await page.getByRole("button", { name: "Edit molecule", exact: true }).click();
+      218 |   const panel = page.getByRole("dialog", { name: "Edit molecule", exact: true });
+        at /datadisk/dev/neistra/tests/e2e/direct-molecular-modeling.spec.ts:215:41
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/direct-molecular-modeling--dd283--when-optional-H-cannot-run-mobile-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/direct-molecular-modeling--dd283--when-optional-H-cannot-run-mobile-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/direct-molecular-modeling--dd283--when-optional-H-cannot-run-mobile-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/direct-molecular-modeling--dd283--when-optional-H-cannot-run-mobile-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3 failed
+    [chromium] › tests/e2e/direct-molecular-modeling.spec.ts:133:5 › creates a molecule, previews/cancels without mutation, applies and rebuilds the last atom
+    [chromium] › tests/e2e/direct-molecular-modeling.spec.ts:209:5 › attaches directly with unknown chemistry and saves an edit when optional H cannot run
+    [mobile-chromium] › tests/e2e/direct-molecular-modeling.spec.ts:209:5 › attaches directly with unknown chemistry and saves an edit when optional H cannot run
+  5 passed (54.9s)

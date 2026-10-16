@@ -2,23 +2,26 @@
 
 ## Current milestone
 
-Issue #74 C2 complete under the [approved contract](plans/issue-74-direct-molecular-modeling.md).
-C0 plan932cfb3 and C1d494149 are pushed on
-`feat/issue-74-direct-molecular-modeling`; C2 is ready to commit/push.
-Direct normalized atom/bond actions preserve unknown chemistry, canonical identity
-and unrelated coordinates, including literal H/last-atom deletion. Draft projection
-and persistent inferred-bond exclusions work through reload and exact Undo.
-Hydrogen-helper eligibility no longer disables direct atom/bond tools.
+Issue #74 C3 checkpoint complete under the [approved contract](plans/issue-74-direct-molecular-modeling.md).
+C0–C2 are pushed (C2:4d192766cabec8fb3ee626dc3e9c476cb6a92bf2);
+C3 is ready to commit/push on `feat/issue-74-direct-molecular-modeling`.
+Direct atom/bond editing, generated New molecule, attached atoms/six fragments,
+pure preview/Cancel/Apply, optional H fallback and explicit empty rebuilding are
+implemented. Original bytes/unknown values and retained records stay exact.
+Advanced controls share direct semantics; new XYZ imports retain unknown charges.
 
-[C2 evidence](assets/direct-modeling/c2-verification.json):83Python,238frontend,
-24desktop/mobile native browser cases pass, zero failures/flakes/retries/skips;
-Ruff/mypy67/lint/types/build/diff pass. Local self-review repaired optional H
-resource-limit fallback, with real helper red/green evidence. Diagnostics and
-pre-review passes remain separate. Screenshots inspected; no independent review
-claimed. C1 evidence remains historical. No migration/version change; planned
-0.17.0 minor. Creation/previews/direct fragments/advanced-inspector routing remain
-C3; full persistence/scientific/actual-reader/performance qualification C4 and
-release C5. No blocker. Next: commit C2, implement C3.
+[C3 evidence](assets/direct-modeling/c3-verification.json):108Python,246frontend,
+31native desktop/mobile passes with3intentional layout skips, no failures/flakes/
+retries; Ruff/mypy68/lint/types/build/diff pass. Local self-review repairs H-only
+merging, empty-target ownership, remount inputs and permissive advanced workflow
+assertions. Earlier evidence remains distinct. No independent review claimed.
+
+Required C4 work remains: mobile's full panel can obscure a proposal; qualify a
+compact inspection presentation plus expanded forms/contrast/real zoom, scientific
+edge cases, persistence/references, actual v0.16.0 reader and existing performance
+budgets. C5 release gates/PR/merge/tag/release/closeout remain. No external blocker;
+next: commit C3, implement/qualify C4. Five versions remain0.16.0; planned0.17.0
+minor with no top-level schema/database migration. No release claim yet.
 
 ### Previous delivery baseline — v0.16.0
 

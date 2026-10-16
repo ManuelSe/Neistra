@@ -218,3 +218,31 @@ def test_optional_completion_resource_limit_keeps_the_direct_edit() -> None:
     assert limited.structure.atoms[1:] == before.atoms[1:]
     assert limited.structure.conformers == before.conformers
     assert any(w.code == "model_hydrogen_completion_skipped" for w in limited.warnings)
+
+
+def test_successful_optional_h_adds_only_h_and_keeps_direct_records_exact() -> None:
+    from tests.unit.editing.test_ligand_editor import ligand
+
+    before = ligand("CO")
+    editor = DirectMolecularEditor()
+    action = ModelElement(operation="atom.element", element="N")
+    direct = editor.edit(before, [1], action, next_atom_id=3, next_bond_id=2).edit.structure
+    completed = editor.edit(
+        before, [1], action, next_atom_id=3, next_bond_id=2, hydrogen_policy="complete_if_possible"
+    ).edit
+    assert completed.created_atom_ids
+    assert completed.structure.atoms[: len(direct.atoms)] == direct.atoms
+    assert completed.structure.bonds[: len(direct.bonds)] == direct.bonds
+    assert (
+        completed.structure.conformers[0].coordinates[: len(direct.atoms)]
+        == direct.active_coordinates
+    )
+    new = [a for a in completed.structure.atoms if a.id in completed.created_atom_ids]
+    assert all(a.element == "H" for a in new)
+    parents = {a.id: a for a in direct.atoms}
+    for hydrogen in new:
+        bond = next(
+            b for b in completed.structure.bonds if hydrogen.id in {b.atom_1_id, b.atom_2_id}
+        )
+        parent = parents[bond.atom_2_id if bond.atom_1_id == hydrogen.id else bond.atom_1_id]
+        assert hydrogen.residue_id == parent.residue_id

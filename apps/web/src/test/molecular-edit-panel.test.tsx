@@ -1,3 +1,4 @@
+import { projectApi } from "../api/client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { act, cleanup, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -19,13 +20,18 @@ const projection: StructureProjection = {
   },
 };
 
-afterEach(() => { cleanup(); useEditingStore.getState().setProject(null); });
+afterEach(() => { vi.restoreAllMocks(); cleanup(); useEditingStore.getState().setProject(null); });
 function setup(operand = selection, unavailable: string | null = null, molecule = projection) {
   useEditingStore.getState().setProject(project.id);
+  vi.spyOn(projectApi, "modelPreview").mockResolvedValue({ entry_id: entry.id,
+    expected_revision: project.revision, expected_artifact_id: entry.current_artifact_id!,
+    atoms: [{ preview_id: "preview-0", element: "C", coordinates: [1.5, 0, 0] }],
+    bonds: [], removed_atom_ids: [], warnings: [],
+  });
   const client = new QueryClient({ defaultOptions: { queries: { retry: false } } });
   client.setQueryData(["structure", project.id, entry.id, entry.current_artifact_id], molecule);
   const onEdit = vi.fn().mockResolvedValue({ project, warnings: [], report: {}, replacements: {} });
-  const panelProject = { ...project, entries: [{ ...entry, structure_type: molecule.structure.structure_type }] };
+  const panelProject = { ...project, entries: [{ ...entry, structure_type: molecule.structure.structure_type, atom_count: molecule.structure.atoms.length }] };
   render(<QueryClientProvider client={client}><MolecularEditPanel project={panelProject} selection={operand} busy={false} unavailable={unavailable} onEdit={onEdit} /></QueryClientProvider>);
   return { onEdit, user: userEvent.setup() };
 }
@@ -82,7 +88,10 @@ it("shows six structural previews and substitutes an H through one fragment acti
   await user.click(screen.getByRole("button", { name: "Fragments" }));
   expect(document.querySelectorAll(".edit-fragment-grid svg")).toHaveLength(6);
   await user.click(screen.getByRole("button", { name: "Replace H with Carboxylic acid" }));
-  expect(onEdit).toHaveBeenCalledWith(entry.id, entry.current_artifact_id, selection, { operation: "fragment.replace", fragment: "carboxylic_acid" });
+  expect(onEdit).not.toHaveBeenCalled();
+  await screen.findByRole("button", { name: "Apply placement" });
+  await user.click(screen.getByRole("button", { name: "Apply placement" }));
+  expect(onEdit).toHaveBeenCalledWith(entry.id, entry.current_artifact_id, selection, { operation: "fragment.attach", fragment: "carboxylic_acid", direction: 0, rotation: 0 });
   expect(screen.getByRole("dialog", { name: "Edit molecule" })).toBeVisible();
 });
 
@@ -187,4 +196,81 @@ it("permits H endpoints and breaking a displayed inferred bond with no canonical
   expect(onEdit).toHaveBeenCalledWith(entry.id, entry.current_artifact_id, operand, { operation: "bond.delete" });
   await user.selectOptions(screen.getByRole("combobox", { name: "Assign bond order" }), "unknown");
   expect(onEdit).toHaveBeenLastCalledWith(entry.id, entry.current_artifact_id, operand, { operation: "bond.set", order: null });
+});
+
+
+it("previews and cancels attached atoms without an edit, then applies the captured direction", async () => {
+  const { user, onEdit } = setup();
+  await user.click(screen.getByRole("button", { name: "Edit molecule" }));
+  await user.click(screen.getByText("Add atom", { exact: true }));
+  await user.click(screen.getByRole("button", { name: "Preview atom" }));
+  await user.click(await screen.findByRole("button", { name: "Next direction" }));
+  expect(useEditingStore.getState().placement?.action.direction).toBe(1);
+  expect(onEdit).not.toHaveBeenCalled();
+  await user.click(screen.getByRole("button", { name: "Cancel placement" }));
+  expect(useEditingStore.getState().placement).toBeNull();
+  await user.click(screen.getByRole("button", { name: "Preview atom" }));
+  await user.click(await screen.findByRole("button", { name: "Apply placement" }));
+  expect(onEdit).toHaveBeenCalledWith(entry.id, entry.current_artifact_id, selection, { operation: "atom.add", element: "C", charge: 0, direction: 0 });
+});
+
+it("requires an explicit empty-entry target for rebuilding", async () => {
+  const empty = { ...projection, structure: { ...projection.structure, atoms: [], bonds: [] } };
+  const operand = { ...selection, atoms: [] };
+  const { user, onEdit } = setup(operand, null, empty);
+  await user.click(screen.getByRole("button", { name: "Edit molecule" }));
+  expect(screen.getByRole("status")).toHaveTextContent("Select atoms in one entry");
+  await user.selectOptions(screen.getByRole("combobox", { name: "Empty target entry" }), entry.id);
+  await user.click(screen.getByText("Add atom", { exact: true }));
+  await user.click(screen.getByRole("button", { name: "Preview atom" }));
+  await user.click(await screen.findByRole("button", { name: "Apply placement" }));
+  expect(onEdit).toHaveBeenCalledWith(entry.id, entry.current_artifact_id, operand, { operation: "atom.add", element: "C", charge: 0, direction: 0 });
+});
+
+it("does not allow retargeting an empty-entry write while it is pending", async () => {
+  const empty = { ...projection, structure: { ...projection.structure, atoms: [], bonds: [] } };
+  const operand = { ...selection, atoms: [] };
+  const { user, onEdit } = setup(operand, null, empty);
+  let finish!: () => void;
+  onEdit.mockImplementationOnce(() => new Promise(resolve => { finish = () => resolve({ project, warnings: [], report: {}, replacements: {} }); }));
+  await user.click(screen.getByRole("button", { name: "Edit molecule" }));
+  await user.selectOptions(screen.getByRole("combobox", { name: "Empty target entry" }), entry.id);
+  await user.click(screen.getByText("Add atom", { exact: true }));
+  await user.click(screen.getByRole("button", { name: "Preview atom" }));
+  await user.click(await screen.findByRole("button", { name: "Apply placement" }));
+  expect(screen.getByRole("combobox", { name: "Empty target entry" })).toBeDisabled();
+  await act(async () => { finish(); await Promise.resolve(); });
+  expect(screen.getByRole("combobox", { name: "Empty target entry" })).toBeEnabled();
+});
+
+it("does not resurrect a cancelled proposal when its delayed preview resolves", async () => {
+  const { user, onEdit } = setup();
+  const answer = { entry_id: entry.id, expected_revision: project.revision, expected_artifact_id: entry.current_artifact_id!, atoms: [{ preview_id: "preview-0", element: "C", coordinates: [1.5,0,0] as [number,number,number] }], bonds: [], removed_atom_ids: [], warnings: [] };
+  let finish!: () => void;
+  vi.mocked(projectApi.modelPreview).mockImplementationOnce(() => new Promise(resolve => { finish = () => resolve(answer); }));
+  await user.click(screen.getByRole("button", { name: "Edit molecule" }));
+  await user.click(screen.getByText("Add atom", { exact: true }));
+  await user.click(screen.getByRole("button", { name: "Preview atom" }));
+  await user.click(screen.getByRole("button", { name: "Cancel placement" }));
+  await act(async () => { finish(); await Promise.resolve(); });
+  expect(useEditingStore.getState().placement).toBeNull();
+  expect(screen.queryByRole("button", { name: "Apply placement" })).toBeNull();
+  expect(onEdit).not.toHaveBeenCalled();
+});
+
+it("retains placement inputs and the captured proposal across responsive remounts", async () => {
+  const first = setup();
+  await first.user.click(screen.getByRole("button", { name: "Edit molecule" }));
+  await first.user.click(screen.getByText("Add atom", { exact: true }));
+  await first.user.clear(screen.getByRole("combobox", { name: "Added element" }));
+  await first.user.type(screen.getByRole("combobox", { name: "Added element" }), "P");
+  await first.user.click(screen.getByRole("button", { name: "Preview atom" }));
+  await screen.findByRole("button", { name: "Apply placement" });
+  cleanup();
+  const second = setup();
+  // The disclosure itself is local presentation state; its draft is project-owned.
+  await second.user.click(screen.getByText("Add atom", { exact: true }));
+  expect(screen.getByRole("combobox", { name: "Added element" })).toHaveValue("P");
+  await second.user.click(screen.getByRole("button", { name: "Apply placement" }));
+  expect(second.onEdit).toHaveBeenCalledWith(entry.id, entry.current_artifact_id, selection, { operation: "atom.add", element: "P", charge: 0, direction: 0 });
 });

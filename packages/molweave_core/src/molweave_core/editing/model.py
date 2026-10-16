@@ -5,10 +5,22 @@ from __future__ import annotations
 from math import dist
 from typing import Annotated, Literal
 
-from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, field_validator
+import numpy as np
+from pydantic import (
+    BaseModel,
+    ConfigDict,
+    Field,
+    FiniteFloat,
+    StrictFloat,
+    StrictInt,
+    field_validator,
+)
 from rdkit import Chem
+from scipy.spatial import cKDTree  # type: ignore[import-untyped]
 
+from molweave_core.editing.fragments import FragmentName
 from molweave_core.editing.ligand import EditResult
+from molweave_core.editing.placement import place_atom, place_fragment
 from molweave_core.editing.selection import (
     HydrogenPrepare,
     SelectionEditResult,
@@ -70,8 +82,34 @@ class ModelBondDelete(ModelActionBase):
     operation: Literal["bond.delete"]
 
 
+class ModelAtomAdd(ModelActionBase):
+    operation: Literal["atom.add"]
+    element: str = Field(min_length=1, max_length=3)
+    charge: StrictInt | None = 0
+    direction: int = Field(default=0, ge=0, le=5, strict=True)
+    coordinates: tuple[FiniteFloat, FiniteFloat, FiniteFloat] | None = None
+
+    @field_validator("element")
+    @classmethod
+    def recognized_element(cls, value: str) -> str:
+        return ModelElement.recognized_element(value)
+
+
+class ModelFragmentAdd(ModelActionBase):
+    operation: Literal["fragment.attach"]
+    fragment: FragmentName
+    direction: int = Field(default=0, ge=0, le=5, strict=True)
+    rotation: int = Field(default=0, ge=0, le=5, strict=True)
+
+
 ModelAction = Annotated[
-    ModelElement | ModelCharge | ModelDelete | ModelBondSet | ModelBondDelete,
+    ModelElement
+    | ModelCharge
+    | ModelDelete
+    | ModelBondSet
+    | ModelBondDelete
+    | ModelAtomAdd
+    | ModelFragmentAdd,
     Field(discriminator="operation"),
 ]
 
@@ -125,7 +163,11 @@ class DirectMolecularEditor:
     ) -> SelectionEditResult:
         atoms = {a.id: a for a in before.atoms}
         chosen = set(selected)
-        if not selected or len(chosen) != len(selected) or not chosen <= atoms.keys():
+        if (
+            (not selected and not isinstance(action, ModelAtomAdd))
+            or len(chosen) != len(selected)
+            or not chosen <= atoms.keys()
+        ):
             raise InvalidModelEdit("Select current, unique atoms in this entry.")
         if next_atom_id <= max(atoms, default=0) or next_bond_id <= max(
             (b.id for b in before.bonds),
@@ -141,7 +183,39 @@ class DirectMolecularEditor:
         after = before
         touched = set(chosen)
         warnings: list[MolecularWarning] = []
-        if isinstance(action, ModelDelete):
+        replacements: dict[int, int] = {}
+        if isinstance(action, (ModelAtomAdd, ModelFragmentAdd)):
+            try:
+                placement = (
+                    place_atom(
+                        before,
+                        selected,
+                        element=action.element,
+                        charge=action.charge,
+                        direction=action.direction,
+                        coordinates=action.coordinates,
+                        next_atom_id=next_atom_id,
+                        next_bond_id=next_bond_id,
+                    )
+                    if isinstance(action, ModelAtomAdd)
+                    else place_fragment(
+                        before,
+                        selected,
+                        fragment=action.fragment,
+                        direction=action.direction,
+                        rotation=action.rotation,
+                        next_atom_id=next_atom_id,
+                        next_bond_id=next_bond_id,
+                    )
+                )
+            except ValueError as error:
+                raise InvalidModelEdit(str(error)) from error
+            after, replacements, touched = (
+                placement.structure,
+                placement.replacements,
+                placement.touched,
+            )
+        elif isinstance(action, ModelDelete):
             retained = [i for i, a in enumerate(before.atoms) if a.id not in chosen]
             for bond in before.bonds:
                 if chosen & {bond.atom_1_id, bond.atom_2_id}:
@@ -177,7 +251,18 @@ class DirectMolecularEditor:
             after = before.model_copy(
                 update={
                     "atoms": [
-                        a.model_copy(update=change) if a.id == target.id else a
+                        a.model_copy(
+                            update={
+                                **change,
+                                "inferred_fields": [
+                                    field
+                                    for field in a.inferred_fields
+                                    if field not in change and field != "chemistry"
+                                ],
+                            }
+                        )
+                        if a.id == target.id
+                        else a
                         for a in before.atoms
                     ]
                 }
@@ -211,6 +296,7 @@ class DirectMolecularEditor:
                                     update={
                                         "order": action.order,
                                         "aromatic": aromatic,
+                                        "inferred": False,
                                         "stereo": None,
                                     }
                                 )
@@ -258,7 +344,14 @@ class DirectMolecularEditor:
         after = after.model_copy(
             update={
                 "atoms": [
-                    a.model_copy(update={"stereo": None})
+                    a.model_copy(
+                        update={
+                            "stereo": None,
+                            "inferred_fields": [
+                                field for field in a.inferred_fields if field != "stereo"
+                            ],
+                        }
+                    )
                     if a.stereo not in {None, "NONE"} and a.id in stereo_scope
                     else a
                     for a in after.atoms
@@ -274,6 +367,8 @@ class DirectMolecularEditor:
         metadata = dict(after.metadata)
         for key in ("canonical_smiles", "formula", "molecular_weight", "descriptors"):
             metadata.pop(key, None)
+        retained_ids = {a.id for a in after.atoms}
+        exclusions = {pair for pair in exclusions if set(pair) <= retained_ids}
         metadata[MODELING_METADATA] = ModelingMetadata(
             excluded_bonds=sorted(exclusions),
         ).model_dump(mode="json")
@@ -298,7 +393,9 @@ class DirectMolecularEditor:
                             after,
                             operands,
                             HydrogenPrepare(operation="hydrogens.prepare"),
-                            next_atom_id=next_atom_id,
+                            next_atom_id=max(
+                                next_atom_id, max((a.id for a in after.atoms), default=0) + 1
+                            ),
                             next_bond_id=max(
                                 next_bond_id,
                                 max(
@@ -314,7 +411,67 @@ class DirectMolecularEditor:
                         raise InvalidModelEdit(
                             f"Hydrogen completion exceeds the entry limit of {atom_limit} atoms."
                         )
-                    after = completed.structure
+                    base_atoms = {a.id: a for a in after.atoms}
+                    candidate_atoms = {a.id: a for a in completed.structure.atoms}
+                    if not base_atoms.keys() <= candidate_atoms.keys():
+                        raise InvalidModelEdit("Hydrogen completion would remove retained atoms.")
+                    added = [a for a in completed.structure.atoms if a.id not in base_atoms]
+                    if any(a.element != "H" for a in added):
+                        raise InvalidModelEdit("Hydrogen completion produced a non-hydrogen atom.")
+                    added_ids = {a.id for a in added}
+                    old_bonds = {b.id for b in after.bonds}
+                    hydrogen_bonds = [b for b in completed.structure.bonds if b.id not in old_bonds]
+                    inherited = []
+                    valid_residues = {r.id for r in after.residues}
+                    for atom in added:
+                        incident = [
+                            b for b in hydrogen_bonds if atom.id in {b.atom_1_id, b.atom_2_id}
+                        ]
+                        if len(incident) != 1:
+                            raise InvalidModelEdit(
+                                "Hydrogen completion produced ambiguous connectivity."
+                            )
+                        bond = incident[0]
+                        parent_id = bond.atom_2_id if bond.atom_1_id == atom.id else bond.atom_1_id
+                        parent = base_atoms.get(parent_id)
+                        if parent is None or parent.element == "H" or bond.order != 1:
+                            raise InvalidModelEdit(
+                                "Hydrogen completion needs a retained heavy parent."
+                            )
+                        inherited.append(
+                            atom.model_copy(
+                                update={
+                                    "residue_id": parent.residue_id
+                                    if parent.residue_id in valid_residues
+                                    else None
+                                }
+                            )
+                        )
+                    if any(not added_ids & {b.atom_1_id, b.atom_2_id} for b in hydrogen_bonds):
+                        raise InvalidModelEdit("Hydrogen completion would add unrelated bonds.")
+                    # Consume only new H records. Retained atoms/bonds/stereo/coordinates
+                    # remain exactly the requested direct draft, not a helper normalization.
+                    after = after.model_copy(
+                        update={
+                            "atoms": [*after.atoms, *inherited],
+                            "bonds": [*after.bonds, *hydrogen_bonds],
+                            "conformers": [
+                                c.model_copy(
+                                    update={
+                                        "coordinates": [
+                                            *c.coordinates,
+                                            *[a.coordinates for a in inherited],
+                                        ]
+                                    }
+                                )
+                                for c in after.conformers
+                            ],
+                            "inferences": [
+                                *after.inferences,
+                                *completed.structure.inferences[len(after.inferences) :],
+                            ],
+                        }
+                    )
                     warnings.extend(completed.warnings)
                 except (ValueError, RuntimeError) as error:
                     warnings.append(
@@ -326,6 +483,31 @@ class DirectMolecularEditor:
                     )
         if len(after.atoms) > atom_limit:
             raise InvalidModelEdit(f"The result exceeds the entry limit of {atom_limit} atoms.")
+        if isinstance(action, (ModelAtomAdd, ModelFragmentAdd)):
+            old_ids = {a.id for a in before.atoms}
+            created_indices = [i for i, a in enumerate(after.atoms) if a.id not in old_ids]
+            retained_indices = [i for i, a in enumerate(after.atoms) if a.id in old_ids]
+            closest = float("inf")
+            if created_indices and retained_indices:
+                for conformer in after.conformers:
+                    retained_points = np.asarray(
+                        [conformer.coordinates[i] for i in retained_indices]
+                    )
+                    new_points = np.asarray([conformer.coordinates[i] for i in created_indices])
+                    closest = min(
+                        closest, float(np.min(cKDTree(retained_points).query(new_points)[0]))
+                    )
+            if closest < 0.6:
+                warnings.append(
+                    model_warning(
+                        "model_placement_clash",
+                        f"A generated atom is {closest:.3f} angstrom from retained "
+                        "material in a conformer; "
+                        "review this unoptimized placement. The requested draft was retained.",
+                        action.operation,
+                        "coordinates",
+                    )
+                )
         warnings.extend(self._local_warnings(after, touched, action.operation))
         # Retain previous scientific/source warnings, replacing exact duplicates.
         unique = {(w.code, w.field, w.message): w for w in [*after.warnings, *warnings]}
@@ -350,7 +532,7 @@ class DirectMolecularEditor:
                     )
                 ),
             ),
-            {},
+            replacements,
         )
 
     @staticmethod
@@ -374,6 +556,8 @@ class DirectMolecularEditor:
                 "metadata",
             ),
         ]
+        if structure.source.format == "generated":
+            result = [w for w in result if w.code != "model_source_labels"]
         atoms = {a.id: a for a in structure.atoms}
         neighbors: dict[int, list[Bond]] = {i: [] for i in touched & atoms.keys()}
         for bond in structure.bonds:

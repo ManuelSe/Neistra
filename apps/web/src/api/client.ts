@@ -1,3 +1,4 @@
+import type { HydrogenPolicy, ModelPlacementAction, ModelPreview, MoleculeCreateResult } from "./types";
 import type {
   ApiErrorBody,
   CameraState,
@@ -173,10 +174,19 @@ export const projectApi = {
         }),
       },
     ),
-  selectionEdit: (project: Project, entryId: string, artifactId: string, selection: Selection, action: SelectionEditAction) =>
+  selectionEdit: (project: Project, entryId: string, artifactId: string, selection: Selection, action: SelectionEditAction, hydrogenPolicy: HydrogenPolicy = "preserve") =>
     request<SelectionEditResult>(`/api/v1/projects/${project.id}/entries/${entryId}/${["residue.mutate", "hydrogens.prepare", "fragment.replace", "atom.charge", "bond.create", "bond.order"].includes(action.operation) ? "selection-edits" : "model-edits"}`, {
       method: "POST", body: JSON.stringify({ expected_revision: project.revision,
-        expected_artifact_id: artifactId, selection, action }),
+        expected_artifact_id: artifactId, selection, action, ...(!["residue.mutate", "hydrogens.prepare", "fragment.replace", "atom.charge", "bond.create", "bond.order"].includes(action.operation) ? { hydrogen_policy: hydrogenPolicy } : {}) }),
+    }),
+  modelPreview: (project: Project, entryId: string, artifactId: string, selection: Selection, action: ModelPlacementAction, hydrogenPolicy: HydrogenPolicy, signal?: AbortSignal) =>
+    request<ModelPreview>(`/api/v1/projects/${project.id}/entries/${entryId}/model-edits/preview`, {
+      method: "POST", signal, body: JSON.stringify({ expected_revision: project.revision,
+        expected_artifact_id: artifactId, selection, action, hydrogen_policy: hydrogenPolicy }),
+    }),
+  createMolecule: (project: Project, payload: { name: string; element: string; charge: number | null }) =>
+    request<MoleculeCreateResult>(`/api/v1/projects/${project.id}/molecules`, {
+      method: "POST", body: JSON.stringify({ expected_revision: project.revision, ...payload }),
     }),
   proteinEdit: (project: Project, entryId: string, payload: ProteinEdit) =>
     request<ProteinEditResult>(

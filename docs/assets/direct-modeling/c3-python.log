@@ -1,0 +1,21 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.2, pluggy-1.6.0
+rootdir: /datadisk/dev/neistra
+configfile: pyproject.toml
+plugins: cov-6.3.0, anyio-4.9.0
+collected 108 items
+
+tests/unit/test_hydrogen_membership.py ...                               [  2%]
+tests/unit/test_components.py ....                                       [  6%]
+tests/unit/editing/test_direct_modeling.py ........                      [ 13%]
+tests/unit/editing/test_direct_placement.py .............                [ 25%]
+tests/unit/editing/test_ligand_editor.py ........                        [ 33%]
+tests/unit/editing/test_protein_editor.py .....                          [ 37%]
+tests/scientific/test_selection_editing.py ............                  [ 49%]
+tests/integration/test_selection_edits.py .............................. [ 76%]
+....                                                                     [ 80%]
+tests/integration/test_model_edits.py ..........                         [ 89%]
+tests/integration/test_molecule_creation.py ....                         [ 93%]
+tests/scientific/test_format_fidelity.py .......                         [100%]
+
+============================= 108 passed in 14.21s =============================

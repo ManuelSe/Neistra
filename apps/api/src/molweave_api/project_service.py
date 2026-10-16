@@ -395,6 +395,18 @@ class ProjectService:
             entry_ids,
         )
 
+    def create_molecule(
+        self, project_id: str, expected_revision: int, entry_state: dict[str, Any],
+    ) -> ProjectRead:
+        project = self._project(project_id)
+        self._check_revision(project, expected_revision)
+        entry_id = str(entry_state["id"])
+        return self._record(
+            project, "model.create", f"Create molecule {entry_state['name']}",
+            [{"kind": "entry.create", "entry": entry_state}],
+            [{"kind": "entry.delete", "entry_id": entry_id}], [entry_id],
+        )
+
     def import_job_result(
         self,
         project_id: str,

@@ -1,9 +1,8 @@
 # Molecular editing
 
 The current direct atom/bond workflow follows the
-[issue #74 contract](plans/issue-74-direct-molecular-modeling.md). C2 implements
-basic direct editing; New molecule, attached atom/fragment previews and optional
-hydrogen completion are subsequent checkpoints and are not available yet.
+[issue #74 contract](plans/issue-74-direct-molecular-modeling.md). C3 implements direct editing and compact building; final scientific, persistence,
+compatibility and release qualification remain C4/C5 checkpoints.
 
 Select atoms, open **Edit molecule** beside **Transform selection**, and use
 **Atoms** or **Bonds**. Direct editing works on incomplete normalized structures
@@ -42,13 +41,53 @@ pH/tautomer/protonation determination, and may reject unsuitable geometry/stereo
 **Show explicit H** changes viewer settings only; atomic representations, isolation,
 component visibility, local H preferences and atom hiding still control visibility.
 
-At C2, **Fragments** retains the existing terminal-H substitution helper and its
-prepared-component requirements: methyl, ethyl, hydroxyl, amino, carboxylic acid
-or phenyl. It consumes H identity and places a new root with explicit fragment H
-in one reversible command. The six ETKDGv3 seed690 methyl-capped templates and
-bounded torsions remain the qualified template source. Direct attachment and
-placement preview are not yet implemented at this checkpoint. Broad catalogue,
-ring fusion, peptide growth and combining separate entries remain outside #74.
+Use **New molecule** in the project browser or empty-project view to name an entry
+and choose its first element/charge. Carbon/zero defaults are visible; unknown
+charge is explicit. The first atom starts at the origin and becomes focused and
+selected only while its response still owns the active project visit/selection.
+Creation is one Undo/Redo command. There is no original-file download for a
+structure created in the application. Closing while creation is pending prevents
+a late UI takeover; a result already stored remains in its original project.
+
+In **Atoms → Add atom**, choose the added element and absolute charge (or unknown),
+then **Preview atom**. This attaches to one selected atom, preserving existing H.
+For an empty entry, choose **Empty target entry** explicitly and preview its first
+atom at the origin. Deleting the last atom leaves that entry available for rebuilding;
+there is no fallback to another loaded entry. The advanced inspector can also add
+an explicitly positioned disconnected atom; its target must be chosen explicitly.
+
+In **Fragments**, select a heavy atom to attach methyl, ethyl, hydroxyl, amino,
+carboxylic acid or phenyl, or select a terminal explicit H to replace it. Terminal H
+replacement needs an explicit heavy parent, but not complete charge/order chemistry.
+The parent stays fixed and other H are preserved. Replacement consumes H identity
+and maps it to the new root; ordinary element assignment instead retains identity.
+All new records inherit their anchor's valid residue membership.
+
+A cyan, nonpickable **Placement preview** shows proposed atoms/bonds. Use **Next
+direction** to cycle six local directions and **Rotate fragment** for six60-degree
+turns. **Apply placement** recomputes and saves one command; **Cancel placement**
+discards the proposal without an artifact/history/allocator change. Selection,
+project visit, revision/artifact, input, policy or tool/movement changes invalidate
+it. Ghosts are not molecular atoms and cannot become canonical operands. Normal
+canvas/camera gestures and explicit Transform remain available.
+
+Only the six existing methyl-capped templates are embedded (ETKDGv3, seed690,
+at most200 iterations); the parent is never embedded or minimized. Proper rigid
+transforms retain template geometry. Six torsions compare distance to retained
+material, with deterministic first-best ties, followed by a user turn offset.
+Each conformer gets new coordinates without moving retained points. Overlap and
+unoptimized geometry warn rather than block the requested draft. This is not
+proof of favorable geometry, protonation or force-field readiness.
+
+**Complete hydrogens when possible** is off by default. It attempts the existing
+eligible small-component helper after the direct operation. Only new H/bonds are
+merged; retained records/coordinates remain exact. Unavailable chemistry,
+geometry or resource limits save the direct edit alone with a skip warning. It
+never reverses explicit H deletion. Standalone preparation, minimization and
+residue mutation keep separate prerequisites. New XYZ imports preserve absent
+formal charges as unknown and report that fact; historical saved records are not
+reinterpreted. Broad catalogue, ring fusion, peptide growth and combining separate
+entries remain outside #74.
 
 Each edit publishes one immutable artifact/history command. Undo/Redo restores
 exact molecular state; monotonic IDs are not reused after branching. Warnings
@@ -56,7 +95,7 @@ persist in entry Details. Locks, revisions, artifact ownership, valid references
 finite coordinates and aligned conformers remain required. The application entry
 atom limit applies; the helper's256-heavy-atom limit is not a direct-edit limit.
 No database or top-level schema migration is introduced (Alembic0014;
-project/viewer/archive2, normalized/selection1). Native save/archive qualification,
+project/viewer/archive2, normalized/selection1). Broader native save/archive qualification,
 actual preceding-reader limitations and release publication remain C4/C5 work.
 
 In **Residues**, pick exactly one complete amino-acid residue and click one of

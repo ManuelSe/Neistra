@@ -83,7 +83,7 @@ test("maps a native bond hit to canonical endpoints and changes its order from t
   await expect(panel).toBeVisible();
 });
 
-test("substitutes a selected H with illustrated COOH without an attachment mode", async ({ page, request }, info) => {
+test("previews and substitutes a selected H with illustrated COOH", async ({ page, request }, info) => {
   test.setTimeout(90000);
   const project = await prepare(page, request, ["tests/fixtures/editing/ethanol-3d.mol"], "Fragment edit");
   const entry = project.entries[0];
@@ -102,6 +102,8 @@ test("substitutes a selected H with illustrated COOH without an attachment mode"
   await panel.getByRole("button", { name: "Fragments", exact: true }).click();
   await expect(panel.locator(".edit-fragment-grid svg")).toHaveCount(6);
   await panel.getByRole("button", { name: "Replace H with Carboxylic acid", exact: true }).click();
+  await expect(panel.getByRole("button", { name: "Apply placement", exact: true })).toBeEnabled();
+  await panel.getByRole("button", { name: "Apply placement", exact: true }).click();
   await expect.poll(async () => (await projection()).structure.atoms.filter(a => a.element !== "H").length).toBe(6);
   const after = (await projection()).structure;
   expect(after.atoms.filter(a => a.element === "H")).toHaveLength(6);

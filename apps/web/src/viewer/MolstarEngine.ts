@@ -1,3 +1,5 @@
+import { createModelPreviewRepresentation } from "./modelPreviewGeometry";
+import type { ModelPreview } from "../api/types";
 import { componentAtomIds } from "../selection/components";
 import type { InteractionRecord } from "../interactions/types";
 import { createInteractionRepresentation } from "./interactionGeometry";
@@ -111,6 +113,8 @@ export class MolstarEngine implements MolecularViewer {
   private coordinatePreviews = new Map<string, Map<number, Point3D>>();
   private measurements: ViewerMeasurement[] = [];
   private interactions: InteractionRecord[] = [];
+  private modelPreview: ModelPreview | null = null;
+  private modelPreviewRepresentation = createModelPreviewRepresentation();
   private interactionRepresentation = createInteractionRepresentation();
   private nonpolarHydrogenIds = new Map<string, Set<number>>();
   private isolation: AtomReference[] | null = null;
@@ -343,6 +347,7 @@ export class MolstarEngine implements MolecularViewer {
         this.applySelection();
         await this.applyMeasurements();
         await this.applyInteractions();
+        await this.applyModelPreview();
         this.commitScene(camera);
         this.boundGeneration = generation;
       } finally {
@@ -519,6 +524,24 @@ export class MolstarEngine implements MolecularViewer {
       this.commitScene(camera);
     });
     return this.syncQueue;
+  }
+
+  setModelPreview(preview: ModelPreview | null): Promise<void> {
+    this.modelPreview = preview;
+    if (!preview) this.plugin?.canvas3d?.remove(this.modelPreviewRepresentation);
+    this.syncQueue = this.syncQueue.catch(() => undefined).then(() => this.applyModelPreview());
+    return this.syncQueue;
+  }
+
+  private async applyModelPreview(): Promise<void> {
+    const canvas = this.plugin?.canvas3d;
+    const preview = this.modelPreview;
+    if (!canvas) return;
+    if (!preview) { canvas.remove(this.modelPreviewRepresentation); return; }
+    await this.modelPreviewRepresentation.createOrUpdate({ alpha: 0.55, ignoreLight: true }, preview).run();
+    if (this.modelPreview !== preview) return;
+    this.modelPreviewRepresentation.setState({ pickable: false, markerActions: 0 });
+    canvas.add(this.modelPreviewRepresentation);
   }
 
   setInteractions(interactions: InteractionRecord[]): Promise<void> {
@@ -740,6 +763,9 @@ export class MolstarEngine implements MolecularViewer {
   }
 
   dispose(): void {
+    this.modelPreview = null;
+    this.plugin?.canvas3d?.remove(this.modelPreviewRepresentation);
+    this.modelPreviewRepresentation.destroy();
     this.plugin?.canvas3d?.remove(this.interactionRepresentation);
     this.interactionRepresentation.destroy();
     this.setMovementMode("inactive");

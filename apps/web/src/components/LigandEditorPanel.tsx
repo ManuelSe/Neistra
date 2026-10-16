@@ -1,3 +1,5 @@
+import { useEditingStore } from "../store/editing";
+import { ELEMENTS } from "../editing/elements";
 import {
   Atom,
   Beaker,
@@ -29,7 +31,7 @@ interface LigandEditorPanelProps {
   onMove: (transform: CoordinateTransform) => Promise<void>;
 }
 
-const commonElements = ["C", "N", "O", "S", "P", "F", "Cl", "Br", "I", "H"];
+const commonElements = ELEMENTS;
 
 function numeric3(values: [string, string, string]): Point3D | null {
   const parsed = values.map(Number) as Point3D;
@@ -44,11 +46,11 @@ export function LigandEditorPanel({
   onEdit,
   onMove,
 }: LigandEditorPanelProps) {
+  const sharedPending = useEditingStore(state => state.projectId === project.id && state.pending);
   const ligands = project.entries.filter((entry) => entry.structure_type === "ligand");
-  const selectedLigand = selection.atoms.find((reference) =>
-    ligands.some((entry) => entry.id === reference.structure_id),
-  )?.structure_id;
-  const [entryId, setEntryId] = useState(selectedLigand ?? ligands[0]?.id ?? "");
+  const selectedEntryIds = new Set(selection.atoms.map(ref => ref.structure_id));
+  const selectedLigand = selectedEntryIds.size === 1 ? ligands.find(entry => selectedEntryIds.has(entry.id))?.id : undefined;
+  const [entryId, setEntryId] = useState(selectedLigand ?? "");
   const [element, setElement] = useState("C");
   const [charge, setCharge] = useState("0");
   const [coordinates, setCoordinates] = useState<[string, string, string]>([
@@ -75,9 +77,9 @@ export function LigandEditorPanel({
 
   useEffect(() => {
     if (!ligands.some((entry) => entry.id === entryId)) {
-      setEntryId(ligands[0]?.id ?? "");
+      setEntryId(selectedLigand ?? "");
     }
-  }, [entryId, ligands]);
+  }, [entryId, ligands, selectedLigand]);
 
   const entry = ligands.find((item) => item.id === entryId);
   const structure = structures.get(entryId);
@@ -96,7 +98,7 @@ export function LigandEditorPanel({
   useEffect(() => {
     if (selectedAtom) {
       setElement(selectedAtom.element);
-      setCharge(String(selectedAtom.formal_charge ?? 0));
+      setCharge(selectedAtom.formal_charge === null ? "" : String(selectedAtom.formal_charge));
       setCoordinates(selectedAtom.coordinates.map(String) as [string, string, string]);
     }
   }, [selectedAtom]);
@@ -118,7 +120,7 @@ export function LigandEditorPanel({
       setPending(false);
     }
   };
-  const disabled = busy || pending || !entry || entry.locked || !structure;
+  const disabled = busy || pending || sharedPending || !entry || entry.locked || !structure;
   const selectedScope = scope === "selection" ? selectedAtomIds : null;
   const selectedBond = bonds.find((bond) => String(bond.id) === bondId);
 
@@ -130,7 +132,8 @@ export function LigandEditorPanel({
     <div className="ligand-editor" aria-label="Ligand editor">
       <label>
         Ligand
-        <select value={entryId} onChange={(event) => setEntryId(event.target.value)}>
+        <select disabled={busy || pending || sharedPending} value={entryId} onChange={(event) => setEntryId(event.target.value)}>
+          <option value="">Choose a ligand…</option>
           {ligands.map((item) => (
             <option key={item.id} value={item.id}>{item.name}</option>
           ))}
@@ -155,8 +158,8 @@ export function LigandEditorPanel({
             Charge
             <input
               type="number"
-              min="-8"
-              max="8"
+              step="1"
+              placeholder="unknown"
               value={charge}
               onChange={(event) => setCharge(event.target.value)}
             />
@@ -184,7 +187,7 @@ export function LigandEditorPanel({
         <div className="edit-actions">
           <button
             type="button"
-            disabled={disabled || !numeric3(coordinates)}
+            disabled={disabled || !numeric3(coordinates) || !charge.trim() || !Number.isSafeInteger(Number(charge))}
             onClick={() => {
               const point = numeric3(coordinates);
               if (point) {
@@ -215,7 +218,7 @@ export function LigandEditorPanel({
           </button>
           <button
             type="button"
-            disabled={disabled || !selectedAtom}
+            disabled={disabled || !selectedAtom || !charge.trim() || !Number.isSafeInteger(Number(charge))}
             onClick={() =>
               selectedAtom &&
               void execute({

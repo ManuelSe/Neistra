@@ -3874,3 +3874,43 @@ It owns a fresh dynamic bond cache, retaining other native polymer properties;
 coordinate preview updates reuse the fixed authored graph. Display-only SDF uses
 non-kekulizing output and never writes its representation defaults into normalized
 chemistry. Local warnings do not certify a chemically valid graph. No migration.
+
+### D-101/102/103 implementation note — issue #74 C3, 2026-10-16
+
+New molecule records a generic reversible model.create command using existing
+entry.create/delete actions. Its first atom is explicitly chosen (visible C/zero
+defaults) at the origin, with generated source facts, a LIG residue and nullable
+entry source/original fields. There is no fabricated upload. Empty entries keep
+their identity/history and require an explicit target for rebuilding. Advanced
+manual atom/bond controls now translate to the direct service; chemistry helpers
+retain their existing HTTP behavior. Remove the inspector's first-ligand fallback
+and display unknown charges as unknown rather than a silent zero default.
+
+Placement uses canonical record operations plus six deterministic local directions
+and the six existing methyl-capped ETKDGv3 seed690 fragment templates. Six torsions
+rank rigid placements against retained material; user rotation is a bounded offset.
+Only the template is embedded, never a protein/parent. Generate each conformer's
+new positions independently while retaining every old coordinate exactly. Clashes
+warn, not reject. New records inherit their actual anchor's valid residue. This is
+unoptimized placement, not protonation, conformer search or preparation.
+
+The read-only preview endpoint computes the same candidate without publication or
+allocator advancement, returning string ghost identities and coordinates rather
+than new canonical atom operands. The native preview is a nonpickable shape outside
+the molecular model map. Context includes project visit, revision/artifact,
+selection and H policy; input/tool/movement/context changes invalidate it. Cancel
+removes only the proposal. Creation responses and focus obey captured ownership;
+closing a pending creation leaves any server-stored result in its original project.
+
+Optional H completion consumes only new H and their bonds from the eligible helper
+candidate. It never normalizes retained atom/bond/stereo/coordinate records, removes
+retained atoms, exceeds the entry resource limit or reverses explicit H deletion.
+Failure preserves the direct draft with a skip warning. Legacy helpers are unchanged.
+
+Native XYZ qualification exposed an existing import assumption: RDKit's neutral
+atom defaults were retained even though XYZ encodes no formal charge. New XYZ
+imports now retain null charges, an explicit warning and no assumed canonical
+SMILES descriptor. Original bytes and historical saved structures remain exact;
+there is no automatic reinterpretation or migration. This is within D101's
+unknown-chemistry contract, not expanded malformed-file acceptance or chemistry
+inference. Existing schema/API shapes already support null values.

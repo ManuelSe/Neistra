@@ -1,3 +1,4 @@
+import type { ModelPreview } from "../api/types";
 import { Unit, type Structure } from "molstar/lib/mol-model/structure";
 import type { MolstarEngine } from "../viewer/MolstarEngine";
 
@@ -21,4 +22,17 @@ export async function displayedBonds(engine: MolstarEngine, entryId: string): Pr
     if (Unit.isAtomic(a) && Unit.isAtomic(b)) add(a, edge.indexA, b, edge.indexB);
   }
   return [...pairs.values()];
+}
+
+/** Read only native proposal attachment and picking flags. */
+export async function inspectModelPreview(engine: MolstarEngine) {
+  const native = engine as unknown as {
+    syncQueue: Promise<void>;
+    modelPreview: ModelPreview | null;
+    modelPreviewRepresentation: { renderObjects: { state: { pickable: boolean }; values: { drawCount: { ref: { value: number } } } }[] };
+    plugin: { canvas3d?: { reprCount: { value: number } } };
+  };
+  await native.syncQueue;
+  return { preview: native.modelPreview, objects: native.modelPreviewRepresentation.renderObjects.map(object => ({ pickable: object.state.pickable, drawCount: object.values.drawCount.ref.value })),
+    representations: native.plugin.canvas3d?.reprCount.value ?? 0, canonicalAtoms: engine.getRenderedAtomReferences() };
 }

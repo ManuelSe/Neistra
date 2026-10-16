@@ -4,6 +4,7 @@ import type { InteractionRecord } from "../interactions/types";
 import type { SurfaceStatus } from "./surface/runtime";
 import type { MovementView } from "../coordinates/interactiveTransform";
 import type {
+  ModelPreview,
   AtomReference,
   CameraState,
   CoordinatePatch,
@@ -84,6 +85,10 @@ class LazyMolstarViewer implements MolecularViewer {
 
   clearCoordinatePreview(entryId: string): Promise<void> {
     return this.engine?.clearCoordinatePreview(entryId) ?? Promise.resolve();
+  }
+
+  setModelPreview(preview: ModelPreview | null): Promise<void> {
+    return this.engine?.setModelPreview?.(preview) ?? Promise.resolve();
   }
 
   setSelection(atoms: AtomReference[]): void {

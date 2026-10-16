@@ -24,7 +24,7 @@ all_chem: Any = AllChem
 
 
 @lru_cache(maxsize=6)
-def _template(fragment: FragmentName) -> Any:
+def fragment_template(fragment: FragmentName) -> Any:
     mol = Chem.AddHs(Chem.MolFromSmiles(FRAGMENT_CAP_SMILES[fragment]))
     params = all_chem.ETKDGv3()
     params.randomSeed = FRAGMENT_SEED
@@ -55,7 +55,7 @@ def graft_fragment(mol: Any, hydrogen_id: int, fragment: FragmentName, next_atom
     if length < 0.5:
         raise ValueError("Attachment H geometry is unusable.")
     direction /= length
-    template = Chem.Mol(_template(fragment))
+    template = Chem.Mol(fragment_template(fragment))
     tc = template.GetConformer()
     cap = template.GetAtomWithIdx(0)
     root = template.GetAtomWithIdx(1)

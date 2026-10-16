@@ -1,6 +1,29 @@
 export type StructureType = "protein" | "ligand" | "complex" | "solvent" | "unknown";
 
+export type HydrogenPolicy = "preserve" | "complete_if_possible";
+export type ModelPlacementAction =
+  | { operation: "atom.add"; element: string; charge: number | null; direction: number; coordinates?: [number, number, number] }
+  | { operation: "fragment.attach"; fragment: FragmentName; direction: number; rotation: number };
+
+export interface ModelPreview {
+  entry_id: string;
+  expected_revision: number;
+  expected_artifact_id: string;
+  atoms: { preview_id: string; element: string; coordinates: [number, number, number] }[];
+  bonds: { start: [number, number, number]; end: [number, number, number]; order: number | null; aromatic: boolean }[];
+  removed_atom_ids: number[];
+  warnings: MolecularWarning[];
+}
+
+export interface MoleculeCreateResult {
+  project: Project;
+  entry_id: string;
+  selection_after: Selection;
+  warnings: MolecularWarning[];
+}
+
 export type SelectionEditAction =
+  | ModelPlacementAction
   | { operation: "atom.element"; element: string }
   | { operation: "atom.charge"; delta: -1 | 1 }
   | { operation: "atom.charge.set"; charge: number | null }
@@ -21,7 +44,7 @@ export interface SelectionEditResult extends Omit<LigandEditResult, "report"> {
 }
 
 export type ApplySelectionEdit = (
-  entryId: string, artifactId: string, selection: Selection, action: SelectionEditAction,
+  entryId: string, artifactId: string, selection: Selection, action: SelectionEditAction, hydrogenPolicy?: HydrogenPolicy,
 ) => Promise<SelectionEditResult>;
 
 export interface MolecularWarning {

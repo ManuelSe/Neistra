@@ -55,6 +55,7 @@ interface ProjectBrowserProps {
     key: keyof Omit<ViewerSettings["components"], "hydrogens">,
   ) => void;
   onCollapse?: () => void;
+  onNewMolecule?: () => void;
   onRename: (entry: Entry) => void;
   onDuplicate: (entry: Entry) => void;
   onVisibility: (entry: Entry) => void;
@@ -493,6 +494,7 @@ export function ProjectBrowser({
           <span className="panel-eyebrow">Project</span>
           <h2>Structures</h2>
         </div>
+        {actions.onNewMolecule ? <button type="button" disabled={!project || actions.busy} onClick={actions.onNewMolecule}>New molecule</button> : null}
         {onCollapse ? (
           <IconButton label="Collapse project browser" onClick={onCollapse}>
             <ChevronLeft size={17} />

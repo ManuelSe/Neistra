@@ -679,3 +679,30 @@ adding a canonical bond clears its exclusion, atom deletion prunes references,
 and Undo restores metadata exactly. Existing selection-edits and ligand-edits
 HTTP semantics remain unchanged. See [molecular editing](MOLECULAR_EDITING.md)
 for the current checkpoint scope and remaining creation/preview qualification.
+
+
+`POST /api/v1/projects/{project_id}/molecules` creates an entry and first atom in
+one command. Supply expected_revision, name, element (default C) and nullable
+integer charge (default0). The response adds entry_id to the ordinary edit response.
+The first atom starts at the origin; generated provenance and nullable source/
+original fields distinguish it from an upload. Undo removes the entry; Redo
+restores its identity and artifact.
+
+Additional direct actions:
+
+| Operation | Fields / operands |
+|---|---|
+| `atom.add` | recognized element, nullable charge (default0), direction0–5; one attachment atom or an explicitly selected empty entry. Optional finite coordinates explicitly position a disconnected atom with empty selection; that point is used in each conformer. |
+| `fragment.attach` | one heavy anchor or terminal H to replace; one of the six existing fragment names, direction0–5 and rotation0–5. |
+
+`POST /api/v1/projects/{project_id}/entries/{entry_id}/model-edits/preview` accepts
+the same request for placement actions, performs the same structural/ownership
+validation and candidate computation, and publishes nothing. It returns captured
+revision/artifact, entry_id, atoms with string preview_id/element/coordinates,
+coordinate-only bonds, existing removed_atom_ids and warnings. New ghost IDs are
+not canonical AtomReferences. Apply sends the captured action to model-edits,
+which validates again and recomputes it. Preview does not reserve identities.
+Generated coordinates cover all conformers; retained coordinates stay exact.
+Optional H merges only new H/bonds from an eligible helper, retaining the direct
+candidate exactly when completion is unavailable. Existing legacy HTTP endpoints
+retain their behavior; compact and advanced manual atom/bond UI share direct edits.

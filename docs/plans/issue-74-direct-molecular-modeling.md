@@ -3,7 +3,7 @@
 ## Status and metadata
 
 Approved by the user's “Implement the plan.” on 2026-10-16 after the complete
-proposal and four confirmed product choices. C0–C2 are complete; C3 compact building is next. This document is the implementation
+proposal and four confirmed product choices. C0–C3 implementation checkpoints are complete; C4 qualification is next. This document is the implementation
 contract. Historical checkpoint entries record their state at that time.
 
 - Issue: [#74](https://github.com/ManuelSe/Neistra/issues/74).
@@ -355,3 +355,54 @@ plugin/job type or dependency upgrade is implied.
   note. No migration/version change. C2 does not claim creation, direct fragments,
   placement previews, advanced-inspector routing, final compatibility or release.
   No blocker. Commit/push passing C2, then implement C3.
+
+
+### C2 publication and C3 development — 2026-10-16
+
+- C2 committed/pushed as4d192766cabec8fb3ee626dc3e9c476cb6a92bf2; remote SHA
+  and clean tree verified before C3. Implemented generated first-atom creation,
+  direct atom/six-fragment placement in all conformers and explicit empty rebuilding.
+- Pure preview returns noncanonical string ghosts; native shape is nonpickable and
+  separate from the molecular model map. Context/policy/input changes invalidate it;
+  Cancel writes nothing. Apply recomputes under revision/artifact/owner guards.
+- Advanced manual atom/bond controls share direct publication; explicit target
+  selection replaces first-ligand fallback and unknown charges are no longer shown
+  as a default zero. Legacy helper HTTP behavior remains unchanged.
+- Local review limits successful optional completion to new H/bonds only, keeping
+  direct records exact. Real helper success/resource failure, all-six fragment
+  graphs/determinism/membership, multiconformer coordinates, creation/Undo/Redo,
+  allocator branching, pure preview/refusals and generated empty archives pass.
+- Initial new native run5/8: desktop preview count was observed before the canvas
+  frame (wait for attachment), and two XYZ cases exposed existing invented neutral
+  charges. New XYZ imports now preserve null charges/warnings and omit assumed
+  canonical SMILES; saved historical records and original bytes remain exact.
+  Both layouts then pass8/8. New dialog unit harness needed the same Tooltip provider
+  as the application; all243 frontend tests pass after correction. Initial lint/
+  type diagnostics remain separate. No migration/version change. Complete C3 gate
+  is running; no release/full compatibility claim yet.
+
+
+### C3 checkpoint complete — 2026-10-16
+
+- [Final reviewed-source gate](../assets/direct-modeling/c3-verification.json)
+  passes108Python,246frontend,31desktop/mobile native browser cases and3intentional
+  layout skips in3.8minutes, no failures/flakes/retries.
+  Ruff/mypy68/lint/types/build/diff pass. Exact source/command/env/log/report and
+  screenshot hashes retained; earlier diagnostics/pre-review passes are distinct.
+- New molecule, pure native ghost preview/Cancel, direction/rotation/Apply, literal
+  delete-last/rebuild, unknown-chemistry attachment and failed optional H all pass.
+  All six fragment graphs/membership/determinism and multiconformer new positions
+  preserve retained records; generated/empty archives and allocator/history guards
+  pass. Successful optional H merges only new H/bonds with exact direct records.
+- Native advanced controls now qualify permissive triple-O draft/warning/exact Undo,
+  followed by unchanged H/geometry/cleanup helper successes/refusals. Explicit target
+  choice and theme lifecycle remain asserted. New remount-input, empty-target pending
+  and cancelled delayed-preview regressions pass. Human-readable history labels.
+- [Local self-review](../assets/direct-modeling/c3-local-review.md), not independent,
+  records repairs and required C4 work. Desktop/mobile screenshots inspected: full
+  tool controls can cover a mobile proposal at the default camera. C4 must provide
+  compact inspection and qualify expanded forms/contrast/real zoom before release.
+- API/guide/format matrix and append-only decisions describe generated provenance,
+  literal direct actions, helper fallback and honest new XYZ unknown charges. No
+  migration/version/release change. No external blocker. Commit/push C3, then C4
+  scientific/persistence/reference/actual-reader/performance/accessibility gates.

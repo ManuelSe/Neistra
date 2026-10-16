@@ -114,6 +114,9 @@ from molweave_api.schemas import (
     MeasurementCreate,
     MeasurementUpdate,
     ModelEditCreate,
+    ModelPreviewRead,
+    MoleculeCreate,
+    MoleculeCreateRead,
     ProjectCreate,
     ProjectListItem,
     ProjectRead,
@@ -1105,6 +1108,29 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         return _call(
             lambda: CoordinateService(session, app_settings).transform(project_id, payload)
         )
+
+    @router.post(
+        "/projects/{project_id}/molecules", response_model=MoleculeCreateRead, status_code=201,
+    )
+    async def create_molecule(
+        project_id: str, payload: MoleculeCreate,
+        session: Session = Depends(session_dependency),
+    ) -> MoleculeCreateRead:
+        return _call(lambda: ModelEditService(session, app_settings).create_molecule(
+            project_id, payload,
+        ))
+
+    @router.post(
+        "/projects/{project_id}/entries/{entry_id}/model-edits/preview",
+        response_model=ModelPreviewRead,
+    )
+    async def preview_model(
+        project_id: str, entry_id: str, payload: ModelEditCreate,
+        session: Session = Depends(session_dependency),
+    ) -> ModelPreviewRead:
+        return _call(lambda: ModelEditService(session, app_settings).preview(
+            project_id, entry_id, payload,
+        ))
 
     @router.post(
         "/projects/{project_id}/entries/{entry_id}/model-edits",

@@ -254,19 +254,36 @@ class XyzAdapter:
                     field="bonds",
                 )
             )
-        return ParseResult(
-            structures=(
-                mol_to_normalized(
-                    mol,
-                    filename=filename,
-                    format_name="xyz",
-                    inferences=inferences,
-                    warnings=warnings,
-                    inferred_bonds=inferred_bonds,
-                    unknown_bond_orders=unknown_orders,
+        warnings.append(
+            MolecularWarning(
+                code="xyz_formal_charges_unknown",
+                message=(
+                    "XYZ contains no formal charges; they were retained as unknown, not neutral."
                 ),
+                operation="import",
+                field="atoms.formal_charge",
             )
         )
+        structure = mol_to_normalized(
+            mol,
+            filename=filename,
+            format_name="xyz",
+            inferences=inferences,
+            warnings=warnings,
+            inferred_bonds=inferred_bonds,
+            unknown_bond_orders=unknown_orders,
+        )
+        structure = structure.model_copy(
+            update={
+                "atoms": [a.model_copy(update={"formal_charge": None}) for a in structure.atoms],
+                "metadata": {
+                    key: value
+                    for key, value in structure.metadata.items()
+                    if key != "canonical_smiles"
+                },
+            }
+        )
+        return ParseResult(structures=(structure,))
 
     def export(self, structure: NormalizedStructureV1, filename_stem: str) -> ExportResult:
         lines = [str(len(structure.atoms)), structure.title]

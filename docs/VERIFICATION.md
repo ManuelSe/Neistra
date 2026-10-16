@@ -19,6 +19,17 @@ Diagnostic and pre-review evidence are separate from final qualification; local
 Creation/previews/direct fragments and advanced inspector routing remain C3,
 compatibility/scientific/performance qualification C4 and release C5.
 
+[C3](assets/direct-modeling/c3-verification.json) passes108Python/246frontend/
+31native cases with3intentional layout skips and no failures/flakes/retries,
+plus Ruff/mypy68/lint/types/build/diff. New creation/placement/Cancel/rebuilding,
+unknown-chemistry fragments, optional-H fallback, manual permissive edit/warning/
+exact Undo, legacy helper workflows and theme lifecycle pass. Real helper-success
+checks retain direct records, all six templates stay deterministic, and pure
+preview/allocator/generated-empty archive cases pass. [Self-review](assets/direct-modeling/c3-local-review.md)
+and screenshots identify mobile panel occlusion for required C4 inspection/a11y
+qualification. No independent review, unobstructed mobile preview, full preceding-
+reader/performance qualification or release claim is made by this checkpoint.
+
 Issue #69 follows the [approved editing plan](plans/issue-69-compact-molecular-editor.md).
 C1/C2 implement bounded atomic atom/H, canonical endpoint bonds and six illustrated
 fragment substitutions. C3 adds exact complete-residue template mutation and
