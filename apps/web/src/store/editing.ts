@@ -1,0 +1,17 @@
+import { create } from "zustand";
+
+interface EditingState {
+  projectId: string | null;
+  open: boolean;
+  pending: boolean;
+  setProject: (projectId: string | null) => void;
+  setOpen: (open: boolean) => void;
+  setPending: (pending: boolean) => void;
+}
+
+export const useEditingStore = create<EditingState>((set) => ({
+  projectId: null, open: false, pending: false,
+  setProject: projectId => set(state => state.projectId === projectId ? state : { projectId, open: false, pending: false }),
+  setOpen: open => set({ open }),
+  setPending: pending => set({ pending }),
+}));

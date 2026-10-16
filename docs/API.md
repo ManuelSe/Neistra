@@ -433,6 +433,36 @@ bond rotation, and stale revisions fail without publishing an artifact or
 advancing the project revision. Stable per-entry atom and bond allocators do not
 rewind through undo, redo, or a discarded history branch.
 
+## Selection-driven molecular edits (issue #69 C1)
+
+`POST /api/v1/projects/{project_id}/entries/{entry_id}/selection-edits` is additive;
+existing low-level ligand/protein contracts retain their behavior. Send
+`expected_revision`, `expected_artifact_id`, a canonical `SelectionV1`, and an
+`action` discriminated by `operation`:
+
+- `atom.element`: `element` in C/N/O/S/F/Cl/Br/I, one selected atom. A supported
+  terminal H is replaced with a new heavy-atom identity.
+- `atom.charge`: `delta` equal to -1 or 1, one selected heavy atom; result must
+  remain within -1/0/+1 and pass chemistry validation.
+- `atom.delete`: selected heavy atoms within one eligible component.
+- `hydrogens.prepare`: complete valence H on the selected eligible component.
+
+The result contains `project`, structured `warnings`, a created/deleted/changed
+identity `report` and `replacements` mapping consumed H IDs to new heavy IDs.
+Automatic local hydrogen changes form part of the same artifact/history command.
+The complete operand selection is retained in the history snapshot. Existing
+affected-entry topology patches and deleted-reference reconciliation apply.
+
+The backend verifies one unlocked entry, a current revision/artifact, a connected
+prepared closed ligand component and the documented chemistry/geometry limits
+before publication. This supports eligible components inside complexes without
+sanitizing or changing the surrounding protein. Unknown charges/orders, invalid
+valence/geometry, ambiguous boundary/alternate/stereo chemistry, empty/mixed
+selection and unsupported operations reject atomically with existing structured
+API errors. See [editing guidance](MOLECULAR_EDITING.md). Later issue checkpoints
+extend actions only after their gates; no compact bond/fragment/residue capability
+is claimed by C1.
+
 ## Protein Edit Contract
 
 Protein edits use a discriminated `operation` field and always include

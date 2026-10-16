@@ -1,4 +1,4 @@
-import type { SurfaceActions, ChangeSelectionAppearance } from "../api/types";
+import type { SurfaceActions, ChangeSelectionAppearance, ApplySelectionEdit } from "../api/types";
 import type { ExpandSelection } from "../selection/expansion";
 import { FolderPlus, Upload } from "lucide-react";
 import type {
@@ -20,6 +20,7 @@ import { Brand } from "./Brand";
 import type { MovementWorkflow } from "../coordinates/useMovementSession";
 
 interface WorkspaceCanvasProps {
+  onEdit?: ApplySelectionEdit;
   project: Project | undefined;
   theme: Theme;
   selection: Selection;
@@ -74,6 +75,7 @@ export function WorkspaceCanvas({
   onSurfaces,
   onLoadPocketStructures,
   onAppearance,
+  onEdit,
 }: WorkspaceCanvasProps) {
   if (loading) {
     return (
@@ -117,6 +119,7 @@ export function WorkspaceCanvas({
         </div>
       ) : (
         <StructureViewer
+          onEdit={onEdit}
           key={project.id}
           project={project}
           theme={theme}

@@ -1,0 +1,97 @@
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade  -> 0001, Create Milestone 1 project workspace tables.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0001 -> 0002, Version existing project checkpoint snapshots.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0002 -> 0003, Add artifact-backed molecular entry summaries.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0003 -> 0004, Add durable named atom selections.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0004 -> 0005, Add viewer settings, measurements, and named scenes.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0005 -> 0006, Add exact atom identity summaries and monotonic edit allocators.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0006 -> 0007, Add durable generic job lifecycle tables.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0007 -> 0008, Add durable selection representation assignments to viewer settings.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0008 -> 0009, Add durable nonpolar-hydrogen visibility to viewer settings.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0009 -> 0010, Add selection appearance defaults without losing retained history.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0010 -> 0011, Add selection surface defaults without losing retained history.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0011 -> 0012, Add atomic-detail visibility defaults without losing retained history.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0012 -> 0013, Add pocket surface defaults without losing retained history.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0013 -> 0014, Migrate every retained viewer snapshot to identified surface objects.
+[2m[WebServer] [22mINFO:     Started server process [859055]
+[2m[WebServer] [22mINFO:     Waiting for application startup.
+[2m[WebServer] [22mINFO:     Application startup complete.
+[2m[WebServer] [22mINFO:     Uvicorn running on http://127.0.0.1:8160 (Press CTRL+C to quit)
+[2m[WebServer] [22m(node:859129) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:859141) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 2 tests using 1 worker
+
+(node:859166) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:859166) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/e2e/molecular-editing.spec.ts:14:5 › performs one selection-driven atom/H edit with exact undo and unchanged original (7.5s)
+(node:859299) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:859299) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  2 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:14:5 › performs one selection-driven atom/H edit with exact undo and unchanged original (2.0m)
+
+
+  1) [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:14:5 › performs one selection-driven atom/H edit with exact undo and unchanged original
+
+    [31mTest timeout of 120000ms exceeded.[39m
+
+    Error: locator.click: Test timeout of 120000ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('button', { name: 'Edit molecule', exact: true })[22m
+    [2m    - locator resolved to <button type="button" aria-expanded="false" aria-disabled="false" aria-haspopup="dialog" aria-label="Edit molecule" title="Edit selected atoms" class="viewer-action-button">…</button>[22m
+    [2m  - attempting click action[22m
+    [2m    2 × waiting for element to be visible, enabled and stable[22m
+    [2m      - element is visible, enabled and stable[22m
+    [2m      - scrolling into view if needed[22m
+    [2m      - done scrolling[22m
+    [2m      - <button role="tab" type="button" tabindex="-1" id="«r1i»-transform" aria-selected="false" aria-controls="«r1i»-panel">transform</button> from <aside role="dialog" aria-modal="true" aria-label="Inspector panel" class="mobile-panel inspector">…</aside> subtree intercepts pointer events[22m
+    [2m    - retrying click action[22m
+    [2m    - waiting 20ms[22m
+    [2m    2 × waiting for element to be visible, enabled and stable[22m
+    [2m      - element is visible, enabled and stable[22m
+    [2m      - scrolling into view if needed[22m
+    [2m      - done scrolling[22m
+    [2m      - <button role="tab" type="button" tabindex="-1" id="«r1i»-transform" aria-selected="false" aria-controls="«r1i»-panel">transform</button> from <aside role="dialog" aria-modal="true" aria-label="Inspector panel" class="mobile-panel inspector">…</aside> subtree intercepts pointer events[22m
+    [2m    - retrying click action[22m
+    [2m      - waiting 100ms[22m
+    [2m    219 × waiting for element to be visible, enabled and stable[22m
+    [2m        - element is visible, enabled and stable[22m
+    [2m        - scrolling into view if needed[22m
+    [2m        - done scrolling[22m
+    [2m        - <button role="tab" type="button" tabindex="-1" id="«r1i»-transform" aria-selected="false" aria-controls="«r1i»-panel">transform</button> from <aside role="dialog" aria-modal="true" aria-label="Inspector panel" class="mobile-panel inspector">…</aside> subtree intercepts pointer events[22m
+    [2m      - retrying click action[22m
+    [2m        - waiting 500ms[22m
+
+
+      20 |   const original = await (await request.get(`${path}/entries/${entry.id}/original`)).body();
+      21 |   await selectAtom(page, entry.id, 1, info.project.name === "mobile-chromium");
+    > 22 |   await page.getByRole("button", { name: "Edit molecule", exact: true }).click();
+         |                                                                          ^
+      23 |   const panel = page.getByRole("dialog", { name: "Edit molecule", exact: true });
+      24 |   await panel.getByRole("button", { name: "Prepare component hydrogens", exact: true }).click();
+      25 |   await expect.poll(async () => (await projection()).structure.atoms.length).toBe(9);
+        at /datadisk/dev/neistra/tests/e2e/molecular-editing.spec.ts:22:74
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/molecular-editing-performs-24d73-undo-and-unchanged-original-mobile-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/molecular-editing-performs-24d73-undo-and-unchanged-original-mobile-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/molecular-editing-performs-24d73-undo-and-unchanged-original-mobile-chromium/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/molecular-editing-performs-24d73-undo-and-unchanged-original-mobile-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:14:5 › performs one selection-driven atom/H edit with exact undo and unchanged original
+  1 passed (2.2m)

@@ -15,6 +15,8 @@ import type {
   ImportResult,
   LigandEdit,
   LigandEditResult,
+  SelectionEditAction,
+  SelectionEditResult,
   MolecularWarning,
   Project,
   ProjectListItem,
@@ -171,6 +173,11 @@ export const projectApi = {
         }),
       },
     ),
+  selectionEdit: (project: Project, entryId: string, artifactId: string, selection: Selection, action: SelectionEditAction) =>
+    request<SelectionEditResult>(`/api/v1/projects/${project.id}/entries/${entryId}/selection-edits`, {
+      method: "POST", body: JSON.stringify({ expected_revision: project.revision,
+        expected_artifact_id: artifactId, selection, action }),
+    }),
   proteinEdit: (project: Project, entryId: string, payload: ProteinEdit) =>
     request<ProteinEditResult>(
       `/api/v1/projects/${project.id}/entries/${entryId}/protein-edits`,

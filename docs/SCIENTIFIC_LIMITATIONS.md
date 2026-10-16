@@ -81,6 +81,23 @@ CCD assignment remains [follow-up #52](https://github.com/ManuelSe/Neistra/issue
 - Stable atom and bond IDs describe Neistra project identity, not source-file
   serials. Deleted IDs leave gaps and newly allocated IDs are never reused.
 
+## Selection-driven small-molecule editing (issue #69 C1)
+
+The compact editor accepts prepared, connected, closed ligand components with
+known charges/orders and usable single-conformer geometry, including eligible
+components inside complexes. It rejects uncertainty before RDKit's low-level
+conversion defaults. Raw PDB/mmCIF ligand chemistry is not automatically repaired.
+Existing protein/ligand inspector endpoints retain their scientific contracts.
+
+Local H inference does not determine pH, tautomer, metal coordination or an
+optimized pose. Unsupported aromatic changes, non-divalent S, radicals,
+unrepresented stereo and covalent component boundaries reject. Initial H
+preparation may be necessary. Fixed heavy atoms mean degenerate input can make H
+generation fail; it is not silently re-embedded. Generated distance/angle/overlap
+screens and supported tetrahedral orientation handling are documented in
+[Molecular editing](MOLECULAR_EDITING.md); they do not certify preparation.
+No compact bonds/fragments/residue workflow is claimed until its checkpoint.
+
 ## Protein Editing
 
 - Neistra pins PDBFixer 1.12 source commit

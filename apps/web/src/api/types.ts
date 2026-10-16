@@ -1,5 +1,20 @@
 export type StructureType = "protein" | "ligand" | "complex" | "solvent" | "unknown";
 
+export type SelectionEditAction =
+  | { operation: "atom.element"; element: "C" | "N" | "O" | "S" | "F" | "Cl" | "Br" | "I" }
+  | { operation: "atom.charge"; delta: -1 | 1 }
+  | { operation: "atom.delete" }
+  | { operation: "hydrogens.prepare" };
+
+export interface SelectionEditResult extends Omit<LigandEditResult, "report"> {
+  report: Omit<LigandEditResult["report"], "operation"> & { operation: SelectionEditAction["operation"] };
+  replacements: Record<string, number>;
+}
+
+export type ApplySelectionEdit = (
+  entryId: string, artifactId: string, selection: Selection, action: SelectionEditAction,
+) => Promise<SelectionEditResult>;
+
 export interface MolecularWarning {
   code: string;
   message: string;

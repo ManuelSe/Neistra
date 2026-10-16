@@ -2,33 +2,31 @@
 
 ## Current milestone
 
-Issue #69 approved planning handoff (C0), following the
-[implementation contract](plans/issue-69-compact-molecular-editor.md). User
-approved the complete proposal on 2026-10-16. The feature branch is
-`feat/issue-69-compact-molecular-editor`, based on clean, fast-forward-verified
-master `f34d4aeb52076584108e33ce3cc908ed2945049e`. The plan is its first change;
-D-098–100 record accepted component, chemistry and UI ownership decisions.
+Issue #69 M1/C1 complete under the [approved contract](plans/issue-69-compact-molecular-editor.md).
+`/goal` authorized full delivery on 2026-10-16 after remotely verified planning
+commit238e5dd. Work stays on `feat/issue-69-compact-molecular-editor`.
 
-Completed work is planning only. M1/C1 atom edits, M2/C2 bonds/six fragments,
-M3/C3 residue workflow/interaction, M4/C4 qualification and M5/C5 release delivery
-are approved and not started. No runtime behavior, dependency, version or schema
-change is claimed. Planned release is **0.16.0 minor**, based on the established
-v0.15.0 history; no migration is planned (head0014, project/viewer/archive2,
-normalized/selection1).
+Implemented the compact Edit launcher/Atoms section, additive revision/artifact/
+selection-driven API, prepared-component projection/merge, atomic local H,
+substitution/element/charge/heavy deletion and exact molecular history. Synthetic
+prepared complexes enter through public archive import; unrelated records and
+original bytes are preserved. Transient panel and captured response ownership
+retain canonical selection and camera boundaries. D-098–100 record the policy.
 
-Approved limits: prepared closed single-conformer small-molecule components,
-automatic local H for supported edits, six fragments, existing constrained
-protein mutation; initial H preparation may be needed. Grow, ring fusion, broad
-element/fragment chemistry and raw ligand preparation remain separate. Full
-scope, acceptance evidence requirements and follow-up strategy live in the plan.
+[C1 evidence](assets/molecular-editing/c1-verification.json):23focused Python,
+all230frontend,2desktop/mobile browser tests pass, plus Ruff/mypy63/lint/types/
+build/diff; legacy ligand/protein integration separately16passes. Exact commands,
+source/log/screenshot hashes and timings are retained. Failed diagnostics are
+separate: formula/degenerate input and exact-label/mobile-close helpers are
+explained in the plan. Local review is self-review, not independent.
 
-C0 verification passed clean-base/collision checks, documentation diff checks,
-all six added local Markdown links, plan/checkpoint completeness, unique decision
-IDs and documentation-only scope review. Commit/push and remote verification are
-the final handoff step; its exact commit/result is reported there. No application
-tests are claimed for documentation preparation. No blocker is established;
-science and compatibility remain future implementation gates. Stop ready for
-`/goal` after C0 publication; do not start C1 under planning approval.
+Known limits: prepared closed single-conformer components, bounded valence/geometry,
+six future fragments, existing constrained mutation. Degenerate input rejects
+rather than re-embedding; initial H preparation may be needed. Raw PDB chemistry,
+Grow and fusion stay separate. C2–C5 are approved and not started. Versions remain
+0.15.0; planned0.16.0minor, no migration (0014; project/viewer/archive2,
+normalized/selection1). Actual reader/full release gates remain unclaimed.
+No blocker. Next: commit passing C1, then M2/C2 bonds and six fragments.
 
 ### Previous delivery baseline — v0.15.0
 
@@ -2443,15 +2441,12 @@ Results:
 
 ## Blockers
 
-No current planning blocker. Issue #69 C0 is documentation only; implementation
-science, performance and compatibility must pass the approved future gates.
-Issue #59 is released as v0.15.0; its former implementation next-action text is
-superseded by the current milestone and its completed feature-plan log.
+No current blocker. Issue #69 C1 passes its checkpoint gates; C2–C5 and complete
+release delivery remain. Scientific scope and compatibility retain the approved
+contract and must pass their remaining qualification gates.
 
 ## Next action
 
-Publish and remotely verify the issue #69 C0 planning commit, then await `/goal`.
-No implementation follows the planning handoff. The
-[approved feature plan](plans/issue-69-compact-molecular-editor.md) is the detailed
-contract. Do not start runtime implementation or reintroduce deferred scope
-under planning approval.
+Commit issue #69 C1, then implement and qualify M2/C2 bond and six-fragment edits.
+The [feature plan](plans/issue-69-compact-molecular-editor.md) remains the detailed
+contract; do not reintroduce deferred or rejected scope.

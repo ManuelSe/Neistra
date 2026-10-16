@@ -1,5 +1,6 @@
 import type { SurfaceStatus } from "../viewer/surface/runtime";
-import type { SurfaceActions, ChangeSelectionAppearance } from "../api/types";
+import type { SurfaceActions, ChangeSelectionAppearance, ApplySelectionEdit } from "../api/types";
+import { MolecularEditPanel } from "./MolecularEditPanel";
 import type { ExpandSelection } from "../selection/expansion";
 import { useQueries, useQueryClient } from "@tanstack/react-query";
 import * as Tooltip from "@radix-ui/react-tooltip";
@@ -52,6 +53,7 @@ const VIEWER_BACKGROUND_COLORS: Record<Theme, string> = {
 };
 
 interface StructureViewerProps {
+  onEdit?: ApplySelectionEdit;
   project: Project;
   theme: Theme;
   selection: Selection;
@@ -101,6 +103,7 @@ export function StructureViewer({
   onSurfaces,
   onLoadPocketStructures,
   onAppearance,
+  onEdit,
   createViewer = createMolstarViewer,
 }: StructureViewerProps) {
   const queryClient = useQueryClient();
@@ -612,12 +615,17 @@ export function StructureViewer({
             onFocusLigands={() => viewerRef.current?.focusAtoms(ligandAtoms)}
             onSelectionStyle={openStyleDialog}
           />
+          <div className="viewer-edit-transform-actions">
           {movement ? <MovementControls movement={movement}
             view={() => viewerRef.current?.getMovementView() ?? null}
             zoom={factor => viewerRef.current?.zoom(factor)}
             unavailableReason={movement.state.phase !== "idle" ? "Selection capture is in progress"
               : busy ? "Finish the current project change before moving selection"
               : viewerUnavailableReason ?? movementUnavailableReason(project, selection, () => viewerRef.current?.getRenderedAtomReferences() ?? [])} /> : null}
+          {onEdit ? <MolecularEditPanel project={project} selection={selection} busy={busy}
+            unavailable={movementActive ? "Finish movement before editing chemistry." : null}
+            onEdit={onEdit} onSettings={onUpdateSettings} /> : null}
+          </div>
         </div>
         <InteractionPanel open={interactionProjectId === project.id} onOpenChange={open => setInteractionProjectId(open ? project.id : null)} choices={interactions.choices} result={interactions.result} onRetry={interactions.error ? interactions.retry : undefined}
           status={interactionPaused ? "Paused during preview" : interactions.error ?? (interactions.loading ? "Analyzing…" : !interactions.enabled ? "Off" : !interactionInputs.length ? "No visible inputs" : !interactions.result || !interactionViewReady ? "Waiting…" : interactions.choices.types.every(kind => interactions.result!.coverage[kind].status === "unavailable") ? "Unavailable · see Help" : `${interactionRecords.length} detected${interactions.choices.types.some(kind => interactions.result!.coverage[kind].status !== "complete") ? " · partial coverage" : ""}`)} />

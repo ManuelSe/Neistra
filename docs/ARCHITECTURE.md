@@ -182,6 +182,24 @@ reuse the artifact-keyed normalized-structure query. Ligand focus uses only
 heavy atoms in polar-only and none modes so navigation remains deterministic
 without asking Mol* to expose its per-representation hydrogen classification.
 
+## Selection-driven editing boundary (issue #69)
+
+The additive selection-edit route captures revision/artifact/canonical operands.
+`SelectionMolecularEditor` checks prepared-component eligibility before RDKit
+conversion, operates on a temporary bounded component and merges by stable IDs.
+Unrelated protein/components and coordinates remain authoritative and untouched.
+Local H changes publish with the graph change as one immutable artifact and one
+existing generic molecular history action, including deleted-reference pruning.
+`record_molecular_change` accepts an explicit operand snapshot while preserving
+its legacy default for old callers. No new durable action kind or migration.
+
+Transient `useEditingStore` owns panel visibility/pending state above responsive
+viewer remounts. TanStack Query retains artifact-keyed molecular payloads. The
+application captures project/selection ownership for asynchronous mutation
+feedback and selection replacement, while Mol* remains a disposable projection.
+Normal canvas gestures remain selection/navigation; movement blocks chemistry.
+See D-098–100, the approved plan and [user guidance](MOLECULAR_EDITING.md).
+
 ## Persistence
 
 SQLite stores projects, entries, groups, checkpoints, bounded command history,

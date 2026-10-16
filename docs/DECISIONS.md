@@ -3678,3 +3678,27 @@ viewer/archive2 and normalized/selection1 remain; head0014 stays. Planned minor
 0.16.0 adds meaningful functionality while retaining prior contracts, subject to
 actual reader and complete candidate/exact-master release gates. C0 records the
 approved plan/decisions only and stops ready for `/goal`.
+
+### D-098–100 implementation note — issue #69 M1/C1, 2026-10-16
+
+`/goal` now authorizes implementation and complete delivery. The additive
+selection-edit service uses the existing generic `entry.molecule` action with an
+explicit captured operand snapshot. New-ID bounds and duplicate/order/aromaticity
+guards reject before RDKit's permissive conversion defaults. Component membership
+is indexed once rather than scanning all atoms for every component; no whole-
+protein chemistry validation is introduced.
+
+Local H reconciliation retains viable existing H and removes only surplus H,
+then fills deficits on affected atoms. New geometry uses 0.65–1.35 covalent-radius
+sums, hybridization angle screens and a0.4Å overlap refusal. These are documented
+admission checks; fixed legacy collinear input can reject rather than silently
+moving its heavy atoms. The reproducible positive3D fixture and synthetic complex
+archive are scientific test inputs, not a preparation/import capability.
+
+Raw tetrahedral tags depend on bond-neighbor order. Retained supplied supported
+centers are re-perceived from fixed3D geometry after normalized bond ordering,
+with explicit review warnings; CIP-priority changes do not imply inversion.
+Unsupported encodings reject. App-owned pending state blocks competing workspace
+mutations; project/selection/revision guards own response feedback and replacement.
+Desktop/mobile C1 workflows pass. Broader lifecycle, science and actual old-reader
+qualification still require C4/C5; no migration or compatibility claim is inferred.

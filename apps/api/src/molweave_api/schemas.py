@@ -6,6 +6,7 @@ from typing import Annotated, Any, Literal
 from uuid import UUID
 
 from molweave_core.components import ComponentHierarchyV1
+from molweave_core.editing.selection import SelectionAction
 from molweave_core.molecular import MolecularWarning, NormalizedStructureV1
 from molweave_core.selection import AtomReference, SelectionGranularity, SelectionV1
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
@@ -1001,6 +1002,18 @@ class LigandEditRead(BaseModel):
     project: ProjectRead
     warnings: list[MolecularWarning]
     report: LigandEditReport
+
+
+class SelectionEditCreate(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    expected_revision: int = Field(ge=0)
+    expected_artifact_id: str = Field(min_length=1)
+    selection: SelectionV1
+    action: SelectionAction
+
+
+class SelectionEditRead(LigandEditRead):
+    replacements: dict[int, int] = Field(default_factory=dict)
 
 
 class ProteinEditBase(BaseModel):

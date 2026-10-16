@@ -2,8 +2,8 @@
 
 ## 1. Status, metadata, and approved outcome
 
-**Status:** approved; C0 planning handoff only. M1/C1 through M5/C5 are approved
-and not started. Stop after persisting and pushing C0, ready for `/goal`.
+**Status:** `/goal` authorized full implementation/delivery on 2026-10-16.
+C0 and M1/C1 are complete; M2/C2 through M5/C5 are approved and not started.
 
 - **Issue:** [#69 — Add a compact, interactive molecular Edit panel to the
   viewer](https://github.com/ManuelSe/Neistra/issues/69), open with no comments at
@@ -521,9 +521,43 @@ After explicit approval, C0 only:
 
 | Checkpoint | State | Evidence / next action |
 |---|---|---|
-| C0 | Approved plan persisted; documentation gate passed | Commit/push verification in final handoff; stop ready for `/goal`. |
-| M1/C1 | Approved; not started | Await `/goal`; atom-edit vertical slice. |
+| C0 | Complete | Planning commit238e5dd remotely verified; `/goal` now authorizes delivery. |
+| M1/C1 | Complete; passing checkpoint | Atomic atom/H edit vertical slice; evidence below. |
 | M2/C2 | Approved; not started | Bonds and six fragments after passing C1. |
 | M3/C3 | Approved; not started | Residue workflow and complete interaction after C2. |
 | M4/C4 | Approved; not started | Scientific/lifecycle/accessibility/compatibility qualification. |
 | M5/C5 | Approved; not started | Full gates, reviewed PR and verified release delivery. |
+
+### 2026-10-16 — M1/C1 complete: atomic atom/H editing
+
+- Added the additive typed selection-edit route, strict prepared-component
+  projection/merge, local H reconciliation, H replacement identities, element/
+  charge/heavy deletion, immutable publication and full operand history snapshots.
+  Existing low-level API semantics and generic stored molecular actions remain.
+- Edit sits beside Transform; canonical selection supplies operands, the panel
+  stays open, and explicit H preparation/display are distinct. Transient panel
+  ownership survives remounts and resets with project; captured mutation feedback
+  and selection replacement cannot retarget another project or later selection.
+- Prepared synthetic complex is imported through the public archive path.
+  Tests preserve unrelated records and original bytes, restore exact artifacts
+  through Undo/Redo and reject invalid/uncertain/no-op edits before publication.
+  Supported supplied stereo is re-perceived from fixed geometry in final bond
+  order; generated distance/angle/overlap bounds are explicit, not pose validation.
+- [C1 evidence](../assets/molecular-editing/c1-verification.json) retains exact
+  commands, final source hashes, exits, timings and log/screenshot checksums:
+  **23 focused Python, all230 frontend and2 desktop/mobile browser tests pass**;
+  Ruff, mypy63, ESLint, TypeScript, production build and diff check pass.
+  Legacy ligand/protein integration regression separately passed16 tests.
+- Failed diagnostics are separate: a formula expectation was corrected to
+  C2H6O; the unchanged legacy collinear ethanol correctly rejects degenerate
+  generated H instead of being silently re-embedded. Positive fixture uses
+  documented ETKDGv3 seed690. Initial exact-label and tooltip-consumed mobile
+  Escape test helpers were corrected to accessible roles/explicit drawer close;
+  final complete dedicated browser run passes both layouts in18.7s.
+- Local checkpoint review guarded arbitrary-order/aromaticity conversion defaults,
+  duplicate endpoints and new-ID bounds. It is self-review, not independent.
+  No API removal, dependency/version/schema change or migration. Existing lazy
+  Mol* bundle/color-environment advisories remain.
+- C1 does not claim compact bond, fragment or residue operations, full preparation,
+  raw PDB chemistry assignment, prior-reader compatibility or release completion.
+  No blocker. Next: commit passing C1, then implement M2/C2.
