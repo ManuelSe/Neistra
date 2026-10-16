@@ -2,30 +2,37 @@
 
 ## Current milestone
 
-Issue #69 M5/C5 final candidate qualified under the
-[approved contract](plans/issue-69-compact-molecular-editor.md).
-C1–C4 are complete; review repairs are committed/pushed at12a4375. Four compact
-sections deliver bounded atomic atom/local H, endpoint bonds, six illustrated H
-substitutions and all20 existing constrained residue mutations. D-098–100 retain
-scope/scientific/state authority; append-only qualification notes record repairs.
+Issue #69 delivered under the [approved contract](plans/issue-69-compact-molecular-editor.md)
+in [PR #72](https://github.com/ManuelSe/Neistra/pull/72) and stable
+[v0.16.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.16.0).
+C0–C5 complete: compact selection-driven atom/local H, endpoint bonds, six
+illustrated H substitutions and all 20 existing constrained residue mutations.
+D-098–100 and append-only qualification notes retain scientific/state authority.
 
-[Clean0.16.0 candidate](assets/molecular-editing/c5-candidate-gate.json) at12a4375
-passes all16release commands: frozen installs/fresh0014/static/build/diff,
-613Python,236frontend,8supervisor and216browser/46intentional skips in39.9m;
-zero failures/flakes/retries. Actual taggedv0.15.0 reader passes final0.16.0 data,
-new retained command Undo/Redo, archives/jobs/scenes/surfaces/originals. Source
-hashes and clean start/end are verified. [Full-diff local self-review](assets/molecular-editing/c5-local-review.md)
-is not independent. Initial vendor-popup axe failure and reproduced cross-visit
-pending race are repaired; failed diagnostics remain separate from final evidence.
+Both [clean candidate](assets/molecular-editing/c5-candidate-gate.json) at `12a4375`
+and [exact released master](assets/molecular-editing/c5-merged-gate.json) at
+`1ef42b1cc94c472a51a56e0420ea9b2df7cb3678` pass all 16release commands:
+frozen installs/fresh 0014/static/build/diff,613 Python/236 frontend/8 supervisor/
+216 browser with46 intentional skips, zero failures/flakes/retries. Actual tagged
+v0.15.0 reads final 0.16.0 artifacts, retained new-command Undo/Redo, archives,
+originals/jobs/scenes/surfaces. Clean trees and source/log hashes are verified.
+Review is [local self-review](assets/molecular-editing/c5-local-review.md);
+Codex was requested, with no integration review returned at merge/publication
+audit. No required checks/reviews/protections bypassed. Failed diagnostics remain
+separate from passing qualification.
 
-Five authoritative versions0.16.0minor; no new migration or persisted break
-(0014; project/viewer/archive2, normalized/selection1). Known limits remain prepared
-bounded single-conformer components, local valence/H inference, supported tetrahedral
+Five versions 0.16.0 (minor); no new migration/persisted break (0014; project/viewer/
+archive 2, normalized/selection 1). Annotated exact tag, stable release/notes,
+downloaded ZIP SHA256/CRC and 189 internal checksums verified;
+[publication record](assets/molecular-editing/c5-publication.json).
+[Issue reply](https://github.com/ManuelSe/Neistra/issues/69#issuecomment-6220230454)
+verified; issue closed. The reply records final documentation integration, branch
+cleanup and clean-master/source-equivalence audit. Known limits: prepared bounded
+single-conformer components, local valence/H inference, supported tetrahedral
 stereo/unoptimized geometry and existing protein templates. Grow and expanded
-fragment/element/ring chemistry are verified#70/#71, reusing#12/#20/#21/#52.
-No released-feature claim yet. No blocker.
-Next: PR/review/check audit and normal merge, then complete exact-master gates and
-verified annotated tag/release/issue/docs/branch closeout. Never bypass protections.
+fragment/element/ring chemistry remain #70/#71, reusing #12/#20/#21/#52.
+No blocker or remaining approved-scope implementation. Next product action:
+approve a separate backlog plan; no deferred scope is added.
 
 ### Previous delivery baseline — v0.15.0
 

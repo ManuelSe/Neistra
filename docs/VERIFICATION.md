@@ -9,22 +9,30 @@ and accessible controls. [C1](assets/molecular-editing/c1-verification.json),
 [C3](assets/molecular-editing/c3-verification.json) retain exact commands, source/
 log/screenshot checksums and diagnostic separation. C3 passes72Python,
 all234frontend,31browser/3intentional layout skips and static/build/diff gates;
-all20 amino acids pass API backbone/unrelated-state/Undo. Native atom/bond/residue
+all 20 amino acids pass API backbone/unrelated-state/Undo. Native atom/bond/residue
 workflows, both themes,320px, keyboard/notice hit testing and scoped axe pass.
 Manual screenshot inspection is distinct; no independent review or broader device
 certification is claimed. [C4](assets/molecular-editing/c4-verification.json)
 passes612Python/235frontend/62broad browser with10intentional skips, no failures/
-retries; static/build/diff and actual taggedv0.15.0 reader pass. New stereo,
+retries; static/build/diff and actual tagged v0.15.0 reader pass. New stereo,
 crosslink refusal, reference/allocator/archive workflows, native prepared-complex
 H/new-atom picking, exact camera through remount/edit, async project/selection/
 read-failure ownership, real100/200%Chrome zoom and existing performance budgets
-are qualified. Diagnostics and local self-review remain separate. [Final clean0.16.0 candidate](assets/molecular-editing/c5-candidate-gate.json) at12a4375
-passes613Python/236frontend/8supervisor/216browser with46intentional skips and no
-failures/flakes/retries; all16frozen-install/fresh0014/static/build/diff/actual-reader
+are qualified. Diagnostics and local self-review remain separate. [Final clean0.16.0 candidate](assets/molecular-editing/c5-candidate-gate.json) at `12a4375`
+passes613 Python/236 frontend/8 supervisor/216 browser with46 intentional skips and no
+failures/flakes/retries; all 16frozen-install/fresh 0014/static/build/diff/actual-reader
 commands pass. [Local full-diff self-review](assets/molecular-editing/c5-local-review.md)
 records repaired cross-visit pending and vendor-popup findings; earlier failed gate
-is diagnostic only. Exact merged-master gates and verified publication remain;
-this is not yet released.
+is diagnostic only. [Exact released master](assets/molecular-editing/c5-merged-gate.json)
+at `1ef42b1cc94c472a51a56e0420ea9b2df7cb3678` repeats all 16commands, counts and
+actual v0.15.0 reader, with216 browser/46 intentional skips, zero failures/flakes/
+retries in 40.0 minutes. Clean trees/source hashes and 14 native performance profiles
+are retained. Annotated exact tag/stable latest release/notes, downloaded ZIP
+SHA256/CRC and 189 internal checksums are [verified](assets/molecular-editing/c5-publication.json).
+[Issue reply](https://github.com/ManuelSe/Neistra/issues/69#issuecomment-6220230454)
+is verified and records final documentation/branch/clean-master audit. Review was
+local; Codex was requested but no integration review returned at merge/publication.
+No required check/review/protection was bypassed.
 
 Issue #59 follows the [approved navigation plan](plans/issue-59-compact-project-navigation.md).
 [C1](assets/project-navigation/c1-verification.json) qualifies independent compact

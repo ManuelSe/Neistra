@@ -3,7 +3,11 @@
 ## 1. Status, metadata, and approved outcome
 
 **Status:** `/goal` authorized full implementation/delivery on 2026-10-16.
-C0 through M4/C4 are complete; M5/C5 release preparation/delivery is in progress.
+C0 through M5/C5 implementation, qualification and publication are complete.
+Delivered in [PR #72](https://github.com/ManuelSe/Neistra/pull/72) and stable
+[v0.16.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.16.0). Final
+documentation integration and branch/clean-master audit are recorded in the
+[verified issue reply](https://github.com/ManuelSe/Neistra/issues/69#issuecomment-6220230454).
 
 - **Issue:** [#69 — Add a compact, interactive molecular Edit panel to the
   viewer](https://github.com/ManuelSe/Neistra/issues/69), open with no comments at
@@ -526,7 +530,7 @@ After explicit approval, C0 only:
 | M2/C2 | Complete; passing checkpoint | Endpoint bond operations and six qualified fragments; evidence below. |
 | M3/C3 | Complete; passing checkpoint | Standard-residue workflow, result selection, focus/position/accessibility; evidence below. |
 | M4/C4 | Complete; passing |612Python/235frontend/62browser with10intentional skips; actual tagged reader, science/lifecycle/real zoom and existing budgets. |
-| M5/C5 | In progress |0.16.0 preparation; full candidate/exact-master gates, reviewed PR and publication remain. |
+| M5/C5 | Complete; qualified and published | Both complete gates and actual tagged reader pass; PR #72 merged, annotated v0.16.0/release/asset/issue reply remotely verified. Final repository audit is linked below. |
 
 ### 2026-10-16 — M1/C1 complete: atomic atom/H editing
 
@@ -794,3 +798,47 @@ delivered merely because a follow-up exists.
   request Codex where available, address actual findings, merge only when eligible,
   then verify exact master and repeat every release gate before tag/release/closeout.
   No PR/tag/release for this issue exists at this log entry. No blocker.
+
+
+### M5/C5 complete — exact master and publication, 2026-10-16
+
+- [PR #72](https://github.com/ManuelSe/Neistra/pull/72) merged normally, preserving
+  all passing checkpoints, at `1ef42b1cc94c472a51a56e0420ea9b2df7cb3678`.
+  Verified origin/master, switched to master and fast-forwarded; clean tree and
+  exact source remained throughout the release gate. No implementation on master.
+- [Exact merged gate](../assets/molecular-editing/c5-merged-gate.json) repeats all
+  16 mandatory commands using fresh `/tmp/neistra-issue69-c5-merged/{migration,reader,e2e}`
+  and ports 8260/8261/5460: frozen installs, fresh 0014, Ruff/mypy (64 files), **613 Python,
+  236 frontend, 8 supervisor, 216 browser / 46 intentional skips** in 40.0 minutes,
+  lint/types/build/diff and actual tagged v0.15.0 reader. Zero failures, flakes or
+  retries. Exact argv/env/exits/durations/source and raw/retained log hashes are
+  recorded, with 14 native performance profiles and raw reports in the release asset.
+- Actual tagged v0.15.0 API/core at dccc5e6 reads final 0.16.0 data from this exact
+  master: new-command Undo/Redo, save/reexport/archive import, exact originals,
+  molecular records, jobs/scenes/three surface kinds and seed remapping. No new
+  migration/schema/legacy API change; all five versions are 0.16.0 minor.
+- Reviewed complete diff locally; no consequential finding remains. Codex request
+  and pre-merge audit are remotely verified on PR #72, but no integration review
+  returned at merge/publication audit. This is implementing-agent self-review,
+  not independent approval. No configured CI/check/review/protection/conversation
+  requirement was bypassed; empty status lists are not claimed as CI passes.
+- Annotated `v0.16.0` object `f1c7957909161d81d2e98f0a018fee0bacb5e8c8` peels remotely
+  to the exact qualified merge above. Stable/latest [release](https://github.com/ManuelSe/Neistra/releases/tag/v0.16.0)
+  and notes verified; downloaded 3,604,092-byte verification ZIP matches SHA256
+  `ecff4b91263a625c906e17996de8ca9b18dfb7686d0ca77cf8935fd959a25139`, CRC and
+  all 189 internal checksums. [Publication record](../assets/molecular-editing/c5-publication.json).
+- [Issue reply](https://github.com/ManuelSe/Neistra/issues/69#issuecomment-6220230454)
+  is verified and #69 is closed. It accounts for implemented scope, compatibility,
+  science/verification and all reductions; #70/#71 remain future work. No original
+  speculative checkbox is silently claimed delivered. Known limits remain those
+  approved above, including prepared bounded components, initial H preparation,
+  six fragments, supported stereo and unoptimized geometry/template mutations.
+- Retain exact-master evidence and publication facts in a documentation-only
+  closeout PR on the same planned branch, fast-forwarded to released master.
+  Runtime/test/config bytes must remain identical to the qualified release.
+  The tag stays on the runtime merge; a later documentation-only master commit
+  does not become a different release target. Final documentation merge, remote/
+  local branch deletion and clean-master/source-equivalence audit are maintained
+  in the verified issue reply to avoid self-referential commit hashes here.
+- No remaining approved-scope implementation or release blocker. Future product
+  work requires a separate approved plan; do not restart deferred issue scope.

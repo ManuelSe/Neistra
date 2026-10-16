@@ -1,0 +1,455 @@
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade  -> 0001, Create Milestone 1 project workspace tables.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0001 -> 0002, Version existing project checkpoint snapshots.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0002 -> 0003, Add artifact-backed molecular entry summaries.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0003 -> 0004, Add durable named atom selections.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0004 -> 0005, Add viewer settings, measurements, and named scenes.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0005 -> 0006, Add exact atom identity summaries and monotonic edit allocators.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0006 -> 0007, Add durable generic job lifecycle tables.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0007 -> 0008, Add durable selection representation assignments to viewer settings.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0008 -> 0009, Add durable nonpolar-hydrogen visibility to viewer settings.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0009 -> 0010, Add selection appearance defaults without losing retained history.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0010 -> 0011, Add selection surface defaults without losing retained history.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0011 -> 0012, Add atomic-detail visibility defaults without losing retained history.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0012 -> 0013, Add pocket surface defaults without losing retained history.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0013 -> 0014, Migrate every retained viewer snapshot to identified surface objects.
+[2m[WebServer] [22mINFO:     Started server process [942712]
+[2m[WebServer] [22mINFO:     Waiting for application startup.
+[2m[WebServer] [22mINFO:     Application startup complete.
+[2m[WebServer] [22mINFO:     Uvicorn running on http://127.0.0.1:8260 (Press CTRL+C to quit)
+[2m[WebServer] [22m(node:942784) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:942796) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 262 tests using 1 worker
+
+(node:942834) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:942834) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓    1 [chromium] › tests/e2e/coordinate-editing.spec.ts:135:5 › edits coordinates, reverses gestures, and validates protein superposition (12.8s)
+[2m[WebServer] [22mINFO:     127.0.0.1:43912 - "WebSocket /ws/jobs?project_id=01a14572-2715-7971-be1a-417af382b8ff" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:43922 - "WebSocket /ws/jobs?project_id=01a14572-2715-7971-be1a-417af382b8ff" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:44008 - "WebSocket /ws/jobs?project_id=01a14572-2715-7971-be1a-417af382b8ff" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:44310 - "WebSocket /ws/jobs?project_id=01a14572-2715-7971-be1a-417af382b8ff" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:44672 - "WebSocket /ws/jobs?project_id=01a14572-2715-7971-be1a-417af382b8ff" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+  ✓    2 [chromium] › tests/e2e/demonstration-job.spec.ts:66:5 › completes, fails, cancels, downloads, imports, and undoes demonstration jobs (9.9s)
+  -    3 [chromium] › tests/e2e/demonstration-job.spec.ts:114:5 › runs a demonstration job in the mobile workspace without overlap
+[2m[WebServer] [22m[18:01:22] Benzene: Warning - no explicit hydrogens in mol2 file but needed for formal charge estimation.
+  ✓    4 [chromium] › tests/e2e/export-archive.spec.ts:124:5 › exports all, selected, and visible structures with deterministic filters and records (12.3s)
+  ✓    5 [chromium] › tests/e2e/export-archive.spec.ts:218:5 › round-trips a deterministic archive and rejects an unsafe archive without switching (7.3s)
+  ✓    6 [chromium] › tests/e2e/export-archive.spec.ts:358:5 › cancels intercepted export and archive import work without a stale result (4.6s)
+  -    7 [chromium] › tests/e2e/export-archive.spec.ts:419:5 › keeps complete export and archive controls usable on a mobile viewport
+  ✓    8 [chromium] › tests/e2e/group-membership.spec.ts:53:5 › moves filtered selected batches, preserves molecular state, and supports keyboard/touch and history (10.8s)
+  ✓    9 [chromium] › tests/e2e/group-membership.spec.ts:123:5 › rejects stale-tab actions and keeps a partial selection scoped to its complete entry (6.3s)
+  ✓   10 [chromium] › tests/e2e/group-membership.spec.ts:148:5 › uses real desktop drags for batches, collapsed/empty destinations, Ungrouped, and exact no-ops (6.2s)
+  ✓   11 [chromium] › tests/e2e/group-membership.spec.ts:212:5 › keeps a live molecular viewer and prepared surface unchanged during membership edits (7.6s)
+  ✓   12 [chromium] › tests/e2e/group-membership.spec.ts:287:7 › keeps late membership success feedback and focus in its captured project (4.7s)
+  ✓   13 [chromium] › tests/e2e/group-membership.spec.ts:287:7 › keeps late membership conflict feedback and focus in its captured project (5.2s)
+  ✓   14 [chromium] › tests/e2e/group-membership.spec.ts:336:5 › restores group action focus across repeated accepted row remounts (9.7s)
+  ✓   15 [chromium] › tests/e2e/import-display-export.spec.ts:73:5 › imports protein and ligand, renders both after reload, and exports with loss consent (8.0s)
+  ✓   16 [chromium] › tests/e2e/import-display-export.spec.ts:145:5 › reports malformed input and can cancel an import before commit (1.8s)
+  ✓   17 [chromium] › tests/e2e/interaction-corrections.spec.ts:91:5 › renders genuine six-type records alone, pairwise and together with independent scopes (38.4s)
+  ✓   18 [chromium] › tests/e2e/interaction-corrections.spec.ts:187:5 › explains unsupported raw ligand chemistry without claiming complete zero coverage (4.7s)
+  ✓   19 [chromium] › tests/e2e/interactions-lifecycle.spec.ts:4:5 › keeps centroid overlays current through scenes, deletion and project changes (14.0s)
+  ✓   20 [chromium] › tests/e2e/interactions.spec.ts:8:5 › compact interaction control analyzes once and filters cached scopes (5.7s)
+  ✓   21 [chromium] › tests/e2e/interactions.spec.ts:44:5 › qualifies explicit-H marker pixels, visibility, preview Cancel and committed invalidation (14.2s)
+  ✓   22 [chromium] › tests/e2e/interactions.spec.ts:111:5 › shows busy failures, retries, and keeps the compact panel accessible in both themes (7.7s)
+  ✓   23 [chromium] › tests/e2e/interactions.spec.ts:148:5 › measures bounded analysis and cached toggles on pinned 1STP with aligned typed ligand (6.0s)
+  ✓   24 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:65:5 › qualifies keyboard/touch controls, focus and scoped accessibility in both themes (8.5s)
+  ✓   25 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:119:5 › reconciles an interrupted response after server commit without replaying Apply (5.2s)
+  ✓   26 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:143:5 › blocks Apply while outcome is unknown and recovers only after explicit refresh (4.8s)
+  ✓   27 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:162:5 › captures hidden multi-entry targets, previews multiple drags, cancels, and applies one reversible command (15.7s)
+  ✓   28 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:246:5 › qualifies native proper-rotation previews, camera suspension, zoom and surface restoration in both projections (13.5s)
+  ✓   29 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:349:5 › discards previews with feedback on task, selection and project changes (9.5s)
+  ✓   30 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:393:5 › restores canceled or lost pointer drags and supports secondary and Ctrl translation (9.4s)
+  ✓   31 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:433:5 › rejects stale Apply without replay or partial movement (5.0s)
+  ✓   32 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:454:5 › explains empty, locked and wholly hidden movement targets without changing them (7.6s)
+  ✓   33 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:491:5 › preserves no-op history, pauses measurements and discards unapplied movement on reload (16.2s)
+  ✓   34 [chromium] › tests/e2e/interactive-selection-transform.spec.ts:548:5 › retains the native preview and held camera across responsive viewer remounts (7.5s)
+  ✓   35 [chromium] › tests/e2e/interactive-transform-performance.spec.ts:6:5 › bounds native protein/ligand preview work and measures exact cancellation (12.4s)
+[2m[WebServer] [22m[18:06:16] Explicit valence for atom # 2 O, 3, is greater than permitted
+[2m[WebServer] [22m[18:06:21] [2m[WebServer] [22mMolecule does not have explicit Hs. Consider calling AddHs()[2m[WebServer] [22m
+[2m[WebServer] [22m[18:06:21] [2m[WebServer] [22mMolecule does not have explicit Hs. Consider calling AddHs()[2m[WebServer] [22m
+  ✓   36 [chromium] › tests/e2e/ligand-editing.spec.ts:131:5 › edits ligand chemistry, validates failures, and round-trips history (12.0s)
+  -   37 [chromium] › tests/e2e/ligand-editing.spec.ts:265:5 › keeps ligand editing functional in the mobile inspector
+  ✓   38 [chromium] › tests/e2e/measurements.spec.ts:90:5 › creates and manages reference measurements with synchronized inspection (19.8s)
+  ✓   39 [chromium] › tests/e2e/molecular-editing.spec.ts:21:5 › performs one selection-driven atom/H edit with exact undo and unchanged original (6.6s)
+  ✓   40 [chromium] › tests/e2e/molecular-editing.spec.ts:54:5 › maps a native bond hit to canonical endpoints and changes its order from the panel (5.5s)
+  ✓   41 [chromium] › tests/e2e/molecular-editing.spec.ts:86:5 › substitutes a selected H with illustrated COOH without an attachment mode (5.7s)
+  ✓   42 [chromium] › tests/e2e/molecular-editing.spec.ts:112:5 › mutates a natively picked residue successively and preserves exact backbone and undo (5.6s)
+  ✓   43 [chromium] › tests/e2e/molecular-editing.spec.ts:152:5 › keeps tool focus, notices and all controls accessible in both themes and narrow layouts (5.9s)
+  ✓   44 [chromium] › tests/e2e/molecular-editing.spec.ts:192:5 › edits a prepared complex with native H/new-atom picks, fixed camera and one affected reload (10.0s)
+  ✓   45 [chromium] › tests/e2e/molecular-editing.spec.ts:291:5 › keeps late edit responses owned by their original project (6.3s)
+  ✓   46 [chromium] › tests/e2e/molecular-editing.spec.ts:321:5 › retains a newer native selection and recovers an affected-artifact refetch failure (6.1s)
+  ✓   47 [chromium] › tests/e2e/molecular-editing.spec.ts:364:5 › keeps a newer pending edit owned after leaving and returning to the same project (17.6s)
+  ✓   48 [chromium] › tests/e2e/pocket-surfaces.spec.ts:12:7 › qualifies native full-protein pocket geometry and independent display for complex/1stp.pdb (12.2s)
+  ✓   49 [chromium] › tests/e2e/pocket-surfaces.spec.ts:12:7 › qualifies native full-protein pocket geometry and independent display for hydrogens/polar_hydrogens_protein.pdb (10.6s)
+  ✓   50 [chromium] › tests/e2e/pocket-surfaces.spec.ts:12:7 › qualifies native full-protein pocket geometry and independent display for surfaces/1aon.cif (54.9s)
+  ✓   51 [chromium] › tests/e2e/pocket-surfaces.spec.ts:158:5 › invalidates native pockets for hidden seed and receptor preview, cancel and commit (8.4s)
+  ✓   52 [chromium] › tests/e2e/pocket-surfaces.spec.ts:223:5 › saves pockets through the compact panel and restores hidden seed inputs (10.7s)
+  ✓   53 [chromium] › tests/e2e/polar-hydrogen-visibility.spec.ts:330:7 › polar_hydrogens_protein.pdb renders all, polar-only, and no-hydrogen modes (8.0s)
+  ✓   54 [chromium] › tests/e2e/polar-hydrogen-visibility.spec.ts:330:7 › polar_hydrogens_ligand.mol renders all, polar-only, and no-hydrogen modes (6.4s)
+  ✓   55 [chromium] › tests/e2e/polar-hydrogen-visibility.spec.ts:342:5 › persists polar-only mode across viewer workflows without transient or molecular drift (29.9s)
+  ✓   56 [chromium] › tests/e2e/polar-hydrogen-visibility.spec.ts:603:5 › keeps polar-only controls accessible and bounded on desktop and Pixel 7 (3.7s)
+  ✓   57 [chromium] › tests/e2e/polar-hydrogen-visibility.spec.ts:648:5 › a hydrogen-free structure remains hydrogen-free in polar-only mode (3.9s)
+  ✓   58 [chromium] › tests/e2e/polar-hydrogen-visibility.spec.ts:683:7 › selection-local hydrogen precedence and full-graph classification: polar_hydrogens_ligand.mol (12.5s)
+  ✓   59 [chromium] › tests/e2e/polar-hydrogen-visibility.spec.ts:683:7 › selection-local hydrogen precedence and full-graph classification: polar_hydrogens_protein.pdb (12.4s)
+  ✓   60 [chromium] › tests/e2e/project-lifecycle.spec.ts:55:5 › creates, recovers, reverses, saves, and reopens a project (2.7s)
+  ✓   61 [chromium] › tests/e2e/project-lifecycle.spec.ts:127:5 › reports an unavailable API and recovers after retry (546ms)
+  ✓   62 [chromium] › tests/e2e/project-lifecycle.spec.ts:148:5 › entry commands are durable and reversible through the workspace (4.1s)
+  ✓   63 [chromium] › tests/e2e/project-navigation.spec.ts:25:5 › keeps compact entries independent from component expansion, selection and metadata (5.1s)
+  ✓   64 [chromium] › tests/e2e/project-navigation.spec.ts:69:5 › keeps two hundred grouped long-name entries usable at narrow widths and responsive remounts (27.7s)
+  ✓   65 [chromium] › tests/e2e/project-navigation.spec.ts:151:5 › virtualizes ten thousand real normalized components and reaches off-screen rows by keyboard (27.8s)
+  ✓   66 [chromium] › tests/e2e/project-navigation.spec.ts:220:5 › retains two component rows at the minimum expanded desktop pane height (5.0s)
+  ✓   67 [chromium] › tests/e2e/protein-editing.spec.ts:152:5 › edits protein hierarchy and chemistry with exact history and validation (15.6s)
+  -   68 [chromium] › tests/e2e/protein-editing.spec.ts:426:5 › keeps protein editing usable in the mobile inspector
+[2m[WebServer] [22mINFO:     127.0.0.1:39668 - "WebSocket /ws/jobs?project_id=01a1457c-4d8a-7808-a99d-8056153d3d77" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:39678 - "WebSocket /ws/jobs?project_id=01a1457c-4d8a-7808-a99d-8056153d3d77" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:41312 - "WebSocket /ws/jobs?project_id=01a1457c-4d8a-7808-a99d-8056153d3d77" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:41314 - "WebSocket /ws/jobs?project_id=01a1457c-4d8a-7808-a99d-8056153d3d77" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+  ✓   69 [chromium] › tests/e2e/rebranding-surfaces.spec.ts:52:5 › reviews all Neistra workflow surfaces in both themes (42.7s)
+[2m[WebServer] [22mINFO:     127.0.0.1:37376 - "WebSocket /ws/jobs?project_id=01a1457c-f431-7827-a067-8bd4347cedad" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:37390 - "WebSocket /ws/jobs?project_id=01a1457c-f431-7827-a067-8bd4347cedad" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:37436 - "WebSocket /ws/jobs?project_id=01a1457c-f431-7827-a067-8bd4347cedad" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:37656 - "WebSocket /ws/jobs?project_id=01a1457c-f431-7827-a067-8bd4347cedad" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:33362 - "WebSocket /ws/jobs?project_id=01a1457c-f431-7827-a067-8bd4347cedad" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+  ✓   70 [chromium] › tests/e2e/rebranding-surfaces.spec.ts:168:7 › reviews warning, failure, recovery and job states in light (18.7s)
+[2m[WebServer] [22mINFO:     127.0.0.1:34140 - "WebSocket /ws/jobs?project_id=01a1457d-3d6f-779d-9db8-17cedcfb8e70" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:34144 - "WebSocket /ws/jobs?project_id=01a1457d-3d6f-779d-9db8-17cedcfb8e70" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:34188 - "WebSocket /ws/jobs?project_id=01a1457d-3d6f-779d-9db8-17cedcfb8e70" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:34374 - "WebSocket /ws/jobs?project_id=01a1457d-3d6f-779d-9db8-17cedcfb8e70" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:48234 - "WebSocket /ws/jobs?project_id=01a1457d-3d6f-779d-9db8-17cedcfb8e70" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+  ✓   71 [chromium] › tests/e2e/rebranding-surfaces.spec.ts:168:7 › reviews warning, failure, recovery and job states in dark (18.9s)
+  ✓   72 [chromium] › tests/e2e/rebranding-surfaces.spec.ts:253:5 › keeps ambiguous classification warnings and legacy user copy visible (7.0s)
+  ✓   73 [chromium] › tests/e2e/rebranding-zoom.spec.ts:60:5 › keeps actions and dialogs reachable at real 100% and 200% browser zoom (1.5m)
+  ✓   74 [chromium] › tests/e2e/rebranding-zoom.spec.ts:324:5 › keeps shell and inspector controls bounded around both responsive breakpoints (9.4s)
+  ✓   75 [chromium] › tests/e2e/rebranding-zoom.spec.ts:358:5 › keeps the molecular editor keyboard controls reachable at actual browser zoom (21.7s)
+  ✓   76 [chromium] › tests/e2e/rebranding.spec.ts:4:5 › restores the legacy dark theme before the application module loads (843ms)
+  ✓   77 [chromium] › tests/e2e/rebranding.spec.ts:32:7 › keeps the workspace usable with invalid-json preferences (894ms)
+  ✓   78 [chromium] › tests/e2e/rebranding.spec.ts:32:7 › keeps the workspace usable with invalid-values preferences (803ms)
+  ✓   79 [chromium] › tests/e2e/rebranding.spec.ts:32:7 › keeps the workspace usable with unavailable preferences (834ms)
+  ✓   80 [chromium] › tests/e2e/rebranding.spec.ts:53:5 › uses the Neistra identity through project creation and import (5.5s)
+  ✓   81 [chromium] › tests/e2e/release-hardening.spec.ts:65:5 › passes automated accessibility checks in both themes (5.0s)
+  ✓   82 [chromium] › tests/e2e/release-hardening.spec.ts:79:5 › supports keyboard focus and bounded responsive controls (4.0s)
+  ✓   83 [chromium] › tests/e2e/release-hardening.spec.ts:164:5 › keeps representative-project interactions responsive and projection-scoped (6.1s)
+[2m[WebServer] [22mINFO:     127.0.0.1:45280 - "WebSocket /ws/jobs?project_id=01a1457f-e79b-7f83-a94c-86633eb4c8bb" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:45286 - "WebSocket /ws/jobs?project_id=01a1457f-e79b-7f83-a94c-86633eb4c8bb" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:45306 - "WebSocket /ws/jobs?project_id=01a1457f-e79b-7f83-a94c-86633eb4c8bb" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:45600 - "WebSocket /ws/jobs?project_id=01a1457f-e79b-7f83-a94c-86633eb4c8bb" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+  ✓   84 [chromium] › tests/e2e/release-journey.spec.ts:155:5 › completes the MolWeave v0.1 definition-of-done journey (37.3s)
+  ✓   85 [chromium] › tests/e2e/selection-appearance.spec.ts:6:5 › expands from styling across hidden entries without durable changes (28.2s)
+  ✓   86 [chromium] › tests/e2e/selection-appearance.spec.ts:187:7 › integrated selection appearance is durable and accessible in light (9.7s)
+  ✓   87 [chromium] › tests/e2e/selection-appearance.spec.ts:187:7 › integrated selection appearance is durable and accessible in dark (9.9s)
+  ✓   88 [chromium] › tests/e2e/selection-styling.spec.ts:224:5 › styles a 1STP complex without changing scientific or transient state (15.8s)
+  ✓   89 [chromium] › tests/e2e/selection-styling.spec.ts:374:5 › keeps ion, water, and covalent-boundary targets exact (7.5s)
+  -   90 [chromium] › tests/e2e/selection-styling.spec.ts:437:5 › keeps the selection styling dialog bounded and keyboard-operable on Pixel 7
+  ✓   91 [chromium] › tests/e2e/selection-surfaces.spec.ts:16:5 › qualifies worker geometry, real element colors, picking and cancellation (4.9s)
+  ✓   92 [chromium] › tests/e2e/selection-surfaces.spec.ts:114:5 › adds and removes saved surfaces from the compact palette with reload and undo (16.3s)
+  ✓   93 [chromium] › tests/e2e/selection-surfaces.spec.ts:187:7 › qualifies production surface lifecycle for formats/ethanol.mol (9.7s)
+  ✓   94 [chromium] › tests/e2e/selection-surfaces.spec.ts:187:7 › qualifies production surface lifecycle for hydrogens/polar_hydrogens_ligand.mol (4.5s)
+  ✓   95 [chromium] › tests/e2e/selection-surfaces.spec.ts:358:5 › qualifies production 1STP surface response and partial-fragment boundaries (4.0s)
+  ✓   96 [chromium] › tests/e2e/selection-visibility.spec.ts:20:5 › hiding the middle atom removes every incident native bond and its label (12.5s)
+  ✓   97 [chromium] › tests/e2e/selection-visibility.spec.ts:74:5 › trace, residue and all-atom hiding preserve native polymers, surfaces and measurements (18.7s)
+  ✓   98 [chromium] › tests/e2e/selection-visibility.spec.ts:143:5 › compact Hide/Show preserves selection, styles and cached projections (13.9s)
+  ✓   99 [chromium] › tests/e2e/structure-hierarchy.spec.ts:116:5 › synchronizes hierarchy selection, visibility, focus, persistence, and WebGL (10.7s)
+  -  100 [chromium] › tests/e2e/structure-hierarchy.spec.ts:249:5 › keeps the hierarchy keyboard-operable and bounded in the Pixel 7 drawer
+  ✓  101 [chromium] › tests/e2e/surface-capacity.spec.ts:34:7 › renders the complete 6vxx selection within bounded capacity (16.1s)
+  ✓  102 [chromium] › tests/e2e/surface-capacity.spec.ts:34:7 › renders the complete 1aon selection within bounded capacity (38.1s)
+  ✓  103 [chromium] › tests/e2e/surface-capacity.spec.ts:34:7 › renders the complete synthetic-100k selection within bounded capacity (30.8s)
+  ✓  104 [chromium] › tests/e2e/surface-objects.spec.ts:12:5 › native same-entry surface objects have independent identity, colors, mesh and whole-object activation (17.7s)
+  ✓  105 [chromium] › tests/e2e/surface-objects.spec.ts:124:5 › manages production object appearance and explicit sources independently through reload and undo (26.1s)
+  ✓  106 [chromium] › tests/e2e/surface-objects.spec.ts:361:5 › keeps manager controls keyboard reachable, bounded and accessible with long names and narrow layouts (12.1s)
+  ✓  107 [chromium] › tests/e2e/surface-objects.spec.ts:414:5 › keeps queued same-entry surface inputs lazy and valid across a renderer rebuild (7.4s)
+  ✓  108 [chromium] › tests/e2e/synchronized-selection.spec.ts:103:5 › keeps browser, sequence, inspector, viewer, and saved selection synchronized (12.6s)
+  ✓  109 [chromium] › tests/e2e/viewer-click-selection.spec.ts:198:5 › keeps primary selection and empty clearing independent from the camera (19.4s)
+  -  110 [chromium] › tests/e2e/viewer-click-selection.spec.ts:365:5 › uses the compact trigger path for selection and empty clearing
+  ✓  111 [chromium] › tests/e2e/viewer-controls.spec.ts:104:5 › applies complete representations, navigation, isolation, and named scenes (19.8s)
+  ✓  112 [chromium] › tests/e2e/viewer-controls.spec.ts:291:5 › synchronizes picking and keeps selection, focus actions, and project state independent (9.4s)
+  ✓  113 [chromium] › tests/e2e/viewer-controls.spec.ts:364:5 › explains unavailable ligand focus for protein-only content (3.1s)
+  -  114 [chromium] › tests/e2e/viewer-controls.spec.ts:381:5 › keeps compact picking and focus controls bounded and keyboard reachable
+  ✓  115 [chromium] › tests/e2e/viewer-controls.spec.ts:430:5 › shows a usable WebGL failure instead of a blank viewer (2.2s)
+  ✓  116 [chromium] › tests/e2e/viewer-notifications.spec.ts:61:5 › expires after ten real seconds without molecular, camera, network or renderer changes (13.5s)
+  ✓  117 [chromium] › tests/e2e/viewer-notifications.spec.ts:95:5 › successive identical confirmations receive fresh deadlines across theme changes (4.7s)
+  ✓  118 [chromium] › tests/e2e/viewer-notifications.spec.ts:112:5 › warning summaries and actionable errors persist with unchanged styling and accessible dismissal (5.5s)
+  ✓  119 [chromium] › tests/e2e/viewer-notifications.spec.ts:145:5 › keyboard focus defers expiration, departure preserves focus, and manual dismissal returns it (3.1s)
+  ✓  120 [chromium] › tests/e2e/viewer-notifications.spec.ts:168:5 › viewer remounts retain the deadline and project changes invalidate old notices (4.7s)
+  ✓  121 [chromium] › tests/e2e/viewer-theme.spec.ts:107:5 › keeps the persisted theme through the real viewer lifecycle (21.0s)
+  ✓  122 [chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:60:5 › transforms from the viewer with fixed mouse gestures, exact Cancel and one Apply/undo/redo (10.8s)
+  ✓  123 [chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:108:5 › temporarily navigates the native camera with Space and the view toggle without changing the captured preview (21.6s)
+  ✓  124 [chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:179:5 › returns the mouse from movement tools for Space without stealing editable or unrelated focus (11.6s)
+  ✓  125 [chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:248:5 › ends held mouse gestures at accepted coordinates and camera before ownership changes (10.0s)
+  ✓  126 [chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:290:5 › clears temporary navigation on interruption and remount while preserving preview and camera (15.3s)
+  -  127 [chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:365:5 › qualifies native touch navigation, secondary tools and accessible theme layouts
+  ✓  128 [chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:456:59 › ignores a held camera pointer release after Cancel and restores selection on a fresh click (5.5s)
+  ✓  129 [chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:456:59 › ignores a held transform pointer release after Cancel and restores selection on a fresh click (5.5s)
+  ✓  130 [chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:479:5 › keeps viewer errors readable and primary transform actions reachable (5.1s)
+  ✓  131 [chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:509:5 › releases native navigation keys held before movement starts (5.9s)
+(node:949829) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:949829) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  -  132 [mobile-chromium] › tests/e2e/coordinate-editing.spec.ts:135:5 › edits coordinates, reverses gestures, and validates protein superposition
+  -  133 [mobile-chromium] › tests/e2e/demonstration-job.spec.ts:66:5 › completes, fails, cancels, downloads, imports, and undoes demonstration jobs
+[2m[WebServer] [22mINFO:     127.0.0.1:38846 - "WebSocket /ws/jobs?project_id=01a14588-7ffa-7f4b-a6a8-69f7350df8d7" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:38856 - "WebSocket /ws/jobs?project_id=01a14588-7ffa-7f4b-a6a8-69f7350df8d7" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:38914 - "WebSocket /ws/jobs?project_id=01a14588-7ffa-7f4b-a6a8-69f7350df8d7" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+  ✓  134 [mobile-chromium] › tests/e2e/demonstration-job.spec.ts:114:5 › runs a demonstration job in the mobile workspace without overlap (4.3s)
+  -  135 [mobile-chromium] › tests/e2e/export-archive.spec.ts:124:5 › exports all, selected, and visible structures with deterministic filters and records
+  -  136 [mobile-chromium] › tests/e2e/export-archive.spec.ts:218:5 › round-trips a deterministic archive and rejects an unsafe archive without switching
+  -  137 [mobile-chromium] › tests/e2e/export-archive.spec.ts:358:5 › cancels intercepted export and archive import work without a stale result
+  ✓  138 [mobile-chromium] › tests/e2e/export-archive.spec.ts:419:5 › keeps complete export and archive controls usable on a mobile viewport (3.7s)
+  ✓  139 [mobile-chromium] › tests/e2e/group-membership.spec.ts:53:5 › moves filtered selected batches, preserves molecular state, and supports keyboard/touch and history (12.0s)
+  ✓  140 [mobile-chromium] › tests/e2e/group-membership.spec.ts:123:5 › rejects stale-tab actions and keeps a partial selection scoped to its complete entry (7.4s)
+  -  141 [mobile-chromium] › tests/e2e/group-membership.spec.ts:148:5 › uses real desktop drags for batches, collapsed/empty destinations, Ungrouped, and exact no-ops
+  ✓  142 [mobile-chromium] › tests/e2e/group-membership.spec.ts:212:5 › keeps a live molecular viewer and prepared surface unchanged during membership edits (10.4s)
+  ✓  143 [mobile-chromium] › tests/e2e/group-membership.spec.ts:287:7 › keeps late membership success feedback and focus in its captured project (6.3s)
+  ✓  144 [mobile-chromium] › tests/e2e/group-membership.spec.ts:287:7 › keeps late membership conflict feedback and focus in its captured project (6.3s)
+  ✓  145 [mobile-chromium] › tests/e2e/group-membership.spec.ts:336:5 › restores group action focus across repeated accepted row remounts (11.0s)
+  ✓  146 [mobile-chromium] › tests/e2e/import-display-export.spec.ts:73:5 › imports protein and ligand, renders both after reload, and exports with loss consent (5.6s)
+  -  147 [mobile-chromium] › tests/e2e/import-display-export.spec.ts:145:5 › reports malformed input and can cancel an import before commit
+  ✓  148 [mobile-chromium] › tests/e2e/interaction-corrections.spec.ts:91:5 › renders genuine six-type records alone, pairwise and together with independent scopes (38.1s)
+  ✓  149 [mobile-chromium] › tests/e2e/interaction-corrections.spec.ts:187:5 › explains unsupported raw ligand chemistry without claiming complete zero coverage (4.7s)
+  -  150 [mobile-chromium] › tests/e2e/interactions-lifecycle.spec.ts:4:5 › keeps centroid overlays current through scenes, deletion and project changes
+  ✓  151 [mobile-chromium] › tests/e2e/interactions.spec.ts:8:5 › compact interaction control analyzes once and filters cached scopes (5.5s)
+  ✓  152 [mobile-chromium] › tests/e2e/interactions.spec.ts:44:5 › qualifies explicit-H marker pixels, visibility, preview Cancel and committed invalidation (13.7s)
+  ✓  153 [mobile-chromium] › tests/e2e/interactions.spec.ts:111:5 › shows busy failures, retries, and keeps the compact panel accessible in both themes (6.9s)
+  ✓  154 [mobile-chromium] › tests/e2e/interactions.spec.ts:148:5 › measures bounded analysis and cached toggles on pinned 1STP with aligned typed ligand (5.8s)
+  ✓  155 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:65:5 › qualifies keyboard/touch controls, focus and scoped accessibility in both themes (8.6s)
+  ✓  156 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:119:5 › reconciles an interrupted response after server commit without replaying Apply (5.1s)
+  ✓  157 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:143:5 › blocks Apply while outcome is unknown and recovers only after explicit refresh (4.5s)
+  ✓  158 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:162:5 › captures hidden multi-entry targets, previews multiple drags, cancels, and applies one reversible command (14.6s)
+  ✓  159 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:246:5 › qualifies native proper-rotation previews, camera suspension, zoom and surface restoration in both projections (8.6s)
+  ✓  160 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:349:5 › discards previews with feedback on task, selection and project changes (8.6s)
+  ✓  161 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:393:5 › restores canceled or lost pointer drags and supports secondary and Ctrl translation (8.7s)
+  ✓  162 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:433:5 › rejects stale Apply without replay or partial movement (4.9s)
+  ✓  163 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:454:5 › explains empty, locked and wholly hidden movement targets without changing them (7.3s)
+  ✓  164 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:491:5 › preserves no-op history, pauses measurements and discards unapplied movement on reload (16.3s)
+  ✓  165 [mobile-chromium] › tests/e2e/interactive-selection-transform.spec.ts:548:5 › retains the native preview and held camera across responsive viewer remounts (8.2s)
+  -  166 [mobile-chromium] › tests/e2e/interactive-transform-performance.spec.ts:6:5 › bounds native protein/ligand preview work and measures exact cancellation
+  -  167 [mobile-chromium] › tests/e2e/ligand-editing.spec.ts:131:5 › edits ligand chemistry, validates failures, and round-trips history
+[2m[WebServer] [22m[18:29:38] Explicit valence for atom # 2 O, 3, is greater than permitted
+  ✓  168 [mobile-chromium] › tests/e2e/ligand-editing.spec.ts:265:5 › keeps ligand editing functional in the mobile inspector (4.1s)
+  -  169 [mobile-chromium] › tests/e2e/measurements.spec.ts:90:5 › creates and manages reference measurements with synchronized inspection
+  ✓  170 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:21:5 › performs one selection-driven atom/H edit with exact undo and unchanged original (6.5s)
+  ✓  171 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:54:5 › maps a native bond hit to canonical endpoints and changes its order from the panel (4.9s)
+  ✓  172 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:86:5 › substitutes a selected H with illustrated COOH without an attachment mode (5.9s)
+  ✓  173 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:112:5 › mutates a natively picked residue successively and preserves exact backbone and undo (5.8s)
+  ✓  174 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:152:5 › keeps tool focus, notices and all controls accessible in both themes and narrow layouts (5.7s)
+  ✓  175 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:192:5 › edits a prepared complex with native H/new-atom picks, fixed camera and one affected reload (10.0s)
+  ✓  176 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:291:5 › keeps late edit responses owned by their original project (6.0s)
+  ✓  177 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:321:5 › retains a newer native selection and recovers an affected-artifact refetch failure (5.7s)
+  ✓  178 [mobile-chromium] › tests/e2e/molecular-editing.spec.ts:364:5 › keeps a newer pending edit owned after leaving and returning to the same project (17.6s)
+  ✓  179 [mobile-chromium] › tests/e2e/pocket-surfaces.spec.ts:12:7 › qualifies native full-protein pocket geometry and independent display for complex/1stp.pdb (6.8s)
+  ✓  180 [mobile-chromium] › tests/e2e/pocket-surfaces.spec.ts:12:7 › qualifies native full-protein pocket geometry and independent display for hydrogens/polar_hydrogens_protein.pdb (5.3s)
+  ✓  181 [mobile-chromium] › tests/e2e/pocket-surfaces.spec.ts:12:7 › qualifies native full-protein pocket geometry and independent display for surfaces/1aon.cif (51.8s)
+  ✓  182 [mobile-chromium] › tests/e2e/pocket-surfaces.spec.ts:158:5 › invalidates native pockets for hidden seed and receptor preview, cancel and commit (4.2s)
+  ✓  183 [mobile-chromium] › tests/e2e/pocket-surfaces.spec.ts:223:5 › saves pockets through the compact panel and restores hidden seed inputs (10.5s)
+  -  184 [mobile-chromium] › tests/e2e/polar-hydrogen-visibility.spec.ts:330:7 › polar_hydrogens_protein.pdb renders all, polar-only, and no-hydrogen modes
+  -  185 [mobile-chromium] › tests/e2e/polar-hydrogen-visibility.spec.ts:330:7 › polar_hydrogens_ligand.mol renders all, polar-only, and no-hydrogen modes
+  -  186 [mobile-chromium] › tests/e2e/polar-hydrogen-visibility.spec.ts:342:5 › persists polar-only mode across viewer workflows without transient or molecular drift
+  ✓  187 [mobile-chromium] › tests/e2e/polar-hydrogen-visibility.spec.ts:603:5 › keeps polar-only controls accessible and bounded on desktop and Pixel 7 (3.6s)
+  -  188 [mobile-chromium] › tests/e2e/polar-hydrogen-visibility.spec.ts:648:5 › a hydrogen-free structure remains hydrogen-free in polar-only mode
+  -  189 [mobile-chromium] › tests/e2e/polar-hydrogen-visibility.spec.ts:683:7 › selection-local hydrogen precedence and full-graph classification: polar_hydrogens_ligand.mol
+  -  190 [mobile-chromium] › tests/e2e/polar-hydrogen-visibility.spec.ts:683:7 › selection-local hydrogen precedence and full-graph classification: polar_hydrogens_protein.pdb
+  ✓  191 [mobile-chromium] › tests/e2e/project-lifecycle.spec.ts:55:5 › creates, recovers, reverses, saves, and reopens a project (3.2s)
+  ✓  192 [mobile-chromium] › tests/e2e/project-lifecycle.spec.ts:127:5 › reports an unavailable API and recovers after retry (698ms)
+  -  193 [mobile-chromium] › tests/e2e/project-lifecycle.spec.ts:148:5 › entry commands are durable and reversible through the workspace
+  ✓  194 [mobile-chromium] › tests/e2e/project-navigation.spec.ts:25:5 › keeps compact entries independent from component expansion, selection and metadata (5.0s)
+  ✓  195 [mobile-chromium] › tests/e2e/project-navigation.spec.ts:69:5 › keeps two hundred grouped long-name entries usable at narrow widths and responsive remounts (16.3s)
+  ✓  196 [mobile-chromium] › tests/e2e/project-navigation.spec.ts:151:5 › virtualizes ten thousand real normalized components and reaches off-screen rows by keyboard (14.4s)
+  -  197 [mobile-chromium] › tests/e2e/project-navigation.spec.ts:220:5 › retains two component rows at the minimum expanded desktop pane height
+  -  198 [mobile-chromium] › tests/e2e/protein-editing.spec.ts:152:5 › edits protein hierarchy and chemistry with exact history and validation
+  ✓  199 [mobile-chromium] › tests/e2e/protein-editing.spec.ts:426:5 › keeps protein editing usable in the mobile inspector (3.6s)
+[2m[WebServer] [22mINFO:     127.0.0.1:58636 - "WebSocket /ws/jobs?project_id=01a1458f-317d-78f2-9725-b14f9b1da982" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:58644 - "WebSocket /ws/jobs?project_id=01a1458f-317d-78f2-9725-b14f9b1da982" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:58660 - "WebSocket /ws/jobs?project_id=01a1458f-317d-78f2-9725-b14f9b1da982" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:58676 - "WebSocket /ws/jobs?project_id=01a1458f-317d-78f2-9725-b14f9b1da982" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:51810 - "WebSocket /ws/jobs?project_id=01a1458f-317d-78f2-9725-b14f9b1da982" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:51816 - "WebSocket /ws/jobs?project_id=01a1458f-317d-78f2-9725-b14f9b1da982" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:51824 - "WebSocket /ws/jobs?project_id=01a1458f-317d-78f2-9725-b14f9b1da982" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:51832 - "WebSocket /ws/jobs?project_id=01a1458f-317d-78f2-9725-b14f9b1da982" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:51836 - "WebSocket /ws/jobs?project_id=01a1458f-317d-78f2-9725-b14f9b1da982" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:51840 - "WebSocket /ws/jobs?project_id=01a1458f-317d-78f2-9725-b14f9b1da982" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+  ✓  200 [mobile-chromium] › tests/e2e/rebranding-surfaces.spec.ts:52:5 › reviews all Neistra workflow surfaces in both themes (45.5s)
+[2m[WebServer] [22mINFO:     127.0.0.1:39870 - "WebSocket /ws/jobs?project_id=01a1458f-e358-716e-85b8-d15550705c08" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:39886 - "WebSocket /ws/jobs?project_id=01a1458f-e358-716e-85b8-d15550705c08" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:39928 - "WebSocket /ws/jobs?project_id=01a1458f-e358-716e-85b8-d15550705c08" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:40120 - "WebSocket /ws/jobs?project_id=01a1458f-e358-716e-85b8-d15550705c08" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:40130 - "WebSocket /ws/jobs?project_id=01a1458f-e358-716e-85b8-d15550705c08" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22m6:33:49 PM [vite] ws proxy error:
+[2m[WebServer] [22mError: read ECONNRESET
+[2m[WebServer] [22m    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m[WebServer] [22m6:33:49 PM [vite] ws proxy socket error:
+[2m[WebServer] [22mError: read ECONNRESET
+[2m[WebServer] [22m    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m[WebServer] [22mINFO:     127.0.0.1:40380 - "WebSocket /ws/jobs?project_id=01a1458f-e358-716e-85b8-d15550705c08" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:42490 - "WebSocket /ws/jobs?project_id=01a1458f-e358-716e-85b8-d15550705c08" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:42502 - "WebSocket /ws/jobs?project_id=01a1458f-e358-716e-85b8-d15550705c08" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22m6:33:52 PM [vite] ws proxy error:
+[2m[WebServer] [22mError: read ECONNRESET
+[2m[WebServer] [22m    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m[WebServer] [22m6:33:52 PM [vite] ws proxy socket error:
+[2m[WebServer] [22mError: read ECONNRESET
+[2m[WebServer] [22m    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m[WebServer] [22mINFO:     127.0.0.1:42888 - "WebSocket /ws/jobs?project_id=01a1458f-e358-716e-85b8-d15550705c08" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+  ✓  201 [mobile-chromium] › tests/e2e/rebranding-surfaces.spec.ts:168:7 › reviews warning, failure, recovery and job states in light (19.9s)
+[2m[WebServer] [22mINFO:     127.0.0.1:33576 - "WebSocket /ws/jobs?project_id=01a14590-3132-7119-8551-7040c8e5b4d2" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:33588 - "WebSocket /ws/jobs?project_id=01a14590-3132-7119-8551-7040c8e5b4d2" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:33622 - "WebSocket /ws/jobs?project_id=01a14590-3132-7119-8551-7040c8e5b4d2" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:33850 - "WebSocket /ws/jobs?project_id=01a14590-3132-7119-8551-7040c8e5b4d2" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:33854 - "WebSocket /ws/jobs?project_id=01a14590-3132-7119-8551-7040c8e5b4d2" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22m6:34:09 PM [vite] ws proxy error:
+[2m[WebServer] [22mError: write ECONNRESET
+[2m[WebServer] [22m    at afterWriteDispatched (node:internal/stream_base_commons:159:15)
+[2m[WebServer] [22m    at writeGeneric (node:internal/stream_base_commons:150:3)
+[2m[WebServer] [22m    at Socket._writeGeneric (node:net:966:11)
+[2m[WebServer] [22m    at Socket._write (node:net:978:8)
+[2m[WebServer] [22m    at writeOrBuffer (node:internal/streams/writable:572:12)
+[2m[WebServer] [22m    at _write (node:internal/streams/writable:501:10)
+[2m[WebServer] [22m    at Writable.write (node:internal/streams/writable:510:10)
+[2m[WebServer] [22m    at Socket.ondata (node:internal/streams/readable:1009:22)
+[2m[WebServer] [22m    at Socket.emit (node:events:519:28)
+[2m[WebServer] [22m    at addChunk (node:internal/streams/readable:561:12)
+[2m[WebServer] [22m    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
+[2m[WebServer] [22m    at Readable.push (node:internal/streams/readable:392:5)
+[2m[WebServer] [22m    at TCP.onStreamRead (node:internal/stream_base_commons:189:23)
+[2m[WebServer] [22m6:34:09 PM [vite] ws proxy socket error:
+[2m[WebServer] [22mError: write ECONNRESET
+[2m[WebServer] [22m    at afterWriteDispatched (node:internal/stream_base_commons:159:15)
+[2m[WebServer] [22m    at writeGeneric (node:internal/stream_base_commons:150:3)
+[2m[WebServer] [22m    at Socket._writeGeneric (node:net:966:11)
+[2m[WebServer] [22m    at Socket._write (node:net:978:8)
+[2m[WebServer] [22m    at writeOrBuffer (node:internal/streams/writable:572:12)
+[2m[WebServer] [22m    at _write (node:internal/streams/writable:501:10)
+[2m[WebServer] [22m    at Writable.write (node:internal/streams/writable:510:10)
+[2m[WebServer] [22m    at Socket.ondata (node:internal/streams/readable:1009:22)
+[2m[WebServer] [22m    at Socket.emit (node:events:519:28)
+[2m[WebServer] [22m    at addChunk (node:internal/streams/readable:561:12)
+[2m[WebServer] [22m    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
+[2m[WebServer] [22m    at Readable.push (node:internal/streams/readable:392:5)
+[2m[WebServer] [22m    at TCP.onStreamRead (node:internal/stream_base_commons:189:23)
+[2m[WebServer] [22mINFO:     127.0.0.1:34028 - "WebSocket /ws/jobs?project_id=01a14590-3132-7119-8551-7040c8e5b4d2" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:53530 - "WebSocket /ws/jobs?project_id=01a14590-3132-7119-8551-7040c8e5b4d2" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:53534 - "WebSocket /ws/jobs?project_id=01a14590-3132-7119-8551-7040c8e5b4d2" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:53884 - "WebSocket /ws/jobs?project_id=01a14590-3132-7119-8551-7040c8e5b4d2" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+  ✓  202 [mobile-chromium] › tests/e2e/rebranding-surfaces.spec.ts:168:7 › reviews warning, failure, recovery and job states in dark (19.7s)
+  ✓  203 [mobile-chromium] › tests/e2e/rebranding-surfaces.spec.ts:253:5 › keeps ambiguous classification warnings and legacy user copy visible (7.5s)
+  -  204 [mobile-chromium] › tests/e2e/rebranding-zoom.spec.ts:60:5 › keeps actions and dialogs reachable at real 100% and 200% browser zoom
+  -  205 [mobile-chromium] › tests/e2e/rebranding-zoom.spec.ts:324:5 › keeps shell and inspector controls bounded around both responsive breakpoints
+  -  206 [mobile-chromium] › tests/e2e/rebranding-zoom.spec.ts:358:5 › keeps the molecular editor keyboard controls reachable at actual browser zoom
+  ✓  207 [mobile-chromium] › tests/e2e/rebranding.spec.ts:4:5 › restores the legacy dark theme before the application module loads (718ms)
+  ✓  208 [mobile-chromium] › tests/e2e/rebranding.spec.ts:32:7 › keeps the workspace usable with invalid-json preferences (724ms)
+  ✓  209 [mobile-chromium] › tests/e2e/rebranding.spec.ts:32:7 › keeps the workspace usable with invalid-values preferences (684ms)
+  ✓  210 [mobile-chromium] › tests/e2e/rebranding.spec.ts:32:7 › keeps the workspace usable with unavailable preferences (695ms)
+  ✓  211 [mobile-chromium] › tests/e2e/rebranding.spec.ts:53:5 › uses the Neistra identity through project creation and import (5.3s)
+  ✓  212 [mobile-chromium] › tests/e2e/release-hardening.spec.ts:65:5 › passes automated accessibility checks in both themes (4.1s)
+  ✓  213 [mobile-chromium] › tests/e2e/release-hardening.spec.ts:79:5 › supports keyboard focus and bounded responsive controls (3.6s)
+  -  214 [mobile-chromium] › tests/e2e/release-hardening.spec.ts:164:5 › keeps representative-project interactions responsive and projection-scoped
+  -  215 [mobile-chromium] › tests/e2e/release-journey.spec.ts:155:5 › completes the MolWeave v0.1 definition-of-done journey
+  -  216 [mobile-chromium] › tests/e2e/selection-appearance.spec.ts:6:5 › expands from styling across hidden entries without durable changes
+  ✓  217 [mobile-chromium] › tests/e2e/selection-appearance.spec.ts:187:7 › integrated selection appearance is durable and accessible in light (10.3s)
+  ✓  218 [mobile-chromium] › tests/e2e/selection-appearance.spec.ts:187:7 › integrated selection appearance is durable and accessible in dark (9.6s)
+  -  219 [mobile-chromium] › tests/e2e/selection-styling.spec.ts:224:5 › styles a 1STP complex without changing scientific or transient state
+  -  220 [mobile-chromium] › tests/e2e/selection-styling.spec.ts:374:5 › keeps ion, water, and covalent-boundary targets exact
+  ✓  221 [mobile-chromium] › tests/e2e/selection-styling.spec.ts:437:5 › keeps the selection styling dialog bounded and keyboard-operable on Pixel 7 (4.5s)
+  ✓  222 [mobile-chromium] › tests/e2e/selection-surfaces.spec.ts:16:5 › qualifies worker geometry, real element colors, picking and cancellation (3.7s)
+  -  223 [mobile-chromium] › tests/e2e/selection-surfaces.spec.ts:114:5 › adds and removes saved surfaces from the compact palette with reload and undo
+  ✓  224 [mobile-chromium] › tests/e2e/selection-surfaces.spec.ts:187:7 › qualifies production surface lifecycle for formats/ethanol.mol (5.2s)
+  ✓  225 [mobile-chromium] › tests/e2e/selection-surfaces.spec.ts:187:7 › qualifies production surface lifecycle for hydrogens/polar_hydrogens_ligand.mol (2.7s)
+  ✓  226 [mobile-chromium] › tests/e2e/selection-surfaces.spec.ts:358:5 › qualifies production 1STP surface response and partial-fragment boundaries (2.6s)
+  ✓  227 [mobile-chromium] › tests/e2e/selection-visibility.spec.ts:20:5 › hiding the middle atom removes every incident native bond and its label (6.7s)
+  ✓  228 [mobile-chromium] › tests/e2e/selection-visibility.spec.ts:74:5 › trace, residue and all-atom hiding preserve native polymers, surfaces and measurements (13.8s)
+  ✓  229 [mobile-chromium] › tests/e2e/selection-visibility.spec.ts:143:5 › compact Hide/Show preserves selection, styles and cached projections (14.5s)
+  -  230 [mobile-chromium] › tests/e2e/structure-hierarchy.spec.ts:116:5 › synchronizes hierarchy selection, visibility, focus, persistence, and WebGL
+  ✓  231 [mobile-chromium] › tests/e2e/structure-hierarchy.spec.ts:249:5 › keeps the hierarchy keyboard-operable and bounded in the Pixel 7 drawer (3.6s)
+  ✓  232 [mobile-chromium] › tests/e2e/surface-capacity.spec.ts:34:7 › renders the complete 6vxx selection within bounded capacity (15.1s)
+  ✓  233 [mobile-chromium] › tests/e2e/surface-capacity.spec.ts:34:7 › renders the complete 1aon selection within bounded capacity (36.5s)
+  ✓  234 [mobile-chromium] › tests/e2e/surface-capacity.spec.ts:34:7 › renders the complete synthetic-100k selection within bounded capacity (30.3s)
+  ✓  235 [mobile-chromium] › tests/e2e/surface-objects.spec.ts:12:5 › native same-entry surface objects have independent identity, colors, mesh and whole-object activation (8.4s)
+  ✓  236 [mobile-chromium] › tests/e2e/surface-objects.spec.ts:124:5 › manages production object appearance and explicit sources independently through reload and undo (24.9s)
+  ✓  237 [mobile-chromium] › tests/e2e/surface-objects.spec.ts:361:5 › keeps manager controls keyboard reachable, bounded and accessible with long names and narrow layouts (11.5s)
+  ✓  238 [mobile-chromium] › tests/e2e/surface-objects.spec.ts:414:5 › keeps queued same-entry surface inputs lazy and valid across a renderer rebuild (6.2s)
+  -  239 [mobile-chromium] › tests/e2e/synchronized-selection.spec.ts:103:5 › keeps browser, sequence, inspector, viewer, and saved selection synchronized
+  -  240 [mobile-chromium] › tests/e2e/viewer-click-selection.spec.ts:198:5 › keeps primary selection and empty clearing independent from the camera
+  ✓  241 [mobile-chromium] › tests/e2e/viewer-click-selection.spec.ts:365:5 › uses the compact trigger path for selection and empty clearing (4.3s)
+  -  242 [mobile-chromium] › tests/e2e/viewer-controls.spec.ts:104:5 › applies complete representations, navigation, isolation, and named scenes
+  -  243 [mobile-chromium] › tests/e2e/viewer-controls.spec.ts:291:5 › synchronizes picking and keeps selection, focus actions, and project state independent
+  -  244 [mobile-chromium] › tests/e2e/viewer-controls.spec.ts:364:5 › explains unavailable ligand focus for protein-only content
+  ✓  245 [mobile-chromium] › tests/e2e/viewer-controls.spec.ts:381:5 › keeps compact picking and focus controls bounded and keyboard reachable (3.3s)
+  -  246 [mobile-chromium] › tests/e2e/viewer-controls.spec.ts:430:5 › shows a usable WebGL failure instead of a blank viewer
+  ✓  247 [mobile-chromium] › tests/e2e/viewer-notifications.spec.ts:61:5 › expires after ten real seconds without molecular, camera, network or renderer changes (12.6s)
+  ✓  248 [mobile-chromium] › tests/e2e/viewer-notifications.spec.ts:95:5 › successive identical confirmations receive fresh deadlines across theme changes (4.5s)
+  ✓  249 [mobile-chromium] › tests/e2e/viewer-notifications.spec.ts:112:5 › warning summaries and actionable errors persist with unchanged styling and accessible dismissal (5.9s)
+  ✓  250 [mobile-chromium] › tests/e2e/viewer-notifications.spec.ts:145:5 › keyboard focus defers expiration, departure preserves focus, and manual dismissal returns it (3.3s)
+  ✓  251 [mobile-chromium] › tests/e2e/viewer-notifications.spec.ts:168:5 › viewer remounts retain the deadline and project changes invalidate old notices (6.2s)
+  -  252 [mobile-chromium] › tests/e2e/viewer-theme.spec.ts:107:5 › keeps the persisted theme through the real viewer lifecycle
+  ✓  253 [mobile-chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:60:5 › transforms from the viewer with fixed mouse gestures, exact Cancel and one Apply/undo/redo (12.0s)
+  ✓  254 [mobile-chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:108:5 › temporarily navigates the native camera with Space and the view toggle without changing the captured preview (23.5s)
+  ✓  255 [mobile-chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:179:5 › returns the mouse from movement tools for Space without stealing editable or unrelated focus (11.2s)
+  ✓  256 [mobile-chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:248:5 › ends held mouse gestures at accepted coordinates and camera before ownership changes (10.2s)
+  ✓  257 [mobile-chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:290:5 › clears temporary navigation on interruption and remount while preserving preview and camera (16.0s)
+  ✓  258 [mobile-chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:365:5 › qualifies native touch navigation, secondary tools and accessible theme layouts (22.8s)
+  ✓  259 [mobile-chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:456:59 › ignores a held camera pointer release after Cancel and restores selection on a fresh click (6.0s)
+  ✓  260 [mobile-chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:456:59 › ignores a held transform pointer release after Cancel and restores selection on a fresh click (5.3s)
+  ✓  261 [mobile-chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:479:5 › keeps viewer errors readable and primary transform actions reachable (5.1s)
+  ✓  262 [mobile-chromium] › tests/e2e/viewer-transform-toolbar.spec.ts:509:5 › releases native navigation keys held before movement starts (6.4s)
+
+  46 skipped
+  216 passed (40.0m)

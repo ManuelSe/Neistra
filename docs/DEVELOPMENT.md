@@ -487,9 +487,9 @@ backup (database, artifacts and worker state) before changing application versio
 
 Edits use ordinary immutable artifacts, monotonic IDs and existing generic
 molecular-history actions. Originals and completed jobs remain unchanged. The
-actual taggedv0.15.0 reader is qualified during C4; final0.16.0 candidate and exact
-merged-master qualification is mandatory before release. Runtime rollback to that
-qualified reader removes the new controls/route but retains edited structures and
+actual taggedv0.15.0 reader passes both final0.16.0 candidate and exact released
+master qualification; see [release evidence](assets/molecular-editing/c5-merged-gate.json).
+Runtime rollback to that qualified reader removes the new controls/route but retains edited structures and
 old generic Undo/Redo/archive operations, without a schema downgrade or stripping
 history. Existing0014 downgrade guards still apply for earlier schema readers.
 Do not run incompatible client/server versions concurrently against one data store.
