@@ -1,5 +1,13 @@
 # V0.1 Requirement Evidence
 
+Issue #74 follows the [approved direct-modeling plan](plans/issue-74-direct-molecular-modeling.md).
+[C1](assets/direct-modeling/c1-verification.json) passes66Python/236frontend/
+20native browser cases with no failures/flakes/retries and static/build/diff.
+Orphan-H paracetamol navigation/editor eligibility, unchanged source/revision,
+per-parent generated membership and ambiguous negatives are covered. Initial
+observer readiness failure remains diagnostic; local self-review/screenshots are
+not independent qualification. Broader direct chemistry/building/release remains.
+
 Issue #69 follows the [approved editing plan](plans/issue-69-compact-molecular-editor.md).
 C1/C2 implement bounded atomic atom/H, canonical endpoint bonds and six illustrated
 fragment substitutions. C3 adds exact complete-residue template mutation and

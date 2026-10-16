@@ -2,14 +2,18 @@
 
 ## Current milestone
 
-Issue #74 C0: approved [direct-modeling contract](plans/issue-74-direct-molecular-modeling.md).
-Issue created and remotely verified; clean up-to-date master a0ad65b seeded
-`feat/issue-74-direct-molecular-modeling`. D-101–103 amend direct chemistry,
-navigation/ownership and draft rendering policy without rewriting history.
-Confirmed: direct editing/H optional, new molecules, compact previews, one entry.
-No implementation or version change yet; planned0.17.0minor, no migration.
-Verification: C0 links/diff/source/remote checks pending. No blocker.
-Next: commit/push approved C0, then reproduce and fix bonded-H membership (C1).
+Issue #74 C1 complete under the [approved contract](plans/issue-74-direct-molecular-modeling.md).
+Planning commit932cfb3 is pushed on `feat/issue-74-direct-molecular-modeling`.
+New H follow their bonded parent's valid residue; historical unambiguous orphan
+H derive navigation membership without changing molecular records. Ambiguous H
+stay visible/unclassified. D-101–103 retain the approved expanded modeling scope.
+
+[C1 evidence](assets/direct-modeling/c1-verification.json):66Python,236frontend,
+20native desktop/mobile workflows pass, plus Ruff/mypy64/lint/types/build/diff.
+Failed initial observer-harness diagnostics are separate; local self-review and
+both screenshots inspected, not independent review. Versions remain0.16.0;
+planned0.17.0minor/no migration. C1 does not deliver direct incomplete chemistry,
+creation/previews or a release yet. No blocker. Next: commit C1, implement C2.
 
 ### Previous delivery baseline — v0.16.0
 

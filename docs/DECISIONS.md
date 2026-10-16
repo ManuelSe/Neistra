@@ -3844,3 +3844,15 @@ entries; chemical-format export reports limits rather than repairing chemistry.
 No top-level schema/database migration is planned. Actual v0.16.0 data/history/
 archive reader qualification must distinguish its unsupported draft rendering/
 chemistry from lossless retention; unrestricted runtime rollback is not promised.
+
+
+### D-102 implementation note — issue #74 C1, 2026-10-16
+
+Historical H membership derives only for an orphan H with exactly one explicit
+bond to a heavy parent whose residue exists. Add those atom IDs to the parent's
+navigation component with fallback provenance and an informational warning;
+keep original atom/residue records unchanged. Ambiguous/unbonded/H–H cases stay
+unclassified. The legacy H generator now assigns each new H its own bonded
+parent's residue, including multi-residue ligand entries. Existing single-residue
+standalone atom-add behavior remains. No migration or blanket chemistry-policy
+change occurs in C1; direct editing belongs to C2.

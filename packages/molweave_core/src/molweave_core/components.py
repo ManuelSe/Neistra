@@ -363,9 +363,9 @@ def derive_component_hierarchy(structure: NormalizedStructureV1) -> ComponentHie
                 or residue.source_entity_id
                 or f"chain:{residue.chain_id}"
             )
-            polymer_groups[
-                (classification.category, residue.chain_id, source_anchor)
-            ].append(residue)
+            polymer_groups[(classification.category, residue.chain_id, source_anchor)].append(
+                residue
+            )
             continue
 
         label = _residue_label(residue, chain_name)
@@ -408,7 +408,53 @@ def derive_component_hierarchy(structure: NormalizedStructureV1) -> ComponentHie
             )
         )
 
+    # Navigation follows an explicit, unambiguous H-parent bond for historical
+    # generated atoms. Do not rewrite molecular/source records or guess by distance.
+    orphan_set = set(orphan_atom_ids)
+    neighbors: dict[int, list[int]] = defaultdict(list)
+    for bond in structure.bonds:
+        if bond.atom_1_id in orphan_set:
+            neighbors[bond.atom_1_id].append(bond.atom_2_id)
+        if bond.atom_2_id in orphan_set:
+            neighbors[bond.atom_2_id].append(bond.atom_1_id)
+    derived: dict[int, list[int]] = defaultdict(list)
+    assigned: set[int] = set()
     for atom_id in orphan_atom_ids:
+        if atoms[atom_id].element != "H" or len(neighbors[atom_id]) != 1:
+            continue
+        parent = atoms[neighbors[atom_id][0]]
+        if parent.element != "H" and parent.residue_id in residues:
+            assert parent.residue_id is not None
+            derived[parent.residue_id].append(atom_id)
+            assigned.add(atom_id)
+    components = [
+        component.model_copy(
+            update={
+                "atom_ids": sorted([*component.atom_ids, *extra]),
+                "classification_source": "fallback",
+                "warnings": [
+                    *component.warnings,
+                    MolecularWarning(
+                        code="hydrogen_membership_derived",
+                        message=(
+                            "Hydrogen navigation membership follows its explicit bonded parent; "
+                            "original atom membership is unchanged."
+                        ),
+                        operation="component_detection",
+                        severity="info",
+                        field="component.atom_ids",
+                    ),
+                ],
+            }
+        )
+        if (extra := [i for r in component.residue_ids for i in derived[r]])
+        else component
+        for component in components
+    ]
+
+    for atom_id in orphan_atom_ids:
+        if atom_id in assigned:
+            continue
         atom = atoms[atom_id]
         label = f"Unclassified atom {atom.name or atom.element} ({atom.id})"
         components.append(

@@ -3,8 +3,7 @@
 ## Status and metadata
 
 Approved by the user's “Implement the plan.” on 2026-10-16 after the complete
-proposal and four confirmed product choices. C0 documentation handoff is in
-progress; implementation has not started. This document is the implementation
+proposal and four confirmed product choices. C0 and C1 are complete; C2 direct editing is next. This document is the implementation
 contract. Historical checkpoint entries record their state at that time.
 
 - Issue: [#74](https://github.com/ManuelSe/Neistra/issues/74).
@@ -266,3 +265,42 @@ plugin/job type or dependency upgrade is implied.
 - Fetched origin; clean master fast-forwarded, unchanged at a0ad65b; created the
   planned feature branch. This plan is its first file change. No implementation
   or version change yet. No blocker. Next: validate/commit/push C0, then C1.
+
+
+### C0 publication and C1 development — 2026-10-16
+
+- Planning commit932cfb3e57f0b7b70c7d72704df999c6c8e26828 pushed; remote branch and
+  all local Markdown links verified. [Issue plan link](https://github.com/ManuelSe/Neistra/issues/74#issuecomment-6222094384)
+  posted and returned URL verified. Global PLAN and runtime/version files unchanged.
+- Two regression tests fail on prior source: historical three-orphan-H membership
+  yields four components, and generated H in a two-residue ligand lose their
+  parent's residue. The ambiguous/unbonded negative case already passes.
+- Implemented explicit-bond-only derived historical membership and per-parent
+  generated-H ownership. Source artifacts remain exact; positive and ambiguous
+  negatives pass. Synthetic paracetamol archive uses the normal import path and
+  identifies its0.16.0 producer. No claim to reconstruct the user's exact file.
+- Focused Python run passes66tests; full C1 static/frontend/build/native gate is
+  still running. No release or complete direct-editing claim at this checkpoint.
+
+
+### C1 complete — 2026-10-16
+
+- [Final evidence](../assets/direct-modeling/c1-verification.json) binds final
+  runtime/tests/fixture hashes to66Python/236frontend/20desktop-mobile native
+  browser passes in2.5minutes, with no failures/flakes/retries; Ruff/mypy64,
+  lint/types/build/diff pass. Exact argv/env/exits/timings and log hashes retained.
+- Browser imports the synthetic archive through the public route, makes a native
+  pick on an unrelated atom and confirms enabled controls, one complete ligand,
+  three unchanged orphan source records, unchanged artifact/project revision.
+  Component projection accepts ordinary and orphan-H operands in domain tests;
+  multi-residue generation preserves each parent; ambiguous/unbonded H remain
+  unclassified. Original prepared-complex fixture generation remains unchanged.
+- First browser run19/20 passes; the new desktop observer queried before mount
+  completion. Correct the harness by waiting for observation/camera settlement,
+  then repeat the complete C1 gate with fresh dedicated data. Failed evidence is
+  separately labelled c1-diagnostic-initial, never final qualification.
+- Local self-review removed unrelated formatter edits, guarded invalid generated
+  residue membership and reviewed linear bond-only ownership/no source rewrites.
+  Both retained screenshots inspected; no independent review claimed.
+- No migration/version/API or direct-chemistry policy change yet. No blocker.
+  Commit/push passing C1, then implement C2's direct editor and draft rendering.
