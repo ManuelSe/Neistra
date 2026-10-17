@@ -2,22 +2,21 @@
 
 ## Current milestone
 
-Issue #77 C0–C3 complete; C4 release preparation in progress; [approved contract](plans/issue-77-geometry-aware-hydrogens.md).
-Additive local completion, explicit count/geometry previews, partial/no-op reports
-and molecular intent are implemented and qualified. D-105/106 record decisions.
-[C3 evidence](assets/hydrogen-modeling/c3-gate.json):754 Python,252 web,20final native
-passed; broader16native/8intentional skips includes actual100/200% zoom, archives,
-interaction lifecycle and accessibility. Ruff/mypy70/lint/types/build/diff pass.
-Actual tagged0.17 reader retains new artifacts/stereo/inferences, both conformers,
-originals, counters, generic history and archive/re-export alongside rich baseline.
-Qualification hardened work budgets/caching, degenerate/conflicting stereo and
-optional zero-H preview behavior. No migration/schema/dependency change; five versions advance to0.18.0 in C4.
-C4 review additionally fixed cross-site proposed-H contacts;62 focused Python,
-252 frontend and6 native checks pass. Complete clean-source release gate pending.
-Known limits: bounded initial profile, unoptimized placement; no protonation,
-optimization or persistent constraints. No blocker. Next:C4 final0.18.0 versions,
-full clean release gate/review, then C5 reviewed normal merge, exact-master gate,
-verified tag/release/issue reply and cleanup. C1/C2 evidence remains linked in plan.
+Issue #77 C0–C4 complete under the [approved plan](plans/issue-77-geometry-aware-hydrogens.md).
+Geometry-aware additive H completion, explicit count/geometry controls, partial/
+no-op reports and documented model intent are implemented. D-105/106 govern intent.
+The [clean final candidate](assets/hydrogen-modeling/c5-candidate-gate.json) at
+22b28f5 passes all16 release commands:756 Python,252 frontend,8 supervisor,
+239 browser tests /47 intentional skips; zero failures/flakes/retries. All15
+native performance profiles, frozen installs/fresh0014/static/build/diff and actual
+0.17 reader with final0.18 producer pass. Source/log hashes and clean trees retained.
+[Local full-diff self-review](assets/hydrogen-modeling/c5-local-review.md) has no
+unresolved consequential finding; it is not independent review. Earlier diagnostics
+are separate. Five versions0.18.0 minor; no migration/schema/dependency change.
+Known limits: bounded profile, unoptimized geometry, explicit uncertainty; no full
+protonation/preparation/optimization or persistent constraints. No blocker.
+Next:C5 PR/integration review audit, normal merge, exact-master release gate,
+verified tag/release/issue reply and delayed branch cleanup. No publication claimed.
 
 ### Previous delivery baseline — v0.17.0
 

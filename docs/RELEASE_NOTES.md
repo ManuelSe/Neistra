@@ -66,6 +66,14 @@ budgets. Request-scoped adjacency/coordinate/spatial indexes and complete oversi
 closure caching avoid repeated scans or whole-protein chemistry conversion.
 Existing viewer/surface/movement/interaction performance budgets remain unchanged.
 
+The [clean final candidate](assets/hydrogen-modeling/c5-candidate-gate.json) at
+22b28f5 passes all16 release commands:756 Python,252 frontend,8 supervisor and
+239 browser tests with47 intentional skips; zero failures/flakes/retries. All15
+existing native performance profiles pass. Frozen installs, fresh0014/static/build/
+diff and actual tagged0.17 reader with final0.18 producer pass. Full-diff local
+self-review is [documented](assets/hydrogen-modeling/c5-local-review.md); exact
+merged-master verification and remote publication remain required before release.
+
 ### Scientific limits and follow-up work
 
 Automatic counts initially cover C0, N0/+1, O0/-1/+1, divalent S0 and neutral

@@ -1,6 +1,6 @@
 # Geometry-aware hydrogen completion — issue #77
 
-Status: approved; C0–C3 complete; C4/C5 release workflow pending.
+Status: approved; C0–C4 complete; C5 review, merge and publication pending.
 Issue: https://github.com/ManuelSe/Neistra/issues/77
 Approval: user's “Implement the plan”, 2026-10-17.
 Base: origin/master, 88a2a9d8909ab1ff06f025a29ec56132b063eb5a.
@@ -383,3 +383,19 @@ remote artifacts before claiming completion.
   62 Python,252frontend,6native, Ruff/mypy70/lint/types/build/diff. The initial
   clean7602b55 candidate gate was deliberately interrupted130 before this correction
   and marked diagnostic; a fresh complete clean-source candidate run is required.
+
+- 2026-10-17 C4 complete: clean final candidate22b28f5 passes all16 documented
+  release commands:756 Python,252 frontend,8 supervisor,239 native browser cases,
+  47 intentional layout skips, zero failures/flakes/retries. All15 existing native
+  performance profiles pass without budget changes. Frozen installs, fresh0014,
+  Ruff/mypy70/lint/types/build/diff and actual tagged0.17 reader with final0.18
+  producer all pass. Candidate tree is clean at start/end; non-document source and
+  raw/retained log hashes, exact commands/environments and reports are recorded in
+  [candidate evidence](../assets/hydrogen-modeling/c5-candidate-gate.json).
+  [Full-diff local self-review](../assets/hydrogen-modeling/c5-local-review.md)
+  records consequential findings and regressions; no unresolved consequential local
+  finding remains. This is implementing-assistant self-review, not independent.
+  Native artifacts/raw reports/logs are retained for the release evidence archive.
+  C5 remains pending: request integration review on the PR, audit protections,
+  normal merge preserving checkpoints, exact-master full gate, annotated tag,
+  stable release, verified issue response and delayed branch cleanup.
