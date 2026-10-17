@@ -2,24 +2,25 @@
 
 ## Current milestone
 
-Issue #81 M1-M3/C1-C4 complete under the
-[approved plan](plans/issue-81-local-hydrogen-reconciliation.md). Immediate local
-bond-H reconciliation, Preserve H, optional native preview, protection facts and
-source recovery are implemented. D-107 records semantics and qualification.
+Issue #81 C1-C5 complete under the
+[approved plan](plans/issue-81-local-hydrogen-reconciliation.md). Local endpoint H
+reconciliation, explicit Preserve H, optional preview, protection facts and original
+source recovery are implemented and qualified. D-107 records the scientific and
+compatibility boundary. Full canonical isotope/radical support is follow-up
+[#83](https://github.com/ManuelSe/Neistra/issues/83); minimization/building remain
+#82/#71.
 
-[C4 evidence/order](assets/hydrogen-reconciliation/c4-gate.json): latest818 Python,
-255 frontend/static/build; broad62native/8intentional skips, then9current-source
-accessibility/real-zoom passes/3intentional skips after focus repair. No final
-failures/retries. Fresh0014 and actualv0.18 reader retain canonical/protection/
-conformer/history/floor/archive data. Scientific qualification protects explicit
-mass1 as well as2/3, unknown/remote isotope stereo priorities and collinear geometry.
-A stricter mobile policy focus test found/fixed sticky-header occlusion; diagnostics
-remain distinct. Real1015-atom profile075ms/3.54MB Python peak/context12; native
-allocations excluded. Local review is self-review. Full isotope/radical support is
-verified follow-up#83; minimization/building remain#82/#71. No migration/schema/
-dependency change. C5 prepares all five versions as stable minor0.19.0 after
-base/tag collision checks. Final candidate/merged complete gates remain C5/C6.
-No blocker. Next: clean-candidate full release gate and full-diff review.
+The [clean 0.19.0 candidate](assets/hydrogen-reconciliation/c5-candidate-gate.json)
+`a0ca93d` passes all 16 release commands: **818 Python, 255 frontend, 8 supervisor,
+245 browser tests /47 intentional layout skips**, zero failures/flakes/retries.
+Frozen installs, fresh head0014, static/build/diff and actual tagged v0.18.0 reader
+against final 0.19.0 producer pass. Original bytes, all conformers, protection facts,
+generic history/floors and archives remain compatible. Native performance budgets
+are unchanged. [Full-diff review](assets/hydrogen-reconciliation/c5-local-review.md)
+is implementer self-review. Five versions are 0.19.0; no migration/schema/dependency
+change. Existing Alembic deprecation and lazy Mol* bundle advisories remain.
+No blocker. Next: reviewed normal PR merge, exact merged-master complete gate,
+annotated tag/release and verified issue closeout (C6).
 
 ### Previous delivery baseline — v0.18.0
 
@@ -2530,10 +2531,11 @@ Results:
 
 ## Blockers
 
-No current blocker. Issue #81 M1-M3 gates pass; C5/C6 remain pending.
+No current blocker. Issue #81 clean final-version candidate gate passes; C6 remains pending.
 
 ## Next action
 
-Prepare and qualify issue #81 M4/C5 according to the
-[approved feature plan](plans/issue-81-local-hydrogen-reconciliation.md), including base/version recheck and the complete clean-candidate release gate
-before opening the PR. Keep additive completion unchanged.
+Deliver issue #81 C6 under the [approved plan](plans/issue-81-local-hydrogen-reconciliation.md):
+reviewed normal merge, exact merged-master complete release gate, annotated v0.19.0
+tag and stable release, verified issue response, final evidence integration and
+branch cleanup. Do not publish before required protections/reviews/gates pass.

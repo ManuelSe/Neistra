@@ -2,7 +2,7 @@
 
 ## Status, outcome and authority
 
-Status: approved implementation contract; C0 and M1-M3/C1-C4 complete; C5-C6 pending.
+Status: approved implementation contract; C0-C5 complete; C6 delivery pending.
 Approval: user's “Implement the plan.”, 2026-10-17, following the complete proposed plan.
 Issue: https://github.com/ManuelSe/Neistra/issues/81
 Issue state: open; last update inspected 2026-10-17T15:52:12Z; no issue comments at analysis.
@@ -602,3 +602,23 @@ report the verified repository state, then stop ready for /goal.
   versions and archive assertion advance together; dependencies/schemas remain fixed.
   README and release/compatibility notes explain actual Bonds behavior. Complete
   clean-candidate gate and final full-diff self-review must pass before opening PR.
+
+- 2026-10-17 M4/C5 complete: clean final-version candidate
+  a0ca93d204aa863e769d217f773af1a97c4afc52 passes every one of the16 complete
+  release commands. Results:818 Python /255 frontend /8 supervisor /245 native
+  browser passes with47 intentional layout/zoom skips; zero failures/flakes/retries.
+  Frozen installs, fresh0014 migration, Ruff/mypy72/lint/types/build/diff and actual
+  tagged0.18 reader with final0.19 producer pass. All native performance assertions
+  retain their existing budgets. Source hash, exact commands/environments/timings,
+  clean start/end, lossless compressed log hashes and all native case dispositions
+  are in [candidate evidence](../assets/hydrogen-reconciliation/c5-candidate-gate.json).
+  The actual reader verifies module paths and original/conformer/protection/stereo/
+  inference/history/floor/save/archive retention. Version-focused archive tests
+  separately pass27 in12.92s. [Full-diff local review](../assets/hydrogen-reconciliation/c5-local-review.md)
+  has no unresolved consequential finding and is explicitly implementer self-review.
+  No dependency/migration/schema change; all five versions0.19.0. Existing398
+  Alembic deprecation warnings and lazy Mol* size advisory remain. C5 evidence/docs
+  are documentation-only additions after the clean tested source. Remote branch
+  already verifies the candidate; final evidence commit/push precedes opening PR.
+  Next C6: audit/request available remote review, normal merge, repeat full gate
+  on exact merged master before annotated tag/release, issue response and cleanup.

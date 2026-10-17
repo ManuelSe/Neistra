@@ -725,3 +725,12 @@ reconciliation_reader_qualification harness loads actual tagged v0.18 API/core
 modules and checks data/history/archives, rather than equating version strings with
 reader qualification. Final producer-version and exact merged-master gates remain
 mandatory before publication; checkpoint evidence does not substitute for them.
+
+
+Issue #81 [final clean 0.19.0 candidate](assets/hydrogen-reconciliation/c5-candidate-gate.json)
+`a0ca93d` passes all 16 release commands:818 Python,255 frontend,8 supervisor,
+245 browser /47 intentional layout skips, zero failures/flakes/retries. Frozen
+installs, fresh0014/static/build/diff, unchanged native performance assertions and
+actual tagged0.18 reader with final0.19 producer pass. Source/log hashes and clean
+start/end are retained. [Local review](assets/hydrogen-reconciliation/c5-local-review.md)
+is self-review. Exact merged-master qualification remains required before release.

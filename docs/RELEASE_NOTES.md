@@ -59,6 +59,14 @@ attempts and conformers consume budgets. A1015-atom protein-plus-ligand fixture
 measures075ms/3.54MB Python-traced peak/context12 on the qualification host; native
 allocator memory is excluded. Existing native performance budgets remain binding.
 
+The [clean final-version candidate](assets/hydrogen-reconciliation/c5-candidate-gate.json)
+`a0ca93d` passes all16 complete release commands:818 Python,255 frontend,
+8 supervisor,245 browser tests /47 intentional skips, zero failures/flakes/retries.
+Frozen installs, fresh0014/static/build/diff, unchanged native performance budgets
+and actual0.18 reader with final0.19 producer pass. Source/log hashes and clean
+start/end are retained. The [local full-diff review](assets/hydrogen-reconciliation/c5-local-review.md)
+is self-review; exact merged-master gate remains mandatory before publication.
+
 ### Scientific limits and deliberate scope decisions
 
 Automatic nonaromatic counts cover C0, N0/+1, O0/-1/+1, divalent S0 and neutral

@@ -1,0 +1,26 @@
+{
+  "baseline": {
+    "baseline": {
+      "producer": "0.19.0",
+      "entries": 3,
+      "atomic_batch": true,
+      "jobs_unchanged": true,
+      "archive_sha256": "c188f7cf1fa75f0a9705f995393be09d2714322dceca2ed8c0e0266ff2441ae1",
+      "selection_edit_operations": [
+        "hydrogens.prepare",
+        "fragment.replace",
+        "atom.element",
+        "atom.charge",
+        "residue.mutate"
+      ]
+    },
+    "producer": "0.19.0",
+    "hydrogen_commands": 2,
+    "archive_sha256": "6d45046b50fb553ab7fd8589c3fba128b99f5dd9aec5cd7a44708a77ecfc0330"
+  },
+  "producer": "0.19.0",
+  "reconciliation_cases": 3,
+  "api_module": "/datadisk/dev/neistra/apps/api/src/molweave_api/main.py",
+  "core_module": "/datadisk/dev/neistra/packages/molweave_core/src/molweave_core/__init__.py",
+  "application_version": "0.19.0"
+}

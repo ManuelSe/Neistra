@@ -1,0 +1,2819 @@
+{
+  "stats": {
+    "startTime": "2026-10-17T17:39:18.213Z",
+    "duration": 2489101.086,
+    "expected": 245,
+    "skipped": 47,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "retries": 0,
+  "cases": [
+    {
+      "title": "immediately reconciles bond closure, restores exact Undo/Redo, and offers Preserve H",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 7461,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "optional native preview shows H movements/removals without publication and cancels cleanly",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 6147,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keeps bond policy and H changes accessible in both themes and narrow layouts",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 8055,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "immediately reconciles bond closure, restores exact Undo/Redo, and offers Preserve H",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 7244,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "optional native preview shows H movements/removals without publication and cancels cleanly",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 7385,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keeps bond policy and H changes accessible in both themes and narrow layouts",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 8607,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "edits coordinates, reverses gestures, and validates protein superposition",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 10911,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "edits coordinates, reverses gestures, and validates protein superposition",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration": 117,
+      "retry": 0,
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "The complete coordinate editor uses the desktop three-panel workspace.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/coordinate-editing.spec.ts",
+            "line": 139,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "completes, fails, cancels, downloads, imports, and undoes demonstration jobs",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 10340,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "runs a demonstration job in the mobile workspace without overlap",
+      "project": "chromium",
+      "status": "skipped",
+      "duration": 71,
+      "retry": 0,
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Responsive workflow runs in mobile Chromium.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/demonstration-job.spec.ts",
+            "line": 118,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "completes, fails, cancels, downloads, imports, and undoes demonstration jobs",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration": 107,
+      "retry": 0,
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Full lifecycle runs in desktop Chromium.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/demonstration-job.spec.ts",
+            "line": 70,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "runs a demonstration job in the mobile workspace without overlap",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 3530,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "reveals a nonpickable placement with reachable controls in both themes and narrow layouts",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 9015,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "reveals a nonpickable placement with reachable controls in both themes and narrow layouts",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 7385,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "breaks an aromatic bond and keeps the incomplete draft visible and pickable",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 4872,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "removes a native inferred protein bond durably and restores it on Undo",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 6499,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "creates a molecule, previews/cancels without mutation, applies and rebuilds the last atom",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 9447,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "attaches directly with unknown chemistry and saves an edit when optional H cannot run",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 7288,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "does not restore a late proposal or steal selection after a closed creation dialog",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 5214,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keeps identities above earlier allocations after undoing and redoing molecule creation",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 8996,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "breaks an aromatic bond and keeps the incomplete draft visible and pickable",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 5134,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "removes a native inferred protein bond durably and restores it on Undo",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 6672,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "creates a molecule, previews/cancels without mutation, applies and rebuilds the last atom",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 9798,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "attaches directly with unknown chemistry and saves an edit when optional H cannot run",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 7459,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "does not restore a late proposal or steal selection after a closed creation dialog",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 5055,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keeps identities above earlier allocations after undoing and redoing molecule creation",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 8731,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "exports all, selected, and visible structures with deterministic filters and records",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 12475,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "round-trips a deterministic archive and rejects an unsafe archive without switching",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 6966,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "cancels intercepted export and archive import work without a stale result",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 4366,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keeps complete export and archive controls usable on a mobile viewport",
+      "project": "chromium",
+      "status": "skipped",
+      "duration": 75,
+      "retry": 0,
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Responsive export coverage runs in the Pixel 7 project.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/export-archive.spec.ts",
+            "line": 423,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "exports all, selected, and visible structures with deterministic filters and records",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration": 128,
+      "retry": 0,
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Complete artifact inspection runs once in desktop Chromium.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/export-archive.spec.ts",
+            "line": 128,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "round-trips a deterministic archive and rejects an unsafe archive without switching",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration": 108,
+      "retry": 0,
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Archive byte/state inspection runs once in desktop Chromium.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/export-archive.spec.ts",
+            "line": 222,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "cancels intercepted export and archive import work without a stale result",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration": 112,
+      "retry": 0,
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Cancellation routing runs once in desktop Chromium.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/export-archive.spec.ts",
+            "line": 362,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "keeps complete export and archive controls usable on a mobile viewport",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 3262,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "moves filtered selected batches, preserves molecular state, and supports keyboard/touch and history",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 9852,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "rejects stale-tab actions and keeps a partial selection scoped to its complete entry",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 5947,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "uses real desktop drags for batches, collapsed/empty destinations, Ungrouped, and exact no-ops",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 5753,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keeps a live molecular viewer and prepared surface unchanged during membership edits",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 7134,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keeps late membership success feedback and focus in its captured project",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 4954,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keeps late membership conflict feedback and focus in its captured project",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 4959,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "restores group action focus across repeated accepted row remounts",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 8916,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "moves filtered selected batches, preserves molecular state, and supports keyboard/touch and history",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 11768,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "rejects stale-tab actions and keeps a partial selection scoped to its complete entry",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 6901,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "uses real desktop drags for batches, collapsed/empty destinations, Ungrouped, and exact no-ops",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration": 114,
+      "retry": 0,
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Pixel 7 uses the equivalent explicit workflow; touch drag is not supported.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/group-membership.spec.ts",
+            "line": 149,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "keeps a live molecular viewer and prepared surface unchanged during membership edits",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 9743,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keeps late membership success feedback and focus in its captured project",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 6070,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keeps late membership conflict feedback and focus in its captured project",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 5845,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "restores group action focus across repeated accepted row remounts",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 10903,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "previews additive completion without publication and applies one reversible command",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 5954,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "explicit H count previews unknown-chemistry drafts and resets on Cancel",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 5948,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "applies supported entry sites and explains unresolved sites without a second command",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 5566,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "previews additive completion without publication and applies one reversible command",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 6199,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "explicit H count previews unknown-chemistry drafts and resets on Cancel",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 6424,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "applies supported entry sites and explains unresolved sites without a second command",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 5919,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keeps bonded orphan H in the ligand and enables editing an unrelated native atom",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 4008,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keeps bonded orphan H in the ligand and enables editing an unrelated native atom",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 3957,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "imports protein and ligand, renders both after reload, and exports with loss consent",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 7478,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "reports malformed input and can cancel an import before commit",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 1702,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "imports protein and ligand, renders both after reload, and exports with loss consent",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 5405,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "reports malformed input and can cancel an import before commit",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration": 339,
+      "retry": 0,
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Failure and cancellation coverage runs once in desktop Chromium.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/import-display-export.spec.ts",
+            "line": 149,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "renders genuine six-type records alone, pairwise and together with independent scopes",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 34469,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "explains unsupported raw ligand chemistry without claiming complete zero coverage",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 4636,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "renders genuine six-type records alone, pairwise and together with independent scopes",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 34419,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "explains unsupported raw ligand chemistry without claiming complete zero coverage",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 4567,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keeps centroid overlays current through scenes, deletion and project changes",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 13166,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keeps centroid overlays current through scenes, deletion and project changes",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration": 116,
+      "retry": 0,
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Complete project-tree workflow is desktop; mobile overlay/remount qualification is separate.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/interactions-lifecycle.spec.ts",
+            "line": 5,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "compact interaction control analyzes once and filters cached scopes",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 5609,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "qualifies explicit-H marker pixels, visibility, preview Cancel and committed invalidation",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 13468,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "shows busy failures, retries, and keeps the compact panel accessible in both themes",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 7329,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "measures bounded analysis and cached toggles on pinned 1STP with aligned typed ligand",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 5871,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "compact interaction control analyzes once and filters cached scopes",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 5416,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "qualifies explicit-H marker pixels, visibility, preview Cancel and committed invalidation",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 12959,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "shows busy failures, retries, and keeps the compact panel accessible in both themes",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 6677,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "measures bounded analysis and cached toggles on pinned 1STP with aligned typed ligand",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 5524,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "qualifies keyboard/touch controls, focus and scoped accessibility in both themes",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 7681,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "reconciles an interrupted response after server commit without replaying Apply",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 4912,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "blocks Apply while outcome is unknown and recovers only after explicit refresh",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 4615,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "captures hidden multi-entry targets, previews multiple drags, cancels, and applies one reversible command",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 14525,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "qualifies native proper-rotation previews, camera suspension, zoom and surface restoration in both projections",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 12295,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "discards previews with feedback on task, selection and project changes",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 8547,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "restores canceled or lost pointer drags and supports secondary and Ctrl translation",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 8344,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "rejects stale Apply without replay or partial movement",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 4504,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "explains empty, locked and wholly hidden movement targets without changing them",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 6977,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "preserves no-op history, pauses measurements and discards unapplied movement on reload",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 15109,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "retains the native preview and held camera across responsive viewer remounts",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 6358,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "qualifies keyboard/touch controls, focus and scoped accessibility in both themes",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 8089,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "reconciles an interrupted response after server commit without replaying Apply",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 4686,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "blocks Apply while outcome is unknown and recovers only after explicit refresh",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 4548,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "captures hidden multi-entry targets, previews multiple drags, cancels, and applies one reversible command",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 13203,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "qualifies native proper-rotation previews, camera suspension, zoom and surface restoration in both projections",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 7930,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "discards previews with feedback on task, selection and project changes",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 7751,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "restores canceled or lost pointer drags and supports secondary and Ctrl translation",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 7505,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "rejects stale Apply without replay or partial movement",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 4556,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "explains empty, locked and wholly hidden movement targets without changing them",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 6705,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "preserves no-op history, pauses measurements and discards unapplied movement on reload",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 14960,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "retains the native preview and held camera across responsive viewer remounts",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 7429,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "bounds native original protein/ligand preview work and measures exact cancellation",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 10971,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "bounds native authored draft protein/ligand preview work and measures exact cancellation",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 11239,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "bounds native original protein/ligand preview work and measures exact cancellation",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration": 123,
+      "retry": 0,
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Timing budgets use pinned desktop Chromium; touch has separate qualification.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/interactive-transform-performance.spec.ts",
+            "line": 7,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "bounds native authored draft protein/ligand preview work and measures exact cancellation",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration": 110,
+      "retry": 0,
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Timing budgets use pinned desktop Chromium; touch has separate qualification.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/interactive-transform-performance.spec.ts",
+            "line": 7,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "edits draft chemistry with warnings, retains helper refusals, and round-trips history",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 12480,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keeps ligand editing functional in the mobile inspector",
+      "project": "chromium",
+      "status": "skipped",
+      "duration": 66,
+      "retry": 0,
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Responsive ligand-editor coverage uses the mobile project.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/ligand-editing.spec.ts",
+            "line": 282,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "edits draft chemistry with warnings, retains helper refusals, and round-trips history",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration": 111,
+      "retry": 0,
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "The complete ligand editor uses the desktop three-panel workspace.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/ligand-editing.spec.ts",
+            "line": 135,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "keeps ligand editing functional in the mobile inspector",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 4816,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "creates and manages reference measurements with synchronized inspection",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 17873,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "creates and manages reference measurements with synchronized inspection",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration": 119,
+      "retry": 0,
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Full inspector workflow is desktop-only.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/measurements.spec.ts",
+            "line": 94,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "performs one selection-driven atom/H edit with exact undo and unchanged original",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 6360,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "maps a native bond hit to canonical endpoints and changes its order from the panel",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 4938,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "previews and substitutes a selected H with illustrated COOH",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 6412,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "mutates a natively picked residue successively and preserves exact backbone and undo",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 5059,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keeps tool focus, notices and all controls accessible in both themes and narrow layouts",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 6760,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "edits a prepared complex with native H/new-atom picks, fixed camera and one affected reload",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 10163,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keeps late edit responses owned by their original project",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 6860,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "retains a newer native selection and recovers an affected-artifact refetch failure",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 6579,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keeps a newer pending edit owned after leaving and returning to the same project",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 18132,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "performs one selection-driven atom/H edit with exact undo and unchanged original",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 6856,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "maps a native bond hit to canonical endpoints and changes its order from the panel",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 4671,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "previews and substitutes a selected H with illustrated COOH",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 6817,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "mutates a natively picked residue successively and preserves exact backbone and undo",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 5433,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keeps tool focus, notices and all controls accessible in both themes and narrow layouts",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 6366,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "edits a prepared complex with native H/new-atom picks, fixed camera and one affected reload",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 10144,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keeps late edit responses owned by their original project",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 6442,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "retains a newer native selection and recovers an affected-artifact refetch failure",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 5998,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keeps a newer pending edit owned after leaving and returning to the same project",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 18258,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "qualifies native full-protein pocket geometry and independent display for complex/1stp.pdb",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 10762,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "qualifies native full-protein pocket geometry and independent display for hydrogens/polar_hydrogens_protein.pdb",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 9176,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "qualifies native full-protein pocket geometry and independent display for surfaces/1aon.cif",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 56659,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "invalidates native pockets for hidden seed and receptor preview, cancel and commit",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 6860,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "saves pockets through the compact panel and restores hidden seed inputs",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 9526,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "qualifies native full-protein pocket geometry and independent display for complex/1stp.pdb",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 6352,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "qualifies native full-protein pocket geometry and independent display for hydrogens/polar_hydrogens_protein.pdb",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 4884,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "qualifies native full-protein pocket geometry and independent display for surfaces/1aon.cif",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 53446,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "invalidates native pockets for hidden seed and receptor preview, cancel and commit",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 4030,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "saves pockets through the compact panel and restores hidden seed inputs",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 9562,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "polar_hydrogens_protein.pdb renders all, polar-only, and no-hydrogen modes",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 6919,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "polar_hydrogens_ligand.mol renders all, polar-only, and no-hydrogen modes",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 5862,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "persists polar-only mode across viewer workflows without transient or molecular drift",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 27339,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keeps polar-only controls accessible and bounded on desktop and Pixel 7",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 3464,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "a hydrogen-free structure remains hydrogen-free in polar-only mode",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 3563,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "selection-local hydrogen precedence and full-graph classification: polar_hydrogens_ligand.mol",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 11558,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "selection-local hydrogen precedence and full-graph classification: polar_hydrogens_protein.pdb",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 11803,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "polar_hydrogens_protein.pdb renders all, polar-only, and no-hydrogen modes",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration": 120,
+      "retry": 0,
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Scientific pixel qualification runs once in desktop Chromium.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/polar-hydrogen-visibility.spec.ts",
+            "line": 334,
+            "column": 10
+          }
+        }
+      ]
+    },
+    {
+      "title": "polar_hydrogens_ligand.mol renders all, polar-only, and no-hydrogen modes",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration": 109,
+      "retry": 0,
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Scientific pixel qualification runs once in desktop Chromium.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/polar-hydrogen-visibility.spec.ts",
+            "line": 334,
+            "column": 10
+          }
+        }
+      ]
+    },
+    {
+      "title": "persists polar-only mode across viewer workflows without transient or molecular drift",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration": 110,
+      "retry": 0,
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Complete durability and representation qualification runs once.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/polar-hydrogen-visibility.spec.ts",
+            "line": 346,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "keeps polar-only controls accessible and bounded on desktop and Pixel 7",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 3708,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "a hydrogen-free structure remains hydrogen-free in polar-only mode",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration": 115,
+      "retry": 0,
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Hydrogen-free molecular invariance runs once.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/polar-hydrogen-visibility.spec.ts",
+            "line": 652,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "selection-local hydrogen precedence and full-graph classification: polar_hydrogens_ligand.mol",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration": 107,
+      "retry": 0,
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Exact atom queries use the desktop inspector.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/polar-hydrogen-visibility.spec.ts",
+            "line": 684,
+            "column": 10
+          }
+        }
+      ]
+    },
+    {
+      "title": "selection-local hydrogen precedence and full-graph classification: polar_hydrogens_protein.pdb",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration": 111,
+      "retry": 0,
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Exact atom queries use the desktop inspector.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/polar-hydrogen-visibility.spec.ts",
+            "line": 684,
+            "column": 10
+          }
+        }
+      ]
+    },
+    {
+      "title": "creates, recovers, reverses, saves, and reopens a project",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 2725,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "reports an unavailable API and recovers after retry",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 500,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "entry commands are durable and reversible through the workspace",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 3996,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "creates, recovers, reverses, saves, and reopens a project",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 3514,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "reports an unavailable API and recovers after retry",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 671,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "entry commands are durable and reversible through the workspace",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration": 114,
+      "retry": 0,
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Entry command coverage uses the desktop browser.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/project-lifecycle.spec.ts",
+            "line": 152,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "keeps compact entries independent from component expansion, selection and metadata",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 4890,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keeps two hundred grouped long-name entries usable at narrow widths and responsive remounts",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 27766,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "virtualizes ten thousand real normalized components and reaches off-screen rows by keyboard",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 28152,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "retains two component rows at the minimum expanded desktop pane height",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 4854,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keeps compact entries independent from component expansion, selection and metadata",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 4706,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keeps two hundred grouped long-name entries usable at narrow widths and responsive remounts",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 16316,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "virtualizes ten thousand real normalized components and reaches off-screen rows by keyboard",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 14950,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "retains two component rows at the minimum expanded desktop pane height",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration": 113,
+      "retry": 0,
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Desktop divider minimum; mobile uses full-height tabs.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/project-navigation.spec.ts",
+            "line": 221,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "edits protein hierarchy and chemistry with exact history and validation",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 14248,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keeps protein editing usable in the mobile inspector",
+      "project": "chromium",
+      "status": "skipped",
+      "duration": 74,
+      "retry": 0,
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Responsive protein-editor coverage uses the mobile project.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/protein-editing.spec.ts",
+            "line": 430,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "edits protein hierarchy and chemistry with exact history and validation",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration": 111,
+      "retry": 0,
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "The complete protein editor uses the desktop three-panel workspace.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/protein-editing.spec.ts",
+            "line": 156,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "keeps protein editing usable in the mobile inspector",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 3286,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "reviews all Neistra workflow surfaces in both themes",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 40931,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "reviews warning, failure, recovery and job states in light",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 18265,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "reviews warning, failure, recovery and job states in dark",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 18322,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keeps ambiguous classification warnings and legacy user copy visible",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 6515,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "reviews all Neistra workflow surfaces in both themes",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 43795,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "reviews warning, failure, recovery and job states in light",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 18690,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "reviews warning, failure, recovery and job states in dark",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 19222,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keeps ambiguous classification warnings and legacy user copy visible",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 7037,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keeps actions and dialogs reachable at real 100% and 200% browser zoom",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 86366,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keeps shell and inspector controls bounded around both responsive breakpoints",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 9011,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keeps the molecular editor keyboard controls reachable at actual browser zoom",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 30443,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keeps actions and dialogs reachable at real 100% and 200% browser zoom",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration": 3,
+      "retry": 0,
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Real desktop browser zoom is separate from mobile emulation.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/rebranding-zoom.spec.ts",
+            "line": 62,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "keeps shell and inspector controls bounded around both responsive breakpoints",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration": 117,
+      "retry": 0,
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Exact-width breakpoint sweep runs once; Pixel 7 has its own workflow matrix.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/rebranding-zoom.spec.ts",
+            "line": 326,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "keeps the molecular editor keyboard controls reachable at actual browser zoom",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration": 1,
+      "retry": 0,
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Desktop zoom is independent of touch emulation.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/rebranding-zoom.spec.ts",
+            "line": 360,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "restores the legacy dark theme before the application module loads",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 844,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keeps the workspace usable with invalid-json preferences",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 854,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keeps the workspace usable with invalid-values preferences",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 781,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keeps the workspace usable with unavailable preferences",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 705,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "uses the Neistra identity through project creation and import",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 4990,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "restores the legacy dark theme before the application module loads",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 714,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keeps the workspace usable with invalid-json preferences",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 659,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keeps the workspace usable with invalid-values preferences",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 651,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keeps the workspace usable with unavailable preferences",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 643,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "uses the Neistra identity through project creation and import",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 4929,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "passes automated accessibility checks in both themes",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 4511,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "supports keyboard focus and bounded responsive controls",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 3493,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keeps representative-project interactions responsive and projection-scoped",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 5966,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "passes automated accessibility checks in both themes",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 3970,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "supports keyboard focus and bounded responsive controls",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 3541,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keeps representative-project interactions responsive and projection-scoped",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration": 109,
+      "retry": 0,
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Performance budgets use desktop Chromium.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/release-hardening.spec.ts",
+            "line": 168,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "completes the MolWeave v0.1 definition-of-done journey",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 34653,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "completes the MolWeave v0.1 definition-of-done journey",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration": 110,
+      "retry": 0,
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "The complete release journey is desktop-only.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/release-journey.spec.ts",
+            "line": 159,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "expands from styling across hidden entries without durable changes",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 25767,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "integrated selection appearance is durable and accessible in light",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 9454,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "integrated selection appearance is durable and accessible in dark",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 9268,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "expands from styling across hidden entries without durable changes",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration": 107,
+      "retry": 0,
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Project-wide fixture setup uses desktop panels.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/selection-appearance.spec.ts",
+            "line": 8,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "integrated selection appearance is durable and accessible in light",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 9594,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "integrated selection appearance is durable and accessible in dark",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 10386,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "styles a 1STP complex without changing scientific or transient state",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 14205,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keeps ion, water, and covalent-boundary targets exact",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 7191,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keeps the selection styling dialog bounded and keyboard-operable on Pixel 7",
+      "project": "chromium",
+      "status": "skipped",
+      "duration": 76,
+      "retry": 0,
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Responsive workflow is mobile-only.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/selection-styling.spec.ts",
+            "line": 441,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "styles a 1STP complex without changing scientific or transient state",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration": 112,
+      "retry": 0,
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Full 1STP workflow is desktop-only.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/selection-styling.spec.ts",
+            "line": 228,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "keeps ion, water, and covalent-boundary targets exact",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration": 114,
+      "retry": 0,
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Boundary qualification is desktop-only.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/selection-styling.spec.ts",
+            "line": 378,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "keeps the selection styling dialog bounded and keyboard-operable on Pixel 7",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 4306,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "qualifies worker geometry, real element colors, picking and cancellation",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 4529,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "adds and removes saved surfaces from the compact palette with reload and undo",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 14326,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "qualifies production surface lifecycle for formats/ethanol.mol",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 8364,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "qualifies production surface lifecycle for hydrogens/polar_hydrogens_ligand.mol",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 4008,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "qualifies production 1STP surface response and partial-fragment boundaries",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 3574,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "qualifies worker geometry, real element colors, picking and cancellation",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 3373,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "adds and removes saved surfaces from the compact palette with reload and undo",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration": 114,
+      "retry": 0,
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Desktop project panel workflow; renderer qualified on both viewports.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/selection-surfaces.spec.ts",
+            "line": 116,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "qualifies production surface lifecycle for formats/ethanol.mol",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 4460,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "qualifies production surface lifecycle for hydrogens/polar_hydrogens_ligand.mol",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 2509,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "qualifies production 1STP surface response and partial-fragment boundaries",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 2408,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "hiding the middle atom removes every incident native bond and its label",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 10720,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "trace, residue and all-atom hiding preserve native polymers, surfaces and measurements",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 16263,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "compact Hide/Show preserves selection, styles and cached projections",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 12542,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "hiding the middle atom removes every incident native bond and its label",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 5925,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "trace, residue and all-atom hiding preserve native polymers, surfaces and measurements",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 13123,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "compact Hide/Show preserves selection, styles and cached projections",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 13210,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "synchronizes hierarchy selection, visibility, focus, persistence, and WebGL",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 9874,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keeps the hierarchy keyboard-operable and bounded in the Pixel 7 drawer",
+      "project": "chromium",
+      "status": "skipped",
+      "duration": 54,
+      "retry": 0,
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Compact hierarchy qualification runs in the Pixel 7 project.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/structure-hierarchy.spec.ts",
+            "line": 253,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "synchronizes hierarchy selection, visibility, focus, persistence, and WebGL",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration": 108,
+      "retry": 0,
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Full hierarchy qualification is desktop-only.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/structure-hierarchy.spec.ts",
+            "line": 120,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "keeps the hierarchy keyboard-operable and bounded in the Pixel 7 drawer",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 3543,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "renders the complete 6vxx selection within bounded capacity",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 15247,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "renders the complete 1aon selection within bounded capacity",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 38528,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "renders the complete synthetic-100k selection within bounded capacity",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 35373,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "renders the complete 6vxx selection within bounded capacity",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 14453,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "renders the complete 1aon selection within bounded capacity",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 37578,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "renders the complete synthetic-100k selection within bounded capacity",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 34761,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "native same-entry surface objects have independent identity, colors, mesh and whole-object activation",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 14786,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "manages production object appearance and explicit sources independently through reload and undo",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 23024,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keeps manager controls keyboard reachable, bounded and accessible with long names and narrow layouts",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 11259,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keeps queued same-entry surface inputs lazy and valid across a renderer rebuild",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 6728,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "native same-entry surface objects have independent identity, colors, mesh and whole-object activation",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 7553,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "manages production object appearance and explicit sources independently through reload and undo",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 22238,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keeps manager controls keyboard reachable, bounded and accessible with long names and narrow layouts",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 11049,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keeps queued same-entry surface inputs lazy and valid across a renderer rebuild",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 5616,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keeps browser, sequence, inspector, viewer, and saved selection synchronized",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 11828,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keeps browser, sequence, inspector, viewer, and saved selection synchronized",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration": 105,
+      "retry": 0,
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "The full three-panel synchronized-selection workflow runs on desktop.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/synchronized-selection.spec.ts",
+            "line": 107,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "keeps primary selection and empty clearing independent from the camera",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 19262,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "uses the compact trigger path for selection and empty clearing",
+      "project": "chromium",
+      "status": "skipped",
+      "duration": 82,
+      "retry": 0,
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Touch activation uses Pixel 7.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/viewer-click-selection.spec.ts",
+            "line": 369,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "keeps primary selection and empty clearing independent from the camera",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration": 112,
+      "retry": 0,
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Exact WebGL camera evidence is desktop-only.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/viewer-click-selection.spec.ts",
+            "line": 202,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "uses the compact trigger path for selection and empty clearing",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 4092,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "applies complete representations, navigation, isolation, and named scenes",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 19152,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "synchronizes picking and keeps selection, focus actions, and project state independent",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 8744,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "explains unavailable ligand focus for protein-only content",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 2840,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keeps compact picking and focus controls bounded and keyboard reachable",
+      "project": "chromium",
+      "status": "skipped",
+      "duration": 79,
+      "retry": 0,
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Compact layout uses Pixel 7.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/viewer-controls.spec.ts",
+            "line": 385,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "shows a usable WebGL failure instead of a blank viewer",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 1684,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "applies complete representations, navigation, isolation, and named scenes",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration": 122,
+      "retry": 0,
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Full WebGL control matrix is desktop-only.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/viewer-controls.spec.ts",
+            "line": 108,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "synchronizes picking and keeps selection, focus actions, and project state independent",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration": 129,
+      "retry": 0,
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Camera snapshots use desktop WebGL.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/viewer-controls.spec.ts",
+            "line": 295,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "explains unavailable ligand focus for protein-only content",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration": 111,
+      "retry": 0,
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Unavailable-state check runs once.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/viewer-controls.spec.ts",
+            "line": 368,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "keeps compact picking and focus controls bounded and keyboard reachable",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 3246,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "shows a usable WebGL failure instead of a blank viewer",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration": 127,
+      "retry": 0,
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Failure injection runs once.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/viewer-controls.spec.ts",
+            "line": 434,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "expires after ten real seconds without molecular, camera, network or renderer changes",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 13275,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "successive identical confirmations receive fresh deadlines across theme changes",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 4323,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "warning summaries and actionable errors persist with unchanged styling and accessible dismissal",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 5166,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keyboard focus defers expiration, departure preserves focus, and manual dismissal returns it",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 2924,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "viewer remounts retain the deadline and project changes invalidate old notices",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 4426,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "expires after ten real seconds without molecular, camera, network or renderer changes",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 13209,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "successive identical confirmations receive fresh deadlines across theme changes",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 4189,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "warning summaries and actionable errors persist with unchanged styling and accessible dismissal",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 5877,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keyboard focus defers expiration, departure preserves focus, and manual dismissal returns it",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 2980,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "viewer remounts retain the deadline and project changes invalidate old notices",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 4313,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keeps the persisted theme through the real viewer lifecycle",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 20164,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keeps the persisted theme through the real viewer lifecycle",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration": 236,
+      "retry": 0,
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "The real WebGL lifecycle runs once.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/viewer-theme.spec.ts",
+            "line": 111,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "transforms from the viewer with fixed mouse gestures, exact Cancel and one Apply/undo/redo",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 9332,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "temporarily navigates the native camera with Space and the view toggle without changing the captured preview",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 19445,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "returns the mouse from movement tools for Space without stealing editable or unrelated focus",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 10603,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "ends held mouse gestures at accepted coordinates and camera before ownership changes",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 9294,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "clears temporary navigation on interruption and remount while preserving preview and camera",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 13523,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "qualifies native touch navigation, secondary tools and accessible theme layouts",
+      "project": "chromium",
+      "status": "skipped",
+      "duration": 74,
+      "retry": 0,
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Touch qualification uses Pixel 7; desktop has native mouse and real zoom evidence.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/viewer-transform-toolbar.spec.ts",
+            "line": 366,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "ignores a held camera pointer release after Cancel and restores selection on a fresh click",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 5142,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "ignores a held transform pointer release after Cancel and restores selection on a fresh click",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 4567,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keeps viewer errors readable and primary transform actions reachable",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 4639,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "releases native navigation keys held before movement starts",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 5603,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "transforms from the viewer with fixed mouse gestures, exact Cancel and one Apply/undo/redo",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 9194,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "temporarily navigates the native camera with Space and the view toggle without changing the captured preview",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 18055,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "returns the mouse from movement tools for Space without stealing editable or unrelated focus",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 9843,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "ends held mouse gestures at accepted coordinates and camera before ownership changes",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 8477,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "clears temporary navigation on interruption and remount while preserving preview and camera",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 15055,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "qualifies native touch navigation, secondary tools and accessible theme layouts",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 20595,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "ignores a held camera pointer release after Cancel and restores selection on a fresh click",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 5475,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "ignores a held transform pointer release after Cancel and restores selection on a fresh click",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 4858,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "keeps viewer errors readable and primary transform actions reachable",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 4577,
+      "retry": 0,
+      "annotations": []
+    },
+    {
+      "title": "releases native navigation keys held before movement starts",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration": 5811,
+      "retry": 0,
+      "annotations": []
+    }
+  ]
+}
