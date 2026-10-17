@@ -1,0 +1,110 @@
+{
+  "checkpoint": "C3",
+  "base_commit": "da8a70e",
+  "status": "passed",
+  "python": {
+    "passed": 754,
+    "dependency_warnings": 398,
+    "seconds": 121.31
+  },
+  "frontend": {
+    "passed": 252,
+    "files": 52,
+    "lint_types_build": "passed"
+  },
+  "native_final": {
+    "passed": 20,
+    "skipped": 0,
+    "failures": 0,
+    "retries": 0,
+    "minutes": 2.2
+  },
+  "native_broader": {
+    "passed": 16,
+    "intentional_skips": 8,
+    "minutes": 4.0,
+    "coverage": [
+      "actual100/200percent zoom",
+      "exports/archives",
+      "interaction lifecycle",
+      "themes/narrow/scoped accessibility"
+    ],
+    "qualification_note": "Broader pass preceded subsequent scientific/optional-placement hardening; affected final source then reran the20native gate. Complete final-version candidate and merged gates remain mandatory."
+  },
+  "static": {
+    "ruff": "passed",
+    "mypy_files": 70,
+    "diff": "passed"
+  },
+  "reader": {
+    "tag": "v0.17.0",
+    "commit": "a6d62c85fbdefdf579fce68cf535285129364743",
+    "checkout_clean": true,
+    "producer": "0.17.0 checkpoint version; repeat with final0.18.0 at C4/C5",
+    "reader_module_paths_verified": true,
+    "evidence": "c3-reader.json"
+  },
+  "commands": [
+    ".venv/bin/uv run ruff check .",
+    ".venv/bin/uv run mypy apps/api packages/molweave_core",
+    ".venv/bin/uv run pytest -q",
+    "corepack pnpm --dir apps/web lint",
+    "corepack pnpm --dir apps/web typecheck",
+    "corepack pnpm --dir apps/web test",
+    "corepack pnpm --dir apps/web build",
+    "PLAYWRIGHT_BROWSERS_PATH=.playwright MOLWEAVE_E2E_API_PORT=8283 MOLWEAVE_E2E_WORKER_PORT=8284 MOLWEAVE_E2E_WEB_PORT=5483 MOLWEAVE_E2E_DATA_DIR=/tmp/neistra-issue77-c3-final-native corepack pnpm exec playwright test tests/e2e/hydrogen-completion.spec.ts tests/e2e/direct-molecular-modeling.spec.ts tests/e2e/hydrogen-membership.spec.ts --reporter=list",
+    "PLAYWRIGHT_BROWSERS_PATH=.playwright MOLWEAVE_E2E_API_PORT=8276 MOLWEAVE_E2E_WORKER_PORT=8277 MOLWEAVE_E2E_WEB_PORT=5476 MOLWEAVE_E2E_DATA_DIR=/tmp/neistra-issue77-c3-native corepack pnpm exec playwright test tests/e2e/hydrogen-completion.spec.ts tests/e2e/direct-modeling-accessibility.spec.ts tests/e2e/interactions-lifecycle.spec.ts tests/e2e/export-archive.spec.ts tests/e2e/rebranding-zoom.spec.ts --reporter=list",
+    "MOLWEAVE_DATA_DIR=/tmp/neistra-issue77-c3-qualified-final-reader .venv/bin/uv run alembic upgrade head",
+    "PYTHONPATH=apps/api/src:packages/molweave_core/src:packages/molweave_demo_plugin/src .venv/bin/python -m tests.support.hydrogen_reader_qualification produce --data-dir /tmp/neistra-issue77-c3-qualified-final-reader --evidence /tmp/issue77-c3-qualified-final-reader-producer.json",
+    "PYTHONPATH=/tmp/neistra-issue77-reader-017/apps/api/src:/tmp/neistra-issue77-reader-017/packages/molweave_core/src:/tmp/neistra-issue77-reader-017/packages/molweave_demo_plugin/src .venv/bin/python -m tests.support.hydrogen_reader_qualification read --data-dir /tmp/neistra-issue77-c3-qualified-final-reader --reader-root /tmp/neistra-issue77-reader-017 --expected-reader 0.17.0 --evidence /tmp/issue77-c3-qualified-final-reader.json",
+    "git diff --check"
+  ],
+  "logs": {
+    "issue77-c3-final-gate-python.log": {
+      "path": "/tmp/issue77-c3-final-gate-python.log",
+      "sha256": "d9b2218bf276693bcdd98400db409b1efe85de3d095d599ca6679dbac21f224c"
+    },
+    "issue77-c3-final-native.log": {
+      "path": "/tmp/issue77-c3-final-native.log",
+      "sha256": "6c8051ef1ecbfbfafcb7de96a1515f2e1c8c82affd52deea13d4a15c6527fcc1"
+    },
+    "issue77-c3-final-web.log": {
+      "path": "/tmp/issue77-c3-final-web.log",
+      "sha256": "abd6eb0bf8b7734364a6e9042f176947e7f6525d9f0f859163e3ea69feb73d36"
+    },
+    "issue77-c3-final-static-web.log": {
+      "path": "/tmp/issue77-c3-final-static-web.log",
+      "sha256": "d76ada4a666bf1f9592215d4e7ed3279dd3062d464b9f3cd73147116e890aca9"
+    },
+    "issue77-c3-native.log": {
+      "path": "/tmp/issue77-c3-native.log",
+      "sha256": "7abd2769237cffdd868bf17539dd244ecafae4741f2e0d5e3824832395ae4a17"
+    },
+    "issue77-c3-qualified-final-reader-migration.log": {
+      "path": "/tmp/issue77-c3-qualified-final-reader-migration.log",
+      "sha256": "a65aaba1d288361248cfad53dee993528aa5c4bbd5accca186ae60e26f85c610"
+    },
+    "issue77-c3-qualified-final-reader-produce.log": {
+      "path": "/tmp/issue77-c3-qualified-final-reader-produce.log",
+      "sha256": "b50ab77cb27f090be3fa08af90e5457a5230083dab637075e3767004e230b29d"
+    },
+    "issue77-c3-qualified-final-reader-read.log": {
+      "path": "/tmp/issue77-c3-qualified-final-reader-read.log",
+      "sha256": "d876813f6a5a7b347d22d5069082ee480a33077e264c7330feea1dc843c87bd4"
+    }
+  },
+  "screenshots": [
+    "c3-hydrogen-completion-applie-05fb6-es-without-a-second-command-chromium-partial-hydrogen-diagnostics.png",
+    "c3-hydrogen-completion-applie-05fb6-es-without-a-second-command-mobile-chromium-partial-hydrogen-diagnostics.png",
+    "c3-hydrogen-completion-explic-83ad0-drafts-and-resets-on-Cancel-chromium-explicit-hydrogen-draft.png",
+    "c3-hydrogen-completion-explic-83ad0-drafts-and-resets-on-Cancel-mobile-chromium-explicit-hydrogen-draft.png",
+    "c3-hydrogen-completion-previe-acf86-lies-one-reversible-command-chromium-hydrogen-completion-preview.png",
+    "c3-hydrogen-completion-previe-acf86-lies-one-reversible-command-mobile-chromium-hydrogen-completion-preview.png"
+  ],
+  "diagnostics": "Earlier730/746/751Python and intermediate focused passes preceded qualification additions and are not this final gate. Red regressions and temporary lint/type diagnostics were corrected without a failed checkpoint commit. Optional zero-H placement UI regression has component/native red-green evidence.",
+  "limits": [
+    "Local full-diff self-review; not independent review.",
+    "No new migration/schema/dependency/version yet.",
+    "Bounded initial valence profile, unoptimized draft geometry, partial results and unresolved stereo remain explicit."
+  ]
+}

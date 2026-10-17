@@ -405,3 +405,25 @@ prevalidate before writes, including downgrade refusals. Molecular formats and
 normalized schema 1 remain unchanged. Portable schema-1 archives are validated
 and converted into schema 2; only schema-2 archives are written. Generic viewer
 PUTs cannot mutate object collections and obsolete singleton routes return 410.
+
+## Hydrogen proposal boundary (issue #77)
+
+`HydrogenBuilder` consumes an immutable normalized snapshot and canonical targets,
+returning typed per-site coordinate proposals and a bounded report. It owns no
+project/viewer/history state or allocator reservation. The editing boundary
+materializes additions using existing allocation floors, reconciles affected
+current stereo and publishes through the existing generic molecular command.
+Selection/entry completion, explicit Add N H, preview and optional post-edit H
+all reuse that path. A no-op never calls publication. Legacy preparation HTTP
+helpers retain their original contract.
+
+Canonical atom/adjacency indexes, conformer coordinate arrays and at most one
+batch contact index per conformer are request-scoped. Chemical contexts
+must be complete, specified and bounded; local aliphatic counts do not convert
+whole proteins. Count perception and stereo assessment share the analyzed-atom
+budget. Temporary consistent-H analysis processes one conformer at a time and
+shares the generated-coordinate budget with actual additions. If assessment is
+unavailable, retain coordinates, clear dependent current labels as needed and
+warn; never choose a universal tag from disagreeing conformers. Native ghost
+rendering and captured project/selection/artifact/input ownership remain shared.
+See D-105/106 and [molecular-model intent](MOLECULAR_MODEL.md).

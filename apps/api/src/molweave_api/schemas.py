@@ -6,6 +6,7 @@ from typing import Annotated, Any, Literal
 from uuid import UUID
 
 from molweave_core.components import ComponentHierarchyV1
+from molweave_core.editing.hydrogen import HydrogenReport
 from molweave_core.editing.model import HydrogenPolicy, ModelAction, ModelElement
 from molweave_core.editing.selection import SelectionAction
 from molweave_core.molecular import MolecularWarning, NormalizedStructureV1
@@ -1094,6 +1095,11 @@ class SelectionEditRead(LigandEditRead):
     selection_after: SelectionV1
 
 
+class ModelEditRead(SelectionEditRead):
+    applied: bool = True
+    hydrogen_report: HydrogenReport | None = None
+
+
 class ModelEditCreate(BaseModel):
     model_config = ConfigDict(extra="forbid")
     expected_revision: int = Field(ge=0)
@@ -1141,6 +1147,7 @@ class ModelPreviewBond(BaseModel):
 
 
 class ModelPreviewRead(BaseModel):
+    hydrogen_report: HydrogenReport | None = None
     entry_id: str
     expected_revision: int
     expected_artifact_id: str

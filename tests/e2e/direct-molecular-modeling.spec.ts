@@ -137,7 +137,7 @@ test("creates a molecule, previews/cancels without mutation, applies and rebuild
   await page.getByRole("button", { name: "Edit molecule", exact: true }).click();
   await panel.getByRole("button", { name: "Delete selected atoms", exact: true }).click();
   await expect.poll(async () => (await (await request.get(path)).json() as StructureProjection).structure.atoms.length).toBe(0);
-  await expect(panel.getByRole("combobox", { name: "Empty target entry", exact: true })).toHaveValue(entry.id);
+  await expect(panel.getByRole("combobox", { name: "Target entry", exact: true })).toHaveValue(entry.id);
   const add = panel.getByText("Add atom", { exact: true });
   if (!(await add.evaluate(node => node.closest("details")!.open))) await add.click();
   await panel.getByRole("button", { name: "Preview atom", exact: true }).click();
@@ -173,6 +173,13 @@ test("attaches directly with unknown chemistry and saves an edit when optional H
   expect(after.atoms[0].formal_charge).toBeNull();
   expect(after.atoms[0].coordinates).toEqual(before.atoms[0].coordinates);
   expect(after.warnings.some(w => w.code === "model_hydrogen_completion_skipped")).toBe(true);
+  // An optional zero-H report must not disable a valid authored placement.
+  await panel.getByText("Add atom", { exact: true }).click();
+  await panel.getByRole("combobox", { name: "Added element", exact: true }).fill("P");
+  await panel.getByRole("button", { name: "Preview atom", exact: true }).click();
+  await expect(panel.getByRole("button", { name: "Apply placement", exact: true })).toBeEnabled();
+  await panel.getByRole("button", { name: "Apply placement", exact: true }).click();
+  await expect.poll(async () => (await (await request.get(path)).json() as StructureProjection).structure.atoms.length).toBe(before.atoms.length + 1);
   await panel.getByLabel("Complete hydrogens when possible", { exact: true }).uncheck();
   // Direct fragment attachment needs no terminal H or prepared component.
   await panel.getByRole("button", { name: "Fragments", exact: true }).click();
@@ -181,7 +188,7 @@ test("attaches directly with unknown chemistry and saves an edit when optional H
   await panel.getByRole("button", { name: "Rotate fragment", exact: true }).click();
   await expect(panel.getByRole("button", { name: "Apply placement", exact: true })).toBeEnabled();
   await panel.getByRole("button", { name: "Apply placement", exact: true }).click();
-  await expect.poll(async () => (await (await request.get(path)).json() as StructureProjection).structure.atoms.length).toBe(before.atoms.length + 4);
+  await expect.poll(async () => (await (await request.get(path)).json() as StructureProjection).structure.atoms.length).toBe(before.atoms.length + 5);
   after = (await (await request.get(path)).json() as StructureProjection).structure;
   expect(after.atoms.slice(1, before.atoms.length)).toEqual(before.atoms.slice(1));
   await page.screenshot({ path: info.outputPath("unknown-chemistry-direct-fragment.png") });

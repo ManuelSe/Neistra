@@ -101,3 +101,18 @@ publication rather than guessing. This namespace is separate from the top-level
 normalized schema. Native archives retain it; chemical files cannot encode this
 intent reliably. Disposable SDF defaults and Mol* overlays never write chemistry
 back into these records. See [D-101–103](DECISIONS.md#d-101--direct-molecular-edits-preserve-incomplete-chemistry).
+
+## Authored-model intent and hydrogen building
+
+The existing records distinguish immutable source facts from current authored
+atoms/bonds/coordinates and inferred fields. Unknown charge/order stays null;
+absent H is not a persistent protonation/count constraint. See
+[MOLECULAR_MODEL](MOLECULAR_MODEL.md) for importing, incomplete building, completion,
+preparation, analysis and export requirements.
+
+Geometry-first H building can reconcile affected current stereo while preserving
+source facts and disconnected annotations. No universal tag is assigned when
+conformers disagree. Existing warnings/inferences record choices and assumptions;
+no new normalized field, top-level version, database migration or archive schema
+is introduced. Generated H inherit canonical parent residue/alternate identity and
+have independent coordinates in every conformer. Preview ghosts are never records.

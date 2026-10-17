@@ -224,7 +224,11 @@ test("edits draft chemistry with warnings, retains helper refusals, and round-tr
   expect((await project(request, state.id)).revision).toBe(state.revision);
 
   await page.getByRole("button", { name: "All", exact: true }).click();
-  await page.getByRole("button", { name: "Add H" }).click();
+  await page.getByRole("button", { name: "Build H…" }).click();
+  const hydrogenPanel = page.getByRole("dialog", { name: "Edit molecule", exact: true });
+  await expect(hydrogenPanel.getByRole("button", { name: "Apply placement", exact: true })).toBeEnabled();
+  await hydrogenPanel.getByRole("button", { name: "Apply placement", exact: true }).click();
+  await hydrogenPanel.getByRole("button", { name: "Close molecular editor", exact: true }).click();
   await expect
     .poll(async () => (await project(request, state.id)).entries[0].atom_count)
     .toBeGreaterThan(4);

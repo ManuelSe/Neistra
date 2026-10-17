@@ -5,6 +5,8 @@ from molweave_core.editing.model import (
     InvalidModelEdit,
     ModelAtomAdd,
     ModelFragmentAdd,
+    ModelHydrogenAdd,
+    ModelHydrogenComplete,
 )
 from molweave_core.molecular import Chain, Conformer, NormalizedStructureV1, Residue, SourceFacts
 from molweave_core.selection import AtomReference, SelectionV1
@@ -16,12 +18,12 @@ from molweave_api.project_service import InvalidProjectOperationError, ProjectSe
 from molweave_api.schemas import (
     LigandEditReport,
     ModelEditCreate,
+    ModelEditRead,
     ModelPreviewAtom,
     ModelPreviewBond,
     ModelPreviewRead,
     MoleculeCreate,
     MoleculeCreateRead,
-    SelectionEditRead,
 )
 from molweave_api.selection_edit_service import SelectionEditService
 from molweave_api.settings import Settings
@@ -40,7 +42,7 @@ class ModelEditService(SelectionEditService):
         project_id: str,
         entry_id: str,
         payload: ModelEditCreate,
-    ) -> SelectionEditRead:
+    ) -> ModelEditRead:
         entry, before = self._selection_target(
             project_id,
             entry_id,
@@ -61,7 +63,21 @@ class ModelEditService(SelectionEditService):
             )
         except InvalidModelEdit as error:
             raise InvalidProjectOperationError(str(error)) from error
+        if (
+            isinstance(payload.action, (ModelHydrogenComplete, ModelHydrogenAdd))
+            and not result.edit.created_atom_ids
+        ):
+            return ModelEditRead(
+                project=ProjectService(self.session).get_project(project_id),
+                warnings=list(result.edit.warnings),
+                report=LigandEditReport(operation=payload.action.operation),
+                selection_after=payload.selection,
+                applied=False,
+                hydrogen_report=result.hydrogen_report,
+            )
         description = {
+            "hydrogens.complete": "Complete hydrogens",
+            "hydrogens.add": "Add explicit hydrogens",
             "atom.element": "Change atom element",
             "atom.charge.set": "Set formal charge",
             "atom.delete": "Delete selected atoms",
@@ -70,7 +86,7 @@ class ModelEditService(SelectionEditService):
             "bond.delete": "Break selected bond",
             "fragment.attach": "Attach fragment",
         }[payload.action.operation]
-        return self._publish_molecular_result(
+        published = self._publish_molecular_result(
             entry,
             before,
             payload.expected_revision,
@@ -88,11 +104,15 @@ class ModelEditService(SelectionEditService):
             else None,
             command_prefix="model",
         )
+        return ModelEditRead(**published.model_dump(), hydrogen_report=result.hydrogen_report)
 
     def preview(self, project_id: str, entry_id: str, payload: ModelEditCreate) -> ModelPreviewRead:
-        if not isinstance(payload.action, (ModelAtomAdd, ModelFragmentAdd)):
+        if not isinstance(
+            payload.action,
+            (ModelAtomAdd, ModelFragmentAdd, ModelHydrogenComplete, ModelHydrogenAdd),
+        ):
             raise InvalidProjectOperationError(
-                "Placement preview requires Add atom or fragment attachment."
+                "Preview requires atom, fragment or hydrogen placement."
             )
         entry, before = self._selection_target(
             project_id,
@@ -103,19 +123,16 @@ class ModelEditService(SelectionEditService):
         )
         atom_floor, bond_floor = ProjectService(self.session).allocation_floor(entry)
         try:
-            result = (
-                DirectMolecularEditor()
-                .edit(
-                    before,
-                    [ref.atom_id for ref in payload.selection.atoms],
-                    payload.action,
-                    next_atom_id=atom_floor,
-                    next_bond_id=bond_floor,
-                    hydrogen_policy=payload.hydrogen_policy,
-                    atom_limit=self.atom_limit,
-                )
-                .edit
+            outcome = DirectMolecularEditor().edit(
+                before,
+                [ref.atom_id for ref in payload.selection.atoms],
+                payload.action,
+                next_atom_id=atom_floor,
+                next_bond_id=bond_floor,
+                hydrogen_policy=payload.hydrogen_policy,
+                atom_limit=self.atom_limit,
             )
+            result = outcome.edit
         except InvalidModelEdit as error:
             raise InvalidProjectOperationError(str(error)) from error
         created = set(result.created_atom_ids)
@@ -142,6 +159,7 @@ class ModelEditService(SelectionEditService):
                 for b in result.structure.bonds
                 if created & {b.atom_1_id, b.atom_2_id}
             ],
+            hydrogen_report=outcome.hydrogen_report,
             removed_atom_ids=list(result.deleted_atom_ids),
             warnings=list(result.warnings),
         )

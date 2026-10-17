@@ -1,4 +1,4 @@
-import type { HydrogenPolicy, ModelPlacementAction, ModelPreview, Selection } from "../api/types";
+import type { HydrogenGeometry, HydrogenPolicy, ModelPlacementAction, ModelPreview, Selection } from "../api/types";
 import { create } from "zustand";
 
 export interface PlacementDraft {
@@ -9,6 +9,8 @@ export interface PlacementDraft {
 }
 
 interface EditingState {
+  hydrogenDraft: { count: string; geometry: HydrogenGeometry; scope: "selection" | "entry" };
+  setHydrogenDraft: (patch: Partial<EditingState["hydrogenDraft"]>) => void;
   launcherFocusRequested: boolean;
   setLauncherFocusRequested: (requested: boolean) => void;
   inspectingPlacement: boolean;
@@ -37,6 +39,8 @@ interface EditingState {
 }
 
 export const useEditingStore = create<EditingState>((set) => ({
+  hydrogenDraft: { count: "1", geometry: "tetrahedral", scope: "selection" },
+  setHydrogenDraft: patch => set(state => ({ hydrogenDraft: { ...state.hydrogenDraft, ...patch }, placement: null })),
   launcherFocusRequested: false, setLauncherFocusRequested: launcherFocusRequested => set({ launcherFocusRequested }),
   inspectingPlacement: false, setInspectingPlacement: inspectingPlacement => set({ inspectingPlacement }),
   atomDraft: { element: "C", charge: "0", unknown: false },
@@ -48,7 +52,7 @@ export const useEditingStore = create<EditingState>((set) => ({
   projectId: null, generation: 0, open: false, pending: false, section: "atoms", focusRequested: false,
   setFocusRequested: focusRequested => set({ focusRequested }),
   setSection: section => set({ section, placement: null }),
-  setProject: projectId => set(state => state.projectId === projectId ? state : { projectId, generation: state.generation + 1, open: false, pending: false, section: "atoms", focusRequested: false, launcherFocusRequested: false, targetEntryId: null, hydrogenPolicy: "preserve", placement: null, inspectingPlacement: false, focusNewMolecule: null, atomDraft: { element: "C", charge: "0", unknown: false } }),
+  setProject: projectId => set(state => state.projectId === projectId ? state : { projectId, generation: state.generation + 1, open: false, pending: false, section: "atoms", focusRequested: false, launcherFocusRequested: false, targetEntryId: null, hydrogenPolicy: "preserve", placement: null, inspectingPlacement: false, focusNewMolecule: null, hydrogenDraft: { count: "1", geometry: "tetrahedral", scope: "selection" }, atomDraft: { element: "C", charge: "0", unknown: false } }),
   setOpen: open => set(state => ({ open, placement: open ? state.placement : null })),
   setPending: pending => set({ pending }),
 }));

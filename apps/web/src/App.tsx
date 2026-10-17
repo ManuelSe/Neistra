@@ -1,3 +1,4 @@
+import { placementContext } from "./editing/placement";
 import { manualModelEdit } from "./editing/manual";
 import { NewMoleculeDialog, type NewMoleculeInput } from "./components/NewMoleculeDialog";
 import type { HydrogenPolicy } from "./api/types";
@@ -673,6 +674,20 @@ export default function App() {
         throw error;
       }
     },
+    onHydrogenBuild: (entryId: string, scope: "selection" | "entry", atomIds: number[]) => {
+      if (!project || busy || coordinatePreview || movement.state.phase !== "idle") return;
+      const entry = project.entries.find(e => e.id === entryId);
+      const editing = useEditingStore.getState();
+      if (!entry || entry.locked || !entry.current_artifact_id || editing.pending) return;
+      const operand = canonicalSelection(atomIds.map(atom_id => ({ structure_id: entryId, atom_id })), "atom", "inspector");
+      replaceSelection(operand);
+      editing.setTargetEntryId(entryId);
+      editing.setSection("atoms");
+      editing.setHydrogenDraft({ scope });
+      editing.setOpen(true);
+      editing.setPlacement({ context: placementContext(project, entryId, operand, editing.generation, editing.hydrogenPolicy), action: { operation: "hydrogens.complete", scope } });
+      editing.setInspectingPlacement(true);
+    },
     onLigandEdit: async (entryId: string, edit: LigandEdit) => {
       if (!project) throw new Error("No project is open.");
       if (!["hydrogen.add", "hydrogen.remove", "bond.rotate", "coordinates.cleanup"].includes(edit.operation)) {
@@ -828,15 +843,15 @@ export default function App() {
       const targetEntryId = useEditingStore.getState().targetEntryId;
       try {
         const result = await projectApi.selectionEdit(project, entryId, artifactId, operand, action, hydrogenPolicy);
-        updateProjectCache(result.project);
+        if (result.applied !== false) updateProjectCache(result.project);
         if (useWorkspaceStore.getState().activeProjectId === owner && useEditingStore.getState().generation === generation) {
           const latest = queryClient.getQueryData<Project>(["project", owner]);
-          if (latest?.revision === result.project.revision && useSelectionStore.getState().selection === captured && useEditingStore.getState().targetEntryId === targetEntryId) {
+          if (result.applied !== false && latest?.revision === result.project.revision && useSelectionStore.getState().selection === captured && useEditingStore.getState().targetEntryId === targetEntryId) {
             replaceSelection(result.selection_after);
             if (!result.selection_after.atoms.length) useEditingStore.getState().setTargetEntryId(entryId);
           }
-          setEditedThisSession(true);
-          setNotice({ kind: "success", text: [`Molecular edit stored. ${result.warnings.length} scientific warnings; see entry Details.`, ...surfacePruningWarnings(project, result.project)].join(" "), lifetime: "persistent" });
+          if (result.applied !== false) setEditedThisSession(true);
+          setNotice({ kind: "success", text: result.applied === false ? "Hydrogen request made no changes; inspect the completion report." : [`Molecular edit stored. ${result.warnings.length} scientific warnings; see entry Details.`, ...surfacePruningWarnings(project, result.project)].join(" "), lifetime: "persistent" });
         }
         return result;
       } catch (error) {

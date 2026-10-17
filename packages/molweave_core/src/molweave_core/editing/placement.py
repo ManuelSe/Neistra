@@ -7,10 +7,12 @@ from math import isfinite
 from typing import Any
 
 import numpy as np
-from rdkit import Chem
 from scipy.spatial import cKDTree  # type: ignore[import-untyped]
 
 from molweave_core.editing.fragments import FRAGMENT_SEED, FragmentName, fragment_template
+from molweave_core.editing.geometry import covalent_length as _length
+from molweave_core.editing.geometry import covalent_radius as _radius
+from molweave_core.editing.geometry import local_frame as _frame
 from molweave_core.molecular import (
     Atom,
     Bond,
@@ -26,13 +28,6 @@ class Placement:
     replacements: dict[int, int]
     touched: set[int]
     warnings: tuple[MolecularWarning, ...] = ()
-
-
-def _frame(axis: Any) -> Any:
-    reference = np.eye(3)[int(np.argmin(np.abs(axis)))]
-    second = np.cross(axis, reference)
-    second /= np.linalg.norm(second)
-    return np.column_stack((axis, second, np.cross(axis, second)))
 
 
 def _unit(vector: Any) -> Any:
@@ -61,21 +56,6 @@ def _direction(
     # Six explicit local candidates; no whole-parent coordinate generation.
     candidates = [preferred, -preferred, frame[:, 1], -frame[:, 1], frame[:, 2], -frame[:, 2]]
     return candidates[index]
-
-
-_ELEMENTS = frozenset(Chem.GetPeriodicTable().GetElementSymbol(i) for i in range(1, 119))
-
-
-def _radius(element: str) -> float | None:
-    if element not in _ELEMENTS:
-        return None
-    table = Chem.GetPeriodicTable()
-    return float(table.GetRcovalent(table.GetAtomicNumber(element)))
-
-
-def _length(first: str, second: str) -> float:
-    left, right = _radius(first), _radius(second)
-    return 1.5 if left is None or right is None else left + right
 
 
 def _radius_warning(element: str, operation: str) -> tuple[MolecularWarning, ...]:

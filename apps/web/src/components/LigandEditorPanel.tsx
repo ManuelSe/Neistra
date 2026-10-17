@@ -27,6 +27,7 @@ interface LigandEditorPanelProps {
   selection: Selection;
   structures: StructureMap;
   busy: boolean;
+  onHydrogenBuild?: (entryId: string, scope: "selection" | "entry", atomIds: number[]) => void;
   onEdit: (entryId: string, edit: LigandEdit) => Promise<LigandEditResult>;
   onMove: (transform: CoordinateTransform) => Promise<void>;
 }
@@ -44,6 +45,7 @@ export function LigandEditorPanel({
   structures,
   busy,
   onEdit,
+  onHydrogenBuild,
   onMove,
 }: LigandEditorPanelProps) {
   const sharedPending = useEditingStore(state => state.projectId === project.id && state.pending);
@@ -339,10 +341,10 @@ export function LigandEditorPanel({
         <div className="edit-actions">
           <button
             type="button"
-            disabled={disabled || (scope === "selection" && selectedAtomIds.length === 0)}
-            onClick={() => void execute({ operation: "hydrogen.add", atom_ids: selectedScope })}
+            disabled={disabled || !onHydrogenBuild || (scope === "selection" && selectedAtomIds.length === 0)}
+            onClick={() => onHydrogenBuild?.(entryId, scope === "all" ? "entry" : "selection", selectedAtomIds)}
           >
-            <CirclePlus size={15} /> Add H
+            <CirclePlus size={15} /> Build H…
           </button>
           <button
             type="button"

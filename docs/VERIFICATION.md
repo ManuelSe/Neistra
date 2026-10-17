@@ -683,3 +683,24 @@ the final clean release gate and local full-diff review. Annotated tag and
 were remotely verified at released commit `fb92de6`. No independent review is
 claimed because the requested Codex integration did not acknowledge or return
 a review and the repository had no configured checks or required reviews.
+
+## Geometry-aware hydrogen building (issue #77)
+
+[Approved contract](plans/issue-77-geometry-aware-hydrogens.md) and
+[molecular intent](MOLECULAR_MODEL.md) govern verification. Focused core/API files:
+`tests/unit/editing/test_hydrogen_completion.py`,
+`tests/scientific/test_hydrogen_completion.py`,
+`tests/scientific/test_hydrogen_qualification.py` and
+`tests/integration/test_hydrogen_completion.py`. These cover the mixed-H false-centre
+regression, real tetrahedral/E/Z geometry, conflicting tags, mirrored/degenerate/
+translated conformers, unknowns/partial/no-op outcomes, explicit counts/geometry,
+sparse IDs/alternates, immutable originals, allocation floors, budgets and preview
+purity. Legacy helper negative tests remain unchanged.
+
+Frontend panel/store tests and native `hydrogen-completion.spec.ts` cover the shared
+preview/control protocol; existing direct/molecular/ligand/protein suites retain
+camera, selection, asynchronous ownership/refetch, native picks and accessibility
+assertions. Actual browser zoom remains `rebranding-zoom.spec.ts`. The separate
+actual tagged0.17 reader harness is documented in DEVELOPMENT; producer-version
+strings alone are not old-reader qualification. Historical/preliminary checkpoint
+runs do not replace clean final-version candidate and exact merged-master gates.

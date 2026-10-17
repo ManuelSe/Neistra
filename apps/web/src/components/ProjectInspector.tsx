@@ -81,6 +81,7 @@ interface ProjectInspectorProps {
   onSuperpose?: (
     payload: SuperpositionRequest,
   ) => Promise<SuperpositionResult["report"] | null>;
+  onHydrogenBuild?: (entryId: string, scope: "selection" | "entry", atomIds: number[]) => void;
   onLigandEdit?: (
     entryId: string,
     edit: LigandEdit,
@@ -744,6 +745,7 @@ export function ProjectInspector(props: ProjectInspectorProps) {
             selection={selection}
             structures={structures}
             busy={props.busy}
+            onHydrogenBuild={props.onHydrogenBuild}
             onEdit={
               props.onLigandEdit ??
               (() => Promise.reject(new Error("Ligand editing is unavailable.")))

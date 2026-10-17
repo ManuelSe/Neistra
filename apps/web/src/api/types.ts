@@ -1,11 +1,24 @@
 export type StructureType = "protein" | "ligand" | "complex" | "solvent" | "unknown";
 
 export type HydrogenPolicy = "preserve" | "complete_if_possible";
+export type HydrogenGeometry = "linear" | "trigonal_planar" | "tetrahedral";
+export type HydrogenAction =
+  | { operation: "hydrogens.complete"; scope: "selection" | "entry" }
+  | { operation: "hydrogens.add"; count: number; geometry: HydrogenGeometry; orientation: number };
+export interface HydrogenReport {
+  status: "complete" | "partial" | "unchanged" | "unresolved";
+  target_count: number; completed_count: number; unchanged_count: number;
+  skipped_count: number; unprocessed_count: number; added_hydrogen_count: number;
+  diagnostics: { atom_id: number; reason: string; message: string; conformer_ids: number[] }[];
+  reason_counts: Record<string, number>; diagnostics_truncated: boolean;
+}
 export type ModelPlacementAction =
+  | HydrogenAction
   | { operation: "atom.add"; element: string; charge: number | null; direction: number; coordinates?: [number, number, number] }
   | { operation: "fragment.attach"; fragment: FragmentName; direction: number; rotation: number };
 
 export interface ModelPreview {
+  hydrogen_report?: HydrogenReport | null;
   entry_id: string;
   expected_revision: number;
   expected_artifact_id: string;
@@ -38,6 +51,8 @@ export type SelectionEditAction =
 export type FragmentName = "methyl" | "ethyl" | "hydroxyl" | "amino" | "carboxylic_acid" | "phenyl";
 
 export interface SelectionEditResult extends Omit<LigandEditResult, "report"> {
+  applied?: boolean;
+  hydrogen_report?: HydrogenReport | null;
   selection_after: Selection;
   report: Omit<LigandEditResult["report"], "operation"> & { operation: SelectionEditAction["operation"] };
   replacements: Record<string, number>;

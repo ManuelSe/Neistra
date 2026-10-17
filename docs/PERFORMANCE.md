@@ -410,3 +410,28 @@ repeat the existing surface/capacity/navigation/interaction budgets unchanged.
 [source-bound commands](assets/direct-modeling/c4-verification.json) retain exact
 observations and host limits. Final broad gate99passes/13intentional skips;
 no timing budget was changed. Final-version complete gates remain C5.
+
+## Hydrogen building bounds (issue #77)
+
+Synchronous H building admits at most4096 target sites,4096 new H and16384 generated
+H coordinate rows across conformers. Complete chemical perception contexts are
+limited to1024 atoms and16384 analyzed atoms across count/stereo stages. Temporary
+analysis H share the coordinate budget; stereo can remain unresolved with a warning
+while supported literal additions are retained. Details cap at200, with full reason
+counts and explicit truncation. Whole-site skipping is deterministic by canonical ID.
+
+Request-scoped canonical adjacency, coordinate-array caching and one retained
+batch contact index per conformer avoid repeated whole-entry conversions/scans. No
+quadratic distance matrix, whole-protein conversion or persistent model cache is
+introduced. `test_hydrogen_qualification.py` qualifies real4097-site truncation,
+900-site/five-conformer coordinate admission, context limits, combined stage budgets,
+index/array reuse, numerical precision and exact retained coordinates. Existing
+viewer/surface/interaction/movement capacity budgets remain unchanged and must
+pass the complete release gate. These are supported bounds, not universal latency
+or hardware-performance claims.
+
+Generation admission charges failed sites too, including a reserved complete set
+of conformer rows. Repeated stereo assessments count atom visits per conformer.
+Oversized component closure and incident pi-bond summaries avoid repeated graph
+walks around shared/high-degree context. Adversarial tests prove these work bounds;
+budget refusal does not allocate IDs or discard an already successful direct edit.

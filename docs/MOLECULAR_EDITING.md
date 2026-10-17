@@ -36,10 +36,27 @@ An unvalidated draft is not a protonation, preparation or optimized-geometry cla
 Source labels/properties can describe the original rather than modified chemistry.
 Viewer projection displays drafts independently of chemical-format export.
 
-**Prepare component hydrogens** is a separate chemistry helper. Its existing
-single-conformer, prepared closed small-molecule component restrictions may disable
-that button while direct edits remain available. It uses valence inference, not
-pH/tautomer/protonation determination, and may reject unsuitable geometry/stereo.
+**Hydrogen tools** separates additive completion from preparation. Choose
+**Selection** or explicitly choose **Whole entry**, then **Preview completion**.
+A terminal selected H identifies its heavy parent. Without selected atoms, choose
+**Target entry** explicitly; there is no first-entry fallback. Supported sites can
+complete while uncertain sites skip, with counts and expandable atom/conformer
+diagnostics. The previous preparation HTTP helper remains available to existing
+clients under its original restrictions; ordinary H building does not use it.
+
+For deliberate incomplete-chemistry building, select one heavy atom, choose
+**Hydrogens to add** (1–4), a visible **Hydrogen geometry** (default tetrahedral),
+and **Preview added H**. This adds that many H without removing existing H or
+assigning missing parent charges/bond orders. **Next orientation** cycles six
+deterministic alternatives. Too few free ideal coordination positions produces a
+no-change diagnostic; Add atom H remains available for arbitrary draft building.
+Count/geometry are choices for one operation, not persistent constraints.
+
+All standalone H building previews before **Apply placement**. Inspect the ghosts,
+report and warnings through **Placement tools**; zero-addition proposals cannot be
+applied from the UI. API no-op requests do not create history, advance counters,
+mark dirty or clear Redo. The general inspector **Build H…** opens this same preview.
+
 **Show explicit H** changes viewer settings only; atomic representations, isolation,
 component visibility, local H preferences and atom hiding still control visibility.
 
@@ -53,7 +70,7 @@ a late UI takeover; a result already stored remains in its original project.
 
 In **Atoms → Add atom**, choose the added element and absolute charge (or unknown),
 then **Preview atom**. This attaches to one selected atom, preserving existing H.
-For an empty entry, choose **Empty target entry** explicitly and preview its first
+For an empty entry, choose **Target entry** explicitly and preview its first
 atom at the origin. Deleting the last atom leaves that entry available for rebuilding;
 there is no fallback to another loaded entry. The advanced inspector can also add
 an explicitly positioned disconnected atom; its target must be chosen explicitly.
@@ -85,15 +102,20 @@ Each conformer gets new coordinates without moving retained points. Overlap and
 unoptimized geometry warn rather than block the requested draft. This is not
 proof of favorable geometry, protonation or force-field readiness.
 
-**Complete hydrogens when possible** is off by default. It attempts the existing
-eligible small-component helper after the direct operation. Only new H/bonds are
-merged; retained records/coordinates remain exact. Unavailable chemistry,
-geometry or resource limits save the direct edit alone with a skip warning. It
-never reverses explicit H deletion. Standalone preparation, minimization and
-residue mutation keep separate prerequisites. New XYZ imports preserve absent
-formal charges as unknown and report that fact; historical saved records are not
-reinterpreted. Broad catalogue, ring fusion, peptide growth and combining separate
-entries remain outside #74.
+**Complete hydrogens when possible** is off by default. It attempts local
+additive completion on changed/new heavy atoms and immediate canonical neighbors.
+It does not require prepared components, known remote chemistry, a particular file
+format or a closed ligand boundary. Existing H/coordinates stay fixed. Independent
+supported sites can succeed; unsupported chemistry, ambiguous new configurations,
+degenerate geometry and resource limits produce reports and warnings without
+losing the direct edit. Explicit H deletion is never reversed automatically.
+
+Completion uses the bounded initial profile and geometry-first current stereo
+policy described in [Molecular model](MOLECULAR_MODEL.md). All conformers of a site
+must succeed; each receives its own placement. Original stereo/source facts remain
+unchanged. New XYZ imports preserve unknown charges; history is not reinterpreted.
+Preparation, protonation, minimization, broad catalogues/rings and peptide growth
+remain separate workflows or follow-up work.
 
 Each edit publishes one immutable artifact/history command. Undo/Redo restores
 exact molecular state; monotonic IDs are not reused after branching. Warnings

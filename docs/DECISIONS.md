@@ -3987,3 +3987,100 @@ Undo/Redo and archive re-export. Its older authoring does not implement the new
 floor propagation for future writes; use the current version for continued editing.
 This supplements the existing expected old-renderer/helper limitations, not a claim
 of unrestricted runtime rollback or retroactive repair of already-reused IDs.
+
+## D-105 — Operation-specific additive hydrogen proposals
+
+Date: 2026-10-17. Status: accepted, issue #77.
+
+Replace the optional direct-edit completion dependency on prepared-component
+eligibility with a focused typed domain service. It proposes additive H per site,
+using request-scoped canonical adjacency and bounded chemical contexts. Navigation
+categories, original format and covalent component boundaries cannot gate building.
+Unknown incident chemistry remains unknown and produces a precise skip. Independent
+sites can succeed; all conformers of one site succeed together. Publication retains
+existing immutable artifacts, generic single-command history and allocation floors.
+No new database/normalized schema or chemistry-plugin framework is necessary.
+
+Budgets and truncated diagnostic counts are explicit. Existing H and coordinates
+are never removed/repositioned by completion; optional failures retain direct edits.
+The legacy preparation helper and its HTTP eligibility remain unchanged. This
+supersedes D-103's optional helper-consumption implementation within this scope.
+
+## D-106 — Authored geometry, chemical interpretation and stereo intent
+
+Date: 2026-10-17. Status: accepted, issue #77.
+
+The normalized draft and its immutable source facts serve different purposes.
+Missing information is not a prepared chemical state. Building, completion,
+preparation, analysis and export have separate prerequisites and claims, documented
+in MOLECULAR_MODEL.md. Current stereo for H building follows retained geometry after
+consistent H representation in a bounded temporary analysis. Reconcile affected
+current annotations, warn on changes, preserve source facts and disconnected labels.
+Conformer disagreement clears a universal current assignment; absent tags alone do
+not block building. New configurations unsupported by retained geometry need an
+explicit preview choice. Add N/geometry choices describe this operation, not future
+persistent constraints or a preparation certificate.
+
+### D-105/106 interface qualification — issue #77 C2, 2026-10-17
+
+Explicit H actions use the additive model route with policy preserve, share the
+read-only placement protocol and recompute on Apply. Zero-addition responses are
+applied=false and cannot publish a warning-only artifact, advance revision or clear
+Redo. Reports are transient; successful additions retain choices/geometry and
+scientific assumptions in ordinary inference records and durable warning summaries.
+General inspector H building opens this same preview rather than invoking a second
+chemistry implementation. Operation choices reset with the project session; source
+facts, old helper endpoints and protein preparation semantics are unchanged.
+
+### D-105/106 qualification hardening — issue #77 C3, 2026-10-17
+
+Synthetic regressions reject contradictory aromatic flags/orders rather than
+normalizing them in a temporary context, and diagnose coordinates whose numerical
+precision cannot represent a new H bond. Request-scoped coordinate arrays are
+cached once per conformer alongside spatial indexes; initial repeated array
+conversion was eliminated before release. Shared public frame/radius helpers serve
+both atom/fragment placement and H building without changing their semantics.
+
+Count and stereo stages share the analyzed-atom budget. Temporary consistent-H
+stereo assessment processes one conformer at a time and shares the generated-H
+coordinate-row budget with actual additions. Resource/chemistry-limited assessment
+cannot discard supported H additions; it warns and clears dependent current labels
+where necessary. Coordinates/source facts remain exact, and no preparation or
+universal conformer agreement is claimed. This qualifies the existing bounded
+proposal contract without adding a schema, persistent constraint or new engine.
+
+### D-105/106 adversarial qualification — issue #77 C3, 2026-10-17
+
+Failed site admissions still consume their complete generation-work allowance;
+late conformer failure cannot repeatedly reuse the same budget. Stereo assessment
+charges repeated conformer atom visits as well as temporary H coordinate rows.
+Canonical oversized component closure is cached even when chemical perception is
+refused, and conjugation checks use precomputed incident pi-bond counts rather than
+repeated scans of a shared high-degree neighbor.
+
+Actual planar-neighbor and collinear-alkene probes exposed false current stereo
+from temporary analysis H. Require retained geometric evidence for current atom/
+bond orientation, clear unresolved labels with a specific warning, and skip
+undetermined automatic trigonal placement. Explicit draft placement remains usable
+without a stereo certificate. Conformer disagreement also receives an explicit
+warning even when the incoming current tag was already absent. Original source
+facts and retained coordinates remain exact. These regressions qualify the approved
+geometry-first policy, rather than relaxing preparation or inventing configuration.
+
+### D-105 UI qualification — issue #77 C3, 2026-10-17
+
+Only zero-addition standalone H proposals disable Apply. A zero-H report from
+optional completion cannot disable a valid ordinary atom/fragment proposal; its
+base edit remains independently applicable. A component regression and actual
+unknown-chemistry P attachment with optional completion enabled cover this boundary.
+New previews clear prior result feedback, avoiding duplicate obsolete reports.
+
+### D-105 batch contact qualification — issue #77 C4, 2026-10-17
+
+A retained-only index missed overlaps between H generated at separate sites in one
+operation. Build one combined retained/proposed contact index per conformer after
+site admission, query excluding each proposal itself, and attribute warning counts
+back to canonical parents/conformers. This preserves the one-index/no-pair-matrix
+bound and every coordinate while covering new/new contacts as well. Contacts warn;
+they do not reject the scientist's draft. A two-site overlaid synthetic regression
+and the existing real4097-site index/array budget test qualify the correction.
