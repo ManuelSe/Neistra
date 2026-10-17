@@ -2,29 +2,31 @@
 
 ## Current milestone
 
-Issue #77 C0–C4 complete under the [approved plan](plans/issue-77-geometry-aware-hydrogens.md).
+Issue #77 C0–C5 complete under the [approved plan](plans/issue-77-geometry-aware-hydrogens.md),
+merged in [PR #78](https://github.com/ManuelSe/Neistra/pull/78) and
+[correction #79](https://github.com/ManuelSe/Neistra/pull/79), published as stable
+[v0.18.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.18.0).
 Geometry-aware additive H completion, explicit count/geometry controls, partial/
-no-op reports and documented model intent are implemented. D-105/106 govern intent.
-The [clean final candidate](assets/hydrogen-modeling/c5-candidate-gate.json) at
-a0aaef1 passes all16 release commands:756 Python,252 frontend,8 supervisor,
-239 browser tests /47 intentional skips; zero failures/flakes/retries. All15
-native performance profiles, frozen installs/fresh0014/static/build/diff and actual
-0.17 reader with final0.18 producer pass. Source/log hashes and clean trees retained.
+no-op diagnostics and documented model intent are implemented. D-105/106 govern intent.
+Both [clean candidate](assets/hydrogen-modeling/c5-candidate-gate.json)a0aaef1 and
+[exact released master](assets/hydrogen-modeling/c5-merged-gate.json)
+`6cb9faf3959a7409620f42bc2fdef396d838568b` pass all16 release commands:
+756 Python,252 frontend,8 supervisor,239 browser /47 intentional layout skips,
+zero failures/flakes/retries. All15 native performance profiles, frozen installs,
+fresh0014/static/build/diff and actual0.17 reader with final0.18 producer pass.
+Clean trees and source/log hashes retained; earlier diagnostics are separate.
 [Local full-diff self-review](assets/hydrogen-modeling/c5-local-review.md) has no
-unresolved consequential finding; it is not independent review. Earlier diagnostics
-are separate. Five versions0.18.0 minor; no migration/schema/dependency change.
-Known limits: bounded profile, unoptimized geometry, explicit uncertainty; no full
-protonation/preparation/optimization or persistent constraints. No blocker.
-PR78 merged normally. Initial exact-master gate blocked publication on one mobile
-API-failure accessibility finding (238pass/47skip/1fail). Stable named viewer-region
-correction and regressions pass252frontend/4native/lint/types/build/diff on the
-feature branch. No molecular/schema/version change. Earlier passing candidate
-predates this correction; failed merged evidence remains diagnostic.
-Fresh corrected candidatea0aaef1 passes the complete16-command gate with the
-same756Python/252frontend/8supervisor/239native+47skip counts, zero failures/flakes/
-retries and15passing profiles. The previously failing mobile dark API case passes.
-Next:reviewed correction PR/normal merge, fresh exact-master gate, verified
-tag/release/issue reply and delayed cleanup. No publication claimed.
+unresolved consequential finding; no independent integration review returned.
+No required protection/review/check bypass. Five versions0.18.0 minor; no new
+migration/schema/dependency. Annotated exact tag, stable release/notes and downloaded
+ZIP SHA256/CRC/internal checksums are [verified](assets/hydrogen-modeling/c5-publication.json).
+[Issue closeout reply](https://github.com/ManuelSe/Neistra/issues/77#issuecomment-6235945892) verified; issue closed.
+Final documentation integration, delayed branch cleanup and clean-master audit are
+recorded in that same reply after completion; the runtime tag remains fixed.
+Known limits: bounded automatic profile, ideal unoptimized geometry, explicit
+uncertainty; no full protonation/preparation/optimization or persistent constraints.
+Follow-up scope remains #12/#11/#71. No blocker or remaining approved-scope
+implementation. Next product action: approve a separate backlog plan.
 
 ### Previous delivery baseline — v0.17.0
 

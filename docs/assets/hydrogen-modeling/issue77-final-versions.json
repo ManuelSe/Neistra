@@ -1,0 +1,7 @@
+{
+  "pyproject.toml": "0.18.0",
+  "uv.lock": "0.18.0",
+  "apps/web/package.json": "0.18.0",
+  "apps/api/src/molweave_api/main.py": "0.18.0",
+  "apps/api/src/molweave_api/archive_service.py": "0.18.0"
+}

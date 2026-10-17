@@ -1,0 +1,26 @@
+{
+  "verified_utc": "2026-10-17T14:55:18.091435+00:00",
+  "pr": "https://github.com/ManuelSe/Neistra/pull/79",
+  "head": "cb8248ccebec235928cc663699511e1fce157b0e",
+  "base": "7f30cbcf06ba513812abea1c0532d02ad4612d92",
+  "reviews": [],
+  "threads": {
+    "nodes": [],
+    "pageInfo": {
+      "hasNextPage": false
+    }
+  },
+  "comments": [
+    {
+      "id": 6235358206,
+      "url": "https://github.com/ManuelSe/Neistra/pull/79#issuecomment-6235358206",
+      "body": "@codex review"
+    }
+  ],
+  "master_protected": false,
+  "rulesets": [],
+  "mergeable": true,
+  "mergeable_state": "clean",
+  "required_review_bypassed": false,
+  "local_review": "implementing-assistant full-diff self-review; no unresolved consequential finding"
+}
