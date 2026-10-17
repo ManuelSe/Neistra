@@ -6,6 +6,7 @@ from typing import Annotated, Any, Literal
 from uuid import UUID
 
 from molweave_core.components import ComponentHierarchyV1
+from molweave_core.editing.hydrogen import HydrogenReport
 from molweave_core.editing.model import HydrogenPolicy, ModelAction, ModelElement
 from molweave_core.editing.selection import SelectionAction
 from molweave_core.molecular import MolecularWarning, NormalizedStructureV1
@@ -1092,6 +1093,11 @@ class SelectionEditCreate(BaseModel):
 class SelectionEditRead(LigandEditRead):
     replacements: dict[int, int] = Field(default_factory=dict)
     selection_after: SelectionV1
+
+
+class ModelEditRead(SelectionEditRead):
+    applied: bool = True
+    hydrogen_report: HydrogenReport | None = None
 
 
 class ModelEditCreate(BaseModel):

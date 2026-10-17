@@ -1,0 +1,43 @@
+{
+  "checkpoint": "C1",
+  "base_commit": "83897e74d71552c12f03fc621a9a2d65c3cbe809",
+  "working_diff": "committed with this evidence",
+  "validation": {
+    "ruff": "all checks passed",
+    "mypy": "69 files passed",
+    "python": "711 passed, 398 dependency warnings, 149.31s",
+    "frontend": "52 files / 248 tests passed; lint, types, production build passed",
+    "native": "14 passed, zero skips/failures/retries, 1.9m",
+    "diff": "passed"
+  },
+  "commands": [
+    ".venv/bin/uv run ruff check .",
+    ".venv/bin/uv run mypy apps/api packages/molweave_core",
+    ".venv/bin/uv run pytest -q",
+    "corepack pnpm --dir apps/web lint",
+    "corepack pnpm --dir apps/web typecheck",
+    "corepack pnpm --dir apps/web test",
+    "corepack pnpm --dir apps/web build",
+    "PLAYWRIGHT_BROWSERS_PATH=.playwright MOLWEAVE_E2E_API_PORT=8270 MOLWEAVE_E2E_WORKER_PORT=8271 MOLWEAVE_E2E_WEB_PORT=5470 MOLWEAVE_E2E_DATA_DIR=/tmp/neistra-issue77-c1-native corepack pnpm exec playwright test tests/e2e/direct-molecular-modeling.spec.ts tests/e2e/hydrogen-membership.spec.ts --reporter=list",
+    "git diff --check"
+  ],
+  "logs": {
+    "pytest": {
+      "path": "/tmp/issue77-c1-pytest.log",
+      "sha256": "34afc01802df8d8e7721baf32badd7ed7a442431f6b4890915b0d04bc35531ab"
+    },
+    "web": {
+      "path": "/tmp/issue77-c1-web.log",
+      "sha256": "d37286f0a471682116a4f441d49c83115d965b3ca99b2d21277ee065046dce6a"
+    },
+    "native": {
+      "path": "/tmp/issue77-c1-native.log",
+      "sha256": "4cd37096d29dcb0790854e050cc465f8fb9b4c345484f3df0b814d1b00716a97"
+    }
+  },
+  "limitations": [
+    "C2 standalone controls pending",
+    "No protonation prediction or geometry optimization",
+    "Initial focused test failures were corrected before the passing checkpoint gate; those diagnostics are not release evidence."
+  ]
+}

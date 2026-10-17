@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from dataclasses import dataclass
 from math import dist
 from typing import Annotated, Literal
 
@@ -19,13 +20,14 @@ from rdkit import Chem
 from scipy.spatial import cKDTree  # type: ignore[import-untyped]
 
 from molweave_core.editing.fragments import FragmentName
+from molweave_core.editing.hydrogen import (
+    HydrogenBuilder,
+    HydrogenReport,
+    apply_hydrogen_proposal,
+)
 from molweave_core.editing.ligand import EditResult
 from molweave_core.editing.placement import place_atom, place_fragment
-from molweave_core.editing.selection import (
-    HydrogenPrepare,
-    SelectionEditResult,
-    SelectionMolecularEditor,
-)
+from molweave_core.editing.selection import SelectionEditResult
 from molweave_core.molecular import Bond, MolecularWarning, NormalizedStructureV1
 
 MODELING_METADATA = "neistra_modeling"
@@ -149,6 +151,11 @@ def model_warning(
     )
 
 
+@dataclass(frozen=True)
+class ModelEditResult(SelectionEditResult):
+    hydrogen_report: HydrogenReport | None = None
+
+
 class DirectMolecularEditor:
     def edit(
         self,
@@ -160,7 +167,7 @@ class DirectMolecularEditor:
         next_bond_id: int,
         hydrogen_policy: HydrogenPolicy = "preserve",
         atom_limit: int = 1_000_000,
-    ) -> SelectionEditResult:
+    ) -> ModelEditResult:
         atoms = {a.id: a for a in before.atoms}
         chosen = set(selected)
         if (
@@ -391,6 +398,7 @@ class DirectMolecularEditor:
             excluded_bonds=sorted(exclusions),
         ).model_dump(mode="json")
         after = after.model_copy(update={"metadata": metadata})
+        hydrogen_report = None
         if hydrogen_policy == "complete_if_possible":
             if isinstance(action, ModelDelete) and any(atoms[i].element == "H" for i in chosen):
                 warnings.append(
@@ -402,95 +410,39 @@ class DirectMolecularEditor:
                     )
                 )
             else:
-                remaining = {a.id for a in after.atoms}
-                operands = sorted(touched & remaining)
                 try:
-                    completed = (
-                        SelectionMolecularEditor()
-                        .edit(
-                            after,
-                            operands,
-                            HydrogenPrepare(operation="hydrogens.prepare"),
-                            next_atom_id=max(
-                                next_atom_id, max((a.id for a in after.atoms), default=0) + 1
-                            ),
-                            next_bond_id=max(
-                                next_bond_id,
-                                max(
-                                    (b.id for b in after.bonds),
-                                    default=0,
-                                )
-                                + 1,
-                            ),
-                        )
-                        .edit
+                    builder = HydrogenBuilder(after)
+                    operands = touched & builder.atoms.keys()
+                    neighbors = {i for target in operands for i, _ in builder.adjacency[target]}
+                    targets = sorted(
+                        i for i in operands | neighbors if builder.atoms[i].element != "H"
                     )
-                    if len(completed.structure.atoms) > atom_limit:
-                        raise InvalidModelEdit(
-                            f"Hydrogen completion exceeds the entry limit of {atom_limit} atoms."
-                        )
-                    base_atoms = {a.id: a for a in after.atoms}
-                    candidate_atoms = {a.id: a for a in completed.structure.atoms}
-                    if not base_atoms.keys() <= candidate_atoms.keys():
-                        raise InvalidModelEdit("Hydrogen completion would remove retained atoms.")
-                    added = [a for a in completed.structure.atoms if a.id not in base_atoms]
-                    if any(a.element != "H" for a in added):
-                        raise InvalidModelEdit("Hydrogen completion produced a non-hydrogen atom.")
-                    added_ids = {a.id for a in added}
-                    old_bonds = {b.id for b in after.bonds}
-                    hydrogen_bonds = [b for b in completed.structure.bonds if b.id not in old_bonds]
-                    inherited = []
-                    valid_residues = {r.id for r in after.residues}
-                    for atom in added:
-                        incident = [
-                            b for b in hydrogen_bonds if atom.id in {b.atom_1_id, b.atom_2_id}
-                        ]
-                        if len(incident) != 1:
-                            raise InvalidModelEdit(
-                                "Hydrogen completion produced ambiguous connectivity."
-                            )
-                        bond = incident[0]
-                        parent_id = bond.atom_2_id if bond.atom_1_id == atom.id else bond.atom_1_id
-                        parent = base_atoms.get(parent_id)
-                        if parent is None or parent.element == "H" or bond.order != 1:
-                            raise InvalidModelEdit(
-                                "Hydrogen completion needs a retained heavy parent."
-                            )
-                        inherited.append(
-                            atom.model_copy(
-                                update={
-                                    "residue_id": parent.residue_id
-                                    if parent.residue_id in valid_residues
-                                    else None
-                                }
-                            )
-                        )
-                    if any(not added_ids & {b.atom_1_id, b.atom_2_id} for b in hydrogen_bonds):
-                        raise InvalidModelEdit("Hydrogen completion would add unrelated bonds.")
-                    # Consume only new H records. Retained atoms/bonds/stereo/coordinates
-                    # remain exactly the requested direct draft, not a helper normalization.
-                    after = after.model_copy(
-                        update={
-                            "atoms": [*after.atoms, *inherited],
-                            "bonds": [*after.bonds, *hydrogen_bonds],
-                            "conformers": [
-                                c.model_copy(
-                                    update={
-                                        "coordinates": [
-                                            *c.coordinates,
-                                            *[a.coordinates for a in inherited],
-                                        ]
-                                    }
-                                )
-                                for c in after.conformers
-                            ],
-                            "inferences": [
-                                *after.inferences,
-                                *completed.structure.inferences[len(after.inferences) :],
-                            ],
-                        }
+                    proposal = builder.propose(targets, atom_limit=atom_limit)
+                    hydrogen_report = proposal.report
+                    after, hydrogen_warnings = apply_hydrogen_proposal(
+                        after,
+                        proposal,
+                        next_atom_id=max(
+                            next_atom_id, max((a.id for a in after.atoms), default=0) + 1
+                        ),
+                        next_bond_id=max(
+                            next_bond_id, max((b.id for b in after.bonds), default=0) + 1
+                        ),
+                        operation=action.operation,
                     )
-                    warnings.extend(completed.warnings)
+                    warnings.extend(hydrogen_warnings)
+                    skipped = proposal.report.skipped_count + proposal.report.unprocessed_count
+                    if skipped:
+                        warnings.append(
+                            model_warning(
+                                "model_hydrogen_completion_skipped",
+                                f"Direct edit saved; hydrogen completion {proposal.report.status}: "
+                                f"{proposal.report.added_hydrogen_count} H added, "
+                                f"{skipped} sites skipped. "
+                                "Inspect the hydrogen report for reasons.",
+                                action.operation,
+                            )
+                        )
                 except (ValueError, RuntimeError, OverflowError) as error:
                     warnings.append(
                         model_warning(
@@ -534,7 +486,7 @@ class DirectMolecularEditor:
         new_atoms = {a.id: a for a in after.atoms}
         old_bonds = {b.id for b in before.bonds}
         new_bonds = {b.id for b in after.bonds}
-        return SelectionEditResult(
+        return ModelEditResult(
             EditResult(
                 structure=after,
                 warnings=tuple(warnings),
@@ -551,6 +503,7 @@ class DirectMolecularEditor:
                 ),
             ),
             replacements,
+            hydrogen_report,
         )
 
     @staticmethod

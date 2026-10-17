@@ -16,12 +16,12 @@ from molweave_api.project_service import InvalidProjectOperationError, ProjectSe
 from molweave_api.schemas import (
     LigandEditReport,
     ModelEditCreate,
+    ModelEditRead,
     ModelPreviewAtom,
     ModelPreviewBond,
     ModelPreviewRead,
     MoleculeCreate,
     MoleculeCreateRead,
-    SelectionEditRead,
 )
 from molweave_api.selection_edit_service import SelectionEditService
 from molweave_api.settings import Settings
@@ -40,7 +40,7 @@ class ModelEditService(SelectionEditService):
         project_id: str,
         entry_id: str,
         payload: ModelEditCreate,
-    ) -> SelectionEditRead:
+    ) -> ModelEditRead:
         entry, before = self._selection_target(
             project_id,
             entry_id,
@@ -70,7 +70,7 @@ class ModelEditService(SelectionEditService):
             "bond.delete": "Break selected bond",
             "fragment.attach": "Attach fragment",
         }[payload.action.operation]
-        return self._publish_molecular_result(
+        published = self._publish_molecular_result(
             entry,
             before,
             payload.expected_revision,
@@ -88,6 +88,7 @@ class ModelEditService(SelectionEditService):
             else None,
             command_prefix="model",
         )
+        return ModelEditRead(**published.model_dump(), hydrogen_report=result.hydrogen_report)
 
     def preview(self, project_id: str, entry_id: str, payload: ModelEditCreate) -> ModelPreviewRead:
         if not isinstance(payload.action, (ModelAtomAdd, ModelFragmentAdd)):

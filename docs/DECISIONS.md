@@ -3987,3 +3987,36 @@ Undo/Redo and archive re-export. Its older authoring does not implement the new
 floor propagation for future writes; use the current version for continued editing.
 This supplements the existing expected old-renderer/helper limitations, not a claim
 of unrestricted runtime rollback or retroactive repair of already-reused IDs.
+
+## D-105 — Operation-specific additive hydrogen proposals
+
+Date: 2026-10-17. Status: accepted, issue #77.
+
+Replace the optional direct-edit completion dependency on prepared-component
+eligibility with a focused typed domain service. It proposes additive H per site,
+using request-scoped canonical adjacency and bounded chemical contexts. Navigation
+categories, original format and covalent component boundaries cannot gate building.
+Unknown incident chemistry remains unknown and produces a precise skip. Independent
+sites can succeed; all conformers of one site succeed together. Publication retains
+existing immutable artifacts, generic single-command history and allocation floors.
+No new database/normalized schema or chemistry-plugin framework is necessary.
+
+Budgets and truncated diagnostic counts are explicit. Existing H and coordinates
+are never removed/repositioned by completion; optional failures retain direct edits.
+The legacy preparation helper and its HTTP eligibility remain unchanged. This
+supersedes D-103's optional helper-consumption implementation within this scope.
+
+## D-106 — Authored geometry, chemical interpretation and stereo intent
+
+Date: 2026-10-17. Status: accepted, issue #77.
+
+The normalized draft and its immutable source facts serve different purposes.
+Missing information is not a prepared chemical state. Building, completion,
+preparation, analysis and export have separate prerequisites and claims, documented
+in MOLECULAR_MODEL.md. Current stereo for H building follows retained geometry after
+consistent H representation in a bounded temporary analysis. Reconcile affected
+current annotations, warn on changes, preserve source facts and disconnected labels.
+Conformer disagreement clears a universal current assignment; absent tags alone do
+not block building. New configurations unsupported by retained geometry need an
+explicit preview choice. Add N/geometry choices describe this operation, not future
+persistent constraints or a preparation certificate.

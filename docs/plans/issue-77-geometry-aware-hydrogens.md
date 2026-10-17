@@ -299,3 +299,19 @@ remote artifacts before claiming completion.
   fast-forward current at88a2a9d; dedicated planned branch created. This document
   is the first branch change. No implementation started before approval.
 - C1–C5: pending; record exact evidence and limitations as each checkpoint completes.
+
+- 2026-10-17 C1 complete: typed additive proposal service, local canonical counts,
+  ideal proper-rotation placement, bounded complete aromatic/stereo contexts,
+  per-conformer site atomicity and geometry-first affected current annotations.
+  Optional direct completion targets touched heavy sites and neighbors; failures
+  retain direct edits and existing H. Additive model response exposes H report;
+  legacy helper untouched. D-105/106 and MOLECULAR_MODEL document intent.
+  [Passing evidence](../assets/hydrogen-modeling/c1-gate.json): Ruff, mypy69,
+  711 Python, web lint/types/248tests/build, native14/14, diff check.
+  Synthetic mixed-H false-centre, genuine tetrahedral/E/Z, partial unknowns,
+  conformer translation/failure, exact originals/one-command Undo/Redo pass.
+  Initial focused diagnostics (NONE/null normalization and a test using an invalid
+  no-op trigger) were corrected, then the full passing gate ran. Local diff
+  self-review checked identity/source/coordinate retention, bounded projections
+  and eliminated repeated full-entry bond scans per chemical context.
+  No migration, dependency or version change. C2–C5 remain pending.

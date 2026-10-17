@@ -114,6 +114,7 @@ from molweave_api.schemas import (
     MeasurementCreate,
     MeasurementUpdate,
     ModelEditCreate,
+    ModelEditRead,
     ModelPreviewRead,
     MoleculeCreate,
     MoleculeCreateRead,
@@ -1134,12 +1135,12 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     @router.post(
         "/projects/{project_id}/entries/{entry_id}/model-edits",
-        response_model=SelectionEditRead,
+        response_model=ModelEditRead,
     )
     async def edit_model(
         project_id: str, entry_id: str, payload: ModelEditCreate,
         session: Session = Depends(session_dependency),
-    ) -> SelectionEditRead:
+    ) -> ModelEditRead:
         return _call(lambda: ModelEditService(session, app_settings).model_edit(
             project_id, entry_id, payload,
         ))

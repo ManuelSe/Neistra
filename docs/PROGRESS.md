@@ -2,6 +2,17 @@
 
 ## Current milestone
 
+Issue #77 C1 complete; [approved contract](plans/issue-77-geometry-aware-hydrogens.md).
+Local additive H proposals replace prepared-component gates for optional direct
+completion. Geometry/stereo, independent sites and conformer retention are covered;
+D-105/106 and MOLECULAR_MODEL document intent. No migration/version change yet.
+[Checkpoint evidence](assets/hydrogen-modeling/c1-gate.json): 711 Python, 248 web,
+14 native passed; Ruff/mypy/lint/types/build/diff passed. Known limits: bounded
+initial chemistry profile, unoptimized placement; standalone controls pending.
+No blocker. Next: C2 standalone APIs, no-op reports, previews and controls.
+
+### Previous delivery baseline — v0.17.0
+
 Issue #74 delivered under the [approved contract](plans/issue-74-direct-molecular-modeling.md)
 through [PR #75](https://github.com/ManuelSe/Neistra/pull/75) and stable
 [v0.17.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.17.0).
