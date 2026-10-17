@@ -78,4 +78,4 @@ tests/integration/test_migrations.py: 398 warnings
     util.warn_deprecated(
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
-================ 756 passed, 398 warnings in 118.82s (0:01:58) =================
+================ 756 passed, 398 warnings in 119.84s (0:01:59) =================
