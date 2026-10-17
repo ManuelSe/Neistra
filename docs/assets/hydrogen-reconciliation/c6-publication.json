@@ -1,0 +1,72 @@
+{
+  "verified_utc": "2026-10-17T19:09:42.115155+00:00",
+  "version": "0.19.0",
+  "release_commit": "3fc106b215a8c39e943ad399710f43f116961aef",
+  "pr": "https://github.com/ManuelSe/Neistra/pull/84",
+  "pr_merge": {
+    "headRefOid": "0792c75b4a376fb00e83cbe11601e7caf0978439",
+    "mergeCommit": {
+      "oid": "3fc106b215a8c39e943ad399710f43f116961aef"
+    },
+    "mergedAt": "2026-10-17T18:23:45Z",
+    "state": "MERGED",
+    "url": "https://github.com/ManuelSe/Neistra/pull/84"
+  },
+  "tag": {
+    "name": "v0.19.0",
+    "annotated_object": "b1d254355d63c8fb1947ac79446a3886777f8fa7",
+    "target": "3fc106b215a8c39e943ad399710f43f116961aef",
+    "remote_verified": true
+  },
+  "release": {
+    "id": 416006436,
+    "url": "https://github.com/ManuelSe/Neistra/releases/tag/v0.19.0",
+    "published_at": "2026-10-17T19:09:17Z",
+    "draft": false,
+    "prerelease": false,
+    "latest": true,
+    "notes_exact_except_trailing_newline": true,
+    "body_sha256": "098902b37b8ea8dae683176f9448d5077279d1f65195c93ef9d8db954eba3bab"
+  },
+  "asset": {
+    "name": "neistra-v0.19.0-issue-81-verification.zip",
+    "sha256": "6efa38a45f8c7d11f3d4bc2d1db5efa9627413f6eec9808790d8dd66efa49983",
+    "bytes": 96788859,
+    "internal_files": 1071,
+    "release_commit": "3fc106b215a8c39e943ad399710f43f116961aef",
+    "url": "https://github.com/ManuelSe/Neistra/releases/download/v0.19.0/neistra-v0.19.0-issue-81-verification.zip",
+    "remote_id": 651336641,
+    "downloaded_sha256_verified": true,
+    "zip_crc_verified": true,
+    "internal_sha256_verified": 1071
+  },
+  "review": {
+    "kind": "implementing-agent local full-diff self-review",
+    "request": "https://github.com/ManuelSe/Neistra/pull/84#issuecomment-6238486531",
+    "review_note": "https://github.com/ManuelSe/Neistra/pull/84#issuecomment-6238505950",
+    "integration_review_returned": false,
+    "required_review_bypassed": false
+  },
+  "candidate_gate_commit": "a0ca93d204aa863e769d217f773af1a97c4afc52",
+  "merged_gate_commit": "3fc106b215a8c39e943ad399710f43f116961aef",
+  "source_sha256": "5c34c7751cb278f815e9fc8f5e4cadf3acb9d1dee88005ee2626b652aeff6560",
+  "results_each": {
+    "python": 818,
+    "frontend": 255,
+    "supervisor": 8,
+    "browser": 245,
+    "intentional_skips": 47,
+    "failures": 0,
+    "flaky": 0,
+    "retries": 0
+  },
+  "compatibility": "No new migration/schema/dependency; actual tagged0.18.0 reader retains final0.19.0 data/history/archives; older authoring lacks reconciliation/protection enforcement.",
+  "follow_up": "https://github.com/ManuelSe/Neistra/issues/83",
+  "issue_reply_verified": true,
+  "issue_reply_url": "https://github.com/ManuelSe/Neistra/issues/81#issuecomment-6239262239",
+  "issue_reply_numeric_id": 6239262239,
+  "issue_state": "closed",
+  "issue_reply_body_sha256_at_initial_verification": "f03f85ba5211e9548d1f5e5b47a4b23bb783af0f2e190d1bad7b1d1044aa25af",
+  "final_documentation_cleanup_audit": "https://github.com/ManuelSe/Neistra/issues/81#issuecomment-6239262239",
+  "final_audit_record": "Final documentation merge and branch/clean-master audit update this verified issue comment after completion; the runtime tag remains fixed."
+}

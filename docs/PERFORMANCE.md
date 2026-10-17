@@ -457,3 +457,10 @@ repeats the complete native surface/capacity/movement/navigation/interaction sui
 without changing existing budgets. All native assertions pass; raw profile records
 are retained in [candidate profiles](assets/hydrogen-reconciliation/c5-candidate-native-profiles.json).
 Exact merged-master qualification repeats before release.
+
+The [exact released0.19 master](assets/hydrogen-reconciliation/c6-merged-gate.json)
+repeats the full native suite with unchanged budgets and zero failures/flakes/retries.
+[Native data files](assets/hydrogen-reconciliation/c6-merged-native-profiles.json)
+retain18 capacity/production/movement/interaction records, separate from a claim
+of18 timing profiles. These are pinned-host regression measurements, not physical
+validation or a new portable capacity guarantee.

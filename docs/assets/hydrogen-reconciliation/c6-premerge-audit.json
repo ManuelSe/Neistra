@@ -1,0 +1,36 @@
+{
+  "comments": [
+    {
+      "id": "IC_kwDOTqyhK88AAAABc9fAAw",
+      "author": {
+        "login": "ManuelSe"
+      },
+      "authorAssociation": "OWNER",
+      "body": "@codex review",
+      "createdAt": "2026-10-17T18:21:57Z",
+      "includesCreatedEdit": false,
+      "isMinimized": false,
+      "minimizedReason": "",
+      "reactionGroups": [],
+      "url": "https://github.com/ManuelSe/Neistra/pull/84#issuecomment-6238486531",
+      "viewerDidAuthor": true
+    }
+  ],
+  "headRefOid": "0792c75b4a376fb00e83cbe11601e7caf0978439",
+  "isDraft": false,
+  "mergeStateStatus": "CLEAN",
+  "mergeable": "MERGEABLE",
+  "number": 84,
+  "reviewDecision": "",
+  "reviews": [],
+  "state": "OPEN",
+  "statusCheckRollup": [],
+  "url": "https://github.com/ManuelSe/Neistra/pull/84",
+  "audited_utc": "2026-10-17T18:23:30.567483+00:00",
+  "review_kind": "implementer full-diff local self-review; no independent integration response returned",
+  "protection_bypass": false,
+  "required_checks_or_reviews": [],
+  "base": "9f20d9f4c87d4c714638bcf77dc664b7dabdb670",
+  "gate": "all16 clean-candidate commands passed; postgate changes documentation only, runtime/config/test digest identical",
+  "strategy": "normal merge commit retaining checkpoint history"
+}

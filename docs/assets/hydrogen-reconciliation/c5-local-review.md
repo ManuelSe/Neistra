@@ -60,3 +60,15 @@ fresh0014/static/build/diff and actual tagged0.18 reader/final0.19 producer pass
 All native performance assertions remain unchanged. See c5-candidate-gate.json for
 exact source/commands/environment/timings/clean states and lossless log hashes.
 Documentation/evidence added afterward does not alter runtime/config/test sources.
+
+## Merge and release audit
+
+Normal PR#84 merge preserves checkpoint history at 3fc106b215a8c39e943ad399710f43f116961aef.
+All16 exact merged-master gates pass with identical source digest and counts;
+no consequential finding remains. @codex review returned no independent response
+at publication audit. No required protection/review/check or conversation was
+bypassed. Exact annotated tag/stable release/downloaded evidence/issue reply are
+verified in c6-publication.json. Final evidence integration is documentation only;
+source-equivalence plus git diff --check qualifies that integration without claiming
+a separate runtime implementation or independent review. The issue reply records
+its final merge/branch-cleanup/clean-master audit.
