@@ -4084,3 +4084,113 @@ back to canonical parents/conformers. This preserves the one-index/no-pair-matri
 bound and every coordinate while covering new/new contacts as well. Contacts warn;
 they do not reject the scientist's draft. A two-site overlaid synthetic regression
 and the existing real4097-site index/array budget test qualify the correction.
+
+
+## D-107 — Operation-specific bond hydrogen reconciliation and protection evidence
+
+Date: 2026-10-17. Status: accepted by explicit approval of issue #81 plan.
+
+The approved [issue #81 contract](plans/issue-81-local-hydrogen-reconciliation.md)
+adds a distinct destructive endpoint-local reconciliation policy for heavy-heavy
+bond edits. The UI defaults to immediate reconciliation with visible add/remove/move
+wording, Preserve H and optional preview. Existing omitted API policy stays preserve;
+complete_if_possible and standalone completion/Add N H retain additive-only meaning.
+Unsupported sites retain the valid requested bond edit and receive diagnostics.
+No preparation, protonation inference, heavy-atom optimization or global repair is
+implied. D-101/D-105/D-106 remain unchanged for their historical operations.
+
+C1 records narrow isotope/radical identity evidence in normalized annotations with
+kind neistra_hydrogen_protection, schema_version 1, origin import/generated/
+original_recovery and typed atoms (atom_id, element, source_index, isotope,
+radical_electrons). Zero denotes no explicit source isotope/radical annotation;
+null means unavailable evidence. Ordinary protium may also have explicit mass 1.
+These are protection facts, not new canonical editable chemistry fields. Chemical
+export warns about unsupported protected facts; native artifacts/archives retain
+all records. IDs remain provenance even if an atom is later deleted. Element/index
+mismatch invalidates applicability; malformed or conflicting facts cannot prove
+ordinary H. Unrelated annotations remain untouched.
+
+Older source evidence can be recovered from preserved originals only by matching
+record/format and stable import ID plus element/source index/residue/alternate
+identity. Never recover through mutable names or spatial proximity. Reads/previews
+do not publish; successful edits may persist recovered facts in their artifact.
+Unknown evidence conservatively skips reconciliation. Generated ordinary atom/H
+placement records its explicit identity at creation. No migration or top-level
+schema change; actual preceding-reader retention must be qualified before release.
+
+### D-107 implementation note — issue #81 M1/C2, 2026-10-17
+
+A separate typed reconciliation function uses shared public count/coordination/
+current-stereo helpers without changing additive semantics. It strips only endpoint
+H in its temporary count context, stages every conformer before site materialization,
+retains lower H IDs and chooses minimum-displacement equivalent positions with
+stable ties. All heavy/unrelated coordinates stay exact. New potential tetrahedral
+configuration requires retained unambiguous orientation; atom-ID ordering cannot
+choose an enantiomer. Protected source identities and nonterminal/charged H skip
+whole sites. Nonaromatic supported states are the initial automatic profile;
+aromatic changes remain draft edits with diagnostics, not automatic ring repair.
+
+The optional report and moved-atom preview extend existing model routes. Existing
+omitted preserve and additive policy retain semantics. Original-source recovery is
+bounded by existing file/atom limits and only used when required facts are missing;
+preview reads never publish. The existing artifact transaction and deleted-atom
+reference reconciliation own exact Undo/Redo. Metadata bond exclusions are pruned
+against retained atoms after H removals. No new schema, dependency or job mechanism.
+
+
+### D-107 implementation note — issue #81 M2/C3, 2026-10-17
+
+Bond hydrogens use a separate transient preference, default reconciliation on each
+project visit, independently of additive atom/fragment completion. Bond controls
+apply immediately; optional preview captures the same explicit action/policy and
+uses ordinary Apply recomputation. New moved-H lines/ghosts and removed-H crosses
+are nonpickable transient shapes, never canonical coordinates or identities.
+Preview responses add old-coordinate removal records for that rendering purpose.
+Feedback carries project-visit ownership, and policy changes/cancellation invalidate
+pending previews; no late response may resurrect a previous proposal.
+
+
+### D-107 qualification note — issue #81 M3/C4, 2026-10-17
+
+Collinear heavy neighbors cannot establish a new trigonal plane in substituted
+triple-to-double changes. Reconciliation now skips those sites precisely while
+retaining the direct bond draft. Potential tetrahedral choices require protection
+identity evidence for the complete bounded dependency context, including endpoint H
+removed only in a temporary counting projection; temporary stripping cannot erase
+an isotope dependency. Narrow labelled/radical imports now explicitly warn about
+protection-only retention rather than implying full canonical chemistry support.
+Full canonical isotope/radical identity and chemical export are tracked by #83.
+
+Scientific qualification covers supported charge/heteroatom/halogen profiles,
+radicals/isotopes/unusual H, sparse IDs, nonfirst active conformers, alternate and
+covalent residue boundaries, failed-work budgets, actual coordinate/diagnostic caps
+and fixed real-protein context. Removed-H selection/measurement/style/scene
+references restore through existing generic Undo; operational modified timestamps
+retain existing history semantics. Source recovery is verified through an actual
+old-style import with raw original bytes and mutation-free preview. The actual
+v0.18 reader harness additionally exercises destructive/additive/partial protected
+commands in independent conformers and rich existing project state.
+
+
+C4 explicit-label qualification: every explicit isotope mass, including mass1
+protium, is protected. This supersedes C1's implementation allowance for explicit
+mass1 as ordinary. The approved contract requires ordinarily unlabelled H; chemical
+equivalence to natural H cannot discard a scientist's explicit source label. Only
+isotope0/no explicit label and zero explicit radical electrons establish ordinary
+identity for destructive reconciliation. Native source facts remain unchanged.
+
+
+C4 protected-priority qualification: chemical projections do not implement canonical
+isotope/radical fields. New reconciliation therefore assigns current stereo only
+for complete bounded contexts with ordinary known identity evidence. Protected or
+unknown contexts retain the direct edit's conservative unassigned current labels
+and gain a precise diagnostic; geometry/source facts remain authoritative. This
+prevents isotope-dependent CIP priorities from producing a falsely inferred E/Z
+label after otherwise supported H removal. It does not expand #83 into this issue.
+
+
+C4 native focus qualification: an actual320px hit test exposed the focused bond
+policy hidden beneath the sticky Edit header after preview cancellation. Scoped
+scroll-padding keeps focus targets below the header. Regression tests verify actual
+hit testing, not focus state alone, in both themes alongside existing real zoom and
+editing accessibility. No global layout or interaction ownership change is made.

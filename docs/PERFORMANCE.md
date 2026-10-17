@@ -435,3 +435,25 @@ of conformer rows. Repeated stereo assessments count atom visits per conformer.
 Oversized component closure and incident pi-bond summaries avoid repeated graph
 walks around shared/high-degree context. Adversarial tests prove these work bounds;
 budget refusal does not allocate IDs or discard an already successful direct edit.
+
+
+## Local bond-H reconciliation bounds (issue #81)
+
+The destructive policy admits at most two endpoint sites. It shares the4096 H
+operation/16384 coordinate-row ceilings, counting removals/movements, failed work
+and all conformers. Chemistry contexts cap at1024 atoms and16384 analyzed visits;
+reports cap at200 detailed diagnostics with full reason counts. Request-scoped
+adjacency/coordinate and combined contact indices avoid whole-protein chemistry
+conversion, repeated original parsing or quadratic pair matrices.
+
+The fixed1STP-plus-butane qualification has1015 atoms; its latest C4 profile is
+0.075089s and3542670 Python-traced peak bytes, with only12 atoms in chemistry
+conversion. Native allocator memory is excluded. The pinned-host regression budget
+is5s/64MiB, not a responsive-size or physical-device guarantee. Exact protein and
+unrelated rows remain invariant. See [source-bound C4 evidence](assets/hydrogen-reconciliation/c4-gate.json).
+
+The [clean final0.19 candidate gate](assets/hydrogen-reconciliation/c5-candidate-gate.json)
+repeats the complete native surface/capacity/movement/navigation/interaction suite
+without changing existing budgets. All native assertions pass; raw profile records
+are retained in [candidate profiles](assets/hydrogen-reconciliation/c5-candidate-native-profiles.json).
+Exact merged-master qualification repeats before release.

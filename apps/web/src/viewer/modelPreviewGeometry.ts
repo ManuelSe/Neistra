@@ -18,6 +18,16 @@ export function createModelPreviewRepresentation(color: () => Color) {
     const builder = MeshBuilder.createState(2048, 1024, previous?.geometry);
     builder.currentGroup = 0;
     for (const atom of preview.atoms) addSphere(builder, Vec3.create(...atom.coordinates), atom.element === "H" ? 0.22 : 0.35, 1);
+    for (const move of preview.moved_atoms ?? []) {
+      addSphere(builder, Vec3.create(...move.after), 0.22, 1);
+      if (Math.hypot(...move.before.map((v, i) => v - move.after[i])) > 1e-8) addSimpleCylinder(builder, Vec3.create(...move.before), Vec3.create(...move.after), { radiusTop: 0.04, radiusBottom: 0.04, radialSegments: 6 });
+    }
+    for (const removed of preview.removed_atoms ?? []) {
+      for (const sign of [-1, 1]) {
+        const [x, y, z] = removed.coordinates;
+        addSimpleCylinder(builder, Vec3.create(x - 0.25, y - sign * 0.25, z), Vec3.create(x + 0.25, y + sign * 0.25, z), { radiusTop: 0.06, radiusBottom: 0.06, radialSegments: 6 });
+      }
+    }
     for (const bond of preview.bonds) {
       if (Math.hypot(...bond.start.map((v, i) => v - bond.end[i])) > 1e-8) addSimpleCylinder(builder, Vec3.create(...bond.start), Vec3.create(...bond.end), { radiusTop: 0.1, radiusBottom: 0.1, radialSegments: 8, topCap: true, bottomCap: true });
     }

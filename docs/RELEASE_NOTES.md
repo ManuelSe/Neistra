@@ -1,5 +1,89 @@
 # Neistra Release Notes
 
+## 0.19.0 - 2026-10-17 - Local hydrogen reconciliation
+
+Implemented under the [approved issue #81 plan](plans/issue-81-local-hydrogen-reconciliation.md).
+
+### Highlights and fixes
+
+Bond addition, deletion and order changes can reconcile ordinary endpoint H counts
+and local geometry in one reversible edit. **Bonds** defaults to immediate
+reconciliation, with an explicit **Preserve H** choice, resulting add/remove/move
+reports and optional nonpickable native preview/Cancel/Apply. Standalone completion
+and Add a chosen number of H remain additive; their existing H stays fixed.
+
+Only the two edited heavy endpoints and eligible directly bonded H are targets.
+Highest H IDs are removed first; survivors retain identities and fit by minimum
+displacement. Every conformer is fitted independently with whole-site atomicity.
+Heavy/unrelated coordinates and original uploads remain exact. Unsupported sites
+keep the requested bond draft and precise diagnostics; independently safe sites can
+succeed. One-command Undo/Redo restores artifacts and deleted-H references.
+
+Narrow source isotope/radical facts protect labelled or uncertain H, including every
+explicit isotope label. Conservative original-byte recovery supports older imports.
+Protected/unknown stereochemical priorities cannot silently assign current stereo.
+Chemical exports surface unsupported isotope/radical representation through loss
+warnings; these facts do not claim full canonical isotope/radical support.
+
+### Data, migrations, API and compatibility
+
+Stable minor **0.18.0 →0.19.0** adds public policy/report/preview functionality and a
+visible default that may remove or move H. Existing API omission remains preserve,
+complete_if_possible stays additive, and the persisted representation is compatible.
+This exceeds a patch correction; no major or prerelease increment is warranted.
+All five authoritative versions advance together without dependency upgrades.
+
+No new migration: head0014; project/viewer/archive2, normalized/selection1. Existing
+extensible annotations retain protection facts; generic immutable publication,
+reference reconciliation, history and allocation floors remain authoritative.
+Upgrade client/API together for the new controls/policy. The actual tagged0.18
+reader is tested separately for originals, all conformers, protection/warnings,
+Undo/Redo, floors, save/archive/re-export and rich prior project state. Old runtime
+authoring lacks reconciliation/protection enforcement; retention does not imply
+identical authoring. Back up the entire managed directory before rollback; preserve
+existing schema downgrade guards and never strip facts to force compatibility.
+
+### Verification and performance
+
+[C4 qualification](assets/hydrogen-reconciliation/c4-gate.json) records latest818
+Python and255 frontend tests, static/build checks, broad62 native passes/8 intentional
+layout skips, then9 current-source accessibility/actual100/200% zoom passes/3
+intentional skips after fixing mobile sticky-header focus occlusion. No final
+failures/retries. Final-version clean-candidate and exact merged-master complete
+release gates, local full-diff review and publication readbacks are recorded in the
+feature plan before delivery; intermediate evidence does not replace those gates.
+
+Work is bounded to two sites,4096 H operations,16384 coordinate rows,1024 atoms per
+chemistry context,16384 analyzed atom visits and200 detailed diagnostics; failed
+attempts and conformers consume budgets. A1015-atom protein-plus-ligand fixture
+measures075ms/3.54MB Python-traced peak/context12 on the qualification host; native
+allocator memory is excluded. Existing native performance budgets remain binding.
+
+The [clean final-version candidate](assets/hydrogen-reconciliation/c5-candidate-gate.json)
+`a0ca93d` passes all16 complete release commands:818 Python,255 frontend,
+8 supervisor,245 browser tests /47 intentional skips, zero failures/flakes/retries.
+Frozen installs, fresh0014/static/build/diff, unchanged native performance budgets
+and actual0.18 reader with final0.19 producer pass. Source/log hashes and clean
+start/end are retained. The [local full-diff review](assets/hydrogen-reconciliation/c5-local-review.md)
+is self-review; exact merged-master gate remains mandatory before publication.
+
+### Scientific limits and deliberate scope decisions
+
+Automatic nonaromatic counts cover C0, N0/+1, O0/-1/+1, divalent S0 and neutral
+halogens with assigned charges/orders and sufficient identity/geometry evidence.
+Protected/nonterminal/charged H, ambiguous source mapping, aromatic/resonance
+uncertainty, unsupported valence and unresolved new stereo skip conservatively.
+Positions are ideal, unoptimized geometry around fixed heavy atoms; contacts and
+distortion warn. This operation does not predict protonation or repair arbitrary
+chemistry/stereo. Explicit manual tools remain available for intentional drafts.
+
+Mandatory preview was rejected in favor of the approved immediate workflow plus
+optional preview. Heavy-atom optimization, guaranteed clash elimination, entry
+merging, preparation and an engine redesign were excluded. Full canonical
+isotope/radical authoring and faithful chemical export are tracked in
+[#83](https://github.com/ManuelSe/Neistra/issues/83); minimization remains#82,
+broader building#71 and preparation#12/#11. No duplicate umbrella issues were opened.
+
 ## 0.18.0 - 2026-10-17 - Geometry-aware hydrogen building
 
 Implemented under the [approved issue #77 plan](plans/issue-77-geometry-aware-hydrogens.md).

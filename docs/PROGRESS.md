@@ -2,6 +2,28 @@
 
 ## Current milestone
 
+Issue #81 C1-C5 complete under the
+[approved plan](plans/issue-81-local-hydrogen-reconciliation.md). Local endpoint H
+reconciliation, explicit Preserve H, optional preview, protection facts and original
+source recovery are implemented and qualified. D-107 records the scientific and
+compatibility boundary. Full canonical isotope/radical support is follow-up
+[#83](https://github.com/ManuelSe/Neistra/issues/83); minimization/building remain
+#82/#71.
+
+The [clean 0.19.0 candidate](assets/hydrogen-reconciliation/c5-candidate-gate.json)
+`a0ca93d` passes all 16 release commands: **818 Python, 255 frontend, 8 supervisor,
+245 browser tests /47 intentional layout skips**, zero failures/flakes/retries.
+Frozen installs, fresh head0014, static/build/diff and actual tagged v0.18.0 reader
+against final 0.19.0 producer pass. Original bytes, all conformers, protection facts,
+generic history/floors and archives remain compatible. Native performance budgets
+are unchanged. [Full-diff review](assets/hydrogen-reconciliation/c5-local-review.md)
+is implementer self-review. Five versions are 0.19.0; no migration/schema/dependency
+change. Existing Alembic deprecation and lazy Mol* bundle advisories remain.
+No blocker. Next: reviewed normal PR merge, exact merged-master complete gate,
+annotated tag/release and verified issue closeout (C6).
+
+### Previous delivery baseline — v0.18.0
+
 Issue #77 C0–C5 complete under the [approved plan](plans/issue-77-geometry-aware-hydrogens.md),
 merged in [PR #78](https://github.com/ManuelSe/Neistra/pull/78) and
 [correction #79](https://github.com/ManuelSe/Neistra/pull/79), published as stable
@@ -2509,12 +2531,11 @@ Results:
 
 ## Blockers
 
-No current blocker. Issue #69 C1–C3 pass their checkpoint gates; C4/C5 and complete
-release delivery remain. Scientific scope and compatibility retain the approved
-contract and must pass their remaining qualification gates.
+No current blocker. Issue #81 clean final-version candidate gate passes; C6 remains pending.
 
 ## Next action
 
-Commit issue #69 C3, then implement and qualify M4/C4 science, lifecycle, real zoom, performance and actual-reader compatibility.
-The [feature plan](plans/issue-69-compact-molecular-editor.md) remains the detailed
-contract; do not reintroduce deferred or rejected scope.
+Deliver issue #81 C6 under the [approved plan](plans/issue-81-local-hydrogen-reconciliation.md):
+reviewed normal merge, exact merged-master complete release gate, annotated v0.19.0
+tag and stable release, verified issue response, final evidence integration and
+branch cleanup. Do not publish before required protections/reviews/gates pass.

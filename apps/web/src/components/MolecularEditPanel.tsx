@@ -4,9 +4,10 @@ import { Pencil, X, Trash2, Plus, Minus, ChevronRight, RotateCw } from "lucide-r
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { molecularApi, projectApi } from "../api/client";
-import type { ApplySelectionEdit, HydrogenReport, HydrogenGeometry, ModelPlacementAction, MolecularWarning, Project, Selection, SelectionEditAction, ViewerSettings } from "../api/types";
+import type { ApplySelectionEdit, HydrogenReport, HydrogenReconciliationReport, HydrogenGeometry, ModelPlacementAction, MolecularWarning, Project, Selection, SelectionEditAction, ViewerSettings } from "../api/types";
 import { useEditingStore } from "../store/editing";
-import { isHydrogenAction, nextPlacement, placementLabel } from "../editing/hydrogen";
+import { isBondAction, isHydrogenAction, nextPlacement, placementLabel } from "../editing/hydrogen";
+import { HydrogenReconciliationDetails } from "./HydrogenReconciliationDetails";
 import { HydrogenReportDetails } from "./HydrogenReportDetails";
 import { FragmentGlyph } from "./FragmentGlyph";
 import { FRAGMENTS } from "../editing/fragments";
@@ -35,7 +36,7 @@ export function MolecularEditPanel({ project, selection, busy, unavailable, onEd
   const [elementChoice, setElementChoice] = useState("P");
   const [chargeChoice, setChargeChoice] = useState("0");
   const [error, setError] = useState<string | null>(null);
-  const [feedback, setFeedback] = useState<{ entry: string; warnings: MolecularWarning[]; report?: HydrogenReport | null } | null>(null);
+  const [feedback, setFeedback] = useState<{ entry: string; warnings: MolecularWarning[]; report?: HydrogenReport | null; reconciliation?: HydrogenReconciliationReport | null; projectId: string; generation: number } | null>(null);
   const entryIds = useMemo(() => new Set(selection.atoms.map(ref => ref.structure_id)), [selection]);
   const entry = entryIds.size === 1 ? project.entries.find(e => entryIds.has(e.id)) : selection.atoms.length === 0 ? project.entries.find(e => e.id === editing.targetEntryId) : undefined;
   const artifact = entry?.current_artifact_id;
@@ -53,8 +54,9 @@ export function MolecularEditPanel({ project, selection, busy, unavailable, onEd
   const mutationTarget = useMemo(() => residueMutationTarget(query.data, selection), [query.data, selection]);
   const directReason = !query.data ? "Loading selected molecule…" : !selection.atoms.every(ref => atoms?.some(atom => atom.id === ref.atom_id)) ? "Some selected atoms are no longer present." : null;
   const reason = unavailable ?? (busy || pending ? "Finish the current operation." : !entry ? "Select atoms in one entry." : entry.locked ? "Unlock the entry before editing." : query.isError ? "The selected molecule could not be loaded." : section === "residues" ? !["protein", "complex"].includes(entry.structure_type) ? "Mutation requires a protein or complex entry." : mutationTarget.reason : directReason);
-  const { placement: ownedPlacement, hydrogenPolicy, setPlacement } = editing;
-  const context = placementContext(project, entry?.id, selection, editing.generation, editing.hydrogenPolicy);
+  const { placement: ownedPlacement, setPlacement } = editing;
+  const hydrogenPolicy = section === "bonds" ? editing.bondHydrogenPolicy : editing.hydrogenPolicy;
+  const context = placementContext(project, entry?.id, selection, editing.generation, hydrogenPolicy);
   const draft = editing.placement?.context === context ? editing.placement : null;
   const inspecting = Boolean(draft && editing.inspectingPlacement && !draft.error);
   const noStandaloneHydrogens = Boolean(draft && isHydrogenAction(draft.action) && draft.result?.hydrogen_report?.added_hydrogen_count === 0);
@@ -84,14 +86,15 @@ export function MolecularEditPanel({ project, selection, busy, unavailable, onEd
     const owner = project.id;
     const generation = useEditingStore.getState().generation;
     if (panel.current?.contains(document.activeElement)) panel.current.focus();
-    setPending(true); setError(null);
+    setPending(true); setError(null); setFeedback(null);
     try {
       const direct = !["hydrogens.prepare", "residue.mutate", "fragment.replace"].includes(action.operation);
-      const result = await (direct && !["hydrogens.complete", "hydrogens.add"].includes(action.operation) && editing.hydrogenPolicy === "complete_if_possible"
-        ? onEdit(entry.id, artifact, selection, action, editing.hydrogenPolicy)
+      const policy = isBondAction(action) ? editing.bondHydrogenPolicy : direct && !["hydrogens.complete", "hydrogens.add"].includes(action.operation) ? editing.hydrogenPolicy : "preserve";
+      const result = await (policy !== "preserve" || isBondAction(action)
+        ? onEdit(entry.id, artifact, selection, action, policy)
         : onEdit(entry.id, artifact, selection, action));
       if (useEditingStore.getState().projectId === owner && useEditingStore.getState().generation === generation) editing.setPlacement(null);
-      if (useEditingStore.getState().projectId === owner && useEditingStore.getState().generation === generation) setFeedback({ entry: entry.name, warnings: result.warnings, report: result.hydrogen_report });
+      if (useEditingStore.getState().projectId === owner && useEditingStore.getState().generation === generation) setFeedback({ entry: entry.name, warnings: result.warnings, report: result.hydrogen_report, reconciliation: result.hydrogen_reconciliation_report, projectId: owner, generation });
     }
     catch (failure) {
       if (useEditingStore.getState().projectId === owner && useEditingStore.getState().generation === generation) setError(`${entry.name}: ${failure instanceof Error ? failure.message : "Edit failed."}`);
@@ -99,6 +102,11 @@ export function MolecularEditPanel({ project, selection, busy, unavailable, onEd
       if (useEditingStore.getState().projectId === owner && useEditingStore.getState().generation === generation) setPending(false);
     }
   };
+  const bondEdit = (action: ModelPlacementAction) => {
+    if (editing.previewBondChanges) preview(action);
+    else void execute(action);
+  };
+  const visibleFeedback = feedback?.projectId === project.id && feedback.generation === editing.generation ? feedback : null;
   const showHydrogens = async () => {
     if (!onSettings || !entry || busy || pending) return;
     const owner = project.id;
@@ -151,14 +159,19 @@ export function MolecularEditPanel({ project, selection, busy, unavailable, onEd
           <button type="button" disabled={!selectedAtom || selectedAtom.formal_charge === null} onClick={() => void execute({ operation: "atom.charge.set", charge: null })}>Set charge unknown</button>
         </details>
       </fieldset> : section === "bonds" ? <fieldset disabled={Boolean(reason)}><legend>Bonds</legend>
+        <label>Bond hydrogens<select aria-label="Bond hydrogens" value={editing.bondHydrogenPolicy} onChange={event => editing.setBondHydrogenPolicy(event.target.value as "preserve" | "reconcile_if_possible")}>
+          <option value="reconcile_if_possible">Reconcile local H — may add, remove or move H</option><option value="preserve">Preserve H</option>
+        </select></label>
+        <p>{editing.bondHydrogenPolicy === "reconcile_if_possible" ? "May add, remove or move local H." : "Existing H and their coordinates stay fixed."}</p>
+        <label className="modeling-check"><input type="checkbox" checked={editing.previewBondChanges} onChange={event => editing.setPreviewBondChanges(event.target.checked)} />Preview changes before applying</label>
         <p>{!pair ? "Select two distinct atom endpoints in one entry." : bond ? `Selected bond order: ${bond.aromatic ? "aromatic" : bond.order ?? "unknown"}` : "No authored bond. Displayed connectivity may be inferred; Break bond records its removal."}</p>
         <div className="edit-compact-actions">
-          <button type="button" disabled={!pair || Boolean(bond)} onClick={() => void execute({ operation: "bond.set", order: 1 })}>Create bond</button>
-          <button type="button" disabled={!pair} onClick={() => void execute({ operation: "bond.delete" })}>Break bond</button>
-          <button type="button" aria-label="Decrease bond order" title="Decrease bond order" disabled={!bond || bond.aromatic || (bond.order ?? 0) <= 1} onClick={() => { if (bond?.order) void execute({ operation: "bond.set", order: (bond.order - 1) as 1 | 2 | 3 }); }}><Minus size={16} /></button>
-          <button type="button" aria-label="Increase bond order" title="Increase bond order" disabled={!bond || bond.aromatic || (bond.order ?? 3) >= 3} onClick={() => { if (bond?.order) void execute({ operation: "bond.set", order: (bond.order + 1) as 1 | 2 | 3 }); }}><Plus size={16} /></button>
+          <button type="button" disabled={!pair || Boolean(bond)} onClick={() => bondEdit({ operation: "bond.set", order: 1 })}>Create bond</button>
+          <button type="button" disabled={!pair} onClick={() => bondEdit({ operation: "bond.delete" })}>Break bond</button>
+          <button type="button" aria-label="Decrease bond order" title="Decrease bond order" disabled={!bond || bond.aromatic || (bond.order ?? 0) <= 1} onClick={() => { if (bond?.order) bondEdit({ operation: "bond.set", order: (bond.order - 1) as 1 | 2 | 3 }); }}><Minus size={16} /></button>
+          <button type="button" aria-label="Increase bond order" title="Increase bond order" disabled={!bond || bond.aromatic || (bond.order ?? 3) >= 3} onClick={() => { if (bond?.order) bondEdit({ operation: "bond.set", order: (bond.order + 1) as 1 | 2 | 3 }); }}><Plus size={16} /></button>
         </div>
-        <label>Assign bond order<select aria-label="Assign bond order" disabled={!pair} value="" onChange={event => { if (event.target.value) void execute({ operation: "bond.set", order: event.target.value === "unknown" ? null : Number(event.target.value) }); }}>
+        <label>Assign bond order<select aria-label="Assign bond order" disabled={!pair} value="" onChange={event => { if (event.target.value) bondEdit({ operation: "bond.set", order: event.target.value === "unknown" ? null : Number(event.target.value) }); }}>
           <option value="">Choose order…</option><option value="unknown">Unknown</option><option value="1">Single</option><option value="2">Double</option><option value="3">Triple</option><option value="1.5">Aromatic</option>
         </select></label>
       </fieldset> : section === "fragments" ? <fieldset disabled={Boolean(reason)}><legend>Fragments</legend>
@@ -173,20 +186,21 @@ export function MolecularEditPanel({ project, selection, busy, unavailable, onEd
         <p>One template placement; backbone retained. No rotamer search or automatic protein protonation. Review warnings and use existing protein preparation tools separately.</p>
       </fieldset>}
       {draft ? <fieldset disabled={busy || pending || Boolean(unavailable)}><legend>Placement preview</legend>
-        <p>{placementLabel(draft.action)}. Ghost atoms are proposals; Apply saves the edit.</p>
+        <p>{placementLabel(draft.action)}. {isBondAction(draft.action) ? "Markers show proposed H moves/removals; Apply saves the bond and H together." : "Ghost atoms are proposals; Apply saves the edit."}</p>
         <div className="edit-compact-actions">
           <button type="button" onClick={() => { panel.current?.focus(); editing.setInspectingPlacement(true); }}>Inspect placement</button>
-          <button type="button" disabled={draft.action.operation === "hydrogens.complete"} onClick={() => preview(nextPlacement(draft.action))}>{draft.action.operation === "hydrogens.add" ? "Next orientation" : "Next direction"}</button>
+          {!isBondAction(draft.action) ? <button type="button" disabled={draft.action.operation === "hydrogens.complete" || isBondAction(draft.action)} onClick={() => preview(nextPlacement(draft.action))}>{draft.action.operation === "hydrogens.add" ? "Next orientation" : "Next direction"}</button> : null}
           {draft.action.operation === "fragment.attach" ? <button type="button" onClick={() => { if (draft.action.operation === "fragment.attach") preview({ ...draft.action, rotation: (draft.action.rotation + 1) % 6 }); }}>Rotate fragment</button> : null}
           <button type="button" disabled={!draft.result || noStandaloneHydrogens} onClick={() => void execute(draft.action)}>Apply placement</button>
           <button type="button" onClick={() => editing.setPlacement(null)}>Cancel placement</button>
         </div>
         {!draft.result && !draft.error ? <p role="status">Computing placement preview…</p> : null}
         {draft.error ? <p role="alert">{draft.error}</p> : null}
+        {draft.result?.hydrogen_reconciliation_report ? <HydrogenReconciliationDetails report={draft.result.hydrogen_reconciliation_report} /> : null}
         {draft.result?.hydrogen_report ? <HydrogenReportDetails report={draft.result.hydrogen_report} /> : null}
         {draft.result?.warnings.length ? <details><summary>Placement warnings ({draft.result.warnings.length})</summary>{draft.result.warnings.map((warning, i) => <p key={i}>{warning.message}</p>)}</details> : null}
       </fieldset> : null}
-      {section !== "residues" ? <label className="modeling-check"><input type="checkbox" disabled={busy || pending} checked={editing.hydrogenPolicy === "complete_if_possible"} onChange={event => editing.setHydrogenPolicy(event.target.checked ? "complete_if_possible" : "preserve")} />Complete hydrogens when possible</label> : null}
+      {section !== "residues" && section !== "bonds" ? <label className="modeling-check"><input type="checkbox" disabled={busy || pending} checked={editing.hydrogenPolicy === "complete_if_possible"} onChange={event => editing.setHydrogenPolicy(event.target.checked ? "complete_if_possible" : "preserve")} />Complete hydrogens when possible</label> : null}
       {section !== "residues" ? <div className="edit-hydrogens">
         <details><summary>Hydrogen tools</summary>
           <p>Additive, unoptimized building. Existing atoms and H remain fixed.</p>
@@ -206,14 +220,15 @@ export function MolecularEditPanel({ project, selection, busy, unavailable, onEd
       {reason ? <p role="status">{reason}</p> : null}
       {query.isError ? <button type="button" onClick={() => void query.refetch()}>Retry molecule</button> : null}
       {error ? <p role="alert">{error}</p> : null}
-      {feedback?.report ? <HydrogenReportDetails report={feedback.report} /> : null}
-      {feedback ? <details className="edit-scientific-note"><summary>{feedback.entry}: {feedback.warnings.length} chemistry warnings</summary>{feedback.warnings.map((warning, index) => <p key={`${warning.code}-${index}`}>{warning.message}</p>)}</details> : null}
-      <details className="edit-scientific-note"><summary>Limits and chemistry</summary><p>{section === "residues" ? "Standard-residue template restrictions apply; this is not complete protein preparation." : "Direct edits preserve incomplete chemistry and existing H. Review warnings; protonation and optimized geometry are not determined. Chemistry helpers have separate prerequisites. Source labels describe the original molecule. Isolation, local H preferences and atom hiding can still hide H."}</p></details>
+      {visibleFeedback?.report ? <HydrogenReportDetails report={visibleFeedback.report} /> : null}
+      {visibleFeedback?.reconciliation ? <HydrogenReconciliationDetails report={visibleFeedback.reconciliation} /> : null}
+      {visibleFeedback ? <details className="edit-scientific-note"><summary>{visibleFeedback.entry}: {visibleFeedback.warnings.length} chemistry warnings</summary>{visibleFeedback.warnings.map((warning, index) => <p key={`${warning.code}-${index}`}>{warning.message}</p>)}</details> : null}
+      <details className="edit-scientific-note"><summary>Limits and chemistry</summary><p>{section === "residues" ? "Standard-residue template restrictions apply; this is not complete protein preparation." : "Direct edits preserve incomplete chemistry. Bond reconciliation may add, remove or move local H; Preserve H retains literal H. Review warnings; protonation and optimized geometry are not determined. Chemistry helpers have separate prerequisites. Source labels describe the original molecule. Isolation, local H preferences and atom hiding can still hide H."}</p></details>
       </div>
       {inspecting && draft ? <div className="edit-placement-inspection" role="group" aria-label="Placement inspection">
         <p className="sr-only" role="status">{draft.result ? `Placement ready with ${draft.result.warnings.length} warnings. Open Placement tools to review inputs and warnings.` : "Computing placement preview…"}</p>
         <button type="button" aria-label="Placement tools" title="Placement tools and warnings" onClick={() => { panel.current?.focus(); editing.setInspectingPlacement(false); }}><Pencil size={16} /></button>
-        <button type="button" aria-label={draft.action.operation === "hydrogens.add" ? "Next orientation" : "Next direction"} title="Next placement orientation" disabled={Boolean(reason) || draft.action.operation === "hydrogens.complete"} onClick={() => preview(nextPlacement(draft.action))}><ChevronRight size={16} /></button>
+        {!isBondAction(draft.action) ? <button type="button" aria-label={draft.action.operation === "hydrogens.add" ? "Next orientation" : "Next direction"} title="Next placement orientation" disabled={Boolean(reason) || draft.action.operation === "hydrogens.complete" || isBondAction(draft.action)} onClick={() => preview(nextPlacement(draft.action))}><ChevronRight size={16} /></button> : null}
         {draft.action.operation === "fragment.attach" ? <button type="button" aria-label="Rotate fragment" title="Rotate fragment" disabled={Boolean(reason)} onClick={() => { if (draft.action.operation === "fragment.attach") preview({ ...draft.action, rotation: (draft.action.rotation + 1) % 6 }); }}><RotateCw size={16} /></button> : null}
         <button type="button" aria-label="Apply placement" disabled={!draft.result || noStandaloneHydrogens || Boolean(reason)} onClick={() => void execute(draft.action)}>Apply</button>
         <button type="button" aria-label="Cancel placement" disabled={pending} onClick={() => { panel.current?.focus(); editing.setPlacement(null); }}>Cancel</button>

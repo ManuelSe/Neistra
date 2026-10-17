@@ -1,0 +1,277 @@
+{
+  "checkpoint": "C5-candidate",
+  "commit": "a0ca93d204aa863e769d217f773af1a97c4afc52",
+  "master": "9f20d9f4c87d4c714638bcf77dc664b7dabdb670",
+  "branch": "fix/issue-81-local-hydrogen-reconciliation",
+  "start_clean": true,
+  "source_sha256": "5c34c7751cb278f815e9fc8f5e4cadf3acb9d1dee88005ee2626b652aeff6560",
+  "environment": {
+    "PYTHONPATH": "apps/api/src:packages/molweave_core/src:packages/molweave_demo_plugin/src",
+    "MOLWEAVE_DATA_DIR": "/tmp/neistra-issue81-c5-candidate/reader-data",
+    "PLAYWRIGHT_BROWSERS_PATH": ".playwright",
+    "MOLWEAVE_E2E_API_PORT": "8130",
+    "MOLWEAVE_E2E_WORKER_PORT": "8131",
+    "MOLWEAVE_E2E_WEB_PORT": "5293",
+    "MOLWEAVE_E2E_DATA_DIR": "/tmp/neistra-issue81-c5-candidate/native-data",
+    "PLAYWRIGHT_JSON_OUTPUT_FILE": "/tmp/neistra-issue81-c5-candidate/browser.json"
+  },
+  "commands": [
+    {
+      "command": [
+        ".venv/bin/uv",
+        "sync",
+        "--frozen"
+      ],
+      "exit_code": 0,
+      "seconds": 0.024,
+      "log": "c5-candidate-00.log.gz",
+      "sha256_raw": "c9566662cc43da34e9e05fda3d77e19b21d78bdef7be095a9aa6bfb33171461e",
+      "sha256_gzip": "c75ddce5cd6beee8f8a01bd3eed085d18e18f9f460b6654dd8b0cbb8a10d6caa"
+    },
+    {
+      "command": [
+        "corepack",
+        "pnpm",
+        "install",
+        "--frozen-lockfile"
+      ],
+      "exit_code": 0,
+      "seconds": 0.674,
+      "log": "c5-candidate-01.log.gz",
+      "sha256_raw": "bff96ce8896d9456f3240c69c861c0a0d8991a245c36f9dcb09ed8417a446ad6",
+      "sha256_gzip": "a3cc72d28f8c0e131c1dbae69a81a0e29c0c67b425feb8f431d3162cc7815081"
+    },
+    {
+      "command": [
+        ".venv/bin/uv",
+        "run",
+        "alembic",
+        "upgrade",
+        "head"
+      ],
+      "exit_code": 0,
+      "seconds": 1.082,
+      "log": "c5-candidate-02.log.gz",
+      "sha256_raw": "a65aaba1d288361248cfad53dee993528aa5c4bbd5accca186ae60e26f85c610",
+      "sha256_gzip": "564058fff4d183ec913ee83be847856822cb365b091976db9c6d3e344e412441"
+    },
+    {
+      "command": [
+        ".venv/bin/uv",
+        "run",
+        "ruff",
+        "check",
+        "."
+      ],
+      "exit_code": 0,
+      "seconds": 0.036,
+      "log": "c5-candidate-03.log.gz",
+      "sha256_raw": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "sha256_gzip": "47f394a1497b1873bc6e6d6f9bb92aa51b990821f1ddd7770a933ffd29c456cd"
+    },
+    {
+      "command": [
+        ".venv/bin/uv",
+        "run",
+        "mypy",
+        "apps/api",
+        "packages/molweave_core"
+      ],
+      "exit_code": 0,
+      "seconds": 0.624,
+      "log": "c5-candidate-04.log.gz",
+      "sha256_raw": "047be720f71ff6f55001ba8201472e4dca22eaa7f8ee244cbd28450c7224622f",
+      "sha256_gzip": "94ca91af8822014e55208e06932fe3d37ef487d3dee393cba0ba11b507c95b4c"
+    },
+    {
+      "command": [
+        ".venv/bin/uv",
+        "run",
+        "pytest"
+      ],
+      "exit_code": 0,
+      "seconds": 125.803,
+      "log": "c5-candidate-05.log.gz",
+      "sha256_raw": "d3bdfe85be77391e12d65789b6b3ac0952357203b099f5babdc795a040f74a3b",
+      "sha256_gzip": "9f43c775dfb5f9002ad91c54eb34e405568c4ff931443d1090bc9089257b80e6"
+    },
+    {
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "lint"
+      ],
+      "exit_code": 0,
+      "seconds": 9.526,
+      "log": "c5-candidate-06.log.gz",
+      "sha256_raw": "4486665bf9ce1d8c8d60a1495d7b4860418f272cade0ac3175475258d36112cf",
+      "sha256_gzip": "104963e8d6be780297a1455cf418bea1f5f344a07d7456a3c563e3cc2a7f9187"
+    },
+    {
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "typecheck"
+      ],
+      "exit_code": 0,
+      "seconds": 4.956,
+      "log": "c5-candidate-07.log.gz",
+      "sha256_raw": "0a9c4d66fd3659da294ed0ba0b844105f539380aecf1cd424db7c96c0479f545",
+      "sha256_gzip": "e46905d8774932eecc2d9c801451b3899f36ada111029675a3ec677650323714"
+    },
+    {
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "test"
+      ],
+      "exit_code": 0,
+      "seconds": 9.921,
+      "log": "c5-candidate-08.log.gz",
+      "sha256_raw": "71dd97fda9f44237cba54c327f6325c8a363926b9e34fd84503da8e74b5cfb81",
+      "sha256_gzip": "20e89b227c970f9eb6f6707b39865e6bbe480e8c7d2cc343b0298f86bccce7cc"
+    },
+    {
+      "command": [
+        "corepack",
+        "pnpm",
+        "test:dev"
+      ],
+      "exit_code": 0,
+      "seconds": 1.453,
+      "log": "c5-candidate-09.log.gz",
+      "sha256_raw": "ba8571c5918932afca5a84fb3a8ab760782b0f566f633b3a606614a80f25d0bc",
+      "sha256_gzip": "6fe2655a88414fa0e5a390862acb50d3cc31642c0619b2bcaca8d86d6f6f2c3c"
+    },
+    {
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "build"
+      ],
+      "exit_code": 0,
+      "seconds": 12.595,
+      "log": "c5-candidate-10.log.gz",
+      "sha256_raw": "23c6acb12dfc50c89a9030bd3135b1ff70a530f69adabca3e509e6e60572b249",
+      "sha256_gzip": "2bbdb215851909a98d47bab75aa8937e82bf2bcf167d141e02e76449287b94e1"
+    },
+    {
+      "command": [
+        "corepack",
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "--reporter=line,json"
+      ],
+      "exit_code": 0,
+      "seconds": 2489.812,
+      "log": "c5-candidate-11.log.gz",
+      "sha256_raw": "b2dda53f2f455ffe2d7ef05a356381b060bb620a28cb22e20f611d52af37afce",
+      "sha256_gzip": "c0c93057364b1c0c053435c0549891247b2f0dad07e2aee7809dc419e4f1f1c7"
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "seconds": 0.003,
+      "log": "c5-candidate-12.log.gz",
+      "sha256_raw": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sha256_gzip": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "command": [
+        "env",
+        "MOLWEAVE_DATA_DIR=/tmp/neistra-issue81-c5-candidate/compat-data",
+        ".venv/bin/uv",
+        "run",
+        "alembic",
+        "upgrade",
+        "head"
+      ],
+      "exit_code": 0,
+      "seconds": 1.054,
+      "log": "c5-candidate-13.log.gz",
+      "sha256_raw": "a65aaba1d288361248cfad53dee993528aa5c4bbd5accca186ae60e26f85c610",
+      "sha256_gzip": "564058fff4d183ec913ee83be847856822cb365b091976db9c6d3e344e412441"
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "-m",
+        "tests.support.reconciliation_reader_qualification",
+        "produce",
+        "--data-dir",
+        "/tmp/neistra-issue81-c5-candidate/compat-data",
+        "--evidence",
+        "/tmp/neistra-issue81-c5-candidate/producer.json"
+      ],
+      "exit_code": 0,
+      "seconds": 3.294,
+      "log": "c5-candidate-14.log.gz",
+      "sha256_raw": "91325318b72c93342d4a71759bdb5d79c05a73d3de71a541fe0f95383ec3d226",
+      "sha256_gzip": "aab0deec0f1cb4db9fa53f25f1cc2a0d7b96804f21fee3a51cd71eda7356d084"
+    },
+    {
+      "command": [
+        "env",
+        "PYTHONPATH=/tmp/neistra-issue81-reader-018/apps/api/src:/tmp/neistra-issue81-reader-018/packages/molweave_core/src:/tmp/neistra-issue81-reader-018/packages/molweave_demo_plugin/src",
+        ".venv/bin/python",
+        "-m",
+        "tests.support.reconciliation_reader_qualification",
+        "read",
+        "--data-dir",
+        "/tmp/neistra-issue81-c5-candidate/compat-data",
+        "--reader-root",
+        "/tmp/neistra-issue81-reader-018",
+        "--expected-reader",
+        "0.18.0",
+        "--evidence",
+        "/tmp/neistra-issue81-c5-candidate/reader.json"
+      ],
+      "exit_code": 0,
+      "seconds": 2.237,
+      "log": "c5-candidate-15.log.gz",
+      "sha256_raw": "9a6dd12856f444d60a160c92a21f1373bea682a3f9f538195823930e48857192",
+      "sha256_gzip": "f5e0052a71b539eae379a49f4cb8289a182d584d542a589cb37c76a31133be22"
+    }
+  ],
+  "end_clean": true,
+  "end_commit": "a0ca93d204aa863e769d217f773af1a97c4afc52",
+  "browser": {
+    "startTime": "2026-10-17T17:39:18.213Z",
+    "duration": 2489101.086,
+    "expected": 245,
+    "skipped": 47,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "browser_retries": 0,
+  "python_tests": 818,
+  "frontend_tests": 255,
+  "supervisor_tests": 8,
+  "toolchain": {
+    "python": "3.12.3 (main, Mar 23 2026, 19:04:32) [GCC 13.3.0]",
+    "node": "v22.19.0",
+    "pnpm": "10.15.1",
+    "rdkit": "2026.03.4",
+    "browser": "Playwright Chromium1187 / SwiftShader; Pixel7 emulation; real browser zoom"
+  },
+  "started_utc": "2026-10-17T17:36:30.782013+00:00",
+  "finished_utc": "2026-10-17T18:21:28.419679+00:00",
+  "native_profile_files": 18,
+  "native_profiles_note": "Full native suite retains all existing assertions/budgets; file count includes capacity and production surface records, not only timing profiles.",
+  "source_digest_definition": "SHA256 of git ls-files order: path UTF8 + NUL + raw SHA256 digest for each tracked file except docs/, README.md and AGENTS.md. Excludes documentation only; all runtime/config/test/dependency sources included.",
+  "log_encoding": "Lossless gzip; raw and compressed SHA256 retained. Raw logs/report and native artifacts retained externally for release archive."
+}

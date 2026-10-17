@@ -116,3 +116,24 @@ conformers disagree. Existing warnings/inferences record choices and assumptions
 no new normalized field, top-level version, database migration or archive schema
 is introduced. Generated H inherit canonical parent residue/alternate identity and
 have independent coordinates in every conformer. Preview ghosts are never records.
+
+
+## Hydrogen protection evidence (issue #81)
+
+The optional annotations record kind `neistra_hydrogen_protection` has
+`schema_version: 1`, origin `import`, `generated` or `original_recovery`, and an
+`atoms` list with `atom_id`, `element`, `source_index`, `isotope` and
+`radical_electrons`. Zero denotes no explicit label; null is unknown. Any explicit isotope label
+(including protium mass1) and explicit radicals protect local reconciliation.
+Evidence must match the current stable atom identity and
+source index/element; conflicting/malformed records cannot establish eligibility.
+Deleted IDs may remain as historical provenance. Unrelated annotations are preserved.
+
+Current adapters retain available source evidence before normalization loses it.
+Gemmi deuterium remains its existing D element with mass2 protection. Original
+bytes/source facts are unchanged. Older evidence recovery verifies original stable
+import identity, record, residue and alternate membership; it never uses names or
+proximity alone. Recovery is pure until accepted molecular publication. This narrow
+extension does not promise canonical isotope/radical editing or chemical export;
+export requires acknowledgement of protected-fact loss. Native archives retain it.
+No database or top-level normalized/project/archive schema migration is introduced.

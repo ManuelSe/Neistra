@@ -171,3 +171,21 @@ MOL/SDF/SMILES may interpret missing H through format valence defaults, even aft
 explicit H deletion. Modeled exports require acknowledgement of this limitation;
 no H is added to canonical records. Use native archives to preserve the literal
 draft rather than treating a chemical format as a protonation specification.
+
+
+## Bond hydrogens
+
+The Bonds panel defaults to **Reconcile local H — may add, remove or move H**.
+Create, break and order controls apply immediately as one reversible command.
+Choose **Preserve H** for literal incomplete/radical/over-valent draft building.
+This bond preference resets per project visit and is separate from optional
+additive completion for atom/fragment placement. Complete H and Add N H still add
+only and preserve existing coordinates.
+
+Enable **Preview changes before applying** for an optional inspect/Cancel/Apply
+workflow. Nonpickable H ghosts, movement lines and removal crosses are transient;
+the original model stays unchanged until Apply. Reports name added/removed/moved H
+IDs and skipped sites. Source/protection uncertainty, unsupported aromatic/resonance
+chemistry, ambiguous stereo and conformer failures retain the requested bond draft
+with diagnostics. Use manual H and coordinate tools for skipped sites. Ideal H
+geometry and contact warnings are not minimization, protonation or preparation.

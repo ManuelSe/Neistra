@@ -1,0 +1,157 @@
+{
+  "checkpoint": "M1/C2",
+  "base": "90bc51b2457f6e5c46fb0967cc8ca6271c501728",
+  "environment": {
+    "PLAYWRIGHT_BROWSERS_PATH": ".playwright",
+    "MOLWEAVE_E2E_API_PORT": "8130",
+    "MOLWEAVE_E2E_WORKER_PORT": "8131",
+    "MOLWEAVE_E2E_WEB_PORT": "5293",
+    "MOLWEAVE_E2E_DATA_DIR": "/tmp/neistra-issue81-m1-e2e"
+  },
+  "commands": [
+    {
+      "command": [
+        ".venv/bin/ruff",
+        "check",
+        "."
+      ],
+      "exit_code": 0,
+      "seconds": 0.011,
+      "log": "c2-00.log.gz",
+      "sha256": "47f394a1497b1873bc6e6d6f9bb92aa51b990821f1ddd7770a933ffd29c456cd",
+      "raw_log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "command": [
+        ".venv/bin/mypy",
+        "apps/api",
+        "packages/molweave_core"
+      ],
+      "exit_code": 0,
+      "seconds": 0.154,
+      "log": "c2-01.log.gz",
+      "sha256": "94ca91af8822014e55208e06932fe3d37ef487d3dee393cba0ba11b507c95b4c",
+      "raw_log_sha256": "047be720f71ff6f55001ba8201472e4dca22eaa7f8ee244cbd28450c7224622f"
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "-q"
+      ],
+      "exit_code": 0,
+      "seconds": 123.574,
+      "log": "c2-02.log.gz",
+      "sha256": "a242f6f610f046f508e6b680be61ca2e1e1b9fe2eaa27755b6e0c5c5b43249c6",
+      "raw_log_sha256": "eb88778d2c4844bbc4e456791047dc0daad17cb43a14c9e05a41e995b7888bd6"
+    },
+    {
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "lint"
+      ],
+      "exit_code": 0,
+      "seconds": 9.537,
+      "log": "c2-03.log.gz",
+      "sha256": "377acca5da8e6dd19cb00f1bcc2f92b8343a693f8840e049cd4b920a94504576",
+      "raw_log_sha256": "58d4992236167c12579cfcb0e295a8386b56960fc1905081adce9b66100eaa83"
+    },
+    {
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "typecheck"
+      ],
+      "exit_code": 0,
+      "seconds": 5.009,
+      "log": "c2-04.log.gz",
+      "sha256": "10048038ce77221bbfe1bf8b4c97b96f0f899eb00fb6368e554b34dda5713f69",
+      "raw_log_sha256": "de0dfbe7aeb99c8fa6d0f83f2813fdb87107d58b3a4cbd1bdd66ac263266c08e"
+    },
+    {
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "test"
+      ],
+      "exit_code": 0,
+      "seconds": 9.866,
+      "log": "c2-05.log.gz",
+      "sha256": "0d2744e7b93032e71365f9d1c938a40531dc8a3917529a68b731a9468e6cccd0",
+      "raw_log_sha256": "9e5b11e3f023a96747a3bb56eba113a44c38dfe8f04f48c5d562b543f599984f"
+    },
+    {
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "build"
+      ],
+      "exit_code": 0,
+      "seconds": 12.662,
+      "log": "c2-06.log.gz",
+      "sha256": "df5fb07377fec6409757df9b16d10a888dd8266cb6e02f4d35e67d1257465166",
+      "raw_log_sha256": "7e1e73ccddc8eb486154457c6e26c6c69b532974c220cc06632f5dafdad39074"
+    },
+    {
+      "command": [
+        "corepack",
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "tests/e2e/direct-molecular-modeling.spec.ts",
+        "tests/e2e/hydrogen-completion.spec.ts",
+        "tests/e2e/hydrogen-membership.spec.ts"
+      ],
+      "exit_code": 0,
+      "seconds": 132.873,
+      "log": "c2-07.log.gz",
+      "sha256": "98bf62995d31c42ed155f75248838195e334f9cb9e06e918f434473e9e10a688",
+      "raw_log_sha256": "b5bda48368bb4567ce3b7bb2fdb2ed94ed3eace9d907032527ca588b67754e03"
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "seconds": 0.008,
+      "log": "c2-08.log.gz",
+      "sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+      "raw_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "review": "Local checkpoint full diff self-review; not independent. Frozen v0.15 synthetic fixture annotations retained. Inactive-conformer H moves included in changed IDs. Invalid conformer contexts skip reconciliation. Broader adversarial qualification is C4; new UI is C3.",
+  "source_sha256": {
+    "apps/api/src/molweave_api/model_edit_service.py": "5796d51200692dd09a506246f93d1248dfffa97160a78a47802c82e209c40b70",
+    "apps/api/src/molweave_api/schemas.py": "ecab32d54c130dc4ab6752646363792ca2e2bff0453f2c7cc659e9e4a3ed166d",
+    "packages/molweave_core/src/molweave_core/editing/hydrogen.py": "2f6191e740ac0dfe6a2ac9eb3aa9a91be9ccfdaa1fa867af20bc9797d63be39c",
+    "packages/molweave_core/src/molweave_core/editing/model.py": "678282813d98143787ab79b842d19e6e4b78680f708534c1db02129ec9d42489",
+    "tests/support/editing_fixture.py": "9ddf9822dbc790dfc61e87a45edccf4d67b8a7efe2ccc532e58b2fb6f1482119",
+    "packages/molweave_core/src/molweave_core/editing/reconciliation.py": "04ed90fc7891f1803efd7c24e9dc7248c46af61f59ddb04a2a2e82fe95371448",
+    "tests/unit/editing/test_hydrogen_reconciliation.py": "30ffc397a32ff6f30ba60c99d223f4b3676b789f84f8ca5cffde86c8eb8a8e50",
+    "tests/scientific/test_hydrogen_reconciliation.py": "5596142971a1abef8cbd15e9332e10cf3ddce29c97d9bcad7976122940cab61b",
+    "tests/integration/test_hydrogen_reconciliation.py": "6122131b3a6c77dba5839fa2e2a9e7c097a3a5bb2e1b8ec4adbc56ad033f56dc"
+  },
+  "summary": {
+    "python_passed": 786,
+    "web_passed": 252,
+    "native_passed": 20,
+    "native_failed": 0,
+    "native_skipped": 0,
+    "retries": 0,
+    "mypy_sources": 72
+  },
+  "log_encoding": "gzip; lossless original command output; raw and compressed SHA256 recorded"
+}

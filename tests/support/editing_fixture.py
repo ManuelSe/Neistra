@@ -53,6 +53,9 @@ def prepared_complex() -> NormalizedStructureV1:
     return protein.model_copy(
         update={
             "title": "Synthetic prepared ethanol and peptide",
+            # Freeze the historical v0.15 artifact; new import protection facts
+            # must not silently reinterpret the committed scientific baseline.
+            "annotations": [],
             "structure_type": "complex",
             "atoms": atoms,
             "chains": [

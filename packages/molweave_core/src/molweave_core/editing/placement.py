@@ -13,6 +13,7 @@ from molweave_core.editing.fragments import FRAGMENT_SEED, FragmentName, fragmen
 from molweave_core.editing.geometry import covalent_length as _length
 from molweave_core.editing.geometry import covalent_radius as _radius
 from molweave_core.editing.geometry import local_frame as _frame
+from molweave_core.hydrogen_protection import ordinary_generated
 from molweave_core.molecular import (
     Atom,
     Bond,
@@ -92,6 +93,7 @@ def _assemble(
         raise ValueError("Generated coordinates must be finite.")
     return before.model_copy(
         update={
+            "annotations": [*before.annotations, ordinary_generated(new_atoms)],
             "atoms": [before.atoms[i] for i in retained] + new_atoms,
             "bonds": [b for b in before.bonds if removed not in {b.atom_1_id, b.atom_2_id}]
             + new_bonds,

@@ -19,6 +19,7 @@ from scipy.spatial import cKDTree  # type: ignore[import-untyped]
 
 from molweave_core.adapters.rdkit_common import normalized_to_mol
 from molweave_core.editing.geometry import covalent_length, local_frame
+from molweave_core.hydrogen_protection import ordinary_generated
 from molweave_core.molecular import (
     Atom,
     Bond,
@@ -106,7 +107,9 @@ _VALENCE = {
 }
 
 
-def _fit(vectors: Any, geometry: Geometry, count: int, orientation: int) -> tuple[Any, float]:
+def fit_coordination(
+    vectors: Any, geometry: Geometry, count: int, orientation: int
+) -> tuple[Any, float]:
     """Fit ideal occupied vertices with a proper rotation; never reflect chirality."""
     ideal = _IDEAL[geometry]
     occupied = len(vectors)
@@ -192,7 +195,7 @@ class HydrogenBuilder:
             raise ValueError("Select at least one hydrogen completion target.")
         return sorted(result)
 
-    def _context(self, target: int) -> tuple[Any, dict[int, int]]:
+    def chemical_context(self, target: int) -> tuple[Any, dict[int, int]]:
         if target in self.contexts:
             value = self.contexts[target]
             if isinstance(value, UnsupportedSite):
@@ -270,7 +273,7 @@ class HydrogenBuilder:
         assert error is not None
         raise error
 
-    def _automatic(self, target: int) -> tuple[int, Geometry]:
+    def automatic_configuration(self, target: int) -> tuple[int, Geometry]:
         atom = self.atoms[target]
         if atom.formal_charge is None:
             raise UnsupportedSite(
@@ -305,7 +308,7 @@ class HydrogenBuilder:
             )
         aromatic = any(b.aromatic or b.order == 1.5 for _, b in neighbors)
         if aromatic:
-            mol, indices = self._context(target)
+            mol, indices = self.chemical_context(target)
             count = int(mol.GetAtomWithIdx(indices[target]).GetNumImplicitHs())
         else:
             total = sum(float(b.order or 0) for _, b in neighbors)
@@ -375,7 +378,9 @@ class HydrogenBuilder:
                 diagnostic(target, "target_budget", "Target-site budget exhausted; site unchanged.")
                 continue
             try:
-                amount, shape = self._automatic(target) if count is None else (count, geometry)
+                amount, shape = (
+                    self.automatic_configuration(target) if count is None else (count, geometry)
+                )
                 if amount == 0:
                     unchanged += 1
                     continue
@@ -444,7 +449,7 @@ class HydrogenBuilder:
                             f"Conformer {conformer.id} does not determine a trigonal plane; "
                             "use explicit preview.",
                         )
-                    directions, error = _fit(vectors, shape, amount, orientation)
+                    directions, error = fit_coordination(vectors, shape, amount, orientation)
                     generated = center + directions * covalent_length(
                         self.atoms[target].element, "H"
                     )
@@ -633,6 +638,7 @@ def apply_hydrogen_proposal(
         )
     after = before.model_copy(
         update={
+            "annotations": [*before.annotations, ordinary_generated(new_atoms)],
             "atoms": [*before.atoms, *new_atoms],
             "bonds": [*before.bonds, *new_bonds],
             "conformers": [
@@ -642,7 +648,7 @@ def apply_hydrogen_proposal(
             "inferences": [*before.inferences, *inferences],
         }
     )
-    after, stereo_warnings = _reconcile_stereo(
+    after, stereo_warnings = reconcile_current_stereo(
         after,
         {site.parent_id for site in proposal.sites},
         operation,
@@ -697,7 +703,7 @@ def _retained_bond_orientation(builder: HydrogenBuilder, bond: Bond, points: Any
     return True
 
 
-def _reconcile_stereo(
+def reconcile_current_stereo(
     structure: NormalizedStructureV1,
     targets: set[int],
     operation: str,
@@ -735,7 +741,7 @@ def _reconcile_stereo(
         # Current tetrahedral neighbor tags depend on canonical neighbor ordering.
         member_bonds = {b.id: b for i in members for _, b in builder.adjacency[i]}
         try:
-            mol, indices = builder._context(target)
+            mol, indices = builder.chemical_context(target)
             # Count repeated conformer assessment as analyzed atom visits as well.
             extra_visits = len(indices) * (len(structure.conformers) - 1)
             if builder.analyzed + extra_visits > MAX_ANALYZED:

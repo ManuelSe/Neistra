@@ -1,0 +1,40 @@
+{
+  "checkpoint": "C1",
+  "base": "90b63974196cf015ac7fd2b0d99bcae62c02cf41",
+  "commands": [
+    {
+      "command": ".venv/bin/python -m pytest tests/unit/adapters tests/scientific/test_format_fidelity.py tests/integration/test_archive_roundtrip.py tests/integration/test_migrations.py -q",
+      "result": "184 passed; 398 existing Alembic deprecation warnings; 42.92s"
+    },
+    {
+      "command": ".venv/bin/python -m pytest tests/unit/test_hydrogen_protection.py tests/integration/test_hydrogen_protection.py tests/unit/editing/test_hydrogen_completion.py tests/scientific/test_hydrogen_completion.py tests/scientific/test_hydrogen_qualification.py -q",
+      "result": "64 passed in 1.69s"
+    },
+    {
+      "command": ".venv/bin/ruff check .",
+      "result": "passed"
+    },
+    {
+      "command": ".venv/bin/mypy apps/api packages/molweave_core",
+      "result": "passed;71 source files"
+    },
+    {
+      "command": "git diff --check",
+      "result": "passed"
+    }
+  ],
+  "review": "Local full checkpoint diff self-review; not independent. Earlier indentation/literal-type diagnostics corrected before final focused/static runs.",
+  "limitations": [
+    "Reconciliation policy/API/UI not implemented in C1.",
+    "Full canonical isotope/radical editing/export deferred."
+  ],
+  "source_sha256": {
+    "packages/molweave_core/src/molweave_core/adapters/macromolecular.py": "28bd8f19f8bdf045e256f0f44dfc6388c76962231bbdd6653b21390e4a8814e0",
+    "packages/molweave_core/src/molweave_core/adapters/rdkit_common.py": "bfa79f67ea9297eab9723647f7f6a95d31469654fc196aef94d6be72f8e6026b",
+    "packages/molweave_core/src/molweave_core/editing/hydrogen.py": "722954ddd4b085ac8a3b9fd9499af7edea31c413916045bdd0e292da240bcb89",
+    "packages/molweave_core/src/molweave_core/editing/placement.py": "61bd9f2ca9262ada02f2d201c37d67348fe3abb301b067b23d467e3a4bbcb95b",
+    "packages/molweave_core/src/molweave_core/hydrogen_protection.py": "5e7fdf4952ed432a0aea9642d44ce10e1c3598a1781a24ac92489aaecef375dc",
+    "tests/unit/test_hydrogen_protection.py": "0f0a08e9c94cc2db7410c6cfaae41340cd1fa9a506f6d79aa68633c7b2653446",
+    "tests/integration/test_hydrogen_protection.py": "c15525b7771408e001665fdc136948144ca1da4b418481246800bd2052e591b2"
+  }
+}

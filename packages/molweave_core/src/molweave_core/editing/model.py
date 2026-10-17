@@ -28,11 +28,12 @@ from molweave_core.editing.hydrogen import (
 )
 from molweave_core.editing.ligand import EditResult
 from molweave_core.editing.placement import place_atom, place_fragment
+from molweave_core.editing.reconciliation import ReconciliationReport, reconcile_hydrogens
 from molweave_core.editing.selection import SelectionEditResult
 from molweave_core.molecular import Bond, MolecularWarning, NormalizedStructureV1
 
 MODELING_METADATA = "neistra_modeling"
-HydrogenPolicy = Literal["preserve", "complete_if_possible"]
+HydrogenPolicy = Literal["preserve", "complete_if_possible", "reconcile_if_possible"]
 
 
 class InvalidModelEdit(ValueError):
@@ -169,6 +170,7 @@ def model_warning(
 @dataclass(frozen=True)
 class ModelEditResult(SelectionEditResult):
     hydrogen_report: HydrogenReport | None = None
+    hydrogen_reconciliation_report: ReconciliationReport | None = None
 
 
 class DirectMolecularEditor:
@@ -183,6 +185,10 @@ class DirectMolecularEditor:
         hydrogen_policy: HydrogenPolicy = "preserve",
         atom_limit: int = 1_000_000,
     ) -> ModelEditResult:
+        if hydrogen_policy == "reconcile_if_possible" and not isinstance(
+            action, (ModelBondSet, ModelBondDelete)
+        ):
+            raise InvalidModelEdit("Reconciliation requires a direct bond action.")
         atoms = {a.id: a for a in before.atoms}
         chosen = set(selected)
         if (
@@ -524,6 +530,26 @@ class DirectMolecularEditor:
                             action.operation,
                         )
                     )
+        reconciliation_report = None
+        if hydrogen_policy == "reconcile_if_possible":
+            outcome = reconcile_hydrogens(
+                before,
+                after,
+                selected,
+                next_atom_id=next_atom_id,
+                next_bond_id=max(next_bond_id, max((b.id for b in after.bonds), default=0) + 1),
+                operation=action.operation,
+                atom_limit=atom_limit,
+                inferred_deletion=isinstance(action, ModelBondDelete) and old is None,
+            )
+            after, reconciliation_report = outcome.structure, outcome.report
+            warnings.extend(outcome.warnings)
+            retained_ids = {a.id for a in after.atoms}
+            metadata = dict(after.metadata)
+            metadata[MODELING_METADATA] = ModelingMetadata(
+                excluded_bonds=[pair for pair in exclusions if set(pair) <= retained_ids]
+            ).model_dump(mode="json")
+            after = after.model_copy(update={"metadata": metadata})
         if len(after.atoms) > atom_limit:
             raise InvalidModelEdit(f"The result exceeds the entry limit of {atom_limit} atoms.")
         if isinstance(action, (ModelAtomAdd, ModelFragmentAdd)):
@@ -571,12 +597,20 @@ class DirectMolecularEditor:
                     sorted(
                         i
                         for i in new_atoms.keys() & old_atoms.keys()
-                        if new_atoms[i] != old_atoms[i] or i in touched
+                        if new_atoms[i] != old_atoms[i]
+                        or i in touched
+                        or (
+                            reconciliation_report is not None
+                            and any(
+                                i in site.moved_hydrogen_ids for site in reconciliation_report.sites
+                            )
+                        )
                     )
                 ),
             ),
             replacements,
             hydrogen_report,
+            reconciliation_report,
         )
 
     @staticmethod

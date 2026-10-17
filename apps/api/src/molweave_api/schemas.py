@@ -8,6 +8,7 @@ from uuid import UUID
 from molweave_core.components import ComponentHierarchyV1
 from molweave_core.editing.hydrogen import HydrogenReport
 from molweave_core.editing.model import HydrogenPolicy, ModelAction, ModelElement
+from molweave_core.editing.reconciliation import ReconciliationReport
 from molweave_core.editing.selection import SelectionAction
 from molweave_core.molecular import MolecularWarning, NormalizedStructureV1
 from molweave_core.selection import AtomReference, SelectionGranularity, SelectionV1
@@ -1098,6 +1099,7 @@ class SelectionEditRead(LigandEditRead):
 class ModelEditRead(SelectionEditRead):
     applied: bool = True
     hydrogen_report: HydrogenReport | None = None
+    hydrogen_reconciliation_report: ReconciliationReport | None = None
 
 
 class ModelEditCreate(BaseModel):
@@ -1146,8 +1148,22 @@ class ModelPreviewBond(BaseModel):
     aromatic: bool
 
 
+class ModelPreviewMovement(BaseModel):
+    atom_id: int
+    before: tuple[float, float, float]
+    after: tuple[float, float, float]
+
+
+class ModelPreviewRemoval(BaseModel):
+    atom_id: int
+    coordinates: tuple[float, float, float]
+
+
 class ModelPreviewRead(BaseModel):
+    removed_atoms: list[ModelPreviewRemoval] = Field(default_factory=list)
+    moved_atoms: list[ModelPreviewMovement] = Field(default_factory=list)
     hydrogen_report: HydrogenReport | None = None
+    hydrogen_reconciliation_report: ReconciliationReport | None = None
     entry_id: str
     expected_revision: int
     expected_artifact_id: str
