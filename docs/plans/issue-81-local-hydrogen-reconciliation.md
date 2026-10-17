@@ -2,7 +2,7 @@
 
 ## Status, outcome and authority
 
-Status: approved implementation contract; C0 complete, M1/C1 verified; C2-C6 pending.
+Status: approved implementation contract; C0 and M1/C1-C2 complete; C3-C6 pending.
 Approval: user's “Implement the plan.”, 2026-10-17, following the complete proposed plan.
 Issue: https://github.com/ManuelSe/Neistra/issues/81
 Issue state: open; last update inspected 2026-10-17T15:52:12Z; no issue comments at analysis.
@@ -527,3 +527,22 @@ report the verified repository state, then stop ready for /goal.
   unknown/malformed/conflicting evidence, generated identities, import/export and
   migration compatibility. This is local self-review, not independent review.
   No migration/version/dependency change. C2 policy/API integration is next.
+
+
+- 2026-10-17 M1/C2 complete: endpoint-local destructive proposals use shared count,
+  proper-fit and current-stereo services; policy/report and bond preview extend
+  existing model routes. Omitted preserve/additive/standalone contracts remain.
+  Supported bond count/coordination transitions, descending H removal, independent
+  conformers/site skips, source protection, pure preview, one-command exact Undo/Redo
+  and archives pass 22 focused tests; broader focused existing-H/model run passes94.
+  [Final M1 gate](../assets/hydrogen-reconciliation/c2-gate.json): all9 commands pass,
+  786 Python /252 frontend /20 desktop-mobile native, no native skips/failures/retries;
+  Ruff/mypy72/lint/types/build/diff pass. Dedicated ports8130/8131/5293 and disposable
+  /tmp/neistra-issue81-m1-e2e data are recorded. Build retains the existing lazy
+  Mol* chunk-size advisory; Alembic retains398 existing deprecation warnings.
+  An earlier full run (785 pass/1 failure) exposed deterministic historical-fixture
+  drift from new annotations; preserve the committed v0.15 fixture explicitly
+  instead of rewriting its bytes. Failed evidence is c2-diagnostic-gate.json.
+  Additional local review hardening reports inactive-conformer H moves and skips
+  invalid conformer contexts without discarding the bond draft. No schema/version/
+  dependency change. C3 UI and C4 adversarial/new native/reader qualification remain.

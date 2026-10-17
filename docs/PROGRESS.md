@@ -2,20 +2,20 @@
 
 ## Current milestone
 
-Issue #81 M1/C1 verified under the
-[approved local H reconciliation plan](plans/issue-81-local-hydrogen-reconciliation.md).
-C0 is committed/pushed at90b6397; /goal authorizes implementation through delivery.
-C1 retains narrow imported isotope/radical protection facts, generated atom/H
-identity, pure original-source recovery and explicit chemical-export loss warnings.
-D-107 documents the contract; no migration, dependency or version change.
+Issue #81 M1/C1-C2 complete under the
+[approved plan](plans/issue-81-local-hydrogen-reconciliation.md). C1 protection facts
+and C2 endpoint-local H reconciliation/atomic model API are implemented; D-107
+records the separate destructive policy. Existing omitted preserve, additive
+completion and standalone H tools retain their contracts. UI changes remain C3.
 
-Verification: 184 adapter/format/archive/migration tests and64 protection/existing-H
-tests pass, Ruff and mypy71 pass. Existing Alembic path_separator deprecation
-warnings remain. [Evidence](assets/hydrogen-reconciliation/c1-evidence.json) records
-commands and source hashes; local review is self-review. Bond reconciliation,
-controls and final qualification/release remain pending; no new runtime bond
-behavior is claimed. Planned stable minor0.19.0, subject to collision recheck.
-No blocker. Next: M1/C2 endpoint proposal and atomic model API integration.
+[Final M1 evidence](assets/hydrogen-reconciliation/c2-gate.json):786 Python,
+252 frontend,20 desktop/mobile native tests pass; Ruff/mypy72/lint/types/build/diff
+pass. No native failures/skips/retries. Earlier diagnostic run exposed and corrected
+historical fixture drift; committed baseline bytes remain unchanged. Existing
+Alembic deprecation and lazy Mol* bundle warnings remain. C4 still owns broader
+scientific/capacity/reader/accessibility qualification. No migration/version/
+dependency change; planned stable minor0.19.0. No blocker. Next: M2/C3 immediate UI,
+Preserve H, report and optional preview.
 
 ### Previous delivery baseline — v0.18.0
 
@@ -2526,10 +2526,10 @@ Results:
 
 ## Blockers
 
-No current blocker. Issue #81 M1/C1 focused gates pass; C2-C6 remain pending.
+No current blocker. Issue #81 M1 gates pass; C3-C6 remain pending.
 
 ## Next action
 
-Implement and qualify issue #81 M1/C2 according to the
+Implement and qualify issue #81 M2/C3 according to the
 [approved feature plan](plans/issue-81-local-hydrogen-reconciliation.md), then run
-all M1 milestone gates before starting M2. Keep additive completion unchanged.
+all M2 milestone gates before starting C4. Keep additive completion unchanged.

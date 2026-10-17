@@ -107,7 +107,9 @@ _VALENCE = {
 }
 
 
-def _fit(vectors: Any, geometry: Geometry, count: int, orientation: int) -> tuple[Any, float]:
+def fit_coordination(
+    vectors: Any, geometry: Geometry, count: int, orientation: int
+) -> tuple[Any, float]:
     """Fit ideal occupied vertices with a proper rotation; never reflect chirality."""
     ideal = _IDEAL[geometry]
     occupied = len(vectors)
@@ -271,7 +273,7 @@ class HydrogenBuilder:
         assert error is not None
         raise error
 
-    def _automatic(self, target: int) -> tuple[int, Geometry]:
+    def automatic_configuration(self, target: int) -> tuple[int, Geometry]:
         atom = self.atoms[target]
         if atom.formal_charge is None:
             raise UnsupportedSite(
@@ -376,7 +378,9 @@ class HydrogenBuilder:
                 diagnostic(target, "target_budget", "Target-site budget exhausted; site unchanged.")
                 continue
             try:
-                amount, shape = self._automatic(target) if count is None else (count, geometry)
+                amount, shape = (
+                    self.automatic_configuration(target) if count is None else (count, geometry)
+                )
                 if amount == 0:
                     unchanged += 1
                     continue
@@ -445,7 +449,7 @@ class HydrogenBuilder:
                             f"Conformer {conformer.id} does not determine a trigonal plane; "
                             "use explicit preview.",
                         )
-                    directions, error = _fit(vectors, shape, amount, orientation)
+                    directions, error = fit_coordination(vectors, shape, amount, orientation)
                     generated = center + directions * covalent_length(
                         self.atoms[target].element, "H"
                     )
@@ -644,7 +648,7 @@ def apply_hydrogen_proposal(
             "inferences": [*before.inferences, *inferences],
         }
     )
-    after, stereo_warnings = _reconcile_stereo(
+    after, stereo_warnings = reconcile_current_stereo(
         after,
         {site.parent_id for site in proposal.sites},
         operation,
@@ -699,7 +703,7 @@ def _retained_bond_orientation(builder: HydrogenBuilder, bond: Bond, points: Any
     return True
 
 
-def _reconcile_stereo(
+def reconcile_current_stereo(
     structure: NormalizedStructureV1,
     targets: set[int],
     operation: str,

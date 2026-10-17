@@ -1,0 +1,51 @@
+{
+  "checkpoint": "M1/C2",
+  "base": "90bc51b2457f6e5c46fb0967cc8ca6271c501728",
+  "environment": {
+    "PLAYWRIGHT_BROWSERS_PATH": ".playwright",
+    "MOLWEAVE_E2E_API_PORT": "8130",
+    "MOLWEAVE_E2E_WORKER_PORT": "8131",
+    "MOLWEAVE_E2E_WEB_PORT": "5293",
+    "MOLWEAVE_E2E_DATA_DIR": "/tmp/neistra-issue81-m1-e2e"
+  },
+  "commands": [
+    {
+      "command": [
+        ".venv/bin/ruff",
+        "check",
+        "."
+      ],
+      "exit_code": 0,
+      "seconds": 0.01,
+      "log": "c2-diagnostic-00.log.gz",
+      "sha256": "47f394a1497b1873bc6e6d6f9bb92aa51b990821f1ddd7770a933ffd29c456cd",
+      "raw_log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "command": [
+        ".venv/bin/mypy",
+        "apps/api",
+        "packages/molweave_core"
+      ],
+      "exit_code": 0,
+      "seconds": 0.162,
+      "log": "c2-diagnostic-01.log.gz",
+      "sha256": "94ca91af8822014e55208e06932fe3d37ef487d3dee393cba0ba11b507c95b4c",
+      "raw_log_sha256": "047be720f71ff6f55001ba8201472e4dca22eaa7f8ee244cbd28450c7224622f"
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "-q"
+      ],
+      "exit_code": 1,
+      "seconds": 124.857,
+      "log": "c2-diagnostic-02.log.gz",
+      "sha256": "da14a57c69615cd7e6b81c899559320e59f7ddf55ed42d756cf8b62fbb898aad",
+      "raw_log_sha256": "375c5f20ca6784f5b2118369cc2e376df8b1a2dd7eb3428a6c319a04dbd87111"
+    }
+  ],
+  "log_encoding": "gzip; lossless original command output; raw and compressed SHA256 recorded"
+}

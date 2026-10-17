@@ -4117,3 +4117,22 @@ do not publish; successful edits may persist recovered facts in their artifact.
 Unknown evidence conservatively skips reconciliation. Generated ordinary atom/H
 placement records its explicit identity at creation. No migration or top-level
 schema change; actual preceding-reader retention must be qualified before release.
+
+### D-107 implementation note — issue #81 M1/C2, 2026-10-17
+
+A separate typed reconciliation function uses shared public count/coordination/
+current-stereo helpers without changing additive semantics. It strips only endpoint
+H in its temporary count context, stages every conformer before site materialization,
+retains lower H IDs and chooses minimum-displacement equivalent positions with
+stable ties. All heavy/unrelated coordinates stay exact. New potential tetrahedral
+configuration requires retained unambiguous orientation; atom-ID ordering cannot
+choose an enantiomer. Protected source identities and nonterminal/charged H skip
+whole sites. Nonaromatic supported states are the initial automatic profile;
+aromatic changes remain draft edits with diagnostics, not automatic ring repair.
+
+The optional report and moved-atom preview extend existing model routes. Existing
+omitted preserve and additive policy retain semantics. Original-source recovery is
+bounded by existing file/atom limits and only used when required facts are missing;
+preview reads never publish. The existing artifact transaction and deleted-atom
+reference reconciliation own exact Undo/Redo. Metadata bond exclusions are pruned
+against retained atoms after H removals. No new schema, dependency or job mechanism.

@@ -1,19 +1,25 @@
 from datetime import UTC, datetime
 
+from molweave_core.adapters.base import ImportOptions
+from molweave_core.adapters.defaults import create_default_registry
 from molweave_core.editing.model import (
     DirectMolecularEditor,
     InvalidModelEdit,
     ModelAtomAdd,
+    ModelBondDelete,
+    ModelBondSet,
     ModelFragmentAdd,
     ModelHydrogenAdd,
     ModelHydrogenComplete,
 )
+from molweave_core.hydrogen_protection import protection_facts, recover_protection
 from molweave_core.molecular import Chain, Conformer, NormalizedStructureV1, Residue, SourceFacts
 from molweave_core.selection import AtomReference, SelectionV1
 from sqlalchemy.orm import Session
 from uuid6 import uuid7
 
 from molweave_api.import_export import NORMALIZED_MEDIA_TYPE, safe_filename_stem
+from molweave_api.models import Artifact, StructureEntry
 from molweave_api.project_service import InvalidProjectOperationError, ProjectService
 from molweave_api.schemas import (
     LigandEditReport,
@@ -21,6 +27,7 @@ from molweave_api.schemas import (
     ModelEditRead,
     ModelPreviewAtom,
     ModelPreviewBond,
+    ModelPreviewMovement,
     ModelPreviewRead,
     MoleculeCreate,
     MoleculeCreateRead,
@@ -36,6 +43,49 @@ class ModelEditService(SelectionEditService):
     def __init__(self, session: Session, settings: Settings) -> None:
         super().__init__(session, settings)
         self.atom_limit = settings.atom_hard_limit
+        self.max_source_bytes = settings.max_structure_file_bytes
+
+    def _with_protection(
+        self, entry: StructureEntry, before: NormalizedStructureV1, payload: ModelEditCreate
+    ) -> NormalizedStructureV1:
+        if payload.hydrogen_policy != "reconcile_if_possible":
+            return before
+        targets = {ref.atom_id for ref in payload.selection.atoms}
+        atoms = {a.id: a for a in before.atoms}
+        needed = targets | {
+            i
+            for b in before.bonds
+            for i, j in [(b.atom_1_id, b.atom_2_id), (b.atom_2_id, b.atom_1_id)]
+            if j in targets and atoms[i].element in {"H", "D", "T"}
+        }
+        try:
+            facts = protection_facts(before)
+            if all(i in facts and facts[i].matches(atoms[i]) for i in needed if i in atoms):
+                return before
+            if entry.original_artifact_id is None:
+                return before
+            record = self.session.get(Artifact, entry.original_artifact_id)
+            if record is None or record.size > self.max_source_bytes:
+                return before
+            _, data = self.artifacts.read(entry.original_artifact_id)
+            parsed = (
+                create_default_registry()
+                .for_format(before.source.format)
+                .parse(
+                    data,
+                    before.source.filename,
+                    ImportOptions(generate_3d=False, infer_bonds=False),
+                )
+            )
+            for original in parsed.structures:
+                if original.source.record_index == before.source.record_index:
+                    if len(original.atoms) > self.atom_limit:
+                        return before
+                    return recover_protection(before, original)
+        except (ValueError, RuntimeError, OverflowError, OSError):
+            # Missing/unsupported evidence cannot turn the draft edit into a gate.
+            return before
+        return before
 
     def model_edit(
         self,
@@ -50,6 +100,7 @@ class ModelEditService(SelectionEditService):
             payload.expected_artifact_id,
             payload.selection,
         )
+        before = self._with_protection(entry, before, payload)
         atom_floor, bond_floor = ProjectService(self.session).allocation_floor(entry)
         try:
             result = DirectMolecularEditor().edit(
@@ -104,12 +155,23 @@ class ModelEditService(SelectionEditService):
             else None,
             command_prefix="model",
         )
-        return ModelEditRead(**published.model_dump(), hydrogen_report=result.hydrogen_report)
+        return ModelEditRead(
+            **published.model_dump(),
+            hydrogen_report=result.hydrogen_report,
+            hydrogen_reconciliation_report=result.hydrogen_reconciliation_report,
+        )
 
     def preview(self, project_id: str, entry_id: str, payload: ModelEditCreate) -> ModelPreviewRead:
         if not isinstance(
             payload.action,
-            (ModelAtomAdd, ModelFragmentAdd, ModelHydrogenComplete, ModelHydrogenAdd),
+            (
+                ModelAtomAdd,
+                ModelFragmentAdd,
+                ModelHydrogenComplete,
+                ModelHydrogenAdd,
+                ModelBondSet,
+                ModelBondDelete,
+            ),
         ):
             raise InvalidProjectOperationError(
                 "Preview requires atom, fragment or hydrogen placement."
@@ -121,6 +183,7 @@ class ModelEditService(SelectionEditService):
             payload.expected_artifact_id,
             payload.selection,
         )
+        before = self._with_protection(entry, before, payload)
         atom_floor, bond_floor = ProjectService(self.session).allocation_floor(entry)
         try:
             outcome = DirectMolecularEditor().edit(
@@ -137,7 +200,20 @@ class ModelEditService(SelectionEditService):
             raise InvalidProjectOperationError(str(error)) from error
         created = set(result.created_atom_ids)
         atoms = {a.id: a for a in result.structure.atoms}
+        old_atoms = {a.id: a for a in before.atoms}
+        changed = {
+            a.id
+            for a in result.structure.atoms
+            if a.id in old_atoms and a.coordinates != old_atoms[a.id].coordinates
+        }
         return ModelPreviewRead(
+            moved_atoms=[
+                ModelPreviewMovement(
+                    atom_id=i, before=old_atoms[i].coordinates, after=atoms[i].coordinates
+                )
+                for i in sorted(changed)
+            ],
+            hydrogen_reconciliation_report=outcome.hydrogen_reconciliation_report,
             entry_id=entry_id,
             expected_revision=payload.expected_revision,
             expected_artifact_id=payload.expected_artifact_id,
@@ -157,7 +233,11 @@ class ModelEditService(SelectionEditService):
                     aromatic=b.aromatic,
                 )
                 for b in result.structure.bonds
-                if created & {b.atom_1_id, b.atom_2_id}
+                if (created | changed) & {b.atom_1_id, b.atom_2_id}
+                or (
+                    isinstance(payload.action, ModelBondSet)
+                    and {b.atom_1_id, b.atom_2_id} == {r.atom_id for r in payload.selection.atoms}
+                )
             ],
             hydrogen_report=outcome.hydrogen_report,
             removed_atom_ids=list(result.deleted_atom_ids),

@@ -87,3 +87,30 @@ current stereo unresolved even when an analysis library can generate coordinates
 The operation warns rather than certifying that arbitrary generated configuration.
 Explicit preview can still author an incomplete or distorted draft; subsequent
 coordinate editing and preparation remain separate choices.
+
+## Local H reconciliation after a bond edit (issue #81)
+
+The direct model API has a distinct `reconcile_if_possible` policy for bond.set
+and bond.delete. It can remove ordinary terminal H and reposition surviving local
+H as well as add H. This is separate from additive completion: omitted API policy
+is still preserve; complete_if_possible, Complete H and Add N H keep existing H
+fixed. H endpoint edits and display-only inferred-bond removals do not trigger
+saturation. Repeated bond assignments/refusals cannot become hidden H changes.
+
+Reconciliation targets only the two heavy endpoints, using the existing supported
+assigned element/charge and authoritative incident orders. It aims for the supported
+endpoint count, not merely the bond-order delta. Nonaromatic local cases include
+linear, planar and tetrahedral transitions. Unsupported/unknown chemistry, protected
+isotope/radical evidence, charged/nonterminal H, unresolved new stereo and unusable
+conformer geometry skip precisely; a valid requested direct bond edit remains.
+Every site succeeds across all conformers or retains its H state throughout.
+Independently supported endpoints may succeed together with an explicit partial
+report. Exact heavy/unrelated coordinates and immutable source facts are retained.
+
+Ordinary H removals retain lower stable IDs and remove higher IDs first. Surviving
+IDs are not recycled. Positions use ideal proper-rotation fits, approximate lengths
+and deterministic equivalent-position assignments. Retained stereo orientation is
+protected; a genuinely new underdetermined stereocentre is left for explicit manual
+building. Geometry/clash warnings are not optimization or preparation certificates.
+One molecular command owns the bond and accepted H changes, reference reconciliation
+and exact artifact Undo/Redo; identity floors remain monotonic.

@@ -755,3 +755,27 @@ Limits are server-owned:4096 target sites,4096 H,16384 added coordinate rows,
 Budget-unprocessed sites are explicit and never partly added. The entry atom hard
 limit also applies. Existing stable IDs, generic history, source artifacts and
 native archive schemas are reused; no migration is introduced.
+
+## Local bond-H reconciliation (issue #81)
+
+`POST /api/v1/projects/{project}/entries/{entry}/model-edits` and its `/preview`
+accept `hydrogen_policy: "reconcile_if_possible"` for `bond.set`/`bond.delete`.
+Existing omitted policy remains `preserve`; `complete_if_possible` remains additive.
+Other action/new-policy combinations refuse without publication. Revision, artifact,
+lock and canonical selection guards apply to preview and mutation alike.
+
+The optional `hydrogen_reconciliation_report` is distinct from `hydrogen_report`.
+It contains captured policy, status complete/partial/unchanged/unresolved, target/
+completed/unchanged/skipped/unprocessed counts, added/removed/moved H counts, per-site
+canonical ID lists, bounded diagnostics with reason/conformer IDs, full reason_counts
+and diagnostics_truncated. Skips preserve the direct edit, not false chemical success.
+Temporary preview addition IDs are recomputed on Apply; ghosts use preview strings
+and do not become canonical operands. Never submit preview coordinates for mutation.
+
+Preview includes `moved_atoms` with existing atom_id and active old/new coordinates,
+`removed_atom_ids`, noncanonical added ghosts, affected bonds and the same report.
+It publishes no artifacts/history/counters and does not change Redo. Apply recomputes
+from captured input; stale revision/artifact requests cannot overwrite newer edits.
+A successful mutation publishes one existing generic molecular command, including
+removed-H reference reconciliation and allocation floors. Standalone H/additive and
+legacy preparation/ligand/selection APIs retain their contracts. No new migration.
