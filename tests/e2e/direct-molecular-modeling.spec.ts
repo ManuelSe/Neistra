@@ -137,7 +137,7 @@ test("creates a molecule, previews/cancels without mutation, applies and rebuild
   await page.getByRole("button", { name: "Edit molecule", exact: true }).click();
   await panel.getByRole("button", { name: "Delete selected atoms", exact: true }).click();
   await expect.poll(async () => (await (await request.get(path)).json() as StructureProjection).structure.atoms.length).toBe(0);
-  await expect(panel.getByRole("combobox", { name: "Empty target entry", exact: true })).toHaveValue(entry.id);
+  await expect(panel.getByRole("combobox", { name: "Target entry", exact: true })).toHaveValue(entry.id);
   const add = panel.getByText("Add atom", { exact: true });
   if (!(await add.evaluate(node => node.closest("details")!.open))) await add.click();
   await panel.getByRole("button", { name: "Preview atom", exact: true }).click();

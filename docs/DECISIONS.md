@@ -4020,3 +4020,14 @@ Conformer disagreement clears a universal current assignment; absent tags alone 
 not block building. New configurations unsupported by retained geometry need an
 explicit preview choice. Add N/geometry choices describe this operation, not future
 persistent constraints or a preparation certificate.
+
+### D-105/106 interface qualification — issue #77 C2, 2026-10-17
+
+Explicit H actions use the additive model route with policy preserve, share the
+read-only placement protocol and recompute on Apply. Zero-addition responses are
+applied=false and cannot publish a warning-only artifact, advance revision or clear
+Redo. Reports are transient; successful additions retain choices/geometry and
+scientific assumptions in ordinary inference records and durable warning summaries.
+General inspector H building opens this same preview rather than invoking a second
+chemistry implementation. Operation choices reset with the project session; source
+facts, old helper endpoints and protein preparation semantics are unchanged.

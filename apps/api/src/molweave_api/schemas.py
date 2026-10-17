@@ -1147,6 +1147,7 @@ class ModelPreviewBond(BaseModel):
 
 
 class ModelPreviewRead(BaseModel):
+    hydrogen_report: HydrogenReport | None = None
     entry_id: str
     expected_revision: int
     expected_artifact_id: str

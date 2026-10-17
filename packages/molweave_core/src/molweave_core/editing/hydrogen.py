@@ -64,6 +64,7 @@ class HydrogenSite:
     parent_id: int
     geometry: Geometry
     frames: tuple[tuple[Point, ...], ...]
+    orientation: int = 0
 
 
 @dataclass(frozen=True)
@@ -425,7 +426,7 @@ class HydrogenBuilder:
                     frames.append(
                         tuple((float(row[0]), float(row[1]), float(row[2])) for row in generated)
                     )
-                sites.append(HydrogenSite(target, shape, tuple(frames)))
+                sites.append(HydrogenSite(target, shape, tuple(frames), orientation))
                 added += amount
                 for reason, conformers in issues.items():
                     diagnostic(
@@ -534,6 +535,7 @@ def apply_hydrogen_proposal(
                 atom_ids=[parent.id, *ids],
                 bond_ids=bonds,
                 message=f"{operation}; geometry={site.geometry}; "
+                f"count={len(site.frames[0])}; orientation={site.orientation}; "
                 "unoptimized additive placement; retained coordinates unchanged.",
             )
         )
@@ -549,6 +551,16 @@ def apply_hydrogen_proposal(
             ),
         )
     ]
+    for reason, number in proposal.report.reason_counts.items():
+        warnings.append(
+            MolecularWarning(
+                code=f"model_hydrogen_{reason}",
+                operation=f"model.{operation}",
+                field="chemistry",
+                message=f"Hydrogen building: {number} sites reported {reason.replace('_', ' ')}. "
+                "Review the operation report and unoptimized geometry.",
+            )
+        )
     after = before.model_copy(
         update={
             "atoms": [*before.atoms, *new_atoms],

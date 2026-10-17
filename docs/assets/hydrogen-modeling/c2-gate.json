@@ -1,0 +1,53 @@
+{
+  "checkpoint": "C2",
+  "base_commit": "39d686e1e272dd05004ccc60e1afd8e5775087da",
+  "validation": {
+    "python": "714 passed, 398 dependency warnings,160.19s",
+    "frontend": "251 tests /52files passed; lint/types/build passed",
+    "static": "Ruff and mypy69 passed; diff check passed",
+    "native": "38 passed /2 intentional layout skips; zero failures/retries,5.0m"
+  },
+  "commands": [
+    ".venv/bin/uv run pytest -q",
+    ".venv/bin/uv run ruff check .",
+    ".venv/bin/uv run mypy apps/api packages/molweave_core",
+    "corepack pnpm --dir apps/web lint",
+    "corepack pnpm --dir apps/web typecheck",
+    "corepack pnpm --dir apps/web test",
+    "corepack pnpm --dir apps/web build",
+    "PLAYWRIGHT_BROWSERS_PATH=.playwright MOLWEAVE_E2E_API_PORT=8273 MOLWEAVE_E2E_WORKER_PORT=8274 MOLWEAVE_E2E_WEB_PORT=5473 MOLWEAVE_E2E_DATA_DIR=/tmp/neistra-issue77-c2-native-final corepack pnpm exec playwright test tests/e2e/hydrogen-completion.spec.ts tests/e2e/direct-molecular-modeling.spec.ts tests/e2e/hydrogen-membership.spec.ts tests/e2e/molecular-editing.spec.ts tests/e2e/ligand-editing.spec.ts --reporter=list",
+    "git diff --check"
+  ],
+  "logs": {
+    "issue77-c2-pytest.log": {
+      "path": "/tmp/issue77-c2-pytest.log",
+      "sha256": "10c076eb023758e74b05e3fb3ccf3018230fe6e4f6c81dcb88a4782aeffbab5d"
+    },
+    "issue77-c2-static.log": {
+      "path": "/tmp/issue77-c2-static.log",
+      "sha256": "cbca5fdf9206f4972e3728db0b2ba7d36ff03550d3cd539dc62e0c60b5ac6a7d"
+    },
+    "issue77-c2-static-web-final.log": {
+      "path": "/tmp/issue77-c2-static-web-final.log",
+      "sha256": "d76ada4a666bf1f9592215d4e7ed3279dd3062d464b9f3cd73147116e890aca9"
+    },
+    "issue77-c2-web-final.log": {
+      "path": "/tmp/issue77-c2-web-final.log",
+      "sha256": "a9982c25cbcd2da6f48c7259db2f459dcdec347f4ce111c2e9c8599714b6a996"
+    },
+    "issue77-c2-native-final.log": {
+      "path": "/tmp/issue77-c2-native-final.log",
+      "sha256": "331d8faab9d50803afb53940da63c9d1e9093dc7ede549e9139a8be5850ab8f1"
+    }
+  },
+  "diagnostics": [
+    "Initial API invariance assertions compared import/write timestamps against read serialization; changed tests to compare fresh reads.",
+    "Old UI control assertions and inspector H callback assertions updated for the new workflow.",
+    "Initial native run interrupted130 after a helper tried closing full-panel controls while inspection bar was active. Helper now returns to full tools before Apply; complete fresh passing native run recorded separately."
+  ],
+  "limits": [
+    "C3 qualification/actual0.17reader pending",
+    "No protonation, optimization or persistent constraints",
+    "Legacy HTTP chemistry helpers unchanged"
+  ]
+}

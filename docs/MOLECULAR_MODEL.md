@@ -70,6 +70,13 @@ and implicit-H conventions: export may warn, require loss acknowledgement or ref
 an unrepresentable structure. Do not repair the canonical graph merely to make an
 export pass. Native archives contain current state, not portable Undo history.
 
+Standalone selection or explicit entry completion and Add N H use the same
+proposal/publication boundary. Add N H accepts count1..4 and ideal linear,
+trigonal planar or tetrahedral geometry, with six deterministic orientations.
+Unknown parent charges/orders remain unknown. Choices and generated placement
+are recorded in inference provenance; an unresolved/no-op request records no
+molecular command. Preview state is transient and never exportable.
+
 No persistent geometry/count constraints are introduced. Building choices describe
 one operation; they do not impose future preparation or analysis intent. Reopen
 and Undo/Redo use the same existing normalized artifacts and command history.

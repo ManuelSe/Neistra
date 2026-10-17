@@ -51,7 +51,8 @@ it("explains empty selection and does not execute an inferred default target", a
   const { user, onEdit } = setup({ ...selection, atoms: [] });
   await user.click(screen.getByRole("button", { name: "Edit molecule" }));
   expect(screen.getByRole("status")).toHaveTextContent("Select atoms in one entry");
-  expect(screen.getByRole("button", { name: "Prepare component hydrogens" })).toBeDisabled();
+  await user.click(screen.getByText("Hydrogen tools"));
+  expect(screen.getByRole("button", { name: "Preview completion" })).toBeDisabled();
   expect(onEdit).not.toHaveBeenCalled();
 });
 
@@ -78,7 +79,7 @@ it("uses two canonical endpoints for bond order without a manual bond ID", async
   await user.click(screen.getByRole("button", { name: "Bonds" }));
   await user.click(screen.getByRole("button", { name: "Increase bond order" }));
   expect(onEdit).toHaveBeenCalledWith(entry.id, entry.current_artifact_id, operand, { operation: "bond.set", order: 2 });
-  expect(screen.queryByRole("spinbutton")).toBeNull();
+  expect(screen.queryByRole("spinbutton", { name: /bond/i })).toBeNull();
 });
 
 it("shows six structural previews and substitutes an H through one fragment action", async () => {
@@ -176,7 +177,8 @@ it("keeps direct assignment available with unknown chemistry and separate helper
   const { user, onEdit } = setup(selection, null, molecule);
   await user.click(screen.getByRole("button", { name: "Edit molecule" }));
   expect(screen.getByRole("button", { name: "Replace selected atom with N" })).toBeEnabled();
-  expect(screen.getByRole("button", { name: "Prepare component hydrogens" })).toBeDisabled();
+  await user.click(screen.getByText("Hydrogen tools"));
+  expect(screen.getByRole("button", { name: "Preview completion" })).toBeEnabled();
   expect(screen.getByRole("button", { name: "Increase formal charge" })).toBeDisabled();
   await user.click(screen.getByText("More elements and formal charge"));
   await user.click(screen.getByRole("button", { name: "Assign charge" }));
@@ -205,7 +207,7 @@ it("previews and cancels attached atoms without an edit, then applies the captur
   await user.click(screen.getByText("Add atom", { exact: true }));
   await user.click(screen.getByRole("button", { name: "Preview atom" }));
   await user.click(await screen.findByRole("button", { name: "Next direction" }));
-  expect(useEditingStore.getState().placement?.action.direction).toBe(1);
+  expect(useEditingStore.getState().placement?.action).toMatchObject({ direction: 1 });
   expect(onEdit).not.toHaveBeenCalled();
   await user.click(screen.getByRole("button", { name: "Cancel placement" }));
   expect(useEditingStore.getState().placement).toBeNull();
@@ -220,7 +222,7 @@ it("requires an explicit empty-entry target for rebuilding", async () => {
   const { user, onEdit } = setup(operand, null, empty);
   await user.click(screen.getByRole("button", { name: "Edit molecule" }));
   expect(screen.getByRole("status")).toHaveTextContent("Select atoms in one entry");
-  await user.selectOptions(screen.getByRole("combobox", { name: "Empty target entry" }), entry.id);
+  await user.selectOptions(screen.getByRole("combobox", { name: "Target entry" }), entry.id);
   await user.click(screen.getByText("Add atom", { exact: true }));
   await user.click(screen.getByRole("button", { name: "Preview atom" }));
   await user.click(await screen.findByRole("button", { name: "Apply placement" }));
@@ -234,13 +236,13 @@ it("does not allow retargeting an empty-entry write while it is pending", async 
   let finish!: () => void;
   onEdit.mockImplementationOnce(() => new Promise(resolve => { finish = () => resolve({ project, warnings: [], report: {}, replacements: {} }); }));
   await user.click(screen.getByRole("button", { name: "Edit molecule" }));
-  await user.selectOptions(screen.getByRole("combobox", { name: "Empty target entry" }), entry.id);
+  await user.selectOptions(screen.getByRole("combobox", { name: "Target entry" }), entry.id);
   await user.click(screen.getByText("Add atom", { exact: true }));
   await user.click(screen.getByRole("button", { name: "Preview atom" }));
   await user.click(await screen.findByRole("button", { name: "Apply placement" }));
-  expect(screen.getByLabelText("Empty target entry")).toBeDisabled();
+  expect(screen.getByLabelText("Target entry")).toBeDisabled();
   await act(async () => { finish(); await Promise.resolve(); });
-  expect(screen.getByRole("combobox", { name: "Empty target entry" })).toBeEnabled();
+  expect(screen.getByRole("combobox", { name: "Target entry" })).toBeEnabled();
 });
 
 it("does not resurrect a cancelled proposal when its delayed preview resolves", async () => {
@@ -296,4 +298,55 @@ it("does not restore launcher focus over another control's newer focus", async (
     setup();
     expect(outside).toHaveFocus();
   } finally { outside.remove(); }
+});
+
+it("previews explicit hydrogen count with preserve policy and invalidates input changes", async () => {
+  const { user, onEdit } = setup();
+  await user.click(screen.getByRole("button", { name: "Edit molecule" }));
+  await user.click(screen.getByText("Hydrogen tools"));
+  await user.click(screen.getByRole("checkbox", { name: "Complete hydrogens when possible" }));
+  await user.clear(screen.getByRole("spinbutton", { name: "Hydrogens to add" }));
+  await user.type(screen.getByRole("spinbutton", { name: "Hydrogens to add" }), "2");
+  await user.selectOptions(screen.getByRole("combobox", { name: "Hydrogen geometry" }), "trigonal_planar");
+  await user.click(screen.getByRole("button", { name: "Preview added H" }));
+  expect(onEdit).not.toHaveBeenCalled();
+  expect(projectApi.modelPreview).toHaveBeenLastCalledWith(expect.anything(), entry.id, entry.current_artifact_id, selection,
+    { operation: "hydrogens.add", count: 2, geometry: "trigonal_planar", orientation: 0 }, "preserve", expect.any(AbortSignal));
+  await user.click(await screen.findByRole("button", { name: "Next orientation" }));
+  expect(useEditingStore.getState().placement?.action).toMatchObject({ orientation: 1 });
+  await user.click(screen.getByRole("button", { name: "Placement tools" }));
+  await user.selectOptions(screen.getByRole("combobox", { name: "Hydrogen geometry" }), "linear");
+  expect(useEditingStore.getState().placement).toBeNull();
+  expect(onEdit).not.toHaveBeenCalled();
+});
+
+it("requires an explicitly chosen entry for completion without selected atoms", async () => {
+  const { user } = setup({ ...selection, atoms: [] });
+  await user.click(screen.getByRole("button", { name: "Edit molecule" }));
+  await user.selectOptions(screen.getByRole("combobox", { name: "Target entry" }), entry.id);
+  await user.click(screen.getByText("Hydrogen tools"));
+  expect(screen.getByRole("button", { name: "Preview completion" })).toBeDisabled();
+  await user.selectOptions(screen.getByRole("combobox", { name: "Completion scope" }), "entry");
+  await user.click(screen.getByRole("button", { name: "Preview completion" }));
+  expect(projectApi.modelPreview).toHaveBeenLastCalledWith(expect.anything(), entry.id, entry.current_artifact_id, { ...selection, atoms: [] },
+    { operation: "hydrogens.complete", scope: "entry" }, "preserve", expect.any(AbortSignal));
+});
+
+it("shows unresolved hydrogen diagnostics and disables Apply for a zero-addition proposal", async () => {
+  const { user, onEdit } = setup();
+  vi.mocked(projectApi.modelPreview).mockResolvedValue({ entry_id: entry.id, expected_revision: project.revision,
+    expected_artifact_id: entry.current_artifact_id!, atoms: [], bonds: [], removed_atom_ids: [], warnings: [],
+    hydrogen_report: { status: "unresolved", target_count: 1, completed_count: 0, unchanged_count: 0, skipped_count: 1, unprocessed_count: 0,
+      added_hydrogen_count: 0, diagnostics: [{ atom_id: 1, reason: "unknown_charge", message: "Parent charge is unknown.", conformer_ids: [] }],
+      reason_counts: { unknown_charge: 1 }, diagnostics_truncated: false },
+  });
+  await user.click(screen.getByRole("button", { name: "Edit molecule" }));
+  await user.click(screen.getByText("Hydrogen tools"));
+  await user.click(screen.getByRole("button", { name: "Preview completion" }));
+  expect(await screen.findByRole("button", { name: "Apply placement" })).toBeDisabled();
+  await user.click(screen.getByRole("button", { name: "Placement tools" }));
+  expect(screen.getByRole("status")).toHaveTextContent("1 skipped");
+  await user.click(screen.getByText("Hydrogen diagnostics (1)"));
+  expect(screen.getByText(/Atom 1: Parent charge is unknown/)).toBeVisible();
+  expect(onEdit).not.toHaveBeenCalled();
 });

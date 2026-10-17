@@ -2,14 +2,17 @@
 
 ## Current milestone
 
-Issue #77 C1 complete; [approved contract](plans/issue-77-geometry-aware-hydrogens.md).
-Local additive H proposals replace prepared-component gates for optional direct
-completion. Geometry/stereo, independent sites and conformer retention are covered;
-D-105/106 and MOLECULAR_MODEL document intent. No migration/version change yet.
-[Checkpoint evidence](assets/hydrogen-modeling/c1-gate.json): 711 Python, 248 web,
-14 native passed; Ruff/mypy/lint/types/build/diff passed. Known limits: bounded
-initial chemistry profile, unoptimized placement; standalone controls pending.
-No blocker. Next: C2 standalone APIs, no-op reports, previews and controls.
+Issue #77 C1–C2 complete; [approved contract](plans/issue-77-geometry-aware-hydrogens.md).
+Local additive H proposals, standalone selection/entry completion, explicit count/
+geometry previews and partial/no-op reports are implemented. The inspector opens
+that same building workflow; legacy HTTP/preparation contracts remain separate.
+D-105/106 and MOLECULAR_MODEL document scientific intent. No migration/version change.
+[C2 evidence](assets/hydrogen-modeling/c2-gate.json):714 Python,251 web,38 native
+passed with2 intentional layout skips; Ruff/mypy/lint/types/build/diff pass.
+[C1 evidence](assets/hydrogen-modeling/c1-gate.json) retains the automatic slice.
+Known limits: bounded initial chemistry profile, unoptimized placement; no full
+protonation or persistent constraints. No blocker. Next:C3 capacity/scientific/
+lifecycle/actual preceding-reader qualification, then final release workflow.
 
 ### Previous delivery baseline — v0.17.0
 

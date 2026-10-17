@@ -666,8 +666,9 @@ ligand component. It requires `expected_revision`, `expected_artifact_id`, one-e
 | `bond.delete` | two endpoints; also records removal of native inferred display connectivity |
 
 Optional `hydrogen_policy` defaults to `preserve`; `complete_if_possible` attempts
-the existing eligible component helper in memory and saves the direct edit alone
-with a warning if completion fails. Explicit H deletion is never reversed.
+local additive hydrogen proposals on changed heavy sites and immediate canonical
+neighbors. Independent sites may succeed; unsupported sites produce a report and
+warning while retaining the direct edit. Explicit H deletion is never reversed.
 The result uses the selection-edit response: project, report, warnings,
 replacements and selection_after, with one reversible history command. Locks,
 stale revisions/artifacts, absent/mixed operands, invalid structural values and
@@ -718,3 +719,39 @@ charge/order or invalid assigned chemistry. None of these checks gates direct ed
 Modeled MOL/SDF/SMILES also report blocking `implicit_valence_interpretation`:
 external readers may interpret absent H through valence defaults even after literal
 H deletion. Acknowledgement authorizes that representation, never canonical repair.
+
+
+## Geometry-aware hydrogen building (issue #77)
+
+The existing model-edits and model-edits/preview routes additionally accept:
+
+| Action | Fields |
+|---|---|
+| hydrogens.complete | scope: selection (default) or entry |
+| hydrogens.add | count: strict integer1..4 (default1); geometry: linear, trigonal_planar or tetrahedral (default); orientation: strict integer0..5 (default0) |
+
+Selection completion maps terminal H to their heavy parent. Entry scope uses the
+explicit path entry; empty selection is allowed, never a default entry. Add N H
+requires exactly one heavy parent. Explicit H actions require hydrogen_policy
+preserve. Revision/artifact/lock/mixed-reference checks apply equally to preview
+and Apply. Apply recomputes from canonical state; clients cannot submit candidate
+positions. Legacy selection/ligand/protein HTTP semantics remain unchanged.
+
+Model-edit responses add applied:boolean and optional hydrogen_report; previews
+include the same optional report with string ghost IDs and no durable writes.
+Report fields: status complete|partial|unchanged|unresolved; target_count,
+completed_count, unchanged_count, skipped_count, unprocessed_count,
+added_hydrogen_count; diagnostics (canonical atom_id, stable reason, message,
+conformer_ids), full reason_counts, diagnostics_truncated. A successful site is
+atomic across conformers. Status concerns counts/eligibility, not preparation.
+
+A standalone zero-addition/unresolved request returns200 with applied=false and
+unchanged project/artifact/history/Redo/dirty/counters/persisted warnings. The
+transient report explains why. A direct edit remains applied even if its optional
+completion adds nothing. Runtime failures do not silently discard direct changes.
+
+Limits are server-owned:4096 target sites,4096 H,16384 added coordinate rows,
+1024 atoms/context,16384 total analyzed atoms/request,200 detailed diagnostics.
+Budget-unprocessed sites are explicit and never partly added. The entry atom hard
+limit also applies. Existing stable IDs, generic history, source artifacts and
+native archive schemas are reused; no migration is introduced.

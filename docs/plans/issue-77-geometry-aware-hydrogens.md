@@ -315,3 +315,20 @@ remote artifacts before claiming completion.
   self-review checked identity/source/coordinate retention, bounded projections
   and eliminated repeated full-entry bond scans per chemical context.
   No migration, dependency or version change. C2–C5 remain pending.
+
+- 2026-10-17 C2 complete: standalone selection/entry completion and explicit
+  Add1..4 H/count/geometry/orientation actions share preview and existing atomic
+  publication. Model responses expose applied and detailed partial/no-op reports.
+  Zero-addition requests retain history/Redo/revision/dirty/counters/artifacts;
+  explicit actions reject recursive policy. UI supports explicit entry ownership,
+  compact ghost inspection, choices/diagnostics and no-op-aware feedback. General
+  inspector Build H opens the same proposal. Removed the unused old UI eligibility
+  helper; legacy HTTP behavior and protein preparation remain unchanged.
+  [Passing evidence](../assets/hydrogen-modeling/c2-gate.json):714 Python,
+  251 web, Ruff/mypy69/lint/types/build/diff,38 native with2 intentional layout
+  skips, zero failures/retries. Native selection/camera/pending/project-visit/
+  refetch ownership and old atom/bond/fragment/protein workflows pass.
+  Initial assertion/preview-mode diagnostics are recorded separately from the
+  fresh complete passing run. Local diff self-review checked additive API,
+  identity allocation, preview purity, no-op paths and unused code. No migration,
+  dependency or version change. C3–C5 remain pending.

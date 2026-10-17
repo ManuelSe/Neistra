@@ -21,6 +21,7 @@ from scipy.spatial import cKDTree  # type: ignore[import-untyped]
 
 from molweave_core.editing.fragments import FragmentName
 from molweave_core.editing.hydrogen import (
+    Geometry,
     HydrogenBuilder,
     HydrogenReport,
     apply_hydrogen_proposal,
@@ -104,6 +105,18 @@ class ModelFragmentAdd(ModelActionBase):
     rotation: int = Field(default=0, ge=0, le=5, strict=True)
 
 
+class ModelHydrogenComplete(ModelActionBase):
+    operation: Literal["hydrogens.complete"]
+    scope: Literal["selection", "entry"] = "selection"
+
+
+class ModelHydrogenAdd(ModelActionBase):
+    operation: Literal["hydrogens.add"]
+    count: int = Field(default=1, ge=1, le=4, strict=True)
+    geometry: Geometry = "tetrahedral"
+    orientation: int = Field(default=0, ge=0, le=5, strict=True)
+
+
 ModelAction = Annotated[
     ModelElement
     | ModelCharge
@@ -111,7 +124,9 @@ ModelAction = Annotated[
     | ModelBondSet
     | ModelBondDelete
     | ModelAtomAdd
-    | ModelFragmentAdd,
+    | ModelFragmentAdd
+    | ModelHydrogenComplete
+    | ModelHydrogenAdd,
     Field(discriminator="operation"),
 ]
 
@@ -171,7 +186,13 @@ class DirectMolecularEditor:
         atoms = {a.id: a for a in before.atoms}
         chosen = set(selected)
         if (
-            (not selected and not isinstance(action, ModelAtomAdd))
+            (
+                not selected
+                and not (
+                    isinstance(action, ModelAtomAdd)
+                    or (isinstance(action, ModelHydrogenComplete) and action.scope == "entry")
+                )
+            )
             or len(chosen) != len(selected)
             or not chosen <= atoms.keys()
         ):
@@ -187,6 +208,58 @@ class DirectMolecularEditor:
         exclusions = set(modeling_metadata(before).excluded_bonds)
         if exclusions & pairs.keys():
             raise InvalidModelEdit("Authored bonds contradict recorded bond exclusions.")
+        if isinstance(action, (ModelHydrogenComplete, ModelHydrogenAdd)):
+            if hydrogen_policy != "preserve":
+                raise InvalidModelEdit(
+                    "Explicit hydrogen actions require hydrogen_policy preserve."
+                )
+            if isinstance(action, ModelHydrogenAdd) and (
+                len(selected) != 1 or atoms[selected[0]].element == "H"
+            ):
+                raise InvalidModelEdit("Add N H requires exactly one selected heavy atom.")
+            try:
+                builder = HydrogenBuilder(before)
+                targets = builder.targets(
+                    selected,
+                    entry=isinstance(action, ModelHydrogenComplete) and action.scope == "entry",
+                )
+                proposal = builder.propose(
+                    targets,
+                    count=action.count if isinstance(action, ModelHydrogenAdd) else None,
+                    geometry=action.geometry
+                    if isinstance(action, ModelHydrogenAdd)
+                    else "tetrahedral",
+                    orientation=action.orientation if isinstance(action, ModelHydrogenAdd) else 0,
+                    atom_limit=atom_limit,
+                )
+                completed, completion_warnings = apply_hydrogen_proposal(
+                    before,
+                    proposal,
+                    next_atom_id=next_atom_id,
+                    next_bond_id=next_bond_id,
+                    operation=action.operation,
+                )
+            except ValueError as error:
+                raise InvalidModelEdit(str(error)) from error
+            old_atom_ids = set(atoms)
+            old_bond_ids = {b.id for b in before.bonds}
+            return ModelEditResult(
+                EditResult(
+                    structure=completed,
+                    warnings=completion_warnings,
+                    created_atom_ids=tuple(
+                        a.id for a in completed.atoms if a.id not in old_atom_ids
+                    ),
+                    created_bond_ids=tuple(
+                        b.id for b in completed.bonds if b.id not in old_bond_ids
+                    ),
+                    changed_atom_ids=tuple(
+                        a.id for a in completed.atoms if a.id in old_atom_ids and a != atoms[a.id]
+                    ),
+                ),
+                {},
+                proposal.report,
+            )
         after = before
         touched = set(chosen)
         warnings: list[MolecularWarning] = []

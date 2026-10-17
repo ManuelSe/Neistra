@@ -83,7 +83,7 @@ CCD assignment remains [follow-up #52](https://github.com/ManuelSe/Neistra/issue
 
 ## Selection-driven small-molecule editing (issue #69 C1)
 
-The compact editor accepts prepared, connected, closed ligand components with
+The legacy selection-edit HTTP helper accepts prepared, connected, closed ligand components with
 known charges/orders and usable single-conformer geometry, including eligible
 components inside complexes. It rejects uncertainty before RDKit's low-level
 conversion defaults. Raw PDB/mmCIF ligand chemistry is not automatically repaired.
@@ -470,3 +470,26 @@ inversion. E/Z building remains unsupported. The compact mutation route refuses
 explicit side-chain crosslinks rather than losing a disulfide or ligand connection;
 legacy editor behavior is unchanged. An atomic representation is needed to see
 explicit H; toggling H display never creates atoms or enables cartoon atom detail.
+
+
+## Geometry-aware additive hydrogen building (issue #77)
+
+Current H building uses operation-specific requirements, independently of legacy
+prepared-component eligibility. Automatic local counts cover C0, N0/+1, O0/-1/+1,
+S0 divalent and neutral halogens. Known incident canonical bonds count across
+navigation boundaries. Aromatic contexts must be complete, specified and within
+budgets; no arbitrary cut/cap or remote-unknown default is used. Explicit Add N H
+can build with unknown chemistry, without interpreting it as neutral or complete.
+
+Ideal coordination and approximate bond lengths are unoptimized proposals. Proper
+rotations preserve retained geometry; existing atoms/H never move. Underdetermined
+orientation, angle mismatch and sub0.6angstrom retained-material contacts warn.
+A new configuration lacking retained geometric evidence skips automatic completion;
+explicit preview records a placement choice. Current affected stereo follows 3D
+geometry after consistent H representation, with warnings for changed/cleared tags.
+Different conformers may prevent a universal tag. Source facts are not rewritten.
+
+Partial completion and unchanged/unresolved results are normal, explicit outcomes.
+Successful completion does not choose pH, tautomer/protonation state, force field,
+energetic favorability, or full preparation. See MOLECULAR_MODEL.md for how drafts,
+chemical interpretation, preparation, analysis and export differ.

@@ -1,3 +1,4 @@
+import { completeHydrogens } from "./support/hydrogen";
 import { prepare } from "./support/interactions";
 import { browseComponents, showEntries } from "./support/navigation";
 import type { Project } from "../../apps/web/src/api/types";
@@ -382,7 +383,7 @@ test("keeps the molecular editor keyboard controls reachable at actual browser z
     const launcher = page.getByRole("button", { name: "Edit molecule", exact: true });
     await launcher.click();
     const panel = page.getByRole("dialog", { name: "Edit molecule", exact: true });
-    await panel.getByRole("button", { name: "Prepare component hydrogens", exact: true }).click();
+    await completeHydrogens(page);
     await expect(page.getByText(/Molecular edit stored/)).toBeVisible();
     await panel.getByRole("button", { name: "Close molecular editor" }).click();
     for (const theme of ["light", "dark"]) {

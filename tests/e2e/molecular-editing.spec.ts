@@ -1,3 +1,4 @@
+import { completeHydrogens } from "./support/hydrogen";
 import { readFile } from "node:fs/promises";
 import { expect, test, type Page } from "@playwright/test";
 import type { Project, StructureProjection } from "../../apps/web/src/api/types";
@@ -28,7 +29,7 @@ test("performs one selection-driven atom/H edit with exact undo and unchanged or
   await selectAtom(page, entry.id, 1, info.project.name === "mobile-chromium");
   await page.getByRole("button", { name: "Edit molecule", exact: true }).click();
   const panel = page.getByRole("dialog", { name: "Edit molecule", exact: true });
-  await panel.getByRole("button", { name: "Prepare component hydrogens", exact: true }).click();
+  await completeHydrogens(page);
   await expect.poll(async () => (await projection()).structure.atoms.length).toBe(9);
   const prepared = (await projection()).structure;
   await page.getByRole("button", { name: "Close molecular editor", exact: true }).click();
@@ -92,7 +93,7 @@ test("previews and substitutes a selected H with illustrated COOH", async ({ pag
   await selectAtom(page, entry.id, 1, info.project.name === "mobile-chromium");
   await page.getByRole("button", { name: "Edit molecule", exact: true }).click();
   const panel = page.getByRole("dialog", { name: "Edit molecule", exact: true });
-  await panel.getByRole("button", { name: "Prepare component hydrogens" }).click();
+  await completeHydrogens(page);
   await expect.poll(async () => (await projection()).structure.atoms.length).toBe(9);
   await panel.getByRole("button", { name: "Close molecular editor" }).click();
   const before = (await projection()).structure;
@@ -168,7 +169,7 @@ test("keeps tool focus, notices and all controls accessible in both themes and n
     if ((theme === "dark") !== dark) await page.getByRole("button", { name: /Use (dark|light) theme/ }).click();
     if (info.project.name === "mobile-chromium") await page.setViewportSize({ width: 320, height: 700 });
     await panel.getByRole("button", { name: "Atoms", exact: true }).click();
-    if (!dark) await panel.getByRole("button", { name: "Prepare component hydrogens" }).click();
+    if (!dark) await completeHydrogens(page);
     await expect.poll(async () => {
       const box = await panel.boundingBox();
       if (!box) return false;
@@ -228,7 +229,7 @@ test("edits a prepared complex with native H/new-atom picks, fixed camera and on
   const launcher = page.getByRole("button", { name: "Edit molecule", exact: true });
   await launcher.click();
   const panel = page.getByRole("dialog", { name: "Edit molecule", exact: true });
-  await panel.getByRole("button", { name: "Prepare component hydrogens" }).click();
+  await completeHydrogens(page);
   await expect.poll(async () => (await projection()).structure.atoms.length).toBe(source.atoms.length + 6);
   await expect(panel.getByRole("button", { name: "Show explicit H" })).toBeEnabled();
   await panel.getByRole("button", { name: "Show explicit H" }).click();
@@ -302,11 +303,11 @@ test("keeps late edit responses owned by their original project", async ({ page,
   let received!: () => void;
   const held = new Promise<void>(resolve => { release = resolve; });
   const committed = new Promise<void>(resolve => { received = resolve; });
-  await page.route("**/selection-edits", async route => {
+  await page.route("**/model-edits", async route => {
     const response = await route.fetch(); received(); await held;
     await route.fulfill({ response });
   });
-  await page.getByRole("button", { name: "Prepare component hydrogens", exact: true }).click();
+  await completeHydrogens(page);
   await committed;
   await page.getByRole("button", { name: "Projects", exact: true }).click();
   await page.getByRole("dialog", { name: "Projects" }).getByRole("button", { name: new RegExp(`^${other.name}`) }).click();
@@ -343,10 +344,10 @@ test("retains a newer native selection and recovers an affected-artifact refetch
   const committed = new Promise<void>(resolve => { received = resolve; });
   let failReads = true;
   await page.route(`**/entries/${entry.id}/structure`, route => failReads ? route.fulfill({ status: 503, contentType: "application/json", body: JSON.stringify({ detail: "Qualification read failure" }) }) : route.continue());
-  await page.route("**/selection-edits", async route => {
+  await page.route("**/model-edits", async route => {
     const response = await route.fetch(); received(); await held; await route.fulfill({ response });
   });
-  await page.getByRole("button", { name: "Prepare component hydrogens", exact: true }).click();
+  await completeHydrogens(page);
   await committed;
   // Close only the nonmodal panel, then use an actual atom pick while pending.
   await page.getByRole("button", { name: "Close molecular editor", exact: true }).click();
@@ -391,7 +392,7 @@ test("keeps a newer pending edit owned after leaving and returning to the same p
   };
   await selectAtom(page, entry.id, 1, info.project.name === "mobile-chromium");
   await page.getByRole("button", { name: "Edit molecule", exact: true }).click();
-  await page.getByRole("button", { name: "Prepare component hydrogens", exact: true }).click();
+  await completeHydrogens(page);
   await committedFirst;
   await switchProject(other.name);
   await expect(page.getByRole("heading", { name: other.name, exact: true })).toBeVisible();
@@ -399,7 +400,7 @@ test("keeps a newer pending edit owned after leaving and returning to the same p
   // away so the second valid command captures the committed first revision.
   await page.waitForTimeout(10_100);
   await switchProject(project.name);
-  await expect(page.getByRole("button", { name: /^Undo: Prepare component hydrogens/ })).toBeVisible();
+  await expect(page.getByRole("button", { name: /^Undo: Complete hydrogens/ })).toBeVisible();
   await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded", { timeout: 30000 });
   await selectAtom(page, entry.id, 3, info.project.name === "mobile-chromium");
   await page.getByRole("button", { name: "Edit molecule", exact: true }).click();
