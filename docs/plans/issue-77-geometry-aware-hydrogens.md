@@ -373,3 +373,13 @@ remote artifacts before claiming completion.
   `uv run pytest tests/integration/test_archive_roundtrip.py -q` →27 passed,
   including prior0.17 producer provenance. Ruff/mypy70/diff checks pass. No
   dependency lock drift beyond the root application version.
+
+- 2026-10-17 C4 final-diff review correction: a synthetic overlaid two-site draft
+  proved that retained-only contact checks missed proposed H/H overlaps. One
+  combined retained/proposed batch index per conformer now warns on both types,
+  without a second index, pair matrix, coordinate change or refusal. Detailed
+  diagnostics remain canonically sorted; full counts/truncation remain intact.
+  [Focused passing correction evidence](../assets/hydrogen-modeling/c4-contact-checks.json):
+  62 Python,252frontend,6native, Ruff/mypy70/lint/types/build/diff. The initial
+  clean7602b55 candidate gate was deliberately interrupted130 before this correction
+  and marked diagnostic; a fresh complete clean-source candidate run is required.

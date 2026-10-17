@@ -1,0 +1,40 @@
+{
+  "status": "passed focused correction checks; complete release gate pending",
+  "finding": "Independent proposed H could overlap without a retained-material contact.",
+  "correction": "One combined retained/proposed batch index per conformer; diagnostic-only, coordinates and admission outcomes unchanged.",
+  "checks": {
+    "python_focused": 62,
+    "frontend": 252,
+    "native": 6,
+    "ruff": "passed",
+    "mypy_files": 70,
+    "lint_types_build_diff": "passed"
+  },
+  "logs": {
+    "issue77-c4-batch-clash-red.log": {
+      "path": "/tmp/issue77-c4-batch-clash-red.log",
+      "sha256": "4dc0ae18405e4915e2c78453dd4cdada1246be3842c1d6dbf982a5f260e6364a"
+    },
+    "issue77-c4-batch-clash-final.log": {
+      "path": "/tmp/issue77-c4-batch-clash-final.log",
+      "sha256": "7a265bfbe6dc30be96e8d44bacda025fc5e893fb9c98be5b8796bae5cdb85733"
+    },
+    "issue77-c4-clash-web.log": {
+      "path": "/tmp/issue77-c4-clash-web.log",
+      "sha256": "da560e0fc67bb12e621c517acb13cbd5d052359433cc38a9adc9957093aa8eba"
+    },
+    "issue77-c4-clash-native.log": {
+      "path": "/tmp/issue77-c4-clash-native.log",
+      "sha256": "42a9444eac22e1fecd45d13da18d4fb6f14f1e92dbab4378cfa5021ca02c2f9e"
+    }
+  },
+  "commands": [
+    ".venv/bin/uv run pytest tests/unit/editing/test_hydrogen_completion.py tests/scientific/test_hydrogen_completion.py tests/scientific/test_hydrogen_qualification.py tests/integration/test_hydrogen_completion.py -q",
+    "corepack pnpm --dir apps/web lint",
+    "corepack pnpm --dir apps/web typecheck",
+    "corepack pnpm --dir apps/web test",
+    "corepack pnpm --dir apps/web build",
+    "PLAYWRIGHT_BROWSERS_PATH=.playwright MOLWEAVE_E2E_API_PORT=8286 MOLWEAVE_E2E_WORKER_PORT=8287 MOLWEAVE_E2E_WEB_PORT=5486 MOLWEAVE_E2E_DATA_DIR=/tmp/neistra-issue77-c4-clash-native corepack pnpm exec playwright test tests/e2e/hydrogen-completion.spec.ts --reporter=list"
+  ],
+  "diagnostic_candidate": "7602b55 first candidate interrupted130 before correction; never passing/release evidence."
+}

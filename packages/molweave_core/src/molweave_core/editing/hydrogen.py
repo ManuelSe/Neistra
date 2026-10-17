@@ -172,7 +172,6 @@ class HydrogenBuilder:
             neighbors.sort(key=lambda item: item[0])
         self.contexts: dict[int, Any] = {}
         self.analyzed = 0
-        self.trees: dict[int, Any] = {}
         self.points: dict[int, Any] = {}
 
     def targets(self, selected: list[int], *, entry: bool = False) -> list[int]:
@@ -471,13 +470,6 @@ class HydrogenBuilder:
                         issues.setdefault("geometry_mismatch", []).append(conformer.id)
                     if len(vectors) < 2:
                         issues.setdefault("orientation_underdetermined", []).append(conformer.id)
-                    if conformer.id not in self.trees:
-                        if not np.isfinite(points).all():
-                            # Remote malformed coordinates must not veto a local proposal.
-                            points = points[np.isfinite(points).all(axis=1)]
-                        self.trees[conformer.id] = cKDTree(points)
-                    if float(np.min(self.trees[conformer.id].query(generated)[0])) < 0.6:
-                        issues.setdefault("placement_clash", []).append(conformer.id)
                     frames.append(
                         tuple((float(row[0]), float(row[1]), float(row[2])) for row in generated)
                     )
@@ -496,10 +488,6 @@ class HydrogenBuilder:
                                 "Retained geometry does not fix every placement degree of freedom;"
                                 " inspect the deterministic proposal."
                             ),
-                            "placement_clash": (
-                                "A new H is within 0.6 angstrom of retained material; inspect the "
-                                "unoptimized proposal."
-                            ),
                         }[reason],
                         conformers,
                     )
@@ -508,6 +496,31 @@ class HydrogenBuilder:
                 diagnostic(
                     target, error.reason, str(error), [c.id for c in self.structure.conformers]
                 )
+        # One batch index per conformer checks both retained and proposed material.
+        # This catches cross-site H/H overlaps without a second index or pair matrix.
+        if sites:
+            owners = [site.parent_id for site in sites for _ in site.frames[0]]
+            clashes: dict[int, list[int]] = {}
+            for n, conformer in enumerate(self.structure.conformers):
+                points = self.points[conformer.id]
+                retained = points[np.isfinite(points).all(axis=1)]
+                generated = np.asarray([point for site in sites for point in site.frames[n]])
+                tree = cKDTree(np.vstack((retained, generated)))
+                # Nearest is the proposal itself; second-nearest is another atom.
+                distances = tree.query(generated, k=2)[0][:, 1]
+                for parent in sorted(
+                    {owners[i] for i, value in enumerate(distances) if value < 0.6}
+                ):
+                    clashes.setdefault(parent, []).append(conformer.id)
+            for parent, conformers in sorted(clashes.items()):
+                diagnostic(
+                    parent,
+                    "placement_clash",
+                    "A new H is within 0.6 angstrom of another retained or proposed atom; "
+                    "inspect the unoptimized proposal.",
+                    conformers,
+                )
+        diagnostics.sort(key=lambda item: (item.atom_id, item.reason))
         unresolved = skipped + unprocessed
         status: Literal["complete", "partial", "unchanged", "unresolved"] = (
             "partial"

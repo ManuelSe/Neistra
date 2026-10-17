@@ -12,6 +12,8 @@ Actual tagged0.17 reader retains new artifacts/stereo/inferences, both conformer
 originals, counters, generic history and archive/re-export alongside rich baseline.
 Qualification hardened work budgets/caching, degenerate/conflicting stereo and
 optional zero-H preview behavior. No migration/schema/dependency change; five versions advance to0.18.0 in C4.
+C4 review additionally fixed cross-site proposed-H contacts;62 focused Python,
+252 frontend and6 native checks pass. Complete clean-source release gate pending.
 Known limits: bounded initial profile, unoptimized placement; no protonation,
 optimization or persistent constraints. No blocker. Next:C4 final0.18.0 versions,
 full clean release gate/review, then C5 reviewed normal merge, exact-master gate,

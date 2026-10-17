@@ -418,7 +418,7 @@ all reuse that path. A no-op never calls publication. Legacy preparation HTTP
 helpers retain their original contract.
 
 Canonical atom/adjacency indexes, conformer coordinate arrays and at most one
-retained-material spatial index per conformer are request-scoped. Chemical contexts
+batch contact index per conformer are request-scoped. Chemical contexts
 must be complete, specified and bounded; local aliphatic counts do not convert
 whole proteins. Count perception and stereo assessment share the analyzed-atom
 budget. Temporary consistent-H analysis processes one conformer at a time and

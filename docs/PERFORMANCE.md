@@ -421,7 +421,7 @@ while supported literal additions are retained. Details cap at200, with full rea
 counts and explicit truncation. Whole-site skipping is deterministic by canonical ID.
 
 Request-scoped canonical adjacency, coordinate-array caching and one retained
-spatial index per conformer avoid repeated whole-entry conversions/scans. No
+batch contact index per conformer avoid repeated whole-entry conversions/scans. No
 quadratic distance matrix, whole-protein conversion or persistent model cache is
 introduced. `test_hydrogen_qualification.py` qualifies real4097-site truncation,
 900-site/five-conformer coordinate admission, context limits, combined stage budgets,

@@ -68,7 +68,7 @@ def test_real_site_hydrogen_and_diagnostic_budgets_are_explicit(
     assert result.report.reason_counts["target_budget"] == 1
     assert result.report.reason_counts["orientation_underdetermined"] == 4096
     assert len(result.report.diagnostics) == 200 and result.report.diagnostics_truncated
-    assert calls == [4097]
+    assert calls == [4097 + 4096]
     assert conversions == [1]
     assert result.sites[0].parent_id == 1 and result.sites[-1].parent_id == 4096
 
@@ -593,3 +593,27 @@ def test_isolated_h_is_preserved_and_does_not_select_an_invented_parent() -> Non
     assert proposal.report.target_count == 0
     assert proposal.report.status == "unchanged"
     assert materialize(before, proposal) is before
+
+
+def test_batch_reports_clashes_between_new_h_at_independent_sites() -> None:
+    before = isolated(2, element="C")
+    before = before.model_copy(
+        update={
+            "atoms": [a.model_copy(update={"coordinates": (0.0, 0.0, 0.0)}) for a in before.atoms],
+            "conformers": [
+                Conformer(
+                    id=1, name="Overlaid draft", coordinates=[(0.0, 0.0, 0.0), (0.0, 0.0, 0.0)]
+                )
+            ],
+        }
+    )
+    proposal = HydrogenBuilder(before).propose([1, 2])
+    assert proposal.report.added_hydrogen_count == 8
+    assert proposal.report.reason_counts["placement_clash"] == 2
+    assert [d.atom_id for d in proposal.report.diagnostics if d.reason == "placement_clash"] == [
+        1,
+        2,
+    ]
+    after = materialize(before, proposal)
+    assert after.atoms[:2] == before.atoms
+    assert any(w.code == "model_hydrogen_placement_clash" for w in after.warnings)

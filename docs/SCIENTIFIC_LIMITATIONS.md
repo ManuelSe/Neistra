@@ -483,7 +483,7 @@ can build with unknown chemistry, without interpreting it as neutral or complete
 
 Ideal coordination and approximate bond lengths are unoptimized proposals. Proper
 rotations preserve retained geometry; existing atoms/H never move. Underdetermined
-orientation, angle mismatch and sub0.6angstrom retained-material contacts warn.
+orientation, angle mismatch and sub0.6angstrom contacts with retained or proposed atoms warn.
 A new configuration lacking retained geometric evidence skips automatic completion;
 explicit preview records a placement choice. Current affected stereo follows 3D
 geometry after consistent H representation, with warnings for changed/cleared tags.

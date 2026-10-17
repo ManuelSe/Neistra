@@ -4074,3 +4074,13 @@ optional completion cannot disable a valid ordinary atom/fragment proposal; its
 base edit remains independently applicable. A component regression and actual
 unknown-chemistry P attachment with optional completion enabled cover this boundary.
 New previews clear prior result feedback, avoiding duplicate obsolete reports.
+
+### D-105 batch contact qualification — issue #77 C4, 2026-10-17
+
+A retained-only index missed overlaps between H generated at separate sites in one
+operation. Build one combined retained/proposed contact index per conformer after
+site admission, query excluding each proposal itself, and attribute warning counts
+back to canonical parents/conformers. This preserves the one-index/no-pair-matrix
+bound and every coordinate while covering new/new contacts as well. Contacts warn;
+they do not reject the scientist's draft. A two-site overlaid synthetic regression
+and the existing real4097-site index/array budget test qualify the correction.
