@@ -2,6 +2,32 @@
 
 ## Current milestone
 
+Issue #81 C0 — approved planning delivery under the
+[local hydrogen reconciliation plan](plans/issue-81-local-hydrogen-reconciliation.md).
+User approval: “Implement the plan.”, 2026-10-17. Clean master was fetched and
+confirmed fast-forward current at `9f20d9f4c87d4c714638bcf77dc664b7dabdb670`;
+dedicated branch: `fix/issue-81-local-hydrogen-reconciliation`. The approved plan
+is the first branch change; runtime implementation has not started.
+
+Approved milestones: M1 protection facts and atomic API reconciliation (C1/C2),
+M2 immediate UI with Preserve H and optional preview (C3), M3 scientific/native/
+preceding-reader qualification (C4), M4 candidate/reviewed release delivery (C5/C6).
+Planned stable minor: 0.19.0, subject to release collision recheck. Existing API
+defaults and additive completion remain compatible; no new migration is planned.
+Confirmed product choices: immediate reconciliation, existing bounded chemistry
+profile and narrow isotope/radical protection facts. Ambiguous sites retain the
+direct edit with diagnostics; full isotope/radical authoring/export is deferred.
+
+Verification performed during planning: read-only in-memory probes reproduce
+bond-edit count/geometry gaps and isotope-field loss; 56 existing focused hydrogen
+unit/scientific tests pass. C0 checks the documentation-only diff, required commit,
+clean state and remote branch readback. No new behavior is claimed verified.
+Known limits: all reconciliation runtime work remains pending. No planning blocker.
+Stop after C0 persistence/push, ready for `/goal`; detailed contract and evidence
+belong in the feature plan. Existing released behavior remains the baseline below.
+
+### Previous delivery baseline — v0.18.0
+
 Issue #77 C0–C5 complete under the [approved plan](plans/issue-77-geometry-aware-hydrogens.md),
 merged in [PR #78](https://github.com/ManuelSe/Neistra/pull/78) and
 [correction #79](https://github.com/ManuelSe/Neistra/pull/79), published as stable
@@ -2509,12 +2535,13 @@ Results:
 
 ## Blockers
 
-No current blocker. Issue #69 C1–C3 pass their checkpoint gates; C4/C5 and complete
-release delivery remain. Scientific scope and compatibility retain the approved
-contract and must pass their remaining qualification gates.
+No blocker to issue #81 C0 planning delivery. Runtime work and qualification are
+pending under the approved feature plan; no implementation or release completion
+is claimed. Previous issue #69/#74/#77 delivery evidence remains historical.
 
 ## Next action
 
-Commit issue #69 C3, then implement and qualify M4/C4 science, lifecycle, real zoom, performance and actual-reader compatibility.
-The [feature plan](plans/issue-69-compact-molecular-editor.md) remains the detailed
-contract; do not reintroduce deferred or rejected scope.
+Finish C0 commit/push/remote verification, then stop ready for `/goal`. The next
+authorized implementation run starts issue #81 M1/C1 using the
+[approved feature plan](plans/issue-81-local-hydrogen-reconciliation.md).
+Do not start runtime implementation during this planning delivery.
