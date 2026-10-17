@@ -1,0 +1,16 @@
+{
+  "commit": "7f30cbcf06ba513812abea1c0532d02ad4612d92",
+  "status": "failed; diagnostic only; not release qualification",
+  "browser": {
+    "startTime": "2026-10-17T13:23:41.472Z",
+    "duration": 2466179.591,
+    "expected": 238,
+    "skipped": 47,
+    "unexpected": 1,
+    "flaky": 0
+  },
+  "finding": "Viewer host aria-label without a role during API-failure startup; aria-prohibited-attr in mobile dark workflow",
+  "raw_gate_sha256": "6c1a46860e8f25bf3faa81320721dd3431a0d1ecbf2e6b27139b6a1feb9fec66",
+  "raw_browser_sha256": "35c32c8371f996a11226eadf1a3aa3b17cf7451cf9333373bf37822f3da80346",
+  "raw_evidence": "Full failed gate/logs/report/native trace retained separately for release evidence archive."
+}

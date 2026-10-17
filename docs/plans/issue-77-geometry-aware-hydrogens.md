@@ -391,7 +391,7 @@ remote artifacts before claiming completion.
   Ruff/mypy70/lint/types/build/diff and actual tagged0.17 reader with final0.18
   producer all pass. Candidate tree is clean at start/end; non-document source and
   raw/retained log hashes, exact commands/environments and reports are recorded in
-  [candidate evidence](../assets/hydrogen-modeling/c5-candidate-gate.json).
+  [superseded candidate evidence](https://github.com/ManuelSe/Neistra/blob/682a83880afcb12f5463edb389c069c445782d05/docs/assets/hydrogen-modeling/c5-candidate-gate.json).
   [Full-diff local self-review](../assets/hydrogen-modeling/c5-local-review.md)
   records consequential findings and regressions; no unresolved consequential local
   finding remains. This is implementing-assistant self-review, not independent.
@@ -399,3 +399,29 @@ remote artifacts before claiming completion.
   C5 remains pending: request integration review on the PR, audit protections,
   normal merge preserving checkpoints, exact-master full gate, annotated tag,
   stable release, verified issue response and delayed branch cleanup.
+
+
+- 2026-10-17 C5 merged-master gate blocked publication:238 browser cases pass,
+  47 intentionally skip and1 mobile dark API-failure accessibility assertion fails.
+  [Failed-run record](../assets/hydrogen-modeling/c5-initial-merged-failure.json)
+  remains diagnostic; no tag/release was made. The viewer host had a label but no
+  stable role before native startup. A named region now exists independently of
+  renderer/API availability, with empty-renderer component and native API-failure
+  assertions. [Focused correction](../assets/hydrogen-modeling/c5-a11y-correction.json)
+  passes252frontend,4native (both themes/viewports), lint/types/build/diff.
+  This is release-gate remediation, with no molecular/schema/version change.
+  Local diff review finds only the role and regression assertions, no scientific
+  or compatibility change. Fresh complete clean candidate and exact merged gates
+  are required before publication; the earlier candidate predates this correction.
+
+
+- 2026-10-17 C5 corrected clean candidatea0aaef1 passes all16 release commands:
+  756Python,252frontend,8supervisor,239native/47intentional layout skips, zero
+  failures/flakes/retries; all15 unchanged-budget performance profiles. Frozen
+  installs, fresh0014, static/build/diff, actual tagged0.17 reader/final0.18producer
+  and clean source/tree checks pass. The previously failing mobile dark API-failure
+  case passes with explicit stable-region assertions. [Current candidate evidence](../assets/hydrogen-modeling/c5-candidate-gate.json)
+  supersedes pre-correction qualification for release; historical passing/failed
+  raw runs remain separately labelled. Local full-diff self-review found no further
+  consequential finding. Latest origin/master remains7f30cbc; correction PR and
+  fresh exact-final-master gate are next, before any tag/release.

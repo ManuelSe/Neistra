@@ -1,7 +1,7 @@
 {
   "stats": {
-    "startTime": "2026-10-17T12:36:07.243Z",
-    "duration": 2438899.109,
+    "startTime": "2026-10-17T14:11:27.581Z",
+    "duration": 2489853.202,
     "expected": 239,
     "skipped": 47,
     "unexpected": 0,
@@ -162,13 +162,13 @@
             "name": "protein-fragment",
             "atoms": 3,
             "navigationCycles": 6,
-            "previewMs": 143,
-            "coordinatePreviewMs": 123.60000002384186,
-            "coordinateCancelMs": 15.099999964237213,
+            "previewMs": 170.89999997615814,
+            "coordinatePreviewMs": 149.89999997615814,
+            "coordinateCancelMs": 17.30000001192093,
             "maxActive": 1,
             "submittedFrames": 40,
             "renderedFrames": 2,
-            "longestTaskMs": 125,
+            "longestTaskMs": 153,
             "changed": true,
             "exactRestore": true,
             "errors": []
@@ -177,9 +177,9 @@
             "name": "bound-ligand",
             "atoms": 16,
             "navigationCycles": 6,
-            "previewMs": 26,
-            "coordinatePreviewMs": 17.400000035762787,
-            "coordinateCancelMs": 15.300000011920929,
+            "previewMs": 30.69999998807907,
+            "coordinatePreviewMs": 20,
+            "coordinateCancelMs": 13.699999988079071,
             "maxActive": 1,
             "submittedFrames": 40,
             "renderedFrames": 2,
@@ -190,8 +190,8 @@
           }
         ],
         "surface": {
-          "coordinateCancelMs": 10.100000023841858,
-          "regenerationCompleteMs": 1097.5,
+          "coordinateCancelMs": 9,
+          "regenerationCompleteMs": 1093.800000011921,
           "inheritedRestored": true
         },
         "requests": []
@@ -210,13 +210,13 @@
             "name": "protein-fragment",
             "atoms": 3,
             "navigationCycles": 6,
-            "previewMs": 134.4000000357628,
-            "coordinatePreviewMs": 118.10000002384186,
-            "coordinateCancelMs": 14.799999952316284,
+            "previewMs": 151.5,
+            "coordinatePreviewMs": 129.89999997615814,
+            "coordinateCancelMs": 9.699999988079071,
             "maxActive": 1,
             "submittedFrames": 40,
             "renderedFrames": 2,
-            "longestTaskMs": 117,
+            "longestTaskMs": 133,
             "changed": true,
             "exactRestore": true,
             "errors": []
@@ -225,9 +225,9 @@
             "name": "bound-ligand",
             "atoms": 16,
             "navigationCycles": 6,
-            "previewMs": 29.400000035762787,
-            "coordinatePreviewMs": 14.600000023841858,
-            "coordinateCancelMs": 16.80000001192093,
+            "previewMs": 34,
+            "coordinatePreviewMs": 16.399999976158142,
+            "coordinateCancelMs": 16.599999964237213,
             "maxActive": 1,
             "submittedFrames": 40,
             "renderedFrames": 2,
@@ -238,8 +238,8 @@
           }
         ],
         "surface": {
-          "coordinateCancelMs": 12.199999988079071,
-          "regenerationCompleteMs": 1090.699999988079,
+          "coordinateCancelMs": 8.5,
+          "regenerationCompleteMs": 1118.800000011921,
           "inheritedRestored": true
         },
         "requests": []
@@ -340,9 +340,9 @@
       "data": {
         "fixture": "RCSB PDB 1STP",
         "atoms": 1001,
-        "importAndViewerMs": 1189,
-        "interactionMs": 3729,
-        "maxInteractionLongTaskMs": 634,
+        "importAndViewerMs": 691,
+        "interactionMs": 4437,
+        "maxInteractionLongTaskMs": 616,
         "repeatedStructureRequests": 0
       }
     },
@@ -356,23 +356,23 @@
         "meshBytes": 3409580,
         "meshBoundBytes": 3450540,
         "workingBoundBytes": 25210204,
-        "durationMs": 231,
-        "readyMs": 684.2999999523163,
+        "durationMs": 240,
+        "readyMs": 477.0999999642372,
         "units": 1,
         "partitionUnits": 2,
         "partitionInvariant": true,
-        "longestSurfaceTaskMs": 242,
+        "longestSurfaceTaskMs": 67,
         "vertices": 91194,
         "triangles": 71012,
         "groups": 567,
         "atoms": 1001,
-        "observedStartupTaskMs": 242,
+        "observedStartupTaskMs": 153,
         "cancellation": {
           "cancelled": true,
-          "elapsed": 20.299999952316284
+          "elapsed": 20.399999976158142
         },
-        "baselineRssKiB": 843524,
-        "peakRssKiB": 1042480,
+        "baselineRssKiB": 849448,
+        "peakRssKiB": 1040764,
         "memoryMeasurement": "Linux summed descendant RSS, sampled every 100 ms; includes browser and shared pages"
       }
     },
@@ -386,8 +386,8 @@
         "meshBytes": 3409580,
         "meshBoundBytes": 3450540,
         "workingBoundBytes": 25210204,
-        "durationMs": 276.5,
-        "readyMs": 498.2999999523163,
+        "durationMs": 287.80000001192093,
+        "readyMs": 503.0999999642372,
         "units": 1,
         "partitionUnits": 2,
         "partitionInvariant": true,
@@ -396,13 +396,13 @@
         "triangles": 71012,
         "groups": 567,
         "atoms": 1001,
-        "observedStartupTaskMs": 146,
+        "observedStartupTaskMs": 153,
         "cancellation": {
           "cancelled": true,
-          "elapsed": 21.30000001192093
+          "elapsed": 24.400000035762787
         },
-        "baselineRssKiB": 855180,
-        "peakRssKiB": 948904,
+        "baselineRssKiB": 845752,
+        "peakRssKiB": 973228,
         "memoryMeasurement": "Linux summed descendant RSS, sampled every 100 ms; includes browser and shared pages"
       }
     },
@@ -1961,7 +1961,7 @@
               ],
               "markers": [
                 [
-                  0,
+                  2,
                   0,
                   0,
                   0,
@@ -2483,11 +2483,11 @@
           },
           "events": [
             {
-              "entryId": "01a149ef-6fd7-76cb-9395-49371a0017c9",
+              "entryId": "01a14a47-4cf6-7573-9324-15f6b709f4a6",
               "surfaceId": "first"
             },
             {
-              "entryId": "01a149ef-6fd7-76cb-9395-49371a0017c9",
+              "entryId": "01a14a47-4cf6-7573-9324-15f6b709f4a6",
               "surfaceId": "second"
             }
           ],
@@ -4553,11 +4553,11 @@
           },
           "events": [
             {
-              "entryId": "01a149ef-6fd7-76cb-9395-49371a0017c9",
+              "entryId": "01a14a47-4cf6-7573-9324-15f6b709f4a6",
               "surfaceId": "first"
             },
             {
-              "entryId": "01a149ef-6fd7-76cb-9395-49371a0017c9",
+              "entryId": "01a14a47-4cf6-7573-9324-15f6b709f4a6",
               "surfaceId": "second"
             }
           ],
@@ -8691,11 +8691,11 @@
           },
           "events": [
             {
-              "entryId": "01a149ff-0a39-73d2-9ff3-a4e1dff1665e",
+              "entryId": "01a14a57-1416-7601-a77e-e35edc11d937",
               "surfaceId": "first"
             },
             {
-              "entryId": "01a149ff-0a39-73d2-9ff3-a4e1dff1665e",
+              "entryId": "01a14a57-1416-7601-a77e-e35edc11d937",
               "surfaceId": "second"
             }
           ],
@@ -10761,11 +10761,11 @@
           },
           "events": [
             {
-              "entryId": "01a149ff-0a39-73d2-9ff3-a4e1dff1665e",
+              "entryId": "01a14a57-1416-7601-a77e-e35edc11d937",
               "surfaceId": "first"
             },
             {
-              "entryId": "01a149ff-0a39-73d2-9ff3-a4e1dff1665e",
+              "entryId": "01a14a57-1416-7601-a77e-e35edc11d937",
               "surfaceId": "second"
             }
           ],
@@ -12827,7 +12827,7 @@
       "project": "chromium",
       "name": "real-time-expiration",
       "data": {
-        "elapsedMs": 10049.400000035763,
+        "elapsedMs": 10053.700000047684,
         "noUnexpectedRequests": true,
         "projectUnchanged": true,
         "nativeUnchanged": true
@@ -12838,13 +12838,13 @@
       "project": "mobile-chromium",
       "name": "real-time-expiration",
       "data": {
-        "elapsedMs": 10051,
+        "elapsedMs": 10057.699999988079,
         "noUnexpectedRequests": true,
         "projectUnchanged": true,
         "nativeUnchanged": true
       }
     }
   ],
-  "raw_report_sha256": "66df86e829693c419bf4c5b053bc6fbe8732d54db2f9970f090ee65b66b418f9",
+  "raw_report_sha256": "8ee6312286355efd46fb9767eb90539226a5872f13d63fcc8b3a4376450019fb",
   "raw_report_location": "Full raw report retained externally and included in release verification archive."
 }

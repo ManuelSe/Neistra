@@ -1,0 +1,175 @@
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade  -> 0001, Create Milestone 1 project workspace tables.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0001 -> 0002, Version existing project checkpoint snapshots.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0002 -> 0003, Add artifact-backed molecular entry summaries.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0003 -> 0004, Add durable named atom selections.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0004 -> 0005, Add viewer settings, measurements, and named scenes.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0005 -> 0006, Add exact atom identity summaries and monotonic edit allocators.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0006 -> 0007, Add durable generic job lifecycle tables.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0007 -> 0008, Add durable selection representation assignments to viewer settings.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0008 -> 0009, Add durable nonpolar-hydrogen visibility to viewer settings.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0009 -> 0010, Add selection appearance defaults without losing retained history.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0010 -> 0011, Add selection surface defaults without losing retained history.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0011 -> 0012, Add atomic-detail visibility defaults without losing retained history.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0012 -> 0013, Add pocket surface defaults without losing retained history.
+[2m[WebServer] [22mINFO  [alembic.runtime.migration] Running upgrade 0013 -> 0014, Migrate every retained viewer snapshot to identified surface objects.
+[2m[WebServer] [22mINFO:     Started server process [1178561]
+[2m[WebServer] [22mINFO:     Waiting for application startup.
+[2m[WebServer] [22mINFO:     Application startup complete.
+[2m[WebServer] [22mINFO:     Uvicorn running on http://127.0.0.1:8290 (Press CTRL+C to quit)
+[2m[WebServer] [22m(node:1178633) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:1178645) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 4 tests using 1 worker
+
+(node:1178674) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:1178674) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22mINFO:     127.0.0.1:43460 - "WebSocket /ws/jobs?project_id=01a14a2f-4011-7f93-90d1-e7ee63873b3a" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:43470 - "WebSocket /ws/jobs?project_id=01a14a2f-4011-7f93-90d1-e7ee63873b3a" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:43508 - "WebSocket /ws/jobs?project_id=01a14a2f-4011-7f93-90d1-e7ee63873b3a" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:43716 - "WebSocket /ws/jobs?project_id=01a14a2f-4011-7f93-90d1-e7ee63873b3a" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:40504 - "WebSocket /ws/jobs?project_id=01a14a2f-4011-7f93-90d1-e7ee63873b3a" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+  ✓  1 [chromium] › tests/e2e/rebranding-surfaces.spec.ts:168:7 › reviews warning, failure, recovery and job states in light (20.3s)
+[2m[WebServer] [22mINFO:     127.0.0.1:55334 - "WebSocket /ws/jobs?project_id=01a14a2f-8f06-7370-9a32-b6b06246057c" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:55344 - "WebSocket /ws/jobs?project_id=01a14a2f-8f06-7370-9a32-b6b06246057c" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:55386 - "WebSocket /ws/jobs?project_id=01a14a2f-8f06-7370-9a32-b6b06246057c" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:55626 - "WebSocket /ws/jobs?project_id=01a14a2f-8f06-7370-9a32-b6b06246057c" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:37778 - "WebSocket /ws/jobs?project_id=01a14a2f-8f06-7370-9a32-b6b06246057c" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+  ✓  2 [chromium] › tests/e2e/rebranding-surfaces.spec.ts:168:7 › reviews warning, failure, recovery and job states in dark (18.1s)
+(node:1179438) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:1179438) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22mINFO:     127.0.0.1:52626 - "WebSocket /ws/jobs?project_id=01a14a2f-d809-7c80-859f-4ed56909cd0f" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:52628 - "WebSocket /ws/jobs?project_id=01a14a2f-d809-7c80-859f-4ed56909cd0f" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:52668 - "WebSocket /ws/jobs?project_id=01a14a2f-d809-7c80-859f-4ed56909cd0f" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:52844 - "WebSocket /ws/jobs?project_id=01a14a2f-d809-7c80-859f-4ed56909cd0f" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:52860 - "WebSocket /ws/jobs?project_id=01a14a2f-d809-7c80-859f-4ed56909cd0f" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22m4:07:01 PM [vite] ws proxy error:
+[2m[WebServer] [22mError: read ECONNRESET
+[2m[WebServer] [22m    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m[WebServer] [22m4:07:01 PM [vite] ws proxy socket error:
+[2m[WebServer] [22mError: read ECONNRESET
+[2m[WebServer] [22m    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m[WebServer] [22mINFO:     127.0.0.1:53040 - "WebSocket /ws/jobs?project_id=01a14a2f-d809-7c80-859f-4ed56909cd0f" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:56038 - "WebSocket /ws/jobs?project_id=01a14a2f-d809-7c80-859f-4ed56909cd0f" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:56052 - "WebSocket /ws/jobs?project_id=01a14a2f-d809-7c80-859f-4ed56909cd0f" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22m4:07:04 PM [vite] ws proxy error:
+[2m[WebServer] [22mError: write ECONNRESET
+[2m[WebServer] [22m    at afterWriteDispatched (node:internal/stream_base_commons:159:15)
+[2m[WebServer] [22m    at writeGeneric (node:internal/stream_base_commons:150:3)
+[2m[WebServer] [22m    at Socket._writeGeneric (node:net:966:11)
+[2m[WebServer] [22m    at Socket._write (node:net:978:8)
+[2m[WebServer] [22m    at writeOrBuffer (node:internal/streams/writable:572:12)
+[2m[WebServer] [22m    at _write (node:internal/streams/writable:501:10)
+[2m[WebServer] [22m    at Writable.write (node:internal/streams/writable:510:10)
+[2m[WebServer] [22m    at Socket.ondata (node:internal/streams/readable:1009:22)
+[2m[WebServer] [22m    at Socket.emit (node:events:519:28)
+[2m[WebServer] [22m    at addChunk (node:internal/streams/readable:561:12)
+[2m[WebServer] [22m    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
+[2m[WebServer] [22m    at Readable.push (node:internal/streams/readable:392:5)
+[2m[WebServer] [22m    at TCP.onStreamRead (node:internal/stream_base_commons:189:23)
+[2m[WebServer] [22m4:07:04 PM [vite] ws proxy socket error:
+[2m[WebServer] [22mError: write ECONNRESET
+[2m[WebServer] [22m    at afterWriteDispatched (node:internal/stream_base_commons:159:15)
+[2m[WebServer] [22m    at writeGeneric (node:internal/stream_base_commons:150:3)
+[2m[WebServer] [22m    at Socket._writeGeneric (node:net:966:11)
+[2m[WebServer] [22m    at Socket._write (node:net:978:8)
+[2m[WebServer] [22m    at writeOrBuffer (node:internal/streams/writable:572:12)
+[2m[WebServer] [22m    at _write (node:internal/streams/writable:501:10)
+[2m[WebServer] [22m    at Writable.write (node:internal/streams/writable:510:10)
+[2m[WebServer] [22m    at Socket.ondata (node:internal/streams/readable:1009:22)
+[2m[WebServer] [22m    at Socket.emit (node:events:519:28)
+[2m[WebServer] [22m    at addChunk (node:internal/streams/readable:561:12)
+[2m[WebServer] [22m    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
+[2m[WebServer] [22m    at Readable.push (node:internal/streams/readable:392:5)
+[2m[WebServer] [22m    at TCP.onStreamRead (node:internal/stream_base_commons:189:23)
+[2m[WebServer] [22mINFO:     127.0.0.1:56382 - "WebSocket /ws/jobs?project_id=01a14a2f-d809-7c80-859f-4ed56909cd0f" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+  ✓  3 [mobile-chromium] › tests/e2e/rebranding-surfaces.spec.ts:168:7 › reviews warning, failure, recovery and job states in light (19.8s)
+[2m[WebServer] [22mINFO:     127.0.0.1:38184 - "WebSocket /ws/jobs?project_id=01a14a30-2515-7812-9785-7c67df6f7518" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:38196 - "WebSocket /ws/jobs?project_id=01a14a30-2515-7812-9785-7c67df6f7518" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:38226 - "WebSocket /ws/jobs?project_id=01a14a30-2515-7812-9785-7c67df6f7518" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:38458 - "WebSocket /ws/jobs?project_id=01a14a30-2515-7812-9785-7c67df6f7518" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22m4:07:20 PM [vite] ws proxy error:
+[2m[WebServer] [22mError: read ECONNRESET
+[2m[WebServer] [22m    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m[WebServer] [22m4:07:20 PM [vite] ws proxy socket error:
+[2m[WebServer] [22mError: read ECONNRESET
+[2m[WebServer] [22m    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m[WebServer] [22mINFO:     127.0.0.1:38468 - "WebSocket /ws/jobs?project_id=01a14a30-2515-7812-9785-7c67df6f7518" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:38668 - "WebSocket /ws/jobs?project_id=01a14a30-2515-7812-9785-7c67df6f7518" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:38976 - "WebSocket /ws/jobs?project_id=01a14a30-2515-7812-9785-7c67df6f7518" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22mINFO:     127.0.0.1:38978 - "WebSocket /ws/jobs?project_id=01a14a30-2515-7812-9785-7c67df6f7518" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22m4:07:23 PM [vite] ws proxy error:
+[2m[WebServer] [22mError: read ECONNRESET
+[2m[WebServer] [22m    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m[WebServer] [22m4:07:23 PM [vite] ws proxy socket error:
+[2m[WebServer] [22mError: read ECONNRESET
+[2m[WebServer] [22m    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m[WebServer] [22mINFO:     127.0.0.1:39332 - "WebSocket /ws/jobs?project_id=01a14a30-2515-7812-9785-7c67df6f7518" [accepted]
+[2m[WebServer] [22mINFO:     connection open
+[2m[WebServer] [22m4:07:30 PM [vite] ws proxy error:
+[2m[WebServer] [22mError: write ECONNRESET
+[2m[WebServer] [22m    at afterWriteDispatched (node:internal/stream_base_commons:159:15)
+[2m[WebServer] [22m    at writeGeneric (node:internal/stream_base_commons:150:3)
+[2m[WebServer] [22m    at Socket._writeGeneric (node:net:966:11)
+[2m[WebServer] [22m    at Socket._write (node:net:978:8)
+[2m[WebServer] [22m    at writeOrBuffer (node:internal/streams/writable:572:12)
+[2m[WebServer] [22m    at _write (node:internal/streams/writable:501:10)
+[2m[WebServer] [22m    at Writable.write (node:internal/streams/writable:510:10)
+[2m[WebServer] [22m    at Socket.ondata (node:internal/streams/readable:1009:22)
+[2m[WebServer] [22m    at Socket.emit (node:events:519:28)
+[2m[WebServer] [22m    at addChunk (node:internal/streams/readable:561:12)
+[2m[WebServer] [22m    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
+[2m[WebServer] [22m    at Readable.push (node:internal/streams/readable:392:5)
+[2m[WebServer] [22m    at TCP.onStreamRead (node:internal/stream_base_commons:189:23)
+[2m[WebServer] [22m4:07:30 PM [vite] ws proxy socket error:
+[2m[WebServer] [22mError: write ECONNRESET
+[2m[WebServer] [22m    at afterWriteDispatched (node:internal/stream_base_commons:159:15)
+[2m[WebServer] [22m    at writeGeneric (node:internal/stream_base_commons:150:3)
+[2m[WebServer] [22m    at Socket._writeGeneric (node:net:966:11)
+[2m[WebServer] [22m    at Socket._write (node:net:978:8)
+[2m[WebServer] [22m    at writeOrBuffer (node:internal/streams/writable:572:12)
+[2m[WebServer] [22m    at _write (node:internal/streams/writable:501:10)
+[2m[WebServer] [22m    at Writable.write (node:internal/streams/writable:510:10)
+[2m[WebServer] [22m    at Socket.ondata (node:internal/streams/readable:1009:22)
+[2m[WebServer] [22m    at Socket.emit (node:events:519:28)
+[2m[WebServer] [22m    at addChunk (node:internal/streams/readable:561:12)
+[2m[WebServer] [22m    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
+[2m[WebServer] [22m    at Readable.push (node:internal/streams/readable:392:5)
+[2m[WebServer] [22m    at TCP.onStreamRead (node:internal/stream_base_commons:189:23)
+  ✓  4 [mobile-chromium] › tests/e2e/rebranding-surfaces.spec.ts:168:7 › reviews warning, failure, recovery and job states in dark (18.9s)
+
+  4 passed (1.4m)

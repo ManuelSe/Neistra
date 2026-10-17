@@ -242,6 +242,7 @@ for (const theme of ["light", "dark"] as const) {
     await page.reload();
     const failure = page.locator(".api-failure");
     await expect(failure).toContainText("Neistra could not reach the local API.", { timeout: 20_000 });
+    await expect(page.getByRole("region", { name: "3D molecular viewer" })).toBeVisible();
     await review(page, info, `${theme}-api-failure`);
     unavailable = false;
     await failure.getByRole("button", { name: "Retry", exact: true }).click();

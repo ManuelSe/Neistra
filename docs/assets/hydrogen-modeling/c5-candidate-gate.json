@@ -1,7 +1,7 @@
 {
   "stage": "c5-candidate",
-  "commit": "22b28f5e71101aecaa560172b8db3909642618ba",
-  "started_utc": "2026-10-17T12:33:18.601942+00:00",
+  "commit": "a0aaef1cea45ac69f44d7967b8d7a4136918bc38",
+  "started_utc": "2026-10-17T14:08:36.917906+00:00",
   "working_tree_clean_at_start": true,
   "source_sha256": {
     ".gitattributes": "4b5e5a86da748d364c93dcf3f1550f3665916ff8032730a3f476a315cedd7936",
@@ -99,7 +99,7 @@
     "apps/web/src/components/SelectionPalette.tsx": "87f31c986a7d5089487626a4158633d1d8c10f4ee776307463270f347f1e45a1",
     "apps/web/src/components/SelectionStyleDialog.tsx": "b1f3a3f143ad0e481d88ec02782ec2342f960088918e5297099d506eef857a74",
     "apps/web/src/components/StructureHierarchy.tsx": "46f2905b6a70df32862c008cf3dfd3b94d3b6eda70742629b3810afc1eac8dba",
-    "apps/web/src/components/StructureViewer.tsx": "08c3123e31ce63d166e7cbc01da813febc3079759b15e8a1be11c61caca24ee5",
+    "apps/web/src/components/StructureViewer.tsx": "e5da409a7f7f2a305c9f9e2e60bd1946b0f03f445be7b746911d6bbecdf4c045",
     "apps/web/src/components/SurfaceEditor.tsx": "2082e863e528d6e6938c608fbd7ada14496fe838527770ba43478c2f847be4b2",
     "apps/web/src/components/SurfaceManager.tsx": "72f40322193de8542140d7305abfa86eb81b5e842b527e26e4731c7d5bdd96ec",
     "apps/web/src/components/TopBar.tsx": "35b1186e07713981c8aed1b487be454c2d6a711db2fb1876d81f2d901aeb8f03",
@@ -193,7 +193,7 @@
     "apps/web/src/test/selectionSurfaceHarness.ts": "8b943edc82ff10c54189828371502375e1a7b7b43dbca9da71e4021d4ed9ed88",
     "apps/web/src/test/sequence.test.tsx": "2a5b71ac884fc86a444fcd7ace543e54f5a0c9fea18eae2a8da2128fb4fde040",
     "apps/web/src/test/setup.ts": "90afdddbe8f31a9ccf2ce2f8584bfaf9606cea02e9df4ab744bcd365c38ad47d",
-    "apps/web/src/test/structure-loading.test.tsx": "eeb3676a7bc046e0b642525b2162e6a85a732a021793def7d6dc48bffdd2da67",
+    "apps/web/src/test/structure-loading.test.tsx": "e0ae7fc79f07b314bb67141c20927bea89cf87d72b8217f5a9877a2fb03d17c9",
     "apps/web/src/test/surface-editor.test.tsx": "7f64fb86b5d86c7e46e4733ca2f0d9eff5c1f75ff4138ec4a1c7521702fc5ac8",
     "apps/web/src/test/surface-manager.test.tsx": "412c056b132f516b4894ace80c50ba21770c5ddbd9b8dff803bf61ac0a6ed982",
     "apps/web/src/test/surface-objects.test.ts": "1091c0365df5d6318d3ff061b608b4bd5c3b35c3dfd1f5932c40ae6a2c5cf899",
@@ -304,7 +304,7 @@
     "tests/e2e/project-lifecycle.spec.ts": "3692caa0d5a2b764832accbd8104516ba4163eb4e9339ad9ca3034b4e15dece6",
     "tests/e2e/project-navigation.spec.ts": "856f7afbed58f5529312e15e9b62727fd581a1fd27efe4b102507fda50ab5269",
     "tests/e2e/protein-editing.spec.ts": "cc54b36bfcb7d898865bf96e6d69cdecbf85cea4546efc332bb4d3e05283e734",
-    "tests/e2e/rebranding-surfaces.spec.ts": "90cceadce3f621643051dac1c0f0e2fbbf48850cb528ad531033961ff0f6e5f7",
+    "tests/e2e/rebranding-surfaces.spec.ts": "27a2fa5706fca84df13581a070a819db4bda6f84a0bc47de3a1f3f5d5f3659d6",
     "tests/e2e/rebranding-zoom.spec.ts": "a7227dd5a3c642f0046dea14b1b11a292abe3086d73298d5837cb73babb93d6a",
     "tests/e2e/rebranding.spec.ts": "5d4c9702eb85850bae7dadc551783d8971e0cf8fced750f3048ff5a31aa4edf8",
     "tests/e2e/release-hardening.spec.ts": "4b24ff08ad4b2a6937eea5d4ba7b3ed58b380f086d0093201b419122d2edc963",
@@ -446,27 +446,27 @@
       "exit": 0,
       "seconds": 0.025,
       "log": "c5-candidate-uv-install.log",
-      "sha256": "0a5503a7de9879c349fcbd745bfd219f50a318a802091d029d26b7aaf2717a4d",
-      "raw_sha256": "0a5503a7de9879c349fcbd745bfd219f50a318a802091d029d26b7aaf2717a4d"
+      "sha256": "6ea7b49f8d14027333ed68462a41d4ff8d77479c3c9516a6ed5f02d8bf546ad8",
+      "raw_sha256": "6ea7b49f8d14027333ed68462a41d4ff8d77479c3c9516a6ed5f02d8bf546ad8"
     },
     {
       "name": "pnpm-install",
       "command": "corepack pnpm install --frozen-lockfile",
       "environment": {},
       "exit": 0,
-      "seconds": 0.636,
+      "seconds": 0.642,
       "log": "c5-candidate-pnpm-install.log",
-      "sha256": "e68907cf50f9b11dc2e3d5e063a7fff91f10e0f0a4799de4cbb1411f8ace0e8f",
-      "raw_sha256": "e68907cf50f9b11dc2e3d5e063a7fff91f10e0f0a4799de4cbb1411f8ace0e8f"
+      "sha256": "bd18847c73d2e02491bb85c127c83c40aa19145512cc4a54d1106b1a55c4891f",
+      "raw_sha256": "bd18847c73d2e02491bb85c127c83c40aa19145512cc4a54d1106b1a55c4891f"
     },
     {
       "name": "migration",
       "command": ".venv/bin/uv run alembic upgrade head",
       "environment": {
-        "MOLWEAVE_DATA_DIR": "/tmp/neistra-issue77-c5-candidate-contacts/migration"
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra-issue77-c5-candidate-a11y/migration"
       },
       "exit": 0,
-      "seconds": 1.041,
+      "seconds": 1.043,
       "log": "c5-candidate-migration.log",
       "sha256": "a65aaba1d288361248cfad53dee993528aa5c4bbd5accca186ae60e26f85c610",
       "raw_sha256": "a65aaba1d288361248cfad53dee993528aa5c4bbd5accca186ae60e26f85c610"
@@ -476,7 +476,7 @@
       "command": ".venv/bin/uv run ruff check .",
       "environment": {},
       "exit": 0,
-      "seconds": 0.044,
+      "seconds": 0.043,
       "log": "c5-candidate-ruff.log",
       "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
       "raw_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
@@ -486,7 +486,7 @@
       "command": ".venv/bin/uv run mypy apps/api packages/molweave_core",
       "environment": {},
       "exit": 0,
-      "seconds": 0.183,
+      "seconds": 0.172,
       "log": "c5-candidate-mypy.log",
       "sha256": "678fe31f7c301580d40b75d6f71bcd76bd575618a9bdc72484a136988d5fd034",
       "raw_sha256": "678fe31f7c301580d40b75d6f71bcd76bd575618a9bdc72484a136988d5fd034"
@@ -496,17 +496,17 @@
       "command": ".venv/bin/uv run pytest",
       "environment": {},
       "exit": 0,
-      "seconds": 121.751,
+      "seconds": 122.821,
       "log": "c5-candidate-python.log",
-      "sha256": "637edff1f67d36592512ad226edd3f879523362665501533b1e9501b1e7c5b1c",
-      "raw_sha256": "637edff1f67d36592512ad226edd3f879523362665501533b1e9501b1e7c5b1c"
+      "sha256": "d861d02faf2063f3c6ebce839bfc01f65c5a1dcf5c77abee76cc1df5625421a7",
+      "raw_sha256": "d861d02faf2063f3c6ebce839bfc01f65c5a1dcf5c77abee76cc1df5625421a7"
     },
     {
       "name": "lint",
       "command": "corepack pnpm --dir apps/web lint",
       "environment": {},
       "exit": 0,
-      "seconds": 9.623,
+      "seconds": 9.612,
       "log": "c5-candidate-lint.log",
       "sha256": "c55112723049460faf5b406e15d9357663b80596b51a2a1f77be601f0a181d2a",
       "raw_sha256": "58d4992236167c12579cfcb0e295a8386b56960fc1905081adce9b66100eaa83"
@@ -516,7 +516,7 @@
       "command": "corepack pnpm --dir apps/web typecheck",
       "environment": {},
       "exit": 0,
-      "seconds": 4.91,
+      "seconds": 4.935,
       "log": "c5-candidate-types.log",
       "sha256": "09a1e2cfd7f2c1f1d7c1aff3824dbe5aaf140daec6de088352a0cb88630c0ec2",
       "raw_sha256": "de0dfbe7aeb99c8fa6d0f83f2813fdb87107d58b3a4cbd1bdd66ac263266c08e"
@@ -526,63 +526,63 @@
       "command": "corepack pnpm --dir apps/web test",
       "environment": {},
       "exit": 0,
-      "seconds": 9.936,
+      "seconds": 10.073,
       "log": "c5-candidate-frontend.log",
-      "sha256": "85008ecd39a37460dee48ee25ec66783c816c172ce20afd919cae0e95725d954",
-      "raw_sha256": "6d663cc4a463fe41228410113d22d9cd70be09d186b974b0af11dff68f073fcb"
+      "sha256": "974dd37b77b9c74ac56dc1855b4ff579413bc1e92075d12a62ed17d0d8a139a3",
+      "raw_sha256": "e956b78872f6e052c3facb93d5028b2a8b65cb06ce471e1e1a1c87d80845e2aa"
     },
     {
       "name": "supervisor",
       "command": "corepack pnpm test:dev",
       "environment": {},
       "exit": 0,
-      "seconds": 1.456,
+      "seconds": 1.464,
       "log": "c5-candidate-supervisor.log",
-      "sha256": "71138a5a4079e1ea313c3468c6c024617164a0a848deb20753188266e87b4006",
-      "raw_sha256": "71138a5a4079e1ea313c3468c6c024617164a0a848deb20753188266e87b4006"
+      "sha256": "45c73f7c6a1cf5954063a5c3edb1e6443dfdfcad5c613cd6d76ed928846af0bd",
+      "raw_sha256": "45c73f7c6a1cf5954063a5c3edb1e6443dfdfcad5c613cd6d76ed928846af0bd"
     },
     {
       "name": "build",
       "command": "corepack pnpm --dir apps/web build",
       "environment": {},
       "exit": 0,
-      "seconds": 12.657,
+      "seconds": 13.27,
       "log": "c5-candidate-build.log",
-      "sha256": "8ed37aa56b816e3b7687466868d0f7ffb52d38fe3d7ece0acd60e487e0cc9cac",
-      "raw_sha256": "8ed37aa56b816e3b7687466868d0f7ffb52d38fe3d7ece0acd60e487e0cc9cac"
+      "sha256": "e5226b8ba4b7c0789966e60923bd332abc4fb06852bd8284284ad1ff115f335e",
+      "raw_sha256": "e5226b8ba4b7c0789966e60923bd332abc4fb06852bd8284284ad1ff115f335e"
     },
     {
       "name": "reader-migration",
       "command": ".venv/bin/uv run alembic upgrade head",
       "environment": {
-        "MOLWEAVE_DATA_DIR": "/tmp/neistra-issue77-c5-candidate-contacts/reader"
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra-issue77-c5-candidate-a11y/reader"
       },
       "exit": 0,
-      "seconds": 1.03,
+      "seconds": 1.045,
       "log": "c5-candidate-reader-migration.log",
       "sha256": "a65aaba1d288361248cfad53dee993528aa5c4bbd5accca186ae60e26f85c610",
       "raw_sha256": "a65aaba1d288361248cfad53dee993528aa5c4bbd5accca186ae60e26f85c610"
     },
     {
       "name": "reader-produce",
-      "command": ".venv/bin/python -m tests.support.hydrogen_reader_qualification produce --data-dir /tmp/neistra-issue77-c5-candidate-contacts/reader --evidence /tmp/neistra-issue77-c5-candidate-contacts-evidence/c5-candidate-reader-producer.json",
+      "command": ".venv/bin/python -m tests.support.hydrogen_reader_qualification produce --data-dir /tmp/neistra-issue77-c5-candidate-a11y/reader --evidence /tmp/neistra-issue77-c5-candidate-a11y-evidence/c5-candidate-reader-producer.json",
       "environment": {
         "PYTHONPATH": "apps/api/src:packages/molweave_core/src:packages/molweave_demo_plugin/src"
       },
       "exit": 0,
-      "seconds": 2.885,
+      "seconds": 3.001,
       "log": "c5-candidate-reader-produce.log",
-      "sha256": "4d774c5534cdd29fc25e75d817782525c3f9e7f5f27471397acf3df5ced6681f",
-      "raw_sha256": "4d774c5534cdd29fc25e75d817782525c3f9e7f5f27471397acf3df5ced6681f"
+      "sha256": "440395b33ea3f1d2deaa5eb170a2d0d3689247f824a9c0aa7b7bd7e49c5d52e9",
+      "raw_sha256": "440395b33ea3f1d2deaa5eb170a2d0d3689247f824a9c0aa7b7bd7e49c5d52e9"
     },
     {
       "name": "reader-read",
-      "command": ".venv/bin/python -m tests.support.hydrogen_reader_qualification read --data-dir /tmp/neistra-issue77-c5-candidate-contacts/reader --reader-root /tmp/neistra-issue77-reader-017 --evidence /tmp/neistra-issue77-c5-candidate-contacts-evidence/c5-candidate-reader.json",
+      "command": ".venv/bin/python -m tests.support.hydrogen_reader_qualification read --data-dir /tmp/neistra-issue77-c5-candidate-a11y/reader --reader-root /tmp/neistra-issue77-reader-017 --evidence /tmp/neistra-issue77-c5-candidate-a11y-evidence/c5-candidate-reader.json",
       "environment": {
         "PYTHONPATH": "/tmp/neistra-issue77-reader-017/apps/api/src:/tmp/neistra-issue77-reader-017/packages/molweave_core/src:/tmp/neistra-issue77-reader-017/packages/molweave_demo_plugin/src"
       },
       "exit": 0,
-      "seconds": 1.786,
+      "seconds": 1.834,
       "log": "c5-candidate-reader-read.log",
       "sha256": "7ba52921cccc56f84e4aa96a78b86abf924ea2d3ecbce8fbfa9218f34075d941",
       "raw_sha256": "7ba52921cccc56f84e4aa96a78b86abf924ea2d3ecbce8fbfa9218f34075d941"
@@ -595,31 +595,31 @@
         "MOLWEAVE_E2E_API_PORT": "8290",
         "MOLWEAVE_E2E_WORKER_PORT": "8291",
         "MOLWEAVE_E2E_WEB_PORT": "5490",
-        "MOLWEAVE_E2E_DATA_DIR": "/tmp/neistra-issue77-c5-candidate-contacts/e2e",
-        "PLAYWRIGHT_JSON_OUTPUT_NAME": "/tmp/neistra-issue77-c5-candidate-contacts-evidence/browser-results.json"
+        "MOLWEAVE_E2E_DATA_DIR": "/tmp/neistra-issue77-c5-candidate-a11y/e2e",
+        "PLAYWRIGHT_JSON_OUTPUT_NAME": "/tmp/neistra-issue77-c5-candidate-a11y-evidence/browser-results.json"
       },
       "exit": 0,
-      "seconds": 2439.608,
+      "seconds": 2490.566,
       "log": "c5-candidate-browser.log",
-      "sha256": "852fcb83f8038fc51b9a9bae2ac835aee349428c6d3247d107013b18ac46d552",
-      "raw_sha256": "852fcb83f8038fc51b9a9bae2ac835aee349428c6d3247d107013b18ac46d552"
+      "sha256": "1d55a6378241fae170d6aa074db16874771f6d2d8d2cbb8baed17c3e25266400",
+      "raw_sha256": "1d55a6378241fae170d6aa074db16874771f6d2d8d2cbb8baed17c3e25266400"
     },
     {
       "name": "diff",
       "command": "git diff --check",
       "environment": {},
       "exit": 0,
-      "seconds": 0.004,
+      "seconds": 0.003,
       "log": "c5-candidate-diff.log",
       "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
       "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     }
   ],
   "working_tree_clean_at_end": true,
-  "finished_utc": "2026-10-17T13:16:46.208750+00:00",
+  "finished_utc": "2026-10-17T14:52:57.501903+00:00",
   "browser": {
-    "startTime": "2026-10-17T12:36:07.243Z",
-    "duration": 2438899.109,
+    "startTime": "2026-10-17T14:11:27.581Z",
+    "duration": 2489853.202,
     "expected": 239,
     "skipped": 47,
     "unexpected": 0,
@@ -638,26 +638,26 @@
     "browser": "Playwright Chromium1187 / SwiftShader; Pixel7 emulation and actual Chrome zoom"
   },
   "artifacts_sha256": {
-    "c5-candidate-browser-summary.json": "5ea3b0baabd3bd9ec09bc7eeb8dcbcbcd01388b0f972db96a7918019197d2016",
-    "c5-candidate-browser.log": "852fcb83f8038fc51b9a9bae2ac835aee349428c6d3247d107013b18ac46d552",
-    "c5-candidate-build.log": "8ed37aa56b816e3b7687466868d0f7ffb52d38fe3d7ece0acd60e487e0cc9cac",
+    "c5-candidate-browser-summary.json": "d2e1b575f90f33ad2cd1ea42a5900be35ace8e9e9daf7caf878475e5d2f18e41",
+    "c5-candidate-browser.log": "1d55a6378241fae170d6aa074db16874771f6d2d8d2cbb8baed17c3e25266400",
+    "c5-candidate-build.log": "e5226b8ba4b7c0789966e60923bd332abc4fb06852bd8284284ad1ff115f335e",
     "c5-candidate-diff.log": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
-    "c5-candidate-frontend.log": "85008ecd39a37460dee48ee25ec66783c816c172ce20afd919cae0e95725d954",
-    "c5-candidate-interactive-transform-perf-ad651-measures-exact-cancellation-chromium-movement-performance.json": "fd4ddab7edef32e1f140e82433a078dda34ffa596e6e15b3b8e0b300b2148f9f",
-    "c5-candidate-interactive-transform-perf-c981b-measures-exact-cancellation-chromium-movement-performance.json": "d2531e62d5a9c9e86e3db390a08f5549bc9b8e74a194a7a67246777887140489",
+    "c5-candidate-frontend.log": "974dd37b77b9c74ac56dc1855b4ff579413bc1e92075d12a62ed17d0d8a139a3",
+    "c5-candidate-interactive-transform-perf-ad651-measures-exact-cancellation-chromium-movement-performance.json": "b2bb036943726bc8d5ddc8057886d38b0dc385330642967b803ebfc00cabe283",
+    "c5-candidate-interactive-transform-perf-c981b-measures-exact-cancellation-chromium-movement-performance.json": "708efb42ed16500a4f18bda9bd1876513b8b00a01edea9dc09cf9c0c379e2e37",
     "c5-candidate-lint.log": "c55112723049460faf5b406e15d9357663b80596b51a2a1f77be601f0a181d2a",
     "c5-candidate-migration.log": "a65aaba1d288361248cfad53dee993528aa5c4bbd5accca186ae60e26f85c610",
     "c5-candidate-mypy.log": "678fe31f7c301580d40b75d6f71bcd76bd575618a9bdc72484a136988d5fd034",
-    "c5-candidate-pnpm-install.log": "e68907cf50f9b11dc2e3d5e063a7fff91f10e0f0a4799de4cbb1411f8ace0e8f",
-    "c5-candidate-python.log": "637edff1f67d36592512ad226edd3f879523362665501533b1e9501b1e7c5b1c",
+    "c5-candidate-pnpm-install.log": "bd18847c73d2e02491bb85c127c83c40aa19145512cc4a54d1106b1a55c4891f",
+    "c5-candidate-python.log": "d861d02faf2063f3c6ebce839bfc01f65c5a1dcf5c77abee76cc1df5625421a7",
     "c5-candidate-reader-migration.log": "a65aaba1d288361248cfad53dee993528aa5c4bbd5accca186ae60e26f85c610",
-    "c5-candidate-reader-produce.log": "4d774c5534cdd29fc25e75d817782525c3f9e7f5f27471397acf3df5ced6681f",
-    "c5-candidate-reader-producer.json": "4d774c5534cdd29fc25e75d817782525c3f9e7f5f27471397acf3df5ced6681f",
+    "c5-candidate-reader-produce.log": "440395b33ea3f1d2deaa5eb170a2d0d3689247f824a9c0aa7b7bd7e49c5d52e9",
+    "c5-candidate-reader-producer.json": "440395b33ea3f1d2deaa5eb170a2d0d3689247f824a9c0aa7b7bd7e49c5d52e9",
     "c5-candidate-reader-read.log": "7ba52921cccc56f84e4aa96a78b86abf924ea2d3ecbce8fbfa9218f34075d941",
     "c5-candidate-reader.json": "7ba52921cccc56f84e4aa96a78b86abf924ea2d3ecbce8fbfa9218f34075d941",
     "c5-candidate-ruff.log": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
-    "c5-candidate-supervisor.log": "71138a5a4079e1ea313c3468c6c024617164a0a848deb20753188266e87b4006",
+    "c5-candidate-supervisor.log": "45c73f7c6a1cf5954063a5c3edb1e6443dfdfcad5c613cd6d76ed928846af0bd",
     "c5-candidate-types.log": "09a1e2cfd7f2c1f1d7c1aff3824dbe5aaf140daec6de088352a0cb88630c0ec2",
-    "c5-candidate-uv-install.log": "0a5503a7de9879c349fcbd745bfd219f50a318a802091d029d26b7aaf2717a4d"
+    "c5-candidate-uv-install.log": "6ea7b49f8d14027333ed68462a41d4ff8d77479c3c9516a6ed5f02d8bf546ad8"
   }
 }

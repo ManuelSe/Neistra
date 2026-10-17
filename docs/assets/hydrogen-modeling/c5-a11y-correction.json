@@ -1,0 +1,39 @@
+{
+  "status": "passed focused correction; fresh complete candidate/merged gates still required",
+  "frontend_tests": 252,
+  "browser": {
+    "startTime": "2026-10-17T14:06:07.588Z",
+    "duration": 83064.443,
+    "expected": 4,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "correction": "Stable named viewer region independent of native startup/API availability; component assertions with empty renderer and existing native API-failure assertions in both themes/viewports.",
+  "commands": [
+    "corepack pnpm --dir apps/web test",
+    "corepack pnpm --dir apps/web lint",
+    "corepack pnpm --dir apps/web typecheck",
+    "corepack pnpm --dir apps/web build",
+    "PLAYWRIGHT_BROWSERS_PATH=.playwright MOLWEAVE_E2E_API_PORT=8290 MOLWEAVE_E2E_WORKER_PORT=8291 MOLWEAVE_E2E_WEB_PORT=5490 MOLWEAVE_E2E_DATA_DIR=/tmp/neistra-issue77-c5-a11y-focused PLAYWRIGHT_JSON_OUTPUT_NAME=/tmp/issue77-c5-a11y-browser.json corepack pnpm exec playwright test tests/e2e/rebranding-surfaces.spec.ts --grep \"reviews warning, failure, recovery and job states\" --reporter=list,json",
+    "git diff --check"
+  ],
+  "logs": {
+    "issue77-c5-a11y-lint.log": {
+      "raw_sha256": "58d4992236167c12579cfcb0e295a8386b56960fc1905081adce9b66100eaa83",
+      "retained_sha256": "c55112723049460faf5b406e15d9357663b80596b51a2a1f77be601f0a181d2a"
+    },
+    "issue77-c5-a11y-types.log": {
+      "raw_sha256": "de0dfbe7aeb99c8fa6d0f83f2813fdb87107d58b3a4cbd1bdd66ac263266c08e",
+      "retained_sha256": "09a1e2cfd7f2c1f1d7c1aff3824dbe5aaf140daec6de088352a0cb88630c0ec2"
+    },
+    "issue77-c5-a11y-build.log": {
+      "raw_sha256": "7bb693a53bad5d1e1abe35e7f01f62a4f3e8936045cbf4335f68db187c50cb37",
+      "retained_sha256": "7bb693a53bad5d1e1abe35e7f01f62a4f3e8936045cbf4335f68db187c50cb37"
+    },
+    "issue77-c5-a11y-native.log": {
+      "raw_sha256": "644428801b15993e5cf5f1e70e662ffb526d95efc4cf91589fe66a57cea359b1",
+      "retained_sha256": "644428801b15993e5cf5f1e70e662ffb526d95efc4cf91589fe66a57cea359b1"
+    }
+  }
+}

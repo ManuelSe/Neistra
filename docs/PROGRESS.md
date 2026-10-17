@@ -6,7 +6,7 @@ Issue #77 C0–C4 complete under the [approved plan](plans/issue-77-geometry-awa
 Geometry-aware additive H completion, explicit count/geometry controls, partial/
 no-op reports and documented model intent are implemented. D-105/106 govern intent.
 The [clean final candidate](assets/hydrogen-modeling/c5-candidate-gate.json) at
-22b28f5 passes all16 release commands:756 Python,252 frontend,8 supervisor,
+a0aaef1 passes all16 release commands:756 Python,252 frontend,8 supervisor,
 239 browser tests /47 intentional skips; zero failures/flakes/retries. All15
 native performance profiles, frozen installs/fresh0014/static/build/diff and actual
 0.17 reader with final0.18 producer pass. Source/log hashes and clean trees retained.
@@ -15,8 +15,16 @@ unresolved consequential finding; it is not independent review. Earlier diagnost
 are separate. Five versions0.18.0 minor; no migration/schema/dependency change.
 Known limits: bounded profile, unoptimized geometry, explicit uncertainty; no full
 protonation/preparation/optimization or persistent constraints. No blocker.
-Next:C5 PR/integration review audit, normal merge, exact-master release gate,
-verified tag/release/issue reply and delayed branch cleanup. No publication claimed.
+PR78 merged normally. Initial exact-master gate blocked publication on one mobile
+API-failure accessibility finding (238pass/47skip/1fail). Stable named viewer-region
+correction and regressions pass252frontend/4native/lint/types/build/diff on the
+feature branch. No molecular/schema/version change. Earlier passing candidate
+predates this correction; failed merged evidence remains diagnostic.
+Fresh corrected candidatea0aaef1 passes the complete16-command gate with the
+same756Python/252frontend/8supervisor/239native+47skip counts, zero failures/flakes/
+retries and15passing profiles. The previously failing mobile dark API case passes.
+Next:reviewed correction PR/normal merge, fresh exact-master gate, verified
+tag/release/issue reply and delayed cleanup. No publication claimed.
 
 ### Previous delivery baseline — v0.17.0
 

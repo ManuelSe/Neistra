@@ -7,13 +7,13 @@
       "name": "protein-fragment",
       "atoms": 3,
       "navigationCycles": 6,
-      "previewMs": 134.4000000357628,
-      "coordinatePreviewMs": 118.10000002384186,
-      "coordinateCancelMs": 14.799999952316284,
+      "previewMs": 151.5,
+      "coordinatePreviewMs": 129.89999997615814,
+      "coordinateCancelMs": 9.699999988079071,
       "maxActive": 1,
       "submittedFrames": 40,
       "renderedFrames": 2,
-      "longestTaskMs": 117,
+      "longestTaskMs": 133,
       "changed": true,
       "exactRestore": true,
       "errors": []
@@ -22,9 +22,9 @@
       "name": "bound-ligand",
       "atoms": 16,
       "navigationCycles": 6,
-      "previewMs": 29.400000035762787,
-      "coordinatePreviewMs": 14.600000023841858,
-      "coordinateCancelMs": 16.80000001192093,
+      "previewMs": 34,
+      "coordinatePreviewMs": 16.399999976158142,
+      "coordinateCancelMs": 16.599999964237213,
       "maxActive": 1,
       "submittedFrames": 40,
       "renderedFrames": 2,
@@ -35,8 +35,8 @@
     }
   ],
   "surface": {
-    "coordinateCancelMs": 12.199999988079071,
-    "regenerationCompleteMs": 1090.699999988079,
+    "coordinateCancelMs": 8.5,
+    "regenerationCompleteMs": 1118.800000011921,
     "inheritedRestored": true
   },
   "requests": []
