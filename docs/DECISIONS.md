@@ -4084,3 +4084,36 @@ back to canonical parents/conformers. This preserves the one-index/no-pair-matri
 bound and every coordinate while covering new/new contacts as well. Contacts warn;
 they do not reject the scientist's draft. A two-site overlaid synthetic regression
 and the existing real4097-site index/array budget test qualify the correction.
+
+
+## D-107 — Operation-specific bond hydrogen reconciliation and protection evidence
+
+Date: 2026-10-17. Status: accepted by explicit approval of issue #81 plan.
+
+The approved [issue #81 contract](plans/issue-81-local-hydrogen-reconciliation.md)
+adds a distinct destructive endpoint-local reconciliation policy for heavy-heavy
+bond edits. The UI defaults to immediate reconciliation with visible add/remove/move
+wording, Preserve H and optional preview. Existing omitted API policy stays preserve;
+complete_if_possible and standalone completion/Add N H retain additive-only meaning.
+Unsupported sites retain the valid requested bond edit and receive diagnostics.
+No preparation, protonation inference, heavy-atom optimization or global repair is
+implied. D-101/D-105/D-106 remain unchanged for their historical operations.
+
+C1 records narrow isotope/radical identity evidence in normalized annotations with
+kind neistra_hydrogen_protection, schema_version 1, origin import/generated/
+original_recovery and typed atoms (atom_id, element, source_index, isotope,
+radical_electrons). Zero denotes no explicit source isotope/radical annotation;
+null means unavailable evidence. Ordinary protium may also have explicit mass 1.
+These are protection facts, not new canonical editable chemistry fields. Chemical
+export warns about unsupported protected facts; native artifacts/archives retain
+all records. IDs remain provenance even if an atom is later deleted. Element/index
+mismatch invalidates applicability; malformed or conflicting facts cannot prove
+ordinary H. Unrelated annotations remain untouched.
+
+Older source evidence can be recovered from preserved originals only by matching
+record/format and stable import ID plus element/source index/residue/alternate
+identity. Never recover through mutable names or spatial proximity. Reads/previews
+do not publish; successful edits may persist recovered facts in their artifact.
+Unknown evidence conservatively skips reconciliation. Generated ordinary atom/H
+placement records its explicit identity at creation. No migration or top-level
+schema change; actual preceding-reader retention must be qualified before release.

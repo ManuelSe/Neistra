@@ -2,29 +2,20 @@
 
 ## Current milestone
 
-Issue #81 C0 — approved planning delivery under the
-[local hydrogen reconciliation plan](plans/issue-81-local-hydrogen-reconciliation.md).
-User approval: “Implement the plan.”, 2026-10-17. Clean master was fetched and
-confirmed fast-forward current at `9f20d9f4c87d4c714638bcf77dc664b7dabdb670`;
-dedicated branch: `fix/issue-81-local-hydrogen-reconciliation`. The approved plan
-is the first branch change; runtime implementation has not started.
+Issue #81 M1/C1 verified under the
+[approved local H reconciliation plan](plans/issue-81-local-hydrogen-reconciliation.md).
+C0 is committed/pushed at90b6397; /goal authorizes implementation through delivery.
+C1 retains narrow imported isotope/radical protection facts, generated atom/H
+identity, pure original-source recovery and explicit chemical-export loss warnings.
+D-107 documents the contract; no migration, dependency or version change.
 
-Approved milestones: M1 protection facts and atomic API reconciliation (C1/C2),
-M2 immediate UI with Preserve H and optional preview (C3), M3 scientific/native/
-preceding-reader qualification (C4), M4 candidate/reviewed release delivery (C5/C6).
-Planned stable minor: 0.19.0, subject to release collision recheck. Existing API
-defaults and additive completion remain compatible; no new migration is planned.
-Confirmed product choices: immediate reconciliation, existing bounded chemistry
-profile and narrow isotope/radical protection facts. Ambiguous sites retain the
-direct edit with diagnostics; full isotope/radical authoring/export is deferred.
-
-Verification performed during planning: read-only in-memory probes reproduce
-bond-edit count/geometry gaps and isotope-field loss; 56 existing focused hydrogen
-unit/scientific tests pass. C0 checks the documentation-only diff, required commit,
-clean state and remote branch readback. No new behavior is claimed verified.
-Known limits: all reconciliation runtime work remains pending. No planning blocker.
-Stop after C0 persistence/push, ready for `/goal`; detailed contract and evidence
-belong in the feature plan. Existing released behavior remains the baseline below.
+Verification: 184 adapter/format/archive/migration tests and64 protection/existing-H
+tests pass, Ruff and mypy71 pass. Existing Alembic path_separator deprecation
+warnings remain. [Evidence](assets/hydrogen-reconciliation/c1-evidence.json) records
+commands and source hashes; local review is self-review. Bond reconciliation,
+controls and final qualification/release remain pending; no new runtime bond
+behavior is claimed. Planned stable minor0.19.0, subject to collision recheck.
+No blocker. Next: M1/C2 endpoint proposal and atomic model API integration.
 
 ### Previous delivery baseline — v0.18.0
 
@@ -2535,13 +2526,10 @@ Results:
 
 ## Blockers
 
-No blocker to issue #81 C0 planning delivery. Runtime work and qualification are
-pending under the approved feature plan; no implementation or release completion
-is claimed. Previous issue #69/#74/#77 delivery evidence remains historical.
+No current blocker. Issue #81 M1/C1 focused gates pass; C2-C6 remain pending.
 
 ## Next action
 
-Finish C0 commit/push/remote verification, then stop ready for `/goal`. The next
-authorized implementation run starts issue #81 M1/C1 using the
-[approved feature plan](plans/issue-81-local-hydrogen-reconciliation.md).
-Do not start runtime implementation during this planning delivery.
+Implement and qualify issue #81 M1/C2 according to the
+[approved feature plan](plans/issue-81-local-hydrogen-reconciliation.md), then run
+all M1 milestone gates before starting M2. Keep additive completion unchanged.

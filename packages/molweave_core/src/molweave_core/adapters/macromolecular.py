@@ -13,6 +13,7 @@ from molweave_core.adapters.base import (
     ParseResult,
 )
 from molweave_core.adapters.rdkit_common import export_loss_warnings
+from molweave_core.hydrogen_protection import AtomProtection, protection_annotation
 from molweave_core.molecular import (
     Atom,
     Bond,
@@ -145,6 +146,7 @@ def _normalized_from_gemmi(
     chains: list[Chain] = []
     residues: list[Residue] = []
     atoms: list[Atom] = []
+    protections: list[AtomProtection] = []
     signature_to_atom_id: dict[tuple[str, str, int, str, str, str], int] = {}
     serial_to_atom_id: dict[int, int] = {}
     residue_id_by_object: dict[tuple[int, int], int] = {}
@@ -213,6 +215,18 @@ def _normalized_from_gemmi(
                         alternate_location=_clean_identifier(atom.altloc) or None,
                         occupancy=float(atom.occ),
                         b_factor=float(atom.b_iso),
+                    )
+                )
+
+                # Gemmi retains D separately; other mass/radical encodings are
+                # not inferred from names or geometry.
+                protections.append(
+                    AtomProtection(
+                        atom_id=atom_id,
+                        element=atoms[-1].element,
+                        source_index=atoms[-1].source_index,
+                        isotope=2 if atom.element.name == "D" else 0,
+                        radical_electrons=0,
                     )
                 )
 
@@ -368,6 +382,7 @@ def _normalized_from_gemmi(
         chains=chains,
         residues=residues,
         atoms=atoms,
+        annotations=[protection_annotation(protections, "import")],
         bonds=bonds,
         conformers=conformers,
         metadata={

@@ -493,3 +493,14 @@ Partial completion and unchanged/unresolved results are normal, explicit outcome
 Successful completion does not choose pH, tautomer/protonation state, force field,
 energetic favorability, or full preparation. See MOLECULAR_MODEL.md for how drafts,
 chemical interpretation, preparation, analysis and export differ.
+
+
+### Isotope/radical protection evidence
+
+Import now retains narrow source isotope/radical protection facts in extensible
+normalized annotations. These do not supply complete canonical isotope/radical
+modeling. Chemical exports warn and require acknowledgement when protected facts
+cannot be reproduced; native archives and original uploads preserve the evidence.
+Missing evidence is not evidence of ordinary H. Future automatic local bond-H
+reconciliation must skip uncertain mappings and protected sites. Full isotope/
+radical authoring/export remains follow-up work under the issue #81 plan.

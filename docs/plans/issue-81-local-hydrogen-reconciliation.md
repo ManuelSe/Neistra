@@ -2,7 +2,7 @@
 
 ## Status, outcome and authority
 
-Status: approved implementation contract; C0 plan persistence only. Runtime implementation has not started.
+Status: approved implementation contract; C0 complete, M1/C1 verified; C2-C6 pending.
 Approval: user's “Implement the plan.”, 2026-10-17, following the complete proposed plan.
 Issue: https://github.com/ManuelSe/Neistra/issues/81
 Issue state: open; last update inspected 2026-10-17T15:52:12Z; no issue comments at analysis.
@@ -510,3 +510,20 @@ inconsistent versions/tag collision; or unavailable remote publication permissio
 
 Approval authorizes C0 only for this planning delivery: persist and push the plan,
 report the verified repository state, then stop ready for /goal.
+
+
+- 2026-10-17 C0 complete: commit 90b63974196cf015ac7fd2b0d99bcae62c02cf41
+  pushed and remote branch/file blob verified; clean working tree. /goal now
+  explicitly authorizes C1-C6 implementation and complete delivery.
+- 2026-10-17 M1/C1 verified: typed narrow protection annotations retain imported
+  isotope/radical facts, generated atom/H identity and pure verified-source recovery.
+  Chemical export reports protected-fact loss. D-107 and normalized/limitations docs
+  describe the extension without canonical isotope/preparation claims.
+  Focused gates: 184 adapter/format/archive/migration tests (42.92s; 398 existing
+  Alembic path_separator deprecation warnings), 64 protection and existing H tests
+  (1.69s), Ruff and mypy71 pass. Eight new protection/native-archive tests pass.
+  [Evidence](../assets/hydrogen-reconciliation/c1-evidence.json) records exact
+  commands and changed-source hashes. Local diff review checked source preservation,
+  unknown/malformed/conflicting evidence, generated identities, import/export and
+  migration compatibility. This is local self-review, not independent review.
+  No migration/version/dependency change. C2 policy/API integration is next.

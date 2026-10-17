@@ -19,6 +19,7 @@ from scipy.spatial import cKDTree  # type: ignore[import-untyped]
 
 from molweave_core.adapters.rdkit_common import normalized_to_mol
 from molweave_core.editing.geometry import covalent_length, local_frame
+from molweave_core.hydrogen_protection import ordinary_generated
 from molweave_core.molecular import (
     Atom,
     Bond,
@@ -633,6 +634,7 @@ def apply_hydrogen_proposal(
         )
     after = before.model_copy(
         update={
+            "annotations": [*before.annotations, ordinary_generated(new_atoms)],
             "atoms": [*before.atoms, *new_atoms],
             "bonds": [*before.bonds, *new_bonds],
             "conformers": [
