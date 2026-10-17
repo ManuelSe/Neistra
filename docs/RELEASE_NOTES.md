@@ -2,6 +2,11 @@
 
 ## 0.19.0 - 2026-10-17 - Local hydrogen reconciliation
 
+Published in [PR #84](https://github.com/ManuelSe/Neistra/pull/84) as stable
+[v0.19.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.19.0).
+[Publication evidence](assets/hydrogen-reconciliation/c6-publication.json) verifies
+the exact annotated runtime tag, release notes and downloaded evidence archive.
+
 Implemented under the [approved issue #81 plan](plans/issue-81-local-hydrogen-reconciliation.md).
 
 ### Highlights and fixes
@@ -66,6 +71,14 @@ Frozen installs, fresh0014/static/build/diff, unchanged native performance budge
 and actual0.18 reader with final0.19 producer pass. Source/log hashes and clean
 start/end are retained. The [local full-diff review](assets/hydrogen-reconciliation/c5-local-review.md)
 is self-review; exact merged-master gate remains mandatory before publication.
+
+The [exact released master](assets/hydrogen-reconciliation/c6-merged-gate.json)
+`3fc106b215a8c39e943ad399710f43f116961aef` also passes all16 complete commands
+with the same counts, zero failures/flakes/retries and unchanged native budgets.
+Actual tagged0.18 retains final0.19 producer data/history/archives. Clean trees and
+source/log hashes are retained. The [verified issue reply](https://github.com/ManuelSe/Neistra/issues/81#issuecomment-6239262239)
+records final documentation integration and branch/clean-master audit; the runtime
+tag remains fixed.
 
 ### Scientific limits and deliberate scope decisions
 

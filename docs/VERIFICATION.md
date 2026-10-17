@@ -734,3 +734,17 @@ installs, fresh0014/static/build/diff, unchanged native performance assertions a
 actual tagged0.18 reader with final0.19 producer pass. Source/log hashes and clean
 start/end are retained. [Local review](assets/hydrogen-reconciliation/c5-local-review.md)
 is self-review. Exact merged-master qualification remains required before release.
+
+
+Issue #81 [exact released master](assets/hydrogen-reconciliation/c6-merged-gate.json)
+`3fc106b215a8c39e943ad399710f43f116961aef` repeats all16 commands with818 Python,
+255 frontend,8 supervisor,245 browser /47 intentional skips, no failures/flakes/
+retries. Fresh/frozen/static/build/diff, unchanged native budgets and actual tagged
+0.18 reader/final0.19 producer pass. Candidate/merged runtime digests are equal;
+clean states and lossless logs are retained. [Premerge audit](assets/hydrogen-reconciliation/c6-premerge-audit.json)
+confirms no protection/review/check bypass; integration review did not return and
+local review is self-review. [Publication](assets/hydrogen-reconciliation/c6-publication.json)
+verifies exact annotated tag, stable release/notes and downloaded evidence SHA256,
+CRC/internal hashes. [Issue reply](https://github.com/ManuelSe/Neistra/issues/81#issuecomment-6239262239)
+records final documentation integration and branch-cleanup audit. No migration or
+schema/dependency change; five versions0.19.0. Published runtime tag remains fixed.

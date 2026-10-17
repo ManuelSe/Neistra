@@ -2,25 +2,34 @@
 
 ## Current milestone
 
-Issue #81 C1-C5 complete under the
-[approved plan](plans/issue-81-local-hydrogen-reconciliation.md). Local endpoint H
-reconciliation, explicit Preserve H, optional preview, protection facts and original
-source recovery are implemented and qualified. D-107 records the scientific and
-compatibility boundary. Full canonical isotope/radical support is follow-up
-[#83](https://github.com/ManuelSe/Neistra/issues/83); minimization/building remain
-#82/#71.
+Issue #81 delivered under the [approved plan](plans/issue-81-local-hydrogen-reconciliation.md),
+merged in [PR #84](https://github.com/ManuelSe/Neistra/pull/84) and published as stable
+[v0.19.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.19.0). D-107 governs local
+bond-H reconciliation, protection and scientific limits. Immediate Bonds default,
+Preserve H, optional native preview, source recovery and precise partial reports
+are implemented; standalone H tools remain additive.
 
-The [clean 0.19.0 candidate](assets/hydrogen-reconciliation/c5-candidate-gate.json)
-`a0ca93d` passes all 16 release commands: **818 Python, 255 frontend, 8 supervisor,
-245 browser tests /47 intentional layout skips**, zero failures/flakes/retries.
-Frozen installs, fresh head0014, static/build/diff and actual tagged v0.18.0 reader
-against final 0.19.0 producer pass. Original bytes, all conformers, protection facts,
-generic history/floors and archives remain compatible. Native performance budgets
-are unchanged. [Full-diff review](assets/hydrogen-reconciliation/c5-local-review.md)
-is implementer self-review. Five versions are 0.19.0; no migration/schema/dependency
-change. Existing Alembic deprecation and lazy Mol* bundle advisories remain.
-No blocker. Next: reviewed normal PR merge, exact merged-master complete gate,
-annotated tag/release and verified issue closeout (C6).
+Both [clean candidate](assets/hydrogen-reconciliation/c5-candidate-gate.json)
+`a0ca93d` and [exact released master](assets/hydrogen-reconciliation/c6-merged-gate.json)
+`3fc106b215a8c39e943ad399710f43f116961aef` pass all 16 release commands:
+**818 Python, 255 frontend, 8 supervisor, 245 browser /47 intentional skips**,
+zero failures/flakes/retries. Frozen installs, fresh0014/static/build/diff, unchanged
+native performance assertions and actual tagged v0.18.0 reader/final0.19 producer
+pass. Clean trees and source/log hashes are retained; diagnostics remain separate.
+[Full-diff local review](assets/hydrogen-reconciliation/c5-local-review.md) is
+self-review; no independent integration review returned. No required approval,
+check or protection was bypassed. Five versions are 0.19.0; no migration/schema/dependency
+change. [Publication evidence](assets/hydrogen-reconciliation/c6-publication.json)
+verifies the exact annotated tag, stable release/notes and downloaded ZIP SHA256,
+CRC and internal manifest hashes. The [verified issue reply](https://github.com/ManuelSe/Neistra/issues/81#issuecomment-6239262239)
+records final documentation integration and delayed branch/clean-master audit.
+
+Known limits: assigned bounded nonaromatic profile, ideal unoptimized local geometry,
+conservative protected/unknown/stereo skips and explicit export loss warnings.
+Full canonical isotope/radical support is [#83](https://github.com/ManuelSe/Neistra/issues/83);
+minimization/building remain #82/#71. Existing Alembic deprecation and lazy Mol* bundle
+advisories remain. No blocker or remaining approved-scope implementation. Next
+product action: approve a separate backlog plan.
 
 ### Previous delivery baseline — v0.18.0
 
@@ -2531,11 +2540,11 @@ Results:
 
 ## Blockers
 
-No current blocker. Issue #81 clean final-version candidate gate passes; C6 remains pending.
+No current blocker or remaining approved-scope issue #81 implementation. Publication is verified; final documentation/branch audit is linked above.
 
 ## Next action
 
-Deliver issue #81 C6 under the [approved plan](plans/issue-81-local-hydrogen-reconciliation.md):
-reviewed normal merge, exact merged-master complete release gate, annotated v0.19.0
-tag and stable release, verified issue response, final evidence integration and
-branch cleanup. Do not publish before required protections/reviews/gates pass.
+No remaining issue #81 product implementation. Final documentation integration and
+branch/clean-master audit are recorded in the verified issue reply above. The runtime
+tag remains fixed on the qualified merged commit. Approve a separate backlog plan
+before starting broader chemistry, minimization or building work.

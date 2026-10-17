@@ -2,14 +2,17 @@
 
 ## Status, outcome and authority
 
-Status: approved implementation contract; C0-C5 complete; C6 delivery pending.
+Status: completed implementation and release; C0-C6 delivered. Final repository
+cleanup is audited in the [verified issue reply](https://github.com/ManuelSe/Neistra/issues/81#issuecomment-6239262239).
 Approval: user's “Implement the plan.”, 2026-10-17, following the complete proposed plan.
 Issue: https://github.com/ManuelSe/Neistra/issues/81
-Issue state: open; last update inspected 2026-10-17T15:52:12Z; no issue comments at analysis.
+Issue state at analysis: open; last update inspected 2026-10-17T15:52:12Z; no issue comments at analysis.
 Issue title: Reconcile hydrogens locally after bond addition, deletion, and order changes.
 Plan: docs/plans/issue-81-local-hydrogen-reconciliation.md.
 Base: origin/master, 9f20d9f4c87d4c714638bcf77dc664b7dabdb670.
 Branch: fix/issue-81-local-hydrogen-reconciliation.
+Delivered: [PR #84](https://github.com/ManuelSe/Neistra/pull/84), stable
+[v0.19.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.19.0); issue closed.
 
 Approved outcome: supported heavy-atom bond edits reconcile endpoint H counts and
 local H geometry in one reversible command. Deliberate incomplete chemistry remains
@@ -622,3 +625,37 @@ report the verified repository state, then stop ready for /goal.
   already verifies the candidate; final evidence commit/push precedes opening PR.
   Next C6: audit/request available remote review, normal merge, repeat full gate
   on exact merged master before annotated tag/release, issue response and cleanup.
+
+- 2026-10-17 M4/C6 runtime delivery verified: normal [PR #84](https://github.com/ManuelSe/Neistra/pull/84)
+  merged to master as 3fc106b215a8c39e943ad399710f43f116961aef, preserving C0-C5
+  checkpoint history. Remote/local master and both merge parents were verified,
+  then the exact clean merged commit repeated every one of the16 complete gates:
+  818 Python /255 frontend /8 supervisor /245 browser passes,47 intentional skips,
+  zero failures/flakes/retries. Frozen installs, fresh0014/static/build/diff and
+  actual tagged0.18 reader with final0.19 producer pass. All native budgets remain
+  unchanged;18 native profile data files are retained (including capacity/production
+  records). Candidate and merged runtime/config/test source digests are identical.
+  [Merged gate](../assets/hydrogen-reconciliation/c6-merged-gate.json) retains exact
+  commands/environments/timings/source/log hashes and clean states; earlier diagnostic
+  runs remain distinct. No code correction or scope/migration/schema/dependency
+  deviation was needed after the candidate.
+- C6 review/policy: [premerge audit](../assets/hydrogen-reconciliation/c6-premerge-audit.json)
+  confirms current/mergeable PR, empty rulesets, unprotected master and no required
+  workflow/check/review. @codex review was requested and no integration response
+  returned; the complete local review is explicitly implementer self-review. No
+  required approval/protection/check or unresolved conversation was bypassed.
+- C6 publication: annotated v0.19.0 targets the exact qualified master commit
+  3fc106b215a8c39e943ad399710f43f116961aef; its tag object and peeled target were
+  read back remotely. Stable release/notes/latest state and downloaded verification
+  ZIP SHA256/CRC/all internal manifest hashes are verified in
+  [publication evidence](../assets/hydrogen-reconciliation/c6-publication.json).
+  The [issue closeout reply](https://github.com/ManuelSe/Neistra/issues/81#issuecomment-6239262239)
+  is remotely verified and the issue is closed. It documents implemented outcome,
+  PR/release/gates/compatibility, deliberate simplifications and exclusions, and
+  follow-up#83 with existing#82/#71/#52/#12/#11 scope.
+- Final evidence integration uses the planned branch and a normal documentation PR,
+  as approved. Only documentation/evidence changes follow the exact-master gate;
+  runtime/config/test sources remain identical. The issue reply is the final audit
+  for that merge, remote/local feature-branch deletion, reader-worktree removal and
+  clean master. The published runtime tag is never moved for documentation. No
+  remaining approved-scope implementation; broader follow-ups require their own plan.
