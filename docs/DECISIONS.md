@@ -4148,3 +4148,49 @@ are nonpickable transient shapes, never canonical coordinates or identities.
 Preview responses add old-coordinate removal records for that rendering purpose.
 Feedback carries project-visit ownership, and policy changes/cancellation invalidate
 pending previews; no late response may resurrect a previous proposal.
+
+
+### D-107 qualification note — issue #81 M3/C4, 2026-10-17
+
+Collinear heavy neighbors cannot establish a new trigonal plane in substituted
+triple-to-double changes. Reconciliation now skips those sites precisely while
+retaining the direct bond draft. Potential tetrahedral choices require protection
+identity evidence for the complete bounded dependency context, including endpoint H
+removed only in a temporary counting projection; temporary stripping cannot erase
+an isotope dependency. Narrow labelled/radical imports now explicitly warn about
+protection-only retention rather than implying full canonical chemistry support.
+Full canonical isotope/radical identity and chemical export are tracked by #83.
+
+Scientific qualification covers supported charge/heteroatom/halogen profiles,
+radicals/isotopes/unusual H, sparse IDs, nonfirst active conformers, alternate and
+covalent residue boundaries, failed-work budgets, actual coordinate/diagnostic caps
+and fixed real-protein context. Removed-H selection/measurement/style/scene
+references restore through existing generic Undo; operational modified timestamps
+retain existing history semantics. Source recovery is verified through an actual
+old-style import with raw original bytes and mutation-free preview. The actual
+v0.18 reader harness additionally exercises destructive/additive/partial protected
+commands in independent conformers and rich existing project state.
+
+
+C4 explicit-label qualification: every explicit isotope mass, including mass1
+protium, is protected. This supersedes C1's implementation allowance for explicit
+mass1 as ordinary. The approved contract requires ordinarily unlabelled H; chemical
+equivalence to natural H cannot discard a scientist's explicit source label. Only
+isotope0/no explicit label and zero explicit radical electrons establish ordinary
+identity for destructive reconciliation. Native source facts remain unchanged.
+
+
+C4 protected-priority qualification: chemical projections do not implement canonical
+isotope/radical fields. New reconciliation therefore assigns current stereo only
+for complete bounded contexts with ordinary known identity evidence. Protected or
+unknown contexts retain the direct edit's conservative unassigned current labels
+and gain a precise diagnostic; geometry/source facts remain authoritative. This
+prevents isotope-dependent CIP priorities from producing a falsely inferred E/Z
+label after otherwise supported H removal. It does not expand #83 into this issue.
+
+
+C4 native focus qualification: an actual320px hit test exposed the focused bond
+policy hidden beneath the sticky Edit header after preview cancellation. Scoped
+scroll-padding keeps focus targets below the header. Regression tests verify actual
+hit testing, not focus state alone, in both themes alongside existing real zoom and
+editing accessibility. No global layout or interaction ownership change is made.

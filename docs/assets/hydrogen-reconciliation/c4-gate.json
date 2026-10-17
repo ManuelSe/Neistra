@@ -1,0 +1,314 @@
+{
+  "checkpoint": "M3/C4",
+  "base": "c7dbb229df9c42e63597d625e0a946b2d089043e",
+  "environment": {
+    "PLAYWRIGHT_BROWSERS_PATH": ".playwright",
+    "MOLWEAVE_E2E_API_PORT": "8130",
+    "MOLWEAVE_E2E_WORKER_PORT": "8131",
+    "MOLWEAVE_E2E_WEB_PORT": "5293",
+    "MOLWEAVE_E2E_DATA_DIR": "/tmp/neistra-issue81-m3-e2e"
+  },
+  "commands": [
+    {
+      "command": [
+        ".venv/bin/ruff",
+        "check",
+        "."
+      ],
+      "exit_code": 0,
+      "seconds": 0.01,
+      "log": "c4-00.log.gz",
+      "sha256": "47f394a1497b1873bc6e6d6f9bb92aa51b990821f1ddd7770a933ffd29c456cd",
+      "raw_log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "command": [
+        ".venv/bin/mypy",
+        "apps/api",
+        "packages/molweave_core"
+      ],
+      "exit_code": 0,
+      "seconds": 0.152,
+      "log": "c4-01.log.gz",
+      "sha256": "94ca91af8822014e55208e06932fe3d37ef487d3dee393cba0ba11b507c95b4c",
+      "raw_log_sha256": "047be720f71ff6f55001ba8201472e4dca22eaa7f8ee244cbd28450c7224622f"
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "-q"
+      ],
+      "exit_code": 0,
+      "seconds": 125.395,
+      "log": "c4-02.log.gz",
+      "sha256": "c8b1b63a1a0eb1f96bd7eb0a4dc045a1bdc99a8577b46245b357800e2b3bd6be",
+      "raw_log_sha256": "161cb529aee99133f63eb276f97099e4e20ef62bc8b46b83ff5cd8e93fdc8750"
+    },
+    {
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "lint"
+      ],
+      "exit_code": 0,
+      "seconds": 9.502,
+      "log": "c4-03.log.gz",
+      "sha256": "377acca5da8e6dd19cb00f1bcc2f92b8343a693f8840e049cd4b920a94504576",
+      "raw_log_sha256": "58d4992236167c12579cfcb0e295a8386b56960fc1905081adce9b66100eaa83"
+    },
+    {
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "typecheck"
+      ],
+      "exit_code": 0,
+      "seconds": 4.974,
+      "log": "c4-04.log.gz",
+      "sha256": "10048038ce77221bbfe1bf8b4c97b96f0f899eb00fb6368e554b34dda5713f69",
+      "raw_log_sha256": "de0dfbe7aeb99c8fa6d0f83f2813fdb87107d58b3a4cbd1bdd66ac263266c08e"
+    },
+    {
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "test"
+      ],
+      "exit_code": 0,
+      "seconds": 9.97,
+      "log": "c4-05.log.gz",
+      "sha256": "5a6d371002f70642b9380403f5e8e8c0525a598176c5bf47b4f469acc6388cde",
+      "raw_log_sha256": "baa85baf165ccb8ff88fef48d5b75f26a0d0c858c09e7a35df4451a1f992949c"
+    },
+    {
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "build"
+      ],
+      "exit_code": 0,
+      "seconds": 12.722,
+      "log": "c4-06.log.gz",
+      "sha256": "3e4959a4dddc3ece79f313875fe75715b759ca3c7a0807a8f52dfaa4bcd45400",
+      "raw_log_sha256": "6610ef8ea1faa3fc21475767aaf01099aab75ff80d5ad70845c3e9f9460573f7"
+    },
+    {
+      "command": [
+        "corepack",
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "tests/e2e/bond-hydrogen-reconciliation.spec.ts",
+        "tests/e2e/direct-modeling-accessibility.spec.ts",
+        "tests/e2e/rebranding-zoom.spec.ts",
+        "tests/e2e/molecular-editing.spec.ts",
+        "tests/e2e/interactions-lifecycle.spec.ts",
+        "tests/e2e/surface-objects.spec.ts",
+        "tests/e2e/export-archive.spec.ts",
+        "tests/e2e/direct-molecular-modeling.spec.ts",
+        "tests/e2e/hydrogen-completion.spec.ts",
+        "tests/e2e/hydrogen-membership.spec.ts"
+      ],
+      "exit_code": 0,
+      "seconds": 613.649,
+      "log": "c4-07.log.gz",
+      "sha256": "45f9332babb7d4de600e3f4e0462e8a31e71d42d91bad576eb64b6ca1c907c1a",
+      "raw_log_sha256": "961458523afc4d3a7be99311ba421438c441c49caf34122a290eda6f664e632b"
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "seconds": 0.008,
+      "log": "c4-08.log.gz",
+      "sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+      "raw_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        ".venv/bin/alembic",
+        "upgrade",
+        "head"
+      ],
+      "exit_code": 0,
+      "seconds": 1.016,
+      "log": "c4-09.log.gz",
+      "sha256": "564058fff4d183ec913ee83be847856822cb365b091976db9c6d3e344e412441",
+      "raw_log_sha256": "a65aaba1d288361248cfad53dee993528aa5c4bbd5accca186ae60e26f85c610"
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "-m",
+        "tests.support.reconciliation_reader_qualification",
+        "produce",
+        "--data-dir",
+        "/tmp/neistra-issue81-c4-gate-reader",
+        "--evidence",
+        "docs/assets/hydrogen-reconciliation/c4-producer.json"
+      ],
+      "exit_code": 0,
+      "seconds": 3.266,
+      "log": "c4-10.log.gz",
+      "sha256": "532ccca08d40e0ea73d9397f91807588f4df669e2ed41204a1031ce9698874f8",
+      "raw_log_sha256": "26db909d600bcfd3a25b26c380196d7b004e9d88822527de5a6972d6c0f0af89"
+    },
+    {
+      "command": [
+        "env",
+        "PYTHONPATH=/tmp/neistra-issue81-reader-018/apps/api/src:/tmp/neistra-issue81-reader-018/packages/molweave_core/src:/tmp/neistra-issue81-reader-018/packages/molweave_demo_plugin/src",
+        ".venv/bin/python",
+        "-m",
+        "tests.support.reconciliation_reader_qualification",
+        "read",
+        "--data-dir",
+        "/tmp/neistra-issue81-c4-gate-reader",
+        "--reader-root",
+        "/tmp/neistra-issue81-reader-018",
+        "--expected-reader",
+        "0.18.0",
+        "--evidence",
+        "docs/assets/hydrogen-reconciliation/c4-reader.json"
+      ],
+      "exit_code": 0,
+      "seconds": 2.235,
+      "log": "c4-11.log.gz",
+      "sha256": "790914d69e0b8eb5a3c0e8ce86719ec209e54f9e4456c79c70c0fcf290d415f8",
+      "raw_log_sha256": "b4fd63640a33e627910d59f9922e7eff86a000e6ca0e3c102f57ae80b7d4ed81"
+    }
+  ],
+  "log_encoding": "gzip; original gate captures stdout/stderr together",
+  "supplemental_checks": [
+    {
+      "command": ".venv/bin/python -m pytest -q",
+      "exit_code": 0,
+      "result": "818 passed;398 existing warnings",
+      "log": "c4-final-python.log.gz",
+      "stream": "stdout; stderr emitted to live command console",
+      "raw_log_sha256": "b10ad6d73e35373e7e6c6a297346ba9871377113e92bcb1b67edea56c0279a08",
+      "sha256": "41ccfe8b5c7aafe220ba0d09ee3b4c5ca349426c5ce5516f74fb111e17519498"
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q",
+      "exit_code": 0,
+      "result": "817 passed before final protected-CIP guard",
+      "log": "c4-post-label-python.log.gz",
+      "stream": "stdout; stderr emitted to live command console",
+      "raw_log_sha256": "24d826e381e4269a814427d0d390fe804daab686c8ca91810d7d263f650bffa4",
+      "sha256": "993e29da5948463e8bc9c09e0c607eca912abda8581d02f4d8566711dc6f2f5b"
+    },
+    {
+      "command": ".venv/bin/python -m pytest tests/scientific/test_reconciliation_qualification.py -q -s -k bounded_reconciliation",
+      "exit_code": 0,
+      "result": "1 passed;1015 atoms;0.075089s;3542670 Python-traced peak bytes;chemistry context12",
+      "log": "c4-profile-final.log.gz",
+      "stream": "stdout; stderr emitted to live command console",
+      "raw_log_sha256": "6f7bc7c3192a8b4b83612ad8f1608766713fa8cd37ceaa037e1961e4bb952d29",
+      "sha256": "a1e5c43ee1395ed41d0d3c68cdc6503b3c73308e124233fd6f4b07ee9c905afc"
+    },
+    {
+      "command": "playwright bond-hydrogen-reconciliation.spec.ts -g accessible plus policy-center hit test",
+      "exit_code": 1,
+      "result": "1 pass/1 mobile failure: focused policy hidden by sticky header",
+      "log": "c4-policy-diagnostic.log.gz",
+      "stream": "stdout; stderr emitted to live command console",
+      "raw_log_sha256": "865b767fd7df89750c2a55b168b3bf60cc42128f297ef2f68ed0097ed0b68084",
+      "sha256": "315ba2d2a95e3baee63e71aee84b7bd89449747e460449516288898d600d91c6"
+    },
+    {
+      "command": "same policy-center hit test after scoped scroll-padding fix",
+      "exit_code": 0,
+      "result": "2 passed",
+      "log": "c4-policy-fixed.log.gz",
+      "stream": "stdout; stderr emitted to live command console",
+      "raw_log_sha256": "909b12e690d7dbb0d3c7cca42a4f30f5a122e7dd1153cfbd5329f1b05b1de53b",
+      "sha256": "630cda67be15b9cbc89deb106fe13ab0ba9d124eb2a9deaac9a53422c6d743f8"
+    },
+    {
+      "command": "PLAYWRIGHT_BROWSERS_PATH=.playwright MOLWEAVE_E2E_API_PORT=8130 MOLWEAVE_E2E_WORKER_PORT=8131 MOLWEAVE_E2E_WEB_PORT=5293 MOLWEAVE_E2E_DATA_DIR=/tmp/neistra-issue81-m1-e2e corepack pnpm exec playwright test tests/e2e/bond-hydrogen-reconciliation.spec.ts tests/e2e/direct-modeling-accessibility.spec.ts tests/e2e/rebranding-zoom.spec.ts tests/e2e/molecular-editing.spec.ts --grep accessible|reachable|responsive-breakpoints",
+      "exit_code": 0,
+      "result": "9 passed/3 intentional zoom skips; current source",
+      "log": "c4-final-native.log.gz",
+      "stream": "stdout; stderr emitted to live command console",
+      "raw_log_sha256": "e08cde520f15f583f4ab2f4f4df42f5d60c4d5b0a43e6b8b54d718c699146626",
+      "sha256": "3ec71d584a87d83684c7cbeb0f4304693270cc0dae393e45f9d088a180325924"
+    },
+    {
+      "command": "corepack pnpm --dir apps/web lint",
+      "exit_code": 0,
+      "result": "passed",
+      "log": "c4-final-lint.log.gz",
+      "stream": "stdout; stderr emitted to live command console",
+      "raw_log_sha256": "58d4992236167c12579cfcb0e295a8386b56960fc1905081adce9b66100eaa83",
+      "sha256": "377acca5da8e6dd19cb00f1bcc2f92b8343a693f8840e049cd4b920a94504576"
+    },
+    {
+      "command": "corepack pnpm --dir apps/web typecheck",
+      "exit_code": 0,
+      "result": "passed",
+      "log": "c4-final-types.log.gz",
+      "stream": "stdout; stderr emitted to live command console",
+      "raw_log_sha256": "de0dfbe7aeb99c8fa6d0f83f2813fdb87107d58b3a4cbd1bdd66ac263266c08e",
+      "sha256": "10048038ce77221bbfe1bf8b4c97b96f0f899eb00fb6368e554b34dda5713f69"
+    },
+    {
+      "command": "corepack pnpm --dir apps/web test",
+      "exit_code": 0,
+      "result": "255 passed",
+      "log": "c4-final-web.log.gz",
+      "stream": "stdout; stderr emitted to live command console",
+      "raw_log_sha256": "8e651ca3f8352242f40984ee26026718ab636dbaf5bf34873552785cd5cc16c2",
+      "sha256": "a32564f81d48a5a5fe4342d383fc9409b4da4e75d85761b2239c254a30f1e934"
+    },
+    {
+      "command": "corepack pnpm --dir apps/web build",
+      "exit_code": 0,
+      "result": "passed; existing lazy bundle advisory on stderr",
+      "log": "c4-final-build.log.gz",
+      "stream": "stdout; stderr emitted to live command console",
+      "raw_log_sha256": "6502f867182c156f1f038b3e8c17d72781789216e90c6123ae3c689e5ec8f919",
+      "sha256": "ef414919c6f4eb69ccb878cb9d5dbbf6ab1357bab534f9d615a73bbee31d0c09"
+    }
+  ],
+  "summary": {
+    "latest_python_passed": 818,
+    "web_passed": 255,
+    "broad_native_passed": 62,
+    "broad_native_intentional_skips": 8,
+    "latest_accessibility_zoom_passed": 9,
+    "latest_accessibility_zoom_intentional_skips": 3,
+    "native_retries": 0,
+    "actual_reader": "v0.18.0",
+    "mypy_sources": 72
+  },
+  "qualification_order": "Broad milestone gate preceded final explicit-label/protected-CIP hardening and selector scroll fix. Supplemental current-source818 Python/255 frontend/static/build and9 native accessibility/zoom cases qualify those changes. Full final-version clean candidate/exact-master gate remains C5/C6.",
+  "source_sha256": {
+    "apps/web/src/components/MolecularEditPanel.tsx": "dbc62d08711b0ef067f763716f7b4bc324fcb9b005eb950c62e02486c4b5dd07",
+    "apps/web/src/store/editing.ts": "d86deccef013ed991cd1dd23758c40954860f524fcfa61069ad8b9cd78965a3e",
+    "apps/web/src/styles.css": "235fbca468d85781d0b45be753b98cfe67fdc635478a80e71d253234d0767f15",
+    "packages/molweave_core/src/molweave_core/adapters/macromolecular.py": "bfe07f59fa80c974f8dc6585e343f79791d520c167cca85f3f35f7b927f913ee",
+    "packages/molweave_core/src/molweave_core/adapters/rdkit_common.py": "e054eafcfa187e0992456c3d37dceff8cd2b81c1eb7068de9dc31fc14a7f8ae0",
+    "packages/molweave_core/src/molweave_core/editing/hydrogen.py": "036835033973f4e610c2c85e4203d21fff7df8f06264820b60ffa7e5292739e8",
+    "packages/molweave_core/src/molweave_core/editing/reconciliation.py": "08af89e58281519a5420b1b1ab3cddd972773b643e048e6982024d3ab0c15daa",
+    "packages/molweave_core/src/molweave_core/hydrogen_protection.py": "95cb6ca2ee917a7c12f523bf472c330bf2b25f255a7ad578fe535ac44fedcec8",
+    "tests/e2e/bond-hydrogen-reconciliation.spec.ts": "c76d68aa52a461242b7b618641bd0a8bb4ea2c67189fe6bdc2d58c2a660893dc",
+    "tests/unit/test_hydrogen_protection.py": "c7774fe561c0534d27e536be5bd594da3a403a8ec7100dd79a666d66106ad4d3",
+    "tests/scientific/test_reconciliation_qualification.py": "10e785e59abfbd4f0344a65359eb7a18c0947071b92875e6b67e2dc218c50c49",
+    "tests/integration/test_reconciliation_qualification.py": "50af972fb96b0ac7be48d2c47c8dc0c4d63de8c1a65fe4f7813d5588a6bfff68",
+    "tests/support/reconciliation_reader_qualification.py": "b3925699cb2ab5789ed41546499d7f4f5872f141151d7372d2cb7d408efc9b3e"
+  }
+}

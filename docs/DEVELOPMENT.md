@@ -558,3 +558,33 @@ and generic Undo/Redo, alongside existing rich jobs/scenes/surfaces/references.
 Repeat with the final producer version on the clean candidate and exact merged
 master, in addition to the complete release gate above and `git diff --check`.
 Native chemical exports retain their existing representability/loss boundaries.
+
+
+## Bond-H reconciliation compatibility (issue #81)
+
+Planned minor0.19 adds reconcile_if_possible to direct bond model edits and optional
+preview/report fields. Omitted API policy stays preserve and complete_if_possible
+is additive. The Bonds UI defaults to immediate reconciliation with explicit
+Preserve H and optional preview. Client/API must match to use the new policy.
+No new migration: head0014; project/viewer/archive2; normalized/selection1.
+Native artifacts retain narrow version1 protection annotations, warnings and
+inferences. Full isotope/radical authoring/export remains #83; chemical files warn
+about unsupported protection facts. Back up the complete managed directory before
+changing runtimes. Old authoring does not enforce reconciliation/protection;
+retention is qualified separately from equivalent UI or chemistry behavior.
+
+Actual preceding-reader qualification uses fresh disposable data only:
+
+```bash
+git worktree add --detach /tmp/neistra-issue81-reader-018 v0.18.0
+PYTHONPATH=apps/api/src:packages/molweave_core/src:packages/molweave_demo_plugin/src MOLWEAVE_DATA_DIR=/tmp/neistra-issue81-reader-data .venv/bin/alembic upgrade head
+PYTHONPATH=apps/api/src:packages/molweave_core/src:packages/molweave_demo_plugin/src .venv/bin/python -m tests.support.reconciliation_reader_qualification produce --data-dir /tmp/neistra-issue81-reader-data --evidence /tmp/neistra-issue81-producer.json
+PYTHONPATH=/tmp/neistra-issue81-reader-018/apps/api/src:/tmp/neistra-issue81-reader-018/packages/molweave_core/src:/tmp/neistra-issue81-reader-018/packages/molweave_demo_plugin/src .venv/bin/python -m tests.support.reconciliation_reader_qualification read --data-dir /tmp/neistra-issue81-reader-data --reader-root /tmp/neistra-issue81-reader-018 --expected-reader 0.18.0 --evidence /tmp/neistra-issue81-reader.json
+```
+
+The harness verifies real module paths and checks independent/nonfirst conformers,
+new H/removals/movements, protected isotope facts, generic Undo/Redo, counters,
+original bytes, save and archive re-export alongside rich existing project state.
+Repeat with final producer versions on clean candidate and exact merged master.
+Existing schema downgrade guards remain; never strip retained state to force a
+reader to accept it. Remove the detached qualification worktree after delivery.

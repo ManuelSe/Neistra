@@ -14,7 +14,8 @@ from tests.support.hydrogen_fixture import model
 
 
 @pytest.mark.parametrize(
-    "smiles,mass,radicals", [("[2H]C", 2, 0), ("[3H]C", 3, 0), ("[H]C", 0, 0), ("[CH2]C", 0, 1)]
+    "smiles,mass,radicals",
+    [("[1H]C", 1, 0), ("[2H]C", 2, 0), ("[3H]C", 3, 0), ("[H]C", 0, 0), ("[CH2]C", 0, 1)],
 )
 def test_import_retains_source_isotope_and_radical_evidence(
     smiles: str, mass: int, radicals: int
@@ -27,12 +28,12 @@ def test_import_retains_source_isotope_and_radical_evidence(
     assert fact.isotope == mass
     assert fact.radical_electrons == radicals
     assert fact.matches(before.atoms[0])
-    assert fact.ordinary is (mass in {0, 1} and radicals == 0)
+    assert fact.ordinary is (mass == 0 and radicals == 0)
     assert NormalizedStructureV1.from_bytes(before.to_bytes()) == before
     warnings = export_loss_warnings(before, "sdf")
     assert any(
         w.code == "isotope_radical_protection_not_exported" and w.blocking for w in warnings
-    ) is (mass > 1 or radicals > 0)
+    ) is (mass > 0 or radicals > 0)
 
 
 def test_recovery_uses_stable_id_and_source_identity_without_mutating_inputs() -> None:

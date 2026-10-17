@@ -195,7 +195,7 @@ class HydrogenBuilder:
             raise ValueError("Select at least one hydrogen completion target.")
         return sorted(result)
 
-    def _context(self, target: int) -> tuple[Any, dict[int, int]]:
+    def chemical_context(self, target: int) -> tuple[Any, dict[int, int]]:
         if target in self.contexts:
             value = self.contexts[target]
             if isinstance(value, UnsupportedSite):
@@ -308,7 +308,7 @@ class HydrogenBuilder:
             )
         aromatic = any(b.aromatic or b.order == 1.5 for _, b in neighbors)
         if aromatic:
-            mol, indices = self._context(target)
+            mol, indices = self.chemical_context(target)
             count = int(mol.GetAtomWithIdx(indices[target]).GetNumImplicitHs())
         else:
             total = sum(float(b.order or 0) for _, b in neighbors)
@@ -741,7 +741,7 @@ def reconcile_current_stereo(
         # Current tetrahedral neighbor tags depend on canonical neighbor ordering.
         member_bonds = {b.id: b for i in members for _, b in builder.adjacency[i]}
         try:
-            mol, indices = builder._context(target)
+            mol, indices = builder.chemical_context(target)
             # Count repeated conformer assessment as analyzed atom visits as well.
             extra_visits = len(indices) * (len(structure.conformers) - 1)
             if builder.analyzed + extra_visits > MAX_ANALYZED:

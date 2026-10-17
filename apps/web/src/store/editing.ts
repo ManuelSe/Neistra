@@ -23,8 +23,8 @@ interface EditingState {
   setBondHydrogenPolicy: (policy: "preserve" | "reconcile_if_possible") => void;
   previewBondChanges: boolean;
   setPreviewBondChanges: (enabled: boolean) => void;
-  hydrogenPolicy: HydrogenPolicy;
-  setHydrogenPolicy: (policy: HydrogenPolicy) => void;
+  hydrogenPolicy: Exclude<HydrogenPolicy, "reconcile_if_possible">;
+  setHydrogenPolicy: (policy: Exclude<HydrogenPolicy, "reconcile_if_possible">) => void;
   placement: PlacementDraft | null;
   setPlacement: (draft: PlacementDraft | null) => void;
   focusNewMolecule: { entryId: string; atomId: number; selection: Selection } | null;

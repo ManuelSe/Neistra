@@ -186,10 +186,10 @@ export function MolecularEditPanel({ project, selection, busy, unavailable, onEd
         <p>One template placement; backbone retained. No rotamer search or automatic protein protonation. Review warnings and use existing protein preparation tools separately.</p>
       </fieldset>}
       {draft ? <fieldset disabled={busy || pending || Boolean(unavailable)}><legend>Placement preview</legend>
-        <p>{placementLabel(draft.action)}. Ghost atoms are proposals; Apply saves the edit.</p>
+        <p>{placementLabel(draft.action)}. {isBondAction(draft.action) ? "Markers show proposed H moves/removals; Apply saves the bond and H together." : "Ghost atoms are proposals; Apply saves the edit."}</p>
         <div className="edit-compact-actions">
           <button type="button" onClick={() => { panel.current?.focus(); editing.setInspectingPlacement(true); }}>Inspect placement</button>
-          <button type="button" disabled={draft.action.operation === "hydrogens.complete" || isBondAction(draft.action)} onClick={() => preview(nextPlacement(draft.action))}>{draft.action.operation === "hydrogens.add" ? "Next orientation" : "Next direction"}</button>
+          {!isBondAction(draft.action) ? <button type="button" disabled={draft.action.operation === "hydrogens.complete" || isBondAction(draft.action)} onClick={() => preview(nextPlacement(draft.action))}>{draft.action.operation === "hydrogens.add" ? "Next orientation" : "Next direction"}</button> : null}
           {draft.action.operation === "fragment.attach" ? <button type="button" onClick={() => { if (draft.action.operation === "fragment.attach") preview({ ...draft.action, rotation: (draft.action.rotation + 1) % 6 }); }}>Rotate fragment</button> : null}
           <button type="button" disabled={!draft.result || noStandaloneHydrogens} onClick={() => void execute(draft.action)}>Apply placement</button>
           <button type="button" onClick={() => editing.setPlacement(null)}>Cancel placement</button>
@@ -228,7 +228,7 @@ export function MolecularEditPanel({ project, selection, busy, unavailable, onEd
       {inspecting && draft ? <div className="edit-placement-inspection" role="group" aria-label="Placement inspection">
         <p className="sr-only" role="status">{draft.result ? `Placement ready with ${draft.result.warnings.length} warnings. Open Placement tools to review inputs and warnings.` : "Computing placement preview…"}</p>
         <button type="button" aria-label="Placement tools" title="Placement tools and warnings" onClick={() => { panel.current?.focus(); editing.setInspectingPlacement(false); }}><Pencil size={16} /></button>
-        <button type="button" aria-label={draft.action.operation === "hydrogens.add" ? "Next orientation" : "Next direction"} title="Next placement orientation" disabled={Boolean(reason) || draft.action.operation === "hydrogens.complete" || isBondAction(draft.action)} onClick={() => preview(nextPlacement(draft.action))}><ChevronRight size={16} /></button>
+        {!isBondAction(draft.action) ? <button type="button" aria-label={draft.action.operation === "hydrogens.add" ? "Next orientation" : "Next direction"} title="Next placement orientation" disabled={Boolean(reason) || draft.action.operation === "hydrogens.complete" || isBondAction(draft.action)} onClick={() => preview(nextPlacement(draft.action))}><ChevronRight size={16} /></button> : null}
         {draft.action.operation === "fragment.attach" ? <button type="button" aria-label="Rotate fragment" title="Rotate fragment" disabled={Boolean(reason)} onClick={() => { if (draft.action.operation === "fragment.attach") preview({ ...draft.action, rotation: (draft.action.rotation + 1) % 6 }); }}><RotateCw size={16} /></button> : null}
         <button type="button" aria-label="Apply placement" disabled={!draft.result || noStandaloneHydrogens || Boolean(reason)} onClick={() => void execute(draft.action)}>Apply</button>
         <button type="button" aria-label="Cancel placement" disabled={pending} onClick={() => { panel.current?.focus(); editing.setPlacement(null); }}>Cancel</button>

@@ -501,6 +501,27 @@ Import now retains narrow source isotope/radical protection facts in extensible
 normalized annotations. These do not supply complete canonical isotope/radical
 modeling. Chemical exports warn and require acknowledgement when protected facts
 cannot be reproduced; native archives and original uploads preserve the evidence.
-Missing evidence is not evidence of ordinary H. Future automatic local bond-H
-reconciliation must skip uncertain mappings and protected sites. Full isotope/
+Missing evidence is not evidence of ordinary H. Automatic local bond-H
+reconciliation skips uncertain mappings and protected sites. Full isotope/
 radical authoring/export remains follow-up work under the issue #81 plan.
+
+
+### Local bond-H reconciliation
+
+The separate reconcile_if_possible policy can remove/move ordinary endpoint H;
+Complete H/Add N H remain additive. It requires assigned supported charges/orders
+and usable source/generated identity evidence. Unknown/protected states and
+aromatic reconciliation skip conservatively. Fixed collinear heavy neighbors in
+substituted alkyne-to-alkene drafts cannot define an automatic trigonal plane;
+manual H/coordinate choices remain available. Potential new tetrahedral identity
+requires complete bounded context and retained geometric orientation. No isotope,
+radical, protonation or stereo choice is inferred from absent H alone.
+
+Every accepted site succeeds in all retained conformers. Other sites may succeed
+independently while unresolved sites retain their literal H state and the requested
+bond edit. Ideal local geometry and approximate lengths can still distort angles or
+clash in a fixed environment; no heavy atom moves and no minimization/preparation
+is performed. Source identity facts are protection evidence, not full canonical
+isotope/radical authoring/export (#83). #82 owns context minimization; #71 owns
+broader building. Use matching current client/API for continued authoring; older
+runtime retention does not implement or enforce the new policy.

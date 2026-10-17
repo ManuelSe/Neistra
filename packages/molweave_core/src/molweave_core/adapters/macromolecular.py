@@ -13,7 +13,11 @@ from molweave_core.adapters.base import (
     ParseResult,
 )
 from molweave_core.adapters.rdkit_common import export_loss_warnings
-from molweave_core.hydrogen_protection import AtomProtection, protection_annotation
+from molweave_core.hydrogen_protection import (
+    AtomProtection,
+    protection_annotation,
+    protection_import_warnings,
+)
 from molweave_core.molecular import (
     Atom,
     Bond,
@@ -368,6 +372,7 @@ def _normalized_from_gemmi(
             )
         )
 
+    warnings.extend(protection_import_warnings(protections))
     title = structure.name.strip() or Path(filename).stem
     return NormalizedStructureV1(
         title=title,

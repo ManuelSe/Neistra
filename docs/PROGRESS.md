@@ -2,20 +2,23 @@
 
 ## Current milestone
 
-Issue #81 M1/C1-C2 and M2/C3 complete under the
-[approved plan](plans/issue-81-local-hydrogen-reconciliation.md). Protection-aware
-endpoint reconciliation and atomic API publication now have immediate bond controls,
-Preserve H, optional native preview and detailed captured reports. D-107 records
-semantics/ownership. Additive and legacy contracts remain unchanged.
+Issue #81 M1-M3/C1-C4 complete under the
+[approved plan](plans/issue-81-local-hydrogen-reconciliation.md). Immediate local
+bond-H reconciliation, Preserve H, optional native preview, protection facts and
+source recovery are implemented. D-107 records semantics and qualification.
 
-[M2 evidence](assets/hydrogen-reconciliation/c3-gate.json):786 Python,255 frontend,
-24 desktop/mobile native tests pass; Ruff/mypy72/lint/types/build/diff pass, no
-native skips/failures/retries. Native closure, exact Undo/Redo, Preserve H,
-preview/Cancel/Apply/reload and nonpickability pass. Local screenshot/diff review
-is supplementary self-review; broader scientific/capacity/reader/a11y/real zoom
-qualification remains C4. Existing Alembic/build advisories remain. No migration,
-version or dependency change; planned stable minor0.19.0. No blocker.
-Next: M3/C4 adversarial scientific, persistence, native and actual-reader qualification.
+[C4 evidence/order](assets/hydrogen-reconciliation/c4-gate.json): latest818 Python,
+255 frontend/static/build; broad62native/8intentional skips, then9current-source
+accessibility/real-zoom passes/3intentional skips after focus repair. No final
+failures/retries. Fresh0014 and actualv0.18 reader retain canonical/protection/
+conformer/history/floor/archive data. Scientific qualification protects explicit
+mass1 as well as2/3, unknown/remote isotope stereo priorities and collinear geometry.
+A stricter mobile policy focus test found/fixed sticky-header occlusion; diagnostics
+remain distinct. Real1015-atom profile075ms/3.54MB Python peak/context12; native
+allocations excluded. Local review is self-review. Full isotope/radical support is
+verified follow-up#83; minimization/building remain#82/#71. No migration/schema/
+dependency/version change. Planned stable minor0.19.0; final candidate/merged
+complete gates remain C5/C6. No blocker. Next: version/base recheck and release prep.
 
 ### Previous delivery baseline — v0.18.0
 
@@ -2526,10 +2529,10 @@ Results:
 
 ## Blockers
 
-No current blocker. Issue #81 M1/M2 gates pass; C4-C6 remain pending.
+No current blocker. Issue #81 M1-M3 gates pass; C5/C6 remain pending.
 
 ## Next action
 
-Implement and qualify issue #81 M3/C4 according to the
-[approved feature plan](plans/issue-81-local-hydrogen-reconciliation.md), then run
-all M3 gates before release preparation. Keep additive completion unchanged.
+Prepare and qualify issue #81 M4/C5 according to the
+[approved feature plan](plans/issue-81-local-hydrogen-reconciliation.md), including base/version recheck and the complete clean-candidate release gate
+before opening the PR. Keep additive completion unchanged.

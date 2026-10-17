@@ -7,7 +7,7 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
-from molweave_core.molecular import Atom, NormalizedStructureV1
+from molweave_core.molecular import Atom, MolecularWarning, NormalizedStructureV1
 
 PROTECTION_KIND: Literal["neistra_hydrogen_protection"] = "neistra_hydrogen_protection"
 
@@ -22,9 +22,7 @@ class AtomProtection(BaseModel):
 
     @property
     def ordinary(self) -> bool:
-        return (
-            self.isotope == 0 or (self.element == "H" and self.isotope == 1)
-        ) and self.radical_electrons == 0
+        return self.isotope == 0 and self.radical_electrons == 0
 
     def matches(self, atom: Atom) -> bool:
         return (self.atom_id, self.element, self.source_index) == (
@@ -126,3 +124,18 @@ def recover_protection(
             ]
         }
     )
+
+
+def protection_import_warnings(facts: Iterable[AtomProtection]) -> list[MolecularWarning]:
+    if not any(not f.ordinary for f in facts):
+        return []
+    return [
+        MolecularWarning(
+            code="isotope_radical_protection_only",
+            operation="import",
+            field="annotations",
+            message="Source isotope/radical labels were retained as protection facts and original "
+            "uploads, not complete canonical isotope/radical chemistry. Review display "
+            "and chemical export limits; native archives retain the evidence.",
+        )
+    ]

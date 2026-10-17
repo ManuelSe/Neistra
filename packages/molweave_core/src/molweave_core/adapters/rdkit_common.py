@@ -9,6 +9,7 @@ from molweave_core.hydrogen_protection import (
     AtomProtection,
     protection_annotation,
     protection_facts,
+    protection_import_warnings,
 )
 from molweave_core.molecular import (
     Atom,
@@ -162,6 +163,17 @@ def mol_to_normalized(
         structure_metadata["properties"] = properties
     structure_metadata["canonical_smiles"] = Chem.MolToSmiles(mol, isomericSmiles=True)
 
+    identity_facts = [
+        AtomProtection(
+            atom_id=a.id,
+            element=a.element,
+            source_index=a.source_index,
+            isotope=int(rd.GetIsotope()),
+            radical_electrons=int(rd.GetNumRadicalElectrons()),
+        )
+        for a, rd in zip(atoms, mol.GetAtoms(), strict=True)
+    ]
+    structure_warnings.extend(protection_import_warnings(identity_facts))
     return NormalizedStructureV1(
         title=molecule_title,
         structure_type="ligand",
@@ -174,21 +186,7 @@ def mol_to_normalized(
         chains=chains,
         residues=residues,
         atoms=atoms,
-        annotations=[
-            protection_annotation(
-                [
-                    AtomProtection(
-                        atom_id=a.id,
-                        element=a.element,
-                        source_index=a.source_index,
-                        isotope=int(rd.GetIsotope()),
-                        radical_electrons=int(rd.GetNumRadicalElectrons()),
-                    )
-                    for a, rd in zip(atoms, mol.GetAtoms(), strict=True)
-                ],
-                "import",
-            )
-        ],
+        annotations=[protection_annotation(identity_facts, "import")],
         bonds=bonds,
         conformers=conformers,
         metadata=structure_metadata,

@@ -2,7 +2,7 @@
 
 ## Status, outcome and authority
 
-Status: approved implementation contract; C0, M1/C1-C2 and M2/C3 complete; C4-C6 pending.
+Status: approved implementation contract; C0 and M1-M3/C1-C4 complete; C5-C6 pending.
 Approval: user's “Implement the plan.”, 2026-10-17, following the complete proposed plan.
 Issue: https://github.com/ManuelSe/Neistra/issues/81
 Issue state: open; last update inspected 2026-10-17T15:52:12Z; no issue comments at analysis.
@@ -566,3 +566,31 @@ report the verified repository state, then stop ready for /goal.
   explicit default; all final tests pass. Existing build/Alembic advisories remain.
   C4 scientific, lifecycle, a11y/real zoom, capacity and actual0.18 reader qualification
   are next. No migration/version/dependency change.
+
+
+- 2026-10-17 M3/C4 complete: new scientific/API suites qualify assigned heteroatom/
+  charged/halogen counts, every explicit isotope label including mass1, protected
+  radical/nonterminal/charged/stereo H, collinear trigonal ambiguity, complete stereo
+  identity dependencies, sparse/nonfirst-active/alternate/residue boundaries, real
+  budgets/failed-work/diagnostic truncation and fixed protein context. Source-only
+  isotope/radical import limitations are now explicit warnings. Protected/unknown
+  contexts cannot receive current stereo inferred from omitted isotope priorities.
+  Existing raw-source recovery and deleted-H reference Undo are tested; operational
+  history modified timestamps retain existing semantics while artifacts/refs are exact.
+  [C4 gate/order/evidence](../assets/hydrogen-reconciliation/c4-gate.json) records
+  broad813Python/255frontend/62native with8intentional skips; late label/CIP hardening
+  then passes latest818Python,61focused chemistry/API, and current255frontend/static/
+  build. Fresh0014 and actual taggedv0.18 module-path-verified reader retain three
+  destructive/additive/partial-protected cases in independent/nonfirst conformers,
+  original bytes, generic history/floors and save/archive/re-export plus rich baseline.
+  These are preliminary producer0.18 versions; final0.19 qualification repeats inC5/C6.
+  New two-theme/320px native policy hit testing found a real sticky-header focus
+  obstruction; scoped scroll-padding fixes it. Current-source9native/3intentional
+  zoom skips then pass both themes, keyboard/touch, actual100/200% zoom and existing
+  editing accessibility; diagnostic failure is preserved separately. No final failures
+  or native retries. Existing Alembic/build advisories remain. Latest1015-atom
+  profile075ms/3542670 Python-traced peak bytes, chemistry context12 (native allocator
+  excluded), within unchanged5s/64MiB test-host bounds. [Local full diff review](../assets/hydrogen-reconciliation/c4-local-review.md) is self-review, not independent.
+  Verified follow-up [#83](https://github.com/ManuelSe/Neistra/issues/83) owns full
+  canonical isotope/radical authoring/export; #82/#71 retain existing scope. No
+  migration/schema/dependency/version change. Next: recheck base/version andC5.

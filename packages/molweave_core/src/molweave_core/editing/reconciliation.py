@@ -15,6 +15,7 @@ from scipy.spatial import cKDTree  # type: ignore[import-untyped]
 from molweave_core.editing.geometry import covalent_length
 from molweave_core.editing.hydrogen import (
     MAX_ANALYZED,
+    MAX_CONTEXT,
     MAX_COORDINATES,
     MAX_DIAGNOSTICS,
     MAX_HYDROGENS,
@@ -258,12 +259,16 @@ def reconcile_hydrogens(
             neighbors = [i for i, _ in builder.adjacency[target]]
             stereo = False
             if shape == "tetrahedral" and amount == 1 and len(neighbors) == 3:
-                mol, mapping = builder._context(target)
-                for f in facts.values():
-                    if f.atom_id in mapping and not f.ordinary:
+                mol, mapping = builder.chemical_context(target)
+                dependency_ids = set(mapping) | {
+                    i for parent_id in mapping for i, _ in current.adjacency[parent_id]
+                }
+                for i in dependency_ids:
+                    fact = facts.get(i)
+                    if not fact or not fact.matches(current.atoms[i]) or not fact.ordinary:
                         raise UnsupportedSite(
                             "protected_stereo_context",
-                            "Protected identity in stereo context prevents automatic H choice.",
+                            "Unknown/protected stereo context prevents automatic H choice.",
                         )
                 stereo = mapping[target] in {
                     idx for idx, _ in find_centres(mol, includeUnassigned=True)
@@ -292,6 +297,17 @@ def reconcile_hydrogens(
                         f"Conformer {conformer.id} has unusable heavy geometry.",
                     )
                 vectors = vectors / norms[:, None]
+                if (
+                    shape == "trigonal_planar"
+                    and amount == 1
+                    and len(vectors) == 2
+                    and np.linalg.norm(np.cross(vectors[0], vectors[1])) < 1e-3
+                ):
+                    raise UnsupportedSite(
+                        "undetermined_configuration",
+                        f"Conformer {conformer.id}: collinear heavy neighbors do not define "
+                        "a new trigonal plane; H unchanged.",
+                    )
                 old_h = np.asarray([pts[current.indices[i]] for i in retained]).reshape((-1, 3))
                 if not np.isfinite(old_h).all():
                     raise UnsupportedSite(
@@ -468,6 +484,45 @@ def reconcile_hydrogens(
                         "Changed H has a contact below 0.6 angstrom; inspect unoptimized geometry.",
                         [conformer.id],
                     )
+    # Isotope/radical facts are protection evidence, not implemented canonical
+    # chemistry fields. Never assign current E/Z/tetrahedral labels from a
+    # projection that silently omits protected or unknown dependency identity.
+    safe_stereo_targets: set[int] = set()
+    completed_targets = {s.atom_id for s in sites if s.status == "complete"}
+    if completed_targets:
+        assessment = HydrogenBuilder(after)
+        after_facts = protection_facts(after)
+        assessed: dict[int, bool] = {}
+        for target in sorted(completed_targets):
+            members: set[int] = set()
+            if target not in assessed:
+                stack = [target]
+                while stack and len(members) <= MAX_CONTEXT:
+                    node = stack.pop()
+                    if node not in members:
+                        members.add(node)
+                        stack.extend(i for i, _ in assessment.adjacency[node] if i not in members)
+                builder.analyzed += len(members)
+                safe = (
+                    len(members) <= MAX_CONTEXT
+                    and builder.analyzed <= MAX_ANALYZED
+                    and all(
+                        i in after_facts
+                        and after_facts[i].matches(assessment.atoms[i])
+                        and after_facts[i].ordinary
+                        for i in members
+                    )
+                )
+                assessed.update({i: safe for i in members})
+            if assessed[target]:
+                safe_stereo_targets.add(target)
+            else:
+                diagnostic(
+                    target,
+                    "stereo_protection_unresolved",
+                    "Current stereo was not assigned: dependency identity/context is "
+                    "protected, unknown or beyond the analysis budget. Source facts retained.",
+                )
     counts = Counter(s.status for s in sites)
     failed = counts["skipped"] + counts["unprocessed"]
     report = ReconciliationReport(
@@ -510,10 +565,10 @@ def reconcile_hydrogens(
         )
         for r, n in sorted(reasons.items())
     )
-    if counts["complete"]:
+    if safe_stereo_targets:
         after, stereo_warnings = reconcile_current_stereo(
             after,
-            {s.atom_id for s in sites if s.status == "complete"},
+            safe_stereo_targets,
             operation,
             row_budget=MAX_COORDINATES - rows,
             analyzed_atom_count=min(builder.analyzed, MAX_ANALYZED),

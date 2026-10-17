@@ -123,9 +123,9 @@ have independent coordinates in every conformer. Preview ghosts are never record
 The optional annotations record kind `neistra_hydrogen_protection` has
 `schema_version: 1`, origin `import`, `generated` or `original_recovery`, and an
 `atoms` list with `atom_id`, `element`, `source_index`, `isotope` and
-`radical_electrons`. Zero denotes no explicit label; null is unknown. Explicit
-protium mass1 is ordinary H. Other isotope labels and explicit radicals protect
-local reconciliation. Evidence must match the current stable atom identity and
+`radical_electrons`. Zero denotes no explicit label; null is unknown. Any explicit isotope label
+(including protium mass1) and explicit radicals protect local reconciliation.
+Evidence must match the current stable atom identity and
 source index/element; conflicting/malformed records cannot establish eligibility.
 Deleted IDs may remain as historical provenance. Unrelated annotations are preserved.
 

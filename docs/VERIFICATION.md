@@ -704,3 +704,24 @@ assertions. Actual browser zoom remains `rebranding-zoom.spec.ts`. The separate
 actual tagged0.17 reader harness is documented in DEVELOPMENT; producer-version
 strings alone are not old-reader qualification. Historical/preliminary checkpoint
 runs do not replace clean final-version candidate and exact merged-master gates.
+
+
+## Local bond-H reconciliation (issue #81)
+
+The [approved plan](plans/issue-81-local-hydrogen-reconciliation.md) is the contract.
+M1/M2 source-bound evidence is under assets/hydrogen-reconciliation. New unit,
+scientific and API suites are test_hydrogen_reconciliation.py and
+test_reconciliation_qualification.py; protection facts have focused unit/API tests.
+They assert counts and independent coordination geometry, exact heavy/unrelated
+rows, deterministic removal, protected/unknown/partial/conformer outcomes, source
+recovery, budgets, reference restoration and archive/Undo behavior. The fixed
+v0.15 prepared archive is retained without reinterpretation.
+
+Native bond-hydrogen-reconciliation.spec.ts covers immediate and preserve policy,
+nonpickable movement/removal markers, Cancel/Apply/reload/exact Undo, both themes,
+320px, focus/reachability and scoped axe. Existing actual100/200% browser zoom and
+editing/interaction/surface/archive suites supplement these workflows. The separate
+reconciliation_reader_qualification harness loads actual tagged v0.18 API/core
+modules and checks data/history/archives, rather than equating version strings with
+reader qualification. Final producer-version and exact merged-master gates remain
+mandatory before publication; checkpoint evidence does not substitute for them.
