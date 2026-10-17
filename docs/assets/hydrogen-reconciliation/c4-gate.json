@@ -239,7 +239,7 @@
       "sha256": "630cda67be15b9cbc89deb106fe13ab0ba9d124eb2a9deaac9a53422c6d743f8"
     },
     {
-      "command": "PLAYWRIGHT_BROWSERS_PATH=.playwright MOLWEAVE_E2E_API_PORT=8130 MOLWEAVE_E2E_WORKER_PORT=8131 MOLWEAVE_E2E_WEB_PORT=5293 MOLWEAVE_E2E_DATA_DIR=/tmp/neistra-issue81-m1-e2e corepack pnpm exec playwright test tests/e2e/bond-hydrogen-reconciliation.spec.ts tests/e2e/direct-modeling-accessibility.spec.ts tests/e2e/rebranding-zoom.spec.ts tests/e2e/molecular-editing.spec.ts --grep accessible|reachable|responsive-breakpoints",
+      "command": "PLAYWRIGHT_BROWSERS_PATH=.playwright MOLWEAVE_E2E_API_PORT=8130 MOLWEAVE_E2E_WORKER_PORT=8131 MOLWEAVE_E2E_WEB_PORT=5293 MOLWEAVE_E2E_DATA_DIR=/tmp/neistra-issue81-m1-e2e corepack pnpm exec playwright test tests/e2e/bond-hydrogen-reconciliation.spec.ts tests/e2e/direct-modeling-accessibility.spec.ts tests/e2e/rebranding-zoom.spec.ts tests/e2e/molecular-editing.spec.ts --grep 'accessible|reachable|responsive breakpoints'",
       "exit_code": 0,
       "result": "9 passed/3 intentional zoom skips; current source",
       "log": "c4-final-native.log.gz",

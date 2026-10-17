@@ -24,8 +24,12 @@ workspace, not proposed account, docking or marketplace features.
 
 Open **Edit molecule** beside Transform for direct atom/charge/deletion and
 same-entry bond changes, including incomplete chemistry and covalently attached
-ligands. All118 elements and unknown charge/order are available. Existing H remain
-literal; optional completion is off by default and cannot block a requested edit.
+ligands. All118 elements and unknown charge/order are available. **Bonds** defaults
+to immediate local H reconciliation, which may add, remove or move ordinary H at
+the two edited heavy endpoints. Choose **Preserve H** for literal bond edits, or
+enable **Preview changes** to inspect the proposal before Apply. Uncertain sites
+retain the direct edit and report why H reconciliation skipped. Optional additive
+completion for other building actions remains off by default and nonfatal.
 **New molecule** starts at one atom. Add atoms or six fixed fragments through a
 nonpickable placement preview, direction/rotation, Apply/Cancel and compact
 inspection controls. Deleting the last atom leaves an editable empty entry.
@@ -40,7 +44,8 @@ Draft display is separate from chemical export. Native archives preserve literal
 drafts/unknowns and explicit inferred-bond removals; chemical files explain losses
 or refuse unrepresentable graphs. Warnings do not certify preparation, protonation
 or optimized geometry. See [Molecular editing](docs/MOLECULAR_EDITING.md) and the
-[hydrogen plan and qualification](docs/plans/issue-77-geometry-aware-hydrogens.md);
+[bond-H reconciliation plan](docs/plans/issue-81-local-hydrogen-reconciliation.md);
+[additive hydrogen qualification](docs/plans/issue-77-geometry-aware-hydrogens.md);
 [direct-building baseline](docs/plans/issue-74-direct-molecular-modeling.md).
 Combining separate entries, peptide growth, wider catalogues and ring fusion remain
 separate work. No new migration is needed; the actual preceding reader retains

@@ -562,7 +562,7 @@ Native chemical exports retain their existing representability/loss boundaries.
 
 ## Bond-H reconciliation compatibility (issue #81)
 
-Planned minor0.19 adds reconcile_if_possible to direct bond model edits and optional
+Stable minor0.19 adds reconcile_if_possible to direct bond model edits and optional
 preview/report fields. Omitted API policy stays preserve and complete_if_possible
 is additive. The Bonds UI defaults to immediate reconciliation with explicit
 Preserve H and optional preview. Client/API must match to use the new policy.

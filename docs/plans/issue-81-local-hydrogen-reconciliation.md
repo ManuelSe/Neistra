@@ -594,3 +594,11 @@ report the verified repository state, then stop ready for /goal.
   Verified follow-up [#83](https://github.com/ManuelSe/Neistra/issues/83) owns full
   canonical isotope/radical authoring/export; #82/#71 retain existing scope. No
   migration/schema/dependency/version change. Next: recheck base/version andC5.
+
+- 2026-10-17 M4/C5 preparation: origin/master remains9f20d9f, already integrated
+  fast-forward-only. Remote latest release remains0.18.0 and no0.19 tag exists.
+  The approved stable minor0.19.0 remains correct: additive API/persisted compatibility
+  plus new public functionality and destructive UI default. Five authoritative
+  versions and archive assertion advance together; dependencies/schemas remain fixed.
+  README and release/compatibility notes explain actual Bonds behavior. Complete
+  clean-candidate gate and final full-diff self-review must pass before opening PR.

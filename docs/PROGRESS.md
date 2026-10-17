@@ -17,8 +17,9 @@ A stricter mobile policy focus test found/fixed sticky-header occlusion; diagnos
 remain distinct. Real1015-atom profile075ms/3.54MB Python peak/context12; native
 allocations excluded. Local review is self-review. Full isotope/radical support is
 verified follow-up#83; minimization/building remain#82/#71. No migration/schema/
-dependency/version change. Planned stable minor0.19.0; final candidate/merged
-complete gates remain C5/C6. No blocker. Next: version/base recheck and release prep.
+dependency change. C5 prepares all five versions as stable minor0.19.0 after
+base/tag collision checks. Final candidate/merged complete gates remain C5/C6.
+No blocker. Next: clean-candidate full release gate and full-diff review.
 
 ### Previous delivery baseline — v0.18.0
 
