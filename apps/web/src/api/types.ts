@@ -1,6 +1,6 @@
 export type StructureType = "protein" | "ligand" | "complex" | "solvent" | "unknown";
 
-export type HydrogenPolicy = "preserve" | "complete_if_possible";
+export type HydrogenPolicy = "preserve" | "complete_if_possible" | "reconcile_if_possible";
 export type HydrogenGeometry = "linear" | "trigonal_planar" | "tetrahedral";
 export type HydrogenAction =
   | { operation: "hydrogens.complete"; scope: "selection" | "entry" }
@@ -12,13 +12,30 @@ export interface HydrogenReport {
   diagnostics: { atom_id: number; reason: string; message: string; conformer_ids: number[] }[];
   reason_counts: Record<string, number>; diagnostics_truncated: boolean;
 }
+export type BondAction = { operation: "bond.set"; order: number | null } | { operation: "bond.delete" };
+export interface HydrogenReconciliationReport {
+  policy: "reconcile_if_possible";
+  status: "complete" | "partial" | "unchanged" | "unresolved";
+  target_count: number; completed_count: number; unchanged_count: number;
+  skipped_count: number; unprocessed_count: number;
+  added_hydrogen_count: number; removed_hydrogen_count: number; moved_hydrogen_count: number;
+  sites: { atom_id: number; status: "complete" | "unchanged" | "skipped" | "unprocessed";
+    geometry: HydrogenGeometry | null; added_hydrogen_ids: number[];
+    removed_hydrogen_ids: number[]; moved_hydrogen_ids: number[] }[];
+  diagnostics: HydrogenReport["diagnostics"];
+  reason_counts: Record<string, number>; diagnostics_truncated: boolean;
+}
 export type ModelPlacementAction =
+  | BondAction
   | HydrogenAction
   | { operation: "atom.add"; element: string; charge: number | null; direction: number; coordinates?: [number, number, number] }
   | { operation: "fragment.attach"; fragment: FragmentName; direction: number; rotation: number };
 
 export interface ModelPreview {
+  moved_atoms?: { atom_id: number; before: [number, number, number]; after: [number, number, number] }[];
+  removed_atoms?: { atom_id: number; coordinates: [number, number, number] }[];
   hydrogen_report?: HydrogenReport | null;
+  hydrogen_reconciliation_report?: HydrogenReconciliationReport | null;
   entry_id: string;
   expected_revision: number;
   expected_artifact_id: string;
@@ -40,10 +57,9 @@ export type SelectionEditAction =
   | { operation: "atom.element"; element: string }
   | { operation: "atom.charge"; delta: -1 | 1 }
   | { operation: "atom.charge.set"; charge: number | null }
-  | { operation: "bond.set"; order: number | null }
   | { operation: "atom.delete" }
   | { operation: "hydrogens.prepare" }
-  | { operation: "bond.create" | "bond.delete" }
+  | { operation: "bond.create" }
   | { operation: "bond.order"; order: 1 | 2 | 3 }
   | { operation: "fragment.replace"; fragment: FragmentName }
   | { operation: "residue.mutate"; target_name: StandardAminoAcid };
@@ -53,6 +69,7 @@ export type FragmentName = "methyl" | "ethyl" | "hydroxyl" | "amino" | "carboxyl
 export interface SelectionEditResult extends Omit<LigandEditResult, "report"> {
   applied?: boolean;
   hydrogen_report?: HydrogenReport | null;
+  hydrogen_reconciliation_report?: HydrogenReconciliationReport | null;
   selection_after: Selection;
   report: Omit<LigandEditResult["report"], "operation"> & { operation: SelectionEditAction["operation"] };
   replacements: Record<string, number>;

@@ -1154,7 +1154,13 @@ class ModelPreviewMovement(BaseModel):
     after: tuple[float, float, float]
 
 
+class ModelPreviewRemoval(BaseModel):
+    atom_id: int
+    coordinates: tuple[float, float, float]
+
+
 class ModelPreviewRead(BaseModel):
+    removed_atoms: list[ModelPreviewRemoval] = Field(default_factory=list)
     moved_atoms: list[ModelPreviewMovement] = Field(default_factory=list)
     hydrogen_report: HydrogenReport | None = None
     hydrogen_reconciliation_report: ReconciliationReport | None = None

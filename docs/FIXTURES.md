@@ -263,3 +263,16 @@ experimental source file. Manifest application_version0.16.0 identifies the
 producer. The portable archive enters browser tests through public archive import.
 It reproduces a ligand plus three unclassified atoms before the ownership fix;
 derived navigation membership must not change the normalized bytes.
+
+
+## Issue #81 bond-H fixture
+
+`tests/fixtures/hydrogens/butane-reconciliation.mol` is synthetic explicit-H butane,
+created with the existing `tests.support.hydrogen_fixture.model("CCCC")` (ETKDGv3,
+seed77) and deterministic Mol block output. Heavy atom IDs1..4 form an open chain;
+terminal sites1/4 have three H each. Closing1-4 under reconciliation must remove
+exactly two ordinary H, retaining two H at each endpoint and exact heavy coordinates.
+This independent starting graph is not a preoptimized cyclic conformer; long-bond/
+angle warnings are expected. Preserve H intentionally retains the over-valent draft.
+The source SHA256 is recorded with C3 evidence. Historical prepared-complex archive
+bytes remain frozen; new import annotations do not rewrite that baseline fixture.

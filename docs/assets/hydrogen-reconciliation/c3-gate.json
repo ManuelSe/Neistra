@@ -1,0 +1,162 @@
+{
+  "checkpoint": "M2/C3",
+  "base": "6380478bc0a7a3c76d3fe376af1db7cf40ac696b",
+  "environment": {
+    "PLAYWRIGHT_BROWSERS_PATH": ".playwright",
+    "MOLWEAVE_E2E_API_PORT": "8130",
+    "MOLWEAVE_E2E_WORKER_PORT": "8131",
+    "MOLWEAVE_E2E_WEB_PORT": "5293",
+    "MOLWEAVE_E2E_DATA_DIR": "/tmp/neistra-issue81-m2-e2e"
+  },
+  "commands": [
+    {
+      "command": [
+        ".venv/bin/ruff",
+        "check",
+        "."
+      ],
+      "exit_code": 0,
+      "seconds": 0.009,
+      "log": "c3-00.log.gz",
+      "sha256": "47f394a1497b1873bc6e6d6f9bb92aa51b990821f1ddd7770a933ffd29c456cd",
+      "raw_log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "command": [
+        ".venv/bin/mypy",
+        "apps/api",
+        "packages/molweave_core"
+      ],
+      "exit_code": 0,
+      "seconds": 0.156,
+      "log": "c3-01.log.gz",
+      "sha256": "94ca91af8822014e55208e06932fe3d37ef487d3dee393cba0ba11b507c95b4c",
+      "raw_log_sha256": "047be720f71ff6f55001ba8201472e4dca22eaa7f8ee244cbd28450c7224622f"
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "-q"
+      ],
+      "exit_code": 0,
+      "seconds": 124.767,
+      "log": "c3-02.log.gz",
+      "sha256": "1290870ad1c1fd0af239bc80b7d2f66c792b118a177054667b16fd412436d173",
+      "raw_log_sha256": "163ed81692f84e54a57097bc65db31160b99654588d8727fcf23fb72d02deb05"
+    },
+    {
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "lint"
+      ],
+      "exit_code": 0,
+      "seconds": 9.565,
+      "log": "c3-03.log.gz",
+      "sha256": "377acca5da8e6dd19cb00f1bcc2f92b8343a693f8840e049cd4b920a94504576",
+      "raw_log_sha256": "58d4992236167c12579cfcb0e295a8386b56960fc1905081adce9b66100eaa83"
+    },
+    {
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "typecheck"
+      ],
+      "exit_code": 0,
+      "seconds": 4.946,
+      "log": "c3-04.log.gz",
+      "sha256": "10048038ce77221bbfe1bf8b4c97b96f0f899eb00fb6368e554b34dda5713f69",
+      "raw_log_sha256": "de0dfbe7aeb99c8fa6d0f83f2813fdb87107d58b3a4cbd1bdd66ac263266c08e"
+    },
+    {
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "test"
+      ],
+      "exit_code": 0,
+      "seconds": 9.989,
+      "log": "c3-05.log.gz",
+      "sha256": "747ea6d9d7d118bf0697dc3d41ceda1674a06d228d101757456ca33b088463cf",
+      "raw_log_sha256": "8064d802f831710f8454c1cfcfff0ffdf81ab4e9de4c810341f0bb6e2cb7ae96"
+    },
+    {
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "build"
+      ],
+      "exit_code": 0,
+      "seconds": 12.756,
+      "log": "c3-06.log.gz",
+      "sha256": "e09a36d864494f0c2baa187b95a9764f3efff4f9d967439cc422ed67d9a9598c",
+      "raw_log_sha256": "c072d64156c33b6b398592991b04d23df892edae5a9ac66d80248d38eb6602da"
+    },
+    {
+      "command": [
+        "corepack",
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "tests/e2e/bond-hydrogen-reconciliation.spec.ts",
+        "tests/e2e/direct-molecular-modeling.spec.ts",
+        "tests/e2e/hydrogen-completion.spec.ts",
+        "tests/e2e/hydrogen-membership.spec.ts"
+      ],
+      "exit_code": 0,
+      "seconds": 157.361,
+      "log": "c3-07.log.gz",
+      "sha256": "b78fa6786fe55540db3ecce629612cef2a40baa5383baff71bc0d699c35dcb0d",
+      "raw_log_sha256": "a080f8a8c63f78f343625f5027e99f523589de12aa632ae9ac49e35fa8c3688f"
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "seconds": 0.009,
+      "log": "c3-08.log.gz",
+      "sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+      "raw_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "log_encoding": "gzip; lossless original output; raw/compressed SHA256 recorded",
+  "summary": {
+    "python_passed": 786,
+    "web_passed": 255,
+    "native_passed": 24,
+    "native_skipped": 0,
+    "native_failed": 0,
+    "retries": 0,
+    "mypy_sources": 72
+  },
+  "review": "Local full checkpoint diff self-review; no independent review. Inspected desktop/mobile native preview screenshots; ghost movement/removal visible, nonpickable and canonical atom counts unchanged. Further a11y/real zoom/scientific/reader qualification remains C4.",
+  "source_sha256": {
+    "apps/api/src/molweave_api/model_edit_service.py": "bdd13bd093e4930fd51fb2251d7930ea24a24294c43cca6884c4294d2e1b249f",
+    "apps/api/src/molweave_api/schemas.py": "8da746dd671130849fe66755dfcd64bdb155784d41f0783e33badca13713825e",
+    "apps/web/src/api/types.ts": "343f3d05fc7840862617ba109da3e426d2c8f4b8b25995afdd26fee7a294ebb7",
+    "apps/web/src/components/MolecularEditPanel.tsx": "8d487a4c4af4a40373ecf8113f57a049073ce230bf5fede379d7937ad828604f",
+    "apps/web/src/components/StructureViewer.tsx": "bca36da8ced74f453faf00a8bc7d029bbd29571c970daeecd776860a342803f0",
+    "apps/web/src/editing/hydrogen.ts": "1eb8f2c42b256ebb6758212a95a25d4484e3abebe40809d364726f1352487c5d",
+    "apps/web/src/store/editing.ts": "4d3f3c7504f28d36ef724c6c0307417c4263112a594deffd36bb6ec008eac39c",
+    "apps/web/src/test/molecular-edit-panel.test.tsx": "f7770eb9c14d7ec10df7bd941d042b7d328291fb766c07a6f99ebdc4ea43d82b",
+    "apps/web/src/viewer/modelPreviewGeometry.ts": "07f1509c7dc0313a31ef61aef407edfbf3371c0de646ea4c36f6b51164ca09ec",
+    "tests/integration/test_hydrogen_reconciliation.py": "18e64e70198d92ce584be9cde16bfda9052e942f3cc4a1faa767347de7a67a6f",
+    "apps/web/src/components/HydrogenReconciliationDetails.tsx": "d3ec4e4f4e7f8521b1caacf6dc30dba4b78c5be859d08d975a1b7dfdba9683d7",
+    "tests/e2e/bond-hydrogen-reconciliation.spec.ts": "09d8c76138ab016ea02549e8bd964b76abd35f8e1842df464ccf48e366cc8547",
+    "tests/fixtures/hydrogens/butane-reconciliation.mol": "f86897ca0010ca4a6a71a40ff30ba3f2b7706ca4e0160d537a874b53de953e58"
+  }
+}

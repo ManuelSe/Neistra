@@ -2,7 +2,7 @@
 
 ## Status, outcome and authority
 
-Status: approved implementation contract; C0 and M1/C1-C2 complete; C3-C6 pending.
+Status: approved implementation contract; C0, M1/C1-C2 and M2/C3 complete; C4-C6 pending.
 Approval: user's “Implement the plan.”, 2026-10-17, following the complete proposed plan.
 Issue: https://github.com/ManuelSe/Neistra/issues/81
 Issue state: open; last update inspected 2026-10-17T15:52:12Z; no issue comments at analysis.
@@ -546,3 +546,23 @@ report the verified repository state, then stop ready for /goal.
   Additional local review hardening reports inactive-conformer H moves and skips
   invalid conformer contexts without discarding the bond draft. No schema/version/
   dependency change. C3 UI and C4 adversarial/new native/reader qualification remain.
+
+
+- 2026-10-17 M2/C3 complete: explicit bond-H policy defaults immediate reconciliation,
+  with Preserve H, captured reports and optional preview/Cancel/Apply. Additive
+  preferences remain separate. Native movement ghosts/lines and removal crosses
+  are nonpickable; canonical geometry stays unchanged until Apply. Preview adds
+  old-coordinate removal records; project-visit feedback/policy invalidation guards
+  late results. Molecular-editing/API/fixture docs and D-107 note are updated.
+  [M2 gate](../assets/hydrogen-reconciliation/c3-gate.json): all9 commands pass;
+  786 Python /255 frontend /24 desktop-mobile native, no native skips/failures/
+  retries; Ruff/mypy72/lint/types/build/diff pass. Three new component cases cover
+  Preserve H/reset, optional preview/report/policy invalidation and late preview
+  rejection. Native new closure, exact Undo/Redo, Preserve H, preview purity/
+  nonpickability/Cancel/Apply/reload pass both projects. Desktop/mobile screenshots
+  were visually inspected and retained; this is supplementary manual self-review,
+  not independent review or full accessibility certification. Initial two frontend
+  assertions expected the old implicit bond policy and were updated to the approved
+  explicit default; all final tests pass. Existing build/Alembic advisories remain.
+  C4 scientific, lifecycle, a11y/real zoom, capacity and actual0.18 reader qualification
+  are next. No migration/version/dependency change.

@@ -35,6 +35,7 @@ def test_reconciliation_preview_apply_exact_undo_redo_and_archive(
     assert (report["added_hydrogen_count"], report["removed_hydrogen_count"]) == (added, removed)
     assert client.get(path).json()["revision"] == project["revision"]
     assert structure(client, project["id"], entry["id"]) == before.model_dump(mode="json")
+    assert len(inspected.json()["removed_atoms"]) == removed
     assert inspected.json()["moved_atoms"]
     response = edit(
         client, project, entry["id"], targets, action, hydrogen_policy="reconcile_if_possible"

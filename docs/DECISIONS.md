@@ -4136,3 +4136,15 @@ bounded by existing file/atom limits and only used when required facts are missi
 preview reads never publish. The existing artifact transaction and deleted-atom
 reference reconciliation own exact Undo/Redo. Metadata bond exclusions are pruned
 against retained atoms after H removals. No new schema, dependency or job mechanism.
+
+
+### D-107 implementation note — issue #81 M2/C3, 2026-10-17
+
+Bond hydrogens use a separate transient preference, default reconciliation on each
+project visit, independently of additive atom/fragment completion. Bond controls
+apply immediately; optional preview captures the same explicit action/policy and
+uses ordinary Apply recomputation. New moved-H lines/ghosts and removed-H crosses
+are nonpickable transient shapes, never canonical coordinates or identities.
+Preview responses add old-coordinate removal records for that rendering purpose.
+Feedback carries project-visit ownership, and policy changes/cancellation invalidate
+pending previews; no late response may resurrect a previous proposal.

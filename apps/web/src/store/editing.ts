@@ -19,6 +19,10 @@ interface EditingState {
   setAtomDraft: (patch: Partial<EditingState["atomDraft"]>) => void;
   targetEntryId: string | null;
   setTargetEntryId: (entryId: string | null) => void;
+  bondHydrogenPolicy: "preserve" | "reconcile_if_possible";
+  setBondHydrogenPolicy: (policy: "preserve" | "reconcile_if_possible") => void;
+  previewBondChanges: boolean;
+  setPreviewBondChanges: (enabled: boolean) => void;
   hydrogenPolicy: HydrogenPolicy;
   setHydrogenPolicy: (policy: HydrogenPolicy) => void;
   placement: PlacementDraft | null;
@@ -46,13 +50,15 @@ export const useEditingStore = create<EditingState>((set) => ({
   atomDraft: { element: "C", charge: "0", unknown: false },
   setAtomDraft: patch => set(state => ({ atomDraft: { ...state.atomDraft, ...patch }, placement: null })),
   targetEntryId: null, setTargetEntryId: targetEntryId => set({ targetEntryId, placement: null }),
+  bondHydrogenPolicy: "reconcile_if_possible", setBondHydrogenPolicy: bondHydrogenPolicy => set({ bondHydrogenPolicy, placement: null }),
+  previewBondChanges: false, setPreviewBondChanges: previewBondChanges => set({ previewBondChanges, placement: null }),
   hydrogenPolicy: "preserve", setHydrogenPolicy: hydrogenPolicy => set({ hydrogenPolicy, placement: null }),
   placement: null, setPlacement: placement => set(state => ({ placement, inspectingPlacement: placement ? state.inspectingPlacement : false })),
   focusNewMolecule: null, setFocusNewMolecule: focusNewMolecule => set({ focusNewMolecule }),
   projectId: null, generation: 0, open: false, pending: false, section: "atoms", focusRequested: false,
   setFocusRequested: focusRequested => set({ focusRequested }),
   setSection: section => set({ section, placement: null }),
-  setProject: projectId => set(state => state.projectId === projectId ? state : { projectId, generation: state.generation + 1, open: false, pending: false, section: "atoms", focusRequested: false, launcherFocusRequested: false, targetEntryId: null, hydrogenPolicy: "preserve", placement: null, inspectingPlacement: false, focusNewMolecule: null, hydrogenDraft: { count: "1", geometry: "tetrahedral", scope: "selection" }, atomDraft: { element: "C", charge: "0", unknown: false } }),
+  setProject: projectId => set(state => state.projectId === projectId ? state : { projectId, generation: state.generation + 1, open: false, pending: false, section: "atoms", focusRequested: false, launcherFocusRequested: false, targetEntryId: null, bondHydrogenPolicy: "reconcile_if_possible", previewBondChanges: false, hydrogenPolicy: "preserve", placement: null, inspectingPlacement: false, focusNewMolecule: null, hydrogenDraft: { count: "1", geometry: "tetrahedral", scope: "selection" }, atomDraft: { element: "C", charge: "0", unknown: false } }),
   setOpen: open => set(state => ({ open, placement: open ? state.placement : null })),
   setPending: pending => set({ pending }),
 }));

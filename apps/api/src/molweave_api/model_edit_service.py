@@ -29,6 +29,7 @@ from molweave_api.schemas import (
     ModelPreviewBond,
     ModelPreviewMovement,
     ModelPreviewRead,
+    ModelPreviewRemoval,
     MoleculeCreate,
     MoleculeCreateRead,
 )
@@ -207,6 +208,10 @@ class ModelEditService(SelectionEditService):
             if a.id in old_atoms and a.coordinates != old_atoms[a.id].coordinates
         }
         return ModelPreviewRead(
+            removed_atoms=[
+                ModelPreviewRemoval(atom_id=i, coordinates=old_atoms[i].coordinates)
+                for i in result.deleted_atom_ids
+            ],
             moved_atoms=[
                 ModelPreviewMovement(
                     atom_id=i, before=old_atoms[i].coordinates, after=atoms[i].coordinates

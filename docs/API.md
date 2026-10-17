@@ -773,7 +773,8 @@ Temporary preview addition IDs are recomputed on Apply; ghosts use preview strin
 and do not become canonical operands. Never submit preview coordinates for mutation.
 
 Preview includes `moved_atoms` with existing atom_id and active old/new coordinates,
-`removed_atom_ids`, noncanonical added ghosts, affected bonds and the same report.
+`removed_atom_ids`, `removed_atoms` with old coordinates for removal markers,
+noncanonical added ghosts, affected bonds and the same report.
 It publishes no artifacts/history/counters and does not change Redo. Apply recomputes
 from captured input; stale revision/artifact requests cannot overwrite newer edits.
 A successful mutation publishes one existing generic molecular command, including
