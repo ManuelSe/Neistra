@@ -29,6 +29,9 @@ Temporary analysis H cannot invent a configuration absent from retained geometry
 Optional completion remains nonfatal and off by default; a zero-H report cannot
 disable an otherwise valid atom/fragment placement or restore explicitly deleted H.
 
+The viewer host retains valid named-region semantics before renderer startup and
+during API failure, including mobile dark-theme recovery.
+
 ### Data, migrations, API and compatibility
 
 Stable minor **0.17.0 →0.18.0** adds public count/scope/preview/report functionality,

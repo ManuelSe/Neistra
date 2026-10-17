@@ -15,8 +15,13 @@ unresolved consequential finding; it is not independent review. Earlier diagnost
 are separate. Five versions0.18.0 minor; no migration/schema/dependency change.
 Known limits: bounded profile, unoptimized geometry, explicit uncertainty; no full
 protonation/preparation/optimization or persistent constraints. No blocker.
-Next:C5 PR/integration review audit, normal merge, exact-master release gate,
-verified tag/release/issue reply and delayed branch cleanup. No publication claimed.
+PR78 merged normally. Initial exact-master gate blocked publication on one mobile
+API-failure accessibility finding (238pass/47skip/1fail). Stable named viewer-region
+correction and regressions pass252frontend/4native/lint/types/build/diff on the
+feature branch. No molecular/schema/version change. Earlier passing candidate
+predates this correction; failed merged evidence remains diagnostic.
+Next:fresh full candidate gate, reviewed correction PR/normal merge, exact-master
+gate, verified tag/release/issue reply and delayed cleanup. No publication claimed.
 
 ### Previous delivery baseline — v0.17.0
 

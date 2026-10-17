@@ -79,3 +79,15 @@ Later evidence/documentation-only commits must retain every non-document source 
 
 The complete merged-master gate and remote review/status/protection audit remain
 required before tag/release. No independent review is claimed here.
+
+
+## Post-merge release-gate correction
+
+The first exact-master gate exposed one mobile dark API-failure accessibility
+violation: the labelled host lacked a stable role while empty/native startup was
+incomplete. Publication stopped. A static named region and empty-renderer/native
+failure assertions address the lifecycle root cause without waiting away or
+suppressing the accessibility check.252frontend/4native/lint/types/build/diff pass.
+Diff self-review: one runtime role, three component assertions/comment lines and
+one native assertion, plus honest failed/focused evidence. No molecular changes.
+Fresh complete candidate and exact-master qualification remain required.

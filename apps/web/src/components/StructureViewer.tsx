@@ -600,6 +600,7 @@ export function StructureViewer({
         ref={targetRef}
         className="molstar-host"
         data-testid="molstar-host"
+        role="region"
         aria-label="3D molecular viewer"
       />
       {movementActive && movement ? <MovementOverlay movement={movement}

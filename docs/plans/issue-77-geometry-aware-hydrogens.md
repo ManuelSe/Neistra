@@ -399,3 +399,17 @@ remote artifacts before claiming completion.
   C5 remains pending: request integration review on the PR, audit protections,
   normal merge preserving checkpoints, exact-master full gate, annotated tag,
   stable release, verified issue response and delayed branch cleanup.
+
+
+- 2026-10-17 C5 merged-master gate blocked publication:238 browser cases pass,
+  47 intentionally skip and1 mobile dark API-failure accessibility assertion fails.
+  [Failed-run record](../assets/hydrogen-modeling/c5-initial-merged-failure.json)
+  remains diagnostic; no tag/release was made. The viewer host had a label but no
+  stable role before native startup. A named region now exists independently of
+  renderer/API availability, with empty-renderer component and native API-failure
+  assertions. [Focused correction](../assets/hydrogen-modeling/c5-a11y-correction.json)
+  passes252frontend,4native (both themes/viewports), lint/types/build/diff.
+  This is release-gate remediation, with no molecular/schema/version change.
+  Local diff review finds only the role and regression assertions, no scientific
+  or compatibility change. Fresh complete clean candidate and exact merged gates
+  are required before publication; the earlier candidate predates this correction.

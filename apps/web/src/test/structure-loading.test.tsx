@@ -308,6 +308,8 @@ describe("lazy structure loading", () => {
       { wrapper: wrapper(queryClient) },
     );
 
+    // The host must have valid named semantics before any native renderer DOM exists.
+    expect(screen.getByRole("region", { name: "3D molecular viewer" })).toBeVisible();
     await waitFor(() => {
       expect(fake.syncs.at(-1)?.map((item) => item.entryId)).toEqual(["protein"]);
     });
@@ -368,6 +370,7 @@ describe("lazy structure loading", () => {
       />,
     );
     await waitFor(() => expect(fake.syncs.at(-1)).toEqual([]));
+    expect(screen.getByRole("region", { name: "3D molecular viewer" })).toBeVisible();
     expect(fetchSpy).toHaveBeenCalledTimes(2);
     unmount();
     expect(fake.disposed).toBe(true);
