@@ -2,7 +2,7 @@
 
 ## Current milestone
 
-Issue #77 C0–C3 complete; [approved contract](plans/issue-77-geometry-aware-hydrogens.md).
+Issue #77 C0–C3 complete; C4 release preparation in progress; [approved contract](plans/issue-77-geometry-aware-hydrogens.md).
 Additive local completion, explicit count/geometry previews, partial/no-op reports
 and molecular intent are implemented and qualified. D-105/106 record decisions.
 [C3 evidence](assets/hydrogen-modeling/c3-gate.json):754 Python,252 web,20final native
@@ -11,7 +11,7 @@ interaction lifecycle and accessibility. Ruff/mypy70/lint/types/build/diff pass.
 Actual tagged0.17 reader retains new artifacts/stereo/inferences, both conformers,
 originals, counters, generic history and archive/re-export alongside rich baseline.
 Qualification hardened work budgets/caching, degenerate/conflicting stereo and
-optional zero-H preview behavior. No migration/schema/dependency/version change yet.
+optional zero-H preview behavior. No migration/schema/dependency change; five versions advance to0.18.0 in C4.
 Known limits: bounded initial profile, unoptimized placement; no protonation,
 optimization or persistent constraints. No blocker. Next:C4 final0.18.0 versions,
 full clean release gate/review, then C5 reviewed normal merge, exact-master gate,

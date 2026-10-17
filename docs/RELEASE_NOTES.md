@@ -1,5 +1,88 @@
 # Neistra Release Notes
 
+## 0.18.0 - 2026-10-17 - Geometry-aware hydrogen building
+
+Implemented under the [approved issue #77 plan](plans/issue-77-geometry-aware-hydrogens.md).
+Publication requires the clean final-version candidate gate, reviewed normal merge
+and exact merged-master gate described in that contract.
+
+### Highlights and fixes
+
+Hydrogen building now uses operation-specific local proposals. Unspecified current
+stereo, original format, navigation categories and covalent component boundaries
+do not impose preparation eligibility on ordinary building. The mixed explicit-H
+representation regression no longer blocks completion of equivalent branches.
+Supported sites can succeed independently while uncertain sites skip precisely.
+
+**Hydrogen tools** offers selection or explicitly chosen whole-entry completion,
+and **Add a chosen number of H** with count1..4, linear/trigonal-planar/tetrahedral
+geometry and six deterministic orientation choices. Inspect nonpickable ghosts and
+reports before Apply. The general inspector opens the same workflow. Existing H
+and coordinates remain fixed, with independent placement in every conformer and
+one reversible command. Zero-addition requests leave revision, dirty state,
+artifacts, counters, history and Redo unchanged.
+
+Affected current stereo follows retained 3D evidence after consistent H analysis;
+source facts and disconnected annotations remain unchanged. Conflicts, conformer
+disagreement, planar/collinear ambiguity and resource-limited assessment warn.
+Temporary analysis H cannot invent a configuration absent from retained geometry.
+Optional completion remains nonfatal and off by default; a zero-H report cannot
+disable an otherwise valid atom/fragment placement or restore explicitly deleted H.
+
+### Data, migrations, API and compatibility
+
+Stable minor **0.17.0 →0.18.0** adds public count/scope/preview/report functionality,
+beyond correcting a refusal. Existing HTTP contracts and persisted schemas remain
+compatible; no major increment or prerelease is warranted after qualification.
+All five authoritative versions advance together, without dependency upgrades.
+
+No new migration: head0014; project/viewer/archive2, normalized/selection1.
+Original uploads, stable identities, canonical records, all conformers and generic
+history remain authoritative. The existing model-edit/preview routes gain additive
+H actions, applied:boolean and an optional structured report. Legacy helper and
+protein preparation HTTP semantics remain unchanged. Preview/count choices add no
+persistent constraints or portable history. Native archives retain literal drafts;
+chemical exports keep their existing representability, implicit-H and loss limits.
+
+The actual tagged v0.17.0 reader is qualified in a separate process for canonical
+H/stereo/inferences, originals, coordinates, allocation floors, generic Undo/Redo,
+save/archive/re-export and rich existing project state. Old runtimes lack the new
+building actions/controls; continue authoring with matching current client/API.
+Back up full managed data and preserve existing guarded schema downgrade rules.
+
+### Verification and operation bounds
+
+[C3 qualification](assets/hydrogen-modeling/c3-gate.json) passes754 Python,
+252 frontend and20 final native tests; broader16native/8intentional layout skips
+include actual100/200% zoom, themes, narrow/accessibility, archives and interaction
+lifecycles. Ruff/mypy70/lint/types/build/diff and actual preceding-reader checks
+pass. Final-version candidate/merged gates and publication evidence are recorded
+in the feature plan; intermediate diagnostics do not replace those gates.
+
+Server-owned bounds admit4096 target sites,4096 proposed H,16384 generated H rows,
+1024 atoms per complete chemistry context,16384 analyzed atom visits and200 detailed
+diagnostics with full reason counts. Failed work and conformer assessments consume
+budgets. Request-scoped adjacency/coordinate/spatial indexes and complete oversized
+closure caching avoid repeated scans or whole-protein chemistry conversion.
+Existing viewer/surface/movement/interaction performance budgets remain unchanged.
+
+### Scientific limits and follow-up work
+
+Automatic counts initially cover C0, N0/+1, O0/-1/+1, divalent S0 and neutral
+halogens, requiring known target charges and incident authoritative orders.
+Aromatic contexts must be complete, specified and bounded. Unsupported sites stay
+editable through explicit controls. Ideal geometry/approximate lengths are
+unoptimized; close contacts and insufficient geometric evidence remain visible.
+This is not pH/protonation prediction, tautomer choice, minimization or preparation.
+
+Deliberately rejected: prepared-component gates for ordinary building, silent
+chemistry repair/defaults, automatic existing-H removal/repositioning and an
+unnecessary engine/plugin redesign. Deferred: persistent geometry/count constraints
+and broader preparation/optimization (#12/#11), broader fragments/rings (#71).
+No new duplicate follow-up issue is needed. Molecular intent across import,
+building, completion, preparation, analysis and export is documented in
+[MOLECULAR_MODEL](MOLECULAR_MODEL.md).
+
 ## 0.17.0 - 2026-10-17 - Direct molecular modeling
 
 Implemented under the [approved issue #74 plan](plans/issue-74-direct-molecular-modeling.md).

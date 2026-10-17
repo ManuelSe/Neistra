@@ -358,3 +358,18 @@ remote artifacts before claiming completion.
   No new migration/dependency/schema. Existing migration upgrade/downgrade guards
   pass in the full Python gate; all data roots are disposable, not user projects.
   C4/C5 remain pending; no blocker or deferred-scope expansion.
+
+- 2026-10-17 C4 release preparation: fetched origin/master/tags; base remains
+  88a2a9d and merges without conflict. Remote latest is0.17.0; no0.18.0 tag/release
+  collision. Master is unprotected, rulesets empty, normal merge allowed and
+  automatic branch deletion disabled; recheck before merge. Five authoritative
+  sources advance to0.18.0 without dependency updates. Archive producer expectation
+  advances and the preceding0.17 provenance round-trip joins the existing matrix;
+  actual preceding-reader qualification remains independent evidence.
+  Frozen installs and focused archive validation run before the release-preparation
+  commit; complete clean candidate gate and final review are next. No PR/merge/tag/
+  release is claimed at this stage.
+  Frozen Python/frontend installs pass; focused final-version archive matrix:
+  `uv run pytest tests/integration/test_archive_roundtrip.py -q` →27 passed,
+  including prior0.17 producer provenance. Ruff/mypy70/diff checks pass. No
+  dependency lock drift beyond the root application version.

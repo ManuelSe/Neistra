@@ -29,16 +29,24 @@ literal; optional completion is off by default and cannot block a requested edit
 **New molecule** starts at one atom. Add atoms or six fixed fragments through a
 nonpickable placement preview, direction/rotation, Apply/Cancel and compact
 inspection controls. Deleting the last atom leaves an editable empty entry.
-Standard-residue mutation and chemistry helpers retain their own prerequisites.
+**Hydrogen tools** previews selection or explicit whole-entry completion and a
+chosen H count/geometry. Supported sites can complete independently; existing H
+and coordinates remain fixed across conformers. Unknown chemistry and unresolved
+stereo receive precise reports. Standard-residue mutation and preparation retain
+their own prerequisites. See [Molecular model](docs/MOLECULAR_MODEL.md) for the
+different intent of draft building, completion, preparation, analysis and export.
 
 Draft display is separate from chemical export. Native archives preserve literal
 drafts/unknowns and explicit inferred-bond removals; chemical files explain losses
 or refuse unrepresentable graphs. Warnings do not certify preparation, protonation
 or optimized geometry. See [Molecular editing](docs/MOLECULAR_EDITING.md) and the
-[approved plan and qualification](docs/plans/issue-74-direct-molecular-modeling.md).
+[hydrogen plan and qualification](docs/plans/issue-77-geometry-aware-hydrogens.md);
+[direct-building baseline](docs/plans/issue-74-direct-molecular-modeling.md).
 Combining separate entries, peptide growth, wider catalogues and ring fusion remain
-separate work. No new migration is needed; old-reader data retention has documented
-renderer/helper limits, without an unrestricted runtime rollback claim.
+separate work. No new migration is needed; the actual preceding reader retains
+data/history/archives, while new H building needs the current client/server.
+Earlier schema downgrade guards remain binding. Back up the complete managed data
+directory before changing versions.
 
 Interactive transforms offer the **Transform selection** icon in a separate bar above the viewer.
 Left mouse drag rotates; right or Ctrl-drag translates in the current view plane.
