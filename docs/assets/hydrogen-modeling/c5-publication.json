@@ -1,0 +1,69 @@
+{
+  "verified_utc": "2026-10-17T15:42:08.402430+00:00",
+  "version": "0.18.0",
+  "release_commit": "6cb9faf3959a7409620f42bc2fdef396d838568b",
+  "pr": "https://github.com/ManuelSe/Neistra/pull/78",
+  "issue": "https://github.com/ManuelSe/Neistra/issues/77",
+  "issue_state": "closed",
+  "correction_pr": "https://github.com/ManuelSe/Neistra/pull/79",
+  "tag": {
+    "name": "v0.18.0",
+    "annotated_object": "5a747a95cf663d16342a5ef1bdc03a52bc6e30d3",
+    "target": "6cb9faf3959a7409620f42bc2fdef396d838568b",
+    "remote_verified": true
+  },
+  "release": {
+    "id": 415891741,
+    "url": "https://github.com/ManuelSe/Neistra/releases/tag/v0.18.0",
+    "published_at": "2026-10-17T15:41:11Z",
+    "draft": false,
+    "prerelease": false,
+    "latest": true,
+    "notes_exact": true
+  },
+  "asset": {
+    "release_commit": "6cb9faf3959a7409620f42bc2fdef396d838568b",
+    "asset": "neistra-v0.18.0-issue-77-verification.zip",
+    "sha256": "78ab6e12452e12f9a01dfc72a961725e65b6faf7b944dc917c35ce7252be0cf8",
+    "bytes": 200865389,
+    "internal_checksums": 1953,
+    "url": "https://github.com/ManuelSe/Neistra/releases/download/v0.18.0/neistra-v0.18.0-issue-77-verification.zip",
+    "remote_id": 650844460,
+    "downloaded_sha256_verified": true,
+    "zip_crc_verified": true,
+    "internal_sha256_verified": 1953
+  },
+  "review": {
+    "kind": "implementing-agent local self-review",
+    "codex_request": "https://github.com/ManuelSe/Neistra/pull/78#issuecomment-6234347906",
+    "correction_codex_request": "https://github.com/ManuelSe/Neistra/pull/79#issuecomment-6235358206",
+    "integration_review_returned": false,
+    "required_review_bypassed": false
+  },
+  "issue_reply_verified": true,
+  "issue_reply_url": "https://github.com/ManuelSe/Neistra/issues/77#issuecomment-6235945892",
+  "issue_reply_numeric_id": 6235945892,
+  "issue_reply_body_sha256_at_initial_verification": "3ad003f4a6d9df01dd0e76f38bed063a563da6972f9e9756b40ca6282b805d0e",
+  "final_documentation_cleanup_audit": "https://github.com/ManuelSe/Neistra/issues/77#issuecomment-6235945892",
+  "final_audit_record": "Final documentation merge and branch/clean-master audit update the same verified issue comment after completion.",
+  "candidate_results": {
+    "python": 756,
+    "frontend": 252,
+    "supervisor": 8,
+    "browser": 239,
+    "intentional_skips": 47,
+    "failures": 0,
+    "flaky": 0,
+    "retries": 0
+  },
+  "merged_results": {
+    "python": 756,
+    "frontend": 252,
+    "supervisor": 8,
+    "browser": 239,
+    "intentional_skips": 47,
+    "failures": 0,
+    "flaky": 0,
+    "retries": 0
+  }
+}

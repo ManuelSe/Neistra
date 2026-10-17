@@ -1,0 +1,37 @@
+{
+  "data": {
+    "repository": {
+      "pullRequest": {
+        "number": 78,
+        "state": "OPEN",
+        "headRefOid": "682a83880afcb12f5463edb389c069c445782d05",
+        "baseRefOid": "88a2a9d8909ab1ff06f025a29ec56132b063eb5a",
+        "mergeable": "MERGEABLE",
+        "mergeStateStatus": "CLEAN",
+        "reviewDecision": null,
+        "reviewThreads": {
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": null
+          },
+          "nodes": []
+        },
+        "reviews": {
+          "nodes": []
+        },
+        "comments": {
+          "nodes": [
+            {
+              "author": {
+                "login": "ManuelSe"
+              },
+              "body": "@codex review",
+              "url": "https://github.com/ManuelSe/Neistra/pull/78#issuecomment-6234347906",
+              "createdAt": "2026-10-17T13:18:07Z"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

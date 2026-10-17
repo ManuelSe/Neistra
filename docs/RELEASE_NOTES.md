@@ -3,8 +3,11 @@
 ## 0.18.0 - 2026-10-17 - Geometry-aware hydrogen building
 
 Implemented under the [approved issue #77 plan](plans/issue-77-geometry-aware-hydrogens.md).
-Publication requires the clean final-version candidate gate, reviewed normal merge
-and exact merged-master gate described in that contract.
+Published in [PR #78](https://github.com/ManuelSe/Neistra/pull/78),
+[correction #79](https://github.com/ManuelSe/Neistra/pull/79) and stable
+[v0.18.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.18.0).
+[Publication evidence](assets/hydrogen-modeling/c5-publication.json) verifies the
+annotated exact-runtime tag, release notes and downloaded evidence archive.
 
 ### Highlights and fixes
 
@@ -75,7 +78,11 @@ a0aaef1 passes all16 release commands:756 Python,252 frontend,8 supervisor and
 existing native performance profiles pass. Frozen installs, fresh0014/static/build/
 diff and actual tagged0.17 reader with final0.18 producer pass. Full-diff local
 self-review is [documented](assets/hydrogen-modeling/c5-local-review.md); exact
-merged-master verification and remote publication remain required before release.
+merged-master qualification also passes all16 commands at `6cb9faf3959a7409620f42bc2fdef396d838568b`,
+with the same counts, zero failures/flakes/retries and15 passing profiles.
+The [merged evidence](assets/hydrogen-modeling/c5-merged-gate.json) records source/log
+hashes and clean trees. The [verified issue reply](https://github.com/ManuelSe/Neistra/issues/77#issuecomment-6235945892) records scope,
+compatibility, final documentation integration and delayed branch-cleanup audit.
 
 ### Scientific limits and follow-up work
 

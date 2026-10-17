@@ -1,6 +1,6 @@
 # Geometry-aware hydrogen completion — issue #77
 
-Status: approved; C0–C4 complete; C5 review, merge and publication pending.
+Status: released v0.18.0; C0–C5 complete. Final documentation/cleanup audit is linked below.
 Issue: https://github.com/ManuelSe/Neistra/issues/77
 Approval: user's “Implement the plan”, 2026-10-17.
 Base: origin/master, 88a2a9d8909ab1ff06f025a29ec56132b063eb5a.
@@ -425,3 +425,29 @@ remote artifacts before claiming completion.
   raw runs remain separately labelled. Local full-diff self-review found no further
   consequential finding. Latest origin/master remains7f30cbc; correction PR and
   fresh exact-final-master gate are next, before any tag/release.
+
+
+- 2026-10-17 C5 complete: [PR #78](https://github.com/ManuelSe/Neistra/pull/78)
+  and [correction PR #79](https://github.com/ManuelSe/Neistra/pull/79)
+  merged normally, preserving checkpoint history. Exact released master
+  `6cb9faf3959a7409620f42bc2fdef396d838568b` passes all16 release commands:
+  756 Python,252 frontend,8 supervisor,239 native browser tests and47 intentional
+  layout skips; zero failures/flakes/retries. All15 performance profiles retain
+  unchanged budgets. Frozen installs, fresh0014, static/build/diff and actual tagged
+  0.17 reader with final0.18 producer pass. Clean trees and source/raw/retained log
+  hashes are recorded in [merged evidence](../assets/hydrogen-modeling/c5-merged-gate.json).
+  Full-diff local self-review has no unresolved consequential finding. Integration
+  review was requested and the remote review/conversation/policy audit found no
+  returned independent review, required approval/status or unresolved finding;
+  no protection bypass. This is implementing-assistant self-review, not independent.
+  Annotated v0.18.0 points exactly to the qualified merge. Stable latest
+  [release](https://github.com/ManuelSe/Neistra/releases/tag/v0.18.0), notes and
+  downloaded evidence ZIP SHA256/CRC/internal checksums are
+  [verified](../assets/hydrogen-modeling/c5-publication.json). Issue77 is closed and
+  the [closeout reply](https://github.com/ManuelSe/Neistra/issues/77#issuecomment-6235945892) was read back and verified.
+  No new migration/dependency/persisted schema; five authoritative versions0.18.0.
+  Scientific/compatibility limits and #12/#11/#71 deferrals remain as approved;
+  no duplicate follow-up issue. Final documentation integration preserves release
+  source equivalence. Its merge and subsequent remote/local feature-branch cleanup
+  and clean-master audit are appended to that same issue reply after verification;
+  the release tag remains on the exact runtime-qualified merge above.
