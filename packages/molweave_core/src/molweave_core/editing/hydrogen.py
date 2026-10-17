@@ -18,7 +18,7 @@ from rdkit import Chem
 from scipy.spatial import cKDTree  # type: ignore[import-untyped]
 
 from molweave_core.adapters.rdkit_common import normalized_to_mol
-from molweave_core.editing.placement import _frame, _length
+from molweave_core.editing.geometry import covalent_length, local_frame
 from molweave_core.molecular import (
     Atom,
     Bond,
@@ -71,6 +71,8 @@ class HydrogenSite:
 class HydrogenProposal:
     sites: tuple[HydrogenSite, ...]
     report: HydrogenReport
+    analyzed_atom_count: int = 0
+    generated_coordinate_rows: int = 0
 
 
 class UnsupportedSite(ValueError):
@@ -121,7 +123,7 @@ def _fit(vectors: Any, geometry: Geometry, count: int, orientation: int) -> tupl
     for indices in permutations(range(len(ideal)), occupied):
         source = ideal[list(indices)]
         if occupied == 1:
-            rotation = _frame(vectors[0]) @ _frame(source[0]).T
+            rotation = local_frame(vectors[0]) @ local_frame(source[0]).T
             axis = vectors[0]
             angle = orientation * pi / 3
             cross = np.array(
@@ -148,16 +150,22 @@ def _fit(vectors: Any, geometry: Geometry, count: int, orientation: int) -> tupl
 
 class HydrogenBuilder:
     def __init__(self, structure: NormalizedStructureV1) -> None:
+        if len({c.id for c in structure.conformers}) != len(structure.conformers):
+            raise ValueError("Conformer identities must be unique for hydrogen building.")
         self.structure = structure
         self.atoms = {a.id: a for a in structure.atoms}
         self.indices = {a.id: i for i, a in enumerate(structure.atoms)}
         self.adjacency: dict[int, list[tuple[int, Bond]]] = {i: [] for i in self.atoms}
+        self.pi_bonds = {i: 0 for i in self.atoms}
         pairs = set()
         for bond in structure.bonds:
             pair = tuple(sorted((bond.atom_1_id, bond.atom_2_id)))
             if pair in pairs:
                 raise ValueError("Duplicate bond endpoints require an explicit repair.")
             pairs.add(pair)
+            if bond.order == 2.0 or bond.aromatic:
+                self.pi_bonds[bond.atom_1_id] += 1
+                self.pi_bonds[bond.atom_2_id] += 1
             self.adjacency[bond.atom_1_id].append((bond.atom_2_id, bond))
             self.adjacency[bond.atom_2_id].append((bond.atom_1_id, bond))
         for neighbors in self.adjacency.values():
@@ -165,6 +173,7 @@ class HydrogenBuilder:
         self.contexts: dict[int, Any] = {}
         self.analyzed = 0
         self.trees: dict[int, Any] = {}
+        self.points: dict[int, Any] = {}
 
     def targets(self, selected: list[int], *, entry: bool = False) -> list[int]:
         if len(set(selected)) != len(selected) or not set(selected) <= self.atoms.keys():
@@ -192,13 +201,15 @@ class HydrogenBuilder:
             return value  # type: ignore[no-any-return]
         members: set[int] = set()
         stack = [target]
-        while stack and len(members) <= MAX_CONTEXT:
+        # Cache complete canonical closure even when chemical conversion is too large.
+        # Otherwise later targets could repeatedly traverse overlapping truncated contexts.
+        while stack:
             current = stack.pop()
             if current not in members:
                 members.add(current)
                 stack.extend(i for i, _ in self.adjacency[current] if i not in members)
         error = None
-        if stack or len(members) > MAX_CONTEXT:
+        if len(members) > MAX_CONTEXT:
             error = UnsupportedSite(
                 "context_limit",
                 "Chemical context exceeds the bounded analysis size; it was not cut or capped.",
@@ -216,6 +227,11 @@ class HydrogenBuilder:
                     "context_unknown",
                     "Aromatic/resonance context contains unspecified charge or bond order.",
                 )
+            elif any(b.aromatic != (b.order == 1.5) for i in members for _, b in self.adjacency[i]):
+                error = UnsupportedSite(
+                    "context_contradictory",
+                    "Aromatic/resonance context has contradictory aromatic flags and bond orders.",
+                )
             else:
                 ordered = sorted(members)
                 indices = [self.indices[i] for i in ordered]
@@ -231,6 +247,7 @@ class HydrogenBuilder:
                                 update={"coordinates": [c.coordinates[i] for i in indices]}
                             )
                             for c in self.structure.conformers
+                            if c.id == self.structure.active_conformer_id
                         ],
                     }
                 )
@@ -279,6 +296,14 @@ class HydrogenBuilder:
                 "alternate_context",
                 "Incident alternate sites do not define one compatible geometry.",
             )
+        if any(b.aromatic != (b.order == 1.5) for _, b in neighbors):
+            raise UnsupportedSite(
+                "contradictory_bond_order",
+                (
+                    "Incident aromatic flags and bond orders disagree; assign the "
+                    "intended bond chemistry explicitly."
+                ),
+            )
         aromatic = any(b.aromatic or b.order == 1.5 for _, b in neighbors)
         if aromatic:
             mol, indices = self._context(target)
@@ -296,12 +321,7 @@ class HydrogenBuilder:
                 )
         # Amide and conjugated heteroatoms use a planar local coordination.
         conjugated = atom.element in {"N", "O", "S"} and any(
-            b.order == 1.0
-            and any(
-                other != target and (edge.order == 2.0 or edge.aromatic)
-                for other, edge in self.adjacency[i]
-            )
-            for i, b in neighbors
+            b.order == 1.0 and self.pi_bonds[i] > 0 for i, b in neighbors
         )
         orders = [b.order for _, b in neighbors]
         geometry: Geometry = (
@@ -334,6 +354,7 @@ class HydrogenBuilder:
         diagnostics: list[HydrogenDiagnostic] = []
         reasons: Counter[str] = Counter()
         skipped = unchanged = unprocessed = added = 0
+        attempted_h = generated_rows = 0
 
         def diagnostic(
             target: int, reason: str, message: str, conformers: list[int] | None = None
@@ -360,8 +381,8 @@ class HydrogenBuilder:
                     unchanged += 1
                     continue
                 if (
-                    added + amount > MAX_HYDROGENS
-                    or (added + amount) * len(self.structure.conformers) > MAX_COORDINATES
+                    attempted_h + amount > MAX_HYDROGENS
+                    or generated_rows + amount * len(self.structure.conformers) > MAX_COORDINATES
                     or len(self.atoms) + added + amount > atom_limit
                 ):
                     unprocessed += 1
@@ -374,10 +395,15 @@ class HydrogenBuilder:
                         ),
                     )
                     continue
+                # Charge the whole admitted site even when a later frame fails.
+                attempted_h += amount
+                generated_rows += amount * len(self.structure.conformers)
                 frames = []
                 issues: dict[str, list[int]] = {}
                 for conformer in self.structure.conformers:
-                    points = np.asarray(conformer.coordinates)
+                    if conformer.id not in self.points:
+                        self.points[conformer.id] = np.asarray(conformer.coordinates)
+                    points = self.points[conformer.id]
                     center = points[self.indices[target]]
                     vectors = np.array(
                         [points[self.indices[i]] - center for i, _ in self.adjacency[target]]
@@ -386,6 +412,7 @@ class HydrogenBuilder:
                     if (
                         not np.isfinite(center).all()
                         or not np.isfinite(vectors).all()
+                        or not np.isfinite(norms).all()
                         or any(norms < 1e-6)
                     ):
                         raise UnsupportedSite(
@@ -406,11 +433,39 @@ class HydrogenBuilder:
                             f"Conformer {conformer.id} does not determine the new "
                             "tetrahedral orientation; use explicit preview.",
                         )
+                    if (
+                        count is None
+                        and shape == "trigonal_planar"
+                        and len(vectors) == 2
+                        and amount == 1
+                        and np.linalg.norm(np.cross(vectors[0], vectors[1])) < 1e-3
+                    ):
+                        raise UnsupportedSite(
+                            "undetermined_configuration",
+                            f"Conformer {conformer.id} does not determine a trigonal plane; "
+                            "use explicit preview.",
+                        )
                     directions, error = _fit(vectors, shape, amount, orientation)
-                    generated = center + directions * _length(self.atoms[target].element, "H")
+                    generated = center + directions * covalent_length(
+                        self.atoms[target].element, "H"
+                    )
                     if not np.isfinite(generated).all():
                         raise UnsupportedSite(
                             "degenerate_geometry", "Candidate coordinates are nonfinite."
+                        )
+                    actual_lengths = np.linalg.norm(generated - center, axis=1)
+                    if not np.allclose(
+                        actual_lengths,
+                        covalent_length(self.atoms[target].element, "H"),
+                        rtol=1e-6,
+                        atol=1e-8,
+                    ):
+                        raise UnsupportedSite(
+                            "coordinate_precision",
+                            (
+                                "Coordinate precision cannot represent the proposed H bond length;"
+                                " site unchanged."
+                            ),
                         )
                     if error > 0.15:
                         issues.setdefault("geometry_mismatch", []).append(conformer.id)
@@ -477,6 +532,8 @@ class HydrogenBuilder:
                 reason_counts=dict(sorted(reasons.items())),
                 diagnostics_truncated=sum(reasons.values()) > len(diagnostics),
             ),
+            self.analyzed,
+            generated_rows,
         )
 
 
@@ -573,7 +630,11 @@ def apply_hydrogen_proposal(
         }
     )
     after, stereo_warnings = _reconcile_stereo(
-        after, {site.parent_id for site in proposal.sites}, operation
+        after,
+        {site.parent_id for site in proposal.sites},
+        operation,
+        analyzed_atom_count=proposal.analyzed_atom_count,
+        row_budget=MAX_COORDINATES - proposal.generated_coordinate_rows,
     )
     warnings.extend(stereo_warnings)
     metadata = dict(after.metadata)
@@ -585,8 +646,51 @@ def apply_hydrogen_proposal(
     ), tuple(warnings)
 
 
+def _retained_atom_orientation(builder: HydrogenBuilder, atom_id: int, points: Any) -> bool:
+    neighbors = builder.adjacency[atom_id]
+    if len(neighbors) not in {3, 4}:
+        return False
+    center = np.asarray(points[builder.indices[atom_id]])
+    vectors = np.array([np.asarray(points[builder.indices[i]]) - center for i, _ in neighbors])
+    norms = np.linalg.norm(vectors, axis=1)
+    if not np.isfinite(norms).all() or any(norms < 1e-6):
+        return False
+    vectors = vectors / norms[:, None]
+    volume = vectors if len(neighbors) == 3 else vectors[:3] - vectors[3]
+    return abs(float(np.linalg.det(volume))) > 1e-3
+
+
+def _retained_bond_orientation(builder: HydrogenBuilder, bond: Bond, points: Any) -> bool:
+    # Both endpoint planes need retained substituents. Virtual H cannot supply
+    # missing geometric evidence or resolve a collinear higher-priority ligand.
+    for start, end in [(bond.atom_1_id, bond.atom_2_id), (bond.atom_2_id, bond.atom_1_id)]:
+        center = np.asarray(points[builder.indices[start]])
+        axis = np.asarray(points[builder.indices[end]]) - center
+        axis_length = float(np.linalg.norm(axis))
+        if not np.isfinite(axis_length) or axis_length < 1e-6:
+            return False
+        neighbors = [i for i, _ in builder.adjacency[start] if i != end]
+        if not neighbors:
+            return False
+        for i in neighbors:
+            vector = np.asarray(points[builder.indices[i]]) - center
+            length = float(np.linalg.norm(vector))
+            if (
+                not np.isfinite(length)
+                or length < 1e-6
+                or np.linalg.norm(np.cross(axis / axis_length, vector / length)) < 1e-3
+            ):
+                return False
+    return True
+
+
 def _reconcile_stereo(
-    structure: NormalizedStructureV1, targets: set[int], operation: str
+    structure: NormalizedStructureV1,
+    targets: set[int],
+    operation: str,
+    *,
+    row_budget: int,
+    analyzed_atom_count: int,
 ) -> tuple[NormalizedStructureV1, list[MolecularWarning]]:
     """Reconcile affected bounded contexts after additions, never source facts.
 
@@ -594,10 +698,15 @@ def _reconcile_stereo(
     physical coordinates remain the model and unresolved assignments remain explicit.
     """
     builder = HydrogenBuilder(structure)
+    builder.analyzed = analyzed_atom_count
     atom_updates: dict[int, str | None] = {}
     bond_updates: dict[int, str | None] = {}
     visited: set[int] = set()
     warnings = []
+    assessment_failures = 0
+    disagreement_count = 0
+    unresolved_geometry: set[tuple[str, int]] = set()
+    analysis_rows = 0
     local = targets | {i for t in targets for i, _ in builder.adjacency[t]}
     for target in sorted(targets):
         if target in visited:
@@ -614,8 +723,23 @@ def _reconcile_stereo(
         member_bonds = {b.id: b for i in members for _, b in builder.adjacency[i]}
         try:
             mol, indices = builder._context(target)
+            # Count repeated conformer assessment as analyzed atom visits as well.
+            extra_visits = len(indices) * (len(structure.conformers) - 1)
+            if builder.analyzed + extra_visits > MAX_ANALYZED:
+                raise UnsupportedSite(
+                    "stereo_analysis_budget",
+                    "Stereo assessment exceeds the request atom-analysis budget across conformers.",
+                )
+            builder.analyzed += extra_visits
             # Use fully explicit completion representation before stereo perception.
-            analysis = Chem.AddHs(mol, addCoords=True)
+            virtual_h = sum(int(a.GetNumImplicitHs()) for a in mol.GetAtoms())
+            needed_rows = virtual_h * len(structure.conformers)
+            if analysis_rows + needed_rows > row_budget:
+                raise UnsupportedSite(
+                    "stereo_coordinate_budget",
+                    ("Bounded stereo-coordinate analysis is unavailable for this context."),
+                )
+            analysis_rows += needed_rows
             per_atom: dict[int, set[str | None]] = {i: set() for i in members if i in local}
             per_bond: dict[int, set[str | None]] = {
                 b.id: set()
@@ -629,7 +753,15 @@ def _reconcile_stereo(
                 if b.id in per_bond
             }
             reverse = {n: i for i, n in indices.items()}
-            for conformer in analysis.GetConformers():
+            for source_conformer in structure.conformers:
+                frame = Chem.Conformer(len(indices))
+                frame.Set3D(True)
+                for atom_id, n in indices.items():
+                    frame.SetAtomPosition(n, source_conformer.coordinates[builder.indices[atom_id]])
+                mol.RemoveAllConformers()
+                mol.AddConformer(frame, assignId=True)
+                analysis = Chem.AddHs(mol, addCoords=True)
+                conformer = analysis.GetConformer()
                 Chem.RemoveStereochemistry(analysis)
                 Chem.AssignStereochemistryFrom3D(
                     analysis, conformer.GetId(), replaceExistingTags=True
@@ -639,6 +771,11 @@ def _reconcile_stereo(
                     tag = str(analysis.GetAtomWithIdx(indices[i]).GetChiralTag()).removeprefix(
                         "CHI_"
                     )
+                    if tag != "UNSPECIFIED" and not _retained_atom_orientation(
+                        builder, i, source_conformer.coordinates
+                    ):
+                        unresolved_geometry.add(("atom", i))
+                        tag = "UNSPECIFIED"
                     per_atom[i].add(None if tag == "UNSPECIFIED" else tag)
                 for b in analysis.GetBonds():
                     left, right = reverse.get(b.GetBeginAtomIdx()), reverse.get(b.GetEndAtomIdx())
@@ -646,17 +783,61 @@ def _reconcile_stereo(
                         bid = bonds_by_pair.get(tuple(sorted((left, right))))
                         if bid is not None:
                             tag = str(b.GetStereo()).removeprefix("STEREO")
+                            if tag != "NONE" and not _retained_bond_orientation(
+                                builder, member_bonds[bid], source_conformer.coordinates
+                            ):
+                                unresolved_geometry.add(("bond", bid))
+                                tag = "NONE"
                             per_bond[bid].add(None if tag == "NONE" else tag)
             for i, tags in per_atom.items():
+                disagreement_count += int(len(tags) > 1)
                 atom_updates[i] = next(iter(tags)) if len(tags) == 1 else None
             for i, tags in per_bond.items():
+                disagreement_count += int(len(tags) > 1)
                 bond_updates[i] = next(iter(tags)) if len(tags) == 1 else None
         except (ValueError, RuntimeError, OverflowError):
+            assessment_failures += 1
             atom_updates.update({i: None for i in members & local})
             bond_updates.update(
                 {b.id: None for b in member_bonds.values() if b.stereo not in {None, "NONE"}}
             )
 
+    if unresolved_geometry:
+        warnings.append(
+            MolecularWarning(
+                code="model_hydrogen_stereo_geometry_unresolved",
+                operation=f"model.{operation}",
+                field="stereo",
+                message=(
+                    f"{len(unresolved_geometry)} current stereo assignments "
+                    "lack retained geometric evidence; temporary analysis H "
+                    "were not used to choose a configuration."
+                ),
+            )
+        )
+    if disagreement_count:
+        warnings.append(
+            MolecularWarning(
+                code="model_hydrogen_stereo_disagreement",
+                operation=f"model.{operation}",
+                field="stereo",
+                message=f"Conformers disagree on {disagreement_count} affected stereo assignments; "
+                "no universal current tag was chosen. Coordinates and source facts were retained.",
+            )
+        )
+    if assessment_failures:
+        warnings.append(
+            MolecularWarning(
+                code="model_hydrogen_stereo_unresolved",
+                operation=f"model.{operation}",
+                field="stereo",
+                message=(
+                    f"Stereo assessment unavailable in {assessment_failures} contexts; "
+                    "dependent current labels were cleared where necessary. "
+                    "Coordinates and source facts were retained."
+                ),
+            )
+        )
     changed = any(
         a.id in atom_updates
         and a.stereo != atom_updates[a.id]

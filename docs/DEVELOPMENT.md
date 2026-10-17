@@ -528,3 +528,33 @@ transaction; current direct/legacy editors consult bounded historical evidence.
 The old reader retains these produced floors, but its future authoring does not
 implement the new propagation. Continue modeling with the current client/server.
 Previously reused historical identities cannot be retroactively disentangled.
+
+## Geometry-aware hydrogen compatibility (issue #77)
+
+Client/API upgrade together for the additive completion/count actions. No new
+migration: head0014, project/viewer/archive2, normalized/selection1. Back up the
+complete managed directory before changing versions. Source uploads, existing H,
+retained coordinates and generic history remain authoritative; no persistent
+count/geometry constraints or preview data are introduced. Old runtimes retain
+data/history but do not implement the new actions; use the current version for
+continued building. Existing guarded schema downgrades remain binding.
+
+Actual preceding-reader qualification (fresh disposable paths only):
+```bash
+git worktree add --detach /tmp/neistra-issue77-reader-017 v0.17.0
+MOLWEAVE_DATA_DIR=/tmp/neistra-hydrogen-reader .venv/bin/uv run alembic upgrade head
+PYTHONPATH=apps/api/src:packages/molweave_core/src:packages/molweave_demo_plugin/src \
+  .venv/bin/python -m tests.support.hydrogen_reader_qualification produce \
+  --data-dir /tmp/neistra-hydrogen-reader --evidence /tmp/neistra-hydrogen-producer.json
+PYTHONPATH=/tmp/neistra-issue77-reader-017/apps/api/src:/tmp/neistra-issue77-reader-017/packages/molweave_core/src:/tmp/neistra-issue77-reader-017/packages/molweave_demo_plugin/src \
+  .venv/bin/python -m tests.support.hydrogen_reader_qualification read \
+  --data-dir /tmp/neistra-hydrogen-reader --reader-root /tmp/neistra-issue77-reader-017 \
+  --expected-reader 0.17.0 --evidence /tmp/neistra-hydrogen-reader.json
+```
+
+The harness asserts implementation paths/version and compares original bytes,
+current annotations/inferences, every conformer, native archive/re-export, counters
+and generic Undo/Redo, alongside existing rich jobs/scenes/surfaces/references.
+Repeat with the final producer version on the clean candidate and exact merged
+master, in addition to the complete release gate above and `git diff --check`.
+Native chemical exports retain their existing representability/loss boundaries.

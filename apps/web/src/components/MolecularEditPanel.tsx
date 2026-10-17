@@ -57,6 +57,7 @@ export function MolecularEditPanel({ project, selection, busy, unavailable, onEd
   const context = placementContext(project, entry?.id, selection, editing.generation, editing.hydrogenPolicy);
   const draft = editing.placement?.context === context ? editing.placement : null;
   const inspecting = Boolean(draft && editing.inspectingPlacement && !draft.error);
+  const noStandaloneHydrogens = Boolean(draft && isHydrogenAction(draft.action) && draft.result?.hydrogen_report?.added_hydrogen_count === 0);
   useEditPanelPosition(open, project.id, launcher, panel, inspecting);
   useEffect(() => {
     const current = ownedPlacement;
@@ -75,7 +76,7 @@ export function MolecularEditPanel({ project, selection, busy, unavailable, onEd
   const preview = (action: ModelPlacementAction) => {
     if (reason || pending || !entry || !artifact) return;
     if (panel.current?.contains(document.activeElement)) panel.current.focus();
-    setError(null); editing.setPlacement({ context, action }); editing.setInspectingPlacement(true);
+    setError(null); setFeedback(null); editing.setPlacement({ context, action }); editing.setInspectingPlacement(true);
   };
   const close = (owned: boolean) => { setOpen(false); if (owned) launcher.current?.focus(); };
   const execute = async (action: SelectionEditAction) => {
@@ -177,7 +178,7 @@ export function MolecularEditPanel({ project, selection, busy, unavailable, onEd
           <button type="button" onClick={() => { panel.current?.focus(); editing.setInspectingPlacement(true); }}>Inspect placement</button>
           <button type="button" disabled={draft.action.operation === "hydrogens.complete"} onClick={() => preview(nextPlacement(draft.action))}>{draft.action.operation === "hydrogens.add" ? "Next orientation" : "Next direction"}</button>
           {draft.action.operation === "fragment.attach" ? <button type="button" onClick={() => { if (draft.action.operation === "fragment.attach") preview({ ...draft.action, rotation: (draft.action.rotation + 1) % 6 }); }}>Rotate fragment</button> : null}
-          <button type="button" disabled={!draft.result || draft.result.hydrogen_report?.added_hydrogen_count === 0} onClick={() => void execute(draft.action)}>Apply placement</button>
+          <button type="button" disabled={!draft.result || noStandaloneHydrogens} onClick={() => void execute(draft.action)}>Apply placement</button>
           <button type="button" onClick={() => editing.setPlacement(null)}>Cancel placement</button>
         </div>
         {!draft.result && !draft.error ? <p role="status">Computing placement preview…</p> : null}
@@ -214,7 +215,7 @@ export function MolecularEditPanel({ project, selection, busy, unavailable, onEd
         <button type="button" aria-label="Placement tools" title="Placement tools and warnings" onClick={() => { panel.current?.focus(); editing.setInspectingPlacement(false); }}><Pencil size={16} /></button>
         <button type="button" aria-label={draft.action.operation === "hydrogens.add" ? "Next orientation" : "Next direction"} title="Next placement orientation" disabled={Boolean(reason) || draft.action.operation === "hydrogens.complete"} onClick={() => preview(nextPlacement(draft.action))}><ChevronRight size={16} /></button>
         {draft.action.operation === "fragment.attach" ? <button type="button" aria-label="Rotate fragment" title="Rotate fragment" disabled={Boolean(reason)} onClick={() => { if (draft.action.operation === "fragment.attach") preview({ ...draft.action, rotation: (draft.action.rotation + 1) % 6 }); }}><RotateCw size={16} /></button> : null}
-        <button type="button" aria-label="Apply placement" disabled={!draft.result || draft.result.hydrogen_report?.added_hydrogen_count === 0 || Boolean(reason)} onClick={() => void execute(draft.action)}>Apply</button>
+        <button type="button" aria-label="Apply placement" disabled={!draft.result || noStandaloneHydrogens || Boolean(reason)} onClick={() => void execute(draft.action)}>Apply</button>
         <button type="button" aria-label="Cancel placement" disabled={pending} onClick={() => { panel.current?.focus(); editing.setPlacement(null); }}>Cancel</button>
       </div> : null}
     </section>, document.body) : null}

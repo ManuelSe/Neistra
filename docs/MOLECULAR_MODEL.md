@@ -80,3 +80,10 @@ molecular command. Preview state is transient and never exportable.
 No persistent geometry/count constraints are introduced. Building choices describe
 one operation; they do not impose future preparation or analysis intent. Reopen
 and Undo/Redo use the same existing normalized artifacts and command history.
+
+Temporary analysis H cannot provide missing retained geometric evidence. Planar
+three-neighbor centres and collinear double-bond arrangements can therefore leave
+current stereo unresolved even when an analysis library can generate coordinates.
+The operation warns rather than certifying that arbitrary generated configuration.
+Explicit preview can still author an incomplete or distorted draft; subsequent
+coordinate editing and preparation remain separate choices.

@@ -350,3 +350,22 @@ it("shows unresolved hydrogen diagnostics and disables Apply for a zero-addition
   expect(screen.getByText(/Atom 1: Parent charge is unknown/)).toBeVisible();
   expect(onEdit).not.toHaveBeenCalled();
 });
+
+it("keeps atom placement applicable when optional hydrogen completion proposes zero H", async () => {
+  const { user, onEdit } = setup();
+  vi.mocked(projectApi.modelPreview).mockResolvedValue({ entry_id: entry.id, expected_revision: project.revision,
+    expected_artifact_id: entry.current_artifact_id!, atoms: [{ preview_id: "preview-0", element: "P", coordinates: [1.5,0,0] }], bonds: [], removed_atom_ids: [], warnings: [],
+    hydrogen_report: { status: "unresolved", target_count: 1, completed_count: 0, unchanged_count: 0, skipped_count: 1, unprocessed_count: 0,
+      added_hydrogen_count: 0, diagnostics: [], reason_counts: { unsupported_state: 1 }, diagnostics_truncated: false },
+  });
+  await user.click(screen.getByRole("button", { name: "Edit molecule" }));
+  await user.click(screen.getByRole("checkbox", { name: "Complete hydrogens when possible" }));
+  await user.click(screen.getByText("Add atom", { exact: true }));
+  await user.clear(screen.getByRole("combobox", { name: "Added element" }));
+  await user.type(screen.getByRole("combobox", { name: "Added element" }), "P");
+  await user.click(screen.getByRole("button", { name: "Preview atom" }));
+  expect(await screen.findByRole("button", { name: "Apply placement" })).toBeEnabled();
+  await user.click(screen.getByRole("button", { name: "Apply placement" }));
+  expect(onEdit).toHaveBeenCalledWith(entry.id, entry.current_artifact_id, selection,
+    { operation: "atom.add", element: "P", charge: 0, direction: 0 }, "complete_if_possible");
+});

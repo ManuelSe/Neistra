@@ -175,3 +175,63 @@ def test_unresolved_is_noop_and_guards_do_not_publish(client: ApiClient) -> None
     failed = edit(client, project, entry_id, [1], action, hydrogen_policy="complete_if_possible")
     assert failed.status_code == 422
     assert structure(client, project["id"], entry_id) == before.model_dump(mode="json")
+
+
+def test_preview_noop_and_refusal_leave_artifacts_commands_and_allocators_exact(
+    client: ApiClient,
+) -> None:
+    from molweave_api.models import Artifact, CommandRecord, StructureEntry
+    from sqlalchemy import func, select
+
+    before = model("CC")
+    project = import_archive(client, build_fixture(before))["project"]
+    entry_id = project["entries"][0]["id"]
+
+    def snapshot():  # type: ignore[no-untyped-def]
+        with client.app.state.engine.connect() as connection:
+            return (
+                connection.execute(select(func.count()).select_from(Artifact)).scalar_one(),
+                connection.execute(select(func.count()).select_from(CommandRecord)).scalar_one(),
+                connection.execute(
+                    select(
+                        StructureEntry.next_atom_id,
+                        StructureEntry.next_bond_id,
+                        StructureEntry.current_artifact_id,
+                    ).where(StructureEntry.id == entry_id)
+                ).one(),
+            )
+
+    saved = snapshot()
+    for action in [{"operation": "hydrogens.complete"}, {"operation": "hydrogens.add", "count": 1}]:
+        assert preview(client, project, entry_id, [1], action).status_code == 200
+        response = edit(client, project, entry_id, [1], action)
+        assert response.status_code == 200 and response.json()["applied"] is False
+        assert snapshot() == saved
+    assert (
+        edit(client, project, entry_id, [99999], {"operation": "hydrogens.complete"}).status_code
+        == 422
+    )
+    assert snapshot() == saved
+
+
+def test_hydrogen_allocations_stay_monotonic_after_entry_recreation(client: ApiClient) -> None:
+    from tests.integration.test_molecule_creation import create
+
+    created = create(client)
+    project, entry_id = created["project"], created["entry_id"]
+    path = f"/api/v1/projects/{project['id']}"
+    action = {"operation": "hydrogens.complete", "scope": "entry"}
+    response = edit(client, project, entry_id, [], action)
+    assert response.status_code == 200, response.text
+    first_ids = response.json()["report"]["created_atom_ids"]
+    assert first_ids
+    project = response.json()["project"]
+    for direction in ["undo", "undo", "redo"]:
+        response = client.post(
+            f"{path}/history/{direction}", json={"expected_revision": project["revision"]}
+        )
+        assert response.status_code == 200, response.text
+        project = response.json()
+    response = edit(client, project, entry_id, [], action)
+    assert response.status_code == 200, response.text
+    assert min(response.json()["report"]["created_atom_ids"]) > max(first_ids)

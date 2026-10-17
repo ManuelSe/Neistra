@@ -4031,3 +4031,46 @@ scientific assumptions in ordinary inference records and durable warning summari
 General inspector H building opens this same preview rather than invoking a second
 chemistry implementation. Operation choices reset with the project session; source
 facts, old helper endpoints and protein preparation semantics are unchanged.
+
+### D-105/106 qualification hardening — issue #77 C3, 2026-10-17
+
+Synthetic regressions reject contradictory aromatic flags/orders rather than
+normalizing them in a temporary context, and diagnose coordinates whose numerical
+precision cannot represent a new H bond. Request-scoped coordinate arrays are
+cached once per conformer alongside spatial indexes; initial repeated array
+conversion was eliminated before release. Shared public frame/radius helpers serve
+both atom/fragment placement and H building without changing their semantics.
+
+Count and stereo stages share the analyzed-atom budget. Temporary consistent-H
+stereo assessment processes one conformer at a time and shares the generated-H
+coordinate-row budget with actual additions. Resource/chemistry-limited assessment
+cannot discard supported H additions; it warns and clears dependent current labels
+where necessary. Coordinates/source facts remain exact, and no preparation or
+universal conformer agreement is claimed. This qualifies the existing bounded
+proposal contract without adding a schema, persistent constraint or new engine.
+
+### D-105/106 adversarial qualification — issue #77 C3, 2026-10-17
+
+Failed site admissions still consume their complete generation-work allowance;
+late conformer failure cannot repeatedly reuse the same budget. Stereo assessment
+charges repeated conformer atom visits as well as temporary H coordinate rows.
+Canonical oversized component closure is cached even when chemical perception is
+refused, and conjugation checks use precomputed incident pi-bond counts rather than
+repeated scans of a shared high-degree neighbor.
+
+Actual planar-neighbor and collinear-alkene probes exposed false current stereo
+from temporary analysis H. Require retained geometric evidence for current atom/
+bond orientation, clear unresolved labels with a specific warning, and skip
+undetermined automatic trigonal placement. Explicit draft placement remains usable
+without a stereo certificate. Conformer disagreement also receives an explicit
+warning even when the incoming current tag was already absent. Original source
+facts and retained coordinates remain exact. These regressions qualify the approved
+geometry-first policy, rather than relaxing preparation or inventing configuration.
+
+### D-105 UI qualification — issue #77 C3, 2026-10-17
+
+Only zero-addition standalone H proposals disable Apply. A zero-H report from
+optional completion cannot disable a valid ordinary atom/fragment proposal; its
+base edit remains independently applicable. A component regression and actual
+unknown-chemistry P attachment with optional completion enabled cover this boundary.
+New previews clear prior result feedback, avoiding duplicate obsolete reports.

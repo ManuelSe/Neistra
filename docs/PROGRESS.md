@@ -2,17 +2,20 @@
 
 ## Current milestone
 
-Issue #77 C1–C2 complete; [approved contract](plans/issue-77-geometry-aware-hydrogens.md).
-Local additive H proposals, standalone selection/entry completion, explicit count/
-geometry previews and partial/no-op reports are implemented. The inspector opens
-that same building workflow; legacy HTTP/preparation contracts remain separate.
-D-105/106 and MOLECULAR_MODEL document scientific intent. No migration/version change.
-[C2 evidence](assets/hydrogen-modeling/c2-gate.json):714 Python,251 web,38 native
-passed with2 intentional layout skips; Ruff/mypy/lint/types/build/diff pass.
-[C1 evidence](assets/hydrogen-modeling/c1-gate.json) retains the automatic slice.
-Known limits: bounded initial chemistry profile, unoptimized placement; no full
-protonation or persistent constraints. No blocker. Next:C3 capacity/scientific/
-lifecycle/actual preceding-reader qualification, then final release workflow.
+Issue #77 C0–C3 complete; [approved contract](plans/issue-77-geometry-aware-hydrogens.md).
+Additive local completion, explicit count/geometry previews, partial/no-op reports
+and molecular intent are implemented and qualified. D-105/106 record decisions.
+[C3 evidence](assets/hydrogen-modeling/c3-gate.json):754 Python,252 web,20final native
+passed; broader16native/8intentional skips includes actual100/200% zoom, archives,
+interaction lifecycle and accessibility. Ruff/mypy70/lint/types/build/diff pass.
+Actual tagged0.17 reader retains new artifacts/stereo/inferences, both conformers,
+originals, counters, generic history and archive/re-export alongside rich baseline.
+Qualification hardened work budgets/caching, degenerate/conflicting stereo and
+optional zero-H preview behavior. No migration/schema/dependency/version change yet.
+Known limits: bounded initial profile, unoptimized placement; no protonation,
+optimization or persistent constraints. No blocker. Next:C4 final0.18.0 versions,
+full clean release gate/review, then C5 reviewed normal merge, exact-master gate,
+verified tag/release/issue reply and cleanup. C1/C2 evidence remains linked in plan.
 
 ### Previous delivery baseline — v0.17.0
 

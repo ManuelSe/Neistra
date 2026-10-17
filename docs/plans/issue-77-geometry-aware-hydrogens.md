@@ -1,6 +1,6 @@
 # Geometry-aware hydrogen completion — issue #77
 
-Status: approved; implementation authorized, C0 recorded below.
+Status: approved; C0–C3 complete; C4/C5 release workflow pending.
 Issue: https://github.com/ManuelSe/Neistra/issues/77
 Approval: user's “Implement the plan”, 2026-10-17.
 Base: origin/master, 88a2a9d8909ab1ff06f025a29ec56132b063eb5a.
@@ -332,3 +332,29 @@ remote artifacts before claiming completion.
   fresh complete passing run. Local diff self-review checked additive API,
   identity allocation, preview purity, no-op paths and unused code. No migration,
   dependency or version change. C3–C5 remain pending.
+
+- 2026-10-17 C3 complete:38 scientific qualification cases cover profiles,
+  equivalent-H representations, genuine/conflicting/degenerate/virtual-H stereo,
+  mirrored/translated/active conformers, sparse IDs, alternates, covalent ligand/
+  unknown-protein boundaries, selected terminal H and free orphan H. Real budgets,
+  attempted-site work, conformer atom visits, context closure, array/index reuse
+  and shared high-degree neighbors are qualified. Shared public geometry helpers
+  eliminate duplicate frame/radius implementations. API snapshots retain artifact/
+  command/counter/no-op/Redo invariants and recreated-entry floors.
+  [Passing C3 evidence](../assets/hydrogen-modeling/c3-gate.json):754 Python,
+  252 web, Ruff/mypy70/lint/types/build/diff;20final native, plus broader16native/
+  8intentional layout skips including actual100/200% zoom and archive/interaction
+  lifecycles. Final native reran after scientific/optional-preview findings; initial
+  runs and red regressions are diagnostic, not final gate evidence.
+  Actual tagged0.17 reader in a clean separate checkout/process passes exact new
+  H artifacts/annotations/inferences/all-conformer coordinates/originals/counters/
+  generic Undo/Redo/save/archive/re-export, with rich existing jobs/scenes/surfaces.
+  This producer is checkpoint0.17; final0.18 producer qualification remains C4/C5.
+  Local full-diff self-review found/fixed temporary-H invented stereo on planar/
+  collinear retained geometry, repeated scans, failed-site budget reuse, shared
+  analysis budgeting and optional zero-H reports incorrectly disabling normal atom
+  placement. Component/API/scientific/native regressions cover consequential fixes.
+  Docs now explain model intent, operation/scientific/resource/compatibility limits.
+  No new migration/dependency/schema. Existing migration upgrade/downgrade guards
+  pass in the full Python gate; all data roots are disposable, not user projects.
+  C4/C5 remain pending; no blocker or deferred-scope expansion.
