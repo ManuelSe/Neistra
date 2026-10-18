@@ -844,3 +844,8 @@ without attempting to embed a self-referential commit SHA in its own contents.
   Checkpoint: `test(minimization): qualify scientific and workflow guarantees`,
   `Refs #82`; commit/push verified separately. Next: C6 current-base/version checks,
  0.20.0 release preparation, complete release matrix/full-diff review and delivery.
+
+C5 evidence attachment audit: retained both original/authored native movement
+measurement JSON files alongside the minimization measurements. Their unchanged
+500ms/750ms/request-shape assertions passed in the recorded C5 browser gate; exact
+attachment hashes are in c5-browser-artifacts.json. No runtime/test changes.
