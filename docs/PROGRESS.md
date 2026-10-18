@@ -2,9 +2,9 @@
 
 ## Current milestone
 
-Issue #82 **M5/C5 complete; C6 release candidate next** under the
+Issue #82 **M5/C5 complete; C6 release candidate in progress** under the
 [approved plan](plans/issue-82-selection-minimization.md), on
-`feat/issue-82-selection-minimization`. C4 is remotely verified at `8ced1f1`.
+`feat/issue-82-selection-minimization`. C5 and movement attachments are remotely verified at `488010a`.
 The adjacent icon/Ctrl+M, explicit context/report/preview/Apply and exact multi-entry
 Undo/Redo are native. Broader science qualifies70 protein graph states/26 native
 force-derivative cases. Review hardened charge groups, known valence/aromaticity,
@@ -25,10 +25,12 @@ No independent approval is claimed.
 Prepared full159-residue1STP retains901 observed heavy rows, with disclosed offline
 modeled-terminal stereo repair/H and neutral CCD biotin assumptions. Raw1STP remains
 unchanged. Unsupported adducts/crosslinks, unqualified carboxylate encodings and other
-profile limits refuse. Existing Alembic/lazy-bundle advisories remain. No blocker or
-migration/schema/dependency/version change; runtime0.19.0, planned stable minor0.20.0.
-Next: commit/push C5, then current-base/version checks, release preparation and full
-C6 review/verification/publication.
+profile limits refuse. Existing Alembic/lazy-bundle advisories remain. No blocker or new
+migration/schema/dependency change. Current master remainsb1fad2c/latest stable0.19;
+no0.20 tag collision. Five sources are prepared at0.20.0 with release notes and
+[follow-up#86](https://github.com/ManuelSe/Neistra/issues/86) verified. Next: commit
+release preparation, clean complete final0.20 candidate/actual0.19-reader gate and
+full-diff review, then PR/merge/exact-master qualification/tag/release/closeout.
 
 ### Previous delivery baseline — v0.19.0
 

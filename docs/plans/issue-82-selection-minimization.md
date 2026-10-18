@@ -2,7 +2,7 @@
 
 ## 1. Status, outcome and authority
 
-Status: approved implementation contract; C0–M5/C5 complete; C6 release candidate next.
+Status: approved implementation contract; C0–M5/C5 complete; C6 final-version release candidate in progress.
 The user's 2026-10-18 `/goal` starts C1–C6 and release
 delivery; C0's original planning-only stop has been satisfied.
 
@@ -576,7 +576,7 @@ Execute only C0 in this handoff:
 | M3 / C3 | Complete | Server-owned capture, atomic Apply/history and archive retention; [gate](../assets/minimization/c3-gate.json), [self-review](../assets/minimization/c3-review.md). |
 | M4 / C4 | Complete | Native workflow, adjacent icon and Ctrl+M; [gate](../assets/minimization/c4-gate.json), [self-review](../assets/minimization/c4-review.md). |
 | M5 / C5 | Complete | Science/negative/state/1STP/18k/actual-reader qualification; [gate](../assets/minimization/c5-gate.json), [self-review](../assets/minimization/c5-review.md). |
-| M6 / C6 | Not started | Final-version candidate and review. |
+| M6 / C6 | In progress | Current master/version history rechecked; five sources0.20.0 and release notes prepared; complete release gate/review/publication next. |
 | Publication | Not started | Exact merged-master gate, tag/release verification, issue response and branch cleanup. |
 
 2026-10-18 — Approval and C0 preparation:
@@ -849,3 +849,21 @@ C5 evidence attachment audit: retained both original/authored native movement
 measurement JSON files alongside the minimization measurements. Their unchanged
 500ms/750ms/request-shape assertions passed in the recorded C5 browser gate; exact
 attachment hashes are in c5-browser-artifacts.json. No runtime/test changes.
+
+
+2026-10-18 — C6 release preparation:
+
+- C5 plus retained movement attachments are remotely verified at488010ab92c0cde13ee7a918e77e73c5ea470f6a.
+  Clean feature branch; fetched origin/master remains the originalb1fad2c base and
+  is already an ancestor, so no upstream merge/conflict is needed.
+- Remote latest stable remainsv0.19.0; no v0.20.0 tag exists. Retain stable minor0.20.0
+  for new user/API functionality with compatible persisted data, rather than patch,
+  major or prerelease. Existing public release history contradicts the original
+  historical premise. Five authoritative sources advance consistently; dependencies
+  and structural/database schemas remain unchanged.
+- Created/verified focused [covalent-adduct follow-up#86](https://github.com/ManuelSe/Neistra/issues/86),
+  referencing the immutable approved plan; no deferred adduct work is reintroduced.
+- Updated release notes with workflow, scientific/model/setup limits, scope decisions,
+  API/data/compatibility, rollback, C5 evidence and pending final-version gates.
+  Next: `chore(release): prepare v0.20.0`, then clean complete release matrix,
+  final0.20 producer/actual0.19 reader and full-diff review before PR/publication.
