@@ -1,0 +1,29 @@
+{
+  "head": "fe4e31e0ec8f4ece32132882a0a526c0576ea560",
+  "source_sha256": "7ae47c013ec8e8d9668dd0a69693db17ec7a1e476c164d18905a48e60f597e34",
+  "source_or_test_changes": false,
+  "retries": 0,
+  "argv": [
+    "corepack",
+    "pnpm",
+    "exec",
+    "playwright",
+    "test",
+    "tests/e2e/hydrogen-membership.spec.ts",
+    "--repeat-each",
+    "5"
+  ],
+  "outcome": "10 passed:desktop5/mobile5",
+  "environment": {
+    "MOLWEAVE_E2E_DATA_DIR": "/tmp/neistra-issue82-c6-pick-diagnostic-e2e",
+    "MOLWEAVE_E2E_API_PORT": "8310",
+    "MOLWEAVE_E2E_WORKER_PORT": "8311",
+    "MOLWEAVE_E2E_WEB_PORT": "5473",
+    "PLAYWRIGHT_BROWSERS_PATH": ".playwright",
+    "MOLWEAVE_AMBERTOOLS_PREFIX": "/datadisk/dev/.neistra-tools/ambertools-24.8",
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1"
+  },
+  "raw_log_sha256": "c8c73b874d238f26df5f87e74b96165fe07bd3959e2e0e6443c846165a8599ef",
+  "gzip_sha256": "17338221f828fa8ed8806dc526f6759f6c5faee49f3e1ebd08f75e67597160c6"
+}

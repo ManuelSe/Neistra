@@ -94,3 +94,18 @@ in the candidate working tree. The exact merged-master gate must start and finis
 clean with evidence outside the repository. No PR/merge/tag/release or independent
 review is claimed by this candidate record. Existing Alembic/lazy-bundle advisories
 remain. Remote requirements and actionable review findings remain merge gates.
+
+## Merge/publication audit
+
+PR87 normal merge fe4e31e0ec8f4ece32132882a0a526c0576ea560 preserves checkpoints.
+All18 exact-master gates pass clean start/end, with source equal to candidate and
+1,038 Python/265 frontend/8 supervisor/264 browser passes/50 intentional skips.
+An interrupted first native orphan-H pick miss was not reproduced in10 unchanged
+focused runs or the complete final gate. Cause is unproven; retain original trace/
+screenshot and distinguish diagnostics from final passing evidence. No product/test
+change, weakened assertion or hidden retry was used. Full native performance,
+actual preceding reader and all five versions pass. No independent review returned;
+no required protection/check/review/conversation bypass. Publication/issue reply
+are remotely verified. Final evidence integration is docs only with source equality
+and focused integrity/link/diff checks; runtime tag remains fixed. Actual delayed
+cleanup is audited in the linked issue reply after docs integration.

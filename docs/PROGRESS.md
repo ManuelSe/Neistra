@@ -2,29 +2,35 @@
 
 ## Current milestone
 
-Issue #82 **C0–C6 implementation/candidate qualification complete; publication
-pending** under the [approved plan](plans/issue-82-selection-minimization.md), on
-`feat/issue-82-selection-minimization`. The adjacent lightning icon, immediate
-Ctrl+M calculation, explicit context/report/preview/Apply and exact multi-entry
-Undo/Redo are implemented. D-108–112 and [scientific limits](SCIENTIFIC_LIMITATIONS.md)
-record model, ownership and supported-chemistry boundaries.
+Issue #82 delivered under the [approved plan](plans/issue-82-selection-minimization.md),
+merged in [PR#87](https://github.com/ManuelSe/Neistra/pull/87) and published as stable
+[v0.20.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.20.0). The adjacent
+lightning icon/Ctrl+M, explicit context/report/preview/Apply, qualified AMBER profile
+and exact multi-entry Undo/Redo are implemented. D-108–112 retain decisions/limits.
 
-[Final 0.20.0 candidate](assets/minimization/c6-candidate-gate.json) at b0b061d
-passes all 18 commands on unchanged source: **1,038 Python, 265 frontend,
-8 supervisor, 264 browser / 50 intentional layout skips**, no failures/retries or
-native scientific skips. Frozen/fresh/static/build/diff, all five versions, native
-tooling and final0.20 producer/actual tagged0.19 reader pass. Full desktop/mobile
-workflows, existing movement budgets and prepared1STP/18,208-atom bounds pass.
-[Self-review](assets/minimization/c6-review.md), source-bound lossless logs and
-measurement/compatibility artifacts are retained; no independent approval claimed.
+Both [candidate](assets/minimization/c6-candidate-gate.json)b0b061d and
+[exact released master](assets/minimization/c6-merged-gate.json)
+fe4e31e0ec8f4ece32132882a0a526c0576ea560 pass all18 commands: **1,038 Python,
+265 frontend,8 supervisor,264 browser /50 intentional layout skips**, no failures/
+retries/native scientific skips in final complete gates. Frozen/fresh0014/static/
+build/diff, native tooling, five versions and actual0.19 reader/final0.20 producer
+pass. Equal source identities, clean merged states and lossless evidence retained.
+Prepared1STP/18,208-atom and unchanged movement bounds pass. [Self-review](assets/minimization/c6-review.md)
+is local; no independent Codex review returned and no required remote gate was bypassed.
 
-No migration/structural-schema or application dependency upgrade. Original uploads and inactive/fixed rows
-remain exact. Complete topology/explicit H are prerequisites; unsupported chemistry,
-adducts and unqualified native resonance encodings refuse. Prepared neutral biotin
-is an explicit benchmark state. [Follow-up#86](https://github.com/ManuelSe/Neistra/issues/86)
-tracks covalent adducts. Existing Alembic/lazy-bundle advisories remain; no blocker.
-Next: PR/review/normal merge, exact-master gate, annotatedv0.20.0/release/issue reply,
-final evidence integration and delayed branch cleanup.
+[Publication](assets/minimization/c6-publication.json) verifies exact annotated tag,
+stable release/notes and downloaded ZIP SHA256/CRC/312 internal hashes.
+[Issue reply](https://github.com/ManuelSe/Neistra/issues/82#issuecomment-6255691896)
+is verified; issue closed. Final docs integration and the actual delayed branch/
+clean-master audit are appended to that reply after completion. Native-pick diagnostic/ten unchanged passes are retained
+separately; its cause was unproven. The final complete gate passes unchanged.
+
+No migration/structural-schema or application dependency upgrade. Complete topology/
+explicit H and configured locked Linux toolchain are required. Unsupported chemistry,
+unqualified resonance encodings and [adducts#86](https://github.com/ManuelSe/Neistra/issues/86)
+remain refused/deferred. Neutral biotin is an explicit benchmark assumption. Existing
+Alembic/lazy-bundle advisories remain. No remaining approved-scope implementation;
+next product action requires a separate approved plan. Published runtime tag stays fixed.
 
 ### Previous delivery baseline — v0.19.0
 

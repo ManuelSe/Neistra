@@ -1,10 +1,13 @@
 # Neistra Release Notes
 
-## 0.20.0 - 2026-10-18 - Selection minimization
+## 0.20.0 - 2026-10-19 - Selection minimization
 
-Release candidate under the [approved issue #82 plan](plans/issue-82-selection-minimization.md).
-The complete final-version candidate gate passes; publication requires the exact merged-master gate.
-Proposed annotated tag: `v0.20.0`; no publication is claimed by this preparation.
+Published in [PR#87](https://github.com/ManuelSe/Neistra/pull/87) as stable
+[v0.20.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.20.0), annotated on
+verified master fe4e31e0ec8f4ece32132882a0a526c0576ea560. Implemented under the
+[approved issue82 plan](plans/issue-82-selection-minimization.md).
+[Publication evidence](assets/minimization/c6-publication.json) verifies remote tag,
+release notes and downloaded verification bundle SHA256/CRC/312 internal hashes.
 
 ### User workflow and fixes
 
@@ -121,10 +124,13 @@ The [final-version candidate](assets/minimization/c6-candidate-gate.json) passes
 layout skips, no failures/retries/native scientific skips. Frozen/fresh/static/build/
 diff, five versions, verified native tooling and actual 0.19 reader / final 0.20
 producer pass. [Full-diff self-review](assets/minimization/c6-review.md) has no
-unresolved consequential finding. Exact merged-master evidence remains required
-before tag/release. Existing Alembic deprecation
-and lazy Mol* bundle advisories remain. No independent review is claimed unless a
-review actually returns; protections/checks/required human approval remain binding.
+unresolved consequential finding. The exact merged-master gate passes with the same counts,
+equal runtime/test/tool identity and clean start/end; see the
+[merged gate](assets/minimization/c6-merged-gate.json). An interrupted first native
+pick miss is retained separately; ten unchanged diagnostic repetitions and the
+complete fresh merged gate pass, with no established cause. Existing Alembic deprecation
+and lazy Mol* bundle advisories remain. No independent Codex review returned;
+local review is implementer self-review. No required remote gate was bypassed.
 
 ## 0.19.0 - 2026-10-17 - Local hydrogen reconciliation
 

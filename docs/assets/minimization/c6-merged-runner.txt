@@ -1,0 +1,39 @@
+from pathlib import Path
+import argparse, hashlib, json, os, socket, subprocess, time
+parser=argparse.ArgumentParser();parser.add_argument('--phase',choices=['candidate','merged'],required=True);parser.add_argument('--output',type=Path,required=True);args=parser.parse_args()
+root=Path('/datadisk/dev/neistra');out=args.output.resolve();out.mkdir(parents=True,exist_ok=True)
+phase=args.phase;label='c6-'+phase
+for port in [8310,8311,5473]:
+    with socket.socket() as client:
+        assert client.connect_ex(('127.0.0.1',port)) != 0, f'Dedicated gate port {port} is occupied; refuse unintended server reuse'
+base_env={**os.environ,'PYTHONPATH':'apps/api/src:packages/molweave_core/src:packages/molweave_demo_plugin/src','MOLWEAVE_AMBERTOOLS_PREFIX':'/datadisk/dev/.neistra-tools/ambertools-24.8','OPENBLAS_NUM_THREADS':'1','OMP_NUM_THREADS':'1','MOLWEAVE_DATA_DIR':f'/tmp/neistra-issue82-{label}-repick-migration','MOLWEAVE_E2E_DATA_DIR':f'/tmp/neistra-issue82-{label}-repick-e2e','MOLWEAVE_E2E_API_PORT':'8310','MOLWEAVE_E2E_WORKER_PORT':'8311','MOLWEAVE_E2E_WEB_PORT':'5473','PLAYWRIGHT_BROWSERS_PATH':'.playwright','MOLWEAVE_MINIMIZATION_EVIDENCE_DIR':str(out/(label+'-measurements'))}
+def git(*argv): return subprocess.check_output(['git',*argv],cwd=root,text=True).strip()
+def digest():
+    records={}
+    for name in sorted(set(git('ls-files','--cached','--others','--exclude-standard').splitlines())):
+        if name.startswith(('apps/','packages/','tests/','tools/','scripts/')) or name in {'pyproject.toml','uv.lock','pnpm-lock.yaml','package.json','playwright.config.ts','alembic.ini','.gitattributes','.gitignore','AGENTS.md','pnpm-workspace.yaml'}:
+            p=root/name
+            if p.is_file():records[name]=hashlib.sha256(p.read_bytes()).hexdigest()
+    return {'sha256':hashlib.sha256(json.dumps(records,sort_keys=True,separators=(',',':')).encode()).hexdigest(),'files':records}
+clean_before=git('status','--porcelain');assert not clean_before,clean_before
+assert git('branch','--show-current') == ('master' if phase=='merged' else 'feat/issue-82-selection-minimization')
+reader=Path('/tmp/neistra-issue82-reader-019');assert subprocess.check_output(['git','-C',str(reader),'rev-parse','HEAD'],text=True).strip()==git('rev-parse','v0.19.0^{}');assert not subprocess.check_output(['git','-C',str(reader),'status','--porcelain'],text=True).strip()
+state={'checkpoint':'C6','phase':phase,'release_gate':True,'head_before':git('rev-parse','HEAD'),'branch':git('branch','--show-current'),'clean_before':not clean_before,'environment':{k:base_env[k] for k in ['PYTHONPATH','MOLWEAVE_AMBERTOOLS_PREFIX','OPENBLAS_NUM_THREADS','OMP_NUM_THREADS','MOLWEAVE_DATA_DIR','MOLWEAVE_E2E_DATA_DIR','MOLWEAVE_E2E_API_PORT','MOLWEAVE_E2E_WORKER_PORT','MOLWEAVE_E2E_WEB_PORT','PLAYWRIGHT_BROWSERS_PATH','MOLWEAVE_MINIMIZATION_EVIDENCE_DIR']},'source_before':digest(),'runner_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'commands':[]}
+version_code='''import json,tomllib,re;from pathlib import Path
+v={'pyproject.toml':tomllib.loads(Path('pyproject.toml').read_text())['project']['version'],'uv.lock':next(p['version'] for p in tomllib.loads(Path('uv.lock').read_text())['package'] if p['name']=='molweave-dev'),'apps/web/package.json':json.loads(Path('apps/web/package.json').read_text())['version'],'apps/api/src/molweave_api/main.py':re.search(r'version="([^"]+)"',Path('apps/api/src/molweave_api/main.py').read_text()).group(1),'apps/api/src/molweave_api/archive_service.py':re.search(r'APPLICATION_VERSION = "([^"]+)"',Path('apps/api/src/molweave_api/archive_service.py').read_text()).group(1)}
+assert set(v.values())=={'0.20.0'};print(json.dumps(v,indent=2))'''
+native_code=f'''import json,sys,platform,numpy,scipy,rdkit,openmm;from pathlib import Path;from molweave_core.minimization.toolchain import AmberTools
+v={{'host':platform.platform(),'python':sys.version,'numpy':numpy.__version__,'scipy':scipy.__version__,'rdkit':rdkit.__version__,'openmm':openmm.__version__,'verified_model':AmberTools.discover().provenance}}
+Path({str(out/(label+'-toolchain.json'))!r}).write_text(json.dumps(v,indent=2,sort_keys=True)+chr(10));print('Qualified native programs/data files:',len(v['verified_model']['files']),'locked packages:',len(v['verified_model']['environment']))'''
+compat_dir=f'/tmp/neistra-issue82-{label}-repick-reader'
+commands=[('uv',['.venv/bin/uv','sync','--frozen']),('pnpm',['corepack','pnpm','install','--frozen-lockfile']),('migration',['.venv/bin/uv','run','alembic','upgrade','head']),('ruff',['.venv/bin/uv','run','ruff','check','.']),('mypy',['.venv/bin/uv','run','mypy','apps/api','packages/molweave_core']),('python',['.venv/bin/uv','run','pytest']),('lint',['corepack','pnpm','--dir','apps/web','lint']),('types',['corepack','pnpm','--dir','apps/web','typecheck']),('frontend',['corepack','pnpm','--dir','apps/web','test']),('supervisor',['corepack','pnpm','test:dev']),('build',['corepack','pnpm','--dir','apps/web','build']),('browser',['corepack','pnpm','exec','playwright','test']),('diff',['git','diff','--check']),('versions',['.venv/bin/python','-c',version_code]),('native-model',['.venv/bin/python','-c',native_code]),('compat-migration',['env',f'MOLWEAVE_DATA_DIR={compat_dir}','.venv/bin/uv','run','alembic','upgrade','head']),('compat-producer',['.venv/bin/python','-m','tests.support.minimization_reader_qualification','produce','--data-dir',compat_dir,'--evidence',str(out/(label+'-producer.json'))]),('compat-reader',['env','PYTHONPATH=/tmp/neistra-issue82-reader-019/apps/api/src:/tmp/neistra-issue82-reader-019/packages/molweave_core/src:/tmp/neistra-issue82-reader-019/packages/molweave_demo_plugin/src','.venv/bin/python','-m','tests.support.minimization_reader_qualification','read','--data-dir',compat_dir,'--reader-root',str(reader),'--expected-reader','0.19.0','--evidence',str(out/(label+'-reader.json'))])]
+for command,argv in commands:
+    started=time.monotonic();path=out/(label+'-'+command+'.log')
+    with path.open('wb') as stream:result=subprocess.run(argv,cwd=root,env=base_env,stdout=stream,stderr=subprocess.STDOUT)
+    record={'label':command,'argv':argv,'exit_code':result.returncode,'seconds':time.monotonic()-started,'log':path.name,'sha256':hashlib.sha256(path.read_bytes()).hexdigest()};state['commands'].append(record)
+    state['source_after']=digest();state['source_unchanged']=state['source_before']==state['source_after'];state['head_after']=git('rev-parse','HEAD');state['status_after']=git('status','--porcelain');state['clean_after']=not state['status_after']
+    (out/(label+'-gate.json')).write_text(json.dumps(state,indent=2,sort_keys=True)+'\n');print(json.dumps({k:record[k] for k in ('label','exit_code','seconds')}),flush=True)
+    if result.returncode:raise SystemExit(result.returncode)
+assert state['source_unchanged'] and state['head_before']==state['head_after']
+if phase=='merged':assert state['clean_after'],state['status_after']
+print('Complete final0.20.0',phase,'release gate passed; runtime/test/tool source unchanged:',state['source_unchanged'],flush=True)
