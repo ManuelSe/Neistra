@@ -2,9 +2,9 @@
 
 ## 1. Status, outcome and authority
 
-Status: approved implementation contract; planning checkpoint C0 only. Product
-implementation has not started. Stop after committing and pushing this checkpoint;
-await `/goal` before C1.
+Status: approved implementation contract; C0 and M1/C1 complete, C2 next.
+The user's 2026-10-18 `/goal` starts C1–C6 and release
+delivery; C0's original planning-only stop has been satisfied.
 
 Approval: user's “Implement the plan.”, 2026-10-18, following the complete proposed
 plan and the confirmed product choices below.
@@ -18,7 +18,7 @@ plan and the confirmed product choices below.
 | Feature branch | `feat/issue-82-selection-minimization` |
 | Implementation PR | `feat(modeling): add selection-based molecular minimization` |
 | Proposed release | Stable minor **0.20.0**, annotated tag **v0.20.0** |
-| Immediate stopping point | Persist and push approved planning documents; await `/goal` |
+| Current delivery | User started `/goal` on 2026-10-18; complete checkpoints and release subject to the scientific/review gates |
 
 Deliver an explicit workflow that minimizes captured selected atoms while all
 unselected atoms remain fixed. Support isolated molecules, molecular subsets,
@@ -570,7 +570,7 @@ Execute only C0 in this handoff:
 | Checkpoint | Status | Outcome / evidence |
 |---|---|---|
 | C0 | Approved plan persisted | Documentation-only handoff commit; local checks pass. Final commit/remote identity is recorded by Git and the C0 handoff. |
-| M1 / C1 | Not started | Integrated model qualification and isolated job. |
+| M1 / C1 | Complete | Integrated isolated worker proposals and process-tree lifecycle; [final gate](../assets/minimization/c1-gate.json), [self-review](../assets/minimization/c1-review.md). |
 | M2 / C2 | Not started | Fixed context and multi-entry assembly. |
 | M3 / C3 | Not started | Atomic Apply/history/persistence. |
 | M4 / C4 | Not started | Native UI workflow. |
@@ -613,3 +613,66 @@ Each subsequent checkpoint must append its commit, commands and evidence, outcom
 deviations, known limitations, blockers and next action. Only C0 can be completed
 in this planning handoff. Remote commit/push verification is reported separately
 without attempting to embed a self-referential commit SHA in its own contents.
+
+2026-10-18 — `/goal` start and C1 implementation:
+
+- C0 commit `3261486e3ac55c6f2c4c517d3b2bf7e73d9a0a60` is on the verified planned
+  remote branch. Fetched origin before implementation; no upstream base drift.
+- Read the approved contract, repository/product/global-plan/decision/progress and
+  relevant verification/development/architecture/model records before code changes.
+- Installed official checksum-verified micromamba2.9.0 outside the repository;
+  resolved the approved AmberTools24.8 build to 137 exact URL/SHA256 packages.
+  `tools/ambertools-linux-64.lock` is executable as an explicit micromamba lock.
+  Application uv dependencies and all five application versions remain unchanged.
+- Independent explicit-H ethanol probe generated AM1-BCC/GAFF1.81 parameters and
+  reduced selected-O objective20.1952077429 to15.4960130825 kJ/mol in7 iterations,
+  maximum gradient0.109681939 kJ/(mol nm); fixed optimizer rows remained exact.
+  This is an isolated probe, not protein-context or final-release evidence.
+- Implemented immutable-capture prerequisites, exact native atom/connectivity/
+  bond-order checks, reduced-variable optimization and report/proposal/model
+  artifacts. Added controlled process-group cleanup and coordinator-loss detection
+  to the existing worker. New calculation is opt-in through existing plugin
+  configuration at this checkpoint; dedicated capture/Apply/UI remain C3/C4.
+- Scientific refinement: record bounded uniform AM1-BCC rounding normalization to
+  the specified net charge, retaining raw/corrected files. This is calculation-only
+  partial-charge bookkeeping, not formal-charge/protonation assignment; see D-108
+  implementation note and tools setup guidance. Native carboxylate bond-order
+  representation is conservatively blocked when strict mapping fails.
+- Added real scientific full/subset/H-fixed/force-derivative/non-convergence/
+  aromatic/charged/stereo/halogen/sparse-ID/conformer/parameter-tamper cases and
+  real worker proposal, missing-toolchain and native-descendant lifecycle tests.
+  Earlier diagnostics exposed and corrected nonfinite-input reporting, test-only
+  empty-input submission and element-aware temporary atom-name handling. Initial
+  strict charge checks identified finite-precision native rounding, now explicitly
+  normalized and independently tested rather than silently ignored.
+- Focused validation, full milestone checks, source-bound logs and checkpoint
+  self-review are being completed before the C1 commit. No C2 functionality,
+  molecular Apply, UI, PR, tag, release or completed-issue claim is made.
+
+2026-10-18 — C1 completion:
+
+- [Final source-bound checkpoint gate](../assets/minimization/c1-gate.json) passes
+  all12 recorded commands with unchanged source: **862 Python**, **255 frontend**,
+  **8 supervisor** and **2 native browser passes /2 intentional layout skips**;
+  zero failures or retries. The46 focused prerequisite/scientific/worker cases
+  pass with native AmberTools configured and no native scientific skips.
+- Ruff, mypy79 source files, web lint/types/build, isolated0014 upgrade and diff
+  checks pass. All existing migration/archive and generic-job suites are included
+  in the Python gate. No migration, top-level schema or application-version change.
+- [Toolchain provenance](../assets/minimization/c1-toolchain.json) retains actual
+  application library versions, pinned package/dependency/model hashes and installer
+  identity. Exact commands/environments/timings and lossless compressed raw logs
+  retain SHA256 checksums. Pre-review gate evidence is explicitly separate.
+- [Full C1 local review](../assets/minimization/c1-review.md) is implementer
+  self-review. Its consequential E/Z-intent finding is repaired, positive/negative
+  stereo cases pass, and the final milestone gate was repeated on repaired source.
+  Convenience atom rows must match captured active-conformer rows; unsupported
+  stereo encodings refuse. No unresolved consequential C1 finding remains.
+- Known limits: organic isolated computation only at C1; strict native mapping can
+  refuse resonance encodings; Linux-only qualified native profile. Protein/context,
+  Apply, UI, actual preceding-reader and final performance/release qualification
+  remain C2–C6. Existing398 Alembic warnings/lazy bundle advisory are unchanged.
+- Checkpoint commit: `feat(minimization): add bounded parameterized minimization jobs`
+  with `Refs #82`; resolve its final SHA from Git rather than embedding a
+  self-reference. No current external blocker. Next action: C2 explicit protein
+  context and multi-entry assembly under the same contract.

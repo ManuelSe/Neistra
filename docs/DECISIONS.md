@@ -4327,3 +4327,41 @@ full candidate and exact merged-master qualification. All five authoritative
 versions advance together in the implementation PR. Planning approval/persistence
 does not mean this feature works, has passed scientific tests, or has shipped.
 Stop after C0 and await `/goal`.
+
+### D-108–110 implementation note — issue #82 C1, 2026-10-18
+
+The user's `/goal` starts implementation after the verified C0 documentation
+handoff. C1 adds the opt-in isolated calculation plugin and existing-runner
+subprocess-tree ownership; C2 context, C3 Apply and C4 UI remain unimplemented at
+this checkpoint. There is no schema/migration or authoritative application-version
+change. An explicit 137-package URL/SHA256 lock installs AmberTools outside the uv
+application environment. Runtime checks record/validate the dependency fingerprint
+and 25 actual program/wrapper/scientific-data hashes; these selected files are not
+prefix-relocated in the approved package, allowing installation at another prefix.
+
+Parameter generation uses complete specified organic graphs, explicit H and
+ordinary identity evidence. Retain native raw charges and calculate a uniform
+rounding offset to the already specified formal net charge. Reject nonfinite or
+larger discrepancies than `min(0.05, 0.00051 * atom_count)` elementary charge.
+The correction is recorded in the report and raw/corrected MOL2 files, never in
+canonical formal charges. Uniform normalization follows the established
+[OpenFF charge-bookkeeping convention](https://docs.openforcefield.org/projects/toolkit/en/stable/_modules/openff/toolkit/topology/molecule.html);
+the bound is Neistra's explicit conservative model policy, not an OpenFF guarantee.
+SQM must complete; no parmchk2 missing-term extrapolation is attempted.
+
+Validate generated elements, names/order, connectivity and assigned bond-order
+representation, accepting equivalent aromatic encodings only after chemical
+perception. The tested native carboxylate output is conservatively refused because
+its bond-order representation is not qualified by this mapping. This does not
+rewrite the draft or assert that the native force-field representation is chemically
+wrong. Successful charged/stereo/aromatic/halogen examples are distinct fixtures;
+coverage is bounded by the complete model/parameter checks, not a universal claim.
+
+The worker establishes an owned POSIX job process group before plugin loading.
+Native descendants inherit that group; cancellation escalation, deadline, child
+loss and normal cleanup signal the owned group. A cooperating child detecting
+coordinator-pipe EOF kills its group on exit, including native descendants.
+Native thread pools are bounded before registry imports. Tests use real spawned
+descendants for cooperative/forced cancellation, deadlines and coordinator/child
+loss; Linux-specific process observation is explicitly scoped. Existing generic
+job transport, persistence and demonstration behavior remain the regression gate.

@@ -1,0 +1,33 @@
+{
+  "environment_sha256": "680342fc9a1e306d978a099fdbe0d3eb0e8c339141772e9ee1de253f67625deb",
+  "files": {
+    "amber.sh": "214b70055b4ec13f76c4f33e4445dfb8e02657ac85679c91742879c8b265af0f",
+    "bin/am1bcc": "f8fb56f106a38750a5a3d90a7e8cc0e9ecf09b56993fd771c230162e8fd32e18",
+    "bin/antechamber": "59060c69c5fca305794b10f19d950556fbd18db92d6c7af87252389858214c5d",
+    "bin/atomtype": "1e1445c4c00903d77dcf60b41517fb2de4435a190b39f784521167e6c2ac38a4",
+    "bin/bondtype": "c848e305966a1edb9742cbb6f011e95882661a27eb7aa2c2bd7a40775bc630f2",
+    "bin/sqm": "a58bfb166bfd30b9be9564d2b80bfa55ad2bf60c3a8e0b0129c2cfaa11a509e5",
+    "bin/teLeap": "6fa8824bde592f3857620dedaee007515abbe4f61c5b8f03e429531d585e828b",
+    "bin/tleap": "f1c526e0a24ad1fefc6c82be1279aa33eff5f9557d577c2236aa81437dfb52ac",
+    "bin/wrapped_progs/am1bcc": "16d9ac1e12db0533a103717547cd40b0f17b68cfb1db795422ed8cc5b1fc637b",
+    "bin/wrapped_progs/antechamber": "2160a85e459bea7e0ba129390e9fe0a8bf716857491a742a25eda63d57e33f9d",
+    "bin/wrapped_progs/atomtype": "cd2118a7357744e4444b6a4c971e18e7170985f4d6b23c36504016ce51f9c3d4",
+    "bin/wrapped_progs/bondtype": "022872ffc2fd8e4b597fc5f75b4388a7fb183eaacb0999aea38b07f525a6d5d0",
+    "dat/antechamber/APS.DAT": "cd0fb9a9714daf61ccacb09c3d12abb1d17371270816414588c11e07bac24de1",
+    "dat/antechamber/ATCOR.DAT": "6530d350875263e71c786a7c0dbe60e30cff575af71692aad0ac1d4122658906",
+    "dat/antechamber/ATOMTYPE_BCC.DEF": "dd5c3c44531f9afcb0d69a5efef876785e6e3c5a70e350221d9438d894d5c0cc",
+    "dat/antechamber/ATOMTYPE_CHECK.TAB": "2198ba4d655a3443397381e52150cc9d0db07c47f64527cd6c2662d56a4f8c08",
+    "dat/antechamber/ATOMTYPE_GFF.DEF": "33631b041f3f5f88434e2ae395734eaa1094fa3da0babbadf78c6b3266132e80",
+    "dat/antechamber/ATOM_EQU.TYPE": "78caca42c66d85cf9849caa86afcdf83ac25af56147473502ac01053e230a214",
+    "dat/antechamber/BCCPARM.DAT": "05f034901d058ad9331325b6ee3fafa25c75b1ce4f52839fe85032eb92941276",
+    "dat/antechamber/BONDTYPE_CHECK.TAB": "a95e4717b16b409aa0d9ffe633f6a59e06e9d44b1e18cc88e930e487d83c3bd0",
+    "dat/antechamber/CONNECT.TPL": "6e8787740eba3ac557c232a2a1fedd93b83422bb0ad3084bfa45a9438ae9666e",
+    "dat/leap/cmd/leaprc.gaff": "901104629d8c7566a1179cea5f4499d69ac7d5e914d5ea30f80021393c8bcde7",
+    "dat/leap/cmd/leaprc.protein.ff14SB": "e96bd5b9d5fba9c027050e33efd3414e4d26ff616566b08730abedc554fac98c",
+    "dat/leap/parm/frcmod.ff14SB": "d7240947ca454e49fa2419343cff0090c1e9c02f39618e826d99fc5f1b29dc73",
+    "dat/leap/parm/gaff.dat": "21ce262ab4af254c2f2b4bf95f4413c2a6593c67faa31ffc7108b7dd07a63d09"
+  },
+  "lock_sha256": "422339e5b0e4d95f3c67ef05604a97e9f96a222ebee9ceb5563d8e14d082afd1",
+  "model": "amber-local-v1",
+  "schema_version": 1
+}

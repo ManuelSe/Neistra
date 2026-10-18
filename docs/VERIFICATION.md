@@ -1,5 +1,31 @@
 # V0.1 Requirement Evidence
 
+## Selection minimization (issue #82, C1)
+
+The [approved feature plan](plans/issue-82-selection-minimization.md) is the
+contract. [C1 final checkpoint](assets/minimization/c1-gate.json) passes862 Python,
+including46 focused prerequisite/scientific/worker cases,255 frontend,8 supervisor
+and2 native existing-job passes /2 intentional layout skips, without failures or
+retries. Native minimization cases use the locked AmberTools environment and do not
+skip. Static/type/build, isolated0014 and diff checks pass on unchanged source;
+lossless compressed logs, source/log hashes and [toolchain provenance](assets/minimization/c1-toolchain.json)
+are retained. Earlier pre-review passing diagnostics remain explicitly separate.
+
+Real GAFF1.81/AM1-BCC tests cover full/subset/H-only optimization, exact fixed rows,
+native force versus numerical energy derivatives, honest iteration-limit outcomes,
+aromatic/charged/stereo/halogen examples, sparse IDs/nonfirst active conformers,
+immutable snapshots and model-data tamper refusal. Missing/unknown chemistry,
+unqualified resonance representation, charge-rounding limits and conflicting
+tetrahedral/E/Z intent have explicit outcomes. Real worker tests retain immutable
+input/report/proposal/model artifacts and terminate descendants on cooperative or
+forced cancellation, deadline, child loss and coordinator loss.
+
+[Complete local C1 review](assets/minimization/c1-review.md) is implementer
+self-review, not independent approval. It repaired the E/Z-intent comparison gap
+before final repeated gates. C1 adds no migration, top-level schema or application
+version change. It does not establish protein-context, Apply/UI, old-reader or
+final release qualification; those remain C2–C6. Existing warning advisories remain.
+
 Issue #74 follows the [approved direct-modeling plan](plans/issue-74-direct-molecular-modeling.md).
 [C1](assets/direct-modeling/c1-verification.json) passes66Python/236frontend/
 20native browser cases with no failures/flakes/retries and static/build/diff.

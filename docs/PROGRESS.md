@@ -2,29 +2,36 @@
 
 ## Current milestone
 
-Issue #82 **C0 approved plan persisted** under the
+Issue #82 **M1/C1 complete; C2 fixed context next** under the
 [selection-minimization contract](plans/issue-82-selection-minimization.md).
 The user approved the plan on 2026-10-18 after choosing integrated qualified
 pocket parameters, active-conformer-only optimization and covalent-adduct
 deferral. Branch: `feat/issue-82-selection-minimization`; base:
 `b1fad2c77517cbdc24a87877507539d5abe584fa`. D-108–110 record the accepted
-scientific/context/job/application boundaries. Implementation has not started.
+scientific/context/job/application boundaries. The user's 2026-10-18 `/goal`
+started implementation; C0 commit3261486 is remotely verified.
 
-Completed planning: inspected issue/repository/related issues and release
-conventions, classified requirements, specified C1–C6 acceptance/verification,
-and recorded the approved feature contract without changing the global PLAN.
-Master was clean and fetched/fast-forward checked before branch creation; remote
-issue metadata was rechecked. Diff/whitespace/relative-link checks, required plan
-metadata, decision uniqueness and unchanged global/product/version sources pass.
-Final commit/push identity is recorded in the C0 handoff. No runtime tests or
-scientific model qualification are claimed for planning-only changes.
+Completed: locked137-package AmberTools24.8 environment, explicit scientific
+fingerprints, isolated GAFF1.81/AM1-BCC capture/preflight/optimization, nonimportable
+report/proposal/model artifacts and worker descendant cleanup. Independent ethanol
+probe lowers the selected-O objective with exact fixed rows. Real scientific and
+worker lifecycle tests pass. [Final C1 gate](assets/minimization/c1-gate.json):
+862 Python (46 focused),255 frontend,8 supervisor and2 native passes /2 intentional
+layout skips, zero failures/retries; native minimization scientific cases did not
+skip. Ruff/mypy79/lint/types/build, isolated0014 and diff pass. Source/log hashes
+and [local self-review](assets/minimization/c1-review.md) are retained; stereo-intent
+review finding was repaired before the final repeat. This does not implement
+protein context, Apply or the new UI yet.
 
-Known limits: the integrated AmberTools/OpenMM model, numerical/performance bounds
-and preceding-reader compatibility still require qualification. No dependency,
-schema, migration or version change is made in C0. The planned release is stable
+Known limits: protein context, release performance bounds and preceding-reader
+compatibility still require later qualification. Strict native chemistry mapping
+can refuse resonance representations; AM1-BCC rounding correction is explicit and
+bounded, never a protonation choice. No application dependency, schema, migration
+or version change yet. The planned release is stable
 minor **0.20.0**, exceeding a patch because it adds public minimization/job/Apply
 functionality; current delivered runtime remains **0.19.0**. No current planning
-blocker. Next action after the C0 handoff: await `/goal` before C1.
+blocker. Next action: C2 explicit fixed protein context and multi-entry assembly
+after the passing C1 checkpoint commit.
 
 ### Previous delivery baseline — v0.19.0
 
@@ -2566,16 +2573,14 @@ Results:
 
 ## Blockers
 
-No blocker for the approved issue #82 planning checkpoint. C1 must qualify the
-locked native toolchain and exact scientific profile before broader work; failure
-requires a plan revision rather than weaker physics. No issue #82 implementation
-or verification is claimed yet. Issue #81 remains delivered.
+No current external blocker. C1 passes its gates; C2's protein/context scientific
+qualification remains required before claiming that scope works. Failed scientific
+qualification requires a plan revision rather than weaker physics. Issue #81
+remains delivered.
 
 ## Next action
 
-Await `/goal` with the approved issue #82 plan on its dedicated branch; final C0
-commit/remote verification is recorded in the handoff. Do not begin C1, install
-dependencies, increment versions, open a PR or publish a release in this planning
-handoff. The feature plan is the detailed source of truth; update this summary when
-implementation is explicitly started. Issue #81's published runtime tag remains
-fixed.
+Commit/push the passing issue #82 C1 checkpoint, then implement C2 explicit fixed
+protein context and multi-entry calculation. Keep later Apply/UI/release work in
+their planned checkpoints. The feature plan remains the detailed source of truth.
+Issue #81's published runtime tag remains fixed.
