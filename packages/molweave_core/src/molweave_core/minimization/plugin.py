@@ -35,8 +35,9 @@ def json_bytes(value: Any) -> bytes:
 def calculation_archive(directory: Path) -> bytes:
     output = io.BytesIO()
     with zipfile.ZipFile(output, "w", compression=zipfile.ZIP_DEFLATED) as archive:
-        for name in (
+        allowed = {
             "input.mol2",
+            "captured-coordinates.json",
             "charged.mol2",
             "charged.raw.mol2",
             "leap.in",
@@ -46,14 +47,27 @@ def calculation_archive(directory: Path) -> bytes:
             "tleap.log",
             "sqm.in",
             "sqm.out",
-        ):
-            path = directory / name
-            if path.is_file():
+        }
+        for path in sorted(directory.rglob("*")):
+            relative = path.relative_to(directory)
+            if (
+                path.is_file()
+                and not path.is_symlink()
+                and path.name in allowed
+                and (
+                    relative.parent == Path(".")
+                    or (
+                        len(relative.parts) == 2
+                        and relative.parts[0].startswith("organic-")
+                        and relative.parts[0][8:].isdigit()
+                    )
+                )
+            ):
                 if path.stat().st_size > 16 * 1024 * 1024:
                     raise CalculationError(
                         "model_artifact_limit", "Calculation file exceeded 16 MiB"
                     )
-                archive.writestr(name, path.read_bytes())
+                archive.writestr(relative.as_posix(), path.read_bytes())
     return output.getvalue()
 
 
@@ -109,9 +123,12 @@ class MinimizationPlugin:
         context: JobContext,
     ) -> JobResult:
         # Heavy native imports happen in the controlled worker child, not API startup.
-        from molweave_core.minimization.optimize import optimize_isolated
+        from molweave_core.minimization.assembly import environment_preflight, needs_templates
+        from molweave_core.minimization.context_model import parameterize_environment
+        from molweave_core.minimization.optimize import optimize_environment, optimize_isolated
         from molweave_core.minimization.parameterization import parameterize_isolated
         from molweave_core.minimization.preflight import isolated_preflight
+        from molweave_core.minimization.templates import read_templates
         from molweave_core.minimization.toolchain import AmberTools
 
         if job_type != JOB_TYPE:
@@ -123,24 +140,67 @@ class MinimizationPlugin:
         stage = "preflight"
         try:
             context.progress(1, "Checking captured chemistry and fixed/movable atoms")
-            value = isolated_preflight(values, inputs)
             tools = AmberTools.discover()
-            context.progress(5, "Generating GAFF 1.81 / AM1-BCC parameters")
-            stage = "parameterization"
-            model = parameterize_isolated(value, tools, directory, context)
+            use_assembly = needs_templates(values, inputs)
+            if not use_assembly:
+                value = isolated_preflight(values, inputs)
+                context.progress(5, "Generating GAFF 1.81 / AM1-BCC parameters")
+                stage = "parameterization"
+                model = parameterize_isolated(value, tools, directory, context)
+            else:
+                assembly = environment_preflight(values, inputs, read_templates(tools.prefix))
+                context.progress(5, "Generating ff14SB / GAFF / explicit-water parameters")
+                stage = "parameterization"
+                model = parameterize_environment(
+                    assembly, tools, directory, context, isolated=values.mode == "isolated"
+                )
             context.progress(35, "Optimizing captured selected coordinates only")
+            if not use_assembly:
+                references = [(value.entry_id, a.id) for a in value.structure.atoms]
+                coordinates = value.structure.active_coordinates
+            else:
+                references = list(assembly.references)
+                coordinates = assembly.coordinates
+            (directory / "captured-coordinates.json").write_bytes(
+                json_bytes(
+                    {
+                        "units": "angstrom",
+                        "references": references,
+                        "coordinates": coordinates,
+                        "note": "Optimizer start positions; native model.inpcrd is not used.",
+                    }
+                )
+            )
             stage = "optimization"
-            report, proposal = optimize_isolated(value, model, values, context)
+            if not use_assembly:
+                report, proposal = optimize_isolated(value, model, values, context)
+                proposals.append(proposal.model_dump(mode="json"))
+            else:
+                report, results = optimize_environment(assembly, model, values, context)
+                proposals.extend(p.model_dump(mode="json") for p in results)
+            if values.mode == "environment":
+                report.warnings.append(
+                    "Environment model is nonperiodic with 12 angstrom cutoff, 10 angstrom "
+                    "Lennard-Jones switching and reaction-field dielectric 78.3; it is not "
+                    "a solvated or long-range binding model. Complete explicit waters use "
+                    "unconstrained AMBER TIP3P internal distance terms."
+                )
             report.toolchain = {
+                **report.toolchain,
                 **tools.provenance,
                 "charge_normalization": model.charge_normalization,
+                **model.provenance,
             }
-            if abs(model.charge_normalization["uniform_offset_e"]) > 1e-9:
+            charge_records = model.provenance.get("charge_normalizations", [])
+            if not isinstance(charge_records, list):
+                raise CalculationError("invalid_parameters", "Invalid charge provenance")
+            if abs(model.charge_normalization.get("uniform_offset_e", 0)) > 1e-9 or any(
+                abs(float(record["uniform_offset_e"])) > 1e-9 for record in charge_records
+            ):
                 report.warnings.append(
                     "AM1-BCC finite-precision partial charges were uniformly normalized to the "
                     "specified net charge; raw and corrected calculation files are retained."
                 )
-            proposals.append(proposal.model_dump(mode="json"))
         except CalculationError as error:
             report = MinimizationReport(
                 outcome="failed" if stage == "optimization" else "blocked",

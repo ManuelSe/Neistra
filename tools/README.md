@@ -58,3 +58,39 @@ carboxylate representation, are conservatively refused; they are not silently
 accepted as fully mapped chemistry. No missing-force-field-term extrapolation is
 performed through parmchk2. Initial organic calculations are bounded to 256 heavy
 and 1024 total atoms; C2 owns qualified protein/multi-entry context.
+
+C2 additionally verifies `parm10.dat`, the three ff14SB amino-acid libraries,
+`solvents.lib` and `frcmod.tip3p`: 31 actual executable/data hashes in total.
+Environment calculations match complete existing standard protein chains against
+exact named-atom, element and connectivity templates. Protonation follows the
+existing explicit-H pattern; unsupported or ambiguous states refuse. No pH-based
+choice, missing atom/bond creation, caps, disulfide/crosslink or covalent-adduct
+support is part of this operation. A single-residue chain without a compatible
+both-termini template refuses. Known conflicting formal charges, orders and stereo
+also refuse. Existing separate protein preparation now records ordinary generated
+identity facts for atoms it creates; old evidence-free generated atoms need an
+explicit preparation/recovery path rather than an isotope/radical assumption.
+
+Native LEaP creates only temporary validated model topology. Each particle maps to
+an entry-local atom in its captured active conformer; generated native geometry is
+ignored. `captured-coordinates.json` in the model ZIP records the actual start rows
+in exact JSON precision and angstrom units; `model.inpcrd` is retained as native
+parameter-generation output, not the optimizer start state. Organic subdirectories
+retain raw/corrected charges and diagnostics. Immutable job artifacts remain the
+canonical source of full captured molecular data.
+
+The environment model uses OpenMM CPU with one deterministic-force thread,
+nonperiodic12 angstrom cutoff,10 angstrom LJ switch and reaction-field dielectric
+78.3, with dispersion correction disabled. Native neighbor handling updates after
+movement. Native bonded terms, exclusions and scaled1–4 interactions survive
+movable/fixed boundaries; no fixed coordinate is an optimization variable. These
+finite-range local energetics are not solvated or binding energies. Explicit complete
+neutral O/H1/H2 waters may use unconstrained AMBER TIP3P internal distance terms;
+its auxiliary H-H distance is an engine term, never a canonical covalent bond.
+No constraints/particles are introduced. This model does not promise flexible
+water accuracy outside the declared local operation.
+
+```bash
+.venv/bin/uv run pytest tests/unit/minimization tests/scientific/test_minimization_context.py
+.venv/bin/uv run pytest tests/integration/test_minimization_jobs.py
+```

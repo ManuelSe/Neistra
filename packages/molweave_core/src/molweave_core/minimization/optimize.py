@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import time
+from collections.abc import Callable
 from typing import Any
 
 import numpy as np
@@ -12,6 +13,7 @@ from scipy.optimize import minimize  # type: ignore[import-untyped]
 from scipy.spatial import cKDTree  # type: ignore[import-untyped]
 
 from molweave_core.jobs import JobContext
+from molweave_core.minimization.assembly import Assembly
 from molweave_core.minimization.contracts import (
     GRADIENT_TOLERANCE,
     CalculationError,
@@ -63,20 +65,80 @@ def optimize_isolated(
     context: JobContext,
 ) -> tuple[MinimizationReport, CoordinateProposal]:
     original = np.asarray(value.structure.active_coordinates, dtype=np.float64)
-    if cKDTree(original).query_pairs(1e-6):
+    initial_stereo = geometry_stereo(value.molecule, original)
+    validate_stereo_intent(value, initial_stereo)
+
+    def validate(coordinates: NDArray[np.float64]) -> None:
+        if geometry_stereo(value.molecule, coordinates) != initial_stereo:
+            raise CalculationError(
+                "stereo_changed", "Optimization changed geometric stereochemistry"
+            )
+
+    references = [(value.entry_id, a.id) for a in value.structure.atoms]
+    indices = {a.id: i for i, a in enumerate(value.structure.atoms)}
+    bonds = {frozenset((indices[b.atom_1_id], indices[b.atom_2_id])) for b in value.structure.bonds}
+    report, proposals = optimize_coordinates(
+        original,
+        references,
+        value.movable_indices,
+        bonds,
+        validate,
+        parameterized,
+        parameters,
+        context,
+    )
+    return report, proposals[0]
+
+
+def optimize_environment(
+    value: Assembly,
+    parameterized: Parameterized,
+    parameters: MinimizationParameters,
+    context: JobContext,
+) -> tuple[MinimizationReport, list[CoordinateProposal]]:
+    from molweave_core.minimization.stereo import assembly_stereo_validator
+
+    movable = tuple(i for i, ref in enumerate(value.references) if ref in value.movable)
+    return optimize_coordinates(
+        np.asarray(value.coordinates, dtype=np.float64),
+        list(value.references),
+        movable,
+        set(value.bonds),
+        assembly_stereo_validator(value),
+        parameterized,
+        parameters,
+        context,
+    )
+
+
+def optimize_coordinates(
+    original: NDArray[np.float64],
+    references: list[tuple[str, int]],
+    movable_indices: tuple[int, ...],
+    bonds: set[frozenset[int]],
+    validate_stereo: Callable[[NDArray[np.float64]], None],
+    parameterized: Parameterized,
+    parameters: MinimizationParameters,
+    context: JobContext,
+) -> tuple[MinimizationReport, list[CoordinateProposal]]:
+    if np.any(cKDTree(original).query(original, k=2)[0][:, 1] < 1e-6):
         raise CalculationError(
             "singular_geometry", "Coincident atoms require explicit coordinate repair"
         )
     if not finite_parameters(parameterized.system):
         raise CalculationError("invalid_parameters", "Native model contains nonfinite parameters")
-    movable = np.asarray(value.movable_indices, dtype=np.int64)
+    movable = np.asarray(movable_indices, dtype=np.int64)
+    fixed = np.ones(len(original), dtype=bool)
+    fixed[movable] = False
     full = original.copy() / 10  # coordinates in nm; fixed rows are never variables
     captured = full.copy()
-    initial_stereo = geometry_stereo(value.molecule, original)
-    validate_stereo_intent(value, initial_stereo)
     integrator = openmm.VerletIntegrator(0.001)
+    platform = "CPU" if parameters.mode == "environment" else "Reference"
     engine = openmm.Context(
-        parameterized.system, integrator, openmm.Platform.getPlatformByName("Reference")
+        parameterized.system,
+        integrator,
+        openmm.Platform.getPlatformByName(platform),
+        {"Threads": "1", "DeterministicForces": "true"} if platform == "CPU" else {},
     )
     evaluations = 0
     iterations = 0
@@ -135,26 +197,26 @@ def optimize_isolated(
         maximum_gradient = float(np.max(np.abs(gradient)))
         converged = maximum_gradient <= GRADIENT_TOLERANCE
         if not np.array_equal(
-            full[[i for i in range(len(full)) if i not in movable]],
-            captured[[i for i in range(len(full)) if i not in movable]],
+            full[fixed],
+            captured[fixed],
         ):
             raise CalculationError(
                 "fixed_mask_failed", "Fixed coordinates changed during optimization"
             )
-        if geometry_stereo(value.molecule, final) != initial_stereo:
-            raise CalculationError(
-                "stereo_changed", "Optimization changed current geometric stereochemistry"
-            )
+        validate_stereo(final)
         if final_energy > initial_energy + max(1e-6, abs(initial_energy) * 1e-10):
             raise CalculationError(
                 "objective_increased", "Final objective exceeds the initial objective"
             )
         displacement = np.linalg.norm(final[movable] - original[movable], axis=1)
         unchanged = bool(np.max(np.abs(final[movable] - original[movable])) <= 1e-9)
-        bonded = {frozenset((b.atom_1_id, b.atom_2_id)) for b in value.structure.bonds}
+        # Count locally without materializing all pair combinations, even for dense input.
+        tree = cKDTree(final)
         clashes = sum(
-            frozenset((value.structure.atoms[i].id, value.structure.atoms[j].id)) not in bonded
-            for i, j in cKDTree(final).query_pairs(0.6)
+            1
+            for i in range(len(final))
+            for j in tree.query_ball_point(final[i], 0.6)
+            if j > i and frozenset((i, j)) not in bonds
         )
         report = MinimizationReport(
             outcome="unchanged"
@@ -179,14 +241,31 @@ def optimize_isolated(
                 "Residual clashes count nonbonded atom pairs closer than 0.6 angstrom.",
             ],
             elapsed_seconds=time.monotonic() - started,
+            toolchain={
+                "engine": "OpenMM",
+                "engine_version": openmm.__version__,
+                "platform": platform,
+                "platform_threads": 1,
+                "solver": "SciPy L-BFGS-B",
+                "solver_variables": "movable coordinates only",
+            },
         )
-        proposal = CoordinateProposal(
-            entry_id=value.entry_id,
-            conformer_id=value.structure.active_conformer_id,
-            atom_ids=[value.structure.atoms[i].id for i in movable],
-            coordinates=[tuple(float(v) for v in final[i]) for i in movable],
-        )
-        return report, proposal
+        proposals = []
+        for capture in parameters.captured_inputs:
+            rows = sorted(
+                (int(i) for i in movable if references[i][0] == capture.entry_id),
+                key=lambda i: references[i][1],
+            )
+            if rows:
+                proposals.append(
+                    CoordinateProposal(
+                        entry_id=capture.entry_id,
+                        conformer_id=capture.conformer_id,
+                        atom_ids=[references[i][1] for i in rows],
+                        coordinates=[tuple(float(v) for v in final[i]) for i in rows],
+                    )
+                )
+        return report, proposals
     finally:
         engine = None
         del integrator

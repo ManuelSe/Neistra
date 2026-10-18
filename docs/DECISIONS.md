@@ -4365,3 +4365,42 @@ Native thread pools are bounded before registry imports. Tests use real spawned
 descendants for cooperative/forced cancellation, deadlines and coordinator/child
 loss; Linux-specific process observation is explicitly scoped. Existing generic
 job transport, persistence and demonstration behavior remain the regression gate.
+
+### D-108–110 implementation note — issue #82 C2, 2026-10-18
+
+Whole chosen protein chains are matched against the checksum-locked ff14SB native
+libraries by existing named atoms, elements, explicit-H pattern and complete
+canonical connectivity, including directed peptide links and compatible termini.
+The match determines the calculation protonation template; it never repairs a
+canonical graph or chooses pH. Only standard supported states match. Conflicting
+supplied charges/orders/stereo, unsupported crosslinks/adducts, partial chains and
+single-residue chains without compatible both-termini templates refuse. Existing
+separate PDBFixer preparation now appends ordinary identity evidence for its own
+new template-generated atoms; minimization does not assume old unevidenced atoms
+are ordinary. Existing evidence and originals remain unchanged.
+
+LEaP sequences/combinations are temporary parameter models with exact canonical
+entry/atom mapping, not persisted entry merging. Validate raw AMBER labels before
+OpenMM's deliberate PDB alias normalization (terminal H1 becomes presentation H),
+then verify elements and all canonical bonds. Canonical H is deterministically
+mapped to template H1 only at N termini. Generated native geometry is ignored;
+retain actual captured start rows and reference mapping separately. ff14SB template
+chirality and current/supplied molecular stereo must survive the calculation.
+
+Environment evaluation uses OpenMM CPU/one deterministic-force thread to provide
+native dynamic neighbor handling with the approved12Å cutoff,10Å LJ switch and
+reaction-field78.3 model; no dispersion correction. Preserve native bonds, angles,
+torsions, exclusions and scaled1–4 terms across selection boundaries. AMBER TIP3P's
+auxiliary H-H internal distance is an explicitly reported engine term rather than
+new canonical connectivity; waters are unconstrained, including when selected.
+This is the pinned local model's flexible internal representation, not a general
+solvated-water accuracy claim. Fixed waters/protein/ligands can be included;
+visibility and locks do not exclude fixed context. Atom-count limits and full
+membership apply independently of the12Å candidate-discovery radius.
+
+C2 tests establish small prepared synthetic same/separate-entry context, actual
+energy/force/outcome changes, movable peptide boundaries, finite differences,
+scaled interactions, dynamic neighbors, explicit water and hidden/locked fixed
+context through the real worker. Prepared1STP, larger-assembly performance and
+full scientific coverage remain C5 gates; Apply/UI remain C3/C4. No database,
+structural schema, application dependency/version or original-file change.

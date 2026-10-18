@@ -2,7 +2,7 @@
 
 ## 1. Status, outcome and authority
 
-Status: approved implementation contract; C0 and M1/C1 complete, C2 next.
+Status: approved implementation contract; C0–M2/C2 complete, C3 next.
 The user's 2026-10-18 `/goal` starts C1–C6 and release
 delivery; C0's original planning-only stop has been satisfied.
 
@@ -571,7 +571,7 @@ Execute only C0 in this handoff:
 |---|---|---|
 | C0 | Approved plan persisted | Documentation-only handoff commit; local checks pass. Final commit/remote identity is recorded by Git and the C0 handoff. |
 | M1 / C1 | Complete | Integrated isolated worker proposals and process-tree lifecycle; [final gate](../assets/minimization/c1-gate.json), [self-review](../assets/minimization/c1-review.md). |
-| M2 / C2 | Not started | Fixed context and multi-entry assembly. |
+| M2 / C2 | Complete | Native ff14SB context, exact multi-entry mapping, water and boundary terms; [gate](../assets/minimization/c2-gate.json), [self-review](../assets/minimization/c2-review.md). |
 | M3 / C3 | Not started | Atomic Apply/history/persistence. |
 | M4 / C4 | Not started | Native UI workflow. |
 | M5 / C5 | Not started | Scientific/compatibility/performance qualification. |
@@ -676,3 +676,51 @@ without attempting to embed a self-referential commit SHA in its own contents.
   with `Refs #82`; resolve its final SHA from Git rather than embedding a
   self-reference. No current external blocker. Next action: C2 explicit protein
   context and multi-entry assembly under the same contract.
+
+
+2026-10-18 — C2 completion:
+
+- C1 commit `df550b390bfbfb9730a3c299906df067c924f5c7` is verified on the planned
+  remote branch. C2 adds typed whole-component assembly, exact native ff14SB
+  template matching and safe LEaP combination with per-entry/atom mapping. Source
+  entry ownership, topology, originals and active/inactive conformers are unchanged.
+- Complete explicit protein atoms/H/connectivity/termini establish a unique
+  calculation template. Conflicting known chemistry, partial chains, unsupported
+  states and crosslinks/adducts refuse. Separate protein preparation now records
+  its own generated ordinary identity facts; no minimization repair is introduced.
+- Fixed protein, organic components and complete waters participate independently
+  of display visibility/locks. Environment uses approved nonperiodic12Å cutoff,
+  10Å LJ switch and reaction-field78.3; native neighbors/exclusions/scaled1–4 and
+  peptide boundary terms remain intact. Isolated complete supported protein/water
+  components use NoCutoff, like isolated organic molecules. No caps or constraints.
+- Native AMBER TIP3P's unconstrained internal H-H distance is explicitly accounted
+  for as an engine term, never a canonical covalent bond. This is a pinned local
+  representation, not a general flexible-water accuracy claim. See the appended
+  D-108–110 C2 note. Actual captured start coordinates are retained separately from
+  native generated geometry; organic model subdirectories/diagnostics remain in ZIP.
+- [Fixture provenance](../../tests/fixtures/minimization/README.md) documents the
+  synthetic complete L-AGS derivative and independently performed H preparation;
+  the original editing fixture/raw1STP remain unchanged. Template snapshots are
+  model-derived unit inputs, explicitly not independent physical reference data.
+  [Checksums](../assets/minimization/c2-fixtures.json) and
+  [native provenance](../assets/minimization/c2-toolchain.json) retain31 actual
+  executable/data hashes and unchanged137-package lock. Added files are verified
+  free of prefix relocation in the installed package metadata.
+- [Final C2 gate](../assets/minimization/c2-gate.json): all12 commands pass on
+  unchanged source: **886 Python**, including**70 focused** prerequisite/native/
+  worker cases; **255 frontend**, **8 supervisor**, **4 browser passes /4 intentional
+  layout skips**, zero failures/retries. Native minimization scientific tests did
+  not skip. Ruff/mypy84, lint/types/build, disposable0014 upgrade and diff pass;
+  exact commands/environments/timings/source hashes and lossless gzip logs retained.
+- [Checkpoint review](../assets/minimization/c2-review.md) is local self-review.
+  Repaired mapping, positive-fixture stereo, known-chemistry, actual-start retention
+  and isolated-protein gaps before final gates. No consequential C2 finding remains.
+  Browser log records an unchanged jobs-WebSocket transport-close race; inspect and
+  repair disconnect cleanup in C4's job/session integration before final delivery.
+- No migration, top-level schema, application dependency or version change. C2
+  does not implement Apply/UI, exhaustive supported-state coverage, old-reader or
+  prepared1STP/large-assembly performance qualification; these remain C3–C5. The
+  existing398 Alembic warnings/lazy-bundle advisory remain. No external blocker.
+- Checkpoint commit: `feat(minimization): include explicit fixed molecular context`,
+  `Refs #82`; final commit and remote identity are verified separately. Next: C3
+  dedicated capture/proposal/Apply API, one atomic reversible batch and archives.

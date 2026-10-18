@@ -10,6 +10,7 @@ from openmm import Platform, unit
 from pdbfixer import PDBFixer
 
 from molweave_core.adapters.macromolecular import PdbAdapter
+from molweave_core.hydrogen_protection import ordinary_generated
 from molweave_core.molecular import (
     Atom,
     Bond,
@@ -841,6 +842,8 @@ class PdbfixerProteinEditor:
                 "residues": residues,
                 "conformers": [conformer],
                 "inferences": [*before.inferences, inference],
+                "annotations": [*before.annotations, ordinary_generated(created_atoms)]
+                if created_atoms else before.annotations,
             }
         )
         changed_atom_ids = sorted(

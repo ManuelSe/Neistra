@@ -82,16 +82,13 @@ def isolated_preflight(
             ],
         }
     )
-    if any(a.alternate_location for a in structure.atoms):
-        raise CalculationError(
-            "alternate_sites", "Resolve alternate sites explicitly before minimization"
-        )
-    if any(not isfinite(v) for point in coordinates for v in point):
-        raise CalculationError("invalid_coordinates", "Coordinates must be finite")
-    if any(a.coordinates != point for a, point in zip(structure.atoms, coordinates, strict=True)):
-        raise CalculationError(
-            "coordinate_mismatch", "Atom rows must match the captured active conformer"
-        )
+    return organic_preflight(item.entry_id, structure, selected)
+
+
+def organic_preflight(
+    entry_id: str, structure: NormalizedStructureV1, selected: set[int]
+) -> IsolatedInput:
+    validate_coordinates_and_identity(structure)
     if len(structure.atoms) > 1024 or sum(a.element != "H" for a in structure.atoms) > 256:
         raise CalculationError(
             "molecule_limit", "Organic molecule exceeds 256 heavy / 1024 total atoms"
@@ -110,15 +107,6 @@ def isolated_preflight(
             "chemistry_unknown", "Assign ligand formal charges and bond orders explicitly"
         )
     try:
-        facts = protection_facts(structure)
-        if any(
-            a.id not in facts or not facts[a.id].matches(a) or not facts[a.id].ordinary
-            for a in structure.atoms
-        ):
-            raise CalculationError(
-                "identity_uncertain",
-                "Ordinary isotope/radical identity must be established for every atom",
-            )
         if any(
             a.stereo and a.stereo not in {"TETRAHEDRAL_CW", "TETRAHEDRAL_CCW"}
             for a in structure.atoms
@@ -144,8 +132,37 @@ def isolated_preflight(
             "invalid_chemistry", f"Cannot parameterize current chemistry: {error}"
         ) from error
     return IsolatedInput(
-        item.entry_id,
+        entry_id,
         structure,
         molecule,
         tuple(i for i, a in enumerate(structure.atoms) if a.id in selected),
     )
+
+
+def validate_coordinates_and_identity(structure: NormalizedStructureV1) -> None:
+    pairs = [frozenset((b.atom_1_id, b.atom_2_id)) for b in structure.bonds]
+    if len(set(pairs)) != len(pairs):
+        raise CalculationError("duplicate_bonds", "Resolve duplicate canonical bond pairs")
+    if any(a.alternate_location for a in structure.atoms):
+        raise CalculationError(
+            "alternate_sites", "Resolve alternate sites explicitly before minimization"
+        )
+    coordinates = structure.active_coordinates
+    if any(not isfinite(v) for point in coordinates for v in point):
+        raise CalculationError("invalid_coordinates", "Coordinates must be finite")
+    if any(a.coordinates != point for a, point in zip(structure.atoms, coordinates, strict=True)):
+        raise CalculationError(
+            "coordinate_mismatch", "Atom rows must match the captured active conformer"
+        )
+    try:
+        facts = protection_facts(structure)
+        if any(
+            a.id not in facts or not facts[a.id].matches(a) or not facts[a.id].ordinary
+            for a in structure.atoms
+        ):
+            raise CalculationError(
+                "identity_uncertain",
+                "Ordinary isotope/radical identity must be established for every atom",
+            )
+    except ValueError as error:
+        raise CalculationError("identity_uncertain", "Malformed atom identity evidence") from error

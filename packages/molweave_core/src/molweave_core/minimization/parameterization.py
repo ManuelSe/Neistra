@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import time
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
@@ -20,6 +20,7 @@ class Parameterized:
     system: Any
     atom_names: tuple[str, ...]
     charge_normalization: dict[str, float]
+    provenance: dict[str, object] = field(default_factory=dict)
 
 
 def _atom_name(element: str, index: int) -> str:
@@ -29,6 +30,29 @@ def _atom_name(element: str, index: int) -> str:
         suffix = alphabet[index % 36] + suffix
         index //= 36
     return element + suffix
+
+
+def native_atom_names(path: Path) -> tuple[str, ...]:
+    # AmberPrmtopFile intentionally normalizes PDB aliases (e.g. terminal H1 -> H).
+    # Verify the actual Amber labels before those presentation replacements.
+    lines = path.read_text().splitlines()
+    try:
+        start = next(i for i, line in enumerate(lines) if line.strip() == "%FLAG ATOM_NAME")
+    except StopIteration as error:
+        raise ValueError("Missing AMBER atom names") from error
+    if lines[start + 1].strip() != "%FORMAT(20a4)":
+        raise ValueError("Unqualified AMBER atom-name encoding")
+    rows = []
+    for line in lines[start + 2 :]:
+        if line.startswith("%FLAG"):
+            break
+        rows.append(line)
+    return tuple(
+        line[i : i + 4].strip()
+        for line in rows
+        for i in range(0, len(line), 4)
+        if line[i : i + 4].strip()
+    )
 
 
 def normalize_charge_rounding(path: Path, expected: int) -> dict[str, float]:
@@ -171,12 +195,13 @@ def parameterize_isolated(
     tools: AmberTools,
     directory: Path,
     context: JobContext,
+    deadline: float | None = None,
 ) -> Parameterized:
     directory.mkdir(parents=True, exist_ok=False)
     text, names = write_calculation_mol2(value)
     (directory / "input.mol2").write_text(text)
     charge = sum(int(a.formal_charge or 0) for a in value.structure.atoms)
-    deadline = time.monotonic() + 240
+    deadline = deadline if deadline is not None else time.monotonic() + 240
     tools.run(
         "antechamber",
         [

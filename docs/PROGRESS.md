@@ -2,36 +2,33 @@
 
 ## Current milestone
 
-Issue #82 **M1/C1 complete; C2 fixed context next** under the
-[selection-minimization contract](plans/issue-82-selection-minimization.md).
-The user approved the plan on 2026-10-18 after choosing integrated qualified
-pocket parameters, active-conformer-only optimization and covalent-adduct
-deferral. Branch: `feat/issue-82-selection-minimization`; base:
-`b1fad2c77517cbdc24a87877507539d5abe584fa`. D-108–110 record the accepted
-scientific/context/job/application boundaries. The user's 2026-10-18 `/goal`
-started implementation; C0 commit3261486 is remotely verified.
+Issue #82 **M2/C2 complete; C3 atomic Apply next** under the
+[approved selection-minimization contract](plans/issue-82-selection-minimization.md).
+Branch `feat/issue-82-selection-minimization`; C0/C1 are remotely verified.
 
-Completed: locked137-package AmberTools24.8 environment, explicit scientific
-fingerprints, isolated GAFF1.81/AM1-BCC capture/preflight/optimization, nonimportable
-report/proposal/model artifacts and worker descendant cleanup. Independent ethanol
-probe lowers the selected-O objective with exact fixed rows. Real scientific and
-worker lifecycle tests pass. [Final C1 gate](assets/minimization/c1-gate.json):
-862 Python (46 focused),255 frontend,8 supervisor and2 native passes /2 intentional
-layout skips, zero failures/retries; native minimization scientific cases did not
-skip. Ruff/mypy79/lint/types/build, isolated0014 and diff pass. Source/log hashes
-and [local self-review](assets/minimization/c1-review.md) are retained; stereo-intent
-review finding was repaired before the final repeat. This does not implement
-protein context, Apply or the new UI yet.
+Completed: locked137-package AmberTools24.8 tooling, qualified isolated organic
+worker proposals/process-tree supervision, exact ff14SB whole-chain/multi-entry
+assembly, explicit fixed organic/water context and approved finite-range physics.
+Native tests show actual pocket effects, peptide boundary terms, numerical forces,
+scaled interactions, updating neighbors and exact fixed rows. Hidden/locked fixed
+context participates through the real worker. No canonical mutation on completion.
+Appended D-108–110 notes explain calculation mapping, generated identity evidence
+and the reported unconstrained AMBER TIP3P internal distance representation.
 
-Known limits: protein context, release performance bounds and preceding-reader
-compatibility still require later qualification. Strict native chemistry mapping
-can refuse resonance representations; AM1-BCC rounding correction is explicit and
-bounded, never a protonation choice. No application dependency, schema, migration
-or version change yet. The planned release is stable
-minor **0.20.0**, exceeding a patch because it adds public minimization/job/Apply
-functionality; current delivered runtime remains **0.19.0**. No current planning
-blocker. Next action: C2 explicit fixed protein context and multi-entry assembly
-after the passing C1 checkpoint commit.
+[Final C2 gate](assets/minimization/c2-gate.json):886 Python (70 focused),255
+frontend,8 supervisor,4 browser passes /4 intentional layout skips; zero failures
+or retries, no native scientific skips. Ruff/mypy84/lint/types/build, isolated0014
+and diff pass on unchanged source; lossless logs/source hashes, native/fixture
+provenance and [local review](assets/minimization/c2-review.md) are retained.
+
+Known limits: Apply/history/archive behavior and UI remain C3/C4; exhaustive
+scientific coverage, prepared1STP/large-assembly performance and actual preceding
+reader remain C5. Strict organic resonance mapping, unsupported protein states,
+crosslinks and adducts refuse. An existing jobs-WebSocket disconnect traceback in
+browser logs needs cleanup during C4 integration before final delivery. No external
+blocker, migration, schema, dependency or version change. Planned release remains
+stable minor0.20.0; delivered runtime remains0.19.0. Next: C3 immutable capture API,
+validated atomic batch Apply and durable history/provenance.
 
 ### Previous delivery baseline — v0.19.0
 

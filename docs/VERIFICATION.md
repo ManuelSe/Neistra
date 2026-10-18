@@ -1,6 +1,6 @@
 # V0.1 Requirement Evidence
 
-## Selection minimization (issue #82, C1)
+## Selection minimization (issue #82, C1–C2)
 
 The [approved feature plan](plans/issue-82-selection-minimization.md) is the
 contract. [C1 final checkpoint](assets/minimization/c1-gate.json) passes862 Python,
@@ -25,6 +25,28 @@ self-review, not independent approval. It repaired the E/Z-intent comparison gap
 before final repeated gates. C1 adds no migration, top-level schema or application
 version change. It does not establish protein-context, Apply/UI, old-reader or
 final release qualification; those remain C2–C6. Existing warning advisories remain.
+
+[C2 final checkpoint](assets/minimization/c2-gate.json) adds886 Python (70
+focused),255 frontend,8 supervisor and4 native passes /4 intentional layout skips,
+zero failures/retries and no native scientific skips. Ruff/mypy84/lint/types/build,
+isolated0014 and diff pass on unchanged source. Source/log hashes and lossless
+compressed raw logs are retained alongside [fixture hashes](assets/minimization/c2-fixtures.json),
+[toolchain provenance](assets/minimization/c2-toolchain.json) and
+[local self-review](assets/minimization/c2-review.md).
+
+Real ff14SB/GAFF context tests prove same/separate-entry equivalent mapping,
+actual energy/gradient/optimized-outcome changes, movable peptide boundary bonds/
+angles/torsions, exclusions and charge/LJ1–4 scaling, force finite differences,
+dynamic native neighbors, explicit unconstrained AMBER TIP3P water and isolated
+protein NoCutoff behavior. The real worker includes hidden/locked fixed protein
+context without changing entries or revision. Missing/ambiguous states,
+conflicting known chemistry/stereo, partial chains and adducts refuse.
+
+This is small synthetic C2 qualification, not prepared1STP/large-assembly,
+exhaustive-state, Apply/UI or preceding-reader evidence. No structural schema,
+migration, application dependency/version change. The unchanged jobs-WebSocket
+handler's transport-close traceback is retained in browser logs and assigned to
+C4 disconnect cleanup before final delivery. Later checkpoints remain required.
 
 Issue #74 follows the [approved direct-modeling plan](plans/issue-74-direct-molecular-modeling.md).
 [C1](assets/direct-modeling/c1-verification.json) passes66Python/236frontend/

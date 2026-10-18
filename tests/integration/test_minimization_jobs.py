@@ -236,3 +236,91 @@ def test_worker_loss_terminates_native_tree_and_recovers_honestly(
         if coordinator.is_alive():
             coordinator.kill()
             coordinator.join(timeout=3)
+
+
+def test_worker_includes_hidden_locked_protein_context_without_mutation(minclient: ApiClient):
+    if not os.environ.get("MOLWEAVE_AMBERTOOLS_PREFIX"):
+        pytest.skip("Locked native toolchain required for scientific worker qualification")
+    from molweave_core.molecular import NormalizedStructureV1
+    from rdkit import Chem
+
+    from tests.support.minimization import translated
+
+    project = minclient.post("/api/v1/projects", json={"name": "Explicit context"}).json()
+    heavy = Path(__file__).parents[1] / "fixtures/minimization/peptide-heavy.pdb"
+    ligand = normalized_to_mol(translated(molecule(), (2, 4, 3.5)))
+    imported = minclient.post(
+        f"/api/v1/projects/{project['id']}/imports",
+        data={"expected_revision": 0},
+        files=[
+            ("files", (heavy.name, heavy.read_bytes(), "chemical/x-pdb")),
+            ("files", ("ligand.mol", Chem.MolToMolBlock(ligand), "chemical/x-mdl-molfile")),
+        ],
+    )
+    assert imported.status_code == 201, imported.text
+    project = imported.json()["project"]
+    protein = next(e for e in project["entries"] if e["structure_type"] == "protein")
+    added = minclient.post(
+        f"/api/v1/projects/{project['id']}/entries/{protein['id']}/protein-edits",
+        json={
+            "expected_revision": project["revision"],
+            "operation": "protein.hydrogen.add",
+            "ph": 7,
+        },
+    )
+    assert added.status_code == 200, added.text
+    project = added.json()["project"]
+    for action, value in [("visibility", False), ("lock", True)]:
+        changed = minclient.post(
+            f"/api/v1/projects/{project['id']}/entries/{protein['id']}/{action}",
+            json={"expected_revision": project["revision"], "value": value},
+        )
+        assert changed.status_code == 200, changed.text
+        project = changed.json()
+    captures = []
+    selected = []
+    before = {}
+    for entry in sorted(project["entries"], key=lambda e: e["id"]):
+        structure = _structure(minclient, project["id"], entry["id"])
+        before[entry["id"]] = structure
+        captures.append(
+            {
+                "entry_id": entry["id"],
+                "artifact_id": entry["current_artifact_id"],
+                "sha256": hashlib.sha256(
+                    NormalizedStructureV1.model_validate(structure).to_bytes()
+                ).hexdigest(),
+                "conformer_id": structure["active_conformer_id"],
+                "atom_ids": [a["id"] for a in structure["atoms"]],
+            }
+        )
+        if entry["structure_type"] == "ligand":
+            selected.append({"structure_id": entry["id"], "atom_id": 3})
+    response = minclient.post(
+        f"/api/v1/projects/{project['id']}/jobs",
+        json={
+            "job_type": "coordinates.minimize",
+            "parameters": {
+                "mode": "environment",
+                "selection": {"atoms": selected},
+                "captured_inputs": captures,
+            },
+            "inputs": [{"entry_id": c["entry_id"], "role": "calculation"} for c in captures],
+        },
+    )
+    assert response.status_code == 201, response.text
+    assert _worker(minclient).run_once()
+    job = minclient.get(f"/api/v1/jobs/{response.json()['id']}").json()
+    assert job["status"] == "completed", job
+    report = minclient.get(
+        next(r["artifact"]["download_url"] for r in job["results"] if r["role"] == "report")
+    ).json()
+    assert report["outcome"] == "converged", report
+    assert report["fixed_count"] == 39
+    assert report["movable_count"] == 1
+    assert any(row["entry_id"] == protein["id"] for row in report["toolchain"]["mapping"])
+    current = minclient.get(f"/api/v1/projects/{project['id']}").json()
+    assert current["revision"] == project["revision"]
+    for entry in current["entries"]:
+        assert _structure(minclient, project["id"], entry["id"]) == before[entry["id"]]
+    assert next(e for e in current["entries"] if e["id"] == protein["id"])["locked"] is True

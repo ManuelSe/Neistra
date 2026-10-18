@@ -39,7 +39,7 @@ class MinimizationParameters(BaseModel):
 
     schema_version: Literal[1] = 1
     model: Literal["amber-local-v1"] = MODEL
-    mode: Literal["isolated"] = "isolated"
+    mode: Literal["isolated", "environment"] = "isolated"
     selection: SelectionV1
     captured_inputs: list[CapturedInput] = Field(min_length=1, max_length=100)
     max_iterations: int = Field(default=500, ge=1, le=2_000)

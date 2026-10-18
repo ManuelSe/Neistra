@@ -24,8 +24,14 @@
     "dat/antechamber/CONNECT.TPL": "6e8787740eba3ac557c232a2a1fedd93b83422bb0ad3084bfa45a9438ae9666e",
     "dat/leap/cmd/leaprc.gaff": "901104629d8c7566a1179cea5f4499d69ac7d5e914d5ea30f80021393c8bcde7",
     "dat/leap/cmd/leaprc.protein.ff14SB": "e96bd5b9d5fba9c027050e33efd3414e4d26ff616566b08730abedc554fac98c",
+    "dat/leap/lib/amino12.lib": "dcd92afbb7ee4c8a737f1ad47eb714618b6c186759c902cd5c06c22a5378df77",
+    "dat/leap/lib/aminoct12.lib": "4f45d160211ae20450ee59632012cba3ada60a5129de410da1bfbfd7f9a9a5f7",
+    "dat/leap/lib/aminont12.lib": "a7a267adbe63c3559283204ffd135b37e14dac0f33a7eae76f94cba80a56b58c",
+    "dat/leap/lib/solvents.lib": "c8aeb703f5769331541d1233e2f2c8f823dd516e861b04e215ae4da903f1d69b",
     "dat/leap/parm/frcmod.ff14SB": "d7240947ca454e49fa2419343cff0090c1e9c02f39618e826d99fc5f1b29dc73",
-    "dat/leap/parm/gaff.dat": "21ce262ab4af254c2f2b4bf95f4413c2a6593c67faa31ffc7108b7dd07a63d09"
+    "dat/leap/parm/frcmod.tip3p": "a66a30117d8c0af008476715e1405587a67f473793c4ab1db822da41465e48f1",
+    "dat/leap/parm/gaff.dat": "21ce262ab4af254c2f2b4bf95f4413c2a6593c67faa31ffc7108b7dd07a63d09",
+    "dat/leap/parm/parm10.dat": "dc0c02d28fb7ee4f04d0a5edee3cd62968ba5e9bdb69e0f728bf01d242d7d062"
   },
   "lock_sha256": "422339e5b0e4d95f3c67ef05604a97e9f96a222ebee9ceb5563d8e14d082afd1",
   "model": "amber-local-v1",
