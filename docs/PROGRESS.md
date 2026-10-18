@@ -2,6 +2,32 @@
 
 ## Current milestone
 
+Issue #82 **C0 approved plan persisted** under the
+[selection-minimization contract](plans/issue-82-selection-minimization.md).
+The user approved the plan on 2026-10-18 after choosing integrated qualified
+pocket parameters, active-conformer-only optimization and covalent-adduct
+deferral. Branch: `feat/issue-82-selection-minimization`; base:
+`b1fad2c77517cbdc24a87877507539d5abe584fa`. D-108–110 record the accepted
+scientific/context/job/application boundaries. Implementation has not started.
+
+Completed planning: inspected issue/repository/related issues and release
+conventions, classified requirements, specified C1–C6 acceptance/verification,
+and recorded the approved feature contract without changing the global PLAN.
+Master was clean and fetched/fast-forward checked before branch creation; remote
+issue metadata was rechecked. Diff/whitespace/relative-link checks, required plan
+metadata, decision uniqueness and unchanged global/product/version sources pass.
+Final commit/push identity is recorded in the C0 handoff. No runtime tests or
+scientific model qualification are claimed for planning-only changes.
+
+Known limits: the integrated AmberTools/OpenMM model, numerical/performance bounds
+and preceding-reader compatibility still require qualification. No dependency,
+schema, migration or version change is made in C0. The planned release is stable
+minor **0.20.0**, exceeding a patch because it adds public minimization/job/Apply
+functionality; current delivered runtime remains **0.19.0**. No current planning
+blocker. Next action after the C0 handoff: await `/goal` before C1.
+
+### Previous delivery baseline — v0.19.0
+
 Issue #81 delivered under the [approved plan](plans/issue-81-local-hydrogen-reconciliation.md),
 merged in [PR #84](https://github.com/ManuelSe/Neistra/pull/84) and published as stable
 [v0.19.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.19.0). D-107 governs local
@@ -2540,11 +2566,16 @@ Results:
 
 ## Blockers
 
-No current blocker or remaining approved-scope issue #81 implementation. Publication is verified; final documentation/branch audit is linked above.
+No blocker for the approved issue #82 planning checkpoint. C1 must qualify the
+locked native toolchain and exact scientific profile before broader work; failure
+requires a plan revision rather than weaker physics. No issue #82 implementation
+or verification is claimed yet. Issue #81 remains delivered.
 
 ## Next action
 
-No remaining issue #81 product implementation. Final documentation integration and
-branch/clean-master audit are recorded in the verified issue reply above. The runtime
-tag remains fixed on the qualified merged commit. Approve a separate backlog plan
-before starting broader chemistry, minimization or building work.
+Await `/goal` with the approved issue #82 plan on its dedicated branch; final C0
+commit/remote verification is recorded in the handoff. Do not begin C1, install
+dependencies, increment versions, open a PR or publish a release in this planning
+handoff. The feature plan is the detailed source of truth; update this summary when
+implementation is explicitly started. Issue #81's published runtime tag remains
+fixed.

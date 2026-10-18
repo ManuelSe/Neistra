@@ -4194,3 +4194,136 @@ policy hidden beneath the sticky Edit header after preview cancellation. Scoped
 scroll-padding keeps focus targets below the header. Regression tests verify actual
 hit testing, not focus state alone, in both themes alongside existing real zoom and
 editing accessibility. No global layout or interaction ownership change is made.
+
+## D-108 — Qualified local minimization uses a bounded integrated parameter model
+
+Date: 2026-10-18. Status: accepted by approval of the issue #82 plan;
+implementation not started.
+
+The [approved feature plan](plans/issue-82-selection-minimization.md) extends
+D-003/D-031's original limited use of protein chemistry tooling only for an
+explicit local-minimization operation. Use one versioned `amber-local-v1` model:
+ff14SB for complete supported protein states, GAFF 1.81/AM1-BCC for supported
+organic molecules, and TIP3P for explicitly included complete waters. Integrate
+parameter generation through a separately locked AmberTools 24.8 CPU toolchain;
+retain the existing uv application environment and OpenMM 8.4.0 pin. Qualify Linux
+x86-64 first. No job installs packages or downloads parameters.
+
+OpenMM supplies energy and forces; existing SciPy L-BFGS-B optimizes a reduced
+selected-coordinate vector. Fixed atoms are never optimizer variables. Verify the
+final movable gradient independently of the solver's termination flag. Record
+model terms/units, charge convention, parameter/tool/data checksums, work,
+convergence and limitations. Qualification of this exact combination is a hard
+C1 gate; no weaker fallback may substitute for failure.
+
+Parameter assignment is distinct from chemical preparation. Require complete,
+unambiguous topology and explicit-H patterns; raw PDB/Mol* display inference is
+not calculation topology. Do not add/delete atoms, invent canonical bonds, assign
+missing ligand orders/charges, choose protonation or replace current coordinates
+with parameter-generation geometry. Uncovered, ambiguous or unsupported chemistry
+refuses the complete calculation with actionable diagnostics. Incomplete drafts
+remain editable under D-101/D-106.
+
+Initially refuse metals, unsupported ions/cofactors, nonstandard residues,
+unsupported crosslinks, isotope/radical uncertainty and covalent protein–ligand
+adducts. The user explicitly chose integrated parameters and deferred covalent
+adducts; create one focused follow-up before implementation merge. D-102's
+entry-local topology is unchanged; no implicit cross-entry bond representation is
+introduced. Broader preparation/ligand assignment/building remains #12/#52/#71.
+
+Native tooling executes only fixed allowlisted programs with generated inputs in
+managed directories, configured through `MOLWEAVE_AMBERTOOLS_PREFIX`. Extend the
+existing controlled job boundary to supervise subprocess descendants through
+cancellation, deadlines and worker/child loss. Scientific parameterization does
+not permit arbitrary user commands. Exact limits, package build, evidence and
+release gates live in the feature plan. Historical MMFF/UFF cleanup contracts and
+protein template operations retain their existing behavior.
+
+## D-109 — Explicit complete context and captured active conformers bound minimization
+
+Date: 2026-10-18. Status: accepted by approval of the issue #82 plan;
+implementation not started.
+
+Capture the central canonical selection, immutable input artifacts and one
+explicitly confirmed active conformer per entry. Empty selection is invalid;
+unselected atoms, including H, remain fixed. Do not silently expand movable
+selection. A temporary calculation assembly may span entries without merging
+their persisted molecular state. Navigation categories and renderer state do not
+define chemistry or calculation membership.
+
+Default to isolated mode, including the complete selected covalent molecule as
+necessary fixed/movable context. Environment mode explicitly adds chosen complete
+protein chains/molecular components, including hidden material. Nearby-candidate
+discovery at 12 Å is not a crop or automatic inclusion policy. Show included and
+excluded context, movable/fixed counts and conformer pairing before submission;
+mandatory covalent closure cannot be excluded. Never combine every loaded entry
+or use visibility/hydrogen-display settings as physical-input filters.
+
+Preserve complete chosen-chain topology, crossing bonds/angles/torsions,
+exclusions and scaled 1–4 interactions; no artificial termini or caps. Isolated
+bounded molecules use uncropped nonperiodic nonbonded evaluation. Environment
+calculations use nonperiodic 12 Å cutoff, 10 Å Lennard-Jones switching and
+reaction-field dielectric 78.3, with engine neighbor updates as atoms move.
+Report finite-range/omitted-context approximations rather than suggesting a full
+solvated or long-range model. Distance-cropped calculation shells are deferred
+unless measured need justifies a separately approved design.
+
+Only captured selected coordinates in captured active conformers may change;
+inactive conformers stay exact. This is specific to the new minimization
+operation and does not change D-025/D-075's existing all-conformer transforms.
+Multi-entry pairing requires explicit confirmation; unresolved alternates or
+incompatible states refuse. Batch conformer optimization is deferred. Current
+coordinate/stereo intent is validated rather than silently choosing a new
+configuration; local convergence does not certify a native conformation, binding
+pose, preparation state or clash elimination.
+
+## D-110 — Background minimization proposals apply atomically to existing entries
+
+Date: 2026-10-18. Status: accepted by approval of the issue #82 plan;
+implementation not started.
+
+Reuse D-036's generic immutable-input job lifecycle and allowlisted execution for
+`coordinates.minimize`. Add focused typed capability, submission, proposal/report
+and Apply interfaces under `/api/v1`; do not build a universal engine framework.
+Expensive preflight, parameterization and optimization stay outside HTTP/UI work.
+Completion produces an inspectable result, never a canonical mutation. Distinguish
+blocked, failed, non-converged, converged and unchanged outcomes. Non-converged
+proposals may be inspected but cannot Apply.
+
+Application-owned session state captures project/selection/context/conformer
+ownership above responsive remounts. TanStack Query owns server results; Mol*
+renders a disposable nonpickable preview. Preview cannot enter canonical query
+data, exports or molecular artifacts. Later selection/camera/project changes do
+not retarget jobs or revive discarded presentation state. Existing tool ownership,
+focus, accessibility and derived-geometry invalidation remain binding.
+
+Apply validates result integrity, project ownership, every captured source/context
+artifact and identity, current expected revision and movable-entry locks before
+publishing any molecular changes. Fixed context may be locked. Unrelated project
+changes are permissible only when captured dependencies remain exact; changed
+dependencies require rerun rather than silent rebase. Failures, cancellation,
+rejected Apply, coordinate no-ops and repeated Apply cannot create misleading or
+duplicate molecular history.
+
+Extend molecular publication to a batch while retaining existing callers. One
+command uses recognized `entry.molecule` actions and affected-entry patches to
+switch exact before/after artifacts across entries. Preserve topology, all stable
+identities, unselected rows, inactive conformers, source facts, original bytes and
+user metadata. Append operation provenance/warnings separately and invalidate
+measurements/surfaces/interactions/projections through existing paths. D-036's
+ordinary result import continues to create new entries; minimization Apply is an
+explicit distinct operation, not an import shortcut.
+
+Use existing job/artifact storage and versioned extensible normalized annotations.
+No new persisted action kind, database migration or top-level schema is planned
+(Alembic0014; project/viewer/archive2; normalized/selection1). Native archives retain
+inputs, parameters/reports and application provenance as historical records;
+archived proposals cannot Apply against remapped entry identities. Archives still
+omit portable Undo history. Actual tagged v0.19.0 reader qualification must prove
+retention; it does not promise old-runtime authoring support for minimization.
+
+The approved release target is stable minor0.20.0, subject to collision checks,
+full candidate and exact merged-master qualification. All five authoritative
+versions advance together in the implementation PR. Planning approval/persistence
+does not mean this feature works, has passed scientific tests, or has shipped.
+Stop after C0 and await `/goal`.
