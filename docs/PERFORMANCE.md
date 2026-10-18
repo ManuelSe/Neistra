@@ -464,3 +464,37 @@ repeats the full native suite with unchanged budgets and zero failures/flakes/re
 retain18 capacity/production/movement/interaction records, separate from a claim
 of18 timing profiles. These are pinned-host regression measurements, not physical
 validation or a new portable capacity guarantee.
+
+
+## Selection minimization (issue #82, C5)
+
+[Source-bound gate](assets/minimization/c5-gate.json) and
+[worker measurements](assets/minimization/c5-performance-summary.json) retain exact
+commands/environment and samples. Maxima across focused and full Python runs:
+
+| Case | Atoms | Setup, s | Optimization + publication, s | Aggregate RSS, MiB |
+|---|---:|---:|---:|---:|
+| ligand | 9 | 1.278 | 0.177 | 549.4 |
+| prepared-1stp | 2,304 | 5.818 | 1.263 | 573.0 |
+| large-assembly | 18,208 | 7.411 | 10.059 | 776.0 |
+
+Real-SQM cancellation settles in at most0.198s.
+The120s setup/60s optimization/2GiB/5s bounds pass. Setup uses fresh calculation
+processes/parameters with ordinary OS cache. The20ms RSS sum includes the API/test/
+coordinator and live descendants, excluding browser/OS memory. These are pinned-host
+measurements, not cross-hardware guarantees or cold installation timing.
+
+Native prepared PDB/MOL uploads, explicit complete context, real jobs, preview and
+Discard pass for2,304 and18,208 atoms. Trusted-event-to-queue/geometry/frame preview/
+Discard remain below500ms and longest tasks below750ms. Automation/JSON-transfer
+latency stays separate and visible in the native-performance JSON; no threshold
+was relaxed. Existing original/authored movement performance assertions remain
+unchanged and passing, with retained movement JSON. One bounded capture request,
+32 selected ligand rows, exact context membership and unchanged canonical
+revision/artifacts are asserted. No dense browser/Python all-pairs allocation.
+
+The full159-residue fixture preserves901 observed heavy rows and explicitly models
+missing termini/H, including disclosed generated stereochemistry repair. Neutral
+CCD biotin is an explicit benchmark microstate. Eight translated full chains form
+an operational capacity case, not a biological oligomer or validated binding pose.
+See [fixture provenance](../tests/fixtures/minimization/README.md) and D-112.

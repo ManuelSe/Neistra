@@ -1,0 +1,22 @@
+[
+  {
+    "file": "c4-light-320.png",
+    "sha256": "cb606ea212e48a1b6f603d019760165cc3ff92acc9fe04f1f0f58dfa66acee3d"
+  },
+  {
+    "file": "c4-dark-320.png",
+    "sha256": "b954e1785994cd6a2b6475f974043ec70f7f79846f32080e0ed7460bb664ee30"
+  },
+  {
+    "file": "c4-light-200.png",
+    "sha256": "637129fa1d89dda6c8e4dc9a981fcbf70e0b6d2895ee2ddc871e94ef2ed1d550"
+  },
+  {
+    "file": "c4-dark-200.png",
+    "sha256": "10b80f0f4af108edd6569985e4081b941b2e6cb96b8d1011f937e8c4caf90a60"
+  },
+  {
+    "file": "c4-separate-mobile.png",
+    "sha256": "af7713735b6fce694dbd124292505b379737c942f4cfa2343afc30548ecfca46"
+  }
+]

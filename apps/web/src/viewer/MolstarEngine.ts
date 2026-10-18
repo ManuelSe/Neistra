@@ -1,5 +1,5 @@
 import { createModelPreviewRepresentation, modelPreviewColor } from "./modelPreviewGeometry";
-import type { ModelPreview } from "../api/types";
+import type { MolecularProposalGeometry } from "../api/types";
 import { componentAtomIds } from "../selection/components";
 import type { InteractionRecord } from "../interactions/types";
 import { createInteractionRepresentation } from "./interactionGeometry";
@@ -113,7 +113,7 @@ export class MolstarEngine implements MolecularViewer {
   private coordinatePreviews = new Map<string, Map<number, Point3D>>();
   private measurements: ViewerMeasurement[] = [];
   private interactions: InteractionRecord[] = [];
-  private modelPreview: ModelPreview | null = null;
+  private modelPreview: MolecularProposalGeometry | null = null;
   private modelPreviewRepresentation = createModelPreviewRepresentation(() => modelPreviewColor(this.backgroundColor));
   private interactionRepresentation = createInteractionRepresentation();
   private nonpolarHydrogenIds = new Map<string, Set<number>>();
@@ -527,7 +527,7 @@ export class MolstarEngine implements MolecularViewer {
     return this.syncQueue;
   }
 
-  setModelPreview(preview: ModelPreview | null): Promise<void> {
+  setModelPreview(preview: MolecularProposalGeometry | null): Promise<void> {
     this.modelPreview = preview;
     if (!preview) this.plugin?.canvas3d?.remove(this.modelPreviewRepresentation);
     this.syncQueue = this.syncQueue.catch(() => undefined).then(() => this.applyModelPreview());

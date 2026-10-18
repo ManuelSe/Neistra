@@ -18,6 +18,7 @@ interface LowerPanelProps {
   tab: LowerPanelTab;
   onTabChange: (tab: LowerPanelTab) => void;
   onNewJob: () => void;
+  onInspectMinimization?: (jobId: string) => void;
   onProjectUpdate: (project: Project) => void;
   onNotice: (kind: "success" | "error", text: string) => void;
   onCollapse?: () => void;
@@ -30,6 +31,7 @@ export function LowerPanel({
   tab,
   onTabChange,
   onNewJob,
+  onInspectMinimization,
   onProjectUpdate,
   onNotice,
   onCollapse,
@@ -102,6 +104,7 @@ export function LowerPanel({
         <JobsPanel
           project={project}
           onNewJob={onNewJob}
+          onInspectMinimization={onInspectMinimization}
           onProjectUpdate={onProjectUpdate}
           onNotice={onNotice}
         />

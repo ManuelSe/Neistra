@@ -1,0 +1,9 @@
+{
+  "tag": "v0.19.0",
+  "commit": "3fc106b215a8c39e943ad399710f43f116961aef",
+  "clean": true,
+  "api_sha256": "7119ec6e4f984f15c61244326994b5a0691cb76198e691d1879ce4e94d4a7bc0",
+  "core_sha256": "025fe657d0800e16bdfbd86d70a04a807abf6f6e7fe39cbc8d5bad3147117433",
+  "reader_root": "/tmp/neistra-issue82-reader-019",
+  "producer_version": "0.19.0 development branch; final0.20.0 producer repetition required at C6"
+}

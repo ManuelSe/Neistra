@@ -429,7 +429,7 @@ select:focus-visible,
 .viewer-header .viewer-toolbar { position: static; max-width: 100%; }
 .molecular-edit-tools { position: relative; }
 .molecular-edit-tools > .viewer-action-button { width: 32px; height: 32px; border: 1px solid var(--border); border-radius: 6px; background: var(--surface); }
-.viewer-edit-transform-actions { display: flex; align-items: flex-start; gap: 6px; max-width: 100%; }
+.viewer-edit-transform-actions { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 6px; max-width: 100%; }
 .molecular-edit-panel {
   position: fixed; z-index: 40; top: 100px; left: 8px;
   width: min(300px, calc(100vw - 84px)); max-height: min(65vh, 520px);
@@ -3707,3 +3707,23 @@ div[data-radix-popper-content-wrapper]:has(.tooltip) {
 }
 
 .hierarchy-shell { display: flex; flex-direction: column; flex: 1; min-height: 0; overflow: hidden; }
+
+.minimization-tools > .viewer-action-button { width: 44px; height: 44px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--text); }
+.minimization-panel { position: fixed; z-index: 70; box-sizing: border-box; overflow: auto; overscroll-behavior: contain; padding: 12px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); color: var(--text); box-shadow: 0 8px 30px #0003; font-size: 12px; line-height: 1.5; overflow-wrap: anywhere; }
+.minimization-heading { position: sticky; top: -12px; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 8px; background: var(--surface); }
+.minimization-heading h2 { font-size: 15px; margin: 0; }
+.minimization-panel button, .minimization-panel select, .minimization-panel input[type="number"] { min-height: 44px; min-width: 44px; max-width: 100%; border: 1px solid var(--border); border-radius: 6px; padding: 6px 8px; background: var(--surface); color: var(--text); font: inherit; }
+.minimization-panel button:disabled { opacity: .55; }
+.minimization-panel :focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.minimization-panel fieldset { border: 1px solid var(--border); padding: 8px; margin: 10px 0; min-width: 0; }
+.minimization-panel fieldset > label:not(.minimization-check) { display: grid; gap: 4px; }
+.minimization-check { display: flex; gap: 8px; align-items: center; min-height: 44px; cursor: pointer; }
+.minimization-check input { flex: none; width: 18px; height: 18px; }
+.minimization-check span { min-width: 0; }
+.minimization-check small { display: block; color: var(--text-soft); }
+.minimization-context { max-height: 230px; overflow: auto; }
+.minimization-metrics { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 5px 8px; }
+.minimization-metrics dd { margin: 0; }
+.minimization-actions { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0; }
+.minimization-panel progress { display: block; width: 100%; margin: 8px 0; }
+.minimization-panel .primary-button { background: var(--action); color: var(--on-action); }

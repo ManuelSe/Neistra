@@ -1,5 +1,131 @@
 # Neistra Release Notes
 
+## 0.20.0 - 2026-10-18 - Selection minimization
+
+Release candidate under the [approved issue #82 plan](plans/issue-82-selection-minimization.md).
+The complete final-version candidate gate passes; publication requires the exact merged-master gate.
+Proposed annotated tag: `v0.20.0`; no publication is claimed by this preparation.
+
+### User workflow and fixes
+
+**Minimize selection**, the lightning icon beside Edit, opens a native nonmodal
+workflow. **Ctrl+M** immediately computes an isolated relaxation for the captured
+selection with up to 500 iterations. Inspect progress, the scientific report and a
+nonpickable temporary preview, then explicitly **Apply coordinates**. Non-converged
+results remain inspectable and cannot Apply. Cancel/Discard leaves coordinates exact;
+Jobs can reopen persisted work after closing/reload.
+
+Support whole/subset isolated molecules, ligands with explicitly chosen fixed
+protein context, and ligand plus selected protein atoms/residues in the same or
+separate entries. Include complete chosen chains/components, including hidden
+candidates; 12 Å is discovery only. Active conformers and movable/fixed counts are
+explicit. Later selection cannot retarget work. App-owned generations and immutable
+artifact queries preserve ownership across project changes/responsive remounts,
+including the numerical/minimization preview handoff. Jobs WebSocket disconnect and
+transport-close cleanup is verified. The shared action row wraps at narrow widths
+so movement controls retain their touch targets beside Minimize.
+
+One atomic Apply updates selected rows only and creates one exact multi-entry
+Undo/Redo command. Every selected/fixed dependency, digest, conformer and movable
+lock is revalidated. Changed source/context requires a new calculation; unrelated
+revisions may apply when exact inputs still match. Fixed locked context is allowed.
+Original uploads, topology, metadata, IDs, unselected rows and inactive conformers
+remain exact. No-op and retried/applied jobs create no duplicate molecular command.
+
+### Scientific model, prerequisites and scope
+
+The bounded `amber-local-v1` model uses ff14SB complete standard protein states,
+GAFF 1.81 / AM1-BCC carbon-containing organics, and optional complete neutral TIP3P
+water. Complete existing topology, explicit H, known ligand charges/orders and
+ordinary identity are required. It never repairs atoms/bonds, chooses protonation,
+embeds a starting conformation or silently mixes/falls back to another force field.
+Known protein charge groups/valence/aromaticity, all native parameter kinds and
+singular starts are validated. Unsupported/unqualified inputs refuse the whole job.
+
+A reduced L-BFGS-B solve varies selected coordinates only, retaining all included
+unselected atoms/H exactly. Completion independently checks finite energy/forces,
+maximum movable gradient component ≤ 10 kJ/(mol nm), mapping and stereo. Reports
+include energy, gradient, iterations/evaluations, movement, close pairs and warnings.
+Isolated models use nonperiodic NoCutoff; environment uses a 12 Å nonperiodic cutoff,
+10 Å LJ switch, reaction-field dielectric 78.3 and no dispersion correction. Native
+boundary bonded terms, exclusions/1–4 scaling and dynamic neighbors remain intact.
+
+This is local model relaxation, not a global/native pose certificate, binding or
+solvation energy, protonation prediction, docking or guaranteed clash elimination.
+TIP3P's unconstrained auxiliary H–H engine term is not a new canonical bond or a
+general flexible-water accuracy claim. Prepared 1STP qualification preserves the
+full 159-residue chain and 901 observed heavy rows, with disclosed offline modeled
+termini/H/stereo repair and neutral CCD biotin; it does not qualify anionic biotin
+or a physiological microstate. Eight translated full chains are a capacity fixture,
+not a biological oligomer. See [scientific limits](SCIENTIFIC_LIMITATIONS.md).
+
+One model replaces speculative multiple profiles. Active conformers replace batch
+pairing; complete chains replace cropped/capped shells; explicit Apply excludes
+non-converged application. Covalent adducts and new cross-entry covalent topology
+remain [follow-up #86](https://github.com/ManuelSe/Neistra/issues/86). Unsupported
+ions/metals/PTMs/crosslinks/cofactors and unqualified native carboxylate encodings
+refuse. Broader catalogues, automatic repair/protonation and a universal calculation
+framework remain outside this delivery; no duplicate umbrella issues were created.
+
+### Installation, API, persisted data and compatibility
+
+Install the [locked Linux x86-64 AmberTools environment](../tools/README.md) separately
+and set `MOLWEAVE_AMBERTOOLS_PREFIX` for API and worker. No job downloads software or
+parameters. Missing installation keeps normal startup/editing available and gives
+visible capability diagnostics. Default registration is additive; explicit operator
+allowlists/targets must include the dedicated plugin. Bounded processes, native
+thread pools, cancellation, deadlines and descendant cleanup remain enforced.
+
+Four additive capability/capture/proposal/Apply interfaces use existing generic
+jobs/artifacts. Generic job submission cannot bypass server-owned capture. Archives
+retain report/model/input/application provenance; imported proposals remain
+historical against remapped IDs. Measurements, chemical exports and archived
+molecules use applied coordinates.
+Immutable proposal artifacts remain historical job data; preview display/session
+state is transient. Existing legacy cleanup remains available unchanged.
+
+No database/structural-schema migration: Alembic 0014, project/viewer/archive 2,
+normalized/selection 1. Generic `entry.molecule` history retains exact Undo/Redo;
+archive Undo remains nonportable. Actual tagged v0.19 retention covers originals,
+all conformers, generic multi-entry history, jobs/reports/models and archive
+re-export. Final 0.20 producer / actual tagged 0.19 reader repetition passes in the candidate gate.
+Older runtimes retain data but do not author minimization; upgrade client/API
+together. Back up the managed directory for rollback and preserve downgrade guards.
+
+Stable minor **0.19.0 → 0.20.0** reflects new user-visible scientific functionality
+and public APIs with retained persisted/API compatibility. A patch understates the
+addition; no major or prerelease increment is warranted after qualification. Public
+tag/release history already exists through v0.19.0. All five authoritative version
+sources advance consistently without application dependency upgrades.
+
+### Verification and performance
+
+[C5 qualification](assets/minimization/c5-gate.json) passes 1,036 Python (605 focused),
+265 frontend, 8 supervisor and 28 native browser cases / 12 intentional layout
+skips, with no failures/retries/native scientific skips. It includes 70 supported
+protein graph states, 26 native parameter/force-difference cases, real coupled
+pocket/boundary/1–4/neighbor checks, exact capture/Apply/Undo/archive behavior,
+keyboard/touch/320px/both themes and real 100–200% browser zoom.
+
+Maxima across worker runs: prepared 1STP setup 5.819 s and optimization/publication
+1.263 s; 18,208 atoms setup 7.411 s and optimization/publication 10.059 s. Aggregate
+API/test/coordinator/descendant RSS stays below 776 MiB; real SQM cancellation below
+0.198 s. Sampling is 20 ms with fresh calculation/parameters and ordinary OS cache;
+browser/OS memory is excluded. Native trusted-event preview/Discard stay below
+500 ms and longest tasks below 750 ms; automation/JSON-transfer timing is separate.
+Existing movement performance assertions remain unchanged and passing. These are
+pinned-host bounds, not universal hardware guarantees. [Exact evidence](assets/minimization/c5-performance-summary.json).
+
+The [final-version candidate](assets/minimization/c6-candidate-gate.json) passes all
+18 commands: 1,038 Python, 265 frontend, 8 supervisor, 264 browser / 50 intentional
+layout skips, no failures/retries/native scientific skips. Frozen/fresh/static/build/
+diff, five versions, verified native tooling and actual 0.19 reader / final 0.20
+producer pass. [Full-diff self-review](assets/minimization/c6-review.md) has no
+unresolved consequential finding. Exact merged-master evidence remains required
+before tag/release. Existing Alembic deprecation
+and lazy Mol* bundle advisories remain. No independent review is claimed unless a
+review actually returns; protections/checks/required human approval remain binding.
+
 ## 0.19.0 - 2026-10-17 - Local hydrogen reconciliation
 
 Published in [PR #84](https://github.com/ManuelSe/Neistra/pull/84) as stable

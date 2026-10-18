@@ -4,7 +4,7 @@ import asyncio
 import multiprocessing
 import time
 from collections.abc import AsyncIterator, Callable
-from contextlib import asynccontextmanager
+from contextlib import asynccontextmanager, suppress
 from multiprocessing.connection import Connection
 from typing import Literal, cast
 from urllib.parse import quote
@@ -69,6 +69,13 @@ from molweave_api.job_service import (
     JobService,
 )
 from molweave_api.ligand_edit_service import LigandEditService
+from molweave_api.minimization_schemas import (
+    MinimizationApply,
+    MinimizationCapabilities,
+    MinimizationCreate,
+    MinimizationProposalRead,
+)
+from molweave_api.minimization_service import MinimizationService
 from molweave_api.model_edit_service import ModelEditService
 from molweave_api.models import Artifact, Job, JobEvent
 from molweave_api.project_service import (
@@ -488,7 +495,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     app = FastAPI(
         title="MolWeave API",
-        version="0.19.0",
+        version="0.20.0",
         lifespan=lifespan,
         openapi_url="/api/v1/openapi.json",
         docs_url="/api/docs",
@@ -591,6 +598,92 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             )
         )
         return _job_read(session, app_settings, job)
+
+    @router.get("/minimization-capabilities", response_model=MinimizationCapabilities)
+    async def minimization_capabilities() -> MinimizationCapabilities:
+        from molweave_core.minimization.contracts import JOB_TYPE, CalculationError
+        from molweave_core.minimization.toolchain import AmberTools
+
+        reason = None
+        try:
+            job_registry.get(JOB_TYPE)
+            await asyncio.to_thread(AmberTools.discover)
+        except KeyError:
+            reason = "The selection minimization plugin is not enabled by the operator"
+        except CalculationError as error:
+            reason = str(error)
+        return MinimizationCapabilities(
+            available=reason is None,
+            unavailable_reason=reason,
+            prerequisites=[
+                "Complete existing explicit H and canonical connectivity",
+                "Known ligand charges/orders and ordinary isotope/radical identity",
+                "Complete supported standard protein chains and termini",
+                "Locked AmberTools24.8 Linux x86-64 installation; no runtime downloads",
+            ],
+            scientific_limits=[
+                "Local minimum is not a global/native conformation or binding pose",
+                "Environment: nonperiodic12Å cutoff,10Å LJ switch, reaction-field78.3",
+                "No chemistry repair, automatic protonation, covalent adducts or crosslinks",
+                "Only captured active conformers; non-converged results cannot Apply",
+            ],
+            limits={
+                "assembly_atoms": 20_000,
+                "movable_atoms": 2_000,
+                "organic_components": 4,
+                "organic_heavy_atoms": 256,
+                "default_iterations": 500,
+                "maximum_iterations": 2_000,
+                "gradient_tolerance": 10,
+                "job_seconds": 600,
+                "discovery_radius_angstrom": 12,
+            },
+        )
+
+    @router.post(
+        "/projects/{project_id}/minimizations",
+        response_model=JobRead,
+        status_code=status.HTTP_201_CREATED,
+    )
+    async def submit_minimization(
+        project_id: str,
+        payload: MinimizationCreate,
+        session: Session = Depends(session_dependency),
+    ) -> JobRead:
+        job = _call(
+            lambda: MinimizationService(session, app_settings, job_registry).submit(
+                project_id, payload
+            )
+        )
+        return _job_read(session, app_settings, job)
+
+    @router.get(
+        "/projects/{project_id}/minimizations/{job_id}/proposal",
+        response_model=MinimizationProposalRead,
+    )
+    async def minimization_proposal(
+        project_id: str,
+        job_id: str,
+        session: Session = Depends(session_dependency),
+    ) -> MinimizationProposalRead:
+        return _call(
+            lambda: MinimizationService(session, app_settings, job_registry).proposal(
+                project_id, job_id
+            )
+        )
+
+    @router.post("/projects/{project_id}/minimizations/{job_id}/apply", response_model=ProjectRead)
+    async def apply_minimization(
+        project_id: str,
+        job_id: str,
+        payload: MinimizationApply,
+        session: Session = Depends(session_dependency),
+    ) -> ProjectRead:
+        return _call(
+            lambda: MinimizationService(session, app_settings, job_registry).apply(
+                project_id, job_id, payload
+            )
+        )
 
     @router.get("/projects/{project_id}/jobs", response_model=list[JobRead])
     async def list_jobs(
@@ -1521,8 +1614,16 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     ) -> None:
         await websocket.accept()
         cursor = max(0, after_event_id)
-        try:
+
+        async def disconnected() -> None:
             while True:
+                message = await websocket.receive()
+                if message["type"] == "websocket.disconnect":
+                    return
+
+        disconnect = asyncio.create_task(disconnected())
+        try:
+            while not disconnect.done():
                 with factory() as session:
                     events = list(
                         session.scalars(
@@ -1541,9 +1642,17 @@ def create_app(settings: Settings | None = None) -> FastAPI:
                             JobEventRead.model_validate(event).model_dump(mode="json")
                         )
                         cursor = event.id
-                await asyncio.sleep(0.1)
-        except WebSocketDisconnect:
+                await asyncio.wait({disconnect}, timeout=0.1)
+        except (WebSocketDisconnect, OSError):
             return
+        except RuntimeError as error:
+            # uvloop can close its transport just before ASGI's disconnect arrives.
+            if "handler is closed" not in str(error):
+                raise
+        finally:
+            disconnect.cancel()
+            with suppress(asyncio.CancelledError):
+                await disconnect
 
     if app_settings.enable_test_routes:
         testing = APIRouter(prefix="/api/v1/testing")

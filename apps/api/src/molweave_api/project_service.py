@@ -1380,55 +1380,95 @@ class ProjectService:
         deleted_atom_ids: list[int],
         selection_snapshot: list[dict[str, Any]] | None = None,
     ) -> ProjectRead:
+        return self.record_molecular_changes(
+            project_id,
+            expected_revision,
+            command_type,
+            description,
+            [change],
+            {str(change["entry_id"]): deleted_atom_ids},
+            selection_snapshot,
+        )
+
+    def record_molecular_changes(
+        self,
+        project_id: str,
+        expected_revision: int,
+        command_type: str,
+        description: str,
+        changes: list[dict[str, Any]],
+        deleted_by_entry: dict[str, list[int]],
+        selection_snapshot: list[dict[str, Any]] | None = None,
+    ) -> ProjectRead:
         project = self._project(project_id)
         self._check_revision(project, expected_revision)
-        entry = self._entry(project, str(change["entry_id"]))
-        if entry.locked:
-            raise InvalidProjectOperationError(f"Unlock {entry.name} before editing its molecule")
-        forward: list[dict[str, Any]] = [
-            {
-                "kind": "entry.molecule",
-                "entry_id": entry.id,
-                "artifact_id": str(change["after_artifact_id"]),
-                "values": deepcopy(change["after_values"]),
-                "next_atom_id": int(change["next_atom_id"]),
-                "next_bond_id": int(change["next_bond_id"]),
-            }
-        ]
-        inverse: list[dict[str, Any]] = [
-            {
-                "kind": "entry.molecule",
-                "entry_id": entry.id,
-                "artifact_id": str(change["before_artifact_id"]),
-                "values": deepcopy(change["before_values"]),
-            }
-        ]
-        deleted = set(deleted_atom_ids)
-        if deleted:
-            self._append_atom_reference_reconciliation(
-                project,
-                entry,
-                deleted,
-                forward,
-                inverse,
-                operation=command_type,
+        ids = [str(change["entry_id"]) for change in changes]
+        if not ids or len(ids) != len(set(ids)):
+            raise InvalidProjectOperationError("Molecular batch requires distinct affected entries")
+        if len(ids) > 1 and any(deleted_by_entry.values()):
+            raise InvalidProjectOperationError(
+                "Multi-entry molecular batches preserve topology; delete in separate actions"
             )
+        entries = [self._entry(project, entry_id) for entry_id in ids]
+        for entry in entries:
+            if entry.locked:
+                raise InvalidProjectOperationError(
+                    f"Unlock {entry.name} before editing its molecule"
+                )
+        forward: list[dict[str, Any]] = []
+        inverse: list[dict[str, Any]] = []
+        patches: list[TopologyPatch] = []
+        for entry, change in zip(entries, changes, strict=True):
+            forward.append(
+                {
+                    "kind": "entry.molecule",
+                    "entry_id": entry.id,
+                    "artifact_id": str(change["after_artifact_id"]),
+                    "values": deepcopy(change["after_values"]),
+                    "next_atom_id": int(change["next_atom_id"]),
+                    "next_bond_id": int(change["next_bond_id"]),
+                }
+            )
+            inverse.insert(
+                0,
+                {
+                    "kind": "entry.molecule",
+                    "entry_id": entry.id,
+                    "artifact_id": str(change["before_artifact_id"]),
+                    "values": deepcopy(change["before_values"]),
+                },
+            )
+            deleted = set(deleted_by_entry.get(entry.id, []))
+            if deleted:
+                self._append_atom_reference_reconciliation(
+                    project,
+                    entry,
+                    deleted,
+                    forward,
+                    inverse,
+                    operation=command_type,
+                )
+            patches.append(
+                TopologyPatch(entry_id=entry.id, artifact_id=str(change["after_artifact_id"]))
+            )
+        snapshot = (
+            selection_snapshot
+            if selection_snapshot is not None
+            else [
+                {"structure_id": entry_id, "atom_id": atom_id}
+                for entry_id in ids
+                for atom_id in sorted(deleted_by_entry.get(entry_id, []))
+            ]
+        )
         return self._record(
             project,
             command_type,
             description,
             forward,
             inverse,
-            [entry.id],
-            selection_snapshot=selection_snapshot if selection_snapshot is not None else [
-                {"structure_id": entry.id, "atom_id": atom_id} for atom_id in sorted(deleted)
-            ],
-            topology_patches=[
-                TopologyPatch(
-                    entry_id=entry.id,
-                    artifact_id=str(change["after_artifact_id"]),
-                )
-            ],
+            ids,
+            selection_snapshot=snapshot,
+            topology_patches=patches,
         )
 
     @staticmethod

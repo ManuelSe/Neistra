@@ -9,6 +9,7 @@ import { activateTabFromKeyboard } from "./tabKeyboard";
 interface JobsPanelProps {
   project: Project | undefined;
   onNewJob: () => void;
+  onInspectMinimization?: (jobId: string) => void;
   onProjectUpdate: (project: Project) => void;
   onNotice: (kind: "success" | "error", text: string) => void;
 }
@@ -24,6 +25,7 @@ function timestamp(value: string | null) {
 export function JobsPanel({
   project,
   onNewJob,
+  onInspectMinimization,
   onProjectUpdate,
   onNotice,
 }: JobsPanelProps) {
@@ -153,6 +155,7 @@ export function JobsPanel({
                 </button>
               ) : null}
             </div>
+            {selected.job_type === "coordinates.minimize" && onInspectMinimization ? <button type="button" className="secondary-button" onClick={() => onInspectMinimization(selected.id)}>Inspect minimization</button> : null}
             <div
               className="job-detail-tabs"
               role="tablist"

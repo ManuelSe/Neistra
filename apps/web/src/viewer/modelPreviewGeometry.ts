@@ -6,7 +6,7 @@ import { Vec3 } from "molstar/lib/mol-math/linear-algebra";
 import { Shape } from "molstar/lib/mol-model/shape";
 import { ShapeRepresentation } from "molstar/lib/mol-repr/shape/representation";
 import { Color } from "molstar/lib/mol-util/color";
-import type { ModelPreview } from "../api/types";
+import type { MolecularProposalGeometry } from "../api/types";
 
 /** A nonpickable proposal shape; it never creates native molecular identities. */
 export function modelPreviewColor(background: string): Color {
@@ -14,7 +14,7 @@ export function modelPreviewColor(background: string): Color {
 }
 
 export function createModelPreviewRepresentation(color: () => Color) {
-  return ShapeRepresentation<ModelPreview, Mesh, typeof Mesh.Params>((_ctx, preview, _props, previous) => {
+  return ShapeRepresentation<MolecularProposalGeometry, Mesh, typeof Mesh.Params>((_ctx, preview, _props, previous) => {
     const builder = MeshBuilder.createState(2048, 1024, previous?.geometry);
     builder.currentGroup = 0;
     for (const atom of preview.atoms) addSphere(builder, Vec3.create(...atom.coordinates), atom.element === "H" ? 0.22 : 0.35, 1);

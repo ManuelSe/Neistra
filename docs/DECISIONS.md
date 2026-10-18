@@ -4194,3 +4194,340 @@ policy hidden beneath the sticky Edit header after preview cancellation. Scoped
 scroll-padding keeps focus targets below the header. Regression tests verify actual
 hit testing, not focus state alone, in both themes alongside existing real zoom and
 editing accessibility. No global layout or interaction ownership change is made.
+
+## D-108 — Qualified local minimization uses a bounded integrated parameter model
+
+Date: 2026-10-18. Status: accepted by approval of the issue #82 plan;
+implementation not started.
+
+The [approved feature plan](plans/issue-82-selection-minimization.md) extends
+D-003/D-031's original limited use of protein chemistry tooling only for an
+explicit local-minimization operation. Use one versioned `amber-local-v1` model:
+ff14SB for complete supported protein states, GAFF 1.81/AM1-BCC for supported
+organic molecules, and TIP3P for explicitly included complete waters. Integrate
+parameter generation through a separately locked AmberTools 24.8 CPU toolchain;
+retain the existing uv application environment and OpenMM 8.4.0 pin. Qualify Linux
+x86-64 first. No job installs packages or downloads parameters.
+
+OpenMM supplies energy and forces; existing SciPy L-BFGS-B optimizes a reduced
+selected-coordinate vector. Fixed atoms are never optimizer variables. Verify the
+final movable gradient independently of the solver's termination flag. Record
+model terms/units, charge convention, parameter/tool/data checksums, work,
+convergence and limitations. Qualification of this exact combination is a hard
+C1 gate; no weaker fallback may substitute for failure.
+
+Parameter assignment is distinct from chemical preparation. Require complete,
+unambiguous topology and explicit-H patterns; raw PDB/Mol* display inference is
+not calculation topology. Do not add/delete atoms, invent canonical bonds, assign
+missing ligand orders/charges, choose protonation or replace current coordinates
+with parameter-generation geometry. Uncovered, ambiguous or unsupported chemistry
+refuses the complete calculation with actionable diagnostics. Incomplete drafts
+remain editable under D-101/D-106.
+
+Initially refuse metals, unsupported ions/cofactors, nonstandard residues,
+unsupported crosslinks, isotope/radical uncertainty and covalent protein–ligand
+adducts. The user explicitly chose integrated parameters and deferred covalent
+adducts; create one focused follow-up before implementation merge. D-102's
+entry-local topology is unchanged; no implicit cross-entry bond representation is
+introduced. Broader preparation/ligand assignment/building remains #12/#52/#71.
+
+Native tooling executes only fixed allowlisted programs with generated inputs in
+managed directories, configured through `MOLWEAVE_AMBERTOOLS_PREFIX`. Extend the
+existing controlled job boundary to supervise subprocess descendants through
+cancellation, deadlines and worker/child loss. Scientific parameterization does
+not permit arbitrary user commands. Exact limits, package build, evidence and
+release gates live in the feature plan. Historical MMFF/UFF cleanup contracts and
+protein template operations retain their existing behavior.
+
+## D-109 — Explicit complete context and captured active conformers bound minimization
+
+Date: 2026-10-18. Status: accepted by approval of the issue #82 plan;
+implementation not started.
+
+Capture the central canonical selection, immutable input artifacts and one
+explicitly confirmed active conformer per entry. Empty selection is invalid;
+unselected atoms, including H, remain fixed. Do not silently expand movable
+selection. A temporary calculation assembly may span entries without merging
+their persisted molecular state. Navigation categories and renderer state do not
+define chemistry or calculation membership.
+
+Default to isolated mode, including the complete selected covalent molecule as
+necessary fixed/movable context. Environment mode explicitly adds chosen complete
+protein chains/molecular components, including hidden material. Nearby-candidate
+discovery at 12 Å is not a crop or automatic inclusion policy. Show included and
+excluded context, movable/fixed counts and conformer pairing before submission;
+mandatory covalent closure cannot be excluded. Never combine every loaded entry
+or use visibility/hydrogen-display settings as physical-input filters.
+
+Preserve complete chosen-chain topology, crossing bonds/angles/torsions,
+exclusions and scaled 1–4 interactions; no artificial termini or caps. Isolated
+bounded molecules use uncropped nonperiodic nonbonded evaluation. Environment
+calculations use nonperiodic 12 Å cutoff, 10 Å Lennard-Jones switching and
+reaction-field dielectric 78.3, with engine neighbor updates as atoms move.
+Report finite-range/omitted-context approximations rather than suggesting a full
+solvated or long-range model. Distance-cropped calculation shells are deferred
+unless measured need justifies a separately approved design.
+
+Only captured selected coordinates in captured active conformers may change;
+inactive conformers stay exact. This is specific to the new minimization
+operation and does not change D-025/D-075's existing all-conformer transforms.
+Multi-entry pairing requires explicit confirmation; unresolved alternates or
+incompatible states refuse. Batch conformer optimization is deferred. Current
+coordinate/stereo intent is validated rather than silently choosing a new
+configuration; local convergence does not certify a native conformation, binding
+pose, preparation state or clash elimination.
+
+## D-110 — Background minimization proposals apply atomically to existing entries
+
+Date: 2026-10-18. Status: accepted by approval of the issue #82 plan;
+implementation not started.
+
+Reuse D-036's generic immutable-input job lifecycle and allowlisted execution for
+`coordinates.minimize`. Add focused typed capability, submission, proposal/report
+and Apply interfaces under `/api/v1`; do not build a universal engine framework.
+Expensive preflight, parameterization and optimization stay outside HTTP/UI work.
+Completion produces an inspectable result, never a canonical mutation. Distinguish
+blocked, failed, non-converged, converged and unchanged outcomes. Non-converged
+proposals may be inspected but cannot Apply.
+
+Application-owned session state captures project/selection/context/conformer
+ownership above responsive remounts. TanStack Query owns server results; Mol*
+renders a disposable nonpickable preview. Preview cannot enter canonical query
+data, exports or molecular artifacts. Later selection/camera/project changes do
+not retarget jobs or revive discarded presentation state. Existing tool ownership,
+focus, accessibility and derived-geometry invalidation remain binding.
+
+Apply validates result integrity, project ownership, every captured source/context
+artifact and identity, current expected revision and movable-entry locks before
+publishing any molecular changes. Fixed context may be locked. Unrelated project
+changes are permissible only when captured dependencies remain exact; changed
+dependencies require rerun rather than silent rebase. Failures, cancellation,
+rejected Apply, coordinate no-ops and repeated Apply cannot create misleading or
+duplicate molecular history.
+
+Extend molecular publication to a batch while retaining existing callers. One
+command uses recognized `entry.molecule` actions and affected-entry patches to
+switch exact before/after artifacts across entries. Preserve topology, all stable
+identities, unselected rows, inactive conformers, source facts, original bytes and
+user metadata. Append operation provenance/warnings separately and invalidate
+measurements/surfaces/interactions/projections through existing paths. D-036's
+ordinary result import continues to create new entries; minimization Apply is an
+explicit distinct operation, not an import shortcut.
+
+Use existing job/artifact storage and versioned extensible normalized annotations.
+No new persisted action kind, database migration or top-level schema is planned
+(Alembic0014; project/viewer/archive2; normalized/selection1). Native archives retain
+inputs, parameters/reports and application provenance as historical records;
+archived proposals cannot Apply against remapped entry identities. Archives still
+omit portable Undo history. Actual tagged v0.19.0 reader qualification must prove
+retention; it does not promise old-runtime authoring support for minimization.
+
+The approved release target is stable minor0.20.0, subject to collision checks,
+full candidate and exact merged-master qualification. All five authoritative
+versions advance together in the implementation PR. Planning approval/persistence
+does not mean this feature works, has passed scientific tests, or has shipped.
+Stop after C0 and await `/goal`.
+
+### D-108–110 implementation note — issue #82 C1, 2026-10-18
+
+The user's `/goal` starts implementation after the verified C0 documentation
+handoff. C1 adds the opt-in isolated calculation plugin and existing-runner
+subprocess-tree ownership; C2 context, C3 Apply and C4 UI remain unimplemented at
+this checkpoint. There is no schema/migration or authoritative application-version
+change. An explicit 137-package URL/SHA256 lock installs AmberTools outside the uv
+application environment. Runtime checks record/validate the dependency fingerprint
+and 25 actual program/wrapper/scientific-data hashes; these selected files are not
+prefix-relocated in the approved package, allowing installation at another prefix.
+
+Parameter generation uses complete specified organic graphs, explicit H and
+ordinary identity evidence. Retain native raw charges and calculate a uniform
+rounding offset to the already specified formal net charge. Reject nonfinite or
+larger discrepancies than `min(0.05, 0.00051 * atom_count)` elementary charge.
+The correction is recorded in the report and raw/corrected MOL2 files, never in
+canonical formal charges. Uniform normalization follows the established
+[OpenFF charge-bookkeeping convention](https://docs.openforcefield.org/projects/toolkit/en/stable/_modules/openff/toolkit/topology/molecule.html);
+the bound is Neistra's explicit conservative model policy, not an OpenFF guarantee.
+SQM must complete; no parmchk2 missing-term extrapolation is attempted.
+
+Validate generated elements, names/order, connectivity and assigned bond-order
+representation, accepting equivalent aromatic encodings only after chemical
+perception. The tested native carboxylate output is conservatively refused because
+its bond-order representation is not qualified by this mapping. This does not
+rewrite the draft or assert that the native force-field representation is chemically
+wrong. Successful charged/stereo/aromatic/halogen examples are distinct fixtures;
+coverage is bounded by the complete model/parameter checks, not a universal claim.
+
+The worker establishes an owned POSIX job process group before plugin loading.
+Native descendants inherit that group; cancellation escalation, deadline, child
+loss and normal cleanup signal the owned group. A cooperating child detecting
+coordinator-pipe EOF kills its group on exit, including native descendants.
+Native thread pools are bounded before registry imports. Tests use real spawned
+descendants for cooperative/forced cancellation, deadlines and coordinator/child
+loss; Linux-specific process observation is explicitly scoped. Existing generic
+job transport, persistence and demonstration behavior remain the regression gate.
+
+### D-108–110 implementation note — issue #82 C2, 2026-10-18
+
+Whole chosen protein chains are matched against the checksum-locked ff14SB native
+libraries by existing named atoms, elements, explicit-H pattern and complete
+canonical connectivity, including directed peptide links and compatible termini.
+The match determines the calculation protonation template; it never repairs a
+canonical graph or chooses pH. Only standard supported states match. Conflicting
+supplied charges/orders/stereo, unsupported crosslinks/adducts, partial chains and
+single-residue chains without compatible both-termini templates refuse. Existing
+separate PDBFixer preparation now appends ordinary identity evidence for its own
+new template-generated atoms; minimization does not assume old unevidenced atoms
+are ordinary. Existing evidence and originals remain unchanged.
+
+LEaP sequences/combinations are temporary parameter models with exact canonical
+entry/atom mapping, not persisted entry merging. Validate raw AMBER labels before
+OpenMM's deliberate PDB alias normalization (terminal H1 becomes presentation H),
+then verify elements and all canonical bonds. Canonical H is deterministically
+mapped to template H1 only at N termini. Generated native geometry is ignored;
+retain actual captured start rows and reference mapping separately. ff14SB template
+chirality and current/supplied molecular stereo must survive the calculation.
+
+Environment evaluation uses OpenMM CPU/one deterministic-force thread to provide
+native dynamic neighbor handling with the approved12Å cutoff,10Å LJ switch and
+reaction-field78.3 model; no dispersion correction. Preserve native bonds, angles,
+torsions, exclusions and scaled1–4 terms across selection boundaries. AMBER TIP3P's
+auxiliary H-H internal distance is an explicitly reported engine term rather than
+new canonical connectivity; waters are unconstrained, including when selected.
+This is the pinned local model's flexible internal representation, not a general
+solvated-water accuracy claim. Fixed waters/protein/ligands can be included;
+visibility and locks do not exclude fixed context. Atom-count limits and full
+membership apply independently of the12Å candidate-discovery radius.
+
+C2 tests establish small prepared synthetic same/separate-entry context, actual
+energy/force/outcome changes, movable peptide boundaries, finite differences,
+scaled interactions, dynamic neighbors, explicit water and hidden/locked fixed
+context through the real worker. Prepared1STP, larger-assembly performance and
+full scientific coverage remain C5 gates; Apply/UI remain C3/C4. No database,
+structural schema, application dependency/version or original-file change.
+
+### D-110 implementation note — issue #82 C3, 2026-10-18
+
+The server owns source capture; clients confirm active conformers and explicit
+context atom membership, never artifact IDs/hashes as authority. Mandatory closure
+adds complete covalent components and chosen protein chains so sparse topology
+refuses scientific preflight rather than silently reducing membership. Generic
+job submission cannot bypass this boundary. Capability inspection runs outside the
+HTTP event loop; all expensive scientific work remains in the controlled worker.
+
+Atomic Apply takes SQLite's writer lock before any dependency/retry read. This
+serializes independent API-process Apply requests. Every captured current artifact,
+input/result digest, identity/conformer, selected-coordinate mask, lock and
+qualified report check must pass before after-artifact publication. A job-level
+`minimization_application` marker joins the molecular command transaction; repeated
+Apply after success or Undo refuses rather than creating duplicate history.
+This does not redesign unrelated project command concurrency.
+
+Use a batch of existing `entry.molecule` actions and exact before/after artifacts/
+summaries; preserve the original single-entry method as a wrapper. New multi-entry
+batches preserve topology. Multiple-entry deletion reconciliation is explicitly
+unsupported because sequential pruning from original viewer/selection state could
+overwrite another entry's pruning; no current minimization path deletes atoms.
+Retain existing single-entry deletion/cleanup behavior. Append compact normalized
+job/model/digest/conformer/selected-ID/dependency identities, while full capture,
+scientific reports and model inputs remain immutable job artifacts. No action kind,
+database, structural schema, migration, application version or dependency change.
+
+Existing archive provenance marks imported jobs historical, so reports remain
+inspectable but Apply refuses against remapped IDs. Do not rewrite historical
+proposal atom references or silently rebase imported results. C3 archive round-trip
+is distinct from actual tagged0.19.0-reader retention and final producer gates in
+C5/C6. Native UI/default registration remain C4.
+
+## D-111 — App-owned minimization presentation and explicit coordinate publication
+
+Accepted 2026-10-18 for issue #82 C4. The minimization session lives above responsive
+viewer remounts in an operation-specific transient store. It captures canonical
+selection, immutable artifact identities and active conformers; generation/project
+ownership guards every asynchronous continuation. Selection changes cannot retarget
+work, and discarded/project-switched presentation cannot be revived by delayed
+requests. Immutable artifact queries avoid querying a live entry under an old
+artifact cache key. Server jobs/reports remain persistent and explicitly inspectable
+from Jobs; imported historical reports never become fresh proposals.
+
+Use the existing renderer's nonpickable geometry path through a narrowed geometry
+interface, separate from canonical atoms, exports, measurements and history. Context
+choices derive from canonical full components/chains, with12 Å discovery only;
+visibility never selects physical context. Existing edit/movement/modal ownership
+clears the transient preview. Apply remains a single server-validated transaction.
+
+The user's subsequent explicit guidance requests an icon beside Edit and Ctrl+M
+that automatically minimizes selected atoms. Provide the adjacent lightning button;
+Ctrl+M captures the current selection and immediately submits default isolated,
+500-iteration work, opening progress. Keep explicit Apply under the approved
+proposal contract, as communicated to the user. Ignore text entry, modal ownership,
+modifier variants and repeated keys; concurrent starts are guarded. Selections
+spanning molecules open a diagnostic and require explicit environment choice rather
+than silently adding physical context. Missing native prerequisites are visible.
+
+Enable the dedicated plugin in the default allowlist/targets without eagerly
+loading or requiring its native installation. Keep generic submission unavailable
+for server-owned captures. Fix the existing jobs WebSocket to observe disconnect
+while idle and clean up its reader on transport-close races; unrelated defects
+remain visible. Direct ASGI lifetime tests verify cleanup rather than relying on a
+test client's forced cancellation.
+
+C4 review refinement: numerical-transform setup and minimization capture explicitly
+retire each other's pending presentation. Beginning minimization also increments
+the numerical preview generation, so a delayed transform source response cannot
+appear afterward. Starting numerical preview dismisses minimization synchronously.
+The regression exercises the actual App ownership boundary in both directions.
+Read current store loading/applying state before submissions to guard rapid repeated
+callbacks before a React render. This changes no calculation or publication physics.
+
+## D-112 — Qualify local chemistry and native work before accepting minimization results
+
+Accepted 2026-10-18 for issue #82 C5, refining D-108–110 without changing the pinned
+force field, schemas or operation scope. Unknown canonical protein fields remain
+unknown; explicit-H standard templates establish calculation state only. Validate
+independent charged groups separately: an incorrect terminal charge cannot cancel
+an incorrect side-chain charge in a matching total. Fully assigned local valence,
+Kekule placement and aromatic flags must also be compatible. Preserve every
+canonical field and refuse contradictions; do not choose a different protonation
+state. All70 supported native internal/terminal graph states are enumerated, with
+26 internal-state native parameter/force-derivative cases.
+
+The qualified AMBER/OpenMM model emits HarmonicBondForce, HarmonicAngleForce,
+PeriodicTorsionForce and NonbondedForce. Check masses, all bonded records,
+nonbonded particles and exceptions for finiteness. Unknown force kinds require
+explicit qualification instead of unchecked acceptance. Independently retain final
+energy/gradient checks. Reject singular starts before expensive native generation,
+including across entries, using a bounded spatial tree after chemistry prerequisite
+classification; retain the optimizer's independent guard. Failure-injection tests
+are refusal evidence, never a substitute for real native positive physics.
+
+The independently prepared1STP benchmark preserves all901 observed protein heavy
+rows and the complete159-residue SEQRES chain, explicitly modeling missing terminal
+residues/H outside minimization. PDBFixer's generated terminal residues included
+mirrored sites; offline preparation reflects only generated side chains into the
+standard L frame before adding H. The minimizer's strict stereo validator stays
+unchanged. Frozen data/procedure retain this assumption and all corrections; no
+observed heavy atom is corrected. Raw1STP remains unchanged and unprepared.
+
+Use the RCSB CCD BTN neutral acid as an explicitly chosen32-atom benchmark
+microstate with original ligand heavy coordinates, assigned CCD graph and verified
+three chiral centers. This is not physiological protonation prediction or anionic
+biotin qualification. Strict unqualified native carboxylate bond representations
+still refuse. Include every chosen complete chain; no distance crop/caps. A larger
+18,208-atom fixture uses eight full chains translated60Å apart plus one ligand;
+this measures bounded work, not a biological oligomer.
+
+Measure aggregate RSS of API/test/coordinator and all live descendants at20ms,
+fresh calculation processes/parameters with ordinary OS cache. Observe real SQM
+before timing cancellation. Native UI latency starts at the trusted UI event and
+ends after geometry/queue settlement and a frame; retain automation/JSON round-trip
+latency separately. Preserve existing500ms preview/cancel and750ms longest-task
+bounds, plus unchanged existing movement budgets. Do not equate automation latency
+on18k transferred atom references with native preview work.
+
+C5 review refinement: the GAFF path requires carbon-containing organic components
+and refuses explicit canonical ion components. Otherwise a monoatomic halide could
+receive covalent GAFF parameters instead of the separately qualified ionic model it
+would need. Carbon-containing charged ligands remain eligible; explicit canonical
+neutral water uses the TIP3P path. Noncarbon inorganic molecules are outside this
+organic profile. This strengthens the already approved unsupported-ion boundary;
+it does not add an ion model, reinterpret a ligand's charge or change draft editing.

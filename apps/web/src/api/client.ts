@@ -38,6 +38,10 @@ import type {
   JobDefinition,
   JobEvent,
   JobResultImport,
+  NormalizedStructure,
+  MinimizationCapabilities,
+  MinimizationRequest,
+  MinimizationProposal,
 } from "./types";
 import type { InteractionInput, InteractionResult } from "../interactions/types";
 
@@ -393,6 +397,21 @@ export const projectApi = {
         cutoff,
         minimum_distance: minimumDistance,
       }),
+    }),
+};
+
+export const minimizationApi = {
+  source: (artifactId: string) => request<NormalizedStructure>(`/api/v1/artifacts/${artifactId}`),
+  capabilities: () => request<MinimizationCapabilities>("/api/v1/minimization-capabilities"),
+  submit: (projectId: string, payload: MinimizationRequest) =>
+    request<Job>(`/api/v1/projects/${projectId}/minimizations`, {
+      method: "POST", body: JSON.stringify(payload),
+    }),
+  proposal: (projectId: string, jobId: string) =>
+    request<MinimizationProposal>(`/api/v1/projects/${projectId}/minimizations/${jobId}/proposal`),
+  apply: (projectId: string, jobId: string, expectedRevision: number, digest: string) =>
+    request<Project>(`/api/v1/projects/${projectId}/minimizations/${jobId}/apply`, {
+      method: "POST", body: JSON.stringify({ expected_revision: expectedRevision, proposal_sha256: digest }),
     }),
 };
 

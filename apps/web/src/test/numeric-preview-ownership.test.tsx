@@ -9,6 +9,7 @@ import type { WorkspaceCanvas } from "../components/WorkspaceCanvas";
 import { canonicalSelection } from "../selection/selection";
 import { useSelectionStore } from "../store/selection";
 import { useWorkspaceStore } from "../store/workspace";
+import { useMinimizationStore } from "../minimization/store";
 import { molecularProject, proteinProjection } from "./molecular-fixtures";
 
 const seen = vi.hoisted(() => ({ preview: vi.fn() }));
@@ -20,7 +21,8 @@ vi.mock("../components/WorkspaceCanvas", () => ({
       onRenderedMovementAtoms?.(() => [{ structure_id: "protein", atom_id: 1 }]);
     }, [onRenderedMovementAtoms]);
     return <><output data-testid="phase">{props.movement?.state.phase}</output>
-      <button onClick={() => props.movement?.start()}>Transform selection</button></>;
+      <button onClick={() => props.movement?.start()}>Transform selection</button>
+      <button onClick={() => void props.minimization?.begin()}>Set up minimization</button></>;
   },
 }));
 vi.mock("../components/ProjectInspector", () => ({
@@ -35,7 +37,7 @@ vi.mock("../components/ProjectInspector", () => ({
   },
 }));
 
-afterEach(() => { cleanup(); vi.restoreAllMocks(); localStorage.clear(); });
+afterEach(() => { cleanup(); vi.restoreAllMocks(); localStorage.clear(); useMinimizationStore.getState().setProject(null); });
 it("discards a delayed numerical preview cleared by movement while retaining valid numerical previews", async () => {
   const project = molecularProject();
   const projection = proteinProjection();
@@ -75,5 +77,36 @@ it("discards a delayed numerical preview cleared by movement while retaining val
   await user.click(screen.getByRole("button", { name: "Clear preview" }));
   expect(seen.preview.mock.calls.at(-1)?.[0]).toBeNull();
   expect(client.getQueryData(["structure", project.id, "protein", "current-protein"])).toEqual(projection);
+  client.clear();
+});
+
+it("invalidates delayed numerical previews when minimization captures, and dismisses minimization when numerical preview starts", async () => {
+  const project = molecularProject(), projection = proteinProjection();
+  const client = new QueryClient({ defaultOptions: { queries: { retry: false }, mutations: { retry: false } } });
+  client.setQueryData(["project", project.id], project);
+  useWorkspaceStore.setState({ activeProjectId: project.id, mobilePanel: null, theme: "light" });
+  let finish!: () => void;
+  vi.spyOn(globalThis, "fetch").mockImplementation(input => {
+    const path = typeof input === "string" ? input : input instanceof URL ? input.toString() : input.url;
+    if (path.endsWith("/entries/protein/structure")) return new Promise<Response>(resolve => { finish = () => resolve(Response.json(projection)); });
+    if (path.endsWith("/artifacts/current-protein")) return Promise.resolve(Response.json(projection.structure));
+    return Promise.resolve(Response.json(path.endsWith(`/projects/${project.id}`) ? project
+      : path === "/api/v1/projects" ? [{ ...project, entry_count: project.entries.length }] : []));
+  });
+  render(<QueryClientProvider client={client}><App /></QueryClientProvider>);
+  await waitFor(() => expect(document.querySelector(".project-switcher-label")).toHaveTextContent(project.name));
+  act(() => useSelectionStore.getState().replace(canonicalSelection([{ structure_id: "protein", atom_id: 1 }])));
+  const user = userEvent.setup();
+  await user.click(screen.getByRole("button", { name: "Numerical preview" }));
+  await waitFor(() => expect(finish).toBeDefined());
+  await user.click(screen.getByRole("button", { name: "Set up minimization" }));
+  await waitFor(() => expect(useMinimizationStore.getState().loading).toBe(false));
+  expect(useMinimizationStore.getState().open).toBe(true);
+  seen.preview.mockClear();
+  await act(async () => { finish(); await Promise.resolve(); });
+  expect(seen.preview.mock.calls.every(([preview]) => preview == null)).toBe(true);
+  await user.click(screen.getByRole("button", { name: "Numerical preview" }));
+  await waitFor(() => expect(seen.preview.mock.calls.some(([preview]) => preview != null)).toBe(true));
+  expect(useMinimizationStore.getState().open).toBe(false);
   client.clear();
 });

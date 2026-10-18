@@ -4,7 +4,7 @@ import type { InteractionRecord } from "../interactions/types";
 import type { SurfaceStatus } from "./surface/runtime";
 import type { MovementView } from "../coordinates/interactiveTransform";
 import type {
-  ModelPreview,
+  MolecularProposalGeometry,
   AtomReference,
   CameraState,
   ComponentHierarchy,
@@ -53,7 +53,7 @@ export interface MolecularViewer {
     mode: "preview" | "commit",
   ): Promise<void>;
   clearCoordinatePreview(entryId: string): Promise<void>;
-  setModelPreview?: (preview: ModelPreview | null) => Promise<void>;
+  setModelPreview?: (preview: MolecularProposalGeometry | null) => Promise<void>;
   setSelection(atoms: AtomReference[]): void;
   setPickingGranularity(granularity: SelectionGranularity): void;
   setMeasurements(measurements: ViewerMeasurement[]): Promise<void>;

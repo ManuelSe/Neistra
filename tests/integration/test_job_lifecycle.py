@@ -68,7 +68,7 @@ def test_job_completes_persists_provenance_and_imports_with_undo(
     project, entry = _project_with_structure(client)
     definitions = client.get("/api/v1/jobs/definitions")
     assert definitions.status_code == 200
-    assert definitions.json()[0]["job_type"] == DEMO_JOB_TYPE
+    assert DEMO_JOB_TYPE in {item["job_type"] for item in definitions.json()}
 
     submitted = _submit(
         client,

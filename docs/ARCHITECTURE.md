@@ -427,3 +427,47 @@ unavailable, retain coordinates, clear dependent current labels as needed and
 warn; never choose a universal tag from disagreeing conformers. Native ghost
 rendering and captured project/selection/artifact/input ownership remain shared.
 See D-105/106 and [molecular-model intent](MOLECULAR_MODEL.md).
+
+## Selection minimization publication (issue #82, C3)
+
+A focused service closes canonical membership and captures immutable artifacts and
+explicit active-conformer confirmation. A controlled worker child owns scientific
+preflight/native parameter generation/reduced-coordinate optimization. Results
+remain durable report/proposal/model artifacts, never automatic canonical changes.
+The existing generic job queue is reused; its generic submission endpoint cannot
+bypass the dedicated capture service. Native availability inspection runs off the
+HTTP event loop; no parameter generation runs in a request.
+
+Apply acquires the SQLite writer lock before current dependency/retry inspection.
+Every captured source/context and the immutable proposal must validate before
+publishing after-artifacts. One `record_molecular_changes` command batches existing
+`entry.molecule` actions; its original single-entry wrapper preserves callers.
+Molecular batches do not support multi-entry deletion reconciliation. A durable
+job-provenance application marker joins the same commit, preventing concurrent or
+later duplicate Apply even after Undo. No database/action kind/schema is added.
+Unrelated revisions may pass exact dependency checks; source changes require rerun.
+
+Normalized annotation schema1 `neistra_minimization` records compact job/model/
+proposal/dependency identities and the entry's selected active-conformer rows.
+Full memberships, report, native data and mappings remain job artifacts. Inactive
+conformers, topology, source facts, original bytes and user metadata are preserved.
+Imported archive jobs retain their generic historical provenance and results;
+`archive_source_job_id` disables Apply without rewriting proposal IDs or attempting
+a live rebase. Actual preceding-reader qualification remains a separate C5 gate.
+
+
+### Minimization presentation ownership (C4)
+
+App owns the transient minimization session above responsive viewer remounts.
+Selection/project generations and immutable artifact-keyed source queries bind a
+draft/job to its original inputs. Context derives from canonical complete
+components/chains; visibility is presentation only and12 Å is candidate discovery.
+The dedicated panel handles progress/report, explicit preview and Apply; Jobs can
+inspect persisted work after reload. Archived results remain historical.
+
+The renderer accepts a narrowed molecular-proposal geometry interface shared with
+existing placement, retaining nonpickable meshes without new canonical atom IDs.
+App invalidates numerical/minimization preview ownership in both directions before
+asynchronous capture and clears geometry before canonical mutation. Query revision
+changes refresh applicability without duplicating report cache entries. Server
+validation remains authoritative. See D-111 and [user workflow](MINIMIZATION.md).

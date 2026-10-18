@@ -76,7 +76,12 @@ class JobService:
         job_type: str,
         parameters: dict[str, Any],
         inputs: list[dict[str, str]],
+        *, minimization_capture: bool = False,
     ) -> Job:
+        if job_type == "coordinates.minimize" and not minimization_capture:
+            raise InvalidJobOperationError(
+                "Use the minimizations endpoint to capture selection, context and conformers"
+            )
         project = self.session.get(Project, project_id)
         if project is None:
             raise ProjectNotFoundError(project_id)

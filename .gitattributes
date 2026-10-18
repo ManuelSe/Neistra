@@ -1,3 +1,6 @@
 # Frozen scientific PDB inputs retain fixed-width padding and original bytes.
 tests/fixtures/interactions/2reg-original.pdb -text whitespace=-blank-at-eol
 tests/fixtures/interactions/2reg-receptor.pdb -text whitespace=-blank-at-eol
+# Prepared PDB and original CCD provenance retain their native padding/bytes.
+tests/fixtures/minimization/1stp-protein-prepared.pdb -text whitespace=-blank-at-eol
+tests/fixtures/minimization/BTN.cif -text whitespace=-blank-at-eol

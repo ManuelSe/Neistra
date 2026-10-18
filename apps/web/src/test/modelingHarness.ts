@@ -36,3 +36,27 @@ export async function inspectModelPreview(engine: MolstarEngine) {
   return { preview: native.modelPreview, objects: native.modelPreviewRepresentation.renderObjects.map(object => ({ pickable: object.state.pickable, drawCount: object.values.drawCount.ref.value })),
     representations: native.plugin.canvas3d?.reprCount.value ?? 0, canonicalAtoms: engine.getRenderedAtomReferences() };
 }
+
+/** Measure native work from the trusted UI event, excluding automation/JSON transfer.
+ * Reads the existing queue/geometry; never submits a preview or changes its owner.
+ */
+export function measurePreviewEvent(engine: MolstarEngine, target: Element, show: boolean): Promise<number> {
+  const native = engine as unknown as {
+    syncQueue: Promise<void>; modelPreview: ModelPreview | null;
+    modelPreviewRepresentation: { renderObjects: { values: { drawCount: { ref: { value: number } } } }[] };
+  };
+  return new Promise((resolve, reject) => {
+    target.addEventListener(show ? "change" : "click", event => {
+      if (!event.isTrusted) { reject(new Error("A trusted native UI event is required")); return; }
+      const start = performance.now();
+      const sample = () => {
+        const ready = show ? !!native.modelPreview && native.modelPreviewRepresentation.renderObjects.some(o => o.values.drawCount.ref.value > 0) : !native.modelPreview;
+        if (ready) {
+          void native.syncQueue.then(() => requestAnimationFrame(() => resolve(performance.now() - start)), reject);
+        } else if (performance.now() - start > 5000) reject(new Error("Native preview event did not settle"));
+        else requestAnimationFrame(sample);
+      };
+      requestAnimationFrame(sample);
+    }, { once: true, capture: true });
+  });
+}

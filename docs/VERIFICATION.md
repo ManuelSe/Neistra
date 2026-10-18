@@ -1,5 +1,118 @@
 # V0.1 Requirement Evidence
 
+## Selection minimization (issue #82, C1–C6)
+
+The [approved feature plan](plans/issue-82-selection-minimization.md) is the
+contract. [C1 final checkpoint](assets/minimization/c1-gate.json) passes862 Python,
+including46 focused prerequisite/scientific/worker cases,255 frontend,8 supervisor
+and2 native existing-job passes /2 intentional layout skips, without failures or
+retries. Native minimization cases use the locked AmberTools environment and do not
+skip. Static/type/build, isolated0014 and diff checks pass on unchanged source;
+lossless compressed logs, source/log hashes and [toolchain provenance](assets/minimization/c1-toolchain.json)
+are retained. Earlier pre-review passing diagnostics remain explicitly separate.
+
+Real GAFF1.81/AM1-BCC tests cover full/subset/H-only optimization, exact fixed rows,
+native force versus numerical energy derivatives, honest iteration-limit outcomes,
+aromatic/charged/stereo/halogen examples, sparse IDs/nonfirst active conformers,
+immutable snapshots and model-data tamper refusal. Missing/unknown chemistry,
+unqualified resonance representation, charge-rounding limits and conflicting
+tetrahedral/E/Z intent have explicit outcomes. Real worker tests retain immutable
+input/report/proposal/model artifacts and terminate descendants on cooperative or
+forced cancellation, deadline, child loss and coordinator loss.
+
+[Complete local C1 review](assets/minimization/c1-review.md) is implementer
+self-review, not independent approval. It repaired the E/Z-intent comparison gap
+before final repeated gates. C1 adds no migration, top-level schema or application
+version change. It does not establish protein-context, Apply/UI, old-reader or
+final release qualification; those remain C2–C6. Existing warning advisories remain.
+
+[C2 final checkpoint](assets/minimization/c2-gate.json) adds886 Python (70
+focused),255 frontend,8 supervisor and4 native passes /4 intentional layout skips,
+zero failures/retries and no native scientific skips. Ruff/mypy84/lint/types/build,
+isolated0014 and diff pass on unchanged source. Source/log hashes and lossless
+compressed raw logs are retained alongside [fixture hashes](assets/minimization/c2-fixtures.json),
+[toolchain provenance](assets/minimization/c2-toolchain.json) and
+[local self-review](assets/minimization/c2-review.md).
+
+Real ff14SB/GAFF context tests prove same/separate-entry equivalent mapping,
+actual energy/gradient/optimized-outcome changes, movable peptide boundary bonds/
+angles/torsions, exclusions and charge/LJ1–4 scaling, force finite differences,
+dynamic native neighbors, explicit unconstrained AMBER TIP3P water and isolated
+protein NoCutoff behavior. The real worker includes hidden/locked fixed protein
+context without changing entries or revision. Missing/ambiguous states,
+conflicting known chemistry/stereo, partial chains and adducts refuse.
+
+This is small synthetic C2 qualification, not prepared1STP/large-assembly,
+exhaustive-state, Apply/UI or preceding-reader evidence. No structural schema,
+migration, application dependency/version change. The unchanged jobs-WebSocket
+handler's transport-close traceback is retained in browser logs and assigned to
+C4 disconnect cleanup before final delivery. Later checkpoints remain required.
+
+[C3 final checkpoint](assets/minimization/c3-gate.json) passes908 Python (268
+focused),255 frontend,8 supervisor and7 native passes /7 intentional layout skips,
+zero failures/retries and no native scientific skips. Ruff/mypy87/lint/types/build,
+disposable0014 upgrade, existing migration/archive/legacy cleanup and diff pass on
+unchanged source. [Complete C3 review](assets/minimization/c3-review.md) is local
+self-review; exact commands, environments, source hashes and lossless gzip logs
+are retained.
+
+Real-worker Apply tests cover one exact multi-entry ligand/residue command,
+Undo/Redo, sparse IDs/nonfirst active/inactive conformers, original bytes/metadata,
+all dependency/lock/refusal cases, non-convergence, malformed/corrupt proposals,
+no-op and retry-after-Undo behavior. Two concurrent requests produce one command.
+Archive round-trip retains reports/model/input/provenance and marks imported
+proposals historical. This is not the actual tagged preceding-reader/performance
+qualification; C4–C6 remain required. No new migration/structural schema/version/
+dependency; minimization registration remains opt-in until the native C4 workflow.
+
+[C4 final checkpoint](assets/minimization/c4-gate.json) passes912 Python (272
+focused),265 frontend,8 supervisor,24 native browser /8 intentional layout skips,
+zero failures/retries and no native scientific skips. All12 commands pass on
+unchanged source, including static/type/build, disposable0014 and diff. Real-worker
+native cases cover full/subset isolation, same/separate entries, full GLY plus
+ligand, fixed pocket, Ctrl+M submission/explicit Apply, pure nonpickable preview,
+non-convergence/Discard, exact Undo/Redo and bounded cancellation/Jobs inspection.
+Keyboard/touch,320px,both themes, actual100/125/150/200% zoom and scoped axe pass.
+The actual App regression covers pending numerical/minimization handoff; direct
+ASGI tests verify idle/transport-race WebSocket cleanup. [Complete C4 self-review](assets/minimization/c4-review.md),
+lossless logs, source/fixture/toolchain hashes and images are retained. Interrupted
+diagnostics remain separate. Default registration now exposes the dedicated UI;
+native installation is optional for startup, required for calculation. No
+migration/schema/version/dependency change; C5/C6 qualification remains required.
+
+[C5 final checkpoint](assets/minimization/c5-gate.json) passes all15 commands:
+1036 Python (605 focused),265 frontend,8 supervisor,28 native browser /12
+intentional layout skips, no failures/retries/native scientific skips. Static/type/
+build, fresh0014 and diff pass on unchanged source. Broader coverage includes70
+native protein graph states,26 real parameter/finite-difference cases, separate
+charge groups/valence/aromatic flags, all native force parameters, singular starts,
+ion classification and honest charge failure. [Prepared fixture provenance](../tests/fixtures/minimization/README.md)
+preserves the full159-residue1STP chain and901 observed heavy rows; modeled terminal
+stereo repair and neutral CCD biotin assumptions are explicit. Raw1STP is unchanged.
+
+[Worker maxima](assets/minimization/c5-performance-summary.json) satisfy120s setup,
+60s optimization/publication,2GiB aggregate RSS and5s real-SQM cancellation for
+ligand/pocket/18,208-atom cases. Native uploaded PDB/MOL cases retain500ms preview/
+Discard and750ms longest-task bounds; existing movement assertions remain unchanged.
+Actual tagged0.19 reader paths/version, successful hashed artifact downloads, all
+canonical/conformer/original data, generic multi-entry Undo/Redo, jobs/reports/models
+and archive re-export pass. C5 producer metadata is development0.19; final0.20
+producer/complete-release/exact-merged-master gates remain C6. [Complete C5 review](assets/minimization/c5-review.md)
+is local self-review, with separate interrupted diagnostic evidence. No migration,
+schema, dependency or application-version change.
+
+[C6 final-version candidate](assets/minimization/c6-candidate-gate.json) at
+b0b061d53e6c2a6c680b9ca1891e00bcc23f3b51 passes all18 commands with unchanged
+runtime/test/tool source:1,038 Python,265 frontend,8 supervisor,264 browser /50
+intentional layout skips, no failures/retries/native scientific skips. Frozen
+installs/fresh0014/static/build/diff, five0.20.0 sources, locked native provenance
+and final0.20 producer/actual tagged0.19 reader pass. Full desktop/mobile native
+workflows, actual desktop zoom, existing movement assertions and prepared-pocket/
+18,208-atom bounds pass. [Full-diff review](assets/minimization/c6-review.md) is
+implementer self-review. Candidate starts clean; generated evidence/docs are added
+afterward without runtime changes. Exact merged-master clean qualification remains
+mandatory before tag/release; remote review/protection gates remain binding.
+
 Issue #74 follows the [approved direct-modeling plan](plans/issue-74-direct-molecular-modeling.md).
 [C1](assets/direct-modeling/c1-verification.json) passes66Python/236frontend/
 20native browser cases with no failures/flakes/retries and static/build/diff.

@@ -2,6 +2,32 @@
 
 ## Current milestone
 
+Issue #82 **C0–C6 implementation/candidate qualification complete; publication
+pending** under the [approved plan](plans/issue-82-selection-minimization.md), on
+`feat/issue-82-selection-minimization`. The adjacent lightning icon, immediate
+Ctrl+M calculation, explicit context/report/preview/Apply and exact multi-entry
+Undo/Redo are implemented. D-108–112 and [scientific limits](SCIENTIFIC_LIMITATIONS.md)
+record model, ownership and supported-chemistry boundaries.
+
+[Final 0.20.0 candidate](assets/minimization/c6-candidate-gate.json) at b0b061d
+passes all 18 commands on unchanged source: **1,038 Python, 265 frontend,
+8 supervisor, 264 browser / 50 intentional layout skips**, no failures/retries or
+native scientific skips. Frozen/fresh/static/build/diff, all five versions, native
+tooling and final0.20 producer/actual tagged0.19 reader pass. Full desktop/mobile
+workflows, existing movement budgets and prepared1STP/18,208-atom bounds pass.
+[Self-review](assets/minimization/c6-review.md), source-bound lossless logs and
+measurement/compatibility artifacts are retained; no independent approval claimed.
+
+No migration/structural-schema or application dependency upgrade. Original uploads and inactive/fixed rows
+remain exact. Complete topology/explicit H are prerequisites; unsupported chemistry,
+adducts and unqualified native resonance encodings refuse. Prepared neutral biotin
+is an explicit benchmark state. [Follow-up#86](https://github.com/ManuelSe/Neistra/issues/86)
+tracks covalent adducts. Existing Alembic/lazy-bundle advisories remain; no blocker.
+Next: PR/review/normal merge, exact-master gate, annotatedv0.20.0/release/issue reply,
+final evidence integration and delayed branch cleanup.
+
+### Previous delivery baseline — v0.19.0
+
 Issue #81 delivered under the [approved plan](plans/issue-81-local-hydrogen-reconciliation.md),
 merged in [PR #84](https://github.com/ManuelSe/Neistra/pull/84) and published as stable
 [v0.19.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.19.0). D-107 governs local
@@ -2540,11 +2566,14 @@ Results:
 
 ## Blockers
 
-No current blocker or remaining approved-scope issue #81 implementation. Publication is verified; final documentation/branch audit is linked above.
+No current external blocker. C1 passes its gates; C2's protein/context scientific
+qualification remains required before claiming that scope works. Failed scientific
+qualification requires a plan revision rather than weaker physics. Issue #81
+remains delivered.
 
 ## Next action
 
-No remaining issue #81 product implementation. Final documentation integration and
-branch/clean-master audit are recorded in the verified issue reply above. The runtime
-tag remains fixed on the qualified merged commit. Approve a separate backlog plan
-before starting broader chemistry, minimization or building work.
+Commit/push the passing issue #82 C1 checkpoint, then implement C2 explicit fixed
+protein context and multi-entry calculation. Keep later Apply/UI/release work in
+their planned checkpoints. The feature plan remains the detailed source of truth.
+Issue #81's published runtime tag remains fixed.

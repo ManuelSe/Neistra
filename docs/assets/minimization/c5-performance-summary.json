@@ -1,0 +1,18 @@
+{
+  "ligand": {
+    "setup_seconds_max": 1.277624,
+    "optimization_publication_seconds_max": 0.177017,
+    "rss_mib_max": 549.359375
+  },
+  "prepared-1stp": {
+    "setup_seconds_max": 5.818225,
+    "optimization_publication_seconds_max": 1.26252,
+    "rss_mib_max": 573.0234375
+  },
+  "large-assembly": {
+    "setup_seconds_max": 7.410585,
+    "optimization_publication_seconds_max": 10.05876,
+    "rss_mib_max": 775.97265625
+  },
+  "cancellation_seconds_max": 0.19779397209640592
+}

@@ -60,6 +60,12 @@ Preparation has stronger prerequisites and a distinct purpose. Protein preparati
 cleanup, force fields, protonation and optimization retain their own explicit
 workflows and limitations. Ordinary building does not silently invoke them.
 
+Selection minimization is an explicit calculation/proposal workflow. It consumes
+complete supported existing chemistry, captures active conformers and chosen full
+context, and varies selected coordinates only. It does not repair or certify a
+draft. Immutable reports/models are separate from temporary nonpickable preview;
+Apply is one validated reversible command. See [Selection minimization](MINIMIZATION.md).
+
 Analysis must state what chemistry it consumes. Distance measurements can use draft
 coordinates; chemistry-dependent interactions/properties may be unavailable or
 uncertain. Jobs receive immutable input snapshots, never mutable viewer state.

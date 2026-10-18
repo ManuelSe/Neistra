@@ -780,3 +780,64 @@ from captured input; stale revision/artifact requests cannot overwrite newer edi
 A successful mutation publishes one existing generic molecular command, including
 removed-H reference reconciliation and allocation floors. Standalone H/additive and
 legacy preparation/ligand/selection APIs retain their contracts. No new migration.
+
+## Selection minimization proposals (issue #82, C3)
+
+These additive interfaces use the default allowlisted `molweave.minimization`
+plugin (`molweave_core.minimization.plugin:plugin`) and
+[locked native model](../tools/README.md). The dedicated native UI is described in
+[Selection minimization](MINIMIZATION.md). The existing cleanup endpoints remain unchanged.
+
+| Method | Path | Contract |
+|---|---|---|
+| GET | `/api/v1/minimization-capabilities` | Operator/model availability, prerequisites, scientific limits and admission bounds. |
+| POST | `/api/v1/projects/{project_id}/minimizations` | Capture authoritative immutable sources and enqueue one existing job. |
+| GET | `/api/v1/projects/{project_id}/minimizations/{job_id}/proposal` | Integrity-checked report/coordinate proposal and current Apply eligibility. |
+| POST | `/api/v1/projects/{project_id}/minimizations/{job_id}/apply` | Validate every dependency and publish one reversible molecular batch. |
+
+Submission contains `expected_revision`, `mode` (`isolated` by default), canonical
+`selection`, explicit `context: [{entry_id, atom_ids}]`, a complete
+`conformers: {entry_id: active_conformer_id}` confirmation map, and optional
+`max_iterations` (default500/max2000). Context IDs must be sorted/positive/unique;
+context is empty in isolated mode. The server closes covalent membership and whole
+chosen protein chains, captures current artifact IDs/SHA256/active conformers and
+checks bounds. Visibility is irrelevant; fixed context may be locked, movable
+entries must be unlocked. It never accepts client-supplied artifact/hash authority.
+Cheap membership capture executes at submission; expensive scientific preflight,
+parameterization, optimization and final scientific checks remain in the worker.
+Generic `/jobs` submission of `coordinates.minimize` refuses; use this endpoint.
+
+Proposal responses include schema1, `job_id`, `proposal_sha256`, typed `report`,
+selected-coordinate `entries`, `applicable` and `unavailable_reason`. A completed
+job may contain a blocked/failed/non-converged/unchanged scientific report; only
+validated converged outcomes are eligible. Preview inspection is not mutation.
+A queued/running/failed lifecycle job without a completed report returns409.
+Source/context replacement/deletion or a movable lock disables eligibility; an
+unrelated revision/rename/display edit alone does not. Recheck at Apply regardless.
+
+Apply contains current `expected_revision` and the inspected `proposal_sha256`.
+SQLite takes its writer lock before dependency/retry reads. Validate project/job
+ownership, immutable proposal and input digests, selection/conformer identities,
+every included source/context current artifact, finite coordinates and qualified
+convergence/objective checks before publishing any after-artifact/history. All
+unselected rows and inactive conformers remain exact. Changes append
+`neistra_minimization` annotation schema1 with job/model/digest, own selected IDs/
+conformer and compact immutable dependency identities; complete membership/report/
+model provenance remains in the durable job artifacts. Existing source facts,
+metadata, topology, stable IDs, original uploads and allocation floors are preserved.
+
+One command uses existing `entry.molecule` actions and topology patches for all
+changed entries, with exact artifact/summary Undo/Redo. Batch publication preserves
+topology; multi-entry deletion is explicitly unsupported rather than assuming
+independent reconciliation. Existing single-entry callers retain their behavior.
+No-op displacement at most1e-9Å creates no command. The job's additive
+`provenance.minimization_application` marker is committed in the same transaction;
+retry after Apply or Undo returns409 and cannot create a second command. Original
+Undo/Redo remains the way to revisit an applied result.
+
+Native archives retain generic jobs, immutable inputs/report/proposal/model files,
+application markers and normalized annotations without a schema/migration change.
+Imported jobs carry existing `archive_source_job_id`; their reports remain
+inspectable, but proposals are historical and cannot Apply against remapped IDs.
+Archives still omit portable Undo history. Actual tagged0.19.0-reader retention
+and final-version producer qualification remain required in C5/C6.

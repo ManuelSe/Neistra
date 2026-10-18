@@ -3,7 +3,9 @@ from __future__ import annotations
 import hashlib
 import io
 import multiprocessing
+import os
 import shutil
+import signal
 import time
 from contextlib import redirect_stderr, redirect_stdout
 from dataclasses import dataclass
@@ -66,12 +68,17 @@ class _ChildContext:
         self.connection = connection
         self.work_directory = work_directory
         self._cancelled = False
+        self.parent_lost = False
 
     def is_cancelled(self) -> bool:
-        while self.connection.poll():
-            message = self.connection.recv()
-            if message == ("cancel",):
-                self._cancelled = True
+        try:
+            while self.connection.poll():
+                message = self.connection.recv()
+                if message == ("cancel",):
+                    self._cancelled = True
+        except (EOFError, OSError):
+            self.parent_lost = True
+            self._cancelled = True
         return self._cancelled
 
     def checkpoint(self) -> None:
@@ -136,9 +143,19 @@ def _execute_child(
     cpu_time_seconds: int | None,
     memory_bytes: int | None,
 ) -> None:
+    # Descendants of allowlisted native tools share the owned job process group.
+    # Establish it before plugin loading; the parent only signals a confirmed group.
+    grouped = os.name == "posix"
+    if grouped:
+        os.setsid()
+    connection.send(("process_group", os.getpid() if grouped else None))
     stdout = _PipeWriter(connection, "stdout")
     stderr = _PipeWriter(connection, "stderr")
+    context = _ChildContext(connection, Path(work_directory))
     try:
+        # Bound native thread pools before registry imports initialize NumPy/BLAS.
+        os.environ["OPENBLAS_NUM_THREADS"] = "1"
+        os.environ["OMP_NUM_THREADS"] = "1"
         _apply_resource_limits(cpu_time_seconds, memory_bytes)
         registry = PluginRegistry.load(
             allowlist=allowlist,
@@ -161,7 +178,6 @@ def _execute_child(
             )
             for item in child_inputs
         )
-        context = _ChildContext(connection, Path(work_directory))
         with redirect_stdout(stdout), redirect_stderr(stderr):
             result = registered.plugin.execute(job_type, validated, inputs, context)
         stdout.flush()
@@ -184,7 +200,11 @@ def _execute_child(
             )
         )
     finally:
+        context.is_cancelled()  # Detect a lost coordinator even during error reporting.
         connection.close()
+        if grouped and context.parent_lost:
+            # Worker disappearance must not strand antechamber/sqm descendants.
+            os.killpg(os.getpid(), signal.SIGKILL)
 
 
 class JobWorker:
@@ -281,10 +301,30 @@ class JobWorker:
         started = time.monotonic()
         cancel_sent_at: float | None = None
         terminal_received = False
+        process_group: int | None = None
+        pipe_closed = False
+
+        def stop_tree() -> None:
+            if process_group is not None:
+                try:
+                    os.killpg(process_group, signal.SIGKILL)
+                except ProcessLookupError:
+                    pass
+            elif process.is_alive():
+                process.terminate()
+
         try:
-            while process.is_alive() or parent.poll():
-                while parent.poll(0.02):
-                    message = parent.recv()
+            while process.is_alive() or (not pipe_closed and parent.poll()):
+                while not pipe_closed and parent.poll(0.02):
+                    try:
+                        message = parent.recv()
+                    except EOFError:
+                        pipe_closed = True
+                        break
+                    if message[0] == "process_group":
+                        if message[1] == process.pid:
+                            process_group = int(message[1])
+                        continue
                     terminal_received = self._handle_message(job.id, message)
                     if terminal_received:
                         break
@@ -294,13 +334,16 @@ class JobWorker:
                     persisted = JobService(session, self.settings, self.registry).get(job.id)
                     cancel_requested = persisted.cancellation_requested
                 if cancel_requested and cancel_sent_at is None:
-                    parent.send(("cancel",))
+                    try:
+                        parent.send(("cancel",))
+                    except (BrokenPipeError, EOFError):
+                        pipe_closed = True
                     cancel_sent_at = time.monotonic()
                 if (
                     cancel_sent_at is not None
                     and time.monotonic() - cancel_sent_at > policy.cancellation_grace_seconds
                 ):
-                    process.terminate()
+                    stop_tree()
                     process.join(timeout=2)
                     with self.session_factory() as session:
                         JobService(session, self.settings, self.registry).cancelled(
@@ -309,7 +352,7 @@ class JobWorker:
                     terminal_received = True
                     break
                 if time.monotonic() - started > policy.wall_time_seconds:
-                    process.terminate()
+                    stop_tree()
                     process.join(timeout=2)
                     with self.session_factory() as session:
                         JobService(session, self.settings, self.registry).fail(
@@ -329,9 +372,8 @@ class JobWorker:
                         f"Plugin process exited with code {process.exitcode}",
                     )
         finally:
-            if process.is_alive():
-                process.terminate()
-                process.join(timeout=2)
+            stop_tree()
+            process.join(timeout=2)
             parent.close()
             shutil.rmtree(work_directory, ignore_errors=True)
 
