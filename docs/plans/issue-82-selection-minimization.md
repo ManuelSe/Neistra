@@ -867,3 +867,10 @@ attachment hashes are in c5-browser-artifacts.json. No runtime/test changes.
   API/data/compatibility, rollback, C5 evidence and pending final-version gates.
   Next: `chore(release): prepare v0.20.0`, then clean complete release matrix,
   final0.20 producer/actual0.19 reader and full-diff review before PR/publication.
+
+C6 candidate diagnostic: the first full final-version run caught an explicit archive
+producer assertion still set to0.19.0. Corrected it to0.20.0 and added0.18/0.19
+archive-label retention cases without changing compatibility behavior. The focused
+archive suite passes. Interrupted evidence is separate; a clean complete gate is
+repeated on the corrected source. This does not substitute version labels for the
+actual tagged-reader harness.
