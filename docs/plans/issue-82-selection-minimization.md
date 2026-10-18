@@ -2,7 +2,7 @@
 
 ## 1. Status, outcome and authority
 
-Status: approved implementation contract; C0–M5/C5 complete; C6 final-version release candidate in progress.
+Status: approved implementation contract; C0–C6 complete; final-version candidate qualified; PR/merge/publication pending.
 The user's 2026-10-18 `/goal` starts C1–C6 and release
 delivery; C0's original planning-only stop has been satisfied.
 
@@ -895,3 +895,30 @@ behavior. The row wraps instead of shrinking a complete movement group. Commit
 `fix(editor): preserve narrow movement controls beside minimization`, Refs#82.
 Next: fresh clean complete18-command candidate gate; diagnostic runs are not
 release qualification.
+
+
+2026-10-18 — C6 candidate qualification complete:
+
+- Release preparation is ea15952; archive-version qualification is ec37933. The
+  [clean-start candidate gate](../assets/minimization/c6-candidate-gate.json) passes
+  all 18 commands on b0b061d53e6c2a6c680b9ca1891e00bcc23f3b51 with unchanged runtime/
+  test/tool source: **1,038 Python, 265 frontend, 8 supervisor, 264 browser passes /
+  50 intentional layout skips**, zero failures/retries/native scientific skips.
+- Frozen installs, fresh0014, Ruff/mypy87/lint/types/build/diff, five0.20.0 sources,
+  verified native programs/model data and final0.20 producer/actual tagged0.19
+  reader pass. Canonical all-conformer/original data, multi-entry history, jobs/
+  model/report/provenance and save/archive import/re-export remain exact. No migration.
+- Full default desktop/mobile matrix includes native minimization, explicit context,
+  Ctrl+M/Apply, accessibility, actual desktop zoom, existing movement budgets and
+  prepared-pocket/18,208-atom measurements. Lossless logs/source identities and
+  browser/worker artifacts are retained. Diagnostics remain separately labeled.
+- [Final full-diff local review](../assets/minimization/c6-review.md) is implementer
+  self-review, not independent approval. No unresolved consequential finding.
+  Clarified historical archive proposal artifacts versus transient preview display;
+  no runtime/test/tool change after the gate. Existing398 Alembic warnings and
+  lazy-Mol* advisory remain. The global product/plan, raw1STP and historical
+  decision prefix remain byte-exact. Adduct follow-up#86 remains deferred.
+- C6 implementation/review candidate is coherent and qualified. Next: push evidence,
+  open the normal-merge PR, request available integration review and audit current
+  remote gates. Exact merged-master qualification, annotatedv0.20.0, stable release,
+  issue reply, final evidence integration and delayed branch cleanup remain required.

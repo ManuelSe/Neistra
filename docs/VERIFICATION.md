@@ -1,6 +1,6 @@
 # V0.1 Requirement Evidence
 
-## Selection minimization (issue #82, C1–C5)
+## Selection minimization (issue #82, C1–C6)
 
 The [approved feature plan](plans/issue-82-selection-minimization.md) is the
 contract. [C1 final checkpoint](assets/minimization/c1-gate.json) passes862 Python,
@@ -100,6 +100,18 @@ and archive re-export pass. C5 producer metadata is development0.19; final0.20
 producer/complete-release/exact-merged-master gates remain C6. [Complete C5 review](assets/minimization/c5-review.md)
 is local self-review, with separate interrupted diagnostic evidence. No migration,
 schema, dependency or application-version change.
+
+[C6 final-version candidate](assets/minimization/c6-candidate-gate.json) at
+b0b061d53e6c2a6c680b9ca1891e00bcc23f3b51 passes all18 commands with unchanged
+runtime/test/tool source:1,038 Python,265 frontend,8 supervisor,264 browser /50
+intentional layout skips, no failures/retries/native scientific skips. Frozen
+installs/fresh0014/static/build/diff, five0.20.0 sources, locked native provenance
+and final0.20 producer/actual tagged0.19 reader pass. Full desktop/mobile native
+workflows, actual desktop zoom, existing movement assertions and prepared-pocket/
+18,208-atom bounds pass. [Full-diff review](assets/minimization/c6-review.md) is
+implementer self-review. Candidate starts clean; generated evidence/docs are added
+afterward without runtime changes. Exact merged-master clean qualification remains
+mandatory before tag/release; remote review/protection gates remain binding.
 
 Issue #74 follows the [approved direct-modeling plan](plans/issue-74-direct-molecular-modeling.md).
 [C1](assets/direct-modeling/c1-verification.json) passes66Python/236frontend/

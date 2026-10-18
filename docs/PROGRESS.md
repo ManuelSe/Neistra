@@ -2,39 +2,29 @@
 
 ## Current milestone
 
-Issue #82 **M5/C5 complete; C6 release candidate in progress** under the
-[approved plan](plans/issue-82-selection-minimization.md), on
-`feat/issue-82-selection-minimization`. C5 and movement attachments are remotely verified at `488010a`.
-The adjacent icon/Ctrl+M, explicit context/report/preview/Apply and exact multi-entry
-Undo/Redo are native. Broader science qualifies70 protein graph states/26 native
-force-derivative cases. Review hardened charge groups, known valence/aromaticity,
-all native parameters, singular starts and inorganic-ion refusal. D-112 and
-[scientific limits](SCIENTIFIC_LIMITATIONS.md) retain the decisions.
+Issue #82 **C0–C6 implementation/candidate qualification complete; publication
+pending** under the [approved plan](plans/issue-82-selection-minimization.md), on
+`feat/issue-82-selection-minimization`. The adjacent lightning icon, immediate
+Ctrl+M calculation, explicit context/report/preview/Apply and exact multi-entry
+Undo/Redo are implemented. D-108–112 and [scientific limits](SCIENTIFIC_LIMITATIONS.md)
+record model, ownership and supported-chemistry boundaries.
 
-[Final C5 gate](assets/minimization/c5-gate.json):1036 Python (605 focused),265
-frontend,8 supervisor,28 browser /12 intentional layout skips; all15 commands pass
-on unchanged source with no failures/retries/native scientific skips. Ruff/mypy87/
-lint/types/build, fresh0014 and diff pass. [Measurements](assets/minimization/c5-performance-summary.json)
-meet120s setup/60s optimization/2GiB/5s cancellation for ligand, prepared1STP and
-18,208 atoms. Native500ms/750ms and existing movement bounds pass. Actual tagged0.19
-retains data/conformers/history/jobs/reports/models/archive re-export; final0.20
-producer repetition remains C6. [Complete local review](assets/minimization/c5-review.md),
-lossless source-bound logs, hashes and artifacts are retained; diagnostics separate.
-No independent approval is claimed.
+[Final 0.20.0 candidate](assets/minimization/c6-candidate-gate.json) at b0b061d
+passes all 18 commands on unchanged source: **1,038 Python, 265 frontend,
+8 supervisor, 264 browser / 50 intentional layout skips**, no failures/retries or
+native scientific skips. Frozen/fresh/static/build/diff, all five versions, native
+tooling and final0.20 producer/actual tagged0.19 reader pass. Full desktop/mobile
+workflows, existing movement budgets and prepared1STP/18,208-atom bounds pass.
+[Self-review](assets/minimization/c6-review.md), source-bound lossless logs and
+measurement/compatibility artifacts are retained; no independent approval claimed.
 
-Prepared full159-residue1STP retains901 observed heavy rows, with disclosed offline
-modeled-terminal stereo repair/H and neutral CCD biotin assumptions. Raw1STP remains
-unchanged. Unsupported adducts/crosslinks, unqualified carboxylate encodings and other
-profile limits refuse. Existing Alembic/lazy-bundle advisories remain. No blocker or new
-migration/schema/dependency change. Current master remainsb1fad2c/latest stable0.19;
-no0.20 tag collision. Five sources are prepared at0.20.0 with release notes and
-[follow-up#86](https://github.com/ManuelSe/Neistra/issues/86) verified. The full candidate caught a320px movement-toolbar overlap from the added sibling
-button (263 browser passes/50 intentional skips/one failure). The shared row now
-wraps; all7 focused web/static/build/native checks pass, including the unchanged
-previously failing touch/both-theme/320px case. A fresh complete candidate repeat
-remains required.
-Diagnostic logs/trace are retained separately. Next: qualify and commit the layout
-correction, repeat the clean full gate, then PR/review/merge and exact-master release.
+No migration/structural-schema or application dependency upgrade. Original uploads and inactive/fixed rows
+remain exact. Complete topology/explicit H are prerequisites; unsupported chemistry,
+adducts and unqualified native resonance encodings refuse. Prepared neutral biotin
+is an explicit benchmark state. [Follow-up#86](https://github.com/ManuelSe/Neistra/issues/86)
+tracks covalent adducts. Existing Alembic/lazy-bundle advisories remain; no blocker.
+Next: PR/review/normal merge, exact-master gate, annotatedv0.20.0/release/issue reply,
+final evidence integration and delayed branch cleanup.
 
 ### Previous delivery baseline — v0.19.0
 

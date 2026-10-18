@@ -3,7 +3,7 @@
 ## 0.20.0 - 2026-10-18 - Selection minimization
 
 Release candidate under the [approved issue #82 plan](plans/issue-82-selection-minimization.md).
-Publication follows complete final-version candidate and exact merged-master gates.
+The complete final-version candidate gate passes; publication requires the exact merged-master gate.
 Proposed annotated tag: `v0.20.0`; no publication is claimed by this preparation.
 
 ### User workflow and fixes
@@ -22,7 +22,8 @@ candidates; 12 Å is discovery only. Active conformers and movable/fixed counts 
 explicit. Later selection cannot retarget work. App-owned generations and immutable
 artifact queries preserve ownership across project changes/responsive remounts,
 including the numerical/minimization preview handoff. Jobs WebSocket disconnect and
-transport-close cleanup is verified.
+transport-close cleanup is verified. The shared action row wraps at narrow widths
+so movement controls retain their touch targets beside Minimize.
 
 One atomic Apply updates selected rows only and creates one exact multi-entry
 Undo/Redo command. Every selected/fixed dependency, digest, conformer and movable
@@ -87,7 +88,7 @@ No database/structural-schema migration: Alembic 0014, project/viewer/archive 2,
 normalized/selection 1. Generic `entry.molecule` history retains exact Undo/Redo;
 archive Undo remains nonportable. Actual tagged v0.19 retention covers originals,
 all conformers, generic multi-entry history, jobs/reports/models and archive
-re-export. Final 0.20 producer repetitions remain required before publication.
+re-export. Final 0.20 producer / actual tagged 0.19 reader repetition passes in the candidate gate.
 Older runtimes retain data but do not author minimization; upgrade client/API
 together. Back up the managed directory for rollback and preserve downgrade guards.
 
@@ -115,8 +116,13 @@ browser/OS memory is excluded. Native trusted-event preview/Discard stay below
 Existing movement performance assertions remain unchanged and passing. These are
 pinned-host bounds, not universal hardware guarantees. [Exact evidence](assets/minimization/c5-performance-summary.json).
 
-Final-version clean candidate, complete release matrix, full-diff review and exact
-merged-master evidence are required before tag/release. Existing Alembic deprecation
+The [final-version candidate](assets/minimization/c6-candidate-gate.json) passes all
+18 commands: 1,038 Python, 265 frontend, 8 supervisor, 264 browser / 50 intentional
+layout skips, no failures/retries/native scientific skips. Frozen/fresh/static/build/
+diff, five versions, verified native tooling and actual 0.19 reader / final 0.20
+producer pass. [Full-diff self-review](assets/minimization/c6-review.md) has no
+unresolved consequential finding. Exact merged-master evidence remains required
+before tag/release. Existing Alembic deprecation
 and lazy Mol* bundle advisories remain. No independent review is claimed unless a
 review actually returns; protections/checks/required human approval remain binding.
 

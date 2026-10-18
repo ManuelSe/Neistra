@@ -1,0 +1,27 @@
+{
+  "ligand": {
+    "setup_seconds_max": 1.306659,
+    "optimization_publication_seconds_max": 0.444764,
+    "rss_mib_max": 550.859375
+  },
+  "prepared-1stp": {
+    "setup_seconds_max": 5.782012,
+    "optimization_publication_seconds_max": 1.295111,
+    "rss_mib_max": 570.57421875
+  },
+  "large-assembly": {
+    "setup_seconds_max": 7.32179,
+    "optimization_publication_seconds_max": 9.969371,
+    "rss_mib_max": 772.98046875
+  },
+  "cancellation": [
+    {
+      "descendants_stopped": true,
+      "native_sqm_pids_observed": [
+        1444492
+      ],
+      "seconds": 0.1981459860689938,
+      "status": "cancelled"
+    }
+  ]
+}
