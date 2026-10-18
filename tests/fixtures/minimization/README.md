@@ -47,3 +47,48 @@ tests use the real archive reader and real native calculations, with no mocked
 scientific result or production fixture route. `long-alkane.mol` is explicit-H
 n-octacontane, RDKit seed82, exported through the normal MOL adapter, for cancellation
 during bounded AM1-BCC generation. It is not a benchmark for large-protein accuracy.
+
+C5 `1stp-protein.normalized.json` is an explicitly prepared independent benchmark
+from unchanged raw `../complex/1stp.pdb`, SHA256
+`6fbb3d5c324e717fe7284703426e74ea58191431720daab1b2faa0bbb6430f30`.
+`prepare_minimization_1stp.py` uses PDBFixer Reference, missing-atom seed82, full159
+SEQRES residues (including absent1–12 and134–159), and explicit H at pH7. All901
+observed heavy rows remain within1e-6Å. Generated terminal side chains with a negative
+(N−CA,C−CA,CB−CA) scalar triple product are reflected into the standard L frame before
+H placement; the procedure refuses to correct observed residues. `1stp-preparation.json`
+records the exact modeled residue/chirality list. This is offline, disclosed model
+preparation, not production minimization repair. Frozen H/model coordinates are not
+claimed to regenerate bit-for-bit or represent experimental unresolved termini.
+
+`BTN.cif` is the [RCSB CCD](https://files.rcsb.org/ligands/download/BTN.cif) downloaded
+2026-10-18, SHA256
+`9fff069dc9e0387d49c3ef62cab0867a10dae56274931a779fb87f377b9c11ea`.
+`1stp-biotin.normalized.json` assigns that explicit neutral-acid graph/charges to
+all16 raw BTN heavy coordinates, checks CCD S/R/S center identities independently
+with RDKit, and explicitly adds H. This32-atom benchmark is not a physiological
+microstate claim or qualification of anionic biotin. Waters/ions are explicitly
+excluded. No distance-cropped chain, artificial cap or binding-energy claim.
+
+```bash
+PYTHONPATH=apps/api/src:packages/molweave_core/src:packages/molweave_demo_plugin/src OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python -m tests.support.prepare_minimization_1stp
+PYTHONPATH=apps/api/src:packages/molweave_core/src:packages/molweave_demo_plugin/src .venv/bin/python -m tests.support.generate_minimization_fixtures --benchmark
+```
+
+The latter exports `1stp-protein-prepared.pdb` (all canonical CONECT edges, rounded
+PDB coordinates) and `1stp-biotin-prepared.mol`. Native browser tests perform real
+uploads and calculations from these formats. The larger18,208-atom case retains
+eight complete protein copies translated60Å apart plus one ligand; it is an
+operational capacity fixture, not a biological oligomer. Core timing uses frozen
+JSON precision; browser cases separately qualify format round-trip precision.
+
+`protein-state-graphs.json` snapshots all70 supported native internal/terminal
+states from the same locked libraries. Coverage/charge/valence tests use these
+graphs;26 internal-state native tests compare the snapshot to the installed library,
+construct real models and check forces against central energy differences. These
+model-derived graphs are coverage evidence, not independent physical accuracy or
+experimental protein structures. Generated chain coordinates are deliberately
+separated coverage fixtures; prepared1STP provides independent observed geometry.
+
+C5 negative qualification also refuses monoatomic halides and explicitly classified
+ion components before native GAFF generation. This does not exclude supported
+carbon-containing charged ligands or the distinct explicit TIP3P water path.

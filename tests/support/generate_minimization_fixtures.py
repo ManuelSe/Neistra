@@ -6,6 +6,7 @@ Archives preserve explicitly assigned canonical chemistry that PDB cannot encode
 
 from __future__ import annotations
 
+import argparse
 import tempfile
 from pathlib import Path
 
@@ -21,7 +22,21 @@ from tests.support.minimization import combined, molecule, peptide, translated
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--benchmark", action="store_true", help="Only export prepared1STP PDB/MOL")
+    args = parser.parse_args()
     output = Path(__file__).parents[1] / "fixtures/minimization"
+    if args.benchmark:
+        from molweave_core.molecular import NormalizedStructureV1
+
+        registry = create_default_registry()
+        for stem, format_name in [("protein", "pdb"), ("biotin", "mol")]:
+            structure = NormalizedStructureV1.from_bytes(
+                (output / f"1stp-{stem}.normalized.json").read_bytes()
+            )
+            native = registry.for_format(format_name).export(structure, f"1stp-{stem}-prepared")
+            (output / f"1stp-{stem}-prepared.{format_name}").write_bytes(native.data)
+        return
     ligand = translated(molecule(), (2.0, 4.0, 3.5))
     with tempfile.TemporaryDirectory(prefix="neistra-minimization-fixtures-") as directory:
         settings = Settings(

@@ -2,31 +2,33 @@
 
 ## Current milestone
 
-Issue #82 **M4/C4 complete; C5 qualification next** under the
+Issue #82 **M5/C5 complete; C6 release candidate next** under the
 [approved plan](plans/issue-82-selection-minimization.md), on
-`feat/issue-82-selection-minimization`. C0–C3 are remotely verified (C3 `7d89c11`).
-The icon beside Edit and Ctrl+M capture canonical selection; the shortcut immediately
-starts isolated work, retaining explicit Apply. Complete context/conformer choices,
-progress/cancel, report, nonpickable preview, atomic Apply/Undo and Jobs inspection
-work natively. App-owned generations/immutable artifact queries prevent retargeting/
-resurrection across project changes/remounts. Numerical/minimization handoffs and
-jobs-WebSocket disconnect cleanup are verified. D-111 and [guidance](MINIMIZATION.md).
+`feat/issue-82-selection-minimization`. C4 is remotely verified at `8ced1f1`.
+The adjacent icon/Ctrl+M, explicit context/report/preview/Apply and exact multi-entry
+Undo/Redo are native. Broader science qualifies70 protein graph states/26 native
+force-derivative cases. Review hardened charge groups, known valence/aromaticity,
+all native parameters, singular starts and inorganic-ion refusal. D-112 and
+[scientific limits](SCIENTIFIC_LIMITATIONS.md) retain the decisions.
 
-[Final C4 gate](assets/minimization/c4-gate.json):912 Python (272 focused),265
-frontend,8 supervisor,24 browser /8 intentional layout skips; zero failures/retries
-and no native scientific skips. Ruff/mypy87/lint/types/build, disposable0014 and diff
-pass on unchanged source. Full/subset isolation, same/separate-entry ligand/residue,
-fixed pocket, pure preview/non-convergence/Discard/exact Undo, cancellation/Jobs,
-keyboard/touch/320px/both themes and real100–200% zoom pass. [Local complete review](assets/minimization/c4-review.md),
-lossless logs, hashes and images retained; diagnostics remain separate. No
-independent approval is claimed.
+[Final C5 gate](assets/minimization/c5-gate.json):1036 Python (605 focused),265
+frontend,8 supervisor,28 browser /12 intentional layout skips; all15 commands pass
+on unchanged source with no failures/retries/native scientific skips. Ruff/mypy87/
+lint/types/build, fresh0014 and diff pass. [Measurements](assets/minimization/c5-performance-summary.json)
+meet120s setup/60s optimization/2GiB/5s cancellation for ligand, prepared1STP and
+18,208 atoms. Native500ms/750ms and existing movement bounds pass. Actual tagged0.19
+retains data/conformers/history/jobs/reports/models/archive re-export; final0.20
+producer repetition remains C6. [Complete local review](assets/minimization/c5-review.md),
+lossless source-bound logs, hashes and artifacts are retained; diagnostics separate.
+No independent approval is claimed.
 
-Known limits: broader science, prepared1STP/larger-assembly measurements and actual
-tagged0.19 reader remain C5; final0.20 versions/review/publication remain C6. Strict
-organic resonance mapping and unsupported states/adducts/crosslinks refuse. Existing
-Alembic/lazy-bundle advisories remain. No blocker/migration/schema/dependency/version
-change. Delivered runtime0.19.0; planned stable minor0.20.0. Next: commit/push C4,
-then complete C5 qualification.
+Prepared full159-residue1STP retains901 observed heavy rows, with disclosed offline
+modeled-terminal stereo repair/H and neutral CCD biotin assumptions. Raw1STP remains
+unchanged. Unsupported adducts/crosslinks, unqualified carboxylate encodings and other
+profile limits refuse. Existing Alembic/lazy-bundle advisories remain. No blocker or
+migration/schema/dependency/version change; runtime0.19.0, planned stable minor0.20.0.
+Next: commit/push C5, then current-base/version checks, release preparation and full
+C6 review/verification/publication.
 
 ### Previous delivery baseline — v0.19.0
 

@@ -161,3 +161,24 @@ def test_native_projection_uses_only_generated_labels_not_user_script_text() -> 
     text, names = write_calculation_mol2(value)
     assert "user_text" not in text and "source another-file" not in text
     assert len(set(names)) == len(structure.atoms)
+
+
+@pytest.mark.parametrize("smiles", ["[Cl-]", "[Br-]", "[I-]", "N", "O"])
+def test_inorganic_components_cannot_enter_the_organic_gaff_path(smiles):
+    parameters, inputs = capture(molecule(smiles))
+    before = inputs[0].data
+    with pytest.raises(CalculationError, match="inorganic ions are unsupported"):
+        isolated_preflight(parameters, inputs)
+    assert inputs[0].data == before
+
+
+def test_explicit_ion_classification_cannot_be_ignored_for_an_organic_graph():
+    source = molecule()
+    source = source.model_copy(
+        update={
+            "residues": [r.model_copy(update={"component_type": "ion"}) for r in source.residues]
+        }
+    )
+    parameters, inputs = capture(source)
+    with pytest.raises(CalculationError, match="inorganic ions are unsupported"):
+        isolated_preflight(parameters, inputs)

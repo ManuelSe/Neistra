@@ -4478,3 +4478,56 @@ appear afterward. Starting numerical preview dismisses minimization synchronousl
 The regression exercises the actual App ownership boundary in both directions.
 Read current store loading/applying state before submissions to guard rapid repeated
 callbacks before a React render. This changes no calculation or publication physics.
+
+## D-112 — Qualify local chemistry and native work before accepting minimization results
+
+Accepted 2026-10-18 for issue #82 C5, refining D-108–110 without changing the pinned
+force field, schemas or operation scope. Unknown canonical protein fields remain
+unknown; explicit-H standard templates establish calculation state only. Validate
+independent charged groups separately: an incorrect terminal charge cannot cancel
+an incorrect side-chain charge in a matching total. Fully assigned local valence,
+Kekule placement and aromatic flags must also be compatible. Preserve every
+canonical field and refuse contradictions; do not choose a different protonation
+state. All70 supported native internal/terminal graph states are enumerated, with
+26 internal-state native parameter/force-derivative cases.
+
+The qualified AMBER/OpenMM model emits HarmonicBondForce, HarmonicAngleForce,
+PeriodicTorsionForce and NonbondedForce. Check masses, all bonded records,
+nonbonded particles and exceptions for finiteness. Unknown force kinds require
+explicit qualification instead of unchecked acceptance. Independently retain final
+energy/gradient checks. Reject singular starts before expensive native generation,
+including across entries, using a bounded spatial tree after chemistry prerequisite
+classification; retain the optimizer's independent guard. Failure-injection tests
+are refusal evidence, never a substitute for real native positive physics.
+
+The independently prepared1STP benchmark preserves all901 observed protein heavy
+rows and the complete159-residue SEQRES chain, explicitly modeling missing terminal
+residues/H outside minimization. PDBFixer's generated terminal residues included
+mirrored sites; offline preparation reflects only generated side chains into the
+standard L frame before adding H. The minimizer's strict stereo validator stays
+unchanged. Frozen data/procedure retain this assumption and all corrections; no
+observed heavy atom is corrected. Raw1STP remains unchanged and unprepared.
+
+Use the RCSB CCD BTN neutral acid as an explicitly chosen32-atom benchmark
+microstate with original ligand heavy coordinates, assigned CCD graph and verified
+three chiral centers. This is not physiological protonation prediction or anionic
+biotin qualification. Strict unqualified native carboxylate bond representations
+still refuse. Include every chosen complete chain; no distance crop/caps. A larger
+18,208-atom fixture uses eight full chains translated60Å apart plus one ligand;
+this measures bounded work, not a biological oligomer.
+
+Measure aggregate RSS of API/test/coordinator and all live descendants at20ms,
+fresh calculation processes/parameters with ordinary OS cache. Observe real SQM
+before timing cancellation. Native UI latency starts at the trusted UI event and
+ends after geometry/queue settlement and a frame; retain automation/JSON round-trip
+latency separately. Preserve existing500ms preview/cancel and750ms longest-task
+bounds, plus unchanged existing movement budgets. Do not equate automation latency
+on18k transferred atom references with native preview work.
+
+C5 review refinement: the GAFF path requires carbon-containing organic components
+and refuses explicit canonical ion components. Otherwise a monoatomic halide could
+receive covalent GAFF parameters instead of the separately qualified ionic model it
+would need. Carbon-containing charged ligands remain eligible; explicit canonical
+neutral water uses the TIP3P path. Noncarbon inorganic molecules are outside this
+organic profile. This strengthens the already approved unsupported-ion boundary;
+it does not add an ion model, reinterpret a ligand's charge or change draft editing.

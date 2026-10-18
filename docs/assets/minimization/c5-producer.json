@@ -1,0 +1,8 @@
+{
+  "producer": "0.19.0",
+  "cases": 2,
+  "all_conformers_and_multi_entry": true,
+  "api_module": "/datadisk/dev/neistra/apps/api/src/molweave_api/main.py",
+  "core_module": "/datadisk/dev/neistra/packages/molweave_core/src/molweave_core/__init__.py",
+  "application_version": "0.19.0"
+}

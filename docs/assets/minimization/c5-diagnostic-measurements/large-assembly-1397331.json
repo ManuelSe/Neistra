@@ -1,0 +1,24 @@
+{
+  "assembly_atoms": 18208,
+  "case": "large-assembly",
+  "iterations": 206,
+  "maximum_gradient": 6.981287300304015,
+  "measurement": "20ms /proc RSS sum: test/API/coordinator parent and all live descendants; fresh child/parameters, ordinary OS cache; not whole browser/OS memory",
+  "model": "amber-local-v1",
+  "movable_atoms": 32,
+  "optimization_plus_publication_seconds": 9.983737,
+  "outcome": "converged",
+  "peak_aggregate_rss_bytes": 814256128,
+  "process_names": [
+    "antechamber",
+    "pytest",
+    "python3",
+    "sh",
+    "sqm",
+    "teLeap",
+    "tleap"
+  ],
+  "rss_samples": 317,
+  "setup_seconds": 7.376044,
+  "total_worker_seconds": 17.543070230982266
+}

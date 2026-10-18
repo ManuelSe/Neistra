@@ -1,0 +1,62 @@
+{
+  "tests/fixtures/minimization/1stp-biotin-prepared.mol": {
+    "bytes": 2760,
+    "sha256": "5db7012470bc5de0ee4fc3cbf44c09d448cefdd0aabb3dcd1458a821c3123fdd"
+  },
+  "tests/fixtures/minimization/1stp-biotin.normalized.json": {
+    "bytes": 15813,
+    "sha256": "52e83a7ca8e6a2cc2587429ecf4d9c91dcd29bf3c9c854426feef10e05a7367c"
+  },
+  "tests/fixtures/minimization/1stp-preparation.json": {
+    "bytes": 1575,
+    "sha256": "967cb245e2e3cc3a6499251470f7867a84b7352488f77ec16e118609623776b4"
+  },
+  "tests/fixtures/minimization/1stp-protein-prepared.pdb": {
+    "bytes": 223124,
+    "sha256": "0bf4d7139456895ad7c9797ffd517461fbc86811a34bba11aa899b5265e420d2"
+  },
+  "tests/fixtures/minimization/1stp-protein.normalized.json": {
+    "bytes": 1173513,
+    "sha256": "cae65a3ff6367fe0dae67177c11c6122156794057fcd612f392569f6b0c62336"
+  },
+  "tests/fixtures/minimization/BTN.cif": {
+    "bytes": 9167,
+    "sha256": "9fff069dc9e0387d49c3ef62cab0867a10dae56274931a779fb87f377b9c11ea"
+  },
+  "tests/fixtures/minimization/README.md": {
+    "bytes": 6349,
+    "sha256": "3085a04eb272e5c26f8c3d1eaee5b5fd5ea503c06681691314a2e84f2b7bf23f"
+  },
+  "tests/fixtures/minimization/isolated.molweave.zip": {
+    "bytes": 8693,
+    "sha256": "0c3d3c5b0ab85b41cfb6aec09b6bc2f01ab6b42895c672b9d24ad78e58844098"
+  },
+  "tests/fixtures/minimization/long-alkane.mol": {
+    "bytes": 20157,
+    "sha256": "39d3a492643e78097cc20265ea35021f060a45f63e615e2ec43c2bccf3696782"
+  },
+  "tests/fixtures/minimization/peptide-heavy.pdb": {
+    "bytes": 1334,
+    "sha256": "8882b701befcb2e768afe880956a13770a014cc82b4bee425202cbc00942ec50"
+  },
+  "tests/fixtures/minimization/peptide.normalized.json": {
+    "bytes": 16590,
+    "sha256": "2abe1f08845c2b91d9f54aac3deb817182ffc3cf9f530331d136e69978414e23"
+  },
+  "tests/fixtures/minimization/protein-state-graphs.json": {
+    "bytes": 168081,
+    "sha256": "98469a77946a1a1db9c35375f1ce26f247e05293a8522d103a75ca6ee509ed88"
+  },
+  "tests/fixtures/minimization/same-entry.molweave.zip": {
+    "bytes": 28322,
+    "sha256": "8916fd4b349f8043ca271ebd1398c58ea54a402dc995aff4ed567e4c07394a15"
+  },
+  "tests/fixtures/minimization/separate.molweave.zip": {
+    "bytes": 30994,
+    "sha256": "0a7ebbf9c454b1c74356be28bb0f0037cce1053846f00a132442025e98d24721"
+  },
+  "tests/fixtures/minimization/template-graphs.json": {
+    "bytes": 4998,
+    "sha256": "ee46477505f427a908ad665b1b77ea5aa7d58f8d0e96059ebf540a2bfc1da22b"
+  }
+}

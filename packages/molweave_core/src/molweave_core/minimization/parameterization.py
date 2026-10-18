@@ -286,17 +286,38 @@ def finite_parameters(system: Any) -> bool:
     """Reject nonfinite native parameter records before constructing a Context."""
     from openmm import unit
 
+    def finite(values: Any) -> bool:
+        return all(
+            np.isfinite(v.value_in_unit_system(unit.md_unit_system) if unit.is_quantity(v) else v)
+            for v in values
+        )
+
+    if not finite(system.getParticleMass(i) for i in range(system.getNumParticles())):
+        return False
     for force in system.getForces():
-        if type(force).__name__ == "NonbondedForce":
-            for i in range(force.getNumParticles()):
-                charge, sigma, epsilon = force.getParticleParameters(i)
-                if not all(
-                    np.isfinite(v)
-                    for v in (
-                        charge.value_in_unit(unit.elementary_charge),
-                        sigma.value_in_unit(unit.nanometer),
-                        epsilon.value_in_unit(unit.kilojoule_per_mole),
-                    )
-                ):
-                    return False
+        name = type(force).__name__
+        if name == "NonbondedForce":
+            if not all(
+                finite(force.getParticleParameters(i)) for i in range(force.getNumParticles())
+            ):
+                return False
+            if not all(
+                finite(force.getExceptionParameters(i)) for i in range(force.getNumExceptions())
+            ):
+                return False
+        elif name == "HarmonicBondForce":
+            if not all(finite(force.getBondParameters(i)) for i in range(force.getNumBonds())):
+                return False
+        elif name == "HarmonicAngleForce":
+            if not all(finite(force.getAngleParameters(i)) for i in range(force.getNumAngles())):
+                return False
+        elif name == "PeriodicTorsionForce":
+            if not all(
+                finite(force.getTorsionParameters(i)) for i in range(force.getNumTorsions())
+            ):
+                return False
+        else:
+            # The checksum-qualified AMBER profile emits these four force kinds.
+            # An extension needs explicit validation/qualification, not blind acceptance.
+            return False
     return True

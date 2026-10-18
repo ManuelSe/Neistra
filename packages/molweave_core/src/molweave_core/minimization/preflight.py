@@ -6,6 +6,7 @@ from math import isfinite
 from typing import Any
 
 from rdkit import Chem
+from scipy.spatial import cKDTree  # type: ignore[import-untyped]
 
 from molweave_core.adapters.rdkit_common import normalized_to_mol
 from molweave_core.hydrogen_protection import protection_facts
@@ -93,12 +94,18 @@ def organic_preflight(
         raise CalculationError(
             "molecule_limit", "Organic molecule exceeds 256 heavy / 1024 total atoms"
         )
-    if any(
-        a.element not in {"H", "C", "N", "O", "F", "P", "S", "Cl", "Br", "I"}
-        for a in structure.atoms
+    if (
+        any(
+            a.element not in {"H", "C", "N", "O", "F", "P", "S", "Cl", "Br", "I"}
+            for a in structure.atoms
+        )
+        or not any(a.element == "C" for a in structure.atoms)
+        or any(r.component_type == "ion" for r in structure.residues)
     ):
         raise CalculationError(
-            "unsupported_element", "This profile supports ordinary closed-shell organic molecules"
+            "unsupported_element",
+            "The GAFF path requires an ordinary closed-shell organic molecule containing carbon; "
+            "inorganic ions are unsupported and water requires the qualified explicit-water path",
         )
     if any(a.formal_charge is None for a in structure.atoms) or any(
         b.order not in {1.0, 1.5, 2.0, 3.0} for b in structure.bonds
@@ -131,6 +138,7 @@ def organic_preflight(
         raise CalculationError(
             "invalid_chemistry", f"Cannot parameterize current chemistry: {error}"
         ) from error
+    validate_separation(structure.active_coordinates)
     return IsolatedInput(
         entry_id,
         structure,
@@ -166,3 +174,13 @@ def validate_coordinates_and_identity(structure: NormalizedStructureV1) -> None:
             )
     except ValueError as error:
         raise CalculationError("identity_uncertain", "Malformed atom identity evidence") from error
+
+
+def validate_separation(coordinates: list[tuple[float, float, float]]) -> None:
+    """Refuse singular starts before expensive native setup, with bounded memory."""
+    if len(coordinates) > 1 and any(
+        row[1] < 1e-6 for row in cKDTree(coordinates).query(coordinates, k=2)[0]
+    ):
+        raise CalculationError(
+            "singular_geometry", "Coincident atoms require explicit coordinate repair"
+        )

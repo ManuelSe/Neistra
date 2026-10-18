@@ -12,7 +12,7 @@ from molweave_core.minimization.context_model import parameterize_environment
 from molweave_core.minimization.optimize import optimize_environment
 from molweave_core.minimization.parameterization import Parameterized
 from molweave_core.minimization.plugin import plugin
-from molweave_core.minimization.templates import read_templates
+from molweave_core.minimization.templates import STATES, read_templates
 from molweave_core.minimization.toolchain import AmberTools
 from openmm import unit
 
@@ -277,3 +277,55 @@ def test_isolated_protein_uses_one_complete_chain_without_a_cutoff(
     assert report["toolchain"]["cutoff_nm"] is None
     assert report["movable_count"] == 1
     assert report["fixed_count"] == len(peptide().atoms) - 1
+
+
+@pytest.mark.parametrize("state", sorted({s for values in STATES.values() for s in values}))
+def test_all26_internal_states_generate_finite_native_models_and_consistent_forces(
+    tmp_path: Path, tools: AmberTools, state: str
+):
+    from molweave_core.minimization.parameterization import finite_parameters
+    from molweave_core.minimization.stereo import assembly_stereo_validator
+
+    from tests.support.minimization import protein_state_chain, protein_state_templates
+
+    source = protein_state_chain(("NALA", state, "CALA"))
+    params, inputs = environment_capture({"p": source}, {"p": [7]})
+    templates = read_templates(tools.prefix)
+    assert templates[state] == protein_state_templates()[state]
+    assembly = environment_preflight(params, inputs, templates)
+    assembly_stereo_validator(assembly)
+    model = parameterize_environment(assembly, tools, tmp_path / state, LocalContext(tmp_path))
+    assert model.system.getNumParticles() == len(source.atoms)
+    assert model.system.getNumConstraints() == 0 and finite_parameters(model.system)
+    integrator = openmm.VerletIntegrator(0.001)
+    engine = openmm.Context(
+        model.system, integrator, openmm.Platform.getPlatformByName("Reference")
+    )
+    try:
+        coordinates = np.asarray(assembly.coordinates) / 10
+        engine.setPositions(coordinates)
+        state_value = engine.getState(getEnergy=True, getForces=True)
+        assert np.isfinite(state_value.getPotentialEnergy().value_in_unit(unit.kilojoule_per_mole))
+        forces = state_value.getForces(asNumpy=True).value_in_unit(
+            unit.kilojoule_per_mole / unit.nanometer
+        )
+        assert np.isfinite(forces).all()
+        # Independent central energy difference at a side-chain site when present.
+        middle = assembly.components[0].residues[1]
+        atom = next((i for i, name in enumerate(middle.template.atom_names) if name == "CB"), 0)
+        row = assembly.references.index(("p", middle.atom_ids[atom]))
+        energies = []
+        for sign in [-1, 1]:
+            shifted = coordinates.copy()
+            shifted[row, 0] += sign * 1e-6
+            engine.setPositions(shifted)
+            energies.append(
+                engine.getState(getEnergy=True)
+                .getPotentialEnergy()
+                .value_in_unit(unit.kilojoule_per_mole)
+            )
+        assert -forces[row, 0] == pytest.approx(
+            (energies[1] - energies[0]) / 2e-6, rel=1e-5, abs=0.02
+        )
+    finally:
+        del engine, integrator

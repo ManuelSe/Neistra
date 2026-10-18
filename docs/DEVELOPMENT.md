@@ -588,3 +588,55 @@ original bytes, save and archive re-export alongside rich existing project state
 Repeat with final producer versions on clean candidate and exact merged master.
 Existing schema downgrade guards remain; never strip retained state to force a
 reader to accept it. Remove the detached qualification worktree after delivery.
+
+## Selection minimization qualification and compatibility (0.20.0)
+
+The native model needs the separately [locked AmberTools installation](../tools/README.md)
+for both API and worker. Default plugin registration is additive; explicit operator
+allowlists/targets must include it. Startup/draft editing work without that optional
+installation. Release gates require the exact prefix and no skipped native
+minimization cases; export `MOLWEAVE_AMBERTOOLS_PREFIX` before the complete gate above.
+Tests set bounded native thread pools; use `OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1`
+for reproducible qualification. Jobs also enforce these child-process bounds.
+
+C5 scientific/worker qualification includes all70 supported protein graph states,
+26 native internal-state models with numerical force checks, honest charge/model/
+singular/chemistry failures, prepared1STP and an18,208-atom assembly. Performance
+uses fresh calculation processes and generated parameters with ordinary OS cache,
+not a cold machine or installation/download timing. The20ms RSS sum includes the
+API/test/coordinator process and live descendants; it excludes the browser/OS.
+Targets are setup120s, optimization60s, aggregate2GiB and real-SQM cancellation5s.
+Native UI timing starts at the trusted UI event and ends after queue/geometry and
+one frame. Automation/JSON transfer is recorded separately. Existing500ms preview/
+cancel and750ms longest-task assertions and movement profiles remain unchanged.
+
+The [fixture procedure](../tests/fixtures/minimization/README.md) explicitly models
+missing terminal residues/H on the full159-residue1STP chain, preserves901 observed
+heavy rows and discloses generated L-stereo repair. Neutral CCD biotin is an
+explicit benchmark microstate, not physiological protonation or anionic coverage.
+Raw1STP stays unprepared/unchanged; minimization performs none of that preparation.
+Covalent adducts/crosslinks and unqualified native resonance forms still refuse.
+
+No new database/structural schema, action kind or migration: Alembic0014,
+project/viewer/archive2 and normalized/selection1 remain. Actual tagged v0.19.0
+reader qualification uses separate processes and disposable data:
+
+```bash
+git worktree add --detach /tmp/neistra-min-reader-019 v0.19.0
+PYTHONPATH=apps/api/src:packages/molweave_core/src:packages/molweave_demo_plugin/src MOLWEAVE_DATA_DIR=/tmp/neistra-min-reader-data .venv/bin/alembic upgrade head
+PYTHONPATH=apps/api/src:packages/molweave_core/src:packages/molweave_demo_plugin/src .venv/bin/python -m tests.support.minimization_reader_qualification produce --data-dir /tmp/neistra-min-reader-data --evidence /tmp/neistra-min-producer.json
+PYTHONPATH=/tmp/neistra-min-reader-019/apps/api/src:/tmp/neistra-min-reader-019/packages/molweave_core/src:/tmp/neistra-min-reader-019/packages/molweave_demo_plugin/src .venv/bin/python -m tests.support.minimization_reader_qualification read --data-dir /tmp/neistra-min-reader-data --reader-root /tmp/neistra-min-reader-019 --expected-reader 0.19.0 --evidence /tmp/neistra-min-reader.json
+```
+
+The harness asserts actual module paths/version, successful artifact downloads,
+size/SHA256 and exact canonical/provenance/report/model content, nonfirst active/
+inactive conformers, generic multi-entry Undo/Redo, original bytes, allocation
+floors, save, archive import and old-reader re-export. C5's development producer is
+still0.19.0 metadata; repeat with final0.20.0 producer on the clean candidate and
+exact merged master. Version strings alone are not reader evidence.
+
+The older runtime retains data but does not author the new operation; keep matching
+current client/API for minimization and its validation. Imported archived proposals
+are historical; archive Undo remains nonportable. Use a complete managed-directory
+backup for rollback, retain native annotations/artifacts, and respect existing schema
+downgrade guards. Remove the detached qualification worktree after delivery.

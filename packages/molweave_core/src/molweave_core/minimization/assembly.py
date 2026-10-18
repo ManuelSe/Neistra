@@ -11,6 +11,7 @@ from molweave_core.minimization.preflight import (
     connected_atoms,
     organic_preflight,
     validate_coordinates_and_identity,
+    validate_separation,
 )
 from molweave_core.minimization.protein_chemistry import validate_protein_chemistry
 from molweave_core.minimization.templates import (
@@ -219,4 +220,6 @@ def environment_preflight(
     if parameters.mode == "isolated" and len(components) != 1:
         raise CalculationError("isolated_scope", "Isolated mode requires one complete molecule")
     components.sort(key=lambda c: {"protein": 0, "organic": 1, "water": 2}[c.kind])
-    return Assembly(tuple(components), movable)
+    result = Assembly(tuple(components), movable)
+    validate_separation(result.coordinates)
+    return result

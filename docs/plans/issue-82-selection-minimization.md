@@ -2,7 +2,7 @@
 
 ## 1. Status, outcome and authority
 
-Status: approved implementation contract; C0–M4/C4 complete; C5 qualification next.
+Status: approved implementation contract; C0–M5/C5 complete; C6 release candidate next.
 The user's 2026-10-18 `/goal` starts C1–C6 and release
 delivery; C0's original planning-only stop has been satisfied.
 
@@ -575,7 +575,7 @@ Execute only C0 in this handoff:
 | M2 / C2 | Complete | Native ff14SB context, exact multi-entry mapping, water and boundary terms; [gate](../assets/minimization/c2-gate.json), [self-review](../assets/minimization/c2-review.md). |
 | M3 / C3 | Complete | Server-owned capture, atomic Apply/history and archive retention; [gate](../assets/minimization/c3-gate.json), [self-review](../assets/minimization/c3-review.md). |
 | M4 / C4 | Complete | Native workflow, adjacent icon and Ctrl+M; [gate](../assets/minimization/c4-gate.json), [self-review](../assets/minimization/c4-review.md). |
-| M5 / C5 | Not started | Scientific/compatibility/performance qualification. |
+| M5 / C5 | Complete | Science/negative/state/1STP/18k/actual-reader qualification; [gate](../assets/minimization/c5-gate.json), [self-review](../assets/minimization/c5-review.md). |
 | M6 / C6 | Not started | Final-version candidate and review. |
 | Publication | Not started | Exact merged-master gate, tag/release verification, issue response and branch cleanup. |
 
@@ -805,3 +805,42 @@ without attempting to embed a self-referential commit SHA in its own contents.
   `Refs #82`; exact commit/push verified separately. Next: C5 broader science,
   prepared1STP/larger-assembly measurements and actual tagged0.19 reader. Stable
   minor0.20.0/final release gates remain C6; no external blocker.
+
+
+2026-10-18 — C5 completion:
+
+- Qualified70 supported native protein graph states and26 internal-state real native
+  models with independent central energy-difference force checks. Added honest
+  charge-generation/model/singular/ion negative cases. Review strengthened separate
+  charge-group/local-valence/aromatic validation, all four native force kinds/
+  exceptions/masses and pre-generation singular refusal. GAFF requires carbon-
+  containing organics and respects ion classification; qualified TIP3P stays separate.
+  No canonical chemistry is repaired or reinterpreted. Append-only D-112.
+- Prepared/disclosed full159-residue1STP: all901 observed heavy rows preserved,
+  missing termini/H modeled and generated-only L stereo repaired offline. Neutral
+ 32-atom CCD biotin has its original heavy frame and verified3D centers; this is
+  not physiological/anionic biotin qualification. Raw1STP remains unchanged.
+- Real-worker fresh setup, optimization/publication,20ms aggregate parent/descendant
+  RSS and actual-SQM cancellation pass for ligand,2,304-atom pocket and18,208-atom
+  full-chain assembly. [Exact maxima](../assets/minimization/c5-performance-summary.json)
+  meet120s/60s/2GiB/5s. Browser PDB/MOL upload/capture/real calculations/preview/
+  Discard pass; trusted-event500ms/750ms bounds and existing movement assertions
+  remain unchanged. Automation-transfer latency is retained separately.
+- [Final C5 gate](../assets/minimization/c5-gate.json): all15 commands pass on
+  unchanged source:1036 Python (605 focused),265 frontend,8 supervisor,28 native
+  browser /12 intentional layout skips; no failures/retries/native scientific skips.
+  Ruff/mypy87/lint/types/build, fresh0014 and diff pass. Existing398 Alembic warnings/
+  lazy-Mol* advisory remain. Lossless logs, source/fixture/toolchain references,
+  preparation/measurement/browser artifacts and [complete self-review](../assets/minimization/c5-review.md)
+  are retained. This is local implementer review, not independent approval.
+- Actual tagged0.19.0 reader at3fc106b215a8c39e943ad399710f43f116961aef retains all
+  canonical/conformer/original data, generic multi-entry Undo/Redo, job inputs/
+  reports/models/provenance and save/archive import/re-export. Assert actual old
+  module paths/version plus200-status downloads, sizes/SHA256/bytes. Development
+  producer metadata is still0.19.0; final0.20 producer repetitions remain C6.
+- Unsupported adducts/crosslinks, unqualified native carboxylate representations,
+  noncarbon/inorganic components and other profile limits still refuse. No new
+  migration/schema/dependency/application version or global-plan change. No blocker.
+  Checkpoint: `test(minimization): qualify scientific and workflow guarantees`,
+  `Refs #82`; commit/push verified separately. Next: C6 current-base/version checks,
+ 0.20.0 release preparation, complete release matrix/full-diff review and delivery.

@@ -24,7 +24,10 @@ preparation tools for missing atoms/H, protonation or unknown chemistry; this
 operation never repairs them. Protein display connectivity is insufficient.
 Unknown/unsupported inputs produce whole-calculation diagnostics, not a partly
 parameterized success. Covalent protein–ligand adducts, crosslinks, metals, ions,
-cofactors and arbitrary modified residues are outside this profile.
+unsupported cofactors and arbitrary modified residues are outside this profile.
+GAFF components require carbon-containing organic chemistry; charged organic
+ligands remain eligible, while explicit inorganic ion components refuse. Complete
+canonical waters use the separately qualified TIP3P path.
 
 Only captured selected coordinates are optimizer variables. Included unselected
 atoms, including H, stay exact. Original uploads, topology, IDs, metadata and

@@ -255,3 +255,92 @@ def water() -> NormalizedStructureV1:
             "residues": [Residue(id=1, chain_id=1, name="HOH", component_type="water")],
         }
     )
+
+
+def protein_state_templates():
+    """Offline native-library graph snapshots; coverage fixtures, not independent physics."""
+    import json
+
+    from molweave_core.minimization.templates import ResidueTemplate
+
+    data = json.loads(
+        (Path(__file__).parents[1] / "fixtures/minimization/protein-state-graphs.json").read_text()
+    )
+    return {
+        name: ResidueTemplate(
+            name,
+            tuple(v["atom_names"]),
+            tuple(v["elements"]),
+            frozenset(frozenset(b) for b in v["bonds"]),
+            tuple(tuple(p) for p in v["positions"]),
+            v["net_charge"],
+        )
+        for name, v in data.items()
+    }
+
+
+def protein_state_chain(labels: tuple[str, ...]):
+    """Generated complete chain for state coverage, not an experimental pose."""
+    from molweave_core.hydrogen_protection import ordinary_generated
+    from molweave_core.molecular import Atom, Bond, Chain, Conformer, Residue, SourceFacts
+
+    templates = protein_state_templates()
+    atoms, bonds, residues = [], [], []
+    previous = None
+    for index, label in enumerate(labels):
+        template = templates[label]
+        ids = {}
+        for name, element, point in zip(
+            template.atom_names, template.elements, template.positions, strict=True
+        ):
+            atom_id = len(atoms) + 1
+            ids[name] = atom_id
+            atoms.append(
+                Atom(
+                    id=atom_id,
+                    name=name,
+                    element=element,
+                    coordinates=(point[0] + index * 20, point[1], point[2]),
+                    residue_id=index + 1,
+                    source_index=atom_id - 1,
+                )
+            )
+        residues.append(
+            Residue(
+                id=index + 1,
+                chain_id=1,
+                name=label[-3:],
+                author_number=index + 1,
+                component_type="polymer",
+            )
+        )
+        for pair in sorted(template.bonds, key=lambda p: sorted(p)):
+            a, b = sorted(pair)
+            bonds.append(
+                Bond(
+                    id=len(bonds) + 1,
+                    atom_1_id=ids[template.atom_names[a]],
+                    atom_2_id=ids[template.atom_names[b]],
+                    order=None,
+                )
+            )
+        if previous is not None:
+            bonds.append(
+                Bond(id=len(bonds) + 1, atom_1_id=previous, atom_2_id=ids["N"], order=None)
+            )
+        previous = ids["C"]
+    return NormalizedStructureV1(
+        title="Generated protein state coverage",
+        structure_type="protein",
+        source=SourceFacts(filename="state-coverage.pdb", format="pdb"),
+        chains=[Chain(id=1, name="A", entity_type="polymer")],
+        residues=residues,
+        atoms=atoms,
+        bonds=bonds,
+        conformers=[
+            Conformer(
+                id=1, name="Generated state coverage", coordinates=[a.coordinates for a in atoms]
+            )
+        ],
+        annotations=[ordinary_generated(atoms)],
+    )

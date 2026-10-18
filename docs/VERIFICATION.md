@@ -1,6 +1,6 @@
 # V0.1 Requirement Evidence
 
-## Selection minimization (issue #82, C1–C4)
+## Selection minimization (issue #82, C1–C5)
 
 The [approved feature plan](plans/issue-82-selection-minimization.md) is the
 contract. [C1 final checkpoint](assets/minimization/c1-gate.json) passes862 Python,
@@ -79,6 +79,27 @@ lossless logs, source/fixture/toolchain hashes and images are retained. Interrup
 diagnostics remain separate. Default registration now exposes the dedicated UI;
 native installation is optional for startup, required for calculation. No
 migration/schema/version/dependency change; C5/C6 qualification remains required.
+
+[C5 final checkpoint](assets/minimization/c5-gate.json) passes all15 commands:
+1036 Python (605 focused),265 frontend,8 supervisor,28 native browser /12
+intentional layout skips, no failures/retries/native scientific skips. Static/type/
+build, fresh0014 and diff pass on unchanged source. Broader coverage includes70
+native protein graph states,26 real parameter/finite-difference cases, separate
+charge groups/valence/aromatic flags, all native force parameters, singular starts,
+ion classification and honest charge failure. [Prepared fixture provenance](../tests/fixtures/minimization/README.md)
+preserves the full159-residue1STP chain and901 observed heavy rows; modeled terminal
+stereo repair and neutral CCD biotin assumptions are explicit. Raw1STP is unchanged.
+
+[Worker maxima](assets/minimization/c5-performance-summary.json) satisfy120s setup,
+60s optimization/publication,2GiB aggregate RSS and5s real-SQM cancellation for
+ligand/pocket/18,208-atom cases. Native uploaded PDB/MOL cases retain500ms preview/
+Discard and750ms longest-task bounds; existing movement assertions remain unchanged.
+Actual tagged0.19 reader paths/version, successful hashed artifact downloads, all
+canonical/conformer/original data, generic multi-entry Undo/Redo, jobs/reports/models
+and archive re-export pass. C5 producer metadata is development0.19; final0.20
+producer/complete-release/exact-merged-master gates remain C6. [Complete C5 review](assets/minimization/c5-review.md)
+is local self-review, with separate interrupted diagnostic evidence. No migration,
+schema, dependency or application-version change.
 
 Issue #74 follows the [approved direct-modeling plan](plans/issue-74-direct-molecular-modeling.md).
 [C1](assets/direct-modeling/c1-verification.json) passes66Python/236frontend/

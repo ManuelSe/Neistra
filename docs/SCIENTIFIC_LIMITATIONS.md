@@ -525,3 +525,50 @@ is performed. Source identity facts are protection evidence, not full canonical
 isotope/radical authoring/export (#83). #82 owns context minimization; #71 owns
 broader building. Use matching current client/API for continued authoring; older
 runtime retention does not implement or enforce the new policy.
+
+## Selection minimization — amber-local-v1 (issue #82)
+
+[Selection minimization](MINIMIZATION.md) requires complete existing supported
+chemistry, explicit H and the separately locked Linux native environment. It uses
+ff14SB proteins, GAFF1.81/AM1-BCC organics and optional complete neutral TIP3P waters.
+Only selected active-conformer coordinates vary; all included unselected atoms,
+including H, stay exact. Preparation/protonation/repair remains a separate action.
+Unknown/contradictory fields, unsupported standard states/termini, adducts,
+crosslinks, inorganic ions/metals, unsupported cofactors and unqualified parameter
+or mapping outputs refuse
+the whole calculation. Known protein charge groups cannot compensate one another;
+assigned local valence/aromaticity must be compatible with the explicit-H state.
+
+The initial organic profile is conservative about native bond representations.
+GAFF components must contain carbon and cannot be explicitly classified as inorganic
+ions; noncarbon molecules require a separate qualified model. Complete canonical
+water uses TIP3P. Charged organic components remain eligible. For example, native
+two-single carboxylate output is not yet qualified as preserving
+the supplied canonical representation and refuses. A successful positive ammonium
+case does not establish all anionic/charged-ligand coverage. No silent parameter
+extrapolation, force-field fallback, automatic chemistry choice or partial model.
+
+Local convergence means the independently checked largest movable gradient
+component is at most10kJ/(mol nm), with finite energy/forces, consistent mapping,
+fixed mask and stereochemistry. It does not certify a global/native conformation,
+binding pose, physiological microstate, clash elimination, complete preparation or
+experimental force-field accuracy. Energy is the declared full local model's
+objective, including fixed contributions, not a binding/solvation energy. Residual
+close pairs use a0.6Å screen rather than a universal clash definition.
+
+Isolated models use nonperiodic NoCutoff. Environment models use a12Å nonperiodic
+cutoff,10Å LJ switch, reaction-field dielectric78.3 and no dispersion correction.
+Complete chosen chains/components remain intact;12Å discovery does not crop them.
+Native bonded terms, exclusions/1–4 scaling and dynamic neighbor handling remain.
+Explicit TIP3P has unconstrained native internal distance terms, including an
+auxiliary H–H engine term; no new canonical bond is made and general flexible-water
+accuracy is not promised. No periodic solvent, counterions or long-range PME.
+
+The prepared1STP benchmark preserves the full159-residue chain and all901 observed
+heavy rows, with explicitly modeled terminal residues/H and disclosed generated
+stereo repair. Neutral32-atom CCD biotin is a chosen benchmark state, not pH
+prediction or anionic-biotin qualification. Eight translated full chains plus
+ligand measure18,208-atom operational capacity, not an oligomeric pose. See
+[fixture provenance](../tests/fixtures/minimization/README.md). Bounded native timing/
+RSS/cancellation evidence and actual tagged preceding-reader retention do not
+establish portability to other hardware/platforms or equivalent old authoring.
