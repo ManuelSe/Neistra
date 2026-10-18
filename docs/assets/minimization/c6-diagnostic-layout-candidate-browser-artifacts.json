@@ -1,0 +1,32 @@
+[
+  {
+    "original": "test-results/interactions-measures-boun-bc239-P-with-aligned-typed-ligand-chromium/interaction-performance.json",
+    "file": "c6-diagnostic-layout-candidate-performance-0.json",
+    "sha256": "ab3466aed7d6584b4afc06cda90a99b5c981e037b7e71b5c174a4e83a66fcdd5"
+  },
+  {
+    "original": "test-results/interactions-measures-boun-bc239-P-with-aligned-typed-ligand-mobile-chromium/interaction-performance.json",
+    "file": "c6-diagnostic-layout-candidate-performance-1.json",
+    "sha256": "a9548286ab93c0744deac447cff7ccaf8eb0e07405aaa5df83a941771590ce34"
+  },
+  {
+    "original": "test-results/interactive-transform-perf-ad651-measures-exact-cancellation-chromium/movement-performance.json",
+    "file": "c6-diagnostic-layout-candidate-performance-2.json",
+    "sha256": "7897246a4d7189e023888f8daef3720b5b78f750d43b67037066b891bcf80581"
+  },
+  {
+    "original": "test-results/interactive-transform-perf-c981b-measures-exact-cancellation-chromium/movement-performance.json",
+    "file": "c6-diagnostic-layout-candidate-performance-3.json",
+    "sha256": "0b36199b4d1b7271a7ca3bb037683e106430ecbcd8d0631af25e3748beb92d5d"
+  },
+  {
+    "original": "test-results/minimization-performance-b-0bf12-ion-and-native-preview-work-chromium/minimization-performance.json",
+    "file": "c6-diagnostic-layout-candidate-performance-4.json",
+    "sha256": "8fe38c09e5d7c69b4afb282fc0dcf111496cd345b1ad5612172e37ac4d5ec189"
+  },
+  {
+    "original": "test-results/minimization-performance-b-ad07c-ion-and-native-preview-work-chromium/minimization-performance.json",
+    "file": "c6-diagnostic-layout-candidate-performance-5.json",
+    "sha256": "ed24f79f0745f0c6fdf05bd2c09b76a909af17b11c8e0bcfd13e64a150ad4291"
+  }
+]

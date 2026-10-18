@@ -1,0 +1,94 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - button "Projects" [ref=e5] [cursor=pointer]:
+      - generic [ref=e7] [cursor=pointer]: Neistra
+    - generic [ref=e8]:
+      - button "Project browser" [ref=e9] [cursor=pointer]:
+        - img [ref=e10] [cursor=pointer]
+      - button "History" [ref=e15] [cursor=pointer]:
+        - img [ref=e16] [cursor=pointer]
+      - button "Inspector" [ref=e20] [cursor=pointer]:
+        - img [ref=e21] [cursor=pointer]
+      - button "Import structures" [ref=e23] [cursor=pointer]:
+        - img [ref=e24] [cursor=pointer]
+      - button "Export" [ref=e27] [cursor=pointer]:
+        - img [ref=e28] [cursor=pointer]
+      - button "Jobs" [ref=e34] [cursor=pointer]:
+        - img [ref=e35] [cursor=pointer]
+      - 'button "Undo: Import 1 structures from 1 files" [ref=e39] [cursor=pointer]':
+        - img [ref=e40] [cursor=pointer]
+      - button "Redo" [disabled] [ref=e43]:
+        - img [ref=e44]
+      - button "Save checkpoint" [ref=e47] [cursor=pointer]:
+        - img [ref=e48] [cursor=pointer]
+      - button "Use dark theme" [ref=e52] [cursor=pointer]:
+        - img [ref=e53] [cursor=pointer]
+  - main [ref=e56]:
+    - generic [ref=e57]:
+      - region "3D molecular viewer" [ref=e58]:
+        - generic [ref=e62]:
+          - button "Select Animation" [ref=e70] [cursor=pointer]:
+            - img [ref=e72] [cursor=pointer]
+          - generic [ref=e75]:
+            - button "Reset Zoom" [ref=e78] [cursor=pointer]:
+              - img [ref=e80] [cursor=pointer]
+            - button "Screenshot / State Snapshot" [ref=e84] [cursor=pointer]:
+              - img [ref=e86] [cursor=pointer]
+            - generic [ref=e88]:
+              - button "Toggle Controls Panel" [ref=e90] [cursor=pointer]:
+                - img [ref=e92] [cursor=pointer]
+              - button "Toggle Expanded Viewport" [ref=e95] [cursor=pointer]:
+                - img [ref=e97] [cursor=pointer]
+              - button "Settings / Controls Info" [ref=e99] [cursor=pointer]:
+                - img [ref=e101] [cursor=pointer]
+              - button "Illumination" [ref=e103] [cursor=pointer]:
+                - img [ref=e105] [cursor=pointer]
+              - button "Augmented/Virtual Reality unavailable" [disabled] [ref=e107]:
+                - img [ref=e109]
+            - button "Toggle Selection Mode" [ref=e114] [cursor=pointer]:
+              - img [ref=e116] [cursor=pointer]
+      - group "Move selection canvas" [ref=e118]
+      - generic:
+        - status:
+          - generic: 1 visible / 1 loaded / 3 selected
+        - toolbar "Viewer quick actions" [ref=e119]:
+          - generic [ref=e120]: Pick
+          - generic [ref=e121]:
+            - generic [ref=e122]: Viewer picking mode
+            - combobox "Viewer picking mode" [disabled] [ref=e123]:
+              - option "Atom" [selected]
+              - option "Residue"
+              - option "Chain"
+              - option "Structure"
+          - group "Viewer focus actions" [ref=e124]:
+            - button "Fit all visible" [disabled] [ref=e125]:
+              - img [ref=e126]
+            - button "Focus selection" [disabled] [ref=e127]:
+              - img [ref=e128]
+            - button "Focus visible ligands" [disabled] [ref=e134]:
+              - img [ref=e135]
+            - button "Style selection" [disabled] [ref=e138]:
+              - img [ref=e139]
+            - button "Interactions" [ref=e145] [cursor=pointer]:
+              - img [ref=e146] [cursor=pointer]
+        - generic [ref=e151]:
+          - region "Move selection controls" [ref=e152]:
+            - generic [ref=e153]:
+              - button "Adjust view" [ref=e154] [cursor=pointer]:
+                - img [ref=e155] [cursor=pointer]
+              - button "Apply movement" [ref=e158] [cursor=pointer]:
+                - img [ref=e159] [cursor=pointer]
+              - button "Cancel movement" [ref=e161] [cursor=pointer]:
+                - img [ref=e162] [cursor=pointer]
+              - button "More movement tools" [active] [ref=e165] [cursor=pointer]:
+                - img [ref=e166] [cursor=pointer]
+              - button "Movement help and scientific limits" [ref=e170] [cursor=pointer]:
+                - img [ref=e171] [cursor=pointer]
+            - status [ref=e173]: Transforming selection
+            - paragraph [ref=e174]: "Mouse: left drag rotates; right or Ctrl-drag translates. Hold Space on the canvas to adjust the view. Escape cancels. Unconstrained movement may distort bonds or create clashes. Open movement help for scientific limits."
+          - button "Minimize selection" [disabled] [ref=e176]:
+            - img [ref=e177]
+```

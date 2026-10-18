@@ -1,0 +1,127 @@
+{
+  "checkpoint": "C6 layout correction focused gate",
+  "commands": [
+    {
+      "argv": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "lint"
+      ],
+      "exit_code": 0,
+      "gzip_sha256": "914cefdf4a8339e192d66999c5e4152438b8bf6d0427bee971b068c56c610a16",
+      "label": "lint",
+      "log": "c6-layout-lint.log.gz",
+      "seconds": 9.96401622297708,
+      "sha256": "407542146a7a0d45aea91983bf120b74ed122a75e21e47383d8bcfd8a1f84177"
+    },
+    {
+      "argv": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "typecheck"
+      ],
+      "exit_code": 0,
+      "gzip_sha256": "bdc143f12ef76f08214f95a56c4c180bb534996c4077b89cfa98811bd95b145f",
+      "label": "types",
+      "log": "c6-layout-types.log.gz",
+      "seconds": 5.06115135399159,
+      "sha256": "ec6984d22c581279ab7f6a640391cd633bb6646f462629997e329b1c1ff4168f"
+    },
+    {
+      "argv": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "test"
+      ],
+      "exit_code": 0,
+      "gzip_sha256": "d0c797dfa3aa97b22647842e78a9bcf2f1f215f5265914a5d022ff1218685c45",
+      "label": "frontend",
+      "log": "c6-layout-frontend.log.gz",
+      "seconds": 10.194451349088922,
+      "sha256": "d5fbdec18006ca673ecba46f78e19828e34d1e65067479c296217a3f2b78ae24"
+    },
+    {
+      "argv": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "build"
+      ],
+      "exit_code": 0,
+      "gzip_sha256": "015cf3b45f528c73108b9be67944b52baa97ac638947033e4a33649652344449",
+      "label": "build",
+      "log": "c6-layout-build.log.gz",
+      "seconds": 12.873804889968596,
+      "sha256": "2c0b356e0072addca130f3290c559b03fa76c229b853cc1faa2846eb25a035c8"
+    },
+    {
+      "argv": [
+        "corepack",
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "tests/e2e/viewer-transform-toolbar.spec.ts",
+        "--project",
+        "mobile-chromium",
+        "--grep",
+        "qualifies native touch navigation"
+      ],
+      "exit_code": 0,
+      "gzip_sha256": "237a68c43be30a34bc6dd6ecd848be79f56578438839fdcd7cad4c97a4876a83",
+      "label": "touch",
+      "log": "c6-layout-touch.log.gz",
+      "seconds": 25.943471334059723,
+      "sha256": "ed065715a6c648cd2dc778d70708ff9aecb0ce620ff6680aaabf438a55bb9195"
+    },
+    {
+      "argv": [
+        "corepack",
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "tests/e2e/minimization-accessibility.spec.ts",
+        "tests/e2e/selection-minimization.spec.ts"
+      ],
+      "exit_code": 0,
+      "gzip_sha256": "68bd477312a68302b7e08013296fa4b5cfabea51d8a9781c1e12d8cca01feadf",
+      "label": "minimization",
+      "log": "c6-layout-minimization.log.gz",
+      "seconds": 151.40827339491807,
+      "sha256": "ed6ee436b7cb6af60143287d0111522eed1d48f39b59d92ca13848050a1a2a72"
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "gzip_sha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec",
+      "label": "diff",
+      "log": "c6-layout-diff.log.gz",
+      "seconds": 0.00859982508700341,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "environment": {
+    "MOLWEAVE_AMBERTOOLS_PREFIX": "/datadisk/dev/.neistra-tools/ambertools-24.8",
+    "MOLWEAVE_E2E_API_PORT": "8310",
+    "MOLWEAVE_E2E_DATA_DIR": "/tmp/neistra-issue82-c6-layout-e2e",
+    "MOLWEAVE_E2E_WEB_PORT": "5473",
+    "MOLWEAVE_E2E_WORKER_PORT": "8311",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PLAYWRIGHT_BROWSERS_PATH": ".playwright"
+  },
+  "head": "ec379332b59caf49ea7650f9f7a60f3477276519",
+  "styles_sha256": "acaacdc340546e54940f261da3f2ee0f9426b3031126525cdb0d25c683f85e28"
+}

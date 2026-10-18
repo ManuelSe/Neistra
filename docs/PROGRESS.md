@@ -28,9 +28,13 @@ unchanged. Unsupported adducts/crosslinks, unqualified carboxylate encodings and
 profile limits refuse. Existing Alembic/lazy-bundle advisories remain. No blocker or new
 migration/schema/dependency change. Current master remainsb1fad2c/latest stable0.19;
 no0.20 tag collision. Five sources are prepared at0.20.0 with release notes and
-[follow-up#86](https://github.com/ManuelSe/Neistra/issues/86) verified. Next: commit
-release preparation, clean complete final0.20 candidate/actual0.19-reader gate and
-full-diff review, then PR/merge/exact-master qualification/tag/release/closeout.
+[follow-up#86](https://github.com/ManuelSe/Neistra/issues/86) verified. The full candidate caught a320px movement-toolbar overlap from the added sibling
+button (263 browser passes/50 intentional skips/one failure). The shared row now
+wraps; all7 focused web/static/build/native checks pass, including the unchanged
+previously failing touch/both-theme/320px case. A fresh complete candidate repeat
+remains required.
+Diagnostic logs/trace are retained separately. Next: qualify and commit the layout
+correction, repeat the clean full gate, then PR/review/merge and exact-master release.
 
 ### Previous delivery baseline — v0.19.0
 

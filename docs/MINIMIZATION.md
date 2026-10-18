@@ -48,8 +48,10 @@ A completed report gives outcome, initial/final energy, maximum movable gradient
 iterations/evaluations, movement, close pairs and warnings. A local solver success
 must also pass the independent maximum-gradient threshold, finiteness, mapping and
 stereochemistry checks. Non-converged results can be inspected and previewed but
-cannot Apply. A preview is nonpickable and cannot enter measurements, canonical
-queries, exports or archives. Discard removes it without a molecular edit.
+cannot Apply. A preview is nonpickable. Measurements, chemical exports and archived
+molecular coordinates use the current applied state. Native archives retain immutable job
+proposals as historical artifacts; preview display/session state stays transient.
+Discard removes the display without a molecular edit.
 
 Apply revalidates every selected and fixed dependency, active conformer, result
 digest and movable-entry lock. Changed source/context requires a new calculation;

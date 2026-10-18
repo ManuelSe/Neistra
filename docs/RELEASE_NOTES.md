@@ -78,8 +78,10 @@ thread pools, cancellation, deadlines and descendant cleanup remain enforced.
 Four additive capability/capture/proposal/Apply interfaces use existing generic
 jobs/artifacts. Generic job submission cannot bypass server-owned capture. Archives
 retain report/model/input/application provenance; imported proposals remain
-historical against remapped IDs. Preview cannot enter canonical queries, exports,
-measurements or archives. Existing legacy cleanup remains available unchanged.
+historical against remapped IDs. Measurements, chemical exports and archived
+molecules use applied coordinates.
+Immutable proposal artifacts remain historical job data; preview display/session
+state is transient. Existing legacy cleanup remains available unchanged.
 
 No database/structural-schema migration: Alembic 0014, project/viewer/archive 2,
 normalized/selection 1. Generic `entry.molecule` history retains exact Undo/Redo;

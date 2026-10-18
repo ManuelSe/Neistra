@@ -429,7 +429,7 @@ select:focus-visible,
 .viewer-header .viewer-toolbar { position: static; max-width: 100%; }
 .molecular-edit-tools { position: relative; }
 .molecular-edit-tools > .viewer-action-button { width: 32px; height: 32px; border: 1px solid var(--border); border-radius: 6px; background: var(--surface); }
-.viewer-edit-transform-actions { display: flex; align-items: flex-start; gap: 6px; max-width: 100%; }
+.viewer-edit-transform-actions { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 6px; max-width: 100%; }
 .molecular-edit-panel {
   position: fixed; z-index: 40; top: 100px; left: 8px;
   width: min(300px, calc(100vw - 84px)); max-height: min(65vh, 520px);

@@ -874,3 +874,24 @@ archive-label retention cases without changing compatibility behavior. The focus
 archive suite passes. Interrupted evidence is separate; a clean complete gate is
 repeated on the corrected source. This does not substitute version labels for the
 actual tagged-reader harness.
+
+
+C6 native layout diagnostic: the complete ec37933 browser matrix finished with263
+passes/50 intentional skips and one failure in the existing mobile movement-toolbar
+320px center-hit check. The new minimization sibling allowed the shared flex row to
+shrink movement controls and cover the last control. Wrap the shared action row so
+its complete movement control group and44px minimization button retain their space.
+The failure, screenshot/trace, source identity, measurement attachments and lossless
+logs are retained separately as `c6-diagnostic-layout-candidate-*`; this is not a
+passing release gate. Focused native touch/minimization and web/static/build checks,
+then a fresh clean complete candidate gate, are required before PR.
+
+C6 layout correction focused verification: all7 recorded commands in
+[c6-layout-gate.json](../assets/minimization/c6-layout-gate.json) pass on unchanged
+CSS: web lint/types,265 frontend tests, production build, the previously failing
+native mobile touch/both-theme/320px case, native minimization/accessibility suite
+and diff check. Assertions/targets are unchanged; no new schema/API/scientific
+behavior. The row wraps instead of shrinking a complete movement group. Commit
+`fix(editor): preserve narrow movement controls beside minimization`, Refs#82.
+Next: fresh clean complete18-command candidate gate; diagnostic runs are not
+release qualification.
