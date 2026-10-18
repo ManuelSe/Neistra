@@ -1,0 +1,144 @@
+{
+  "annotated_tag": {
+    "message": "Neistra v0.20.0: selection-based molecular minimization\n\nApproved issue #82 scope, merged PR #87. Complete candidate and exact-master release gates pass; compatible persisted schemas and actual v0.19 reader qualified.\n",
+    "node_id": "TA_kwDOTqyhK9oAKGUxZmIwNzNmZDhlY2I1MmQzNTEyMWU0Y2E0YjBiZTA4ODYxZWFhMWY",
+    "object": {
+      "sha": "fe4e31e0ec8f4ece32132882a0a526c0576ea560",
+      "type": "commit",
+      "url": "https://api.github.com/repos/ManuelSe/Neistra/git/commits/fe4e31e0ec8f4ece32132882a0a526c0576ea560"
+    },
+    "sha": "e1fb073fd8ecb52d35121e4ca4b0be08861eaa1f",
+    "tag": "v0.20.0",
+    "tagger": {
+      "date": "2026-10-18T22:02:01Z",
+      "email": "manuel@sellner.ch",
+      "name": "Manuel Sellner"
+    },
+    "url": "https://api.github.com/repos/ManuelSe/Neistra/git/tags/e1fb073fd8ecb52d35121e4ca4b0be08861eaa1f",
+    "verification": {
+      "payload": null,
+      "reason": "unsigned",
+      "signature": null,
+      "verified": false,
+      "verified_at": null
+    }
+  },
+  "assets": [
+    {
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.20.0/neistra-v0.20.0-verification.zip",
+      "content_type": "application/zip",
+      "created_at": "2026-10-18T22:02:12Z",
+      "digest": "sha256:8aebc3c8bbe7e0d26e13f6bd60de4b652d268ffe67f1a15962bab800eec82178",
+      "download_count": 0,
+      "id": 654584214,
+      "label": "",
+      "name": "neistra-v0.20.0-verification.zip",
+      "node_id": "RA_kwDOTqyhK84nBCmW",
+      "size": 10816521,
+      "state": "uploaded",
+      "updated_at": "2026-10-18T22:02:14Z",
+      "uploader": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/62375995?v=4",
+        "events_url": "https://api.github.com/users/ManuelSe/events{/privacy}",
+        "followers_url": "https://api.github.com/users/ManuelSe/followers",
+        "following_url": "https://api.github.com/users/ManuelSe/following{/other_user}",
+        "gists_url": "https://api.github.com/users/ManuelSe/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/ManuelSe",
+        "id": 62375995,
+        "login": "ManuelSe",
+        "node_id": "MDQ6VXNlcjYyMzc1OTk1",
+        "organizations_url": "https://api.github.com/users/ManuelSe/orgs",
+        "received_events_url": "https://api.github.com/users/ManuelSe/received_events",
+        "repos_url": "https://api.github.com/users/ManuelSe/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/ManuelSe/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/ManuelSe/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/ManuelSe",
+        "user_view_type": "public"
+      },
+      "url": "https://api.github.com/repos/ManuelSe/Neistra/releases/assets/654584214"
+    },
+    {
+      "browser_download_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.20.0/neistra-v0.20.0-verification.zip.sha256",
+      "content_type": "application/octet-stream",
+      "created_at": "2026-10-18T22:02:12Z",
+      "digest": "sha256:b017a23c18de3f4aad5c2de5003fb57609f1e20deb728c9aecf6097576109d3d",
+      "download_count": 0,
+      "id": 654584222,
+      "label": "",
+      "name": "neistra-v0.20.0-verification.zip.sha256",
+      "node_id": "RA_kwDOTqyhK84nBCme",
+      "size": 99,
+      "state": "uploaded",
+      "updated_at": "2026-10-18T22:02:12Z",
+      "uploader": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/62375995?v=4",
+        "events_url": "https://api.github.com/users/ManuelSe/events{/privacy}",
+        "followers_url": "https://api.github.com/users/ManuelSe/followers",
+        "following_url": "https://api.github.com/users/ManuelSe/following{/other_user}",
+        "gists_url": "https://api.github.com/users/ManuelSe/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/ManuelSe",
+        "id": 62375995,
+        "login": "ManuelSe",
+        "node_id": "MDQ6VXNlcjYyMzc1OTk1",
+        "organizations_url": "https://api.github.com/users/ManuelSe/orgs",
+        "received_events_url": "https://api.github.com/users/ManuelSe/received_events",
+        "repos_url": "https://api.github.com/users/ManuelSe/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/ManuelSe/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/ManuelSe/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/ManuelSe",
+        "user_view_type": "public"
+      },
+      "url": "https://api.github.com/repos/ManuelSe/Neistra/releases/assets/654584222"
+    }
+  ],
+  "candidate_head": "b0b061d53e6c2a6c680b9ca1891e00bcc23f3b51",
+  "evidence_bundle": {
+    "bytes": 10816521,
+    "download_verified": true,
+    "internal_sha256_files_verified": 312,
+    "name": "neistra-v0.20.0-verification.zip",
+    "sha256": "8aebc3c8bbe7e0d26e13f6bd60de4b652d268ffe67f1a15962bab800eec82178",
+    "zip_crc_verified": true
+  },
+  "issue_comment": {
+    "id": 6255691896,
+    "stage": "Initial verified closeout after release; final docs/cleanup audit will update this comment.",
+    "url": "https://github.com/ManuelSe/Neistra/issues/82#issuecomment-6255691896",
+    "verified_body_sha256": "9632915c3ab1a9f5af011669f5ef16c10347b7569ed1b2a21753c668dc2676d3"
+  },
+  "merge_pr": {
+    "headRefOid": "e3e6a786a192a32795265ba0db9496c905464656",
+    "mergeCommit": {
+      "oid": "fe4e31e0ec8f4ece32132882a0a526c0576ea560"
+    },
+    "mergedAt": "2026-10-18T20:59:51Z",
+    "number": 87,
+    "state": "MERGED",
+    "url": "https://github.com/ManuelSe/Neistra/pull/87"
+  },
+  "published_at": "2026-10-18T22:02:14Z",
+  "release_body_verified": true,
+  "release_id": 416737780,
+  "release_url": "https://github.com/ManuelSe/Neistra/releases/tag/v0.20.0",
+  "released_commit": "fe4e31e0ec8f4ece32132882a0a526c0576ea560",
+  "review": "Local implementer self-review; Codex request had no acknowledgement/review. No protection/check/review/conversation bypass.",
+  "source_sha256": "7ae47c013ec8e8d9668dd0a69693db17ec7a1e476c164d18905a48e60f597e34",
+  "stable": true,
+  "tag_ref": {
+    "node_id": "REF_kwDOTqyhK7FyZWZzL3RhZ3MvdjAuMjAuMA",
+    "object": {
+      "sha": "e1fb073fd8ecb52d35121e4ca4b0be08861eaa1f",
+      "type": "tag",
+      "url": "https://api.github.com/repos/ManuelSe/Neistra/git/tags/e1fb073fd8ecb52d35121e4ca4b0be08861eaa1f"
+    },
+    "ref": "refs/tags/v0.20.0",
+    "url": "https://api.github.com/repos/ManuelSe/Neistra/git/refs/tags/v0.20.0"
+  },
+  "version": "0.20.0"
+}

@@ -1,0 +1,74 @@
+[
+  {
+    "original_path": "test-results/interactions-measures-boun-bc239-P-with-aligned-typed-ligand-chromium/interaction-performance.json",
+    "file": "c6-merged-browser-performance-0.json",
+    "sha256": "adef3e6793a80a86764cb1baf8af8ec3f5a075c743264742f2ae36ccea86b59c",
+    "bytes": 287
+  },
+  {
+    "original_path": "test-results/interactions-measures-boun-bc239-P-with-aligned-typed-ligand-mobile-chromium/interaction-performance.json",
+    "file": "c6-merged-browser-performance-1.json",
+    "sha256": "dbed9d929a59029e3e24f0aa80071784379c26b3594b8eee18a140634a9c40d3",
+    "bytes": 294
+  },
+  {
+    "original_path": "test-results/interactive-transform-perf-ad651-measures-exact-cancellation-chromium/movement-performance.json",
+    "file": "c6-merged-browser-performance-2.json",
+    "sha256": "3dcb1ea52f5f94f416f311df6c6fbe34af2d8a76d734b5b86214f599f6063041",
+    "bytes": 1063
+  },
+  {
+    "original_path": "test-results/interactive-transform-perf-c981b-measures-exact-cancellation-chromium/movement-performance.json",
+    "file": "c6-merged-browser-performance-3.json",
+    "sha256": "2470067a906ad52a2534af802c6616805e36400b5a4326c87e853f55f762776d",
+    "bytes": 1035
+  },
+  {
+    "original_path": "test-results/minimization-performance-b-0bf12-ion-and-native-preview-work-chromium/minimization-performance.json",
+    "file": "c6-merged-browser-performance-4.json",
+    "sha256": "39ceb246ba3fc76ba99fafbe24cbe1efae55a31a3387a00c113a4799e1877456",
+    "bytes": 361578
+  },
+  {
+    "original_path": "test-results/minimization-performance-b-ad07c-ion-and-native-preview-work-chromium/minimization-performance.json",
+    "file": "c6-merged-browser-performance-5.json",
+    "sha256": "3ba8b741675cb4c53e31407dd33cf84d7a89de8f2ea01b7f32cfd9f3bcda8cfc",
+    "bytes": 49991
+  },
+  {
+    "original_path": "test-results/minimization-accessibility-89629-uch-at-320px-in-both-themes-chromium/dark-320-minimization.png",
+    "file": "c6-merged-native-image-0.png",
+    "sha256": "03bc84916b2170b27f411153e20746e28da0e9de6bb8e1a3955c8bcc2fc38cb2",
+    "bytes": 65223
+  },
+  {
+    "original_path": "test-results/minimization-accessibility-89629-uch-at-320px-in-both-themes-chromium/light-320-minimization.png",
+    "file": "c6-merged-native-image-1.png",
+    "sha256": "cb606ea212e48a1b6f603d019760165cc3ff92acc9fe04f1f0f58dfa66acee3d",
+    "bytes": 54743
+  },
+  {
+    "original_path": "test-results/minimization-accessibility-89629-uch-at-320px-in-both-themes-mobile-chromium/dark-320-minimization.png",
+    "file": "c6-merged-native-image-2.png",
+    "sha256": "c3180300bb41637f338ff7bb095c391e0cf992bbe57deee2d2a26f7a85bffb3e",
+    "bytes": 233004
+  },
+  {
+    "original_path": "test-results/minimization-accessibility-89629-uch-at-320px-in-both-themes-mobile-chromium/light-320-minimization.png",
+    "file": "c6-merged-native-image-3.png",
+    "sha256": "8dd3d0f75ef3517e55353afa1587aa3ca2e6b60a025cae59d67f73a82653a1f2",
+    "bytes": 182656
+  },
+  {
+    "original_path": "test-results/viewer-transform-toolbar-q-97191-nd-accessible-theme-layouts-mobile-chromium/toolbar-dark-320-transform.png",
+    "file": "c6-merged-native-image-4.png",
+    "sha256": "5d6d81e9afc72828c370648b7a34be5ceb3d6e6b7a54f4e204d21e18010c81ce",
+    "bytes": 94871
+  },
+  {
+    "original_path": "test-results/viewer-transform-toolbar-q-97191-nd-accessible-theme-layouts-mobile-chromium/toolbar-light-320-transform.png",
+    "file": "c6-merged-native-image-5.png",
+    "sha256": "d2b6cd238649c97913250468245046e841c97a2c776908f7c7f3de87f46e38e0",
+    "bytes": 125164
+  }
+]

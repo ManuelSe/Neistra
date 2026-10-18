@@ -2,7 +2,8 @@
 
 ## 1. Status, outcome and authority
 
-Status: approved implementation contract; C0–C6 complete; final-version candidate qualified; PR/merge/publication pending.
+Status: delivered as stable v0.20.0; C0–C6 implemented, qualified, merged and published.
+The linked issue closeout records final documentation integration and delayed cleanup after verification.
 The user's 2026-10-18 `/goal` starts C1–C6 and release
 delivery; C0's original planning-only stop has been satisfied.
 
@@ -922,3 +923,44 @@ release qualification.
   open the normal-merge PR, request available integration review and audit current
   remote gates. Exact merged-master qualification, annotatedv0.20.0, stable release,
   issue reply, final evidence integration and delayed branch cleanup remain required.
+
+
+2026-10-19 — C6 merged qualification and publication:
+
+- Normal [PR#87](https://github.com/ManuelSe/Neistra/pull/87) merge preserves all
+  checkpoints at fe4e31e0ec8f4ece32132882a0a526c0576ea560. Localmaster fast-forwarded
+  from origin; candidate and released runtime/test/tool source identities are equal.
+- [Exact merged gate](../assets/minimization/c6-merged-gate.json) passes all18 commands,
+  clean at start/end:1,038 Python,265 frontend,8 supervisor,264 browser /50 intentional
+  layout skips, no failures/retries/native scientific skips in the final complete
+  run. Frozen/fresh0014/static/build/diff, all five0.20.0 sources, native-model
+  verification and final0.20 producer/actual tagged0.19 reader pass. Source/log/
+  environment/native/performance/compatibility hashes and artifacts are retained.
+- First exact-master attempt had an isolated native orphan-H click miss and was
+  interrupted immediately for investigation. The unchanged test passed10 focused
+  repetitions (desktop5/mobile5), then both platforms in the complete fresh gate.
+  No source/assertion changes, suppressed result or automatic retry. Cause remains
+  unproven; [diagnostic evidence](../assets/minimization/c6-diagnostic-native-pick/c6-merged-gate.json)
+  and original screenshot/trace stay separate from passing release evidence.
+- [Premerge](../assets/minimization/c6-premerge-audit.json) and postmerge remote audits
+  find no required checks/protections/rulesets/approval or unresolved conversation;
+  normal merge only, no override/force push. @codex review received no acknowledgement
+  or independent review; retained full-diff review is implementer self-review.
+- [Publication evidence](../assets/minimization/c6-publication.json) verifies remote
+  annotatedv0.20.0 on exact qualified master and stable
+  [release](https://github.com/ManuelSe/Neistra/releases/tag/v0.20.0), notes and
+  downloaded evidence ZIP SHA256/CRC/all312 internal checksums. Stable minor follows
+  new public functionality and actual persisted compatibility. No migration or
+  application dependency upgrade; Alembic0014 and structural schemas remain fixed.
+- [Verified issue reply](https://github.com/ManuelSe/Neistra/issues/82#issuecomment-6255691896)
+  closes out implementation/release/verification/compatibility and approved scope
+  decisions; issue82 is closed. Covalent adduct/new cross-entry topology follow-up86
+  remains open. Other approved deferrals/refusals remain unchanged.
+- This final evidence integration is documentation only on the planned feature
+  branch, fast-forwarded from released master. Review/merge it normally; do not move
+  the runtime tag. Delete local/remote feature refs only after that merge and verified
+  tag/release/issue reply. The linked issue reply records the final documentation
+  merge and actual branch-cleanup/clean-master audit after those actions occur.
+- Approved implementation/release scope is delivered. Existing Alembic/lazy-bundle
+  advisories and disclosed model/fixture/platform limits remain. No product decision
+  or implementation blocker; next product work requires its own approved plan.

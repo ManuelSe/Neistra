@@ -113,6 +113,23 @@ implementer self-review. Candidate starts clean; generated evidence/docs are add
 afterward without runtime changes. Exact merged-master clean qualification remains
 mandatory before tag/release; remote review/protection gates remain binding.
 
+Issue82 [exact released master](assets/minimization/c6-merged-gate.json)
+fe4e31e0ec8f4ece32132882a0a526c0576ea560 repeats all18 commands with equal source
+identity and clean start/end:1,038 Python,265 frontend,8 supervisor,264 browser /50
+intentional layout skips, zero failures/retries/native scientific skips in the
+final full run. Frozen/fresh0014/static/build/diff, five0.20 versions, native
+verification and actual0.19 reader/final0.20 producer pass. Native performance and
+existing movement assertions pass unchanged. An interrupted native-pick miss and
+ten unchanged focused repetitions remain separately identified in
+[c6-diagnostic-native-pick](assets/minimization/c6-diagnostic-native-pick/c6-merged-gate.json);
+no proven source defect or weakened assertion. [Premerge audit](assets/minimization/c6-premerge-audit.json)
+confirms no required remote gate bypass; no independent review returned.
+[Publication](assets/minimization/c6-publication.json) verifies exact annotated tag,
+stable release/notes and downloaded SHA256/CRC/312 manifest files. The
+[verified issue reply](https://github.com/ManuelSe/Neistra/issues/82#issuecomment-6255691896)
+receives the final documentation/actual delayed-cleanup audit after completion. No migration,
+structural-schema or application dependency upgrade; released tag remains fixed.
+
 Issue #74 follows the [approved direct-modeling plan](plans/issue-74-direct-molecular-modeling.md).
 [C1](assets/direct-modeling/c1-verification.json) passes66Python/236frontend/
 20native browser cases with no failures/flakes/retries and static/build/diff.
