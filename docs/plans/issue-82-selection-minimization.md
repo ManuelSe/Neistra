@@ -2,7 +2,7 @@
 
 ## 1. Status, outcome and authority
 
-Status: approved implementation contract; C0–M2/C2 complete, C3 next.
+Status: approved implementation contract; C0–M3/C3 complete; C4 next.
 The user's 2026-10-18 `/goal` starts C1–C6 and release
 delivery; C0's original planning-only stop has been satisfied.
 
@@ -572,7 +572,7 @@ Execute only C0 in this handoff:
 | C0 | Approved plan persisted | Documentation-only handoff commit; local checks pass. Final commit/remote identity is recorded by Git and the C0 handoff. |
 | M1 / C1 | Complete | Integrated isolated worker proposals and process-tree lifecycle; [final gate](../assets/minimization/c1-gate.json), [self-review](../assets/minimization/c1-review.md). |
 | M2 / C2 | Complete | Native ff14SB context, exact multi-entry mapping, water and boundary terms; [gate](../assets/minimization/c2-gate.json), [self-review](../assets/minimization/c2-review.md). |
-| M3 / C3 | Not started | Atomic Apply/history/persistence. |
+| M3 / C3 | Complete | Server-owned capture, atomic Apply/history and archive retention; [gate](../assets/minimization/c3-gate.json), [self-review](../assets/minimization/c3-review.md). |
 | M4 / C4 | Not started | Native UI workflow. |
 | M5 / C5 | Not started | Scientific/compatibility/performance qualification. |
 | M6 / C6 | Not started | Final-version candidate and review. |
@@ -724,3 +724,48 @@ without attempting to embed a self-referential commit SHA in its own contents.
 - Checkpoint commit: `feat(minimization): include explicit fixed molecular context`,
   `Refs #82`; final commit and remote identity are verified separately. Next: C3
   dedicated capture/proposal/Apply API, one atomic reversible batch and archives.
+
+
+2026-10-18 — C3 completion:
+
+- C2 commit `8458b9d72fb4f76da8ba343d781b853df5ffa0f5` is remotely verified.
+  Added typed capability/capture/proposal/Apply endpoints and client contracts.
+  Server closure/capture owns artifact/hash authority, context and active conformers;
+  generic job submission cannot bypass it. Expensive science remains in the worker.
+- Apply validates report/result/input integrity, ownership, all fixed/movable source
+  dependencies, selection/conformer identity, convergence, locks and no-op epsilon
+  before after-artifact publication. SQLite writer lock precedes dependency/retry
+  reads; durable application marker joins the molecular history transaction.
+- One batch of recognized `entry.molecule` actions gives exact multi-entry Undo/Redo
+  while preserving original bytes, topology, IDs, source/metadata and inactive
+  conformers. Unrelated revisions/metadata and locked fixed context can pass;
+  changed dependencies require rerun. Retries, Undo-then-retry, no-op, non-converged,
+  foreign, stale, corrupt and semantically malformed proposals cannot publish.
+- Existing molecular publication callers keep a single-entry wrapper. New batches
+  preserve topology; multi-entry deletion explicitly refuses because independent
+  reference pruning from original state could overwrite another deletion's pruning.
+  This feature never deletes topology. See appended D-110 implementation note.
+- Compact additive normalized application provenance refers to complete immutable
+  job reports/memberships/models. Archive round-trip retains source/proposal/model
+  and application marker. Imported jobs are historical via existing archive source
+  provenance; reports remain inspectable and Apply against remapped IDs refuses.
+- [Final C3 gate](../assets/minimization/c3-gate.json): all12 commands pass on
+  unchanged source: **908 Python**, including**268 focused** capture/scientific/
+  Apply/archive/legacy-cleanup/coordinate/migration cases; **255 frontend**,
+  **8 supervisor**, **7 native passes /7 intentional layout skips**, zero failures/
+  retries. Native scientific cases did not skip. Ruff/mypy87/lint/types/build,
+  disposable0014 upgrade and diff pass. Existing migration upgrade/downgrade and
+  persisted-project/archive cases pass; no structural schema or migration change.
+- [Local complete C3 review](../assets/minimization/c3-review.md) is implementer
+  self-review. Concurrency, corruption, independently malformed worker outputs,
+  exact masked publication, no-op and historical-archive boundaries have direct
+  integration evidence. Synthetic specimens use real atomic import publication and
+  supported-format original bytes; actual tagged preceding-reader remains C5.
+- No application version/dependency change. Plugin remains explicitly opt-in until
+  C4 native UI/default registration. Existing398 Alembic warnings/lazy-bundle
+  advisory remain. C2's observed jobs-WebSocket disconnect cleanup is still C4
+  work. No external blocker or unresolved consequential C3 finding.
+- Checkpoint commit: `feat(minimization): apply proposals as atomic reversible edits`,
+  `Refs #82`; final SHA and remote identity are verified separately. Next: C4 native
+  selection/context-to-job/report/nonpickable-preview/Apply workflow and accessible
+  session ownership, followed by C5 full science/compatibility/performance gates.

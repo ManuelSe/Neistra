@@ -1,6 +1,6 @@
 # V0.1 Requirement Evidence
 
-## Selection minimization (issue #82, C1–C2)
+## Selection minimization (issue #82, C1–C3)
 
 The [approved feature plan](plans/issue-82-selection-minimization.md) is the
 contract. [C1 final checkpoint](assets/minimization/c1-gate.json) passes862 Python,
@@ -47,6 +47,23 @@ exhaustive-state, Apply/UI or preceding-reader evidence. No structural schema,
 migration, application dependency/version change. The unchanged jobs-WebSocket
 handler's transport-close traceback is retained in browser logs and assigned to
 C4 disconnect cleanup before final delivery. Later checkpoints remain required.
+
+[C3 final checkpoint](assets/minimization/c3-gate.json) passes908 Python (268
+focused),255 frontend,8 supervisor and7 native passes /7 intentional layout skips,
+zero failures/retries and no native scientific skips. Ruff/mypy87/lint/types/build,
+disposable0014 upgrade, existing migration/archive/legacy cleanup and diff pass on
+unchanged source. [Complete C3 review](assets/minimization/c3-review.md) is local
+self-review; exact commands, environments, source hashes and lossless gzip logs
+are retained.
+
+Real-worker Apply tests cover one exact multi-entry ligand/residue command,
+Undo/Redo, sparse IDs/nonfirst active/inactive conformers, original bytes/metadata,
+all dependency/lock/refusal cases, non-convergence, malformed/corrupt proposals,
+no-op and retry-after-Undo behavior. Two concurrent requests produce one command.
+Archive round-trip retains reports/model/input/provenance and marks imported
+proposals historical. This is not the actual tagged preceding-reader/performance
+qualification; C4–C6 remain required. No new migration/structural schema/version/
+dependency; minimization registration remains opt-in until the native C4 workflow.
 
 Issue #74 follows the [approved direct-modeling plan](plans/issue-74-direct-molecular-modeling.md).
 [C1](assets/direct-modeling/c1-verification.json) passes66Python/236frontend/

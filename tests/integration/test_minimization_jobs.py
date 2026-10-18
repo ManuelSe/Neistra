@@ -57,27 +57,12 @@ def submit_molecule(client: ApiClient) -> tuple[dict[str, Any], dict[str, Any], 
     project = response.json()["project"]
     entry = project["entries"][0]
     structure = _structure(client, project["id"], entry["id"])
-    from molweave_core.molecular import NormalizedStructureV1
-
-    digest = hashlib.sha256(NormalizedStructureV1.model_validate(structure).to_bytes()).hexdigest()
-    parameters = {
-        "selection": {"atoms": [{"structure_id": entry["id"], "atom_id": 3}]},
-        "captured_inputs": [
-            {
-                "entry_id": entry["id"],
-                "artifact_id": entry["current_artifact_id"],
-                "sha256": digest,
-                "conformer_id": structure["active_conformer_id"],
-                "atom_ids": [a["id"] for a in structure["atoms"]],
-            }
-        ],
-    }
     submitted = client.post(
-        f"/api/v1/projects/{project['id']}/jobs",
+        f"/api/v1/projects/{project['id']}/minimizations",
         json={
-            "job_type": "coordinates.minimize",
-            "parameters": parameters,
-            "inputs": [{"role": "calculation", "entry_id": entry["id"]}],
+            "expected_revision": project["revision"],
+            "selection": {"atoms": [{"structure_id": entry["id"], "atom_id": 3}]},
+            "conformers": {entry["id"]: structure["active_conformer_id"]},
         },
     )
     assert submitted.status_code == 201, submitted.text
@@ -297,15 +282,13 @@ def test_worker_includes_hidden_locked_protein_context_without_mutation(minclien
         if entry["structure_type"] == "ligand":
             selected.append({"structure_id": entry["id"], "atom_id": 3})
     response = minclient.post(
-        f"/api/v1/projects/{project['id']}/jobs",
+        f"/api/v1/projects/{project['id']}/minimizations",
         json={
-            "job_type": "coordinates.minimize",
-            "parameters": {
-                "mode": "environment",
-                "selection": {"atoms": selected},
-                "captured_inputs": captures,
-            },
-            "inputs": [{"entry_id": c["entry_id"], "role": "calculation"} for c in captures],
+            "expected_revision": project["revision"],
+            "mode": "environment",
+            "selection": {"atoms": selected},
+            "context": [{"entry_id": c["entry_id"], "atom_ids": c["atom_ids"]} for c in captures],
+            "conformers": {c["entry_id"]: c["conformer_id"] for c in captures},
         },
     )
     assert response.status_code == 201, response.text

@@ -783,3 +783,76 @@ export interface ArchiveImportResult {
   source_project_id: string;
   source_revision: number;
 }
+
+export interface MinimizationCapture {
+  entry_id: string;
+  artifact_id: string;
+  sha256: string;
+  conformer_id: number;
+  atom_ids: number[];
+}
+
+export interface MinimizationRequest {
+  expected_revision: number;
+  mode: "isolated" | "environment";
+  selection: Selection;
+  context: { entry_id: string; atom_ids: number[] }[];
+  conformers: Record<string, number>;
+  max_iterations: number;
+}
+
+export interface MinimizationParameters {
+  schema_version: 1;
+  model: "amber-local-v1";
+  mode: MinimizationRequest["mode"];
+  selection: Selection;
+  captured_inputs: MinimizationCapture[];
+  max_iterations: number;
+}
+
+export interface MinimizationReport {
+  schema_version: 1;
+  model: string;
+  outcome: "blocked" | "failed" | "non_converged" | "converged" | "unchanged";
+  reason: string;
+  parameters: MinimizationParameters;
+  units: Record<string, string>;
+  initial_energy: number | null;
+  final_energy: number | null;
+  maximum_gradient: number | null;
+  gradient_tolerance: number;
+  iterations: number;
+  evaluations: number;
+  maximum_displacement: number;
+  rms_displacement: number;
+  residual_clashes: number;
+  movable_count: number;
+  fixed_count: number;
+  toolchain: Record<string, unknown>;
+  warnings: string[];
+  elapsed_seconds: number;
+}
+
+export interface MinimizationProposal {
+  schema_version: 1;
+  job_id: string;
+  proposal_sha256: string;
+  report: MinimizationReport;
+  entries: {
+    entry_id: string;
+    conformer_id: number;
+    atom_ids: number[];
+    coordinates: [number, number, number][];
+  }[];
+  applicable: boolean;
+  unavailable_reason: string | null;
+}
+
+export interface MinimizationCapabilities {
+  model: "amber-local-v1";
+  available: boolean;
+  unavailable_reason: string | null;
+  prerequisites: string[];
+  scientific_limits: string[];
+  limits: Record<string, number>;
+}

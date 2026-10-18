@@ -4404,3 +4404,36 @@ scaled interactions, dynamic neighbors, explicit water and hidden/locked fixed
 context through the real worker. Prepared1STP, larger-assembly performance and
 full scientific coverage remain C5 gates; Apply/UI remain C3/C4. No database,
 structural schema, application dependency/version or original-file change.
+
+### D-110 implementation note — issue #82 C3, 2026-10-18
+
+The server owns source capture; clients confirm active conformers and explicit
+context atom membership, never artifact IDs/hashes as authority. Mandatory closure
+adds complete covalent components and chosen protein chains so sparse topology
+refuses scientific preflight rather than silently reducing membership. Generic
+job submission cannot bypass this boundary. Capability inspection runs outside the
+HTTP event loop; all expensive scientific work remains in the controlled worker.
+
+Atomic Apply takes SQLite's writer lock before any dependency/retry read. This
+serializes independent API-process Apply requests. Every captured current artifact,
+input/result digest, identity/conformer, selected-coordinate mask, lock and
+qualified report check must pass before after-artifact publication. A job-level
+`minimization_application` marker joins the molecular command transaction; repeated
+Apply after success or Undo refuses rather than creating duplicate history.
+This does not redesign unrelated project command concurrency.
+
+Use a batch of existing `entry.molecule` actions and exact before/after artifacts/
+summaries; preserve the original single-entry method as a wrapper. New multi-entry
+batches preserve topology. Multiple-entry deletion reconciliation is explicitly
+unsupported because sequential pruning from original viewer/selection state could
+overwrite another entry's pruning; no current minimization path deletes atoms.
+Retain existing single-entry deletion/cleanup behavior. Append compact normalized
+job/model/digest/conformer/selected-ID/dependency identities, while full capture,
+scientific reports and model inputs remain immutable job artifacts. No action kind,
+database, structural schema, migration, application version or dependency change.
+
+Existing archive provenance marks imported jobs historical, so reports remain
+inspectable but Apply refuses against remapped IDs. Do not rewrite historical
+proposal atom references or silently rebase imported results. C3 archive round-trip
+is distinct from actual tagged0.19.0-reader retention and final producer gates in
+C5/C6. Native UI/default registration remain C4.

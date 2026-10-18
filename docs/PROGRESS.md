@@ -2,33 +2,33 @@
 
 ## Current milestone
 
-Issue #82 **M2/C2 complete; C3 atomic Apply next** under the
+Issue #82 **M3/C3 complete; C4 native workflow next** under the
 [approved selection-minimization contract](plans/issue-82-selection-minimization.md).
-Branch `feat/issue-82-selection-minimization`; C0/C1 are remotely verified.
+Branch `feat/issue-82-selection-minimization`; C0–C2 are remotely verified.
 
-Completed: locked137-package AmberTools24.8 tooling, qualified isolated organic
-worker proposals/process-tree supervision, exact ff14SB whole-chain/multi-entry
-assembly, explicit fixed organic/water context and approved finite-range physics.
-Native tests show actual pocket effects, peptide boundary terms, numerical forces,
-scaled interactions, updating neighbors and exact fixed rows. Hidden/locked fixed
-context participates through the real worker. No canonical mutation on completion.
-Appended D-108–110 notes explain calculation mapping, generated identity evidence
-and the reported unconstrained AMBER TIP3P internal distance representation.
+Completed: locked AmberTools model, isolated/native fixed protein/water/multi-entry
+calculations, controlled workers, server-owned capture and typed report/proposal/
+Apply APIs. One atomic existing-entry molecular batch supports exact Undo/Redo.
+Input/result digests, all dependencies, locks, selected active-conformer identity,
+convergence and no-op checks precede publication. Concurrent Apply and later
+retries produce at most one command. Archives retain reports/models/provenance;
+imported proposals remain historical. Source bytes/topology/metadata/IDs/inactive
+conformers remain exact. Append-only D-108–110 notes retain the decisions.
 
-[Final C2 gate](assets/minimization/c2-gate.json):886 Python (70 focused),255
-frontend,8 supervisor,4 browser passes /4 intentional layout skips; zero failures
-or retries, no native scientific skips. Ruff/mypy84/lint/types/build, isolated0014
-and diff pass on unchanged source; lossless logs/source hashes, native/fixture
-provenance and [local review](assets/minimization/c2-review.md) are retained.
+[Final C3 gate](assets/minimization/c3-gate.json):908 Python (268 focused),255
+frontend,8 supervisor,7 existing browser passes /7 intentional layout skips; zero
+failures/retries and no native scientific skips. Ruff/mypy87/lint/types/build,
+isolated0014 and diff pass on unchanged source; all existing migration/archive/
+legacy cleanup suites pass. Lossless source-bound logs and
+[complete local review](assets/minimization/c3-review.md) retained.
 
-Known limits: Apply/history/archive behavior and UI remain C3/C4; exhaustive
-scientific coverage, prepared1STP/large-assembly performance and actual preceding
-reader remain C5. Strict organic resonance mapping, unsupported protein states,
-crosslinks and adducts refuse. An existing jobs-WebSocket disconnect traceback in
-browser logs needs cleanup during C4 integration before final delivery. No external
-blocker, migration, schema, dependency or version change. Planned release remains
-stable minor0.20.0; delivered runtime remains0.19.0. Next: C3 immutable capture API,
-validated atomic batch Apply and durable history/provenance.
+Known limits: native UI/default registration remain C4; exhaustive science,
+prepared1STP/large-assembly performance and actual tagged preceding-reader remain
+C5/C6. Strict organic resonance mapping and unsupported protein/adduct/crosslink
+states refuse. C2's observed jobs-WebSocket disconnect traceback remains C4 cleanup.
+No external blocker, migration, structural schema, dependency or version change.
+Planned release remains stable minor0.20.0; delivered runtime remains0.19.0. Next:
+C4 accessible native context/job/report/preview/Apply and robust session ownership.
 
 ### Previous delivery baseline — v0.19.0
 
