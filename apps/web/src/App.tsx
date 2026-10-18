@@ -1,3 +1,5 @@
+import { useMinimization } from "./minimization/useMinimization";
+import { useMinimizationStore } from "./minimization/store";
 import { placementContext } from "./editing/placement";
 import { manualModelEdit } from "./editing/manual";
 import { NewMoleculeDialog, type NewMoleculeInput } from "./components/NewMoleculeDialog";
@@ -191,6 +193,7 @@ export default function App() {
   useEffect(() => {
     useNavigationStore.getState().setProject(activeProjectId);
     useEditingStore.getState().setProject(activeProjectId);
+    useMinimizationStore.getState().setProject(activeProjectId);
     useViewerCameraStore.getState().setProject(activeProjectId);
   }, [activeProjectId]);
 
@@ -288,7 +291,7 @@ export default function App() {
   };
 
   const { session: movementSession, workflow: movement } = useMovementSession({
-    beforeStart: clearCoordinatePreview,
+    beforeStart: () => { clearCoordinatePreview(); useMinimizationStore.getState().dismiss(); },
     context: () => ({
       project: queryClient.getQueryData<Project>(["project", useWorkspaceStore.getState().activeProjectId]),
       selection: useSelectionStore.getState().selection,
@@ -339,6 +342,8 @@ export default function App() {
     onMutate: () => {
       if (["submitting", "reconciling", "uncertain"].includes(movementSession.snapshot().phase)) throw new ApiError(409, "movement_busy", "Finish or reconcile the current movement before changing the project.");
       clearCoordinatePreview();
+      const minimization = useMinimizationStore.getState();
+      minimization.patch(minimization.generation, { preview: false });
       if (movementSession.snapshot().phase !== "idle") movementSession.cancel("Move selection was discarded before changing the project.");
       return { projectId: useWorkspaceStore.getState().activeProjectId };
     },
@@ -375,7 +380,8 @@ export default function App() {
   });
 
   const editingPending = useEditingStore(state => state.pending);
-  const busy = projectMutation.isPending || createMutation.isPending || movementBlocked || editingPending;
+  const minimizationApplying = useMinimizationStore(state => state.applying);
+  const busy = projectMutation.isPending || createMutation.isPending || movementBlocked || editingPending || minimizationApplying;
 
   const moveMembership = (scope: GroupScope, groupId: string | null) => {
     if (!project || project.id !== scope.projectId || projectMutation.isPending) return;
@@ -445,6 +451,11 @@ export default function App() {
     );
     return new Map(loaded.filter((item): item is NonNullable<typeof item> => item !== null));
   };
+
+  const minimization = useMinimization(project, selection, operation => projectMutation.mutateAsync(operation), clearCoordinatePreview);
+  useEffect(() => {
+    if (projectDialogOpen || createMode || newMoleculeOpen || importDialogOpen || archiveImportDialogOpen || exportDialogOpen || entryDialog || jobDialogOpen || groupDialog) useMinimizationStore.getState().dismiss();
+  }, [projectDialogOpen, createMode, newMoleculeOpen, importDialogOpen, archiveImportDialogOpen, exportDialogOpen, entryDialog, jobDialogOpen, groupDialog]);
 
   const loadStructures = async (entryIds: Iterable<string>): Promise<StructureMap> =>
     new Map(
@@ -624,6 +635,7 @@ export default function App() {
     },
     onPreviewTransform: async (transform: CoordinateTransform) => {
       if (!project || movementSession.snapshot().phase !== "idle") return;
+      useMinimizationStore.getState().dismiss();
       const generation = ++numericalPreviewGeneration.current;
       let structures: StructureMap;
       try {
@@ -864,6 +876,7 @@ export default function App() {
     },
     busy,
     coordinatePreview,
+    minimization,
     movement,
     onRenderedMovementAtoms: (read: () => AtomReference[]) => { renderedMovementAtoms.current = read; },
     onUpdateSettings: async (
@@ -1091,6 +1104,7 @@ export default function App() {
                         tab={lowerTab}
                         onTabChange={setLowerTab}
                         onNewJob={() => setJobDialogOpen(true)}
+                        onInspectMinimization={jobId => { if (project) { setMobilePanel(null); useMinimizationStore.getState().inspect(project.id, jobId); } }}
                         onProjectUpdate={(next) => {
                           updateProjectCache(next);
                           setEditedThisSession(true);
@@ -1208,6 +1222,7 @@ export default function App() {
                         tab={lowerTab}
                         onTabChange={setLowerTab}
                         onNewJob={() => setJobDialogOpen(true)}
+                        onInspectMinimization={jobId => { if (project) { setMobilePanel(null); useMinimizationStore.getState().inspect(project.id, jobId); } }}
                         onProjectUpdate={(next) => {
                           updateProjectCache(next);
                           setEditedThisSession(true);

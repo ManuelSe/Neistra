@@ -1,3 +1,4 @@
+import type { MinimizationWorkflow } from "../minimization/useMinimization";
 import type { SurfaceActions, ChangeSelectionAppearance, ApplySelectionEdit } from "../api/types";
 import type { ExpandSelection } from "../selection/expansion";
 import { FolderPlus, Upload } from "lucide-react";
@@ -34,6 +35,7 @@ interface WorkspaceCanvasProps {
   busy?: boolean;
   coordinatePreview?: CoordinatePatch | null;
   movement?: MovementWorkflow;
+  minimization?: MinimizationWorkflow;
   onRenderedMovementAtoms?: (read: () => AtomReference[]) => void;
   onUpdateSettings?: (entryId: string, settings: ViewerSettings) => Promise<void>;
   onCreateScene?: (name: string, camera: CameraState) => Promise<void>;
@@ -65,6 +67,7 @@ export function WorkspaceCanvas({
   busy,
   coordinatePreview,
   movement,
+  minimization,
   onRenderedMovementAtoms,
   onUpdateSettings,
   onCreateScene,
@@ -133,6 +136,7 @@ export function WorkspaceCanvas({
           busy={busy}
           coordinatePreview={coordinatePreview}
           movement={movement}
+          minimization={minimization}
           onRenderedMovementAtoms={onRenderedMovementAtoms}
           onUpdateSettings={onUpdateSettings}
           onCreateScene={onCreateScene}

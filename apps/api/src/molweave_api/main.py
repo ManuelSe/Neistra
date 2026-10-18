@@ -4,7 +4,7 @@ import asyncio
 import multiprocessing
 import time
 from collections.abc import AsyncIterator, Callable
-from contextlib import asynccontextmanager
+from contextlib import asynccontextmanager, suppress
 from multiprocessing.connection import Connection
 from typing import Literal, cast
 from urllib.parse import quote
@@ -1614,8 +1614,16 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     ) -> None:
         await websocket.accept()
         cursor = max(0, after_event_id)
-        try:
+
+        async def disconnected() -> None:
             while True:
+                message = await websocket.receive()
+                if message["type"] == "websocket.disconnect":
+                    return
+
+        disconnect = asyncio.create_task(disconnected())
+        try:
+            while not disconnect.done():
                 with factory() as session:
                     events = list(
                         session.scalars(
@@ -1634,9 +1642,17 @@ def create_app(settings: Settings | None = None) -> FastAPI:
                             JobEventRead.model_validate(event).model_dump(mode="json")
                         )
                         cursor = event.id
-                await asyncio.sleep(0.1)
-        except WebSocketDisconnect:
+                await asyncio.wait({disconnect}, timeout=0.1)
+        except (WebSocketDisconnect, OSError):
             return
+        except RuntimeError as error:
+            # uvloop can close its transport just before ASGI's disconnect arrives.
+            if "handler is closed" not in str(error):
+                raise
+        finally:
+            disconnect.cancel()
+            with suppress(asyncio.CancelledError):
+                await disconnect
 
     if app_settings.enable_test_routes:
         testing = APIRouter(prefix="/api/v1/testing")

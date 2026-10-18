@@ -2,7 +2,7 @@
 
 ## 1. Status, outcome and authority
 
-Status: approved implementation contract; C0–M3/C3 complete; C4 next.
+Status: approved implementation contract; C0–M4/C4 complete; C5 qualification next.
 The user's 2026-10-18 `/goal` starts C1–C6 and release
 delivery; C0's original planning-only stop has been satisfied.
 
@@ -102,6 +102,7 @@ contract; it does not replace the decision log or global [PLAN](../PLAN.md).
 | Batch conformer minimization | Deferred | Adds pairing and result-management complexity. No new issue until requested; record the boundary in #82 closeout. |
 | Apply non-converged results | Optional, excluded | Report/preview inspection permitted; Apply disabled. A future request can justify a separate issue. |
 | Generic job lifecycle and immutable inputs | Already satisfied foundation | Supporting integration adds the minimization job, bounded native tooling and result validation. |
+| Icon beside Edit and Ctrl+M immediate calculation | Supporting, explicit subsequent user guidance | Capture current selection and start isolated500-iteration work; open progress/report and retain explicit Apply. Respect typing/modal/repeat ownership. D-111 records the interpretation communicated to the user. |
 | Proposal rather than automatic mutation | Essential | Preview is transient and cannot enter exports or canonical queries. |
 | Stale source/context and lock checks | Essential | Revalidate every dependency before atomic publication. |
 | Exact Undo/Redo, no-op and failure behavior | Essential | Recognized history actions; no molecular command for unsuccessful or unchanged results. |
@@ -573,7 +574,7 @@ Execute only C0 in this handoff:
 | M1 / C1 | Complete | Integrated isolated worker proposals and process-tree lifecycle; [final gate](../assets/minimization/c1-gate.json), [self-review](../assets/minimization/c1-review.md). |
 | M2 / C2 | Complete | Native ff14SB context, exact multi-entry mapping, water and boundary terms; [gate](../assets/minimization/c2-gate.json), [self-review](../assets/minimization/c2-review.md). |
 | M3 / C3 | Complete | Server-owned capture, atomic Apply/history and archive retention; [gate](../assets/minimization/c3-gate.json), [self-review](../assets/minimization/c3-review.md). |
-| M4 / C4 | Not started | Native UI workflow. |
+| M4 / C4 | Complete | Native workflow, adjacent icon and Ctrl+M; [gate](../assets/minimization/c4-gate.json), [self-review](../assets/minimization/c4-review.md). |
 | M5 / C5 | Not started | Scientific/compatibility/performance qualification. |
 | M6 / C6 | Not started | Final-version candidate and review. |
 | Publication | Not started | Exact merged-master gate, tag/release verification, issue response and branch cleanup. |
@@ -769,3 +770,38 @@ without attempting to embed a self-referential commit SHA in its own contents.
   `Refs #82`; final SHA and remote identity are verified separately. Next: C4 native
   selection/context-to-job/report/nonpickable-preview/Apply workflow and accessible
   session ownership, followed by C5 full science/compatibility/performance gates.
+
+
+2026-10-18 — C4 completion:
+
+- Added native nonmodal context/conformer/count setup, progress/cancel, scientific
+  report, nonpickable preview and explicit atomic Apply/Discard. Jobs reopens
+  persisted work. The lightning icon is beside Edit; per subsequent user guidance,
+  Ctrl+M captures and immediately submits isolated500-iteration work, retaining
+  explicit Apply. Typing/composition/modal/modifier/repeat/concurrent starts are
+  guarded; multi-molecule selections require explicit environment choice. D-111.
+- App-owned generations/immutable artifact queries prevent retargeting or delayed
+  resurrection across project changes/remounts. Review repaired pending numerical/
+  minimization preview ownership in both directions; the actual App regression
+  proves the handoff. Historical archived proposals stay nonapplicable.
+- Default registration permits startup without native installation; generic capture
+  bypass stays refused. Direct ASGI tests verify the repaired jobs-WebSocket idle/
+  transport-race cleanup observed in C2.
+- [Final C4 gate](../assets/minimization/c4-gate.json): all12 commands pass on unchanged
+  source:912 Python (272 focused),265 frontend,8 supervisor,24 native browser /8
+  intentional layout skips, no failures/retries or native scientific skips.
+  Ruff/mypy87/lint/types/build, disposable0014 and diff pass. Native cases cover
+  full/subset isolation, same/separate-entry ligand/residue selections, full GLY,
+  fixed protein context, non-convergence/Discard, pure preview, exact one-command
+  Undo/Redo, cancellation and Jobs inspection. Keyboard/touch, both themes,320px,
+  actual100/125/150/200% browser zoom and scoped axe pass.
+- Retained source/log/fixture/toolchain hashes, lossless logs and native images.
+  [Complete local self-review](../assets/minimization/c4-review.md) is not independent
+  approval. Interrupted diagnostics remain separately identified. Existing398
+  Alembic warnings/lazy-Mol* advisory remain. Added [guidance](../MINIMIZATION.md)
+  and API/architecture/accessibility/model documentation with append-only decisions.
+- No migration/schema/dependency/application-version change or global-plan rewrite.
+  Checkpoint: `feat(editor): add selection minimization preview and apply`,
+  `Refs #82`; exact commit/push verified separately. Next: C5 broader science,
+  prepared1STP/larger-assembly measurements and actual tagged0.19 reader. Stable
+  minor0.20.0/final release gates remain C6; no external blocker.

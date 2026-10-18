@@ -1,6 +1,6 @@
 # V0.1 Requirement Evidence
 
-## Selection minimization (issue #82, C1–C3)
+## Selection minimization (issue #82, C1–C4)
 
 The [approved feature plan](plans/issue-82-selection-minimization.md) is the
 contract. [C1 final checkpoint](assets/minimization/c1-gate.json) passes862 Python,
@@ -64,6 +64,21 @@ Archive round-trip retains reports/model/input/provenance and marks imported
 proposals historical. This is not the actual tagged preceding-reader/performance
 qualification; C4–C6 remain required. No new migration/structural schema/version/
 dependency; minimization registration remains opt-in until the native C4 workflow.
+
+[C4 final checkpoint](assets/minimization/c4-gate.json) passes912 Python (272
+focused),265 frontend,8 supervisor,24 native browser /8 intentional layout skips,
+zero failures/retries and no native scientific skips. All12 commands pass on
+unchanged source, including static/type/build, disposable0014 and diff. Real-worker
+native cases cover full/subset isolation, same/separate entries, full GLY plus
+ligand, fixed pocket, Ctrl+M submission/explicit Apply, pure nonpickable preview,
+non-convergence/Discard, exact Undo/Redo and bounded cancellation/Jobs inspection.
+Keyboard/touch,320px,both themes, actual100/125/150/200% zoom and scoped axe pass.
+The actual App regression covers pending numerical/minimization handoff; direct
+ASGI tests verify idle/transport-race WebSocket cleanup. [Complete C4 self-review](assets/minimization/c4-review.md),
+lossless logs, source/fixture/toolchain hashes and images are retained. Interrupted
+diagnostics remain separate. Default registration now exposes the dedicated UI;
+native installation is optional for startup, required for calculation. No
+migration/schema/version/dependency change; C5/C6 qualification remains required.
 
 Issue #74 follows the [approved direct-modeling plan](plans/issue-74-direct-molecular-modeling.md).
 [C1](assets/direct-modeling/c1-verification.json) passes66Python/236frontend/

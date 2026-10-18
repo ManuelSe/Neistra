@@ -45,6 +45,8 @@ export interface ModelPreview {
   warnings: MolecularWarning[];
 }
 
+export type MolecularProposalGeometry = Pick<ModelPreview, "atoms" | "bonds" | "moved_atoms" | "removed_atoms">;
+
 export interface MoleculeCreateResult {
   project: Project;
   entry_id: string;
@@ -512,6 +514,7 @@ export interface MolecularBond {
 }
 
 export interface NormalizedStructure {
+  active_conformer_id?: number;
   metadata?: Record<string, unknown>;
   schema_version: 1;
   title: string;

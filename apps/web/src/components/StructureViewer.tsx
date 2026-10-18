@@ -1,3 +1,7 @@
+import type { MinimizationWorkflow } from "../minimization/useMinimization";
+import { useMinimizationShortcut } from "../minimization/useMinimizationShortcut";
+import { useMinimizationStore } from "../minimization/store";
+import { MinimizationPanel } from "./MinimizationPanel";
 import { placementContext } from "../editing/placement";
 import { useSelectionStore } from "../store/selection";
 import type { SurfaceStatus } from "../viewer/surface/runtime";
@@ -68,6 +72,7 @@ interface StructureViewerProps {
   busy?: boolean;
   coordinatePreview?: CoordinatePatch | null;
   movement?: MovementWorkflow;
+  minimization?: MinimizationWorkflow;
   onRenderedMovementAtoms?: (read: () => AtomReference[]) => void;
   onUpdateSettings?: (entryId: string, settings: ViewerSettings) => Promise<void>;
   onCreateScene?: (name: string, camera: CameraState) => Promise<void>;
@@ -96,6 +101,7 @@ export function StructureViewer({
   busy = false,
   coordinatePreview = null,
   movement,
+  minimization,
   onRenderedMovementAtoms,
   onUpdateSettings,
   onCreateScene,
@@ -136,6 +142,7 @@ export function StructureViewer({
   const openSurfaces = () => {
     if (useEditingStore.getState().projectId === project.id) useEditingStore.getState().setOpen(false);
     surfaceOpenedByCanvas.current = false;
+    useMinimizationStore.getState().dismiss();
     setStyleProjectId(null); setSurfaceProjectId(project.id);
   };
   const [viewerReady, setViewerReady] = useState(false);
@@ -145,7 +152,12 @@ export function StructureViewer({
   const [isolation, setIsolation] = useState<Selection["atoms"] | null>(null);
   const [styleProjectId, setStyleProjectId] = useState<string | null>(null);
   const [interactionProjectId, setInteractionProjectId] = useState<string | null>(null);
-  const interactionPaused = movementActive || Boolean(coordinatePreview);
+  const openMinimization = () => { useEditingStore.getState().setOpen(false); setStyleProjectId(null); setSurfaceProjectId(null); setInteractionProjectId(null); };
+  const minimizationUnavailable = movementActive ? "Finish movement before minimizing selection" : coordinatePreview ? "Finish coordinate preview before minimizing" : busy ? "Finish the current change before minimizing" : !selection.atoms.length ? "Select atoms before minimizing" : null;
+  useMinimizationShortcut(!!minimization && !minimizationUnavailable, () => {
+    openMinimization(); void minimization?.quick();
+  });
+  const interactionPaused = movementActive || Boolean(coordinatePreview) || Boolean(minimization?.geometry);
   const interactionInputs = project.entries.filter(entry => entry.visible && entry.current_artifact_id).map(entry => ({ entry_id: entry.id, artifact_id: entry.current_artifact_id! }));
   const interactions = useInteractions(project.id, interactionInputs, interactionPaused);
   const styleDialogOpen = styleProjectId === project.id;
@@ -398,7 +410,7 @@ export function StructureViewer({
   const placement = editingState.placement;
   const modelPreview = editOpen && !movementActive && !coordinatePreview && placement?.result
     && placement.context === placementContext(project, placement.result.entry_id, selection, editingState.generation, editingState.section === "bonds" ? editingState.bondHydrogenPolicy : editingState.hydrogenPolicy)
-    ? placement.result : null;
+    ? placement.result : !movementActive && !coordinatePreview && !editOpen ? minimization?.geometry ?? null : null;
   useEffect(() => {
     if (!viewerReady) return;
     const operation = viewerRef.current?.setModelPreview?.(modelPreview);
@@ -544,6 +556,7 @@ export function StructureViewer({
     if (styleDialogOpen) { setStyleDialogOpen(false); return; }
     if (selectionStyleUnavailableReason) return;
     useEditingStore.getState().setOpen(false);
+    useMinimizationStore.getState().dismiss();
     setSurfaceProjectId(null); setStyleDialogOpen(true);
     const visible = new Map(
       structureQueries.flatMap((query, index) =>
@@ -643,7 +656,7 @@ export function StructureViewer({
           ) : null}
           <ViewerToolbar
             interactionsOpen={interactionProjectId === project.id}
-            onInteractions={() => { useEditingStore.getState().setOpen(false); setInteractionProjectId(interactionProjectId === project.id ? null : project.id); }}
+            onInteractions={() => { useMinimizationStore.getState().dismiss(); useEditingStore.getState().setOpen(false); setInteractionProjectId(interactionProjectId === project.id ? null : project.id); }}
             pickingUnavailableReason={movementActive ? "Finish movement before changing selection" : null}
             pickingGranularity={pickingGranularity}
             onPickingGranularity={onPickingGranularity}
@@ -665,9 +678,11 @@ export function StructureViewer({
               : busy ? "Finish the current project change before moving selection"
               : viewerUnavailableReason ?? movementUnavailableReason(project, selection, () => viewerRef.current?.getRenderedAtomReferences() ?? [])} /> : null}
           {onEdit && !movementActive ? <MolecularEditPanel project={project} selection={selection} busy={busy}
-            onOpen={() => { setStyleProjectId(null); setSurfaceProjectId(null); setInteractionProjectId(null); }}
+            onOpen={() => { useMinimizationStore.getState().dismiss(); setStyleProjectId(null); setSurfaceProjectId(null); setInteractionProjectId(null); }}
             unavailable={coordinatePreview ? "Finish coordinate preview before editing chemistry." : null}
             onEdit={onEdit} onSettings={onUpdateSettings} /> : null}
+          {minimization ? <MinimizationPanel workflow={minimization}
+            unavailable={minimizationUnavailable} onOpen={openMinimization} /> : null}
           </div>
         </div>
         <InteractionPanel open={interactionProjectId === project.id} onOpenChange={open => setInteractionProjectId(open ? project.id : null)} choices={interactions.choices} result={interactions.result} onRetry={interactions.error ? interactions.retry : undefined}

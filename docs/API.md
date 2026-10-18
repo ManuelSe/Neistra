@@ -783,10 +783,10 @@ legacy preparation/ligand/selection APIs retain their contracts. No new migratio
 
 ## Selection minimization proposals (issue #82, C3)
 
-These additive interfaces use the optional allowlisted `molweave.minimization`
+These additive interfaces use the default allowlisted `molweave.minimization`
 plugin (`molweave_core.minimization.plugin:plugin`) and
-[locked native model](../tools/README.md). Default registration and the native UI
-are a later C4 checkpoint. The existing cleanup endpoints remain unchanged.
+[locked native model](../tools/README.md). The dedicated native UI is described in
+[Selection minimization](MINIMIZATION.md). The existing cleanup endpoints remain unchanged.
 
 | Method | Path | Contract |
 |---|---|---|

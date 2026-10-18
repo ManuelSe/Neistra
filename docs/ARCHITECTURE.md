@@ -454,3 +454,20 @@ conformers, topology, source facts, original bytes and user metadata are preserv
 Imported archive jobs retain their generic historical provenance and results;
 `archive_source_job_id` disables Apply without rewriting proposal IDs or attempting
 a live rebase. Actual preceding-reader qualification remains a separate C5 gate.
+
+
+### Minimization presentation ownership (C4)
+
+App owns the transient minimization session above responsive viewer remounts.
+Selection/project generations and immutable artifact-keyed source queries bind a
+draft/job to its original inputs. Context derives from canonical complete
+components/chains; visibility is presentation only and12 Å is candidate discovery.
+The dedicated panel handles progress/report, explicit preview and Apply; Jobs can
+inspect persisted work after reload. Archived results remain historical.
+
+The renderer accepts a narrowed molecular-proposal geometry interface shared with
+existing placement, retaining nonpickable meshes without new canonical atom IDs.
+App invalidates numerical/minimization preview ownership in both directions before
+asynchronous capture and clears geometry before canonical mutation. Query revision
+changes refresh applicability without duplicating report cache entries. Server
+validation remains authoritative. See D-111 and [user workflow](MINIMIZATION.md).

@@ -40,11 +40,13 @@ locked environment and **no skipped native minimization cases**. The full releas
 gate must run with the prefix exported. This package lock is separate from
 `uv.lock`; it does not change application dependency pins or data schemas.
 
-The initial C1 plugin is configured explicitly through the existing operator
-allowlist/targets as `molweave.minimization` and
-`molweave_core.minimization.plugin:plugin`. It produces reports and nonimportable
-coordinate proposals only. Later checkpoints supply the dedicated capture/Apply
-API and UI; a completed calculation does not edit project coordinates.
+The dedicated plugin is included in the default operator allowlist/targets as
+`molweave.minimization` and `molweave_core.minimization.plugin:plugin`. If overriding
+those settings, include both entries explicitly. The dedicated capture API owns
+scientific inputs; the generic job form cannot bypass capture validation. Completed
+jobs produce reports and nonimportable coordinate proposals. The native
+[selection workflow](../docs/MINIMIZATION.md) offers preview and explicit atomic Apply;
+computation alone never edits project coordinates.
 
 AM1-BCC finite-precision charges receive a reported uniform offset to the already
 specified molecular net charge. Raw and corrected MOL2 files are retained. Reject

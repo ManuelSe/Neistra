@@ -388,3 +388,16 @@ state. Pending structural rebuilds reject retired pixel hits (D-096). Complete
 object highlighting is verified in native marker buffers. These checks qualify the
 repository's pinned Chromium/SwiftShader and Pixel 7 emulation, not whole-product
 accessibility or physical-device/cross-browser support. See [retained evidence](assets/surface-objects/c4-verification.json).
+
+## Selection minimization (issue #82)
+
+The lightning button beside Edit has an accessible name, Ctrl+M shortcut metadata
+and a44px target. The nonmodal panel has bounded positioning, scrollable contents,
+labelled controls, explicit focus on opening, owned Escape and connected-trigger
+focus restoration. Ctrl+M respects typing and modal keyboard ownership. Preview
+geometry is nonpickable; reports and prerequisites remain textual. Native
+minimization-accessibility.spec.ts checks keyboard/touch, both themes,320px and
+actual Chrome100/125/150/200% zoom using the extension zoom API, with scoped axe.
+Recorded checkpoint/release evidence distinguishes passing runs from diagnostics.
+Qualification is Chromium/SwiftShader and Pixel7 emulation, not physical devices or
+whole-product/screen-reader atom accessibility.

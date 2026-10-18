@@ -38,6 +38,7 @@ import type {
   JobDefinition,
   JobEvent,
   JobResultImport,
+  NormalizedStructure,
   MinimizationCapabilities,
   MinimizationRequest,
   MinimizationProposal,
@@ -400,6 +401,7 @@ export const projectApi = {
 };
 
 export const minimizationApi = {
+  source: (artifactId: string) => request<NormalizedStructure>(`/api/v1/artifacts/${artifactId}`),
   capabilities: () => request<MinimizationCapabilities>("/api/v1/minimization-capabilities"),
   submit: (projectId: string, payload: MinimizationRequest) =>
     request<Job>(`/api/v1/projects/${projectId}/minimizations`, {

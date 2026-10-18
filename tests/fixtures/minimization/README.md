@@ -28,3 +28,22 @@ manifest retains hashes of all these scientific files.
 The source/raw 1STP fixture remains unchanged. A larger independently documented
 prepared 1STP derivative and actual preceding-reader/performance evidence belong to
 C5; this small fixture does not establish those results.
+
+C4 prepared native browser specimens are generated offline with:
+
+```bash
+PYTHONPATH=apps/api/src:packages/molweave_core/src:packages/molweave_demo_plugin/src .venv/bin/uv run python -m tests.support.generate_minimization_fixtures
+```
+
+`isolated.molweave.zip` contains explicit-H ethanol from RDKit seed82.
+`separate.molweave.zip` contains the above frozen complete AGS peptide and explicit-H
+ethanol translated by(2,4,3.5)Å; `same-entry.molweave.zip` combines those canonical
+specimens with deterministic ID/protection remapping. These synthetic geometries
+are controlled interaction fixtures, not experimental poses. Real atomic import
+publication and archive export produce the fixtures; UUID/time fields make ZIP
+regeneration nondeterministic. Archives deliberately retain assigned topology and
+ordinary-identity facts that a PDB export/reimport cannot fully express. Browser
+tests use the real archive reader and real native calculations, with no mocked
+scientific result or production fixture route. `long-alkane.mol` is explicit-H
+n-octacontane, RDKit seed82, exported through the normal MOL adapter, for cancellation
+during bounded AM1-BCC generation. It is not a benchmark for large-protein accuracy.

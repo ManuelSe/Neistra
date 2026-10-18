@@ -4437,3 +4437,44 @@ inspectable but Apply refuses against remapped IDs. Do not rewrite historical
 proposal atom references or silently rebase imported results. C3 archive round-trip
 is distinct from actual tagged0.19.0-reader retention and final producer gates in
 C5/C6. Native UI/default registration remain C4.
+
+## D-111 — App-owned minimization presentation and explicit coordinate publication
+
+Accepted 2026-10-18 for issue #82 C4. The minimization session lives above responsive
+viewer remounts in an operation-specific transient store. It captures canonical
+selection, immutable artifact identities and active conformers; generation/project
+ownership guards every asynchronous continuation. Selection changes cannot retarget
+work, and discarded/project-switched presentation cannot be revived by delayed
+requests. Immutable artifact queries avoid querying a live entry under an old
+artifact cache key. Server jobs/reports remain persistent and explicitly inspectable
+from Jobs; imported historical reports never become fresh proposals.
+
+Use the existing renderer's nonpickable geometry path through a narrowed geometry
+interface, separate from canonical atoms, exports, measurements and history. Context
+choices derive from canonical full components/chains, with12 Å discovery only;
+visibility never selects physical context. Existing edit/movement/modal ownership
+clears the transient preview. Apply remains a single server-validated transaction.
+
+The user's subsequent explicit guidance requests an icon beside Edit and Ctrl+M
+that automatically minimizes selected atoms. Provide the adjacent lightning button;
+Ctrl+M captures the current selection and immediately submits default isolated,
+500-iteration work, opening progress. Keep explicit Apply under the approved
+proposal contract, as communicated to the user. Ignore text entry, modal ownership,
+modifier variants and repeated keys; concurrent starts are guarded. Selections
+spanning molecules open a diagnostic and require explicit environment choice rather
+than silently adding physical context. Missing native prerequisites are visible.
+
+Enable the dedicated plugin in the default allowlist/targets without eagerly
+loading or requiring its native installation. Keep generic submission unavailable
+for server-owned captures. Fix the existing jobs WebSocket to observe disconnect
+while idle and clean up its reader on transport-close races; unrelated defects
+remain visible. Direct ASGI lifetime tests verify cleanup rather than relying on a
+test client's forced cancellation.
+
+C4 review refinement: numerical-transform setup and minimization capture explicitly
+retire each other's pending presentation. Beginning minimization also increments
+the numerical preview generation, so a delayed transform source response cannot
+appear afterward. Starting numerical preview dismisses minimization synchronously.
+The regression exercises the actual App ownership boundary in both directions.
+Read current store loading/applying state before submissions to guard rapid repeated
+callbacks before a React render. This changes no calculation or publication physics.
