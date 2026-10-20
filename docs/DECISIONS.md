@@ -4704,3 +4704,25 @@ reconciliation keeps its publication semantics. Recovery can refuse safely witho
 making unrelated editing a new chemistry gate. Original hash verification also
 prevents recovery from a corrupt preserved file. The helper filters calculation
 facts to bounded membership; its default preserves existing edit recovery behavior.
+
+## D-119 — Retain the qualified Hamiltonian while alternatives are assessed
+
+Issue #89's approved outcome does not require a force-field transition. The
+[OpenFF feasibility assessment](OPENFF_FEASIBILITY.md) identifies charge ownership,
+isomorphic-molecule combination, 1–4/exclusion, protein/water, chemical-domain and
+packaging questions that need a pinned native experiment. It does not establish
+accuracy or speed superiority. Keep amber-local-v1 and its conservative charge-
+geometry dependency. Focused[#101](https://github.com/ManuelSe/Neistra/issues/101)
+requires its own qualification and a distinct model identity before production.
+
+Reference CPU profiling of prepared1STP and the18k capacity fixture finds fixed-
+protein-only evaluation costs approximately the full model's cost. This is a
+material opportunity, not a measured reduced-evaluation speedup or an additive
+cost decomposition. Subtracting a constant preserves selected derivatives but
+saves no evaluation work by itself. Retain every production force-field term in
+this release. Focused[#102](https://github.com/ManuelSe/Neistra/issues/102) must
+qualify an actual reduced evaluator against full-model energies up to a disclosed
+fixed constant and selected forces, boundary terms, exclusions/scaled1–4, settings,
+cache/current-coordinate dependencies, cancellation and practical performance.
+No quadratic exception-list shortcut, silent model substitution or unsupported
+chemistry expansion is authorized by these feasibility findings.

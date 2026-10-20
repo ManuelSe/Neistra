@@ -88,3 +88,16 @@ desktop/mobile focused cases pass. Existing remount/actual zoom tests still cove
 mid-session responsive changes independently. No application setting, threshold or
 scientific condition changed. Attempt3 is diagnostic (61 passes/3 exclusions/one
 fixture race/one interrupted/254 unrun); complete candidate gate repeats.
+
+Final clean candidate13e8b45 passes all16 commands:1102 Python/273 frontend/8
+supervisor/268 browser,52 intentional layout/timing exclusions; zero failures,
+retries or native scientific skips. All lossless log digests and final runtime/
+test/tool identities verify. Final0.21 producer/actual tagged0.20 reader pass four
+cases, including warned acceptance and legacy identity proof. Native late-context,
+force/energy/boundary/stereo/cancel/cache/history and full viewer regressions pass.
+Candidate source SHA256:a2c05ac9d9d77896c34decd0cac42c0c0668d4674936c0f3946aa007ee21e27c.
+Five versions agree; dependency sources differ only in the root version. D-119
+records the approved scientific scope. Subsequent candidate evidence/README/decision
+changes are docs only; runtime/test/tool files still match the passing gate.
+No unresolved consequential local finding. Remote PR review and exact merged-master
+qualification/publication remain required, without claiming independent approval.

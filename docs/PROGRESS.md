@@ -2,41 +2,32 @@
 
 ## Current milestone
 
-Issue #89 follows the [approved interactive minimization plan](plans/issue-89-interactive-minimization.md)
-on feat/issue-89-interactive-minimization. C0–C5 are committed/pushed; C5 completes
-live native coordinate previews and explicit warned acceptance (D-117), preserving
-legacy strict defaults and one atomic Undo/Redo. Earlier checkpoints add RSS/identity
-diagnostics (D-113), automatic complete context (D-114), validated conservative
-parameter caching (D-115) and bounded transient snapshots (D-116).
+Issue #89 implementation is qualified under the [approved feature plan](plans/issue-89-interactive-minimization.md)
+on feat/issue-89-interactive-minimization. C0–C6 implement automatic complete context,
+validated conservative parameter reuse, transient native relaxation, immediate
+Cancel and explicit strict/warned acceptance with one atomic Undo/Redo. D-113–119
+retain resource/identity, scientific, ownership, caching and follow-up decisions.
 
-[C5 gate](assets/interactive-minimization/c5-gate.json):260 Python (unchanged hashes),
-273 frontend,8 supervisor,25 native browser pass /7 intentional mobile exclusions;
-static/types/build/fresh0014/diff pass. [Self-review](assets/interactive-minimization/c5-review.md)
-records investigation/corrections and limits.18k timing:81ms preview/246ms restore/
-233ms longest task, unchanged500/500/750ms bounds. Live30/1166-heavy cases preserve
-all fixed rows and restore below500ms. Schema2 operation/report contracts retain
-old inspection/serialization; no structural migration/dependency/application-version/
-physical-model change. #100 is addressed pending merge; OpenFF remains separate#101.
+[Clean candidate13e8b45](assets/interactive-minimization/c6-candidate-gate.json)
+passes all16 commands: **1,102 Python,273 frontend,8 supervisor,268 browser /52
+intentional layout/timing exclusions**, zero failures/retries/native scientific
+skips. Frozen/fresh0014/static/build/diff and final0.21 producer/actual tagged0.20
+reader pass. Four cases retain canonical all-conformer data/history/originals/jobs/
+models/parameters/archives. [Source and log audit](assets/interactive-minimization/c6-candidate-summary.json)
+verifies unchanged identities and lossless logs. [Self-review](assets/interactive-minimization/c6-review.md)
+is local, not independent approval. Earlier fixture/infrastructure diagnostics are
+separate; the unchanged assertions pass in the complete final run.
 
-C5 committed as02ee835. C6 adds verified calculation-local original identity
-recovery (D-118), actual0.20 reader coverage of automatic/warned/recovered results,
-and fixed-only profiling/OpenFF feasibility. Focused45 recovery tests and four
-actual older-reader cases pass. C6 checkpoint:282 Python/273 frontend/8 supervisor/
-21 native browser,3 intentional mobile timing exclusions; static/types/build pass.
-[Evidence](assets/interactive-minimization/c6-checkpoint-gate.json); fixed-only
-optimization deferred to verified#102. Final-version release gates remain.
-C6 recovery/qualification committed asb1b7ba2. All five authoritative versions
-are prepared as0.21.0 (additive user-visible functionality, preserved schemas/APIs).
-No migration or dependency change. Initial full gate found a stale archive test
-version pin; corrected fixture plus preceding0.20 case passes all30 archive tests.
-That run is diagnostic, not release qualification. The next run passed1102
-Python/273 frontend/8 supervisor/static/build but browser page creation hung in
-host DRM before app execution. After host restart, standard SwiftShader works;
-current-host run passed1102 Python/273 frontend/8 supervisor and61 browser cases
-before a new test hit a responsive bounding-box race. The corrected test passes
-on desktop/mobile with unchanged layout/axe/Undo assertions. Complete gate rerun
-remains required; failure evidence is separate. No external blocker. Next: complete clean
-final-version candidate gate, PR/review/merge and exact-master release qualification. The feature plan is detailed truth.
+Candidate compatible preparation median4.803s cold/0.350s warm (13.72x), zero warm
+native calls.18k preview20.5ms/restore249ms/longest233ms; partial/1166-heavy live
+fixtures pass delivery and restoration bounds with exact fixed rows. No universal
+changed-ligand-geometry or end-to-end speed claim. No structural migration/model/
+dependency change; five versions0.21.0. OpenFF experiment#101 and qualified fixed-only
+optimization#102 remain deferred; #100 addressed pending merge. No external blocker.
+
+Next: commit candidate evidence/docs, PR and review, normal merge, exact merged-
+master gate, annotatedv0.21.0/release/issue close-out and delayed branch cleanup.
+The feature plan remains the detailed source of truth.
 
 ### Previous delivery baseline — v0.20.0
 

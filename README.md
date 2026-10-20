@@ -55,8 +55,10 @@ directory before changing versions.
 
 Invoke **Minimize selection** beside Edit for automatic complete nearby molecular
 context. **Ctrl+M** immediately starts an automatic calculation of the
-captured selection; inspect its report/preview and choose **Apply coordinates** for
-one reversible edit. Complete existing topology/H and the separately installed
+captured selection. Watch transient relaxation, inspect the report and explicitly
+apply one reversible edit or discard. Eligible iteration-limited results require
+**Accept unconverged coordinates**; strict convergence remains available. Cancel
+restores canonical geometry immediately. Complete existing topology/H and the separately installed
 [locked native toolchain](tools/README.md) are required. See
 [Selection minimization](docs/MINIMIZATION.md) for context choices, prerequisites,
 scientific limits and compatibility.

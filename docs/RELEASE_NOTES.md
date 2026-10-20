@@ -3,7 +3,8 @@
 ## 0.21.0 - 2026-10-20 - Interactive environment-aware minimization
 
 Implemented under the [approved issue89 plan](plans/issue-89-interactive-minimization.md).
-Publication details and exact final verification are recorded after the release gate.
+The complete candidate gate passes; exact merged-master qualification and publication
+verification precede tagging and release.
 
 ### Highlights
 
@@ -33,8 +34,8 @@ canonical metadata and preserved files remain unchanged.
 
 Bounded validated caches reuse receptor, ligand and assembled parameters only when
 their dependencies agree. Changed ligand AM1-BCC input geometry is reparameterized.
-Three paired native samples give14.18x median compatible preparation improvement
-(5.469s cold/0.386s warm), with zero warm native preparation calls. This is not a
+The candidate's three paired native samples give13.72x median compatible preparation
+improvement (4.803s cold/0.350s warm), with zero warm native preparation calls. This is not a
 universal end-to-end speed claim. Latest-only live delivery uses bounded transient
 snapshots, GPU readiness and one active/newest pending viewer update. Timing and
 scientific qualification fixtures/limitations are documented in the feature plan.
@@ -72,9 +73,14 @@ bounded readback, custom cue quality, duplicate suppression and GPU backpressure
 
 ### Verification
 
-Checkpoint gates and native scientific, cache, cancellation, exact fixed-row,
-Undo/Redo, compatibility and accessibility evidence are linked from the feature plan.
-Final candidate and exact merged-master gate counts are appended after execution.
+The [clean candidate gate](assets/interactive-minimization/c6-candidate-gate.json)
+at13e8b45 passes all16 commands:1,102 Python,273 frontend,8 supervisor and268
+browser cases /52 intentional layout/timing exclusions, zero failures/retries/native
+scientific skips. Frozen installs/fresh0014/static/build/diff pass. Actual tagged
+0.20 API/core retains final0.21 automatic/warned/recovered data/history/jobs/archives
+in four cases. Exact commands, unchanged source identities, lossless logs and timing
+measurements are retained. Exact merged-master qualification remains required before
+tag/release. Existing Alembic/Vite/bundle advisories are disclosed in the logs.
 
 ## 0.20.0 - 2026-10-19 - Selection minimization
 

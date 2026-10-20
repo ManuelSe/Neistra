@@ -486,3 +486,20 @@ merge/tag/release/reply verification; finish clean master.
   the failing test was corrected before interrupting that diagnostic run. Exact
   logs/native timings and failure snapshot retained; full trace stored in task
   evidence for publication. Next: commit test fix, clean complete candidate rerun.
+
+- M5/C6 final clean candidate13e8b45aa04b9f022f409869ad4d80410f48c0d2 passes all16
+  commands:1102 Python,273 frontend,8 supervisor,268 browser/52 intentional layout/
+  timing exclusions; zero failures/retries/native scientific skips. Frozen/fresh0014/
+  static/build/diff pass. Final0.21 producer and actual tagged0.20 API/core retain
+  four automatic/active7/multi-entry/warned/recovered cases exactly. [Gate](../assets/interactive-minimization/c6-candidate-gate.json),
+  [summary](../assets/interactive-minimization/c6-candidate-summary.json),
+  [source](../assets/interactive-minimization/c6-candidate-source.json),
+  [review](../assets/interactive-minimization/c6-review.md). Runtime/test/tool SHA256
+  a2c05ac9d9d77896c34decd0cac42c0c0668d4674936c0f3946aa007ee21e27c.
+  All raw log digests/current source identities verified. D-119 records qualified
+  AMBER retention and separate#101/#102 work. Candidate preparation4.803/.350s,
+  13.72x;18k20.5ms preview/249ms restore/233ms longest; live30/1166-heavy bounds
+  pass. No universal changed-geometry speed claim. Base remainsf12dd18, lateststable
+  v0.20.0 and v0.21.0 absent on recheck. Only docs/evidence change after this tested
+  source. Next: evidence commit/PR/review, normal merge and exact-master gate before
+  publication. No external blocker; issue is not complete until release/close-out.

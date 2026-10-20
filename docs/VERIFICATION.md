@@ -953,3 +953,15 @@ Follow-up#102 requires actual equivalent reduced evaluation and benchmark gains.
 [OpenFF feasibility](OPENFF_FEASIBILITY.md) retains AMBER; experiment#101 is separate.
 Large C5 raw timing records are retained losslessly as adjacent gzip files, with
 uncompressed SHA256 and summaries in the original JSON paths for reviewability.
+
+Issue89 final [clean candidate13e8b45](assets/interactive-minimization/c6-candidate-gate.json)
+passes all16 commands:1102 Python/273 frontend/8 supervisor/268 browser with52
+intentional layout/timing exclusions, zero failures/retries/native scientific skips.
+Frozen/fresh0014/static/build/diff and final0.21 producer/actual0.20 reader pass.
+[Summary](assets/interactive-minimization/c6-candidate-summary.json) verifies exact
+source/log identities; four preceding-reader cases retain all conformers, canonical
+history, original bytes, opaque jobs/models/parameters/provenance and archives.
+Fresh native cache pairs give13.72x compatible preparation improvement, no changed-
+ligand charge-geometry reuse claim; actual native live30/1166-heavy and1STP/18k
+preview/restoration bounds pass. Exact merged-master gate remains required before
+release. Earlier incomplete diagnostics are distinct from this passing run.
