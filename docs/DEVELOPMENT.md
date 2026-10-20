@@ -693,3 +693,26 @@ final current producer/tagged0.21 reader and tagged producer/current reader.
 Native trusted-input tests prove gesture authoring separately from wire retention.
 Run the complete candidate and exact merged-master gates above, with locked native
 tools/thread limits, and retain raw logs, source identities and timing evidence.
+
+## Picking-mode hover qualification (issue #91)
+
+The [approved plan](plans/issue-91-selection-mode-hover.md), D-124/D-125 and
+[selection guide](SELECTION_GESTURES.md) define shared target membership and
+viewer-local transient marks. The locked Mol*5.11.0 package patch completes
+pending native readbacks for synchronous clicks; it does not upgrade a dependency
+or change molecular geometry. Frozen pnpm install validates its hash; see
+[patch maintenance](../patches/README.md). Preserve original surface click timing,
+exact native markers and existing performance thresholds when upgrading Mol*.
+
+No migration or durable hover state is added in0.22.1: Alembic0014, project/
+viewer/archive2 and normalized/selection1 remain. The existing selection reader
+harness must run actual tagged v0.22.0 and final0.22.1 implementations in separate
+processes, both producer/reader directions, with fresh task-specific data and
+expected version/module-root assertions. See the plan and retained qualification
+orchestrator for exact commands. Version strings alone are insufficient evidence.
+
+Run complete clean-candidate and exact-merged-master release gates with locked
+AmberTools and bounded threads before tagging. Reload/restart the previous
+qualified client/API for rollback; no conversion, schema downgrade or data
+stripping is needed, and its earlier hover behavior returns. Keep ordinary full
+managed-data backups and do not alter archived canonical selections or originals.

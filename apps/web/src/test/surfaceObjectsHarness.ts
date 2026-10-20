@@ -33,6 +33,12 @@ export async function mountSurfaceObjectsHarness(container: HTMLElement, source:
     return worker;
   });
   const events: SurfaceIdentity[] = [], molecularEvents: ViewerSelectionEvent[] = [];
+  const picks: { kind: string; surface: SurfaceIdentity | null; page: number[] | undefined }[] = [];
+  let hovered: SurfaceIdentity | null = null;
+  plugin.behaviors.interaction.hover.subscribe(({ current }) => { hovered = internals.surfaceVisuals.identityFor(current.repr); });
+  plugin.behaviors.interaction.click.subscribe(({ current, page }) => {
+    picks.push({ kind: current.loci.kind, surface: internals.surfaceVisuals.identityFor(current.repr), page });
+  });
   engine.subscribeSurfaceSelection(identity => events.push(identity));
   engine.subscribeSelection(event => molecularEvents.push(event));
   const median = [...source.normalized.atoms.map(a => a.coordinates[0])].sort((a, b) => a - b)[Math.floor(source.atomIds.length / 2)];
@@ -82,7 +88,8 @@ export async function mountSurfaceObjectsHarness(container: HTMLElement, source:
   await new Promise(resolve => setTimeout(resolve, 300));
   const selection = [{ structure_id: source.entryId, atom_id: source.atomIds[0] }];
   engine.setSelection(selection);
-  const inspect = () => ({ camera: engine.getCamera(), workers: { ...workers }, events: [...events], molecularEvents: [...molecularEvents],
+  const inspect = () => ({ camera: plugin.canvas3d!.camera.getSnapshot(), picks: [...picks], hovered,
+    workers: { ...workers }, events: [...events], molecularEvents: [...molecularEvents],
     objects: [...objects].map(([id, object]) => {
       const cell = object.representation && plugin.state.data.cells.get(object.representation);
       const repr = cell ? cell.obj?.data as { repr: Representation.Any } : undefined;

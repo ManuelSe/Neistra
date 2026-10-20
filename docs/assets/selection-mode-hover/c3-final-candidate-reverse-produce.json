@@ -1,0 +1,11 @@
+{
+  "producer": "0.22.0",
+  "entries": 2,
+  "atomic_batch": true,
+  "jobs_unchanged": true,
+  "archive_sha256": "d3683251ff3691630cdd53c79f6d85f6ac55c9341a0debb6993c27e30baed186",
+  "api_module": "/datadisk/dev/.neistra-tools/issue91-reader-022/apps/api/src/molweave_api/main.py",
+  "core_module": "/datadisk/dev/.neistra-tools/issue91-reader-022/packages/molweave_core/src/molweave_core/__init__.py",
+  "application_version": "0.22.0",
+  "implementation_root": "/datadisk/dev/.neistra-tools/issue91-reader-022"
+}

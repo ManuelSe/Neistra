@@ -1,0 +1,149 @@
+{
+  "tag": "v0.22.0",
+  "tagged_commit": "28d3a9bb59c6e786e0586ae589f0e0ebfee7678a",
+  "current_commit": "667e7a88fade5dd6d40d5ce7f28df1fcb40bb832",
+  "current_version": "0.22.1",
+  "steps": [
+    {
+      "direction": "forward",
+      "phase": "migration",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/alembic",
+        "-c",
+        "/datadisk/dev/neistra/alembic.ini",
+        "upgrade",
+        "head"
+      ],
+      "cwd": "/datadisk/dev/neistra",
+      "pythonpath": "/datadisk/dev/neistra/apps/api/src:/datadisk/dev/neistra/packages/molweave_core/src:/datadisk/dev/neistra/packages/molweave_demo_plugin/src:/datadisk/dev/neistra",
+      "data_dir": "/datadisk/dev/.neistra-tools/issue91-c3-final-candidate-forward",
+      "expected_version": "0.22.1",
+      "exit_code": 0,
+      "seconds": 0.9608062110055471,
+      "log": "docs/assets/selection-mode-hover/c3-final-candidate-forward-migration.log.gz",
+      "raw_log_sha256": "a65aaba1d288361248cfad53dee993528aa5c4bbd5accca186ae60e26f85c610"
+    },
+    {
+      "direction": "forward",
+      "phase": "produce",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/python",
+        "/datadisk/dev/neistra/tests/support/selection_reader_qualification.py",
+        "produce",
+        "--data-dir",
+        "/datadisk/dev/.neistra-tools/issue91-c3-final-candidate-forward",
+        "--evidence",
+        "/datadisk/dev/neistra/docs/assets/selection-mode-hover/c3-final-candidate-forward-produce.json",
+        "--implementation-root",
+        "/datadisk/dev/neistra",
+        "--expected-version",
+        "0.22.1"
+      ],
+      "cwd": "/datadisk/dev/neistra",
+      "pythonpath": "/datadisk/dev/neistra/apps/api/src:/datadisk/dev/neistra/packages/molweave_core/src:/datadisk/dev/neistra/packages/molweave_demo_plugin/src:/datadisk/dev/neistra",
+      "data_dir": "/datadisk/dev/.neistra-tools/issue91-c3-final-candidate-forward",
+      "expected_version": "0.22.1",
+      "exit_code": 0,
+      "seconds": 2.5928861430002144,
+      "log": "docs/assets/selection-mode-hover/c3-final-candidate-forward-produce.log.gz",
+      "raw_log_sha256": "fe9531142fab3f1c03e37f0acb91caca43890e5dd8b1f844a3d6101d44249354"
+    },
+    {
+      "direction": "forward",
+      "phase": "read",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/python",
+        "/datadisk/dev/neistra/tests/support/selection_reader_qualification.py",
+        "read",
+        "--data-dir",
+        "/datadisk/dev/.neistra-tools/issue91-c3-final-candidate-forward",
+        "--evidence",
+        "/datadisk/dev/neistra/docs/assets/selection-mode-hover/c3-final-candidate-forward-read.json",
+        "--implementation-root",
+        "/datadisk/dev/.neistra-tools/issue91-reader-022",
+        "--expected-version",
+        "0.22.0"
+      ],
+      "cwd": "/datadisk/dev/.neistra-tools/issue91-reader-022",
+      "pythonpath": "/datadisk/dev/.neistra-tools/issue91-reader-022/apps/api/src:/datadisk/dev/.neistra-tools/issue91-reader-022/packages/molweave_core/src:/datadisk/dev/.neistra-tools/issue91-reader-022/packages/molweave_demo_plugin/src:/datadisk/dev/neistra",
+      "data_dir": "/datadisk/dev/.neistra-tools/issue91-c3-final-candidate-forward",
+      "expected_version": "0.22.0",
+      "exit_code": 0,
+      "seconds": 1.509325881001132,
+      "log": "docs/assets/selection-mode-hover/c3-final-candidate-forward-read.log.gz",
+      "raw_log_sha256": "0e476189c3bb8ca3e4a2f2a78e2465386d5a53a89a2a26badc418e2aa5d9efc0"
+    },
+    {
+      "direction": "reverse",
+      "phase": "migration",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/alembic",
+        "-c",
+        "/datadisk/dev/.neistra-tools/issue91-reader-022/alembic.ini",
+        "upgrade",
+        "head"
+      ],
+      "cwd": "/datadisk/dev/.neistra-tools/issue91-reader-022",
+      "pythonpath": "/datadisk/dev/.neistra-tools/issue91-reader-022/apps/api/src:/datadisk/dev/.neistra-tools/issue91-reader-022/packages/molweave_core/src:/datadisk/dev/.neistra-tools/issue91-reader-022/packages/molweave_demo_plugin/src:/datadisk/dev/neistra",
+      "data_dir": "/datadisk/dev/.neistra-tools/issue91-c3-final-candidate-reverse",
+      "expected_version": "0.22.0",
+      "exit_code": 0,
+      "seconds": 0.9778310460023931,
+      "log": "docs/assets/selection-mode-hover/c3-final-candidate-reverse-migration.log.gz",
+      "raw_log_sha256": "a65aaba1d288361248cfad53dee993528aa5c4bbd5accca186ae60e26f85c610"
+    },
+    {
+      "direction": "reverse",
+      "phase": "produce",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/python",
+        "/datadisk/dev/neistra/tests/support/selection_reader_qualification.py",
+        "produce",
+        "--data-dir",
+        "/datadisk/dev/.neistra-tools/issue91-c3-final-candidate-reverse",
+        "--evidence",
+        "/datadisk/dev/neistra/docs/assets/selection-mode-hover/c3-final-candidate-reverse-produce.json",
+        "--implementation-root",
+        "/datadisk/dev/.neistra-tools/issue91-reader-022",
+        "--expected-version",
+        "0.22.0"
+      ],
+      "cwd": "/datadisk/dev/.neistra-tools/issue91-reader-022",
+      "pythonpath": "/datadisk/dev/.neistra-tools/issue91-reader-022/apps/api/src:/datadisk/dev/.neistra-tools/issue91-reader-022/packages/molweave_core/src:/datadisk/dev/.neistra-tools/issue91-reader-022/packages/molweave_demo_plugin/src:/datadisk/dev/neistra",
+      "data_dir": "/datadisk/dev/.neistra-tools/issue91-c3-final-candidate-reverse",
+      "expected_version": "0.22.0",
+      "exit_code": 0,
+      "seconds": 2.5643118509979104,
+      "log": "docs/assets/selection-mode-hover/c3-final-candidate-reverse-produce.log.gz",
+      "raw_log_sha256": "17121090b6fe441e3e18172d1c26c8245c3d831b2960961e68ad47baf8287334"
+    },
+    {
+      "direction": "reverse",
+      "phase": "read",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/python",
+        "/datadisk/dev/neistra/tests/support/selection_reader_qualification.py",
+        "read",
+        "--data-dir",
+        "/datadisk/dev/.neistra-tools/issue91-c3-final-candidate-reverse",
+        "--evidence",
+        "/datadisk/dev/neistra/docs/assets/selection-mode-hover/c3-final-candidate-reverse-read.json",
+        "--implementation-root",
+        "/datadisk/dev/neistra",
+        "--expected-version",
+        "0.22.1"
+      ],
+      "cwd": "/datadisk/dev/neistra",
+      "pythonpath": "/datadisk/dev/neistra/apps/api/src:/datadisk/dev/neistra/packages/molweave_core/src:/datadisk/dev/neistra/packages/molweave_demo_plugin/src:/datadisk/dev/neistra",
+      "data_dir": "/datadisk/dev/.neistra-tools/issue91-c3-final-candidate-reverse",
+      "expected_version": "0.22.1",
+      "exit_code": 0,
+      "seconds": 1.5236798440018902,
+      "log": "docs/assets/selection-mode-hover/c3-final-candidate-reverse-read.log.gz",
+      "raw_log_sha256": "f771fdcd8be05d3d4568ccd3bdefa72d795e8fe40d040a116f08089829e5a46a"
+    }
+  ],
+  "forward_archive_sha256": "30f6aa68bf90518c6500a7f96318b9ffd647ca75b623d2e4950e36a527fc4617",
+  "reverse_archive_sha256": "d3683251ff3691630cdd53c79f6d85f6ac55c9341a0debb6993c27e30baed186",
+  "qualified": true
+}

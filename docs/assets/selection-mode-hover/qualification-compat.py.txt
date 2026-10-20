@@ -1,0 +1,42 @@
+import argparse,gzip,hashlib,json,os,shutil,subprocess,time
+from pathlib import Path
+p=argparse.ArgumentParser()
+p.add_argument('label'); p.add_argument('--current-version',required=True)
+a=p.parse_args()
+root=Path('/datadisk/dev/neistra')
+old=Path('/datadisk/dev/.neistra-tools/issue91-reader-022')
+out=root/'docs/assets/selection-mode-hover'
+script=root/'tests/support/selection_reader_qualification.py'
+python=root/'.venv/bin/python'
+alembic=root/'.venv/bin/alembic'
+steps=[]
+record={'tag':'v0.22.0','tagged_commit':subprocess.check_output(['git','rev-parse','v0.22.0^{}'],cwd=root,text=True).strip(),
+        'current_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=root,text=True).strip(),
+        'current_version':a.current_version,'steps':steps}
+for direction,producer,pv,consumer,cv in [('forward',root,a.current_version,old,'0.22.0'),('reverse',old,'0.22.0',root,a.current_version)]:
+    data=Path('/datadisk/dev/.neistra-tools')/f'issue91-{a.label}-{direction}'
+    data.mkdir(exist_ok=False)
+    for phase,implementation,version in [('migration',producer,pv),('produce',producer,pv),('read',consumer,cv)]:
+        env=dict(os.environ)
+        env.update(PYTHONPATH=':'.join(str(implementation/x) for x in ['apps/api/src','packages/molweave_core/src','packages/molweave_demo_plugin/src'])+':'+str(root),
+                   MOLWEAVE_DATA_DIR=str(data),MOLWEAVE_AMBERTOOLS_PREFIX='/datadisk/dev/.neistra-tools/ambertools-24.8',OPENBLAS_NUM_THREADS='1',OMP_NUM_THREADS='1')
+        evidence=out/f'{a.label}-{direction}-{phase}.json'
+        command=([str(alembic),'-c',str(implementation/'alembic.ini'),'upgrade','head'] if phase=='migration' else
+                 [str(python),str(script),phase,'--data-dir',str(data),'--evidence',str(evidence),'--implementation-root',str(implementation),'--expected-version',version])
+        print(f'START {direction}/{phase}: '+ ' '.join(command),flush=True)
+        start=time.monotonic()
+        run=subprocess.run(command,cwd=implementation,env=env,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
+        log=out/f'{a.label}-{direction}-{phase}.log.gz'
+        log.write_bytes(gzip.compress(run.stdout,mtime=0))
+        steps.append({'direction':direction,'phase':phase,'command':command,'cwd':str(implementation),'pythonpath':env['PYTHONPATH'],
+                      'data_dir':str(data),'expected_version':version,'exit_code':run.returncode,'seconds':time.monotonic()-start,
+                      'log':str(log.relative_to(root)),'raw_log_sha256':hashlib.sha256(run.stdout).hexdigest()})
+        (out/f'{a.label}-reader-gate.json').write_text(json.dumps(record,indent=2)+'\n')
+        print(f'END {direction}/{phase}: {run.returncode}\n'+run.stdout.decode(errors='replace')[-1800:],flush=True)
+        if run.returncode: raise SystemExit(run.returncode)
+    archive=data/'moved.molweave.zip'
+    shutil.copyfile(archive,out/f'{a.label}-{direction}.molweave.zip')
+    record[f'{direction}_archive_sha256']=hashlib.sha256(archive.read_bytes()).hexdigest()
+record['qualified']=True
+(out/f'{a.label}-reader-gate.json').write_text(json.dumps(record,indent=2)+'\n')
+print('PASS '+a.label+' actual implementation retention in both directions',flush=True)

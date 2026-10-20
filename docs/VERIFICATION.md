@@ -1042,3 +1042,53 @@ actual tagged0.20 reader cases pass. [Publication](assets/interactive-minimizati
 verifies annotated exact tag, stable public release/notes and public downloaded
 qualification ZIP SHA256/CRC/255 internal hashes. The verified issue close-out links
 the final docs/ref-state audit; runtime tag is fixed despite later docs-only audit.
+
+Issue91 M2 [complete checkpoint gate](assets/selection-mode-hover/c2-complete-gate.json)
+passes301 frontend (25 focused), lint/types/build/diff and58 native browser cases
+/4 intentional layout/pointer exclusions, zero failures/retries, unchanged source
+hashes. Exact native marker sets and selection overlap, current-mode entity
+semantics, lifecycle/remount, camera/project/original invariance and surface/tool
+regressions pass. [Review](assets/selection-mode-hover/c2-review.md) is implementer
+self-review. Pink-hover/green-selection atom screenshots were visually inspected
+in both themes. Diagnostic failures remain separate; final-version actual-reader,
+complete candidate/exact-master and performance gates are still required.
+
+Corrected issue91 M2 [final gate](assets/selection-mode-hover/c2-final-corrected-gate.json)
+supersedes earlier pre-patch qualification:305 frontend/29 focused,58 native
+browser /4 intentional exclusions, lint/types/build/diff, zero failures/flakes/
+retries, unchanged source/patch/lock hashes and verified lossless logs. The
+[local review](assets/selection-mode-hover/c2-review.md) records D-125's readback
+correction, deterministic negative control and10/10 original-timing native surface
+passes. Production build excludes test harnesses. Complete final-version candidate/
+exact-master, actual-reader and performance/scientific release gates remain pending.
+
+Issue91 M3 [focused final0.22.1 gate](assets/selection-mode-hover/c3-focused-gate.json)
+passes35 Python saved-selection/archive,305 frontend,12 browser /8 intentional
+layout/pointer exclusions and static/build/diff checks. No failures/flakes/retries;
+source/patch/lock hashes unchanged. Both-theme axe and1STP1001-atom import863ms/
+interaction4091ms/longest628ms/zero repeated reads meet unchanged budgets. Complete
+clean candidate/actual-reader/exact-master qualification remains pending.
+
+Issue91 final-review [camera checkpoint](assets/selection-mode-hover/c3-camera-gate.json)
+passes305 frontend/29 focused and83 native browser cases /11 documented exclusions,
+static/build/diff, zero failures/flakes/retries and unchanged source hashes.
+Native hover observes zero duplicate application camera callbacks; the prior
+negative control reproduces8 with identical pose. [Blur addition](assets/selection-mode-hover/c3-blur-gate.json)
+passes3 native cases /3 fine-pointer exclusions, lint/types/diff and separately
+checks blur clearing, fresh trusted hover and exit. 1STP879ms import/4034ms
+interactions/637ms longest/zero repeated reads meets unchanged budgets. Earlier
+interrupted `c3-candidate` is not final qualification; fresh committed
+`c3-final-candidate` and exact-master gates remain required.
+
+Issue91 final [clean candidate667e7a8](assets/selection-mode-hover/c3-final-candidate-gate.json)
+passes all16 release commands:1108 Python/305 frontend/8 supervisor/285 browser
+with55 documented layout/timing exclusions, zero failures/flakes/retries/native
+scientific skips. [Audit](assets/selection-mode-hover/c3-final-candidate-summary.json)
+verifies480 unchanged source/patch/lock hashes and16 lossless log hashes. Actual
+tagged0.22↔final0.22.1 readers pass both directions. 1STP915ms import/4039ms
+interactions/669ms longest/zero repeated reads meets unchanged budgets; native18k
+minimization/100k surface, actual100–200%zoom, both-theme accessibility and complete
+journey pass. Exact native hover sets, zero extra camera callbacks and lifecycle
+pass; final screenshots were inspected in both themes. [Review](assets/selection-mode-hover/c3-review.md)
+is local self-review with no unresolved consequential finding. Earlier interrupted/
+negative controls are separate; exact merged-master repetition remains required.

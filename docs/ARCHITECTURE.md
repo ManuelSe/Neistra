@@ -111,7 +111,8 @@ Mol* owns hit testing and the distinction between a click and a camera drag.
 Neistra consumes the resulting primary mouse or touch activation and translates
 structural loci immediately into canonical application atom references at the
 active Atom, Residue, Chain, or Structure granularity. An unmodified hit replaces
-selection, Ctrl/Meta/Shift adds, and Alt subtracts. An unmodified empty hit clears
+selection, Ctrl/Meta toggles the complete operand, Shift adds or selects an
+eligible fixed-anchor protein-residue range, and Alt subtracts. An unmodified empty hit clears
 a non-empty selection; an empty hit with a modifier, or while selection is already
 empty, is a no-op.
 
@@ -124,6 +125,23 @@ explicit application operations such as `focusAtoms` and `fitVisible`.
 These interactions update transient viewer/application state only. They do not
 issue project commands, refetch normalized structures, mutate molecular data, or
 persist ordinary selection or camera state.
+
+Molecular hover uses the same structural target resolver as ordinary clicks but
+owns only transient renderer marks. Its one adapter subscription replaces the
+native hover handler, including the native independent Shift-extension behavior.
+Resolved canonical loci bypass automatic granularity expansion. Membership indexes
+are weakly keyed by immutable normalized/hierarchy objects; the current hover
+target/loci is scoped to the bound scene and picking mode. Hover does not publish
+selection events or store updates. Camera publications deduplicate the existing
+application snapshot so native projection jitter cannot cause application React/
+store updates during hover. Native labels/focus retain their own behavior.
+Visibility, scene, coordinate, navigation and
+movement boundaries clear it. Managed surface representations are excluded from
+queued molecular highlight/removal actions, preserving their independently owned
+object activation. D-124 and the issue #91 contract govern qualification.
+The pinned Mol*5.11.0 patch (D-125) completes pending native GPU pick readbacks
+before synchronous click resolution, preserving surface activation after native
+hover ownership is removed. It does not infer or replay click targets.
 
 ## Selection Representation Ownership
 

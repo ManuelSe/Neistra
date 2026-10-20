@@ -1,4 +1,8 @@
 import { DoubleClickSequence, doubleClickExpansion } from "../selection/gestures";
+import { resolvePickingTarget, type PickingTarget } from "./pickingTargets";
+import { applicationHoverBehaviors, markMolecularHover } from "./hover";
+import { PluginStateObject } from "molstar/lib/mol-plugin-state/objects";
+import { ButtonsType } from "molstar/lib/mol-util/input/input-observer";
 import { preparePreviewGpu } from "./previewGpu";
 import { createModelPreviewRepresentation, modelPreviewColor } from "./modelPreviewGeometry";
 import type { MolecularProposalGeometry } from "../api/types";
@@ -108,6 +112,11 @@ export class MolstarEngine implements MolecularViewer {
   private hasScene = false;
   private doubleClicks = new DoubleClickSequence();
   private clickSubscription: { unsubscribe(): void } | undefined;
+  private hoverSubscription: { unsubscribe(): void } | undefined;
+  private stopHoverMarking: (() => void) | undefined;
+  private hoverTarget: PickingTarget | null = null;
+  private hoverNativeLoci: Loci | null = null;
+  private hoverCamera: CameraState | null = null;
   private cameraSubscription: { unsubscribe(): void } | undefined;
   private measurementRefs: string[] = [];
   private labelRefs: string[] = [];
@@ -142,7 +151,7 @@ export class MolstarEngine implements MolecularViewer {
       render: renderReact18,
       spec: {
         ...defaultSpec,
-        behaviors: withCameraNeutralPrimarySelection(defaultSpec.behaviors, () => this.movementInteraction === "inactive"),
+        behaviors: applicationHoverBehaviors(withCameraNeutralPrimarySelection(defaultSpec.behaviors, () => this.movementInteraction === "inactive")),
         canvas3d: {
           ...defaultSpec.canvas3d,
           camera: { ...defaultSpec.canvas3d?.camera, manualReset: true },
@@ -183,6 +192,7 @@ export class MolstarEngine implements MolecularViewer {
       if (event.target instanceof Element && (event.target instanceof HTMLCanvasElement
         || event.target.closest(".movement-pointer-surface"))) {
         this.heldPointers.add(event.pointerId);
+        this.clearHover();
         if (this.ignoredPointers.size) this.ignoredPointers.add(event.pointerId);
       }
     };
@@ -209,7 +219,7 @@ export class MolstarEngine implements MolecularViewer {
       event.preventDefault();
       event.stopImmediatePropagation();
     };
-    const blur = () => { this.doubleClicks.clear(); this.heldPointers.clear(); this.ignoredPointers.clear(); this.ignoredMouseRelease = false; };
+    const blur = () => { this.clearHover(); this.doubleClicks.clear(); this.heldPointers.clear(); this.ignoredPointers.clear(); this.ignoredMouseRelease = false; };
     const doubleClick = (event: MouseEvent) => {
       if (!(event.target instanceof HTMLCanvasElement) || this.boundGeneration !== this.generation
         || this.rebuilding || this.movementInteraction !== "inactive" || this.pickingGranularity !== "atom"
@@ -220,10 +230,12 @@ export class MolstarEngine implements MolecularViewer {
       if (expanded) this.emit({ atoms: expanded.selection.atoms, granularity: expanded.selection.granularity,
         mode: "replace", pick: { atoms: expanded.pick, kind: "double", shift: false } });
     };
-    const resetGesture = () => this.doubleClicks.clear();
+    const resetGesture = () => { this.clearHover(); this.doubleClicks.clear(); };
+    const leave = () => this.clearHover();
     const dragSubscription = plugin.canvas3d.input.drag.subscribe(resetGesture);
     const wheelSubscription = plugin.canvas3d.input.wheel.subscribe(resetGesture);
     target.addEventListener("dblclick", doubleClick);
+    target.addEventListener("pointerleave", leave);
     inputRoot.addEventListener("pointerdown", down, true);
     window.addEventListener("pointerdown", freshDown, true);
     window.addEventListener("pointerup", up, true);
@@ -237,6 +249,7 @@ export class MolstarEngine implements MolecularViewer {
       dragSubscription.unsubscribe();
       wheelSubscription.unsubscribe();
       target.removeEventListener("dblclick", doubleClick);
+      target.removeEventListener("pointerleave", leave);
       inputRoot.removeEventListener("pointerdown", down, true);
       window.removeEventListener("pointerdown", freshDown, true);
       window.removeEventListener("pointerup", up, true);
@@ -252,6 +265,35 @@ export class MolstarEngine implements MolecularViewer {
     plugin.representation.structure.registry.add(SelectionSurfaceWireframeProvider);
     this.stopAttributionObserver = observeViewerAttribution(target);
     this.setBackgroundColor(this.backgroundColor);
+    const highlightManager = plugin.managers.interactivity.lociHighlights;
+    const markHover: Parameters<typeof highlightManager.addProvider>[0] = ({ loci }, action) => {
+      const representations = [...plugin.state.data.cells.values()].flatMap(cell =>
+        PluginStateObject.Molecule.Structure.Representation3D.is(cell.obj) ? [cell.obj.data.repr] : []);
+      markMolecularHover(representations, this.surfaceVisuals, loci, action, (target, marker) => plugin.canvas3d?.mark(target, marker));
+    };
+    highlightManager.addProvider(markHover);
+    this.stopHoverMarking = () => highlightManager.removeProvider(markHover);
+    this.hoverSubscription = plugin.behaviors.interaction.hover.subscribe(({ current, buttons }) => {
+      if (buttons !== ButtonsType.Flag.None || this.heldPointers.size || plugin.isBusy || this.rebuilding
+        || this.boundGeneration !== this.generation || this.movementInteraction !== "inactive"
+        || this.surfaceVisuals.identityFor(current.repr) || Loci.isEmpty(current.loci)) {
+        this.clearHover(); return;
+      }
+      const nativeLoci = this.pickingGranularity === "residue" ? null : Loci.normalize(current.loci,
+        this.pickingGranularity === "atom" ? "element" : this.pickingGranularity, true);
+      // Compare native membership before materializing canonical reference sets
+      // for repeated Atom/Chain/Structure hits. Residues use indexed app targets.
+      if (nativeLoci && this.hoverNativeLoci && Loci.areEqual(nativeLoci, this.hoverNativeLoci)) return;
+      const target = this.pickingTarget(current.loci);
+      if (!target.atoms.length) { this.clearHover(); return; }
+      this.hoverNativeLoci = nativeLoci;
+      if (this.hoverTarget?.key === target.key) return;
+      const loci = this.lociFor(target.atoms);
+      if (!loci) { this.clearHover(); return; }
+      this.hoverTarget = target;
+      this.hoverCamera = this.getCamera();
+      highlightManager.highlightOnly({ loci }, false);
+    });
     this.clickSubscription = plugin.behaviors.interaction.click.subscribe(
       ({ current, button, modifiers }) => {
         if (this.boundGeneration !== this.generation || this.rebuilding || this.movementInteraction !== "inactive" || !isPrimarySelectionActivation(button)) { this.doubleClicks.clear(); return; }
@@ -278,14 +320,7 @@ export class MolstarEngine implements MolecularViewer {
           }
           return;
         }
-        const granular = Loci.normalize(
-          current.loci,
-          this.pickingGranularity === "atom"
-            ? "element"
-            : this.pickingGranularity,
-          true,
-        );
-        const references = this.referencesFromLoci(granular);
+        const references = this.pickingTarget(current.loci).atoms;
         if (!references.length) { this.doubleClicks.clear(); return; }
         const pickedAtoms = this.referencesFromLoci(current.loci);
         this.doubleClicks.record(mode === "replace" && this.pickingGranularity === "atom"
@@ -298,6 +333,7 @@ export class MolstarEngine implements MolecularViewer {
         });
       },
     );
+    let publishedCamera: CameraState | null = null;
     this.cameraSubscription = plugin.canvas3d.camera.changed.subscribe(() => {
       this.doubleClicks.clear();
       const snapshot = plugin.canvas3d!.camera.getSnapshot();
@@ -306,7 +342,13 @@ export class MolstarEngine implements MolecularViewer {
         this.setCamera(this.movementCamera);
       }
       const camera = this.getCamera();
-      if (camera) for (const listener of this.cameraListeners) listener(camera);
+      // Mol* multisampling changes projection jitter on every marked frame.
+      // Only application camera changes invalidate a stable molecular hover.
+      if (this.hoverCamera && camera && JSON.stringify(this.hoverCamera) !== JSON.stringify(camera)) this.clearHover();
+      if (camera && JSON.stringify(publishedCamera) !== JSON.stringify(camera)) {
+        publishedCamera = camera;
+        for (const listener of this.cameraListeners) listener(camera);
+      }
     });
   }
 
@@ -320,6 +362,7 @@ export class MolstarEngine implements MolecularViewer {
   }
 
   syncStructures(structures: ViewerStructure[]): Promise<void> {
+    this.clearHover();
     this.doubleClicks.clear();
     // The generation invalidates retired visual hits immediately, even if the
     // serialized rebuild waits. Camera navigation retains its existing owner.
@@ -387,6 +430,7 @@ export class MolstarEngine implements MolecularViewer {
     patch: CoordinatePatch,
     mode: "preview" | "commit",
   ): Promise<void> {
+    this.clearHover();
     if (mode === "preview") this.plugin?.canvas3d?.remove(this.interactionRepresentation);
     this.syncQueue = this.syncQueue.catch(() => undefined).then(async () => {
       if (!this.plugin) return;
@@ -494,6 +538,7 @@ export class MolstarEngine implements MolecularViewer {
   }
 
   clearCoordinatePreview(entryId: string): Promise<void> {
+    this.clearHover();
     this.syncQueue = this.syncQueue.catch(() => undefined).then(async () => {
       this.coordinatePreviews.delete(entryId);
       this.pocketPreviewEntries.delete(entryId);
@@ -526,7 +571,7 @@ export class MolstarEngine implements MolecularViewer {
   }
 
   setPickingGranularity(granularity: SelectionGranularity): void {
-    if (this.pickingGranularity !== granularity) this.doubleClicks.clear();
+    if (this.pickingGranularity !== granularity) { this.clearHover(); this.doubleClicks.clear(); }
     this.pickingGranularity = granularity;
   }
 
@@ -617,6 +662,7 @@ export class MolstarEngine implements MolecularViewer {
   }
 
   setMovementMode(interaction: MovementInteraction): void {
+    this.clearHover();
     this.doubleClicks.clear();
     const canvas = this.plugin?.canvas3d;
     if (!canvas) return;
@@ -781,6 +827,11 @@ export class MolstarEngine implements MolecularViewer {
   }
 
   dispose(): void {
+    this.clearHover();
+    this.hoverSubscription?.unsubscribe();
+    this.hoverSubscription = undefined;
+    this.stopHoverMarking?.();
+    this.stopHoverMarking = undefined;
     this.modelPreview = null;
     this.plugin?.canvas3d?.remove(this.modelPreviewRepresentation);
     this.modelPreviewRepresentation.destroy();
@@ -835,6 +886,21 @@ export class MolstarEngine implements MolecularViewer {
     return references;
   }
 
+  private pickingTarget(loci: Loci): PickingTarget {
+    const pick = this.referencesFromLoci(loci);
+    return resolvePickingTarget(pick, this.pickingGranularity, this.structures, (atoms, mode) => {
+      const input = atoms === pick ? loci : this.lociFor(atoms);
+      return input ? this.referencesFromLoci(Loci.normalize(input, mode === "atom" ? "element" : mode, true)) : [];
+    });
+  }
+
+  private clearHover(): void {
+    this.hoverTarget = null;
+    this.hoverNativeLoci = null;
+    this.hoverCamera = null;
+    this.plugin?.managers.interactivity.lociHighlights.clearHighlights();
+  }
+
   private emit(event: ViewerSelectionEvent): void {
     for (const listener of this.listeners) listener(event);
   }
@@ -854,6 +920,7 @@ export class MolstarEngine implements MolecularViewer {
     loaded: LoadedStructure,
     coordinates: Map<number, Point3D>,
   ): Promise<void> {
+    this.clearHover();
     const plugin = this.plugin;
     if (!plugin) return;
     const camera = this.getCamera();

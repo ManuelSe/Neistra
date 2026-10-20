@@ -1,5 +1,77 @@
 # Neistra Release Notes
 
+## 0.22.1 - 2026-10-20 - Picking-mode hover previews
+
+Release preparation for [issue #91](https://github.com/ManuelSe/Neistra/issues/91)
+under the [approved plan](plans/issue-91-selection-mode-hover.md). Publication
+and exact-master evidence remain pending; clean candidate qualification passes. Stable patch: this corrects existing
+picking behavior without adding a public operation or changing persisted data.
+
+### Fixed behavior
+
+Hover now previews the active Atom, Residue, Chain or Structure target. Protein
+residues include backbone and side chains; assigned individual nonpolymer
+components use complete existing membership in Residue mode. Ordinary clicks
+share that resolver. Preview changes/clears with target, mode, empty space, exit
+and scene/tool ownership; persistent selection, camera, visibility and originals
+remain unchanged. Native surface objects keep independent activation.
+Camera publications ignore native projection-jitter duplicates, avoiding
+application React/store updates from stationary hover.
+
+### Picking details and limitations
+
+A direct Atom hit previews one atom; bond hits retain existing endpoint semantics.
+Hover previews the entity, not modifier-driven toggle/subtract/range outcomes.
+Canonical classification defines residue/component boundaries; ambiguous and
+unsupported targets retain native fallback. There is no molecule reconstruction,
+connectivity/protonation inference or chemistry change. Hidden existing members
+remain hidden; supplementary desktop hover adds no touch or keyboard prerequisite.
+Existing panel/keyboard selection paths remain. See [guide](SELECTION_GESTURES.md).
+
+### API/data compatibility and migrations
+
+All five authoritative application versions advance from0.22.0 to0.22.1. No HTTP,
+job/plugin or public viewer API changes, dependency upgrades, durable hover field,
+schema or migration. Alembic0014, project/viewer/archive2 and normalized/selection1
+remain. Reload/restart the previous qualified runtime to roll back; no conversion
+or data stripping is needed, and its earlier hover behavior returns. Keep a full
+managed-data backup for ordinary rollback safety. Actual tagged0.22.0/final0.22.1
+producer/reader qualification in both directions is required before publication.
+
+The locked Mol*5.11.0 package patch (D-125) fixes a pending-readback click
+regression exposed during review. It finishes native GPU reads before synchronous
+click resolution; no guessed target, replay or longer readiness delay is used.
+Both distributed module variants are patched; ready buffers avoid extra reads.
+
+### Verification
+
+[Clean candidate667e7a8](assets/selection-mode-hover/c3-final-candidate-gate.json)
+passes all16 commands:1,108 Python,305 frontend,8 supervisor,285 browser with55
+intentional layout/timing exclusions, zero failures/flakes/retries/native scientific
+skips. All480 source/patch/lock identities and16 lossless logs verify. Actual
+tagged0.22↔final0.22.1 readers pass both directions. Pinned1STP:915ms import/viewer,
+4039ms interactions,669ms longest task, zero repeated normalized reads. Unchanged
+native18k minimization/100k surface, movement/surface, accessibility, actual100–200%
+zoom and complete application journey gates pass.
+
+Exact native marker sets, selection overlap/restoration, zero extra selection/camera
+publications, lifecycle/blur/remount and both-theme screenshots qualify the fix.
+[Full-diff review](assets/selection-mode-hover/c3-review.md) is local self-review;
+all consequential findings are fixed. Earlier diagnostics are retained separately.
+Exact merged-master repetition is required before publication. Existing lazy Mol*
+bundle and Alembic deprecation advisories remain; no speedup claim is made.
+
+### Follow-up work
+
+Modifier-outcome previews are deliberately deferred by confirmed product scope;
+no speculative follow-up is opened. Configurable profiles/colors are optional
+and omitted. Granularity synchronization alone was rejected as insufficient;
+geometry-based molecule inference was rejected for scientific/ownership reasons.
+Renderer patch maintenance/removal is tracked in
+[#107](https://github.com/ManuelSe/Neistra/issues/107); the click fix is complete
+in this release. Hierarchy [#94](https://github.com/ManuelSe/Neistra/issues/94) and sequence
+[#95](https://github.com/ManuelSe/Neistra/issues/95) remain separate.
+
 ## 0.22.0 - 2026-10-20 - Molecular selection gestures
 
 Published stable [v0.22.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.22.0)

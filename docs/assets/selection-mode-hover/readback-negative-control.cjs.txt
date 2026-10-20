@@ -1,0 +1,26 @@
+const fs = require('node:fs');
+const path = require('node:path');
+const crypto = require('node:crypto');
+const root=process.cwd();
+const folders=fs.readdirSync('node_modules/.pnpm');
+const old=folders.find(n=>n.startsWith('molstar@5.11.0_@types'));
+const current=folders.find(n=>n.startsWith('molstar@5.11.0_patch_hash='));
+if(!old||!current) throw new Error('Both exact locked module variants required');
+const results=[];
+for(const [variant,folder] of [['unpatched',old],['patched',current]]) {
+ const source=path.join(root,'node_modules/.pnpm',folder,'node_modules/molstar/lib/commonjs/mol-canvas3d/helper/pick-helper.js');
+ const {PickHelper}=require(source);
+ for(const [name,dirty,status] of [['pending',false,0],['resolved',false,1],['failed',false,2],['dirty',true,0]]) {
+  let ready=status===1,reads=0,renders=0;
+  const helper=Object.assign(Object.create(PickHelper.prototype),{
+   dirty,prepare(){},render(){renders++},buffers:{check(){return status},read(){ready=true;reads++}},
+   webgl:{resources:{finalizePrograms(){}}},getPickData(){return ready?{id:{objectId:1,instanceId:0,groupId:2}}:undefined}
+  });
+  const hit=helper.identify(10,20,{});
+  if(variant==='patched'&&!hit)throw new Error(name+' remains unread');
+  if(variant==='unpatched'&&['pending','failed'].includes(name)&&hit)throw new Error('Negative control unexpectedly passes');
+  results.push({variant,name,hit:hit??null,reads,renders,source,source_sha256:crypto.createHash('sha256').update(fs.readFileSync(source)).digest('hex')});
+ }
+}
+fs.writeFileSync('docs/assets/selection-mode-hover/readback-negative-control.json',JSON.stringify({purpose:'Deterministic CommonJS upstream/corrected readback paths; no fake native browser input or independent-review claim',results},null,2)+'\n');
+console.log(JSON.stringify(results.map(({variant,name,hit,reads,renders})=>({variant,name,hit,reads,renders})),null,2));

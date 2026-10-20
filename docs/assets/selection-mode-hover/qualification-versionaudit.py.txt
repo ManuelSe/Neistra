@@ -1,0 +1,19 @@
+import hashlib,json,re,subprocess,tomllib
+from pathlib import Path
+root=Path.cwd()
+project=tomllib.loads((root/'pyproject.toml').read_text())['project']['version']
+locked=next(p['version'] for p in tomllib.loads((root/'uv.lock').read_text())['package'] if p['name']=='molweave-dev')
+web=json.loads((root/'apps/web/package.json').read_text())['version']
+api=re.search(r'version="([0-9.]+)"',(root/'apps/api/src/molweave_api/main.py').read_text())[1]
+archive=re.search(r'APPLICATION_VERSION = "([0-9.]+)"',(root/'apps/api/src/molweave_api/archive_service.py').read_text())[1]
+assert {project,locked,web,api,archive}=={'0.22.1'}
+old=Path('/datadisk/dev/.neistra-tools/issue91-reader-022')
+count=0
+for prefix in ['apps/api','packages/molweave_core','packages/molweave_demo_plugin']:
+ for name in subprocess.check_output(['git','ls-tree','-r','--name-only','v0.22.0',prefix],text=True).splitlines():
+  expected=subprocess.check_output(['git','show',f'v0.22.0:{name}'])
+  assert (old/name).read_bytes()==expected,name
+  count+=1
+native=Path('/datadisk/dev/.neistra-tools/ambertools-24.8/bin')
+for name in ['antechamber','parmchk2','tleap','sander']: assert (native/name).is_file(),name
+print(json.dumps({'versions':[project,locked,web,api,archive],'actual_tagged_source_files_verified':count,'tagged_commit':subprocess.check_output(['git','rev-parse','v0.22.0^{}'],text=True).strip(),'native_tool_prefix':str(native)},indent=2))

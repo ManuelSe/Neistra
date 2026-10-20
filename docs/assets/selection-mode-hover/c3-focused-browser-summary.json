@@ -1,0 +1,326 @@
+{
+  "stats": {
+    "startTime": "2026-10-20T19:22:15.817Z",
+    "duration": 91773.81599999999,
+    "expected": 12,
+    "skipped": 8,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "report_sha256": "41827a2deb23e2e932dbbeb984931fadce38470e03b0b60f861658f705cfa083",
+  "attachments": [
+    {
+      "name": "performance-profile.json",
+      "title": "keeps representative-project interactions responsive and projection-scoped",
+      "project": "chromium",
+      "path": "docs/assets/selection-mode-hover/c3-focused-attachment-00.json",
+      "sha256": "c2ca2c1f04a04b01f7acfb3da91b1e4f1b5a6f8bc11a70ceeb58c012deba4468"
+    },
+    {
+      "name": "hover-observations",
+      "title": "native hover matches all modes and preserves selection (light)",
+      "project": "chromium",
+      "path": "docs/assets/selection-mode-hover/c3-focused-attachment-01.json",
+      "sha256": "1485f9cd0219cbb2386dc4a7ba20fb48ab3b4631d94f4999090b21165d38e558"
+    },
+    {
+      "name": "hover-observations",
+      "title": "native hover matches all modes and preserves selection (dark)",
+      "project": "chromium",
+      "path": "docs/assets/selection-mode-hover/c3-focused-attachment-02.json",
+      "sha256": "8db24194f6f53aef2df9eae8751c9c106e987f049c4586007f764966a9eb5f53"
+    }
+  ],
+  "exclusions": [
+    {
+      "title": "keeps complete export and archive controls usable on a mobile viewport",
+      "project": "chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Responsive export coverage runs in the Pixel 7 project.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/export-archive.spec.ts",
+            "line": 423,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "exports all, selected, and visible structures with deterministic filters and records",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Complete artifact inspection runs once in desktop Chromium.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/export-archive.spec.ts",
+            "line": 128,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "round-trips a deterministic archive and rejects an unsafe archive without switching",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Archive byte/state inspection runs once in desktop Chromium.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/export-archive.spec.ts",
+            "line": 222,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "cancels intercepted export and archive import work without a stale result",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Cancellation routing runs once in desktop Chromium.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/export-archive.spec.ts",
+            "line": 362,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "keeps representative-project interactions responsive and projection-scoped",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Performance budgets use desktop Chromium.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/release-hardening.spec.ts",
+            "line": 168,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "native hover matches all modes and preserves selection (light)",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Hover requires a fine pointer; touch behavior is covered by selection regressions.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/viewer-hover.spec.ts",
+            "line": 57,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "native hover matches all modes and preserves selection (dark)",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Hover requires a fine pointer; touch behavior is covered by selection regressions.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/viewer-hover.spec.ts",
+            "line": 57,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "protein/individual complex hover preserves hidden membership, anchors and lifecycle ownership",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Fine-pointer native hover qualification.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/viewer-hover.spec.ts",
+            "line": 141,
+            "column": 8
+          }
+        }
+      ]
+    }
+  ],
+  "results": [
+    {
+      "title": "exports all, selected, and visible structures with deterministic filters and records",
+      "file": "export-archive.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 16255,
+      "retry": 0
+    },
+    {
+      "title": "round-trips a deterministic archive and rejects an unsafe archive without switching",
+      "file": "export-archive.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 7183,
+      "retry": 0
+    },
+    {
+      "title": "cancels intercepted export and archive import work without a stale result",
+      "file": "export-archive.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 4286,
+      "retry": 0
+    },
+    {
+      "title": "keeps complete export and archive controls usable on a mobile viewport",
+      "file": "export-archive.spec.ts",
+      "project": "chromium",
+      "status": "skipped",
+      "duration_ms": 71,
+      "retry": 0
+    },
+    {
+      "title": "exports all, selected, and visible structures with deterministic filters and records",
+      "file": "export-archive.spec.ts",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration_ms": 149,
+      "retry": 0
+    },
+    {
+      "title": "round-trips a deterministic archive and rejects an unsafe archive without switching",
+      "file": "export-archive.spec.ts",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration_ms": 121,
+      "retry": 0
+    },
+    {
+      "title": "cancels intercepted export and archive import work without a stale result",
+      "file": "export-archive.spec.ts",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration_ms": 124,
+      "retry": 0
+    },
+    {
+      "title": "keeps complete export and archive controls usable on a mobile viewport",
+      "file": "export-archive.spec.ts",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration_ms": 3770,
+      "retry": 0
+    },
+    {
+      "title": "passes automated accessibility checks in both themes",
+      "file": "release-hardening.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 4679,
+      "retry": 0
+    },
+    {
+      "title": "supports keyboard focus and bounded responsive controls",
+      "file": "release-hardening.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 3707,
+      "retry": 0
+    },
+    {
+      "title": "keeps representative-project interactions responsive and projection-scoped",
+      "file": "release-hardening.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 6305,
+      "retry": 0
+    },
+    {
+      "title": "passes automated accessibility checks in both themes",
+      "file": "release-hardening.spec.ts",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration_ms": 4081,
+      "retry": 0
+    },
+    {
+      "title": "supports keyboard focus and bounded responsive controls",
+      "file": "release-hardening.spec.ts",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration_ms": 3674,
+      "retry": 0
+    },
+    {
+      "title": "keeps representative-project interactions responsive and projection-scoped",
+      "file": "release-hardening.spec.ts",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration_ms": 130,
+      "retry": 0
+    },
+    {
+      "title": "native hover matches all modes and preserves selection (light)",
+      "file": "viewer-hover.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 8348,
+      "retry": 0
+    },
+    {
+      "title": "native hover matches all modes and preserves selection (dark)",
+      "file": "viewer-hover.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 8494,
+      "retry": 0
+    },
+    {
+      "title": "protein/individual complex hover preserves hidden membership, anchors and lifecycle ownership",
+      "file": "viewer-hover.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 15695,
+      "retry": 0
+    },
+    {
+      "title": "native hover matches all modes and preserves selection (light)",
+      "file": "viewer-hover.spec.ts",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration_ms": 131,
+      "retry": 0
+    },
+    {
+      "title": "native hover matches all modes and preserves selection (dark)",
+      "file": "viewer-hover.spec.ts",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration_ms": 111,
+      "retry": 0
+    },
+    {
+      "title": "protein/individual complex hover preserves hidden membership, anchors and lifecycle ownership",
+      "file": "viewer-hover.spec.ts",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration_ms": 113,
+      "retry": 0
+    }
+  ],
+  "representative_performance": {
+    "fixture": "RCSB PDB 1STP",
+    "atoms": 1001,
+    "importAndViewerMs": 863,
+    "interactionMs": 4091,
+    "maxInteractionLongTaskMs": 628,
+    "repeatedStructureRequests": 0
+  }
+}

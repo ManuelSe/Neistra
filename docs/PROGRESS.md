@@ -2,6 +2,30 @@
 
 ## Current milestone
 
+Issue #91 M1–M3 are implemented and clean-candidate-qualified under the
+[approved plan](plans/issue-91-selection-mode-hover.md). Exact transient hover and
+ordinary picks share canonical targets, with no selection/camera/project mutation.
+D-124/125 retain ownership, camera-publication deduplication and pinned native
+readback correction. Five versions0.22.1; stable patch release planned.
+
+[Clean candidate667e7a8](assets/selection-mode-hover/c3-final-candidate-gate.json)
+passes all16 commands: **1,108 Python,305 frontend,8 supervisor,285 browser /55
+intentional layout/timing exclusions**, zero failures/flakes/retries/native
+scientific skips; all480 source/patch/lock hashes unchanged and logs verified.
+Actual tagged0.22↔final0.22.1 readers pass both directions. Pinned1STP4039ms
+interaction/669ms longest/zero repeated reads and unchanged scientific/performance/
+accessibility/zoom gates pass. [Review](assets/selection-mode-hover/c3-review.md)
+is local self-review; no unresolved consequential finding. Earlier diagnostics
+are superseded. No schema/migration/public API/scientific/dependency upgrade.
+Known limits: entity-only modifiers, existing classification/native fallback,
+bond endpoints and supplementary mouse hover. #107 tracks upstream patch removal;
+#94/#95 remain separate. Existing bundle/Alembic advisories remain.
+Next: push qualification, PR/review/protection audit and normal merge, then complete
+exact-master gate before verified tag/release/issue reply/docs audit/cleanup.
+No external blocker; publication has not occurred.
+
+### Previous delivery baseline — v0.22.0
+
 Issue #90 is implemented and released as stable
 [v0.22.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.22.0) in
 [PR#105](https://github.com/ManuelSe/Neistra/pull/105), under the
@@ -558,6 +582,12 @@ and closed out on issue #1. The release tag remains on the exact verified
 feature merge; this documentation-only closeout records the remote evidence.
 
 ## Completed work
+
+- Issue #91 planning: inspected repository and remote delivery conventions,
+  confirmed entity-only hover and shared complete-molecule click targets,
+  approved the detailed feature contract, and prepared C0 on its dedicated
+  branch. The feature plan retains checkpoint acceptance/validation and delivery
+  requirements; implementation remains pending.
 
 - Issue #55 C0: approved feature contract persisted under `docs/plans/` as the
   first change on `fix/issue-55-interaction-corrections`, with the concise project
@@ -1419,6 +1449,15 @@ feature merge; this documentation-only closeout records the remote evidence.
 
 ## Verification performed
 
+- Issue #91 baseline: 28 frontend tests across viewer interaction/adapter,
+  selection gestures, component hierarchy and surface objects; 24 Python
+  selection/component/classification tests passed. C0 checks pass for clean
+  fetched master/base, unused planned refs/path, unchanged schema head 0014,
+  documentation metadata, 99 local links plus the decision anchor, append-only
+  decisions, unchanged global plan and five versions, and `git diff --check`.
+  C0 commit/push verification is reported in the handoff;
+  no feature acceptance or release gate is claimed.
+
 - Issue #55 planning/C0: remote issue/master/release baseline rechecked; clean
   local master fast-forwarded with `--ff-only` (already current). Planning tests
   passed 71 focused Python and 179 frontend cases. Native buffer defect and
@@ -1749,7 +1788,7 @@ feature merge; this documentation-only closeout records the remote evidence.
 - Checkpoint 2 also passed frontend ESLint, TypeScript type-checking, and
   `git diff --check`. Diff review found one scoped E2E test plus its evidence;
   it adds no runtime, API, schema, migration, scientific, or UI behavior.
-- Issue #8 checkpoint 3: repository Ruff and strict mypy passed; all 23 focused
+- Issue #8 checkpoint 3: repository Ruff and strict mypy passed; all 25 focused
   archive round-trip and safety tests passed in 6.03 seconds. The exhaustive
   restored-project assertions cover molecular structures, original bytes,
   settings, selections, measurements, scenes, and ID remapping.
@@ -2541,6 +2580,10 @@ Results:
 
 ## Known limitations
 
+- Issue #91 hover correction is approved but unimplemented. The existing hover
+  bug remains; baseline tests cover existing functionality. Entity-only previews
+  exclude modifier outcomes; component/sequence UI expansion remains #94/#95.
+
 - Issue #90 C1–C3 implement toggle, double-click and residue ranges. Final
   performance, preceding-reader compatibility and release qualification remain pending.
 - Historical pre-release issue #55 C1–C3 qualification recorded that v0.13.0 had the
@@ -2639,13 +2682,10 @@ Results:
 
 ## Blockers
 
-No current external blocker. Issue #90 implementation, complete candidate/exact-
-master qualification, actual tagged-reader compatibility and publication pass.
-Final reference/cleanup evidence is retained in the issue reply/release audit.
+No current external blocker. Issue #91 M1/C1 passes focused qualification;
+M2/C2 and M3/C3 remain required. Existing hover behavior is not yet corrected.
 
 ## Next action
 
-No remaining approved-scope implementation. Select a separate product issue and
-approve its feature plan. Issue #90's detailed contract and release evidence remain
-in [its plan](plans/issue-90-selection-gestures.md); final integration/cleanup facts
-are linked from the verified close-out reply. Published runtime tags remain fixed.
+Commit passing M1/C1, then implement M2/C2 under the approved issue #91 contract.
+Continue through complete candidate/exact-master qualification and verified delivery.

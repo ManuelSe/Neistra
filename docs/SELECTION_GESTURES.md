@@ -1,5 +1,9 @@
 # Selection gestures
 
+Whole-entity toggle, double-click expansion and viewer residue ranges were added
+in0.22.0. Picking-mode hover and complete individual-molecule Residue alignment
+are corrected in0.22.1; see the issue #91 plan for qualification/publication status.
+
 Selection stays synchronized across the viewer, project browser, Components panel
 and Sequence tab. Picking does not
 change the camera, molecular data, project revision, or edit history. Save a named
@@ -25,6 +29,35 @@ For combined modifiers, Alt takes priority, then Ctrl/Cmd, then Shift. Clicking
 empty viewer space clears selection only without modifiers. Camera dragging and
 explicit focus controls keep their existing behavior. Inspector operations retain
 their explicit replace/add/subtract controls.
+
+## Picking targets
+
+Residue-mode ordinary picks use the complete normalized protein residue or the
+complete individual assigned nonpolymer component, including explicit component
+atom membership. Other residue targets retain native residue picking. Atom picks
+target one directly hit atom; bond hits retain their existing endpoint selection.
+Chain and Structure picking retain their existing native grouping. None of these
+operations reveals hidden members or infers new molecule boundaries.
+
+## Hover previews
+
+With a mouse, hover previews the entity at the active Atom, Residue, Chain, or
+Structure mode. Atom hits preview one atom; bond hits retain endpoint semantics.
+Residue mode previews a complete protein residue or an assigned individual
+nonpolymer component. Classification ambiguity retains ordinary residue picking.
+Only existing visible representations are marked; hidden atoms stay hidden.
+
+The transient highlight differs from persistent selection and clears on empty
+space, viewer exit, picking-mode changes and scene/navigation/tool transitions.
+Hover never changes selection, residue-range starts, camera, molecular data or
+project history. Holding Shift/Ctrl/Cmd/Alt still previews only the entity, not
+a range or the final toggle/subtraction result. Touch does not require hover;
+existing selection controls and gestures remain available.
+
+Managed surfaces retain separate whole-object activation. Molecular hover does
+not overwrite their active-object markers. No hover preference or project state
+is saved. See the [issue #91 contract](plans/issue-91-selection-mode-hover.md) for
+qualification and release status.
 
 ## Double-click expansion
 

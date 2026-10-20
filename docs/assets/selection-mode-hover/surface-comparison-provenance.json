@@ -1,0 +1,6 @@
+{
+  "tag": "v0.22.0",
+  "renderer_sha256": "e5060adc01c24bb8a5c2a0db0b2837ca4b5885819cea2afe871670bbc12c3d2e",
+  "temporary_test_sha256": "479e7ac62fa18c9e693055f166933b43725f1a5b061e065da3285b3563ca88fb",
+  "purpose": "Original fixed80ms surface click test, same dependencies/harness, baseline renderer versus candidate; diagnostics only, no retries"
+}
