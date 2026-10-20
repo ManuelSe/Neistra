@@ -3,8 +3,10 @@
 ## 0.21.0 - 2026-10-20 - Interactive environment-aware minimization
 
 Implemented under the [approved issue89 plan](plans/issue-89-interactive-minimization.md).
-The complete candidate gate passes; exact merged-master qualification and publication
-verification precede tagging and release.
+Published as stable [v0.21.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.21.0)
+in [PR#103](https://github.com/ManuelSe/Neistra/pull/103), annotated on verified master
+1024f46531a73f58c15d14b19dd86b923563176b. [Publication evidence](assets/interactive-minimization/c6-publication.json)
+verifies the release/notes and public ZIP SHA256/CRC/255 internal hashes.
 
 ### Highlights
 
@@ -79,8 +81,9 @@ browser cases /52 intentional layout/timing exclusions, zero failures/retries/na
 scientific skips. Frozen installs/fresh0014/static/build/diff pass. Actual tagged
 0.20 API/core retains final0.21 automatic/warned/recovered data/history/jobs/archives
 in four cases. Exact commands, unchanged source identities, lossless logs and timing
-measurements are retained. Exact merged-master qualification remains required before
-tag/release. Existing Alembic/Vite/bundle advisories are disclosed in the logs.
+measurements are retained. [Exact merged-master qualification](assets/interactive-minimization/c6-merged-gate.json)
+repeats all16 commands/counts with identical source and four actual-reader cases.
+Existing Alembic/Vite/bundle advisories are disclosed in the logs.
 
 ## 0.20.0 - 2026-10-19 - Selection minimization
 

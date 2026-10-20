@@ -4726,3 +4726,10 @@ fixed constant and selected forces, boundary terms, exclusions/scaled1–4, sett
 cache/current-coordinate dependencies, cancellation and practical performance.
 No quadratic exception-list shortcut, silent model substitution or unsupported
 chemistry expansion is authorized by these feasibility findings.
+
+Publication clarification for D-118 (issue89, no behavior change): immutable captured
+inputs, original uploads and existing identity facts remain untouched. Explicit
+acceptance creates a new coordinate artifact with the normal minimization provenance
+annotation. “Calculation-local recovery” means the recovered isotope/radical facts
+are not copied into canonical annotations; it does not mean the accepted coordinate
+artifact lacks its ordinary operation provenance. The historical decision remains.

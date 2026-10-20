@@ -1,0 +1,20 @@
+{
+  "commit": "1024f46531a73f58c15d14b19dd86b923563176b",
+  "source_sha256": "a2c05ac9d9d77896c34decd0cac42c0c0668d4674936c0f3946aa007ee21e27c",
+  "source_matches_candidate": true,
+  "source_matches_current": true,
+  "clean_at_start": true,
+  "complete_commands": 16,
+  "python_passed": 1102,
+  "frontend_passed": 273,
+  "supervisor_passed": 8,
+  "browser_passed": 268,
+  "browser_intentional_exclusions": 52,
+  "failures": 0,
+  "retries": 0,
+  "native_scientific_skips": 0,
+  "producer_version": "0.21.0",
+  "actual_tagged_reader": "0.20.0",
+  "reader_cases": 4,
+  "lossless_logs_verified": true
+}

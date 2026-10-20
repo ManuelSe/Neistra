@@ -142,7 +142,8 @@ large-selection timings included excessive test readback and an automatic-qualit
 override of the intended coordinate cue detail. Bounded in-browser geometry checks
 and explicit custom cue quality correct both problems; [#100](https://github.com/ManuelSe/Neistra/issues/100)
 records the investigation. The passing [C5 gate](assets/interactive-minimization/c5-gate.json) records qualified
-cases and timing; final release/older-reader qualification remains pending.
+cases and timing. Final candidate/exact released-master gates and actual0.20 reader
+qualification also pass; see [verification](VERIFICATION.md) and [release notes](RELEASE_NOTES.md).
 
 Legacy structures missing identity facts can use verified original-file evidence
 without a reimport or a canonical metadata edit. Recovery uses strict stable import
@@ -158,3 +159,8 @@ profiling identifies substantial potential work in fixed receptor terms, but no
 production energy terms are omitted. Equivalence-preserving optimization is
 [#102](https://github.com/ManuelSe/Neistra/issues/102). These measurements do not
 establish a production speedup from term removal or accuracy across force fields.
+
+Released as stable0.21.0 in[PR#103](https://github.com/ManuelSe/Neistra/pull/103).
+Recovery does not write isotope/radical facts back into canonical annotations.
+Explicit acceptance publishes selected coordinate changes with the normal operation
+provenance annotation; it does not rewrite the immutable input artifact or uploads.

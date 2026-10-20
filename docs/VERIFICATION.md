@@ -965,3 +965,13 @@ Fresh native cache pairs give13.72x compatible preparation improvement, no chang
 ligand charge-geometry reuse claim; actual native live30/1166-heavy and1STP/18k
 preview/restoration bounds pass. Exact merged-master gate remains required before
 release. Earlier incomplete diagnostics are distinct from this passing run.
+
+Issue89 [exact released master1024f465](assets/interactive-minimization/c6-merged-gate.json)
+repeats all16 commands and candidate counts:1102 Python/273 frontend/8 supervisor/
+268 browser,52 intentional exclusions, zero failures/retries/native scientific skips.
+[Source/log audit](assets/interactive-minimization/c6-merged-summary.json) proves
+identical runtime/test/tool bytes and verified lossless logs. Four final0.21 producer/
+actual tagged0.20 reader cases pass. [Publication](assets/interactive-minimization/c6-publication.json)
+verifies annotated exact tag, stable public release/notes and public downloaded
+qualification ZIP SHA256/CRC/255 internal hashes. The verified issue close-out links
+the final docs/ref-state audit; runtime tag is fixed despite later docs-only audit.

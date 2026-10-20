@@ -2,32 +2,35 @@
 
 ## Current milestone
 
-Issue #89 implementation is qualified under the [approved feature plan](plans/issue-89-interactive-minimization.md)
-on feat/issue-89-interactive-minimization. C0–C6 implement automatic complete context,
-validated conservative parameter reuse, transient native relaxation, immediate
-Cancel and explicit strict/warned acceptance with one atomic Undo/Redo. D-113–119
-retain resource/identity, scientific, ownership, caching and follow-up decisions.
+Issue #89 is implemented and released as stable [v0.21.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.21.0)
+in [PR#103](https://github.com/ManuelSe/Neistra/pull/103), under the [approved plan](plans/issue-89-interactive-minimization.md).
+Automatic complete context, validated conservative caches, transient native live
+relaxation, immediate Cancel and explicit strict/warned acceptance preserve exact
+selected/fixed/H rows and one atomic Undo/Redo. D-113–119 retain decisions.
 
-[Clean candidate13e8b45](assets/interactive-minimization/c6-candidate-gate.json)
-passes all16 commands: **1,102 Python,273 frontend,8 supervisor,268 browser /52
-intentional layout/timing exclusions**, zero failures/retries/native scientific
-skips. Frozen/fresh0014/static/build/diff and final0.21 producer/actual tagged0.20
-reader pass. Four cases retain canonical all-conformer data/history/originals/jobs/
-models/parameters/archives. [Source and log audit](assets/interactive-minimization/c6-candidate-summary.json)
-verifies unchanged identities and lossless logs. [Self-review](assets/interactive-minimization/c6-review.md)
-is local, not independent approval. Earlier fixture/infrastructure diagnostics are
-separate; the unchanged assertions pass in the complete final run.
+Both [clean candidate](assets/interactive-minimization/c6-candidate-gate.json)13e8b45
+and [exact released master](assets/interactive-minimization/c6-merged-gate.json)
+1024f46531a73f58c15d14b19dd86b923563176b pass all16 commands: **1,102 Python,
+273 frontend,8 supervisor,268 browser /52 intentional layout/timing exclusions**,
+zero failures/retries/native scientific skips. Frozen/fresh0014/static/build/diff,
+native timings and final0.21 producer/actual tagged0.20 reader four cases pass.
+Runtime/test/tool identities match exactly. [Self-review](assets/interactive-minimization/c6-review.md)
+is local; no independent Codex review returned or required remote gate was bypassed.
 
-Candidate compatible preparation median4.803s cold/0.350s warm (13.72x), zero warm
-native calls.18k preview20.5ms/restore249ms/longest233ms; partial/1166-heavy live
-fixtures pass delivery and restoration bounds with exact fixed rows. No universal
-changed-ligand-geometry or end-to-end speed claim. No structural migration/model/
-dependency change; five versions0.21.0. OpenFF experiment#101 and qualified fixed-only
-optimization#102 remain deferred; #100 addressed pending merge. No external blocker.
+[Publication](assets/interactive-minimization/c6-publication.json) verifies annotated
+tag, stable release/notes and public downloaded ZIP SHA256/CRC/255 internal hashes.
+[Issue close-out](https://github.com/ManuelSe/Neistra/issues/89#issuecomment-6290103509)
+is verified; its final reference audit records docs integration and delayed branch
+cleanup after those events. Runtime tag stays fixed. No structural migration/model/
+dependency change; all five versions0.21.0. Generic0.20 retention is verified, not
+old interactive authoring or portable archived Undo/fresh Apply.
 
-Next: commit candidate evidence/docs, PR and review, normal merge, exact merged-
-master gate, annotatedv0.21.0/release/issue close-out and delayed branch cleanup.
-The feature plan remains the detailed source of truth.
+Qualified AMBER/Linux native prerequisites and scientific limits remain; no implicit
+repair/protonation or changed-ligand charge reuse. OpenFF experiment#101 and qualified
+fixed-only optimization#102 are separate; #100 is addressed/closed. Earlier fixture/
+infrastructure diagnostics are separate from passing final evidence. No outstanding
+approved-scope implementation or external blocker. Next product action requires a
+separate approved plan; the feature plan is the detailed source of truth.
 
 ### Previous delivery baseline — v0.20.0
 
