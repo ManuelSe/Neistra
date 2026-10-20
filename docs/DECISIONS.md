@@ -4858,3 +4858,23 @@ no-op behavior. This narrowly extends D-044 without a timer/drag recognizer or
 chemistry inference. Exact gates and the local self-review correction live in the
 feature plan. C3 range anchors and final release qualification remain pending.
 No HTTP/schema/migration/dependency/application-version/molecular-file change.
+
+### D-120/122 implementation and qualification note — issue #90 M3/C3, 2026-10-20
+
+Application-owned fixed anchors and result references publish atomically from
+current cached projections. Normalized residue-list order, not sorted IDs or
+number arithmetic, defines intervals within entry/protein-component/chain.
+Source artifacts, mode/project transitions and incomplete start membership
+invalidate; responsive remounts preserve valid state. A transient project visit
+epoch also guards old lazy entry/group selections after leaving and returning.
+No anchor enters saved selections/scenes/APIs/history/preferences/archives.
+
+Native C3 qualification passes52 browser cases /2 existing layout exclusions;
+all290 frontend and static/build gates pass. A test projected a cropped/unpickable
+raster center after resize; explicit camera fitting and a bounded read-only native
+pixel observation repaired qualification, with trusted clicks and exact references.
+No runtime change or timing/membership threshold relaxation during those diagnostics.
+The feature plan retains initial/decisive traces and all probe command logs and
+observations. This is implementer review only, not independent approval. No new
+schema, migration, HTTP route, chemistry inference, dependency or version change.
+C4 final performance/actual reader/release gates remain pending.

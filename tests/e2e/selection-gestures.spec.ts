@@ -96,3 +96,75 @@ test("expands a standalone SDF ligand through its individual component", async (
   await expect.poll(() => selection(page)).toEqual(refs(entry.id, projection.structure.atoms.map(atom => atom.id)));
   expect(await page.evaluate(() => window.editingPicks.camera())).toEqual(camera);
 });
+
+async function pickMode(page: Page, mode: "atom" | "residue", mobile: boolean) {
+  if (mobile) await page.getByRole("combobox", { name: "Viewer picking mode", exact: true }).selectOption(mode);
+  else await page.getByRole("button", { name: mode === "atom" ? "Pick atoms" : "Pick residues", exact: true }).click();
+}
+const anchor = (page: Page) => page.evaluate(async () => {
+  const path = "/src/store/selection.ts";
+  const { useSelectionStore } = await import(/* @vite-ignore */ path);
+  return useSelectionStore.getState().rangeAnchor;
+});
+
+test("adds inclusive forward/reverse residue ranges from a fixed anchor while retaining unrelated ligand atoms", async ({ page, request }, info) => {
+  test.setTimeout(90000);
+  const { project, entry, projection } = await setup(page, request);
+  await pickMode(page, "residue", info.project.name === "mobile-chromium");
+  const canvas = page.locator(".molstar-host canvas").first();
+  const click = async (id: number, modifiers: ("Control" | "Shift")[] = []) => canvas.click({
+    position: await point(page, projection.structure.atoms.find(atom => atom.id === id)!.coordinates), modifiers,
+  });
+  await click(20);
+  await click(6, ["Control"]);
+  await expect.poll(() => selection(page)).toEqual(refs(entry.id, [5, 6, 7, 8, 20, 21]));
+  expect((await anchor(page)).residueId).toBe(2);
+  await click(14, ["Shift"]);
+  await expect.poll(() => selection(page)).toEqual(refs(entry.id, [...Array.from({ length: 12 }, (_, i) => i + 5), 20, 21]));
+  await click(2, ["Shift"]);
+  await expect.poll(() => selection(page)).toEqual(refs(entry.id, [...Array.from({ length: 16 }, (_, i) => i + 1), 20, 21]));
+  expect((await anchor(page)).residueId).toBe(2);
+  await click(18, ["Shift"]);
+  await expect.poll(() => selection(page)).toEqual(refs(entry.id, Array.from({ length: 21 }, (_, i) => i + 1)));
+  expect((await anchor(page)).residueId).toBe(2);
+  expect((await (await request.get(`/api/v1/projects/${project.id}`)).json()).revision).toBe(project.revision);
+});
+
+test("extends Atom-mode residue double-clicks and preserves anchors across responsive remounts", async ({ page, request }, info) => {
+  test.setTimeout(90000);
+  const { entry, projection } = await setup(page, request);
+  const canvas = page.locator(".molstar-host canvas").first();
+  const position = async (id: number) => point(page, projection.structure.atoms.find(atom => atom.id === id)!.coordinates);
+  await canvas.dblclick({ position: await position(2) });
+  await expect.poll(() => selection(page)).toEqual(refs(entry.id, [1, 2, 3, 4]));
+  await canvas.click({ position: await position(10), modifiers: ["Shift"] });
+  await expect.poll(() => selection(page)).toEqual(refs(entry.id, Array.from({ length: 12 }, (_, i) => i + 1)));
+  await canvas.click({ position: await position(2) });
+  expect(await anchor(page)).toBeNull();
+  await canvas.click({ position: await position(14), modifiers: ["Shift"] });
+  await expect.poll(() => selection(page)).toEqual(refs(entry.id, [2, 14]));
+  await pickMode(page, "residue", info.project.name === "mobile-chromium");
+  await canvas.click({ position: await position(6) });
+  await expect.poll(() => selection(page)).toEqual(refs(entry.id, [5, 6, 7, 8]));
+  const captured = await anchor(page);
+  const oldEngines = await page.evaluate(() => window.interactionEngines.length);
+  await page.setViewportSize(info.project.name === "chromium" ? { width: 412, height: 915 } : { width: 1280, height: 720 });
+  await expect.poll(() => page.evaluate(() => window.interactionEngines.length)).toBeGreaterThan(oldEngines);
+  await observe(page);
+  expect(await anchor(page)).toEqual(captured);
+  // Retaining the old camera on a narrower aspect ratio can crop the endpoint.
+  // Explicit fitting is camera-only and must also retain the application anchor.
+  await page.getByRole("button", { name: "Fit all visible", exact: true }).click();
+  await page.evaluate(() => window.editingPicks.settled());
+  expect(await anchor(page)).toEqual(captured);
+  const endpoint = await page.evaluate(async expected => {
+    const path = "/src/test/selectionGestureHarness.ts";
+    const { atomPickPixel } = await import(/* @vite-ignore */ path);
+    return atomPickPixel(window.interactionEngines.at(-1)!, window.editingPicks.point([15, 0, 0]), expected);
+  }, { structure_id: entry.id, atom_id: 14 });
+  await canvas.click({ position: endpoint, modifiers: ["Shift"] });
+  await expect.poll(() => selection(page)).toEqual(refs(entry.id, Array.from({ length: 12 }, (_, i) => i + 5)));
+  await page.reload();
+  await expect(page.locator(".viewer-status")).toContainText("/ 0 selected", { timeout: 30000 });
+  expect(await anchor(page)).toBeNull();
+});

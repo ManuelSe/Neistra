@@ -11,7 +11,7 @@ when changing projects or reloading.
 | --- | --- |
 | Click | Replace with the picked entity. |
 | Ctrl-click / Cmd-click | Remove a fully selected entity; otherwise add its complete membership. |
-| Shift-click | Add the entity. |
+| Shift-click | Add the entity, or an eligible viewer protein-residue range. |
 | Alt-click | Subtract the entity. |
 
 The viewer uses the active Atom, Residue, Chain, or Structure picking mode. Project
@@ -39,6 +39,41 @@ behavior. Ambiguous/unclassified material and unsupported polymers retain ordina
 picking, with existing classification warnings preserved. No connectivity or
 proximity guesses establish molecule boundaries. Camera focus remains explicit.
 
-The issue #90 implementation is checkpointed. C1 toggles and C2 double-click
-expansion pass focused qualification; residue ranges and final release gates remain
-pending. See the [approved contract](plans/issue-90-selection-gestures.md).
+## Inclusive protein-residue ranges
+
+In Residue mode, click a protein residue to establish the range start. Shift-click
+another residue in the same entry, chain and protein component to add both
+endpoints and every existing residue between them. Forward and reverse ranges use
+normalized source sequence order, including numbering gaps and insertion codes;
+they do not use residue-number arithmetic or spatial distance. Missing residues
+are not reconstructed. Other selected atoms remain selected.
+
+Repeated Shift-clicks keep the same start. Ctrl/Cmd-click that adds a complete
+protein residue establishes a new start in Residue mode. Alt/Shift clicks never
+establish or advance the start. In Atom mode, double-click a protein residue first,
+then Shift-click an atom of another residue to add its complete inclusive range.
+Without a valid start, Shift-click adds the ordinary active-granularity target.
+Across entries, chains, or separate source protein components, it also adds only
+that ordinary target.
+
+Clear, a new replacement selection, picking-mode changes, project changes, source
+artifact changes, or removal of any start-residue atom clear the start. Responsive
+viewer remounts preserve a still-valid start; reload clears it. Changing the camera
+or explicitly fitting the view does not change this application selection state.
+
+The project browser, Components panel and existing Sequence tab share toggling and
+selection highlighting. They do not establish range starts or implement range
+gestures in this issue. Additive/subtractive/toggle panel actions preserve a start
+only while its complete residue remains selected. Loading a saved selection or
+scene restores its references without establishing a range start. No anchor is
+stored in a selection, scene, project archive, preferences or edit history.
+
+Explicit inspector expansion and keyboard-operable sequence/component selection
+remain available alternatives to double-click. No custom touch double-tap gesture
+is introduced. Selection includes hidden atoms without changing their visibility.
+The existing classification warnings remain authoritative: selecting a component
+is not a claim of complete chemistry, biological role or covalent connectivity.
+
+The issue #90 implementation is checkpointed. C1–C3 pass focused qualification;
+final persistence/compatibility/performance and release gates remain pending.
+See the [approved contract](plans/issue-90-selection-gestures.md).

@@ -2,24 +2,26 @@
 
 ## Current milestone
 
-Issue #90 **M1/C1 and M2/C2 complete; M3/C3 next**, under the
-[approved contract](plans/issue-90-selection-gestures.md). C1 commite0769b1 delivers
-shared entity toggling. C2 adds immediate-single/native-double-click expansion to
-one canonical protein residue or assigned individual nonpolymer component.
-D-120–122 retain accepted boundaries; [user guidance](SELECTION_GESTURES.md)
-describes implemented gestures. No implicit camera focus or chemistry inference.
+Issue #90 **M1/C1–M3/C3 implemented and checkpoint-qualified; M4/C4 next**,
+under the [approved contract](plans/issue-90-selection-gestures.md). Shared toggle,
+Atom-mode residue/component double-click and viewer-only fixed-start residue
+ranges are implemented. Application-owned anchors retain source identity above
+responsive remounts and invalidate on clear/replacement/mode/project/artifact or
+incomplete membership. D-120–122 and [user guidance](SELECTION_GESTURES.md) govern.
 
-[C2 final gate](assets/selection-gestures/c2-final-gate.json) passes17 frontend,
-7 Python, lint/types/build/diff and6 native browser cases /2 existing layout
-exclusions. [Standalone supplement](assets/selection-gestures/c2-standalone-gate.json)
-passes2 native desktop/mobile SDF cases. Exact membership, hidden H, both themes,
-camera and unchanged revision pass. Local review restored the nonmolecular-loci
-no-op guard; final evidence qualifies that corrected runtime. C1 all278 frontend
-remain recorded. No migration/schema/dependency/version change.
+[C3 final gate](assets/selection-gestures/c3-final-gate.json) passes66 focused/290
+frontend, Ruff/mypy91/lint/types/build/diff and52 native browser cases /2 existing
+intentional layout exclusions, zero failures/retries. Exact references, hidden H,
+source order/boundaries, remount/reload and existing camera/movement/touch/keyboard
+ownership pass. [Local review](assets/selection-gestures/c3-review.md) is self-review.
+Earlier responsive raster/visibility diagnostics are retained separately; final
+qualification uses a confirmed nearby native atom pixel and a trusted click,
+without changing runtime behavior or membership assertions.
 
-Known limits: ranges and final performance/compatibility/release gates remain
-pending; hover/navigation redesign stays#91/#94/#95. No external blocker. Next:
-commit passing C2, then M3/C3. Stable minor0.22.0 remains planned, not released.
+No migration/schema/HTTP/dependency/version change. Known limits: final performance,
+actual old-reader, complete candidate/merged release gates and publication remain
+pending. Hover and new navigation/ranges panels stay#91/#94/#95. No external blocker.
+Next: commit C3, then M4/C4; stable minor0.22.0 remains planned, not released.
 
 ### Previous delivery baseline — v0.21.0
 
@@ -2529,8 +2531,8 @@ Results:
 
 ## Known limitations
 
-- Issue #90 C1/C2 implement shared toggle and Atom-mode double-click. Anchored
-  residue ranges and final compatibility/release qualification remain pending.
+- Issue #90 C1–C3 implement toggle, double-click and residue ranges. Final
+  performance, preceding-reader compatibility and release qualification remain pending.
 - Historical pre-release issue #55 C1–C3 qualification recorded that v0.13.0 had the
   native-buffer defect until this correction is delivered.
   Scientific scope remains bounded by `interaction-v1`; #52 owns raw ligand
@@ -2627,13 +2629,13 @@ Results:
 
 ## Blockers
 
-No current external blocker. Issue #90 C1/C2 pass their focused gates. C3/C4 and
-complete candidate/merged release and actual preceding-reader gates remain
-required; existing checkpoint results do not establish those outcomes.
+No current external blocker. Issue #90 C1–C3 pass checkpoint gates. C4 complete
+candidate/merged release and actual preceding-reader gates remain required;
+checkpoint evidence does not establish publication or final qualification.
 
 ## Next action
 
-Commit the passing issue #90 C2 checkpoint, then implement M3/C3 fixed-anchor
-protein residue ranges on `feat/issue-90-selection-gestures`. The
-[approved feature plan](plans/issue-90-selection-gestures.md) governs subsequent
-checkpoints and publication. Existing published runtime tags remain fixed.
+Commit passing issue #90 C3, then M4/C4 persistence/compatibility/performance and
+release preparation on `feat/issue-90-selection-gestures`. The
+[approved feature plan](plans/issue-90-selection-gestures.md) governs the remaining
+lifecycle. Existing published runtime tags remain fixed.

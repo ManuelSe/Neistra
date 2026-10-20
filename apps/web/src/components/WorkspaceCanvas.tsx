@@ -1,3 +1,4 @@
+import type { ViewerPick } from "../selection/gestures";
 import type { MinimizationWorkflow } from "../minimization/useMinimization";
 import type { SurfaceActions, ChangeSelectionAppearance, ApplySelectionEdit } from "../api/types";
 import type { ExpandSelection } from "../selection/expansion";
@@ -27,7 +28,7 @@ interface WorkspaceCanvasProps {
   selection: Selection;
   pickingGranularity: SelectionGranularity;
   onPickingGranularity: (granularity: SelectionGranularity) => void;
-  onViewerSelection: (selection: Selection, mode: SelectionMode) => void;
+  onViewerSelection: (selection: Selection, mode: SelectionMode, pick?: ViewerPick) => void;
   loading: boolean;
   onCreate: () => void;
   onImport: () => void;

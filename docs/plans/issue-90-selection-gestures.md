@@ -2,7 +2,7 @@
 
 ## 1. Status, outcome, and authority
 
-**Status:** implementation in progress; M1/C1 and M2/C2 complete, M3/C3 next.
+**Status:** M1/C1–M3/C3 implemented and checkpoint-qualified; M4/C4 next.
 **Approval:** user's “Implement the plan.” on 2026-10-20, following the complete
 proposal. C0 persistence stopped as required. The explicit `/goal` request on
 2026-10-20 authorizes implementation and the complete verified delivery lifecycle.
@@ -569,3 +569,33 @@ cleanup. Until those events occur, mark them pending.
   No HTTP/schema/migration/dependency/version or molecular-file change. Existing
   lazy-bundle advisory remains. Ranges, performance/compatibility/release remain
   pending. No external blocker. Next: commit C2, then M3/C3.
+
+### M3/C3 — Fixed-anchor residue ranges, 2026-10-20
+
+- C2 committed as `4f81175`. App-owned transient anchors and typed raw-pick
+  callbacks resolve against current cached molecular artifacts. Inclusive ranges
+  use source residue-list order within entry/component/chain, retain unrelated
+  selected atoms and hidden H, and never infer missing residues. Shift keeps its
+  fixed start; unsupported/invalid targets retain ordinary additive selection.
+- Store tests cover both directions, same endpoint, gaps/insertion codes, sparse
+  IDs, separate components in one chain, identical chain labels, cross-entry
+  fallback, Atom-mode double-click starts and lifecycle invalidation. Project
+  visit epochs additionally reject old lazy picks after leaving/returning.
+- [Final gate](../assets/selection-gestures/c3-final-gate.json):66 focused/290 total
+  frontend, Ruff/mypy91/ESLint/types/build/diff pass;52 native browser workflows
+  pass /2 existing intentional layout exclusions, no failures/retries. Native
+  exact ranges, unrelated ligands, hidden H, both remount directions, reload,
+  camera/movement/touch/keyboard/accessibility ownership regressions pass.
+- [Local full checkpoint review](../assets/selection-gestures/c3-review.md) is
+  implementer self-review, not independent approval. The initial gate had51 native
+  passes and one responsive qualification failure: a cropped endpoint, then a
+  projected center outside the resized native pick raster. Fitting plus a bounded
+  read-only native pixel observation fixed qualification. Trusted clicks and exact
+  membership assertions remain; no runtime source or threshold was changed during
+  these diagnostics. Timing did not fix the raster miss.
+  [Probe observations](../assets/selection-gestures/c3-diagnostic-observations.json),
+  all probe logs, and initial/decisive traces remain separate from the passing gate.
+- User/architecture guidance describes starts, invalidation and scope. No schema,
+  migration, HTTP, dependency, authoritative application-version or molecular-file
+  change. Full performance/old-reader/candidate/merged/release qualification remains
+  C4. No external blocker. Next: commit C3, then M4/C4 qualification/release prep.

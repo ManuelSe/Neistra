@@ -1,4 +1,7 @@
-import { describe, expect, it } from "vitest";
+import { useSelectionStore } from "../store/selection";
+import { canonicalSelection, emptySelection } from "../selection/selection";
+import type { SelectionMode } from "../api/types";
+import { beforeEach, describe, expect, it } from "vitest";
 import { DoubleClickSequence, doubleClickExpansion, gestureIndex, type SelectionStructure } from "../selection/gestures";
 import { componentHierarchy, proteinStructure } from "./molecular-fixtures";
 
@@ -55,5 +58,128 @@ describe("canonical double-click expansion", () => {
     input.hierarchy.components.find(item => item.category === "ligand")!.classification_status = "ambiguous";
     // A new immutable API projection gets a distinct index.
     expect(doubleClickExpansion(refs(4), [{ ...input, hierarchy: { ...input.hierarchy } }])).toBeNull();
+  });
+});
+
+// Source order intentionally differs from residue/atom-number sorting. A separate
+// protein component lies between two same-component residues in the same chain.
+function rangeSource(): SelectionStructure {
+  const normalized = proteinStructure();
+  normalized.chains = [{ id: 1, name: "A", entity_type: "polymer" }, { id: 2, name: "A", entity_type: "polymer" }];
+  normalized.residues = [101, 5, 99, 88, 2, 77].map((id, index) => ({ ...normalized.residues[0], id,
+    chain_id: index === 5 ? 2 : 1, author_number: [10, 10, 20, 24, 3, 10][index], insertion_code: index === 1 ? "A" : null }));
+  normalized.atoms = normalized.residues.flatMap((residue, index) => [0, 1].map(offset => ({ ...normalized.atoms[0],
+    id: (index + 1) * 10 + offset, residue_id: residue.id })));
+  const component = componentHierarchy(normalized).components[0];
+  const hierarchy = { schema_version: 1 as const, warnings: [], components: [
+    { ...component, id: "main", chain_ids: [1], residue_ids: [101, 5, 88, 2] },
+    { ...component, id: "split", chain_ids: [1], residue_ids: [99] },
+    { ...component, id: "other-chain", chain_ids: [2], residue_ids: [77] },
+  ] };
+  return { entryId: "entry", normalized, hierarchy };
+}
+
+
+describe("application-owned fixed residue anchors", () => {
+  const source = rangeSource();
+  const context = { source, projectId: "project", artifactId: "artifact" };
+  const state = () => useSelectionStore.getState();
+  const emit = (ids: number[], hit: number, mode: SelectionMode = "replace", shift = false, kind: "single" | "double" = "single") => {
+    state().applyViewer(canonicalSelection(refs(...ids), kind === "double" ? "residue" : state().pickingGranularity, "viewer"),
+      mode, { atoms: refs(hit), kind, shift }, context);
+  };
+  beforeEach(() => {
+    useSelectionStore.setState({ projectId: null, projectEpoch: 0, rangeAnchor: null, selection: emptySelection(), pickingGranularity: "atom" });
+    state().setProject("project");
+    state().setPickingGranularity("residue");
+  });
+
+  it("adds inclusive ranges both ways from a fixed explicit anchor and preserves unrelated atoms", () => {
+    emit([20, 21], 20);
+    const anchor = state().rangeAnchor;
+    expect(anchor?.residueId).toBe(5);
+    state().apply(canonicalSelection([{ structure_id: "unrelated", atom_id: 900 }]), "add");
+    emit([50, 51], 50, "add", true);
+    expect(state().selection.atoms).toEqual([...refs(20, 21, 40, 41, 50, 51), { structure_id: "unrelated", atom_id: 900 }]);
+    expect(state().rangeAnchor).toBe(anchor);
+    emit([10, 11], 10, "add", true);
+    expect(state().selection.atoms).toEqual([...refs(10, 11, 20, 21, 40, 41, 50, 51), { structure_id: "unrelated", atom_id: 900 }]);
+    expect(state().rangeAnchor).toBe(anchor);
+    emit([20, 21], 20, "add", true);
+    expect(state().rangeAnchor).toBe(anchor);
+  });
+
+  it("falls back to additive picking across source components, chain identities and entries", () => {
+    emit([20, 21], 20);
+    emit([30, 31], 30, "add", true);
+    expect(state().selection.atoms).toEqual(refs(20, 21, 30, 31));
+    emit([60, 61], 60, "add", true);
+    expect(state().selection.atoms).toEqual(refs(20, 21, 30, 31, 60, 61));
+    const other = [{ structure_id: "other", atom_id: 50 }, { structure_id: "other", atom_id: 51 }];
+    state().applyViewer(canonicalSelection(other, "residue", "viewer"), "add", { atoms: [other[0]], kind: "single", shift: true },
+      { ...context, source: { ...source, entryId: "other" } });
+    expect(state().selection.atoms).toEqual([...refs(20, 21, 30, 31, 60, 61), ...other]);
+    expect(state().rangeAnchor?.residueId).toBe(5);
+  });
+
+  it("uses Atom-mode whole-residue ranges only after explicit residue double-click", () => {
+    state().setPickingGranularity("atom");
+    emit([20], 20);
+    emit([50], 50, "add", true);
+    expect(state().selection.atoms).toEqual(refs(20, 50));
+    expect(state().rangeAnchor).toBeNull();
+    emit([20, 21], 20, "replace", false, "double");
+    emit([50], 50, "add", true);
+    expect(state().selection.atoms).toEqual(refs(20, 21, 40, 41, 50, 51));
+    emit([10], 10);
+    expect(state().rangeAnchor).toBeNull();
+  });
+
+  it("invalidates on subtraction, replacement, clear, artifact/mode/project change without inferring anchors", () => {
+    emit([20, 21], 20, "toggle");
+    expect(state().rangeAnchor?.residueId).toBe(5);
+    state().apply(canonicalSelection(refs(20)), "subtract");
+    expect(state().rangeAnchor).toBeNull();
+    emit([20, 21], 20);
+    emit([20, 21], 20, "toggle");
+    expect(state().rangeAnchor).toBeNull();
+    emit([20, 21], 20);
+    state().replace(canonicalSelection(refs(20, 21)));
+    expect(state().rangeAnchor).toBeNull();
+    state().apply(canonicalSelection(refs(40, 41)), "add");
+    expect(state().rangeAnchor).toBeNull();
+    emit([20, 21], 20);
+    state().reconcileAnchor([{ id: "entry", current_artifact_id: "artifact" }]);
+    expect(state().rangeAnchor).not.toBeNull();
+    state().reconcileAnchor([{ id: "entry", current_artifact_id: "new-artifact" }]);
+    expect(state().rangeAnchor).toBeNull();
+    emit([20, 21], 20);
+    state().setPickingGranularity("residue");
+    expect(state().rangeAnchor).not.toBeNull();
+    state().setPickingGranularity("atom");
+    expect(state().rangeAnchor).toBeNull();
+    state().setPickingGranularity("residue"); emit([20, 21], 20);
+    state().clear(); expect(state().rangeAnchor).toBeNull();
+    emit([20, 21], 20);
+    const epoch = state().projectEpoch;
+    state().setProject("another"); state().setProject("project");
+    expect(state().rangeAnchor).toBeNull(); expect(state().selection.atoms).toEqual([]);
+    expect(state().projectEpoch).toBe(epoch + 2);
+  });
+
+  it("ignores stale projects and preserves modifier precedence without creating Shift/Alt anchors", () => {
+    emit([20, 21], 20, "add", true);
+    expect(state().rangeAnchor).toBeNull();
+    emit([20, 21], 20);
+    const before = state().selection;
+    state().applyViewer(canonicalSelection(refs(50, 51)), "replace", { atoms: refs(50), kind: "single", shift: false }, { ...context, projectId: "old" });
+    expect(state().selection).toBe(before);
+    emit([50, 51], 50, "toggle", true);
+    expect(state().selection.atoms).toEqual(refs(20, 21, 50, 51));
+    expect(state().rangeAnchor?.residueId).toBe(5);
+    emit([20, 21], 20, "subtract", true);
+    expect(state().rangeAnchor).toBeNull();
+    state().applyViewer(canonicalSelection(refs(50, 51)), "add", { atoms: refs(50), kind: "single", shift: true }, { ...context, artifactId: "changed" });
+    expect(state().rangeAnchor).toBeNull();
   });
 });

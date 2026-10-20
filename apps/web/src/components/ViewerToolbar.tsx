@@ -8,8 +8,8 @@ const PICKING_MODES: {
   label: string;
   tooltip: string;
 }[] = [
-  { value: "atom", label: "Atom", tooltip: "Pick individual atoms. Click replaces; Ctrl/Cmd toggles; Shift adds; Alt subtracts" },
-  { value: "residue", label: "Residue", tooltip: "Pick complete residues. Click replaces; Ctrl/Cmd toggles; Shift adds; Alt subtracts" },
+  { value: "atom", label: "Atom", tooltip: "Click replaces; Ctrl/Cmd toggles; Alt subtracts. Double-click expands a residue or molecule; Shift extends an anchored protein range" },
+  { value: "residue", label: "Residue", tooltip: "Click selects a complete residue; Ctrl/Cmd toggles; Shift adds an inclusive anchored protein range; Alt subtracts" },
   { value: "chain", label: "Chain", tooltip: "Pick complete chains in the 3D viewer" },
   {
     value: "structure",

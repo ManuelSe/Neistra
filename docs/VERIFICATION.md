@@ -21,6 +21,17 @@ passes2 native cases. Earlier pre-review gate is separate; final runtime restore
 nonmolecular-loci no-op behavior. No schema/migration/dependency/version change;
 ranges and final release qualification remain pending.
 
+M3/C3 [final gate](assets/selection-gestures/c3-final-gate.json) passes66 focused/
+290 total frontend, Ruff/mypy91/lint/types/build/diff and52 native cases /2 existing
+layout exclusions, no failures/retries. Exact inclusive forward/reverse ranges,
+fixed starts, hidden H/unrelated atoms, component/chain/entry boundaries and
+project/artifact/mode/remount/reload ownership pass with movement regressions.
+[Review](assets/selection-gestures/c3-review.md) distinguishes initial raster/
+visibility qualification diagnostics from passing final evidence. No runtime
+change during those diagnostics; native confirmed-pixel trusted clicks retain
+exact assertions. No schema/migration/dependency/version change. Final C4 release/
+performance/actual-reader gates remain pending.
+
 ## Interactive minimization (issue #89)
 
 M1/C1 [final gate](assets/interactive-minimization/c1-gate.json) passes306 focused
