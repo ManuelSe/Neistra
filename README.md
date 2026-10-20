@@ -33,6 +33,12 @@ completion for other building actions remains off by default and nonfatal.
 **New molecule** starts at one atom. Add atoms or six fixed fragments through a
 nonpickable placement preview, direction/rotation, Apply/Cancel and compact
 inspection controls. Deleting the last atom leaves an editable empty entry.
+Selection supports Ctrl/Cmd whole-entity toggling across the viewer and existing
+selection panels. In Atom mode, double-click expands to a protein residue or an
+assigned individual molecule. Shift adds inclusive protein-residue ranges from a
+fixed viewer anchor. See [selection gestures](docs/SELECTION_GESTURES.md) for
+modifiers, scope and fallback behavior.
+
 **Hydrogen tools** previews selection or explicit whole-entry completion and a
 chosen H count/geometry. Supported sites can complete independently; existing H
 and coordinates remain fixed across conformers. Unknown chemistry and unresolved

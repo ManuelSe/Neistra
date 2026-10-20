@@ -622,3 +622,18 @@ cleanup. Until those events occur, mark them pending.
   precise protein-only help; test-only observation never alters camera/selection.
   No new migration/schema/API/dependency. Complete final-version performance,
   scientific/native, candidate/merged gates, review and publication remain pending.
+
+### Release preparation — 2026-10-20
+
+Focused C4 committed at `a360176`. Fetch confirms origin/master remains
+`9d56d25aa8d384109a4f11fdf3db9e0791257278`, already an ancestor; no base
+integration needed. Latest remote stable release remains0.21.0, no0.22 tag/open
+PR collision. All five authoritative versions advance to0.22.0 without lockfile
+dependency changes; archive producer regression gains0.21 coverage. Guide,
+README/development and release notes explain intended behavior/limits. No migration.
+Complete clean candidate and actual final-version reader gates run next; publication
+and exact merged qualification remain pending.
+
+[Version preparation gate](../assets/selection-gestures/c4-version-gate.json)
+passes34 archive/saved-selection Python regressions, Ruff and diff checks at final
+0.22.0. Complete clean candidate follows the release-preparation commit.

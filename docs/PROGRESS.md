@@ -16,7 +16,8 @@ Actual tagged0.21 reader fixture retention passes both directions at preversion
 0.21; this is not final0.22 compatibility. No migration/schema/API/dependency
 change. Known limits: protein ranges only, native desktop double-click, transient
 anchors; follow-ups#91/#94/#95 remain separate. D-120–122 govern.
-No external blocker. Next: version0.22 preparation, complete candidate/merged
+All five authoritative versions are prepared as0.22.0;34 archive/selection Python
+regressions pass. No external blocker. Next: complete candidate/merged
 release and actual final-version reader gates, review and verified publication.
 
 ### Previous delivery baseline — v0.21.0
