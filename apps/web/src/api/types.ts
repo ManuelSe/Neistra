@@ -127,7 +127,7 @@ export interface EntryGroup {
 
 export type SelectionGranularity = "atom" | "residue" | "chain" | "structure";
 export type SelectionSource = "viewer" | "project" | "sequence" | "inspector" | "saved";
-export type SelectionMode = "replace" | "add" | "subtract";
+export type SelectionMode = "replace" | "add" | "subtract" | "toggle";
 
 export interface AtomReference {
   structure_id: string;

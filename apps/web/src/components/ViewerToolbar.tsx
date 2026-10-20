@@ -8,8 +8,8 @@ const PICKING_MODES: {
   label: string;
   tooltip: string;
 }[] = [
-  { value: "atom", label: "Atom", tooltip: "Pick individual atoms in the 3D viewer" },
-  { value: "residue", label: "Residue", tooltip: "Pick complete residues in the 3D viewer" },
+  { value: "atom", label: "Atom", tooltip: "Pick individual atoms. Click replaces; Ctrl/Cmd toggles; Shift adds; Alt subtracts" },
+  { value: "residue", label: "Residue", tooltip: "Pick complete residues. Click replaces; Ctrl/Cmd toggles; Shift adds; Alt subtracts" },
   { value: "chain", label: "Chain", tooltip: "Pick complete chains in the 3D viewer" },
   {
     value: "structure",

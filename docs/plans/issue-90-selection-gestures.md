@@ -2,10 +2,10 @@
 
 ## 1. Status, outcome, and authority
 
-**Status:** approved; C0 documentation checkpoint. Implementation has not started.
+**Status:** implementation in progress; M1/C1 complete, M2/C2 next.
 **Approval:** user's “Implement the plan.” on 2026-10-20, following the complete
-proposal. The approved contract limits this turn to C0 persistence and handoff;
-implementation remains stopped until `/goal`.
+proposal. C0 persistence stopped as required. The explicit `/goal` request on
+2026-10-20 authorizes implementation and the complete verified delivery lifecycle.
 
 | Item | Planned value |
 | --- | --- |
@@ -524,3 +524,26 @@ cleanup. Until those events occur, mark them pending.
 - **Blockers:** no current external blocker. Await `/goal` before implementation.
 - **Next action after the C0 commit/push handoff:** stop on the clean feature
   branch and await `/goal` for M1/C1.
+
+### M1/C1 — Shared entity toggle, 2026-10-20
+
+- C0 committed/pushed as `8c001e377e65c53d3364ac4dfb057f0d21e24f81`, matching
+  remote SHA verified. Explicit `/goal` now authorizes implementation/delivery.
+- Complete-operand toggles share modifier policy across current views; Python
+  algebra matches TypeScript. Empty toggles preserve state. Existing add/subtract
+  and camera ownership remain. Async entry/group picks verify current project,
+  entry and artifact before applying against current selection.
+- [Focused/static/build/browser gate](../assets/selection-gestures/c1-initial-gate.json):
+  17 Python, 60 focused frontend, Ruff, mypy91, ESLint, types, build and diff pass;
+  5 native browser workflows pass with 5 existing intentional layout exclusions.
+  Native four-granularity Ctrl-off/Meta-on and panel synchronization pass.
+- [Final frontend gate](../assets/selection-gestures/c1-final-gate.json): all278
+  frontend, lint, types and diff pass. The broader initial frontend run exposed
+  one preexisting expectation of Ctrl-add in project navigation; updated it to
+  the approved toggle policy. This was an obsolete assertion, not a runtime failure.
+- Checkpoint diff reviewed locally: no dead paths, inferred chemistry, molecular
+  writes, migration, schema, dependency or version change. No independent review
+  is claimed. Existing lazy Mol* bundle advisory remains.
+- New user guidance: `docs/SELECTION_GESTURES.md`; toolbar help reflects C1.
+  Double-click/ranges/compatibility/release remain pending. No external blocker.
+  Next: M2/C2 native double-click expansion.

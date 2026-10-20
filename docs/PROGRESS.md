@@ -2,30 +2,25 @@
 
 ## Current milestone
 
-Issue #90 **C0 — approved planning checkpoint**. The
-[approved feature plan](plans/issue-90-selection-gestures.md) is the detailed
-implementation contract. Base `master` was fetched and fast-forward-checked at
-`9d56d25aa8d384109a4f11fdf3db9e0791257278`; the clean planned branch is
-`feat/issue-90-selection-gestures`. The plan was its first file change.
+Issue #90 **M1/C1 complete; M2/C2 next**, under the
+[approved contract](plans/issue-90-selection-gestures.md). C0 commit8c001e3 was
+pushed and verified; the explicit `/goal` authorizes full implementation/delivery.
 
-Completed planning: requirement dispositions, shared Ctrl/Cmd entity toggling
-across current selection views, Atom-mode residue/component double-click,
-viewer-only fixed-anchor residue ranges, C1–C4 checkpoints, compatibility gates,
-and stable minor **0.22.0** release plan. D-120–122 append the accepted decisions;
-implementation is pending. Existing releases through v0.21.0 are remotely verified.
-No runtime/schema/migration/dependency/version changes belong to C0.
+Shared Ctrl/Cmd whole-entity toggling is implemented across current selection
+views with matching Python algebra, unchanged explicit add/subtract, one modifier
+policy and async project/entry/artifact guards. D-120 records the accepted contract.
+[User guidance](SELECTION_GESTURES.md) describes current implemented behavior.
 
-Verification: proposal baseline passed **15 frontend / 20 Python tests** on the
-unchanged runtime source. C0 documentation checks passed for links, approved
-metadata, append-only decisions, unchanged global plan, and documentation-only
-scope. Matching local/remote planning-commit identity is verified in the C0
-handoff. Baseline results do not qualify the new gestures; all implementation and
-release gates remain pending.
+[Focused gate](assets/selection-gestures/c1-initial-gate.json) passes17 Python,
+60 frontend, static/type/build and5 native browser cases /5 existing intentional
+layout exclusions. [Final frontend](assets/selection-gestures/c1-final-gate.json)
+passes all278 tests/lint/types/diff after updating one obsolete Ctrl-add assertion.
+Local checkpoint self-review finds no consequential issue. No migration/schema/
+dependency/version change; stable minor0.22.0 remains planned, not released.
 
-Known limitations: new gestures are unimplemented; hover and expanded component/
-sequence navigation remain #91/#94/#95. No external blocker. Next action after
-the C0 commit/push handoff: await `/goal` on the clean feature branch; do not start
-M1/C1 in the planning-persistence turn.
+Known limits: double-click/ranges and final compatibility/release qualification
+remain pending. Hover/navigation redesign stays#91/#94/#95. No external blocker.
+Next: commit passing C1, then M2/C2 on the planned feature branch.
 
 ### Previous delivery baseline — v0.21.0
 
@@ -2535,9 +2530,8 @@ Results:
 
 ## Known limitations
 
-- Issue #90 is approved planning only. Shared toggle, Atom-mode double-click
-  expansion, and anchored residue ranges have not been implemented or qualified;
-  its feature plan governs the future work after `/goal`.
+- Issue #90 C1 implements shared entity toggling. Atom-mode double-click and
+  anchored residue ranges remain pending, as do final compatibility/release gates.
 - Historical pre-release issue #55 C1–C3 qualification recorded that v0.13.0 had the
   native-buffer defect until this correction is delivered.
   Scientific scope remains bounded by `interaction-v1`; #52 owns raw ligand
@@ -2634,14 +2628,13 @@ Results:
 
 ## Blockers
 
-No current external blocker. Issue #90 is at C0, with implementation stopped until
-`/goal` under its approved plan. C1–C4, complete release gates, actual preceding-
-reader qualification, and review remain pending. Earlier released issue evidence
-does not establish acceptance of the new selection gestures.
+No current external blocker. Issue #90 C1 passes its focused gates. C2–C4 and
+complete candidate/merged release and actual preceding-reader gates remain
+required; existing baseline results do not establish those outcomes.
 
 ## Next action
 
-After the required issue #90 C0 documentation commit/push handoff, stop on
-`feat/issue-90-selection-gestures` and await `/goal` for M1/C1. The
-[approved feature plan](plans/issue-90-selection-gestures.md) remains the detailed
-source of truth. Existing published runtime tags remain fixed.
+Commit the passing issue #90 C1 checkpoint, then implement M2/C2 native double-click
+expansion on `feat/issue-90-selection-gestures`. The
+[approved feature plan](plans/issue-90-selection-gestures.md) governs subsequent
+checkpoints and publication. Existing published runtime tags remain fixed.

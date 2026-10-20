@@ -1,5 +1,18 @@
 # V0.1 Requirement Evidence
 
+## Selection gestures (issue #90)
+
+M1/C1 [focused/static/build/browser gate](assets/selection-gestures/c1-initial-gate.json)
+passes17 Python,60 frontend, Ruff/mypy91/ESLint/types/build/diff and5 native browser
+workflows /5 existing intentional layout exclusions. Shared Ctrl/Cmd toggles full
+operands and completes partial membership; native four-granularity off/on and
+cross-panel synchronization pass without camera/refetch regression.
+[Final frontend gate](assets/selection-gestures/c1-final-gate.json) passes all278
+frontend/lint/types/diff after one obsolete Ctrl-add expectation was updated.
+No migration/schema/dependency/version change. Local checkpoint review only;
+double-click/ranges and final candidate/merged compatibility/release gates remain
+pending. The approved feature plan retains exact scope and source/log evidence.
+
 ## Interactive minimization (issue #89)
 
 M1/C1 [final gate](assets/interactive-minimization/c1-gate.json) passes306 focused

@@ -7,6 +7,7 @@ import {
   invertSelection,
   predicateSelection,
   selectionSummary,
+  selectionMode,
   structureSelection,
 } from "../selection/selection";
 import { computeSpatialSelection } from "../selection/spatial";
@@ -18,6 +19,24 @@ const references = (...atomIds: number[]): AtomReference[] =>
 describe("central selection algebra", () => {
   const structure = proteinStructure();
   const structures = new Map([["protein", structure]]);
+
+  it.each(["atom", "residue", "chain", "structure"] as const)("toggles whole %s operands and preserves unrelated references", granularity => {
+    const unrelated = { structure_id: "another", atom_id: 7 };
+    const operand = canonicalSelection(references(1, 3), granularity, "viewer");
+    const partial = canonicalSelection([unrelated, ...references(1)]);
+    const complete = combineSelection(partial, operand, "toggle");
+    expect(complete).toEqual(canonicalSelection([unrelated, ...references(1, 3)], granularity, "viewer"));
+    expect(combineSelection(complete, operand, "toggle").atoms).toEqual([unrelated]);
+    expect(combineSelection(canonicalSelection([unrelated]), operand, "toggle")).toEqual(complete);
+    expect(combineSelection(partial, canonicalSelection([]), "toggle")).toBe(partial);
+  });
+
+  it("uses one deterministic modifier precedence for every combination", () => {
+    for (let flags = 0; flags < 16; flags++) {
+      const event = { altKey: !!(flags & 1), ctrlKey: !!(flags & 2), metaKey: !!(flags & 4), shiftKey: !!(flags & 8) };
+      expect(selectionMode(event)).toBe(event.altKey ? "subtract" : event.ctrlKey || event.metaKey ? "toggle" : event.shiftKey ? "add" : "replace");
+    }
+  });
 
   it("canonicalizes and applies replace, add, subtract, and clear deterministically", () => {
     const canonical = canonicalSelection(

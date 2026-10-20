@@ -4835,3 +4835,14 @@ No HTTP/schema/migration/dependency change. The planned release is stable minor
 0.22.0 for added capabilities and intentional gesture changes, subject to collision
 checks and complete candidate/exact-master gates. Five authoritative versions
 advance in the implementation PR, not C0. Implementation and verification pending.
+
+### D-120 implementation note — issue #90 M1/C1, 2026-10-20
+
+Shared internal toggle and modifier adapters now implement the accepted complete-
+operand rule in TypeScript/Python. Entry/group lazy loading checks active project,
+selection project and current entry/artifact before publication; algebra reads
+current selection. Four-granularity native Ctrl-off/Meta-on, empty modifiers and
+cross-panel synchronization pass. Existing explicit add/subtract remain. Full278
+frontend and focused17 Python pass; checkpoint evidence lives in the feature plan.
+This is C1 only: double-click/range and release qualification remain pending.
+No molecular, HTTP, persisted-schema, migration, dependency or version change.

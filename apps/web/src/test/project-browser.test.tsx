@@ -78,7 +78,7 @@ describe("project browser selection and discovery", () => {
     const calls = onSelectEntries.mock.calls as [Entry[], SelectionMode][];
     expect(calls.map((call) => call[1])).toEqual([
       "replace",
-      "add",
+      "toggle",
       "subtract",
       "replace",
     ]);

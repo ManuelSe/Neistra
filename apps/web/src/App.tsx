@@ -477,8 +477,14 @@ export default function App() {
   };
 
   const selectEntries = (entries: Entry[], mode: SelectionMode) => {
+    const capturedProjectId = project?.id;
     void runSelectionOperation(async () => {
       const structures = await loadStructures(entries.map((entry) => entry.id));
+      const latest = queryClient.getQueryData<Project>(["project", capturedProjectId]);
+      if (!capturedProjectId || useWorkspaceStore.getState().activeProjectId !== capturedProjectId
+        || useSelectionStore.getState().projectId !== capturedProjectId
+        || entries.some(entry => !latest?.entries.some(current => current.id === entry.id
+          && current.current_artifact_id === entry.current_artifact_id))) return;
       const operand = canonicalSelection(
         entries.flatMap((entry) => {
           const structure = structures.get(entry.id);
