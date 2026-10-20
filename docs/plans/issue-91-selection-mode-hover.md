@@ -2,8 +2,8 @@
 
 ## 1. Status, outcome, and authority
 
-**Status:** approved implementation contract; M1/C1 and M2/C2 implemented and focused-qualified; M3/C3 release
-qualification next under the explicit `/goal` authorization.
+**Status:** approved implementation contract; M1/C1 and M2/C2 implemented and focused-qualified; M3/C3 final-version release
+qualification in progress under the explicit `/goal` authorization.
 
 **Approval:** the user's “Implement the plan.” on 2026-10-20 approves the complete
 proposal and its explicit C0 stop ready for `/goal`. This approval authorizes
@@ -610,3 +610,39 @@ incorporation/removal; no unrelated feature or chemistry change is accepted.
 - No migration/schema/HTTP/public viewer API, scientific inference or dependency
   version upgrade. The pinned package correction is explicit. All five application
   versions remain0.22.0; next is M3/C3 stable patch0.22.1 release preparation.
+
+### M2 commit/push and M3 preparation
+
+- M1 `572e36139e03165bd9ef73134c30b56b3e8ab111` and corrected M2
+  `c8a9c6e09b212f5dcb9850b4133ae7634cbc614d` are pushed on the planned branch;
+  remote head verified at M2, working tree clean before release preparation.
+- Created/verified [#107](https://github.com/ManuelSe/Neistra/issues/107) solely
+  for upstream readback-patch maintenance/removal on future renderer upgrades.
+  Current functionality is fixed; no approved scope is deferred to that issue.
+- Fetched origin/master, still2852e21. Actual releases remain through0.22.0 and
+  v0.22.1 is unused. Patch0.22.1 remains appropriate for existing behavior fixes,
+  without public/scientific/persisted incompatibility.
+- All five authoritative version sources now consistently0.22.1. Archive coverage
+  adds the preceding0.22.0 manifest label. README, development/rollback guidance
+  and release notes are prepared; focused final-version qualification is running.
+  Actual tagged0.22 API/core/plugin provenance checks95 source files. No migration
+  is added; existing head0014 and schema versions remain.
+
+### M3/C3 focused release preparation
+
+- [Final-version focused gate](../assets/selection-mode-hover/c3-focused-gate.json)
+  passes35 Python saved-selection/archive tests,305 frontend, Ruff, ESLint,
+  TypeScript, build/diff and12 browser cases /8 intentional layout/pointer
+  exclusions, zero failures/flakes/retries; source/patch/lock hashes unchanged.
+- [Browser summary](../assets/selection-mode-hover/c3-focused-browser-summary.json)
+  retains individual results/exclusions and3 JSON attachments. Both-theme axe,
+  keyboard/responsive controls, exact hover and deterministic archive workflows
+  pass. Pinned1STP1001 atoms: import/viewer863ms, interactions4091ms, longest
+  observed task628ms, zero repeated structure reads; unchanged budgets pass.
+- Local release-preparation diff review confirms exactly five version updates,
+  preceding archive-version coverage and user/development/release/progress docs.
+  No dependency upgrade, migration, schema or public API change; pinned native
+  correction remains explicit. All local plan/guide links and diff checks pass.
+- Next: commit `chore(release): prepare v0.22.1`, then complete clean candidate
+  gate including actual tagged0.22/current0.22.1 producer/readers both directions.
+  No release or PR is claimed yet. Existing lazy-bundle advisory remains.

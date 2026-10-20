@@ -1,0 +1,8 @@
+{
+  "fixture": "RCSB PDB 1STP",
+  "atoms": 1001,
+  "importAndViewerMs": 863,
+  "interactionMs": 4091,
+  "maxInteractionLongTaskMs": 628,
+  "repeatedStructureRequests": 0
+}

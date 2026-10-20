@@ -37,7 +37,9 @@ Selection supports Ctrl/Cmd whole-entity toggling across the viewer and existing
 selection panels. In Atom mode, double-click expands to a protein residue or an
 assigned individual molecule. Shift adds inclusive protein-residue ranges from a
 fixed viewer anchor. See [selection gestures](docs/SELECTION_GESTURES.md) for
-modifiers, scope and fallback behavior.
+modifiers, scope and fallback behavior. Mouse hover previews the current picking
+mode without changing selection. Residue mode uses complete existing protein
+residues or assigned individual molecule components; hidden atoms stay hidden.
 
 **Hydrogen tools** previews selection or explicit whole-entry completion and a
 chosen H count/geometry. Supported sites can complete independently; existing H

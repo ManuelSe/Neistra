@@ -11,9 +11,13 @@ state, camera, visibility, movement and surface activation. D-124/125 govern.
 exclusions, zero failures/flakes/retries; source/patch/lock hashes unchanged.
 Review found and fixed pending native click readback through a pinned Mol*5.11.0
 patch; original80ms surface repeats pass10/10. Review is local self-review.
-No schema/API/migration/scientific change or dependency version upgrade; five
-versions remain0.22.0. Next:M3/C3 final compatibility/qualification, stable
-patch0.22.1 preparation and verified delivery. No external blocker.
+M2 c8a9c6e is pushed and remotely verified; #107 tracks eventual upstream patch
+removal, not incomplete functionality. All five versions are now prepared as0.22.1.
+[M3 focused final-version gate](assets/selection-mode-hover/c3-focused-gate.json)
+passes35 Python/305 frontend/12 browser cases (8 documented exclusions), all
+static/build/diff checks and unchanged1STP budgets. Complete clean candidate/
+actual-reader and exact-master qualification/publication remain pending. No schema/API/migration/
+scientific change or dependency version upgrade. No external blocker.
 
 ### Previous delivery baseline — v0.22.0
 

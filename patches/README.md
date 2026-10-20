@@ -14,3 +14,7 @@ pending, failed, resolved and dirty-scene paths; native surface/click/hover and
 performance gates qualify actual behavior. Reevaluate this patch on any Mol*
 upgrade and remove it only when upstream behavior passes those tests without it.
 See issue91's feature plan and D-125 for provenance and scope rationale.
+
+Upstream incorporation/removal tracking:
+[#107](https://github.com/ManuelSe/Neistra/issues/107). Current click correctness
+is delivered in issue91; this follow-up does not defer that requirement.

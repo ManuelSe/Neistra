@@ -1061,3 +1061,10 @@ retries, unchanged source/patch/lock hashes and verified lossless logs. The
 correction, deterministic negative control and10/10 original-timing native surface
 passes. Production build excludes test harnesses. Complete final-version candidate/
 exact-master, actual-reader and performance/scientific release gates remain pending.
+
+Issue91 M3 [focused final0.22.1 gate](assets/selection-mode-hover/c3-focused-gate.json)
+passes35 Python saved-selection/archive,305 frontend,12 browser /8 intentional
+layout/pointer exclusions and static/build/diff checks. No failures/flakes/retries;
+source/patch/lock hashes unchanged. Both-theme axe and1STP1001-atom import863ms/
+interaction4091ms/longest628ms/zero repeated reads meet unchanged budgets. Complete
+clean candidate/actual-reader/exact-master qualification remains pending.

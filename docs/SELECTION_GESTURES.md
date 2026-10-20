@@ -1,5 +1,9 @@
 # Selection gestures
 
+Whole-entity toggle, double-click expansion and viewer residue ranges were added
+in0.22.0. Picking-mode hover and complete individual-molecule Residue alignment
+are corrected in0.22.1; see the issue #91 plan for qualification/publication status.
+
 Selection stays synchronized across the viewer, project browser, Components panel
 and Sequence tab. Picking does not
 change the camera, molecular data, project revision, or edit history. Save a named
