@@ -24,7 +24,9 @@ raster/readiness helpers live only in test modules, absent from production outpu
 [Clean candidate measurements](assets/selection-gestures/c4-candidate-browser-summary.json):
 1STP import/viewer1154ms, interactions3861ms, longest observed task652ms, zero
 repeat requests. Every existing movement/surface/minimization budget passes.
-Exact merged-master qualification remains required; these are pinned-host results.
+[Exact released master](assets/selection-gestures/c4-merged-browser-summary.json):
+import699ms, interactions4473ms, longest task655ms, zero repeat requests. All existing
+budgets pass again; these are pinned-host results, not universal throughput claims.
 
 ## Selection-driven editing (issue #69)
 

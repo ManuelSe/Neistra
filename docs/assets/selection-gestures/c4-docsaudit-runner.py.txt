@@ -1,0 +1,161 @@
+from pathlib import Path
+import hashlib,json,shutil,subprocess
+root=Path.cwd();out=root/'docs/assets/selection-gestures';sha='28d3a9bb59c6e786e0586ae589f0e0ebfee7678a';url='https://github.com/ManuelSe/Neistra/issues/90#issuecomment-6295653182'
+release=json.loads(Path('/tmp/neistra90-release-remote.json').read_text());bundle=json.loads(Path('/tmp/neistra90-bundle.json').read_text());qual=json.loads(Path('/tmp/neistra90-qualification.json').read_text())
+remote_comment=json.loads(subprocess.check_output(['gh','api','repos/ManuelSe/Neistra/issues/comments/6295653182'],text=True));assert remote_comment['body'].rstrip()==Path('/tmp/neistra90-issue.md').read_text().rstrip()
+pr=json.loads(subprocess.check_output(['gh','pr','view','105','--json','number,url,state,mergedAt,mergeCommit,headRefOid'],text=True));assert pr['state']=='MERGED' and pr['mergeCommit']['oid']==sha
+ref=json.loads(subprocess.check_output(['gh','api','repos/ManuelSe/Neistra/git/ref/tags/v0.22.0'],text=True));assert ref['object']['type']=='tag'
+tag=json.loads(subprocess.check_output(['gh','api',f'repos/ManuelSe/Neistra/git/tags/{ref["object"]["sha"]}'],text=True));assert tag['object']['sha']==sha
+asset=next(a for a in release['assets'] if a['name']==bundle['filename']);assert asset['digest']=='sha256:'+bundle['sha256']
+bundle.update(public_url=asset['browser_download_url'],asset_id=asset['id'],remote_digest=asset['digest'],remote_draft_download_verified=True,public_published_download_verified=True,downloaded_zip_crc_and_all_internal_hashes_verified=True)
+record={'status':'runtime released and issue close-out verified; final reference audit follows docs integration at linked issue reply','issue':90,'plan':'docs/plans/issue-90-selection-gestures.md','runtime_pr':{**pr,'strategy':'normal merge preserving checkpoints'},'tag':{'name':'v0.22.0','type':'annotated','object':ref['object']['sha'],'commit':sha,'remote_ref_and_peeled_commit_verified':True},'release':{k:release[k] for k in ['id','html_url','tag_name','target_commitish','draft','prerelease','published_at']},'release_notes_sha256':hashlib.sha256(release['body'].encode()).hexdigest(),'verification_bundle':bundle,'issue_closeout':{'url':url,'id':remote_comment['id'],'verified_body_sha256':hashlib.sha256(remote_comment['body'].encode()).hexdigest(),'closed_by_runtime_pr':True,'final_reference_audit':'This same reply is updated after docs integration and actual branch cleanup.'},'qualification':qual,'review':{'request':'https://github.com/ManuelSe/Neistra/pull/105#issuecomment-6294359169','local_self_review':'https://github.com/ManuelSe/Neistra/pull/105#issuecomment-6294422971','independent_review_returned':False,'required_remote_checks_or_approvals':False,'unresolved_review_threads_at_merge':0,'override_used':False},'compatibility':{'database_head':'0014','normalized_selection_schema':1,'project_viewer_archive_schema':2,'new_migration':False,'application_dependency_upgrade':False},'deferred_followups':[91,94,95],'feature_branch':'feat/issue-90-selection-gestures','cleanup_order':'Remote/local deletion only after verified runtime merge, tag, release, issue reply and docs audit. Final observed state is recorded at closeout URL and published audit asset, not predicted here.'}
+(out/'c4-publication.json').write_text(json.dumps(record,indent=2)+'\n')
+shutil.copyfile('/tmp/neistra90-premerge.json',out/'c4-premerge-audit.json')
+for stem in ['publishprep','docsaudit']:
+ shutil.copyfile(f'/tmp/neistra90-{stem}.py',out/f'c4-{stem}-runner.py.txt')
+
+p=Path('docs/plans/issue-90-selection-gestures.md');s=p.read_text().replace('**Status:** M1–M4 implemented and clean-candidate-qualified; PR/review/merge and exact-master release qualification next.','**Status:** M1–M4 implemented, verified, merged and released as stable v0.22.0. Final reference/cleanup audit is recorded in the linked issue close-out.').replace('| Issue state | Open; last update inspected: 2026-10-19T12:48:43Z; no comments at analysis |','| Issue state | Closed by merged PR#105; released v0.22.0; verified close-out linked below |')
+s+=f'''
+### Verified merge, exact-master qualification and publication — 2026-10-20
+
+- Evidence checkpoint `ae2e856` pushed and [PR#105](https://github.com/ManuelSe/Neistra/pull/105)
+  opened against current master. Complete local diff review has no consequential
+  finding. [Premerge audit](../assets/selection-gestures/c4-premerge-audit.json)
+  confirms CLEAN/MERGEABLE, no required approvals/checks/protection/rulesets or
+  unresolved reviews/threads. Codex requested at the linked PR comment; no
+  acknowledgement/independent review returned. No override/force push was used.
+- Normal merge preserves C0–C4 history; remote merge/master verified at
+  `{sha}`. Local master fast-forwarded cleanly.
+- [Exact-master15-command gate](../assets/selection-gestures/c4-merged-gate.json)
+  passes **1,107 Python,290 frontend,8 supervisor,282 browser /52 existing
+  intentional layout/timing exclusions**, zero failures/flakes/retries/native
+  scientific skips. All472 runtime/test/tool source hashes equal the clean
+  candidate and remain unchanged. Frozen installs/fresh0014/static/build/version/
+  diff pass. [Actual tagged0.21↔final0.22 reader gate](../assets/selection-gestures/c4-merged-reader-gate.json)
+  passes both directions with exact originals/artifacts/references/scenes/settings/
+  surfaces/history/jobs/archive remapping and no durable anchors.
+- [Exact-master browser summary](../assets/selection-gestures/c4-merged-browser-summary.json)
+  retains23 JSON attachments. Pinned1STP: import/viewer699ms, interactions4473ms,
+  longest observed task655ms, zero repeated normalized reads. All existing movement,
+  surface/18k minimization budgets and all14 native gesture cases pass; both-theme
+  full-shell axe, keyboard/touch ownership and actual desktop100%/200%zoom pass.
+- Annotated `v0.22.0` object `{ref['object']['sha']}` targets only that verified
+  master commit; remote ref and peeled commit verified. Stable latest
+  [GitHub release](https://github.com/ManuelSe/Neistra/releases/tag/v0.22.0)
+  and complete notes are published and verified. Public ZIP SHA256
+  `{bundle['sha256']}`, CRC and260 internal manifest hashes verified.
+  [Publication record](../assets/selection-gestures/c4-publication.json) retains IDs,
+  checksums, source digest, review and compatibility facts.
+- [Issue close-out]({url}) verified, issue closed. No schema/migration/API/dependency
+  change; all five versions0.22.0. No duplicate follow-up: #91/#94/#95 remain open
+  and separate. Unsupported/ambiguous polymer, native double-click and transient
+  anchor limits remain explicit; optional/deferred/rejected scope was not added.
+- This documentation/evidence audit is integrated on the planned feature branch,
+  with runtime/test/tool equivalence and diff checks. The published runtime tag
+  stays fixed. Final documentation PR integration and **actual** delayed remote/
+  local feature deletion/clean-master evidence are appended to the same close-out
+  reply and published `neistra-v0.22.0-publication-audit.json` release asset after
+  those events. This avoids predicting cleanup or creating a circular audit commit.
+- Approved scope and release delivery are complete; no remaining implementation
+  or external blocker. Future product work requires a separate approved plan.
+''';p.write_text(s)
+
+p=Path('docs/PROGRESS.md');s=p.read_text();a=s.index('Issue #90 **');b=s.index('### Previous delivery baseline');s=s[:a]+f'''Issue #90 is implemented and released as stable
+[v0.22.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.22.0) in
+[PR#105](https://github.com/ManuelSe/Neistra/pull/105), under the
+[approved plan](plans/issue-90-selection-gestures.md). Whole-operand toggle across
+existing surfaces, Atom residue/component double-click and viewer-only fixed
+protein ranges preserve canonical ownership/camera and hidden membership. D-120–123
+and [user guidance](SELECTION_GESTURES.md) govern; anchors remain transient.
+
+Both [clean candidate7dc4340](assets/selection-gestures/c4-candidate-gate.json) and
+[exact released master](assets/selection-gestures/c4-merged-gate.json)
+`{sha}` pass all15 commands: **1,107 Python,290 frontend,8 supervisor,282 browser
+/52 existing intentional layout/timing exclusions**, zero failures/flakes/retries/
+native scientific skips. Frozen/fresh0014/static/build/version/diff and all14 native
+gesture cases pass. All472 source identities match. Actual tagged0.21/final0.22
+retention passes both directions. Pinned1STP merged interaction4473ms/longest655ms/
+zero repeated reads meets unchanged budgets; axe/actual200%zoom and movement/surface/
+minimization gates pass. [Review](assets/selection-gestures/c4-review.md) is local
+self-review; Codex requested, none returned, no required gate bypassed. Earlier
+raster/readiness diagnostics remain separate from passing final evidence.
+
+[Publication](assets/selection-gestures/c4-publication.json) verifies exact annotated
+tag, stable latest release/notes, public downloaded ZIP SHA256/CRC/260 internal
+hashes and [issue reply]({url}). That reply and the release audit asset retain
+final docs integration and actual branch-cleanup/clean-master references after
+verification. Published runtime tag remains fixed. All five versions0.22.0; no
+migration/schema/API/dependency change. Known limits/follow-ups#91/#94/#95 remain
+separate. No remaining approved-scope implementation or external blocker. Next
+product action requires a separate approved plan.
+
+'''+s[b:]
+a=s.index('## Blockers\n');b=s.index('## Next action\n',a);s=s[:a]+'''## Blockers
+
+No current external blocker. Issue #90 implementation, complete candidate/exact-
+master qualification, actual tagged-reader compatibility and publication pass.
+Final reference/cleanup evidence is retained in the issue reply/release audit.
+
+'''+s[b:];a=s.index('## Next action\n');s=s[:a]+'''## Next action
+
+No remaining approved-scope implementation. Select a separate product issue and
+approve its feature plan. Issue #90's detailed contract and release evidence remain
+in [its plan](plans/issue-90-selection-gestures.md); final integration/cleanup facts
+are linked from the verified close-out reply. Published runtime tags remain fixed.
+''';p.write_text(s)
+
+p=Path('docs/RELEASE_NOTES.md');s=p.read_text().replace('## 0.22.0 - prepared 2026-10-20 - Molecular selection gestures','## 0.22.0 - 2026-10-20 - Molecular selection gestures').replace('Release candidate under the [approved issue90 plan](plans/issue-90-selection-gestures.md).\nClean candidate qualification passes; publication and exact-master qualification remain pending.','''Published stable [v0.22.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.22.0)
+in [PR#105](https://github.com/ManuelSe/Neistra/pull/105), under the
+[approved issue90 plan](plans/issue-90-selection-gestures.md). Annotated on exact
+verified master28d3a9bb59c6e786e0586ae589f0e0ebfee7678a.
+[Publication](assets/selection-gestures/c4-publication.json) verifies public notes
+and downloaded ZIP SHA256/CRC/260 manifest hashes.''').replace('Actual tagged0.21.0 readers must\nretain final0.22 data/history/jobs/archives and current readers accept0.21 archives\nbefore release (candidate passes both directions).','Actual tagged0.21.0 readers retain final0.22 data/history/jobs/archives and current\nreaders accept0.21 archives in both complete candidate and exact-master gates.').replace('actual200%zoom pass. Exact merged-master gate remains mandatory before publication.','''actual200%zoom pass. [Exact merged-master gate](assets/selection-gestures/c4-merged-gate.json)
+repeats every command/count with identical472 source hashes; both actual-reader
+directions pass. Merged1STP import699ms, interactions4473ms, longest655ms, zero repeat
+reads. [Issue close-out](https://github.com/ManuelSe/Neistra/issues/90#issuecomment-6295653182)
+links final documentation integration/branch cleanup; published runtime tag stays fixed.''');p.write_text(s)
+
+p=Path('docs/VERIFICATION.md');s=p.read_text().replace('## Selection gestures (issue #90)\n','''## Selection gestures (issue #90)
+
+**Released stable v0.22.0 in PR#105.** The following checkpoint history separates
+diagnostics from final qualification; exact-release/publication evidence follows.
+''',1);i=s.index('## Interactive minimization');s=s[:i]+f'''[Exact released master](assets/selection-gestures/c4-merged-gate.json)
+`{sha}` repeats all15 passing commands/counts, zero failures/flakes/retries/native
+scientific skips;472 source identities exactly match candidate. Actual tagged0.21
+retention passes both final0.22 directions. [Merged browser summary](assets/selection-gestures/c4-merged-browser-summary.json)
+retains23 attachments:1STP import699ms, interactions4473ms, longest655ms, zero repeat
+reads. All budgets/14 new native gestures/axe/actual200%zoom pass.
+[Publication](assets/selection-gestures/c4-publication.json) verifies annotated exact
+tag, stable latest release/notes, public ZIP SHA256/CRC/260 hashes and issue reply.
+Final docs integration/branch cleanup is recorded in that reply/release audit asset.
+No new migration/schema/API/dependency; all five versions0.22.0. No independent
+review returned or required approval/check was bypassed; local self-review retained.
+
+'''+s[i:];p.write_text(s)
+p=Path('docs/PERFORMANCE.md');s=p.read_text().replace('Exact merged-master qualification remains required; these are pinned-host results.','''[Exact released master](assets/selection-gestures/c4-merged-browser-summary.json):
+import699ms, interactions4473ms, longest task655ms, zero repeat requests. All existing
+budgets pass again; these are pinned-host results, not universal throughput claims.''');p.write_text(s)
+p=Path('docs/ACCESSIBILITY.md');s=p.read_text().replace('Exact-master\nqualification remains required; no broader certification is inferred.','''[Exact released master](assets/selection-gestures/c4-merged-gate.json) repeats
+these passing cases; no broader certification is inferred.''');p.write_text(s)
+p=Path('docs/SELECTION_GESTURES.md');s=p.read_text().replace('The issue #90 implementation passes complete candidate qualification, including\npersistence, actual preceding-reader compatibility, accessibility and performance.\nExact merged-master qualification and publication remain pending.','''Released in [v0.22.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.22.0),
+with complete candidate/exact-master and actual preceding-reader qualification.''');p.write_text(s)
+p=Path('docs/DECISIONS.md');p.write_text(p.read_text()+'''
+### D-120–123 publication note — issue #90, 2026-10-20
+
+Approved scope released as stable0.22.0 in PR#105 at verified master28d3a9bb.
+Both complete15-command gates and actual tagged0.21/final0.22 reader directions
+pass with identical472 source hashes. No migration/schema/API/dependency or
+molecular change. Local full-diff self-review only; Codex requested, none returned,
+no required approval/check bypassed. Annotated exact tag, stable release/public
+bundle and issue reply verified. The feature plan records detailed qualification
+and final reference/cleanup audit links without moving the published runtime tag.
+''')
+p=out/'c4-review.md';p.write_text(p.read_text()+'''
+PR#105 merged normally at28d3a9bb after recorded remote gate audit; no independent
+review returned. Exact merged-master15-command gate repeats passing counts and
+all472 source identities. Both actual-reader directions, native timing/axe/zoom/
+gesture cases pass. Annotated exact tag/stable release/public ZIP and close-out
+are verified. Publication-audit changes contain documentation/evidence only;
+source-equivalence and diff checks retain released runtime/test/tool bytes.
+''')
+print('Verified publication/issue reply recorded; docs audit ready for validation.')

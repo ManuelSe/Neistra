@@ -46,3 +46,10 @@ passes;95 source files byte-match the tag. Current runtime/test/tool bytes still
 match the gate's SHA256 manifest. Documentation/evidence-only additions since
 7dc4340 do not change those sources. No new consequential finding. Remote checks
 and exact merged-master gate remain binding.
+
+PR#105 merged normally at28d3a9bb after recorded remote gate audit; no independent
+review returned. Exact merged-master15-command gate repeats passing counts and
+all472 source identities. Both actual-reader directions, native timing/axe/zoom/
+gesture cases pass. Annotated exact tag/stable release/public ZIP and close-out
+are verified. Publication-audit changes contain documentation/evidence only;
+source-equivalence and diff checks retain released runtime/test/tool bytes.

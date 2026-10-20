@@ -4888,3 +4888,13 @@ old gesture authoring from retained data, or final-version compatibility from a
 preversion fixture. Native test pixel/readiness observations are test-only and
 must never replace the actual input or exact canonical-membership assertions.
 No migration, production diagnostic hooks or persisted gesture state are needed.
+
+### D-120–123 publication note — issue #90, 2026-10-20
+
+Approved scope released as stable0.22.0 in PR#105 at verified master28d3a9bb.
+Both complete15-command gates and actual tagged0.21/final0.22 reader directions
+pass with identical472 source hashes. No migration/schema/API/dependency or
+molecular change. Local full-diff self-review only; Codex requested, none returned,
+no required approval/check bypassed. Annotated exact tag, stable release/public
+bundle and issue reply verified. The feature plan records detailed qualification
+and final reference/cleanup audit links without moving the published runtime tag.

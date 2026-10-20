@@ -1,0 +1,100 @@
+{
+  "kind": "documentation/evidence audit and local self-review",
+  "runtime_commit": "28d3a9bb59c6e786e0586ae589f0e0ebfee7678a",
+  "runtime_test_tool_identities_unchanged": 472,
+  "changed_tracked_paths": [
+    "docs/ACCESSIBILITY.md",
+    "docs/DECISIONS.md",
+    "docs/PERFORMANCE.md",
+    "docs/PROGRESS.md",
+    "docs/RELEASE_NOTES.md",
+    "docs/SELECTION_GESTURES.md",
+    "docs/VERIFICATION.md",
+    "docs/assets/selection-gestures/c4-review.md",
+    "docs/plans/issue-90-selection-gestures.md"
+  ],
+  "new_local_links_verified": [
+    [
+      "docs/ACCESSIBILITY.md",
+      "assets/selection-gestures/c4-merged-gate.json"
+    ],
+    [
+      "docs/PERFORMANCE.md",
+      "assets/selection-gestures/c4-merged-browser-summary.json"
+    ],
+    [
+      "docs/PROGRESS.md",
+      "plans/issue-90-selection-gestures.md"
+    ],
+    [
+      "docs/PROGRESS.md",
+      "SELECTION_GESTURES.md"
+    ],
+    [
+      "docs/PROGRESS.md",
+      "assets/selection-gestures/c4-candidate-gate.json"
+    ],
+    [
+      "docs/PROGRESS.md",
+      "assets/selection-gestures/c4-merged-gate.json"
+    ],
+    [
+      "docs/PROGRESS.md",
+      "assets/selection-gestures/c4-review.md"
+    ],
+    [
+      "docs/PROGRESS.md",
+      "assets/selection-gestures/c4-publication.json"
+    ],
+    [
+      "docs/PROGRESS.md",
+      "plans/issue-90-selection-gestures.md"
+    ],
+    [
+      "docs/RELEASE_NOTES.md",
+      "plans/issue-90-selection-gestures.md"
+    ],
+    [
+      "docs/RELEASE_NOTES.md",
+      "assets/selection-gestures/c4-publication.json"
+    ],
+    [
+      "docs/RELEASE_NOTES.md",
+      "assets/selection-gestures/c4-merged-gate.json"
+    ],
+    [
+      "docs/VERIFICATION.md",
+      "assets/selection-gestures/c4-merged-gate.json"
+    ],
+    [
+      "docs/VERIFICATION.md",
+      "assets/selection-gestures/c4-merged-browser-summary.json"
+    ],
+    [
+      "docs/VERIFICATION.md",
+      "assets/selection-gestures/c4-publication.json"
+    ],
+    [
+      "docs/plans/issue-90-selection-gestures.md",
+      "../assets/selection-gestures/c4-premerge-audit.json"
+    ],
+    [
+      "docs/plans/issue-90-selection-gestures.md",
+      "../assets/selection-gestures/c4-merged-gate.json"
+    ],
+    [
+      "docs/plans/issue-90-selection-gestures.md",
+      "../assets/selection-gestures/c4-merged-reader-gate.json"
+    ],
+    [
+      "docs/plans/issue-90-selection-gestures.md",
+      "../assets/selection-gestures/c4-merged-browser-summary.json"
+    ],
+    [
+      "docs/plans/issue-90-selection-gestures.md",
+      "../assets/selection-gestures/c4-publication.json"
+    ]
+  ],
+  "consequential_findings": [],
+  "limits": "No independent review claimed; full released-runtime gates retained rather than rerun for documentation-only publication audit."
+}
