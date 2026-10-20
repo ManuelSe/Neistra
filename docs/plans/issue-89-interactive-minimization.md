@@ -464,3 +464,13 @@ merge/tag/release/reply verification; finish clean master.
   historical archive coverage; all30 archive cases pass. This is a test fixture
   correction, no runtime/archive acceptance change. The first full run is diagnostic
   only; preserve its failures and repeat the complete clean candidate gate.
+
+- Corrected candidate1095f99 passes1102 Python/273 frontend/8 supervisor/static/
+  build/fresh0014. Browser attempt2 interrupted for Chromium page-fixture startup
+  failures, also reproduced independently of Neistra with GPU kernel DRM waiting.
+  Isolation smoke passes; host restart clears the standard SwiftShader startup
+  failure. No application, assertion or launch-configuration change. Incomplete
+  attempts do not qualify release. Retained attempt2 exact logs/source; attempt1
+  temporary full logs lost on restart (stale version assertion/fix is recorded).
+  Next: repeat clean complete candidate gate and final producer/actual0.20 reader
+  using persistent task tooling/data as needed. No current infrastructure blocker.

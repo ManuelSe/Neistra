@@ -61,3 +61,21 @@ Source hashes unchanged across execution. Final warned-acceptance controls pass 
 320px in both themes with scoped axe checks. Existing Vite disconnect warnings and
 bundle advisories remain nonfailing, with logs retained. Final-version release gate
 is the next step, not implied by this focused qualification.
+
+Release gate review: stale0.20 archive fixture pin corrected in1095f99;30 archive
+cases pass, including0.20. Complete corrected candidate Python1102/frontend273/
+supervisor8/static/build/fresh0014 pass. Browser attempt2 could not create even a
+blank page; interrupted after7 fixture timeouts/1 interrupted/312 unrun. Standalone
+Chromium also hung before app execution; GPU process waited in host kernel
+`drm_sched_entity_flush`. Software-ICD/launch-flag probes did not fix it. Isolation
+from physical DRM and desktop-session connections allowed a real workflow smoke,
+without assertion changes. The host then restarted (boot4cc00cb6-d793-4e01-a99d-
+2f67e8c27d5b, start2026-10-20 11:22:08 local); standard configured SwiftShader now
+creates pages successfully. No application/Playwright threshold/launch-setting
+change is required. All complete gates are repeated on the current host.
+
+Attempt2 lossless logs and source identities are retained; original attempt1's
+full temporary diagnostics were lost across restart, while the failing version
+assertion and focused30-case fix remain documented. No passing claim is made for
+either incomplete attempt. Task qualification data/driver/reader checkout now use
+persistent external tool storage where useful, independent of production data.
