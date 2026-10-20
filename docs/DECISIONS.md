@@ -4898,3 +4898,52 @@ molecular change. Local full-diff self-review only; Codex requested, none return
 no required approval/check bypassed. Annotated exact tag, stable release/public
 bundle and issue reply verified. The feature plan records detailed qualification
 and final reference/cleanup audit links without moving the published runtime tag.
+
+## D-124 — Shared picking targets and viewer-local hover ownership
+
+Date: 2026-10-20. Status: accepted by approval of the
+[issue #91 plan](plans/issue-91-selection-mode-hover.md); implementation pending.
+
+Share one internal target-resolution path between ordinary structural clicks and
+hover. Atom hits retain element-level identity and existing bond-endpoint picking;
+protein Residue hits use complete normalized residue membership. Assigned
+nonpolymer Residue hits use the complete existing individual component, including
+explicit component atom IDs. Other residue targets retain native residue
+normalization; ambiguous classification does not justify molecule expansion.
+Chain/Structure retain their existing click semantics. Multi-atom hits resolve
+the union of applicable targets, never an arbitrary first atom. This is a narrow
+extension of D-020/044 using D-045's existing membership authority; D-120–123's
+modifier, double-click and range-anchor contracts remain binding.
+
+Hover previews the active-mode entity only, independent of modifiers. It does
+not preview Shift ranges, toggled results or subtraction. Replace the default
+Mol* molecular HighlightLoci handler with one adapter-owned subscription and
+marking provider. Explicit resolved loci bypass automatic highlight granularity
+expansion; programmatic selection marking remains exact and separate. Preserve
+existing distinct highlight/selection colors and active surface-object markers.
+Managed surface hits retain their object-selection path, rather than becoming
+molecular hover targets.
+
+The disposable viewer owns transient hover state; no hover enters the canonical
+selection store, anchors, preferences, scenes, history, archives, or project API.
+Never emit a selection event or issue a mutation/refetch/job from hover. Render
+only through existing visible representations without revealing hidden atoms or
+loading hidden entries. Reuse immutable molecular/component indexes and cache the
+current target/loci by scene generation and picking mode; repeated samples within
+one entity do not rematerialize membership or remark it.
+
+Clear hover on empty/unsupported hits, exit/blur, mode changes, structural or
+coordinate presentation changes, navigation/movement ownership changes and
+disposal. Reject stale-generation or actively owned pointer/navigation input.
+Clean up all subscriptions/providers; the next valid real sample resolves the
+current scene. Preserve canonical selection and active surface activation during
+highlight removal. Do not synthesize clicks or infer molecular identity from
+geometry, names, size, connectivity guesses or renderer residue grouping.
+
+Rationale: setting renderer granularity alone cannot guarantee complete canonical
+components or lifecycle correctness. Shared targeting makes the preview truthful
+without a second selection authority or modifier-preview framework. Native marker
+and exact-reference tests must qualify both target membership and independence
+from selection/camera/project state. The existing stable release history supports
+a patch 0.22.1 correction with unchanged schemas/APIs, not a new feature or schema
+boundary. No migration, dependency change or implementation is authorized in C0.

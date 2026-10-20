@@ -2,6 +2,26 @@
 
 ## Current milestone
 
+Issue #91 C0 — approved planning persistence for
+[hover previews that match picking mode](plans/issue-91-selection-mode-hover.md).
+The user's “Implement the plan.” on 2026-10-20 approves the C0-only handoff and
+explicit stop ready for `/goal`; implementation has not started. Clean `master`
+was fetched and fast-forward-checked at `2852e21295429b014287c7fd86c4467fa6bf7268`.
+Dedicated branch: `fix/issue-91-selection-mode-hover`; D-124 records accepted
+shared target resolution and viewer-local transient hover ownership.
+
+Approved milestones: M1/C1 shared exact picking targets; M2/C2 native transient
+hover and lifecycle; M3/C3 compatibility, complete qualification and release
+preparation. Hover previews the active-mode entity; narrow Residue-mode click
+alignment is approved. Shift ranges/toggle outcomes and #94/#95 UI remain separate.
+Planned release is stable patch **0.22.1**; versions remain **0.22.0** in C0.
+Project/viewer/archive2, normalized/selection1 and Alembic0014 remain unchanged.
+Existing-behavior baseline passes 28 frontend and 24 Python tests; this is not
+feature or release acceptance. C0 validates documentation only, then commits and
+pushes the approved contract. No application/test implementation or publication.
+
+### Previous delivery baseline — v0.22.0
+
 Issue #90 is implemented and released as stable
 [v0.22.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.22.0) in
 [PR#105](https://github.com/ManuelSe/Neistra/pull/105), under the
@@ -558,6 +578,12 @@ and closed out on issue #1. The release tag remains on the exact verified
 feature merge; this documentation-only closeout records the remote evidence.
 
 ## Completed work
+
+- Issue #91 planning: inspected repository and remote delivery conventions,
+  confirmed entity-only hover and shared complete-molecule click targets,
+  approved the detailed feature contract, and prepared C0 on its dedicated
+  branch. The feature plan retains checkpoint acceptance/validation and delivery
+  requirements; implementation remains pending.
 
 - Issue #55 C0: approved feature contract persisted under `docs/plans/` as the
   first change on `fix/issue-55-interaction-corrections`, with the concise project
@@ -1418,6 +1444,15 @@ feature merge; this documentation-only closeout records the remote evidence.
   affected-entry topology replacement without a full scene synchronization.
 
 ## Verification performed
+
+- Issue #91 baseline: 28 frontend tests across viewer interaction/adapter,
+  selection gestures, component hierarchy and surface objects; 24 Python
+  selection/component/classification tests passed. C0 checks pass for clean
+  fetched master/base, unused planned refs/path, unchanged schema head 0014,
+  documentation metadata, 99 local links plus the decision anchor, append-only
+  decisions, unchanged global plan and five versions, and `git diff --check`.
+  C0 commit/push verification is reported in the handoff;
+  no feature acceptance or release gate is claimed.
 
 - Issue #55 planning/C0: remote issue/master/release baseline rechecked; clean
   local master fast-forwarded with `--ff-only` (already current). Planning tests
@@ -2541,6 +2576,10 @@ Results:
 
 ## Known limitations
 
+- Issue #91 hover correction is approved but unimplemented. The existing hover
+  bug remains; baseline tests cover existing functionality. Entity-only previews
+  exclude modifier outcomes; component/sequence UI expansion remains #94/#95.
+
 - Issue #90 C1–C3 implement toggle, double-click and residue ranges. Final
   performance, preceding-reader compatibility and release qualification remain pending.
 - Historical pre-release issue #55 C1–C3 qualification recorded that v0.13.0 had the
@@ -2639,13 +2678,15 @@ Results:
 
 ## Blockers
 
-No current external blocker. Issue #90 implementation, complete candidate/exact-
-master qualification, actual tagged-reader compatibility and publication pass.
-Final reference/cleanup evidence is retained in the issue reply/release audit.
+No current external blocker for issue #91 planning persistence. Implementation
+awaits `/goal` after the approved C0 commit/push handoff. Issue #90's released
+baseline and final reference/cleanup evidence remain recorded above and in its
+feature plan.
 
 ## Next action
 
-No remaining approved-scope implementation. Select a separate product issue and
-approve its feature plan. Issue #90's detailed contract and release evidence remain
-in [its plan](plans/issue-90-selection-gestures.md); final integration/cleanup facts
-are linked from the verified close-out reply. Published runtime tags remain fixed.
+After the C0 planning commit/push handoff, stop on the clean feature branch and
+await `/goal` for M1/C1. The handoff reports the verified plan/branch/commit and
+approved M1–M3/patch 0.22.1 release impact. Do not start M1/C1 or create a
+PR/tag/release in C0. The [issue #91 plan](plans/issue-91-selection-mode-hover.md)
+is the detailed implementation contract. Published runtime tags remain fixed.
