@@ -1,7 +1,5 @@
 from datetime import UTC, datetime
 
-from molweave_core.adapters.base import ImportOptions
-from molweave_core.adapters.defaults import create_default_registry
 from molweave_core.editing.model import (
     DirectMolecularEditor,
     InvalidModelEdit,
@@ -12,14 +10,14 @@ from molweave_core.editing.model import (
     ModelHydrogenAdd,
     ModelHydrogenComplete,
 )
-from molweave_core.hydrogen_protection import protection_facts, recover_protection
+from molweave_core.hydrogen_protection import protection_facts
 from molweave_core.molecular import Chain, Conformer, NormalizedStructureV1, Residue, SourceFacts
 from molweave_core.selection import AtomReference, SelectionV1
 from sqlalchemy.orm import Session
 from uuid6 import uuid7
 
 from molweave_api.import_export import NORMALIZED_MEDIA_TYPE, safe_filename_stem
-from molweave_api.models import Artifact, StructureEntry
+from molweave_api.models import StructureEntry
 from molweave_api.project_service import InvalidProjectOperationError, ProjectService
 from molweave_api.schemas import (
     LigandEditReport,
@@ -35,6 +33,7 @@ from molweave_api.schemas import (
 )
 from molweave_api.selection_edit_service import SelectionEditService
 from molweave_api.settings import Settings
+from molweave_api.source_identity import recover_original_identity
 from molweave_api.viewer_state import default_viewer_settings
 
 
@@ -44,7 +43,7 @@ class ModelEditService(SelectionEditService):
     def __init__(self, session: Session, settings: Settings) -> None:
         super().__init__(session, settings)
         self.atom_limit = settings.atom_hard_limit
-        self.max_source_bytes = settings.max_structure_file_bytes
+        self.settings = settings
 
     def _with_protection(
         self, entry: StructureEntry, before: NormalizedStructureV1, payload: ModelEditCreate
@@ -63,26 +62,9 @@ class ModelEditService(SelectionEditService):
             facts = protection_facts(before)
             if all(i in facts and facts[i].matches(atoms[i]) for i in needed if i in atoms):
                 return before
-            if entry.original_artifact_id is None:
-                return before
-            record = self.session.get(Artifact, entry.original_artifact_id)
-            if record is None or record.size > self.max_source_bytes:
-                return before
-            _, data = self.artifacts.read(entry.original_artifact_id)
-            parsed = (
-                create_default_registry()
-                .for_format(before.source.format)
-                .parse(
-                    data,
-                    before.source.filename,
-                    ImportOptions(generate_3d=False, infer_bonds=False),
-                )
-            )
-            for original in parsed.structures:
-                if original.source.record_index == before.source.record_index:
-                    if len(original.atoms) > self.atom_limit:
-                        return before
-                    return recover_protection(before, original)
+            recovered = recover_original_identity(entry, before, self.artifacts, self.settings)
+            if recovered:
+                return recovered.structure
         except (ValueError, RuntimeError, OverflowError, OSError):
             # Missing/unsupported evidence cannot turn the draft edit into a gate.
             return before

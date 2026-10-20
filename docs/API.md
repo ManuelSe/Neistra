@@ -888,3 +888,11 @@ cancelled, resource, stale and historical results remain ineligible. Application
 provenance records policy, outcome and acknowledgement; history/schema unchanged.
 Live frames also disclose server publication wall time for local latency evidence;
 this timestamp is advisory, not coordinate or acceptance authority.
+
+For missing legacy identity, schema2 captured inputs may include server-generated
+`identity_recovery` (`original_artifact_id`, `original_sha256`, sorted atom facts).
+Clients cannot supply this field on minimization submission. The worker overlays
+verified missing facts only in its calculation copy; canonical metadata is unchanged.
+Apply treats the preserved original pointer/hash as additional dependencies. Absent
+recovery is omitted from historical capture serialization. Full attestations remain
+in job parameters/reports, while compact molecular application annotations omit them.

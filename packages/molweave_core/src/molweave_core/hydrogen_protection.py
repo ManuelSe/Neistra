@@ -120,7 +120,10 @@ def authored_protection(
 
 
 def recover_protection(
-    current: NormalizedStructureV1, original: NormalizedStructureV1
+    current: NormalizedStructureV1,
+    original: NormalizedStructureV1,
+    *,
+    atom_ids: set[int] | None = None,
 ) -> NormalizedStructureV1:
     """Recover only verified stable import identity; never coordinates/names alone.
 
@@ -140,6 +143,8 @@ def recover_protection(
     original_atoms = {a.id: a for a in original.atoms}
     recovered = []
     for atom in current.atoms:
+        if atom_ids is not None and atom.id not in atom_ids:
+            continue
         prior = original_atoms.get(atom.id)
         fact = source.get(atom.id)
         if (

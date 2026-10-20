@@ -9,9 +9,13 @@ from rdkit import Chem
 from scipy.spatial import cKDTree  # type: ignore[import-untyped]
 
 from molweave_core.adapters.rdkit_common import normalized_to_mol
-from molweave_core.hydrogen_protection import protection_facts
+from molweave_core.hydrogen_protection import protection_annotation, protection_facts
 from molweave_core.jobs import InputArtifact
-from molweave_core.minimization.contracts import CalculationError, MinimizationParameters
+from molweave_core.minimization.contracts import (
+    CalculationError,
+    CapturedInput,
+    MinimizationParameters,
+)
 from molweave_core.molecular import NormalizedStructureV1
 
 
@@ -21,6 +25,41 @@ class IsolatedInput:
     structure: NormalizedStructureV1
     molecule: Any
     movable_indices: tuple[int, ...]
+
+
+def recovered_identity(
+    source: NormalizedStructureV1, capture: CapturedInput
+) -> NormalizedStructureV1:
+    proof = capture.identity_recovery
+    if proof is None:
+        return source
+    try:
+        existing = protection_facts(source)
+    except ValueError as error:
+        raise CalculationError(
+            "identity_metadata", str(error), entry_id=capture.entry_id
+        ) from error
+    atoms = {a.id: a for a in source.atoms}
+    for fact in proof.atoms:
+        if (
+            fact.atom_id in existing
+            or fact.atom_id not in atoms
+            or not fact.matches(atoms[fact.atom_id])
+        ):
+            raise CalculationError(
+                "identity_recovery_invalid",
+                "Recovered original identity does not match a missing captured atom",
+                entry_id=capture.entry_id,
+                atom_ids=(fact.atom_id,),
+            )
+    return source.model_copy(
+        update={
+            "annotations": [
+                *source.annotations,
+                protection_annotation(proof.atoms, "original_recovery"),
+            ]
+        }
+    )
 
 
 def connected_atoms(structure: NormalizedStructureV1, seeds: set[int]) -> set[int]:
@@ -60,6 +99,7 @@ def isolated_preflight(
         ) from error
     if source.active_conformer_id != capture.conformer_id:
         raise CalculationError("conformer_mismatch", "Capture must name the active conformer")
+    source = recovered_identity(source, capture)
     selected = {r.atom_id for r in parameters.selection.atoms if r.structure_id == item.entry_id}
     members = connected_atoms(source, selected)
     if members != set(capture.atom_ids):

@@ -787,12 +787,19 @@ export interface ArchiveImportResult {
   source_revision: number;
 }
 
+export interface MinimizationIdentityRecovery {
+  original_artifact_id: string;
+  original_sha256: string;
+  atoms: { atom_id: number; element: string; source_index: number; isotope: number | null; radical_electrons: number | null }[];
+}
+
 export interface MinimizationCapture {
   entry_id: string;
   artifact_id: string;
   sha256: string;
   conformer_id: number;
   atom_ids: number[];
+  identity_recovery?: MinimizationIdentityRecovery;
 }
 
 interface MinimizationRequestBase {

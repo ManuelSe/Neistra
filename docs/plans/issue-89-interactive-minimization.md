@@ -426,3 +426,26 @@ merge/tag/release/reply verification; finish clean master.
   recorded in#100. Thresholds unchanged. No structural schema/migration/dependency/
   application-version/model change. No external blocker. Next: C5 commit, then required
   C6 legacy recovery/qualification/release work; do not claim issue89 complete yet.
+
+- M4/C5 committed/pushed as02ee835d668b8dec2da5e8227e4ed3a93aa37953. C6 review
+  adds required strict legacy recovery (D-118), checksum/pointer Apply dependency,
+  unchanged canonical metadata, protected/unknown refusal and shared edit recovery.
+  Focused45 cases pass. Actual tagged0.20 API/core reads four current-producer
+  automatic/active7/multi-entry/warned/recovered cases, retains canonical/history/
+  originals/jobs/models/parameters and archives exactly. Final0.21 producer must
+  repeat this qualification after version preparation. Fixed-only profiling and
+  OpenFF feasibility are qualification tasks, with no production model substitution.
+  Complete checkpoint/release evidence remains pending.
+- C6 qualification checkpoint passes282 Python,273 frontend,8 supervisor,21 native
+  browser /3 intentional mobile timing exclusions; Ruff/mypy91/lint/types/build/
+  fresh0014/diff pass with unchanged runtime/test source hashes. [Gate](../assets/interactive-minimization/c6-checkpoint-gate.json),
+  [source](../assets/interactive-minimization/c6-checkpoint-source.json),
+  [self-review](../assets/interactive-minimization/c6-review.md). Warned controls pass
+  at320px in both themes with scoped accessibility checks. Fixed-only reference
+  cost is material; focused#102 created/verified for equivalence-preserving omission,
+  with no production term change. OpenFF assessment retains AMBER and defers actual
+  alternative-model experiment to#101. Raw C5 long records compressed losslessly
+  with uncompressed digests; no evidence discarded. Earlier recovery fixture/static
+  and profiling setup failures were corrected before this passing checkpoint.
+  No structural migration/model/dependency/application-version change yet. Next:
+  commit checkpoint, bump five versions0.21.0, complete clean candidate release gate.

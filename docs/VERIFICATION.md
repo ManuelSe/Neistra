@@ -937,3 +937,19 @@ verifies exact annotated tag, stable release/notes and downloaded evidence SHA25
 CRC/internal hashes. [Issue reply](https://github.com/ManuelSe/Neistra/issues/81#issuecomment-6239262239)
 records final documentation integration and branch-cleanup audit. No migration or
 schema/dependency change; five versions0.19.0. Published runtime tag remains fixed.
+
+C6 preliminary qualification:45 strict original-recovery/preflight/protection/edit
+cases pass; actual tagged0.20 API/core retains four current-producer automatic
+cases (active7/inactive conformers, multi-entry, warned acceptance, legacy recovery),
+including exact canonical data/history/originals/parameters/models and archive
+import/reexport. [Pre-version reader evidence](assets/interactive-minimization/c6-preversion-reader.json)
+explicitly predates the application version bump and must be repeated for final0.21.
+Fixed-only CPU profiling on prepared1STP/18k compares subsystem/full medians about
+5.220/5.276ms and39.043/39.042ms respectively; no terms omitted or production speedup
+claimed. [1STP](assets/interactive-minimization/c6-fixed-cost-1.json),
+[18k](assets/interactive-minimization/c6-fixed-cost-8.json). Twelve warmed samples,
+OpenMM CPU/one thread; finite differences preserve the constant-offset derivative.
+Follow-up#102 requires actual equivalent reduced evaluation and benchmark gains.
+[OpenFF feasibility](OPENFF_FEASIBILITY.md) retains AMBER; experiment#101 is separate.
+Large C5 raw timing records are retained losslessly as adjacent gzip files, with
+uncompressed SHA256 and summaries in the original JSON paths for reviewability.

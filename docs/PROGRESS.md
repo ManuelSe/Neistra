@@ -3,7 +3,7 @@
 ## Current milestone
 
 Issue #89 follows the [approved interactive minimization plan](plans/issue-89-interactive-minimization.md)
-on feat/issue-89-interactive-minimization. C0–C4 are committed/pushed; C5 completes
+on feat/issue-89-interactive-minimization. C0–C5 are committed/pushed; C5 completes
 live native coordinate previews and explicit warned acceptance (D-117), preserving
 legacy strict defaults and one atomic Undo/Redo. Earlier checkpoints add RSS/identity
 diagnostics (D-113), automatic complete context (D-114), validated conservative
@@ -18,9 +18,15 @@ all fixed rows and restore below500ms. Schema2 operation/report contracts retain
 old inspection/serialization; no structural migration/dependency/application-version/
 physical-model change. #100 is addressed pending merge; OpenFF remains separate#101.
 
-No external blocker. Next: coherent C5 commit, then C6 verified legacy identity
-recovery, scientific/performance/actual0.20-reader qualification, release0.21.0
-preparation and final gates/review/publication. The feature plan is detailed truth.
+C5 committed as02ee835. C6 adds verified calculation-local original identity
+recovery (D-118), actual0.20 reader coverage of automatic/warned/recovered results,
+and fixed-only profiling/OpenFF feasibility. Focused45 recovery tests and four
+actual older-reader cases pass. C6 checkpoint:282 Python/273 frontend/8 supervisor/
+21 native browser,3 intentional mobile timing exclusions; static/types/build pass.
+[Evidence](assets/interactive-minimization/c6-checkpoint-gate.json); fixed-only
+optimization deferred to verified#102. Final-version release gates remain.
+No external blocker. Next: qualification commit, release0.21.0 preparation and
+final gates/review/publication. The feature plan is detailed truth.
 
 ### Previous delivery baseline — v0.20.0
 

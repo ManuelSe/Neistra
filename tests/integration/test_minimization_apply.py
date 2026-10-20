@@ -53,6 +53,7 @@ def calculate(
     environment: bool = False,
     iterations: int = 500,
     acceptance_policy: str = "strict",
+    automatic: bool = False,
 ) -> tuple[dict[str, Any], str]:
     if not os.environ.get("MOLWEAVE_AMBERTOOLS_PREFIX"):
         pytest.skip("Locked native toolchain required for real Apply qualification")
@@ -65,7 +66,7 @@ def calculate(
         f"/api/v1/projects/{project['id']}/minimizations",
         json={
             "expected_revision": project["revision"],
-            "mode": "environment" if environment else "isolated",
+            "mode": "automatic" if automatic else "environment" if environment else "isolated",
             "selection": {
                 "atoms": [
                     {"structure_id": entry, "atom_id": i}
@@ -74,12 +75,14 @@ def calculate(
                 ]
             },
             "context": [{"entry_id": e["id"], "atom_ids": e["atom_ids"]} for e in members]
-            if environment
+            if environment and not automatic
             else [],
             "conformers": {
                 e["id"]: _structure(client, project["id"], e["id"])["active_conformer_id"]
                 for e in members
-            },
+            }
+            if not automatic
+            else {},
             "max_iterations": iterations,
             "acceptance_policy": acceptance_policy,
         },

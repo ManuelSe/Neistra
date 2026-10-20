@@ -657,3 +657,22 @@ current client/API for minimization and its validation. Imported archived propos
 are historical; archive Undo remains nonportable. Use a complete managed-directory
 backup for rollback, retain native annotations/artifacts, and respect existing schema
 downgrade guards. Remove the detached qualification worktree after delivery.
+
+Issue #89's current compatibility harness targets actual tagged v0.20.0. With a
+fresh migrated disposable directory and locked native environment, run the current
+producer and actual older reader separately (replace DATA/EVIDENCE with task paths):
+
+```bash
+git worktree add --detach /tmp/neistra-issue89-reader-020 v0.20.0
+MOLWEAVE_DATA_DIR=/tmp/neistra89-reader .venv/bin/uv run alembic upgrade head
+PYTHONPATH=apps/api/src:packages/molweave_core/src:packages/molweave_demo_plugin/src .venv/bin/python -m tests.support.minimization_reader_qualification produce --data-dir /tmp/neistra89-reader --evidence /tmp/neistra89-producer.json
+PYTHONPATH=/tmp/neistra-issue89-reader-020/apps/api/src:/tmp/neistra-issue89-reader-020/packages/molweave_core/src:/tmp/neistra-issue89-reader-020/packages/molweave_demo_plugin/src .venv/bin/python -m tests.support.minimization_reader_qualification read --data-dir /tmp/neistra89-reader --reader-root /tmp/neistra-issue89-reader-020 --expected-reader 0.20.0 --evidence /tmp/neistra89-reader.json
+```
+
+It qualifies generic retention/history/archives of automatic schema2 captures,
+active/inactive conformers, multi-entry results, acknowledged nonconvergence and
+calculation-local legacy identity evidence. Older specialized minimization authoring
+is outside this compatibility promise. Archives retain historical results, not
+portable Undo or fresh Apply eligibility. No new migration is needed beyond0014.
+`tests/scientific/test_minimization_fixed_cost.py` profiles reference fixed-only cost;
+it does not change production evaluation. See [OpenFF assessment](OPENFF_FEASIBILITY.md).

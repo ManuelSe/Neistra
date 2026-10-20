@@ -122,3 +122,11 @@ def test_direct_element_change_retains_applicable_ordinary_identity():
     assert protection_facts(after)[1].matches(after.atoms[0])
     assert protection_facts(after)[1].ordinary
     assert protection_facts(before)[1].element == "C"
+
+
+def test_recovery_filter_does_not_fill_unrequested_legacy_atoms():
+    original = model("CC")
+    current = original.model_copy(update={"annotations": []})
+    recovered = recover_protection(current, original, atom_ids={1})
+    assert set(protection_facts(recovered)) == {1}
+    assert not current.annotations

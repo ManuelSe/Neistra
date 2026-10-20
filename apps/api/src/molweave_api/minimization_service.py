@@ -17,6 +17,7 @@ from molweave_core.minimization.contracts import (
     CalculationError,
     CapturedInput,
     CoordinateProposal,
+    IdentityRecovery,
     MinimizationParameters,
     MinimizationReport,
     eligible_nonconvergence,
@@ -53,6 +54,7 @@ from molweave_api.project_service import (
 )
 from molweave_api.schemas import ProjectRead
 from molweave_api.settings import Settings
+from molweave_api.source_identity import recover_original_identity
 
 
 class MinimizationService:
@@ -116,7 +118,7 @@ class MinimizationService:
             raise InvalidJobOperationError(
                 "Confirm the active conformer for every selected/context entry"
             )
-        captures = []
+        captures: list[CapturedInput] = []
         for entry_id, members in sorted(seeds.items()):
             entry = self._entry(project, entry_id)
             if entry_id in moving and entry.locked:
@@ -137,6 +139,11 @@ class MinimizationService:
                 members = complete_membership(structure, members)
             except CalculationError as error:
                 raise InvalidJobOperationError(str(error)) from error
+            if sum(len(c.atom_ids) for c in captures) + len(members) > 20_000:
+                raise InvalidJobOperationError("Calculation exceeds 20000 atoms including H")
+            recovered = recover_original_identity(
+                entry, structure, self.artifacts, self.settings, atom_ids=members
+            )
             captures.append(
                 CapturedInput(
                     entry_id=entry_id,
@@ -144,11 +151,22 @@ class MinimizationService:
                     sha256=artifact.sha256,
                     conformer_id=structure.active_conformer_id,
                     atom_ids=sorted(members),
+                    identity_recovery=IdentityRecovery(
+                        original_artifact_id=recovered.original_artifact_id,
+                        original_sha256=recovered.sha256,
+                        atoms=list(recovered.atoms),
+                    )
+                    if recovered
+                    else None,
                 )
             )
         try:
             parameters = MinimizationParameters(
-                schema_version=2 if automatic or payload.acceptance_policy == "interactive" else 1,
+                schema_version=2
+                if automatic
+                or payload.acceptance_policy == "interactive"
+                or any(c.identity_recovery is not None for c in captures)
+                else 1,
                 context_policy="automatic" if automatic else "manual",
                 acceptance_policy=payload.acceptance_policy,
                 mode=mode,
@@ -284,6 +302,19 @@ class MinimizationService:
                 if entry.id in moving and entry.locked:
                     reason = f"Unlock {entry.name} before applying movable coordinates"
                     break
+                if capture.identity_recovery:
+                    proof = capture.identity_recovery
+                    if entry.original_artifact_id != proof.original_artifact_id:
+                        reason = "Verified original identity source changed; rerun minimization"
+                        break
+                    try:
+                        original, _ = self._read(proof.original_artifact_id)
+                    except (OSError, JobConflictError, LookupError):
+                        reason = "Verified original identity source failed integrity checks"
+                        break
+                    if original.sha256 != proof.original_sha256:
+                        reason = "Verified original identity source changed; rerun minimization"
+                        break
             if reason is None:
                 reason = self._automatic_context_reason(
                     self._project(project_id), parameters, entries
@@ -456,7 +487,7 @@ class MinimizationService:
                             "conformer_id": capture.conformer_id,
                             "atom_ids": result.atom_ids,
                             "inputs": [
-                                c.model_dump(mode="json", exclude={"atom_ids"})
+                                c.model_dump(mode="json", exclude={"atom_ids", "identity_recovery"})
                                 for c in params.captured_inputs
                             ],
                         },

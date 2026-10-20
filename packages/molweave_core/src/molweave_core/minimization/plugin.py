@@ -186,6 +186,17 @@ class MinimizationPlugin:
                 proposals.extend(p.model_dump(mode="json") for p in results)
             if live.warning:
                 report.warnings.append(live.warning)
+            recovered = sum(
+                len(c.identity_recovery.atoms)
+                for c in values.captured_inputs
+                if c.identity_recovery
+            )
+            if recovered:
+                report.warnings.append(
+                    f"Verified legacy identity for {recovered} atoms "
+                    "against preserved original files; "
+                    "canonical metadata was not changed."
+                )
             if values.mode == "environment":
                 report.warnings.append(
                     "Environment model is nonperiodic with 12 angstrom cutoff, 10 angstrom "

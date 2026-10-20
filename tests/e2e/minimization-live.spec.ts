@@ -1,3 +1,4 @@
+import AxeBuilder from "@axe-core/playwright";
 import { readFile, writeFile } from "node:fs/promises";
 import { expect, test } from "@playwright/test";
 import type { MinimizationLive } from "../../apps/web/src/api/types";
@@ -15,6 +16,16 @@ test("acknowledges an eligible unconverged native result and retains exact Undo/
   const accept = panel(page).getByRole("button", { name: "Accept unconverged coordinates", exact: true });
   await expect(accept).toBeEnabled({ timeout: 60000 });
   await expect(panel(page)).toContainText("explicitly acknowledges the residual gradient");
+  await page.setViewportSize({ width: 320, height: 740 });
+  for (const theme of ["light", "dark"]) {
+    if (theme === "dark") await page.getByRole("button", { name: "Use dark theme" }).click();
+    await expect(accept).toBeVisible();
+    const box = await accept.boundingBox();
+    expect(box!.x).toBeGreaterThanOrEqual(0);
+    expect(box!.x + box!.width).toBeLessThanOrEqual(320);
+    const axe = await new AxeBuilder({ page }).include(".minimization-panel").analyze();
+    expect(axe.violations).toEqual([]);
+  }
   expect(await structures(request, p)).toEqual(before);
   await accept.click(); await expect(panel(page)).toBeHidden();
   const after = await structures(request, p);

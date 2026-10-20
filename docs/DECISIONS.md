@@ -4681,3 +4681,26 @@ stall bound. Cancellation and explicit final-preview controls take priority and 
 not wait for automatic delivery readiness. Duplicate/older packets are ignored;
 immutable preview inputs do not refetch on checkbox toggles. No trajectory or
 canonical molecular/query mutation is introduced by this display scheduling.
+
+## D-118 — Verified original identity remains calculation-local
+
+Issue #89 may recover missing legacy isotope/radical facts only from checksum-
+verified preserved originals using D-107's strict source format/record, stable ID,
+source index, element, residue and alternate-site matching. Existing unknown,
+protected, conflicting or malformed facts are never upgraded. Coordinates and
+names alone do not prove identity. Missing/invalid source evidence remains unknown.
+
+The API creates a typed server-only schema2 capture attestation for missing facts
+in captured membership. Workers validate the mapping and overlay it only on their
+calculation copy. Canonical normalized inputs, annotations and original bytes stay
+unchanged, including after coordinate acceptance. The immutable job/report retains
+full evidence; compact application annotations avoid copying all facts. Apply also
+checks the original pointer and integrity as dependencies. Legacy schema1 and older
+schema2 captures omit the absent optional field exactly as before. No structural
+schema, database migration, physical model or implicit repair is introduced.
+
+Editing and minimization share the original-verification helper; existing hydrogen
+reconciliation keeps its publication semantics. Recovery can refuse safely without
+making unrelated editing a new chemistry gate. Original hash verification also
+prevents recovery from a corrupt preserved file. The helper filters calculation
+facts to bounded membership; its default preserves existing edit recovery behavior.

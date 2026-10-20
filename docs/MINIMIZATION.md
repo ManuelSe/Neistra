@@ -143,3 +143,18 @@ override of the intended coordinate cue detail. Bounded in-browser geometry chec
 and explicit custom cue quality correct both problems; [#100](https://github.com/ManuelSe/Neistra/issues/100)
 records the investigation. The passing [C5 gate](assets/interactive-minimization/c5-gate.json) records qualified
 cases and timing; final release/older-reader qualification remains pending.
+
+Legacy structures missing identity facts can use verified original-file evidence
+without a reimport or a canonical metadata edit. Recovery uses strict stable import
+identity and original byte checksums, never coordinates or names alone. Unknown,
+protected, contradictory or malformed facts are not made ordinary. The report/job
+retains a calculation-local attestation; acceptance rechecks the original source.
+Unverifiable identity still requires an explicit preparation/reimport decision.
+
+OpenFF feasibility and the decision to retain qualified AMBER are documented in
+[OPENFF_FEASIBILITY](OPENFF_FEASIBILITY.md); experimental qualification remains
+[#101](https://github.com/ManuelSe/Neistra/issues/101). Fixed-only CPU evaluation
+profiling identifies substantial potential work in fixed receptor terms, but no
+production energy terms are omitted. Equivalence-preserving optimization is
+[#102](https://github.com/ManuelSe/Neistra/issues/102). These measurements do not
+establish a production speedup from term removal or accuracy across force fields.

@@ -56,7 +56,7 @@ export function useMinimizationPreview(project: Project, workflow?: Minimization
     try { return { patches: coordinatePatches(previewSelection, frameEntries, previewSources.data), error: null }; }
     catch (error) { return { patches: [], error: error instanceof Error ? error.message : "Invalid coordinate preview." }; }
   }, [open, state.preview, previewUnavailable, frameEntries, previewSelection, previewSources.data]);
-  const canApply = !!proposal?.applicable && !reportQuery.isFetching && !previewUnavailable &&
+  const canApply = !!proposal?.applicable && !reportQuery.isError && !previewResult.error && !reportQuery.isFetching && !previewUnavailable &&
     proposal.report.parameters.selection.atoms.every(ref => !project.entries.find(e => e.id === ref.structure_id)?.locked);
   const message = (error: unknown) => error instanceof Error ? error.message : null;
   return { state, job, proposal, canApply, patches: previewResult.patches, liveIteration: live?.frame?.iteration, previewUnavailable,

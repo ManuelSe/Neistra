@@ -1,0 +1,95 @@
+{
+  "environment": {
+    "MOLWEAVE_AMBERTOOLS_PREFIX": "/datadisk/dev/.neistra-tools/ambertools-24.8",
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "PLAYWRIGHT_BROWSERS_PATH": ".playwright",
+    "MOLWEAVE_E2E_DATA_DIR": "/tmp/neistra89-e2e-c6-checkpoint",
+    "MOLWEAVE_E2E_API_PORT": "10910",
+    "MOLWEAVE_E2E_WORKER_PORT": "10911",
+    "MOLWEAVE_E2E_WEB_PORT": "7983"
+  },
+  "steps": [
+    {
+      "label": "ruff",
+      "command": ".venv/bin/uv run ruff check .",
+      "exit_code": 0,
+      "seconds": 0.045,
+      "log": "docs/assets/interactive-minimization/c6-checkpoint-ruff.log.gz",
+      "log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "label": "mypy",
+      "command": ".venv/bin/uv run mypy apps/api packages/molweave_core",
+      "exit_code": 0,
+      "seconds": 0.712,
+      "log": "docs/assets/interactive-minimization/c6-checkpoint-mypy.log.gz",
+      "log_sha256": "fe0ce6e3b1983c3e150c09b415036599a0bee120f2cad38e219412ce21d84a67"
+    },
+    {
+      "label": "python",
+      "command": ".venv/bin/uv run pytest tests/unit/minimization tests/unit/test_hydrogen_protection.py tests/scientific/test_minimization.py tests/scientific/test_minimization_context.py tests/scientific/test_minimization_cache.py tests/scientific/test_minimization_live.py tests/scientific/test_minimization_fixed_cost.py tests/integration/test_minimization_identity_recovery.py tests/integration/test_minimization_apply.py tests/integration/test_minimization_jobs.py tests/integration/test_minimization_automatic.py tests/integration/test_minimization_live.py tests/integration/test_reconciliation_qualification.py -q",
+      "exit_code": 0,
+      "seconds": 102.567,
+      "log": "docs/assets/interactive-minimization/c6-checkpoint-python.log.gz",
+      "log_sha256": "babf436f6a193f60807c042de5afc7fba899f0f6b430b26fe6ffde0217c6f7b7"
+    },
+    {
+      "label": "lint",
+      "command": "corepack pnpm --dir apps/web lint",
+      "exit_code": 0,
+      "seconds": 11.897,
+      "log": "docs/assets/interactive-minimization/c6-checkpoint-lint.log.gz",
+      "log_sha256": "407542146a7a0d45aea91983bf120b74ed122a75e21e47383d8bcfd8a1f84177"
+    },
+    {
+      "label": "types",
+      "command": "corepack pnpm --dir apps/web typecheck",
+      "exit_code": 0,
+      "seconds": 6.064,
+      "log": "docs/assets/interactive-minimization/c6-checkpoint-types.log.gz",
+      "log_sha256": "ec6984d22c581279ab7f6a640391cd633bb6646f462629997e329b1c1ff4168f"
+    },
+    {
+      "label": "web-tests",
+      "command": "corepack pnpm --dir apps/web test",
+      "exit_code": 0,
+      "seconds": 11.643,
+      "log": "docs/assets/interactive-minimization/c6-checkpoint-web-tests.log.gz",
+      "log_sha256": "72453e3fb948e156e5d8b3196470e7ce9dab450d2a4137ceea00c2e0e61d2153"
+    },
+    {
+      "label": "supervisor",
+      "command": "corepack pnpm test:dev",
+      "exit_code": 0,
+      "seconds": 1.524,
+      "log": "docs/assets/interactive-minimization/c6-checkpoint-supervisor.log.gz",
+      "log_sha256": "f69c65fdee457eb6ff5c8f0cb2667ac47ccc6496106e870536223b3a110be5f4"
+    },
+    {
+      "label": "build",
+      "command": "corepack pnpm --dir apps/web build",
+      "exit_code": 0,
+      "seconds": 15.377,
+      "log": "docs/assets/interactive-minimization/c6-checkpoint-build.log.gz",
+      "log_sha256": "f9ac4973aa1b9647e76c187ea473564fca36e0c2dc58ca522b70b3a07c463efb"
+    },
+    {
+      "label": "browser",
+      "command": "corepack pnpm exec playwright test tests/e2e/selection-minimization.spec.ts tests/e2e/minimization-accessibility.spec.ts tests/e2e/minimization-live.spec.ts --max-failures=1",
+      "exit_code": 0,
+      "seconds": 218.146,
+      "log": "docs/assets/interactive-minimization/c6-checkpoint-browser.log.gz",
+      "log_sha256": "cbde9c8c78c2dfa586bd1f54aa5c4824a38e8edcb2d6a870a0edaccb3304d066"
+    },
+    {
+      "label": "diff",
+      "command": "git diff --check",
+      "exit_code": 0,
+      "seconds": 0.023,
+      "log": "docs/assets/interactive-minimization/c6-checkpoint-diff.log.gz",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "source_unchanged": true
+}

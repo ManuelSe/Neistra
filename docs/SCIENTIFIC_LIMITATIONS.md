@@ -572,3 +572,34 @@ ligand measure18,208-atom operational capacity, not an oligomeric pose. See
 [fixture provenance](../tests/fixtures/minimization/README.md). Bounded native timing/
 RSS/cancellation evidence and actual tagged preceding-reader retention do not
 establish portability to other hardware/platforms or equivalent old authoring.
+
+## Interactive minimization (issue #89)
+
+Automatic context is a bounded discovery policy, not a physical accuracy guarantee:
+12Å proximity to complete mandatory selected components, nonrecursive, whole chains/
+components, visibility independent, no truncation or implicit capping/repair. The
+qualified environment Hamiltonian retains its existing cutoff/switch/reaction-field
+settings. Unknown required context refuses the whole calculation. Final acceptance
+checks newly relevant omitted context as well as captured dependencies.
+
+Interactive iteration-limit acceptance is explicitly nonconverged. Finite full
+forces, a meaningful objective decrease and geometry/mapping/stereo/fixed-row checks
+exclude specific failure modes, not every poor local structure. The severe-new-
+overlap screen uses the disclosed0.6Å nonbonded criterion; it is not a general
+clash-free or chemical-quality certificate. Residual gradient stays visible and
+strict convergence remains available. Historical or abnormal results cannot gain
+eligibility through the new acknowledgement.
+
+Conservative cache reuse preserves the current charge-generation input dependency;
+changed organic geometry cannot silently reuse earlier AM1-BCC charges. Legacy
+identity recovery proves only strictly matched preserved-source facts, never infers
+ordinary identity from coordinates or names. It does not broaden isotope/radical,
+metals/adduct or unsupported residue/organic coverage.
+
+[OpenFF feasibility](OPENFF_FEASIBILITY.md) is documentation, not an accuracy or
+performance benchmark against AMBER. Fixed-only cost profiling does not remove
+production terms or establish a realized speedup. Model changes/term elimination
+require separate qualification in#101/#102. Prepared neutral biotin and translated
+protein copies remain explicit benchmark assumptions, not a physiological binding
+microstate or biological assembly. Running live fixtures cover30 and1166 selected
+protein heavy atoms; no universal latency promise is made at the2000-movable cap.

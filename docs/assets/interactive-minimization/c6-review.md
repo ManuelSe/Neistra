@@ -1,0 +1,63 @@
+# Issue89 full-diff self-review
+
+This is the implementer's local review, not an independent review. Comparison base:
+f12dd18377c8410976381f4b96ad81c198e921e0. Checkpoint commits preserve the reviewable
+implementation sequence. Final-version full release gates and external PR review
+remain separate requirements.
+
+Reviewed domain interfaces, discovery, preflight, native parameterization/cache,
+optimizer, worker supervision, transient transport/API, Apply, UI ownership and
+coordinate transform queue, version sources, docs and scientific/compatibility tests.
+
+- Exact selection remains authoritative, including H; complete topology retains
+  selected/fixed boundary terms, exclusions and scaled1–4 interactions. Discovery
+  cannot omit unsupported nearby chemistry via a qualification filter. It uses
+  canonical active coordinates and is nonrecursive around mandatory closure.
+- Current/final automatic context and immutable selected/fixed capture dependencies,
+  locks, proposal digest, finite values, mapping and stereo guard atomic acceptance.
+  Warned eligibility is new producer evidence plus explicit acknowledgement, never
+  retrospective or a fallback after numerical/resource/cancellation failure.
+- Cache keys retain charge geometry, chemistry/order/templates/settings/toolchain;
+  preflight still runs, native reconstruction validates parameters and each job owns
+  full independent artifacts. Bounded paths/files/quota, atomic publication and
+  cancellation-aware locking avoid unbounded output and shared half entries.
+- Snapshots are accepted iterates, private/latest-only, bounded1MiB/5Hz, no durable
+  events/archive trajectory; process start identity and capture ownership prevent
+  stale recovery. Viewer native transforms have one active/newest pending update,
+  cancellation priority and abortable GPU readiness. Canonical state stays separate.
+- Native RSS accounting is sampled process-tree enforcement, not a hard allocator
+  promise. Other plugin address-space policies remain. Failures retain tracebacks
+  and actionable distinctions without broadening supported chemistry.
+- C6 consequential finding: missing legacy facts still needed strict original-file
+  recovery. Typed server-only attestation now uses checksum/D-107 identity matching,
+  bounded membership, calculation-local overlay and final original dependencies.
+  Existing protected/unknown/malformed/conflicting evidence never becomes ordinary;
+  source/canonical bytes remain unchanged. Shared edit regression is covered.
+- C6 minor UI guard: failed refreshed proposal or invalid coordinate mapping disables
+  acceptance presentation as well as retaining independent backend safeguards.
+- Actual preceding0.20 API/core qualification checks all conformers, generic multi-
+  entry Undo/Redo, originals, allocation floors, opaque parameters/reports/models,
+  archive import/reexport for automatic, warned and recovered captures. It does not
+  claim older specialized authoring or portable archived Undo/fresh Apply.
+- No new structural schema, migration, history action, force-field dependency or
+  physical model. No synthetic scientific fallback, dead alternate engine or new
+  general calculation framework was introduced. OpenFF experiment#101 and qualified
+  fixed-only optimization#102 are explicit follow-ups, not incomplete production code.
+
+C5 exploratory timing failures are retained distinctly from passing evidence.
+Whole-heavy selection is1166, not the initial901 estimate. Exact fixed rows are
+checked in-browser with bounded automation readback. Explicit custom cue quality,
+duplicate suppression and GPU backpressure meet unchanged timing thresholds.
+Raw long timing records remain losslessly compressed with uncompressed SHA256;
+reviewable metrics stay in original JSON paths.
+
+Final gate results, exact candidate identity and GitHub review disposition will be
+appended before merge. No unresolved consequential finding in this reviewed scope;
+release qualification and publication are still pending.
+
+C6 checkpoint gate passes282 Python,273 frontend,8 supervisor,21 native browser /
+3 intentional mobile timing exclusions; static/mypy91/types/build/fresh0014/diff pass.
+Source hashes unchanged across execution. Final warned-acceptance controls pass at
+320px in both themes with scoped axe checks. Existing Vite disconnect warnings and
+bundle advisories remain nonfailing, with logs retained. Final-version release gate
+is the next step, not implied by this focused qualification.

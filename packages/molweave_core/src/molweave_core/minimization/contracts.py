@@ -11,6 +11,7 @@ from pydantic import (
     model_validator,
 )
 
+from molweave_core.hydrogen_protection import AtomProtection
 from molweave_core.selection import SelectionV1
 
 MODEL: Literal["amber-local-v1"] = "amber-local-v1"
@@ -46,6 +47,20 @@ class CalculationDiagnostic(BaseModel):
     residue_id: int | None = None
 
 
+class IdentityRecovery(BaseModel):
+    model_config = ConfigDict(frozen=True, extra="forbid")
+    original_artifact_id: str = Field(min_length=1)
+    original_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
+    atoms: list[AtomProtection] = Field(min_length=1, max_length=20_000)
+
+    @model_validator(mode="after")
+    def unique_atoms(self) -> IdentityRecovery:
+        ids = [a.atom_id for a in self.atoms]
+        if ids != sorted(set(ids)):
+            raise ValueError("Recovered identities must be sorted and unique")
+        return self
+
+
 class CapturedInput(BaseModel):
     model_config = ConfigDict(frozen=True, extra="forbid")
 
@@ -54,11 +69,23 @@ class CapturedInput(BaseModel):
     sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
     conformer_id: int = Field(ge=1)
     atom_ids: list[int] = Field(min_length=1, max_length=20_000)
+    identity_recovery: IdentityRecovery | None = None
+
+    @model_serializer(mode="wrap")
+    def versioned_dump(self, handler: SerializerFunctionWrapHandler) -> dict[str, object]:
+        result: dict[str, object] = handler(self)
+        if self.identity_recovery is None:
+            result.pop("identity_recovery", None)
+        return result
 
     @model_validator(mode="after")
     def canonical_ids(self) -> CapturedInput:
         if self.atom_ids != sorted(set(self.atom_ids)) or self.atom_ids[0] < 1:
             raise ValueError("Calculation atom IDs must be sorted, positive and unique")
+        if self.identity_recovery and not {a.atom_id for a in self.identity_recovery.atoms} <= set(
+            self.atom_ids
+        ):
+            raise ValueError("Recovered identities must belong to captured atoms")
         return self
 
 
@@ -89,6 +116,8 @@ class MinimizationParameters(BaseModel):
             raise ValueError("Automatic context requires calculation schema2")
         if self.schema_version == 1 and self.acceptance_policy != "strict":
             raise ValueError("Interactive acceptance requires calculation schema2")
+        if self.schema_version == 1 and any(c.identity_recovery for c in self.captured_inputs):
+            raise ValueError("Calculation-local identity recovery requires schema2")
         if not self.selection.atoms or len(self.selection.atoms) > 2_000:
             raise ValueError("Select between 1 and 2000 movable atoms")
         entries = [item.entry_id for item in self.captured_inputs]

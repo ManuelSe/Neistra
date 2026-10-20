@@ -10,6 +10,7 @@ from molweave_core.minimization.preflight import (
     IsolatedInput,
     connected_atoms,
     organic_preflight,
+    recovered_identity,
     validate_coordinates_and_identity,
     validate_separation,
 )
@@ -127,6 +128,7 @@ def environment_preflight(
             raise CalculationError("input_invalid", "Captured molecular data is invalid") from error
         if source.active_conformer_id != capture.conformer_id:
             raise CalculationError("conformer_mismatch", "Capture must name the active conformer")
+        source = recovered_identity(source, capture)
         members = set(capture.atom_ids)
         if parameters.mode == "isolated":
             seeds = {
