@@ -501,3 +501,20 @@ The read-only project/job live endpoint validates capture, exact mapping and loc
 process lifetime. It returns no stale frame after cancel/completion/project change.
 Frames never enter durable events, calculation artifacts, caches or archives.
 Linux/shared-PID deployment assumptions and graceful unavailability are in D-116.
+
+### Interactive coordinate ownership and acceptance (issue89 C5)
+
+App-owned minimization sessions poll the dedicated latest read every200ms. Reuse
+CoordinatePreviewQueue/native transform patches, never duplicate molecule geometry
+or write query/canonical state. Epoch checks abandon obsolete multi-entry batches;
+Cancel clears the display before its network request settles. Tool/project/session
+changes and late submissions request cancellation; Jobs inspection is historical
+presentation, never automatic live recovery. Full dependency/digest/geometry checks
+still gate the single atomic molecular command. D-117 bounds warned acceptance;
+legacy explicit clients retain strict default and prior serialization.
+
+CoordinatePreviewQueue optionally asks the renderer for GPU readiness during
+automatic live delivery, then takes the latest packet after the wait. The Mol*
+adapter uses public fences, cancellation/disposal cleanup and a bounded wait;
+manual final previews and restoration retain their immediate path. Molecular
+state, API acceptance and persisted representation settings stay independent.

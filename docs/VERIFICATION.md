@@ -44,6 +44,21 @@ No structural migration/schema/dependency/application version/physical-model cha
 
 M4/C4 publishes bounded transient accepted-iterate snapshots (D-116). [Gate](assets/interactive-minimization/c4-gate.json):192 Python,265 web,8 supervisor,2 native browser pass; static/mypy90/build/fresh0014 pass. No frames in durable events/model artifacts; process loss/cancel/restart/project-change guards pass. [Review](assets/interactive-minimization/c4-review.md) is local self-review. Viewer/acceptance remain C5; no migration/schema/dependency/application-version/model change.
 
+M4/C5 [passing gate](assets/interactive-minimization/c5-gate.json):260 Python with
+unchanged source hashes,273 frontend,8 supervisor,25 native browser /7 intentional
+mobile exclusions; static/mypy90/types/build/fresh0014/diff pass. Real selected-row
+Mol* transforms, fixed H, immediate Cancel, strict/warned acceptance and atomic Undo/
+Redo pass. [Review](assets/interactive-minimization/c5-review.md) explains corrected
+readback/cue quality, duplicate-frame suppression and abortable GPU readiness.
+[18k](assets/interactive-minimization/c5-performance-18k.json) records81ms preview,
+246ms restore,233ms longest task;500/500/750ms bounds unchanged.
+[Partial](assets/interactive-minimization/c5-live-partial.json) and
+[whole-heavy](assets/interactive-minimization/c5-live-whole.json) native runs prove
+accepted steps while running, exact unselected rows and restoration. Initial/repeat
+UI latency is separate from C3 preparation-cache qualification. No structural schema,
+migration/dependency/application-version/model change; actual old-reader and final
+release qualification remain C6. Earlier attempts are diagnostics, not final evidence.
+
 ## Selection minimization (issue #82, C1–C6)
 
 The [approved feature plan](plans/issue-82-selection-minimization.md) is the

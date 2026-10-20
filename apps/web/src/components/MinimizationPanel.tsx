@@ -1,3 +1,4 @@
+import type { MinimizationPreviewPresentation } from "../minimization/useMinimizationPreview";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Zap, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -6,7 +7,7 @@ import type { MinimizationWorkflow } from "../minimization/useMinimization";
 const number = (value: number | null | undefined) => value == null ? "—" : value.toLocaleString(undefined, { maximumFractionDigits: 3 });
 
 export function MinimizationPanel({ workflow: w, unavailable, onOpen }: {
-  workflow: MinimizationWorkflow; unavailable: string | null; onOpen: () => void;
+  workflow: MinimizationWorkflow & MinimizationPreviewPresentation; unavailable: string | null; onOpen: () => void;
 }) {
   const launcher = useRef<HTMLButtonElement>(null);
   const returnFocus = useRef<HTMLElement | null>(null);
@@ -80,6 +81,7 @@ export function MinimizationPanel({ workflow: w, unavailable, onOpen }: {
               <p>{w.components.filter(c => !c.mandatory && !draft.included.has(c.key)).length} candidates excluded. Display visibility does not choose physical context.</p></> : null}
             <p><strong>{selectedCount} movable / {Math.max(0, chosenCount - selectedCount)} fixed</strong> atoms, including H.</p>
             <p>Active conformers: {[...new Set(w.chosen.map(c => c.entryId))].map(id => `${draft.project.entries.find(e => e.id === id)?.name ?? id}: ${draft.sources.get(id)?.structure.active_conformer_id ?? (draft.sources.has(id) ? 1 : "loading")}`).join("; ") || "loading"}.</p>
+            <label className="minimization-check"><input type="checkbox" checked={draft.strict} onChange={e => w.strict(e.target.checked)} />Require convergence before acceptance</label>
             <label>Maximum iterations<input aria-label="Minimization iterations" type="number" min={1} max={2000} step={1} value={draft.iterations} onChange={e => w.iterations(Number(e.target.value))} /></label>
           </fieldset>
           <p>Model: AMBER ff14SB / GAFF 1.81, AM1-BCC; explicit complete waters use TIP3P. Preparation is separate.</p>
@@ -87,33 +89,36 @@ export function MinimizationPanel({ workflow: w, unavailable, onOpen }: {
           <button type="button" className="primary-button" disabled={working || !w.capabilities?.available || !!w.requestError} onClick={() => void w.run()}>Run minimization</button>
         </> : null}
         {w.job ? <div className="minimization-job">
-          {w.job.parameters?.context_policy === "automatic" ? <p>Automatic context: {Array.isArray(w.job.parameters.captured_inputs) ? w.job.parameters.captured_inputs.map((c: { entry_id: string; atom_ids: number[]; conformer_id: number }) => `${w.job?.inputs?.find(i => i.entry_id === c.entry_id)?.entry_name ?? c.entry_id}: ${c.atom_ids.length} atoms, conformer ${c.conformer_id}`).join("; ") : "captured"}. {w.job.parameters.mode === "isolated" ? "No additional nearby components; isolated model." : "Complete fixed environment included."}</p> : null}
+          {!w.job.provenance.archive_source_job_id && w.job.parameters?.context_policy === "automatic" ? <p>Automatic context: {Array.isArray(w.job.parameters.captured_inputs) ? w.job.parameters.captured_inputs.map((c: { entry_id: string; atom_ids: number[]; conformer_id: number }) => `${w.job?.inputs?.find(i => i.entry_id === c.entry_id)?.entry_name ?? c.entry_id}: ${c.atom_ids.length} atoms, conformer ${c.conformer_id}`).join("; ") : "captured"}. {w.job.parameters.mode === "isolated" ? "No additional nearby components; isolated model." : "Complete fixed environment included."}</p> : null}
           <p role="status">{report ? report.outcome.replace("_", " ") : w.job.status === "completed" ? "Loading scientific report" : w.job.status} · {w.job.status_message}</p>
-          {working ? <><progress aria-label="Minimization progress" max={100} value={w.job.progress} /><button type="button" disabled={w.job.cancellation_requested} onClick={() => void w.cancel()}>{w.job.cancellation_requested ? "Cancellation requested" : "Cancel calculation"}</button><p>Closing this panel keeps the job in Jobs.</p></> : null}
+          {working && w.previewUnavailable ? <p role="status">{w.previewUnavailable}</p> : null}
+          {w.liveIteration ? <p>Live accepted iteration {w.liveIteration}; temporary, not a validated final result.</p> : null}
+          {working ? <><progress aria-label="Minimization progress" max={100} value={w.job.progress} /><button type="button" disabled={w.job.cancellation_requested} onClick={() => void w.cancel()}>{w.job.cancellation_requested ? "Cancellation requested" : "Cancel calculation"}</button><p>Closing this panel discards preview and requests cancellation. The report remains in Jobs.</p></> : null}
           {w.job.error ? <p role="alert">{String(w.job.error.message ?? "The calculation failed.")}</p> : null}
         </div> : null}
         {report ? <>
           <p role="status">{report.reason}</p>
+          {report.outcome === "non_converged" && w.canApply ? <p className="minimization-warning" role="status">Iteration limit reached without convergence. Accepting explicitly acknowledges the residual gradient shown below and that further relaxation may be needed.</p> : null}
           <dl className="minimization-metrics">
             <dt>Initial energy</dt><dd>{number(report.initial_energy)} kJ/mol</dd><dt>Final energy</dt><dd>{number(report.final_energy)} kJ/mol</dd>
-            <dt>Maximum gradient</dt><dd>{number(report.maximum_gradient)} kJ/(mol nm)</dd><dt>Required gradient</dt><dd>≤ {number(report.gradient_tolerance)} kJ/(mol nm)</dd>
+            <dt>Maximum gradient</dt><dd>{number(report.maximum_gradient)} kJ/(mol nm)</dd><dt>Convergence threshold</dt><dd>≤ {number(report.gradient_tolerance)} kJ/(mol nm)</dd>
             <dt>Iterations / evaluations</dt><dd>{report.iterations} / {report.evaluations}</dd><dt>Max / RMS movement</dt><dd>{number(report.maximum_displacement)} / {number(report.rms_displacement)} Å</dd>
             <dt>Residual close pairs</dt><dd>{report.residual_clashes}</dd><dt>Movable / fixed</dt><dd>{report.movable_count} / {report.fixed_count}</dd>
           </dl>
           <label className="minimization-check"><input type="checkbox" checked={w.state.preview} disabled={!!w.previewUnavailable || w.state.applying} onChange={e => w.preview(e.target.checked)} />Show coordinate preview</label>
           {w.previewUnavailable ? <p>{w.previewUnavailable}</p> : null}{w.previewLoading ? <p role="status">Loading captured preview…</p> : null}
-          <p>Preview is temporary and cannot be picked. Measurements and exports use current coordinates until Apply.</p>
+          <p>Preview moves the selected display coordinates temporarily. Measurements are paused; exports use saved coordinates until acceptance.</p>
           {w.proposal?.unavailable_reason ? <p role="status">{w.proposal.unavailable_reason}</p> : null}
           {report.warnings.map((warning, i) => <p className="minimization-warning" key={i}>{warning}</p>)}
-          <div className="minimization-actions"><button type="button" className="primary-button" disabled={!w.canApply || w.state.applying} onClick={() => void w.apply()}>{w.state.applying ? "Applying…" : "Apply coordinates"}</button>
+          <div className="minimization-actions"><button type="button" className="primary-button" disabled={!w.canApply || w.state.applying} onClick={() => void w.apply()}>{w.state.applying ? "Applying…" : report.outcome === "non_converged" && w.canApply ? "Accept unconverged coordinates" : "Apply coordinates"}</button>
             <button type="button" disabled={w.state.applying} onClick={close}>Discard</button></div>
         </> : null}
         {!draft ? <button type="button" disabled={w.state.loading || w.state.applying} onClick={() => void w.configure()}>Minimization settings</button> : null}
         {w.state.loading ? <p role="status">{draft ? "Capturing complete context…" : "Submitting calculation…"}</p> : null}
         {w.error ? <p role="alert">{w.error}</p> : null}
         <button type="button" aria-expanded={help} onClick={() => setHelp(!help)}>Model and prerequisites</button>
-        {help ? <div className="minimization-help"><p>Ctrl+M starts an automatic environment calculation for the exact selection using 500 iterations. Review the result and choose Apply coordinates to commit it. Minimization settings retain explicit isolation and manual environment controls.</p><p>Complete existing topology, explicit H, supported standard protein states and assigned ligand charges/orders are required. No atoms, bonds or protonation are repaired.</p>
-          <p>Local convergence does not certify a native conformation or binding pose. Unsupported ions, metals, cofactors, crosslinks and covalent protein–ligand adducts refuse. Non-converged results can be inspected but cannot Apply.</p>
+        {help ? <div className="minimization-help"><p>Ctrl+M starts an automatic environment calculation for the exact selection using 500 iterations. Watch temporary relaxation, then explicitly accept or discard the result. Minimization settings retain explicit isolation and manual environment controls.</p><p>Complete existing topology, explicit H, supported standard protein states and assigned ligand charges/orders are required. No atoms, bonds or protonation are repaired.</p>
+          <p>Local convergence does not certify a native conformation or binding pose. Unsupported ions, metals, cofactors, crosslinks and covalent protein–ligand adducts refuse. Only improving, validated iteration-limit results may be accepted with an explicit warning; require convergence in settings for stricter acceptance. Abnormal or cancelled calculations cannot Apply.</p>
           <p>Environment uses a nonperiodic 12 Å cutoff, 10 Å LJ switch and reaction-field dielectric 78.3. Isolated molecules use NoCutoff. Complete chosen chains remain intact.</p>
           <p>Resolve prerequisites with separate preparation actions. Native model installation: <a href="https://github.com/ManuelSe/Neistra/blob/master/tools/README.md" target="_blank" rel="noreferrer">setup guide</a>.</p></div> : null}
       </Dialog.Content></Dialog.Portal>

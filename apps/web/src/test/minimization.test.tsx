@@ -1,11 +1,12 @@
+import { useMinimizationPreview } from "../minimization/useMinimizationPreview";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { act, cleanup, fireEvent, render, renderHook, waitFor } from "@testing-library/react";
 import type { ReactNode } from "react";
 import { afterEach, expect, it, vi } from "vitest";
-import { minimizationApi } from "../api/client";
+import { jobApi, minimizationApi } from "../api/client";
 import type { Job, MinimizationProposal, Selection } from "../api/types";
 import { calculationComponents, minimizationRequest } from "../minimization/context";
-import { proposalGeometry } from "../minimization/preview";
+import { coordinatePatches } from "../minimization/preview";
 import { useMinimizationStore } from "../minimization/store";
 import { useMinimization } from "../minimization/useMinimization";
 import { useMinimizationShortcut } from "../minimization/useMinimizationShortcut";
@@ -55,13 +56,13 @@ it("refuses stale inputs, absent atoms, invalid iterations and implicit multi-co
 });
 it("builds disposable preview geometry without mutating sources and refuses malformed or incomplete proposals", () => {
   const inputs = sources(), before = JSON.stringify([...inputs]); const result = proposal();
-  expect(proposalGeometry(result, inputs).atoms).toEqual([{ preview_id: "protein/1", element: "C", coordinates: [0, 1, 0] }]);
+  expect(coordinatePatches(result.report.parameters.selection, result.entries, inputs)).toEqual([{ entry_id: "protein", artifact_id: "current-protein", atom_ids: [1], coordinates: [[0, 1, 0]] }]);
   expect(JSON.stringify([...inputs])).toBe(before);
   result.entries[0].coordinates[0][0] = Infinity;
-  expect(() => proposalGeometry(result, inputs)).toThrow("captured selection");
-  result.entries = []; expect(() => proposalGeometry(result, inputs)).toThrow("omits");
-  result.entries = [...proposal().entries, ...proposal().entries]; expect(() => proposalGeometry(result, inputs)).toThrow("captured selection");
-  result.entries = proposal().entries; result.entries[0].conformer_id = 1; expect(() => proposalGeometry(result, inputs)).toThrow("conformer");
+  expect(() => coordinatePatches(result.report.parameters.selection, result.entries, inputs)).toThrow("captured selection");
+  result.entries = []; expect(() => coordinatePatches(result.report.parameters.selection, result.entries, inputs)).toThrow("omits");
+  result.entries = [...proposal().entries, ...proposal().entries]; expect(() => coordinatePatches(result.report.parameters.selection, result.entries, inputs)).toThrow("captured selection");
+  result.entries = proposal().entries; result.entries[0].conformer_id = 1; expect(() => coordinatePatches(result.report.parameters.selection, result.entries, inputs)).toThrow("conformer");
 });
 it("captures selection and invalidates late callbacks on discard, project switch and ABA", () => {
   const store = useMinimizationStore.getState(), mutable = structuredClone(selection);
@@ -90,7 +91,7 @@ function workflow() {
   const client = new QueryClient({ defaultOptions: { queries: { retry: false }, mutations: { retry: false } } });
   const wrapper = ({ children }: { children: ReactNode }) => <QueryClientProvider client={client}>{children}</QueryClientProvider>;
   const commit = vi.fn();
-  const hook = renderHook(() => useMinimization(p, selection, commit), { wrapper });
+  const hook = renderHook(() => { const w = useMinimization(p, selection, commit); return { ...w, ...useMinimizationPreview(p, w) }; }, { wrapper });
   return { ...hook, client, commit, p };
 }
 it("Ctrl+M captures, submits automatic work exactly once and never implicitly applies coordinates", async () => {
@@ -136,4 +137,71 @@ it("does not submit across a project switch during capability discovery", async 
   act(() => { useWorkspaceStore.setState({ activeProjectId: "other" }); useMinimizationStore.getState().setProject("other"); });
   await act(async () => { finish(); await pending; });
   expect(submit).not.toHaveBeenCalled(); expect(w.result.current.open).toBe(false); w.client.clear();
+});
+
+it("cancels a submission that returns after its session was discarded", async () => {
+  vi.spyOn(minimizationApi, "source").mockResolvedValue(sources().get("protein")!.structure);
+  vi.spyOn(minimizationApi, "capabilities").mockResolvedValue({ model: "amber-local-v1", available: true, unavailable_reason: null, prerequisites: [], scientific_limits: [], limits: {} });
+  let finish!: (job: Job) => void;
+  vi.spyOn(minimizationApi, "submit").mockImplementation(() => new Promise(resolve => { finish = resolve; }));
+  const cancel = vi.spyOn(jobApi, "cancel").mockResolvedValue({ id: "late", status: "cancelled" } as Job);
+  const w = workflow(); let pending!: Promise<void>;
+  act(() => { pending = w.result.current.quick(); });
+  await waitFor(() => expect(finish).toBeDefined());
+  act(() => w.result.current.dismiss());
+  await act(async () => { finish({ id: "late", status: "queued" } as Job); await pending; });
+  expect(cancel).toHaveBeenCalledWith("late"); expect(w.result.current.open).toBe(false);
+  expect(w.commit).not.toHaveBeenCalled(); w.client.clear();
+});
+
+it("shows live selected-row patches and clears immediately while cancellation is pending", async () => {
+  vi.spyOn(minimizationApi, "source").mockResolvedValue(sources().get("protein")!.structure);
+  vi.spyOn(minimizationApi, "capabilities").mockResolvedValue({ model: "amber-local-v1", available: true, unavailable_reason: null, prerequisites: [], scientific_limits: [], limits: {} });
+  const job = { id: "live", status: "running", provenance: { project_revision: project().revision } } as unknown as Job;
+  vi.spyOn(minimizationApi, "submit").mockResolvedValue(job); vi.spyOn(jobApi, "get").mockResolvedValue(job);
+  const frame = { schema_version: 1 as const, job_id: "live", status: "running", capture_sha256: "capture", selection,
+    sources: [{ entry_id: "protein", artifact_id: "current-protein", conformer_id: 7 }],
+    frame: { sequence: 1, iteration: 1, published_at: Date.now() / 1000, entries: proposal().entries }, unavailable_reason: null };
+  vi.spyOn(minimizationApi, "live").mockResolvedValue(frame);
+  let finish!: (job: Job) => void;
+  vi.spyOn(jobApi, "cancel").mockImplementation(() => new Promise(resolve => { finish = resolve; }));
+  const w = workflow(); await act(async () => { await w.result.current.quick(); });
+  await waitFor(() => expect(w.result.current.patches).toHaveLength(1));
+  expect(w.result.current.patches[0].atom_ids).toEqual([1]); expect(w.commit).not.toHaveBeenCalled();
+  let pending!: Promise<void>; act(() => { pending = w.result.current.cancel(); });
+  expect(w.result.current.patches).toEqual([]);
+  await act(async () => { finish({ ...job, status: "cancelled" }); await pending; });
+  expect(w.result.current.patches).toEqual([]); w.client.clear();
+});
+
+it("keeps job/frame reads and Cancel presentation out of the App command subscription", async () => {
+  const p = project(); useWorkspaceStore.setState({ activeProjectId: p.id }); useMinimizationStore.getState().setProject(p.id);
+  const client = new QueryClient({ defaultOptions: { queries: { retry: false } } });
+  vi.spyOn(minimizationApi, "source").mockResolvedValue(sources().get("protein")!.structure);
+  vi.spyOn(minimizationApi, "capabilities").mockResolvedValue({ model: "amber-local-v1", available: true, unavailable_reason: null, prerequisites: [], scientific_limits: [], limits: {} });
+  const job = { id: "local-read", status: "running", provenance: { project_revision: p.revision } } as unknown as Job;
+  vi.spyOn(minimizationApi, "submit").mockResolvedValue(job); vi.spyOn(jobApi, "get").mockResolvedValue(job);
+  let sequence = 1;
+  vi.spyOn(minimizationApi, "live").mockImplementation(() => Promise.resolve({ schema_version: 1, job_id: job.id, status: "running", capture_sha256: "capture", selection,
+    sources: [{ entry_id: "protein", artifact_id: "current-protein", conformer_id: 7 }], frame: { sequence, iteration: sequence, published_at: Date.now() / 1000, entries: proposal().entries }, unavailable_reason: null }));
+  vi.spyOn(jobApi, "cancel").mockImplementation(() => new Promise(() => {}));
+  let parentRenders = 0, commands!: ReturnType<typeof useMinimization>, view!: ReturnType<typeof useMinimizationPreview>;
+  function Viewer({ workflow }: { workflow: ReturnType<typeof useMinimization> }) { view = useMinimizationPreview(p, workflow); return null; }
+  function AppCommands() { parentRenders++; commands = useMinimization(p, selection, vi.fn()); return <Viewer workflow={commands} />; }
+  render(<QueryClientProvider client={client}><AppCommands /></QueryClientProvider>);
+  await act(async () => { await commands.quick(); });
+  await waitFor(() => expect(view.patches).toHaveLength(1));
+  const before = parentRenders, firstPatches = view.patches;
+  await act(async () => { await client.invalidateQueries({ queryKey: ["minimization-live"] }); });
+  expect(view.patches).toBe(firstPatches); // An unchanged latest snapshot does not rerender geometry.
+  sequence = 2;
+  await act(async () => { await client.invalidateQueries({ queryKey: ["minimization-live"] }); });
+  await waitFor(() => expect(view.liveIteration).toBe(2));
+  expect(parentRenders).toBe(before);
+  sequence = 1;
+  await act(async () => { await client.invalidateQueries({ queryKey: ["minimization-live"] }); });
+  expect(view.liveIteration).toBe(2); // A delayed older response cannot revive an older pose.
+  act(() => { void commands.cancel(); });
+  expect(view.patches).toEqual([]); expect(parentRenders).toBe(before);
+  client.clear();
 });

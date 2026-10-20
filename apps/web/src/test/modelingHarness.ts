@@ -60,3 +60,63 @@ export function measurePreviewEvent(engine: MolstarEngine, target: Element, show
     }, { once: true, capture: true });
   });
 }
+
+/** Read actual native atomic positions and immutable base rows; never writes previews. */
+export async function inspectCoordinatePreview(engine: MolstarEngine) {
+  const native = engine as unknown as { syncQueue: Promise<void>; coordinatePreviews: Map<string, unknown>;
+    loaded: Map<string, { atomIds: number[]; baseCoordinates: Map<number, number[]>; structure: Structure }> };
+  await native.syncQueue;
+  return { previews: [...native.coordinatePreviews.keys()], canonicalAtoms: engine.getRenderedAtomReferences(),
+    entries: [...native.loaded].map(([id, loaded]) => ({ id, atoms: loaded.atomIds.map((_, row) => {
+      const model = loaded.structure.models[0], atomic = model.atomicConformation;
+      const id = loaded.atomIds[model.atomicHierarchy.atomSourceIndex.value(row)];
+      return { atom_id: id, base: loaded.baseCoordinates.get(id), displayed: [atomic.x[row], atomic.y[row], atomic.z[row]] };
+    }) })) };
+}
+
+/** Trusted UI event to real native coordinate transform completion and next paint. */
+export function measureCoordinatePreviewEvent(engine: MolstarEngine, target: Element, show: boolean): Promise<number> {
+  const native = engine as unknown as { syncQueue: Promise<void>; coordinatePreviews: Map<string, unknown> };
+  return new Promise((resolve, reject) => {
+    target.addEventListener(show ? "change" : "click", event => {
+      if (!event.isTrusted) { reject(new Error("Trusted UI event required")); return; }
+      const start = performance.now();
+      const sample = () => {
+        if ((native.coordinatePreviews.size > 0) === show) void native.syncQueue.then(() => requestAnimationFrame(() => resolve(performance.now() - start)), reject);
+        else if (performance.now() - start > 5000) reject(new Error("Coordinate preview did not settle"));
+        else requestAnimationFrame(sample);
+      };
+      requestAnimationFrame(sample);
+    }, { once: true, capture: true });
+  });
+}
+
+/** Bounded readback during timing: exact native fixed-row checks without serializing
+ * every loaded coordinate through the browser automation protocol. */
+export async function inspectCoordinateSummary(engine: MolstarEngine, movable: { structure_id: string; atom_id: number }[]) {
+  const native = engine as unknown as { syncQueue: Promise<void>; coordinatePreviews: Map<string, unknown>;
+    loaded: Map<string, { atomIds: number[]; baseCoordinates: Map<number, number[]>; structure: Structure }> };
+  await native.syncQueue;
+  const selected = new Set(movable.map(a => `${a.structure_id}/${a.atom_id}`));
+  let fixedExact = true, moving = 0;
+  let firstMovable: { entry_id: string; atom_id: number; coordinates: number[] } | null = null;
+  for (const [entry, loaded] of native.loaded) {
+    const model = loaded.structure.models[0], atomic = model.atomicConformation;
+    for (let row = 0; row < loaded.atomIds.length; row++) {
+      const id = loaded.atomIds[model.atomicHierarchy.atomSourceIndex.value(row)], base = loaded.baseCoordinates.get(id)!;
+      const point = [atomic.x[row], atomic.y[row], atomic.z[row]];
+      const changed = point.some((v, axis) => v !== base[axis]);
+      if (selected.has(`${entry}/${id}`)) {
+        if (changed) moving++;
+        firstMovable ??= { entry_id: entry, atom_id: id, coordinates: point };
+      } else if (changed) fixedExact = false;
+    }
+  }
+  return { previews: [...native.coordinatePreviews.keys()], canonicalCount: engine.getRenderedAtomReferences().length, fixedExact, moving, firstMovable };
+}
+
+export async function coordinatePreviewEntries(engine: MolstarEngine) {
+  const native = engine as unknown as { syncQueue: Promise<void>; coordinatePreviews: Map<string, unknown> };
+  await native.syncQueue;
+  return [...native.coordinatePreviews.keys()];
+}

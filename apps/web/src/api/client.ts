@@ -42,6 +42,7 @@ import type {
   MinimizationCapabilities,
   MinimizationRequest,
   MinimizationProposal,
+  MinimizationLive,
 } from "./types";
 import type { InteractionInput, InteractionResult } from "../interactions/types";
 
@@ -409,9 +410,11 @@ export const minimizationApi = {
     }),
   proposal: (projectId: string, jobId: string) =>
     request<MinimizationProposal>(`/api/v1/projects/${projectId}/minimizations/${jobId}/proposal`),
-  apply: (projectId: string, jobId: string, expectedRevision: number, digest: string) =>
+  live: (projectId: string, jobId: string) =>
+    request<MinimizationLive>(`/api/v1/projects/${projectId}/minimizations/${jobId}/live`),
+  apply: (projectId: string, jobId: string, expectedRevision: number, digest: string, acknowledge = false) =>
     request<Project>(`/api/v1/projects/${projectId}/minimizations/${jobId}/apply`, {
-      method: "POST", body: JSON.stringify({ expected_revision: expectedRevision, proposal_sha256: digest }),
+      method: "POST", body: JSON.stringify({ expected_revision: expectedRevision, proposal_sha256: digest, acknowledge_nonconvergence: acknowledge }),
     }),
 };
 

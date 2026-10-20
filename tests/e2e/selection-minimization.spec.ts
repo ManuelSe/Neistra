@@ -1,6 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { configure, current, panel, prepared, select, structures } from "./support/minimization";
-import { previewState } from "./support/modeling";
+import { configure, coordinateState, current, panel, prepared, select, structures } from "./support/minimization";
 import { prepare } from "./support/interactions";
 
 for (const scenario of ["isolated", "isolated-whole", "same-entry", "separate", "pocket-ligand"]) test(`minimizes ${scenario} captured selections with disposable preview and atomic Undo/Redo`, async ({ page, request }, info) => {
@@ -28,9 +27,11 @@ for (const scenario of ["isolated", "isolated-whole", "same-entry", "separate", 
   expect(await structures(request, p)).toEqual(before);
   expect((await current(request, p.id)).revision).toBe(p.revision);
   await panel(page).getByRole("checkbox", { name: "Show coordinate preview" }).check();
-  await expect.poll(async () => (await previewState(page)).objects.some(o => o.drawCount > 0)).toBe(true);
-  const preview = await previewState(page);
-  expect(preview.objects.every(o => !o.pickable)).toBe(true);
+  await expect.poll(async () => (await coordinateState(page)).previews.length > 0).toBe(true);
+  const preview = await coordinateState(page);
+  for (const entry of preview.entries) for (const atom of entry.atoms) {
+    if (!refs.some(r => r.structure_id === entry.id && r.atom_id === atom.atom_id)) expect(atom.displayed).toEqual(atom.base);
+  }
   expect(preview.canonicalAtoms).toHaveLength(p.entries.reduce((sum, e) => sum + e.atom_count, 0));
   expect(await structures(request, p)).toEqual(before);
   await apply.click(); await expect(panel(page)).toBeHidden();
@@ -55,14 +56,15 @@ test("inspects non-convergence and discards a native preview without a canonical
   await select(page, p.entries[0].atom_ids.map(atom_id => ({ structure_id: p.entries[0].id, atom_id })), info.project.name === "mobile-chromium");
   await page.getByRole("button", { name: "Minimize selection", exact: true }).click();
   await configure(page);
+  await panel(page).getByRole("checkbox", { name: "Require convergence before acceptance" }).check();
   await panel(page).getByRole("spinbutton", { name: "Minimization iterations" }).fill("1");
   await panel(page).getByRole("button", { name: "Run minimization" }).click();
   await expect(panel(page).getByText("non converged", { exact: false })).toBeVisible({ timeout: 60000 });
   await expect(panel(page).getByRole("button", { name: "Apply coordinates" })).toBeDisabled();
   await panel(page).getByRole("checkbox", { name: "Show coordinate preview" }).check();
-  await expect.poll(async () => (await previewState(page)).objects.some(o => o.drawCount > 0)).toBe(true);
+  await expect.poll(async () => (await coordinateState(page)).previews.length > 0).toBe(true);
   await panel(page).getByRole("button", { name: "Discard", exact: true }).click();
-  await expect.poll(async () => (await previewState(page)).preview).toBeNull();
+  await expect.poll(async () => (await coordinateState(page)).previews.length).toBe(0);
   expect(await structures(request, p)).toEqual(before); expect((await current(request, p.id)).revision).toBe(p.revision);
 });
 

@@ -1,0 +1,31 @@
+{
+  "base": "742e9dd3c44b53e3536331c1ebb2472db9a00017",
+  "files": {
+    "apps/api/src/molweave_api/minimization_schemas.py": "c0a88c234930b5a02c4ea29970493ea2351d204f1b3f04aae28eca90bc472c44",
+    "apps/api/src/molweave_api/minimization_service.py": "c11b90594d59c022dff5744cdb829c0b788d7dc7528559768bf045256518ec67",
+    "apps/web/src/api/client.ts": "cf20b95436b5bc5c1ab9ec0f2a85ccd17df683ed492438d3dc3d1db4a42373e3",
+    "apps/web/src/api/types.ts": "5778ea48880601d2ff961f80be955128b7fa291eede63c511f8a29f38fe4335e",
+    "apps/web/src/components/MinimizationPanel.tsx": "db079a61ba556d013c97e24f10d8f1b5faf7beb2fde13b3da4dab0abd2ab0e80",
+    "apps/web/src/components/StructureViewer.tsx": "c1b5d77b11f09c167dafa83cb901ea601d5a8a5579362a398e636f6f72809196",
+    "apps/web/src/minimization/preview.ts": "f55b117309ca8363ee0064399d5aa890c6cb674bdcd029061efbf221159d0421",
+    "apps/web/src/minimization/store.ts": "09400d9c7d5d9f9bdf6030cba8053d898f5d4c97ff97a342d0941ea7fdc4b5ca",
+    "apps/web/src/minimization/useMinimization.ts": "8f2e686ba47b3484bd2659d628adc0c1dc34aa59f5c073d6d5ca20f1c4d3f6e6",
+    "apps/web/src/minimization/useMinimizationPreview.ts": "5002190a289cb7377e1d8b0c639fb57abbb6c83858832cba0c3c65a985149d42",
+    "apps/web/src/test/interactive-transform-queue.test.ts": "11b00fb3397f4d653848a730b6a1a23ac3f62ef43e16086e02cd3e59b8f8091b",
+    "apps/web/src/test/minimization.test.tsx": "ff1abf61c826e9aa19d0561109e8c9c598535465e9ebc775c5344f5a23831a15",
+    "apps/web/src/test/modelingHarness.ts": "a9c4198ee4e6725424ed82694f7ec8e1e5fe7bb3c28924c974fe946e8e3309df",
+    "apps/web/src/viewer/CoordinatePreviewQueue.ts": "9850727e9d62fd2db99b07148126a14487fc41678ff872e016c4072f0a2b0e07",
+    "apps/web/src/viewer/MolstarEngine.ts": "0c171e566b610514e138c27da2c5ffeab746ad18ca5ebfa45add22941123dc44",
+    "packages/molweave_core/src/molweave_core/minimization/contracts.py": "dbe38d5c2b6bd788f31e6626164fe216ef5a77f5f3982c4535df1aa029f0cc9c",
+    "packages/molweave_core/src/molweave_core/minimization/live.py": "9c285019efa6a9d7b2260bbcaa343d395c41ab99133384ea7a306ac4850a0cf5",
+    "packages/molweave_core/src/molweave_core/minimization/optimize.py": "dae37f9327866ddb73cc5d3b73f7ece0b1453796b150fdcf7e7f74e9da520540",
+    "tests/e2e/minimization-live.spec.ts": "741174b5f69b8d855df5adc5ac2a95157ea1d38229ec489effc88978576ca652",
+    "tests/e2e/minimization-performance.spec.ts": "6a96b5f8468bcb745117661ac6324ed4f932ad271b9b53f541f26536e20ed9b4",
+    "tests/e2e/selection-minimization.spec.ts": "b2371e2367a0982c01c2f23042fccc6c9110c79427b9f58d5763884ee3f3af32",
+    "tests/e2e/support/minimization.ts": "253088b845b0ee842f6374600e9a071899757534924c4e57a83ff4088e7e2070",
+    "tests/integration/test_minimization_apply.py": "79bc2ac1da0217e75a666d5e15c1846a8ac28aabd471817699b140ff95734bfd",
+    "tests/scientific/test_minimization_live.py": "0795ff95443383f95e62ddd08bf9c8fd9fa93173a67013adac31433251b070d2",
+    "tests/unit/minimization/test_acceptance.py": "6ea1f178a7a0b020e3a81770aa27dc37eea1ac5d5cc8c62e536cc6bcdf877250"
+  },
+  "unchanged": true
+}

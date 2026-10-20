@@ -1,0 +1,93 @@
+{
+  "environment": {
+    "MOLWEAVE_AMBERTOOLS_PREFIX": "/datadisk/dev/.neistra-tools/ambertools-24.8",
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "PLAYWRIGHT_BROWSERS_PATH": ".playwright",
+    "MOLWEAVE_E2E_DATA_DIR": "/tmp/neistra89-e2e-c5-deduplicated-qualified",
+    "MOLWEAVE_E2E_API_PORT": "10510",
+    "MOLWEAVE_E2E_WORKER_PORT": "10511",
+    "MOLWEAVE_E2E_WEB_PORT": "7673"
+  },
+  "steps": [
+    {
+      "label": "ruff",
+      "command": ".venv/bin/uv run ruff check .",
+      "exit_code": 0,
+      "seconds": 0.042,
+      "log": "docs/assets/interactive-minimization/c5-final-ruff.log.gz",
+      "log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "reused_from": "c5-attempt2-gate.json",
+      "python_source_hashes_unchanged": true
+    },
+    {
+      "label": "mypy",
+      "command": ".venv/bin/uv run mypy apps/api packages/molweave_core",
+      "exit_code": 0,
+      "seconds": 0.216,
+      "log": "docs/assets/interactive-minimization/c5-final-mypy.log.gz",
+      "log_sha256": "8ba9873e22426bcc7f35d8a5ef8518b9b69fb138ee78730ab64693a64293352c",
+      "reused_from": "c5-attempt2-gate.json",
+      "python_source_hashes_unchanged": true
+    },
+    {
+      "label": "python",
+      "command": ".venv/bin/uv run pytest tests/unit/minimization tests/scientific/test_minimization.py tests/scientific/test_minimization_context.py tests/scientific/test_minimization_cache.py tests/scientific/test_minimization_live.py tests/integration/test_minimization_apply.py tests/integration/test_minimization_jobs.py tests/integration/test_minimization_live.py tests/integration/test_job_lifecycle.py -q",
+      "exit_code": 0,
+      "seconds": 63.532,
+      "log": "docs/assets/interactive-minimization/c5-final-python.log.gz",
+      "log_sha256": "3ae601f278c01e7596697cff93af4a1ac664709017308e885e8db28c576315f5",
+      "reused_from": "c5-attempt2-gate.json",
+      "python_source_hashes_unchanged": true
+    },
+    {
+      "label": "lint",
+      "command": "corepack pnpm --dir apps/web lint",
+      "exit_code": 0,
+      "seconds": 11.344,
+      "log": "docs/assets/interactive-minimization/c5-final-lint.log.gz",
+      "log_sha256": "407542146a7a0d45aea91983bf120b74ed122a75e21e47383d8bcfd8a1f84177"
+    },
+    {
+      "label": "types",
+      "command": "corepack pnpm --dir apps/web typecheck",
+      "exit_code": 0,
+      "seconds": 5.545,
+      "log": "docs/assets/interactive-minimization/c5-final-types.log.gz",
+      "log_sha256": "ec6984d22c581279ab7f6a640391cd633bb6646f462629997e329b1c1ff4168f"
+    },
+    {
+      "label": "web-tests",
+      "command": "corepack pnpm --dir apps/web test",
+      "exit_code": 0,
+      "seconds": 10.439,
+      "log": "docs/assets/interactive-minimization/c5-final-web-tests.log.gz",
+      "log_sha256": "661af722063bcf3afdc3b04217c0862820fd3ba1fe65aaf1d5065663d7d14b32"
+    },
+    {
+      "label": "supervisor",
+      "command": "corepack pnpm test:dev",
+      "exit_code": 0,
+      "seconds": 1.493,
+      "log": "docs/assets/interactive-minimization/c5-final-supervisor.log.gz",
+      "log_sha256": "1738b6bcfcbff8169c3af56ace7f65b05350ba75f59cbb11e383081336bac303"
+    },
+    {
+      "label": "build",
+      "command": "corepack pnpm --dir apps/web build",
+      "exit_code": 0,
+      "seconds": 14.312,
+      "log": "docs/assets/interactive-minimization/c5-final-build.log.gz",
+      "log_sha256": "15d74a99150b081c5acd2d88def9b08e338bc218f52c82a12a638c0177896f9b"
+    },
+    {
+      "label": "browser",
+      "command": "corepack pnpm exec playwright test tests/e2e/selection-minimization.spec.ts tests/e2e/minimization-accessibility.spec.ts tests/e2e/minimization-performance.spec.ts tests/e2e/minimization-live.spec.ts tests/e2e/interactive-transform-performance.spec.ts --max-failures=1",
+      "exit_code": 1,
+      "seconds": 212.064,
+      "log": "docs/assets/interactive-minimization/c5-final-browser.log.gz",
+      "log_sha256": "97673f7ede85532b5803d1b457968bc0234e5863b0d6fc7188c90e6179a44228"
+    }
+  ],
+  "source_unchanged": true
+}

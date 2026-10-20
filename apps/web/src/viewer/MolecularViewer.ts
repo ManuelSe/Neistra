@@ -53,6 +53,8 @@ export interface MolecularViewer {
     mode: "preview" | "commit",
   ): Promise<void>;
   clearCoordinatePreview(entryId: string): Promise<void>;
+  /** Yield until prior rendering releases preview buffers; never changes molecular state. */
+  prepareCoordinatePreview?(signal: AbortSignal): Promise<void>;
   setModelPreview?: (preview: MolecularProposalGeometry | null) => Promise<void>;
   setSelection(atoms: AtomReference[]): void;
   setPickingGranularity(granularity: SelectionGranularity): void;

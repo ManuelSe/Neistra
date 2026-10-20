@@ -3,8 +3,8 @@
 Select atoms, then invoke **Minimize selection** (the lightning icon beside **Edit
 molecule**) or **Ctrl+M**. Both start an automatic-context calculation immediately, with the current
 selection captured and a maximum of 500 iterations. The shortcut ignores text
-fields, modal dialogs and repeated keypresses. It opens progress and the report;
-coordinates change only after **Apply coordinates**.
+fields, modal dialogs and repeated keypresses. It shows temporary relaxation and the report. Saved coordinates change only after
+explicit acceptance.
 
 Automatic mode includes complete covalent components/protein chains containing
 selected atoms, plus complete components within12Å of those mandatory components.
@@ -44,8 +44,10 @@ molecules use nonperiodic NoCutoff; environment mode uses a 12 Å nonperiodic cu
 not a binding-energy estimate, global search, native-pose certificate or solvent
 simulation. Inspect residual contacts and scientific warnings independently.
 
-Jobs run in the background. Cancel terminates calculation work; closing the panel
-keeps the job in **Jobs**, where **Inspect minimization** reopens progress/report.
+Jobs run in the background. Cancel immediately clears temporary coordinates and
+requests worker termination. Closing/discarding the panel or changing tools/projects
+also ends preview and requests cancellation. The job remains in **Jobs**, where
+**Inspect minimization** opens the retained report without restoring a live session.
 Changing selection cannot retarget submitted work. Drafts and previews survive
 responsive viewer remounts but are transient across reloads. The persisted job and
 its immutable input/model/report artifacts remain inspectable after reload.
@@ -53,9 +55,19 @@ its immutable input/model/report artifacts remain inspectable after reload.
 A completed report gives outcome, initial/final energy, maximum movable gradient,
 iterations/evaluations, movement, close pairs and warnings. A local solver success
 must also pass the independent maximum-gradient threshold, finiteness, mapping and
-stereochemistry checks. Non-converged results can be inspected and previewed but
-cannot Apply. A preview is nonpickable. Measurements, chemical exports and archived
-molecular coordinates use the current applied state. Native archives retain immutable job
+stereochemistry checks. The interactive default permits **Accept unconverged coordinates** only for an
+ordinary iteration limit with finite energy/forces, objective improvement beyond
+numerical tolerance, valid mapping/stereo/fixed rows, and no new nonbonded pair
+within0.6Å. That named action explicitly acknowledges the displayed residual gradient.
+It does not imply convergence or a validated pose. **Require convergence before
+acceptance** in settings retains strict behavior; existing API requests default to
+strict. Abnormal/line-search/evaluation-limit/cancelled/resource failures cannot
+Apply, and older nonconverged reports gain no retrospective eligibility.
+
+Live steps and final previews update actual selected display coordinates, retaining
+canonical atom identities for picking. Measurements/interactions/surfaces pause
+during preview; chemical exports and archived molecular coordinates use the saved
+applied state. Native archives retain immutable job
 proposals as historical artifacts; preview display/session state stays transient.
 Discard removes the display without a molecular edit.
 
@@ -73,7 +85,7 @@ Native project archives preserve applied coordinates, provenance, report and mod
 artifacts. Imported archived proposals are historical and cannot Apply against
 remapped entry IDs. Archive Undo history remains nonportable under existing rules.
 No database or structural-schema migration is introduced. See the
-[approved plan](plans/issue-82-selection-minimization.md) and
+[interactive plan](plans/issue-89-interactive-minimization.md) and
 [verification evidence](VERIFICATION.md) for qualified cases and limits.
 
 ## Resource and identity diagnostics (issue #89 C1)
@@ -117,4 +129,17 @@ latest-only private file. These are temporary, unvalidated intermediate coordina
 they cannot be applied before successful final report publication. Frames are
 excluded from durable events, model artifacts and archives. Live process validation
 requires the qualified local Linux shared-PID deployment. Transport loss ends preview
-without changing final scientific checks. Viewer integration follows in C5.
+without changing final scientific checks. The UI polls every200ms during its owned session, keeps one active renderer update
+and only the newest pending frame, and restores canonical coordinates on Cancel or
+ownership loss. Short runs may finish before any intermediate display; no animation
+is manufactured. Reload starts from saved geometry.
+
+Qualification measures prepared1STP and18k calculation fixtures with32 selected
+ligand atoms. Running transport additionally uses30 selected protein heavy atoms
+and the full1166-heavy-atom selection of a complete2272-atom chain. These samples
+are not a universal latency guarantee near the2000-movable cap. Earlier exploratory
+large-selection timings included excessive test readback and an automatic-quality
+override of the intended coordinate cue detail. Bounded in-browser geometry checks
+and explicit custom cue quality correct both problems; [#100](https://github.com/ManuelSe/Neistra/issues/100)
+records the investigation. The passing [C5 gate](assets/interactive-minimization/c5-gate.json) records qualified
+cases and timing; final release/older-reader qualification remains pending.

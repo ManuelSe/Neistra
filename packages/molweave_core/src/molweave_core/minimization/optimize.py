@@ -27,6 +27,27 @@ from molweave_core.minimization.preflight import IsolatedInput
 SnapshotCallback = Callable[[int, tuple[tuple[str, int], ...], NDArray[np.float64]], None]
 
 
+def introduces_severe_overlap(
+    original: NDArray[np.float64],
+    final: NDArray[np.float64],
+    movable: NDArray[np.int64],
+    bonds: set[frozenset[int]],
+    checkpoint: Callable[[], None],
+) -> bool:
+    # All fixed-only pairs are unchanged. Avoid an unbounded global pair set.
+    before_tree, after_tree = cKDTree(original), cKDTree(final)
+    for index in movable:
+        checkpoint()
+        i = int(index)
+        original_neighbors = set(before_tree.query_ball_point(original[i], 0.6))
+        if any(
+            j != i and j not in original_neighbors and frozenset((i, j)) not in bonds
+            for j in after_tree.query_ball_point(final[i], 0.6)
+        ):
+            return True
+    return False
+
+
 def geometry_stereo(molecule: Any, coordinates: NDArray[np.float64]) -> tuple[str, ...]:
     copy = Chem.Mol(molecule)
     Chem.RemoveStereochemistry(copy)
@@ -162,12 +183,13 @@ def optimize_coordinates(
         engine.setPositions(full * unit.nanometer)
         state = engine.getState(getEnergy=True, getForces=True)
         energy = float(state.getPotentialEnergy().value_in_unit(unit.kilojoule_per_mole))
-        gradient = -np.asarray(
+        forces = np.asarray(
             state.getForces(asNumpy=True).value_in_unit(unit.kilojoule_per_mole / unit.nanometer),
             dtype=np.float64,
-        )[movable].reshape(-1)
+        )
+        gradient = -forces[movable].reshape(-1)
         evaluations += 1
-        if not np.isfinite(energy) or not np.isfinite(gradient).all():
+        if not np.isfinite(energy) or not np.isfinite(forces).all():
             raise CalculationError("nonfinite_objective", "Energy or forces became nonfinite")
         return energy, gradient
 
@@ -187,6 +209,7 @@ def optimize_coordinates(
 
     try:
         initial_energy, initial_gradient = objective(captured[movable].reshape(-1))
+        ordinary_iteration_limit = False
         if np.max(np.abs(initial_gradient)) <= GRADIENT_TOLERANCE:
             final_energy, gradient = initial_energy, initial_gradient
             final = original.copy()
@@ -209,6 +232,12 @@ def optimize_coordinates(
             final = original.copy()
             final[movable] = full[movable] * 10
             termination = str(result.message)
+            ordinary_iteration_limit = (
+                result.status == 1
+                and result.nit >= parameters.max_iterations
+                and result.nfev < 20_000
+                and termination == "STOP: TOTAL NO. OF ITERATIONS REACHED LIMIT"
+            )
         maximum_gradient = float(np.max(np.abs(gradient)))
         converged = maximum_gradient <= GRADIENT_TOLERANCE
         if not np.array_equal(
@@ -227,6 +256,9 @@ def optimize_coordinates(
         unchanged = bool(np.max(np.abs(final[movable] - original[movable])) <= 1e-9)
         # Count locally without materializing all pair combinations, even for dense input.
         tree = cKDTree(final)
+        new_severe_overlaps = introduces_severe_overlap(
+            original, final, movable, bonds, context.checkpoint
+        )
         clashes = sum(
             1
             for i in range(len(final))
@@ -234,12 +266,26 @@ def optimize_coordinates(
             if j > i and frozenset((i, j)) not in bonds
         )
         report = MinimizationReport(
+            schema_version=2 if parameters.schema_version == 2 else 1,
             outcome="unchanged"
             if unchanged and converged
             else "converged"
             if converged
             else "non_converged",
             reason=termination,
+            termination_kind="converged"
+            if converged
+            else "iteration_limit"
+            if ordinary_iteration_limit
+            else "abnormal",
+            new_severe_overlaps=new_severe_overlaps,
+            nonconverged_eligible=(
+                not converged
+                and parameters.acceptance_policy == "interactive"
+                and ordinary_iteration_limit
+                and not new_severe_overlaps
+                and final_energy < initial_energy - max(1e-6, abs(initial_energy) * 1e-10)
+            ),
             parameters=parameters,
             initial_energy=initial_energy,
             final_energy=final_energy,

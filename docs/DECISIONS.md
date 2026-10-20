@@ -4638,3 +4638,46 @@ an unverifiable process or changed project revision ends preview, while final
 calculation/report and independently guarded Apply remain available. Transport
 unavailability cannot authorize partial Apply. No DB or structural schema change.
 Viewer rendering and warned acceptance follow in C5; C4 alone does not claim live UI.
+
+## D-117 — Live coordinate ownership and warned acceptance (issue #89 C5)
+
+Supersedes D-110/111 only for the approved interactive session and eligible new
+results. Reuse selected-row native coordinate transforms, one active plus latest
+pending frame, with epoch guards across every awaited entry. No canonical structures or molecular query
+objects change until explicit acceptance. Cancel clears presentation immediately and
+requests worker cancellation; panel close, tool/project changes and late submission
+responses also end ownership. Reload/Jobs inspection never resumes live rendering.
+Retain canonical IDs/picking; pause geometry-dependent displays during preview.
+
+Interactive UI chooses a schema2 acceptance policy. The legacy API default remains
+strict. Eligible nonconverged results require ordinary max-iteration termination,
+finite full forces/energy, objective decrease beyond numerical tolerance, verified
+mapping/stereo/fixed rows and no new nonbonded pair within the disclosed0.6Å bound.
+Do not impose the convergence gradient threshold on these results; disclose their
+actual residual gradient. Abnormal/line-search/evaluation-limit/timeout/resource/
+cancellation outcomes never qualify. The clearly named Accept unconverged coordinates
+button acknowledges that warning and submits a digest-bound acknowledgement. Record
+outcome/policy/acknowledgement in existing application provenance, preserving the
+same atomic Undo/Redo command. Old reports never acquire retrospective eligibility.
+No structural schema/migration/dependency/physical-model change. Publication wall
+time is transient latency evidence, not scientific acceptance authority.
+
+Renderer-local job/report/frame subscriptions avoid pushing high-rate reads through
+App; App retains command/capture/acceptance ownership. Preview/live presentation
+changes do not subscribe App's unrelated panels. Keep approved32-ligand-atom native
+performance assertions unchanged. In-browser fixed-row comparisons avoid serializing
+all18k coordinates while measuring UI latency; return only bounded status/summary.
+Mol* automatic quality overrides explicit detail, so the existing low-detail movement
+cue must also choose custom quality. This affects transient display tessellation,
+never atom coordinates, scientific parameters or persisted representation settings.
+The expanded1166-heavy-atom test now passes focused native bounds. Earlier901 counts
+were estimates, and exploratory latencies mixed instrumentation with the cue-quality
+bug; #100 records the correction. Full C5 and release gates remain required.
+
+Native live updates also yield on the public Mol* GPU fence API before consuming
+the newest pending packet. This avoids synchronous uploads into buffers still used
+by a previous draw. Abort/dispose/context loss release the fence, with a two-second
+stall bound. Cancellation and explicit final-preview controls take priority and do
+not wait for automatic delivery readiness. Duplicate/older packets are ignored;
+immutable preview inputs do not refetch on checkbox toggles. No trajectory or
+canonical molecular/query mutation is introduced by this display scheduling.

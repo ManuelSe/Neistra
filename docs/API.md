@@ -828,8 +828,10 @@ files, so portable artifacts do not depend on the runtime cache.
 
 Proposal responses include schema1, `job_id`, `proposal_sha256`, typed `report`,
 selected-coordinate `entries`, `applicable` and `unavailable_reason`. A completed
-job may contain a blocked/failed/non-converged/unchanged scientific report; only
-validated converged outcomes are eligible. Preview inspection is not mutation.
+job may contain a blocked/failed/non-converged/unchanged scientific report; validated converged outcomes are eligible by default. Schema2 interactive captures
+also permit independently validated ordinary iteration-limit results with explicit
+acknowledgement; older reports never acquire that eligibility. Preview inspection
+is not mutation.
 A queued/running/failed lifecycle job without a completed report returns409.
 Source/context replacement/deletion or a movable lock disables eligibility; an
 unrelated revision/rename/display edit alone does not. Recheck at Apply regardless.
@@ -869,3 +871,20 @@ frame (sequence, accepted iteration, selected entry/conformer/atom coordinates).
 Cache-Control:no-store; at most5Hz/1MiB production, latest-only, no history.
 Inactive/historical/cancelled/interrupted/changed-project reads return no frame and
 an unavailable reason where applicable. No read mutates project or job state.
+
+### Interactive result acceptance (issue89 C5)
+
+Submission accepts `acceptance_policy: strict | interactive` (default strict).
+The UI explicitly chooses interactive, or strict through its convergence option.
+Interactive captures/reports use calculation schema2, preserving exact schema1 and
+already persisted schema2 decoding/serialization. Qualified ordinary iteration-limit
+reports record termination_kind, nonconverged_eligible and new_severe_overlaps;
+finite objective decrease, full finite forces and existing geometry/mapping guards
+are required. The residual gradient remains visible and need not meet convergence.
+`POST .../minimizations/{job_id}/apply` additionally accepts
+`acknowledge_nonconvergence: true`, bound to the required current proposal digest.
+Missing acknowledgement returns409 for an eligible unconverged proposal; abnormal,
+cancelled, resource, stale and historical results remain ineligible. Application
+provenance records policy, outcome and acknowledgement; history/schema unchanged.
+Live frames also disclose server publication wall time for local latency evidence;
+this timestamp is advisory, not coordinate or acceptance authority.

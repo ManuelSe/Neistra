@@ -28,6 +28,7 @@ class MinimizationCreate(BaseModel):
     context: list[MinimizationContext] = Field(default_factory=list, max_length=100)
     conformers: dict[str, int] = Field(default_factory=dict)
     max_iterations: int = Field(default=500, ge=1, le=2_000)
+    acceptance_policy: Literal["strict", "interactive"] = "strict"
 
     @model_validator(mode="after")
     def bounded_selection(self) -> MinimizationCreate:
@@ -53,6 +54,7 @@ class MinimizationApply(BaseModel):
     model_config = ConfigDict(extra="forbid")
     expected_revision: int = Field(ge=0)
     proposal_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
+    acknowledge_nonconvergence: bool = False
 
 
 class MinimizationProposalRead(BaseModel):

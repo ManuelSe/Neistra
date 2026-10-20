@@ -398,3 +398,31 @@ merge/tag/release/reply verification; finish clean master.
   D-116 defines transient accepted-iterate delivery and local process ownership. No
   structural migration/schema/dependency/application-version/model change. One doc
   EOF whitespace failure was corrected and diff check repeated. No blocker. Next C5.
+- M4/C5 implementation in review: actual transform previews; render-local reads;
+  immediate Cancel presentation; schema2 guarded warned acceptance with legacy strict
+  default, explicit digest-bound acknowledgement and one Undo/Redo. D-117 records
+  ownership/eligibility. Preliminary expanded-selection timings required investigation; retained exploratory
+  logs and focused follow-up [#100](https://github.com/ManuelSe/Neistra/issues/100). Planned bounds
+  remain unchanged; running transport also qualifies30 selected protein heavy atoms.
+  Required separate OpenFF experimental follow-up created as
+  [#101](https://github.com/ManuelSe/Neistra/issues/101), production AMBER unchanged.
+  Investigation correction: actual full heavy selection is1166, not the earlier901
+  estimate. Excessive full-coordinate test readback distorted latency; bounded status
+  and exact in-browser fixed-row checks correct it. Mol* auto-quality also overrode
+  intended low cue detail; explicit custom quality fixes that native upload cost.
+  Focused18k/1166-heavy-atom native bounds now pass. #100 is addressed on this branch,
+  pending complete qualification/merge. Final C5 gate/evidence and actual older-reader
+  release qualification remain pending.
+- M4/C5 passes:260 Python (identical Python hashes after frontend-only fixes),273 web,
+  8 supervisor,25 native browser /7 intentional mobile exclusions; static/mypy90/
+  types/build/fresh0014/diff pass. [Gate](../assets/interactive-minimization/c5-gate.json),
+  [source](../assets/interactive-minimization/c5-source.json),
+  [self-review](../assets/interactive-minimization/c5-review.md),
+  [18k timings](../assets/interactive-minimization/c5-performance-18k.json),
+  [partial live](../assets/interactive-minimization/c5-live-partial.json) and
+  [1166-heavy live](../assets/interactive-minimization/c5-live-whole.json) retain exact
+  evidence. Earlier901 counts were estimates; corrected bounded readback, cue quality,
+  duplicate-packet suppression and abortable GPU readiness address the investigation
+  recorded in#100. Thresholds unchanged. No structural schema/migration/dependency/
+  application-version/model change. No external blocker. Next: C5 commit, then required
+  C6 legacy recovery/qualification/release work; do not claim issue89 complete yet.

@@ -41,6 +41,7 @@ class OptimizationFrame(BaseModel):
     model_config = ConfigDict(extra="forbid", frozen=True, allow_inf_nan=False)
     sequence: int = Field(ge=1)
     iteration: int = Field(ge=1, le=2000)
+    published_at: float = Field(gt=0)
     entries: list[CoordinateProposal] = Field(min_length=1, max_length=100)
 
 
@@ -142,6 +143,7 @@ class SnapshotPublisher:
             snapshot = PrivateSnapshot(
                 sequence=self.sequence + 1,
                 iteration=iteration,
+                published_at=time.time(),
                 entries=entries,
                 capture_sha256=self.capture_sha256,
                 producer=self.producer,
@@ -186,5 +188,8 @@ def read_snapshot(directory: Path, parameters: MinimizationParameters) -> Optimi
         raise ValueError("Calculation process interrupted; live preview ended")
     validate_frame(parameters, snapshot)
     return OptimizationFrame(
-        sequence=snapshot.sequence, iteration=snapshot.iteration, entries=snapshot.entries
+        sequence=snapshot.sequence,
+        iteration=snapshot.iteration,
+        published_at=snapshot.published_at,
+        entries=snapshot.entries,
     )

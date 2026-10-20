@@ -2,24 +2,25 @@
 
 ## Current milestone
 
-Issue #89 is approved under the [interactive minimization plan](plans/issue-89-interactive-minimization.md).
-Plan-only C0 is committed/pushed as a00ca90; M1/C1 is f9f4c6f on the planned branch.
-C1 adds RSS supervision/identity diagnostics/authored provenance (D-113).
-M2/C2 adds automatic complete context and current/final-position negative-dependency
-checks (D-114), immediate Ctrl+M/button and retained manual/isolation controls.
-[C2 evidence](assets/interactive-minimization/c2-gate.json):206 Python,265 frontend,
-8 supervisor,19 native browser passes/3 intentional layout skips; lint/types/build,
-fresh0014 and unchanged prepared1STP/18k preview budgets pass. [Review](assets/interactive-minimization/c2-review.md)
-is local self-review. Calculation parameters gain schema2; v1 semantics/readers remain
-supported. No structural migration/schema/dependency/application-version/model change.
-M3/C3 now adds validated native receptor/organic/assembled preparation caches (D-115).
-[C3 evidence](assets/interactive-minimization/c3-gate.json):232 broad Python plus9
-final cache checks and1 paired worker benchmark,265 web/8 supervisor/16 native browser
-passes with2 intentional layout skips; static/build/fresh0014 and existing performance
-bounds pass. Three prepared1STP pairs yield5.47s cold/0.39s warm median preparation,
-14.2x, zero warm native calls. Changed organic charge geometry still reparameterizes.
-Live/warned acceptance remain C4/C5; final compatibility/release C6. Existing bundle/
-Vite-disconnect advisories retained. M4/C4 publishes bounded transient accepted-iterate snapshots (D-116). [Gate](assets/interactive-minimization/c4-gate.json):192 Python,265 web,8 supervisor,2 native browser pass; static/mypy90/build/fresh0014 pass. No frames in durable events/model artifacts; process loss/cancel/restart/project-change guards pass. [Review](assets/interactive-minimization/c4-review.md) is local self-review. Viewer/acceptance remain C5; no migration/schema/dependency/application-version/model change. No blocker. Next: C5 actual live viewer and warned acceptance.
+Issue #89 follows the [approved interactive minimization plan](plans/issue-89-interactive-minimization.md)
+on feat/issue-89-interactive-minimization. C0–C4 are committed/pushed; C5 completes
+live native coordinate previews and explicit warned acceptance (D-117), preserving
+legacy strict defaults and one atomic Undo/Redo. Earlier checkpoints add RSS/identity
+diagnostics (D-113), automatic complete context (D-114), validated conservative
+parameter caching (D-115) and bounded transient snapshots (D-116).
+
+[C5 gate](assets/interactive-minimization/c5-gate.json):260 Python (unchanged hashes),
+273 frontend,8 supervisor,25 native browser pass /7 intentional mobile exclusions;
+static/types/build/fresh0014/diff pass. [Self-review](assets/interactive-minimization/c5-review.md)
+records investigation/corrections and limits.18k timing:81ms preview/246ms restore/
+233ms longest task, unchanged500/500/750ms bounds. Live30/1166-heavy cases preserve
+all fixed rows and restore below500ms. Schema2 operation/report contracts retain
+old inspection/serialization; no structural migration/dependency/application-version/
+physical-model change. #100 is addressed pending merge; OpenFF remains separate#101.
+
+No external blocker. Next: coherent C5 commit, then C6 verified legacy identity
+recovery, scientific/performance/actual0.20-reader qualification, release0.21.0
+preparation and final gates/review/publication. The feature plan is detailed truth.
 
 ### Previous delivery baseline — v0.20.0
 

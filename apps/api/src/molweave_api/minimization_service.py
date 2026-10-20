@@ -19,6 +19,7 @@ from molweave_core.minimization.contracts import (
     CoordinateProposal,
     MinimizationParameters,
     MinimizationReport,
+    eligible_nonconvergence,
 )
 from molweave_core.minimization.discovery import ContextDiscovery, discover_context
 from molweave_core.minimization.live import capture_digest, read_snapshot
@@ -147,8 +148,9 @@ class MinimizationService:
             )
         try:
             parameters = MinimizationParameters(
-                schema_version=2 if automatic else 1,
+                schema_version=2 if automatic or payload.acceptance_policy == "interactive" else 1,
                 context_policy="automatic" if automatic else "manual",
+                acceptance_policy=payload.acceptance_policy,
                 mode=mode,
                 selection=payload.selection,
                 captured_inputs=captures,
@@ -267,8 +269,10 @@ class MinimizationService:
             reason = (
                 "This proposal has already been applied; use Undo/Redo or run a new calculation"
             )
-        elif report.outcome != "converged":
-            reason = f"Calculation is {report.outcome}; only validated converged results can Apply"
+        elif report.outcome != "converged" and not eligible_nonconvergence(report):
+            reason = (
+                f"Calculation is {report.outcome}; it does not meet the captured acceptance policy"
+            )
         if reason is None:
             current = {e.id: e for e in self._project(project_id).entries}
             moving = {ref.structure_id for ref in parameters.selection.atoms}
@@ -353,9 +357,14 @@ class MinimizationService:
         if not proposal.applicable:
             raise JobConflictError(str(proposal.unavailable_reason))
         report = proposal.report
+        nonconverged = eligible_nonconvergence(report)
+        if nonconverged and not payload.acknowledge_nonconvergence:
+            raise JobConflictError(
+                "Explicit acknowledgement is required to accept unconverged coordinates"
+            )
         if (
             report.maximum_gradient is None
-            or report.maximum_gradient > GRADIENT_TOLERANCE
+            or (not nonconverged and report.maximum_gradient > GRADIENT_TOLERANCE)
             or (
                 report.gradient_tolerance != GRADIENT_TOLERANCE
                 or report.initial_energy is None
@@ -491,6 +500,9 @@ class MinimizationService:
                 "revision": project.revision + 1,
                 "applied_at": datetime.now(UTC).isoformat(),
                 "entry_ids": [c["entry_id"] for c in changes],
+                "outcome": report.outcome,
+                "acceptance_policy": params.acceptance_policy,
+                "acknowledged_nonconvergence": nonconverged and payload.acknowledge_nonconvergence,
             },
         }
         return ProjectService(self.session).record_molecular_changes(
