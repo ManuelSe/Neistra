@@ -4846,3 +4846,15 @@ cross-panel synchronization pass. Existing explicit add/subtract remain. Full278
 frontend and focused17 Python pass; checkpoint evidence lives in the feature plan.
 This is C1 only: double-click/range and release qualification remain pending.
 No molecular, HTTP, persisted-schema, migration, dependency or version change.
+
+### D-121 implementation note — issue #90 M2/C2, 2026-10-20
+
+Pure indexed expansion and accepted-hit correlation now implement D-121. Native
+synthetic complexes prove complete residue/individual ligand selection with hidden
+H, stable camera/revision, both themes and desktop/mobile viewports. Real standalone
+SDF expansion also passes. Modified/empty/surface/navigation/movement/rebuild/blur/
+dispose paths clear correlation; unmapped nonmolecular loci retain their prior
+no-op behavior. This narrowly extends D-044 without a timer/drag recognizer or
+chemistry inference. Exact gates and the local self-review correction live in the
+feature plan. C3 range anchors and final release qualification remain pending.
+No HTTP/schema/migration/dependency/application-version/molecular-file change.

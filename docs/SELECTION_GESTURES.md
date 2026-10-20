@@ -25,7 +25,20 @@ empty viewer space clears selection only without modifiers. Camera dragging and
 explicit focus controls keep their existing behavior. Inspector operations retain
 their explicit replace/add/subtract controls.
 
-The issue #90 implementation is checkpointed. This document currently describes
-C1 entity toggling; double-click expansion and residue ranges remain pending until
-their checkpoints pass. See the
-[approved contract](plans/issue-90-selection-gestures.md) for scope and evidence.
+## Double-click expansion
+
+In Atom mode, an unmodified double-click replaces selection with the complete
+protein residue or individual assigned small-molecule component. This includes
+hidden atoms and explicit hydrogens without revealing them. A ligand inside a
+complex selects individually; other ligands and protein chains are excluded.
+Protein bond hits expand only when both endpoints belong to the same residue;
+nonpolymer bond hits must stay within one component.
+
+Single clicks remain immediate. Modified double-clicks retain ordinary modifier
+behavior. Ambiguous/unclassified material and unsupported polymers retain ordinary
+picking, with existing classification warnings preserved. No connectivity or
+proximity guesses establish molecule boundaries. Camera focus remains explicit.
+
+The issue #90 implementation is checkpointed. C1 toggles and C2 double-click
+expansion pass focused qualification; residue ranges and final release gates remain
+pending. See the [approved contract](plans/issue-90-selection-gestures.md).

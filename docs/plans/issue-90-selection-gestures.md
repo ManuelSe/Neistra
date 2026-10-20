@@ -2,7 +2,7 @@
 
 ## 1. Status, outcome, and authority
 
-**Status:** implementation in progress; M1/C1 complete, M2/C2 next.
+**Status:** implementation in progress; M1/C1 and M2/C2 complete, M3/C3 next.
 **Approval:** user's “Implement the plan.” on 2026-10-20, following the complete
 proposal. C0 persistence stopped as required. The explicit `/goal` request on
 2026-10-20 authorizes implementation and the complete verified delivery lifecycle.
@@ -547,3 +547,25 @@ cleanup. Until those events occur, mark them pending.
 - New user guidance: `docs/SELECTION_GESTURES.md`; toolbar help reflects C1.
   Double-click/ranges/compatibility/release remain pending. No external blocker.
   Next: M2/C2 native double-click expansion.
+
+### M2/C2 — Native double-click expansion, 2026-10-20
+
+- C1 committed as `e0769b1`. C2 resolves raw canonical picks through indexed
+  normalized residues and current derived component membership, including explicit
+  component atom IDs. Unclassified/unsupported targets do not expand. Native
+  dblclick correlates accepted Mol* hits without timers or replacing drag detection.
+- [Final C2 gate](../assets/selection-gestures/c2-final-gate.json):17 frontend,
+  7 Python classification/domain tests, ESLint/types/build/diff pass;6 native
+  browser cases pass /2 existing layout exclusions, in both themes/layouts.
+  Exact residue/individual-ligand references include hidden H; camera/revision
+  stay unchanged. [Standalone SDF supplement](../assets/selection-gestures/c2-standalone-gate.json)
+  passes2 native desktop/mobile cases. No retries or failing assertions.
+- Earlier [pre-review gate](../assets/selection-gestures/c2-initial-gate.json)
+  passed; local review then restored the old nonmolecular-loci no-op guard during
+  mapping extraction. Final gate qualifies the corrected runtime. This is not an
+  independent review. Listener teardown/generation/navigation/ownership reset and
+  mixed bond-hit refusal were reviewed; no consequential finding remains.
+- `docs/SELECTION_GESTURES.md` documents supported expansion and fallbacks.
+  No HTTP/schema/migration/dependency/version or molecular-file change. Existing
+  lazy-bundle advisory remains. Ranges, performance/compatibility/release remain
+  pending. No external blocker. Next: commit C2, then M3/C3.

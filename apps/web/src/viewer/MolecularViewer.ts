@@ -3,6 +3,7 @@ import type { SurfaceIdentity } from "./surface/objects";
 import type { InteractionRecord } from "../interactions/types";
 import type { SurfaceStatus } from "./surface/runtime";
 import type { MovementView } from "../coordinates/interactiveTransform";
+import type { ViewerPick } from "../selection/gestures";
 import type {
   MolecularProposalGeometry,
   AtomReference,
@@ -39,6 +40,7 @@ export interface ViewerSelectionEvent {
   atoms: AtomReference[];
   granularity: SelectionGranularity;
   mode: SelectionMode;
+  pick?: ViewerPick;
 }
 
 export type MovementInteraction = "inactive" | "transform" | "camera";

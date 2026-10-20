@@ -2,25 +2,24 @@
 
 ## Current milestone
 
-Issue #90 **M1/C1 complete; M2/C2 next**, under the
-[approved contract](plans/issue-90-selection-gestures.md). C0 commit8c001e3 was
-pushed and verified; the explicit `/goal` authorizes full implementation/delivery.
+Issue #90 **M1/C1 and M2/C2 complete; M3/C3 next**, under the
+[approved contract](plans/issue-90-selection-gestures.md). C1 commite0769b1 delivers
+shared entity toggling. C2 adds immediate-single/native-double-click expansion to
+one canonical protein residue or assigned individual nonpolymer component.
+D-120–122 retain accepted boundaries; [user guidance](SELECTION_GESTURES.md)
+describes implemented gestures. No implicit camera focus or chemistry inference.
 
-Shared Ctrl/Cmd whole-entity toggling is implemented across current selection
-views with matching Python algebra, unchanged explicit add/subtract, one modifier
-policy and async project/entry/artifact guards. D-120 records the accepted contract.
-[User guidance](SELECTION_GESTURES.md) describes current implemented behavior.
+[C2 final gate](assets/selection-gestures/c2-final-gate.json) passes17 frontend,
+7 Python, lint/types/build/diff and6 native browser cases /2 existing layout
+exclusions. [Standalone supplement](assets/selection-gestures/c2-standalone-gate.json)
+passes2 native desktop/mobile SDF cases. Exact membership, hidden H, both themes,
+camera and unchanged revision pass. Local review restored the nonmolecular-loci
+no-op guard; final evidence qualifies that corrected runtime. C1 all278 frontend
+remain recorded. No migration/schema/dependency/version change.
 
-[Focused gate](assets/selection-gestures/c1-initial-gate.json) passes17 Python,
-60 frontend, static/type/build and5 native browser cases /5 existing intentional
-layout exclusions. [Final frontend](assets/selection-gestures/c1-final-gate.json)
-passes all278 tests/lint/types/diff after updating one obsolete Ctrl-add assertion.
-Local checkpoint self-review finds no consequential issue. No migration/schema/
-dependency/version change; stable minor0.22.0 remains planned, not released.
-
-Known limits: double-click/ranges and final compatibility/release qualification
-remain pending. Hover/navigation redesign stays#91/#94/#95. No external blocker.
-Next: commit passing C1, then M2/C2 on the planned feature branch.
+Known limits: ranges and final performance/compatibility/release gates remain
+pending; hover/navigation redesign stays#91/#94/#95. No external blocker. Next:
+commit passing C2, then M3/C3. Stable minor0.22.0 remains planned, not released.
 
 ### Previous delivery baseline — v0.21.0
 
@@ -2530,8 +2529,8 @@ Results:
 
 ## Known limitations
 
-- Issue #90 C1 implements shared entity toggling. Atom-mode double-click and
-  anchored residue ranges remain pending, as do final compatibility/release gates.
+- Issue #90 C1/C2 implement shared toggle and Atom-mode double-click. Anchored
+  residue ranges and final compatibility/release qualification remain pending.
 - Historical pre-release issue #55 C1–C3 qualification recorded that v0.13.0 had the
   native-buffer defect until this correction is delivered.
   Scientific scope remains bounded by `interaction-v1`; #52 owns raw ligand
@@ -2628,13 +2627,13 @@ Results:
 
 ## Blockers
 
-No current external blocker. Issue #90 C1 passes its focused gates. C2–C4 and
+No current external blocker. Issue #90 C1/C2 pass their focused gates. C3/C4 and
 complete candidate/merged release and actual preceding-reader gates remain
-required; existing baseline results do not establish those outcomes.
+required; existing checkpoint results do not establish those outcomes.
 
 ## Next action
 
-Commit the passing issue #90 C1 checkpoint, then implement M2/C2 native double-click
-expansion on `feat/issue-90-selection-gestures`. The
+Commit the passing issue #90 C2 checkpoint, then implement M3/C3 fixed-anchor
+protein residue ranges on `feat/issue-90-selection-gestures`. The
 [approved feature plan](plans/issue-90-selection-gestures.md) governs subsequent
 checkpoints and publication. Existing published runtime tags remain fixed.

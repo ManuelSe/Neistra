@@ -13,6 +13,14 @@ No migration/schema/dependency/version change. Local checkpoint review only;
 double-click/ranges and final candidate/merged compatibility/release gates remain
 pending. The approved feature plan retains exact scope and source/log evidence.
 
+M2/C2 [final gate](assets/selection-gestures/c2-final-gate.json) passes17 frontend,
+7 Python, lint/types/build/diff and6 native browser cases /2 existing layout skips.
+Exact complex residue/ligand expansion retains hidden H and unchanged camera/
+revision in both themes/layouts. [Standalone SDF](assets/selection-gestures/c2-standalone-gate.json)
+passes2 native cases. Earlier pre-review gate is separate; final runtime restores
+nonmolecular-loci no-op behavior. No schema/migration/dependency/version change;
+ranges and final release qualification remain pending.
+
 ## Interactive minimization (issue #89)
 
 M1/C1 [final gate](assets/interactive-minimization/c1-gate.json) passes306 focused
