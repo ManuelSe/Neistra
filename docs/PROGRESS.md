@@ -25,8 +25,10 @@ actual older-reader cases pass. C6 checkpoint:282 Python/273 frontend/8 supervis
 21 native browser,3 intentional mobile timing exclusions; static/types/build pass.
 [Evidence](assets/interactive-minimization/c6-checkpoint-gate.json); fixed-only
 optimization deferred to verified#102. Final-version release gates remain.
-No external blocker. Next: qualification commit, release0.21.0 preparation and
-final gates/review/publication. The feature plan is detailed truth.
+C6 recovery/qualification committed asb1b7ba2. All five authoritative versions
+are prepared as0.21.0 (additive user-visible functionality, preserved schemas/APIs).
+No migration or dependency change. No external blocker. Next: complete clean
+final-version candidate gate, PR/review/merge and exact-master release qualification. The feature plan is detailed truth.
 
 ### Previous delivery baseline — v0.20.0
 

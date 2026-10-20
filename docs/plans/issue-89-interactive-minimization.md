@@ -449,3 +449,11 @@ merge/tag/release/reply verification; finish clean master.
   and profiling setup failures were corrected before this passing checkpoint.
   No structural migration/model/dependency/application-version change yet. Next:
   commit checkpoint, bump five versions0.21.0, complete clean candidate release gate.
+
+- C6 checkpoint committed asb1b7ba2. Refetched origin/master remainsf12dd18; merge
+  incorporates no additional changes. Stable latestv0.20.0, v0.21.0 absent remotely.
+  Prepared all five authoritative application versions0.21.0 and release notes.
+  Minor impact follows additive automatic/live/warned capabilities with unchanged
+  structural data/archive/API defaults, rather than issue labels. Stable history
+  already exists, so no speculative initial major/prerelease. No dependency update.
+  Next: complete clean candidate gate and final-version actual0.20 reader, then PR.
