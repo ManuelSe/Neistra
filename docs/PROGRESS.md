@@ -2,6 +2,33 @@
 
 ## Current milestone
 
+Issue #90 **C0 — approved planning checkpoint**. The
+[approved feature plan](plans/issue-90-selection-gestures.md) is the detailed
+implementation contract. Base `master` was fetched and fast-forward-checked at
+`9d56d25aa8d384109a4f11fdf3db9e0791257278`; the clean planned branch is
+`feat/issue-90-selection-gestures`. The plan was its first file change.
+
+Completed planning: requirement dispositions, shared Ctrl/Cmd entity toggling
+across current selection views, Atom-mode residue/component double-click,
+viewer-only fixed-anchor residue ranges, C1–C4 checkpoints, compatibility gates,
+and stable minor **0.22.0** release plan. D-120–122 append the accepted decisions;
+implementation is pending. Existing releases through v0.21.0 are remotely verified.
+No runtime/schema/migration/dependency/version changes belong to C0.
+
+Verification: proposal baseline passed **15 frontend / 20 Python tests** on the
+unchanged runtime source. C0 documentation checks passed for links, approved
+metadata, append-only decisions, unchanged global plan, and documentation-only
+scope. Matching local/remote planning-commit identity is verified in the C0
+handoff. Baseline results do not qualify the new gestures; all implementation and
+release gates remain pending.
+
+Known limitations: new gestures are unimplemented; hover and expanded component/
+sequence navigation remain #91/#94/#95. No external blocker. Next action after
+the C0 commit/push handoff: await `/goal` on the clean feature branch; do not start
+M1/C1 in the planning-persistence turn.
+
+### Previous delivery baseline — v0.21.0
+
 Issue #89 is implemented and released as stable [v0.21.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.21.0)
 in [PR#103](https://github.com/ManuelSe/Neistra/pull/103), under the [approved plan](plans/issue-89-interactive-minimization.md).
 Automatic complete context, validated conservative caches, transient native live
@@ -2508,6 +2535,9 @@ Results:
 
 ## Known limitations
 
+- Issue #90 is approved planning only. Shared toggle, Atom-mode double-click
+  expansion, and anchored residue ranges have not been implemented or qualified;
+  its feature plan governs the future work after `/goal`.
 - Historical pre-release issue #55 C1–C3 qualification recorded that v0.13.0 had the
   native-buffer defect until this correction is delivered.
   Scientific scope remains bounded by `interaction-v1`; #52 owns raw ligand
@@ -2604,14 +2634,14 @@ Results:
 
 ## Blockers
 
-No current external blocker. C1 passes its gates; C2's protein/context scientific
-qualification remains required before claiming that scope works. Failed scientific
-qualification requires a plan revision rather than weaker physics. Issue #81
-remains delivered.
+No current external blocker. Issue #90 is at C0, with implementation stopped until
+`/goal` under its approved plan. C1–C4, complete release gates, actual preceding-
+reader qualification, and review remain pending. Earlier released issue evidence
+does not establish acceptance of the new selection gestures.
 
 ## Next action
 
-Commit/push the passing issue #82 C1 checkpoint, then implement C2 explicit fixed
-protein context and multi-entry calculation. Keep later Apply/UI/release work in
-their planned checkpoints. The feature plan remains the detailed source of truth.
-Issue #81's published runtime tag remains fixed.
+After the required issue #90 C0 documentation commit/push handoff, stop on
+`feat/issue-90-selection-gestures` and await `/goal` for M1/C1. The
+[approved feature plan](plans/issue-90-selection-gestures.md) remains the detailed
+source of truth. Existing published runtime tags remain fixed.
