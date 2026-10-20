@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { current, panel, prepared, select, structures } from "./support/minimization";
+import { configure, current, panel, prepared, select, structures } from "./support/minimization";
 import { previewState } from "./support/modeling";
 import { prepare } from "./support/interactions";
 
@@ -22,10 +22,6 @@ for (const scenario of ["isolated", "isolated-whole", "same-entry", "separate", 
   if (specimen === "isolated") await page.keyboard.press("Control+m");
   else {
     await min.click();
-    await panel(page).getByRole("combobox", { name: "Minimization mode" }).selectOption("environment");
-    if (scenario === "pocket-ligand") await panel(page).locator(".minimization-context").getByRole("checkbox", { checked: false }).check();
-    await expect(panel(page).getByRole("button", { name: "Run minimization" })).toBeEnabled();
-    await panel(page).getByRole("button", { name: "Run minimization" }).click();
   }
   const apply = panel(page).getByRole("button", { name: "Apply coordinates" });
   await expect(apply).toBeEnabled({ timeout: 60000 });
@@ -58,6 +54,7 @@ test("inspects non-convergence and discards a native preview without a canonical
   const before = await structures(request, p);
   await select(page, p.entries[0].atom_ids.map(atom_id => ({ structure_id: p.entries[0].id, atom_id })), info.project.name === "mobile-chromium");
   await page.getByRole("button", { name: "Minimize selection", exact: true }).click();
+  await configure(page);
   await panel(page).getByRole("spinbutton", { name: "Minimization iterations" }).fill("1");
   await panel(page).getByRole("button", { name: "Run minimization" }).click();
   await expect(panel(page).getByText("non converged", { exact: false })).toBeVisible({ timeout: 60000 });

@@ -53,8 +53,8 @@ data/history/archives, while new H building needs the current client/server.
 Earlier schema downgrade guards remain binding. Back up the complete managed data
 directory before changing versions.
 
-Open **Minimize selection** beside Edit for isolated relaxation or explicitly chosen
-fixed protein context. **Ctrl+M** immediately starts an isolated calculation of the
+Invoke **Minimize selection** beside Edit for automatic complete nearby molecular
+context. **Ctrl+M** immediately starts an automatic calculation of the
 captured selection; inspect its report/preview and choose **Apply coordinates** for
 one reversible edit. Complete existing topology/H and the separately installed
 [locked native toolchain](tools/README.md) are required. See

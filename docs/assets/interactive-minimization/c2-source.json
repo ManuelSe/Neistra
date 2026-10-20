@@ -1,0 +1,23 @@
+{
+  "base_commit": "f9f4c6f6abdc462c4d92c3f8d3da0b40fa69c321",
+  "files": {
+    "apps/api/src/molweave_api/main.py": "3bdbf7e87d7c64eff4467d6ed59a1561a24631819c5f54e334dbc34179c84a4b",
+    "apps/api/src/molweave_api/minimization_schemas.py": "6e95ef180041658964c671e3b52874c5d5cc1650c531a133e0c63e50ff9173fe",
+    "apps/api/src/molweave_api/minimization_service.py": "dd30704a763d03bcd0fe9c3ee647c252cecdff02b74bb8b5b314f14aff579825",
+    "apps/web/src/api/types.ts": "e7ba67098c40bc353b57d1a2dad6bbcaaea14f78af9c76513ca366654b8f2b48",
+    "apps/web/src/components/MinimizationPanel.tsx": "24d43aaa585bd4dee3d4afff5699b46491a2bd68cdb957f2b7b6d69956efdd61",
+    "apps/web/src/minimization/context.ts": "2122a147bb7be406c3d72ccf64645f2361c74a17c4906c2196466710dafc1f62",
+    "apps/web/src/minimization/store.ts": "9e55a22e3975791ed2a289808b6d84550193ebcbdfc396d7eb2361fc88c4d911",
+    "apps/web/src/minimization/useMinimization.ts": "6e7ae0202fe9c6b27ca376e792444b570529d481d197c2c5551efbec88285600",
+    "apps/web/src/test/minimization.test.tsx": "64905ba1d32ac8b8b98fbd6e8bf182f70777145ebc7a87e6c13ebc0ec8d2d61a",
+    "packages/molweave_core/src/molweave_core/minimization/contracts.py": "0ee590d468d7246147cda5a352b8b1bb814ef53c5faad0887d649719e2e0e0ff",
+    "packages/molweave_core/src/molweave_core/minimization/discovery.py": "2629982da414d0fcca7a2feb308485ddb17924fe823e4e5ee57871e34a53bd47",
+    "tests/e2e/minimization-accessibility.spec.ts": "aa5f3c9cb974415e2f9137dd592209534e6ca1fc2f9e1feb2caec6d973cde206",
+    "tests/e2e/minimization-performance.spec.ts": "e1c588671ee4a9786afc8fafd7e9ae079d12e534178e865130d7f6908020fdab",
+    "tests/e2e/selection-minimization.spec.ts": "087af11c11baea48c3c0f502ef786a3de004b8a988ac90b414e4023eff9d27ed",
+    "tests/e2e/support/minimization.ts": "afc20f85a55eeeec7a3e11cff41c8a2e4a5a9a5e3fc6033f5afea845fd766637",
+    "tests/integration/test_minimization_automatic.py": "276567c670e4fb6a68c146e8e09b46a4b018f50a506eea8cef605512952a2fce",
+    "tests/unit/minimization/test_discovery.py": "c04dc54fac138e79dee1dff22666c579d5f34ca3ef3fdc6466ac8dddce0bbcab"
+  },
+  "source_sha256": "2ad3ad5af899d91caa50c84751aac4bd637e2ebc22a21b0810a3fac3f2732b04"
+}

@@ -807,6 +807,18 @@ Cheap membership capture executes at submission; expensive scientific preflight,
 parameterization, optimization and final scientific checks remain in the worker.
 Generic `/jobs` submission of `coordinates.minimize` refuses; use this endpoint.
 
+Explicit `mode: "automatic"` omits manual `context` and `conformers`; conflicting
+nonempty values return422. The backend captures current active conformers, complete
+mandatory components/chains and complete additional components within12Å of mandatory
+components. Discovery is nonrecursive and includes hidden/unsupported nearby material;
+scientific preflight refuses incompatible inputs instead of dropping them. Automatic
+captures use calculation-parameter schema2 with `context_policy: "automatic"` and
+resolved `mode: "isolated" | "environment"`. Explicit legacy requests retain schema1
+and exact serialization. Project/viewer/archive/normalized schemas do not change.
+Automatic Apply eligibility also rechecks final-position/current-project discovery;
+newly relevant omitted context requires rerun. Capture/eligibility/publication execute
+off the HTTP event loop; native computation remains in the worker.
+
 Proposal responses include schema1, `job_id`, `proposal_sha256`, typed `report`,
 selected-coordinate `entries`, `applicable` and `unavailable_reason`. A completed
 job may contain a blocked/failed/non-converged/unchanged scientific report; only

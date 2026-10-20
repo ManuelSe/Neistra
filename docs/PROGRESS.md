@@ -3,16 +3,17 @@
 ## Current milestone
 
 Issue #89 is approved under the [interactive minimization plan](plans/issue-89-interactive-minimization.md).
-Plan-only C0 is committed/pushed as a00ca90 on feat/issue-89-interactive-minimization.
-M1/C1 implements resident-memory supervision, specific identity diagnostics and
-authored-atom provenance (D-113). Final C1 gate passes306 Python,265 frontend,
-8 supervisor and2 native browser tests; Ruff/mypy/lint/types/build/fresh0014/diff
-pass. [Evidence](assets/interactive-minimization/c1-gate.json) retains exact commands
-and compressed logs; [local review](assets/interactive-minimization/c1-review.md)
-is self-review. No migration, structural schema,
-dependency or application-version change. Automatic context/cache/live interaction
-remain C2–C5; complete scientific/compatibility/release qualification remains C6.
-No blocker. Next: C2 automatic context after the coherent C1 commit.
+Plan-only C0 is committed/pushed as a00ca90; M1/C1 is f9f4c6f on the planned branch.
+C1 adds RSS supervision/identity diagnostics/authored provenance (D-113).
+M2/C2 adds automatic complete context and current/final-position negative-dependency
+checks (D-114), immediate Ctrl+M/button and retained manual/isolation controls.
+[C2 evidence](assets/interactive-minimization/c2-gate.json):206 Python,265 frontend,
+8 supervisor,19 native browser passes/3 intentional layout skips; lint/types/build,
+fresh0014 and unchanged prepared1STP/18k preview budgets pass. [Review](assets/interactive-minimization/c2-review.md)
+is local self-review. Calculation parameters gain schema2; v1 semantics/readers remain
+supported. No structural migration/schema/dependency/application-version/model change.
+Cache/live/warned acceptance remain C3–C5, final compatibility/release C6. Existing
+bundle/Vite-disconnect advisories retained. No blocker. Next: C3 validated cache.
 
 ### Previous delivery baseline — v0.20.0
 

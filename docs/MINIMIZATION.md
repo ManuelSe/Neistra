@@ -1,20 +1,26 @@
 # Selection minimization
 
-Select atoms, then open **Minimize selection** (the lightning icon beside **Edit
-molecule**). **Ctrl+M** starts an isolated calculation immediately, with the current
+Select atoms, then invoke **Minimize selection** (the lightning icon beside **Edit
+molecule**) or **Ctrl+M**. Both start an automatic-context calculation immediately, with the current
 selection captured and a maximum of 500 iterations. The shortcut ignores text
 fields, modal dialogs and repeated keypresses. It opens progress and the report;
 coordinates change only after **Apply coordinates**.
 
-Use the panel to change iterations or choose **Explicit environment** before Run.
-An isolated calculation includes the complete selected molecule. Environment mode
-includes mandatory complete covalent components and protein chains containing
-selected atoms; choose additional complete chains/molecules explicitly. Nearby
-candidates are discovered within 12 Å, and **Show all components** exposes others.
-Hidden entries are labelled and remain eligible. Visibility never chooses physical
-context. The panel lists included/excluded candidates, movable/fixed counts and
-captured active conformers. Selections spanning separate molecules require explicit
-environment mode. No entry merging or cross-entry covalent bonds are created.
+Automatic mode includes complete covalent components/protein chains containing
+selected atoms, plus complete components within12Å of those mandatory components.
+Discovery is nonrecursive, across entries and independent of visibility. The server
+captures current active conformers and reports the resolved fixed context. No nearby
+component is silently omitted because it cannot be parameterized; the job refuses
+with a preparation/unsupported-chemistry diagnostic. If no additional component is
+nearby and only one component is required, the report explicitly identifies isolation.
+
+**Minimization settings** cancels/supersedes a running interactive request and opens
+setup. Change iterations or choose **Isolated molecule** / **Explicit environment**.
+An isolated calculation includes the complete selected molecule; explicit environment
+lets you choose additional complete chains/molecules. **Show all components** exposes
+distant manual candidates. The setup lists counts and active conformers. Automatic
+multi-entry selections need no separate manual context selection. No entry merging
+or cross-entry covalent bonds are created.
 
 The model requires the separately installed [locked native toolchain](../tools/README.md)
 on Linux x86-64, complete assigned topology, explicit existing H and supported
@@ -55,6 +61,8 @@ Discard removes the display without a molecular edit.
 
 Apply revalidates every selected and fixed dependency, active conformer, result
 digest and movable-entry lock. Changed source/context requires a new calculation;
+automatic mode also rechecks discovery against current project structures and final
+positions. Newly relevant omitted context blocks Apply and requires a rerun;
 unrelated edits are allowed when all exact dependencies still match. Fixed locked
 entries may be included; selected locked entries cannot move. One atomic Apply
 updates all affected entries and creates one **Undo: Apply selection minimization**

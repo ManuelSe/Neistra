@@ -78,9 +78,19 @@ export function calculationComponents(
 
 export function minimizationRequest(
   project: Project, selection: Selection, sources: ReadonlyMap<string, CalculationSource>,
-  components: ContextComponent[], included: ReadonlySet<string>, mode: "isolated" | "environment", iterations: number,
+  components: ContextComponent[], included: ReadonlySet<string>, mode: "isolated" | "environment" | "automatic", iterations: number,
 ): MinimizationRequest {
   if (!Number.isSafeInteger(iterations) || iterations < 1 || iterations > 2000) throw new Error("Choose between 1 and 2000 iterations.");
+  if (mode === "automatic") {
+    if (!selection.atoms.length || selection.atoms.length > 2000) throw new Error("Select between 1 and 2000 movable atoms.");
+    for (const ref of selection.atoms) {
+      const entry = project.entries.find(e => e.id === ref.structure_id);
+      const source = sources.get(ref.structure_id);
+      if (!entry || entry.current_artifact_id !== source?.artifactId || !source?.structure.atoms.some(a => a.id === ref.atom_id)) throw new Error("A selected source changed or is unavailable. Refresh setup.");
+      if (entry.locked) throw new Error(`Unlock ${entry.name} before selecting movable atoms.`);
+    }
+    return { expected_revision: project.revision, mode, selection, max_iterations: iterations };
+  }
   const chosen = components.filter(c => c.mandatory || (mode === "environment" && included.has(c.key)));
   const byEntry = new Map<string, number[]>();
   for (const component of chosen) {

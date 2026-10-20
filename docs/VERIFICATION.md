@@ -14,6 +14,20 @@ is implementer self-review. No migration/schema/dependency/version/model change.
 This is C1 evidence only: automatic context/cache/live/acceptance and actual0.20
 reader/final release qualification remain later checkpoints.
 
+M2/C2 [gate](assets/interactive-minimization/c2-gate.json) passes206 focused Python,
+265 frontend,8 supervisor and19 native browser/3 intentional layout exclusions.
+Static/type/build, fresh0014 in isolated browser stacks and existing prepared1STP/
+18k performance assertions pass. Automatic discovery keeps full canonical components/
+chains, includes hidden cross-entry context, does not recurse and captures unsupported
+neighbors for whole-job refusal. Native Apply blocks newly nearby omitted context.
+Exact partial/full/multi-entry Undo/Redo, manual controls, keyboard/320px/zoom pass.
+Operation schema2 retains resolved model and policy; v1 serialization stays exact.
+[Review](assets/interactive-minimization/c2-review.md) is local self-review; initial
+fixture-order diagnostic is retained separately. No structural schema/migration/
+dependency/application version/model change. Actual old-reader/cache/live/acceptance/
+release qualification remain later checkpoints. Vite proxy disconnect resets and
+existing bundle warnings remain disclosed, without failing workflow assertions.
+
 ## Selection minimization (issue #82, C1–C6)
 
 The [approved feature plan](plans/issue-82-selection-minimization.md) is the

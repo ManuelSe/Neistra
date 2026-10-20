@@ -2,13 +2,20 @@ from __future__ import annotations
 
 from typing import Literal
 
-from pydantic import BaseModel, ConfigDict, Field, model_validator
+from pydantic import (
+    BaseModel,
+    ConfigDict,
+    Field,
+    SerializerFunctionWrapHandler,
+    model_serializer,
+    model_validator,
+)
 
 from molweave_core.selection import SelectionV1
 
 MODEL: Literal["amber-local-v1"] = "amber-local-v1"
 JOB_TYPE = "coordinates.minimize"
-IMPLEMENTATION_VERSION = "1.0.0"
+IMPLEMENTATION_VERSION = "1.1.0"
 GRADIENT_TOLERANCE = 10.0  # kJ mol^-1 nm^-1, maximum movable component
 
 
@@ -58,15 +65,25 @@ class CapturedInput(BaseModel):
 class MinimizationParameters(BaseModel):
     model_config = ConfigDict(frozen=True, extra="forbid")
 
-    schema_version: Literal[1] = 1
+    schema_version: Literal[1, 2] = 1
     model: Literal["amber-local-v1"] = MODEL
     mode: Literal["isolated", "environment"] = "isolated"
+    context_policy: Literal["manual", "automatic"] = "manual"
     selection: SelectionV1
     captured_inputs: list[CapturedInput] = Field(min_length=1, max_length=100)
     max_iterations: int = Field(default=500, ge=1, le=2_000)
 
+    @model_serializer(mode="wrap")
+    def versioned_dump(self, handler: SerializerFunctionWrapHandler) -> dict[str, object]:
+        result: dict[str, object] = handler(self)
+        if self.schema_version == 1:
+            result.pop("context_policy", None)
+        return result
+
     @model_validator(mode="after")
     def unique_nonempty_capture(self) -> MinimizationParameters:
+        if self.schema_version == 1 and self.context_policy != "manual":
+            raise ValueError("Automatic context requires calculation schema2")
         if not self.selection.atoms or len(self.selection.atoms) > 2_000:
             raise ValueError("Select between 1 and 2000 movable atoms")
         entries = [item.entry_id for item in self.captured_inputs]

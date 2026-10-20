@@ -3,7 +3,7 @@ import { chromium, expect, test, type Page, type Worker } from "@playwright/test
 import { mkdtemp, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { panel, prepared, select } from "./support/minimization";
+import { configure, panel, prepared, select } from "./support/minimization";
 
 async function bounded(page: Page) {
   const box = await panel(page).boundingBox(); expect(box).not.toBeNull();
@@ -29,11 +29,12 @@ test("keeps native minimization controls reachable by keyboard and touch at 320p
     if (theme === "dark") await page.getByRole("button", { name: "Use dark theme" }).click();
     await button.focus(); await page.keyboard.press("Enter");
     await expect(panel(page)).toBeFocused();
+    await configure(page);
     await expect(panel(page).getByRole("button", { name: "Run minimization" })).toBeEnabled();
     await bounded(page);
     const help = panel(page).getByRole("button", { name: "Model and prerequisites" });
     if (await help.getAttribute("aria-expanded") === "false") await help.click();
-    await expect(panel(page)).toContainText("Ctrl+M starts an isolated calculation");
+    await expect(panel(page)).toContainText("Ctrl+M starts an automatic environment calculation");
     await page.screenshot({ path: info.outputPath(`${theme}-320-minimization.png`) });
     await panel(page).getByRole("button", { name: "Close minimization" }).focus(); await page.keyboard.press("Escape");
     await expect(panel(page)).toBeHidden(); await expect(button).toBeFocused();
@@ -67,6 +68,7 @@ test("preserves capture and keyboard focus across responsive remounts at actual 
     for (const theme of ["light", "dark"]) {
       if (theme === "dark") await page.getByRole("button", { name: "Use dark theme" }).click();
       await page.getByRole("button", { name: "Minimize selection", exact: true }).click();
+      await configure(page);
       await expect(panel(page).getByRole("button", { name: "Run minimization" })).toBeEnabled();
       for (const factor of [1, 1.25, 1.5, 2, 1]) {
         expect(await zoom(worker, baseURL!, factor)).toBe(factor);

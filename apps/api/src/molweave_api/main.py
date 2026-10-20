@@ -645,7 +645,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         response_model=JobRead,
         status_code=status.HTTP_201_CREATED,
     )
-    async def submit_minimization(
+    def submit_minimization(
         project_id: str,
         payload: MinimizationCreate,
         session: Session = Depends(session_dependency),
@@ -661,7 +661,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         "/projects/{project_id}/minimizations/{job_id}/proposal",
         response_model=MinimizationProposalRead,
     )
-    async def minimization_proposal(
+    def minimization_proposal(
         project_id: str,
         job_id: str,
         session: Session = Depends(session_dependency),
@@ -673,7 +673,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         )
 
     @router.post("/projects/{project_id}/minimizations/{job_id}/apply", response_model=ProjectRead)
-    async def apply_minimization(
+    def apply_minimization(
         project_id: str,
         job_id: str,
         payload: MinimizationApply,

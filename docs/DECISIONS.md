@@ -4556,3 +4556,34 @@ remains strict; this checkpoint does not invent evidence for unknown legacy atom
 
 No new structural schema, history action, migration, dependency or force-field model.
 Automatic context, caching, live display and warned acceptance remain later checkpoints.
+
+## D-114 — Automatic complete context is canonical, nonrecursive and revalidated
+
+Accepted 2026-10-20 under issue89 M2/C2. Supersedes D-109's isolated UI default and
+manual confirmation requirement only for explicitly requested automatic mode.
+Minimize/Ctrl+M now request automatic capture of current active conformers. Omitted
+mode on the existing API still means isolation; explicit environment/conformer
+confirmation retains its meaning. New automatic captures use operation schema2;
+schema1 decoding and exact serialization remain supported. No structural schema
+change or force-field change; implementation version becomes1.1.0.
+
+Union canonical bonds and full polymer chains for mandatory and optional membership.
+Discover within12Å of complete mandatory components, not recursively from optional
+ones. Stream candidate entries through a bounded spatial query; visibility/categories
+never filter physical inputs. Capture unsupported nearby components too, so scientific
+preflight refuses instead of silently dropping them. Existing atom/entry/organic
+limits refuse oversized work without cropping/caps. No additional neighbors plus
+one mandatory component resolves explicitly to isolation; multiple components use
+the existing qualified nonperiodic environment model.
+
+Revalidate automatic discovery against proposed final selected coordinates and current
+project structures before publication, under the existing Apply writer lock. Retain
+captured supersets; new required omitted components invalidate Apply. This includes
+negative dependencies such as a previously distant entry moving nearby. Native
+parameter generation remains in the worker; discovery/capture/proposal/Apply handlers
+run off the HTTP event loop. Unknown geometry cannot establish exclusion automatically.
+Advanced settings retain explicit isolation/manual context; superseding an automatic
+job requests cancellation and gives the new draft a fresh generation.
+
+No database migration/new history action; actual previous-reader retention remains
+the final compatibility gate. Live display/cache/warned acceptance remain C3–C5.

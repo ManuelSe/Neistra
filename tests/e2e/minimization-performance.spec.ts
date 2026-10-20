@@ -1,7 +1,7 @@
 import { readFile, writeFile } from "node:fs/promises";
 import { expect, test } from "@playwright/test";
 import { prepare } from "./support/interactions";
-import { current, panel, select } from "./support/minimization";
+import { configure, current, panel, select } from "./support/minimization";
 import { previewState } from "./support/modeling";
 
 declare global { interface Window { minimizationTasks: { longest: number; observer: PerformanceObserver }; minimizationPreviewTime: Promise<number> } }
@@ -25,6 +25,7 @@ for (const copies of [1, 8]) test(`bounds real ${copies === 1 ? "prepared1STP po
   const writes: { path: string; body: unknown }[] = [];
   page.on("request", request => { if (request.method() === "POST") writes.push({ path: new URL(request.url()).pathname, body: request.postDataJSON() }); });
   await page.getByRole("button", { name: "Minimize selection", exact: true }).click();
+  await configure(page);
   await panel(page).getByRole("combobox", { name: "Minimization mode" }).selectOption("environment");
   await panel(page).getByRole("checkbox", { name: "Show all components" }).check();
   const optional = panel(page).locator(".minimization-context").getByRole("checkbox", { checked: false });
@@ -36,6 +37,7 @@ for (const copies of [1, 8]) test(`bounds real ${copies === 1 ? "prepared1STP po
     value.observer = new PerformanceObserver(list => { for (const entry of list.getEntries()) value.longest = Math.max(value.longest, entry.duration); });
     value.observer.observe({ type: "longtask", buffered: false }); window.minimizationTasks = value;
   });
+  writes.length = 0;
   const start = Date.now(); await panel(page).getByRole("button", { name: "Run minimization" }).click();
   await expect(panel(page).getByRole("button", { name: "Apply coordinates" })).toBeEnabled({ timeout: 180000 });
   const calculation = Date.now() - start;

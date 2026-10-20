@@ -365,3 +365,16 @@ merge/tag/release/reply verification; finish clean master.
   migration/schema/dependency/version/model change. Archive round-trip and existing
   molecular history tests pass; actual preceding-reader qualification remains C6.
   No blocker. Next: commit C1, then C2 automatic discovery/capture/UI.
+- M1/C1 committed as f9f4c6f. M2/C2 implements canonical nonrecursive12Å discovery,
+  schema2 automatic capture with legacyv1 semantics, negative/final-position context
+  validation, immediate toolbar/Ctrl+M and retained manual setup. D-114 records bounded
+  supersession; global PLAN remains intact. Final206 Python/265 web/8 supervisor/
+  19 native browser pass,3 intentional mobile layout skips; static/types/build,
+  fresh0014 and unchanged prepared1STP/18k performance bounds pass. Evidence:
+  [gate](../assets/interactive-minimization/c2-gate.json),
+  [source](../assets/interactive-minimization/c2-source.json),
+  [local review](../assets/interactive-minimization/c2-review.md). Initial fixture-order
+  failure was corrected without product changes; Vite disconnect reset/bundle
+  advisories retained. No migration/structural-schema/dependency/application-version/
+  physical-model change. Actual previous-reader retention remains C6. No blocker.
+  Next: coherent C2 commit, then C3 validated parameter reuse.

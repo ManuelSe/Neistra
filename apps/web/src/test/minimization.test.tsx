@@ -93,7 +93,7 @@ function workflow() {
   const hook = renderHook(() => useMinimization(p, selection, commit), { wrapper });
   return { ...hook, client, commit, p };
 }
-it("Ctrl+M captures, submits isolated work exactly once and never implicitly applies coordinates", async () => {
+it("Ctrl+M captures, submits automatic work exactly once and never implicitly applies coordinates", async () => {
   const source = vi.spyOn(minimizationApi, "source").mockResolvedValue(sources().get("protein")!.structure);
   vi.spyOn(minimizationApi, "capabilities").mockResolvedValue({ model: "amber-local-v1", available: true, unavailable_reason: null, prerequisites: [], scientific_limits: [], limits: {} });
   const submit = vi.spyOn(minimizationApi, "submit").mockResolvedValue({ id: "job", status: "cancelled" } as Job);
@@ -101,7 +101,8 @@ it("Ctrl+M captures, submits isolated work exactly once and never implicitly app
   const w = workflow();
   await act(async () => { const first = w.result.current.quick(); await w.result.current.quick(); await first; });
   expect(source).toHaveBeenCalledOnce(); expect(submit).toHaveBeenCalledOnce();
-  expect(submit.mock.calls[0][1]).toMatchObject({ mode: "isolated", selection, context: [], conformers: { protein: 7 }, max_iterations: 500 });
+  expect(submit.mock.calls[0][1]).toMatchObject({ mode: "automatic", selection, max_iterations: 500 });
+  expect(submit.mock.calls[0][1].context).toBeUndefined(); expect(submit.mock.calls[0][1].conformers).toBeUndefined();
   expect(apply).not.toHaveBeenCalled(); expect(w.commit).not.toHaveBeenCalled();
   expect(w.result.current.state.jobId).toBe("job"); w.client.clear();
 });

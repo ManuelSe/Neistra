@@ -1,0 +1,103 @@
+{
+  "native_prefix": "/datadisk/dev/.neistra-tools/ambertools-24.8",
+  "native_threads": 1,
+  "python_pass": 206,
+  "web_pass": 265,
+  "supervisor_pass": 8,
+  "browser_pass": 19,
+  "browser_intentional_skips": 3,
+  "browser_data_dirs": [
+    "/tmp/neistra89-e2e-c2",
+    "/tmp/neistra89-e2e-c2-performance"
+  ],
+  "browser_ports": [
+    [
+      8310,
+      8311,
+      5473
+    ],
+    [
+      8410,
+      8411,
+      5573
+    ]
+  ],
+  "fresh_migration": "0014 from empty, browser logs",
+  "commands": [
+    {
+      "label": "python",
+      "command": ".venv/bin/uv run pytest tests/unit/minimization tests/scientific/test_minimization_context.py tests/integration/test_minimization_automatic.py tests/integration/test_minimization_jobs.py tests/integration/test_minimization_apply.py -q",
+      "exit_code": 0,
+      "log": "docs/assets/interactive-minimization/c2-python.log.gz",
+      "log_sha256": "9747c95f78c50dc39654642534db9b55066a6aabccda5c43ef902b4c30195a3f"
+    },
+    {
+      "label": "web-tests",
+      "command": "corepack pnpm --dir apps/web test",
+      "exit_code": 0,
+      "log": "docs/assets/interactive-minimization/c2-web-tests.log.gz",
+      "log_sha256": "f7d4f5b3943392ed1062bf46866c9cc9a1a8c9eefe52c696e52bb8adea34fbb8"
+    },
+    {
+      "label": "types",
+      "command": "corepack pnpm --dir apps/web typecheck",
+      "exit_code": 0,
+      "log": "docs/assets/interactive-minimization/c2-types.log.gz",
+      "log_sha256": "ec6984d22c581279ab7f6a640391cd633bb6646f462629997e329b1c1ff4168f"
+    },
+    {
+      "label": "lint",
+      "command": "corepack pnpm --dir apps/web lint",
+      "exit_code": 0,
+      "log": "docs/assets/interactive-minimization/c2-lint.log.gz",
+      "log_sha256": "407542146a7a0d45aea91983bf120b74ed122a75e21e47383d8bcfd8a1f84177"
+    },
+    {
+      "label": "ruff",
+      "command": ".venv/bin/uv run ruff check .",
+      "exit_code": 0,
+      "log": "docs/assets/interactive-minimization/c2-ruff.log.gz",
+      "log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "label": "mypy",
+      "command": ".venv/bin/uv run mypy apps/api packages/molweave_core",
+      "exit_code": 0,
+      "log": "docs/assets/interactive-minimization/c2-mypy.log.gz",
+      "log_sha256": "7aebc3c9c840c3e075d7701a826136c2571eab60a0ce5c94514098ba0869deaa"
+    },
+    {
+      "label": "supervisor",
+      "command": "corepack pnpm test:dev",
+      "exit_code": 0,
+      "log": "docs/assets/interactive-minimization/c2-supervisor.log.gz",
+      "log_sha256": "a961aaaf346a3113375a1907dae9d8d716551b495aa5d03a8c3434fe930e9fe0"
+    },
+    {
+      "label": "build",
+      "command": "corepack pnpm --dir apps/web build",
+      "exit_code": 0,
+      "log": "docs/assets/interactive-minimization/c2-build.log.gz",
+      "log_sha256": "9ac66740b495935124a095910c1d51bb117555b9ab4186149545bee74921c6d9"
+    },
+    {
+      "label": "browser",
+      "command": "corepack pnpm exec playwright test tests/e2e/selection-minimization.spec.ts tests/e2e/minimization-accessibility.spec.ts",
+      "exit_code": 0,
+      "log": "docs/assets/interactive-minimization/c2-browser.log.gz",
+      "log_sha256": "0f7201167be310448c9987bc88bc4177360a68eb226f54ddc598506ab3394e3f"
+    },
+    {
+      "label": "performance",
+      "command": "corepack pnpm exec playwright test tests/e2e/minimization-performance.spec.ts",
+      "exit_code": 0,
+      "log": "docs/assets/interactive-minimization/c2-performance.log.gz",
+      "log_sha256": "01c284a3e38c6f04f0ea6cb7abdee56b7d70042a1e70106f5344a1a6c9fd76d4"
+    }
+  ],
+  "known_advisories": [
+    "Vite proxy ECONNRESET on browser disconnect; all workflow assertions pass",
+    "Existing lazy Molstar bundle size warning"
+  ],
+  "diagnostic_initial": "One failed fixture-order assumption, corrected to identify entries by canonical source; final tests pass."
+}

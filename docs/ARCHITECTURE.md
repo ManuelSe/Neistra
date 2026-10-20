@@ -471,3 +471,14 @@ App invalidates numerical/minimization preview ownership in both directions befo
 asynchronous capture and clears geometry before canonical mutation. Query revision
 changes refresh applicability without duplicating report cache entries. Server
 validation remains authoritative. See D-111 and [user workflow](MINIMIZATION.md).
+
+### Automatic minimization context (issue89 C2)
+
+The domain discovery service unions canonical bonds/full polymer chains and queries
+nearby coordinates around complete mandatory components. The API streams candidate
+entries independently of display visibility and owns automatic active-conformer
+capture. Version2 operation parameters retain the resolved isolated/environment model
+and automatic policy; legacy schema1/manual captures retain exact serialization.
+Proposal/Apply recheck current and final-position discovery, including newly relevant
+previously omitted components. Native preparation stays in the worker; synchronous
+discovery/publication handlers execute in FastAPI's thread pool. See D-114.

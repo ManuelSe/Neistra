@@ -6,7 +6,7 @@ export interface MinimizationDraft {
   project: Project;
   selection: Selection;
   sources: ReadonlyMap<string, CalculationSource>;
-  mode: "isolated" | "environment";
+  mode: "isolated" | "environment" | "automatic";
   included: ReadonlySet<string>;
   iterations: number;
   loadedAll: boolean;
@@ -36,7 +36,7 @@ export const useMinimizationStore = create<MinimizationState>((set, get) => ({
   begin: (project, selection) => {
     const generation = get().generation + 1;
     set({ ...empty, projectId: project.id, generation, open: true, loading: true,
-      draft: { project, selection: { ...selection, atoms: selection.atoms.map(a => ({ ...a })) }, sources: new Map(), mode: "isolated", included: new Set(), iterations: 500, loadedAll: false } });
+      draft: { project, selection: { ...selection, atoms: selection.atoms.map(a => ({ ...a })) }, sources: new Map(), mode: "automatic", included: new Set(), iterations: 500, loadedAll: false } });
     return generation;
   },
   inspect: (projectId, jobId) => set(state => ({ ...empty, projectId, jobId, open: true, generation: state.generation + 1 })),

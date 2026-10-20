@@ -39,3 +39,10 @@ export async function structures(request: APIRequestContext, p: Project) {
   return Object.fromEntries(await Promise.all(p.entries.map(async e => [e.id, (await (await request.get(`/api/v1/projects/${p.id}/entries/${e.id}/structure`)).json()).structure as NormalizedStructure])));
 }
 export const panel = (page: Page) => page.getByRole("dialog", { name: "Minimize selection", exact: true });
+
+export async function configure(page: Page) {
+  const settings = panel(page).getByRole("button", { name: "Minimization settings", exact: true });
+  await expect(settings).toBeEnabled({ timeout: 30000 });
+  await settings.click();
+  await expect(panel(page).getByRole("button", { name: "Run minimization", exact: true })).toBeEnabled({ timeout: 30000 });
+}

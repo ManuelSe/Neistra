@@ -56,10 +56,10 @@ export function useMinimization(project: Project | undefined, selection: Selecti
     return [id, { artifactId, structure }] as const;
   })));
   const message = (error: unknown) => error instanceof Error ? error.message : "Minimization request failed.";
-  const begin = async (immediate = false) => {
+  const begin = async (immediate = false, replacing = false) => {
     if (!project || useWorkspaceStore.getState().activeProjectId !== project.id) return;
     const current = useMinimizationStore.getState();
-    if (current.loading || current.applying || (open && job && ["queued", "running"].includes(job.status))) return;
+    if (current.loading || current.applying || (!replacing && open && job && ["queued", "running"].includes(job.status))) return;
     beforeStart?.();
     const generation = state.begin(project, selection);
     try {
@@ -72,7 +72,7 @@ export function useMinimization(project: Project | undefined, selection: Selecti
         if (!owner(project.id, generation)) return;
         if (!capabilities.available) throw new Error(capabilities.unavailable_reason ?? "The local minimization model is unavailable.");
         const payload = minimizationRequest(project, draft.selection, sources,
-          calculationComponents(project, sources, draft.selection), draft.included, "isolated", 500);
+          calculationComponents(project, sources, draft.selection), draft.included, "automatic", 500);
         const submitted = await minimizationApi.submit(project.id, payload);
         void query.invalidateQueries({ queryKey: ["jobs", project.id] });
         if (owner(project.id, generation)) {
@@ -82,7 +82,7 @@ export function useMinimization(project: Project | undefined, selection: Selecti
       }
     } catch (error) { if (owner(project.id, generation)) state.patch(generation, { loading: false, error: message(error) }); }
   };
-  const mode = async (mode: "isolated" | "environment") => {
+  const mode = async (mode: "isolated" | "environment" | "automatic") => {
     const draft = state.draft;
     if (!project || !draft || !owner(project.id, state.generation)) return;
     const generation = state.generation;
@@ -129,13 +129,29 @@ export function useMinimization(project: Project | undefined, selection: Selecti
     try { const result = await jobApi.cancel(job.id); query.setQueryData<Job>(["job", job.id], result); }
     catch (error) { if (owner(project.id, generation)) state.patch(generation, { error: message(error) }); }
   };
+  const configure = async () => {
+    if (!project || state.loading || state.applying) return;
+    const generation = state.generation;
+    try {
+      if (job && ["queued", "running"].includes(job.status)) {
+        try { const result = await jobApi.cancel(job.id); query.setQueryData(["job", job.id], result); }
+        catch (error) {
+          const result = await jobApi.get(job.id);
+          if (["queued", "running"].includes(result.status)) throw error;
+        }
+      }
+      if (!owner(project.id, generation)) return;
+      state.dismiss();
+      await begin(false, true);
+    } catch (error) { if (owner(project.id, generation)) state.patch(generation, { error: message(error) }); }
+  };
   return { state, open, capabilities: capabilities.data, capabilitiesLoading: capabilities.isPending,
     job, proposal, components, chosen, geometry: previewResult.geometry, previewUnavailable,
     canApply: !!proposal?.applicable && !reportQuery.isFetching && !previewUnavailable &&
       proposal.report.parameters.selection.atoms.every(ref => !project?.entries.find(e => e.id === ref.structure_id)?.locked),
     error: state.error ?? requestError ?? previewResult.error ?? (capabilities.error ? message(capabilities.error) : jobQuery.error ? message(jobQuery.error) : reportQuery.error ? message(reportQuery.error) : previewSources.error ? message(previewSources.error) : null),
     requestError, previewLoading: state.preview && previewSources.isPending && !previewUnavailable,
-    begin: () => begin(), quick: () => begin(true), mode, run, apply, cancel,
+    begin: () => begin(), quick: () => begin(true), configure, mode, run, apply, cancel,
     include: (key: string, include: boolean) => { if (!state.draft) return; const included = new Set(state.draft.included); if (include) included.add(key); else included.delete(key); state.patch(state.generation, { draft: { ...state.draft, included } }); },
     iterations: (iterations: number) => { if (state.draft) state.patch(state.generation, { draft: { ...state.draft, iterations } }); },
     preview: (preview: boolean) => state.patch(state.generation, { preview }),

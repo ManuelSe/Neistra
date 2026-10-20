@@ -795,19 +795,22 @@ export interface MinimizationCapture {
   atom_ids: number[];
 }
 
-export interface MinimizationRequest {
+interface MinimizationRequestBase {
   expected_revision: number;
-  mode: "isolated" | "environment";
   selection: Selection;
-  context: { entry_id: string; atom_ids: number[] }[];
-  conformers: Record<string, number>;
   max_iterations: number;
 }
 
+export type MinimizationRequest = MinimizationRequestBase & (
+  { mode: "automatic"; context?: never; conformers?: never } |
+  { mode: "isolated" | "environment"; context: { entry_id: string; atom_ids: number[] }[]; conformers: Record<string, number> }
+);
+
 export interface MinimizationParameters {
-  schema_version: 1;
+  schema_version: 1 | 2;
   model: "amber-local-v1";
-  mode: MinimizationRequest["mode"];
+  mode: "isolated" | "environment";
+  context_policy?: "manual" | "automatic";
   selection: Selection;
   captured_inputs: MinimizationCapture[];
   max_iterations: number;

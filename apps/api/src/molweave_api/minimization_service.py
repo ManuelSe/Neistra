@@ -20,7 +20,9 @@ from molweave_core.minimization.contracts import (
     MinimizationParameters,
     MinimizationReport,
 )
+from molweave_core.minimization.discovery import ContextDiscovery, discover_context
 from molweave_core.molecular import MolecularWarning, NormalizedStructureV1
+from molweave_core.selection import SelectionV1
 from pydantic import ValidationError
 from sqlalchemy import select
 from sqlalchemy.orm import Session
@@ -94,9 +96,19 @@ class MinimizationService:
         for ref in payload.selection.atoms:
             seeds[ref.structure_id].add(ref.atom_id)
         moving = set(seeds)
-        for context in payload.context:
-            seeds[context.entry_id].update(context.atom_ids)
-        if set(payload.conformers) != set(seeds):
+        automatic = payload.mode == "automatic"
+        mode = payload.mode
+        if automatic:
+            try:
+                discovery = self._discover(project, payload.selection)
+            except CalculationError as error:
+                raise InvalidJobOperationError(f"{error.entry_id or 'Context'}: {error}") from error
+            seeds = discovery.membership
+            mode = "isolated" if discovery.component_count == 1 else "environment"
+        else:
+            for context in payload.context:
+                seeds[context.entry_id].update(context.atom_ids)
+        if not automatic and set(payload.conformers) != set(seeds):
             raise InvalidJobOperationError(
                 "Confirm the active conformer for every selected/context entry"
             )
@@ -113,7 +125,7 @@ class MinimizationService:
                 )
             artifact, data = self._read(entry.current_artifact_id)
             structure = self._structure(data)
-            if payload.conformers[entry_id] != structure.active_conformer_id:
+            if not automatic and payload.conformers[entry_id] != structure.active_conformer_id:
                 raise JobConflictError(
                     "Active conformer changed; review the calculation and submit again"
                 )
@@ -132,7 +144,9 @@ class MinimizationService:
             )
         try:
             parameters = MinimizationParameters(
-                mode=payload.mode,
+                schema_version=2 if automatic else 1,
+                context_policy="automatic" if automatic else "manual",
+                mode=mode,
                 selection=payload.selection,
                 captured_inputs=captures,
                 max_iterations=payload.max_iterations,
@@ -148,6 +162,59 @@ class MinimizationService:
             [{"role": "calculation", "entry_id": c.entry_id} for c in captures],
             minimization_capture=True,
         )
+
+    def _discover(
+        self,
+        project: Project,
+        selection: SelectionV1,
+        updates: dict[tuple[str, int], tuple[float, float, float]] | None = None,
+    ) -> ContextDiscovery:
+        def load(entry: StructureEntry) -> NormalizedStructureV1:
+            if not entry.current_artifact_id:
+                raise CalculationError(
+                    "context_unavailable", "Entry has no canonical source", entry_id=entry.id
+                )
+            _, data = self._read(entry.current_artifact_id)
+            return self._structure(data)
+
+        selected = {ref.structure_id for ref in selection.atoms}
+        sources = {entry_id: load(self._entry(project, entry_id)) for entry_id in selected}
+        return discover_context(
+            sources,
+            (
+                (entry.id, sources[entry.id] if entry.id in sources else load(entry))
+                for entry in project.entries
+            ),
+            selection,
+            updates,
+        )
+
+    def _automatic_context_reason(
+        self,
+        project: Project,
+        parameters: MinimizationParameters,
+        entries: list[CoordinateProposal],
+    ) -> str | None:
+        if parameters.context_policy != "automatic":
+            return None
+        try:
+            updates = {
+                (p.entry_id, atom_id): point
+                for p in entries
+                for atom_id, point in zip(p.atom_ids, p.coordinates, strict=True)
+            }
+            actual = self._discover(project, parameters.selection, updates).membership
+            captured = {c.entry_id: set(c.atom_ids) for c in parameters.captured_inputs}
+            # Supersets remain the captured physical model; newly relevant omitted
+            # components require rerun. Moving away does not remove fixed context.
+            if any(not ids <= captured.get(entry_id, set()) for entry_id, ids in actual.items()):
+                return (
+                    "Automatic context changed or final geometry reaches omitted context; "
+                    "review context and rerun minimization"
+                )
+        except (CalculationError, ValueError) as error:
+            return f"Automatic context cannot be verified; rerun minimization: {error}"
+        return None
 
     def _job(self, project_id: str, job_id: str) -> Job:
         self._project(project_id)
@@ -210,6 +277,10 @@ class MinimizationService:
                 if entry.id in moving and entry.locked:
                     reason = f"Unlock {entry.name} before applying movable coordinates"
                     break
+            if reason is None:
+                reason = self._automatic_context_reason(
+                    self._project(project_id), parameters, entries
+                )
         return MinimizationProposalRead(
             job_id=job.id,
             proposal_sha256=digest,
