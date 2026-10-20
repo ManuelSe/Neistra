@@ -4531,3 +4531,28 @@ would need. Carbon-containing charged ligands remain eligible; explicit canonica
 neutral water uses the TIP3P path. Noncarbon inorganic molecules are outside this
 organic profile. This strengthens the already approved unsupported-ion boundary;
 it does not add an ion model, reinterpret a ligand's charge or change draft editing.
+
+## D-113 — Resident memory supervision and authored identity diagnostics
+
+Accepted 2026-10-20 under the approved issue #89 plan, M1/C1. Minimization uses an
+optional generic worker resident-memory budget instead of RLIMIT_AS: native mappings
+can reserve large virtual ranges without resident pressure. The coordinator samples
+the Linux child process tree, excluding zombies, and terminates its confirmed process
+group on over-budget usage. Default minimization budget is4GiB, configured through
+MOLWEAVE_MINIMIZATION_MAX_RSS_BYTES. This is sampled supervision, not hard cgroup
+enforcement; existing memory_bytes retains address-space semantics for other plugins.
+Allocation exceptions remain distinct from sampled budget failures. Internal
+tracebacks are retained as diagnostic job logs.
+
+Calculation identity refusal is not malformed metadata: catch the evidence parser's
+errors separately from explicit domain refusals. Diagnostics retain stage/code and
+available entry/atom/residue identity. Never infer ordinary identity from coordinates
+or erase protected/unknown facts. Selection/legacy ligand atom generation records
+explicit authored ordinary identity. Element replacement updates applicable ordinary
+evidence to authored provenance; protected/unknown/conflicting evidence stays protected
+or invalid. Direct model element edits use the same bounded helper. Original bytes,
+prior artifacts and exact history retain preceding facts. D-107 recovery matching
+remains strict; this checkpoint does not invent evidence for unknown legacy atoms.
+
+No new structural schema, history action, migration, dependency or force-field model.
+Automatic context, caching, live display and warned acceptance remain later checkpoints.

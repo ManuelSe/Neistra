@@ -125,6 +125,7 @@ def active_pid(pid: int) -> bool:
         ("ignoring", True, "cancelled"),
         ("ignoring", False, "failed"),
         ("crash", False, "failed"),
+        ("memory", False, "failed"),
     ],
 )
 @pytest.mark.skipif(sys.platform != "linux", reason="Native process-tree model is Linux-qualified")
@@ -174,6 +175,9 @@ def test_native_descendants_stop_on_cancel_deadline_and_child_loss(
     assert not any(active_pid(pid) for pid in pids), pids
     if mode == "crash":
         assert finished["error"]["code"] == "child_process_lost"
+    elif mode == "memory":
+        assert finished["error"]["code"] == "resident_memory_exceeded"
+        assert "resident bytes" in finished["error"]["message"]
     elif not cancel:
         assert finished["error"]["code"] == "wall_time_exceeded"
 

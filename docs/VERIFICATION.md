@@ -1,5 +1,19 @@
 # V0.1 Requirement Evidence
 
+## Interactive minimization (issue #89)
+
+M1/C1 [final gate](assets/interactive-minimization/c1-gate.json) passes306 focused
+Python (native worker/resource tree, generated identity, editing and archive),265
+frontend,8 supervisor and2 native browser cases. Ruff/mypy87/lint/type/build,
+fresh0014 upgrade and diff checks pass. Source identities and lossless compressed
+logs are retained. Real over-budget resident memory terminates the child/native
+grandchild group; allocation and budget failures remain distinguishable. Missing
+identity is not mislabeled malformed; protected/unknown facts are not silently
+made ordinary. [Full checkpoint review](assets/interactive-minimization/c1-review.md)
+is implementer self-review. No migration/schema/dependency/version/model change.
+This is C1 evidence only: automatic context/cache/live/acceptance and actual0.20
+reader/final release qualification remain later checkpoints.
+
 ## Selection minimization (issue #82, C1–C6)
 
 The [approved feature plan](plans/issue-82-selection-minimization.md) is the

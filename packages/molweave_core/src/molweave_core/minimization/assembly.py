@@ -137,7 +137,11 @@ def environment_preflight(
         if connected_atoms(source, members) != members:
             raise CalculationError("incomplete_context", "Include complete covalent components")
         included = project_atoms(source, members)
-        validate_coordinates_and_identity(included)
+        try:
+            validate_coordinates_and_identity(included)
+        except CalculationError as error:
+            error.entry_id = capture.entry_id
+            raise
         remaining = set(members)
         for chain in source.chains:
             polymer_residues = {

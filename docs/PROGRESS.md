@@ -2,6 +2,20 @@
 
 ## Current milestone
 
+Issue #89 is approved under the [interactive minimization plan](plans/issue-89-interactive-minimization.md).
+Plan-only C0 is committed/pushed as a00ca90 on feat/issue-89-interactive-minimization.
+M1/C1 implements resident-memory supervision, specific identity diagnostics and
+authored-atom provenance (D-113). Final C1 gate passes306 Python,265 frontend,
+8 supervisor and2 native browser tests; Ruff/mypy/lint/types/build/fresh0014/diff
+pass. [Evidence](assets/interactive-minimization/c1-gate.json) retains exact commands
+and compressed logs; [local review](assets/interactive-minimization/c1-review.md)
+is self-review. No migration, structural schema,
+dependency or application-version change. Automatic context/cache/live interaction
+remain C2–C5; complete scientific/compatibility/release qualification remains C6.
+No blocker. Next: C2 automatic context after the coherent C1 commit.
+
+### Previous delivery baseline — v0.20.0
+
 Issue #82 delivered under the [approved plan](plans/issue-82-selection-minimization.md),
 merged in [PR#87](https://github.com/ManuelSe/Neistra/pull/87) and published as stable
 [v0.20.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.20.0). The adjacent

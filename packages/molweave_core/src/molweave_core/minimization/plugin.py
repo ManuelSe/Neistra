@@ -3,7 +3,9 @@ from __future__ import annotations
 import hashlib
 import io
 import json
+import os
 import time
+import traceback
 import zipfile
 from pathlib import Path
 from typing import Any
@@ -22,6 +24,7 @@ from molweave_core.jobs import (
 from molweave_core.minimization.contracts import (
     IMPLEMENTATION_VERSION,
     JOB_TYPE,
+    CalculationDiagnostic,
     CalculationError,
     MinimizationParameters,
     MinimizationReport,
@@ -108,7 +111,9 @@ class MinimizationPlugin:
                 resources=ResourcePolicy(
                     wall_time_seconds=600,
                     cancellation_grace_seconds=2,
-                    memory_bytes=4 * 1024**3,
+                    resident_memory_bytes=int(
+                        os.environ.get("MOLWEAVE_MINIMIZATION_MAX_RSS_BYTES", 4 * 1024**3)
+                    ),
                     max_result_artifacts=3,
                     max_result_bytes=100 * 1024**2,
                 ),
@@ -202,10 +207,21 @@ class MinimizationPlugin:
                     "specified net charge; raw and corrected calculation files are retained."
                 )
         except CalculationError as error:
+            context.stderr(traceback.format_exc())
             report = MinimizationReport(
                 outcome="failed" if stage == "optimization" else "blocked",
                 reason=f"{error.code}: {error}",
                 parameters=values,
+                toolchain={
+                    "diagnostic": CalculationDiagnostic(
+                        code=error.code,
+                        stage=stage,
+                        message=str(error),
+                        entry_id=error.entry_id,
+                        atom_ids=error.atom_ids,
+                        residue_id=error.residue_id,
+                    ).model_dump(mode="json")
+                },
             )
         report.elapsed_seconds = time.monotonic() - started
         report_data = report.model_dump(mode="json")

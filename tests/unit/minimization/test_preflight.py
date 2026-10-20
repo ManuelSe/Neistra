@@ -182,3 +182,21 @@ def test_explicit_ion_classification_cannot_be_ignored_for_an_organic_graph():
     parameters, inputs = capture(source)
     with pytest.raises(CalculationError, match="inorganic ions are unsupported"):
         isolated_preflight(parameters, inputs)
+
+
+def test_missing_identity_is_not_misreported_as_malformed():
+    params, inputs = capture(molecule().model_copy(update={"annotations": []}))
+    with pytest.raises(CalculationError, match=r"Atom 1.*missing evidence") as caught:
+        isolated_preflight(params, inputs)
+    assert caught.value.code == "identity_uncertain"
+    assert caught.value.__cause__ is None
+
+
+def test_malformed_identity_preserves_the_underlying_cause():
+    source = molecule().model_copy(
+        update={"annotations": [{"kind": "neistra_hydrogen_protection", "schema_version": 2}]}
+    )
+    params, inputs = capture(source)
+    with pytest.raises(CalculationError, match="Malformed or conflicting") as caught:
+        isolated_preflight(params, inputs)
+    assert isinstance(caught.value.__cause__, ValidationError)

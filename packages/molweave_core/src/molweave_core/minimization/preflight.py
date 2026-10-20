@@ -89,7 +89,11 @@ def isolated_preflight(
 def organic_preflight(
     entry_id: str, structure: NormalizedStructureV1, selected: set[int]
 ) -> IsolatedInput:
-    validate_coordinates_and_identity(structure)
+    try:
+        validate_coordinates_and_identity(structure)
+    except CalculationError as error:
+        error.entry_id = entry_id
+        raise
     if len(structure.atoms) > 1024 or sum(a.element != "H" for a in structure.atoms) > 256:
         raise CalculationError(
             "molecule_limit", "Organic molecule exceeds 256 heavy / 1024 total atoms"
@@ -164,16 +168,30 @@ def validate_coordinates_and_identity(structure: NormalizedStructureV1) -> None:
         )
     try:
         facts = protection_facts(structure)
-        if any(
-            a.id not in facts or not facts[a.id].matches(a) or not facts[a.id].ordinary
-            for a in structure.atoms
-        ):
+    except ValueError as error:
+        raise CalculationError(
+            "identity_uncertain", f"Malformed or conflicting atom identity evidence: {error}"
+        ) from error
+    for atom in structure.atoms:
+        fact = facts.get(atom.id)
+        reason = (
+            "missing evidence"
+            if fact is None
+            else "evidence does not match current element/source identity"
+            if not fact.matches(atom)
+            else "isotope/radical identity is unknown or unsupported"
+            if not fact.ordinary
+            else None
+        )
+        if reason:
             raise CalculationError(
                 "identity_uncertain",
-                "Ordinary isotope/radical identity must be established for every atom",
+                f"Atom {atom.id} ({atom.name}, residue {atom.residue_id}): {reason}; "
+                "ordinary isotope/radical identity must be established from verified "
+                "source or authored atoms, not inferred from coordinates",
+                atom_ids=(atom.id,),
+                residue_id=atom.residue_id,
             )
-    except ValueError as error:
-        raise CalculationError("identity_uncertain", "Malformed atom identity evidence") from error
 
 
 def validate_separation(coordinates: list[tuple[float, float, float]]) -> None:

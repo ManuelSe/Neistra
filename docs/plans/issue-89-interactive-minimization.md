@@ -349,3 +349,19 @@ merge/tag/release/reply verification; finish clean master.
   created. This document is its first change. Baseline30 tests passed during review.
   Implementation/qualification/publication remain pending. Next: commit/push C0,
   then M1/C1 under explicit implementation authorization.
+- C0 committed/pushed as a00ca90b61ac0532a447e259f73053fbfd5f1a64; matching remote
+  branch verified. No implementation was included in that commit.
+- M1/C1 implementation: optional process-tree RSS policy, minimization AS-limit removal,
+  specific identity/cause diagnostics and authored identity in selection/legacy/direct
+  element paths. D-113 records the bounded decision. Initial210 focused tests and
+  final125 editing/protection cases pass; broader final gate is in progress. No
+  migration/schema/model/dependency/version change. Original failing user input is
+  unavailable; do not claim its complete scenario reproduced. Next: final gates/review.
+- M1/C1 final gate:306 Python,265 frontend,8 supervisor,2 native browser; no failures/
+  retries/native skips. Ruff/mypy87/lint/type/build/fresh0014/diff pass. Exact commands
+  and lossless logs: [c1-gate](../assets/interactive-minimization/c1-gate.json);
+  [source identities](../assets/interactive-minimization/c1-source.json);
+  [self-review](../assets/interactive-minimization/c1-review.md). C1 adds no structural
+  migration/schema/dependency/version/model change. Archive round-trip and existing
+  molecular history tests pass; actual preceding-reader qualification remains C6.
+  No blocker. Next: commit C1, then C2 automatic discovery/capture/UI.

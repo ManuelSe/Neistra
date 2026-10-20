@@ -1,0 +1,21 @@
+{
+  "base_commit": "a00ca90b61ac0532a447e259f73053fbfd5f1a64",
+  "files": {
+    "apps/api/src/molweave_api/job_worker.py": "c5f24949c9381bdfe6dd5428afde98fd84144f5fa772db5659dc27dd9aa32e2d",
+    "packages/molweave_core/src/molweave_core/editing/ligand.py": "d029acb6c41f190aaaa6cae578b7e4a7f59192f3a87255c82b15e8ddf622f23a",
+    "packages/molweave_core/src/molweave_core/editing/model.py": "734dc2de0322bf8ffc710a6043798fcae018eb392dfdad5a43bd251080aa45d4",
+    "packages/molweave_core/src/molweave_core/editing/selection.py": "e3749fe97da9c863efcde644682b9196e26607d7080e46126a9dc12ebdf268d2",
+    "packages/molweave_core/src/molweave_core/hydrogen_protection.py": "4abdc62d9f78645a3a45d54610ebfb6c29d67583e7e2a397d45a32a3c6fe97c1",
+    "packages/molweave_core/src/molweave_core/jobs/contracts.py": "a462502f21d45560dfcf1621fdd179cdc0bb152bd72fac625955836f36bea3be",
+    "packages/molweave_core/src/molweave_core/minimization/assembly.py": "bbd76556460f03be8460898c653ffe57d70da60378fa5a35fc3cc72463ae8a9a",
+    "packages/molweave_core/src/molweave_core/minimization/contracts.py": "fabd9103bac9ce8660aa905deba4def693c042afbbe1282cae595e8c9b75b50d",
+    "packages/molweave_core/src/molweave_core/minimization/plugin.py": "64acdb6446fd6f484050c61bb05947789ff13c98094fb0696399dee96d56f023",
+    "packages/molweave_core/src/molweave_core/minimization/preflight.py": "721c83b1d9056f980b70be6c2bd5a0b6cfd0a923b632b31b7d4d11ea9010e430",
+    "tests/integration/test_minimization_jobs.py": "a4b030c6126a1ca43ead7aa81c85336385e401d594d0bcf7b085172794bff5c8",
+    "tests/scientific/test_selection_editing.py": "6537cfdc30ed48a6ce5dd59fefc14e8c3675f5c079ce2c257524866b014ec1ba",
+    "tests/support/native_job_plugin.py": "eb916965cfd0b1d4ce8c608e56c0b255da32c768f2e09707c9e5aa112996238a",
+    "tests/unit/minimization/test_preflight.py": "a36c010631215b86f4c81b22b6142b3045609c34e611f5580f7ab13191eb7116",
+    "tests/unit/test_hydrogen_protection.py": "e0665318f1a692c9b78f9d7a4c101d121101229f29b31c36a6220724bafeb510"
+  },
+  "source_sha256": "0ca0efc1b520bafcedac08ae5730c87c4f4c22271439cfd1556afdb8ffe676f8"
+}

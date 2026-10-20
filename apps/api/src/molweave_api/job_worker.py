@@ -7,6 +7,7 @@ import os
 import shutil
 import signal
 import time
+import traceback
 from contextlib import redirect_stderr, redirect_stdout
 from dataclasses import dataclass
 from multiprocessing.connection import Connection
@@ -132,6 +133,31 @@ def _apply_resource_limits(cpu_time_seconds: int | None, memory_bytes: int | Non
         resource.setrlimit(resource.RLIMIT_AS, (memory_bytes, memory_bytes))
 
 
+def process_tree_rss(pid: int) -> int:
+    """Sample Linux resident memory, including native grandchildren, excluding zombies.
+
+    Native minimization is Linux-qualified. This is a sampled budget, not an
+    address-space ceiling or a hard cgroup allocation guarantee.
+    """
+    table: dict[int, tuple[int, int]] = {}
+    for path in Path("/proc").glob("[0-9]*/status"):
+        try:
+            fields = dict(line.split(":", 1) for line in path.read_text().splitlines())
+            if not fields["State"].strip().startswith("Z"):
+                table[int(path.parent.name)] = (
+                    int(fields["PPid"]),
+                    int(fields.get("VmRSS", "0 kB").split()[0]) * 1024,
+                )
+        except (OSError, ValueError, KeyError):
+            continue
+    members = {pid}
+    while True:
+        expanded = members | {child for child, (parent, _) in table.items() if parent in members}
+        if expanded == members:
+            return sum(table[child][1] for child in members if child in table)
+        members = expanded
+
+
 def _execute_child(
     connection: Connection,
     allowlist: tuple[str, ...],
@@ -190,11 +216,14 @@ def _execute_child(
     except BaseException as error:
         stdout.flush()
         stderr.flush()
+        connection.send(("log", "stderr", traceback.format_exc()))
         connection.send(
             (
                 "error",
                 {
-                    "code": "plugin_execution_failed",
+                    "code": "memory_allocation_failed"
+                    if isinstance(error, MemoryError)
+                    else "plugin_execution_failed",
                     "message": f"{type(error).__name__}: {error}",
                 },
             )
@@ -297,12 +326,15 @@ class JobWorker:
             daemon=False,
         )
         process.start()
+        process_id = process.pid
+        assert process_id is not None
         child.close()
         started = time.monotonic()
         cancel_sent_at: float | None = None
         terminal_received = False
         process_group: int | None = None
         pipe_closed = False
+        peak_rss = 0
 
         def stop_tree() -> None:
             if process_group is not None:
@@ -330,6 +362,20 @@ class JobWorker:
                         break
                 if terminal_received:
                     break
+                if policy.resident_memory_bytes is not None:
+                    peak_rss = max(peak_rss, process_tree_rss(process_id))
+                    if peak_rss > policy.resident_memory_bytes:
+                        stop_tree()
+                        process.join(timeout=2)
+                        with self.session_factory() as session:
+                            JobService(session, self.settings, self.registry).fail(
+                                job.id,
+                                "resident_memory_exceeded",
+                                f"Job process tree used {peak_rss} resident bytes; "
+                                f"budget {policy.resident_memory_bytes} bytes",
+                            )
+                        terminal_received = True
+                        break
                 with self.session_factory() as session:
                     persisted = JobService(session, self.settings, self.registry).get(job.id)
                     cancel_requested = persisted.cancellation_requested

@@ -78,3 +78,47 @@ def test_new_direct_atoms_have_known_generated_identity() -> None:
     )
     fact = protection_facts(result.edit.structure)[50]
     assert fact.ordinary and fact.matches(result.edit.structure.atoms[-1])
+
+
+@pytest.mark.parametrize("isotope", [0, 2, None])
+def test_authored_element_identity_never_overwrites_protected_or_unknown(isotope):
+    from molweave_core.hydrogen_protection import authored_protection
+
+    before = model("C")
+    record = before.annotations[0]
+    before = before.model_copy(
+        update={
+            "annotations": [
+                {**record, "atoms": [{**a, "isotope": isotope} for a in record["atoms"]]}
+            ]
+        }
+    )
+    original = before.to_bytes()
+    atoms = [a.model_copy(update={"element": "N"}) for a in before.atoms]
+    after = before.model_copy(
+        update={"atoms": atoms, "annotations": authored_protection(before, atoms, set())}
+    )
+    fact = protection_facts(after)[1]
+    assert fact.isotope == isotope
+    assert fact.matches(atoms[0]) is (isotope == 0)
+    assert before.to_bytes() == original
+
+
+def test_direct_element_change_retains_applicable_ordinary_identity():
+    from molweave_core.editing.model import ModelElement
+
+    before = model("C")
+    after = (
+        DirectMolecularEditor()
+        .edit(
+            before,
+            [1],
+            ModelElement(operation="atom.element", element="N"),
+            next_atom_id=50,
+            next_bond_id=50,
+        )
+        .edit.structure
+    )
+    assert protection_facts(after)[1].matches(after.atoms[0])
+    assert protection_facts(after)[1].ordinary
+    assert protection_facts(before)[1].element == "C"

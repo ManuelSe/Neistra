@@ -51,6 +51,7 @@ class ResourcePolicy(BaseModel):
     max_result_bytes: int = Field(default=100 * 1024 * 1024, ge=1)
     cpu_time_seconds: int | None = Field(default=None, ge=1, le=86_400)
     memory_bytes: int | None = Field(default=None, ge=16 * 1024 * 1024)
+    resident_memory_bytes: int | None = Field(default=None, ge=16 * 1024 * 1024)
 
 
 @dataclass(frozen=True, slots=True)

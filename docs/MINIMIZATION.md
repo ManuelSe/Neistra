@@ -67,3 +67,20 @@ remapped entry IDs. Archive Undo history remains nonportable under existing rule
 No database or structural-schema migration is introduced. See the
 [approved plan](plans/issue-82-selection-minimization.md) and
 [verification evidence](VERIFICATION.md) for qualified cases and limits.
+
+## Resource and identity diagnostics (issue #89 C1)
+
+The Linux worker supervises resident memory of the calculation child and native
+descendants. `MOLWEAVE_MINIMIZATION_MAX_RSS_BYTES` sets its budget (default4GiB,
+minimum16MiB) for both API/worker configuration. Minimization no longer imposes a
+virtual-address-space ceiling. Sampling is not a hard OS/cgroup allocation limit;
+the existing setup/optimization/deadline/cancellation bounds remain in force.
+`resident_memory_exceeded` reports sampled usage and budget; `memory_allocation_failed`
+reports an actual allocation exception. Native/internal tracebacks remain in job logs.
+
+Missing atom identity, identity mismatching the current element/source index, and
+unknown/unsupported isotope/radical evidence identify the first affected atom and
+residue. Malformed/conflicting evidence retains its underlying diagnostic cause.
+The operation still requires verified ordinary identity. Newly authored atoms and
+verified ordinary element replacements record applicable evidence at editing time;
+unknown/protected facts are never converted into ordinary identity to permit a run.

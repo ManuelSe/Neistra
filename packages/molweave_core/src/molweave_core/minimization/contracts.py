@@ -13,9 +13,30 @@ GRADIENT_TOLERANCE = 10.0  # kJ mol^-1 nm^-1, maximum movable component
 
 
 class CalculationError(ValueError):
-    def __init__(self, code: str, message: str) -> None:
+    def __init__(
+        self,
+        code: str,
+        message: str,
+        *,
+        entry_id: str | None = None,
+        atom_ids: tuple[int, ...] = (),
+        residue_id: int | None = None,
+    ) -> None:
         super().__init__(message)
         self.code = code
+        self.entry_id = entry_id
+        self.atom_ids = atom_ids
+        self.residue_id = residue_id
+
+
+class CalculationDiagnostic(BaseModel):
+    model_config = ConfigDict(extra="forbid", frozen=True)
+    code: str
+    message: str
+    stage: str
+    entry_id: str | None = None
+    atom_ids: tuple[int, ...] = ()
+    residue_id: int | None = None
 
 
 class CapturedInput(BaseModel):
