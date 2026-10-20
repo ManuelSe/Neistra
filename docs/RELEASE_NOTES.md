@@ -1,9 +1,13 @@
 # Neistra Release Notes
 
-## 0.22.0 - prepared 2026-10-20 - Molecular selection gestures
+## 0.22.0 - 2026-10-20 - Molecular selection gestures
 
-Release candidate under the [approved issue90 plan](plans/issue-90-selection-gestures.md).
-Clean candidate qualification passes; publication and exact-master qualification remain pending.
+Published stable [v0.22.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.22.0)
+in [PR#105](https://github.com/ManuelSe/Neistra/pull/105), under the
+[approved issue90 plan](plans/issue-90-selection-gestures.md). Annotated on exact
+verified master28d3a9bb59c6e786e0586ae589f0e0ebfee7678a.
+[Publication](assets/selection-gestures/c4-publication.json) verifies public notes
+and downloaded ZIP SHA256/CRC/260 manifest hashes.
 
 ### Selection improvements
 
@@ -35,9 +39,10 @@ creating atoms. Selection does not modify coordinates or original uploads.
 All five application versions advance together to0.22.0. No new HTTP API, durable
 field, dependency upgrade or migration. Alembic0014, project/viewer/archive2 and
 normalized/selection1 remain. Named selections/scenes store ordinary canonical
-references; gesture anchors remain transient. Actual tagged0.21.0 readers must
-retain final0.22 data/history/jobs/archives and current readers accept0.21 archives
-before release (candidate passes both directions). Old readers do not acquire gesture authoring. No issue-specific
+references; gesture anchors remain transient. Actual tagged0.21.0 readers retain
+final0.22 data/history/jobs/archives and current readers accept0.21 archives in both
+complete candidate and exact-master gates. Old readers do not acquire gesture
+authoring. No issue-specific
 rollback conversion is needed; back up managed data before application rollback.
 
 ### Verification and accessibility
@@ -50,7 +55,11 @@ zero failures/flakes/retries/native scientific skips. Frozen/fresh0014/static/bu
 version/diff pass; source hashes unchanged. Actual tagged0.21/final0.22 readers pass
 both directions. Pinned1STP import1154ms, interaction3861ms, longest task652ms,
 zero repeated normalized reads; unchanged performance budgets, both-theme axe and
-actual200%zoom pass. Exact merged-master gate remains mandatory before publication.
+actual200%zoom pass. [Exact merged-master gate](assets/selection-gestures/c4-merged-gate.json)
+repeats every command/count with identical472 source hashes; both actual-reader
+directions pass. Merged1STP import699ms, interactions4473ms, longest655ms, zero repeat
+reads. [Issue close-out](https://github.com/ManuelSe/Neistra/issues/90#issuecomment-6295653182)
+links final documentation integration/branch cleanup; published runtime tag stays fixed.
 
 ### Deferred requests and follow-up
 

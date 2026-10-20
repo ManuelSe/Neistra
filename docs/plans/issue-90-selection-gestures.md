@@ -2,7 +2,7 @@
 
 ## 1. Status, outcome, and authority
 
-**Status:** M1–M4 implemented and clean-candidate-qualified; PR/review/merge and exact-master release qualification next.
+**Status:** M1–M4 implemented, verified, merged and released as stable v0.22.0. Final reference/cleanup audit is recorded in the linked issue close-out.
 **Approval:** user's “Implement the plan.” on 2026-10-20, following the complete
 proposal. C0 persistence stopped as required. The explicit `/goal` request on
 2026-10-20 authorizes implementation and the complete verified delivery lifecycle.
@@ -11,7 +11,7 @@ proposal. C0 persistence stopped as required. The explicit `/goal` request on
 | --- | --- |
 | Issue | [#90](https://github.com/ManuelSe/Neistra/issues/90) |
 | Issue title | Improve selection interactions: double-click expansion, Ctrl-toggle, and Shift-range selection |
-| Issue state | Open; last update inspected: 2026-10-19T12:48:43Z; no comments at analysis |
+| Issue state | Closed by merged PR#105; released v0.22.0; verified close-out linked below |
 | Persistent plan | `docs/plans/issue-90-selection-gestures.md` |
 | Base branch | `master` |
 | Inspected and fast-forward-checked base | `9d56d25aa8d384109a4f11fdf3db9e0791257278` |
@@ -667,3 +667,46 @@ passes34 archive/saved-selection Python regressions, Ruff and diff checks at fin
   Next: commit evidence, push/open PR, request Codex review, recheck protections/
   conversations/checks/base/version, merge normally, then complete exact-master gate.
   No PR/tag/release publication is claimed by this checkpoint.
+
+### Verified merge, exact-master qualification and publication — 2026-10-20
+
+- Evidence checkpoint `ae2e856` pushed and [PR#105](https://github.com/ManuelSe/Neistra/pull/105)
+  opened against current master. Complete local diff review has no consequential
+  finding. [Premerge audit](../assets/selection-gestures/c4-premerge-audit.json)
+  confirms CLEAN/MERGEABLE, no required approvals/checks/protection/rulesets or
+  unresolved reviews/threads. Codex requested at the linked PR comment; no
+  acknowledgement/independent review returned. No override/force push was used.
+- Normal merge preserves C0–C4 history; remote merge/master verified at
+  `28d3a9bb59c6e786e0586ae589f0e0ebfee7678a`. Local master fast-forwarded cleanly.
+- [Exact-master15-command gate](../assets/selection-gestures/c4-merged-gate.json)
+  passes **1,107 Python,290 frontend,8 supervisor,282 browser /52 existing
+  intentional layout/timing exclusions**, zero failures/flakes/retries/native
+  scientific skips. All472 runtime/test/tool source hashes equal the clean
+  candidate and remain unchanged. Frozen installs/fresh0014/static/build/version/
+  diff pass. [Actual tagged0.21↔final0.22 reader gate](../assets/selection-gestures/c4-merged-reader-gate.json)
+  passes both directions with exact originals/artifacts/references/scenes/settings/
+  surfaces/history/jobs/archive remapping and no durable anchors.
+- [Exact-master browser summary](../assets/selection-gestures/c4-merged-browser-summary.json)
+  retains23 JSON attachments. Pinned1STP: import/viewer699ms, interactions4473ms,
+  longest observed task655ms, zero repeated normalized reads. All existing movement,
+  surface/18k minimization budgets and all14 native gesture cases pass; both-theme
+  full-shell axe, keyboard/touch ownership and actual desktop100%/200%zoom pass.
+- Annotated `v0.22.0` object `de6fb6a089271789e1ac168a133c8f91bec8ae88` targets only that verified
+  master commit; remote ref and peeled commit verified. Stable latest
+  [GitHub release](https://github.com/ManuelSe/Neistra/releases/tag/v0.22.0)
+  and complete notes are published and verified. Public ZIP SHA256
+  `09bdd8761be989f92e6daca9962243e2bfb2d908a12b9af365f0da77d5351105`, CRC and260 internal manifest hashes verified.
+  [Publication record](../assets/selection-gestures/c4-publication.json) retains IDs,
+  checksums, source digest, review and compatibility facts.
+- [Issue close-out](https://github.com/ManuelSe/Neistra/issues/90#issuecomment-6295653182) verified, issue closed. No schema/migration/API/dependency
+  change; all five versions0.22.0. No duplicate follow-up: #91/#94/#95 remain open
+  and separate. Unsupported/ambiguous polymer, native double-click and transient
+  anchor limits remain explicit; optional/deferred/rejected scope was not added.
+- This documentation/evidence audit is integrated on the planned feature branch,
+  with runtime/test/tool equivalence and diff checks. The published runtime tag
+  stays fixed. Final documentation PR integration and **actual** delayed remote/
+  local feature deletion/clean-master evidence are appended to the same close-out
+  reply and published `neistra-v0.22.0-publication-audit.json` release asset after
+  those events. This avoids predicting cleanup or creating a circular audit commit.
+- Approved scope and release delivery are complete; no remaining implementation
+  or external blocker. Future product work requires a separate approved plan.

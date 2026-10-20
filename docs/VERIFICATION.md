@@ -2,6 +2,9 @@
 
 ## Selection gestures (issue #90)
 
+**Released stable v0.22.0 in PR#105.** The following checkpoint history separates
+diagnostics from final qualification; exact-release/publication evidence follows.
+
 M1/C1 [focused/static/build/browser gate](assets/selection-gestures/c1-initial-gate.json)
 passes17 Python,60 frontend, Ruff/mypy91/ESLint/types/build/diff and5 native browser
 workflows /5 existing intentional layout exclusions. Shared Ctrl/Cmd toggles full
@@ -51,6 +54,18 @@ retains23 attachments:1STP import1154ms, interaction3861ms, longest task652ms, z
 repeat reads; unchanged movement/minimization/surface, both-theme axe and actual
 200%zoom pass. [Full-diff self-review](assets/selection-gestures/c4-review.md) has no
 unresolved consequential finding. Exact merged-master qualification remains required.
+
+[Exact released master](assets/selection-gestures/c4-merged-gate.json)
+`28d3a9bb59c6e786e0586ae589f0e0ebfee7678a` repeats all15 passing commands/counts, zero failures/flakes/retries/native
+scientific skips;472 source identities exactly match candidate. Actual tagged0.21
+retention passes both final0.22 directions. [Merged browser summary](assets/selection-gestures/c4-merged-browser-summary.json)
+retains23 attachments:1STP import699ms, interactions4473ms, longest655ms, zero repeat
+reads. All budgets/14 new native gestures/axe/actual200%zoom pass.
+[Publication](assets/selection-gestures/c4-publication.json) verifies annotated exact
+tag, stable latest release/notes, public ZIP SHA256/CRC/260 hashes and issue reply.
+Final docs integration/branch cleanup is recorded in that reply/release audit asset.
+No new migration/schema/API/dependency; all five versions0.22.0. No independent
+review returned or required approval/check was bypassed; local self-review retained.
 
 ## Interactive minimization (issue #89)
 

@@ -11,7 +11,7 @@ visual checks; an axe pass alone is not treated as complete coverage.
 Native double-click is an additional Atom-mode shortcut. Existing explicit picking
 modes, inspector expansion, and keyboard-operable component/sequence buttons remain
 available. Panel Ctrl/Cmd uses the same complete-operand rule; panels do not silently
-establish viewer range anchors. Gesture help states protein-only double expansion
+establish viewer range anchors. Gesture help explains protein-residue or individual-component expansion
 and fixed residue starts. No new layout, focus model or gesture-only essential
 action is introduced.
 
@@ -22,8 +22,9 @@ automated axe assertions have distinct evidential roles. No interactive screen-
 reader, physical touch double-tap or broader browser certification is claimed.
 [Clean candidate](assets/selection-gestures/c4-candidate-gate.json) passes all
 both-theme axe/keyboard/actual200%zoom and native layout cases. Light/mobile and
-dark/desktop gesture screenshots were manually inspected separately. Exact-master
-qualification remains required; no broader certification is inferred.
+dark/desktop gesture screenshots were manually inspected separately.
+[Exact released master](assets/selection-gestures/c4-merged-gate.json) repeats
+these passing cases; no broader certification is inferred.
 
 ## Compact molecular editor (issue #69)
 

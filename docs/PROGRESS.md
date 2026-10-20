@@ -2,26 +2,36 @@
 
 ## Current milestone
 
-Issue #90 **M1–M4 implemented and clean-candidate-qualified**, under the
-[approved contract](plans/issue-90-selection-gestures.md). Whole-operand toggle,
-Atom residue/component double-click and viewer-only fixed ranges are implemented;
-D-120–123 and [user guidance](SELECTION_GESTURES.md) govern.
+Issue #90 is implemented and released as stable
+[v0.22.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.22.0) in
+[PR#105](https://github.com/ManuelSe/Neistra/pull/105), under the
+[approved plan](plans/issue-90-selection-gestures.md). Whole-operand toggle across
+existing surfaces, Atom residue/component double-click and viewer-only fixed
+protein ranges preserve canonical ownership/camera and hidden membership. D-120–123
+and [user guidance](SELECTION_GESTURES.md) govern; anchors remain transient.
 
-[Clean candidate7dc4340](assets/selection-gestures/c4-candidate-gate.json) passes
-all15 commands: **1,107 Python,290 frontend,8 supervisor,282 browser /52 existing
-layout/timing exclusions**, zero failures/flakes/retries/native scientific skips.
-Frozen/fresh0014/static/build/diff and all14 native gesture cases pass. Pinned1STP
-interaction3861ms/longest task652ms/zero repeated reads meet unchanged budgets;
-both-theme axe, actual200%zoom and existing movement/minimization/surface gates pass.
-[Actual tagged0.21 compatibility](assets/selection-gestures/c4-candidate-reader-gate.json)
-passes both final0.22 directions, including references/scenes/originals/history/jobs/
-archives without persisted anchors. [Review](assets/selection-gestures/c4-review.md)
-is local self-review. Source identities are unchanged; earlier diagnostics separate.
+Both [clean candidate7dc4340](assets/selection-gestures/c4-candidate-gate.json) and
+[exact released master](assets/selection-gestures/c4-merged-gate.json)
+`28d3a9bb59c6e786e0586ae589f0e0ebfee7678a` pass all15 commands:
+**1,107 Python,290 frontend,8 supervisor,282 browser
+/52 existing intentional layout/timing exclusions**, zero failures/flakes/retries/
+native scientific skips. Frozen/fresh0014/static/build/version/diff and all14 native
+gesture cases pass. All472 source identities match. Actual tagged0.21/final0.22
+retention passes both directions. Pinned1STP merged interaction4473ms/longest655ms/
+zero repeated reads meets unchanged budgets; axe/actual200%zoom and movement/surface/
+minimization gates pass. [Review](assets/selection-gestures/c4-review.md) is local
+self-review; Codex requested, none returned, no required gate bypassed. Earlier
+raster/readiness diagnostics remain separate from passing final evidence.
 
-All five versions0.22.0; no migration/schema/API/dependency change. Known limits:
-protein-only ranges, native desktop double-click and transient anchors;#91/#94/#95
-remain separate. No external blocker. Next: push/PR/review/normal merge, exact-master
-complete gate, tag/release/issue reply and verified cleanup. No publication yet.
+[Publication](assets/selection-gestures/c4-publication.json) verifies exact annotated
+tag, stable latest release/notes, public downloaded ZIP SHA256/CRC/260 internal
+hashes and [issue reply](https://github.com/ManuelSe/Neistra/issues/90#issuecomment-6295653182).
+That reply and the release audit asset retain
+final docs integration and actual branch-cleanup/clean-master references after
+verification. Published runtime tag remains fixed. All five versions0.22.0; no
+migration/schema/API/dependency change. Known limits/follow-ups#91/#94/#95 remain
+separate. No remaining approved-scope implementation or external blocker. Next
+product action requires a separate approved plan.
 
 ### Previous delivery baseline — v0.21.0
 
@@ -2629,12 +2639,13 @@ Results:
 
 ## Blockers
 
-No current external blocker. Issue #90 complete candidate and actual-reader gates
-pass; exact merged-master qualification and delivery remain required;
-checkpoint evidence does not establish publication or final qualification.
+No current external blocker. Issue #90 implementation, complete candidate/exact-
+master qualification, actual tagged-reader compatibility and publication pass.
+Final reference/cleanup evidence is retained in the issue reply/release audit.
 
 ## Next action
 
-Complete issue #90 M4/C4 final-version qualification and delivery on `feat/issue-90-selection-gestures`. The
-[approved feature plan](plans/issue-90-selection-gestures.md) governs the remaining
-lifecycle. Existing published runtime tags remain fixed.
+No remaining approved-scope implementation. Select a separate product issue and
+approve its feature plan. Issue #90's detailed contract and release evidence remain
+in [its plan](plans/issue-90-selection-gestures.md); final integration/cleanup facts
+are linked from the verified close-out reply. Published runtime tags remain fixed.

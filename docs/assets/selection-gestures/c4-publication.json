@@ -1,0 +1,100 @@
+{
+  "status": "runtime released and issue close-out verified; final reference audit follows docs integration at linked issue reply",
+  "issue": 90,
+  "plan": "docs/plans/issue-90-selection-gestures.md",
+  "runtime_pr": {
+    "headRefOid": "ae2e856542739317dddb097889384e7f4d8a27c5",
+    "mergeCommit": {
+      "oid": "28d3a9bb59c6e786e0586ae589f0e0ebfee7678a"
+    },
+    "mergedAt": "2026-10-20T15:23:32Z",
+    "number": 105,
+    "state": "MERGED",
+    "url": "https://github.com/ManuelSe/Neistra/pull/105",
+    "strategy": "normal merge preserving checkpoints"
+  },
+  "tag": {
+    "name": "v0.22.0",
+    "type": "annotated",
+    "object": "de6fb6a089271789e1ac168a133c8f91bec8ae88",
+    "commit": "28d3a9bb59c6e786e0586ae589f0e0ebfee7678a",
+    "remote_ref_and_peeled_commit_verified": true
+  },
+  "release": {
+    "id": 418613444,
+    "html_url": "https://github.com/ManuelSe/Neistra/releases/tag/v0.22.0",
+    "tag_name": "v0.22.0",
+    "target_commitish": "28d3a9bb59c6e786e0586ae589f0e0ebfee7678a",
+    "draft": false,
+    "prerelease": false,
+    "published_at": "2026-10-20T16:20:28Z"
+  },
+  "release_notes_sha256": "84ea35321def626b6cf1951b0cd2aec3e7cab39ff6577c151048cf1f121ad64d",
+  "verification_bundle": {
+    "filename": "neistra-v0.22.0-verification.zip",
+    "path": "/datadisk/dev/.neistra-tools/neistra-v0.22.0-verification.zip",
+    "size": 14413871,
+    "sha256": "09bdd8761be989f92e6daca9962243e2bfb2d908a12b9af365f0da77d5351105",
+    "members": 261,
+    "internal_hashes": 260,
+    "crc_verified": true,
+    "runtime_commit": "28d3a9bb59c6e786e0586ae589f0e0ebfee7678a",
+    "source_sha256": "d88e87ed6544d877f72f14d21cc6120d98c77354c3c35cf2d4e9cbffd00a9621",
+    "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.22.0/neistra-v0.22.0-verification.zip",
+    "asset_id": 659834317,
+    "remote_digest": "sha256:09bdd8761be989f92e6daca9962243e2bfb2d908a12b9af365f0da77d5351105",
+    "remote_draft_download_verified": true,
+    "public_published_download_verified": true,
+    "downloaded_zip_crc_and_all_internal_hashes_verified": true
+  },
+  "issue_closeout": {
+    "url": "https://github.com/ManuelSe/Neistra/issues/90#issuecomment-6295653182",
+    "id": 6295653182,
+    "verified_body_sha256": "138a9500d90a230dc275e4a34458c1f90bda2aaa7aa7f0eb47272a9bb5435baa",
+    "closed_by_runtime_pr": true,
+    "final_reference_audit": "This same reply is updated after docs integration and actual branch cleanup."
+  },
+  "qualification": {
+    "issue": 90,
+    "runtime_commit": "28d3a9bb59c6e786e0586ae589f0e0ebfee7678a",
+    "candidate_commit": "7dc4340454af769d25c3c2532973ccabaf7e997f",
+    "source_sha256": "d88e87ed6544d877f72f14d21cc6120d98c77354c3c35cf2d4e9cbffd00a9621",
+    "source_identity_count": 472,
+    "all_15_commands_pass_both_phases": true,
+    "python": 1107,
+    "frontend": 290,
+    "supervisor": 8,
+    "browser": 282,
+    "existing_browser_exclusions": 52,
+    "failures": 0,
+    "retries": 0,
+    "flakes": 0,
+    "native_scientific_skips": 0,
+    "reader": "actual tagged0.21.0 API/core/plugin in both final0.22 directions",
+    "migration_head": "0014",
+    "selection_normalized_schema": 1,
+    "project_viewer_archive_schema": 2
+  },
+  "review": {
+    "request": "https://github.com/ManuelSe/Neistra/pull/105#issuecomment-6294359169",
+    "local_self_review": "https://github.com/ManuelSe/Neistra/pull/105#issuecomment-6294422971",
+    "independent_review_returned": false,
+    "required_remote_checks_or_approvals": false,
+    "unresolved_review_threads_at_merge": 0,
+    "override_used": false
+  },
+  "compatibility": {
+    "database_head": "0014",
+    "normalized_selection_schema": 1,
+    "project_viewer_archive_schema": 2,
+    "new_migration": false,
+    "application_dependency_upgrade": false
+  },
+  "deferred_followups": [
+    91,
+    94,
+    95
+  ],
+  "feature_branch": "feat/issue-90-selection-gestures",
+  "cleanup_order": "Remote/local deletion only after verified runtime merge, tag, release, issue reply and docs audit. Final observed state is recorded at closeout URL and published audit asset, not predicted here."
+}
