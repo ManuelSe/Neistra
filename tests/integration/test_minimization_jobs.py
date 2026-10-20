@@ -89,6 +89,13 @@ def test_real_worker_produces_proposal_without_mutating_molecule(minclient: ApiC
     assert current["entries"][0]["current_artifact_id"] == entry["current_artifact_id"]
     assert _structure(minclient, project["id"], entry["id"]) == before
     assert job["inputs"][0]["artifact_id"] == entry["current_artifact_id"]
+    live = minclient.get(f"/api/v1/projects/{project['id']}/minimizations/{job['id']}/live")
+    assert live.headers["cache-control"] == "no-store" and live.json()["frame"] is None
+    assert not (minclient.app.state.settings.data_dir / "work/jobs" / job["id"]).exists()
+    events = minclient.get(f"/api/v1/jobs/{job['id']}/events").json()
+    assert all(
+        "coordinates" not in event["data"] and "entries" not in event["data"] for event in events
+    )
 
 
 def test_missing_toolchain_is_reported_without_false_success(

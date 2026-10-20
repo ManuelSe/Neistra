@@ -392,3 +392,9 @@ merge/tag/release/reply verification; finish clean master.
   This is not a changed-organic-geometry or live-visible claim. No structural
   migration/schema/dependency/application-version/physical-model change. No blocker.
   Next: commit C3, then C4 transient accepted-iterate snapshots.
+- M3/C3 committed/pushed as 2f052c0. M4/C4:192 Python,265 web,8 supervisor,2 native
+  browser pass; static/mypy90/build/fresh0014 pass. [Evidence](../assets/interactive-minimization/c4-gate.json)
+  and [self-review](../assets/interactive-minimization/c4-review.md) retain scope/limits.
+  D-116 defines transient accepted-iterate delivery and local process ownership. No
+  structural migration/schema/dependency/application-version/model change. One doc
+  EOF whitespace failure was corrected and diff check repeated. No blocker. Next C5.

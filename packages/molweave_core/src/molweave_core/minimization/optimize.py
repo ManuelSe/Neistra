@@ -24,6 +24,8 @@ from molweave_core.minimization.contracts import (
 from molweave_core.minimization.parameterization import Parameterized, finite_parameters
 from molweave_core.minimization.preflight import IsolatedInput
 
+SnapshotCallback = Callable[[int, tuple[tuple[str, int], ...], NDArray[np.float64]], None]
+
 
 def geometry_stereo(molecule: Any, coordinates: NDArray[np.float64]) -> tuple[str, ...]:
     copy = Chem.Mol(molecule)
@@ -63,6 +65,7 @@ def optimize_isolated(
     parameterized: Parameterized,
     parameters: MinimizationParameters,
     context: JobContext,
+    snapshot: SnapshotCallback | None = None,
 ) -> tuple[MinimizationReport, CoordinateProposal]:
     original = np.asarray(value.structure.active_coordinates, dtype=np.float64)
     initial_stereo = geometry_stereo(value.molecule, original)
@@ -86,6 +89,7 @@ def optimize_isolated(
         parameterized,
         parameters,
         context,
+        snapshot,
     )
     return report, proposals[0]
 
@@ -95,6 +99,7 @@ def optimize_environment(
     parameterized: Parameterized,
     parameters: MinimizationParameters,
     context: JobContext,
+    snapshot: SnapshotCallback | None = None,
 ) -> tuple[MinimizationReport, list[CoordinateProposal]]:
     from molweave_core.minimization.stereo import assembly_stereo_validator
 
@@ -108,6 +113,7 @@ def optimize_environment(
         parameterized,
         parameters,
         context,
+        snapshot,
     )
 
 
@@ -120,6 +126,7 @@ def optimize_coordinates(
     parameterized: Parameterized,
     parameters: MinimizationParameters,
     context: JobContext,
+    snapshot: SnapshotCallback | None = None,
 ) -> tuple[MinimizationReport, list[CoordinateProposal]]:
     if np.any(cKDTree(original).query(original, k=2)[0][:, 1] < 1e-6):
         raise CalculationError(
@@ -143,6 +150,8 @@ def optimize_coordinates(
     evaluations = 0
     iterations = 0
     started = time.monotonic()
+    last_progress = started - 1
+    movable_references = tuple(references[int(i)] for i in movable)
 
     def objective(flat: NDArray[np.float64]) -> tuple[float, NDArray[np.float64]]:
         nonlocal evaluations
@@ -162,13 +171,19 @@ def optimize_coordinates(
             raise CalculationError("nonfinite_objective", "Energy or forces became nonfinite")
         return energy, gradient
 
-    def iteration(_: NDArray[np.float64]) -> None:
-        nonlocal iterations
+    def iteration(accepted: NDArray[np.float64]) -> None:
+        nonlocal iterations, last_progress
         iterations += 1
-        context.progress(
-            35 + 55 * iterations / parameters.max_iterations,
-            f"Optimization iteration {iterations}; convergence checked separately",
-        )
+        context.checkpoint()
+        if snapshot is not None:
+            snapshot(iterations, movable_references, np.asarray(accepted).reshape((-1, 3)) * 10)
+        now = time.monotonic()
+        if now - last_progress >= 1:
+            context.progress(
+                35 + 55 * iterations / parameters.max_iterations,
+                f"Optimization iteration {iterations}; convergence checked separately",
+            )
+            last_progress = now
 
     try:
         initial_energy, initial_gradient = objective(captured[movable].reshape(-1))

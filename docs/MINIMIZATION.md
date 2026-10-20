@@ -109,3 +109,12 @@ with a2GiB/128-entry default bound. `MOLWEAVE_MINIMIZATION_CACHE=0` disables reu
 Clearing affects latency, never existing projects/jobs/archives. Invalid entries
 produce diagnostics and cold preparation under the same qualified model. Cache
 contents are not part of portable project archives; per-job native artifacts are.
+
+## Transient computation snapshots
+
+The worker publishes accepted optimizer steps, at most five per second into one
+latest-only private file. These are temporary, unvalidated intermediate coordinates;
+they cannot be applied before successful final report publication. Frames are
+excluded from durable events, model artifacts and archives. Live process validation
+requires the qualified local Linux shared-PID deployment. Transport loss ends preview
+without changing final scientific checks. Viewer integration follows in C5.

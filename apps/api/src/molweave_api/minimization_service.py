@@ -21,6 +21,7 @@ from molweave_core.minimization.contracts import (
     MinimizationReport,
 )
 from molweave_core.minimization.discovery import ContextDiscovery, discover_context
+from molweave_core.minimization.live import capture_digest, read_snapshot
 from molweave_core.molecular import MolecularWarning, NormalizedStructureV1
 from molweave_core.selection import SelectionV1
 from pydantic import ValidationError
@@ -37,6 +38,8 @@ from molweave_api.job_service import (
 from molweave_api.minimization_schemas import (
     MinimizationApply,
     MinimizationCreate,
+    MinimizationLiveRead,
+    MinimizationPreviewSource,
     MinimizationProposalRead,
 )
 from molweave_api.models import Artifact, Job, Project, StructureEntry
@@ -289,6 +292,46 @@ class MinimizationService:
             applicable=reason is None,
             unavailable_reason=reason,
         )
+
+    def live(self, project_id: str, job_id: str) -> MinimizationLiveRead:
+        job = self._job(project_id, job_id)
+        result = MinimizationLiveRead(job_id=job.id, status=job.status)
+        if job.status not in {"queued", "running"} or "archive_source_job_id" in job.provenance:
+            result.unavailable_reason = "Live preview is only available for active calculations"
+            return result
+        try:
+            parameters = MinimizationParameters.model_validate(job.parameters)
+        except ValueError as error:
+            raise JobConflictError(
+                "Calculation capture is invalid; live preview unavailable"
+            ) from error
+        result.capture_sha256 = capture_digest(parameters)
+        result.selection = parameters.selection
+        moving = {r.structure_id for r in parameters.selection.atoms}
+        result.sources = [
+            MinimizationPreviewSource(
+                entry_id=c.entry_id, artifact_id=c.artifact_id, conformer_id=c.conformer_id
+            )
+            for c in parameters.captured_inputs
+            if c.entry_id in moving
+        ]
+        project = self._project(project_id)
+        if project.revision != job.provenance.get("project_revision"):
+            result.unavailable_reason = (
+                "Project changed; live preview ended. Inspect the final report."
+            )
+            return result
+        if job.cancellation_requested:
+            result.unavailable_reason = "Cancellation requested; live preview ended"
+            return result
+        if job.status == "running":
+            try:
+                result.frame = read_snapshot(
+                    self.settings.data_dir / "work/jobs" / job.id, parameters
+                )
+            except (OSError, ValueError) as error:
+                result.unavailable_reason = str(error)
+        return result
 
     def _lock_apply(self, project_id: str) -> None:
         # SQLite is the supported persisted runtime. Acquire its writer lock before

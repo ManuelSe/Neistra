@@ -1,0 +1,15 @@
+{
+  "base": "2f052c072c332e4d6e8b5e7adc639c06c7fedb28",
+  "files": {
+    "apps/api/src/molweave_api/main.py": "844fbc894d8b0a22645ea957d710e3ea68863819133e79dc5fcf006d6b4031a9",
+    "apps/api/src/molweave_api/minimization_schemas.py": "c8811e412ffe380737d6c65a77256d9b88c8bac65ea90f7e9fb8e3a5bfce182a",
+    "apps/api/src/molweave_api/minimization_service.py": "7665fc0b8cc81a917fe4e11118f386b2888d8d7c70fb261de42545730bd6e9bf",
+    "packages/molweave_core/src/molweave_core/minimization/live.py": "0151b2d9a0092a5b1d7defa495fee0275558e282e9316b3675bafd86a49ac67e",
+    "packages/molweave_core/src/molweave_core/minimization/optimize.py": "be2a34a5366335fc3f4c554a340560aa076dc3149cfd32073406aea279eca671",
+    "packages/molweave_core/src/molweave_core/minimization/plugin.py": "295b130d33d51d70b8ff79f84443884537b4e9e3130fd5ba5211611cf98bbade",
+    "tests/integration/test_minimization_jobs.py": "94442c21308071b8d7d531a2e15fd9e57c656e40b3c86d515f24b4b5b2b88490",
+    "tests/integration/test_minimization_live.py": "73f50781b14f4dc2e980b763a81ed12d8a62f8bed429e7014aa32bdbae41c141",
+    "tests/scientific/test_minimization_live.py": "d9cb31d5ddb55ceed6f56365ed62a3482f22120eeda32375de5065982027ff0c",
+    "tests/unit/minimization/test_live.py": "cf2e6f32227aaeb09fe03ab2e3619c475855afc208c9b7e15be25872e5d7c4e0"
+  }
+}

@@ -860,3 +860,12 @@ Imported jobs carry existing `archive_source_job_id`; their reports remain
 inspectable, but proposals are historical and cannot Apply against remapped IDs.
 Archives still omit portable Undo history. Actual tagged0.19.0-reader retention
 and final-version producer qualification remain required in C5/C6.
+
+### Live minimization snapshots (issue89 C4)
+
+`GET /api/v1/projects/{project_id}/minimizations/{job_id}/live` returns schema1, job
+status, capture SHA256, captured selection/source identities and optional latest
+frame (sequence, accepted iteration, selected entry/conformer/atom coordinates).
+Cache-Control:no-store; at most5Hz/1MiB production, latest-only, no history.
+Inactive/historical/cancelled/interrupted/changed-project reads return no frame and
+an unavailable reason where applicable. No read mutates project or job state.

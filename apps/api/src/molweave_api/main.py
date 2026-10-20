@@ -73,6 +73,7 @@ from molweave_api.minimization_schemas import (
     MinimizationApply,
     MinimizationCapabilities,
     MinimizationCreate,
+    MinimizationLiveRead,
     MinimizationProposalRead,
 )
 from molweave_api.minimization_service import MinimizationService
@@ -668,6 +669,22 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     ) -> MinimizationProposalRead:
         return _call(
             lambda: MinimizationService(session, app_settings, job_registry).proposal(
+                project_id, job_id
+            )
+        )
+
+    @router.get(
+        "/projects/{project_id}/minimizations/{job_id}/live", response_model=MinimizationLiveRead
+    )
+    def minimization_live(
+        project_id: str,
+        job_id: str,
+        response: Response,
+        session: Session = Depends(session_dependency),
+    ) -> MinimizationLiveRead:
+        response.headers["Cache-Control"] = "no-store"
+        return _call(
+            lambda: MinimizationService(session, app_settings, job_registry).live(
                 project_id, job_id
             )
         )

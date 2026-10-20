@@ -4621,3 +4621,20 @@ failures propagate honestly. Disable with MOLWEAVE_MINIMIZATION_CACHE=0; configu
 bytes with MOLWEAVE_MINIMIZATION_CACHE_BYTES. Clear only while workers are idle.
 No structural migration/schema/dependency/version/physical-model change. Cold/warm
 benchmarks are preparation evidence, not a live-view qualification (C4/C5).
+## D-116 — Transient minimization snapshots (issue #89 C4)
+
+Accepted optimizer callbacks publish selected coordinates into one atomic latest
+file in the existing private job work directory, bounded to1MiB and5Hz. The
+callback uses the accepted iterate, never the mutable most recent objective trial.
+Ordinary durable optimization progress is limited to1Hz; frames are neither job
+events nor artifacts/cache/archive contents. Completion/cancellation and normal
+worker cleanup end delivery; a restart never restores an interactive session.
+
+The read-only project/job endpoint validates exact captured mapping, conformer,
+capture digest and live producer/coordinator process identities (PID plus Linux
+start ticks), strips private process details and sends Cache-Control:no-store.
+This qualifies the existing local Linux deployment with a shared PID namespace;
+an unverifiable process or changed project revision ends preview, while final
+calculation/report and independently guarded Apply remain available. Transport
+unavailability cannot authorize partial Apply. No DB or structural schema change.
+Viewer rendering and warned acceptance follow in C5; C4 alone does not claim live UI.

@@ -19,7 +19,7 @@ passes with2 intentional layout skips; static/build/fresh0014 and existing perfo
 bounds pass. Three prepared1STP pairs yield5.47s cold/0.39s warm median preparation,
 14.2x, zero warm native calls. Changed organic charge geometry still reparameterizes.
 Live/warned acceptance remain C4/C5; final compatibility/release C6. Existing bundle/
-Vite-disconnect advisories retained. No blocker. Next: C4 transient snapshots.
+Vite-disconnect advisories retained. M4/C4 publishes bounded transient accepted-iterate snapshots (D-116). [Gate](assets/interactive-minimization/c4-gate.json):192 Python,265 web,8 supervisor,2 native browser pass; static/mypy90/build/fresh0014 pass. No frames in durable events/model artifacts; process loss/cancel/restart/project-change guards pass. [Review](assets/interactive-minimization/c4-review.md) is local self-review. Viewer/acceptance remain C5; no migration/schema/dependency/application-version/model change. No blocker. Next: C5 actual live viewer and warned acceptance.
 
 ### Previous delivery baseline — v0.20.0
 

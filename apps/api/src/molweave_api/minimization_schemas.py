@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Literal
 
 from molweave_core.minimization.contracts import CoordinateProposal, MinimizationReport
+from molweave_core.minimization.live import OptimizationFrame
 from molweave_core.selection import SelectionV1
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
@@ -61,6 +62,23 @@ class MinimizationProposalRead(BaseModel):
     report: MinimizationReport
     entries: list[CoordinateProposal]
     applicable: bool
+    unavailable_reason: str | None = None
+
+
+class MinimizationPreviewSource(BaseModel):
+    entry_id: str
+    artifact_id: str
+    conformer_id: int
+
+
+class MinimizationLiveRead(BaseModel):
+    schema_version: Literal[1] = 1
+    job_id: str
+    status: str
+    capture_sha256: str | None = None
+    selection: SelectionV1 | None = None
+    sources: list[MinimizationPreviewSource] = Field(default_factory=list, max_length=100)
+    frame: OptimizationFrame | None = None
     unavailable_reason: str | None = None
 
 

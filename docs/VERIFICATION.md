@@ -42,6 +42,8 @@ about6.38s/1.30s. This does not establish live-visible latency or changed-ligand
 reuse. [Review](assets/interactive-minimization/c3-review.md) is local self-review.
 No structural migration/schema/dependency/application version/physical-model change.
 
+M4/C4 publishes bounded transient accepted-iterate snapshots (D-116). [Gate](assets/interactive-minimization/c4-gate.json):192 Python,265 web,8 supervisor,2 native browser pass; static/mypy90/build/fresh0014 pass. No frames in durable events/model artifacts; process loss/cancel/restart/project-change guards pass. [Review](assets/interactive-minimization/c4-review.md) is local self-review. Viewer/acceptance remain C5; no migration/schema/dependency/application-version/model change.
+
 ## Selection minimization (issue #82, C1–C6)
 
 The [approved feature plan](plans/issue-82-selection-minimization.md) is the

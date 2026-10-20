@@ -493,3 +493,11 @@ viewer objects never become cached molecular authority. Organic signatures inclu
 AM1-BCC input geometry; template protein signatures omit coordinates. Each job
 materializes independent native files and captures its own actual start coordinates.
 See D-115 for quota, eviction, provenance and concurrency tradeoffs.
+
+### Transient optimization delivery (issue89 C4)
+
+Accepted iterates use a bounded atomic latest file in the private job work directory.
+The read-only project/job live endpoint validates capture, exact mapping and local
+process lifetime. It returns no stale frame after cancel/completion/project change.
+Frames never enter durable events, calculation artifacts, caches or archives.
+Linux/shared-PID deployment assumptions and graceful unavailability are in D-116.

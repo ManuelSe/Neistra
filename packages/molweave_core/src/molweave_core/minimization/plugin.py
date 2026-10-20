@@ -111,6 +111,7 @@ class MinimizationPlugin:
         # Heavy native imports happen in the controlled worker child, not API startup.
         from molweave_core.minimization.assembly import environment_preflight, needs_templates
         from molweave_core.minimization.context_model import parameterize_environment
+        from molweave_core.minimization.live import SnapshotPublisher
         from molweave_core.minimization.optimize import optimize_environment, optimize_isolated
         from molweave_core.minimization.parameter_cache import ParameterCache
         from molweave_core.minimization.parameterization import parameterize_isolated
@@ -174,12 +175,17 @@ class MinimizationPlugin:
                 )
             )
             stage = "optimization"
+            live = SnapshotPublisher(values, context)
             if not use_assembly:
-                report, proposal = optimize_isolated(value, model, values, context)
+                report, proposal = optimize_isolated(value, model, values, context, live.publish)
                 proposals.append(proposal.model_dump(mode="json"))
             else:
-                report, results = optimize_environment(assembly, model, values, context)
+                report, results = optimize_environment(
+                    assembly, model, values, context, live.publish
+                )
                 proposals.extend(p.model_dump(mode="json") for p in results)
+            if live.warning:
+                report.warnings.append(live.warning)
             if values.mode == "environment":
                 report.warnings.append(
                     "Environment model is nonperiodic with 12 angstrom cutoff, 10 angstrom "
