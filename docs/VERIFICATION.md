@@ -1079,3 +1079,16 @@ checks blur clearing, fresh trusted hover and exit. 1STP879ms import/4034ms
 interactions/637ms longest/zero repeated reads meets unchanged budgets. Earlier
 interrupted `c3-candidate` is not final qualification; fresh committed
 `c3-final-candidate` and exact-master gates remain required.
+
+Issue91 final [clean candidate667e7a8](assets/selection-mode-hover/c3-final-candidate-gate.json)
+passes all16 release commands:1108 Python/305 frontend/8 supervisor/285 browser
+with55 documented layout/timing exclusions, zero failures/flakes/retries/native
+scientific skips. [Audit](assets/selection-mode-hover/c3-final-candidate-summary.json)
+verifies480 unchanged source/patch/lock hashes and16 lossless log hashes. Actual
+tagged0.22↔final0.22.1 readers pass both directions. 1STP915ms import/4039ms
+interactions/669ms longest/zero repeated reads meets unchanged budgets; native18k
+minimization/100k surface, actual100–200%zoom, both-theme accessibility and complete
+journey pass. Exact native hover sets, zero extra camera callbacks and lifecycle
+pass; final screenshots were inspected in both themes. [Review](assets/selection-mode-hover/c3-review.md)
+is local self-review with no unresolved consequential finding. Earlier interrupted/
+negative controls are separate; exact merged-master repetition remains required.

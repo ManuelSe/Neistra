@@ -2,29 +2,27 @@
 
 ## Current milestone
 
-Issue #91 M1/C1 and corrected M2/C2 are implemented and focused-qualified under
-the [approved plan](plans/issue-91-selection-mode-hover.md) and explicit `/goal`.
-Shared exact targets and one transient hover owner preserve selection, molecular
-state, camera, visibility, movement and surface activation. D-124/125 govern.
-[Final M2 gate](assets/selection-mode-hover/c2-final-corrected-gate.json):305 frontend
-(29 focused), lint/types/build/diff and58 native browser passes /4 intentional
-exclusions, zero failures/flakes/retries; source/patch/lock hashes unchanged.
-Review found and fixed pending native click readback through a pinned Mol*5.11.0
-patch; original80ms surface repeats pass10/10. Review is local self-review.
-M2 c8a9c6e is pushed and remotely verified; #107 tracks eventual upstream patch
-removal, not incomplete functionality. All five versions are now prepared as0.22.1.
-[M3 focused final-version gate](assets/selection-mode-hover/c3-focused-gate.json)
-passes35 Python/305 frontend/12 browser cases (8 documented exclusions), all
-static/build/diff checks and unchanged1STP budgets. Complete clean candidate/
-actual-reader and exact-master qualification/publication remain pending.
-Final review fixed reproduced duplicate camera publications on hover (D-124).
-[Expanded gate](assets/selection-mode-hover/c3-camera-gate.json) passes305 frontend/
-83 browser (11 documented exclusions), static/build/diff and unchanged1STP budgets;
-[blur/native hover](assets/selection-mode-hover/c3-blur-gate.json) also passes, with
-zero camera callbacks during unchanged-pose hover. The first candidate was
-intentionally interrupted and is diagnostic only. Next:fresh committed complete
-clean `c3-final-candidate` qualification, PR/review and verified publication. No schema/API/migration/
-scientific change or dependency version upgrade. No external blocker.
+Issue #91 M1–M3 are implemented and clean-candidate-qualified under the
+[approved plan](plans/issue-91-selection-mode-hover.md). Exact transient hover and
+ordinary picks share canonical targets, with no selection/camera/project mutation.
+D-124/125 retain ownership, camera-publication deduplication and pinned native
+readback correction. Five versions0.22.1; stable patch release planned.
+
+[Clean candidate667e7a8](assets/selection-mode-hover/c3-final-candidate-gate.json)
+passes all16 commands: **1,108 Python,305 frontend,8 supervisor,285 browser /55
+intentional layout/timing exclusions**, zero failures/flakes/retries/native
+scientific skips; all480 source/patch/lock hashes unchanged and logs verified.
+Actual tagged0.22↔final0.22.1 readers pass both directions. Pinned1STP4039ms
+interaction/669ms longest/zero repeated reads and unchanged scientific/performance/
+accessibility/zoom gates pass. [Review](assets/selection-mode-hover/c3-review.md)
+is local self-review; no unresolved consequential finding. Earlier diagnostics
+are superseded. No schema/migration/public API/scientific/dependency upgrade.
+Known limits: entity-only modifiers, existing classification/native fallback,
+bond endpoints and supplementary mouse hover. #107 tracks upstream patch removal;
+#94/#95 remain separate. Existing bundle/Alembic advisories remain.
+Next: push qualification, PR/review/protection audit and normal merge, then complete
+exact-master gate before verified tag/release/issue reply/docs audit/cleanup.
+No external blocker; publication has not occurred.
 
 ### Previous delivery baseline — v0.22.0
 

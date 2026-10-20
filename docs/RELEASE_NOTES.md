@@ -4,7 +4,7 @@
 
 Release preparation for [issue #91](https://github.com/ManuelSe/Neistra/issues/91)
 under the [approved plan](plans/issue-91-selection-mode-hover.md). Publication
-and exact-master evidence remain pending. Stable patch: this corrects existing
+and exact-master evidence remain pending; clean candidate qualification passes. Stable patch: this corrects existing
 picking behavior without adding a public operation or changing persisted data.
 
 ### Fixed behavior
@@ -45,20 +45,21 @@ Both distributed module variants are patched; ready buffers avoid extra reads.
 
 ### Verification
 
-M1 passes31 focused/299 frontend,7 Python and16 native browser cases /2 existing
-layout exclusions. Corrected M2 passes29 focused/305 frontend and58 native browser cases
-/4 intentional layout/pointer exclusions, lint/types/build/diff, no failures or
-retries. Exact marker membership, same-entity work bounds, selection overlap and
-lifecycle/remount are asserted. Both-theme atom screenshots were visually checked.
-Focused final-version qualification also passes35 Python archive/selection tests
-and12 browser cases /8 documented layout/pointer exclusions. Both-theme axe and
-1STP import863ms/interaction4091ms/longest628ms/zero repeated reads meet unchanged
-budgets. Earlier diagnostics are separate from final evidence. Complete
-fresh final-version candidate and exact-master gates, actual-reader compatibility and
-unchanged scientific/performance/accessibility budgets remain pending. The camera-publication correction additionally passes305 frontend/83 native
-browser cases (11 documented exclusions), plus both-theme zero-callback and blur
-checks. Existing lazy Mol* bundle and Alembic configuration deprecation advisories
-remain; no production speedup claim is made.
+[Clean candidate667e7a8](assets/selection-mode-hover/c3-final-candidate-gate.json)
+passes all16 commands:1,108 Python,305 frontend,8 supervisor,285 browser with55
+intentional layout/timing exclusions, zero failures/flakes/retries/native scientific
+skips. All480 source/patch/lock identities and16 lossless logs verify. Actual
+tagged0.22↔final0.22.1 readers pass both directions. Pinned1STP:915ms import/viewer,
+4039ms interactions,669ms longest task, zero repeated normalized reads. Unchanged
+native18k minimization/100k surface, movement/surface, accessibility, actual100–200%
+zoom and complete application journey gates pass.
+
+Exact native marker sets, selection overlap/restoration, zero extra selection/camera
+publications, lifecycle/blur/remount and both-theme screenshots qualify the fix.
+[Full-diff review](assets/selection-mode-hover/c3-review.md) is local self-review;
+all consequential findings are fixed. Earlier diagnostics are retained separately.
+Exact merged-master repetition is required before publication. Existing lazy Mol*
+bundle and Alembic deprecation advisories remain; no speedup claim is made.
 
 ### Follow-up work
 

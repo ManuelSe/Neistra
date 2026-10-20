@@ -2,8 +2,9 @@
 
 ## 1. Status, outcome, and authority
 
-**Status:** approved implementation contract; M1/C1 and M2/C2 implemented and focused-qualified; M3/C3 final-version release
-qualification in progress under the explicit `/goal` authorization.
+**Status:** M1–M3 implemented and clean-candidate-qualified under the approved
+contract and explicit `/goal`. PR/review/merge and exact-master release
+qualification are next.
 
 **Approval:** the user's “Implement the plan.” on 2026-10-20 approves the complete
 proposal and its explicit C0 stop ready for `/goal`. This approval authorizes
@@ -688,3 +689,35 @@ incorporation/removal; no unrelated feature or chemistry change is accepted.
   scientific/version expansion or unresolved consequential finding. The earlier
   candidate is superseded. Next: passing fix commit and a fresh complete clean
   `c3-final-candidate` gate, then final full-diff/evidence review and PR workflow.
+
+### M3/C3 final clean candidate qualification
+
+- Clean committed candidate `667e7a8` passes the complete
+  [16-command gate](../assets/selection-mode-hover/c3-final-candidate-gate.json):
+  **1,108 Python,305 frontend,8 supervisor,285 browser /55 intentional layout/
+  timing exclusions**, zero failures/flakes/retries/native scientific skips.
+  Frozen installs, fresh0014, Ruff/mypy, lint/types/build/version/diff pass.
+- [Source/log audit](../assets/selection-mode-hover/c3-final-candidate-summary.json)
+  verifies all480 source/patch/lock identities and16 lossless log hashes; bytes
+  remain unchanged. [Browser summary](../assets/selection-mode-hover/c3-final-candidate-browser-summary.json)
+  retains340 individual results, exclusions and native JSON attachments.
+- [Actual0.22↔0.22.1 reader gate](../assets/selection-mode-hover/c3-final-candidate-reader-gate.json)
+  passes both directions with original coordinates/bytes, retained batch Undo/Redo,
+  scenes, named selections, surfaces/seeds, original jobs and archive reexport/
+  remapping. Existing archives omit portable history; hover adds no durable field.
+- Pinned1STP1001 atoms:915ms import/viewer,4039ms interactions,669ms longest
+  task, zero repeated normalized reads. All unchanged native18k minimization,
+  100k surface, movement, surface/visibility, actual100–200% browser zoom,
+  both-theme accessibility/keyboard/touch and complete application journey gates
+  pass. Final candidate atom screenshots inspected in both themes; pink hover/
+  green selection remain distinct, with exact membership/overlap tests.
+- [Final full-diff review](../assets/selection-mode-hover/c3-review.md) is local
+  implementer self-review. All consequential native-readback/camera-publication/
+  marker findings are fixed and qualified; no remaining consequential finding.
+  Original80ms surface coverage remains. Existing lazy bundle and398 Alembic
+  deprecation warnings remain; no threshold reduction or speedup claim.
+- All five versions0.22.1, unchanged0014/schema boundaries and no dependency
+  upgrade. Follow-up#107 tracks eventual patch removal; #94/#95 remain separate.
+  Next: commit qualification evidence, push, PR/Codex review request, remote
+  protections/checks/reviews/base/tag audit and normal merge. Exact-master full
+  gate is still mandatory before tag/release. No external blocker.
