@@ -2,10 +2,13 @@
 
 ## 0.22.1 - 2026-10-20 - Picking-mode hover previews
 
-Release preparation for [issue #91](https://github.com/ManuelSe/Neistra/issues/91)
-under the [approved plan](plans/issue-91-selection-mode-hover.md). Publication
-and exact-master evidence remain pending; clean candidate qualification passes. Stable patch: this corrects existing
-picking behavior without adding a public operation or changing persisted data.
+Published stable [v0.22.1](https://github.com/ManuelSe/Neistra/releases/tag/v0.22.1) in
+[PR#108](https://github.com/ManuelSe/Neistra/pull/108), under the
+[approved issue91 plan](plans/issue-91-selection-mode-hover.md). Annotated on exact
+verified master9fd618573dd3c0d7da3c5bea358070950a784a23. [Publication](assets/selection-mode-hover/c3-publication.json)
+verifies full notes and public qualification ZIP SHA256/CRC/internal hashes.
+Stable patch corrects existing picking behavior without new public/scientific
+capability or persisted incompatibility.
 
 ### Fixed behavior
 
@@ -36,7 +39,7 @@ schema or migration. Alembic0014, project/viewer/archive2 and normalized/selecti
 remain. Reload/restart the previous qualified runtime to roll back; no conversion
 or data stripping is needed, and its earlier hover behavior returns. Keep a full
 managed-data backup for ordinary rollback safety. Actual tagged0.22.0/final0.22.1
-producer/reader qualification in both directions is required before publication.
+producer/reader qualification passes both directions on candidate and exact master.
 
 The locked Mol*5.11.0 package patch (D-125) fixes a pending-readback click
 regression exposed during review. It finishes native GPU reads before synchronous
@@ -58,7 +61,10 @@ Exact native marker sets, selection overlap/restoration, zero extra selection/ca
 publications, lifecycle/blur/remount and both-theme screenshots qualify the fix.
 [Full-diff review](assets/selection-mode-hover/c3-review.md) is local self-review;
 all consequential findings are fixed. Earlier diagnostics are retained separately.
-Exact merged-master repetition is required before publication. Existing lazy Mol*
+Exact merged-master gate repeats all16 commands/counts with identical480 source/
+patch/lock identities. Merged1STP import751ms/interactions4100ms/longest673ms/
+zero repeated reads meets unchanged budgets. [Issue close-out](https://github.com/ManuelSe/Neistra/issues/91#issuecomment-6302369833)
+records final documentation/ref cleanup audit; published runtime tag stays fixed. Existing lazy Mol*
 bundle and Alembic deprecation advisories remain; no speedup claim is made.
 
 ### Follow-up work

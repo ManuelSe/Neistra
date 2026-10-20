@@ -1,0 +1,149 @@
+{
+  "tag": "v0.22.0",
+  "tagged_commit": "28d3a9bb59c6e786e0586ae589f0e0ebfee7678a",
+  "current_commit": "9fd618573dd3c0d7da3c5bea358070950a784a23",
+  "current_version": "0.22.1",
+  "steps": [
+    {
+      "direction": "forward",
+      "phase": "migration",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/alembic",
+        "-c",
+        "/datadisk/dev/neistra/alembic.ini",
+        "upgrade",
+        "head"
+      ],
+      "cwd": "/datadisk/dev/neistra",
+      "pythonpath": "/datadisk/dev/neistra/apps/api/src:/datadisk/dev/neistra/packages/molweave_core/src:/datadisk/dev/neistra/packages/molweave_demo_plugin/src:/datadisk/dev/neistra",
+      "data_dir": "/datadisk/dev/.neistra-tools/issue91-c3-merged-forward",
+      "expected_version": "0.22.1",
+      "exit_code": 0,
+      "seconds": 0.9453473989997292,
+      "log": "docs/assets/selection-mode-hover/c3-merged-forward-migration.log.gz",
+      "raw_log_sha256": "a65aaba1d288361248cfad53dee993528aa5c4bbd5accca186ae60e26f85c610"
+    },
+    {
+      "direction": "forward",
+      "phase": "produce",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/python",
+        "/datadisk/dev/neistra/tests/support/selection_reader_qualification.py",
+        "produce",
+        "--data-dir",
+        "/datadisk/dev/.neistra-tools/issue91-c3-merged-forward",
+        "--evidence",
+        "/datadisk/dev/neistra/docs/assets/selection-mode-hover/c3-merged-forward-produce.json",
+        "--implementation-root",
+        "/datadisk/dev/neistra",
+        "--expected-version",
+        "0.22.1"
+      ],
+      "cwd": "/datadisk/dev/neistra",
+      "pythonpath": "/datadisk/dev/neistra/apps/api/src:/datadisk/dev/neistra/packages/molweave_core/src:/datadisk/dev/neistra/packages/molweave_demo_plugin/src:/datadisk/dev/neistra",
+      "data_dir": "/datadisk/dev/.neistra-tools/issue91-c3-merged-forward",
+      "expected_version": "0.22.1",
+      "exit_code": 0,
+      "seconds": 2.522557352000149,
+      "log": "docs/assets/selection-mode-hover/c3-merged-forward-produce.log.gz",
+      "raw_log_sha256": "e55dc6afcc2b78f9db64e4849e9a0820484cf7234cb9da51b8797e1052acce13"
+    },
+    {
+      "direction": "forward",
+      "phase": "read",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/python",
+        "/datadisk/dev/neistra/tests/support/selection_reader_qualification.py",
+        "read",
+        "--data-dir",
+        "/datadisk/dev/.neistra-tools/issue91-c3-merged-forward",
+        "--evidence",
+        "/datadisk/dev/neistra/docs/assets/selection-mode-hover/c3-merged-forward-read.json",
+        "--implementation-root",
+        "/datadisk/dev/.neistra-tools/issue91-reader-022",
+        "--expected-version",
+        "0.22.0"
+      ],
+      "cwd": "/datadisk/dev/.neistra-tools/issue91-reader-022",
+      "pythonpath": "/datadisk/dev/.neistra-tools/issue91-reader-022/apps/api/src:/datadisk/dev/.neistra-tools/issue91-reader-022/packages/molweave_core/src:/datadisk/dev/.neistra-tools/issue91-reader-022/packages/molweave_demo_plugin/src:/datadisk/dev/neistra",
+      "data_dir": "/datadisk/dev/.neistra-tools/issue91-c3-merged-forward",
+      "expected_version": "0.22.0",
+      "exit_code": 0,
+      "seconds": 1.4911007650007377,
+      "log": "docs/assets/selection-mode-hover/c3-merged-forward-read.log.gz",
+      "raw_log_sha256": "0e476189c3bb8ca3e4a2f2a78e2465386d5a53a89a2a26badc418e2aa5d9efc0"
+    },
+    {
+      "direction": "reverse",
+      "phase": "migration",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/alembic",
+        "-c",
+        "/datadisk/dev/.neistra-tools/issue91-reader-022/alembic.ini",
+        "upgrade",
+        "head"
+      ],
+      "cwd": "/datadisk/dev/.neistra-tools/issue91-reader-022",
+      "pythonpath": "/datadisk/dev/.neistra-tools/issue91-reader-022/apps/api/src:/datadisk/dev/.neistra-tools/issue91-reader-022/packages/molweave_core/src:/datadisk/dev/.neistra-tools/issue91-reader-022/packages/molweave_demo_plugin/src:/datadisk/dev/neistra",
+      "data_dir": "/datadisk/dev/.neistra-tools/issue91-c3-merged-reverse",
+      "expected_version": "0.22.0",
+      "exit_code": 0,
+      "seconds": 0.9899861269950634,
+      "log": "docs/assets/selection-mode-hover/c3-merged-reverse-migration.log.gz",
+      "raw_log_sha256": "a65aaba1d288361248cfad53dee993528aa5c4bbd5accca186ae60e26f85c610"
+    },
+    {
+      "direction": "reverse",
+      "phase": "produce",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/python",
+        "/datadisk/dev/neistra/tests/support/selection_reader_qualification.py",
+        "produce",
+        "--data-dir",
+        "/datadisk/dev/.neistra-tools/issue91-c3-merged-reverse",
+        "--evidence",
+        "/datadisk/dev/neistra/docs/assets/selection-mode-hover/c3-merged-reverse-produce.json",
+        "--implementation-root",
+        "/datadisk/dev/.neistra-tools/issue91-reader-022",
+        "--expected-version",
+        "0.22.0"
+      ],
+      "cwd": "/datadisk/dev/.neistra-tools/issue91-reader-022",
+      "pythonpath": "/datadisk/dev/.neistra-tools/issue91-reader-022/apps/api/src:/datadisk/dev/.neistra-tools/issue91-reader-022/packages/molweave_core/src:/datadisk/dev/.neistra-tools/issue91-reader-022/packages/molweave_demo_plugin/src:/datadisk/dev/neistra",
+      "data_dir": "/datadisk/dev/.neistra-tools/issue91-c3-merged-reverse",
+      "expected_version": "0.22.0",
+      "exit_code": 0,
+      "seconds": 2.5258851109974785,
+      "log": "docs/assets/selection-mode-hover/c3-merged-reverse-produce.log.gz",
+      "raw_log_sha256": "c30278e923a44e4f6e89e96eac8bd685393c28cb1c713ef5ce9e62d46629a9d4"
+    },
+    {
+      "direction": "reverse",
+      "phase": "read",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/python",
+        "/datadisk/dev/neistra/tests/support/selection_reader_qualification.py",
+        "read",
+        "--data-dir",
+        "/datadisk/dev/.neistra-tools/issue91-c3-merged-reverse",
+        "--evidence",
+        "/datadisk/dev/neistra/docs/assets/selection-mode-hover/c3-merged-reverse-read.json",
+        "--implementation-root",
+        "/datadisk/dev/neistra",
+        "--expected-version",
+        "0.22.1"
+      ],
+      "cwd": "/datadisk/dev/neistra",
+      "pythonpath": "/datadisk/dev/neistra/apps/api/src:/datadisk/dev/neistra/packages/molweave_core/src:/datadisk/dev/neistra/packages/molweave_demo_plugin/src:/datadisk/dev/neistra",
+      "data_dir": "/datadisk/dev/.neistra-tools/issue91-c3-merged-reverse",
+      "expected_version": "0.22.1",
+      "exit_code": 0,
+      "seconds": 1.4931665240001166,
+      "log": "docs/assets/selection-mode-hover/c3-merged-reverse-read.log.gz",
+      "raw_log_sha256": "f771fdcd8be05d3d4568ccd3bdefa72d795e8fe40d040a116f08089829e5a46a"
+    }
+  ],
+  "forward_archive_sha256": "1b00674f4490b448daf62b2745f2ae347550e578683da2097d6df75f768976f9",
+  "reverse_archive_sha256": "bb029af5c4db34b855e878f81a0fee1825138dfba006e98c13f08e57df973f7a",
+  "qualified": true
+}

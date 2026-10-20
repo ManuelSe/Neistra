@@ -1,0 +1,100 @@
+{
+  "status": "runtime release and issue closeout verified; final docs/ref cleanup audit follows at linked issue reply",
+  "issue": 91,
+  "plan": "docs/plans/issue-91-selection-mode-hover.md",
+  "runtime_pr": {
+    "headRefOid": "2575416125464d05698c5a617ce41eb702097702",
+    "mergeCommit": {
+      "oid": "9fd618573dd3c0d7da3c5bea358070950a784a23"
+    },
+    "mergedAt": "2026-10-20T20:49:52Z",
+    "number": 108,
+    "state": "MERGED",
+    "url": "https://github.com/ManuelSe/Neistra/pull/108",
+    "strategy": "normal merge preserving checkpoint history"
+  },
+  "tag": {
+    "name": "v0.22.1",
+    "type": "annotated",
+    "object": "522fce7937909d3190692022e73715a347ba83ae",
+    "commit": "9fd618573dd3c0d7da3c5bea358070950a784a23",
+    "remote_ref_and_peeled_commit_verified": true
+  },
+  "release": {
+    "id": 418913413,
+    "html_url": "https://github.com/ManuelSe/Neistra/releases/tag/v0.22.1",
+    "tag_name": "v0.22.1",
+    "target_commitish": "9fd618573dd3c0d7da3c5bea358070950a784a23",
+    "draft": false,
+    "prerelease": false,
+    "published_at": "2026-10-20T21:47:09Z"
+  },
+  "release_notes_sha256": "1ffc89ad42e067972e5302e92da887a1872accb447415867fd128f1e7ff231af",
+  "verification_bundle": {
+    "filename": "neistra-v0.22.1-verification.zip",
+    "path": "/datadisk/dev/.neistra-tools/neistra-v0.22.1-verification.zip",
+    "size": 28437069,
+    "sha256": "fecb88483fc4712582dd14f2c7f924afb697f893c7d9d9ba223c78b455f1f099",
+    "members": 455,
+    "internal_hashes": 454,
+    "crc_verified": true,
+    "runtime_commit": "9fd618573dd3c0d7da3c5bea358070950a784a23",
+    "source_sha256": "125a3f721c84855316849bd817431d9007d69947a6a30e66cf7b1b24698ebca9",
+    "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.22.1/neistra-v0.22.1-verification.zip",
+    "asset_id": 660577057,
+    "remote_digest": "sha256:fecb88483fc4712582dd14f2c7f924afb697f893c7d9d9ba223c78b455f1f099",
+    "public_published_download_verified": true,
+    "downloaded_zip_crc_and_all_internal_hashes_verified": true
+  },
+  "issue_closeout": {
+    "id": 6302369833,
+    "url": "https://github.com/ManuelSe/Neistra/issues/91#issuecomment-6302369833",
+    "verified_body_sha256": "e4c19fc1991ade5b9f38575480e296fdd7030313e8ef95c3b453148070048355",
+    "closed_by_runtime_pr": true,
+    "final_reference_audit": "Final docs integration and actual branch cleanup are appended to this same reply after verification."
+  },
+  "qualification": {
+    "issue": 91,
+    "runtime_commit": "9fd618573dd3c0d7da3c5bea358070950a784a23",
+    "candidate_commit": "667e7a88fade5dd6d40d5ce7f28df1fcb40bb832",
+    "source_sha256": "125a3f721c84855316849bd817431d9007d69947a6a30e66cf7b1b24698ebca9",
+    "source_identity_count": 480,
+    "all_16_commands_pass_both_phases": true,
+    "python": 1108,
+    "frontend": 305,
+    "supervisor": 8,
+    "browser": 285,
+    "browser_exclusions": 55,
+    "failures": 0,
+    "retries": 0,
+    "flakes": 0,
+    "native_scientific_skips": 0,
+    "reader": "actual tagged0.22.0 API/core/plugin in both final0.22.1 directions",
+    "migration_head": "0014",
+    "selection_normalized_schema": 1,
+    "project_viewer_archive_schema": 2
+  },
+  "review": {
+    "request": "https://github.com/ManuelSe/Neistra/pull/108#issuecomment-6301112797",
+    "local_self_review": "https://github.com/ManuelSe/Neistra/pull/108#issuecomment-6301126269",
+    "independent_review_returned": false,
+    "required_remote_checks_or_approvals": false,
+    "unresolved_review_threads_at_merge": 0,
+    "override_used": false
+  },
+  "compatibility": {
+    "database_head": "0014",
+    "normalized_selection_schema": 1,
+    "project_viewer_archive_schema": 2,
+    "new_migration": false,
+    "dependency_version_upgrade": false,
+    "pinned_molstar_5_11_0_readback_patch": true
+  },
+  "followups": [
+    94,
+    95,
+    107
+  ],
+  "feature_branch": "fix/issue-91-selection-mode-hover",
+  "cleanup_order": "Remote/local deletion only after verified runtime merge, tag, release, initial issue reply and documentation audit. Actual final state is recorded externally after those events; the runtime tag remains fixed."
+}

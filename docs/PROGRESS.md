@@ -2,27 +2,35 @@
 
 ## Current milestone
 
-Issue #91 M1–M3 are implemented and clean-candidate-qualified under the
-[approved plan](plans/issue-91-selection-mode-hover.md). Exact transient hover and
-ordinary picks share canonical targets, with no selection/camera/project mutation.
-D-124/125 retain ownership, camera-publication deduplication and pinned native
-readback correction. Five versions0.22.1; stable patch release planned.
+Issue #91 is implemented, merged in [PR#108](https://github.com/ManuelSe/Neistra/pull/108)
+and released as stable [v0.22.1](https://github.com/ManuelSe/Neistra/releases/tag/v0.22.1) under the
+[approved plan](plans/issue-91-selection-mode-hover.md). Shared exact hover/click
+targets, one transient mark owner, camera-publication deduplication and pinned
+native readback correction preserve selection, camera, molecular state and
+independent surfaces. D-124/125 govern; all five versions0.22.1.
 
-[Clean candidate667e7a8](assets/selection-mode-hover/c3-final-candidate-gate.json)
-passes all16 commands: **1,108 Python,305 frontend,8 supervisor,285 browser /55
-intentional layout/timing exclusions**, zero failures/flakes/retries/native
-scientific skips; all480 source/patch/lock hashes unchanged and logs verified.
-Actual tagged0.22↔final0.22.1 readers pass both directions. Pinned1STP4039ms
-interaction/669ms longest/zero repeated reads and unchanged scientific/performance/
-accessibility/zoom gates pass. [Review](assets/selection-mode-hover/c3-review.md)
-is local self-review; no unresolved consequential finding. Earlier diagnostics
-are superseded. No schema/migration/public API/scientific/dependency upgrade.
-Known limits: entity-only modifiers, existing classification/native fallback,
-bond endpoints and supplementary mouse hover. #107 tracks upstream patch removal;
-#94/#95 remain separate. Existing bundle/Alembic advisories remain.
-Next: push qualification, PR/review/protection audit and normal merge, then complete
-exact-master gate before verified tag/release/issue reply/docs audit/cleanup.
-No external blocker; publication has not occurred.
+Both [clean candidate667e7a8](assets/selection-mode-hover/c3-final-candidate-gate.json)
+and [exact released master](assets/selection-mode-hover/c3-merged-gate.json)
+`9fd618573dd3c0d7da3c5bea358070950a784a23` pass all16 commands: **1,108 Python,305 frontend,8 supervisor,285 browser
+/55 documented layout/timing exclusions**, zero failures/flakes/retries/native
+scientific skips;480 source/patch/lock identities equal and logs verify. Actual
+tagged0.22↔final0.22.1 readers retain data/history/jobs/archives both directions.
+Merged1STP4100ms interactions/673ms longest/zero repeated reads and
+unchanged scientific/performance/accessibility/zoom gates pass.
+[Review](assets/selection-mode-hover/c3-review.md) is local self-review; Codex
+requested, none returned at merge; no required gate bypassed.
+
+[Publication](assets/selection-mode-hover/c3-publication.json) verifies annotated
+exact tag, stable latest release/full notes, public ZIP SHA256/CRC/internal hashes
+and [issue close-out](https://github.com/ManuelSe/Neistra/issues/91#issuecomment-6302369833). Final docs integration and **actual** delayed
+branch/worktree cleanup/clean-master audit is appended to that reply and the
+release audit asset after verification. Runtime tag remains fixed. No new schema/
+migration/public API/chemistry or dependency upgrade. Known limits: entity-only
+modifiers, canonical classification/native fallback, bond endpoints, supplementary
+mouse hover. #94/#95 separate; #107 tracks eventual patch removal. Existing
+bundle/Alembic advisories remain. No remaining approved-scope implementation or
+external blocker. Final refs/cleanup are audited at the linked reply after actual
+verification; the next product action requires a separate approved plan.
 
 ### Previous delivery baseline — v0.22.0
 
