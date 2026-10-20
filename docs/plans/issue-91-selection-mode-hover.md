@@ -2,12 +2,14 @@
 
 ## 1. Status, outcome, and authority
 
-**Status:** approved implementation contract; C0 planning persistence only.
-Implementation has not started.
+**Status:** approved implementation contract; M1/C1 implemented and focused-qualified; M2/C2 next under the explicit
+`/goal` authorization.
 
 **Approval:** the user's “Implement the plan.” on 2026-10-20 approves the complete
 proposal and its explicit C0 stop ready for `/goal`. This approval authorizes
 planning persistence, not implementation or the subsequent delivery lifecycle.
+The subsequent `/goal` on 2026-10-20 authorizes implementation and the complete
+verified delivery lifecycle in this contract.
 
 | Item | Planned value |
 |---|---|
@@ -508,5 +510,29 @@ tag/release, issue reply, and branch cleanup. Unperformed events remain pending.
   qualify the planned fix. Modifier-outcome previews and #94/#95 UI work remain
   outside this contract.
 - **Blockers:** no external blocker identified. Await `/goal` after C0 handoff.
-- **Next action:** after the verified C0 commit/push handoff, stop on the clean
-  feature branch and await `/goal` for M1/C1.
+- **C0 handoff and implementation authorization — 2026-10-20:** planning commit
+  `6d82b925e2d68a7e9f0e90ce09e61ee2c4339712` was pushed and its remote SHA verified;
+  the tree was clean. The explicit `/goal` now authorizes M1–M3 and verified
+  review/merge/publication/issue-response/cleanup. Earlier pending C0 entries are
+  historical; implementation and qualification progress is appended below.
+
+
+### M1/C1 — Shared exact picking targets, 2026-10-20
+
+- [Gate](../assets/selection-mode-hover/c1-gate.json) passes 31 focused and
+  299 total frontend tests, 7 Python classification/domain tests, ESLint,
+  TypeScript, production build and diff checks; 16 native desktop/mobile
+  workflows pass with 2 existing intentional layout exclusions, no retries.
+  Runtime/test/tool hashes remain unchanged throughout qualification.
+- Shared adapter resolution preserves native Atom/Chain/Structure targets and
+  uses indexed canonical protein residues/assigned nonpolymer components in
+  Residue mode. Explicit component atoms, sparse IDs, mixed bond operands,
+  ambiguity fallback, multi-entry identity and cached same-component targets
+  have focused exact-reference assertions. Existing native toggle/range/double-
+  click, saved-selection reload and camera-neutral tests pass unchanged.
+- Local full-checkpoint diff review found no consequential issue, dead path,
+  chemistry inference, molecular mutation, migration or API/dependency change.
+  This is implementer self-review. The existing lazy-bundle advisory remains.
+- Updated selection guidance. Hover remains unimplemented; M2/C2 and final
+  performance/actual-reader/release qualification remain pending. No blocker.
+  Next: commit this passing checkpoint, then M2/C2 transient hover ownership.

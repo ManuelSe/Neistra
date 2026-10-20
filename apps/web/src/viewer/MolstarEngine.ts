@@ -1,4 +1,5 @@
 import { DoubleClickSequence, doubleClickExpansion } from "../selection/gestures";
+import { resolvePickingTarget, type PickingTarget } from "./pickingTargets";
 import { preparePreviewGpu } from "./previewGpu";
 import { createModelPreviewRepresentation, modelPreviewColor } from "./modelPreviewGeometry";
 import type { MolecularProposalGeometry } from "../api/types";
@@ -278,14 +279,7 @@ export class MolstarEngine implements MolecularViewer {
           }
           return;
         }
-        const granular = Loci.normalize(
-          current.loci,
-          this.pickingGranularity === "atom"
-            ? "element"
-            : this.pickingGranularity,
-          true,
-        );
-        const references = this.referencesFromLoci(granular);
+        const references = this.pickingTarget(current.loci).atoms;
         if (!references.length) { this.doubleClicks.clear(); return; }
         const pickedAtoms = this.referencesFromLoci(current.loci);
         this.doubleClicks.record(mode === "replace" && this.pickingGranularity === "atom"
@@ -833,6 +827,14 @@ export class MolstarEngine implements MolecularViewer {
       });
     }
     return references;
+  }
+
+  private pickingTarget(loci: Loci): PickingTarget {
+    const pick = this.referencesFromLoci(loci);
+    return resolvePickingTarget(pick, this.pickingGranularity, this.structures, (atoms, mode) => {
+      const input = atoms === pick ? loci : this.lociFor(atoms);
+      return input ? this.referencesFromLoci(Loci.normalize(input, mode === "atom" ? "element" : mode, true)) : [];
+    });
   }
 
   private emit(event: ViewerSelectionEvent): void {

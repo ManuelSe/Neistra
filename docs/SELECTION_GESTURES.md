@@ -28,6 +28,13 @@ their explicit replace/add/subtract controls.
 
 ## Double-click expansion
 
+Residue-mode ordinary picks use the complete normalized protein residue or the
+complete individual assigned nonpolymer component, including explicit component
+atom membership. Other residue targets retain native residue picking. Atom picks
+target one directly hit atom; bond hits retain their existing endpoint selection.
+Chain and Structure picking retain their existing native grouping. None of these
+operations reveals hidden members or infers new molecule boundaries.
+
 In Atom mode, an unmodified double-click replaces selection with the complete
 protein residue or individual assigned small-molecule component. This includes
 hidden atoms and explicit hydrogens without revealing them. A ligand inside a

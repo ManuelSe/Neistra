@@ -2,23 +2,17 @@
 
 ## Current milestone
 
-Issue #91 C0 — approved planning persistence for
-[hover previews that match picking mode](plans/issue-91-selection-mode-hover.md).
-The user's “Implement the plan.” on 2026-10-20 approves the C0-only handoff and
-explicit stop ready for `/goal`; implementation has not started. Clean `master`
-was fetched and fast-forward-checked at `2852e21295429b014287c7fd86c4467fa6bf7268`.
-Dedicated branch: `fix/issue-91-selection-mode-hover`; D-124 records accepted
-shared target resolution and viewer-local transient hover ownership.
-
-Approved milestones: M1/C1 shared exact picking targets; M2/C2 native transient
-hover and lifecycle; M3/C3 compatibility, complete qualification and release
-preparation. Hover previews the active-mode entity; narrow Residue-mode click
-alignment is approved. Shift ranges/toggle outcomes and #94/#95 UI remain separate.
-Planned release is stable patch **0.22.1**; versions remain **0.22.0** in C0.
-Project/viewer/archive2, normalized/selection1 and Alembic0014 remain unchanged.
-Existing-behavior baseline passes 28 frontend and 24 Python tests; this is not
-feature or release acceptance. C0 validates documentation only, then commits and
-pushes the approved contract. No application/test implementation or publication.
+Issue #91 M1/C1 is implemented and focused-qualified under the
+[approved hover plan](plans/issue-91-selection-mode-hover.md) and explicit `/goal`.
+Shared exact targets preserve native Atom/Chain/Structure behavior and complete
+canonical protein-residue/assigned-nonpolymer membership. D-124 governs.
+[Checkpoint gate](assets/selection-mode-hover/c1-gate.json): 299 frontend,
+31 focused frontend, 7 Python, lint/types/build/diff and 16 native browser passes
+/2 existing layout exclusions, zero failures/retries. Hashes remain unchanged.
+Review is local self-review. No schema/API/migration/dependency/version change;
+all five versions remain0.22.0. Planned release is patch0.22.1.
+Hover lifecycle, final compatibility/qualification and publication remain pending.
+Next: M2/C2 transient native hover; no external blocker.
 
 ### Previous delivery baseline — v0.22.0
 
@@ -2678,15 +2672,10 @@ Results:
 
 ## Blockers
 
-No current external blocker for issue #91 planning persistence. Implementation
-awaits `/goal` after the approved C0 commit/push handoff. Issue #90's released
-baseline and final reference/cleanup evidence remain recorded above and in its
-feature plan.
+No current external blocker. Issue #91 M1/C1 passes focused qualification;
+M2/C2 and M3/C3 remain required. Existing hover behavior is not yet corrected.
 
 ## Next action
 
-After the C0 planning commit/push handoff, stop on the clean feature branch and
-await `/goal` for M1/C1. The handoff reports the verified plan/branch/commit and
-approved M1–M3/patch 0.22.1 release impact. Do not start M1/C1 or create a
-PR/tag/release in C0. The [issue #91 plan](plans/issue-91-selection-mode-hover.md)
-is the detailed implementation contract. Published runtime tags remain fixed.
+Commit passing M1/C1, then implement M2/C2 under the approved issue #91 contract.
+Continue through complete candidate/exact-master qualification and verified delivery.

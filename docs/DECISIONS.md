@@ -4947,3 +4947,15 @@ and exact-reference tests must qualify both target membership and independence
 from selection/camera/project state. The existing stable release history supports
 a patch 0.22.1 correction with unchanged schemas/APIs, not a new feature or schema
 boundary. No migration, dependency change or implementation is authorized in C0.
+
+
+### D-124 implementation note — issue #91 M1/C1, 2026-10-20
+
+Ordinary structural clicks now use a shared typed target resolver. Native
+Atom/Chain/Structure behavior is retained; Residue mode uses complete normalized
+protein residues and assigned nonpolymer components, including explicit members.
+Unsupported/ambiguous residue targets keep native normalization. Immutable weak
+membership caches preserve entry IDs; mixed operands materialize their union.
+The passing checkpoint gate qualifies canonical targets and existing native
+selection/camera gestures. Hover ownership and release qualification remain
+pending; no scientific inference, migration, API or version change.
