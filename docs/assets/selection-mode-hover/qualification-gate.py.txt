@@ -1,0 +1,72 @@
+import argparse
+import gzip
+import hashlib
+import json
+import os
+from pathlib import Path
+import subprocess
+import shutil
+import platform
+import sys
+import time
+
+parser = argparse.ArgumentParser()
+parser.add_argument('label')
+parser.add_argument('commands', nargs='+', help='label=command')
+args = parser.parse_args()
+root = Path.cwd()
+evidence = root / 'docs/assets/selection-mode-hover'
+evidence.mkdir(parents=True, exist_ok=True)
+env = dict(os.environ)
+env.update(MOLWEAVE_AMBERTOOLS_PREFIX='/datadisk/dev/.neistra-tools/ambertools-24.8',
+           OPENBLAS_NUM_THREADS='1', OMP_NUM_THREADS='1', PLAYWRIGHT_BROWSERS_PATH='.playwright',
+           MOLWEAVE_E2E_API_PORT='12010', MOLWEAVE_E2E_WORKER_PORT='12011', MOLWEAVE_E2E_WEB_PORT='8094',
+           MOLWEAVE_E2E_DATA_DIR=f'/datadisk/dev/.neistra-tools/issue91-{args.label}-e2e',
+           MOLWEAVE_MINIMIZATION_EVIDENCE_DIR=f'/datadisk/dev/.neistra-tools/issue91-{args.label}-native',
+           PLAYWRIGHT_JSON_OUTPUT_FILE=f'/datadisk/dev/.neistra-tools/issue91-{args.label}-browser.json')
+source = {}
+for group in ['apps', 'packages', 'tests', 'scripts', 'patches']:
+    for path in sorted((root/group).rglob('*')):
+        if path.is_file() and path.suffix in {'.py','.ts','.tsx','.js','.mjs','.json','.html','.css','.patch'} and not any(x in path.parts for x in ['node_modules','__pycache__','dist']):
+            source[str(path.relative_to(root))] = hashlib.sha256(path.read_bytes()).hexdigest()
+for name in ['pyproject.toml','uv.lock','package.json','pnpm-lock.yaml','playwright.config.ts','tools/ambertools-linux-64.lock']:
+    source[name] = hashlib.sha256((root/name).read_bytes()).hexdigest()
+result = {'commit': subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),
+          'clean_at_start': not subprocess.check_output(['git','status','--porcelain'], text=True).strip(),
+          'environment': {k:v for k,v in env.items() if k.startswith(('MOLWEAVE_', 'PLAYWRIGHT_')) or k in ['OPENBLAS_NUM_THREADS','OMP_NUM_THREADS']},
+          'platform': platform.platform(), 'python': sys.version,
+          'tree': subprocess.check_output(['git','rev-parse','HEAD^{tree}'],text=True).strip(),
+          'source_sha256': source, 'steps': []}
+report = evidence / f'{args.label}-gate.json'
+for pair in args.commands:
+    label, command = pair.split('=',1)
+    print(f'START {args.label}/{label}: {command}', flush=True)
+    start = time.monotonic()
+    run = subprocess.Popen(command, shell=True, env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    chunks = []
+    for line in run.stdout:
+        chunks.append(line)
+        if label == 'browser' and (b'[chromium]' in line or b'[mobile-chromium]' in line):
+            print(line.decode(errors='replace').rstrip(), flush=True)
+    run.wait()
+    blob = b''.join(chunks)
+    log = evidence / f'{args.label}-{label}.log.gz'
+    log.write_bytes(gzip.compress(blob,mtime=0))
+    if label == 'browser':
+        for artifact in (root / 'test-results').rglob('*'):
+            if artifact.is_file() and 'viewer-hover' in str(artifact) and artifact.suffix in {'.png', '.json'}:
+                target = evidence / f'{args.label}-{artifact.parent.name}-{artifact.name}'
+                shutil.copyfile(artifact, target)
+    result['steps'].append({'label':label,'command':command,'exit_code':run.returncode,'seconds':time.monotonic()-start,
+                            'log':str(log.relative_to(root)), 'raw_log_sha256':hashlib.sha256(blob).hexdigest()})
+    report.write_text(json.dumps(result,indent=2)+'\n')
+    tail = '\n'.join(blob.decode(errors='replace').splitlines()[-8:])
+    print(f'END {label}: exit {run.returncode}\n{tail}',flush=True)
+    if run.returncode:
+        raise SystemExit(run.returncode)
+changed = [path for path,digest in source.items() if hashlib.sha256((root/path).read_bytes()).hexdigest() != digest]
+result['source_unchanged'] = not changed
+result['changed_source'] = changed
+report.write_text(json.dumps(result,indent=2)+'\n')
+if changed: raise SystemExit('Runtime/test/tool sources changed during gate: '+repr(changed))
+print(f'PASS: {report.relative_to(root)}',flush=True)

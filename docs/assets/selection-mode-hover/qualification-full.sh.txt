@@ -1,0 +1,21 @@
+#!/bin/bash
+set -eu
+label="$1"
+case "$label" in c3-candidate|c3-merged) ;; *) exit 2;; esac
+python3 /tmp/neistra91-gate.py "$label" \
+ 'python-lock=.venv/bin/uv sync --frozen' \
+ 'node-lock=corepack pnpm install --frozen-lockfile' \
+ "migration=MOLWEAVE_DATA_DIR=/datadisk/dev/.neistra-tools/issue91-$label-migration .venv/bin/uv run alembic upgrade head" \
+ 'version-audit=.venv/bin/python /tmp/neistra91-versionaudit.py' \
+ 'ruff=.venv/bin/uv run ruff check .' \
+ 'mypy=.venv/bin/uv run mypy apps/api packages/molweave_core' \
+ 'python=.venv/bin/uv run pytest' \
+ 'lint=corepack pnpm --dir apps/web lint' \
+ 'types=corepack pnpm --dir apps/web typecheck' \
+ 'frontend=corepack pnpm --dir apps/web test' \
+ 'supervisor=corepack pnpm test:dev' \
+ 'build=corepack pnpm --dir apps/web build' \
+ "actual-reader=python3 /tmp/neistra91-compat.py $label --current-version 0.22.1" \
+ 'browser=corepack pnpm exec playwright test --reporter=list,json' \
+ "browser-audit=python3 /tmp/neistra91-summary.py $label" \
+ 'diff=git diff --check'

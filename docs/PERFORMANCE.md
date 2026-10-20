@@ -8,6 +8,17 @@ recommended maximum scientific system sizes.
 
 ## Selection gestures (issue #90)
 
+Issue #91 reuses those immutable membership indexes for canonical Residue targets.
+Moving within one residue/component reuses its materialized target; unchanged
+hover targets avoid loci conversion and marker updates. Hover performs no API
+reads/writes, molecular serialization, jobs or surface recomputation. Native loci
+comparison also precedes canonical materialization for repeated Atom/Chain/Structure
+hits. Different-atom native hits in the same Chain/Structure target must leave
+resolution/marker counters unchanged. These are work bounds, not a speedup claim.
+Native hover qualification records exact marker/canonical state and unchanged-event counts.
+Existing 1STP, movement, surface and minimization thresholds remain unchanged;
+final candidate/exact-master evidence is tracked in the issue #91 feature plan.
+
 Artifact-keyed immutable normalized/hierarchy objects own weak membership indexes.
 Atoms/residues/components are indexed once; intervals use normalized residue order
 within exact source component/chain identities. Viewer gestures reuse loaded

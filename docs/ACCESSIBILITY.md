@@ -8,6 +8,14 @@ visual checks; an axe pass alone is not treated as complete coverage.
 
 ## Selection gestures (issue #90)
 
+Issue #91 mouse hover is a supplementary transient entity preview. It retains the
+renderer’s distinct hover and selection colors without changing keyboard focus
+or issuing live-region announcements. Existing keyboard-operable picking and
+component/sequence/inspector selection remain available, and touch interaction
+does not depend on hover. Native marker/screenshot tests distinguish hover from
+persistent selection; shell axe, keyboard and actual browser zoom remain separate
+release gates. No new screen-reader or physical-device certification is claimed.
+
 Native double-click is an additional Atom-mode shortcut. Existing explicit picking
 modes, inspector expansion, and keyboard-operable component/sequence buttons remain
 available. Panel Ctrl/Cmd uses the same complete-operand rule; panels do not silently

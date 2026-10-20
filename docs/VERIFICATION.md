@@ -1042,3 +1042,22 @@ actual tagged0.20 reader cases pass. [Publication](assets/interactive-minimizati
 verifies annotated exact tag, stable public release/notes and public downloaded
 qualification ZIP SHA256/CRC/255 internal hashes. The verified issue close-out links
 the final docs/ref-state audit; runtime tag is fixed despite later docs-only audit.
+
+Issue91 M2 [complete checkpoint gate](assets/selection-mode-hover/c2-complete-gate.json)
+passes301 frontend (25 focused), lint/types/build/diff and58 native browser cases
+/4 intentional layout/pointer exclusions, zero failures/retries, unchanged source
+hashes. Exact native marker sets and selection overlap, current-mode entity
+semantics, lifecycle/remount, camera/project/original invariance and surface/tool
+regressions pass. [Review](assets/selection-mode-hover/c2-review.md) is implementer
+self-review. Pink-hover/green-selection atom screenshots were visually inspected
+in both themes. Diagnostic failures remain separate; final-version actual-reader,
+complete candidate/exact-master and performance gates are still required.
+
+Corrected issue91 M2 [final gate](assets/selection-mode-hover/c2-final-corrected-gate.json)
+supersedes earlier pre-patch qualification:305 frontend/29 focused,58 native
+browser /4 intentional exclusions, lint/types/build/diff, zero failures/flakes/
+retries, unchanged source/patch/lock hashes and verified lossless logs. The
+[local review](assets/selection-mode-hover/c2-review.md) records D-125's readback
+correction, deterministic negative control and10/10 original-timing native surface
+passes. Production build excludes test harnesses. Complete final-version candidate/
+exact-master, actual-reader and performance/scientific release gates remain pending.

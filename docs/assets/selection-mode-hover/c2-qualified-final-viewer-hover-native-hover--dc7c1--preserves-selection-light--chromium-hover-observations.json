@@ -1,0 +1,286 @@
+{
+  "theme": "light",
+  "timing": "Automation/poll-inclusive elapsed time; not native UI latency or a hardware throughput claim",
+  "observations": [
+    {
+      "mode": "atom",
+      "automationElapsedMs": 308,
+      "state": {
+        "highlighted": [
+          {
+            "structure_id": "01a15a9b-1d0c-7e72-9ab2-6aeb1f2e69fc",
+            "atom_id": 3
+          }
+        ],
+        "selected": [
+          {
+            "structure_id": "01a15a9b-1d0c-7e72-9ab2-6aeb1f2e69fc",
+            "atom_id": 1
+          }
+        ],
+        "hoverSamples": 5,
+        "markerActions": 3,
+        "camera": {
+          "mode": "perspective",
+          "position": [
+            -0.18553892592667554,
+            0.021996654582417424,
+            8.673235443816688
+          ],
+          "target": [
+            -0.18553892592667554,
+            0.021996654582417424,
+            -0.19720247787095752
+          ],
+          "up": [
+            0,
+            1,
+            0
+          ],
+          "radius": 3.394569630452882
+        },
+        "lastHover": {
+          "atoms": [
+            {
+              "structure_id": "01a15a9b-1d0c-7e72-9ab2-6aeb1f2e69fc",
+              "atom_id": 3
+            }
+          ],
+          "buttons": 0
+        },
+        "target": [
+          {
+            "structure_id": "01a15a9b-1d0c-7e72-9ab2-6aeb1f2e69fc",
+            "atom_id": 3
+          }
+        ],
+        "held": 0,
+        "busy": false,
+        "generation": 1,
+        "boundGeneration": 1
+      }
+    },
+    {
+      "mode": "residue",
+      "automationElapsedMs": 291,
+      "state": {
+        "highlighted": [
+          {
+            "structure_id": "01a15a9b-1d0c-7e72-9ab2-6aeb1f2e69fc",
+            "atom_id": 1
+          },
+          {
+            "structure_id": "01a15a9b-1d0c-7e72-9ab2-6aeb1f2e69fc",
+            "atom_id": 2
+          },
+          {
+            "structure_id": "01a15a9b-1d0c-7e72-9ab2-6aeb1f2e69fc",
+            "atom_id": 3
+          }
+        ],
+        "selected": [
+          {
+            "structure_id": "01a15a9b-1d0c-7e72-9ab2-6aeb1f2e69fc",
+            "atom_id": 1
+          }
+        ],
+        "hoverSamples": 8,
+        "markerActions": 5,
+        "camera": {
+          "mode": "perspective",
+          "position": [
+            -0.18553892592667554,
+            0.021996654582417424,
+            8.673235443816688
+          ],
+          "target": [
+            -0.18553892592667554,
+            0.021996654582417424,
+            -0.19720247787095752
+          ],
+          "up": [
+            0,
+            1,
+            0
+          ],
+          "radius": 3.394569630452882
+        },
+        "lastHover": {
+          "atoms": [
+            {
+              "structure_id": "01a15a9b-1d0c-7e72-9ab2-6aeb1f2e69fc",
+              "atom_id": 3
+            }
+          ],
+          "buttons": 0
+        },
+        "target": [
+          {
+            "structure_id": "01a15a9b-1d0c-7e72-9ab2-6aeb1f2e69fc",
+            "atom_id": 1
+          },
+          {
+            "structure_id": "01a15a9b-1d0c-7e72-9ab2-6aeb1f2e69fc",
+            "atom_id": 2
+          },
+          {
+            "structure_id": "01a15a9b-1d0c-7e72-9ab2-6aeb1f2e69fc",
+            "atom_id": 3
+          }
+        ],
+        "held": 0,
+        "busy": false,
+        "generation": 1,
+        "boundGeneration": 1
+      }
+    },
+    {
+      "mode": "chain",
+      "automationElapsedMs": 296,
+      "state": {
+        "highlighted": [
+          {
+            "structure_id": "01a15a9b-1d0c-7e72-9ab2-6aeb1f2e69fc",
+            "atom_id": 1
+          },
+          {
+            "structure_id": "01a15a9b-1d0c-7e72-9ab2-6aeb1f2e69fc",
+            "atom_id": 2
+          },
+          {
+            "structure_id": "01a15a9b-1d0c-7e72-9ab2-6aeb1f2e69fc",
+            "atom_id": 3
+          }
+        ],
+        "selected": [
+          {
+            "structure_id": "01a15a9b-1d0c-7e72-9ab2-6aeb1f2e69fc",
+            "atom_id": 1
+          }
+        ],
+        "hoverSamples": 11,
+        "markerActions": 7,
+        "camera": {
+          "mode": "perspective",
+          "position": [
+            -0.18553892592667554,
+            0.021996654582417424,
+            8.673235443816688
+          ],
+          "target": [
+            -0.18553892592667554,
+            0.021996654582417424,
+            -0.19720247787095752
+          ],
+          "up": [
+            0,
+            1,
+            0
+          ],
+          "radius": 3.394569630452882
+        },
+        "lastHover": {
+          "atoms": [
+            {
+              "structure_id": "01a15a9b-1d0c-7e72-9ab2-6aeb1f2e69fc",
+              "atom_id": 3
+            }
+          ],
+          "buttons": 0
+        },
+        "target": [
+          {
+            "structure_id": "01a15a9b-1d0c-7e72-9ab2-6aeb1f2e69fc",
+            "atom_id": 1
+          },
+          {
+            "structure_id": "01a15a9b-1d0c-7e72-9ab2-6aeb1f2e69fc",
+            "atom_id": 2
+          },
+          {
+            "structure_id": "01a15a9b-1d0c-7e72-9ab2-6aeb1f2e69fc",
+            "atom_id": 3
+          }
+        ],
+        "held": 0,
+        "busy": false,
+        "generation": 1,
+        "boundGeneration": 1
+      }
+    },
+    {
+      "mode": "structure",
+      "automationElapsedMs": 291,
+      "state": {
+        "highlighted": [
+          {
+            "structure_id": "01a15a9b-1d0c-7e72-9ab2-6aeb1f2e69fc",
+            "atom_id": 1
+          },
+          {
+            "structure_id": "01a15a9b-1d0c-7e72-9ab2-6aeb1f2e69fc",
+            "atom_id": 2
+          },
+          {
+            "structure_id": "01a15a9b-1d0c-7e72-9ab2-6aeb1f2e69fc",
+            "atom_id": 3
+          }
+        ],
+        "selected": [
+          {
+            "structure_id": "01a15a9b-1d0c-7e72-9ab2-6aeb1f2e69fc",
+            "atom_id": 1
+          }
+        ],
+        "hoverSamples": 14,
+        "markerActions": 9,
+        "camera": {
+          "mode": "perspective",
+          "position": [
+            -0.18553892592667554,
+            0.021996654582417424,
+            8.673235443816688
+          ],
+          "target": [
+            -0.18553892592667554,
+            0.021996654582417424,
+            -0.19720247787095752
+          ],
+          "up": [
+            0,
+            1,
+            0
+          ],
+          "radius": 3.394569630452882
+        },
+        "lastHover": {
+          "atoms": [
+            {
+              "structure_id": "01a15a9b-1d0c-7e72-9ab2-6aeb1f2e69fc",
+              "atom_id": 3
+            }
+          ],
+          "buttons": 0
+        },
+        "target": [
+          {
+            "structure_id": "01a15a9b-1d0c-7e72-9ab2-6aeb1f2e69fc",
+            "atom_id": 1
+          },
+          {
+            "structure_id": "01a15a9b-1d0c-7e72-9ab2-6aeb1f2e69fc",
+            "atom_id": 2
+          },
+          {
+            "structure_id": "01a15a9b-1d0c-7e72-9ab2-6aeb1f2e69fc",
+            "atom_id": 3
+          }
+        ],
+        "held": 0,
+        "busy": false,
+        "generation": 1,
+        "boundGeneration": 1
+      }
+    }
+  ]
+}

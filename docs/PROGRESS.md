@@ -2,17 +2,18 @@
 
 ## Current milestone
 
-Issue #91 M1/C1 is implemented and focused-qualified under the
-[approved hover plan](plans/issue-91-selection-mode-hover.md) and explicit `/goal`.
-Shared exact targets preserve native Atom/Chain/Structure behavior and complete
-canonical protein-residue/assigned-nonpolymer membership. D-124 governs.
-[Checkpoint gate](assets/selection-mode-hover/c1-gate.json): 299 frontend,
-31 focused frontend, 7 Python, lint/types/build/diff and 16 native browser passes
-/2 existing layout exclusions, zero failures/retries. Hashes remain unchanged.
-Review is local self-review. No schema/API/migration/dependency/version change;
-all five versions remain0.22.0. Planned release is patch0.22.1.
-Hover lifecycle, final compatibility/qualification and publication remain pending.
-Next: M2/C2 transient native hover; no external blocker.
+Issue #91 M1/C1 and corrected M2/C2 are implemented and focused-qualified under
+the [approved plan](plans/issue-91-selection-mode-hover.md) and explicit `/goal`.
+Shared exact targets and one transient hover owner preserve selection, molecular
+state, camera, visibility, movement and surface activation. D-124/125 govern.
+[Final M2 gate](assets/selection-mode-hover/c2-final-corrected-gate.json):305 frontend
+(29 focused), lint/types/build/diff and58 native browser passes /4 intentional
+exclusions, zero failures/flakes/retries; source/patch/lock hashes unchanged.
+Review found and fixed pending native click readback through a pinned Mol*5.11.0
+patch; original80ms surface repeats pass10/10. Review is local self-review.
+No schema/API/migration/scientific change or dependency version upgrade; five
+versions remain0.22.0. Next:M3/C3 final compatibility/qualification, stable
+patch0.22.1 preparation and verified delivery. No external blocker.
 
 ### Previous delivery baseline — v0.22.0
 
@@ -1778,7 +1779,7 @@ feature merge; this documentation-only closeout records the remote evidence.
 - Checkpoint 2 also passed frontend ESLint, TypeScript type-checking, and
   `git diff --check`. Diff review found one scoped E2E test plus its evidence;
   it adds no runtime, API, schema, migration, scientific, or UI behavior.
-- Issue #8 checkpoint 3: repository Ruff and strict mypy passed; all 23 focused
+- Issue #8 checkpoint 3: repository Ruff and strict mypy passed; all 25 focused
   archive round-trip and safety tests passed in 6.03 seconds. The exhaustive
   restored-project assertions cover molecular structures, original bytes,
   settings, selections, measurements, scenes, and ID remapping.

@@ -1,0 +1,32 @@
+diff --git a/lib/commonjs/mol-canvas3d/helper/pick-helper.js b/lib/commonjs/mol-canvas3d/helper/pick-helper.js
+index 2d5c6cd06234b97ba7988c5c207d0881fedc0e77..815dd901ae680ddf9f8a0dd3d097a330e1e87e7d 100644
+--- a/lib/commonjs/mol-canvas3d/helper/pick-helper.js
++++ b/lib/commonjs/mol-canvas3d/helper/pick-helper.js
+@@ -125,6 +125,11 @@ class PickHelper {
+             if (debug_1.isTimingMode)
+                 this.webgl.timer.markEnd('PickHelper.identify');
+         }
++        else if (this.buffers.check() !== pick_1.AsyncPickStatus.Resolved) {
++            // Hover can leave an asynchronous read pending with dirty=false.
++            // A synchronous click must finish that read instead of returning empty.
++            this.buffers.read();
++        }
+         return this.getPickData(x, y, camera);
+     }
+     asyncIdentify(x, y, camera) {
+diff --git a/lib/mol-canvas3d/helper/pick-helper.js b/lib/mol-canvas3d/helper/pick-helper.js
+index d3438ed3fb7eddcc9962d9669bb4b1b9aee12156..f9671991fdb8800e2735bf999e939de9253f58a6 100644
+--- a/lib/mol-canvas3d/helper/pick-helper.js
++++ b/lib/mol-canvas3d/helper/pick-helper.js
+@@ -122,6 +122,11 @@ export class PickHelper {
+             if (isTimingMode)
+                 this.webgl.timer.markEnd('PickHelper.identify');
+         }
++        else if (this.buffers.check() !== AsyncPickStatus.Resolved) {
++            // Hover can leave an asynchronous read pending with dirty=false.
++            // A synchronous click must finish that read instead of returning empty.
++            this.buffers.read();
++        }
+         return this.getPickData(x, y, camera);
+     }
+     asyncIdentify(x, y, camera) {

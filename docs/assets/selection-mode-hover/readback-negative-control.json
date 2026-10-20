@@ -1,0 +1,113 @@
+{
+  "purpose": "Deterministic CommonJS upstream/corrected readback paths; no fake native browser input or independent-review claim",
+  "results": [
+    {
+      "variant": "unpatched",
+      "name": "pending",
+      "hit": null,
+      "reads": 0,
+      "renders": 0,
+      "source": "/datadisk/dev/neistra/node_modules/.pnpm/molstar@5.11.0_@types+react@19.1.12_fp-ts@2.16.11_react-dom@19.1.1_react@19.1.1__react@19.1.1/node_modules/molstar/lib/commonjs/mol-canvas3d/helper/pick-helper.js",
+      "source_sha256": "c57ca096896712b485290b4cd0a9a0b1daa698f3bdcc1c24a115f4e8e68456b5"
+    },
+    {
+      "variant": "unpatched",
+      "name": "resolved",
+      "hit": {
+        "id": {
+          "objectId": 1,
+          "instanceId": 0,
+          "groupId": 2
+        }
+      },
+      "reads": 0,
+      "renders": 0,
+      "source": "/datadisk/dev/neistra/node_modules/.pnpm/molstar@5.11.0_@types+react@19.1.12_fp-ts@2.16.11_react-dom@19.1.1_react@19.1.1__react@19.1.1/node_modules/molstar/lib/commonjs/mol-canvas3d/helper/pick-helper.js",
+      "source_sha256": "c57ca096896712b485290b4cd0a9a0b1daa698f3bdcc1c24a115f4e8e68456b5"
+    },
+    {
+      "variant": "unpatched",
+      "name": "failed",
+      "hit": null,
+      "reads": 0,
+      "renders": 0,
+      "source": "/datadisk/dev/neistra/node_modules/.pnpm/molstar@5.11.0_@types+react@19.1.12_fp-ts@2.16.11_react-dom@19.1.1_react@19.1.1__react@19.1.1/node_modules/molstar/lib/commonjs/mol-canvas3d/helper/pick-helper.js",
+      "source_sha256": "c57ca096896712b485290b4cd0a9a0b1daa698f3bdcc1c24a115f4e8e68456b5"
+    },
+    {
+      "variant": "unpatched",
+      "name": "dirty",
+      "hit": {
+        "id": {
+          "objectId": 1,
+          "instanceId": 0,
+          "groupId": 2
+        }
+      },
+      "reads": 1,
+      "renders": 1,
+      "source": "/datadisk/dev/neistra/node_modules/.pnpm/molstar@5.11.0_@types+react@19.1.12_fp-ts@2.16.11_react-dom@19.1.1_react@19.1.1__react@19.1.1/node_modules/molstar/lib/commonjs/mol-canvas3d/helper/pick-helper.js",
+      "source_sha256": "c57ca096896712b485290b4cd0a9a0b1daa698f3bdcc1c24a115f4e8e68456b5"
+    },
+    {
+      "variant": "patched",
+      "name": "pending",
+      "hit": {
+        "id": {
+          "objectId": 1,
+          "instanceId": 0,
+          "groupId": 2
+        }
+      },
+      "reads": 1,
+      "renders": 0,
+      "source": "/datadisk/dev/neistra/node_modules/.pnpm/molstar@5.11.0_patch_hash=526189bb06e1a778a9d2f44ee796e949ae5b636ab07e8c5926232043baee1_35dcb05228230395ad279378d28027a3/node_modules/molstar/lib/commonjs/mol-canvas3d/helper/pick-helper.js",
+      "source_sha256": "b7fdc73f5eae0d6f14c9b11c7d61227b1107cf73fae25609737b6c6d41a491dc"
+    },
+    {
+      "variant": "patched",
+      "name": "resolved",
+      "hit": {
+        "id": {
+          "objectId": 1,
+          "instanceId": 0,
+          "groupId": 2
+        }
+      },
+      "reads": 0,
+      "renders": 0,
+      "source": "/datadisk/dev/neistra/node_modules/.pnpm/molstar@5.11.0_patch_hash=526189bb06e1a778a9d2f44ee796e949ae5b636ab07e8c5926232043baee1_35dcb05228230395ad279378d28027a3/node_modules/molstar/lib/commonjs/mol-canvas3d/helper/pick-helper.js",
+      "source_sha256": "b7fdc73f5eae0d6f14c9b11c7d61227b1107cf73fae25609737b6c6d41a491dc"
+    },
+    {
+      "variant": "patched",
+      "name": "failed",
+      "hit": {
+        "id": {
+          "objectId": 1,
+          "instanceId": 0,
+          "groupId": 2
+        }
+      },
+      "reads": 1,
+      "renders": 0,
+      "source": "/datadisk/dev/neistra/node_modules/.pnpm/molstar@5.11.0_patch_hash=526189bb06e1a778a9d2f44ee796e949ae5b636ab07e8c5926232043baee1_35dcb05228230395ad279378d28027a3/node_modules/molstar/lib/commonjs/mol-canvas3d/helper/pick-helper.js",
+      "source_sha256": "b7fdc73f5eae0d6f14c9b11c7d61227b1107cf73fae25609737b6c6d41a491dc"
+    },
+    {
+      "variant": "patched",
+      "name": "dirty",
+      "hit": {
+        "id": {
+          "objectId": 1,
+          "instanceId": 0,
+          "groupId": 2
+        }
+      },
+      "reads": 1,
+      "renders": 1,
+      "source": "/datadisk/dev/neistra/node_modules/.pnpm/molstar@5.11.0_patch_hash=526189bb06e1a778a9d2f44ee796e949ae5b636ab07e8c5926232043baee1_35dcb05228230395ad279378d28027a3/node_modules/molstar/lib/commonjs/mol-canvas3d/helper/pick-helper.js",
+      "source_sha256": "b7fdc73f5eae0d6f14c9b11c7d61227b1107cf73fae25609737b6c6d41a491dc"
+    }
+  ]
+}

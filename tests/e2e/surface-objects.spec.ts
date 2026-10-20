@@ -78,7 +78,12 @@ test("native same-entry surface objects have independent identity, colors, mesh 
       const hit = await page.waitForFunction(id => window.surfaceObjectsHarness.inspect().events.some(event => event.surfaceId === id), id, { timeout: 300 }).then(() => true, () => false);
       if (hit) break;
     }
-    expect(await page.evaluate(id => window.surfaceObjectsHarness.inspect().events.some(event => event.surfaceId === id), id)).toBe(true);
+    const activated = await page.evaluate(id => window.surfaceObjectsHarness.inspect().events.some(event => event.surfaceId === id), id);
+    if (!activated) console.error("Native surface activation observation", await page.evaluate(() => {
+      const { camera, picks, events, molecularEvents } = window.surfaceObjectsHarness.inspect();
+      return { camera, picks, events, molecularEvents };
+    }));
+    expect(activated).toBe(true);
   }
   const selected = await page.evaluate(() => window.surfaceObjectsHarness.inspect());
   expect(selected.molecularEvents).toEqual([]);
@@ -240,6 +245,10 @@ test("manages production object appearance and explicit sources independently th
     };
   });
   await manager.getByRole("button", { name: "Whole receptor Whole entry", exact: true }).click();
+  // Reload starts asynchronous work for all five objects. Measure display-only
+  // changes after that initial work is ready, as in the pre-reload assertion.
+  await expect(manager.locator(".surface-object-status").filter({ hasText: /ready/ })).toHaveCount(5);
+  await expect.poll(() => page.evaluate(() => (window as unknown as { surfaceActive: number }).surfaceActive)).toBe(0);
   const workerCountBeforeNativeStyle = await calculations();
   await manager.getByLabel("Surface color scheme").selectOption("custom");
   await manager.getByLabel("Surface opacity").fill("1");

@@ -1,0 +1,57 @@
+import argparse
+import base64
+import gzip
+import hashlib
+import json
+from pathlib import Path
+
+parser = argparse.ArgumentParser()
+parser.add_argument('label')
+args = parser.parse_args()
+root = Path.cwd()
+out = root / 'docs/assets/selection-mode-hover'
+report = Path('/datadisk/dev/.neistra-tools') / f'issue91-{args.label}-browser.json'
+blob = report.read_bytes()
+data = json.loads(blob)
+assert data['stats']['unexpected'] == 0 and data['stats']['flaky'] == 0, data['stats']
+(out / f'{args.label}-browser-report.json.gz').write_bytes(gzip.compress(blob, mtime=0))
+summary = {'stats': data['stats'], 'report_sha256': hashlib.sha256(blob).hexdigest(),
+           'attachments': [], 'exclusions': [], 'results': []}
+
+def walk(suites):
+    for suite in suites:
+        for spec in suite.get('specs', []):
+            for test in spec.get('tests', []):
+                results = test.get('results', [])
+                assert len(results) == 1, (spec['title'], len(results))
+                result = results[0]
+                summary['results'].append({'title': spec['title'], 'file': spec['file'],
+                                           'project': test['projectName'], 'status': result['status'],
+                                           'duration_ms': result['duration'], 'retry': result['retry']})
+                assert result['retry'] == 0
+                if result['status'] == 'skipped':
+                    summary['exclusions'].append({'title': spec['title'], 'project': test['projectName'],
+                                                  'annotations': test.get('annotations', [])})
+                else:
+                    assert result['status'] == 'passed', result['status']
+                for attachment in result.get('attachments', []):
+                    if attachment.get('contentType') != 'application/json':
+                        continue
+                    content = (base64.b64decode(attachment['body']) if 'body' in attachment
+                               else Path(attachment['path']).read_bytes())
+                    parsed = json.loads(content)
+                    index = len(summary['attachments'])
+                    target = out / f'{args.label}-attachment-{index:02}.json'
+                    target.write_bytes(content)
+                    summary['attachments'].append({'name': attachment['name'], 'title': spec['title'],
+                                                   'project': test['projectName'],
+                                                   'path': str(target.relative_to(root)),
+                                                   'sha256': hashlib.sha256(content).hexdigest()})
+                    if attachment['name'] == 'performance-profile.json':
+                        summary['representative_performance'] = parsed
+        walk(suite.get('suites', []))
+
+walk(data['suites'])
+(out / f'{args.label}-browser-summary.json').write_text(json.dumps(summary, indent=2) + '\n')
+print(json.dumps({'stats': summary['stats'], 'json_attachments': len(summary['attachments']),
+                  'representative_performance': summary.get('representative_performance')}, indent=2))

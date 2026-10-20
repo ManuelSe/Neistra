@@ -19,6 +19,9 @@
   "pnpm": {
     "onlyBuiltDependencies": [
       "esbuild"
-    ]
+    ],
+    "patchedDependencies": {
+      "molstar@5.11.0": "patches/molstar@5.11.0.patch"
+    }
   }
 }

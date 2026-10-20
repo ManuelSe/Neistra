@@ -4,6 +4,11 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  molstar@5.11.0:
+    hash: 526189bb06e1a778a9d2f44ee796e949ae5b636ab07e8c5926232043baee1b60
+    path: patches/molstar@5.11.0.patch
+
 importers:
 
   .:
@@ -37,7 +42,7 @@ importers:
         version: 0.544.0(react@19.1.1)
       molstar:
         specifier: 5.11.0
-        version: 5.11.0(@types/react@19.1.12)(fp-ts@2.16.11)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        version: 5.11.0(patch_hash=526189bb06e1a778a9d2f44ee796e949ae5b636ab07e8c5926232043baee1b60)(@types/react@19.1.12)(fp-ts@2.16.11)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       react:
         specifier: 19.1.1
         version: 19.1.1
@@ -4845,7 +4850,7 @@ snapshots:
     dependencies:
       brace-expansion: 2.1.4
 
-  molstar@5.11.0(@types/react@19.1.12)(fp-ts@2.16.11)(react-dom@19.1.1(react@19.1.1))(react@19.1.1):
+  molstar@5.11.0(patch_hash=526189bb06e1a778a9d2f44ee796e949ae5b636ab07e8c5926232043baee1b60)(@types/react@19.1.12)(fp-ts@2.16.11)(react-dom@19.1.1(react@19.1.1))(react@19.1.1):
     dependencies:
       '@types/argparse': 2.0.17
       '@types/benchmark': 2.1.5

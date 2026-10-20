@@ -2,8 +2,8 @@
 
 ## 1. Status, outcome, and authority
 
-**Status:** approved implementation contract; M1/C1 implemented and focused-qualified; M2/C2 next under the explicit
-`/goal` authorization.
+**Status:** approved implementation contract; M1/C1 and M2/C2 implemented and focused-qualified; M3/C3 release
+qualification next under the explicit `/goal` authorization.
 
 **Approval:** the user's “Implement the plan.” on 2026-10-20 approves the complete
 proposal and its explicit C0 stop ready for `/goal`. This approval authorizes
@@ -536,3 +536,77 @@ tag/release, issue reply, and branch cleanup. Unperformed events remain pending.
 - Updated selection guidance. Hover remains unimplemented; M2/C2 and final
   performance/actual-reader/release qualification remain pending. No blocker.
   Next: commit this passing checkpoint, then M2/C2 transient hover ownership.
+
+### M2/C2 — Transient native hover, 2026-10-20
+
+- [Complete checkpoint gate](../assets/selection-mode-hover/c2-complete-gate.json)
+  passes 301 frontend tests (including 25 focused tests), ESLint, TypeScript,
+  production build, diff check and 58 native browser workflows /4 intentional
+  exclusions (three desktop-hover cases on touch and one existing layout case).
+  No failures/retries; runtime/test/tool bytes remain unchanged during the gate.
+- One adapter-owned molecular highlight provider/subscription uses exact shared
+  targets. Native equality avoids repeated Atom/Chain/Structure expansion; indexed
+  canonical residue/component targets avoid repeated membership materialization.
+  Mark counters stay unchanged across same-entity samples. No selection/store,
+  request, persistence, chemistry or visibility mutation is introduced.
+- Native tests verify both themes, complete residue/component targets, hidden
+  membership, partial-selection overlap/restoration, entity-only modifier hover,
+  original/project/selection/anchor/camera invariance, mode/exit/empty/blur/tool/
+  coordinate/rebuild cleanup, old-generation refusal, and remount disposal.
+  Atom screenshots were visually inspected: pink hover and green selection remain
+  distinguishable in both themes. Final overview screenshots are after hover exit.
+- Local [checkpoint review](../assets/selection-mode-hover/c2-review.md) records
+  projection-jitter and old-root marker-clear corrections and diagnostic runs.
+  These earlier failed runs are not acceptance evidence. Native surface tests
+  now observe processed hits and initial worker readiness, retaining exact
+  object/camera/selection/no-recalculation assertions. A controlled old/current
+  fixed-delay test comparison is recorded before final release qualification.
+- D-124 append-only notes and architecture, selection, accessibility/performance
+  guidance are updated. No migration/schema/API/dependency/version change.
+  Existing lazy Mol* bundle advisory remains. Automation-inclusive hover timings
+  are observations, not native latency or production throughput claims.
+- M3/C3 final-version compatibility, complete candidate/master gates and
+  publication remain pending. Next: release preparation after checkpoint commit.
+
+### M2 review amendment — native synchronous-read correction
+
+The original no-dependency-change expectation is superseded only for a locked
+Mol*5.11.0 package patch (no version upgrade/new dependency). [D-125](../DECISIONS.md#d-125--finish-pending-native-pick-reads-for-synchronous-clicks)
+records why this is necessary to preserve approved surface interactions. This
+changes implementation, not the approved product outcome or scientific scope.
+Earlier complete M2 evidence predates the correction and must be repeated.
+
+[Controlled comparison](../assets/selection-mode-hover/c2-surface-comparison-gate.json)
+used the exact tagged renderer and original fixed80ms test in an otherwise
+identical stack:3/3 baseline passes,2/3 candidate passes (one empty click).
+[Extended baseline](../assets/selection-mode-hover/c2-surface-baseline-extended-gate.json)
+passed10/10. The original fixed80ms native surface scenario is restored, keeping
+its strengthened actual-camera observation. A processed-hover readiness wait
+alone is not accepted as a regression fix. Failed comparison logs/trace remain
+diagnostic evidence, not a passing qualification.
+
+The narrow patch completes pending/failed native readbacks on synchronous clicks;
+resolved-buffer reuse and dirty-scene native render/read remain. Add exact
+regression tests for all four paths, frozen-install validation, repeated original
+surface clicks, and rerun the complete M2 gate. Follow-up tracks eventual upstream
+incorporation/removal; no unrelated feature or chemistry change is accepted.
+
+### Corrected M2/C2 final checkpoint qualification
+
+- [Final corrected gate](../assets/selection-mode-hover/c2-final-corrected-gate.json)
+  passes29 focused/305 frontend, lint/types/build/diff and58 native browser cases
+  /4 intentional exclusions; zero failures/flakes/retries, all source/patch/lock
+  hashes unchanged. [Browser audit](../assets/selection-mode-hover/c2-final-corrected-browser-summary.json)
+  retains individual results, exclusions and4 JSON attachments. Production build
+  excludes test harnesses; all eight lossless gate log hashes verified.
+- [Ten original-timing surface cases](../assets/selection-mode-hover/c2-readback-qualified-gate.json)
+  pass. [CommonJS negative control](../assets/selection-mode-hover/readback-negative-control.json)
+  demonstrates original unread pending/failed paths and corrected behavior; ESM
+  unit tests assert those paths plus resolved reuse/dirty render-read.
+- [Final local review](../assets/selection-mode-hover/c2-review.md) has no remaining
+  consequential finding. Earlier M2 gates are historical pre-correction evidence.
+  The final checkpoint supersedes the readiness-only test accommodation. D-124/125
+  and architecture, selection, accessibility/performance guidance are current.
+- No migration/schema/HTTP/public viewer API, scientific inference or dependency
+  version upgrade. The pinned package correction is explicit. All five application
+  versions remain0.22.0; next is M3/C3 stable patch0.22.1 release preparation.

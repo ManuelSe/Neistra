@@ -4959,3 +4959,99 @@ membership caches preserve entry IDs; mixed operands materialize their union.
 The passing checkpoint gate qualifies canonical targets and existing native
 selection/camera gestures. Hover ownership and release qualification remain
 pending; no scientific inference, migration, API or version change.
+
+### D-124 implementation note — issue #91 M2/C2 lifecycle qualification, 2026-10-20
+
+Canvas3D queues marker actions until drawing. Molecular hover marking therefore
+targets only ordinary structural representations and excludes every registered
+managed surface; it cannot remove a surface's independent active-object marker
+before or after queued drawing. This implements the preservation requirement
+without a competing restoration callback or another surface selection owner.
+
+Native qualification exposed that Mol* multisample rendering emits camera-change
+events for temporary projection jitter. Clearing hover on every such event erases
+valid stationary previews. Compare the application camera snapshot (mode, pose,
+up, radius), and invalidate only an actual camera change; pointer/navigation and
+scene/tool ownership boundaries still clear immediately. The diagnostic stack
+identifies MultiSamplePass, and unchanged exact native marker assertions qualify
+the correction. No rendering-quality or performance threshold was reduced.
+
+Test pointer motion observes an empty in-canvas native sample before returning to
+an identical atom pixel after toolbar/ownership changes. Teleporting from outside
+to the identical last native pixel does not produce a new changed-coordinate hit
+in Mol*. The test still uses trusted pointer input and independent native markers;
+it neither injects a preview nor selects the expected target programmatically.
+The initial lint/native/timestamp-baseline diagnostics remain separate from final
+passing evidence. Complete qualification and publication remain pending.
+
+### D-124 root-independent removal note — issue #91 M2/C2, 2026-10-20
+
+Coordinate refresh can retain native marker buffers while replacing molecular
+root identity. A queued old-root RemoveHighlight then fails to clear retained
+ordinary markers even though the hover manager/cache is already empty. Native
+coordinate-preview qualification reproduced ligand marker bits with an empty
+target and empty last hit. The sole molecular hover provider now removes the
+ordinary highlight plane with EveryLoci; additions still use the exact resolved
+target. Managed surfaces remain excluded, and selection bits are untouched.
+No per-frame project state, chemistry, geometry or persisted ownership changes.
+
+Surface qualification additionally observes the processed native hover identity
+before its trusted click instead of assuming an asynchronous GPU readback fits
+in80ms. Actual native camera snapshots replace the harness's previously-null
+application camera observation. Sampling and exact object/marker assertions are
+unchanged. A queued-rebuild test observes a real old-scene hit while generation
+ownership rejects it; valid fresh hits after rebinding are not classified stale.
+These strengthened readiness/ownership observations remain test-only.
+
+### D-124 cache and readiness note — issue #91 M2/C2, 2026-10-20
+
+For Atom/Chain/Structure hover, compare normalized native loci before constructing
+canonical reference sets/keys. Repeated hits in the same entity therefore avoid
+canonical rematerialization as well as marker updates. Residue/component targets
+reuse weak immutable membership caches. All caches clear with the existing
+mode/scene/coordinate/navigation boundaries. Test-only resolution counters observe
+real different-atom hits in one Chain/Structure target and require no new target
+resolution or marker action. This is an allocation/work bound, not a throughput
+or speedup claim.
+
+The existing post-reload surface-appearance worker-count test now waits for all
+five ready states and zero active workers before capturing its baseline, just
+as its pre-reload assertion already does. Otherwise unfinished initial calculation
+could be miscounted as an appearance recalculation. Its exact unchanged-worker-
+count, geometry, native marker, camera, selection and original-byte assertions
+remain intact. No surface runtime or scientific algorithm was changed.
+
+## D-125 — Finish pending native pick reads for synchronous clicks
+
+Accepted implementation correction for issue #91, 2026-10-20. Removing native
+surface hover marking exposed an unread GPU pick-buffer path: Mol*5.11.0 can set
+`PickHelper.dirty=false` after scheduling asynchronous hover readback, while
+`PickBuffers.ready=false`. Its synchronous `identify()` only reads dirty buffers
+and returns an empty target before application click handling. Controlled original
+fixed80ms native surface tests passed13/13 with the exact tagged0.22.0 renderer,
+versus2/3 with the new renderer (one empty activation). This evidence does not
+justify classifying the observed regression as an unrelated pre-existing defect.
+
+Preserving surface clicks is essential approved scope. Pin a narrow pnpm package
+patch to the existing Mol*5.11.0: clean synchronous picks check readback state and
+read pending/failed buffers before returning. Resolved buffers do not reread or
+render; dirty scenes retain native render/read. Async hover, target semantics,
+geometry and canonical ownership are unchanged. Patch both ESM/CommonJS builds.
+This replaces a readiness-only test accommodation; retain the original80ms click
+scenario and add pending/failed/resolved/dirty unit coverage. No guessed target,
+click replay, timing delay, public Neistra API or dependency upgrade is introduced.
+
+This is an evidence-driven implementation deviation from the plan's original
+no-dependency-change expectation, recorded in the feature contract. It maintains
+the approved user outcome without changing product scope or scientific behavior.
+Locked installs and candidate/exact-master native/performance gates must validate
+it. Track upstream incorporation/removal separately; retain the pinned correction
+until an upgraded renderer passes the same regressions without it.
+
+D-125 qualification note: deterministic CommonJS negative control reproduces
+missing pending/failed hits in the original package and correct reads in the
+patched package, retaining resolved reuse and dirty render/read. ESM unit tests
+exercise the same four paths. Ten original80ms native surface cases pass without
+readiness-delay substitution. Exact source hashes, runner and diagnostics are
+retained under `docs/assets/selection-mode-hover/`; full milestone/release gates
+remain separately required.
