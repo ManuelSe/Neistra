@@ -3,7 +3,7 @@
 ## 0.22.0 - prepared 2026-10-20 - Molecular selection gestures
 
 Release candidate under the [approved issue90 plan](plans/issue-90-selection-gestures.md).
-Publication and final candidate/exact-master qualification remain pending.
+Clean candidate qualification passes; publication and exact-master qualification remain pending.
 
 ### Selection improvements
 
@@ -37,15 +37,20 @@ field, dependency upgrade or migration. Alembic0014, project/viewer/archive2 and
 normalized/selection1 remain. Named selections/scenes store ordinary canonical
 references; gesture anchors remain transient. Actual tagged0.21.0 readers must
 retain final0.22 data/history/jobs/archives and current readers accept0.21 archives
-before release. Old readers do not acquire gesture authoring. No issue-specific
+before release (candidate passes both directions). Old readers do not acquire gesture authoring. No issue-specific
 rollback conversion is needed; back up managed data before application rollback.
 
 ### Verification and accessibility
 
 Checkpoint tests cover exact references, whole/partial toggles, native double-click,
 fixed ranges, ownership, camera/movement, both themes/layouts and named selection
-reload. Full scientific/native/performance/axe/200% zoom qualification, actual
-final-version reader evidence and exact merged-master gate remain pending.
+reload. [Clean candidate qualification](assets/selection-gestures/c4-candidate-gate.json)
+passes1,107 Python,290 frontend,8 supervisor and282 browser /52 existing exclusions,
+zero failures/flakes/retries/native scientific skips. Frozen/fresh0014/static/build/
+version/diff pass; source hashes unchanged. Actual tagged0.21/final0.22 readers pass
+both directions. Pinned1STP import1154ms, interaction3861ms, longest task652ms,
+zero repeated normalized reads; unchanged performance budgets, both-theme axe and
+actual200%zoom pass. Exact merged-master gate remains mandatory before publication.
 
 ### Deferred requests and follow-up
 

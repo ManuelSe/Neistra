@@ -2,23 +2,26 @@
 
 ## Current milestone
 
-Issue #90 **C1–C3 committed; C4 focused qualification passed**, under the
+Issue #90 **M1–M4 implemented and clean-candidate-qualified**, under the
 [approved contract](plans/issue-90-selection-gestures.md). Whole-operand toggle,
-Atom double-click expansion and viewer-only fixed residue ranges are implemented.
-C3 `43a49b8` is pushed. [C3 gate](assets/selection-gestures/c3-final-gate.json)
-passes290 frontend/52 browser with2 existing exclusions and static/build checks.
-[C4 native final](assets/selection-gestures/c4-native-final-gate.json) passes14
-cases including partial toggles, modified clicks and named range reload without
-anchors.33 archive/selection Python and290 frontend pass. Initial mobile raster
-miss is retained as diagnostic; only native test readiness/pixel observation changed.
+Atom residue/component double-click and viewer-only fixed ranges are implemented;
+D-120–123 and [user guidance](SELECTION_GESTURES.md) govern.
 
-Actual tagged0.21 reader fixture retention passes both directions at preversion
-0.21; this is not final0.22 compatibility. No migration/schema/API/dependency
-change. Known limits: protein ranges only, native desktop double-click, transient
-anchors; follow-ups#91/#94/#95 remain separate. D-120–122 govern.
-All five authoritative versions are prepared as0.22.0;34 archive/selection Python
-regressions pass. No external blocker. Next: complete candidate/merged
-release and actual final-version reader gates, review and verified publication.
+[Clean candidate7dc4340](assets/selection-gestures/c4-candidate-gate.json) passes
+all15 commands: **1,107 Python,290 frontend,8 supervisor,282 browser /52 existing
+layout/timing exclusions**, zero failures/flakes/retries/native scientific skips.
+Frozen/fresh0014/static/build/diff and all14 native gesture cases pass. Pinned1STP
+interaction3861ms/longest task652ms/zero repeated reads meet unchanged budgets;
+both-theme axe, actual200%zoom and existing movement/minimization/surface gates pass.
+[Actual tagged0.21 compatibility](assets/selection-gestures/c4-candidate-reader-gate.json)
+passes both final0.22 directions, including references/scenes/originals/history/jobs/
+archives without persisted anchors. [Review](assets/selection-gestures/c4-review.md)
+is local self-review. Source identities are unchanged; earlier diagnostics separate.
+
+All five versions0.22.0; no migration/schema/API/dependency change. Known limits:
+protein-only ranges, native desktop double-click and transient anchors;#91/#94/#95
+remain separate. No external blocker. Next: push/PR/review/normal merge, exact-master
+complete gate, tag/release/issue reply and verified cleanup. No publication yet.
 
 ### Previous delivery baseline — v0.21.0
 
@@ -2626,8 +2629,8 @@ Results:
 
 ## Blockers
 
-No current external blocker. Issue #90 C1–C3 and focused C4 pass. C4 complete
-candidate/merged release and actual preceding-reader gates remain required;
+No current external blocker. Issue #90 complete candidate and actual-reader gates
+pass; exact merged-master qualification and delivery remain required;
 checkpoint evidence does not establish publication or final qualification.
 
 ## Next action

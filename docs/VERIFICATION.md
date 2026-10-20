@@ -41,6 +41,17 @@ mobile raster miss; final fixes only test scene readiness/native pixel observati
 both directions at preversion0.21, not final0.22 compatibility. Final complete
 candidate/merged gates remain mandatory.
 
+M4/C4 [clean candidate7dc4340](assets/selection-gestures/c4-candidate-gate.json)
+passes all15 commands:1,107 Python/290 frontend/8 supervisor/282 browser,52 existing
+layout/timing exclusions, zero failures/flakes/retries/native scientific skips.
+Frozen/fresh0014/static/build/version/diff pass; unchanged runtime/test/tool hashes.
+[Actual tagged0.21 reader](assets/selection-gestures/c4-candidate-reader-gate.json)
+retains final0.22 data/archives and reverse qualification passes. [Browser summary](assets/selection-gestures/c4-candidate-browser-summary.json)
+retains23 attachments:1STP import1154ms, interaction3861ms, longest task652ms, zero
+repeat reads; unchanged movement/minimization/surface, both-theme axe and actual
+200%zoom pass. [Full-diff self-review](assets/selection-gestures/c4-review.md) has no
+unresolved consequential finding. Exact merged-master qualification remains required.
+
 ## Interactive minimization (issue #89)
 
 M1/C1 [final gate](assets/interactive-minimization/c1-gate.json) passes306 focused

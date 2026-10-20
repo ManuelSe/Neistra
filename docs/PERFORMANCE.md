@@ -6,6 +6,26 @@ Performance thresholds are regression gates on the pinned Playwright desktop
 Chromium host. They are not hardware-independent throughput promises or
 recommended maximum scientific system sizes.
 
+## Selection gestures (issue #90)
+
+Artifact-keyed immutable normalized/hierarchy objects own weak membership indexes.
+Atoms/residues/components are indexed once; intervals use normalized residue order
+within exact source component/chain identities. Viewer gestures reuse loaded
+projections and do not introduce per-gesture normalized requests or serialization.
+Canonical selection algebra materializes exact member references, including hidden
+atoms, without depending on renderer visibility. These are implementation bounds,
+not arbitrary-size throughput promises.
+
+The complete candidate and exact merged-master suites must retain the existing
+1STP1001-atom30s import/5s minor-interaction/750ms longest-task/zero-repeat-request
+budgets, alongside unchanged movement/surface/minimization limits. Native gesture
+qualification uses trusted input, exact references and camera equality. Read-only
+raster/readiness helpers live only in test modules, absent from production output.
+[Clean candidate measurements](assets/selection-gestures/c4-candidate-browser-summary.json):
+1STP import/viewer1154ms, interactions3861ms, longest observed task652ms, zero
+repeat requests. Every existing movement/surface/minimization budget passes.
+Exact merged-master qualification remains required; these are pinned-host results.
+
 ## Selection-driven editing (issue #69)
 
 Small-molecule chemistry is admitted only for bounded components (256heavy/

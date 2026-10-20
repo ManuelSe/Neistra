@@ -2,7 +2,7 @@
 
 ## 1. Status, outcome, and authority
 
-**Status:** M1/C1–M3/C3 committed; M4/C4 focused qualification passed; complete final-version release gates pending.
+**Status:** M1–M4 implemented and clean-candidate-qualified; PR/review/merge and exact-master release qualification next.
 **Approval:** user's “Implement the plan.” on 2026-10-20, following the complete
 proposal. C0 persistence stopped as required. The explicit `/goal` request on
 2026-10-20 authorizes implementation and the complete verified delivery lifecycle.
@@ -36,7 +36,7 @@ instructions and accepted decisions; existing architecture and product boundarie
 issue problems/outcomes/constraints; nonbinding issue implementation suggestions.
 Accepted decisions D-002, D-018–020, D-037, D-042, D-044–045, and movement ownership
 decisions constrain implementation. D-120–122 record the accepted issue #90
-selection decisions, with implementation pending. Preserve previous decisions
+selection decisions, initially recorded at C0 with implementation pending. Preserve previous decisions
 and the global `docs/PLAN.md`.
 
 Inspection covered the required documents, selection algebra/store, Mol* adapter
@@ -637,3 +637,33 @@ and exact merged qualification remain pending.
 [Version preparation gate](../assets/selection-gestures/c4-version-gate.json)
 passes34 archive/saved-selection Python regressions, Ruff and diff checks at final
 0.22.0. Complete clean candidate follows the release-preparation commit.
+
+### M4/C4 complete clean candidate — 2026-10-20
+
+- Release preparation committed at `7dc4340`; clean-start
+  [complete15-command gate](../assets/selection-gestures/c4-candidate-gate.json)
+  passes frozen installs, fresh0014 migration, five-version/actual-tag provenance,
+  Ruff/mypy91, **1,107 Python,290 frontend,8 supervisor,282 browser /52 existing
+  layout/timing exclusions**, build and diff. Zero failures/flakes/retries/native
+  scientific skips. Runtime/test/tool SHA256 identities remain unchanged.
+- Browser report/23 JSON attachments and exact counts/timings are retained in the
+  [summary](../assets/selection-gestures/c4-candidate-browser-summary.json).
+  Pinned1STP1001: import/viewer1154ms (<30s), minor interactions3861ms (<5s),
+  longest observed task652ms (<750ms), zero repeated normalized requests.
+  Unchanged movement/surface/18k minimization budgets, both-theme full-shell axe,
+  actual100%/200%zoom, keyboard/touch ownership and all14 gesture cases pass.
+- [Actual reader gate](../assets/selection-gestures/c4-candidate-reader-gate.json)
+  passes final0.22 producer→actual tagged0.21 reader and reverse.95 actual tagged
+  API/core/plugin files byte-match tag1024f465. Originals, normalized coordinates,
+  named selections/scenes/viewer settings, surfaces, generic history/jobs and
+  archive UUID remapping remain exact; anchors absent. This is generic retention,
+  not old gesture authoring or portable archived Undo history.
+- [Full-diff local review](../assets/selection-gestures/c4-review.md) is implementer
+  self-review. No unresolved consequential finding; earlier raster diagnostics
+  remain separate. Native test helpers are absent from production output.
+- Fetched master still9d56d25; no upstream integration required. C4 candidate
+  milestone complete; no schema/migration/API/dependency changes. Existing Alembic
+  deprecation/lazy-bundle advisories remain. Known scope limits/follow-ups unchanged.
+  Next: commit evidence, push/open PR, request Codex review, recheck protections/
+  conversations/checks/base/version, merge normally, then complete exact-master gate.
+  No PR/tag/release publication is claimed by this checkpoint.

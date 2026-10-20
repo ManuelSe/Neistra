@@ -75,6 +75,7 @@ is introduced. Selection includes hidden atoms without changing their visibility
 The existing classification warnings remain authoritative: selecting a component
 is not a claim of complete chemistry, biological role or covalent connectivity.
 
-The issue #90 implementation is checkpointed. C1–C3 pass focused qualification;
-final persistence/compatibility/performance and release gates remain pending.
+The issue #90 implementation passes complete candidate qualification, including
+persistence, actual preceding-reader compatibility, accessibility and performance.
+Exact merged-master qualification and publication remain pending.
 See the [approved contract](plans/issue-90-selection-gestures.md).
