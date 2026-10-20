@@ -16,7 +16,14 @@ removal, not incomplete functionality. All five versions are now prepared as0.22
 [M3 focused final-version gate](assets/selection-mode-hover/c3-focused-gate.json)
 passes35 Python/305 frontend/12 browser cases (8 documented exclusions), all
 static/build/diff checks and unchanged1STP budgets. Complete clean candidate/
-actual-reader and exact-master qualification/publication remain pending. No schema/API/migration/
+actual-reader and exact-master qualification/publication remain pending.
+Final review fixed reproduced duplicate camera publications on hover (D-124).
+[Expanded gate](assets/selection-mode-hover/c3-camera-gate.json) passes305 frontend/
+83 browser (11 documented exclusions), static/build/diff and unchanged1STP budgets;
+[blur/native hover](assets/selection-mode-hover/c3-blur-gate.json) also passes, with
+zero camera callbacks during unchanged-pose hover. The first candidate was
+intentionally interrupted and is diagnostic only. Next:fresh committed complete
+clean `c3-final-candidate` qualification, PR/review and verified publication. No schema/API/migration/
 scientific change or dependency version upgrade. No external blocker.
 
 ### Previous delivery baseline — v0.22.0

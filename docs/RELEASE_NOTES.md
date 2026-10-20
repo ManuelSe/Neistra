@@ -15,6 +15,8 @@ components use complete existing membership in Residue mode. Ordinary clicks
 share that resolver. Preview changes/clears with target, mode, empty space, exit
 and scene/tool ownership; persistent selection, camera, visibility and originals
 remain unchanged. Native surface objects keep independent activation.
+Camera publications ignore native projection-jitter duplicates, avoiding
+application React/store updates from stationary hover.
 
 ### Picking details and limitations
 
@@ -52,9 +54,11 @@ Focused final-version qualification also passes35 Python archive/selection tests
 and12 browser cases /8 documented layout/pointer exclusions. Both-theme axe and
 1STP import863ms/interaction4091ms/longest628ms/zero repeated reads meet unchanged
 budgets. Earlier diagnostics are separate from final evidence. Complete
-final-version candidate and exact-master gates, actual-reader compatibility and
-unchanged scientific/performance/accessibility budgets remain pending. Existing
-lazy Mol* bundle advisory remains; no production speedup claim is made.
+fresh final-version candidate and exact-master gates, actual-reader compatibility and
+unchanged scientific/performance/accessibility budgets remain pending. The camera-publication correction additionally passes305 frontend/83 native
+browser cases (11 documented exclusions), plus both-theme zero-callback and blur
+checks. Existing lazy Mol* bundle and Alembic configuration deprecation advisories
+remain; no production speedup claim is made.
 
 ### Follow-up work
 

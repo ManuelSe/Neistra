@@ -5055,3 +5055,20 @@ exercise the same four paths. Ten original80ms native surface cases pass without
 readiness-delay substitution. Exact source hashes, runner and diagnostics are
 retained under `docs/assets/selection-mode-hover/`; full milestone/release gates
 remain separately required.
+
+### D-124 application camera-publication note — final review
+
+The retained camera subscription previously forwarded native multisample jitter
+events even when the application camera snapshot was unchanged. StructureViewer
+then called React `setCamera` and the transient camera store on hover-driven
+rendering. A trusted-input negative control proves eight extra publications with
+an identical snapshot on the first hover. This violates the contract's absence
+of application-state updates per hover despite not changing the pose.
+
+Deduplicate publications by the existing public CameraState snapshot (mode, pose,
+up and radius); preserve actual camera changes, immediate initial subscriber
+snapshots and all native label/focus behavior. This is viewer-adapter ownership,
+not a new UI/store field or public interface. Native hover tests count subscriber
+callbacks and require zero additional publications while the pose stays exact.
+The interrupted first candidate remains diagnostic evidence, not release
+qualification. Rerun coherent focused and complete clean-candidate/master gates.

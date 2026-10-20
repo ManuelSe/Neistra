@@ -14,7 +14,8 @@ export function observeHover(engine: MolstarEngine) {
   let resolutions = 0;
   const originalResolve = native.pickingTarget.bind(native);
   native.pickingTarget = function(loci) { resolutions++; return originalResolve(loci); };
-  let hoverSamples = 0, markerActions = 0;
+  let hoverSamples = 0, markerActions = 0, cameraEvents = 0;
+  const stopCamera = engine.subscribeCamera(() => { cameraEvents++; });
   let lastHover: { atoms: AtomReference[]; buttons: number } | null = null;
   const hover = native.plugin.behaviors.interaction.hover.subscribe(({ current, buttons }) => {
     hoverSamples++; lastHover = { atoms: native.referencesFromLoci(current.loci), buttons };
@@ -44,10 +45,10 @@ export function observeHover(engine: MolstarEngine) {
         }
       }
       return { highlighted: canonicalSelection(highlighted).atoms, selected: canonicalSelection(selected).atoms,
-        hoverSamples, markerActions, resolutions, camera: engine.getCamera(), lastHover,
+        hoverSamples, markerActions, resolutions, cameraEvents, camera: engine.getCamera(), lastHover,
         target: native.hoverTarget?.atoms ?? [], held: native.heldPointers.size,
         busy: native.plugin.isBusy, generation: native.generation, boundGeneration: native.boundGeneration };
     },
-    dispose() { native.pickingTarget = originalResolve; hover.unsubscribe(); native.plugin.managers.interactivity.lociHighlights.removeProvider(provider); },
+    dispose() { stopCamera(); native.pickingTarget = originalResolve; hover.unsubscribe(); native.plugin.managers.interactivity.lociHighlights.removeProvider(provider); },
   };
 }

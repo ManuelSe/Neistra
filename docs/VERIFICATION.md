@@ -1068,3 +1068,14 @@ layout/pointer exclusions and static/build/diff checks. No failures/flakes/retri
 source/patch/lock hashes unchanged. Both-theme axe and1STP1001-atom import863ms/
 interaction4091ms/longest628ms/zero repeated reads meet unchanged budgets. Complete
 clean candidate/actual-reader/exact-master qualification remains pending.
+
+Issue91 final-review [camera checkpoint](assets/selection-mode-hover/c3-camera-gate.json)
+passes305 frontend/29 focused and83 native browser cases /11 documented exclusions,
+static/build/diff, zero failures/flakes/retries and unchanged source hashes.
+Native hover observes zero duplicate application camera callbacks; the prior
+negative control reproduces8 with identical pose. [Blur addition](assets/selection-mode-hover/c3-blur-gate.json)
+passes3 native cases /3 fine-pointer exclusions, lint/types/diff and separately
+checks blur clearing, fresh trusted hover and exit. 1STP879ms import/4034ms
+interactions/637ms longest/zero repeated reads meets unchanged budgets. Earlier
+interrupted `c3-candidate` is not final qualification; fresh committed
+`c3-final-candidate` and exact-master gates remain required.

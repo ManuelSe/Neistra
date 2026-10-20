@@ -1,0 +1,977 @@
+{
+  "stats": {
+    "startTime": "2026-10-20T19:34:14.718Z",
+    "duration": 775055.2980000001,
+    "expected": 83,
+    "skipped": 11,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "report_sha256": "0e8c30b3388a2dd7c9f00ba9b5151c14029e88c93268ae187a0467c24b9a4eb8",
+  "attachments": [
+    {
+      "name": "performance-profile.json",
+      "title": "keeps representative-project interactions responsive and projection-scoped",
+      "project": "chromium",
+      "path": "docs/assets/selection-mode-hover/c3-camera-attachment-00.json",
+      "sha256": "f963c54ba22fc02cf9b700fcdba4a613972a53097cce790f7377718bd2c6431a"
+    },
+    {
+      "name": "surface-object-primitives.json",
+      "title": "native same-entry surface objects have independent identity, colors, mesh and whole-object activation",
+      "project": "chromium",
+      "path": "docs/assets/selection-mode-hover/c3-camera-attachment-01.json",
+      "sha256": "0d209961cc78497a3f7c6c5f30d8136bbe4e2f91720c9a68012be5a28fb82cff"
+    },
+    {
+      "name": "surface-object-primitives.json",
+      "title": "native same-entry surface objects have independent identity, colors, mesh and whole-object activation",
+      "project": "mobile-chromium",
+      "path": "docs/assets/selection-mode-hover/c3-camera-attachment-02.json",
+      "sha256": "0eea314428547ce8d0ecb770cb8ed367109a5b7727ccc826bf7860dd03eda9bd"
+    },
+    {
+      "name": "hover-observations",
+      "title": "native hover matches all modes and preserves selection (light)",
+      "project": "chromium",
+      "path": "docs/assets/selection-mode-hover/c3-camera-attachment-03.json",
+      "sha256": "3905595e2f01059affb5f429eabd5317e2a798c33cea66f4014374e9e2efb456"
+    },
+    {
+      "name": "hover-observations",
+      "title": "native hover matches all modes and preserves selection (dark)",
+      "project": "chromium",
+      "path": "docs/assets/selection-mode-hover/c3-camera-attachment-04.json",
+      "sha256": "c23423c62beca7bbcb94bc9426d1ab60d1512f8ce6c132324fb51599b73f0ecc"
+    }
+  ],
+  "exclusions": [
+    {
+      "title": "keeps complete export and archive controls usable on a mobile viewport",
+      "project": "chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Responsive export coverage runs in the Pixel 7 project.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/export-archive.spec.ts",
+            "line": 423,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "exports all, selected, and visible structures with deterministic filters and records",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Complete artifact inspection runs once in desktop Chromium.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/export-archive.spec.ts",
+            "line": 128,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "round-trips a deterministic archive and rejects an unsafe archive without switching",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Archive byte/state inspection runs once in desktop Chromium.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/export-archive.spec.ts",
+            "line": 222,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "cancels intercepted export and archive import work without a stale result",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Cancellation routing runs once in desktop Chromium.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/export-archive.spec.ts",
+            "line": 362,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "keeps representative-project interactions responsive and projection-scoped",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Performance budgets use desktop Chromium.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/release-hardening.spec.ts",
+            "line": 168,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "uses the compact trigger path for selection and empty clearing",
+      "project": "chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Touch activation uses Pixel 7.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/viewer-click-selection.spec.ts",
+            "line": 374,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "keeps primary selection and empty clearing independent from the camera",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Exact WebGL camera evidence is desktop-only.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/viewer-click-selection.spec.ts",
+            "line": 202,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "native hover matches all modes and preserves selection (light)",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Hover requires a fine pointer; touch behavior is covered by selection regressions.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/viewer-hover.spec.ts",
+            "line": 57,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "native hover matches all modes and preserves selection (dark)",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Hover requires a fine pointer; touch behavior is covered by selection regressions.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/viewer-hover.spec.ts",
+            "line": 57,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "protein/individual complex hover preserves hidden membership, anchors and lifecycle ownership",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Fine-pointer native hover qualification.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/viewer-hover.spec.ts",
+            "line": 143,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "qualifies native touch navigation, secondary tools and accessible theme layouts",
+      "project": "chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Touch qualification uses Pixel 7; desktop has native mouse and real zoom evidence.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/viewer-transform-toolbar.spec.ts",
+            "line": 366,
+            "column": 8
+          }
+        }
+      ]
+    }
+  ],
+  "results": [
+    {
+      "title": "exports all, selected, and visible structures with deterministic filters and records",
+      "file": "export-archive.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 14916,
+      "retry": 0
+    },
+    {
+      "title": "round-trips a deterministic archive and rejects an unsafe archive without switching",
+      "file": "export-archive.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 7486,
+      "retry": 0
+    },
+    {
+      "title": "cancels intercepted export and archive import work without a stale result",
+      "file": "export-archive.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 4664,
+      "retry": 0
+    },
+    {
+      "title": "keeps complete export and archive controls usable on a mobile viewport",
+      "file": "export-archive.spec.ts",
+      "project": "chromium",
+      "status": "skipped",
+      "duration_ms": 75,
+      "retry": 0
+    },
+    {
+      "title": "exports all, selected, and visible structures with deterministic filters and records",
+      "file": "export-archive.spec.ts",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration_ms": 157,
+      "retry": 0
+    },
+    {
+      "title": "round-trips a deterministic archive and rejects an unsafe archive without switching",
+      "file": "export-archive.spec.ts",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration_ms": 123,
+      "retry": 0
+    },
+    {
+      "title": "cancels intercepted export and archive import work without a stale result",
+      "file": "export-archive.spec.ts",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration_ms": 120,
+      "retry": 0
+    },
+    {
+      "title": "keeps complete export and archive controls usable on a mobile viewport",
+      "file": "export-archive.spec.ts",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration_ms": 4087,
+      "retry": 0
+    },
+    {
+      "title": "qualifies keyboard/touch controls, focus and scoped accessibility in both themes",
+      "file": "interactive-selection-transform.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 7677,
+      "retry": 0
+    },
+    {
+      "title": "reconciles an interrupted response after server commit without replaying Apply",
+      "file": "interactive-selection-transform.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 5101,
+      "retry": 0
+    },
+    {
+      "title": "blocks Apply while outcome is unknown and recovers only after explicit refresh",
+      "file": "interactive-selection-transform.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 4808,
+      "retry": 0
+    },
+    {
+      "title": "captures hidden multi-entry targets, previews multiple drags, cancels, and applies one reversible command",
+      "file": "interactive-selection-transform.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 14453,
+      "retry": 0
+    },
+    {
+      "title": "qualifies native proper-rotation previews, camera suspension, zoom and surface restoration in both projections",
+      "file": "interactive-selection-transform.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 12814,
+      "retry": 0
+    },
+    {
+      "title": "discards previews with feedback on task, selection and project changes",
+      "file": "interactive-selection-transform.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 8768,
+      "retry": 0
+    },
+    {
+      "title": "restores canceled or lost pointer drags and supports secondary and Ctrl translation",
+      "file": "interactive-selection-transform.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 8148,
+      "retry": 0
+    },
+    {
+      "title": "rejects stale Apply without replay or partial movement",
+      "file": "interactive-selection-transform.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 4776,
+      "retry": 0
+    },
+    {
+      "title": "explains empty, locked and wholly hidden movement targets without changing them",
+      "file": "interactive-selection-transform.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 7474,
+      "retry": 0
+    },
+    {
+      "title": "preserves no-op history, pauses measurements and discards unapplied movement on reload",
+      "file": "interactive-selection-transform.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 15975,
+      "retry": 0
+    },
+    {
+      "title": "retains the native preview and held camera across responsive viewer remounts",
+      "file": "interactive-selection-transform.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 6895,
+      "retry": 0
+    },
+    {
+      "title": "qualifies keyboard/touch controls, focus and scoped accessibility in both themes",
+      "file": "interactive-selection-transform.spec.ts",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration_ms": 8398,
+      "retry": 0
+    },
+    {
+      "title": "reconciles an interrupted response after server commit without replaying Apply",
+      "file": "interactive-selection-transform.spec.ts",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration_ms": 4698,
+      "retry": 0
+    },
+    {
+      "title": "blocks Apply while outcome is unknown and recovers only after explicit refresh",
+      "file": "interactive-selection-transform.spec.ts",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration_ms": 4466,
+      "retry": 0
+    },
+    {
+      "title": "captures hidden multi-entry targets, previews multiple drags, cancels, and applies one reversible command",
+      "file": "interactive-selection-transform.spec.ts",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration_ms": 13796,
+      "retry": 0
+    },
+    {
+      "title": "qualifies native proper-rotation previews, camera suspension, zoom and surface restoration in both projections",
+      "file": "interactive-selection-transform.spec.ts",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration_ms": 8364,
+      "retry": 0
+    },
+    {
+      "title": "discards previews with feedback on task, selection and project changes",
+      "file": "interactive-selection-transform.spec.ts",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration_ms": 8094,
+      "retry": 0
+    },
+    {
+      "title": "restores canceled or lost pointer drags and supports secondary and Ctrl translation",
+      "file": "interactive-selection-transform.spec.ts",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration_ms": 7464,
+      "retry": 0
+    },
+    {
+      "title": "rejects stale Apply without replay or partial movement",
+      "file": "interactive-selection-transform.spec.ts",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration_ms": 4368,
+      "retry": 0
+    },
+    {
+      "title": "explains empty, locked and wholly hidden movement targets without changing them",
+      "file": "interactive-selection-transform.spec.ts",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration_ms": 7314,
+      "retry": 0
+    },
+    {
+      "title": "preserves no-op history, pauses measurements and discards unapplied movement on reload",
+      "file": "interactive-selection-transform.spec.ts",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration_ms": 15076,
+      "retry": 0
+    },
+    {
+      "title": "retains the native preview and held camera across responsive viewer remounts",
+      "file": "interactive-selection-transform.spec.ts",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration_ms": 7636,
+      "retry": 0
+    },
+    {
+      "title": "passes automated accessibility checks in both themes",
+      "file": "release-hardening.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 4700,
+      "retry": 0
+    },
+    {
+      "title": "supports keyboard focus and bounded responsive controls",
+      "file": "release-hardening.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 3781,
+      "retry": 0
+    },
+    {
+      "title": "keeps representative-project interactions responsive and projection-scoped",
+      "file": "release-hardening.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 6368,
+      "retry": 0
+    },
+    {
+      "title": "passes automated accessibility checks in both themes",
+      "file": "release-hardening.spec.ts",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration_ms": 4146,
+      "retry": 0
+    },
+    {
+      "title": "supports keyboard focus and bounded responsive controls",
+      "file": "release-hardening.spec.ts",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration_ms": 3941,
+      "retry": 0
+    },
+    {
+      "title": "keeps representative-project interactions responsive and projection-scoped",
+      "file": "release-hardening.spec.ts",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration_ms": 124,
+      "retry": 0
+    },
+    {
+      "title": "expands native protein and individual ligand double-clicks without camera movement (light)",
+      "file": "selection-gestures.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 8459,
+      "retry": 0
+    },
+    {
+      "title": "expands native protein and individual ligand double-clicks without camera movement (dark)",
+      "file": "selection-gestures.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 8945,
+      "retry": 0
+    },
+    {
+      "title": "expands a standalone SDF ligand through its individual component",
+      "file": "selection-gestures.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 4433,
+      "retry": 0
+    },
+    {
+      "title": "adds inclusive forward/reverse residue ranges from a fixed anchor while retaining unrelated ligand atoms",
+      "file": "selection-gestures.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 7177,
+      "retry": 0
+    },
+    {
+      "title": "extends Atom-mode residue double-clicks and preserves anchors across responsive remounts",
+      "file": "selection-gestures.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 10389,
+      "retry": 0
+    },
+    {
+      "title": "keeps modified double-clicks ordinary and toggles partially selected residues as complete operands",
+      "file": "selection-gestures.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 8373,
+      "retry": 0
+    },
+    {
+      "title": "persists native gesture references as an ordinary named selection and reloads without an anchor",
+      "file": "selection-gestures.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 9763,
+      "retry": 0
+    },
+    {
+      "title": "expands native protein and individual ligand double-clicks without camera movement (light)",
+      "file": "selection-gestures.spec.ts",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration_ms": 7600,
+      "retry": 0
+    },
+    {
+      "title": "expands native protein and individual ligand double-clicks without camera movement (dark)",
+      "file": "selection-gestures.spec.ts",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration_ms": 8493,
+      "retry": 0
+    },
+    {
+      "title": "expands a standalone SDF ligand through its individual component",
+      "file": "selection-gestures.spec.ts",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration_ms": 4424,
+      "retry": 0
+    },
+    {
+      "title": "adds inclusive forward/reverse residue ranges from a fixed anchor while retaining unrelated ligand atoms",
+      "file": "selection-gestures.spec.ts",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration_ms": 6681,
+      "retry": 0
+    },
+    {
+      "title": "extends Atom-mode residue double-clicks and preserves anchors across responsive remounts",
+      "file": "selection-gestures.spec.ts",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration_ms": 10192,
+      "retry": 0
+    },
+    {
+      "title": "keeps modified double-clicks ordinary and toggles partially selected residues as complete operands",
+      "file": "selection-gestures.spec.ts",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration_ms": 7415,
+      "retry": 0
+    },
+    {
+      "title": "persists native gesture references as an ordinary named selection and reloads without an anchor",
+      "file": "selection-gestures.spec.ts",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration_ms": 8733,
+      "retry": 0
+    },
+    {
+      "title": "hiding the middle atom removes every incident native bond and its label",
+      "file": "selection-visibility.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 11533,
+      "retry": 0
+    },
+    {
+      "title": "trace, residue and all-atom hiding preserve native polymers, surfaces and measurements",
+      "file": "selection-visibility.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 17663,
+      "retry": 0
+    },
+    {
+      "title": "compact Hide/Show preserves selection, styles and cached projections",
+      "file": "selection-visibility.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 13326,
+      "retry": 0
+    },
+    {
+      "title": "hiding the middle atom removes every incident native bond and its label",
+      "file": "selection-visibility.spec.ts",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration_ms": 6324,
+      "retry": 0
+    },
+    {
+      "title": "trace, residue and all-atom hiding preserve native polymers, surfaces and measurements",
+      "file": "selection-visibility.spec.ts",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration_ms": 13404,
+      "retry": 0
+    },
+    {
+      "title": "compact Hide/Show preserves selection, styles and cached projections",
+      "file": "selection-visibility.spec.ts",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration_ms": 12075,
+      "retry": 0
+    },
+    {
+      "title": "native same-entry surface objects have independent identity, colors, mesh and whole-object activation",
+      "file": "surface-objects.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 12904,
+      "retry": 0
+    },
+    {
+      "title": "manages production object appearance and explicit sources independently through reload and undo",
+      "file": "surface-objects.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 24062,
+      "retry": 0
+    },
+    {
+      "title": "keeps manager controls keyboard reachable, bounded and accessible with long names and narrow layouts",
+      "file": "surface-objects.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 12072,
+      "retry": 0
+    },
+    {
+      "title": "keeps queued same-entry surface inputs lazy and valid across a renderer rebuild",
+      "file": "surface-objects.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 7067,
+      "retry": 0
+    },
+    {
+      "title": "native same-entry surface objects have independent identity, colors, mesh and whole-object activation",
+      "file": "surface-objects.spec.ts",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration_ms": 7842,
+      "retry": 0
+    },
+    {
+      "title": "manages production object appearance and explicit sources independently through reload and undo",
+      "file": "surface-objects.spec.ts",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration_ms": 22682,
+      "retry": 0
+    },
+    {
+      "title": "keeps manager controls keyboard reachable, bounded and accessible with long names and narrow layouts",
+      "file": "surface-objects.spec.ts",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration_ms": 10680,
+      "retry": 0
+    },
+    {
+      "title": "keeps queued same-entry surface inputs lazy and valid across a renderer rebuild",
+      "file": "surface-objects.spec.ts",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration_ms": 5625,
+      "retry": 0
+    },
+    {
+      "title": "keeps primary selection and empty clearing independent from the camera",
+      "file": "viewer-click-selection.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 20627,
+      "retry": 0
+    },
+    {
+      "title": "uses the compact trigger path for selection and empty clearing",
+      "file": "viewer-click-selection.spec.ts",
+      "project": "chromium",
+      "status": "skipped",
+      "duration_ms": 58,
+      "retry": 0
+    },
+    {
+      "title": "keeps primary selection and empty clearing independent from the camera",
+      "file": "viewer-click-selection.spec.ts",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration_ms": 114,
+      "retry": 0
+    },
+    {
+      "title": "uses the compact trigger path for selection and empty clearing",
+      "file": "viewer-click-selection.spec.ts",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration_ms": 4148,
+      "retry": 0
+    },
+    {
+      "title": "native hover matches all modes and preserves selection (light)",
+      "file": "viewer-hover.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 8612,
+      "retry": 0
+    },
+    {
+      "title": "native hover matches all modes and preserves selection (dark)",
+      "file": "viewer-hover.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 8990,
+      "retry": 0
+    },
+    {
+      "title": "protein/individual complex hover preserves hidden membership, anchors and lifecycle ownership",
+      "file": "viewer-hover.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 16181,
+      "retry": 0
+    },
+    {
+      "title": "native hover matches all modes and preserves selection (light)",
+      "file": "viewer-hover.spec.ts",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration_ms": 117,
+      "retry": 0
+    },
+    {
+      "title": "native hover matches all modes and preserves selection (dark)",
+      "file": "viewer-hover.spec.ts",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration_ms": 125,
+      "retry": 0
+    },
+    {
+      "title": "protein/individual complex hover preserves hidden membership, anchors and lifecycle ownership",
+      "file": "viewer-hover.spec.ts",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration_ms": 119,
+      "retry": 0
+    },
+    {
+      "title": "transforms from the viewer with fixed mouse gestures, exact Cancel and one Apply/undo/redo",
+      "file": "viewer-transform-toolbar.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 9536,
+      "retry": 0
+    },
+    {
+      "title": "temporarily navigates the native camera with Space and the view toggle without changing the captured preview",
+      "file": "viewer-transform-toolbar.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 19088,
+      "retry": 0
+    },
+    {
+      "title": "returns the mouse from movement tools for Space without stealing editable or unrelated focus",
+      "file": "viewer-transform-toolbar.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 11052,
+      "retry": 0
+    },
+    {
+      "title": "ends held mouse gestures at accepted coordinates and camera before ownership changes",
+      "file": "viewer-transform-toolbar.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 8891,
+      "retry": 0
+    },
+    {
+      "title": "clears temporary navigation on interruption and remount while preserving preview and camera",
+      "file": "viewer-transform-toolbar.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 13714,
+      "retry": 0
+    },
+    {
+      "title": "qualifies native touch navigation, secondary tools and accessible theme layouts",
+      "file": "viewer-transform-toolbar.spec.ts",
+      "project": "chromium",
+      "status": "skipped",
+      "duration_ms": 93,
+      "retry": 0
+    },
+    {
+      "title": "ignores a held camera pointer release after Cancel and restores selection on a fresh click",
+      "file": "viewer-transform-toolbar.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 5184,
+      "retry": 0
+    },
+    {
+      "title": "ignores a held transform pointer release after Cancel and restores selection on a fresh click",
+      "file": "viewer-transform-toolbar.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 4851,
+      "retry": 0
+    },
+    {
+      "title": "keeps viewer errors readable and primary transform actions reachable",
+      "file": "viewer-transform-toolbar.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 4825,
+      "retry": 0
+    },
+    {
+      "title": "releases native navigation keys held before movement starts",
+      "file": "viewer-transform-toolbar.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 5613,
+      "retry": 0
+    },
+    {
+      "title": "transforms from the viewer with fixed mouse gestures, exact Cancel and one Apply/undo/redo",
+      "file": "viewer-transform-toolbar.spec.ts",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration_ms": 8534,
+      "retry": 0
+    },
+    {
+      "title": "temporarily navigates the native camera with Space and the view toggle without changing the captured preview",
+      "file": "viewer-transform-toolbar.spec.ts",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration_ms": 17663,
+      "retry": 0
+    },
+    {
+      "title": "returns the mouse from movement tools for Space without stealing editable or unrelated focus",
+      "file": "viewer-transform-toolbar.spec.ts",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration_ms": 9543,
+      "retry": 0
+    },
+    {
+      "title": "ends held mouse gestures at accepted coordinates and camera before ownership changes",
+      "file": "viewer-transform-toolbar.spec.ts",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration_ms": 8507,
+      "retry": 0
+    },
+    {
+      "title": "clears temporary navigation on interruption and remount while preserving preview and camera",
+      "file": "viewer-transform-toolbar.spec.ts",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration_ms": 14183,
+      "retry": 0
+    },
+    {
+      "title": "qualifies native touch navigation, secondary tools and accessible theme layouts",
+      "file": "viewer-transform-toolbar.spec.ts",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration_ms": 20451,
+      "retry": 0
+    },
+    {
+      "title": "ignores a held camera pointer release after Cancel and restores selection on a fresh click",
+      "file": "viewer-transform-toolbar.spec.ts",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration_ms": 4867,
+      "retry": 0
+    },
+    {
+      "title": "ignores a held transform pointer release after Cancel and restores selection on a fresh click",
+      "file": "viewer-transform-toolbar.spec.ts",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration_ms": 4679,
+      "retry": 0
+    },
+    {
+      "title": "keeps viewer errors readable and primary transform actions reachable",
+      "file": "viewer-transform-toolbar.spec.ts",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration_ms": 4527,
+      "retry": 0
+    },
+    {
+      "title": "releases native navigation keys held before movement starts",
+      "file": "viewer-transform-toolbar.spec.ts",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "duration_ms": 5328,
+      "retry": 0
+    }
+  ],
+  "representative_performance": {
+    "fixture": "RCSB PDB 1STP",
+    "atoms": 1001,
+    "importAndViewerMs": 879,
+    "interactionMs": 4034,
+    "maxInteractionLongTaskMs": 637,
+    "repeatedStructureRequests": 0
+  }
+}

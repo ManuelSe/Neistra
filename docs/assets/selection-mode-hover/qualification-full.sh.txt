@@ -1,7 +1,7 @@
 #!/bin/bash
 set -eu
 label="$1"
-case "$label" in c3-candidate|c3-merged) ;; *) exit 2;; esac
+case "$label" in c3-final-candidate|c3-merged) ;; *) exit 2;; esac
 python3 /tmp/neistra91-gate.py "$label" \
  'python-lock=.venv/bin/uv sync --frozen' \
  'node-lock=corepack pnpm install --frozen-lockfile' \

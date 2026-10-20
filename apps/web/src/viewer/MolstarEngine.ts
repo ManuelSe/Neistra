@@ -333,6 +333,7 @@ export class MolstarEngine implements MolecularViewer {
         });
       },
     );
+    let publishedCamera: CameraState | null = null;
     this.cameraSubscription = plugin.canvas3d.camera.changed.subscribe(() => {
       this.doubleClicks.clear();
       const snapshot = plugin.canvas3d!.camera.getSnapshot();
@@ -344,7 +345,10 @@ export class MolstarEngine implements MolecularViewer {
       // Mol* multisampling changes projection jitter on every marked frame.
       // Only application camera changes invalidate a stable molecular hover.
       if (this.hoverCamera && camera && JSON.stringify(this.hoverCamera) !== JSON.stringify(camera)) this.clearHover();
-      if (camera) for (const listener of this.cameraListeners) listener(camera);
+      if (camera && JSON.stringify(publishedCamera) !== JSON.stringify(camera)) {
+        publishedCamera = camera;
+        for (const listener of this.cameraListeners) listener(camera);
+      }
     });
   }
 

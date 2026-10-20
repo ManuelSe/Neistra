@@ -646,3 +646,45 @@ incorporation/removal; no unrelated feature or chemistry change is accepted.
 - Next: commit `chore(release): prepare v0.22.1`, then complete clean candidate
   gate including actual tagged0.22/current0.22.1 producer/readers both directions.
   No release or PR is claimed yet. Existing lazy-bundle advisory remains.
+
+### Final review correction — duplicate camera publications
+
+- The first candidate19dac96 passes frozen/fresh0014/version/static/1,108 Python/
+  305 frontend/8 supervisor/build and actual0.22↔0.22.1 reader gates. Its browser
+  run was deliberately interrupted for a consequential local review finding:
+  native projection-jitter callbacks reached application React/camera stores
+  despite unchanged CameraState. It is **not** complete candidate evidence.
+- [Negative control](../assets/selection-mode-hover/c3-camera-negative-gate.json)
+  observes8 extra callbacks (11→19) on first trusted hover, while exact camera
+  equality still passes. Preserve failure logs/trace as diagnostic evidence.
+- Deduplicate native camera publications by the existing application snapshot.
+  Keep actual camera changes and immediate initial subscriber snapshots. This
+  implements the approved no-application-state-update hover boundary without
+  product/API/schema/scientific expansion. D-124's append-only note records it.
+- Native hover now asserts zero additional camera publications. Focused camera,
+  selection, surface, movement/remount, accessibility/archive regressions precede
+  a new committed clean candidate, labeled `c3-final-candidate`. First interrupted
+  candidate evidence is retained separately. No release/merge is claimed.
+
+### Camera-publication correction checkpoint
+
+- [Expanded gate](../assets/selection-mode-hover/c3-camera-gate.json) passes29
+  focused/305 frontend, lint/types/build/diff and83 native browser cases /11
+  intentional layout/pointer exclusions, zero failures/flakes/retries. It includes
+  camera, gestures, surfaces, visibility, transforms, remount, accessibility and
+  archive workflows. Source/patch/lock bytes remain unchanged. Pinned1STP:879ms
+  import/viewer,4034ms interactions,637ms longest task, zero repeated reads.
+- The new exact native hover assertions observe **zero** additional application
+  camera publications across all four modes in both themes. The retained negative
+  control fails on the old source with8 duplicates while exact pose equality
+  passes. Actual camera navigation, initial subscription and remount remain valid.
+- [Blur addition](../assets/selection-mode-hover/c3-blur-gate.json) passes lint,
+  types/diff and3 native hover cases /3 intentional fine-pointer exclusions. The
+  lifecycle blur event clears actual hover marks, preserves selection and permits
+  fresh trusted-input hover; viewer exit is then qualified separately. Camera
+  callback count remains unchanged. No physical window-focus certification claimed.
+- Local checkpoint diff review confirms only adapter publication deduplication,
+  observer/assertions, documentation and evidence. No scope/API/schema/migration/
+  scientific/version expansion or unresolved consequential finding. The earlier
+  candidate is superseded. Next: passing fix commit and a fresh complete clean
+  `c3-final-candidate` gate, then final full-diff/evidence review and PR workflow.

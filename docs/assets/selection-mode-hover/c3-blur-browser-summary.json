@@ -1,0 +1,124 @@
+{
+  "stats": {
+    "startTime": "2026-10-20T19:47:33.194Z",
+    "duration": 40945.704,
+    "expected": 3,
+    "skipped": 3,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "report_sha256": "b99c1cef44a5fbca38141d6951b23ee261eb6c677bf209003da552c67ae1cb78",
+  "attachments": [
+    {
+      "name": "hover-observations",
+      "title": "native hover matches all modes and preserves selection (light)",
+      "project": "chromium",
+      "path": "docs/assets/selection-mode-hover/c3-blur-attachment-00.json",
+      "sha256": "dd4d8ccc2ea620efd66ece68dbf62078910b68e81989f87ce1012f5a0156f1e0"
+    },
+    {
+      "name": "hover-observations",
+      "title": "native hover matches all modes and preserves selection (dark)",
+      "project": "chromium",
+      "path": "docs/assets/selection-mode-hover/c3-blur-attachment-01.json",
+      "sha256": "1608e26613ce65dab39e5a09f6ed0aafcc2412b20914d04bf39980a26a798757"
+    }
+  ],
+  "exclusions": [
+    {
+      "title": "native hover matches all modes and preserves selection (light)",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Hover requires a fine pointer; touch behavior is covered by selection regressions.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/viewer-hover.spec.ts",
+            "line": 57,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "native hover matches all modes and preserves selection (dark)",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Hover requires a fine pointer; touch behavior is covered by selection regressions.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/viewer-hover.spec.ts",
+            "line": 57,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "protein/individual complex hover preserves hidden membership, anchors and lifecycle ownership",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Fine-pointer native hover qualification.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/viewer-hover.spec.ts",
+            "line": 152,
+            "column": 8
+          }
+        }
+      ]
+    }
+  ],
+  "results": [
+    {
+      "title": "native hover matches all modes and preserves selection (light)",
+      "file": "viewer-hover.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 9695,
+      "retry": 0
+    },
+    {
+      "title": "native hover matches all modes and preserves selection (dark)",
+      "file": "viewer-hover.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 9211,
+      "retry": 0
+    },
+    {
+      "title": "protein/individual complex hover preserves hidden membership, anchors and lifecycle ownership",
+      "file": "viewer-hover.spec.ts",
+      "project": "chromium",
+      "status": "passed",
+      "duration_ms": 16276,
+      "retry": 0
+    },
+    {
+      "title": "native hover matches all modes and preserves selection (light)",
+      "file": "viewer-hover.spec.ts",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration_ms": 189,
+      "retry": 0
+    },
+    {
+      "title": "native hover matches all modes and preserves selection (dark)",
+      "file": "viewer-hover.spec.ts",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration_ms": 112,
+      "retry": 0
+    },
+    {
+      "title": "protein/individual complex hover preserves hidden membership, anchors and lifecycle ownership",
+      "file": "viewer-hover.spec.ts",
+      "project": "mobile-chromium",
+      "status": "skipped",
+      "duration_ms": 127,
+      "retry": 0
+    }
+  ]
+}

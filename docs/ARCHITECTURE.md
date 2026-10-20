@@ -132,7 +132,10 @@ native hover handler, including the native independent Shift-extension behavior.
 Resolved canonical loci bypass automatic granularity expansion. Membership indexes
 are weakly keyed by immutable normalized/hierarchy objects; the current hover
 target/loci is scoped to the bound scene and picking mode. Hover does not publish
-selection events or store updates. Visibility, scene, coordinate, navigation and
+selection events or store updates. Camera publications deduplicate the existing
+application snapshot so native projection jitter cannot cause application React/
+store updates during hover. Native labels/focus retain their own behavior.
+Visibility, scene, coordinate, navigation and
 movement boundaries clear it. Managed surface representations are excluded from
 queued molecular highlight/removal actions, preserving their independently owned
 object activation. D-124 and the issue #91 contract govern qualification.

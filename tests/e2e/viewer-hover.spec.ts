@@ -77,6 +77,7 @@ for (const theme of ["light", "dark"] as const) test(`native hover matches all m
   const reads: string[] = [];
   page.on("request", r => { if (/\/structure$/.test(new URL(r.url()).pathname)) reads.push(r.url()); });
   const camera = (await inspect(page)).camera;
+  const cameraEvents = (await inspect(page)).cameraEvents;
   const observations: { mode: SelectionGranularity; automationElapsedMs: number; state: Awaited<ReturnType<typeof inspect>> }[] = [];
   for (const granularity of ["atom", "residue", "chain", "structure"] as const) {
     await mode(page, granularity);
@@ -102,11 +103,21 @@ for (const theme of ["light", "dark"] as const) test(`native hover matches all m
     // Changing picking mode intentionally clears the anchor, but never selection.
     expect((await selection(page)).selection).toEqual(initial.selection);
     expect((await inspect(page)).camera).toEqual(camera);
-    if (granularity === "atom") await page.screenshot({ path: info.outputPath(`viewer-hover-${theme}-atom.png`) });
+    expect((await inspect(page)).cameraEvents).toBe(cameraEvents);
+    if (granularity === "atom") {
+      await page.screenshot({ path: info.outputPath(`viewer-hover-${theme}-atom.png`) });
+      // Lifecycle-event qualification; hit discovery still uses trusted pointer
+      // input and actual native markers, without injecting a preview result.
+      await page.evaluate(() => window.dispatchEvent(new Event("blur")));
+      await expect.poll(async () => (await inspect(page)).highlighted).toEqual([]);
+      expect((await inspect(page)).selected).toEqual(refs(entry.id, [carbon.id]));
+      await hoverAt(page, pixel, expected);
+    }
     await page.mouse.move(0, 0);
     await expect.poll(async () => (await inspect(page)).highlighted).toEqual([]);
     expect((await inspect(page)).selected).toEqual(refs(entry.id, [carbon.id]));
   }
+  expect((await inspect(page)).cameraEvents).toBe(cameraEvents);
   expect(reads).toEqual([]);
   expect(await (await request.get(`/api/v1/projects/${project.id}`)).json()).toEqual(persisted);
   expect(await (await request.get(`/api/v1/projects/${project.id}/entries/${entry.id}/original`)).body()).toEqual(original);
