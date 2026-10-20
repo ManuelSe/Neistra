@@ -1,0 +1,41 @@
+import hashlib,json,subprocess,zipfile,sys,re,gzip
+from pathlib import Path
+root=Path.cwd();out=root/'docs/assets/selection-mode-hover'
+c=json.loads((out/'c3-final-candidate-gate.json').read_text());m=json.loads((out/'c3-merged-gate.json').read_text())
+expected=sys.argv[1]
+assert subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()==expected
+assert m['commit']==expected and m['clean_at_start'] and m['source_unchanged']
+assert len(m['steps'])==16 and all(s['exit_code']==0 for s in m['steps'])
+assert c['source_sha256']==m['source_sha256']
+assert all(hashlib.sha256((root/n).read_bytes()).hexdigest()==h for n,h in m['source_sha256'].items())
+for label in ['c3-final-candidate','c3-merged']:
+ d=json.loads((out/f'{label}-reader-gate.json').read_text());assert d['qualified'] and d['current_version']=='0.22.1'
+ d=json.loads((out/f'{label}-browser-summary.json').read_text());assert d['stats']['expected']==285 and d['stats']['skipped']==55 and d['stats']['unexpected']==0 and d['stats']['flaky']==0
+assert c['clean_at_start'] and c['source_unchanged']
+for gate in [c,m]:
+ assert len(gate['steps'])==16 and all(st['exit_code']==0 for st in gate['steps'])
+ for st in gate['steps']:
+  blob=gzip.decompress((root/st['log']).read_bytes());assert hashlib.sha256(blob).hexdigest()==st['raw_log_sha256']
+  if st['label']=='python':
+   assert re.search(r'1108 passed',blob.decode()) and not re.search(r'[0-9]+ skipped',blob.decode())
+source_digest=hashlib.sha256(json.dumps(m['source_sha256'],sort_keys=True).encode()).hexdigest()
+qual={'issue':91,'runtime_commit':expected,'candidate_commit':c['commit'],'source_sha256':source_digest,'source_identity_count':len(m['source_sha256']),'all_16_commands_pass_both_phases':True,'python':1108,'frontend':305,'supervisor':8,'browser':285,'browser_exclusions':55,'failures':0,'retries':0,'flakes':0,'native_scientific_skips':0,'reader':'actual tagged0.22.0 API/core/plugin in both final0.22.1 directions','migration_head':'0014','selection_normalized_schema':1,'project_viewer_archive_schema':2}
+premerge=Path('/tmp/neistra91-premerge.json')
+files={str(p.relative_to(root)):p.read_bytes() for p in sorted(out.iterdir()) if p.is_file()}
+files['premerge-audit.json']=premerge.read_bytes()
+files['release-qualification.json']=(json.dumps(qual,indent=2)+'\n').encode()
+for n in ['docs/plans/issue-91-selection-mode-hover.md','docs/SELECTION_GESTURES.md','docs/RELEASE_NOTES.md','docs/DECISIONS.md','patches/README.md','patches/molstar@5.11.0.patch']:
+ files[n]=(root/n).read_bytes()
+manifest={'runtime_commit':expected,'source_sha256':source_digest,'files':{n:hashlib.sha256(v).hexdigest() for n,v in files.items()}}
+files['manifest.json']=(json.dumps(manifest,indent=2)+'\n').encode()
+archive=Path('/datadisk/dev/.neistra-tools/neistra-v0.22.1-verification.zip')
+assert not archive.exists()
+with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED) as z:
+ for n,v in files.items():z.writestr(n,v)
+with zipfile.ZipFile(archive) as z:
+ assert z.testzip() is None
+ assert all(hashlib.sha256(z.read(n)).hexdigest()==h for n,h in manifest['files'].items())
+record={'filename':archive.name,'path':str(archive),'size':archive.stat().st_size,'sha256':hashlib.sha256(archive.read_bytes()).hexdigest(),'members':len(files),'internal_hashes':len(manifest['files']),'crc_verified':True,'runtime_commit':expected,'source_sha256':source_digest}
+Path('/tmp/neistra91-bundle.json').write_text(json.dumps(record,indent=2)+'\n')
+Path('/tmp/neistra91-qualification.json').write_text(json.dumps(qual,indent=2)+'\n')
+print(json.dumps(record,indent=2))

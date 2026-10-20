@@ -1092,3 +1092,16 @@ journey pass. Exact native hover sets, zero extra camera callbacks and lifecycle
 pass; final screenshots were inspected in both themes. [Review](assets/selection-mode-hover/c3-review.md)
 is local self-review with no unresolved consequential finding. Earlier interrupted/
 negative controls are separate; exact merged-master repetition remains required.
+
+Issue91 [exact released master9fd6185](assets/selection-mode-hover/c3-merged-gate.json)
+repeats all16 release commands:1108 Python/305 frontend/8 supervisor/285 browser
+with55 documented exclusions, zero failures/flakes/retries/native scientific
+skips. [Audit](assets/selection-mode-hover/c3-merged-summary.json) proves480 source/
+patch/lock identities equal candidate and verifies all lossless logs. Actual
+tagged0.22↔final0.22.1 readers pass both directions. Merged1STP import
+751ms/interactions4100ms/longest673ms/zero repeated reads and unchanged native18k
+minimization/100k surface/actual100–200%zoom/accessibility/complete journey gates
+pass. [Publication](assets/selection-mode-hover/c3-publication.json) verifies exact
+annotated tag, stable release/full notes, downloaded ZIP SHA256/CRC/internal hashes
+and [close-out reply](https://github.com/ManuelSe/Neistra/issues/91#issuecomment-6302369833); final docs/cleanup audit follows there. No migration
+or public API/schema/chemistry/dependency upgrade; pinned readback patch explicit.

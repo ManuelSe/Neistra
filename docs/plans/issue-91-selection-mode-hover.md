@@ -2,9 +2,9 @@
 
 ## 1. Status, outcome, and authority
 
-**Status:** M1–M3 implemented and clean-candidate-qualified under the approved
-contract and explicit `/goal`. PR/review/merge and exact-master release
-qualification are next.
+**Status:** approved M1–M3 scope implemented, qualified, merged and released as
+stable v0.22.1. Final documentation/ref cleanup audit is recorded at the linked
+issue close-out after those events.
 
 **Approval:** the user's “Implement the plan.” on 2026-10-20 approves the complete
 proposal and its explicit C0 stop ready for `/goal`. This approval authorizes
@@ -721,3 +721,60 @@ incorporation/removal; no unrelated feature or chemistry change is accepted.
   Next: commit qualification evidence, push, PR/Codex review request, remote
   protections/checks/reviews/base/tag audit and normal merge. Exact-master full
   gate is still mandatory before tag/release. No external blocker.
+
+### Verified merge, exact-master qualification and publication
+
+- [PR#108](https://github.com/ManuelSe/Neistra/pull/108) head2575416 was pushed and
+  remotely verified. [Premerge audit](../assets/selection-mode-hover/c3-premerge-audit.json)
+  confirms current base2852e21, CLEAN/MERGEABLE, no protection/rulesets/required
+  checks/approvals or unresolved review threads. Codex requested at
+  [the PR comment](https://github.com/ManuelSe/Neistra/pull/108#issuecomment-6301112797); no acknowledgement or independent
+  review returned at merge. [Local self-review](https://github.com/ManuelSe/Neistra/pull/108#issuecomment-6301126269)
+  has no unresolved consequential finding. No override or force push was used.
+- Normal merge preserves all checkpoint commits. Remote PR/merge/master verified
+  at `9fd618573dd3c0d7da3c5bea358070950a784a23`; clean local master fast-forwarded to that exact commit.
+- [Exact-master16-command gate](../assets/selection-mode-hover/c3-merged-gate.json)
+  repeats **1,108 Python,305 frontend,8 supervisor,285 browser /55 documented
+  layout/timing exclusions**, zero failures/flakes/retries/native scientific
+  skips. Frozen installs/fresh0014/static/build/version/diff pass. All480 runtime/
+  test/patch/lock identities equal the clean candidate and remain unchanged;
+  [audit](../assets/selection-mode-hover/c3-merged-summary.json) verifies logs.
+- [Actual tagged0.22↔final0.22.1 readers](../assets/selection-mode-hover/c3-merged-reader-gate.json)
+  pass both directions with exact originals/coordinates, retained batch history,
+  named selections/scenes, surfaces/seeds, original jobs and archive remapping/
+  reexport. No durable hover or new migration/schema/public API. Archives retain
+  existing nonportable-Undo limitation. All five versions0.22.1.
+- [Exact-master browser summary](../assets/selection-mode-hover/c3-merged-browser-summary.json)
+  retains25 JSON attachments and individual results/exclusions. Pinned1STP1001
+  atoms: import/viewer751ms, interactions4100ms, longest
+  observed task673ms, zero repeated structure reads. Unchanged native18k
+  minimization/100k surface, camera/movement, both-theme accessibility/keyboard/
+  touch, actual100–200%zoom and complete application journey gates pass. Exact
+  native hover/selection independence, zero extra camera publications, blur/exit/
+  scene/coordinate/tool/remount cleanup all pass.
+- Annotated `v0.22.1` object `522fce7937909d3190692022e73715a347ba83ae` targets only verified
+  master9fd618573dd3c0d7da3c5bea358070950a784a23; remote ref and peeled commit verified. Stable latest
+  [release](https://github.com/ManuelSe/Neistra/releases/tag/v0.22.1) and full notes published/verified.
+  Public qualification ZIP SHA256 `fecb88483fc4712582dd14f2c7f924afb697f893c7d9d9ba223c78b455f1f099`,
+  CRC and454 internal hashes verify.
+  [Publication record](../assets/selection-mode-hover/c3-publication.json) retains
+  remote IDs, source digest, checksums, review and compatibility facts.
+- Issue91 closed by runtime PR; [release close-out reply](https://github.com/ManuelSe/Neistra/issues/91#issuecomment-6302369833) is verified.
+  Modifier-result previews are deferred by confirmed scope; optional profiles/
+  colors omitted; native-granularity-only and molecule inference approaches
+  rejected. #94/#95 remain separate; #107 tracks eventual upstream patch removal,
+  not incomplete current behavior. Existing bundle/Alembic advisories remain;
+  no threshold reduction, chemistry inference or speedup claim.
+- This docs-only audit is integrated on the planned feature branch using source
+  equivalence, Markdown link and diff checks. Published runtime tag stays fixed.
+  **Actual** docs PR integration, branch/worktree deletion and clean-master ref
+  facts are appended to the same issue reply and published
+  `neistra-v0.22.1-publication-audit.json` release asset after those events; they
+  are not predicted in this commit. No approved-scope implementation remains.
+
+Publication tooling note: the draft ZIP download passed SHA256/CRC/all internal
+hashes, but the draft-by-tag metadata endpoint returned404. The shell sequence
+continued to publish instead of stopping at that metadata check; this was
+acknowledged and corrected through full published metadata/notes/latest/tag and
+public-download verification. [Sequence record](../assets/selection-mode-hover/c3-publication-sequence.json)
+retains the distinction. No runtime/source/tag target changed.

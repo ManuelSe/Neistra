@@ -1,0 +1,32 @@
+{
+  "issue": 91,
+  "runtime_commit": "9fd618573dd3c0d7da3c5bea358070950a784a23",
+  "candidate_commit": "667e7a88fade5dd6d40d5ce7f28df1fcb40bb832",
+  "source_sha256": "125a3f721c84855316849bd817431d9007d69947a6a30e66cf7b1b24698ebca9",
+  "source_identity_count": 480,
+  "all_16_commands_pass_both_phases": true,
+  "python": 1108,
+  "frontend": 305,
+  "supervisor": 8,
+  "browser": 285,
+  "browser_exclusions": 55,
+  "failures": 0,
+  "retries": 0,
+  "flakes": 0,
+  "native_scientific_skips": 0,
+  "reader": "actual tagged0.22.0 API/core/plugin in both final0.22.1 directions",
+  "migration_head": "0014",
+  "selection_normalized_schema": 1,
+  "project_viewer_archive_schema": 2,
+  "runtime_test_tool_sources_equal_candidate": true,
+  "all_logs_sha256_verified": true,
+  "performance": {
+    "fixture": "RCSB PDB 1STP",
+    "atoms": 1001,
+    "importAndViewerMs": 751,
+    "interactionMs": 4100,
+    "maxInteractionLongTaskMs": 673,
+    "repeatedStructureRequests": 0
+  },
+  "screenshots": "Candidate and exact-master native atom cases qualify both themes; manual candidate screenshot review retained."
+}

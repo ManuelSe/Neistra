@@ -1,0 +1,34 @@
+import hashlib,json,subprocess,sys,zipfile
+from pathlib import Path
+
+def gh(*args):
+    return json.loads(subprocess.check_output(['gh',*args],text=True))
+
+runtime_pr=int(sys.argv[1]);comment_id=int(sys.argv[2]);request_url=sys.argv[3];review_url=sys.argv[4]
+root=Path.cwd();out=root/'docs/assets/selection-mode-hover';repo='repos/ManuelSe/Neistra'
+gate=json.loads((out/'c3-merged-gate.json').read_text());sha=gate['commit']
+assert subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()==sha
+assert all(hashlib.sha256((root/n).read_bytes()).hexdigest()==h for n,h in gate['source_sha256'].items())
+pr=gh('pr','view',str(runtime_pr),'--json','number,url,state,mergedAt,mergeCommit,headRefOid')
+assert pr['state']=='MERGED' and pr['mergeCommit']['oid']==sha
+release=gh('api',repo+'/releases/tags/v0.22.1')
+assert not release['draft'] and not release['prerelease'] and release['target_commitish']==sha
+assert gh('api',repo+'/releases/latest')['id']==release['id']
+ref=gh('api',repo+'/git/ref/tags/v0.22.1');assert ref['object']['type']=='tag'
+tag=gh('api',repo+'/git/tags/'+ref['object']['sha']);assert tag['object']['sha']==sha
+comment=gh('api',repo+'/issues/comments/'+str(comment_id));assert comment['body'].rstrip()==Path('/tmp/neistra91-issue.md').read_text().rstrip()
+assert gh('issue','view','91','--json','state')['state']=='CLOSED'
+bundle=json.loads(Path('/tmp/neistra91-bundle.json').read_text());qual=json.loads(Path('/tmp/neistra91-qualification.json').read_text())
+asset=next(a for a in release['assets'] if a['name']==bundle['filename'])
+assert asset['digest']=='sha256:'+bundle['sha256']
+download=Path('/datadisk/dev/.neistra-tools/issue91-public-download')/bundle['filename']
+assert hashlib.sha256(download.read_bytes()).hexdigest()==bundle['sha256']
+with zipfile.ZipFile(download) as archive:
+    assert archive.testzip() is None
+    manifest=json.loads(archive.read('manifest.json'))
+    assert all(hashlib.sha256(archive.read(n)).hexdigest()==h for n,h in manifest['files'].items())
+bundle.update(public_url=asset['browser_download_url'],asset_id=asset['id'],remote_digest=asset['digest'],public_published_download_verified=True,downloaded_zip_crc_and_all_internal_hashes_verified=True)
+record={'status':'runtime release and issue closeout verified; final docs/ref cleanup audit follows at linked issue reply','issue':91,'plan':'docs/plans/issue-91-selection-mode-hover.md','runtime_pr':{**pr,'strategy':'normal merge preserving checkpoint history'},'tag':{'name':'v0.22.1','type':'annotated','object':ref['object']['sha'],'commit':sha,'remote_ref_and_peeled_commit_verified':True},'release':{k:release[k] for k in ['id','html_url','tag_name','target_commitish','draft','prerelease','published_at']},'release_notes_sha256':hashlib.sha256(release['body'].encode()).hexdigest(),'verification_bundle':bundle,'issue_closeout':{'id':comment['id'],'url':comment['html_url'],'verified_body_sha256':hashlib.sha256(comment['body'].encode()).hexdigest(),'closed_by_runtime_pr':True,'final_reference_audit':'Final docs integration and actual branch cleanup are appended to this same reply after verification.'},'qualification':qual,'review':{'request':request_url,'local_self_review':review_url,'independent_review_returned':False,'required_remote_checks_or_approvals':False,'unresolved_review_threads_at_merge':0,'override_used':False},'compatibility':{'database_head':'0014','normalized_selection_schema':1,'project_viewer_archive_schema':2,'new_migration':False,'dependency_version_upgrade':False,'pinned_molstar_5_11_0_readback_patch':True},'followups':[94,95,107],'feature_branch':'fix/issue-91-selection-mode-hover','cleanup_order':'Remote/local deletion only after verified runtime merge, tag, release, initial issue reply and documentation audit. Actual final state is recorded externally after those events; the runtime tag remains fixed.'}
+(out/'c3-publication.json').write_text(json.dumps(record,indent=2)+'\n')
+Path('/tmp/neistra91-release-remote.json').write_text(json.dumps(release,indent=2)+'\n')
+print(json.dumps({'runtime':sha,'pr':pr['url'],'release':release['html_url'],'issue_reply':comment['html_url'],'bundle_sha256':bundle['sha256']},indent=2))

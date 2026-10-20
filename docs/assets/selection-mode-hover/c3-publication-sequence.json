@@ -1,0 +1,10 @@
+{
+  "draft_byte_download_sha256_crc_internal_hashes_passed": true,
+  "draft_metadata_by_tag_endpoint": "404; draft tag lookup unavailable",
+  "sequence_error": "Shell continued to publication after metadata lookup failure; acknowledged and corrected through full published metadata/notes/latest/tag/public-download verification.",
+  "published_metadata_notes_and_latest_verified": true,
+  "public_download_sha256_crc_all_internal_hashes_verified": true,
+  "release_id": 418913413,
+  "runtime_commit": "9fd618573dd3c0d7da3c5bea358070950a784a23",
+  "tag_unmoved": true
+}
