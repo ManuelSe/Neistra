@@ -1,0 +1,95 @@
+{
+  "status": "runtime released and issue close-out verified; final reference audit follows docs integration at the linked issue reply",
+  "issue": 89,
+  "plan": "docs/plans/issue-89-interactive-minimization.md",
+  "runtime_pr": {
+    "number": 103,
+    "url": "https://github.com/ManuelSe/Neistra/pull/103",
+    "merged": true,
+    "merged_at": "2026-10-20T10:47:25Z",
+    "head": "6a7c71fa8ce6fd30c3b25227fc01be1341afb673",
+    "merge_commit": "1024f46531a73f58c15d14b19dd86b923563176b",
+    "strategy": "normal merge preserving checkpoints"
+  },
+  "tag": {
+    "name": "v0.21.0",
+    "type": "annotated",
+    "object": "78e2c2618e015907cba547bf50bcb823216dc102",
+    "commit": "1024f46531a73f58c15d14b19dd86b923563176b",
+    "remote_ref_and_peeled_commit_verified": true
+  },
+  "release": {
+    "id": 418334494,
+    "html_url": "https://github.com/ManuelSe/Neistra/releases/tag/v0.21.0",
+    "tag_name": "v0.21.0",
+    "target_commitish": "1024f46531a73f58c15d14b19dd86b923563176b",
+    "draft": false,
+    "prerelease": false,
+    "published_at": "2026-10-20T11:44:14Z"
+  },
+  "release_notes_sha256": "236c5bea16f2839d8ec68a18f8b0e12ae7182f578b322fe4caef3106b1143ffb",
+  "verification_bundle": {
+    "filename": "neistra-v0.21.0-verification.zip",
+    "path": "/datadisk/dev/.neistra-tools/neistra-v0.21.0-verification.zip",
+    "size": 5905507,
+    "sha256": "1724fd721542ae773ac724aa3f17396c8f34679d93cac1afac3a47289ef72867",
+    "members": 256,
+    "internal_hashes": 255,
+    "crc_verified": true,
+    "runtime_commit": "1024f46531a73f58c15d14b19dd86b923563176b",
+    "source_sha256": "a2c05ac9d9d77896c34decd0cac42c0c0668d4674936c0f3946aa007ee21e27c",
+    "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.21.0/neistra-v0.21.0-verification.zip",
+    "asset_id": 659169571,
+    "remote_digest": "sha256:1724fd721542ae773ac724aa3f17396c8f34679d93cac1afac3a47289ef72867",
+    "remote_draft_download_verified": true,
+    "public_published_download_verified": true,
+    "downloaded_zip_crc_and_all_internal_hashes_verified": true
+  },
+  "issue_closeout": {
+    "url": "https://github.com/ManuelSe/Neistra/issues/89#issuecomment-6290103509",
+    "id": 6290103509,
+    "verified_body_sha256": "ae452e4dd6db2eecfa706d197d8e202c3375db3c2aadbdbbb809c88367f4a1b3",
+    "closed_by_runtime_pr": true,
+    "final_reference_audit": "This same reply is updated after docs integration and actual branch cleanup."
+  },
+  "qualification": {
+    "candidate": "c6-candidate-summary.json",
+    "exact_merged_master": "c6-merged-summary.json",
+    "runtime_test_tool_source_sha256": "a2c05ac9d9d77896c34decd0cac42c0c0668d4674936c0f3946aa007ee21e27c",
+    "all_16_commands_pass_both_phases": true,
+    "python": 1102,
+    "frontend": 273,
+    "supervisor": 8,
+    "browser": 268,
+    "intentional_browser_exclusions": 52,
+    "failures": 0,
+    "retries": 0,
+    "native_scientific_skips": 0,
+    "actual_reader": "v0.20.0",
+    "final_producer": "0.21.0",
+    "reader_cases": 4
+  },
+  "review": {
+    "request": "https://github.com/ManuelSe/Neistra/pull/103#issuecomment-6289063383",
+    "local_self_review": "https://github.com/ManuelSe/Neistra/pull/103#issuecomment-6289137406",
+    "independent_review_returned": false,
+    "required_remote_checks_or_approvals": false,
+    "unresolved_review_threads_at_merge": 0,
+    "override_used": false
+  },
+  "compatibility": {
+    "database_head": "0014",
+    "normalized_selection_schema": 1,
+    "project_viewer_archive_schema": 2,
+    "new_migration": false,
+    "physical_model": "amber-local-v1",
+    "application_dependency_upgrade": false
+  },
+  "deferred_followups": [
+    101,
+    102
+  ],
+  "resolved_investigation": 100,
+  "feature_branch": "feat/issue-89-interactive-minimization",
+  "cleanup_order": "Remote/local deletion only after verified runtime merge, tag, release, issue reply and docs audit. Final observed state is recorded at the closeout URL, not predicted here."
+}

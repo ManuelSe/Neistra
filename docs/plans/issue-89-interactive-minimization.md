@@ -2,7 +2,8 @@
 
 ## 1. Approval record and requirement disposition
 
-**Status:** approved; implementation authorized 2026-10-20 by “Implement the plan.”
+**Status:** released as stable [v0.21.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.21.0) through [PR#103](https://github.com/ManuelSe/Neistra/pull/103).
+**Approval:** implementation authorized 2026-10-20 by “Implement the plan.”
 **Issue:** [#89](https://github.com/ManuelSe/Neistra/issues/89).
 **Plan path:** `docs/plans/issue-89-interactive-minimization.md`.
 **Base:** `master`, `f12dd18377c8410976381f4b96ad81c198e921e0` at approval.
@@ -503,3 +504,26 @@ merge/tag/release/reply verification; finish clean master.
   v0.20.0 and v0.21.0 absent on recheck. Only docs/evidence change after this tested
   source. Next: evidence commit/PR/review, normal merge and exact-master gate before
   publication. No external blocker; issue is not complete until release/close-out.
+
+- Delivery: PR#103 normal-merged as1024f46531a73f58c15d14b19dd86b923563176b,
+  verified onorigin/master and localmaster fast-forwarded. Codex request received
+  no acknowledgement/independent review; implementer self-review is explicit, with
+  no unresolved finding or required check/review/protection bypass. Complete clean
+  exact merged-master gate repeats all16 commands/counts:1102 Python/273 frontend/
+  8 supervisor/268 browser,52 intentional exclusions, zero failures/retries/native
+  scientific skips; final0.21 producer/actual0.20 reader four cases pass. Candidate
+  and merged runtime/test/tool source hashes are identical. [Merged gate](../assets/interactive-minimization/c6-merged-gate.json),
+  [summary](../assets/interactive-minimization/c6-merged-summary.json).
+- Publication verified: annotatedv0.21.0 object78e2c2618e015907cba547bf50bcb823216dc102
+  targets exact verified runtime1024f46531a73f58c15d14b19dd86b923563176b. Stable
+  GitHub release418334494 is public, not draft/prerelease; notes and asset digest
+  verify remotely. Public downloaded ZIP SHA256
+  1724fd721542ae773ac724aa3f17396c8f34679d93cac1afac3a47289ef72867, CRC/255
+  internal hashes pass, including four public compatibility archives. [Publication](../assets/interactive-minimization/c6-publication.json).
+- Issue89 closed by runtime PR and [close-out reply](https://github.com/ManuelSe/Neistra/issues/89#issuecomment-6290103509)
+  body verified. #100 is closed; #101/#102 remain deliberate separate qualification.
+  No approved-scope implementation remains. This docs-only publication snapshot
+  follows the repository audit convention; runtime tag stays fixed. Actual final
+  docs integration and delayed remote/local branch cleanup are recorded at the
+  linked reply after those events, avoiding self-referential predicted Git facts.
+  Next product work requires a separate approved plan.

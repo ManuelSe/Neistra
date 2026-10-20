@@ -101,3 +101,10 @@ records the approved scientific scope. Subsequent candidate evidence/README/deci
 changes are docs only; runtime/test/tool files still match the passing gate.
 No unresolved consequential local finding. Remote PR review and exact merged-master
 qualification/publication remain required, without claiming independent approval.
+
+Publication audit: PR#103 merged normally; exact clean master1024f465 repeats all16
+commands/counts with candidate-identical source and actual0.20 reader retention.
+Annotated tag/public stable release/notes/downloaded ZIP SHA256/CRC/255 internal
+hashes and issue close-out are verified. No independent Codex review returned.
+This subsequent audit changes docs/evidence only and leaves the runtime tag fixed.
+Final branch/reference verification is recorded at the issue reply after cleanup.
