@@ -44,6 +44,11 @@ async function setup(page: Page, request: Parameters<typeof prepare>[1]) {
   await page.reload();
   await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded", { timeout: 30000 });
   await observe(page);
+  await page.evaluate(async entryId => {
+    const path = "/src/test/selectionGestureHarness.ts";
+    const { settleSelectionScene } = await import(/* @vite-ignore */ path);
+    await settleSelectionScene(window.interactionEngines.at(-1)!, { structure_id: entryId, atom_id: 2 });
+  }, entry.id);
   return { project, entry, projection };
 }
 
@@ -90,7 +95,13 @@ test("expands a standalone SDF ligand through its individual component", async (
   const projection: StructureProjection = await (await request.get(`/api/v1/projects/${project.id}/entries/${entry.id}/structure`)).json();
   await observe(page);
   const oxygen = projection.structure.atoms.find(atom => atom.element === "O")!;
-  const position = await point(page, oxygen.coordinates);
+  const position = await page.evaluate(async target => {
+    const path = "/src/test/selectionGestureHarness.ts";
+    const { settleSelectionScene, atomPickPixel } = await import(/* @vite-ignore */ path);
+    const engine = window.interactionEngines.at(-1)!;
+    await settleSelectionScene(engine, target.reference);
+    return atomPickPixel(engine, window.editingPicks.point(target.coordinates), target.reference);
+  }, { reference: { structure_id: entry.id, atom_id: oxygen.id }, coordinates: oxygen.coordinates });
   const camera = await page.evaluate(() => window.editingPicks.camera());
   await page.locator(".molstar-host canvas").first().dblclick({ position });
   await expect.poll(() => selection(page)).toEqual(refs(entry.id, projection.structure.atoms.map(atom => atom.id)));
@@ -166,5 +177,54 @@ test("extends Atom-mode residue double-clicks and preserves anchors across respo
   await expect.poll(() => selection(page)).toEqual(refs(entry.id, Array.from({ length: 12 }, (_, i) => i + 5)));
   await page.reload();
   await expect(page.locator(".viewer-status")).toContainText("/ 0 selected", { timeout: 30000 });
+  expect(await anchor(page)).toBeNull();
+});
+
+test("keeps modified double-clicks ordinary and toggles partially selected residues as complete operands", async ({ page, request }, info) => {
+  test.setTimeout(90000);
+  const { entry, projection } = await setup(page, request);
+  const canvas = page.locator(".molstar-host canvas").first();
+  const position = async (id: number) => point(page, projection.structure.atoms.find(atom => atom.id === id)!.coordinates);
+  await canvas.click({ position: await position(2) });
+  for (const modifier of ["Control", "Meta", "Shift"] as const) {
+    await canvas.dblclick({ position: await position(2), modifiers: [modifier] });
+    await expect.poll(() => selection(page)).toEqual(refs(entry.id, [2]));
+    expect(await anchor(page)).toBeNull();
+  }
+  await canvas.click({ position: await position(20), modifiers: ["Control"] });
+  await pickMode(page, "residue", info.project.name === "mobile-chromium");
+  await canvas.click({ position: await position(2), modifiers: ["Control"] });
+  await expect.poll(() => selection(page)).toEqual(refs(entry.id, [1, 2, 3, 4, 20]));
+  await canvas.click({ position: await position(2), modifiers: ["Meta"] });
+  await expect.poll(() => selection(page)).toEqual(refs(entry.id, [20]));
+  expect(await anchor(page)).toBeNull();
+});
+
+test("persists native gesture references as an ordinary named selection and reloads without an anchor", async ({ page, request }, info) => {
+  test.setTimeout(90000);
+  const { project, entry, projection } = await setup(page, request);
+  const canvas = page.locator(".molstar-host canvas").first();
+  await canvas.dblclick({ position: await point(page, projection.structure.atoms.find(atom => atom.id === 2)!.coordinates) });
+  await canvas.click({ position: await point(page, projection.structure.atoms.find(atom => atom.id === 14)!.coordinates), modifiers: ["Shift"] });
+  const expected = refs(entry.id, Array.from({ length: 16 }, (_, i) => i + 1));
+  await expect.poll(() => selection(page)).toEqual(expected);
+  const mobile = info.project.name === "mobile-chromium";
+  if (mobile) await page.getByRole("button", { name: "Inspector", exact: true }).click();
+  await page.getByRole("tab", { name: "selection", exact: true }).click();
+  await page.getByPlaceholder("Selection name").fill("Native gesture range");
+  await page.getByRole("button", { name: "Save current selection", exact: true }).click();
+  const savedRow = page.locator(".saved-selection-row").filter({ hasText: "Native gesture range" });
+  await expect(savedRow).toBeVisible();
+  const saved = await (await request.get(`/api/v1/projects/${project.id}`)).json() as Project;
+  expect(saved.saved_selections.find(s => s.name === "Native gesture range")?.atom_references).toEqual(expected);
+  expect(saved.revision).toBe(project.revision + 1);
+  expect(JSON.stringify(saved)).not.toContain("rangeAnchor");
+  await page.reload();
+  await expect(page.locator(".viewer-status")).toContainText("/ 0 selected", { timeout: 30000 });
+  expect(await anchor(page)).toBeNull();
+  if (mobile) await page.getByRole("button", { name: "Inspector", exact: true }).click();
+  await page.getByRole("tab", { name: "selection", exact: true }).click();
+  await savedRow.getByRole("button").first().click();
+  await expect.poll(() => selection(page)).toEqual(expected);
   expect(await anchor(page)).toBeNull();
 });

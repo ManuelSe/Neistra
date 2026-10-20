@@ -2,26 +2,22 @@
 
 ## Current milestone
 
-Issue #90 **M1/C1–M3/C3 implemented and checkpoint-qualified; M4/C4 next**,
-under the [approved contract](plans/issue-90-selection-gestures.md). Shared toggle,
-Atom-mode residue/component double-click and viewer-only fixed-start residue
-ranges are implemented. Application-owned anchors retain source identity above
-responsive remounts and invalidate on clear/replacement/mode/project/artifact or
-incomplete membership. D-120–122 and [user guidance](SELECTION_GESTURES.md) govern.
+Issue #90 **C1–C3 committed; C4 focused qualification passed**, under the
+[approved contract](plans/issue-90-selection-gestures.md). Whole-operand toggle,
+Atom double-click expansion and viewer-only fixed residue ranges are implemented.
+C3 `43a49b8` is pushed. [C3 gate](assets/selection-gestures/c3-final-gate.json)
+passes290 frontend/52 browser with2 existing exclusions and static/build checks.
+[C4 native final](assets/selection-gestures/c4-native-final-gate.json) passes14
+cases including partial toggles, modified clicks and named range reload without
+anchors.33 archive/selection Python and290 frontend pass. Initial mobile raster
+miss is retained as diagnostic; only native test readiness/pixel observation changed.
 
-[C3 final gate](assets/selection-gestures/c3-final-gate.json) passes66 focused/290
-frontend, Ruff/mypy91/lint/types/build/diff and52 native browser cases /2 existing
-intentional layout exclusions, zero failures/retries. Exact references, hidden H,
-source order/boundaries, remount/reload and existing camera/movement/touch/keyboard
-ownership pass. [Local review](assets/selection-gestures/c3-review.md) is self-review.
-Earlier responsive raster/visibility diagnostics are retained separately; final
-qualification uses a confirmed nearby native atom pixel and a trusted click,
-without changing runtime behavior or membership assertions.
-
-No migration/schema/HTTP/dependency/version change. Known limits: final performance,
-actual old-reader, complete candidate/merged release gates and publication remain
-pending. Hover and new navigation/ranges panels stay#91/#94/#95. No external blocker.
-Next: commit C3, then M4/C4; stable minor0.22.0 remains planned, not released.
+Actual tagged0.21 reader fixture retention passes both directions at preversion
+0.21; this is not final0.22 compatibility. No migration/schema/API/dependency
+change. Known limits: protein ranges only, native desktop double-click, transient
+anchors; follow-ups#91/#94/#95 remain separate. D-120–122 govern.
+No external blocker. Next: version0.22 preparation, complete candidate/merged
+release and actual final-version reader gates, review and verified publication.
 
 ### Previous delivery baseline — v0.21.0
 
@@ -2629,13 +2625,12 @@ Results:
 
 ## Blockers
 
-No current external blocker. Issue #90 C1–C3 pass checkpoint gates. C4 complete
+No current external blocker. Issue #90 C1–C3 and focused C4 pass. C4 complete
 candidate/merged release and actual preceding-reader gates remain required;
 checkpoint evidence does not establish publication or final qualification.
 
 ## Next action
 
-Commit passing issue #90 C3, then M4/C4 persistence/compatibility/performance and
-release preparation on `feat/issue-90-selection-gestures`. The
+Complete issue #90 M4/C4 final-version qualification and delivery on `feat/issue-90-selection-gestures`. The
 [approved feature plan](plans/issue-90-selection-gestures.md) governs the remaining
 lifecycle. Existing published runtime tags remain fixed.

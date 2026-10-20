@@ -1,6 +1,7 @@
 # Selection gestures
 
-All selection views use the same canonical atom references. Picking does not
+Selection stays synchronized across the viewer, project browser, Components panel
+and Sequence tab. Picking does not
 change the camera, molecular data, project revision, or edit history. Save a named
 selection or scene explicitly to retain its references; ordinary selection clears
 when changing projects or reloading.

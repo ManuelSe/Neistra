@@ -4878,3 +4878,13 @@ The feature plan retains initial/decisive traces and all probe command logs and
 observations. This is implementer review only, not independent approval. No new
 schema, migration, HTTP route, chemistry inference, dependency or version change.
 C4 final performance/actual reader/release gates remain pending.
+
+### D-123 — Issue #90 qualification uses canonical results and actual readers
+
+2026-10-20. Gesture results retain ordinary selection schema1 references. Native
+trusted-input tests prove authoring; separate disposable actual-tag/current API
+processes prove generic persistence/history/archive compatibility. Do not infer
+old gesture authoring from retained data, or final-version compatibility from a
+preversion fixture. Native test pixel/readiness observations are test-only and
+must never replace the actual input or exact canonical-membership assertions.
+No migration, production diagnostic hooks or persisted gesture state are needed.

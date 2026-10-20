@@ -2,7 +2,7 @@
 
 ## 1. Status, outcome, and authority
 
-**Status:** M1/C1–M3/C3 implemented and checkpoint-qualified; M4/C4 next.
+**Status:** M1/C1–M3/C3 committed; M4/C4 focused qualification passed; complete final-version release gates pending.
 **Approval:** user's “Implement the plan.” on 2026-10-20, following the complete
 proposal. C0 persistence stopped as required. The explicit `/goal` request on
 2026-10-20 authorizes implementation and the complete verified delivery lifecycle.
@@ -599,3 +599,26 @@ cleanup. Until those events occur, mark them pending.
   migration, HTTP, dependency, authoritative application-version or molecular-file
   change. Full performance/old-reader/candidate/merged/release qualification remains
   C4. No external blocker. Next: commit C3, then M4/C4 qualification/release prep.
+
+### M4/C4 focused qualification — 2026-10-20
+
+- C3 committed and remotely verified at `43a49b872f841e3d613fe01c6bd1402c1e2c2bb8`.
+- Added real modified-double-click/partial-residue-toggle and named-selection
+  save/reload tests, exact canonical membership and transient-anchor absence.
+  [Native final gate](../assets/selection-gestures/c4-native-final-gate.json)
+  passes all14 desktop/mobile gesture cases, lint/types/diff, no retries/skips.
+- [Focused diagnostic gate](../assets/selection-gestures/c4-focused-gate.json)
+  passes33 saved-selection/archive Python and290 frontend, Ruff/lint/types/build;
+  browser22 pass/5 intentional skips/1 failed mobile standalone projected hit.
+  Its trace is retained separately. Only test readiness/pixel observation changed:
+  await native committed scene/stable camera and confirm an actual nearby atom
+  pixel before a trusted double-click. Runtime and exact membership unchanged.
+- [Reader fixture qualification](../assets/selection-gestures/c4-fixture-reader-gate.json)
+  passes both directions using actual tagged v0.21.0 source and the current
+  preversion0.21.0 implementation. This validates the fixture, **not** final0.22
+  compatibility. Original hashes, coordinates, history/jobs, surfaces, named
+  selections/scenes and archive UUID remapping pass; no anchor is serialized.
+- Reviewed this checkpoint's diff locally: no new production behavior beyond more
+  precise protein-only help; test-only observation never alters camera/selection.
+  No new migration/schema/API/dependency. Complete final-version performance,
+  scientific/native, candidate/merged gates, review and publication remain pending.

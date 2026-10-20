@@ -32,6 +32,15 @@ change during those diagnostics; native confirmed-pixel trusted clicks retain
 exact assertions. No schema/migration/dependency/version change. Final C4 release/
 performance/actual-reader gates remain pending.
 
+M4/C4 [native final](assets/selection-gestures/c4-native-final-gate.json) passes14
+cases/no skips or retries plus lint/types/diff. Partial-toggle/modified-double-click
+and named native range persistence pass. [Initial focused](assets/selection-gestures/c4-focused-gate.json)
+passes33 Python/290 frontend/static/build, browser22 pass/5 intentional skips/1
+mobile raster miss; final fixes only test scene readiness/native pixel observation.
+[Actual-tag fixture](assets/selection-gestures/c4-fixture-reader-gate.json) passes
+both directions at preversion0.21, not final0.22 compatibility. Final complete
+candidate/merged gates remain mandatory.
+
 ## Interactive minimization (issue #89)
 
 M1/C1 [final gate](assets/interactive-minimization/c1-gate.json) passes306 focused

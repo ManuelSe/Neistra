@@ -1,0 +1,149 @@
+{
+  "tag": "v0.21.0",
+  "tagged_commit": "1024f46531a73f58c15d14b19dd86b923563176b",
+  "current_commit": "43a49b872f841e3d613fe01c6bd1402c1e2c2bb8",
+  "current_version": "0.21.0",
+  "steps": [
+    {
+      "direction": "forward",
+      "phase": "migration",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/alembic",
+        "-c",
+        "/datadisk/dev/neistra/alembic.ini",
+        "upgrade",
+        "head"
+      ],
+      "cwd": "/datadisk/dev/neistra",
+      "pythonpath": "/datadisk/dev/neistra/apps/api/src:/datadisk/dev/neistra/packages/molweave_core/src:/datadisk/dev/neistra/packages/molweave_demo_plugin/src:/datadisk/dev/neistra",
+      "data_dir": "/datadisk/dev/.neistra-tools/issue90-c4-fixture-forward",
+      "expected_version": "0.21.0",
+      "exit_code": 0,
+      "seconds": 1.4042991659989639,
+      "log": "docs/assets/selection-gestures/c4-fixture-forward-migration.log.gz",
+      "raw_log_sha256": "a65aaba1d288361248cfad53dee993528aa5c4bbd5accca186ae60e26f85c610"
+    },
+    {
+      "direction": "forward",
+      "phase": "produce",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/python",
+        "/datadisk/dev/neistra/tests/support/selection_reader_qualification.py",
+        "produce",
+        "--data-dir",
+        "/datadisk/dev/.neistra-tools/issue90-c4-fixture-forward",
+        "--evidence",
+        "/datadisk/dev/neistra/docs/assets/selection-gestures/c4-fixture-forward-produce.json",
+        "--implementation-root",
+        "/datadisk/dev/neistra",
+        "--expected-version",
+        "0.21.0"
+      ],
+      "cwd": "/datadisk/dev/neistra",
+      "pythonpath": "/datadisk/dev/neistra/apps/api/src:/datadisk/dev/neistra/packages/molweave_core/src:/datadisk/dev/neistra/packages/molweave_demo_plugin/src:/datadisk/dev/neistra",
+      "data_dir": "/datadisk/dev/.neistra-tools/issue90-c4-fixture-forward",
+      "expected_version": "0.21.0",
+      "exit_code": 0,
+      "seconds": 2.940423340001871,
+      "log": "docs/assets/selection-gestures/c4-fixture-forward-produce.log.gz",
+      "raw_log_sha256": "3aa977ff767ae51efebda9547e1f346329b5891988f45472a1f40ed6e1151182"
+    },
+    {
+      "direction": "forward",
+      "phase": "read",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/python",
+        "/datadisk/dev/neistra/tests/support/selection_reader_qualification.py",
+        "read",
+        "--data-dir",
+        "/datadisk/dev/.neistra-tools/issue90-c4-fixture-forward",
+        "--evidence",
+        "/datadisk/dev/neistra/docs/assets/selection-gestures/c4-fixture-forward-read.json",
+        "--implementation-root",
+        "/datadisk/dev/.neistra-tools/issue90-reader-021",
+        "--expected-version",
+        "0.21.0"
+      ],
+      "cwd": "/datadisk/dev/.neistra-tools/issue90-reader-021",
+      "pythonpath": "/datadisk/dev/.neistra-tools/issue90-reader-021/apps/api/src:/datadisk/dev/.neistra-tools/issue90-reader-021/packages/molweave_core/src:/datadisk/dev/.neistra-tools/issue90-reader-021/packages/molweave_demo_plugin/src:/datadisk/dev/neistra",
+      "data_dir": "/datadisk/dev/.neistra-tools/issue90-c4-fixture-forward",
+      "expected_version": "0.21.0",
+      "exit_code": 0,
+      "seconds": 1.761273304997303,
+      "log": "docs/assets/selection-gestures/c4-fixture-forward-read.log.gz",
+      "raw_log_sha256": "f5e071757c8bf8e5630c306354e39fb6b2e2f4c450c477878941fcd201d3a0a3"
+    },
+    {
+      "direction": "reverse",
+      "phase": "migration",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/alembic",
+        "-c",
+        "/datadisk/dev/.neistra-tools/issue90-reader-021/alembic.ini",
+        "upgrade",
+        "head"
+      ],
+      "cwd": "/datadisk/dev/.neistra-tools/issue90-reader-021",
+      "pythonpath": "/datadisk/dev/.neistra-tools/issue90-reader-021/apps/api/src:/datadisk/dev/.neistra-tools/issue90-reader-021/packages/molweave_core/src:/datadisk/dev/.neistra-tools/issue90-reader-021/packages/molweave_demo_plugin/src:/datadisk/dev/neistra",
+      "data_dir": "/datadisk/dev/.neistra-tools/issue90-c4-fixture-reverse",
+      "expected_version": "0.21.0",
+      "exit_code": 0,
+      "seconds": 1.0604806210030802,
+      "log": "docs/assets/selection-gestures/c4-fixture-reverse-migration.log.gz",
+      "raw_log_sha256": "a65aaba1d288361248cfad53dee993528aa5c4bbd5accca186ae60e26f85c610"
+    },
+    {
+      "direction": "reverse",
+      "phase": "produce",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/python",
+        "/datadisk/dev/neistra/tests/support/selection_reader_qualification.py",
+        "produce",
+        "--data-dir",
+        "/datadisk/dev/.neistra-tools/issue90-c4-fixture-reverse",
+        "--evidence",
+        "/datadisk/dev/neistra/docs/assets/selection-gestures/c4-fixture-reverse-produce.json",
+        "--implementation-root",
+        "/datadisk/dev/.neistra-tools/issue90-reader-021",
+        "--expected-version",
+        "0.21.0"
+      ],
+      "cwd": "/datadisk/dev/.neistra-tools/issue90-reader-021",
+      "pythonpath": "/datadisk/dev/.neistra-tools/issue90-reader-021/apps/api/src:/datadisk/dev/.neistra-tools/issue90-reader-021/packages/molweave_core/src:/datadisk/dev/.neistra-tools/issue90-reader-021/packages/molweave_demo_plugin/src:/datadisk/dev/neistra",
+      "data_dir": "/datadisk/dev/.neistra-tools/issue90-c4-fixture-reverse",
+      "expected_version": "0.21.0",
+      "exit_code": 0,
+      "seconds": 2.8046759680000832,
+      "log": "docs/assets/selection-gestures/c4-fixture-reverse-produce.log.gz",
+      "raw_log_sha256": "b207aab4e19c84fa92742c18e92d0eb8fb651ae0c9f30ed3de8d725dac109307"
+    },
+    {
+      "direction": "reverse",
+      "phase": "read",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/python",
+        "/datadisk/dev/neistra/tests/support/selection_reader_qualification.py",
+        "read",
+        "--data-dir",
+        "/datadisk/dev/.neistra-tools/issue90-c4-fixture-reverse",
+        "--evidence",
+        "/datadisk/dev/neistra/docs/assets/selection-gestures/c4-fixture-reverse-read.json",
+        "--implementation-root",
+        "/datadisk/dev/neistra",
+        "--expected-version",
+        "0.21.0"
+      ],
+      "cwd": "/datadisk/dev/neistra",
+      "pythonpath": "/datadisk/dev/neistra/apps/api/src:/datadisk/dev/neistra/packages/molweave_core/src:/datadisk/dev/neistra/packages/molweave_demo_plugin/src:/datadisk/dev/neistra",
+      "data_dir": "/datadisk/dev/.neistra-tools/issue90-c4-fixture-reverse",
+      "expected_version": "0.21.0",
+      "exit_code": 0,
+      "seconds": 1.6495144180007628,
+      "log": "docs/assets/selection-gestures/c4-fixture-reverse-read.log.gz",
+      "raw_log_sha256": "dea9adc83c8a8e6c2e1930583578eb2661a23c4edd3c42556c792f046c497bc9"
+    }
+  ],
+  "forward_archive_sha256": "46c86e7660a5db9f907851a48b36e0913f813f359aaf61b5d627145ba32fc2d9",
+  "reverse_archive_sha256": "167824099d51d313746a2e93db669bd7e3e68662317a59889015f8ef4c75f497",
+  "qualified": true
+}
