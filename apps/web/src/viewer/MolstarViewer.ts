@@ -87,6 +87,10 @@ class LazyMolstarViewer implements MolecularViewer {
     return this.engine?.clearCoordinatePreview(entryId) ?? Promise.resolve();
   }
 
+  prepareCoordinatePreview(signal: AbortSignal): Promise<void> {
+    return this.engine?.prepareCoordinatePreview?.(signal) ?? Promise.resolve();
+  }
+
   setModelPreview(preview: MolecularProposalGeometry | null): Promise<void> {
     return this.engine?.setModelPreview?.(preview) ?? Promise.resolve();
   }

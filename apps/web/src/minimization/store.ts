@@ -6,10 +6,11 @@ export interface MinimizationDraft {
   project: Project;
   selection: Selection;
   sources: ReadonlyMap<string, CalculationSource>;
-  mode: "isolated" | "environment";
+  mode: "isolated" | "environment" | "automatic";
   included: ReadonlySet<string>;
   iterations: number;
   loadedAll: boolean;
+  strict: boolean;
 }
 interface Presentation {
   open: boolean;
@@ -17,6 +18,7 @@ interface Presentation {
   jobId: string | null;
   loading: boolean;
   preview: boolean;
+  live: boolean;
   applying: boolean;
   error: string | null;
 }
@@ -29,14 +31,14 @@ interface MinimizationState extends Presentation {
   dismiss: () => void;
   patch: (generation: number, patch: Partial<Presentation>) => void;
 }
-const empty: Presentation = { open: false, draft: null, jobId: null, loading: false, preview: false, applying: false, error: null };
+const empty: Presentation = { open: false, draft: null, jobId: null, loading: false, preview: false, live: false, applying: false, error: null };
 export const useMinimizationStore = create<MinimizationState>((set, get) => ({
   ...empty, projectId: null, generation: 0,
   setProject: id => set(state => state.projectId === id ? state : { ...empty, projectId: id, generation: state.generation + 1 }),
   begin: (project, selection) => {
     const generation = get().generation + 1;
-    set({ ...empty, projectId: project.id, generation, open: true, loading: true,
-      draft: { project, selection: { ...selection, atoms: selection.atoms.map(a => ({ ...a })) }, sources: new Map(), mode: "isolated", included: new Set(), iterations: 500, loadedAll: false } });
+    set({ ...empty, projectId: project.id, generation, open: true, loading: true, live: true, preview: true,
+      draft: { project, selection: { ...selection, atoms: selection.atoms.map(a => ({ ...a })) }, sources: new Map(), mode: "automatic", included: new Set(), iterations: 500, loadedAll: false, strict: false } });
     return generation;
   },
   inspect: (projectId, jobId) => set(state => ({ ...empty, projectId, jobId, open: true, generation: state.generation + 1 })),

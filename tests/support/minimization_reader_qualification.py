@@ -1,4 +1,4 @@
-"""Execute current producer and actual tagged v0.19 API/core retention separately."""
+"""Execute current producer and actual tagged v0.20 API/core retention separately."""
 
 from __future__ import annotations
 
@@ -64,15 +64,40 @@ def produce(client: ApiClient, data: Path) -> dict[str, Any]:
     for label, specimens in [
         ("active7", (ligand,)),
         ("multi-entry", (peptide(), translated(molecule(), (2, 4, 3.5)))),
+        ("warned-acceptance", (molecule(),)),
+        ("legacy-identity", (molecule(),)),
     ]:
         project = seeded_project(client, *specimens)
+        if label == "legacy-identity":
+            from tests.integration.test_minimization_identity_recovery import legacy
+
+            project, _ = legacy(client, project)
         before = canonical(client, project)
         selected = {
             e["id"]: [7 if e["structure_type"] == "protein" else 3] for e in project["entries"]
         }
-        proposal, job_id = calculate(client, project, selected, environment=label == "multi-entry")
+        proposal, job_id = calculate(
+            client,
+            project,
+            selected,
+            automatic=True,
+            iterations=1 if label == "warned-acceptance" else 500,
+            acceptance_policy="interactive",
+        )
+        assert proposal["report"]["parameters"]["schema_version"] == 2
         assert proposal["applicable"], proposal
-        response = apply(client, project, job_id, proposal)
+        if label == "warned-acceptance":
+            assert proposal["report"]["outcome"] == "non_converged"
+            response = client.post(
+                f"/api/v1/projects/{project['id']}/minimizations/{job_id}/apply",
+                json={
+                    "expected_revision": project["revision"],
+                    "proposal_sha256": proposal["proposal_sha256"],
+                    "acknowledge_nonconvergence": True,
+                },
+            )
+        else:
+            response = apply(client, project, job_id, proposal)
         assert response.status_code == 200, response.text
         project = response.json()
         response = client.post(
@@ -115,6 +140,7 @@ def read(client: ApiClient, data: Path) -> dict[str, Any]:
         assert original_hashes(client, project) == state["originals"]
         assert allocation_counters(client, project) == state["counters"]
         job = client.get(f"/api/v1/jobs/{state['job']['id']}").json()
+        assert job["parameters"] == state["job"]["parameters"]
         assert job["provenance"] == state["job"]["provenance"]
         assert job["inputs"] == state["job"]["inputs"]
         assert result_hashes(client, job) == state["result_hashes"]
@@ -147,6 +173,7 @@ def read(client: ApiClient, data: Path) -> dict[str, Any]:
             assert allocation_counters(client, restored) == state["counters"]
             jobs = client.get(f"/api/v1/projects/{restored['id']}/jobs").json()
             assert len(jobs) == 1
+            assert jobs[0]["parameters"] == state["job"]["parameters"]
             assert (
                 jobs[0]["provenance"]["minimization_application"]
                 == state["job"]["provenance"]["minimization_application"]
@@ -161,7 +188,7 @@ def read(client: ApiClient, data: Path) -> dict[str, Any]:
         "originals_and_allocation_floors_exact": True,
         "save_archive_import_reexport_exact": True,
         "limitations": [
-            "v0.19 retains generic data/history/jobs; "
+            "v0.20 retains generic data/history/jobs; "
             "new minimization authoring requires current client/API",
             "Archives retain historical results, not portable Undo or fresh Apply eligibility",
             "Existing schema downgrade guards remain binding",
@@ -175,7 +202,7 @@ def main() -> None:
     parser.add_argument("--data-dir", type=Path, required=True)
     parser.add_argument("--evidence", type=Path, required=True)
     parser.add_argument("--reader-root", type=Path)
-    parser.add_argument("--expected-reader", default="0.19.0")
+    parser.add_argument("--expected-reader", default="0.20.0")
     args = parser.parse_args()
     if args.mode == "read":
         assert args.reader_root and APPLICATION_VERSION == args.expected_reader

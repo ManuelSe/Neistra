@@ -82,8 +82,48 @@ def ordinary_generated(atoms: Iterable[Atom]) -> dict[str, object]:
     )
 
 
+def authored_protection(
+    before: NormalizedStructureV1, atoms: list[Atom], generated_ids: set[int]
+) -> list[dict[str, object]]:
+    """Record explicit new ordinary atoms and verified ordinary element replacements.
+
+    Never replace protected/unknown/conflicting facts with RDKit's defaults.
+    Original uploads and preceding artifacts retain the pre-edit identity.
+    """
+    old = {atom.id: atom for atom in before.atoms}
+    changed: set[int] = set()
+    try:
+        facts = protection_facts(before)
+        changed = {
+            atom.id
+            for atom in atoms
+            if atom.id in old
+            and atom.element != old[atom.id].element
+            and atom.id in facts
+            and facts[atom.id].matches(old[atom.id])
+            and facts[atom.id].ordinary
+        }
+    except ValueError:
+        pass  # Do not repair malformed evidence as a side effect of editing.
+    annotations = []
+    for annotation in before.annotations:
+        if changed and annotation.get("kind") == PROTECTION_KIND:
+            annotation = {
+                **annotation,
+                "atoms": [row for row in annotation["atoms"] if row["atom_id"] not in changed],
+            }
+        annotations.append(annotation)
+    authored = [atom for atom in atoms if atom.id in generated_ids | changed]
+    if authored:
+        annotations.append(ordinary_generated(authored))
+    return annotations
+
+
 def recover_protection(
-    current: NormalizedStructureV1, original: NormalizedStructureV1
+    current: NormalizedStructureV1,
+    original: NormalizedStructureV1,
+    *,
+    atom_ids: set[int] | None = None,
 ) -> NormalizedStructureV1:
     """Recover only verified stable import identity; never coordinates/names alone.
 
@@ -103,6 +143,8 @@ def recover_protection(
     original_atoms = {a.id: a for a in original.atoms}
     recovered = []
     for atom in current.atoms:
+        if atom_ids is not None and atom.id not in atom_ids:
+            continue
         prior = original_atoms.get(atom.id)
         fact = source.get(atom.id)
         if (

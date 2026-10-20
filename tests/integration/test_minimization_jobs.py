@@ -89,6 +89,13 @@ def test_real_worker_produces_proposal_without_mutating_molecule(minclient: ApiC
     assert current["entries"][0]["current_artifact_id"] == entry["current_artifact_id"]
     assert _structure(minclient, project["id"], entry["id"]) == before
     assert job["inputs"][0]["artifact_id"] == entry["current_artifact_id"]
+    live = minclient.get(f"/api/v1/projects/{project['id']}/minimizations/{job['id']}/live")
+    assert live.headers["cache-control"] == "no-store" and live.json()["frame"] is None
+    assert not (minclient.app.state.settings.data_dir / "work/jobs" / job["id"]).exists()
+    events = minclient.get(f"/api/v1/jobs/{job['id']}/events").json()
+    assert all(
+        "coordinates" not in event["data"] and "entries" not in event["data"] for event in events
+    )
 
 
 def test_missing_toolchain_is_reported_without_false_success(
@@ -125,6 +132,7 @@ def active_pid(pid: int) -> bool:
         ("ignoring", True, "cancelled"),
         ("ignoring", False, "failed"),
         ("crash", False, "failed"),
+        ("memory", False, "failed"),
     ],
 )
 @pytest.mark.skipif(sys.platform != "linux", reason="Native process-tree model is Linux-qualified")
@@ -174,6 +182,9 @@ def test_native_descendants_stop_on_cancel_deadline_and_child_loss(
     assert not any(active_pid(pid) for pid in pids), pids
     if mode == "crash":
         assert finished["error"]["code"] == "child_process_lost"
+    elif mode == "memory":
+        assert finished["error"]["code"] == "resident_memory_exceeded"
+        assert "resident bytes" in finished["error"]["message"]
     elif not cancel:
         assert finished["error"]["code"] == "wall_time_exceeded"
 

@@ -1,0 +1,114 @@
+{
+  "commit": "1095f999a218b84d1c6d6713ec17dde66b7d6caa",
+  "clean_at_start": true,
+  "environment": {
+    "MOLWEAVE_AMBERTOOLS_PREFIX": "/datadisk/dev/.neistra-tools/ambertools-24.8",
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "PLAYWRIGHT_BROWSERS_PATH": ".playwright",
+    "MOLWEAVE_E2E_DATA_DIR": "/tmp/neistra89-candidate-qualified-gate-e2e",
+    "MOLWEAVE_E2E_API_PORT": "11010",
+    "MOLWEAVE_E2E_WORKER_PORT": "11011",
+    "MOLWEAVE_E2E_WEB_PORT": "7993",
+    "MOLWEAVE_MINIMIZATION_EVIDENCE_DIR": "/tmp/neistra89-candidate-qualified-gate-native-evidence"
+  },
+  "steps": [
+    {
+      "label": "uv",
+      "command": ".venv/bin/uv sync --frozen",
+      "exit_code": 0,
+      "seconds": 0.029,
+      "log": "docs/assets/interactive-minimization/c6-candidate-attempt2-uv.log.gz",
+      "log_sha256": "89ac10d52677cbb2e9784ef943b8d7610111c2eb7291b85e37573f30547c6f35"
+    },
+    {
+      "label": "pnpm",
+      "command": "corepack pnpm install --frozen-lockfile",
+      "exit_code": 0,
+      "seconds": 0.844,
+      "log": "docs/assets/interactive-minimization/c6-candidate-attempt2-pnpm.log.gz",
+      "log_sha256": "0732bda841655ad74ae73541831a909bff53d89dde19d9b89bf07b7aa223fdc8"
+    },
+    {
+      "label": "migration",
+      "command": "MOLWEAVE_DATA_DIR=/tmp/neistra89-candidate-qualified-gate .venv/bin/uv run alembic upgrade head",
+      "exit_code": 0,
+      "seconds": 1.212,
+      "log": "docs/assets/interactive-minimization/c6-candidate-attempt2-migration.log.gz",
+      "log_sha256": "a65aaba1d288361248cfad53dee993528aa5c4bbd5accca186ae60e26f85c610"
+    },
+    {
+      "label": "ruff",
+      "command": ".venv/bin/uv run ruff check .",
+      "exit_code": 0,
+      "seconds": 0.043,
+      "log": "docs/assets/interactive-minimization/c6-candidate-attempt2-ruff.log.gz",
+      "log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "label": "mypy",
+      "command": ".venv/bin/uv run mypy apps/api packages/molweave_core",
+      "exit_code": 0,
+      "seconds": 0.217,
+      "log": "docs/assets/interactive-minimization/c6-candidate-attempt2-mypy.log.gz",
+      "log_sha256": "fe0ce6e3b1983c3e150c09b415036599a0bee120f2cad38e219412ce21d84a67"
+    },
+    {
+      "label": "python",
+      "command": ".venv/bin/uv run pytest",
+      "exit_code": 0,
+      "seconds": 369.479,
+      "log": "docs/assets/interactive-minimization/c6-candidate-attempt2-python.log.gz",
+      "log_sha256": "8daf4cbc2e5f8139c58b3a8c2e14f99e403e78c5ee9175d614a42cfca5a16e78"
+    },
+    {
+      "label": "lint",
+      "command": "corepack pnpm --dir apps/web lint",
+      "exit_code": 0,
+      "seconds": 9.899,
+      "log": "docs/assets/interactive-minimization/c6-candidate-attempt2-lint.log.gz",
+      "log_sha256": "9a77b2c76a866ad9cdd67b296dd97f457e2d2dcef7f947dbca180d043260ce95"
+    },
+    {
+      "label": "types",
+      "command": "corepack pnpm --dir apps/web typecheck",
+      "exit_code": 0,
+      "seconds": 5.328,
+      "log": "docs/assets/interactive-minimization/c6-candidate-attempt2-types.log.gz",
+      "log_sha256": "096c5e5034db934be0fe87724a661a652200c3d753bedd6f4a845f6bd4a32052"
+    },
+    {
+      "label": "web-tests",
+      "command": "corepack pnpm --dir apps/web test",
+      "exit_code": 0,
+      "seconds": 15.01,
+      "log": "docs/assets/interactive-minimization/c6-candidate-attempt2-web-tests.log.gz",
+      "log_sha256": "37891a387b9aaa8361f8351f82bf861c618e91c03673b8a451d362e4f5a4ca31"
+    },
+    {
+      "label": "supervisor",
+      "command": "corepack pnpm test:dev",
+      "exit_code": 0,
+      "seconds": 1.451,
+      "log": "docs/assets/interactive-minimization/c6-candidate-attempt2-supervisor.log.gz",
+      "log_sha256": "e6754bfd2b856dbdbd8c5f94df64a89b4402fd123802e48dd1b8ee988a13d4aa"
+    },
+    {
+      "label": "build",
+      "command": "corepack pnpm --dir apps/web build",
+      "exit_code": 0,
+      "seconds": 13.685,
+      "log": "docs/assets/interactive-minimization/c6-candidate-attempt2-build.log.gz",
+      "log_sha256": "2cee8f0081ca7311000a55e2a266add1caf11fa869d4a0cb10d945dcf7ceacfa"
+    },
+    {
+      "label": "browser",
+      "command": "corepack pnpm exec playwright test",
+      "exit_code": 130,
+      "seconds": 243.444,
+      "log": "docs/assets/interactive-minimization/c6-candidate-attempt2-browser.log.gz",
+      "log_sha256": "f08e9f8c39db7a244609274521993f4b00ecef6242367272fa21128abba78275"
+    }
+  ],
+  "source_unchanged": true
+}

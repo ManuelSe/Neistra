@@ -1,0 +1,20 @@
+{
+  "versions": {
+    "pyproject.toml": "0.21.0",
+    "uv.lock:molweave-dev": "0.21.0",
+    "apps/web/package.json": "0.21.0",
+    "FastAPI.version": "0.21.0",
+    "APPLICATION_VERSION": "0.21.0"
+  },
+  "application_dependency_sources_only_change_root_version": {
+    "pyproject.toml": true,
+    "uv.lock": true,
+    "apps/web/package.json": true
+  },
+  "semver": "minor",
+  "reason": "Additive automatic context, live native relaxation and explicit warned acceptance; legacy API defaults and persisted structural/archive formats retained. Existing stable history through v0.20.0, not an initial major or speculative prerelease.",
+  "tag": "v0.21.0",
+  "reviewed_head": "13e8b45aa04b9f022f409869ad4d80410f48c0d2",
+  "new_database_or_structural_migration": false,
+  "physical_model": "amber-local-v1"
+}

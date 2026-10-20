@@ -1,0 +1,50 @@
+{
+  "copies": 8,
+  "atoms": 18208,
+  "calculationMs": 28315,
+  "previewMs": 376.6999999284744,
+  "discardMs": 256.7000000476837,
+  "previewAutomationMs": 1445,
+  "discardAutomationMs": 453,
+  "longestTaskMs": 784,
+  "longestTasks": [
+    {
+      "start": 57787.200000047684,
+      "duration": 784
+    },
+    {
+      "start": 62931.40000009537,
+      "duration": 748
+    },
+    {
+      "start": 61604.800000071526,
+      "duration": 734
+    },
+    {
+      "start": 56265,
+      "duration": 731
+    },
+    {
+      "start": 53991.90000009537,
+      "duration": 730
+    },
+    {
+      "start": 54848.200000047684,
+      "duration": 729
+    },
+    {
+      "start": 60022.800000071526,
+      "duration": 710
+    },
+    {
+      "start": 52544,
+      "duration": 682
+    }
+  ],
+  "writes_summary": {
+    "count": 2,
+    "note": "Full original record retained losslessly in adjacent .json.gz.",
+    "raw_file": "c5-18k-deduplicated-failure.json.gz",
+    "uncompressed_sha256": "9c57e5df293e304880f146b038aafc8ad777c3ef4a6ec1489b2642864e600842"
+  }
+}

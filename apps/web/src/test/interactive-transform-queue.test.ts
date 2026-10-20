@@ -19,7 +19,7 @@ it("bounds rendering to one active call and the latest pending multi-entry frame
   for (let x = 2; x < 100; x++) queue.set([patch(x), patch(x, "two")]);
   expect(apply).toHaveBeenCalledTimes(1);
   active.resolve(); await tick();
-  expect(apply.mock.calls).toEqual([[patch(1), "preview"], [patch(1, "two"), "preview"], [patch(99), "preview"], [patch(99, "two"), "preview"]]);
+  expect(apply.mock.calls).toEqual([[patch(1), "preview"], [patch(99), "preview"], [patch(99, "two"), "preview"]]);
   queue.set([]); await tick();
   expect(clear.mock.calls).toEqual([["one"], ["two"]]);
 });
@@ -57,4 +57,26 @@ it("surfaces renderer errors and still allows explicit restoration", async () =>
   expect(onError).toHaveBeenCalledWith(error);
   queue.set([]); await tick();
   expect(clear).toHaveBeenCalledWith("one");
+});
+
+it("keeps only the newest frame while the native GPU is busy and lets cancellation win", async () => {
+  const gpu = pending(), apply = vi.fn(() => Promise.resolve()), clear = vi.fn(() => Promise.resolve());
+  const prepare = vi.fn(() => Promise.resolve()).mockReturnValueOnce(gpu.promise);
+  const queue = new CoordinatePreviewQueue({ applyCoordinatePatch: apply, clearCoordinatePreview: clear, prepareCoordinatePreview: prepare }, vi.fn());
+  queue.set([patch(1)], true); queue.set([patch(2)], true);
+  expect(apply).not.toHaveBeenCalled(); gpu.resolve(); await tick();
+  expect(apply.mock.calls).toEqual([[patch(2), "preview"]]);
+  const next = pending(); prepare.mockReturnValueOnce(next.promise);
+  queue.set([patch(3)], true); queue.set([]); next.resolve(); await tick();
+  expect(apply).toHaveBeenCalledOnce(); expect(clear).toHaveBeenCalledWith("one");
+});
+
+
+it("disposal cancels GPU readiness and prevents a late update in the previous viewer", async () => {
+  const gpu = pending(); let signal!: AbortSignal;
+  const apply = vi.fn(() => Promise.resolve());
+  const queue = new CoordinatePreviewQueue({ applyCoordinatePatch: apply, clearCoordinatePreview: vi.fn(() => Promise.resolve()),
+    prepareCoordinatePreview: owner => { signal = owner; return gpu.promise; } }, vi.fn());
+  queue.set([patch(1)], true); queue.dispose(); expect(signal.aborted).toBe(true);
+  gpu.resolve(); await tick(); expect(apply).not.toHaveBeenCalled();
 });

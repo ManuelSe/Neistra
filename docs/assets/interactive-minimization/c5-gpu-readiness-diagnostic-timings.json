@@ -1,0 +1,50 @@
+{
+  "copies": 8,
+  "atoms": 18208,
+  "calculationMs": 34470,
+  "previewMs": 37.10000002384186,
+  "discardMs": 243.79999995231628,
+  "previewAutomationMs": 242,
+  "discardAutomationMs": 507,
+  "longestTaskMs": 221,
+  "longestTasks": [
+    {
+      "start": 72362.29999995232,
+      "duration": 221
+    },
+    {
+      "start": 36574.199999928474,
+      "duration": 108
+    },
+    {
+      "start": 60810.09999990463,
+      "duration": 84
+    },
+    {
+      "start": 36917.199999928474,
+      "duration": 70
+    },
+    {
+      "start": 67876.79999995232,
+      "duration": 70
+    },
+    {
+      "start": 71363.89999997616,
+      "duration": 64
+    },
+    {
+      "start": 57644.59999990463,
+      "duration": 59
+    },
+    {
+      "start": 67784.29999995232,
+      "duration": 58
+    }
+  ],
+  "writes_summary": {
+    "count": 1,
+    "note": "Full original record retained losslessly in adjacent .json.gz.",
+    "raw_file": "c5-gpu-readiness-diagnostic-timings.json.gz",
+    "uncompressed_sha256": "2a4befbddc87aa13003084ec6f7ab71fbd02fb1256dd2b76278b1c1fce185f2d"
+  }
+}

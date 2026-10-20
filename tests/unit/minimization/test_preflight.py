@@ -182,3 +182,62 @@ def test_explicit_ion_classification_cannot_be_ignored_for_an_organic_graph():
     parameters, inputs = capture(source)
     with pytest.raises(CalculationError, match="inorganic ions are unsupported"):
         isolated_preflight(parameters, inputs)
+
+
+def test_missing_identity_is_not_misreported_as_malformed():
+    params, inputs = capture(molecule().model_copy(update={"annotations": []}))
+    with pytest.raises(CalculationError, match=r"Atom 1.*missing evidence") as caught:
+        isolated_preflight(params, inputs)
+    assert caught.value.code == "identity_uncertain"
+    assert caught.value.__cause__ is None
+
+
+def test_malformed_identity_preserves_the_underlying_cause():
+    source = molecule().model_copy(
+        update={"annotations": [{"kind": "neistra_hydrogen_protection", "schema_version": 2}]}
+    )
+    params, inputs = capture(source)
+    with pytest.raises(CalculationError, match="Malformed or conflicting") as caught:
+        isolated_preflight(params, inputs)
+    assert isinstance(caught.value.__cause__, ValidationError)
+
+
+def test_server_recovery_overlay_is_local_bounded_and_never_overrides_existing_facts():
+    from molweave_core.hydrogen_protection import protection_facts
+    from molweave_core.minimization.contracts import IdentityRecovery
+    from molweave_core.minimization.preflight import recovered_identity
+
+    original = molecule()
+    source = original.model_copy(update={"annotations": []})
+    params, inputs = capture(source, [3])
+    raw = params.model_dump(mode="json")
+    assert "identity_recovery" not in raw["captured_inputs"][0]
+    proof = IdentityRecovery(
+        original_artifact_id="original",
+        original_sha256="a" * 64,
+        atoms=list(protection_facts(original).values()),
+    )
+    captured = params.captured_inputs[0].model_copy(update={"identity_recovery": proof})
+    with pytest.raises(ValidationError, match="schema2"):
+        MinimizationParameters.model_validate({**raw, "captured_inputs": [captured.model_dump()]})
+    upgraded = MinimizationParameters.model_validate(
+        {**raw, "schema_version": 2, "captured_inputs": [captured.model_dump()]}
+    )
+    value = isolated_preflight(upgraded, inputs)
+    assert protection_facts(value.structure) == protection_facts(original)
+    assert not source.annotations and inputs[0].data == source.to_bytes()
+    with pytest.raises(CalculationError, match="missing captured atom"):
+        recovered_identity(original, captured)
+    bad = source.model_copy(
+        update={
+            "atoms": [
+                a.model_copy(update={"source_index": 999}) if a.id == 1 else a for a in source.atoms
+            ]
+        }
+    )
+    with pytest.raises(CalculationError, match="missing captured atom"):
+        recovered_identity(bad, captured)
+    outside = captured.model_dump()
+    outside["atom_ids"] = [1]
+    with pytest.raises(ValidationError):
+        type(captured).model_validate(outside)

@@ -3,7 +3,9 @@ from __future__ import annotations
 import hashlib
 import io
 import json
+import os
 import time
+import traceback
 import zipfile
 from pathlib import Path
 from typing import Any
@@ -22,6 +24,7 @@ from molweave_core.jobs import (
 from molweave_core.minimization.contracts import (
     IMPLEMENTATION_VERSION,
     JOB_TYPE,
+    CalculationDiagnostic,
     CalculationError,
     MinimizationParameters,
     MinimizationReport,
@@ -33,35 +36,16 @@ def json_bytes(value: Any) -> bytes:
 
 
 def calculation_archive(directory: Path) -> bytes:
+    from molweave_core.minimization.parameter_cache import file_allowed
+
     output = io.BytesIO()
     with zipfile.ZipFile(output, "w", compression=zipfile.ZIP_DEFLATED) as archive:
-        allowed = {
-            "input.mol2",
-            "captured-coordinates.json",
-            "charged.mol2",
-            "charged.raw.mol2",
-            "leap.in",
-            "model.prmtop",
-            "model.inpcrd",
-            "antechamber.log",
-            "tleap.log",
-            "sqm.in",
-            "sqm.out",
-        }
         for path in sorted(directory.rglob("*")):
             relative = path.relative_to(directory)
             if (
                 path.is_file()
                 and not path.is_symlink()
-                and path.name in allowed
-                and (
-                    relative.parent == Path(".")
-                    or (
-                        len(relative.parts) == 2
-                        and relative.parts[0].startswith("organic-")
-                        and relative.parts[0][8:].isdigit()
-                    )
-                )
+                and (file_allowed(relative) or relative == Path("captured-coordinates.json"))
             ):
                 if path.stat().st_size > 16 * 1024 * 1024:
                     raise CalculationError(
@@ -108,7 +92,9 @@ class MinimizationPlugin:
                 resources=ResourcePolicy(
                     wall_time_seconds=600,
                     cancellation_grace_seconds=2,
-                    memory_bytes=4 * 1024**3,
+                    resident_memory_bytes=int(
+                        os.environ.get("MOLWEAVE_MINIMIZATION_MAX_RSS_BYTES", 4 * 1024**3)
+                    ),
                     max_result_artifacts=3,
                     max_result_bytes=100 * 1024**2,
                 ),
@@ -125,7 +111,9 @@ class MinimizationPlugin:
         # Heavy native imports happen in the controlled worker child, not API startup.
         from molweave_core.minimization.assembly import environment_preflight, needs_templates
         from molweave_core.minimization.context_model import parameterize_environment
+        from molweave_core.minimization.live import SnapshotPublisher
         from molweave_core.minimization.optimize import optimize_environment, optimize_isolated
+        from molweave_core.minimization.parameter_cache import ParameterCache
         from molweave_core.minimization.parameterization import parameterize_isolated
         from molweave_core.minimization.preflight import isolated_preflight
         from molweave_core.minimization.templates import read_templates
@@ -141,18 +129,33 @@ class MinimizationPlugin:
         try:
             context.progress(1, "Checking captured chemistry and fixed/movable atoms")
             tools = AmberTools.discover()
+            cache_root = getattr(context, "cache_directory", None)
+            cache = (
+                ParameterCache(
+                    cache_root / "minimization",
+                    int(os.environ.get("MOLWEAVE_MINIMIZATION_CACHE_BYTES", 2 * 1024**3)),
+                )
+                if isinstance(cache_root, Path)
+                and os.environ.get("MOLWEAVE_MINIMIZATION_CACHE") != "0"
+                else None
+            )
             use_assembly = needs_templates(values, inputs)
             if not use_assembly:
                 value = isolated_preflight(values, inputs)
-                context.progress(5, "Generating GAFF 1.81 / AM1-BCC parameters")
+                context.progress(5, "Preparing GAFF 1.81 / AM1-BCC parameters")
                 stage = "parameterization"
-                model = parameterize_isolated(value, tools, directory, context)
+                model = parameterize_isolated(value, tools, directory, context, cache=cache)
             else:
                 assembly = environment_preflight(values, inputs, read_templates(tools.prefix))
-                context.progress(5, "Generating ff14SB / GAFF / explicit-water parameters")
+                context.progress(5, "Preparing ff14SB / GAFF / explicit-water parameters")
                 stage = "parameterization"
                 model = parameterize_environment(
-                    assembly, tools, directory, context, isolated=values.mode == "isolated"
+                    assembly,
+                    tools,
+                    directory,
+                    context,
+                    isolated=values.mode == "isolated",
+                    cache=cache,
                 )
             context.progress(35, "Optimizing captured selected coordinates only")
             if not use_assembly:
@@ -172,12 +175,28 @@ class MinimizationPlugin:
                 )
             )
             stage = "optimization"
+            live = SnapshotPublisher(values, context)
             if not use_assembly:
-                report, proposal = optimize_isolated(value, model, values, context)
+                report, proposal = optimize_isolated(value, model, values, context, live.publish)
                 proposals.append(proposal.model_dump(mode="json"))
             else:
-                report, results = optimize_environment(assembly, model, values, context)
+                report, results = optimize_environment(
+                    assembly, model, values, context, live.publish
+                )
                 proposals.extend(p.model_dump(mode="json") for p in results)
+            if live.warning:
+                report.warnings.append(live.warning)
+            recovered = sum(
+                len(c.identity_recovery.atoms)
+                for c in values.captured_inputs
+                if c.identity_recovery
+            )
+            if recovered:
+                report.warnings.append(
+                    f"Verified legacy identity for {recovered} atoms "
+                    "against preserved original files; "
+                    "canonical metadata was not changed."
+                )
             if values.mode == "environment":
                 report.warnings.append(
                     "Environment model is nonperiodic with 12 angstrom cutoff, 10 angstrom "
@@ -202,10 +221,21 @@ class MinimizationPlugin:
                     "specified net charge; raw and corrected calculation files are retained."
                 )
         except CalculationError as error:
+            context.stderr(traceback.format_exc())
             report = MinimizationReport(
                 outcome="failed" if stage == "optimization" else "blocked",
                 reason=f"{error.code}: {error}",
                 parameters=values,
+                toolchain={
+                    "diagnostic": CalculationDiagnostic(
+                        code=error.code,
+                        stage=stage,
+                        message=str(error),
+                        entry_id=error.entry_id,
+                        atom_ids=error.atom_ids,
+                        residue_id=error.residue_id,
+                    ).model_dump(mode="json")
+                },
             )
         report.elapsed_seconds = time.monotonic() - started
         report_data = report.model_dump(mode="json")

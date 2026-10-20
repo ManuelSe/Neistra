@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Literal
 
 from molweave_core.minimization.contracts import CoordinateProposal, MinimizationReport
+from molweave_core.minimization.live import OptimizationFrame
 from molweave_core.selection import SelectionV1
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
@@ -22,14 +23,17 @@ class MinimizationContext(BaseModel):
 class MinimizationCreate(BaseModel):
     model_config = ConfigDict(extra="forbid")
     expected_revision: int = Field(ge=0)
-    mode: Literal["isolated", "environment"] = "isolated"
+    mode: Literal["isolated", "environment", "automatic"] = "isolated"
     selection: SelectionV1
     context: list[MinimizationContext] = Field(default_factory=list, max_length=100)
-    conformers: dict[str, int]
+    conformers: dict[str, int] = Field(default_factory=dict)
     max_iterations: int = Field(default=500, ge=1, le=2_000)
+    acceptance_policy: Literal["strict", "interactive"] = "strict"
 
     @model_validator(mode="after")
     def bounded_selection(self) -> MinimizationCreate:
+        if self.mode == "automatic" and (self.context or self.conformers):
+            raise ValueError("Automatic mode captures context and active conformers on the server")
         if len(self.conformers) > 100 or any(value < 1 for value in self.conformers.values()):
             raise ValueError("Confirm at most 100 positive active conformer IDs")
         if not 1 <= len(self.selection.atoms) <= 2_000:
@@ -50,6 +54,7 @@ class MinimizationApply(BaseModel):
     model_config = ConfigDict(extra="forbid")
     expected_revision: int = Field(ge=0)
     proposal_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
+    acknowledge_nonconvergence: bool = False
 
 
 class MinimizationProposalRead(BaseModel):
@@ -59,6 +64,23 @@ class MinimizationProposalRead(BaseModel):
     report: MinimizationReport
     entries: list[CoordinateProposal]
     applicable: bool
+    unavailable_reason: str | None = None
+
+
+class MinimizationPreviewSource(BaseModel):
+    entry_id: str
+    artifact_id: str
+    conformer_id: int
+
+
+class MinimizationLiveRead(BaseModel):
+    schema_version: Literal[1] = 1
+    job_id: str
+    status: str
+    capture_sha256: str | None = None
+    selection: SelectionV1 | None = None
+    sources: list[MinimizationPreviewSource] = Field(default_factory=list, max_length=100)
+    frame: OptimizationFrame | None = None
     unavailable_reason: str | None = None
 
 

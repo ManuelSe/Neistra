@@ -1,0 +1,87 @@
+{
+  "environment": {
+    "MOLWEAVE_AMBERTOOLS_PREFIX": "/datadisk/dev/.neistra-tools/ambertools-24.8",
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "PLAYWRIGHT_BROWSERS_PATH": ".playwright",
+    "MOLWEAVE_E2E_DATA_DIR": "/tmp/neistra89-e2e-c5-final",
+    "MOLWEAVE_E2E_API_PORT": "9610",
+    "MOLWEAVE_E2E_WORKER_PORT": "9611",
+    "MOLWEAVE_E2E_WEB_PORT": "6773"
+  },
+  "steps": [
+    {
+      "label": "ruff",
+      "command": ".venv/bin/uv run ruff check .",
+      "exit_code": 0,
+      "seconds": 0.043,
+      "log": "docs/assets/interactive-minimization/c5-final-ruff.log.gz",
+      "log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "label": "mypy",
+      "command": ".venv/bin/uv run mypy apps/api packages/molweave_core",
+      "exit_code": 0,
+      "seconds": 0.22,
+      "log": "docs/assets/interactive-minimization/c5-final-mypy.log.gz",
+      "log_sha256": "8ba9873e22426bcc7f35d8a5ef8518b9b69fb138ee78730ab64693a64293352c"
+    },
+    {
+      "label": "python",
+      "command": ".venv/bin/uv run pytest tests/unit/minimization tests/scientific/test_minimization.py tests/scientific/test_minimization_context.py tests/scientific/test_minimization_cache.py tests/scientific/test_minimization_live.py tests/integration/test_minimization_apply.py tests/integration/test_minimization_jobs.py tests/integration/test_minimization_live.py tests/integration/test_job_lifecycle.py -q",
+      "exit_code": 0,
+      "seconds": 63.286,
+      "log": "docs/assets/interactive-minimization/c5-final-python.log.gz",
+      "log_sha256": "c44ee162ca8237a48d6c8cca343f94ac88e4751bacac00aeec535ae3a5028a6d"
+    },
+    {
+      "label": "lint",
+      "command": "corepack pnpm --dir apps/web lint",
+      "exit_code": 0,
+      "seconds": 10.791,
+      "log": "docs/assets/interactive-minimization/c5-final-lint.log.gz",
+      "log_sha256": "407542146a7a0d45aea91983bf120b74ed122a75e21e47383d8bcfd8a1f84177"
+    },
+    {
+      "label": "types",
+      "command": "corepack pnpm --dir apps/web typecheck",
+      "exit_code": 0,
+      "seconds": 5.564,
+      "log": "docs/assets/interactive-minimization/c5-final-types.log.gz",
+      "log_sha256": "ec6984d22c581279ab7f6a640391cd633bb6646f462629997e329b1c1ff4168f"
+    },
+    {
+      "label": "web-tests",
+      "command": "corepack pnpm --dir apps/web test",
+      "exit_code": 0,
+      "seconds": 10.628,
+      "log": "docs/assets/interactive-minimization/c5-final-web-tests.log.gz",
+      "log_sha256": "a51763f27a0d7709e0ba0d313dc38ff04595039aaeb53f3347e739e6c176c061"
+    },
+    {
+      "label": "supervisor",
+      "command": "corepack pnpm test:dev",
+      "exit_code": 0,
+      "seconds": 1.499,
+      "log": "docs/assets/interactive-minimization/c5-final-supervisor.log.gz",
+      "log_sha256": "f5ae00ad3be816dcf9a762eb7a5bb1a1cb1004ba9c1d67dbb897ef1296904f2f"
+    },
+    {
+      "label": "build",
+      "command": "corepack pnpm --dir apps/web build",
+      "exit_code": 0,
+      "seconds": 14.388,
+      "log": "docs/assets/interactive-minimization/c5-final-build.log.gz",
+      "log_sha256": "fd7fda4b231d8a0a438f3d22354a24e33aa979395bbba5ebf14f82e6c756109c"
+    },
+    {
+      "label": "browser",
+      "command": "corepack pnpm exec playwright test tests/e2e/selection-minimization.spec.ts tests/e2e/minimization-accessibility.spec.ts tests/e2e/minimization-performance.spec.ts tests/e2e/minimization-live.spec.ts tests/e2e/interactive-transform-performance.spec.ts",
+      "exit_code": 1,
+      "seconds": 327.113,
+      "log": "docs/assets/interactive-minimization/c5-final-browser.log.gz",
+      "log_sha256": "f5a2958220ad495a413e9a2f6505ed66dee34dfb7a9ee30446492d73d46b715a"
+    }
+  ],
+  "source_unchanged": true
+}

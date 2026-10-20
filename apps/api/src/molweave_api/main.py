@@ -73,6 +73,7 @@ from molweave_api.minimization_schemas import (
     MinimizationApply,
     MinimizationCapabilities,
     MinimizationCreate,
+    MinimizationLiveRead,
     MinimizationProposalRead,
 )
 from molweave_api.minimization_service import MinimizationService
@@ -495,7 +496,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     app = FastAPI(
         title="MolWeave API",
-        version="0.20.0",
+        version="0.21.0",
         lifespan=lifespan,
         openapi_url="/api/v1/openapi.json",
         docs_url="/api/docs",
@@ -645,7 +646,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         response_model=JobRead,
         status_code=status.HTTP_201_CREATED,
     )
-    async def submit_minimization(
+    def submit_minimization(
         project_id: str,
         payload: MinimizationCreate,
         session: Session = Depends(session_dependency),
@@ -661,7 +662,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         "/projects/{project_id}/minimizations/{job_id}/proposal",
         response_model=MinimizationProposalRead,
     )
-    async def minimization_proposal(
+    def minimization_proposal(
         project_id: str,
         job_id: str,
         session: Session = Depends(session_dependency),
@@ -672,8 +673,24 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             )
         )
 
+    @router.get(
+        "/projects/{project_id}/minimizations/{job_id}/live", response_model=MinimizationLiveRead
+    )
+    def minimization_live(
+        project_id: str,
+        job_id: str,
+        response: Response,
+        session: Session = Depends(session_dependency),
+    ) -> MinimizationLiveRead:
+        response.headers["Cache-Control"] = "no-store"
+        return _call(
+            lambda: MinimizationService(session, app_settings, job_registry).live(
+                project_id, job_id
+            )
+        )
+
     @router.post("/projects/{project_id}/minimizations/{job_id}/apply", response_model=ProjectRead)
-    async def apply_minimization(
+    def apply_minimization(
         project_id: str,
         job_id: str,
         payload: MinimizationApply,

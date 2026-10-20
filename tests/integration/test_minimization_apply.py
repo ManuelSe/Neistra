@@ -52,6 +52,8 @@ def calculate(
     *,
     environment: bool = False,
     iterations: int = 500,
+    acceptance_policy: str = "strict",
+    automatic: bool = False,
 ) -> tuple[dict[str, Any], str]:
     if not os.environ.get("MOLWEAVE_AMBERTOOLS_PREFIX"):
         pytest.skip("Locked native toolchain required for real Apply qualification")
@@ -64,7 +66,7 @@ def calculate(
         f"/api/v1/projects/{project['id']}/minimizations",
         json={
             "expected_revision": project["revision"],
-            "mode": "environment" if environment else "isolated",
+            "mode": "automatic" if automatic else "environment" if environment else "isolated",
             "selection": {
                 "atoms": [
                     {"structure_id": entry, "atom_id": i}
@@ -73,13 +75,16 @@ def calculate(
                 ]
             },
             "context": [{"entry_id": e["id"], "atom_ids": e["atom_ids"]} for e in members]
-            if environment
+            if environment and not automatic
             else [],
             "conformers": {
                 e["id"]: _structure(client, project["id"], e["id"])["active_conformer_id"]
                 for e in members
-            },
+            }
+            if not automatic
+            else {},
             "max_iterations": iterations,
+            "acceptance_policy": acceptance_policy,
         },
     )
     assert response.status_code == 201, response.text
@@ -481,3 +486,54 @@ def test_semantically_invalid_or_unchanged_proposals_create_no_history(
         minclient.get(f"/api/v1/projects/{project['id']}").json()["revision"] == project["revision"]
     )
     assert _structure(minclient, project["id"], entry["id"]) == before
+
+
+def test_warned_iteration_limit_requires_acknowledgement_and_is_one_undoable_edit(minclient):
+    project = seeded_project(minclient, molecule())
+    entry = project["entries"][0]
+    before = _structure(minclient, project["id"], entry["id"])
+    proposal, job_id = calculate(
+        minclient,
+        project,
+        {entry["id"]: entry["atom_ids"]},
+        iterations=1,
+        acceptance_policy="interactive",
+    )
+    report = proposal["report"]
+    assert report["outcome"] == "non_converged" and proposal["applicable"]
+    assert report["termination_kind"] == "iteration_limit"
+    assert report["nonconverged_eligible"] and report["new_severe_overlaps"] is False
+    assert report["maximum_gradient"] > report["gradient_tolerance"]
+    assert report["final_energy"] < report["initial_energy"]
+    denied = apply(minclient, project, job_id, proposal)
+    assert denied.status_code == 409 and "acknowledgement" in denied.text
+    assert _structure(minclient, project["id"], entry["id"]) == before
+    response = minclient.post(
+        f"/api/v1/projects/{project['id']}/minimizations/{job_id}/apply",
+        json={
+            "expected_revision": project["revision"],
+            "proposal_sha256": proposal["proposal_sha256"],
+            "acknowledge_nonconvergence": True,
+        },
+    )
+    assert response.status_code == 200, response.text
+    updated = response.json()
+    assert updated["revision"] == project["revision"] + 1
+    after = _structure(minclient, project["id"], entry["id"])
+    assert after != before and after["bonds"] == before["bonds"]
+    provenance = minclient.get(f"/api/v1/jobs/{job_id}").json()["provenance"][
+        "minimization_application"
+    ]
+    assert provenance["outcome"] == "non_converged" and provenance["acknowledged_nonconvergence"]
+    undo = minclient.post(
+        f"/api/v1/projects/{project['id']}/history/undo",
+        json={"expected_revision": updated["revision"]},
+    )
+    assert undo.status_code == 200, undo.text
+    assert _structure(minclient, project["id"], entry["id"]) == before
+    redo = minclient.post(
+        f"/api/v1/projects/{project['id']}/history/redo",
+        json={"expected_revision": undo.json()["revision"]},
+    )
+    assert redo.status_code == 200, redo.text
+    assert _structure(minclient, project["id"], entry["id"]) == after

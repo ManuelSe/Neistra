@@ -35,6 +35,10 @@ def test_h_substitution_generates_methyl_and_keeps_other_atoms_exact() -> None:
     )
     result = apply(prepared, ElementChange(operation="atom.element", element="C"), [h])
     after = result.edit.structure
+    from molweave_core.hydrogen_protection import protection_facts
+
+    facts = protection_facts(after)
+    assert all(facts[a.id].matches(a) and facts[a.id].ordinary for a in after.atoms)
     assert sorted(a.element for a in after.atoms) == sorted("CCO" + "H" * 6)
     assert h not in {a.id for a in after.atoms}
     carbon = result.replacements[h]

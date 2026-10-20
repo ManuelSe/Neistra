@@ -1,5 +1,64 @@
 # V0.1 Requirement Evidence
 
+## Interactive minimization (issue #89)
+
+M1/C1 [final gate](assets/interactive-minimization/c1-gate.json) passes306 focused
+Python (native worker/resource tree, generated identity, editing and archive),265
+frontend,8 supervisor and2 native browser cases. Ruff/mypy87/lint/type/build,
+fresh0014 upgrade and diff checks pass. Source identities and lossless compressed
+logs are retained. Real over-budget resident memory terminates the child/native
+grandchild group; allocation and budget failures remain distinguishable. Missing
+identity is not mislabeled malformed; protected/unknown facts are not silently
+made ordinary. [Full checkpoint review](assets/interactive-minimization/c1-review.md)
+is implementer self-review. No migration/schema/dependency/version/model change.
+This is C1 evidence only: automatic context/cache/live/acceptance and actual0.20
+reader/final release qualification remain later checkpoints.
+
+M2/C2 [gate](assets/interactive-minimization/c2-gate.json) passes206 focused Python,
+265 frontend,8 supervisor and19 native browser/3 intentional layout exclusions.
+Static/type/build, fresh0014 in isolated browser stacks and existing prepared1STP/
+18k performance assertions pass. Automatic discovery keeps full canonical components/
+chains, includes hidden cross-entry context, does not recurse and captures unsupported
+neighbors for whole-job refusal. Native Apply blocks newly nearby omitted context.
+Exact partial/full/multi-entry Undo/Redo, manual controls, keyboard/320px/zoom pass.
+Operation schema2 retains resolved model and policy; v1 serialization stays exact.
+[Review](assets/interactive-minimization/c2-review.md) is local self-review; initial
+fixture-order diagnostic is retained separately. No structural schema/migration/
+dependency/application version/model change. Actual old-reader/cache/live/acceptance/
+release qualification remain later checkpoints. Vite proxy disconnect resets and
+existing bundle warnings remain disclosed, without failing workflow assertions.
+
+M3/C3 [gate](assets/interactive-minimization/c3-gate.json) passes232 broad Python,
+9 final cache checks after the last bound fix,1 native paired benchmark,265 frontend,
+8 supervisor and16 native browser/2 intentional mobile performance exclusions.
+Ruff/mypy89/lint/types/build/fresh0014/diff and existing prepared1STP/18k/cancel/RSS
+bounds pass. Native energy/forces match cold and warm, including moved protein
+coordinates; changed charge geometry/protonation and model settings invalidate
+correctly. Real cache corruption rebuilds the same model, valid components remain
+reusable, waiting cancellation releases safely and quota/eviction leave prior job
+copies intact. [Three cold/warm pairs](assets/interactive-minimization/c3-cache-pairs.json)
+give5.468665s/0.385609s median preparation,14.1819x, zero warm native calls; startup
+about6.38s/1.30s. This does not establish live-visible latency or changed-ligand-geometry
+reuse. [Review](assets/interactive-minimization/c3-review.md) is local self-review.
+No structural migration/schema/dependency/application version/physical-model change.
+
+M4/C4 publishes bounded transient accepted-iterate snapshots (D-116). [Gate](assets/interactive-minimization/c4-gate.json):192 Python,265 web,8 supervisor,2 native browser pass; static/mypy90/build/fresh0014 pass. No frames in durable events/model artifacts; process loss/cancel/restart/project-change guards pass. [Review](assets/interactive-minimization/c4-review.md) is local self-review. Viewer/acceptance remain C5; no migration/schema/dependency/application-version/model change.
+
+M4/C5 [passing gate](assets/interactive-minimization/c5-gate.json):260 Python with
+unchanged source hashes,273 frontend,8 supervisor,25 native browser /7 intentional
+mobile exclusions; static/mypy90/types/build/fresh0014/diff pass. Real selected-row
+Mol* transforms, fixed H, immediate Cancel, strict/warned acceptance and atomic Undo/
+Redo pass. [Review](assets/interactive-minimization/c5-review.md) explains corrected
+readback/cue quality, duplicate-frame suppression and abortable GPU readiness.
+[18k](assets/interactive-minimization/c5-performance-18k.json) records81ms preview,
+246ms restore,233ms longest task;500/500/750ms bounds unchanged.
+[Partial](assets/interactive-minimization/c5-live-partial.json) and
+[whole-heavy](assets/interactive-minimization/c5-live-whole.json) native runs prove
+accepted steps while running, exact unselected rows and restoration. Initial/repeat
+UI latency is separate from C3 preparation-cache qualification. No structural schema,
+migration/dependency/application-version/model change; actual old-reader and final
+release qualification remain C6. Earlier attempts are diagnostics, not final evidence.
+
 ## Selection minimization (issue #82, C1–C6)
 
 The [approved feature plan](plans/issue-82-selection-minimization.md) is the
@@ -878,3 +937,31 @@ verifies exact annotated tag, stable release/notes and downloaded evidence SHA25
 CRC/internal hashes. [Issue reply](https://github.com/ManuelSe/Neistra/issues/81#issuecomment-6239262239)
 records final documentation integration and branch-cleanup audit. No migration or
 schema/dependency change; five versions0.19.0. Published runtime tag remains fixed.
+
+C6 preliminary qualification:45 strict original-recovery/preflight/protection/edit
+cases pass; actual tagged0.20 API/core retains four current-producer automatic
+cases (active7/inactive conformers, multi-entry, warned acceptance, legacy recovery),
+including exact canonical data/history/originals/parameters/models and archive
+import/reexport. [Pre-version reader evidence](assets/interactive-minimization/c6-preversion-reader.json)
+explicitly predates the application version bump and must be repeated for final0.21.
+Fixed-only CPU profiling on prepared1STP/18k compares subsystem/full medians about
+5.220/5.276ms and39.043/39.042ms respectively; no terms omitted or production speedup
+claimed. [1STP](assets/interactive-minimization/c6-fixed-cost-1.json),
+[18k](assets/interactive-minimization/c6-fixed-cost-8.json). Twelve warmed samples,
+OpenMM CPU/one thread; finite differences preserve the constant-offset derivative.
+Follow-up#102 requires actual equivalent reduced evaluation and benchmark gains.
+[OpenFF feasibility](OPENFF_FEASIBILITY.md) retains AMBER; experiment#101 is separate.
+Large C5 raw timing records are retained losslessly as adjacent gzip files, with
+uncompressed SHA256 and summaries in the original JSON paths for reviewability.
+
+Issue89 final [clean candidate13e8b45](assets/interactive-minimization/c6-candidate-gate.json)
+passes all16 commands:1102 Python/273 frontend/8 supervisor/268 browser with52
+intentional layout/timing exclusions, zero failures/retries/native scientific skips.
+Frozen/fresh0014/static/build/diff and final0.21 producer/actual0.20 reader pass.
+[Summary](assets/interactive-minimization/c6-candidate-summary.json) verifies exact
+source/log identities; four preceding-reader cases retain all conformers, canonical
+history, original bytes, opaque jobs/models/parameters/provenance and archives.
+Fresh native cache pairs give13.72x compatible preparation improvement, no changed-
+ligand charge-geometry reuse claim; actual native live30/1166-heavy and1STP/18k
+preview/restoration bounds pass. Exact merged-master gate remains required before
+release. Earlier incomplete diagnostics are distinct from this passing run.

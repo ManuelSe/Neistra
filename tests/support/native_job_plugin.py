@@ -22,7 +22,7 @@ from pydantic import BaseModel
 
 class Parameters(BaseModel):
     pid_file: str
-    mode: Literal["cooperative", "ignoring", "crash"] = "cooperative"
+    mode: Literal["cooperative", "ignoring", "crash", "memory"] = "cooperative"
 
 
 class NativeTreePlugin:
@@ -40,7 +40,11 @@ class NativeTreePlugin:
                 result_roles=(
                     ResultRole(role="unused", label="Unused", media_types=("text/plain",)),
                 ),
-                resources=ResourcePolicy(wall_time_seconds=2, cancellation_grace_seconds=0.1),
+                resources=ResourcePolicy(
+                    wall_time_seconds=2,
+                    cancellation_grace_seconds=0.1,
+                    resident_memory_bytes=512 * 1024**2,
+                ),
             ),
         )
 
@@ -60,9 +64,11 @@ class NativeTreePlugin:
             "child=subprocess.Popen([sys.executable,'-c','import time; time.sleep(120)']); "
             "pids=str(os.getpgrp())+' '+str(os.getpid())+' '+str(child.pid); "
             "Path(sys.argv[1]).write_text(pids); "
+            "time.sleep(0.2); "
+            "allocation=bytearray(768*1024**2) if sys.argv[2]=='memory' else None; "
             "time.sleep(120)"
         )
-        native = subprocess.Popen([sys.executable, "-c", script, values.pid_file])
+        native = subprocess.Popen([sys.executable, "-c", script, values.pid_file, values.mode])
         while not Path(values.pid_file).exists():
             context.checkpoint()
             time.sleep(0.01)

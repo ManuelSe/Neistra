@@ -9,6 +9,7 @@ from rdkit import Chem
 from rdkit.Chem import AllChem
 
 from molweave_core.adapters.rdkit_common import normalized_to_mol
+from molweave_core.hydrogen_protection import authored_protection
 from molweave_core.molecular import (
     Atom,
     Bond,
@@ -679,6 +680,9 @@ class RdkitLigandEditor:
             update={
                 "active_conformer_id": active_index + 1,
                 "atoms": atoms,
+                "annotations": authored_protection(
+                    before, atoms, {a.id for a in atoms if a.id not in before_atoms}
+                ),
                 "bonds": bonds,
                 "conformers": conformers,
                 "metadata": metadata,

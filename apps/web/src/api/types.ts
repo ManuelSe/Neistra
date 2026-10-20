@@ -787,34 +787,46 @@ export interface ArchiveImportResult {
   source_revision: number;
 }
 
+export interface MinimizationIdentityRecovery {
+  original_artifact_id: string;
+  original_sha256: string;
+  atoms: { atom_id: number; element: string; source_index: number; isotope: number | null; radical_electrons: number | null }[];
+}
+
 export interface MinimizationCapture {
   entry_id: string;
   artifact_id: string;
   sha256: string;
   conformer_id: number;
   atom_ids: number[];
+  identity_recovery?: MinimizationIdentityRecovery;
 }
 
-export interface MinimizationRequest {
+interface MinimizationRequestBase {
   expected_revision: number;
-  mode: "isolated" | "environment";
   selection: Selection;
-  context: { entry_id: string; atom_ids: number[] }[];
-  conformers: Record<string, number>;
   max_iterations: number;
+  acceptance_policy?: "strict" | "interactive";
 }
+
+export type MinimizationRequest = MinimizationRequestBase & (
+  { mode: "automatic"; context?: never; conformers?: never } |
+  { mode: "isolated" | "environment"; context: { entry_id: string; atom_ids: number[] }[]; conformers: Record<string, number> }
+);
 
 export interface MinimizationParameters {
-  schema_version: 1;
+  schema_version: 1 | 2;
   model: "amber-local-v1";
-  mode: MinimizationRequest["mode"];
+  mode: "isolated" | "environment";
+  context_policy?: "manual" | "automatic";
+  acceptance_policy?: "strict" | "interactive";
   selection: Selection;
   captured_inputs: MinimizationCapture[];
   max_iterations: number;
 }
 
 export interface MinimizationReport {
-  schema_version: 1;
+  schema_version: 1 | 2;
   model: string;
   outcome: "blocked" | "failed" | "non_converged" | "converged" | "unchanged";
   reason: string;
@@ -834,6 +846,9 @@ export interface MinimizationReport {
   toolchain: Record<string, unknown>;
   warnings: string[];
   elapsed_seconds: number;
+  termination_kind?: "converged" | "iteration_limit" | "abnormal";
+  nonconverged_eligible?: boolean;
+  new_severe_overlaps?: boolean | null;
 }
 
 export interface MinimizationProposal {
@@ -848,6 +863,17 @@ export interface MinimizationProposal {
     coordinates: [number, number, number][];
   }[];
   applicable: boolean;
+  unavailable_reason: string | null;
+}
+
+export interface MinimizationLive {
+  schema_version: 1;
+  job_id: string;
+  status: string;
+  capture_sha256: string | null;
+  selection: Selection | null;
+  sources: { entry_id: string; artifact_id: string; conformer_id: number }[];
+  frame: { sequence: number; iteration: number; published_at: number; entries: MinimizationProposal["entries"] } | null;
   unavailable_reason: string | null;
 }
 

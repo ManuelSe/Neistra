@@ -589,7 +589,28 @@ Repeat with final producer versions on clean candidate and exact merged master.
 Existing schema downgrade guards remain; never strip retained state to force a
 reader to accept it. Remove the detached qualification worktree after delivery.
 
+## Interactive minimization preparation cache (issue89 C3)
+
+The optional worker cache is `MOLWEAVE_DATA_DIR/cache/minimization`, bounded to2GiB
+of native files/manifests and128 entries by default. Set
+`MOLWEAVE_MINIMIZATION_CACHE=0` for cold qualification without altering existing
+entries; set `MOLWEAVE_MINIMIZATION_CACHE_BYTES` for its byte budget. Clear/move the
+cache only with workers idle. Cache misses/corruption never change the pinned model
+or skip preflight. Jobs copy verified native files; archives exclude runtime cache.
+
+`tests/integration/test_minimization_cache.py` primes a compatible prepared1STP model,
+then measures three cold-bypass/warm-hit pairs with native program calls and setup
+timings. Its2x median preparation criterion does not claim reuse after organic input
+geometry changes. `tests/scientific/test_minimization_cache.py` checks actual native
+forces, geometry/protonation/settings invalidation, receptor reuse and corruption.
+`MOLWEAVE_MINIMIZATION_EVIDENCE_DIR` retains paired timing JSON outside test tempdirs.
+Time to live-visible coordinates remains C4/C5/C6 qualification, not this cache test.
+
 ## Selection minimization qualification and compatibility (0.20.0)
+
+This0.20 section records the historical qualification procedure. Reproduce it
+from the matching tagged source/harness. The current harness and0.21 procedure
+are in the issue89 section below.
 
 The native model needs the separately [locked AmberTools installation](../tools/README.md)
 for both API and worker. Default plugin registration is additive; explicit operator
@@ -640,3 +661,22 @@ current client/API for minimization and its validation. Imported archived propos
 are historical; archive Undo remains nonportable. Use a complete managed-directory
 backup for rollback, retain native annotations/artifacts, and respect existing schema
 downgrade guards. Remove the detached qualification worktree after delivery.
+
+Issue #89's current compatibility harness targets actual tagged v0.20.0. With a
+fresh migrated disposable directory and locked native environment, run the current
+producer and actual older reader separately (replace DATA/EVIDENCE with task paths):
+
+```bash
+git worktree add --detach /tmp/neistra-issue89-reader-020 v0.20.0
+MOLWEAVE_DATA_DIR=/tmp/neistra89-reader .venv/bin/uv run alembic upgrade head
+PYTHONPATH=apps/api/src:packages/molweave_core/src:packages/molweave_demo_plugin/src .venv/bin/python -m tests.support.minimization_reader_qualification produce --data-dir /tmp/neistra89-reader --evidence /tmp/neistra89-producer.json
+PYTHONPATH=/tmp/neistra-issue89-reader-020/apps/api/src:/tmp/neistra-issue89-reader-020/packages/molweave_core/src:/tmp/neistra-issue89-reader-020/packages/molweave_demo_plugin/src .venv/bin/python -m tests.support.minimization_reader_qualification read --data-dir /tmp/neistra89-reader --reader-root /tmp/neistra-issue89-reader-020 --expected-reader 0.20.0 --evidence /tmp/neistra89-reader.json
+```
+
+It qualifies generic retention/history/archives of automatic schema2 captures,
+active/inactive conformers, multi-entry results, acknowledged nonconvergence and
+calculation-local legacy identity evidence. Older specialized minimization authoring
+is outside this compatibility promise. Archives retain historical results, not
+portable Undo or fresh Apply eligibility. No new migration is needed beyond0014.
+`tests/scientific/test_minimization_fixed_cost.py` profiles reference fixed-only cost;
+it does not change production evaluation. See [OpenFF assessment](OPENFF_FEASIBILITY.md).

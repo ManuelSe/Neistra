@@ -1,3 +1,4 @@
+import { preparePreviewGpu } from "./previewGpu";
 import { createModelPreviewRepresentation, modelPreviewColor } from "./modelPreviewGeometry";
 import type { MolecularProposalGeometry } from "../api/types";
 import { componentAtomIds } from "../selection/components";
@@ -67,7 +68,7 @@ import {
 
 // Small mesh spheres reuse the ordinary mesh shader instead of compiling a new
 // sphere-impostor pipeline on the first movement of a cartoon/surface-only view.
-const movementCueParams = { sizeFactor: 0.3, tryUseImpostor: false, detail: 0 };
+const movementCueParams = { sizeFactor: 0.3, tryUseImpostor: false, quality: "custom" as const, detail: 0 };
 
 interface LoadedStructure {
   entryId: string;
@@ -508,6 +509,11 @@ export class MolstarEngine implements MolecularViewer {
       await this.applyInteractions();
     });
     return this.syncQueue;
+  }
+
+  prepareCoordinatePreview(signal: AbortSignal): Promise<void> {
+    const gpu = this.plugin?.canvas3d?.webgl;
+    return gpu ? preparePreviewGpu(gpu, signal) : Promise.resolve();
   }
 
   setPickingGranularity(granularity: SelectionGranularity): void {

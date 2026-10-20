@@ -4531,3 +4531,198 @@ would need. Carbon-containing charged ligands remain eligible; explicit canonica
 neutral water uses the TIP3P path. Noncarbon inorganic molecules are outside this
 organic profile. This strengthens the already approved unsupported-ion boundary;
 it does not add an ion model, reinterpret a ligand's charge or change draft editing.
+
+## D-113 — Resident memory supervision and authored identity diagnostics
+
+Accepted 2026-10-20 under the approved issue #89 plan, M1/C1. Minimization uses an
+optional generic worker resident-memory budget instead of RLIMIT_AS: native mappings
+can reserve large virtual ranges without resident pressure. The coordinator samples
+the Linux child process tree, excluding zombies, and terminates its confirmed process
+group on over-budget usage. Default minimization budget is4GiB, configured through
+MOLWEAVE_MINIMIZATION_MAX_RSS_BYTES. This is sampled supervision, not hard cgroup
+enforcement; existing memory_bytes retains address-space semantics for other plugins.
+Allocation exceptions remain distinct from sampled budget failures. Internal
+tracebacks are retained as diagnostic job logs.
+
+Calculation identity refusal is not malformed metadata: catch the evidence parser's
+errors separately from explicit domain refusals. Diagnostics retain stage/code and
+available entry/atom/residue identity. Never infer ordinary identity from coordinates
+or erase protected/unknown facts. Selection/legacy ligand atom generation records
+explicit authored ordinary identity. Element replacement updates applicable ordinary
+evidence to authored provenance; protected/unknown/conflicting evidence stays protected
+or invalid. Direct model element edits use the same bounded helper. Original bytes,
+prior artifacts and exact history retain preceding facts. D-107 recovery matching
+remains strict; this checkpoint does not invent evidence for unknown legacy atoms.
+
+No new structural schema, history action, migration, dependency or force-field model.
+Automatic context, caching, live display and warned acceptance remain later checkpoints.
+
+## D-114 — Automatic complete context is canonical, nonrecursive and revalidated
+
+Accepted 2026-10-20 under issue89 M2/C2. Supersedes D-109's isolated UI default and
+manual confirmation requirement only for explicitly requested automatic mode.
+Minimize/Ctrl+M now request automatic capture of current active conformers. Omitted
+mode on the existing API still means isolation; explicit environment/conformer
+confirmation retains its meaning. New automatic captures use operation schema2;
+schema1 decoding and exact serialization remain supported. No structural schema
+change or force-field change; implementation version becomes1.1.0.
+
+Union canonical bonds and full polymer chains for mandatory and optional membership.
+Discover within12Å of complete mandatory components, not recursively from optional
+ones. Stream candidate entries through a bounded spatial query; visibility/categories
+never filter physical inputs. Capture unsupported nearby components too, so scientific
+preflight refuses instead of silently dropping them. Existing atom/entry/organic
+limits refuse oversized work without cropping/caps. No additional neighbors plus
+one mandatory component resolves explicitly to isolation; multiple components use
+the existing qualified nonperiodic environment model.
+
+Revalidate automatic discovery against proposed final selected coordinates and current
+project structures before publication, under the existing Apply writer lock. Retain
+captured supersets; new required omitted components invalidate Apply. This includes
+negative dependencies such as a previously distant entry moving nearby. Native
+parameter generation remains in the worker; discovery/capture/proposal/Apply handlers
+run off the HTTP event loop. Unknown geometry cannot establish exclusion automatically.
+Advanced settings retain explicit isolation/manual context; superseding an automatic
+job requests cancellation and gives the new draft a fresh generation.
+
+No database migration/new history action; actual previous-reader retention remains
+the final compatibility gate. Live display/cache/warned acceptance remain C3–C5.
+
+## D-115 — Cache native preparation, never geometry authority or implicit charge state
+
+Accepted 2026-10-20 under issue89 M3/C3. The worker supplies an optional managed
+cache directory; minimization owns its bounded cache service without adding required
+JobContext methods or a general calculation framework. Default cache is under
+data/cache/minimization,2GiB of file/manifest bytes,128 entries,100MiB per entry and
+the existing16MiB native-file bound. Atomic publication, digests, strict relative-file
+allowlists, cooperative process locking, cancellation and orphan-staging cleanup
+keep invalid/partial data out of reuse. Preparation is serialized across local
+workers; optimization runs outside that lock. This matches the default local-worker
+architecture and favors simple correct eviction over parallel cold preparation.
+
+Cache native complete receptor libraries, organic charge/parameter files and assembled
+prmtops. Reload/validate canonical native atom mapping, topology, current charge input,
+model settings and finite qualified force parameters; never deserialize pickle or
+cached viewer/optimizer state. Keys cover ordered chemistry, protonation, templates,
+component composition/mapping, pinned toolchain/engine/model/settings and actual organic
+charge-input text. Version the cache signature if its interpretation/model changes.
+
+User-confirmed conservative policy: AM1-BCC depends on input geometry. Coordinate
+changes invalidate that organic preparation; selection changes do not. Template-only
+protein parameters can be reused across coordinates, but current coordinate/identity/
+chemistry preflight still runs. Optimizer start positions always come from current
+immutable captures, never cached inpcrd/template coordinates. Charge-input SHA256 and
+cache origin remain provenance. Every job copies complete native files and retains
+independent report/model artifacts; clearing cache cannot change existing results.
+
+Corruption or unavailable cache causes an explained cold preparation under the same
+qualified force field, never a scientific fallback or prerequisite bypass. Native
+failures propagate honestly. Disable with MOLWEAVE_MINIMIZATION_CACHE=0; configure
+bytes with MOLWEAVE_MINIMIZATION_CACHE_BYTES. Clear only while workers are idle.
+No structural migration/schema/dependency/version/physical-model change. Cold/warm
+benchmarks are preparation evidence, not a live-view qualification (C4/C5).
+## D-116 — Transient minimization snapshots (issue #89 C4)
+
+Accepted optimizer callbacks publish selected coordinates into one atomic latest
+file in the existing private job work directory, bounded to1MiB and5Hz. The
+callback uses the accepted iterate, never the mutable most recent objective trial.
+Ordinary durable optimization progress is limited to1Hz; frames are neither job
+events nor artifacts/cache/archive contents. Completion/cancellation and normal
+worker cleanup end delivery; a restart never restores an interactive session.
+
+The read-only project/job endpoint validates exact captured mapping, conformer,
+capture digest and live producer/coordinator process identities (PID plus Linux
+start ticks), strips private process details and sends Cache-Control:no-store.
+This qualifies the existing local Linux deployment with a shared PID namespace;
+an unverifiable process or changed project revision ends preview, while final
+calculation/report and independently guarded Apply remain available. Transport
+unavailability cannot authorize partial Apply. No DB or structural schema change.
+Viewer rendering and warned acceptance follow in C5; C4 alone does not claim live UI.
+
+## D-117 — Live coordinate ownership and warned acceptance (issue #89 C5)
+
+Supersedes D-110/111 only for the approved interactive session and eligible new
+results. Reuse selected-row native coordinate transforms, one active plus latest
+pending frame, with epoch guards across every awaited entry. No canonical structures or molecular query
+objects change until explicit acceptance. Cancel clears presentation immediately and
+requests worker cancellation; panel close, tool/project changes and late submission
+responses also end ownership. Reload/Jobs inspection never resumes live rendering.
+Retain canonical IDs/picking; pause geometry-dependent displays during preview.
+
+Interactive UI chooses a schema2 acceptance policy. The legacy API default remains
+strict. Eligible nonconverged results require ordinary max-iteration termination,
+finite full forces/energy, objective decrease beyond numerical tolerance, verified
+mapping/stereo/fixed rows and no new nonbonded pair within the disclosed0.6Å bound.
+Do not impose the convergence gradient threshold on these results; disclose their
+actual residual gradient. Abnormal/line-search/evaluation-limit/timeout/resource/
+cancellation outcomes never qualify. The clearly named Accept unconverged coordinates
+button acknowledges that warning and submits a digest-bound acknowledgement. Record
+outcome/policy/acknowledgement in existing application provenance, preserving the
+same atomic Undo/Redo command. Old reports never acquire retrospective eligibility.
+No structural schema/migration/dependency/physical-model change. Publication wall
+time is transient latency evidence, not scientific acceptance authority.
+
+Renderer-local job/report/frame subscriptions avoid pushing high-rate reads through
+App; App retains command/capture/acceptance ownership. Preview/live presentation
+changes do not subscribe App's unrelated panels. Keep approved32-ligand-atom native
+performance assertions unchanged. In-browser fixed-row comparisons avoid serializing
+all18k coordinates while measuring UI latency; return only bounded status/summary.
+Mol* automatic quality overrides explicit detail, so the existing low-detail movement
+cue must also choose custom quality. This affects transient display tessellation,
+never atom coordinates, scientific parameters or persisted representation settings.
+The expanded1166-heavy-atom test now passes focused native bounds. Earlier901 counts
+were estimates, and exploratory latencies mixed instrumentation with the cue-quality
+bug; #100 records the correction. Full C5 and release gates remain required.
+
+Native live updates also yield on the public Mol* GPU fence API before consuming
+the newest pending packet. This avoids synchronous uploads into buffers still used
+by a previous draw. Abort/dispose/context loss release the fence, with a two-second
+stall bound. Cancellation and explicit final-preview controls take priority and do
+not wait for automatic delivery readiness. Duplicate/older packets are ignored;
+immutable preview inputs do not refetch on checkbox toggles. No trajectory or
+canonical molecular/query mutation is introduced by this display scheduling.
+
+## D-118 — Verified original identity remains calculation-local
+
+Issue #89 may recover missing legacy isotope/radical facts only from checksum-
+verified preserved originals using D-107's strict source format/record, stable ID,
+source index, element, residue and alternate-site matching. Existing unknown,
+protected, conflicting or malformed facts are never upgraded. Coordinates and
+names alone do not prove identity. Missing/invalid source evidence remains unknown.
+
+The API creates a typed server-only schema2 capture attestation for missing facts
+in captured membership. Workers validate the mapping and overlay it only on their
+calculation copy. Canonical normalized inputs, annotations and original bytes stay
+unchanged, including after coordinate acceptance. The immutable job/report retains
+full evidence; compact application annotations avoid copying all facts. Apply also
+checks the original pointer and integrity as dependencies. Legacy schema1 and older
+schema2 captures omit the absent optional field exactly as before. No structural
+schema, database migration, physical model or implicit repair is introduced.
+
+Editing and minimization share the original-verification helper; existing hydrogen
+reconciliation keeps its publication semantics. Recovery can refuse safely without
+making unrelated editing a new chemistry gate. Original hash verification also
+prevents recovery from a corrupt preserved file. The helper filters calculation
+facts to bounded membership; its default preserves existing edit recovery behavior.
+
+## D-119 — Retain the qualified Hamiltonian while alternatives are assessed
+
+Issue #89's approved outcome does not require a force-field transition. The
+[OpenFF feasibility assessment](OPENFF_FEASIBILITY.md) identifies charge ownership,
+isomorphic-molecule combination, 1–4/exclusion, protein/water, chemical-domain and
+packaging questions that need a pinned native experiment. It does not establish
+accuracy or speed superiority. Keep amber-local-v1 and its conservative charge-
+geometry dependency. Focused[#101](https://github.com/ManuelSe/Neistra/issues/101)
+requires its own qualification and a distinct model identity before production.
+
+Reference CPU profiling of prepared1STP and the18k capacity fixture finds fixed-
+protein-only evaluation costs approximately the full model's cost. This is a
+material opportunity, not a measured reduced-evaluation speedup or an additive
+cost decomposition. Subtracting a constant preserves selected derivatives but
+saves no evaluation work by itself. Retain every production force-field term in
+this release. Focused[#102](https://github.com/ManuelSe/Neistra/issues/102) must
+qualify an actual reduced evaluator against full-model energies up to a disclosed
+fixed constant and selected forces, boundary terms, exclusions/scaled1–4, settings,
+cache/current-coordinate dependencies, cancellation and practical performance.
+No quadratic exception-list shortcut, silent model substitution or unsupported
+chemistry expansion is authorized by these feasibility findings.

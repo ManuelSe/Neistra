@@ -807,10 +807,31 @@ Cheap membership capture executes at submission; expensive scientific preflight,
 parameterization, optimization and final scientific checks remain in the worker.
 Generic `/jobs` submission of `coordinates.minimize` refuses; use this endpoint.
 
+Explicit `mode: "automatic"` omits manual `context` and `conformers`; conflicting
+nonempty values return422. The backend captures current active conformers, complete
+mandatory components/chains and complete additional components within12Å of mandatory
+components. Discovery is nonrecursive and includes hidden/unsupported nearby material;
+scientific preflight refuses incompatible inputs instead of dropping them. Automatic
+captures use calculation-parameter schema2 with `context_policy: "automatic"` and
+resolved `mode: "isolated" | "environment"`. Explicit legacy requests retain schema1
+and exact serialization. Project/viewer/archive/normalized schemas do not change.
+Automatic Apply eligibility also rechecks final-position/current-project discovery;
+newly relevant omitted context requires rerun. Capture/eligibility/publication execute
+off the HTTP event loop; native computation remains in the worker.
+
+Native preparation reuse is transparent to requests. Reports retain `parameter_cache`
+and component preparation provenance in `toolchain`, plus organic charge-input SHA256.
+There is no client-selected cache path/model or bypass of scientific preflight.
+AM1-BCC input geometry participates in cache identity; active optimizer coordinates
+always come from the current immutable capture. Each job retains independent native
+files, so portable artifacts do not depend on the runtime cache.
+
 Proposal responses include schema1, `job_id`, `proposal_sha256`, typed `report`,
 selected-coordinate `entries`, `applicable` and `unavailable_reason`. A completed
-job may contain a blocked/failed/non-converged/unchanged scientific report; only
-validated converged outcomes are eligible. Preview inspection is not mutation.
+job may contain a blocked/failed/non-converged/unchanged scientific report; validated converged outcomes are eligible by default. Schema2 interactive captures
+also permit independently validated ordinary iteration-limit results with explicit
+acknowledgement; older reports never acquire that eligibility. Preview inspection
+is not mutation.
 A queued/running/failed lifecycle job without a completed report returns409.
 Source/context replacement/deletion or a movable lock disables eligibility; an
 unrelated revision/rename/display edit alone does not. Recheck at Apply regardless.
@@ -841,3 +862,37 @@ Imported jobs carry existing `archive_source_job_id`; their reports remain
 inspectable, but proposals are historical and cannot Apply against remapped IDs.
 Archives still omit portable Undo history. Actual tagged0.19.0-reader retention
 and final-version producer qualification remain required in C5/C6.
+
+### Live minimization snapshots (issue89 C4)
+
+`GET /api/v1/projects/{project_id}/minimizations/{job_id}/live` returns schema1, job
+status, capture SHA256, captured selection/source identities and optional latest
+frame (sequence, accepted iteration, selected entry/conformer/atom coordinates).
+Cache-Control:no-store; at most5Hz/1MiB production, latest-only, no history.
+Inactive/historical/cancelled/interrupted/changed-project reads return no frame and
+an unavailable reason where applicable. No read mutates project or job state.
+
+### Interactive result acceptance (issue89 C5)
+
+Submission accepts `acceptance_policy: strict | interactive` (default strict).
+The UI explicitly chooses interactive, or strict through its convergence option.
+Interactive captures/reports use calculation schema2, preserving exact schema1 and
+already persisted schema2 decoding/serialization. Qualified ordinary iteration-limit
+reports record termination_kind, nonconverged_eligible and new_severe_overlaps;
+finite objective decrease, full finite forces and existing geometry/mapping guards
+are required. The residual gradient remains visible and need not meet convergence.
+`POST .../minimizations/{job_id}/apply` additionally accepts
+`acknowledge_nonconvergence: true`, bound to the required current proposal digest.
+Missing acknowledgement returns409 for an eligible unconverged proposal; abnormal,
+cancelled, resource, stale and historical results remain ineligible. Application
+provenance records policy, outcome and acknowledgement; history/schema unchanged.
+Live frames also disclose server publication wall time for local latency evidence;
+this timestamp is advisory, not coordinate or acceptance authority.
+
+For missing legacy identity, schema2 captured inputs may include server-generated
+`identity_recovery` (`original_artifact_id`, `original_sha256`, sorted atom facts).
+Clients cannot supply this field on minimization submission. The worker overlays
+verified missing facts only in its calculation copy; canonical metadata is unchanged.
+Apply treats the preserved original pointer/hash as additional dependencies. Absent
+recovery is omitted from historical capture serialization. Full attestations remain
+in job parameters/reports, while compact molecular application annotations omit them.

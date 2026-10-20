@@ -17,10 +17,15 @@ from molweave_core.minimization.contracts import (
     CalculationError,
     CapturedInput,
     CoordinateProposal,
+    IdentityRecovery,
     MinimizationParameters,
     MinimizationReport,
+    eligible_nonconvergence,
 )
+from molweave_core.minimization.discovery import ContextDiscovery, discover_context
+from molweave_core.minimization.live import capture_digest, read_snapshot
 from molweave_core.molecular import MolecularWarning, NormalizedStructureV1
+from molweave_core.selection import SelectionV1
 from pydantic import ValidationError
 from sqlalchemy import select
 from sqlalchemy.orm import Session
@@ -35,6 +40,8 @@ from molweave_api.job_service import (
 from molweave_api.minimization_schemas import (
     MinimizationApply,
     MinimizationCreate,
+    MinimizationLiveRead,
+    MinimizationPreviewSource,
     MinimizationProposalRead,
 )
 from molweave_api.models import Artifact, Job, Project, StructureEntry
@@ -47,6 +54,7 @@ from molweave_api.project_service import (
 )
 from molweave_api.schemas import ProjectRead
 from molweave_api.settings import Settings
+from molweave_api.source_identity import recover_original_identity
 
 
 class MinimizationService:
@@ -94,13 +102,23 @@ class MinimizationService:
         for ref in payload.selection.atoms:
             seeds[ref.structure_id].add(ref.atom_id)
         moving = set(seeds)
-        for context in payload.context:
-            seeds[context.entry_id].update(context.atom_ids)
-        if set(payload.conformers) != set(seeds):
+        automatic = payload.mode == "automatic"
+        mode = payload.mode
+        if automatic:
+            try:
+                discovery = self._discover(project, payload.selection)
+            except CalculationError as error:
+                raise InvalidJobOperationError(f"{error.entry_id or 'Context'}: {error}") from error
+            seeds = discovery.membership
+            mode = "isolated" if discovery.component_count == 1 else "environment"
+        else:
+            for context in payload.context:
+                seeds[context.entry_id].update(context.atom_ids)
+        if not automatic and set(payload.conformers) != set(seeds):
             raise InvalidJobOperationError(
                 "Confirm the active conformer for every selected/context entry"
             )
-        captures = []
+        captures: list[CapturedInput] = []
         for entry_id, members in sorted(seeds.items()):
             entry = self._entry(project, entry_id)
             if entry_id in moving and entry.locked:
@@ -113,7 +131,7 @@ class MinimizationService:
                 )
             artifact, data = self._read(entry.current_artifact_id)
             structure = self._structure(data)
-            if payload.conformers[entry_id] != structure.active_conformer_id:
+            if not automatic and payload.conformers[entry_id] != structure.active_conformer_id:
                 raise JobConflictError(
                     "Active conformer changed; review the calculation and submit again"
                 )
@@ -121,6 +139,11 @@ class MinimizationService:
                 members = complete_membership(structure, members)
             except CalculationError as error:
                 raise InvalidJobOperationError(str(error)) from error
+            if sum(len(c.atom_ids) for c in captures) + len(members) > 20_000:
+                raise InvalidJobOperationError("Calculation exceeds 20000 atoms including H")
+            recovered = recover_original_identity(
+                entry, structure, self.artifacts, self.settings, atom_ids=members
+            )
             captures.append(
                 CapturedInput(
                     entry_id=entry_id,
@@ -128,11 +151,25 @@ class MinimizationService:
                     sha256=artifact.sha256,
                     conformer_id=structure.active_conformer_id,
                     atom_ids=sorted(members),
+                    identity_recovery=IdentityRecovery(
+                        original_artifact_id=recovered.original_artifact_id,
+                        original_sha256=recovered.sha256,
+                        atoms=list(recovered.atoms),
+                    )
+                    if recovered
+                    else None,
                 )
             )
         try:
             parameters = MinimizationParameters(
-                mode=payload.mode,
+                schema_version=2
+                if automatic
+                or payload.acceptance_policy == "interactive"
+                or any(c.identity_recovery is not None for c in captures)
+                else 1,
+                context_policy="automatic" if automatic else "manual",
+                acceptance_policy=payload.acceptance_policy,
+                mode=mode,
                 selection=payload.selection,
                 captured_inputs=captures,
                 max_iterations=payload.max_iterations,
@@ -148,6 +185,59 @@ class MinimizationService:
             [{"role": "calculation", "entry_id": c.entry_id} for c in captures],
             minimization_capture=True,
         )
+
+    def _discover(
+        self,
+        project: Project,
+        selection: SelectionV1,
+        updates: dict[tuple[str, int], tuple[float, float, float]] | None = None,
+    ) -> ContextDiscovery:
+        def load(entry: StructureEntry) -> NormalizedStructureV1:
+            if not entry.current_artifact_id:
+                raise CalculationError(
+                    "context_unavailable", "Entry has no canonical source", entry_id=entry.id
+                )
+            _, data = self._read(entry.current_artifact_id)
+            return self._structure(data)
+
+        selected = {ref.structure_id for ref in selection.atoms}
+        sources = {entry_id: load(self._entry(project, entry_id)) for entry_id in selected}
+        return discover_context(
+            sources,
+            (
+                (entry.id, sources[entry.id] if entry.id in sources else load(entry))
+                for entry in project.entries
+            ),
+            selection,
+            updates,
+        )
+
+    def _automatic_context_reason(
+        self,
+        project: Project,
+        parameters: MinimizationParameters,
+        entries: list[CoordinateProposal],
+    ) -> str | None:
+        if parameters.context_policy != "automatic":
+            return None
+        try:
+            updates = {
+                (p.entry_id, atom_id): point
+                for p in entries
+                for atom_id, point in zip(p.atom_ids, p.coordinates, strict=True)
+            }
+            actual = self._discover(project, parameters.selection, updates).membership
+            captured = {c.entry_id: set(c.atom_ids) for c in parameters.captured_inputs}
+            # Supersets remain the captured physical model; newly relevant omitted
+            # components require rerun. Moving away does not remove fixed context.
+            if any(not ids <= captured.get(entry_id, set()) for entry_id, ids in actual.items()):
+                return (
+                    "Automatic context changed or final geometry reaches omitted context; "
+                    "review context and rerun minimization"
+                )
+        except (CalculationError, ValueError) as error:
+            return f"Automatic context cannot be verified; rerun minimization: {error}"
+        return None
 
     def _job(self, project_id: str, job_id: str) -> Job:
         self._project(project_id)
@@ -197,8 +287,10 @@ class MinimizationService:
             reason = (
                 "This proposal has already been applied; use Undo/Redo or run a new calculation"
             )
-        elif report.outcome != "converged":
-            reason = f"Calculation is {report.outcome}; only validated converged results can Apply"
+        elif report.outcome != "converged" and not eligible_nonconvergence(report):
+            reason = (
+                f"Calculation is {report.outcome}; it does not meet the captured acceptance policy"
+            )
         if reason is None:
             current = {e.id: e for e in self._project(project_id).entries}
             moving = {ref.structure_id for ref in parameters.selection.atoms}
@@ -210,6 +302,23 @@ class MinimizationService:
                 if entry.id in moving and entry.locked:
                     reason = f"Unlock {entry.name} before applying movable coordinates"
                     break
+                if capture.identity_recovery:
+                    proof = capture.identity_recovery
+                    if entry.original_artifact_id != proof.original_artifact_id:
+                        reason = "Verified original identity source changed; rerun minimization"
+                        break
+                    try:
+                        original, _ = self._read(proof.original_artifact_id)
+                    except (OSError, JobConflictError, LookupError):
+                        reason = "Verified original identity source failed integrity checks"
+                        break
+                    if original.sha256 != proof.original_sha256:
+                        reason = "Verified original identity source changed; rerun minimization"
+                        break
+            if reason is None:
+                reason = self._automatic_context_reason(
+                    self._project(project_id), parameters, entries
+                )
         return MinimizationProposalRead(
             job_id=job.id,
             proposal_sha256=digest,
@@ -218,6 +327,46 @@ class MinimizationService:
             applicable=reason is None,
             unavailable_reason=reason,
         )
+
+    def live(self, project_id: str, job_id: str) -> MinimizationLiveRead:
+        job = self._job(project_id, job_id)
+        result = MinimizationLiveRead(job_id=job.id, status=job.status)
+        if job.status not in {"queued", "running"} or "archive_source_job_id" in job.provenance:
+            result.unavailable_reason = "Live preview is only available for active calculations"
+            return result
+        try:
+            parameters = MinimizationParameters.model_validate(job.parameters)
+        except ValueError as error:
+            raise JobConflictError(
+                "Calculation capture is invalid; live preview unavailable"
+            ) from error
+        result.capture_sha256 = capture_digest(parameters)
+        result.selection = parameters.selection
+        moving = {r.structure_id for r in parameters.selection.atoms}
+        result.sources = [
+            MinimizationPreviewSource(
+                entry_id=c.entry_id, artifact_id=c.artifact_id, conformer_id=c.conformer_id
+            )
+            for c in parameters.captured_inputs
+            if c.entry_id in moving
+        ]
+        project = self._project(project_id)
+        if project.revision != job.provenance.get("project_revision"):
+            result.unavailable_reason = (
+                "Project changed; live preview ended. Inspect the final report."
+            )
+            return result
+        if job.cancellation_requested:
+            result.unavailable_reason = "Cancellation requested; live preview ended"
+            return result
+        if job.status == "running":
+            try:
+                result.frame = read_snapshot(
+                    self.settings.data_dir / "work/jobs" / job.id, parameters
+                )
+            except (OSError, ValueError) as error:
+                result.unavailable_reason = str(error)
+        return result
 
     def _lock_apply(self, project_id: str) -> None:
         # SQLite is the supported persisted runtime. Acquire its writer lock before
@@ -239,9 +388,14 @@ class MinimizationService:
         if not proposal.applicable:
             raise JobConflictError(str(proposal.unavailable_reason))
         report = proposal.report
+        nonconverged = eligible_nonconvergence(report)
+        if nonconverged and not payload.acknowledge_nonconvergence:
+            raise JobConflictError(
+                "Explicit acknowledgement is required to accept unconverged coordinates"
+            )
         if (
             report.maximum_gradient is None
-            or report.maximum_gradient > GRADIENT_TOLERANCE
+            or (not nonconverged and report.maximum_gradient > GRADIENT_TOLERANCE)
             or (
                 report.gradient_tolerance != GRADIENT_TOLERANCE
                 or report.initial_energy is None
@@ -333,7 +487,7 @@ class MinimizationService:
                             "conformer_id": capture.conformer_id,
                             "atom_ids": result.atom_ids,
                             "inputs": [
-                                c.model_dump(mode="json", exclude={"atom_ids"})
+                                c.model_dump(mode="json", exclude={"atom_ids", "identity_recovery"})
                                 for c in params.captured_inputs
                             ],
                         },
@@ -377,6 +531,9 @@ class MinimizationService:
                 "revision": project.revision + 1,
                 "applied_at": datetime.now(UTC).isoformat(),
                 "entry_ids": [c["entry_id"] for c in changes],
+                "outcome": report.outcome,
+                "acceptance_policy": params.acceptance_policy,
+                "acknowledged_nonconvergence": nonconverged and payload.acknowledge_nonconvergence,
             },
         }
         return ProjectService(self.session).record_molecular_changes(

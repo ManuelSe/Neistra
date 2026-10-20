@@ -30,6 +30,7 @@ from molweave_core.editing.ligand import EditResult
 from molweave_core.editing.placement import place_atom, place_fragment
 from molweave_core.editing.reconciliation import ReconciliationReport, reconcile_hydrogens
 from molweave_core.editing.selection import SelectionEditResult
+from molweave_core.hydrogen_protection import authored_protection
 from molweave_core.molecular import Bond, MolecularWarning, NormalizedStructureV1
 
 MODELING_METADATA = "neistra_modeling"
@@ -477,6 +478,10 @@ class DirectMolecularEditor:
             excluded_bonds=sorted(exclusions),
         ).model_dump(mode="json")
         after = after.model_copy(update={"metadata": metadata})
+        if isinstance(action, ModelElement):
+            after = after.model_copy(
+                update={"annotations": authored_protection(before, after.atoms, set())}
+            )
         hydrogen_report = None
         if hydrogen_policy == "complete_if_possible":
             if isinstance(action, ModelDelete) and any(atoms[i].element == "H" for i in chosen):

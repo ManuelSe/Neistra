@@ -1,0 +1,93 @@
+{
+  "native_prefix": "/datadisk/dev/.neistra-tools/ambertools-24.8",
+  "commands": [
+    {
+      "label": "migration",
+      "command": "MOLWEAVE_DATA_DIR=/tmp/neistra89-c1-migration-final .venv/bin/uv run alembic upgrade head",
+      "exit_code": 0,
+      "seconds": 1.443,
+      "log": "docs/assets/interactive-minimization/c1-migration.log.gz",
+      "log_sha256": "a65aaba1d288361248cfad53dee993528aa5c4bbd5accca186ae60e26f85c610"
+    },
+    {
+      "label": "ruff",
+      "command": ".venv/bin/uv run ruff check .",
+      "exit_code": 0,
+      "seconds": 0.05,
+      "log": "docs/assets/interactive-minimization/c1-ruff.log.gz",
+      "log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "label": "mypy",
+      "command": ".venv/bin/uv run mypy apps/api packages/molweave_core",
+      "exit_code": 0,
+      "seconds": 0.557,
+      "log": "docs/assets/interactive-minimization/c1-mypy.log.gz",
+      "log_sha256": "ca3c81cf64c9c2d67de08bf62aa367ca4a36e38a5581a76cd6a6ab078e2457a2"
+    },
+    {
+      "label": "focused",
+      "command": ".venv/bin/uv run pytest tests/unit/minimization tests/unit/test_hydrogen_protection.py tests/unit/editing tests/integration/test_hydrogen_protection.py tests/scientific/test_selection_editing.py tests/integration/test_selection_edits.py tests/integration/test_minimization_jobs.py tests/integration/test_job_lifecycle.py tests/integration/test_archive_roundtrip.py -q",
+      "exit_code": 0,
+      "seconds": 48.286,
+      "log": "docs/assets/interactive-minimization/c1-focused.log.gz",
+      "log_sha256": "45788445be815847d852d66f3a7a14fbb8107ac68effd9c20a1bb70003eb8700"
+    },
+    {
+      "label": "web-lint",
+      "command": "corepack pnpm --dir apps/web lint",
+      "exit_code": 0,
+      "seconds": 10.948,
+      "log": "docs/assets/interactive-minimization/c1-web-lint.log.gz",
+      "log_sha256": "407542146a7a0d45aea91983bf120b74ed122a75e21e47383d8bcfd8a1f84177"
+    },
+    {
+      "label": "web-types",
+      "command": "corepack pnpm --dir apps/web typecheck",
+      "exit_code": 0,
+      "seconds": 5.565,
+      "log": "docs/assets/interactive-minimization/c1-web-types.log.gz",
+      "log_sha256": "ec6984d22c581279ab7f6a640391cd633bb6646f462629997e329b1c1ff4168f"
+    },
+    {
+      "label": "web-tests",
+      "command": "corepack pnpm --dir apps/web test",
+      "exit_code": 0,
+      "seconds": 10.737,
+      "log": "docs/assets/interactive-minimization/c1-web-tests.log.gz",
+      "log_sha256": "3c560450d3def2c0ebc70e846f5fc40e94e718dea336fd5f2759be023bb9ac15"
+    },
+    {
+      "label": "supervisor",
+      "command": "corepack pnpm test:dev",
+      "exit_code": 0,
+      "seconds": 1.502,
+      "log": "docs/assets/interactive-minimization/c1-supervisor.log.gz",
+      "log_sha256": "576c5083485b34bd6b6534a243787b63a6585b0801fba36c88bd4d5491625cde"
+    },
+    {
+      "label": "build",
+      "command": "corepack pnpm --dir apps/web build",
+      "exit_code": 0,
+      "seconds": 14.578,
+      "log": "docs/assets/interactive-minimization/c1-build.log.gz",
+      "log_sha256": "f6423fb131ccee52451f9573d4b0e86a903f5b5aa979907bcbde3fcbbc595115"
+    },
+    {
+      "label": "browser",
+      "command": "corepack pnpm exec playwright test tests/e2e/selection-minimization.spec.ts -g \"minimizes isolated captured\"",
+      "exit_code": 0,
+      "seconds": 21.614,
+      "log": "docs/assets/interactive-minimization/c1-browser.log.gz",
+      "log_sha256": "2d2f9e63bd89e57bdef3d30e13c222383603c438cd0a6944190fb796897a8f2e"
+    },
+    {
+      "label": "diff",
+      "command": "git diff --check",
+      "exit_code": 0,
+      "seconds": 0.013,
+      "log": "docs/assets/interactive-minimization/c1-diff.log.gz",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

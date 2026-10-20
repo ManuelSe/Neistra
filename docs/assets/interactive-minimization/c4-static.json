@@ -1,0 +1,65 @@
+[
+  {
+    "label": "ruff",
+    "command": ".venv/bin/uv run ruff check .",
+    "exit_code": 0,
+    "seconds": 0.045,
+    "log": "docs/assets/interactive-minimization/c4-ruff.log.gz",
+    "log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+  },
+  {
+    "label": "mypy",
+    "command": ".venv/bin/uv run mypy apps/api packages/molweave_core",
+    "exit_code": 0,
+    "seconds": 0.249,
+    "log": "docs/assets/interactive-minimization/c4-mypy.log.gz",
+    "log_sha256": "8ba9873e22426bcc7f35d8a5ef8518b9b69fb138ee78730ab64693a64293352c"
+  },
+  {
+    "label": "lint",
+    "command": "corepack pnpm --dir apps/web lint",
+    "exit_code": 0,
+    "seconds": 11.438,
+    "log": "docs/assets/interactive-minimization/c4-lint.log.gz",
+    "log_sha256": "407542146a7a0d45aea91983bf120b74ed122a75e21e47383d8bcfd8a1f84177"
+  },
+  {
+    "label": "types",
+    "command": "corepack pnpm --dir apps/web typecheck",
+    "exit_code": 0,
+    "seconds": 5.871,
+    "log": "docs/assets/interactive-minimization/c4-types.log.gz",
+    "log_sha256": "ec6984d22c581279ab7f6a640391cd633bb6646f462629997e329b1c1ff4168f"
+  },
+  {
+    "label": "web-tests",
+    "command": "corepack pnpm --dir apps/web test",
+    "exit_code": 0,
+    "seconds": 11.543,
+    "log": "docs/assets/interactive-minimization/c4-web-tests.log.gz",
+    "log_sha256": "5ddf27d3401b7fc102b52483a64eeff3f08f533b50e0b5741583b42ac18ccd7b"
+  },
+  {
+    "label": "supervisor",
+    "command": "corepack pnpm test:dev",
+    "exit_code": 0,
+    "seconds": 1.512,
+    "log": "docs/assets/interactive-minimization/c4-supervisor.log.gz",
+    "log_sha256": "f90e02ca15f2e6538ba53041ce1ab1ede8de082604ae71f4f9bddcb6c61620ca"
+  },
+  {
+    "label": "build",
+    "command": "corepack pnpm --dir apps/web build",
+    "exit_code": 0,
+    "seconds": 17.885,
+    "log": "docs/assets/interactive-minimization/c4-build.log.gz",
+    "log_sha256": "d94a4cc9ebb33147c2a9f6d48ca0d1802c2e0a01b1de61db3a3d0d08997ca938"
+  },
+  {
+    "label": "diff",
+    "command": "git diff --check (repeated after correcting documentation EOF whitespace)",
+    "exit_code": 0,
+    "log": "docs/assets/interactive-minimization/c4-diff.log.gz",
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+]

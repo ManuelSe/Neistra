@@ -23,6 +23,7 @@ from molweave_core.editing.fragments import (
     graft_fragment,
 )
 from molweave_core.editing.ligand import EditResult
+from molweave_core.hydrogen_protection import authored_protection
 from molweave_core.molecular import (
     Atom,
     Bond,
@@ -595,6 +596,7 @@ class SelectionMolecularEditor:
         after = structure.model_copy(
             update={
                 "atoms": remaining,
+                "annotations": authored_protection(structure, remaining, set(created)),
                 "bonds": sorted(
                     [b for b in structure.bonds if b.atom_1_id not in members] + bonds,
                     key=lambda b: b.id,

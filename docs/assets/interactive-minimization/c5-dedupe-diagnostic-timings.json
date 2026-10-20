@@ -1,0 +1,50 @@
+{
+  "copies": 8,
+  "atoms": 18208,
+  "calculationMs": 31285,
+  "previewMs": 336.3000000715256,
+  "discardMs": 236.70000004768372,
+  "previewAutomationMs": 1344,
+  "discardAutomationMs": 415,
+  "longestTaskMs": 681,
+  "longestTasks": [
+    {
+      "start": 65278.39999997616,
+      "duration": 681
+    },
+    {
+      "start": 62555.700000047684,
+      "duration": 663
+    },
+    {
+      "start": 59136.299999952316,
+      "duration": 658
+    },
+    {
+      "start": 61867.700000047684,
+      "duration": 580
+    },
+    {
+      "start": 57787.39999997616,
+      "duration": 571
+    },
+    {
+      "start": 60518.39999997616,
+      "duration": 566
+    },
+    {
+      "start": 58492.700000047684,
+      "duration": 544
+    },
+    {
+      "start": 61220.5,
+      "duration": 542
+    }
+  ],
+  "writes_summary": {
+    "count": 2,
+    "note": "Full original record retained losslessly in adjacent .json.gz.",
+    "raw_file": "c5-dedupe-diagnostic-timings.json.gz",
+    "uncompressed_sha256": "fd76fee59ee41372c15cfed05467f57e20bce622c8b940fcb7b6463707708ba4"
+  }
+}

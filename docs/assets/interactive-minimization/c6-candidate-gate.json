@@ -1,0 +1,149 @@
+{
+  "commit": "13e8b45aa04b9f022f409869ad4d80410f48c0d2",
+  "clean_at_start": true,
+  "boot_id": "4cc00cb6-d793-4e01-a99d-2f67e8c27d5b",
+  "host": "tuxedo-os",
+  "platform": "Linux-6.17.0-119029-tuxedo-x86_64-with-glibc2.39",
+  "environment": {
+    "MOLWEAVE_AMBERTOOLS_PREFIX": "/datadisk/dev/.neistra-tools/ambertools-24.8",
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "PLAYWRIGHT_BROWSERS_PATH": ".playwright",
+    "MOLWEAVE_E2E_DATA_DIR": "/datadisk/dev/.neistra-tools/issue89-candidate-qualified-e2e",
+    "MOLWEAVE_E2E_API_PORT": "11310",
+    "MOLWEAVE_E2E_WORKER_PORT": "11311",
+    "MOLWEAVE_E2E_WEB_PORT": "8023",
+    "MOLWEAVE_MINIMIZATION_EVIDENCE_DIR": "/datadisk/dev/.neistra-tools/issue89-candidate-qualified-native"
+  },
+  "steps": [
+    {
+      "label": "uv",
+      "command": ".venv/bin/uv sync --frozen",
+      "exit_code": 0,
+      "seconds": 0.026,
+      "log": "docs/assets/interactive-minimization/c6-candidate-uv.log.gz",
+      "log_sha256": "62533f924c11df2ba6a1880a46bc0e844a107bf9293a14d3e001f7a62563028a"
+    },
+    {
+      "label": "pnpm",
+      "command": "corepack pnpm install --frozen-lockfile",
+      "exit_code": 0,
+      "seconds": 0.584,
+      "log": "docs/assets/interactive-minimization/c6-candidate-pnpm.log.gz",
+      "log_sha256": "2463bbbe9ec26fb19c2a7d53752ad76d2d569ac5bd3c24f807e3b377401b96f1"
+    },
+    {
+      "label": "migration",
+      "command": "MOLWEAVE_DATA_DIR=/datadisk/dev/.neistra-tools/issue89-candidate-qualified .venv/bin/uv run alembic upgrade head",
+      "exit_code": 0,
+      "seconds": 0.967,
+      "log": "docs/assets/interactive-minimization/c6-candidate-migration.log.gz",
+      "log_sha256": "a65aaba1d288361248cfad53dee993528aa5c4bbd5accca186ae60e26f85c610"
+    },
+    {
+      "label": "ruff",
+      "command": ".venv/bin/uv run ruff check .",
+      "exit_code": 0,
+      "seconds": 0.043,
+      "log": "docs/assets/interactive-minimization/c6-candidate-ruff.log.gz",
+      "log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "label": "mypy",
+      "command": ".venv/bin/uv run mypy apps/api packages/molweave_core",
+      "exit_code": 0,
+      "seconds": 0.191,
+      "log": "docs/assets/interactive-minimization/c6-candidate-mypy.log.gz",
+      "log_sha256": "fe0ce6e3b1983c3e150c09b415036599a0bee120f2cad38e219412ce21d84a67"
+    },
+    {
+      "label": "python",
+      "command": ".venv/bin/uv run pytest",
+      "exit_code": 0,
+      "seconds": 302.131,
+      "log": "docs/assets/interactive-minimization/c6-candidate-python.log.gz",
+      "log_sha256": "28f8fe0c09199d72d36c2b52494eb8225da77b643a57bd717ce94f736eccc171"
+    },
+    {
+      "label": "lint",
+      "command": "corepack pnpm --dir apps/web lint",
+      "exit_code": 0,
+      "seconds": 9.546,
+      "log": "docs/assets/interactive-minimization/c6-candidate-lint.log.gz",
+      "log_sha256": "9a77b2c76a866ad9cdd67b296dd97f457e2d2dcef7f947dbca180d043260ce95"
+    },
+    {
+      "label": "types",
+      "command": "corepack pnpm --dir apps/web typecheck",
+      "exit_code": 0,
+      "seconds": 4.856,
+      "log": "docs/assets/interactive-minimization/c6-candidate-types.log.gz",
+      "log_sha256": "096c5e5034db934be0fe87724a661a652200c3d753bedd6f4a845f6bd4a32052"
+    },
+    {
+      "label": "web-tests",
+      "command": "corepack pnpm --dir apps/web test",
+      "exit_code": 0,
+      "seconds": 10.001,
+      "log": "docs/assets/interactive-minimization/c6-candidate-web-tests.log.gz",
+      "log_sha256": "0893456b19de93bf85c247e3189cafa3227c2b3dc3901ce2cb3bb98b0780ef4c"
+    },
+    {
+      "label": "supervisor",
+      "command": "corepack pnpm test:dev",
+      "exit_code": 0,
+      "seconds": 1.393,
+      "log": "docs/assets/interactive-minimization/c6-candidate-supervisor.log.gz",
+      "log_sha256": "62789acf8ca6f77b9aaf06c5791625c200c26b2872e2a53afc579bc999f248a0"
+    },
+    {
+      "label": "build",
+      "command": "corepack pnpm --dir apps/web build",
+      "exit_code": 0,
+      "seconds": 12.643,
+      "log": "docs/assets/interactive-minimization/c6-candidate-build.log.gz",
+      "log_sha256": "725aa22bc008a054f3f2f4ac0d920f277387f15a406ecd2605f87d5728f9b4f3"
+    },
+    {
+      "label": "browser",
+      "command": "corepack pnpm exec playwright test",
+      "exit_code": 0,
+      "seconds": 2827.936,
+      "log": "docs/assets/interactive-minimization/c6-candidate-browser.log.gz",
+      "log_sha256": "bf4e66450c8401dfd884ca59075bfd3276e7b712656bcdfbac5390e4b4c6acaa"
+    },
+    {
+      "label": "reader-migration",
+      "command": "MOLWEAVE_DATA_DIR=/datadisk/dev/.neistra-tools/issue89-candidate-qualified-reader-data .venv/bin/uv run alembic upgrade head",
+      "exit_code": 0,
+      "seconds": 0.986,
+      "log": "docs/assets/interactive-minimization/c6-candidate-reader-migration.log.gz",
+      "log_sha256": "a65aaba1d288361248cfad53dee993528aa5c4bbd5accca186ae60e26f85c610"
+    },
+    {
+      "label": "producer",
+      "command": "PYTHONPATH=apps/api/src:packages/molweave_core/src:packages/molweave_demo_plugin/src .venv/bin/python -m tests.support.minimization_reader_qualification produce --data-dir /datadisk/dev/.neistra-tools/issue89-candidate-qualified-reader-data --evidence /datadisk/dev/.neistra-tools/issue89-candidate-producer.json",
+      "exit_code": 0,
+      "seconds": 7.308,
+      "log": "docs/assets/interactive-minimization/c6-candidate-producer.log.gz",
+      "log_sha256": "7e911ffc08735da7ca6a6c122392f81376b57e28394b45bb3844d0e1391e7b12"
+    },
+    {
+      "label": "reader",
+      "command": "PYTHONPATH=/datadisk/dev/.neistra-tools/issue89-reader-020/apps/api/src:/datadisk/dev/.neistra-tools/issue89-reader-020/packages/molweave_core/src:/datadisk/dev/.neistra-tools/issue89-reader-020/packages/molweave_demo_plugin/src .venv/bin/python -m tests.support.minimization_reader_qualification read --data-dir /datadisk/dev/.neistra-tools/issue89-candidate-qualified-reader-data --reader-root /datadisk/dev/.neistra-tools/issue89-reader-020 --expected-reader 0.20.0 --evidence /datadisk/dev/.neistra-tools/issue89-candidate-reader.json",
+      "exit_code": 0,
+      "seconds": 2.147,
+      "log": "docs/assets/interactive-minimization/c6-candidate-reader.log.gz",
+      "log_sha256": "b5db4140dda612d8ff0ad49ebff6faa0de36d670b7f8598a9b0bebbd9f06f525"
+    },
+    {
+      "label": "diff",
+      "command": "git diff --check",
+      "exit_code": 0,
+      "seconds": 0.009,
+      "log": "docs/assets/interactive-minimization/c6-candidate-diff.log.gz",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "source_unchanged": true
+}

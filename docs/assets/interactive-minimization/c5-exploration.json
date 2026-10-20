@@ -1,0 +1,9 @@
+{
+  "status": "Exploratory pre-final source; not release qualification",
+  "description": "Pre-final exploratory failures; earlier901-heavy count was an estimate. Actual full selection is1166 of2272 atoms. Full-coordinate automation readback distorted latency. Molstar auto-quality also overrode the intended cue detail. Bounded status/exact in-browser fixed-row checks and custom cue quality correct both; focused18k and1166-heavy-atom gates pass, full final qualification pending. This file is not release evidence.",
+  "followup": "https://github.com/ManuelSe/Neistra/issues/100",
+  "logs": {
+    "docs/assets/interactive-minimization/c5-expanded-stress.log.gz": "16067ebc3a84864518c9efae08667b53accbfded0b830bc407d452f30f5bd4f5",
+    "docs/assets/interactive-minimization/c5-expanded-initial.log.gz": "ac4c832a4d4596ec8808b757982732b172840add6cf62440757bde1c634c8250"
+  }
+}

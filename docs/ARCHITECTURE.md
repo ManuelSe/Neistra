@@ -471,3 +471,50 @@ App invalidates numerical/minimization preview ownership in both directions befo
 asynchronous capture and clears geometry before canonical mutation. Query revision
 changes refresh applicability without duplicating report cache entries. Server
 validation remains authoritative. See D-111 and [user workflow](MINIMIZATION.md).
+
+### Automatic minimization context (issue89 C2)
+
+The domain discovery service unions canonical bonds/full polymer chains and queries
+nearby coordinates around complete mandatory components. The API streams candidate
+entries independently of display visibility and owns automatic active-conformer
+capture. Version2 operation parameters retain the resolved isolated/environment model
+and automatic policy; legacy schema1/manual captures retain exact serialization.
+Proposal/Apply recheck current and final-position discovery, including newly relevant
+previously omitted components. Native preparation stays in the worker; synchronous
+discovery/publication handlers execute in FastAPI's thread pool. See D-114.
+
+### Native parameter reuse (issue89 C3)
+
+The controlled worker context optionally supplies a managed cache root. The
+minimization-specific file cache owns receptor-library, organic and assembled native
+preparation, bounded atomic publication and cancellation-aware locking. Current
+preflight and native reconstruction validate every reuse; coordinates/selection/
+viewer objects never become cached molecular authority. Organic signatures include
+AM1-BCC input geometry; template protein signatures omit coordinates. Each job
+materializes independent native files and captures its own actual start coordinates.
+See D-115 for quota, eviction, provenance and concurrency tradeoffs.
+
+### Transient optimization delivery (issue89 C4)
+
+Accepted iterates use a bounded atomic latest file in the private job work directory.
+The read-only project/job live endpoint validates capture, exact mapping and local
+process lifetime. It returns no stale frame after cancel/completion/project change.
+Frames never enter durable events, calculation artifacts, caches or archives.
+Linux/shared-PID deployment assumptions and graceful unavailability are in D-116.
+
+### Interactive coordinate ownership and acceptance (issue89 C5)
+
+App-owned minimization sessions poll the dedicated latest read every200ms. Reuse
+CoordinatePreviewQueue/native transform patches, never duplicate molecule geometry
+or write query/canonical state. Epoch checks abandon obsolete multi-entry batches;
+Cancel clears the display before its network request settles. Tool/project/session
+changes and late submissions request cancellation; Jobs inspection is historical
+presentation, never automatic live recovery. Full dependency/digest/geometry checks
+still gate the single atomic molecular command. D-117 bounds warned acceptance;
+legacy explicit clients retain strict default and prior serialization.
+
+CoordinatePreviewQueue optionally asks the renderer for GPU readiness during
+automatic live delivery, then takes the latest packet after the wait. The Mol*
+adapter uses public fences, cancellation/disposal cleanup and a bounded wait;
+manual final previews and restoration retain their immediate path. Molecular
+state, API acceptance and persisted representation settings stay independent.

@@ -1,3 +1,4 @@
+import { useMinimizationPreview } from "../minimization/useMinimizationPreview";
 import type { MinimizationWorkflow } from "../minimization/useMinimization";
 import { useMinimizationShortcut } from "../minimization/useMinimizationShortcut";
 import { useMinimizationStore } from "../minimization/store";
@@ -128,6 +129,7 @@ export function StructureViewer({
   const appliedArtifactsRef = useRef(new Map<string, string>());
   const appliedTopologyArtifactsRef = useRef(new Map<string, string>());
   const previewQueue = useRef<CoordinatePreviewQueue | null>(null);
+  const minimizationPreview = useMinimizationPreview(project, minimization);
   const movementActive = Boolean(movement?.state.capture && movement.state.phase !== "idle");
   const editingState = useEditingStore();
   const editOpen = useEditingStore(state => state.projectId === project.id && state.open);
@@ -157,7 +159,7 @@ export function StructureViewer({
   useMinimizationShortcut(!!minimization && !minimizationUnavailable, () => {
     openMinimization(); void minimization?.quick();
   });
-  const interactionPaused = movementActive || Boolean(coordinatePreview) || Boolean(minimization?.geometry);
+  const interactionPaused = movementActive || Boolean(coordinatePreview) || Boolean(minimizationPreview.patches.length);
   const interactionInputs = project.entries.filter(entry => entry.visible && entry.current_artifact_id).map(entry => ({ entry_id: entry.id, artifact_id: entry.current_artifact_id! }));
   const interactions = useInteractions(project.id, interactionInputs, interactionPaused);
   const styleDialogOpen = styleProjectId === project.id;
@@ -410,7 +412,7 @@ export function StructureViewer({
   const placement = editingState.placement;
   const modelPreview = editOpen && !movementActive && !coordinatePreview && placement?.result
     && placement.context === placementContext(project, placement.result.entry_id, selection, editingState.generation, editingState.section === "bonds" ? editingState.bondHydrogenPolicy : editingState.hydrogenPolicy)
-    ? placement.result : !movementActive && !coordinatePreview && !editOpen ? minimization?.geometry ?? null : null;
+    ? placement.result : null;
   useEffect(() => {
     if (!viewerReady) return;
     const operation = viewerRef.current?.setModelPreview?.(modelPreview);
@@ -471,9 +473,9 @@ export function StructureViewer({
     const state = movement?.state;
     const patches = state?.capture && ["active", "submitting"].includes(state.phase)
       ? movementPreview(state.capture, state.pose)
-      : coordinatePreview ? [coordinatePreview] : [];
-    previewQueue.current?.set(patches);
-  }, [coordinatePreview, movement?.state, viewerReady]);
+      : coordinatePreview ? [coordinatePreview] : !editOpen ? minimizationPreview.patches : [];
+    previewQueue.current?.set(patches, Boolean(!movementActive && !coordinatePreview && minimizationPreview.state.live));
+  }, [coordinatePreview, movement?.state, movementActive, minimizationPreview.patches, minimizationPreview.state.live, editOpen, viewerReady]);
 
   useEffect(() => {
     if (!viewerReady) return;
@@ -496,7 +498,7 @@ export function StructureViewer({
 
   useEffect(() => {
     if (!viewerReady) return;
-    const measurements = movementActive || coordinatePreview ? [] : project.measurements.map((measurement) => {
+    const measurements = interactionPaused ? [] : project.measurements.map((measurement) => {
       const value = measurementValue(
         measurement.kind,
         measurement.atom_references,
@@ -512,7 +514,7 @@ export function StructureViewer({
         error instanceof Error ? error.message : "Measurements could not be displayed.",
       );
     });
-  }, [normalizedStructures, project.measurements, syncKey, viewerReady, movementActive, coordinatePreview]);
+  }, [normalizedStructures, project.measurements, syncKey, viewerReady, interactionPaused]);
 
   const loading =
     (!viewerReady && !viewerError) || structuresPending;
@@ -681,7 +683,7 @@ export function StructureViewer({
             onOpen={() => { useMinimizationStore.getState().dismiss(); setStyleProjectId(null); setSurfaceProjectId(null); setInteractionProjectId(null); }}
             unavailable={coordinatePreview ? "Finish coordinate preview before editing chemistry." : null}
             onEdit={onEdit} onSettings={onUpdateSettings} /> : null}
-          {minimization ? <MinimizationPanel workflow={minimization}
+          {minimization ? <MinimizationPanel workflow={{ ...minimization, ...minimizationPreview, error: minimization.error ?? minimizationPreview.previewError }}
             unavailable={minimizationUnavailable} onOpen={openMinimization} /> : null}
           </div>
         </div>

@@ -39,3 +39,26 @@ export async function structures(request: APIRequestContext, p: Project) {
   return Object.fromEntries(await Promise.all(p.entries.map(async e => [e.id, (await (await request.get(`/api/v1/projects/${p.id}/entries/${e.id}/structure`)).json()).structure as NormalizedStructure])));
 }
 export const panel = (page: Page) => page.getByRole("dialog", { name: "Minimize selection", exact: true });
+
+export async function configure(page: Page) {
+  const settings = panel(page).getByRole("button", { name: "Minimization settings", exact: true });
+  await expect(settings).toBeEnabled({ timeout: 30000 });
+  await settings.click();
+  await expect(panel(page).getByRole("button", { name: "Run minimization", exact: true })).toBeEnabled({ timeout: 30000 });
+}
+
+export async function coordinateState(page: Page) {
+  return page.evaluate(async () => {
+    const { inspectCoordinatePreview } = await import("/src/test/modelingHarness.ts");
+    return inspectCoordinatePreview(window.interactionEngines.at(-1)!);
+  });
+}
+
+export const coordinateEntries = (page: Page) => page.evaluate(async () => {
+  const { coordinatePreviewEntries } = await import("/src/test/modelingHarness.ts");
+  return coordinatePreviewEntries(window.interactionEngines.at(-1)!);
+});
+export const coordinateSummary = (page: Page, movable: Selection["atoms"]) => page.evaluate(async atoms => {
+  const { inspectCoordinateSummary } = await import("/src/test/modelingHarness.ts");
+  return inspectCoordinateSummary(window.interactionEngines.at(-1)!, atoms);
+}, movable);
