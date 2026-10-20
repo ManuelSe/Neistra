@@ -27,7 +27,9 @@ actual older-reader cases pass. C6 checkpoint:282 Python/273 frontend/8 supervis
 optimization deferred to verified#102. Final-version release gates remain.
 C6 recovery/qualification committed asb1b7ba2. All five authoritative versions
 are prepared as0.21.0 (additive user-visible functionality, preserved schemas/APIs).
-No migration or dependency change. No external blocker. Next: complete clean
+No migration or dependency change. Initial full gate found a stale archive test
+version pin; corrected fixture plus preceding0.20 case passes all30 archive tests.
+That run is diagnostic, not release qualification. No external blocker. Next: complete clean
 final-version candidate gate, PR/review/merge and exact-master release qualification. The feature plan is detailed truth.
 
 ### Previous delivery baseline — v0.20.0

@@ -457,3 +457,10 @@ merge/tag/release/reply verification; finish clean master.
   structural data/archive/API defaults, rather than issue labels. Stable history
   already exists, so no speculative initial major/prerelease. No dependency update.
   Next: complete clean candidate gate and final-version actual0.20 reader, then PR.
+
+- Release preparation committed/pushed as5546e5fd0b650909ff57dd7735bc363c94e7de2b.
+  Initial complete gate caught the existing archive fixture's hard-coded0.20.0
+  current-version assertion (25 cases). Updated assertion to0.21.0 and added0.20
+  historical archive coverage; all30 archive cases pass. This is a test fixture
+  correction, no runtime/archive acceptance change. The first full run is diagnostic
+  only; preserve its failures and repeat the complete clean candidate gate.
