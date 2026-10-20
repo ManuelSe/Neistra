@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { cleanup, render, screen, waitFor } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { useState, type ReactNode } from "react";
 import { afterEach, describe, expect, it, vi } from "vitest";
@@ -103,6 +103,10 @@ describe("bidirectional sequence selection", () => {
     await user.click(screen.getByRole("tab", { name: "sequence" }));
     const residue = await screen.findByRole("button", { name: /GLY 10/ });
     await user.click(residue);
+    expect(residue).toHaveAttribute("aria-pressed", "true");
+    fireEvent.click(residue, { metaKey: true });
+    expect(residue).toHaveAttribute("aria-pressed", "false");
+    fireEvent.click(residue, { ctrlKey: true });
     expect(residue).toHaveAttribute("aria-pressed", "true");
     await user.click(screen.getByRole("tab", { name: "selection" }));
     await waitFor(() => {

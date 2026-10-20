@@ -6,6 +6,25 @@ Neistra targets WCAG 2.2 Level AA for the local application shell. The
 qualification combines deterministic browser automation with keyboard and
 visual checks; an axe pass alone is not treated as complete coverage.
 
+## Selection gestures (issue #90)
+
+Native double-click is an additional Atom-mode shortcut. Existing explicit picking
+modes, inspector expansion, and keyboard-operable component/sequence buttons remain
+available. Panel Ctrl/Cmd uses the same complete-operand rule; panels do not silently
+establish viewer range anchors. Gesture help states protein-only double expansion
+and fixed residue starts. No new layout, focus model or gesture-only essential
+action is introduced.
+
+Qualification retains both themes, desktop/Pixel7 layouts, keyboard focus and
+actual100%/200% browser zoom through existing navigation/toolbar/release-hardening
+suites, plus native selection synchronization and remount tests. Screenshots and
+automated axe assertions have distinct evidential roles. No interactive screen-
+reader, physical touch double-tap or broader browser certification is claimed.
+[Clean candidate](assets/selection-gestures/c4-candidate-gate.json) passes all
+both-theme axe/keyboard/actual200%zoom and native layout cases. Light/mobile and
+dark/desktop gesture screenshots were manually inspected separately. Exact-master
+qualification remains required; no broader certification is inferred.
+
 ## Compact molecular editor (issue #69)
 
 The nonmodal Edit launcher sits beside Transform with a named, viewport-bounded

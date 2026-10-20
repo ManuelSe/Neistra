@@ -1,0 +1,922 @@
+{
+  "note": "All probe commands, source identities, exit codes and complete console logs are retained in their gate JSON and gzip logs. Initial failure and decisive native-raster traces are retained; redundant intermediate trace bundles were reduced to their native observations here.",
+  "probes": [
+    {
+      "trace": "c3-buffer-probe-diagnostic-trace.zip",
+      "sha256": "04f253367e8d4e1956af5379c5353184d337b507b2d0e25e0682bed9ec540a0f",
+      "retained_trace": false,
+      "native_observations": [
+        {
+          "events": [
+            {
+              "kind": "empty-loci"
+            },
+            {
+              "kind": "empty-loci"
+            }
+          ],
+          "viewport": {
+            "hits": [],
+            "scan": [],
+            "buffer": [
+              410,
+              861
+            ],
+            "lost": false,
+            "input": {
+              "width": 410,
+              "height": 861,
+              "ratio": 1
+            },
+            "intrinsic": [
+              410,
+              861
+            ],
+            "rect": {
+              "x": 1,
+              "y": 53,
+              "width": 410,
+              "height": 861,
+              "top": 53,
+              "right": 411,
+              "bottom": 914,
+              "left": 1
+            },
+            "camera": {
+              "x": 0,
+              "y": 0,
+              "width": 410,
+              "height": 861
+            },
+            "projected": {
+              "x": 357.03717275883884,
+              "y": 420.58517504280604
+            }
+          },
+          "engines": [
+            {
+              "generation": 2,
+              "bound": 1,
+              "rebuilding": false,
+              "movement": "inactive"
+            },
+            {
+              "generation": 1,
+              "bound": 1,
+              "rebuilding": false,
+              "movement": "inactive",
+              "connected": true,
+              "ownsCanvas": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "trace": "c3-initial-responsive-diagnostic-trace.zip",
+      "sha256": "5c14275290f0a089aac9338f9e2e6b1222d19f20d72c975038147ee31c511d84",
+      "retained_trace": true,
+      "native_observations": []
+    },
+    {
+      "trace": "c3-input-probe-diagnostic-trace.zip",
+      "sha256": "1d62fa7a27e72fef0322b5d798c3d9a401c98341a5a9da40cdbdd31581b41bce",
+      "retained_trace": false,
+      "native_observations": [
+        {
+          "events": [
+            {
+              "kind": "empty-loci"
+            },
+            {
+              "kind": "empty-loci"
+            }
+          ],
+          "viewport": {
+            "input": {
+              "width": 410,
+              "height": 861,
+              "ratio": 1
+            },
+            "intrinsic": [
+              410,
+              861
+            ],
+            "rect": {
+              "x": 1,
+              "y": 53,
+              "width": 410,
+              "height": 861,
+              "top": 53,
+              "right": 411,
+              "bottom": 914,
+              "left": 1
+            },
+            "camera": {
+              "x": 0,
+              "y": 0,
+              "width": 410,
+              "height": 861
+            },
+            "projected": {
+              "x": 357.03717275883884,
+              "y": 420.58517504280604
+            }
+          },
+          "engines": [
+            {
+              "generation": 2,
+              "bound": 1,
+              "rebuilding": false,
+              "movement": "inactive"
+            },
+            {
+              "generation": 1,
+              "bound": 1,
+              "rebuilding": false,
+              "movement": "inactive",
+              "connected": true,
+              "ownsCanvas": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "trace": "c3-loci-probe-diagnostic-trace.zip",
+      "sha256": "02d06d2749e2f5db1d9e0f97e50074bde129bb20635204b7b25e0ed8e86c3f59",
+      "retained_trace": true,
+      "native_observations": [
+        {
+          "events": [
+            {
+              "kind": "empty-loci"
+            },
+            {
+              "kind": "empty-loci"
+            }
+          ],
+          "viewport": {
+            "hits": [
+              {
+                "dx": -4,
+                "dy": -4,
+                "atoms": [
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 14
+                  }
+                ]
+              },
+              {
+                "dx": -4,
+                "dy": -3,
+                "atoms": [
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 14
+                  }
+                ]
+              },
+              {
+                "dx": -4,
+                "dy": -2,
+                "atoms": [
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 14
+                  }
+                ]
+              },
+              {
+                "dx": -4,
+                "dy": -1,
+                "atoms": [
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 14
+                  }
+                ]
+              },
+              {
+                "dx": -4,
+                "dy": 0,
+                "atoms": [
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 14
+                  }
+                ]
+              },
+              {
+                "dx": -4,
+                "dy": 1,
+                "atoms": [
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 14
+                  }
+                ]
+              },
+              {
+                "dx": -4,
+                "dy": 2,
+                "atoms": [
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 14
+                  }
+                ]
+              },
+              {
+                "dx": -4,
+                "dy": 3,
+                "atoms": [
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 14
+                  }
+                ]
+              },
+              {
+                "dx": -4,
+                "dy": 4,
+                "atoms": [
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 14
+                  }
+                ]
+              },
+              {
+                "dx": -3,
+                "dy": -4,
+                "atoms": [
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 14
+                  }
+                ]
+              },
+              {
+                "dx": -3,
+                "dy": -3,
+                "atoms": [
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 14
+                  }
+                ]
+              },
+              {
+                "dx": -3,
+                "dy": -2,
+                "atoms": [
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 14
+                  }
+                ]
+              },
+              {
+                "dx": -3,
+                "dy": -1,
+                "atoms": [
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 14
+                  }
+                ]
+              },
+              {
+                "dx": -3,
+                "dy": 0,
+                "atoms": [
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 14
+                  }
+                ]
+              },
+              {
+                "dx": -3,
+                "dy": 1,
+                "atoms": [
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 14
+                  }
+                ]
+              },
+              {
+                "dx": -3,
+                "dy": 2,
+                "atoms": [
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 14
+                  }
+                ]
+              },
+              {
+                "dx": -3,
+                "dy": 3,
+                "atoms": [
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 14
+                  }
+                ]
+              },
+              {
+                "dx": -3,
+                "dy": 4,
+                "atoms": [
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 14
+                  }
+                ]
+              },
+              {
+                "dx": -2,
+                "dy": -4,
+                "atoms": [
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 14
+                  }
+                ]
+              },
+              {
+                "dx": -2,
+                "dy": -3,
+                "atoms": [
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 14
+                  }
+                ]
+              },
+              {
+                "dx": -2,
+                "dy": -2,
+                "atoms": [
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 14
+                  }
+                ]
+              },
+              {
+                "dx": -2,
+                "dy": -1,
+                "atoms": [
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 14
+                  }
+                ]
+              },
+              {
+                "dx": -2,
+                "dy": 0,
+                "atoms": [
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 14
+                  }
+                ]
+              },
+              {
+                "dx": -2,
+                "dy": 1,
+                "atoms": [
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 14
+                  }
+                ]
+              },
+              {
+                "dx": -2,
+                "dy": 2,
+                "atoms": [
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 14
+                  }
+                ]
+              },
+              {
+                "dx": -2,
+                "dy": 3,
+                "atoms": [
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 14
+                  }
+                ]
+              },
+              {
+                "dx": -2,
+                "dy": 4,
+                "atoms": [
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 14
+                  }
+                ]
+              },
+              {
+                "dx": -1,
+                "dy": -4,
+                "atoms": [
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 14
+                  }
+                ]
+              },
+              {
+                "dx": -1,
+                "dy": -3,
+                "atoms": [
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 14
+                  }
+                ]
+              },
+              {
+                "dx": -1,
+                "dy": -2,
+                "atoms": [
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 14
+                  }
+                ]
+              },
+              {
+                "dx": -1,
+                "dy": -1,
+                "atoms": [
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 14
+                  }
+                ]
+              },
+              {
+                "dx": -1,
+                "dy": 0,
+                "atoms": [
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 14
+                  }
+                ]
+              },
+              {
+                "dx": -1,
+                "dy": 1,
+                "atoms": [
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 14
+                  }
+                ]
+              },
+              {
+                "dx": -1,
+                "dy": 2,
+                "atoms": [
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 14
+                  }
+                ]
+              },
+              {
+                "dx": -1,
+                "dy": 3,
+                "atoms": [
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 14
+                  }
+                ]
+              },
+              {
+                "dx": -1,
+                "dy": 4,
+                "atoms": [
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 14
+                  }
+                ]
+              }
+            ],
+            "scan": [
+              {
+                "x": 48,
+                "y": 424,
+                "atoms": [
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 1
+                  }
+                ]
+              },
+              {
+                "x": 64,
+                "y": 424,
+                "atoms": [
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 2
+                  }
+                ]
+              },
+              {
+                "x": 80,
+                "y": 424,
+                "atoms": [
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 3
+                  }
+                ]
+              },
+              {
+                "x": 120,
+                "y": 520,
+                "atoms": [
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 20
+                  }
+                ]
+              },
+              {
+                "x": 128,
+                "y": 520,
+                "atoms": [
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 20
+                  },
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 21
+                  }
+                ]
+              },
+              {
+                "x": 136,
+                "y": 520,
+                "atoms": [
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 21
+                  }
+                ]
+              },
+              {
+                "x": 144,
+                "y": 424,
+                "atoms": [
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 5
+                  }
+                ]
+              },
+              {
+                "x": 160,
+                "y": 424,
+                "atoms": [
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 6
+                  }
+                ]
+              },
+              {
+                "x": 192,
+                "y": 304,
+                "atoms": [
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 17
+                  }
+                ]
+              },
+              {
+                "x": 208,
+                "y": 304,
+                "atoms": [
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 18
+                  }
+                ]
+              },
+              {
+                "x": 216,
+                "y": 304,
+                "atoms": [
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 18
+                  },
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 19
+                  }
+                ]
+              },
+              {
+                "x": 224,
+                "y": 304,
+                "atoms": [
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 19
+                  }
+                ]
+              },
+              {
+                "x": 256,
+                "y": 424,
+                "atoms": [
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 10
+                  }
+                ]
+              },
+              {
+                "x": 272,
+                "y": 424,
+                "atoms": [
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 11
+                  }
+                ]
+              },
+              {
+                "x": 296,
+                "y": 520,
+                "atoms": [
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 22
+                  }
+                ]
+              },
+              {
+                "x": 304,
+                "y": 520,
+                "atoms": [
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 22
+                  },
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 23
+                  }
+                ]
+              },
+              {
+                "x": 312,
+                "y": 520,
+                "atoms": [
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 22
+                  },
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 23
+                  }
+                ]
+              },
+              {
+                "x": 352,
+                "y": 424,
+                "atoms": [
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 14
+                  }
+                ]
+              },
+              {
+                "x": 368,
+                "y": 424,
+                "atoms": [
+                  {
+                    "structure_id": "01a1598c-4ad7-75a0-a825-de004b6142f1",
+                    "atom_id": 15
+                  }
+                ]
+              }
+            ],
+            "buffer": [
+              410,
+              861
+            ],
+            "lost": false,
+            "input": {
+              "width": 410,
+              "height": 861,
+              "ratio": 1
+            },
+            "intrinsic": [
+              410,
+              861
+            ],
+            "rect": {
+              "x": 1,
+              "y": 53,
+              "width": 410,
+              "height": 861,
+              "top": 53,
+              "right": 411,
+              "bottom": 914,
+              "left": 1
+            },
+            "camera": {
+              "x": 0,
+              "y": 0,
+              "width": 410,
+              "height": 861
+            },
+            "projected": {
+              "x": 357.03717275883884,
+              "y": 420.58517504280604
+            }
+          },
+          "engines": [
+            {
+              "generation": 2,
+              "bound": 1,
+              "rebuilding": false,
+              "movement": "inactive"
+            },
+            {
+              "generation": 1,
+              "bound": 1,
+              "rebuilding": false,
+              "movement": "inactive",
+              "connected": true,
+              "ownsCanvas": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "trace": "c3-pixel-probe-diagnostic-trace.zip",
+      "sha256": "2a5c570f742f582cd54684faa3adec9bd6331118e94de559e18e724a9551912f",
+      "retained_trace": false,
+      "native_observations": [
+        {
+          "events": [
+            {
+              "kind": "empty-loci"
+            },
+            {
+              "kind": "empty-loci"
+            }
+          ],
+          "viewport": {
+            "hits": [],
+            "input": {
+              "width": 410,
+              "height": 861,
+              "ratio": 1
+            },
+            "intrinsic": [
+              410,
+              861
+            ],
+            "rect": {
+              "x": 1,
+              "y": 53,
+              "width": 410,
+              "height": 861,
+              "top": 53,
+              "right": 411,
+              "bottom": 914,
+              "left": 1
+            },
+            "camera": {
+              "x": 0,
+              "y": 0,
+              "width": 410,
+              "height": 861
+            },
+            "projected": {
+              "x": 357.03717275883884,
+              "y": 420.58517504280604
+            }
+          },
+          "engines": [
+            {
+              "generation": 2,
+              "bound": 1,
+              "rebuilding": false,
+              "movement": "inactive"
+            },
+            {
+              "generation": 1,
+              "bound": 1,
+              "rebuilding": false,
+              "movement": "inactive",
+              "connected": true,
+              "ownsCanvas": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "trace": "c3-render-probe-diagnostic-trace.zip",
+      "sha256": "9d8bdc39e4531427d502c920af81a9cf79be3628a72e5df80ea08bbb4c06509b",
+      "retained_trace": false,
+      "native_observations": [
+        {
+          "events": [
+            {
+              "kind": "empty-loci"
+            },
+            {
+              "kind": "empty-loci"
+            }
+          ],
+          "engines": [
+            {
+              "generation": 2,
+              "bound": 1,
+              "rebuilding": false,
+              "movement": "inactive"
+            },
+            {
+              "generation": 1,
+              "bound": 1,
+              "rebuilding": false,
+              "movement": "inactive",
+              "connected": true,
+              "ownsCanvas": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "trace": "c3-responsive-diagnostic-trace.zip",
+      "sha256": "99a4b1227044975ecfab35246129ac7b1f2d67ab81981840004ef2e7b928b24e",
+      "retained_trace": false,
+      "native_observations": []
+    },
+    {
+      "trace": "c3-responsive-inspection-diagnostic-trace.zip",
+      "sha256": "4c81f9e4669001a11403a43dadbf75cc70d66178dd47f634529474c4e3f4a45c",
+      "retained_trace": false,
+      "native_observations": [
+        {
+          "events": [
+            {
+              "kind": "empty-loci"
+            },
+            {
+              "kind": "empty-loci"
+            }
+          ],
+          "engines": [
+            {
+              "generation": 2,
+              "bound": 1,
+              "rebuilding": false,
+              "movement": "inactive"
+            },
+            {
+              "generation": 1,
+              "bound": 1,
+              "rebuilding": false,
+              "movement": "inactive",
+              "connected": true,
+              "ownsCanvas": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -254,7 +254,7 @@ describe("component hierarchy", () => {
         granularity: "residue",
         atoms: [{ structure_id: "complex", atom_id: 4 }],
       }),
-      "add",
+      "toggle",
     );
     await user.click(screen.getByRole("button", { name: "Details for LIG 20 in Complex" }));
     expect(screen.getByText("Assigned by a documented residue or element fallback")).toBeVisible();

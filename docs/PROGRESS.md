@@ -2,6 +2,29 @@
 
 ## Current milestone
 
+Issue #90 **M1–M4 implemented and clean-candidate-qualified**, under the
+[approved contract](plans/issue-90-selection-gestures.md). Whole-operand toggle,
+Atom residue/component double-click and viewer-only fixed ranges are implemented;
+D-120–123 and [user guidance](SELECTION_GESTURES.md) govern.
+
+[Clean candidate7dc4340](assets/selection-gestures/c4-candidate-gate.json) passes
+all15 commands: **1,107 Python,290 frontend,8 supervisor,282 browser /52 existing
+layout/timing exclusions**, zero failures/flakes/retries/native scientific skips.
+Frozen/fresh0014/static/build/diff and all14 native gesture cases pass. Pinned1STP
+interaction3861ms/longest task652ms/zero repeated reads meet unchanged budgets;
+both-theme axe, actual200%zoom and existing movement/minimization/surface gates pass.
+[Actual tagged0.21 compatibility](assets/selection-gestures/c4-candidate-reader-gate.json)
+passes both final0.22 directions, including references/scenes/originals/history/jobs/
+archives without persisted anchors. [Review](assets/selection-gestures/c4-review.md)
+is local self-review. Source identities are unchanged; earlier diagnostics separate.
+
+All five versions0.22.0; no migration/schema/API/dependency change. Known limits:
+protein-only ranges, native desktop double-click and transient anchors;#91/#94/#95
+remain separate. No external blocker. Next: push/PR/review/normal merge, exact-master
+complete gate, tag/release/issue reply and verified cleanup. No publication yet.
+
+### Previous delivery baseline — v0.21.0
+
 Issue #89 is implemented and released as stable [v0.21.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.21.0)
 in [PR#103](https://github.com/ManuelSe/Neistra/pull/103), under the [approved plan](plans/issue-89-interactive-minimization.md).
 Automatic complete context, validated conservative caches, transient native live
@@ -2508,6 +2531,8 @@ Results:
 
 ## Known limitations
 
+- Issue #90 C1–C3 implement toggle, double-click and residue ranges. Final
+  performance, preceding-reader compatibility and release qualification remain pending.
 - Historical pre-release issue #55 C1–C3 qualification recorded that v0.13.0 had the
   native-buffer defect until this correction is delivered.
   Scientific scope remains bounded by `interaction-v1`; #52 owns raw ligand
@@ -2604,14 +2629,12 @@ Results:
 
 ## Blockers
 
-No current external blocker. C1 passes its gates; C2's protein/context scientific
-qualification remains required before claiming that scope works. Failed scientific
-qualification requires a plan revision rather than weaker physics. Issue #81
-remains delivered.
+No current external blocker. Issue #90 complete candidate and actual-reader gates
+pass; exact merged-master qualification and delivery remain required;
+checkpoint evidence does not establish publication or final qualification.
 
 ## Next action
 
-Commit/push the passing issue #82 C1 checkpoint, then implement C2 explicit fixed
-protein context and multi-entry calculation. Keep later Apply/UI/release work in
-their planned checkpoints. The feature plan remains the detailed source of truth.
-Issue #81's published runtime tag remains fixed.
+Complete issue #90 M4/C4 final-version qualification and delivery on `feat/issue-90-selection-gestures`. The
+[approved feature plan](plans/issue-90-selection-gestures.md) governs the remaining
+lifecycle. Existing published runtime tags remain fixed.

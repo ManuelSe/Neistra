@@ -4733,3 +4733,158 @@ acceptance creates a new coordinate artifact with the normal minimization proven
 annotation. “Calculation-local recovery” means the recovered isotope/radical facts
 are not copied into canonical annotations; it does not mean the accepted coordinate
 artifact lacks its ordinary operation provenance. The historical decision remains.
+
+## D-120 — Toggle complete canonical selection operands across current views
+
+Date: 2026-10-20. Status: accepted by approval of the
+[issue #90 plan](plans/issue-90-selection-gestures.md); implementation pending.
+
+Extend the internal selection operation with whole-operand toggle in TypeScript
+and Python. A nonempty operand is subtracted only when every one of its canonical
+atom references is selected; otherwise its complete membership is added. Preserve
+unrelated references, canonical ordering and operand source/granularity metadata.
+An empty toggle is a no-op. Explicit replace/add/subtract keep their existing
+semantics; no HTTP request or persisted selection object gains an operation mode.
+
+Use one modifier policy across viewer, project browser, Components panel and
+existing Sequence tab: Alt subtracts; otherwise Ctrl/Cmd toggles; otherwise Shift
+adds or invokes the eligible viewer range; otherwise replace. This order governs
+combined modifiers. Entry groups and categories toggle their materialized union
+as one operand, not each child independently. Lazy loads retain project/entry
+ownership and apply toggle against the current selection, never another project.
+
+Rationale: scientists expect a fully selected entity to deselect while partially
+selected entities become complete. Atomwise symmetric difference would invert
+partial membership and violate that intent. Extending D-018/019's shared algebra
+avoids divergent modifier semantics or additional selection authorities.
+
+No molecular mutation, saved-selection representation, migration, dependency
+upgrade or HTTP API change is authorized by this operation. C0 records the accepted
+decision only; feature and release qualification remain pending.
+
+## D-121 — Native double-click expands application-owned targets without camera focus
+
+Date: 2026-10-20. Status: accepted by approval of the
+[issue #90 plan](plans/issue-90-selection-gestures.md); implementation pending.
+
+Narrowly extend D-044's primary-selection policy for unmodified Atom-mode
+double-click. Mol* retains hit testing and click-versus-drag recognition. Correlate
+the browser's native dblclick with the two preceding accepted primary hits in the
+current viewer generation; both must resolve to the same expandable application
+target. Single-click selection remains immediate, without a double-click timer.
+Expanded selection subsequently replaces it and cannot focus or change the camera.
+
+Resolve protein hits to the complete normalized residue; assigned ligand, solvent,
+water, ion and other-heterogen hits use complete individual D-045 component
+membership. Never expand a ligand to its containing complex. Unsupported polymers
+and ambiguous/unclassified material retain ordinary picking; do not infer molecular
+identity from proximity, names, missing connectivity or size. Preserve Atom-mode
+bond-endpoint picking and expand only when all endpoints share one eligible target.
+
+Raw-hit/gesture context at the viewer interface uses canonical application
+references. Mol* objects and internal selection state never enter the central
+store. Empty/surface/modified/dragged/stale/mixed-target input cannot expand.
+Navigation, ownership/mode changes, rebuilds, blur and disposal clear correlation;
+listeners are cleaned up. Movement ownership, surfaces, non-primary camera gestures
+and existing touch navigation keep their contracts; no custom double-tap recognizer.
+
+Rationale: native double-click classification adds a useful shortcut without a
+second drag recognizer, delayed single selection, speculative molecule discovery,
+or implicit camera action. This deliberately extends D-044's original modifier/
+activation defaults while retaining its camera and gesture-ownership boundaries.
+
+No durable viewer state, hierarchy snapshot, migration or new molecular schema.
+Implementation, real native interaction and lifecycle qualification remain pending.
+
+## D-122 — Fixed residue-range anchors are transient application selection state
+
+Date: 2026-10-20. Status: accepted by approval of the
+[issue #90 plan](plans/issue-90-selection-gestures.md); implementation pending.
+
+Keep a project-scoped range anchor in the nonpersisted selection store above
+responsive viewer remounts. Identity includes entry, current molecular artifact,
+derived protein component, chain and normalized residue ID, independent of
+canonical atom-reference ordering. Establish it through unmodified Residue-mode
+selection, Ctrl/Cmd toggle-on of a complete protein residue in Residue mode, or
+eligible Atom-mode residue double-click. Shift and Alt never establish/advance it.
+
+Shift-click with a valid anchor adds the inclusive interval of existing residues
+in normalized residue-list order within the same entry, chain and protein
+component. Do not use number arithmetic, author/insertion-code sorting, atom IDs,
+display order or proximity. Do not bridge separate source polymer components with
+the same chain label. Include existing hidden atoms and explicit H; invent no
+missing residues or atoms. With no valid same-boundary anchor/target, retain the
+ordinary active-granularity additive pick, including Atom-mode atom selection.
+
+Clear the anchor on project change, clear/replacement outside an explicit eligible
+viewer selection, picking-mode change, source-artifact change, or loss of complete
+anchor-residue membership. Additive/toggle/subtractive panel actions may preserve a
+still-valid anchor but do not establish it for #90. Responsive remounts preserve
+valid anchors; reload clears them. No anchor in preferences, scenes, saved
+selections, history, archives, autosave or normalized data. Explicitly saved
+selection results continue to use the unchanged canonical reference schema.
+
+Rationale: an explicit stable anchor gives predictable repeated ranges despite
+sorted canonical references, numbering gaps and insertion codes. Application
+ownership preserves D-018/019 and keeps Mol* disposable. Protein source boundaries
+prevent unrelated sequence material from entering a range. Cross-panel ranges and
+new residue/sequence navigation remain separate approved work under #94/#95;
+hover remains #91. No new follow-up issue is required for this bounded scope.
+
+No HTTP/schema/migration/dependency change. The planned release is stable minor
+0.22.0 for added capabilities and intentional gesture changes, subject to collision
+checks and complete candidate/exact-master gates. Five authoritative versions
+advance in the implementation PR, not C0. Implementation and verification pending.
+
+### D-120 implementation note — issue #90 M1/C1, 2026-10-20
+
+Shared internal toggle and modifier adapters now implement the accepted complete-
+operand rule in TypeScript/Python. Entry/group lazy loading checks active project,
+selection project and current entry/artifact before publication; algebra reads
+current selection. Four-granularity native Ctrl-off/Meta-on, empty modifiers and
+cross-panel synchronization pass. Existing explicit add/subtract remain. Full278
+frontend and focused17 Python pass; checkpoint evidence lives in the feature plan.
+This is C1 only: double-click/range and release qualification remain pending.
+No molecular, HTTP, persisted-schema, migration, dependency or version change.
+
+### D-121 implementation note — issue #90 M2/C2, 2026-10-20
+
+Pure indexed expansion and accepted-hit correlation now implement D-121. Native
+synthetic complexes prove complete residue/individual ligand selection with hidden
+H, stable camera/revision, both themes and desktop/mobile viewports. Real standalone
+SDF expansion also passes. Modified/empty/surface/navigation/movement/rebuild/blur/
+dispose paths clear correlation; unmapped nonmolecular loci retain their prior
+no-op behavior. This narrowly extends D-044 without a timer/drag recognizer or
+chemistry inference. Exact gates and the local self-review correction live in the
+feature plan. C3 range anchors and final release qualification remain pending.
+No HTTP/schema/migration/dependency/application-version/molecular-file change.
+
+### D-120/122 implementation and qualification note — issue #90 M3/C3, 2026-10-20
+
+Application-owned fixed anchors and result references publish atomically from
+current cached projections. Normalized residue-list order, not sorted IDs or
+number arithmetic, defines intervals within entry/protein-component/chain.
+Source artifacts, mode/project transitions and incomplete start membership
+invalidate; responsive remounts preserve valid state. A transient project visit
+epoch also guards old lazy entry/group selections after leaving and returning.
+No anchor enters saved selections/scenes/APIs/history/preferences/archives.
+
+Native C3 qualification passes52 browser cases /2 existing layout exclusions;
+all290 frontend and static/build gates pass. A test projected a cropped/unpickable
+raster center after resize; explicit camera fitting and a bounded read-only native
+pixel observation repaired qualification, with trusted clicks and exact references.
+No runtime change or timing/membership threshold relaxation during those diagnostics.
+The feature plan retains initial/decisive traces and all probe command logs and
+observations. This is implementer review only, not independent approval. No new
+schema, migration, HTTP route, chemistry inference, dependency or version change.
+C4 final performance/actual reader/release gates remain pending.
+
+### D-123 — Issue #90 qualification uses canonical results and actual readers
+
+2026-10-20. Gesture results retain ordinary selection schema1 references. Native
+trusted-input tests prove authoring; separate disposable actual-tag/current API
+processes prove generic persistence/history/archive compatibility. Do not infer
+old gesture authoring from retained data, or final-version compatibility from a
+preversion fixture. Native test pixel/readiness observations are test-only and
+must never replace the actual input or exact canonical-membership assertions.
+No migration, production diagnostic hooks or persisted gesture state are needed.

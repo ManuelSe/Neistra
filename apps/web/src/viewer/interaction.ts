@@ -12,6 +12,7 @@ import {
   type ModifiersKeys,
 } from "molstar/lib/mol-util/input/input-observer";
 import type { SelectionMode } from "../api/types";
+import { selectionMode } from "../selection/selection";
 
 const isPrimaryTrigger = (trigger: Binding.Trigger): boolean => {
   const buttons = trigger.buttons ?? ButtonsType.Flag.None;
@@ -112,9 +113,8 @@ export const isPrimarySelectionActivation = (button: ButtonsType.Flag): boolean 
   button === ButtonsType.Flag.Primary || button === ButtonsType.Flag.Trigger;
 
 export function selectionModeForModifiers(modifiers: ModifiersKeys): SelectionMode {
-  if (modifiers.alt) return "subtract";
-  if (modifiers.control || modifiers.meta || modifiers.shift) return "add";
-  return "replace";
+  return selectionMode({ altKey: modifiers.alt, ctrlKey: modifiers.control,
+    metaKey: modifiers.meta, shiftKey: modifiers.shift });
 }
 
 export const shouldClearSelectionForEmptyPick = (

@@ -680,3 +680,16 @@ is outside this compatibility promise. Archives retain historical results, not
 portable Undo or fresh Apply eligibility. No new migration is needed beyond0014.
 `tests/scientific/test_minimization_fixed_cost.py` profiles reference fixed-only cost;
 it does not change production evaluation. See [OpenFF assessment](OPENFF_FEASIBILITY.md).
+
+## Selection gesture qualification (issue #90)
+
+The [approved plan](plans/issue-90-selection-gestures.md) and
+[user guide](SELECTION_GESTURES.md) define canonical whole-operand toggle and
+protein range boundaries. Anchors belong to the transient application store,
+not Mol* or durable schemas. `selection_reader_qualification.py` produces/reads
+rich disposable fixtures under explicitly selected actual API/core/plugin roots;
+assert module provenance and application version in each process. Run both the
+final current producer/tagged0.21 reader and tagged producer/current reader.
+Native trusted-input tests prove gesture authoring separately from wire retention.
+Run the complete candidate and exact merged-master gates above, with locked native
+tools/thread limits, and retain raw logs, source identities and timing evidence.

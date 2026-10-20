@@ -1,3 +1,4 @@
+import { DoubleClickSequence, doubleClickExpansion } from "../selection/gestures";
 import { preparePreviewGpu } from "./previewGpu";
 import { createModelPreviewRepresentation, modelPreviewColor } from "./modelPreviewGeometry";
 import type { MolecularProposalGeometry } from "../api/types";
@@ -105,6 +106,7 @@ export class MolstarEngine implements MolecularViewer {
   private mountTarget: HTMLElement | null = null;
   private rebuilding = false;
   private hasScene = false;
+  private doubleClicks = new DoubleClickSequence();
   private clickSubscription: { unsubscribe(): void } | undefined;
   private cameraSubscription: { unsubscribe(): void } | undefined;
   private measurementRefs: string[] = [];
@@ -207,7 +209,21 @@ export class MolstarEngine implements MolecularViewer {
       event.preventDefault();
       event.stopImmediatePropagation();
     };
-    const blur = () => { this.heldPointers.clear(); this.ignoredPointers.clear(); this.ignoredMouseRelease = false; };
+    const blur = () => { this.doubleClicks.clear(); this.heldPointers.clear(); this.ignoredPointers.clear(); this.ignoredMouseRelease = false; };
+    const doubleClick = (event: MouseEvent) => {
+      if (!(event.target instanceof HTMLCanvasElement) || this.boundGeneration !== this.generation
+        || this.rebuilding || this.movementInteraction !== "inactive" || this.pickingGranularity !== "atom"
+        || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey || event.button !== 0) {
+        this.doubleClicks.clear(); return;
+      }
+      const expanded = this.doubleClicks.take();
+      if (expanded) this.emit({ atoms: expanded.selection.atoms, granularity: expanded.selection.granularity,
+        mode: "replace", pick: { atoms: expanded.pick, kind: "double", shift: false } });
+    };
+    const resetGesture = () => this.doubleClicks.clear();
+    const dragSubscription = plugin.canvas3d.input.drag.subscribe(resetGesture);
+    const wheelSubscription = plugin.canvas3d.input.wheel.subscribe(resetGesture);
+    target.addEventListener("dblclick", doubleClick);
     inputRoot.addEventListener("pointerdown", down, true);
     window.addEventListener("pointerdown", freshDown, true);
     window.addEventListener("pointerup", up, true);
@@ -218,6 +234,9 @@ export class MolstarEngine implements MolecularViewer {
     target.addEventListener("mousedown", blockContinuation, true);
     window.addEventListener("blur", blur);
     this.stopInputBoundary = () => {
+      dragSubscription.unsubscribe();
+      wheelSubscription.unsubscribe();
+      target.removeEventListener("dblclick", doubleClick);
       inputRoot.removeEventListener("pointerdown", down, true);
       window.removeEventListener("pointerdown", freshDown, true);
       window.removeEventListener("pointerup", up, true);
@@ -235,13 +254,15 @@ export class MolstarEngine implements MolecularViewer {
     this.setBackgroundColor(this.backgroundColor);
     this.clickSubscription = plugin.behaviors.interaction.click.subscribe(
       ({ current, button, modifiers }) => {
-        if (this.boundGeneration !== this.generation || this.rebuilding || this.movementInteraction !== "inactive" || !isPrimarySelectionActivation(button)) return;
+        if (this.boundGeneration !== this.generation || this.rebuilding || this.movementInteraction !== "inactive" || !isPrimarySelectionActivation(button)) { this.doubleClicks.clear(); return; }
         const mode = selectionModeForModifiers(modifiers);
         if (mode === "replace" && this.surfaceVisuals.pick(current.repr)) {
+          this.doubleClicks.clear();
           plugin.canvas3d?.requestDraw();
           return;
         }
         if (Loci.isEmpty(current.loci)) {
+          this.doubleClicks.clear();
           if (
             shouldClearSelectionForEmptyPick(
               mode,
@@ -264,34 +285,21 @@ export class MolstarEngine implements MolecularViewer {
             : this.pickingGranularity,
           true,
         );
-        const normalized = Loci.normalize(granular, "element", true);
-        if (!StructureElement.Loci.is(normalized)) return;
-        const references: AtomReference[] = [];
-        for (const element of normalized.elements) {
-          if (!Unit.isAtomic(element.unit)) continue;
-          const mapping = this.models.get(element.unit.model);
-          if (!mapping) continue;
-          OrderedSet.forEach(element.indices, (unitIndex) => {
-            const modelElement = element.unit.elements[unitIndex];
-            const sourceIndex =
-              element.unit.model.atomicHierarchy.atomSourceIndex.value(modelElement);
-            const atomId = mapping.atomIds[sourceIndex];
-            if (atomId !== undefined) {
-              references.push({
-                structure_id: mapping.entryId,
-                atom_id: atomId,
-              });
-            }
-          });
-        }
+        const references = this.referencesFromLoci(granular);
+        if (!references.length) { this.doubleClicks.clear(); return; }
+        const pickedAtoms = this.referencesFromLoci(current.loci);
+        this.doubleClicks.record(mode === "replace" && this.pickingGranularity === "atom"
+          ? doubleClickExpansion(pickedAtoms, this.structures) : null);
         this.emit({
           atoms: references,
           granularity: this.pickingGranularity,
           mode,
+          pick: { atoms: pickedAtoms, kind: "single", shift: modifiers.shift },
         });
       },
     );
     this.cameraSubscription = plugin.canvas3d.camera.changed.subscribe(() => {
+      this.doubleClicks.clear();
       const snapshot = plugin.canvas3d!.camera.getSnapshot();
       if (this.movementCamera && ["position", "target", "up"].some(key =>
         (snapshot[key as "position"] as number[]).some((value, axis) => value !== this.movementCamera![key as "position"][axis]))) {
@@ -312,6 +320,7 @@ export class MolstarEngine implements MolecularViewer {
   }
 
   syncStructures(structures: ViewerStructure[]): Promise<void> {
+    this.doubleClicks.clear();
     // The generation invalidates retired visual hits immediately, even if the
     // serialized rebuild waits. Camera navigation retains its existing owner.
     this.structures = structures;
@@ -517,6 +526,7 @@ export class MolstarEngine implements MolecularViewer {
   }
 
   setPickingGranularity(granularity: SelectionGranularity): void {
+    if (this.pickingGranularity !== granularity) this.doubleClicks.clear();
     this.pickingGranularity = granularity;
   }
 
@@ -607,6 +617,7 @@ export class MolstarEngine implements MolecularViewer {
   }
 
   setMovementMode(interaction: MovementInteraction): void {
+    this.doubleClicks.clear();
     const canvas = this.plugin?.canvas3d;
     if (!canvas) return;
     if (interaction === this.movementInteraction) {
@@ -805,6 +816,23 @@ export class MolstarEngine implements MolecularViewer {
     this.pocketPreviewEntries.clear();
     this.plugin?.dispose();
     this.plugin = undefined;
+  }
+
+  private referencesFromLoci(loci: Loci): AtomReference[] {
+    const normalized = Loci.normalize(loci, "element", true);
+    if (!StructureElement.Loci.is(normalized)) return [];
+    const references: AtomReference[] = [];
+    for (const element of normalized.elements) {
+      if (!Unit.isAtomic(element.unit)) continue;
+      const mapping = this.models.get(element.unit.model);
+      if (!mapping) continue;
+      OrderedSet.forEach(element.indices, unitIndex => {
+        const sourceIndex = element.unit.model.atomicHierarchy.atomSourceIndex.value(element.unit.elements[unitIndex]);
+        const atomId = mapping.atomIds[sourceIndex];
+        if (atomId !== undefined) references.push({ structure_id: mapping.entryId, atom_id: atomId });
+      });
+    }
+    return references;
   }
 
   private emit(event: ViewerSelectionEvent): void {

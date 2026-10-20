@@ -151,7 +151,7 @@ test("keeps browser, sequence, inspector, viewer, and saved selection synchroniz
     chains: 2,
     structures: 2,
   });
-  await ligandRow.locator(".entry-select").click({ modifiers: ["Alt"] });
+  await ligandRow.locator(".entry-select").click({ modifiers: ["Meta"] });
   await expect(ligandRow.locator(".entry-select")).toHaveAttribute("aria-pressed", "false");
   await expectSummary(page, {
     atoms: protein!.atom_count,

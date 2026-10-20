@@ -11,6 +11,7 @@ from molweave_core.molecular import (
 )
 from molweave_core.selection import (
     AtomReference,
+    SelectionGranularity,
     SelectionV1,
     combine,
     expand,
@@ -96,6 +97,20 @@ def test_selection_is_canonical_and_algebra_is_deterministic() -> None:
     assert combine(_refs(1, 2), _refs(2, 3), "add") == _refs(1, 2, 3)
     assert combine(_refs(1, 2), _refs(2, 3), "subtract") == _refs(1)
     assert combine(_refs(1), selection([]), "replace").atoms == []
+
+
+@pytest.mark.parametrize("granularity", ["atom", "residue", "chain", "structure"])
+def test_toggle_completes_partial_entities_and_preserves_unrelated(
+    granularity: SelectionGranularity,
+) -> None:
+    unrelated = AtomReference(structure_id="another", atom_id=7)
+    operand = selection(_refs(1, 3).atoms, granularity=granularity)
+    partial = selection([unrelated, *_refs(1).atoms])
+    complete = combine(partial, operand, "toggle")
+    assert complete == selection([unrelated, *_refs(1, 3).atoms], granularity=operand.granularity)
+    assert combine(complete, operand, "toggle").atoms == [unrelated]
+    assert combine(selection([unrelated]), operand, "toggle") == complete
+    assert combine(partial, selection([]), "toggle") is partial
 
 
 def test_invalid_noncanonical_selection_is_rejected() -> None:

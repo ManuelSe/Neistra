@@ -104,10 +104,10 @@ describe("viewer primary interaction policy", () => {
       selectionModeForModifiers(ModifiersKeys.create({ alt: true, shift: true })),
     ).toBe("subtract");
     expect(selectionModeForModifiers(ModifiersKeys.create({ control: true }))).toBe(
-      "add",
+      "toggle",
     );
     expect(selectionModeForModifiers(ModifiersKeys.create({ meta: true }))).toBe(
-      "add",
+      "toggle",
     );
     expect(selectionModeForModifiers(ModifiersKeys.create({ shift: true }))).toBe(
       "add",
@@ -117,5 +117,6 @@ describe("viewer primary interaction policy", () => {
     expect(shouldClearSelectionForEmptyPick("replace", false)).toBe(false);
     expect(shouldClearSelectionForEmptyPick("add", true)).toBe(false);
     expect(shouldClearSelectionForEmptyPick("subtract", true)).toBe(false);
+    expect(shouldClearSelectionForEmptyPick("toggle", true)).toBe(false);
   });
 });

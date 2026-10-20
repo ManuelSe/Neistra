@@ -1,3 +1,4 @@
+import type { ViewerPick } from "./selection/gestures";
 import { useMinimization } from "./minimization/useMinimization";
 import { useMinimizationStore } from "./minimization/store";
 import { placementContext } from "./editing/placement";
@@ -208,6 +209,7 @@ export default function App() {
   }, [project?.id, setSelectionProject]);
 
   useEffect(() => {
+    if (project) useSelectionStore.getState().reconcileAnchor(project.entries);
     if (!project || selection.atoms.length === 0) return;
     const entries = new Map(project.entries.map((entry) => [entry.id, entry]));
     const valid = selection.atoms.filter((reference) => {
@@ -477,8 +479,16 @@ export default function App() {
   };
 
   const selectEntries = (entries: Entry[], mode: SelectionMode) => {
+    const capturedProjectId = project?.id;
+    const capturedEpoch = useSelectionStore.getState().projectEpoch;
     void runSelectionOperation(async () => {
       const structures = await loadStructures(entries.map((entry) => entry.id));
+      const latest = queryClient.getQueryData<Project>(["project", capturedProjectId]);
+      if (!capturedProjectId || useWorkspaceStore.getState().activeProjectId !== capturedProjectId
+        || useSelectionStore.getState().projectId !== capturedProjectId
+        || useSelectionStore.getState().projectEpoch !== capturedEpoch
+        || entries.some(entry => !latest?.entries.some(current => current.id === entry.id
+          && current.current_artifact_id === entry.current_artifact_id))) return;
       const operand = canonicalSelection(
         entries.flatMap((entry) => {
           const structure = structures.get(entry.id);
@@ -491,6 +501,19 @@ export default function App() {
       );
       applySelection(operand, mode);
     });
+  };
+
+  const applyViewerSelection = (operand: Selection, mode: SelectionMode, pick?: ViewerPick) => {
+    const state = useSelectionStore.getState();
+    if (!project || state.projectId !== project.id || useWorkspaceStore.getState().activeProjectId !== project.id) return;
+    if (!pick) { state.apply(operand, mode); return; }
+    const entryId = pick.atoms[0]?.structure_id;
+    const entry = project.entries.find(item => item.id === entryId);
+    if (!entry?.current_artifact_id) return;
+    const projection = queryClient.getQueryData<StructureProjection>(["structure", project.id, entry.id, entry.current_artifact_id]);
+    if (!projection) return;
+    state.applyViewer(operand, mode, pick, { projectId: project.id, artifactId: entry.current_artifact_id,
+      source: { entryId: entry.id, normalized: projection.structure, hierarchy: projection.hierarchy } });
   };
 
   const setHierarchyVisibility = (
@@ -1039,7 +1062,7 @@ export default function App() {
                 selection={selection}
                 pickingGranularity={pickingGranularity}
                 onPickingGranularity={setPickingGranularity}
-                onViewerSelection={applySelection}
+                onViewerSelection={applyViewerSelection}
                 loading={projectQuery.isLoading}
                 onCreate={() => {
                   setCreateMode(true);
@@ -1176,7 +1199,7 @@ export default function App() {
                       selection={selection}
                       pickingGranularity={pickingGranularity}
                       onPickingGranularity={setPickingGranularity}
-                      onViewerSelection={applySelection}
+                      onViewerSelection={applyViewerSelection}
                       loading={projectQuery.isLoading}
                       onCreate={() => {
                         setCreateMode(true);

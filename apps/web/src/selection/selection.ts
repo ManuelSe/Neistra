@@ -47,9 +47,13 @@ export function combineSelection(
   mode: SelectionMode,
 ): Selection {
   if (mode === "replace") return canonicalSelection(operand.atoms, operand.granularity, operand.source);
+  if (mode === "toggle" && operand.atoms.length === 0) return current;
   const result = new Map(current.atoms.map((reference) => [key(reference), reference]));
+  const effectiveMode = mode === "toggle"
+    ? operand.atoms.every(reference => result.has(key(reference))) ? "subtract" : "add"
+    : mode;
   for (const reference of operand.atoms) {
-    if (mode === "add") result.set(key(reference), reference);
+    if (effectiveMode === "add") result.set(key(reference), reference);
     else result.delete(key(reference));
   }
   return canonicalSelection(result.values(), operand.granularity, operand.source);
@@ -57,7 +61,8 @@ export function combineSelection(
 
 export function selectionMode(event: Pick<MouseEvent, "altKey" | "ctrlKey" | "metaKey" | "shiftKey">): SelectionMode {
   if (event.altKey) return "subtract";
-  if (event.ctrlKey || event.metaKey || event.shiftKey) return "add";
+  if (event.ctrlKey || event.metaKey) return "toggle";
+  if (event.shiftKey) return "add";
   return "replace";
 }
 

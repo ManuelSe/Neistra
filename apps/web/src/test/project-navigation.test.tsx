@@ -52,7 +52,7 @@ it("keeps explicit browsing independent of selection, remembers expansion across
   await user.click(screen.getByRole("button", { name: /^Expand Protein in/ }));
   expect(screen.getByText("Protein chain A")).toBeVisible();
   fireEvent.click(document.querySelector('[data-entry-id="ligand"] .entry-select')!, { ctrlKey: true });
-  expect(select).toHaveBeenLastCalledWith([project.entries[1]], "add");
+  expect(select).toHaveBeenLastCalledWith([project.entries[1]], "toggle");
   expect(useNavigationStore.getState().inspectedEntryId).toBe("ligand");
   fireEvent.click(document.querySelector('[data-entry-id="protein"] .entry-select')!, { altKey: true });
   expect(select).toHaveBeenLastCalledWith([project.entries[0]], "subtract");

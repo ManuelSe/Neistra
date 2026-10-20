@@ -1,5 +1,68 @@
 # Neistra Release Notes
 
+## 0.22.0 - prepared 2026-10-20 - Molecular selection gestures
+
+Release candidate under the [approved issue90 plan](plans/issue-90-selection-gestures.md).
+Clean candidate qualification passes; publication and exact-master qualification remain pending.
+
+### Selection improvements
+
+Ctrl/Cmd toggles complete operands across the viewer, project browser, groups,
+components/categories and existing Sequence tab. Partial operands become complete;
+unrelated atoms remain selected. Atom-mode unmodified double-click expands to one
+protein residue or assigned individual nonpolymer component, including hidden atoms.
+Viewer Shift-picks add inclusive protein-residue intervals in normalized source
+order from a fixed application-owned anchor, including numbering gaps/insertion
+codes. Responsive remounts preserve valid anchors; reload/ownership changes clear them.
+
+### Changed gestures
+
+Ctrl/Cmd now removes a fully selected operand instead of only adding. Alt subtracts,
+Ctrl/Cmd wins over Shift, and plain clicks still replace. Explicit add/subtract and
+camera/movement behavior remain. Native double-click is an additional shortcut;
+existing panels and picking modes remain available. See [user guide](SELECTION_GESTURES.md).
+
+### Scientific limits
+
+Existing canonical residue/component classification defines boundaries. No proximity
+inference, missing-residue reconstruction or selection-time chemistry is introduced.
+Unsupported/ambiguous polymers retain ordinary picks; ranges require one entry,
+protein component and chain. Hidden existing H are included without revealing or
+creating atoms. Selection does not modify coordinates or original uploads.
+
+### API, data and compatibility
+
+All five application versions advance together to0.22.0. No new HTTP API, durable
+field, dependency upgrade or migration. Alembic0014, project/viewer/archive2 and
+normalized/selection1 remain. Named selections/scenes store ordinary canonical
+references; gesture anchors remain transient. Actual tagged0.21.0 readers must
+retain final0.22 data/history/jobs/archives and current readers accept0.21 archives
+before release (candidate passes both directions). Old readers do not acquire gesture authoring. No issue-specific
+rollback conversion is needed; back up managed data before application rollback.
+
+### Verification and accessibility
+
+Checkpoint tests cover exact references, whole/partial toggles, native double-click,
+fixed ranges, ownership, camera/movement, both themes/layouts and named selection
+reload. [Clean candidate qualification](assets/selection-gestures/c4-candidate-gate.json)
+passes1,107 Python,290 frontend,8 supervisor and282 browser /52 existing exclusions,
+zero failures/flakes/retries/native scientific skips. Frozen/fresh0014/static/build/
+version/diff pass; source hashes unchanged. Actual tagged0.21/final0.22 readers pass
+both directions. Pinned1STP import1154ms, interaction3861ms, longest task652ms,
+zero repeated normalized reads; unchanged performance budgets, both-theme axe and
+actual200%zoom pass. Exact merged-master gate remains mandatory before publication.
+
+### Deferred requests and follow-up
+
+Hover redesign remains[#91](https://github.com/ManuelSe/Neistra/issues/91);
+component residue navigation/shared ranges remain[#94](https://github.com/ManuelSe/Neistra/issues/94);
+a new docked sequence viewer remains[#95](https://github.com/ManuelSe/Neistra/issues/95).
+Dedicated double-tap/profiles are omitted. Geometry-based molecule discovery,
+persisted anchors, viewer-owned selection and new backend/framework/schema are
+rejected because existing canonical/application infrastructure is sufficient.
+No duplicate follow-up issue is created. Stable minor reflects useful new public
+capabilities and changed modifier behavior with unchanged wire/data contracts.
+
 ## 0.21.0 - 2026-10-20 - Interactive environment-aware minimization
 
 Implemented under the [approved issue89 plan](plans/issue-89-interactive-minimization.md).

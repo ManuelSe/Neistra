@@ -1,0 +1,26 @@
+import argparse,base64,gzip,hashlib,json,re,shutil
+from pathlib import Path
+p=argparse.ArgumentParser();p.add_argument('label');a=p.parse_args()
+out=Path('docs/assets/selection-gestures');report=Path('/datadisk/dev/.neistra-tools')/f'issue90-{a.label}-browser.json'
+raw=report.read_bytes();d=json.loads(raw)
+(out/f'{a.label}-browser-report.json.gz').write_bytes(gzip.compress(raw,mtime=0))
+records=[]
+def walk(suites):
+ for suite in suites:
+  yield from walk(suite.get('suites',[]))
+  for spec in suite.get('specs',[]):
+   for test in spec['tests']:
+    for ri,result in enumerate(test['results']):
+     assert result['retry']==0,(spec['title'],result['retry'])
+     for ai,attachment in enumerate(result.get('attachments',[])):
+      if attachment.get('contentType')!='application/json' and not attachment['name'].endswith('.json'):continue
+      blob=base64.b64decode(attachment['body']) if 'body' in attachment else Path(attachment['path']).read_bytes()
+      name=re.sub(r'[^a-zA-Z0-9_.-]','-',attachment['name'])
+      dest=out/f'{a.label}-attachment-{len(records):03}-{test["projectName"]}-{name}'
+      dest.write_bytes(blob)
+      records.append({'test':spec['title'],'project':test['projectName'],'status':result['status'],'attachment':str(dest),'sha256':hashlib.sha256(blob).hexdigest(),'value':json.loads(blob)})
+list(walk(d['suites']))
+summary={'stats':d['stats'],'errors':d.get('errors',[]),'report_raw_sha256':hashlib.sha256(raw).hexdigest(),'attachments':records}
+(out/f'{a.label}-browser-summary.json').write_text(json.dumps(summary,indent=2)+'\n')
+assert not summary['errors'] and summary['stats']['unexpected']==0 and summary['stats']['flaky']==0
+print(json.dumps({'stats':summary['stats'],'json_attachments':len(records)},indent=2))

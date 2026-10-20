@@ -10,7 +10,7 @@ from molweave_core.molecular import Atom, Chain, NormalizedStructureV1, Residue
 
 SelectionGranularity = Literal["atom", "residue", "chain", "structure"]
 SelectionSource = Literal["viewer", "project", "sequence", "inspector", "saved"]
-SelectionMode = Literal["replace", "add", "subtract"]
+SelectionMode = Literal["replace", "add", "subtract", "toggle"]
 SelectionPredicateField = Literal[
     "atom_name",
     "atom_index",
@@ -65,11 +65,13 @@ def combine(
     operand: SelectionV1,
     mode: SelectionMode,
 ) -> SelectionV1:
+    if mode == "toggle" and not operand.atoms:
+        return current
     current_keys = {(item.structure_id, item.atom_id) for item in current.atoms}
     operand_keys = {(item.structure_id, item.atom_id) for item in operand.atoms}
     if mode == "replace":
         result = operand_keys
-    elif mode == "add":
+    elif mode == "add" or (mode == "toggle" and not operand_keys <= current_keys):
         result = current_keys | operand_keys
     else:
         result = current_keys - operand_keys

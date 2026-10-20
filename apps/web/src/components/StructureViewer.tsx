@@ -1,3 +1,4 @@
+import type { ViewerPick } from "../selection/gestures";
 import { useMinimizationPreview } from "../minimization/useMinimizationPreview";
 import type { MinimizationWorkflow } from "../minimization/useMinimization";
 import { useMinimizationShortcut } from "../minimization/useMinimizationShortcut";
@@ -69,7 +70,7 @@ interface StructureViewerProps {
   selection: Selection;
   pickingGranularity: SelectionGranularity;
   onPickingGranularity: (granularity: SelectionGranularity) => void;
-  onViewerSelection: (selection: Selection, mode: SelectionMode) => void;
+  onViewerSelection: (selection: Selection, mode: SelectionMode, pick?: ViewerPick) => void;
   busy?: boolean;
   coordinatePreview?: CoordinatePatch | null;
   movement?: MovementWorkflow;
@@ -246,15 +247,11 @@ export function StructureViewer({
     const observer = new ResizeObserver(() => viewer.resize());
     observer.observe(target);
     const unsubscribe = viewer.subscribeSelection((event) => {
-      onViewerSelectionRef.current(
-        {
-          schema_version: 1,
-          atoms: event.atoms,
-          granularity: event.granularity,
-          source: "viewer",
-        },
-        event.mode,
-      );
+      const operand: Selection = {
+        schema_version: 1, atoms: event.atoms, granularity: event.granularity, source: "viewer",
+      };
+      if (event.pick) onViewerSelectionRef.current(operand, event.mode, event.pick);
+      else onViewerSelectionRef.current(operand, event.mode);
     });
     const unsubscribeSurfaces = viewer.subscribeSurfaces(setSurfaceStatuses);
     const unsubscribeSurfaceSelection = viewer.subscribeSurfaceSelection(identity => {

@@ -518,3 +518,27 @@ automatic live delivery, then takes the latest packet after the wait. The Mol*
 adapter uses public fences, cancellation/disposal cleanup and a bounded wait;
 manual final previews and restoration retain their immediate path. Molecular
 state, API acceptance and persisted representation settings stay independent.
+
+## Selection gestures and transient range ownership (issue #90)
+
+Canonical atom references remain the only selection authority (D-018/019).
+Whole-operand toggles share one modifier policy across existing selection views.
+The Mol* adapter maps raw loci immediately and correlates native dblclick with
+accepted hits; pure application helpers resolve normalized residue/component
+membership. There is no second drag recognizer or delayed single-click timer.
+
+The application selection store owns a transient fixed residue anchor containing
+project/entry/artifact/component/chain/residue identity and bounded residue atom
+membership. TanStack Query retains normalized molecular authority. Viewer events
+carry typed raw-hit/gesture context through the existing controlled callback;
+application resolution uses the current artifact-keyed cached projection without
+refetching. An immutable-projection index provides component/residue membership
+and source-order protein intervals; no viewer hierarchy becomes authoritative.
+
+Range and normal selection publish atom references and anchor state together.
+Generic replacement, mode/project/artifact changes and incomplete anchor membership
+invalidate the anchor; responsive viewer remounts do not. A project visit epoch
+also prevents old lazy entry/group picks from applying after leaving and returning
+to the same project. Anchors/gesture correlation never enter APIs, scenes, named
+selections, history, preferences or archives. See D-120–122 and
+[gesture guidance](SELECTION_GESTURES.md). No schema version or migration changes.

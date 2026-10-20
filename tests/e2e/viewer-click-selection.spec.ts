@@ -293,7 +293,12 @@ test("keeps primary selection and empty clearing independent from the camera", a
   for (const mode of ["atoms", "residues", "chains", "structures"] as const) {
     await page.getByRole("button", { name: `Pick ${mode}` }).click();
     await clickPoint(canvas, firstPoint);
-    granularityCounts.push(await selectionCount(page));
+    const count = await selectionCount(page);
+    granularityCounts.push(count);
+    await clickPoint(canvas, firstPoint, ["Control"]);
+    expect(await selectionCount(page)).toBe(0);
+    await clickPoint(canvas, firstPoint, ["Meta"]);
+    expect(await selectionCount(page)).toBe(count);
   }
   expect(granularityCounts[0]).toBeGreaterThan(0);
   expect(granularityCounts[1]).toBeGreaterThanOrEqual(granularityCounts[0]);

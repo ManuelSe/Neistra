@@ -1,5 +1,57 @@
 # V0.1 Requirement Evidence
 
+## Selection gestures (issue #90)
+
+M1/C1 [focused/static/build/browser gate](assets/selection-gestures/c1-initial-gate.json)
+passes17 Python,60 frontend, Ruff/mypy91/ESLint/types/build/diff and5 native browser
+workflows /5 existing intentional layout exclusions. Shared Ctrl/Cmd toggles full
+operands and completes partial membership; native four-granularity off/on and
+cross-panel synchronization pass without camera/refetch regression.
+[Final frontend gate](assets/selection-gestures/c1-final-gate.json) passes all278
+frontend/lint/types/diff after one obsolete Ctrl-add expectation was updated.
+No migration/schema/dependency/version change. Local checkpoint review only;
+double-click/ranges and final candidate/merged compatibility/release gates remain
+pending. The approved feature plan retains exact scope and source/log evidence.
+
+M2/C2 [final gate](assets/selection-gestures/c2-final-gate.json) passes17 frontend,
+7 Python, lint/types/build/diff and6 native browser cases /2 existing layout skips.
+Exact complex residue/ligand expansion retains hidden H and unchanged camera/
+revision in both themes/layouts. [Standalone SDF](assets/selection-gestures/c2-standalone-gate.json)
+passes2 native cases. Earlier pre-review gate is separate; final runtime restores
+nonmolecular-loci no-op behavior. No schema/migration/dependency/version change;
+ranges and final release qualification remain pending.
+
+M3/C3 [final gate](assets/selection-gestures/c3-final-gate.json) passes66 focused/
+290 total frontend, Ruff/mypy91/lint/types/build/diff and52 native cases /2 existing
+layout exclusions, no failures/retries. Exact inclusive forward/reverse ranges,
+fixed starts, hidden H/unrelated atoms, component/chain/entry boundaries and
+project/artifact/mode/remount/reload ownership pass with movement regressions.
+[Review](assets/selection-gestures/c3-review.md) distinguishes initial raster/
+visibility qualification diagnostics from passing final evidence. No runtime
+change during those diagnostics; native confirmed-pixel trusted clicks retain
+exact assertions. No schema/migration/dependency/version change. Final C4 release/
+performance/actual-reader gates remain pending.
+
+M4/C4 [native final](assets/selection-gestures/c4-native-final-gate.json) passes14
+cases/no skips or retries plus lint/types/diff. Partial-toggle/modified-double-click
+and named native range persistence pass. [Initial focused](assets/selection-gestures/c4-focused-gate.json)
+passes33 Python/290 frontend/static/build, browser22 pass/5 intentional skips/1
+mobile raster miss; final fixes only test scene readiness/native pixel observation.
+[Actual-tag fixture](assets/selection-gestures/c4-fixture-reader-gate.json) passes
+both directions at preversion0.21, not final0.22 compatibility. Final complete
+candidate/merged gates remain mandatory.
+
+M4/C4 [clean candidate7dc4340](assets/selection-gestures/c4-candidate-gate.json)
+passes all15 commands:1,107 Python/290 frontend/8 supervisor/282 browser,52 existing
+layout/timing exclusions, zero failures/flakes/retries/native scientific skips.
+Frozen/fresh0014/static/build/version/diff pass; unchanged runtime/test/tool hashes.
+[Actual tagged0.21 reader](assets/selection-gestures/c4-candidate-reader-gate.json)
+retains final0.22 data/archives and reverse qualification passes. [Browser summary](assets/selection-gestures/c4-candidate-browser-summary.json)
+retains23 attachments:1STP import1154ms, interaction3861ms, longest task652ms, zero
+repeat reads; unchanged movement/minimization/surface, both-theme axe and actual
+200%zoom pass. [Full-diff self-review](assets/selection-gestures/c4-review.md) has no
+unresolved consequential finding. Exact merged-master qualification remains required.
+
 ## Interactive minimization (issue #89)
 
 M1/C1 [final gate](assets/interactive-minimization/c1-gate.json) passes306 focused
