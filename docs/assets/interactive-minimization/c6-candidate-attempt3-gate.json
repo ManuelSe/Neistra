@@ -1,0 +1,117 @@
+{
+  "commit": "3abe47a06db2b340d8e5fb8733bfe1dcc125e9f6",
+  "clean_at_start": true,
+  "boot_id": "4cc00cb6-d793-4e01-a99d-2f67e8c27d5b",
+  "host": "tuxedo-os",
+  "platform": "Linux-6.17.0-119029-tuxedo-x86_64-with-glibc2.39",
+  "environment": {
+    "MOLWEAVE_AMBERTOOLS_PREFIX": "/datadisk/dev/.neistra-tools/ambertools-24.8",
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "PLAYWRIGHT_BROWSERS_PATH": ".playwright",
+    "MOLWEAVE_E2E_DATA_DIR": "/datadisk/dev/.neistra-tools/issue89-candidate-final-e2e",
+    "MOLWEAVE_E2E_API_PORT": "11310",
+    "MOLWEAVE_E2E_WORKER_PORT": "11311",
+    "MOLWEAVE_E2E_WEB_PORT": "8023",
+    "MOLWEAVE_MINIMIZATION_EVIDENCE_DIR": "/datadisk/dev/.neistra-tools/issue89-candidate-final-native"
+  },
+  "steps": [
+    {
+      "label": "uv",
+      "command": ".venv/bin/uv sync --frozen",
+      "exit_code": 0,
+      "seconds": 0.118,
+      "log": "docs/assets/interactive-minimization/c6-candidate-attempt3-uv.log.gz",
+      "log_sha256": "9ca44993399d6a58aad4f8ff48964a4584241fcd27d746695110ffd092f5cbc9"
+    },
+    {
+      "label": "pnpm",
+      "command": "corepack pnpm install --frozen-lockfile",
+      "exit_code": 0,
+      "seconds": 0.652,
+      "log": "docs/assets/interactive-minimization/c6-candidate-attempt3-pnpm.log.gz",
+      "log_sha256": "55b1757bbddc7d213efb5c833b5fdc318233104017ad6554d3a6c2ea43d9d4d5"
+    },
+    {
+      "label": "migration",
+      "command": "MOLWEAVE_DATA_DIR=/datadisk/dev/.neistra-tools/issue89-candidate-final .venv/bin/uv run alembic upgrade head",
+      "exit_code": 0,
+      "seconds": 1.025,
+      "log": "docs/assets/interactive-minimization/c6-candidate-attempt3-migration.log.gz",
+      "log_sha256": "a65aaba1d288361248cfad53dee993528aa5c4bbd5accca186ae60e26f85c610"
+    },
+    {
+      "label": "ruff",
+      "command": ".venv/bin/uv run ruff check .",
+      "exit_code": 0,
+      "seconds": 0.091,
+      "log": "docs/assets/interactive-minimization/c6-candidate-attempt3-ruff.log.gz",
+      "log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "label": "mypy",
+      "command": ".venv/bin/uv run mypy apps/api packages/molweave_core",
+      "exit_code": 0,
+      "seconds": 0.351,
+      "log": "docs/assets/interactive-minimization/c6-candidate-attempt3-mypy.log.gz",
+      "log_sha256": "fe0ce6e3b1983c3e150c09b415036599a0bee120f2cad38e219412ce21d84a67"
+    },
+    {
+      "label": "python",
+      "command": ".venv/bin/uv run pytest",
+      "exit_code": 0,
+      "seconds": 333.7,
+      "log": "docs/assets/interactive-minimization/c6-candidate-attempt3-python.log.gz",
+      "log_sha256": "dd203c4c9b51fc8dda1740ba7a317155aac1a9c0daf0bc7b9598badce729c116"
+    },
+    {
+      "label": "lint",
+      "command": "corepack pnpm --dir apps/web lint",
+      "exit_code": 0,
+      "seconds": 10.716,
+      "log": "docs/assets/interactive-minimization/c6-candidate-attempt3-lint.log.gz",
+      "log_sha256": "9a77b2c76a866ad9cdd67b296dd97f457e2d2dcef7f947dbca180d043260ce95"
+    },
+    {
+      "label": "types",
+      "command": "corepack pnpm --dir apps/web typecheck",
+      "exit_code": 0,
+      "seconds": 5.224,
+      "log": "docs/assets/interactive-minimization/c6-candidate-attempt3-types.log.gz",
+      "log_sha256": "096c5e5034db934be0fe87724a661a652200c3d753bedd6f4a845f6bd4a32052"
+    },
+    {
+      "label": "web-tests",
+      "command": "corepack pnpm --dir apps/web test",
+      "exit_code": 0,
+      "seconds": 10.551,
+      "log": "docs/assets/interactive-minimization/c6-candidate-attempt3-web-tests.log.gz",
+      "log_sha256": "03344390de73b438174b50c17d6a44b0697c16f1e61df5bd456db2b5701b163c"
+    },
+    {
+      "label": "supervisor",
+      "command": "corepack pnpm test:dev",
+      "exit_code": 0,
+      "seconds": 1.446,
+      "log": "docs/assets/interactive-minimization/c6-candidate-attempt3-supervisor.log.gz",
+      "log_sha256": "9f4c2c7a35830d2c7ed35359f24840d35ea2a948052785ad1304b93adfc33219"
+    },
+    {
+      "label": "build",
+      "command": "corepack pnpm --dir apps/web build",
+      "exit_code": 0,
+      "seconds": 13.473,
+      "log": "docs/assets/interactive-minimization/c6-candidate-attempt3-build.log.gz",
+      "log_sha256": "d5c5e25c5622af102b3966e21172497edb7409e80b393e32e367ee72685e1a6e"
+    },
+    {
+      "label": "browser",
+      "command": "corepack pnpm exec playwright test",
+      "exit_code": 130,
+      "seconds": 645.257,
+      "log": "docs/assets/interactive-minimization/c6-candidate-attempt3-browser.log.gz",
+      "log_sha256": "2e7b4834c997275004c5fdb1405d67a40f0de5a9e0d094dc1ce5f9b94f976031"
+    }
+  ],
+  "source_unchanged": false
+}

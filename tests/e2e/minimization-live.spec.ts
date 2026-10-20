@@ -10,19 +10,21 @@ test("acknowledges an eligible unconverged native result and retains exact Undo/
   const p = await prepared(page, request);
   const before = await structures(request, p);
   await select(page, p.entries[0].atom_ids.map(atom_id => ({ structure_id: p.entries[0].id, atom_id })), info.project.name === "mobile-chromium");
+  await page.setViewportSize({ width: 320, height: 740 });
+  await expect(page.getByRole("button", { name: "Inspector", exact: true })).toBeVisible();
   await page.keyboard.press("Control+m"); await configure(page);
   await panel(page).getByRole("spinbutton", { name: "Minimization iterations" }).fill("1");
   await panel(page).getByRole("button", { name: "Run minimization" }).click();
   const accept = panel(page).getByRole("button", { name: "Accept unconverged coordinates", exact: true });
   await expect(accept).toBeEnabled({ timeout: 60000 });
   await expect(panel(page)).toContainText("explicitly acknowledges the residual gradient");
-  await page.setViewportSize({ width: 320, height: 740 });
   for (const theme of ["light", "dark"]) {
     if (theme === "dark") await page.getByRole("button", { name: "Use dark theme" }).click();
     await expect(accept).toBeVisible();
-    const box = await accept.boundingBox();
-    expect(box!.x).toBeGreaterThanOrEqual(0);
-    expect(box!.x + box!.width).toBeLessThanOrEqual(320);
+    await expect.poll(async () => {
+      const box = await accept.boundingBox();
+      return !!box && box.x >= 0 && box.x + box.width <= 320;
+    }).toBe(true);
     const axe = await new AxeBuilder({ page }).include(".minimization-panel").analyze();
     expect(axe.violations).toEqual([]);
   }

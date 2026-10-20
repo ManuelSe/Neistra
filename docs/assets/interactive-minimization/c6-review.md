@@ -79,3 +79,12 @@ full temporary diagnostics were lost across restart, while the failing version
 assertion and focused30-case fix remain documented. No passing claim is made for
 either incomplete attempt. Task qualification data/driver/reader checkout now use
 persistent external tool storage where useful, independent of production data.
+
+Current-host browser attempt3 found a test-only responsive remount race: a direct
+bounding-box read became null after visibility succeeded. The warned-acceptance
+test now enters320px before starting the calculation, waits for the narrow shell
+and polls the exact same0..320 bounds. Both themes/scoped axe/one UndoRedo remain;
+desktop/mobile focused cases pass. Existing remount/actual zoom tests still cover
+mid-session responsive changes independently. No application setting, threshold or
+scientific condition changed. Attempt3 is diagnostic (61 passes/3 exclusions/one
+fixture race/one interrupted/254 unrun); complete candidate gate repeats.

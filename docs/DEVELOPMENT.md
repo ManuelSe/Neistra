@@ -608,6 +608,10 @@ Time to live-visible coordinates remains C4/C5/C6 qualification, not this cache 
 
 ## Selection minimization qualification and compatibility (0.20.0)
 
+This0.20 section records the historical qualification procedure. Reproduce it
+from the matching tagged source/harness. The current harness and0.21 procedure
+are in the issue89 section below.
+
 The native model needs the separately [locked AmberTools installation](../tools/README.md)
 for both API and worker. Default plugin registration is additive; explicit operator
 allowlists/targets must include it. Startup/draft editing work without that optional

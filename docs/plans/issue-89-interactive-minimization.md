@@ -474,3 +474,15 @@ merge/tag/release/reply verification; finish clean master.
   temporary full logs lost on restart (stale version assertion/fix is recorded).
   Next: repeat clean complete candidate gate and final producer/actual0.20 reader
   using persistent task tooling/data as needed. No current infrastructure blocker.
+
+- Current-host attempt3 passes1102 Python/273 frontend/8 supervisor/static/build,
+  61 browser cases and3 intentional exclusions before interruption. The one failure
+  was the new warned320px test dereferencing a null bounding box during responsive
+  dialog remount, not failed acceptance or missing UI. Enter narrow layout before
+  computation and poll the unchanged exact bounds. Both desktop/mobile warned
+  cases now pass (both themes/scoped axe/exact Undo/Redo), lint/types/diff pass.
+  Existing responsive-remount/actual-zoom tests remain separate and passed. Runtime
+  code/assertion bounds unchanged; attempt3 source-unchanged flag is false because
+  the failing test was corrected before interrupting that diagnostic run. Exact
+  logs/native timings and failure snapshot retained; full trace stored in task
+  evidence for publication. Next: commit test fix, clean complete candidate rerun.

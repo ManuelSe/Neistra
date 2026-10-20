@@ -32,7 +32,10 @@ version pin; corrected fixture plus preceding0.20 case passes all30 archive test
 That run is diagnostic, not release qualification. The next run passed1102
 Python/273 frontend/8 supervisor/static/build but browser page creation hung in
 host DRM before app execution. After host restart, standard SwiftShader works;
-repeat the complete gate on the current host. No external blocker. Next: complete clean
+current-host run passed1102 Python/273 frontend/8 supervisor and61 browser cases
+before a new test hit a responsive bounding-box race. The corrected test passes
+on desktop/mobile with unchanged layout/axe/Undo assertions. Complete gate rerun
+remains required; failure evidence is separate. No external blocker. Next: complete clean
 final-version candidate gate, PR/review/merge and exact-master release qualification. The feature plan is detailed truth.
 
 ### Previous delivery baseline — v0.20.0
