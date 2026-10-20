@@ -1,0 +1,66 @@
+[
+  {
+    "label": "ruff",
+    "command": ".venv/bin/uv run ruff check .",
+    "exit_code": 0,
+    "seconds": 0.057,
+    "log": "docs/assets/interactive-minimization/c3-ruff.log.gz",
+    "log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+  },
+  {
+    "label": "mypy",
+    "command": ".venv/bin/uv run mypy apps/api packages/molweave_core",
+    "exit_code": 0,
+    "seconds": 0.815,
+    "log": "docs/assets/interactive-minimization/c3-mypy.log.gz",
+    "log_sha256": "14c86ee194cc9406b4f38866ce2eb1ba7e54c55437faf1ccc89f0195c485674d"
+  },
+  {
+    "label": "lint",
+    "command": "corepack pnpm --dir apps/web lint",
+    "exit_code": 0,
+    "seconds": 16.682,
+    "log": "docs/assets/interactive-minimization/c3-lint.log.gz",
+    "log_sha256": "407542146a7a0d45aea91983bf120b74ed122a75e21e47383d8bcfd8a1f84177"
+  },
+  {
+    "label": "types",
+    "command": "corepack pnpm --dir apps/web typecheck",
+    "exit_code": 0,
+    "seconds": 5.658,
+    "log": "docs/assets/interactive-minimization/c3-types.log.gz",
+    "log_sha256": "ec6984d22c581279ab7f6a640391cd633bb6646f462629997e329b1c1ff4168f"
+  },
+  {
+    "label": "web-tests",
+    "command": "corepack pnpm --dir apps/web test",
+    "exit_code": 0,
+    "seconds": 11.921,
+    "log": "docs/assets/interactive-minimization/c3-web-tests.log.gz",
+    "log_sha256": "895a67c850539c52149516e0a2d33bb980880e482374fe3034a66d904e89f7e4"
+  },
+  {
+    "label": "supervisor",
+    "command": "corepack pnpm test:dev",
+    "exit_code": 0,
+    "seconds": 1.51,
+    "log": "docs/assets/interactive-minimization/c3-supervisor.log.gz",
+    "log_sha256": "910e3798ab0c235e89e3330155e7ee9b2b133acb6aeeaeffb126b7370af95fb3"
+  },
+  {
+    "label": "build",
+    "command": "corepack pnpm --dir apps/web build",
+    "exit_code": 0,
+    "seconds": 18.932,
+    "log": "docs/assets/interactive-minimization/c3-build.log.gz",
+    "log_sha256": "9d7006ebbf6ec155fa0afbc4f70e2cdf923929d009df3f866c79853a19e3b868"
+  },
+  {
+    "label": "diff",
+    "command": "git diff --check",
+    "exit_code": 0,
+    "seconds": 0.01,
+    "log": "docs/assets/interactive-minimization/c3-diff.log.gz",
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+]

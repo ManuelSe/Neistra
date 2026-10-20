@@ -1,0 +1,64 @@
+{
+  "static_gate": "c3-static.json",
+  "native_prefix": "/datadisk/dev/.neistra-tools/ambertools-24.8",
+  "native_threads": 1,
+  "broad_python_pass": 232,
+  "final_cache_checks_pass": 9,
+  "paired_worker_benchmark_pass": 1,
+  "web_pass": 265,
+  "supervisor_pass": 8,
+  "browser_pass": 16,
+  "browser_intentional_skips": 2,
+  "browser_ports": [
+    8510,
+    8511,
+    5673
+  ],
+  "browser_data_dir": "/tmp/neistra89-e2e-c3",
+  "fresh_migration": "0014 from empty, browser log",
+  "final_review_fix": "Precheck native file bounds before hashing; final nine cache/native-force checks and static rerun pass.",
+  "commands": [
+    {
+      "label": "python",
+      "command": ".venv/bin/uv run pytest tests/unit/minimization tests/scientific/test_minimization.py tests/scientific/test_minimization_context.py tests/scientific/test_minimization_cache.py tests/integration/test_minimization_jobs.py tests/integration/test_minimization_apply.py tests/integration/test_minimization_automatic.py tests/integration/test_minimization_performance.py -q",
+      "exit_code": 0,
+      "log": "docs/assets/interactive-minimization/c3-python.log.gz",
+      "log_sha256": "e38007db01c935086a5ac699d8c1e6638ee1483647c10293116b5d20ad3fec04"
+    },
+    {
+      "label": "pairs",
+      "command": ".venv/bin/uv run pytest tests/integration/test_minimization_cache.py -q",
+      "exit_code": 0,
+      "log": "docs/assets/interactive-minimization/c3-pairs.log.gz",
+      "log_sha256": "0f4d254c3f02cc6cb6de64e6ed905a8967df4e54aea4e54c98da7112452ce45e"
+    },
+    {
+      "label": "cache-final",
+      "command": ".venv/bin/uv run pytest tests/unit/minimization/test_parameter_cache.py tests/scientific/test_minimization_cache.py -q",
+      "exit_code": 0,
+      "log": "docs/assets/interactive-minimization/c3-cache-final.log.gz",
+      "log_sha256": "c19bd6b4b05dd8e27df8bf8e76beda802b7da7b63656555b39ae4c942ec72fec"
+    },
+    {
+      "label": "browser",
+      "command": "corepack pnpm exec playwright test tests/e2e/selection-minimization.spec.ts tests/e2e/minimization-performance.spec.ts",
+      "exit_code": 0,
+      "log": "docs/assets/interactive-minimization/c3-browser.log.gz",
+      "log_sha256": "a78208f70ee5184ae4553c8f2c0b18fcd9846f2f99711db951422402e09eb89c"
+    },
+    {
+      "label": "final-ruff",
+      "command": ".venv/bin/uv run ruff check .",
+      "exit_code": 0,
+      "log": "docs/assets/interactive-minimization/c3-final-ruff.log.gz",
+      "log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "label": "final-mypy",
+      "command": ".venv/bin/uv run mypy apps/api packages/molweave_core",
+      "exit_code": 0,
+      "log": "docs/assets/interactive-minimization/c3-final-mypy.log.gz",
+      "log_sha256": "14c86ee194cc9406b4f38866ce2eb1ba7e54c55437faf1ccc89f0195c485674d"
+    }
+  ]
+}

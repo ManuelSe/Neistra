@@ -28,6 +28,20 @@ dependency/application version/model change. Actual old-reader/cache/live/accept
 release qualification remain later checkpoints. Vite proxy disconnect resets and
 existing bundle warnings remain disclosed, without failing workflow assertions.
 
+M3/C3 [gate](assets/interactive-minimization/c3-gate.json) passes232 broad Python,
+9 final cache checks after the last bound fix,1 native paired benchmark,265 frontend,
+8 supervisor and16 native browser/2 intentional mobile performance exclusions.
+Ruff/mypy89/lint/types/build/fresh0014/diff and existing prepared1STP/18k/cancel/RSS
+bounds pass. Native energy/forces match cold and warm, including moved protein
+coordinates; changed charge geometry/protonation and model settings invalidate
+correctly. Real cache corruption rebuilds the same model, valid components remain
+reusable, waiting cancellation releases safely and quota/eviction leave prior job
+copies intact. [Three cold/warm pairs](assets/interactive-minimization/c3-cache-pairs.json)
+give5.468665s/0.385609s median preparation,14.1819x, zero warm native calls; startup
+about6.38s/1.30s. This does not establish live-visible latency or changed-ligand-geometry
+reuse. [Review](assets/interactive-minimization/c3-review.md) is local self-review.
+No structural migration/schema/dependency/application version/physical-model change.
+
 ## Selection minimization (issue #82, C1–C6)
 
 The [approved feature plan](plans/issue-82-selection-minimization.md) is the

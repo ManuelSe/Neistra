@@ -1,16 +1,24 @@
 from __future__ import annotations
 
+import hashlib
+import json
 import time
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from pathlib import Path
 from typing import Any
 
 import numpy as np
+import openmm
 from openmm import app
 from rdkit import Chem
 
 from molweave_core.jobs import JobContext
 from molweave_core.minimization.contracts import CalculationError
+from molweave_core.minimization.parameter_cache import (
+    ParameterCache,
+    chemistry_signature,
+    fingerprint,
+)
 from molweave_core.minimization.preflight import IsolatedInput
 from molweave_core.minimization.toolchain import AmberTools
 
@@ -196,7 +204,32 @@ def parameterize_isolated(
     directory: Path,
     context: JobContext,
     deadline: float | None = None,
+    cache: ParameterCache | None = None,
 ) -> Parameterized:
+    if cache is not None:
+        text, _ = write_calculation_mol2(value)
+        key = fingerprint(
+            {
+                "schema": 1,
+                "model": "amber-local-v1",
+                "engine": openmm.__version__,
+                "toolchain": tools.provenance,
+                "input": text,
+                "chemistry": chemistry_signature(value.structure),
+            }
+        )
+        prepared = cache.prepare(
+            "organic",
+            key,
+            directory,
+            context,
+            lambda: parameterize_isolated(value, tools, directory, context, deadline),
+            lambda: load_isolated(value, directory),
+        )
+        return replace(
+            prepared.value,
+            provenance={**prepared.value.provenance, "parameter_cache": prepared.provenance},
+        )
     directory.mkdir(parents=True, exist_ok=False)
     text, names = write_calculation_mol2(value)
     (directory / "input.mol2").write_text(text)
@@ -253,6 +286,22 @@ def parameterize_isolated(
         raise CalculationError(
             "parameters_missing", "GAFF parameters are incomplete; inspect the calculation logs"
         )
+    (directory / "parameterization.json").write_text(
+        json.dumps({"charge_normalization": normalization}, allow_nan=False)
+    )
+    return load_isolated(value, directory)
+
+
+def load_isolated(value: IsolatedInput, directory: Path) -> Parameterized:
+    text, names = write_calculation_mol2(value)
+    if (directory / "input.mol2").read_text() != text:
+        raise CalculationError(
+            "parameter_mapping_failed", "Charge input geometry or chemistry changed"
+        )
+    normalization = json.loads((directory / "parameterization.json").read_bytes())[
+        "charge_normalization"
+    ]
+    validate_charged_graph(directory / "charged.mol2", value, names)
     try:
         topology = app.AmberPrmtopFile(str(directory / "model.prmtop"))
         actual_atoms = list(topology.topology.atoms())
@@ -277,9 +326,20 @@ def parameterize_isolated(
         )
         if system.getNumParticles() != len(names) or system.getNumConstraints():
             raise ValueError("Calculation introduced particles or constraints")
+        if not finite_parameters(system):
+            raise ValueError("Calculation contains nonfinite or unqualified force parameters")
     except (ValueError, RuntimeError, KeyError, OSError) as error:
         raise CalculationError("parameter_mapping_failed", str(error)) from error
-    return Parameterized(system, names, normalization)
+    return Parameterized(
+        system,
+        names,
+        normalization,
+        {
+            "charge_input_sha256": hashlib.sha256(text.encode()).hexdigest(),
+            "charge_method": "AM1-BCC",
+            "geometry_dependent_charges": True,
+        },
+    )
 
 
 def finite_parameters(system: Any) -> bool:

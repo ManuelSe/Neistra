@@ -378,3 +378,17 @@ merge/tag/release/reply verification; finish clean master.
   advisories retained. No migration/structural-schema/dependency/application-version/
   physical-model change. Actual previous-reader retention remains C6. No blocker.
   Next: coherent C2 commit, then C3 validated parameter reuse.
+- M2/C2 committed/pushed as e2f8b009a94fb6b930449f01e0cb48bb1fb82b61. M3/C3
+  implements bounded native file preparation caches, validated reconstruction,
+  independent artifacts and conservative geometry-aware reuse (D-115). Gate:
+  232 broad Python,9 final cache checks after bound review,1 paired native benchmark,
+  265 web/8 supervisor/16 native browser pass,2 intentional mobile exclusions;
+  static/build/fresh0014/existing performance bounds pass. Evidence:
+  [gate](../assets/interactive-minimization/c3-gate.json),
+  [paired timings](../assets/interactive-minimization/c3-cache-pairs.json),
+  [source](../assets/interactive-minimization/c3-source.json),
+  [self-review](../assets/interactive-minimization/c3-review.md). Median preparation
+  5.468665s cold/0.385609s warm(14.1819x); compatible hits have zero native calls.
+  This is not a changed-organic-geometry or live-visible claim. No structural
+  migration/schema/dependency/application-version/physical-model change. No blocker.
+  Next: commit C3, then C4 transient accepted-iterate snapshots.

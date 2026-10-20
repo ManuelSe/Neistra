@@ -819,6 +819,13 @@ Automatic Apply eligibility also rechecks final-position/current-project discove
 newly relevant omitted context requires rerun. Capture/eligibility/publication execute
 off the HTTP event loop; native computation remains in the worker.
 
+Native preparation reuse is transparent to requests. Reports retain `parameter_cache`
+and component preparation provenance in `toolchain`, plus organic charge-input SHA256.
+There is no client-selected cache path/model or bypass of scientific preflight.
+AM1-BCC input geometry participates in cache identity; active optimizer coordinates
+always come from the current immutable capture. Each job retains independent native
+files, so portable artifacts do not depend on the runtime cache.
+
 Proposal responses include schema1, `job_id`, `proposal_sha256`, typed `report`,
 selected-coordinate `entries`, `applicable` and `unavailable_reason`. A completed
 job may contain a blocked/failed/non-converged/unchanged scientific report; only

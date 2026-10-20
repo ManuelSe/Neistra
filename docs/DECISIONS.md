@@ -4587,3 +4587,37 @@ job requests cancellation and gives the new draft a fresh generation.
 
 No database migration/new history action; actual previous-reader retention remains
 the final compatibility gate. Live display/cache/warned acceptance remain C3–C5.
+
+## D-115 — Cache native preparation, never geometry authority or implicit charge state
+
+Accepted 2026-10-20 under issue89 M3/C3. The worker supplies an optional managed
+cache directory; minimization owns its bounded cache service without adding required
+JobContext methods or a general calculation framework. Default cache is under
+data/cache/minimization,2GiB of file/manifest bytes,128 entries,100MiB per entry and
+the existing16MiB native-file bound. Atomic publication, digests, strict relative-file
+allowlists, cooperative process locking, cancellation and orphan-staging cleanup
+keep invalid/partial data out of reuse. Preparation is serialized across local
+workers; optimization runs outside that lock. This matches the default local-worker
+architecture and favors simple correct eviction over parallel cold preparation.
+
+Cache native complete receptor libraries, organic charge/parameter files and assembled
+prmtops. Reload/validate canonical native atom mapping, topology, current charge input,
+model settings and finite qualified force parameters; never deserialize pickle or
+cached viewer/optimizer state. Keys cover ordered chemistry, protonation, templates,
+component composition/mapping, pinned toolchain/engine/model/settings and actual organic
+charge-input text. Version the cache signature if its interpretation/model changes.
+
+User-confirmed conservative policy: AM1-BCC depends on input geometry. Coordinate
+changes invalidate that organic preparation; selection changes do not. Template-only
+protein parameters can be reused across coordinates, but current coordinate/identity/
+chemistry preflight still runs. Optimizer start positions always come from current
+immutable captures, never cached inpcrd/template coordinates. Charge-input SHA256 and
+cache origin remain provenance. Every job copies complete native files and retains
+independent report/model artifacts; clearing cache cannot change existing results.
+
+Corruption or unavailable cache causes an explained cold preparation under the same
+qualified force field, never a scientific fallback or prerequisite bypass. Native
+failures propagate honestly. Disable with MOLWEAVE_MINIMIZATION_CACHE=0; configure
+bytes with MOLWEAVE_MINIMIZATION_CACHE_BYTES. Clear only while workers are idle.
+No structural migration/schema/dependency/version/physical-model change. Cold/warm
+benchmarks are preparation evidence, not a live-view qualification (C4/C5).

@@ -74,7 +74,7 @@ test("cancels native parameter generation without editing coordinates and can in
   await page.keyboard.press("Control+m");
   const cancel = panel(page).getByRole("button", { name: "Cancel calculation", exact: true });
   await expect(cancel).toBeVisible();
-  await expect(panel(page).getByRole("status").filter({ hasText: "Generating GAFF" })).toBeVisible({ timeout: 15000 });
+  await expect(panel(page).getByRole("status").filter({ hasText: "Preparing GAFF" })).toBeVisible({ timeout: 15000 });
   const started = Date.now(); await cancel.click();
   await expect(panel(page).getByRole("status").filter({ hasText: /^cancelled/ })).toBeVisible({ timeout: 5000 });
   expect(Date.now() - started).toBeLessThan(5000);

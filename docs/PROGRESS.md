@@ -12,8 +12,14 @@ checks (D-114), immediate Ctrl+M/button and retained manual/isolation controls.
 fresh0014 and unchanged prepared1STP/18k preview budgets pass. [Review](assets/interactive-minimization/c2-review.md)
 is local self-review. Calculation parameters gain schema2; v1 semantics/readers remain
 supported. No structural migration/schema/dependency/application-version/model change.
-Cache/live/warned acceptance remain C3–C5, final compatibility/release C6. Existing
-bundle/Vite-disconnect advisories retained. No blocker. Next: C3 validated cache.
+M3/C3 now adds validated native receptor/organic/assembled preparation caches (D-115).
+[C3 evidence](assets/interactive-minimization/c3-gate.json):232 broad Python plus9
+final cache checks and1 paired worker benchmark,265 web/8 supervisor/16 native browser
+passes with2 intentional layout skips; static/build/fresh0014 and existing performance
+bounds pass. Three prepared1STP pairs yield5.47s cold/0.39s warm median preparation,
+14.2x, zero warm native calls. Changed organic charge geometry still reparameterizes.
+Live/warned acceptance remain C4/C5; final compatibility/release C6. Existing bundle/
+Vite-disconnect advisories retained. No blocker. Next: C4 transient snapshots.
 
 ### Previous delivery baseline — v0.20.0
 

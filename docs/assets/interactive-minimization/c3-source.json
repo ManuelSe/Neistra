@@ -1,0 +1,15 @@
+{
+  "base_commit": "e2f8b009a94fb6b930449f01e0cb48bb1fb82b61",
+  "files": {
+    "apps/api/src/molweave_api/job_worker.py": "1fcb33f9c62e079f24c16af7e18b2776efbc32ef2e8709c9fce6b44f678463cb",
+    "packages/molweave_core/src/molweave_core/minimization/context_model.py": "fa4836d1c8f7877de9ed8d6fa7e09f8a8326a0fa08e7c8a9cc7fd5e1ebaccba0",
+    "packages/molweave_core/src/molweave_core/minimization/parameter_cache.py": "02a69910da9bda0aeb61f26baf2dd5878cf8e5ee48c870302a592381a33a650d",
+    "packages/molweave_core/src/molweave_core/minimization/parameterization.py": "697647bf5049a7a691971ca8b066355acf978f96694514f5b8967ac79a2d5a73",
+    "packages/molweave_core/src/molweave_core/minimization/plugin.py": "3fbaf0bff7931803eb8989c9b609203c063529669659b794733221c342ba6ef0",
+    "tests/e2e/selection-minimization.spec.ts": "651463bc0c487ecc2ad9bc5424a166f7750905d1aedebc5fabfd434c89509a43",
+    "tests/integration/test_minimization_cache.py": "0cc1892b808b5dee10140654dc1bf6c6c2a6aac41c8ad05f149c74a43e82f2fe",
+    "tests/scientific/test_minimization_cache.py": "1520b15192be3c44a5f550cb5069b4dc60a3ab421250fbaae012f1b78a70bed4",
+    "tests/unit/minimization/test_parameter_cache.py": "b1f128aacd4364a3040b511b62dd1c8d5c1527fbae994dbd21491f78ccfa187b"
+  },
+  "source_sha256": "18ed3cc8edec84c54debf54ce23eacb10015408d163421e7202850ef621003d9"
+}

@@ -482,3 +482,14 @@ and automatic policy; legacy schema1/manual captures retain exact serialization.
 Proposal/Apply recheck current and final-position discovery, including newly relevant
 previously omitted components. Native preparation stays in the worker; synchronous
 discovery/publication handlers execute in FastAPI's thread pool. See D-114.
+
+### Native parameter reuse (issue89 C3)
+
+The controlled worker context optionally supplies a managed cache root. The
+minimization-specific file cache owns receptor-library, organic and assembled native
+preparation, bounded atomic publication and cancellation-aware locking. Current
+preflight and native reconstruction validate every reuse; coordinates/selection/
+viewer objects never become cached molecular authority. Organic signatures include
+AM1-BCC input geometry; template protein signatures omit coordinates. Each job
+materializes independent native files and captures its own actual start coordinates.
+See D-115 for quota, eviction, provenance and concurrency tradeoffs.

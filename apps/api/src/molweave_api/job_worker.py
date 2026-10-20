@@ -65,9 +65,12 @@ class _PipeWriter(io.TextIOBase):
 
 
 class _ChildContext:
-    def __init__(self, connection: Connection, work_directory: Path) -> None:
+    def __init__(
+        self, connection: Connection, work_directory: Path, cache_directory: Path | None = None
+    ) -> None:
         self.connection = connection
         self.work_directory = work_directory
+        self.cache_directory = cache_directory
         self._cancelled = False
         self.parent_lost = False
 
@@ -168,6 +171,7 @@ def _execute_child(
     work_directory: str,
     cpu_time_seconds: int | None,
     memory_bytes: int | None,
+    cache_directory: str | None = None,
 ) -> None:
     # Descendants of allowlisted native tools share the owned job process group.
     # Establish it before plugin loading; the parent only signals a confirmed group.
@@ -177,7 +181,9 @@ def _execute_child(
     connection.send(("process_group", os.getpid() if grouped else None))
     stdout = _PipeWriter(connection, "stdout")
     stderr = _PipeWriter(connection, "stderr")
-    context = _ChildContext(connection, Path(work_directory))
+    context = _ChildContext(
+        connection, Path(work_directory), Path(cache_directory) if cache_directory else None
+    )
     try:
         # Bound native thread pools before registry imports initialize NumPy/BLAS.
         os.environ["OPENBLAS_NUM_THREADS"] = "1"
@@ -322,6 +328,7 @@ class JobWorker:
                 str(work_directory),
                 policy.cpu_time_seconds,
                 policy.memory_bytes,
+                str(self.settings.data_dir / "cache"),
             ),
             daemon=False,
         )

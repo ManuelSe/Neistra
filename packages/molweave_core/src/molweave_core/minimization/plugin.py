@@ -36,35 +36,16 @@ def json_bytes(value: Any) -> bytes:
 
 
 def calculation_archive(directory: Path) -> bytes:
+    from molweave_core.minimization.parameter_cache import file_allowed
+
     output = io.BytesIO()
     with zipfile.ZipFile(output, "w", compression=zipfile.ZIP_DEFLATED) as archive:
-        allowed = {
-            "input.mol2",
-            "captured-coordinates.json",
-            "charged.mol2",
-            "charged.raw.mol2",
-            "leap.in",
-            "model.prmtop",
-            "model.inpcrd",
-            "antechamber.log",
-            "tleap.log",
-            "sqm.in",
-            "sqm.out",
-        }
         for path in sorted(directory.rglob("*")):
             relative = path.relative_to(directory)
             if (
                 path.is_file()
                 and not path.is_symlink()
-                and path.name in allowed
-                and (
-                    relative.parent == Path(".")
-                    or (
-                        len(relative.parts) == 2
-                        and relative.parts[0].startswith("organic-")
-                        and relative.parts[0][8:].isdigit()
-                    )
-                )
+                and (file_allowed(relative) or relative == Path("captured-coordinates.json"))
             ):
                 if path.stat().st_size > 16 * 1024 * 1024:
                     raise CalculationError(
@@ -131,6 +112,7 @@ class MinimizationPlugin:
         from molweave_core.minimization.assembly import environment_preflight, needs_templates
         from molweave_core.minimization.context_model import parameterize_environment
         from molweave_core.minimization.optimize import optimize_environment, optimize_isolated
+        from molweave_core.minimization.parameter_cache import ParameterCache
         from molweave_core.minimization.parameterization import parameterize_isolated
         from molweave_core.minimization.preflight import isolated_preflight
         from molweave_core.minimization.templates import read_templates
@@ -146,18 +128,33 @@ class MinimizationPlugin:
         try:
             context.progress(1, "Checking captured chemistry and fixed/movable atoms")
             tools = AmberTools.discover()
+            cache_root = getattr(context, "cache_directory", None)
+            cache = (
+                ParameterCache(
+                    cache_root / "minimization",
+                    int(os.environ.get("MOLWEAVE_MINIMIZATION_CACHE_BYTES", 2 * 1024**3)),
+                )
+                if isinstance(cache_root, Path)
+                and os.environ.get("MOLWEAVE_MINIMIZATION_CACHE") != "0"
+                else None
+            )
             use_assembly = needs_templates(values, inputs)
             if not use_assembly:
                 value = isolated_preflight(values, inputs)
-                context.progress(5, "Generating GAFF 1.81 / AM1-BCC parameters")
+                context.progress(5, "Preparing GAFF 1.81 / AM1-BCC parameters")
                 stage = "parameterization"
-                model = parameterize_isolated(value, tools, directory, context)
+                model = parameterize_isolated(value, tools, directory, context, cache=cache)
             else:
                 assembly = environment_preflight(values, inputs, read_templates(tools.prefix))
-                context.progress(5, "Generating ff14SB / GAFF / explicit-water parameters")
+                context.progress(5, "Preparing ff14SB / GAFF / explicit-water parameters")
                 stage = "parameterization"
                 model = parameterize_environment(
-                    assembly, tools, directory, context, isolated=values.mode == "isolated"
+                    assembly,
+                    tools,
+                    directory,
+                    context,
+                    isolated=values.mode == "isolated",
+                    cache=cache,
                 )
             context.progress(35, "Optimizing captured selected coordinates only")
             if not use_assembly:

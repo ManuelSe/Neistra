@@ -589,6 +589,23 @@ Repeat with final producer versions on clean candidate and exact merged master.
 Existing schema downgrade guards remain; never strip retained state to force a
 reader to accept it. Remove the detached qualification worktree after delivery.
 
+## Interactive minimization preparation cache (issue89 C3)
+
+The optional worker cache is `MOLWEAVE_DATA_DIR/cache/minimization`, bounded to2GiB
+of native files/manifests and128 entries by default. Set
+`MOLWEAVE_MINIMIZATION_CACHE=0` for cold qualification without altering existing
+entries; set `MOLWEAVE_MINIMIZATION_CACHE_BYTES` for its byte budget. Clear/move the
+cache only with workers idle. Cache misses/corruption never change the pinned model
+or skip preflight. Jobs copy verified native files; archives exclude runtime cache.
+
+`tests/integration/test_minimization_cache.py` primes a compatible prepared1STP model,
+then measures three cold-bypass/warm-hit pairs with native program calls and setup
+timings. Its2x median preparation criterion does not claim reuse after organic input
+geometry changes. `tests/scientific/test_minimization_cache.py` checks actual native
+forces, geometry/protonation/settings invalidation, receptor reuse and corruption.
+`MOLWEAVE_MINIMIZATION_EVIDENCE_DIR` retains paired timing JSON outside test tempdirs.
+Time to live-visible coordinates remains C4/C5/C6 qualification, not this cache test.
+
 ## Selection minimization qualification and compatibility (0.20.0)
 
 The native model needs the separately [locked AmberTools installation](../tools/README.md)

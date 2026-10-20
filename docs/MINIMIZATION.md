@@ -92,3 +92,20 @@ residue. Malformed/conflicting evidence retains its underlying diagnostic cause.
 The operation still requires verified ordinary identity. Newly authored atoms and
 verified ordinary element replacements record applicable evidence at editing time;
 unknown/protected facts are never converted into ordinary identity to permit a run.
+
+## Parameter reuse
+
+Minimization reuses compatible native receptor, organic and assembled preparation.
+The scientific report retains cache origin and charge-input SHA256; cached files
+are copied into each job's own model artifact. Preflight/mapping/finite-parameter
+checks still run, and optimization uses current captured coordinates. Selection
+changes permit reuse. Protein template parameters survive coordinate-only edits;
+AM1-BCC ligand parameters do not survive changed charge-input geometry. This release
+does not freeze ligand charges across coordinate edits or change the force field.
+
+The disposable cache lives under the managed data directory's `cache/minimization`,
+with a2GiB/128-entry default bound. `MOLWEAVE_MINIMIZATION_CACHE=0` disables reuse;
+`MOLWEAVE_MINIMIZATION_CACHE_BYTES` controls bytes. Clear it only with workers idle.
+Clearing affects latency, never existing projects/jobs/archives. Invalid entries
+produce diagnostics and cold preparation under the same qualified model. Cache
+contents are not part of portable project archives; per-job native artifacts are.
