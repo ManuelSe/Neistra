@@ -5,16 +5,19 @@
 Issue [#110](https://github.com/ManuelSe/Neistra/issues/110), quick local minimization,
 is in progress on the remotely verified `feat/issue-110-quick-minimization` branch
 under its [approved contract](plans/issue-110-quick-minimization.md), D-126.
-C1 adds a separate RDKit/SciPy quick job and atomic coordinate-only publication.
-C2 adds local spatial discovery, complete observed residues, covalent closure,
-standard residue states, fixed ACE/NME helpers, guarded neighborhood extension,
-and final Apply discovery checks. Client automation and draft recovery remain pending.
+C1–C3 backend checkpoints add the separate quick job, atomic coordinate-only
+publication, local pocket/protein context and bounded temporary chemistry recovery.
+All three byte-exact user debug fixtures produce usable native MMFF94 improvements;
+a real raw-upload/worker/Apply test preserves graph, charges, metadata and originals.
+Approximate repair is explicit for stale aromatic graphs, collocated atoms and unsupported
+sites. Supported native components retain their field; unsupported fixed sites remain
+steric obstacles. No canonical chemical preparation is published.
 
-Verification: Ruff/mypy pass; eight quick unit/API tests pass, including independent
-native gradient/attractive interfragment forces, the 1STP cropped field and mixed mask.
-Four existing native live tests pass with configured AmberTools. A local 1STP solver
-probe completed a warned useful improvement in about1.1s; complete cold workflow timing
-is not yet qualified. No external blocker. Next: C3 bounded perception and explicit repair.
+Verification: Ruff/mypy and16 quick unit/API tests pass. Native pocket forces are checked
+against independent finite differences; 1STP caps/cropping/mixed masks are exercised.
+Four existing native live tests previously passed with configured AmberTools. Full cold
+workflow, browser and release gates remain pending. No external blocker. Next: C4 default
+quick UI, live coordinate preview, owning-client automatic Apply and Advanced AMBER.
 
 ### Previous delivery baseline — v0.22.1
 

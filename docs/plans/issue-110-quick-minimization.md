@@ -186,3 +186,14 @@ current final surroundings, guarding newly nearby context. Eight quick tests and
 Ruff/mypy pass; native attractive forces agree with independent finite differences.
 1STP local field is about850 atoms; mixed masks/caps are exercised. Local warned
 solver probe about1.1s is diagnostic, not full cold workflow qualification.
+
+### C3 — 2026-10-21
+
+Bounded order perception retains connectivity/assigned facts; missing legacy isotope/
+radical metadata no longer gates quick work. Separate native repair constraints retain
+known graph/state and report omissions/penalty units. Unsupported fixed sites are steric
+obstacles while supported components keep native contributions. Repair targets remain
+original when candidate neighbor lists rebuild. Deterministic collocated mover offsets
+leave fixed rows exact. Sixteen quick tests/Ruff/mypy pass, including byte-exact copies
+of all three supplied inputs and real raw paracetamol upload/Apply preserving chemistry
+and originals. C4/UI and complete compatibility/performance gates remain pending.

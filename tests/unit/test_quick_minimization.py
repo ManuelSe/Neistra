@@ -164,3 +164,106 @@ def test_1stp_local_field_caps_mixed_mask_and_finite_forces():
     assert {
         model.references[i] for i in model.movable if model.references[i] is not None
     } == selected
+
+
+@pytest.mark.parametrize("name", ["New_molecule.pdb", "New_molecule.sdf", "paracetamol.pdb"])
+def test_exact_user_debug_inputs_recover_and_improve_without_canonical_edits(
+    tmp_path: Path, name: str
+):
+    from molweave_core.adapters.defaults import create_default_registry
+    from molweave_core.minimization.quick_contracts import QuickReport
+
+    path = Path(__file__).parents[1] / "fixtures/quick-minimization" / name
+    source = (
+        create_default_registry().for_filename(name).parse(path.read_bytes(), name).structures[0]
+    )
+    original = source.to_bytes()
+    parameters, inputs = quick_capture(source)
+    result = execute(parameters, inputs, LocalContext(tmp_path))
+    proposal = json.loads(next(a.data for a in result.artifacts if a.role == "proposal"))
+    report = QuickReport.model_validate(proposal["report"])
+    assert usable(report), report
+    assert report.method == "MMFF94", report
+    assert proposal["entries"][0]["atom_ids"] == [a.id for a in source.atoms]
+    assert original == source.to_bytes()
+    if name.endswith("pdb"):
+        assert any("Bounded bond-order perception" in text for text in report.assumptions)
+
+
+def test_stale_aromatic_draft_has_explicit_improving_repair(tmp_path: Path):
+    from molweave_core.minimization.quick_contracts import QuickReport
+
+    source = molecule("CCC")
+    source = source.model_copy(
+        update={
+            "bonds": [
+                b.model_copy(update={"aromatic": True, "order": 1.5}) if b.id == 1 else b
+                for b in source.bonds
+            ]
+        }
+    )
+    parameters, inputs = quick_capture(source)
+    result = execute(parameters, inputs, LocalContext(tmp_path))
+    proposal = json.loads(next(a.data for a in result.artifacts if a.role == "proposal"))
+    report = QuickReport.model_validate(proposal["report"])
+    assert usable(report), report
+    assert report.method == "geometry_repair" and report.coverage == "approximate"
+    assert report.units["energy"] == "penalty"
+    assert any("Approximate repair" in text for text in report.warnings)
+    refused, inputs = quick_capture(source, allow_repair=False)
+    blocked = execute(refused, inputs, LocalContext(tmp_path))
+    assert blocked.values["outcome"] == "blocked"
+
+
+def test_fixed_unsupported_site_keeps_supported_native_field_and_steric_repulsion():
+    from molweave_core.minimization.quick_optimize import force_field
+
+    from tests.support.minimization import translated
+
+    ligand = molecule("C")
+    site = translated(molecule("[Fe]"), (2, 0, 0))
+    parameters, _ = environment_parameters({"ligand": ligand, "metal": site}, {"ligand": [1]})
+    assembly = build_assembly({"ligand": ligand, "metal": site}, parameters)
+    field, method = force_field(assembly)
+    assert method == "MMFF94"
+    assert len(field.parts) == 2
+    xyz = assembly.coordinates.reshape(-1).tolist()
+    assert np.isfinite(field.CalcEnergy(xyz))
+    gradient = np.asarray(field.CalcGrad(xyz)).reshape(-1, 3)
+    assert np.linalg.norm(gradient[assembly.movable].sum(axis=0)) > 0.1
+    assert any("coordination" in w for w in assembly.warnings)
+
+
+def test_legacy_identity_absence_does_not_gate_or_invent_evidence(tmp_path: Path):
+    source = molecule().model_copy(update={"annotations": []})
+    parameters, inputs = quick_capture(source)
+    result = execute(parameters, inputs, LocalContext(tmp_path))
+    assert result.values["outcome"] in {"improved", "converged"}
+    assert source.annotations == []
+
+
+def test_coincident_movers_receive_repair_offsets_without_moving_fixed_atoms(tmp_path: Path):
+    from molweave_core.minimization.quick_contracts import QuickReport
+
+    source = molecule("CC", explicit_h=False)
+    coordinates = [(0.0, 0.0, 0.0), (0.0, 0.0, 0.0)]
+    source = source.model_copy(
+        update={
+            "atoms": [
+                a.model_copy(update={"coordinates": p})
+                for a, p in zip(source.atoms, coordinates, strict=True)
+            ],
+            "conformers": [
+                c.model_copy(update={"coordinates": coordinates}) for c in source.conformers
+            ],
+        }
+    )
+    parameters, inputs = quick_capture(source, [2], expand_hydrogens=False)
+    result = execute(parameters, inputs, LocalContext(tmp_path))
+    document = json.loads(next(a.data for a in result.artifacts if a.role == "proposal"))
+    report = QuickReport.model_validate(document["report"])
+    assert usable(report), report
+    assert report.method == "geometry_repair"
+    assert document["entries"][0]["atom_ids"] == [2]
+    assert np.linalg.norm(document["entries"][0]["coordinates"][0]) > 1
+    assert source.atoms[0].coordinates == (0.0, 0.0, 0.0)

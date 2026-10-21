@@ -5110,3 +5110,19 @@ Protein defaults never complete heavy atoms. Respect observed H before neutral-H
 assumptions. Relative objective tolerance can stop before maximum force convergence;
 return a warned useful improvement, and restart only when a segment bound requires
 neighborhood reassessment. Never label that stop force-converged.
+
+## D-128 — Temporary interpretation and explicit repair coverage
+
+Issue#110 interprets each connected local component independently. Bounded RDKit
+bond-order perception may fill unknown facts on unchanged connectivity, with a
+reported neutral net-charge attempt and rejection of conflicting assigned facts.
+Source elements, isotope/radical evidence and canonical graph/charges remain untouched.
+Copies of the three supplied debug files are committed as regression inputs.
+
+When native parameterization fails, retain the observed unsanitized graph in a native
+empty field with declared geometric/steric constraints. Keep supported components in
+a mapped native field, add unsupported fixed obstacles, and disclose omitted polar/
+coordination terms. Repair energies are penalty units. Rebuild steric candidates using
+current positions while geometry targets stay original; changing those targets between
+segments would invalidate objective comparison. Only coincident movable repair sites
+receive small deterministic starting offsets; published fixed rows remain exact.

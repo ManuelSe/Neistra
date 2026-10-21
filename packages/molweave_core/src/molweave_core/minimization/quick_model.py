@@ -10,14 +10,14 @@ from typing import Any
 import numpy as np
 from rdkit import Chem
 
-from molweave_core.adapters.rdkit_common import normalized_to_mol
-from molweave_core.hydrogen_protection import protection_facts
 from molweave_core.jobs import InputArtifact
 from molweave_core.minimization.assembly import project_atoms
 from molweave_core.minimization.contracts import CalculationError
+from molweave_core.minimization.preflight import connected_atoms
+from molweave_core.minimization.quick_chemistry import interpret
 from molweave_core.minimization.quick_context import discover
 from molweave_core.minimization.quick_contracts import QuickParameters, canonical_selection
-from molweave_core.minimization.quick_protein import cap_boundaries, protein_graph
+from molweave_core.minimization.quick_protein import protein_graph
 from molweave_core.molecular import NormalizedStructureV1
 from molweave_core.selection import SelectionV1
 
@@ -36,6 +36,7 @@ class QuickAssembly:
     cap_count: int = 0
     graphs: dict[str, NormalizedStructureV1] = field(default_factory=dict)
     protein: dict[str, set[int]] = field(default_factory=dict)
+    modes: list[str] = field(default_factory=list)
 
     @property
     def coordinates(self) -> Any:
@@ -138,6 +139,7 @@ def build_assembly(
         for entry, ids in membership.items():
             discovered.setdefault(entry, set()).update(ids)
     caps = 0
+    modes: list[str] = []
     for entry, source in sorted(graphs.items()):
         members = discovered.get(entry, set())
         if not members:
@@ -148,50 +150,43 @@ def build_assembly(
             )
         if members & proteins[entry]:
             assumptions.extend(f"{entry}: {text}" for text in template_assumptions[entry])
-        projected = project_atoms(source, members)
-        active = next(c for c in projected.conformers if c.id == projected.active_conformer_id)
-        projected = projected.model_copy(update={"conformers": [active]})
-        if any(a.formal_charge is None for a in projected.atoms) or any(
-            b.order is None for b in projected.bonds
-        ):
-            raise CalculationError(
-                "chemistry_unknown", "Quick model needs interpretable ligand chemistry"
+        remaining = set(members)
+        while remaining:
+            component = connected_atoms(project_atoms(source, members), {min(remaining)})
+            remaining.difference_update(component)
+            projected = project_atoms(source, component)
+            mol, mode, local_caps, notes = interpret(
+                source, projected, component, proteins[entry], parameters.allow_repair
             )
-        mol = normalized_to_mol(projected)
-        mol, local_caps = cap_boundaries(mol, source, members, proteins[entry])
-        caps += local_caps
-        facts = protection_facts(source)
-        for atom, rd in zip(
-            projected.atoms, list(mol.GetAtoms())[: len(projected.atoms)], strict=True
-        ):
-            fact = facts.get(atom.id)
-            if fact is not None and fact.matches(atom):
-                if fact.isotope is not None:
-                    rd.SetIsotope(fact.isotope)
-                if fact.radical_electrons is not None:
-                    rd.SetNumRadicalElectrons(fact.radical_electrons)
-        Chem.SanitizeMol(mol)
-        count = mol.GetNumAtoms()
-        mol = Chem.AddHs(mol, addCoords=True)
-        offset = len(references)
-        local_refs: list[AtomKey | None] = [(entry, a.id) for a in projected.atoms]
-        local_refs.extend([None] * (mol.GetNumAtoms() - len(local_refs)))
-        for atom in mol.GetAtoms():
-            index = atom.GetIdx()
-            ref = local_refs[index]
-            moves = (
-                ref in keys
-                if ref
-                else any(local_refs[n.GetIdx()] in keys for n in atom.GetNeighbors())
+            caps += local_caps
+            assumptions.extend(
+                f"{entry} atoms {min(component)}-{max(component)}: {note}" for note in notes
             )
-            if moves:
-                movable.append(offset + index)
-        if mol.GetNumAtoms() > count:
-            assumptions.append(
-                f"{entry}: added {mol.GetNumAtoms() - count} calculation-only hydrogens"
-            )
-        references.extend(local_refs)
-        combined = mol if combined is None else Chem.CombineMols(combined, mol)
+            if mode == "repair":
+                warnings.append(
+                    f"Approximate repair for {entry} atoms {sorted(component)}: "
+                    "missing physical interactions; fixed unsupported sites are steric obstacles"
+                )
+            offset = len(references)
+            local_refs: list[AtomKey | None] = [(entry, a.id) for a in projected.atoms]
+            local_refs.extend([None] * (mol.GetNumAtoms() - len(local_refs)))
+            for atom in mol.GetAtoms():
+                index = atom.GetIdx()
+                ref = local_refs[index]
+                moves = (
+                    ref in keys
+                    if ref
+                    else any(local_refs[n.GetIdx()] in keys for n in atom.GetNeighbors())
+                )
+                if moves:
+                    movable.append(offset + index)
+            references.extend(local_refs)
+            modes.extend([mode] * len(local_refs))
+            combined = mol if combined is None else Chem.CombineMols(combined, mol)
+            if len(references) > 20000:
+                raise CalculationError(
+                    "model_limit", "Local calculation exceeds 20000 atoms including helpers"
+                )
         modeled[entry] = sorted(members)
     if combined is None:
         raise CalculationError("selection_empty", "Select atoms before minimizing")
@@ -215,4 +210,5 @@ def build_assembly(
         caps,
         graphs,
         proteins,
+        modes,
     )

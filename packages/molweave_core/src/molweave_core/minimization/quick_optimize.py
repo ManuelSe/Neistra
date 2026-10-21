@@ -8,7 +8,6 @@ from dataclasses import fields
 from typing import Any
 
 import numpy as np
-from rdkit.Chem import AllChem
 from scipy.optimize import minimize  # type: ignore[import-untyped]
 from scipy.spatial import cKDTree  # type: ignore[import-untyped]
 
@@ -21,39 +20,12 @@ from molweave_core.minimization.quick_contracts import (
     QuickParameters,
     QuickReport,
 )
+from molweave_core.minimization.quick_field import force_field
 from molweave_core.minimization.quick_model import QuickAssembly, build_assembly
-
-all_chem: Any = AllChem
 
 
 class BudgetReached(Exception):
     pass
-
-
-def force_field(assembly: QuickAssembly) -> tuple[Any, str]:
-    mol = assembly.molecule
-    if all_chem.MMFFHasAllMoleculeParams(mol):
-        props = all_chem.MMFFGetMoleculeProperties(mol, mmffVariant="MMFF94")
-        props.SetMMFFDielectricModel(2)
-        props.SetMMFFDielectricConstant(4.0)
-        ff = all_chem.MMFFGetMoleculeForceField(
-            mol, props, nonBondedThresh=100.0, ignoreInterfragInteractions=False
-        )
-        method = "MMFF94"
-    elif all_chem.UFFHasAllMoleculeParams(mol):
-        ff = all_chem.UFFGetMoleculeForceField(mol, ignoreInterfragInteractions=False)
-        method = "UFF"
-        assembly.warnings.append(
-            "UFF fallback: electrostatic pocket interactions are not represented."
-        )
-    else:
-        raise CalculationError("parameters_missing", "Local force-field parameters are unavailable")
-    moving = set(assembly.movable)
-    for i in range(mol.GetNumAtoms()):
-        if i not in moving:
-            ff.AddFixedPoint(i)
-    ff.Initialize()
-    return ff, method
 
 
 def helper_keys(assembly: QuickAssembly) -> list[Any]:
@@ -79,7 +51,6 @@ def helper_keys(assembly: QuickAssembly) -> list[Any]:
 
 
 def declared_stereo(assembly: QuickAssembly, coordinates: Any) -> dict[int, str]:
-    geometry = geometry_stereo(assembly.molecule, coordinates)
     expected = {}
     indices = {ref: i for i, ref in enumerate(assembly.references) if ref is not None}
     for entry, source in assembly.sources.items():
@@ -97,6 +68,7 @@ def declared_stereo(assembly: QuickAssembly, coordinates: Any) -> dict[int, str]
                     "stereo_unsupported", "Declared bond stereochemistry cannot be assessed"
                 )
             expected[assembly.molecule.GetNumAtoms() + native.GetIdx()] = f"STEREO{bond.stereo}"
+    geometry = geometry_stereo(assembly.molecule, coordinates) if expected else ()
     if any(geometry[i] != value for i, value in expected.items()):
         raise CalculationError(
             "stereo_conflict", "Coordinates conflict with declared stereochemistry"
@@ -157,6 +129,12 @@ def optimize(
         before = time.monotonic()
         ff, method = force_field(model)
         field_seconds += time.monotonic() - before
+        if method == "geometry_repair":
+            # Break exact coordinate degeneracy only for movable repair atoms.
+            tree = cKDTree(full)
+            for i in moving:
+                if model.modes[i] == "repair" and len(tree.query_ball_point(full[i], 1e-6)) > 1:
+                    full[i] += 0.01 * np.asarray([np.sin(i + 1), np.cos(i + 1), np.sin(2 * i + 1)])
         last = full[moving].reshape(-1).copy()
 
     helper_keys_cache = helper_keys(assembly)
@@ -214,6 +192,9 @@ def optimize(
                 install(new, saved)
                 rebuilds += 1
                 rebuild_seconds += time.monotonic() - before
+            if any(mode != "MMFF94" for mode in assembly.modes) and iterations:
+                # Rebuild steric candidates at the segment center; geometry targets stay original.
+                ff, method = force_field(assembly, full)
             _, gradient = evaluate(last)
             if np.max(np.abs(gradient)) <= QUICK_FORCE_TOLERANCE:
                 termination = "converged"
@@ -248,7 +229,7 @@ def optimize(
     final = full.copy()
     # Both energies use exactly the final assembly, fixed rows, helpers and native objective.
     initial_energy, _ = evaluate(original[moving].reshape(-1), False)
-    final_stereo = geometry_stereo(assembly.molecule, final)
+    final_stereo = geometry_stereo(assembly.molecule, final) if expected_stereo else ()
     if any(final_stereo[i] != value for i, value in expected_stereo.items()):
         raise CalculationError(
             "stereo_changed", "Quick relaxation changed declared stereochemistry"
@@ -287,7 +268,9 @@ def optimize(
         if termination == "converged"
         else f"Local relaxation: {termination}",
         method=method,
-        coverage="approximate" if method == "UFF" else "complete",
+        coverage="approximate"
+        if method != "MMFF94" or any(m != "MMFF94" for m in assembly.modes)
+        else "complete",
         initial_energy=initial_energy,
         final_energy=final_energy,
         maximum_gradient=float(np.max(np.abs(gradient))),
@@ -302,7 +285,7 @@ def optimize(
         helper_count=sum(r is None for r in assembly.references),
         cap_count=assembly.cap_count,
         termination_kind=termination,
-        warnings=assembly.warnings.copy(),
+        warnings=list(dict.fromkeys(assembly.warnings)),
         assumptions=assembly.assumptions.copy(),
         modeled_atoms=assembly.modeled_atoms,
         timings={
@@ -312,6 +295,12 @@ def optimize(
             "optimization": time.monotonic() - started - field_seconds,
         },
     )
+    if method == "geometry_repair":
+        report.units = {
+            "energy": "penalty",
+            "gradient": "penalty/angstrom",
+            "displacement": "angstrom",
+        }
     if overlaps:
         report.outcome = "failed"
         report.reason = "Local relaxation introduced a severe nonbonded overlap"

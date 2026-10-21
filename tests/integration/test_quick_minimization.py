@@ -99,3 +99,40 @@ def test_quick_stale_revision_empty_selection_and_generic_submission_refuse(clie
         },
     )
     assert response.status_code == 409
+
+
+def test_raw_debug_upload_preserves_graph_after_real_quick_publication(client: ApiClient):
+    from pathlib import Path
+
+    path = Path(__file__).parents[1] / "fixtures/quick-minimization/paracetamol.pdb"
+    project = client.post("/api/v1/projects", json={"name": "Raw quick input"}).json()
+    response = client.post(
+        f"/api/v1/projects/{project['id']}/imports",
+        data={"expected_revision": 0},
+        files=[("files", (path.name, path.read_bytes(), "chemical/x-pdb"))],
+    )
+    assert response.status_code == 201, response.text
+    project = response.json()["project"]
+    entry = project["entries"][0]
+    before = _structure(client, project["id"], entry["id"])
+    job, proposal = calculate(client, project, entry["atom_ids"])
+    assert proposal["applicable"], proposal
+    assert proposal["report"]["method"] == "MMFF94"
+    response = client.post(
+        f"/api/v1/projects/{project['id']}/quick-minimizations/{job['id']}/apply",
+        json={
+            "expected_revision": project["revision"],
+            "proposal_sha256": proposal["proposal_sha256"],
+        },
+    )
+    assert response.status_code == 200, response.text
+    after = _structure(client, project["id"], entry["id"])
+    assert before["bonds"] == after["bonds"]
+    assert [a["formal_charge"] for a in before["atoms"]] == [
+        a["formal_charge"] for a in after["atoms"]
+    ]
+    assert before["metadata"] == after["metadata"]
+    assert (
+        client.get(f"/api/v1/projects/{project['id']}/entries/{entry['id']}/original").content
+        == path.read_bytes()
+    )
