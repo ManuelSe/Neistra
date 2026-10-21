@@ -116,3 +116,13 @@ versions and diff checks. The user has been asked to reconnect AC for qualificat
 The implementation is reviewable on its branch; C5/C6 remain incomplete. A complete
 frozen candidate gate must pass before opening the implementation PR. Then normal
 merge, exact-master gate and verified release remain required. Debug files unchanged.
+
+### AC-powered requalification
+
+The user reconnected AC. Ten focused native checks pass without failures, retries or
+skips: two repetitions of cold/repeat small, pocket and18k Apply, genuine live/Cancel
+and actual100–200%zoom. AC is online before/after; the existing power-saver profile
+was unchanged. First set: small1.16s/pocket2.46s/18k4.11s, first frame699ms,Cancel53ms.
+The same runtime and original thresholds now pass; retain prior battery failures as
+diagnostics. Restart all20 frozen candidate commands, recording power state at each
+step. C5/C6 remain incomplete until full qualification and verified delivery.

@@ -25,12 +25,13 @@ state; environmental attribution must be verified by a stable-reference repeat.
 An isolated diagnostic under the current power state also fails (repeat small2254ms,
 first frame1236ms). No power settings or acceptance budgets were changed.
 
-All diagnostics and successful focused/compatibility evidence are retained separately.
-The user has been asked to reconnect AC for final reference qualification. Remaining
-browser/timing/zoom checks, complete candidate gate, PR, exact-master gate and release
-must still finish. User debug inputs remain untouched and untracked. Local development services were
-restarted with the same environment/data directory after verifying zero active jobs;
-API0.23.0/quick capabilities and the web endpoint are healthy.
+The user reconnected AC. All 10 focused checks pass on the unchanged runtime and
+thresholds: repeated cold/live timing and actual zoom, with AC online before/after.
+The existing power profile remains unchanged. Complete candidate qualification is
+restarting with power-state evidence at each step. C5/C6 remain pending.
+
+User debug inputs remain untouched and untracked. Local development services retain
+the existing environment/data directory; API 0.23.0, quick capabilities and web are healthy.
 
 ### Previous delivery baseline — v0.22.1
 
@@ -2722,14 +2723,11 @@ Results:
 
 ## Blockers
 
-A complete frozen candidate gate is still required. Current reference timing and a
-zoom-layout wait fail while the host is observed in power-saver on battery. Repeat
-under stable reference conditions to distinguish environment from remaining defects;
-fix any persistent failure. An AC-power question is pending with the user.
+No current external blocker. Focused AC timing/zoom passes; the complete candidate
+and exact-master gates remain required.
 
 ## Next action
 
-After stable reference power is available, rerun focused cold/live/zoom checks, then
-all20 candidate commands from a clean checkpoint. Complete the reviewed implementation
-PR, normal merge, exact-master gate, annotated0.23.0 release and final issue audit.
-Do not weaken thresholds or treat diagnostic/partial results as a release gate pass.
+Run all 20 candidate commands from a clean checkpoint, review and open the
+implementation PR, merge normally, repeat the exact-master gate, then publish
+the verified annotated 0.23.0 tag/release and complete issue close-out.
