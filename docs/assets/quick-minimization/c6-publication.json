@@ -1,0 +1,129 @@
+{
+  "status": "runtime release and issue closeout verified; final docs/ref cleanup audit follows at linked issue reply",
+  "issue": 110,
+  "plan": "docs/plans/issue-110-quick-minimization.md",
+  "runtime_pr": {
+    "headRefOid": "c8cfaa30cb404722f19764ef3fa373ff7eb7ec55",
+    "mergeCommit": {
+      "oid": "e698b43fc01145fa7cf3cc582a2bc31d9780923e"
+    },
+    "mergedAt": "2026-10-21T15:37:23Z",
+    "number": 111,
+    "state": "MERGED",
+    "url": "https://github.com/ManuelSe/Neistra/pull/111",
+    "strategy": "normal merge preserving checkpoint history"
+  },
+  "corrective_pr": {
+    "headRefOid": "bade70e30bd0009adec51f3aa633857b429a7ea4",
+    "mergeCommit": {
+      "oid": "6536e2a3140d0b8b112562ffec580d37830bc217"
+    },
+    "mergedAt": "2026-10-21T19:13:32Z",
+    "number": 112,
+    "state": "MERGED",
+    "url": "https://github.com/ManuelSe/Neistra/pull/112"
+  },
+  "tag": {
+    "name": "v0.23.0",
+    "type": "annotated",
+    "object": "e9ef2371e8e89d01435d8295c68da2aa694858bc",
+    "commit": "6536e2a3140d0b8b112562ffec580d37830bc217",
+    "remote_ref_and_peeled_commit_verified": true
+  },
+  "release": {
+    "id": 420010474,
+    "html_url": "https://github.com/ManuelSe/Neistra/releases/tag/v0.23.0",
+    "tag_name": "v0.23.0",
+    "target_commitish": "6536e2a3140d0b8b112562ffec580d37830bc217",
+    "draft": false,
+    "prerelease": false,
+    "published_at": "2026-10-21T20:13:44Z"
+  },
+  "release_notes_sha256": "79a84f1dc352446a98045558bb949f4521284eaf3463ab3f5cf10ddbee21c683",
+  "verification_bundle": {
+    "filename": "neistra-v0.23.0-verification.zip",
+    "path": "/datadisk/dev/.neistra-tools/neistra-v0.23.0-verification.zip",
+    "size": 268907967,
+    "sha256": "c8222bb53bac06ef646014defaaf173f435c44703f333f1be538960628374884",
+    "members": 4531,
+    "internal_hashes": 4530,
+    "crc_verified": true,
+    "qualification": {
+      "issue": 110,
+      "runtime_commit": "6536e2a3140d0b8b112562ffec580d37830bc217",
+      "candidate_commit": "0d3657056d99695440ad750fa8bddc71d6adcf3d",
+      "source_identity_count": 553,
+      "source_sha256": "3d3c45deb2639004c758c768be3504606cc8ff37f9c940ab07772e956db200a8",
+      "all_20_commands_pass_both_phases": true,
+      "previous_reader": "actual tagged 0.22.1",
+      "dependency_upgrade": false,
+      "migration_head": "0014",
+      "python": 1166,
+      "frontend": 313,
+      "supervisor": 8,
+      "browser": 298,
+      "browser_exclusions": 60,
+      "failures": 0,
+      "flakes": 0,
+      "retries": 0,
+      "native_scientific_skips": 0
+    },
+    "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.23.0/neistra-v0.23.0-verification.zip",
+    "asset_id": 663666033,
+    "remote_digest": "sha256:c8222bb53bac06ef646014defaaf173f435c44703f333f1be538960628374884",
+    "public_published_download_verified": true,
+    "downloaded_zip_crc_and_all_internal_hashes_verified": true
+  },
+  "issue_closeout": {
+    "id": 6325592737,
+    "url": "https://github.com/ManuelSe/Neistra/issues/110#issuecomment-6325592737",
+    "verified_body_sha256": "2659cb48d8f0fac4689437c5f8a25057c01c4f322c32d96ebb8ae28cb69c8216",
+    "closed_by_runtime_pr": false,
+    "closure_method": "explicit close after verified publication",
+    "final_reference_audit": "Final docs integration and actual branch/worktree cleanup are appended to this reply after verification."
+  },
+  "qualification": {
+    "issue": 110,
+    "runtime_commit": "6536e2a3140d0b8b112562ffec580d37830bc217",
+    "candidate_commit": "0d3657056d99695440ad750fa8bddc71d6adcf3d",
+    "source_identity_count": 553,
+    "source_sha256": "3d3c45deb2639004c758c768be3504606cc8ff37f9c940ab07772e956db200a8",
+    "all_20_commands_pass_both_phases": true,
+    "previous_reader": "actual tagged 0.22.1",
+    "dependency_upgrade": false,
+    "migration_head": "0014",
+    "python": 1166,
+    "frontend": 313,
+    "supervisor": 8,
+    "browser": 298,
+    "browser_exclusions": 60,
+    "failures": 0,
+    "flakes": 0,
+    "retries": 0,
+    "native_scientific_skips": 0
+  },
+  "review": {
+    "local_self_review": "docs/assets/quick-minimization/c5-review.md",
+    "independent_review_returned": false,
+    "required_remote_checks_or_approvals": false,
+    "unresolved_review_threads_at_merge": 0,
+    "override_used": false
+  },
+  "compatibility": {
+    "database_head": "0014",
+    "normalized_selection_schema": 1,
+    "project_viewer_archive_schema": 2,
+    "new_migration": false,
+    "dependency_version_upgrade": false
+  },
+  "followups": [
+    83,
+    86,
+    52,
+    101,
+    102,
+    92
+  ],
+  "feature_branch": "feat/issue-110-quick-minimization",
+  "cleanup_order": "Delete only after verified runtime merge, tag, public release/bundle, initial issue reply and documentation audit. Actual final state follows externally; runtime tag remains fixed."
+}

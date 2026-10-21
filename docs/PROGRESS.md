@@ -2,32 +2,45 @@
 
 ## Current milestone
 
-Issue [#110](https://github.com/ManuelSe/Neistra/issues/110) quick minimization has a
-**fully qualified corrected candidate** at0d3657056d99695440ad750fa8bddc71d6adcf3d.
-[Candidate10](assets/quick-minimization/c5-candidate-10-gate.json) passes all20 commands:
+Issue [#110](https://github.com/ManuelSe/Neistra/issues/110) is implemented, normally
+merged in [PR#111](https://github.com/ManuelSe/Neistra/pull/111) and
+[corrective PR#112](https://github.com/ManuelSe/Neistra/pull/112), and published stable
+[v0.23.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.23.0). The annotated tag
+points to verified runtime6536e2a3140d0b8b112562ffec580d37830bc217. The
+[approved plan](plans/issue-110-quick-minimization.md), D-126–139,
+[guide](MINIMIZATION.md) and [investigation](assets/quick-minimization/c6-pocket-investigation.md)
+record scope, corrected physics and limitations. Local preview runs identical runtime
+source with managed data/debug originals/environment preserved; private user state
+was neither repaired nor undone automatically.
+
+Both [corrected candidate10](assets/quick-minimization/c5-candidate-10-gate.json) and
+[exact merged2](assets/quick-minimization/c5-merged-2-gate.json) pass all20 commands:
 **1166 Python,313 frontend,8 supervisor,298 browser/60 documented exclusions**,
-zero failures/flakes/retries/Python skips. Both actual tagged0.22.1/current reader
-directions retain four data/history/job/artifact/archive cases. All553 source/test/
-lock identities and log hashes verify, hash3d3c45deb2639004c758c768be3504606cc8ff37f9c940ab07772e956db200a8.
-Cold small/pocket/18k native Apply0.889/2.466/3.470s, first frame686ms, Cancel52ms;
-limits unchanged. All231 power samples show AC online; existing profile unchanged.
+zero failures/flakes/retries/Python or native scientific skips. Both actual0.22.1/
+current reader directions retain four cases; all553 source/test/lock identities and
+log hashes verify, hash3d3c45deb2639004c758c768be3504606cc8ff37f9c940ab07772e956db200a8.
+Merged cold small/pocket/18k1.159/2.184/3.628s, first frame629ms,Cancel49ms; all budgets
+unchanged. AC online in all231/232 power samples, existing profile unchanged.
+Earlier failed/interrupted attempts remain diagnostic for their exact sources.
 
-D-135–139 and the [investigation](assets/quick-minimization/c6-pocket-investigation.md)
-record the reproduced collapsed bond, wrong torsion/unit scaling, fixed-only energy
-and inconsistent folded-ring targets. Quick engine1.0.2 corrects them and requires
-independent bonded/planar proof; older quick proposals need rerun. Fixed-environment
-geometry settling remains a warned improvement unless independent force convergence
-is reached. Saturated rings retain puckering; partial masks never broaden themselves.
-All13 private replays pass geometry checks with exact fixed rows (one converged/twelve
-limited improvements); raw project data stays private. The local preview runs the
-final correction, with managed data, debug originals and environment preserved.
+Quick engine1.0.2 fixes torsion signs, angular units, fixed-only objective effects,
+small-ring targets and context/rebuild metadata. Independent bonded/planar proof
+blocks invalid geometry; older quick proposals need rerun. All13 private replays
+pass geometry checks with exact fixed rows (one converged/twelve warned improvements).
 Unsupported connected coordination remains approximate without native electrostatics
-for that group; no qualified metal/binding-pose claim is made. Prepared AMBER is unchanged.
+for that group; no metal/binding-pose claim. Geometry settling is a limited improvement
+unless the independent force threshold is met. Saturated rings retain puckering and
+partial masks never broaden. Prepared AMBER, originals and durable schemas remain.
 
-All five versions remain0.23.0, with no dependency/schema migration. Earlier failed/
-interrupted gates remain diagnostic for their exact sources. C5 is complete; C6
-corrective PR/normal merge, exact-master gate, annotated tag, release/public artifact
-verification and issue close-out remain. No0.23.0 tag/release is yet published.
+[Publication audit](assets/quick-minimization/c6-publication.json) verifies exact
+annotated tag, stable latest release/notes, public ZIP SHA256/CRC/all4530 internal
+hashes and [closed issue reply](https://github.com/ManuelSe/Neistra/issues/110#issuecomment-6325592737).
+All five versions0.23.0, no dependency upgrade or migration beyond0014. Full diff
+review is local self-review; no independent review or protection/check override is
+claimed. Existing#83/#86/#52/#101/#102/#92 remain separate. No approved-scope
+implementation blocker remains. Final documentation integration and actual delayed
+branch/worktree cleanup are appended to the linked reply after verification; the
+runtime tag remains fixed. Next product work requires a separate approved plan.
 
 ### Previous delivery baseline — v0.22.1
 
