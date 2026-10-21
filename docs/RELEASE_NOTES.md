@@ -1,5 +1,10 @@
 # Neistra Release Notes
 
+**0.23.0 release hold:** local bound-ligand testing reveals repair-induced bonded
+geometry collapse. Prior candidate passes do not qualify that behavior. Corrective
+implementation and fresh complete gates are required; see [progress](PROGRESS.md)
+and the issue110 execution log. No0.23.0 tag/release is published.
+
 ## 0.23.0 candidate - 2026-10-21 - Quick selection and pocket relaxation
 
 C5-qualified candidate for [issue #110](https://github.com/ManuelSe/Neistra/issues/110)

@@ -2,39 +2,27 @@
 
 ## Current milestone
 
-Issue [#110](https://github.com/ManuelSe/Neistra/issues/110), quick local minimization,
-is implemented under the
-[approved contract](plans/issue-110-quick-minimization.md), D-126–134. C6 PR/merge,
-exact-master qualification and publication remain pending. A test-only atomic zoom
-observation correction passes three focused runs after the first merged gate
-reproduced a split-read polling timeout; full requalification is pending. All five versions are
-0.23.0; no dependency upgrade, schema migration or canonical chemistry rewrite.
+Issue [#110](https://github.com/ManuelSe/Neistra/issues/110) quick minimization is
+**not release-qualified**. PR#111 is merged but local user testing exposes serious
+bound-ligand distortion in approximate repair. Publication is on hold; no0.23.0
+tag/release exists. The [approved contract](plans/issue-110-quick-minimization.md)
+remains the goal. Isolated MMFF94 cleanup and prior full candidate checks passed,
+but do not establish correct behavior for the failing pocket model.
 
-The [clean candidate gate](assets/quick-minimization/c5-candidate-6-gate.json) at
-`b0c8208189e7e1537e23a115bbe8a6726b5b31fa` passes all 20 commands: **1,148 Python,
-313 frontend, 8 supervisor and 298 browser tests**, with 60 documented browser
-layout/timing exclusions and zero failures, flakes, retries or Python scientific
-skips. Frozen installs, fresh head 0014, static/build/version checks and both actual
-tagged 0.22.1/current reader directions pass. All 553 runtime/test/lock identities
-and compressed logs verify; debug files remain untouched and untracked.
+Read-only history/model replay identifies reversed0/180°repair torsion targets,
+degree-based angular penalties overwhelming bond lengths, fixed-only energy affecting
+relative stopping and no bonded-geometry acceptance guard. Unsupported coordination
+also contaminates the whole connected component's coverage. Fixed protein coordinates,
+canonical chemistry and original uploads remain intact; user data was not edited.
+Private artifacts/history stay outside git. Corrective implementation/regressions and
+new complete candidate/exact-master gates are required.
 
-Native AC reference results: cold small/pocket/18k Apply 0.915/2.104/3.659s,
-feedback 9–54ms, first real frame 690ms, Cancel 61ms, longest task 258ms. Supplied
-structures pass desktop/mobile Apply/Undo/Redo/reload; actual zoom/accessibility,
-partial/pocket/context/chemistry/stereo/cancellation and retained AMBER gates pass.
-AC remained online at every recorded step boundary; power settings were unchanged.
-Earlier failed/interrupted runs remain labeled diagnostics. The corrected surface
-completion protocol and startup import isolation pass the full native matrix.
-
-[Local complete-diff review](assets/quick-minimization/c5-review.md) and exact source
-diff evidence record addressed consequential findings; no independent review is
-claimed. Compatibility preserves conformers, generic atomic history, jobs/models,
-provenance, originals, allocator floors and archives in both directions. Approximate
-repair remains visibly reported; local improvement does not certify a binding pose.
-
-Local development services retain the existing environment/data directory;
-API 0.23.0, quick capabilities and web are healthy. Next: verified PR and normal
-merge, exact-master gate, annotated release and final issue/publication audit.
+The test-only atomic zoom observation fix passes three focused runs with unchanged
+limits. Candidate8 is interrupted at the user report:1148 Python/313 frontend/8
+supervisor/static/build pass;51 browsers pass/1 interrupted/3 exclusions reached/303
+not run. Earlier gates remain separately labeled evidence for their exact sources.
+All five versions remain0.23.0, unpublished, with no dependency/schema migration.
+Local API/web services retain the existing environment and managed data.
 
 ### Previous delivery baseline — v0.22.1
 
@@ -2726,12 +2714,9 @@ Results:
 
 ## Blockers
 
-No external blocker. Corrected zoom observation requires complete requalification;
-C6 exact-master qualification and delivery remain.
+Release blocked by reproduced pocket repair distortion; no external blocker.
 
 ## Next action
 
-Freeze the test-only atomic zoom observation correction; repeat the candidate gate,
-review/merge its follow-up PR normally, then repeat all20 commands on exact master
-and verify the annotated0.23.0 tag/release and close-out. PR#111 is already merged;
-its first merged attempt is retained as an interrupted diagnostic.
+Correct the repair objective and geometry acceptance, add causal scientific/native
+regressions, then repeat full candidate and exact-master qualification before release.

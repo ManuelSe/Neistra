@@ -1,5 +1,10 @@
 # V0.1 Requirement Evidence
 
+**0.23.0 release hold:** local bound-ligand testing reveals repair-induced bonded
+geometry collapse. Prior candidate passes do not qualify that behavior. Corrective
+implementation and fresh complete gates are required; see [progress](PROGRESS.md)
+and the issue110 execution log. No0.23.0 tag/release is published.
+
 ## Quick local minimization (issue #110) — C5 passes
 
 The [clean candidate](assets/quick-minimization/c5-candidate-6-gate.json) at

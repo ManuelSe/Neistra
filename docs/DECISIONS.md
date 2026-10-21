@@ -5203,3 +5203,13 @@ process-group cancellation and supervision algorithms remain unchanged. No warm 
 parameter cache or new job framework is introduced. A fresh-interpreter regression
 checks the bootstrap dependency boundary. Combined bootstrap/calculation imports fall
 from about733ms to443ms locally; native/full qualification remains authoritative.
+
+## D-135 — Pocket repair findings block publication
+
+Read-only replay of user history exposes repair geometry collapse despite objective
+improvement. Qualification must include independently checked bonded geometry and
+correct cis/trans restraint conventions, with angular units and fixed-only objective
+constants handled explicitly. Preserve canonical coordination/connectivity and report
+omitted metal physics. Keep private project data outside git and do not repair or
+undo the user's live project during investigation. Prior broad passes cannot waive
+the reproduced defect; corrected candidate and exact-master gates remain mandatory.

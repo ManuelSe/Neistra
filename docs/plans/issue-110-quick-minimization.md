@@ -361,3 +361,36 @@ archived as executable-looking Python instead of compressed evidence. Compress
 the exact bytes like all existing qualifier evidence; do not lint-fix or execute
 archived scripts as repository source. No runtime/test source change. Record this
 packaging diagnostic, pass Ruff, then restart the full clean candidate gate.
+
+### Release hold — observed bound-ligand repair failure
+
+The user reports good isolated cleanup but severe pocket distortion. Stop candidate8
+at the user's investigation request:51 browsers passed,1 interrupted,3 exclusions
+reached,303 not run; no browser failure. Prior1148 Python/313 frontend/8 supervisor/
+static/build checks pass. Retain this as an interrupted diagnostic. A brief AC
+disconnection during early non-minimization cases is logged; the user reconnected
+before interruption. No0.23.0 tag/release exists.
+
+Read-only local history/model replay confirms: a source metal–ligand–cofactor–protein
+connected component falls wholesale into repair because unresolved bonds and any
+protein membership are tested per connected component. Supported ligand chemistry
+therefore receives no native pocket electrostatics. More seriously, repair's cross-
+product sign selects the opposite0/180°dihedral. An independent planar four-carbon
+probe produces324000 penalty with the current target for either cis or trans. Native
+RDKit2026.03.4 angle/torsion constraints square degree errors; current weights greatly
+outweigh covalent distances. A replay lowers torsion penalty while worsening bond
+penalty and can collapse a bonded carbon pair. Fixed-only native energy also adds a
+large constant to the solver's relative-energy stopping criterion. Current eligibility
+checks objective improvement and severe nonbonded overlaps but no bonded geometry
+guard, allowing collapsed bonded atoms to auto-apply. All fixed canonical coordinates
+and chemistry stayed unchanged in the audited operations; no user state was edited.
+
+This is release-blocking implementation behavior, not evidence of adequate pocket
+qualification. Keep private project/artifact/history data outside version control.
+Correct torsion orientation and unit-balanced repair, make optimization insensitive
+to fixed-only constants and add bonded-geometry acceptance independent of objective
+decrease. Add synthetic native regression cases for unsupported connected context,
+partial rings, damaged drafts and mixed fixed/native/repair fields. Investigate a
+calculation-only boundary around unsupported coordination without claiming qualified
+metal physics or changing canonical connectivity. Requalify both candidate and exact
+merged master; do not publish the prior implementation on the basis of older passes.
