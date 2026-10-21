@@ -14,6 +14,7 @@ from fastapi import APIRouter, Depends, Response
 from molweave_core.jobs import PluginRegistry
 from molweave_core.minimization.contracts import CalculationError, CoordinateProposal
 from molweave_core.minimization.live import capture_digest, read_snapshot
+from molweave_core.minimization.quick_context import discover
 from molweave_core.minimization.quick_contracts import (
     QUICK_JOB,
     QUICK_MODEL,
@@ -23,6 +24,7 @@ from molweave_core.minimization.quick_contracts import (
     usable,
 )
 from molweave_core.minimization.quick_model import resolve_selection
+from molweave_core.minimization.quick_protein import protein_graph
 from molweave_core.molecular import MolecularWarning
 from molweave_core.selection import SelectionV1
 from pydantic import BaseModel, ConfigDict, Field, model_validator
@@ -170,7 +172,11 @@ class QuickService(MinimizationService):
         return job
 
     def _dependencies(
-        self, project: Project, parameters: QuickParameters, report: QuickReport
+        self,
+        project: Project,
+        parameters: QuickParameters,
+        report: QuickReport,
+        entries: list[CoordinateProposal],
     ) -> str | None:
         selected = {a.structure_id for a in parameters.selection.atoms}
         current = {e.id: e for e in project.entries}
@@ -191,6 +197,23 @@ class QuickService(MinimizationService):
             source = self._structure(data)
             if source.active_conformer_id != capture.conformer_id:
                 return "Active conformer changed; rerun quick minimization"
+        # A previously distant entry may have moved into the final neighborhood.
+        graphs = {}
+        proteins = {}
+        for entry in participants:
+            if not entry.current_artifact_id:
+                return "A participating entry has no current molecular structure"
+            _, data = self._read(entry.current_artifact_id)
+            graphs[entry.id], proteins[entry.id], _ = protein_graph(self._structure(data))
+        positions = {
+            (p.entry_id, a): xyz
+            for p in entries
+            for a, xyz in zip(p.atom_ids, p.coordinates, strict=True)
+        }
+        keys = {(a.structure_id, a.atom_id) for a in parameters.selection.atoms}
+        needed = discover(graphs, keys, proteins, positions, radius=6.0)
+        if any(not ids <= set(report.modeled_atoms.get(e, [])) for e, ids in needed.items()):
+            return "The final local neighborhood changed; rerun quick minimization"
         return None
 
     def proposal_quick(self, project_id: str, job_id: str) -> QuickProposalRead:
@@ -235,7 +258,7 @@ class QuickService(MinimizationService):
         elif not usable(report):
             reason = f"Quick calculation is {report.outcome}; no usable coordinate improvement"
         else:
-            reason = self._dependencies(self._project(project_id), parameters, report)
+            reason = self._dependencies(self._project(project_id), parameters, report, entries)
         return QuickProposalRead(
             job_id=job.id,
             proposal_sha256=digest,

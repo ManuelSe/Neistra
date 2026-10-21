@@ -74,6 +74,9 @@ def execute(
         sources = read_sources(parameters, inputs)
         assembly = build_assembly(sources, parameters)
         interpretation = time.monotonic() - started
+        context.progress(20, "Building the quick local force field")
+        publisher = SnapshotPublisher(parameters, context)
+        report, proposals = optimize(assembly, parameters, context, publisher.publish)
         model_data = json_bytes(
             {
                 "schema_version": 1,
@@ -84,9 +87,6 @@ def execute(
                 "assumptions": assembly.assumptions,
             }
         )
-        context.progress(20, "Building the quick local force field")
-        publisher = SnapshotPublisher(parameters, context)
-        report, proposals = optimize(assembly, parameters, context, publisher.publish)
         report.timings["interpretation"] = interpretation
         if publisher.warning:
             report.warnings.append(publisher.warning)

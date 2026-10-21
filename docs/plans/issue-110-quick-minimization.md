@@ -176,3 +176,13 @@ coordinate-only atomic publication and exact Undo/Redo are exercised by six pass
 new tests without AmberTools. Ruff/mypy pass; four pre-existing native live scientific
 tests pass with configured AmberTools. C1 intentionally awaits C2/C3 context/repair
 and C4 client publication. No full feature claim.
+
+### C2 — 2026-10-21
+
+Local spatial/covalent/residue discovery, observed protein templates and disposable
+ACE/NME caps now build a native interfragment field. Reduced bounded segments extend
+captured context and compare both energies under the final model. Apply rediscovers
+current final surroundings, guarding newly nearby context. Eight quick tests and
+Ruff/mypy pass; native attractive forces agree with independent finite differences.
+1STP local field is about850 atoms; mixed masks/caps are exercised. Local warned
+solver probe about1.1s is diagnostic, not full cold workflow qualification.

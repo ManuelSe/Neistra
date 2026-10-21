@@ -15,8 +15,9 @@ from molweave_core.hydrogen_protection import protection_facts
 from molweave_core.jobs import InputArtifact
 from molweave_core.minimization.assembly import project_atoms
 from molweave_core.minimization.contracts import CalculationError
-from molweave_core.minimization.preflight import connected_atoms
+from molweave_core.minimization.quick_context import discover
 from molweave_core.minimization.quick_contracts import QuickParameters, canonical_selection
+from molweave_core.minimization.quick_protein import cap_boundaries, protein_graph
 from molweave_core.molecular import NormalizedStructureV1
 from molweave_core.selection import SelectionV1
 
@@ -33,6 +34,8 @@ class QuickAssembly:
     warnings: list[str] = field(default_factory=list)
     assumptions: list[str] = field(default_factory=list)
     cap_count: int = 0
+    graphs: dict[str, NormalizedStructureV1] = field(default_factory=dict)
+    protein: dict[str, set[int]] = field(default_factory=dict)
 
     @property
     def coordinates(self) -> Any:
@@ -102,10 +105,6 @@ def read_sources(
             raise CalculationError(
                 "invalid_coordinates", "Quick minimization requires finite coordinates"
             )
-        if any(a.alternate_location for a in source.atoms):
-            raise CalculationError(
-                "alternate_sites", "Resolve alternate locations before quick minimization"
-            )
         result[capture.entry_id] = source
     resolved = resolve_selection(
         result, parameters.requested_selection, parameters.expand_hydrogens
@@ -120,6 +119,7 @@ def read_sources(
 def build_assembly(
     sources: dict[str, NormalizedStructureV1],
     parameters: QuickParameters,
+    membership: dict[str, set[int]] | None = None,
 ) -> QuickAssembly:
     keys = {(a.structure_id, a.atom_id) for a in parameters.selection.atoms}
     combined: Any = None
@@ -128,11 +128,26 @@ def build_assembly(
     modeled: dict[str, list[int]] = {}
     warnings: list[str] = []
     assumptions: list[str] = []
-    for entry, source in sorted(sources.items()):
-        selected = {i for e, i in keys if e == entry}
-        if not selected:
+    graphs = {}
+    proteins = {}
+    template_assumptions = {}
+    for entry, source in sources.items():
+        graphs[entry], proteins[entry], template_assumptions[entry] = protein_graph(source)
+    discovered = discover(graphs, keys, proteins)
+    if membership:
+        for entry, ids in membership.items():
+            discovered.setdefault(entry, set()).update(ids)
+    caps = 0
+    for entry, source in sorted(graphs.items()):
+        members = discovered.get(entry, set())
+        if not members:
             continue
-        members = connected_atoms(source, selected)
+        if any(a.alternate_location for a in source.atoms if a.id in members):
+            raise CalculationError(
+                "alternate_sites", "Resolve local alternate sites before minimizing"
+            )
+        if members & proteins[entry]:
+            assumptions.extend(f"{entry}: {text}" for text in template_assumptions[entry])
         projected = project_atoms(source, members)
         active = next(c for c in projected.conformers if c.id == projected.active_conformer_id)
         projected = projected.model_copy(update={"conformers": [active]})
@@ -143,8 +158,12 @@ def build_assembly(
                 "chemistry_unknown", "Quick model needs interpretable ligand chemistry"
             )
         mol = normalized_to_mol(projected)
+        mol, local_caps = cap_boundaries(mol, source, members, proteins[entry])
+        caps += local_caps
         facts = protection_facts(source)
-        for atom, rd in zip(projected.atoms, mol.GetAtoms(), strict=True):
+        for atom, rd in zip(
+            projected.atoms, list(mol.GetAtoms())[: len(projected.atoms)], strict=True
+        ):
             fact = facts.get(atom.id)
             if fact is not None and fact.matches(atom):
                 if fact.isotope is not None:
@@ -156,7 +175,7 @@ def build_assembly(
         mol = Chem.AddHs(mol, addCoords=True)
         offset = len(references)
         local_refs: list[AtomKey | None] = [(entry, a.id) for a in projected.atoms]
-        local_refs.extend([None] * (mol.GetNumAtoms() - count))
+        local_refs.extend([None] * (mol.GetNumAtoms() - len(local_refs)))
         for atom in mol.GetAtoms():
             index = atom.GetIdx()
             ref = local_refs[index]
@@ -180,4 +199,20 @@ def build_assembly(
         raise CalculationError(
             "model_limit", "Local calculation exceeds 20000 atoms including helpers"
         )
-    return QuickAssembly(combined, references, movable, sources, modeled, warnings, assumptions)
+    if caps:
+        assumptions.append(
+            f"{caps} fixed calculation-only ACE/NME caps at local peptide boundaries; "
+            "finite-shell energies are local approximations"
+        )
+    return QuickAssembly(
+        combined,
+        references,
+        movable,
+        sources,
+        modeled,
+        warnings,
+        assumptions,
+        caps,
+        graphs,
+        proteins,
+    )

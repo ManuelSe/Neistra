@@ -5,15 +5,16 @@
 Issue [#110](https://github.com/ManuelSe/Neistra/issues/110), quick local minimization,
 is in progress on the remotely verified `feat/issue-110-quick-minimization` branch
 under its [approved contract](plans/issue-110-quick-minimization.md), D-126.
-C1 adds a separate RDKit/SciPy quick job, typed capture/proposal/live/apply APIs,
-and validated coordinate-only Undo/Redo publication. Automatic client publication
-and pocket/repair chemistry are pending; no end-to-end product completion claimed.
+C1 adds a separate RDKit/SciPy quick job and atomic coordinate-only publication.
+C2 adds local spatial discovery, complete observed residues, covalent closure,
+standard residue states, fixed ACE/NME helpers, guarded neighborhood extension,
+and final Apply discovery checks. Client automation and draft recovery remain pending.
 
-Verification: Ruff and mypy pass; six new real quick unit/API tests pass without
-AmberTools; four existing native live tests pass with the configured locked toolchain.
-First run without that environment skipped those four historical tests; the configured
-rerun passed all four. Current limits: C1 supports assigned isolated organic components.
-No external blocker. Next: C2 pocket discovery, protein templates/caps and guarded context.
+Verification: Ruff/mypy pass; eight quick unit/API tests pass, including independent
+native gradient/attractive interfragment forces, the 1STP cropped field and mixed mask.
+Four existing native live tests pass with configured AmberTools. A local 1STP solver
+probe completed a warned useful improvement in about1.1s; complete cold workflow timing
+is not yet qualified. No external blocker. Next: C3 bounded perception and explicit repair.
 
 ### Previous delivery baseline — v0.22.1
 

@@ -5094,3 +5094,19 @@ coverage and preserve unsupported fixed sites as obstacles. Caps/finite shells
 are declared model approximations, not AMBER equivalence. No engine framework,
 persistent parameter cache or DB migration. Scientific/publication/performance
 claims require the approved independent tests and real-workflow release gates.
+
+## D-127 — Quick pocket closure and native solver stops
+
+Issue#110 uses complete observed standard residues within the6Å discovery shell
+plus2Å skin, three-bond mover closure and fixed observed-position ACE/NME caps.
+Recheck/extend membership between bounded native segments and rediscover around
+the final proposal at Apply, including previously distant participating entries.
+Compare original/candidate under exactly the final native model. Fixed-only force
+field terms remain native constants; they do not move canonical site atoms.
+
+RDKit sequence ILE connects CD1 to CG2 in the installed build; correct that disposable
+named template to the standard CG1-CD1 bond, with a real pocket qualification.
+Protein defaults never complete heavy atoms. Respect observed H before neutral-HIS
+assumptions. Relative objective tolerance can stop before maximum force convergence;
+return a warned useful improvement, and restart only when a segment bound requires
+neighborhood reassessment. Never label that stop force-converged.
