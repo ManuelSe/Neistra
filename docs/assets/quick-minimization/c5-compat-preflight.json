@@ -1,0 +1,125 @@
+{
+  "passed": true,
+  "note": "Independent compatibility preflight; not a complete release gate",
+  "steps": [
+    {
+      "label": "forward-migration",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/uv",
+        "run",
+        "alembic",
+        "upgrade",
+        "head"
+      ],
+      "exit_code": 0,
+      "seconds": 2.0223114490509033,
+      "log_sha256": "a65aaba1d288361248cfad53dee993528aa5c4bbd5accca186ae60e26f85c610"
+    },
+    {
+      "label": "quick-producer",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/python",
+        "-m",
+        "tests.support.quick_minimization_reader_qualification",
+        "produce",
+        "--data-dir",
+        "/tmp/neistra-110-compat-preflight/forward",
+        "--evidence",
+        "/tmp/neistra-110-compat-preflight/quick-producer.json"
+      ],
+      "exit_code": 0,
+      "seconds": 11.138694524765015,
+      "log_sha256": "556a0a32c668bc3c205a4b03780787ed6ed1e283ab0d90221a48857daa6c2e27"
+    },
+    {
+      "label": "old-reader",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/python",
+        "-m",
+        "tests.support.quick_minimization_reader_qualification",
+        "read",
+        "--data-dir",
+        "/tmp/neistra-110-compat-preflight/forward",
+        "--reader-root",
+        "/tmp/neistra-110-reader-0221",
+        "--expected-reader",
+        "0.22.1",
+        "--evidence",
+        "/tmp/neistra-110-compat-preflight/old-reader.json"
+      ],
+      "exit_code": 0,
+      "seconds": 3.1204731464385986,
+      "log_sha256": "bc3a7c6ec7e73d572e427218e031fa0c1dd1607b548687305718e7df1fed7994"
+    },
+    {
+      "label": "reverse-migration",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/uv",
+        "run",
+        "alembic",
+        "upgrade",
+        "head"
+      ],
+      "exit_code": 0,
+      "seconds": 1.5508553981781006,
+      "log_sha256": "a65aaba1d288361248cfad53dee993528aa5c4bbd5accca186ae60e26f85c610"
+    },
+    {
+      "label": "old-producer",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/python",
+        "-m",
+        "tests.support.minimization_reader_qualification",
+        "produce",
+        "--data-dir",
+        "/tmp/neistra-110-compat-preflight/reverse",
+        "--evidence",
+        "/tmp/neistra-110-compat-preflight/old-producer.json"
+      ],
+      "exit_code": 0,
+      "seconds": 12.26671051979065,
+      "log_sha256": "b771eb612fb83b6dbf4d1404035d6bb2c7cb59ce6a1a06dc541d265f4426ceb7"
+    },
+    {
+      "label": "current-reader",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/python",
+        "-m",
+        "tests.support.minimization_reader_qualification",
+        "read",
+        "--data-dir",
+        "/tmp/neistra-110-compat-preflight/reverse",
+        "--reader-root",
+        "/datadisk/dev/neistra",
+        "--expected-reader",
+        "0.23.0",
+        "--evidence",
+        "/tmp/neistra-110-compat-preflight/current-reader.json"
+      ],
+      "exit_code": 0,
+      "seconds": 3.289257526397705,
+      "log_sha256": "99899e23e66a7d1b1c54c75f590875cfeb93b3bcdd71c01cabff348e932b190d"
+    },
+    {
+      "label": "versions",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/python",
+        "/tmp/neistra-110-versions.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.11300921440124512,
+      "log_sha256": "fbbef93399dc1889de528af7093dcd5fb227d61b85775a8e6de6724f8d19e05e"
+    },
+    {
+      "label": "diff",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "seconds": 0.007593870162963867,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "/sys/class/power_supply/AC0/online": "0",
+  "/sys/class/power_supply/BAT0/status": "Discharging",
+  "/sys/class/power_supply/BAT0/capacity": "28",
+  "/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor": "powersave",
+  "/sys/devices/system/cpu/cpu0/cpufreq/energy_performance_preference": "balance_performance",
+  "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq": "4200000",
+  "powerprofilesctl": "power-saver",
+  "loadavg": "8.90 8.32 7.62 7/2083 364924",
+  "note": "Current observed state after broad timing slowdown; prior attempts did not record power state. No power setting changed."
+}

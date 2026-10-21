@@ -3,27 +3,32 @@
 ## Current milestone
 
 Issue [#110](https://github.com/ManuelSe/Neistra/issues/110), quick local minimization,
-is implemented through C1–C4 on the remotely verified feature branch under the
-[approved contract](plans/issue-110-quick-minimization.md), D-126–133. All five versions
-are0.23.0; no dependency upgrade or schema migration. C5/C6 qualification/delivery
-remain pending. D-134 now removes coordinator-only imports from spawned bootstrap
-after the next candidate exceeded the strict first-frame budget; all8 repeated native performance cases pass; complete frozen qualification
-is pending.
+is implemented through C1–C4 on the remotely verified feature branch. The
+[approved contract](plans/issue-110-quick-minimization.md) and D-126–134 remain binding.
+All five versions are0.23.0; no schema migration or dependency upgrade. C5/C6 are
+incomplete. Runtime checkpoint26cd4d6 contains the final startup correction.
 
-Frozen candidate attempt3 passes all1147 Python tests without skips,313 frontend,
-8 supervisor, frozen dependencies/fresh0014/static/build checks. Its native browser
-matrix finishes297 passed/1 failed/60 documented exclusions, no retries. All quick
-and retained AMBER workflows, supplied-file desktop/mobile, accessibility/zoom and
-reference timing cases pass. Cold small/pocket/18k1.76/2.60/4.34s; feedback23–57ms,
-first real frame949ms,Cancel61ms. The full gate is failed, not release evidence.
+Current verification:1148 Python,313 frontend,8 supervisor and frozen dependency/
+fresh0014/static/build checks pass.34 focused worker/recovery/quick/AMBER checks and
+8 repeated native quick performance cases pass; first actual frame684–687ms and
+Cancel48–51ms in those focused runs. Four independent focused surface-manager runs
+pass after explicit native-completion polling. Actual tagged0.22.1 and current0.23.0
+reader preflight passes four cases each direction, retaining all conformers, atomic
+history, jobs/models/reports, originals, allocators and archive round trips.
 
-The single failure is the existing surface-manager test awaiting a forced native
-rebuild promise through DevTools (execution-context destruction). The same test
-passes mobile and a fresh unchanged desktop comparison. Preserve the failing trace
-and complete diagnostics. A test-only correction observes serializable completion
-state with a bounded poll; native rejection still fails, and all visual/picking/
-history/camera assertions remain. Four independent focused runs (two/layout) pass.
-Then freeze a clean checkpoint and restart the complete candidate gate before C6.
+The complete candidate gate has not passed. Attempt5 was explicitly interrupted at
+93 browser passes/4 failures/1 interrupted/4 exclusions reached/256 not run. Failures:
+cold small Apply2561ms>2000,18k6774ms>5000,first actual frame1326ms>1000 and a1000ms
+zoom-layout wait timeout. Broad navigation/compute slowdown coincided with the host
+observed in power-saver on battery, AC disconnected. Prior runs did not record power
+state; environmental attribution must be verified by a stable-reference repeat.
+An isolated diagnostic under the current power state also fails (repeat small2254ms,
+first frame1236ms). No power settings or acceptance budgets were changed.
+
+All diagnostics and successful focused/compatibility evidence are retained separately.
+The user has been asked to reconnect AC for final reference qualification. Remaining
+browser/timing/zoom checks, complete candidate gate, PR, exact-master gate and release
+must still finish. User debug inputs remain untouched and untracked.
 
 ### Previous delivery baseline — v0.22.1
 
@@ -2715,35 +2720,14 @@ Results:
 
 ## Blockers
 
-C5 requires a completely passing frozen candidate gate after the startup correction.
-No external blocker.
+A complete frozen candidate gate is still required. Current reference timing and a
+zoom-layout wait fail while the host is observed in power-saver on battery. Repeat
+under stable reference conditions to distinguish environment from remaining defects;
+fix any persistent failure. An AC-power question is pending with the user.
 
 ## Next action
 
-Verify and commit the test-only correction and diagnostic evidence, then rerun the
-complete clean candidate gate. Continue through reviewed PR, verified normal merge,
-exact-master gate, annotated0.23.0 tag/release and final issue/publication audit.
-
-The corrected wait passes all four independent focused runs (two desktop/two mobile),
-with no failures, retries or skips. The unchanged desktop comparison also passes.
-Commit this test-only correction and evidence, then restart all20 gate commands.
-
-### Candidate attempt4 — first-frame diagnostic and startup correction
-
-Full1147 Python/313 frontend/8 supervisor/static/build checks pass. Cold quick Apply
-and repeat small/pocket/18k cases pass, but the first genuine live frame is1038ms
-against1000ms;Cancel38ms. Explicitly interrupt the remaining browser matrix:94 passed,
-1 failed,1 interrupted,4 exclusions reached,258 not run. This is diagnostic only.
-
-Profiling identifies unneeded spawned-child coordinator/API/schema/engine imports.
-Defer coordinator-only imports while preserving fresh child isolation, input/target
-identity, IPC, resource policy and cancellation/supervision. D-134 records the boundary.
-Combined import cost falls about290ms.34 focused job/recovery/quick/AMBER tests and
-Ruff/mypy pass, including a fresh-interpreter dependency regression. Initial regression
-setup lacked subprocessPYTHONPATH; it now inherits the test's source paths. Repeated
-real native timing and a full frozen gate restart are required; limits stay unchanged.
-
-All8 repeated native quick performance cases pass, zero failures/skips/retries.
-First real frame/Cancel pairs:[(686.8000000119209, 51.29999999701977), (684.2999999970198, 48.1000000089407)]. Cold/repeat small, pocket and18k scenes
-meet unchanged thresholds. Freeze this startup correction and restart all20 gate
-commands. Focused timing establishes margin; complete qualification is still pending.
+After stable reference power is available, rerun focused cold/live/zoom checks, then
+all20 candidate commands from a clean checkpoint. Complete the reviewed implementation
+PR, normal merge, exact-master gate, annotated0.23.0 release and final issue audit.
+Do not weaken thresholds or treat diagnostic/partial results as a release gate pass.

@@ -98,3 +98,21 @@ All8 repeated native quick performance cases pass, zero failures/skips/retries.
 First real frame/Cancel pairs:[(686.8000000119209, 51.29999999701977), (684.2999999970198, 48.1000000089407)]. Cold/repeat small, pocket and18k scenes
 meet unchanged thresholds. Freeze this startup correction and restart all20 gate
 commands. Focused timing establishes margin; complete qualification is still pending.
+
+### Candidate attempt5 — current unresolved qualification
+
+The startup correction passes1148 Python/313 frontend/8 supervisor/frozen/static/build
+checks. The browser run experiences broad navigation/compute slowdown. Current host
+is observed in power-saver on battery with AC disconnected. Explicitly interrupt at
+93 passes/4 failures/1 interrupted/4 exclusions reached/256 not run. Failures are
+cold small Apply2561ms,18k6774ms,first frame1326ms and a1000ms zoom-layout wait.
+Prior attempts did not record power state, so attribution remains provisional until
+repeated under stable reference conditions. No power settings or limits changed.
+
+An isolated current-power diagnostic also fails: cold small1834ms but repeat2254ms,
+first frame1236ms/Cancel76ms. Retain it and the full failed-run evidence. Independent
+compatibility preflight completes both actual reader directions (four cases each),
+versions and diff checks. The user has been asked to reconnect AC for qualification.
+The implementation is reviewable on its branch; C5/C6 remain incomplete. A complete
+frozen candidate gate must pass before opening the implementation PR. Then normal
+merge, exact-master gate and verified release remain required. Debug files unchanged.

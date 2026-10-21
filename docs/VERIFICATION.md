@@ -15,6 +15,13 @@ its browser matrix is297 passed/1 failed/60 exclusions. The failed forced-rebuil
 DevTools promise wait is preserved as diagnostic evidence; corrected serializable
 completion polling and a complete clean restart remain required.
 
+Latest runtime26cd4d6 passes1148 Python/313 frontend/8 supervisor/static/build.
+Attempt5 is explicitly interrupted after three reference-timing failures and a
+1000ms zoom-layout wait timeout; host observed on battery/power-saver. Isolated timing
+also exceeds limits. No complete candidate gate is claimed; stable-reference repeat
+and persistent-failure correction remain required. Independent actual0.22.1↔0.23.0
+reader qualification passes four cases each direction.
+
 All five candidate versions are 0.23.0. Full frozen candidate, reverse-reader and exact
 merged-master gates are pending. No PR merge, tag or release is claimed at this stage.
 See [user guidance](MINIMIZATION.md) for model distinctions and limits.
