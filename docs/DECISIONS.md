@@ -5072,3 +5072,25 @@ not a new UI/store field or public interface. Native hover tests count subscribe
 callbacks and require zero additional publications while the pose stays exact.
 The interrupted first candidate remains diagnostic evidence, not release
 qualification. Rerun coherent focused and complete clean-candidate/master gates.
+
+## D-126 — Quick minimization is a distinct editing model
+
+Approved2026-10-21 by “Implement the plan”, issue#110; contract:
+`plans/issue-110-quick-minimization.md`. Use installed RDKit/SciPy and distinct
+quick-local-v1/coordinates.quick_minimize for bounded local protein/pocket work.
+Preserve canonical chemistry, originals, fixed/inactive rows and every existing
+AMBER scientific/API/report contract. Missing legacy identity evidence alone does
+not veto quick coordinate cleanup; known protection facts remain unchanged.
+
+For quick work only, supersede D-108–119 default prerequisites/context/publication:
+visible entries define automatic participation, attached terminal H expands the
+mask by default with an exact-mask option, temporary conventional protein states
+are reported, and usable output publishes as one Undo/Redo command from its owning
+client session. Advanced AMBER retains prior accepted requirements/explicit Apply.
+
+Use capped local fragments/native MMFF94 polar and steric forces. UFF/native
+geometric restraints may provide explicitly approximate repair; report missing
+coverage and preserve unsupported fixed sites as obstacles. Caps/finite shells
+are declared model approximations, not AMBER equivalence. No engine framework,
+persistent parameter cache or DB migration. Scientific/publication/performance
+claims require the approved independent tests and real-workflow release gates.

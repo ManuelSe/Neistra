@@ -2,6 +2,17 @@
 
 ## Current milestone
 
+Issue [#110](https://github.com/ManuelSe/Neistra/issues/110), quick local minimization,
+is approved on `feat/issue-110-quick-minimization` under its
+[contract](plans/issue-110-quick-minimization.md), D-126. C0 records confirmed
+automatic publication, visible-entry surroundings, attached-H expansion, temporary
+protein defaults and warned repair while retaining Advanced AMBER. Tracking issue
+and local branch exist; only the issue is remotely verified so far. No implementation
+or scientific qualification is claimed. No external blocker. Next: C1 isolated/partial
+real quick jobs, typed API and coordinate-only publication.
+
+### Previous delivery baseline — v0.22.1
+
 Issue #91 is implemented, merged in [PR#108](https://github.com/ManuelSe/Neistra/pull/108)
 and released as stable [v0.22.1](https://github.com/ManuelSe/Neistra/releases/tag/v0.22.1) under the
 [approved plan](plans/issue-91-selection-mode-hover.md). Shared exact hover/click
