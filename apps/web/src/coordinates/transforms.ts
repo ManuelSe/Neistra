@@ -126,6 +126,12 @@ export function patchStructureProjection(
         const point = coordinates.get(atom.id);
         return point ? { ...atom, coordinates: point } : atom;
       }),
+      ...(projection.structure.conformers ? { conformers: projection.structure.conformers.map(conformer =>
+        conformer.id === (projection.structure.active_conformer_id ?? 1) ? {
+          ...conformer,
+          coordinates: conformer.coordinates.map((point, index) => coordinates.get(projection.structure.atoms[index].id) ?? point),
+        } : conformer),
+      } : {}),
     },
   };
 }

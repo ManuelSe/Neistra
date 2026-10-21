@@ -42,3 +42,10 @@ Earlier diagnostic failures prompted the above fixes; they are not release evide
 Complete frozen candidate and exact merged-master gates remain mandatory, including
 all historical native scientific and browser checks. No required scope is deferred
 or silently replaced by a successful-looking placeholder.
+
+Candidate attempt1 stopped at a stale archive test version assertion (1118 passed,
+28 failed). Focused correction passes33 archive cases. An additional cache review
+finding now patches active conformer rows and invalidates seeded full projections
+so provenance/warnings refresh for Apply/Undo/Redo, including after reload. Two
+regression cases verify it without mutating the prior cached artifact. Full candidate
+qualification must restart from a clean committed state.

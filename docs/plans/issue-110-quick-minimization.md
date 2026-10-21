@@ -234,3 +234,14 @@ Cold small/pocket/18k now pass about1.4/2.4/4.4s,12–52ms feedback/max task241m
 live first frame904ms/Cancel40ms and actual100–200%zoom pass after startup polling and
 settled-native-layout checks. Complete frozen candidate/reverse-reader/release gates
 remain pending; no release completion claim.
+
+### C5 — candidate attempt1 diagnostic and correction
+
+The frozen candidate0a47553 passed dependency installs, fresh0014 migration, Ruff and
+mypy. Full Python collected1146:1118 passed,28 failed solely at the archive helper's
+obsolete0.22.1 version assertion. It stopped there; remaining gate commands did not
+run. Retain attempt1 logs/fingerprints as diagnostic evidence. The corrected archive
+file passes33 tests, now including retained0.22.1 cases. Review also corrected shared
+coordinate-cache seeding to refresh full provenance/warnings and update only active
+conformer rows; regressions cover Apply/Redo and Undo after reload. Restart the entire
+frozen candidate gate after committing passing fixes. No acceptance limits changed.

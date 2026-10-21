@@ -19,8 +19,14 @@ native paint, start12–52ms/max task241ms; native live first frame904ms/Cancel4
 actual100–200%zoom also pass. Actual tagged0.22.1 reader retains four new quick cases,
 all conformers/history/jobs/artifacts/originals/archive round trips. Earlier diagnostic
 failures drove ownership/focus/coordinate-patch/performance fixes; none is a release gate.
-No external blocker. Next: freeze candidate, run the complete gate plus reverse reader
-qualification, review full diff, then C6 PR/merge/exact-master/tag/release verification.
+Candidate attempt1 stopped at the Python suite:1118 passed/28 failed, all from one
+obsolete archive-version assertion. That assertion now expects0.23.0 and retains
+0.22.1 archive cases; the complete focused archive file passes33 tests. Shared
+coordinate projection seeding now refreshes full canonical metadata and patches only
+the active conformer, including Undo after reload. Two regression cases cover it; all312 web tests, lint and type-check pass.
+Attempt1 diagnostics remain archived; no complete gate pass is claimed.
+No external blocker. Next: commit the focused fixes and rerun the complete frozen
+candidate gate, then C6 PR/merge/exact-master/tag/release verification.
 
 ### Previous delivery baseline — v0.22.1
 

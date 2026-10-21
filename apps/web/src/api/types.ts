@@ -513,7 +513,14 @@ export interface MolecularBond {
   inferred: boolean;
 }
 
+export interface MolecularConformer {
+  id: number;
+  name: string;
+  coordinates: [number, number, number][];
+}
+
 export interface NormalizedStructure {
+  annotations?: Record<string, unknown>[];
   active_conformer_id?: number;
   metadata?: Record<string, unknown>;
   schema_version: 1;
@@ -523,7 +530,7 @@ export interface NormalizedStructure {
   residues: MolecularResidue[];
   atoms: MolecularAtom[];
   bonds: MolecularBond[];
-  conformers: unknown[];
+  conformers: MolecularConformer[];
   warnings: MolecularWarning[];
 }
 

@@ -5180,3 +5180,13 @@ behavior, so0.23.0 is a minor release. Existing prepared AMBER requests/reports 
 unchanged. The actual tagged0.22.1 reader retains new generic data/history/jobs/archives
 in preflight; complete candidate and exact-master gates must still pass before delivery.
 No dependency upgrade, canonical chemical rewrite or schema migration is included.
+
+## D-133 — Coordinate cache seeding refreshes complete immutable artifacts
+
+Immediate coordinate patches also update the active conformer's coordinate rows,
+preserving inactive conformers. Seeded query data is invalidated so a mounted reader
+refreshes the full immutable artifact, including provenance and warnings. This shared
+path covers Apply, Undo and Redo after reload without a quick-specific cache protocol.
+Canonical server artifacts remain authoritative; the patch only supplies immediate
+geometry while the complete projection is retrieved. Typed conformer rows mirror the
+existing molecular schema. Two regression cases preserve the prior cached artifact.
