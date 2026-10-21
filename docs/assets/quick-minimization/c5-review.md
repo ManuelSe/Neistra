@@ -126,3 +126,15 @@ was unchanged. First set: small1.16s/pocket2.46s/18k4.11s, first frame699ms,Canc
 The same runtime and original thresholds now pass; retain prior battery failures as
 diagnostics. Restart all20 frozen candidate commands, recording power state at each
 step. C5/C6 remain incomplete until full qualification and verified delivery.
+
+### C5 complete — frozen candidate6
+
+All20 commands pass atb0c8208189e7e1537e23a115bbe8a6726b5b31fa:1148 Python,313
+frontend,8 supervisor,298 browser/60 documented exclusions; zero failures, flakes,
+retries or Python/native scientific skips. Both actual tagged0.22.1/current reader
+directions pass four cases.553 source/test/lock identities and compressed logs verify.
+Cold AC small/pocket/18k Apply0.915/2.104/3.659s; feedback9–54ms, first real frame
+690ms,Cancel61ms,longest task258ms. All historical/supplied-file/zoom/accessibility
+gates pass. Power was unchanged and AC online at every step boundary. Earlier
+diagnostics remain separate. Complete diff self-review finds no remaining consequential
+issue; no independent review claimed. C6 PR/normal merge/exact-master/release remains.

@@ -1,30 +1,28 @@
 # V0.1 Requirement Evidence
 
-## Quick local minimization (issue #110) — candidate qualification
+## Quick local minimization (issue #110) — C5 passes
 
-Implementation checkpoints C1–C4 are pushed under the
-[approved plan](plans/issue-110-quick-minimization.md). C5 adds independent native
-physics/context/acceptance tests and [local diff review](assets/quick-minimization/c5-review.md).
-Focused preflight covers 38 Python cases, 313 web tests, supplied-file desktop/mobile
-Apply/Undo/Redo/reload, actual native zoom/accessibility, cold/native-live timing and
-actual tagged 0.22.1 data/history/job/archive retention. Initial diagnostic failures
-were corrected and affected cases rerun; no complete release qualification is claimed.
+The [clean candidate](assets/quick-minimization/c5-candidate-6-gate.json) at
+`b0c8208189e7e1537e23a115bbe8a6726b5b31fa` passes all 20 commands: **1,148 Python,
+313 frontend, 8 supervisor, 298 browser / 60 documented layout/timing exclusions**.
+Zero failures, flakes, retries or Python/native scientific skips. All 553 source/
+test/lock identities and compressed log hashes verify. Frozen installs, fresh 0014,
+Ruff/mypy/lint/types/build/versions/diff and actual tagged 0.22.1 ↔ current reader
+qualification pass. Both directions retain four canonical/conformer/history/job/
+artifact/original/allocator/archive cases. No schema/dependency upgrade.
 
-Candidate attempt3 passes1147 Python/313 frontend/8 supervisor/static/build, but
-its browser matrix is297 passed/1 failed/60 exclusions. The failed forced-rebuild
-DevTools promise wait is preserved as diagnostic evidence; corrected serializable
-completion polling and a complete clean restart remain required.
+Cold native AC small/pocket/18k Apply: 0.915/2.104/3.659s; feedback 9–54ms,
+first actual frame 690ms, Cancel 61ms, longest task 258ms. Supplied files pass
+real desktop/mobile Apply/Undo/Redo/reload. Actual zoom/themes/axe/focus, independent
+native forces/exclusions/scaling, fixed boundaries, raw protein states/caps, repair,
+stereo, guarded context, cancellation and historical AMBER gates pass unchanged.
+AC is online at every recorded step boundary; power settings were unchanged.
+Earlier version/harness/startup/battery diagnostics remain separately retained and
+are not release passes. [Full diff self-review](assets/quick-minimization/c5-review.md)
+records corrections and limitations; no independent review is claimed.
 
-Latest runtime26cd4d6 passes1148 Python/313 frontend/8 supervisor/static/build.
-Attempt5 is explicitly interrupted after three reference-timing failures and a
-1000ms zoom-layout wait timeout; host observed on battery/power-saver. Isolated timing
-also exceeds limits. No complete candidate gate is claimed; stable-reference repeat
-and persistent-failure correction remain required. Independent actual0.22.1↔0.23.0
-reader qualification passes four cases each direction.
-
-All five candidate versions are 0.23.0. Full frozen candidate, reverse-reader and exact
-merged-master gates are pending. No PR merge, tag or release is claimed at this stage.
-See [user guidance](MINIMIZATION.md) for model distinctions and limits.
+All five versions are 0.23.0. C6 PR/normal merge, exact merged-master qualification,
+tag/release and final publication audit remain pending. See [guide](MINIMIZATION.md).
 
 ## Selection gestures (issue #90)
 

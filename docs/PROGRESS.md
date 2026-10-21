@@ -3,35 +3,36 @@
 ## Current milestone
 
 Issue [#110](https://github.com/ManuelSe/Neistra/issues/110), quick local minimization,
-is implemented through C1–C4 on the remotely verified feature branch. The
-[approved contract](plans/issue-110-quick-minimization.md) and D-126–134 remain binding.
-All five versions are0.23.0; no schema migration or dependency upgrade. C5/C6 are
-incomplete. Runtime checkpoint26cd4d6 contains the final startup correction.
+is implemented and C5 qualification passes under the
+[approved contract](plans/issue-110-quick-minimization.md), D-126–134. C6 PR/merge,
+exact-master qualification and publication remain pending. All five versions are
+0.23.0; no dependency upgrade, schema migration or canonical chemistry rewrite.
 
-Current verification:1148 Python,313 frontend,8 supervisor and frozen dependency/
-fresh0014/static/build checks pass.34 focused worker/recovery/quick/AMBER checks and
-8 repeated native quick performance cases pass; first actual frame684–687ms and
-Cancel48–51ms in those focused runs. Four independent focused surface-manager runs
-pass after explicit native-completion polling. Actual tagged0.22.1 and current0.23.0
-reader preflight passes four cases each direction, retaining all conformers, atomic
-history, jobs/models/reports, originals, allocators and archive round trips.
+The [clean candidate gate](assets/quick-minimization/c5-candidate-6-gate.json) at
+`b0c8208189e7e1537e23a115bbe8a6726b5b31fa` passes all 20 commands: **1,148 Python,
+313 frontend, 8 supervisor and 298 browser tests**, with 60 documented browser
+layout/timing exclusions and zero failures, flakes, retries or Python scientific
+skips. Frozen installs, fresh head 0014, static/build/version checks and both actual
+tagged 0.22.1/current reader directions pass. All 553 runtime/test/lock identities
+and compressed logs verify; debug files remain untouched and untracked.
 
-The complete candidate gate has not passed. Attempt5 was explicitly interrupted at
-93 browser passes/4 failures/1 interrupted/4 exclusions reached/256 not run. Failures:
-cold small Apply2561ms>2000,18k6774ms>5000,first actual frame1326ms>1000 and a1000ms
-zoom-layout wait timeout. Broad navigation/compute slowdown coincided with the host
-observed in power-saver on battery, AC disconnected. Prior runs did not record power
-state; environmental attribution must be verified by a stable-reference repeat.
-An isolated diagnostic under the current power state also fails (repeat small2254ms,
-first frame1236ms). No power settings or acceptance budgets were changed.
+Native AC reference results: cold small/pocket/18k Apply 0.915/2.104/3.659s,
+feedback 9–54ms, first real frame 690ms, Cancel 61ms, longest task 258ms. Supplied
+structures pass desktop/mobile Apply/Undo/Redo/reload; actual zoom/accessibility,
+partial/pocket/context/chemistry/stereo/cancellation and retained AMBER gates pass.
+AC remained online at every recorded step boundary; power settings were unchanged.
+Earlier failed/interrupted runs remain labeled diagnostics. The corrected surface
+completion protocol and startup import isolation pass the full native matrix.
 
-The user reconnected AC. All 10 focused checks pass on the unchanged runtime and
-thresholds: repeated cold/live timing and actual zoom, with AC online before/after.
-The existing power profile remains unchanged. Complete candidate qualification is
-restarting with power-state evidence at each step. C5/C6 remain pending.
+[Local complete-diff review](assets/quick-minimization/c5-review.md) and exact source
+diff evidence record addressed consequential findings; no independent review is
+claimed. Compatibility preserves conformers, generic atomic history, jobs/models,
+provenance, originals, allocator floors and archives in both directions. Approximate
+repair remains visibly reported; local improvement does not certify a binding pose.
 
-User debug inputs remain untouched and untracked. Local development services retain
-the existing environment/data directory; API 0.23.0, quick capabilities and web are healthy.
+Local development services retain the existing environment/data directory;
+API 0.23.0, quick capabilities and web are healthy. Next: verified PR and normal
+merge, exact-master gate, annotated release and final issue/publication audit.
 
 ### Previous delivery baseline — v0.22.1
 
@@ -2723,11 +2724,10 @@ Results:
 
 ## Blockers
 
-No current external blocker. Focused AC timing/zoom passes; the complete candidate
-and exact-master gates remain required.
+No current blocker. C5 passes; C6 exact-master qualification and delivery remain.
 
 ## Next action
 
-Run all 20 candidate commands from a clean checkpoint, review and open the
-implementation PR, merge normally, repeat the exact-master gate, then publish
-the verified annotated 0.23.0 tag/release and complete issue close-out.
+Open the implementation PR with scope and qualification evidence, review its complete
+diff and remote checks/conversations, merge normally, repeat all 20 gate commands on
+exact merged master, then verify the annotated 0.23.0 tag/release and close-out.
