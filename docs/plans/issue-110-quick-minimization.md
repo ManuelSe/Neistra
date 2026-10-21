@@ -491,3 +491,18 @@ Native cold small/pocket/18k0.889/2.466/3.470s, first frame686ms,Cancel52ms; all
 unchanged. All231 power samples show AC online, existing profile unchanged. Review
 the complete corrective diff, commit evidence only, open the corrective PR and merge
 normally after review/check verification. C6 exact-master gate and release remain.
+
+### C6 runtime publication and close-out verified
+
+PR#112 normally merges at6536e2a3140d0b8b112562ffec580d37830bc217; exact merged2
+passes all20 commands with the same1166/313/8/298 counts,60 documented exclusions,
+zero failures/flakes/retries/Python skips and all553 source identities equal. Both
+reader directions retain four cases. All232 merged power samples show AC online.
+Native cold small/pocket/18k1.159/2.184/3.628s,first frame629ms,Cancel49ms; limits unchanged.
+Annotatedv0.23.0 targets this exact verified commit; stable latest release/full notes
+and public ZIP SHA256/CRC/all4530 internal hashes verify. Issue110 is closed with
+all C0–C6 checked and verified reply6325592737 documenting scope/limits/follow-ups.
+No protection/check/review override or independent approval is claimed. Final
+evidence/docs integration uses a separate docs-only PR, preserving all runtime
+identities; actual delayed branch/worktree cleanup follows externally in that reply.
+Runtime tag stays fixed. No remaining approved-scope implementation blocker.

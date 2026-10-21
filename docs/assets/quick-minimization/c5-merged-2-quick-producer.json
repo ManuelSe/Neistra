@@ -1,0 +1,8 @@
+{
+  "producer": "0.23.0",
+  "cases": 4,
+  "quick_active_conformers_multi_entry_repair_and_legacy": true,
+  "api_module": "/datadisk/dev/neistra-issue-110-pocket-repair/apps/api/src/molweave_api/main.py",
+  "core_module": "/datadisk/dev/neistra-issue-110-pocket-repair/packages/molweave_core/src/molweave_core/__init__.py",
+  "application_version": "0.23.0"
+}

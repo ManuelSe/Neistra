@@ -1,0 +1,915 @@
+{
+  "engine": "8.4",
+  "finite_difference": 1605.4198853089474,
+  "fixed_to_full_cost_ratio": 0.9909648784280685,
+  "limitation": "Subsystem cost is a potential opportunity, not measured production speedup; no production terms are omitted. Neutral biotin and distant translated chains are qualification assumptions, not a biological assembly.",
+  "model": "amber-local-v1",
+  "movable_gradient": 1605.1618611417314,
+  "offset_finite_difference": 1605.4198853089474,
+  "platform": "CPU",
+  "samples": {
+    "fixed_only": {
+      "atoms": 18176,
+      "energy_kj_mol": 789626.6886382668,
+      "median_seconds": 0.032815740509249736,
+      "seconds": [
+        0.033874337997986004,
+        0.03209104599955026,
+        0.03527021700574551,
+        0.03247203798673581,
+        0.035498743993230164,
+        0.03271602401218843,
+        0.03522729699034244,
+        0.030910248999134637,
+        0.03365922700322699,
+        0.03229683999961708,
+        0.032915457006311044,
+        0.03264517099887598
+      ]
+    },
+    "full": {
+      "atoms": 18208,
+      "energy_kj_mol": 789450.1945601918,
+      "median_seconds": 0.03311493799992604,
+      "seconds": [
+        0.03308461100095883,
+        0.0323853049922036,
+        0.03309121400525328,
+        0.03293379899696447,
+        0.033697296006721444,
+        0.033107234005001374,
+        0.03378216500277631,
+        0.033139042992843315,
+        0.03370764599821996,
+        0.033127300994237885,
+        0.03291543500381522,
+        0.03312264199485071
+      ]
+    }
+  },
+  "threads": 1,
+  "toolchain": {
+    "ambertools": "24.8",
+    "build": "cuda_None_nompi_py312h4265c8b_104",
+    "environment": [
+      {
+        "build": "8_kmp_llvm",
+        "name": "_openmp_mutex",
+        "sha256": "b8de006376660eb12c7fc40803c97e1480bf4bc1253f0d59694b12f81b52fe14",
+        "version": "4.5"
+      },
+      {
+        "build": "cuda_None_nompi_py312h4265c8b_104",
+        "name": "ambertools",
+        "sha256": "ce9fdcbdba9d665cb1d85f4d9df1c4bc70770a20b4ce25b43d69381f3027bfef",
+        "version": "24.8"
+      },
+      {
+        "build": "nompi_hf03ea27_102",
+        "name": "arpack",
+        "sha256": "6d71343420292132be0192ddd962b308f7b8a0a0630d1db83fb9d65e8167c6ce",
+        "version": "3.9.1"
+      },
+      {
+        "build": "h7648d90_2",
+        "name": "aws-c-auth",
+        "sha256": "fa688894e3c774161b0ce2e3a396090bb60847721f52984c130e5fbd727f9a18",
+        "version": "1.0.0"
+      },
+      {
+        "build": "hcf7459e_1",
+        "name": "aws-c-cal",
+        "sha256": "f56035cbb113894bb56101721bf1ac74ec8facf15ceb2ca6eedc991f11a7411f",
+        "version": "1.0.0"
+      },
+      {
+        "build": "hebe6cf0_0",
+        "name": "aws-c-common",
+        "sha256": "48e4b430ffcb6042fbdb1a9c1422f597aaa104d6f884746eabf6463b1f4893d9",
+        "version": "1.0.3"
+      },
+      {
+        "build": "ha404f16_1",
+        "name": "aws-c-compression",
+        "sha256": "486b614563ca593b1660e46c986e0e8f4fbafb08ce6c2b45acc8dc909aafe84e",
+        "version": "1.0.0"
+      },
+      {
+        "build": "h392d1a3_1",
+        "name": "aws-c-http",
+        "sha256": "e34e5700f6d06294206dcf804a99a4413dc051ea02763234fc7c76a3521f659b",
+        "version": "1.0.0"
+      },
+      {
+        "build": "h07ba609_0",
+        "name": "aws-c-io",
+        "sha256": "eef9e50eb04c2b13c1a116f81c7577b7b500c14d01c3b8bd4f72231d47f192c6",
+        "version": "1.0.0"
+      },
+      {
+        "build": "hfe03eda_1",
+        "name": "aws-c-s3",
+        "sha256": "d6d4543b0f1acc614d4245245d9760e8dcf734785bd8bbcd0e7a9cff2271b026",
+        "version": "1.0.0"
+      },
+      {
+        "build": "ha404f16_1",
+        "name": "aws-c-sdkutils",
+        "sha256": "15d23a2f6be704e2dd3682ceff9b45da1c1c599869c0805f9a8f0d2c906a8a30",
+        "version": "1.0.0"
+      },
+      {
+        "build": "ha404f16_0",
+        "name": "aws-checksums",
+        "sha256": "db94279f762df7cd6dd58cd9579373c69f2c024e3d91e5db0441f4726c2895cd",
+        "version": "1.0.1"
+      },
+      {
+        "build": "he440d0b_1",
+        "name": "blosc",
+        "sha256": "e7af5d1183b06a206192ff440e08db1c4e8b2ca1f8376ee45fb2f3a85d4ee45d",
+        "version": "1.21.6"
+      },
+      {
+        "build": "h505cf86_4",
+        "name": "brotli",
+        "sha256": "61b78574f002390b6a7fc79834fc344beaab09550068a51100eea5a485dac741",
+        "version": "1.2.0"
+      },
+      {
+        "build": "h9908984_4",
+        "name": "brotli-bin",
+        "sha256": "ce7db81d5fd4b222ee1a27c52ccf7af44faaf88283017103a8e288f9c372b973",
+        "version": "1.2.0"
+      },
+      {
+        "build": "hda65f42_10",
+        "name": "bzip2",
+        "sha256": "1a0d382c515ebf55f8ee1f38c8b81bc95af5c2acc42ad53b66bc5df932032f96",
+        "version": "1.0.8"
+      },
+      {
+        "build": "hebe6cf0_2",
+        "name": "c-ares",
+        "sha256": "9c37cc233238adf366ea75b0e845662a5be07ceadf62e458183516369340274b",
+        "version": "1.34.8"
+      },
+      {
+        "build": "hbd8a1cb_0",
+        "name": "ca-certificates",
+        "sha256": "0a0544cf95f64394fe4959286f5c71f5444ad58feb0602e53becb27448d24da6",
+        "version": "2026.7.22"
+      },
+      {
+        "build": "h3c89d7e_0",
+        "name": "cairo",
+        "sha256": "5d0efc6f9981468aca72897460d9b2d17b74dff72787f20a9d2330e214064515",
+        "version": "1.18.6"
+      },
+      {
+        "build": "pyhcf101f3_1",
+        "name": "cloudpickle",
+        "sha256": "4c287c2721d8a34c94928be8fe0e9a85754e90189dd4384a31b1806856b50a67",
+        "version": "3.1.2"
+      },
+      {
+        "build": "py312h9be0db6_1",
+        "name": "contourpy",
+        "sha256": "6e25d853d433ab890e03a47db92c5d1651bdfa7b37527bb343706404fde7c010",
+        "version": "1.4.0"
+      },
+      {
+        "build": "pyhcf101f3_2",
+        "name": "cycler",
+        "sha256": "bb47aec5338695ff8efbddbc669064a3b10fe34ad881fb8ad5d64fbfa6910ed1",
+        "version": "0.12.1"
+      },
+      {
+        "build": "nompi_h3b011a4_100",
+        "name": "fftw",
+        "sha256": "6fd5d681fba20adaca771f138ac52dbf0a52e0dc2ac31b9ce7406068d102a9a7",
+        "version": "3.3.11"
+      },
+      {
+        "build": "hab24e00_0",
+        "name": "font-ttf-dejavu-sans-mono",
+        "sha256": "58d7f40d2940dd0a8aa28651239adbf5613254df0f75789919c4e6762054403b",
+        "version": "2.37"
+      },
+      {
+        "build": "h77eed37_0",
+        "name": "font-ttf-inconsolata",
+        "sha256": "c52a29fdac682c20d252facc50f01e7c2e7ceac52aa9817aaf0bb83f7559ec5c",
+        "version": "3.000"
+      },
+      {
+        "build": "h77eed37_0",
+        "name": "font-ttf-source-code-pro",
+        "sha256": "00925c8c055a2275614b4d983e1df637245e19058d79fc7dd1a93b8d9fb4b139",
+        "version": "2.038"
+      },
+      {
+        "build": "h77eed37_3",
+        "name": "font-ttf-ubuntu",
+        "sha256": "2821ec1dc454bd8b9a31d0ed22a7ce22422c0aef163c59f49dfdf915d0f0ca14",
+        "version": "0.83"
+      },
+      {
+        "build": "h4db4eae_1",
+        "name": "fontconfig",
+        "sha256": "5a3eb10b18a97223ab06b3a7f0d7f56658db2f2800e2f2af95836fe3bf55ba63",
+        "version": "2.18.3"
+      },
+      {
+        "build": "0",
+        "name": "fonts-conda-ecosystem",
+        "sha256": "a997f2f1921bb9c9d76e6fa2f6b408b7fa549edd349a77639c9fe7a23ea93e61",
+        "version": "1"
+      },
+      {
+        "build": "hc364b38_1",
+        "name": "fonts-conda-forge",
+        "sha256": "54eea8469786bc2291cc40bca5f46438d3e062a399e8f53f013b6a9f50e98333",
+        "version": "1"
+      },
+      {
+        "build": "py312hfd18d64_0",
+        "name": "fonttools",
+        "sha256": "d6d97e42c76d8e25c9ad23a61f7ab0fa104b4813e72551a6ccc67ee24308957b",
+        "version": "4.67.0"
+      },
+      {
+        "build": "ha770c72_2",
+        "name": "freetype",
+        "sha256": "612a8e0c1a6ecae23da54d81ef395f6ebb5c8e4468ec2611593ebce75876a4e0",
+        "version": "2.14.3"
+      },
+      {
+        "build": "h7cc23a3_0",
+        "name": "fribidi",
+        "sha256": "3ba79ebfbd14ca5db4affaf10ee8001064e907de5baabc2dbe5bcd9aec856c9f",
+        "version": "1.0.17"
+      },
+      {
+        "build": "h54a6638_1",
+        "name": "graphite2",
+        "sha256": "7fa3b6a9c081fa3e545573152a788d061a0a0ba57df7251cc0f4f75225fc93e7",
+        "version": "1.3.15"
+      },
+      {
+        "build": "h2a13503_7",
+        "name": "hdf4",
+        "sha256": "0d09b6dc1ce5c4005ae1c6a19dc10767932ef9a5e9c755cfdbb5189ac8fb0684",
+        "version": "4.2.15"
+      },
+      {
+        "build": "nompi_hdbb200c_101",
+        "name": "hdf5",
+        "sha256": "fb979dae9d3e7080e77d965f139caf55a1b10c7f58b4be5e1aec904f6931bbb6",
+        "version": "2.2.0"
+      },
+      {
+        "build": "py310h44b86e0_2",
+        "name": "icu",
+        "sha256": "9f07834f0c546ab14d885ce0366285f61f44e326c0edd1fc63b8294e113ae432",
+        "version": "78.3"
+      },
+      {
+        "build": "pyhcf101f3_0",
+        "name": "joblib",
+        "sha256": "96b76ace583404ce4fbc234baa6cdb3de485887913104d4ac51994f9b6656696",
+        "version": "1.6.0"
+      },
+      {
+        "build": "h7cc23a3_1",
+        "name": "keyutils",
+        "sha256": "dd053c96dcb0dcfd59422aefea9d2fe937a190167f34fba7893ec1e10a7e8963",
+        "version": "1.6.3"
+      },
+      {
+        "build": "py312h9be0db6_3",
+        "name": "kiwisolver",
+        "sha256": "2bf43f71103bd13f9977d6989a6ccdc1bff0db49cfd37280c3f934ac6ce6c3ed",
+        "version": "1.5.1"
+      },
+      {
+        "build": "hbc21106_2",
+        "name": "krb5",
+        "sha256": "2a5c38c85e63df84c4e69ee71439841ce570d259ae3060627bb9a49a938d66f4",
+        "version": "1.22.2"
+      },
+      {
+        "build": "h9073bf1_3",
+        "name": "lcms2",
+        "sha256": "03e675b9adaf235aab880e4133c72f4830e87bc7da2df59d6194771612239b22",
+        "version": "2.19.1"
+      },
+      {
+        "build": "default_hbd61a6d_103",
+        "name": "ld_impl_linux-64",
+        "sha256": "901649b1edbe841fd4ee7e2d491a05184ed540eb01cdae506872f344babc1d28",
+        "version": "2.46.1"
+      },
+      {
+        "build": "hdb68285_0",
+        "name": "lerc",
+        "sha256": "bf9fdebf55d8bc99d83531cdffda00703f4dc5f93a1a956768c147362c72feda",
+        "version": "4.2.0"
+      },
+      {
+        "build": "h088129d_0",
+        "name": "libaec",
+        "sha256": "822e4ae421a7e9c04e841323526321185f6659222325e1a9aedec811c686e688",
+        "version": "1.1.5"
+      },
+      {
+        "build": "11_h4a7cf45_openblas",
+        "name": "libblas",
+        "sha256": "d942e0c820d60a613a6f786d074f0820fb6343e3f1ccfb110b1d98b44fb75968",
+        "version": "3.11.0"
+      },
+      {
+        "build": "hd24cca6_5",
+        "name": "libboost",
+        "sha256": "a17ae9fd2af96eac7c29072b3e345ec3c2af42f18e33102633ab4440c1168ef7",
+        "version": "1.86.0"
+      },
+      {
+        "build": "h39a168f_4",
+        "name": "libbrotlicommon",
+        "sha256": "c4e9854c585f3ee1785f651287ecdf8c28f30a2ea1b159a513005f8a0f6453a3",
+        "version": "1.2.0"
+      },
+      {
+        "build": "ha411449_4",
+        "name": "libbrotlidec",
+        "sha256": "d5ed24da3e583a92227fe77280978b7933f07a39a2b60156c5ad95e5c76733fa",
+        "version": "1.2.0"
+      },
+      {
+        "build": "h018ffa1_4",
+        "name": "libbrotlienc",
+        "sha256": "b9f3cb510337655485c2e79ce5f7dd468991b19ad29723ffa1175a0aed1b69ae",
+        "version": "1.2.0"
+      },
+      {
+        "build": "11_h0358290_openblas",
+        "name": "libcblas",
+        "sha256": "f7d1bbdea61cf94ba219d17b2cb571a29830f8025385af799bff5a7ad1ef45e6",
+        "version": "3.11.0"
+      },
+      {
+        "build": "ha042cf0_0",
+        "name": "libcurl",
+        "sha256": "d2db14d80efb4f2e76e76561c633f1767f7543987f2bcb54a067a9d264d432ab",
+        "version": "8.23.0"
+      },
+      {
+        "build": "hd45a770_1",
+        "name": "libdeflate",
+        "sha256": "82e134c8a08b1eed9a2ed8ab578b89aa1730dcde3dea8dd87645ed0637878e54",
+        "version": "1.25"
+      },
+      {
+        "build": "pl5321h373387f_0",
+        "name": "libedit",
+        "sha256": "45301f14f4eb66da57cfaf2d265f3eeee73f8b07e99614ee3afc5b26eea91126",
+        "version": "3.1.20260512"
+      },
+      {
+        "build": "h280c20c_3",
+        "name": "libev",
+        "sha256": "e4418f68d01a6307c4431b585c71b584f40189877364e542ee87deb777f5e85b",
+        "version": "4.33"
+      },
+      {
+        "build": "hd2095e1_0",
+        "name": "libexpat",
+        "sha256": "6de73033a7c5f712c9c5a54124e4581e025691029835e5bceaf10a333a7e7bc0",
+        "version": "2.8.5"
+      },
+      {
+        "build": "h81df57d_1",
+        "name": "libffi",
+        "sha256": "c8c7583ef063bc3c430f1d48298e5ad24f796a35c22ed5b14183325825a61106",
+        "version": "3.7.0"
+      },
+      {
+        "build": "ha770c72_2",
+        "name": "libfreetype",
+        "sha256": "fb12ecb46c30d18d928c0e8fc346ab13b5f6fc8a9cacae4f2f4bb188782586f5",
+        "version": "2.14.3"
+      },
+      {
+        "build": "h5e6c136_2",
+        "name": "libfreetype6",
+        "sha256": "ec607dd5445dd17ff6bf8b7fe6832e5504c226dd91d3aaea7ba83569808b0ce4",
+        "version": "2.14.3"
+      },
+      {
+        "build": "ha9f2e26_7",
+        "name": "libgcc",
+        "sha256": "e031634c3a928f9594eba868bc46ef5230d6571a364a0c63215b06c4563bfcea",
+        "version": "16.2.0"
+      },
+      {
+        "build": "h69a702a_7",
+        "name": "libgcc-ng",
+        "sha256": "03b54d7008de080a17cc2174b0e4acd6d06e1c981b2eb19846f46d8f59966034",
+        "version": "16.2.0"
+      },
+      {
+        "build": "h69a702a_7",
+        "name": "libgfortran",
+        "sha256": "9682ae4dd11487e10b904b3cb3ab6379cad25233d45fdfdf90d54349df244494",
+        "version": "16.2.0"
+      },
+      {
+        "build": "h6b99dfc_7",
+        "name": "libgfortran5",
+        "sha256": "04dbab12c925b92977bb835dd2f5eda413607afa79f95a554e5a04b07a380322",
+        "version": "16.2.0"
+      },
+      {
+        "build": "h569388d_0",
+        "name": "libglib",
+        "sha256": "9e688e046550415c030c3d08ed9a3fd13a51d7bc56295283b858b6c3070bb9f8",
+        "version": "2.90.0"
+      },
+      {
+        "build": "he0feb66_7",
+        "name": "libgomp",
+        "sha256": "92a0bb350c7be6a4eedcb4e111c60aefd176018e6b1c009a6e025dbe9bbcd758",
+        "version": "16.2.0"
+      },
+      {
+        "build": "h23af247_2",
+        "name": "libharfbuzz",
+        "sha256": "3dea71a07100fd523ff173538577fd2e06a42beb5cb25e4a18ac9484773753ba",
+        "version": "14.6.0"
+      },
+      {
+        "build": "default_hd7c4d0c_1001",
+        "name": "libhwloc",
+        "sha256": "a140f8b94caad6ea27e9deba66a74ae2566976591db8a867677c652add6ee5a0",
+        "version": "2.15.0"
+      },
+      {
+        "build": "h0cb94f2_3",
+        "name": "libiconv",
+        "sha256": "f943117edb9cd4d9c61cc972eee5a34291dc55ea7a6e9e38da104995841cbcb6",
+        "version": "1.18"
+      },
+      {
+        "build": "hb03c661_1",
+        "name": "libjpeg-turbo",
+        "sha256": "bba8538e6538ed58a8479b332337b96986561f975d06cfa2039a016c2d246ee4",
+        "version": "3.2.0"
+      },
+      {
+        "build": "11_h47877c9_openblas",
+        "name": "liblapack",
+        "sha256": "1ad3f43c9319ef398a8ef45989f4903a06e3965b51e77fc669a4c894168a8411",
+        "version": "3.11.0"
+      },
+      {
+        "build": "hb03c661_1",
+        "name": "liblzma",
+        "sha256": "9787df8c22a59c9a70d3e5a10db9ad663485e75e9ccc3f09bd092cb7b95e0dab",
+        "version": "5.8.3"
+      },
+      {
+        "build": "nompi_he3e3c8e_201",
+        "name": "libnetcdf",
+        "sha256": "a75ac995ccb9fefae463b317727affc528ace00e9dbde786fb51867f36ee2d8e",
+        "version": "4.10.1"
+      },
+      {
+        "build": "h74cf4be_1",
+        "name": "libnghttp2",
+        "sha256": "11a2f54a6f391e25738bce0023e6ef499600147bbcf21c1fa69d2e251b03cc6a",
+        "version": "1.68.1"
+      },
+      {
+        "build": "hb9d3cd8_1",
+        "name": "libnsl",
+        "sha256": "927fe72b054277cde6cb82597d0fcf6baf127dcbce2e0a9d8925a68f1265eef5",
+        "version": "2.0.1"
+      },
+      {
+        "build": "pthreads_hf13c14d_2",
+        "name": "libopenblas",
+        "sha256": "69a722751e14eab2eb3bfdcb9acb1187afbd962b0c49b48d829341e0f6787f60",
+        "version": "0.3.34"
+      },
+      {
+        "build": "h922cc85_0",
+        "name": "libpng",
+        "sha256": "c7381be8ef713501f6cd2f5ad473e401f2edeaec3c46788296b8dbf0de165e15",
+        "version": "1.6.59"
+      },
+      {
+        "build": "hd9e3e90_1",
+        "name": "libpsl",
+        "sha256": "09e8effdc89bc5d021349318d32b85594f5b8d8e3ab8f90a85b81f8fe695a566",
+        "version": "0.23.1"
+      },
+      {
+        "build": "ha57cdbe_2_cpython",
+        "name": "libpython",
+        "sha256": "37017ac4a784c50f1fc73c7b0eb090c7f29f4541c9014c4b4e10daa275488fdd",
+        "version": "3.12.15"
+      },
+      {
+        "build": "h6406941_0",
+        "name": "libraqm",
+        "sha256": "ab3ccb9fd5816f76b18ee8974d359cd2605ca87d8ddef55369dc461b9986f95c",
+        "version": "0.11.0"
+      },
+      {
+        "build": "h13e7031_0",
+        "name": "libsqlite",
+        "sha256": "07b3c98282022f05781122d073f84e944bfb4299946e8457ece3ce6c384ff78e",
+        "version": "3.54.1"
+      },
+      {
+        "build": "h6154650_1",
+        "name": "libssh2",
+        "sha256": "7e463000fa1cba3f3a6597b776f6ab301d425a96e3bc20d0d9d76a3b9f237aa3",
+        "version": "1.11.1"
+      },
+      {
+        "build": "h934c35e_7",
+        "name": "libstdcxx",
+        "sha256": "fa7018298629fc429971fffd6ecba3d27a7b02e4e890d6a93ea01ffebe8cb745",
+        "version": "16.2.0"
+      },
+      {
+        "build": "hdf11a46_7",
+        "name": "libstdcxx-ng",
+        "sha256": "337f481db36cc357884f05f404ccd1b3a7e0fc1ee48ec5c884e4281d213bc863",
+        "version": "16.2.0"
+      },
+      {
+        "build": "hcc2c06a_1",
+        "name": "libtiff",
+        "sha256": "10e125da82ca93e09191e66e5a94d566b2cf8d4024e2a0db3a9114297447e0d9",
+        "version": "4.7.2"
+      },
+      {
+        "build": "hcfc3c73_0",
+        "name": "libuuid",
+        "sha256": "f34b8d1de9a2bf62476d8608057d9b8a918d97444236dc53a47128f2fae79041",
+        "version": "2.42.4"
+      },
+      {
+        "build": "hd42ef1d_1",
+        "name": "libwebp-base",
+        "sha256": "8415001414f488c85b72b9d8cc2071dfb3981a47bc3c8eb56ef91a57d12eae7f",
+        "version": "1.6.0"
+      },
+      {
+        "build": "hb83e432_2",
+        "name": "libxcb",
+        "sha256": "7b49e6fd2a584b7f072943e6adf4149677af5121246975278804782d37752837",
+        "version": "1.17.0"
+      },
+      {
+        "build": "h280c20c_0",
+        "name": "libxcrypt",
+        "sha256": "f7e9292dd219a6435bbb1223da9586c3e70d66d169c5a92f08db3f2127df04e9",
+        "version": "4.4.38"
+      },
+      {
+        "build": "h7df9aa5_1",
+        "name": "libxml2",
+        "sha256": "8c32be9e8720bc413d2b4267517459d7d71fad4a5f398a2aa8319b6d7b8a00e6",
+        "version": "2.15.4"
+      },
+      {
+        "build": "hf3af7cc_1",
+        "name": "libxml2-16",
+        "sha256": "d1906463070c21f3215cd5de93164f31c44d5bac6ae9b5d8f5adf42b1e304039",
+        "version": "2.15.4"
+      },
+      {
+        "build": "h6008cf6_0",
+        "name": "libzip",
+        "sha256": "1168d3f6b32868b7fb0a4f34239c3cfb1f8203203ce672b23c7dbdae5603f8cc",
+        "version": "1.12.1"
+      },
+      {
+        "build": "h25fd6f3_3",
+        "name": "libzlib",
+        "sha256": "eb8a0db0aa570124f7d2a93d7c7f596e3390df5e047818d873baad32985fc736",
+        "version": "1.3.2"
+      },
+      {
+        "build": "h7148c6a_1",
+        "name": "llvm-openmp",
+        "sha256": "250d9e8413c3e45a97626e03125fcce2c172b41bcb8e6226717c467d6e9327c9",
+        "version": "23.1.3"
+      },
+      {
+        "build": "hee9eb32_2",
+        "name": "lz4-c",
+        "sha256": "b8c0e930183e6b7f83cd35ace102f2b8c2f0faae41dc05255dc72f247dfc556a",
+        "version": "1.10.0"
+      },
+      {
+        "build": "py312hfe9aac7_1",
+        "name": "matplotlib-base",
+        "sha256": "066b5b0cee5edb51ad64eb0c55db99fc85a6dc92821c49531b778da1c6d9867e",
+        "version": "3.11.2"
+      },
+      {
+        "build": "hd2095e1_245",
+        "name": "mkl",
+        "sha256": "a2699b4db5f93ae7211249f5b8df4981c22765c392cc6d34c18d76994fe3b327",
+        "version": "2026.1.0"
+      },
+      {
+        "build": "pyhd8ed1ab_1",
+        "name": "munkres",
+        "sha256": "d09c47c2cf456de5c09fa66d2c3c5035aa1fa228a1983a433c47b876aa16ce90",
+        "version": "1.1.4"
+      },
+      {
+        "build": "hdb14827_1",
+        "name": "ncurses",
+        "sha256": "5d46557214ed184381dafe835b7c94a474a1c3b307a08a250b1ea4779b44ffb3",
+        "version": "6.6"
+      },
+      {
+        "build": "nompi_h52816da_101",
+        "name": "netcdf-fortran",
+        "sha256": "2cfd22d5e29f50b98be6724e6f64eaf0bdc96e2369543c7d430e33f34a465857",
+        "version": "4.6.4"
+      },
+      {
+        "build": "py312he827f4e_0",
+        "name": "numpy",
+        "sha256": "8d562d8fcc44a93c65793a361f39a75712bb3cf2aa1d1a09bcc8ef072e54a1c3",
+        "version": "2.5.4"
+      },
+      {
+        "build": "heb1ab33_2",
+        "name": "openjpeg",
+        "sha256": "131688a88bea8da92fe418c4558c5073435e2848911bc4c836c3a9dd5994b4aa",
+        "version": "2.5.4"
+      },
+      {
+        "build": "h781a0a9_0",
+        "name": "openssl",
+        "sha256": "9c1533f1cf784f0e250919c0c9762d0b0e6bc727a79290ffb7cea1ceca1d038c",
+        "version": "3.6.5"
+      },
+      {
+        "build": "pyhc364b38_0",
+        "name": "packaging",
+        "sha256": "c432626b16768b8dab228bfb706f7060c2d462a21c516d240f68f2f902b5a044",
+        "version": "26.3"
+      },
+      {
+        "build": "np2py312h91ec553_0",
+        "name": "pandas",
+        "sha256": "a4c045408aea6536148307158fb873d8d8f5f1295931ea12494997eae778b096",
+        "version": "3.0.6"
+      },
+      {
+        "build": "py312he864675_1",
+        "name": "parmed",
+        "sha256": "7667ae3680cc6cc3a8e25436a699602a2f82030987386d1bf2108195f4bc1c5c",
+        "version": "4.3.1"
+      },
+      {
+        "build": "h8b3dc9c_1",
+        "name": "pcre2",
+        "sha256": "9ebb10a4eb3be51ae67d85c679f5a7a50cb040ed25c783e6331a225ea09991d4",
+        "version": "10.47"
+      },
+      {
+        "build": "1_h7cc23a3_perl5",
+        "name": "perl",
+        "sha256": "43afad1c27c24ccc40d98461ab7e1648ccac876421a8783167861ae19c4edc83",
+        "version": "5.44.0"
+      },
+      {
+        "build": "py312h38079b3_4",
+        "name": "pillow",
+        "sha256": "057db21cb235e47a80f36ffbed86f4c4a11aec5d20505278a8f55142ea41e287",
+        "version": "12.3.0"
+      },
+      {
+        "build": "pyh8b19718_0",
+        "name": "pip",
+        "sha256": "c205bae42eb11b364fe3663a817cbcbc20a8ef544c6b2ff6f391013487117259",
+        "version": "26.2.1"
+      },
+      {
+        "build": "h54a6638_3",
+        "name": "pixman",
+        "sha256": "829d8288764282de5a9f7b9169acb75cc7dc0b6c3fe2535cfe87dea3436bbc5d",
+        "version": "0.46.4"
+      },
+      {
+        "build": "h7cc23a3_1004",
+        "name": "pthread-stubs",
+        "sha256": "4a44fd00ea73b79ca2c89b0727b9ccf61c506ead71e67a9abfa4c590042b5a4a",
+        "version": "0.4"
+      },
+      {
+        "build": "pyh5ded981_0",
+        "name": "pyparsing",
+        "sha256": "dc10d64d4b9a1310083b2f563416ab45560ee2a04fd6baab40f223f2b1ab37bc",
+        "version": "3.3.3"
+      },
+      {
+        "build": "h5f976f7_2_cpython",
+        "name": "python",
+        "sha256": "f8a38c33f627c68e35d02cc5a11eff25eadb853791ac40bf9cc569315d25bc54",
+        "version": "3.12.15"
+      },
+      {
+        "build": "pyhe01879c_2",
+        "name": "python-dateutil",
+        "sha256": "d6a17ece93bbd5139e02d2bd7dbfa80bee1a4261dced63f65f679121686bf664",
+        "version": "2.9.0.post0"
+      },
+      {
+        "build": "9_cp312",
+        "name": "python_abi",
+        "sha256": "ee9c2922e07afc85fc82d5fa82c9ac2c79da3be3283a5e17bf2f2ae38dbd02fb",
+        "version": "3.12"
+      },
+      {
+        "build": "h434a139_5",
+        "name": "qhull",
+        "sha256": "776363493bad83308ba30bcb88c2552632581b143e8ee25b1982c8c743e73abc",
+        "version": "2020.2"
+      },
+      {
+        "build": "hd6e31c0_1",
+        "name": "readline",
+        "sha256": "01b3fe073a66e321970d09e04b388708f8cbdca5cdfbfcb7c9eeb470ad10383d",
+        "version": "8.3"
+      },
+      {
+        "build": "ha5dc4ae_0",
+        "name": "s2n",
+        "sha256": "5b63ee4e79eaea5a1c379d8aaa51281549c4815208e04daa62777c5c288e4e01",
+        "version": "1.7.7"
+      },
+      {
+        "build": "py312h106c528_1",
+        "name": "scipy",
+        "sha256": "d080762a708a0c885814995470d6fb186cec366acb080913584127e94ed031d5",
+        "version": "1.18.1"
+      },
+      {
+        "build": "pyh332efcf_0",
+        "name": "setuptools",
+        "sha256": "9e200ee5f9ff19a4d94e4b51c4856d53dec849f91032f345cf0c6bc3d51a7183",
+        "version": "84.0.0"
+      },
+      {
+        "build": "pyhe01879c_1",
+        "name": "six",
+        "sha256": "458227f759d5e3fcec5d9b7acce54e10c9e1f4f4b7ec978f3bfd54ce4ee9853d",
+        "version": "1.17.0"
+      },
+      {
+        "build": "h34e00bb_2",
+        "name": "snappy",
+        "sha256": "8635d10c7f127808b09c0c8e77b21a255829e0934e49326548c949f7e0551f09",
+        "version": "1.2.2"
+      },
+      {
+        "build": "haa8c3ee_2",
+        "name": "tbb",
+        "sha256": "5e47c01ea6c2bea041b78b4e45b3135b80bfc015533ec44e4c2d2326a755f8ba",
+        "version": "2023.1.0"
+      },
+      {
+        "build": "noxft_h1df4ec4_4",
+        "name": "tk",
+        "sha256": "a1a241d172c1ccab067ba245206dd048bc3c2d1b84504b53c9468e99adfc16a1",
+        "version": "8.6.13"
+      },
+      {
+        "build": "h151e31d_0",
+        "name": "tzdata",
+        "sha256": "b928c30ddcb0e3f544c6eade8352737e6e610e263276b90232db6a578ef899d8",
+        "version": "2026c"
+      },
+      {
+        "build": "py312h5cc1888_0",
+        "name": "unicodedata2",
+        "sha256": "3b0c8ea41cd161043eb774bcb653e497811e4e6307e5149da7072c4fd70d356e",
+        "version": "18.0.0"
+      },
+      {
+        "build": "pyhd8ed1ab_0",
+        "name": "wheel",
+        "sha256": "ba64b29b6d418024cb565081a1799262cb2780d2534ff4c14f76aa858c4286cd",
+        "version": "0.48.0"
+      },
+      {
+        "build": "h280c20c_0",
+        "name": "xorg-libice",
+        "sha256": "49b532d1df875c6749d9078b56a76f3f5db49a5abe0ca620b593ed474ef0ebf1",
+        "version": "1.1.2"
+      },
+      {
+        "build": "h0d788c3_1",
+        "name": "xorg-libsm",
+        "sha256": "ef907caee0665cf3b0f775602cc50e388e3bade8ce22ecade0873ff26604b2fd",
+        "version": "1.2.6"
+      },
+      {
+        "build": "he1eb515_1",
+        "name": "xorg-libx11",
+        "sha256": "68053eebfa9f0d91666786c8fb5839d989aa9b869add92cb8815228bb2d7302c",
+        "version": "1.8.13"
+      },
+      {
+        "build": "h7cc23a3_2",
+        "name": "xorg-libxau",
+        "sha256": "3ec065b94554dc48a4ca582a960a5484bc166b26e83ce0954653e08d17e8bd53",
+        "version": "1.0.12"
+      },
+      {
+        "build": "h7cc23a3_2",
+        "name": "xorg-libxdmcp",
+        "sha256": "8a095df9bc1d2e50f2504ce8858a047ae29ea634aad6cc0b43298c63361da6d9",
+        "version": "1.1.5"
+      },
+      {
+        "build": "h7cc23a3_1",
+        "name": "xorg-libxext",
+        "sha256": "aa9bbe8b278aacc194e280ff5037f9f9a1f2c5b33ed97de8e7f01cfbe90dda43",
+        "version": "1.3.7"
+      },
+      {
+        "build": "hb03c661_1",
+        "name": "xorg-libxrender",
+        "sha256": "6901f91d398811e4ec89d7e20a69abac02a7bfebfaf073338b7ea3d1a99685b7",
+        "version": "0.9.12"
+      },
+      {
+        "build": "h7cc23a3_1",
+        "name": "xorg-libxt",
+        "sha256": "dff31677674be86f98ee929a796edf2cf7c78bf38610b122a63af9af752d5bf7",
+        "version": "1.3.1"
+      },
+      {
+        "build": "hce19668_1",
+        "name": "zlib-ng",
+        "sha256": "8b786bb4380fa69a718b08a400040b865bc9207eda337e0a1955717c3c3a9403",
+        "version": "2.3.3"
+      },
+      {
+        "build": "hb78ec9c_7",
+        "name": "zstd",
+        "sha256": "47d682b9f6d6ec9eb1a6e6c3e75ea6273e899e78fb7fc59f81d39745009fbc60",
+        "version": "1.5.7"
+      }
+    ],
+    "environment_sha256": "680342fc9a1e306d978a099fdbe0d3eb0e8c339141772e9ee1de253f67625deb",
+    "files": {
+      "amber.sh": "214b70055b4ec13f76c4f33e4445dfb8e02657ac85679c91742879c8b265af0f",
+      "bin/am1bcc": "f8fb56f106a38750a5a3d90a7e8cc0e9ecf09b56993fd771c230162e8fd32e18",
+      "bin/antechamber": "59060c69c5fca305794b10f19d950556fbd18db92d6c7af87252389858214c5d",
+      "bin/atomtype": "1e1445c4c00903d77dcf60b41517fb2de4435a190b39f784521167e6c2ac38a4",
+      "bin/bondtype": "c848e305966a1edb9742cbb6f011e95882661a27eb7aa2c2bd7a40775bc630f2",
+      "bin/sqm": "a58bfb166bfd30b9be9564d2b80bfa55ad2bf60c3a8e0b0129c2cfaa11a509e5",
+      "bin/teLeap": "6fa8824bde592f3857620dedaee007515abbe4f61c5b8f03e429531d585e828b",
+      "bin/tleap": "f1c526e0a24ad1fefc6c82be1279aa33eff5f9557d577c2236aa81437dfb52ac",
+      "bin/wrapped_progs/am1bcc": "16d9ac1e12db0533a103717547cd40b0f17b68cfb1db795422ed8cc5b1fc637b",
+      "bin/wrapped_progs/antechamber": "2160a85e459bea7e0ba129390e9fe0a8bf716857491a742a25eda63d57e33f9d",
+      "bin/wrapped_progs/atomtype": "cd2118a7357744e4444b6a4c971e18e7170985f4d6b23c36504016ce51f9c3d4",
+      "bin/wrapped_progs/bondtype": "022872ffc2fd8e4b597fc5f75b4388a7fb183eaacb0999aea38b07f525a6d5d0",
+      "dat/antechamber/APS.DAT": "cd0fb9a9714daf61ccacb09c3d12abb1d17371270816414588c11e07bac24de1",
+      "dat/antechamber/ATCOR.DAT": "6530d350875263e71c786a7c0dbe60e30cff575af71692aad0ac1d4122658906",
+      "dat/antechamber/ATOMTYPE_BCC.DEF": "dd5c3c44531f9afcb0d69a5efef876785e6e3c5a70e350221d9438d894d5c0cc",
+      "dat/antechamber/ATOMTYPE_CHECK.TAB": "2198ba4d655a3443397381e52150cc9d0db07c47f64527cd6c2662d56a4f8c08",
+      "dat/antechamber/ATOMTYPE_GFF.DEF": "33631b041f3f5f88434e2ae395734eaa1094fa3da0babbadf78c6b3266132e80",
+      "dat/antechamber/ATOM_EQU.TYPE": "78caca42c66d85cf9849caa86afcdf83ac25af56147473502ac01053e230a214",
+      "dat/antechamber/BCCPARM.DAT": "05f034901d058ad9331325b6ee3fafa25c75b1ce4f52839fe85032eb92941276",
+      "dat/antechamber/BONDTYPE_CHECK.TAB": "a95e4717b16b409aa0d9ffe633f6a59e06e9d44b1e18cc88e930e487d83c3bd0",
+      "dat/antechamber/CONNECT.TPL": "6e8787740eba3ac557c232a2a1fedd93b83422bb0ad3084bfa45a9438ae9666e",
+      "dat/leap/cmd/leaprc.gaff": "901104629d8c7566a1179cea5f4499d69ac7d5e914d5ea30f80021393c8bcde7",
+      "dat/leap/cmd/leaprc.protein.ff14SB": "e96bd5b9d5fba9c027050e33efd3414e4d26ff616566b08730abedc554fac98c",
+      "dat/leap/lib/amino12.lib": "dcd92afbb7ee4c8a737f1ad47eb714618b6c186759c902cd5c06c22a5378df77",
+      "dat/leap/lib/aminoct12.lib": "4f45d160211ae20450ee59632012cba3ada60a5129de410da1bfbfd7f9a9a5f7",
+      "dat/leap/lib/aminont12.lib": "a7a267adbe63c3559283204ffd135b37e14dac0f33a7eae76f94cba80a56b58c",
+      "dat/leap/lib/solvents.lib": "c8aeb703f5769331541d1233e2f2c8f823dd516e861b04e215ae4da903f1d69b",
+      "dat/leap/parm/frcmod.ff14SB": "d7240947ca454e49fa2419343cff0090c1e9c02f39618e826d99fc5f1b29dc73",
+      "dat/leap/parm/frcmod.tip3p": "a66a30117d8c0af008476715e1405587a67f473793c4ab1db822da41465e48f1",
+      "dat/leap/parm/gaff.dat": "21ce262ab4af254c2f2b4bf95f4413c2a6593c67faa31ffc7108b7dd07a63d09",
+      "dat/leap/parm/parm10.dat": "dc0c02d28fb7ee4f04d0a5edee3cd62968ba5e9bdb69e0f728bf01d242d7d062"
+    },
+    "lock_sha256": "422339e5b0e4d95f3c67ef05604a97e9f96a222ebee9ceb5563d8e14d082afd1",
+    "package_sha256": "ce9fdcbdba9d665cb1d85f4d9df1c4bc70770a20b4ce25b43d69381f3027bfef"
+  }
+}

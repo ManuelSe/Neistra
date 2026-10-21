@@ -1,43 +1,31 @@
 # Neistra Release Notes
 
-## 0.23.0 candidate - 2026-10-21 - Quick selection and pocket relaxation
+## 0.23.0 - 2026-10-21 - Quick selection and pocket relaxation
 
-The corrected [candidate10](assets/quick-minimization/c5-candidate-10-gate.json) for
-[issue110](https://github.com/ManuelSe/Neistra/issues/110) passes C5 under the
-[approved plan](plans/issue-110-quick-minimization.md). Corrective PR/normal merge,
-exact-master qualification and publication remain pending; no0.23.0 release exists.
+Published stable [v0.23.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.23.0).
+[Publication audit](assets/quick-minimization/c6-publication.json) verifies the tag,
+public bundle and issue close-out. Final docs/ref cleanup follows at the linked reply.
 
-Ctrl+M/lightning relaxes selected atoms and attached terminal H by default, applying
-usable output once as one coordinate-only Undo/Redo edit. Exact masks and selected
-binding-site residues support partial structures. Unselected site atoms stay exact.
-Native MMFF94 local/interfragment forces, guarded context, temporary protein states/
-H/caps and explicitly approximate UFF/repair retain all model/provenance artifacts.
-Prepared AMBER and canonical chemistry/originals/inactive conformers are preserved.
-Cancel/session loss disarms delayed publication; history/archives never rearm it.
+Ctrl+M and the lightning action now perform quick local relaxation of selected atoms, including a bound ligand inside a fixed binding pocket. Selected atoms and attached terminal H move by default; exact-selection settings and explicitly selected residues allow partial-structure and flexible-site work. A usable result applies once as one coordinate-only Undo/Redo edit. Empty selections refuse.
 
-Quick engine1.0.2 fixes repair torsion orientation, degree/radian scaling, fixed-only
-objective effects and inconsistent small-ring substituent targets. Independent
-bonded/planar checks block lower-objective invalid geometry. Native moving forces
-and energy changes remain equivalent after omitting fixed-only work; references are
-explicit. Older quick reports without both proofs require recalculation. Fixed-site
-geometry settling is a warned improvement unless the independent force threshold is
-met. Saturated rings retain puckering, and partial masks cannot broaden themselves.
-Unsupported connected coordination still uses approximate repair without native
-electrostatics for that group. No metal/binding-pose qualification is claimed.
+The local model uses native MMFF94 bonded and interfragment nonbonded forces, bounded residue/ring/bonded context, temporary protein states/H/peptide caps and guarded neighborhood extension. Bounded chemistry interpretation supports incomplete drafts. UFF or approximate geometry repair reports its assumptions and omitted physics explicitly; geometric penalties are not physical energies or binding scores. Fixed rows, inactive conformers, canonical chemistry and original uploads remain exact. Reports, complete temporary models and provenance remain inspectable in Jobs.
 
-All20 candidate commands pass:1166 Python,313 frontend,8 supervisor,298 browser/60
-documented exclusions; zero failures/flakes/retries/Python skips. Both actual tagged
-0.22.1/current reader directions retain four cases. All553 source identities/log
-hashes verify. Cold native small/pocket/18k Apply0.889/2.466/3.470s, first frame686ms,
-Cancel52ms; budgets unchanged. All231 recorded power samples show AC connected.
-Earlier diagnostics remain separate; exact-master qualification is still required.
+Quick engine1.0.2 corrects reversed repair torsions, native angular-unit scaling and inconsistent substituted small-ring targets. Independent bonded/planar geometry checks reject lower-objective collapsed or severely folded output. Native component projection retains moving forces and energy changes while omitting fixed-only work; details state when captured geometry is energy zero. Earlier quick reports without both validation proofs remain inspectable and require recalculation before Apply. Private-history replay is summarized without distributing project data.
 
-Additive minor0.23.0 in all five authoritative sources; no dependency or durable
-schema migration. Docking/global search, missing-heavy/loop completion, canonical
-protonation edits, qualified covalent adducts/coordination and new solvent simulation
-remain outside this quick profile. See [guide](MINIMIZATION.md),
-[investigation](assets/quick-minimization/c6-pocket-investigation.md) and
-[review](assets/quick-minimization/c5-review.md).
+Fixed environments may stop after at least25 accepted steps when three consecutive selected-coordinate changes are below0.01Å and geometry checks pass. This is explicitly a warned improvement unless the independent force threshold is met. Fully selected isolated molecules retain their existing stopping behavior. Saturated rings may pucker, and partial selections never broaden automatically to fix a distorted ring. Ligands linked to unsupported coordination/cofactor/protein groups can still use approximate repair without native electrostatics for that group; no qualified metal physics is claimed.
+
+Cancel immediately clears preview and disarms late publication. Preview uses genuine accepted native steps. Reload, historical jobs and archived proposals never rearm automatic Apply. Stale sources, changed local context, locks, invalid stereo/mapping/coordinates and new severe overlaps block publication. Prepared AMBER remains available under Advanced with its existing APIs, preparation requirements and explicit acceptance workflow.
+
+Native reference results (AC connected, existing power profile unchanged): candidate cold small/pocket/18k Apply 0.889/2.466/3.470s, first actual frame 686ms, Cancel 52ms. exact merged master cold small/pocket/18k Apply 1.159/2.184/3.628s, first actual frame 629ms, Cancel 49ms. Feedback, first-frame and Cancel limits retain the approved thresholds. These are measured reference results, not universal latency or success guarantees. Optimization has a15s cooperative budget,30s worker deadline and4GiB sampled resident-memory budget; limits are2000 moving canonical atoms,20000 local atoms including helpers and100 entries. Local improvement does not establish force convergence or certify a binding pose. Unsupported metal coordination is not invented.
+
+Both the frozen candidate and exact merged master pass all20 release commands: **1,166 Python,313 frontend,8 supervisor and298 browser tests**, with60 documented browser layout/timing exclusions, zero failures/flakes/retries and no Python/native scientific skips. Frozen installs, fresh Alembic0014, Ruff/mypy/ESLint/TypeScript, production build, actual100–200%zoom/accessibility, supplied-file desktop/mobile Apply/Undo/Redo/reload, retained AMBER and native performance checks pass. Actual tagged0.22.1 and current readers pass both directions, four cases each. All553 runtime/test/lock identities match; compressed logs verify. Earlier failed/interrupted diagnostic runs remain labeled separately.
+
+Compatibility: additive minor0.23.0 in all five authoritative version sources; no dependency upgrade, new database migration or normalized/project/viewer/archive schema change. Existing canonical data, conformers, generic atomic history, jobs/models/artifacts, originals, allocator floors and archives survive both reader directions. Rollback to0.22.1 needs no conversion; quick jobs remain generic historical data, and quick authoring requires the new client/API. Restart the qualified runtime against the existing managed data as usual.
+
+Implemented scope follows the [approved plan](https://github.com/ManuelSe/Neistra/blob/6536e2a3140d0b8b112562ffec580d37830bc217/docs/plans/issue-110-quick-minimization.md) and [user guide](https://github.com/ManuelSe/Neistra/blob/6536e2a3140d0b8b112562ffec580d37830bc217/docs/MINIMIZATION.md). Deliberate simplification: bounded local models within the existing worker/plugin architecture, with reported temporary assumptions, fresh-process isolation and no persistent quick parameter cache. Deferred: docking/global search, missing-heavy/loop completion, canonical protonation edits, qualified covalent adducts and new solvent simulations. #83/#86/#52/#101/#102/#92 remain separate. Rejected: implicit whole-scene minimization, fabricated frames, silent incomplete force coverage, canonical chemistry rewrites and automatic publication of hard failures.
+
+[Issue#110](https://github.com/ManuelSe/Neistra/issues/110) · [Implementation PR#111](https://github.com/ManuelSe/Neistra/pull/111) · [Pocket correction PR#112](https://github.com/ManuelSe/Neistra/pull/112). Full diff review was local self-review; no independent review claimed and no required protection/review/check bypassed. Annotated tag points to exact verified merged master`6536e2a3140d0b8b112562ffec580d37830bc217`. The attached verification ZIP includes that source tree, candidate and merged evidence, actual-reader datasets, qualifier scripts and an internal SHA256 manifest.
+
 
 ## 0.22.1 - 2026-10-20 - Picking-mode hover previews
 

@@ -1,31 +1,36 @@
 # V0.1 Requirement Evidence
 
-## Quick local minimization (issue #110) — corrected C5 passes; release pending
+## Quick local minimization (issue #110) — stable v0.23.0
 
-[Corrected candidate10](assets/quick-minimization/c5-candidate-10-gate.json) at
-`0d3657056d99695440ad750fa8bddc71d6adcf3d` passes all20 commands: **1166 Python,
-313 frontend,8 supervisor,298 browser/60 documented layout/timing exclusions**.
-Zero failures/flakes/retries/Python or native scientific skips. All553 source/test/
-lock identities and compressed log hashes verify. Frozen installs, fresh0014,
-Ruff/mypy/lint/types/build/versions/diff and both actual tagged0.22.1/current reader
-directions pass; four retention/archive cases each. No schema/dependency upgrade.
+Both [corrected candidate10](assets/quick-minimization/c5-candidate-10-gate.json)
+0d3657056d99695440ad750fa8bddc71d6adcf3d and
+[exact merged2](assets/quick-minimization/c5-merged-2-gate.json)
+6536e2a3140d0b8b112562ffec580d37830bc217 pass all20 commands:
+**1166 Python,313 frontend,8 supervisor,298 browser/60 documented exclusions**,
+zero failures/flakes/retries/Python/native scientific skips. All553 source/test/lock
+identities match, SHA2563d3c45deb2639004c758c768be3504606cc8ff37f9c940ab07772e956db200a8,
+and compressed logs verify. Frozen installs, fresh0014, static/build/versions/diff,
+actual zoom/themes/axe and both actual tagged0.22.1/current reader directions pass;
+four retention/archive cases each. No dependency/schema upgrade.
 
-Cold native small/pocket/18k Apply0.889/2.466/3.470s, feedback10–28ms, first real
-frame686ms, Cancel52ms, longest task435ms. All231 power observations show AC online;
-existing power profile unchanged. Supplied desktop/mobile workflows, actual zoom,
-themes/axe/focus, native force equivalence, repair unit/torsion physics, bonded/planar
-acceptance, context extension/serialization and retained AMBER gates pass unchanged.
+Native cold small/pocket/18k candidate0.889/2.466/3.470s, merged1.159/2.184/3.628s;
+first frame686/629ms,Cancel52/49ms. Original budgets unchanged. AC online in all
+231/232 power observations; existing profile unchanged. Supplied-file desktop/mobile
+Apply/Undo/Redo/reload, independent native force/energy-change equivalence, angular
+units/cis-trans physics, damaged rings, bonded/planar acceptance, partial masks,
+context extension/serialization and retained AMBER pass. Earlier diagnostics do not
+qualify the final source. Read-only private replays pass geometry with exact fixed
+rows but mostly remain warned improvements; raw project data is not distributed.
+Unsupported coordination remains approximate, not a binding-pose qualification.
 
-D-136–139 correct the [private-history findings](assets/quick-minimization/c6-pocket-investigation.md)
-using public synthetic regressions. All13 read-only private captures pass geometry
-checks with exact fixed rows; most remain warned improvements. Unsupported coordination
-remains approximate, and no binding-pose qualification is inferred. Earlier candidate6
-passes and failed/interrupted attempts are retained as historical diagnostics and do
-not qualify the final correction. [Review](assets/quick-minimization/c5-review.md) is
-local self-review; no independent review is claimed.
-
-C6 corrective PR/normal merge, exact merged-master qualification, annotated tag/release
-and publication audit remain pending. All five versions0.23.0; no release is published.
+[Publication](assets/quick-minimization/c6-publication.json) verifies PR#111/#112,
+exact annotated tag6536e2a, stable latest release/full notes and public downloaded
+ZIP SHA256/CRC/all4530 internal hashes. The [issue close-out](https://github.com/ManuelSe/Neistra/issues/110#issuecomment-6325592737)
+records scope/follow-ups and receives final docs/ref cleanup after verification.
+[Full-diff review](assets/quick-minimization/c5-review.md) is local self-review;
+no independent approval or required-check/protection bypass is claimed. All five
+versions0.23.0. Runtime tag remains fixed; final evidence/docs integration changes
+no runtime/test/lock source identity.
 
 ## Selection gestures (issue #90)
 
