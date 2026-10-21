@@ -28,7 +28,9 @@ first frame1236ms). No power settings or acceptance budgets were changed.
 All diagnostics and successful focused/compatibility evidence are retained separately.
 The user has been asked to reconnect AC for final reference qualification. Remaining
 browser/timing/zoom checks, complete candidate gate, PR, exact-master gate and release
-must still finish. User debug inputs remain untouched and untracked.
+must still finish. User debug inputs remain untouched and untracked. Local development services were
+restarted with the same environment/data directory after verifying zero active jobs;
+API0.23.0/quick capabilities and the web endpoint are healthy.
 
 ### Previous delivery baseline — v0.22.1
 
