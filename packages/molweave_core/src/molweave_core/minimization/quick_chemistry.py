@@ -71,6 +71,21 @@ def interpret(
             )
         mol, cap_count = cap_boundaries(mol, source, members, protein)
         Chem.SanitizeMol(mol)
+        for i, atom in enumerate(projected.atoms):
+            fact = facts.get(atom.id)
+            native = mol.GetAtomWithIdx(i)
+            if (
+                fact
+                and fact.matches(atom)
+                and (
+                    (fact.isotope is not None and fact.isotope != native.GetIsotope())
+                    or (
+                        fact.radical_electrons is not None
+                        and fact.radical_electrons != native.GetNumRadicalElectrons()
+                    )
+                )
+            ):
+                raise ValueError("Interpretation conflicts with known isotope/radical state")
         before = mol.GetNumAtoms()
         mol = Chem.AddHs(mol, addCoords=True)
         if mol.GetNumAtoms() > before:

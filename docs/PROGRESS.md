@@ -5,19 +5,20 @@
 Issue [#110](https://github.com/ManuelSe/Neistra/issues/110), quick local minimization,
 is in progress on the remotely verified `feat/issue-110-quick-minimization` branch
 under its [approved contract](plans/issue-110-quick-minimization.md), D-126.
-C1–C3 backend checkpoints add the separate quick job, atomic coordinate-only
-publication, local pocket/protein context and bounded temporary chemistry recovery.
-All three byte-exact user debug fixtures produce usable native MMFF94 improvements;
-a real raw-upload/worker/Apply test preserves graph, charges, metadata and originals.
-Approximate repair is explicit for stale aromatic graphs, collocated atoms and unsupported
-sites. Supported native components retain their field; unsupported fixed sites remain
-steric obstacles. No canonical chemical preparation is published.
+C1–C4 implement the separate quick job, atomic coordinate-only publication,
+local pocket/protein context, temporary chemistry recovery and the default Ctrl+M/
+lightning workflow. Usable output auto-applies once from its owning App session;
+Cancel/session loss disarms it. Viewer remounts preserve the draft and launcher focus.
+Compact quick settings and retained prepared AMBER are reachable independently.
 
-Verification: Ruff/mypy and16 quick unit/API tests pass. Native pocket forces are checked
-against independent finite differences; 1STP caps/cropping/mixed masks are exercised.
-Four existing native live tests previously passed with configured AmberTools. Full cold
-workflow, browser and release gates remain pending. No external blocker. Next: C4 default
-quick UI, live coordinate preview, owning-client automatic Apply and Advanced AMBER.
+Verification: Ruff/mypy and16 quick Python unit/API tests pass. All310 web tests,
+lint/type/build pass. Native desktop/mobile runs cover all three exact supplied files,
+automatic Apply/exact Undo/Redo/reload, both quick/Advanced320px themes/accessibility/
+focus, and retained Advanced isolated preview/publication. Initial responsive ownership
+and launcher-focus failures were corrected and affected native tests rerun passing;
+whole-structure fixtures use the native structure query instead of repeated atom queries.
+Full scientific/performance/compatibility/release gates remain pending. No external
+blocker. Next: C5 qualification, final review, version updates and complete release gate.
 
 ### Previous delivery baseline — v0.22.1
 

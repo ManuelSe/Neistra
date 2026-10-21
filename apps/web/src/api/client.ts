@@ -43,6 +43,9 @@ import type {
   MinimizationRequest,
   MinimizationProposal,
   MinimizationLive,
+  QuickMinimizationRequest,
+  QuickMinimizationProposal,
+  QuickMinimizationCapabilities,
 } from "./types";
 import type { InteractionInput, InteractionResult } from "../interactions/types";
 
@@ -416,6 +419,16 @@ export const minimizationApi = {
     request<Project>(`/api/v1/projects/${projectId}/minimizations/${jobId}/apply`, {
       method: "POST", body: JSON.stringify({ expected_revision: expectedRevision, proposal_sha256: digest, acknowledge_nonconvergence: acknowledge }),
     }),
+};
+
+export const quickMinimizationApi = {
+  capabilities: () => request<QuickMinimizationCapabilities>("/api/v1/quick-minimization-capabilities"),
+  submit: (projectId: string, payload: QuickMinimizationRequest) =>
+    request<Job>(`/api/v1/projects/${projectId}/quick-minimizations`, { method: "POST", body: JSON.stringify(payload) }),
+  proposal: (projectId: string, jobId: string) => request<QuickMinimizationProposal>(`/api/v1/projects/${projectId}/quick-minimizations/${jobId}/proposal`),
+  live: (projectId: string, jobId: string) => request<MinimizationLive>(`/api/v1/projects/${projectId}/quick-minimizations/${jobId}/live`),
+  apply: (projectId: string, jobId: string, revision: number, digest: string) =>
+    request<Project>(`/api/v1/projects/${projectId}/quick-minimizations/${jobId}/apply`, { method: "POST", body: JSON.stringify({ expected_revision: revision, proposal_sha256: digest }) }),
 };
 
 export const jobApi = {

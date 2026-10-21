@@ -3,7 +3,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import { expect, test } from "@playwright/test";
 import type { MinimizationLive } from "../../apps/web/src/api/types";
 import { prepare } from "./support/interactions";
-import { configure, coordinateEntries, coordinateSummary, current, panel, prepared, select, structures } from "./support/minimization";
+import { configure, startAdvanced, coordinateEntries, coordinateSummary, current, panel, prepared, select, structures } from "./support/minimization";
 
 test("acknowledges an eligible unconverged native result and retains exact Undo/Redo", async ({ page, request }, info) => {
   test.setTimeout(120000);
@@ -12,7 +12,7 @@ test("acknowledges an eligible unconverged native result and retains exact Undo/
   await select(page, p.entries[0].atom_ids.map(atom_id => ({ structure_id: p.entries[0].id, atom_id })), info.project.name === "mobile-chromium");
   await page.setViewportSize({ width: 320, height: 740 });
   await expect(page.getByRole("button", { name: "Inspector", exact: true })).toBeVisible();
-  await page.keyboard.press("Control+m"); await configure(page);
+  await configure(page);
   await panel(page).getByRole("spinbutton", { name: "Minimization iterations" }).fill("1");
   await panel(page).getByRole("button", { name: "Run minimization" }).click();
   const accept = panel(page).getByRole("button", { name: "Accept unconverged coordinates", exact: true });
@@ -105,7 +105,7 @@ for (const wholeProtein of [false, true]) test(`renders accepted native steps fo
     frames.length = 0;
     await page.evaluate(() => { (window as unknown as { nativeMinimizationTimings: unknown[] }).nativeMinimizationTimings.length = 0; });
     await page.locator(".molstar-host canvas").first().focus();
-    const started = Date.now(); await page.keyboard.press("Control+m");
+    const started = Date.now(); await startAdvanced(page);
     await expect.poll(async () => (await coordinateEntries(page)).length, { timeout: 60000 }).toBe(1);
     const shown = await coordinateSummary(page, movable), shownAt = Date.now();
     const received = [...frames].reverse().find(f => f.frame?.entries[0].coordinates[0].every((v, axis) => v === shown.firstMovable!.coordinates[axis]));

@@ -197,3 +197,19 @@ original when candidate neighbor lists rebuild. Deterministic collocated mover o
 leave fixed rows exact. Sixteen quick tests/Ruff/mypy pass, including byte-exact copies
 of all three supplied inputs and real raw paracetamol upload/Apply preserving chemistry
 and originals. C4/UI and complete compatibility/performance gates remain pending.
+
+### C4 — 2026-10-21
+
+Default quick Ctrl+M/lightning now uses server capture and owning-client automatic
+publication; real native steps reuse render-local preview. Cancel/late callback/
+inspection/remount ownership have focused unit coverage. Quick settings retain explicit
+context/H/repair controls and an independent Advanced AMBER entry. Existing native
+AMBER scenarios explicitly select Advanced; their scientific assertions remain intact.
+
+Sixteen Python quick tests and310 web tests pass, with Ruff/mypy/lint/type/build. All
+three supplied structures pass real desktop/mobile auto-Apply/Undo/Redo/reload. Native
+quick/Advanced320px theme/axe/focus tests and retained Advanced isolated workflow pass.
+Initial remount-ownership/launcher-focus failures were corrected and affected native
+tests rerun. A mobile fixture setup stalled before minimization while repetitively
+selecting atoms; whole-structure tests now use the native structure query. No full
+release or cold-performance claim yet; C5 qualification remains.

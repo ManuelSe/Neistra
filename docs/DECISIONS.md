@@ -5126,3 +5126,18 @@ coordination terms. Repair energies are penalty units. Rebuild steric candidates
 current positions while geometry targets stay original; changing those targets between
 segments would invalidate objective comparison. Only coincident movable repair sites
 receive small deterministic starting offsets; published fixed rows remain exact.
+
+## D-129 — App owns quick publication; viewer remounts do not own the session
+
+Issue#110 uses independent typed quick frontend requests/reports while retaining the
+AMBER APIs. Ctrl+M/lightning submits quick work immediately; an explicit settings
+launcher permits context/mask/repair choices and Advanced AMBER without starting work.
+Only the owning App command session arms automatic Apply. Disarm synchronously before
+Cancel/close/Apply; inspection/reload never rearm. The existing writer/revision/digest
+checks remain authoritative and publication creates one Undo/Redo command.
+
+Native responsive tests found that viewer cleanup could dismiss a new session during
+a remount. The App command hook now owns disposal/cancellation, while the viewer owns
+only transient rendering. Store the initiating launcher kind so Escape restores the
+correct live control even when its prior DOM node was replaced. Native tests cover
+both profiles at320px in both themes. No worker-side or reload publication is added.

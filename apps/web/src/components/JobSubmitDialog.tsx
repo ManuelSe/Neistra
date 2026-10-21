@@ -46,7 +46,7 @@ export function JobSubmitDialog({
   const [jobType, setJobType] = useState("");
   const [parameters, setParameters] = useState<Record<string, unknown>>({});
   const [selected, setSelected] = useState<Record<string, string[]>>({});
-  const definitions = (definitionsQuery.data ?? []).filter(item => item.job_type !== "coordinates.minimize");
+  const definitions = (definitionsQuery.data ?? []).filter(item => !["coordinates.minimize", "coordinates.quick_minimize"].includes(item.job_type));
   const definition =
     definitions.find((item) => item.job_type === jobType) ?? definitions[0];
 

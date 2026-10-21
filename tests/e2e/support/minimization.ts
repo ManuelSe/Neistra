@@ -40,11 +40,15 @@ export async function structures(request: APIRequestContext, p: Project) {
 }
 export const panel = (page: Page) => page.getByRole("dialog", { name: "Minimize selection", exact: true });
 
+/** Explicit legacy-profile entry; Ctrl+M is qualified independently as quick work. */
 export async function configure(page: Page) {
-  const settings = panel(page).getByRole("button", { name: "Minimization settings", exact: true });
-  await expect(settings).toBeEnabled({ timeout: 30000 });
-  await settings.click();
+  if (!(await panel(page).isVisible())) await page.getByRole("button", { name: "Minimization settings", exact: true }).click();
+  await panel(page).getByRole("button", { name: "Advanced AMBER", exact: true }).click();
   await expect(panel(page).getByRole("button", { name: "Run minimization", exact: true })).toBeEnabled({ timeout: 30000 });
+}
+export async function startAdvanced(page: Page) {
+  await configure(page);
+  await panel(page).getByRole("button", { name: "Run minimization", exact: true }).click();
 }
 
 export async function coordinateState(page: Page) {

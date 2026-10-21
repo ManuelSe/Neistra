@@ -138,6 +138,10 @@ def build_assembly(
     if membership:
         for entry, ids in membership.items():
             discovered.setdefault(entry, set()).update(ids)
+    if sum(len(ids) for ids in discovered.values()) > 20000:
+        raise CalculationError(
+            "model_limit", "Local calculation exceeds 20000 atoms before helpers"
+        )
     caps = 0
     modes: list[str] = []
     for entry, source in sorted(graphs.items()):

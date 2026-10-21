@@ -1,8 +1,8 @@
 import { useMinimizationStore } from "./store";
 import { useEffect, useMemo, useRef } from "react";
 import { replaceEqualDeep, useQuery, useQueryClient } from "@tanstack/react-query";
-import { jobApi, minimizationApi } from "../api/client";
-import type { MinimizationLive, Project } from "../api/types";
+import { jobApi, minimizationApi, quickMinimizationApi } from "../api/client";
+import type { MinimizationLive, MinimizationProposal, QuickMinimizationProposal, Project } from "../api/types";
 import { coordinatePatches } from "./preview";
 import type { MinimizationWorkflow } from "./useMinimization";
 
@@ -13,8 +13,9 @@ export function useMinimizationPreview(project: Project, workflow?: Minimization
   const jobQuery = useQuery({ queryKey: ["job", state.jobId], queryFn: () => jobApi.get(state.jobId!), enabled: open && !!state.jobId,
     retry: false, refetchInterval: q => q.state.data && ["queued", "running"].includes(q.state.data.status) ? 400 : false });
   const job = open && jobQuery.data?.id === state.jobId ? jobQuery.data : undefined;
-  const reportQuery = useQuery({ queryKey: ["minimization-proposal", project?.id, job?.id],
-    queryFn: () => minimizationApi.proposal(project.id, job!.id), enabled: open && job?.status === "completed", retry: false });
+  const quick = job?.job_type === "coordinates.quick_minimize" || state.profile === "quick";
+  const reportQuery = useQuery<MinimizationProposal | QuickMinimizationProposal>({ queryKey: ["minimization-proposal", project?.id, job?.id],
+    queryFn: () => quick ? quickMinimizationApi.proposal(project.id, job!.id) : minimizationApi.proposal(project.id, job!.id), enabled: open && job?.status === "completed", retry: false });
   const lastRevision = useRef<{ jobId: string | undefined; revision: number | undefined }>({ jobId: undefined, revision: undefined });
   useEffect(() => {
     const before = lastRevision.current;
@@ -24,10 +25,15 @@ export function useMinimizationPreview(project: Project, workflow?: Minimization
     lastRevision.current = { jobId: job?.id, revision: project?.revision };
   }, [open, job?.id, job?.status, project?.id, project?.revision, query]);
   const proposal = job?.status === "completed" && reportQuery.data?.job_id === job.id ? reportQuery.data : undefined;
+  useEffect(() => {
+    if (quick && proposal?.report.model === "quick-local-v1" && state.autoApply && state.live && open) {
+      void workflow?.finishQuick(proposal as QuickMinimizationProposal);
+    }
+  }, [quick, proposal, state.autoApply, state.live, open, workflow]);
   const running = !!job && ["queued", "running"].includes(job.status);
   const liveOwned = open && state.live && running && project?.revision === job?.provenance?.project_revision;
   const liveQuery = useQuery({ queryKey: ["minimization-live", project?.id, state.jobId, state.generation],
-    queryFn: () => minimizationApi.live(project.id, state.jobId!), enabled: liveOwned,
+    queryFn: () => quick ? quickMinimizationApi.live(project.id, state.jobId!) : minimizationApi.live(project.id, state.jobId!), enabled: liveOwned,
     retry: false, refetchInterval: 200,
     structuralSharing: (before: unknown, after: unknown) => {
       const old = before as MinimizationLive | undefined, next = after as MinimizationLive;
@@ -59,7 +65,7 @@ export function useMinimizationPreview(project: Project, workflow?: Minimization
   const canApply = !!proposal?.applicable && !reportQuery.isError && !previewResult.error && !reportQuery.isFetching && !previewUnavailable &&
     proposal.report.parameters.selection.atoms.every(ref => !project.entries.find(e => e.id === ref.structure_id)?.locked);
   const message = (error: unknown) => error instanceof Error ? error.message : null;
-  return { state, job, proposal, canApply, patches: previewResult.patches, liveIteration: live?.frame?.iteration, previewUnavailable,
+  return { state, isQuick: quick, job, proposal, canApply, patches: previewResult.patches, liveIteration: live?.frame?.iteration, previewUnavailable,
     previewLoading: state.preview && previewSources.isPending && !!captured.length && !previewUnavailable,
     previewError: previewResult.error ?? message(jobQuery.error) ?? message(reportQuery.error) ?? message(previewSources.error) };
 }

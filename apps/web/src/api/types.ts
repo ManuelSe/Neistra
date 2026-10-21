@@ -885,3 +885,34 @@ export interface MinimizationCapabilities {
   scientific_limits: string[];
   limits: Record<string, number>;
 }
+
+export interface QuickMinimizationRequest {
+  expected_revision: number;
+  selection: Selection;
+  mode: "automatic" | "isolated" | "environment";
+  context_entry_ids: string[];
+  expand_hydrogens: boolean;
+  allow_repair: boolean;
+  max_iterations: number;
+}
+export interface QuickMinimizationParameters extends Omit<QuickMinimizationRequest, "expected_revision"> {
+  schema_version: 1;
+  model: "quick-local-v1";
+  requested_selection: Selection;
+  captured_inputs: MinimizationCapture[];
+}
+export interface QuickMinimizationReport extends Omit<MinimizationReport, "model" | "parameters" | "outcome" | "toolchain" | "termination_kind"> {
+  model: "quick-local-v1";
+  parameters: QuickMinimizationParameters;
+  outcome: "blocked" | "failed" | "converged" | "improved" | "unchanged";
+  method: "MMFF94" | "UFF" | "geometry_repair";
+  coverage: "complete" | "approximate";
+  assumptions: string[];
+  helper_count: number;
+  cap_count: number;
+  modeled_atoms: Record<string, number[]>;
+  timings: Record<string, number>;
+  termination_kind: string;
+}
+export interface QuickMinimizationProposal extends Omit<MinimizationProposal, "report"> { report: QuickMinimizationReport }
+export interface QuickMinimizationCapabilities extends Omit<MinimizationCapabilities, "model"> { model: "quick-local-v1" }

@@ -24,7 +24,6 @@ for (const copies of [1, 8]) test(`bounds real ${copies === 1 ? "prepared1STP po
   const before = await coordinateSummary(page, movable); // Load/read before measuring UI work.
   const writes: { path: string; body: unknown }[] = [];
   page.on("request", request => { if (request.method() === "POST") writes.push({ path: new URL(request.url()).pathname, body: request.postDataJSON() }); });
-  await page.getByRole("button", { name: "Minimize selection", exact: true }).click();
   await configure(page);
   await panel(page).getByRole("combobox", { name: "Minimization mode" }).selectOption("environment");
   await panel(page).getByRole("checkbox", { name: "Show all components" }).check();
