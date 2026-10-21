@@ -3,30 +3,25 @@
 ## Current milestone
 
 Issue [#110](https://github.com/ManuelSe/Neistra/issues/110), quick local minimization,
-is in progress on the remotely verified `feat/issue-110-quick-minimization` branch
-under its [approved contract](plans/issue-110-quick-minimization.md), D-126.
-C1–C4 are pushed through `bbf7c8b`. C5 candidate work now qualifies native local
-physics, explicit repair, guarded neighborhoods, coordinate-only atomic publication
-and owning-client UI behavior. All five versions are0.23.0; no schema/migration change.
-Quick publication uses the existing coordinate batch path with generic warning-summary
-updates, avoiding full scene topology rebuilds. Unchanged immutable captures retain the
-worker's final-neighborhood proof; changed formerly distant context is rediscovered.
+is implemented through C1–C4 on the remotely verified feature branch under the
+[approved contract](plans/issue-110-quick-minimization.md), D-126–133. All five versions
+are0.23.0; no dependency upgrade or schema migration. C5/C6 qualification/delivery
+remain pending. The current committed runtime isead6ae8.
 
-Verification:38 focused Python tests pass;310 web tests passed before the final render-
-local command split (targeted17 pass afterwards). Native supplied-file workflows pass
-on desktop/mobile. Pinned cold small/pocket/18k preflight passes at1.4/2.4/4.4s through
-native paint, start12–52ms/max task241ms; native live first frame904ms/Cancel40ms and
-actual100–200%zoom also pass. Actual tagged0.22.1 reader retains four new quick cases,
-all conformers/history/jobs/artifacts/originals/archive round trips. Earlier diagnostic
-failures drove ownership/focus/coordinate-patch/performance fixes; none is a release gate.
-Candidate attempt1 stopped at the Python suite:1118 passed/28 failed, all from one
-obsolete archive-version assertion. That assertion now expects0.23.0 and retains
-0.22.1 archive cases; the complete focused archive file passes33 tests. Shared
-coordinate projection seeding now refreshes full canonical metadata and patches only
-the active conformer, including Undo after reload. Two regression cases cover it; all312 web tests, lint and type-check pass.
-Attempt1 diagnostics remain archived; no complete gate pass is claimed.
-No external blocker. Next: commit the focused fixes and rerun the complete frozen
-candidate gate, then C6 PR/merge/exact-master/tag/release verification.
+Frozen candidate attempt3 passes all1147 Python tests without skips,313 frontend,
+8 supervisor, frozen dependencies/fresh0014/static/build checks. Its native browser
+matrix finishes297 passed/1 failed/60 documented exclusions, no retries. All quick
+and retained AMBER workflows, supplied-file desktop/mobile, accessibility/zoom and
+reference timing cases pass. Cold small/pocket/18k1.76/2.60/4.34s; feedback23–57ms,
+first real frame949ms,Cancel61ms. The full gate is failed, not release evidence.
+
+The single failure is the existing surface-manager test awaiting a forced native
+rebuild promise through DevTools (execution-context destruction). The same test
+passes mobile and a fresh unchanged desktop comparison. Preserve the failing trace
+and complete diagnostics. A test-only correction observes serializable completion
+state with a bounded poll; native rejection still fails, and all visual/picking/
+history/camera assertions remain. Four independent focused runs (two/layout) pass.
+Then freeze a clean checkpoint and restart the complete candidate gate before C6.
 
 ### Previous delivery baseline — v0.22.1
 
@@ -2718,16 +2713,15 @@ Results:
 
 ## Blockers
 
-No current external blocker. Issue #91 M1/C1 passes focused qualification;
-M2/C2 and M3/C3 remain required. Existing hover behavior is not yet corrected.
+C5 requires a completely passing frozen candidate gate after the surface-test
+synchronization correction. No external blocker.
 
 ## Next action
 
-Commit passing M1/C1, then implement M2/C2 under the approved issue #91 contract.
-Continue through complete candidate/exact-master qualification and verified delivery.
+Verify and commit the test-only correction and diagnostic evidence, then rerun the
+complete clean candidate gate. Continue through reviewed PR, verified normal merge,
+exact-master gate, annotated0.23.0 tag/release and final issue/publication audit.
 
-Candidate attempt2 was explicitly interrupted during Python qualification (227
-passed, no complete result) after review found a settings-switch race. Opening settings
-now disarms automatic publication/preview synchronously before cancellation. A settings
-draft stays unarmed until Run; a regression holds cancellation pending and delivers a
-late completion. Restart the entire gate from the corrected checkpoint.
+The corrected wait passes all four independent focused runs (two desktop/two mobile),
+with no failures, retries or skips. The unchanged desktop comparison also passes.
+Commit this test-only correction and evidence, then restart all20 gate commands.

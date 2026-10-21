@@ -333,13 +333,23 @@ test("manages production object appearance and explicit sources independently th
     const gate = new Promise<void>(resolve => { release = resolve; });
     engine.syncQueue = engine.syncQueue.then(() => gate);
     const done = engine.syncStructures(engine.structures);
-    (window as unknown as { finishManagedRebuild: () => Promise<void> }).finishManagedRebuild = async () => { release(); await done; };
+    const state = window as unknown as { finishManagedRebuild: () => void; managedRebuildStatus: string };
+    state.managedRebuildStatus = "pending";
+    state.finishManagedRebuild = () => {
+      release();
+      void done.then(() => { state.managedRebuildStatus = "complete"; }, (error: unknown) => {
+        state.managedRebuildStatus = `failed: ${String(error)}`;
+      });
+    };
   });
   await clickSurface();
   await page.waitForTimeout(250);
   expect(await page.locator(".viewer-status").textContent()).toBe(selectionBeforeClick);
   await expect(manager).toBeHidden();
-  await page.evaluate(() => (window as unknown as { finishManagedRebuild: () => Promise<void> }).finishManagedRebuild());
+  // Observe completion as serializable state rather than transferring the native
+  // rebuild promise through one long-lived DevTools execution context.
+  await page.evaluate(() => (window as unknown as { finishManagedRebuild: () => void }).finishManagedRebuild());
+  await expect.poll(() => page.evaluate(() => (window as unknown as { managedRebuildStatus: string }).managedRebuildStatus)).toBe("complete");
   await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
   await clickSurface();
   await expect(manager).toBeVisible();

@@ -5,10 +5,15 @@
 Implementation checkpoints C1–C4 are pushed under the
 [approved plan](plans/issue-110-quick-minimization.md). C5 adds independent native
 physics/context/acceptance tests and [local diff review](assets/quick-minimization/c5-review.md).
-Focused preflight covers 38 Python cases, 310 web tests, supplied-file desktop/mobile
+Focused preflight covers 38 Python cases, 313 web tests, supplied-file desktop/mobile
 Apply/Undo/Redo/reload, actual native zoom/accessibility, cold/native-live timing and
 actual tagged 0.22.1 data/history/job/archive retention. Initial diagnostic failures
 were corrected and affected cases rerun; no complete release qualification is claimed.
+
+Candidate attempt3 passes1147 Python/313 frontend/8 supervisor/static/build, but
+its browser matrix is297 passed/1 failed/60 exclusions. The failed forced-rebuild
+DevTools promise wait is preserved as diagnostic evidence; corrected serializable
+completion polling and a complete clean restart remain required.
 
 All five candidate versions are 0.23.0. Full frozen candidate, reverse-reader and exact
 merged-master gates are pending. No PR merge, tag or release is claimed at this stage.

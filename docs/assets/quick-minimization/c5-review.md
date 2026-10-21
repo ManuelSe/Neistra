@@ -55,3 +55,26 @@ passed, no complete result) after review found a settings-switch race. Opening s
 now disarms automatic publication/preview synchronously before cancellation. A settings
 draft stays unarmed until Run; a regression holds cancellation pending and delivers a
 late completion. Restart the entire gate from the corrected checkpoint.
+
+### Candidate attempt3 — full diagnostic result
+
+All1147 Python/313 frontend/8 supervisor and static/build/fresh dependency/migration
+checks pass. Native browser finishes297 passed/1 failed/60 documented exclusions,
+zero retries. All quick/AMBER scientific/workflow/performance cases pass, including
+all supplied files on desktop/mobile and actual zoom. The sole failure is an existing
+surface-manager test awaiting a forced native rebuild promise through DevTools:
+execution context destroyed. Its mobile counterpart and a fresh unchanged desktop
+comparison pass. Preserve full logs/source identities and failing trace; this failed
+gate is diagnostic. Reader/version/final-diff steps did not run after browser failure.
+
+The test now starts rebuild completion without transferring its native promise across
+a long-lived DevTools context, then polls explicit serializable success/failure state.
+Native rejection remains a failure; a real navigation loses the state and fails the
+poll. The bounded wait is stricter than the old unbounded evaluation; every visual,
+picking, history, camera and worker-count assertion remains unchanged. Repeated
+focused desktop/mobile checks precede a complete frozen candidate restart. Product
+runtime and acceptance budgets are unchanged.
+
+The corrected wait passes all four independent focused runs (two desktop/two mobile),
+with no failures, retries or skips. The unchanged desktop comparison also passes.
+Commit this test-only correction and evidence, then restart all20 gate commands.
