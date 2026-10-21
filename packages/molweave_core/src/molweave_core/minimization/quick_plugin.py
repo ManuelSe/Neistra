@@ -26,7 +26,7 @@ from molweave_core.minimization.quick_contracts import QUICK_JOB, QuickParameter
 def definition() -> JobDefinition:
     return JobDefinition(
         job_type=QUICK_JOB,
-        implementation_version="1.0.1",
+        implementation_version="1.0.2",
         label="Quick minimize selection",
         description="Fast local coordinate relaxation; publication is a separate validated edit.",
         parameter_model=QuickParameters,

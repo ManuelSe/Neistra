@@ -5298,3 +5298,29 @@ budget on tiny pocket adjustments; it does not validate binding affinity or meta
 coordination. Iteration, time, resource and browser performance limits are unchanged.
 Public regressions check the limited outcome and prevent settling from accepting
 collapsed geometry. Native browser and complete frozen gates remain required.
+
+## D-139 — Small-ring targets follow topology; planarity is independently checked
+
+An independent post-replay audit finds that broad bond plausibility alone can leave
+an unsaturated ring badly folded. After the sign/unit correction, choosing every
+substituent's cis/trans side from damaged initial coordinates can still create
+mutually inconsistent restraints. For an existing double/aromatic bond in a ring
+of at most seven atoms, derive the ring-internal cis relationship and external
+substituent's opposite side from connectivity. Keep observed-side targets for
+acyclic/larger-ring bonds. Do not infer missing double bonds or flatten saturated
+rings. Public folded-substituted aromatic/Kekule regressions reproduce and cover it.
+
+Independently check rings of at most seven atoms touching movers whose every atom
+has aromatic or incident in-ring multiple-bond evidence. Reject plane deviation
+above0.2Å before geometry settling or publication. This broad local geometry guard
+is not a metal/affinity certificate. A mask unable to fix a ring while holding the
+other atoms fixed may refuse; it cannot broaden itself. Saturated puckered rings
+remain valid. Test this rejection even when an independent mock objective decreases.
+
+Add default-false planar validation proof alongside bonded proof so earlier reports
+remain inspectable but require recalculation. Quick implementation1.0.2 distinguishes
+this correction from the intermediate local1.0.1 preview. Preserve durable schemas,
+canonical chemistry, uploads and all fixed rows. Full candidate9 is explicitly
+interrupted at this finding; its1162 Python/313 frontend/8 supervisor/static/build
+passes are diagnostic. Restart focused native checks, then complete fresh candidate
+and exact-master gates. No thresholds or required checks are waived.

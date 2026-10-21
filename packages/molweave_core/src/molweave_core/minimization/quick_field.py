@@ -238,7 +238,14 @@ def repair_field(assembly: QuickAssembly, unsupported: set[int], positions: Any 
             )
             if min(np.linalg.norm(first), np.linalg.norm(second)) < 1e-8:
                 continue
-            target = 180.0 if np.dot(first, second) >= 0 else 0.0
+            ring_target = small_ring_target(mol, a, i, j, b)
+            target = (
+                ring_target
+                if ring_target is not None
+                else 180.0
+                if np.dot(first, second) >= 0
+                else 0.0
+            )
             field.UFFAddTorsionConstraint(a, i, j, b, False, target, target, 10.0 * (pi / 180) ** 2)
     radii = [periodic.GetRvdw(a.GetAtomicNum()) for a in mol.GetAtoms()]
     discovery = xyz if positions is None else positions
@@ -263,3 +270,35 @@ def repair_field(assembly: QuickAssembly, unsupported: set[int], positions: Any 
             field.AddFixedPoint(i)
     field.Initialize()
     return field
+
+
+def small_ring_target(mol: Any, a: int, i: int, j: int, b: int) -> float | None:
+    """Consistent planar sides of an existing small-ring double/aromatic bond.
+
+    Ring-internal neighbors are cis; an external substituent occupies the other
+    side at its trigonal center. Damaged initial coordinates cannot choose these
+    independently. Acyclic and larger-ring targets retain their observed sides.
+    """
+    for ring in mol.GetRingInfo().AtomRings():
+        if (
+            len(ring) > 7
+            or i not in ring
+            or j not in ring
+            or any(mol.GetAtomWithIdx(k).GetAtomicNum() not in GEOMETRY_ELEMENTS for k in ring)
+        ):
+            continue
+        size, first, second = len(ring), ring.index(i), ring.index(j)
+        if (first - second) % size not in {1, size - 1}:
+            continue
+        left = (
+            ring[(first + 1) % size]
+            if ring[(first - 1) % size] == j
+            else ring[(first - 1) % size]
+        )
+        right = (
+            ring[(second + 1) % size]
+            if ring[(second - 1) % size] == i
+            else ring[(second - 1) % size]
+        )
+        return 180.0 if (a == left) != (b == right) else 0.0
+    return None

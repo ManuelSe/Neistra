@@ -455,3 +455,28 @@ All13 private captures replay safely (one force-converged/twelve warned improvem
 fixed rows exact,0.31–0.63s; current saved state passes in0.64s. Raw user data stays
 private. Freeze the passing correction, enable a local preview and restart all20
 candidate commands. No release qualification is inferred from focused checks.
+
+### Independent ring audit — D-139, candidate9 interrupted
+
+Candidate9 passes1162 Python/313 frontend/8 supervisor and all static/build checks.
+Explicitly interrupt its browser matrix after independent saved-state audit finds a
+still-folded unsaturated ring despite eligible bond lengths:35 browser passes,1
+interrupted,2 documented exclusions reached,320 not run; no completed browser failure.
+Retain gate/source/logs/trace separately. Private probes establish inconsistent
+substituent targets inherited from damaged geometry. Small-ring topology gives a
+consistent planar model; saved-state plane deviation falls from0.52Å to0.0007Å.
+
+Implement D-139's topology targets and independent0.2Å fully-sp2-small-ring guard.
+Add default-false planar proof; old intermediate proposals require rerun. Public
+aromatic folded-ring regression fails before correction (Kekule case already passes);
+both pass after. Lower-objective folded aromatic output is refused while saturated
+puckered geometry is accepted.56 focused Python cases pass; rerun frontend/static,
+private captures and two-repeat native matrix before committing/fresh candidate10.
+
+The final D-139 native repeat passes26 cases/10 documented exclusions, no failures/
+flakes/retries, source553 files hash3d3c45deb2639004c758c768be3504606cc8ff37f9c940ab07772e956db200a8.
+56 Python/313 frontend/static/build pass. All13 private captures remain usable with
+exact fixed rows; independent replay artifact audit finds nine selected unsaturated
+rings with maximum plane deviation0.0015Å. Retain only aggregate private evidence.
+Freeze this checkpoint, update the data-preserving local preview and start all20
+candidate10 commands. Candidate9 remains an interrupted diagnostic, not a pass.

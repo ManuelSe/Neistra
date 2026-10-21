@@ -49,9 +49,14 @@ starting offsets may resolve near-coincident sites; their use is reported.
 The report distinguishes maximum-force convergence from a useful limited improvement.
 Usable candidates must be finite, improve the same final objective, preserve declared
 stereochemistry and exact fixed rows, retain broadly plausible covalent bond lengths
-and introduce no new nonbonded pair below0.6Å. Bond collapse/stretch cannot apply
+and introduce no new nonbonded pair below0.6Å. Declared fully unsaturated small
+rings touching movers must also retain broad planarity (maximum plane deviation
+0.2Å); saturated rings can pucker. Repair derives small-ring double/aromatic
+substituent sides from connectivity rather than a damaged starting fold. Bond collapse/stretch cannot apply
 merely because the overall objective fell. Older quick reports without bonded-geometry
-validation remain inspectable and require a new run before Apply.
+and planar validation remain inspectable and require a new run before Apply.
+A partial mask that cannot repair a distorted ring while keeping its other atoms
+fixed can refuse; select the affected ring for a new calculation.
 When details show **Captured geometry = 0**, objective values use that explicit
 reference; fixed-only native constants are omitted. Native moving forces and energy
 changes remain equivalent to the complete local field. Absolute objectives from

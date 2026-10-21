@@ -14,20 +14,23 @@ degree-based angular penalties overwhelming bond lengths, fixed-only energy affe
 relative stopping and no bonded-geometry acceptance guard. Unsupported coordination
 also contaminates the whole connected component's coverage. Fixed protein coordinates,
 canonical chemistry and original uploads remain intact; user data was not edited.
-Private artifacts/history stay outside git. D-136–138 corrections pass52 focused Python,
-313 frontend and static/build checks in an isolated checkout. All13 private captured
-pocket jobs replay to usable geometry with exact fixed rows; after the explicit fixed-environment geometry stop, execution is0.31–0.63s
-(one converged/twelve limited improvements). The current saved geometry also passes
-with exact fixed rows in0.64s, reported as a limited improvement. Earlier
-replays and their different numerical reference remain diagnostic history. Two-repeat native focused qualification passes26 cases/10 documented exclusions,
-zero failures/flakes/retries. New complete candidate/exact-master gates are still required. Unsupported coordination remains approximate.
+Private artifacts/history stay outside git. D-136–139 corrections pass56 focused
+Python,313 frontend and static/build checks in an isolated checkout. All13 private
+captures replay to usable geometry with exact fixed rows in0.31–0.58s (one converged,
+twelve limited improvements). Current saved geometry also passes in0.62s, with the
+declared unsaturated ring nearly planar. Broad bond eligibility alone was insufficient;
+D-139 additionally corrects inconsistent ring substituent targets and requires planar
+validation proof. Older intermediate proposals require rerun. Unsupported coordination
+remains approximate, and saturated rings retain their puckered conformations.
 
-The test-only atomic zoom observation fix passes three focused runs with unchanged
-limits. Candidate8 is interrupted at the user report:1148 Python/313 frontend/8
-supervisor/static/build pass;51 browsers pass/1 interrupted/3 exclusions reached/303
-not run. Earlier gates remain separately labeled evidence for their exact sources.
-All five versions remain0.23.0, unpublished, with no dependency/schema migration.
-Local API/web services retain the existing environment and managed data.
+The first corrected native repeat passes26 cases/10 documented exclusions with zero
+failures/flakes/retries, but precedes D-139. Candidate9 passes1162 Python/313 frontend/
+8 supervisor/static/build, then is explicitly interrupted for the independent ring
+finding:35 browser passes/1 interrupted/2 exclusions reached/320 not run. Final D-139 native repeat passes26 cases/10 exclusions, no failures/flakes/retries.
+Complete candidate10/exact-master gates remain. Earlier gates remain
+separate diagnostics for their exact sources. All five versions remain0.23.0,
+unpublished, with no dependency/schema migration. The passing final correction is ready for the local preview; restart with its
+existing environment while verifying managed data and debug originals remain exact.
 
 ### Previous delivery baseline — v0.22.1
 

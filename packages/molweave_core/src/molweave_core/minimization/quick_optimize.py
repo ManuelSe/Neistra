@@ -34,8 +34,8 @@ class GeometrySettled(Exception):
     pass
 
 
-def bonded_geometry_violations(assembly: QuickAssembly, coordinates: Any) -> list[str]:
-    """Independent broad covalent sanity bounds; no metal coordination inference."""
+def local_geometry_violations(assembly: QuickAssembly, coordinates: Any) -> list[str]:
+    """Independent covalent/declared planar-ring guards; no metal inference."""
     from rdkit import Chem
 
     periodic = Chem.GetPeriodicTable()
@@ -61,6 +61,32 @@ def bonded_geometry_violations(assembly: QuickAssembly, coordinates: Any) -> lis
                 f"Bond {assembly.references[i]}-{assembly.references[j]} has length "
                 f"{distance:.4f} angstrom outside broad covalent bounds "
                 f"{0.6 * radius:.4f}-{1.6 * radius:.4f}"
+            )
+    for ring in assembly.molecule.GetRingInfo().AtomRings():
+        if len(ring) > 7 or not moving.intersection(ring):
+            continue
+        atoms = [assembly.molecule.GetAtomWithIdx(i) for i in ring]
+        if any(atom.GetAtomicNum() not in GEOMETRY_ELEMENTS for atom in atoms):
+            continue
+        if not all(
+            atom.GetIsAromatic()
+            or any(
+                assembly.molecule.GetBondBetweenAtoms(atom.GetIdx(), j).GetBondTypeAsDouble()
+                >= 1.5
+                for j in ring
+                if assembly.molecule.GetBondBetweenAtoms(atom.GetIdx(), j) is not None
+            )
+            for atom in atoms
+        ):
+            continue
+        points = np.asarray(coordinates)[list(ring)]
+        centered = points - points.mean(axis=0)
+        _, _, axes = np.linalg.svd(centered)
+        deviation = float(np.max(np.abs(centered @ axes[-1])))
+        if deviation > 0.2:
+            violations.append(
+                f"Declared unsaturated small ring has plane deviation {deviation:.4f} "
+                "angstrom above0.2; check assigned chemistry and ring selection"
             )
     return violations
 
@@ -264,7 +290,7 @@ def optimize(
                 30 + 60 * iterations / parameters.max_iterations,
                 f"Quick relaxation iteration {iterations}",
             )
-        if settled_steps >= 3 and not bonded_geometry_violations(assembly, full):
+        if settled_steps >= 3 and not local_geometry_violations(assembly, full):
             stereo = geometry_stereo(assembly.molecule, full) if expected_stereo else ()
             if not any(
                 stereo[i] != value for i, value in expected_stereo.items()
@@ -367,7 +393,7 @@ def optimize(
     overlaps = introduces_severe_overlap(original, final, moving, bonds, context.checkpoint)
     displacement = np.linalg.norm(final[canonical] - original[canonical], axis=1)
     improved = improves(initial_energy, final_energy)
-    geometry_violations = bonded_geometry_violations(assembly, final)
+    geometry_violations = local_geometry_violations(assembly, final)
     unchanged = bool(np.max(displacement) <= 1e-9)
     tree = cKDTree(final)
     clashes = len(
@@ -407,6 +433,7 @@ def optimize(
         new_severe_overlaps=overlaps,
         final_context_verified=True,
         bonded_geometry_verified=not geometry_violations,
+        planar_geometry_verified=not geometry_violations,
         geometry_violations=geometry_violations,
         movable_count=len(canonical),
         fixed_count=sum(r is not None for r in assembly.references) - len(canonical),
@@ -440,10 +467,10 @@ def optimize(
     if geometry_violations:
         report.outcome = "failed"
         report.reason = (
-            "Local relaxation left invalid bonded geometry; coordinates were not accepted"
+            "Local relaxation left invalid local geometry; coordinates were not accepted"
         )
         report.warnings.extend(geometry_violations[:10])
-    if termination != "converged":
+    if report.outcome == "improved" and termination != "converged":
         report.warnings.append(
             f"Useful local improvement does not establish convergence ({termination})."
         )

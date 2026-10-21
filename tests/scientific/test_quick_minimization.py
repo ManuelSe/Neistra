@@ -433,6 +433,9 @@ def test_historical_quick_report_without_geometry_proof_cannot_apply(tmp_path: P
     assert usable(report)
     historical = report.model_dump(exclude={"bonded_geometry_verified", "geometry_violations"})
     assert not usable(QuickReport.model_validate(historical))
+    assert not usable(
+        QuickReport.model_validate(report.model_dump(exclude={"planar_geometry_verified"}))
+    )
     inconsistent = report.model_copy(update={"geometry_violations": ["Invalid bond"]})
     assert not usable(inconsistent)
 
@@ -634,3 +637,122 @@ def test_fixed_context_geometry_settling_is_limited_and_never_overrides_geometry
         assert report.termination_kind == "geometry_settled"
         assert report.settled_geometry_steps >= 3
         assert any("does not establish convergence" in w for w in report.warnings)
+
+
+@pytest.mark.parametrize("kekule", [False, True])
+def test_folded_substituted_repair_ring_recovers_consistent_planarity(tmp_path: Path, kekule):
+    from molweave_core.adapters.rdkit_common import normalized_to_mol
+    from molweave_core.molecular import Bond
+
+    from tests.support.minimization import combined
+
+    ligand = molecule("Cc1ccncc1C", explicit_h=False)
+    native = normalized_to_mol(ligand)
+    ring = list(Chem.GetSymmSSSR(native)[0])
+    if kekule:
+        Chem.Kekulize(native, clearAromaticFlags=True)
+        ligand = mol_to_normalized(native, filename="folded.mol", format_name="mol")
+    xyz = np.asarray(ligand.active_coordinates).copy()
+    # A folded initial ring and independently displaced substituents produce
+    # inconsistent cis/trans signs if every target follows damaged coordinates.
+    xyz[ring, 2] += np.asarray([-1.0, 1.0, 1.0, -1.0, 0.7, -0.8])
+    for i in set(range(len(xyz))) - set(ring):
+        xyz[i, 2] += 2.0
+    ligand = ligand.model_copy(
+        update={
+            "atoms": [
+                a.model_copy(update={"coordinates": tuple(p)})
+                for a, p in zip(ligand.atoms, xyz, strict=True)
+            ],
+            "conformers": [
+                c.model_copy(update={"coordinates": [tuple(p) for p in xyz]})
+                for c in ligand.conformers
+            ],
+        }
+    )
+    nitrogen = next(a.id for a in ligand.atoms if a.element == "N")
+    source = combined(ligand, translated(molecule("[Fe]"), (0, 0, 6)))
+    source = source.model_copy(
+        update={
+            "bonds": [
+                *source.bonds,
+                Bond(
+                    id=max(b.id for b in source.bonds) + 1,
+                    atom_1_id=nitrogen,
+                    atom_2_id=source.atoms[-1].id,
+                    order=None,
+                ),
+            ]
+        }
+    )
+    original = source.to_bytes()
+    parameters, _ = quick_capture(source, [a.id for a in ligand.atoms])
+    model = build_assembly({"entry": source}, parameters)
+    assert "repair" in model.modes
+    fixed = sorted(set(range(len(model.coordinates))) - set(model.movable))
+    before = model.coordinates.copy()
+    report, _ = optimize(model, parameters, LocalContext(tmp_path))
+    assert usable(report), report
+    mapping = {ref: i for i, ref in enumerate(model.references) if ref is not None}
+    points = np.asarray(
+        [model.result_coordinates[mapping["entry", ligand.atoms[i].id]] for i in ring]
+    )
+    centered = points - points.mean(axis=0)
+    _, _, axes = np.linalg.svd(centered)
+    assert np.max(np.abs(centered @ axes[-1])) < 0.1
+    assert np.array_equal(before[fixed], model.result_coordinates[fixed])
+    assert source.to_bytes() == original
+
+
+@pytest.mark.parametrize("unsaturated", [True, False])
+def test_planar_guard_rejects_lower_energy_folded_aromatic_but_allows_saturated_ring(
+    tmp_path: Path, monkeypatch, unsaturated
+):
+    from types import SimpleNamespace
+
+    import molweave_core.minimization.quick_optimize as module
+
+    source = molecule("c1ccccc1" if unsaturated else "C1CCCCC1", explicit_h=False)
+    xyz = np.asarray(source.active_coordinates).copy()
+    if unsaturated:
+        xyz[:, 2] += np.asarray([0.45, -0.45] * 3)
+    source = source.model_copy(
+        update={
+            "atoms": [
+                a.model_copy(update={"coordinates": tuple(p)})
+                for a, p in zip(source.atoms, xyz, strict=True)
+            ],
+            "conformers": [
+                c.model_copy(update={"coordinates": [tuple(p) for p in xyz]})
+                for c in source.conformers
+            ],
+        }
+    )
+    parameters, _ = quick_capture(source)
+    model = build_assembly({"entry": source}, parameters)
+    target = model.coordinates.copy()
+    target[model.movable, 0] += 0.01
+
+    class TranslationObjective:
+        def CalcEnergy(self, positions):
+            return float(np.sum((np.asarray(positions).reshape(-1, 3) - target) ** 2))
+
+        def CalcGrad(self, positions):
+            return (2 * (np.asarray(positions).reshape(-1, 3) - target)).reshape(-1)
+
+    monkeypatch.setattr(module, "force_field", lambda *args: (TranslationObjective(), "MMFF94"))
+    monkeypatch.setattr(
+        module,
+        "minimize",
+        lambda *args, **kw: SimpleNamespace(
+            x=target[model.movable].reshape(-1), success=True, status=0
+        ),
+    )
+    report, _ = optimize(model, parameters, LocalContext(tmp_path))
+    assert report.final_energy < report.initial_energy
+    if unsaturated:
+        assert report.outcome == "failed" and not usable(report)
+        assert not report.planar_geometry_verified
+        assert any("plane deviation" in v for v in report.geometry_violations)
+    else:
+        assert report.planar_geometry_verified and usable(report)

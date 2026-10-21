@@ -198,3 +198,53 @@ partial rings, damaged drafts and mixed fixed/native/repair fields. Investigate 
 calculation-only boundary around unsupported coordination without claiming qualified
 metal physics or changing canonical connectivity. Requalify both candidate and exact
 merged master; do not publish the prior implementation on the basis of older passes.
+
+### Pocket correction review — D-136–138
+
+Local self-review of the complete correction, not independent approval. Source
+checkpoint0adad20 adds causal unit/gradient regressions and independently blocks
+bond collapse even when the objective improves. Public report defaults keep older
+unverified proposals inspectable but ineligible; no retained history is rewritten.
+
+Reviewed native projection using whole covalent components and inclusion-exclusion:
+all moving-dependent native interactions remain, fixed-only cross-group constants
+are omitted and the energy reference is explicit. Both whole/partial masks and real
+PDB/normalized inputs compare full energy changes and gradients independently. Reuse
+is one exact input under the identical native object; rebuilds invalidate it.
+
+Reviewed guard radius7 lookahead against sqrt(3)*0.5Å bounded segment motion, retained
+8Å context and final6Å discovery. Full job serialization checks rebuilt field-center
+metadata. Fixed canonical rows, helpers, original coordinates and canonical chemistry
+retain their existing ownership. Prepared AMBER contracts remain separate.
+
+Reviewed the fixed-context geometry stop as an explicit scope choice: at least25
+accepted steps under one installed model, three steps below0.01Å and geometry checks.
+It remains a warned improvement unless the independent force threshold is satisfied;
+fully selected isolated molecules retain previous stopping. Invalid bonded geometry
+cannot enable this stop or final Apply. All final stereo/overlap/context/stale/owner/
+resource checks remain. Unsupported coordination is still explicitly approximate;
+no affinity, covalent-adduct or metal-geometry qualification is claimed.
+
+Focused52 Python/313 frontend/static/build and repeated26 native cases pass,10
+intentional layout/timing exclusions, no failures/retries. Failed timing and exploratory
+rebuild runs are separately labeled diagnostics. Raw local user captures are excluded;
+only aggregate replay outcomes and synthetic reproductions are public. New complete
+candidate and exact-master gates are mandatory before publication. No protection,
+required check/review or unresolved conversation may be bypassed.
+
+### Independent ring audit and final correction — D-139
+
+Do not infer physical quality from broad bond eligibility alone. The intermediate
+private replay leaves a declared unsaturated ring folded because damaged coordinates
+choose inconsistent internal/external substituent targets. Public folded substituted
+aromatic regression fails before correction; alternating-double control passes.
+Consistent small-ring topology restores both, retaining observed sides outside small
+rings and excluding metal-containing rings from geometry inference.
+
+Independently reject selected fully-sp2 small rings above0.2Å plane deviation, while
+allowing saturated puckered rings. Public controlled lower-objective output tests
+prove this guard is independent of optimization success. Default-false planar proof
+forces older intermediate results to rerun. Quick engine1.0.2 distinguishes the final
+correction; no canonical chemistry or fixed row is changed.56 focused cases pass;
+complete fresh candidate/exact-master qualification remains mandatory. Candidate9
+was explicitly interrupted rather than completing a known-inadequate source gate.

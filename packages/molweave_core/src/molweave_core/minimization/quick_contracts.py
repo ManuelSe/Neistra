@@ -92,6 +92,7 @@ class QuickReport(BaseModel):
     new_severe_overlaps: bool = False
     final_context_verified: bool = False
     bonded_geometry_verified: bool = False
+    planar_geometry_verified: bool = False
     geometry_violations: list[str] = Field(default_factory=list)
     movable_count: int = 0
     fixed_count: int = 0
@@ -129,6 +130,7 @@ def usable(report: QuickReport) -> bool:
         and improves(report.initial_energy, report.final_energy)
         and report.final_context_verified
         and report.bonded_geometry_verified
+        and report.planar_geometry_verified
         and not report.geometry_violations
         and not report.new_severe_overlaps
         and (

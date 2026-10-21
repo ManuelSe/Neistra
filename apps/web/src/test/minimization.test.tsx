@@ -211,7 +211,7 @@ it("keeps job/frame reads and Cancel presentation out of the App command subscri
 function quickProposal(): QuickMinimizationProposal {
   const old = proposal();
   return { ...old, report: { ...old.report, schema_version: 1, model: "quick-local-v1", outcome: "improved", method: "MMFF94", coverage: "complete",
-    assumptions: [], helper_count: 0, cap_count: 0, bonded_geometry_verified: true, geometry_violations: [], energy_reference: "model", geometry_step_tolerance: 0.01, settled_geometry_steps: 0, modeled_atoms: { protein: [1] }, timings: {}, termination_kind: "iteration_limit",
+    assumptions: [], helper_count: 0, cap_count: 0, bonded_geometry_verified: true, planar_geometry_verified: true, geometry_violations: [], energy_reference: "model", geometry_step_tolerance: 0.01, settled_geometry_steps: 0, modeled_atoms: { protein: [1] }, timings: {}, termination_kind: "iteration_limit",
     parameters: { schema_version: 1, model: "quick-local-v1", requested_selection: selection, selection,
       captured_inputs: [{ entry_id: "protein", artifact_id: "current-protein", sha256: "a".repeat(64), conformer_id: 7, atom_ids: [1, 2, 3] }],
       mode: "automatic", context_entry_ids: [], expand_hydrogens: true, allow_repair: true, max_iterations: 500 } } };
