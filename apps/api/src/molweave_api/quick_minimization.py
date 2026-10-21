@@ -266,6 +266,10 @@ class QuickService(MinimizationService):
             reason = "Archived quick calculations are historical and cannot Apply"
         elif "quick_minimization_application" in job.provenance:
             reason = "This proposal has already been applied; use Undo/Redo or calculate again"
+        elif report.outcome in {"improved", "converged"} and not (
+            report.bonded_geometry_verified and report.planar_geometry_verified
+        ):
+            reason = "Quick result lacks geometry validation; rerun minimization"
         elif not usable(report):
             reason = f"Quick calculation is {report.outcome}; no usable coordinate improvement"
         else:

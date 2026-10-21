@@ -138,3 +138,124 @@ Cold AC small/pocket/18k Apply0.915/2.104/3.659s; feedback9–54ms, first real f
 gates pass. Power was unchanged and AC online at every step boundary. Earlier
 diagnostics remain separate. Complete diff self-review finds no remaining consequential
 issue; no independent review claimed. C6 PR/normal merge/exact-master/release remains.
+
+### C6 merged attempt1 — zoom observation correction
+
+Normal PR#111 merge is exact remote master e698b43fc01145fa7cf3cc582a2bc31d9780923e.
+All553 candidate source identities match. All1148 Python/313 frontend/8 supervisor
+and static/build/frozen/migration checks pass. Native quick small/pocket/18k timing,
+real first frame713ms/Cancel62ms, all three supplied-file workflows and320px axe pass.
+Actual zoom fails a1000ms polling window. Explicitly interrupt remaining browsers:
+98 passed,1 failed,1 interrupted,4 exclusions reached,254 not run. No tag/release.
+
+Trace shows responsive viewer replacement during zoom: separate rectangle and
+viewport calls can observe different layout generations; a later DevTools response
+also exceeds the polling window. Final screenshot/snapshot fits. Independent unchanged
+zoom reproduces twice in three runs, so do not dismiss it or count this gate as passed.
+Read the rectangle and viewport atomically in one browser evaluation, retaining
+1000ms polling, exact containment, actual native zoom, axe, focus, capture and no-edit
+assertions. All three independent corrected runs pass; ESLint/types pass. Runtime
+source is unchanged. Freeze the test-only correction on a dedicated fix branch and
+repeat the full candidate gate before the follow-up PR, then full exact-master gate.
+Supplied PDB fixtures retain byte-exact format padding; scoped source diff check
+passes excluding only those original fixed-column fixture bytes. Debug files untouched.
+
+Candidate7 stops during Ruff because two retained scratch qualifier scripts were
+archived as executable-looking Python instead of compressed evidence. Compress
+the exact bytes like all existing qualifier evidence; do not lint-fix or execute
+archived scripts as repository source. No runtime/test source change. Record this
+packaging diagnostic, pass Ruff, then restart the full clean candidate gate.
+
+### Release hold — observed bound-ligand repair failure
+
+The user reports good isolated cleanup but severe pocket distortion. Stop candidate8
+at the user's investigation request:51 browsers passed,1 interrupted,3 exclusions
+reached,303 not run; no browser failure. Prior1148 Python/313 frontend/8 supervisor/
+static/build checks pass. Retain this as an interrupted diagnostic. A brief AC
+disconnection during early non-minimization cases is logged; the user reconnected
+before interruption. No0.23.0 tag/release exists.
+
+Read-only local history/model replay confirms: a source metal–ligand–cofactor–protein
+connected component falls wholesale into repair because unresolved bonds and any
+protein membership are tested per connected component. Supported ligand chemistry
+therefore receives no native pocket electrostatics. More seriously, repair's cross-
+product sign selects the opposite0/180°dihedral. An independent planar four-carbon
+probe produces324000 penalty with the current target for either cis or trans. Native
+RDKit2026.03.4 angle/torsion constraints square degree errors; current weights greatly
+outweigh covalent distances. A replay lowers torsion penalty while worsening bond
+penalty and can collapse a bonded carbon pair. Fixed-only native energy also adds a
+large constant to the solver's relative-energy stopping criterion. Current eligibility
+checks objective improvement and severe nonbonded overlaps but no bonded geometry
+guard, allowing collapsed bonded atoms to auto-apply. All fixed canonical coordinates
+and chemistry stayed unchanged in the audited operations; no user state was edited.
+
+This is release-blocking implementation behavior, not evidence of adequate pocket
+qualification. Keep private project/artifact/history data outside version control.
+Correct torsion orientation and unit-balanced repair, make optimization insensitive
+to fixed-only constants and add bonded-geometry acceptance independent of objective
+decrease. Add synthetic native regression cases for unsupported connected context,
+partial rings, damaged drafts and mixed fixed/native/repair fields. Investigate a
+calculation-only boundary around unsupported coordination without claiming qualified
+metal physics or changing canonical connectivity. Requalify both candidate and exact
+merged master; do not publish the prior implementation on the basis of older passes.
+
+### Pocket correction review — D-136–138
+
+Local self-review of the complete correction, not independent approval. Source
+checkpoint0adad20 adds causal unit/gradient regressions and independently blocks
+bond collapse even when the objective improves. Public report defaults keep older
+unverified proposals inspectable but ineligible; no retained history is rewritten.
+
+Reviewed native projection using whole covalent components and inclusion-exclusion:
+all moving-dependent native interactions remain, fixed-only cross-group constants
+are omitted and the energy reference is explicit. Both whole/partial masks and real
+PDB/normalized inputs compare full energy changes and gradients independently. Reuse
+is one exact input under the identical native object; rebuilds invalidate it.
+
+Reviewed guard radius7 lookahead against sqrt(3)*0.5Å bounded segment motion, retained
+8Å context and final6Å discovery. Full job serialization checks rebuilt field-center
+metadata. Fixed canonical rows, helpers, original coordinates and canonical chemistry
+retain their existing ownership. Prepared AMBER contracts remain separate.
+
+Reviewed the fixed-context geometry stop as an explicit scope choice: at least25
+accepted steps under one installed model, three steps below0.01Å and geometry checks.
+It remains a warned improvement unless the independent force threshold is satisfied;
+fully selected isolated molecules retain previous stopping. Invalid bonded geometry
+cannot enable this stop or final Apply. All final stereo/overlap/context/stale/owner/
+resource checks remain. Unsupported coordination is still explicitly approximate;
+no affinity, covalent-adduct or metal-geometry qualification is claimed.
+
+Focused52 Python/313 frontend/static/build and repeated26 native cases pass,10
+intentional layout/timing exclusions, no failures/retries. Failed timing and exploratory
+rebuild runs are separately labeled diagnostics. Raw local user captures are excluded;
+only aggregate replay outcomes and synthetic reproductions are public. New complete
+candidate and exact-master gates are mandatory before publication. No protection,
+required check/review or unresolved conversation may be bypassed.
+
+### Independent ring audit and final correction — D-139
+
+Do not infer physical quality from broad bond eligibility alone. The intermediate
+private replay leaves a declared unsaturated ring folded because damaged coordinates
+choose inconsistent internal/external substituent targets. Public folded substituted
+aromatic regression fails before correction; alternating-double control passes.
+Consistent small-ring topology restores both, retaining observed sides outside small
+rings and excluding metal-containing rings from geometry inference.
+
+Independently reject selected fully-sp2 small rings above0.2Å plane deviation, while
+allowing saturated puckered rings. Public controlled lower-objective output tests
+prove this guard is independent of optimization success. Default-false planar proof
+forces older intermediate results to rerun. Quick engine1.0.2 distinguishes the final
+correction; no canonical chemistry or fixed row is changed.56 focused cases pass;
+complete fresh candidate/exact-master qualification remains mandatory. Candidate9
+was explicitly interrupted rather than completing a known-inadequate source gate.
+
+### Final corrected candidate10
+
+All20 commands pass at0d3657056d99695440ad750fa8bddc71d6adcf3d:1166 Python,313
+frontend,8 supervisor,298 browser/60 documented exclusions, no failures/flakes/retries/
+Python skips. Both actual reader directions pass four cases;553 source identities
+and logs verify. Full corrective diff contains only expected quick core/API/UI,
+scientific regressions, atomic viewport/focus test fixes and documentation/evidence.
+No unresolved consequential local finding remains. No independent review is claimed.
+Exact-master qualification and normal remote protection/review/check verification
+remain required. Source is unchanged by this evidence checkpoint.

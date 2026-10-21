@@ -166,6 +166,8 @@ function QuickResult({ report, workflow: w }: { report: QuickMinimizationReport;
     <details><summary>Calculation details</summary>
       <dl className="minimization-metrics">
         <dt>Initial / final objective</dt><dd>{number(report.initial_energy)} / {number(report.final_energy)} {report.units.energy}</dd>
+        {report.energy_reference === "captured_geometry" ? <><dt>Energy reference</dt><dd>Captured geometry = 0</dd></> : null}
+        {report.termination_kind === "geometry_settled" ? <><dt>Geometry settling</dt><dd>{report.geometry_step_tolerance} Å · {report.settled_geometry_steps} accepted steps</dd></> : null}
         <dt>Maximum gradient</dt><dd>{number(report.maximum_gradient)} {report.units.gradient}</dd>
         <dt>Force threshold</dt><dd>{number(report.gradient_tolerance)} {report.units.gradient}</dd>
         <dt>Iterations / evaluations</dt><dd>{report.iterations} / {report.evaluations}</dd>

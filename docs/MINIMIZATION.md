@@ -40,11 +40,35 @@ obstacles while supported native components retain their forces. Reports identif
 affected sites, assumptions and omitted electrostatic/coordination terms. Full repair
 objectives use **penalty** units; they are not physical energies or binding scores.
 No attraction, metal coordination or protonation is invented for unsupported sites.
+A ligand connected through unsupported coordination to a cofactor/protein may require
+repair for that entire local connected group; it does not gain native pocket
+electrostatics from the isolated-ligand model. Fixed-only native field parts add no
+moving forces and are omitted from the local objective. Calculation-only repair
+starting offsets may resolve near-coincident sites; their use is reported.
 
 The report distinguishes maximum-force convergence from a useful limited improvement.
 Usable candidates must be finite, improve the same final objective, preserve declared
-stereochemistry and exact fixed rows, and introduce no new nonbonded pair below0.6Å.
-A relative-tolerance, iteration or cooperative time stop may apply with a warning;
+stereochemistry and exact fixed rows, retain broadly plausible covalent bond lengths
+and introduce no new nonbonded pair below0.6Å. Declared fully unsaturated small
+rings touching movers must also retain broad planarity (maximum plane deviation
+0.2Å); saturated rings can pucker. Repair derives small-ring double/aromatic
+substituent sides from connectivity rather than a damaged starting fold. Bond collapse/stretch cannot apply
+merely because the overall objective fell. Older quick reports without bonded-geometry
+and planar validation remain inspectable and require a new run before Apply.
+A partial mask that cannot repair a distorted ring while keeping its other atoms
+fixed can refuse; select the affected ring for a new calculation.
+When details show **Captured geometry = 0**, objective values use that explicit
+reference; fixed-only native constants are omitted. Native moving forces and energy
+changes remain equivalent to the complete local field. Absolute objectives from
+different model/reference calculations are not binding scores.
+
+A fixed-environment run can also stop after at least25 accepted steps when three
+successive selected-coordinate changes are below0.01Å and geometry checks pass.
+Details identify this **geometry-settled** improvement; it does not establish force
+convergence. Fully selected isolated molecules retain their force/relative-tolerance
+stopping behavior.
+
+A geometry-settled, relative-tolerance, iteration or cooperative time stop may apply with a warning;
 that does not establish force convergence. No-op results create no history. Cancellation,
 hard worker failure and invalid output cannot apply. Limits are2000 movable canonical
 atoms,20000 local atoms including helpers and100 participating entries. Optimization

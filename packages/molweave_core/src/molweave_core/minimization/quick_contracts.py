@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from math import ulp
 from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
@@ -11,6 +12,7 @@ from molweave_core.selection import AtomReference, SelectionV1
 QUICK_JOB = "coordinates.quick_minimize"
 QUICK_MODEL: Literal["quick-local-v1"] = "quick-local-v1"
 QUICK_FORCE_TOLERANCE = 0.01  # kcal/(mol angstrom), maximum movable component
+QUICK_GEOMETRY_TOLERANCE = 0.01  # angstrom, maximum selected-coordinate step
 
 
 class QuickCapture(BaseModel):
@@ -77,6 +79,9 @@ class QuickReport(BaseModel):
     )
     initial_energy: float | None = None
     final_energy: float | None = None
+    energy_reference: Literal["model", "captured_geometry"] = "model"
+    geometry_step_tolerance: float = QUICK_GEOMETRY_TOLERANCE
+    settled_geometry_steps: int = 0
     maximum_gradient: float | None = None
     gradient_tolerance: float = QUICK_FORCE_TOLERANCE
     iterations: int = 0
@@ -86,6 +91,9 @@ class QuickReport(BaseModel):
     residual_clashes: int = 0
     new_severe_overlaps: bool = False
     final_context_verified: bool = False
+    bonded_geometry_verified: bool = False
+    planar_geometry_verified: bool = False
+    geometry_violations: list[str] = Field(default_factory=list)
     movable_count: int = 0
     fixed_count: int = 0
     helper_count: int = 0
@@ -112,14 +120,27 @@ def canonical_selection(selection: SelectionV1, keys: set[tuple[str, int]]) -> S
 def usable(report: QuickReport) -> bool:
     return (
         report.outcome in {"converged", "improved"}
-        and report.termination_kind in {"converged", "iteration_limit", "budget_limit", "stalled"}
+        and report.termination_kind
+        in {"converged", "iteration_limit", "budget_limit", "stalled", "geometry_settled"}
         and report.method is not None
         and report.coverage in {"complete", "approximate"}
         and report.initial_energy is not None
         and report.final_energy is not None
         and report.maximum_gradient is not None
-        and report.final_energy
-        < report.initial_energy - max(1e-6, abs(report.initial_energy) * 1e-10)
+        and improves(report.initial_energy, report.final_energy)
         and report.final_context_verified
+        and report.bonded_geometry_verified
+        and report.planar_geometry_verified
+        and not report.geometry_violations
         and not report.new_severe_overlaps
+        and (
+            report.termination_kind != "geometry_settled"
+            or (report.settled_geometry_steps >= 3 and report.fixed_count > 0)
+        )
     )
+
+
+def improves(initial: float, final: float) -> bool:
+    # An arbitrary fixed-only energy offset cannot change chemical eligibility.
+    # Retain only an absolute tolerance and the precision of represented energies.
+    return initial - final > max(1e-6, 4 * ulp(max(abs(initial), abs(final))))

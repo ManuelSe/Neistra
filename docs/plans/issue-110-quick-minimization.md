@@ -334,3 +334,160 @@ Cold AC small/pocket/18k Apply0.915/2.104/3.659s; feedback9–54ms, first real f
 gates pass. Power was unchanged and AC online at every step boundary. Earlier
 diagnostics remain separate. Complete diff self-review finds no remaining consequential
 issue; no independent review claimed. C6 PR/normal merge/exact-master/release remains.
+
+### C6 merged attempt1 — zoom observation correction
+
+Normal PR#111 merge is exact remote master e698b43fc01145fa7cf3cc582a2bc31d9780923e.
+All553 candidate source identities match. All1148 Python/313 frontend/8 supervisor
+and static/build/frozen/migration checks pass. Native quick small/pocket/18k timing,
+real first frame713ms/Cancel62ms, all three supplied-file workflows and320px axe pass.
+Actual zoom fails a1000ms polling window. Explicitly interrupt remaining browsers:
+98 passed,1 failed,1 interrupted,4 exclusions reached,254 not run. No tag/release.
+
+Trace shows responsive viewer replacement during zoom: separate rectangle and
+viewport calls can observe different layout generations; a later DevTools response
+also exceeds the polling window. Final screenshot/snapshot fits. Independent unchanged
+zoom reproduces twice in three runs, so do not dismiss it or count this gate as passed.
+Read the rectangle and viewport atomically in one browser evaluation, retaining
+1000ms polling, exact containment, actual native zoom, axe, focus, capture and no-edit
+assertions. All three independent corrected runs pass; ESLint/types pass. Runtime
+source is unchanged. Freeze the test-only correction on a dedicated fix branch and
+repeat the full candidate gate before the follow-up PR, then full exact-master gate.
+Supplied PDB fixtures retain byte-exact format padding; scoped source diff check
+passes excluding only those original fixed-column fixture bytes. Debug files untouched.
+
+Candidate7 stops during Ruff because two retained scratch qualifier scripts were
+archived as executable-looking Python instead of compressed evidence. Compress
+the exact bytes like all existing qualifier evidence; do not lint-fix or execute
+archived scripts as repository source. No runtime/test source change. Record this
+packaging diagnostic, pass Ruff, then restart the full clean candidate gate.
+
+### Release hold — observed bound-ligand repair failure
+
+The user reports good isolated cleanup but severe pocket distortion. Stop candidate8
+at the user's investigation request:51 browsers passed,1 interrupted,3 exclusions
+reached,303 not run; no browser failure. Prior1148 Python/313 frontend/8 supervisor/
+static/build checks pass. Retain this as an interrupted diagnostic. A brief AC
+disconnection during early non-minimization cases is logged; the user reconnected
+before interruption. No0.23.0 tag/release exists.
+
+Read-only local history/model replay confirms: a source metal–ligand–cofactor–protein
+connected component falls wholesale into repair because unresolved bonds and any
+protein membership are tested per connected component. Supported ligand chemistry
+therefore receives no native pocket electrostatics. More seriously, repair's cross-
+product sign selects the opposite0/180°dihedral. An independent planar four-carbon
+probe produces324000 penalty with the current target for either cis or trans. Native
+RDKit2026.03.4 angle/torsion constraints square degree errors; current weights greatly
+outweigh covalent distances. A replay lowers torsion penalty while worsening bond
+penalty and can collapse a bonded carbon pair. Fixed-only native energy also adds a
+large constant to the solver's relative-energy stopping criterion. Current eligibility
+checks objective improvement and severe nonbonded overlaps but no bonded geometry
+guard, allowing collapsed bonded atoms to auto-apply. All fixed canonical coordinates
+and chemistry stayed unchanged in the audited operations; no user state was edited.
+
+This is release-blocking implementation behavior, not evidence of adequate pocket
+qualification. Keep private project/artifact/history data outside version control.
+Correct torsion orientation and unit-balanced repair, make optimization insensitive
+to fixed-only constants and add bonded-geometry acceptance independent of objective
+decrease. Add synthetic native regression cases for unsupported connected context,
+partial rings, damaged drafts and mixed fixed/native/repair fields. Investigate a
+calculation-only boundary around unsupported coordination without claiming qualified
+metal physics or changing canonical connectivity. Requalify both candidate and exact
+merged master; do not publish the prior implementation on the basis of older passes.
+
+### Corrective checkpoint — D-136
+
+Correct repair torsion direction and angular units, omit constant native parts,
+center each solver segment and require independently plausible final covalent
+bonds before publication. Default historical quick proof to false; retain data and
+inspection but require rerun. Quick engine1.0.1; no prepared/schema/version change.
+Add bounded reported near-coincident repair seeding without moving fixed rows.
+Synthetic regressions cover both cis/trans energies and gradients, fixed energy
+offset invariance, collapsed-bond rejection despite lower objective, old-report
+eligibility and metal-linked distorted/collapsed rings with fixed strained native
+context.45 focused Python cases and313 frontend tests pass; static/build pass.
+Native focused checks are in progress, then freeze and run all20 candidate commands.
+
+Read-only private replay of all13 completed pocket captures yields13 usable results
+(eight converged/five limited improvements), exact fixed rows throughout and0.31–2.83s
+local execution. The actual currently saved state also converges in2.03s without
+geometry violations. These private diagnostic captures are not distributed or
+substituted for public synthetic/native/full release qualification. Current user
+project/history is unchanged. Metal-linked chemistry remains explicitly approximate;
+no qualified coordination model is introduced.
+
+### Final corrective qualification preparation — D-137
+
+The first native repeat exposes a resize-input setup race and a65ms18k timing miss
+(24 pass/2 fail/10 intentional exclusions). Await the actual narrow Inspector before
+sending keyboard input, retaining all focus/axe/geometry assertions. Exact last-point
+reuse and direct mappings pass45 focused cases; a second native repeat has25 passes/
+1 timing failure/10 exclusions (5219ms). Neither is a qualification pass.
+
+Component projection passes full native energy/gradient comparisons, but additional
+optimization exposes an over-eager outer-skin rebuild and lost field-center state
+in native job artifacts. Retain the22-pass/4-failure/10-exclusion exploratory run as
+diagnostic; it is not frozen qualification. Correct core/skin discovery and install
+fields on the retained assembly. The regression now runs complete job serialization.
+Use a stable model-level captured-energy reference across segments. Exclude constant
+fixed-group terms and record the explicit energy zero, preserving native energy
+changes and gradients.50 focused Python cases pass, including normalized/PDB whole/
+partial force equivalence, cis/trans and degree-scale physics, offset invariance,
+collapsed ordinary/unsupported bonds, old-report rejection and damaged metal-linked
+rings. Controlled18k backend probe improves to1.86s with valid geometry and honest
+limited convergence. A fresh two-repeat native matrix is running before freeze.
+
+### Fixed-environment geometry settling — D-138
+
+The stable-reference native repeat has24 passes/2 timing failures/10 documented
+exclusions; it is diagnostic, not qualification. Controlled profiling identifies
+long tails of tiny accepted coordinate changes. Add the explicit fixed-canonical-
+context geometry stop described in D-138, preserving isolated behavior, independent
+force convergence and all publication guards.52 focused Python and313 frontend
+tests plus lint/type/build pass. Repeat public native tests and private read-only
+replays before committing the corrected checkpoint; both complete gates remain.
+
+The corrected two-repeat public native matrix passes26 cases with10 documented
+mobile timing/zoom exclusions, zero failures/flakes/retries. Both cold/repeat pocket
+and18k scenes, genuine live/Cancel, Undo/Redo, mobile controls, axe and actual zoom
+pass unchanged limits. Source fingerprint remains553 files, hash6de56759fdeab13daae45ef3483cb5db8931cbd6664ff61dcd34185efd0bc9ab.
+All13 private captures replay safely (one force-converged/twelve warned improvements),
+fixed rows exact,0.31–0.63s; current saved state passes in0.64s. Raw user data stays
+private. Freeze the passing correction, enable a local preview and restart all20
+candidate commands. No release qualification is inferred from focused checks.
+
+### Independent ring audit — D-139, candidate9 interrupted
+
+Candidate9 passes1162 Python/313 frontend/8 supervisor and all static/build checks.
+Explicitly interrupt its browser matrix after independent saved-state audit finds a
+still-folded unsaturated ring despite eligible bond lengths:35 browser passes,1
+interrupted,2 documented exclusions reached,320 not run; no completed browser failure.
+Retain gate/source/logs/trace separately. Private probes establish inconsistent
+substituent targets inherited from damaged geometry. Small-ring topology gives a
+consistent planar model; saved-state plane deviation falls from0.52Å to0.0007Å.
+
+Implement D-139's topology targets and independent0.2Å fully-sp2-small-ring guard.
+Add default-false planar proof; old intermediate proposals require rerun. Public
+aromatic folded-ring regression fails before correction (Kekule case already passes);
+both pass after. Lower-objective folded aromatic output is refused while saturated
+puckered geometry is accepted.56 focused Python cases pass; rerun frontend/static,
+private captures and two-repeat native matrix before committing/fresh candidate10.
+
+The final D-139 native repeat passes26 cases/10 documented exclusions, no failures/
+flakes/retries, source553 files hash3d3c45deb2639004c758c768be3504606cc8ff37f9c940ab07772e956db200a8.
+56 Python/313 frontend/static/build pass. All13 private captures remain usable with
+exact fixed rows; independent replay artifact audit finds nine selected unsaturated
+rings with maximum plane deviation0.0015Å. Retain only aggregate private evidence.
+Freeze this checkpoint, update the data-preserving local preview and start all20
+candidate10 commands. Candidate9 remains an interrupted diagnostic, not a pass.
+
+### Corrected C5 complete — candidate10
+
+Clean checkpoint0d3657056d99695440ad750fa8bddc71d6adcf3d passes all20 commands:
+1166 Python/313 frontend/8 supervisor/298 browser,60 documented exclusions, zero
+failures/flakes/retries/Python skips. Both actual tagged0.22.1/current reader
+directions retain four cases.553 source identities equal and log hashes verify.
+Native cold small/pocket/18k0.889/2.466/3.470s, first frame686ms,Cancel52ms; all limits
+unchanged. All231 power samples show AC online, existing profile unchanged. Review
+the complete corrective diff, commit evidence only, open the corrective PR and merge
+normally after review/check verification. C6 exact-master gate and release remain.

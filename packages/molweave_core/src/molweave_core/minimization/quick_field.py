@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from itertools import combinations, product
+from math import pi
 from typing import Any
 
 import numpy as np
@@ -19,16 +20,22 @@ GEOMETRY_ELEMENTS = frozenset({1, 5, 6, 7, 8, 9, 14, 15, 16, 17, 35, 53})
 class LocalField:
     """Sum native fields with explicit mappings to the one disposable local model."""
 
-    def __init__(self, size: int, parts: list[tuple[Any, list[int]]]):
+    def __init__(self, size: int, parts: list[tuple[Any, list[int]]], offset: float = 0.0):
         self.size, self.parts = size, parts
+        self.offset = offset
+        self.direct = len(parts) == 1 and parts[0][1] == list(range(size))
 
     def CalcEnergy(self, positions: list[float]) -> float:
+        if self.direct:
+            return self.offset + float(self.parts[0][0].CalcEnergy(positions))
         xyz = np.asarray(positions).reshape((-1, 3))
-        return sum(
+        return self.offset + sum(
             float(ff.CalcEnergy(xyz[indices].reshape(-1).tolist())) for ff, indices in self.parts
         )
 
     def CalcGrad(self, positions: list[float]) -> Any:
+        if self.direct:
+            return np.asarray(self.parts[0][0].CalcGrad(positions))
         xyz = np.asarray(positions).reshape((-1, 3))
         gradient = np.zeros((self.size, 3))
         for ff, indices in self.parts:
@@ -36,6 +43,19 @@ class LocalField:
                 (-1, 3)
             )
         return gradient.reshape(-1)
+
+
+class ScaledField:
+    """Signed native contribution for exact component inclusion-exclusion."""
+
+    def __init__(self, field: Any, scale: float):
+        self.field, self.scale = field, scale
+
+    def CalcEnergy(self, positions: list[float]) -> float:
+        return self.scale * float(self.field.CalcEnergy(positions))
+
+    def CalcGrad(self, positions: list[float]) -> Any:
+        return self.scale * np.asarray(self.field.CalcGrad(positions))
 
 
 def subset(mol: Any, indices: list[int]) -> Any:
@@ -49,6 +69,63 @@ def subset(mol: Any, indices: list[int]) -> Any:
     result = rw.GetMol()
     Chem.SanitizeMol(result)
     return result
+
+
+def native_field(mol: Any, indices: list[int], moving: set[int], mode: str) -> Any:
+    Chem.GetSymmSSSR(mol)
+    if mode == "MMFF94":
+        props = all_chem.MMFFGetMoleculeProperties(mol, mmffVariant="MMFF94")
+        props.SetMMFFDielectricModel(2)
+        props.SetMMFFDielectricConstant(4.0)
+        ff = all_chem.MMFFGetMoleculeForceField(
+            mol, props, nonBondedThresh=float("inf"), ignoreInterfragInteractions=False
+        )
+    else:
+        ff = all_chem.UFFGetMoleculeForceField(
+            mol, vdwThresh=float("inf"), ignoreInterfragInteractions=False
+        )
+    for index, global_index in enumerate(indices):
+        if global_index not in moving:
+            ff.AddFixedPoint(index)
+    ff.Initialize()
+    return ff
+
+
+def active_native_parts(
+    mol: Any, indices: list[int], moving: set[int]
+) -> tuple[list[tuple[Any, list[int]]], bool]:
+    """Exact MMFF moving forces, omitting repeated fixed-fragment pair work.
+
+    Each pair field contains the complete moving components plus one chunk of
+    complete fixed components. Remove duplicate moving self-terms; omit the
+    fixed-only constant and report captured geometry as energy zero. No covalent
+    boundary, nonbonded pair involving a mover, or native parameter is truncated.
+    """
+    groups = Chem.GetMolFrags(mol)
+    active = sorted(
+        i for group in groups if any(indices[k] in moving for k in group) for i in group
+    )
+    chunks: list[list[int]] = []
+    chunk: list[int] = []
+    for group in groups:
+        if any(indices[k] in moving for k in group):
+            continue
+        if chunk and len(chunk) + len(group) > 128:
+            chunks.append(chunk)
+            chunk = []
+        chunk.extend(group)
+    if chunk:
+        chunks.append(chunk)
+    cost = len(active) ** 2 + sum((len(active) + len(c)) ** 2 for c in chunks)
+    if len(chunks) < 2 or cost >= 0.65 * len(indices) ** 2:
+        return [(native_field(mol, indices, moving, "MMFF94"), indices)], False
+    parts = []
+    for local in [active, *(sorted(active + c) for c in chunks)]:
+        mapped = [indices[i] for i in local]
+        ff = native_field(subset(mol, local), mapped, moving, "MMFF94")
+        parts.append((ff, mapped))
+    parts[0] = (ScaledField(parts[0][0], 1 - len(chunks)), parts[0][1])
+    return parts, True
 
 
 def force_field(assembly: QuickAssembly, positions: Any = None) -> tuple[Any, str]:
@@ -69,28 +146,22 @@ def force_field(assembly: QuickAssembly, positions: Any = None) -> tuple[Any, st
     approximate_moving = bool(moving & unsupported)
     method = "geometry_repair" if approximate_moving else native_mode
     parts = []
-    if supported:
+    offset = 0.0
+    projected = False
+    assembly.energy_reference = "model"
+    # A native part with no optimizer variables is a constant. In mixed repair
+    # models it supplies no ligand forces, and must not dominate solver stopping.
+    if supported and moving & supported_set:
         mol = subset(assembly.molecule, supported)
-        Chem.GetSymmSSSR(mol)
         if native_mode == "MMFF94":
-            props = all_chem.MMFFGetMoleculeProperties(mol, mmffVariant="MMFF94")
-            props.SetMMFFDielectricModel(2)
-            props.SetMMFFDielectricConstant(4.0)
-            ff = all_chem.MMFFGetMoleculeForceField(
-                mol, props, nonBondedThresh=float("inf"), ignoreInterfragInteractions=False
-            )
+            native_parts, projected = active_native_parts(mol, supported, moving)
+            parts.extend(native_parts)
         else:
-            ff = all_chem.UFFGetMoleculeForceField(
-                mol, vdwThresh=float("inf"), ignoreInterfragInteractions=False
-            )
+            ff = native_field(mol, supported, moving, native_mode)
             assembly.warnings.append(
                 "UFF fallback: electrostatic pocket interactions are not represented."
             )
-        for index, global_index in enumerate(supported):
-            if global_index not in moving:
-                ff.AddFixedPoint(index)
-        ff.Initialize()
-        parts.append((ff, supported))
+            parts.append((ff, supported))
     if unsupported:
         ff = repair_field(assembly, unsupported, positions)
         parts.append((ff, list(range(len(modes)))))
@@ -98,7 +169,19 @@ def force_field(assembly: QuickAssembly, positions: Any = None) -> tuple[Any, st
             "Approximate repair: unsupported local chemistry uses geometric/steric constraints; "
             "unsupported site electrostatics and coordination are omitted."
         )
-    return LocalField(len(modes), parts), method
+    if projected:
+        original = assembly.coordinates
+        offset = -sum(
+            float(ff.CalcEnergy(original[indices].reshape(-1).tolist())) for ff, indices in parts
+        )
+        assembly.energy_reference = "captured_geometry"
+        note = (
+            "Objective energy uses captured geometry as zero; fixed-only native terms between "
+            "calculation groups are omitted. Moving forces and energy changes remain native-exact."
+        )
+        if note not in assembly.assumptions:
+            assembly.assumptions.append(note)
+    return LocalField(len(modes), parts, offset), method
 
 
 def repair_field(assembly: QuickAssembly, unsupported: set[int], positions: Any = None) -> Any:
@@ -134,7 +217,9 @@ def repair_field(assembly: QuickAssembly, unsupported: set[int], positions: Any 
                 if mol.GetAtomWithIdx(center).GetAtomicNum() == 8
                 else 109.47
             )
-            field.UFFAddAngleConstraint(a, center, b, False, target, target, 20.0)
+            # RDKit constraint energies square degree errors. These strengths
+            # are defined per radian squared, alongside angstrom bond penalties.
+            field.UFFAddAngleConstraint(a, center, b, False, target, target, 20.0 * (pi / 180) ** 2)
     for bond in mol.GetBonds():
         i, j = bond.GetBeginAtomIdx(), bond.GetEndAtomIdx()
         if (
@@ -151,8 +236,17 @@ def repair_field(assembly: QuickAssembly, unsupported: set[int], positions: Any 
                 np.cross(xyz[a] - xyz[i], xyz[j] - xyz[i]),
                 np.cross(xyz[j] - xyz[i], xyz[b] - xyz[j]),
             )
-            target = 0.0 if np.dot(first, second) >= 0 else 180.0
-            field.UFFAddTorsionConstraint(a, i, j, b, False, target, target, 10.0)
+            if min(np.linalg.norm(first), np.linalg.norm(second)) < 1e-8:
+                continue
+            ring_target = small_ring_target(mol, a, i, j, b)
+            target = (
+                ring_target
+                if ring_target is not None
+                else 180.0
+                if np.dot(first, second) >= 0
+                else 0.0
+            )
+            field.UFFAddTorsionConstraint(a, i, j, b, False, target, target, 10.0 * (pi / 180) ** 2)
     radii = [periodic.GetRvdw(a.GetAtomicNum()) for a in mol.GetAtoms()]
     discovery = xyz if positions is None else positions
     tree = cKDTree(discovery)
@@ -176,3 +270,35 @@ def repair_field(assembly: QuickAssembly, unsupported: set[int], positions: Any 
             field.AddFixedPoint(i)
     field.Initialize()
     return field
+
+
+def small_ring_target(mol: Any, a: int, i: int, j: int, b: int) -> float | None:
+    """Consistent planar sides of an existing small-ring double/aromatic bond.
+
+    Ring-internal neighbors are cis; an external substituent occupies the other
+    side at its trigonal center. Damaged initial coordinates cannot choose these
+    independently. Acyclic and larger-ring targets retain their observed sides.
+    """
+    for ring in mol.GetRingInfo().AtomRings():
+        if (
+            len(ring) > 7
+            or i not in ring
+            or j not in ring
+            or any(mol.GetAtomWithIdx(k).GetAtomicNum() not in GEOMETRY_ELEMENTS for k in ring)
+        ):
+            continue
+        size, first, second = len(ring), ring.index(i), ring.index(j)
+        if (first - second) % size not in {1, size - 1}:
+            continue
+        left = (
+            ring[(first + 1) % size]
+            if ring[(first - 1) % size] == j
+            else ring[(first - 1) % size]
+        )
+        right = (
+            ring[(second + 1) % size]
+            if ring[(second - 1) % size] == i
+            else ring[(second - 1) % size]
+        )
+        return 180.0 if (a == left) != (b == right) else 0.0
+    return None

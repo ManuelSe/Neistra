@@ -1,0 +1,17 @@
+{
+  "reader": "0.23.0",
+  "cases": 4,
+  "canonical_all_conformers_exact": true,
+  "generic_multi_entry_undo_redo_exact": true,
+  "jobs_inputs_reports_models_and_provenance_exact": true,
+  "originals_and_allocation_floors_exact": true,
+  "save_archive_import_reexport_exact": true,
+  "limitations": [
+    "v0.20 retains generic data/history/jobs; new minimization authoring requires current client/API",
+    "Archives retain historical results, not portable Undo or fresh Apply eligibility",
+    "Existing schema downgrade guards remain binding"
+  ],
+  "api_module": "/datadisk/dev/neistra-issue-110-pocket-repair/apps/api/src/molweave_api/main.py",
+  "core_module": "/datadisk/dev/neistra-issue-110-pocket-repair/packages/molweave_core/src/molweave_core/__init__.py",
+  "application_version": "0.23.0"
+}

@@ -2,37 +2,32 @@
 
 ## Current milestone
 
-Issue [#110](https://github.com/ManuelSe/Neistra/issues/110), quick local minimization,
-is implemented and C5 qualification passes under the
-[approved contract](plans/issue-110-quick-minimization.md), D-126–134. C6 PR/merge,
-exact-master qualification and publication remain pending. All five versions are
-0.23.0; no dependency upgrade, schema migration or canonical chemistry rewrite.
+Issue [#110](https://github.com/ManuelSe/Neistra/issues/110) quick minimization has a
+**fully qualified corrected candidate** at0d3657056d99695440ad750fa8bddc71d6adcf3d.
+[Candidate10](assets/quick-minimization/c5-candidate-10-gate.json) passes all20 commands:
+**1166 Python,313 frontend,8 supervisor,298 browser/60 documented exclusions**,
+zero failures/flakes/retries/Python skips. Both actual tagged0.22.1/current reader
+directions retain four data/history/job/artifact/archive cases. All553 source/test/
+lock identities and log hashes verify, hash3d3c45deb2639004c758c768be3504606cc8ff37f9c940ab07772e956db200a8.
+Cold small/pocket/18k native Apply0.889/2.466/3.470s, first frame686ms, Cancel52ms;
+limits unchanged. All231 power samples show AC online; existing profile unchanged.
 
-The [clean candidate gate](assets/quick-minimization/c5-candidate-6-gate.json) at
-`b0c8208189e7e1537e23a115bbe8a6726b5b31fa` passes all 20 commands: **1,148 Python,
-313 frontend, 8 supervisor and 298 browser tests**, with 60 documented browser
-layout/timing exclusions and zero failures, flakes, retries or Python scientific
-skips. Frozen installs, fresh head 0014, static/build/version checks and both actual
-tagged 0.22.1/current reader directions pass. All 553 runtime/test/lock identities
-and compressed logs verify; debug files remain untouched and untracked.
+D-135–139 and the [investigation](assets/quick-minimization/c6-pocket-investigation.md)
+record the reproduced collapsed bond, wrong torsion/unit scaling, fixed-only energy
+and inconsistent folded-ring targets. Quick engine1.0.2 corrects them and requires
+independent bonded/planar proof; older quick proposals need rerun. Fixed-environment
+geometry settling remains a warned improvement unless independent force convergence
+is reached. Saturated rings retain puckering; partial masks never broaden themselves.
+All13 private replays pass geometry checks with exact fixed rows (one converged/twelve
+limited improvements); raw project data stays private. The local preview runs the
+final correction, with managed data, debug originals and environment preserved.
+Unsupported connected coordination remains approximate without native electrostatics
+for that group; no qualified metal/binding-pose claim is made. Prepared AMBER is unchanged.
 
-Native AC reference results: cold small/pocket/18k Apply 0.915/2.104/3.659s,
-feedback 9–54ms, first real frame 690ms, Cancel 61ms, longest task 258ms. Supplied
-structures pass desktop/mobile Apply/Undo/Redo/reload; actual zoom/accessibility,
-partial/pocket/context/chemistry/stereo/cancellation and retained AMBER gates pass.
-AC remained online at every recorded step boundary; power settings were unchanged.
-Earlier failed/interrupted runs remain labeled diagnostics. The corrected surface
-completion protocol and startup import isolation pass the full native matrix.
-
-[Local complete-diff review](assets/quick-minimization/c5-review.md) and exact source
-diff evidence record addressed consequential findings; no independent review is
-claimed. Compatibility preserves conformers, generic atomic history, jobs/models,
-provenance, originals, allocator floors and archives in both directions. Approximate
-repair remains visibly reported; local improvement does not certify a binding pose.
-
-Local development services retain the existing environment/data directory;
-API 0.23.0, quick capabilities and web are healthy. Next: verified PR and normal
-merge, exact-master gate, annotated release and final issue/publication audit.
+All five versions remain0.23.0, with no dependency/schema migration. Earlier failed/
+interrupted gates remain diagnostic for their exact sources. C5 is complete; C6
+corrective PR/normal merge, exact-master gate, annotated tag, release/public artifact
+verification and issue close-out remain. No0.23.0 tag/release is yet published.
 
 ### Previous delivery baseline — v0.22.1
 
@@ -2724,10 +2719,9 @@ Results:
 
 ## Blockers
 
-No current blocker. C5 passes; C6 exact-master qualification and delivery remain.
+Release blocked by reproduced pocket repair distortion; no external blocker.
 
 ## Next action
 
-Open the implementation PR with scope and qualification evidence, review its complete
-diff and remote checks/conversations, merge normally, repeat all 20 gate commands on
-exact merged master, then verify the annotated 0.23.0 tag/release and close-out.
+Correct the repair objective and geometry acceptance, add causal scientific/native
+regressions, then repeat full candidate and exact-master qualification before release.

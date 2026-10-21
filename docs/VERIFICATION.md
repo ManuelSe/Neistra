@@ -1,28 +1,31 @@
 # V0.1 Requirement Evidence
 
-## Quick local minimization (issue #110) — C5 passes
+## Quick local minimization (issue #110) — corrected C5 passes; release pending
 
-The [clean candidate](assets/quick-minimization/c5-candidate-6-gate.json) at
-`b0c8208189e7e1537e23a115bbe8a6726b5b31fa` passes all 20 commands: **1,148 Python,
-313 frontend, 8 supervisor, 298 browser / 60 documented layout/timing exclusions**.
-Zero failures, flakes, retries or Python/native scientific skips. All 553 source/
-test/lock identities and compressed log hashes verify. Frozen installs, fresh 0014,
-Ruff/mypy/lint/types/build/versions/diff and actual tagged 0.22.1 ↔ current reader
-qualification pass. Both directions retain four canonical/conformer/history/job/
-artifact/original/allocator/archive cases. No schema/dependency upgrade.
+[Corrected candidate10](assets/quick-minimization/c5-candidate-10-gate.json) at
+`0d3657056d99695440ad750fa8bddc71d6adcf3d` passes all20 commands: **1166 Python,
+313 frontend,8 supervisor,298 browser/60 documented layout/timing exclusions**.
+Zero failures/flakes/retries/Python or native scientific skips. All553 source/test/
+lock identities and compressed log hashes verify. Frozen installs, fresh0014,
+Ruff/mypy/lint/types/build/versions/diff and both actual tagged0.22.1/current reader
+directions pass; four retention/archive cases each. No schema/dependency upgrade.
 
-Cold native AC small/pocket/18k Apply: 0.915/2.104/3.659s; feedback 9–54ms,
-first actual frame 690ms, Cancel 61ms, longest task 258ms. Supplied files pass
-real desktop/mobile Apply/Undo/Redo/reload. Actual zoom/themes/axe/focus, independent
-native forces/exclusions/scaling, fixed boundaries, raw protein states/caps, repair,
-stereo, guarded context, cancellation and historical AMBER gates pass unchanged.
-AC is online at every recorded step boundary; power settings were unchanged.
-Earlier version/harness/startup/battery diagnostics remain separately retained and
-are not release passes. [Full diff self-review](assets/quick-minimization/c5-review.md)
-records corrections and limitations; no independent review is claimed.
+Cold native small/pocket/18k Apply0.889/2.466/3.470s, feedback10–28ms, first real
+frame686ms, Cancel52ms, longest task435ms. All231 power observations show AC online;
+existing power profile unchanged. Supplied desktop/mobile workflows, actual zoom,
+themes/axe/focus, native force equivalence, repair unit/torsion physics, bonded/planar
+acceptance, context extension/serialization and retained AMBER gates pass unchanged.
 
-All five versions are 0.23.0. C6 PR/normal merge, exact merged-master qualification,
-tag/release and final publication audit remain pending. See [guide](MINIMIZATION.md).
+D-136–139 correct the [private-history findings](assets/quick-minimization/c6-pocket-investigation.md)
+using public synthetic regressions. All13 read-only private captures pass geometry
+checks with exact fixed rows; most remain warned improvements. Unsupported coordination
+remains approximate, and no binding-pose qualification is inferred. Earlier candidate6
+passes and failed/interrupted attempts are retained as historical diagnostics and do
+not qualify the final correction. [Review](assets/quick-minimization/c5-review.md) is
+local self-review; no independent review is claimed.
+
+C6 corrective PR/normal merge, exact merged-master qualification, annotated tag/release
+and publication audit remain pending. All five versions0.23.0; no release is published.
 
 ## Selection gestures (issue #90)
 

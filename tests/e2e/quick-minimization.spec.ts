@@ -51,6 +51,9 @@ test("keeps quick settings and Advanced accessible at 320px in both themes", asy
   const p = await prepare(page, request, ["tests/fixtures/quick-minimization/New_molecule.sdf"], "Quick settings");
   await select(page, [{ structure_id: p.entries[0].id, atom_id: 1 }], info.project.name === "mobile-chromium");
   await page.setViewportSize({ width: 320, height: 740 });
+  // Keyboard input targets the mounted narrow-layout controls, not the outgoing
+  // desktop launcher's focus during the responsive viewer replacement.
+  await expect(page.getByRole("button", { name: "Inspector", exact: true })).toBeVisible();
   for (const theme of ["light", "dark"]) {
     if (theme === "dark") await page.getByRole("button", { name: "Use dark theme" }).click();
     const settings = page.getByRole("button", { name: "Minimization settings", exact: true });
@@ -99,14 +102,21 @@ test("preserves quick settings through actual 100–200% browser zoom and respon
         await expect.poll(() => page.evaluate(() => devicePixelRatio)).toBe(factor);
         await expect(panel(page)).toContainText("Captured selection: 1 atoms");
         await expect(panel(page).getByRole("checkbox", { name: "Move attached terminal hydrogens" })).not.toBeChecked();
+        const bounds = () => page.evaluate(() => {
+          const box = document.querySelector(".minimization-panel")?.getBoundingClientRect();
+          return box ? { x: box.x, y: box.y, width: box.width, height: box.height, viewportWidth: innerWidth, viewportHeight: innerHeight } : null;
+        });
+        // Read both geometries in one browser task: zoom may remount the viewer
+        // between separate DevTools calls, making an old rectangle look offscreen.
         await expect.poll(async () => {
-          const box = await panel(page).boundingBox(), viewport = await page.evaluate(() => ({ width: innerWidth, height: innerHeight }));
-          return !!box && box.x >= 0 && box.y >= 0 && box.x + box.width <= viewport.width + 1 && box.y + box.height <= viewport.height + 1;
+          const box = await bounds();
+          return !!box && box.x >= 0 && box.y >= 0 && box.x + box.width <= box.viewportWidth + 1 && box.y + box.height <= box.viewportHeight + 1;
         }, { timeout: 1000, intervals: [10, 20, 30] }).toBe(true);
-        const box = await panel(page).boundingBox(), viewport = await page.evaluate(() => ({ width: innerWidth, height: innerHeight }));
+        const box = await bounds();
+        expect(box).not.toBeNull();
         expect(box!.x).toBeGreaterThanOrEqual(0); expect(box!.y).toBeGreaterThanOrEqual(0);
-        expect(box!.x + box!.width).toBeLessThanOrEqual(viewport.width + 1);
-        expect(box!.y + box!.height).toBeLessThanOrEqual(viewport.height + 1);
+        expect(box!.x + box!.width).toBeLessThanOrEqual(box!.viewportWidth + 1);
+        expect(box!.y + box!.height).toBeLessThanOrEqual(box!.viewportHeight + 1);
         expect((await new AxeBuilder({ page }).include(".minimization-panel").analyze()).violations).toEqual([]);
       }
       await panel(page).getByRole("button", { name: "Close minimization" }).focus(); await page.keyboard.press("Escape");

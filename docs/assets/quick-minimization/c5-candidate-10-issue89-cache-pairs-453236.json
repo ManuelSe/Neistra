@@ -1,0 +1,100 @@
+{
+  "cold": [
+    {
+      "cache": null,
+      "job_id": "01a15fac-c0ff-7f13-bee1-8bf751a4dd99",
+      "native_calls": [
+        "antechamber: exited 0; detailed log retained",
+        "tleap: exited 0; detailed log retained",
+        "tleap: exited 0; detailed log retained"
+      ],
+      "preparation_seconds": 4.885824,
+      "startup_seconds": 5.806464
+    },
+    {
+      "cache": null,
+      "job_id": "01a15fac-e793-7e77-a401-9be06b5da41f",
+      "native_calls": [
+        "antechamber: exited 0; detailed log retained",
+        "tleap: exited 0; detailed log retained",
+        "tleap: exited 0; detailed log retained"
+      ],
+      "preparation_seconds": 4.779016,
+      "startup_seconds": 5.695163
+    },
+    {
+      "cache": null,
+      "job_id": "01a15fad-0e6e-70c0-981b-cc458268c259",
+      "native_calls": [
+        "antechamber: exited 0; detailed log retained",
+        "tleap: exited 0; detailed log retained",
+        "tleap: exited 0; detailed log retained"
+      ],
+      "preparation_seconds": 4.869383,
+      "startup_seconds": 5.793266
+    }
+  ],
+  "cold_median_seconds": 4.869383,
+  "fixture": "prepared1STP",
+  "preparation_speedup": 13.190333267418456,
+  "prime": {
+    "cache": {
+      "hit": false,
+      "key": "d00a916427d257ecc35ed796a6445d364d5a1c3e5486c8d4420d639a66a46072",
+      "kind": "assembly",
+      "schema_version": 1,
+      "stored": true
+    },
+    "job_id": "01a15fac-a2cd-7ac7-a9b1-e7e7841af9d3",
+    "native_calls": [
+      "tleap: exited 0; detailed log retained",
+      "antechamber: exited 0; detailed log retained",
+      "tleap: exited 0; detailed log retained",
+      "tleap: exited 0; detailed log retained"
+    ],
+    "preparation_seconds": 5.359976,
+    "startup_seconds": 6.276842
+  },
+  "warm": [
+    {
+      "cache": {
+        "hit": true,
+        "key": "d00a916427d257ecc35ed796a6445d364d5a1c3e5486c8d4420d639a66a46072",
+        "kind": "assembly",
+        "schema_version": 1,
+        "stored": true
+      },
+      "job_id": "01a15fac-dd19-7c73-ba3d-2826870fe07d",
+      "native_calls": [],
+      "preparation_seconds": 0.3781,
+      "startup_seconds": 1.288752
+    },
+    {
+      "cache": {
+        "hit": true,
+        "key": "d00a916427d257ecc35ed796a6445d364d5a1c3e5486c8d4420d639a66a46072",
+        "kind": "assembly",
+        "schema_version": 1,
+        "stored": true
+      },
+      "job_id": "01a15fad-0385-759f-9d32-2205beeb40ee",
+      "native_calls": [],
+      "preparation_seconds": 0.369163,
+      "startup_seconds": 1.304306
+    },
+    {
+      "cache": {
+        "hit": true,
+        "key": "d00a916427d257ecc35ed796a6445d364d5a1c3e5486c8d4420d639a66a46072",
+        "kind": "assembly",
+        "schema_version": 1,
+        "stored": true
+      },
+      "job_id": "01a15fad-2ac9-75a1-91a2-b5a935674bea",
+      "native_calls": [],
+      "preparation_seconds": 0.313008,
+      "startup_seconds": 1.293731
+    }
+  ],
+  "warm_median_seconds": 0.369163
+}

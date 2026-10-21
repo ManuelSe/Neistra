@@ -1,0 +1,4 @@
+{"timestamp": "2026-10-21T16:18:42Z", "ac_online": "0", "note": "Observed discharging73percent during import/interaction browser cases; requested reconnection"}
+{"timestamp": "2026-10-21T16:20:04Z", "ac_online": "0", "note": "Observed offline"}
+{"timestamp": "2026-10-21T16:21:05Z", "ac_online": "0", "note": "Observed offline"}
+{"timestamp": "2026-10-21T16:21:21Z", "ac_online": "1", "note": "User confirmed reconnection; charging; before native minimization cases"}
