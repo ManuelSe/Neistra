@@ -355,3 +355,9 @@ source is unchanged. Freeze the test-only correction on a dedicated fix branch a
 repeat the full candidate gate before the follow-up PR, then full exact-master gate.
 Supplied PDB fixtures retain byte-exact format padding; scoped source diff check
 passes excluding only those original fixed-column fixture bytes. Debug files untouched.
+
+Candidate7 stops during Ruff because two retained scratch qualifier scripts were
+archived as executable-looking Python instead of compressed evidence. Compress
+the exact bytes like all existing qualifier evidence; do not lint-fix or execute
+archived scripts as repository source. No runtime/test source change. Record this
+packaging diagnostic, pass Ruff, then restart the full clean candidate gate.
