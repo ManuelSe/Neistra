@@ -213,3 +213,24 @@ Initial remount-ownership/launcher-focus failures were corrected and affected na
 tests rerun. A mobile fixture setup stalled before minimization while repetitively
 selecting atoms; whole-structure tests now use the native structure query. No full
 release or cold-performance claim yet; C5 qualification remains.
+
+### C5 — candidate preparation, 2026-10-21
+
+Independent pair sums/finite differences verify native exclusions/scaling/dielectric,
+with real boundary masks, protein states, raw1STP and guarded context extension. Added
+stereo, isolation, sparse IDs/inactive conformers, changed/hidden/locked context, native
+cancellation, no-op/archive and generic-capture refusal cases.38 focused Python tests
+pass. Actual tagged0.22.1 reader preflight retains four new quick cases. Version0.23.0
+is an additive minor; all five sources updated without dependency/schema changes.
+
+Consequential review fixes: initialize combined native ring information; honor supplied
+H/assigned connectivity and aromatic evidence; never accept abnormal solver stops; retain
+full temporary model/candidate helper states; use coordinate batches with existing
+warning-summary actions; validate final immutable-context proofs and newly changed
+negative dependencies; keep App outside quick presentation subscriptions.
+
+Native preflight fixed the18k start/paint/longest-task failures without relaxing gates.
+Cold small/pocket/18k now pass about1.4/2.4/4.4s,12–52ms feedback/max task241ms. Pinned
+live first frame904ms/Cancel40ms and actual100–200%zoom pass after startup polling and
+settled-native-layout checks. Complete frozen candidate/reverse-reader/release gates
+remain pending; no release completion claim.

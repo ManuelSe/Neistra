@@ -5141,3 +5141,42 @@ a remount. The App command hook now owns disposal/cancellation, while the viewer
 only transient rendering. Store the initiating launcher kind so Escape restores the
 correct live control even when its prior DOM node was replaced. Native tests cover
 both profiles at320px in both themes. No worker-side or reload publication is added.
+
+## D-130 — Fast context validation and render-local quick presentation
+
+Issue#110 retains all participating immutable source snapshots, but chemically templates
+only spatially relevant entries. Before guarded extension, newly relevant entries get
+full template/closure checks; distant sources are never silently truncated or discarded.
+The worker proves final6Å discovery under its final model. An eligible report records
+that proof. At publication exact source identities preserve it; changed formerly distant
+entries receive fresh final-position spatial discovery and refuse if newly relevant.
+Changed modeled sources always refuse. This is an immutable per-job proof, not a
+persistent parameter cache or weaker context criterion. Native fields retain all local
+nonbonded pairs, including between fragments; generic repair keeps bounded refreshed
+steric lists and original geometric targets.
+
+Preflight18k timing found excess App rerenders and topology-driven scene rebuilding.
+Quick commands now read current ownership at invocation; settings/job/frame presentation
+subscribes only inside the viewer. Initial empty-frame transport polls100ms until the
+first real snapshot, then200ms. Worker output/rendering stays at most5Hz/latest-only.
+No fake frames or relaxed timing limits. Shared geometric acceptance checks avoid importing
+prepared-engine modules into quick calculations.
+
+## D-131 — Coordinate publication preserves warnings through existing history actions
+
+Quick Apply uses the existing atomic coordinate batch, not topology patches. Append
+artifact provenance/warnings and update entry warning summaries with existing generic
+`entry.update` actions in the same command. Old readers already understand both action
+kinds. Undo/Redo restores exact artifacts and warning arrays; allocators/topology stay
+unchanged. Keep geometry-dependent overlays paused throughout publication. No new DB,
+structural or history action schema is needed. Native artifacts retain temporary atom/
+bond states, original/candidate/helper coordinates, mappings, modes, assumptions and
+versions so reported objectives can be inspected independently.
+
+## D-132 — Version0.23.0 is an additive minor capability
+
+Issue#110 adds independent quick job/HTTP contracts and changes the default interactive
+behavior, so0.23.0 is a minor release. Existing prepared AMBER requests/reports remain
+unchanged. The actual tagged0.22.1 reader retains new generic data/history/jobs/archives
+in preflight; complete candidate and exact-master gates must still pass before delivery.
+No dependency upgrade, canonical chemical rewrite or schema migration is included.

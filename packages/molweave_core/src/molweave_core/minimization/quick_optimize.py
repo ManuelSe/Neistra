@@ -13,7 +13,7 @@ from scipy.spatial import cKDTree  # type: ignore[import-untyped]
 
 from molweave_core.jobs import JobContext
 from molweave_core.minimization.contracts import CalculationError, CoordinateProposal
-from molweave_core.minimization.optimize import geometry_stereo, introduces_severe_overlap
+from molweave_core.minimization.geometry import geometry_stereo, introduces_severe_overlap
 from molweave_core.minimization.quick_context import discover
 from molweave_core.minimization.quick_contracts import (
     QUICK_FORCE_TOLERANCE,
@@ -215,6 +215,9 @@ def optimize(
                 },
             )
             last = np.asarray(result.x, dtype=np.float64)
+            if not result.success and result.status not in {1}:
+                termination = "abnormal"
+                break
             _, gradient = evaluate(last)
             if np.max(np.abs(gradient)) <= QUICK_FORCE_TOLERANCE:
                 termination = "converged"
@@ -250,10 +253,13 @@ def optimize(
     improved = final_energy < initial_energy - max(1e-6, abs(initial_energy) * 1e-10)
     unchanged = bool(np.max(displacement) <= 1e-9)
     tree = cKDTree(final)
-    clashes = sum(
-        j > i and frozenset((int(i), j)) not in bonds
-        for i in canonical
-        for j in tree.query_ball_point(final[i], 0.6)
+    clashes = len(
+        {
+            tuple(sorted((int(i), j)))
+            for i in canonical
+            for j in tree.query_ball_point(final[i], 0.6)
+            if i != j and frozenset((int(i), j)) not in bonds
+        }
     )
     report = QuickReport(
         parameters=parameters,
@@ -280,6 +286,7 @@ def optimize(
         rms_displacement=float(np.sqrt(np.mean(displacement**2))),
         residual_clashes=clashes,
         new_severe_overlaps=overlaps,
+        final_context_verified=True,
         movable_count=len(canonical),
         fixed_count=sum(r is not None for r in assembly.references) - len(canonical),
         helper_count=sum(r is None for r in assembly.references),
@@ -295,6 +302,9 @@ def optimize(
             "optimization": time.monotonic() - started - field_seconds,
         },
     )
+    if termination == "abnormal":
+        report.outcome = "failed"
+        report.reason = "Native local solver stopped abnormally; coordinates were not accepted"
     if method == "geometry_repair":
         report.units = {
             "energy": "penalty",
@@ -323,4 +333,5 @@ def optimize(
                     coordinates=[tuple(float(v) for v in final[i]) for i in rows],
                 )
             )
+    assembly.result_coordinates = final.copy()
     return report, proposals

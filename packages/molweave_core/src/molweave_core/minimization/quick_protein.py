@@ -38,16 +38,19 @@ def template(name: str) -> Any:
 
 def protein_graph(
     source: NormalizedStructureV1,
-) -> tuple[NormalizedStructureV1, set[int], list[str]]:
+) -> tuple[NormalizedStructureV1, set[int], dict[int, str]]:
     """Fill unknown template facts only. Never complete missing heavy atoms."""
     groups = defaultdict(list)
     for atom in source.atoms:
         groups[atom.residue_id].append(atom)
     bonds = {frozenset((b.atom_1_id, b.atom_2_id)): b for b in source.bonds}
     next_id = max((b.id for b in source.bonds), default=0) + 1
+    incomplete_facts = any(a.formal_charge is None for a in source.atoms) or any(
+        b.order is None for b in source.bonds
+    )
     atoms = {a.id: a for a in source.atoms}
     protein: set[int] = set()
-    assumptions = []
+    assumptions = {}
 
     def link(first: int, second: int, order: float) -> None:
         nonlocal next_id
@@ -55,8 +58,11 @@ def protein_graph(
         existing = bonds.get(key)
         if existing is not None:
             if existing.order is None:
-                bonds[key] = existing.model_copy(update={"order": order, "aromatic": order == 1.5})
-        else:
+                resolved = 1.5 if existing.aromatic else order
+                bonds[key] = existing.model_copy(
+                    update={"order": resolved, "aromatic": resolved == 1.5}
+                )
+        elif incomplete_facts:
             bonds[key] = Bond(
                 id=next_id,
                 atom_1_id=first,
@@ -96,7 +102,7 @@ def protein_graph(
         for name, a in names.items():
             if a.formal_charge is not None:
                 continue
-            charge = defaults.get(residue.name, {}).get(name, 0)
+            charge = -1 if name == "OXT" else defaults.get(residue.name, {}).get(name, 0)
             # Observed acid H is stronger evidence than a default deprotonated state.
             if charge == -1 and any(
                 atoms[j].element == "H"
@@ -106,16 +112,67 @@ def protein_graph(
                 if j != a.id
             ):
                 charge = 0
-            if name == "OXT":
-                charge = -1
+            if charge == 1:
+                adjacent = [b for b in bonds.values() if a.id in (b.atom_1_id, b.atom_2_id)]
+                supplied_h = any(
+                    atoms[j].element == "H"
+                    for b in adjacent
+                    for j in (b.atom_1_id, b.atom_2_id)
+                    if j != a.id
+                )
+                if supplied_h:
+                    charge = int(sum(b.order or 1 for b in adjacent) >= 4)
             atoms[a.id] = a.model_copy(update={"formal_charge": charge})
         # Charge an observed protonated N terminus; no new terminus at a missing segment.
         n = names.get("N")
         if n and n.formal_charge is None:
             degree = sum(n.id in (b.atom_1_id, b.atom_2_id) for b in bonds.values())
-            if degree >= 4:
+            supplied_h = any(
+                atoms[j].element == "H"
+                for b in bonds.values()
+                if n.id in (b.atom_1_id, b.atom_2_id)
+                for j in (b.atom_1_id, b.atom_2_id)
+                if j != n.id
+            )
+            first = next(
+                (
+                    r
+                    for r in source.residues
+                    if r.chain_id == residue.chain_id
+                    and r.source_subchain_id == residue.source_subchain_id
+                ),
+                None,
+            )
+            has_previous = any(
+                atoms[j].name == "C" and atoms[j].residue_id != residue.id
+                for b in bonds.values()
+                if n.id in (b.atom_1_id, b.atom_2_id)
+                for j in (b.atom_1_id, b.atom_2_id)
+                if j != n.id
+            )
+            established_start = (
+                first == residue
+                and residue.author_number == 1
+                and not supplied_h
+                and not has_previous
+            )
+            if degree >= 4 or established_start:
                 atoms[n.id] = atoms[n.id].model_copy(update={"formal_charge": 1})
-        assumptions.append(
+        delta, epsilon = names.get("ND1"), names.get("NE2")
+        if residue.name == "HIS" and delta and epsilon and delta.formal_charge is None:
+
+            def has_h(atom_id: int) -> bool:
+                return any(
+                    atoms[j].element == "H"
+                    for b in bonds.values()
+                    if atom_id in (b.atom_1_id, b.atom_2_id)
+                    for j in (b.atom_1_id, b.atom_2_id)
+                    if j != atom_id
+                )
+
+            if has_h(delta.id) and has_h(epsilon.id):
+                atoms[delta.id] = atoms[delta.id].model_copy(update={"formal_charge": 1})
+        assumptions[residue.id] = (
             f"Residue {residue.id} {residue.name}: observed standard template; "
             "missing states use ASP/GLU-, LYS/ARG+, neutral CYS/TYR and epsilon-H HIS; "
             "no pH prediction"
@@ -138,13 +195,13 @@ def protein_graph(
             and not first.insertion_code
             and not second.insertion_code
         )
-        if (
-            a["C"].id in protein
-            and b["N"].id in protein
-            and contiguous
-            and np.linalg.norm(np.asarray(a["C"].coordinates) - b["N"].coordinates) < 1.9
-        ):
+        if a["C"].id in protein and b["N"].id in protein and contiguous:
             link(a["C"].id, b["N"].id, 1.0)
+    for bond in list(bonds.values()):
+        if bond.order is None and all(
+            atoms[i].name == "SG" and i in protein for i in (bond.atom_1_id, bond.atom_2_id)
+        ):
+            link(bond.atom_1_id, bond.atom_2_id, 1.0)
     return (
         source.model_copy(
             update={

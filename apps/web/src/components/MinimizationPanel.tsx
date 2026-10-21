@@ -146,7 +146,7 @@ function QuickSetup({ workflow: w, working }: { workflow: Workflow; working: boo
       <label>Mode<select aria-label="Minimization mode" value={draft.mode} onChange={e => void w.mode(e.target.value as typeof draft.mode)}>
         <option value="automatic">Visible surroundings</option><option value="isolated">Selected molecules only</option><option value="environment">Choose surroundings</option>
       </select></label>
-      <p>{draft.mode === "automatic" ? "Visible entries supply nearby fixed context, including atoms hidden by display settings. Selected entries always participate." : draft.mode === "isolated" ? "Retain bonded context inside selected entries." : "Choose participating entries, including hidden entries. Only nearby context is modeled."}</p>
+      <p>{draft.mode === "automatic" ? "Visible entries supply nearby fixed context, including atoms hidden by display settings. Selected entries always participate." : draft.mode === "isolated" ? "Retain bonded context; disconnected neighbors are excluded, even inside the same entry." : "Choose participating entries, including hidden entries. Only nearby context is modeled."}</p>
       {draft.mode === "environment" ? <div className="minimization-context">{draft.project.entries.map(entry => <label key={entry.id} className="minimization-check">
         <input type="checkbox" checked={selected.has(entry.id) || draft.included.has(entry.id)} disabled={selected.has(entry.id)} onChange={e => w.include(entry.id, e.target.checked)} />{entry.name}{!entry.visible ? " · hidden" : ""}
       </label>)}</div> : null}
@@ -158,9 +158,10 @@ function QuickSetup({ workflow: w, working }: { workflow: Workflow; working: boo
   </>;
 }
 function QuickResult({ report, workflow: w }: { report: QuickMinimizationReport; workflow: Workflow }) {
+  const method = report.method === "geometry_repair" ? "Geometry constraints" : report.method ?? "No calculation model";
   return <>
     <p role="status">{w.state.applied ? "Quick coordinates applied. Undo restores the previous coordinates." : report.reason}</p>
-    <p>{report.coverage === "approximate" ? "Approximate repair" : report.method} · {report.movable_count} movable / {report.fixed_count} fixed</p>
+    <p>{report.coverage === "approximate" ? `Approximate repair · ${method}` : method} · {report.movable_count} movable / {report.fixed_count} fixed</p>
     {report.warnings.map((text, i) => <p key={i} className="minimization-warning">{text}</p>)}
     <details><summary>Calculation details</summary>
       <dl className="minimization-metrics">

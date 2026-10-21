@@ -1,5 +1,19 @@
 # V0.1 Requirement Evidence
 
+## Quick local minimization (issue #110) — candidate qualification
+
+Implementation checkpoints C1–C4 are pushed under the
+[approved plan](plans/issue-110-quick-minimization.md). C5 adds independent native
+physics/context/acceptance tests and [local diff review](assets/quick-minimization/c5-review.md).
+Focused preflight covers 38 Python cases, 310 web tests, supplied-file desktop/mobile
+Apply/Undo/Redo/reload, actual native zoom/accessibility, cold/native-live timing and
+actual tagged 0.22.1 data/history/job/archive retention. Initial diagnostic failures
+were corrected and affected cases rerun; no complete release qualification is claimed.
+
+All five candidate versions are 0.23.0. Full frozen candidate, reverse-reader and exact
+merged-master gates are pending. No PR merge, tag or release is claimed at this stage.
+See [user guidance](MINIMIZATION.md) for model distinctions and limits.
+
 ## Selection gestures (issue #90)
 
 **Released stable v0.22.0 in PR#105.** The following checkpoint history separates

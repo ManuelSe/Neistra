@@ -267,3 +267,16 @@ def test_coincident_movers_receive_repair_offsets_without_moving_fixed_atoms(tmp
     assert document["entries"][0]["atom_ids"] == [2]
     assert np.linalg.norm(document["entries"][0]["coordinates"][0]) > 1
     assert source.atoms[0].coordinates == (0.0, 0.0, 0.0)
+
+
+def test_uff_fallback_reports_omitted_electrostatics(tmp_path: Path):
+    from molweave_core.minimization.quick_contracts import QuickReport
+
+    source = molecule("B")
+    parameters, inputs = quick_capture(source)
+    result = execute(parameters, inputs, LocalContext(tmp_path))
+    document = json.loads(next(a.data for a in result.artifacts if a.role == "proposal"))
+    report = QuickReport.model_validate(document["report"])
+    assert report.method == "UFF" and report.coverage == "approximate"
+    assert report.outcome in {"converged", "improved", "unchanged"}
+    assert any("electrostatic" in message for message in report.warnings)

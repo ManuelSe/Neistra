@@ -189,7 +189,9 @@ it("keeps job/frame reads and Cancel presentation out of the App command subscri
   function Viewer({ workflow }: { workflow: ReturnType<typeof useMinimization> }) { view = useMinimizationPreview(p, workflow); return null; }
   function AppCommands() { parentRenders++; commands = useMinimization(p, selection, vi.fn()); return <Viewer workflow={commands} />; }
   render(<QueryClientProvider client={client}><AppCommands /></QueryClientProvider>);
+  const initialRenders = parentRenders;
   await act(async () => { await commands.quick(); });
+  expect(parentRenders).toBe(initialRenders);
   await waitFor(() => expect(view.patches).toHaveLength(1));
   const before = parentRenders, firstPatches = view.patches;
   await act(async () => { await client.invalidateQueries({ queryKey: ["minimization-live"] }); });

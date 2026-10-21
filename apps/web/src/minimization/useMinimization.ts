@@ -1,27 +1,28 @@
-import { useShallow } from "zustand/react/shallow";
-import { useEffect, useMemo } from "react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useEffect } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import { jobApi, minimizationApi, quickMinimizationApi } from "../api/client";
-import type { Job, MinimizationProposal, Project, Selection, QuickMinimizationProposal, QuickMinimizationRequest, MinimizationCapabilities, QuickMinimizationCapabilities } from "../api/types";
+import type { Job, MinimizationProposal, Project, Selection, QuickMinimizationProposal, QuickMinimizationRequest } from "../api/types";
 import { useWorkspaceStore } from "../store/workspace";
 import { calculationComponents, minimizationRequest, type CalculationSource } from "./context";
-import { type MinimizationProfile, useMinimizationStore } from "./store";
+import { type MinimizationDraft, type MinimizationProfile, useMinimizationStore } from "./store";
+
+export function quickRequest(snapshot: Project, draft: MinimizationDraft): QuickMinimizationRequest {
+    if (!draft.selection.atoms.length) throw new Error("Select atoms before minimizing.");
+    if (draft.selection.atoms.some(a => snapshot.entries.find(e => e.id === a.structure_id)?.locked)) throw new Error("Unlock selected entries before minimizing.");
+    if (!Number.isInteger(draft.iterations) || draft.iterations < 1 || draft.iterations > 2000) throw new Error("Maximum iterations must be between 1 and 2000.");
+    return { expected_revision: draft.project.revision, selection: draft.selection, mode: draft.mode,
+      context_entry_ids: draft.mode === "environment" ? [...draft.included].sort() : [], expand_hydrogens: draft.expandHydrogens,
+      allow_repair: draft.allowRepair, max_iterations: draft.iterations };
+}
 
 export function useMinimization(project: Project | undefined, selection: Selection,
   commit: (operation: () => Promise<Project>) => Promise<Project>, beforeStart?: () => void) {
-  // High-rate preview presentation subscribes inside the viewer. App owns commands,
-  // capture and job lifecycle without rerendering unrelated inspectors for frames/Cancel.
-  const state = useMinimizationStore(useShallow(({ preview, live, autoApply, ...session }) => {
-    void preview; void live; void autoApply;
-    return session;
-  }));
+  // Commands read the current session at invocation. Presentation subscribes in the
+  // viewer, so opening/progress/settings never rerender the whole molecular workspace.
+  const state = useMinimizationStore.getState();
   const query = useQueryClient();
-  const open = state.open && state.projectId === project?.id;
   const owner = (id: string, generation: number) => useWorkspaceStore.getState().activeProjectId === id &&
     useMinimizationStore.getState().projectId === id && useMinimizationStore.getState().generation === generation;
-  const capabilities = useQuery<MinimizationCapabilities | QuickMinimizationCapabilities>({ queryKey: [state.profile === "quick" ? "quick-minimization-capabilities" : "minimization-capabilities"], queryFn: state.profile === "quick" ? quickMinimizationApi.capabilities : minimizationApi.capabilities, enabled: open, retry: false, staleTime: 30_000 });
-  const components = useMemo(() => state.draft ? calculationComponents(state.draft.project, state.draft.sources, state.draft.selection) : [], [state.draft]);
-  const chosen = components.filter(c => c.mandatory || (state.draft?.mode === "environment" && state.draft.included.has(c.key)));
   // Tool/project ownership is presentation state. Leaving it cancels computation,
   // while retained Jobs/report inspection never resumes a live session.
   useEffect(() => {
@@ -43,19 +44,11 @@ export function useMinimization(project: Project | undefined, selection: Selecti
     return [id, { artifactId, structure }] as const;
   })));
   const message = (error: unknown) => error instanceof Error ? error.message : "Minimization request failed.";
-  const quickRequest = (snapshot: Project, draft: NonNullable<typeof state.draft>): QuickMinimizationRequest => {
-    if (!draft.selection.atoms.length) throw new Error("Select atoms before minimizing.");
-    if (draft.selection.atoms.some(a => snapshot.entries.find(e => e.id === a.structure_id)?.locked)) throw new Error("Unlock selected entries before minimizing.");
-    if (!Number.isInteger(draft.iterations) || draft.iterations < 1 || draft.iterations > 2000) throw new Error("Maximum iterations must be between 1 and 2000.");
-    return { expected_revision: draft.project.revision, selection: draft.selection, mode: draft.mode,
-      context_entry_ids: draft.mode === "environment" ? [...draft.included].sort() : [], expand_hydrogens: draft.expandHydrogens,
-      allow_repair: draft.allowRepair, max_iterations: draft.iterations };
-  };
   const begin = async (immediate = false, replacing = false, profile: MinimizationProfile = "amber") => {
     if (!project || useWorkspaceStore.getState().activeProjectId !== project.id) return;
     const current = useMinimizationStore.getState();
     const job = query.getQueryData<Job>(["job", current.jobId]);
-    if (current.loading || current.applying || (!replacing && open && job && ["queued", "running"].includes(job.status))) return;
+    if (current.loading || current.applying || (!replacing && current.open && job && ["queued", "running"].includes(job.status))) return;
     beforeStart?.();
     const generation = state.begin(project, selection, profile, immediate ? "quick" : "settings");
     try {
@@ -77,6 +70,7 @@ export function useMinimization(project: Project | undefined, selection: Selecti
     } catch (error) { if (owner(project.id, generation)) state.patch(generation, { loading: false, error: message(error) }); }
   };
   const mode = async (mode: "isolated" | "environment" | "automatic") => {
+    const state = useMinimizationStore.getState();
     const draft = state.draft;
     if (!project || !draft || !owner(project.id, state.generation)) return;
     const generation = state.generation;
@@ -89,14 +83,8 @@ export function useMinimization(project: Project | undefined, selection: Selecti
       if (current) state.patch(generation, { draft: { ...current, sources, loadedAll: true }, loading: false });
     } catch (error) { if (owner(project.id, generation)) state.patch(generation, { loading: false, error: message(error) }); }
   };
-  let requestError: string | null = null;
-  try {
-    if (project && state.draft && !state.loading) {
-      if (state.profile === "quick") quickRequest(project, state.draft);
-      else minimizationRequest(project, state.draft.selection, state.draft.sources, components, state.draft.included, state.draft.mode, state.draft.iterations);
-    }
-  } catch (error) { requestError = message(error); }
   const run = async () => {
+    const state = useMinimizationStore.getState();
     if (!project || !state.draft || useMinimizationStore.getState().loading || !owner(project.id, state.generation)) return;
     const generation = state.generation;
     try {
@@ -104,7 +92,7 @@ export function useMinimization(project: Project | undefined, selection: Selecti
       let job: Job;
       if (state.profile === "quick") job = await quickMinimizationApi.submit(project.id, quickRequest(project, state.draft));
       else {
-        const payload = minimizationRequest(project, state.draft.selection, state.draft.sources, components, state.draft.included, state.draft.mode, state.draft.iterations);
+        const payload = minimizationRequest(project, state.draft.selection, state.draft.sources, calculationComponents(state.draft.project, state.draft.sources, state.draft.selection), state.draft.included, state.draft.mode, state.draft.iterations);
         payload.acceptance_policy = state.draft.strict ? "strict" : "interactive";
         job = await minimizationApi.submit(project.id, payload);
       }
@@ -114,6 +102,7 @@ export function useMinimization(project: Project | undefined, selection: Selecti
     } catch (error) { if (owner(project.id, generation)) state.patch(generation, { loading: false, error: message(error) }); }
   };
   const apply = async () => {
+    const state = useMinimizationStore.getState();
     const proposal = query.getQueryData<MinimizationProposal | QuickMinimizationProposal>(["minimization-proposal", project?.id, state.jobId]);
     if (!project || !proposal?.applicable || useMinimizationStore.getState().applying || !owner(project.id, state.generation)) return;
     const generation = state.generation;
@@ -148,6 +137,7 @@ export function useMinimization(project: Project | undefined, selection: Selecti
     }
   };
   const cancel = async () => {
+    const state = useMinimizationStore.getState();
     const job = query.getQueryData<Job>(["job", state.jobId]);
     if (!project) return;
     if (!job) { state.dismiss(); return; }
@@ -157,6 +147,7 @@ export function useMinimization(project: Project | undefined, selection: Selecti
     catch (error) { if (owner(project.id, generation)) state.patch(generation, { error: message(error) }); }
   };
   const configure = async (profile: MinimizationProfile = "quick") => {
+    const state = useMinimizationStore.getState();
     if (!project || state.loading || state.applying) return;
     const generation = state.generation;
     const job = query.getQueryData<Job>(["job", state.jobId]);
@@ -173,17 +164,24 @@ export function useMinimization(project: Project | undefined, selection: Selecti
       await begin(false, true, profile);
     } catch (error) { if (owner(project.id, generation)) state.patch(generation, { error: message(error) }); }
   };
-  return { state, open, capabilities: capabilities.data, capabilitiesLoading: capabilities.isPending,
-    components, chosen,
-    error: state.error ?? requestError ?? (capabilities.error ? message(capabilities.error) : null),
-    requestError,
-    begin: () => begin(false, false, state.profile), quick: () => begin(true, false, "quick"), configure, mode, run, apply, cancel, finishQuick,
-    expandHydrogens: (expandHydrogens: boolean) => { if (state.draft) state.patch(state.generation, { draft: { ...state.draft, expandHydrogens } }); },
-    allowRepair: (allowRepair: boolean) => { if (state.draft) state.patch(state.generation, { draft: { ...state.draft, allowRepair } }); },
-    include: (key: string, include: boolean) => { if (!state.draft) return; const included = new Set(state.draft.included); if (include) included.add(key); else included.delete(key); state.patch(state.generation, { draft: { ...state.draft, included } }); },
-    strict: (strict: boolean) => { if (state.draft) state.patch(state.generation, { draft: { ...state.draft, strict } }); },
-    iterations: (iterations: number) => { if (state.draft) state.patch(state.generation, { draft: { ...state.draft, iterations } }); },
-    preview: (preview: boolean) => state.patch(state.generation, { preview, live: false }),
+  const updateDraft = (patch: Partial<MinimizationDraft>) => {
+    const current = useMinimizationStore.getState();
+    if (current.draft) current.patch(current.generation, { draft: { ...current.draft, ...patch } });
+  };
+  return {
+    begin: () => begin(false, false, useMinimizationStore.getState().profile), quick: () => begin(true, false, "quick"), configure, mode, run, apply, cancel, finishQuick,
+    expandHydrogens: (expandHydrogens: boolean) => updateDraft({ expandHydrogens }),
+    allowRepair: (allowRepair: boolean) => updateDraft({ allowRepair }),
+    include: (key: string, include: boolean) => {
+      const draft = useMinimizationStore.getState().draft;
+      if (!draft) return;
+      const included = new Set(draft.included);
+      if (include) included.add(key); else included.delete(key);
+      updateDraft({ included });
+    },
+    strict: (strict: boolean) => updateDraft({ strict }),
+    iterations: (iterations: number) => updateDraft({ iterations }),
+    preview: (preview: boolean) => { const current = useMinimizationStore.getState(); current.patch(current.generation, { preview, live: false }); },
     dismiss: state.dismiss,
   };
 }

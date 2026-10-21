@@ -66,8 +66,8 @@ class QuickReport(BaseModel):
     parameters: QuickParameters
     outcome: Literal["converged", "improved", "unchanged", "blocked", "failed"]
     reason: str
-    method: Literal["MMFF94", "UFF", "geometry_repair"] = "MMFF94"
-    coverage: Literal["complete", "approximate"] = "complete"
+    method: Literal["MMFF94", "UFF", "geometry_repair"] | None = None
+    coverage: Literal["complete", "approximate", "unavailable"] = "unavailable"
     units: dict[str, str] = Field(
         default_factory=lambda: {
             "energy": "kcal/mol",
@@ -85,6 +85,7 @@ class QuickReport(BaseModel):
     rms_displacement: float = 0
     residual_clashes: int = 0
     new_severe_overlaps: bool = False
+    final_context_verified: bool = False
     movable_count: int = 0
     fixed_count: int = 0
     helper_count: int = 0
@@ -94,6 +95,7 @@ class QuickReport(BaseModel):
     assumptions: list[str] = Field(default_factory=list)
     modeled_atoms: dict[str, list[int]] = Field(default_factory=dict)
     timings: dict[str, float] = Field(default_factory=dict)
+    toolchain: dict[str, str] = Field(default_factory=dict)
     elapsed_seconds: float = 0
 
 
@@ -111,10 +113,13 @@ def usable(report: QuickReport) -> bool:
     return (
         report.outcome in {"converged", "improved"}
         and report.termination_kind in {"converged", "iteration_limit", "budget_limit", "stalled"}
+        and report.method is not None
+        and report.coverage in {"complete", "approximate"}
         and report.initial_energy is not None
         and report.final_energy is not None
         and report.maximum_gradient is not None
         and report.final_energy
         < report.initial_energy - max(1e-6, abs(report.initial_energy) * 1e-10)
+        and report.final_context_verified
         and not report.new_severe_overlaps
     )

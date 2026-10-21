@@ -75,10 +75,10 @@ export async function inspectCoordinatePreview(engine: MolstarEngine) {
 }
 
 /** Trusted UI event to real native coordinate transform completion and next paint. */
-export function measureCoordinatePreviewEvent(engine: MolstarEngine, target: Element, show: boolean): Promise<number> {
+export function measureCoordinatePreviewEvent(engine: MolstarEngine, target: Element, show: boolean, eventType: "click" | "change" = show ? "change" : "click"): Promise<number> {
   const native = engine as unknown as { syncQueue: Promise<void>; coordinatePreviews: Map<string, unknown> };
   return new Promise((resolve, reject) => {
-    target.addEventListener(show ? "change" : "click", event => {
+    target.addEventListener(eventType, event => {
       if (!event.isTrusted) { reject(new Error("Trusted UI event required")); return; }
       const start = performance.now();
       const sample = () => {

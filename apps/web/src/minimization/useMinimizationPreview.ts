@@ -2,16 +2,27 @@ import { useMinimizationStore } from "./store";
 import { useEffect, useMemo, useRef } from "react";
 import { replaceEqualDeep, useQuery, useQueryClient } from "@tanstack/react-query";
 import { jobApi, minimizationApi, quickMinimizationApi } from "../api/client";
-import type { MinimizationLive, MinimizationProposal, QuickMinimizationProposal, Project } from "../api/types";
+import type { MinimizationLive, MinimizationProposal, QuickMinimizationProposal, Project, MinimizationCapabilities, QuickMinimizationCapabilities } from "../api/types";
 import { coordinatePatches } from "./preview";
-import type { MinimizationWorkflow } from "./useMinimization";
+import { quickRequest, type MinimizationWorkflow } from "./useMinimization";
+import { calculationComponents, minimizationRequest } from "./context";
 
 /** Render-local subscription; frames never rerender App or its selection inspector. */
 export function useMinimizationPreview(project: Project, workflow?: MinimizationWorkflow) {
   const query = useQueryClient();
-  const state = useMinimizationStore(), open = workflow?.open ?? false;
+  const state = useMinimizationStore(), open = !!workflow && state.open && state.projectId === project.id;
+  const capabilities = useQuery<MinimizationCapabilities | QuickMinimizationCapabilities>({ queryKey: [state.profile === "quick" ? "quick-minimization-capabilities" : "minimization-capabilities"], queryFn: state.profile === "quick" ? quickMinimizationApi.capabilities : minimizationApi.capabilities, enabled: open, retry: false, staleTime: 30_000 });
+  const components = useMemo(() => state.draft && state.profile === "amber" ? calculationComponents(state.draft.project, state.draft.sources, state.draft.selection) : [], [state.draft, state.profile]);
+  const chosen = components.filter(c => c.mandatory || (state.draft?.mode === "environment" && state.draft.included.has(c.key)));
+  let requestError: string | null = null;
+  try {
+    if (state.draft && !state.loading) {
+      if (state.profile === "quick") quickRequest(project, state.draft);
+      else minimizationRequest(project, state.draft.selection, state.draft.sources, components, state.draft.included, state.draft.mode, state.draft.iterations);
+    }
+  } catch (error) { requestError = error instanceof Error ? error.message : "Invalid minimization request"; }
   const jobQuery = useQuery({ queryKey: ["job", state.jobId], queryFn: () => jobApi.get(state.jobId!), enabled: open && !!state.jobId,
-    retry: false, refetchInterval: q => q.state.data && ["queued", "running"].includes(q.state.data.status) ? 400 : false });
+    retry: false, refetchInterval: q => q.state.data && ["queued", "running"].includes(q.state.data.status) ? (state.profile === "quick" ? 200 : 400) : false });
   const job = open && jobQuery.data?.id === state.jobId ? jobQuery.data : undefined;
   const quick = job?.job_type === "coordinates.quick_minimize" || state.profile === "quick";
   const reportQuery = useQuery<MinimizationProposal | QuickMinimizationProposal>({ queryKey: ["minimization-proposal", project?.id, job?.id],
@@ -34,7 +45,7 @@ export function useMinimizationPreview(project: Project, workflow?: Minimization
   const liveOwned = open && state.live && running && project?.revision === job?.provenance?.project_revision;
   const liveQuery = useQuery({ queryKey: ["minimization-live", project?.id, state.jobId, state.generation],
     queryFn: () => quick ? quickMinimizationApi.live(project.id, state.jobId!) : minimizationApi.live(project.id, state.jobId!), enabled: liveOwned,
-    retry: false, refetchInterval: 200,
+    retry: false, refetchInterval: q => quick && !q.state.data?.frame ? 100 : 200,
     structuralSharing: (before: unknown, after: unknown) => {
       const old = before as MinimizationLive | undefined, next = after as MinimizationLive;
       if (old?.frame && next.frame && old.job_id === next.job_id && old.capture_sha256 === next.capture_sha256 &&
@@ -65,7 +76,7 @@ export function useMinimizationPreview(project: Project, workflow?: Minimization
   const canApply = !!proposal?.applicable && !reportQuery.isError && !previewResult.error && !reportQuery.isFetching && !previewUnavailable &&
     proposal.report.parameters.selection.atoms.every(ref => !project.entries.find(e => e.id === ref.structure_id)?.locked);
   const message = (error: unknown) => error instanceof Error ? error.message : null;
-  return { state, isQuick: quick, job, proposal, canApply, patches: previewResult.patches, liveIteration: live?.frame?.iteration, previewUnavailable,
+  return { state, open, components, chosen, capabilities: capabilities.data, capabilitiesLoading: capabilities.isPending, requestError, error: state.error ?? requestError ?? message(capabilities.error), isQuick: quick, job, proposal, canApply, patches: previewResult.patches, liveIteration: live?.frame?.iteration, previewUnavailable,
     previewLoading: state.preview && previewSources.isPending && !!captured.length && !previewUnavailable,
     previewError: previewResult.error ?? message(jobQuery.error) ?? message(reportQuery.error) ?? message(previewSources.error) };
 }

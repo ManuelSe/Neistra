@@ -13,6 +13,7 @@ from scipy.spatial import cKDTree  # type: ignore[import-untyped]
 from molweave_core.minimization.quick_model import QuickAssembly
 
 all_chem: Any = AllChem
+GEOMETRY_ELEMENTS = frozenset({1, 5, 6, 7, 8, 9, 14, 15, 16, 17, 35, 53})
 
 
 class LocalField:
@@ -51,6 +52,9 @@ def subset(mol: Any, indices: list[int]) -> Any:
 
 
 def force_field(assembly: QuickAssembly, positions: Any = None) -> tuple[Any, str]:
+    assembly.field_center = (
+        assembly.coordinates.copy() if positions is None else np.asarray(positions).copy()
+    )
     modes = assembly.modes
     moving = set(assembly.movable)
     moving_modes = {modes[i] for i in moving}
@@ -67,15 +71,18 @@ def force_field(assembly: QuickAssembly, positions: Any = None) -> tuple[Any, st
     parts = []
     if supported:
         mol = subset(assembly.molecule, supported)
+        Chem.GetSymmSSSR(mol)
         if native_mode == "MMFF94":
             props = all_chem.MMFFGetMoleculeProperties(mol, mmffVariant="MMFF94")
             props.SetMMFFDielectricModel(2)
             props.SetMMFFDielectricConstant(4.0)
             ff = all_chem.MMFFGetMoleculeForceField(
-                mol, props, nonBondedThresh=100.0, ignoreInterfragInteractions=False
+                mol, props, nonBondedThresh=float("inf"), ignoreInterfragInteractions=False
             )
         else:
-            ff = all_chem.UFFGetMoleculeForceField(mol, ignoreInterfragInteractions=False)
+            ff = all_chem.UFFGetMoleculeForceField(
+                mol, vdwThresh=float("inf"), ignoreInterfragInteractions=False
+            )
             assembly.warnings.append(
                 "UFF fallback: electrostatic pocket interactions are not represented."
             )
@@ -101,18 +108,19 @@ def repair_field(assembly: QuickAssembly, unsupported: set[int], positions: Any 
     moving = set(assembly.movable)
     neighbors = {a.GetIdx(): {n.GetIdx() for n in a.GetNeighbors()} for a in mol.GetAtoms()}
     xyz = assembly.coordinates
+    geometric = {a.GetIdx() for a in mol.GetAtoms() if a.GetAtomicNum() in GEOMETRY_ELEMENTS}
     for bond in mol.GetBonds():
         i, j = bond.GetBeginAtomIdx(), bond.GetEndAtomIdx()
-        if not {i, j} & unsupported or not {i, j} & moving:
+        if not {i, j} <= geometric or not {i, j} & unsupported or not {i, j} & moving:
             continue
         radius = sum(periodic.GetRcovalent(mol.GetAtomWithIdx(k).GetAtomicNum()) for k in (i, j))
         target = radius * {1.0: 1.0, 2.0: 0.87, 3.0: 0.78, 1.5: 0.93}.get(
             bond.GetBondTypeAsDouble(), 1.0
         )
         field.UFFAddDistanceConstraint(i, j, False, target, target, 100.0)
-    for center in unsupported:
+    for center in unsupported & geometric:
         for a, b in combinations(sorted(neighbors[center]), 2):
-            if not {a, center, b} & moving:
+            if not {a, center, b} <= geometric or not {a, center, b} & moving:
                 continue
             orders = [
                 mol.GetBondBetweenAtoms(center, n).GetBondTypeAsDouble() for n in neighbors[center]
@@ -136,7 +144,7 @@ def repair_field(assembly: QuickAssembly, unsupported: set[int], positions: Any 
         ):
             continue
         for a, b in product(sorted(neighbors[i] - {j}), sorted(neighbors[j] - {i})):
-            if a == b or not {a, i, j, b} & moving:
+            if a == b or not {a, i, j, b} <= geometric or not {a, i, j, b} & moving:
                 continue
             # Preserve which side of a planar draft each substituent occupies.
             first, second = (

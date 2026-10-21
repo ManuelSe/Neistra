@@ -14,7 +14,8 @@ from molweave_core.minimization.preflight import IsolatedInput
 
 def assembly_stereo_validator(value: Assembly) -> Callable[[NDArray[np.float64]], None]:
     # Import here to keep the optimizer's isolated public interface acyclic.
-    from molweave_core.minimization.optimize import geometry_stereo, validate_stereo_intent
+    from molweave_core.minimization.geometry import geometry_stereo
+    from molweave_core.minimization.optimize import validate_stereo_intent
 
     index = {ref: i for i, ref in enumerate(value.references)}
     organic_checks = []

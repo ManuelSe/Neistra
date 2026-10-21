@@ -13,7 +13,7 @@ approximate repair or change the default500 iterations (range1–2000).
 
 Automatic surroundings use visible entries, including their display-hidden atoms.
 Selected entries always participate even if hidden. **Selected molecules only**
-retains bonded context inside selected entries. **Choose surroundings** permits
+retains bonded context and excludes disconnected neighbors even inside the same entry. **Choose surroundings** permits
 explicit hidden-entry context. A local6Å sphere plus2Å guard skin includes whole
 encountered residues, small molecules and at least three covalent bonds around movers.
 Observed standard protein fragments use fixed temporary ACE/NME boundary caps;

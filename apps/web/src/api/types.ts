@@ -905,8 +905,8 @@ export interface QuickMinimizationReport extends Omit<MinimizationReport, "model
   model: "quick-local-v1";
   parameters: QuickMinimizationParameters;
   outcome: "blocked" | "failed" | "converged" | "improved" | "unchanged";
-  method: "MMFF94" | "UFF" | "geometry_repair";
-  coverage: "complete" | "approximate";
+  method: "MMFF94" | "UFF" | "geometry_repair" | null;
+  coverage: "complete" | "approximate" | "unavailable";
   assumptions: string[];
   helper_count: number;
   cap_count: number;

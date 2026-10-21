@@ -5,20 +5,22 @@
 Issue [#110](https://github.com/ManuelSe/Neistra/issues/110), quick local minimization,
 is in progress on the remotely verified `feat/issue-110-quick-minimization` branch
 under its [approved contract](plans/issue-110-quick-minimization.md), D-126.
-C1–C4 implement the separate quick job, atomic coordinate-only publication,
-local pocket/protein context, temporary chemistry recovery and the default Ctrl+M/
-lightning workflow. Usable output auto-applies once from its owning App session;
-Cancel/session loss disarms it. Viewer remounts preserve the draft and launcher focus.
-Compact quick settings and retained prepared AMBER are reachable independently.
+C1–C4 are pushed through `bbf7c8b`. C5 candidate work now qualifies native local
+physics, explicit repair, guarded neighborhoods, coordinate-only atomic publication
+and owning-client UI behavior. All five versions are0.23.0; no schema/migration change.
+Quick publication uses the existing coordinate batch path with generic warning-summary
+updates, avoiding full scene topology rebuilds. Unchanged immutable captures retain the
+worker's final-neighborhood proof; changed formerly distant context is rediscovered.
 
-Verification: Ruff/mypy and16 quick Python unit/API tests pass. All310 web tests,
-lint/type/build pass. Native desktop/mobile runs cover all three exact supplied files,
-automatic Apply/exact Undo/Redo/reload, both quick/Advanced320px themes/accessibility/
-focus, and retained Advanced isolated preview/publication. Initial responsive ownership
-and launcher-focus failures were corrected and affected native tests rerun passing;
-whole-structure fixtures use the native structure query instead of repeated atom queries.
-Full scientific/performance/compatibility/release gates remain pending. No external
-blocker. Next: C5 qualification, final review, version updates and complete release gate.
+Verification:38 focused Python tests pass;310 web tests passed before the final render-
+local command split (targeted17 pass afterwards). Native supplied-file workflows pass
+on desktop/mobile. Pinned cold small/pocket/18k preflight passes at1.4/2.4/4.4s through
+native paint, start12–52ms/max task241ms; native live first frame904ms/Cancel40ms and
+actual100–200%zoom also pass. Actual tagged0.22.1 reader retains four new quick cases,
+all conformers/history/jobs/artifacts/originals/archive round trips. Earlier diagnostic
+failures drove ownership/focus/coordinate-patch/performance fixes; none is a release gate.
+No external blocker. Next: freeze candidate, run the complete gate plus reverse reader
+qualification, review full diff, then C6 PR/merge/exact-master/tag/release verification.
 
 ### Previous delivery baseline — v0.22.1
 

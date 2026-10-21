@@ -4,9 +4,11 @@ from __future__ import annotations
 
 import hashlib
 import io
+import os
 import time
 import traceback
 import zipfile
+from importlib.metadata import version
 
 from molweave_core.jobs import (
     InputArtifact,
@@ -51,7 +53,9 @@ def definition() -> JobDefinition:
         resources=ResourcePolicy(
             wall_time_seconds=30,
             cancellation_grace_seconds=2,
-            resident_memory_bytes=4 * 1024**3,
+            resident_memory_bytes=int(
+                os.environ.get("MOLWEAVE_MINIMIZATION_MAX_RSS_BYTES", 4 * 1024**3)
+            ),
             max_result_artifacts=3,
             max_result_bytes=100 * 1024**2,
         ),
@@ -83,6 +87,27 @@ def execute(
                 "model": parameters.model,
                 "references": assembly.references,
                 "coordinates": assembly.coordinates.tolist(),
+                "candidate_coordinates": assembly.result_coordinates.tolist(),
+                "field_center": assembly.field_center.tolist(),
+                "atoms": [
+                    {
+                        "element": a.GetSymbol(),
+                        "formal_charge": a.GetFormalCharge(),
+                        "isotope": a.GetIsotope(),
+                        "radical_electrons": a.GetNumRadicalElectrons(),
+                    }
+                    for a in assembly.molecule.GetAtoms()
+                ],
+                "bonds": [
+                    {
+                        "first": b.GetBeginAtomIdx(),
+                        "second": b.GetEndAtomIdx(),
+                        "order": b.GetBondTypeAsDouble(),
+                        "aromatic": b.GetIsAromatic(),
+                    }
+                    for b in assembly.molecule.GetBonds()
+                ],
+                "coverage_modes": assembly.modes,
                 "movable_indices": assembly.movable,
                 "assumptions": assembly.assumptions,
             }
@@ -97,6 +122,7 @@ def execute(
             outcome="blocked",
             reason=f"{getattr(error, 'code', 'invalid_model')}: {error}",
         )
+    report.toolchain = {name: version(name) for name in ("rdkit", "scipy", "numpy")}
     report.elapsed_seconds = time.monotonic() - started
     document = {
         "schema_version": 1,

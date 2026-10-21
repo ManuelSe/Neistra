@@ -14,7 +14,7 @@ from fastapi import APIRouter, Depends, Response
 from molweave_core.jobs import PluginRegistry
 from molweave_core.minimization.contracts import CalculationError, CoordinateProposal
 from molweave_core.minimization.live import capture_digest, read_snapshot
-from molweave_core.minimization.quick_context import discover
+from molweave_core.minimization.quick_context import candidate_entries
 from molweave_core.minimization.quick_contracts import (
     QUICK_JOB,
     QUICK_MODEL,
@@ -24,7 +24,6 @@ from molweave_core.minimization.quick_contracts import (
     usable,
 )
 from molweave_core.minimization.quick_model import resolve_selection
-from molweave_core.minimization.quick_protein import protein_graph
 from molweave_core.molecular import MolecularWarning
 from molweave_core.selection import SelectionV1
 from pydantic import BaseModel, ConfigDict, Field, model_validator
@@ -94,6 +93,9 @@ class QuickCapabilities(BaseModel):
             "maximum_iterations": 2000,
             "discovery_radius_angstrom": 6,
             "guard_skin_angstrom": 2,
+            "participating_entries": 100,
+            "optimization_seconds": 15,
+            "worker_seconds": 30,
         }
     )
 
@@ -180,9 +182,12 @@ class QuickService(MinimizationService):
     ) -> str | None:
         selected = {a.structure_id for a in parameters.selection.atoms}
         current = {e.id: e for e in project.entries}
-        participants = self.participants(
-            project, selected, parameters.mode, parameters.context_entry_ids
-        )
+        try:
+            participants = self.participants(
+                project, selected, parameters.mode, parameters.context_entry_ids
+            )
+        except InvalidJobOperationError as error:
+            return str(error)
         if {e.id for e in participants} != {c.entry_id for c in parameters.captured_inputs}:
             return "Participating entries changed; rerun quick minimization"
         for capture in parameters.captured_inputs:
@@ -197,23 +202,29 @@ class QuickService(MinimizationService):
             source = self._structure(data)
             if source.active_conformer_id != capture.conformer_id:
                 return "Active conformer changed; rerun quick minimization"
-        # A previously distant entry may have moved into the final neighborhood.
-        graphs = {}
-        proteins = {}
-        for entry in participants:
-            if not entry.current_artifact_id:
-                return "A participating entry has no current molecular structure"
-            _, data = self._read(entry.current_artifact_id)
-            graphs[entry.id], proteins[entry.id], _ = protein_graph(self._structure(data))
-        positions = {
-            (p.entry_id, a): xyz
-            for p in entries
-            for a, xyz in zip(p.atom_ids, p.coordinates, strict=True)
-        }
-        keys = {(a.structure_id, a.atom_id) for a in parameters.selection.atoms}
-        needed = discover(graphs, keys, proteins, positions, radius=6.0)
-        if any(not ids <= set(report.modeled_atoms.get(e, [])) for e, ids in needed.items()):
-            return "The final local neighborhood changed; rerun quick minimization"
+        # The worker verified final discovery against all immutable captures. Exact
+        # artifact identities preserve that proof. Only changed, formerly distant
+        # sources need fresh spatial discovery; modeled changes already refused above.
+        captures = {c.entry_id: c for c in parameters.captured_inputs}
+        changed = [e for e in participants if e.current_artifact_id != captures[e.id].artifact_id]
+        if changed:
+            sources = {}
+            for entry in participants:
+                if entry.id not in selected and entry not in changed:
+                    continue
+                if not entry.current_artifact_id:
+                    return "A participating entry has no current molecular structure"
+                _, data = self._read(entry.current_artifact_id)
+                sources[entry.id] = self._structure(data)
+            positions = {
+                (p.entry_id, a): xyz
+                for p in entries
+                for a, xyz in zip(p.atom_ids, p.coordinates, strict=True)
+            }
+            keys = {(a.structure_id, a.atom_id) for a in parameters.selection.atoms}
+            nearby = candidate_entries(sources, keys, positions, radius=6.0)
+            if any(e.id in nearby for e in changed):
+                return "The final local neighborhood changed; rerun quick minimization"
         return None
 
     def proposal_quick(self, project_id: str, job_id: str) -> QuickProposalRead:
@@ -395,16 +406,27 @@ class QuickService(MinimizationService):
             artifact = self.artifacts.publish(
                 after.to_bytes(), "quick-minimized.normalized.json", NORMALIZED_MEDIA_TYPE
             )
-            atom_floor, bond_floor = ProjectService(self.session).allocation_floor(entry)
+            ids = results[entry.id].atom_ids
+            old_coordinates = {a.id: a.coordinates for a in before.atoms}
             changes.append(
                 {
                     "entry_id": entry.id,
                     "before_artifact_id": entry.current_artifact_id,
                     "after_artifact_id": artifact.id,
-                    "before_values": self._summary(before),
-                    "after_values": self._summary(after),
-                    "next_atom_id": atom_floor,
-                    "next_bond_id": bond_floor,
+                    "before_patch": {
+                        "entry_id": entry.id,
+                        "artifact_id": entry.current_artifact_id,
+                        "atom_ids": ids,
+                        "coordinates": [old_coordinates[i] for i in ids],
+                    },
+                    "after_patch": {
+                        "entry_id": entry.id,
+                        "artifact_id": artifact.id,
+                        "atom_ids": ids,
+                        "coordinates": results[entry.id].coordinates,
+                    },
+                    "before_warnings": entry.warnings,
+                    "after_warnings": [w.model_dump(mode="json") for w in after.warnings],
                 }
             )
         job.provenance = {
@@ -418,13 +440,12 @@ class QuickService(MinimizationService):
                 "coverage": report.coverage,
             },
         }
-        return ProjectService(self.session).record_molecular_changes(
+        return ProjectService(self.session).record_coordinate_change(
             project_id,
             payload.expected_revision,
             QUICK_JOB,
             "Quick minimize selection",
             changes,
-            {},
             [r.model_dump(mode="json") for r in parameters.selection.atoms],
         )
 

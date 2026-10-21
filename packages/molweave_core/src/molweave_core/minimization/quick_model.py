@@ -15,9 +15,9 @@ from molweave_core.minimization.assembly import project_atoms
 from molweave_core.minimization.contracts import CalculationError
 from molweave_core.minimization.preflight import connected_atoms
 from molweave_core.minimization.quick_chemistry import interpret
-from molweave_core.minimization.quick_context import discover
+from molweave_core.minimization.quick_context import candidate_entries, discover, isolate_graph
 from molweave_core.minimization.quick_contracts import QuickParameters, canonical_selection
-from molweave_core.minimization.quick_protein import protein_graph
+from molweave_core.minimization.quick_protein import CODES, protein_graph
 from molweave_core.molecular import NormalizedStructureV1
 from molweave_core.selection import SelectionV1
 
@@ -37,6 +37,8 @@ class QuickAssembly:
     graphs: dict[str, NormalizedStructureV1] = field(default_factory=dict)
     protein: dict[str, set[int]] = field(default_factory=dict)
     modes: list[str] = field(default_factory=list)
+    result_coordinates: Any = None
+    field_center: Any = None
 
     @property
     def coordinates(self) -> Any:
@@ -132,8 +134,18 @@ def build_assembly(
     graphs = {}
     proteins = {}
     template_assumptions = {}
+    candidates = candidate_entries(sources, keys) | {e for e, _ in keys} | set(membership or {})
     for entry, source in sources.items():
-        graphs[entry], proteins[entry], template_assumptions[entry] = protein_graph(source)
+        if entry in candidates:
+            graphs[entry], proteins[entry], template_assumptions[entry] = protein_graph(source)
+            if parameters.mode == "isolated":
+                graphs[entry] = isolate_graph(graphs[entry], {i for e, i in keys if e == entry})
+                proteins[entry].intersection_update(a.id for a in graphs[entry].atoms)
+        else:
+            graphs[entry] = source
+            standard = {r.id for r in source.residues if r.name in CODES}
+            proteins[entry] = {a.id for a in source.atoms if a.residue_id in standard}
+            template_assumptions[entry] = {}
     discovered = discover(graphs, keys, proteins)
     if membership:
         for entry, ids in membership.items():
@@ -153,7 +165,12 @@ def build_assembly(
                 "alternate_sites", "Resolve local alternate sites before minimizing"
             )
         if members & proteins[entry]:
-            assumptions.extend(f"{entry}: {text}" for text in template_assumptions[entry])
+            residues = {a.residue_id for a in source.atoms if a.id in members}
+            assumptions.extend(
+                f"{entry}: {text}"
+                for residue_id, text in template_assumptions[entry].items()
+                if residue_id in residues
+            )
         remaining = set(members)
         while remaining:
             component = connected_atoms(project_atoms(source, members), {min(remaining)})

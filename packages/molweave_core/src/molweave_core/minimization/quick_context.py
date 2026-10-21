@@ -76,3 +76,37 @@ def discover(
         if local:
             result[entry] = local
     return result
+
+
+def candidate_entries(
+    sources: dict[str, NormalizedStructureV1],
+    keys: set[AtomKey],
+    positions: Mapping[AtomKey, tuple[float, ...]] | None = None,
+    radius: float = 8.0,
+) -> set[str]:
+    """Cheap spatial screen before any protein chemical template work."""
+    positions = positions or {}
+    centers = np.asarray(
+        [
+            positions.get((e, a.id), p)
+            for e, s in sources.items()
+            for a, p in zip(s.atoms, s.active_coordinates, strict=True)
+            if (e, a.id) in keys
+        ]
+    )
+    tree = cKDTree(centers)
+    return {
+        e
+        for e, s in sources.items()
+        if np.any(
+            tree.query(np.asarray(s.active_coordinates), distance_upper_bound=radius + 1e-9)[0]
+            <= radius
+        )
+    }
+
+
+def isolate_graph(source: NormalizedStructureV1, selected: set[int]) -> NormalizedStructureV1:
+    """Isolation excludes disconnected neighbors even when they share a project entry."""
+    from molweave_core.minimization.assembly import project_atoms
+
+    return project_atoms(source, connected_atoms(source, selected))

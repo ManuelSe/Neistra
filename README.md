@@ -61,15 +61,15 @@ data/history/archives, while new H building needs the current client/server.
 Earlier schema downgrade guards remain binding. Back up the complete managed data
 directory before changing versions.
 
-Invoke **Minimize selection** beside Edit for automatic complete nearby molecular
-context. **Ctrl+M** immediately starts an automatic calculation of the
-captured selection. Watch transient relaxation, inspect the report and explicitly
-apply one reversible edit or discard. Eligible iteration-limited results require
-**Accept unconverged coordinates**; strict convergence remains available. Cancel
-restores canonical geometry immediately. Complete existing topology/H and the separately installed
-[locked native toolchain](tools/README.md) are required. See
-[Selection minimization](docs/MINIMIZATION.md) for context choices, prerequisites,
-scientific limits and compatibility.
+Select atoms and press **Ctrl+M** or the lightning icon beside Edit for quick local
+relaxation. Selected atoms and attached terminal H move inside fixed visible
+surroundings. Usable coordinates apply as one reversible edit; Cancel clears
+preview and disarms late publication. Quick work uses bundled RDKit/SciPy, with
+explicit warnings for temporary chemistry or approximate repair. Settings expose
+exact masks and manual context, plus **Advanced AMBER** with its existing preparation
+requirements and explicit Apply workflow. See [Selection minimization](docs/MINIMIZATION.md)
+for scientific limits and compatibility; the separate
+[locked native toolchain](tools/README.md) is needed only for the prepared AMBER profile.
 
 Interactive transforms offer the **Transform selection** icon in a separate bar above the viewer.
 Left mouse drag rotates; right or Ctrl-drag translates in the current view plane.
