@@ -1,0 +1,14 @@
+{
+  "passed": false,
+  "reason": "Explicitly interrupted browser matrix after first genuine live frame exceeded unchanged 1000ms gate. Remaining cases must rerun in full after startup correction.",
+  "observed_first_frame_ms": 1037.6000000089407,
+  "cancel_ms": 38.29999999701977,
+  "browser_partial": {
+    "passed": 94,
+    "failed": 1,
+    "interrupted": 1,
+    "documented_skipped_so_far": 4,
+    "did_not_run": 258
+  },
+  "source_unchanged_at_end": true
+}

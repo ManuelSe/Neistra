@@ -78,3 +78,23 @@ runtime and acceptance budgets are unchanged.
 The corrected wait passes all four independent focused runs (two desktop/two mobile),
 with no failures, retries or skips. The unchanged desktop comparison also passes.
 Commit this test-only correction and evidence, then restart all20 gate commands.
+
+### Candidate attempt4 — first-frame diagnostic and startup correction
+
+Full1147 Python/313 frontend/8 supervisor/static/build checks pass. Cold quick Apply
+and repeat small/pocket/18k cases pass, but the first genuine live frame is1038ms
+against1000ms;Cancel38ms. Explicitly interrupt the remaining browser matrix:94 passed,
+1 failed,1 interrupted,4 exclusions reached,258 not run. This is diagnostic only.
+
+Profiling identifies unneeded spawned-child coordinator/API/schema/engine imports.
+Defer coordinator-only imports while preserving fresh child isolation, input/target
+identity, IPC, resource policy and cancellation/supervision. D-134 records the boundary.
+Combined import cost falls about290ms.34 focused job/recovery/quick/AMBER tests and
+Ruff/mypy pass, including a fresh-interpreter dependency regression. Initial regression
+setup lacked subprocessPYTHONPATH; it now inherits the test's source paths. Repeated
+real native timing and a full frozen gate restart are required; limits stay unchanged.
+
+All8 repeated native quick performance cases pass, zero failures/skips/retries.
+First real frame/Cancel pairs:[(686.8000000119209, 51.29999999701977), (684.2999999970198, 48.1000000089407)]. Cold/repeat small, pocket and18k scenes
+meet unchanged thresholds. Freeze this startup correction and restart all20 gate
+commands. Focused timing establishes margin; complete qualification is still pending.

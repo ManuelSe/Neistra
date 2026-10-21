@@ -7,10 +7,6 @@ from uuid import uuid4
 
 from molweave_core.jobs import PluginRegistry
 
-from molweave_api.database import create_database_engine, create_session_factory
-from molweave_api.job_worker import JobWorker
-from molweave_api.settings import Settings
-
 
 class _HealthHandler(BaseHTTPRequestHandler):
     def do_GET(self) -> None:
@@ -34,6 +30,12 @@ def _start_health_server(port: int) -> BaseServer:
 
 
 def main() -> None:
+    # Spawn reimports this entry point; coordinator-only dependencies belong to
+    # the parent so native calculations do not rebuild API schemas at startup.
+    from molweave_api.database import create_database_engine, create_session_factory
+    from molweave_api.job_worker import JobWorker
+    from molweave_api.settings import Settings
+
     settings = Settings.from_env()
     settings.data_dir.mkdir(parents=True, exist_ok=True)
     engine = create_database_engine(settings.database_url)

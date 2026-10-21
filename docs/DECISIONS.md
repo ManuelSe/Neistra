@@ -5190,3 +5190,16 @@ path covers Apply, Undo and Redo after reload without a quick-specific cache pro
 Canonical server artifacts remain authoritative; the patch only supplies immediate
 geometry while the complete projection is retrieved. Typed conformer rows mirror the
 existing molecular schema. Two regression cases preserve the prior cached artifact.
+
+## D-134 — Spawn bootstrap defers coordinator-only API imports
+
+Candidate timing exposed a1038ms first live frame against the unchanged1000ms limit.
+The first accepted native step was published853ms after input. Import profiling found
+that spawned children rebuilt API schemas, SQLAlchemy and unrelated prepared chemistry
+while importing the coordinator module (about670ms). Keep coordinator-only imports
+inside parent methods/main, with type-only imports underTYPE_CHECKING. The child
+entry point, input class/pickle identity, fresh process per job, IPC, resource limits,
+process-group cancellation and supervision algorithms remain unchanged. No warm pool,
+parameter cache or new job framework is introduced. A fresh-interpreter regression
+checks the bootstrap dependency boundary. Combined bootstrap/calculation imports fall
+from about733ms to443ms locally; native/full qualification remains authoritative.
