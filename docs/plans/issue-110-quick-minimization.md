@@ -334,3 +334,24 @@ Cold AC small/pocket/18k Apply0.915/2.104/3.659s; feedback9–54ms, first real f
 gates pass. Power was unchanged and AC online at every step boundary. Earlier
 diagnostics remain separate. Complete diff self-review finds no remaining consequential
 issue; no independent review claimed. C6 PR/normal merge/exact-master/release remains.
+
+### C6 merged attempt1 — zoom observation correction
+
+Normal PR#111 merge is exact remote master e698b43fc01145fa7cf3cc582a2bc31d9780923e.
+All553 candidate source identities match. All1148 Python/313 frontend/8 supervisor
+and static/build/frozen/migration checks pass. Native quick small/pocket/18k timing,
+real first frame713ms/Cancel62ms, all three supplied-file workflows and320px axe pass.
+Actual zoom fails a1000ms polling window. Explicitly interrupt remaining browsers:
+98 passed,1 failed,1 interrupted,4 exclusions reached,254 not run. No tag/release.
+
+Trace shows responsive viewer replacement during zoom: separate rectangle and
+viewport calls can observe different layout generations; a later DevTools response
+also exceeds the polling window. Final screenshot/snapshot fits. Independent unchanged
+zoom reproduces twice in three runs, so do not dismiss it or count this gate as passed.
+Read the rectangle and viewport atomically in one browser evaluation, retaining
+1000ms polling, exact containment, actual native zoom, axe, focus, capture and no-edit
+assertions. All three independent corrected runs pass; ESLint/types pass. Runtime
+source is unchanged. Freeze the test-only correction on a dedicated fix branch and
+repeat the full candidate gate before the follow-up PR, then full exact-master gate.
+Supplied PDB fixtures retain byte-exact format padding; scoped source diff check
+passes excluding only those original fixed-column fixture bytes. Debug files untouched.

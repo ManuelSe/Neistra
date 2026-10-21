@@ -1,0 +1,9 @@
+{
+  "runtime_commit": "e698b43fc01145fa7cf3cc582a2bc31d9780923e",
+  "merged_gate_1": "interrupted diagnostic:98 browser passed,1 failed,1 interrupted,4 existing exclusions reached,254 not run; preceding Python1148/frontend313/supervisor8/static/build passed",
+  "original_independent_zoom": "1 passed,2 failed; same one-second split-read timeout",
+  "atomic_independent_zoom": "3 passed,zero failures/retries/skips",
+  "change": "Read panel bounds and viewport in one browser evaluation; preserve1000ms polling and all geometry, real zoom, accessibility, focus, capture, no-edit assertions",
+  "runtime_change": false,
+  "complete_requalification_pending": true
+}

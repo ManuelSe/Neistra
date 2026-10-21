@@ -3,9 +3,11 @@
 ## Current milestone
 
 Issue [#110](https://github.com/ManuelSe/Neistra/issues/110), quick local minimization,
-is implemented and C5 qualification passes under the
+is implemented under the
 [approved contract](plans/issue-110-quick-minimization.md), D-126–134. C6 PR/merge,
-exact-master qualification and publication remain pending. All five versions are
+exact-master qualification and publication remain pending. A test-only atomic zoom
+observation correction passes three focused runs after the first merged gate
+reproduced a split-read polling timeout; full requalification is pending. All five versions are
 0.23.0; no dependency upgrade, schema migration or canonical chemistry rewrite.
 
 The [clean candidate gate](assets/quick-minimization/c5-candidate-6-gate.json) at
@@ -2724,10 +2726,12 @@ Results:
 
 ## Blockers
 
-No current blocker. C5 passes; C6 exact-master qualification and delivery remain.
+No external blocker. Corrected zoom observation requires complete requalification;
+C6 exact-master qualification and delivery remain.
 
 ## Next action
 
-Open the implementation PR with scope and qualification evidence, review its complete
-diff and remote checks/conversations, merge normally, repeat all 20 gate commands on
-exact merged master, then verify the annotated 0.23.0 tag/release and close-out.
+Freeze the test-only atomic zoom observation correction; repeat the candidate gate,
+review/merge its follow-up PR normally, then repeat all20 commands on exact master
+and verify the annotated0.23.0 tag/release and close-out. PR#111 is already merged;
+its first merged attempt is retained as an interrupted diagnostic.
