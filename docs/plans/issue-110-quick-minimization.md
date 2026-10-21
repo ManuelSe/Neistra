@@ -394,3 +394,64 @@ partial rings, damaged drafts and mixed fixed/native/repair fields. Investigate 
 calculation-only boundary around unsupported coordination without claiming qualified
 metal physics or changing canonical connectivity. Requalify both candidate and exact
 merged master; do not publish the prior implementation on the basis of older passes.
+
+### Corrective checkpoint — D-136
+
+Correct repair torsion direction and angular units, omit constant native parts,
+center each solver segment and require independently plausible final covalent
+bonds before publication. Default historical quick proof to false; retain data and
+inspection but require rerun. Quick engine1.0.1; no prepared/schema/version change.
+Add bounded reported near-coincident repair seeding without moving fixed rows.
+Synthetic regressions cover both cis/trans energies and gradients, fixed energy
+offset invariance, collapsed-bond rejection despite lower objective, old-report
+eligibility and metal-linked distorted/collapsed rings with fixed strained native
+context.45 focused Python cases and313 frontend tests pass; static/build pass.
+Native focused checks are in progress, then freeze and run all20 candidate commands.
+
+Read-only private replay of all13 completed pocket captures yields13 usable results
+(eight converged/five limited improvements), exact fixed rows throughout and0.31–2.83s
+local execution. The actual currently saved state also converges in2.03s without
+geometry violations. These private diagnostic captures are not distributed or
+substituted for public synthetic/native/full release qualification. Current user
+project/history is unchanged. Metal-linked chemistry remains explicitly approximate;
+no qualified coordination model is introduced.
+
+### Final corrective qualification preparation — D-137
+
+The first native repeat exposes a resize-input setup race and a65ms18k timing miss
+(24 pass/2 fail/10 intentional exclusions). Await the actual narrow Inspector before
+sending keyboard input, retaining all focus/axe/geometry assertions. Exact last-point
+reuse and direct mappings pass45 focused cases; a second native repeat has25 passes/
+1 timing failure/10 exclusions (5219ms). Neither is a qualification pass.
+
+Component projection passes full native energy/gradient comparisons, but additional
+optimization exposes an over-eager outer-skin rebuild and lost field-center state
+in native job artifacts. Retain the22-pass/4-failure/10-exclusion exploratory run as
+diagnostic; it is not frozen qualification. Correct core/skin discovery and install
+fields on the retained assembly. The regression now runs complete job serialization.
+Use a stable model-level captured-energy reference across segments. Exclude constant
+fixed-group terms and record the explicit energy zero, preserving native energy
+changes and gradients.50 focused Python cases pass, including normalized/PDB whole/
+partial force equivalence, cis/trans and degree-scale physics, offset invariance,
+collapsed ordinary/unsupported bonds, old-report rejection and damaged metal-linked
+rings. Controlled18k backend probe improves to1.86s with valid geometry and honest
+limited convergence. A fresh two-repeat native matrix is running before freeze.
+
+### Fixed-environment geometry settling — D-138
+
+The stable-reference native repeat has24 passes/2 timing failures/10 documented
+exclusions; it is diagnostic, not qualification. Controlled profiling identifies
+long tails of tiny accepted coordinate changes. Add the explicit fixed-canonical-
+context geometry stop described in D-138, preserving isolated behavior, independent
+force convergence and all publication guards.52 focused Python and313 frontend
+tests plus lint/type/build pass. Repeat public native tests and private read-only
+replays before committing the corrected checkpoint; both complete gates remain.
+
+The corrected two-repeat public native matrix passes26 cases with10 documented
+mobile timing/zoom exclusions, zero failures/flakes/retries. Both cold/repeat pocket
+and18k scenes, genuine live/Cancel, Undo/Redo, mobile controls, axe and actual zoom
+pass unchanged limits. Source fingerprint remains553 files, hash6de56759fdeab13daae45ef3483cb5db8931cbd6664ff61dcd34185efd0bc9ab.
+All13 private captures replay safely (one force-converged/twelve warned improvements),
+fixed rows exact,0.31–0.63s; current saved state passes in0.64s. Raw user data stays
+private. Freeze the passing correction, enable a local preview and restart all20
+candidate commands. No release qualification is inferred from focused checks.

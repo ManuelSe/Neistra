@@ -14,8 +14,13 @@ degree-based angular penalties overwhelming bond lengths, fixed-only energy affe
 relative stopping and no bonded-geometry acceptance guard. Unsupported coordination
 also contaminates the whole connected component's coverage. Fixed protein coordinates,
 canonical chemistry and original uploads remain intact; user data was not edited.
-Private artifacts/history stay outside git. Corrective implementation/regressions and
-new complete candidate/exact-master gates are required.
+Private artifacts/history stay outside git. D-136–138 corrections pass52 focused Python,
+313 frontend and static/build checks in an isolated checkout. All13 private captured
+pocket jobs replay to usable geometry with exact fixed rows; after the explicit fixed-environment geometry stop, execution is0.31–0.63s
+(one converged/twelve limited improvements). The current saved geometry also passes
+with exact fixed rows in0.64s, reported as a limited improvement. Earlier
+replays and their different numerical reference remain diagnostic history. Two-repeat native focused qualification passes26 cases/10 documented exclusions,
+zero failures/flakes/retries. New complete candidate/exact-master gates are still required. Unsupported coordination remains approximate.
 
 The test-only atomic zoom observation fix passes three focused runs with unchanged
 limits. Candidate8 is interrupted at the user report:1148 Python/313 frontend/8

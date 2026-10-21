@@ -5213,3 +5213,88 @@ constants handled explicitly. Preserve canonical coordination/connectivity and r
 omitted metal physics. Keep private project data outside git and do not repair or
 undo the user's live project during investigation. Prior broad passes cannot waive
 the reproduced defect; corrected candidate and exact-master gates remain mandatory.
+
+## D-136 — Repair preserves geometry independently of objective improvement
+
+Correct the repair cross-product convention so observed cis/trans sides target the
+matching0/180°dihedral. Native RDKit2026.03.4 constraint energies square degree errors;
+convert the stated angular strengths from per-radian squared using(pi/180)^2.
+Retain all physical moving-dependent native interactions. Omit native field parts
+with no movable indices because they are constant; keep their atoms as modeled fixed
+steric context. Center each bounded solver segment's objective at its starting
+energy, leaving gradients unchanged, so fixed-only offsets cannot dominate relative
+stopping. Eligibility uses an absolute tolerance plus represented floating precision.
+
+Independently validate final bonds touching movers for supported covalent elements
+against broad0.6–1.6 times summed covalent radii. This is a collapse/stretch guard,
+not force-field convergence or metal-geometry qualification. Invalid geometry cannot
+auto-apply even if energy falls. Record proof/violations in reports; older quick
+reports default to unverified and require a new run. Historical data/Undo remains.
+Quick implementation version1.0.1 distinguishes the corrected calculation; prepared
+AMBER and durable schemas are unchanged. Near-coincident repair variables may get
+deterministic calculation-only starting offsets below0.087Å; fixed/original rows
+stay exact and the original geometry remains the acceptance reference. Report this
+assumption and retain real accepted optimizer frames only.
+
+The unsupported metal-linked connected group can still require explicitly labeled
+repair, with omitted electrostatics/coordination reported. This correction does not
+claim qualified metal, covalent-adduct or protonation physics. Private user captures
+stay outside git; synthetic causal physics/geometry regressions are public.
+
+D-136 implementation detail: reuse only the last exact energy/gradient evaluation
+under the identical native field object and coordinate vector; field/context/steric
+replacement invalidates reuse. Cancellation/budget checks still run on every call.
+Use direct native arrays when the global/local mapping is identical. This removes
+duplicate numerical work without changing forces, optimizer steps or scientific
+limits; no persistent parameter cache is added. Qualification records power every
+15seconds as well as step boundaries, without changing host settings.
+
+## D-137 — Exact moving interactions and the intended context skin
+
+Native reference timing exposes repeated fixed-fragment work and unnecessary
+context rebuilding. For MMFF94, optionally partition complete covalent components
+into the active group and bounded groups of whole fixed components. Sum native
+(active+fixed-group) fields and subtract duplicate active self-terms. This preserves
+every moving-dependent native term, parameter, exclusion,1–4 scale and dielectric.
+Use it only when estimated pair work falls materially; otherwise retain the full
+native field. No chemistry boundary is cut and no moving interaction is omitted.
+
+Omit fixed-only interactions between groups, which are constant, and explicitly
+report captured geometry as energy zero. Reports/models/UI retain that reference.
+Independent full-field energy **changes** and movable/fixed gradients must match
+before/after perturbations for both normalized and actual PDB/MOL pockets, with
+whole and partial ligand masks. This avoids constructing a full fixed-only field
+just to recover an irrelevant constant. Native properties remain inspectable.
+
+Refine D-136's numerical reference to remain tied to the model's captured geometry
+across bounded segments, rather than resetting at every segment. Relative stopping
+then remains invariant to arbitrary fixed energy offsets while reflecting the
+whole local change. Keep ftol1e-7, independent force threshold0.01, iteration/time/
+resource limits and honest limited-improvement reporting.
+
+The6Å core is protected by its2Å skin. Check a7Å lookahead before each bounded
+segment, which can move at most sqrt(3)*0.5Å, before extending the8Å model;
+do not rebuild for every change in the outer skin. Preserve
+all prior modeled atoms when extending, and keep final6Å discovery verification.
+Install rebuilt fields on the retained assembly itself so field-center metadata
+survives complete job/model serialization. The guard regression executes the full
+job and checks its retained model, rather than stopping at the optimizer. Final
+bonded checks reject any bond below0.6Å, including unsupported links; this does not
+infer a metal coordination target. Existing covalent-radius guards remain.
+
+## D-138 — Explicit geometry settling for a fixed environment
+
+Quick pocket cleanup may stop after at least25 accepted steps under one installed
+model when three consecutive accepted canonical-coordinate steps are below0.01Å.
+Enable this only when canonical fixed atoms exist, retaining the existing isolated
+molecule stopping behavior. Reset the counters on context installation. Require
+bonded geometry, declared stereochemistry and severe-overlap checks before this
+stop; retain every final publication check and objective-improvement requirement.
+
+Report geometry_settled as a warned improvement, with its measured step count and
+tolerance. Only the independent0.01 maximum-force threshold establishes convergence.
+This deliberately favors useful interactive geometry over spending the remaining
+budget on tiny pocket adjustments; it does not validate binding affinity or metal
+coordination. Iteration, time, resource and browser performance limits are unchanged.
+Public regressions check the limited outcome and prevent settling from accepting
+collapsed geometry. Native browser and complete frozen gates remain required.

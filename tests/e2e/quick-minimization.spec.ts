@@ -51,6 +51,9 @@ test("keeps quick settings and Advanced accessible at 320px in both themes", asy
   const p = await prepare(page, request, ["tests/fixtures/quick-minimization/New_molecule.sdf"], "Quick settings");
   await select(page, [{ structure_id: p.entries[0].id, atom_id: 1 }], info.project.name === "mobile-chromium");
   await page.setViewportSize({ width: 320, height: 740 });
+  // Keyboard input targets the mounted narrow-layout controls, not the outgoing
+  // desktop launcher's focus during the responsive viewer replacement.
+  await expect(page.getByRole("button", { name: "Inspector", exact: true })).toBeVisible();
   for (const theme of ["light", "dark"]) {
     if (theme === "dark") await page.getByRole("button", { name: "Use dark theme" }).click();
     const settings = page.getByRole("button", { name: "Minimization settings", exact: true });

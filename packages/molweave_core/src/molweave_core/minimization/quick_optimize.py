@@ -17,15 +17,52 @@ from molweave_core.minimization.geometry import geometry_stereo, introduces_seve
 from molweave_core.minimization.quick_context import discover
 from molweave_core.minimization.quick_contracts import (
     QUICK_FORCE_TOLERANCE,
+    QUICK_GEOMETRY_TOLERANCE,
     QuickParameters,
     QuickReport,
+    improves,
 )
-from molweave_core.minimization.quick_field import force_field
+from molweave_core.minimization.quick_field import GEOMETRY_ELEMENTS, force_field
 from molweave_core.minimization.quick_model import QuickAssembly, build_assembly
 
 
 class BudgetReached(Exception):
     pass
+
+
+class GeometrySettled(Exception):
+    pass
+
+
+def bonded_geometry_violations(assembly: QuickAssembly, coordinates: Any) -> list[str]:
+    """Independent broad covalent sanity bounds; no metal coordination inference."""
+    from rdkit import Chem
+
+    periodic = Chem.GetPeriodicTable()
+    moving = set(assembly.movable)
+    violations = []
+    for bond in assembly.molecule.GetBonds():
+        i, j = bond.GetBeginAtomIdx(), bond.GetEndAtomIdx()
+        atoms = [assembly.molecule.GetAtomWithIdx(k) for k in (i, j)]
+        if not {i, j} & moving:
+            continue
+        distance = float(np.linalg.norm(coordinates[i] - coordinates[j]))
+        if distance < 0.6:
+            violations.append(
+                f"Bond {assembly.references[i]}-{assembly.references[j]} collapsed to "
+                f"{distance:.4f} angstrom (minimum0.6)"
+            )
+            continue
+        if any(a.GetAtomicNum() not in GEOMETRY_ELEMENTS for a in atoms):
+            continue
+        radius = sum(periodic.GetRcovalent(a.GetAtomicNum()) for a in atoms)
+        if not 0.6 * radius <= distance <= 1.6 * radius:
+            violations.append(
+                f"Bond {assembly.references[i]}-{assembly.references[j]} has length "
+                f"{distance:.4f} angstrom outside broad covalent bounds "
+                f"{0.6 * radius:.4f}-{1.6 * radius:.4f}"
+            )
+    return violations
 
 
 def helper_keys(assembly: QuickAssembly) -> list[Any]:
@@ -96,6 +133,14 @@ def optimize(
     references: Any = None
     last: Any = None
     expected_stereo: dict[int, str] = {}
+    reference_energy = 0.0
+    cached_field: Any = None
+    cached_positions: Any = None
+    cached_value: Any = None
+    previous_canonical: Any = None
+    settled_steps = model_iterations = 0
+    geometry_settling_enabled = False
+    bonds: set[frozenset[int]] = set()
 
     def install(model: QuickAssembly, saved: dict[Any, Any] | None = None) -> None:
         nonlocal \
@@ -109,10 +154,17 @@ def optimize(
             references, \
             last, \
             field_seconds, \
-            expected_stereo
+            expected_stereo, \
+            reference_energy, \
+            previous_canonical, \
+            settled_steps, \
+            model_iterations, \
+            bonds, \
+            geometry_settling_enabled
         if model is not assembly:
             for attribute in fields(QuickAssembly):
                 setattr(assembly, attribute.name, getattr(model, attribute.name))
+        model = assembly
         original = model.coordinates.copy()
         full = original.copy()
         moving = np.asarray(model.movable, dtype=np.int64)
@@ -128,24 +180,48 @@ def optimize(
                     full[i] = saved[identity]
         before = time.monotonic()
         ff, method = force_field(model)
+        reference_energy = float(ff.CalcEnergy(original.reshape(-1).tolist()))
+        if not np.isfinite(reference_energy):
+            raise CalculationError("nonfinite_objective", "Initial local objective is nonfinite")
         field_seconds += time.monotonic() - before
         if method == "geometry_repair":
-            # Break exact coordinate degeneracy only for movable repair atoms.
+            # Near-coincident sites also make angular derivatives singular. A
+            # bounded calculation-only displacement seeds repair; fixed rows and
+            # the original geometry used for acceptance remain exact.
             tree = cKDTree(full)
+            seeded = 0
             for i in moving:
-                if model.modes[i] == "repair" and len(tree.query_ball_point(full[i], 1e-6)) > 1:
-                    full[i] += 0.01 * np.asarray([np.sin(i + 1), np.cos(i + 1), np.sin(2 * i + 1)])
+                if model.modes[i] == "repair" and len(tree.query_ball_point(full[i], 0.1)) > 1:
+                    full[i] += 0.05 * np.asarray([np.sin(i + 1), np.cos(i + 1), np.sin(2 * i + 1)])
+                    seeded += 1
+            if seeded:
+                assembly.assumptions.append(
+                    f"Seeded {seeded} near-coincident repair sites with bounded calculation-only "
+                    "offsets below0.087 angstrom; captured/fixed coordinates remain unchanged"
+                )
         last = full[moving].reshape(-1).copy()
+        previous_canonical = full[canonical].copy()
+        settled_steps = model_iterations = 0
+        moving_set = set(model.movable)
+        geometry_settling_enabled = any(
+            ref is not None and i not in moving_set for i, ref in enumerate(model.references)
+        )
+        bonds = {
+            frozenset((b.GetBeginAtomIdx(), b.GetEndAtomIdx()))
+            for b in assembly.molecule.GetBonds()
+        }
 
     helper_keys_cache = helper_keys(assembly)
     install(assembly)
 
     def evaluate(flat: Any, check_budget: bool = True) -> tuple[float, Any]:
-        nonlocal evaluations
+        nonlocal evaluations, cached_field, cached_positions, cached_value
         context.checkpoint()
         if check_budget and time.monotonic() - started > 15:
             raise BudgetReached
         full[moving] = np.asarray(flat).reshape((-1, 3))
+        if cached_field is ff and np.array_equal(cached_positions, flat):
+            return cached_value[0], cached_value[1].copy()
         positions = full.reshape(-1).tolist()
         energy = float(ff.CalcEnergy(positions))
         gradient = (
@@ -158,14 +234,29 @@ def optimize(
             raise CalculationError(
                 "nonfinite_objective", "Local objective or movable forces are nonfinite"
             )
+        # Solver segment boundaries and final validation revisit the same point.
+        # Reuse only one exact input under the same native field instance. A
+        # context/steric rebuild changes that instance and invalidates reuse.
+        cached_field, cached_positions = ff, np.asarray(flat).copy()
+        cached_value = energy, gradient.copy()
         return energy, gradient
 
     def accepted(flat: Any) -> None:
-        nonlocal iterations, last
+        nonlocal iterations, last, previous_canonical, settled_steps, model_iterations
         iterations += 1
+        model_iterations += 1
         last = np.asarray(flat, dtype=np.float64).copy()
         context.checkpoint()
         full[moving] = last.reshape((-1, 3))
+        step = float(np.max(np.linalg.norm(full[canonical] - previous_canonical, axis=1)))
+        previous_canonical = full[canonical].copy()
+        settled_steps = (
+            settled_steps + 1
+            if geometry_settling_enabled
+            and model_iterations >= 25
+            and step < QUICK_GEOMETRY_TOLERANCE
+            else 0
+        )
         if snapshot is not None:
             snapshot(iterations, references, full[canonical].copy())
         if iterations == 1 or iterations % 25 == 0:
@@ -173,6 +264,12 @@ def optimize(
                 30 + 60 * iterations / parameters.max_iterations,
                 f"Quick relaxation iteration {iterations}",
             )
+        if settled_steps >= 3 and not bonded_geometry_violations(assembly, full):
+            stereo = geometry_stereo(assembly.molecule, full) if expected_stereo else ()
+            if not any(
+                stereo[i] != value for i, value in expected_stereo.items()
+            ) and not introduces_severe_overlap(original, full, moving, bonds, context.checkpoint):
+                raise GeometrySettled
 
     try:
         while iterations < parameters.max_iterations:
@@ -181,9 +278,13 @@ def optimize(
                 for i, ref in enumerate(assembly.references)
                 if ref is not None and ref in keys
             }
-            needed = discover(assembly.graphs, keys, assembly.protein, positions)
+            # The outer 2-angstrom skin protects the 6-angstrom neighborhood.
+            # A segment can move sqrt(3)*0.5 angstrom: reserve a 1-angstrom
+            # lookahead and rebuild before the protected core exhausts its skin.
+            needed = discover(assembly.graphs, keys, assembly.protein, positions, radius=7.0)
             if any(not ids <= set(assembly.modeled_atoms.get(e, [])) for e, ids in needed.items()):
                 before = time.monotonic()
+                needed = discover(assembly.graphs, keys, assembly.protein, positions)
                 for e, ids in assembly.modeled_atoms.items():
                     needed.setdefault(e, set()).update(ids)
                 saved = {identity: full[i].copy() for i, identity in enumerate(helper_keys_cache)}
@@ -195,13 +296,24 @@ def optimize(
             if any(mode != "MMFF94" for mode in assembly.modes) and iterations:
                 # Rebuild steric candidates at the segment center; geometry targets stay original.
                 ff, method = force_field(assembly, full)
+                reference_energy = float(ff.CalcEnergy(original.reshape(-1).tolist()))
             _, gradient = evaluate(last)
             if np.max(np.abs(gradient)) <= QUICK_FORCE_TOLERANCE:
                 termination = "converged"
                 break
             center = last.copy()
+
+            def segment_objective(
+                flat: Any, reference: float = reference_energy
+            ) -> tuple[float, Any]:
+                energy, gradient = evaluate(flat)
+                # L-BFGS-B ftol uses the magnitude of the objective. A fixed-only
+                # offset must not make a poor geometry appear relatively settled.
+                # Keep the model's original reference across bounded segments.
+                return energy - reference, gradient
+
             result = minimize(
-                evaluate,
+                segment_objective,
                 center,
                 jac=True,
                 method="L-BFGS-B",
@@ -228,7 +340,11 @@ def optimize(
                 break
     except BudgetReached:
         termination = "budget_limit"
+    except GeometrySettled:
+        termination = "geometry_settled"
     final_energy, gradient = evaluate(last, False)
+    if termination == "geometry_settled" and np.max(np.abs(gradient)) <= QUICK_FORCE_TOLERANCE:
+        termination = "converged"
     final = full.copy()
     # Both energies use exactly the final assembly, fixed rows, helpers and native objective.
     initial_energy, _ = evaluate(original[moving].reshape(-1), False)
@@ -250,7 +366,8 @@ def optimize(
     }
     overlaps = introduces_severe_overlap(original, final, moving, bonds, context.checkpoint)
     displacement = np.linalg.norm(final[canonical] - original[canonical], axis=1)
-    improved = final_energy < initial_energy - max(1e-6, abs(initial_energy) * 1e-10)
+    improved = improves(initial_energy, final_energy)
+    geometry_violations = bonded_geometry_violations(assembly, final)
     unchanged = bool(np.max(displacement) <= 1e-9)
     tree = cKDTree(final)
     clashes = len(
@@ -279,6 +396,8 @@ def optimize(
         else "complete",
         initial_energy=initial_energy,
         final_energy=final_energy,
+        energy_reference=assembly.energy_reference,
+        settled_geometry_steps=settled_steps,
         maximum_gradient=float(np.max(np.abs(gradient))),
         iterations=iterations,
         evaluations=evaluations,
@@ -287,6 +406,8 @@ def optimize(
         residual_clashes=clashes,
         new_severe_overlaps=overlaps,
         final_context_verified=True,
+        bonded_geometry_verified=not geometry_violations,
+        geometry_violations=geometry_violations,
         movable_count=len(canonical),
         fixed_count=sum(r is not None for r in assembly.references) - len(canonical),
         helper_count=sum(r is None for r in assembly.references),
@@ -305,6 +426,8 @@ def optimize(
     if termination == "abnormal":
         report.outcome = "failed"
         report.reason = "Native local solver stopped abnormally; coordinates were not accepted"
+    if termination == "geometry_settled":
+        report.reason = "Selected geometry settled; force convergence was not established"
     if method == "geometry_repair":
         report.units = {
             "energy": "penalty",
@@ -314,6 +437,12 @@ def optimize(
     if overlaps:
         report.outcome = "failed"
         report.reason = "Local relaxation introduced a severe nonbonded overlap"
+    if geometry_violations:
+        report.outcome = "failed"
+        report.reason = (
+            "Local relaxation left invalid bonded geometry; coordinates were not accepted"
+        )
+        report.warnings.extend(geometry_violations[:10])
     if termination != "converged":
         report.warnings.append(
             f"Useful local improvement does not establish convergence ({termination})."

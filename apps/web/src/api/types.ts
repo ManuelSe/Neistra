@@ -918,6 +918,11 @@ export interface QuickMinimizationReport extends Omit<MinimizationReport, "model
   helper_count: number;
   cap_count: number;
   modeled_atoms: Record<string, number[]>;
+  bonded_geometry_verified: boolean;
+  geometry_violations: string[];
+  energy_reference: "model" | "captured_geometry";
+  geometry_step_tolerance: number;
+  settled_geometry_steps: number;
   timings: Record<string, number>;
   termination_kind: string;
 }

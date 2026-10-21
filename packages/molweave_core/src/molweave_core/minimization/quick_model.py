@@ -5,7 +5,7 @@ from __future__ import annotations
 import hashlib
 from dataclasses import dataclass, field
 from math import isfinite
-from typing import Any
+from typing import Any, Literal
 
 import numpy as np
 from rdkit import Chem
@@ -39,6 +39,7 @@ class QuickAssembly:
     modes: list[str] = field(default_factory=list)
     result_coordinates: Any = None
     field_center: Any = None
+    energy_reference: Literal["model", "captured_geometry"] = "model"
 
     @property
     def coordinates(self) -> Any:
