@@ -2725,3 +2725,9 @@ M2/C2 and M3/C3 remain required. Existing hover behavior is not yet corrected.
 
 Commit passing M1/C1, then implement M2/C2 under the approved issue #91 contract.
 Continue through complete candidate/exact-master qualification and verified delivery.
+
+Candidate attempt2 was explicitly interrupted during Python qualification (227
+passed, no complete result) after review found a settings-switch race. Opening settings
+now disarms automatic publication/preview synchronously before cancellation. A settings
+draft stays unarmed until Run; a regression holds cancellation pending and delivers a
+late completion. Restart the entire gate from the corrected checkpoint.

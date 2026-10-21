@@ -291,3 +291,24 @@ it("preserves the quick session across viewer remounts and cancels when App comm
   expect(useMinimizationStore.getState().autoApply).toBe(false);
   expect(cancel).toHaveBeenCalledWith(job.id); client.clear();
 });
+
+it("opening settings disarms a late completion before cancellation returns", async () => {
+  const job = completedQuick();
+  const running = { ...job, status: "running" } as Job;
+  vi.mocked(quickMinimizationApi.submit).mockResolvedValue(running);
+  vi.mocked(jobApi.get).mockResolvedValue(running);
+  vi.spyOn(quickMinimizationApi, "live").mockResolvedValue({ schema_version: 1, job_id: job.id, status: "running", capture_sha256: null, selection: null, sources: [], frame: null, unavailable_reason: null });
+  let cancelled!: (job: Job) => void;
+  vi.spyOn(jobApi, "cancel").mockImplementation(() => new Promise(resolve => { cancelled = resolve; }));
+  const apply = vi.spyOn(quickMinimizationApi, "apply");
+  const w = workflow();
+  await act(async () => { await w.result.current.quick(); });
+  let pending!: Promise<void>;
+  act(() => { pending = w.result.current.configure("quick"); });
+  expect(useMinimizationStore.getState()).toMatchObject({ autoApply: false, live: false, preview: false });
+  await act(async () => { await w.result.current.finishQuick(quickProposal()); });
+  expect(apply).not.toHaveBeenCalled(); expect(w.commit).not.toHaveBeenCalled();
+  await act(async () => { cancelled({ ...job, status: "cancelled" }); await pending; });
+  expect(w.result.current.state.draft).toBeDefined();
+  expect(w.result.current.state.autoApply).toBe(false); w.client.clear();
+});

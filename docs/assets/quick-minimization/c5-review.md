@@ -49,3 +49,9 @@ finding now patches active conformer rows and invalidates seeded full projection
 so provenance/warnings refresh for Apply/Undo/Redo, including after reload. Two
 regression cases verify it without mutating the prior cached artifact. Full candidate
 qualification must restart from a clean committed state.
+
+Candidate attempt2 was explicitly interrupted during Python qualification (227
+passed, no complete result) after review found a settings-switch race. Opening settings
+now disarms automatic publication/preview synchronously before cancellation. A settings
+draft stays unarmed until Run; a regression holds cancellation pending and delivers a
+late completion. Restart the entire gate from the corrected checkpoint.

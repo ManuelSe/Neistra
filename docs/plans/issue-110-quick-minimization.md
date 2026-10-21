@@ -245,3 +245,9 @@ file passes33 tests, now including retained0.22.1 cases. Review also corrected s
 coordinate-cache seeding to refresh full provenance/warnings and update only active
 conformer rows; regressions cover Apply/Redo and Undo after reload. Restart the entire
 frozen candidate gate after committing passing fixes. No acceptance limits changed.
+
+Candidate attempt2 was explicitly interrupted during Python qualification (227
+passed, no complete result) after review found a settings-switch race. Opening settings
+now disarms automatic publication/preview synchronously before cancellation. A settings
+draft stays unarmed until Run; a regression holds cancellation pending and delivers a
+late completion. Restart the entire gate from the corrected checkpoint.

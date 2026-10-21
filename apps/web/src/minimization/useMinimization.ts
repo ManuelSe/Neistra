@@ -55,7 +55,7 @@ export function useMinimization(project: Project | undefined, selection: Selecti
       const sources = profile === "quick" ? new Map<string, CalculationSource>() : await load(project, [...new Set(selection.atoms.map(a => a.structure_id))]);
       if (!owner(project.id, generation)) return;
       const draft = useMinimizationStore.getState().draft!;
-      state.patch(generation, { draft: { ...draft, sources }, loading: immediate });
+      state.patch(generation, { draft: { ...draft, sources }, loading: immediate, autoApply: immediate && profile === "quick" });
       if (immediate) {
         const capabilities = await query.fetchQuery({ queryKey: ["quick-minimization-capabilities"], queryFn: quickMinimizationApi.capabilities, staleTime: 30_000 });
         if (!owner(project.id, generation)) return;
@@ -151,6 +151,8 @@ export function useMinimization(project: Project | undefined, selection: Selecti
     if (!project || state.loading || state.applying) return;
     const generation = state.generation;
     const job = query.getQueryData<Job>(["job", state.jobId]);
+    // Changing tools ends publication ownership before any network cancellation.
+    state.patch(generation, { autoApply: false, live: false, preview: false });
     try {
       if (job && ["queued", "running"].includes(job.status)) {
         try { const result = await jobApi.cancel(job.id); query.setQueryData(["job", job.id], result); }
