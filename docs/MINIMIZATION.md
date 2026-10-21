@@ -1,12 +1,77 @@
 # Selection minimization
 
-Select atoms, then invoke **Minimize selection** (the lightning icon beside **Edit
-molecule**) or **Ctrl+M**. Both start an automatic-context calculation immediately, with the current
-selection captured and a maximum of 500 iterations. The shortcut ignores text
-fields, modal dialogs and repeated keypresses. It shows temporary relaxation and the report. Saved coordinates change only after
-explicit acceptance.
+Select atoms and press **Ctrl+M** or the lightning icon beside **Edit molecule**.
+Quick minimization starts immediately and applies a usable result as one
+**Undo: Quick minimize selection** edit. Empty selections require an explicit choice;
+there is no implicit whole-scene minimization. Selection changes cannot retarget work.
 
-Automatic mode includes complete covalent components/protein chains containing
+Selected atoms and their directly attached existing terminal hydrogens move by
+default. Unselected binding-site atoms stay fixed. To move a side chain or nearby
+residues too, select them explicitly. Settings beside the lightning icon lets you
+turn off attached-H expansion for an exact atom mask, choose surroundings, disable
+approximate repair or change the default500 iterations (range1–2000).
+
+Automatic surroundings use visible entries, including their display-hidden atoms.
+Selected entries always participate even if hidden. **Selected molecules only**
+retains bonded context and excludes disconnected neighbors even inside the same entry. **Choose surroundings** permits
+explicit hidden-entry context. A local6Å sphere plus2Å guard skin includes whole
+encountered residues, small molecules and at least three covalent bonds around movers.
+Observed standard protein fragments use fixed temporary ACE/NME boundary caps;
+no whole-protein force field is built for ordinary ligand cleanup. Context extends
+between bounded optimization segments and is rechecked around final coordinates.
+
+Quick work uses bundled RDKit/SciPy without an AmberTools installation. It prefers
+native MMFF94 with bonded, van der Waals and electrostatic interactions between
+fragments, using a distance-dependent dielectric scale4. UFF fallback discloses
+omitted electrostatics. Current assigned chemistry takes precedence; observed
+protein templates and bounded ligand bond-order inference may supply temporary
+unknown facts without changing connectivity. Missing historical isotope/radical
+metadata alone does not block cleanup; known evidence remains protected.
+
+Missing protein states use conventional temporary defaults: ASP/GLU negative,
+LYS/ARG positive, neutral CYS/TYR and epsilon-H HIS unless supplied state/H evidence
+specifies otherwise. Assumptions are reported; no pH prediction, missing heavy atom
+or loop completion is performed. Temporary hydrogens and boundary helpers have no
+canonical atom IDs and are never added to the saved structure.
+
+When a draft cannot be parameterized, **Approximate repair** uses explicit native
+bond/angle/planarity and overlap constraints. Unsupported fixed sites remain steric
+obstacles while supported native components retain their forces. Reports identify
+affected sites, assumptions and omitted electrostatic/coordination terms. Full repair
+objectives use **penalty** units; they are not physical energies or binding scores.
+No attraction, metal coordination or protonation is invented for unsupported sites.
+
+The report distinguishes maximum-force convergence from a useful limited improvement.
+Usable candidates must be finite, improve the same final objective, preserve declared
+stereochemistry and exact fixed rows, and introduce no new nonbonded pair below0.6Å.
+A relative-tolerance, iteration or cooperative time stop may apply with a warning;
+that does not establish force convergence. No-op results create no history. Cancellation,
+hard worker failure and invalid output cannot apply. Limits are2000 movable canonical
+atoms,20000 local atoms including helpers and100 participating entries. Optimization
+has a15s cooperative budget and the worker a30s deadline; these are upper bounds,
+not a universal latency guarantee.
+
+Only the active owning client automatically applies. **Cancel**, closing the panel,
+changing tools/projects or leaving that client disarms late publication and clears
+preview. Viewer remounts preserve the session. Reload and **Inspect minimization**
+show retained reports without rearming automatic publication. Saved chemistry and
+original files stay unchanged; only mapped selected active coordinates are published,
+with provenance/warnings. Undo/Redo restores exact artifacts and inactive conformers.
+An applied job cannot apply again, even after Undo. Original uploads remain available.
+
+Live rendering uses real accepted optimizer steps at most five times per second.
+Measurements, surfaces and interactions pause during preview. No animation is invented
+for short runs. Exports use saved geometry until application. All quick input/model/
+report/proposal artifacts are retained in Jobs; archived proposals remain historical.
+Changed selected/local context, locks, conformers or final surroundings block publication.
+
+## Advanced prepared AMBER
+
+**Advanced AMBER** retains the existing preparation requirements, complete-component
+context and explicit Apply workflow. The following sections describe that profile;
+its API, scientific contracts and historical reports remain unchanged.
+
+Advanced automatic mode includes complete covalent components/protein chains containing
 selected atoms, plus complete components within12Å of those mandatory components.
 Discovery is nonrecursive, across entries and independent of visibility. The server
 captures current active conformers and reports the resolved fixed context. No nearby
@@ -14,8 +79,7 @@ component is silently omitted because it cannot be parameterized; the job refuse
 with a preparation/unsupported-chemistry diagnostic. If no additional component is
 nearby and only one component is required, the report explicitly identifies isolation.
 
-**Minimization settings** cancels/supersedes a running interactive request and opens
-setup. Change iterations or choose **Isolated molecule** / **Explicit environment**.
+**Advanced AMBER** in minimization settings opens prepared-model setup. Change iterations or choose **Isolated molecule** / **Explicit environment**.
 An isolated calculation includes the complete selected molecule; explicit environment
 lets you choose additional complete chains/molecules. **Show all components** exposes
 distant manual candidates. The setup lists counts and active conformers. Automatic

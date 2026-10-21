@@ -1,5 +1,50 @@
 # Neistra Release Notes
 
+## 0.23.0 candidate - 2026-10-21 - Quick selection and pocket relaxation
+
+C5-qualified candidate for [issue #110](https://github.com/ManuelSe/Neistra/issues/110)
+under the [approved plan](plans/issue-110-quick-minimization.md). PR/merge,
+exact-master qualification and release publication remain pending.
+
+Ctrl+M/lightning relaxes selected atoms and attached terminal H by default, then
+applies a usable result once as a single Undo/Redo edit from its owning client.
+Exact-mask and context settings support partial structures, bound ligands and
+explicitly selected binding-site residues. Unselected site atoms remain fixed.
+Empty selections refuse. Cancel/session loss disarms delayed publication.
+
+The local model uses native MMFF94 interfragment forces with bounded residue/ring/
+bonded context, temporary protein states, H and peptide caps. Bounded interpretation
+supports incomplete drafts. UFF or geometric repair is explicitly approximate and
+reports omitted physics; geometry-only objectives use penalty units. Hard failure,
+invalid stereo/mapping/coordinates and new severe overlaps cannot apply. Local
+improvement does not establish convergence or certify a binding pose.
+
+Canonical chemistry, original uploads, fixed rows and inactive conformers are
+preserved. Reports and complete temporary model/provenance remain in Jobs;
+inspection/reload/archives never rearm automatic Apply. Advanced prepared AMBER
+retains its existing APIs, scientific requirements and explicit acceptance.
+Spawned calculations defer coordinator API imports while keeping fresh process
+isolation and the existing resource/cancellation controls.
+
+Additive minor 0.23.0 updates all five version sources without dependency upgrades
+or database/normalized/project/viewer/archive schema changes. Both actual tagged
+0.22.1/current reader directions retain data, conformers, generic atomic history,
+jobs/artifacts, originals, allocators and archive round trips. Older clients retain
+new generic data; quick authoring requires the current client/API.
+
+The [complete frozen candidate gate](assets/quick-minimization/c5-candidate-6-gate.json)
+passes all 20 commands: 1,148 Python, 313 frontend, 8 supervisor and 298 browser
+checks, 60 documented browser layout/timing exclusions, zero failures/flakes/retries.
+All 553 runtime/test/lock identities and compressed logs verify. Native AC reference
+cold small/pocket/18k Apply takes 0.915/2.104/3.659s, feedback 9–54ms, first real
+frame 690ms and Cancel 61ms. Actual supplied-file desktop/mobile, zoom/accessibility,
+scientific and retained AMBER checks pass. These reference results are not universal
+latency or failure guarantees. Earlier diagnostics remain separate.
+
+Docking/global search, missing-heavy/loop completion, canonical protonation repair,
+qualified covalent adducts and new solvent simulation remain outside this feature.
+See [guide](MINIMIZATION.md) and [review](assets/quick-minimization/c5-review.md).
+
 ## 0.22.1 - 2026-10-20 - Picking-mode hover previews
 
 Published stable [v0.22.1](https://github.com/ManuelSe/Neistra/releases/tag/v0.22.1) in

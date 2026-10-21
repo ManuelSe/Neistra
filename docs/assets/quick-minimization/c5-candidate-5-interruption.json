@@ -1,0 +1,19 @@
+{
+  "passed": false,
+  "reason": "Explicitly interrupted after broad timing slowdown; current host observed on battery, AC disconnected, power-saver. No power setting changed. Repeat under stable reference conditions required; attribution to host remains provisional until repeated.",
+  "browser_partial": {
+    "passed": 93,
+    "failed": 4,
+    "interrupted": 1,
+    "documented_exclusions_so_far": 4,
+    "did_not_run": 256
+  },
+  "failures": [
+    "small cold Apply 2561ms > 2000ms",
+    "18k cold Apply 6774ms > 5000ms",
+    "first live frame 1326ms > 1000ms",
+    "zoom-layout bounded poll exceeded 1000ms"
+  ],
+  "source_unchanged": true,
+  "independent_reader_preflight_both_directions_pass": true
+}

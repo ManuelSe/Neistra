@@ -2,6 +2,40 @@
 
 ## Current milestone
 
+Issue [#110](https://github.com/ManuelSe/Neistra/issues/110), quick local minimization,
+is implemented and C5 qualification passes under the
+[approved contract](plans/issue-110-quick-minimization.md), D-126–134. C6 PR/merge,
+exact-master qualification and publication remain pending. All five versions are
+0.23.0; no dependency upgrade, schema migration or canonical chemistry rewrite.
+
+The [clean candidate gate](assets/quick-minimization/c5-candidate-6-gate.json) at
+`b0c8208189e7e1537e23a115bbe8a6726b5b31fa` passes all 20 commands: **1,148 Python,
+313 frontend, 8 supervisor and 298 browser tests**, with 60 documented browser
+layout/timing exclusions and zero failures, flakes, retries or Python scientific
+skips. Frozen installs, fresh head 0014, static/build/version checks and both actual
+tagged 0.22.1/current reader directions pass. All 553 runtime/test/lock identities
+and compressed logs verify; debug files remain untouched and untracked.
+
+Native AC reference results: cold small/pocket/18k Apply 0.915/2.104/3.659s,
+feedback 9–54ms, first real frame 690ms, Cancel 61ms, longest task 258ms. Supplied
+structures pass desktop/mobile Apply/Undo/Redo/reload; actual zoom/accessibility,
+partial/pocket/context/chemistry/stereo/cancellation and retained AMBER gates pass.
+AC remained online at every recorded step boundary; power settings were unchanged.
+Earlier failed/interrupted runs remain labeled diagnostics. The corrected surface
+completion protocol and startup import isolation pass the full native matrix.
+
+[Local complete-diff review](assets/quick-minimization/c5-review.md) and exact source
+diff evidence record addressed consequential findings; no independent review is
+claimed. Compatibility preserves conformers, generic atomic history, jobs/models,
+provenance, originals, allocator floors and archives in both directions. Approximate
+repair remains visibly reported; local improvement does not certify a binding pose.
+
+Local development services retain the existing environment/data directory;
+API 0.23.0, quick capabilities and web are healthy. Next: verified PR and normal
+merge, exact-master gate, annotated release and final issue/publication audit.
+
+### Previous delivery baseline — v0.22.1
+
 Issue #91 is implemented, merged in [PR#108](https://github.com/ManuelSe/Neistra/pull/108)
 and released as stable [v0.22.1](https://github.com/ManuelSe/Neistra/releases/tag/v0.22.1) under the
 [approved plan](plans/issue-91-selection-mode-hover.md). Shared exact hover/click
@@ -2690,10 +2724,10 @@ Results:
 
 ## Blockers
 
-No current external blocker. Issue #91 M1/C1 passes focused qualification;
-M2/C2 and M3/C3 remain required. Existing hover behavior is not yet corrected.
+No current blocker. C5 passes; C6 exact-master qualification and delivery remain.
 
 ## Next action
 
-Commit passing M1/C1, then implement M2/C2 under the approved issue #91 contract.
-Continue through complete candidate/exact-master qualification and verified delivery.
+Open the implementation PR with scope and qualification evidence, review its complete
+diff and remote checks/conversations, merge normally, repeat all 20 gate commands on
+exact merged master, then verify the annotated 0.23.0 tag/release and close-out.

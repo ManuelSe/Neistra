@@ -1,3 +1,4 @@
+import { seedCoordinateProjections } from "./coordinates/cache";
 import type { ViewerPick } from "./selection/gestures";
 import { useMinimization } from "./minimization/useMinimization";
 import { useMinimizationStore } from "./minimization/store";
@@ -74,7 +75,6 @@ import {
 } from "./selection/selection";
 import { spatialSelectionInWorker } from "./selection/spatialClient";
 import {
-  patchStructureProjection,
   previewTransform,
 } from "./coordinates/transforms";
 import { useSelectionStore } from "./store/selection";
@@ -246,32 +246,7 @@ export default function App() {
   const updateProjectCache = (next: Project) => {
     const previous = queryClient.getQueryData<Project>(["project", next.id]);
     if (previous && previous.revision > next.revision) return;
-    for (const patch of next.structure_patches ?? []) {
-      const previousEntry = previous?.entries.find(
-        (entry) => entry.id === patch.entry_id,
-      );
-      const source = previousEntry?.current_artifact_id
-        ? queryClient.getQueryData<StructureProjection>([
-            "structure",
-            next.id,
-            patch.entry_id,
-            previousEntry.current_artifact_id,
-          ])
-        : undefined;
-      const target =
-        queryClient.getQueryData<StructureProjection>([
-          "structure",
-          next.id,
-          patch.entry_id,
-          patch.artifact_id,
-        ]) ?? source;
-      if (target) {
-        queryClient.setQueryData(
-          ["structure", next.id, patch.entry_id, patch.artifact_id],
-          patchStructureProjection(target, patch),
-        );
-      }
-    }
+    seedCoordinateProjections(queryClient, previous, next);
     queryClient.setQueryData(["project", next.id], next);
     queryClient.setQueryData<ProjectListItem[]>(["projects"], (current = []) => {
       const summary: ProjectListItem = {

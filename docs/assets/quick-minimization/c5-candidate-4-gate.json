@@ -1,0 +1,223 @@
+{
+  "commit": "4bcee7b19f24a27dce5279d6f2420c22ca66a9cd",
+  "phase": "candidate",
+  "attempt": 4,
+  "clean_tracked_at_start": true,
+  "preserved_untracked_debug": {
+    "debug/New_molecule.pdb": "9340badbb6d0a1a2084a802b3d673c33cb31fcee0c2c039a143d01236606203b",
+    "debug/New_molecule.sdf": "3fa5f1c9add97af0459fb319ba4fcba206d4e7fc6b47af2573e147212e64dcc3",
+    "debug/paracetamol.pdb": "f4ad32fc0aaef2144bcba5fbef5356efa98979b1fe1b54eef6bfa448fc269b2b"
+  },
+  "boot_id": "4cc00cb6-d793-4e01-a99d-2f67e8c27d5b",
+  "host": "tuxedo-os",
+  "platform": "Linux-6.17.0-119029-tuxedo-x86_64-with-glibc2.39",
+  "qualifier_sha256": "f12a0977b56a1f7006b374b81d4b4e7405b185949e849b511b463ad8edb9d02e",
+  "environment": {
+    "MOLWEAVE_DATA_DIR": "/tmp/neistra-110-candidate-4/default-data",
+    "MOLWEAVE_MINIMIZATION_MAX_RSS_BYTES": "4294967296",
+    "MOLWEAVE_JOB_PLUGIN_ALLOWLIST": "molweave.demo,molweave.minimization",
+    "MOLWEAVE_JOB_PLUGIN_TARGETS": "molweave_demo_plugin.plugin:plugin,molweave_core.minimization.plugin:plugin",
+    "MOLWEAVE_AMBERTOOLS_PREFIX": "/datadisk/dev/.neistra-tools/ambertools-24.8",
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "PLAYWRIGHT_BROWSERS_PATH": ".playwright",
+    "MOLWEAVE_E2E_DATA_DIR": "/tmp/neistra-110-candidate-4/browser-data",
+    "MOLWEAVE_E2E_API_PORT": "12110",
+    "MOLWEAVE_E2E_WORKER_PORT": "12111",
+    "MOLWEAVE_E2E_WEB_PORT": "12173",
+    "MOLWEAVE_MINIMIZATION_EVIDENCE_DIR": "/tmp/neistra-110-candidate-4/native",
+    "PLAYWRIGHT_JSON_OUTPUT_NAME": "/tmp/neistra-110-candidate-4/browser.json"
+  },
+  "steps": [
+    {
+      "label": "uv",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/uv",
+        "sync",
+        "--frozen"
+      ],
+      "environment_overrides": {},
+      "exit_code": 0,
+      "qualification_error": null,
+      "seconds": 0.028,
+      "log": "docs/assets/quick-minimization/c5-candidate-4-uv.log.gz",
+      "log_sha256": "c520453bd59fb71fe6187b78c90da0b723c7d2524cd13bd484815d7fbf7510f1"
+    },
+    {
+      "label": "pnpm",
+      "command": [
+        "corepack",
+        "pnpm",
+        "install",
+        "--frozen-lockfile"
+      ],
+      "environment_overrides": {},
+      "exit_code": 0,
+      "qualification_error": null,
+      "seconds": 0.735,
+      "log": "docs/assets/quick-minimization/c5-candidate-4-pnpm.log.gz",
+      "log_sha256": "d0058b890963939d4a17e87573cb6f7dac9872b76a7e61e2dfc4eab7a90638d4"
+    },
+    {
+      "label": "migration",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/uv",
+        "run",
+        "alembic",
+        "upgrade",
+        "head"
+      ],
+      "environment_overrides": {
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra-110-candidate-4/migration-data"
+      },
+      "exit_code": 0,
+      "qualification_error": null,
+      "seconds": 1.332,
+      "log": "docs/assets/quick-minimization/c5-candidate-4-migration.log.gz",
+      "log_sha256": "a65aaba1d288361248cfad53dee993528aa5c4bbd5accca186ae60e26f85c610"
+    },
+    {
+      "label": "ruff",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/uv",
+        "run",
+        "ruff",
+        "check",
+        "."
+      ],
+      "environment_overrides": {},
+      "exit_code": 0,
+      "qualification_error": null,
+      "seconds": 0.043,
+      "log": "docs/assets/quick-minimization/c5-candidate-4-ruff.log.gz",
+      "log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "label": "mypy",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/uv",
+        "run",
+        "mypy",
+        "apps/api",
+        "packages/molweave_core"
+      ],
+      "environment_overrides": {},
+      "exit_code": 0,
+      "qualification_error": null,
+      "seconds": 0.22,
+      "log": "docs/assets/quick-minimization/c5-candidate-4-mypy.log.gz",
+      "log_sha256": "48f1ab828deeaeb4ed5982160783dfab96668aba5c46a5a094b6745cbc02a8f2"
+    },
+    {
+      "label": "python",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/uv",
+        "run",
+        "pytest"
+      ],
+      "environment_overrides": {},
+      "exit_code": 0,
+      "qualification_error": null,
+      "seconds": 360.995,
+      "log": "docs/assets/quick-minimization/c5-candidate-4-python.log.gz",
+      "log_sha256": "b21c0d072ed4bd061f2108f2c6bf92f9fa5a73dd85dd2ff37b66a47e1b620ae9"
+    },
+    {
+      "label": "lint",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "lint"
+      ],
+      "environment_overrides": {},
+      "exit_code": 0,
+      "qualification_error": null,
+      "seconds": 10.916,
+      "log": "docs/assets/quick-minimization/c5-candidate-4-lint.log.gz",
+      "log_sha256": "3a89e995dcef0fe88fa6a49c89b6f22ebd4e6f3144afcd02c1a72aa216df05b8"
+    },
+    {
+      "label": "types",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "typecheck"
+      ],
+      "environment_overrides": {},
+      "exit_code": 0,
+      "qualification_error": null,
+      "seconds": 5.597,
+      "log": "docs/assets/quick-minimization/c5-candidate-4-types.log.gz",
+      "log_sha256": "4d1a75ef6739a9538984a12eb7e61d7e8259afa5661486e3a23ff473b25ab59f"
+    },
+    {
+      "label": "web-tests",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "test"
+      ],
+      "environment_overrides": {},
+      "exit_code": 0,
+      "qualification_error": null,
+      "seconds": 10.749,
+      "log": "docs/assets/quick-minimization/c5-candidate-4-web-tests.log.gz",
+      "log_sha256": "2f90cf0e0c687bcc7dad34b1ae12b6c383ad0a5f2ff9bca21c459f3f4911b86c"
+    },
+    {
+      "label": "supervisor",
+      "command": [
+        "corepack",
+        "pnpm",
+        "test:dev"
+      ],
+      "environment_overrides": {},
+      "exit_code": 0,
+      "qualification_error": null,
+      "seconds": 1.42,
+      "log": "docs/assets/quick-minimization/c5-candidate-4-supervisor.log.gz",
+      "log_sha256": "a4e68c6183e0ab5526501ed63965717924a9ee3e329605db2f8b9af93516de92"
+    },
+    {
+      "label": "build",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "build"
+      ],
+      "environment_overrides": {},
+      "exit_code": 0,
+      "qualification_error": null,
+      "seconds": 14.44,
+      "log": "docs/assets/quick-minimization/c5-candidate-4-build.log.gz",
+      "log_sha256": "56ee880ddc950ff5ae7033b114b4267a346981131d6e017db69466443aef0cce"
+    },
+    {
+      "label": "browser",
+      "command": [
+        "corepack",
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "--reporter=list,json"
+      ],
+      "environment_overrides": {},
+      "exit_code": 130,
+      "qualification_error": "Unexpected browser result or changed exclusions: {'startTime': '2026-10-21T13:27:19.807Z', 'duration': 1098145.4070000001, 'expected': 94, 'skipped': 263, 'unexpected': 1, 'flaky': 0}",
+      "seconds": 1098.861,
+      "log": "docs/assets/quick-minimization/c5-candidate-4-browser.log.gz",
+      "log_sha256": "6ee003cf920c5aa74d6d65076410053e4999f37dcc72b7dcc3d9fd4bda170ba9"
+    }
+  ],
+  "source_unchanged": true,
+  "passed": false
+}

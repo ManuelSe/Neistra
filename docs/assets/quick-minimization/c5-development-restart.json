@@ -1,0 +1,9 @@
+{
+  "supervisor_pid": 365988,
+  "data_dir": "/datadisk/dev/neistra/.molweave",
+  "quick_capabilities_available": true,
+  "web_status": 200,
+  "prior_active_jobs": 0,
+  "api_version": "0.23.0",
+  "note": "Local development service restart, preserving environment and existing data directory; not a release claim."
+}

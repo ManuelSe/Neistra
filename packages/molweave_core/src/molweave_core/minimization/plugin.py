@@ -59,6 +59,8 @@ class MinimizationPlugin:
     name = "molweave.minimization"
 
     def definitions(self) -> tuple[JobDefinition, ...]:
+        from molweave_core.minimization.quick_plugin import definition
+
         return (
             JobDefinition(
                 job_type=JOB_TYPE,
@@ -99,6 +101,7 @@ class MinimizationPlugin:
                     max_result_bytes=100 * 1024**2,
                 ),
             ),
+            definition(),
         )
 
     def execute(
@@ -108,6 +111,15 @@ class MinimizationPlugin:
         inputs: tuple[InputArtifact, ...],
         context: JobContext,
     ) -> JobResult:
+        from molweave_core.minimization.quick_contracts import QUICK_JOB, QuickParameters
+
+        if job_type == QUICK_JOB:
+            from molweave_core.minimization.quick_plugin import execute
+
+            return execute(
+                QuickParameters.model_validate(parameters.model_dump(mode="json")), inputs, context
+            )
+
         # Heavy native imports happen in the controlled worker child, not API startup.
         from molweave_core.minimization.assembly import environment_preflight, needs_templates
         from molweave_core.minimization.context_model import parameterize_environment

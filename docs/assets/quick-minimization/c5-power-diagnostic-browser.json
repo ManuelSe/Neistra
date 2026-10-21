@@ -1,0 +1,268 @@
+{
+  "config": {
+    "configFile": "/datadisk/dev/neistra/playwright.config.ts",
+    "rootDir": "/datadisk/dev/neistra/tests/e2e",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "list"
+      ],
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "/datadisk/dev/neistra/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/datadisk/dev/neistra/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/datadisk/dev/neistra/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "mobile-chromium",
+        "name": "mobile-chromium",
+        "testDir": "/datadisk/dev/neistra/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.55.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "quick-minimization-performance.spec.ts",
+      "file": "quick-minimization-performance.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "bounds cold quick publication for a supplied small molecule",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 13330,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeLessThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: <= \u001b[32m2000\u001b[39m\nReceived:    \u001b[31m2254.2999999970198\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeLessThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: <= \u001b[32m2000\u001b[39m\nReceived:    \u001b[31m2254.2999999970198\u001b[39m\n    at /datadisk/dev/neistra/tests/e2e/quick-minimization-performance.spec.ts:61:34",
+                    "location": {
+                      "file": "/datadisk/dev/neistra/tests/e2e/quick-minimization-performance.spec.ts",
+                      "column": 34,
+                      "line": 61
+                    },
+                    "snippet": "  59 |   await info.attach(\"quick-cold-performance\", { body: JSON.stringify(evidence), contentType: \"application/json\" });\n  60 |   expect(timing.feedbackMs).toBeGreaterThanOrEqual(0); expect(timing.feedbackMs).toBeLessThanOrEqual(100);\n> 61 |   expect(timing.nativeAppliedMs).toBeLessThanOrEqual(copies ? 5000 : 2000);\n     |                                  ^\n  62 |   expect(timing.longestTaskMs).toBeLessThan(750);\n  63 |   await panel(page).getByRole(\"button\", { name: \"Close minimization\" }).click();\n  64 |   if (phase === \"cold\") {"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/datadisk/dev/neistra/tests/e2e/quick-minimization-performance.spec.ts",
+                        "column": 34,
+                        "line": 61
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeLessThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: <= \u001b[32m2000\u001b[39m\nReceived:    \u001b[31m2254.2999999970198\u001b[39m\n\n  59 |   await info.attach(\"quick-cold-performance\", { body: JSON.stringify(evidence), contentType: \"application/json\" });\n  60 |   expect(timing.feedbackMs).toBeGreaterThanOrEqual(0); expect(timing.feedbackMs).toBeLessThanOrEqual(100);\n> 61 |   expect(timing.nativeAppliedMs).toBeLessThanOrEqual(copies ? 5000 : 2000);\n     |                                  ^\n  62 |   expect(timing.longestTaskMs).toBeLessThan(750);\n  63 |   await panel(page).getByRole(\"button\", { name: \"Close minimization\" }).click();\n  64 |   if (phase === \"cold\") {\n    at /datadisk/dev/neistra/tests/e2e/quick-minimization-performance.spec.ts:61:34"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "steps": [
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 2295
+                    }
+                  ],
+                  "startTime": "2026-10-21T14:22:35.878Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "quick-cold-performance",
+                      "contentType": "application/json",
+                      "body": "eyJjb3BpZXMiOjAsInBoYXNlIjoiY29sZCIsImF0b21zIjoxOCwiZmVlZGJhY2tNcyI6MzEuNSwibmF0aXZlQXBwbGllZE1zIjoxODM0LjA5OTk5OTk5NDAzOTUsImxvbmdlc3RUYXNrTXMiOjE1MCwic3RhZ2VzIjpbeyJwYXRoIjoiL2FwaS92MS9wcm9qZWN0cy8wMWExNWVkNy1iMTYxLTc2MWItYjJkOC03MmNlM2U1NDc3MTQvcXVpY2stbWluaW1pemF0aW9ucyIsImF0IjoxNzkyNTkyNTYzNjEwLCJraW5kIjoicmVxdWVzdCJ9LHsicGF0aCI6Ii9hcGkvdjEvcHJvamVjdHMvMDFhMTVlZDctYjE2MS03NjFiLWIyZDgtNzJjZTNlNTQ3NzE0L3F1aWNrLW1pbmltaXphdGlvbnMiLCJhdCI6MTc5MjU5MjU2MzY0NSwia2luZCI6InJlc3BvbnNlIn0seyJwYXRoIjoiL2FwaS92MS9wcm9qZWN0cy8wMWExNWVkNy1iMTYxLTc2MWItYjJkOC03MmNlM2U1NDc3MTQvcXVpY2stbWluaW1pemF0aW9ucy8wMWExNWVkNy1jZGExLTcwZGItOGQ1NS0yMWJkOTNhZDhlMGMvbGl2ZSIsImF0IjoxNzkyNTkyNTYzNjU3LCJraW5kIjoicmVxdWVzdCJ9LHsicGF0aCI6Ii9hcGkvdjEvcHJvamVjdHMvMDFhMTVlZDctYjE2MS03NjFiLWIyZDgtNzJjZTNlNTQ3NzE0L3F1aWNrLW1pbmltaXphdGlvbnMvMDFhMTVlZDctY2RhMS03MGRiLThkNTUtMjFiZDkzYWQ4ZTBjL2xpdmUiLCJhdCI6MTc5MjU5MjU2MzY2Niwia2luZCI6InJlc3BvbnNlIn0seyJwYXRoIjoiL2FwaS92MS9wcm9qZWN0cy8wMWExNWVkNy1iMTYxLTc2MWItYjJkOC03MmNlM2U1NDc3MTQvcXVpY2stbWluaW1pemF0aW9ucy8wMWExNWVkNy1jZGExLTcwZGItOGQ1NS0yMWJkOTNhZDhlMGMvbGl2ZSIsImF0IjoxNzkyNTkyNTYzNzY5LCJraW5kIjoicmVxdWVzdCJ9LHsicGF0aCI6Ii9hcGkvdjEvcHJvamVjdHMvMDFhMTVlZDctYjE2MS03NjFiLWIyZDgtNzJjZTNlNTQ3NzE0L3F1aWNrLW1pbmltaXphdGlvbnMvMDFhMTVlZDctY2RhMS03MGRiLThkNTUtMjFiZDkzYWQ4ZTBjL2xpdmUiLCJhdCI6MTc5MjU5MjU2Mzc3OSwia2luZCI6InJlc3BvbnNlIn0seyJwYXRoIjoiL2FwaS92MS9wcm9qZWN0cy8wMWExNWVkNy1iMTYxLTc2MWItYjJkOC03MmNlM2U1NDc3MTQvcXVpY2stbWluaW1pemF0aW9ucy8wMWExNWVkNy1jZGExLTcwZGItOGQ1NS0yMWJkOTNhZDhlMGMvbGl2ZSIsImF0IjoxNzkyNTkyNTYzOTE0LCJraW5kIjoicmVxdWVzdCJ9LHsicGF0aCI6Ii9hcGkvdjEvcHJvamVjdHMvMDFhMTVlZDctYjE2MS03NjFiLWIyZDgtNzJjZTNlNTQ3NzE0L3F1aWNrLW1pbmltaXphdGlvbnMvMDFhMTVlZDctY2RhMS03MGRiLThkNTUtMjFiZDkzYWQ4ZTBjL2xpdmUiLCJhdCI6MTc5MjU5MjU2MzkzMiwia2luZCI6InJlc3BvbnNlIn0seyJwYXRoIjoiL2FwaS92MS9wcm9qZWN0cy8wMWExNWVkNy1iMTYxLTc2MWItYjJkOC03MmNlM2U1NDc3MTQvcXVpY2stbWluaW1pemF0aW9ucy8wMWExNWVkNy1jZGExLTcwZGItOGQ1NS0yMWJkOTNhZDhlMGMvbGl2ZSIsImF0IjoxNzkyNTkyNTY0MDM0LCJraW5kIjoicmVxdWVzdCJ9LHsicGF0aCI6Ii9hcGkvdjEvcHJvamVjdHMvMDFhMTVlZDctYjE2MS03NjFiLWIyZDgtNzJjZTNlNTQ3NzE0L3F1aWNrLW1pbmltaXphdGlvbnMvMDFhMTVlZDctY2RhMS03MGRiLThkNTUtMjFiZDkzYWQ4ZTBjL2xpdmUiLCJhdCI6MTc5MjU5MjU2NDA0Niwia2luZCI6InJlc3BvbnNlIn0seyJwYXRoIjoiL2FwaS92MS9wcm9qZWN0cy8wMWExNWVkNy1iMTYxLTc2MWItYjJkOC03MmNlM2U1NDc3MTQvcXVpY2stbWluaW1pemF0aW9ucy8wMWExNWVkNy1jZGExLTcwZGItOGQ1NS0yMWJkOTNhZDhlMGMvbGl2ZSIsImF0IjoxNzkyNTkyNTY0MTQ4LCJraW5kIjoicmVxdWVzdCJ9LHsicGF0aCI6Ii9hcGkvdjEvcHJvamVjdHMvMDFhMTVlZDctYjE2MS03NjFiLWIyZDgtNzJjZTNlNTQ3NzE0L3F1aWNrLW1pbmltaXphdGlvbnMvMDFhMTVlZDctY2RhMS03MGRiLThkNTUtMjFiZDkzYWQ4ZTBjL2xpdmUiLCJhdCI6MTc5MjU5MjU2NDE2Miwia2luZCI6InJlc3BvbnNlIn0seyJwYXRoIjoiL2FwaS92MS9wcm9qZWN0cy8wMWExNWVkNy1iMTYxLTc2MWItYjJkOC03MmNlM2U1NDc3MTQvcXVpY2stbWluaW1pemF0aW9ucy8wMWExNWVkNy1jZGExLTcwZGItOGQ1NS0yMWJkOTNhZDhlMGMvbGl2ZSIsImF0IjoxNzkyNTkyNTY0MjY5LCJraW5kIjoicmVxdWVzdCJ9LHsicGF0aCI6Ii9hcGkvdjEvcHJvamVjdHMvMDFhMTVlZDctYjE2MS03NjFiLWIyZDgtNzJjZTNlNTQ3NzE0L3F1aWNrLW1pbmltaXphdGlvbnMvMDFhMTVlZDctY2RhMS03MGRiLThkNTUtMjFiZDkzYWQ4ZTBjL2xpdmUiLCJhdCI6MTc5MjU5MjU2NDI4Mywia2luZCI6InJlc3BvbnNlIn0seyJwYXRoIjoiL2FwaS92MS9wcm9qZWN0cy8wMWExNWVkNy1iMTYxLTc2MWItYjJkOC03MmNlM2U1NDc3MTQvcXVpY2stbWluaW1pemF0aW9ucy8wMWExNWVkNy1jZGExLTcwZGItOGQ1NS0yMWJkOTNhZDhlMGMvbGl2ZSIsImF0IjoxNzkyNTkyNTY0MzgzLCJraW5kIjoicmVxdWVzdCJ9LHsicGF0aCI6Ii9hcGkvdjEvcHJvamVjdHMvMDFhMTVlZDctYjE2MS03NjFiLWIyZDgtNzJjZTNlNTQ3NzE0L3F1aWNrLW1pbmltaXphdGlvbnMvMDFhMTVlZDctY2RhMS03MGRiLThkNTUtMjFiZDkzYWQ4ZTBjL2xpdmUiLCJhdCI6MTc5MjU5MjU2NDM5Miwia2luZCI6InJlc3BvbnNlIn0seyJwYXRoIjoiL2FwaS92MS9wcm9qZWN0cy8wMWExNWVkNy1iMTYxLTc2MWItYjJkOC03MmNlM2U1NDc3MTQvcXVpY2stbWluaW1pemF0aW9ucy8wMWExNWVkNy1jZGExLTcwZGItOGQ1NS0yMWJkOTNhZDhlMGMvbGl2ZSIsImF0IjoxNzkyNTkyNTY0NDk1LCJraW5kIjoicmVxdWVzdCJ9LHsicGF0aCI6Ii9hcGkvdjEvcHJvamVjdHMvMDFhMTVlZDctYjE2MS03NjFiLWIyZDgtNzJjZTNlNTQ3NzE0L3F1aWNrLW1pbmltaXphdGlvbnMvMDFhMTVlZDctY2RhMS03MGRiLThkNTUtMjFiZDkzYWQ4ZTBjL2xpdmUiLCJhdCI6MTc5MjU5MjU2NDUxMCwia2luZCI6InJlc3BvbnNlIn0seyJwYXRoIjoiL2FwaS92MS9wcm9qZWN0cy8wMWExNWVkNy1iMTYxLTc2MWItYjJkOC03MmNlM2U1NDc3MTQvcXVpY2stbWluaW1pemF0aW9ucy8wMWExNWVkNy1jZGExLTcwZGItOGQ1NS0yMWJkOTNhZDhlMGMvbGl2ZSIsImF0IjoxNzkyNTkyNTY0NjEyLCJraW5kIjoicmVxdWVzdCJ9LHsicGF0aCI6Ii9hcGkvdjEvcHJvamVjdHMvMDFhMTVlZDctYjE2MS03NjFiLWIyZDgtNzJjZTNlNTQ3NzE0L3F1aWNrLW1pbmltaXphdGlvbnMvMDFhMTVlZDctY2RhMS03MGRiLThkNTUtMjFiZDkzYWQ4ZTBjL2xpdmUiLCJhdCI6MTc5MjU5MjU2NDYyMSwia2luZCI6InJlc3BvbnNlIn0seyJwYXRoIjoiL2FwaS92MS9wcm9qZWN0cy8wMWExNWVkNy1iMTYxLTc2MWItYjJkOC03MmNlM2U1NDc3MTQvcXVpY2stbWluaW1pemF0aW9ucy8wMWExNWVkNy1jZGExLTcwZGItOGQ1NS0yMWJkOTNhZDhlMGMvbGl2ZSIsImF0IjoxNzkyNTkyNTY0NzI0LCJraW5kIjoicmVxdWVzdCJ9LHsicGF0aCI6Ii9hcGkvdjEvcHJvamVjdHMvMDFhMTVlZDctYjE2MS03NjFiLWIyZDgtNzJjZTNlNTQ3NzE0L3F1aWNrLW1pbmltaXphdGlvbnMvMDFhMTVlZDctY2RhMS03MGRiLThkNTUtMjFiZDkzYWQ4ZTBjL2xpdmUiLCJhdCI6MTc5MjU5MjU2NDc1NSwia2luZCI6InJlc3BvbnNlIn0seyJwYXRoIjoiL2FwaS92MS9wcm9qZWN0cy8wMWExNWVkNy1iMTYxLTc2MWItYjJkOC03MmNlM2U1NDc3MTQvcXVpY2stbWluaW1pemF0aW9ucy8wMWExNWVkNy1jZGExLTcwZGItOGQ1NS0yMWJkOTNhZDhlMGMvbGl2ZSIsImF0IjoxNzkyNTkyNTY0ODU3LCJraW5kIjoicmVxdWVzdCJ9LHsicGF0aCI6Ii9hcGkvdjEvcHJvamVjdHMvMDFhMTVlZDctYjE2MS03NjFiLWIyZDgtNzJjZTNlNTQ3NzE0L3F1aWNrLW1pbmltaXphdGlvbnMvMDFhMTVlZDctY2RhMS03MGRiLThkNTUtMjFiZDkzYWQ4ZTBjL2xpdmUiLCJhdCI6MTc5MjU5MjU2NDg2Niwia2luZCI6InJlc3BvbnNlIn0seyJwYXRoIjoiL2FwaS92MS9wcm9qZWN0cy8wMWExNWVkNy1iMTYxLTc2MWItYjJkOC03MmNlM2U1NDc3MTQvcXVpY2stbWluaW1pemF0aW9ucy8wMWExNWVkNy1jZGExLTcwZGItOGQ1NS0yMWJkOTNhZDhlMGMvcHJvcG9zYWwiLCJhdCI6MTc5MjU5MjU2NDk2MSwia2luZCI6InJlcXVlc3QifSx7InBhdGgiOiIvYXBpL3YxL3Byb2plY3RzLzAxYTE1ZWQ3LWIxNjEtNzYxYi1iMmQ4LTcyY2UzZTU0NzcxNC9xdWljay1taW5pbWl6YXRpb25zLzAxYTE1ZWQ3LWNkYTEtNzBkYi04ZDU1LTIxYmQ5M2FkOGUwYy9wcm9wb3NhbCIsImF0IjoxNzkyNTkyNTY0OTg1LCJraW5kIjoicmVzcG9uc2UifSx7InBhdGgiOiIvYXBpL3YxL3Byb2plY3RzLzAxYTE1ZWQ3LWIxNjEtNzYxYi1iMmQ4LTcyY2UzZTU0NzcxNC9xdWljay1taW5pbWl6YXRpb25zLzAxYTE1ZWQ3LWNkYTEtNzBkYi04ZDU1LTIxYmQ5M2FkOGUwYy9hcHBseSIsImF0IjoxNzkyNTkyNTY1MTM3LCJraW5kIjoicmVxdWVzdCJ9LHsicGF0aCI6Ii9hcGkvdjEvcHJvamVjdHMvMDFhMTVlZDctYjE2MS03NjFiLWIyZDgtNzJjZTNlNTQ3NzE0L3F1aWNrLW1pbmltaXphdGlvbnMvMDFhMTVlZDctY2RhMS03MGRiLThkNTUtMjFiZDkzYWQ4ZTBjL2FwcGx5IiwiYXQiOjE3OTI1OTI1NjUyODUsImtpbmQiOiJyZXNwb25zZSJ9LHsicGF0aCI6Ii9hcGkvdjEvcHJvamVjdHMvMDFhMTVlZDctYjE2MS03NjFiLWIyZDgtNzJjZTNlNTQ3NzE0L3F1aWNrLW1pbmltaXphdGlvbnMvMDFhMTVlZDctY2RhMS03MGRiLThkNTUtMjFiZDkzYWQ4ZTBjL3Byb3Bvc2FsIiwiYXQiOjE3OTI1OTI1NjUzMjMsImtpbmQiOiJyZXF1ZXN0In0seyJwYXRoIjoiL2FwaS92MS9wcm9qZWN0cy8wMWExNWVkNy1iMTYxLTc2MWItYjJkOC03MmNlM2U1NDc3MTQvcXVpY2stbWluaW1pemF0aW9ucy8wMWExNWVkNy1jZGExLTcwZGItOGQ1NS0yMWJkOTNhZDhlMGMvcHJvcG9zYWwiLCJhdCI6MTc5MjU5MjU2NTQ0Niwia2luZCI6InJlc3BvbnNlIn1dLCJiYWNrZW5kIjp7ImNvbnRleHRfcmVidWlsZCI6MCwiY29udGV4dF9yZWJ1aWxkcyI6MCwiZm9yY2VfZmllbGQiOjAuMDA1NDk3Nzg2MDEyNzExMDAzLCJpbnRlcnByZXRhdGlvbiI6MC4wMDY3Mjg1MDI5OTQ1MTk2NTgsIm9wdGltaXphdGlvbiI6MC4wMzkxNDI1OTI5ODQ3MTczNH0sImVsYXBzZWRCYWNrZW5kU2Vjb25kcyI6MC4wNTY5MDE4MDMwMDczNDkzNywiam9iSWQiOiIwMWExNWVkNy1jZGExLTcwZGItOGQ1NS0yMWJkOTNhZDhlMGMifQ=="
+                    },
+                    {
+                      "name": "quick-cold-performance",
+                      "contentType": "application/json",
+                      "body": "eyJjb3BpZXMiOjAsInBoYXNlIjoicmVwZWF0IiwiYXRvbXMiOjE4LCJmZWVkYmFja01zIjo0OS41OTk5OTk5OTQwMzk1MzYsIm5hdGl2ZUFwcGxpZWRNcyI6MjI1NC4yOTk5OTk5OTcwMTk4LCJsb25nZXN0VGFza01zIjoxNDYsInN0YWdlcyI6W3sicGF0aCI6Ii9hcGkvdjEvcHJvamVjdHMvMDFhMTVlZDctYjE2MS03NjFiLWIyZDgtNzJjZTNlNTQ3NzE0L3F1aWNrLW1pbmltaXphdGlvbnMiLCJhdCI6MTc5MjU5MjU2NTk5OCwia2luZCI6InJlcXVlc3QifSx7InBhdGgiOiIvYXBpL3YxL3Byb2plY3RzLzAxYTE1ZWQ3LWIxNjEtNzYxYi1iMmQ4LTcyY2UzZTU0NzcxNC9xdWljay1taW5pbWl6YXRpb25zIiwiYXQiOjE3OTI1OTI1NjYwNTEsImtpbmQiOiJyZXNwb25zZSJ9LHsicGF0aCI6Ii9hcGkvdjEvcHJvamVjdHMvMDFhMTVlZDctYjE2MS03NjFiLWIyZDgtNzJjZTNlNTQ3NzE0L3F1aWNrLW1pbmltaXphdGlvbnMvMDFhMTVlZDctZDZmNS03MGExLWE3ZWMtY2ZmOThlMGRhNDc1L2xpdmUiLCJhdCI6MTc5MjU5MjU2NjEwOSwia2luZCI6InJlcXVlc3QifSx7InBhdGgiOiIvYXBpL3YxL3Byb2plY3RzLzAxYTE1ZWQ3LWIxNjEtNzYxYi1iMmQ4LTcyY2UzZTU0NzcxNC9xdWljay1taW5pbWl6YXRpb25zLzAxYTE1ZWQ3LWQ2ZjUtNzBhMS1hN2VjLWNmZjk4ZTBkYTQ3NS9saXZlIiwiYXQiOjE3OTI1OTI1NjYxMzYsImtpbmQiOiJyZXNwb25zZSJ9LHsicGF0aCI6Ii9hcGkvdjEvcHJvamVjdHMvMDFhMTVlZDctYjE2MS03NjFiLWIyZDgtNzJjZTNlNTQ3NzE0L3F1aWNrLW1pbmltaXphdGlvbnMvMDFhMTVlZDctZDZmNS03MGExLWE3ZWMtY2ZmOThlMGRhNDc1L2xpdmUiLCJhdCI6MTc5MjU5MjU2NjIzNywia2luZCI6InJlcXVlc3QifSx7InBhdGgiOiIvYXBpL3YxL3Byb2plY3RzLzAxYTE1ZWQ3LWIxNjEtNzYxYi1iMmQ4LTcyY2UzZTU0NzcxNC9xdWljay1taW5pbWl6YXRpb25zLzAxYTE1ZWQ3LWQ2ZjUtNzBhMS1hN2VjLWNmZjk4ZTBkYTQ3NS9saXZlIiwiYXQiOjE3OTI1OTI1NjYyNTIsImtpbmQiOiJyZXNwb25zZSJ9LHsicGF0aCI6Ii9hcGkvdjEvcHJvamVjdHMvMDFhMTVlZDctYjE2MS03NjFiLWIyZDgtNzJjZTNlNTQ3NzE0L3F1aWNrLW1pbmltaXphdGlvbnMvMDFhMTVlZDctZDZmNS03MGExLWE3ZWMtY2ZmOThlMGRhNDc1L2xpdmUiLCJhdCI6MTc5MjU5MjU2NjM1NCwia2luZCI6InJlcXVlc3QifSx7InBhdGgiOiIvYXBpL3YxL3Byb2plY3RzLzAxYTE1ZWQ3LWIxNjEtNzYxYi1iMmQ4LTcyY2UzZTU0NzcxNC9xdWljay1taW5pbWl6YXRpb25zLzAxYTE1ZWQ3LWQ2ZjUtNzBhMS1hN2VjLWNmZjk4ZTBkYTQ3NS9saXZlIiwiYXQiOjE3OTI1OTI1NjYzNzUsImtpbmQiOiJyZXNwb25zZSJ9LHsicGF0aCI6Ii9hcGkvdjEvcHJvamVjdHMvMDFhMTVlZDctYjE2MS03NjFiLWIyZDgtNzJjZTNlNTQ3NzE0L3F1aWNrLW1pbmltaXphdGlvbnMvMDFhMTVlZDctZDZmNS03MGExLWE3ZWMtY2ZmOThlMGRhNDc1L2xpdmUiLCJhdCI6MTc5MjU5MjU2NjQ3Niwia2luZCI6InJlcXVlc3QifSx7InBhdGgiOiIvYXBpL3YxL3Byb2plY3RzLzAxYTE1ZWQ3LWIxNjEtNzYxYi1iMmQ4LTcyY2UzZTU0NzcxNC9xdWljay1taW5pbWl6YXRpb25zLzAxYTE1ZWQ3LWQ2ZjUtNzBhMS1hN2VjLWNmZjk4ZTBkYTQ3NS9saXZlIiwiYXQiOjE3OTI1OTI1NjY0ODYsImtpbmQiOiJyZXNwb25zZSJ9LHsicGF0aCI6Ii9hcGkvdjEvcHJvamVjdHMvMDFhMTVlZDctYjE2MS03NjFiLWIyZDgtNzJjZTNlNTQ3NzE0L3F1aWNrLW1pbmltaXphdGlvbnMvMDFhMTVlZDctZDZmNS03MGExLWE3ZWMtY2ZmOThlMGRhNDc1L2xpdmUiLCJhdCI6MTc5MjU5MjU2NjU4OSwia2luZCI6InJlcXVlc3QifSx7InBhdGgiOiIvYXBpL3YxL3Byb2plY3RzLzAxYTE1ZWQ3LWIxNjEtNzYxYi1iMmQ4LTcyY2UzZTU0NzcxNC9xdWljay1taW5pbWl6YXRpb25zLzAxYTE1ZWQ3LWQ2ZjUtNzBhMS1hN2VjLWNmZjk4ZTBkYTQ3NS9saXZlIiwiYXQiOjE3OTI1OTI1NjY1OTksImtpbmQiOiJyZXNwb25zZSJ9LHsicGF0aCI6Ii9hcGkvdjEvcHJvamVjdHMvMDFhMTVlZDctYjE2MS03NjFiLWIyZDgtNzJjZTNlNTQ3NzE0L3F1aWNrLW1pbmltaXphdGlvbnMvMDFhMTVlZDctZDZmNS03MGExLWE3ZWMtY2ZmOThlMGRhNDc1L2xpdmUiLCJhdCI6MTc5MjU5MjU2NjcwMSwia2luZCI6InJlcXVlc3QifSx7InBhdGgiOiIvYXBpL3YxL3Byb2plY3RzLzAxYTE1ZWQ3LWIxNjEtNzYxYi1iMmQ4LTcyY2UzZTU0NzcxNC9xdWljay1taW5pbWl6YXRpb25zLzAxYTE1ZWQ3LWQ2ZjUtNzBhMS1hN2VjLWNmZjk4ZTBkYTQ3NS9saXZlIiwiYXQiOjE3OTI1OTI1NjY3MTEsImtpbmQiOiJyZXNwb25zZSJ9LHsicGF0aCI6Ii9hcGkvdjEvcHJvamVjdHMvMDFhMTVlZDctYjE2MS03NjFiLWIyZDgtNzJjZTNlNTQ3NzE0L3F1aWNrLW1pbmltaXphdGlvbnMvMDFhMTVlZDctZDZmNS03MGExLWE3ZWMtY2ZmOThlMGRhNDc1L2xpdmUiLCJhdCI6MTc5MjU5MjU2NjgxMywia2luZCI6InJlcXVlc3QifSx7InBhdGgiOiIvYXBpL3YxL3Byb2plY3RzLzAxYTE1ZWQ3LWIxNjEtNzYxYi1iMmQ4LTcyY2UzZTU0NzcxNC9xdWljay1taW5pbWl6YXRpb25zLzAxYTE1ZWQ3LWQ2ZjUtNzBhMS1hN2VjLWNmZjk4ZTBkYTQ3NS9saXZlIiwiYXQiOjE3OTI1OTI1NjY4MjMsImtpbmQiOiJyZXNwb25zZSJ9LHsicGF0aCI6Ii9hcGkvdjEvcHJvamVjdHMvMDFhMTVlZDctYjE2MS03NjFiLWIyZDgtNzJjZTNlNTQ3NzE0L3F1aWNrLW1pbmltaXphdGlvbnMvMDFhMTVlZDctZDZmNS03MGExLWE3ZWMtY2ZmOThlMGRhNDc1L2xpdmUiLCJhdCI6MTc5MjU5MjU2NjkyNiwia2luZCI6InJlcXVlc3QifSx7InBhdGgiOiIvYXBpL3YxL3Byb2plY3RzLzAxYTE1ZWQ3LWIxNjEtNzYxYi1iMmQ4LTcyY2UzZTU0NzcxNC9xdWljay1taW5pbWl6YXRpb25zLzAxYTE1ZWQ3LWQ2ZjUtNzBhMS1hN2VjLWNmZjk4ZTBkYTQ3NS9saXZlIiwiYXQiOjE3OTI1OTI1NjY5MzYsImtpbmQiOiJyZXNwb25zZSJ9LHsicGF0aCI6Ii9hcGkvdjEvcHJvamVjdHMvMDFhMTVlZDctYjE2MS03NjFiLWIyZDgtNzJjZTNlNTQ3NzE0L3F1aWNrLW1pbmltaXphdGlvbnMvMDFhMTVlZDctZDZmNS03MGExLWE3ZWMtY2ZmOThlMGRhNDc1L2xpdmUiLCJhdCI6MTc5MjU5MjU2NzE3NCwia2luZCI6InJlcXVlc3QifSx7InBhdGgiOiIvYXBpL3YxL3Byb2plY3RzLzAxYTE1ZWQ3LWIxNjEtNzYxYi1iMmQ4LTcyY2UzZTU0NzcxNC9xdWljay1taW5pbWl6YXRpb25zLzAxYTE1ZWQ3LWQ2ZjUtNzBhMS1hN2VjLWNmZjk4ZTBkYTQ3NS9saXZlIiwiYXQiOjE3OTI1OTI1NjcxODcsImtpbmQiOiJyZXNwb25zZSJ9LHsicGF0aCI6Ii9hcGkvdjEvcHJvamVjdHMvMDFhMTVlZDctYjE2MS03NjFiLWIyZDgtNzJjZTNlNTQ3NzE0L3F1aWNrLW1pbmltaXphdGlvbnMvMDFhMTVlZDctZDZmNS03MGExLWE3ZWMtY2ZmOThlMGRhNDc1L2xpdmUiLCJhdCI6MTc5MjU5MjU2NzI5MSwia2luZCI6InJlcXVlc3QifSx7InBhdGgiOiIvYXBpL3YxL3Byb2plY3RzLzAxYTE1ZWQ3LWIxNjEtNzYxYi1iMmQ4LTcyY2UzZTU0NzcxNC9xdWljay1taW5pbWl6YXRpb25zLzAxYTE1ZWQ3LWQ2ZjUtNzBhMS1hN2VjLWNmZjk4ZTBkYTQ3NS9saXZlIiwiYXQiOjE3OTI1OTI1NjczMDIsImtpbmQiOiJyZXNwb25zZSJ9LHsicGF0aCI6Ii9hcGkvdjEvcHJvamVjdHMvMDFhMTVlZDctYjE2MS03NjFiLWIyZDgtNzJjZTNlNTQ3NzE0L3F1aWNrLW1pbmltaXphdGlvbnMvMDFhMTVlZDctZDZmNS03MGExLWE3ZWMtY2ZmOThlMGRhNDc1L3Byb3Bvc2FsIiwiYXQiOjE3OTI1OTI1NjczOTIsImtpbmQiOiJyZXF1ZXN0In0seyJwYXRoIjoiL2FwaS92MS9wcm9qZWN0cy8wMWExNWVkNy1iMTYxLTc2MWItYjJkOC03MmNlM2U1NDc3MTQvcXVpY2stbWluaW1pemF0aW9ucy8wMWExNWVkNy1kNmY1LTcwYTEtYTdlYy1jZmY5OGUwZGE0NzUvcHJvcG9zYWwiLCJhdCI6MTc5MjU5MjU2NzQwNiwia2luZCI6InJlc3BvbnNlIn0seyJwYXRoIjoiL2FwaS92MS9wcm9qZWN0cy8wMWExNWVkNy1iMTYxLTc2MWItYjJkOC03MmNlM2U1NDc3MTQvcXVpY2stbWluaW1pemF0aW9ucy8wMWExNWVkNy1kNmY1LTcwYTEtYTdlYy1jZmY5OGUwZGE0NzUvYXBwbHkiLCJhdCI6MTc5MjU5MjU2NzU1NCwia2luZCI6InJlcXVlc3QifSx7InBhdGgiOiIvYXBpL3YxL3Byb2plY3RzLzAxYTE1ZWQ3LWIxNjEtNzYxYi1iMmQ4LTcyY2UzZTU0NzcxNC9xdWljay1taW5pbWl6YXRpb25zLzAxYTE1ZWQ3LWQ2ZjUtNzBhMS1hN2VjLWNmZjk4ZTBkYTQ3NS9hcHBseSIsImF0IjoxNzkyNTkyNTY3NjMyLCJraW5kIjoicmVzcG9uc2UifSx7InBhdGgiOiIvYXBpL3YxL3Byb2plY3RzLzAxYTE1ZWQ3LWIxNjEtNzYxYi1iMmQ4LTcyY2UzZTU0NzcxNC9xdWljay1taW5pbWl6YXRpb25zLzAxYTE1ZWQ3LWQ2ZjUtNzBhMS1hN2VjLWNmZjk4ZTBkYTQ3NS9wcm9wb3NhbCIsImF0IjoxNzkyNTkyNTY3NjY5LCJraW5kIjoicmVxdWVzdCJ9LHsicGF0aCI6Ii9hcGkvdjEvcHJvamVjdHMvMDFhMTVlZDctYjE2MS03NjFiLWIyZDgtNzJjZTNlNTQ3NzE0L3F1aWNrLW1pbmltaXphdGlvbnMvMDFhMTVlZDctZDZmNS03MGExLWE3ZWMtY2ZmOThlMGRhNDc1L3Byb3Bvc2FsIiwiYXQiOjE3OTI1OTI1Njc3MTQsImtpbmQiOiJyZXNwb25zZSJ9XSwiYmFja2VuZCI6eyJjb250ZXh0X3JlYnVpbGQiOjAsImNvbnRleHRfcmVidWlsZHMiOjAsImZvcmNlX2ZpZWxkIjowLjAwNjAxMTY2OTAwMDE0NTA0OCwiaW50ZXJwcmV0YXRpb24iOjAuMDA3MjUxMjczMDExMjA2NjQ5LCJvcHRpbWl6YXRpb24iOjAuMDQ2NDk0MTgzOTg5MTI1MzA0fSwiZWxhcHNlZEJhY2tlbmRTZWNvbmRzIjowLjA2NTY0NzgxODAwMjYxNjk5LCJqb2JJZCI6IjAxYTE1ZWQ3LWQ2ZjUtNzBhMS1hN2VjLWNmZjk4ZTBkYTQ3NSJ9"
+                    },
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/datadisk/dev/neistra/test-results/quick-minimization-perform-b0c14-r-a-supplied-small-molecule-chromium/test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/datadisk/dev/neistra/test-results/quick-minimization-perform-b0c14-r-a-supplied-small-molecule-chromium/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/datadisk/dev/neistra/test-results/quick-minimization-perform-b0c14-r-a-supplied-small-molecule-chromium/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/datadisk/dev/neistra/tests/e2e/quick-minimization-performance.spec.ts",
+                    "column": 34,
+                    "line": 61
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "6babfdf31e3984a757a1-f4bc61b63925457961d3",
+          "file": "quick-minimization-performance.spec.ts",
+          "line": 10,
+          "column": 37
+        },
+        {
+          "title": "renders genuine quick steps and clears native preview within500ms on Cancel",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 11216,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeLessThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: <= \u001b[32m1000\u001b[39m\nReceived:    \u001b[31m1235.5\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeLessThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: <= \u001b[32m1000\u001b[39m\nReceived:    \u001b[31m1235.5\u001b[39m\n    at /datadisk/dev/neistra/tests/e2e/quick-minimization-performance.spec.ts:112:24",
+                    "location": {
+                      "file": "/datadisk/dev/neistra/tests/e2e/quick-minimization-performance.spec.ts",
+                      "column": 24,
+                      "line": 112
+                    },
+                    "snippet": "  110 |   const evidence = { firstFrameMs, cancelMs, startedWall: await page.evaluate(() => (window as unknown as { quickRunWall: number }).quickRunWall), frames: frames.map(f => ({ sequence: f.frame!.sequence, iteration: f.frame!.iteration, published_at: f.frame!.published_at })) };\n  111 |   await writeFile(info.outputPath(\"quick-live-performance.json\"), JSON.stringify(evidence, null, 2));\n> 112 |   expect(firstFrameMs).toBeLessThanOrEqual(1000); expect(cancelMs).toBeLessThanOrEqual(500);\n      |                        ^\n  113 | });\n  114 |"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/datadisk/dev/neistra/tests/e2e/quick-minimization-performance.spec.ts",
+                        "column": 24,
+                        "line": 112
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeLessThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: <= \u001b[32m1000\u001b[39m\nReceived:    \u001b[31m1235.5\u001b[39m\n\n  110 |   const evidence = { firstFrameMs, cancelMs, startedWall: await page.evaluate(() => (window as unknown as { quickRunWall: number }).quickRunWall), frames: frames.map(f => ({ sequence: f.frame!.sequence, iteration: f.frame!.iteration, published_at: f.frame!.published_at })) };\n  111 |   await writeFile(info.outputPath(\"quick-live-performance.json\"), JSON.stringify(evidence, null, 2));\n> 112 |   expect(firstFrameMs).toBeLessThanOrEqual(1000); expect(cancelMs).toBeLessThanOrEqual(500);\n      |                        ^\n  113 | });\n  114 |\n    at /datadisk/dev/neistra/tests/e2e/quick-minimization-performance.spec.ts:112:24"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "steps": [
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 2047
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 1207
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 87
+                    }
+                  ],
+                  "startTime": "2026-10-21T14:22:50.376Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/datadisk/dev/neistra/test-results/quick-minimization-perform-cdeb2-eview-within500ms-on-Cancel-chromium/test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/datadisk/dev/neistra/test-results/quick-minimization-perform-cdeb2-eview-within500ms-on-Cancel-chromium/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/datadisk/dev/neistra/test-results/quick-minimization-perform-cdeb2-eview-within500ms-on-Cancel-chromium/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/datadisk/dev/neistra/tests/e2e/quick-minimization-performance.spec.ts",
+                    "column": 24,
+                    "line": 112
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "6babfdf31e3984a757a1-4aa5ec4c4219a9999013",
+          "file": "quick-minimization-performance.spec.ts",
+          "line": 74,
+          "column": 5
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-21T14:22:30.445Z",
+    "duration": 31700.722,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 2,
+    "flaky": 0
+  }
+}

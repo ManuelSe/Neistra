@@ -496,7 +496,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     app = FastAPI(
         title="MolWeave API",
-        version="0.22.1",
+        version="0.23.0",
         lifespan=lifespan,
         openapi_url="/api/v1/openapi.json",
         docs_url="/api/docs",
@@ -1622,6 +1622,9 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     app.include_router(router)
     app.include_router(interaction_router(app_settings, session_dependency))
+    from molweave_api.quick_minimization import quick_router
+
+    app.include_router(quick_router(app_settings, job_registry, session_dependency))
 
     @app.websocket("/ws/jobs")
     async def jobs_websocket(

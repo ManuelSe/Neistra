@@ -1,0 +1,12 @@
+{
+  "kind": "local self-review; no independent review claimed",
+  "reviewed_source_commit": "b0c8208189e7e1537e23a115bbe8a6726b5b31fa",
+  "base_commit": "15b88c65df2fb91d83fe55636d894ebd66a8f210",
+  "diff_sha256": "2950f581a5f8c30325fe27e6ba30b61918ceac5b0cc34c392daec98bd15590c3",
+  "full_candidate_gate": "c5-candidate-6-gate.json",
+  "source_identity_count": 553,
+  "runtime_test_lock_source_sha256": "0a421b73eedd3e9854ba5993f8b9348d349f472acc5af3607332aab14d663ddc",
+  "consequential_findings": "Addressed in the review log and passing checkpoint commits; no unresolved consequential finding from local review",
+  "independent_review": false,
+  "scope": "Approved quick contract; prepared AMBER retained; existing separate follow-up issues remain out of scope"
+}

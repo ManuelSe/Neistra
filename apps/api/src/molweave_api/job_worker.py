@@ -12,7 +12,7 @@ from contextlib import redirect_stderr, redirect_stdout
 from dataclasses import dataclass
 from multiprocessing.connection import Connection
 from pathlib import Path
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 from molweave_core.jobs import (
     InputArtifact,
@@ -20,12 +20,14 @@ from molweave_core.jobs import (
     PluginRegistry,
     ResultArtifact,
 )
-from sqlalchemy.orm import Session, sessionmaker
 
-from molweave_api.import_export import ArtifactService
-from molweave_api.job_service import JobService
-from molweave_api.models import Job
-from molweave_api.settings import Settings
+if TYPE_CHECKING:
+    from sqlalchemy.orm import Session, sessionmaker
+
+    from molweave_api.import_export import ArtifactService
+    from molweave_api.job_service import JobService
+    from molweave_api.models import Job
+    from molweave_api.settings import Settings
 
 
 @dataclass(frozen=True, slots=True)
@@ -256,10 +258,14 @@ class JobWorker:
         self.worker_id = worker_id
 
     def recover_abandoned(self) -> int:
+        from molweave_api.job_service import JobService
+
         with self.session_factory() as session:
             return JobService(session, self.settings, self.registry).recover_abandoned()
 
     def run_once(self) -> bool:
+        from molweave_api.job_service import JobService
+
         with self.session_factory() as session:
             service = JobService(session, self.settings, self.registry)
             job = service.claim_next(self.worker_id)
@@ -310,6 +316,8 @@ class JobWorker:
         return tuple(loaded)
 
     def _run_claimed(self, job: Job, child_inputs: tuple[ChildInput, ...]) -> None:
+        from molweave_api.job_service import JobService
+
         registered = self.registry.get(job.job_type)
         policy = registered.definition.resources
         work_directory = self.settings.data_dir / "work" / "jobs" / job.id
@@ -431,6 +439,8 @@ class JobWorker:
             shutil.rmtree(work_directory, ignore_errors=True)
 
     def _handle_message(self, job_id: str, message: tuple[Any, ...]) -> bool:
+        from molweave_api.job_service import JobService
+
         kind = message[0]
         with self.session_factory() as session:
             service = JobService(session, self.settings, self.registry)

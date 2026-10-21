@@ -1,5 +1,29 @@
 # V0.1 Requirement Evidence
 
+## Quick local minimization (issue #110) — C5 passes
+
+The [clean candidate](assets/quick-minimization/c5-candidate-6-gate.json) at
+`b0c8208189e7e1537e23a115bbe8a6726b5b31fa` passes all 20 commands: **1,148 Python,
+313 frontend, 8 supervisor, 298 browser / 60 documented layout/timing exclusions**.
+Zero failures, flakes, retries or Python/native scientific skips. All 553 source/
+test/lock identities and compressed log hashes verify. Frozen installs, fresh 0014,
+Ruff/mypy/lint/types/build/versions/diff and actual tagged 0.22.1 ↔ current reader
+qualification pass. Both directions retain four canonical/conformer/history/job/
+artifact/original/allocator/archive cases. No schema/dependency upgrade.
+
+Cold native AC small/pocket/18k Apply: 0.915/2.104/3.659s; feedback 9–54ms,
+first actual frame 690ms, Cancel 61ms, longest task 258ms. Supplied files pass
+real desktop/mobile Apply/Undo/Redo/reload. Actual zoom/themes/axe/focus, independent
+native forces/exclusions/scaling, fixed boundaries, raw protein states/caps, repair,
+stereo, guarded context, cancellation and historical AMBER gates pass unchanged.
+AC is online at every recorded step boundary; power settings were unchanged.
+Earlier version/harness/startup/battery diagnostics remain separately retained and
+are not release passes. [Full diff self-review](assets/quick-minimization/c5-review.md)
+records corrections and limitations; no independent review is claimed.
+
+All five versions are 0.23.0. C6 PR/normal merge, exact merged-master qualification,
+tag/release and final publication audit remain pending. See [guide](MINIMIZATION.md).
+
 ## Selection gestures (issue #90)
 
 **Released stable v0.22.0 in PR#105.** The following checkpoint history separates

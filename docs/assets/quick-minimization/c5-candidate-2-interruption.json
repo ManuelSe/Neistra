@@ -1,0 +1,6 @@
+{
+  "passed": false,
+  "reason": "Explicitly interrupted during Python qualification to correct settings-switch publication ownership race discovered by diff review. No remaining gate commands ran.",
+  "python_partial": "227 passed before interruption; no complete Python result",
+  "partial_log_sha256": "02fd0272ee9ed15f29f04341217275aa8334b656e2c853613ceeab13fa5f036f"
+}

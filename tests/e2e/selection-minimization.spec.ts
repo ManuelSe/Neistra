@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { configure, coordinateState, current, panel, prepared, select, structures } from "./support/minimization";
+import { configure, startAdvanced, coordinateState, current, panel, prepared, select, structures } from "./support/minimization";
 import { prepare } from "./support/interactions";
 
 for (const scenario of ["isolated", "isolated-whole", "same-entry", "separate", "pocket-ligand"]) test(`minimizes ${scenario} captured selections with disposable preview and atomic Undo/Redo`, async ({ page, request }, info) => {
@@ -18,10 +18,7 @@ for (const scenario of ["isolated", "isolated-whole", "same-entry", "separate", 
   await expect(actions.getByRole("button", { name: "Edit molecule", exact: true })).toBeVisible();
   const min = actions.getByRole("button", { name: "Minimize selection", exact: true });
   await expect(min).toHaveAttribute("aria-keyshortcuts", "Control+m");
-  if (specimen === "isolated") await page.keyboard.press("Control+m");
-  else {
-    await min.click();
-  }
+  await startAdvanced(page);
   const apply = panel(page).getByRole("button", { name: "Apply coordinates" });
   await expect(apply).toBeEnabled({ timeout: 60000 });
   expect(await structures(request, p)).toEqual(before);
@@ -54,7 +51,6 @@ test("inspects non-convergence and discards a native preview without a canonical
   const p = await prepared(page, request);
   const before = await structures(request, p);
   await select(page, p.entries[0].atom_ids.map(atom_id => ({ structure_id: p.entries[0].id, atom_id })), info.project.name === "mobile-chromium");
-  await page.getByRole("button", { name: "Minimize selection", exact: true }).click();
   await configure(page);
   await panel(page).getByRole("checkbox", { name: "Require convergence before acceptance" }).check();
   await panel(page).getByRole("spinbutton", { name: "Minimization iterations" }).fill("1");
@@ -73,7 +69,7 @@ test("cancels native parameter generation without editing coordinates and can in
   const p = await prepare(page, request, ["tests/fixtures/minimization/long-alkane.mol"], "Cancellation");
   const before = await structures(request, p);
   await select(page, [{ structure_id: p.entries[0].id, atom_id: 3 }], info.project.name === "mobile-chromium");
-  await page.keyboard.press("Control+m");
+  await startAdvanced(page);
   const cancel = panel(page).getByRole("button", { name: "Cancel calculation", exact: true });
   await expect(cancel).toBeVisible();
   await expect(panel(page).getByRole("status").filter({ hasText: "Preparing GAFF" })).toBeVisible({ timeout: 15000 });

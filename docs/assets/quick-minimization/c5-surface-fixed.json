@@ -1,0 +1,378 @@
+{
+  "config": {
+    "configFile": "/datadisk/dev/neistra/playwright.config.ts",
+    "rootDir": "/datadisk/dev/neistra/tests/e2e",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "list"
+      ],
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "/datadisk/dev/neistra/test-results",
+        "repeatEach": 2,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/datadisk/dev/neistra/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/datadisk/dev/neistra/test-results",
+        "repeatEach": 2,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "mobile-chromium",
+        "name": "mobile-chromium",
+        "testDir": "/datadisk/dev/neistra/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.55.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "surface-objects.spec.ts",
+      "file": "surface-objects.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "manages production object appearance and explicit sources independently through reload and undo",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 22773,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "steps": [
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 12
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 17
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 34
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 16
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 8
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 19
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 478
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 754
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 158
+                    }
+                  ],
+                  "startTime": "2026-10-21T13:18:17.633Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ddf5dd98d75f4a5becde-39d41b791ff9f674f83c",
+          "file": "surface-objects.spec.ts",
+          "line": 129,
+          "column": 5
+        },
+        {
+          "title": "manages production object appearance and explicit sources independently through reload and undo",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 24152,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "steps": [
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 15
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 11
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 19
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 13
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 13
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 11
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 68
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 751
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 159
+                    }
+                  ],
+                  "startTime": "2026-10-21T13:18:40.972Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ddf5dd98d75f4a5becde-63682116715b8ecb9cd1",
+          "file": "surface-objects.spec.ts",
+          "line": 129,
+          "column": 5
+        },
+        {
+          "title": "manages production object appearance and explicit sources independently through reload and undo",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile-chromium",
+              "projectName": "mobile-chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 21646,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "steps": [
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 14
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 20
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 18
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 13
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 6
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 14
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 280
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 515
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 144
+                    }
+                  ],
+                  "startTime": "2026-10-21T13:19:05.685Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ddf5dd98d75f4a5becde-198aac6dbbc2b77facdf",
+          "file": "surface-objects.spec.ts",
+          "line": 129,
+          "column": 5
+        },
+        {
+          "title": "manages production object appearance and explicit sources independently through reload and undo",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "mobile-chromium",
+              "projectName": "mobile-chromium",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 22667,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "steps": [
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 12
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 46
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 12
+                    },
+                    {
+                      "title": "Expect \"poll toEqual\"",
+                      "duration": 14
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 11
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 14
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 250
+                    },
+                    {
+                      "title": "Expect \"poll toBeGreaterThan\"",
+                      "duration": 804
+                    },
+                    {
+                      "title": "Expect \"poll toBe\"",
+                      "duration": 156
+                    }
+                  ],
+                  "startTime": "2026-10-21T13:19:27.904Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ddf5dd98d75f4a5becde-2e90907d6ebc7137ffc7",
+          "file": "surface-objects.spec.ts",
+          "line": 129,
+          "column": 5
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-21T13:18:12.225Z",
+    "duration": 98559.787,
+    "expected": 4,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

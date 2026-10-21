@@ -160,7 +160,7 @@ export function StructureViewer({
   useMinimizationShortcut(!!minimization && !minimizationUnavailable, () => {
     openMinimization(); void minimization?.quick();
   });
-  const interactionPaused = movementActive || Boolean(coordinatePreview) || Boolean(minimizationPreview.patches.length);
+  const interactionPaused = movementActive || Boolean(coordinatePreview) || Boolean(minimizationPreview.patches.length) || minimizationPreview.state.applying;
   const interactionInputs = project.entries.filter(entry => entry.visible && entry.current_artifact_id).map(entry => ({ entry_id: entry.id, artifact_id: entry.current_artifact_id! }));
   const interactions = useInteractions(project.id, interactionInputs, interactionPaused);
   const styleDialogOpen = styleProjectId === project.id;
@@ -680,7 +680,7 @@ export function StructureViewer({
             onOpen={() => { useMinimizationStore.getState().dismiss(); setStyleProjectId(null); setSurfaceProjectId(null); setInteractionProjectId(null); }}
             unavailable={coordinatePreview ? "Finish coordinate preview before editing chemistry." : null}
             onEdit={onEdit} onSettings={onUpdateSettings} /> : null}
-          {minimization ? <MinimizationPanel workflow={{ ...minimization, ...minimizationPreview, error: minimization.error ?? minimizationPreview.previewError }}
+          {minimization ? <MinimizationPanel workflow={{ ...minimization, ...minimizationPreview, error: minimizationPreview.error ?? minimizationPreview.previewError }}
             unavailable={minimizationUnavailable} onOpen={openMinimization} /> : null}
           </div>
         </div>

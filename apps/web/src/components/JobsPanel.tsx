@@ -155,7 +155,7 @@ export function JobsPanel({
                 </button>
               ) : null}
             </div>
-            {selected.job_type === "coordinates.minimize" && onInspectMinimization ? <button type="button" className="secondary-button" onClick={() => onInspectMinimization(selected.id)}>Inspect minimization</button> : null}
+            {["coordinates.minimize", "coordinates.quick_minimize"].includes(selected.job_type) && onInspectMinimization ? <button type="button" className="secondary-button" onClick={() => onInspectMinimization(selected.id)}>Inspect minimization</button> : null}
             <div
               className="job-detail-tabs"
               role="tablist"

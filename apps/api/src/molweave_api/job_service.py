@@ -76,9 +76,13 @@ class JobService:
         job_type: str,
         parameters: dict[str, Any],
         inputs: list[dict[str, str]],
-        *, minimization_capture: bool = False,
+        *,
+        minimization_capture: bool = False,
     ) -> Job:
-        if job_type == "coordinates.minimize" and not minimization_capture:
+        if (
+            job_type in {"coordinates.minimize", "coordinates.quick_minimize"}
+            and not minimization_capture
+        ):
             raise InvalidJobOperationError(
                 "Use the minimizations endpoint to capture selection, context and conformers"
             )

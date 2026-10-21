@@ -1358,6 +1358,24 @@ class ProjectService:
                     "patch": before_patch.model_dump(mode="json"),
                 },
             )
+            if "after_warnings" in change:
+                # Quick coordinate publication can append warnings to its new artifact.
+                # Existing generic actions keep summary Undo compatible with older readers.
+                forward.append(
+                    {
+                        "kind": "entry.update",
+                        "entry_id": entry.id,
+                        "values": {"warnings": deepcopy(change["after_warnings"])},
+                    }
+                )
+                inverse.insert(
+                    0,
+                    {
+                        "kind": "entry.update",
+                        "entry_id": entry.id,
+                        "values": {"warnings": deepcopy(change["before_warnings"])},
+                    },
+                )
             response_patches.append(after_patch)
         return self._record(
             project,

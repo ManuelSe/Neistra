@@ -5072,3 +5072,134 @@ not a new UI/store field or public interface. Native hover tests count subscribe
 callbacks and require zero additional publications while the pose stays exact.
 The interrupted first candidate remains diagnostic evidence, not release
 qualification. Rerun coherent focused and complete clean-candidate/master gates.
+
+## D-126 — Quick minimization is a distinct editing model
+
+Approved2026-10-21 by “Implement the plan”, issue#110; contract:
+`plans/issue-110-quick-minimization.md`. Use installed RDKit/SciPy and distinct
+quick-local-v1/coordinates.quick_minimize for bounded local protein/pocket work.
+Preserve canonical chemistry, originals, fixed/inactive rows and every existing
+AMBER scientific/API/report contract. Missing legacy identity evidence alone does
+not veto quick coordinate cleanup; known protection facts remain unchanged.
+
+For quick work only, supersede D-108–119 default prerequisites/context/publication:
+visible entries define automatic participation, attached terminal H expands the
+mask by default with an exact-mask option, temporary conventional protein states
+are reported, and usable output publishes as one Undo/Redo command from its owning
+client session. Advanced AMBER retains prior accepted requirements/explicit Apply.
+
+Use capped local fragments/native MMFF94 polar and steric forces. UFF/native
+geometric restraints may provide explicitly approximate repair; report missing
+coverage and preserve unsupported fixed sites as obstacles. Caps/finite shells
+are declared model approximations, not AMBER equivalence. No engine framework,
+persistent parameter cache or DB migration. Scientific/publication/performance
+claims require the approved independent tests and real-workflow release gates.
+
+## D-127 — Quick pocket closure and native solver stops
+
+Issue#110 uses complete observed standard residues within the6Å discovery shell
+plus2Å skin, three-bond mover closure and fixed observed-position ACE/NME caps.
+Recheck/extend membership between bounded native segments and rediscover around
+the final proposal at Apply, including previously distant participating entries.
+Compare original/candidate under exactly the final native model. Fixed-only force
+field terms remain native constants; they do not move canonical site atoms.
+
+RDKit sequence ILE connects CD1 to CG2 in the installed build; correct that disposable
+named template to the standard CG1-CD1 bond, with a real pocket qualification.
+Protein defaults never complete heavy atoms. Respect observed H before neutral-HIS
+assumptions. Relative objective tolerance can stop before maximum force convergence;
+return a warned useful improvement, and restart only when a segment bound requires
+neighborhood reassessment. Never label that stop force-converged.
+
+## D-128 — Temporary interpretation and explicit repair coverage
+
+Issue#110 interprets each connected local component independently. Bounded RDKit
+bond-order perception may fill unknown facts on unchanged connectivity, with a
+reported neutral net-charge attempt and rejection of conflicting assigned facts.
+Source elements, isotope/radical evidence and canonical graph/charges remain untouched.
+Copies of the three supplied debug files are committed as regression inputs.
+
+When native parameterization fails, retain the observed unsanitized graph in a native
+empty field with declared geometric/steric constraints. Keep supported components in
+a mapped native field, add unsupported fixed obstacles, and disclose omitted polar/
+coordination terms. Repair energies are penalty units. Rebuild steric candidates using
+current positions while geometry targets stay original; changing those targets between
+segments would invalidate objective comparison. Only coincident movable repair sites
+receive small deterministic starting offsets; published fixed rows remain exact.
+
+## D-129 — App owns quick publication; viewer remounts do not own the session
+
+Issue#110 uses independent typed quick frontend requests/reports while retaining the
+AMBER APIs. Ctrl+M/lightning submits quick work immediately; an explicit settings
+launcher permits context/mask/repair choices and Advanced AMBER without starting work.
+Only the owning App command session arms automatic Apply. Disarm synchronously before
+Cancel/close/Apply; inspection/reload never rearm. The existing writer/revision/digest
+checks remain authoritative and publication creates one Undo/Redo command.
+
+Native responsive tests found that viewer cleanup could dismiss a new session during
+a remount. The App command hook now owns disposal/cancellation, while the viewer owns
+only transient rendering. Store the initiating launcher kind so Escape restores the
+correct live control even when its prior DOM node was replaced. Native tests cover
+both profiles at320px in both themes. No worker-side or reload publication is added.
+
+## D-130 — Fast context validation and render-local quick presentation
+
+Issue#110 retains all participating immutable source snapshots, but chemically templates
+only spatially relevant entries. Before guarded extension, newly relevant entries get
+full template/closure checks; distant sources are never silently truncated or discarded.
+The worker proves final6Å discovery under its final model. An eligible report records
+that proof. At publication exact source identities preserve it; changed formerly distant
+entries receive fresh final-position spatial discovery and refuse if newly relevant.
+Changed modeled sources always refuse. This is an immutable per-job proof, not a
+persistent parameter cache or weaker context criterion. Native fields retain all local
+nonbonded pairs, including between fragments; generic repair keeps bounded refreshed
+steric lists and original geometric targets.
+
+Preflight18k timing found excess App rerenders and topology-driven scene rebuilding.
+Quick commands now read current ownership at invocation; settings/job/frame presentation
+subscribes only inside the viewer. Initial empty-frame transport polls100ms until the
+first real snapshot, then200ms. Worker output/rendering stays at most5Hz/latest-only.
+No fake frames or relaxed timing limits. Shared geometric acceptance checks avoid importing
+prepared-engine modules into quick calculations.
+
+## D-131 — Coordinate publication preserves warnings through existing history actions
+
+Quick Apply uses the existing atomic coordinate batch, not topology patches. Append
+artifact provenance/warnings and update entry warning summaries with existing generic
+`entry.update` actions in the same command. Old readers already understand both action
+kinds. Undo/Redo restores exact artifacts and warning arrays; allocators/topology stay
+unchanged. Keep geometry-dependent overlays paused throughout publication. No new DB,
+structural or history action schema is needed. Native artifacts retain temporary atom/
+bond states, original/candidate/helper coordinates, mappings, modes, assumptions and
+versions so reported objectives can be inspected independently.
+
+## D-132 — Version0.23.0 is an additive minor capability
+
+Issue#110 adds independent quick job/HTTP contracts and changes the default interactive
+behavior, so0.23.0 is a minor release. Existing prepared AMBER requests/reports remain
+unchanged. The actual tagged0.22.1 reader retains new generic data/history/jobs/archives
+in preflight; complete candidate and exact-master gates must still pass before delivery.
+No dependency upgrade, canonical chemical rewrite or schema migration is included.
+
+## D-133 — Coordinate cache seeding refreshes complete immutable artifacts
+
+Immediate coordinate patches also update the active conformer's coordinate rows,
+preserving inactive conformers. Seeded query data is invalidated so a mounted reader
+refreshes the full immutable artifact, including provenance and warnings. This shared
+path covers Apply, Undo and Redo after reload without a quick-specific cache protocol.
+Canonical server artifacts remain authoritative; the patch only supplies immediate
+geometry while the complete projection is retrieved. Typed conformer rows mirror the
+existing molecular schema. Two regression cases preserve the prior cached artifact.
+
+## D-134 — Spawn bootstrap defers coordinator-only API imports
+
+Candidate timing exposed a1038ms first live frame against the unchanged1000ms limit.
+The first accepted native step was published853ms after input. Import profiling found
+that spawned children rebuilt API schemas, SQLAlchemy and unrelated prepared chemistry
+while importing the coordinator module (about670ms). Keep coordinator-only imports
+inside parent methods/main, with type-only imports underTYPE_CHECKING. The child
+entry point, input class/pickle identity, fresh process per job, IPC, resource limits,
+process-group cancellation and supervision algorithms remain unchanged. No warm pool,
+parameter cache or new job framework is introduced. A fresh-interpreter regression
+checks the bootstrap dependency boundary. Combined bootstrap/calculation imports fall
+from about733ms to443ms locally; native/full qualification remains authoritative.
