@@ -3,13 +3,17 @@
 ## Current milestone
 
 Issue [#110](https://github.com/ManuelSe/Neistra/issues/110), quick local minimization,
-is approved on `feat/issue-110-quick-minimization` under its
-[contract](plans/issue-110-quick-minimization.md), D-126. C0 records confirmed
-automatic publication, visible-entry surroundings, attached-H expansion, temporary
-protein defaults and warned repair while retaining Advanced AMBER. Tracking issue
-and local branch exist; only the issue is remotely verified so far. No implementation
-or scientific qualification is claimed. No external blocker. Next: C1 isolated/partial
-real quick jobs, typed API and coordinate-only publication.
+is in progress on the remotely verified `feat/issue-110-quick-minimization` branch
+under its [approved contract](plans/issue-110-quick-minimization.md), D-126.
+C1 adds a separate RDKit/SciPy quick job, typed capture/proposal/live/apply APIs,
+and validated coordinate-only Undo/Redo publication. Automatic client publication
+and pocket/repair chemistry are pending; no end-to-end product completion claimed.
+
+Verification: Ruff and mypy pass; six new real quick unit/API tests pass without
+AmberTools; four existing native live tests pass with the configured locked toolchain.
+First run without that environment skipped those four historical tests; the configured
+rerun passed all four. Current limits: C1 supports assigned isolated organic components.
+No external blocker. Next: C2 pocket discovery, protein templates/caps and guarded context.
 
 ### Previous delivery baseline — v0.22.1
 

@@ -167,3 +167,12 @@ post final issue scope/validation/follow-up with real links,close only when crit
 Verified local/remote master15b88c6 and untracked user debug inputs. Connector write403;
 authenticated GitHub CLI created/verified issue110. Dedicated local feature branch created.
 Approved contract and decisions recorded. Implementation/qualification pending.
+
+### C1 — 2026-10-21
+
+Separate native quick job and server-owned typed capture/proposal/live/apply path.
+Partial/attached-H/exact masks, cancellation, stale revision, immutable originals,
+coordinate-only atomic publication and exact Undo/Redo are exercised by six passing
+new tests without AmberTools. Ruff/mypy pass; four pre-existing native live scientific
+tests pass with configured AmberTools. C1 intentionally awaits C2/C3 context/repair
+and C4 client publication. No full feature claim.

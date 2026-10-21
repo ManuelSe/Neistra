@@ -21,12 +21,13 @@ from molweave_core.minimization.contracts import (
     CoordinateProposal,
     MinimizationParameters,
 )
+from molweave_core.minimization.quick_contracts import QuickParameters
 
 SNAPSHOT_NAME = "minimization-live.json"
 SNAPSHOT_LIMIT = 1024**2
 
 
-def capture_digest(parameters: MinimizationParameters) -> str:
+def capture_digest(parameters: MinimizationParameters | QuickParameters) -> str:
     return hashlib.sha256(
         json.dumps(
             parameters.model_dump(mode="json"),
@@ -68,7 +69,9 @@ class PrivateSnapshot(OptimizationFrame):
     coordinator: ProcessIdentity
 
 
-def validate_frame(parameters: MinimizationParameters, frame: OptimizationFrame) -> None:
+def validate_frame(
+    parameters: MinimizationParameters | QuickParameters, frame: OptimizationFrame
+) -> None:
     if frame.iteration > parameters.max_iterations:
         raise ValueError("Snapshot iteration exceeds the captured limit")
     selected: dict[str, list[int]] = defaultdict(list)
@@ -89,7 +92,7 @@ def validate_frame(parameters: MinimizationParameters, frame: OptimizationFrame)
 class SnapshotPublisher:
     def __init__(
         self,
-        parameters: MinimizationParameters,
+        parameters: MinimizationParameters | QuickParameters,
         context: JobContext,
         clock: Callable[[], float] = time.monotonic,
     ):
@@ -168,7 +171,9 @@ class SnapshotPublisher:
         self.last_published = now
 
 
-def read_snapshot(directory: Path, parameters: MinimizationParameters) -> OptimizationFrame | None:
+def read_snapshot(
+    directory: Path, parameters: MinimizationParameters | QuickParameters
+) -> OptimizationFrame | None:
     path = directory / SNAPSHOT_NAME
     if not path.exists():
         return None
