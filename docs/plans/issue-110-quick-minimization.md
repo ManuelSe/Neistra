@@ -480,3 +480,14 @@ exact fixed rows; independent replay artifact audit finds nine selected unsatura
 rings with maximum plane deviation0.0015Å. Retain only aggregate private evidence.
 Freeze this checkpoint, update the data-preserving local preview and start all20
 candidate10 commands. Candidate9 remains an interrupted diagnostic, not a pass.
+
+### Corrected C5 complete — candidate10
+
+Clean checkpoint0d3657056d99695440ad750fa8bddc71d6adcf3d passes all20 commands:
+1166 Python/313 frontend/8 supervisor/298 browser,60 documented exclusions, zero
+failures/flakes/retries/Python skips. Both actual tagged0.22.1/current reader
+directions retain four cases.553 source identities equal and log hashes verify.
+Native cold small/pocket/18k0.889/2.466/3.470s, first frame686ms,Cancel52ms; all limits
+unchanged. All231 power samples show AC online, existing profile unchanged. Review
+the complete corrective diff, commit evidence only, open the corrective PR and merge
+normally after review/check verification. C6 exact-master gate and release remain.

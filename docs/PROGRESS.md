@@ -2,35 +2,32 @@
 
 ## Current milestone
 
-Issue [#110](https://github.com/ManuelSe/Neistra/issues/110) quick minimization is
-**not release-qualified**. PR#111 is merged but local user testing exposes serious
-bound-ligand distortion in approximate repair. Publication is on hold; no0.23.0
-tag/release exists. The [approved contract](plans/issue-110-quick-minimization.md)
-remains the goal. Isolated MMFF94 cleanup and prior full candidate checks passed,
-but do not establish correct behavior for the failing pocket model.
+Issue [#110](https://github.com/ManuelSe/Neistra/issues/110) quick minimization has a
+**fully qualified corrected candidate** at0d3657056d99695440ad750fa8bddc71d6adcf3d.
+[Candidate10](assets/quick-minimization/c5-candidate-10-gate.json) passes all20 commands:
+**1166 Python,313 frontend,8 supervisor,298 browser/60 documented exclusions**,
+zero failures/flakes/retries/Python skips. Both actual tagged0.22.1/current reader
+directions retain four data/history/job/artifact/archive cases. All553 source/test/
+lock identities and log hashes verify, hash3d3c45deb2639004c758c768be3504606cc8ff37f9c940ab07772e956db200a8.
+Cold small/pocket/18k native Apply0.889/2.466/3.470s, first frame686ms, Cancel52ms;
+limits unchanged. All231 power samples show AC online; existing profile unchanged.
 
-Read-only history/model replay identifies reversed0/180°repair torsion targets,
-degree-based angular penalties overwhelming bond lengths, fixed-only energy affecting
-relative stopping and no bonded-geometry acceptance guard. Unsupported coordination
-also contaminates the whole connected component's coverage. Fixed protein coordinates,
-canonical chemistry and original uploads remain intact; user data was not edited.
-Private artifacts/history stay outside git. D-136–139 corrections pass56 focused
-Python,313 frontend and static/build checks in an isolated checkout. All13 private
-captures replay to usable geometry with exact fixed rows in0.31–0.58s (one converged,
-twelve limited improvements). Current saved geometry also passes in0.62s, with the
-declared unsaturated ring nearly planar. Broad bond eligibility alone was insufficient;
-D-139 additionally corrects inconsistent ring substituent targets and requires planar
-validation proof. Older intermediate proposals require rerun. Unsupported coordination
-remains approximate, and saturated rings retain their puckered conformations.
+D-135–139 and the [investigation](assets/quick-minimization/c6-pocket-investigation.md)
+record the reproduced collapsed bond, wrong torsion/unit scaling, fixed-only energy
+and inconsistent folded-ring targets. Quick engine1.0.2 corrects them and requires
+independent bonded/planar proof; older quick proposals need rerun. Fixed-environment
+geometry settling remains a warned improvement unless independent force convergence
+is reached. Saturated rings retain puckering; partial masks never broaden themselves.
+All13 private replays pass geometry checks with exact fixed rows (one converged/twelve
+limited improvements); raw project data stays private. The local preview runs the
+final correction, with managed data, debug originals and environment preserved.
+Unsupported connected coordination remains approximate without native electrostatics
+for that group; no qualified metal/binding-pose claim is made. Prepared AMBER is unchanged.
 
-The first corrected native repeat passes26 cases/10 documented exclusions with zero
-failures/flakes/retries, but precedes D-139. Candidate9 passes1162 Python/313 frontend/
-8 supervisor/static/build, then is explicitly interrupted for the independent ring
-finding:35 browser passes/1 interrupted/2 exclusions reached/320 not run. Final D-139 native repeat passes26 cases/10 exclusions, no failures/flakes/retries.
-Complete candidate10/exact-master gates remain. Earlier gates remain
-separate diagnostics for their exact sources. All five versions remain0.23.0,
-unpublished, with no dependency/schema migration. The passing final correction is ready for the local preview; restart with its
-existing environment while verifying managed data and debug originals remain exact.
+All five versions remain0.23.0, with no dependency/schema migration. Earlier failed/
+interrupted gates remain diagnostic for their exact sources. C5 is complete; C6
+corrective PR/normal merge, exact-master gate, annotated tag, release/public artifact
+verification and issue close-out remain. No0.23.0 tag/release is yet published.
 
 ### Previous delivery baseline — v0.22.1
 

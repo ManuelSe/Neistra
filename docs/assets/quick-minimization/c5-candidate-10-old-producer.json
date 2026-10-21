@@ -1,0 +1,8 @@
+{
+  "producer": "0.22.1",
+  "cases": 4,
+  "all_conformers_and_multi_entry": true,
+  "api_module": "/tmp/neistra-110-reader-0221/apps/api/src/molweave_api/main.py",
+  "core_module": "/tmp/neistra-110-reader-0221/packages/molweave_core/src/molweave_core/__init__.py",
+  "application_version": "0.22.1"
+}

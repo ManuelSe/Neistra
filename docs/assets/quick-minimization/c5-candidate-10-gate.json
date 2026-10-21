@@ -1,0 +1,666 @@
+{
+  "power_at_start": {
+    "ac_online": "1",
+    "battery_status": "Full",
+    "governor": "powersave",
+    "energy_preference": "balance_performance",
+    "profile": "power-saver"
+  },
+  "commit": "0d3657056d99695440ad750fa8bddc71d6adcf3d",
+  "phase": "candidate",
+  "attempt": 10,
+  "clean_tracked_at_start": true,
+  "preserved_untracked_debug": {},
+  "boot_id": "4cc00cb6-d793-4e01-a99d-2f67e8c27d5b",
+  "host": "tuxedo-os",
+  "platform": "Linux-6.17.0-119029-tuxedo-x86_64-with-glibc2.39",
+  "qualifier_sha256": "d6cfd752aada6a72ec751121e60db60c0385e01850056ea719f2c4d60eea13b6",
+  "environment": {
+    "MOLWEAVE_DATA_DIR": "/tmp/neistra-110-candidate-10/default-data",
+    "MOLWEAVE_MINIMIZATION_MAX_RSS_BYTES": "4294967296",
+    "MOLWEAVE_JOB_PLUGIN_ALLOWLIST": "molweave.demo,molweave.minimization",
+    "MOLWEAVE_JOB_PLUGIN_TARGETS": "molweave_demo_plugin.plugin:plugin,molweave_core.minimization.plugin:plugin",
+    "MOLWEAVE_AMBERTOOLS_PREFIX": "/datadisk/dev/.neistra-tools/ambertools-24.8",
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "PLAYWRIGHT_BROWSERS_PATH": ".playwright",
+    "MOLWEAVE_E2E_DATA_DIR": "/tmp/neistra-110-candidate-10/browser-data",
+    "MOLWEAVE_E2E_API_PORT": "12110",
+    "MOLWEAVE_E2E_WORKER_PORT": "12111",
+    "MOLWEAVE_E2E_WEB_PORT": "12173",
+    "MOLWEAVE_MINIMIZATION_EVIDENCE_DIR": "/tmp/neistra-110-candidate-10/native",
+    "PLAYWRIGHT_JSON_OUTPUT_NAME": "/tmp/neistra-110-candidate-10/browser.json"
+  },
+  "steps": [
+    {
+      "label": "uv",
+      "command": [
+        "/datadisk/dev/neistra-issue-110-pocket-repair/.venv/bin/uv",
+        "sync",
+        "--frozen"
+      ],
+      "environment_overrides": {},
+      "power_before": {
+        "ac_online": "1",
+        "battery_status": "Full",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "power_after": {
+        "ac_online": "1",
+        "battery_status": "Full",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "exit_code": 0,
+      "qualification_error": null,
+      "seconds": 0.114,
+      "log": "docs/assets/quick-minimization/c5-candidate-10-uv.log.gz",
+      "log_sha256": "b7fb6fd78ce88558092b3c6d88f4a209fb05b9c1db88be72072a56a9cd9ca518"
+    },
+    {
+      "label": "pnpm",
+      "command": [
+        "corepack",
+        "pnpm",
+        "install",
+        "--frozen-lockfile"
+      ],
+      "environment_overrides": {},
+      "power_before": {
+        "ac_online": "1",
+        "battery_status": "Full",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "power_after": {
+        "ac_online": "1",
+        "battery_status": "Full",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "exit_code": 0,
+      "qualification_error": null,
+      "seconds": 0.704,
+      "log": "docs/assets/quick-minimization/c5-candidate-10-pnpm.log.gz",
+      "log_sha256": "a95b94061848b71bb82938d7467623661103a59d0648af1f7f775d51279fbbfc"
+    },
+    {
+      "label": "migration",
+      "command": [
+        "/datadisk/dev/neistra-issue-110-pocket-repair/.venv/bin/uv",
+        "run",
+        "alembic",
+        "upgrade",
+        "head"
+      ],
+      "environment_overrides": {
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra-110-candidate-10/migration-data"
+      },
+      "power_before": {
+        "ac_online": "1",
+        "battery_status": "Full",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "power_after": {
+        "ac_online": "1",
+        "battery_status": "Full",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "exit_code": 0,
+      "qualification_error": null,
+      "seconds": 1.056,
+      "log": "docs/assets/quick-minimization/c5-candidate-10-migration.log.gz",
+      "log_sha256": "a65aaba1d288361248cfad53dee993528aa5c4bbd5accca186ae60e26f85c610"
+    },
+    {
+      "label": "ruff",
+      "command": [
+        "/datadisk/dev/neistra-issue-110-pocket-repair/.venv/bin/uv",
+        "run",
+        "ruff",
+        "check",
+        "."
+      ],
+      "environment_overrides": {},
+      "power_before": {
+        "ac_online": "1",
+        "battery_status": "Full",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "power_after": {
+        "ac_online": "1",
+        "battery_status": "Full",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "exit_code": 0,
+      "qualification_error": null,
+      "seconds": 0.121,
+      "log": "docs/assets/quick-minimization/c5-candidate-10-ruff.log.gz",
+      "log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "label": "mypy",
+      "command": [
+        "/datadisk/dev/neistra-issue-110-pocket-repair/.venv/bin/uv",
+        "run",
+        "mypy",
+        "apps/api",
+        "packages/molweave_core"
+      ],
+      "environment_overrides": {},
+      "power_before": {
+        "ac_online": "1",
+        "battery_status": "Full",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "power_after": {
+        "ac_online": "1",
+        "battery_status": "Full",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "exit_code": 0,
+      "qualification_error": null,
+      "seconds": 0.267,
+      "log": "docs/assets/quick-minimization/c5-candidate-10-mypy.log.gz",
+      "log_sha256": "48f1ab828deeaeb4ed5982160783dfab96668aba5c46a5a094b6745cbc02a8f2"
+    },
+    {
+      "label": "python",
+      "command": [
+        "/datadisk/dev/neistra-issue-110-pocket-repair/.venv/bin/uv",
+        "run",
+        "pytest"
+      ],
+      "environment_overrides": {},
+      "power_before": {
+        "ac_online": "1",
+        "battery_status": "Full",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "power_after": {
+        "ac_online": "1",
+        "battery_status": "Full",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "exit_code": 0,
+      "qualification_error": null,
+      "seconds": 309.453,
+      "log": "docs/assets/quick-minimization/c5-candidate-10-python.log.gz",
+      "log_sha256": "ec423cfd18fd011066cefd6b2fb9bf7118e11042deae88dbfb9ee379bf9a83aa"
+    },
+    {
+      "label": "lint",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "lint"
+      ],
+      "environment_overrides": {},
+      "power_before": {
+        "ac_online": "1",
+        "battery_status": "Full",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "power_after": {
+        "ac_online": "1",
+        "battery_status": "Full",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "exit_code": 0,
+      "qualification_error": null,
+      "seconds": 10.112,
+      "log": "docs/assets/quick-minimization/c5-candidate-10-lint.log.gz",
+      "log_sha256": "df83f947b66b796e8cbeaa02ffd42bc78ecd320cbae84f132f4a695e70a83c06"
+    },
+    {
+      "label": "types",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "typecheck"
+      ],
+      "environment_overrides": {},
+      "power_before": {
+        "ac_online": "1",
+        "battery_status": "Full",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "power_after": {
+        "ac_online": "1",
+        "battery_status": "Full",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "exit_code": 0,
+      "qualification_error": null,
+      "seconds": 5.14,
+      "log": "docs/assets/quick-minimization/c5-candidate-10-types.log.gz",
+      "log_sha256": "685f6d7539e9ddd775f2f05743c2a9756545ac785529faa9b1426b5ffa9223af"
+    },
+    {
+      "label": "web-tests",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "test"
+      ],
+      "environment_overrides": {},
+      "power_before": {
+        "ac_online": "1",
+        "battery_status": "Full",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "power_after": {
+        "ac_online": "1",
+        "battery_status": "Full",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "exit_code": 0,
+      "qualification_error": null,
+      "seconds": 10.494,
+      "log": "docs/assets/quick-minimization/c5-candidate-10-web-tests.log.gz",
+      "log_sha256": "239ae50284fc70e588264c622e20905b070433a7070cc3f27aa035ac62735bdf"
+    },
+    {
+      "label": "supervisor",
+      "command": [
+        "corepack",
+        "pnpm",
+        "test:dev"
+      ],
+      "environment_overrides": {},
+      "power_before": {
+        "ac_online": "1",
+        "battery_status": "Full",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "power_after": {
+        "ac_online": "1",
+        "battery_status": "Full",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "exit_code": 0,
+      "qualification_error": null,
+      "seconds": 1.479,
+      "log": "docs/assets/quick-minimization/c5-candidate-10-supervisor.log.gz",
+      "log_sha256": "dc6147720a0750db520d3aefb03bf17e9be183566c9b3695d7d4e00c9a77676c"
+    },
+    {
+      "label": "build",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "build"
+      ],
+      "environment_overrides": {},
+      "power_before": {
+        "ac_online": "1",
+        "battery_status": "Full",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "power_after": {
+        "ac_online": "1",
+        "battery_status": "Full",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "exit_code": 0,
+      "qualification_error": null,
+      "seconds": 12.888,
+      "log": "docs/assets/quick-minimization/c5-candidate-10-build.log.gz",
+      "log_sha256": "96f5802c12ef67c9c4e2bbb8982f2579f40f4d0447ec8eb6c790adbaa212eb41"
+    },
+    {
+      "label": "browser",
+      "command": [
+        "corepack",
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "--reporter=list,json"
+      ],
+      "environment_overrides": {},
+      "power_before": {
+        "ac_online": "1",
+        "battery_status": "Full",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "power_after": {
+        "ac_online": "1",
+        "battery_status": "Full",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "exit_code": 0,
+      "qualification_error": null,
+      "seconds": 3083.643,
+      "log": "docs/assets/quick-minimization/c5-candidate-10-browser.log.gz",
+      "log_sha256": "a299290c8dbe3d2b9e02af650f2e7cbfef98deb64ea4e30d4f68a5e9a92408de"
+    },
+    {
+      "label": "forward-migration",
+      "command": [
+        "/datadisk/dev/neistra-issue-110-pocket-repair/.venv/bin/uv",
+        "run",
+        "alembic",
+        "upgrade",
+        "head"
+      ],
+      "environment_overrides": {
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra-110-candidate-10/forward"
+      },
+      "power_before": {
+        "ac_online": "1",
+        "battery_status": "Full",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "power_after": {
+        "ac_online": "1",
+        "battery_status": "Full",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "exit_code": 0,
+      "qualification_error": null,
+      "seconds": 1.048,
+      "log": "docs/assets/quick-minimization/c5-candidate-10-forward-migration.log.gz",
+      "log_sha256": "a65aaba1d288361248cfad53dee993528aa5c4bbd5accca186ae60e26f85c610"
+    },
+    {
+      "label": "quick-producer",
+      "command": [
+        "/datadisk/dev/neistra-issue-110-pocket-repair/.venv/bin/python",
+        "-m",
+        "tests.support.quick_minimization_reader_qualification",
+        "produce",
+        "--data-dir",
+        "/tmp/neistra-110-candidate-10/forward",
+        "--evidence",
+        "/tmp/neistra-110-candidate-10/quick-producer.json"
+      ],
+      "environment_overrides": {
+        "PYTHONPATH": "/datadisk/dev/neistra-issue-110-pocket-repair/apps/api/src:/datadisk/dev/neistra-issue-110-pocket-repair/packages/molweave_core/src:/datadisk/dev/neistra-issue-110-pocket-repair/packages/molweave_demo_plugin/src"
+      },
+      "power_before": {
+        "ac_online": "1",
+        "battery_status": "Full",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "power_after": {
+        "ac_online": "1",
+        "battery_status": "Full",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "exit_code": 0,
+      "qualification_error": null,
+      "seconds": 6.456,
+      "log": "docs/assets/quick-minimization/c5-candidate-10-quick-producer.log.gz",
+      "log_sha256": "0134b9f655363c6ef846db4026dedfef1c0cdea4228a4712710eb3730b3160b9"
+    },
+    {
+      "label": "old-reader",
+      "command": [
+        "/datadisk/dev/neistra-issue-110-pocket-repair/.venv/bin/python",
+        "-m",
+        "tests.support.quick_minimization_reader_qualification",
+        "read",
+        "--data-dir",
+        "/tmp/neistra-110-candidate-10/forward",
+        "--reader-root",
+        "/tmp/neistra-110-reader-0221",
+        "--expected-reader",
+        "0.22.1",
+        "--evidence",
+        "/tmp/neistra-110-candidate-10/old-reader.json"
+      ],
+      "environment_overrides": {
+        "PYTHONPATH": "/tmp/neistra-110-reader-0221/apps/api/src:/tmp/neistra-110-reader-0221/packages/molweave_core/src:/tmp/neistra-110-reader-0221/packages/molweave_demo_plugin/src"
+      },
+      "power_before": {
+        "ac_online": "1",
+        "battery_status": "Full",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "power_after": {
+        "ac_online": "1",
+        "battery_status": "Full",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "exit_code": 0,
+      "qualification_error": null,
+      "seconds": 2.035,
+      "log": "docs/assets/quick-minimization/c5-candidate-10-old-reader.log.gz",
+      "log_sha256": "bc3a7c6ec7e73d572e427218e031fa0c1dd1607b548687305718e7df1fed7994"
+    },
+    {
+      "label": "reverse-migration",
+      "command": [
+        "/datadisk/dev/neistra-issue-110-pocket-repair/.venv/bin/uv",
+        "run",
+        "alembic",
+        "upgrade",
+        "head"
+      ],
+      "environment_overrides": {
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra-110-candidate-10/reverse"
+      },
+      "power_before": {
+        "ac_online": "1",
+        "battery_status": "Full",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "power_after": {
+        "ac_online": "1",
+        "battery_status": "Full",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "exit_code": 0,
+      "qualification_error": null,
+      "seconds": 1.063,
+      "log": "docs/assets/quick-minimization/c5-candidate-10-reverse-migration.log.gz",
+      "log_sha256": "a65aaba1d288361248cfad53dee993528aa5c4bbd5accca186ae60e26f85c610"
+    },
+    {
+      "label": "old-producer",
+      "command": [
+        "/datadisk/dev/neistra-issue-110-pocket-repair/.venv/bin/python",
+        "-m",
+        "tests.support.minimization_reader_qualification",
+        "produce",
+        "--data-dir",
+        "/tmp/neistra-110-candidate-10/reverse",
+        "--evidence",
+        "/tmp/neistra-110-candidate-10/old-producer.json"
+      ],
+      "environment_overrides": {
+        "PYTHONPATH": "/tmp/neistra-110-reader-0221/apps/api/src:/tmp/neistra-110-reader-0221/packages/molweave_core/src:/tmp/neistra-110-reader-0221/packages/molweave_demo_plugin/src"
+      },
+      "power_before": {
+        "ac_online": "1",
+        "battery_status": "Full",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "power_after": {
+        "ac_online": "1",
+        "battery_status": "Full",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "exit_code": 0,
+      "qualification_error": null,
+      "seconds": 7.239,
+      "log": "docs/assets/quick-minimization/c5-candidate-10-old-producer.log.gz",
+      "log_sha256": "b771eb612fb83b6dbf4d1404035d6bb2c7cb59ce6a1a06dc541d265f4426ceb7"
+    },
+    {
+      "label": "current-reader",
+      "command": [
+        "/datadisk/dev/neistra-issue-110-pocket-repair/.venv/bin/python",
+        "-m",
+        "tests.support.minimization_reader_qualification",
+        "read",
+        "--data-dir",
+        "/tmp/neistra-110-candidate-10/reverse",
+        "--reader-root",
+        "/datadisk/dev/neistra-issue-110-pocket-repair",
+        "--expected-reader",
+        "0.23.0",
+        "--evidence",
+        "/tmp/neistra-110-candidate-10/current-reader.json"
+      ],
+      "environment_overrides": {
+        "PYTHONPATH": "/datadisk/dev/neistra-issue-110-pocket-repair/apps/api/src:/datadisk/dev/neistra-issue-110-pocket-repair/packages/molweave_core/src:/datadisk/dev/neistra-issue-110-pocket-repair/packages/molweave_demo_plugin/src"
+      },
+      "power_before": {
+        "ac_online": "1",
+        "battery_status": "Full",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "power_after": {
+        "ac_online": "1",
+        "battery_status": "Full",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "exit_code": 0,
+      "qualification_error": null,
+      "seconds": 2.138,
+      "log": "docs/assets/quick-minimization/c5-candidate-10-current-reader.log.gz",
+      "log_sha256": "587ee06f872347c97609daef0c3adf29c8f3bffecf1fa01aacf5c47d885ba49d"
+    },
+    {
+      "label": "versions",
+      "command": [
+        "/datadisk/dev/neistra-issue-110-pocket-repair/.venv/bin/python",
+        "/tmp/neistra-110-versions.py"
+      ],
+      "environment_overrides": {},
+      "power_before": {
+        "ac_online": "1",
+        "battery_status": "Full",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "power_after": {
+        "ac_online": "1",
+        "battery_status": "Full",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "exit_code": 0,
+      "qualification_error": null,
+      "seconds": 0.145,
+      "log": "docs/assets/quick-minimization/c5-candidate-10-versions.log.gz",
+      "log_sha256": "fbbef93399dc1889de528af7093dcd5fb227d61b85775a8e6de6724f8d19e05e"
+    },
+    {
+      "label": "diff",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "environment_overrides": {},
+      "power_before": {
+        "ac_online": "1",
+        "battery_status": "Full",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "power_after": {
+        "ac_online": "1",
+        "battery_status": "Full",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "exit_code": 0,
+      "qualification_error": null,
+      "seconds": 0.09,
+      "log": "docs/assets/quick-minimization/c5-candidate-10-diff.log.gz",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "source_unchanged": true,
+  "passed": true,
+  "power_observations": {
+    "log": "docs/assets/quick-minimization/c5-candidate-10-power.jsonl.gz",
+    "raw_sha256": "cf428fb7a666997beec7541c1f95b0dcd5cd690c69c8a555558437d37fd7ee23",
+    "interval_seconds": 15
+  }
+}

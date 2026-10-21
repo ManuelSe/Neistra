@@ -248,3 +248,14 @@ forces older intermediate results to rerun. Quick engine1.0.2 distinguishes the 
 correction; no canonical chemistry or fixed row is changed.56 focused cases pass;
 complete fresh candidate/exact-master qualification remains mandatory. Candidate9
 was explicitly interrupted rather than completing a known-inadequate source gate.
+
+### Final corrected candidate10
+
+All20 commands pass at0d3657056d99695440ad750fa8bddc71d6adcf3d:1166 Python,313
+frontend,8 supervisor,298 browser/60 documented exclusions, no failures/flakes/retries/
+Python skips. Both actual reader directions pass four cases;553 source identities
+and logs verify. Full corrective diff contains only expected quick core/API/UI,
+scientific regressions, atomic viewport/focus test fixes and documentation/evidence.
+No unresolved consequential local finding remains. No independent review is claimed.
+Exact-master qualification and normal remote protection/review/check verification
+remain required. Source is unchanged by this evidence checkpoint.
