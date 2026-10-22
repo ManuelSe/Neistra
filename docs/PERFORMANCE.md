@@ -531,3 +531,21 @@ missing termini/H, including disclosed generated stereochemistry repair. Neutral
 CCD biotin is an explicit benchmark microstate. Eight translated full chains form
 an operational capacity case, not a biological oligomer or validated binding pose.
 See [fixture provenance](../tests/fixtures/minimization/README.md) and D-112.
+
+
+## Quiet quick execution (issue #93)
+
+Ctrl+M deliberately opens no minimization panel or extra progress display. The
+quick performance witness therefore observes trusted-key command acceptance
+through the existing transient store, and separately requires committed canonical
+coordinate changes, owning-session completion and the native sync/paint queue.
+It never mutates production state or replaces solver/renderer behavior.
+
+`commandAcceptedMs` (≤100ms) is input-to-command acceptance, not the earlier
+panel-render feedback metric; the two values are not a speedup comparison. Keep
+cold canonical publication/paint≤2s for the small molecule and≤5s for the32-atom
+pocket including18k scenes, first genuine frame≤1s on sufficiently long runs,
+explicit Cancel restoration≤500ms, and existing750ms longest-task limits. No
+algorithm, physics, context, iteration/time/resource limit or threshold is relaxed.
+Complete candidate and exact-master evidence remains required by the issue #93
+plan; checkpoint/preflight results do not qualify a release.

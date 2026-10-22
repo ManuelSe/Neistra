@@ -428,8 +428,29 @@ select:focus-visible,
 .viewer-header .viewer-status { position: static; flex-wrap: wrap; pointer-events: none; }
 .viewer-header .viewer-toolbar { position: static; max-width: 100%; }
 .molecular-edit-tools { position: relative; }
-.molecular-edit-tools > .viewer-action-button { width: 32px; height: 32px; border: 1px solid var(--border); border-radius: 6px; background: var(--surface); }
 .viewer-edit-transform-actions { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 6px; max-width: 100%; }
+.viewer-edit-transform-actions[data-transform-active="false"] {
+  align-items: center; gap: 3px; padding: 3px; width: fit-content;
+  border: 1px solid var(--border); border-radius: var(--radius-md);
+  background: var(--surface); box-shadow: var(--shadow-small);
+}
+.viewer-edit-transform-actions .transform-launcher {
+  padding: 0; border: 0; border-radius: 0; background: transparent; box-shadow: none;
+}
+.viewer-edit-transform-actions .viewer-modeling-action {
+  display: grid; place-items: center; flex-shrink: 0; padding: 0;
+  width: 32px; height: 32px; min-width: 32px; min-height: 32px;
+  border: 0; border-radius: 6px; background: transparent; color: var(--text);
+}
+.viewer-edit-transform-actions .viewer-modeling-action:is(:hover, [aria-expanded="true"]):not([aria-disabled="true"]):not(:disabled) {
+  background: var(--accent-soft); color: var(--accent-strong);
+}
+.viewer-edit-transform-actions .viewer-modeling-action:is([aria-disabled="true"], :disabled) { opacity: .6; cursor: not-allowed; }
+.viewer-edit-transform-actions .viewer-modeling-action:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+@media (any-pointer: coarse), (max-width: 840px) {
+  .viewer-edit-transform-actions .viewer-modeling-action { width: 44px; height: 44px; min-width: 44px; min-height: 44px; }
+}
+
 .molecular-edit-panel {
   position: fixed; z-index: 40; top: 100px; left: 8px;
   width: min(300px, calc(100vw - 84px)); max-height: min(65vh, 520px);
@@ -466,7 +487,7 @@ select:focus-visible,
 .molecular-edit-panel .edit-compact-actions .icon-button { min-width: 44px; min-height: 44px; justify-content: center; }
 .edit-compact-actions button { display: inline-flex; align-items: center; gap: 3px; }
 @media (pointer: coarse) { .molecular-edit-panel button { min-height: 44px; min-width: 44px; } }
-@media (any-pointer: coarse), (max-width: 840px) { .molecular-edit-tools > .viewer-action-button { width: 44px; height: 44px; } .molecular-edit-panel summary { min-height: 44px; } }
+@media (any-pointer: coarse), (max-width: 840px) { .molecular-edit-panel summary { min-height: 44px; } }
 .viewer-header .viewer-error { position: static; align-self: stretch; width: 100%; min-width: 0; transform: none; overflow-wrap: anywhere; }
 .transform-launcher, .movement-banner {
   border: 1px solid var(--border);
@@ -3709,8 +3730,7 @@ div[data-radix-popper-content-wrapper]:has(.tooltip) {
 
 .hierarchy-shell { display: flex; flex-direction: column; flex: 1; min-height: 0; overflow: hidden; }
 
-.minimization-tools { display: flex; gap: 4px; }
-.minimization-tools > .viewer-action-button { width: 44px; height: 44px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--text); }
+.minimization-tools { display: flex; }
 .minimization-panel { position: fixed; z-index: 70; box-sizing: border-box; overflow: auto; overscroll-behavior: contain; padding: 12px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); color: var(--text); box-shadow: 0 8px 30px #0003; font-size: 12px; line-height: 1.5; overflow-wrap: anywhere; }
 .minimization-heading { position: sticky; top: -12px; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 8px; background: var(--surface); }
 .minimization-heading h2 { font-size: 15px; margin: 0; }

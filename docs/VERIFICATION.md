@@ -1,5 +1,33 @@
 # V0.1 Requirement Evidence
 
+## Compact molecular toolbar (issue #93) — checkpoint qualification
+
+[C1](assets/compact-modeling-toolbar/c1-final-gate.json) passes26 focused/328 total
+frontend, lint/types/build/diff and27 native browser cases/3 existing layout
+exclusions. Hidden quick sessions apply once without opening the panel; capture,
+late-response/cancel/remount ownership, unchanged no-op behavior and retained AMBER
+workflows pass. [C2](assets/compact-modeling-toolbar/c2-final-gate.json) passes61
+focused/328 frontend and77 native browser cases/3 existing layout exclusions, with
+all static/build checks. Exact three-launcher order, one frame,32px desktop/44px
+coarse/narrow targets, centered16px icons, focus tooltips, keyboard/touch, both
+themes/320px and real200%zoom pass. A held real Apply response proves explicit
+reveal during publication without resubmission. Native gesture, editing and
+scientific assertions remain. No new skips, failures, flakes or retries.
+
+The [approved plan](plans/issue-93-compact-modeling-toolbar.md) links exact commands,
+source identities, lossless logs, screenshots and local implementer reviews.
+Final [candidate2](assets/compact-modeling-toolbar/c3-candidate2-gate.json) and
+[summary](assets/compact-modeling-toolbar/c3-candidate2-summary.json) pass all20
+commands:1248 Python,331 frontend,8 supervisor,316 browser/60 unchanged exclusions,
+zero failures/flakes/retries/Python or native scientific skips. All568 source/test/
+tool/patch/lock identities remain fixed and lossless logs verify. Actual tagged
+0.24.0↔final0.24.1 reader processes preserve canonical/conformer/history/original/
+appearance/job/surface/scene/counter/archive data in both directions. Cold small/
+pocket/18k native paint0.867/2.106/3.617s; first frame674.4ms, Cancel50.9ms; every
+original budget remains. All five versions0.24.1; no API/job/schema/migration/
+dependency/scientific-model change. Exact merged-master qualification remains
+mandatory before publication; checkpoint/preflight/interrupted evidence is diagnostic.
+
 ## Automatic hydrogen editing (issue #92) — stable v0.24.0
 
 The [approved contract](plans/issue-92-automatic-hydrogen-editing.md) governs.

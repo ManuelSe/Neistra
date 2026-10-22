@@ -1,5 +1,60 @@
 # Neistra Release Notes
 
+## 0.24.1 - Unreleased - Compact molecular toolbar
+
+Prepared stable patch under the [approved issue #93 contract](plans/issue-93-compact-modeling-toolbar.md).
+Publication requires complete clean-candidate and exact merged-master qualification.
+
+**Toolbar and setup.** Transform, Edit, and Minimize share one compact frame below
+selection controls, equal32px desktop/44px coarse or narrow targets and16px icons.
+The separate Quick settings and Advanced AMBER launcher is removed. Focus/hover
+hints, keyboard/touch access, both themes and active transformation controls remain.
+Click Minimize to open quick setup without calculating; explicit Run and Advanced
+AMBER remain inside it. Clicking during a run reveals that same captured session,
+including while publication is pending, without submitting another calculation.
+
+**Quiet Ctrl+M.** The shortcut executes existing default quick minimization without
+opening its panel or stealing focus. Usable output still publishes once as one
+Undo/Redo coordinate edit. Session observation/publication follows App ownership,
+independent of panel visibility and responsive viewer remounts. No extra shortcut
+progress, Cancel, or results display is added. Jobs → Inspect minimization remains
+an explicit report path and never rearms automatic publication. Errors/scientific
+warnings retain existing notices; ordinary no-op and external cancellation do not
+add notices. Failed observation disarms publication and requests cancellation of
+remaining owned work. Closing an explicitly opened active panel retains its existing
+cancellation behavior; leaving the owning client disarms automatic publication.
+
+**Compatibility and migration.** All five versions advance together to0.24.1.
+Backend changes are application-version metadata only. No dependency upgrade,
+HTTP/job/plugin contract, data rewrite or migration: Alembic0014,
+project/viewer/archive2 and normalized/selection1 remain. Originals, chemistry,
+fixed/inactive coordinates and atomic history retain their existing contracts.
+Matching client/API and complete managed-directory backups remain appropriate for
+rollback; native archives retain current state, not portable Undo history.
+
+**Verification.** Final [candidate2](assets/compact-modeling-toolbar/c3-candidate2-gate.json)
+passes all20 release commands:1248 Python,331 frontend,8 supervisor,316 browser/
+60 unchanged layout/timing exclusions, zero failures/flakes/retries/scientific skips.
+Both actual0.24.0↔final0.24.1 reader directions, all568 fixed source identities,
+log hashes, versions, dependency and production-harness audits pass. Cold small/
+pocket/18k native canonical paint0.867/2.106/3.617s, first frame674.4ms and explicit
+Cancel50.9ms retain every original budget. Quiet command acceptance is measured
+separately from old panel-render feedback; no speedup comparison is claimed.
+Local full-diff self-review corrected read-failure retirement and focus handoff;
+independent approval is not claimed. Exact merged-master qualification is still
+required before publication. Earlier interrupted/red attempts are diagnostic.
+
+**Scientific limits and scope.** This presentation/lifecycle correction adds no
+physical model or scientific capability. Existing approximate-repair, chemistry,
+preparation and convergence limitations remain; local improvement does not certify
+a binding pose. The original request to preserve every launcher behavior is
+superseded by the explicitly approved setup/shortcut distinction. Optional extra
+progress UI is omitted at the user's request. No core requirement is deferred and
+no new follow-up issue is needed. Separate identity#83, renderer maintenance#107
+and broader chemistry#114 work remains outside this patch. Patch SemVer reflects
+corrected access/presentation with compatible public/data contracts; minor, major
+and prerelease increments do not fit this scope.
+
 ## 0.24.0 - 2026-10-22 - Automatic hydrogen editing
 
 Published stable [v0.24.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.24.0) from exact verified runtime

@@ -419,8 +419,13 @@ accessibility or physical-device/cross-browser support. See [retained evidence](
 
 ## Selection minimization (issue #82)
 
-The lightning button beside Edit has an accessible name, Ctrl+M shortcut metadata
-and a44px target. The nonmodal panel has bounded positioning, scrollable contents,
+The shared molecular group contains Transform, Edit, and the lightning Minimize
+button, with named focus/hover tooltips and ordinary Tab order. All launchers have
+32 × 32 px desktop targets and 16 px centered icons, enlarged uniformly to44px for
+coarse pointers or widths≤840px. One shared frame replaces individual chrome.
+Minimize opens setup without submitting; Ctrl+M executes quick work without opening
+the panel or stealing focus. The shortcut is described separately from the setup
+action rather than falsely assigned as its aria-keyshortcuts. The nonmodal panel has bounded positioning, scrollable contents,
 labelled controls, explicit focus on opening, owned Escape and connected-trigger
 focus restoration. Ctrl+M respects typing and modal keyboard ownership. Preview
 geometry is nonpickable; reports and prerequisites remain textual. Native

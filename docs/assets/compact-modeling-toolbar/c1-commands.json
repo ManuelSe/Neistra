@@ -1,0 +1,92 @@
+{
+  "environment": {
+    "MOLWEAVE_DATA_DIR": "/tmp/neistra93-c1/default-data",
+    "MOLWEAVE_AMBERTOOLS_PREFIX": "/datadisk/dev/.neistra-tools/ambertools-24.8",
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "PLAYWRIGHT_BROWSERS_PATH": ".playwright",
+    "MOLWEAVE_E2E_DATA_DIR": "/tmp/neistra93-c1/browser-data",
+    "MOLWEAVE_E2E_API_PORT": "14110",
+    "MOLWEAVE_E2E_WORKER_PORT": "14111",
+    "MOLWEAVE_E2E_WEB_PORT": "14173",
+    "PLAYWRIGHT_JSON_OUTPUT_NAME": "/tmp/neistra93-c1/browser.json"
+  },
+  "steps": [
+    {
+      "label": "focused",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "exec",
+        "vitest",
+        "run",
+        "minimization",
+        "movement-navigation"
+      ]
+    },
+    {
+      "label": "lint",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "lint"
+      ]
+    },
+    {
+      "label": "types",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "typecheck"
+      ]
+    },
+    {
+      "label": "frontend",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "test"
+      ]
+    },
+    {
+      "label": "build",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "build"
+      ]
+    },
+    {
+      "label": "browser",
+      "command": [
+        "corepack",
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "tests/e2e/quick-minimization.spec.ts",
+        "tests/e2e/minimization-live.spec.ts",
+        "tests/e2e/selection-minimization.spec.ts",
+        "--reporter=list,json"
+      ]
+    },
+    {
+      "label": "diff",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ]
+    }
+  ]
+}

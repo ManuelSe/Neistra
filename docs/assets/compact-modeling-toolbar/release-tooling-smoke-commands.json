@@ -1,0 +1,20 @@
+{
+  "require_clean": false,
+  "steps": [
+    {
+      "label": "versions",
+      "command": [
+        ".venv/bin/python",
+        "docs/assets/compact-modeling-toolbar/versions.py.txt"
+      ]
+    },
+    {
+      "label": "diff",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ]
+    }
+  ]
+}

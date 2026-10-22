@@ -2,6 +2,39 @@
 
 ## Current milestone
 
+Issue [#93](https://github.com/ManuelSe/Neistra/issues/93) has an
+[approved implementation contract](plans/issue-93-compact-modeling-toolbar.md)
+on `fix/issue-93-compact-modeling-toolbar`. The user's `/goal` authorizes
+implementation and verified delivery. [D-143](DECISIONS.md#d-143--compact-molecular-launchers-and-panel-independent-quick-execution)
+records the accepted scope.
+
+M1/C1 (`00ce320`) and M2/C2 are complete. Three idle launchers (Transform, Edit,
+Minimize) share one compact frame and equal32px/44px targets/16px icons. Minimize
+opens setup; Ctrl+M runs without opening it. Existing session/cancellation,
+inspection, native transform and scientific ownership remain. Errors/warnings
+retain existing notices; no extra shortcut progress/Cancel/results UI is added.
+
+[C1 final](assets/compact-modeling-toolbar/c1-final-gate.json) passes328 frontend/
+27 native browser cases; [C2 final](assets/compact-modeling-toolbar/c2-final-gate.json)
+passes61 focused/328 frontend/77 native browser cases. Both pass lint/types/build/
+diff, with3 existing layout exclusions each, no failures/flakes/retries. The plan
+links exact commands, source identities, logs, screenshots and implementer reviews.
+
+M3/C3 is complete: [candidate2](assets/compact-modeling-toolbar/c3-candidate2-gate.json)
+passes all20 commands on cleand50da9c:1248 Python/331 frontend/8 supervisor/316
+browser and60 unchanged exclusions, zero failures/flakes/retries/scientific skips.
+All568 source identities/log hashes, five0.24.1 versions, actual0.24.0↔0.24.1
+readers and unchanged performance budgets verify. Cold native paint0.867/2.106/
+3.617s; first frame674.4ms, Cancel50.9ms. Self-review corrected failed-observation
+retirement and Style focus handoff. Earlier interrupted/red attempts are diagnostic.
+No API/schema/migration/dependency/scientific-model change; patch impact remains.
+M3/C4 is next: PR/Codex review request, normal merge, exact-master all20-command
+gate, verified tag/release/issue reply, docs audit and delayed branch cleanup.
+Known limit: candidate evidence does not yet qualify merged master/publication.
+No external blocker; fresh master remains8ed344b and v0.24.1 is available.
+
+### Previous delivery baseline — v0.24.0
+
 Issue [#92](https://github.com/ManuelSe/Neistra/issues/92) is implemented under its
 [approved contract](plans/issue-92-automatic-hydrogen-editing.md), normally merged
 in [PR#115](https://github.com/ManuelSe/Neistra/pull/115) and published stable [v0.24.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.24.0). The annotated tag

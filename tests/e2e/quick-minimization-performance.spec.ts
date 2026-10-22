@@ -46,8 +46,9 @@ for (const copies of [0, 1, 8]) test(`bounds cold quick publication for ${copies
     }
   });
   await page.keyboard.press("Control+m");
-  await expect(panel(page)).toContainText("Quick coordinates applied", { timeout: 20000 });
+  await expect(panel(page)).toBeHidden();
   const timing = await page.evaluate(() => window.quickPublicationTiming);
+  await expect(panel(page)).toBeHidden();
   const after = await current(request, p.id);
   for (const entry of p.entries) if (entry.id !== ligand.id) expect(after.entries.find(e => e.id === entry.id)?.current_artifact_id).toBe(entry.current_artifact_id);
   expect(after.revision).toBe(before.revision + 1);
@@ -57,10 +58,9 @@ for (const copies of [0, 1, 8]) test(`bounds cold quick publication for ${copies
     backend: proposal?.report.timings, elapsedBackendSeconds: proposal?.report.elapsed_seconds, jobId: job?.id };
   await writeFile(info.outputPath(`quick-${phase}-performance.json`), JSON.stringify(evidence, null, 2));
   await info.attach("quick-cold-performance", { body: JSON.stringify(evidence), contentType: "application/json" });
-  expect(timing.feedbackMs).toBeGreaterThanOrEqual(0); expect(timing.feedbackMs).toBeLessThanOrEqual(100);
+  expect(timing.commandAcceptedMs).toBeGreaterThanOrEqual(0); expect(timing.commandAcceptedMs).toBeLessThanOrEqual(100);
   expect(timing.nativeAppliedMs).toBeLessThanOrEqual(copies ? 5000 : 2000);
   expect(timing.longestTaskMs).toBeLessThan(750);
-  await panel(page).getByRole("button", { name: "Close minimization" }).click();
   if (phase === "cold") {
     await page.getByRole("button", { name: /Undo: Quick minimize selection/ }).click();
     await expect(page.getByRole("button", { name: /Redo: Quick minimize selection/ })).toBeEnabled();
@@ -80,7 +80,7 @@ test("renders genuine quick steps and clears native preview within500ms on Cance
   await page.getByRole("combobox", { name: "Select by", exact: true }).selectOption("structure");
   await page.getByRole("textbox", { name: "Value", exact: true }).fill(entry.id);
   await page.getByRole("button", { name: "Apply query", exact: true }).click();
-  await page.getByRole("button", { name: "Minimization settings", exact: true }).click();
+  await page.getByRole("button", { name: "Minimize selection", exact: true }).click();
   await panel(page).getByRole("spinbutton", { name: "Minimization iterations" }).fill("2000");
   const run = panel(page).getByRole("button", { name: "Run quick minimization", exact: true });
   const frames: import("../../apps/web/src/api/types").MinimizationLive[] = [];

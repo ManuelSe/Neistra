@@ -5518,3 +5518,98 @@ canonical source rewrite or unbounded analysis is introduced. Keep the separate
 explicit-H sulfur check because implicit-H perception can miss that new centre.
 The feature plan retains fail-first mirror cases, passing translation controls,
 API no-publication/Redo/counter proof and final requalification requirements.
+
+## D-143 — Compact molecular launchers and panel-independent quick execution
+
+Date: 2026-10-22. Status: accepted by explicit approval of the
+[issue #93 plan](plans/issue-93-compact-modeling-toolbar.md); implementation
+pending. C0 authorizes planning persistence only, with an explicit stop ready for
+`/goal`.
+
+The idle viewer has one shared compact group containing Transform, Edit and
+Minimize, in that order. Remove the separate Quick settings and Advanced AMBER
+launcher. Use 32 px desktop buttons/16 px icons and 44 px coarse-pointer/narrow-layout
+targets; scope the common chrome to launchers so active transformation controls
+retain their current workflow and scientific guidance.
+
+The user's confirmed correction supersedes D-111/D-129's opening behavior:
+clicking Minimize opens setup without calculating; Ctrl+M submits existing quick
+work without automatically opening the panel. Preserve the existing default
+scientific model and exact-once automatic coordinate command. A click during a
+shortcut run reveals the current owned session rather than launching concurrent
+work. Explicit Jobs inspection remains available and never arms publication.
+Do not add shortcut progress, Cancel, or results UI. Meaningful errors and
+scientific warnings still use the existing notice policy under D-089.
+
+Separate panel visibility from application-owned session lifetime in private
+typed frontend interfaces. Polling, validated automatic Apply and existing live
+coordinate rendering cannot depend on whether the panel is visible. Preserve
+project/generation ownership, late-response rejection, revision/digest checks,
+explicit cancellation and session-retirement boundaries. Responsive viewer
+remounts do not retire computation; inspection/reload cannot rearm publication.
+Shortcut execution never steals focus. One remaining launcher is the connected
+fallback for explicit panel closure; preserve unrelated focus and existing
+nonmodal Escape/tool-handoff rules (D-084/D-093).
+
+Rationale: a fourth launcher defeats the compact toolbar outcome, and hiding its
+panel alone would otherwise stop polling/publication or cancel work. Distinguish
+explicit setup access from immediate execution without another calculation
+framework or molecular authority. This is a presentation/lifecycle correction,
+planned as stable patch 0.24.1 against verified 0.24.0, not a new scientific/API
+capability. Preserve existing APIs/jobs/plugins, schemas, migration 0014,
+originals, fixed/inactive coordinates and exact Undo/Redo. No dependency upgrade,
+persistent preference, data rewrite or scientific algorithm change is authorized.
+
+
+### D-143 implementation authorization — issue #93, 2026-10-22
+
+The user's `/goal` authorizes implementation and verified delivery. Session
+retirement follows project/generation changes, not panel visibility. Existing
+render-local job/report/live observers serve hidden owned quick runs; only their
+panel visibility is suppressed. Failures disarm automatic publication and emit
+existing error notices; warning-bearing hidden results use D-089 persistent
+notices. Opening the existing run preserves capture/generation and does not
+resubmit. No new API, job, data schema or molecular authority is introduced.
+
+
+### D-143 launcher qualification note — issue #93 M2/C2, 2026-10-22
+
+The existing narrow-screen stylesheet hides generic tooltips. Reuse its
+viewer-toolbar tooltip exception for Edit and Minimize so keyboard-focus guidance
+remains available at320px; do not globally enable all tooltips or add a new tooltip
+system. Keep the current launcher revealable while its atomic publication response
+is pending. Native tests hold a real Apply response, verify preserved launcher
+focus/closed panel, then explicitly reveal the same session without resubmission.
+
+
+### D-143 quiet performance evidence — issue #93 C3, 2026-10-22
+
+A panel-render feedback witness is incompatible with the explicitly quiet shortcut.
+Observe trusted command acceptance as a separately named test-only metric; retain
+real canonical-coordinate publication/native paint, independent first-frame and
+explicit-cancellation observations. Do not compare command acceptance to old panel
+feedback as a speedup. Preserve every existing numerical/scientific and latency
+budget. No production instrumentation, synthetic animation or new progress UI is
+introduced.
+
+
+### D-143 read-failure retirement — issue #93 C3 review, 2026-10-22
+
+A job/report-read failure disarms an owned quick run before issuing best-effort
+cancellation of any cached queued/running job. Otherwise failed observation could
+leave calculation consuming its remaining budget. Update only that job's query
+record when cancellation returns; never reopen/rearm its session. If transport
+continues to fail, retain the original diagnostic and Jobs record. Native injected
+503 tests verify cancellation, a closed panel and unchanged canonical data; unit
+cases retain late-result, refusal and Apply-rejection guards. No solver, API,
+schema, worker policy or result validity change is introduced.
+
+
+### D-143 explicit tool focus handoff — issue #93 C3 review, 2026-10-22
+
+Apply D-093's existing restoration suppression to Style → Minimize handoff, as
+already done for Style → Edit/Surfaces. The closing Style palette must not reclaim
+its previous trigger after explicit Minimize setup acquires focus. No timer,
+persisted state or new focus framework. A native keyboard regression reproduces
+the original mobile failure and passes in both layouts with the additional owner
+guard; panel focus, next Tab target and unchanged project revision are asserted.

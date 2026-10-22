@@ -65,17 +65,20 @@ data/history/archives, while new H building needs the current client/server.
 Earlier schema downgrade guards remain binding. Back up the complete managed data
 directory before changing versions.
 
-Select atoms and press **Ctrl+M** or the lightning icon beside Edit for quick local
-relaxation. Selected atoms and attached terminal H move inside fixed visible
-surroundings. Usable coordinates apply as one reversible edit; Cancel clears
-preview and disarms late publication. Quick work uses bundled RDKit/SciPy, with
+The compact molecular toolbar contains **Transform**, **Edit**, and **Minimize**.
+Click **Minimize** to open setup without calculating. Select atoms and press
+**Ctrl+M** for immediate quick local relaxation without opening the panel. Selected atoms and attached terminal H move inside fixed visible
+surroundings. Usable coordinates apply as one reversible edit. Opening Minimize
+during a run reveals that calculation; explicit panel Cancel clears preview and
+disarms late publication. Quick work uses bundled RDKit/SciPy, with
 explicit warnings for temporary chemistry or approximate repair. Settings expose
 exact masks and manual context, plus **Advanced AMBER** with its existing preparation
 requirements and explicit Apply workflow. See [Selection minimization](docs/MINIMIZATION.md)
 for scientific limits and compatibility; the separate
 [locked native toolchain](tools/README.md) is needed only for the prepared AMBER profile.
 
-Interactive transforms offer the **Transform selection** icon in a separate bar above the viewer.
+Interactive transforms offer the **Transform selection** icon in the shared
+molecular toolbar below the selection controls.
 Left mouse drag rotates; right or Ctrl-drag translates in the current view plane.
 Hold **Space** on the movement canvas to adjust the camera, then release to resume.
 Touch and keyboard users have **Adjust view / Resume transform**, with sensitivity,

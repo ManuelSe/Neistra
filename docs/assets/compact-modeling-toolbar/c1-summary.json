@@ -1,0 +1,21 @@
+{
+  "gate": "c1-final-gate.json",
+  "passed": true,
+  "frontend": 328,
+  "focused": 26,
+  "browser": {
+    "startTime": "2026-10-22T11:38:22.083Z",
+    "duration": 249293.022,
+    "expected": 27,
+    "skipped": 3,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "source_count": 567,
+  "source_sha256": "e8bf6973d0e6d22cb1a38cd1ef04be30ce7577b1c2280513a7517b87edfe4832",
+  "limitations": [
+    "Three existing layout exclusions; no native scientific skip.",
+    "This is checkpoint qualification, not final release qualification.",
+    "Existing Vite bundle and proxy-disconnect advisories remain."
+  ]
+}

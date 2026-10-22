@@ -13,11 +13,11 @@ for (const scenario of ["isolated", "isolated-whole", "same-entry", "separate", 
     : specimen === "same-entry" ? [7, 34].map(atom_id => ({ structure_id: p.entries[0].id, atom_id }))
     : p.entries.flatMap(e => e.structure_type === "protein" ? before[e.id].atoms.filter(a => a.residue_id === 2).map(a => ({ structure_id: e.id, atom_id: a.id })) : [{ structure_id: e.id, atom_id: 3 }]);
   await select(page, refs, info.project.name === "mobile-chromium");
-  // Adjacent controls are real native buttons, and Ctrl+M starts without another Run.
+  // The launcher opens setup; quiet Ctrl+M execution is qualified independently.
   const actions = page.locator(".viewer-edit-transform-actions");
   await expect(actions.getByRole("button", { name: "Edit molecule", exact: true })).toBeVisible();
   const min = actions.getByRole("button", { name: "Minimize selection", exact: true });
-  await expect(min).toHaveAttribute("aria-keyshortcuts", "Control+m");
+  await expect(min).not.toHaveAttribute("aria-keyshortcuts", "Control+m");
   await startAdvanced(page);
   const apply = panel(page).getByRole("button", { name: "Apply coordinates" });
   await expect(apply).toBeEnabled({ timeout: 60000 });
