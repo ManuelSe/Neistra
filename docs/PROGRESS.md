@@ -20,8 +20,11 @@ passes61 focused/328 frontend/77 native browser cases. Both pass lint/types/buil
 diff, with3 existing layout exclusions each, no failures/flakes/retries. The plan
 links exact commands, source identities, logs, screenshots and implementer reviews.
 
-M3/C3 is next: update quiet performance observation, final compatibility/failure
-coverage, version preparation and complete release gate. M3/C4 retains verified
+M3/C3 is in progress: quiet performance observation and hidden failure coverage
+pass preflight (331 frontend,341 archive/scientific, native timing bounds and8
+final failure/layout cases). Review corrected read-failure retirement with
+best-effort cancellation. Version preparation, actual-reader retention and the
+complete release gate remain next. M3/C4 retains verified
 PR/review/normal merge, exact-master gate, tag/release, issue reply and cleanup.
 Known limitation: no final release/actual-reader qualification yet. Target patch
 0.24.1; all five versions remain0.24.0 and no API/schema/migration/dependency or

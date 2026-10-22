@@ -107,3 +107,22 @@ test("reveals a quiet shortcut during publication without resubmission or focus 
   expect((await current(request, p.id)).revision).toBe(p.revision + 1);
   expect(submissions).toBe(1);
 });
+
+
+test("retires a quiet run after status transport failure without a late canonical edit", async ({ page, request }, info) => {
+  test.setTimeout(60000);
+  const p = await prepare(page, request, ["tests/fixtures/quick-minimization/New_molecule.sdf"], "Quick status failure");
+  const before = await structures(request, p);
+  await select(page, p.entries[0].atom_ids.map(atom_id => ({ structure_id: p.entries[0].id, atom_id })), info.project.name === "mobile-chromium");
+  await page.route("**/api/v1/jobs/*", async route => {
+    if (route.request().method() === "GET") await route.fulfill({ status: 503, json: { detail: { code: "status_unavailable", message: "Temporary job status failure" } } });
+    else await route.continue();
+  });
+  const cancelled = page.waitForResponse(r => r.request().method() === "POST" && /\/jobs\/[^/]+\/cancel$/.test(new URL(r.url()).pathname));
+  await page.keyboard.press("Control+m");
+  expect((await cancelled).ok()).toBe(true);
+  await expect(page.getByRole("alert")).toContainText("Temporary job status failure");
+  await expect(panel(page)).toBeHidden();
+  expect((await current(request, p.id)).revision).toBe(p.revision);
+  expect(await structures(request, p)).toEqual(before);
+});

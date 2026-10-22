@@ -49,6 +49,10 @@ export function useMinimization(project: Project | undefined, selection: Selecti
     const current = useMinimizationStore.getState();
     if (!project || !owner(project.id, generation) || !current.autoApply) return;
     state.patch(generation, { loading: false, applying: false, autoApply: false, live: false, preview: false, error });
+    const job = query.getQueryData<Job>(["job", current.jobId]);
+    if (job && ["queued", "running"].includes(job.status)) {
+      void jobApi.cancel(job.id).then(result => query.setQueryData(["job", result.id], result)).catch(() => { /* Jobs retains the diagnostic if transport remains unavailable. */ });
+    }
     if (announce && !current.open) onNotice?.({ kind: "error", text: error });
   };
   const begin = async (immediate = false, replacing = false, profile: MinimizationProfile = "amber") => {

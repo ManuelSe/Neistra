@@ -407,3 +407,39 @@ it("disarms externally cancelled shortcut work without a new notification", asyn
   expect(w.result.current.open).toBe(false); expect(w.notice).not.toHaveBeenCalled();
   expect(w.commit).not.toHaveBeenCalled(); w.client.clear();
 });
+
+
+it("surfaces hidden report refusal without publishing or opening a panel", async () => {
+  completedQuick(); const result = quickProposal(); result.applicable = false;
+  result.report.outcome = "blocked"; result.unavailable_reason = "Context changed; recalculate.";
+  vi.spyOn(quickMinimizationApi, "proposal").mockResolvedValue(result);
+  const w = workflow();
+  await act(async () => { await w.result.current.quick(); });
+  await waitFor(() => expect(w.notice).toHaveBeenCalledOnce());
+  expect(w.notice).toHaveBeenCalledWith({ kind: "success", lifetime: "persistent", text: "Context changed; recalculate. Details remain in Jobs → Inspect minimization." });
+  expect(w.result.current.open).toBe(false); expect(w.commit).not.toHaveBeenCalled(); w.client.clear();
+});
+
+it("reports a hidden job read failure and disarms automatic publication", async () => {
+  const job = { ...completedQuick(), status: "running" } as Job;
+  vi.spyOn(quickMinimizationApi, "submit").mockResolvedValue(job); vi.spyOn(jobApi, "get").mockRejectedValue(new Error("Job status unavailable"));
+  const cancel = vi.spyOn(jobApi, "cancel").mockResolvedValue({ ...job, status: "cancelled" });
+  vi.spyOn(quickMinimizationApi, "live").mockResolvedValue({ schema_version: 1, job_id: job.id, status: "running", capture_sha256: null, selection: null, sources: [], frame: null, unavailable_reason: null });
+  const w = workflow();
+  await act(async () => { await w.result.current.quick(); });
+  await waitFor(() => expect(w.notice).toHaveBeenCalledExactlyOnceWith({ kind: "error", text: "Job status unavailable" }));
+  expect(w.result.current.state.autoApply).toBe(false); expect(w.result.current.open).toBe(false);
+  expect(cancel).toHaveBeenCalledExactlyOnceWith(job.id);
+  expect(w.commit).not.toHaveBeenCalled(); w.client.clear();
+});
+
+it("surfaces a hidden Apply rejection without claiming success or retrying it", async () => {
+  completedQuick(); vi.spyOn(quickMinimizationApi, "proposal").mockResolvedValue(quickProposal());
+  const apply = vi.spyOn(quickMinimizationApi, "apply").mockRejectedValue(new Error("Revision conflict"));
+  const w = workflow();
+  await act(async () => { await w.result.current.quick(); });
+  await waitFor(() => expect(w.notice).toHaveBeenCalledExactlyOnceWith({ kind: "error", text: "Revision conflict" }));
+  expect(w.result.current.state.applied).toBe(false); expect(w.result.current.open).toBe(false);
+  await act(async () => { await w.client.invalidateQueries({ queryKey: ["minimization-proposal"] }); });
+  expect(apply).toHaveBeenCalledOnce(); w.client.clear();
+});

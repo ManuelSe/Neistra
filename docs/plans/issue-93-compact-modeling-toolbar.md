@@ -4,7 +4,7 @@
 
 **Status:** approved contract; C0 committed and remotely verified. The user
 authorized implementation and the complete delivery lifecycle with `/goal` on
-2026-10-22. M1/C1 and M2/C2 are complete; M3/C3 is next.
+2026-10-22. M1/C1 and M2/C2 are complete; M3/C3 is in progress.
 
 **Approval:** the user's “Implement the plan.” on 2026-10-22 approves the complete
 proposal and its explicit C0 stop ready for `/goal`. This authorizes planning
@@ -434,8 +434,8 @@ and the annotated runtime tag. Report cleanup only after verifying it remotely.
 |---|---|
 | C0 | Complete: `b7197f27936cdcfc8eff652d2f2c8fe6d08f4125`, remotely verified. |
 | M1/C1 | Complete: `00ce320`, passing checkpoint, evidence below. |
-| M2/C2 | Complete; passing checkpoint, evidence below. |
-| M3/C3 | Pending: final-version compatibility and release qualification. |
+| M2/C2 | Complete: `f477288`, passing checkpoint, evidence below. |
+| M3/C3 | In progress: final failures/performance, actual reader and release qualification. |
 | M3/C4 | Pending: verified PR/merge/release/issue close-out and cleanup. |
 
 ### 2026-10-22 — Approval and C0 preparation
@@ -524,3 +524,44 @@ and eight native screenshots are retained separately. No API/job/schema/migratio
 dependency/version/scientific-model change. Next: C3 updates the old panel-based
 performance witness for quiet publication, adds final failure-path coverage,
 qualifies actual0.24 readers, prepares0.24.1 and runs the complete release gate.
+
+
+### M3/C3 qualification preparation — 2026-10-22
+
+C2 is committed/pushed atf477288. Fresh origin inspection still finds master8ed344b,
+latest stable0.24.0 and unused v0.24.1, so the approved patch target stands.
+An actual detached v0.24.0 worktree atafea0f1 is available for both reader directions.
+Quiet performance now measures trusted command acceptance and real canonical/native
+publication rather than waiting for an intentionally absent panel. The≤100ms
+acceptance observation is explicitly distinct from historical UI feedback; no
+claim compares those metrics. All original cold publication/frame/Cancel/long-task
+budgets remain. Added hidden refusal, job-read and Apply-rejection regressions pass
+alongside prior lifecycle cases (28 focused tests). Preflight runs at0.24.0 before
+the release-preparation version commit and cannot qualify final0.24.1.
+
+
+### C3 review refinement and preflight — 2026-10-22
+
+[Preflight1](../assets/compact-modeling-toolbar/c3-preflight1-gate.json) passes341
+archive/scientific tests with no skips before a test-helper rejection-typing lint
+failure. [Preflight2](../assets/compact-modeling-toolbar/c3-preflight2-gate.json)
+passes28 focused/331 frontend, lint/types/build/diff,4 native performance cases /
+4 existing mobile timing exclusions and15 workflow cases/5 existing layout
+exclusions. Cold small/pocket/18k canonical paint1.480/2.458/3.668s remains within
+2/5/5s; first-frame/Cancel/long-task assertions pass. These0.24.0 preflights are not
+final release qualification.
+
+Full-diff review identified that failed observation disarmed publication but could
+leave an owned job consuming its remaining budget. Retire it with best-effort
+cancellation; no new UI or worker rule. [Final failure-path native gate](../assets/compact-modeling-toolbar/c3-failure2-gate.json)
+passes all8 integrated desktop/mobile cases without skips/retries, including a
+real cancellation after injected503 with closed panel/unchanged coordinates.
+[Static/frontend gate](../assets/compact-modeling-toolbar/c3-failure-final-gate.json)
+passes331 frontend/lint/types/build before that native fixture's incorrect error
+envelope was corrected to the existing detail schema. Its2 native text-assertion
+failures are diagnostic; all8 final cases pass with the corrected fixture. The
+production retirement change is covered by28 passing lifecycle unit cases.
+
+This supporting correction uses a fix(minimization) checkpoint before the planned
+release-preparation commit. Complete final-version source-frozen gates and actual
+reader retention remain mandatory; no milestone/release completion is inferred.

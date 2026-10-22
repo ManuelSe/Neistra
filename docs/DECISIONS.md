@@ -5580,3 +5580,26 @@ remains available at320px; do not globally enable all tooltips or add a new tool
 system. Keep the current launcher revealable while its atomic publication response
 is pending. Native tests hold a real Apply response, verify preserved launcher
 focus/closed panel, then explicitly reveal the same session without resubmission.
+
+
+### D-143 quiet performance evidence — issue #93 C3, 2026-10-22
+
+A panel-render feedback witness is incompatible with the explicitly quiet shortcut.
+Observe trusted command acceptance as a separately named test-only metric; retain
+real canonical-coordinate publication/native paint, independent first-frame and
+explicit-cancellation observations. Do not compare command acceptance to old panel
+feedback as a speedup. Preserve every existing numerical/scientific and latency
+budget. No production instrumentation, synthetic animation or new progress UI is
+introduced.
+
+
+### D-143 read-failure retirement — issue #93 C3 review, 2026-10-22
+
+A job/report-read failure disarms an owned quick run before issuing best-effort
+cancellation of any cached queued/running job. Otherwise failed observation could
+leave calculation consuming its remaining budget. Update only that job's query
+record when cancellation returns; never reopen/rearm its session. If transport
+continues to fail, retain the original diagnostic and Jobs record. Native injected
+503 tests verify cancellation, a closed panel and unchanged canonical data; unit
+cases retain late-result, refusal and Apply-rejection guards. No solver, API,
+schema, worker policy or result validity change is introduced.
