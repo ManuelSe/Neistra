@@ -1,32 +1,36 @@
 # V0.1 Requirement Evidence
 
-## Compact molecular toolbar (issue #93) — checkpoint qualification
+## Compact molecular toolbar (issue #93) — corrected candidate qualification
 
-[C1](assets/compact-modeling-toolbar/c1-final-gate.json) passes26 focused/328 total
-frontend, lint/types/build/diff and27 native browser cases/3 existing layout
-exclusions. Hidden quick sessions apply once without opening the panel; capture,
-late-response/cancel/remount ownership, unchanged no-op behavior and retained AMBER
-workflows pass. [C2](assets/compact-modeling-toolbar/c2-final-gate.json) passes61
-focused/328 frontend and77 native browser cases/3 existing layout exclusions, with
-all static/build checks. Exact three-launcher order, one frame,32px desktop/44px
-coarse/narrow targets, centered16px icons, focus tooltips, keyboard/touch, both
-themes/320px and real200%zoom pass. A held real Apply response proves explicit
-reveal during publication without resubmission. Native gesture, editing and
-scientific assertions remain. No new skips, failures, flakes or retries.
+Corrected clean [candidate3](assets/compact-modeling-toolbar/c4-candidate3-gate.json)
+and [summary](assets/compact-modeling-toolbar/c4-candidate3-summary.json) pass all20
+commands on`8a3c3c607e0bb72164f677e1d35ba884575d1144`: **1248 Python,331 frontend,8 supervisor,322 browser /
+60 unchanged documented layout/timing exclusions**, zero failures/flakes/retries/
+Python or native scientific skips. All568 source/test/tool/patch/lock identities
+remain fixed, digest`a079429f753cc2a266bb0eba3c2c56fa756f0bce3e3faa176b453c5a83dd8705`; lossless log hashes verify. Frozen
+installs, fresh0014, static/types/build, production-harness exclusion, all five
+0.24.1 versions and actual tagged0.24.0↔final0.24.1 reader directions pass.
+Both directions retain all six automatic cases and rich three-entry canonical/
+conformer/history/original/appearance/job/surface/scene/counter/archive records.
+No migration/API/job/schema/dependency/scientific-model change.
 
-The [approved plan](plans/issue-93-compact-modeling-toolbar.md) links exact commands,
-source identities, lossless logs, screenshots and local implementer reviews.
-Final [candidate2](assets/compact-modeling-toolbar/c3-candidate2-gate.json) and
-[summary](assets/compact-modeling-toolbar/c3-candidate2-summary.json) pass all20
-commands:1248 Python,331 frontend,8 supervisor,316 browser/60 unchanged exclusions,
-zero failures/flakes/retries/Python or native scientific skips. All568 source/test/
-tool/patch/lock identities remain fixed and lossless logs verify. Actual tagged
-0.24.0↔final0.24.1 reader processes preserve canonical/conformer/history/original/
-appearance/job/surface/scene/counter/archive data in both directions. Cold small/
-pocket/18k native paint0.867/2.106/3.617s; first frame674.4ms, Cancel50.9ms; every
-original budget remains. All five versions0.24.1; no API/job/schema/migration/
-dependency/scientific-model change. Exact merged-master qualification remains
-mandatory before publication; checkpoint/preflight/interrupted evidence is diagnostic.
+All16 toolbar cases execute without skips/retries, covering both outgoing tools,
+explicit setup and quiet submission/publication focus, plus existing compact
+layout/transform/reveal/failure workflows. Full native interaction, quick/AMBER,
+editing,320px/themes/accessibility/actual100–200%zoom regressions pass. Cold small/
+pocket/18k native paint1.402/2.067/3.579s, first frame
+706.4ms, Cancel41.4ms; original2/5/5s,1s,500ms
+and<750ms long-task budgets remain. Command acceptance is distinct from former
+panel-render feedback, with no speedup comparison. Power/environment samples are
+retained without host-setting changes.
+
+The focused correction follows [initial PR#117](https://github.com/ManuelSe/Neistra/pull/117)
+and extends D-093/D-143's existing restoration suppression through visible setup
+and hidden autoApply. Other close paths were reviewed; no unresolved consequential
+finding remains in implementer self-review. No independent approval is claimed.
+Candidate2 is historical; merged1 was intentionally interrupted. This corrected
+candidate is the source for the corrective PR. Publication still requires a normal
+merge, complete exact merged2 gate and verified tag/release/issue/audit/cleanup.
 
 ## Automatic hydrogen editing (issue #92) — stable v0.24.0
 

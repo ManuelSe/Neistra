@@ -40,3 +40,28 @@ failures/flakes/retries/scientific skips. All568 identities/log hashes, both act
 reader directions, five versions, native budgets and production-harness exclusion
 verify. Documentation/evidence-only additions do not alter qualified source.
 No unresolved consequential finding remains. Independent approval is not claimed.
+
+C4 superseding focus finding: before publication, additional audit reproduced
+quiet Ctrl+M stealing connected external focus when Style closes. Interactions
+also has unconditional restoration. Earlier final-review conclusions did not
+cover these handoffs. Expanded native fail-first cases fail5/8 on original
+handlers. Extend the existing restoration guard to hidden autoApply ownership
+and Interactions; audit Surface Manager/Edit/modal/Minimize close paths without
+adding a focus framework or changing data/science. Candidate2 is historical
+qualification; merged1 is intentionally interrupted. Corrected source requires
+fresh complete candidate3 and exact merged2 gates before release.
+
+The coordinated corrective guard now passes28 focused/331 frontend/static/build
+and all24 native toolbar/interaction cases without skips/retries. It reuses the
+existing typed restoration-suppression pattern, defaults ordinary Interactions
+closure unchanged, and covers both visible setup and hidden autoApply ownership.
+All other closing paths were inspected. No new source concern remains in this
+corrective full-diff self-review; fresh complete candidate/master gates are next.
+
+Corrected candidate3 now passes all20 gates on unchanged clean8a3c3c607e0bb72164f677e1d35ba884575d1144,
+1248 Python/331 frontend/8 supervisor/322 browser and60 unchanged exclusions,
+zero failures/flakes/retries/scientific skips. All568 identities/log hashes, both
+actual reader directions, versions, production-harness exclusion and native timing
+budgets verify. No consequential finding remains after reviewing both handoff
+paths and other close owners. Next: corrective PR/review/normal merge and complete
+exact merged2 gate; earlier candidate2/merged1 cannot qualify this source.

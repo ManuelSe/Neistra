@@ -7,10 +7,11 @@ import { INTERACTION_LABELS, type InteractionChoices, type InteractionKind, type
 
 const available: InteractionKind[] = ["hydrogen_bond", "hydrophobic", "pi_pi", "cation_pi", "salt_bridge", "clash"];
 
-export function InteractionPanel({ open, onOpenChange, choices, result, status, onRetry }: {
+export function InteractionPanel({ open, onOpenChange, choices, result, status, onRetry, restoreFocus = true }: {
   open: boolean; onOpenChange: (open: boolean) => void;
   choices: InteractionChoices; result: InteractionResult | null; status: string;
   onRetry?: () => void;
+  restoreFocus?: boolean;
 }) {
   const [help, setHelp] = useState(false);
   const returnFocus = useRef<HTMLElement | null>(null);
@@ -35,7 +36,7 @@ export function InteractionPanel({ open, onOpenChange, choices, result, status, 
       onInteractOutside={event => event.preventDefault()}
       onEscapeKeyDown={event => { if (!content.current?.contains(document.activeElement)) event.preventDefault(); }}
       onOpenAutoFocus={() => { returnFocus.current = document.activeElement instanceof HTMLElement ? document.activeElement : null; position(); }}
-      onCloseAutoFocus={event => { event.preventDefault(); if (returnFocus.current?.isConnected) returnFocus.current.focus(); }}>
+      onCloseAutoFocus={event => { event.preventDefault(); if (restoreFocus && returnFocus.current?.isConnected) returnFocus.current.focus(); }}>
       <div className="dialog-heading"><Dialog.Title>Interactions</Dialog.Title>
         <div className="interaction-actions"><IconButton label="Interaction help" onClick={() => setHelp(!help)}><HelpCircle size={17} /></IconButton>
           <Dialog.Close asChild><IconButton label="Close interactions"><X size={17} /></IconButton></Dialog.Close></div></div>

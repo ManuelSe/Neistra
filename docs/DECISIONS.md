@@ -5613,3 +5613,16 @@ its previous trigger after explicit Minimize setup acquires focus. No timer,
 persisted state or new focus framework. A native keyboard regression reproduces
 the original mobile failure and passes in both layouts with the additional owner
 guard; panel focus, next Tab target and unchanged project revision are asserted.
+
+
+### D-143 hidden tool handoff — issue #93 C4 review, 2026-10-22
+
+Quiet Ctrl+M still retires competing nonmodal tools under existing ownership
+rules. Their close autofocus must not restore an old trigger over a connected
+external control. Extend the D-093 restoration suppression through hidden
+automatic publication, and give Interactions the same optional restoration flag
+already used by Style. Default restoration remains for ordinary Interactions
+closure. Explicit Minimize setup takes panel focus; a quiet command retains
+external focus. Surface Manager already drops restoration when focus leaves it;
+Edit's external closure does not imperatively restore focus. Modal/typing guards
+remain. No timer, new focus framework, persisted state or scientific change.

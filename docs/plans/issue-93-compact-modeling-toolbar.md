@@ -4,7 +4,9 @@
 
 **Status:** approved contract; C0 committed and remotely verified. The user
 authorized implementation and the complete delivery lifecycle with `/goal` on
-2026-10-22. M1/C1, M2/C2 and M3/C3 are complete; M3/C4 is in progress.
+2026-10-22. M1/C1, M2/C2 and corrected M3/C3 candidate3 qualification are complete.
+M3/C4 awaits corrective PR/review/normal merge, exact merged2 qualification and
+verified publication/audit/cleanup.
 
 **Approval:** the user's “Implement the plan.” on 2026-10-22 approves the complete
 proposal and its explicit C0 stop ready for `/goal`. This authorizes planning
@@ -646,3 +648,77 @@ Fresh fetch still finds master8ed344b, latest stable0.24.0 and unused v0.24.1, s
 no upstream incorporation/version change is required. M3/C3 is complete; next C4:
 PR/Codex review request, normal merge without bypass, exact-master all20-command
 gate before tag/release, verified issue reply, docs audit and delayed cleanup.
+
+
+### C4 quiet-handoff review correction — 2026-10-22
+
+Initial implementation was normally merged in [PR#117](https://github.com/ManuelSe/Neistra/pull/117)
+at798b4a8 after complete candidate2 qualification. Codex review was requested but
+not returned; no required approval/check/protection/thread was bypassed. Before
+publication, further focus audit found that Ctrl+M retiring Style could restore
+its old trigger over connected external focus. Interactions had the same handler,
+including explicit setup handoff. The existing explicit Style fix did not cover
+hidden execution. This is a missed contract edge, not new product scope.
+
+The exact-master merged1 run was intentionally interrupted to fix the finding.
+Its1248 Python/331 frontend/8 supervisor/static/build and partial browser passes
+are diagnostic only; no tag/release was created. The planned feature branch was
+fast-forwarded to the actual merged base before corrective implementation.
+[Initial quiet fail-first](../assets/compact-modeling-toolbar/c4-quiet-style-red-gate.json)
+fails both layouts. [Expanded fail-first](../assets/compact-modeling-toolbar/c4-quiet-handoff-red2-gate.json)
+fails5 of8 Style/Interactions explicit/quiet handoffs on original merged handlers.
+A held real submission proves focus during quiet ownership before canonical edit.
+The corrective guard covers visible setup and hidden automatic publication;
+Interactions adopts the existing typed restoration flag with its default retained.
+Other closing paths were reviewed: Surface Manager's blur tracking already
+preserves external focus, Edit has no imperative external restoration, modal
+shortcuts are guarded and Minimize preserves unrelated connected focus.
+
+Fresh candidate3/merged2 recipes repeat all20 gates on isolated stores and fixed
+source before release. Version0.24.1 remains reserved but unpublished. A focused
+corrective PR will preserve history and reference#93; initial PR#117 remains part
+of delivery. Neither earlier passing candidate2 nor interrupted master qualifies
+the corrected source. No API/schema/migration/scientific/dependency change.
+
+[Corrective focused gate](../assets/compact-modeling-toolbar/c4-quiet-handoff-green-gate.json)
+passes28 focused/331 total frontend, lint/types/build/diff and all24 native
+toolbar/interaction cases, zero failures/skips/flakes/retries. All16 toolbar cases
+execute, including both outgoing tools, explicit setup and held real quiet
+submission with preserved external focus and eventual single publication. Existing
+interaction markers/lifecycle/failure/accessibility/analysis limits pass. No new
+framework, API, durable state or scientific change. Complete clean candidate3 and
+exact corrected merged2 gates remain mandatory; this supporting checkpoint does
+not complete release qualification.
+
+
+### C4 corrected candidate3 complete — 2026-10-22
+
+Corrected clean [candidate3](../assets/compact-modeling-toolbar/c4-candidate3-gate.json)
+and [summary](../assets/compact-modeling-toolbar/c4-candidate3-summary.json) pass all20
+commands on`8a3c3c607e0bb72164f677e1d35ba884575d1144`: **1248 Python,331 frontend,8 supervisor,322 browser /
+60 unchanged documented layout/timing exclusions**, zero failures/flakes/retries/
+Python or native scientific skips. All568 source/test/tool/patch/lock identities
+remain fixed, digest`a079429f753cc2a266bb0eba3c2c56fa756f0bce3e3faa176b453c5a83dd8705`; lossless log hashes verify. Frozen
+installs, fresh0014, static/types/build, production-harness exclusion, all five
+0.24.1 versions and actual tagged0.24.0↔final0.24.1 reader directions pass.
+Both directions retain all six automatic cases and rich three-entry canonical/
+conformer/history/original/appearance/job/surface/scene/counter/archive records.
+No migration/API/job/schema/dependency/scientific-model change.
+
+All16 toolbar cases execute without skips/retries, covering both outgoing tools,
+explicit setup and quiet submission/publication focus, plus existing compact
+layout/transform/reveal/failure workflows. Full native interaction, quick/AMBER,
+editing,320px/themes/accessibility/actual100–200%zoom regressions pass. Cold small/
+pocket/18k native paint1.402/2.067/3.579s, first frame
+706.4ms, Cancel41.4ms; original2/5/5s,1s,500ms
+and<750ms long-task budgets remain. Command acceptance is distinct from former
+panel-render feedback, with no speedup comparison. Power/environment samples are
+retained without host-setting changes.
+
+The focused correction follows [initial PR#117](https://github.com/ManuelSe/Neistra/pull/117)
+and extends D-093/D-143's existing restoration suppression through visible setup
+and hidden autoApply. Other close paths were reviewed; no unresolved consequential
+finding remains in implementer self-review. No independent approval is claimed.
+Candidate2 is historical; merged1 was intentionally interrupted. This corrected
+candidate is the source for the corrective PR. Publication still requires a normal
+merge, complete exact merged2 gate and verified tag/release/issue/audit/cleanup.

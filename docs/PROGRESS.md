@@ -20,18 +20,36 @@ passes61 focused/328 frontend/77 native browser cases. Both pass lint/types/buil
 diff, with3 existing layout exclusions each, no failures/flakes/retries. The plan
 links exact commands, source identities, logs, screenshots and implementer reviews.
 
-M3/C3 is complete: [candidate2](assets/compact-modeling-toolbar/c3-candidate2-gate.json)
-passes all20 commands on cleand50da9c:1248 Python/331 frontend/8 supervisor/316
-browser and60 unchanged exclusions, zero failures/flakes/retries/scientific skips.
-All568 source identities/log hashes, five0.24.1 versions, actual0.24.0↔0.24.1
-readers and unchanged performance budgets verify. Cold native paint0.867/2.106/
-3.617s; first frame674.4ms, Cancel50.9ms. Self-review corrected failed-observation
-retirement and Style focus handoff. Earlier interrupted/red attempts are diagnostic.
-No API/schema/migration/dependency/scientific-model change; patch impact remains.
-M3/C4 is next: PR/Codex review request, normal merge, exact-master all20-command
-gate, verified tag/release/issue reply, docs audit and delayed branch cleanup.
-Known limit: candidate evidence does not yet qualify merged master/publication.
-No external blocker; fresh master remains8ed344b and v0.24.1 is available.
+Corrected clean [candidate3](assets/compact-modeling-toolbar/c4-candidate3-gate.json)
+and [summary](assets/compact-modeling-toolbar/c4-candidate3-summary.json) pass all20
+commands on`8a3c3c607e0bb72164f677e1d35ba884575d1144`: **1248 Python,331 frontend,8 supervisor,322 browser /
+60 unchanged documented layout/timing exclusions**, zero failures/flakes/retries/
+Python or native scientific skips. All568 source/test/tool/patch/lock identities
+remain fixed, digest`a079429f753cc2a266bb0eba3c2c56fa756f0bce3e3faa176b453c5a83dd8705`; lossless log hashes verify. Frozen
+installs, fresh0014, static/types/build, production-harness exclusion, all five
+0.24.1 versions and actual tagged0.24.0↔final0.24.1 reader directions pass.
+Both directions retain all six automatic cases and rich three-entry canonical/
+conformer/history/original/appearance/job/surface/scene/counter/archive records.
+No migration/API/job/schema/dependency/scientific-model change.
+
+All16 toolbar cases execute without skips/retries, covering both outgoing tools,
+explicit setup and quiet submission/publication focus, plus existing compact
+layout/transform/reveal/failure workflows. Full native interaction, quick/AMBER,
+editing,320px/themes/accessibility/actual100–200%zoom regressions pass. Cold small/
+pocket/18k native paint1.402/2.067/3.579s, first frame
+706.4ms, Cancel41.4ms; original2/5/5s,1s,500ms
+and<750ms long-task budgets remain. Command acceptance is distinct from former
+panel-render feedback, with no speedup comparison. Power/environment samples are
+retained without host-setting changes.
+
+The focused correction follows [initial PR#117](https://github.com/ManuelSe/Neistra/pull/117)
+and extends D-093/D-143's existing restoration suppression through visible setup
+and hidden autoApply. Other close paths were reviewed; no unresolved consequential
+finding remains in implementer self-review. No independent approval is claimed.
+Candidate2 is historical; merged1 was intentionally interrupted. This corrected
+candidate is the source for the corrective PR. Publication still requires a normal
+merge, complete exact merged2 gate and verified tag/release/issue/audit/cleanup.
+
 
 ### Previous delivery baseline — v0.24.0
 
