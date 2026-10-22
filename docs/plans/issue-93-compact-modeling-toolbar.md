@@ -2,10 +2,9 @@
 
 ## 1. Status, authority, and intended outcome
 
-**Status:** approved implementation complete; PRs#117/#118 normally merged.
-C4 test-harness corrections and clean candidate4 pass complete qualification.
-PR#119 is open; exact merged5 qualification remains before v0.24.1 publication.
-No exception is assumed and no tag/release exists.
+**Status:** approved scope implemented and verified; runtime PRs#117/#118/#119 merged,
+exact master qualified and stable v0.24.1/tag/issue close-out verified.
+Final documentation merge and delayed cleanup are recorded at the linked issue reply.
 
 **Approval:** the user's “Implement the plan.” on 2026-10-22 approves the complete
 proposal and its explicit C0 stop ready for `/goal`. This authorizes planning
@@ -437,7 +436,7 @@ and the annotated runtime tag. Report cleanup only after verifying it remotely.
 | M1/C1 | Complete: `00ce320`, passing checkpoint, evidence below. |
 | M2/C2 | Complete: `f477288`, passing checkpoint, evidence below. |
 | M3/C3 | Complete: clean final-version candidate2 passes all20 commands; evidence below. |
-| M3/C4 | In progress: PR/review/merge, exact-master qualification and verified publication/cleanup. |
+| M3/C4 | Verified runtime/qualification/tag/release/issue evidence; final documentation/ref cleanup audit at the close-out link below. |
 
 ### 2026-10-22 — Approval and C0 preparation
 
@@ -826,3 +825,56 @@ issue. Fresh fetch still finds master83aae8c, latest stable0.24.0 and unusedv0.2
 Next: focused normal PR for test-only C4 repairs, review/policy audit, normal merge
 preserving checkpoints, then complete exact merged5 qualification before tag,
 release, issue close-out, documentation audit and delayed cleanup.
+
+
+### M3/C4 verified publication — 2026-10-22
+
+Issue [#93](https://github.com/ManuelSe/Neistra/issues/93) is implemented under its
+[approved contract](issue-93-compact-modeling-toolbar.md), normally merged in
+[PR#117](https://github.com/ManuelSe/Neistra/pull/117), [focus correction PR#118](https://github.com/ManuelSe/Neistra/pull/118) and
+[qualification PR#119](https://github.com/ManuelSe/Neistra/pull/119), published stable
+[v0.24.1](https://github.com/ManuelSe/Neistra/releases/tag/v0.24.1) from exact verified runtime`d9bc489a0378b94d20fddae05588e2769b258caf`.
+D-143 records compact Transform/Edit/Minimize launchers and panel-independent
+quick execution. Minimize opens setup; Ctrl+M runs quietly; active-run reveal,
+Advanced AMBER and Jobs inspection remain. All five versions0.24.1; no dependency,
+API/job/schema/migration/scientific-model change (head0014, project/viewer/archive2,
+normalized/selection1). Originals and fixed/inactive rows/history retain ownership.
+
+Both [candidate4](../assets/compact-modeling-toolbar/c4-candidate4-gate.json) and
+[exact merged5](../assets/compact-modeling-toolbar/c4-merged5-gate.json) pass all20
+commands: **1248 Python,331 frontend,8 supervisor,322 browser/60 unchanged
+layout/timing exclusions**, zero failures/flakes/retries/Python or native scientific
+skips. All568 source/test/tool/patch/lock identities/log hashes, frozen installs,
+fresh migration/static/types/build, actual tagged0.24.0↔final0.24.1 readers and
+unchanged native budgets verify. Merged cold small/pocket/18k native paint
+0.945/2.059/3.425s; first frame580.6ms,
+Cancel59.5ms. Command acceptance is distinct from old panel feedback.
+[Implementer self-review](../assets/compact-modeling-toolbar/c3-review.md) addressed
+read-failure retirement and focus handoff. [Premerge audit](../assets/compact-modeling-toolbar/c4-premerge-audit.json)
+records requested/unreturned Codex review, no required approval/check or unresolved
+thread and no override; independent review is not claimed.
+
+[Publication audit](../assets/compact-modeling-toolbar/c4-publication.json) verifies
+the exact annotated tag, stable latest release/full notes, public downloaded ZIP
+SHA256/CRC/all4986 internal hashes and
+[issue close-out](https://github.com/ManuelSe/Neistra/issues/93#issuecomment-6349961393). Existing scientific limits remain; no approved core
+requirement is deferred or new follow-up created. Existing#83/#107/#114 remain
+separate. This documentation audit records verified delivery; its final merge and
+actual delayed feature-branch/reader-worktree cleanup are appended to the linked
+reply after verification. The runtime tag stays fixed. No product blocker remains.
+Next product work requires a separate approved plan.
+
+The full exact-master gate runs on the normal merge itself, with disposable stores,
+no source mutation and the same568 identities as candidate4. Both reader directions
+retain six automatic cases and rich three-entry canonical/conformer/history/original/
+appearance/job/surface/scene/counter/archive records. No new migration needs a
+separate downgrade; the full migration tests and existing guards pass. Archives
+retain current state, not portable history. The generic harness matching-client
+warning does not introduce a new authoring difference between these0.24 releases.
+
+Checkpoint history is preserved in PRs#117/#118 and test qualification PR#119. The subsequent documentation audit uses
+the same planned feature branch, changes only docs/evidence, and verifies links,
+JSON/gzip/log/source/version identities without repeating identical runtime tests.
+Final merge/ref cleanup is recorded externally after actual verification so no
+premature cleanup claim or runtime-tag movement is necessary. No plan scope was
+expanded; no optional progress UI or new follow-up issue was introduced.

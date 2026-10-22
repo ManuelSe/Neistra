@@ -2,75 +2,40 @@
 
 ## Current milestone
 
-Issue [#93](https://github.com/ManuelSe/Neistra/issues/93) has an
-[approved implementation contract](plans/issue-93-compact-modeling-toolbar.md)
-on `fix/issue-93-compact-modeling-toolbar`. The user's `/goal` authorizes
-implementation and verified delivery. [D-143](DECISIONS.md#d-143--compact-molecular-launchers-and-panel-independent-quick-execution)
-records the accepted scope.
+Issue [#93](https://github.com/ManuelSe/Neistra/issues/93) is implemented under its
+[approved contract](plans/issue-93-compact-modeling-toolbar.md), normally merged in
+[PR#117](https://github.com/ManuelSe/Neistra/pull/117), [focus correction PR#118](https://github.com/ManuelSe/Neistra/pull/118) and
+[qualification PR#119](https://github.com/ManuelSe/Neistra/pull/119), published stable
+[v0.24.1](https://github.com/ManuelSe/Neistra/releases/tag/v0.24.1) from exact verified runtime`d9bc489a0378b94d20fddae05588e2769b258caf`.
+D-143 records compact Transform/Edit/Minimize launchers and panel-independent
+quick execution. Minimize opens setup; Ctrl+M runs quietly; active-run reveal,
+Advanced AMBER and Jobs inspection remain. All five versions0.24.1; no dependency,
+API/job/schema/migration/scientific-model change (head0014, project/viewer/archive2,
+normalized/selection1). Originals and fixed/inactive rows/history retain ownership.
 
-M1/C1 (`00ce320`) and M2/C2 are complete. Three idle launchers (Transform, Edit,
-Minimize) share one compact frame and equal32px/44px targets/16px icons. Minimize
-opens setup; Ctrl+M runs without opening it. Existing session/cancellation,
-inspection, native transform and scientific ownership remain. Errors/warnings
-retain existing notices; no extra shortcut progress/Cancel/results UI is added.
+Both [candidate4](assets/compact-modeling-toolbar/c4-candidate4-gate.json) and
+[exact merged5](assets/compact-modeling-toolbar/c4-merged5-gate.json) pass all20
+commands: **1248 Python,331 frontend,8 supervisor,322 browser/60 unchanged
+layout/timing exclusions**, zero failures/flakes/retries/Python or native scientific
+skips. All568 source/test/tool/patch/lock identities/log hashes, frozen installs,
+fresh migration/static/types/build, actual tagged0.24.0↔final0.24.1 readers and
+unchanged native budgets verify. Merged cold small/pocket/18k native paint
+0.945/2.059/3.425s; first frame580.6ms,
+Cancel59.5ms. Command acceptance is distinct from old panel feedback.
+[Implementer self-review](assets/compact-modeling-toolbar/c3-review.md) addressed
+read-failure retirement and focus handoff. [Premerge audit](assets/compact-modeling-toolbar/c4-premerge-audit.json)
+records requested/unreturned Codex review, no required approval/check or unresolved
+thread and no override; independent review is not claimed.
 
-[C1 final](assets/compact-modeling-toolbar/c1-final-gate.json) passes328 frontend/
-27 native browser cases; [C2 final](assets/compact-modeling-toolbar/c2-final-gate.json)
-passes61 focused/328 frontend/77 native browser cases. Both pass lint/types/build/
-diff, with3 existing layout exclusions each, no failures/flakes/retries. The plan
-links exact commands, source identities, logs, screenshots and implementer reviews.
-
-Corrected clean [candidate3](assets/compact-modeling-toolbar/c4-candidate3-gate.json)
-and [summary](assets/compact-modeling-toolbar/c4-candidate3-summary.json) pass all20
-commands on`8a3c3c607e0bb72164f677e1d35ba884575d1144`: **1248 Python,331 frontend,8 supervisor,322 browser /
-60 unchanged documented layout/timing exclusions**, zero failures/flakes/retries/
-Python or native scientific skips. All568 source/test/tool/patch/lock identities
-remain fixed, digest`a079429f753cc2a266bb0eba3c2c56fa756f0bce3e3faa176b453c5a83dd8705`; lossless log hashes verify. Frozen
-installs, fresh0014, static/types/build, production-harness exclusion, all five
-0.24.1 versions and actual tagged0.24.0↔final0.24.1 reader directions pass.
-Both directions retain all six automatic cases and rich three-entry canonical/
-conformer/history/original/appearance/job/surface/scene/counter/archive records.
-No migration/API/job/schema/dependency/scientific-model change.
-
-All16 toolbar cases execute without skips/retries, covering both outgoing tools,
-explicit setup and quiet submission/publication focus, plus existing compact
-layout/transform/reveal/failure workflows. Full native interaction, quick/AMBER,
-editing,320px/themes/accessibility/actual100–200%zoom regressions pass. Cold small/
-pocket/18k native paint1.402/2.067/3.579s, first frame
-706.4ms, Cancel41.4ms; original2/5/5s,1s,500ms
-and<750ms long-task budgets remain. Command acceptance is distinct from former
-panel-render feedback, with no speedup comparison. Power/environment samples are
-retained without host-setting changes.
-
-The focused correction follows [initial PR#117](https://github.com/ManuelSe/Neistra/pull/117)
-and extends D-093/D-143's existing restoration suppression through visible setup
-and hidden autoApply. Other close paths were reviewed; no unresolved consequential
-finding remains in implementer self-review. No independent approval is claimed.
-Candidate2 is historical; merged1 was intentionally interrupted. This corrected
-candidate is the source for the corrective PR. Publication still requires a normal
-merge, complete exact merged2 gate and verified tag/release/issue/audit/cleanup.
-
-
-Exact-master PR#118 is merged at83aae8c. Its first full gate passed Python/static/
-frontend/build but failed the existing5s responsiveness assertion (6.101s); repeats
-and actual0.24.0 diagnostics are retained in the feature plan. AC is restored;
-full fresh merged3 qualification is next. No threshold/host setting is changed.
-Tag/release/close-out/cleanup remain pending a complete exact-master pass.
-
-C4 validation repair passes9 native worker tests,331 frontend/static/build and
-all10 notification browser cases without failures/skips/retries. Test-only changes
-retain actual>=10s expiry, the same13500ms total observation allowance and all
-native/project/request invariants; `/proc` ESRCH now means process exited like
-ENOENT. Production source, scientific thresholds and approved scope are unchanged.
-No exception is assumed. Next: fresh clean complete candidate4/merged5 gates,
-normal focused PR, then verified tag/release/close-out/audit/cleanup.
-
-Final corrected candidate4 now passes all20 commands:1248 Python/331 frontend/
-8 supervisor/322 browser with60 unchanged exclusions, no failures/retries or
-required scientific skips. Both actual0.24 reader directions, all16 toolbar/10
-notification cases, original native/responsiveness budgets,568 source identities
-and five0.24.1 versions verify. No exception is used. Next: focused repair PR,
-normal merge and complete exact merged5 gate before verified publication/cleanup.
+[Publication audit](assets/compact-modeling-toolbar/c4-publication.json) verifies
+the exact annotated tag, stable latest release/full notes, public downloaded ZIP
+SHA256/CRC/all4986 internal hashes and
+[issue close-out](https://github.com/ManuelSe/Neistra/issues/93#issuecomment-6349961393). Existing scientific limits remain; no approved core
+requirement is deferred or new follow-up created. Existing#83/#107/#114 remain
+separate. This documentation audit records verified delivery; its final merge and
+actual delayed feature-branch/reader-worktree cleanup are appended to the linked
+reply after verification. The runtime tag stays fixed. No product blocker remains.
+Next product work requires a separate approved plan.
 
 ### Previous delivery baseline — v0.24.0
 

@@ -1,0 +1,25 @@
+from pathlib import Path
+import json,subprocess
+out=Path('docs/assets/compact-modeling-toolbar')
+c=json.loads((out/'c4-candidate4-summary.json').read_text());s=json.loads((out/'c4-merged5-summary.json').read_text())
+assert c['complete'] and s['complete'] and c['source_sha256']==s['source_sha256'] and c['source_count']==s['source_count']==568
+assert subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()==s['commit']
+pr=json.loads(Path('/tmp/neistra93-pr-merged.json').read_text())
+cold={p['copies']:p['nativeAppliedMs']/1000 for p in s['quick_performance'] if p.get('phase')=='cold'}
+live=next(p for p in s['quick_performance'] if p.get('kind')=='live')
+base=Path('docs/RELEASE_NOTES.md').read_text().split('## 0.24.1 - Unreleased - Compact molecular toolbar\n\n',1)[1].split('\n## 0.24.0',1)[0]
+base=f'Stable patch for [issue #93](https://github.com/ManuelSe/Neistra/issues/93), delivered through [PR#117](https://github.com/ManuelSe/Neistra/pull/117) [focus correction PR#118](https://github.com/ManuelSe/Neistra/pull/118) and [qualification PR#{pr["number"]}]({pr["url"]}). Exact verified master: `{s["commit"]}`. The [approved contract](https://github.com/ManuelSe/Neistra/blob/{s["commit"]}/docs/plans/issue-93-compact-modeling-toolbar.md) governs scope.\n\n'+base[base.index('**Toolbar and setup.**'):]
+a=base.index('**Verification.**');b=base.index('**Scientific limits and scope.**')
+base=base[:a]+f'''**Verification.** Both final candidate and exact merged master pass all20 release commands: **1248 Python,331 frontend,8 supervisor and322 browser tests**, with60 unchanged documented layout/timing exclusions, zero failures/flakes/retries/Python or native scientific skips. Frozen installs, fresh Alembic0014, Ruff/mypy/ESLint/TypeScript, full native Playwright, production build and actual final0.24.1/tagged0.24.0 readers in both directions pass. Rich canonical records, all conformers, history, originals, settings, jobs, surfaces, selections, scenes, counters and archives retain compatibility. All568 runtime/test/tool/patch/lock identities match candidate and merged master (digest `{s['source_sha256']}`); lossless log hashes verify.\n\nMerged cold small/pocket/18k canonical native paint **{cold[0]:.3f}/{cold[1]:.3f}/{cold[8]:.3f}s**, first actual frame **{live['firstFrameMs']:.1f}ms**, explicit Cancel **{live['cancelMs']:.1f}ms**. Original2/5/5s,1s,500ms and<750ms long-task limits remain. Quiet command acceptance is a separate observation from former panel-render feedback; no speedup comparison is claimed. Native environment and power samples are retained without host-setting changes. Earlier interrupted/red attempts are diagnostic only. Local full-diff self-review addressed read-failure retirement and focus handoff. Codex request/review status is recorded in the premerge audit; no protection, required check or approval was bypassed.\n\n'''+base[b:]
+base=base.replace('**Compatibility and migration.**', '**Release-test reliability.** Real notification expiry is measured from recorded DOM appearance, retaining the>=10s lifetime assertion and original13.5s total wait. The native test observer recognizes ESRCH as process exit alongside ENOENT. Production notice/worker behavior and every scientific/performance limit are unchanged; no qualification exception is used.\n\n**Compatibility and migration.**')
+base=base.replace('(plans/issue-93-compact-modeling-toolbar.md)',f'(https://github.com/ManuelSe/Neistra/blob/{s["commit"]}/docs/plans/issue-93-compact-modeling-toolbar.md)')
+for before,after in {
+ '] [focus correction':'], [focus correction', 'equal32px desktop/44px coarse or narrow targets and16px icons':'equal 32 px desktop / 44 px coarse or narrow targets and 16 px icons',
+ 'retaining the>=10s':'retaining the ≥10 s','original13.5s':'original 13.5 s','to0.24.1':'to 0.24.1','Alembic0014':'Alembic 0014',
+ 'project/viewer/archive2 and normalized/selection1':'project/viewer/archive schemas 2 and normalized/selection schemas 1',
+ 'all20':'all 20','1248 Python,331 frontend,8 supervisor and322':'1,248 Python, 331 frontend, 8 supervisor and 322','with60':'with 60','All568':'All 568',
+ 'Original2/5/5s,1s,500ms and<750ms':'Original 2/5/5 s, 1 s, 500 ms and <750 ms',
+ 'Separate identity#83, renderer maintenance#107\nand broader chemistry#114':'Separate [identity #83](https://github.com/ManuelSe/Neistra/issues/83), [renderer maintenance #107](https://github.com/ManuelSe/Neistra/issues/107)\nand [broader chemistry #114](https://github.com/ManuelSe/Neistra/issues/114)'
+}.items():base=base.replace(before,after)
+Path('/tmp/neistra93-release.md').write_text('# Neistra v0.24.1 — Compact molecular toolbar\n\n'+base)
+print(json.dumps({'runtime':s['commit'],'pr':pr['url'],'cold_seconds':cold,'first_frame_ms':live['firstFrameMs'],'cancel_ms':live['cancelMs']}))
