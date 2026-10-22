@@ -20,7 +20,7 @@ async function seed(page: Parameters<typeof newEmptyProject>[0], request: Parame
   return { project: current, entry: current.entries[0], source };
 }
 
-test("immediately reconciles bond closure, restores exact Undo/Redo, and offers Preserve H", async ({ page, request }, info) => {
+test("immediately reconciles bond closure, restores exact Undo/Redo, without a policy selector", async ({ page, request }, info) => {
   test.setTimeout(120000);
   const { project, entry, source } = await seed(page, request);
   const path = `/api/v1/projects/${project.id}`;
@@ -30,8 +30,9 @@ test("immediately reconciles bond closure, restores exact Undo/Redo, and offers 
   await page.getByRole("button", { name: "Edit molecule", exact: true }).click();
   const panel = page.getByRole("dialog", { name: "Edit molecule", exact: true });
   await panel.getByRole("button", { name: "Bonds", exact: true }).click();
-  await expect(panel.getByRole("combobox", { name: "Bond hydrogens" })).toHaveValue("reconcile_if_possible");
+  await expect(panel.getByRole("combobox", { name: "Bond hydrogens" })).toHaveCount(0);
   await panel.getByRole("button", { name: "Create bond", exact: true }).click();
+  await panel.getByText("Automatic hydrogen details", { exact: true }).click();
   await expect(panel.getByLabel("Hydrogen reconciliation report")).toContainText("2 removed, 4 moved");
   const after = await getStructure();
   expect(after.atoms).toHaveLength(12);
@@ -43,13 +44,6 @@ test("immediately reconciles bond closure, restores exact Undo/Redo, and offers 
   await expect.poll(getStructure).toEqual(after);
   await page.getByRole("button", { name: /^Undo: Assign bond order/ }).click();
   await expect.poll(getStructure).toEqual(before);
-  await selectPair(page, entry.id, [1,4], info.project.name === "mobile-chromium");
-  await page.getByRole("button", { name: "Edit molecule", exact: true }).click();
-  await panel.getByRole("combobox", { name: "Bond hydrogens" }).selectOption("preserve");
-  await panel.getByRole("button", { name: "Create bond", exact: true }).click();
-  await expect.poll(async () => (await getStructure()).bonds.length).toBe(before.bonds.length + 1);
-  expect((await getStructure()).atoms).toEqual(before.atoms);
-  expect((await getStructure()).conformers).toEqual(before.conformers);
   expect(Buffer.from(await (await request.get(`${path}/entries/${entry.id}/original`)).body())).toEqual(source);
 });
 
@@ -61,6 +55,7 @@ test("optional native preview shows H movements/removals without publication and
   await page.getByRole("button", { name: "Edit molecule", exact: true }).click();
   const panel = page.getByRole("dialog", { name: "Edit molecule", exact: true });
   await panel.getByRole("button", { name: "Bonds", exact: true }).click();
+  await panel.getByText("Advanced bond details", { exact: true }).click();
   await panel.getByRole("checkbox", { name: "Preview changes before applying" }).check();
   await panel.getByRole("button", { name: "Create bond", exact: true }).click();
   await expect.poll(async () => (await previewState(page)).preview?.removed_atoms?.length ?? 0).toBe(2);
@@ -84,7 +79,7 @@ test("optional native preview shows H movements/removals without publication and
 });
 
 
-test("keeps bond policy and H changes accessible in both themes and narrow layouts", async ({ page, request }, info) => {
+test("keeps compact bond controls and H changes accessible in both themes and narrow layouts", async ({ page, request }, info) => {
   test.setTimeout(120000);
   const { entry } = await seed(page, request);
   await selectPair(page, entry.id, [1,4], info.project.name === "mobile-chromium");
@@ -94,7 +89,7 @@ test("keeps bond policy and H changes accessible in both themes and narrow layou
   await panel.getByRole("button", { name: "Bonds", exact: true }).click();
   for (const theme of ["light", "dark"]) {
     if (await page.locator("html").getAttribute("data-theme") !== theme) await page.getByRole("button", { name: `Use ${theme} theme`, exact: true }).click();
-    const policy = panel.getByRole("combobox", { name: "Bond hydrogens" });
+    const policy = panel.getByRole("button", { name: "Create bond", exact: true });
     await policy.focus(); await expect(policy).toBeFocused();
     expect(await policy.evaluate(node => { const box = node.getBoundingClientRect(); return node.contains(document.elementFromPoint(box.x + box.width/2, box.y + box.height/2)); })).toBe(true);
     const bounds = (await panel.boundingBox())!;
@@ -103,6 +98,8 @@ test("keeps bond policy and H changes accessible in both themes and narrow layou
     expect(bounds.x + bounds.width).toBeLessThanOrEqual(viewport.width + 1);
     expect(await panel.evaluate(node => node.scrollWidth <= node.clientWidth + 1)).toBe(true);
     expect((await new AxeBuilder({ page }).include(".molecular-edit-panel").withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"]).analyze()).violations).toEqual([]);
+    const advanced = panel.getByText("Advanced bond details", { exact: true });
+    if (!(await advanced.evaluate(node => node.closest("details")!.open))) await advanced.click();
     await panel.getByRole("checkbox", { name: "Preview changes before applying" }).check();
     await panel.getByRole("button", { name: "Create bond", exact: true }).click();
     await expect.poll(async () => (await previewState(page)).preview?.removed_atoms?.length ?? 0).toBe(2);

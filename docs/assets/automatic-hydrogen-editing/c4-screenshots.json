@@ -1,0 +1,75 @@
+{
+  "gate": "c4-attempt2-gate.json",
+  "screenshots": [
+    {
+      "source": "test-results/molecular-editing-keeps-to-cded0-h-themes-and-narrow-layouts-chromium/c3-accessible-editor.png",
+      "file": "docs/assets/automatic-hydrogen-editing/c4-molecular-editing-keeps-to-cded0-h-themes-and-narrow-layouts-chromium-c3-accessible-editor.png",
+      "sha256": "485861321fdeb6b7ef6b5e20590555d8b5862ad91dd80effdd570db2a2ca3493"
+    },
+    {
+      "source": "test-results/rebranding-zoom-keeps-the--86641-able-at-actual-browser-zoom-chromium/light-100-molecular-edit.png",
+      "file": "docs/assets/automatic-hydrogen-editing/c4-rebranding-zoom-keeps-the--86641-able-at-actual-browser-zoom-chromium-light-100-molecular-edit.png",
+      "sha256": "35865c713cfcd8aa2a917754dece27dffd33d43b4d12b9deb0089b18a81fae10"
+    },
+    {
+      "source": "test-results/rebranding-zoom-keeps-the--86641-able-at-actual-browser-zoom-chromium/light-200-placement-inspection.png",
+      "file": "docs/assets/automatic-hydrogen-editing/c4-rebranding-zoom-keeps-the--86641-able-at-actual-browser-zoom-chromium-light-200-placement-inspection.png",
+      "sha256": "e650b34a70e59faebcc944a07cadfffc38bd5dd4fe7c4f93e12dbcc79e8f89e1"
+    },
+    {
+      "source": "test-results/rebranding-zoom-keeps-the--86641-able-at-actual-browser-zoom-chromium/dark-200-molecular-edit.png",
+      "file": "docs/assets/automatic-hydrogen-editing/c4-rebranding-zoom-keeps-the--86641-able-at-actual-browser-zoom-chromium-dark-200-molecular-edit.png",
+      "sha256": "8ffaf6e24a28c90920ef2a22c33cbb8ea96b765f623de39270331641f0387ef4"
+    },
+    {
+      "source": "test-results/rebranding-zoom-keeps-the--86641-able-at-actual-browser-zoom-chromium/dark-100-molecular-edit.png",
+      "file": "docs/assets/automatic-hydrogen-editing/c4-rebranding-zoom-keeps-the--86641-able-at-actual-browser-zoom-chromium-dark-100-molecular-edit.png",
+      "sha256": "9876bfb48650c8166a7f86f15cc5d65847b6cc8834e47aebdec6f49dca32478f"
+    },
+    {
+      "source": "test-results/rebranding-zoom-keeps-the--86641-able-at-actual-browser-zoom-chromium/light-100-placement-inspection.png",
+      "file": "docs/assets/automatic-hydrogen-editing/c4-rebranding-zoom-keeps-the--86641-able-at-actual-browser-zoom-chromium-light-100-placement-inspection.png",
+      "sha256": "41964aa1071a154e50b56a190806ebf2a7baeaa2787dd175e83937ffc751c4c3"
+    },
+    {
+      "source": "test-results/rebranding-zoom-keeps-the--86641-able-at-actual-browser-zoom-chromium/dark-100-placement-inspection.png",
+      "file": "docs/assets/automatic-hydrogen-editing/c4-rebranding-zoom-keeps-the--86641-able-at-actual-browser-zoom-chromium-dark-100-placement-inspection.png",
+      "sha256": "e90b39dbb682301199b6370ca3258bdc4422374b3c2fba5b6b5e5394e0ab8896"
+    },
+    {
+      "source": "test-results/rebranding-zoom-keeps-the--86641-able-at-actual-browser-zoom-chromium/light-200-molecular-edit.png",
+      "file": "docs/assets/automatic-hydrogen-editing/c4-rebranding-zoom-keeps-the--86641-able-at-actual-browser-zoom-chromium-light-200-molecular-edit.png",
+      "sha256": "32a63bbd086a66064d8892349a30bd428f935114600723645eead700d92c582d"
+    },
+    {
+      "source": "test-results/rebranding-zoom-keeps-the--86641-able-at-actual-browser-zoom-chromium/dark-200-placement-inspection.png",
+      "file": "docs/assets/automatic-hydrogen-editing/c4-rebranding-zoom-keeps-the--86641-able-at-actual-browser-zoom-chromium-dark-200-placement-inspection.png",
+      "sha256": "6dcb4fb683f8fbdd24c6681b144f84af81908fa4c8293d561bc333f27f6926f4"
+    },
+    {
+      "source": "test-results/bond-hydrogen-reconciliati-ce217-h-themes-and-narrow-layouts-chromium/dark-bond-tools.png",
+      "file": "docs/assets/automatic-hydrogen-editing/c4-bond-hydrogen-reconciliati-ce217-h-themes-and-narrow-layouts-chromium-dark-bond-tools.png",
+      "sha256": "aca646168149cbab3b79a4ceaaa2771cb5f5dc41f31bd202338fc036865ace42"
+    },
+    {
+      "source": "test-results/bond-hydrogen-reconciliati-ce217-h-themes-and-narrow-layouts-chromium/light-bond-tools.png",
+      "file": "docs/assets/automatic-hydrogen-editing/c4-bond-hydrogen-reconciliati-ce217-h-themes-and-narrow-layouts-chromium-light-bond-tools.png",
+      "sha256": "b04276730b026cab3d913a7433b0667c881db15d7f1c8850877ab5bffc233b7c"
+    },
+    {
+      "source": "test-results/bond-hydrogen-reconciliati-ce217-h-themes-and-narrow-layouts-mobile-chromium/dark-bond-tools.png",
+      "file": "docs/assets/automatic-hydrogen-editing/c4-bond-hydrogen-reconciliati-ce217-h-themes-and-narrow-layouts-mobile-chromium-dark-bond-tools.png",
+      "sha256": "e98cc32c9d90f7e19a1b701931a4b53c0798cecb963b6f44f02db4fe211f7b96"
+    },
+    {
+      "source": "test-results/bond-hydrogen-reconciliati-ce217-h-themes-and-narrow-layouts-mobile-chromium/light-bond-tools.png",
+      "file": "docs/assets/automatic-hydrogen-editing/c4-bond-hydrogen-reconciliati-ce217-h-themes-and-narrow-layouts-mobile-chromium-light-bond-tools.png",
+      "sha256": "2d56cbd549d9714371fac5a11d8dd3d682bf830db6d57760ad1313637215c527"
+    },
+    {
+      "source": "test-results/molecular-editing-keeps-to-cded0-h-themes-and-narrow-layouts-mobile-chromium/c3-accessible-editor.png",
+      "file": "docs/assets/automatic-hydrogen-editing/c4-molecular-editing-keeps-to-cded0-h-themes-and-narrow-layouts-mobile-chromium-c3-accessible-editor.png",
+      "sha256": "5310c80e0d9eef0795a41d7a4a39a7a42218a231bdefe56bf6aeea8c0f07ac5e"
+    }
+  ]
+}

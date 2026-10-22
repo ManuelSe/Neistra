@@ -1,4 +1,4 @@
-import { completeHydrogens } from "./support/hydrogen";
+import { addOneHydrogen } from "./support/hydrogen";
 import { prepare } from "./support/interactions";
 import { browseComponents, showEntries } from "./support/navigation";
 import type { Project } from "../../apps/web/src/api/types";
@@ -383,7 +383,7 @@ test("keeps the molecular editor keyboard controls reachable at actual browser z
     const launcher = page.getByRole("button", { name: "Edit molecule", exact: true });
     await launcher.click();
     const panel = page.getByRole("dialog", { name: "Edit molecule", exact: true });
-    await completeHydrogens(page);
+    await addOneHydrogen(page);
     await expect(page.getByText(/Molecular edit stored/)).toBeVisible();
     await panel.getByRole("button", { name: "Close molecular editor" }).click();
     for (const theme of ["light", "dark"]) {
@@ -410,7 +410,7 @@ test("keeps the molecular editor keyboard controls reachable at actual browser z
         await captureZoomPage(page, info, `${theme}-${factor * 100}-molecular-edit.png`);
         await panel.getByRole("button", { name: "Atoms", exact: true }).click();
         await panel.getByText("Add atom", { exact: true }).click();
-        const more = panel.getByText("More elements and formal charge", { exact: true });
+        const more = panel.getByText("Advanced atom details", { exact: true });
         if (!(await more.evaluate(node => node.closest("details")!.open))) await more.click();
         expect((await new AxeBuilder({ page }).include(".molecular-edit-panel").withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"]).analyze()).violations).toEqual([]);
         await panel.getByRole("button", { name: "Preview atom", exact: true }).click();

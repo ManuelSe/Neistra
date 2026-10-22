@@ -1,16 +1,15 @@
-import type { HydrogenGeometry, HydrogenPolicy, ModelPlacementAction, ModelPreview, Selection } from "../api/types";
+import type { ModelPreview, Selection } from "../api/types";
+import type { PlacementAction } from "../editing/placement";
 import { create } from "zustand";
 
 export interface PlacementDraft {
   context: string;
-  action: ModelPlacementAction;
+  action: PlacementAction;
   result?: ModelPreview;
   error?: string;
 }
 
 interface EditingState {
-  hydrogenDraft: { count: string; geometry: HydrogenGeometry; scope: "selection" | "entry" };
-  setHydrogenDraft: (patch: Partial<EditingState["hydrogenDraft"]>) => void;
   launcherFocusRequested: boolean;
   setLauncherFocusRequested: (requested: boolean) => void;
   inspectingPlacement: boolean;
@@ -19,12 +18,8 @@ interface EditingState {
   setAtomDraft: (patch: Partial<EditingState["atomDraft"]>) => void;
   targetEntryId: string | null;
   setTargetEntryId: (entryId: string | null) => void;
-  bondHydrogenPolicy: "preserve" | "reconcile_if_possible";
-  setBondHydrogenPolicy: (policy: "preserve" | "reconcile_if_possible") => void;
   previewBondChanges: boolean;
   setPreviewBondChanges: (enabled: boolean) => void;
-  hydrogenPolicy: Exclude<HydrogenPolicy, "reconcile_if_possible">;
-  setHydrogenPolicy: (policy: Exclude<HydrogenPolicy, "reconcile_if_possible">) => void;
   placement: PlacementDraft | null;
   setPlacement: (draft: PlacementDraft | null) => void;
   focusNewMolecule: { entryId: string; atomId: number; selection: Selection } | null;
@@ -43,22 +38,18 @@ interface EditingState {
 }
 
 export const useEditingStore = create<EditingState>((set) => ({
-  hydrogenDraft: { count: "1", geometry: "tetrahedral", scope: "selection" },
-  setHydrogenDraft: patch => set(state => ({ hydrogenDraft: { ...state.hydrogenDraft, ...patch }, placement: null })),
   launcherFocusRequested: false, setLauncherFocusRequested: launcherFocusRequested => set({ launcherFocusRequested }),
   inspectingPlacement: false, setInspectingPlacement: inspectingPlacement => set({ inspectingPlacement }),
   atomDraft: { element: "C", charge: "0", unknown: false },
   setAtomDraft: patch => set(state => ({ atomDraft: { ...state.atomDraft, ...patch }, placement: null })),
   targetEntryId: null, setTargetEntryId: targetEntryId => set({ targetEntryId, placement: null }),
-  bondHydrogenPolicy: "reconcile_if_possible", setBondHydrogenPolicy: bondHydrogenPolicy => set({ bondHydrogenPolicy, placement: null }),
   previewBondChanges: false, setPreviewBondChanges: previewBondChanges => set({ previewBondChanges, placement: null }),
-  hydrogenPolicy: "preserve", setHydrogenPolicy: hydrogenPolicy => set({ hydrogenPolicy, placement: null }),
   placement: null, setPlacement: placement => set(state => ({ placement, inspectingPlacement: placement ? state.inspectingPlacement : false })),
   focusNewMolecule: null, setFocusNewMolecule: focusNewMolecule => set({ focusNewMolecule }),
   projectId: null, generation: 0, open: false, pending: false, section: "atoms", focusRequested: false,
   setFocusRequested: focusRequested => set({ focusRequested }),
   setSection: section => set({ section, placement: null }),
-  setProject: projectId => set(state => state.projectId === projectId ? state : { projectId, generation: state.generation + 1, open: false, pending: false, section: "atoms", focusRequested: false, launcherFocusRequested: false, targetEntryId: null, bondHydrogenPolicy: "reconcile_if_possible", previewBondChanges: false, hydrogenPolicy: "preserve", placement: null, inspectingPlacement: false, focusNewMolecule: null, hydrogenDraft: { count: "1", geometry: "tetrahedral", scope: "selection" }, atomDraft: { element: "C", charge: "0", unknown: false } }),
+  setProject: projectId => set(state => state.projectId === projectId ? state : { projectId, generation: state.generation + 1, open: false, pending: false, section: "atoms", focusRequested: false, launcherFocusRequested: false, targetEntryId: null, previewBondChanges: false, placement: null, inspectingPlacement: false, focusNewMolecule: null, atomDraft: { element: "C", charge: "0", unknown: false } }),
   setOpen: open => set(state => ({ open, placement: open ? state.placement : null })),
   setPending: pending => set({ pending }),
 }));

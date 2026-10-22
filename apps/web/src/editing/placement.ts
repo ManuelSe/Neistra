@@ -1,4 +1,6 @@
-import type { HydrogenPolicy, Project, Selection } from "../api/types";
+import type { HydrogenAction, HydrogenPolicy, ModelPlacementAction, Project, Selection } from "../api/types";
+
+export type PlacementAction = Exclude<ModelPlacementAction, HydrogenAction>;
 
 /** Captured authored operands, independent of native model/ghost identities. */
 export function placementContext(project: Project, entryId: string | undefined, selection: Selection, generation: number, policy: HydrogenPolicy): string {

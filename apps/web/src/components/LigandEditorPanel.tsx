@@ -27,7 +27,6 @@ interface LigandEditorPanelProps {
   selection: Selection;
   structures: StructureMap;
   busy: boolean;
-  onHydrogenBuild?: (entryId: string, scope: "selection" | "entry", atomIds: number[]) => void;
   onEdit: (entryId: string, edit: LigandEdit) => Promise<LigandEditResult>;
   onMove: (transform: CoordinateTransform) => Promise<void>;
 }
@@ -45,7 +44,6 @@ export function LigandEditorPanel({
   structures,
   busy,
   onEdit,
-  onHydrogenBuild,
   onMove,
 }: LigandEditorPanelProps) {
   const sharedPending = useEditingStore(state => state.projectId === project.id && state.pending);
@@ -333,19 +331,12 @@ export function LigandEditorPanel({
       </fieldset>
 
       <fieldset className="edit-section">
-        <legend><Beaker size={15} /> Hydrogens</legend>
+        <legend><Beaker size={15} /> Remove hydrogens</legend>
         <div className="segmented-control">
           <button type="button" className={scope === "all" ? "active" : ""} onClick={() => setScope("all")}>All</button>
           <button type="button" className={scope === "selection" ? "active" : ""} onClick={() => setScope("selection")}>Selection</button>
         </div>
         <div className="edit-actions">
-          <button
-            type="button"
-            disabled={disabled || !onHydrogenBuild || (scope === "selection" && selectedAtomIds.length === 0)}
-            onClick={() => onHydrogenBuild?.(entryId, scope === "all" ? "entry" : "selection", selectedAtomIds)}
-          >
-            <CirclePlus size={15} /> Build H…
-          </button>
           <button
             type="button"
             disabled={disabled || (scope === "selection" && selectedAtomIds.length === 0)}

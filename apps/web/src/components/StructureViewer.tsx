@@ -408,7 +408,7 @@ export function StructureViewer({
 
   const placement = editingState.placement;
   const modelPreview = editOpen && !movementActive && !coordinatePreview && placement?.result
-    && placement.context === placementContext(project, placement.result.entry_id, selection, editingState.generation, editingState.section === "bonds" ? editingState.bondHydrogenPolicy : editingState.hydrogenPolicy)
+    && placement.context === placementContext(project, placement.result.entry_id, selection, editingState.generation, "automatic")
     ? placement.result : null;
   useEffect(() => {
     if (!viewerReady) return;

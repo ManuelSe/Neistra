@@ -809,8 +809,10 @@ extending legacy profiles or claiming protonation prediction.
 Preview and Apply use the same computation, captured guards and generic molecular
 publication/history path. Shared target/H/coordinate/analysis/diagnostic budgets
 remain bounded. No new schema, migration, worker or plugin is introduced. The
-compact UI migration remains the separate M4 checkpoint; one-click addition is
-documented below with its C2 evidence in the feature plan.
+compact UI sends automatic for ordinary direct edits and their placement previews,
+including direct edits from the advanced inspector. It exposes no policy preference.
+One-click addition uses preserve as documented below; legacy HTTP operations remain
+available independently of their retired UI launchers.
 
 ## Bounded one-click hydrogen addition (issue #92, C2)
 

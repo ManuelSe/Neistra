@@ -40,7 +40,7 @@ test("reveals a nonpickable placement with reachable controls in both themes and
     expect((await new AxeBuilder({ page }).include(".molecular-edit-panel").withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"]).analyze()).violations).toEqual([]);
     await page.screenshot({ path: info.outputPath(`${theme}-unobstructed-placement.png`) });
     await panel.getByRole("button", { name: "Placement tools", exact: true }).click();
-    const more = panel.getByText("More elements and formal charge", { exact: true });
+    const more = panel.getByText("Advanced atom details", { exact: true });
     if (!(await more.evaluate(node => node.closest("details")!.open))) await more.click();
     expect((await new AxeBuilder({ page }).include(".molecular-edit-panel").withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"]).analyze()).violations).toEqual([]);
     await panel.getByRole("button", { name: "Inspect placement", exact: true }).click();

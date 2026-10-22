@@ -18,8 +18,13 @@ camera/selection/reload behavior. Reviews are implementer self-review.
 35 projection/panel/314 total frontend and20 native workflows; additional shared
 viewer-state/command checks pass17. Native read-only observations verify exact
 representation and overpaint memberships after addition, including new H, alongside
-combined molecule/settings history and persisted scene/archive boundaries. Compact
-UI and complete candidate/actual-reader/exact-master qualification remain pending;
+combined molecule/settings history and persisted scene/archive boundaries. [C4](assets/automatic-hydrogen-editing/c4-attempt2-gate.json) passes43 focused/318
+frontend and57 native cases/5 documented layout exclusions, with all static/type/
+build checks. Both themes,320px/actual200%zoom, native picks, automatic inspector
+routing, hidden H, exact history/originals and delayed-response ownership pass.
+[Review](assets/automatic-hydrogen-editing/c4-review.md) and
+[screenshots](assets/automatic-hydrogen-editing/c4-screenshots.json) are retained.
+Complete candidate/actual-reader/exact-master qualification remains pending;
 checkpoint evidence is not release qualification.
 
 ## Quick local minimization (issue #110) — stable v0.23.0

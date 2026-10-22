@@ -2,8 +2,8 @@
 
 ## 1. Status, outcome and authority
 
-**Status:** approved implementation in progress. M1–M3 are implemented and
-qualified; M4–M5 and release delivery remain pending. C0 was committed and remotely verified
+**Status:** approved implementation in progress. M1–M4 are implemented and
+qualified; M5 and release delivery remain pending. C0 was committed and remotely verified
 at `15705d9c57af285f5b15b33d7a9bf421d072bae6`.
 
 **Approval:** the user's “Implement the plan.” on 2026-10-22 approves the complete
@@ -50,7 +50,7 @@ Existing molecular ownership, identity, warning, history and archive decisions
 remain binding. This approval explicitly amends the UI defaults and deletion
 behavior documented in D-101/D-105/D-107, and addition-time appearance behavior
 in D-046/D-054. Historical decisions remain intact. D-140–142 record the new
-accepted architectural decisions, with implementation pending. The global
+accepted architectural decisions; checkpoint notes below record implementation. The global
 [plan](../PLAN.md) remains unchanged.
 
 ### Inspection findings and evidence
@@ -124,7 +124,7 @@ files. These historical baseline results do not replace implementation gates.
 | Optional bond preview | Optional; retained | Keep the existing preview/Apply workflow. +H itself applies immediately. |
 | Undo/Redo, previews, conformers, save/reload and originals | Already supported infrastructure; essential verification | Extend existing transactions and ownership rather than introducing another state model. |
 | Reuse or replace hydrogens.add | Supporting intent; replacement rejected | Reuse its placement machinery through a new action. Changing the old operation would break its documented draft-building contract. |
-| Arbitrary aromatic, resonance, hypervalent or other-element +H chemistry | Deferred | Create one bounded follow-up, “Qualify broader automatic hydrogen and +H chemistry,” before closing #92. |
+| Arbitrary aromatic, resonance, hypervalent or other-element +H chemistry | Deferred | Created and remotely verified [#114](https://github.com/ManuelSe/Neistra/issues/114), “Qualify broader automatic hydrogen and +H chemistry,” for separate qualification. |
 | Canonical isotope/radical authoring and export | Deferred | Existing [#83](https://github.com/ManuelSe/Neistra/issues/83); retain its current protection boundary. |
 | Infer missing ligand chemistry or provide comprehensive preparation | Deferred | Existing [#52](https://github.com/ManuelSe/Neistra/issues/52) and preparation work remain separate. |
 | Expanded fragments, ring fusion and general building expansion | Deferred | Existing [#71](https://github.com/ManuelSe/Neistra/issues/71). |
@@ -798,3 +798,47 @@ the approved contract committed and the repository ready for `/goal`.
   molecule-wide rules; historical scenes do not gain new members. M4 controls and
   full actual-reader/candidate/exact-master gates remain pending.
 - Blockers: none. Next action: commit passing C3, then M4 compact automatic UI.
+
+### C4 in-progress qualification and follow-up — 2026-10-22
+
+C3 is committed at `db63fb5`. C4 removes obsolete UI/store preferences and the
+Build H launcher while preserving HTTP operations, explicit H removal and protein
+preparation. Automatic routing includes the advanced direct-edit inspector.
+Bounded bond controls and keyboard tooltips have focused coverage. Passing static,
+production build and frontend results currently include43 focused/318 total tests;
+complete native requalification remains pending, so C4 is not yet committed.
+
+The initial C4 native gate and focused diagnostic are retained separately. Their
+failures identified obsolete count/allocator/label assumptions and two legacy
+fixture admission boundaries. The XYZ fixture has protected unknown H; the
+historical complex lacks recoverable local identity for +H. These guards remain
+unchanged. Its native-picking regression uses explicit retained additive HTTP
+fixture setup and does not claim +H admission for that archive. All native checks
+must pass before completion.
+
+Created and remotely read back [follow-up#114](https://github.com/ManuelSe/Neistra/issues/114).
+The connector's create action returned403; the authenticated CLI created it without
+changing repository/integration permissions. #83/#52/#71 continue their existing
+scope. No additional chemistry or global cleanup scope has been added.
+
+### M4/C4 complete — 2026-10-22
+
+[C4 final gate](../assets/automatic-hydrogen-editing/c4-attempt2-gate.json) passes
+all9 commands:43 focused/318 total frontend tests,57 native cases and5 existing
+layout exclusions, Ruff/mypy102/ESLint/TypeScript, production build and diff check.
+Native cases cover both themes,320px layouts, actual100–200% browser zoom,
+focus/tooltips/touch targets, previews, hidden-H deletion, exact history/originals,
+legacy HTTP compatibility, inspector routing, native picks and delayed-response
+ownership. Zero failures/flakes/retries. Every source and decompressed-log hash
+verifies. [Screenshots](../assets/automatic-hydrogen-editing/c4-screenshots.json)
+and [implementer review](../assets/automatic-hydrogen-editing/c4-review.md) are retained.
+The two earlier diagnostic attempts are separate from passing evidence.
+
+The automatic-only compact workflow is complete. Advanced retains unknown/order
+assignment and atom/charge details, without a policy selector. Dedicated +H is
+immediate; legacy HTTP helpers, general explicit atom building, H display/removal
+and protein preparation retain their contracts. No schema, migration, dependency
+or version change. #114 is remotely verified. No blocker or unresolved consequential
+checkpoint finding; C4 commit follows this evidence update. Next: C5 actual-reader,
+final-version full candidate qualification and full-diff review, then verified PR
+and release delivery.

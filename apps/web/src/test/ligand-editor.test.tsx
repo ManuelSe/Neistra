@@ -86,7 +86,6 @@ function setup(selection: Selection, locked = false) {
     },
   };
   const onEdit = vi.fn().mockResolvedValue(result);
-  const onHydrogenBuild = vi.fn();
   const onMove = vi.fn().mockResolvedValue(undefined);
   render(
     <LigandEditorPanel
@@ -94,12 +93,11 @@ function setup(selection: Selection, locked = false) {
       selection={selection}
       structures={new Map([["ligand", structure]])}
       busy={false}
-      onHydrogenBuild={onHydrogenBuild}
       onEdit={onEdit}
       onMove={onMove}
     />,
   );
-  return { onEdit, onMove, onHydrogenBuild };
+  return { onEdit, onMove };
 }
 
 const sideSelection: Selection = {
@@ -117,7 +115,7 @@ describe("ligand editor", () => {
 
   it("submits atom, bond, hydrogen, rotation, movement, and cleanup commands", async () => {
     const user = userEvent.setup();
-    const { onEdit, onMove, onHydrogenBuild } = setup(sideSelection);
+    const { onEdit, onMove } = setup(sideSelection);
 
     await user.click(screen.getByRole("button", { name: "Add" }));
     expect(onEdit).toHaveBeenLastCalledWith(
@@ -136,8 +134,7 @@ describe("ligand editor", () => {
     });
 
     await user.click(screen.getByRole("button", { name: "Selection" }));
-    await user.click(screen.getByRole("button", { name: "Build H…" }));
-    expect(onHydrogenBuild).toHaveBeenLastCalledWith("ligand", "selection", [3, 4]);
+    expect(screen.queryByRole("button", { name: "Build H…" })).toBeNull();
 
     await user.selectOptions(screen.getByLabelText("Rotatable bond"), "2");
     await user.click(screen.getByRole("button", { name: "Rotate selected side" }));

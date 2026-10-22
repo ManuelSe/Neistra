@@ -7,23 +7,25 @@ Issue [#92](https://github.com/ManuelSe/Neistra/issues/92) is implementing its
 `feat/issue-92-automatic-hydrogen-editing`, authorized by the user's 2026-10-22
 `/goal`. C0 remote commit15705d9 and D-140–142 retain approval and boundaries.
 
-M1/C1 and M2/C2 are committed/pushed at1701fb9/af775c7. M3/C3 now inherits live
-representation/color properties from creation ancestry and coalesces them with
-deleted-reference pruning in one molecular command. Element tokens, original bytes,
-exact coordinates/history and scene snapshot boundaries remain authoritative.
-[C3 gate](assets/automatic-hydrogen-editing/c3-attempt1-gate.json) passes all ten
-commands: **71 focused Python,35 projection/panel/314 total frontend,20 native
-browser cases** and static/type/build checks; actual native component/overpaint
-membership includes added H. [Extra shared-path checks](assets/automatic-hydrogen-editing/c3-reference-gate.json)
-pass17 viewer-state/command cases. Source/log hashes verify; local
-[self-review](assets/automatic-hydrogen-editing/c3-review.md) has no unresolved
-consequential finding. All five versions remain0.23.0, no migration/dependency
-change, planned stable minor0.24.0.
+M1/C1 and M2/C2 are pushed at1701fb9/af775c7; M3/C3 is committed at db63fb5.
+M4/C4 completes automatic-only compact controls, bounded immediate +H, canonical
+bond icons/stepping/aromatic/Advanced controls and attachment appearance. Legacy
+HTTP defaults/operations, separate H display/removal and protein preparation remain.
+[C4 gate](assets/automatic-hydrogen-editing/c4-attempt2-gate.json) passes all9
+commands:43 focused/318 frontend,57 native cases/5 documented layout exclusions,
+static/type/build checks and diff. Both themes,320px/actual200%zoom, native picks,
+previews, hidden H, exact history/originals and delayed ownership pass. Source/log
+hashes and [local self-review](assets/automatic-hydrogen-editing/c4-review.md) verify.
+Earlier diagnostics retain obsolete fixture expectations separately; identity and
+protected-H guards were not weakened. C1–C3 scientific/appearance evidence remains
+linked in the detailed feature plan.
 
-Known limitations: unoptimized/bounded H chemistry, explicit mixed appearance and
-historical scene memberships retain their documented limits. M4 compact UI and
-full actual-reader/candidate/merged release gates remain pending. No blocker.
-Next action: commit C3, then M4 automatic-only compact controls.
+Known limits: bounded unoptimized H chemistry and existing scene/visibility owners.
+[Broader chemistry#114](https://github.com/ManuelSe/Neistra/issues/114) is created and
+remotely verified; #83/#52/#71 retain their scope. All five versions remain0.23.0,
+no migration/dependency change; planned stable minor0.24.0. No blocker. Next action:
+commit C4, then C5 actual-reader/final-version complete release qualification and
+PR/review/merge/release; no delivery completion is claimed yet.
 
 ### Previous delivery baseline — v0.23.0
 

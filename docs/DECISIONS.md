@@ -5487,3 +5487,20 @@ callers retain their old defaults/action vocabulary. Exact renderer component an
 overpaint membership, combined Undo/Redo, archives and shared viewer/command
 regressions pass the C3 source-bound gates linked in the plan. No new migration,
 schema, dependency or version source change is introduced.
+
+### D-140/141 UI implementation note — issue #92 M4/C4, 2026-10-22
+
+The compact editor and advanced direct-edit inspector now share automatic policy;
+legacy omitted/preserve and optional HTTP policies retain their meanings. Remove
+transient H policy/count/geometry/completion state and obsolete Build H launchers.
+Dedicated +H applies immediately with server admission; optional bond preview,
+unknown-order/charge assignment, H display/removal and protein preparation remain.
+No new persisted preference or migration is introduced. Primary/inspection icon
+controls retain keyboard tooltips and canonical operand/response ownership.
+
+C4 qualification preserves safety boundaries when legacy fixtures cannot prove
+ordinary identity. Unknown XYZ H remain protected; the historical complex's +H
+refusal is correct. Its existing native-picking regression uses explicit legacy
+additive HTTP fixture preparation, never inferred identity or a retired UI claim.
+Full C4 evidence and local self-review are linked in the feature plan; broader
+qualification is tracked separately in remotely verified #114.

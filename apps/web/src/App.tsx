@@ -2,7 +2,6 @@ import { seedCoordinateProjections } from "./coordinates/cache";
 import type { ViewerPick } from "./selection/gestures";
 import { useMinimization } from "./minimization/useMinimization";
 import { useMinimizationStore } from "./minimization/store";
-import { placementContext } from "./editing/placement";
 import { manualModelEdit } from "./editing/manual";
 import { NewMoleculeDialog, type NewMoleculeInput } from "./components/NewMoleculeDialog";
 import type { HydrogenPolicy } from "./api/types";
@@ -684,20 +683,6 @@ export default function App() {
         throw error;
       }
     },
-    onHydrogenBuild: (entryId: string, scope: "selection" | "entry", atomIds: number[]) => {
-      if (!project || busy || coordinatePreview || movement.state.phase !== "idle") return;
-      const entry = project.entries.find(e => e.id === entryId);
-      const editing = useEditingStore.getState();
-      if (!entry || entry.locked || !entry.current_artifact_id || editing.pending) return;
-      const operand = canonicalSelection(atomIds.map(atom_id => ({ structure_id: entryId, atom_id })), "atom", "inspector");
-      replaceSelection(operand);
-      editing.setTargetEntryId(entryId);
-      editing.setSection("atoms");
-      editing.setHydrogenDraft({ scope });
-      editing.setOpen(true);
-      editing.setPlacement({ context: placementContext(project, entryId, operand, editing.generation, editing.hydrogenPolicy), action: { operation: "hydrogens.complete", scope } });
-      editing.setInspectingPlacement(true);
-    },
     onLigandEdit: async (entryId: string, edit: LigandEdit) => {
       if (!project) throw new Error("No project is open.");
       if (!["hydrogen.add", "hydrogen.remove", "bond.rotate", "coordinates.cleanup"].includes(edit.operation)) {
@@ -845,7 +830,7 @@ export default function App() {
 
   const projects = projectsQuery.data ?? [];
   const viewerActions = {
-    onEdit: async (entryId: string, artifactId: string, operand: Selection, action: SelectionEditAction, hydrogenPolicy: HydrogenPolicy = "preserve") => {
+    onEdit: async (entryId: string, artifactId: string, operand: Selection, action: SelectionEditAction, hydrogenPolicy: HydrogenPolicy = action.operation.startsWith("hydrogens.") ? "preserve" : "automatic") => {
       if (!project) throw new Error("Open a project before editing.");
       const owner = project.id;
       const generation = useEditingStore.getState().generation;

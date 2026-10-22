@@ -495,11 +495,11 @@ explicit H; toggling H display never creates atoms or enables cartoon atom detai
 
 ## Geometry-aware additive hydrogen building (issue #77)
 
-Current H building uses operation-specific requirements, independently of legacy
+The retained additive HTTP operations use operation-specific requirements, independently of legacy
 prepared-component eligibility. Automatic local counts cover C0, N0/+1, O0/-1/+1,
 S0 divalent and neutral halogens. Known incident canonical bonds count across
 navigation boundaries. Aromatic contexts must be complete, specified and within
-budgets; no arbitrary cut/cap or remote-unknown default is used. Explicit Add N H
+budgets; no arbitrary cut/cap or remote-unknown default is used. Legacy HTTP Add N H
 can build with unknown chemistry, without interpreting it as neutral or complete.
 
 Ideal coordination and approximate bond lengths are unoptimized proposals. Proper
