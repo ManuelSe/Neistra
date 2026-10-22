@@ -716,3 +716,25 @@ AmberTools and bounded threads before tagging. Reload/restart the previous
 qualified client/API for rollback; no conversion, schema downgrade or data
 stripping is needed, and its earlier hover behavior returns. Keep ordinary full
 managed-data backups and do not alter archived canonical selections or originals.
+
+
+## Automatic hydrogen editing compatibility (issue #92)
+
+The [approved plan](plans/issue-92-automatic-hydrogen-editing.md) retains Alembic0014,
+project/viewer/archive2 and normalized/selection1. There is no new migration or
+source rewrite. Keep complete managed-data backups; existing downgrade guards
+remain binding. Automatic policy and `hydrogens.add_one` require matching current
+client/API. Existing omitted/preserve and optional HTTP policies keep their meaning.
+
+`tests.support.automatic_hydrogen_reader_qualification` runs producer/read phases
+in separate processes, asserting real API/core module roots and versions. Use a
+read-only detached actual v0.23.0 worktree, fresh migrated task data, explicit
+PYTHONPATHs and locked dependencies. Current→old qualification includes six new
+edit/appearance cases; old→current retains a rich three-entry project with prior
+editing history, scenes, saved selections, measurements, jobs and three surfaces.
+It checks every canonical conformer, originals, monotonic counters, exact generic
+Undo/Redo and native archive import/re-export. Archives retain current state and
+omit portable Undo history. Historical archives with unknown identity are retained
+without inventing +H eligibility. The complete final-version candidate and exact
+merged-master release gates remain mandatory, with no native scientific skips or
+relaxed performance budgets. Evidence and exact commands are linked in the plan.

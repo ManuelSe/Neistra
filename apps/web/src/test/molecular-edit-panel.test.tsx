@@ -412,6 +412,9 @@ it.each([
   [3, false, false, true, 1.5],
   [null, false, true, true, 1.5],
   [1.5, true, true, true, 1],
+  [0.5, false, true, true, 1.5],
+  [1.5, false, true, true, 1.5],
+  [4, false, true, true, 1.5],
 ] as const)("shows bond %s stepping limits and aromatic toggle state", async (order, aromatic, minusDisabled, plusDisabled, toggled) => {
   const molecule: StructureProjection = { ...projection, structure: { ...projection.structure,
     atoms: [projection.structure.atoms[0], { ...projection.structure.atoms[0], id: 2 }],

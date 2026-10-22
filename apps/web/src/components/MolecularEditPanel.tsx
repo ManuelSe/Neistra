@@ -53,6 +53,7 @@ export function MolecularEditPanel({ project, selection, busy, unavailable, onEd
   const selectedAtom = useMemo(() => selection.atoms.length === 1 ? atoms?.find(a => a.id === selection.atoms[0].atom_id) : undefined, [atoms, selection]);
   const pair = selection.atoms.length === 2 && selection.atoms.every(ref => atoms?.some(atom => atom.id === ref.atom_id));
   const bond = pair ? query.data?.structure.bonds.find(b => selection.atoms.every(ref => [b.atom_1_id, b.atom_2_id].includes(ref.atom_id))) : undefined;
+  const canStepBondOrder = Boolean(bond && !bond.aromatic && [1, 2, 3].includes(bond.order ?? 0));
   const mutationTarget = useMemo(() => residueMutationTarget(query.data, selection), [query.data, selection]);
   const directReason = !query.data ? "Loading selected molecule…" : !selection.atoms.every(ref => atoms?.some(atom => atom.id === ref.atom_id)) ? "Some selected atoms are no longer present." : null;
   const reason = unavailable ?? (busy || pending ? "Finish the current operation." : !entry ? "Select atoms in one entry." : entry.locked ? "Unlock the entry before editing." : query.isError ? "The selected molecule could not be loaded." : section === "residues" ? !["protein", "complex"].includes(entry.structure_type) ? "Mutation requires a protein or complex entry." : mutationTarget.reason : directReason);
@@ -163,8 +164,8 @@ export function MolecularEditPanel({ project, selection, busy, unavailable, onEd
         <div className="edit-compact-actions">
           <IconButton label="Create bond" disabled={!pair || Boolean(bond)} onClick={() => bondEdit({ operation: "bond.set", order: 1 })}><Link size={16} /></IconButton>
           <IconButton label="Break bond" disabled={!pair} onClick={() => bondEdit({ operation: "bond.delete" })}><Unlink size={16} /></IconButton>
-          <IconButton label="Decrease bond order" disabled={!bond || bond.aromatic || (bond.order ?? 0) <= 1} onClick={() => { if (bond?.order) bondEdit({ operation: "bond.set", order: (bond.order - 1) as 1 | 2 | 3 }); }}><Minus size={16} /></IconButton>
-          <IconButton label="Increase bond order" disabled={!bond || bond.aromatic || (bond.order ?? 3) >= 3} onClick={() => { if (bond?.order) bondEdit({ operation: "bond.set", order: (bond.order + 1) as 1 | 2 | 3 }); }}><Plus size={16} /></IconButton>
+          <IconButton label="Decrease bond order" disabled={!canStepBondOrder || (bond?.order ?? 0) <= 1} onClick={() => { if (bond?.order) bondEdit({ operation: "bond.set", order: (bond.order - 1) as 1 | 2 | 3 }); }}><Minus size={16} /></IconButton>
+          <IconButton label="Increase bond order" disabled={!canStepBondOrder || (bond?.order ?? 3) >= 3} onClick={() => { if (bond?.order) bondEdit({ operation: "bond.set", order: (bond.order + 1) as 1 | 2 | 3 }); }}><Plus size={16} /></IconButton>
           <IconButton label="Aromatic bond" aria-pressed={Boolean(bond?.aromatic)} disabled={!pair} onClick={() => bondEdit({ operation: "bond.set", order: bond?.aromatic ? 1 : 1.5 })}><Hexagon size={16} /></IconButton>
         </div>
         <details><summary>Advanced bond details</summary>

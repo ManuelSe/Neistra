@@ -24,8 +24,13 @@ Known limits: bounded unoptimized H chemistry and existing scene/visibility owne
 [Broader chemistry#114](https://github.com/ManuelSe/Neistra/issues/114) is created and
 remotely verified; #83/#52/#71 retain their scope. All five versions remain0.23.0,
 no migration/dependency change; planned stable minor0.24.0. No blocker. Next action:
-commit C4, then C5 actual-reader/final-version complete release qualification and
-PR/review/merge/release; no delivery completion is claimed yet.
+C4 is pushed at aeaa690. [C5 preflight](assets/automatic-hydrogen-editing/c5-preflight1-gate.json)
+passes107 focused Python/321 frontend/14 native and actual0.23.0↔current reader
+checks: six new cases forward, the rich three-entry baseline reverse, exact data/
+history/appearance/scenes/surfaces/jobs/originals/counters/archives. A local review
+fix restricts numeric bond stepping to1/2/3, retaining explicit Advanced assignment.
+Next: commit compatibility qualification, prepare0.24.0 and run complete final-version
+candidate/released-master gates before PR/review/merge/release. Delivery remains pending.
 
 ### Previous delivery baseline — v0.23.0
 

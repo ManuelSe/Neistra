@@ -24,8 +24,12 @@ build checks. Both themes,320px/actual200%zoom, native picks, automatic inspecto
 routing, hidden H, exact history/originals and delayed-response ownership pass.
 [Review](assets/automatic-hydrogen-editing/c4-review.md) and
 [screenshots](assets/automatic-hydrogen-editing/c4-screenshots.json) are retained.
-Complete candidate/actual-reader/exact-master qualification remains pending;
-checkpoint evidence is not release qualification.
+[C5 preflight](assets/automatic-hydrogen-editing/c5-preflight1-gate.json) additionally
+passes107 focused Python/321 frontend/14 native and actual-tagged0.23.0/current
+module checks. Six new edit cases and the reverse rich project retain exact
+conformers/history/appearance/scenes/surfaces/jobs/originals/counters/archives.
+The development version is still0.23.0 here. Complete final-version candidate and
+exact-master qualification remains pending; preflight is not release qualification.
 
 ## Quick local minimization (issue #110) — stable v0.23.0
 

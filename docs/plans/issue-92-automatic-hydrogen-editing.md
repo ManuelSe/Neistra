@@ -842,3 +842,31 @@ or version change. #114 is remotely verified. No blocker or unresolved consequen
 checkpoint finding; C4 commit follows this evidence update. Next: C5 actual-reader,
 final-version full candidate qualification and full-diff review, then verified PR
 and release delivery.
+
+### M5/C5 compatibility preflight — 2026-10-22
+
+C4 is pushed/remotely verified at aeaa6909eaaf834eac67c0e526a9c22c424aa6be;
+origin/master remains54533f10df4d8fff763483356a58c4573a445453 after fetch.
+[Preflight](../assets/automatic-hydrogen-editing/c5-preflight1-gate.json) passes
+all15 commands:107 focused Python,321 frontend,14 native browser cases,
+static/type/build checks, fresh0014 migrations and actual-module readers.
+Six new current→actual-tagged0.23.0 cases exercise ammonium, hydronium, sulfonium,
+terminal-H cascade, closure and inherited fragment appearance with independent
+active9 conformers. Canonical records, live settings, scene snapshots, original
+hashes, allocation floors, Undo/Redo, save/archive/import/re-export retain exactly.
+The reverse actual-old producer→current reader retains its three-entry rich project,
+five prior editing commands, saved selections, measurements, three independent
+surface kinds, scenes and jobs. Both actual module paths and tagged6536e2a are
+checked; this is not producer-version-string substitution. Preflight still uses
+current development version0.23.0. Repeat with final0.24.0 in both complete gates.
+
+Review found that normalized legacy drafts may contain numeric orders outside
+single/double/triple (even nonaromatic1.5). Restrict compact stepping to1/2/3;
+explicit Advanced assignment remains. Three focused edge cases pass, preventing
+invalid arithmetic requests without restricting direct drafting. No new chemistry,
+schema, migration, dependency or product decision. Full-diff integration review
+covers core policy/charge/protection, atomic publication/appearance/pruning, UI
+ownership and legacy callers; final source/version release review remains pending.
+All source/decompressed-log hashes verify. Next: commit this coherent compatibility
+checkpoint, prepare all five0.24.0 version sources/release notes, and run complete
+frozen candidate qualification before PR creation.
