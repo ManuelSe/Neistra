@@ -2,6 +2,32 @@
 
 ## Current milestone
 
+Issue [#92](https://github.com/ManuelSe/Neistra/issues/92) has an approved
+[implementation contract](plans/issue-92-automatic-hydrogen-editing.md), approved
+by the user's “Implement the plan.” on 2026-10-22. C0 persists planning only on
+`feat/issue-92-automatic-hydrogen-editing`, based on fast-forward-checked master
+`54533f10df4d8fff763483356a58c4573a445453`. D-140–142 record the accepted
+automatic-H, bounded C/N/O/S +H and attachment-appearance decisions;
+implementation is pending.
+
+Completed planning covers requirement dispositions, five implementation
+milestones, compatibility/scientific boundaries and stable minor **0.24.0**
+delivery. The UI will expose automatic maintenance without policy preferences;
+legacy API meanings remain compatible. Ordinary +H additions may be reconciled
+by later site edits. New atoms will inherit attachment overrides. No feature
+behavior, version source, schema or migration has changed.
+
+Read-only baseline verification passed **59 Python and 35 frontend tests**.
+C0 documentation/scope/link checks and Git publication are recorded in the plan
+and final verified handoff. These are planning evidence, not feature validation.
+Known limitations: all proposed behavior and its full gates remain pending;
+broader H chemistry, canonical isotopes/radicals and preparation retain the
+plan's explicit follow-up boundaries. No planning blocker is identified.
+**Next action: stop after C0 commit/push verification, ready for `/goal`; do not
+start implementation.**
+
+### Previous delivery baseline — v0.23.0
+
 Issue [#110](https://github.com/ManuelSe/Neistra/issues/110) is implemented, normally
 merged in [PR#111](https://github.com/ManuelSe/Neistra/pull/111) and
 [corrective PR#112](https://github.com/ManuelSe/Neistra/pull/112), and published stable
