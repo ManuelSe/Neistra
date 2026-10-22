@@ -3,9 +3,9 @@
 ## 1. Status, authority, and intended outcome
 
 **Status:** approved implementation complete; PRs#117/#118 normally merged.
-C4 test-harness corrections pass focused validation; complete clean candidate4
-and exact merged5 qualification remain before v0.24.1 publication. No exception
-is assumed and no tag/release exists.
+C4 test-harness corrections and clean candidate4 pass complete qualification.
+PR#119 is open; exact merged5 qualification remains before v0.24.1 publication.
+No exception is assumed and no tag/release exists.
 
 **Approval:** the user's “Implement the plan.” on 2026-10-22 approves the complete
 proposal and its explicit C0 stop ready for `/goal`. This authorizes planning
