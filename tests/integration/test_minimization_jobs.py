@@ -121,7 +121,7 @@ def test_missing_toolchain_is_reported_without_false_success(
 def active_pid(pid: int) -> bool:
     try:
         return Path(f"/proc/{pid}/stat").read_text().split(") ", 1)[1][0] != "Z"
-    except FileNotFoundError:
+    except (FileNotFoundError, ProcessLookupError):
         return False
 
 

@@ -1,0 +1,39 @@
+{
+  "at": "2026-10-22T16:06:18.412568+00:00",
+  "failed_commit": "83aae8c36edc01abedfd7e4f98d9900774ce1d13",
+  "assertion": "tests/e2e/release-hardening.spec.ts:219 interactionMs <5000",
+  "observed_ms": 6101,
+  "test_and_source_changed": false,
+  "failed_gate_retained": true,
+  "interrupted_after_failure": true,
+  "cleanup": [
+    {
+      "pgid": 724078,
+      "task_data": "/tmp/neistra93-c4-merged1/default-data",
+      "action": "SIGTERM task-owned interrupted test service group"
+    },
+    {
+      "pgid": 724088,
+      "task_data": "/tmp/neistra93-c4-merged1/default-data",
+      "action": "SIGTERM task-owned interrupted test service group"
+    },
+    {
+      "pgid": 764113,
+      "task_data": "/tmp/neistra93-c4-merged2/default-data",
+      "action": "SIGTERM task-owned interrupted test service group"
+    },
+    {
+      "pgid": 764121,
+      "task_data": "/tmp/neistra93-c4-merged2/default-data",
+      "action": "SIGTERM task-owned interrupted test service group"
+    },
+    {
+      "pgid": 764126,
+      "task_data": "/tmp/neistra93-c4-merged2/default-data",
+      "action": "SIGTERM task-owned interrupted test service group"
+    }
+  ],
+  "unrelated_user_processes_changed": false,
+  "power_settings_changed": false,
+  "cause": "Not established; surrounding UI cases also slowed. Focused reproduction follows cleanup."
+}

@@ -1,0 +1,2 @@
+import base from "/datadisk/dev/neistra/playwright.config.ts";
+export default {...base, testDir:"/datadisk/dev/neistra/tests/e2e",outputDir:"/tmp/neistra93-c4-baseline/test-results",webServer:base.webServer.map(server=>({...server,cwd:"/tmp/neistra93-reader-0240",reuseExistingServer:false,command:server.command.replace("dev --host","dev --config /tmp/neistra93-baseline-vite.config.ts --host")}))};

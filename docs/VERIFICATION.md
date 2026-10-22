@@ -2,6 +2,15 @@
 
 ## Compact molecular toolbar (issue #93) — corrected candidate qualification
 
+Final clean [candidate4](assets/compact-modeling-toolbar/c4-candidate4-summary.json)
+passes all20 release/reader commands:1248 Python/331 frontend/8 supervisor/322
+browser with60 unchanged exclusions, no failures/retries/required scientific
+skips. All16 toolbar/10 notification cases, original budgets and both actual0.24
+readers pass on unchanged source. Test-only observation repairs retain real>=10s
+notice lifetime and the original13.5s total wait; production and approved scope
+are unchanged. No exception is used. Exact merged5 qualification is next.
+Candidate3 below is historical.
+
 Corrected clean [candidate3](assets/compact-modeling-toolbar/c4-candidate3-gate.json)
 and [summary](assets/compact-modeling-toolbar/c4-candidate3-summary.json) pass all20
 commands on`8a3c3c607e0bb72164f677e1d35ba884575d1144`: **1248 Python,331 frontend,8 supervisor,322 browser /

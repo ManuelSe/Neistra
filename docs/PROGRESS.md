@@ -51,6 +51,27 @@ candidate is the source for the corrective PR. Publication still requires a norm
 merge, complete exact merged2 gate and verified tag/release/issue/audit/cleanup.
 
 
+Exact-master PR#118 is merged at83aae8c. Its first full gate passed Python/static/
+frontend/build but failed the existing5s responsiveness assertion (6.101s); repeats
+and actual0.24.0 diagnostics are retained in the feature plan. AC is restored;
+full fresh merged3 qualification is next. No threshold/host setting is changed.
+Tag/release/close-out/cleanup remain pending a complete exact-master pass.
+
+C4 validation repair passes9 native worker tests,331 frontend/static/build and
+all10 notification browser cases without failures/skips/retries. Test-only changes
+retain actual>=10s expiry, the same13500ms total observation allowance and all
+native/project/request invariants; `/proc` ESRCH now means process exited like
+ENOENT. Production source, scientific thresholds and approved scope are unchanged.
+No exception is assumed. Next: fresh clean complete candidate4/merged5 gates,
+normal focused PR, then verified tag/release/close-out/audit/cleanup.
+
+Final corrected candidate4 now passes all20 commands:1248 Python/331 frontend/
+8 supervisor/322 browser with60 unchanged exclusions, no failures/retries or
+required scientific skips. Both actual0.24 reader directions, all16 toolbar/10
+notification cases, original native/responsiveness budgets,568 source identities
+and five0.24.1 versions verify. No exception is used. Next: focused repair PR,
+normal merge and complete exact merged5 gate before verified publication/cleanup.
+
 ### Previous delivery baseline — v0.24.0
 
 Issue [#92](https://github.com/ManuelSe/Neistra/issues/92) is implemented under its

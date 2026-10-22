@@ -1,0 +1,35 @@
+{
+  "complete": true,
+  "commands": 8,
+  "python": 9,
+  "frontend": 331,
+  "browser": {
+    "startTime": "2026-10-22T17:42:20.252Z",
+    "duration": 108079.393,
+    "expected": 10,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "native_real_time_expiry": [
+    {
+      "project": "chromium",
+      "elapsedMs": 10052.09999999404,
+      "noUnexpectedRequests": true,
+      "projectUnchanged": true,
+      "nativeUnchanged": true
+    },
+    {
+      "project": "mobile-chromium",
+      "elapsedMs": 10030.09999999404,
+      "noUnexpectedRequests": true,
+      "projectUnchanged": true,
+      "nativeUnchanged": true
+    }
+  ],
+  "production_changes": false,
+  "unchanged_expiry_ms": 10000,
+  "unchanged_total_observation_wait_ms": 13500,
+  "process_helper": "Treat ESRCH and ENOENT as terminated; other errors still surface",
+  "source_unchanged": true
+}

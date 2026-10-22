@@ -1,0 +1,1876 @@
+{
+  "label": "c4-candidate4",
+  "commit": "83933b9818bdaa10985c249c16274b2340a216bf",
+  "complete": true,
+  "commands": 20,
+  "python": 1248,
+  "frontend": 331,
+  "supervisor": 8,
+  "browser": {
+    "startTime": "2026-10-22T17:53:59.616Z",
+    "duration": 3275282.699,
+    "expected": 322,
+    "skipped": 60,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "retries": [],
+  "exclusions": [
+    {
+      "title": "edits coordinates, reverses gestures, and validates protein superposition",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "The complete coordinate editor uses the desktop three-panel workspace.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/coordinate-editing.spec.ts",
+            "line": 139,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "runs a demonstration job in the mobile workspace without overlap",
+      "project": "chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Responsive workflow runs in mobile Chromium.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/demonstration-job.spec.ts",
+            "line": 118,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "completes, fails, cancels, downloads, imports, and undoes demonstration jobs",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Full lifecycle runs in desktop Chromium.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/demonstration-job.spec.ts",
+            "line": 70,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "keeps complete export and archive controls usable on a mobile viewport",
+      "project": "chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Responsive export coverage runs in the Pixel 7 project.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/export-archive.spec.ts",
+            "line": 423,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "exports all, selected, and visible structures with deterministic filters and records",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Complete artifact inspection runs once in desktop Chromium.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/export-archive.spec.ts",
+            "line": 128,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "round-trips a deterministic archive and rejects an unsafe archive without switching",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Archive byte/state inspection runs once in desktop Chromium.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/export-archive.spec.ts",
+            "line": 222,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "cancels intercepted export and archive import work without a stale result",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Cancellation routing runs once in desktop Chromium.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/export-archive.spec.ts",
+            "line": 362,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "uses real desktop drags for batches, collapsed/empty destinations, Ungrouped, and exact no-ops",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Pixel 7 uses the equivalent explicit workflow; touch drag is not supported.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/group-membership.spec.ts",
+            "line": 149,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "reports malformed input and can cancel an import before commit",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Failure and cancellation coverage runs once in desktop Chromium.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/import-display-export.spec.ts",
+            "line": 149,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "keeps centroid overlays current through scenes, deletion and project changes",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Complete project-tree workflow is desktop; mobile overlay/remount qualification is separate.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/interactions-lifecycle.spec.ts",
+            "line": 5,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "bounds native original protein/ligand preview work and measures exact cancellation",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Timing budgets use pinned desktop Chromium; touch has separate qualification.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/interactive-transform-performance.spec.ts",
+            "line": 7,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "bounds native authored draft protein/ligand preview work and measures exact cancellation",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Timing budgets use pinned desktop Chromium; touch has separate qualification.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/interactive-transform-performance.spec.ts",
+            "line": 7,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "keeps ligand editing functional in the mobile inspector",
+      "project": "chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Responsive ligand-editor coverage uses the mobile project.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/ligand-editing.spec.ts",
+            "line": 279,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "edits draft chemistry with warnings, retains helper refusals, and round-trips history",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "The complete ligand editor uses the desktop three-panel workspace.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/ligand-editing.spec.ts",
+            "line": 135,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "creates and manages reference measurements with synchronized inspection",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Full inspector workflow is desktop-only.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/measurements.spec.ts",
+            "line": 94,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "preserves capture and keyboard focus across responsive remounts at actual 100\u2013200% browser zoom",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Native desktop browser zoom qualified separately from mobile touch.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/minimization-accessibility.spec.ts",
+            "line": 56,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "renders accepted native steps for partial protein and restores immediately on Cancel, initial and repeat",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Pinned desktop native timing; mobile controls qualified separately.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/minimization-live.spec.ts",
+            "line": 42,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "renders accepted native steps for whole heavy protein and restores immediately on Cancel, initial and repeat",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Pinned desktop native timing; mobile controls qualified separately.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/minimization-live.spec.ts",
+            "line": 42,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "bounds real prepared1STP pocket minimization and native preview work",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Performance uses pinned desktop Chromium; C4 qualifies mobile/touch controls.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/minimization-performance.spec.ts",
+            "line": 9,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "bounds real 18k-atom assembly minimization and native preview work",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Performance uses pinned desktop Chromium; C4 qualifies mobile/touch controls.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/minimization-performance.spec.ts",
+            "line": 9,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "polar_hydrogens_protein.pdb renders all, polar-only, and no-hydrogen modes",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Scientific pixel qualification runs once in desktop Chromium.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/polar-hydrogen-visibility.spec.ts",
+            "line": 334,
+            "column": 10
+          }
+        }
+      ]
+    },
+    {
+      "title": "polar_hydrogens_ligand.mol renders all, polar-only, and no-hydrogen modes",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Scientific pixel qualification runs once in desktop Chromium.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/polar-hydrogen-visibility.spec.ts",
+            "line": 334,
+            "column": 10
+          }
+        }
+      ]
+    },
+    {
+      "title": "persists polar-only mode across viewer workflows without transient or molecular drift",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Complete durability and representation qualification runs once.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/polar-hydrogen-visibility.spec.ts",
+            "line": 346,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "a hydrogen-free structure remains hydrogen-free in polar-only mode",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Hydrogen-free molecular invariance runs once.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/polar-hydrogen-visibility.spec.ts",
+            "line": 652,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "selection-local hydrogen precedence and full-graph classification: polar_hydrogens_ligand.mol",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Exact atom queries use the desktop inspector.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/polar-hydrogen-visibility.spec.ts",
+            "line": 684,
+            "column": 10
+          }
+        }
+      ]
+    },
+    {
+      "title": "selection-local hydrogen precedence and full-graph classification: polar_hydrogens_protein.pdb",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Exact atom queries use the desktop inspector.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/polar-hydrogen-visibility.spec.ts",
+            "line": 684,
+            "column": 10
+          }
+        }
+      ]
+    },
+    {
+      "title": "entry commands are durable and reversible through the workspace",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Entry command coverage uses the desktop browser.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/project-lifecycle.spec.ts",
+            "line": 152,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "retains two component rows at the minimum expanded desktop pane height",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Desktop divider minimum; mobile uses full-height tabs.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/project-navigation.spec.ts",
+            "line": 221,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "keeps protein editing usable in the mobile inspector",
+      "project": "chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Responsive protein-editor coverage uses the mobile project.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/protein-editing.spec.ts",
+            "line": 430,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "edits protein hierarchy and chemistry with exact history and validation",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "The complete protein editor uses the desktop three-panel workspace.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/protein-editing.spec.ts",
+            "line": 156,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "bounds cold quick publication for a supplied small molecule",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Cold timing uses pinned desktop Chromium; mobile workflows are independently exercised.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/quick-minimization-performance.spec.ts",
+            "line": 11,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "bounds cold quick publication for a 1STP pocket",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Cold timing uses pinned desktop Chromium; mobile workflows are independently exercised.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/quick-minimization-performance.spec.ts",
+            "line": 11,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "bounds cold quick publication for an 18k scene",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Cold timing uses pinned desktop Chromium; mobile workflows are independently exercised.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/quick-minimization-performance.spec.ts",
+            "line": 11,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "renders genuine quick steps and clears native preview within500ms on Cancel",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Pinned desktop native timing; mobile controls are independently exercised.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/quick-minimization-performance.spec.ts",
+            "line": 75,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "preserves quick settings through actual 100\u2013200% browser zoom and responsive remounts",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Actual desktop browser zoom is qualified independently from mobile touch.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/quick-minimization.spec.ts",
+            "line": 83,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "keeps actions and dialogs reachable at real 100% and 200% browser zoom",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Real desktop browser zoom is separate from mobile emulation.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/rebranding-zoom.spec.ts",
+            "line": 62,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "keeps shell and inspector controls bounded around both responsive breakpoints",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Exact-width breakpoint sweep runs once; Pixel 7 has its own workflow matrix.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/rebranding-zoom.spec.ts",
+            "line": 326,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "keeps the molecular editor keyboard controls reachable at actual browser zoom",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Desktop zoom is independent of touch emulation.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/rebranding-zoom.spec.ts",
+            "line": 360,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "keeps representative-project interactions responsive and projection-scoped",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Performance budgets use desktop Chromium.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/release-hardening.spec.ts",
+            "line": 168,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "completes the MolWeave v0.1 definition-of-done journey",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "The complete release journey is desktop-only.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/release-journey.spec.ts",
+            "line": 160,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "expands from styling across hidden entries without durable changes",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Project-wide fixture setup uses desktop panels.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/selection-appearance.spec.ts",
+            "line": 8,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "keeps the selection styling dialog bounded and keyboard-operable on Pixel 7",
+      "project": "chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Responsive workflow is mobile-only.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/selection-styling.spec.ts",
+            "line": 441,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "styles a 1STP complex without changing scientific or transient state",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Full 1STP workflow is desktop-only.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/selection-styling.spec.ts",
+            "line": 228,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "keeps ion, water, and covalent-boundary targets exact",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Boundary qualification is desktop-only.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/selection-styling.spec.ts",
+            "line": 378,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "adds and removes saved surfaces from the compact palette with reload and undo",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Desktop project panel workflow; renderer qualified on both viewports.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/selection-surfaces.spec.ts",
+            "line": 116,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "keeps the hierarchy keyboard-operable and bounded in the Pixel 7 drawer",
+      "project": "chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Compact hierarchy qualification runs in the Pixel 7 project.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/structure-hierarchy.spec.ts",
+            "line": 253,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "synchronizes hierarchy selection, visibility, focus, persistence, and WebGL",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Full hierarchy qualification is desktop-only.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/structure-hierarchy.spec.ts",
+            "line": 120,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "keeps browser, sequence, inspector, viewer, and saved selection synchronized",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "The full three-panel synchronized-selection workflow runs on desktop.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/synchronized-selection.spec.ts",
+            "line": 107,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "uses the compact trigger path for selection and empty clearing",
+      "project": "chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Touch activation uses Pixel 7.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/viewer-click-selection.spec.ts",
+            "line": 374,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "keeps primary selection and empty clearing independent from the camera",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Exact WebGL camera evidence is desktop-only.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/viewer-click-selection.spec.ts",
+            "line": 202,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "keeps compact picking and focus controls bounded and keyboard reachable",
+      "project": "chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Compact layout uses Pixel 7.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/viewer-controls.spec.ts",
+            "line": 385,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "applies complete representations, navigation, isolation, and named scenes",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Full WebGL control matrix is desktop-only.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/viewer-controls.spec.ts",
+            "line": 108,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "synchronizes picking and keeps selection, focus actions, and project state independent",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Camera snapshots use desktop WebGL.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/viewer-controls.spec.ts",
+            "line": 295,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "explains unavailable ligand focus for protein-only content",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Unavailable-state check runs once.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/viewer-controls.spec.ts",
+            "line": 368,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "shows a usable WebGL failure instead of a blank viewer",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Failure injection runs once.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/viewer-controls.spec.ts",
+            "line": 434,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "native hover matches all modes and preserves selection (light)",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Hover requires a fine pointer; touch behavior is covered by selection regressions.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/viewer-hover.spec.ts",
+            "line": 57,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "native hover matches all modes and preserves selection (dark)",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Hover requires a fine pointer; touch behavior is covered by selection regressions.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/viewer-hover.spec.ts",
+            "line": 57,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "protein/individual complex hover preserves hidden membership, anchors and lifecycle ownership",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Fine-pointer native hover qualification.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/viewer-hover.spec.ts",
+            "line": 152,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "keeps the persisted theme through the real viewer lifecycle",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "The real WebGL lifecycle runs once.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/viewer-theme.spec.ts",
+            "line": 111,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "qualifies native touch navigation, secondary tools and accessible theme layouts",
+      "project": "chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Touch qualification uses Pixel 7; desktop has native mouse and real zoom evidence.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/viewer-transform-toolbar.spec.ts",
+            "line": 366,
+            "column": 8
+          }
+        }
+      ]
+    }
+  ],
+  "scientific_skips": 0,
+  "source_count": 568,
+  "source_sha256": "6523643a55d4da81df3c41001746d4b6aac5eed89d97cfc9ed80778e4de04dc3",
+  "quick_performance": [
+    {
+      "copies": 0,
+      "phase": "cold",
+      "atoms": 18,
+      "commandAcceptedMs": 0.4000000059604645,
+      "nativeAppliedMs": 952.6999999880791,
+      "longestTaskMs": 0,
+      "stages": [
+        {
+          "path": "/api/v1/projects/01a164cf-02a5-70a1-af92-eb7e60e2bc2b/quick-minimizations",
+          "at": 1792692654058,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-02a5-70a1-af92-eb7e60e2bc2b/quick-minimizations",
+          "at": 1792692654101,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-02a5-70a1-af92-eb7e60e2bc2b/quick-minimizations/01a164cf-0fee-78d5-afdf-537293d4d9ab/live",
+          "at": 1792692654118,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-02a5-70a1-af92-eb7e60e2bc2b/quick-minimizations/01a164cf-0fee-78d5-afdf-537293d4d9ab/live",
+          "at": 1792692654123,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-02a5-70a1-af92-eb7e60e2bc2b/quick-minimizations/01a164cf-0fee-78d5-afdf-537293d4d9ab/live",
+          "at": 1792692654226,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-02a5-70a1-af92-eb7e60e2bc2b/quick-minimizations/01a164cf-0fee-78d5-afdf-537293d4d9ab/live",
+          "at": 1792692654233,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-02a5-70a1-af92-eb7e60e2bc2b/quick-minimizations/01a164cf-0fee-78d5-afdf-537293d4d9ab/live",
+          "at": 1792692654350,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-02a5-70a1-af92-eb7e60e2bc2b/quick-minimizations/01a164cf-0fee-78d5-afdf-537293d4d9ab/live",
+          "at": 1792692654355,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-02a5-70a1-af92-eb7e60e2bc2b/quick-minimizations/01a164cf-0fee-78d5-afdf-537293d4d9ab/live",
+          "at": 1792692654457,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-02a5-70a1-af92-eb7e60e2bc2b/quick-minimizations/01a164cf-0fee-78d5-afdf-537293d4d9ab/live",
+          "at": 1792692654463,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-02a5-70a1-af92-eb7e60e2bc2b/quick-minimizations/01a164cf-0fee-78d5-afdf-537293d4d9ab/live",
+          "at": 1792692654564,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-02a5-70a1-af92-eb7e60e2bc2b/quick-minimizations/01a164cf-0fee-78d5-afdf-537293d4d9ab/live",
+          "at": 1792692654570,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-02a5-70a1-af92-eb7e60e2bc2b/quick-minimizations/01a164cf-0fee-78d5-afdf-537293d4d9ab/live",
+          "at": 1792692654672,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-02a5-70a1-af92-eb7e60e2bc2b/quick-minimizations/01a164cf-0fee-78d5-afdf-537293d4d9ab/live",
+          "at": 1792692654678,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-02a5-70a1-af92-eb7e60e2bc2b/quick-minimizations/01a164cf-0fee-78d5-afdf-537293d4d9ab/proposal",
+          "at": 1792692654782,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-02a5-70a1-af92-eb7e60e2bc2b/quick-minimizations/01a164cf-0fee-78d5-afdf-537293d4d9ab/proposal",
+          "at": 1792692654791,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-02a5-70a1-af92-eb7e60e2bc2b/quick-minimizations/01a164cf-0fee-78d5-afdf-537293d4d9ab/apply",
+          "at": 1792692654840,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-02a5-70a1-af92-eb7e60e2bc2b/quick-minimizations/01a164cf-0fee-78d5-afdf-537293d4d9ab/apply",
+          "at": 1792692654873,
+          "kind": "response"
+        }
+      ],
+      "backend": {
+        "context_rebuild": 0,
+        "context_rebuilds": 0,
+        "force_field": 0.0030877649842295796,
+        "interpretation": 0.0038665089814458042,
+        "optimization": 0.01148563003516756
+      },
+      "elapsedBackendSeconds": 0.021368860005168244,
+      "jobId": "01a164cf-0fee-78d5-afdf-537293d4d9ab"
+    },
+    {
+      "copies": 0,
+      "phase": "repeat",
+      "atoms": 18,
+      "commandAcceptedMs": 0.20000001788139343,
+      "nativeAppliedMs": 851.3000000119209,
+      "longestTaskMs": 80,
+      "stages": [
+        {
+          "path": "/api/v1/projects/01a164cf-02a5-70a1-af92-eb7e60e2bc2b/quick-minimizations",
+          "at": 1792692655806,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-02a5-70a1-af92-eb7e60e2bc2b/quick-minimizations",
+          "at": 1792692655830,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-02a5-70a1-af92-eb7e60e2bc2b/quick-minimizations/01a164cf-16c2-7833-baa9-d872e3ac9a5e/live",
+          "at": 1792692655840,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-02a5-70a1-af92-eb7e60e2bc2b/quick-minimizations/01a164cf-16c2-7833-baa9-d872e3ac9a5e/live",
+          "at": 1792692655850,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-02a5-70a1-af92-eb7e60e2bc2b/quick-minimizations/01a164cf-16c2-7833-baa9-d872e3ac9a5e/live",
+          "at": 1792692655951,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-02a5-70a1-af92-eb7e60e2bc2b/quick-minimizations/01a164cf-16c2-7833-baa9-d872e3ac9a5e/live",
+          "at": 1792692655961,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-02a5-70a1-af92-eb7e60e2bc2b/quick-minimizations/01a164cf-16c2-7833-baa9-d872e3ac9a5e/live",
+          "at": 1792692656062,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-02a5-70a1-af92-eb7e60e2bc2b/quick-minimizations/01a164cf-16c2-7833-baa9-d872e3ac9a5e/live",
+          "at": 1792692656067,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-02a5-70a1-af92-eb7e60e2bc2b/quick-minimizations/01a164cf-16c2-7833-baa9-d872e3ac9a5e/live",
+          "at": 1792692656169,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-02a5-70a1-af92-eb7e60e2bc2b/quick-minimizations/01a164cf-16c2-7833-baa9-d872e3ac9a5e/live",
+          "at": 1792692656174,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-02a5-70a1-af92-eb7e60e2bc2b/quick-minimizations/01a164cf-16c2-7833-baa9-d872e3ac9a5e/live",
+          "at": 1792692656275,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-02a5-70a1-af92-eb7e60e2bc2b/quick-minimizations/01a164cf-16c2-7833-baa9-d872e3ac9a5e/live",
+          "at": 1792692656281,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-02a5-70a1-af92-eb7e60e2bc2b/quick-minimizations/01a164cf-16c2-7833-baa9-d872e3ac9a5e/live",
+          "at": 1792692656383,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-02a5-70a1-af92-eb7e60e2bc2b/quick-minimizations/01a164cf-16c2-7833-baa9-d872e3ac9a5e/live",
+          "at": 1792692656389,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-02a5-70a1-af92-eb7e60e2bc2b/quick-minimizations/01a164cf-16c2-7833-baa9-d872e3ac9a5e/proposal",
+          "at": 1792692656477,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-02a5-70a1-af92-eb7e60e2bc2b/quick-minimizations/01a164cf-16c2-7833-baa9-d872e3ac9a5e/proposal",
+          "at": 1792692656484,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-02a5-70a1-af92-eb7e60e2bc2b/quick-minimizations/01a164cf-16c2-7833-baa9-d872e3ac9a5e/apply",
+          "at": 1792692656567,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-02a5-70a1-af92-eb7e60e2bc2b/quick-minimizations/01a164cf-16c2-7833-baa9-d872e3ac9a5e/apply",
+          "at": 1792692656617,
+          "kind": "response"
+        }
+      ],
+      "backend": {
+        "context_rebuild": 0,
+        "context_rebuilds": 0,
+        "force_field": 0.0031313869985751808,
+        "interpretation": 0.0038791219994891435,
+        "optimization": 0.011245099012739956
+      },
+      "elapsedBackendSeconds": 0.021365835011238232,
+      "jobId": "01a164cf-16c2-7833-baa9-d872e3ac9a5e"
+    },
+    {
+      "copies": 1,
+      "phase": "cold",
+      "atoms": 2304,
+      "commandAcceptedMs": 0.7999999821186066,
+      "nativeAppliedMs": 2065.4000000059605,
+      "longestTaskMs": 124,
+      "stages": [
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations",
+          "at": 1792692660670,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations",
+          "at": 1792692660735,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations/01a164cf-29d3-7ab4-91af-86be827f028e/live",
+          "at": 1792692660752,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations/01a164cf-29d3-7ab4-91af-86be827f028e/live",
+          "at": 1792692660758,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations/01a164cf-29d3-7ab4-91af-86be827f028e/live",
+          "at": 1792692660859,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations/01a164cf-29d3-7ab4-91af-86be827f028e/live",
+          "at": 1792692660867,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations/01a164cf-29d3-7ab4-91af-86be827f028e/live",
+          "at": 1792692660998,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations/01a164cf-29d3-7ab4-91af-86be827f028e/live",
+          "at": 1792692661007,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations/01a164cf-29d3-7ab4-91af-86be827f028e/live",
+          "at": 1792692661108,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations/01a164cf-29d3-7ab4-91af-86be827f028e/live",
+          "at": 1792692661115,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations/01a164cf-29d3-7ab4-91af-86be827f028e/live",
+          "at": 1792692661217,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations/01a164cf-29d3-7ab4-91af-86be827f028e/live",
+          "at": 1792692661224,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations/01a164cf-29d3-7ab4-91af-86be827f028e/live",
+          "at": 1792692661325,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations/01a164cf-29d3-7ab4-91af-86be827f028e/live",
+          "at": 1792692661332,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations/01a164cf-29d3-7ab4-91af-86be827f028e/live",
+          "at": 1792692661433,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations/01a164cf-29d3-7ab4-91af-86be827f028e/live",
+          "at": 1792692661439,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations/01a164cf-29d3-7ab4-91af-86be827f028e/live",
+          "at": 1792692661541,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations/01a164cf-29d3-7ab4-91af-86be827f028e/live",
+          "at": 1792692661548,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations/01a164cf-29d3-7ab4-91af-86be827f028e/live",
+          "at": 1792692661649,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations/01a164cf-29d3-7ab4-91af-86be827f028e/live",
+          "at": 1792692661656,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations/01a164cf-29d3-7ab4-91af-86be827f028e/live",
+          "at": 1792692661858,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations/01a164cf-29d3-7ab4-91af-86be827f028e/live",
+          "at": 1792692661868,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations/01a164cf-29d3-7ab4-91af-86be827f028e/live",
+          "at": 1792692662077,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations/01a164cf-29d3-7ab4-91af-86be827f028e/live",
+          "at": 1792692662085,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations/01a164cf-29d3-7ab4-91af-86be827f028e/live",
+          "at": 1792692662188,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations/01a164cf-29d3-7ab4-91af-86be827f028e/live",
+          "at": 1792692662196,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations/01a164cf-29d3-7ab4-91af-86be827f028e/proposal",
+          "at": 1792692662256,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations/01a164cf-29d3-7ab4-91af-86be827f028e/proposal",
+          "at": 1792692662296,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations/01a164cf-29d3-7ab4-91af-86be827f028e/apply",
+          "at": 1792692662424,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations/01a164cf-29d3-7ab4-91af-86be827f028e/apply",
+          "at": 1792692662495,
+          "kind": "response"
+        }
+      ],
+      "backend": {
+        "context_rebuild": 0,
+        "context_rebuilds": 0,
+        "force_field": 0.09033336900756694,
+        "interpretation": 0.2549665179976728,
+        "optimization": 0.37990643197554164
+      },
+      "elapsedBackendSeconds": 0.7426272369921207,
+      "jobId": "01a164cf-29d3-7ab4-91af-86be827f028e"
+    },
+    {
+      "copies": 1,
+      "phase": "repeat",
+      "atoms": 2304,
+      "commandAcceptedMs": 0.4000000059604645,
+      "nativeAppliedMs": 1841.699999988079,
+      "longestTaskMs": 123,
+      "stages": [
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations",
+          "at": 1792692663319,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations",
+          "at": 1792692663394,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations/01a164cf-3434-74c3-abcf-d84e4a19ba33/live",
+          "at": 1792692663398,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations/01a164cf-3434-74c3-abcf-d84e4a19ba33/live",
+          "at": 1792692663404,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations/01a164cf-3434-74c3-abcf-d84e4a19ba33/live",
+          "at": 1792692663505,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations/01a164cf-3434-74c3-abcf-d84e4a19ba33/live",
+          "at": 1792692663512,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations/01a164cf-3434-74c3-abcf-d84e4a19ba33/live",
+          "at": 1792692663613,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations/01a164cf-3434-74c3-abcf-d84e4a19ba33/live",
+          "at": 1792692663620,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations/01a164cf-3434-74c3-abcf-d84e4a19ba33/live",
+          "at": 1792692663721,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations/01a164cf-3434-74c3-abcf-d84e4a19ba33/live",
+          "at": 1792692663728,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations/01a164cf-3434-74c3-abcf-d84e4a19ba33/live",
+          "at": 1792692663830,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations/01a164cf-3434-74c3-abcf-d84e4a19ba33/live",
+          "at": 1792692663836,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations/01a164cf-3434-74c3-abcf-d84e4a19ba33/live",
+          "at": 1792692663937,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations/01a164cf-3434-74c3-abcf-d84e4a19ba33/live",
+          "at": 1792692663944,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations/01a164cf-3434-74c3-abcf-d84e4a19ba33/live",
+          "at": 1792692664045,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations/01a164cf-3434-74c3-abcf-d84e4a19ba33/live",
+          "at": 1792692664051,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations/01a164cf-3434-74c3-abcf-d84e4a19ba33/live",
+          "at": 1792692664153,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations/01a164cf-3434-74c3-abcf-d84e4a19ba33/live",
+          "at": 1792692664159,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations/01a164cf-3434-74c3-abcf-d84e4a19ba33/live",
+          "at": 1792692664260,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations/01a164cf-3434-74c3-abcf-d84e4a19ba33/live",
+          "at": 1792692664267,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations/01a164cf-3434-74c3-abcf-d84e4a19ba33/live",
+          "at": 1792692664471,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations/01a164cf-3434-74c3-abcf-d84e4a19ba33/live",
+          "at": 1792692664480,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations/01a164cf-3434-74c3-abcf-d84e4a19ba33/proposal",
+          "at": 1792692664693,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations/01a164cf-3434-74c3-abcf-d84e4a19ba33/proposal",
+          "at": 1792692664731,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations/01a164cf-3434-74c3-abcf-d84e4a19ba33/apply",
+          "at": 1792692664855,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-1b3a-7a3e-b9dd-557fd3c2b05b/quick-minimizations/01a164cf-3434-74c3-abcf-d84e4a19ba33/apply",
+          "at": 1792692664915,
+          "kind": "response"
+        }
+      ],
+      "backend": {
+        "context_rebuild": 0,
+        "context_rebuilds": 0,
+        "force_field": 0.0896799199981615,
+        "interpretation": 0.256718599004671,
+        "optimization": 0.3636283359955996
+      },
+      "elapsedBackendSeconds": 0.7282856469973922,
+      "jobId": "01a164cf-3434-74c3-abcf-d84e4a19ba33"
+    },
+    {
+      "copies": 8,
+      "phase": "cold",
+      "atoms": 18208,
+      "commandAcceptedMs": 0.7000000178813934,
+      "nativeAppliedMs": 3452.4000000059605,
+      "longestTaskMs": 278,
+      "stages": [
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations",
+          "at": 1792692671273,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations",
+          "at": 1792692671452,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-53b8-7866-bb93-53dee1308e43/live",
+          "at": 1792692671474,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-53b8-7866-bb93-53dee1308e43/live",
+          "at": 1792692671484,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-53b8-7866-bb93-53dee1308e43/live",
+          "at": 1792692671585,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-53b8-7866-bb93-53dee1308e43/live",
+          "at": 1792692671596,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-53b8-7866-bb93-53dee1308e43/live",
+          "at": 1792692671754,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-53b8-7866-bb93-53dee1308e43/live",
+          "at": 1792692671770,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-53b8-7866-bb93-53dee1308e43/live",
+          "at": 1792692671872,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-53b8-7866-bb93-53dee1308e43/live",
+          "at": 1792692671885,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-53b8-7866-bb93-53dee1308e43/live",
+          "at": 1792692671988,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-53b8-7866-bb93-53dee1308e43/live",
+          "at": 1792692672005,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-53b8-7866-bb93-53dee1308e43/live",
+          "at": 1792692672106,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-53b8-7866-bb93-53dee1308e43/live",
+          "at": 1792692672210,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-53b8-7866-bb93-53dee1308e43/live",
+          "at": 1792692672314,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-53b8-7866-bb93-53dee1308e43/live",
+          "at": 1792692672324,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-53b8-7866-bb93-53dee1308e43/live",
+          "at": 1792692672427,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-53b8-7866-bb93-53dee1308e43/live",
+          "at": 1792692672436,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-53b8-7866-bb93-53dee1308e43/live",
+          "at": 1792692672537,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-53b8-7866-bb93-53dee1308e43/live",
+          "at": 1792692672547,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-53b8-7866-bb93-53dee1308e43/live",
+          "at": 1792692672661,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-53b8-7866-bb93-53dee1308e43/live",
+          "at": 1792692672673,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-53b8-7866-bb93-53dee1308e43/live",
+          "at": 1792692672774,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-53b8-7866-bb93-53dee1308e43/live",
+          "at": 1792692672786,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-53b8-7866-bb93-53dee1308e43/live",
+          "at": 1792692672988,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-53b8-7866-bb93-53dee1308e43/live",
+          "at": 1792692673003,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-53b8-7866-bb93-53dee1308e43/live",
+          "at": 1792692673211,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-53b8-7866-bb93-53dee1308e43/live",
+          "at": 1792692673224,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-53b8-7866-bb93-53dee1308e43/proposal",
+          "at": 1792692673366,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-53b8-7866-bb93-53dee1308e43/proposal",
+          "at": 1792692673424,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-53b8-7866-bb93-53dee1308e43/apply",
+          "at": 1792692673704,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-53b8-7866-bb93-53dee1308e43/apply",
+          "at": 1792692673762,
+          "kind": "response"
+        }
+      ],
+      "backend": {
+        "context_rebuild": 0,
+        "context_rebuilds": 0,
+        "force_field": 0.08828905198606662,
+        "interpretation": 0.42231174299377017,
+        "optimization": 0.4574194460292347
+      },
+      "elapsedBackendSeconds": 0.9910077819949947,
+      "jobId": "01a164cf-53b8-7866-bb93-53dee1308e43"
+    },
+    {
+      "copies": 8,
+      "phase": "repeat",
+      "atoms": 18208,
+      "commandAcceptedMs": 0.30000001192092896,
+      "nativeAppliedMs": 3800.800000011921,
+      "longestTaskMs": 328,
+      "stages": [
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations",
+          "at": 1792692675684,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations",
+          "at": 1792692675966,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-653b-7feb-93be-ec2785f49d71/live",
+          "at": 1792692676028,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-653b-7feb-93be-ec2785f49d71/live",
+          "at": 1792692676045,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-653b-7feb-93be-ec2785f49d71/live",
+          "at": 1792692676148,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-653b-7feb-93be-ec2785f49d71/live",
+          "at": 1792692676166,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-653b-7feb-93be-ec2785f49d71/live",
+          "at": 1792692676330,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-653b-7feb-93be-ec2785f49d71/live",
+          "at": 1792692676348,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-653b-7feb-93be-ec2785f49d71/live",
+          "at": 1792692676450,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-653b-7feb-93be-ec2785f49d71/live",
+          "at": 1792692676469,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-653b-7feb-93be-ec2785f49d71/live",
+          "at": 1792692676571,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-653b-7feb-93be-ec2785f49d71/live",
+          "at": 1792692676590,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-653b-7feb-93be-ec2785f49d71/live",
+          "at": 1792692676693,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-653b-7feb-93be-ec2785f49d71/live",
+          "at": 1792692676729,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-653b-7feb-93be-ec2785f49d71/live",
+          "at": 1792692676834,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-653b-7feb-93be-ec2785f49d71/live",
+          "at": 1792692676856,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-653b-7feb-93be-ec2785f49d71/live",
+          "at": 1792692676959,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-653b-7feb-93be-ec2785f49d71/live",
+          "at": 1792692676976,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-653b-7feb-93be-ec2785f49d71/live",
+          "at": 1792692677078,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-653b-7feb-93be-ec2785f49d71/live",
+          "at": 1792692677097,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-653b-7feb-93be-ec2785f49d71/live",
+          "at": 1792692677219,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-653b-7feb-93be-ec2785f49d71/live",
+          "at": 1792692677229,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-653b-7feb-93be-ec2785f49d71/live",
+          "at": 1792692677331,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-653b-7feb-93be-ec2785f49d71/live",
+          "at": 1792692677340,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-653b-7feb-93be-ec2785f49d71/live",
+          "at": 1792692677442,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-653b-7feb-93be-ec2785f49d71/live",
+          "at": 1792692677451,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-653b-7feb-93be-ec2785f49d71/live",
+          "at": 1792692677553,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-653b-7feb-93be-ec2785f49d71/live",
+          "at": 1792692677563,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-653b-7feb-93be-ec2785f49d71/live",
+          "at": 1792692677664,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-653b-7feb-93be-ec2785f49d71/live",
+          "at": 1792692677676,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-653b-7feb-93be-ec2785f49d71/live",
+          "at": 1792692677888,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-653b-7feb-93be-ec2785f49d71/live",
+          "at": 1792692677910,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-653b-7feb-93be-ec2785f49d71/live",
+          "at": 1792692678113,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-653b-7feb-93be-ec2785f49d71/live",
+          "at": 1792692678135,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-653b-7feb-93be-ec2785f49d71/proposal",
+          "at": 1792692678355,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-653b-7feb-93be-ec2785f49d71/proposal",
+          "at": 1792692678424,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-653b-7feb-93be-ec2785f49d71/apply",
+          "at": 1792692678757,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a164cf-3d27-72af-ba56-0fb8ddfa5ad9/quick-minimizations/01a164cf-653b-7feb-93be-ec2785f49d71/apply",
+          "at": 1792692678860,
+          "kind": "response"
+        }
+      ],
+      "backend": {
+        "context_rebuild": 0,
+        "context_rebuilds": 0,
+        "force_field": 0.09019568399526179,
+        "interpretation": 0.567054699989967,
+        "optimization": 0.5169097610050812
+      },
+      "elapsedBackendSeconds": 1.1960645499930251,
+      "jobId": "01a164cf-653b-7feb-93be-ec2785f49d71"
+    },
+    {
+      "kind": "live",
+      "firstFrameMs": 700.3000000119209,
+      "cancelMs": 64.60000002384186,
+      "startedWall": 1792692685189,
+      "frames": [
+        {
+          "sequence": 1,
+          "iteration": 1,
+          "published_at": 1792692685.752769
+        },
+        {
+          "sequence": 2,
+          "iteration": 146,
+          "published_at": 1792692685.9536152
+        },
+        {
+          "sequence": 3,
+          "iteration": 284,
+          "published_at": 1792692686.15412
+        }
+      ]
+    }
+  ],
+  "actual_reader": "0.24.0 and final0.24.1, both directions",
+  "migration_head": "0014",
+  "new_migration": false,
+  "power_samples": 254
+}

@@ -65,3 +65,22 @@ actual reader directions, versions, production-harness exclusion and native timi
 budgets verify. No consequential finding remains after reviewing both handoff
 paths and other close owners. Next: corrective PR/review/normal merge and complete
 exact merged2 gate; earlier candidate2/merged1 cannot qualify this source.
+
+
+C4 qualification repair review: compare complete83aae8c-to-feature source diff.
+Only two test files change (five added/four removed lines); production source is
+byte-identical. Remove the driver-relative pre-expiry assertion while retaining
+the real DOM-lifetime>=10000ms assertion, screenshot/native/project/request checks
+and original13500ms total wait. Early expiry still fails the existing duration
+assertion; no clock mocking or timer override is introduced. Treat only ESRCH and
+ENOENT as process exit; other errors remain visible and native termination/worker
+recovery assertions remain. Focused9 worker/331 frontend/10 native browser cases
+and static/build checks pass; actual real expiry10052.1/10030.1ms. No new production,
+scientific, compatibility, migration or scope concern remains in this implementer
+review. Fresh complete candidate4 and exact merged5 gates remain mandatory.
+
+Final candidate4 passes all20 commands on unchanged clean83933b9818bdaa10985c249c16274b2340a216bf, with
+1248 Python/331 frontend/8 supervisor/322 browser and60 unchanged exclusions;
+zero failures/flakes/retries/required scientific skips. All568 identities/log hashes,
+both actual reader directions, all original budgets and both real-time notice
+expiry cases pass. No exception or unresolved consequential finding remains.

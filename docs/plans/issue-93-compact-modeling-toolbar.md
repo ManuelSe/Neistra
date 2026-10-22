@@ -2,11 +2,10 @@
 
 ## 1. Status, authority, and intended outcome
 
-**Status:** approved contract; C0 committed and remotely verified. The user
-authorized implementation and the complete delivery lifecycle with `/goal` on
-2026-10-22. M1/C1, M2/C2 and corrected M3/C3 candidate3 qualification are complete.
-M3/C4 awaits corrective PR/review/normal merge, exact merged2 qualification and
-verified publication/audit/cleanup.
+**Status:** approved implementation complete; PRs#117/#118 normally merged.
+C4 test-harness corrections and clean candidate4 pass complete qualification.
+PR#119 is open; exact merged5 qualification remains before v0.24.1 publication.
+No exception is assumed and no tag/release exists.
 
 **Approval:** the user's “Implement the plan.” on 2026-10-22 approves the complete
 proposal and its explicit C0 stop ready for `/goal`. This authorizes planning
@@ -722,3 +721,108 @@ finding remains in implementer self-review. No independent approval is claimed.
 Candidate2 is historical; merged1 was intentionally interrupted. This corrected
 candidate is the source for the corrective PR. Publication still requires a normal
 merge, complete exact merged2 gate and verified tag/release/issue/audit/cleanup.
+
+
+### Exact-master qualification diagnostics — 2026-10-22
+
+Corrective [PR#118](https://github.com/ManuelSe/Neistra/pull/118) was normally merged
+at `83aae8c36edc01abedfd7e4f98d9900774ce1d13`. The clean exact-master
+[merged2 gate](../assets/compact-modeling-toolbar/c4-merged2-gate.json) passed frozen
+installs, fresh0014, static/type/build,1248 Python,331 frontend and8 supervisor
+tests. Its browser run failed the unchanged representative-project5s interaction
+budget at6.101s and was stopped; it is not release qualification. A focused repeat
+measured6.234s. Actual released0.24.0 also failed the same unchanged check at7.678s
+on the then-discharging host; this supports a shared capacity concern but does not
+establish its cause or waive the gate. The same final source passed earlier at
+3.758s in complete candidate3. Both exact-master reader directions and version/
+compatibility audits subsequently pass independently; these do not convert the
+failed full gate into a pass. All diagnostic logs/traces/recipes are retained.
+
+The user reported AC unavailable, then restored AC and requested limited focus
+on responsiveness. A fresh unchanged focused check measured5.048s; retain the
+failure without further isolated timing investigation. Run fresh complete
+merged3 qualification on the same exact master with isolated stores/ports and
+unchanged thresholds, host settings and source. No tag/release has been published.
+
+
+### Exact-master final coverage and qualification decision — 2026-10-22
+
+The fresh [merged3 attempt](../assets/compact-modeling-toolbar/c4-merged3-gate.json)
+stopped in Python after1247 passes when an existing `/proc/<pid>/stat` test helper
+raised ProcessLookupError as its observed process exited. No source/assertion was
+changed. Fresh [merged4](../assets/compact-modeling-toolbar/c4-merged4-gate.json)
+passes1248 Python,331 frontend,8 supervisor, frozen installs/fresh0014/static/types/
+build. Its complete browser run has321 passes,60 unchanged exclusions and one
+mobile notification-test failure; zero retries. All16 toolbar cases, all native
+scientific workflows/budgets, real zoom and the formerly failing5s responsiveness
+check pass. The [summary](../assets/compact-modeling-toolbar/c4-merged4-summary.json)
+explicitly marks qualification incomplete.
+
+The [completion checks](../assets/compact-modeling-toolbar/c4-completion1-gate.json)
+pass both actual tagged0.24.0↔final0.24.1 reader directions, both migrations,
+version/dependency/production-harness audit and diff. Its unchanged notification
+rerun passes desktop and repeats the mobile failure. The
+[trace diagnosis](../assets/compact-modeling-toolbar/c4-notification-diagnostic.json)
+shows the pre-expiry assertion starts at least10.282s/full and10.029s/focused
+after the saved notice is present, beyond its documented10s expiry. The test waits
+8.5s after inspection/screenshot overhead instead of anchoring to emission. This
+cannot establish premature product expiry. The notification component is unchanged.
+Both full/focused failures, raw reports, traces, screenshots and logs are retained.
+All568 runtime/test/tool/patch/lock identities match complete candidate3, digest
+`a079429f753cc2a266bb0eba3c2c56fa756f0bce3e3faa176b453c5a83dd8705`.
+
+All20 release commands have coverage:19 pass, the full browser command fails only
+on this existing mobile harness timing assertion. This is not a passing complete
+release gate. No threshold, source, host setting or scientific requirement was
+changed. No exception is inferred from the user's request to limit responsiveness
+investigation. Publication, final issue close-out and branch cleanup remain held
+until the user approves a precise qualification deviation or the harness is fixed
+and source is requalified. Runtime master remains83aae8c.
+
+
+### C4 validation repair — 2026-10-22
+
+No qualification exception was approved. Continue the authorized validation work
+with two bounded test-only corrections: measure real notification expiry from
+existing DOM observations with the original>=10000ms assertion and13500ms total
+wait; treat `/proc` ESRCH as an exited process alongside ENOENT. Production notice/
+worker code, all scientific/performance thresholds and product scope are unchanged.
+D-143 records the rationale. The [focused gate](../assets/compact-modeling-toolbar/c4-harness1-gate.json)
+and [summary](../assets/compact-modeling-toolbar/c4-harness1-summary.json) pass all8
+commands on unchanged source:9 native worker integration tests,331 frontend, Ruff/
+ESLint/types/build/diff and all10 notification browser cases, zero failures/skips/
+flakes/retries. Desktop/mobile real expiry remains>=10s; original native/project/
+request and focus/persistent-warning assertions pass.
+
+Review confirms only two test files change after83aae8c; permissions/other process
+errors still surface, expiry lower bound is retained and total wait is unchanged.
+No new framework, product/API/schema/migration/dependency/scientific change. No
+separate follow-up is needed if the harness repair is delivered here. Failed old
+attempts remain diagnostic. Fresh complete candidate4/merged5 recipes retain all20
+commands, isolated stores/ports and actual0.24.0 reader roots. Version0.24.1 remains
+the correct unused patch target. Commit the passing test checkpoint, then prepare
+release documentation and requalify committed, clean source before its focused PR.
+
+
+### C4 final corrected candidate4 complete — 2026-10-22
+
+Clean [candidate4](../assets/compact-modeling-toolbar/c4-candidate4-gate.json) and
+[summary](../assets/compact-modeling-toolbar/c4-candidate4-summary.json) pass all20
+commands on`83933b9818bdaa10985c249c16274b2340a216bf`:1248 Python/331 frontend/8 supervisor/
+322 browser with60 unchanged exclusions, zero failures/flakes/retries/Python or
+required scientific skips. Both actual0.24.0↔0.24.1 reader directions retain all
+six cases and rich three-entry data/history/original/settings/job/surface/scene/
+counter/archive records. All568 source/test/tool/patch/lock identities and log
+hashes verify, digest`6523643a55d4da81df3c41001746d4b6aac5eed89d97cfc9ed80778e4de04dc3`. All five versions0.24.1;
+no API/job/schema/migration/dependency/scientific-model change.
+
+All16 toolbar cases and all10 notification cases execute. The corrected actual
+real-time>=10s lifetime and original13.5s total wait remain. Original native
+cold small/pocket/18k paint0.953/2.065/3.452s, first frame
+700.3ms, Cancel64.6ms and unchanged responsiveness
+budget pass. Earlier attempts remain diagnostic; no exception or threshold
+relaxation is used. Full-diff implementer review finds no unresolved consequential
+issue. Fresh fetch still finds master83aae8c, latest stable0.24.0 and unusedv0.24.1.
+Next: focused normal PR for test-only C4 repairs, review/policy audit, normal merge
+preserving checkpoints, then complete exact merged5 qualification before tag,
+release, issue close-out, documentation audit and delayed cleanup.

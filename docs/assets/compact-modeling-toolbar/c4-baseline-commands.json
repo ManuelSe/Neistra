@@ -1,0 +1,55 @@
+{
+  "environment": {
+    "MOLWEAVE_DATA_DIR": "/tmp/neistra93-c4-baseline/default-data",
+    "MOLWEAVE_MINIMIZATION_MAX_RSS_BYTES": "4294967296",
+    "MOLWEAVE_JOB_PLUGIN_ALLOWLIST": "molweave.demo,molweave.minimization",
+    "MOLWEAVE_JOB_PLUGIN_TARGETS": "molweave_demo_plugin.plugin:plugin,molweave_core.minimization.plugin:plugin",
+    "MOLWEAVE_AMBERTOOLS_PREFIX": "/datadisk/dev/.neistra-tools/ambertools-24.8",
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "PLAYWRIGHT_BROWSERS_PATH": ".playwright",
+    "MOLWEAVE_E2E_DATA_DIR": "/tmp/neistra93-c4-baseline/browser-data",
+    "MOLWEAVE_E2E_API_PORT": "15010",
+    "MOLWEAVE_E2E_WORKER_PORT": "15011",
+    "MOLWEAVE_E2E_WEB_PORT": "15073",
+    "MOLWEAVE_MINIMIZATION_EVIDENCE_DIR": "/tmp/neistra93-c4-baseline/native",
+    "PLAYWRIGHT_JSON_OUTPUT_NAME": "/tmp/neistra93-c4-baseline/browser.json"
+  },
+  "steps": [
+    {
+      "label": "legacy-identity",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/python",
+        "-c",
+        "import json,pathlib;from molweave_api.main import app;import molweave_api.main as main;assert app.version==\"0.24.0\";print(json.dumps({\"api\":main.__file__,\"api_version\":app.version,\"web_version\":json.loads(pathlib.Path(\"/tmp/neistra93-reader-0240/apps/web/package.json\").read_text())[\"version\"]}))"
+      ],
+      "environment": {
+        "PYTHONPATH": "/tmp/neistra93-reader-0240/apps/api/src:/tmp/neistra93-reader-0240/packages/molweave_core/src:/tmp/neistra93-reader-0240/packages/molweave_demo_plugin/src"
+      }
+    },
+    {
+      "label": "browser",
+      "command": [
+        "corepack",
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "tests/e2e/release-hardening.spec.ts",
+        "--project=chromium",
+        "--grep",
+        "representative-project",
+        "--reporter=list,json",
+        "--config=/tmp/neistra93-baseline-playwright.config.ts"
+      ]
+    },
+    {
+      "label": "diff",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "environment": {
+    "MOLWEAVE_DATA_DIR": "/tmp/neistra93-c4-responsiveness1/default-data",
+    "MOLWEAVE_MINIMIZATION_MAX_RSS_BYTES": "4294967296",
+    "MOLWEAVE_JOB_PLUGIN_ALLOWLIST": "molweave.demo,molweave.minimization",
+    "MOLWEAVE_JOB_PLUGIN_TARGETS": "molweave_demo_plugin.plugin:plugin,molweave_core.minimization.plugin:plugin",
+    "MOLWEAVE_AMBERTOOLS_PREFIX": "/datadisk/dev/.neistra-tools/ambertools-24.8",
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "PLAYWRIGHT_BROWSERS_PATH": ".playwright",
+    "MOLWEAVE_E2E_DATA_DIR": "/tmp/neistra93-c4-responsiveness1/browser-data",
+    "MOLWEAVE_E2E_API_PORT": "14910",
+    "MOLWEAVE_E2E_WORKER_PORT": "14911",
+    "MOLWEAVE_E2E_WEB_PORT": "14973",
+    "MOLWEAVE_MINIMIZATION_EVIDENCE_DIR": "/tmp/neistra93-c4-responsiveness1/native",
+    "PLAYWRIGHT_JSON_OUTPUT_NAME": "/tmp/neistra93-c4-responsiveness1/browser.json"
+  },
+  "steps": [
+    {
+      "label": "browser",
+      "command": [
+        "corepack",
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "tests/e2e/release-hardening.spec.ts",
+        "--project=chromium",
+        "--grep",
+        "representative-project",
+        "--reporter=list,json"
+      ]
+    },
+    {
+      "label": "diff",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ]
+    }
+  ]
+}

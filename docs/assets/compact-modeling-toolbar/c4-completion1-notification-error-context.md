@@ -1,0 +1,88 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - button "Projects" [ref=e5] [cursor=pointer]:
+      - generic [ref=e7] [cursor=pointer]: Neistra
+    - button "Notification 1792690408443" [ref=e8] [cursor=pointer]:
+      - generic [ref=e9] [cursor=pointer]: Notification 1792690408443
+    - generic [ref=e10]:
+      - button "Project browser" [ref=e11] [cursor=pointer]:
+        - img [ref=e12] [cursor=pointer]
+      - button "History" [ref=e17] [cursor=pointer]:
+        - img [ref=e18] [cursor=pointer]
+      - button "Inspector" [ref=e22] [cursor=pointer]:
+        - img [ref=e23] [cursor=pointer]
+      - button "Import structures" [ref=e25] [cursor=pointer]:
+        - img [ref=e26] [cursor=pointer]
+      - button "Export" [ref=e29] [cursor=pointer]:
+        - img [ref=e30] [cursor=pointer]
+      - button "Jobs" [ref=e36] [cursor=pointer]:
+        - img [ref=e37] [cursor=pointer]
+      - 'button "Undo: Import 1 structures from 1 files" [ref=e41] [cursor=pointer]':
+        - img [ref=e42] [cursor=pointer]
+      - button "Redo" [disabled] [ref=e45]:
+        - img [ref=e46]
+      - button "Save checkpoint" [disabled] [ref=e49]:
+        - img [ref=e50]
+      - button "Use dark theme" [ref=e54] [cursor=pointer]:
+        - img [ref=e55] [cursor=pointer]
+  - main [ref=e58]:
+    - generic [ref=e59]:
+      - region "3D molecular viewer" [ref=e60]:
+        - generic [ref=e64]:
+          - button "Select Animation" [ref=e72] [cursor=pointer]:
+            - img [ref=e74] [cursor=pointer]
+          - generic [ref=e77]:
+            - button "Reset Zoom" [ref=e80] [cursor=pointer]:
+              - img [ref=e82] [cursor=pointer]
+            - button "Screenshot / State Snapshot" [ref=e86] [cursor=pointer]:
+              - img [ref=e88] [cursor=pointer]
+            - generic [ref=e90]:
+              - button "Toggle Controls Panel" [ref=e92] [cursor=pointer]:
+                - img [ref=e94] [cursor=pointer]
+              - button "Toggle Expanded Viewport" [ref=e97] [cursor=pointer]:
+                - img [ref=e99] [cursor=pointer]
+              - button "Settings / Controls Info" [ref=e101] [cursor=pointer]:
+                - img [ref=e103] [cursor=pointer]
+              - button "Illumination" [ref=e105] [cursor=pointer]:
+                - img [ref=e107] [cursor=pointer]
+              - button "Augmented/Virtual Reality unavailable" [disabled] [ref=e109]:
+                - img [ref=e111]
+            - button "Toggle Selection Mode" [ref=e116] [cursor=pointer]:
+              - img [ref=e118] [cursor=pointer]
+      - generic:
+        - status:
+          - generic: 1 visible / 1 loaded / 0 selected
+        - toolbar "Viewer quick actions" [ref=e120]:
+          - generic [ref=e121]: Pick
+          - generic [ref=e122]:
+            - generic [ref=e123]: Viewer picking mode
+            - combobox "Viewer picking mode" [ref=e124]:
+              - option "Atom" [selected]
+              - option "Residue"
+              - option "Chain"
+              - option "Structure"
+          - group "Viewer focus actions" [ref=e125]:
+            - button "Fit all visible" [ref=e126] [cursor=pointer]:
+              - img [ref=e127] [cursor=pointer]
+            - button "Focus selection" [disabled] [ref=e128]:
+              - img [ref=e129]
+            - button "Focus visible ligands" [ref=e135] [cursor=pointer]:
+              - img [ref=e136] [cursor=pointer]
+            - button "Style selection" [disabled] [ref=e139]:
+              - img [ref=e140]
+            - button "Interactions" [ref=e146] [cursor=pointer]:
+              - img [ref=e147] [cursor=pointer]
+        - group "Molecular tools" [ref=e152]:
+          - region "Transformation tools" [ref=e153]:
+            - button "Transform selection" [disabled] [ref=e154]:
+              - img [ref=e155]
+          - button "Edit molecule" [ref=e161] [cursor=pointer]:
+            - img [ref=e162] [cursor=pointer]
+          - button "Minimize selection" [disabled] [ref=e166]:
+            - img [ref=e167]
+      - button "Open viewer controls" [ref=e170] [cursor=pointer]:
+        - img [ref=e171] [cursor=pointer]
+```

@@ -1,0 +1,2 @@
+import base from "/tmp/neistra93-reader-0240/apps/web/vite.config.ts";
+export default {...base, cacheDir:"/tmp/neistra93-c4-baseline/vite-cache"};

@@ -1,0 +1,24 @@
+{
+  "facts": [
+    {
+      "label": "c4-merged4",
+      "notice_present_in_dom_snapshot_at_trace_ms": 3320096.541,
+      "wait_8500_started_at_trace_ms": 3321871.806,
+      "visibility_assertion_started_at_trace_ms": 3330378.543,
+      "minimum_elapsed_since_notice_present_ms": 10282.002,
+      "documented_expiry_ms": 10000
+    },
+    {
+      "label": "c4-completion1",
+      "notice_present_in_dom_snapshot_at_trace_ms": 32838.939,
+      "wait_8500_started_at_trace_ms": 34321.116,
+      "visibility_assertion_started_at_trace_ms": 42867.633,
+      "minimum_elapsed_since_notice_present_ms": 10028.694,
+      "documented_expiry_ms": 10000
+    }
+  ],
+  "source_changed": false,
+  "production_notification_component_changed": false,
+  "qualification_exception_approved": false,
+  "finding": "Both pre-expiry visibility assertions start after the documented ten-second expiry. These failures cannot establish product early expiry. Desktop passes in full and focused runs; mobile repeats. Retain failures unchanged; no exception or release qualification is claimed."
+}
