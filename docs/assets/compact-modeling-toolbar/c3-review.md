@@ -57,3 +57,11 @@ existing typed restoration-suppression pattern, defaults ordinary Interactions
 closure unchanged, and covers both visible setup and hidden autoApply ownership.
 All other closing paths were inspected. No new source concern remains in this
 corrective full-diff self-review; fresh complete candidate/master gates are next.
+
+Corrected candidate3 now passes all20 gates on unchanged clean8a3c3c607e0bb72164f677e1d35ba884575d1144,
+1248 Python/331 frontend/8 supervisor/322 browser and60 unchanged exclusions,
+zero failures/flakes/retries/scientific skips. All568 identities/log hashes, both
+actual reader directions, versions, production-harness exclusion and native timing
+budgets verify. No consequential finding remains after reviewing both handoff
+paths and other close owners. Next: corrective PR/review/normal merge and complete
+exact merged2 gate; earlier candidate2/merged1 cannot qualify this source.

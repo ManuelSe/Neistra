@@ -4,9 +4,9 @@
 
 **Status:** approved contract; C0 committed and remotely verified. The user
 authorized implementation and the complete delivery lifecycle with `/goal` on
-2026-10-22. M1/C1, M2/C2 and initial M3/C3 qualification are complete. M3/C4
-review found an additional focus case requiring a corrective checkpoint and fresh
-complete candidate/master qualification before publication.
+2026-10-22. M1/C1, M2/C2 and corrected M3/C3 candidate3 qualification are complete.
+M3/C4 awaits corrective PR/review/normal merge, exact merged2 qualification and
+verified publication/audit/cleanup.
 
 **Approval:** the user's “Implement the plan.” on 2026-10-22 approves the complete
 proposal and its explicit C0 stop ready for `/goal`. This authorizes planning
@@ -689,3 +689,36 @@ interaction markers/lifecycle/failure/accessibility/analysis limits pass. No new
 framework, API, durable state or scientific change. Complete clean candidate3 and
 exact corrected merged2 gates remain mandatory; this supporting checkpoint does
 not complete release qualification.
+
+
+### C4 corrected candidate3 complete — 2026-10-22
+
+Corrected clean [candidate3](../assets/compact-modeling-toolbar/c4-candidate3-gate.json)
+and [summary](../assets/compact-modeling-toolbar/c4-candidate3-summary.json) pass all20
+commands on`8a3c3c607e0bb72164f677e1d35ba884575d1144`: **1248 Python,331 frontend,8 supervisor,322 browser /
+60 unchanged documented layout/timing exclusions**, zero failures/flakes/retries/
+Python or native scientific skips. All568 source/test/tool/patch/lock identities
+remain fixed, digest`a079429f753cc2a266bb0eba3c2c56fa756f0bce3e3faa176b453c5a83dd8705`; lossless log hashes verify. Frozen
+installs, fresh0014, static/types/build, production-harness exclusion, all five
+0.24.1 versions and actual tagged0.24.0↔final0.24.1 reader directions pass.
+Both directions retain all six automatic cases and rich three-entry canonical/
+conformer/history/original/appearance/job/surface/scene/counter/archive records.
+No migration/API/job/schema/dependency/scientific-model change.
+
+All16 toolbar cases execute without skips/retries, covering both outgoing tools,
+explicit setup and quiet submission/publication focus, plus existing compact
+layout/transform/reveal/failure workflows. Full native interaction, quick/AMBER,
+editing,320px/themes/accessibility/actual100–200%zoom regressions pass. Cold small/
+pocket/18k native paint1.402/2.067/3.579s, first frame
+706.4ms, Cancel41.4ms; original2/5/5s,1s,500ms
+and<750ms long-task budgets remain. Command acceptance is distinct from former
+panel-render feedback, with no speedup comparison. Power/environment samples are
+retained without host-setting changes.
+
+The focused correction follows [initial PR#117](https://github.com/ManuelSe/Neistra/pull/117)
+and extends D-093/D-143's existing restoration suppression through visible setup
+and hidden autoApply. Other close paths were reviewed; no unresolved consequential
+finding remains in implementer self-review. No independent approval is claimed.
+Candidate2 is historical; merged1 was intentionally interrupted. This corrected
+candidate is the source for the corrective PR. Publication still requires a normal
+merge, complete exact merged2 gate and verified tag/release/issue/audit/cleanup.
