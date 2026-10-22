@@ -82,3 +82,15 @@ reader checks. Source/log hashes verify. Review of the final correction confirms
 typed opt-in flags, unchanged legacy defaults, no extra perception pass, and no
 partial persistence. No unresolved consequential source finding remains; complete
 fresh candidate2 and exact merged-master gates remain required.
+
+
+## Broad journey regression expectation
+
+The full matrix found a pre-automatic assertion in the general release journey;
+another existed in viewer-theme. Both now expect C+4H for disconnected C0, and
+the release journey independently checks exact retained atoms, authored carbon
+position and four single C-H edges. All other generic Add/Apply-order/bond UI
+call sites were audited. Focused321 frontend/2 native (2 existing layout exclusions)
+plus static/type/build/diff pass. Source comparison proves production is unchanged;
+only these two test files differ from candidate2. Candidate2 is intentionally
+interrupted/diagnostic, and complete fresh candidate3 qualification remains required.

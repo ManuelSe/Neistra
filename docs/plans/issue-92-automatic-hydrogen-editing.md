@@ -936,3 +936,24 @@ and reuse existing bounded assessment. No schema, dependency, version increment 
 new product scope is needed. Fix checkpoint follows; next is fresh complete
 candidate2 qualification, final review and PR. No unresolved consequential source
 finding remains; publication is still blocked on the complete delivery gates.
+
+### C5 broad journey assertion update — 2026-10-22
+
+Candidate2 (source6b2a467) passes1247 Python without skips,321 frontend,
+8 supervisor, installs/migration/static/build and the executed native performance,
+zoom, rendering, chemistry and workspace checks. The broad release journey exposed
+an obsolete pre-automatic assertion: adding a disconnected C0 now creates C+4H,
+so3 atoms become8, not4. The same assumption existed in the viewer-theme lifecycle.
+Candidate2 was intentionally stopped and is diagnostic, not release qualification.
+
+Update those two workflows to current behavior without changing production code.
+The release journey now also asserts exact retained records/coordinates, the
+explicit carbon position, all four H identities and four single C-H edges. Theme
+selection counts include the new H. Grep of all generic Add/Apply-order/bond UI
+callers found these remaining stale-count sites; other direct workflows were
+already qualified in C4. The [focused journey gate](../assets/automatic-hydrogen-editing/c5-journey-gate.json)
+passes all6 commands:321 frontend,2 complete native journeys/2 existing desktop-only
+exclusions, lint/type/build/diff. All source/log hashes verify. Comparing its source
+snapshot to candidate2 proves exactly these two test files differ; production is
+unchanged. Commit this coherent test/evidence update, then restart the complete
+fresh candidate3 gate. No merge, tag or release exists yet.

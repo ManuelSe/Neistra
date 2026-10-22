@@ -26,7 +26,8 @@ interface ProjectRead {
 }
 
 interface StructureRead {
-  atoms: { id: number; coordinates: [number, number, number] }[];
+  atoms: { id: number; element: string; coordinates: [number, number, number] }[];
+  bonds: { atom_1_id: number; atom_2_id: number; order: number | null }[];
   residues: { id: number; name: string }[];
 }
 
@@ -272,9 +273,23 @@ test("completes the MolWeave v0.1 definition-of-done journey", async ({
   await page.getByRole("combobox", { name: "Ligand", exact: true }).selectOption(ligand!.id);
   await page.getByRole("spinbutton", { name: "X", exact: true }).fill("4");
   await page.getByRole("spinbutton", { name: "Y", exact: true }).fill("1");
+  const beforeAddition = await structure(request, project!.id, ligand!.id);
   await page.getByRole("button", { name: "Add", exact: true }).click();
   await expect.poll(async () => (await currentProject(request, project!.id)).entries.find((entry) => entry.id === ligand!.id)?.atom_count)
-    .toBe(4);
+    .toBe(beforeAddition.atoms.length + 5);
+  const afterAddition = await structure(request, project!.id, ligand!.id);
+  const previousIds = new Set(beforeAddition.atoms.map(atom => atom.id));
+  expect(afterAddition.atoms.filter(atom => previousIds.has(atom.id))).toEqual(beforeAddition.atoms);
+  const createdAtoms = afterAddition.atoms.filter(atom => !previousIds.has(atom.id));
+  expect(createdAtoms.map(atom => atom.element).sort()).toEqual(["C", "H", "H", "H", "H"]);
+  const addedCarbon = createdAtoms.find(atom => atom.element === "C")!;
+  expect(addedCarbon.coordinates).toEqual([4, 1, 0]);
+  const addedHydrogens = createdAtoms.filter(atom => atom.element === "H").map(atom => atom.id).sort();
+  const addedBonds = afterAddition.bonds.filter(bond =>
+    [bond.atom_1_id, bond.atom_2_id].includes(addedCarbon.id));
+  expect(addedBonds.map(bond => bond.atom_1_id === addedCarbon.id ? bond.atom_2_id : bond.atom_1_id).sort())
+    .toEqual(addedHydrogens);
+  expect(addedBonds.every(bond => bond.order === 1)).toBe(true);
   await expect(page.locator(".viewer-error")).toBeHidden({ timeout: 30_000 });
 
   await page.getByRole("tab", { name: "protein" }).click();

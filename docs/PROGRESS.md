@@ -36,7 +36,11 @@ its1241 Python/321 frontend/8 supervisor passes are diagnostic for that source.
 The typed +H-only consistency guard and fail-first C/N mirror/translation/API
 regressions now pass the [correction gate](assets/automatic-hydrogen-editing/c5-stereo-green-gate.json):
 114 focused Python/321 frontend/14 native plus final0.24.0↔actual0.23.0 readers.
-The fix is ready to commit, then fresh complete candidate2 qualification.
+The fix is committed/pushed at6b2a467. Candidate2 passes1247 Python/321 frontend/
+8 supervisor and executed native checks, but stops on a stale broad-journey count.
+Only the release/theme journey assertions change; the [focused gate](assets/automatic-hydrogen-editing/c5-journey-gate.json)
+passes321 frontend and2 native/2 existing exclusions plus static/build checks.
+Production hashes are unchanged. Next is the complete fresh candidate3 gate.
 No merge or release has occurred.
 
 ### Previous delivery baseline — v0.23.0
