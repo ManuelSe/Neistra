@@ -155,3 +155,27 @@ def test_single_hydrogen_unknown_neighbor_bonds_cannot_certify_nonconjugation() 
     )
     with pytest.raises(InvalidModelEdit, match="conjugated"):
         single(before)
+
+
+@pytest.mark.parametrize("smiles,remove", [("NC(F)Cl", {2}), ("CN(CC)CCC", set())])
+@pytest.mark.parametrize("mirror", [False, True])
+def test_single_hydrogen_requires_consistent_stereo_across_conformers(
+    smiles: str, remove: set[int], mirror: bool
+) -> None:
+    before = model(smiles, remove_h_on=remove)
+    other = [(x + 7, y - 4, -z if mirror else z + 2) for x, y, z in before.active_coordinates]
+    before = before.model_copy(
+        update={
+            "conformers": [*before.conformers, Conformer(id=9, name="Other", coordinates=other)]
+        }
+    )
+    original = before.to_bytes()
+    if mirror:
+        with pytest.raises(InvalidModelEdit, match="stereo"):
+            single(before, 2)
+    else:
+        result = single(before, 2).edit.structure
+        assert result.atoms[1].stereo in {"TETRAHEDRAL_CW", "TETRAHEDRAL_CCW"}
+        for old, new in zip(before.conformers, result.conformers, strict=True):
+            assert new.coordinates[:-1] == old.coordinates
+    assert before.to_bytes() == original

@@ -1,0 +1,21 @@
+{
+  "baseline": {
+    "producer": "0.23.0",
+    "entries": 3,
+    "atomic_batch": true,
+    "jobs_unchanged": true,
+    "archive_sha256": "f60ba0f62ee01a819d2e247423f061dbfe612cd9b96ce5449b4040c4718e57aa",
+    "selection_edit_operations": [
+      "hydrogens.prepare",
+      "fragment.replace",
+      "atom.element",
+      "atom.charge",
+      "residue.mutate"
+    ]
+  },
+  "producer": "0.23.0",
+  "automatic_cases": 0,
+  "api_module": "/tmp/neistra-92-reader-0230/apps/api/src/molweave_api/main.py",
+  "core_module": "/tmp/neistra-92-reader-0230/packages/molweave_core/src/molweave_core/__init__.py",
+  "application_version": "0.23.0"
+}

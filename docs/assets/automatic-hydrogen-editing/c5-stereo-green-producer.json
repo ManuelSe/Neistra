@@ -1,0 +1,21 @@
+{
+  "baseline": {
+    "producer": "0.24.0",
+    "entries": 3,
+    "atomic_batch": true,
+    "jobs_unchanged": true,
+    "archive_sha256": "f6e4c8a3c6bcc7252b04333ace350172c3f893ab8fb345aec23483d60c661354",
+    "selection_edit_operations": [
+      "hydrogens.prepare",
+      "fragment.replace",
+      "atom.element",
+      "atom.charge",
+      "residue.mutate"
+    ]
+  },
+  "producer": "0.24.0",
+  "automatic_cases": 6,
+  "api_module": "/datadisk/dev/neistra/apps/api/src/molweave_api/main.py",
+  "core_module": "/datadisk/dev/neistra/packages/molweave_core/src/molweave_core/__init__.py",
+  "application_version": "0.24.0"
+}

@@ -894,3 +894,45 @@ observation harness in production assets. `MOLWEAVE_DATA_DIR=/tmp/neistra-issue9
 passes34 cases in18.30s. `.venv/bin/uv run ruff check .` and `git diff --check` pass.
 The complete candidate gate will archive the version auditor/qualifier and repeat
 all checks on final source; these focused checks do not authorize publication.
+
+### C5 scientific review correction — 2026-10-22
+
+Candidate1 is intentionally interrupted and remains diagnostic, not a qualified
+release. Its exact source746c4cf passed1241 Python (zero skips),321 frontend,
+8 supervisor, installs/migration/static/build checks, but full browser/reader/
+release qualification did not finish. No merge or release occurred.
+
+A further independent geometric counterexample exposed an approved-scope gap:
+mirror-related conformers of `NC(F)Cl` (missing explicit C-H) or tertiary amine
+`CN(CC)CCC` could accept +H while reporting conflicting new stereo and choosing no
+universal tag. The two mirrored cases fail first in the retained
+[c5-stereo-red](../assets/automatic-hydrogen-editing/c5-stereo-red-gate.json) evidence;
+the two translation controls already pass. The contract requires atomic refusal
+for undetermined new stereo, so warning-only behavior is insufficient for +H.
+
+Add a typed, opt-in consistency requirement to the shared stereo assessment and
+activate it only for the bounded one-H action. Existing ordinary/additive helpers
+and automatic direct drafts retain their default warning behavior. Incomplete
+stereo assessment, unresolved geometry or conformer disagreement now refuses +H
+before publication. This reuses existing bounded analysis; it does not add another
+perception algorithm, global sanitization or source rewrite. The explicit-H sulfur
+admission check remains. API regressions retain a real Redo branch and compare
+persisted GET snapshots, every conformer/charge, artifact/command counts, originals
+and allocator floors after refusal. Translation controls retain exact old rows and
+one consistent tetrahedral tag. All45 immediate targeted cases pass; a complete
+source-bound correction checkpoint and fresh final candidate gate are pending.
+
+### C5 stereo correction qualified — 2026-10-22
+
+[Correction gate](../assets/automatic-hydrogen-editing/c5-stereo-green-gate.json)
+passes all15 commands:114 focused Python,321 frontend,14 native, all static/type/
+build checks, fresh0014 databases and actual final0.24.0↔tagged0.23.0 readers.
+Six new cases forward and the rich prior project reverse remain exact. Source and
+decompressed-log hashes verify, including separately retained red and interrupted
+candidate1 diagnostics. Mirror C/N requests refuse with no charge/data/artifact/
+history/Redo/allocator/original change; translated controls retain consistent stereo.
+Local review confirms the opt-in flags leave legacy/direct warning defaults intact
+and reuse existing bounded assessment. No schema, dependency, version increment or
+new product scope is needed. Fix checkpoint follows; next is fresh complete
+candidate2 qualification, final review and PR. No unresolved consequential source
+finding remains; publication is still blocked on the complete delivery gates.

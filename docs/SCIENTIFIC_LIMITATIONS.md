@@ -23,7 +23,10 @@ and the [approved contract](plans/issue-92-automatic-hydrogen-editing.md).
 
 ## One-click hydrogen addition
 
-One-click +H (issue #92 C2) uses a finite C/N/O/S state table. Sulfur is restricted
+One-click +H (issue #92 C2/C5) uses a finite C/N/O/S state table.
+All conformers must establish consistent supported stereo; mirrored/disagreeing
+configurations or incomplete assessment refuse atomically. Legacy additive helpers
+and direct drafts retain their separate warning semantics. Sulfur is restricted
 to ordinary single-bond states; higher charge, hypervalent S, conjugated charge
 transitions and undetermined sulfur stereo refuse. Valence-deficit filling is
 one explicit building step, not proof of complete chemistry. A conventional charge

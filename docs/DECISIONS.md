@@ -5504,3 +5504,17 @@ refusal is correct. Its existing native-picking regression uses explicit legacy
 additive HTTP fixture preparation, never inferred identity or a retired UI claim.
 Full C4 evidence and local self-review are linked in the feature plan; broader
 qualification is tracked separately in remotely verified #114.
+
+### D-141 qualification refinement — issue #92 C5, 2026-10-22
+
+A mirrored-conformer C/N probe demonstrated that the generic stereo reconciler's
+warning-and-clear behavior cannot satisfy bounded +H admission: every frame can
+have usable local coordinates while the molecule has no consistent new stereo.
+A typed opt-in consistency requirement now refuses +H if assessment is incomplete,
+geometry is unresolved or conformers disagree. Generic additive/reconciliation
+callers keep their existing default warnings and do not acquire strict admission.
+The existing bounded assessment supplies the proof; no new perception framework,
+canonical source rewrite or unbounded analysis is introduced. Keep the separate
+explicit-H sulfur check because implicit-H perception can miss that new centre.
+The feature plan retains fail-first mirror cases, passing translation controls,
+API no-publication/Redo/counter proof and final requalification requirements.

@@ -122,6 +122,7 @@ def add_one_hydrogen(
         next_bond_id=next_bond_id,
         operation="hydrogens.add_one",
         require_ordinary_stereo=True,
+        require_consistent_stereo=True,
     )
     if parent.element == "S" and charge == 1 and len(incident) == 2:
         # Keep H explicit: the toolkit can miss sulfonium stereo with an implicit H.

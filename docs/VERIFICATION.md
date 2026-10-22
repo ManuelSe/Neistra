@@ -30,6 +30,12 @@ module checks. Six new edit cases and the reverse rich project retain exact
 conformers/history/appearance/scenes/surfaces/jobs/originals/counters/archives.
 The development version is still0.23.0 here. Complete final-version candidate and
 exact-master qualification remains pending; preflight is not release qualification.
+A later mirror-conformer counterexample required +H-only strict stereo consistency.
+[Fail-first](assets/automatic-hydrogen-editing/c5-stereo-red-gate.json) and
+[passing correction](assets/automatic-hydrogen-editing/c5-stereo-green-gate.json)
+retain the proof:114 focused Python/321 frontend/14 native and final-version readers.
+The earlier complete-candidate1 attempt was intentionally interrupted and is
+strictly diagnostic; its1241 Python passes do not qualify the corrected source.
 
 ## Quick local minimization (issue #110) — stable v0.23.0
 

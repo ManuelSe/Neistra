@@ -55,3 +55,54 @@ def test_single_hydrogen_atomic_history_originals_and_archives(
         "project"
     ]
     assert structure(client, restored["id"], restored["entries"][0]["id"]) == after
+
+
+@pytest.mark.parametrize("smiles,remove", [("NC(F)Cl", {2}), ("CN(CC)CCC", set())])
+def test_single_hydrogen_stereo_refusal_preserves_every_persisted_boundary(
+    client: ApiClient, smiles: str, remove: set[int]
+) -> None:
+    from molweave_api.models import Artifact, CommandRecord
+    from molweave_core.molecular import Conformer
+    from sqlalchemy import func, select
+
+    from tests.integration.test_viewer_state import apply_style, selection
+    from tests.support.modeling_reader_qualification import allocation_counters
+
+    before = model(smiles, remove_h_on=remove)
+    mirror = [(x, y, -z) for x, y, z in before.active_coordinates]
+    before = before.model_copy(
+        update={
+            "conformers": [*before.conformers, Conformer(id=9, name="Mirror", coordinates=mirror)]
+        }
+    )
+    project = import_archive(client, build_fixture(before))["project"]
+    entry = project["entries"][0]
+    path = f"/api/v1/projects/{project['id']}"
+    original = client.get(f"{path}/entries/{entry['id']}/original").content
+    styled = apply_style(client, project, selection(entry["id"], 2), "stick")
+    assert styled.status_code == 200
+    undone = client.post(
+        f"{path}/history/undo", json={"expected_revision": styled.json()["revision"]}
+    )
+    assert undone.status_code == 200
+    project = undone.json()
+    assert project["history"]["can_redo"]
+    counters = allocation_counters(client, project)
+    snapshot = client.get(path).json()
+
+    def stored_counts() -> tuple[int, int]:
+        with client.app.state.session_factory() as session:
+            return (
+                session.execute(select(func.count()).select_from(Artifact)).scalar_one(),
+                session.execute(select(func.count()).select_from(CommandRecord)).scalar_one(),
+            )
+
+    counts = stored_counts()
+    rejected = edit(client, project, entry["id"], [2], {"operation": "hydrogens.add_one"})
+    assert rejected.status_code == 422
+    assert "stereo" in rejected.json()["detail"]["message"]
+    assert client.get(path).json() == snapshot
+    assert structure(client, project["id"], entry["id"]) == before.model_dump(mode="json")
+    assert allocation_counters(client, project) == counters
+    assert stored_counts() == counts
+    assert client.get(f"{path}/entries/{entry['id']}/original").content == original

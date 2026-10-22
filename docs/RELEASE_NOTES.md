@@ -22,7 +22,9 @@ click, with automatic placement and any qualified parent-charge transition in on
 Undo/Redo action. Finite C/N/O/S rules include NH3→NH4+, H2O→H3O+, thiolate→thiol
 and ordinary symmetric sulfide→sulfonium. Saturated carbon and unsupported further
 O/S/N additions refuse without partial state or consumed identity. Every conformer
-must succeed and the parent stays selected. RDKit acceptance alone is not admission.
+must succeed with consistent supported stereo, and the parent stays selected.
+Mirrored/disagreeing configurations or incomplete stereo assessment refuse before
+publication. RDKit acceptance alone is not admission.
 
 **Scientific limits.** Local ideal geometry is unoptimized; neither automatic
 maintenance nor +H predicts pKa, physiological protonation, tautomers or favorable

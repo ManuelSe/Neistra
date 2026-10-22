@@ -30,7 +30,14 @@ checks: six new cases forward, the rich three-entry baseline reverse, exact data
 history/appearance/scenes/surfaces/jobs/originals/counters/archives. A local review
 fix restricts numeric bond stepping to1/2/3, retaining explicit Advanced assignment.
 Compatibility checkpoint df60afe is committed. Next: finish the0.24.0 release-preparation
-commit, then complete final-version candidate/exact-master gates and PR/review/merge/release. Delivery remains pending.
+commit, then complete final-version candidate/exact-master gates and PR/review/merge/release. Delivery remains pending. Further C5 mirror-conformer review found +H could leave
+new stereo unresolved with a warning. Candidate1 was intentionally interrupted;
+its1241 Python/321 frontend/8 supervisor passes are diagnostic for that source.
+The typed +H-only consistency guard and fail-first C/N mirror/translation/API
+regressions now pass the [correction gate](assets/automatic-hydrogen-editing/c5-stereo-green-gate.json):
+114 focused Python/321 frontend/14 native plus final0.24.0↔actual0.23.0 readers.
+The fix is ready to commit, then fresh complete candidate2 qualification.
+No merge or release has occurred.
 
 ### Previous delivery baseline — v0.23.0
 

@@ -572,6 +572,7 @@ def apply_hydrogen_proposal(
     next_bond_id: int,
     operation: str,
     require_ordinary_stereo: bool = False,
+    require_consistent_stereo: bool = False,
 ) -> tuple[NormalizedStructureV1, tuple[MolecularWarning, ...]]:
     """Materialize at the editing boundary; proposal generation consumes no identities."""
     if not proposal.sites:
@@ -665,6 +666,7 @@ def apply_hydrogen_proposal(
         analyzed_atom_count=proposal.analyzed_atom_count,
         row_budget=MAX_COORDINATES - proposal.generated_coordinate_rows,
         require_ordinary_identity=require_ordinary_stereo,
+        require_consistency=require_consistent_stereo,
     )
     warnings.extend(stereo_warnings)
     metadata = dict(after.metadata)
@@ -722,6 +724,7 @@ def reconcile_current_stereo(
     row_budget: int,
     analyzed_atom_count: int,
     require_ordinary_identity: bool = False,
+    require_consistency: bool = False,
 ) -> tuple[NormalizedStructureV1, list[MolecularWarning]]:
     """Reconcile affected bounded contexts after additions, never source facts.
 
@@ -845,6 +848,12 @@ def reconcile_current_stereo(
                 {b.id: None for b in member_bonds.values() if b.stereo not in {None, "NONE"}}
             )
 
+    if require_consistency and (unresolved_geometry or disagreement_count or assessment_failures):
+        raise UnsupportedSite(
+            "undetermined_configuration",
+            "Hydrogen addition requires consistent supported stereochemistry in every "
+            "conformer; assessment is unresolved or conformers disagree; no change.",
+        )
     if unresolved_geometry:
         warnings.append(
             MolecularWarning(
