@@ -1,0 +1,103 @@
+{
+  "checked_at": "2026-10-22T10:30:43.152533+00:00",
+  "command": ".venv/bin/python /tmp/neistra-92-docs-check.py",
+  "script": "docs/assets/automatic-hydrogen-editing/c6-documentation-check.py.txt",
+  "script_sha256": "3f6145b91592825f3af1edbc3fb21c0ec0101e0aa4e099bf3693d3074ae7dce3",
+  "runtime": "afea0f19efc4cdfb7d1ee497df4a670a1e73a14c",
+  "runtime_test_patch_lock_files_unchanged": 567,
+  "source_digest": "2cc7bd9f95acc647b8a9ae428b1f40aa66ab5f8e791e675dfeb268e5645fb2e9",
+  "changed_tracked_files_only_docs": [
+    "docs/PROGRESS.md",
+    "docs/RELEASE_NOTES.md",
+    "docs/VERIFICATION.md",
+    "docs/assets/automatic-hydrogen-editing/c5-review.md",
+    "docs/plans/issue-92-automatic-hydrogen-editing.md"
+  ],
+  "global_plan_unchanged": true,
+  "new_relative_links_checked": [
+    [
+      "docs/PROGRESS.md",
+      "plans/issue-92-automatic-hydrogen-editing.md"
+    ],
+    [
+      "docs/PROGRESS.md",
+      "assets/automatic-hydrogen-editing/c5-candidate-3-gate.json"
+    ],
+    [
+      "docs/PROGRESS.md",
+      "assets/automatic-hydrogen-editing/c5-merged-1-gate.json"
+    ],
+    [
+      "docs/PROGRESS.md",
+      "assets/automatic-hydrogen-editing/c5-review.md"
+    ],
+    [
+      "docs/PROGRESS.md",
+      "assets/automatic-hydrogen-editing/c6-premerge-audit.json"
+    ],
+    [
+      "docs/PROGRESS.md",
+      "assets/automatic-hydrogen-editing/c6-publication.json"
+    ],
+    [
+      "docs/PROGRESS.md",
+      "assets/automatic-hydrogen-editing/c6-documentation-check.json"
+    ],
+    [
+      "docs/RELEASE_NOTES.md",
+      "assets/automatic-hydrogen-editing/c6-publication.json"
+    ],
+    [
+      "docs/VERIFICATION.md",
+      "assets/automatic-hydrogen-editing/c5-merged-1-gate.json"
+    ],
+    [
+      "docs/VERIFICATION.md",
+      "assets/automatic-hydrogen-editing/c5-merged-1-summary.json"
+    ],
+    [
+      "docs/VERIFICATION.md",
+      "assets/automatic-hydrogen-editing/c6-premerge-audit.json"
+    ],
+    [
+      "docs/VERIFICATION.md",
+      "assets/automatic-hydrogen-editing/c6-publication.json"
+    ],
+    [
+      "docs/assets/automatic-hydrogen-editing/c5-review.md",
+      "c6-publication.json"
+    ],
+    [
+      "docs/plans/issue-92-automatic-hydrogen-editing.md",
+      "../assets/automatic-hydrogen-editing/c6-premerge-audit.json"
+    ],
+    [
+      "docs/plans/issue-92-automatic-hydrogen-editing.md",
+      "../assets/automatic-hydrogen-editing/c5-merged-1-gate.json"
+    ],
+    [
+      "docs/plans/issue-92-automatic-hydrogen-editing.md",
+      "../assets/automatic-hydrogen-editing/c5-merged-1-summary.json"
+    ],
+    [
+      "docs/plans/issue-92-automatic-hydrogen-editing.md",
+      "../assets/automatic-hydrogen-editing/c6-publication.json"
+    ],
+    [
+      "docs/plans/issue-92-automatic-hydrogen-editing.md",
+      "../assets/automatic-hydrogen-editing/c6-documentation-check.py.txt"
+    ],
+    [
+      "docs/plans/issue-92-automatic-hydrogen-editing.md",
+      "../assets/automatic-hydrogen-editing/c6-documentation-check.json"
+    ]
+  ],
+  "asset_json_parsed": 56,
+  "asset_gzip_crc_checked": 171,
+  "both_complete_gate_log_hashes_and_zero_retries_verified": true,
+  "five_versions_and_dependency_lock_verified": true,
+  "production_harness_exclusion_verified": true,
+  "diff_check_passed": true,
+  "new_runtime_tests_required": false,
+  "rationale": "Only documentation/evidence changes after complete exact-runtime release gate; all567 runtime/test/tool/lock identities are identical."
+}

@@ -1,0 +1,25 @@
+from pathlib import Path
+import datetime,gzip,hashlib,json,re,subprocess
+root=Path.cwd();out=root/'docs/assets/automatic-hydrogen-editing'
+source=json.loads((out/'c5-merged-1-source.json').read_text())['files'];assert source==json.loads((out/'c5-candidate-3-source.json').read_text())['files']
+assert len(source)==567 and all(hashlib.sha256(Path(n).read_bytes()).hexdigest()==v for n,v in source.items())
+changes=subprocess.check_output(['git','diff','--name-only'],text=True).splitlines();assert changes and all(n.startswith('docs/') for n in changes)
+assert not subprocess.check_output(['git','diff','--name-only','afea0f19efc4cdfb7d1ee497df4a670a1e73a14c','--','docs/PLAN.md'],text=True)
+links=[]
+for name in changes:
+ if not name.endswith('.md'):continue
+ diff=subprocess.check_output(['git','diff','--unified=0','--',name],text=True)
+ for line in diff.splitlines():
+  if not line.startswith('+') or line.startswith('+++'):continue
+  for ref in re.findall(r'\]\(([^)]+)\)',line):
+   if '://' in ref or ref.startswith('#'):continue
+   path=(Path(name).parent/ref.split('#')[0]).resolve();assert path.exists(),(name,ref);links.append((name,ref))
+json_count=0;gzip_count=0
+for p in out.glob('*.json'):json.loads(p.read_text());json_count+=1
+for p in out.glob('*.gz'):gzip.decompress(p.read_bytes());gzip_count+=1
+for phase in ['candidate-3','merged-1']:
+ subprocess.run(['.venv/bin/python','/tmp/neistra-92-report.py',phase],check=True,stdout=subprocess.DEVNULL)
+subprocess.run(['.venv/bin/python','/tmp/neistra-92-versions.py'],check=True)
+subprocess.run(['git','diff','--check'],check=True)
+result={'checked_at':datetime.datetime.now(datetime.UTC).isoformat(),'command':'.venv/bin/python /tmp/neistra-92-docs-check.py','script':'docs/assets/automatic-hydrogen-editing/c6-documentation-check.py.txt','script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'runtime':'afea0f19efc4cdfb7d1ee497df4a670a1e73a14c','runtime_test_patch_lock_files_unchanged':567,'source_digest':'2cc7bd9f95acc647b8a9ae428b1f40aa66ab5f8e791e675dfeb268e5645fb2e9','changed_tracked_files_only_docs':changes,'global_plan_unchanged':True,'new_relative_links_checked':links,'asset_json_parsed':json_count,'asset_gzip_crc_checked':gzip_count,'both_complete_gate_log_hashes_and_zero_retries_verified':True,'five_versions_and_dependency_lock_verified':True,'production_harness_exclusion_verified':True,'diff_check_passed':True,'new_runtime_tests_required':False,'rationale':'Only documentation/evidence changes after complete exact-runtime release gate; all567 runtime/test/tool/lock identities are identical.'}
+(out/'c6-documentation-check.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps({'passed':True,'source_files':567,'new_local_links':len(links),'json':json_count,'gzip':gzip_count}))

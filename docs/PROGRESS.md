@@ -2,34 +2,38 @@
 
 ## Current milestone
 
-Issue [#92](https://github.com/ManuelSe/Neistra/issues/92) is implementing its
-[approved contract](plans/issue-92-automatic-hydrogen-editing.md) on
-`feat/issue-92-automatic-hydrogen-editing`, authorized by the user's 2026-10-22
-`/goal`. C0 remote commit15705d9 and D-140–142 retain approval and boundaries.
+Issue [#92](https://github.com/ManuelSe/Neistra/issues/92) is implemented under its
+[approved contract](plans/issue-92-automatic-hydrogen-editing.md), normally merged
+in [PR#115](https://github.com/ManuelSe/Neistra/pull/115) and published stable [v0.24.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.24.0). The annotated tag
+points to exact verified runtime `afea0f19efc4cdfb7d1ee497df4a670a1e73a14c`. D-140–142 record the accepted scope.
 
-M1–M5 are implemented and candidate-qualified: automatic local H maintenance,
-bounded immediate +H with consistent all-conformer stereo, atomic attachment
-appearance and compact accessible controls. Legacy HTTP defaults/operations,
-explicit removal/protein preparation and independent display/scene owners remain.
+M1–M5 deliver automatic local H maintenance, bounded immediate +H with consistent
+all-conformer stereo, atomic attachment appearance and compact accessible controls.
+Legacy HTTP contracts and independent display/scene owners remain. All five
+versions are0.24.0; no dependency upgrade or schema/migration change (head0014,
+project/viewer/archive2, normalized/selection1).
 
-[Final candidate3](assets/automatic-hydrogen-editing/c5-candidate-3-gate.json)
-8510c40 passes all20 commands: **1247 Python,321 frontend,8 supervisor,306 native
-browser/60 documented layout exclusions**, zero failures/flakes/retries/native
-scientific skips. All static/type/build/frozen install/migration checks, actual
-0.23.0↔0.24.0 readers,567 source/log identities and unchanged performance budgets
-pass. Cold small/pocket/18k0.980/2.170/3.672s; frame722ms; Cancel49.8ms. Exact
-machine context is retained in the gate. [Self-review](assets/automatic-hydrogen-editing/c5-review.md)
-resolved C/N mirror-stereo admission and broad-journey count expectations; earlier
-attempts remain separate diagnostics. All five versions0.24.0; no dependency or
-schema/migration change (head0014,2/1 schemas).
+Both [candidate3](assets/automatic-hydrogen-editing/c5-candidate-3-gate.json) and
+[exact merged1](assets/automatic-hydrogen-editing/c5-merged-1-gate.json) pass all20
+release commands: **1247 Python,321 frontend,8 supervisor,306 browser/60 documented
+layout/timing exclusions**, zero failures/flakes/retries/Python or native scientific
+skips. Frozen installs/fresh migration/static/type/build, actual0.23.0↔0.24.0 readers,
+all567 source/test/patch/lock identities and unchanged performance budgets pass.
+[Local self-review](assets/automatic-hydrogen-editing/c5-review.md) corrected stereo
+and broad-journey regressions. [Premerge audit](assets/automatic-hydrogen-editing/c6-premerge-audit.json)
+records Codex requested without returned review, no required approvals/checks,
+no unresolved findings and no protection override; independent review is not claimed.
 
-Known limits: bounded unoptimized H chemistry and preserved scene/visibility owners.
-[Broader qualification#114](https://github.com/ManuelSe/Neistra/issues/114) is remotely
-verified; #83/#52/#71 retain their scope. No blocker or consequential local finding.
-Origin/master54533f1/latestv0.23.0 remain current, v0.24.0 unused. Next: commit/push
-candidate evidence, PR/review/protection audit and normal merge, then full fresh
-exact-master gate, verified tag/release/issue reply and documentation/branch cleanup.
-Publication and Goal completion remain pending.
+[Publication audit](assets/automatic-hydrogen-editing/c6-publication.json) verifies
+exact annotated tag, stable latest release/notes, public downloaded verification ZIP
+SHA256/CRC/all4329 internal hashes and the [issue close-out](https://github.com/ManuelSe/Neistra/issues/92#issuecomment-6338552997).
+Known limits remain bounded unoptimized chemistry, preserved historical unknown
+identity and scene/visibility ownership. [Broader chemistry#114](https://github.com/ManuelSe/Neistra/issues/114)
+is separate, alongside#83/#52/#71. No approved-scope implementation blocker remains.
+[Docs-only checks](assets/automatic-hydrogen-editing/c6-documentation-check.json)
+pass links/JSON/gzip/version/source/log integrity. Final documentation integration
+and actual delayed branch/worktree cleanup are appended to the linked reply after verification; the runtime tag stays fixed.
+Next product work requires a separate approved plan.
 
 ### Previous delivery baseline — v0.23.0
 
@@ -2763,10 +2767,11 @@ Results:
 
 ## Blockers
 
-No external blocker for issue#92. Complete final-version candidate and exact
-merged-master qualification, PR review and verified release delivery remain required.
+No approved-scope implementation or external blocker remains for issue#92.
+Runtime publication is verified; the linked close-out records final documentation
+integration and actual delayed reference/worktree cleanup after verification.
 
 ## Next action
 
-Open the qualified0.24.0 implementation PR, request review and satisfy repository
-policy, then normal merge and full exact-master qualification before publication. Keep broader chemistry in#114 and retain existing scientific boundaries.
+Follow the linked issue reply for the final documentation/ref audit. Subsequent
+product work requires a separate approved plan; keep broader chemistry in#114.
