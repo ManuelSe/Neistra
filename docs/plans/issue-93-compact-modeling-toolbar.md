@@ -802,3 +802,27 @@ attempts remain diagnostic. Fresh complete candidate4/merged5 recipes retain all
 commands, isolated stores/ports and actual0.24.0 reader roots. Version0.24.1 remains
 the correct unused patch target. Commit the passing test checkpoint, then prepare
 release documentation and requalify committed, clean source before its focused PR.
+
+
+### C4 final corrected candidate4 complete — 2026-10-22
+
+Clean [candidate4](../assets/compact-modeling-toolbar/c4-candidate4-gate.json) and
+[summary](../assets/compact-modeling-toolbar/c4-candidate4-summary.json) pass all20
+commands on`83933b9818bdaa10985c249c16274b2340a216bf`:1248 Python/331 frontend/8 supervisor/
+322 browser with60 unchanged exclusions, zero failures/flakes/retries/Python or
+required scientific skips. Both actual0.24.0↔0.24.1 reader directions retain all
+six cases and rich three-entry data/history/original/settings/job/surface/scene/
+counter/archive records. All568 source/test/tool/patch/lock identities and log
+hashes verify, digest`6523643a55d4da81df3c41001746d4b6aac5eed89d97cfc9ed80778e4de04dc3`. All five versions0.24.1;
+no API/job/schema/migration/dependency/scientific-model change.
+
+All16 toolbar cases and all10 notification cases execute. The corrected actual
+real-time>=10s lifetime and original13.5s total wait remain. Original native
+cold small/pocket/18k paint0.953/2.065/3.452s, first frame
+700.3ms, Cancel64.6ms and unchanged responsiveness
+budget pass. Earlier attempts remain diagnostic; no exception or threshold
+relaxation is used. Full-diff implementer review finds no unresolved consequential
+issue. Fresh fetch still finds master83aae8c, latest stable0.24.0 and unusedv0.24.1.
+Next: focused normal PR for test-only C4 repairs, review/policy audit, normal merge
+preserving checkpoints, then complete exact merged5 qualification before tag,
+release, issue close-out, documentation audit and delayed cleanup.

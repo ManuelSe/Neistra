@@ -65,6 +65,13 @@ ENOENT. Production source, scientific thresholds and approved scope are unchange
 No exception is assumed. Next: fresh clean complete candidate4/merged5 gates,
 normal focused PR, then verified tag/release/close-out/audit/cleanup.
 
+Final corrected candidate4 now passes all20 commands:1248 Python/331 frontend/
+8 supervisor/322 browser with60 unchanged exclusions, no failures/retries or
+required scientific skips. Both actual0.24 reader directions, all16 toolbar/10
+notification cases, original native/responsiveness budgets,568 source identities
+and five0.24.1 versions verify. No exception is used. Next: focused repair PR,
+normal merge and complete exact merged5 gate before verified publication/cleanup.
+
 ### Previous delivery baseline — v0.24.0
 
 Issue [#92](https://github.com/ManuelSe/Neistra/issues/92) is implemented under its
