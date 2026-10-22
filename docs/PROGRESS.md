@@ -20,18 +20,21 @@ passes61 focused/328 frontend/77 native browser cases. Both pass lint/types/buil
 diff, with3 existing layout exclusions each, no failures/flakes/retries. The plan
 links exact commands, source identities, logs, screenshots and implementer reviews.
 
-M3/C3 is complete: [candidate2](assets/compact-modeling-toolbar/c3-candidate2-gate.json)
-passes all20 commands on cleand50da9c:1248 Python/331 frontend/8 supervisor/316
-browser and60 unchanged exclusions, zero failures/flakes/retries/scientific skips.
-All568 source identities/log hashes, five0.24.1 versions, actual0.24.0↔0.24.1
-readers and unchanged performance budgets verify. Cold native paint0.867/2.106/
-3.617s; first frame674.4ms, Cancel50.9ms. Self-review corrected failed-observation
-retirement and Style focus handoff. Earlier interrupted/red attempts are diagnostic.
-No API/schema/migration/dependency/scientific-model change; patch impact remains.
-M3/C4 is next: PR/Codex review request, normal merge, exact-master all20-command
-gate, verified tag/release/issue reply, docs audit and delayed branch cleanup.
-Known limit: candidate evidence does not yet qualify merged master/publication.
-No external blocker; fresh master remains8ed344b and v0.24.1 is available.
+Initial C3 [candidate2](assets/compact-modeling-toolbar/c3-candidate2-gate.json)
+passes all20 gates (1248 Python/331 frontend/8 supervisor/316 browser and60
+unchanged exclusions), and [PR#117](https://github.com/ManuelSe/Neistra/pull/117)
+was normally merged at798b4a8 with no review/protection bypass. C4 focus audit
+then found quiet Ctrl+M restoration from Style/Interactions could steal external
+focus. The exact-master gate was intentionally interrupted; it is diagnostic,
+with no tag/release published. The planned branch is based on merged master.
+A narrow D-093/D-143 corrective handoff guard and fail-first native cases extend
+the existing focus contract. No new product scope/API/schema/migration/dependency/
+scientific model. Fresh complete candidate3 and exact merged2 qualification,
+corrective PR/review/normal merge,0.24.1 publication, issue reply and cleanup remain.
+Known limitation: earlier candidate2 cannot qualify the corrected source. No
+external blocker; the corrective focused gate passes331 frontend/static/build and
+all24 native toolbar/interaction cases, with no failures/skips/retries. Commit the
+passing correction, then run clean candidate3 before its corrective PR.
 
 ### Previous delivery baseline — v0.24.0
 

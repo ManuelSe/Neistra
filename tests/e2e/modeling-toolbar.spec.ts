@@ -127,18 +127,44 @@ test("retires a quiet run after status transport failure without a late canonica
   expect(await structures(request, p)).toEqual(before);
 });
 
-test("hands Style selection focus to explicit minimization setup", async ({ page, request }, info) => {
+for (const outgoing of ["Style selection", "Interactions"]) test(`hands ${outgoing} focus to explicit minimization setup`, async ({ page, request }, info) => {
   test.setTimeout(60000);
   const p = await prepare(page, request, ["tests/fixtures/quick-minimization/New_molecule.sdf"], "Style Minimize handoff");
   await select(page, [{ structure_id: p.entries[0].id, atom_id: 1 }], info.project.name === "mobile-chromium");
-  const style = page.getByRole("button", { name: "Style selection", exact: true });
+  const style = page.getByRole("button", { name: outgoing, exact: true });
   await style.focus(); await page.keyboard.press("Enter");
-  await expect(page.getByRole("dialog", { name: "Style selection", exact: true })).toBeVisible();
+  await expect(page.getByRole("dialog", { name: outgoing, exact: true })).toBeVisible();
   const minimize = page.getByRole("button", { name: "Minimize selection", exact: true });
   await minimize.focus(); await page.keyboard.press("Enter");
-  await expect(page.getByRole("dialog", { name: "Style selection", exact: true })).toBeHidden();
+  await expect(page.getByRole("dialog", { name: outgoing, exact: true })).toBeHidden();
   await expect(panel(page)).toBeFocused();
   await page.keyboard.press("Tab");
   await expect(panel(page).getByRole("button", { name: "Close minimization", exact: true })).toBeFocused();
   expect((await current(request, p.id)).revision).toBe(p.revision);
+});
+
+for (const outgoing of ["Style selection", "Interactions"]) test(`keeps external focus when a quiet shortcut retires ${outgoing}`, async ({ page, request }, info) => {
+  test.setTimeout(60000);
+  const p = await prepare(page, request, ["tests/fixtures/quick-minimization/New_molecule.sdf"], "Quiet Style retirement");
+  await select(page, p.entries[0].atom_ids.map(atom_id => ({ structure_id: p.entries[0].id, atom_id })), info.project.name === "mobile-chromium");
+  await page.getByRole("button", { name: outgoing, exact: true }).focus();
+  await page.keyboard.press("Enter");
+  await expect(page.getByRole("dialog", { name: outgoing, exact: true })).toBeVisible();
+  let release!: () => void, entered!: () => void;
+  const held = new Promise<void>(resolve => { release = resolve; });
+  const submitted = new Promise<void>(resolve => { entered = resolve; });
+  await page.route("**/quick-minimizations", async route => {
+    const response = await route.fetch(); entered(); await held; await route.fulfill({ response });
+  });
+  const minimize = page.getByRole("button", { name: "Minimize selection", exact: true });
+  await minimize.focus(); await page.keyboard.press("Control+m");
+  try {
+    await submitted;
+    await expect(page.getByRole("dialog", { name: outgoing, exact: true })).toBeHidden();
+    await expect(panel(page)).toBeHidden();
+    await expect(minimize).toBeFocused();
+    expect((await current(request, p.id)).revision).toBe(p.revision);
+  } finally { release(); }
+  await expect.poll(async () => (await current(request, p.id)).revision).toBe(p.revision + 1);
+  await expect(panel(page)).toBeHidden(); await expect(minimize).toBeFocused();
 });

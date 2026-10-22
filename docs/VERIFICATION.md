@@ -2,6 +2,11 @@
 
 ## Compact molecular toolbar (issue #93) — checkpoint qualification
 
+C4 publication review found an additional hidden Style/Interactions focus handoff.
+A corrective checkpoint and fresh candidate3/merged2 gates are required. Earlier
+candidate2 is historical qualification; interrupted merged1 is diagnostic. No
+v0.24.1 tag or release has been published. The feature plan records the finding.
+
 [C1](assets/compact-modeling-toolbar/c1-final-gate.json) passes26 focused/328 total
 frontend, lint/types/build/diff and27 native browser cases/3 existing layout
 exclusions. Hidden quick sessions apply once without opening the panel; capture,

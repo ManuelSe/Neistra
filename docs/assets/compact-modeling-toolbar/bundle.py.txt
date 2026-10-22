@@ -2,11 +2,11 @@
 from pathlib import Path
 import hashlib, io, json, sqlite3, subprocess, zipfile
 root=Path.cwd();out=root/'docs/assets/compact-modeling-toolbar'
-c=json.loads((out/'c3-candidate2-gate.json').read_text());m=json.loads((out/'c4-merged1-gate.json').read_text())
+c=json.loads((out/'c4-candidate3-gate.json').read_text());m=json.loads((out/'c4-merged2-gate.json').read_text())
 assert c['complete'] and m['complete'] and len(c['steps'])==len(m['steps'])==20
 assert c['source_before']==m['source_before']==m['source_after']
 sha=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip();assert sha==m['commit']
-s=json.loads((out/'c4-merged1-summary.json').read_text());assert s['complete']
+s=json.loads((out/'c4-merged2-summary.json').read_text());assert s['complete']
 qualification={'issue':93,'runtime_commit':sha,'candidate_commit':c['commit'],'source_identity_count':s['source_count'],'source_sha256':s['source_sha256'],'all_20_commands_pass_both_phases':True,'previous_reader':'actual tagged0.24.0','version':'0.24.1','migration_head':'0014','dependency_upgrade':False,'python':s['python'],'frontend':s['frontend'],'supervisor':s['supervisor'],'browser':s['browser']['expected'],'browser_exclusions':s['browser']['skipped'],'failures':0,'flakes':0,'retries':0,'native_scientific_skips':0}
 files={}
 with zipfile.ZipFile(io.BytesIO(subprocess.check_output(['git','archive','--format=zip',sha]))) as archive:

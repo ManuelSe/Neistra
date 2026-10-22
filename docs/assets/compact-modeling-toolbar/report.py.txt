@@ -16,7 +16,7 @@ assert all(hashlib.sha256(Path(n).read_bytes()).hexdigest()==v for n,v in source
 task=Path(gate['environment']['MOLWEAVE_DATA_DIR']).parent
 browser=json.loads((task/'browser.json').read_text());stats=browser['stats']
 assert stats['unexpected']==stats['flaky']==0 and stats['skipped']==60
-assert stats['expected']==316
+assert stats['expected']==322
 retries=[]; exclusions=[]; performance=[]
 def walk(suites):
  for suite in suites:

@@ -684,7 +684,7 @@ export function StructureViewer({
             unavailable={minimizationUnavailable} onOpen={openMinimization} /> : null}
           </div>
         </div>
-        <InteractionPanel open={interactionProjectId === project.id} onOpenChange={open => setInteractionProjectId(open ? project.id : null)} choices={interactions.choices} result={interactions.result} onRetry={interactions.error ? interactions.retry : undefined}
+        <InteractionPanel restoreFocus={!minimizationPreview.open && !minimizationPreview.state.autoApply} open={interactionProjectId === project.id} onOpenChange={open => setInteractionProjectId(open ? project.id : null)} choices={interactions.choices} result={interactions.result} onRetry={interactions.error ? interactions.retry : undefined}
           status={interactionPaused ? "Paused during preview" : interactions.error ?? (interactions.loading ? "Analyzing…" : !interactions.enabled ? "Off" : !interactionInputs.length ? "No visible inputs" : !interactions.result || !interactionViewReady ? "Waiting…" : interactions.choices.types.every(kind => interactions.result!.coverage[kind].status === "unavailable") ? "Unavailable · see Help" : `${interactionRecords.length} detected${interactions.choices.types.some(kind => interactions.result!.coverage[kind].status !== "complete") ? " · partial coverage" : ""}`)} />
         <SelectionStyleDialog
           onExpandDistance={onExpandDistance}
@@ -704,7 +704,7 @@ export function StructureViewer({
           } : undefined}
           onLoadPocketStructures={onLoadPocketStructures}
           open={styleDialogOpen}
-          restoreFocus={surfaceProjectId !== project.id && !editOpen && !minimizationPreview.open}
+          restoreFocus={surfaceProjectId !== project.id && !editOpen && !minimizationPreview.open && !minimizationPreview.state.autoApply}
           selection={selection}
           entries={project.entries}
           structures={styleStructures}

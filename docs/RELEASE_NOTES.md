@@ -2,6 +2,11 @@
 
 ## 0.24.1 - Unreleased - Compact molecular toolbar
 
+C4 publication review found an additional hidden Style/Interactions focus handoff.
+A corrective checkpoint and fresh candidate3/merged2 gates are required. Earlier
+candidate2 is historical qualification; interrupted merged1 is diagnostic. No
+v0.24.1 tag or release has been published. The feature plan records the finding.
+
 Prepared stable patch under the [approved issue #93 contract](plans/issue-93-compact-modeling-toolbar.md).
 Publication requires complete clean-candidate and exact merged-master qualification.
 
