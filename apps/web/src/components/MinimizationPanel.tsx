@@ -12,8 +12,6 @@ export function MinimizationPanel({ workflow: w, unavailable, onOpen }: {
 }) {
   const launcher = useRef<HTMLButtonElement>(null);
   const settingsLauncher = useRef<HTMLButtonElement>(null);
-  const focusTarget = useRef(w.state.focusTarget);
-  if (w.open) focusTarget.current = w.state.focusTarget;
   const returnFocus = useRef<HTMLElement | null>(null);
   const panel = useRef<HTMLDivElement>(null);
   const [showAll, setShowAll] = useState(false);
@@ -51,9 +49,9 @@ export function MinimizationPanel({ workflow: w, unavailable, onOpen }: {
   const chosenCount = w.chosen.reduce((sum, c) => sum + c.atomIds.length, 0);
   const selectedCount = draft?.selection.atoms.length ?? report?.movable_count ?? 0;
   return <div className="minimization-tools">
-    <button ref={launcher} type="button" className="viewer-action-button" aria-label="Minimize selection" aria-keyshortcuts="Control+m" title={unavailable ?? "Minimize selected atoms (Ctrl+M)"}
-      aria-disabled={!w.open && !!unavailable} aria-haspopup="dialog" aria-expanded={w.open}
-      onClick={() => { if (w.open) close(); else if (!unavailable) { onOpen(); void w.quick(); } }}><Zap size={17} /></button>
+    <button ref={launcher} type="button" className="viewer-action-button" aria-label="Minimize selection" title={unavailable ?? "Open minimization settings; Ctrl+M runs quick minimization"}
+      aria-disabled={!w.open && !w.state.live && !!unavailable} aria-haspopup="dialog" aria-expanded={w.open}
+      onClick={() => { if (w.open) close(); else if (w.state.live || !unavailable) { onOpen(); void w.show(); } }}><Zap size={17} /></button>
     <button ref={settingsLauncher} type="button" className="viewer-action-button" aria-label="Minimization settings" title={unavailable ?? "Quick settings and Advanced AMBER"}
       aria-disabled={!!unavailable} aria-haspopup="dialog" onClick={() => { if (!unavailable) { onOpen(); void w.configure("quick"); } }}><Settings2 size={17} /></button>
     <Dialog.Root open={w.open} onOpenChange={open => { if (!open) close(); }} modal={false}>
@@ -67,7 +65,7 @@ export function MinimizationPanel({ workflow: w, unavailable, onOpen }: {
           if (active?.isConnected && active !== document.body && active !== launcher.current && !panel.current?.contains(active)) return;
           const target = returnFocus.current;
           if (target?.isConnected && target !== document.body) target.focus();
-          else (focusTarget.current === "settings" ? settingsLauncher.current : launcher.current)?.focus();
+          else launcher.current?.focus();
         }}>
         <div className="minimization-heading"><Dialog.Title>Minimize selection</Dialog.Title><button type="button" aria-label="Close minimization" disabled={w.state.applying} onClick={close}><X size={17} /></button></div>
         <Dialog.Description id="minimization-description">{w.isQuick ? "Selected atoms and attached hydrogens move by default. Unselected binding-site atoms stay fixed." : "Only captured selected atoms move. Every included unselected atom, including H, stays fixed."}</Dialog.Description>

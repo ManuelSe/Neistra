@@ -10,7 +10,9 @@ import { calculationComponents, minimizationRequest } from "./context";
 /** Render-local subscription; frames never rerender App or its selection inspector. */
 export function useMinimizationPreview(project: Project, workflow?: MinimizationWorkflow) {
   const query = useQueryClient();
-  const state = useMinimizationStore(), open = !!workflow && state.open && state.projectId === project.id;
+  const state = useMinimizationStore();
+  const owned = !!workflow && state.projectId === project.id && (state.open || state.live || state.applying);
+  const open = owned && state.open;
   const capabilities = useQuery<MinimizationCapabilities | QuickMinimizationCapabilities>({ queryKey: [state.profile === "quick" ? "quick-minimization-capabilities" : "minimization-capabilities"], queryFn: state.profile === "quick" ? quickMinimizationApi.capabilities : minimizationApi.capabilities, enabled: open, retry: false, staleTime: 30_000 });
   const components = useMemo(() => state.draft && state.profile === "amber" ? calculationComponents(state.draft.project, state.draft.sources, state.draft.selection) : [], [state.draft, state.profile]);
   const chosen = components.filter(c => c.mandatory || (state.draft?.mode === "environment" && state.draft.included.has(c.key)));
@@ -21,28 +23,36 @@ export function useMinimizationPreview(project: Project, workflow?: Minimization
       else minimizationRequest(project, state.draft.selection, state.draft.sources, components, state.draft.included, state.draft.mode, state.draft.iterations);
     }
   } catch (error) { requestError = error instanceof Error ? error.message : "Invalid minimization request"; }
-  const jobQuery = useQuery({ queryKey: ["job", state.jobId], queryFn: () => jobApi.get(state.jobId!), enabled: open && !!state.jobId,
+  const jobQuery = useQuery({ queryKey: ["job", state.jobId], queryFn: () => jobApi.get(state.jobId!), enabled: owned && !!state.jobId,
     retry: false, refetchInterval: q => q.state.data && ["queued", "running"].includes(q.state.data.status) ? (state.profile === "quick" ? 200 : 400) : false });
-  const job = open && jobQuery.data?.id === state.jobId ? jobQuery.data : undefined;
+  const job = owned && jobQuery.data?.id === state.jobId ? jobQuery.data : undefined;
   const quick = job?.job_type === "coordinates.quick_minimize" || state.profile === "quick";
   const reportQuery = useQuery<MinimizationProposal | QuickMinimizationProposal>({ queryKey: ["minimization-proposal", project?.id, job?.id],
-    queryFn: () => quick ? quickMinimizationApi.proposal(project.id, job!.id) : minimizationApi.proposal(project.id, job!.id), enabled: open && job?.status === "completed", retry: false });
+    queryFn: () => quick ? quickMinimizationApi.proposal(project.id, job!.id) : minimizationApi.proposal(project.id, job!.id), enabled: owned && job?.status === "completed", retry: false });
   const lastRevision = useRef<{ jobId: string | undefined; revision: number | undefined }>({ jobId: undefined, revision: undefined });
   useEffect(() => {
     const before = lastRevision.current;
-    if (open && job?.status === "completed" && before.jobId === job.id && before.revision !== project?.revision) {
+    if (owned && job?.status === "completed" && before.jobId === job.id && before.revision !== project?.revision) {
       void query.invalidateQueries({ queryKey: ["minimization-proposal", project?.id, job.id] });
     }
     lastRevision.current = { jobId: job?.id, revision: project?.revision };
-  }, [open, job?.id, job?.status, project?.id, project?.revision, query]);
+  }, [owned, job?.id, job?.status, project?.id, project?.revision, query]);
   const proposal = job?.status === "completed" && reportQuery.data?.job_id === job.id ? reportQuery.data : undefined;
   useEffect(() => {
-    if (quick && proposal?.report.model === "quick-local-v1" && state.autoApply && state.live && open) {
+    if (quick && proposal?.report.model === "quick-local-v1" && state.autoApply && state.live && owned) {
       void workflow?.finishQuick(proposal as QuickMinimizationProposal);
     }
-  }, [quick, proposal, state.autoApply, state.live, open, workflow]);
+  }, [quick, proposal, state.autoApply, state.live, owned, workflow]);
+  useEffect(() => {
+    if (!owned || !state.autoApply) return;
+    const error = jobQuery.error ?? reportQuery.error;
+    if (error) workflow?.failQuick(state.generation, error instanceof Error ? error.message : "Quick minimization could not be inspected.");
+    else if (job && ["failed", "cancelled"].includes(job.status)) {
+      workflow?.failQuick(state.generation, String(job.error?.message ?? job.status_message ?? "Quick minimization ended without applying coordinates."), job.status !== "cancelled");
+    }
+  }, [owned, state.autoApply, state.generation, jobQuery.error, reportQuery.error, job, workflow]);
   const running = !!job && ["queued", "running"].includes(job.status);
-  const liveOwned = open && state.live && running && project?.revision === job?.provenance?.project_revision;
+  const liveOwned = owned && state.live && running && project?.revision === job?.provenance?.project_revision;
   const liveQuery = useQuery({ queryKey: ["minimization-live", project?.id, state.jobId, state.generation],
     queryFn: () => quick ? quickMinimizationApi.live(project.id, state.jobId!) : minimizationApi.live(project.id, state.jobId!), enabled: liveOwned,
     retry: false, refetchInterval: q => quick && !q.state.data?.frame ? 100 : 200,
@@ -67,12 +77,12 @@ export function useMinimizationPreview(project: Project, workflow?: Minimization
     queryFn: async () => new Map(await Promise.all(captured.map(async c => {
       const structure = await query.fetchQuery({ queryKey: ["normalized-artifact", c.artifact_id], queryFn: () => minimizationApi.source(c.artifact_id), staleTime: Infinity });
       return [c.entry_id, { artifactId: c.artifact_id, structure }] as const;
-    }))), enabled: open && state.preview && !!captured.length && !previewUnavailable, retry: false, staleTime: Infinity });
+    }))), enabled: owned && state.preview && !!captured.length && !previewUnavailable, retry: false, staleTime: Infinity });
   const previewResult = useMemo(() => {
-    if (!open || !state.preview || previewUnavailable || !frameEntries || !previewSelection || !previewSources.data) return { patches: [], error: null };
+    if (!owned || !state.preview || previewUnavailable || !frameEntries || !previewSelection || !previewSources.data) return { patches: [], error: null };
     try { return { patches: coordinatePatches(previewSelection, frameEntries, previewSources.data), error: null }; }
     catch (error) { return { patches: [], error: error instanceof Error ? error.message : "Invalid coordinate preview." }; }
-  }, [open, state.preview, previewUnavailable, frameEntries, previewSelection, previewSources.data]);
+  }, [owned, state.preview, previewUnavailable, frameEntries, previewSelection, previewSources.data]);
   const canApply = !!proposal?.applicable && !reportQuery.isError && !previewResult.error && !reportQuery.isFetching && !previewUnavailable &&
     proposal.report.parameters.selection.atoms.every(ref => !project.entries.find(e => e.id === ref.structure_id)?.locked);
   const message = (error: unknown) => error instanceof Error ? error.message : null;

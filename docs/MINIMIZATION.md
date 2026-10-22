@@ -1,13 +1,15 @@
 # Selection minimization
 
-Select atoms and press **Ctrl+M** or the lightning icon beside **Edit molecule**.
-Quick minimization starts immediately and applies a usable result as one
-**Undo: Quick minimize selection** edit. Empty selections require an explicit choice;
+Select atoms and press **Ctrl+M** to start quick minimization immediately without
+opening the minimization panel. A usable result applies as one
+**Undo: Quick minimize selection** edit. Clicking the lightning **Minimize selection**
+icon beside **Edit molecule** opens quick setup without calculating; choose
+**Run quick minimization** to start from that panel. Empty selections require an explicit choice;
 there is no implicit whole-scene minimization. Selection changes cannot retarget work.
 
 Selected atoms and their directly attached existing terminal hydrogens move by
 default. Unselected binding-site atoms stay fixed. To move a side chain or nearby
-residues too, select them explicitly. Settings beside the lightning icon lets you
+residues too, select them explicitly. The quick setup panel lets you
 turn off attached-H expansion for an exact atom mask, choose surroundings, disable
 approximate repair or change the default500 iterations (range1–2000).
 
@@ -75,7 +77,15 @@ atoms,20000 local atoms including helpers and100 participating entries. Optimiza
 has a15s cooperative budget and the worker a30s deadline; these are upper bounds,
 not a universal latency guarantee.
 
-Only the active owning client automatically applies. **Cancel**, closing the panel,
+Only the active owning client automatically applies. Ctrl+M leaves a closed panel
+closed and preserves an already-open panel. Repeated starts cannot create concurrent
+owned calculations. Clicking Minimize during a shortcut run reveals that run without
+recapturing its selection. After completion, clicking it opens fresh setup. No
+additional shortcut progress, Cancel, or results display is added; failures and
+consequential scientific warnings remain visible in application notices. Explicit
+**Jobs → Inspect minimization** retains report access without rearming publication.
+
+**Cancel**, closing an explicitly opened panel,
 changing tools/projects or leaving that client disarms late publication and clears
 preview. Viewer remounts preserve the session. Reload and **Inspect minimization**
 show retained reports without rearming automatic publication. Saved chemistry and

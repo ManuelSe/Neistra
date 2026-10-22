@@ -2,8 +2,9 @@
 
 ## 1. Status, authority, and intended outcome
 
-**Status:** approved contract; C0 documentation persistence only. Implementation
-and release work are pending a subsequent `/goal`.
+**Status:** approved contract; C0 committed and remotely verified. The user
+authorized implementation and the complete delivery lifecycle with `/goal` on
+2026-10-22. M1/C1 is complete; M2/C2 is next.
 
 **Approval:** the user's “Implement the plan.” on 2026-10-22 approves the complete
 proposal and its explicit C0 stop ready for `/goal`. This authorizes planning
@@ -431,8 +432,8 @@ and the annotated runtime tag. Report cleanup only after verifying it remotely.
 
 | Checkpoint | Status |
 |---|---|
-| C0 | Approved documentation checkpoint; commit/push identity is reported in the verified C0 handoff. |
-| M1/C1 | Pending `/goal`: setup/quiet-execution lifecycle. |
+| C0 | Complete: `b7197f27936cdcfc8eff652d2f2c8fe6d08f4125`, remotely verified. |
+| M1/C1 | Complete; passing checkpoint, evidence below. |
 | M2/C2 | Pending: shared three-launcher toolbar. |
 | M3/C3 | Pending: final-version compatibility and release qualification. |
 | M3/C4 | Pending: verified PR/merge/release/issue close-out and cleanup. |
@@ -459,3 +460,29 @@ and the annotated runtime tag. Report cleanup only after verifying it remotely.
 - Blockers: none identified for plan persistence. Implementation authorization is
   intentionally pending `/goal`.
 - Next action: after the verified C0 handoff, stop ready for `/goal`.
+
+
+### 2026-10-22 — Implementation authorization
+
+The user's `/goal` authorizes C1–C4, including verified PR/review/normal merge,
+exact-master qualification, annotated tag/release, issue reply and cleanup.
+Work continues on the planned branch from the verified C0 commit. The base remains
+unchanged at8ed344b; no implementation occurs on master. No new product decision
+or scope expansion is introduced.
+
+
+### M1/C1 complete — 2026-10-22
+
+[Final gate](../assets/compact-modeling-toolbar/c1-final-gate.json),
+[summary](../assets/compact-modeling-toolbar/c1-summary.json) and
+[full-diff self-review](../assets/compact-modeling-toolbar/c1-review.md) retain
+exact commands/environment, source identities and lossless logs. All7 commands
+pass on unchanged source:26 focused/328 total frontend, lint/types/build/diff and
+27 native browser cases/3 existing layout exclusions, zero failures/flakes/retries.
+Native quick hidden publication and prepared AMBER/fixed rows, cancellation,
+Undo/Redo/reload,320px/themes and actual100–200%zoom pass. Inspection never rearms.
+Quiet no-op/external cancellation emits no new notices; errors/warnings remain
+visible through existing notice ownership. No API/job/scientific/schema/migration/
+dependency/version change. Attempts1–2 are diagnostic; attempt3 predates the final
+quiet-notice correction and is not the final qualification. Next: C2 removes the
+extra launcher and consolidates chrome/geometry. Complete release gates remain C3/C4.

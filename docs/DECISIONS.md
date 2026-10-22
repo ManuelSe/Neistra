@@ -5559,3 +5559,14 @@ planned as stable patch 0.24.1 against verified 0.24.0, not a new scientific/API
 capability. Preserve existing APIs/jobs/plugins, schemas, migration 0014,
 originals, fixed/inactive coordinates and exact Undo/Redo. No dependency upgrade,
 persistent preference, data rewrite or scientific algorithm change is authorized.
+
+
+### D-143 implementation authorization — issue #93, 2026-10-22
+
+The user's `/goal` authorizes implementation and verified delivery. Session
+retirement follows project/generation changes, not panel visibility. Existing
+render-local job/report/live observers serve hidden owned quick runs; only their
+panel visibility is suppressed. Failures disarm automatic publication and emit
+existing error notices; warning-bearing hidden results use D-089 persistent
+notices. Opening the existing run preserves capture/generation and does not
+resubmit. No new API, job, data schema or molecular authority is introduced.

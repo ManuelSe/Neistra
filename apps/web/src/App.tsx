@@ -428,7 +428,7 @@ export default function App() {
     return new Map(loaded.filter((item): item is NonNullable<typeof item> => item !== null));
   };
 
-  const minimization = useMinimization(project, selection, operation => projectMutation.mutateAsync(operation), clearCoordinatePreview);
+  const minimization = useMinimization(project, selection, operation => projectMutation.mutateAsync(operation), clearCoordinatePreview, setNotice);
   useEffect(() => {
     if (projectDialogOpen || createMode || newMoleculeOpen || importDialogOpen || archiveImportDialogOpen || exportDialogOpen || entryDialog || jobDialogOpen || groupDialog) useMinimizationStore.getState().dismiss();
   }, [projectDialogOpen, createMode, newMoleculeOpen, importDialogOpen, archiveImportDialogOpen, exportDialogOpen, entryDialog, jobDialogOpen, groupDialog]);

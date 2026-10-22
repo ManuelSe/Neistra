@@ -23,8 +23,13 @@ for (const filename of ["New_molecule.sdf", "New_molecule.pdb", "paracetamol.pdb
   page.on("request", r => { if (r.method() === "POST" && r.url().includes("/quick-minimizations")) writes.push(new URL(r.url()).pathname); });
   const started = Date.now();
   if (info.project.name === "chromium") await page.keyboard.press("Control+m");
-  else await page.getByRole("button", { name: "Minimize selection", exact: true }).click();
-  await expect(panel(page)).toContainText("Quick coordinates applied", { timeout: 10000 });
+  else {
+    await page.getByRole("button", { name: "Minimize selection", exact: true }).click();
+    expect((await current(request, p.id)).revision).toBe(p.revision);
+    await panel(page).getByRole("button", { name: "Run quick minimization", exact: true }).click();
+  }
+  await expect.poll(async () => (await current(request, p.id)).revision, { timeout: 10000 }).toBe(p.revision + 1);
+  if (!mobile) await expect(panel(page)).toBeHidden();
   const elapsed = Date.now() - started;
   const updated = await current(request, p.id), after = await structures(request, updated);
   expect(updated.revision).toBe(p.revision + 1);
@@ -35,7 +40,7 @@ for (const filename of ["New_molecule.sdf", "New_molecule.pdb", "paracetamol.pdb
   expect(after[entry.id].source).toEqual(before[entry.id].source);
   expect(after[entry.id].atoms.map(a => a.formal_charge)).toEqual(before[entry.id].atoms.map(a => a.formal_charge));
   expect(after[entry.id].atoms.map(a => a.coordinates)).not.toEqual(before[entry.id].atoms.map(a => a.coordinates));
-  await panel(page).getByRole("button", { name: "Close minimization" }).click();
+  if (mobile) await panel(page).getByRole("button", { name: "Close minimization" }).click();
   await page.getByRole("button", { name: /Undo: Quick minimize selection/ }).click();
   await expect.poll(() => structures(request, p)).toEqual(before);
   await page.getByRole("button", { name: /Redo: Quick minimize selection/ }).click();
@@ -121,7 +126,7 @@ test("preserves quick settings through actual 100–200% browser zoom and respon
       }
       await panel(page).getByRole("button", { name: "Close minimization" }).focus(); await page.keyboard.press("Escape");
       await expect(panel(page)).toBeHidden();
-      await expect(page.getByRole("button", { name: "Minimization settings", exact: true })).toBeFocused();
+      await expect(page.getByRole("button", { name: "Minimize selection", exact: true })).toBeFocused();
     }
     expect((await current(request, p.id)).revision).toBe(p.revision);
   } finally { await context.close(); }

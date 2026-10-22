@@ -4,24 +4,24 @@
 
 Issue [#93](https://github.com/ManuelSe/Neistra/issues/93) has an
 [approved implementation contract](plans/issue-93-compact-modeling-toolbar.md)
-on `fix/issue-93-compact-modeling-toolbar`. C0 persists planning only; implementation
-is pending `/goal`. [D-143](DECISIONS.md#d-143--compact-molecular-launchers-and-panel-independent-quick-execution)
-records the accepted launcher and session-visibility decision.
+on `fix/issue-93-compact-modeling-toolbar`. The user's `/goal` authorizes
+implementation and verified delivery. [D-143](DECISIONS.md#d-143--compact-molecular-launchers-and-panel-independent-quick-execution)
+records the accepted scope.
 
-Approved M1/C1 separates setup from quiet Ctrl+M execution; M2/C2 unifies exactly
-three idle launchers (Transform, Edit, Minimize); M3/C3–C4 qualifies compatibility
-and delivers the verified release. Clicking Minimize opens setup without running;
-Ctrl+M runs without automatically opening the panel. No additional shortcut
-progress/Cancel/results UI is planned; explicit Jobs inspection remains, and
-meaningful errors/scientific warnings retain existing notice ownership.
+M1/C1 is complete: clicking Minimize opens setup; Ctrl+M runs and applies once
+without opening the panel. Polling/publication follow session ownership, not
+visibility. Existing notices retain errors/scientific warnings; ordinary no-op
+and external cancellation add no notices. Inspection/remount/late-response
+boundaries remain. [Final C1 gate](assets/compact-modeling-toolbar/c1-final-gate.json)
+passes26 focused/328 total frontend, lint/types/build/diff and27 native browser
+cases/3 existing layout exclusions, no failures/flakes/retries. Exact evidence and
+[self-review](assets/compact-modeling-toolbar/c1-review.md) are linked in the plan.
 
-Planning baseline: **52 focused frontend and 34 archive tests pass**. C0 validates
-documentation links, approved scope, unchanged global plan and `git diff --check`.
-Current runtime behavior remains unchanged and all implementation/release gates
-remain pending. Target stable patch **0.24.1**, with no API/schema/migration or
-dependency change; all five versions remain 0.24.0 at C0. No planning blocker is
-identified. Next action: stop after the committed/pushed C0 handoff, ready for
-`/goal`; the feature plan owns detailed checkpoints and evidence.
+M2/C2 is next: remove the fourth launcher and unify toolbar styling/geometry;
+M3/C3–C4 retains compatibility and complete candidate/exact-master delivery gates.
+Current known limit: toolbar consolidation is not yet implemented. Target stable
+patch0.24.1; all five versions remain0.24.0, no API/schema/migration/dependency or
+scientific-model change. No external blocker; continue with C2.
 
 ### Previous delivery baseline — v0.24.0
 
