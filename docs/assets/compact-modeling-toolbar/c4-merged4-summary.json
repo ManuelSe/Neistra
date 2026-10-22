@@ -1,0 +1,962 @@
+{
+  "label": "c4-merged4",
+  "commit": "83aae8c36edc01abedfd7e4f98d9900774ce1d13",
+  "complete": false,
+  "qualification_status": "Blocked on existing mobile notification-test timing failure; no exception approved",
+  "release_commands_covered": 20,
+  "release_commands_successful": 19,
+  "python": 1248,
+  "frontend": 331,
+  "supervisor": 8,
+  "browser": {
+    "startTime": "2026-10-22T16:32:23.056Z",
+    "duration": 3595257.263,
+    "expected": 321,
+    "skipped": 60,
+    "unexpected": 1,
+    "flaky": 0
+  },
+  "failed_cases": [
+    {
+      "title": "expires after ten real seconds without molecular, camera, network or renderer changes",
+      "project": "mobile-chromium",
+      "error": {
+        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m failed\n\nLocator:  locator('.notice')\nExpected: visible\nReceived: <element(s) not found>\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.notice')\u001b[22m\n",
+        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m failed\n\nLocator:  locator('.notice')\nExpected: visible\nReceived: <element(s) not found>\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('.notice')\u001b[22m\n\n    at /datadisk/dev/neistra/tests/e2e/viewer-notifications.spec.ts:83:30",
+        "location": {
+          "file": "/datadisk/dev/neistra/tests/e2e/viewer-notifications.spec.ts",
+          "column": 30,
+          "line": 83
+        },
+        "snippet": "  81 |   await info.attach(\"light notice\", { body: await page.screenshot(), contentType: \"image/png\" });\n  82 |   await page.waitForTimeout(8_500);\n> 83 |   await expect(notice(page)).toBeVisible();\n     |                              ^\n  84 |   await expect(notice(page)).toBeHidden({ timeout: 5_000 });\n  85 |   const times = await page.evaluate(() => window.notificationTimes as { visible: boolean; time: number }[]);\n  86 |   const shown = times.findLast(x => x.visible)!;"
+      }
+    }
+  ],
+  "retries": [],
+  "source_count": 568,
+  "source_sha256": "a079429f753cc2a266bb0eba3c2c56fa756f0bce3e3faa176b453c5a83dd8705",
+  "quick_performance": [
+    {
+      "copies": 0,
+      "phase": "cold",
+      "atoms": 18,
+      "commandAcceptedMs": 0.4000000059604645,
+      "nativeAppliedMs": 1376.5999999940395,
+      "longestTaskMs": 156,
+      "stages": [
+        {
+          "path": "/api/v1/projects/01a16484-0a40-715a-b388-87a9ea7f0540/quick-minimizations",
+          "at": 1792687740682,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-0a40-715a-b388-87a9ea7f0540/quick-minimizations",
+          "at": 1792687740697,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-0a40-715a-b388-87a9ea7f0540/quick-minimizations/01a16484-170d-7ee2-8651-8ce2a0d1b4e9/live",
+          "at": 1792687740702,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-0a40-715a-b388-87a9ea7f0540/quick-minimizations/01a16484-170d-7ee2-8651-8ce2a0d1b4e9/live",
+          "at": 1792687740708,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-0a40-715a-b388-87a9ea7f0540/quick-minimizations/01a16484-170d-7ee2-8651-8ce2a0d1b4e9/live",
+          "at": 1792687740809,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-0a40-715a-b388-87a9ea7f0540/quick-minimizations/01a16484-170d-7ee2-8651-8ce2a0d1b4e9/live",
+          "at": 1792687740816,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-0a40-715a-b388-87a9ea7f0540/quick-minimizations/01a16484-170d-7ee2-8651-8ce2a0d1b4e9/live",
+          "at": 1792687740941,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-0a40-715a-b388-87a9ea7f0540/quick-minimizations/01a16484-170d-7ee2-8651-8ce2a0d1b4e9/live",
+          "at": 1792687740948,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-0a40-715a-b388-87a9ea7f0540/quick-minimizations/01a16484-170d-7ee2-8651-8ce2a0d1b4e9/live",
+          "at": 1792687741049,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-0a40-715a-b388-87a9ea7f0540/quick-minimizations/01a16484-170d-7ee2-8651-8ce2a0d1b4e9/live",
+          "at": 1792687741056,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-0a40-715a-b388-87a9ea7f0540/quick-minimizations/01a16484-170d-7ee2-8651-8ce2a0d1b4e9/live",
+          "at": 1792687741157,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-0a40-715a-b388-87a9ea7f0540/quick-minimizations/01a16484-170d-7ee2-8651-8ce2a0d1b4e9/live",
+          "at": 1792687741165,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-0a40-715a-b388-87a9ea7f0540/quick-minimizations/01a16484-170d-7ee2-8651-8ce2a0d1b4e9/live",
+          "at": 1792687741267,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-0a40-715a-b388-87a9ea7f0540/quick-minimizations/01a16484-170d-7ee2-8651-8ce2a0d1b4e9/live",
+          "at": 1792687741273,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-0a40-715a-b388-87a9ea7f0540/quick-minimizations/01a16484-170d-7ee2-8651-8ce2a0d1b4e9/proposal",
+          "at": 1792687741361,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-0a40-715a-b388-87a9ea7f0540/quick-minimizations/01a16484-170d-7ee2-8651-8ce2a0d1b4e9/proposal",
+          "at": 1792687741376,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-0a40-715a-b388-87a9ea7f0540/quick-minimizations/01a16484-170d-7ee2-8651-8ce2a0d1b4e9/apply",
+          "at": 1792687741532,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-0a40-715a-b388-87a9ea7f0540/quick-minimizations/01a16484-170d-7ee2-8651-8ce2a0d1b4e9/apply",
+          "at": 1792687741551,
+          "kind": "response"
+        }
+      ],
+      "backend": {
+        "context_rebuild": 0,
+        "context_rebuilds": 0,
+        "force_field": 0.003109293000306934,
+        "interpretation": 0.003791814000578597,
+        "optimization": 0.011869219015352428
+      },
+      "elapsedBackendSeconds": 0.021667400986189023,
+      "jobId": "01a16484-170d-7ee2-8651-8ce2a0d1b4e9"
+    },
+    {
+      "copies": 0,
+      "phase": "repeat",
+      "atoms": 18,
+      "commandAcceptedMs": 0.09999999403953552,
+      "nativeAppliedMs": 861.5999999940395,
+      "longestTaskMs": 84,
+      "stages": [
+        {
+          "path": "/api/v1/projects/01a16484-0a40-715a-b388-87a9ea7f0540/quick-minimizations",
+          "at": 1792687742695,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-0a40-715a-b388-87a9ea7f0540/quick-minimizations",
+          "at": 1792687742715,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-0a40-715a-b388-87a9ea7f0540/quick-minimizations/01a16484-1eee-7c05-bb1d-708fd2025114/live",
+          "at": 1792687742719,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-0a40-715a-b388-87a9ea7f0540/quick-minimizations/01a16484-1eee-7c05-bb1d-708fd2025114/live",
+          "at": 1792687742725,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-0a40-715a-b388-87a9ea7f0540/quick-minimizations/01a16484-1eee-7c05-bb1d-708fd2025114/live",
+          "at": 1792687742827,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-0a40-715a-b388-87a9ea7f0540/quick-minimizations/01a16484-1eee-7c05-bb1d-708fd2025114/live",
+          "at": 1792687742832,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-0a40-715a-b388-87a9ea7f0540/quick-minimizations/01a16484-1eee-7c05-bb1d-708fd2025114/live",
+          "at": 1792687742934,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-0a40-715a-b388-87a9ea7f0540/quick-minimizations/01a16484-1eee-7c05-bb1d-708fd2025114/live",
+          "at": 1792687742939,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-0a40-715a-b388-87a9ea7f0540/quick-minimizations/01a16484-1eee-7c05-bb1d-708fd2025114/live",
+          "at": 1792687743041,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-0a40-715a-b388-87a9ea7f0540/quick-minimizations/01a16484-1eee-7c05-bb1d-708fd2025114/live",
+          "at": 1792687743047,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-0a40-715a-b388-87a9ea7f0540/quick-minimizations/01a16484-1eee-7c05-bb1d-708fd2025114/live",
+          "at": 1792687743148,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-0a40-715a-b388-87a9ea7f0540/quick-minimizations/01a16484-1eee-7c05-bb1d-708fd2025114/live",
+          "at": 1792687743154,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-0a40-715a-b388-87a9ea7f0540/quick-minimizations/01a16484-1eee-7c05-bb1d-708fd2025114/live",
+          "at": 1792687743256,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-0a40-715a-b388-87a9ea7f0540/quick-minimizations/01a16484-1eee-7c05-bb1d-708fd2025114/live",
+          "at": 1792687743262,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-0a40-715a-b388-87a9ea7f0540/quick-minimizations/01a16484-1eee-7c05-bb1d-708fd2025114/proposal",
+          "at": 1792687743356,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-0a40-715a-b388-87a9ea7f0540/quick-minimizations/01a16484-1eee-7c05-bb1d-708fd2025114/proposal",
+          "at": 1792687743364,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-0a40-715a-b388-87a9ea7f0540/quick-minimizations/01a16484-1eee-7c05-bb1d-708fd2025114/apply",
+          "at": 1792687743450,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-0a40-715a-b388-87a9ea7f0540/quick-minimizations/01a16484-1eee-7c05-bb1d-708fd2025114/apply",
+          "at": 1792687743515,
+          "kind": "response"
+        }
+      ],
+      "backend": {
+        "context_rebuild": 0,
+        "context_rebuilds": 0,
+        "force_field": 0.0030877029930707067,
+        "interpretation": 0.003811400994891301,
+        "optimization": 0.01149639900540933
+      },
+      "elapsedBackendSeconds": 0.021348432986997068,
+      "jobId": "01a16484-1eee-7c05-bb1d-708fd2025114"
+    },
+    {
+      "copies": 1,
+      "phase": "cold",
+      "atoms": 2304,
+      "commandAcceptedMs": 0.5,
+      "nativeAppliedMs": 2137.0999999940395,
+      "longestTaskMs": 167,
+      "stages": [
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations",
+          "at": 1792687747533,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations",
+          "at": 1792687747597,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations/01a16484-31e1-7337-8e6a-1bec79494e4a/live",
+          "at": 1792687747603,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations/01a16484-31e1-7337-8e6a-1bec79494e4a/live",
+          "at": 1792687747610,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations/01a16484-31e1-7337-8e6a-1bec79494e4a/live",
+          "at": 1792687747712,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations/01a16484-31e1-7337-8e6a-1bec79494e4a/live",
+          "at": 1792687747726,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations/01a16484-31e1-7337-8e6a-1bec79494e4a/live",
+          "at": 1792687747825,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations/01a16484-31e1-7337-8e6a-1bec79494e4a/live",
+          "at": 1792687747835,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations/01a16484-31e1-7337-8e6a-1bec79494e4a/live",
+          "at": 1792687747937,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations/01a16484-31e1-7337-8e6a-1bec79494e4a/live",
+          "at": 1792687747943,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations/01a16484-31e1-7337-8e6a-1bec79494e4a/live",
+          "at": 1792687748045,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations/01a16484-31e1-7337-8e6a-1bec79494e4a/live",
+          "at": 1792687748052,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations/01a16484-31e1-7337-8e6a-1bec79494e4a/live",
+          "at": 1792687748154,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations/01a16484-31e1-7337-8e6a-1bec79494e4a/live",
+          "at": 1792687748160,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations/01a16484-31e1-7337-8e6a-1bec79494e4a/live",
+          "at": 1792687748262,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations/01a16484-31e1-7337-8e6a-1bec79494e4a/live",
+          "at": 1792687748269,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations/01a16484-31e1-7337-8e6a-1bec79494e4a/live",
+          "at": 1792687748371,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations/01a16484-31e1-7337-8e6a-1bec79494e4a/live",
+          "at": 1792687748377,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations/01a16484-31e1-7337-8e6a-1bec79494e4a/live",
+          "at": 1792687748479,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations/01a16484-31e1-7337-8e6a-1bec79494e4a/live",
+          "at": 1792687748487,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations/01a16484-31e1-7337-8e6a-1bec79494e4a/live",
+          "at": 1792687748588,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations/01a16484-31e1-7337-8e6a-1bec79494e4a/live",
+          "at": 1792687748596,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations/01a16484-31e1-7337-8e6a-1bec79494e4a/live",
+          "at": 1792687748798,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations/01a16484-31e1-7337-8e6a-1bec79494e4a/live",
+          "at": 1792687748809,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations/01a16484-31e1-7337-8e6a-1bec79494e4a/live",
+          "at": 1792687749018,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations/01a16484-31e1-7337-8e6a-1bec79494e4a/live",
+          "at": 1792687749030,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations/01a16484-31e1-7337-8e6a-1bec79494e4a/proposal",
+          "at": 1792687749117,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations/01a16484-31e1-7337-8e6a-1bec79494e4a/proposal",
+          "at": 1792687749155,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations/01a16484-31e1-7337-8e6a-1bec79494e4a/apply",
+          "at": 1792687749286,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations/01a16484-31e1-7337-8e6a-1bec79494e4a/apply",
+          "at": 1792687749466,
+          "kind": "response"
+        }
+      ],
+      "backend": {
+        "context_rebuild": 0,
+        "context_rebuilds": 0,
+        "force_field": 0.08833366501494311,
+        "interpretation": 0.2644412369991187,
+        "optimization": 0.390686378988903
+      },
+      "elapsedBackendSeconds": 0.7540605470130686,
+      "jobId": "01a16484-31e1-7337-8e6a-1bec79494e4a"
+    },
+    {
+      "copies": 1,
+      "phase": "repeat",
+      "atoms": 2304,
+      "commandAcceptedMs": 0.19999998807907104,
+      "nativeAppliedMs": 1843.3999999761581,
+      "longestTaskMs": 189,
+      "stages": [
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations",
+          "at": 1792687750243,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations",
+          "at": 1792687750305,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations/01a16484-3c87-73cb-857f-ff2d5f65a8d1/live",
+          "at": 1792687750332,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations/01a16484-3c87-73cb-857f-ff2d5f65a8d1/live",
+          "at": 1792687750339,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations/01a16484-3c87-73cb-857f-ff2d5f65a8d1/live",
+          "at": 1792687750441,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations/01a16484-3c87-73cb-857f-ff2d5f65a8d1/live",
+          "at": 1792687750447,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations/01a16484-3c87-73cb-857f-ff2d5f65a8d1/live",
+          "at": 1792687750554,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations/01a16484-3c87-73cb-857f-ff2d5f65a8d1/live",
+          "at": 1792687750561,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations/01a16484-3c87-73cb-857f-ff2d5f65a8d1/live",
+          "at": 1792687750662,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations/01a16484-3c87-73cb-857f-ff2d5f65a8d1/live",
+          "at": 1792687750669,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations/01a16484-3c87-73cb-857f-ff2d5f65a8d1/live",
+          "at": 1792687750770,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations/01a16484-3c87-73cb-857f-ff2d5f65a8d1/live",
+          "at": 1792687750777,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations/01a16484-3c87-73cb-857f-ff2d5f65a8d1/live",
+          "at": 1792687750878,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations/01a16484-3c87-73cb-857f-ff2d5f65a8d1/live",
+          "at": 1792687750886,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations/01a16484-3c87-73cb-857f-ff2d5f65a8d1/live",
+          "at": 1792687750988,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations/01a16484-3c87-73cb-857f-ff2d5f65a8d1/live",
+          "at": 1792687750994,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations/01a16484-3c87-73cb-857f-ff2d5f65a8d1/live",
+          "at": 1792687751096,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations/01a16484-3c87-73cb-857f-ff2d5f65a8d1/live",
+          "at": 1792687751102,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations/01a16484-3c87-73cb-857f-ff2d5f65a8d1/live",
+          "at": 1792687751204,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations/01a16484-3c87-73cb-857f-ff2d5f65a8d1/live",
+          "at": 1792687751211,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations/01a16484-3c87-73cb-857f-ff2d5f65a8d1/live",
+          "at": 1792687751413,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations/01a16484-3c87-73cb-857f-ff2d5f65a8d1/live",
+          "at": 1792687751426,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations/01a16484-3c87-73cb-857f-ff2d5f65a8d1/proposal",
+          "at": 1792687751627,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations/01a16484-3c87-73cb-857f-ff2d5f65a8d1/proposal",
+          "at": 1792687751668,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations/01a16484-3c87-73cb-857f-ff2d5f65a8d1/apply",
+          "at": 1792687751858,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-2365-7cee-a91f-88218a62802f/quick-minimizations/01a16484-3c87-73cb-857f-ff2d5f65a8d1/apply",
+          "at": 1792687751919,
+          "kind": "response"
+        }
+      ],
+      "backend": {
+        "context_rebuild": 0,
+        "context_rebuilds": 0,
+        "force_field": 0.09170606199768372,
+        "interpretation": 0.25710594400879927,
+        "optimization": 0.3447449460218195
+      },
+      "elapsedBackendSeconds": 0.7131022720132023,
+      "jobId": "01a16484-3c87-73cb-857f-ff2d5f65a8d1"
+    },
+    {
+      "copies": 8,
+      "phase": "cold",
+      "atoms": 18208,
+      "commandAcceptedMs": 0.699999988079071,
+      "nativeAppliedMs": 3496.300000011921,
+      "longestTaskMs": 294,
+      "stages": [
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations",
+          "at": 1792687758053,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations",
+          "at": 1792687758271,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-5b94-7ec2-b3a8-f6bdd56fc2b5/live",
+          "at": 1792687758294,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-5b94-7ec2-b3a8-f6bdd56fc2b5/live",
+          "at": 1792687758304,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-5b94-7ec2-b3a8-f6bdd56fc2b5/live",
+          "at": 1792687758406,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-5b94-7ec2-b3a8-f6bdd56fc2b5/live",
+          "at": 1792687758416,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-5b94-7ec2-b3a8-f6bdd56fc2b5/live",
+          "at": 1792687758565,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-5b94-7ec2-b3a8-f6bdd56fc2b5/live",
+          "at": 1792687758582,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-5b94-7ec2-b3a8-f6bdd56fc2b5/live",
+          "at": 1792687758684,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-5b94-7ec2-b3a8-f6bdd56fc2b5/live",
+          "at": 1792687758701,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-5b94-7ec2-b3a8-f6bdd56fc2b5/live",
+          "at": 1792687758806,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-5b94-7ec2-b3a8-f6bdd56fc2b5/live",
+          "at": 1792687758826,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-5b94-7ec2-b3a8-f6bdd56fc2b5/live",
+          "at": 1792687758927,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-5b94-7ec2-b3a8-f6bdd56fc2b5/live",
+          "at": 1792687758945,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-5b94-7ec2-b3a8-f6bdd56fc2b5/live",
+          "at": 1792687759051,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-5b94-7ec2-b3a8-f6bdd56fc2b5/live",
+          "at": 1792687759067,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-5b94-7ec2-b3a8-f6bdd56fc2b5/live",
+          "at": 1792687759168,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-5b94-7ec2-b3a8-f6bdd56fc2b5/live",
+          "at": 1792687759184,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-5b94-7ec2-b3a8-f6bdd56fc2b5/live",
+          "at": 1792687759286,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-5b94-7ec2-b3a8-f6bdd56fc2b5/live",
+          "at": 1792687759295,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-5b94-7ec2-b3a8-f6bdd56fc2b5/live",
+          "at": 1792687759396,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-5b94-7ec2-b3a8-f6bdd56fc2b5/live",
+          "at": 1792687759405,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-5b94-7ec2-b3a8-f6bdd56fc2b5/live",
+          "at": 1792687759507,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-5b94-7ec2-b3a8-f6bdd56fc2b5/live",
+          "at": 1792687759516,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-5b94-7ec2-b3a8-f6bdd56fc2b5/live",
+          "at": 1792687759633,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-5b94-7ec2-b3a8-f6bdd56fc2b5/live",
+          "at": 1792687759644,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-5b94-7ec2-b3a8-f6bdd56fc2b5/live",
+          "at": 1792687759886,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-5b94-7ec2-b3a8-f6bdd56fc2b5/live",
+          "at": 1792687759912,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-5b94-7ec2-b3a8-f6bdd56fc2b5/proposal",
+          "at": 1792687760122,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-5b94-7ec2-b3a8-f6bdd56fc2b5/proposal",
+          "at": 1792687760179,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-5b94-7ec2-b3a8-f6bdd56fc2b5/apply",
+          "at": 1792687760477,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-5b94-7ec2-b3a8-f6bdd56fc2b5/apply",
+          "at": 1792687760563,
+          "kind": "response"
+        }
+      ],
+      "backend": {
+        "context_rebuild": 0,
+        "context_rebuilds": 0,
+        "force_field": 0.08914572800858878,
+        "interpretation": 0.46024122097878717,
+        "optimization": 0.465809404005995
+      },
+      "elapsedBackendSeconds": 1.0392452710075304,
+      "jobId": "01a16484-5b94-7ec2-b3a8-f6bdd56fc2b5"
+    },
+    {
+      "copies": 8,
+      "phase": "repeat",
+      "atoms": 18208,
+      "commandAcceptedMs": 0.30000001192092896,
+      "nativeAppliedMs": 3351.300000011921,
+      "longestTaskMs": 277,
+      "stages": [
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations",
+          "at": 1792687763010,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations",
+          "at": 1792687763300,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-6f20-79a4-bbe5-8274522409ac/live",
+          "at": 1792687763327,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-6f20-79a4-bbe5-8274522409ac/live",
+          "at": 1792687763346,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-6f20-79a4-bbe5-8274522409ac/live",
+          "at": 1792687763448,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-6f20-79a4-bbe5-8274522409ac/live",
+          "at": 1792687763469,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-6f20-79a4-bbe5-8274522409ac/live",
+          "at": 1792687763600,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-6f20-79a4-bbe5-8274522409ac/live",
+          "at": 1792687763619,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-6f20-79a4-bbe5-8274522409ac/live",
+          "at": 1792687763723,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-6f20-79a4-bbe5-8274522409ac/live",
+          "at": 1792687763743,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-6f20-79a4-bbe5-8274522409ac/live",
+          "at": 1792687763845,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-6f20-79a4-bbe5-8274522409ac/live",
+          "at": 1792687763863,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-6f20-79a4-bbe5-8274522409ac/live",
+          "at": 1792687763966,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-6f20-79a4-bbe5-8274522409ac/live",
+          "at": 1792687763976,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-6f20-79a4-bbe5-8274522409ac/live",
+          "at": 1792687764078,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-6f20-79a4-bbe5-8274522409ac/live",
+          "at": 1792687764090,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-6f20-79a4-bbe5-8274522409ac/live",
+          "at": 1792687764191,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-6f20-79a4-bbe5-8274522409ac/live",
+          "at": 1792687764223,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-6f20-79a4-bbe5-8274522409ac/live",
+          "at": 1792687764325,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-6f20-79a4-bbe5-8274522409ac/live",
+          "at": 1792687764335,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-6f20-79a4-bbe5-8274522409ac/live",
+          "at": 1792687764438,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-6f20-79a4-bbe5-8274522409ac/live",
+          "at": 1792687764447,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-6f20-79a4-bbe5-8274522409ac/live",
+          "at": 1792687764548,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-6f20-79a4-bbe5-8274522409ac/live",
+          "at": 1792687764557,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-6f20-79a4-bbe5-8274522409ac/live",
+          "at": 1792687764659,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-6f20-79a4-bbe5-8274522409ac/live",
+          "at": 1792687764670,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-6f20-79a4-bbe5-8274522409ac/live",
+          "at": 1792687764904,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-6f20-79a4-bbe5-8274522409ac/live",
+          "at": 1792687764923,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-6f20-79a4-bbe5-8274522409ac/proposal",
+          "at": 1792687765129,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-6f20-79a4-bbe5-8274522409ac/proposal",
+          "at": 1792687765187,
+          "kind": "response"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-6f20-79a4-bbe5-8274522409ac/apply",
+          "at": 1792687765348,
+          "kind": "request"
+        },
+        {
+          "path": "/api/v1/projects/01a16484-4560-7bfd-a92b-45a500c182f4/quick-minimizations/01a16484-6f20-79a4-bbe5-8274522409ac/apply",
+          "at": 1792687765444,
+          "kind": "response"
+        }
+      ],
+      "backend": {
+        "context_rebuild": 0,
+        "context_rebuilds": 0,
+        "force_field": 0.08857824301230721,
+        "interpretation": 0.3695345699961763,
+        "optimization": 0.4578383879852481
+      },
+      "elapsedBackendSeconds": 0.9390402889985126,
+      "jobId": "01a16484-6f20-79a4-bbe5-8274522409ac"
+    },
+    {
+      "kind": "live",
+      "firstFrameMs": 683.7000000178814,
+      "cancelMs": 53.5,
+      "startedWall": 1792687771901,
+      "frames": [
+        {
+          "sequence": 1,
+          "iteration": 1,
+          "published_at": 1792687772.4483793
+        },
+        {
+          "sequence": 2,
+          "iteration": 140,
+          "published_at": 1792687772.650606
+        },
+        {
+          "sequence": 3,
+          "iteration": 276,
+          "published_at": 1792687772.851703
+        }
+      ]
+    }
+  ],
+  "both_actual_reader_directions_pass": true,
+  "notification_focused_rerun": "Desktop passes; mobile repeats visibility assertion after ten-second deadline; unchanged source and assertions",
+  "new_migration": false,
+  "migration_head": "0014",
+  "power_samples": 264
+}

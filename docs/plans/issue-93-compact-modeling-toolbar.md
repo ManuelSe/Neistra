@@ -2,11 +2,9 @@
 
 ## 1. Status, authority, and intended outcome
 
-**Status:** approved contract; C0 committed and remotely verified. The user
-authorized implementation and the complete delivery lifecycle with `/goal` on
-2026-10-22. M1/C1, M2/C2 and corrected M3/C3 candidate3 qualification are complete.
-M3/C4 awaits corrective PR/review/normal merge, exact merged2 qualification and
-verified publication/audit/cleanup.
+**Status:** approved implementation complete; PRs#117/#118 normally merged.
+C4 publication is held on the exact-master mobile notification-test failure.
+No v0.24.1 tag/release exists. A qualification exception has not been approved.
 
 **Approval:** the user's “Implement the plan.” on 2026-10-22 approves the complete
 proposal and its explicit C0 stop ready for `/goal`. This authorizes planning
@@ -744,3 +742,38 @@ on responsiveness. A fresh unchanged focused check measured5.048s; retain the
 failure without further isolated timing investigation. Run fresh complete
 merged3 qualification on the same exact master with isolated stores/ports and
 unchanged thresholds, host settings and source. No tag/release has been published.
+
+
+### Exact-master final coverage and qualification decision — 2026-10-22
+
+The fresh [merged3 attempt](../assets/compact-modeling-toolbar/c4-merged3-gate.json)
+stopped in Python after1247 passes when an existing `/proc/<pid>/stat` test helper
+raised ProcessLookupError as its observed process exited. No source/assertion was
+changed. Fresh [merged4](../assets/compact-modeling-toolbar/c4-merged4-gate.json)
+passes1248 Python,331 frontend,8 supervisor, frozen installs/fresh0014/static/types/
+build. Its complete browser run has321 passes,60 unchanged exclusions and one
+mobile notification-test failure; zero retries. All16 toolbar cases, all native
+scientific workflows/budgets, real zoom and the formerly failing5s responsiveness
+check pass. The [summary](../assets/compact-modeling-toolbar/c4-merged4-summary.json)
+explicitly marks qualification incomplete.
+
+The [completion checks](../assets/compact-modeling-toolbar/c4-completion1-gate.json)
+pass both actual tagged0.24.0↔final0.24.1 reader directions, both migrations,
+version/dependency/production-harness audit and diff. Its unchanged notification
+rerun passes desktop and repeats the mobile failure. The
+[trace diagnosis](../assets/compact-modeling-toolbar/c4-notification-diagnostic.json)
+shows the pre-expiry assertion starts at least10.282s/full and10.029s/focused
+after the saved notice is present, beyond its documented10s expiry. The test waits
+8.5s after inspection/screenshot overhead instead of anchoring to emission. This
+cannot establish premature product expiry. The notification component is unchanged.
+Both full/focused failures, raw reports, traces, screenshots and logs are retained.
+All568 runtime/test/tool/patch/lock identities match complete candidate3, digest
+`a079429f753cc2a266bb0eba3c2c56fa756f0bce3e3faa176b453c5a83dd8705`.
+
+All20 release commands have coverage:19 pass, the full browser command fails only
+on this existing mobile harness timing assertion. This is not a passing complete
+release gate. No threshold, source, host setting or scientific requirement was
+changed. No exception is inferred from the user's request to limit responsiveness
+investigation. Publication, final issue close-out and branch cleanup remain held
+until the user approves a precise qualification deviation or the harness is fixed
+and source is requalified. Runtime master remains83aae8c.
