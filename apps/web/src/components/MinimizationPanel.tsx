@@ -1,7 +1,9 @@
+import * as Tooltip from "@radix-ui/react-tooltip";
+import { IconButton } from "./IconButton";
 import type { QuickMinimizationReport } from "../api/types";
 import type { MinimizationPreviewPresentation } from "../minimization/useMinimizationPreview";
 import * as Dialog from "@radix-ui/react-dialog";
-import { Settings2, Zap, X } from "lucide-react";
+import { Zap, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { MinimizationWorkflow } from "../minimization/useMinimization";
 
@@ -11,7 +13,6 @@ export function MinimizationPanel({ workflow: w, unavailable, onOpen }: {
   workflow: MinimizationWorkflow & MinimizationPreviewPresentation; unavailable: string | null; onOpen: () => void;
 }) {
   const launcher = useRef<HTMLButtonElement>(null);
-  const settingsLauncher = useRef<HTMLButtonElement>(null);
   const returnFocus = useRef<HTMLElement | null>(null);
   const panel = useRef<HTMLDivElement>(null);
   const [showAll, setShowAll] = useState(false);
@@ -48,12 +49,12 @@ export function MinimizationPanel({ workflow: w, unavailable, onOpen }: {
   const close = () => { if (!w.state.applying) w.dismiss(); };
   const chosenCount = w.chosen.reduce((sum, c) => sum + c.atomIds.length, 0);
   const selectedCount = draft?.selection.atoms.length ?? report?.movable_count ?? 0;
-  return <div className="minimization-tools">
-    <button ref={launcher} type="button" className="viewer-action-button" aria-label="Minimize selection" title={unavailable ?? "Open minimization settings; Ctrl+M runs quick minimization"}
-      aria-disabled={!w.open && !w.state.live && !!unavailable} aria-haspopup="dialog" aria-expanded={w.open}
-      onClick={() => { if (w.open) close(); else if (w.state.live || !unavailable) { onOpen(); void w.show(); } }}><Zap size={17} /></button>
-    <button ref={settingsLauncher} type="button" className="viewer-action-button" aria-label="Minimization settings" title={unavailable ?? "Quick settings and Advanced AMBER"}
-      aria-disabled={!!unavailable} aria-haspopup="dialog" onClick={() => { if (!unavailable) { onOpen(); void w.configure("quick"); } }}><Settings2 size={17} /></button>
+  const canReveal = w.state.live || w.state.loading || w.state.applying;
+  const launcherHint = !canReveal && unavailable ? unavailable : "Open minimization settings; Ctrl+M runs quick minimization";
+  return <Tooltip.Provider><div className="minimization-tools">
+    <IconButton ref={launcher} className="viewer-action-button viewer-modeling-action" label="Minimize selection" tooltip={launcherHint} tooltipClassName="viewer-toolbar-tooltip"
+      aria-disabled={!w.open && !canReveal && !!unavailable} aria-haspopup="dialog" aria-expanded={w.open}
+      onClick={() => { if (w.open) close(); else if (canReveal || !unavailable) { onOpen(); void w.show(); } }}><Zap size={16} aria-hidden="true" /></IconButton>
     <Dialog.Root open={w.open} onOpenChange={open => { if (!open) close(); }} modal={false}>
       <Dialog.Portal><Dialog.Content ref={panel} className="minimization-panel" tabIndex={-1}
         aria-describedby="minimization-description" onInteractOutside={event => event.preventDefault()}
@@ -130,7 +131,7 @@ export function MinimizationPanel({ workflow: w, unavailable, onOpen }: {
           <p>Resolve prerequisites with separate preparation actions. Native model installation: <a href="https://github.com/ManuelSe/Neistra/blob/master/tools/README.md" target="_blank" rel="noreferrer">setup guide</a>.</p></div> : null}
       </Dialog.Content></Dialog.Portal>
     </Dialog.Root>
-  </div>;
+  </div></Tooltip.Provider>;
 }
 
 

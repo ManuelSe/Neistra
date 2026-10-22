@@ -669,7 +669,7 @@ export function StructureViewer({
             onFocusLigands={() => viewerRef.current?.focusAtoms(ligandAtoms)}
             onSelectionStyle={openStyleDialog}
           />
-          <div className="viewer-edit-transform-actions">
+          <div className="viewer-edit-transform-actions" role="group" aria-label="Molecular tools" data-transform-active={movementActive}>
           {movement ? <MovementControls movement={movement}
             view={() => viewerRef.current?.getMovementView() ?? null}
             zoom={factor => viewerRef.current?.zoom(factor)}

@@ -61,7 +61,7 @@ test("keeps quick settings and Advanced accessible at 320px in both themes", asy
   await expect(page.getByRole("button", { name: "Inspector", exact: true })).toBeVisible();
   for (const theme of ["light", "dark"]) {
     if (theme === "dark") await page.getByRole("button", { name: "Use dark theme" }).click();
-    const settings = page.getByRole("button", { name: "Minimization settings", exact: true });
+    const settings = page.getByRole("button", { name: "Minimize selection", exact: true });
     await settings.focus(); await page.keyboard.press("Enter");
     await expect(panel(page)).toBeFocused();
     await expect(panel(page).getByRole("button", { name: "Run quick minimization", exact: true })).toBeEnabled();
@@ -94,7 +94,7 @@ test("preserves quick settings through actual 100–200% browser zoom and respon
     await select(page, [{ structure_id: p.entries[0].id, atom_id: 1 }], false);
     for (const theme of ["light", "dark"]) {
       if (theme === "dark") await page.getByRole("button", { name: "Use dark theme" }).click();
-      await page.getByRole("button", { name: "Minimization settings", exact: true }).click();
+      await page.getByRole("button", { name: "Minimize selection", exact: true }).click();
       await panel(page).getByRole("checkbox", { name: "Move attached terminal hydrogens" }).uncheck();
       for (const factor of [1, 1.25, 1.5, 2, 1]) {
         expect(await worker.evaluate(async ({ url, factor }) => {

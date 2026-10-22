@@ -80,7 +80,7 @@ test("renders genuine quick steps and clears native preview within500ms on Cance
   await page.getByRole("combobox", { name: "Select by", exact: true }).selectOption("structure");
   await page.getByRole("textbox", { name: "Value", exact: true }).fill(entry.id);
   await page.getByRole("button", { name: "Apply query", exact: true }).click();
-  await page.getByRole("button", { name: "Minimization settings", exact: true }).click();
+  await page.getByRole("button", { name: "Minimize selection", exact: true }).click();
   await panel(page).getByRole("spinbutton", { name: "Minimization iterations" }).fill("2000");
   const run = panel(page).getByRole("button", { name: "Run quick minimization", exact: true });
   const frames: import("../../apps/web/src/api/types").MinimizationLive[] = [];

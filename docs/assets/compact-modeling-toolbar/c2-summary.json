@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "gate": "c2-final-gate.json",
+  "frontend": 328,
+  "focused": 61,
+  "browser": {
+    "startTime": "2026-10-22T11:52:43.220Z",
+    "duration": 683762.674,
+    "expected": 77,
+    "skipped": 3,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "source_count": 568,
+  "source_sha256": "2da1db5d2045cc65f49e85a15840f8b23a9bce9407b17c6cdb29e3bf7b2462f4",
+  "limitations": [
+    "Three existing layout exclusions; all six new cases execute in both layouts.",
+    "Checkpoint evidence is not complete release qualification.",
+    "Actual preceding reader and quiet native performance witness remain C3."
+  ]
+}

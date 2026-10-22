@@ -42,7 +42,7 @@ export const panel = (page: Page) => page.getByRole("dialog", { name: "Minimize 
 
 /** Explicit legacy-profile entry; Ctrl+M is qualified independently as quick work. */
 export async function configure(page: Page) {
-  if (!(await panel(page).isVisible())) await page.getByRole("button", { name: "Minimization settings", exact: true }).click();
+  if (!(await panel(page).isVisible())) await page.getByRole("button", { name: "Minimize selection", exact: true }).click();
   await panel(page).getByRole("button", { name: "Advanced AMBER", exact: true }).click();
   await expect(panel(page).getByRole("button", { name: "Run minimization", exact: true })).toBeEnabled({ timeout: 30000 });
 }

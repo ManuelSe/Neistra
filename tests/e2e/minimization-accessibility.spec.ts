@@ -24,7 +24,7 @@ test("keeps native minimization controls reachable by keyboard and touch at 320p
   await select(page, [{ structure_id: p.entries[0].id, atom_id: 3 }], info.project.name === "mobile-chromium");
   await page.setViewportSize({ width: 320, height: 740 });
   await expect(page.getByRole("button", { name: "Inspector", exact: true })).toBeVisible();
-  const button = page.getByRole("button", { name: "Minimization settings", exact: true });
+  const button = page.getByRole("button", { name: "Minimize selection", exact: true });
   for (const theme of ["light", "dark"]) {
     if (theme === "dark") await page.getByRole("button", { name: "Use dark theme" }).click();
     await button.focus(); await page.keyboard.press("Enter");

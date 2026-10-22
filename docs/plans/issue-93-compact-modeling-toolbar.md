@@ -4,7 +4,7 @@
 
 **Status:** approved contract; C0 committed and remotely verified. The user
 authorized implementation and the complete delivery lifecycle with `/goal` on
-2026-10-22. M1/C1 is complete; M2/C2 is next.
+2026-10-22. M1/C1 and M2/C2 are complete; M3/C3 is next.
 
 **Approval:** the user's “Implement the plan.” on 2026-10-22 approves the complete
 proposal and its explicit C0 stop ready for `/goal`. This authorizes planning
@@ -263,7 +263,7 @@ transformation controls; no obsolete settings-button focus dependency.
 
 ```bash
 corepack pnpm --dir apps/web exec vitest run \
-  minimization movement-navigation molecular-edit-panel structure-viewer
+  minimization movement-navigation molecular-edit-panel viewer-presentation
 PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test \
   tests/e2e/modeling-toolbar.spec.ts \
   tests/e2e/viewer-transform-toolbar.spec.ts \
@@ -433,8 +433,8 @@ and the annotated runtime tag. Report cleanup only after verifying it remotely.
 | Checkpoint | Status |
 |---|---|
 | C0 | Complete: `b7197f27936cdcfc8eff652d2f2c8fe6d08f4125`, remotely verified. |
-| M1/C1 | Complete; passing checkpoint, evidence below. |
-| M2/C2 | Pending: shared three-launcher toolbar. |
+| M1/C1 | Complete: `00ce320`, passing checkpoint, evidence below. |
+| M2/C2 | Complete; passing checkpoint, evidence below. |
 | M3/C3 | Pending: final-version compatibility and release qualification. |
 | M3/C4 | Pending: verified PR/merge/release/issue close-out and cleanup. |
 
@@ -486,3 +486,41 @@ visible through existing notice ownership. No API/job/scientific/schema/migratio
 dependency/version change. Attempts1–2 are diagnostic; attempt3 predates the final
 quiet-notice correction and is not the final qualification. Next: C2 removes the
 extra launcher and consolidates chrome/geometry. Complete release gates remain C3/C4.
+
+
+### M2/C2 implementation notes — 2026-10-22
+
+Use the existing named group and scoped launcher styles; no toolbar framework or
+roving-tabindex keyboard model. A backwards-compatible optional tooltip prop on
+the existing IconButton keeps accessible names stable while explaining unavailable
+states and setup/shortcut behavior. Remove obsolete settings-launcher chrome and
+focus references. The one launcher remains revealable during publication as well
+as loading/running. The focused Vitest filter uses the actual existing
+viewer-presentation suite rather than the proposal's nonexistent structure-viewer
+filename; this is a validation-path correction, not reduced coverage.
+
+
+C2 preflight3 passes all6 new desktop/mobile cases without failures/skips/retries.
+Earlier preflights revealed the narrow-screen generic-tooltip suppression and an
+invalid test focus target (native canvas is not focusable). Apply the established
+viewer-toolbar tooltip exception and test focus on the real stable launcher.
+No production focus injection, artificial viewer target or weakened focus
+assertion is used. Eight retained native screenshots include32px desktop and44px
+mobile/320px layouts in both themes; light desktop and dark320px were visually
+inspected. The broader C2 gate is still required before completion.
+
+
+### M2/C2 complete — 2026-10-22
+
+[Final gate](../assets/compact-modeling-toolbar/c2-final-gate.json),
+[summary](../assets/compact-modeling-toolbar/c2-summary.json) and
+[full-diff self-review](../assets/compact-modeling-toolbar/c2-review.md) pass all7
+commands on unchanged source:61 focused/328 total frontend, lint/types/build/diff,
+77 browser cases/3 unchanged layout exclusions, zero failures/flakes/retries.
+Three launchers share one frame and32px/44px/16px geometry; actual native touch,
+keyboard, narrow themes, quick/AMBER and transform/Space/More/Help/Cancel/Undo/Redo
+and actual200%zoom pass. Six new cases execute without skips. Preflight diagnostics
+and eight native screenshots are retained separately. No API/job/schema/migration/
+dependency/version/scientific-model change. Next: C3 updates the old panel-based
+performance witness for quiet publication, adds final failure-path coverage,
+qualifies actual0.24 readers, prepares0.24.1 and runs the complete release gate.

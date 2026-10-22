@@ -1,5 +1,26 @@
 # V0.1 Requirement Evidence
 
+## Compact molecular toolbar (issue #93) — checkpoint qualification
+
+[C1](assets/compact-modeling-toolbar/c1-final-gate.json) passes26 focused/328 total
+frontend, lint/types/build/diff and27 native browser cases/3 existing layout
+exclusions. Hidden quick sessions apply once without opening the panel; capture,
+late-response/cancel/remount ownership, unchanged no-op behavior and retained AMBER
+workflows pass. [C2](assets/compact-modeling-toolbar/c2-final-gate.json) passes61
+focused/328 frontend and77 native browser cases/3 existing layout exclusions, with
+all static/build checks. Exact three-launcher order, one frame,32px desktop/44px
+coarse/narrow targets, centered16px icons, focus tooltips, keyboard/touch, both
+themes/320px and real200%zoom pass. A held real Apply response proves explicit
+reveal during publication without resubmission. Native gesture, editing and
+scientific assertions remain. No new skips, failures, flakes or retries.
+
+The [approved plan](plans/issue-93-compact-modeling-toolbar.md) links exact commands,
+source identities, lossless logs, screenshots and local implementer reviews.
+No scientific/API/job/schema/migration/dependency/version change is claimed here;
+versions remain0.24.0. Final0.24.1 actual-reader/performance and complete candidate/
+exact-master qualification remain pending. Checkpoint/preflight evidence is not
+release qualification.
+
 ## Automatic hydrogen editing (issue #92) — stable v0.24.0
 
 The [approved contract](plans/issue-92-automatic-hydrogen-editing.md) governs.

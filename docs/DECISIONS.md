@@ -5570,3 +5570,13 @@ panel visibility is suppressed. Failures disarm automatic publication and emit
 existing error notices; warning-bearing hidden results use D-089 persistent
 notices. Opening the existing run preserves capture/generation and does not
 resubmit. No new API, job, data schema or molecular authority is introduced.
+
+
+### D-143 launcher qualification note — issue #93 M2/C2, 2026-10-22
+
+The existing narrow-screen stylesheet hides generic tooltips. Reuse its
+viewer-toolbar tooltip exception for Edit and Minimize so keyboard-focus guidance
+remains available at320px; do not globally enable all tooltips or add a new tooltip
+system. Keep the current launcher revealable while its atomic publication response
+is pending. Native tests hold a real Apply response, verify preserved launcher
+focus/closed panel, then explicitly reveal the same session without resubmission.

@@ -3,11 +3,13 @@ import type { ButtonHTMLAttributes, ReactNode, Ref } from "react";
 
 interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   label: string;
+  tooltip?: string;
+  tooltipClassName?: string;
   children: ReactNode;
   ref?: Ref<HTMLButtonElement>;
 }
 
-export function IconButton({ label, children, className = "", ...props }: IconButtonProps) {
+export function IconButton({ label, tooltip = label, tooltipClassName = "", children, className = "", ...props }: IconButtonProps) {
   return (
     <Tooltip.Root>
       <Tooltip.Trigger asChild>
@@ -21,8 +23,8 @@ export function IconButton({ label, children, className = "", ...props }: IconBu
         </button>
       </Tooltip.Trigger>
       <Tooltip.Portal>
-        <Tooltip.Content className="tooltip" sideOffset={7}>
-          {label}
+        <Tooltip.Content className={`tooltip ${tooltipClassName}`} sideOffset={7}>
+          {tooltip}
           <Tooltip.Arrow className="tooltip-arrow" />
         </Tooltip.Content>
       </Tooltip.Portal>

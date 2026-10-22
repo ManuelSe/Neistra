@@ -146,7 +146,7 @@ function TransformControls({ movement, view, zoom, unavailableReason }: Controls
   const step = (dx: number, dy: number) => stepMovement(movement, view, dx, dy);
   useEffect(() => { if (!capture) setPanel(null); }, [capture]);
   if (!capture) return <section ref={bar} className="transform-launcher" aria-label="Transformation tools" data-movement-controls>
-    <MovementAction label="Transform selection" tooltip={unavailableReason ?? "Rotate and translate the selected atoms in the viewer"}
+    <MovementAction className="viewer-modeling-action" label="Transform selection" tooltip={unavailableReason ?? "Rotate and translate the selected atoms in the viewer"}
       aria-disabled={unavailableReason !== null} onClick={() => { if (!unavailableReason) movement.start(); }}>
       {movement.state.phase === "loading" ? <LoaderCircle size={16} className="movement-spinner" aria-hidden="true" /> : <Move3d size={16} aria-hidden="true" />}
     </MovementAction>

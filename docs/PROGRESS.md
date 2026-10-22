@@ -8,20 +8,24 @@ on `fix/issue-93-compact-modeling-toolbar`. The user's `/goal` authorizes
 implementation and verified delivery. [D-143](DECISIONS.md#d-143--compact-molecular-launchers-and-panel-independent-quick-execution)
 records the accepted scope.
 
-M1/C1 is complete: clicking Minimize opens setup; Ctrl+M runs and applies once
-without opening the panel. Polling/publication follow session ownership, not
-visibility. Existing notices retain errors/scientific warnings; ordinary no-op
-and external cancellation add no notices. Inspection/remount/late-response
-boundaries remain. [Final C1 gate](assets/compact-modeling-toolbar/c1-final-gate.json)
-passes26 focused/328 total frontend, lint/types/build/diff and27 native browser
-cases/3 existing layout exclusions, no failures/flakes/retries. Exact evidence and
-[self-review](assets/compact-modeling-toolbar/c1-review.md) are linked in the plan.
+M1/C1 (`00ce320`) and M2/C2 are complete. Three idle launchers (Transform, Edit,
+Minimize) share one compact frame and equal32px/44px targets/16px icons. Minimize
+opens setup; Ctrl+M runs without opening it. Existing session/cancellation,
+inspection, native transform and scientific ownership remain. Errors/warnings
+retain existing notices; no extra shortcut progress/Cancel/results UI is added.
 
-M2/C2 is next: remove the fourth launcher and unify toolbar styling/geometry;
-M3/C3–C4 retains compatibility and complete candidate/exact-master delivery gates.
-Current known limit: toolbar consolidation is not yet implemented. Target stable
-patch0.24.1; all five versions remain0.24.0, no API/schema/migration/dependency or
-scientific-model change. No external blocker; continue with C2.
+[C1 final](assets/compact-modeling-toolbar/c1-final-gate.json) passes328 frontend/
+27 native browser cases; [C2 final](assets/compact-modeling-toolbar/c2-final-gate.json)
+passes61 focused/328 frontend/77 native browser cases. Both pass lint/types/build/
+diff, with3 existing layout exclusions each, no failures/flakes/retries. The plan
+links exact commands, source identities, logs, screenshots and implementer reviews.
+
+M3/C3 is next: update quiet performance observation, final compatibility/failure
+coverage, version preparation and complete release gate. M3/C4 retains verified
+PR/review/normal merge, exact-master gate, tag/release, issue reply and cleanup.
+Known limitation: no final release/actual-reader qualification yet. Target patch
+0.24.1; all five versions remain0.24.0 and no API/schema/migration/dependency or
+scientific-model change. No external blocker; continue with C3.
 
 ### Previous delivery baseline — v0.24.0
 

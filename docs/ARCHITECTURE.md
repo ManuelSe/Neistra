@@ -576,3 +576,22 @@ also prevents old lazy entry/group picks from applying after leaving and returni
 to the same project. Anchors/gesture correlation never enter APIs, scenes, named
 selections, history, preferences or archives. See D-120–122 and
 [gesture guidance](SELECTION_GESTURES.md). No schema version or migration changes.
+
+
+## Molecular launcher and minimization visibility ownership (issue #93)
+
+The existing viewer composition presents three idle molecular launchers in one
+named group. Shared styles affect launchers only; the active transform strip
+retains its gesture, warning and Apply/Cancel ownership.
+
+Minimize explicitly opens setup or reveals the current running session. Ctrl+M
+submits the existing default quick model while preserving panel visibility and
+focus. The App command owner still arms and retires automatic publication; the
+render-local observer enables job/report/live reads for an owned live/applying
+session independently of panel visibility. Generation/project changes retire work;
+responsive renderer remounts do not. Inspection/reload never rearm publication.
+Errors and consequential scientific warnings reach existing application notices,
+without a progress stream or App subscription to optimizer frames. Original data,
+server validation and molecular history retain their existing authority. D-143 and
+the issue #93 feature plan govern the presentation correction; no durable field,
+API, job/plugin contract, migration or physical-model change is introduced.

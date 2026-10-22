@@ -121,9 +121,9 @@ export function MolecularEditPanel({ project, selection, busy, unavailable, onEd
     }
   };
   return <Tooltip.Provider><div className="molecular-edit-tools">
-    <IconButton ref={launcher} className="viewer-action-button" label="Edit molecule" title={unavailable ?? "Edit selected atoms"}
+    <IconButton ref={launcher} className="viewer-action-button viewer-modeling-action" label="Edit molecule" tooltip={unavailable ?? "Edit selected atoms"} tooltipClassName="viewer-toolbar-tooltip"
       aria-haspopup="dialog" aria-expanded={open} aria-disabled={Boolean(unavailable)}
-      onClick={event => { if (!unavailable) { useEditingStore.getState().setFocusRequested(!open && event.detail === 0); setOpen(!open); if (!open) onOpen?.(); } }}><Pencil size={16} /></IconButton>
+      onClick={event => { if (!unavailable) { useEditingStore.getState().setFocusRequested(!open && event.detail === 0); setOpen(!open); if (!open) onOpen?.(); } }}><Pencil size={16} aria-hidden="true" /></IconButton>
     {open ? createPortal(<section ref={panel} tabIndex={-1} className={`molecular-edit-panel${inspecting ? " is-inspecting" : ""}`} role="dialog" aria-modal="false" aria-label="Edit molecule"
       onKeyDown={event => { if (event.key === "Escape") { event.stopPropagation(); close(true); } }}>
       <div hidden={inspecting}>
