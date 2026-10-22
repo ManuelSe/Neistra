@@ -51,6 +51,12 @@ candidate is the source for the corrective PR. Publication still requires a norm
 merge, complete exact merged2 gate and verified tag/release/issue/audit/cleanup.
 
 
+Exact-master PR#118 is merged at83aae8c. Its first full gate passed Python/static/
+frontend/build but failed the existing5s responsiveness assertion (6.101s); repeats
+and actual0.24.0 diagnostics are retained in the feature plan. AC is restored;
+full fresh merged3 qualification is next. No threshold/host setting is changed.
+Tag/release/close-out/cleanup remain pending a complete exact-master pass.
+
 ### Previous delivery baseline — v0.24.0
 
 Issue [#92](https://github.com/ManuelSe/Neistra/issues/92) is implemented under its

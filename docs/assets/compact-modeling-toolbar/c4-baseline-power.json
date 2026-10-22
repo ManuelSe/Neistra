@@ -1,0 +1,11 @@
+{
+  "at": "2026-10-22T16:15:01.619229+00:00",
+  "values": {
+    "/sys/class/power_supply/ucsi-source-psy-USBC000:002/online": "0",
+    "/sys/class/power_supply/AC0/online": "0",
+    "/sys/class/power_supply/ucsi-source-psy-USBC000:001/online": "0",
+    "/sys/class/power_supply/BAT0/status": "Discharging",
+    "/sys/class/power_supply/BAT0/capacity": "25",
+    "/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq": "1178133"
+  }
+}

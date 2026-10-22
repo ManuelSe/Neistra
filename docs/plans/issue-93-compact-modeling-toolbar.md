@@ -722,3 +722,25 @@ finding remains in implementer self-review. No independent approval is claimed.
 Candidate2 is historical; merged1 was intentionally interrupted. This corrected
 candidate is the source for the corrective PR. Publication still requires a normal
 merge, complete exact merged2 gate and verified tag/release/issue/audit/cleanup.
+
+
+### Exact-master qualification diagnostics — 2026-10-22
+
+Corrective [PR#118](https://github.com/ManuelSe/Neistra/pull/118) was normally merged
+at `83aae8c36edc01abedfd7e4f98d9900774ce1d13`. The clean exact-master
+[merged2 gate](../assets/compact-modeling-toolbar/c4-merged2-gate.json) passed frozen
+installs, fresh0014, static/type/build,1248 Python,331 frontend and8 supervisor
+tests. Its browser run failed the unchanged representative-project5s interaction
+budget at6.101s and was stopped; it is not release qualification. A focused repeat
+measured6.234s. Actual released0.24.0 also failed the same unchanged check at7.678s
+on the then-discharging host; this supports a shared capacity concern but does not
+establish its cause or waive the gate. The same final source passed earlier at
+3.758s in complete candidate3. Both exact-master reader directions and version/
+compatibility audits subsequently pass independently; these do not convert the
+failed full gate into a pass. All diagnostic logs/traces/recipes are retained.
+
+The user reported AC unavailable, then restored AC and requested limited focus
+on responsiveness. A fresh unchanged focused check measured5.048s; retain the
+failure without further isolated timing investigation. Run fresh complete
+merged3 qualification on the same exact master with isolated stores/ports and
+unchanged thresholds, host settings and source. No tag/release has been published.
