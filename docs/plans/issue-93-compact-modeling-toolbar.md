@@ -591,3 +591,26 @@ Release-preparation focused validation passes35 archive integration cases at fin
 harness audit and evidence-runner smoke pass; local documentation links and
 `git diff --check` pass. This qualifies preparation only. Next: commit
 `chore(release): prepare v0.24.1`, freeze source and run the complete20-command gate.
+
+
+### C3 final-review focus correction — 2026-10-22
+
+Full-diff self-review found Style's close autofocus could reclaim focus after
+explicit Minimize activation. Extend D-093's existing handoff guard, with no new
+focus mechanism. [Keyboard fail-first](../assets/compact-modeling-toolbar/c3-handoff-red2-gate.json)
+reproduces the original mobile failure; desktop happened to retain focus.
+[Passing correction](../assets/compact-modeling-toolbar/c3-handoff-green2-gate.json)
+passes28 focused/331 frontend, lint/types/build/diff and all10 native desktop/mobile
+toolbar cases, zero failures/skips/flakes/retries. The regression checks panel and
+next-Tab focus plus unchanged revision. Earlier pointer-based attempts are
+diagnostic: desktop Style geometry can cover the launcher, so keyboard activation
+tests the intended explicit handoff without forcing pointer events.
+
+Candidate1 was intentionally interrupted during browsers to address this finding.
+It passed frozen installs/migration/static,1248 Python/331 frontend/8 supervisor
+and build, but its partial browser run does not qualify a release. The interrupted
+export case is not a completed failure. Retained logs/manifests are diagnostic.
+A fresh isolated candidate2 recipe repeats all20 commands on committed, clean,
+fixed source, including both actual0.24.0 reader directions. No gate is waived.
+The [full-diff self-review](../assets/compact-modeling-toolbar/c3-review.md) records
+both consequential corrections and requires final qualification before PR.

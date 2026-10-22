@@ -704,7 +704,7 @@ export function StructureViewer({
           } : undefined}
           onLoadPocketStructures={onLoadPocketStructures}
           open={styleDialogOpen}
-          restoreFocus={surfaceProjectId !== project.id && !editOpen}
+          restoreFocus={surfaceProjectId !== project.id && !editOpen && !minimizationPreview.open}
           selection={selection}
           entries={project.entries}
           structures={styleStructures}

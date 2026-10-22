@@ -5603,3 +5603,13 @@ continues to fail, retain the original diagnostic and Jobs record. Native inject
 503 tests verify cancellation, a closed panel and unchanged canonical data; unit
 cases retain late-result, refusal and Apply-rejection guards. No solver, API,
 schema, worker policy or result validity change is introduced.
+
+
+### D-143 explicit tool focus handoff — issue #93 C3 review, 2026-10-22
+
+Apply D-093's existing restoration suppression to Style → Minimize handoff, as
+already done for Style → Edit/Surfaces. The closing Style palette must not reclaim
+its previous trigger after explicit Minimize setup acquires focus. No timer,
+persisted state or new focus framework. A native keyboard regression reproduces
+the original mobile failure and passes in both layouts with the additional owner
+guard; panel focus, next Tab target and unchanged project revision are asserted.

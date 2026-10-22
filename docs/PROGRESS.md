@@ -30,7 +30,10 @@ Known limitation: no final release/actual-reader qualification yet. All five
 versions are prepared at0.24.1; backend changes are version metadata only, with no
 API/schema/migration/dependency or scientific-model change. Exact20-command
 candidate/master recipes and release notes are prepared. No external blocker;
-continue with the clean final-version candidate gate.
+continue with the clean final-version candidate2 gate. Final-review Style →
+Minimize focus handoff is corrected under D-093; all10 native toolbar cases and
+331 frontend/static/build checks pass. Candidate1 was intentionally interrupted
+to fix it and is diagnostic only; complete20-command qualification is restarted.
 
 ### Previous delivery baseline — v0.24.0
 

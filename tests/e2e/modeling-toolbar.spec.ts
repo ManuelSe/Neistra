@@ -126,3 +126,19 @@ test("retires a quiet run after status transport failure without a late canonica
   expect((await current(request, p.id)).revision).toBe(p.revision);
   expect(await structures(request, p)).toEqual(before);
 });
+
+test("hands Style selection focus to explicit minimization setup", async ({ page, request }, info) => {
+  test.setTimeout(60000);
+  const p = await prepare(page, request, ["tests/fixtures/quick-minimization/New_molecule.sdf"], "Style Minimize handoff");
+  await select(page, [{ structure_id: p.entries[0].id, atom_id: 1 }], info.project.name === "mobile-chromium");
+  const style = page.getByRole("button", { name: "Style selection", exact: true });
+  await style.focus(); await page.keyboard.press("Enter");
+  await expect(page.getByRole("dialog", { name: "Style selection", exact: true })).toBeVisible();
+  const minimize = page.getByRole("button", { name: "Minimize selection", exact: true });
+  await minimize.focus(); await page.keyboard.press("Enter");
+  await expect(page.getByRole("dialog", { name: "Style selection", exact: true })).toBeHidden();
+  await expect(panel(page)).toBeFocused();
+  await page.keyboard.press("Tab");
+  await expect(panel(page).getByRole("button", { name: "Close minimization", exact: true })).toBeFocused();
+  expect((await current(request, p.id)).revision).toBe(p.revision);
+});
