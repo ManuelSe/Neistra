@@ -2,8 +2,10 @@
 
 ## 1. Status, outcome and authority
 
-**Status:** approved implementation in progress. M1–M5 are implemented and candidate-qualified; PR/review/merge and C6 verified
-release delivery remain pending. C0 was committed and remotely verified
+**Status:** approved scope implemented, merged and released as stable0.24.0.
+M1–M5 and C6 runtime/publication verification are complete. Final documentation
+integration and actual delayed cleanup are audited at the linked issue close-out.
+C0 was committed and remotely verified
 at `15705d9c57af285f5b15b33d7a9bf421d072bae6`.
 
 **Approval:** the user's “Implement the plan.” on 2026-10-22 approves the complete
@@ -995,3 +997,59 @@ preserving every diagnostic byte and original member path. Final candidate3
 evidence remains separate and individually accessible. Production/test source
 identities remain identical; no rerun is implied or required by this documentation
 packaging change. This resolves the diff-file limit without dropping evidence.
+
+
+### M5/C6 verified publication — 2026-10-22
+
+[PR#115](https://github.com/ManuelSe/Neistra/pull/115) normally merged at `afea0f19efc4cdfb7d1ee497df4a670a1e73a14c`, preserving all passing checkpoint
+commits. The PR tree equals the reviewed head43e06cb. Fresh remote policy inspection
+found no required approvals/status checks, branch protection or rulesets, and no
+unresolved review threads. Codex review was requested but did not return before
+merge. [Premerge audit](../assets/automatic-hydrogen-editing/c6-premerge-audit.json)
+and the full-diff implementer self-review document this honestly; no independent
+approval or override is claimed. GitHub's262-file diff is available after lossless
+packaging of interrupted diagnostics; source identities are unchanged.
+
+The [exact merged-master gate](../assets/automatic-hydrogen-editing/c5-merged-1-gate.json)
+passes all20 commands with1247 Python,321 frontend,8 supervisor,306 browser/60
+unchanged documented layout/timing exclusions, zero failures/flakes/retries/Python
+or native scientific skips. [Summary](../assets/automatic-hydrogen-editing/c5-merged-1-summary.json)
+verifies every lossless log hash and567 runtime/test/patch/lock identities equal to
+candidate3 (digest2cc7bd9f95acc647b8a9ae428b1f40aa66ab5f8e791e675dfeb268e5645fb2e9). Frozen installs, fresh0014,
+static/types/build, native science/performance/movement/zoom/accessibility and actual
+tagged0.23.0/final0.24.0 readers pass in both directions with exact data/history/
+originals/appearance/scenes/jobs/archives. All approved milestones are verified. The merged gate began on AC and later
+continued on battery; power samples and the existing profile are retained. All
+performance thresholds passed unchanged.
+
+All five authoritative versions are0.24.0. Actual additive public API/scientific and
+visible editing capability supports a stable minor; no version collision, dependency
+upgrade, schema change or new migration exists. Head0014 and2/1 schemas remain.
+Keep complete managed-data backups and matching client/API; local H geometry is
+unoptimized and does not establish protonation/pKa/preparation. Broader chemistry
+is tracked in#114; existing#83/#52/#71 retain their scope.
+
+[Publication audit](../assets/automatic-hydrogen-editing/c6-publication.json) verifies
+the annotated exact-runtime tag [v0.24.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.24.0), stable latest release/full notes,
+public downloaded verification ZIP SHA256 `f846676af0eb5c7d1d3702321e548c111449bf28d3f46f4d08dd5c4b114b308f`, CRC and all
+4329 internal member hashes. The bundle includes exact released source,
+candidate/merged evidence, both real-reader datasets and qualifier scripts.
+The [closed issue reply](https://github.com/ManuelSe/Neistra/issues/92#issuecomment-6338552997) reports scope, PR, release, evidence, compatibility,
+limitations and follow-ups. The runtime tag is immutable.
+
+This substantive documentation-audit checkpoint records completed runtime delivery;
+it does not claim its own future merge or deletion has already happened. After
+normal review/merge of this docs-only audit, verify source equality on default
+master and only then remove the feature branch and task-owned old-reader worktree.
+Append actual final refs/clean-tree evidence to the linked reply. This follows the
+approved post-publication audit convention and avoids a self-referential commit.
+
+
+The final docs-only checkpoint passes `.venv/bin/python /tmp/neistra-92-docs-check.py`.
+[Exact script](../assets/automatic-hydrogen-editing/c6-documentation-check.py.txt) and
+[receipt](../assets/automatic-hydrogen-editing/c6-documentation-check.json) verify
+new relative links, JSON/gzip integrity, both complete gate/log/retry audits, all
+five versions/locked dependencies, production harness exclusion, unchanged global
+PLAN, whitespace and all567 runtime/test/patch/lock identities. The complete local
+documentation diff was reviewed; no consequential finding remains. Runtime tests
+are covered by the identical exact-merge source; no runtime change is made here.

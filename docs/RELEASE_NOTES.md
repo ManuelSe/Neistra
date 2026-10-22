@@ -2,8 +2,11 @@
 
 ## 0.24.0 - 2026-10-22 - Automatic hydrogen editing
 
-Stable v0.24.0 candidate-qualified. Publication is pending PR review/merge and
-complete exact merged-master qualification; no tag or release is claimed yet.
+Published stable [v0.24.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.24.0) from exact verified runtime
+`afea0f19efc4cdfb7d1ee497df4a670a1e73a14c` via [PR#115](https://github.com/ManuelSe/Neistra/pull/115).
+[Publication audit](assets/automatic-hydrogen-editing/c6-publication.json) verifies
+the annotated tag, public bundle and [issue close-out](https://github.com/ManuelSe/Neistra/issues/92#issuecomment-6338552997); final documentation
+integration/ref cleanup follows there after verification.
 
 **Automatic editing and compact controls.** Ordinary atom, fragment, element,
 charge and bond edits maintain supported changed/new heavy sites and immediate
@@ -54,14 +57,16 @@ portable Undo history. SemVer is minor because this adds public scientific/API
 and visible editing capability while retaining old request/data contracts; patch,
 major and prerelease increments do not fit this qualified scope.
 
-**Verification.** Final candidate3 passes all20 complete release commands:
+**Verification.** Both final candidate3 and exact merged master pass all20 complete release commands:
 1247 Python,321 frontend,8 supervisor,306 browser/60 unchanged documented layout/
 timing exclusions, zero failures/flakes/retries/native scientific skips. Actual
 0.23.0/final0.24.0 readers retain six new cases forward and a rich three-entry
 project reverse. All567 source/test/patch/lock identities and lossless logs verify.
-Cold small/pocket/18k native Apply0.980/2.170/3.672s, first actual frame722ms and
-Cancel49.8ms retain the existing budgets; recorded machine/profile context applies.
-Exact merged-master and publication verification remain required. See the
+Candidate cold small/pocket/18k native Apply0.980/2.170/3.672s, first actual frame722ms
+and Cancel49.8ms; merged master0.928/2.440/3.499s, frame685ms and Cancel51.7ms.
+Existing budgets pass unchanged. The merged gate began on AC and later continued
+on battery; exact machine/profile/power samples are retained.
+Exact merged-master and public publication verification pass. See the
 [approved plan](plans/issue-92-automatic-hydrogen-editing.md) and
 [verification](VERIFICATION.md). No release qualification is inferred from preflight.
 

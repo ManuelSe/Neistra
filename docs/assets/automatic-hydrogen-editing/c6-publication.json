@@ -1,0 +1,133 @@
+{
+  "status": "runtime release and issue closeout verified; final docs/ref cleanup audit follows at linked issue reply",
+  "issue": 92,
+  "plan": "docs/plans/issue-92-automatic-hydrogen-editing.md",
+  "runtime_pr": {
+    "headRefOid": "43e06cba6ddae083076a2f7c3fb1fad0693f659b",
+    "mergeCommit": {
+      "oid": "afea0f19efc4cdfb7d1ee497df4a670a1e73a14c"
+    },
+    "mergedAt": "2026-10-22T09:26:28Z",
+    "number": 115,
+    "state": "MERGED",
+    "url": "https://github.com/ManuelSe/Neistra/pull/115",
+    "strategy": "normal merge preserving checkpoint history"
+  },
+  "tag": {
+    "name": "v0.24.0",
+    "type": "annotated",
+    "object": "0ffa5788da8ade8b22e5233f46ef22f7019b865c",
+    "commit": "afea0f19efc4cdfb7d1ee497df4a670a1e73a14c",
+    "remote_ref_and_peeled_commit_verified": true
+  },
+  "release": {
+    "id": 420582911,
+    "html_url": "https://github.com/ManuelSe/Neistra/releases/tag/v0.24.0",
+    "tag_name": "v0.24.0",
+    "target_commitish": "afea0f19efc4cdfb7d1ee497df4a670a1e73a14c",
+    "draft": false,
+    "prerelease": false,
+    "published_at": "2026-10-22T10:27:22Z"
+  },
+  "release_notes_sha256": "dcbc2e72d7c90adfbe30617d4fb8cfbea89a920aecaec2afc8f54a3fa0d85254",
+  "verification_bundle": {
+    "filename": "neistra-v0.24.0-verification.zip",
+    "path": "/datadisk/dev/.neistra-tools/neistra-v0.24.0-verification.zip",
+    "size": 190445571,
+    "sha256": "f846676af0eb5c7d1d3702321e548c111449bf28d3f46f4d08dd5c4b114b308f",
+    "members": 4330,
+    "internal_hashes": 4329,
+    "crc_verified": true,
+    "qualification": {
+      "issue": 92,
+      "runtime_commit": "afea0f19efc4cdfb7d1ee497df4a670a1e73a14c",
+      "candidate_commit": "8510c40cfefe44a560698d4de7892a379d07ab94",
+      "source_identity_count": 567,
+      "source_sha256": "2cc7bd9f95acc647b8a9ae428b1f40aa66ab5f8e791e675dfeb268e5645fb2e9",
+      "all_20_commands_pass_both_phases": true,
+      "previous_reader": "actual tagged 0.23.0",
+      "dependency_upgrade": false,
+      "migration_head": "0014",
+      "python": 1247,
+      "frontend": 321,
+      "supervisor": 8,
+      "browser": 306,
+      "browser_exclusions": 60,
+      "failures": 0,
+      "flakes": 0,
+      "retries": 0,
+      "native_scientific_skips": 0
+    },
+    "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.24.0/neistra-v0.24.0-verification.zip",
+    "asset_id": 665491852,
+    "remote_digest": "sha256:f846676af0eb5c7d1d3702321e548c111449bf28d3f46f4d08dd5c4b114b308f",
+    "public_published_download_verified": true,
+    "downloaded_zip_crc_and_all_internal_hashes_verified": true
+  },
+  "issue_closeout": {
+    "id": 6338552997,
+    "url": "https://github.com/ManuelSe/Neistra/issues/92#issuecomment-6338552997",
+    "verified_body_sha256": "91a1fe1d3778e938f02f244c6021bdf8ca26c0d20319da7a9302914c6b11a466",
+    "final_reference_audit": "Final docs integration and actual branch/worktree cleanup are appended to this reply after verification."
+  },
+  "qualification": {
+    "issue": 92,
+    "runtime_commit": "afea0f19efc4cdfb7d1ee497df4a670a1e73a14c",
+    "candidate_commit": "8510c40cfefe44a560698d4de7892a379d07ab94",
+    "source_identity_count": 567,
+    "source_sha256": "2cc7bd9f95acc647b8a9ae428b1f40aa66ab5f8e791e675dfeb268e5645fb2e9",
+    "all_20_commands_pass_both_phases": true,
+    "previous_reader": "actual tagged 0.23.0",
+    "dependency_upgrade": false,
+    "migration_head": "0014",
+    "python": 1247,
+    "frontend": 321,
+    "supervisor": 8,
+    "browser": 306,
+    "browser_exclusions": 60,
+    "failures": 0,
+    "flakes": 0,
+    "retries": 0,
+    "native_scientific_skips": 0
+  },
+  "review": {
+    "checked_at": "2026-10-22T09:26:19.058288+00:00",
+    "head": "43e06cba6ddae083076a2f7c3fb1fad0693f659b",
+    "base": "54533f10df4d8fff763483356a58c4573a445453",
+    "pr": 115,
+    "local_self_review": "docs/assets/automatic-hydrogen-editing/c5-review.md",
+    "codex_review_requested": "https://github.com/ManuelSe/Neistra/pull/115#issuecomment-6337289461",
+    "independent_review_returned": false,
+    "required_remote_checks_or_approvals": false,
+    "unresolved_review_threads_at_merge": 0,
+    "override_used": false,
+    "normal_merge_enabled": true,
+    "branch_protected": false,
+    "rulesets": [],
+    "review_results": [],
+    "inline_comments": [],
+    "status_count": 0,
+    "check_run_count": 0,
+    "candidate_gate": "20/20 commands passed; 1247 Python/321 frontend/8 supervisor/306 browser and 60 documented exclusions; zero failures/flakes/retries/scientific skips",
+    "source_identity_count": 567,
+    "source_unchanged": true,
+    "github_diff_files": 262,
+    "version": "0.24.0",
+    "publication_requires_exact_merged_master_gate": true
+  },
+  "compatibility": {
+    "database_head": "0014",
+    "normalized_selection_schema": 1,
+    "project_viewer_archive_schema": 2,
+    "new_migration": false,
+    "dependency_version_upgrade": false
+  },
+  "followups": [
+    114,
+    83,
+    52,
+    71
+  ],
+  "feature_branch": "feat/issue-92-automatic-hydrogen-editing",
+  "cleanup_order": "Delete only after verified runtime merge, tag, public release/bundle, initial issue reply and documentation audit. Actual final state follows externally; runtime tag remains fixed."
+}

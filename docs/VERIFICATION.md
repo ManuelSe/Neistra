@@ -1,6 +1,6 @@
 # V0.1 Requirement Evidence
 
-## Automatic hydrogen editing (issue #92) — checkpoint evidence
+## Automatic hydrogen editing (issue #92) — stable v0.24.0
 
 The [approved contract](plans/issue-92-automatic-hydrogen-editing.md) governs.
 [C1 final](assets/automatic-hydrogen-editing/c1-final-gate.json) passes58 Python,
@@ -28,8 +28,8 @@ routing, hidden H, exact history/originals and delayed-response ownership pass.
 passes107 focused Python/321 frontend/14 native and actual-tagged0.23.0/current
 module checks. Six new edit cases and the reverse rich project retain exact
 conformers/history/appearance/scenes/surfaces/jobs/originals/counters/archives.
-The development version is still0.23.0 here. Complete final-version candidate and
-exact-master qualification remains pending; preflight is not release qualification.
+The development version is still0.23.0 here. At preflight, complete final-version candidate and
+exact-master qualification remained pending; preflight is not release qualification.
 A later mirror-conformer counterexample required +H-only strict stereo consistency.
 [Fail-first](assets/automatic-hydrogen-editing/c5-stereo-red-gate.json) and
 [passing correction](assets/automatic-hydrogen-editing/c5-stereo-green-gate.json)
@@ -44,7 +44,23 @@ flakes/retries/Python or native scientific skips. Actual final0.24.0/tagged0.23.
 readers pass both directions, all567 source identities/log hashes verify, and
 performance budgets remain unchanged. [Summary](assets/automatic-hydrogen-editing/c5-candidate-3-summary.json)
 and [local full-diff review](assets/automatic-hydrogen-editing/c5-review.md) retain
-proof; exact merged-master qualification and publication are still pending.
+proof. These candidate results preceded the exact-master and publication proof below.
+
+Exact released master `afea0f19efc4cdfb7d1ee497df4a670a1e73a14c` repeats every20-command gate with the same
+1247 Python/321 frontend/8 supervisor/306 browser and60 unchanged documented
+exclusions, zero failures/flakes/retries/Python or native scientific skips.
+[Merged evidence](assets/automatic-hydrogen-editing/c5-merged-1-gate.json) and
+[summary](assets/automatic-hydrogen-editing/c5-merged-1-summary.json) verify all567
+source/patch/lock identities equal candidate3 and all lossless logs. Both actual
+0.23.0↔0.24.0 reader directions retain data/history/originals/archives; unchanged
+native performance, chemistry, accessibility and actual zoom gates pass.
+[Review audit](assets/automatic-hydrogen-editing/c6-premerge-audit.json) records local
+self-review and requested/unreturned Codex review, with no protection/check/review
+override. [Publication](assets/automatic-hydrogen-editing/c6-publication.json)
+verifies exact annotated tag, stable latest release/full notes and public downloaded
+ZIP SHA256/CRC/all4329 internal hashes. The [issue reply](https://github.com/ManuelSe/Neistra/issues/92#issuecomment-6338552997)
+records final docs/ref cleanup after actual verification. All five versions0.24.0;
+no dependency upgrade/new migration/schema change; runtime tag remains fixed.
 
 ## Quick local minimization (issue #110) — stable v0.23.0
 

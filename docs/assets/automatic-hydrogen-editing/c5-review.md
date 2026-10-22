@@ -116,3 +116,16 @@ preserving every diagnostic byte and original member path. Final candidate3
 evidence remains separate and individually accessible. Production/test source
 identities remain identical; no rerun is implied or required by this documentation
 packaging change. This resolves the diff-file limit without dropping evidence.
+
+
+## Verified delivery conclusion
+
+PR#115 normally merged atafea0f19efc4cdfb7d1ee497df4a670a1e73a14c with the reviewed
+head tree unchanged. The complete exact-master gate repeats all20 commands and
+candidate counts with zero failures/flakes/retries/scientific skips. Both reader
+directions, all567 source identities and lossless log hashes verify. Codex was
+requested but did not return; the premerge audit records no required approval/check
+or unresolved review thread and no override. Stablev0.24.0 and its public download
+are verified in [publication evidence](c6-publication.json). This docs-only closing
+audit preserves the released runtime; final actual refs/cleanup are appended to the
+linked issue reply after verification. No independent review is claimed.
