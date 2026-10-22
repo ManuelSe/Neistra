@@ -1,5 +1,74 @@
 # Neistra Release Notes
 
+## 0.24.0 - 2026-10-22 - Automatic hydrogen editing
+
+Release preparation for stable v0.24.0. Publication is pending complete candidate
+and exact merged-master qualification; no tag or release is claimed yet.
+
+**Automatic editing and compact controls.** Ordinary atom, fragment, element,
+charge and bond edits maintain supported changed/new heavy sites and immediate
+canonical neighbors. Heavy deletion includes canonically attached terminal H,
+including hidden H. Explicit H deletion is not immediately refilled and does not
+infer deprotonation. Unsupported maintenance keeps the requested direct draft with
+diagnostics. The UI has no hydrogen policy, completion/count/geometry/orientation
+controls or Build H launcher. Create/break icons, bounded order −/+, an aromatic
+toggle, current-order indication and secondary Advanced controls preserve direct
+unknown/invalid draft editing. Optional bond preview remains. Focus tooltips,
+keyboard ownership,44px touch controls, both themes,320px and actual200%zoom are
+covered by checkpoint evidence.
+
+**One-click +H.** One selected heavy atom receives exactly one explicit H per
+click, with automatic placement and any qualified parent-charge transition in one
+Undo/Redo action. Finite C/N/O/S rules include NH3→NH4+, H2O→H3O+, thiolate→thiol
+and ordinary symmetric sulfide→sulfonium. Saturated carbon and unsupported further
+O/S/N additions refuse without partial state or consumed identity. Every conformer
+must succeed and the parent stays selected. RDKit acceptance alone is not admission.
+
+**Scientific limits.** Local ideal geometry is unoptimized; neither automatic
+maintenance nor +H predicts pKa, physiological protonation, tautomers or favorable
+energy. Unknown/protected isotope/radical identity, unsupported chemistry and
+undetermined stereo retain/refuse according to the operation contract. Charge
+transitions require ordinary nonaromatic, nonconjugated single-bond surroundings;
+sulfur is bounded single-bond chemistry. Missing/display-only connectivity does
+not authorize cascades, and bridging/global orphan cleanup is not inferred.
+Historic archives may retain data without sufficient identity for new +H authoring.
+
+**Appearance and persistence.** Attached additions inherit their heavy attachment
+atom's explicit representation/color memberships; new H use actual parent ancestry.
+Element tokens remain dynamic element colors. Inheritance and deleted-reference
+pruning publish atomically with molecular history. Visibility, isolation, local H
+preferences, independent surfaces and named selections retain their owners; named
+scenes remain snapshots. Original uploads, unrelated/heavy coordinates, conformers,
+monotonic identities, exact Undo/Redo and native archives are retained.
+
+**API, migration and rollback.** Stable minor0.24.0 adds explicit automatic policy
+and `hydrogens.add_one` on existing routes. Omitted/preserve, additive
+complete_if_possible, bond reconcile_if_possible and legacy count/completion HTTP
+operations retain their meanings. New authoring needs matching client/API. No
+new dependency, Alembic revision or persisted-schema change: head0014,
+project/viewer/archive2, normalized/selection1. Keep complete managed-data backups;
+existing downgrade guards remain. Native archives retain current state and omit
+portable Undo history. SemVer is minor because this adds public scientific/API
+and visible editing capability while retaining old request/data contracts; patch,
+major and prerelease increments do not fit this qualified scope.
+
+**Verification.** C1–C4 and the C5 actual-reader preflight pass their documented
+checks. Complete final-version candidate/exact-master gates, performance results
+and publication verification will be recorded here after they pass. See the
+[approved plan](plans/issue-92-automatic-hydrogen-editing.md) and
+[verification](VERIFICATION.md). No release qualification is inferred from preflight.
+
+**Scope and follow-up.** The issue was narrowed to bounded local maintenance and
+finite +H admission within existing transactions. Permanent user-H locks,
+renderer-derived molecule-wide styling, global inferred orphan cleanup and
+replacement of legacy API meanings were rejected. Broader aromatic/resonance,
+conjugated, hypervalent or other-element chemistry is tracked in
+[#114](https://github.com/ManuelSe/Neistra/issues/114). Isotope/radical authoring
+[#83](https://github.com/ManuelSe/Neistra/issues/83), chemistry assignment
+[#52](https://github.com/ManuelSe/Neistra/issues/52) and broader building
+[#71](https://github.com/ManuelSe/Neistra/issues/71) remain separate. This release
+implements the approved outcome, not every speculative request in the issue.
+
 ## 0.23.0 - 2026-10-21 - Quick selection and pocket relaxation
 
 Published stable [v0.23.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.23.0).

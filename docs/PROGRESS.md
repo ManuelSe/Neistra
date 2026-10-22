@@ -22,15 +22,15 @@ linked in the detailed feature plan.
 
 Known limits: bounded unoptimized H chemistry and existing scene/visibility owners.
 [Broader chemistry#114](https://github.com/ManuelSe/Neistra/issues/114) is created and
-remotely verified; #83/#52/#71 retain their scope. All five versions remain0.23.0,
-no migration/dependency change; planned stable minor0.24.0. No blocker. Next action:
+remotely verified; #83/#52/#71 retain their scope. All five authoritative versions are being prepared as0.24.0,
+with no migration or dependency change; stable minor impact remains justified. No blocker. Next action:
 C4 is pushed at aeaa690. [C5 preflight](assets/automatic-hydrogen-editing/c5-preflight1-gate.json)
 passes107 focused Python/321 frontend/14 native and actual0.23.0↔current reader
 checks: six new cases forward, the rich three-entry baseline reverse, exact data/
 history/appearance/scenes/surfaces/jobs/originals/counters/archives. A local review
 fix restricts numeric bond stepping to1/2/3, retaining explicit Advanced assignment.
-Next: commit compatibility qualification, prepare0.24.0 and run complete final-version
-candidate/released-master gates before PR/review/merge/release. Delivery remains pending.
+Compatibility checkpoint df60afe is committed. Next: finish the0.24.0 release-preparation
+commit, then complete final-version candidate/exact-master gates and PR/review/merge/release. Delivery remains pending.
 
 ### Previous delivery baseline — v0.23.0
 
@@ -2764,9 +2764,11 @@ Results:
 
 ## Blockers
 
-Release blocked by reproduced pocket repair distortion; no external blocker.
+No external blocker for issue#92. Complete final-version candidate and exact
+merged-master qualification, PR review and verified release delivery remain required.
 
 ## Next action
 
-Correct the repair objective and geometry acceptance, add causal scientific/native
-regressions, then repeat full candidate and exact-master qualification before release.
+Complete the0.24.0 release-preparation commit and frozen candidate gate, perform
+final full-diff review, then deliver through the approved PR/merge/release audit
+workflow. Keep broader chemistry in#114 and retain existing scientific boundaries.

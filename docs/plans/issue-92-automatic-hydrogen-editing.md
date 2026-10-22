@@ -870,3 +870,27 @@ ownership and legacy callers; final source/version release review remains pendin
 All source/decompressed-log hashes verify. Next: commit this coherent compatibility
 checkpoint, prepare all five0.24.0 version sources/release notes, and run complete
 frozen candidate qualification before PR creation.
+
+### C5 final-version release preparation — 2026-10-22
+
+Compatibility checkpoint df60afe is committed. Origin/master and latest stable
+v0.23.0 remain unchanged after fetch/remote verification; v0.24.0 is unused.
+Prepare all five authoritative sources as0.24.0, add0.23.0 archive-provenance
+coverage and update release notes. Locked dependency resolution remains identical
+to inspected base after the root package version is normalized. No migration or
+schema change. The stable minor decision remains correct for new public API,
+scientific operation and UI behavior with existing request/data compatibility.
+
+The release-preparation commit is `chore(release): prepare v0.24.0` after focused
+archive/version checks pass. A complete fresh-data candidate gate, native scientific
+qualification without skips, actual0.23.0↔final0.24.0 readers, unchanged performance
+budgets and final full-diff review must pass before creating the PR. No tag,
+release, merge or completion is claimed by this preparation.
+
+Release-preparation focused evidence: `.venv/bin/python /tmp/neistra-92-versions.py`
+confirms all five0.24.0 sources, unchanged locked dependency resolution and no native
+observation harness in production assets. `MOLWEAVE_DATA_DIR=/tmp/neistra-issue92-release-prep
+.venv/bin/uv run --frozen pytest tests/integration/test_archive_roundtrip.py -q`
+passes34 cases in18.30s. `.venv/bin/uv run ruff check .` and `git diff --check` pass.
+The complete candidate gate will archive the version auditor/qualifier and repeat
+all checks on final source; these focused checks do not authorize publication.
