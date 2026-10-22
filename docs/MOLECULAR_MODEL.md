@@ -120,3 +120,26 @@ protected; a genuinely new underdetermined stereocentre is left for explicit man
 building. Geometry/clash warnings are not optimization or preparation certificates.
 One molecular command owns the bond and accepted H changes, reference reconciliation
 and exact artifact Undo/Redo; identity floors remain monotonic.
+
+## Automatic direct-edit maintenance (issue #92, C1)
+
+An explicit automatic model-edit policy extends local maintenance to atom/fragment
+placement, deletion, element changes and assigned charge changes as well as bonds.
+It consumes existing completion/reconciliation services, retaining the literal
+requested draft when chemistry, source protection, stereo, conformer geometry or
+budgets prevent maintenance. A single site is atomic across conformers; independent
+sites can succeed with a partial report. New generated sites have their own actual
+identity evidence rather than requiring an identity in the preceding artifact.
+
+Explicit heavy deletion includes canonically attached terminal H. This is deliberate
+deletion of attached material, including represented labels, not permission for
+inferred maintenance to modify protected H. Unknown connectivity and nonterminal
+ownership remain uncertain. Explicit H deletion/H-endpoint edits preserve their
+affected parent literally for that operation, without guessing deprotonation.
+Routine maintenance retains assigned charges; the new policy permits bounded
+single-bond S-1/S0/S+1 counts without changing legacy chemistry profiles.
+
+No persistent H lock/count constraint is introduced. Other supported edited sites
+may be maintained, but no recursive global saturation occurs. Existing API defaults,
+immutable originals, heavy/unrelated coordinates, monotonically allocated identity,
+generic molecular history and structural schema versions remain authoritative.

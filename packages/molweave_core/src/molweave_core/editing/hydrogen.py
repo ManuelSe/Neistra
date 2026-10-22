@@ -19,7 +19,7 @@ from scipy.spatial import cKDTree  # type: ignore[import-untyped]
 
 from molweave_core.adapters.rdkit_common import normalized_to_mol
 from molweave_core.editing.geometry import covalent_length, local_frame
-from molweave_core.hydrogen_protection import ordinary_generated
+from molweave_core.hydrogen_protection import ordinary_generated, protection_facts
 from molweave_core.molecular import (
     Atom,
     Bond,
@@ -273,13 +273,21 @@ class HydrogenBuilder:
         assert error is not None
         raise error
 
-    def automatic_configuration(self, target: int) -> tuple[int, Geometry]:
+    def automatic_configuration(
+        self, target: int, *, bounded_sulfur: bool = False
+    ) -> tuple[int, Geometry]:
         atom = self.atoms[target]
         if atom.formal_charge is None:
             raise UnsupportedSite(
                 "unknown_charge", "Automatic completion requires an assigned parent formal charge."
             )
         valence = _VALENCE.get((atom.element, atom.formal_charge))
+        if bounded_sulfur and atom.element == "S":
+            valence = {-1: 1, 0: 2, 1: 3}.get(atom.formal_charge)
+            if any(b.order != 1.0 or b.aromatic for _, b in self.adjacency[target]):
+                raise UnsupportedSite(
+                    "unsupported_sulfur", "Automatic sulfur requires ordinary single bonds."
+                )
         if valence is None:
             raise UnsupportedSite(
                 "unsupported_state",
@@ -343,6 +351,7 @@ class HydrogenBuilder:
         geometry: Geometry = "tetrahedral",
         orientation: int = 0,
         atom_limit: int = 1_000_000,
+        automatic_geometry: bool = False,
     ) -> HydrogenProposal:
         if count is not None and (len(targets) != 1 or not 1 <= count <= 4):
             raise ValueError("Add N H requires one heavy parent and a count from 1 to 4.")
@@ -426,7 +435,7 @@ class HydrogenBuilder:
                         )
                     vectors = vectors / norms[:, None]
                     if (
-                        count is None
+                        (count is None or automatic_geometry)
                         and shape == "tetrahedral"
                         and len(vectors) == 3
                         and amount == 1
@@ -438,7 +447,7 @@ class HydrogenBuilder:
                             "tetrahedral orientation; use explicit preview.",
                         )
                     if (
-                        count is None
+                        (count is None or automatic_geometry)
                         and shape == "trigonal_planar"
                         and len(vectors) == 2
                         and amount == 1
@@ -562,6 +571,8 @@ def apply_hydrogen_proposal(
     next_atom_id: int,
     next_bond_id: int,
     operation: str,
+    require_ordinary_stereo: bool = False,
+    require_consistent_stereo: bool = False,
 ) -> tuple[NormalizedStructureV1, tuple[MolecularWarning, ...]]:
     """Materialize at the editing boundary; proposal generation consumes no identities."""
     if not proposal.sites:
@@ -621,7 +632,7 @@ def apply_hydrogen_proposal(
             field="coordinates",
             message=(
                 "Hydrogens use approximate covalent lengths and ideal local "
-                "coordination; no protonation, optimization or preparation is "
+                "coordination; no protonation-state prediction, optimization or preparation is "
                 "implied."
             ),
         )
@@ -654,6 +665,8 @@ def apply_hydrogen_proposal(
         operation,
         analyzed_atom_count=proposal.analyzed_atom_count,
         row_budget=MAX_COORDINATES - proposal.generated_coordinate_rows,
+        require_ordinary_identity=require_ordinary_stereo,
+        require_consistency=require_consistent_stereo,
     )
     warnings.extend(stereo_warnings)
     metadata = dict(after.metadata)
@@ -710,6 +723,8 @@ def reconcile_current_stereo(
     *,
     row_budget: int,
     analyzed_atom_count: int,
+    require_ordinary_identity: bool = False,
+    require_consistency: bool = False,
 ) -> tuple[NormalizedStructureV1, list[MolecularWarning]]:
     """Reconcile affected bounded contexts after additions, never source facts.
 
@@ -741,6 +756,18 @@ def reconcile_current_stereo(
         # Current tetrahedral neighbor tags depend on canonical neighbor ordering.
         member_bonds = {b.id: b for i in members for _, b in builder.adjacency[i]}
         try:
+            if require_ordinary_identity:
+                facts = protection_facts(structure)
+                if any(
+                    i not in facts
+                    or not facts[i].matches(builder.atoms[i])
+                    or not facts[i].ordinary
+                    for i in members
+                ):
+                    raise UnsupportedSite(
+                        "protected_stereo_context",
+                        "Unknown/protected dependency identity cannot establish current stereo.",
+                    )
             mol, indices = builder.chemical_context(target)
             # Count repeated conformer assessment as analyzed atom visits as well.
             extra_visits = len(indices) * (len(structure.conformers) - 1)
@@ -821,6 +848,12 @@ def reconcile_current_stereo(
                 {b.id: None for b in member_bonds.values() if b.stereo not in {None, "NONE"}}
             )
 
+    if require_consistency and (unresolved_geometry or disagreement_count or assessment_failures):
+        raise UnsupportedSite(
+            "undetermined_configuration",
+            "Hydrogen addition requires consistent supported stereochemistry in every "
+            "conformer; assessment is unresolved or conformers disagree; no change.",
+        )
     if unresolved_geometry:
         warnings.append(
             MolecularWarning(

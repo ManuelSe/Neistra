@@ -460,9 +460,10 @@ select:focus-visible,
 .edit-fragment-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 5px; }
 .edit-fragment-grid button { display: flex; flex-direction: column; align-items: center; overflow-wrap: anywhere; }
 .edit-fragment-grid svg { max-width: 100%; }
-.edit-hydrogens { display: flex; flex-direction: column; gap: 5px; }
 .molecular-edit-panel .edit-compact-actions { flex-wrap: wrap; }
 .edit-compact-actions { display: flex; gap: 5px; margin: 6px 0; }
+.edit-bond-order { display: block; margin: 8px 0; }
+.molecular-edit-panel .edit-compact-actions .icon-button { min-width: 44px; min-height: 44px; justify-content: center; }
 .edit-compact-actions button { display: inline-flex; align-items: center; gap: 3px; }
 @media (pointer: coarse) { .molecular-edit-panel button { min-height: 44px; min-width: 44px; } }
 @media (any-pointer: coarse), (max-width: 840px) { .molecular-edit-tools > .viewer-action-button { width: 44px; height: 44px; } .molecular-edit-panel summary { min-height: 44px; } }

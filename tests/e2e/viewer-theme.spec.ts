@@ -165,7 +165,7 @@ test("keeps the persisted theme through the real viewer lifecycle", async ({
       current = await readProject(request, created.id);
       return current.entries.find((entry) => entry.id === ligand!.id)?.atom_count;
     })
-    .toBe(originalAtomCount + 1);
+    .toBe(originalAtomCount + 5);
   expect(
     current.entries.find((entry) => entry.id === ligand!.id)?.current_artifact_id,
   ).not.toBe(originalArtifactId);
@@ -200,7 +200,7 @@ test("keeps the persisted theme through the real viewer lifecycle", async ({
 
   const ligandRow = page.locator(`.entry-row[data-entry-id="${ligand!.id}"]`);
   await ligandRow.locator(".entry-select").click();
-  const selectedCount = originalAtomCount + 1;
+  const selectedCount = originalAtomCount + 5;
   await expect(page.locator(".viewer-status")).toContainText(
     `/ ${selectedCount} selected`,
   );

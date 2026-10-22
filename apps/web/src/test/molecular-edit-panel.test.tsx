@@ -40,19 +40,26 @@ it("captures canonical operands, stays open, and restores owned launcher focus",
   const { user, onEdit } = setup();
   await user.click(screen.getByRole("button", { name: "Edit molecule" }));
   await user.click(screen.getByRole("button", { name: "Replace selected atom with N" }));
-  expect(onEdit).toHaveBeenCalledWith(entry.id, entry.current_artifact_id, selection, { operation: "atom.element", element: "N" });
+  expect(onEdit).toHaveBeenCalledWith(entry.id, entry.current_artifact_id, selection, { operation: "atom.element", element: "N" }, "automatic");
   expect(screen.getByRole("dialog", { name: "Edit molecule" })).toBeVisible();
   await user.keyboard("{Escape}");
   expect(screen.queryByRole("dialog")).toBeNull();
   expect(screen.getByRole("button", { name: "Edit molecule" })).toHaveFocus();
 });
 
+it("adds exactly one H through the immediate bounded action without placement configuration", async () => {
+  const { user, onEdit } = setup();
+  await user.click(screen.getByRole("button", { name: "Edit molecule" }));
+  await user.click(screen.getByRole("button", { name: "Add hydrogen (+H)" }));
+  expect(onEdit).toHaveBeenCalledWith(entry.id, entry.current_artifact_id, selection, { operation: "hydrogens.add_one" });
+  expect(screen.queryByRole("button", { name: "Apply placement" })).toBeNull();
+});
+
 it("explains empty selection and does not execute an inferred default target", async () => {
   const { user, onEdit } = setup({ ...selection, atoms: [] });
   await user.click(screen.getByRole("button", { name: "Edit molecule" }));
   expect(screen.getByRole("status")).toHaveTextContent("Select atoms in one entry");
-  await user.click(screen.getByText("Hydrogen tools"));
-  expect(screen.getByRole("button", { name: "Preview completion" })).toBeDisabled();
+  expect(screen.getByRole("button", { name: "Add hydrogen (+H)" })).toBeDisabled();
   expect(onEdit).not.toHaveBeenCalled();
 });
 
@@ -78,7 +85,7 @@ it("uses two canonical endpoints for bond order without a manual bond ID", async
   await user.click(screen.getByRole("button", { name: "Edit molecule" }));
   await user.click(screen.getByRole("button", { name: "Bonds" }));
   await user.click(screen.getByRole("button", { name: "Increase bond order" }));
-  expect(onEdit).toHaveBeenCalledWith(entry.id, entry.current_artifact_id, operand, { operation: "bond.set", order: 2 }, "reconcile_if_possible");
+  expect(onEdit).toHaveBeenCalledWith(entry.id, entry.current_artifact_id, operand, { operation: "bond.set", order: 2 }, "automatic");
   expect(screen.queryByRole("spinbutton", { name: /bond/i })).toBeNull();
 });
 
@@ -92,7 +99,7 @@ it("shows six structural previews and substitutes an H through one fragment acti
   expect(onEdit).not.toHaveBeenCalled();
   await screen.findByRole("button", { name: "Apply placement" });
   await user.click(screen.getByRole("button", { name: "Apply placement" }));
-  expect(onEdit).toHaveBeenCalledWith(entry.id, entry.current_artifact_id, selection, { operation: "fragment.attach", fragment: "carboxylic_acid", direction: 0, rotation: 0 });
+  expect(onEdit).toHaveBeenCalledWith(entry.id, entry.current_artifact_id, selection, { operation: "fragment.attach", fragment: "carboxylic_acid", direction: 0, rotation: 0 }, "automatic");
   expect(screen.getByRole("dialog", { name: "Edit molecule" })).toBeVisible();
 });
 
@@ -177,14 +184,13 @@ it("keeps direct assignment available with unknown chemistry and separate helper
   const { user, onEdit } = setup(selection, null, molecule);
   await user.click(screen.getByRole("button", { name: "Edit molecule" }));
   expect(screen.getByRole("button", { name: "Replace selected atom with N" })).toBeEnabled();
-  await user.click(screen.getByText("Hydrogen tools"));
-  expect(screen.getByRole("button", { name: "Preview completion" })).toBeEnabled();
+  expect(screen.getByRole("button", { name: "Add hydrogen (+H)" })).toBeEnabled();
   expect(screen.getByRole("button", { name: "Increase formal charge" })).toBeDisabled();
-  await user.click(screen.getByText("More elements and formal charge"));
+  await user.click(screen.getByText("Advanced atom details"));
   await user.click(screen.getByRole("button", { name: "Assign charge" }));
-  expect(onEdit).toHaveBeenCalledWith(entry.id, entry.current_artifact_id, selection, { operation: "atom.charge.set", charge: 0 });
+  expect(onEdit).toHaveBeenCalledWith(entry.id, entry.current_artifact_id, selection, { operation: "atom.charge.set", charge: 0 }, "automatic");
   await user.click(screen.getByRole("button", { name: "Assign element" }));
-  expect(onEdit).toHaveBeenLastCalledWith(entry.id, entry.current_artifact_id, selection, { operation: "atom.element", element: "P" });
+  expect(onEdit).toHaveBeenLastCalledWith(entry.id, entry.current_artifact_id, selection, { operation: "atom.element", element: "P" }, "automatic");
 });
 
 it("permits H endpoints and breaking a displayed inferred bond with no canonical edge", async () => {
@@ -195,9 +201,10 @@ it("permits H endpoints and breaking a displayed inferred bond with no canonical
   await user.click(screen.getByRole("button", { name: "Edit molecule" }));
   await user.click(screen.getByRole("button", { name: "Bonds" }));
   await user.click(screen.getByRole("button", { name: "Break bond" }));
-  expect(onEdit).toHaveBeenCalledWith(entry.id, entry.current_artifact_id, operand, { operation: "bond.delete" }, "reconcile_if_possible");
+  expect(onEdit).toHaveBeenCalledWith(entry.id, entry.current_artifact_id, operand, { operation: "bond.delete" }, "automatic");
+  await user.click(screen.getByText("Advanced bond details"));
   await user.selectOptions(screen.getByRole("combobox", { name: "Assign bond order" }), "unknown");
-  expect(onEdit).toHaveBeenLastCalledWith(entry.id, entry.current_artifact_id, operand, { operation: "bond.set", order: null }, "reconcile_if_possible");
+  expect(onEdit).toHaveBeenLastCalledWith(entry.id, entry.current_artifact_id, operand, { operation: "bond.set", order: null }, "automatic");
 });
 
 
@@ -213,7 +220,7 @@ it("previews and cancels attached atoms without an edit, then applies the captur
   expect(useEditingStore.getState().placement).toBeNull();
   await user.click(screen.getByRole("button", { name: "Preview atom" }));
   await user.click(await screen.findByRole("button", { name: "Apply placement" }));
-  expect(onEdit).toHaveBeenCalledWith(entry.id, entry.current_artifact_id, selection, { operation: "atom.add", element: "C", charge: 0, direction: 0 });
+  expect(onEdit).toHaveBeenCalledWith(entry.id, entry.current_artifact_id, selection, { operation: "atom.add", element: "C", charge: 0, direction: 0 }, "automatic");
 });
 
 it("requires an explicit empty-entry target for rebuilding", async () => {
@@ -226,7 +233,7 @@ it("requires an explicit empty-entry target for rebuilding", async () => {
   await user.click(screen.getByText("Add atom", { exact: true }));
   await user.click(screen.getByRole("button", { name: "Preview atom" }));
   await user.click(await screen.findByRole("button", { name: "Apply placement" }));
-  expect(onEdit).toHaveBeenCalledWith(entry.id, entry.current_artifact_id, operand, { operation: "atom.add", element: "C", charge: 0, direction: 0 });
+  expect(onEdit).toHaveBeenCalledWith(entry.id, entry.current_artifact_id, operand, { operation: "atom.add", element: "C", charge: 0, direction: 0 }, "automatic");
 });
 
 it("does not allow retargeting an empty-entry write while it is pending", async () => {
@@ -275,7 +282,7 @@ it("retains placement inputs and the captured proposal across responsive remount
   await second.user.click(screen.getByText("Add atom", { exact: true }));
   expect(screen.getByRole("combobox", { name: "Added element" })).toHaveValue("P");
   await second.user.click(screen.getByRole("button", { name: "Apply placement" }));
-  expect(second.onEdit).toHaveBeenCalledWith(entry.id, entry.current_artifact_id, selection, { operation: "atom.add", element: "P", charge: 0, direction: 0 });
+  expect(second.onEdit).toHaveBeenCalledWith(entry.id, entry.current_artifact_id, selection, { operation: "atom.add", element: "P", charge: 0, direction: 0 }, "automatic");
 });
 
 it("retains a closed launcher's owned keyboard focus across a responsive remount", async () => {
@@ -300,66 +307,33 @@ it("does not restore launcher focus over another control's newer focus", async (
   } finally { outside.remove(); }
 });
 
-it("previews explicit hydrogen count with preserve policy and invalidates input changes", async () => {
-  const { user, onEdit } = setup();
+it("exposes no hydrogen policy, count, geometry, completion or orientation controls", async () => {
+  const { user } = setup();
   await user.click(screen.getByRole("button", { name: "Edit molecule" }));
-  await user.click(screen.getByText("Hydrogen tools"));
-  await user.click(screen.getByRole("checkbox", { name: "Complete hydrogens when possible" }));
-  await user.clear(screen.getByRole("spinbutton", { name: "Hydrogens to add" }));
-  await user.type(screen.getByRole("spinbutton", { name: "Hydrogens to add" }), "2");
-  await user.selectOptions(screen.getByRole("combobox", { name: "Hydrogen geometry" }), "trigonal_planar");
-  await user.click(screen.getByRole("button", { name: "Preview added H" }));
-  expect(onEdit).not.toHaveBeenCalled();
-  expect(projectApi.modelPreview).toHaveBeenLastCalledWith(expect.anything(), entry.id, entry.current_artifact_id, selection,
-    { operation: "hydrogens.add", count: 2, geometry: "trigonal_planar", orientation: 0 }, "preserve", expect.any(AbortSignal));
-  await user.click(await screen.findByRole("button", { name: "Next orientation" }));
-  expect(useEditingStore.getState().placement?.action).toMatchObject({ orientation: 1 });
-  await user.click(screen.getByRole("button", { name: "Placement tools" }));
-  await user.selectOptions(screen.getByRole("combobox", { name: "Hydrogen geometry" }), "linear");
-  expect(useEditingStore.getState().placement).toBeNull();
-  expect(onEdit).not.toHaveBeenCalled();
+  await user.click(screen.getByText("Advanced atom details"));
+  expect(screen.queryByText("Hydrogen tools")).toBeNull();
+  expect(screen.queryByLabelText(/hydrogen.*(policy|geometry|count)|completion scope/i)).toBeNull();
+  expect(screen.queryByRole("checkbox", { name: /hydrogen/i })).toBeNull();
+  await user.click(screen.getByRole("button", { name: "Bonds" }));
+  await user.click(screen.getByText("Advanced bond details"));
+  expect(screen.queryByRole("combobox", { name: "Bond hydrogens" })).toBeNull();
 });
 
-it("requires an explicitly chosen entry for completion without selected atoms", async () => {
-  const { user } = setup({ ...selection, atoms: [] });
+it("shows an icon action's tooltip on keyboard focus", async () => {
+  const { user } = setup();
   await user.click(screen.getByRole("button", { name: "Edit molecule" }));
-  await user.selectOptions(screen.getByRole("combobox", { name: "Target entry" }), entry.id);
-  await user.click(screen.getByText("Hydrogen tools"));
-  expect(screen.getByRole("button", { name: "Preview completion" })).toBeDisabled();
-  await user.selectOptions(screen.getByRole("combobox", { name: "Completion scope" }), "entry");
-  await user.click(screen.getByRole("button", { name: "Preview completion" }));
-  expect(projectApi.modelPreview).toHaveBeenLastCalledWith(expect.anything(), entry.id, entry.current_artifact_id, { ...selection, atoms: [] },
-    { operation: "hydrogens.complete", scope: "entry" }, "preserve", expect.any(AbortSignal));
+  act(() => { screen.getByRole("button", { name: "Add hydrogen (+H)" }).focus(); });
+  expect(await screen.findByRole("tooltip")).toHaveTextContent("Add hydrogen (+H)");
 });
 
-it("shows unresolved hydrogen diagnostics and disables Apply for a zero-addition proposal", async () => {
-  const { user, onEdit } = setup();
-  vi.mocked(projectApi.modelPreview).mockResolvedValue({ entry_id: entry.id, expected_revision: project.revision,
-    expected_artifact_id: entry.current_artifact_id!, atoms: [], bonds: [], removed_atom_ids: [], warnings: [],
-    hydrogen_report: { status: "unresolved", target_count: 1, completed_count: 0, unchanged_count: 0, skipped_count: 1, unprocessed_count: 0,
-      added_hydrogen_count: 0, diagnostics: [{ atom_id: 1, reason: "unknown_charge", message: "Parent charge is unknown.", conformer_ids: [] }],
-      reason_counts: { unknown_charge: 1 }, diagnostics_truncated: false },
-  });
-  await user.click(screen.getByRole("button", { name: "Edit molecule" }));
-  await user.click(screen.getByText("Hydrogen tools"));
-  await user.click(screen.getByRole("button", { name: "Preview completion" }));
-  expect(await screen.findByRole("button", { name: "Apply placement" })).toBeDisabled();
-  await user.click(screen.getByRole("button", { name: "Placement tools" }));
-  expect(screen.getByRole("status")).toHaveTextContent("1 skipped");
-  await user.click(screen.getByText("Hydrogen diagnostics (1)"));
-  expect(screen.getByText(/Atom 1: Parent charge is unknown/)).toBeVisible();
-  expect(onEdit).not.toHaveBeenCalled();
-});
-
-it("keeps atom placement applicable when optional hydrogen completion proposes zero H", async () => {
+it("keeps an unsupported direct atom placement applicable when automatic maintenance skips H", async () => {
   const { user, onEdit } = setup();
   vi.mocked(projectApi.modelPreview).mockResolvedValue({ entry_id: entry.id, expected_revision: project.revision,
     expected_artifact_id: entry.current_artifact_id!, atoms: [{ preview_id: "preview-0", element: "P", coordinates: [1.5,0,0] }], bonds: [], removed_atom_ids: [], warnings: [],
-    hydrogen_report: { status: "unresolved", target_count: 1, completed_count: 0, unchanged_count: 0, skipped_count: 1, unprocessed_count: 0,
-      added_hydrogen_count: 0, diagnostics: [], reason_counts: { unsupported_state: 1 }, diagnostics_truncated: false },
+    hydrogen_reconciliation_report: { policy: "automatic", status: "unresolved", target_count: 1, completed_count: 0, unchanged_count: 0, skipped_count: 1, unprocessed_count: 0,
+      added_hydrogen_count: 0, removed_hydrogen_count: 0, moved_hydrogen_count: 0, sites: [], diagnostics: [], reason_counts: { unsupported_state: 1 }, diagnostics_truncated: false },
   });
   await user.click(screen.getByRole("button", { name: "Edit molecule" }));
-  await user.click(screen.getByRole("checkbox", { name: "Complete hydrogens when possible" }));
   await user.click(screen.getByText("Add atom", { exact: true }));
   await user.clear(screen.getByRole("combobox", { name: "Added element" }));
   await user.type(screen.getByRole("combobox", { name: "Added element" }), "P");
@@ -367,32 +341,30 @@ it("keeps atom placement applicable when optional hydrogen completion proposes z
   expect(await screen.findByRole("button", { name: "Apply placement" })).toBeEnabled();
   await user.click(screen.getByRole("button", { name: "Apply placement" }));
   expect(onEdit).toHaveBeenCalledWith(entry.id, entry.current_artifact_id, selection,
-    { operation: "atom.add", element: "P", charge: 0, direction: 0 }, "complete_if_possible");
+    { operation: "atom.add", element: "P", charge: 0, direction: 0 }, "automatic");
 });
 
 
-it("keeps bond reconciliation separate from additive preferences and can preserve H", async () => {
+it("uses automatic bond maintenance without policy state", async () => {
   const molecule = { ...projection, structure: { ...projection.structure,
     atoms: [projection.structure.atoms[0], { ...projection.structure.atoms[0], id: 2 }] } };
   const operand = { ...selection, atoms: [1,2].map(atom_id => ({ structure_id: entry.id, atom_id })) };
   const { user, onEdit } = setup(operand, null, molecule);
   await user.click(screen.getByRole("button", { name: "Edit molecule" }));
   await user.click(screen.getByRole("button", { name: "Bonds" }));
-  expect(screen.getByRole("combobox", { name: "Bond hydrogens" })).toHaveValue("reconcile_if_possible");
-  await user.selectOptions(screen.getByRole("combobox", { name: "Bond hydrogens" }), "preserve");
   await user.click(screen.getByRole("button", { name: "Create bond" }));
-  expect(onEdit).toHaveBeenLastCalledWith(entry.id, entry.current_artifact_id, operand, { operation: "bond.set", order: 1 }, "preserve");
-  expect(useEditingStore.getState().hydrogenPolicy).toBe("preserve");
-  act(() => { useEditingStore.getState().setProject("elsewhere"); useEditingStore.getState().setProject(project.id); });
-  expect(useEditingStore.getState().bondHydrogenPolicy).toBe("reconcile_if_possible");
+  expect(onEdit).toHaveBeenLastCalledWith(entry.id, entry.current_artifact_id, operand, { operation: "bond.set", order: 1 }, "automatic");
+  expect(screen.getByLabelText("Current bond order")).toHaveTextContent("No authored bond");
+  await user.click(screen.getByRole("button", { name: "Aromatic bond" }));
+  expect(onEdit).toHaveBeenLastCalledWith(entry.id, entry.current_artifact_id, operand, { operation: "bond.set", order: 1.5 }, "automatic");
 });
 
-it("previews bond changes without mutation, reports removals and invalidates on policy change", async () => {
+it("previews automatic bond changes without mutation and reports removals", async () => {
   const molecule = { ...projection, structure: { ...projection.structure,
     atoms: [projection.structure.atoms[0], { ...projection.structure.atoms[0], id: 2 }] } };
   const operand = { ...selection, atoms: [1,2].map(atom_id => ({ structure_id: entry.id, atom_id })) };
   const { user, onEdit } = setup(operand, null, molecule);
-  const report = { policy: "reconcile_if_possible" as const, status: "complete" as const,
+  const report = { policy: "automatic" as const, status: "complete" as const,
     target_count: 2, completed_count: 2, unchanged_count: 0, skipped_count: 0, unprocessed_count: 0,
     added_hydrogen_count: 0, removed_hydrogen_count: 2, moved_hydrogen_count: 4,
     sites: [], diagnostics: [], reason_counts: {}, diagnostics_truncated: false };
@@ -401,20 +373,18 @@ it("previews bond changes without mutation, reports removals and invalidates on 
     atoms: [], bonds: [], removed_atom_ids: [3,4], warnings: [], hydrogen_reconciliation_report: report });
   await user.click(screen.getByRole("button", { name: "Edit molecule" }));
   await user.click(screen.getByRole("button", { name: "Bonds" }));
+  await user.click(screen.getByText("Advanced bond details"));
   await user.click(screen.getByRole("checkbox", { name: "Preview changes before applying" }));
   await user.click(screen.getByRole("button", { name: "Create bond" }));
   await user.click(await screen.findByRole("button", { name: "Placement tools" }));
   expect(screen.getByLabelText("Hydrogen reconciliation report")).toHaveTextContent("2 removed, 4 moved");
   expect(onEdit).not.toHaveBeenCalled();
-  await user.selectOptions(screen.getByRole("combobox", { name: "Bond hydrogens" }), "preserve");
-  expect(useEditingStore.getState().placement).toBeNull();
-  await user.click(screen.getByRole("button", { name: "Create bond" }));
   await user.click(await screen.findByRole("button", { name: "Apply placement" }));
-  expect(onEdit).toHaveBeenLastCalledWith(entry.id, entry.current_artifact_id, operand, { operation: "bond.set", order: 1 }, "preserve");
+  expect(onEdit).toHaveBeenLastCalledWith(entry.id, entry.current_artifact_id, operand, { operation: "bond.set", order: 1 }, "automatic");
 });
 
 
-it("discards a delayed bond preview when its captured H policy changes", async () => {
+it("discards a delayed bond preview when the proposal is cancelled", async () => {
   const molecule = { ...projection, structure: { ...projection.structure,
     atoms: [projection.structure.atoms[0], { ...projection.structure.atoms[0], id: 2 }] } };
   const operand = { ...selection, atoms: [1,2].map(atom_id => ({ structure_id: entry.id, atom_id })) };
@@ -426,11 +396,37 @@ it("discards a delayed bond preview when its captured H policy changes", async (
   }));
   await user.click(screen.getByRole("button", { name: "Edit molecule" }));
   await user.click(screen.getByRole("button", { name: "Bonds" }));
+  await user.click(screen.getByText("Advanced bond details"));
   await user.click(screen.getByRole("checkbox", { name: "Preview changes before applying" }));
   await user.click(screen.getByRole("button", { name: "Create bond" }));
   await user.click(await screen.findByRole("button", { name: "Placement tools" }));
-  await user.selectOptions(screen.getByRole("combobox", { name: "Bond hydrogens" }), "preserve");
+  await user.click(screen.getByRole("button", { name: "Cancel placement" }));
   await act(async () => { finish(); await Promise.resolve(); });
   expect(useEditingStore.getState().placement).toBeNull();
   expect(onEdit).not.toHaveBeenCalled();
+});
+
+it.each([
+  [1, false, true, false, 1.5],
+  [2, false, false, false, 1.5],
+  [3, false, false, true, 1.5],
+  [null, false, true, true, 1.5],
+  [1.5, true, true, true, 1],
+  [0.5, false, true, true, 1.5],
+  [1.5, false, true, true, 1.5],
+  [4, false, true, true, 1.5],
+] as const)("shows bond %s stepping limits and aromatic toggle state", async (order, aromatic, minusDisabled, plusDisabled, toggled) => {
+  const molecule: StructureProjection = { ...projection, structure: { ...projection.structure,
+    atoms: [projection.structure.atoms[0], { ...projection.structure.atoms[0], id: 2 }],
+    bonds: [{ id: 1, atom_1_id: 1, atom_2_id: 2, order, aromatic, stereo: null, inferred: false }] } };
+  const operand = { ...selection, atoms: [1,2].map(atom_id => ({ structure_id: entry.id, atom_id })) };
+  const { user, onEdit } = setup(operand, null, molecule);
+  await user.click(screen.getByRole("button", { name: "Edit molecule" }));
+  await user.click(screen.getByRole("button", { name: "Bonds" }));
+  expect(screen.getByRole("button", { name: "Decrease bond order" }).matches(":disabled")).toBe(minusDisabled);
+  expect(screen.getByRole("button", { name: "Increase bond order" }).matches(":disabled")).toBe(plusDisabled);
+  expect(screen.getByRole("button", { name: "Aromatic bond" })).toHaveAttribute("aria-pressed", String(aromatic));
+  expect(screen.getByLabelText("Current bond order")).toHaveTextContent(aromatic ? "aromatic" : order === null ? "unknown" : String(order));
+  await user.click(screen.getByRole("button", { name: "Aromatic bond" }));
+  expect(onEdit).toHaveBeenLastCalledWith(entry.id, entry.current_artifact_id, operand, { operation: "bond.set", order: toggled }, "automatic");
 });

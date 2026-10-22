@@ -160,8 +160,24 @@ the current authoritative normalized artifact and accepts only complete
 supported protein, DNA, or RNA residues with the required trace atoms. The
 browser may preflight the same rule to explain unavailable actions, but the
 service remains authoritative. Topology deletions prune missing atom IDs from
-live and named-scene settings in the same reversible molecular command;
-coordinate changes and topology additions do not infer new membership.
+live and named-scene settings in the same reversible molecular command.
+Issue #92 direct additions extend live appearance membership using explicit
+creation ancestry, as described below; coordinate changes and other memberships
+do not infer expansion.
+
+Direct model results carry a private new-atom-to-appearance-source map, independent
+of renderer state and excluded from normalized/API schemas. Heavy atom/fragment
+attachments resolve to their heavy anchor; new H use their actual parent, including
+new fragment ancestry. The API resolves inherited representation/color properties
+against pre-edit settings, retaining element tokens and entry defaults. Valid
+polymer assignments extend only through complete supported residue membership;
+an invalid pre-existing polymer assignment warns and retains its existing scope.
+
+The existing molecular transaction accepts the proposed live settings and coalesces
+inheritance with missing-reference pruning into one reversible entry update. No
+second appearance command, dynamic molecule-wide rule or viewer writeback exists.
+Named scenes retain snapshot membership; visibility/isolation/H preferences and
+independent surfaces keep their existing owners. D-142 governs this amendment.
 
 The browser projects entry-level and selection-specific settings into
 disposable exact Mol* bundle components. Targeted atoms replace only the

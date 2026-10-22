@@ -1,6 +1,6 @@
 export type StructureType = "protein" | "ligand" | "complex" | "solvent" | "unknown";
 
-export type HydrogenPolicy = "preserve" | "complete_if_possible" | "reconcile_if_possible";
+export type HydrogenPolicy = "preserve" | "complete_if_possible" | "reconcile_if_possible" | "automatic";
 export type HydrogenGeometry = "linear" | "trigonal_planar" | "tetrahedral";
 export type HydrogenAction =
   | { operation: "hydrogens.complete"; scope: "selection" | "entry" }
@@ -14,7 +14,7 @@ export interface HydrogenReport {
 }
 export type BondAction = { operation: "bond.set"; order: number | null } | { operation: "bond.delete" };
 export interface HydrogenReconciliationReport {
-  policy: "reconcile_if_possible";
+  policy: "reconcile_if_possible" | "automatic";
   status: "complete" | "partial" | "unchanged" | "unresolved";
   target_count: number; completed_count: number; unchanged_count: number;
   skipped_count: number; unprocessed_count: number;
@@ -56,6 +56,7 @@ export interface MoleculeCreateResult {
 
 export type SelectionEditAction =
   | ModelPlacementAction
+  | { operation: "hydrogens.add_one" }
   | { operation: "atom.element"; element: string }
   | { operation: "atom.charge"; delta: -1 | 1 }
   | { operation: "atom.charge.set"; charge: number | null }

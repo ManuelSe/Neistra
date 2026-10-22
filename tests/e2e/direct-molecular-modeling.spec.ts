@@ -100,12 +100,12 @@ test("creates a molecule, previews/cancels without mutation, applies and rebuild
   expect(first.atoms).toHaveLength(1);
   expect(first.atoms[0].coordinates).toEqual([0, 0, 0]);
   const baseline = await previewState(page);
-  await expect(panel.getByLabel("Complete hydrogens when possible", { exact: true })).not.toBeChecked();
+  await expect(panel.getByLabel("Complete hydrogens when possible", { exact: true })).toHaveCount(0);
   await panel.getByText("Add atom", { exact: true }).click();
   await panel.getByRole("button", { name: "Preview atom", exact: true }).click();
   await expect(panel.getByRole("button", { name: "Apply placement", exact: true })).toBeEnabled();
   let ghost = await previewState(page);
-  expect(ghost.preview!.atoms).toHaveLength(1);
+  expect(ghost.preview!.atoms).toHaveLength(7);
   await expect.poll(async () => (await previewState(page)).representations).toBeGreaterThan(baseline.representations);
   ghost = await previewState(page);
   expect(ghost.objects.length).toBeGreaterThan(0);
@@ -124,14 +124,14 @@ test("creates a molecule, previews/cancels without mutation, applies and rebuild
   ghost = await previewState(page);
   await page.screenshot({ path: info.outputPath("new-molecule-placement-preview.png") });
   await panel.getByRole("button", { name: "Apply placement", exact: true }).click();
-  await expect.poll(async () => (await (await request.get(path)).json() as StructureProjection).structure.atoms.length).toBe(2);
+  await expect.poll(async () => (await (await request.get(path)).json() as StructureProjection).structure.atoms.filter(a => a.element !== "H").length).toBe(2);
   const after = (await (await request.get(path)).json() as StructureProjection).structure;
   expect(after.atoms[0]).toEqual(first.atoms[0]);
   expect(after.atoms[1].coordinates).toEqual(ghost.preview!.atoms[0].coordinates);
-  expect(after.atoms.filter(a => a.element === "H")).toHaveLength(0);
+  expect(after.atoms.filter(a => a.element === "H")).toHaveLength(6);
   await expect.poll(async () => (await previewState(page)).preview).toBeNull();
   await panel.getByRole("button", { name: "Delete selected atoms", exact: true }).click();
-  await expect.poll(async () => (await (await request.get(path)).json() as StructureProjection).structure.atoms.length).toBe(1);
+  await expect.poll(async () => (await (await request.get(path)).json() as StructureProjection).structure.atoms.length).toBe(5);
   await panel.getByRole("button", { name: "Close molecular editor", exact: true }).click();
   await selectPair(page, entry.id, [1], info.project.name === "mobile-chromium");
   await page.getByRole("button", { name: "Edit molecule", exact: true }).click();
@@ -143,7 +143,7 @@ test("creates a molecule, previews/cancels without mutation, applies and rebuild
   await panel.getByRole("button", { name: "Preview atom", exact: true }).click();
   await expect(panel.getByRole("button", { name: "Apply placement", exact: true })).toBeEnabled();
   await panel.getByRole("button", { name: "Apply placement", exact: true }).click();
-  await expect.poll(async () => (await (await request.get(path)).json() as StructureProjection).structure.atoms.length).toBe(1);
+  await expect.poll(async () => (await (await request.get(path)).json() as StructureProjection).structure.atoms.length).toBe(5);
   const rebuilt = (await (await request.get(path)).json() as StructureProjection).structure.atoms[0];
   expect(rebuilt.id).toBeGreaterThan(2);
   expect(rebuilt.coordinates).toEqual([0, 0, 0]);
@@ -152,11 +152,11 @@ test("creates a molecule, previews/cancels without mutation, applies and rebuild
   await panel.getByRole("button", { name: "Attach Methyl", exact: true }).click();
   await expect(panel.getByRole("button", { name: "Apply placement", exact: true })).toBeEnabled();
   await panel.getByRole("button", { name: "Apply placement", exact: true }).click();
-  await expect.poll(async () => (await (await request.get(path)).json() as StructureProjection).structure.atoms.length).toBe(5);
+  await expect.poll(async () => (await (await request.get(path)).json() as StructureProjection).structure.atoms.length).toBe(8);
 
 });
 
-test("attaches directly with unknown chemistry and saves an edit when optional H cannot run", async ({ page, request }, info) => {
+test("attaches directly with unknown chemistry and saves an edit when automatic maintenance cannot run", async ({ page, request }, info) => {
   test.setTimeout(150000);
   const initial = await prepare(page, request, ["tests/fixtures/formats/water.xyz"], "Unknown chemistry building");
   const entry = initial.entries[0];
@@ -166,13 +166,12 @@ test("attaches directly with unknown chemistry and saves an edit when optional H
   await selectPair(page, entry.id, [before.atoms[0].id], info.project.name === "mobile-chromium");
   await page.getByRole("button", { name: "Edit molecule", exact: true }).click();
   const panel = page.getByRole("dialog", { name: "Edit molecule", exact: true });
-  await panel.getByLabel("Complete hydrogens when possible", { exact: true }).check();
   await panel.getByRole("button", { name: "Replace selected atom with N", exact: true }).click();
   await expect.poll(async () => (await (await request.get(path)).json() as StructureProjection).structure.atoms[0].element).toBe("N");
   let after = (await (await request.get(path)).json() as StructureProjection).structure;
   expect(after.atoms[0].formal_charge).toBeNull();
   expect(after.atoms[0].coordinates).toEqual(before.atoms[0].coordinates);
-  expect(after.warnings.some(w => w.code === "model_hydrogen_completion_skipped")).toBe(true);
+  expect(after.warnings.some(w => w.code === "model_hydrogen_protected_hydrogen")).toBe(true);
   // An optional zero-H report must not disable a valid authored placement.
   await panel.getByText("Add atom", { exact: true }).click();
   await panel.getByRole("combobox", { name: "Added element", exact: true }).fill("P");
@@ -180,7 +179,6 @@ test("attaches directly with unknown chemistry and saves an edit when optional H
   await expect(panel.getByRole("button", { name: "Apply placement", exact: true })).toBeEnabled();
   await panel.getByRole("button", { name: "Apply placement", exact: true }).click();
   await expect.poll(async () => (await (await request.get(path)).json() as StructureProjection).structure.atoms.length).toBe(before.atoms.length + 1);
-  await panel.getByLabel("Complete hydrogens when possible", { exact: true }).uncheck();
   // Direct fragment attachment needs no terminal H or prepared component.
   await panel.getByRole("button", { name: "Fragments", exact: true }).click();
   await panel.getByRole("button", { name: "Attach Carboxylic acid", exact: true }).click();
@@ -265,7 +263,7 @@ test("keeps identities above earlier allocations after undoing and redoing molec
     await panel.getByRole("button", { name: "Preview atom", exact: true }).click();
     await expect(panel.getByRole("button", { name: "Apply placement", exact: true })).toBeEnabled();
     await panel.getByRole("button", { name: "Apply placement", exact: true }).click();
-    await expect.poll(async () => (await (await request.get(path)).json() as StructureProjection).structure.atoms.length).toBe(2);
+    await expect.poll(async () => (await (await request.get(path)).json() as StructureProjection).structure.atoms.filter(a => a.element !== "H").length).toBe(2);
   };
   await place("N");
   const first = (await (await request.get(path)).json() as StructureProjection).structure;

@@ -1,5 +1,51 @@
 # V0.1 Requirement Evidence
 
+## Automatic hydrogen editing (issue #92) — checkpoint evidence
+
+The [approved contract](plans/issue-92-automatic-hydrogen-editing.md) governs.
+[C1 final](assets/automatic-hydrogen-editing/c1-final-gate.json) passes58 Python,
+313 frontend and6 native browser cases with static/type/build checks. C1 adds
+explicit automatic API maintenance while preserving legacy callers.
+[C2 passing](assets/automatic-hydrogen-editing/c2-attempt3-gate.json) passes64
+focused Python,26 panel/314 total frontend and8 native workflows, no failures/
+retries/skips. Logs retain exact argv, isolated environment and source hashes.
+Earlier incomplete attempts are diagnostic only. Tests independently cover finite
+C/N/O/S counts/charge transitions, geometry, unknown/protected/conjugated refusals,
+explicit-H sulfonium stereo, conformers/budgets, later site reconciliation,
+no-change refusals, exact history/archive/original bytes and native hidden-H/
+camera/selection/reload behavior. Reviews are implementer self-review.
+[C3](assets/automatic-hydrogen-editing/c3-attempt1-gate.json) passes71 focused Python,
+35 projection/panel/314 total frontend and20 native workflows; additional shared
+viewer-state/command checks pass17. Native read-only observations verify exact
+representation and overpaint memberships after addition, including new H, alongside
+combined molecule/settings history and persisted scene/archive boundaries. [C4](assets/automatic-hydrogen-editing/c4-attempt2-gate.json) passes43 focused/318
+frontend and57 native cases/5 documented layout exclusions, with all static/type/
+build checks. Both themes,320px/actual200%zoom, native picks, automatic inspector
+routing, hidden H, exact history/originals and delayed-response ownership pass.
+[Review](assets/automatic-hydrogen-editing/c4-review.md) and
+[screenshots](assets/automatic-hydrogen-editing/c4-screenshots.json) are retained.
+[C5 preflight](assets/automatic-hydrogen-editing/c5-preflight1-gate.json) additionally
+passes107 focused Python/321 frontend/14 native and actual-tagged0.23.0/current
+module checks. Six new edit cases and the reverse rich project retain exact
+conformers/history/appearance/scenes/surfaces/jobs/originals/counters/archives.
+The development version is still0.23.0 here. Complete final-version candidate and
+exact-master qualification remains pending; preflight is not release qualification.
+A later mirror-conformer counterexample required +H-only strict stereo consistency.
+[Fail-first](assets/automatic-hydrogen-editing/c5-stereo-red-gate.json) and
+[passing correction](assets/automatic-hydrogen-editing/c5-stereo-green-gate.json)
+retain the proof:114 focused Python/321 frontend/14 native and final-version readers.
+The earlier complete-candidate1 attempt was intentionally interrupted and is
+strictly diagnostic; its1241 Python passes do not qualify the corrected source.
+
+Final [candidate3](assets/automatic-hydrogen-editing/c5-candidate-3-gate.json)
+passes the complete20-command release gate on8510c40:1247 Python,321 frontend,
+8 supervisor,306 browser/60 unchanged layout/timing exclusions, zero failures/
+flakes/retries/Python or native scientific skips. Actual final0.24.0/tagged0.23.0
+readers pass both directions, all567 source identities/log hashes verify, and
+performance budgets remain unchanged. [Summary](assets/automatic-hydrogen-editing/c5-candidate-3-summary.json)
+and [local full-diff review](assets/automatic-hydrogen-editing/c5-review.md) retain
+proof; exact merged-master qualification and publication are still pending.
+
 ## Quick local minimization (issue #110) — stable v0.23.0
 
 Both [corrected candidate10](assets/quick-minimization/c5-candidate-10-gate.json)

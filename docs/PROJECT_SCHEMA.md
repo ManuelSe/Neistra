@@ -42,6 +42,15 @@ project-state payload with the saved checkpoint.
 
 ## StructureEntryV1
 
+Issue #92 direct additions extend existing live selection-representation/color
+memberships from explicit attachment ancestry in the same molecular history
+command, coalesced with deleted-reference pruning. The private ancestry map is not
+a persisted schema field. Element tokens remain dynamic element colors; new
+unattached atoms use entry defaults. Polymer eligibility remains enforced. Named
+scenes retain snapshot membership and visibility/H/surface/selection ownership is
+unchanged. This uses existing viewer fields and generic entry.update actions;
+schema2 and migration0014 remain unchanged.
+
 ```text
 id: UUIDv7 string
 group_id: UUIDv7 string | null

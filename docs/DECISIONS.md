@@ -5324,3 +5324,197 @@ canonical chemistry, uploads and all fixed rows. Full candidate9 is explicitly
 interrupted at this finding; its1162 Python/313 frontend/8 supervisor/static/build
 passes are diagnostic. Restart focused native checks, then complete fresh candidate
 and exact-master gates. No thresholds or required checks are waived.
+
+## D-140 — Automatic UI hydrogen maintenance is an explicit direct-edit policy
+
+Date: 2026-10-22. Status: accepted by explicit approval of the
+[issue #92 plan](plans/issue-92-automatic-hydrogen-editing.md); implementation
+pending. C0 authorizes planning persistence only, with an explicit stop ready for
+`/goal`.
+
+The user confirmed automatic handling without a user-facing policy selector,
+including under Advanced. Add an explicit automatic policy for direct model edits
+and use it for ordinary atom, fragment and bond UI actions. Existing omitted
+preserve, additive complete_if_possible, bond-only reconcile_if_possible and legacy
+HTTP operation semantics remain compatible. This amends D-101/D-105/D-107's UI
+defaults and new-policy deletion behavior without rewriting those historical
+contracts or imposing blanket sanitization on incomplete drafts.
+
+Reuse operation-specific completion/reconciliation, coordination, stereo and
+protection helpers. Maintain changed/new heavy sites and immediately affected
+canonical neighbors under shared request budgets, not recursive global completion.
+Stage each site's changes across all conformers. Unsupported/protected chemistry
+retains the requested direct edit with precise partial/unresolved diagnostics.
+Routine maintenance preserves assigned charges, heavy coordinates and unrelated
+records. Explicit H deletion and H-endpoint bond breaking cannot immediately
+recreate H at their affected parent or silently infer deprotonation.
+
+Under the new automatic policy, explicit heavy-atom deletion cascades to H whose
+sole authoritative bonded neighbor is a selected heavy atom, including represented
+labelled H. This is deliberate deletion of attached material, distinct from
+ordinary/protected-H eligibility for inferred maintenance. Do not infer missing
+connectivity, speculative bridging-H ownership or global historical orphan repair.
+Legacy literal deletion remains available through its unchanged API policy.
+
+One existing molecular transaction owns the requested edit, accepted H changes,
+reference reconciliation, warnings and exact artifact Undo/Redo. Keep source
+uploads immutable, IDs monotonic, helper work bounded and molecular authority
+independent of the renderer. No new job framework, schema migration or persistent
+H constraint is authorized.
+
+## D-141 — One-click H addition has finite operation-specific charge transitions
+
+Date: 2026-10-22. Status: accepted by explicit approval of issue #92;
+implementation pending.
+
+The user approved bounded C/N/O chemistry and explicitly added bounded S. Add
+hydrogens.add_one on the existing direct model-edit route, with one selected heavy
+parent and no count/geometry/orientation inputs. Reuse placement and validation
+helpers without replacing the legacy hydrogens.add draft-building contract.
+
+The approved plan's finite state table bounds valence filling to C0:4,
+N0:3/N+1:4, O-1:1/O0:2/O+1:3 and ordinary single-bond
+S-1:1/S0:2/S+1:3. At the corresponding filled valence, only N0 to N+1,
+O-1 to O0, O0 to O+1, S-1 to S0 and S0 to S+1 charge-changing steps are
+authorized. Those steps require ordinary nonaromatic, nonconjugated single-bond
+environments. Unlisted/hypervalent states, ambiguous identity/chemistry, metal
+coordination and undetermined new stereo refuse rather than escalate charge.
+Existing assigned multiple-bond geometry may support bounded deficit filling;
+it does not authorize additional charge transitions.
+
+General toolkit sanitization is not sufficient scientific admission. The pinned
+RDKit feasibility probe accepts higher-charge O/S states that this finite action
+must refuse. Qualify graphs, charges, stereo and geometry independently. Filling
+one missing explicit H toward the supported valence is not a preparation,
+protonation-state, pH, tautomer or optimized-geometry claim.
+
+Count all canonical bonds/H regardless of visibility. Exactly one new H plus any
+parent-charge update must succeed in every conformer before one immutable
+artifact/history command publishes. Preserve retained coordinates and selected
+parent; invalid requests leave artifacts/history/Redo/allocators unchanged.
+Provenance and scientific warnings remain inspectable. Do not duplicate chemical
+eligibility in JavaScript or introduce an eligibility endpoint.
+
+The user confirmed that +H atoms remain ordinary H: the action itself cannot
+immediately remove its addition, but a later edit at that site may reconcile it.
+Do not add persistent user-H locks/count constraints. Broader H chemistry needs
+its own bounded follow-up; isotope/radical identity remains #83. No schema
+migration is needed for this operation or its existing inference records.
+
+## D-142 — Direct additions inherit application-owned attachment appearance
+
+Date: 2026-10-22. Status: accepted by explicit approval of issue #92;
+implementation pending.
+
+The user selected attachment-atom inheritance over entry defaults alone. Carry a
+typed internal new-atom-to-appearance-source mapping through direct edits.
+Attached atoms/fragments use the heavy attachment atom, including terminal-H
+replacement; generated H use their actual parent, resolving ancestry through new
+fragment atoms. Unattached first/disconnected atoms retain entry defaults.
+
+Extend applicable durable representation memberships and copy explicit color
+tokens. Element tokens stay element tokens for the new atom's own element;
+custom hex assignments remain custom colors. Polymer inheritance must respect
+existing valid residue semantics. Do not infer a molecule-wide style rule from
+mixed explicit memberships or reconstructed historical color choices.
+
+This explicitly amends D-046/D-054's addition-time inheritance behavior for the
+approved direct workflow. Keep visibility, isolation, local H preferences,
+independent surfaces and named selections with their established owners; do not
+expand their explicit memberships. Named scenes remain snapshots rather than
+receiving new addition memberships automatically.
+
+Coalesce inheritance and deleted-reference pruning in one existing molecular
+command with existing reversible viewer-setting actions, so neither update can
+overwrite the other or resurrect removed references. Undo/Redo, reload and native
+archives must retain exact resulting state. The renderer projects these settings;
+no renderer-derived appearance becomes authoritative. Existing viewer fields and
+generic history actions suffice; no new schema, migration or persistent style
+intent object is authorized.
+
+### D-140 implementation note — issue #92 M1/C1, 2026-10-22
+
+The user's `/goal` authorizes implementation and verified delivery. The new
+automatic model-edit policy now reuses reconciliation for canonical one-hop
+operands, new generated sites and current draft protection facts. Explicit heavy
+deletion cascades terminal H without interpreting display connectivity; explicit
+H intent suppresses that parent's maintenance. Legacy policy meanings remain.
+
+Cap processed site records and detailed context errors while retaining full
+unprocessed totals. Charge failed admitted work before any per-site conformer
+publication. Resolve moved IDs once for the final change report to avoid an
+atom-by-site scan as target counts grow. API previews remain pure and the existing
+publication/history boundary owns all accepted changes. Final C1 source-bound
+qualification and local review are recorded in the feature plan. UI migration,
+one-click charge transitions and appearance inheritance remain subsequent work;
+no migration, dependency or version change is made by C1.
+
+### D-141 implementation note — issue #92 M2/C2, 2026-10-22
+
+The finite one-H action now reuses additive placement with automatic geometry
+guards, stages all conformers and publishes H/parent charge/provenance together.
+Charge transitions require known ordinary local identity and single-bond
+nonconjugated neighbor evidence, including neighbor bond orders; absence of an
+observed pi bond cannot certify nonconjugation when those orders are unknown.
+Later explicit site edits may reconcile its ordinary H as the user confirmed.
+
+An independent asymmetric-sulfide probe found that RDKit's implicit-H context can
+omit potential sulfonium stereo that its explicit-H candidate detects. Keep the H
+explicit for this post-proposal assessment and refuse an undetermined new sulfur
+centre before publication. Symmetric dimethyl sulfide and thiol/hydrogen-sulfide
+cases remain qualified; this does not broaden hypervalent/aromatic support.
+Protected/unknown dependency identity prevents current stereo assignment rather
+than implying canonical isotope support. The final C2 scientific/native gate,
+source identities and implementer self-review are linked in the feature plan.
+No migration, dependency, profile-framework or legacy API replacement is introduced.
+
+### D-142 implementation note — issue #92 M3/C3, 2026-10-22
+
+Private creation ancestry now travels in direct domain results, never normalized
+or HTTP schema fields. The API resolves source chains against pre-edit settings,
+groups additions by source and extends only representation/color properties.
+This avoids scanning every new atom per color group. Element tokens remain tokens;
+unattached ancestry falls back to entry defaults. Valid polymer memberships extend
+only through complete supported residue semantics; prior unsupported partial
+assignments warn without blocking a valid direct edit.
+
+The existing molecular publisher accepts optional proposed live settings and
+coalesces them with all deleted-reference pruning in the existing reversible
+entry.update action. It cannot overwrite pruning with an independent stale style
+snapshot or create a second user command. Named scenes retain their snapshot
+membership; other visibility/H/surface/selection owners remain unchanged. Generic
+callers retain their old defaults/action vocabulary. Exact renderer component and
+overpaint membership, combined Undo/Redo, archives and shared viewer/command
+regressions pass the C3 source-bound gates linked in the plan. No new migration,
+schema, dependency or version source change is introduced.
+
+### D-140/141 UI implementation note — issue #92 M4/C4, 2026-10-22
+
+The compact editor and advanced direct-edit inspector now share automatic policy;
+legacy omitted/preserve and optional HTTP policies retain their meanings. Remove
+transient H policy/count/geometry/completion state and obsolete Build H launchers.
+Dedicated +H applies immediately with server admission; optional bond preview,
+unknown-order/charge assignment, H display/removal and protein preparation remain.
+No new persisted preference or migration is introduced. Primary/inspection icon
+controls retain keyboard tooltips and canonical operand/response ownership.
+
+C4 qualification preserves safety boundaries when legacy fixtures cannot prove
+ordinary identity. Unknown XYZ H remain protected; the historical complex's +H
+refusal is correct. Its existing native-picking regression uses explicit legacy
+additive HTTP fixture preparation, never inferred identity or a retired UI claim.
+Full C4 evidence and local self-review are linked in the feature plan; broader
+qualification is tracked separately in remotely verified #114.
+
+### D-141 qualification refinement — issue #92 C5, 2026-10-22
+
+A mirrored-conformer C/N probe demonstrated that the generic stereo reconciler's
+warning-and-clear behavior cannot satisfy bounded +H admission: every frame can
+have usable local coordinates while the molecule has no consistent new stereo.
+A typed opt-in consistency requirement now refuses +H if assessment is incomplete,
+geometry is unresolved or conformers disagree. Generic additive/reconciliation
+callers keep their existing default warnings and do not acquire strict admission.
+The existing bounded assessment supplies the proof; no new perception framework,
+canonical source rewrite or unbounded analysis is introduced. Keep the separate
+explicit-H sulfur check because implicit-H perception can miss that new centre.
+The feature plan retains fail-first mirror cases, passing translation controls,
+API no-publication/Redo/counter proof and final requalification requirements.

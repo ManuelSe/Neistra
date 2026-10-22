@@ -159,7 +159,7 @@ test("edits draft chemistry with warnings, retains helper refusals, and round-tr
   const draft = (await (await request.get(`/api/v1/projects/${state.id}/entries/${entryId}/structure`)).json()).structure;
   expect(draft.bonds.find((bond: { id: number }) => bond.id === 2).order).toBe(3);
   expect(draft.warnings.some((warning: { code: string }) => warning.code === "model_unusual_valence")).toBe(true);
-  expect(await atoms(request, state.id, entryId)).toEqual(original);
+  expect((await atoms(request, state.id, entryId)).filter(a => a.element !== "H")).toEqual(original);
   state = await project(request, state.id);
   await page.getByRole("button", { name: /^Undo: Assign bond order/ }).click();
   await expect.poll(async () => (await project(request, state.id)).entries[0].current_artifact_id).toBe(opened.state.entries[0].current_artifact_id);
@@ -174,24 +174,27 @@ test("edits draft chemistry with warnings, retains helper refusals, and round-tr
   await page.getByRole("spinbutton", { name: "Z", exact: true }).fill("0");
   await page.getByRole("button", { name: "Add", exact: true }).click();
   await expect
-    .poll(async () => (await project(request, state.id)).entries[0].atom_ids)
-    .toEqual([1, 2, 3, 4]);
+    .poll(async () => (await atoms(request, state.id, entryId)).filter(a => a.element !== "H").length)
+    .toBe(4);
   state = await project(request, state.id);
   await expect(page.locator(".viewer-error")).toBeHidden();
   await expectNonblankCanvas(page);
 
+  const addedHeavy = (await atoms(request, state.id, entryId)).find(a => a.element === "C" && !original.some(old => old.id === a.id))!;
   await page.getByRole("spinbutton", { name: "Atom A" }).fill("3");
-  await page.getByRole("spinbutton", { name: "Atom B" }).fill("4");
+  await page.getByRole("spinbutton", { name: "Atom B" }).fill(String(addedHeavy.id));
   await page
     .getByRole("combobox", { name: "Order", exact: true })
     .selectOption("1");
   await page.getByRole("button", { name: "Add bond" }).click();
   await expect
-    .poll(async () => (await project(request, state.id)).entries[0].bond_count)
-    .toBe(3);
+    .poll(async () => { const response = await request.get(`/api/v1/projects/${state.id}/entries/${entryId}/structure`); return response.json().then(p => p.structure.bonds.some((b: { atom_1_id: number; atom_2_id: number }) => [b.atom_1_id,b.atom_2_id].includes(3) && [b.atom_1_id,b.atom_2_id].includes(addedHeavy.id))); })
+    .toBe(true);
   state = await project(request, state.id);
 
-  await selectAtoms(page, entryId, [3, 4]);
+  const connected = (await (await request.get(`/api/v1/projects/${state.id}/entries/${entryId}/structure`)).json()).structure;
+  const sideIds = [3, addedHeavy.id, ...connected.atoms.filter((a: AtomRead) => a.element === "H" && connected.bonds.some((b: { atom_1_id: number; atom_2_id: number }) => [b.atom_1_id,b.atom_2_id].includes(a.id) && [b.atom_1_id,b.atom_2_id].includes(addedHeavy.id))).map((a: AtomRead) => a.id)];
+  await selectAtoms(page, entryId, sideIds);
   await page.getByRole("tab", { name: "ligand" }).click();
   await page
     .getByRole("combobox", { name: "Rotatable bond" })
@@ -202,7 +205,7 @@ test("edits draft chemistry with warnings, retains helper refusals, and round-tr
     .poll(async () => (await project(request, state.id)).revision)
     .toBe(state.revision + 1);
   const rotated = await atoms(request, state.id, entryId);
-  expect(rotated[3].coordinates).not.toEqual(beforeRotation[3].coordinates);
+  expect(rotated.find(a => a.id === addedHeavy.id)!.coordinates).not.toEqual(beforeRotation.find(a => a.id === addedHeavy.id)!.coordinates);
   state = await project(request, state.id);
   await page.getByRole("button", { name: /Undo: Rotate bond/ }).click();
   await expect
@@ -224,14 +227,8 @@ test("edits draft chemistry with warnings, retains helper refusals, and round-tr
   expect((await project(request, state.id)).revision).toBe(state.revision);
 
   await page.getByRole("button", { name: "All", exact: true }).click();
-  await page.getByRole("button", { name: "Build H…" }).click();
-  const hydrogenPanel = page.getByRole("dialog", { name: "Edit molecule", exact: true });
-  await expect(hydrogenPanel.getByRole("button", { name: "Apply placement", exact: true })).toBeEnabled();
-  await hydrogenPanel.getByRole("button", { name: "Apply placement", exact: true }).click();
-  await hydrogenPanel.getByRole("button", { name: "Close molecular editor", exact: true }).click();
-  await expect
-    .poll(async () => (await project(request, state.id)).entries[0].atom_count)
-    .toBeGreaterThan(4);
+  await expect(page.getByRole("button", { name: "Build H…" })).toHaveCount(0);
+  await expect.poll(async () => (await project(request, state.id)).entries[0].atom_count).toBeGreaterThan(4);
   state = await project(request, state.id);
   await page.getByRole("button", { name: "Remove H" }).click();
   await expect
@@ -246,13 +243,13 @@ test("edits draft chemistry with warnings, retains helper refusals, and round-tr
   );
   state = await project(request, state.id);
 
-  await selectAtoms(page, entryId, [4]);
+  await selectAtoms(page, entryId, [addedHeavy.id]);
   await page.getByRole("tab", { name: "ligand" }).click();
-  const beforeMove = (await atoms(request, state.id, entryId))[3].coordinates;
+  const beforeMove = (await atoms(request, state.id, entryId)).find(a => a.id === addedHeavy.id)!.coordinates;
   await page.getByRole("spinbutton", { name: "dX" }).fill("1");
   await page.getByRole("button", { name: "Move selected" }).click();
   await expect
-    .poll(async () => (await atoms(request, state.id, entryId))[3].coordinates[0])
+    .poll(async () => (await atoms(request, state.id, entryId)).find(a => a.id === addedHeavy.id)!.coordinates[0])
     .toBeCloseTo(beforeMove[0] + 1, 8);
   state = await project(request, state.id);
 
@@ -307,7 +304,7 @@ test("keeps ligand editing functional in the mobile inspector", async ({
   const draft = (await (await request.get(`/api/v1/projects/${state.id}/entries/${entryId}/structure`)).json()).structure;
   expect(draft.bonds.find((bond: { id: number }) => bond.id === 2).order).toBe(3);
   expect(draft.warnings.some((warning: { code: string }) => warning.code === "model_unusual_valence")).toBe(true);
-  expect(await atoms(request, state.id, entryId)).toEqual(original);
+  expect((await atoms(request, state.id, entryId)).filter(a => a.element !== "H")).toEqual(original);
   await page.getByRole("button", { name: /^Undo: Assign bond order/ }).click();
   await expect.poll(async () => (await project(request, state.id)).entries[0].current_artifact_id).toBe(opened.state.entries[0].current_artifact_id);
   state = await project(request, state.id);
@@ -321,11 +318,11 @@ test("keeps ligand editing functional in the mobile inspector", async ({
     .fill("1");
   await inspector.getByRole("button", { name: "Add", exact: true }).click();
   await expect
-    .poll(async () => (await project(request, state.id)).entries[0].atom_ids)
-    .toEqual([1, 2, 3, 4]);
+    .poll(async () => (await atoms(request, state.id, entryId)).filter(a => a.element !== "H").length)
+    .toBe(4);
   state = await project(request, state.id);
   expect(state.revision).toBe(beforeAddition + 1);
-  await expect(inspector.getByText("4 atoms / 2 bonds")).toBeVisible();
+  await expect(inspector.locator(".ligand-status")).toContainText("8 atoms / 6 bonds");
 
   expect(
     await page.locator(".mobile-panel").evaluate(

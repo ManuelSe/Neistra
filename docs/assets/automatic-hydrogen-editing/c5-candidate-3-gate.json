@@ -1,0 +1,675 @@
+{
+  "power_at_start": {
+    "ac_online": "1",
+    "battery_status": "Charging",
+    "governor": "powersave",
+    "energy_preference": "balance_performance",
+    "profile": "power-saver"
+  },
+  "commit": "8510c40cfefe44a560698d4de7892a379d07ab94",
+  "phase": "candidate",
+  "attempt": 3,
+  "clean_tracked_at_start": true,
+  "preserved_untracked_debug": {},
+  "boot_id": "4cc00cb6-d793-4e01-a99d-2f67e8c27d5b",
+  "host": "tuxedo-os",
+  "platform": "Linux-6.17.0-119029-tuxedo-x86_64-with-glibc2.39",
+  "qualifier_sha256": "0e40e6850d4a9696fffa9b0a79ec82208c3d20ca065049bfb6b1403a44dd5cb9",
+  "environment": {
+    "MOLWEAVE_DATA_DIR": "/tmp/neistra-92-candidate-3/default-data",
+    "MOLWEAVE_MINIMIZATION_MAX_RSS_BYTES": "4294967296",
+    "MOLWEAVE_JOB_PLUGIN_ALLOWLIST": "molweave.demo,molweave.minimization",
+    "MOLWEAVE_JOB_PLUGIN_TARGETS": "molweave_demo_plugin.plugin:plugin,molweave_core.minimization.plugin:plugin",
+    "MOLWEAVE_AMBERTOOLS_PREFIX": "/datadisk/dev/.neistra-tools/ambertools-24.8",
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "PLAYWRIGHT_BROWSERS_PATH": ".playwright",
+    "MOLWEAVE_E2E_DATA_DIR": "/tmp/neistra-92-candidate-3/browser-data",
+    "MOLWEAVE_E2E_API_PORT": "13010",
+    "MOLWEAVE_E2E_WORKER_PORT": "13011",
+    "MOLWEAVE_E2E_WEB_PORT": "13073",
+    "MOLWEAVE_MINIMIZATION_EVIDENCE_DIR": "/tmp/neistra-92-candidate-3/native",
+    "PLAYWRIGHT_JSON_OUTPUT_NAME": "/tmp/neistra-92-candidate-3/browser.json"
+  },
+  "steps": [
+    {
+      "label": "uv",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/uv",
+        "sync",
+        "--frozen"
+      ],
+      "environment_overrides": {},
+      "power_before": {
+        "ac_online": "1",
+        "battery_status": "Charging",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "power_after": {
+        "ac_online": "1",
+        "battery_status": "Charging",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "exit_code": 0,
+      "qualification_error": null,
+      "seconds": 0.122,
+      "log": "docs/assets/automatic-hydrogen-editing/c5-candidate-3-uv.log.gz",
+      "log_sha256": "6628b8a9d27d8c6f1f0c65b421ca6fd55217fdd034abdcfea5009d7ab0a7a7b2"
+    },
+    {
+      "label": "pnpm",
+      "command": [
+        "corepack",
+        "pnpm",
+        "install",
+        "--frozen-lockfile"
+      ],
+      "environment_overrides": {},
+      "power_before": {
+        "ac_online": "1",
+        "battery_status": "Charging",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "power_after": {
+        "ac_online": "1",
+        "battery_status": "Charging",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "exit_code": 0,
+      "qualification_error": null,
+      "seconds": 0.643,
+      "log": "docs/assets/automatic-hydrogen-editing/c5-candidate-3-pnpm.log.gz",
+      "log_sha256": "a2bd71e4e70b8b05501287e4dd32861b6c6fe2e8187b847cc7fb515a2fc09d0c"
+    },
+    {
+      "label": "migration",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/uv",
+        "run",
+        "alembic",
+        "upgrade",
+        "head"
+      ],
+      "environment_overrides": {
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra-92-candidate-3/migration-data"
+      },
+      "power_before": {
+        "ac_online": "1",
+        "battery_status": "Charging",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "power_after": {
+        "ac_online": "1",
+        "battery_status": "Charging",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "exit_code": 0,
+      "qualification_error": null,
+      "seconds": 1.097,
+      "log": "docs/assets/automatic-hydrogen-editing/c5-candidate-3-migration.log.gz",
+      "log_sha256": "a65aaba1d288361248cfad53dee993528aa5c4bbd5accca186ae60e26f85c610"
+    },
+    {
+      "label": "ruff",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/uv",
+        "run",
+        "ruff",
+        "check",
+        "."
+      ],
+      "environment_overrides": {},
+      "power_before": {
+        "ac_online": "1",
+        "battery_status": "Charging",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "power_after": {
+        "ac_online": "1",
+        "battery_status": "Charging",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "exit_code": 0,
+      "qualification_error": null,
+      "seconds": 0.132,
+      "log": "docs/assets/automatic-hydrogen-editing/c5-candidate-3-ruff.log.gz",
+      "log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "label": "mypy",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/uv",
+        "run",
+        "mypy",
+        "apps/api",
+        "packages/molweave_core"
+      ],
+      "environment_overrides": {},
+      "power_before": {
+        "ac_online": "1",
+        "battery_status": "Charging",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "power_after": {
+        "ac_online": "1",
+        "battery_status": "Charging",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "exit_code": 0,
+      "qualification_error": null,
+      "seconds": 0.273,
+      "log": "docs/assets/automatic-hydrogen-editing/c5-candidate-3-mypy.log.gz",
+      "log_sha256": "dc43c4a518c8b02be9b88992ec25413d8e874b5fe64eebf24c6e12d5007d2ccc"
+    },
+    {
+      "label": "python",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/uv",
+        "run",
+        "pytest"
+      ],
+      "environment_overrides": {},
+      "power_before": {
+        "ac_online": "1",
+        "battery_status": "Charging",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "power_after": {
+        "ac_online": "1",
+        "battery_status": "Charging",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "exit_code": 0,
+      "qualification_error": null,
+      "seconds": 321.858,
+      "log": "docs/assets/automatic-hydrogen-editing/c5-candidate-3-python.log.gz",
+      "log_sha256": "eb1c6c3d810e63dce607b0ba69dc1059627629b41ad6902802877b465dc4ca13"
+    },
+    {
+      "label": "lint",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "lint"
+      ],
+      "environment_overrides": {},
+      "power_before": {
+        "ac_online": "1",
+        "battery_status": "Charging",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "power_after": {
+        "ac_online": "1",
+        "battery_status": "Charging",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "exit_code": 0,
+      "qualification_error": null,
+      "seconds": 10.389,
+      "log": "docs/assets/automatic-hydrogen-editing/c5-candidate-3-lint.log.gz",
+      "log_sha256": "aacb42f6ab1df50a6fe3e767356571c434bd7036385560b6e687d6c97e49fb80"
+    },
+    {
+      "label": "types",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "typecheck"
+      ],
+      "environment_overrides": {},
+      "power_before": {
+        "ac_online": "1",
+        "battery_status": "Charging",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "power_after": {
+        "ac_online": "1",
+        "battery_status": "Charging",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "exit_code": 0,
+      "qualification_error": null,
+      "seconds": 5.444,
+      "log": "docs/assets/automatic-hydrogen-editing/c5-candidate-3-types.log.gz",
+      "log_sha256": "d2ceb52a684112922d8e2dfd2e02e15a24e170366bb775cd1526f655f3ba88e7"
+    },
+    {
+      "label": "web-tests",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "test"
+      ],
+      "environment_overrides": {},
+      "power_before": {
+        "ac_online": "1",
+        "battery_status": "Charging",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "power_after": {
+        "ac_online": "1",
+        "battery_status": "Charging",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "exit_code": 0,
+      "qualification_error": null,
+      "seconds": 10.666,
+      "log": "docs/assets/automatic-hydrogen-editing/c5-candidate-3-web-tests.log.gz",
+      "log_sha256": "d0771b404fbcb596f91c41d2a7c84ea79d955ea43ffccf93b97a721223f0a4fd"
+    },
+    {
+      "label": "supervisor",
+      "command": [
+        "corepack",
+        "pnpm",
+        "test:dev"
+      ],
+      "environment_overrides": {},
+      "power_before": {
+        "ac_online": "1",
+        "battery_status": "Charging",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "power_after": {
+        "ac_online": "1",
+        "battery_status": "Charging",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "exit_code": 0,
+      "qualification_error": null,
+      "seconds": 1.479,
+      "log": "docs/assets/automatic-hydrogen-editing/c5-candidate-3-supervisor.log.gz",
+      "log_sha256": "41d29f5b7a1f792b80bcea64a7edecbd13db8cc47faf5a735694158b8be53d66"
+    },
+    {
+      "label": "build",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "build"
+      ],
+      "environment_overrides": {},
+      "power_before": {
+        "ac_online": "1",
+        "battery_status": "Charging",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "power_after": {
+        "ac_online": "1",
+        "battery_status": "Charging",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "exit_code": 0,
+      "qualification_error": null,
+      "seconds": 13.425,
+      "log": "docs/assets/automatic-hydrogen-editing/c5-candidate-3-build.log.gz",
+      "log_sha256": "7297d8f8f76401a59d709fd1bd8f030e183b7b02f96e6e813e54e2fd3fb8716f"
+    },
+    {
+      "label": "browser",
+      "command": [
+        "corepack",
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "--reporter=list,json"
+      ],
+      "environment_overrides": {},
+      "power_before": {
+        "ac_online": "1",
+        "battery_status": "Charging",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "power_after": {
+        "ac_online": "1",
+        "battery_status": "Charging",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "exit_code": 0,
+      "qualification_error": null,
+      "seconds": 3177.858,
+      "log": "docs/assets/automatic-hydrogen-editing/c5-candidate-3-browser.log.gz",
+      "log_sha256": "f631809f374185b47b7222f41d398e9cd275cdb0228309994d98754dc951b6fa"
+    },
+    {
+      "label": "forward-migration",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/uv",
+        "run",
+        "alembic",
+        "upgrade",
+        "head"
+      ],
+      "environment_overrides": {
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra-92-candidate-3/forward"
+      },
+      "power_before": {
+        "ac_online": "1",
+        "battery_status": "Charging",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "power_after": {
+        "ac_online": "1",
+        "battery_status": "Charging",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "exit_code": 0,
+      "qualification_error": null,
+      "seconds": 1.132,
+      "log": "docs/assets/automatic-hydrogen-editing/c5-candidate-3-forward-migration.log.gz",
+      "log_sha256": "a65aaba1d288361248cfad53dee993528aa5c4bbd5accca186ae60e26f85c610"
+    },
+    {
+      "label": "automatic-producer",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/python",
+        "-m",
+        "tests.support.automatic_hydrogen_reader_qualification",
+        "produce",
+        "--data-dir",
+        "/tmp/neistra-92-candidate-3/forward",
+        "--reader-root",
+        "/datadisk/dev/neistra",
+        "--expected-reader",
+        "0.24.0",
+        "--evidence",
+        "/tmp/neistra-92-candidate-3/automatic-producer.json"
+      ],
+      "environment_overrides": {
+        "PYTHONPATH": "/datadisk/dev/neistra/apps/api/src:/datadisk/dev/neistra/packages/molweave_core/src:/datadisk/dev/neistra/packages/molweave_demo_plugin/src"
+      },
+      "power_before": {
+        "ac_online": "1",
+        "battery_status": "Charging",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "power_after": {
+        "ac_online": "1",
+        "battery_status": "Charging",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "exit_code": 0,
+      "qualification_error": null,
+      "seconds": 3.807,
+      "log": "docs/assets/automatic-hydrogen-editing/c5-candidate-3-automatic-producer.log.gz",
+      "log_sha256": "d35224a7ba6bbed50f93f17863ff3e3e4ebda450d536c5471737c1e277f5cbbb"
+    },
+    {
+      "label": "old-reader",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/python",
+        "-m",
+        "tests.support.automatic_hydrogen_reader_qualification",
+        "read",
+        "--data-dir",
+        "/tmp/neistra-92-candidate-3/forward",
+        "--reader-root",
+        "/tmp/neistra-92-reader-0230",
+        "--expected-reader",
+        "0.23.0",
+        "--evidence",
+        "/tmp/neistra-92-candidate-3/old-reader.json"
+      ],
+      "environment_overrides": {
+        "PYTHONPATH": "/tmp/neistra-92-reader-0230/apps/api/src:/tmp/neistra-92-reader-0230/packages/molweave_core/src:/tmp/neistra-92-reader-0230/packages/molweave_demo_plugin/src"
+      },
+      "power_before": {
+        "ac_online": "1",
+        "battery_status": "Charging",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "power_after": {
+        "ac_online": "1",
+        "battery_status": "Charging",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "exit_code": 0,
+      "qualification_error": null,
+      "seconds": 2.706,
+      "log": "docs/assets/automatic-hydrogen-editing/c5-candidate-3-old-reader.log.gz",
+      "log_sha256": "941e09e2b14a60a60cf0739d9e2a473ed218568e558a1014557f46ca791c04de"
+    },
+    {
+      "label": "reverse-migration",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/uv",
+        "run",
+        "alembic",
+        "upgrade",
+        "head"
+      ],
+      "environment_overrides": {
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra-92-candidate-3/reverse"
+      },
+      "power_before": {
+        "ac_online": "1",
+        "battery_status": "Charging",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "power_after": {
+        "ac_online": "1",
+        "battery_status": "Charging",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "exit_code": 0,
+      "qualification_error": null,
+      "seconds": 1.093,
+      "log": "docs/assets/automatic-hydrogen-editing/c5-candidate-3-reverse-migration.log.gz",
+      "log_sha256": "a65aaba1d288361248cfad53dee993528aa5c4bbd5accca186ae60e26f85c610"
+    },
+    {
+      "label": "old-producer",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/python",
+        "-m",
+        "tests.support.automatic_hydrogen_reader_qualification",
+        "produce",
+        "--legacy",
+        "--data-dir",
+        "/tmp/neistra-92-candidate-3/reverse",
+        "--reader-root",
+        "/tmp/neistra-92-reader-0230",
+        "--expected-reader",
+        "0.23.0",
+        "--evidence",
+        "/tmp/neistra-92-candidate-3/old-producer.json"
+      ],
+      "environment_overrides": {
+        "PYTHONPATH": "/tmp/neistra-92-reader-0230/apps/api/src:/tmp/neistra-92-reader-0230/packages/molweave_core/src:/tmp/neistra-92-reader-0230/packages/molweave_demo_plugin/src"
+      },
+      "power_before": {
+        "ac_online": "1",
+        "battery_status": "Charging",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "power_after": {
+        "ac_online": "1",
+        "battery_status": "Charging",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "exit_code": 0,
+      "qualification_error": null,
+      "seconds": 2.908,
+      "log": "docs/assets/automatic-hydrogen-editing/c5-candidate-3-old-producer.log.gz",
+      "log_sha256": "c8ad6d3ea666cc9887a28f25e06b2d7c4328698b359f5d959dc3262442efc4cf"
+    },
+    {
+      "label": "current-reader",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/python",
+        "-m",
+        "tests.support.automatic_hydrogen_reader_qualification",
+        "read",
+        "--data-dir",
+        "/tmp/neistra-92-candidate-3/reverse",
+        "--reader-root",
+        "/datadisk/dev/neistra",
+        "--expected-reader",
+        "0.24.0",
+        "--evidence",
+        "/tmp/neistra-92-candidate-3/current-reader.json"
+      ],
+      "environment_overrides": {
+        "PYTHONPATH": "/datadisk/dev/neistra/apps/api/src:/datadisk/dev/neistra/packages/molweave_core/src:/datadisk/dev/neistra/packages/molweave_demo_plugin/src"
+      },
+      "power_before": {
+        "ac_online": "1",
+        "battery_status": "Charging",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "power_after": {
+        "ac_online": "1",
+        "battery_status": "Charging",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "exit_code": 0,
+      "qualification_error": null,
+      "seconds": 1.795,
+      "log": "docs/assets/automatic-hydrogen-editing/c5-candidate-3-current-reader.log.gz",
+      "log_sha256": "e5dd0ca4a6c5d733dcacb51d41d1f300d9721421b6e3a99f6716d38a47cfcc90"
+    },
+    {
+      "label": "versions",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/python",
+        "/tmp/neistra-92-versions.py"
+      ],
+      "environment_overrides": {},
+      "power_before": {
+        "ac_online": "1",
+        "battery_status": "Charging",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "power_after": {
+        "ac_online": "1",
+        "battery_status": "Charging",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "exit_code": 0,
+      "qualification_error": null,
+      "seconds": 0.151,
+      "log": "docs/assets/automatic-hydrogen-editing/c5-candidate-3-versions.log.gz",
+      "log_sha256": "8f9d748f18c187d7dceafe5ba096b3c4873175d50aeb7a6211411f20fa187a60"
+    },
+    {
+      "label": "diff",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "environment_overrides": {},
+      "power_before": {
+        "ac_online": "1",
+        "battery_status": "Charging",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "power_after": {
+        "ac_online": "1",
+        "battery_status": "Charging",
+        "governor": "powersave",
+        "energy_preference": "balance_performance",
+        "profile": "power-saver"
+      },
+      "exit_code": 0,
+      "qualification_error": null,
+      "seconds": 0.087,
+      "log": "docs/assets/automatic-hydrogen-editing/c5-candidate-3-diff.log.gz",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "source_unchanged": true,
+  "passed": true,
+  "power_observations": {
+    "log": "docs/assets/automatic-hydrogen-editing/c5-candidate-3-power.jsonl.gz",
+    "raw_sha256": "095c8088559a8b96b30acc3887717207dd78584f706be1f80f1b4e903bfd6429",
+    "interval_seconds": 15
+  }
+}

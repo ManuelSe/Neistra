@@ -24,12 +24,14 @@ workspace, not proposed account, docking or marketplace features.
 
 Open **Edit molecule** beside Transform for direct atom/charge/deletion and
 same-entry bond changes, including incomplete chemistry and covalently attached
-ligands. All118 elements and unknown charge/order are available. **Bonds** defaults
-to immediate local H reconciliation, which may add, remove or move ordinary H at
-the two edited heavy endpoints. Choose **Preserve H** for literal bond edits, or
-enable **Preview changes** to inspect the proposal before Apply. Uncertain sites
-retain the direct edit and report why H reconciliation skipped. Optional additive
-completion for other building actions remains off by default and nonfatal.
+ligands. All118 elements and unknown charge/order remain available in Advanced.
+Ordinary atom, fragment and bond edits automatically maintain supported local H;
+unknown/protected sites retain the direct draft with diagnostics. There is no
+hydrogen-policy preference. Bond create/break icons, bounded order −/+, an aromatic
+toggle and current-order indication keep the primary controls compact. Optional
+bond preview remains in **Advanced bond details**. Heavy deletion also removes
+canonically attached terminal H, including hidden H; explicitly deleted H is not
+immediately refilled.
 **New molecule** starts at one atom. Add atoms or six fixed fragments through a
 nonpickable placement preview, direction/rotation, Apply/Cancel and compact
 inspection controls. Deleting the last atom leaves an editable empty entry.
@@ -41,18 +43,20 @@ modifiers, scope and fallback behavior. Mouse hover previews the current picking
 mode without changing selection. Residue mode uses complete existing protein
 residues or assigned individual molecule components; hidden atoms stay hidden.
 
-**Hydrogen tools** previews selection or explicit whole-entry completion and a
-chosen H count/geometry. Supported sites can complete independently; existing H
-and coordinates remain fixed across conformers. Unknown chemistry and unresolved
-stereo receive precise reports. Standard-residue mutation and preparation retain
-their own prerequisites. See [Molecular model](docs/MOLECULAR_MODEL.md) for the
-different intent of draft building, completion, preparation, analysis and export.
+**+H** immediately adds one explicit H using bounded C/N/O/S rules, including
+NH3→NH4+ and H2O→H3O+. Unsupported requests leave the molecule unchanged. Charge
+and H publish together with warnings and exact Undo/Redo. Geometry is unoptimized;
+this does not predict pKa or physiological protonation. H visibility stays separate.
+New atoms and H inherit explicit attachment representation/color memberships;
+element-color tokens retain their meaning. Standard-residue mutation and protein
+preparation keep their own prerequisites. See [Molecular model](docs/MOLECULAR_MODEL.md)
+for draft, automatic maintenance, preparation, analysis and export boundaries.
 
 Draft display is separate from chemical export. Native archives preserve literal
 drafts/unknowns and explicit inferred-bond removals; chemical files explain losses
 or refuse unrepresentable graphs. Warnings do not certify preparation, protonation
 or optimized geometry. See [Molecular editing](docs/MOLECULAR_EDITING.md) and the
-[bond-H reconciliation plan](docs/plans/issue-81-local-hydrogen-reconciliation.md);
+[automatic editing contract](docs/plans/issue-92-automatic-hydrogen-editing.md);
 [additive hydrogen qualification](docs/plans/issue-77-geometry-aware-hydrogens.md);
 [direct-building baseline](docs/plans/issue-74-direct-molecular-modeling.md).
 Combining separate entries, peptide growth, wider catalogues and ring fusion remain

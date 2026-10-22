@@ -1,8 +1,8 @@
 # Molecular editing
 
-The current direct atom/bond workflow follows the
-[issue #74 contract](plans/issue-74-direct-molecular-modeling.md). Direct editing and compact building are implemented; qualification and
-release evidence are recorded checkpoint by checkpoint in that contract.
+The direct atom/bond workflow follows the
+[issue #92 contract](plans/issue-92-automatic-hydrogen-editing.md), extending the
+[issue #74 foundation](plans/issue-74-direct-molecular-modeling.md).
 
 Select atoms, open **Edit molecule** beside **Transform selection**, and use
 **Atoms** or **Bonds**. Direct editing works on incomplete normalized structures
@@ -11,13 +11,16 @@ conformer count. Covalent ligand/protein links within an entry are editable.
 Select current canonical atoms in one unlocked entry; finish active movement
 before editing. Selection, camera and molecular state remain separate.
 
-Element shortcuts cover C/N/O/S/F/Cl/Br/I; **More elements and formal charge** offers
+Element shortcuts cover C/N/O/S/F/Cl/Br/I; **Advanced atom details** offers
 all118 recognized element symbols and absolute integer charge assignment, including
 **Set charge unknown**. Unknown source charges/orders stay unknown until explicitly
 assigned. The q± shortcuts need a known charge. Element assignment preserves the
 selected atom's identity and coordinates, including H. **Delete selected atoms**
-removes exactly those atoms and their incident bonds; it does not saturate remaining
-atoms or delete other H. Deleting the last atom retains an empty, saveable entry.
+removes selected atoms and their incident bonds, plus terminal H whose sole
+canonical neighbor is a deleted heavy atom. Hidden H follow the same rule.
+Ambiguous bridging H and missing connectivity are not guessed. Explicit H deletion
+does not immediately refill its parent or infer a charge change. Deleting the
+last atom retains an empty, saveable entry.
 
 In **Bonds**, select any two distinct atoms in one entry, including H, using a
 native bond pick or additive atom selection. Create, break or assign unknown,
@@ -36,26 +39,11 @@ An unvalidated draft is not a protonation, preparation or optimized-geometry cla
 Source labels/properties can describe the original rather than modified chemistry.
 Viewer projection displays drafts independently of chemical-format export.
 
-**Hydrogen tools** separates additive completion from preparation. Choose
-**Selection** or explicitly choose **Whole entry**, then **Preview completion**.
-A terminal selected H identifies its heavy parent. Without selected atoms, choose
-**Target entry** explicitly; there is no first-entry fallback. Supported sites can
-complete while uncertain sites skip, with counts and expandable atom/conformer
-diagnostics. The previous preparation HTTP helper remains available to existing
-clients under its original restrictions; ordinary H building does not use it.
-
-For deliberate incomplete-chemistry building, select one heavy atom, choose
-**Hydrogens to add** (1–4), a visible **Hydrogen geometry** (default tetrahedral),
-and **Preview added H**. This adds that many H without removing existing H or
-assigning missing parent charges/bond orders. **Next orientation** cycles six
-deterministic alternatives. Too few free ideal coordination positions produces a
-no-change diagnostic; Add atom H remains available for arbitrary draft building.
-Count/geometry are choices for one operation, not persistent constraints.
-
-All standalone H building previews before **Apply placement**. Inspect the ghosts,
-report and warnings through **Placement tools**; zero-addition proposals cannot be
-applied from the UI. API no-op requests do not create history, advance counters,
-mark dirty or clear Redo. The general inspector **Build H…** opens this same preview.
+**+H** immediately adds exactly one hydrogen to one selected heavy atom using
+bounded C/N/O/S rules. There is no count, geometry or orientation configuration,
+completion launcher or hydrogen-policy preference. The atom's charge and the new
+H publish together; unsupported requests leave the molecule unchanged. See the
+[finite chemistry table](SCIENTIFIC_LIMITATIONS.md) and the +H details below.
 
 **Show explicit H** changes viewer settings only; atomic representations, isolation,
 component visibility, local H preferences and atom hiding still control visibility.
@@ -69,7 +57,8 @@ structure created in the application. Closing while creation is pending prevents
 a late UI takeover; a result already stored remains in its original project.
 
 In **Atoms → Add atom**, choose the added element and absolute charge (or unknown),
-then **Preview atom**. This attaches to one selected atom, preserving existing H.
+then **Preview atom**. This attaches to one selected atom with automatic local H
+maintenance.
 For an empty entry, choose **Target entry** explicitly and preview its first
 atom at the origin. Deleting the last atom leaves that entry available for rebuilding;
 there is no fallback to another loaded entry. The advanced inspector can also add
@@ -78,7 +67,7 @@ an explicitly positioned disconnected atom; its target must be chosen explicitly
 In **Fragments**, select a heavy atom to attach methyl, ethyl, hydroxyl, amino,
 carboxylic acid or phenyl, or select a terminal explicit H to replace it. Terminal H
 replacement needs an explicit heavy parent, but not complete charge/order chemistry.
-The parent stays fixed and other H are preserved. Replacement consumes H identity
+The parent stays fixed; supported local H may be added, removed or repositioned. Replacement consumes H identity
 and maps it to the new root; ordinary element assignment instead retains identity.
 All new records inherit their anchor's valid residue membership and alternate-site
 label; terminal-H replacement prefers that H's alternate label.
@@ -90,7 +79,7 @@ proposal stays visible. **Placement tools** restores inputs and warnings;
 direction** to cycle six local directions and **Rotate fragment** for six60-degree
 turns. **Apply placement** recomputes and saves one command; **Cancel placement**
 discards the proposal without an artifact/history/allocator change. Selection,
-project visit, revision/artifact, input, policy or tool/movement changes invalidate
+project visit, revision/artifact, input or tool/movement changes invalidate
 it. Ghosts are not molecular atoms and cannot become canonical operands. Normal
 canvas/camera gestures and explicit Transform remain available.
 
@@ -102,20 +91,15 @@ Each conformer gets new coordinates without moving retained points. Overlap and
 unoptimized geometry warn rather than block the requested draft. This is not
 proof of favorable geometry, protonation or force-field readiness.
 
-**Complete hydrogens when possible** is off by default. It attempts local
-additive completion on changed/new heavy atoms and immediate canonical neighbors.
-It does not require prepared components, known remote chemistry, a particular file
-format or a closed ligand boundary. Existing H/coordinates stay fixed. Independent
-supported sites can succeed; unsupported chemistry, ambiguous new configurations,
-degenerate geometry and resource limits produce reports and warnings without
-losing the direct edit. Explicit H deletion is never reversed automatically.
-
-Completion uses the bounded initial profile and geometry-first current stereo
-policy described in [Molecular model](MOLECULAR_MODEL.md). All conformers of a site
-must succeed; each receives its own placement. Original stereo/source facts remain
-unchanged. New XYZ imports preserve unknown charges; history is not reinterpreted.
-Preparation, protonation, minimization, broad catalogues/rings and peptide growth
-remain separate workflows or follow-up work.
+Ordinary atom, fragment and bond edits automatically maintain changed/new heavy
+sites and immediate canonical neighbors. Supported local H can be added, removed
+or moved; unrelated sites are not recursively completed. Assigned charge remains
+fixed except for an explicit charge edit or the documented +H transition. Unknown,
+protected, unsupported, stereo-ambiguous or geometrically unusable sites keep the
+requested direct draft with warnings and expandable **Automatic hydrogen details**.
+Every conformer of a site must succeed. Original source facts remain unchanged.
+New XYZ imports keep unknown charges. Preparation, protonation-state prediction,
+minimization and broader building remain separate work.
 
 Each edit publishes one immutable artifact/history command. Undo/Redo restores
 exact molecular state; monotonic IDs are not reused after branching. Warnings
@@ -173,19 +157,49 @@ no H is added to canonical records. Use native archives to preserve the literal
 draft rather than treating a chemical format as a protonation specification.
 
 
+## Appearance of added atoms (issue #92 C3)
+
+Committed atoms/fragments inherit the heavy attachment atom's explicit
+representation and color overrides. H inherit their actual parent's appearance,
+including H generated on a new fragment. A terminal-H replacement uses that H's
+heavy parent. Element-color assignments still color each new element by element;
+custom colors stay custom. First/disconnected atoms use entry defaults.
+
+Molecule and appearance save as one reversible command, including pruning removed
+H references. Visibility/isolation, local H preferences, independent surfaces and
+named selections remain separate. Old named scenes remain snapshots. Existing
+unsupported partial polymer assignments produce a warning and use entry defaults
+for the added atoms rather than blocking the molecular edit. Placement previews
+retain their distinct temporary appearance.
+
+## One-click H addition (issue #92 C2)
+
+**Add hydrogen (+H)** in Atoms adds exactly one H to one selected heavy atom using
+bounded C/N/O/S rules. Canonical bonds count, including hidden H. Supported examples
+include NH3 to NH4+, H2O to H3O+ and ordinary symmetric sulfide to sulfonium.
+Unsupported valence/charge, unknown/protected local identity and unresolved stereo
+report a concise error without changing the molecule. Charge and H addition form
+one Undo/Redo action; the parent remains selected. Inspect operation warnings for
+charge changes and unoptimized geometry. This is explicit building, not pKa or
+physiological-state prediction. Later site edits can reconcile the new ordinary H.
+
 ## Bond hydrogens
 
-The Bonds panel defaults to **Reconcile local H — may add, remove or move H**.
-Create, break and order controls apply immediately as one reversible command.
-Choose **Preserve H** for literal incomplete/radical/over-valent draft building.
-This bond preference resets per project visit and is separate from optional
-additive completion for atom/fragment placement. Complete H and Add N H still add
-only and preserve existing coordinates.
+The Bonds panel provides create/break icons, order −/+, a current-order indicator
+and an **Aromatic bond** toggle. Stepping is bounded to single/double/triple and is
+disabled for unknown/aromatic orders; turning aromatic off assigns single.
+**Advanced bond details** retains unknown or explicit order assignment and optional
+preview. Aromatic assignment permits a draft; it does not repair aromatic chemistry.
+All ordinary direct controls use automatic local H maintenance. There is no policy
+selector, including in Advanced. Existing clients retain omitted/preserve,
+complete_if_possible and reconcile_if_possible HTTP policies and standalone
+count/completion operations under their original semantics.
 
 Enable **Preview changes before applying** for an optional inspect/Cancel/Apply
 workflow. Nonpickable H ghosts, movement lines and removal crosses are transient;
 the original model stays unchanged until Apply. Reports name added/removed/moved H
 IDs and skipped sites. Source/protection uncertainty, unsupported aromatic/resonance
 chemistry, ambiguous stereo and conformer failures retain the requested bond draft
-with diagnostics. Use manual H and coordinate tools for skipped sites. Ideal H
+with diagnostics. Use explicit atom/charge/bond drafting, coordinate tools or separate preparation
+where appropriate for skipped sites. Ideal H
 geometry and contact warnings are not minimization, protonation or preparation.

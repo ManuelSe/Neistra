@@ -2,6 +2,37 @@
 
 ## Current milestone
 
+Issue [#92](https://github.com/ManuelSe/Neistra/issues/92) is implementing its
+[approved contract](plans/issue-92-automatic-hydrogen-editing.md) on
+`feat/issue-92-automatic-hydrogen-editing`, authorized by the user's 2026-10-22
+`/goal`. C0 remote commit15705d9 and D-140–142 retain approval and boundaries.
+
+M1–M5 are implemented and candidate-qualified: automatic local H maintenance,
+bounded immediate +H with consistent all-conformer stereo, atomic attachment
+appearance and compact accessible controls. Legacy HTTP defaults/operations,
+explicit removal/protein preparation and independent display/scene owners remain.
+
+[Final candidate3](assets/automatic-hydrogen-editing/c5-candidate-3-gate.json)
+8510c40 passes all20 commands: **1247 Python,321 frontend,8 supervisor,306 native
+browser/60 documented layout exclusions**, zero failures/flakes/retries/native
+scientific skips. All static/type/build/frozen install/migration checks, actual
+0.23.0↔0.24.0 readers,567 source/log identities and unchanged performance budgets
+pass. Cold small/pocket/18k0.980/2.170/3.672s; frame722ms; Cancel49.8ms. Exact
+machine context is retained in the gate. [Self-review](assets/automatic-hydrogen-editing/c5-review.md)
+resolved C/N mirror-stereo admission and broad-journey count expectations; earlier
+attempts remain separate diagnostics. All five versions0.24.0; no dependency or
+schema/migration change (head0014,2/1 schemas).
+
+Known limits: bounded unoptimized H chemistry and preserved scene/visibility owners.
+[Broader qualification#114](https://github.com/ManuelSe/Neistra/issues/114) is remotely
+verified; #83/#52/#71 retain their scope. No blocker or consequential local finding.
+Origin/master54533f1/latestv0.23.0 remain current, v0.24.0 unused. Next: commit/push
+candidate evidence, PR/review/protection audit and normal merge, then full fresh
+exact-master gate, verified tag/release/issue reply and documentation/branch cleanup.
+Publication and Goal completion remain pending.
+
+### Previous delivery baseline — v0.23.0
+
 Issue [#110](https://github.com/ManuelSe/Neistra/issues/110) is implemented, normally
 merged in [PR#111](https://github.com/ManuelSe/Neistra/pull/111) and
 [corrective PR#112](https://github.com/ManuelSe/Neistra/pull/112), and published stable
@@ -2732,9 +2763,10 @@ Results:
 
 ## Blockers
 
-Release blocked by reproduced pocket repair distortion; no external blocker.
+No external blocker for issue#92. Complete final-version candidate and exact
+merged-master qualification, PR review and verified release delivery remain required.
 
 ## Next action
 
-Correct the repair objective and geometry acceptance, add causal scientific/native
-regressions, then repeat full candidate and exact-master qualification before release.
+Open the qualified0.24.0 implementation PR, request review and satisfy repository
+policy, then normal merge and full exact-master qualification before publication. Keep broader chemistry in#114 and retain existing scientific boundaries.

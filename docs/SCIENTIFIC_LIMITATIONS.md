@@ -10,6 +10,30 @@ import/edit summaries, and action-required movement guidance remain visible unti
 dismissed or replaced; detailed scientific warning records and panels are unchanged.
 Hiding a confirmation does not change or validate molecular data.
 
+## Automatic direct-edit hydrogen maintenance
+
+Automatic direct-edit hydrogen maintenance (issue #92 C1) is bounded local
+building, not preparation or protonation prediction. Unsupported/protected sites
+retain the requested draft with diagnostics, including per-site conformer and
+budget failures. Heavy deletion cascades only through explicit canonical terminal
+H connectivity; hidden rendering is irrelevant, and historical orphan or ambiguous
+bridging-H cleanup is not inferred. Explicit H deletion does not infer a compensating
+charge change. See [operation intent](MOLECULAR_MODEL.md#automatic-direct-edit-maintenance-issue-92-c1)
+and the [approved contract](plans/issue-92-automatic-hydrogen-editing.md).
+
+## One-click hydrogen addition
+
+One-click +H (issue #92 C2/C5) uses a finite C/N/O/S state table.
+All conformers must establish consistent supported stereo; mirrored/disagreeing
+configurations or incomplete assessment refuse atomically. Legacy additive helpers
+and direct drafts retain their separate warning semantics. Sulfur is restricted
+to ordinary single-bond states; higher charge, hypervalent S, conjugated charge
+transitions and undetermined sulfur stereo refuse. Valence-deficit filling is
+one explicit building step, not proof of complete chemistry. A conventional charge
+change does not predict pKa, physiological protonation or a favorable geometry.
+Generic RDKit sanitization can admit states outside this operation's profile and
+is not used as its sole scientific admission criterion.
+
 ## Molecular interactions
 
 Transient `interaction-v1` analysis is geometric screening, not binding energy.
@@ -474,11 +498,11 @@ explicit H; toggling H display never creates atoms or enables cartoon atom detai
 
 ## Geometry-aware additive hydrogen building (issue #77)
 
-Current H building uses operation-specific requirements, independently of legacy
+The retained additive HTTP operations use operation-specific requirements, independently of legacy
 prepared-component eligibility. Automatic local counts cover C0, N0/+1, O0/-1/+1,
 S0 divalent and neutral halogens. Known incident canonical bonds count across
 navigation boundaries. Aromatic contexts must be complete, specified and within
-budgets; no arbitrary cut/cap or remote-unknown default is used. Explicit Add N H
+budgets; no arbitrary cut/cap or remote-unknown default is used. Legacy HTTP Add N H
 can build with unknown chemistry, without interpreting it as neutral or complete.
 
 Ideal coordination and approximate bond lengths are unoptimized proposals. Proper

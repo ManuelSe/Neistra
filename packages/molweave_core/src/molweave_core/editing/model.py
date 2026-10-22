@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from math import dist
 from typing import Annotated, Literal
 
@@ -30,11 +30,12 @@ from molweave_core.editing.ligand import EditResult
 from molweave_core.editing.placement import place_atom, place_fragment
 from molweave_core.editing.reconciliation import ReconciliationReport, reconcile_hydrogens
 from molweave_core.editing.selection import SelectionEditResult
+from molweave_core.editing.single_hydrogen import add_one_hydrogen
 from molweave_core.hydrogen_protection import authored_protection
 from molweave_core.molecular import Bond, MolecularWarning, NormalizedStructureV1
 
 MODELING_METADATA = "neistra_modeling"
-HydrogenPolicy = Literal["preserve", "complete_if_possible", "reconcile_if_possible"]
+HydrogenPolicy = Literal["preserve", "complete_if_possible", "reconcile_if_possible", "automatic"]
 
 
 class InvalidModelEdit(ValueError):
@@ -119,6 +120,10 @@ class ModelHydrogenAdd(ModelActionBase):
     orientation: int = Field(default=0, ge=0, le=5, strict=True)
 
 
+class ModelHydrogenAddOne(ModelActionBase):
+    operation: Literal["hydrogens.add_one"]
+
+
 ModelAction = Annotated[
     ModelElement
     | ModelCharge
@@ -128,7 +133,8 @@ ModelAction = Annotated[
     | ModelAtomAdd
     | ModelFragmentAdd
     | ModelHydrogenComplete
-    | ModelHydrogenAdd,
+    | ModelHydrogenAdd
+    | ModelHydrogenAddOne,
     Field(discriminator="operation"),
 ]
 
@@ -168,10 +174,76 @@ def model_warning(
     )
 
 
+def _adjacency(structure: NormalizedStructureV1) -> dict[int, set[int]]:
+    result: dict[int, set[int]] = {a.id: set() for a in structure.atoms}
+    for bond in structure.bonds:
+        result[bond.atom_1_id].add(bond.atom_2_id)
+        result[bond.atom_2_id].add(bond.atom_1_id)
+    return result
+
+
+def _automatic_targets(
+    before: NormalizedStructureV1,
+    draft: NormalizedStructureV1,
+    selected: list[int],
+    action: ModelAction,
+) -> tuple[list[int], set[int]]:
+    """One-hop canonical edit operands; explicit H intent is operation-local."""
+    old = {a.id: a for a in before.atoms}
+    current = {a.id: a for a in draft.atoms}
+    previous, following = _adjacency(before), _adjacency(draft)
+    seeds = set(selected) | (current.keys() - old.keys())
+    targets = seeds | {j for i in seeds for j in previous.get(i, set()) | following.get(i, set())}
+    suppressed: set[int] = set()
+    if isinstance(action, ModelDelete):
+        suppressed = {j for i in selected if old[i].element in {"H", "D", "T"} for j in previous[i]}
+    elif isinstance(action, (ModelBondSet, ModelBondDelete)) and any(
+        old[i].element in {"H", "D", "T"} for i in selected
+    ):
+        suppressed = set(selected) | {
+            j for i in selected if old[i].element in {"H", "D", "T"} for j in previous[i]
+        }
+    elif isinstance(action, ModelAtomAdd) and action.element == "H":
+        suppressed = set(selected)
+    return sorted(
+        i for i in targets if i in current and current[i].element not in {"H", "D", "T"}
+    ), suppressed
+
+
+def _appearance_sources(
+    before: NormalizedStructureV1,
+    after: NormalizedStructureV1,
+    selected: list[int],
+    action: ModelAction,
+) -> dict[int, int]:
+    """Creation ancestry only; durable appearance is owned by the application."""
+    old = {a.id: a for a in before.atoms}
+    created = {a.id for a in after.atoms} - old.keys()
+    sources: dict[int, int] = {}
+    if isinstance(action, (ModelAtomAdd, ModelFragmentAdd)) and len(selected) == 1:
+        anchor = selected[0]
+        if old[anchor].element in {"H", "D", "T"}:
+            neighbors = _adjacency(before)[anchor]
+            anchor = next(iter(neighbors)) if len(neighbors) == 1 else anchor
+        if old[anchor].element not in {"H", "D", "T"}:
+            sources = {i: anchor for i in created}
+    atoms = {a.id: a for a in after.atoms}
+    for bond in after.bonds:
+        for child, parent in [(bond.atom_1_id, bond.atom_2_id), (bond.atom_2_id, bond.atom_1_id)]:
+            if (
+                child in created
+                and atoms[child].element == "H"
+                and atoms[parent].element not in {"H", "D", "T"}
+            ):
+                sources[child] = parent
+    return sources
+
+
 @dataclass(frozen=True)
 class ModelEditResult(SelectionEditResult):
     hydrogen_report: HydrogenReport | None = None
     hydrogen_reconciliation_report: ReconciliationReport | None = None
+    appearance_sources: dict[int, int] = field(default_factory=dict)
 
 
 class DirectMolecularEditor:
@@ -215,15 +287,42 @@ class DirectMolecularEditor:
         exclusions = set(modeling_metadata(before).excluded_bonds)
         if exclusions & pairs.keys():
             raise InvalidModelEdit("Authored bonds contradict recorded bond exclusions.")
-        if isinstance(action, (ModelHydrogenComplete, ModelHydrogenAdd)):
+        if isinstance(action, (ModelHydrogenComplete, ModelHydrogenAdd, ModelHydrogenAddOne)):
             if hydrogen_policy != "preserve":
                 raise InvalidModelEdit(
                     "Explicit hydrogen actions require hydrogen_policy preserve."
                 )
-            if isinstance(action, ModelHydrogenAdd) and (
+            if isinstance(action, (ModelHydrogenAdd, ModelHydrogenAddOne)) and (
                 len(selected) != 1 or atoms[selected[0]].element == "H"
             ):
-                raise InvalidModelEdit("Add N H requires exactly one selected heavy atom.")
+                raise InvalidModelEdit(
+                    "Hydrogen addition requires exactly one selected heavy atom."
+                )
+            if isinstance(action, ModelHydrogenAddOne):
+                try:
+                    completed, report, completion_warnings = add_one_hydrogen(
+                        before,
+                        selected[0],
+                        next_atom_id=next_atom_id,
+                        next_bond_id=next_bond_id,
+                        atom_limit=atom_limit,
+                    )
+                except (ValueError, RuntimeError, OverflowError) as error:
+                    raise InvalidModelEdit(str(error)) from error
+                return ModelEditResult(
+                    EditResult(
+                        structure=completed,
+                        warnings=completion_warnings,
+                        created_atom_ids=(next_atom_id,),
+                        created_bond_ids=(next_bond_id,),
+                        changed_atom_ids=tuple(
+                            a.id for a in completed.atoms if a.id in atoms and a != atoms[a.id]
+                        ),
+                    ),
+                    {},
+                    report,
+                    appearance_sources={next_atom_id: selected[0]},
+                )
             try:
                 builder = HydrogenBuilder(before)
                 targets = builder.targets(
@@ -266,6 +365,7 @@ class DirectMolecularEditor:
                 ),
                 {},
                 proposal.report,
+                appearance_sources=_appearance_sources(before, completed, selected, action),
             )
         after = before
         touched = set(chosen)
@@ -304,6 +404,35 @@ class DirectMolecularEditor:
             )
             warnings.extend(placement.warnings)
         elif isinstance(action, ModelDelete):
+            if hydrogen_policy == "automatic":
+                deletion_adjacency = _adjacency(before)
+                cascade = {
+                    i
+                    for i, atom in atoms.items()
+                    if atom.element in {"H", "D", "T"}
+                    and len(deletion_adjacency[i]) == 1
+                    and any(
+                        j in chosen and atoms[j].element not in {"H", "D", "T"}
+                        for j in deletion_adjacency[i]
+                    )
+                }
+                ambiguous = {
+                    i
+                    for i, atom in atoms.items()
+                    if atom.element in {"H", "D", "T"}
+                    and i not in chosen | cascade
+                    and deletion_adjacency[i] & chosen
+                }
+                if ambiguous:
+                    warnings.append(
+                        model_warning(
+                            "model_hydrogen_deletion_ambiguous",
+                            "Nonterminal H ownership is ambiguous; only explicitly selected or "
+                            "terminal attached H were deleted.",
+                            action.operation,
+                        )
+                    )
+                chosen |= cascade
             retained = [i for i, a in enumerate(before.atoms) if a.id not in chosen]
             for bond in before.bonds:
                 if chosen & {bond.atom_1_id, bond.atom_2_id}:
@@ -536,16 +665,23 @@ class DirectMolecularEditor:
                         )
                     )
         reconciliation_report = None
-        if hydrogen_policy == "reconcile_if_possible":
+        if hydrogen_policy in {"reconcile_if_possible", "automatic"}:
+            targets, suppressed = (
+                _automatic_targets(before, after, selected, action)
+                if hydrogen_policy == "automatic"
+                else (selected, set())
+            )
             outcome = reconcile_hydrogens(
                 before,
                 after,
-                selected,
-                next_atom_id=next_atom_id,
+                targets,
+                next_atom_id=max(next_atom_id, max((a.id for a in after.atoms), default=0) + 1),
                 next_bond_id=max(next_bond_id, max((b.id for b in after.bonds), default=0) + 1),
                 operation=action.operation,
                 atom_limit=atom_limit,
                 inferred_deletion=isinstance(action, ModelBondDelete) and old is None,
+                policy="automatic" if hydrogen_policy == "automatic" else "reconcile_if_possible",
+                suppressed_targets=suppressed,
             )
             after, reconciliation_report = outcome.structure, outcome.report
             warnings.extend(outcome.warnings)
@@ -590,6 +726,11 @@ class DirectMolecularEditor:
         new_atoms = {a.id: a for a in after.atoms}
         old_bonds = {b.id for b in before.bonds}
         new_bonds = {b.id for b in after.bonds}
+        moved_hydrogens = (
+            {i for site in reconciliation_report.sites for i in site.moved_hydrogen_ids}
+            if reconciliation_report is not None
+            else set()
+        )
         return ModelEditResult(
             EditResult(
                 structure=after,
@@ -602,20 +743,14 @@ class DirectMolecularEditor:
                     sorted(
                         i
                         for i in new_atoms.keys() & old_atoms.keys()
-                        if new_atoms[i] != old_atoms[i]
-                        or i in touched
-                        or (
-                            reconciliation_report is not None
-                            and any(
-                                i in site.moved_hydrogen_ids for site in reconciliation_report.sites
-                            )
-                        )
+                        if new_atoms[i] != old_atoms[i] or i in touched or i in moved_hydrogens
                     )
                 ),
             ),
             replacements,
             hydrogen_report,
             reconciliation_report,
+            _appearance_sources(before, after, selected, action),
         )
 
     @staticmethod

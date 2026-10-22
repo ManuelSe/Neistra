@@ -1,3 +1,4 @@
+from dataclasses import replace
 from datetime import UTC, datetime
 
 from molweave_core.editing.model import (
@@ -34,7 +35,7 @@ from molweave_api.schemas import (
 from molweave_api.selection_edit_service import SelectionEditService
 from molweave_api.settings import Settings
 from molweave_api.source_identity import recover_original_identity
-from molweave_api.viewer_state import default_viewer_settings
+from molweave_api.viewer_state import default_viewer_settings, inherit_added_appearance
 
 
 class ModelEditService(SelectionEditService):
@@ -48,10 +49,23 @@ class ModelEditService(SelectionEditService):
     def _with_protection(
         self, entry: StructureEntry, before: NormalizedStructureV1, payload: ModelEditCreate
     ) -> NormalizedStructureV1:
-        if payload.hydrogen_policy != "reconcile_if_possible":
+        if (
+            payload.hydrogen_policy not in {"reconcile_if_possible", "automatic"}
+            and payload.action.operation != "hydrogens.add_one"
+        ):
             return before
         targets = {ref.atom_id for ref in payload.selection.atoms}
         atoms = {a.id: a for a in before.atoms}
+        if (
+            payload.hydrogen_policy == "automatic"
+            or payload.action.operation == "hydrogens.add_one"
+        ):
+            targets |= {
+                i
+                for b in before.bonds
+                for i, j in [(b.atom_1_id, b.atom_2_id), (b.atom_2_id, b.atom_1_id)]
+                if j in targets
+            }
         needed = targets | {
             i
             for b in before.bonds
@@ -112,6 +126,7 @@ class ModelEditService(SelectionEditService):
         description = {
             "hydrogens.complete": "Complete hydrogens",
             "hydrogens.add": "Add explicit hydrogens",
+            "hydrogens.add_one": "Add one hydrogen",
             "atom.element": "Change atom element",
             "atom.charge.set": "Set formal charge",
             "atom.delete": "Delete selected atoms",
@@ -120,6 +135,25 @@ class ModelEditService(SelectionEditService):
             "bond.delete": "Break selected bond",
             "fragment.attach": "Attach fragment",
         }[payload.action.operation]
+        settings_after, appearance_warnings = inherit_added_appearance(
+            entry.viewer_settings,
+            before,
+            result.edit.structure,
+            result.appearance_sources,
+        )
+        if appearance_warnings:
+            result = replace(
+                result,
+                edit=replace(
+                    result.edit,
+                    structure=result.edit.structure.model_copy(
+                        update={
+                            "warnings": [*result.edit.structure.warnings, *appearance_warnings],
+                        }
+                    ),
+                    warnings=(*result.edit.warnings, *appearance_warnings),
+                ),
+            )
         published = self._publish_molecular_result(
             entry,
             before,
@@ -137,6 +171,9 @@ class ModelEditService(SelectionEditService):
             if isinstance(payload.action, (ModelAtomAdd, ModelFragmentAdd))
             else None,
             command_prefix="model",
+            viewer_settings_after=settings_after
+            if settings_after != entry.viewer_settings
+            else None,
         )
         return ModelEditRead(
             **published.model_dump(),
