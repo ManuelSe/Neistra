@@ -1,0 +1,139 @@
+{
+  "checked_at": "2026-10-22T19:58:43.684835+00:00",
+  "script": "docs/assets/compact-modeling-toolbar/documentation-check.py.txt",
+  "script_sha256": "cafc83e942567933b6b07fa1ce2233a92f55c1cbbabad00529a95cbe72280b01",
+  "runtime": "d9bc489a0378b94d20fddae05588e2769b258caf",
+  "runtime_test_patch_tool_lock_identities_match": 568,
+  "source_digest": "6523643a55d4da81df3c41001746d4b6aac5eed89d97cfc9ed80778e4de04dc3",
+  "changed_tracked_files_only_docs": [
+    "docs/PROGRESS.md",
+    "docs/RELEASE_NOTES.md",
+    "docs/VERIFICATION.md",
+    "docs/assets/compact-modeling-toolbar/bundle.py.txt",
+    "docs/assets/compact-modeling-toolbar/c4-documentation-check.json",
+    "docs/assets/compact-modeling-toolbar/c4-final-runtime-policy.json",
+    "docs/assets/compact-modeling-toolbar/c4-focus-pr-merge.json",
+    "docs/assets/compact-modeling-toolbar/c4-merged5-browser.json.gz",
+    "docs/assets/compact-modeling-toolbar/c4-merged5-browser.log.gz",
+    "docs/assets/compact-modeling-toolbar/c4-merged5-build.log.gz",
+    "docs/assets/compact-modeling-toolbar/c4-merged5-diff.log.gz",
+    "docs/assets/compact-modeling-toolbar/c4-merged5-forward-migration.log.gz",
+    "docs/assets/compact-modeling-toolbar/c4-merged5-forward-produce.json",
+    "docs/assets/compact-modeling-toolbar/c4-merged5-forward-produce.log.gz",
+    "docs/assets/compact-modeling-toolbar/c4-merged5-forward-read.json",
+    "docs/assets/compact-modeling-toolbar/c4-merged5-forward-read.log.gz",
+    "docs/assets/compact-modeling-toolbar/c4-merged5-frontend.log.gz",
+    "docs/assets/compact-modeling-toolbar/c4-merged5-gate.json",
+    "docs/assets/compact-modeling-toolbar/c4-merged5-lint.log.gz",
+    "docs/assets/compact-modeling-toolbar/c4-merged5-migration.log.gz",
+    "docs/assets/compact-modeling-toolbar/c4-merged5-mypy.log.gz",
+    "docs/assets/compact-modeling-toolbar/c4-merged5-pnpm.log.gz",
+    "docs/assets/compact-modeling-toolbar/c4-merged5-python.log.gz",
+    "docs/assets/compact-modeling-toolbar/c4-merged5-reverse-migration.log.gz",
+    "docs/assets/compact-modeling-toolbar/c4-merged5-reverse-produce.json",
+    "docs/assets/compact-modeling-toolbar/c4-merged5-reverse-produce.log.gz",
+    "docs/assets/compact-modeling-toolbar/c4-merged5-reverse-read.json",
+    "docs/assets/compact-modeling-toolbar/c4-merged5-reverse-read.log.gz",
+    "docs/assets/compact-modeling-toolbar/c4-merged5-ruff.log.gz",
+    "docs/assets/compact-modeling-toolbar/c4-merged5-summary.json",
+    "docs/assets/compact-modeling-toolbar/c4-merged5-supervisor.log.gz",
+    "docs/assets/compact-modeling-toolbar/c4-merged5-types.log.gz",
+    "docs/assets/compact-modeling-toolbar/c4-merged5-uv.log.gz",
+    "docs/assets/compact-modeling-toolbar/c4-merged5-versions.log.gz",
+    "docs/assets/compact-modeling-toolbar/c4-premerge-audit.json",
+    "docs/assets/compact-modeling-toolbar/c4-publication.json",
+    "docs/assets/compact-modeling-toolbar/c4-runtime-pr-merge.json",
+    "docs/assets/compact-modeling-toolbar/documentation-check.py.txt",
+    "docs/assets/compact-modeling-toolbar/final-audit.py.txt",
+    "docs/assets/compact-modeling-toolbar/final-release-notes.py.txt",
+    "docs/assets/compact-modeling-toolbar/publication-record.py.txt",
+    "docs/assets/compact-modeling-toolbar/verify-public.py.txt",
+    "docs/plans/issue-93-compact-modeling-toolbar.md"
+  ],
+  "global_plan_unchanged": true,
+  "new_relative_links_checked": [
+    [
+      "docs/PROGRESS.md",
+      "plans/issue-93-compact-modeling-toolbar.md"
+    ],
+    [
+      "docs/PROGRESS.md",
+      "assets/compact-modeling-toolbar/c4-candidate4-gate.json"
+    ],
+    [
+      "docs/PROGRESS.md",
+      "assets/compact-modeling-toolbar/c4-merged5-gate.json"
+    ],
+    [
+      "docs/PROGRESS.md",
+      "assets/compact-modeling-toolbar/c3-review.md"
+    ],
+    [
+      "docs/PROGRESS.md",
+      "assets/compact-modeling-toolbar/c4-premerge-audit.json"
+    ],
+    [
+      "docs/PROGRESS.md",
+      "assets/compact-modeling-toolbar/c4-publication.json"
+    ],
+    [
+      "docs/RELEASE_NOTES.md",
+      "assets/compact-modeling-toolbar/c4-publication.json"
+    ],
+    [
+      "docs/VERIFICATION.md",
+      "plans/issue-93-compact-modeling-toolbar.md"
+    ],
+    [
+      "docs/VERIFICATION.md",
+      "assets/compact-modeling-toolbar/c4-candidate4-gate.json"
+    ],
+    [
+      "docs/VERIFICATION.md",
+      "assets/compact-modeling-toolbar/c4-merged5-gate.json"
+    ],
+    [
+      "docs/VERIFICATION.md",
+      "assets/compact-modeling-toolbar/c3-review.md"
+    ],
+    [
+      "docs/VERIFICATION.md",
+      "assets/compact-modeling-toolbar/c4-premerge-audit.json"
+    ],
+    [
+      "docs/VERIFICATION.md",
+      "assets/compact-modeling-toolbar/c4-publication.json"
+    ],
+    [
+      "docs/plans/issue-93-compact-modeling-toolbar.md",
+      "issue-93-compact-modeling-toolbar.md"
+    ],
+    [
+      "docs/plans/issue-93-compact-modeling-toolbar.md",
+      "../assets/compact-modeling-toolbar/c4-candidate4-gate.json"
+    ],
+    [
+      "docs/plans/issue-93-compact-modeling-toolbar.md",
+      "../assets/compact-modeling-toolbar/c4-merged5-gate.json"
+    ],
+    [
+      "docs/plans/issue-93-compact-modeling-toolbar.md",
+      "../assets/compact-modeling-toolbar/c3-review.md"
+    ],
+    [
+      "docs/plans/issue-93-compact-modeling-toolbar.md",
+      "../assets/compact-modeling-toolbar/c4-premerge-audit.json"
+    ],
+    [
+      "docs/plans/issue-93-compact-modeling-toolbar.md",
+      "../assets/compact-modeling-toolbar/c4-publication.json"
+    ]
+  ],
+  "asset_json_parsed": 111,
+  "gzip_crc_checked": 267,
+  "both_complete_gate_log_hashes_verified": true,
+  "versions_dependencies_production_harness_audit_passed": true,
+  "diff_check_passed": true,
+  "new_runtime_tests_required": false,
+  "rationale": "Only documentation/evidence changed after the complete exact-runtime gate; all568 source/test/tool/patch/lock identities match."
+}

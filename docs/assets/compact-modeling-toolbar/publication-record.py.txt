@@ -1,0 +1,31 @@
+from pathlib import Path
+import hashlib,json,subprocess,sys,zipfile
+root=Path.cwd();out=root/'docs/assets/compact-modeling-toolbar';repo='repos/ManuelSe/Neistra'
+def gh(*args):return json.loads(subprocess.check_output(['gh',*args],text=True))
+g=json.loads((out/'c4-merged5-gate.json').read_text());sha=g['commit'];assert g['complete'] and len(g['steps'])==20
+assert subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()==sha
+pr=gh('pr','view',sys.argv[2],'--json','number,url,state,mergedAt,mergeCommit,headRefOid');assert pr['state']=='MERGED' and pr['mergeCommit']['oid']==sha
+release=gh('api',repo+'/releases/tags/v0.24.1');assert not release['draft'] and not release['prerelease'] and release['target_commitish']==sha
+assert gh('api',repo+'/releases/latest')['id']==release['id']
+assert release['body'].strip()==Path('/tmp/neistra93-release.md').read_text().strip()
+ref=gh('api',repo+'/git/ref/tags/v0.24.1');assert ref['object']['type']=='tag'
+tag=gh('api',repo+'/git/tags/'+ref['object']['sha']);assert tag['object']['type']=='commit' and tag['object']['sha']==sha
+assert subprocess.check_output(['git','ls-remote','origin','refs/tags/v0.24.1^{}'],text=True).split()[0]==sha
+bundle=json.loads(Path('/tmp/neistra93-bundle.json').read_text())
+asset=next(a for a in release['assets'] if a['name']==bundle['filename']);assert asset['digest']=='sha256:'+bundle['sha256']
+download=Path('/datadisk/dev/.neistra-tools/issue93-public-download')/bundle['filename']
+receipt=json.loads(Path('/tmp/neistra93-public-download-receipt.json').read_text());assert receipt['public_download_verified'] and receipt['url']==asset['browser_download_url'] and receipt['asset_id']==asset['id'] and receipt['sha256']==bundle['sha256']
+assert hashlib.sha256(download.read_bytes()).hexdigest()==bundle['sha256']
+with zipfile.ZipFile(download) as z:
+ assert z.testzip() is None
+ manifest=json.loads(z.read('SHA256.json'));assert len(manifest)==bundle['internal_hashes']
+ assert all(hashlib.sha256(z.read(n)).hexdigest()==v for n,v in manifest.items())
+ assert len(z.namelist())==bundle['members']
+bundle.update(public_url=asset['browser_download_url'],asset_id=asset['id'],remote_digest=asset['digest'],public_published_download_verified=True,downloaded_zip_crc_and_all_internal_hashes_verified=True)
+comment=gh('api',repo+'/issues/comments/'+sys.argv[1]);assert comment['body'].strip()==Path('/tmp/neistra93-closeout.md').read_text().strip()
+issue=gh('issue','view','93','--json','state');assert issue['state']=='CLOSED'
+review=json.loads(Path('/tmp/neistra93-review-audit.json').read_text());assert review['unresolved_review_threads']==0 and not review['override_used']
+record={'status':'runtime release and issue closeout verified; final docs/ref cleanup audit follows at linked issue reply','issue':93,'plan':'docs/plans/issue-93-compact-modeling-toolbar.md','initial_implementation_pr':'https://github.com/ManuelSe/Neistra/pull/117','initial_focus_correction_pr':'https://github.com/ManuelSe/Neistra/pull/118','runtime_pr':{**pr,'strategy':'normal merge preserving checkpoint history'},'tag':{'name':'v0.24.1','type':'annotated','object':ref['object']['sha'],'commit':sha,'remote_ref_and_peeled_commit_verified':True},'release':{k:release[k] for k in ['id','html_url','tag_name','target_commitish','draft','prerelease','published_at']},'release_notes_sha256':hashlib.sha256(release['body'].encode()).hexdigest(),'verification_bundle':bundle,'issue_closeout':{'id':comment['id'],'url':comment['html_url'],'verified_body_sha256':hashlib.sha256(comment['body'].encode()).hexdigest(),'final_reference_audit':'Final docs integration and actual branch/worktree cleanup are appended to this reply after verification.'},'qualification':bundle['qualification'],'review':review,'compatibility':{'database_head':'0014','normalized_selection_schema':1,'project_viewer_archive_schema':2,'new_migration':False,'dependency_version_upgrade':False},'existing_out_of_scope_issues':[83,107,114],'new_followup_issues':[],'feature_branch':'fix/issue-93-compact-modeling-toolbar','cleanup_order':'Delete only after verified runtime merge, tag, public release/bundle, initial issue reply and documentation audit. Actual final state follows externally; runtime tag remains fixed.'}
+(out/'c4-publication.json').write_text(json.dumps(record,indent=2)+'\n')
+Path('/tmp/neistra93-release-remote.json').write_text(json.dumps(release,indent=2)+'\n')
+print(json.dumps({'runtime':sha,'pr':pr['url'],'release':release['html_url'],'issue_reply':comment['html_url'],'bundle_sha256':bundle['sha256']},indent=2))

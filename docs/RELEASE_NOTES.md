@@ -1,19 +1,11 @@
 # Neistra Release Notes
 
-## 0.24.1 - Unreleased - Compact molecular toolbar
+## 0.24.1 - 2026-10-22 - Compact molecular toolbar
 
-Prepared stable patch under the [approved issue #93 contract](plans/issue-93-compact-modeling-toolbar.md).
-Publication requires complete clean-candidate and exact merged-master qualification.
-
-**Qualification repair.** Existing release tests now observe real notification
-expiry from its recorded appearance, preserving the>=10s lifetime assertion and
-original13.5s total wait. The native test observer treats ESRCH as process exit
-alongside ENOENT. Production notice/worker code and all scientific/performance
-limits are unchanged. Focused and complete candidate4 validation pass; exact merged5 qualification
-remains required. No qualification exception is assumed.
+Stable patch for [issue #93](https://github.com/ManuelSe/Neistra/issues/93), delivered through [PR#117](https://github.com/ManuelSe/Neistra/pull/117) [focus correction PR#118](https://github.com/ManuelSe/Neistra/pull/118) and [qualification PR#119](https://github.com/ManuelSe/Neistra/pull/119). Exact verified master: `d9bc489a0378b94d20fddae05588e2769b258caf`. The [approved contract](https://github.com/ManuelSe/Neistra/blob/d9bc489a0378b94d20fddae05588e2769b258caf/docs/plans/issue-93-compact-modeling-toolbar.md) governs scope.
 
 **Toolbar and setup.** Transform, Edit, and Minimize share one compact frame below
-selection controls, equal32px desktop/44px coarse or narrow targets and16px icons.
+selection controls, equal 32 px desktop / 44 px coarse or narrow targets and 16 px icons.
 The separate Quick settings and Advanced AMBER launcher is removed. Focus/hover
 hints, keyboard/touch access, both themes and active transformation controls remain.
 Click Minimize to open quick setup without calculating; explicit Run and Advanced
@@ -31,34 +23,19 @@ add notices. Failed observation disarms publication and requests cancellation of
 remaining owned work. Closing an explicitly opened active panel retains its existing
 cancellation behavior; leaving the owning client disarms automatic publication.
 
-**Compatibility and migration.** All five versions advance together to0.24.1.
+**Release-test reliability.** Real notification expiry is measured from recorded DOM appearance, retaining the ≥10 s lifetime assertion and original 13.5 s total wait. The native test observer recognizes ESRCH as process exit alongside ENOENT. Production notice/worker behavior and every scientific/performance limit are unchanged; no qualification exception is used.
+
+**Compatibility and migration.** All five versions advance together to 0.24.1.
 Backend changes are application-version metadata only. No dependency upgrade,
-HTTP/job/plugin contract, data rewrite or migration: Alembic0014,
-project/viewer/archive2 and normalized/selection1 remain. Originals, chemistry,
+HTTP/job/plugin contract, data rewrite or migration: Alembic 0014,
+project/viewer/archive schemas 2 and normalized/selection schemas 1 remain. Originals, chemistry,
 fixed/inactive coordinates and atomic history retain their existing contracts.
 Matching client/API and complete managed-directory backups remain appropriate for
 rollback; native archives retain current state, not portable Undo history.
 
-**Verification.** Clean [candidate4](assets/compact-modeling-toolbar/c4-candidate4-gate.json)
-and [summary](assets/compact-modeling-toolbar/c4-candidate4-summary.json) pass all20
-commands on`83933b9818bdaa10985c249c16274b2340a216bf`:1248 Python,331 frontend,8 supervisor,
-322 browser/60 unchanged documented exclusions; zero failures/flakes/retries/
-Python or required native scientific skips. All568 source/test/tool/patch/lock
-identities and lossless log hashes verify, digest`6523643a55d4da81df3c41001746d4b6aac5eed89d97cfc9ed80778e4de04dc3`.
-Frozen installs, fresh0014, static/types/build, production-harness exclusion, all
-five0.24.1 versions and both actual tagged0.24.0↔final0.24.1 readers pass.
-All16 toolbar and10 notification cases execute, including real>=10s expiry.
-Rich canonical/conformer/history/original/settings/job/surface/scene/counter/archive
-retention passes. No qualification exception, threshold relaxation or new follow-up
-is used. Earlier failed/interrupted attempts remain diagnostic.
+**Verification.** Both final candidate and exact merged master pass all 20 release commands: **1,248 Python, 331 frontend, 8 supervisor and 322 browser tests**, with 60 unchanged documented layout/timing exclusions, zero failures/flakes/retries/Python or native scientific skips. Frozen installs, fresh Alembic 0014, Ruff/mypy/ESLint/TypeScript, full native Playwright, production build and actual final0.24.1/tagged0.24.0 readers in both directions pass. Rich canonical records, all conformers, history, originals, settings, jobs, surfaces, selections, scenes, counters and archives retain compatibility. All 568 runtime/test/tool/patch/lock identities match candidate and merged master (digest `6523643a55d4da81df3c41001746d4b6aac5eed89d97cfc9ed80778e4de04dc3`); lossless log hashes verify.
 
-Cold small/pocket/18k native paint0.953/2.065/3.452s, first frame
-700.3ms and Cancel64.6ms pass original2/5/5s,1s,500ms
-and<750ms long-task limits; the existing responsiveness budget passes. Command
-acceptance remains distinct from old panel-render feedback. Implementer full-diff
-review addresses read-failure retirement, explicit/quiet tool-focus handoff and
-release-test observation races; no independent approval is claimed. Complete
-exact merged5 qualification remains mandatory before tagging/publication.
+Merged cold small/pocket/18k canonical native paint **0.945/2.059/3.425s**, first actual frame **580.6ms**, explicit Cancel **59.5ms**. Original 2/5/5 s, 1 s, 500 ms and <750 ms long-task limits remain. Quiet command acceptance is a separate observation from former panel-render feedback; no speedup comparison is claimed. Native environment and power samples are retained without host-setting changes. Earlier interrupted/red attempts are diagnostic only. Local full-diff self-review addressed read-failure retirement and focus handoff. Codex request/review status is recorded in the premerge audit; no protection, required check or approval was bypassed.
 
 **Scientific limits and scope.** This presentation/lifecycle correction adds no
 physical model or scientific capability. Existing approximate-repair, chemistry,
@@ -66,10 +43,15 @@ preparation and convergence limitations remain; local improvement does not certi
 a binding pose. The original request to preserve every launcher behavior is
 superseded by the explicitly approved setup/shortcut distinction. Optional extra
 progress UI is omitted at the user's request. No core requirement is deferred and
-no new follow-up issue is needed. Separate identity#83, renderer maintenance#107
-and broader chemistry#114 work remains outside this patch. Patch SemVer reflects
+no new follow-up issue is needed. Separate [identity #83](https://github.com/ManuelSe/Neistra/issues/83), [renderer maintenance #107](https://github.com/ManuelSe/Neistra/issues/107)
+and [broader chemistry #114](https://github.com/ManuelSe/Neistra/issues/114) work remains outside this patch. Patch SemVer reflects
 corrected access/presentation with compatible public/data contracts; minor, major
 and prerelease increments do not fit this scope.
+
+
+[Publication audit](assets/compact-modeling-toolbar/c4-publication.json) verifies
+the annotated runtime tag, public bundle and [issue close-out](https://github.com/ManuelSe/Neistra/issues/93#issuecomment-6349961393);
+final documentation integration/ref cleanup follows there after verification.
 
 ## 0.24.0 - 2026-10-22 - Automatic hydrogen editing
 

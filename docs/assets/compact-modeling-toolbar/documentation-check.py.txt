@@ -2,7 +2,7 @@
 from pathlib import Path
 import datetime,gzip,hashlib,json,re,subprocess
 out=Path('docs/assets/compact-modeling-toolbar')
-c=json.loads((out/'c4-candidate3-gate.json').read_text());m=json.loads((out/'c4-merged2-gate.json').read_text())
+c=json.loads((out/'c4-candidate4-gate.json').read_text());m=json.loads((out/'c4-merged5-gate.json').read_text())
 assert c['complete'] and m['complete'] and c['source_before']==m['source_before']==m['source_after']
 source=m['source_before'];assert len(source)==568
 assert all(hashlib.sha256(Path(n).read_bytes()).hexdigest()==v for n,v in source.items())
@@ -21,7 +21,7 @@ for name in changes:
 jcount=gcount=0
 for p in out.glob('*.json'):json.loads(p.read_text());jcount+=1
 for p in out.glob('*.gz'):gzip.decompress(p.read_bytes());gcount+=1
-for label in ['c4-candidate3','c4-merged2']:
+for label in ['c4-candidate4','c4-merged5']:
  gate=json.loads((out/f'{label}-gate.json').read_text());assert len(gate['steps'])==20 and gate['complete'] and gate['source_unchanged']
  for step in gate['steps']:
   assert step['exit_code']==0
