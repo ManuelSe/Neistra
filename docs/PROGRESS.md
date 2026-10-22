@@ -26,9 +26,11 @@ final failure/layout cases). Review corrected read-failure retirement with
 best-effort cancellation. Version preparation, actual-reader retention and the
 complete release gate remain next. M3/C4 retains verified
 PR/review/normal merge, exact-master gate, tag/release, issue reply and cleanup.
-Known limitation: no final release/actual-reader qualification yet. Target patch
-0.24.1; all five versions remain0.24.0 and no API/schema/migration/dependency or
-scientific-model change. No external blocker; continue with C3.
+Known limitation: no final release/actual-reader qualification yet. All five
+versions are prepared at0.24.1; backend changes are version metadata only, with no
+API/schema/migration/dependency or scientific-model change. Exact20-command
+candidate/master recipes and release notes are prepared. No external blocker;
+continue with the clean final-version candidate gate.
 
 ### Previous delivery baseline — v0.24.0
 

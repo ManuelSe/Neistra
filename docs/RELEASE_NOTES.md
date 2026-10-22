@@ -1,5 +1,57 @@
 # Neistra Release Notes
 
+## 0.24.1 - Unreleased - Compact molecular toolbar
+
+Prepared stable patch under the [approved issue #93 contract](plans/issue-93-compact-modeling-toolbar.md).
+Publication requires complete clean-candidate and exact merged-master qualification.
+
+**Toolbar and setup.** Transform, Edit, and Minimize share one compact frame below
+selection controls, equal32px desktop/44px coarse or narrow targets and16px icons.
+The separate Quick settings and Advanced AMBER launcher is removed. Focus/hover
+hints, keyboard/touch access, both themes and active transformation controls remain.
+Click Minimize to open quick setup without calculating; explicit Run and Advanced
+AMBER remain inside it. Clicking during a run reveals that same captured session,
+including while publication is pending, without submitting another calculation.
+
+**Quiet Ctrl+M.** The shortcut executes existing default quick minimization without
+opening its panel or stealing focus. Usable output still publishes once as one
+Undo/Redo coordinate edit. Session observation/publication follows App ownership,
+independent of panel visibility and responsive viewer remounts. No extra shortcut
+progress, Cancel, or results display is added. Jobs → Inspect minimization remains
+an explicit report path and never rearms automatic publication. Errors/scientific
+warnings retain existing notices; ordinary no-op and external cancellation do not
+add notices. Failed observation disarms publication and requests cancellation of
+remaining owned work. Closing an explicitly opened active panel retains its existing
+cancellation behavior; leaving the owning client disarms automatic publication.
+
+**Compatibility and migration.** All five versions advance together to0.24.1.
+Backend changes are application-version metadata only. No dependency upgrade,
+HTTP/job/plugin contract, data rewrite or migration: Alembic0014,
+project/viewer/archive2 and normalized/selection1 remain. Originals, chemistry,
+fixed/inactive coordinates and atomic history retain their existing contracts.
+Matching client/API and complete managed-directory backups remain appropriate for
+rollback; native archives retain current state, not portable Undo history.
+
+**Verification.** C1/C2 pass328 frontend and27/77 native browser cases, with three
+existing layout exclusions each. C3 preflight passes331 frontend,341 archive/
+scientific cases, cold small/pocket/18k limits and final8 native failure/layout
+cases. These are checkpoint/preflight results, not final-version release evidence.
+Final0.24.1 full suites and actual0.24.0↔0.24.1 reader qualification remain pending.
+The quiet witness measures command acceptance separately from former panel-render
+feedback; native canonical paint, first-frame, Cancel and long-task budgets are
+unchanged. Reviews are implementer self-review unless independently returned.
+
+**Scientific limits and scope.** This presentation/lifecycle correction adds no
+physical model or scientific capability. Existing approximate-repair, chemistry,
+preparation and convergence limitations remain; local improvement does not certify
+a binding pose. The original request to preserve every launcher behavior is
+superseded by the explicitly approved setup/shortcut distinction. Optional extra
+progress UI is omitted at the user's request. No core requirement is deferred and
+no new follow-up issue is needed. Separate identity#83, renderer maintenance#107
+and broader chemistry#114 work remains outside this patch. Patch SemVer reflects
+corrected access/presentation with compatible public/data contracts; minor, major
+and prerelease increments do not fit this scope.
+
 ## 0.24.0 - 2026-10-22 - Automatic hydrogen editing
 
 Published stable [v0.24.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.24.0) from exact verified runtime

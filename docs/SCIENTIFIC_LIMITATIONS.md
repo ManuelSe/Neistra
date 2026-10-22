@@ -627,3 +627,16 @@ require separate qualification in#101/#102. Prepared neutral biotin and translat
 protein copies remain explicit benchmark assumptions, not a physiological binding
 microstate or biological assembly. Running live fixtures cover30 and1166 selected
 protein heavy atoms; no universal latency promise is made at the2000-movable cap.
+
+
+## Compact toolbar and quiet shortcut execution (issue #93)
+
+The0.24.1 toolbar correction changes setup access and panel visibility, not the
+quick or prepared-AMBER physical models or validity boundaries. Ctrl+M still needs
+the owning active client to validate/publish a usable coordinate result; reload,
+inspection and abandoned sessions do not resume automatic publication. No extra
+progress/results panel opens automatically. Errors and consequential warnings
+remain visible through existing notices, and full scientific reports remain
+explicitly inspectable in Jobs. Temporary chemistry, approximate repair, unchanged
+fixed/inactive rows and local-improvement/convergence limits remain those documented
+in MINIMIZATION.md; toolbar uniformity is not additional scientific qualification.

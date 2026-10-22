@@ -1,0 +1,9 @@
+{
+  "command": ".venv/bin/python -m pytest tests/integration/test_archive_roundtrip.py -q",
+  "chunk_id": "73ccbb",
+  "wall_time_seconds": 0.000028483,
+  "exit_code": 0,
+  "original_token_count": 25,
+  "output": "...................................                                      [100%]\n35 passed in 19.84s\n",
+  "qualification": "Final-version focused release-preparation check; not the complete release gate."
+}

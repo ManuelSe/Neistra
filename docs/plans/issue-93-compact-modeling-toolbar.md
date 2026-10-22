@@ -565,3 +565,29 @@ production retirement change is covered by28 passing lifecycle unit cases.
 This supporting correction uses a fix(minimization) checkpoint before the planned
 release-preparation commit. Complete final-version source-frozen gates and actual
 reader retention remain mandatory; no milestone/release completion is inferred.
+
+
+### Final-version release preparation — 2026-10-22
+
+Supporting failure/performance qualification is committed at85be04c. All five
+authoritative version sources now consistently0.24.1; prior0.24.0 archive-version
+coverage is added without relaxing structural-schema checks. Version/dependency/
+production-build audit confirms backend changes are version metadata only, no
+resolution/JS lock/native tools/patch/API-schema/migration change. Fresh origin
+remains8ed344b and v0.24.1 is unused. Patch impact remains justified by corrected
+existing presentation/access with unchanged public/data/scientific capability.
+
+Prepared the exact20-command clean-candidate and exact-master recipes under
+`docs/assets/compact-modeling-toolbar/`, with locked native environment, isolated
+data/ports, actual0.24.0 reader roots and both final-version directions. The release
+evidence runner streams native case progress and records15-second power samples
+without changing host settings; source/log identities remain mandatory. Release
+notes, rollback/development and scientific-limit guidance are prepared. This is
+preparation only: final candidate/master gates, PR/review/merge/tag/release/issue
+reply and cleanup are not yet complete.
+
+Release-preparation focused validation passes35 archive integration cases at final
+0.24.1, including prior0.24.0 producer metadata. The version/dependency/production-
+harness audit and evidence-runner smoke pass; local documentation links and
+`git diff --check` pass. This qualifies preparation only. Next: commit
+`chore(release): prepare v0.24.1`, freeze source and run the complete20-command gate.

@@ -738,3 +738,29 @@ omit portable Undo history. Historical archives with unknown identity are retain
 without inventing +H eligibility. The complete final-version candidate and exact
 merged-master release gates remain mandatory, with no native scientific skips or
 relaxed performance budgets. Evidence and exact commands are linked in the plan.
+
+
+## Compact molecular toolbar qualification (issue #93)
+
+Version0.24.1 changes frontend launch/presentation ownership only. Minimize opens
+setup; Ctrl+M starts quick work without opening the panel. Use explicit Jobs
+inspection for retained reports. Keep matching client/API and the existing full
+managed-directory backup/rollback procedure. There is no new migration beyond0014
+or schema change (project/viewer/archive2, normalized/selection1).
+
+The feature plan and `docs/assets/compact-modeling-toolbar/` retain exact frozen
+candidate/merged recipes and source/log evidence. Full release qualification uses
+locked AmberTools, one native thread and disposable data/ports. The release evidence
+runner records source identities, exact argv/environment, lossless logs and power
+samples without changing host settings. Choose unused evidence labels and fresh
+qualification paths; do not overwrite a prior attempt or point a gate at user data.
+
+The existing automatic-H reader harness runs actual tagged v0.24.0 API/core/plugin
+modules and final0.24.1 modules in separate processes, both producer/reader directions.
+Pass `--reader-root`, `--expected-reader`, `--data-dir` and `--evidence` under the
+selected implementation's explicit PYTHONPATH. Both releases support the retained
+operations, so neither producer needs `--legacy`. Verify modules/versions, originals,
+conformers, generic Undo/Redo, appearance/scenes/surfaces/jobs, identity counters and
+native archive re-export. The release gate must repeat on exact merged master.
+Command acceptance replaces the intentionally absent progress-panel observation as
+a separately named metric, never as a historical feedback-speedup comparison.
