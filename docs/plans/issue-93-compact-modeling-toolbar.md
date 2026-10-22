@@ -4,7 +4,7 @@
 
 **Status:** approved contract; C0 committed and remotely verified. The user
 authorized implementation and the complete delivery lifecycle with `/goal` on
-2026-10-22. M1/C1 and M2/C2 are complete; M3/C3 is in progress.
+2026-10-22. M1/C1, M2/C2 and M3/C3 are complete; M3/C4 is in progress.
 
 **Approval:** the user's “Implement the plan.” on 2026-10-22 approves the complete
 proposal and its explicit C0 stop ready for `/goal`. This authorizes planning
@@ -435,8 +435,8 @@ and the annotated runtime tag. Report cleanup only after verifying it remotely.
 | C0 | Complete: `b7197f27936cdcfc8eff652d2f2c8fe6d08f4125`, remotely verified. |
 | M1/C1 | Complete: `00ce320`, passing checkpoint, evidence below. |
 | M2/C2 | Complete: `f477288`, passing checkpoint, evidence below. |
-| M3/C3 | In progress: final failures/performance, actual reader and release qualification. |
-| M3/C4 | Pending: verified PR/merge/release/issue close-out and cleanup. |
+| M3/C3 | Complete: clean final-version candidate2 passes all20 commands; evidence below. |
+| M3/C4 | In progress: PR/review/merge, exact-master qualification and verified publication/cleanup. |
 
 ### 2026-10-22 — Approval and C0 preparation
 
@@ -614,3 +614,35 @@ A fresh isolated candidate2 recipe repeats all20 commands on committed, clean,
 fixed source, including both actual0.24.0 reader directions. No gate is waived.
 The [full-diff self-review](../assets/compact-modeling-toolbar/c3-review.md) records
 both consequential corrections and requires final qualification before PR.
+
+
+### M3/C3 complete — 2026-10-22
+
+Final [candidate2](../assets/compact-modeling-toolbar/c3-candidate2-gate.json)
+and [summary](../assets/compact-modeling-toolbar/c3-candidate2-summary.json) pass
+all20 commands on cleand50da9c:1248 Python,331 frontend,8 supervisor,316 browser /
+60 unchanged documented layout/timing exclusions; zero failures/flakes/retries/
+Python or native scientific skips. All568 source/test/tool/patch/lock identities
+remain fixed, digestc73befeaca7949e8e2d80fdeeba0a796a78ebd3ec19f282128488ff08d530226;
+all lossless log hashes verify. Frozen installs, fresh0014, static/types/build,
+actual tagged0.24.0↔final0.24.1 reader processes and version/dependency/production-
+harness audits pass. Both reader directions retain six automatic cases and rich
+three-entry canonical/conformer/history/original/appearance/job/surface/scene/
+counter/archive data. The reused harness's generic matching-client limitation is
+historical guidance, not a new authoring difference: both0.24 releases support the
+same tested automatic-H operations. Native archives retain current state, not
+portable Undo history. No migration/data rewrite or dependency upgrade.
+
+Cold small/pocket/18k native canonical paint0.867/2.106/3.617s; repeat0.890/2.027/
+3.896s; first actual frame674.4ms, explicit Cancel50.9ms; all unchanged2/5/5s,
+1s,500ms and<750ms long-task budgets pass. Command acceptance0.2–1.0ms is a
+separate metric from old panel-render feedback, never a speedup comparison.
+Power samples retain the actual environment without host-setting changes.
+
+The complete [implementer self-review](../assets/compact-modeling-toolbar/c3-review.md)
+finds no unresolved consequential issue after read-failure retirement and Style
+handoff corrections. Candidate1 and red/preflight attempts remain diagnostic only.
+Fresh fetch still finds master8ed344b, latest stable0.24.0 and unused v0.24.1, so
+no upstream incorporation/version change is required. M3/C3 is complete; next C4:
+PR/Codex review request, normal merge without bypass, exact-master all20-command
+gate before tag/release, verified issue reply, docs audit and delayed cleanup.

@@ -20,20 +20,18 @@ passes61 focused/328 frontend/77 native browser cases. Both pass lint/types/buil
 diff, with3 existing layout exclusions each, no failures/flakes/retries. The plan
 links exact commands, source identities, logs, screenshots and implementer reviews.
 
-M3/C3 is in progress: quiet performance observation and hidden failure coverage
-pass preflight (331 frontend,341 archive/scientific, native timing bounds and8
-final failure/layout cases). Review corrected read-failure retirement with
-best-effort cancellation. Version preparation, actual-reader retention and the
-complete release gate remain next. M3/C4 retains verified
-PR/review/normal merge, exact-master gate, tag/release, issue reply and cleanup.
-Known limitation: no final release/actual-reader qualification yet. All five
-versions are prepared at0.24.1; backend changes are version metadata only, with no
-API/schema/migration/dependency or scientific-model change. Exact20-command
-candidate/master recipes and release notes are prepared. No external blocker;
-continue with the clean final-version candidate2 gate. Final-review Style →
-Minimize focus handoff is corrected under D-093; all10 native toolbar cases and
-331 frontend/static/build checks pass. Candidate1 was intentionally interrupted
-to fix it and is diagnostic only; complete20-command qualification is restarted.
+M3/C3 is complete: [candidate2](assets/compact-modeling-toolbar/c3-candidate2-gate.json)
+passes all20 commands on cleand50da9c:1248 Python/331 frontend/8 supervisor/316
+browser and60 unchanged exclusions, zero failures/flakes/retries/scientific skips.
+All568 source identities/log hashes, five0.24.1 versions, actual0.24.0↔0.24.1
+readers and unchanged performance budgets verify. Cold native paint0.867/2.106/
+3.617s; first frame674.4ms, Cancel50.9ms. Self-review corrected failed-observation
+retirement and Style focus handoff. Earlier interrupted/red attempts are diagnostic.
+No API/schema/migration/dependency/scientific-model change; patch impact remains.
+M3/C4 is next: PR/Codex review request, normal merge, exact-master all20-command
+gate, verified tag/release/issue reply, docs audit and delayed branch cleanup.
+Known limit: candidate evidence does not yet qualify merged master/publication.
+No external blocker; fresh master remains8ed344b and v0.24.1 is available.
 
 ### Previous delivery baseline — v0.24.0
 

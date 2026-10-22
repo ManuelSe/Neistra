@@ -33,3 +33,10 @@ boundaries, evidence recipes and final-version release preparation.
   A fresh clean candidate2 must pass every release/actual-reader gate before PR.
 
 Final gate results and remaining review findings are appended after qualification.
+
+Candidate2 passes all20 release/reader commands on unchanged cleand50da9c.
+1248 Python/331 frontend/8 supervisor/316 browser and60 unchanged exclusions; no
+failures/flakes/retries/scientific skips. All568 identities/log hashes, both actual
+reader directions, five versions, native budgets and production-harness exclusion
+verify. Documentation/evidence-only additions do not alter qualified source.
+No unresolved consequential finding remains. Independent approval is not claimed.

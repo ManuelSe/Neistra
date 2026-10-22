@@ -32,14 +32,17 @@ fixed/inactive coordinates and atomic history retain their existing contracts.
 Matching client/API and complete managed-directory backups remain appropriate for
 rollback; native archives retain current state, not portable Undo history.
 
-**Verification.** C1/C2 pass328 frontend and27/77 native browser cases, with three
-existing layout exclusions each. C3 preflight passes331 frontend,341 archive/
-scientific cases, cold small/pocket/18k limits and final8 native failure/layout
-cases. These are checkpoint/preflight results, not final-version release evidence.
-Final0.24.1 full suites and actual0.24.0↔0.24.1 reader qualification remain pending.
-The quiet witness measures command acceptance separately from former panel-render
-feedback; native canonical paint, first-frame, Cancel and long-task budgets are
-unchanged. Reviews are implementer self-review unless independently returned.
+**Verification.** Final [candidate2](assets/compact-modeling-toolbar/c3-candidate2-gate.json)
+passes all20 release commands:1248 Python,331 frontend,8 supervisor,316 browser/
+60 unchanged layout/timing exclusions, zero failures/flakes/retries/scientific skips.
+Both actual0.24.0↔final0.24.1 reader directions, all568 fixed source identities,
+log hashes, versions, dependency and production-harness audits pass. Cold small/
+pocket/18k native canonical paint0.867/2.106/3.617s, first frame674.4ms and explicit
+Cancel50.9ms retain every original budget. Quiet command acceptance is measured
+separately from old panel-render feedback; no speedup comparison is claimed.
+Local full-diff self-review corrected read-failure retirement and focus handoff;
+independent approval is not claimed. Exact merged-master qualification is still
+required before publication. Earlier interrupted/red attempts are diagnostic.
 
 **Scientific limits and scope.** This presentation/lifecycle correction adds no
 physical model or scientific capability. Existing approximate-repair, chemistry,

@@ -16,10 +16,17 @@ scientific assertions remain. No new skips, failures, flakes or retries.
 
 The [approved plan](plans/issue-93-compact-modeling-toolbar.md) links exact commands,
 source identities, lossless logs, screenshots and local implementer reviews.
-No scientific/API/job/schema/migration/dependency/version change is claimed here;
-versions remain0.24.0. Final0.24.1 actual-reader/performance and complete candidate/
-exact-master qualification remain pending. Checkpoint/preflight evidence is not
-release qualification.
+Final [candidate2](assets/compact-modeling-toolbar/c3-candidate2-gate.json) and
+[summary](assets/compact-modeling-toolbar/c3-candidate2-summary.json) pass all20
+commands:1248 Python,331 frontend,8 supervisor,316 browser/60 unchanged exclusions,
+zero failures/flakes/retries/Python or native scientific skips. All568 source/test/
+tool/patch/lock identities remain fixed and lossless logs verify. Actual tagged
+0.24.0↔final0.24.1 reader processes preserve canonical/conformer/history/original/
+appearance/job/surface/scene/counter/archive data in both directions. Cold small/
+pocket/18k native paint0.867/2.106/3.617s; first frame674.4ms, Cancel50.9ms; every
+original budget remains. All five versions0.24.1; no API/job/schema/migration/
+dependency/scientific-model change. Exact merged-master qualification remains
+mandatory before publication; checkpoint/preflight/interrupted evidence is diagnostic.
 
 ## Automatic hydrogen editing (issue #92) — stable v0.24.0
 
