@@ -5626,3 +5626,21 @@ closure. Explicit Minimize setup takes panel focus; a quiet command retains
 external focus. Surface Manager already drops restoration when focus leaves it;
 Edit's external closure does not imperatively restore focus. Modal/typing guards
 remain. No timer, new focus framework, persisted state or scientific change.
+
+
+### D-143 qualification observation correction — issue #93 C4, 2026-10-22
+
+Correct two observed test-harness races without changing production behavior or
+waiving a release gate. The real-time notification test already records DOM
+appearance/removal and requires at least10000ms lifetime. Wait for removal using
+its existing total13500ms allowance; remove the redundant8500ms driver-relative
+visibility assertion, which can begin after expiry once screenshot/inspection
+overhead is included. Preserve real time, screenshots, native/project/request
+invariants and all focus/persistent-warning cases. Do not change the notice timer.
+
+The native worker test's `/proc/<pid>/stat` observer treats ProcessLookupError
+(ESRCH) like FileNotFoundError (ENOENT): the observed process has exited. Continue
+surfacing permission and other failures. Worker cancellation/termination/recovery
+assertions and production runner behavior remain unchanged. This is bounded C4
+validation repair under the instruction to fix validation failures, not a product
+requirement change. No exception is assumed; repeat complete candidate/master gates.

@@ -57,14 +57,13 @@ and actual0.24.0 diagnostics are retained in the feature plan. AC is restored;
 full fresh merged3 qualification is next. No threshold/host setting is changed.
 Tag/release/close-out/cleanup remain pending a complete exact-master pass.
 
-Current release blocker: exact master83aae8c passes1248 Python/331 frontend/8
-supervisor and321 browser cases/60 existing exclusions, including all16 toolbar
-cases and unchanged native/responsiveness budgets. One mobile notification test
-asserts pre-expiry visibility after its10s deadline; a focused rerun repeats it.
-Both actual0.24 reader directions and version/compatibility audits pass. The plan
-links full retained evidence. This remains a failed full gate; no exception is
-approved and no tag/release/close-out/cleanup is claimed. Next: user qualification
-decision or focused harness correction followed by full requalification.
+C4 validation repair passes9 native worker tests,331 frontend/static/build and
+all10 notification browser cases without failures/skips/retries. Test-only changes
+retain actual>=10s expiry, the same13500ms total observation allowance and all
+native/project/request invariants; `/proc` ESRCH now means process exited like
+ENOENT. Production source, scientific thresholds and approved scope are unchanged.
+No exception is assumed. Next: fresh clean complete candidate4/merged5 gates,
+normal focused PR, then verified tag/release/close-out/audit/cleanup.
 
 ### Previous delivery baseline — v0.24.0
 

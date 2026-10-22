@@ -79,9 +79,10 @@ test("expires after ten real seconds without molecular, camera, network or rende
     if (r.method() !== "GET" || /\/entries\/[^/]+\/structure$/.test(new URL(r.url()).pathname)) requests.push(`${r.method()} ${r.url()}`);
   });
   await info.attach("light notice", { body: await page.screenshot(), contentType: "image/png" });
-  await page.waitForTimeout(8_500);
-  await expect(notice(page)).toBeVisible();
-  await expect(notice(page)).toBeHidden({ timeout: 5_000 });
+  // Inspection and screenshot overhead consume the notice's real lifetime.
+  // Measure from the observed emission below, rather than assuming the driver
+  // can still observe it 8.5 seconds after that work. Keep the same total wait.
+  await expect(notice(page)).toBeHidden({ timeout: 13_500 });
   const times = await page.evaluate(() => window.notificationTimes as { visible: boolean; time: number }[]);
   const shown = times.findLast(x => x.visible)!;
   const removed = times.findLast(x => !x.visible)!;

@@ -3,8 +3,9 @@
 ## 1. Status, authority, and intended outcome
 
 **Status:** approved implementation complete; PRs#117/#118 normally merged.
-C4 publication is held on the exact-master mobile notification-test failure.
-No v0.24.1 tag/release exists. A qualification exception has not been approved.
+C4 test-harness corrections pass focused validation; complete clean candidate4
+and exact merged5 qualification remain before v0.24.1 publication. No exception
+is assumed and no tag/release exists.
 
 **Approval:** the user's “Implement the plan.” on 2026-10-22 approves the complete
 proposal and its explicit C0 stop ready for `/goal`. This authorizes planning
@@ -777,3 +778,27 @@ changed. No exception is inferred from the user's request to limit responsivenes
 investigation. Publication, final issue close-out and branch cleanup remain held
 until the user approves a precise qualification deviation or the harness is fixed
 and source is requalified. Runtime master remains83aae8c.
+
+
+### C4 validation repair — 2026-10-22
+
+No qualification exception was approved. Continue the authorized validation work
+with two bounded test-only corrections: measure real notification expiry from
+existing DOM observations with the original>=10000ms assertion and13500ms total
+wait; treat `/proc` ESRCH as an exited process alongside ENOENT. Production notice/
+worker code, all scientific/performance thresholds and product scope are unchanged.
+D-143 records the rationale. The [focused gate](../assets/compact-modeling-toolbar/c4-harness1-gate.json)
+and [summary](../assets/compact-modeling-toolbar/c4-harness1-summary.json) pass all8
+commands on unchanged source:9 native worker integration tests,331 frontend, Ruff/
+ESLint/types/build/diff and all10 notification browser cases, zero failures/skips/
+flakes/retries. Desktop/mobile real expiry remains>=10s; original native/project/
+request and focus/persistent-warning assertions pass.
+
+Review confirms only two test files change after83aae8c; permissions/other process
+errors still surface, expiry lower bound is retained and total wait is unchanged.
+No new framework, product/API/schema/migration/dependency/scientific change. No
+separate follow-up is needed if the harness repair is delivered here. Failed old
+attempts remain diagnostic. Fresh complete candidate4/merged5 recipes retain all20
+commands, isolated stores/ports and actual0.24.0 reader roots. Version0.24.1 remains
+the correct unused patch target. Commit the passing test checkpoint, then prepare
+release documentation and requalify committed, clean source before its focused PR.
