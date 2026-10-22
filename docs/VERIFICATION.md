@@ -14,8 +14,13 @@ C/N/O/S counts/charge transitions, geometry, unknown/protected/conjugated refusa
 explicit-H sulfonium stereo, conformers/budgets, later site reconciliation,
 no-change refusals, exact history/archive/original bytes and native hidden-H/
 camera/selection/reload behavior. Reviews are implementer self-review.
-Appearance/compact UI and complete candidate/actual-reader/exact-master qualification
-remain pending; checkpoint evidence is not release qualification.
+[C3](assets/automatic-hydrogen-editing/c3-attempt1-gate.json) passes71 focused Python,
+35 projection/panel/314 total frontend and20 native workflows; additional shared
+viewer-state/command checks pass17. Native read-only observations verify exact
+representation and overpaint memberships after addition, including new H, alongside
+combined molecule/settings history and persisted scene/archive boundaries. Compact
+UI and complete candidate/actual-reader/exact-master qualification remain pending;
+checkpoint evidence is not release qualification.
 
 ## Quick local minimization (issue #110) — stable v0.23.0
 

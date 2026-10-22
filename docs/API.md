@@ -838,6 +838,23 @@ protonation, optimization or preparation is predicted. A later explicit edit may
 reconcile the new ordinary H. No persistent H lock/schema or new endpoint is
 introduced.
 
+## Appearance inheritance for direct additions (issue #92, C3)
+
+Successful direct atom/fragment/H additions inherit applicable live representation
+and color overrides from their heavy attachment source. Terminal-H replacement
+uses its heavy parent; generated H use their own actual parent through creation
+ancestry. First/disconnected atoms use entry defaults. Explicit element tokens
+remain element tokens, not sampled RGB colors. No new HTTP field is required.
+
+The ordinary edit response includes the resulting viewer settings as part of the
+same project revision/history command. Deleted-reference pruning and inheritance
+are coalesced; one Undo/Redo restores both molecule and appearance. Existing
+polymer eligibility still applies; incomplete/unsupported prior assignments warn
+instead of blocking the direct edit or inventing polymer membership. Visibility,
+H preferences, isolation, surfaces and named selections do not expand. Named
+scenes retain their snapshot memberships. Existing viewer fields and generic
+history actions preserve archive/reader compatibility; no migration is added.
+
 ## Selection minimization proposals (issue #82, C3)
 
 These additive interfaces use the default allowlisted `molweave.minimization`

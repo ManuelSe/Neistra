@@ -2,8 +2,8 @@
 
 ## 1. Status, outcome and authority
 
-**Status:** approved implementation in progress. M1/C1 and M2/C2 are implemented
-and qualified; M3–M5 and release delivery remain pending. C0 was committed and remotely verified
+**Status:** approved implementation in progress. M1–M3 are implemented and
+qualified; M4–M5 and release delivery remain pending. C0 was committed and remotely verified
 at `15705d9c57af285f5b15b33d7a9bf421d072bae6`.
 
 **Approval:** the user's “Implement the plan.” on 2026-10-22 approves the complete
@@ -697,9 +697,9 @@ the approved contract committed and the repository ready for `/goal`.
 |---|---|
 | C0 — Approved planning persistence | Complete; remote commit 15705d9 |
 | M1/C1 — Automatic local maintenance | Complete; checkpoint 1701fb9 |
-| M2/C2 — Bounded one-click H addition | Implemented and qualified; checkpoint commit follows this log |
-| M3/C3 — Atomic appearance inheritance | Next |
-| M4/C4 — Compact controls and complete workflow | Pending |
+| M2/C2 — Bounded one-click H addition | Complete; checkpoint af775c7 |
+| M3/C3 — Atomic appearance inheritance | Implemented and qualified; checkpoint commit follows this log |
+| M4/C4 — Compact controls and complete workflow | Next |
 | M5/C5 — Qualification and release preparation | Pending |
 | M5/C6 — Verified delivery | Pending |
 
@@ -766,3 +766,35 @@ the approved contract committed and the repository ready for `/goal`.
   Broader H chemistry is deferred per contract. Appearance inheritance, compact UI
   and full candidate/actual-reader/merged release gates remain pending.
 - Blockers: none. Next action: commit passing C2, then M3 appearance inheritance.
+
+### 2026-10-22 — M3/C3 atomic appearance inheritance
+
+- Direct edit results now carry private creation ancestry. Heavy atom/fragment
+  attachment and terminal-H replacement resolve to the heavy anchor; H resolve
+  through their actual parent/new-fragment ancestry. Unattached atoms use defaults.
+- The API copies applicable existing representation/color memberships, preserving
+  element tokens. Existing complete valid polymer memberships extend; unsupported
+  partial assignments warn and retain scope. No renderer data or ancestry field is
+  persisted, and visibility/H preferences/surfaces/named selections do not expand.
+- Existing publication/history coalesces proposed live appearance and deleted-ID
+  pruning into one reversible entry update. Named scenes remain snapshots. Generic
+  callers keep their defaults and action vocabulary; old readers need no new kind.
+- [C3 gate](../assets/automatic-hydrogen-editing/c3-attempt1-gate.json) passes all
+  ten commands: **71 focused Python,35 projection/panel/314 total frontend,
+  20 native browser cases**, Ruff, mypy102, ESLint/types/build/diff, unchanged
+  source identities. An [additional shared-path gate](../assets/automatic-hydrogen-editing/c3-reference-gate.json)
+  passes17 viewer-state/command regressions. Compressed log hashes verify.
+- New unit/API tests cover ancestry, defaults, hex/element tokens, supported and
+  incomplete polymer targets, simultaneous deletion/pruning/inheritance, exact
+  combined Undo/Redo, scene boundaries, save/archive retention and invalid internal
+  ancestry. Native observations read actual renderer component and overpaint atom
+  membership after rebuilding, including the new H, in both layouts. No state is
+  injected by the observation harness; the production bundle remains unchanged.
+- [Local review](../assets/automatic-hydrogen-editing/c3-review.md) finds no
+  unresolved consequential C3 issue; it is self-review, not independent review.
+  API/architecture/project/editing documentation updated; no migration, schema,
+  dependency or version change. All five versions remain0.23.0.
+- Known limitations: mixed explicit memberships remain explicit, not reconstructed
+  molecule-wide rules; historical scenes do not gain new members. M4 controls and
+  full actual-reader/candidate/exact-master gates remain pending.
+- Blockers: none. Next action: commit passing C3, then M4 compact automatic UI.

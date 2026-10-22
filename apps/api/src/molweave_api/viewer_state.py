@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Any
 
 from molweave_core.components import component_atom_ids, derive_component_hierarchy
-from molweave_core.molecular import NormalizedStructureV1
+from molweave_core.molecular import MolecularWarning, NormalizedStructureV1
 
 ATOMIC_SELECTION_STYLES = frozenset(
     {"line", "stick", "thick-stick", "ball-and-stick", "space-filling"}
@@ -22,6 +22,65 @@ def selection_style_channel(style: str) -> str:
     if style in POLYMER_SELECTION_STYLES:
         return "polymer"
     raise ValueError(f"Unsupported selection representation style: {style}")
+
+
+def inherit_added_appearance(
+    settings: dict[str, Any],
+    before: NormalizedStructureV1,
+    after: NormalizedStructureV1,
+    sources: dict[int, int],
+) -> tuple[dict[str, Any], tuple[MolecularWarning, ...]]:
+    """Copy explicit attachment properties, never infer a renderer/molecule theme."""
+    old_ids = {a.id for a in before.atoms}
+    new_ids = {a.id for a in after.atoms}
+    if not sources:
+        return settings, ()
+    if not set(sources) <= new_ids - old_ids:
+        raise ValueError("Appearance ancestry must describe only newly created atoms.")
+    resolved: dict[int, int | None] = {}
+    for child in sources:
+        path: set[int] = set()
+        current = child
+        while current in sources and current not in resolved:
+            if current in path:
+                raise ValueError("Appearance ancestry contains a cycle.")
+            path.add(current)
+            current = sources[current]
+        parent = resolved.get(current, current if current in old_ids else None)
+        resolved.update({i: parent for i in path})
+    by_parent: dict[int, set[int]] = {}
+    for child, parent in resolved.items():
+        if parent is not None:
+            by_parent.setdefault(parent, set()).add(child)
+    result = {**settings}
+    warnings: list[MolecularWarning] = []
+    for property_name in ("selection_representations", "selection_colors"):
+        assignments = []
+        for item in settings.get(property_name, []):
+            retained = set(item["atom_ids"]) & new_ids
+            added = {i for parent in item["atom_ids"] for i in by_parent.get(parent, set())}
+            if (
+                added
+                and property_name == "selection_representations"
+                and item["style"] in POLYMER_SELECTION_STYLES
+            ):
+                try:
+                    validate_polymer_selection(after, retained | added)
+                except ValueError:
+                    added = set()
+                    warnings.append(
+                        MolecularWarning(
+                            code="model_appearance_polymer_unresolved",
+                            operation="model.appearance",
+                            field="viewer_settings.selection_representations",
+                            message="New atoms could not inherit an incomplete/unsupported polymer "
+                            "assignment; existing appearance retained, entry defaults apply.",
+                        )
+                    )
+            if retained or added:
+                assignments.append({**item, "atom_ids": sorted(retained | added)})
+        result[property_name] = assignments
+    return result, tuple(warnings)
 
 
 def update_selection_representations(

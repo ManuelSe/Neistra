@@ -396,15 +396,21 @@ class ProjectService:
         )
 
     def create_molecule(
-        self, project_id: str, expected_revision: int, entry_state: dict[str, Any],
+        self,
+        project_id: str,
+        expected_revision: int,
+        entry_state: dict[str, Any],
     ) -> ProjectRead:
         project = self._project(project_id)
         self._check_revision(project, expected_revision)
         entry_id = str(entry_state["id"])
         return self._record(
-            project, "model.create", f"Create molecule {entry_state['name']}",
+            project,
+            "model.create",
+            f"Create molecule {entry_state['name']}",
             [{"kind": "entry.create", "entry": entry_state}],
-            [{"kind": "entry.delete", "entry_id": entry_id}], [entry_id],
+            [{"kind": "entry.delete", "entry_id": entry_id}],
+            [entry_id],
         )
 
     def import_job_result(
@@ -1397,6 +1403,8 @@ class ProjectService:
         change: dict[str, Any],
         deleted_atom_ids: list[int],
         selection_snapshot: list[dict[str, Any]] | None = None,
+        *,
+        viewer_settings_after: dict[str, Any] | None = None,
     ) -> ProjectRead:
         return self.record_molecular_changes(
             project_id,
@@ -1406,6 +1414,9 @@ class ProjectService:
             [change],
             {str(change["entry_id"]): deleted_atom_ids},
             selection_snapshot,
+            viewer_settings_by_entry={str(change["entry_id"]): viewer_settings_after}
+            if viewer_settings_after is not None
+            else None,
         )
 
     def record_molecular_changes(
@@ -1417,6 +1428,8 @@ class ProjectService:
         changes: list[dict[str, Any]],
         deleted_by_entry: dict[str, list[int]],
         selection_snapshot: list[dict[str, Any]] | None = None,
+        *,
+        viewer_settings_by_entry: dict[str, dict[str, Any]] | None = None,
     ) -> ProjectRead:
         project = self._project(project_id)
         self._check_revision(project, expected_revision)
@@ -1457,7 +1470,8 @@ class ProjectService:
                 },
             )
             deleted = set(deleted_by_entry.get(entry.id, []))
-            if deleted:
+            replacement_settings = (viewer_settings_by_entry or {}).get(entry.id)
+            if deleted or replacement_settings is not None:
                 self._append_atom_reference_reconciliation(
                     project,
                     entry,
@@ -1465,6 +1479,7 @@ class ProjectService:
                     forward,
                     inverse,
                     operation=command_type,
+                    replacement_settings=replacement_settings,
                 )
             patches.append(
                 TopologyPatch(entry_id=entry.id, artifact_id=str(change["after_artifact_id"]))
@@ -1498,11 +1513,17 @@ class ProjectService:
         inverse: list[dict[str, Any]],
         *,
         operation: str,
+        replacement_settings: dict[str, Any] | None = None,
     ) -> None:
         for owner in project.entries:
             before_settings = deepcopy(owner.viewer_settings)
+            candidate_settings = (
+                deepcopy(replacement_settings)
+                if owner.id == entry.id and replacement_settings is not None
+                else before_settings
+            )
             after_settings = (
-                prune_selection_representations(before_settings, deleted_atom_ids)
+                prune_selection_representations(candidate_settings, deleted_atom_ids)
                 if owner.id == entry.id
                 else before_settings
             )

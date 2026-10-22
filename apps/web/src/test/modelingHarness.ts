@@ -1,6 +1,37 @@
 import type { ModelPreview } from "../api/types";
-import { Unit, type Structure } from "molstar/lib/mol-model/structure";
+import { StructureElement, Unit, type Structure } from "molstar/lib/mol-model/structure";
+import { OrderedSet } from "molstar/lib/mol-data/int";
+import type { PluginUIContext } from "molstar/lib/mol-plugin-ui/context";
 import type { MolstarEngine } from "../viewer/MolstarEngine";
+
+/** Read exact native component and overpaint membership after a topology rebuild. */
+export async function inspectNativeAppearance(engine: MolstarEngine, entryId: string) {
+  const native = engine as unknown as { syncQueue: Promise<void>; plugin: PluginUIContext;
+    loaded: Map<string, { structure: Structure; atomIds: number[] }> };
+  await native.syncQueue;
+  const loaded = native.loaded.get(entryId);
+  if (!loaded) return [];
+  const ids = (loci: StructureElement.Loci) => {
+    const result = new Set<number>();
+    for (const element of loci.elements) OrderedSet.forEach(element.indices, index => {
+      result.add(loaded.atomIds[element.unit.model.atomicHierarchy.atomSourceIndex.value(element.unit.elements[index])]);
+    });
+    return [...result].sort((a,b) => a-b);
+  };
+  return [...native.plugin.state.data.cells.values()].flatMap(cell => {
+    const tag = cell.transform.tags?.find(value => value.startsWith("molweave-representation-"));
+    if (!tag) return [];
+    const structure = native.plugin.state.data.cells.get(cell.transform.parent)?.obj?.data as Structure | undefined;
+    if (!structure?.units || !structure.models.some(model => loaded.structure.models.includes(model))) return [];
+    const colors = [...native.plugin.state.data.cells.values()].filter(child => child.transform.parent === cell.transform.ref
+      && child.transform.transformer.id.includes("overpaint")).flatMap(child => {
+      const values = child.params?.values as { layers: { bundle: StructureElement.Bundle; color: number }[] } | undefined;
+      return (values?.layers ?? []).map(layer => ({ color: layer.color,
+        atomIds: ids(StructureElement.Bundle.toLoci(layer.bundle, loaded.structure)) }));
+    });
+    return [{ tag, atomIds: ids(StructureElement.Loci.all(structure)), colors }];
+  });
+}
 
 /** Read native connectivity without writing model, selection or camera state. */
 export async function displayedBonds(engine: MolstarEngine, entryId: string): Promise<number[][]> {

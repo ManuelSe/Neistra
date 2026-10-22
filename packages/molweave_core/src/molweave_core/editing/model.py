@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from math import dist
 from typing import Annotated, Literal
 
@@ -210,10 +210,40 @@ def _automatic_targets(
     ), suppressed
 
 
+def _appearance_sources(
+    before: NormalizedStructureV1,
+    after: NormalizedStructureV1,
+    selected: list[int],
+    action: ModelAction,
+) -> dict[int, int]:
+    """Creation ancestry only; durable appearance is owned by the application."""
+    old = {a.id: a for a in before.atoms}
+    created = {a.id for a in after.atoms} - old.keys()
+    sources: dict[int, int] = {}
+    if isinstance(action, (ModelAtomAdd, ModelFragmentAdd)) and len(selected) == 1:
+        anchor = selected[0]
+        if old[anchor].element in {"H", "D", "T"}:
+            neighbors = _adjacency(before)[anchor]
+            anchor = next(iter(neighbors)) if len(neighbors) == 1 else anchor
+        if old[anchor].element not in {"H", "D", "T"}:
+            sources = {i: anchor for i in created}
+    atoms = {a.id: a for a in after.atoms}
+    for bond in after.bonds:
+        for child, parent in [(bond.atom_1_id, bond.atom_2_id), (bond.atom_2_id, bond.atom_1_id)]:
+            if (
+                child in created
+                and atoms[child].element == "H"
+                and atoms[parent].element not in {"H", "D", "T"}
+            ):
+                sources[child] = parent
+    return sources
+
+
 @dataclass(frozen=True)
 class ModelEditResult(SelectionEditResult):
     hydrogen_report: HydrogenReport | None = None
     hydrogen_reconciliation_report: ReconciliationReport | None = None
+    appearance_sources: dict[int, int] = field(default_factory=dict)
 
 
 class DirectMolecularEditor:
@@ -291,6 +321,7 @@ class DirectMolecularEditor:
                     ),
                     {},
                     report,
+                    appearance_sources={next_atom_id: selected[0]},
                 )
             try:
                 builder = HydrogenBuilder(before)
@@ -334,6 +365,7 @@ class DirectMolecularEditor:
                 ),
                 {},
                 proposal.report,
+                appearance_sources=_appearance_sources(before, completed, selected, action),
             )
         after = before
         touched = set(chosen)
@@ -718,6 +750,7 @@ class DirectMolecularEditor:
             replacements,
             hydrogen_report,
             reconciliation_report,
+            _appearance_sources(before, after, selected, action),
         )
 
     @staticmethod

@@ -173,6 +173,21 @@ no H is added to canonical records. Use native archives to preserve the literal
 draft rather than treating a chemical format as a protonation specification.
 
 
+## Appearance of added atoms (issue #92 C3)
+
+Committed atoms/fragments inherit the heavy attachment atom's explicit
+representation and color overrides. H inherit their actual parent's appearance,
+including H generated on a new fragment. A terminal-H replacement uses that H's
+heavy parent. Element-color assignments still color each new element by element;
+custom colors stay custom. First/disconnected atoms use entry defaults.
+
+Molecule and appearance save as one reversible command, including pruning removed
+H references. Visibility/isolation, local H preferences, independent surfaces and
+named selections remain separate. Old named scenes remain snapshots. Existing
+unsupported partial polymer assignments produce a warning and use entry defaults
+for the added atoms rather than blocking the molecular edit. Placement previews
+retain their distinct temporary appearance.
+
 ## One-click H addition (issue #92 C2)
 
 **Add hydrogen (+H)** in Atoms adds exactly one H to one selected heavy atom using

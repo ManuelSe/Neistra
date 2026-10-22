@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import Any
+
 from molweave_core.editing.ligand import EditResult
 from molweave_core.editing.protein import InvalidProteinEditError, PdbfixerProteinEditor
 from molweave_core.editing.selection import (
@@ -157,6 +159,7 @@ class SelectionEditService(LigandEditService):
         after_selection: SelectionV1 | None = None,
         *,
         command_prefix: str = "selection",
+        viewer_settings_after: dict[str, Any] | None = None,
     ) -> SelectionEditRead:
         edit = result.edit
         atom_floor, bond_floor = ProjectService(self.session).allocation_floor(entry)
@@ -181,6 +184,7 @@ class SelectionEditService(LigandEditService):
             },
             list(edit.deleted_atom_ids),
             selection_snapshot=[ref.model_dump(mode="json") for ref in selection.atoms],
+            viewer_settings_after=viewer_settings_after,
         )
         remaining_ids = {a.id for a in edit.structure.atoms}
         if after_selection is None:

@@ -5467,3 +5467,23 @@ Protected/unknown dependency identity prevents current stereo assignment rather
 than implying canonical isotope support. The final C2 scientific/native gate,
 source identities and implementer self-review are linked in the feature plan.
 No migration, dependency, profile-framework or legacy API replacement is introduced.
+
+### D-142 implementation note — issue #92 M3/C3, 2026-10-22
+
+Private creation ancestry now travels in direct domain results, never normalized
+or HTTP schema fields. The API resolves source chains against pre-edit settings,
+groups additions by source and extends only representation/color properties.
+This avoids scanning every new atom per color group. Element tokens remain tokens;
+unattached ancestry falls back to entry defaults. Valid polymer memberships extend
+only through complete supported residue semantics; prior unsupported partial
+assignments warn without blocking a valid direct edit.
+
+The existing molecular publisher accepts optional proposed live settings and
+coalesces them with all deleted-reference pruning in the existing reversible
+entry.update action. It cannot overwrite pruning with an independent stale style
+snapshot or create a second user command. Named scenes retain their snapshot
+membership; other visibility/H/surface/selection owners remain unchanged. Generic
+callers retain their old defaults/action vocabulary. Exact renderer component and
+overpaint membership, combined Undo/Redo, archives and shared viewer/command
+regressions pass the C3 source-bound gates linked in the plan. No new migration,
+schema, dependency or version source change is introduced.
