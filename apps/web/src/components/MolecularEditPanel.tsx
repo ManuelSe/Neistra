@@ -89,7 +89,7 @@ export function MolecularEditPanel({ project, selection, busy, unavailable, onEd
     setPending(true); setError(null); setFeedback(null);
     try {
       const direct = !["hydrogens.prepare", "residue.mutate", "fragment.replace"].includes(action.operation);
-      const policy = isBondAction(action) ? editing.bondHydrogenPolicy : direct && !["hydrogens.complete", "hydrogens.add"].includes(action.operation) ? editing.hydrogenPolicy : "preserve";
+      const policy = isBondAction(action) ? editing.bondHydrogenPolicy : direct && !["hydrogens.complete", "hydrogens.add", "hydrogens.add_one"].includes(action.operation) ? editing.hydrogenPolicy : "preserve";
       const result = await (policy !== "preserve" || isBondAction(action)
         ? onEdit(entry.id, artifact, selection, action, policy)
         : onEdit(entry.id, artifact, selection, action));
@@ -137,6 +137,7 @@ export function MolecularEditPanel({ project, selection, busy, unavailable, onEd
           <button key={element} type="button" aria-label={`Replace selected atom with ${element}`} title={`Replace selected atom with ${element}`}
             disabled={!selectedAtom || selectedAtom.element === element} onClick={() => void execute({ operation: "atom.element", element })}>{element}</button>)}</div>
         <div className="edit-compact-actions">
+          <button type="button" aria-label="Add hydrogen (+H)" title="Add exactly one hydrogen using supported local chemistry" disabled={!selectedAtom || ["H", "D", "T"].includes(selectedAtom.element)} onClick={() => void execute({ operation: "hydrogens.add_one" })}><Plus size={16} />H</button>
           <button type="button" aria-label="Decrease formal charge" title="Decrease formal charge" disabled={!selectedAtom || selectedAtom.formal_charge === null} onClick={() => { if (selectedAtom?.formal_charge !== null && selectedAtom) void execute({ operation: "atom.charge.set", charge: selectedAtom.formal_charge - 1 }); }}><Minus size={16} />q</button>
           <button type="button" aria-label="Increase formal charge" title="Increase formal charge" disabled={!selectedAtom || selectedAtom.formal_charge === null} onClick={() => { if (selectedAtom?.formal_charge !== null && selectedAtom) void execute({ operation: "atom.charge.set", charge: selectedAtom.formal_charge + 1 }); }}><Plus size={16} />q</button>
           <button type="button" aria-label="Delete selected atoms" title="Delete selected atoms" disabled={!selection.atoms.length} onClick={() => void execute({ operation: "atom.delete" })}><Trash2 size={16} /></button>

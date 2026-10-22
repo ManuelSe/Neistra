@@ -47,6 +47,14 @@ it("captures canonical operands, stays open, and restores owned launcher focus",
   expect(screen.getByRole("button", { name: "Edit molecule" })).toHaveFocus();
 });
 
+it("adds exactly one H through the immediate bounded action without placement configuration", async () => {
+  const { user, onEdit } = setup();
+  await user.click(screen.getByRole("button", { name: "Edit molecule" }));
+  await user.click(screen.getByRole("button", { name: "Add hydrogen (+H)" }));
+  expect(onEdit).toHaveBeenCalledWith(entry.id, entry.current_artifact_id, selection, { operation: "hydrogens.add_one" });
+  expect(screen.queryByRole("button", { name: "Apply placement" })).toBeNull();
+});
+
 it("explains empty selection and does not execute an inferred default target", async () => {
   const { user, onEdit } = setup({ ...selection, atoms: [] });
   await user.click(screen.getByRole("button", { name: "Edit molecule" }));

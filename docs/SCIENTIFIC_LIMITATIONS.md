@@ -21,6 +21,16 @@ bridging-H cleanup is not inferred. Explicit H deletion does not infer a compens
 charge change. See [operation intent](MOLECULAR_MODEL.md#automatic-direct-edit-maintenance-issue-92-c1)
 and the [approved contract](plans/issue-92-automatic-hydrogen-editing.md).
 
+## One-click hydrogen addition
+
+One-click +H (issue #92 C2) uses a finite C/N/O/S state table. Sulfur is restricted
+to ordinary single-bond states; higher charge, hypervalent S, conjugated charge
+transitions and undetermined sulfur stereo refuse. Valence-deficit filling is
+one explicit building step, not proof of complete chemistry. A conventional charge
+change does not predict pKa, physiological protonation or a favorable geometry.
+Generic RDKit sanitization can admit states outside this operation's profile and
+is not used as its sole scientific admission criterion.
+
 ## Molecular interactions
 
 Transient `interaction-v1` analysis is geometric screening, not binding energy.

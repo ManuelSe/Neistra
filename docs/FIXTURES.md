@@ -1,5 +1,17 @@
 # Fixture Provenance And Assertions
 
+Issue #92 C2 adds three synthetic MOL fixtures under `tests/fixtures/hydrogens`:
+`single-hydrogen-ammonia.mol` (NH3), `single-hydrogen-water.mol` (H2O), and
+`single-hydrogen-sulfide.mol` (dimethyl sulfide, C2H6S). RDKit2026.03.4 AddHs and
+ETKDGv3 seed92 generate explicit H and deterministic unoptimized coordinates.
+These are neutral starting drafts, not experimental or optimized structures.
+Native UI/API tests independently assert one new H and parent charge+1, exact
+retained coordinates, repeated-click refusal, history, visibility and source bytes.
+Their SHA256 values are respectively
+`9b4d69467fe20e6983d91b25941858deeef7068744ea7dec18aa6bde34cd8fad`,
+`fc2e883677ec47c777f269361de00b54c715790a3f97300766327029fa8a4616`, and
+`81c90e7430753f1ca02cf9649504ef4da3fcfe5d9f4862317359d598b23a94df`.
+
 Issue #69 adds `tests/fixtures/editing/ethanol-3d.mol`: synthetic ethanol from
 RDKit2026.3.4 ETKDGv3 with explicit H during embedding, seed690, then H removed.
 It supplies usable fixed heavy coordinates for local H/building assertions; it

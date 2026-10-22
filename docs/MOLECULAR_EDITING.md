@@ -173,6 +173,20 @@ no H is added to canonical records. Use native archives to preserve the literal
 draft rather than treating a chemical format as a protonation specification.
 
 
+## One-click H addition (issue #92 C2)
+
+**Add hydrogen (+H)** in Atoms adds exactly one H to one selected heavy atom using
+bounded C/N/O/S rules. Canonical bonds count, including hidden H. Supported examples
+include NH3 to NH4+, H2O to H3O+ and ordinary symmetric sulfide to sulfonium.
+Unsupported valence/charge, unknown/protected local identity and unresolved stereo
+report a concise error without changing the molecule. Charge and H addition form
+one Undo/Redo action; the parent remains selected. Inspect operation warnings for
+charge changes and unoptimized geometry. This is explicit building, not pKa or
+physiological-state prediction. Later site edits can reconcile the new ordinary H.
+
+The historical H controls described above remain until the separate compact UI
+checkpoint; the final issue #92 UI will remove those controls.
+
 ## Bond hydrogens
 
 The Bonds panel defaults to **Reconcile local H — may add, remove or move H**.

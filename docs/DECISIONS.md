@@ -5448,3 +5448,22 @@ publication/history boundary owns all accepted changes. Final C1 source-bound
 qualification and local review are recorded in the feature plan. UI migration,
 one-click charge transitions and appearance inheritance remain subsequent work;
 no migration, dependency or version change is made by C1.
+
+### D-141 implementation note — issue #92 M2/C2, 2026-10-22
+
+The finite one-H action now reuses additive placement with automatic geometry
+guards, stages all conformers and publishes H/parent charge/provenance together.
+Charge transitions require known ordinary local identity and single-bond
+nonconjugated neighbor evidence, including neighbor bond orders; absence of an
+observed pi bond cannot certify nonconjugation when those orders are unknown.
+Later explicit site edits may reconcile its ordinary H as the user confirmed.
+
+An independent asymmetric-sulfide probe found that RDKit's implicit-H context can
+omit potential sulfonium stereo that its explicit-H candidate detects. Keep the H
+explicit for this post-proposal assessment and refuse an undetermined new sulfur
+centre before publication. Symmetric dimethyl sulfide and thiol/hydrogen-sulfide
+cases remain qualified; this does not broaden hypervalent/aromatic support.
+Protected/unknown dependency identity prevents current stereo assignment rather
+than implying canonical isotope support. The final C2 scientific/native gate,
+source identities and implementer self-review are linked in the feature plan.
+No migration, dependency, profile-framework or legacy API replacement is introduced.

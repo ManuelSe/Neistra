@@ -48,11 +48,17 @@ class ModelEditService(SelectionEditService):
     def _with_protection(
         self, entry: StructureEntry, before: NormalizedStructureV1, payload: ModelEditCreate
     ) -> NormalizedStructureV1:
-        if payload.hydrogen_policy not in {"reconcile_if_possible", "automatic"}:
+        if (
+            payload.hydrogen_policy not in {"reconcile_if_possible", "automatic"}
+            and payload.action.operation != "hydrogens.add_one"
+        ):
             return before
         targets = {ref.atom_id for ref in payload.selection.atoms}
         atoms = {a.id: a for a in before.atoms}
-        if payload.hydrogen_policy == "automatic":
+        if (
+            payload.hydrogen_policy == "automatic"
+            or payload.action.operation == "hydrogens.add_one"
+        ):
             targets |= {
                 i
                 for b in before.bonds
@@ -119,6 +125,7 @@ class ModelEditService(SelectionEditService):
         description = {
             "hydrogens.complete": "Complete hydrogens",
             "hydrogens.add": "Add explicit hydrogens",
+            "hydrogens.add_one": "Add one hydrogen",
             "atom.element": "Change atom element",
             "atom.charge.set": "Set formal charge",
             "atom.delete": "Delete selected atoms",

@@ -56,6 +56,7 @@ export interface MoleculeCreateResult {
 
 export type SelectionEditAction =
   | ModelPlacementAction
+  | { operation: "hydrogens.add_one" }
   | { operation: "atom.element"; element: string }
   | { operation: "atom.charge"; delta: -1 | 1 }
   | { operation: "atom.charge.set"; charge: number | null }

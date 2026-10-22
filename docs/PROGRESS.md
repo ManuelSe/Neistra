@@ -7,20 +7,21 @@ Issue [#92](https://github.com/ManuelSe/Neistra/issues/92) is implementing its
 `feat/issue-92-automatic-hydrogen-editing`, authorized by the user's 2026-10-22
 `/goal`. C0 remote commit15705d9 and D-140–142 retain approval and boundaries.
 
-M1/C1 implements automatic API maintenance, terminal-H cascading, explicit-H
-suppression, new-site identity support and bounded sulfur counts. Legacy policy
-defaults, originals, coordinates and generic exact history remain authoritative.
-[Final C1 gate](assets/automatic-hydrogen-editing/c1-final-gate.json) passes all
-nine commands: **58 focused Python,313 frontend,6 native browser cases** plus
-static/type/build/diff checks; source/log identities are retained. Local
-[self-review](assets/automatic-hydrogen-editing/c1-review.md) records accounting
-hardening and no unresolved consequential finding. No migration/dependency/version
-change; all five versions remain0.23.0, planned stable minor0.24.0.
+M1/C1 is committed at1701fb9. M2/C2 now adds immediate bounded C/N/O/S +H with
+atomic parent-charge/one-H publication and finite repeat limits. Existing API
+semantics, originals, coordinates and generic exact history remain authoritative.
+[Passing C2 gate](assets/automatic-hydrogen-editing/c2-attempt3-gate.json) passes
+all ten commands: **64 focused Python,26 panel/314 total frontend,8 native browser
+cases**, static/type/build/diff checks and unchanged source/log identities. Hidden
+H, camera/selection, exact Undo/Redo, reload and original bytes pass in both layouts.
+[Self-review](assets/automatic-hydrogen-editing/c2-review.md) records explicit-H
+sulfur stereo qualification and no unresolved consequential finding. All five
+versions remain0.23.0; no migration/dependency change, planned minor0.24.0.
 
-Known limitations: +H, appearance inheritance, compact UI, full compatibility and
-release gates remain pending. Existing UI controls are deliberately retained until
-M4. Broader chemistry follows the contract's explicit follow-ups. No current
-blocker. Next action: commit C1, then implement M2's bounded one-click +H.
+Known limitations: unoptimized placement and no pKa prediction; broader chemistry
+is deferred. Appearance inheritance, compact UI, full compatibility and release
+gates remain pending. Existing H preferences/tools are retained until M4. No
+current blocker. Next action: commit C2, then M3 appearance inheritance.
 
 ### Previous delivery baseline — v0.23.0
 

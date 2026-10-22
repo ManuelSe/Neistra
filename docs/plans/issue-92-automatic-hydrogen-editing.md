@@ -2,8 +2,8 @@
 
 ## 1. Status, outcome and authority
 
-**Status:** approved implementation in progress. M1/C1 is implemented and qualified;
-M2–M5 and release delivery remain pending. C0 was committed and remotely verified
+**Status:** approved implementation in progress. M1/C1 and M2/C2 are implemented
+and qualified; M3–M5 and release delivery remain pending. C0 was committed and remotely verified
 at `15705d9c57af285f5b15b33d7a9bf421d072bae6`.
 
 **Approval:** the user's “Implement the plan.” on 2026-10-22 approves the complete
@@ -696,9 +696,9 @@ the approved contract committed and the repository ready for `/goal`.
 | Milestone/checkpoint | Status |
 |---|---|
 | C0 — Approved planning persistence | Complete; remote commit 15705d9 |
-| M1/C1 — Automatic local maintenance | Implemented and qualified; checkpoint commit follows this log |
-| M2/C2 — Bounded one-click H addition | Next |
-| M3/C3 — Atomic appearance inheritance | Pending |
+| M1/C1 — Automatic local maintenance | Complete; checkpoint 1701fb9 |
+| M2/C2 — Bounded one-click H addition | Implemented and qualified; checkpoint commit follows this log |
+| M3/C3 — Atomic appearance inheritance | Next |
 | M4/C4 — Compact controls and complete workflow | Pending |
 | M5/C5 — Qualification and release preparation | Pending |
 | M5/C6 — Verified delivery | Pending |
@@ -732,3 +732,37 @@ the approved contract committed and the repository ready for `/goal`.
   appearance inheritance and complete release/previous-reader gates are pending.
   C1 does not claim final issue completion or broader supported chemistry.
 - Blockers: none. Next action: commit this coherent passing C1 state, then M2.
+
+### 2026-10-22 — M2/C2 bounded one-click +H
+
+- Added hydrogens.add_one on the existing guarded model route and one immediate
+  atom-panel action. It adds one explicit H and qualified parent charge together,
+  retains the selected heavy parent, and uses the approved finite C/N/O/S table.
+  Legacy count/geometry actions retain their contract; the old UI remains until M4.
+- Reused the additive placement/conformer/stereo machinery with automatic geometry
+  guards enabled for this operation. Source/protection unknowns, unsupported local
+  states, conjugated/unknown-neighbor charge transitions and undetermined new
+  sulfonium stereo refuse atomically. Stereo assessment cannot assign labels from
+  protected or unknown dependency identity; explicit source facts remain intact.
+- The explicit-H sulfur probe reproduced the implicit-H stereo omission. The
+  operation checks the actual candidate before publication and refuses asymmetric
+  new sulfur centres without retained defining geometry; symmetric sulfide works.
+- Tests verify deficit filling, finite repeat limits, NH3/NH4+, water/hydronium,
+  thiolate/thiol/sulfonium, unknown/radical/isotope/hypervalent/amide/aromatic
+  refusals, exact retained rows/all conformers, pure rejection/Redo, exact one-command
+  history, original/archive retention and later automatic removal after an explicit
+  charge edit. Synthetic seed92 fixtures and checksums are documented in FIXTURES.
+- [C2 passing gate](../assets/automatic-hydrogen-editing/c2-attempt3-gate.json)
+  passes all ten commands: **64 focused Python,26 panel/314 total frontend,
+  8 native browser cases**, Ruff, mypy102, ESLint/types/build/diff. Browser cases
+  cover all three fixture species in both layouts and ammonia with all H hidden,
+  exact camera/selection retention, refusals, Undo/Redo, save/reload and originals.
+  Source/log identities verify. Earlier type/format diagnostics are retained in
+  attempt1/2 and do not qualify the final source.
+- [Local checkpoint review](../assets/automatic-hydrogen-editing/c2-review.md)
+  records scientific/compatibility/accounting findings; no independent review is
+  claimed. No new schema, migration, dependency or version; all five remain0.23.0.
+- Known limitations: placement is unoptimized; no pKa/physiological-state prediction.
+  Broader H chemistry is deferred per contract. Appearance inheritance, compact UI
+  and full candidate/actual-reader/merged release gates remain pending.
+- Blockers: none. Next action: commit passing C2, then M3 appearance inheritance.

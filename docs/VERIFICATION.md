@@ -1,5 +1,22 @@
 # V0.1 Requirement Evidence
 
+## Automatic hydrogen editing (issue #92) — checkpoint evidence
+
+The [approved contract](plans/issue-92-automatic-hydrogen-editing.md) governs.
+[C1 final](assets/automatic-hydrogen-editing/c1-final-gate.json) passes58 Python,
+313 frontend and6 native browser cases with static/type/build checks. C1 adds
+explicit automatic API maintenance while preserving legacy callers.
+[C2 passing](assets/automatic-hydrogen-editing/c2-attempt3-gate.json) passes64
+focused Python,26 panel/314 total frontend and8 native workflows, no failures/
+retries/skips. Logs retain exact argv, isolated environment and source hashes.
+Earlier incomplete attempts are diagnostic only. Tests independently cover finite
+C/N/O/S counts/charge transitions, geometry, unknown/protected/conjugated refusals,
+explicit-H sulfonium stereo, conformers/budgets, later site reconciliation,
+no-change refusals, exact history/archive/original bytes and native hidden-H/
+camera/selection/reload behavior. Reviews are implementer self-review.
+Appearance/compact UI and complete candidate/actual-reader/exact-master qualification
+remain pending; checkpoint evidence is not release qualification.
+
 ## Quick local minimization (issue #110) — stable v0.23.0
 
 Both [corrected candidate10](assets/quick-minimization/c5-candidate-10-gate.json)

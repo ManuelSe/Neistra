@@ -809,8 +809,34 @@ extending legacy profiles or claiming protonation prediction.
 Preview and Apply use the same computation, captured guards and generic molecular
 publication/history path. Shared target/H/coordinate/analysis/diagnostic budgets
 remain bounded. No new schema, migration, worker or plugin is introduced. The
-compact UI migration and one-click action are separate pending checkpoints until
-their implementation evidence is recorded in the feature plan.
+compact UI migration remains the separate M4 checkpoint; one-click addition is
+documented below with its C2 evidence in the feature plan.
+
+## Bounded one-click hydrogen addition (issue #92, C2)
+
+`model-edits` additionally accepts `action: {"operation": "hydrogens.add_one"}`
+with exactly one selected heavy atom. It requires the existing preserve policy
+(the omitted default), no count/geometry/orientation fields, and the usual revision,
+artifact and lock guards. It applies immediately; it is not a placement-preview
+action. Existing configurable `hydrogens.add` and completion contracts remain.
+
+One successful request adds exactly one ordinary explicit H in every conformer,
+keeps the heavy parent selected and updates that parent's formal charge only for
+the approved finite C/N/O/S transitions. See the
+[state table](plans/issue-92-automatic-hydrogen-editing.md#one-click-h).
+Counts include all canonical bonds/H regardless of visibility. The server refuses
+unknown/protected local chemistry, unsupported valence/charge, conjugated charge
+transitions, hypervalent S and undetermined new stereo. Sulfonium assessment keeps
+the candidate H explicit; an implicit-H projection can omit its stereo possibility.
+
+A refusal returns structured 422 without publishing artifacts, history, persistent
+warnings, dirty state, allocation changes or a partial charge update. A successful
+response uses the existing edit report, optional H report and one generic molecular
+command. Parent-charge changes and placement assumptions are inference provenance;
+charge-changing steps also return a durable operation warning. No pKa, physiological
+protonation, optimization or preparation is predicted. A later explicit edit may
+reconcile the new ordinary H. No persistent H lock/schema or new endpoint is
+introduced.
 
 ## Selection minimization proposals (issue #82, C3)
 

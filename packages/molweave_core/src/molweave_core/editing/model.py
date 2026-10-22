@@ -30,6 +30,7 @@ from molweave_core.editing.ligand import EditResult
 from molweave_core.editing.placement import place_atom, place_fragment
 from molweave_core.editing.reconciliation import ReconciliationReport, reconcile_hydrogens
 from molweave_core.editing.selection import SelectionEditResult
+from molweave_core.editing.single_hydrogen import add_one_hydrogen
 from molweave_core.hydrogen_protection import authored_protection
 from molweave_core.molecular import Bond, MolecularWarning, NormalizedStructureV1
 
@@ -119,6 +120,10 @@ class ModelHydrogenAdd(ModelActionBase):
     orientation: int = Field(default=0, ge=0, le=5, strict=True)
 
 
+class ModelHydrogenAddOne(ModelActionBase):
+    operation: Literal["hydrogens.add_one"]
+
+
 ModelAction = Annotated[
     ModelElement
     | ModelCharge
@@ -128,7 +133,8 @@ ModelAction = Annotated[
     | ModelAtomAdd
     | ModelFragmentAdd
     | ModelHydrogenComplete
-    | ModelHydrogenAdd,
+    | ModelHydrogenAdd
+    | ModelHydrogenAddOne,
     Field(discriminator="operation"),
 ]
 
@@ -251,15 +257,41 @@ class DirectMolecularEditor:
         exclusions = set(modeling_metadata(before).excluded_bonds)
         if exclusions & pairs.keys():
             raise InvalidModelEdit("Authored bonds contradict recorded bond exclusions.")
-        if isinstance(action, (ModelHydrogenComplete, ModelHydrogenAdd)):
+        if isinstance(action, (ModelHydrogenComplete, ModelHydrogenAdd, ModelHydrogenAddOne)):
             if hydrogen_policy != "preserve":
                 raise InvalidModelEdit(
                     "Explicit hydrogen actions require hydrogen_policy preserve."
                 )
-            if isinstance(action, ModelHydrogenAdd) and (
+            if isinstance(action, (ModelHydrogenAdd, ModelHydrogenAddOne)) and (
                 len(selected) != 1 or atoms[selected[0]].element == "H"
             ):
-                raise InvalidModelEdit("Add N H requires exactly one selected heavy atom.")
+                raise InvalidModelEdit(
+                    "Hydrogen addition requires exactly one selected heavy atom."
+                )
+            if isinstance(action, ModelHydrogenAddOne):
+                try:
+                    completed, report, completion_warnings = add_one_hydrogen(
+                        before,
+                        selected[0],
+                        next_atom_id=next_atom_id,
+                        next_bond_id=next_bond_id,
+                        atom_limit=atom_limit,
+                    )
+                except (ValueError, RuntimeError, OverflowError) as error:
+                    raise InvalidModelEdit(str(error)) from error
+                return ModelEditResult(
+                    EditResult(
+                        structure=completed,
+                        warnings=completion_warnings,
+                        created_atom_ids=(next_atom_id,),
+                        created_bond_ids=(next_bond_id,),
+                        changed_atom_ids=tuple(
+                            a.id for a in completed.atoms if a.id in atoms and a != atoms[a.id]
+                        ),
+                    ),
+                    {},
+                    report,
+                )
             try:
                 builder = HydrogenBuilder(before)
                 targets = builder.targets(
