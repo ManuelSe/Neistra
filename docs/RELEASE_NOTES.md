@@ -5,6 +5,13 @@
 Prepared stable patch under the [approved issue #93 contract](plans/issue-93-compact-modeling-toolbar.md).
 Publication requires complete clean-candidate and exact merged-master qualification.
 
+**Qualification repair.** Existing release tests now observe real notification
+expiry from its recorded appearance, preserving the>=10s lifetime assertion and
+original13.5s total wait. The native test observer treats ESRCH as process exit
+alongside ENOENT. Production notice/worker code and all scientific/performance
+limits are unchanged. Focused validation passes; fresh complete candidate4 and
+exact merged5 gates remain required. No qualification exception is assumed.
+
 **Toolbar and setup.** Transform, Edit, and Minimize share one compact frame below
 selection controls, equal32px desktop/44px coarse or narrow targets and16px icons.
 The separate Quick settings and Advanced AMBER launcher is removed. Focus/hover

@@ -2,6 +2,14 @@
 
 ## Compact molecular toolbar (issue #93) — corrected candidate qualification
 
+Final qualification is being repeated after bounded test-harness repairs.
+[C4 focused evidence](assets/compact-modeling-toolbar/c4-harness1-summary.json)
+passes9 worker/331 frontend/10 notification browser cases and static/build checks.
+Real notice lifetime>=10s and the original13.5s total wait remain; production code,
+scientific/performance limits and approved scope are unchanged. Failed master
+attempts remain diagnostic. Candidate3 below is historical; final candidate4/
+merged5 must pass completely before publication. No exception is assumed.
+
 Corrected clean [candidate3](assets/compact-modeling-toolbar/c4-candidate3-gate.json)
 and [summary](assets/compact-modeling-toolbar/c4-candidate3-summary.json) pass all20
 commands on`8a3c3c607e0bb72164f677e1d35ba884575d1144`: **1248 Python,331 frontend,8 supervisor,322 browser /
