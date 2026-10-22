@@ -108,3 +108,11 @@ log hash verify; all performance budgets remain unchanged. The complete integrat
 diff and final source deltas were reviewed; no consequential finding remains.
 Earlier interrupted/red diagnostics are explicitly separate. Remote Codex review
 will be requested, without implying independent review has already occurred.
+
+
+Final reviewability note: GitHub rejected the319-file PR diff. Bundle the two
+interrupted candidate attempts in a [checksummed archive](c5-interrupted-candidates.md),
+preserving every diagnostic byte and original member path. Final candidate3
+evidence remains separate and individually accessible. Production/test source
+identities remain identical; no rerun is implied or required by this documentation
+packaging change. This resolves the diff-file limit without dropping evidence.

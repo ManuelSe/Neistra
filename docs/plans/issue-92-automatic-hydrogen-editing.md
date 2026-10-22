@@ -987,3 +987,11 @@ Candidate evidence/progress commit follows. Next: push and open the planned PR,
 request Codex review, audit protections/checks/conversations, normal merge when
 satisfied, then complete fresh exact-master qualification before tag/release.
 No release/merge is claimed yet and no consequential local finding remains.
+
+
+Final reviewability note: GitHub rejected the319-file PR diff. Bundle the two
+interrupted candidate attempts in a [checksummed archive](../assets/automatic-hydrogen-editing/c5-interrupted-candidates.md),
+preserving every diagnostic byte and original member path. Final candidate3
+evidence remains separate and individually accessible. Production/test source
+identities remain identical; no rerun is implied or required by this documentation
+packaging change. This resolves the diff-file limit without dropping evidence.
