@@ -7,41 +7,29 @@ Issue [#92](https://github.com/ManuelSe/Neistra/issues/92) is implementing its
 `feat/issue-92-automatic-hydrogen-editing`, authorized by the user's 2026-10-22
 `/goal`. C0 remote commit15705d9 and D-140–142 retain approval and boundaries.
 
-M1/C1 and M2/C2 are pushed at1701fb9/af775c7; M3/C3 is committed at db63fb5.
-M4/C4 completes automatic-only compact controls, bounded immediate +H, canonical
-bond icons/stepping/aromatic/Advanced controls and attachment appearance. Legacy
-HTTP defaults/operations, separate H display/removal and protein preparation remain.
-[C4 gate](assets/automatic-hydrogen-editing/c4-attempt2-gate.json) passes all9
-commands:43 focused/318 frontend,57 native cases/5 documented layout exclusions,
-static/type/build checks and diff. Both themes,320px/actual200%zoom, native picks,
-previews, hidden H, exact history/originals and delayed ownership pass. Source/log
-hashes and [local self-review](assets/automatic-hydrogen-editing/c4-review.md) verify.
-Earlier diagnostics retain obsolete fixture expectations separately; identity and
-protected-H guards were not weakened. C1–C3 scientific/appearance evidence remains
-linked in the detailed feature plan.
+M1–M5 are implemented and candidate-qualified: automatic local H maintenance,
+bounded immediate +H with consistent all-conformer stereo, atomic attachment
+appearance and compact accessible controls. Legacy HTTP defaults/operations,
+explicit removal/protein preparation and independent display/scene owners remain.
 
-Known limits: bounded unoptimized H chemistry and existing scene/visibility owners.
-[Broader chemistry#114](https://github.com/ManuelSe/Neistra/issues/114) is created and
-remotely verified; #83/#52/#71 retain their scope. All five authoritative versions are being prepared as0.24.0,
-with no migration or dependency change; stable minor impact remains justified. No blocker. Next action:
-C4 is pushed at aeaa690. [C5 preflight](assets/automatic-hydrogen-editing/c5-preflight1-gate.json)
-passes107 focused Python/321 frontend/14 native and actual0.23.0↔current reader
-checks: six new cases forward, the rich three-entry baseline reverse, exact data/
-history/appearance/scenes/surfaces/jobs/originals/counters/archives. A local review
-fix restricts numeric bond stepping to1/2/3, retaining explicit Advanced assignment.
-Compatibility checkpoint df60afe is committed. Next: finish the0.24.0 release-preparation
-commit, then complete final-version candidate/exact-master gates and PR/review/merge/release. Delivery remains pending. Further C5 mirror-conformer review found +H could leave
-new stereo unresolved with a warning. Candidate1 was intentionally interrupted;
-its1241 Python/321 frontend/8 supervisor passes are diagnostic for that source.
-The typed +H-only consistency guard and fail-first C/N mirror/translation/API
-regressions now pass the [correction gate](assets/automatic-hydrogen-editing/c5-stereo-green-gate.json):
-114 focused Python/321 frontend/14 native plus final0.24.0↔actual0.23.0 readers.
-The fix is committed/pushed at6b2a467. Candidate2 passes1247 Python/321 frontend/
-8 supervisor and executed native checks, but stops on a stale broad-journey count.
-Only the release/theme journey assertions change; the [focused gate](assets/automatic-hydrogen-editing/c5-journey-gate.json)
-passes321 frontend and2 native/2 existing exclusions plus static/build checks.
-Production hashes are unchanged. Next is the complete fresh candidate3 gate.
-No merge or release has occurred.
+[Final candidate3](assets/automatic-hydrogen-editing/c5-candidate-3-gate.json)
+8510c40 passes all20 commands: **1247 Python,321 frontend,8 supervisor,306 native
+browser/60 documented layout exclusions**, zero failures/flakes/retries/native
+scientific skips. All static/type/build/frozen install/migration checks, actual
+0.23.0↔0.24.0 readers,567 source/log identities and unchanged performance budgets
+pass. Cold small/pocket/18k0.980/2.170/3.672s; frame722ms; Cancel49.8ms. Exact
+machine context is retained in the gate. [Self-review](assets/automatic-hydrogen-editing/c5-review.md)
+resolved C/N mirror-stereo admission and broad-journey count expectations; earlier
+attempts remain separate diagnostics. All five versions0.24.0; no dependency or
+schema/migration change (head0014,2/1 schemas).
+
+Known limits: bounded unoptimized H chemistry and preserved scene/visibility owners.
+[Broader qualification#114](https://github.com/ManuelSe/Neistra/issues/114) is remotely
+verified; #83/#52/#71 retain their scope. No blocker or consequential local finding.
+Origin/master54533f1/latestv0.23.0 remain current, v0.24.0 unused. Next: commit/push
+candidate evidence, PR/review/protection audit and normal merge, then full fresh
+exact-master gate, verified tag/release/issue reply and documentation/branch cleanup.
+Publication and Goal completion remain pending.
 
 ### Previous delivery baseline — v0.23.0
 
@@ -2780,6 +2768,5 @@ merged-master qualification, PR review and verified release delivery remain requ
 
 ## Next action
 
-Complete the0.24.0 release-preparation commit and frozen candidate gate, perform
-final full-diff review, then deliver through the approved PR/merge/release audit
-workflow. Keep broader chemistry in#114 and retain existing scientific boundaries.
+Open the qualified0.24.0 implementation PR, request review and satisfy repository
+policy, then normal merge and full exact-master qualification before publication. Keep broader chemistry in#114 and retain existing scientific boundaries.

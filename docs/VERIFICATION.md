@@ -37,6 +37,15 @@ retain the proof:114 focused Python/321 frontend/14 native and final-version rea
 The earlier complete-candidate1 attempt was intentionally interrupted and is
 strictly diagnostic; its1241 Python passes do not qualify the corrected source.
 
+Final [candidate3](assets/automatic-hydrogen-editing/c5-candidate-3-gate.json)
+passes the complete20-command release gate on8510c40:1247 Python,321 frontend,
+8 supervisor,306 browser/60 unchanged layout/timing exclusions, zero failures/
+flakes/retries/Python or native scientific skips. Actual final0.24.0/tagged0.23.0
+readers pass both directions, all567 source identities/log hashes verify, and
+performance budgets remain unchanged. [Summary](assets/automatic-hydrogen-editing/c5-candidate-3-summary.json)
+and [local full-diff review](assets/automatic-hydrogen-editing/c5-review.md) retain
+proof; exact merged-master qualification and publication are still pending.
+
 ## Quick local minimization (issue #110) — stable v0.23.0
 
 Both [corrected candidate10](assets/quick-minimization/c5-candidate-10-gate.json)

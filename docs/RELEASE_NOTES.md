@@ -2,8 +2,8 @@
 
 ## 0.24.0 - 2026-10-22 - Automatic hydrogen editing
 
-Release preparation for stable v0.24.0. Publication is pending complete candidate
-and exact merged-master qualification; no tag or release is claimed yet.
+Stable v0.24.0 candidate-qualified. Publication is pending PR review/merge and
+complete exact merged-master qualification; no tag or release is claimed yet.
 
 **Automatic editing and compact controls.** Ordinary atom, fragment, element,
 charge and bond edits maintain supported changed/new heavy sites and immediate
@@ -54,9 +54,14 @@ portable Undo history. SemVer is minor because this adds public scientific/API
 and visible editing capability while retaining old request/data contracts; patch,
 major and prerelease increments do not fit this qualified scope.
 
-**Verification.** C1–C4 and the C5 actual-reader preflight pass their documented
-checks. Complete final-version candidate/exact-master gates, performance results
-and publication verification will be recorded here after they pass. See the
+**Verification.** Final candidate3 passes all20 complete release commands:
+1247 Python,321 frontend,8 supervisor,306 browser/60 unchanged documented layout/
+timing exclusions, zero failures/flakes/retries/native scientific skips. Actual
+0.23.0/final0.24.0 readers retain six new cases forward and a rich three-entry
+project reverse. All567 source/test/patch/lock identities and lossless logs verify.
+Cold small/pocket/18k native Apply0.980/2.170/3.672s, first actual frame722ms and
+Cancel49.8ms retain the existing budgets; recorded machine/profile context applies.
+Exact merged-master and publication verification remain required. See the
 [approved plan](plans/issue-92-automatic-hydrogen-editing.md) and
 [verification](VERIFICATION.md). No release qualification is inferred from preflight.
 

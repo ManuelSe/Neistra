@@ -2,8 +2,8 @@
 
 ## 1. Status, outcome and authority
 
-**Status:** approved implementation in progress. M1–M4 are implemented and
-qualified; M5 and release delivery remain pending. C0 was committed and remotely verified
+**Status:** approved implementation in progress. M1–M5 are implemented and candidate-qualified; PR/review/merge and C6 verified
+release delivery remain pending. C0 was committed and remotely verified
 at `15705d9c57af285f5b15b33d7a9bf421d072bae6`.
 
 **Approval:** the user's “Implement the plan.” on 2026-10-22 approves the complete
@@ -957,3 +957,33 @@ exclusions, lint/type/build/diff. All source/log hashes verify. Comparing its so
 snapshot to candidate2 proves exactly these two test files differ; production is
 unchanged. Commit this coherent test/evidence update, then restart the complete
 fresh candidate3 gate. No merge, tag or release exists yet.
+
+### M5/C5 final candidate complete — 2026-10-22
+
+[Candidate3](../assets/automatic-hydrogen-editing/c5-candidate-3-gate.json), source
+8510c40cfefe44a560698d4de7892a379d07ab94, passes all20 complete release commands:
+**1247 Python,321 frontend,8 supervisor,306 browser/60 unchanged documented
+layout/timing exclusions**, zero failures/flakes/retries/Python or native scientific
+skips. Frozen installs, fresh0014, static/type/build, full desktop/mobile accessibility/
+actual zoom/scientific/job/export/surface/movement regressions, actual tagged0.23.0
+and final0.24.0 readers, all-five versions/dependencies and whitespace pass.
+Six new cases forward and the rich old three-entry project reverse remain exact.
+All567 source/test/patch/lock identities and uncompressed-log hashes verify;
+source digest2cc7bd9f95acc647b8a9ae428b1f40aa66ab5f8e791e675dfeb268e5645fb2e9.
+[Summary](../assets/automatic-hydrogen-editing/c5-candidate-3-summary.json) includes
+exact timings and [full-diff local self-review](../assets/automatic-hydrogen-editing/c5-review.md)
+records resolved findings. Earlier attempts are diagnostic only.
+
+Performance budgets are unchanged. Candidate reference cold small/pocket/18k
+native Apply0.980/2.170/3.672s, first actual frame722ms and Cancel49.8ms; these are
+recorded machine results, not universal promises. The gate records AC charging,
+existing power-saver profile and bounded native settings; no profile change was
+made. Source work/site/H/context/coordinate/diagnostic bounds pass their tests.
+
+Fetched origin/master remains54533f10df4d8fff763483356a58c4573a445453; latest stable
+is stillv0.23.0 and v0.24.0 is unused. No upstream work was discarded and no version
+collision exists. Stable minor0.24.0 remains correct; no new migration/dependency.
+Candidate evidence/progress commit follows. Next: push and open the planned PR,
+request Codex review, audit protections/checks/conversations, normal merge when
+satisfied, then complete fresh exact-master qualification before tag/release.
+No release/merge is claimed yet and no consequential local finding remains.
