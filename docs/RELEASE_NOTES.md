@@ -9,8 +9,8 @@ Publication requires complete clean-candidate and exact merged-master qualificat
 expiry from its recorded appearance, preserving the>=10s lifetime assertion and
 original13.5s total wait. The native test observer treats ESRCH as process exit
 alongside ENOENT. Production notice/worker code and all scientific/performance
-limits are unchanged. Focused validation passes; fresh complete candidate4 and
-exact merged5 gates remain required. No qualification exception is assumed.
+limits are unchanged. Focused and complete candidate4 validation pass; exact merged5 qualification
+remains required. No qualification exception is assumed.
 
 **Toolbar and setup.** Transform, Edit, and Minimize share one compact frame below
 selection controls, equal32px desktop/44px coarse or narrow targets and16px icons.
@@ -39,35 +39,26 @@ fixed/inactive coordinates and atomic history retain their existing contracts.
 Matching client/API and complete managed-directory backups remain appropriate for
 rollback; native archives retain current state, not portable Undo history.
 
-**Verification.** Corrected clean [candidate3](assets/compact-modeling-toolbar/c4-candidate3-gate.json)
-and [summary](assets/compact-modeling-toolbar/c4-candidate3-summary.json) pass all20
-commands on`8a3c3c607e0bb72164f677e1d35ba884575d1144`: **1248 Python,331 frontend,8 supervisor,322 browser /
-60 unchanged documented layout/timing exclusions**, zero failures/flakes/retries/
-Python or native scientific skips. All568 source/test/tool/patch/lock identities
-remain fixed, digest`a079429f753cc2a266bb0eba3c2c56fa756f0bce3e3faa176b453c5a83dd8705`; lossless log hashes verify. Frozen
-installs, fresh0014, static/types/build, production-harness exclusion, all five
-0.24.1 versions and actual tagged0.24.0↔final0.24.1 reader directions pass.
-Both directions retain all six automatic cases and rich three-entry canonical/
-conformer/history/original/appearance/job/surface/scene/counter/archive records.
-No migration/API/job/schema/dependency/scientific-model change.
+**Verification.** Clean [candidate4](assets/compact-modeling-toolbar/c4-candidate4-gate.json)
+and [summary](assets/compact-modeling-toolbar/c4-candidate4-summary.json) pass all20
+commands on`83933b9818bdaa10985c249c16274b2340a216bf`:1248 Python,331 frontend,8 supervisor,
+322 browser/60 unchanged documented exclusions; zero failures/flakes/retries/
+Python or required native scientific skips. All568 source/test/tool/patch/lock
+identities and lossless log hashes verify, digest`6523643a55d4da81df3c41001746d4b6aac5eed89d97cfc9ed80778e4de04dc3`.
+Frozen installs, fresh0014, static/types/build, production-harness exclusion, all
+five0.24.1 versions and both actual tagged0.24.0↔final0.24.1 readers pass.
+All16 toolbar and10 notification cases execute, including real>=10s expiry.
+Rich canonical/conformer/history/original/settings/job/surface/scene/counter/archive
+retention passes. No qualification exception, threshold relaxation or new follow-up
+is used. Earlier failed/interrupted attempts remain diagnostic.
 
-All16 toolbar cases execute without skips/retries, covering both outgoing tools,
-explicit setup and quiet submission/publication focus, plus existing compact
-layout/transform/reveal/failure workflows. Full native interaction, quick/AMBER,
-editing,320px/themes/accessibility/actual100–200%zoom regressions pass. Cold small/
-pocket/18k native paint1.402/2.067/3.579s, first frame
-706.4ms, Cancel41.4ms; original2/5/5s,1s,500ms
-and<750ms long-task budgets remain. Command acceptance is distinct from former
-panel-render feedback, with no speedup comparison. Power/environment samples are
-retained without host-setting changes.
-
-The focused correction follows [initial PR#117](https://github.com/ManuelSe/Neistra/pull/117)
-and extends D-093/D-143's existing restoration suppression through visible setup
-and hidden autoApply. Other close paths were reviewed; no unresolved consequential
-finding remains in implementer self-review. No independent approval is claimed.
-Candidate2 is historical; merged1 was intentionally interrupted. This corrected
-candidate is the source for the corrective PR. Publication still requires a normal
-merge, complete exact merged2 gate and verified tag/release/issue/audit/cleanup.
+Cold small/pocket/18k native paint0.953/2.065/3.452s, first frame
+700.3ms and Cancel64.6ms pass original2/5/5s,1s,500ms
+and<750ms long-task limits; the existing responsiveness budget passes. Command
+acceptance remains distinct from old panel-render feedback. Implementer full-diff
+review addresses read-failure retirement, explicit/quiet tool-focus handoff and
+release-test observation races; no independent approval is claimed. Complete
+exact merged5 qualification remains mandatory before tagging/publication.
 
 **Scientific limits and scope.** This presentation/lifecycle correction adds no
 physical model or scientific capability. Existing approximate-repair, chemistry,
