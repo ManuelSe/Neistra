@@ -10,6 +10,17 @@ import/edit summaries, and action-required movement guidance remain visible unti
 dismissed or replaced; detailed scientific warning records and panels are unchanged.
 Hiding a confirmation does not change or validate molecular data.
 
+## Automatic direct-edit hydrogen maintenance
+
+Automatic direct-edit hydrogen maintenance (issue #92 C1) is bounded local
+building, not preparation or protonation prediction. Unsupported/protected sites
+retain the requested draft with diagnostics, including per-site conformer and
+budget failures. Heavy deletion cascades only through explicit canonical terminal
+H connectivity; hidden rendering is irrelevant, and historical orphan or ambiguous
+bridging-H cleanup is not inferred. Explicit H deletion does not infer a compensating
+charge change. See [operation intent](MOLECULAR_MODEL.md#automatic-direct-edit-maintenance-issue-92-c1)
+and the [approved contract](plans/issue-92-automatic-hydrogen-editing.md).
+
 ## Molecular interactions
 
 Transient `interaction-v1` analysis is geometric screening, not binding energy.

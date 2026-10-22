@@ -34,7 +34,7 @@ from molweave_core.hydrogen_protection import authored_protection
 from molweave_core.molecular import Bond, MolecularWarning, NormalizedStructureV1
 
 MODELING_METADATA = "neistra_modeling"
-HydrogenPolicy = Literal["preserve", "complete_if_possible", "reconcile_if_possible"]
+HydrogenPolicy = Literal["preserve", "complete_if_possible", "reconcile_if_possible", "automatic"]
 
 
 class InvalidModelEdit(ValueError):
@@ -166,6 +166,42 @@ def model_warning(
         operation=f"model.{operation}",
         field=field,
     )
+
+
+def _adjacency(structure: NormalizedStructureV1) -> dict[int, set[int]]:
+    result: dict[int, set[int]] = {a.id: set() for a in structure.atoms}
+    for bond in structure.bonds:
+        result[bond.atom_1_id].add(bond.atom_2_id)
+        result[bond.atom_2_id].add(bond.atom_1_id)
+    return result
+
+
+def _automatic_targets(
+    before: NormalizedStructureV1,
+    draft: NormalizedStructureV1,
+    selected: list[int],
+    action: ModelAction,
+) -> tuple[list[int], set[int]]:
+    """One-hop canonical edit operands; explicit H intent is operation-local."""
+    old = {a.id: a for a in before.atoms}
+    current = {a.id: a for a in draft.atoms}
+    previous, following = _adjacency(before), _adjacency(draft)
+    seeds = set(selected) | (current.keys() - old.keys())
+    targets = seeds | {j for i in seeds for j in previous.get(i, set()) | following.get(i, set())}
+    suppressed: set[int] = set()
+    if isinstance(action, ModelDelete):
+        suppressed = {j for i in selected if old[i].element in {"H", "D", "T"} for j in previous[i]}
+    elif isinstance(action, (ModelBondSet, ModelBondDelete)) and any(
+        old[i].element in {"H", "D", "T"} for i in selected
+    ):
+        suppressed = set(selected) | {
+            j for i in selected if old[i].element in {"H", "D", "T"} for j in previous[i]
+        }
+    elif isinstance(action, ModelAtomAdd) and action.element == "H":
+        suppressed = set(selected)
+    return sorted(
+        i for i in targets if i in current and current[i].element not in {"H", "D", "T"}
+    ), suppressed
 
 
 @dataclass(frozen=True)
@@ -304,6 +340,35 @@ class DirectMolecularEditor:
             )
             warnings.extend(placement.warnings)
         elif isinstance(action, ModelDelete):
+            if hydrogen_policy == "automatic":
+                deletion_adjacency = _adjacency(before)
+                cascade = {
+                    i
+                    for i, atom in atoms.items()
+                    if atom.element in {"H", "D", "T"}
+                    and len(deletion_adjacency[i]) == 1
+                    and any(
+                        j in chosen and atoms[j].element not in {"H", "D", "T"}
+                        for j in deletion_adjacency[i]
+                    )
+                }
+                ambiguous = {
+                    i
+                    for i, atom in atoms.items()
+                    if atom.element in {"H", "D", "T"}
+                    and i not in chosen | cascade
+                    and deletion_adjacency[i] & chosen
+                }
+                if ambiguous:
+                    warnings.append(
+                        model_warning(
+                            "model_hydrogen_deletion_ambiguous",
+                            "Nonterminal H ownership is ambiguous; only explicitly selected or "
+                            "terminal attached H were deleted.",
+                            action.operation,
+                        )
+                    )
+                chosen |= cascade
             retained = [i for i, a in enumerate(before.atoms) if a.id not in chosen]
             for bond in before.bonds:
                 if chosen & {bond.atom_1_id, bond.atom_2_id}:
@@ -536,16 +601,23 @@ class DirectMolecularEditor:
                         )
                     )
         reconciliation_report = None
-        if hydrogen_policy == "reconcile_if_possible":
+        if hydrogen_policy in {"reconcile_if_possible", "automatic"}:
+            targets, suppressed = (
+                _automatic_targets(before, after, selected, action)
+                if hydrogen_policy == "automatic"
+                else (selected, set())
+            )
             outcome = reconcile_hydrogens(
                 before,
                 after,
-                selected,
-                next_atom_id=next_atom_id,
+                targets,
+                next_atom_id=max(next_atom_id, max((a.id for a in after.atoms), default=0) + 1),
                 next_bond_id=max(next_bond_id, max((b.id for b in after.bonds), default=0) + 1),
                 operation=action.operation,
                 atom_limit=atom_limit,
                 inferred_deletion=isinstance(action, ModelBondDelete) and old is None,
+                policy="automatic" if hydrogen_policy == "automatic" else "reconcile_if_possible",
+                suppressed_targets=suppressed,
             )
             after, reconciliation_report = outcome.structure, outcome.report
             warnings.extend(outcome.warnings)
@@ -590,6 +662,11 @@ class DirectMolecularEditor:
         new_atoms = {a.id: a for a in after.atoms}
         old_bonds = {b.id for b in before.bonds}
         new_bonds = {b.id for b in after.bonds}
+        moved_hydrogens = (
+            {i for site in reconciliation_report.sites for i in site.moved_hydrogen_ids}
+            if reconciliation_report is not None
+            else set()
+        )
         return ModelEditResult(
             EditResult(
                 structure=after,
@@ -602,14 +679,7 @@ class DirectMolecularEditor:
                     sorted(
                         i
                         for i in new_atoms.keys() & old_atoms.keys()
-                        if new_atoms[i] != old_atoms[i]
-                        or i in touched
-                        or (
-                            reconciliation_report is not None
-                            and any(
-                                i in site.moved_hydrogen_ids for site in reconciliation_report.sites
-                            )
-                        )
+                        if new_atoms[i] != old_atoms[i] or i in touched or i in moved_hydrogens
                     )
                 ),
             ),

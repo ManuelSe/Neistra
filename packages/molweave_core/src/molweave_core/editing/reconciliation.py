@@ -19,6 +19,7 @@ from molweave_core.editing.hydrogen import (
     MAX_COORDINATES,
     MAX_DIAGNOSTICS,
     MAX_HYDROGENS,
+    MAX_SITES,
     Geometry,
     HydrogenBuilder,
     HydrogenDiagnostic,
@@ -51,7 +52,7 @@ class ReconciliationSite(BaseModel):
 
 class ReconciliationReport(BaseModel):
     model_config = ConfigDict(frozen=True)
-    policy: Literal["reconcile_if_possible"] = "reconcile_if_possible"
+    policy: Literal["reconcile_if_possible", "automatic"] = "reconcile_if_possible"
     status: Literal["complete", "partial", "unchanged", "unresolved"]
     target_count: int
     completed_count: int
@@ -98,20 +99,25 @@ def reconcile_hydrogens(
     operation: str,
     atom_limit: int,
     inferred_deletion: bool = False,
+    policy: Literal["reconcile_if_possible", "automatic"] = "reconcile_if_possible",
+    suppressed_targets: set[int] | None = None,
 ) -> ReconciliationResult:
     """Compute complete per-site conformer changes before materializing any change."""
     find_centres: Any = Chem.FindMolChiralCenters
+    target_count = len(targets)
+    targets = sorted(targets)[:MAX_SITES]
     try:
         original = HydrogenBuilder(before)
         current = HydrogenBuilder(draft)
     except ValueError as context_error:
         report = ReconciliationReport(
+            policy=policy,
             status="unresolved",
-            target_count=len(targets),
+            target_count=target_count,
             completed_count=0,
             unchanged_count=0,
             skipped_count=len(targets),
-            unprocessed_count=0,
+            unprocessed_count=target_count - len(targets),
             added_hydrogen_count=0,
             removed_hydrogen_count=0,
             moved_hydrogen_count=0,
@@ -120,10 +126,10 @@ def reconcile_hydrogens(
                 HydrogenDiagnostic(
                     atom_id=t, reason="invalid_conformer_context", message=str(context_error)
                 )
-                for t in targets
+                for t in targets[:MAX_DIAGNOSTICS]
             ],
-            reason_counts={"invalid_conformer_context": len(targets)},
-            diagnostics_truncated=False,
+            reason_counts={"invalid_conformer_context": target_count},
+            diagnostics_truncated=target_count > min(len(targets), MAX_DIAGNOSTICS),
         )
         return ReconciliationResult(
             draft,
@@ -132,12 +138,12 @@ def reconcile_hydrogens(
                 MolecularWarning(
                     code="model_hydrogen_invalid_conformer_context",
                     operation=f"model.{operation}",
-                    message=f"Bond draft retained; H reconciliation unavailable: {context_error}",
+                    message=f"Direct draft retained; H reconciliation unavailable: {context_error}",
                 ),
             ),
         )
     try:
-        facts = protection_facts(before)
+        facts = protection_facts(draft if policy == "automatic" else before)
     except ValueError:
         facts = {}
     target_h = {
@@ -189,12 +195,19 @@ def reconcile_hydrogens(
                 "Isotope-labelled or radical site/H is protected; H unchanged.",
             )
 
+    if target_count > len(targets):
+        diagnostic(
+            targets[-1], "target_budget", "Target-site budget exhausted; remaining H unchanged."
+        )
+        reasons["target_budget"] = target_count - len(targets)
     for target in sorted(targets):
         h_ids = target_h[target]
         try:
             parent = current.atoms[target]
-            if parent.element in {"H", "D", "T"} or any(
-                current.atoms[t].element in {"H", "D", "T"} for t in targets
+            if (
+                target in (suppressed_targets or set())
+                or parent.element in {"H", "D", "T"}
+                or any(current.atoms[t].element in {"H", "D", "T"} for t in targets)
             ):
                 raise UnsupportedSite(
                     "explicit_hydrogen_edit",
@@ -217,14 +230,16 @@ def reconcile_hydrogens(
                     or incident[0][0] != target
                     or incident[0][1].order != 1.0
                     or incident[0][1].aromatic
-                    or original.atoms[h].stereo not in {None, "NONE"}
+                    or original.atoms.get(h, atom).stereo not in {None, "NONE"}
                     or atom.alternate_location not in {None, "", parent.alternate_location}
                 ):
                     raise UnsupportedSite(
                         "protected_hydrogen",
                         "Charged, ambiguous, nonterminal or stereo-significant H is protected.",
                     )
-            amount, shape = builder.automatic_configuration(target)
+            amount, shape = builder.automatic_configuration(
+                target, bounded_sulfur=policy == "automatic"
+            )
             if any(b.aromatic or b.order == 1.5 for _, b in builder.adjacency[target]):
                 raise UnsupportedSite(
                     "aromatic_reconciliation",
@@ -235,9 +250,14 @@ def reconcile_hydrogens(
                     "site_capacity",
                     "Local H coordination exceeds this bounded profile; H unchanged.",
                 )
-            previous_orders = sorted(b.order or 0 for _, b in original.adjacency[target])
+            previous_orders = sorted(b.order or 0 for _, b in original.adjacency.get(target, []))
             next_orders = sorted(b.order or 0 for _, b in current.adjacency[target])
-            if amount == len(h_ids) and previous_orders == next_orders:
+            prior = original.atoms.get(target)
+            same_parent = prior is not None and (prior.element, prior.formal_charge) == (
+                parent.element,
+                parent.formal_charge,
+            )
+            if amount == len(h_ids) and previous_orders == next_orders and same_parent:
                 sites.append(ReconciliationSite(atom_id=target, status="unchanged", geometry=shape))
                 continue
             retained = h_ids[:amount]
@@ -410,7 +430,7 @@ def reconcile_hydrogens(
                     code="model_hydrogen_reconciliation",
                     atom_ids=[target, *retained, *new_ids, *deleted],
                     message=(
-                        f"{operation}; policy=reconcile_if_possible; geometry={shape}; "
+                        f"{operation}; policy={policy}; geometry={shape}; "
                         f"added={new_ids}; removed={deleted}; moved={moved_ids}; "
                         "unoptimized endpoint-local placement, heavy coordinates fixed."
                     ),
@@ -524,8 +544,10 @@ def reconcile_hydrogens(
                     "protected, unknown or beyond the analysis budget. Source facts retained.",
                 )
     counts = Counter(s.status for s in sites)
+    counts["unprocessed"] += target_count - len(targets)
     failed = counts["skipped"] + counts["unprocessed"]
     report = ReconciliationReport(
+        policy=policy,
         status="partial"
         if failed and counts["complete"]
         else "unresolved"
@@ -533,7 +555,7 @@ def reconcile_hydrogens(
         else "complete"
         if counts["complete"]
         else "unchanged",
-        target_count=len(targets),
+        target_count=target_count,
         completed_count=counts["complete"],
         unchanged_count=counts["unchanged"],
         skipped_count=counts["skipped"],
@@ -551,7 +573,7 @@ def reconcile_hydrogens(
             code="model_hydrogen_reconciliation",
             operation=f"model.{operation}",
             message=(
-                f"Bond edit retained; H reconciliation {report.status}: "
+                f"Direct edit retained; H reconciliation {report.status}: "
                 f"{len(additions)} added, {len(removed)} removed, {len(moved)} moved. "
                 "Ideal geometry is unoptimized; no protonation/preparation implied."
             ),

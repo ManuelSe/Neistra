@@ -781,6 +781,37 @@ A successful mutation publishes one existing generic molecular command, includin
 removed-H reference reconciliation and allocation floors. Standalone H/additive and
 legacy preparation/ligand/selection APIs retain their contracts. No new migration.
 
+## Automatic local hydrogen maintenance (issue #92, C1)
+
+The direct model-edit route additionally accepts `hydrogen_policy: "automatic"`
+for ordinary atom, fragment and bond operations. Omitted `preserve`, additive
+`complete_if_possible`, bond-only `reconcile_if_possible` and standalone legacy H
+actions retain their existing meanings. The automatic policy is explicit; it does
+not change old clients' request defaults.
+
+The requested direct draft is retained while supported changed/new heavy sites
+and immediate canonical neighbors receive local H maintenance. Automatic deletion
+of a heavy atom also removes H whose sole canonical bonded neighbor is a selected
+heavy atom, including represented labelled H. Missing/display-only connectivity
+does not authorize a cascade. Nonterminal ownership uncertainty warns. Explicit H
+deletion and H-endpoint bond edits do not immediately saturate their affected
+parent; they do not infer a different charge.
+
+Automatic reports reuse `hydrogen_reconciliation_report` with `policy: automatic`.
+They distinguish accepted, unchanged, protected/unsupported and budget-unprocessed
+sites; one site's changes must succeed in every conformer. Newly placed atoms
+participate using their actual generated identity evidence. Routine maintenance
+never changes assigned formal charges or heavy coordinates, and a skipped H site
+cannot block an otherwise valid direct edit. The existing supported local profile
+also admits bounded single-bond S-1/S0/S+1 states in this new policy, without
+extending legacy profiles or claiming protonation prediction.
+
+Preview and Apply use the same computation, captured guards and generic molecular
+publication/history path. Shared target/H/coordinate/analysis/diagnostic budgets
+remain bounded. No new schema, migration, worker or plugin is introduced. The
+compact UI migration and one-click action are separate pending checkpoints until
+their implementation evidence is recorded in the feature plan.
+
 ## Selection minimization proposals (issue #82, C3)
 
 These additive interfaces use the default allowlisted `molweave.minimization`

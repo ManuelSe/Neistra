@@ -2,29 +2,25 @@
 
 ## Current milestone
 
-Issue [#92](https://github.com/ManuelSe/Neistra/issues/92) has an approved
-[implementation contract](plans/issue-92-automatic-hydrogen-editing.md), approved
-by the user's “Implement the plan.” on 2026-10-22. C0 persists planning only on
-`feat/issue-92-automatic-hydrogen-editing`, based on fast-forward-checked master
-`54533f10df4d8fff763483356a58c4573a445453`. D-140–142 record the accepted
-automatic-H, bounded C/N/O/S +H and attachment-appearance decisions;
-implementation is pending.
+Issue [#92](https://github.com/ManuelSe/Neistra/issues/92) is implementing its
+[approved contract](plans/issue-92-automatic-hydrogen-editing.md) on
+`feat/issue-92-automatic-hydrogen-editing`, authorized by the user's 2026-10-22
+`/goal`. C0 remote commit15705d9 and D-140–142 retain approval and boundaries.
 
-Completed planning covers requirement dispositions, five implementation
-milestones, compatibility/scientific boundaries and stable minor **0.24.0**
-delivery. The UI will expose automatic maintenance without policy preferences;
-legacy API meanings remain compatible. Ordinary +H additions may be reconciled
-by later site edits. New atoms will inherit attachment overrides. No feature
-behavior, version source, schema or migration has changed.
+M1/C1 implements automatic API maintenance, terminal-H cascading, explicit-H
+suppression, new-site identity support and bounded sulfur counts. Legacy policy
+defaults, originals, coordinates and generic exact history remain authoritative.
+[Final C1 gate](assets/automatic-hydrogen-editing/c1-final-gate.json) passes all
+nine commands: **58 focused Python,313 frontend,6 native browser cases** plus
+static/type/build/diff checks; source/log identities are retained. Local
+[self-review](assets/automatic-hydrogen-editing/c1-review.md) records accounting
+hardening and no unresolved consequential finding. No migration/dependency/version
+change; all five versions remain0.23.0, planned stable minor0.24.0.
 
-Read-only baseline verification passed **59 Python and 35 frontend tests**.
-C0 documentation/scope/link checks and Git publication are recorded in the plan
-and final verified handoff. These are planning evidence, not feature validation.
-Known limitations: all proposed behavior and its full gates remain pending;
-broader H chemistry, canonical isotopes/radicals and preparation retain the
-plan's explicit follow-up boundaries. No planning blocker is identified.
-**Next action: stop after C0 commit/push verification, ready for `/goal`; do not
-start implementation.**
+Known limitations: +H, appearance inheritance, compact UI, full compatibility and
+release gates remain pending. Existing UI controls are deliberately retained until
+M4. Broader chemistry follows the contract's explicit follow-ups. No current
+blocker. Next action: commit C1, then implement M2's bounded one-click +H.
 
 ### Previous delivery baseline — v0.23.0
 

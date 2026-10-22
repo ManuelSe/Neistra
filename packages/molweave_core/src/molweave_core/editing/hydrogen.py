@@ -273,13 +273,21 @@ class HydrogenBuilder:
         assert error is not None
         raise error
 
-    def automatic_configuration(self, target: int) -> tuple[int, Geometry]:
+    def automatic_configuration(
+        self, target: int, *, bounded_sulfur: bool = False
+    ) -> tuple[int, Geometry]:
         atom = self.atoms[target]
         if atom.formal_charge is None:
             raise UnsupportedSite(
                 "unknown_charge", "Automatic completion requires an assigned parent formal charge."
             )
         valence = _VALENCE.get((atom.element, atom.formal_charge))
+        if bounded_sulfur and atom.element == "S":
+            valence = {-1: 1, 0: 2, 1: 3}.get(atom.formal_charge)
+            if any(b.order != 1.0 or b.aromatic for _, b in self.adjacency[target]):
+                raise UnsupportedSite(
+                    "unsupported_sulfur", "Automatic sulfur requires ordinary single bonds."
+                )
         if valence is None:
             raise UnsupportedSite(
                 "unsupported_state",

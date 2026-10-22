@@ -2,13 +2,16 @@
 
 ## 1. Status, outcome and authority
 
-**Status:** approved; C0 planning documentation persisted and locally verified.
-Implementation and release work have not started. The final C0 handoff supplies
-the separately verified commit and remote publication identities.
+**Status:** approved implementation in progress. M1/C1 is implemented and qualified;
+M2–M5 and release delivery remain pending. C0 was committed and remotely verified
+at `15705d9c57af285f5b15b33d7a9bf421d072bae6`.
 
 **Approval:** the user's “Implement the plan.” on 2026-10-22 approves the complete
 proposal and its explicit C0 stop ready for `/goal`. This authorizes planning
 persistence only. Implementation and release work require a subsequent `/goal`.
+
+The user's subsequent `/goal` on 2026-10-22 authorizes implementation and the full
+verified PR/review/merge/release/issue-response lifecycle in this contract.
 
 | Item | Planned value |
 |---|---|
@@ -692,10 +695,40 @@ the approved contract committed and the repository ready for `/goal`.
 
 | Milestone/checkpoint | Status |
 |---|---|
-| C0 — Approved planning persistence | Documentation verified; Git identities in final handoff |
-| M1/C1 — Automatic local maintenance | Pending /goal |
-| M2/C2 — Bounded one-click H addition | Pending /goal |
-| M3/C3 — Atomic appearance inheritance | Pending /goal |
-| M4/C4 — Compact controls and complete workflow | Pending /goal |
-| M5/C5 — Qualification and release preparation | Pending /goal |
-| M5/C6 — Verified delivery | Pending /goal |
+| C0 — Approved planning persistence | Complete; remote commit 15705d9 |
+| M1/C1 — Automatic local maintenance | Implemented and qualified; checkpoint commit follows this log |
+| M2/C2 — Bounded one-click H addition | Next |
+| M3/C3 — Atomic appearance inheritance | Pending |
+| M4/C4 — Compact controls and complete workflow | Pending |
+| M5/C5 — Qualification and release preparation | Pending |
+| M5/C6 — Verified delivery | Pending |
+
+### 2026-10-22 — M1/C1 automatic API maintenance
+
+- Added the explicit automatic policy, one-hop canonical targets, operation-local
+  explicit-H suppression and terminal-H deletion cascade. Existing omitted and
+  explicit legacy policies retain their contracts.
+- Generalized reconciliation for new identities and protection evidence in the
+  edited draft, with bounded S-1/S0/S+1 single-bond states only in the new policy.
+  Site/diagnostic caps retain full totals; failed conformer work is charged before
+  materialization. Moved-H reporting now uses one ID set rather than a repeated
+  retained-atom/site scan.
+- New domain/scientific/API tests verify counts, independent ideal coordination,
+  new/empty entries, conformers, explicit H intent, protected labelled material,
+  unsupported drafts, request guards, pure placement preview, one-command exact
+  Undo/Redo, original bytes and native archive retention.
+- [Final gate](../assets/automatic-hydrogen-editing/c1-final-gate.json) passes all
+  nine recorded commands: **58 focused Python, 313 frontend, six native browser
+  cases**, Ruff, mypy (101 source files), ESLint, TypeScript, production build and
+  diff whitespace. Source identities remain unchanged through the run; compressed
+  logs preserve exact commands, isolated ports/data paths and exit codes.
+- [Checkpoint review](../assets/automatic-hydrogen-editing/c1-review.md) is local
+  self-review, not independent review. Earlier passing attempt1 predates the
+  review's accounting improvements; final evidence supersedes it. Initial local
+  formatting/mypy diagnostics were repaired before final qualification.
+- API/model/limitations documentation updated. No schema, migration, dependency,
+  original-file or application-version change; all five versions remain 0.23.0.
+- Known limitations: the UI still exposes its historical controls until M4; +H,
+  appearance inheritance and complete release/previous-reader gates are pending.
+  C1 does not claim final issue completion or broader supported chemistry.
+- Blockers: none. Next action: commit this coherent passing C1 state, then M2.

@@ -5431,3 +5431,20 @@ archives must retain exact resulting state. The renderer projects these settings
 no renderer-derived appearance becomes authoritative. Existing viewer fields and
 generic history actions suffice; no new schema, migration or persistent style
 intent object is authorized.
+
+### D-140 implementation note — issue #92 M1/C1, 2026-10-22
+
+The user's `/goal` authorizes implementation and verified delivery. The new
+automatic model-edit policy now reuses reconciliation for canonical one-hop
+operands, new generated sites and current draft protection facts. Explicit heavy
+deletion cascades terminal H without interpreting display connectivity; explicit
+H intent suppresses that parent's maintenance. Legacy policy meanings remain.
+
+Cap processed site records and detailed context errors while retaining full
+unprocessed totals. Charge failed admitted work before any per-site conformer
+publication. Resolve moved IDs once for the final change report to avoid an
+atom-by-site scan as target counts grow. API previews remain pure and the existing
+publication/history boundary owns all accepted changes. Final C1 source-bound
+qualification and local review are recorded in the feature plan. UI migration,
+one-click charge transitions and appearance inheritance remain subsequent work;
+no migration, dependency or version change is made by C1.
