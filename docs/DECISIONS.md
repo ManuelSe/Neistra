@@ -5518,3 +5518,44 @@ canonical source rewrite or unbounded analysis is introduced. Keep the separate
 explicit-H sulfur check because implicit-H perception can miss that new centre.
 The feature plan retains fail-first mirror cases, passing translation controls,
 API no-publication/Redo/counter proof and final requalification requirements.
+
+## D-143 — Compact molecular launchers and panel-independent quick execution
+
+Date: 2026-10-22. Status: accepted by explicit approval of the
+[issue #93 plan](plans/issue-93-compact-modeling-toolbar.md); implementation
+pending. C0 authorizes planning persistence only, with an explicit stop ready for
+`/goal`.
+
+The idle viewer has one shared compact group containing Transform, Edit and
+Minimize, in that order. Remove the separate Quick settings and Advanced AMBER
+launcher. Use 32 px desktop buttons/16 px icons and 44 px coarse-pointer/narrow-layout
+targets; scope the common chrome to launchers so active transformation controls
+retain their current workflow and scientific guidance.
+
+The user's confirmed correction supersedes D-111/D-129's opening behavior:
+clicking Minimize opens setup without calculating; Ctrl+M submits existing quick
+work without automatically opening the panel. Preserve the existing default
+scientific model and exact-once automatic coordinate command. A click during a
+shortcut run reveals the current owned session rather than launching concurrent
+work. Explicit Jobs inspection remains available and never arms publication.
+Do not add shortcut progress, Cancel, or results UI. Meaningful errors and
+scientific warnings still use the existing notice policy under D-089.
+
+Separate panel visibility from application-owned session lifetime in private
+typed frontend interfaces. Polling, validated automatic Apply and existing live
+coordinate rendering cannot depend on whether the panel is visible. Preserve
+project/generation ownership, late-response rejection, revision/digest checks,
+explicit cancellation and session-retirement boundaries. Responsive viewer
+remounts do not retire computation; inspection/reload cannot rearm publication.
+Shortcut execution never steals focus. One remaining launcher is the connected
+fallback for explicit panel closure; preserve unrelated focus and existing
+nonmodal Escape/tool-handoff rules (D-084/D-093).
+
+Rationale: a fourth launcher defeats the compact toolbar outcome, and hiding its
+panel alone would otherwise stop polling/publication or cancel work. Distinguish
+explicit setup access from immediate execution without another calculation
+framework or molecular authority. This is a presentation/lifecycle correction,
+planned as stable patch 0.24.1 against verified 0.24.0, not a new scientific/API
+capability. Preserve existing APIs/jobs/plugins, schemas, migration 0014,
+originals, fixed/inactive coordinates and exact Undo/Redo. No dependency upgrade,
+persistent preference, data rewrite or scientific algorithm change is authorized.

@@ -2,6 +2,29 @@
 
 ## Current milestone
 
+Issue [#93](https://github.com/ManuelSe/Neistra/issues/93) has an
+[approved implementation contract](plans/issue-93-compact-modeling-toolbar.md)
+on `fix/issue-93-compact-modeling-toolbar`. C0 persists planning only; implementation
+is pending `/goal`. [D-143](DECISIONS.md#d-143--compact-molecular-launchers-and-panel-independent-quick-execution)
+records the accepted launcher and session-visibility decision.
+
+Approved M1/C1 separates setup from quiet Ctrl+M execution; M2/C2 unifies exactly
+three idle launchers (Transform, Edit, Minimize); M3/C3–C4 qualifies compatibility
+and delivers the verified release. Clicking Minimize opens setup without running;
+Ctrl+M runs without automatically opening the panel. No additional shortcut
+progress/Cancel/results UI is planned; explicit Jobs inspection remains, and
+meaningful errors/scientific warnings retain existing notice ownership.
+
+Planning baseline: **52 focused frontend and 34 archive tests pass**. C0 validates
+documentation links, approved scope, unchanged global plan and `git diff --check`.
+Current runtime behavior remains unchanged and all implementation/release gates
+remain pending. Target stable patch **0.24.1**, with no API/schema/migration or
+dependency change; all five versions remain 0.24.0 at C0. No planning blocker is
+identified. Next action: stop after the committed/pushed C0 handoff, ready for
+`/goal`; the feature plan owns detailed checkpoints and evidence.
+
+### Previous delivery baseline — v0.24.0
+
 Issue [#92](https://github.com/ManuelSe/Neistra/issues/92) is implemented under its
 [approved contract](plans/issue-92-automatic-hydrogen-editing.md), normally merged
 in [PR#115](https://github.com/ManuelSe/Neistra/pull/115) and published stable [v0.24.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.24.0). The annotated tag
