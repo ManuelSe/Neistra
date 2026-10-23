@@ -2,6 +2,41 @@
 
 ## Current milestone
 
+Issue [#94](https://github.com/ManuelSe/Neistra/issues/94) has an
+[approved feature plan](plans/issue-94-protein-residue-hierarchy.md) on
+`feat/issue-94-protein-residue-hierarchy`, based on fast-forward-checked
+master `d3bac6f85df840a8c45abb8177a88b2a7f5ea273`. The user's 2026-10-23
+approval authorizes **C0 planning persistence only**, with an explicit stop ready
+for `/goal`. Runtime implementation and delivery have not started.
+
+Completed planning: requirement disposition, compact expansion of existing
+protein-chain rows, minimal Sequence integration, shared-anchor behavior,
+independent checkpoints, compatibility/release gates, and appended D-144/145.
+The detailed plan remains the implementation contract; the global plan is
+unchanged. Exact planning commit and remote verification are reported in the
+completion handoff.
+
+Verification: the read-only planning baseline passed 26 frontend tests across
+four selection/sequence/hierarchy/navigation suites and 58 Python selection,
+component, hierarchy-integration and archive tests. C0 documentation checks pass:
+133 relative links resolve, only the three approved planning documents changed,
+all five versions remain 0.24.1, and new-text policy/metadata/whitespace checks
+pass. This does not claim implementation or release qualification.
+
+Known limitations: cross-panel range anchors and hierarchy residue leaves are
+not implemented. Existing classification/scientific boundaries remain. #95 owns
+the sequence-layout redesign. No planning blocker is identified. All five
+application versions remain 0.24.1; planned stable **minor 0.25.0** adds browsing
+and selection capability without a planned API/schema/migration/dependency
+change (head0014, project/viewer/archive2, normalized/selection/component1).
+
+Next action: finish C0 documentation commit/push and verified handoff, then stop.
+A subsequent `/goal` may authorize M1/C1 shared Sequence/viewer residue actions,
+M2/C2 virtual Components residue browsing, M3/C3 final-version compatibility and
+candidate qualification, and M4/C4 exact-master release/close-out.
+
+### Previous delivery baseline — v0.24.1
+
 Issue [#93](https://github.com/ManuelSe/Neistra/issues/93) is implemented under its
 [approved contract](plans/issue-93-compact-modeling-toolbar.md), normally merged in
 [PR#117](https://github.com/ManuelSe/Neistra/pull/117), [focus correction PR#118](https://github.com/ManuelSe/Neistra/pull/118) and
