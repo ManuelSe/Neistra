@@ -12,7 +12,7 @@ source boundaries, retired context and camera/project/request invariance pass.
 two test-observation failures; final qualification uses exact GET snapshots and
 focused-panel Escape without production or threshold changes. This is C1 evidence,
 not release qualification. C2 evidence follows below; C3/C4 final-version/actual-reader/
-exact-master/publication gates remain pending. D-144/145 apply; versions0.24.1,
+exact-master/publication gates remain pending. D-144/145 apply; C1 ran at versions0.24.1,
 schemas/migration/API/dependencies unchanged. Review is implementer self-review.
 
 C2 [final2](assets/protein-residue-hierarchy/c2-final2-gate.json) passes17 Python,
@@ -26,6 +26,18 @@ and0 repeated reads. Property table is unmounted and entry hidden/loaded; this i
 navigation-only evidence. Failed attempts and CPU profiling retain diagnosis of
 quadratic downstream scans; exact-identity lookup repairs preserve policy and
 original750ms/5s budgets. Full candidate/exact-master/actual readers remain C3/C4.
+
+C3 independent [compatibility gate](assets/protein-residue-hierarchy/c3-compatibility-gate.json)
+passes actual tagged 0.24.1 ↔ final 0.25.0 processes, fresh migrations, exact
+selections/scenes/surfaces/history/originals/jobs, archive remapping and metadata/
+dependency/build-harness checks. Both complete release phases still must repeat
+it. Full candidate attempts remain diagnostic: the contextual Sequence locator is
+corrected, and the existing 1STP 5 s timing failure reproduces on the tagged
+baseline on battery. After user-confirmed AC, unchanged baseline repeats pass twice
+and candidate repeats three times, with zero refetches and <750 ms tasks.
+[Comparison](assets/protein-residue-hierarchy/c3-responsiveness-environment.json)
+records limits/setup and raw evidence; no gate is waived. Full clean candidate and
+exact-master qualification remain pending.
 
 ## Compact molecular toolbar (issue #93) — stable v0.24.1
 

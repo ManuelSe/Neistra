@@ -24,19 +24,24 @@ and zero repeated reads. The hidden loaded entry/closed atom-table context is
 explicit; no full-table or chemistry claim. Necessary bounded identity-index/set
 repairs remove downstream summary/reconciliation/closed-Edit quadratic scans.
 
-Known limitations: final-version actual readers, complete candidate/exact-master
-release gates and publication remain C3/C4. Existing scientific boundaries and
-#95's separate sequence-layout scope remain. No external blocker. C2 is committed at `f5d1a75`. All five authoritative versions are now0.25.0;
-metadata/dependency audit and36 archive tests pass, including prior0.24.1 producer
-coverage. Schemas/head/API/dependencies remain unchanged. The actual tagged0.24.1
-reader checkout is prepared. Release preparation is committed at `6f1c919`. Next: commit the focused
-locator/evidence correction, freeze source and restart the complete20-step candidate gate after the focused journey correction.
-The first candidate passes1249 Python(no skips),349 frontend,8 supervisor and127
-browser cases before an old exact Sequence locator fails. Its later case was
-intentionally interrupted; all initial results remain diagnostic, with actual
-readers unrun. The locator now includes the approved chain/entry context; no
-runtime behavior, threshold or assertion changes. The corrected complete desktop journey passes in 41.642s with no failures, skips,
-retries or flakes; its exact manifest/log are retained. Exact-master/publication remain C4.
+All five authoritative versions are 0.25.0; metadata/dependency and 36 archive
+tests pass. The separate actual tagged 0.24.1 ↔ final 0.25.0 reader gate passes
+rich state, selections/scenes/surfaces/history/originals/jobs and archive remapping
+both ways. No schema, migration, API, dependency or scientific model changes.
+
+C3 remains pending. Two incomplete full attempts retain diagnostics: first a
+corrected contextual Sequence locator; second the unchanged 5 s representative
+1STP timing gate. Full Python (1,249), frontend (349), supervisor (8), build and
+static checks pass; second attempt reaches 129 browser passes, including new
+residue/zoom and corrected journey cases. Battery repeats also fail on actual
+v0.24.1. After the user connects AC, the unchanged baseline passes twice and
+candidate three times with zero refetches and <750 ms tasks. No limit or assertion
+changed. See the feature plan's exact evidence/environment comparison.
+
+Known limitations: existing scientific boundaries, navigation-only large-fixture
+context and #95's separate layout scope remain. No external blocker remains after
+AC qualification. Next: freeze the passing focused/evidence checkpoint and restart
+every clean 20-command candidate gate; exact-master/publication remain C4.
 
 ### Previous delivery baseline — v0.24.1
 

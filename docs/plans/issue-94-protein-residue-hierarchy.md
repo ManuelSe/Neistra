@@ -643,3 +643,54 @@ unchanged during the run. [Focused manifest](../assets/protein-residue-hierarchy
 retains its exact command and lossless log. The one-line locator diff and the
 full interrupted-run evidence were reviewed locally. Commit this passing focused
 correction before a new clean, complete candidate qualification.
+
+
+### C3 responsiveness comparison and independent compatibility — 2026-10-23
+
+The second clean candidate on `075da9e` passes the same full Python (1,249),
+frontend (349), supervisor (8), frozen-install/migration/static/type/build checks.
+Its new residue cases, actual expanded-residue zoom and corrected release journey
+pass. The existing representative 1STP interaction test exceeds its unchanged
+5,000 ms limit at 5,745 ms. Stop this run as diagnostic: 129 browser passes, one
+genuine timing failure, one intentionally interrupted case, four existing layout
+exclusions and 257 cases not run. No reader step ran in this full attempt.
+[Manifest](../assets/protein-residue-hierarchy/c3-candidate2-gate.json),
+[raw results](../assets/protein-residue-hierarchy/c3-candidate2-browser-diagnostic.json.gz)
+and [failure trace](../assets/protein-residue-hierarchy/c3-candidate2-responsiveness-trace.zip)
+retain the observations without treating unrun cases as qualified exclusions.
+
+Three unchanged isolated candidate repeats also fail on battery at 7,649 / 6,905 /
+7,574 ms. Run the identical unchanged test/fixture against actual tagged v0.24.1
+source (`d9bc489`), using task-owned dependency links and a configuration that sets
+all server working directories to its detached checkout: both baseline repeats
+fail at 8,093 / 7,348 ms. Verify tagged tracked source, App/test/fixture identities
+and the old API module/version; no baseline source is edited. These comparisons
+identify a qualification-environment dependency, not an isolated cause or a
+release exception. [Environment comparison](../assets/protein-residue-hierarchy/c3-responsiveness-environment.json)
+records exact setup, limits and results. No host setting is changed by the agent.
+
+The user then confirms AC connection; sysfs reports AC online and Charging. Under
+the unchanged limits, [actual baseline](../assets/protein-residue-hierarchy/c3-baseline-ac-gate.json)
+passes twice at 4,202 / 4,905 ms and
+[candidate](../assets/protein-residue-hierarchy/c3-responsiveness-ac-gate.json)
+passes three times at 4,241 / 4,957 / 4,703 ms. All have zero structure refetches
+and longest tasks below 750 ms. Power samples, raw results and lossless logs are
+retained. This is focused evidence; restart every release command on a clean
+source with the qualification environment available. No timeout, fixture,
+assertion, runtime behavior or required gate is weakened.
+
+The separate [nine-command compatibility gate](../assets/protein-residue-hierarchy/c3-compatibility-gate.json)
+passes actual module identity, fresh forward/reverse migrations, final 0.25.0 ↔
+tagged 0.24.1 producer/reader processes, version/dependency/harness audit and diff
+checks. Exact canonical selections, scene selections, coordinates, original
+bytes, history Undo/Redo, surfaces, jobs, settings and archive remapping survive;
+portable archives retain current state rather than Undo history. Transient
+anchors remain absent. This supports the planned minor release and migration-free
+compatibility; both complete candidate and exact-master gates must repeat it.
+
+README selection guidance now describes shared anchors rather than the obsolete
+viewer-only limitation. The new evidence-report/publication helpers reuse the
+previous release workflow, parse successfully and enforce completed clean gates,
+source/log hashes, unchanged exclusion sets plus the desktop-only residue-zoom
+exclusion, exact runtime tag and public asset integrity. They do not publish or
+claim future results merely by being present.

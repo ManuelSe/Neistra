@@ -1,0 +1,77 @@
+{
+  "baseline_tag": "v0.24.1",
+  "baseline_commit": "d9bc489a0378b94d20fddae05588e2769b258caf",
+  "tagged_tracked_source_unchanged": true,
+  "current_test_and_fixture_identical_to_tag": {
+    "tests/e2e/release-hardening.spec.ts": "4b24ff08ad4b2a6937eea5d4ba7b3ed58b380f086d0093201b419122d2edc963",
+    "tests/fixtures/complex/1stp.pdb": "6fbb3d5c324e717fe7284703426e74ea58191431720daab1b2faa0bbb6430f30"
+  },
+  "baseline_app_sha256": "057423f2c089ca2954e234768eecc516c0504e77d6b400da7b586b51c165b4f9",
+  "dependency_links": {
+    ".venv": "/datadisk/dev/neistra/.venv",
+    "node_modules": "/datadisk/dev/neistra/node_modules",
+    "apps/web/node_modules": "/datadisk/dev/neistra/apps/web/node_modules"
+  },
+  "baseline_playwright_config": "import base from \"/datadisk/dev/neistra/playwright.config\";\nexport default {...base,testDir:\"/datadisk/dev/neistra/tests/e2e\",webServer:base.webServer!.map(server => ({...server,cwd:\"/tmp/neistra94-reader-0241\"}))};\n",
+  "candidate_on_battery_interaction_ms": [
+    7649,
+    6905,
+    7574
+  ],
+  "baseline_on_battery_interaction_ms": [
+    8093,
+    7348
+  ],
+  "full_candidate2_interaction_ms": 5745,
+  "unchanged_budget_ms": 5000,
+  "independent_compatibility_gate": "c3-compatibility-gate.json",
+  "causal_limit": "Comparative observations identify a qualification environment dependency; they do not isolate power as the sole causal variable. No runtime, fixture, test assertion, time limit or host setting was modified for these comparisons.",
+  "ac_passes": {
+    "baseline": [
+      {
+        "fixture": "RCSB PDB 1STP",
+        "atoms": 1001,
+        "importAndViewerMs": 1001,
+        "interactionMs": 4202,
+        "maxInteractionLongTaskMs": 668,
+        "repeatedStructureRequests": 0
+      },
+      {
+        "fixture": "RCSB PDB 1STP",
+        "atoms": 1001,
+        "importAndViewerMs": 657,
+        "interactionMs": 4905,
+        "maxInteractionLongTaskMs": 600,
+        "repeatedStructureRequests": 0
+      }
+    ],
+    "candidate": [
+      {
+        "fixture": "RCSB PDB 1STP",
+        "atoms": 1001,
+        "importAndViewerMs": 964,
+        "interactionMs": 4241,
+        "maxInteractionLongTaskMs": 633,
+        "repeatedStructureRequests": 0
+      },
+      {
+        "fixture": "RCSB PDB 1STP",
+        "atoms": 1001,
+        "importAndViewerMs": 794,
+        "interactionMs": 4957,
+        "maxInteractionLongTaskMs": 565,
+        "repeatedStructureRequests": 0
+      },
+      {
+        "fixture": "RCSB PDB 1STP",
+        "atoms": 1001,
+        "importAndViewerMs": 702,
+        "interactionMs": 4703,
+        "maxInteractionLongTaskMs": 598,
+        "repeatedStructureRequests": 0
+      }
+    ]
+  },
+  "ac_connected_confirmed_by_user": true,
+  "ac_sysfs_online_confirmed": true
+}

@@ -49,3 +49,12 @@ is intentional; the correction supplies its complete expected chain/entry identi
 without removing any workflow, membership or timing assertion. The interrupted
 candidate remains diagnostic and the complete corrected journey and clean full
 candidate must pass before PR creation. No production finding is implied.
+
+The second candidate's pre-existing 1STP timing failure was reproduced with the
+unchanged test/fixture on actual v0.24.1. User-confirmed AC restores passing
+baseline/candidate focused repeats without any source/limit/fixture change. Exact
+comparison, traces, all failures and separate passing actual-reader qualification
+are retained. README guidance is corrected to the approved shared anchor. This
+focused/evidence state was reviewed locally; no full-release qualification or
+independent review is claimed. Complete clean candidate and exact-master gates
+remain mandatory.

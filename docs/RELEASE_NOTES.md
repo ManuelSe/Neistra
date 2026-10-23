@@ -37,9 +37,9 @@ atom property table unmounted, not general full-table throughput. Standard nativ
 Alembic0014, project/viewer/archive2 and normalized/selection/component1 remain.
 Selection results retain canonical atom references; expansion and anchors remain
 session state and are absent from archives/history/scenes/preferences. Original
-uploads remain byte-identical. Actual tagged0.24.1↔final0.25.0 readers must retain
-rich state/history/jobs/originals/selections/scenes/surfaces and archives both ways
-before publication. Rollback uses matching0.24.1 client/API and retained managed
+uploads remain byte-identical. Separate actual tagged0.24.1↔final0.25.0 readers retain
+rich state/history/jobs/originals/selections/scenes/surfaces and archives both ways.
+Both complete release phases must repeat this proof before publication. Rollback uses matching0.24.1 client/API and retained managed
 data; no schema downgrade. Portable archives retain current state, not Undo history.
 
 **Verification.** C1/C2 focused gates pass17 Python/349 frontend, native cross-panel,

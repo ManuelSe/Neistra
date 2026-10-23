@@ -1,0 +1,20 @@
+from pathlib import Path
+import datetime,hashlib,json,subprocess,sys
+repo='repos/ManuelSe/Neistra'
+def gh(path):return json.loads(subprocess.check_output(['gh','api',repo+path],text=True))
+assert subprocess.check_output(['git','branch','--show-current'],text=True).strip()=='master'
+assert not subprocess.check_output(['git','status','--porcelain'],text=True)
+head=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip();assert gh('/branches/master')['commit']['sha']==head
+pub=json.loads(Path('docs/assets/protein-residue-hierarchy/c4-publication.json').read_text());runtime=pub['tag']['commit'];pr=gh('/pulls/'+sys.argv[1]);assert pr['merged'] and pr['merge_commit_sha']==head
+changed=subprocess.check_output(['git','diff','--name-only',runtime,head],text=True).splitlines();assert changed and all(n.startswith('docs/') for n in changed)
+source=json.loads(Path('docs/assets/protein-residue-hierarchy/c4-merged-gate.json').read_text())['source_before'];assert len(source)==571 and all(hashlib.sha256(Path(n).read_bytes()).hexdigest()==v for n,v in source.items())
+branch='feat/issue-94-protein-residue-hierarchy';assert not subprocess.check_output(['git','ls-remote','--heads','origin',branch],text=True)
+assert subprocess.run(['git','show-ref','--verify','--quiet','refs/heads/'+branch]).returncode==1
+worktrees=subprocess.check_output(['git','worktree','list','--porcelain'],text=True);assert '/tmp/neistra93-reader-0240' not in worktrees and not Path('/tmp/neistra93-reader-0240').exists()
+release=gh('/releases/tags/v0.25.0');assert not release['draft'] and not release['prerelease'] and release['target_commitish']==runtime
+assert gh('/releases/latest')['id']==release['id']
+ref=gh('/git/ref/tags/v0.25.0');assert ref['object']['type']=='tag';tag=gh('/git/tags/'+ref['object']['sha']);assert tag['object']['sha']==runtime
+assert gh('/issues/94')['state']=='closed'
+comment=gh('/issues/comments/'+sys.argv[2]);assert comment['body'].strip()==Path('/tmp/neistra93-closeout.md').read_text().strip()
+record={'issue':94,'verified_at':datetime.datetime.now(datetime.UTC).isoformat(),'runtime_pr':pub['runtime_pr']['url'],'runtime_commit':runtime,'stable_release':release['html_url'],'annotated_tag':'v0.25.0','tag_object':ref['object']['sha'],'tag_still_points_to_exact_qualified_runtime':True,'documentation_audit_pr':pr['html_url'],'documentation_audit_merge_commit':head,'default_branch':'master','remote_default_branch_verified':True,'post_release_diff_only_docs':changed,'runtime_test_patch_lock_identity_count':571,'runtime_test_patch_lock_bytes_match_qualified_release':True,'source_sha256':pub['qualification']['source_sha256'],'feature_branch':branch,'remote_feature_branch_absent':True,'local_feature_branch_absent':True,'task_owned_old_reader_worktree_removed':True,'working_tree_clean':True,'issue_closed':True,'initial_closeout_verified':comment['html_url'],'final_closeout_audit':'This receipt is linked from the final appended issue reply after public asset verification.','full_qualification':pub['qualification'],'public_bundle_receipt':json.loads(Path('/tmp/neistra93-public-download-receipt.json').read_text()),'independent_review_claimed':False,'protection_or_check_override_used':False,'documentation_review':json.loads(Path('/tmp/neistra93-audit-policy.json').read_text()),'existing_out_of_scope_issues':[95],'new_followup_issues':[]}
+p=Path('/datadisk/dev/.neistra-tools/neistra-v0.25.0-publication-audit.json');assert not p.exists();p.write_text(json.dumps(record,indent=2)+'\n');print(json.dumps({'path':str(p),'sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'runtime':runtime,'master':head,'docs_pr':pr['html_url']}))
