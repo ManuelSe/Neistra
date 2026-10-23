@@ -782,3 +782,18 @@ conformers, generic Undo/Redo, appearance/scenes/surfaces/jobs, identity counter
 native archive re-export. The release gate must repeat on exact merged master.
 Command acceptance replaces the intentionally absent progress-panel observation as
 a separately named metric, never as a historical feedback-speedup comparison.
+
+
+Issue #94 is released as [v0.25.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.25.0).
+The complete clean candidate and exact master `2adeaac973a6047ee537fd8c639f3b3e18d216b0`
+pass the full release gate and actual tagged 0.24.1 ↔ final 0.25.0 reader processes
+both ways. See [verification](VERIFICATION.md) and the
+[publication audit](assets/protein-residue-hierarchy/c4-publication.json). No new
+migration or schema/API/job/plugin/dependency/scientific-model change is introduced.
+Originals, history, selections/scenes/surfaces/jobs and archive remapping retain
+compatibility; portable archives keep current state rather than Undo history.
+Navigation expansion and shared range anchors remain transient. Use matching
+client/API versions for rollback with retained managed data; head 0014 remains.
+The documentation publication audit corrects a report's previous-release baseline
+reference with recorded executed-source provenance; application/test bytes and
+the qualified runtime tag remain unchanged.

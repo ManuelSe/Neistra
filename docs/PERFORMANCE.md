@@ -587,3 +587,26 @@ the complete candidate passes; all 249 power samples report AC online. Exact
 and failures are retained. No host setting, fixture, assertion or limit is changed
 by the agent; no isolated causal claim or cross-environment speedup is made.
 Exact merged-runtime qualification remains required before publication.
+
+
+### Issue #94 exact released runtime — v0.25.0
+
+The [complete exact-master gate](assets/protein-residue-hierarchy/c4-merged2-gate.json)
+and [summary](assets/protein-residue-hierarchy/c4-merged2-summary.json) qualify
+`2adeaac973a6047ee537fd8c639f3b3e18d216b0`, published stable v0.25.0. In the same
+explicit navigation context, full 10,000-residue / 30,000-atom ranges take
+604.4/586.3 ms desktop/mobile, longest tasks 199/185 ms, 13/22 mounted rows within
+24/33 bounds and zero repeated reads. The loaded entry is hidden and the property
+table unmounted; general full-table scalability remains unqualified. Standard
+1STP interactions take 3,763 ms, longest task 642 ms, zero refetches. Native cold
+small/pocket/18k paint is 0.874/2.076/3.597 s, first actual frame 709.3 ms and
+Cancel 53.6 ms. All original budgets pass. All 251 merged power samples report
+AC online. Both complete phases match all 571 source identities; no environment
+speedup or isolated power-causality claim is made.
+
+[Report provenance](assets/protein-residue-hierarchy/c4-report-tool.json) retains
+byte-exact qualified C3 report source restoring the real previous-release
+exclusion-baseline filename. It audits the already-completed merged gate without
+changing any command, outcome, exclusion assertion, runtime/test byte or budget.
+The documentation audit persists that correction and checks the actual baseline
+path and executed-report hash; the runtime tag remains fixed.
