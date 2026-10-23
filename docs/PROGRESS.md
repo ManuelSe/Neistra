@@ -35,15 +35,21 @@ scientific-model changes. Existing scientific boundaries and #95's separate
 Sequence layout scope remain. No essential approved outcome is deferred and no
 new follow-up is needed. Final diff/screenshot review is implementer self-review.
 
-C3 is committed/pushed at `a42ced9`; [PR #121](https://github.com/ManuelSe/Neistra/pull/121)
-is open and mergeable against current `d3bac6f`. Codex review is requested but has
-not returned; local full-diff self-review has no consequential open finding. The
-[premerge audit](assets/protein-residue-hierarchy/c4-premerge-audit.json) records
-no required approval/check, protection/ruleset/workflow or unresolved thread and
-no override. Connector write permissions are insufficient; authenticated `gh`
-performs authorized writes through normal endpoints. No external blocker; v0.25.0
-is unused. Next: final policy/head/review check, normal merge, complete exact-master
-gate and verified publication/close-out before delayed cleanup.
+C3 is committed/pushed at `a42ced9`. [PR #121](https://github.com/ManuelSe/Neistra/pull/121)
+is normally merged and verified on origin/master as `b4b3bddd`; checkpoint history
+and all 571 source identities are preserved. Codex review remains requested but
+unreturned; the premerge audit records no required approval/check or unresolved
+thread and no override.
+
+M4 remains pending. Continued publication-tool review found previous-issue
+temporary/reader paths missed in helper adaptation. The first exact-master run is
+administratively interrupted after 11 passing commands (including 1,249 Python /
+349 frontend / 8 supervisor and build); it is explicitly incomplete evidence. A
+docs-only correction on the planned feature branch fixes current issue/reader
+paths, adds issue/version/commit guards and selects fresh `c4-merged2` evidence.
+Syntax/path/source-identity validation passes. No product runtime/test change or
+release/tag exists. Next: commit/review/merge the helper correction, then rerun
+every exact-master gate command before publication, issue close-out and cleanup.
 
 ### Previous delivery baseline — v0.24.1
 

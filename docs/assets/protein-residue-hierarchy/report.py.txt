@@ -35,7 +35,7 @@ def walk(suites):
   walk(suite.get('suites',[]))
 walk(browser['suites']);assert not retries
 from collections import Counter
-baseline=json.loads(Path('docs/assets/compact-modeling-toolbar/c4-merged5-summary.json').read_text())['exclusions']
+baseline=json.loads(Path('docs/assets/compact-modeling-toolbar/c4-merged25-summary.json').read_text())['exclusions']
 old=Counter((v['title'],v['project']) for v in baseline)
 new=Counter((v['title'],v['project']) for v in exclusions)
 assert not old-new

@@ -80,3 +80,15 @@ and rollback statements agree with the evidence. README's obsolete viewer-only
 anchor wording is corrected. No consequential unresolved finding remains from
 this implementer self-review; independent approval is not claimed. Remote PR
 review/policy audit and exact merged-master qualification still gate publication.
+
+## Publication-helper finding after implementation merge
+
+Continued M4 review finds stale previous-issue temporary receipt/release-note
+paths and an old reader-worktree path in the copied documentation helpers. The
+original review missed these. Correct all paths on the planned feature branch,
+add explicit current issue/version/commit guards and use the fresh c4-merged2
+gate. AST/path/hash checks pass; all 571 qualified runtime/test/tool/lock files
+remain byte-identical. Preserve the administratively interrupted first merged
+run as incomplete evidence. This consequential delivery-tooling finding is
+addressed through a reviewed docs-only PR and a fresh complete exact-master gate
+before any publication; it does not justify a test waiver or product change.
