@@ -462,5 +462,5 @@ and actual 100%/200% desktop browser zoom. Representative automated accessibilit
 checks pass in both themes for their tested scopes. Final candidate screenshots
 retain disclosure/selection separation, source numbering/insertion labels and
 compact 32 px fine / 44 px coarse controls. This is tested-scope evidence, not a
-claim that every application state has been audited. Exact-master evidence follows
-before publication.
+claim that every application state has been audited. The [exact merged-master gate](assets/protein-residue-hierarchy/c4-merged2-gate.json)
+confirms these same workflows before verified stable v0.25.0 publication.

@@ -92,3 +92,27 @@ remain byte-identical. Preserve the administratively interrupted first merged
 run as incomplete evidence. This consequential delivery-tooling finding is
 addressed through a reviewed docs-only PR and a fresh complete exact-master gate
 before any publication; it does not justify a test waiver or product change.
+
+## Exact-runtime publication and final documentation review
+
+PR122 addresses current-issue receipt/reader paths before a fresh complete
+exact-master gate. All 20 commands pass on 2adeaac973a6047ee537fd8c639f3b3e18d216b0,
+matching all 571 candidate source identities and unchanged exclusions/budgets.
+Postprocessing then reveals that the broad label replacement also renamed a
+previous-release baseline reference in report.py.txt. Restore the byte-exact
+committed C3 report: its only difference is that baseline filename, and it
+passes all merged2 source/log/exclusion/result checks. Full provenance and
+executed source are retained in c4-report-tool.json. This documentation audit
+persists the proven correction and adds actual literal-oracle path and report
+hash checks. No gate result, runtime/test source, limit or published tag moves.
+
+Reviewed the complete final documentation/evidence diff against the exact runtime,
+including scope/status, actual reader compatibility, native metrics and context,
+release/annotated-tag refs, public downloaded bundle hashes and issue close-out.
+The publication record independently verifies actual remote refs and contents.
+All new links and helper paths are checked, with JSON/gzip/log/source integrity
+and all five versions. Changes are docs-only; no new production pathway, schema,
+migration or science appears. No consequential unresolved finding remains from
+this implementer self-review. The documentation PR's current policy, review
+conversations and expected head still gate integration; independent approval
+is not claimed. Actual delayed branch/worktree cleanup follows verified merge.

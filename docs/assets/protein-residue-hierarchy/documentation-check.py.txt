@@ -1,6 +1,6 @@
 """Audit docs-only publication changes without rerunning identical runtime."""
 from pathlib import Path
-import datetime,gzip,hashlib,json,re,subprocess
+import ast,datetime,gzip,hashlib,json,re,subprocess
 out=Path('docs/assets/protein-residue-hierarchy')
 c=json.loads((out/'c3-candidate3-gate.json').read_text());m=json.loads((out/'c4-merged2-gate.json').read_text())
 assert c['complete'] and m['complete'] and c['source_before']==m['source_before']==m['source_after']
@@ -27,7 +27,23 @@ for label in ['c3-candidate3','c4-merged2']:
   assert step['exit_code']==0
   assert hashlib.sha256(gzip.decompress(Path(step['log']).read_bytes())).hexdigest()==step['log_sha256']
  summary=json.loads((out/f'{label}-summary.json').read_text());assert not summary['retries'] and not summary['browser']['unexpected'] and not summary['browser']['flaky']
+report_provenance=json.loads((out/'c4-report-tool.json').read_text())
+assert hashlib.sha256((out/'report.py.txt').read_bytes()).hexdigest()==report_provenance['executed_report_sha256']
+helper_count=0;oracle_paths=[]
+for helper in out.glob('*.py.txt'):
+ code=helper.read_text();tree=ast.parse(code);compile(tree,str(helper),'exec');helper_count+=1
+ for node in ast.walk(tree):
+  if not isinstance(node,ast.Call) or not isinstance(node.func,ast.Name) or node.func.id!='Path' or not node.args:continue
+  literal=node.args[0]
+  if not isinstance(literal,ast.Constant) or not isinstance(literal.value,str):continue
+  value=literal.value
+  if value.startswith('/tmp/neistra'):
+   assert value.startswith('/tmp/neistra94-'),(helper,value)
+   if 'reader-' in value:assert value=='/tmp/neistra94-reader-0241'
+  if value.startswith('docs/assets/') and value.endswith('.json'):
+   assert Path(value).exists(),(helper,value)
+   oracle_paths.append(value)
 subprocess.run(['.venv/bin/python','docs/assets/protein-residue-hierarchy/versions.py.txt'],check=True)
 subprocess.run(['git','diff','--check'],check=True)
-result={'checked_at':datetime.datetime.now(datetime.UTC).isoformat(),'script':'docs/assets/protein-residue-hierarchy/documentation-check.py.txt','script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'runtime':m['commit'],'runtime_test_patch_tool_lock_identities_match':571,'source_digest':hashlib.sha256(json.dumps(source,sort_keys=True).encode()).hexdigest(),'changed_tracked_files_only_docs':changes,'global_plan_unchanged':True,'new_relative_links_checked':links,'asset_json_parsed':jcount,'gzip_crc_checked':gcount,'both_complete_gate_log_hashes_verified':True,'versions_dependencies_production_harness_audit_passed':True,'diff_check_passed':True,'new_runtime_tests_required':False,'rationale':'Only documentation/evidence changed after the complete exact-runtime gate; all571 source/test/tool/patch/lock identities match.'}
+result={'checked_at':datetime.datetime.now(datetime.UTC).isoformat(),'script':'docs/assets/protein-residue-hierarchy/documentation-check.py.txt','script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'runtime':m['commit'],'runtime_test_patch_tool_lock_identities_match':571,'source_digest':hashlib.sha256(json.dumps(source,sort_keys=True).encode()).hexdigest(),'changed_tracked_files_only_docs':changes,'global_plan_unchanged':True,'new_relative_links_checked':links,'asset_json_parsed':jcount,'gzip_crc_checked':gcount,'both_complete_gate_log_hashes_verified':True,'versions_dependencies_production_harness_audit_passed':True,'diff_check_passed':True,'publication_helper_syntax_count':helper_count,'literal_evidence_oracle_paths_verified':oracle_paths,'report_matches_executed_committed_script':True,'new_runtime_tests_required':False,'rationale':'Only documentation/evidence changed after the complete exact-runtime gate; all571 source/test/tool/patch/lock identities match.'}
 (out/'c4-documentation-check.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps({'passed':True,'links':len(links),'json':jcount,'gzip':gcount}))

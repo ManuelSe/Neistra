@@ -2,54 +2,49 @@
 
 ## Current milestone
 
-Issue [#94](https://github.com/ManuelSe/Neistra/issues/94) is authorized for
-implementation and verified delivery by the user's 2026-10-23 `/goal` under its
-[approved contract](plans/issue-94-protein-residue-hierarchy.md), on
-`feat/issue-94-protein-residue-hierarchy`. C0 was committed/pushed and remotely
-verified at `b857f99`; D-144/145 govern the unchanged approved scope.
+Issue [#94](https://github.com/ManuelSe/Neistra/issues/94) is implemented under its
+[approved contract](plans/issue-94-protein-residue-hierarchy.md), normally merged in
+[PR #121](https://github.com/ManuelSe/Neistra/pull/121) with delivery-helper correction
+[PR #122](https://github.com/ManuelSe/Neistra/pull/122), and published stable
+[v0.25.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.25.0) from exact qualified
+runtime **`2adeaac973a6047ee537fd8c639f3b3e18d216b0`**. D-144/145 govern direct
+protein-chain residue expansion, shared canonical fixed-anchor selection and
+transient browsing/focus ownership. Existing Sequence layout remains with #95.
 
-M1/C1, M2/C2 and M3/C3 are complete. Existing protein-chain rows expand directly
-into virtual observed-residue lists; Components, Sequence and eligible viewer
-picks share complete membership and a fixed range anchor. Browsing, focus, camera
-and visibility retain separate ownership. D-144/145 record the accepted design.
+Both [candidate3](assets/protein-residue-hierarchy/c3-candidate3-gate.json) and
+[exact merged2](assets/protein-residue-hierarchy/c4-merged2-gate.json) pass all
+20 release commands: **1,249 Python, 349 frontend, 8 supervisor, 331 browser tests**,
+61 documented layout/timing exclusions, zero failures/flakes/retries/Python or
+required native scientific skips. Frozen installs, fresh 0014, static/types/build,
+actual tagged 0.24.1 ↔ final 0.25.0 readers and all 571 source/log identities pass.
+All five versions are 0.25.0; no schema, migration, API/job/plugin, dependency or
+scientific-model change. Originals, history, selections/scenes/surfaces/jobs and
+archive remapping remain compatible; anchors/expansion remain transient.
 
-The [clean final-version candidate](assets/protein-residue-hierarchy/c3-candidate3-gate.json)
-on `c65ab0f` passes all 20 release commands: **1,249 Python, 349 frontend, 8
-supervisor and 331 browser tests**, 61 documented layout/timing exclusions, zero
-failures/flakes/retries/Python or required native scientific skips. Frozen
-installs, fresh 0014, static/types/build, actual tagged 0.24.1 ↔ final 0.25.0
-readers, all 571 source identities and log hashes pass. Originals, history,
-selections/scenes/surfaces/jobs and archive remapping remain compatible.
+Merged 10,000-residue navigation ranges take 604.4/586.3 ms desktop/mobile,
+longest tasks 199/185 ms, bounded 13/22 rows, zero repeated reads. Loaded hidden
+entry / unmounted property table context is explicit. Standard 1STP interactions
+3,763 ms / longest 642 ms / zero refetches and all original native budgets pass.
+User-confirmed AC is recorded throughout both complete runs. Earlier incomplete/
+failing attempts remain diagnostic; no test/fixture/limit or agent host-setting
+change is used. Results postprocessing restores the preceding-release baseline
+filename with the previously qualified script; exact provenance/source is retained
+and the documentation helper is corrected in this publication audit.
 
-The 10,000-residue navigation profile passes unchanged limits: desktop/mobile
-full range 608.2/573.6 ms, longest tasks 195/183 ms, bounded 13/22 mounted rows and
-zero repeated reads. Loaded hidden entry / unmounted property table context is
-explicit. Standard 1STP responsiveness and original native minimization budgets
-also pass. Earlier interrupted runs and battery comparisons remain diagnostic;
-user-confirmed AC restores passing unchanged baseline/candidate checks. All 249
-full-candidate power samples report AC online. No host settings or limits changed.
+[Prepublication audit](assets/protein-residue-hierarchy/c4-prepublication-audit.json)
+records no returned Codex review, required approval/check, unresolved thread or
+override; local complete-diff review is implementer self-review. The
+[publication audit](assets/protein-residue-hierarchy/c4-publication.json) verifies
+annotated tag, stable latest release/full notes, public ZIP download SHA256/CRC/
+all 5,961 internal hashes and the exact
+[issue close-out](https://github.com/ManuelSe/Neistra/issues/94#issuecomment-6371430529).
+Existing classification/scientific limits and #95 remain; no essential approved
+outcome is deferred and no new follow-up is created.
 
-All five authoritative versions are 0.25.0, a stable minor for added functionality
-with compatible contracts. No schema, migration, API/job/plugin, dependency or
-scientific-model changes. Existing scientific boundaries and #95's separate
-Sequence layout scope remain. No essential approved outcome is deferred and no
-new follow-up is needed. Final diff/screenshot review is implementer self-review.
-
-C3 is committed/pushed at `a42ced9`. [PR #121](https://github.com/ManuelSe/Neistra/pull/121)
-is normally merged and verified on origin/master as `b4b3bddd`; checkpoint history
-and all 571 source identities are preserved. Codex review remains requested but
-unreturned; the premerge audit records no required approval/check or unresolved
-thread and no override.
-
-M4 remains pending. Continued publication-tool review found previous-issue
-temporary/reader paths missed in helper adaptation. The first exact-master run is
-administratively interrupted after 11 passing commands (including 1,249 Python /
-349 frontend / 8 supervisor and build); it is explicitly incomplete evidence. A
-docs-only correction on the planned feature branch fixes current issue/reader
-paths, adds issue/version/commit guards and selects fresh `c4-merged2` evidence.
-Syntax/path/source-identity validation passes. No product runtime/test change or
-release/tag exists. Next: commit/review/merge the helper correction, then rerun
-every exact-master gate command before publication, issue close-out and cleanup.
+[Documentation PR #123](https://github.com/ManuelSe/Neistra/pull/123) records verified runtime delivery and corrects the report
+oracle. Its integration and actual delayed feature-branch/reader-worktree cleanup
+are appended to the linked reply after verification; the runtime tag stays fixed.
+No product blocker remains. Next product work requires a separate approved plan.
 
 ### Previous delivery baseline — v0.24.1
 

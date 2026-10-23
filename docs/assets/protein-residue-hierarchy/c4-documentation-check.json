@@ -1,0 +1,189 @@
+{
+  "checked_at": "2026-10-23T18:13:44.794624+00:00",
+  "script": "docs/assets/protein-residue-hierarchy/documentation-check.py.txt",
+  "script_sha256": "7f00e379b08928ffb5c892a5eee9e3c81d7d10fcce160f75f0fdc86c21c69278",
+  "runtime": "2adeaac973a6047ee537fd8c639f3b3e18d216b0",
+  "runtime_test_patch_tool_lock_identities_match": 571,
+  "source_digest": "1a8d90cfcac3270dd8592868158cfbfbcd0c60285e5191b0b7bd9971d3a06198",
+  "changed_tracked_files_only_docs": [
+    "docs/ACCESSIBILITY.md",
+    "docs/DEVELOPMENT.md",
+    "docs/PERFORMANCE.md",
+    "docs/PROGRESS.md",
+    "docs/RELEASE_NOTES.md",
+    "docs/VERIFICATION.md",
+    "docs/assets/protein-residue-hierarchy/c3-review.md",
+    "docs/assets/protein-residue-hierarchy/c4-documentation-check.json",
+    "docs/assets/protein-residue-hierarchy/c4-documentation-policy.json",
+    "docs/assets/protein-residue-hierarchy/c4-helper-premerge-audit.json",
+    "docs/assets/protein-residue-hierarchy/c4-merge-proof.json",
+    "docs/assets/protein-residue-hierarchy/c4-merged2-browser.json.gz",
+    "docs/assets/protein-residue-hierarchy/c4-merged2-browser.log.gz",
+    "docs/assets/protein-residue-hierarchy/c4-merged2-build.log.gz",
+    "docs/assets/protein-residue-hierarchy/c4-merged2-desktop-dark-100-residue-navigation.png",
+    "docs/assets/protein-residue-hierarchy/c4-merged2-desktop-dark-200-residue-navigation.png",
+    "docs/assets/protein-residue-hierarchy/c4-merged2-desktop-large-residue-hierarchy.png",
+    "docs/assets/protein-residue-hierarchy/c4-merged2-desktop-light-100-residue-navigation.png",
+    "docs/assets/protein-residue-hierarchy/c4-merged2-desktop-light-200-residue-navigation.png",
+    "docs/assets/protein-residue-hierarchy/c4-merged2-desktop-residue-hierarchy-dark.png",
+    "docs/assets/protein-residue-hierarchy/c4-merged2-desktop-residue-hierarchy-light.png",
+    "docs/assets/protein-residue-hierarchy/c4-merged2-diff.log.gz",
+    "docs/assets/protein-residue-hierarchy/c4-merged2-forward-migration.log.gz",
+    "docs/assets/protein-residue-hierarchy/c4-merged2-forward-produce.json",
+    "docs/assets/protein-residue-hierarchy/c4-merged2-forward-produce.log.gz",
+    "docs/assets/protein-residue-hierarchy/c4-merged2-forward-read.json",
+    "docs/assets/protein-residue-hierarchy/c4-merged2-forward-read.log.gz",
+    "docs/assets/protein-residue-hierarchy/c4-merged2-frontend.log.gz",
+    "docs/assets/protein-residue-hierarchy/c4-merged2-gate.json",
+    "docs/assets/protein-residue-hierarchy/c4-merged2-lint.log.gz",
+    "docs/assets/protein-residue-hierarchy/c4-merged2-migration.log.gz",
+    "docs/assets/protein-residue-hierarchy/c4-merged2-mobile-large-residue-hierarchy.png",
+    "docs/assets/protein-residue-hierarchy/c4-merged2-mobile-residue-hierarchy-dark.png",
+    "docs/assets/protein-residue-hierarchy/c4-merged2-mobile-residue-hierarchy-light.png",
+    "docs/assets/protein-residue-hierarchy/c4-merged2-mypy.log.gz",
+    "docs/assets/protein-residue-hierarchy/c4-merged2-node-lock.log.gz",
+    "docs/assets/protein-residue-hierarchy/c4-merged2-python-lock.log.gz",
+    "docs/assets/protein-residue-hierarchy/c4-merged2-python.log.gz",
+    "docs/assets/protein-residue-hierarchy/c4-merged2-reverse-migration.log.gz",
+    "docs/assets/protein-residue-hierarchy/c4-merged2-reverse-produce.json",
+    "docs/assets/protein-residue-hierarchy/c4-merged2-reverse-produce.log.gz",
+    "docs/assets/protein-residue-hierarchy/c4-merged2-reverse-read.json",
+    "docs/assets/protein-residue-hierarchy/c4-merged2-reverse-read.log.gz",
+    "docs/assets/protein-residue-hierarchy/c4-merged2-ruff.log.gz",
+    "docs/assets/protein-residue-hierarchy/c4-merged2-summary.json",
+    "docs/assets/protein-residue-hierarchy/c4-merged2-supervisor.log.gz",
+    "docs/assets/protein-residue-hierarchy/c4-merged2-types.log.gz",
+    "docs/assets/protein-residue-hierarchy/c4-merged2-versions.log.gz",
+    "docs/assets/protein-residue-hierarchy/c4-prepublication-audit.json",
+    "docs/assets/protein-residue-hierarchy/c4-publication.json",
+    "docs/assets/protein-residue-hierarchy/c4-report-tool.json",
+    "docs/assets/protein-residue-hierarchy/documentation-check.py.txt",
+    "docs/assets/protein-residue-hierarchy/report.py.txt",
+    "docs/plans/issue-94-protein-residue-hierarchy.md"
+  ],
+  "global_plan_unchanged": true,
+  "new_relative_links_checked": [
+    [
+      "docs/ACCESSIBILITY.md",
+      "assets/protein-residue-hierarchy/c4-merged2-gate.json"
+    ],
+    [
+      "docs/DEVELOPMENT.md",
+      "VERIFICATION.md"
+    ],
+    [
+      "docs/DEVELOPMENT.md",
+      "assets/protein-residue-hierarchy/c4-publication.json"
+    ],
+    [
+      "docs/PERFORMANCE.md",
+      "assets/protein-residue-hierarchy/c4-merged2-gate.json"
+    ],
+    [
+      "docs/PERFORMANCE.md",
+      "assets/protein-residue-hierarchy/c4-merged2-summary.json"
+    ],
+    [
+      "docs/PERFORMANCE.md",
+      "assets/protein-residue-hierarchy/c4-report-tool.json"
+    ],
+    [
+      "docs/PROGRESS.md",
+      "plans/issue-94-protein-residue-hierarchy.md"
+    ],
+    [
+      "docs/PROGRESS.md",
+      "assets/protein-residue-hierarchy/c3-candidate3-gate.json"
+    ],
+    [
+      "docs/PROGRESS.md",
+      "assets/protein-residue-hierarchy/c4-merged2-gate.json"
+    ],
+    [
+      "docs/PROGRESS.md",
+      "assets/protein-residue-hierarchy/c4-prepublication-audit.json"
+    ],
+    [
+      "docs/PROGRESS.md",
+      "assets/protein-residue-hierarchy/c4-publication.json"
+    ],
+    [
+      "docs/RELEASE_NOTES.md",
+      "plans/issue-94-protein-residue-hierarchy.md"
+    ],
+    [
+      "docs/RELEASE_NOTES.md",
+      "assets/protein-residue-hierarchy/c4-publication.json"
+    ],
+    [
+      "docs/VERIFICATION.md",
+      "assets/protein-residue-hierarchy/c3-candidate3-gate.json"
+    ],
+    [
+      "docs/VERIFICATION.md",
+      "assets/protein-residue-hierarchy/c4-merged2-gate.json"
+    ],
+    [
+      "docs/VERIFICATION.md",
+      "assets/protein-residue-hierarchy/c4-report-tool.json"
+    ],
+    [
+      "docs/VERIFICATION.md",
+      "assets/protein-residue-hierarchy/c4-prepublication-audit.json"
+    ],
+    [
+      "docs/VERIFICATION.md",
+      "assets/protein-residue-hierarchy/c4-publication.json"
+    ],
+    [
+      "docs/plans/issue-94-protein-residue-hierarchy.md",
+      "../assets/protein-residue-hierarchy/c4-merge-proof.json"
+    ],
+    [
+      "docs/plans/issue-94-protein-residue-hierarchy.md",
+      "../assets/protein-residue-hierarchy/c4-helper-premerge-audit.json"
+    ],
+    [
+      "docs/plans/issue-94-protein-residue-hierarchy.md",
+      "../assets/protein-residue-hierarchy/c4-merged2-gate.json"
+    ],
+    [
+      "docs/plans/issue-94-protein-residue-hierarchy.md",
+      "../assets/protein-residue-hierarchy/c4-merged2-summary.json"
+    ],
+    [
+      "docs/plans/issue-94-protein-residue-hierarchy.md",
+      "../assets/protein-residue-hierarchy/c4-report-tool.json"
+    ],
+    [
+      "docs/plans/issue-94-protein-residue-hierarchy.md",
+      "../assets/protein-residue-hierarchy/c4-prepublication-audit.json"
+    ],
+    [
+      "docs/plans/issue-94-protein-residue-hierarchy.md",
+      "../assets/protein-residue-hierarchy/c4-publication.json"
+    ],
+    [
+      "docs/plans/issue-94-protein-residue-hierarchy.md",
+      "../assets/protein-residue-hierarchy/c4-documentation-check.json"
+    ],
+    [
+      "docs/plans/issue-94-protein-residue-hierarchy.md",
+      "../assets/protein-residue-hierarchy/c4-documentation-policy.json"
+    ]
+  ],
+  "asset_json_parsed": 45,
+  "gzip_crc_checked": 157,
+  "both_complete_gate_log_hashes_verified": true,
+  "versions_dependencies_production_harness_audit_passed": true,
+  "diff_check_passed": true,
+  "publication_helper_syntax_count": 9,
+  "literal_evidence_oracle_paths_verified": [
+    "docs/assets/compact-modeling-toolbar/c4-merged5-summary.json",
+    "docs/assets/protein-residue-hierarchy/c4-publication.json",
+    "docs/assets/protein-residue-hierarchy/c4-merged2-gate.json"
+  ],
+  "report_matches_executed_committed_script": true,
+  "new_runtime_tests_required": false,
+  "rationale": "Only documentation/evidence changed after the complete exact-runtime gate; all571 source/test/tool/patch/lock identities match."
+}

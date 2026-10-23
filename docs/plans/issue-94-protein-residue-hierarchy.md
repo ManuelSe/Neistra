@@ -2,8 +2,11 @@
 
 ## 1. Status, authority, and outcome
 
-**Status:** approved implementation contract; implementation and verified delivery
-authorized by the user's `/goal` on 2026-10-23. M1/C1, M2/C2 and M3/C3 are complete. M4/C4 implementation merge is verified; helper correction and final qualification/publication remain.
+**Status:** approved scope implemented, fully qualified and published stable v0.25.0.
+Runtime delivery is remotely verified; this documentation audit records publication.
+Its final integration and delayed ref/worktree cleanup are recorded at the linked
+[issue close-out](https://github.com/ManuelSe/Neistra/issues/94#issuecomment-6371430529)
+after verification. The released runtime tag remains fixed.
 
 **Approval:** the user's “Implement the plan.” on 2026-10-23 approves the complete
 proposal, including its mandatory C0 stop ready for `/goal`. This authorizes
@@ -22,8 +25,10 @@ minimal shared-behavior changes to the existing Sequence tab.
 | PR title | `feat(selection): browse protein residues and share range selection` |
 | Implementation PR | [#121](https://github.com/ManuelSe/Neistra/pull/121), merged |
 | Merge strategy | Normal merge commit, preserving passing checkpoints |
-| Planned release | Stable **0.25.0** |
-| Proposed annotated tag | **v0.25.0** |
+| Planned release | Stable **0.25.0**, now [published](https://github.com/ManuelSe/Neistra/releases/tag/v0.25.0) |
+| Annotated tag | **v0.25.0**, remotely verified at runtime `2adeaac973a6047ee537fd8c639f3b3e18d216b0` |
+| Qualified runtime correction | [PR #122](https://github.com/ManuelSe/Neistra/pull/122), normally merged |
+| Publication documentation audit | [PR #123](https://github.com/ManuelSe/Neistra/pull/123); final integration/cleanup at linked issue close-out |
 
 **Approved outcome:** scientists can expand existing protein-chain component
 rows, browse available residues, and select complete residues or inclusive ranges
@@ -807,3 +812,111 @@ whitespace are checked before commit. Actual bundle/receipt checks remain gated
 by the complete corrected exact-master run; no synthetic success data is used.
 Version stays 0.25.0: it is unreleased, and this changes documentation delivery
 tools only. No schema, migration, public API, dependency or scientific change.
+
+
+### M4 / C4 exact-runtime qualification and publication — 2026-10-23
+
+[PR #122](https://github.com/ManuelSe/Neistra/pull/122) normally merges the helper
+correction as **`2adeaac973a6047ee537fd8c639f3b3e18d216b0`** on origin/master;
+local master fast-forwards cleanly. The correction is docs-only and all 571
+qualified runtime/test/tool/patch/lock identities remain unchanged. The
+[merge proof](../assets/protein-residue-hierarchy/c4-merge-proof.json) and
+[helper premerge audit](../assets/protein-residue-hierarchy/c4-helper-premerge-audit.json)
+retain exact refs, review requests and current policy. No required approval/check,
+protection, unresolved thread or override exists at merge. Codex requests on both
+PRs return no review; local implementer review is explicitly not independent.
+
+[Exact merged2 manifest](../assets/protein-residue-hierarchy/c4-merged2-gate.json)
+and [summary](../assets/protein-residue-hierarchy/c4-merged2-summary.json) pass all
+**20 release commands** from clean master: **1,249 Python / 349 frontend / 8
+supervisor / 331 browser tests**, 61 documented layout/timing exclusions, zero
+failures/flakes/retries/Python or required native scientific skips. Frozen
+dependencies, fresh 0014, all static/type checks, production build/harness audit,
+actual tagged 0.24.1 ↔ final 0.25.0 processes and both archive/managed-state reader
+directions pass. Saved canonical references/scenes, coordinates/conformers,
+originals, appearance, three surface objects, jobs, Undo/Redo and archive remapping
+remain exact. All five versions are 0.25.0; no schema/migration/API/job/plugin,
+dependency or scientific-model change.
+
+The complete candidate and merged runtime match all **571** source identities and
+every lossless log hash, digest
+`1a8d90cfcac3270dd8592868158cfbfbcd0c60285e5191b0b7bd9971d3a06198`.
+All 251 merged power samples report AC online. Merged large navigation ranges
+take 604.4/586.3 ms desktop/mobile, longest tasks 199/185 ms, mounted rows 13/22
+within 24/33 bounds, zero repeated reads. Loaded hidden entry / unmounted property
+table context remains explicit. Standard 1STP interactions take 3,763 ms, longest
+task 642 ms, zero refetches. Native cold small/pocket/18k paint is
+0.874/2.076/3.597 s; first actual frame 709.3 ms and Cancel 53.6 ms. Original
+5 s / 750 ms navigation/1STP and 2/5/5 s paint, 1 s frame, 500 ms Cancel budgets
+remain unchanged. Earlier incomplete or failing attempts remain diagnostic.
+
+After all 20 commands pass, result postprocessing exposes a second documentation
+helper-reference mistake: a broad evidence-label replacement changed the prior
+release's `c4-merged5-summary.json` filename to nonexistent `c4-merged25-summary.json`.
+Use the byte-exact committed report from qualified C3 (`c65ab0f`) to process the
+complete merged gate. Its only difference restores that actual preceding-release
+filename; all exclusion/result/source assertions remain identical. It passes on
+merged2. [Report provenance](../assets/protein-residue-hierarchy/c4-report-tool.json)
+retains both hashes and complete executed source. Persist that exact report here
+in the planned publication documentation audit, adding literal evidence-path and
+executed-report hash checks. No runtime/test/gate/limit changes or tag movement
+are involved; the mandatory gate had already passed independently.
+
+[Prepublication audit](../assets/protein-residue-hierarchy/c4-prepublication-audit.json)
+rechecks exact remote master, both merged PRs/reviews/conversations, unused next
+tag, preceding stable release, current rulesets/protection, all source/log hashes
+and open existing #95. The annotated **v0.25.0** tag object
+`54ff2dabe3235af1a49efd64f79fd13b6c741d3d` is pushed and its peeled runtime SHA
+is remotely verified. Stable latest [release v0.25.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.25.0)
+(ID 422152304) targets that exact qualified runtime. Full notes cover highlights,
+fixes, data/migrations, compatibility/rollback, verification, scientific/performance
+limits, scope decisions and follow-up work.
+
+The public `neistra-v0.25.0-verification.zip` is **421,337,420 bytes**, downloaded
+from the published release and verified against SHA256
+`3e133ff2e6f008a7ee46a7e309ba81f9e269ef5453b32421cef63cad33b7a8fa`,
+ZIP CRC and all **5,961** internal member hashes. It includes exact runtime source,
+both complete command/source/log records, raw native evidence, compatibility
+stores/archives and release notes. [Publication audit](../assets/protein-residue-hierarchy/c4-publication.json)
+verifies real release/tag/assets and the exact published
+[issue reply](https://github.com/ManuelSe/Neistra/issues/94#issuecomment-6371430529).
+Issue #94 is closed through implementation PR #121. #95 remains separate; no new
+follow-up or essential approved-scope deferral is needed.
+
+### Final publication documentation audit and delayed cleanup
+
+This docs-only audit persists current publication evidence and source-of-truth
+status, restores the proven report reference and validates actual helper oracle
+paths. Its checks cover relative links, JSON/gzip/log integrity, helper syntax,
+report provenance, all five versions/dependencies/build harness and all 571 source
+identities. No new runtime tests are needed for unchanged bytes after the complete
+exact-runtime gate. Review and normally merge the documentation PR; recheck the
+remote default branch and unchanged runtime tag/source. Only then remove the
+planned feature branch and the task-owned old-reader dependency links/worktree.
+Actual final integration, cleanup and clean-tree refs are appended to the linked
+issue reply with a public final audit receipt after verification. No earlier
+statement claims that future cleanup already happened.
+
+
+The [documentation validation](../assets/protein-residue-hierarchy/c4-documentation-check.json)
+passes current relative links, asset JSON/gzip and complete-gate log hashes, all
+571 unchanged source identities, five versions/dependencies/production harness,
+helper syntax and actual literal evidence-oracle paths. The persisted report
+exactly matches the committed executed source in its provenance record. The full
+docs-only diff has implementer review with no consequential unresolved finding.
+Commit this publication checkpoint as `docs(release): record verified v0.25.0 publication`,
+push and normally merge its audit PR after current policy/conversation checks.
+Final actual integration/ref/worktree cleanup is verified externally at the linked
+issue reply; keep the runtime tag fixed.
+
+
+Publication checkpoint `7900228` is committed/pushed, and remotely verified
+[documentation PR #123](https://github.com/ManuelSe/Neistra/pull/123) is open against
+the exact runtime. [Codex request](https://github.com/ManuelSe/Neistra/pull/123#issuecomment-6371616445)
+is posted; the [documentation policy snapshot](../assets/protein-residue-hierarchy/c4-documentation-policy.json)
+records no returned review, required approval/check, unresolved thread or override.
+All changes are documentation/evidence, all 571 qualified source identities match
+and the annotated runtime tag/release are unchanged. This linkage commit precedes
+its own final-head recheck and normal merge. Actual merge/ref cleanup is appended
+to the verified close-out after remote integration, with a public final audit;
+no earlier statement claims those later steps already happened.
