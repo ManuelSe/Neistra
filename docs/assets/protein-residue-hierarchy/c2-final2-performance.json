@@ -1,0 +1,30 @@
+[
+  {
+    "project": "chromium",
+    "count": 10000,
+    "atoms": 30000,
+    "firstMs": 213.59999999962747,
+    "endMs": 81.60000000009313,
+    "rangeMs": 674.6999999997206,
+    "longest": 220,
+    "mounted": 13,
+    "bound": 24,
+    "scroll": 319905,
+    "repeatedReads": 0,
+    "propertyTable": "not mounted; navigation-only qualification"
+  },
+  {
+    "project": "mobile-chromium",
+    "count": 10000,
+    "atoms": 30000,
+    "firstMs": 161.5,
+    "endMs": 55,
+    "rangeMs": 624.7999999998137,
+    "longest": 196,
+    "mounted": 22,
+    "bound": 33,
+    "scroll": 439480,
+    "repeatedReads": 0,
+    "propertyTable": "not mounted; navigation-only qualification"
+  }
+]

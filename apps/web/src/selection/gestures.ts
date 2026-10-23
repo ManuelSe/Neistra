@@ -1,4 +1,4 @@
-import type { AtomReference, ComponentHierarchy, MolecularComponent, MolecularResidue, NormalizedStructure, Selection } from "../api/types";
+import type { AtomReference, ComponentHierarchy, MolecularComponent, MolecularResidue, NormalizedStructure, Selection, SelectionMode, SelectionSource } from "../api/types";
 import { buildComponentMembership } from "./componentMembership";
 import { canonicalSelection } from "./selection";
 
@@ -14,12 +14,34 @@ export interface SelectionStructure {
   hierarchy: ComponentHierarchy;
 }
 
+export interface ResidueSelectionRequest {
+  projectId: string;
+  projectEpoch: number;
+  entryId: string;
+  artifactId: string;
+  residueId: number;
+  source: "project" | "sequence";
+  mode: SelectionMode;
+  shift: boolean;
+}
+
+export function residuePosition(residue: MolecularResidue): string {
+  const number = residue.author_number ?? residue.label_number;
+  return number === null ? `ID ${residue.id}` : `${number}${residue.insertion_code ?? ""}`;
+}
+
+export function residueLabel(residue: MolecularResidue): string {
+  return `${residue.name || "Unknown"} ${residuePosition(residue)}`;
+}
+
 interface GestureIndex {
   components: Map<number, MolecularComponent>;
   componentAtoms: Map<string, number[]>;
   residueByAtom: Map<number, number>;
   residueAtoms: Map<number, number[]>;
   residues: Map<number, MolecularResidue>;
+  residuesByChain: Map<number, MolecularResidue[]>;
+  proteinResidues: Map<number, Omit<ResidueTarget, "entryId">>;
   proteinOrder: Map<string, number[]>;
 }
 
@@ -44,15 +66,21 @@ export function gestureIndex(source: SelectionStructure): GestureIndex {
   }
   const residues = new Map(source.normalized.residues.map(residue => [residue.id, residue]));
   const proteinOrder = new Map<string, number[]>();
+  const residuesByChain = new Map<number, MolecularResidue[]>();
+  const proteinResidues = new Map<number, Omit<ResidueTarget, "entryId">>();
   for (const residue of source.normalized.residues) {
+    const chain = residuesByChain.get(residue.chain_id) ?? [];
+    chain.push(residue); residuesByChain.set(residue.chain_id, chain);
     const first = residueAtoms.get(residue.id)?.[0];
     const component = first === undefined ? undefined : components.get(first);
     if (component?.category !== "protein" || component.classification_status !== "assigned") continue;
+    proteinResidues.set(residue.id, { componentId: component.id,
+      chainId: residue.chain_id, residueId: residue.id, atomIds: residueAtoms.get(residue.id) ?? [] });
     const key = JSON.stringify([component.id, residue.chain_id]);
     const order = proteinOrder.get(key) ?? [];
     order.push(residue.id); proteinOrder.set(key, order);
   }
-  const result = { components, componentAtoms: membership.components, residueByAtom, residueAtoms, residues, proteinOrder };
+  const result = { components, componentAtoms: membership.components, residueByAtom, residueAtoms, residues, residuesByChain, proteinResidues, proteinOrder };
   byHierarchy.set(source.hierarchy, result);
   return result;
 }
@@ -131,14 +159,14 @@ export function proteinResidueTarget(pick: AtomReference[], source: SelectionStr
     residueId: residue.id, atomIds: index.residueAtoms.get(residue.id) ?? [] };
 }
 
-export function residueRange(anchor: ResidueRangeAnchor, target: ResidueTarget, source: SelectionStructure): Selection | null {
+export function residueRange(anchor: ResidueRangeAnchor, target: ResidueTarget, source: SelectionStructure, selectionSource: SelectionSource = "viewer"): Selection | null {
   if (anchor.entryId !== target.entryId || anchor.componentId !== target.componentId || anchor.chainId !== target.chainId) return null;
   const index = gestureIndex(source);
   const order = index.proteinOrder.get(JSON.stringify([target.componentId, target.chainId])) ?? [];
   const start = order.indexOf(anchor.residueId), end = order.indexOf(target.residueId);
   if (start < 0 || end < 0) return null;
   const ids = order.slice(Math.min(start, end), Math.max(start, end) + 1).flatMap(id => index.residueAtoms.get(id) ?? []);
-  return canonicalSelection(ids.map(atom_id => ({ structure_id: source.entryId, atom_id })), "residue", "viewer");
+  return canonicalSelection(ids.map(atom_id => ({ structure_id: source.entryId, atom_id })), "residue", selectionSource);
 }
 
 export function containsResidue(selection: Selection, target: ResidueTarget): boolean {

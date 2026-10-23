@@ -207,13 +207,25 @@ export function selectedEntryIds(current: Selection): Set<string> {
   return new Set(current.atoms.map((reference) => reference.structure_id));
 }
 
+const summaryIndexes = new WeakMap<NormalizedStructure, {
+  atoms: Map<number, NormalizedStructure["atoms"][number]>;
+  residues: Map<number, NormalizedStructure["residues"][number]>;
+}>();
+
 export function selectionSummary(current: Selection, structures: StructureMap) {
   const residues = new Set<string>();
   const chains = new Set<string>();
   for (const reference of current.atoms) {
     const structure = structures.get(reference.structure_id);
-    const atom = structure?.atoms.find((item) => item.id === reference.atom_id);
-    const residue = structure?.residues.find((item) => item.id === atom?.residue_id);
+    if (!structure) continue;
+    let index = summaryIndexes.get(structure);
+    if (!index) {
+      index = { atoms: new Map(structure.atoms.map(atom => [atom.id, atom])),
+        residues: new Map(structure.residues.map(residue => [residue.id, residue])) };
+      summaryIndexes.set(structure, index);
+    }
+    const atom = index.atoms.get(reference.atom_id);
+    const residue = atom?.residue_id === null || atom?.residue_id === undefined ? undefined : index.residues.get(atom.residue_id);
     if (residue) {
       residues.add(`${reference.structure_id}:${residue.id}`);
       chains.add(`${reference.structure_id}:${residue.chain_id}`);

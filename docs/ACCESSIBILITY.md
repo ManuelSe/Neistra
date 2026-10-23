@@ -34,6 +34,25 @@ dark/desktop gesture screenshots were manually inspected separately.
 [Exact released master](assets/selection-gestures/c4-merged-gate.json) repeats
 these passing cases; no broader certification is inferred.
 
+## Protein residue navigation (issue #94)
+
+Components expands existing chain-instance rows into observed residue buttons.
+Native list/listitem/button semantics remain; no incomplete ARIA tree is added.
+Up/Down/Home/End traverse expanded rows; Right expands or enters children and Left
+collapses or focuses the parent. Focus movement/disclosure never selects. Only
+the active row's controls join the tab order; bounded retention preserves focused
+and Details rows. Removed descendants fall back to their surviving parent/category
+or pane heading without stealing unrelated focus.
+
+Residues expose full, partial and unselected membership with pressed/mixed state;
+partial coverage also has a dashed border. Accessible names include chain-instance
+and entry context, with insertion codes and explicit internal-ID fallback. Fine
+pointer rows remain32px and coarse/narrow targets44px. Sequence uses the same
+coverage semantics. Native input, scoped axe, both themes, narrow/remount and real
+browser zoom evidence are recorded in the approved plan; automated axe and manual
+screenshot inspection remain distinct. No interactive screen-reader, physical
+hardware or broader browser certification is claimed.
+
 ## Compact molecular editor (issue #69)
 
 The nonmodal Edit launcher sits beside Transform with a named, viewport-bounded
@@ -434,3 +453,14 @@ actual Chrome100/125/150/200% zoom using the extension zoom API, with scoped axe
 Recorded checkpoint/release evidence distinguishes passing runs from diagnostics.
 Qualification is Chromium/SwiftShader and Pixel7 emulation, not physical devices or
 whole-product/screen-reader atom accessibility.
+
+
+The issue #94 [complete candidate](assets/protein-residue-hierarchy/c3-candidate3-gate.json)
+passes expanded residue workflows in both themes and desktop/mobile layouts,
+320 px controls, parent/child keyboard focus, mixed/full feedback, retained focus
+and actual 100%/200% desktop browser zoom. Representative automated accessibility
+checks pass in both themes for their tested scopes. Final candidate screenshots
+retain disclosure/selection separation, source numbering/insertion labels and
+compact 32 px fine / 44 px coarse controls. This is tested-scope evidence, not a
+claim that every application state has been audited. Exact-master evidence follows
+before publication.

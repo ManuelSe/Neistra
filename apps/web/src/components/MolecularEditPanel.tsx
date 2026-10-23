@@ -50,12 +50,13 @@ export function MolecularEditPanel({ project, selection, busy, unavailable, onEd
     staleTime: Number.POSITIVE_INFINITY,
   });
   const atoms = query.data?.structure.atoms;
+  const atomIds = useMemo(() => new Set(atoms?.map(atom => atom.id)), [atoms]);
   const selectedAtom = useMemo(() => selection.atoms.length === 1 ? atoms?.find(a => a.id === selection.atoms[0].atom_id) : undefined, [atoms, selection]);
-  const pair = selection.atoms.length === 2 && selection.atoms.every(ref => atoms?.some(atom => atom.id === ref.atom_id));
+  const pair = selection.atoms.length === 2 && selection.atoms.every(ref => atomIds.has(ref.atom_id));
   const bond = pair ? query.data?.structure.bonds.find(b => selection.atoms.every(ref => [b.atom_1_id, b.atom_2_id].includes(ref.atom_id))) : undefined;
   const canStepBondOrder = Boolean(bond && !bond.aromatic && [1, 2, 3].includes(bond.order ?? 0));
   const mutationTarget = useMemo(() => residueMutationTarget(query.data, selection), [query.data, selection]);
-  const directReason = !query.data ? "Loading selected molecule…" : !selection.atoms.every(ref => atoms?.some(atom => atom.id === ref.atom_id)) ? "Some selected atoms are no longer present." : null;
+  const directReason = !query.data ? "Loading selected molecule…" : !selection.atoms.every(ref => atomIds.has(ref.atom_id)) ? "Some selected atoms are no longer present." : null;
   const reason = unavailable ?? (busy || pending ? "Finish the current operation." : !entry ? "Select atoms in one entry." : entry.locked ? "Unlock the entry before editing." : query.isError ? "The selected molecule could not be loaded." : section === "residues" ? !["protein", "complex"].includes(entry.structure_type) ? "Mutation requires a protein or complex entry." : mutationTarget.reason : directReason);
   const { placement: ownedPlacement, setPlacement } = editing;
   const context = placementContext(project, entry?.id, selection, editing.generation, "automatic");

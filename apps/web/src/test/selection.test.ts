@@ -102,4 +102,26 @@ describe("central selection algebra", () => {
       }).atoms,
     ).toEqual(references(3));
   });
+  it("summarizes gapped identities across entries and replaces immutable indexes with new artifacts", () => {
+    const source = proteinStructure();
+    source.atoms = source.atoms.map((atom, i) => ({ ...atom, id: [10, 40, 90][i] }));
+    const selected = canonicalSelection([...references(10, 40, 500), { structure_id: "copy", atom_id: 10 }]);
+    const sources = new Map([["protein", source], ["copy", source]]);
+    expect(selectionSummary(selected, sources)).toEqual({ atoms: 4, residues: 2, chains: 2, structures: 2 });
+    sources.set("protein", { ...source, atoms: source.atoms.filter(atom => atom.id === 90) });
+    expect(selectionSummary(selected, sources)).toEqual({ atoms: 4, residues: 1, chains: 1, structures: 2 });
+  });
+
+  it("indexes a large immutable structure once rather than scanning atoms per selected reference", () => {
+    const source = proteinStructure(), atom = source.atoms[0];
+    const atoms = Array.from({ length: 10000 }, (_, i) => ({ ...atom, id: i + 1 }));
+    let visits = 0;
+    Object.defineProperty(source, "atoms", { get: () => { visits++; return atoms; } });
+    const sources = new Map([["protein", source]]);
+    const selected = canonicalSelection(atoms.map(a => ({ structure_id: "protein", atom_id: a.id })));
+    expect(selectionSummary(selected, sources)).toEqual({ atoms: 10000, residues: 1, chains: 1, structures: 1 });
+    selectionSummary(selected, sources);
+    expect(visits).toBe(1);
+  });
+
 });

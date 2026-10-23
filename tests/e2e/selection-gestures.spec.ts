@@ -228,3 +228,48 @@ test("persists native gesture references as an ordinary named selection and relo
   await expect.poll(() => selection(page)).toEqual(expected);
   expect(await anchor(page)).toBeNull();
 });
+
+test("shares fixed residue starts between native picks and Sequence with partial coverage", async ({ page, request }, info) => {
+  test.setTimeout(90000);
+  const { project, entry, projection } = await setup(page, request);
+  const baseline = await (await request.get(`/api/v1/projects/${project.id}`)).json();
+  const mobile = info.project.name === "mobile-chromium";
+  const reads: string[] = [], writes: string[] = [];
+  page.on("request", r => {
+    if (r.url().endsWith("/structure")) reads.push(r.url());
+    if (["POST", "PUT", "PATCH", "DELETE"].includes(r.method())) writes.push(r.url());
+  });
+  const camera = await page.evaluate(() => window.editingPicks.camera());
+  const canvas = page.locator(".molstar-host canvas").first();
+  const position = async (id: number) => point(page, projection.structure.atoms.find(a => a.id === id)!.coordinates);
+  await canvas.click({ position: await position(6) });
+  await expect.poll(() => selection(page)).toEqual(refs(entry.id, [6]));
+  const openSequence = async () => {
+    if (mobile) await page.getByRole("button", { name: "Inspector", exact: true }).click();
+    await page.getByRole("tab", { name: "sequence", exact: true }).click();
+  };
+  await openSequence();
+  const inserted = page.getByRole("button", { name: /^GLY 10A · chain A/ });
+  await expect(inserted).toHaveAttribute("aria-pressed", "mixed");
+  await inserted.click({ modifiers: ["Control"] });
+  await expect.poll(() => selection(page)).toEqual(refs(entry.id, [5, 6, 7, 8]));
+  expect((await anchor(page)).residueId).toBe(2);
+  await page.getByRole("button", { name: /^GLY 3 · chain A/ }).click({ modifiers: ["Shift"] });
+  await expect.poll(() => selection(page)).toEqual(refs(entry.id, Array.from({ length: 12 }, (_, i) => i + 5)));
+  expect((await anchor(page)).residueId).toBe(2);
+  if (mobile) await page.keyboard.press("Escape");
+  await canvas.click({ position: await position(2), modifiers: ["Shift"] });
+  await expect.poll(() => selection(page)).toEqual(refs(entry.id, Array.from({ length: 16 }, (_, i) => i + 1)));
+  await canvas.dblclick({ position: await position(2) });
+  await expect.poll(() => selection(page)).toEqual(refs(entry.id, [1, 2, 3, 4]));
+  await openSequence();
+  await inserted.click({ modifiers: ["Shift"] });
+  await expect.poll(() => selection(page)).toEqual(refs(entry.id, Array.from({ length: 8 }, (_, i) => i + 1)));
+  await page.getByRole("button", { name: /^ALA 10 · chain B/ }).click({ modifiers: ["Shift"] });
+  await expect.poll(() => selection(page)).toEqual(refs(entry.id, [1, 2, 3, 4, 5, 6, 7, 8, 17, 18, 19]));
+  expect((await anchor(page)).residueId).toBe(1);
+  expect(await page.evaluate(() => window.editingPicks.camera())).toEqual(camera);
+  expect(await (await request.get(`/api/v1/projects/${project.id}`)).json()).toEqual(baseline);
+  expect(reads).toEqual([]); expect(writes).toEqual([]);
+  await page.screenshot({ path: info.outputPath("shared-sequence-range.png") });
+});

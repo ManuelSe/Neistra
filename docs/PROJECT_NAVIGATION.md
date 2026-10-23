@@ -5,7 +5,7 @@ one named entry while the current molecular selection can span other entries.
 The inspected entry is marked separately from selected entries.
 
 Click an entry name to select that structure and inspect its components. Existing
-Ctrl/Meta/Shift addition and Alt subtraction still apply. Choose **Components**
+Ctrl/Meta whole-operand toggle, Shift addition, and Alt subtraction still apply. Choose **Components**
 from an entry's action menu to inspect it without changing molecular selection.
 Viewer picks, category/component selections, group selection, and surface
 activation leave the inspected entry unchanged.
@@ -39,14 +39,31 @@ groups; Water and other solvent/additives share one Solvent preference. A hidden
 parent can prevent a requested-visible category from rendering. No individual
 persisted component visibility or classification override is introduced.
 
-Categories and components use single-line rows. Click a label to select its exact
-members, including members outside the visible scroll window. A category's arrow
-only expands/collapses it; its eye only changes the named shared visibility group.
-Each row's Details action exposes full labels, counts, provenance and warnings.
+Categories, components, and protein residues use single-line rows. Click a label to select its exact
+members, including members outside the visible scroll window. Disclosure arrows only expand/collapse; a category's eye only changes the named
+shared visibility group. Category and component Details actions exposes full labels, counts, provenance and warnings.
 Hierarchy warnings have a separate Details launcher above the list.
 
+Expand Protein, then a protein-chain component, to browse its observed residues.
+Separate source chain instances stay separate even when chain names repeat.
+Residues show recorded names, author numbering (label numbering when absent) and
+insertion codes in normalized sequence order. Missing numbers show an explicit
+internal ID; missing residues are not reconstructed. Colliding chain labels have
+an instance qualifier. Unknown/nonstandard names remain identifiable.
+
+A residue label selects all its existing normalized atoms, including hidden H,
+without revealing them or changing the viewer's picking mode or camera. Plain
+activation replaces; Ctrl/Meta completes a partial residue or removes a complete
+one; Shift adds the inclusive same-entry/component/chain range from the shared
+fixed start, or only that residue when no matching start exists; Alt subtracts.
+Sequence and eligible native viewer picks share the same start. Full and partial
+coverage have distinct pressed/mixed states and a partial border cue. Selection
+never scrolls, expands, or retargets the component browser automatically. See
+[selection gestures](SELECTION_GESTURES.md) for precedence and invalidation.
+
 Focus a row label and use Up/Down or Home/End to reach every expanded row, including
-off-screen components. Focus movement and scrolling do not select; Enter/Space
+off-screen components and residues. Right expands or enters a child; Left
+collapses or returns to the parent. Focus movement and scrolling do not select; Enter/Space
 activates the focused control. Tab reaches the active row's disclosure, visibility,
 and Details controls. Virtual scrolling renders the visible window plus bounded
 overscan and retains focused/Details rows while they need to remain available.

@@ -6,6 +6,8 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import type { Project, Selection, SelectionMode } from "../api/types";
 import { ProjectInspector } from "../components/ProjectInspector";
 import { combineSelection, emptySelection } from "../selection/selection";
+import type { ResidueSelectionRequest } from "../selection/gestures";
+import { useSelectionStore } from "../store/selection";
 import { molecularProject, proteinProjection } from "./molecular-fixtures";
 
 function wrapper(client: QueryClient) {
@@ -14,8 +16,10 @@ function wrapper(client: QueryClient) {
   };
 }
 
-function Harness() {
-  const [selection, setSelection] = useState<Selection>(emptySelection());
+function Harness({ initialSelection = emptySelection(), onSelectResidue }: {
+  initialSelection?: Selection; onSelectResidue?: (request: ResidueSelectionRequest) => void;
+} = {}) {
+  const [selection, setSelection] = useState<Selection>(initialSelection);
   const [pickingGranularity, setPickingGranularity] =
     useState<Selection["granularity"]>("atom");
   return (
@@ -29,6 +33,7 @@ function Harness() {
       onApplySelection={(operand, mode: SelectionMode) =>
         setSelection((current) => combineSelection(current, operand, mode))
       }
+      onSelectResidue={onSelectResidue}
       onClearSelection={() => setSelection(emptySelection())}
       onExpandSelection={() => undefined}
       onInvertSelection={() => undefined}
@@ -116,6 +121,33 @@ describe("bidirectional sequence selection", () => {
       expect(summary).toHaveTextContent("Chains1");
       expect(summary).toHaveTextContent("Structures1");
     });
+  });
+
+  it("shows insertion codes and partial coverage and emits owned shared residue actions", async () => {
+    const user = userEvent.setup();
+    const projection = proteinProjection();
+    projection.structure.residues[0].insertion_code = "A";
+    vi.spyOn(globalThis, "fetch").mockResolvedValue(new Response(JSON.stringify(projection), {
+      status: 200, headers: { "Content-Type": "application/json" },
+    }));
+    useSelectionStore.getState().setProject(molecularProject().id);
+    const onSelectResidue = vi.fn();
+    const client = new QueryClient({ defaultOptions: { queries: { retry: false } } });
+    render(<Harness initialSelection={{ schema_version: 1, granularity: "atom", source: "viewer",
+      atoms: [{ structure_id: "protein", atom_id: 1 }] }} onSelectResidue={onSelectResidue} />, { wrapper: wrapper(client) });
+    await user.click(screen.getByRole("tab", { name: "sequence" }));
+    const residue = await screen.findByRole("button", { name: /GLY 10A/ });
+    expect(residue).toHaveAttribute("aria-pressed", "mixed");
+    expect(residue).toHaveAccessibleName(/chain A in Receptor/);
+    fireEvent.click(residue, { shiftKey: true });
+    expect(onSelectResidue).toHaveBeenLastCalledWith({ projectId: molecularProject().id,
+      projectEpoch: useSelectionStore.getState().projectEpoch, entryId: "protein",
+      artifactId: molecularProject().entries[0].current_artifact_id, residueId: 1,
+      mode: "add", shift: true, source: "sequence" });
+    fireEvent.click(residue, { ctrlKey: true, shiftKey: true });
+    expect(onSelectResidue.mock.lastCall?.[0]).toMatchObject({ mode: "toggle", shift: true });
+    fireEvent.click(residue, { altKey: true, ctrlKey: true });
+    expect(onSelectResidue.mock.lastCall?.[0]).toMatchObject({ mode: "subtract", shift: false });
   });
 
   it("returns from automatic project details to selection after the first import", async () => {

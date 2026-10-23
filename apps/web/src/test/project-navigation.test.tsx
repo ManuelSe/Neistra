@@ -32,9 +32,9 @@ beforeEach(() => {
 });
 afterEach(() => { cleanup(); vi.restoreAllMocks(); vi.clearAllMocks(); });
 
-function browser(project: Project, onSelectEntries = vi.fn()) {
+function browser(project: Project, onSelectEntries = vi.fn(), onSelectResidue = vi.fn()) {
   return <QueryClientProvider client={new QueryClient({ defaultOptions: { queries: { retry: false } } })}>
-    <Tooltip.Provider><ProjectBrowser project={project} onSelectEntries={onSelectEntries} {...actions} /></Tooltip.Provider>
+    <Tooltip.Provider><ProjectBrowser project={project} onSelectEntries={onSelectEntries} onSelectResidue={onSelectResidue} {...actions} /></Tooltip.Provider>
   </QueryClientProvider>;
 }
 
@@ -226,3 +226,31 @@ for (const kind of ["entry", "component"] as const) {
     expect(returned).not.toHaveBeenCalled();
   });
 }
+
+
+it("expands source chains independently, selects residue operands and navigates parents without selection", async () => {
+  const user = userEvent.setup(), project = molecularProject(), selectEntries = vi.fn(), selectResidue = vi.fn();
+  render(browser(project, selectEntries, selectResidue));
+  await user.click(screen.getByRole("button", { name: "Actions for Receptor" }));
+  await user.click(screen.getByRole("menuitem", { name: "Components" }));
+  const category = await screen.findByRole("button", { name: "Select Protein in Receptor" });
+  category.focus();
+  await user.keyboard("{ArrowRight}{ArrowRight}{ArrowRight}{ArrowRight}");
+  const residue = screen.getByRole("button", { name: "Select GLY 10 · Protein chain A in Receptor" });
+  expect(residue).toHaveFocus();
+  expect(selectEntries).not.toHaveBeenCalled(); expect(selectResidue).not.toHaveBeenCalled();
+  await user.keyboard("{Enter}");
+  expect(selectResidue).toHaveBeenLastCalledWith(expect.objectContaining({ projectId: project.id,
+    entryId: "protein", residueId: 1, source: "project", mode: "replace", shift: false }));
+  fireEvent.click(residue, { metaKey: true, shiftKey: true });
+  expect(selectResidue).toHaveBeenLastCalledWith(expect.objectContaining({ mode: "toggle", shift: true }));
+  residue.focus(); await user.keyboard("{ArrowLeft}");
+  const parent = screen.getByRole("button", { name: "Select Protein chain A in Receptor" });
+  expect(parent).toHaveFocus();
+  await user.keyboard("{ArrowLeft}");
+  expect(screen.queryByRole("button", { name: /Select GLY 10 ·/ })).not.toBeInTheDocument();
+  expect(useNavigationStore.getState().entries.protein.proteins).toEqual([]);
+  await user.keyboard("{ArrowRight}");
+  expect(screen.getByRole("button", { name: /Select GLY 10 ·/ })).toBeVisible();
+  expect(useNavigationStore.getState().entries.protein.proteins).toEqual(["component-polymer"]);
+});

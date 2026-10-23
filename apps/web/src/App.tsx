@@ -1,5 +1,5 @@
 import { seedCoordinateProjections } from "./coordinates/cache";
-import type { ViewerPick } from "./selection/gestures";
+import type { ResidueSelectionRequest, ViewerPick } from "./selection/gestures";
 import { useMinimization } from "./minimization/useMinimization";
 import { useMinimizationStore } from "./minimization/store";
 import { manualModelEdit } from "./editing/manual";
@@ -210,10 +210,10 @@ export default function App() {
   useEffect(() => {
     if (project) useSelectionStore.getState().reconcileAnchor(project.entries);
     if (!project || selection.atoms.length === 0) return;
-    const entries = new Map(project.entries.map((entry) => [entry.id, entry]));
+    const entries = new Map(project.entries.map((entry) => [entry.id, new Set(entry.atom_ids)]));
     const valid = selection.atoms.filter((reference) => {
       const entry = entries.get(reference.structure_id);
-      return entry !== undefined && entry.atom_ids.includes(reference.atom_id);
+      return entry?.has(reference.atom_id) ?? false;
     });
     if (valid.length !== selection.atoms.length) {
       replaceSelection(
@@ -477,6 +477,19 @@ export default function App() {
     });
   };
 
+  const applyResidueSelection = (request: ResidueSelectionRequest) => {
+    const state = useSelectionStore.getState();
+    if (useWorkspaceStore.getState().activeProjectId !== request.projectId
+      || state.projectId !== request.projectId || state.projectEpoch !== request.projectEpoch) return;
+    const current = queryClient.getQueryData<Project>(["project", request.projectId]);
+    const entry = current?.entries.find(item => item.id === request.entryId);
+    if (!entry || entry.current_artifact_id !== request.artifactId) return;
+    const projection = queryClient.getQueryData<StructureProjection>(["structure", request.projectId, entry.id, request.artifactId]);
+    if (!projection) return;
+    state.applyResidue(request, { projectId: request.projectId, artifactId: request.artifactId,
+      source: { entryId: entry.id, normalized: projection.structure, hierarchy: projection.hierarchy } });
+  };
+
   const applyViewerSelection = (operand: Selection, mode: SelectionMode, pick?: ViewerPick) => {
     const state = useSelectionStore.getState();
     if (!project || state.projectId !== project.id || useWorkspaceStore.getState().activeProjectId !== project.id) return;
@@ -522,6 +535,7 @@ export default function App() {
     pickingGranularity,
     selectionBusy,
     onApplySelection: applySelection,
+    onSelectResidue: applyResidueSelection,
     onPickingGranularity: setPickingGranularity,
     onClearSelection: clearSelection,
     onExpandSelection: (granularity: SelectionGranularity) => {
@@ -1064,6 +1078,7 @@ export default function App() {
                         selectedEntryIds={selectedEntryIds(selection)}
                         onSelectEntries={selectEntries}
                         onSelectHierarchy={applySelection}
+                        onSelectResidue={applyResidueSelection}
                         onHierarchyVisibility={setHierarchyVisibility}
                         {...entryActions}
                       />
@@ -1134,6 +1149,7 @@ export default function App() {
                     selectedEntryIds={selectedEntryIds(selection)}
                     onSelectEntries={selectEntries}
                     onSelectHierarchy={applySelection}
+                        onSelectResidue={applyResidueSelection}
                     onHierarchyVisibility={setHierarchyVisibility}
                     onCollapse={() => leftRef.current?.collapse()}
                     {...entryActions}

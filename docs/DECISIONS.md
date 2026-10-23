@@ -5644,3 +5644,162 @@ surfacing permission and other failures. Worker cancellation/termination/recover
 assertions and production runner behavior remain unchanged. This is bounded C4
 validation repair under the instruction to fix validation failures, not a product
 requirement change. No exception is assumed; repeat complete candidate/master gates.
+
+## D-144 — Shared explicit protein-residue selection across application panels
+
+Date: 2026-10-23. Status: accepted by explicit approval of the
+[issue #94 plan](plans/issue-94-protein-residue-hierarchy.md); runtime
+implementation pending. C0 authorizes planning persistence only, with an explicit
+stop ready for `/goal`.
+
+Extend D-122's transient fixed residue anchor to explicit protein-residue actions
+in Components and the existing Sequence tab. Keep D-018/019 canonical atom
+references and the selection store as the sole selection authority. Generalize
+the existing atomic selection/anchor transition; do not create panel-local
+selection or anchors. Typed frontend requests carry project/visit, entry,
+artifact, residue, modifier-operation and source identity, and resolve against
+the current artifact-keyed query cache. Reject retired ownership and missing
+targets without selecting stale membership.
+
+Panel residue actions select all existing normalized residue-member atoms in any
+viewer picking mode. Plain activation replaces and establishes the start;
+Ctrl/Cmd toggle-on establishes a start only when Shift is absent. Alt subtracts,
+then Ctrl/Cmd toggles, then Shift adds a range or the ordinary target. Shift and
+Alt never establish or advance the start. Whole-operand toggle completes partial
+membership and removes complete membership, preserving unrelated references.
+Preserve `project`, `sequence` and `viewer` source metadata.
+
+Ranges use normalized residue-list order within one entry, assigned protein
+component and chain. Never bridge separate source instances with identical chain
+names. Preserve numbering gaps, insertion codes, hidden atoms and explicit
+residue-member hydrogens without inventing missing atoms or residue membership
+for orphan atoms. No valid matching start means additive target-only selection.
+Repeated Shift gestures retain the fixed start. Viewer ranges remain eligible
+only in Atom/Residue modes; Chain/Structure viewer picking keeps its contract.
+
+Keep existing invalidation on clear, unrelated replacement, project/visit change,
+picking-mode change, source-artifact change or incomplete start membership.
+Responsive remounts preserve valid anchors; reload clears them. Loading saved
+selections/scenes restores references without a start. Anchors never enter APIs,
+preferences, project state, scenes, archives, history or normalized artifacts.
+
+Rationale: cross-panel ranges need a common explicit residue action, rather than
+inferring a start from canonically sorted atoms or maintaining synchronization
+between independent owners. This supersedes only D-122's viewer-only
+anchor-establishment limitation. Preserve D-120's modifier precedence, D-122's
+source boundaries/invalidation and D-123's separation between native authoring
+proof and actual-reader retention.
+
+No HTTP/job/plugin contract, persisted selection/schema, molecular artifact,
+migration or dependency change is authorized. Stable minor 0.25.0 is planned
+against verified 0.24.1 because this adds cross-interface selection capability;
+final candidate, exact-master and actual prior-reader qualification remain
+mandatory. C0 changes no application version or runtime behavior.
+
+## D-145 — Existing protein-chain components own compact residue navigation
+
+Date: 2026-10-23. Status: accepted by explicit approval of the
+[issue #94 plan](plans/issue-94-protein-residue-hierarchy.md); runtime
+implementation pending.
+
+Extend D-097's independent Components browser as Protein category → existing
+protein-chain component → residues. Current D-045 components already represent
+source chain instances; do not insert a duplicate chain level or merge instances
+based on display names. Assigned protein components may expand into their
+observed normalized residues, in normalized list order. Display recorded names,
+author/label numbering and insertion codes; mark a fallback internal ID as an ID
+when numbering is absent. Preserve nonstandard names and disambiguate colliding
+chain labels without changing molecular identity.
+
+Own expanded protein-component IDs alongside category expansion and scroll in
+the existing transient per-project/per-entry navigation store. Keep molecular
+payloads in TanStack Query. Selection never changes the inspected entry,
+expansion, scroll, camera, visibility or viewer picking mode. Preserve browsing
+across entry switching and responsive remounts; reconcile deleted identities and
+owned focus after current-artifact changes. Browsing does not enter preferences,
+project state, history, scenes or archives.
+
+Reuse the continuous virtual list, stable keys, 32px fine-pointer/44px
+coarse-pointer rows, eight-row overscan on either side and at most two retained
+focus/Details rows. Use cached residue/component membership, not full atom scans
+for every row. Selection operands include all normalized members independent of
+which rows are mounted. Keep native list/button semantics, separate disclosures
+from selection, extend keyboard navigation into children, and retain existing
+warning/Details and category visibility scopes. Full/partial/unselected coverage
+is derived from canonical references; partial coverage has a non-color cue.
+
+Retain the existing Sequence tab and make only the labeling, indexed coverage and
+shared protein-residue selection changes required by #94. Preserve existing
+nonprotein polymer and whole-chain behavior. Sequence relocation, horizontal
+strip and chain-selector redesign remain with #95. Classification, nonprotein
+hierarchy expansion and per-residue visibility are outside this contract.
+
+Rationale: the current chain-instance hierarchy and virtual browser already
+supply identity, independent browsing, caching and bounded DOM. Extending them
+delivers residue navigation without a second hierarchy authority, redundant
+nesting, persistent navigation format or unrelated layout redesign. Compact
+labels retain scientific identity while complete warning details remain
+accessible.
+
+No database/API/job/plugin/scientific-model or archive change is authorized.
+Alembic remains 0014; project/viewer/archive schemas remain 2 and
+normalized/selection/component schemas remain 1. Qualify exact membership,
+source boundaries, owned focus, both themes, keyboard/zoom, bounded large lists,
+unchanged native budgets and actual-reader retention before claiming delivery.
+
+
+### D-144 implementation authorization — issue #94, 2026-10-23
+
+The user's `/goal` authorizes implementation and verified delivery under the
+approved feature contract. C1 generalizes the atomic selection/anchor transition
+for explicit Sequence protein residues and preserves all existing viewer-mode
+and invalidation boundaries. Requests validate current project visit, entry and
+artifact before resolving cached normalized membership. The immutable index
+retains entry-independent residue membership so reusing an artifact for another
+entry cannot publish the original entry's atom references. This is application
+lookup state, not a new molecular/schema/API authority. Native/milestone evidence
+is recorded in the feature plan; no completion is inferred from authorization.
+
+
+### D-145 implementation note — issue #94 M2/C2, 2026-10-23
+
+The Components list derives flat category/component/residue rows from cached
+application memberships, in normalized residue order. Expanded protein IDs remain
+session navigation state. Duplicate component labels receive instance qualifiers
+without changing source identity. Left/Right navigation uses explicit parent keys;
+selection and disclosures keep separate controls and current project/visit guards.
+No molecular, API/job, persisted schema, dependency or migration change. Native
+large-list, accessibility and checkpoint evidence remains with the feature plan.
+
+
+### D-145 large-range qualification repair — issue #94 C2, 2026-10-23
+
+The real 10,000-residue/30,000-atom navigation test exposed a3.2s main-thread task
+when the complete source-order range reached existing summary and reconciliation
+paths. Keep the approved <750ms gate. Replace per-reference linear atom/residue
+search in selection summaries with an immutable-structure weak index, and replace
+App reconciliation's repeated atom-ID-array membership scans with entry-local sets.
+Both retain exact gapped IDs, missing-reference behavior and source replacement
+semantics. This is the bounded lookup repair needed for the approved interaction,
+not new selection policy or scientific/persisted state. Pure regressions exercise
+entry reuse, unknown/gapped IDs and one index build per immutable source; native
+qualification must prove the corrected full path.
+
+The synthetic large-list case profiles navigation with an already loaded hidden
+entry and the atom property table unmounted. That existing unvirtualized table is
+outside this navigation profile; no general 30,000-row table/rendering throughput
+claim is made. Existing native1STP/scientific/surface/movement budgets remain
+unchanged and separately required. Exact profile context belongs in evidence.
+
+
+### D-145 closed edit-launcher membership repair — issue #94 C2, 2026-10-23
+
+After summary/reference lookup repairs, the unchanged large-range gate still
+reported1721ms. A separate native CDP CPU profile identified the closed molecular
+Edit launcher's per-reference `atoms.some` eligibility scan as the dominant work
+(1340 sampled frames in that predicate). A disabled query still exposes cached
+structure data, so the closed launcher must use a memoized atom-ID set for exact
+membership. Keep current stale-reference/eligibility semantics and full edit
+regressions; do not bypass validation or alter edit behavior. Retain the CPU profile
+as diagnostic evidence; qualification runs without profiling and with original
+limits. No molecular/API/schema/scientific-model expansion is introduced.

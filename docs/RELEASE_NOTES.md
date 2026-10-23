@@ -1,5 +1,73 @@
 # Neistra Release Notes
 
+## 0.25.0 - 2026-10-23 - Protein residue browsing and shared ranges
+
+Release candidate for [issue #94](https://github.com/ManuelSe/Neistra/issues/94)
+under its [approved contract](plans/issue-94-protein-residue-hierarchy.md).
+The clean final-version candidate is qualified; exact merged-master qualification
+and publication remain pending.
+
+**Highlights.** Expand Protein and its existing chain-instance rows into compact
+observed-residue lists. Recorded names, numbering gaps, insertion codes and
+nonstandard residues remain identifiable in normalized sequence order. Separate
+source instances stay separate even with repeated chain names or residue numbers.
+Disclosures browse without selecting; component selection, Details, warnings and
+shared visibility controls remain available.
+
+**Selection and fixes.** Components, the existing Sequence tab and eligible native
+viewer picks share one fixed protein-residue anchor. Plain residue activation
+replaces, Ctrl/Cmd completes partial membership or removes complete membership,
+Shift adds an inclusive same-entry/component/chain range, and Alt subtracts.
+Boundary mismatch adds only the ordinary target. Panels select complete observed
+residues in every picking mode without camera, visibility or mode changes. Full
+and partial feedback stays synchronized. Exact-identity indexes remove quadratic
+summary, reference-reconciliation and closed Edit-launcher eligibility scans found
+by large-range qualification, preserving their existing validation semantics.
+
+**Accessibility and performance.** Expanded list rows retain keyboard parent/child
+navigation, focus retention,32px fine/44px coarse targets and bounded virtual
+scrolling. The candidate passes both themes, 320 px and actual 100%/200% zoom. A 10,000-residue/
+30,000-atom navigation fixture retains exact complete selection with 195/183 ms
+longest desktop/mobile tasks and 608.2/573.6 ms range actions, bounded 13/22 rows and
+zero repeated reads. This profiles a loaded hidden entry with the unvirtualized
+atom property table unmounted, not general full-table throughput. Standard native
+1STP, scientific, movement and surface gates remain mandatory for release.
+
+**Persisted data, migration and compatibility.** All five versions advance to
+0.25.0. No API/job/plugin, chemistry, dependency, schema or migration change:
+Alembic0014, project/viewer/archive2 and normalized/selection/component1 remain.
+Selection results retain canonical atom references; expansion and anchors remain
+session state and are absent from archives/history/scenes/preferences. Original
+uploads remain byte-identical. Separate actual tagged0.24.1↔final0.25.0 readers retain
+rich state/history/jobs/originals/selections/scenes/surfaces and archives both ways.
+Both complete release phases must repeat this proof before publication. Rollback uses matching0.24.1 client/API and retained managed
+data; no schema downgrade. Portable archives retain current state, not Undo history.
+
+**Verification.** The clean final-version candidate passes all 20 release commands:
+**1,249 Python, 349 frontend, 8 supervisor and 331 browser tests**, 61 documented
+layout/timing exclusions, zero failures/flakes/retries/Python or required native
+scientific skips. Frozen installs, fresh 0014, static/types/build and actual
+tagged 0.24.1 ↔ final 0.25.0 readers pass. All 571 source identities and lossless
+log hashes verify. Both themes, keyboard/zoom/large lists, native picks and exact
+project/camera/request invariance pass. Earlier failed/interrupted attempts remain
+diagnostic, with no weakened limits or behavior. After user-confirmed AC, both
+unchanged tagged baseline and candidate pass responsiveness; the complete run
+records AC online throughout. Standard 1STP interaction 4,489 ms / longest task
+575 ms / zero refetches and all original native minimization budgets pass. Local
+full-diff review is implementer self-review; independent review is not claimed.
+Exact merged-master qualification and publication remain mandatory.
+
+**Scope and limitations.** Existing protein-chain components expand directly;
+a redundant additional chain level is rejected because components already encode
+source instances. The Sequence tab stays in its existing layout with only shared
+selection/label/coverage changes. Its horizontal strip, chain selector and relocation
+remain in [#95](https://github.com/ManuelSe/Neistra/issues/95); no duplicate follow-up
+is created. Missing residues/atoms or orphan residue membership are not inferred.
+Existing classification and scientific limits remain; this feature changes no
+molecular chemistry, preparation or physical model. No approved essential outcome
+is deferred. Stable minor SemVer reflects new navigation and selection capability
+with compatible public/data contracts; patch, major and prerelease do not fit.
+
 ## 0.24.1 - 2026-10-22 - Compact molecular toolbar
 
 Stable patch for [issue #93](https://github.com/ManuelSe/Neistra/issues/93), delivered through [PR#117](https://github.com/ManuelSe/Neistra/pull/117) [focus correction PR#118](https://github.com/ManuelSe/Neistra/pull/118) and [qualification PR#119](https://github.com/ManuelSe/Neistra/pull/119). Exact verified master: `d9bc489a0378b94d20fddae05588e2769b258caf`. The [approved contract](https://github.com/ManuelSe/Neistra/blob/d9bc489a0378b94d20fddae05588e2769b258caf/docs/plans/issue-93-compact-modeling-toolbar.md) governs scope.

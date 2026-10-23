@@ -1,0 +1,127 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - button "Projects" [ref=e5] [cursor=pointer]:
+      - generic [ref=e7] [cursor=pointer]: Neistra
+    - button "Selection gestures 1792761830793 Unsaved changes" [ref=e8] [cursor=pointer]:
+      - generic [ref=e9] [cursor=pointer]: Selection gestures 1792761830793
+    - generic [ref=e11]:
+      - button "Project browser" [ref=e12] [cursor=pointer]:
+        - img [ref=e13] [cursor=pointer]
+      - button "History" [ref=e18] [cursor=pointer]:
+        - img [ref=e19] [cursor=pointer]
+      - button "Inspector" [ref=e23] [cursor=pointer]:
+        - img [ref=e24] [cursor=pointer]
+      - button "Import structures" [ref=e26] [cursor=pointer]:
+        - img [ref=e27] [cursor=pointer]
+      - button "Export" [ref=e30] [cursor=pointer]:
+        - img [ref=e31] [cursor=pointer]
+      - button "Jobs" [ref=e37] [cursor=pointer]:
+        - img [ref=e38] [cursor=pointer]
+      - 'button "Undo: Update viewer settings for string" [ref=e42] [cursor=pointer]':
+        - img [ref=e43] [cursor=pointer]
+      - button "Redo" [disabled] [ref=e46]:
+        - img [ref=e47]
+      - button "Save checkpoint" [ref=e50] [cursor=pointer]:
+        - img [ref=e51] [cursor=pointer]
+      - button "Use dark theme" [ref=e55] [cursor=pointer]:
+        - img [ref=e56] [cursor=pointer]
+  - generic [ref=e58]:
+    - main [ref=e59]:
+      - generic [ref=e60]:
+        - region "3D molecular viewer" [ref=e61]:
+          - generic [ref=e65]:
+            - button "Select Animation" [ref=e73] [cursor=pointer]:
+              - img [ref=e75] [cursor=pointer]
+            - generic [ref=e78]:
+              - button "Reset Zoom" [ref=e81] [cursor=pointer]:
+                - img [ref=e83] [cursor=pointer]
+              - button "Screenshot / State Snapshot" [ref=e87] [cursor=pointer]:
+                - img [ref=e89] [cursor=pointer]
+              - generic [ref=e91]:
+                - button "Toggle Controls Panel" [ref=e93] [cursor=pointer]:
+                  - img [ref=e95] [cursor=pointer]
+                - button "Toggle Expanded Viewport" [ref=e98] [cursor=pointer]:
+                  - img [ref=e100] [cursor=pointer]
+                - button "Settings / Controls Info" [ref=e102] [cursor=pointer]:
+                  - img [ref=e104] [cursor=pointer]
+                - button "Illumination" [ref=e106] [cursor=pointer]:
+                  - img [ref=e108] [cursor=pointer]
+                - button "Augmented/Virtual Reality unavailable" [disabled] [ref=e110]:
+                  - img [ref=e112]
+              - button "Toggle Selection Mode" [ref=e117] [cursor=pointer]:
+                - img [ref=e119] [cursor=pointer]
+        - generic:
+          - status:
+            - generic: 1 visible / 1 loaded / 12 selected
+          - toolbar "Viewer quick actions" [ref=e121]:
+            - generic [ref=e122]: Pick
+            - generic [ref=e123]:
+              - generic [ref=e124]: Viewer picking mode
+              - combobox "Viewer picking mode" [ref=e125]:
+                - option "Atom" [selected]
+                - option "Residue"
+                - option "Chain"
+                - option "Structure"
+            - group "Viewer focus actions" [ref=e126]:
+              - button "Fit all visible" [ref=e127] [cursor=pointer]:
+                - img [ref=e128] [cursor=pointer]
+              - button "Focus selection" [ref=e129] [cursor=pointer]:
+                - img [ref=e130] [cursor=pointer]
+              - button "Focus visible ligands" [ref=e136] [cursor=pointer]:
+                - img [ref=e137] [cursor=pointer]
+              - button "Style selection" [ref=e140] [cursor=pointer]:
+                - img [ref=e141] [cursor=pointer]
+              - button "Interactions" [ref=e147] [cursor=pointer]:
+                - img [ref=e148] [cursor=pointer]
+          - group "Molecular tools" [ref=e153]:
+            - region "Transformation tools" [ref=e154]:
+              - button "Transform selection" [ref=e155] [cursor=pointer]:
+                - img [ref=e156] [cursor=pointer]
+            - button "Edit molecule" [ref=e162] [cursor=pointer]:
+              - img [ref=e163] [cursor=pointer]
+            - button "Minimize selection" [ref=e167] [cursor=pointer]:
+              - img [ref=e168] [cursor=pointer]
+        - button "Open viewer controls" [ref=e171] [cursor=pointer]:
+          - img [ref=e172] [cursor=pointer]
+    - button "Close panel" [ref=e176]
+    - dialog "Inspector panel" [ref=e177]:
+      - region "Project inspector" [ref=e178]:
+        - generic [ref=e180]:
+          - generic [ref=e181]: Inspector
+          - heading "Sequence" [level=2] [ref=e182]
+        - tablist "Inspector views" [ref=e183]:
+          - tab "selection" [ref=e184] [cursor=pointer]
+          - tab "inspect" [ref=e185] [cursor=pointer]
+          - tab "measurements" [ref=e186] [cursor=pointer]
+          - tab "transform" [ref=e187] [cursor=pointer]
+          - tab "ligand" [ref=e188] [cursor=pointer]
+          - tab "protein" [ref=e189] [cursor=pointer]
+          - tab "sequence" [selected] [ref=e190] [cursor=pointer]
+          - tab "details" [ref=e191] [cursor=pointer]
+        - tabpanel "sequence" [ref=e192]:
+          - generic [ref=e194]:
+            - heading "string" [level=3] [ref=e195]
+            - generic [ref=e196]:
+              - button "Chain A" [ref=e197] [cursor=pointer]
+              - generic [ref=e198]:
+                - button "GLY 10 · chain A in string" [ref=e199] [cursor=pointer]:
+                  - generic [ref=e200] [cursor=pointer]: G
+                  - generic [ref=e201] [cursor=pointer]: "10"
+                - button "GLY 10A · chain A in string" [pressed] [ref=e202] [cursor=pointer]:
+                  - generic [ref=e203] [cursor=pointer]: G
+                  - generic [ref=e204] [cursor=pointer]: 10A
+                - button "GLY 24 · chain A in string" [pressed] [ref=e205] [cursor=pointer]:
+                  - generic [ref=e206] [cursor=pointer]: G
+                  - generic [ref=e207] [cursor=pointer]: "24"
+                - button "GLY 3 · chain A in string" [active] [pressed] [ref=e208] [cursor=pointer]:
+                  - generic [ref=e209] [cursor=pointer]: G
+                  - generic [ref=e210] [cursor=pointer]: "3"
+            - generic [ref=e211]:
+              - button "Chain B" [ref=e212] [cursor=pointer]
+              - button "ALA 10 · chain B in string" [ref=e214] [cursor=pointer]:
+                - generic [ref=e215] [cursor=pointer]: A
+                - generic [ref=e216] [cursor=pointer]: "10"
+```

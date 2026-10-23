@@ -37,9 +37,12 @@ nonpickable placement preview, direction/rotation, Apply/Cancel and compact
 inspection controls. Deleting the last atom leaves an editable empty entry.
 Selection supports Ctrl/Cmd whole-entity toggling across the viewer and existing
 selection panels. In Atom mode, double-click expands to a protein residue or an
-assigned individual molecule. Shift adds inclusive protein-residue ranges from a
-fixed viewer anchor. See [selection gestures](docs/SELECTION_GESTURES.md) for
-modifiers, scope and fallback behavior. Mouse hover previews the current picking
+assigned individual molecule. Expand a protein-chain row in Components to browse
+its observed residues. Residue actions in Components, Sequence and eligible viewer
+picks share one fixed anchor; Shift adds inclusive ranges within the same source
+chain. Disclosures browse independently of selection. See
+[selection gestures](docs/SELECTION_GESTURES.md) for modifiers, scope and fallback
+behavior. Mouse hover previews the current picking
 mode without changing selection. Residue mode uses complete existing protein
 residues or assigned individual molecule components; hidden atoms stay hidden.
 

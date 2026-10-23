@@ -1,5 +1,46 @@
 # V0.1 Requirement Evidence
 
+## Protein residue browsing (issue #94) — candidate qualified
+
+The [approved contract](plans/issue-94-protein-residue-hierarchy.md) and D-144/145
+govern. [Candidate3](assets/protein-residue-hierarchy/c3-candidate3-gate.json) and
+[summary](assets/protein-residue-hierarchy/c3-candidate3-summary.json) pass every
+20-command release gate from clean final-version `c65ab0f`: **1,249 Python, 349
+frontend, 8 supervisor, 331 native browser tests**, 61 documented layout/timing
+exclusions, zero failures/flakes/retries/Python or required native scientific
+skips. The exclusion set is the prior 60 plus the new desktop-only residue-zoom
+case's mobile entry. All 571 source identities and lossless log hashes verify.
+Frozen dependencies, fresh Alembic 0014, Ruff/mypy/ESLint/TypeScript, production
+build and both actual tagged 0.24.1 ↔ final 0.25.0 readers pass. Exact originals,
+coordinates, selections/scenes/surfaces, history/jobs and archive remapping survive;
+anchors/expansion remain transient. Schemas and public contracts remain unchanged.
+
+[C1](assets/protein-residue-hierarchy/c1-final-gate.json) and
+[C2](assets/protein-residue-hierarchy/c2-final2-gate.json) independently qualify
+shared gestures, source-order boundaries, insertion codes, hidden-H membership,
+partial coverage, stale contexts, keyboard parents, remounts, scroll and exact
+project/camera/request invariance. Final candidate native workflows cover both
+themes, 320 px and actual 100%/200% zoom. Inspected final desktop-dark/mobile-light
+screenshots and raw browser reports are retained.
+
+Final 10,000-residue / 30,000-atom navigation ranges take 608.2/573.6 ms with
+195/183 ms longest tasks, 13/22 rows within 24/33 bounds and zero repeated reads.
+The property table is unmounted and the loaded entry hidden; this is navigation
+evidence, not general full-table or chemistry qualification. Standard 1STP
+interactions pass at 4,489 ms / 575 ms longest task / zero refetches. Existing
+native cold small/pocket/18k paint is 0.927/2.049/3.608 s, first frame 685.3 ms and
+Cancel 52.8 ms. All original budgets remain.
+
+Earlier incomplete attempts remain diagnostic. One obsolete exact Sequence name
+was corrected without changing assertions or behavior. The unchanged 1STP timing
+failure reproduces on tagged v0.24.1 and candidate on battery; after user-confirmed
+AC both pass unchanged focused repeats, followed by this complete clean gate.
+[Comparison](assets/protein-residue-hierarchy/c3-responsiveness-environment.json)
+records setup and limits; all 249 full-candidate power samples report AC online.
+No agent host-setting change or qualification exception is used. Local
+[full-diff review](assets/protein-residue-hierarchy/c3-review.md) is implementer
+self-review. Exact merged-master qualification and remote publication remain M4.
+
 ## Compact molecular toolbar (issue #93) — stable v0.24.1
 
 Issue [#93](https://github.com/ManuelSe/Neistra/issues/93) is implemented under its

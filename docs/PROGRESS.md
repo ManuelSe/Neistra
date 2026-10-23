@@ -2,6 +2,51 @@
 
 ## Current milestone
 
+Issue [#94](https://github.com/ManuelSe/Neistra/issues/94) is authorized for
+implementation and verified delivery by the user's 2026-10-23 `/goal` under its
+[approved contract](plans/issue-94-protein-residue-hierarchy.md), on
+`feat/issue-94-protein-residue-hierarchy`. C0 was committed/pushed and remotely
+verified at `b857f99`; D-144/145 govern the unchanged approved scope.
+
+M1/C1, M2/C2 and M3/C3 are complete. Existing protein-chain rows expand directly
+into virtual observed-residue lists; Components, Sequence and eligible viewer
+picks share complete membership and a fixed range anchor. Browsing, focus, camera
+and visibility retain separate ownership. D-144/145 record the accepted design.
+
+The [clean final-version candidate](assets/protein-residue-hierarchy/c3-candidate3-gate.json)
+on `c65ab0f` passes all 20 release commands: **1,249 Python, 349 frontend, 8
+supervisor and 331 browser tests**, 61 documented layout/timing exclusions, zero
+failures/flakes/retries/Python or required native scientific skips. Frozen
+installs, fresh 0014, static/types/build, actual tagged 0.24.1 ↔ final 0.25.0
+readers, all 571 source identities and log hashes pass. Originals, history,
+selections/scenes/surfaces/jobs and archive remapping remain compatible.
+
+The 10,000-residue navigation profile passes unchanged limits: desktop/mobile
+full range 608.2/573.6 ms, longest tasks 195/183 ms, bounded 13/22 mounted rows and
+zero repeated reads. Loaded hidden entry / unmounted property table context is
+explicit. Standard 1STP responsiveness and original native minimization budgets
+also pass. Earlier interrupted runs and battery comparisons remain diagnostic;
+user-confirmed AC restores passing unchanged baseline/candidate checks. All 249
+full-candidate power samples report AC online. No host settings or limits changed.
+
+All five authoritative versions are 0.25.0, a stable minor for added functionality
+with compatible contracts. No schema, migration, API/job/plugin, dependency or
+scientific-model changes. Existing scientific boundaries and #95's separate
+Sequence layout scope remain. No essential approved outcome is deferred and no
+new follow-up is needed. Final diff/screenshot review is implementer self-review.
+
+C3 is committed/pushed at `a42ced9`; [PR #121](https://github.com/ManuelSe/Neistra/pull/121)
+is open and mergeable against current `d3bac6f`. Codex review is requested but has
+not returned; local full-diff self-review has no consequential open finding. The
+[premerge audit](assets/protein-residue-hierarchy/c4-premerge-audit.json) records
+no required approval/check, protection/ruleset/workflow or unresolved thread and
+no override. Connector write permissions are insufficient; authenticated `gh`
+performs authorized writes through normal endpoints. No external blocker; v0.25.0
+is unused. Next: final policy/head/review check, normal merge, complete exact-master
+gate and verified publication/close-out before delayed cleanup.
+
+### Previous delivery baseline — v0.24.1
+
 Issue [#93](https://github.com/ManuelSe/Neistra/issues/93) is implemented under its
 [approved contract](plans/issue-93-compact-modeling-toolbar.md), normally merged in
 [PR#117](https://github.com/ManuelSe/Neistra/pull/117), [focus correction PR#118](https://github.com/ManuelSe/Neistra/pull/118) and

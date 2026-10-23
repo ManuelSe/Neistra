@@ -1258,6 +1258,8 @@ input[type="radio"] {
   border-color: var(--accent);
 }
 
+.residue-strip button[aria-pressed="mixed"] { border-style: dashed; }
+
 .residue-strip span {
   font-size: var(--text-sm);
   font-weight: 750;
@@ -3717,6 +3719,7 @@ div[data-radix-popper-content-wrapper]:has(.tooltip) {
 .hierarchy-row button[aria-pressed="true"], .hierarchy-row button[aria-pressed="mixed"] { background: var(--accent-soft); border-color: var(--accent); }
 .hierarchy-row button:hover { background: var(--surface-muted); }
 .hierarchy-row .icon-button, .hierarchy-disclosure { display: grid; place-items: center; width: 28px; height: 28px; min-width: 28px; flex-shrink: 0; border: 0; background: transparent; color: var(--text); }
+.hierarchy-row button[aria-pressed="mixed"] { border-style: dashed; }
 .hierarchy-indent { width: 28px; flex-shrink: 0; }
 .component-details { display: flex; flex-direction: column; max-height: calc(100dvh - 32px); }
 @media (any-pointer: coarse), (max-width: 840px) {

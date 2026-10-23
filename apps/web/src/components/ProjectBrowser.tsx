@@ -37,6 +37,7 @@ import { useGroupDrag } from "../groups/useGroupDrag";
 import type { DragEvent } from "react";
 import { emptySelection, selectionMode } from "../selection/selection";
 import { IconButton } from "./IconButton";
+import type { ResidueSelectionRequest } from "../selection/gestures";
 import { StructureHierarchy } from "./StructureHierarchy";
 import { EntryDetails } from "./EntryDetails";
 import { useNavigationStore } from "../store/navigation";
@@ -49,6 +50,7 @@ interface ProjectBrowserProps {
   selection?: Selection;
   selectedEntryIds?: Set<string>;
   onSelectEntries?: (entries: Entry[], mode: SelectionMode) => void;
+  onSelectResidue?: (request: ResidueSelectionRequest) => void;
   onSelectHierarchy?: (selection: Selection, mode: SelectionMode) => void;
   onHierarchyVisibility?: (
     entry: Entry,
@@ -78,6 +80,7 @@ type BrowserActions = Omit<
   | "selectedEntryIds"
   | "onSelectEntries"
   | "onSelectHierarchy"
+  | "onSelectResidue"
   | "onHierarchyVisibility"
   | "onCollapse"
   | "onMoveMembership"
@@ -238,6 +241,7 @@ export function ProjectBrowser({
   selection = emptySelection(),
   selectedEntryIds = new Set(),
   onSelectEntries,
+  onSelectResidue,
   onSelectHierarchy = () => undefined,
   onHierarchyVisibility = () => undefined,
   onCollapse,
@@ -485,7 +489,7 @@ export function ProjectBrowser({
     </div> : null}
     {project && inspected?.current_artifact_id ? <StructureHierarchy
       projectId={project.id} entry={inspected} selection={selection}
-      onSelect={onSelectHierarchy} onVisibility={onHierarchyVisibility} onFocusFallback={() => paneHeading.current?.focus()} onMinimumHeight={setComponentContentMinimum} />
+      onSelect={onSelectHierarchy} onSelectResidue={onSelectResidue} onVisibility={onHierarchyVisibility} onFocusFallback={() => paneHeading.current?.focus()} onMinimumHeight={setComponentContentMinimum} />
       : <p className="empty-label">{inspected ? "No normalized structure available" : "Choose an entry to browse components"}</p>}
   </section>;
   return <section ref={browserRoot} className="panel-content project-browser" aria-label="Project browser">

@@ -1,0 +1,11 @@
+{
+  "producer": "0.24.1",
+  "entries": 2,
+  "atomic_batch": true,
+  "jobs_unchanged": true,
+  "archive_sha256": "349b1d71f8fabeab497db412aa7116361ef65994ce6dcd7447ffb6f615abe5fe",
+  "api_module": "/tmp/neistra94-reader-0241/apps/api/src/molweave_api/main.py",
+  "core_module": "/tmp/neistra94-reader-0241/packages/molweave_core/src/molweave_core/__init__.py",
+  "application_version": "0.24.1",
+  "implementation_root": "/tmp/neistra94-reader-0241"
+}

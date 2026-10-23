@@ -6,6 +6,23 @@ Performance thresholds are regression gates on the pinned Playwright desktop
 Chromium host. They are not hardware-independent throughput promises or
 recommended maximum scientific system sizes.
 
+## Protein residue navigation (issue #94)
+
+The [C2 profile](assets/protein-residue-hierarchy/c2-final2-performance.json)
+uses10,000 synthetic observed residues/30,000 atoms in a loaded hidden entry, with
+the existing unvirtualized atom property table unmounted. Desktop/mobile
+expand-and-first selection213.6/161.5ms, endpoint focus81.6/55.0ms and complete
+range674.7/624.8ms meet the5s operation bounds. Longest tasks220/196ms meet the
+unchanged750ms bound. Mounted rows13/22 stay within24/33 viewport+overscan/focus
+bounds; repeated normalized reads0/0. This qualifies hierarchy navigation and
+canonical full membership, not general full-table throughput or protein chemistry.
+
+Failed native gates exposed quadratic summary, reference-validation and closed
+Edit eligibility scans. Immutable identity indexes and entry-local sets preserve
+exact selection semantics while removing those paths. The diagnostic CDP profile
+is not qualification; passing native runs disable profiling. Existing1STP,
+scientific, movement and surface budgets remain separately required for release.
+
 ## Selection gestures (issue #90)
 
 Issue #91 reuses those immutable membership indexes for canonical Residue targets.
@@ -549,3 +566,24 @@ explicit Cancel restoration≤500ms, and existing750ms longest-task limits. No
 algorithm, physics, context, iteration/time/resource limit or threshold is relaxed.
 Complete candidate and exact-master evidence remains required by the issue #93
 plan; checkpoint/preflight results do not qualify a release.
+
+
+### Issue #94 final-version candidate
+
+The [complete candidate gate](assets/protein-residue-hierarchy/c3-candidate3-gate.json)
+and [numeric summary](assets/protein-residue-hierarchy/c3-candidate3-summary.json)
+pass unchanged budgets. In the explicit loaded-hidden-entry / unmounted-property-
+table navigation context, 10,000 residues / 30,000 atoms give desktop/mobile
+full-range 608.2/573.6 ms, longest tasks 195/183 ms, 13/22 mounted rows within
+24/33 bounds and zero repeated reads. This does not qualify the unvirtualized
+property table. Existing representative 1STP interactions take 4,489 ms, longest
+task 575 ms, zero refetches. Cold quick native small/pocket/18k paint takes
+0.927/2.049/3.608 s; first actual frame 685.3 ms and Cancel 52.8 ms.
+
+Battery timing failures reproduce on the unchanged tagged v0.24.1 baseline and
+candidate. After the user connects AC, both pass unchanged focused repeats and
+the complete candidate passes; all 249 power samples report AC online. Exact
+[comparison](assets/protein-residue-hierarchy/c3-responsiveness-environment.json)
+and failures are retained. No host setting, fixture, assertion or limit is changed
+by the agent; no isolated causal claim or cross-environment speedup is made.
+Exact merged-runtime qualification remains required before publication.

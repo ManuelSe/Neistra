@@ -133,6 +133,24 @@ Use `.venv/bin/uv run pytest tests/scientific` for the chemistry/file-format
 suite and `corepack pnpm --dir apps/web test -- jobs` for a focused component
 run. Do not add `MOLWEAVE_ENABLE_TEST_ROUTES=1` to normal startup.
 
+## Protein residue navigation compatibility (0.25.0)
+
+Issue #94 changes frontend browsing/selection and release metadata only. No new
+migration or schema is introduced: head0014, project/viewer/archive2 and
+normalized/selection/component1 remain. Expansion and residue-range starts are
+session state; reopening a named selection/scene restores references without an
+anchor. Matching0.24.1 clients/APIs retain the qualified persisted data and archives;
+older interfaces do not gain new gesture-authoring behavior. Back up the complete
+managed directory before changing deployments. No schema downgrade is needed.
+
+Final compatibility qualification uses actual detached tagged0.24.1 modules and
+final0.25.0 modules in separate processes/stores, with explicit PYTHONPATH and
+`tests.support.selection_reader_qualification produce` then `read` in both
+directions. Supply `--implementation-root`, `--expected-version`, `--data-dir`,
+and `--evidence` for each process; metadata-only fixture assertions do not replace
+actual-reader execution. Candidate and exact-master results belong in the feature
+plan before claiming release compatibility.
+
 ## Configuration
 
 `MOLWEAVE_DATA_DIR` changes the managed root. `MOLWEAVE_DATABASE_URL` can

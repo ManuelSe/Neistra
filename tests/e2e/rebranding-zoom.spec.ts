@@ -1,7 +1,7 @@
 import { addOneHydrogen } from "./support/hydrogen";
 import { prepare } from "./support/interactions";
 import { browseComponents, showEntries } from "./support/navigation";
-import type { Project } from "../../apps/web/src/api/types";
+import type { Project, StructureProjection } from "../../apps/web/src/api/types";
 import AxeBuilder from "@axe-core/playwright";
 import { chromium, expect, test, type Page, type TestInfo, type Worker } from "@playwright/test";
 import { mkdtemp, writeFile } from "node:fs/promises";
@@ -430,5 +430,52 @@ test("keeps the molecular editor keyboard controls reachable at actual browser z
         await page.keyboard.press("Escape"); await expect(launcher).toBeFocused();
       }
     }
+  } finally { await context.close(); }
+});
+
+test("keeps expanded protein residues selectable at actual 100% and 200% browser zoom", async ({ request, baseURL }, info) => {
+  test.skip(info.project.name !== "chromium", "Actual desktop zoom; mobile residue navigation has separate native qualification.");
+  test.setTimeout(180000);
+  const extension = resolve("tests/e2e/support/zoom-extension");
+  const context = await chromium.launchPersistentContext(await mkdtemp(join(tmpdir(), "neistra-residue-zoom-")), {
+    channel: "chromium", headless: true, viewport: null, deviceScaleFactor: undefined, baseURL,
+    args: ["--window-size=1440,1000", `--disable-extensions-except=${extension}`, `--load-extension=${extension}`,
+      "--enable-webgl", "--ignore-gpu-blocklist", "--use-angle=swiftshader", "--enable-unsafe-swiftshader"],
+  });
+  try {
+    const worker = context.serviceWorkers()[0] ?? await context.waitForEvent("serviceworker");
+    const page = context.pages()[0]; page.setDefaultTimeout(15000);
+    const project = await prepare(page, request, ["tests/fixtures/complex/1stp.pdb"], "Residue browser zoom");
+    const entry = project.entries[0];
+    const projection: StructureProjection = await (await request.get(`/api/v1/projects/${project.id}/entries/${entry.id}/structure`)).json();
+    const component = projection.hierarchy.components.find(c => c.category === "protein")!;
+    const residue = projection.structure.residues.find(r => r.id === component.residue_ids[0])!;
+    const label = `${residue.name} ${residue.author_number ?? residue.label_number}${residue.insertion_code ?? ""}`;
+    const baseline = await (await request.get(`/api/v1/projects/${project.id}`)).json();
+    await browseComponents(page, entry.name);
+    await page.getByRole("button", { name: `Expand Protein in ${entry.name}`, exact: true }).click();
+    await page.getByRole("button", { name: `Expand ${component.display_label} in ${entry.name}`, exact: true }).click();
+    for (const theme of ["light", "dark"] as const) {
+      if (theme === "dark") await page.getByRole("button", { name: "Use dark theme", exact: true }).click();
+      for (const factor of [1, 2]) {
+        expect(await setZoom(worker, baseURL!, factor)).toBe(factor);
+        await expect.poll(() => page.evaluate(() => devicePixelRatio)).toBe(factor);
+        await expect.poll(() => page.evaluate(() => innerWidth)).toBe(1440 / factor);
+        if (factor === 2) { await page.getByRole("button", { name: "Project browser", exact: true }).click(); await page.getByRole("tab", { name: "Components", exact: true }).click(); }
+        const chain = page.getByRole("button", { name: `Select ${component.display_label} in ${entry.name}`, exact: true });
+        const button = page.getByRole("button", { name: `Select ${label} · ${component.display_label} in ${entry.name}`, exact: true });
+        await button.focus(); await expect(button).toBeFocused();
+        await page.keyboard.press("ArrowLeft"); await expect(chain).toBeFocused();
+        await page.keyboard.press("ArrowRight"); await expect(button).toBeFocused();
+        await button.press("Enter"); await expect(button).toHaveAttribute("aria-pressed", "true");
+        expect(await button.evaluate(node => { const b = node.getBoundingClientRect(); return b.x >= 0 && b.right <= innerWidth &&
+          b.y >= 0 && b.bottom <= innerHeight && node.contains(document.elementFromPoint(b.x + b.width / 2, b.y + b.height / 2)); })).toBe(true);
+        expect((await new AxeBuilder({ page }).include(".component-pane").withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"]).analyze()).violations).toEqual([]);
+        expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+        await captureZoomPage(page, info, `${theme}-${factor * 100}-residue-navigation.png`);
+        if (factor === 2) await page.keyboard.press("Escape");
+      }
+    }
+    expect(await (await request.get(`/api/v1/projects/${project.id}`)).json()).toEqual(baseline);
   } finally { await context.close(); }
 });
