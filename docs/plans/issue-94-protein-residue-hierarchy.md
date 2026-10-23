@@ -20,6 +20,7 @@ minimal shared-behavior changes to the existing Sequence tab.
 | Inspected and fast-forward-checked local/remote base | `d3bac6f85df840a8c45abb8177a88b2a7f5ea273` |
 | Feature branch | `feat/issue-94-protein-residue-hierarchy` |
 | PR title | `feat(selection): browse protein residues and share range selection` |
+| Implementation PR | [#121](https://github.com/ManuelSe/Neistra/pull/121), open at the premerge audit |
 | Merge strategy | Normal merge commit, preserving passing checkpoints |
 | Planned release | Stable **0.25.0** |
 | Proposed annotated tag | **v0.25.0** |
@@ -743,3 +744,29 @@ Commit the passing C3 evidence/documentation, push, then open the planned PR.
 M4 still requires remote review/policy checks, normal merge, all 20 commands on
 the exact merged runtime, annotated tag, stable release/public asset verification,
 issue close-out, documentation audit and delayed branch/worktree cleanup.
+
+
+### M4 / C4 premerge review and policy — 2026-10-23
+
+C3 evidence is committed/pushed at `a42ced9`; [PR #121](https://github.com/ManuelSe/Neistra/pull/121)
+is remotely verified open against current master, with the planned Conventional
+title, `Closes #94`, all implemented/simplified/deferred/rejected scope decisions,
+compatibility, scientific/performance limitations, release impact and immutable
+verification links. The connector permits reads but denies integration PR-write
+permission; existing authenticated `gh` creates/updates it through normal GitHub
+endpoints. This changes no repository protection or authorization.
+
+[Codex review request](https://github.com/ManuelSe/Neistra/pull/121#issuecomment-6369668475)
+is remotely verified. At the [premerge audit](../assets/protein-residue-hierarchy/c4-premerge-audit.json),
+no review has returned and no review thread exists. Independent review is not
+claimed. The complete local implementer review finds no consequential unresolved
+issue. GitHub reports a clean/mergeable current base/head, no master protection,
+ruleset, workflow, required approval, status or check run. The empty combined
+status's `pending` value does not represent a configured required check. No
+approval/check/protection override is used. All 571 source identities still match
+the complete candidate; all versions and release baseline remain final/available.
+
+This audit precedes its own docs-only commit. Recheck the actual head, policy,
+reviews and conversations, use the exact-head guard and normal merge preserving
+checkpoints, then fast-forward master. Repeat all 20 commands on the exact merged
+runtime before any tag/release. Publication and cleanup remain pending.

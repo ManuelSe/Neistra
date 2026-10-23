@@ -35,9 +35,15 @@ scientific-model changes. Existing scientific boundaries and #95's separate
 Sequence layout scope remain. No essential approved outcome is deferred and no
 new follow-up is needed. Final diff/screenshot review is implementer self-review.
 
-No external blocker. Fresh base remains `d3bac6f`; v0.25.0 is unused. Next: commit
-C3 evidence, open/review the PR, then complete M4 exact-master qualification and
-verified publication/close-out before delayed cleanup.
+C3 is committed/pushed at `a42ced9`; [PR #121](https://github.com/ManuelSe/Neistra/pull/121)
+is open and mergeable against current `d3bac6f`. Codex review is requested but has
+not returned; local full-diff self-review has no consequential open finding. The
+[premerge audit](assets/protein-residue-hierarchy/c4-premerge-audit.json) records
+no required approval/check, protection/ruleset/workflow or unresolved thread and
+no override. Connector write permissions are insufficient; authenticated `gh`
+performs authorized writes through normal endpoints. No external blocker; v0.25.0
+is unused. Next: final policy/head/review check, normal merge, complete exact-master
+gate and verified publication/close-out before delayed cleanup.
 
 ### Previous delivery baseline — v0.24.1
 
