@@ -2,7 +2,7 @@ import { useSelectionStore } from "../store/selection";
 import { canonicalSelection, emptySelection } from "../selection/selection";
 import type { SelectionMode } from "../api/types";
 import { beforeEach, describe, expect, it } from "vitest";
-import { DoubleClickSequence, doubleClickExpansion, gestureIndex, type SelectionStructure } from "../selection/gestures";
+import { DoubleClickSequence, doubleClickExpansion, gestureIndex, residueLabel, residuePosition, type ResidueSelectionRequest, type SelectionStructure } from "../selection/gestures";
 import { componentHierarchy, proteinStructure } from "./molecular-fixtures";
 
 const refs = (...ids: number[]) => ids.map(atom_id => ({ structure_id: "entry", atom_id }));
@@ -87,6 +87,10 @@ describe("application-owned fixed residue anchors", () => {
   const emit = (ids: number[], hit: number, mode: SelectionMode = "replace", shift = false, kind: "single" | "double" = "single") => {
     state().applyViewer(canonicalSelection(refs(...ids), kind === "double" ? "residue" : state().pickingGranularity, "viewer"),
       mode, { atoms: refs(hit), kind, shift }, context);
+  };
+  const panel = (residueId: number, mode: SelectionMode = "replace", shift = false, overrides: Partial<ResidueSelectionRequest> = {}) => {
+    state().applyResidue({ projectId: "project", projectEpoch: state().projectEpoch, entryId: "entry",
+      artifactId: "artifact", residueId, source: "sequence", mode, shift, ...overrides }, context);
   };
   beforeEach(() => {
     useSelectionStore.setState({ projectId: null, projectEpoch: 0, rangeAnchor: null, selection: emptySelection(), pickingGranularity: "atom" });
@@ -182,4 +186,86 @@ describe("application-owned fixed residue anchors", () => {
     state().applyViewer(canonicalSelection(refs(50, 51)), "add", { atoms: refs(50), kind: "single", shift: true }, { ...context, artifactId: "changed" });
     expect(state().rangeAnchor).toBeNull();
   });
+  it.each(["atom", "residue", "chain", "structure"] as const)("selects complete panel residues and ranges in %s picking mode", mode => {
+    state().setPickingGranularity(mode);
+    panel(5);
+    expect(state().selection.atoms).toEqual(refs(20, 21));
+    const start = state().rangeAnchor;
+    panel(2, "add", true);
+    expect(state().selection.atoms).toEqual(refs(20, 21, 40, 41, 50, 51));
+    panel(101, "add", true);
+    expect(state().selection.atoms).toEqual(refs(10, 11, 20, 21, 40, 41, 50, 51));
+    expect(state().rangeAnchor).toBe(start);
+    expect(state().selection.source).toBe("sequence");
+    expect(state().pickingGranularity).toBe(mode);
+  });
+
+  it("extends viewer starts from panels and panel starts from the viewer with correct result source", () => {
+    emit([20, 21], 20);
+    panel(2, "add", true);
+    expect(state().selection.atoms).toEqual(refs(20, 21, 40, 41, 50, 51));
+    expect(state().selection.source).toBe("sequence");
+    panel(101, "replace", false, { source: "project" });
+    emit([40, 41], 40, "add", true);
+    expect(state().selection.atoms).toEqual(refs(10, 11, 20, 21, 40, 41));
+    expect(state().selection.source).toBe("viewer");
+    expect(state().rangeAnchor?.residueId).toBe(101);
+  });
+
+  it("completes partial residues, toggles them off and preserves independent atoms", () => {
+    state().apply(canonicalSelection(refs(20, 60)));
+    panel(5, "toggle");
+    expect(state().selection.atoms).toEqual(refs(20, 21, 60));
+    expect(state().rangeAnchor?.residueId).toBe(5);
+    panel(5, "toggle");
+    expect(state().selection.atoms).toEqual(refs(60));
+    expect(state().rangeAnchor).toBeNull();
+    panel(5, "add", true);
+    expect(state().rangeAnchor).toBeNull();
+    panel(5, "subtract");
+    expect(state().selection.atoms).toEqual(refs(60));
+  });
+
+  it("never bridges a separate source instance or repeated chain label", () => {
+    panel(5);
+    panel(99, "add", true);
+    panel(77, "add", true);
+    expect(state().selection.atoms).toEqual(refs(20, 21, 30, 31, 60, 61));
+    expect(state().rangeAnchor?.residueId).toBe(5);
+    panel(88, "toggle", true);
+    expect(state().rangeAnchor?.residueId).toBe(5);
+  });
+
+  it("rejects retired project visits, artifacts, missing and nonprotein residues", () => {
+    panel(5);
+    const before = state();
+    for (const overrides of [{ projectId: "old" }, { projectEpoch: before.projectEpoch - 1 },
+      { artifactId: "old" }, { entryId: "other" }, { residueId: 900 }]) {
+      panel(2, "replace", false, overrides);
+      expect(state()).toBe(before);
+    }
+    const nonprotein = { ...source, hierarchy: { ...source.hierarchy, components: source.hierarchy.components.map(c => ({ ...c, category: "dna" as const })) } };
+    state().applyResidue({ projectId: "project", projectEpoch: before.projectEpoch, artifactId: "artifact", entryId: "entry",
+      residueId: 5, mode: "replace", source: "project", shift: false }, { ...context, source: nonprotein });
+    expect(state()).toBe(before);
+    state().setProject("elsewhere"); state().setProject("project");
+    panel(2, "replace", false, { projectEpoch: before.projectEpoch });
+    expect(state().selection.atoms).toEqual([]);
+  });
+
+  it("keeps a reused immutable structure independent from entry identity", () => {
+    const other = { ...context, source: { ...source, entryId: "other" } };
+    state().applyResidue({ projectId: "project", projectEpoch: state().projectEpoch, entryId: "other", artifactId: "artifact",
+      residueId: 5, mode: "replace", source: "project", shift: false }, other);
+    expect(state().selection.atoms).toEqual([20, 21].map(atom_id => ({ structure_id: "other", atom_id })));
+    expect(state().rangeAnchor?.entryId).toBe("other");
+  });
+
+  it("preserves author, label and internal identity without inventing numbering", () => {
+    const residue = source.normalized.residues[1];
+    expect(residueLabel(residue)).toBe("GLY 10A");
+    expect(residuePosition({ ...residue, author_number: null, label_number: 0 })).toBe("0A");
+    expect(residueLabel({ ...residue, name: "MSE", author_number: null, label_number: null })).toBe("MSE ID 5");
+  });
+
 });

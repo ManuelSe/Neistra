@@ -5746,3 +5746,16 @@ Alembic remains 0014; project/viewer/archive schemas remain 2 and
 normalized/selection/component schemas remain 1. Qualify exact membership,
 source boundaries, owned focus, both themes, keyboard/zoom, bounded large lists,
 unchanged native budgets and actual-reader retention before claiming delivery.
+
+
+### D-144 implementation authorization — issue #94, 2026-10-23
+
+The user's `/goal` authorizes implementation and verified delivery under the
+approved feature contract. C1 generalizes the atomic selection/anchor transition
+for explicit Sequence protein residues and preserves all existing viewer-mode
+and invalidation boundaries. Requests validate current project visit, entry and
+artifact before resolving cached normalized membership. The immutable index
+retains entry-independent residue membership so reusing an artifact for another
+entry cannot publish the original entry's atom references. This is application
+lookup state, not a new molecular/schema/API authority. Native/milestone evidence
+is recorded in the feature plan; no completion is inferred from authorization.

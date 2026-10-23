@@ -2,8 +2,8 @@
 
 ## 1. Status, authority, and outcome
 
-**Status:** approved implementation contract; C0 planning persistence only.
-Runtime implementation and delivery have not started.
+**Status:** approved implementation contract; implementation and verified delivery
+authorized by the user's `/goal` on 2026-10-23. M1/C1 is implemented and passes its focused gate; M2/C2 is next.
 
 **Approval:** the user's “Implement the plan.” on 2026-10-23 approves the complete
 proposal, including its mandatory C0 stop ready for `/goal`. This authorizes
@@ -484,3 +484,48 @@ new text follows repository naming policy; checkpoint/handoff metadata and
 whitespace checks pass. The complete documentation diff is reviewed before the
 required planning commit. Commit and remote-ref verification belong to the final
 handoff rather than a self-referential commit hash in this document.
+
+
+### Implementation authorization and C1 progress — 2026-10-23
+
+C0 completed at `b857f99af87f61bf5325ff00b2f7e1a33910275d`, pushed with the
+exact remote ref verified. The subsequent user `/goal` authorizes M1–M4 and
+verified delivery under this unchanged scope. The earlier C0-only stop is
+historical, not a restriction on the explicitly authorized implementation run.
+
+C1 implements owned explicit residue requests, shared atomic anchor transitions,
+indexed Sequence membership, insertion-code/ID labels and mixed coverage.
+Initial focused/static/build results pass:17 Python,86 focused/342 total frontend,
+Ruff, strict mypy102, ESLint, TypeScript and build. Native validation remains in
+progress. An initial new project-invariance assertion compared an immediate PUT
+response to a later GET; trace shows only SQLite timezone serialization differences,
+not a mutation. Use a GET baseline for exact GET-after comparison. Preserve the
+initial attempt as diagnostic and rerun on the corrected test source before
+claiming C1 completion. No threshold, scientific membership or production
+behavior is changed by that observation correction.
+
+
+### M1/C1 complete — 2026-10-23
+
+[Final gate](../assets/protein-residue-hierarchy/c1-final-gate.json) passes all10
+commands:17 Python,86 focused/342 total frontend, Ruff/strict mypy102/ESLint/
+TypeScript/build/diff and17 native browser workflows, with one existing mobile
+cross-layout exclusion and no failures or retries. Source identities remain
+unchanged through qualification; all lossless log hashes verify. Desktop/mobile
+native inputs prove fixed cross-interface ranges, hidden-H complete membership,
+partial feedback, exact camera/project/GET/request invariance and retained viewer
+behavior. Pure cases additionally prove all four picking modes, source boundaries,
+retired project visits/artifacts, modifier precedence and entry-independent indexes.
+[Implementer review](../assets/protein-residue-hierarchy/c1-review.md) records
+full-diff assessment and manual screenshot inspection; independent review is not
+claimed.
+
+[Initial gate](../assets/protein-residue-hierarchy/c1-initial-gate.json) is
+diagnostic:15 native passes,2 new-test failures,1 existing exclusion. Retained
+traces prove a PUT/GET timestamp serialization mismatch and the mobile background
+overlay being covered by its drawer. Final tests compare two GET snapshots and
+use the documented focused-panel Escape action. No runtime change, threshold
+relaxation, retries or scientific assertion reduction occurred during correction.
+C1 changes no schema, migration, API, dependencies, molecular files or application
+version. Next: C2 compact virtual Components residue browsing. Full final-version
+candidate/exact-master/reader/release gates remain mandatory C3/C4 work.

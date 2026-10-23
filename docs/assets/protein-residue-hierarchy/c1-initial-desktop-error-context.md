@@ -1,0 +1,323 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - button "Projects" [ref=e5] [cursor=pointer]:
+      - generic [ref=e7] [cursor=pointer]: Neistra
+    - button "Selection gestures 1792761756761 Unsaved changes" [ref=e8] [cursor=pointer]:
+      - generic [ref=e9] [cursor=pointer]: Selection gestures 1792761756761
+    - generic [ref=e11]:
+      - button "Import structures" [ref=e12] [cursor=pointer]:
+        - img [ref=e13] [cursor=pointer]
+      - button "Export" [ref=e16] [cursor=pointer]:
+        - img [ref=e17] [cursor=pointer]
+      - button "Jobs" [ref=e23] [cursor=pointer]:
+        - img [ref=e24] [cursor=pointer]
+      - 'button "Undo: Update viewer settings for string" [ref=e29] [cursor=pointer]':
+        - img [ref=e30] [cursor=pointer]
+      - button "Redo" [disabled] [ref=e33]:
+        - img [ref=e34]
+      - button "Save checkpoint" [ref=e37] [cursor=pointer]:
+        - img [ref=e38] [cursor=pointer]
+      - button "Use dark theme" [ref=e43] [cursor=pointer]:
+        - img [ref=e44] [cursor=pointer]
+  - status:
+    - generic: Recovered locally stored changes.
+    - button "Dismiss message" [ref=e46] [cursor=pointer]: Close
+  - generic [ref=e48]:
+    - region "Project browser" [ref=e50]:
+      - generic [ref=e51]:
+        - generic [ref=e52]:
+          - generic [ref=e53]: Project
+          - heading "Structures" [level=2] [ref=e54]
+        - button "New molecule" [ref=e55]
+        - button "Collapse project browser" [ref=e56] [cursor=pointer]:
+          - img [ref=e57] [cursor=pointer]
+      - generic [ref=e59]:
+        - generic [ref=e61]:
+          - generic [ref=e62]:
+            - generic [ref=e63]:
+              - img [ref=e64]
+              - generic [ref=e67]: Search structures
+              - textbox "Search structures" [ref=e68]
+            - group [ref=e69]:
+              - option "All types" [selected]
+              - option "Protein"
+              - option "Ligand"
+              - option "Complex"
+              - option "Solvent"
+              - option "Unknown"
+              - option "Name" [selected]
+              - option "Type"
+              - option "Atom count"
+              - option "Modified"
+          - generic [ref=e74]:
+            - img [ref=e76]
+            - button "string Modified" [pressed] [ref=e83] [cursor=pointer]:
+              - img [ref=e84] [cursor=pointer]
+              - generic [ref=e87] [cursor=pointer]: string
+              - generic [ref=e89] [cursor=pointer]: Modified
+            - generic [ref=e90]:
+              - button "Hide string" [ref=e91] [cursor=pointer]:
+                - img [ref=e92] [cursor=pointer]
+              - button "Lock string" [ref=e95] [cursor=pointer]:
+                - img [ref=e96] [cursor=pointer]
+              - button "Actions for string" [ref=e99] [cursor=pointer]:
+                - img [ref=e100] [cursor=pointer]
+        - separator "Resize entries and components" [ref=e104]
+        - region "Component browser" [ref=e106]:
+          - generic [ref=e107]:
+            - heading "Components" [level=3] [ref=e108]
+            - button "Collapse components" [ref=e109] [cursor=pointer]:
+              - img [ref=e110] [cursor=pointer]
+          - paragraph [ref=e112]: Choose an entry to browse components
+    - separator "Resize project browser" [ref=e113]
+    - generic [ref=e115]:
+      - main [ref=e117]:
+        - generic [ref=e118]:
+          - region "3D molecular viewer" [ref=e119]:
+            - generic [ref=e123]:
+              - button "Select Animation" [ref=e131] [cursor=pointer]:
+                - img [ref=e133] [cursor=pointer]
+              - generic [ref=e136]:
+                - button "Reset Zoom" [ref=e139] [cursor=pointer]:
+                  - img [ref=e141] [cursor=pointer]
+                - button "Screenshot / State Snapshot" [ref=e145] [cursor=pointer]:
+                  - img [ref=e147] [cursor=pointer]
+                - generic [ref=e149]:
+                  - button "Toggle Controls Panel" [ref=e151] [cursor=pointer]:
+                    - img [ref=e153] [cursor=pointer]
+                  - button "Toggle Expanded Viewport" [ref=e156] [cursor=pointer]:
+                    - img [ref=e158] [cursor=pointer]
+                  - button "Settings / Controls Info" [ref=e160] [cursor=pointer]:
+                    - img [ref=e162] [cursor=pointer]
+                  - button "Illumination" [ref=e164] [cursor=pointer]:
+                    - img [ref=e166] [cursor=pointer]
+                  - button "Augmented/Virtual Reality unavailable" [disabled] [ref=e168]:
+                    - img [ref=e170]
+                - button "Toggle Selection Mode" [ref=e175] [cursor=pointer]:
+                  - img [ref=e177] [cursor=pointer]
+          - generic:
+            - status:
+              - generic: 1 visible / 1 loaded / 11 selected
+            - toolbar "Viewer quick actions" [ref=e179]:
+              - generic [ref=e180]: Pick
+              - group "Viewer picking mode" [ref=e181]:
+                - button "Pick atoms" [pressed] [ref=e182] [cursor=pointer]: Atom
+                - button "Pick residues" [ref=e183] [cursor=pointer]: Residue
+                - button "Pick chains" [ref=e184] [cursor=pointer]: Chain
+                - button "Pick structures" [ref=e185] [cursor=pointer]: Structure
+              - group "Viewer focus actions" [ref=e186]:
+                - button "Fit all visible" [ref=e187] [cursor=pointer]:
+                  - img [ref=e188] [cursor=pointer]
+                - button "Focus selection" [ref=e189] [cursor=pointer]:
+                  - img [ref=e190] [cursor=pointer]
+                - button "Focus visible ligands" [ref=e196] [cursor=pointer]:
+                  - img [ref=e197] [cursor=pointer]
+                - button "Style selection" [ref=e200] [cursor=pointer]:
+                  - img [ref=e201] [cursor=pointer]
+                - button "Interactions" [ref=e207] [cursor=pointer]:
+                  - img [ref=e208] [cursor=pointer]
+            - group "Molecular tools" [ref=e213]:
+              - region "Transformation tools" [ref=e214]:
+                - button "Transform selection" [ref=e215] [cursor=pointer]:
+                  - img [ref=e216] [cursor=pointer]
+              - button "Edit molecule" [ref=e222] [cursor=pointer]:
+                - img [ref=e223] [cursor=pointer]
+              - button "Minimize selection" [ref=e227] [cursor=pointer]:
+                - img [ref=e228] [cursor=pointer]
+          - button "Open viewer controls" [ref=e231] [cursor=pointer]:
+            - img [ref=e232] [cursor=pointer]
+      - separator "Resize lower panel" [ref=e236]
+      - region "Properties and history" [ref=e238]:
+        - generic [ref=e239]:
+          - tablist "Lower panel views" [ref=e240]:
+            - tab "Properties" [selected] [ref=e241] [cursor=pointer]:
+              - img [ref=e242] [cursor=pointer]
+              - text: Properties
+            - tab "History" [ref=e244] [cursor=pointer]:
+              - img [ref=e245] [cursor=pointer]
+              - text: History
+            - tab "Jobs" [ref=e249] [cursor=pointer]:
+              - img [ref=e250] [cursor=pointer]
+              - text: Jobs
+          - button "Collapse lower panel" [ref=e254] [cursor=pointer]:
+            - img [ref=e255] [cursor=pointer]
+        - region "Selected atom properties" [ref=e257]:
+          - table [ref=e258]:
+            - rowgroup [ref=e259]:
+              - row "Structure Index Atom Element Residue Chain Charge X Y Z" [ref=e260]:
+                - cell "Structure" [ref=e261]
+                - cell "Index" [ref=e262]
+                - cell "Atom" [ref=e263]
+                - cell "Element" [ref=e264]
+                - cell "Residue" [ref=e265]
+                - cell "Chain" [ref=e266]
+                - cell "Charge" [ref=e267]
+                - cell "X" [ref=e268]
+                - cell "Y" [ref=e269]
+                - cell "Z" [ref=e270]
+            - rowgroup [ref=e271]:
+              - row "string 1 N N GLY 10 A - -16.500 0.000 0.000" [ref=e272] [cursor=pointer]:
+                - cell "string" [ref=e273] [cursor=pointer]
+                - cell "1" [ref=e274] [cursor=pointer]
+                - cell "N" [ref=e275] [cursor=pointer]
+                - cell "N" [ref=e276] [cursor=pointer]
+                - cell "GLY 10" [ref=e277] [cursor=pointer]
+                - cell "A" [ref=e278] [cursor=pointer]
+                - cell "-" [ref=e279] [cursor=pointer]
+                - cell "-16.500" [ref=e280] [cursor=pointer]
+                - cell "0.000" [ref=e281] [cursor=pointer]
+                - cell "0.000" [ref=e282] [cursor=pointer]
+              - row "string 2 CA C GLY 10 A - -15.000 0.000 0.000" [ref=e283] [cursor=pointer]:
+                - cell "string" [ref=e284] [cursor=pointer]
+                - cell "2" [ref=e285] [cursor=pointer]
+                - cell "CA" [ref=e286] [cursor=pointer]
+                - cell "C" [ref=e287] [cursor=pointer]
+                - cell "GLY 10" [ref=e288] [cursor=pointer]
+                - cell "A" [ref=e289] [cursor=pointer]
+                - cell "-" [ref=e290] [cursor=pointer]
+                - cell "-15.000" [ref=e291] [cursor=pointer]
+                - cell "0.000" [ref=e292] [cursor=pointer]
+                - cell "0.000" [ref=e293] [cursor=pointer]
+              - row "string 3 C C GLY 10 A - -13.500 0.000 0.000" [ref=e294] [cursor=pointer]:
+                - cell "string" [ref=e295] [cursor=pointer]
+                - cell "3" [ref=e296] [cursor=pointer]
+                - cell "C" [ref=e297] [cursor=pointer]
+                - cell "C" [ref=e298] [cursor=pointer]
+                - cell "GLY 10" [ref=e299] [cursor=pointer]
+                - cell "A" [ref=e300] [cursor=pointer]
+                - cell "-" [ref=e301] [cursor=pointer]
+                - cell "-13.500" [ref=e302] [cursor=pointer]
+                - cell "0.000" [ref=e303] [cursor=pointer]
+                - cell "0.000" [ref=e304] [cursor=pointer]
+              - row "string 4 H H GLY 10 A - -16.500 1.000 0.000" [ref=e305] [cursor=pointer]:
+                - cell "string" [ref=e306] [cursor=pointer]
+                - cell "4" [ref=e307] [cursor=pointer]
+                - cell "H" [ref=e308] [cursor=pointer]
+                - cell "H" [ref=e309] [cursor=pointer]
+                - cell "GLY 10" [ref=e310] [cursor=pointer]
+                - cell "A" [ref=e311] [cursor=pointer]
+                - cell "-" [ref=e312] [cursor=pointer]
+                - cell "-16.500" [ref=e313] [cursor=pointer]
+                - cell "1.000" [ref=e314] [cursor=pointer]
+                - cell "0.000" [ref=e315] [cursor=pointer]
+              - row "string 5 N N GLY 10 A - -6.500 0.000 0.000" [ref=e316] [cursor=pointer]:
+                - cell "string" [ref=e317] [cursor=pointer]
+                - cell "5" [ref=e318] [cursor=pointer]
+                - cell "N" [ref=e319] [cursor=pointer]
+                - cell "N" [ref=e320] [cursor=pointer]
+                - cell "GLY 10" [ref=e321] [cursor=pointer]
+                - cell "A" [ref=e322] [cursor=pointer]
+                - cell "-" [ref=e323] [cursor=pointer]
+                - cell "-6.500" [ref=e324] [cursor=pointer]
+                - cell "0.000" [ref=e325] [cursor=pointer]
+                - cell "0.000" [ref=e326] [cursor=pointer]
+              - row "string 6 CA C GLY 10 A - -5.000 0.000 0.000" [ref=e327] [cursor=pointer]:
+                - cell "string" [ref=e328] [cursor=pointer]
+                - cell "6" [ref=e329] [cursor=pointer]
+                - cell "CA" [ref=e330] [cursor=pointer]
+                - cell "C" [ref=e331] [cursor=pointer]
+                - cell "GLY 10" [ref=e332] [cursor=pointer]
+                - cell "A" [ref=e333] [cursor=pointer]
+                - cell "-" [ref=e334] [cursor=pointer]
+                - cell "-5.000" [ref=e335] [cursor=pointer]
+                - cell "0.000" [ref=e336] [cursor=pointer]
+                - cell "0.000" [ref=e337] [cursor=pointer]
+              - row "string 7 C C GLY 10 A - -3.500 0.000 0.000" [ref=e338] [cursor=pointer]:
+                - cell "string" [ref=e339] [cursor=pointer]
+                - cell "7" [ref=e340] [cursor=pointer]
+                - cell "C" [ref=e341] [cursor=pointer]
+                - cell "C" [ref=e342] [cursor=pointer]
+                - cell "GLY 10" [ref=e343] [cursor=pointer]
+                - cell "A" [ref=e344] [cursor=pointer]
+                - cell "-" [ref=e345] [cursor=pointer]
+                - cell "-3.500" [ref=e346] [cursor=pointer]
+                - cell "0.000" [ref=e347] [cursor=pointer]
+                - cell "0.000" [ref=e348] [cursor=pointer]
+              - row "string 8 H H GLY 10 A - -6.500 1.000 0.000" [ref=e349] [cursor=pointer]:
+                - cell "string" [ref=e350] [cursor=pointer]
+                - cell "8" [ref=e351] [cursor=pointer]
+                - cell "H" [ref=e352] [cursor=pointer]
+                - cell "H" [ref=e353] [cursor=pointer]
+                - cell "GLY 10" [ref=e354] [cursor=pointer]
+                - cell "A" [ref=e355] [cursor=pointer]
+                - cell "-" [ref=e356] [cursor=pointer]
+                - cell "-6.500" [ref=e357] [cursor=pointer]
+                - cell "1.000" [ref=e358] [cursor=pointer]
+                - cell "0.000" [ref=e359] [cursor=pointer]
+              - row "string 17 N N ALA 10 B - -1.500 12.000 0.000" [ref=e360] [cursor=pointer]:
+                - cell "string" [ref=e361] [cursor=pointer]
+                - cell "17" [ref=e362] [cursor=pointer]
+                - cell "N" [ref=e363] [cursor=pointer]
+                - cell "N" [ref=e364] [cursor=pointer]
+                - cell "ALA 10" [ref=e365] [cursor=pointer]
+                - cell "B" [ref=e366] [cursor=pointer]
+                - cell "-" [ref=e367] [cursor=pointer]
+                - cell "-1.500" [ref=e368] [cursor=pointer]
+                - cell "12.000" [ref=e369] [cursor=pointer]
+                - cell "0.000" [ref=e370] [cursor=pointer]
+              - row "string 18 CA C ALA 10 B - 0.000 12.000 0.000" [ref=e371] [cursor=pointer]:
+                - cell "string" [ref=e372] [cursor=pointer]
+                - cell "18" [ref=e373] [cursor=pointer]
+                - cell "CA" [ref=e374] [cursor=pointer]
+                - cell "C" [ref=e375] [cursor=pointer]
+                - cell "ALA 10" [ref=e376] [cursor=pointer]
+                - cell "B" [ref=e377] [cursor=pointer]
+                - cell "-" [ref=e378] [cursor=pointer]
+                - cell "0.000" [ref=e379] [cursor=pointer]
+                - cell "12.000" [ref=e380] [cursor=pointer]
+                - cell "0.000" [ref=e381] [cursor=pointer]
+              - row "string 19 C C ALA 10 B - 1.500 12.000 0.000" [ref=e382] [cursor=pointer]:
+                - cell "string" [ref=e383] [cursor=pointer]
+                - cell "19" [ref=e384] [cursor=pointer]
+                - cell "C" [ref=e385] [cursor=pointer]
+                - cell "C" [ref=e386] [cursor=pointer]
+                - cell "ALA 10" [ref=e387] [cursor=pointer]
+                - cell "B" [ref=e388] [cursor=pointer]
+                - cell "-" [ref=e389] [cursor=pointer]
+                - cell "1.500" [ref=e390] [cursor=pointer]
+                - cell "12.000" [ref=e391] [cursor=pointer]
+                - cell "0.000" [ref=e392] [cursor=pointer]
+    - separator "Resize inspector" [ref=e393]
+    - region "Project inspector" [ref=e395]:
+      - generic [ref=e396]:
+        - generic [ref=e397]:
+          - generic [ref=e398]: Inspector
+          - heading "Sequence" [level=2] [ref=e399]
+        - button "Collapse inspector" [ref=e400] [cursor=pointer]:
+          - img [ref=e401] [cursor=pointer]
+      - tablist "Inspector views" [ref=e403]:
+        - tab "selection" [ref=e404] [cursor=pointer]
+        - tab "inspect" [ref=e405] [cursor=pointer]
+        - tab "measurements" [ref=e406] [cursor=pointer]
+        - tab "transform" [ref=e407] [cursor=pointer]
+        - tab "ligand" [ref=e408] [cursor=pointer]
+        - tab "protein" [ref=e409] [cursor=pointer]
+        - tab "sequence" [selected] [ref=e410] [cursor=pointer]
+        - tab "details" [ref=e411] [cursor=pointer]
+      - tabpanel "sequence" [ref=e412]:
+        - generic [ref=e414]:
+          - heading "string" [level=3] [ref=e415]
+          - generic [ref=e416]:
+            - button "Chain A" [ref=e417] [cursor=pointer]
+            - generic [ref=e418]:
+              - button "GLY 10 · chain A in string" [pressed] [ref=e419] [cursor=pointer]:
+                - generic [ref=e420] [cursor=pointer]: G
+                - generic [ref=e421] [cursor=pointer]: "10"
+              - button "GLY 10A · chain A in string" [pressed] [ref=e422] [cursor=pointer]:
+                - generic [ref=e423] [cursor=pointer]: G
+                - generic [ref=e424] [cursor=pointer]: 10A
+              - button "GLY 24 · chain A in string" [ref=e425] [cursor=pointer]:
+                - generic [ref=e426] [cursor=pointer]: G
+                - generic [ref=e427] [cursor=pointer]: "24"
+              - button "GLY 3 · chain A in string" [ref=e428] [cursor=pointer]:
+                - generic [ref=e429] [cursor=pointer]: G
+                - generic [ref=e430] [cursor=pointer]: "3"
+          - generic [ref=e431]:
+            - button "Chain B" [ref=e432] [cursor=pointer]
+            - button "ALA 10 · chain B in string" [active] [pressed] [ref=e434] [cursor=pointer]:
+              - generic [ref=e435] [cursor=pointer]: A
+              - generic [ref=e436] [cursor=pointer]: "10"
+```

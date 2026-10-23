@@ -1,5 +1,20 @@
 # V0.1 Requirement Evidence
 
+## Protein residue browsing (issue #94) — implementation in progress
+
+The [approved contract](plans/issue-94-protein-residue-hierarchy.md) governs.
+[C1 final](assets/protein-residue-hierarchy/c1-final-gate.json) passes17 Python,
+86 focused/342 frontend, static/type/build/diff checks and17 native browser cases,
+one existing mobile layout exclusion, no failures/retries. Exact source/log hashes
+verify. Shared Sequence/viewer residue starts, hidden-H membership, partial coverage,
+source boundaries, retired context and camera/project/request invariance pass.
+[Initial diagnostics](assets/protein-residue-hierarchy/c1-initial-gate.json) retain
+two test-observation failures; final qualification uses exact GET snapshots and
+focused-panel Escape without production or threshold changes. This is C1 evidence,
+not release qualification. C2 hierarchy browsing and C3/C4 final-version/actual-reader/
+exact-master/publication gates remain pending. D-144/145 apply; versions0.24.1,
+schemas/migration/API/dependencies unchanged. Review is implementer self-review.
+
 ## Compact molecular toolbar (issue #93) — stable v0.24.1
 
 Issue [#93](https://github.com/ManuelSe/Neistra/issues/93) is implemented under its

@@ -1,5 +1,9 @@
 # Selection gestures
 
+Issue #94 C1 extends explicit protein-residue actions in the existing Sequence
+tab to the shared fixed anchor, insertion-code labels and partial coverage.
+Components residue browsing and final release qualification remain pending.
+
 Whole-entity toggle, double-click expansion and viewer residue ranges were added
 in0.22.0. Picking-mode hover and complete individual-molecule Residue alignment
 are corrected in0.22.1; see the issue #91 plan for qualification/publication status.
@@ -16,7 +20,7 @@ when changing projects or reloading.
 | --- | --- |
 | Click | Replace with the picked entity. |
 | Ctrl-click / Cmd-click | Remove a fully selected entity; otherwise add its complete membership. |
-| Shift-click | Add the entity, or an eligible viewer protein-residue range. |
+| Shift-click | Add the entity, or an eligible protein-residue range. |
 | Alt-click | Subtract the entity. |
 
 The viewer uses the active Atom, Residue, Chain, or Structure picking mode. Project
@@ -95,10 +99,18 @@ artifact changes, or removal of any start-residue atom clear the start. Responsi
 viewer remounts preserve a still-valid start; reload clears it. Changing the camera
 or explicitly fitting the view does not change this application selection state.
 
-The project browser, Components panel and existing Sequence tab share toggling and
-selection highlighting. They do not establish range starts or implement range
-gestures in this issue. Additive/subtractive/toggle panel actions preserve a start
-only while its complete residue remains selected. Loading a saved selection or
+The existing Sequence tab's explicit protein-residue buttons share the fixed start
+with the viewer. They select complete observed residues in every picking mode;
+plain activation or Ctrl/Cmd toggle-on without Shift establishes a start. Shift
+adds an inclusive same-entry/component/chain range or only the clicked residue
+when no matching start exists. Shift and Alt never establish or advance a start.
+Selection feedback distinguishes complete, partial and unselected membership.
+Labels retain insertion codes and identify an internal-ID fallback explicitly.
+
+Project-browser and category/component actions retain their ordinary operands.
+Additive/subtractive/toggle actions preserve a start only while its complete
+residue remains selected. Components residue browsing is separately pending C2
+of the [issue #94 contract](plans/issue-94-protein-residue-hierarchy.md). Loading a saved selection or
 scene restores its references without establishing a range start. No anchor is
 stored in a selection, scene, project archive, preferences or edit history.
 
