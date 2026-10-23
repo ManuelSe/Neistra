@@ -26,9 +26,11 @@ repairs remove downstream summary/reconciliation/closed-Edit quadratic scans.
 
 Known limitations: final-version actual readers, complete candidate/exact-master
 release gates and publication remain C3/C4. Existing scientific boundaries and
-#95's separate sequence-layout scope remain. No external blocker. All five versions
-remain0.24.1; planned stable minor0.25.0, schemas/head/API/dependencies unchanged.
-Next: commit this passing C2 checkpoint, prepare0.25.0 and complete C3 qualification.
+#95's separate sequence-layout scope remain. No external blocker. C2 is committed at `f5d1a75`. All five authoritative versions are now0.25.0;
+metadata/dependency audit and36 archive tests pass, including prior0.24.1 producer
+coverage. Schemas/head/API/dependencies remain unchanged. The actual tagged0.24.1
+reader checkout is prepared. Next: commit release preparation, freeze source and
+run the complete20-step candidate gate; exact-master/publication remain C4.
 
 ### Previous delivery baseline — v0.24.1
 

@@ -594,3 +594,22 @@ are unchanged by the bounded summary/reconciliation/Edit eligibility lookup
 repairs. No API, molecular artifact, schema/migration, dependency or application
 version change occurs in C2. Next: C3 final-version actual-reader and complete
 candidate qualification, then C4 verified merge/publication/close-out.
+
+
+### C3 release preparation — 2026-10-23
+
+C2 committed as `f5d1a75`. Fresh origin fetch still has master`d3bac6f`, already an
+ancestor of this branch; no unrelated upstream work needs integration. Remote
+stable latest remains0.24.1 and v0.25.0 is unused. All five authoritative sources
+advance together to0.25.0 without dependency resolution or schema changes. Add an
+explicit0.24.1 archive-producer regression while retaining historical producer
+coverage. Release/migration/rollback/scope notes are prepared as candidate text;
+actual-reader and complete clean candidate/exact-master gates remain pending.
+
+
+Release-preparation focused verification passes: all five versions0.25.0,
+unchanged dependency resolution/native tools/patches/API schemas/migrations,
+production harness exclusion,36 archive tests (including0.24.1 producer) and
+whitespace checks. Actual tagged0.24.1 reader checkout is detached at`d9bc489`.
+These checks authorize a coherent release-preparation commit, not publication;
+complete clean final-version candidate and exact-master gates remain mandatory.
