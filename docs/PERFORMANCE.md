@@ -566,3 +566,24 @@ explicit Cancel restoration≤500ms, and existing750ms longest-task limits. No
 algorithm, physics, context, iteration/time/resource limit or threshold is relaxed.
 Complete candidate and exact-master evidence remains required by the issue #93
 plan; checkpoint/preflight results do not qualify a release.
+
+
+### Issue #94 final-version candidate
+
+The [complete candidate gate](assets/protein-residue-hierarchy/c3-candidate3-gate.json)
+and [numeric summary](assets/protein-residue-hierarchy/c3-candidate3-summary.json)
+pass unchanged budgets. In the explicit loaded-hidden-entry / unmounted-property-
+table navigation context, 10,000 residues / 30,000 atoms give desktop/mobile
+full-range 608.2/573.6 ms, longest tasks 195/183 ms, 13/22 mounted rows within
+24/33 bounds and zero repeated reads. This does not qualify the unvirtualized
+property table. Existing representative 1STP interactions take 4,489 ms, longest
+task 575 ms, zero refetches. Cold quick native small/pocket/18k paint takes
+0.927/2.049/3.608 s; first actual frame 685.3 ms and Cancel 52.8 ms.
+
+Battery timing failures reproduce on the unchanged tagged v0.24.1 baseline and
+candidate. After the user connects AC, both pass unchanged focused repeats and
+the complete candidate passes; all 249 power samples report AC online. Exact
+[comparison](assets/protein-residue-hierarchy/c3-responsiveness-environment.json)
+and failures are retained. No host setting, fixture, assertion or limit is changed
+by the agent; no isolated causal claim or cross-environment speedup is made.
+Exact merged-runtime qualification remains required before publication.

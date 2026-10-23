@@ -8,40 +8,36 @@ implementation and verified delivery by the user's 2026-10-23 `/goal` under its
 `feat/issue-94-protein-residue-hierarchy`. C0 was committed/pushed and remotely
 verified at `b857f99`; D-144/145 govern the unchanged approved scope.
 
-M1/C1 and M2/C2 are complete. Shared explicit residue actions, Sequence
-insertion-code/partial feedback, expandable protein-chain residue rows, transient
-expansion/scroll and parent-aware keyboard navigation are implemented. C1 is
-committed/pushed at `a6dd5c5`. The
-[C2 final gate](assets/protein-residue-hierarchy/c2-final2-gate.json) passes17
-Python/125 focused/349 frontend, static/type/build/diff,16 native workflows with4
-existing layout exclusions and one actual100%/200%zoom case, zero failures/flakes/
-retries. Source/log hashes verify; implementer full-diff review and inspected
-screenshots are retained. Initial failed attempts remain diagnostic.
+M1/C1, M2/C2 and M3/C3 are complete. Existing protein-chain rows expand directly
+into virtual observed-residue lists; Components, Sequence and eligible viewer
+picks share complete membership and a fixed range anchor. Browsing, focus, camera
+and visibility retain separate ownership. D-144/145 record the accepted design.
 
-The10,000-residue/30,000-atom navigation profile passes unchanged budgets:
-desktop/mobile full range674.7/624.8ms, longest tasks220/196ms, bounded13/22 rows
-and zero repeated reads. The hidden loaded entry/closed atom-table context is
-explicit; no full-table or chemistry claim. Necessary bounded identity-index/set
-repairs remove downstream summary/reconciliation/closed-Edit quadratic scans.
+The [clean final-version candidate](assets/protein-residue-hierarchy/c3-candidate3-gate.json)
+on `c65ab0f` passes all 20 release commands: **1,249 Python, 349 frontend, 8
+supervisor and 331 browser tests**, 61 documented layout/timing exclusions, zero
+failures/flakes/retries/Python or required native scientific skips. Frozen
+installs, fresh 0014, static/types/build, actual tagged 0.24.1 ↔ final 0.25.0
+readers, all 571 source identities and log hashes pass. Originals, history,
+selections/scenes/surfaces/jobs and archive remapping remain compatible.
 
-All five authoritative versions are 0.25.0; metadata/dependency and 36 archive
-tests pass. The separate actual tagged 0.24.1 ↔ final 0.25.0 reader gate passes
-rich state, selections/scenes/surfaces/history/originals/jobs and archive remapping
-both ways. No schema, migration, API, dependency or scientific model changes.
+The 10,000-residue navigation profile passes unchanged limits: desktop/mobile
+full range 608.2/573.6 ms, longest tasks 195/183 ms, bounded 13/22 mounted rows and
+zero repeated reads. Loaded hidden entry / unmounted property table context is
+explicit. Standard 1STP responsiveness and original native minimization budgets
+also pass. Earlier interrupted runs and battery comparisons remain diagnostic;
+user-confirmed AC restores passing unchanged baseline/candidate checks. All 249
+full-candidate power samples report AC online. No host settings or limits changed.
 
-C3 remains pending. Two incomplete full attempts retain diagnostics: first a
-corrected contextual Sequence locator; second the unchanged 5 s representative
-1STP timing gate. Full Python (1,249), frontend (349), supervisor (8), build and
-static checks pass; second attempt reaches 129 browser passes, including new
-residue/zoom and corrected journey cases. Battery repeats also fail on actual
-v0.24.1. After the user connects AC, the unchanged baseline passes twice and
-candidate three times with zero refetches and <750 ms tasks. No limit or assertion
-changed. See the feature plan's exact evidence/environment comparison.
+All five authoritative versions are 0.25.0, a stable minor for added functionality
+with compatible contracts. No schema, migration, API/job/plugin, dependency or
+scientific-model changes. Existing scientific boundaries and #95's separate
+Sequence layout scope remain. No essential approved outcome is deferred and no
+new follow-up is needed. Final diff/screenshot review is implementer self-review.
 
-Known limitations: existing scientific boundaries, navigation-only large-fixture
-context and #95's separate layout scope remain. No external blocker remains after
-AC qualification. Next: freeze the passing focused/evidence checkpoint and restart
-every clean 20-command candidate gate; exact-master/publication remain C4.
+No external blocker. Fresh base remains `d3bac6f`; v0.25.0 is unused. Next: commit
+C3 evidence, open/review the PR, then complete M4 exact-master qualification and
+verified publication/close-out before delayed cleanup.
 
 ### Previous delivery baseline — v0.24.1
 

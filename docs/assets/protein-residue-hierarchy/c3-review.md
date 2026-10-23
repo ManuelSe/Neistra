@@ -58,3 +58,25 @@ are retained. README guidance is corrected to the approved shared anchor. This
 focused/evidence state was reviewed locally; no full-release qualification or
 independent review is claimed. Complete clean candidate and exact-master gates
 remain mandatory.
+
+## Final candidate review — 2026-10-23
+
+Reviewed the final complete diff again after candidate3, including all runtime,
+test, version, documentation and guarded evidence/publication tooling changes.
+All 571 source identities match the complete clean gate on c65ab0f; only evidence
+and documentation are added afterward. The shared reducer, context guards,
+entry-independent immutable indexes, normalized source ordering, native list
+virtualization and current callbacks preserve the accepted boundaries. No new
+wire schema, migration, scientific model, dependency, renderer authority or
+durable browsing state appears. No unused production pathway or accidental
+Sequence redesign is introduced. Required native/scientific checks and original
+performance limits pass. The prior exclusion set is unchanged apart from the new
+desktop-only zoom case's mobile entry. All failed attempts remain diagnostic.
+
+Inspected final desktop-dark and mobile-light screenshots: direct chain-to-residue
+expansion, insertion code 10A, full/partial feedback, independent disclosure and
+compact controls are visible. Exact reader, source/log integrity, release scope
+and rollback statements agree with the evidence. README's obsolete viewer-only
+anchor wording is corrected. No consequential unresolved finding remains from
+this implementer self-review; independent approval is not claimed. Remote PR
+review/policy audit and exact merged-master qualification still gate publication.

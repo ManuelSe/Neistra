@@ -453,3 +453,14 @@ actual Chrome100/125/150/200% zoom using the extension zoom API, with scoped axe
 Recorded checkpoint/release evidence distinguishes passing runs from diagnostics.
 Qualification is Chromium/SwiftShader and Pixel7 emulation, not physical devices or
 whole-product/screen-reader atom accessibility.
+
+
+The issue #94 [complete candidate](assets/protein-residue-hierarchy/c3-candidate3-gate.json)
+passes expanded residue workflows in both themes and desktop/mobile layouts,
+320 px controls, parent/child keyboard focus, mixed/full feedback, retained focus
+and actual 100%/200% desktop browser zoom. Representative automated accessibility
+checks pass in both themes for their tested scopes. Final candidate screenshots
+retain disclosure/selection separation, source numbering/insertion labels and
+compact 32 px fine / 44 px coarse controls. This is tested-scope evidence, not a
+claim that every application state has been audited. Exact-master evidence follows
+before publication.

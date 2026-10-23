@@ -3,7 +3,7 @@
 ## 1. Status, authority, and outcome
 
 **Status:** approved implementation contract; implementation and verified delivery
-authorized by the user's `/goal` on 2026-10-23. M1/C1 and M2/C2 are implemented and pass their focused gates; M3/C3 is next.
+authorized by the user's `/goal` on 2026-10-23. M1/C1, M2/C2 and M3/C3 are complete. M4/C4 review, merge and verified publication remain.
 
 **Approval:** the user's “Implement the plan.” on 2026-10-23 approves the complete
 proposal, including its mandatory C0 stop ready for `/goal`. This authorizes
@@ -694,3 +694,52 @@ previous release workflow, parse successfully and enforce completed clean gates,
 source/log hashes, unchanged exclusion sets plus the desktop-only residue-zoom
 exclusion, exact runtime tag and public asset integrity. They do not publish or
 claim future results merely by being present.
+
+
+### M3 / C3 complete — clean final-version candidate, 2026-10-23
+
+[Candidate3 manifest](../assets/protein-residue-hierarchy/c3-candidate3-gate.json)
+and [audited summary](../assets/protein-residue-hierarchy/c3-candidate3-summary.json)
+qualify clean commit `c65ab0f9f56a79ffcc71eb64f8d70dff50bb9b32`: **all 20 release
+commands pass**, including frozen Python/JS installs, fresh migration through 0014,
+Ruff, mypy (102 files), ESLint, TypeScript, **1,249 Python / 349 frontend / 8
+supervisor / 331 browser tests**, production build, both actual tagged v0.24.1 ↔
+final v0.25.0 producer/reader directions, five-version/dependency/harness audit
+and whitespace checks. Zero failures, flakes, retries, Python or required native
+scientific skips. The 61 browser exclusions are exactly the prior release's 60
+plus the new desktop-only actual-residue-zoom case's mobile entry; each reason is
+retained in the summary and raw report. Both layouts' residue workflows run.
+
+All **571** runtime/test/tool/patch/lock identities remain unchanged; source digest
+`1a8d90cfcac3270dd8592868158cfbfbcd0c60285e5191b0b7bd9971d3a06198` and every
+lossless log hash verify. All 249 recorded power samples report AC online. No
+agent changed host settings. Earlier incomplete runs remain diagnostic, with
+limits/fixtures/assertions unchanged. The corrected journey and representative
+1STP timing test pass in this complete run: 4,489 ms interactions, 575 ms longest
+task and zero structure refetches.
+
+The 10,000-residue / 30,000-atom navigation fixture selects exact full membership
+in 608.2 / 573.6 ms (desktop/mobile), longest tasks 195 / 183 ms, mounted rows
+13 / 22 within bounds 24 / 33, and zero repeated reads. Its loaded hidden entry
+and unmounted property table remain explicit limitations of that profile.
+Existing native quick small/pocket/18k cold paint passes at 0.927 / 2.049 / 3.608 s;
+first actual frame 685.3 ms and Cancel 52.8 ms, within all original budgets.
+
+Actual readers preserve exact rich state, canonical saved references and scenes,
+all conformers/originals, appearance, three surface objects, jobs, Undo/Redo and
+archive remapping both ways. No new schema/migration/API/job/plugin/science or
+dependency change; portable archives still omit Undo history. All five versions
+are 0.25.0. Expansion and anchors remain transient.
+
+Final local full-diff self-review covers all runtime/test/version/doc/evidence
+changes and finds no consequential unresolved issue; it is not independent
+approval. Inspected final desktop-dark/mobile-light screenshots show the approved
+compact chain-to-residue layout, insertion codes and partial/full feedback.
+Screenshots and actual zoom captures are retained with the candidate evidence.
+Fresh origin fetch remains at master `d3bac6f`, already an ancestor; stable latest
+is v0.24.1 and v0.25.0 remains unused. No upstream conflict or version collision.
+
+Commit the passing C3 evidence/documentation, push, then open the planned PR.
+M4 still requires remote review/policy checks, normal merge, all 20 commands on
+the exact merged runtime, annotated tag, stable release/public asset verification,
+issue close-out, documentation audit and delayed branch/worktree cleanup.

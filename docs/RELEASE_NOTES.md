@@ -4,7 +4,8 @@
 
 Release candidate for [issue #94](https://github.com/ManuelSe/Neistra/issues/94)
 under its [approved contract](plans/issue-94-protein-residue-hierarchy.md).
-Publication and final-version candidate/exact-master qualification remain pending.
+The clean final-version candidate is qualified; exact merged-master qualification
+and publication remain pending.
 
 **Highlights.** Expand Protein and its existing chain-instance rows into compact
 observed-residue lists. Recorded names, numbering gaps, insertion codes and
@@ -25,9 +26,9 @@ by large-range qualification, preserving their existing validation semantics.
 
 **Accessibility and performance.** Expanded list rows retain keyboard parent/child
 navigation, focus retention,32px fine/44px coarse targets and bounded virtual
-scrolling. C2 passes both themes,320px and actual100%/200%zoom. A10,000-residue/
-30,000-atom navigation fixture retains exact complete selection with220/196ms
-longest desktop/mobile tasks and674.7/624.8ms range actions, bounded13/22 rows and
+scrolling. The candidate passes both themes, 320 px and actual 100%/200% zoom. A 10,000-residue/
+30,000-atom navigation fixture retains exact complete selection with 195/183 ms
+longest desktop/mobile tasks and 608.2/573.6 ms range actions, bounded 13/22 rows and
 zero repeated reads. This profiles a loaded hidden entry with the unvirtualized
 atom property table unmounted, not general full-table throughput. Standard native
 1STP, scientific, movement and surface gates remain mandatory for release.
@@ -42,12 +43,19 @@ rich state/history/jobs/originals/selections/scenes/surfaces and archives both w
 Both complete release phases must repeat this proof before publication. Rollback uses matching0.24.1 client/API and retained managed
 data; no schema downgrade. Portable archives retain current state, not Undo history.
 
-**Verification.** C1/C2 focused gates pass17 Python/349 frontend, native cross-panel,
-keyboard/zoom/large-list and exact project/camera/request invariance checks. Failed
-attempts and diagnostic CPU profiling remain separate from passing evidence.
-Complete frozen/fresh-migration/static/type/full-Python/supervisor/build/native
-browser and actual-reader candidate/exact-master release gates are pending.
-Local full-diff review is implementer review; independent review is not claimed.
+**Verification.** The clean final-version candidate passes all 20 release commands:
+**1,249 Python, 349 frontend, 8 supervisor and 331 browser tests**, 61 documented
+layout/timing exclusions, zero failures/flakes/retries/Python or required native
+scientific skips. Frozen installs, fresh 0014, static/types/build and actual
+tagged 0.24.1 ↔ final 0.25.0 readers pass. All 571 source identities and lossless
+log hashes verify. Both themes, keyboard/zoom/large lists, native picks and exact
+project/camera/request invariance pass. Earlier failed/interrupted attempts remain
+diagnostic, with no weakened limits or behavior. After user-confirmed AC, both
+unchanged tagged baseline and candidate pass responsiveness; the complete run
+records AC online throughout. Standard 1STP interaction 4,489 ms / longest task
+575 ms / zero refetches and all original native minimization budgets pass. Local
+full-diff review is implementer self-review; independent review is not claimed.
+Exact merged-master qualification and publication remain mandatory.
 
 **Scope and limitations.** Existing protein-chain components expand directly;
 a redundant additional chain level is rejected because components already encode
