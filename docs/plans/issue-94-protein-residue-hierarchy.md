@@ -613,3 +613,33 @@ production harness exclusion,36 archive tests (including0.24.1 producer) and
 whitespace checks. Actual tagged0.24.1 reader checkout is detached at`d9bc489`.
 These checks authorize a coherent release-preparation commit, not publication;
 complete clean final-version candidate and exact-master gates remain mandatory.
+
+
+### C3 initial full-candidate diagnostic — 2026-10-23
+
+The clean final-version run on`6f1c919` passes frozen installs, fresh0014, static/
+type checks,1249 Python(no skips),349 frontend,8 supervisor and production build.
+The first127 browser passes include issue#94 desktop themes/10,000 residues and
+actual zoom, original1STP/18k/native cancellation, source/history/archive and
+navigation regressions. The broad release journey then times out on its old exact
+Sequence name`ALA 1`; the intended accessible name now includes chain/entry
+context. [Retained trace](../assets/protein-residue-hierarchy/c3-candidate-journey-trace.zip)
+proves that stale locator. Update that one locator to the complete expected
+identity, without changing production behavior, timing or membership assertions.
+
+The candidate is explicitly incomplete/diagnostic: one genuine locator failure,
+one subsequent case intentionally interrupted,4 existing layout exclusions and
+259 cases not run (not counted as qualification skips). The actual-reader steps
+did not run. [Manifest](../assets/protein-residue-hierarchy/c3-candidate-gate.json)
+and [raw browser results](../assets/protein-residue-hierarchy/c3-candidate-browser-diagnostic.json.gz)
+retain exact commands/source/logs and the interruption. Verify the corrected full
+journey, commit the coherent test/evidence correction, then restart every20-command
+release gate from a clean fixed source. No exception or partial gate qualifies it.
+
+
+The corrected complete release journey passes in 41.642s with one native desktop
+workflow, zero failures, skips, retries or flakes; source identities remain
+unchanged during the run. [Focused manifest](../assets/protein-residue-hierarchy/c3-journey-corrected-gate.json)
+retains its exact command and lossless log. The one-line locator diff and the
+full interrupted-run evidence were reviewed locally. Commit this passing focused
+correction before a new clean, complete candidate qualification.

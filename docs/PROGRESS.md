@@ -29,8 +29,14 @@ release gates and publication remain C3/C4. Existing scientific boundaries and
 #95's separate sequence-layout scope remain. No external blocker. C2 is committed at `f5d1a75`. All five authoritative versions are now0.25.0;
 metadata/dependency audit and36 archive tests pass, including prior0.24.1 producer
 coverage. Schemas/head/API/dependencies remain unchanged. The actual tagged0.24.1
-reader checkout is prepared. Next: commit release preparation, freeze source and
-run the complete20-step candidate gate; exact-master/publication remain C4.
+reader checkout is prepared. Release preparation is committed at `6f1c919`. Next: commit the focused
+locator/evidence correction, freeze source and restart the complete20-step candidate gate after the focused journey correction.
+The first candidate passes1249 Python(no skips),349 frontend,8 supervisor and127
+browser cases before an old exact Sequence locator fails. Its later case was
+intentionally interrupted; all initial results remain diagnostic, with actual
+readers unrun. The locator now includes the approved chain/entry context; no
+runtime behavior, threshold or assertion changes. The corrected complete desktop journey passes in 41.642s with no failures, skips,
+retries or flakes; its exact manifest/log are retained. Exact-master/publication remain C4.
 
 ### Previous delivery baseline — v0.24.1
 
