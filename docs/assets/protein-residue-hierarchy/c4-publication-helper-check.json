@@ -1,0 +1,85 @@
+{
+  "at": "2026-10-23T16:44:27.743681+00:00",
+  "helper_sha256": {
+    "versions.py.txt": "63e09512ec4de67376f5048db0e35f55ffd710cc529b21e730fc563401ce0e31",
+    "publication-record.py.txt": "71af3ac97ce12d4e7267fdae069577793d22a7d714418fee75856df8e9da2d12",
+    "verify-public.py.txt": "3b2b1d55b4c466f0eb400d90550076e914e889cf438bff09958eda6d1e4c9048",
+    "documentation-check.py.txt": "94c45d8f1e520453bef930e0b8c2ad1feedc4badbd039f9996e00e32645c8e04",
+    "report.py.txt": "cda1df205a195c9373374d773370b46d5992651bb49682cb54c66a617e5e4bb3",
+    "bundle.py.txt": "4adb42cc94385fc3e21abc74412381409e9adbba6b92ce8d074a90b660b93fcf",
+    "qualification.py.txt": "a44629107fb5caa591d14d83a0968508d6ba4d1ff444174877d784d4baa8e795",
+    "release-qualification.py.txt": "bd3ec62d733f01ec992e0d578b9e6b82426a2ed1aa873f04ec83e083505beaa2",
+    "final-audit.py.txt": "36db403c6bd66283d39a307c4d2746b213bf3efdbc57f990d639597b04009721"
+  },
+  "temporary_paths": [
+    {
+      "file": "publication-record.py.txt",
+      "path": "/tmp/neistra94-release-remote.json"
+    },
+    {
+      "file": "publication-record.py.txt",
+      "path": "/tmp/neistra94-bundle.json"
+    },
+    {
+      "file": "publication-record.py.txt",
+      "path": "/tmp/neistra94-public-download-receipt.json"
+    },
+    {
+      "file": "publication-record.py.txt",
+      "path": "/tmp/neistra94-review-audit.json"
+    },
+    {
+      "file": "publication-record.py.txt",
+      "path": "/tmp/neistra94-release.md"
+    },
+    {
+      "file": "publication-record.py.txt",
+      "path": "/tmp/neistra94-closeout.md"
+    },
+    {
+      "file": "verify-public.py.txt",
+      "path": "/tmp/neistra94-public-download-receipt.json"
+    },
+    {
+      "file": "verify-public.py.txt",
+      "path": "/tmp/neistra94-bundle.json"
+    },
+    {
+      "file": "bundle.py.txt",
+      "path": "/tmp/neistra94-release.md"
+    },
+    {
+      "file": "bundle.py.txt",
+      "path": "/tmp/neistra94-bundle.json"
+    },
+    {
+      "file": "final-audit.py.txt",
+      "path": "/tmp/neistra94-reader-0241"
+    },
+    {
+      "file": "final-audit.py.txt",
+      "path": "/tmp/neistra94-reader-0241"
+    },
+    {
+      "file": "final-audit.py.txt",
+      "path": "/tmp/neistra94-public-download-receipt.json"
+    },
+    {
+      "file": "final-audit.py.txt",
+      "path": "/tmp/neistra94-audit-policy.json"
+    },
+    {
+      "file": "final-audit.py.txt",
+      "path": "/tmp/neistra94-closeout.md"
+    }
+  ],
+  "all_paths_belong_to_current_issue": true,
+  "actual_old_reader_path_correct": true,
+  "helper_syntax_pass": true,
+  "qualified_runtime_test_tool_lock_identities_unchanged": 571,
+  "runtime_source_digest": "1a8d90cfcac3270dd8592868158cfbfbcd0c60285e5191b0b7bd9971d3a06198",
+  "publication_requires_completed_c4_merged2_gate": true,
+  "release_notes_require_current_issue_version_and_commit": true,
+  "receipt_requires_current_issue_version_and_commit": true,
+  "actual_bundle_publication_and_download_verification": "pending complete exact-master gate; no publication is claimed by this static check"
+}

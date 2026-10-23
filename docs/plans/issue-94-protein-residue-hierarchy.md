@@ -3,7 +3,7 @@
 ## 1. Status, authority, and outcome
 
 **Status:** approved implementation contract; implementation and verified delivery
-authorized by the user's `/goal` on 2026-10-23. M1/C1, M2/C2 and M3/C3 are complete. M4/C4 review, merge and verified publication remain.
+authorized by the user's `/goal` on 2026-10-23. M1/C1, M2/C2 and M3/C3 are complete. M4/C4 implementation merge is verified; helper correction and final qualification/publication remain.
 
 **Approval:** the user's “Implement the plan.” on 2026-10-23 approves the complete
 proposal, including its mandatory C0 stop ready for `/goal`. This authorizes
@@ -20,7 +20,7 @@ minimal shared-behavior changes to the existing Sequence tab.
 | Inspected and fast-forward-checked local/remote base | `d3bac6f85df840a8c45abb8177a88b2a7f5ea273` |
 | Feature branch | `feat/issue-94-protein-residue-hierarchy` |
 | PR title | `feat(selection): browse protein residues and share range selection` |
-| Implementation PR | [#121](https://github.com/ManuelSe/Neistra/pull/121), open at the premerge audit |
+| Implementation PR | [#121](https://github.com/ManuelSe/Neistra/pull/121), merged |
 | Merge strategy | Normal merge commit, preserving passing checkpoints |
 | Planned release | Stable **0.25.0** |
 | Proposed annotated tag | **v0.25.0** |
@@ -770,3 +770,40 @@ This audit precedes its own docs-only commit. Recheck the actual head, policy,
 reviews and conversations, use the exact-head guard and normal merge preserving
 checkpoints, then fast-forward master. Repeat all 20 commands on the exact merged
 runtime before any tag/release. Publication and cleanup remain pending.
+
+
+### C4 administrative restart — publication-helper correction, 2026-10-23
+
+PR #121 normally merges as `b4b3bddd307770acd8eb243c5428ecd14e6351c9` and that
+commit is verified on origin/master; local master fast-forwards cleanly. Its two
+parents preserve the base and complete checkpoint history, and its tree is exactly
+the reviewed feature tree. All 571 qualified source identities match. The first
+exact-master run passes frozen installs, fresh 0014, Ruff/mypy, 1,249 Python,
+ESLint/TypeScript, 349 frontend, 8 supervisor and production build (11 commands).
+
+Continued review catches stale `/tmp/neistra93-*` and previous reader-worktree
+paths in the documentation publication helpers, missed when adapting the prior
+workflow. These could read the wrong release-note/receipt files or audit the wrong
+worktree. Correct this consequential delivery-tooling finding through the planned
+feature branch and a reviewed docs-only PR before publication. No product runtime
+or test changes are needed, and the clean C3 candidate remains applicable to its
+571 unchanged source files.
+
+Administratively stop the first exact-master run after browser startup, preserving
+its [incomplete manifest](../assets/protein-residue-hierarchy/c4-merged-gate.json),
+lossless completed logs and [interruption record](../assets/protein-residue-hierarchy/c4-merged-interruption.json).
+No complete browser or reader result is captured and no release qualification is
+claimed. No test failure, relaxed assertion or limit motivates this restart.
+Fast-forward the existing planned feature branch to merged master, correct every
+helper path to issue #94 and actual tagged reader 0.24.1, and point final delivery
+tools to a fresh `c4-merged2` run. Add issue/version/commit guards to release notes
+and receipt data, and distinguish implementation PR #121 from the eventual exact
+released-master PR.
+
+[Focused helper evidence](../assets/protein-residue-hierarchy/c4-publication-helper-check.json)
+passes Python syntax/AST inspection, task-owned path checks, all 571 unchanged
+source identities and helper hashes. JSON/log integrity, Markdown links and
+whitespace are checked before commit. Actual bundle/receipt checks remain gated
+by the complete corrected exact-master run; no synthetic success data is used.
+Version stays 0.25.0: it is unreleased, and this changes documentation delivery
+tools only. No schema, migration, public API, dependency or scientific change.

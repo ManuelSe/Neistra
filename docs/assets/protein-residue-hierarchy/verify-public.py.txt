@@ -1,6 +1,6 @@
 from pathlib import Path
 import hashlib,json,subprocess,zipfile
-bundle=json.loads(Path('/tmp/neistra93-bundle.json').read_text())
+bundle=json.loads(Path('/tmp/neistra94-bundle.json').read_text());assert bundle['qualification']['issue']==94 and bundle['qualification']['version']=='0.25.0'
 release=json.loads(subprocess.check_output(['gh','api','repos/ManuelSe/Neistra/releases/tags/v0.25.0'],text=True))
 assert not release['draft'] and not release['prerelease'] and release['target_commitish']==bundle['qualification']['runtime_commit']
 asset=next(a for a in release['assets'] if a['name']==bundle['filename']);assert asset['digest']=='sha256:'+bundle['sha256']
@@ -12,4 +12,4 @@ with zipfile.ZipFile(download) as z:
  manifest=json.loads(z.read('SHA256.json'));assert len(manifest)==bundle['internal_hashes'];assert len(z.namelist())==bundle['members']
  assert all(hashlib.sha256(z.read(n)).hexdigest()==v for n,v in manifest.items())
 receipt={'url':asset['browser_download_url'],'asset_id':asset['id'],'sha256':bundle['sha256'],'public_download_verified':True,'crc_verified':True,'internal_hashes':len(manifest)}
-Path('/tmp/neistra93-public-download-receipt.json').write_text(json.dumps(receipt,indent=2));print(json.dumps(receipt))
+Path('/tmp/neistra94-public-download-receipt.json').write_text(json.dumps(receipt,indent=2));print(json.dumps(receipt))

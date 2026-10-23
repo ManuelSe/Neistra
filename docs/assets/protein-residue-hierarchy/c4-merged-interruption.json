@@ -1,0 +1,23 @@
+{
+  "at": "2026-10-23T16:42:50.634830+00:00",
+  "gate": "c4-merged-gate.json",
+  "runtime": "b4b3bddd307770acd8eb243c5428ecd14e6351c9",
+  "reason": "Administrative interruption to correct previous-issue temporary paths in documentation publication helpers before publishing. No runtime/test source change or test failure is used to justify the interruption. Browser started but no complete browser qualification was captured.",
+  "completed_steps": [
+    "python-lock",
+    "node-lock",
+    "migration",
+    "ruff",
+    "mypy",
+    "python",
+    "lint",
+    "types",
+    "frontend",
+    "supervisor",
+    "build"
+  ],
+  "complete_release_qualification": false,
+  "next_gate": "c4-merged2",
+  "source_identity_count": 571,
+  "source_unchanged": true
+}
