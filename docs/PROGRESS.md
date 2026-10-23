@@ -41,7 +41,7 @@ all 5,961 internal hashes and the exact
 Existing classification/scientific limits and #95 remain; no essential approved
 outcome is deferred and no new follow-up is created.
 
-This docs-only audit records verified runtime delivery and corrects the report
+[Documentation PR #123](https://github.com/ManuelSe/Neistra/pull/123) records verified runtime delivery and corrects the report
 oracle. Its integration and actual delayed feature-branch/reader-worktree cleanup
 are appended to the linked reply after verification; the runtime tag stays fixed.
 No product blocker remains. Next product work requires a separate approved plan.

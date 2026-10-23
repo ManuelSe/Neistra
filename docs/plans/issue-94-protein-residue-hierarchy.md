@@ -28,6 +28,7 @@ minimal shared-behavior changes to the existing Sequence tab.
 | Planned release | Stable **0.25.0**, now [published](https://github.com/ManuelSe/Neistra/releases/tag/v0.25.0) |
 | Annotated tag | **v0.25.0**, remotely verified at runtime `2adeaac973a6047ee537fd8c639f3b3e18d216b0` |
 | Qualified runtime correction | [PR #122](https://github.com/ManuelSe/Neistra/pull/122), normally merged |
+| Publication documentation audit | [PR #123](https://github.com/ManuelSe/Neistra/pull/123); final integration/cleanup at linked issue close-out |
 
 **Approved outcome:** scientists can expand existing protein-chain component
 rows, browse available residues, and select complete residues or inclusive ranges
@@ -907,3 +908,15 @@ Commit this publication checkpoint as `docs(release): record verified v0.25.0 pu
 push and normally merge its audit PR after current policy/conversation checks.
 Final actual integration/ref/worktree cleanup is verified externally at the linked
 issue reply; keep the runtime tag fixed.
+
+
+Publication checkpoint `7900228` is committed/pushed, and remotely verified
+[documentation PR #123](https://github.com/ManuelSe/Neistra/pull/123) is open against
+the exact runtime. [Codex request](https://github.com/ManuelSe/Neistra/pull/123#issuecomment-6371616445)
+is posted; the [documentation policy snapshot](../assets/protein-residue-hierarchy/c4-documentation-policy.json)
+records no returned review, required approval/check, unresolved thread or override.
+All changes are documentation/evidence, all 571 qualified source identities match
+and the annotated runtime tag/release are unchanged. This linkage commit precedes
+its own final-head recheck and normal merge. Actual merge/ref cleanup is appended
+to the verified close-out after remote integration, with a public final audit;
+no earlier statement claims those later steps already happened.

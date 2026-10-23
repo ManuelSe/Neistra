@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-23T18:09:56.072503+00:00",
+  "checked_at": "2026-10-23T18:13:44.794624+00:00",
   "script": "docs/assets/protein-residue-hierarchy/documentation-check.py.txt",
   "script_sha256": "7f00e379b08928ffb5c892a5eee9e3c81d7d10fcce160f75f0fdc86c21c69278",
   "runtime": "2adeaac973a6047ee537fd8c639f3b3e18d216b0",
@@ -14,6 +14,7 @@
     "docs/VERIFICATION.md",
     "docs/assets/protein-residue-hierarchy/c3-review.md",
     "docs/assets/protein-residue-hierarchy/c4-documentation-check.json",
+    "docs/assets/protein-residue-hierarchy/c4-documentation-policy.json",
     "docs/assets/protein-residue-hierarchy/c4-helper-premerge-audit.json",
     "docs/assets/protein-residue-hierarchy/c4-merge-proof.json",
     "docs/assets/protein-residue-hierarchy/c4-merged2-browser.json.gz",
@@ -165,9 +166,13 @@
     [
       "docs/plans/issue-94-protein-residue-hierarchy.md",
       "../assets/protein-residue-hierarchy/c4-documentation-check.json"
+    ],
+    [
+      "docs/plans/issue-94-protein-residue-hierarchy.md",
+      "../assets/protein-residue-hierarchy/c4-documentation-policy.json"
     ]
   ],
-  "asset_json_parsed": 44,
+  "asset_json_parsed": 45,
   "gzip_crc_checked": 157,
   "both_complete_gate_log_hashes_verified": true,
   "versions_dependencies_production_harness_audit_passed": true,
