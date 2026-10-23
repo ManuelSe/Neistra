@@ -34,6 +34,25 @@ dark/desktop gesture screenshots were manually inspected separately.
 [Exact released master](assets/selection-gestures/c4-merged-gate.json) repeats
 these passing cases; no broader certification is inferred.
 
+## Protein residue navigation (issue #94)
+
+Components expands existing chain-instance rows into observed residue buttons.
+Native list/listitem/button semantics remain; no incomplete ARIA tree is added.
+Up/Down/Home/End traverse expanded rows; Right expands or enters children and Left
+collapses or focuses the parent. Focus movement/disclosure never selects. Only
+the active row's controls join the tab order; bounded retention preserves focused
+and Details rows. Removed descendants fall back to their surviving parent/category
+or pane heading without stealing unrelated focus.
+
+Residues expose full, partial and unselected membership with pressed/mixed state;
+partial coverage also has a dashed border. Accessible names include chain-instance
+and entry context, with insertion codes and explicit internal-ID fallback. Fine
+pointer rows remain32px and coarse/narrow targets44px. Sequence uses the same
+coverage semantics. Native input, scoped axe, both themes, narrow/remount and real
+browser zoom evidence are recorded in the approved plan; automated axe and manual
+screenshot inspection remain distinct. No interactive screen-reader, physical
+hardware or broader browser certification is claimed.
+
 ## Compact molecular editor (issue #69)
 
 The nonmodal Edit launcher sits beside Transform with a named, viewport-bounded

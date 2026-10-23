@@ -5759,3 +5759,47 @@ retains entry-independent residue membership so reusing an artifact for another
 entry cannot publish the original entry's atom references. This is application
 lookup state, not a new molecular/schema/API authority. Native/milestone evidence
 is recorded in the feature plan; no completion is inferred from authorization.
+
+
+### D-145 implementation note — issue #94 M2/C2, 2026-10-23
+
+The Components list derives flat category/component/residue rows from cached
+application memberships, in normalized residue order. Expanded protein IDs remain
+session navigation state. Duplicate component labels receive instance qualifiers
+without changing source identity. Left/Right navigation uses explicit parent keys;
+selection and disclosures keep separate controls and current project/visit guards.
+No molecular, API/job, persisted schema, dependency or migration change. Native
+large-list, accessibility and checkpoint evidence remains with the feature plan.
+
+
+### D-145 large-range qualification repair — issue #94 C2, 2026-10-23
+
+The real 10,000-residue/30,000-atom navigation test exposed a3.2s main-thread task
+when the complete source-order range reached existing summary and reconciliation
+paths. Keep the approved <750ms gate. Replace per-reference linear atom/residue
+search in selection summaries with an immutable-structure weak index, and replace
+App reconciliation's repeated atom-ID-array membership scans with entry-local sets.
+Both retain exact gapped IDs, missing-reference behavior and source replacement
+semantics. This is the bounded lookup repair needed for the approved interaction,
+not new selection policy or scientific/persisted state. Pure regressions exercise
+entry reuse, unknown/gapped IDs and one index build per immutable source; native
+qualification must prove the corrected full path.
+
+The synthetic large-list case profiles navigation with an already loaded hidden
+entry and the atom property table unmounted. That existing unvirtualized table is
+outside this navigation profile; no general 30,000-row table/rendering throughput
+claim is made. Existing native1STP/scientific/surface/movement budgets remain
+unchanged and separately required. Exact profile context belongs in evidence.
+
+
+### D-145 closed edit-launcher membership repair — issue #94 C2, 2026-10-23
+
+After summary/reference lookup repairs, the unchanged large-range gate still
+reported1721ms. A separate native CDP CPU profile identified the closed molecular
+Edit launcher's per-reference `atoms.some` eligibility scan as the dominant work
+(1340 sampled frames in that predicate). A disabled query still exposes cached
+structure data, so the closed launcher must use a memoized atom-ID set for exact
+membership. Keep current stale-reference/eligibility semantics and full edit
+regressions; do not bypass validation or alter edit behavior. Retain the CPU profile
+as diagnostic evidence; qualification runs without profiling and with original
+limits. No molecular/API/schema/scientific-model expansion is introduced.

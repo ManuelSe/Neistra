@@ -210,10 +210,10 @@ export default function App() {
   useEffect(() => {
     if (project) useSelectionStore.getState().reconcileAnchor(project.entries);
     if (!project || selection.atoms.length === 0) return;
-    const entries = new Map(project.entries.map((entry) => [entry.id, entry]));
+    const entries = new Map(project.entries.map((entry) => [entry.id, new Set(entry.atom_ids)]));
     const valid = selection.atoms.filter((reference) => {
       const entry = entries.get(reference.structure_id);
-      return entry !== undefined && entry.atom_ids.includes(reference.atom_id);
+      return entry?.has(reference.atom_id) ?? false;
     });
     if (valid.length !== selection.atoms.length) {
       replaceSelection(
@@ -1078,6 +1078,7 @@ export default function App() {
                         selectedEntryIds={selectedEntryIds(selection)}
                         onSelectEntries={selectEntries}
                         onSelectHierarchy={applySelection}
+                        onSelectResidue={applyResidueSelection}
                         onHierarchyVisibility={setHierarchyVisibility}
                         {...entryActions}
                       />
@@ -1148,6 +1149,7 @@ export default function App() {
                     selectedEntryIds={selectedEntryIds(selection)}
                     onSelectEntries={selectEntries}
                     onSelectHierarchy={applySelection}
+                        onSelectResidue={applyResidueSelection}
                     onHierarchyVisibility={setHierarchyVisibility}
                     onCollapse={() => leftRef.current?.collapse()}
                     {...entryActions}

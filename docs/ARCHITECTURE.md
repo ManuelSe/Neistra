@@ -74,8 +74,10 @@ artifact-keyed normalized payload. Only split/collapse layout preferences enter
 safe browser storage. See [navigation guidance](PROJECT_NAVIGATION.md) and D-097.
 
 The component pane projects a flat sequence of category and expanded component
-rows through the pinned headless TanStack virtualizer. Stable category/component
-keys, bounded overscan, focus retention and application keyboard navigation keep
+rows, including expanded protein residue children, through the pinned headless
+TanStack virtualizer. Stable category/component/residue
+keys, bounded overscan, focus retention and application
+keyboard navigation keep
 off-screen membership accessible without another selection authority. An
 artifact-keyed membership index visits atoms once and caches exact component/
 category operands. Selection coverage uses a current entry-local canonical-ID
@@ -568,6 +570,15 @@ carry typed raw-hit/gesture context through the existing controlled callback;
 application resolution uses the current artifact-keyed cached projection without
 refetching. An immutable-projection index provides component/residue membership
 and source-order protein intervals; no viewer hierarchy becomes authoritative.
+
+Issue #94 adds typed explicit protein-residue requests from Components and the
+existing Sequence tab. App validates project visit/entry/artifact against current
+cache state, then the central store applies the same atomic transition used by
+native picks. Indexed residue membership is entry-independent; result references
+use the request's current entry and preserve its source metadata. Panel residue
+actions are independent from picking mode, while native Chain/Structure picks
+retain ordinary behavior. D-144/145 narrowly extend D-122's original viewer-only
+anchor establishment; there is no persisted request or navigation schema.
 
 Range and normal selection publish atom references and anchor state together.
 Generic replacement, mode/project/artifact changes and incomplete anchor membership

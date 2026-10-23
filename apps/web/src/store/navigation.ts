@@ -3,6 +3,7 @@ import type { ComponentCategory } from "../api/types";
 
 export interface EntryBrowsingState {
   categories: ComponentCategory[];
+  proteins: string[];
   scrollTop: number;
 }
 
@@ -18,7 +19,7 @@ interface NavigationState {
   updateEntry: (projectId: string, entryId: string, update: Partial<EntryBrowsingState>) => void;
 }
 
-export const emptyBrowsingState: EntryBrowsingState = { categories: [], scrollTop: 0 };
+export const emptyBrowsingState: EntryBrowsingState = { categories: [], proteins: [], scrollTop: 0 };
 
 // Navigation is session state. Molecular structures remain in TanStack Query.
 export const useNavigationStore = create<NavigationState>((set) => ({

@@ -3,7 +3,7 @@
 ## 1. Status, authority, and outcome
 
 **Status:** approved implementation contract; implementation and verified delivery
-authorized by the user's `/goal` on 2026-10-23. M1/C1 is implemented and passes its focused gate; M2/C2 is next.
+authorized by the user's `/goal` on 2026-10-23. M1/C1 and M2/C2 are implemented and pass their focused gates; M3/C3 is next.
 
 **Approval:** the user's “Implement the plan.” on 2026-10-23 approves the complete
 proposal, including its mandatory C0 stop ready for `/goal`. This authorizes
@@ -529,3 +529,68 @@ relaxation, retries or scientific assertion reduction occurred during correction
 C1 changes no schema, migration, API, dependencies, molecular files or application
 version. Next: C2 compact virtual Components residue browsing. Full final-version
 candidate/exact-master/reader/release gates remain mandatory C3/C4 work.
+
+
+### C2 qualification diagnostics — 2026-10-23
+
+The initial C2 attempt passes focused/static checks but fails TypeScript because a
+new Testing Library test used Playwright's `exact` option; remove that unsupported
+option without changing assertions. Attempt2 passes17 Python/42 focused/347 total
+frontend and static/type/build checks,14 native cases/4 existing layout exclusions,
+but fails both large-list long-task gates. The desktop task is3179ms versus the
+unchanged750ms limit. Retained native traces record the actual failure. No retry or
+performance exemption qualifies it.
+
+C2 therefore also replaces existing quadratic selection-summary and App reference
+membership scans with immutable identity indexes/sets, preserving exact behavior.
+Large-range native qualification remains pending on corrected source. Add explicit
+expanded-residue actual100%/200%zoom evidence and320px native coverage before
+checkpoint completion. The large synthetic fixture profiles navigation/selection
+with a hidden, loaded entry and the unvirtualized property table unmounted; no
+full-table throughput or chemical completeness claim is inferred. Existing1STP and
+all release budgets retain their requirements.
+
+
+C2's first corrected full attempt still fails the native long-task bound
+(desktop1721ms). A separate profiler run remains diagnostic at1630ms and retains
+its [CPU sample artifact](../assets/protein-residue-hierarchy/c2-profile-cpu.json.gz).
+It attributes1340 samples to the closed Edit launcher's repeated atom-array
+membership predicate. A memoized atom-ID set preserves eligibility and removes
+that remaining quadratic path. Native nonprofiled correction and complete C2
+requalification remain required. No budget or assertion is weakened.
+
+
+### M2/C2 complete — 2026-10-23
+
+[Final2 gate](../assets/protein-residue-hierarchy/c2-final2-gate.json) passes all11
+commands:17 Python,125 focused/349 total frontend, all static/type/build/diff
+checks,16 native workflows/4 existing layout exclusions and one separate actual
+browser-zoom case. There are zero failures, flakes or retries. All source
+identities remain unchanged through qualification and all lossless log hashes
+verify. [Browser results](../assets/protein-residue-hierarchy/c2-final2-browser-results.json.gz)
+and [zoom results](../assets/protein-residue-hierarchy/c2-final2-zoom-results.json.gz)
+retain actual100%/200%, both themes,320px, remount/scroll/focus, cross-panel exact
+memberships, complete hidden H, camera/project/request invariance and existing
+component controls. [Local review](../assets/protein-residue-hierarchy/c2-review.md)
+and manually inspected desktop dark/mobile light screenshots are retained;
+independent review is not claimed.
+
+[Large-list profile](../assets/protein-residue-hierarchy/c2-final2-performance.json)
+uses10,000 observed residues/30,000 atoms. Desktop/mobile expand-and-first selection
+is213.6/161.5ms; off-screen endpoint focus81.6/55.0ms; complete range674.7/624.8ms;
+longest tasks220/196ms; mounted rows13/22 versus bounds24/33; repeated reads0/0.
+Every original5s/750ms/bounded-DOM criterion passes without profiling or weakened
+assertions. Context remains the explicitly documented loaded hidden entry with
+atom property table unmounted. Real1STP/full release budgets remain C3 work.
+
+Earlier [initial](../assets/protein-residue-hierarchy/c2-initial-gate.json),
+[attempt2](../assets/protein-residue-hierarchy/c2-attempt2-gate.json),
+[first corrected](../assets/protein-residue-hierarchy/c2-final-gate.json) and
+[CPU profiler](../assets/protein-residue-hierarchy/c2-profile-gate.json) attempts
+remain diagnostic, not passing qualification. The nonprofiled
+[focused large correction](../assets/protein-residue-hierarchy/c2-large-corrected-gate.json)
+independently passes both layouts before final2. Source-order/coverage semantics
+are unchanged by the bounded summary/reconciliation/Edit eligibility lookup
+repairs. No API, molecular artifact, schema/migration, dependency or application
+version change occurs in C2. Next: C3 final-version actual-reader and complete
+candidate qualification, then C4 verified merge/publication/close-out.

@@ -8,21 +8,27 @@ implementation and verified delivery by the user's 2026-10-23 `/goal` under its
 `feat/issue-94-protein-residue-hierarchy`. C0 was committed/pushed and remotely
 verified at `b857f99`; D-144/145 govern the unchanged approved scope.
 
-M1/C1 is complete: shared explicit residue actions, indexed Sequence membership,
-insertion-code/ID labels and partial coverage. The
-[final gate](assets/protein-residue-hierarchy/c1-final-gate.json) passes17 Python,
-86 focused/342 frontend, all static/type/build checks and17 native browser cases
-with one existing mobile layout exclusion, zero failures/retries. Exact source/log
-hashes verify. Initial observation failures remain diagnostic with retained traces;
-no production behavior or threshold was weakened. Local full-diff self-review is
-recorded; independent review is not claimed.
+M1/C1 and M2/C2 are complete. Shared explicit residue actions, Sequence
+insertion-code/partial feedback, expandable protein-chain residue rows, transient
+expansion/scroll and parent-aware keyboard navigation are implemented. C1 is
+committed/pushed at `a6dd5c5`. The
+[C2 final gate](assets/protein-residue-hierarchy/c2-final2-gate.json) passes17
+Python/125 focused/349 frontend, static/type/build/diff,16 native workflows with4
+existing layout exclusions and one actual100%/200%zoom case, zero failures/flakes/
+retries. Source/log hashes verify; implementer full-diff review and inspected
+screenshots are retained. Initial failed attempts remain diagnostic.
 
-Known limitations: Components residue leaves remain C2; final-version compatibility,
-full candidate/exact-master gates and publication remain C3/C4. Existing scientific
-boundaries and #95's separate sequence-layout scope remain. No external blocker
-identified. All five versions remain0.24.1; planned stable minor0.25.0, no
-schema/migration/API/dependency change. Next: implement C2 after committing this
-passing C1 checkpoint.
+The10,000-residue/30,000-atom navigation profile passes unchanged budgets:
+desktop/mobile full range674.7/624.8ms, longest tasks220/196ms, bounded13/22 rows
+and zero repeated reads. The hidden loaded entry/closed atom-table context is
+explicit; no full-table or chemistry claim. Necessary bounded identity-index/set
+repairs remove downstream summary/reconciliation/closed-Edit quadratic scans.
+
+Known limitations: final-version actual readers, complete candidate/exact-master
+release gates and publication remain C3/C4. Existing scientific boundaries and
+#95's separate sequence-layout scope remain. No external blocker. All five versions
+remain0.24.1; planned stable minor0.25.0, schemas/head/API/dependencies unchanged.
+Next: commit this passing C2 checkpoint, prepare0.25.0 and complete C3 qualification.
 
 ### Previous delivery baseline — v0.24.1
 

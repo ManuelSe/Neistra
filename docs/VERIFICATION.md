@@ -11,9 +11,21 @@ source boundaries, retired context and camera/project/request invariance pass.
 [Initial diagnostics](assets/protein-residue-hierarchy/c1-initial-gate.json) retain
 two test-observation failures; final qualification uses exact GET snapshots and
 focused-panel Escape without production or threshold changes. This is C1 evidence,
-not release qualification. C2 hierarchy browsing and C3/C4 final-version/actual-reader/
+not release qualification. C2 evidence follows below; C3/C4 final-version/actual-reader/
 exact-master/publication gates remain pending. D-144/145 apply; versions0.24.1,
 schemas/migration/API/dependencies unchanged. Review is implementer self-review.
+
+C2 [final2](assets/protein-residue-hierarchy/c2-final2-gate.json) passes17 Python,
+125 focused/349 total frontend, static/type/build/diff,16 native workflows/4 existing
+layout exclusions and one actual100%/200%zoom workflow, zero failures/flakes/retries.
+Source/log hashes verify. Both themes,320px, native picks, complete hidden-H ranges,
+partial/full toggles, keyboard parents, remount/scroll and camera/project/request
+invariance pass. The10,000-residue/30,000-atom navigation profile has longest
+220/196ms desktop/mobile tasks and674.7/624.8ms complete ranges, bounded13/22 rows
+and0 repeated reads. Property table is unmounted and entry hidden/loaded; this is
+navigation-only evidence. Failed attempts and CPU profiling retain diagnosis of
+quadratic downstream scans; exact-identity lookup repairs preserve policy and
+original750ms/5s budgets. Full candidate/exact-master/actual readers remain C3/C4.
 
 ## Compact molecular toolbar (issue #93) — stable v0.24.1
 

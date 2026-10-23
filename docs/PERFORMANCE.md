@@ -6,6 +6,23 @@ Performance thresholds are regression gates on the pinned Playwright desktop
 Chromium host. They are not hardware-independent throughput promises or
 recommended maximum scientific system sizes.
 
+## Protein residue navigation (issue #94)
+
+The [C2 profile](assets/protein-residue-hierarchy/c2-final2-performance.json)
+uses10,000 synthetic observed residues/30,000 atoms in a loaded hidden entry, with
+the existing unvirtualized atom property table unmounted. Desktop/mobile
+expand-and-first selection213.6/161.5ms, endpoint focus81.6/55.0ms and complete
+range674.7/624.8ms meet the5s operation bounds. Longest tasks220/196ms meet the
+unchanged750ms bound. Mounted rows13/22 stay within24/33 viewport+overscan/focus
+bounds; repeated normalized reads0/0. This qualifies hierarchy navigation and
+canonical full membership, not general full-table throughput or protein chemistry.
+
+Failed native gates exposed quadratic summary, reference-validation and closed
+Edit eligibility scans. Immutable identity indexes and entry-local sets preserve
+exact selection semantics while removing those paths. The diagnostic CDP profile
+is not qualification; passing native runs disable profiling. Existing1STP,
+scientific, movement and surface budgets remain separately required for release.
+
 ## Selection gestures (issue #90)
 
 Issue #91 reuses those immutable membership indexes for canonical Residue targets.
