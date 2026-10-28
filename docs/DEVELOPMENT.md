@@ -133,6 +133,26 @@ Use `.venv/bin/uv run pytest tests/scientific` for the chemistry/file-format
 suite and `corepack pnpm --dir apps/web test -- jobs` for a focused component
 run. Do not add `MOLWEAVE_ENABLE_TEST_ROUTES=1` to normal startup.
 
+## Workspace protein sequence compatibility (0.26.0 candidate)
+
+Issue #95 changes frontend navigation and application version metadata. The
+[sequence guide](SEQUENCE_VIEWER.md) and [approved contract](plans/issue-95-workspace-sequence-viewer.md)
+record behavior and qualification status. No migration or schema changes are
+introduced: head0014, project/viewer/archive2 and normalized/selection/component1.
+Use current clients for the docked interface; older clients retain existing
+molecular/project/archive contracts and ignore the extra browser presentation
+preference. Scroll/focus and anchors remain transient. Back up complete managed
+data before changing deployments; no schema downgrade is needed.
+
+Final candidate and exact merged master must pass the complete release gate,
+locked native toolchain and unchanged budgets, followed by actual detached tagged
+v0.25.0↔final0.26.0 producer/reader processes. Reuse
+`tests.support.selection_reader_qualification` with separate disposable stores,
+explicit module roots and `--implementation-root`, `--expected-version`,
+`--data-dir`, and `--evidence` arguments. The issue95 release recipe preserves the
+existing20 steps and also hashes supervisor scripts. No runtime installation,
+model update or user-managed-data repair is part of this feature.
+
 ## Protein residue navigation compatibility (0.25.0)
 
 Issue #94 changes frontend browsing/selection and release metadata only. No new

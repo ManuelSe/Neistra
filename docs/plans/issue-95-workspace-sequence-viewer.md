@@ -467,6 +467,7 @@ unrelated branches/worktrees.
 | M1/C1 — Complete | [Final gate](../assets/workspace-sequence-viewer/c1-final-gate.json): 48 focused / 357 complete frontend / 7 native browser tests pass, one existing mobile exclusion of the desktop three-panel workflow. Lint/typecheck/build/diff pass. [Summary](../assets/workspace-sequence-viewer/c1-final-summary.json), [browser report](../assets/workspace-sequence-viewer/c1-final-browser-results.json.gz), [implementer review](../assets/workspace-sequence-viewer/c1-review.md). All source identities fixed. [Initial lint attempt](../assets/workspace-sequence-viewer/c1-initial-gate.json) retained as diagnostic; obsolete imports corrected without assertion changes. |
 | M2/C2 — Complete | [Final fixed-source gate](../assets/workspace-sequence-viewer/c2-final2-gate.json), [summary](../assets/workspace-sequence-viewer/c2-final2-summary.json), [browser](../assets/workspace-sequence-viewer/c2-final2-browser-results.json.gz), [actual zoom](../assets/workspace-sequence-viewer/c2-final2-zoom-results.json.gz), [review](../assets/workspace-sequence-viewer/c2-review.md): 58 focused / 366 full frontend / 36 browser / 1 actual-zoom tests pass, three existing mobile exclusions; no failures/flakes/retries. All 580 source identities and logs fixed. Displayed 10,000 residues/30,000 atoms: 2033/1893ms total, 384/315ms longest tasks, mounted 20/15 within 29/24 bounds, zero repeated reads, property table unmounted. Both themes/320px/keyboard/collapse/hide/scroll/remount/selection/visibility/Undo and actual 100%/200% zoom pass. Initial lint/test-type failures and interrupted native attempt remain diagnostic; original assertions/budgets/fixtures unchanged. |
 | M3/C3 — Review correction | [Review gate](../assets/workspace-sequence-viewer/c3-review-gate.json) passes59 focused/367 frontend/six native cases plus lint/types/build/diff, no exclusions/retries. Removed obsolete Inspector callback/spinner selector, generated a unique content ID and fixed ownership loss after null-target blur. [Fail-first proof](../assets/workspace-sequence-viewer/c3-focus-fail-first.json) reproduces inappropriate focus reclamation on the old guard; restored source matches the passing gate exactly. Full final-version qualification remains pending. |
+| M3/C3 — Release preparation | Five versions0.26.0, archive provenance assertions/current prior-version case updated; Ruff/mypy102 files/37 archive tests/version audit/diff pass. [Preparation record](../assets/workspace-sequence-viewer/c3-release-preparation.json). Detached actual v0.25.0 reader at `2adeaac973a6047ee537fd8c639f3b3e18d216b0`; candidate/exact-master20-step recipes prepared. Latest fetched `origin/master` remains the approved base and v0.26.0 is unused. Full gates pending. |
 | M3/C3 final gate–M4/C4 | Pending. Record each checkpoint’s commits, commands/evidence, deviations, candidate/merged gates, publication receipts, and cleanup here as they occur. |
 
 **Known limitations:** sequence navigation is observed protein context, not
@@ -477,6 +478,8 @@ remain pending. C2 review identifies bounded cleanup for the final candidate.
 
 **Blockers:** none.
 
-**Next action:** M3/C3 — complete review cleanup, update five authoritative
-versions and release documentation, qualify a clean fixed candidate and actual
-v0.25.0 readers, then open the PR after the full gate passes.
+**Next action:** M3/C3 — review correction committed as `cd8d1d1`; five
+authoritative versions and archive provenance assertion advance to0.26.0, with
+0.25.0 added to the retained archive-version cases. Release notes and actual
+producer/reader recipes are prepared. Qualify the clean fixed candidate and
+actual v0.25.0 readers before opening the PR.

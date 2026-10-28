@@ -40,13 +40,15 @@ collapse/hide pass. Earlier diagnostic failures are retained; explicit test-came
 zoom corrects tiny-fixture framing with unchanged assertions/fixture/budgets.
 [Review](assets/workspace-sequence-viewer/c2-review.md) is implementer self-review.
 
-All five versions remain0.25.0; planned stable minor0.26.0 remains pending fresh
-baseline/tag checks. No backend/API/job/schema/migration/dependency/scientific-model
+All five authoritative versions now agree at0.26.0, the approved stable minor;
+fresh origin/tag checks retain the approved base and unused tag. Ruff/mypy102
+files/37 archive round-trip cases/version/dependency audits pass. Release notes
+and isolated actual-v0.25.0 reader/candidate/exact-master recipes are prepared. No backend/API/job/schema/migration/dependency/scientific-model
 change. C3 review cleanup passes59 focused/367 frontend/six native cases and static/build
 checks; a fail-first regression reproduces outside-focus reclamation with the old
 blur guard. Obsolete integration/spinner and fixed content ID are removed. No
-current blocker. Next action: final-version0.26.0 candidate/full release gate and
-actual tagged readers, then verified delivery.
+current blocker. Next action: clean fixed0.26.0 candidate/full release gate and actual tagged
+readers before PR; then exact merged-master qualification and verified delivery.
 
 ### Previous delivery baseline — v0.25.0
 

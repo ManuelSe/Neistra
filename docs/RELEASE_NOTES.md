@@ -1,5 +1,65 @@
 # Neistra Release Notes
 
+## 0.26.0 - 2026-10-28 - Workspace protein sequences
+
+**Release status:** final-version candidate; not yet merged or published.
+
+**Highlights.** [Issue #95](https://github.com/ManuelSe/Neistra/issues/95) docks
+observed protein sequences below the 3D canvas. All displayed protein chains have
+stacked, horizontally scrolling rows with source numbering/insertion codes,
+identifiable nonstandard names and complete observed chain context. Collapse and
+hide remain independent from Properties / History / Jobs; the toolbar restores
+hidden sequences. There is no single-chain selector or duplicate Inspector tab.
+
+**Interactions and accessibility.** Residue buttons reuse complete canonical
+membership, shared fixed anchors and Alt/Ctrl/Cmd/Shift precedence in every picking
+mode. Full/partial coverage follows Viewer and Components without moving camera,
+changing visibility/picking mode or automatically scrolling. Keyboard arrows,
+Home/End and Enter/Space work with bounded horizontal/vertical windows. Native
+focus tooltips, non-color partial cues, safe preferences and owned responsive
+scroll/focus retain browsing context. C3 review fixes outside-focus reclamation
+when a previously focused residue disappears.
+
+**Scope decisions.** Explicit user guidance replaces the issue's active-chain
+selector with all displayed chains and narrows this replacement to protein-only.
+Nonprotein access remains in Components/existing tools. Optional selection-driven
+automatic reveal is omitted to keep browsing stable. Alignment, missing-sequence
+reconstruction, sequence editing/export, secondary-structure annotation and a
+height resize handle remain outside this delivery. No new follow-up issue is
+needed. Existing scientific/classification and renderer limitations remain.
+
+**Data, migrations and compatibility.** All five authoritative versions advance
+from0.25.0 to0.26.0, a stable minor for the independently available sequence
+workspace. No dependency upgrade, database migration, molecular/schema rewrite,
+HTTP/job/plugin or scientific-model change: Alembic0014, project/viewer/archive2
+and normalized/selection/component1 remain. Originals and molecular history retain
+their contracts. Only presentation enters optional browser storage; scroll/focus
+and range starts do not enter durable projects or archives. Archives retain
+current state, not portable Undo history. Qualification requires actual tagged
+0.25.0↔final0.26.0 producer/reader processes both ways. Rollback uses matching
+0.25.0 client/API and a backed-up complete managed directory, with no schema
+downgrade; old clients ignore the added presentation preference.
+
+**Verification and performance.** C1/C2 and C3 review gates are retained in the
+[approved plan](plans/issue-95-workspace-sequence-viewer.md). C2 passes366 frontend,
+36 native browser and one actual100%/200%zoom case, with three existing mobile
+layout exclusions and no failures/flakes/retries. C3 review passes367 frontend
+and six native cases, with a fail-first ownership regression. Both themes,320px,
+keyboard/scroll/remount, partial/range selection, visibility/isolation/Undo,
+independent collapse/hide and renderer/project/camera/request invariants pass.
+Displayed10,000-residue/30,000-atom navigation takes2033/1893ms desktop/mobile,
+longest384/315ms, mounted20/15 within29/24 bounds, zero repeated reads, property
+table unmounted. This is synthetic navigation evidence, not chemistry throughput.
+Complete fixed-candidate and exact-merged-master20-command gates, actual readers,
+all existing scientific/native budgets and full-diff review remain required
+before stable publication. Initial failed/interrupted attempts remain diagnostic;
+no assertion/fixture/budget or host setting is relaxed.
+
+**Limits and follow-up.** Observed sequence is not complete biological sequence,
+alignment, preparation or a chemical-validity claim. Unknown identities remain
+warned; no missing residues are invented. No new follow-up is created. Verified
+PR/tag/release/issue links and complete gate results are added after delivery.
+
 ## 0.25.0 - 2026-10-23 - Protein residue browsing and shared ranges
 
 Stable minor for [issue #94](https://github.com/ManuelSe/Neistra/issues/94), delivered
