@@ -1,0 +1,115 @@
+{
+  "environment": {
+    "MOLWEAVE_DATA_DIR": "/tmp/neistra95-c2/default-data",
+    "MOLWEAVE_E2E_DATA_DIR": "/tmp/neistra95-c2/browser-data",
+    "MOLWEAVE_E2E_API_PORT": "19810",
+    "MOLWEAVE_E2E_WORKER_PORT": "19811",
+    "MOLWEAVE_E2E_WEB_PORT": "19873",
+    "PLAYWRIGHT_BROWSERS_PATH": ".playwright",
+    "MOLWEAVE_AMBERTOOLS_PREFIX": "/datadisk/dev/.neistra-tools/ambertools-24.8",
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "PLAYWRIGHT_JSON_OUTPUT_NAME": "/tmp/neistra95-c2/browser.json"
+  },
+  "steps": [
+    {
+      "label": "focused",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "exec",
+        "vitest",
+        "run",
+        "sequence",
+        "project-workspace",
+        "selection-gestures",
+        "structure-loading"
+      ]
+    },
+    {
+      "label": "lint",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "lint"
+      ]
+    },
+    {
+      "label": "types",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "typecheck"
+      ]
+    },
+    {
+      "label": "frontend",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "test"
+      ]
+    },
+    {
+      "label": "build",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "build"
+      ]
+    },
+    {
+      "label": "browser",
+      "command": [
+        "corepack",
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "tests/e2e/sequence-viewer.spec.ts",
+        "tests/e2e/synchronized-selection.spec.ts",
+        "tests/e2e/selection-gestures.spec.ts",
+        "tests/e2e/protein-residue-hierarchy.spec.ts",
+        "tests/e2e/release-journey.spec.ts",
+        "--reporter=list,json",
+        "--output=/tmp/neistra95-c2/browser-results"
+      ]
+    },
+    {
+      "label": "zoom",
+      "command": [
+        "corepack",
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "tests/e2e/rebranding-zoom.spec.ts",
+        "--grep",
+        "keeps expanded protein residues",
+        "--reporter=list,json",
+        "--output=/tmp/neistra95-c2/zoom-results"
+      ],
+      "environment": {
+        "PLAYWRIGHT_JSON_OUTPUT_NAME": "/tmp/neistra95-c2/zoom.json"
+      }
+    },
+    {
+      "label": "diff",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ]
+    }
+  ]
+}

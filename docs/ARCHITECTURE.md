@@ -107,6 +107,31 @@ settings filter application memberships before Mol* receives a disposable
 bundle; categories without a mapped setting, including unclassified material,
 remain visible.
 
+## Workspace Sequence Ownership
+
+Issue #95 replaces the Inspector Sequence tab with stacked observed protein-chain
+rows below the canvas. The existing visible artifact-keyed structure queries,
+application viewer settings and viewer-local isolation determine row eligibility.
+Visible independent protein surfaces retain declared source-chain context;
+renderer pixels, camera clipping and cropped meshes do not define molecular
+membership. Source component/chain instances remain distinct, with normalized
+residue order and complete observed chain context.
+
+Immutable gesture indexes supply exact residue membership. A weak
+projection/settings cache reuses display membership across selection and camera
+updates, without retaining an entry identity in shared molecular row indexes.
+The existing guarded residue request routes through App into the canonical
+selection store and fixed anchor; virtual windows never limit selection operands.
+
+The existing virtualizer bounds horizontal residue windows and vertical chain
+windows. Native buttons expose canonical full/mixed/unselected coverage. Only
+expanded/collapsed/hidden presentation enters safe workspace storage. Separate
+transient project-scoped IDs, scroll and owned focus intent survive responsive
+remounts; they do not enter project state, history, scenes or archives. Sequence
+presentation does not remount the renderer or change lower-panel layout. See
+[sequence guidance](SEQUENCE_VIEWER.md), D-146 and the issue #95 contract for
+qualification status. No API/schema/migration or scientific-model change.
+
 ## Viewer Interaction Semantics
 
 Mol* owns hit testing and the distinction between a click and a camera drag.

@@ -5879,3 +5879,31 @@ protein scope and identifiable nonstandard names follow explicit user guidance.
 No scientific inference or API/schema/migration/version change. Native evidence
 and the initial/final qualification attempts are retained in the feature plan;
 docking and final qualification remain C2 onward.
+
+
+### D-146 implementation note — issue #95 M2/C2, 2026-10-28
+
+The docked component consumes existing visible artifact-keyed projections and
+viewer-local isolation. A weak immutable-projection/settings cache derives
+logical displayed protein rows from ordinary representation membership and
+independent surface sources. It never reads mesh pixels or publishes molecular
+state. Row identity includes entry/component/chain; complete observed residue
+context and exact shared canonical operands remain independent of virtual DOM.
+Previous-artifact rows are visibly updating and cannot publish residue actions.
+
+Only the validated expanded/collapsed/hidden preference enters safe browser
+storage. Separate project-scoped transient navigation holds row/residue IDs,
+scroll positions and owned responsive focus intent, not molecules or selection.
+Keyboard navigation reveals focus, while unrelated selections do not scroll.
+Hide/show focus returns through connected controls; collapse and lower-panel state
+remain independent. Focus requests retire after fulfillment rather than reclaiming
+focus on later selection renders. Native evidence and final checkpoint status
+remain in the feature plan; no delivery is inferred from this implementation note.
+
+The shorter canvas exposed unpickable raster centers in the intentionally tiny
+existing gesture fixture. Read-only native probes confirmed absent picks at those
+pixels and valid picks after resizing. Qualification uses explicit existing camera
+zoom during setup (and after explicit resize fitting); source fixture, molecular
+membership/camera assertions, budgets, renderer bindings and production picking
+remain unchanged. The original failed attempts and corrected native cases are
+retained. This is test framing, not a renderer fix or a performance speedup claim.

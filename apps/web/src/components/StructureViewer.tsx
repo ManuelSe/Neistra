@@ -1,4 +1,7 @@
-import type { ViewerPick } from "../selection/gestures";
+import { SequenceViewer } from "./SequenceViewer";
+import { displayedProteinRows } from "../viewer/sequenceDisplay";
+import { useWorkspaceStore } from "../store/workspace";
+import type { ResidueSelectionRequest, ViewerPick } from "../selection/gestures";
 import { useMinimizationPreview } from "../minimization/useMinimizationPreview";
 import type { MinimizationWorkflow } from "../minimization/useMinimization";
 import { useMinimizationShortcut } from "../minimization/useMinimizationShortcut";
@@ -70,6 +73,7 @@ interface StructureViewerProps {
   selection: Selection;
   pickingGranularity: SelectionGranularity;
   onPickingGranularity: (granularity: SelectionGranularity) => void;
+  onSelectResidue?: (request: ResidueSelectionRequest) => void;
   onViewerSelection: (selection: Selection, mode: SelectionMode, pick?: ViewerPick) => void;
   busy?: boolean;
   coordinatePreview?: CoordinatePatch | null;
@@ -100,6 +104,7 @@ export function StructureViewer({
   pickingGranularity,
   onPickingGranularity,
   onViewerSelection,
+  onSelectResidue,
   busy = false,
   coordinatePreview = null,
   movement,
@@ -120,6 +125,15 @@ export function StructureViewer({
   createViewer = createMolstarViewer,
 }: StructureViewerProps) {
   const queryClient = useQueryClient();
+  const sequenceDisplay = useWorkspaceStore(state => state.sequenceDisplay);
+  const sequenceWorkspace = useRef<HTMLDivElement>(null);
+  const returnSequenceFocus = useRef(false);
+  useLayoutEffect(() => {
+    if (returnSequenceFocus.current) {
+      returnSequenceFocus.current = false;
+      sequenceWorkspace.current?.querySelector<HTMLButtonElement>(sequenceDisplay === "hidden" ? '[aria-label="Show sequences"]' : '[aria-label="Collapse sequences"]')?.focus({ preventScroll: true });
+    }
+  }, [sequenceDisplay]);
   const targetRef = useRef<HTMLDivElement>(null);
   useChromeClearance(targetRef);
   const viewerRef = useRef<MolecularViewer | undefined>(undefined);
@@ -325,6 +339,17 @@ export function StructureViewer({
       ),
     [structureQueries, visibleEntries, pockets],
   );
+  const sequenceRows = viewerStructures.flatMap(source => {
+    const position = visibleEntries.findIndex(entry => entry.id === source.entryId);
+    const entry = visibleEntries[position];
+    const query = structureQueries[position];
+    return displayedProteinRows(source, isolation).map(row => ({ ...row,
+      key: JSON.stringify([source.entryId, row.componentId, row.chainId]),
+      entryId: source.entryId, entryName: visibleEntries.filter(item => item.name === source.label).length > 1
+        ? `${source.label} · entry ${visibleEntries.filter(item => item.name === source.label).findIndex(item => item.id === source.entryId) + 1}` : source.label, artifactId: entry.current_artifact_id ?? "",
+      current: !query.isPlaceholderData && !query.isError && !!entry.current_artifact_id,
+    }));
+  });
   const syncKey = viewerStructures
     .map(
       (structure) =>
@@ -586,6 +611,7 @@ export function StructureViewer({
   }, [styleDialogOpen, styleContext]);
 
   return (
+    <div className="sequence-workspace" ref={sequenceWorkspace}>
     <div className="structure-viewer" data-testid="structure-viewer"
       onPointerMoveCapture={event => {
         // A deliberate mouse return resumes canvas keyboard ownership after tool
@@ -654,6 +680,7 @@ export function StructureViewer({
             </div>
           ) : null}
           <ViewerToolbar
+            onShowSequences={sequenceDisplay === "hidden" ? () => { returnSequenceFocus.current = true; useWorkspaceStore.getState().setSequenceDisplay("expanded"); } : undefined}
             interactionsOpen={interactionProjectId === project.id}
             onInteractions={() => { useMinimizationStore.getState().dismiss(); useEditingStore.getState().setOpen(false); setInteractionProjectId(interactionProjectId === project.id ? null : project.id); }}
             pickingUnavailableReason={movementActive ? "Finish movement before changing selection" : null}
@@ -791,6 +818,11 @@ export function StructureViewer({
           <span>No visible structures</span>
         </div>
       ) : null}
+    </div>
+    <SequenceViewer projectId={project.id} rows={sequenceRows} selection={selection}
+      loading={structureQueries.some(query => query.isPending || query.isPlaceholderData)}
+      failed={structureQueries.some(query => query.isError)} onSelectResidue={onSelectResidue}
+      onHide={() => { returnSequenceFocus.current = true; useWorkspaceStore.getState().setSequenceDisplay("hidden"); }} />
     </div>
   );
 }

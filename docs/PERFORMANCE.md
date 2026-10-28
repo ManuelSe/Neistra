@@ -610,3 +610,21 @@ exclusion-baseline filename. It audits the already-completed merged gate without
 changing any command, outcome, exclusion assertion, runtime/test byte or budget.
 The documentation audit persists that correction and checks the actual baseline
 path and executed-report hash; the runtime tag remains fixed.
+
+## Workspace protein sequences (issue #95)
+
+C2 uses an already-loaded **visible**10,000-residue/30,000-atom synthetic protein,
+with the unrelated unvirtualized atom property table unmounted. Complete
+endpoint navigation/range selection takes2033/1893ms desktop/mobile, longest
+tasks384/315ms, mounted20/15 residue tiles within29/24 bounds, repeated normalized
+reads0/0. A24-chain case also verifies bounded vertical DOM. These retain the
+5s operation and750ms longest-task budgets; they qualify navigation, not realistic
+protein chemistry or universal throughput. [Exact context and counts](assets/workspace-sequence-viewer/c2-final2-summary.json)
+and the feature plan retain evidence.
+
+Immutable membership/display indexes avoid all-atom scans per residue or minor
+selection/camera update. Horizontal windows use eight-item overscan per side plus
+one retained focus; vertical windows use four rows per side plus one retained
+focus row. Virtualization never limits canonical selection operands. Existing
+1STP/movement/surface/minimization budgets remain unchanged and separately required
+by the complete final candidate and exact-master release gates.

@@ -224,7 +224,7 @@ test("completes the MolWeave v0.1 definition-of-done journey", async ({
   await page.getByRole("group", { name: "Expand current" }).getByRole("button", { name: "structure" }).click();
   await expect(page.getByLabel("Current selection summary")).toContainText("Structures1");
 
-  await page.getByRole("tab", { name: "sequence" }).click();
+  await expect(page.getByRole("region", { name: "Protein sequence viewer", exact: true })).toBeVisible();
   await page.getByRole("button", { name: `ALA 1 · chain A in ${protein!.name}`, exact: true }).click();
   await page.getByRole("tab", { name: "selection" }).click();
   await expect(page.locator(".selection-meta")).toContainText("from sequence");

@@ -1,0 +1,394 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - button "Projects" [ref=e5] [cursor=pointer]:
+      - generic [ref=e7] [cursor=pointer]: Neistra
+    - button "Protein sequences 1793184640748 Unsaved changes" [ref=e8] [cursor=pointer]:
+      - generic [ref=e9] [cursor=pointer]: Protein sequences 1793184640748
+    - generic [ref=e11]:
+      - button "Import structures" [ref=e12] [cursor=pointer]:
+        - img [ref=e13] [cursor=pointer]
+      - button "Export" [ref=e16] [cursor=pointer]:
+        - img [ref=e17] [cursor=pointer]
+      - button "Jobs" [ref=e23] [cursor=pointer]:
+        - img [ref=e24] [cursor=pointer]
+      - 'button "Undo: Update viewer settings for string" [ref=e29] [cursor=pointer]':
+        - img [ref=e30] [cursor=pointer]
+      - button "Redo" [disabled] [ref=e33]:
+        - img [ref=e34]
+      - button "Save checkpoint" [ref=e37] [cursor=pointer]:
+        - img [ref=e38] [cursor=pointer]
+      - button "Use dark theme" [ref=e43] [cursor=pointer]:
+        - img [ref=e44] [cursor=pointer]
+  - status:
+    - generic: Change stored locally.
+    - button "Dismiss message" [ref=e46] [cursor=pointer]: Close
+  - generic [ref=e48]:
+    - region "Project browser" [ref=e50]:
+      - generic [ref=e51]:
+        - generic [ref=e52]:
+          - generic [ref=e53]: Project
+          - heading "Structures" [level=2] [ref=e54]
+        - button "New molecule" [ref=e55]
+        - button "Collapse project browser" [ref=e56] [cursor=pointer]:
+          - img [ref=e57] [cursor=pointer]
+      - generic [ref=e59]:
+        - generic [ref=e61]:
+          - generic [ref=e62]:
+            - generic [ref=e63]:
+              - img [ref=e64]
+              - generic [ref=e67]: Search structures
+              - textbox "Search structures" [ref=e68]
+            - group [ref=e69]:
+              - option "All types" [selected]
+              - option "Protein"
+              - option "Ligand"
+              - option "Complex"
+              - option "Solvent"
+              - option "Unknown"
+              - option "Name" [selected]
+              - option "Type"
+              - option "Atom count"
+              - option "Modified"
+          - generic [ref=e74]:
+            - img [ref=e76]
+            - button "string Modified" [pressed] [ref=e83] [cursor=pointer]:
+              - img [ref=e84] [cursor=pointer]
+              - generic [ref=e87] [cursor=pointer]: string
+              - generic [ref=e89] [cursor=pointer]: Modified
+            - generic [ref=e90]:
+              - button "Hide string" [ref=e91] [cursor=pointer]:
+                - img [ref=e92] [cursor=pointer]
+              - button "Lock string" [ref=e95] [cursor=pointer]:
+                - img [ref=e96] [cursor=pointer]
+              - button "Actions for string" [ref=e99] [cursor=pointer]:
+                - img [ref=e100] [cursor=pointer]
+        - separator "Resize entries and components" [ref=e104]
+        - region "Component browser" [ref=e106]:
+          - generic [ref=e107]:
+            - heading "Components" [level=3] [ref=e108]
+            - button "Collapse components" [ref=e109] [cursor=pointer]:
+              - img [ref=e110] [cursor=pointer]
+          - paragraph [ref=e112]: Choose an entry to browse components
+    - separator "Resize project browser" [ref=e113]
+    - generic [ref=e115]:
+      - main [ref=e117]:
+        - generic [ref=e118]:
+          - generic [ref=e119]:
+            - region "3D molecular viewer" [ref=e120]:
+              - generic [ref=e124]:
+                - link "Mol* molecular viewer (opens in a new tab)" [ref=e128] [cursor=pointer]:
+                  - /url: https://molstar.org
+                - button "Select Animation" [ref=e133] [cursor=pointer]:
+                  - img [ref=e135] [cursor=pointer]
+                - generic [ref=e138]:
+                  - button "Reset Zoom" [ref=e141] [cursor=pointer]:
+                    - img [ref=e143] [cursor=pointer]
+                  - button "Screenshot / State Snapshot" [ref=e147] [cursor=pointer]:
+                    - img [ref=e149] [cursor=pointer]
+                  - generic [ref=e151]:
+                    - button "Toggle Controls Panel" [ref=e153] [cursor=pointer]:
+                      - img [ref=e155] [cursor=pointer]
+                    - button "Toggle Expanded Viewport" [ref=e158] [cursor=pointer]:
+                      - img [ref=e160] [cursor=pointer]
+                    - button "Settings / Controls Info" [ref=e162] [cursor=pointer]:
+                      - img [ref=e164] [cursor=pointer]
+                    - button "Illumination" [ref=e166] [cursor=pointer]:
+                      - img [ref=e168] [cursor=pointer]
+                    - button "Augmented/Virtual Reality unavailable" [disabled] [ref=e170]:
+                      - img [ref=e172]
+                  - button "Toggle Selection Mode" [ref=e177] [cursor=pointer]:
+                    - img [ref=e179] [cursor=pointer]
+            - generic:
+              - status:
+                - generic: 1 visible / 1 loaded / 3 selected
+              - toolbar "Viewer quick actions" [ref=e181]:
+                - generic [ref=e182]: Pick
+                - group "Viewer picking mode" [ref=e183]:
+                  - button "Pick atoms" [pressed] [ref=e184] [cursor=pointer]: Atom
+                  - button "Pick residues" [ref=e185] [cursor=pointer]: Residue
+                  - button "Pick chains" [ref=e186] [cursor=pointer]: Chain
+                  - button "Pick structures" [ref=e187] [cursor=pointer]: Structure
+                - group "Viewer focus actions" [ref=e188]:
+                  - button "Fit all visible" [ref=e189] [cursor=pointer]:
+                    - img [ref=e190] [cursor=pointer]
+                  - button "Focus selection" [ref=e191] [cursor=pointer]:
+                    - img [ref=e192] [cursor=pointer]
+                  - button "Focus visible ligands" [disabled] [ref=e198]:
+                    - img [ref=e199]
+                  - button "Style selection" [ref=e202] [cursor=pointer]:
+                    - img [ref=e203] [cursor=pointer]
+                  - button "Interactions" [ref=e209] [cursor=pointer]:
+                    - img [ref=e210] [cursor=pointer]
+              - group "Molecular tools" [ref=e215]:
+                - region "Transformation tools" [ref=e216]:
+                  - button "Transform selection" [disabled] [ref=e217]:
+                    - img [ref=e218]
+                - button "Edit molecule" [ref=e224] [cursor=pointer]:
+                  - img [ref=e225] [cursor=pointer]
+                - button "Minimize selection" [ref=e229] [cursor=pointer]:
+                  - img [ref=e230] [cursor=pointer]
+            - generic [ref=e232]:
+              - button "Close viewer controls" [ref=e233] [cursor=pointer]:
+                - img [ref=e234] [cursor=pointer]
+              - generic [ref=e237]:
+                - generic [ref=e238]:
+                  - strong [ref=e239]: Display
+                  - combobox "Controlled structure" [ref=e240]:
+                    - option "string" [selected]
+                - generic [ref=e242]:
+                  - combobox "Representation style for string" [ref=e243]:
+                    - option "cartoon" [selected]
+                    - option "backbone"
+                    - option "line"
+                    - option "stick"
+                    - option "thick-stick"
+                    - option "ball-and-stick"
+                    - option "space-filling"
+                  - combobox "Color scheme for cartoon" [ref=e244]:
+                    - option "element" [selected]
+                    - option "chain"
+                    - option "residue"
+                    - option "secondary-structure"
+                    - option "structure"
+                    - option "custom"
+                  - generic [ref=e245]:
+                    - generic [ref=e246]: Opacity
+                    - slider "Opacity" [ref=e247]: "1"
+                  - button "Remove cartoon representation" [ref=e248] [cursor=pointer]:
+                    - img [ref=e249] [cursor=pointer]
+                - generic [ref=e252]:
+                  - text: Add representation
+                  - combobox "Add representation" [ref=e253]:
+                    - option "Choose style" [selected]
+                    - option "cartoon"
+                    - option "backbone"
+                    - option "line"
+                    - option "stick"
+                    - option "thick-stick"
+                    - option "ball-and-stick"
+                    - option "space-filling"
+                    - option "surface"
+                - button "Manage surfaces" [ref=e254] [cursor=pointer]
+                - group "Components" [ref=e255]:
+                  - generic [ref=e256]: Components
+                  - generic [ref=e257]:
+                    - checkbox "Show hydrogens" [checked] [ref=e258]
+                    - text: Show hydrogens
+                  - generic [ref=e259]:
+                    - generic [ref=e260]:
+                      - checkbox "Show non-polar hydrogens" [checked] [ref=e261]
+                      - text: Show non-polar hydrogens
+                    - generic [ref=e262]: Turn off to keep polar hydrogens only. Requires Show hydrogens.
+                  - generic [ref=e263]:
+                    - checkbox "protein" [active] [ref=e264]
+                    - text: protein
+                  - generic [ref=e265]:
+                    - checkbox "ligands" [checked] [ref=e266]
+                    - text: ligands
+                  - generic [ref=e267]:
+                    - checkbox "solvent" [checked] [ref=e268]
+                    - text: solvent
+                  - generic [ref=e269]:
+                    - checkbox "ions" [checked] [ref=e270]
+                    - text: ions
+                - group "Labels" [ref=e271]:
+                  - generic [ref=e272]: Labels
+                  - generic [ref=e273]:
+                    - checkbox "atoms" [ref=e274]
+                    - text: atoms
+                  - generic [ref=e275]:
+                    - checkbox "residues" [ref=e276]
+                    - text: residues
+                  - generic [ref=e277]:
+                    - checkbox "chains" [ref=e278]
+                    - text: chains
+                  - generic [ref=e279]:
+                    - checkbox "structure" [ref=e280]
+                    - text: structure
+                - generic "Viewer navigation" [ref=e281]:
+                  - generic [ref=e282]:
+                    - button "perspective" [pressed] [ref=e283] [cursor=pointer]:
+                      - img [ref=e284] [cursor=pointer]
+                      - text: perspective
+                    - button "orthographic" [ref=e289] [cursor=pointer]
+                  - button "Zoom in" [ref=e290] [cursor=pointer]:
+                    - img [ref=e291] [cursor=pointer]
+                  - button "Zoom out" [ref=e292] [cursor=pointer]:
+                    - img [ref=e293] [cursor=pointer]
+                  - button "Isolate selection" [ref=e294]
+                - generic [ref=e295]:
+                  - generic [ref=e296]:
+                    - text: Named scenes
+                    - generic [ref=e297]:
+                      - textbox "Named scenes Save current scene" [ref=e298]
+                      - button "Save current scene" [disabled] [ref=e299]:
+                        - img [ref=e300]
+                  - generic [ref=e305]: No named scenes
+          - region "Protein sequence viewer" [ref=e306]:
+            - generic [ref=e307]:
+              - button "Collapse sequences" [expanded] [ref=e308] [cursor=pointer]:
+                - img [ref=e309] [cursor=pointer]
+              - generic [ref=e311]: Sequence
+              - generic [ref=e312]: No displayed protein chains
+              - button "Hide sequences" [ref=e313] [cursor=pointer]:
+                - img [ref=e314] [cursor=pointer]
+      - separator "Resize lower panel" [ref=e317]
+      - region "Properties and history" [ref=e319]:
+        - generic [ref=e320]:
+          - tablist "Lower panel views" [ref=e321]:
+            - tab "Properties" [selected] [ref=e322] [cursor=pointer]:
+              - img [ref=e323] [cursor=pointer]
+              - text: Properties
+            - tab "History" [ref=e325] [cursor=pointer]:
+              - img [ref=e326] [cursor=pointer]
+              - text: History
+            - tab "Jobs" [ref=e330] [cursor=pointer]:
+              - img [ref=e331] [cursor=pointer]
+              - text: Jobs
+          - button "Collapse lower panel" [ref=e335] [cursor=pointer]:
+            - img [ref=e336] [cursor=pointer]
+        - region "Selected atom properties" [ref=e338]:
+          - table [ref=e339]:
+            - rowgroup [ref=e340]:
+              - row "Structure Index Atom Element Residue Chain Charge X Y Z" [ref=e341]:
+                - cell "Structure" [ref=e342]
+                - cell "Index" [ref=e343]
+                - cell "Atom" [ref=e344]
+                - cell "Element" [ref=e345]
+                - cell "Residue" [ref=e346]
+                - cell "Chain" [ref=e347]
+                - cell "Charge" [ref=e348]
+                - cell "X" [ref=e349]
+                - cell "Y" [ref=e350]
+                - cell "Z" [ref=e351]
+            - rowgroup [ref=e352]:
+              - row "string 4 N N GLY 10 A - 2.000 0.000 0.000" [ref=e353] [cursor=pointer]:
+                - cell "string" [ref=e354] [cursor=pointer]
+                - cell "4" [ref=e355] [cursor=pointer]
+                - cell "N" [ref=e356] [cursor=pointer]
+                - cell "N" [ref=e357] [cursor=pointer]
+                - cell "GLY 10" [ref=e358] [cursor=pointer]
+                - cell "A" [ref=e359] [cursor=pointer]
+                - cell "-" [ref=e360] [cursor=pointer]
+                - cell "2.000" [ref=e361] [cursor=pointer]
+                - cell "0.000" [ref=e362] [cursor=pointer]
+                - cell "0.000" [ref=e363] [cursor=pointer]
+              - row "string 5 CA C GLY 10 A - 3.000 0.000 0.000" [ref=e364] [cursor=pointer]:
+                - cell "string" [ref=e365] [cursor=pointer]
+                - cell "5" [ref=e366] [cursor=pointer]
+                - cell "CA" [ref=e367] [cursor=pointer]
+                - cell "C" [ref=e368] [cursor=pointer]
+                - cell "GLY 10" [ref=e369] [cursor=pointer]
+                - cell "A" [ref=e370] [cursor=pointer]
+                - cell "-" [ref=e371] [cursor=pointer]
+                - cell "3.000" [ref=e372] [cursor=pointer]
+                - cell "0.000" [ref=e373] [cursor=pointer]
+                - cell "0.000" [ref=e374] [cursor=pointer]
+              - row "string 6 C C GLY 10 A - 4.000 0.000 0.000" [ref=e375] [cursor=pointer]:
+                - cell "string" [ref=e376] [cursor=pointer]
+                - cell "6" [ref=e377] [cursor=pointer]
+                - cell "C" [ref=e378] [cursor=pointer]
+                - cell "C" [ref=e379] [cursor=pointer]
+                - cell "GLY 10" [ref=e380] [cursor=pointer]
+                - cell "A" [ref=e381] [cursor=pointer]
+                - cell "-" [ref=e382] [cursor=pointer]
+                - cell "4.000" [ref=e383] [cursor=pointer]
+                - cell "0.000" [ref=e384] [cursor=pointer]
+                - cell "0.000" [ref=e385] [cursor=pointer]
+    - separator "Resize inspector" [ref=e386]
+    - region "Project inspector" [ref=e388]:
+      - generic [ref=e389]:
+        - generic [ref=e390]:
+          - generic [ref=e391]: Inspector
+          - heading "Selection" [level=2] [ref=e392]
+        - button "Collapse inspector" [ref=e393] [cursor=pointer]:
+          - img [ref=e394] [cursor=pointer]
+      - tablist "Inspector views" [ref=e396]:
+        - tab "selection" [selected] [ref=e397] [cursor=pointer]
+        - tab "inspect" [ref=e398] [cursor=pointer]
+        - tab "measurements" [ref=e399] [cursor=pointer]
+        - tab "transform" [ref=e400] [cursor=pointer]
+        - tab "ligand" [ref=e401] [cursor=pointer]
+        - tab "protein" [ref=e402] [cursor=pointer]
+        - tab "details" [ref=e403] [cursor=pointer]
+      - tabpanel "selection" [ref=e404]:
+        - generic [ref=e405]:
+          - generic "Current selection summary" [ref=e406]:
+            - generic [ref=e407]:
+              - term [ref=e408]: Atoms
+              - definition [ref=e409]: "3"
+            - generic [ref=e410]:
+              - term [ref=e411]: Residues
+              - definition [ref=e412]: "1"
+            - generic [ref=e413]:
+              - term [ref=e414]: Chains
+              - definition [ref=e415]: "1"
+            - generic [ref=e416]:
+              - term [ref=e417]: Structures
+              - definition [ref=e418]: "1"
+          - generic [ref=e419]:
+            - generic [ref=e420]: residue
+            - generic [ref=e421]: from sequence
+          - generic [ref=e422]:
+            - button "Clear" [ref=e423] [cursor=pointer]:
+              - img [ref=e424] [cursor=pointer]
+              - text: Clear
+            - button "Invert" [ref=e427] [cursor=pointer]
+          - group "Operation mode" [ref=e428]:
+            - generic [ref=e429]: Operation mode
+            - generic [ref=e430]:
+              - button "replace" [pressed] [ref=e431] [cursor=pointer]
+              - button "add" [ref=e432] [cursor=pointer]
+              - button "subtract" [ref=e433] [cursor=pointer]
+          - group "Viewer pick" [ref=e434]:
+            - generic [ref=e435]: Viewer pick
+            - generic [ref=e436]:
+              - button "atom" [pressed] [ref=e437] [cursor=pointer]
+              - button "residue" [ref=e438] [cursor=pointer]
+              - button "chain" [ref=e439] [cursor=pointer]
+              - button "structure" [ref=e440] [cursor=pointer]
+          - group "Expand current" [ref=e441]:
+            - generic [ref=e442]: Expand current
+            - generic [ref=e443]:
+              - button "residue" [ref=e444] [cursor=pointer]
+              - button "chain" [ref=e445] [cursor=pointer]
+              - button "structure" [ref=e446] [cursor=pointer]
+          - generic [ref=e447]:
+            - generic [ref=e448]:
+              - text: Select by
+              - combobox "Select by" [ref=e449]:
+                - option "Atom name" [selected]
+                - option "Atom index"
+                - option "Structure:atom reference"
+                - option "Element"
+                - option "Residue name"
+                - option "Residue number"
+                - option "Chain"
+                - option "Structure ID"
+            - generic [ref=e450]:
+              - text: Value
+              - textbox "Value" [ref=e451]
+            - button "Apply query" [disabled] [ref=e452]
+          - generic [ref=e453]:
+            - generic [ref=e454]:
+              - generic [ref=e455]:
+                - text: Within (angstrom)
+                - spinbutton "Within (angstrom)" [ref=e456]: "4"
+              - generic [ref=e457]:
+                - text: Result
+                - combobox "Result" [ref=e458]:
+                  - option "Atoms" [selected]
+                  - option "Residues"
+            - button "Run distance selection" [ref=e459] [cursor=pointer]
+          - generic [ref=e460]:
+            - generic [ref=e461]:
+              - text: Saved selections
+              - generic [ref=e462]:
+                - textbox "Saved selections Save current selection" [ref=e463]
+                - button "Save current selection" [disabled] [ref=e464]:
+                  - img [ref=e465]
+            - paragraph [ref=e470]: No saved selections
+```

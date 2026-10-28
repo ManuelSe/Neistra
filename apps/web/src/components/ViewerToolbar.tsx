@@ -1,5 +1,5 @@
 import * as Tooltip from "@radix-ui/react-tooltip";
-import { Focus, Frame, Palette, Pill, Network } from "lucide-react";
+import { Focus, Frame, Palette, Pill, Network, Rows3 } from "lucide-react";
 import type { ReactNode } from "react";
 import type { SelectionGranularity } from "../api/types";
 
@@ -19,6 +19,7 @@ const PICKING_MODES: {
 ];
 
 interface ViewerToolbarProps {
+  onShowSequences?: () => void;
   interactionsOpen?: boolean;
   onInteractions?: () => void;
   pickingUnavailableReason?: string | null;
@@ -83,6 +84,7 @@ function ViewerActionButton({
 }
 
 export function ViewerToolbar({
+  onShowSequences,
   interactionsOpen = false,
   onInteractions,
   pickingUnavailableReason = null,
@@ -180,6 +182,7 @@ export function ViewerToolbar({
         >
           <Palette size={15} />
         </ViewerActionButton>
+        {onShowSequences ? <ViewerActionButton label="Show sequences" tooltip="Show protein sequences" unavailableReason={null} onClick={onShowSequences}><Rows3 size={15} /></ViewerActionButton> : null}
         {onInteractions ? <ViewerActionButton label="Interactions" tooltip="Inspect molecular interactions" unavailableReason={null} onClick={onInteractions} hasPopup="dialog" expanded={interactionsOpen}><Network size={15} /></ViewerActionButton> : null}
       </div>
     </div>

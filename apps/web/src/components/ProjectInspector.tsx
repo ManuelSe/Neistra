@@ -36,7 +36,6 @@ import type { ResidueSelectionRequest } from "../selection/gestures";
 import { IconButton } from "./IconButton";
 import { LigandEditorPanel } from "./LigandEditorPanel";
 import { MeasurementsPanel } from "./MeasurementsPanel";
-import { ProteinSequence } from "./ProteinSequence";
 import { ProteinEditorPanel } from "./ProteinEditorPanel";
 import { TransformPanel } from "./TransformPanel";
 import { activateTabFromKeyboard } from "./tabKeyboard";
@@ -484,7 +483,6 @@ export function ProjectInspector(props: ProjectInspectorProps) {
     | "transform"
     | "ligand"
     | "protein"
-    | "sequence"
     | "details"
   >(props.movement?.state.capture ? "transform" : "selection");
   const automaticallyOpenedDetails = useRef(false);
@@ -537,10 +535,6 @@ export function ProjectInspector(props: ProjectInspectorProps) {
       ),
     [structureQueries],
   );
-  const projections = useMemo(() => new Map(structureQueries.flatMap(query =>
-    query.data ? [[query.data.entry_id, query.data] as const] : [])), [structureQueries]);
-  const loading = structureQueries.some((query) => query.isPending);
-
   return (
     <section className="panel-content project-inspector" aria-label="Project inspector">
       <div className="panel-header inspector-header">
@@ -559,8 +553,6 @@ export function ProjectInspector(props: ProjectInspectorProps) {
                       ? "Ligand"
                     : tab === "protein"
                       ? "Protein"
-                    : tab === "sequence"
-                    ? "Sequence"
                     : "Project"}
           </h2>
         </div>
@@ -576,7 +568,7 @@ export function ProjectInspector(props: ProjectInspectorProps) {
         aria-label="Inspector views"
         onKeyDown={activateTabFromKeyboard}
       >
-        {(["selection", "inspect", "measurements", "transform", "ligand", "protein", "sequence", "details"] as const).map((item) => (
+        {(["selection", "inspect", "measurements", "transform", "ligand", "protein", "details"] as const).map((item) => (
           <button
             type="button"
             role="tab"
@@ -652,15 +644,6 @@ export function ProjectInspector(props: ProjectInspectorProps) {
               (() => Promise.reject(new Error("Protein editing is unavailable.")))
             }
             onMove={props.onTransform ?? (() => Promise.resolve())}
-          />
-        ) : tab === "sequence" ? (
-          <ProteinSequence
-            project={project}
-            selection={selection}
-            loading={loading}
-            projections={projections}
-            onSelectResidue={props.onSelectResidue}
-            onApplySelection={props.onApplySelection}
           />
         ) : (
           <DetailsPanel project={project} busy={props.busy} onApply={props.onApply} />

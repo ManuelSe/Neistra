@@ -3,7 +3,8 @@
 ## 1. Status, outcome, and authority
 
 **Status:** implementation authorized by the user’s `/goal` on 2026-10-28.
-M1/C1 extraction is implemented and qualified; M2–M4 remain pending.
+M1/C1 and M2/C2 are implemented and qualified; final candidate and
+verified delivery (M3–M4) remain pending.
 
 **Approval:** the user's “Implement the plan.” on 2026-10-28 approves the complete
 proposal, including its mandatory C0 stop ready for `/goal`. This authorizes
@@ -464,14 +465,17 @@ unrelated branches/worktrees.
 | C0 — Remote receipt | Planning commit `e51c0d37ff6de8b66b0b1c7f2ce932eaf2cb9fc8` pushed and remotely verified; clean tree. |
 | 2026-10-28 — Implementation authorization | User’s `/goal` authorizes implementation, checkpoint qualification and verified delivery under this contract. |
 | M1/C1 — Complete | [Final gate](../assets/workspace-sequence-viewer/c1-final-gate.json): 48 focused / 357 complete frontend / 7 native browser tests pass, one existing mobile exclusion of the desktop three-panel workflow. Lint/typecheck/build/diff pass. [Summary](../assets/workspace-sequence-viewer/c1-final-summary.json), [browser report](../assets/workspace-sequence-viewer/c1-final-browser-results.json.gz), [implementer review](../assets/workspace-sequence-viewer/c1-review.md). All source identities fixed. [Initial lint attempt](../assets/workspace-sequence-viewer/c1-initial-gate.json) retained as diagnostic; obsolete imports corrected without assertion changes. |
-| M2/C2–M4/C4 | Pending. Record each checkpoint’s commits, commands/evidence, deviations, candidate/merged gates, publication receipts, and cleanup here as they occur. |
+| M2/C2 — Complete | [Final fixed-source gate](../assets/workspace-sequence-viewer/c2-final2-gate.json), [summary](../assets/workspace-sequence-viewer/c2-final2-summary.json), [browser](../assets/workspace-sequence-viewer/c2-final2-browser-results.json.gz), [actual zoom](../assets/workspace-sequence-viewer/c2-final2-zoom-results.json.gz), [review](../assets/workspace-sequence-viewer/c2-review.md): 58 focused / 366 full frontend / 36 browser / 1 actual-zoom tests pass, three existing mobile exclusions; no failures/flakes/retries. All 580 source identities and logs fixed. Displayed 10,000 residues/30,000 atoms: 2033/1893ms total, 384/315ms longest tasks, mounted 20/15 within 29/24 bounds, zero repeated reads, property table unmounted. Both themes/320px/keyboard/collapse/hide/scroll/remount/selection/visibility/Undo and actual 100%/200% zoom pass. Initial lint/test-type failures and interrupted native attempt remain diagnostic; original assertions/budgets/fixtures unchanged. |
+| M3/C3–M4/C4 | Pending. Record each checkpoint’s commits, commands/evidence, deviations, candidate/merged gates, publication receipts, and cleanup here as they occur. |
 
-**Known limitations:** the extracted protein sequence remains in the Inspector;
-docking, display eligibility, virtualization and final release qualification are
-pending. No version/schema/migration/dependency change at C1. The extraction’s
-compatibility fallback is replaced by guarded docked activation at C2.
+**Known limitations:** sequence navigation is observed protein context, not
+alignment, reconstruction or nonprotein sequence browsing. The large profile is
+synthetic navigation with the property table unmounted. No version/schema/
+migration/dependency change at C2; final complete release and actual-reader gates
+remain pending. C2 review identifies bounded cleanup for the final candidate.
 
 **Blockers:** none.
 
-**Next action:** M2/C2 — integrate the docked stacked workflow, display-derived
-eligibility, independent presentation state and virtual accessible navigation.
+**Next action:** M3/C3 — complete review cleanup, update five authoritative
+versions and release documentation, qualify a clean fixed candidate and actual
+v0.25.0 readers, then open the PR after the full gate passes.

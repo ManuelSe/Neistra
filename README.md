@@ -68,6 +68,14 @@ data/history/archives, while new H building needs the current client/server.
 Earlier schema downgrade guards remain binding. Back up the complete managed data
 directory before changing versions.
 
+The [protein sequence viewer](docs/SEQUENCE_VIEWER.md) below the 3D canvas stacks
+the observed chains of displayed proteins. Browse and select residues with the
+same modifiers as Components and the viewer. Collapse or hide sequences
+independently of Properties / History / Jobs; the viewer toolbar restores them.
+Rows retain whole-chain context while any part is displayed, without inventing
+missing residues or including nonprotein polymers. Issue #95's approved contract
+tracks candidate qualification and release status.
+
 The compact molecular toolbar contains **Transform**, **Edit**, and **Minimize**.
 Click **Minimize** to open setup without calculating. Select atoms and press
 **Ctrl+M** for immediate quick local relaxation without opening the panel. Selected atoms and attached terminal H move inside fixed visible

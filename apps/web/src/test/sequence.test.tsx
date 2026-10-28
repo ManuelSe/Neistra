@@ -2,10 +2,14 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { useState, type ReactNode } from "react";
-import { afterEach, describe, expect, it, vi } from "vitest";
-import type { Project, Selection, SelectionMode } from "../api/types";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import type { Project, Selection } from "../api/types";
+import { SequenceViewer } from "../components/SequenceViewer";
+import { proteinSequenceRows } from "../selection/sequence";
+import { useSequenceNavigationStore } from "../store/sequenceNavigation";
+import { useWorkspaceStore } from "../store/workspace";
 import { ProjectInspector } from "../components/ProjectInspector";
-import { combineSelection, emptySelection } from "../selection/selection";
+import { emptySelection } from "../selection/selection";
 import type { ResidueSelectionRequest } from "../selection/gestures";
 import { useSelectionStore } from "../store/selection";
 import { molecularProject, proteinProjection } from "./molecular-fixtures";
@@ -16,13 +20,27 @@ function wrapper(client: QueryClient) {
   };
 }
 
-function Harness({ initialSelection = emptySelection(), onSelectResidue }: {
-  initialSelection?: Selection; onSelectResidue?: (request: ResidueSelectionRequest) => void;
+function Harness({ initialSelection = emptySelection(), onSelectResidue, projection = proteinProjection() }: {
+  initialSelection?: Selection; onSelectResidue?: (request: ResidueSelectionRequest) => void; projection?: ReturnType<typeof proteinProjection>;
 } = {}) {
   const [selection, setSelection] = useState<Selection>(initialSelection);
   const [pickingGranularity, setPickingGranularity] =
     useState<Selection["granularity"]>("atom");
+  const project = molecularProject();
+  useSelectionStore.getState().setProject(project.id);
+  useSequenceNavigationStore.getState().setProject(project.id);
   return (
+    <>
+    <SequenceViewer projectId={project.id} rows={proteinSequenceRows({ entryId: "protein", normalized: projection.structure, hierarchy: projection.hierarchy }).map(row => ({ ...row, key: JSON.stringify(["protein", row.componentId, row.chainId]), entryId: "protein", entryName: "Receptor", artifactId: "current-protein", current: true }))}
+      loading={false} failed={false} selection={selection} onHide={() => undefined}
+      onSelectResidue={request => {
+        if (onSelectResidue) onSelectResidue(request);
+        else {
+          useSelectionStore.getState().replace(selection);
+          useSelectionStore.getState().applyResidue(request, { projectId: project.id, artifactId: "current-protein", source: { entryId: "protein", normalized: projection.structure, hierarchy: projection.hierarchy } });
+          setSelection(useSelectionStore.getState().selection);
+        }
+      }} />
     <ProjectInspector
       project={molecularProject()}
       selection={selection}
@@ -30,9 +48,7 @@ function Harness({ initialSelection = emptySelection(), onSelectResidue }: {
       onPickingGranularity={setPickingGranularity}
       busy={false}
       onApply={() => undefined}
-      onApplySelection={(operand, mode: SelectionMode) =>
-        setSelection((current) => combineSelection(current, operand, mode))
-      }
+      onApplySelection={() => undefined}
       onSelectResidue={onSelectResidue}
       onClearSelection={() => setSelection(emptySelection())}
       onExpandSelection={() => undefined}
@@ -43,6 +59,7 @@ function Harness({ initialSelection = emptySelection(), onSelectResidue }: {
       onLoadSelection={() => undefined}
       onDeleteSelection={() => undefined}
     />
+    </>
   );
 }
 
@@ -69,8 +86,16 @@ function InspectorForProject({ project }: { project: Project }) {
 }
 
 describe("bidirectional sequence selection", () => {
+  beforeEach(() => {
+    vi.spyOn(HTMLElement.prototype, "offsetHeight", "get").mockReturnValue(104);
+    vi.spyOn(HTMLElement.prototype, "offsetWidth", "get").mockReturnValue(320);
+    useWorkspaceStore.getState().setSequenceDisplay("expanded");
+  });
   afterEach(() => {
     cleanup();
+    useWorkspaceStore.getState().setSequenceDisplay("expanded");
+    useSequenceNavigationStore.getState().setProject(null);
+    useSelectionStore.getState().setProject(null);
     vi.restoreAllMocks();
   });
 
@@ -105,7 +130,6 @@ describe("bidirectional sequence selection", () => {
     const client = new QueryClient({ defaultOptions: { queries: { retry: false } } });
     render(<Harness />, { wrapper: wrapper(client) });
 
-    await user.click(screen.getByRole("tab", { name: "sequence" }));
     const residue = await screen.findByRole("button", { name: /GLY 10/ });
     await user.click(residue);
     expect(residue).toHaveAttribute("aria-pressed", "true");
@@ -124,7 +148,6 @@ describe("bidirectional sequence selection", () => {
   });
 
   it("shows insertion codes and partial coverage and emits owned shared residue actions", async () => {
-    const user = userEvent.setup();
     const projection = proteinProjection();
     projection.structure.residues[0].insertion_code = "A";
     vi.spyOn(globalThis, "fetch").mockResolvedValue(new Response(JSON.stringify(projection), {
@@ -134,8 +157,7 @@ describe("bidirectional sequence selection", () => {
     const onSelectResidue = vi.fn();
     const client = new QueryClient({ defaultOptions: { queries: { retry: false } } });
     render(<Harness initialSelection={{ schema_version: 1, granularity: "atom", source: "viewer",
-      atoms: [{ structure_id: "protein", atom_id: 1 }] }} onSelectResidue={onSelectResidue} />, { wrapper: wrapper(client) });
-    await user.click(screen.getByRole("tab", { name: "sequence" }));
+      atoms: [{ structure_id: "protein", atom_id: 1 }] }} onSelectResidue={onSelectResidue} projection={projection} />, { wrapper: wrapper(client) });
     const residue = await screen.findByRole("button", { name: /GLY 10A/ });
     expect(residue).toHaveAttribute("aria-pressed", "mixed");
     expect(residue).toHaveAccessibleName(/chain A in Receptor/);
@@ -173,5 +195,48 @@ describe("bidirectional sequence selection", () => {
       ),
     );
     expect(screen.getByLabelText("Current selection summary")).toBeInTheDocument();
+  });
+
+  it("moves residue focus without selecting and activates the focused residue with shared modifiers", async () => {
+    const onSelectResidue = vi.fn();
+    render(<Harness onSelectResidue={onSelectResidue} />, { wrapper: wrapper(new QueryClient()) });
+    const first = await screen.findByRole("button", { name: /^GLY 10 ·/ });
+    const last = screen.getByRole("button", { name: /^ALA 11 ·/ });
+    first.focus(); fireEvent.keyDown(first, { key: "End" });
+    await waitFor(() => expect(last).toHaveFocus());
+    expect(onSelectResidue).not.toHaveBeenCalled();
+    fireEvent.click(last, { shiftKey: true });
+    expect(onSelectResidue).toHaveBeenLastCalledWith(expect.objectContaining({ residueId: 2, mode: "add", shift: true, source: "sequence" }));
+    fireEvent.keyDown(last, { key: "Home" });
+    await waitFor(() => expect(first).toHaveFocus());
+  });
+
+  it("collapses independently while retaining selection and the lower-panel preference", async () => {
+    useWorkspaceStore.getState().setLowerCollapsed(true);
+    const user = userEvent.setup();
+    render(<Harness initialSelection={{ schema_version: 1, granularity: "residue", source: "viewer",
+      atoms: [{ structure_id: "protein", atom_id: 1 }, { structure_id: "protein", atom_id: 2 }] }} />, { wrapper: wrapper(new QueryClient()) });
+    await screen.findByRole("button", { name: /^GLY 10 ·/ });
+    await user.click(screen.getByRole("button", { name: "Collapse sequences" }));
+    expect(screen.queryByRole("button", { name: /^GLY 10 ·/ })).not.toBeInTheDocument();
+    expect(useWorkspaceStore.getState().lowerCollapsed).toBe(true);
+    await user.click(screen.getByRole("button", { name: "Expand sequences" }));
+    expect(await screen.findByRole("button", { name: /^GLY 10 ·/ })).toHaveAttribute("aria-pressed", "true");
+    expect(useWorkspaceStore.getState().lowerCollapsed).toBe(true);
+    useWorkspaceStore.getState().setLowerCollapsed(false);
+  });
+
+  it("shows an updating projection without accepting stale residue actions", async () => {
+    const projection = proteinProjection();
+    const onSelectResidue = vi.fn();
+    const rows = proteinSequenceRows({ entryId: "protein", normalized: projection.structure, hierarchy: projection.hierarchy })
+      .map(row => ({ ...row, entryId: "protein", entryName: "Receptor", artifactId: "retired", current: false }));
+    render(<SequenceViewer projectId="project" rows={rows} selection={emptySelection()} loading failed={false}
+      onSelectResidue={onSelectResidue} onHide={() => undefined} />);
+    const residue = await screen.findByRole("button", { name: /^GLY 10 ·/ });
+    expect(residue).toHaveAttribute("aria-disabled", "true");
+    fireEvent.click(residue);
+    expect(onSelectResidue).not.toHaveBeenCalled();
+    expect(screen.getByRole("status")).toHaveTextContent("Updating");
   });
 });

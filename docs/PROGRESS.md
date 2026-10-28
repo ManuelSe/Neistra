@@ -21,10 +21,29 @@ pass with fixed source identities. Initial obsolete-import lint failure remains
 diagnostic. [Review](assets/workspace-sequence-viewer/c1-review.md) is implementer
 self-review. No feature-release qualification is claimed.
 
-All five versions remain 0.25.0; planned stable minor is 0.26.0, subject to fresh
-baseline/tag checks. Known limitation: docking, display eligibility and virtual
-accessible browsing remain pending. No current blocker. Next action: M2/C2,
-followed by complete candidate/exact-master qualification and verified delivery.
+M2/C2 delivers the docked stacked workflow and removes the Inspector Sequence tab.
+Current application display settings/isolation and independent surface sources
+retain whole observed protein-chain context. Safe independent collapse/hide,
+transient scroll/owned focus, canonical mixed coverage and bounded two-axis
+keyboard browsing remain separate from molecular authority. See
+[sequence guidance](SEQUENCE_VIEWER.md) and D-146's appended implementation note.
+
+[Final C2 gate](assets/workspace-sequence-viewer/c2-final2-gate.json) and
+[summary](assets/workspace-sequence-viewer/c2-final2-summary.json) pass 58 focused,
+366 full frontend, 36 native browser and one actual-zoom case; three existing
+mobile layout exclusions, no failures/flakes/retries. All 580 source/log identities
+verify. Displayed 10,000-residue/30,000-atom navigation takes 2033/1893ms,
+longest tasks384/315ms, mounted20/15 within29/24 bounds, repeated reads0/0.
+Property table is unmounted; no general chemistry/throughput claim. Both themes,
+320px, actual100%/200%zoom, native selection/visibility/focus/remount and independent
+collapse/hide pass. Earlier diagnostic failures are retained; explicit test-camera
+zoom corrects tiny-fixture framing with unchanged assertions/fixture/budgets.
+[Review](assets/workspace-sequence-viewer/c2-review.md) is implementer self-review.
+
+All five versions remain0.25.0; planned stable minor0.26.0 remains pending fresh
+baseline/tag checks. No backend/API/job/schema/migration/dependency/scientific-model
+change. No current blocker. Next action: M3/C3 review cleanup, final-version
+candidate/full release gate and actual tagged readers, then verified delivery.
 
 ### Previous delivery baseline — v0.25.0
 
