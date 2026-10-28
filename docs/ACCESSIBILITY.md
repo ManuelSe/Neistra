@@ -478,5 +478,8 @@ camera; transient focus/scroll survive responsive remounts.
 C2 passes both themes,320px,44px coarse targets, actual100%/200%browser zoom,
 scoped axe and trusted keyboard/remount input. Screenshots are separately
 inspected. See the [feature evidence](assets/workspace-sequence-viewer/c2-final2-summary.json).
-Final full candidate/master gates remain pending. No interactive screen-reader,
+The [clean final candidate](assets/workspace-sequence-viewer/c3-candidate4-gate.json)
+repeats all tested scopes, including the relocated sequence region in the existing
+all-surface audit, with no new exclusion or retry. Exact merged-master repetition
+remains pending. No interactive screen-reader,
 physical-device or broader-browser certification is claimed.

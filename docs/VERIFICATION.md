@@ -1,11 +1,11 @@
 # V0.1 Requirement Evidence
 
-## Workspace protein sequences (issue #95) — C1/C2 candidate
+## Workspace protein sequences (issue #95) — qualified 0.26.0 candidate
 
 The [approved contract](plans/issue-95-workspace-sequence-viewer.md), D-146 and
 [sequence guidance](SEQUENCE_VIEWER.md) govern. M1/C1 extraction and M2/C2 docked
-stacked browsing are implemented; complete release qualification/publication are
-pending. No stable-release completion is claimed.
+stacked browsing and C3 final candidate qualification pass. Exact merged-master
+qualification/publication remain pending; no stable-release completion is claimed.
 
 [C1](assets/workspace-sequence-viewer/c1-final-gate.json) passes48 focused/357
 frontend/seven native cases, one existing mobile layout exclusion. [C2](assets/workspace-sequence-viewer/c2-final2-gate.json)
@@ -20,10 +20,10 @@ fixed shared anchors, partial coverage, visibility/
 isolation/Undo, independent collapse/hide/persistence, keyboard, scroll clamping,
 owned responsive focus, renderer/camera/project/request invariants, both themes,
 320px and actual100%/200%browser zoom. All new feature cases run on desktop/mobile.
-The displayed10,000-residue/30,000-atom profile with property table unmounted takes
-2033/1893ms, longest384/315ms, mounted20/15 within29/24 bounds, zero repeated reads.
+The displayed 10,000-residue/30,000-atom profile with property table unmounted takes
+2033/1893ms, longest384/315ms, mounted 20/15 within 29/24 bounds, zero repeated reads.
 The24-chain stack also keeps DOM bounded. Existing native/scientific budgets and
-actual tagged0.25.0↔final0.26.0 readers remain C3/C4 release requirements.
+actual tagged 0.25.0↔final 0.26.0 readers remain C3/C4 release requirements.
 
 Initial lint/test-type and interrupted native attempts are retained as diagnostic.
 Tiny existing gesture targets require explicit UI camera zoom in the shorter
@@ -31,6 +31,21 @@ canvas; original fixtures, exact assertions, budgets and production picking are
 unchanged. [Review](assets/workspace-sequence-viewer/c2-review.md) is implementer
 self-review, not independent approval. No schema/migration/API/job/dependency or
 scientific-model change; all five versions remain0.25.0 at C2.
+
+The clean [candidate 80720fe](assets/workspace-sequence-viewer/c3-candidate4-gate.json)
+passes all 20 release commands:1250 Python/370 frontend/8 supervisor/343 browser,
+61 exactly unchanged exclusions, no failures/flakes/retries/Python or required
+native scientific skips. [Summary](assets/workspace-sequence-viewer/c3-candidate4-summary.json)
+verifies all 583 source identities, lossless log hashes and actual tagged 0.25.0↔final
+0.26.0 producer/readers in both directions. Five versions agree, dependency/API/
+schema/migration/tool pins remain, production output excludes observation harnesses.
+The final displayed profile takes 2050/2162ms, longest 281/383ms, bounded 20/15 tiles,
+zero refetches and unmounted property table. Every existing native budget passes.
+[Complete-diff review](assets/workspace-sequence-viewer/c3-full-diff-review.md) is
+implementer self-review, not independent. Earlier full-run failures are retained as
+diagnostic; stale Inspector navigation and a one-shot redraw observation are fixed
+without changing fixtures, pixel conditions, numerical limits or exclusions.
+Exact merged-master repetition and publication receipts remain mandatory.
 
 ## Protein residue browsing (issue #94) — stable v0.25.0
 

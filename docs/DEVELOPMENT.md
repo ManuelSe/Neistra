@@ -133,7 +133,7 @@ Use `.venv/bin/uv run pytest tests/scientific` for the chemistry/file-format
 suite and `corepack pnpm --dir apps/web test -- jobs` for a focused component
 run. Do not add `MOLWEAVE_ENABLE_TEST_ROUTES=1` to normal startup.
 
-## Workspace protein sequence compatibility (0.26.0 candidate)
+## Workspace protein sequence compatibility (0.26.0)
 
 Issue #95 changes frontend navigation and application version metadata. The
 [sequence guide](SEQUENCE_VIEWER.md) and [approved contract](plans/issue-95-workspace-sequence-viewer.md)
@@ -146,12 +146,15 @@ data before changing deployments; no schema downgrade is needed.
 
 Final candidate and exact merged master must pass the complete release gate,
 locked native toolchain and unchanged budgets, followed by actual detached tagged
-v0.25.0↔final0.26.0 producer/reader processes. Reuse
+v0.25.0↔final 0.26.0 producer/reader processes. Reuse
 `tests.support.selection_reader_qualification` with separate disposable stores,
 explicit module roots and `--implementation-root`, `--expected-version`,
 `--data-dir`, and `--evidence` arguments. The issue95 release recipe preserves the
 existing20 steps and also hashes supervisor scripts. No runtime installation,
-model update or user-managed-data repair is part of this feature.
+model update or user-managed-data repair is part of this feature. The clean
+[candidate gate](assets/workspace-sequence-viewer/c3-candidate4-gate.json) passes all
+20 steps and both actual-reader directions; exact merged-master repetition remains
+required before stable publication.
 
 ## Protein residue navigation compatibility (0.25.0)
 

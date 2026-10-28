@@ -2,69 +2,36 @@
 
 ## Current milestone
 
-Issue [#95](https://github.com/ManuelSe/Neistra/issues/95) is in progress under its
-[approved contract](plans/issue-95-workspace-sequence-viewer.md). The user’s
-2026-10-28 `/goal` authorizes implementation and verified delivery. Work remains on
-`feat/issue-95-workspace-sequence-viewer`; C0 planning commit `e51c0d3` is pushed.
+Issue [#95](https://github.com/ManuelSe/Neistra/issues/95) completes M1–M3/C1–C3
+under its [approved contract](plans/issue-95-workspace-sequence-viewer.md) and D-146.
+Observed protein chains now form stacked, virtualized rows below the canvas, with
+whole-chain application display context, shared canonical residue selection and
+independent collapse/hide/restore. The Inspector Sequence tab is removed. Owned
+focus/scroll remain transient and project-scoped; no new molecular authority.
 
-M1/C1 extracts reusable protein-only sequence presentation and immutable indexed
-rows, preserving source instances/order, insertion codes, identifiable nonstandard
-names, canonical coverage and shared residue actions. D-146 governs; no new
-molecular authority, scientific inference, API/job/schema/migration/dependency or
-version change. The old Inspector location remains temporarily for this coherent
-extraction checkpoint.
+The clean [candidate 80720fe](assets/workspace-sequence-viewer/c3-candidate4-gate.json)
+passes all 20 release commands: **1,250 Python,370 frontend,8 supervisor,343 browser**,
+61 exactly unchanged preceding-release exclusions, zero failures/flakes/retries/
+Python or required native scientific skips. Both actual tagged 0.25.0↔final 0.26.0
+reader directions, all 583 source identities and lossless log hashes verify.
+[Summary](assets/workspace-sequence-viewer/c3-candidate4-summary.json) retains exact
+commands, exclusions and timings. All five versions 0.26.0; schemas/head0014,
+APIs/jobs, scientific models and dependencies remain unchanged.
 
-[Final C1 gate](assets/workspace-sequence-viewer/c1-final-gate.json) passes 48
-focused, 357 full frontend and seven native browser tests; one existing mobile
-exclusion belongs to the desktop three-panel workflow. Lint/typecheck/build/diff
-pass with fixed source identities. Initial obsolete-import lint failure remains
-diagnostic. [Review](assets/workspace-sequence-viewer/c1-review.md) is implementer
-self-review. No feature-release qualification is claimed.
+Displayed 10,000-residue/30,000-atom navigation takes 2050/2162ms desktop/mobile,
+longest 281/383ms, mounted 20/15 within 29/24 bounds, zero repeated reads; property
+table unmounted. Both themes,320px, actual100%/200%zoom, keyboard/native selection,
+visibility/isolation/Undo, responsive focus/scroll and every existing native budget
+pass. This is pinned-host navigation evidence, not chemistry throughput. Earlier
+failed/interrupted attempts remain diagnostic; all consequential self-review
+findings are fixed, including stale surface navigation and native redraw readiness.
+No assertion, fixture, numerical budget or host setting is relaxed.
 
-M2/C2 delivers the docked stacked workflow and removes the Inspector Sequence tab.
-Current application display settings/isolation and independent surface sources
-retain whole observed protein-chain context. Safe independent collapse/hide,
-transient scroll/owned focus, canonical mixed coverage and bounded two-axis
-keyboard browsing remain separate from molecular authority. See
-[sequence guidance](SEQUENCE_VIEWER.md) and D-146's appended implementation note.
-
-[Final C2 gate](assets/workspace-sequence-viewer/c2-final2-gate.json) and
-[summary](assets/workspace-sequence-viewer/c2-final2-summary.json) pass 58 focused,
-366 full frontend, 36 native browser and one actual-zoom case; three existing
-mobile layout exclusions, no failures/flakes/retries. All 580 source/log identities
-verify. Displayed 10,000-residue/30,000-atom navigation takes 2033/1893ms,
-longest tasks384/315ms, mounted20/15 within29/24 bounds, repeated reads0/0.
-Property table is unmounted; no general chemistry/throughput claim. Both themes,
-320px, actual100%/200%zoom, native selection/visibility/focus/remount and independent
-collapse/hide pass. Earlier diagnostic failures are retained; explicit test-camera
-zoom corrects tiny-fixture framing with unchanged assertions/fixture/budgets.
-[Review](assets/workspace-sequence-viewer/c2-review.md) is implementer self-review.
-
-All five authoritative versions now agree at0.26.0, the approved stable minor;
-fresh origin/tag checks retain the approved base and unused tag. Ruff/mypy102
-files/37 archive round-trip cases/version/dependency audits pass. Release notes
-and isolated actual-v0.25.0 reader/candidate/exact-master recipes are prepared. No backend/API/job/schema/migration/dependency/scientific-model
-change. C3 final boundary review passes62 focused/370 frontend/six native cases and
-static/build checks; a fail-first regression reproduces outside-focus reclamation with the old
-blur guard. Last-chain owned focus and project-scoped viewport isolation now have fail-first
-proof and passing fixes. Candidate1 was deliberately stopped after294 passing
-Python cases for review corrections; it remains diagnostic. Obsolete integration/
-spinner and fixed content ID are removed. Candidate2 passes1250 Python/370 frontend
-but its all-surface audit still opens the removed Inspector tab; this is retained as
-diagnostic, with the following zoom case/rest of suite deliberately interrupted.
-[Replacement surface gate](assets/workspace-sequence-viewer/c3-surface-gate.json)
-passes62 focused/370 frontend/two native desktop-mobile cases, both themes, static/
-build checks and unchanged assertions/budgets. No runtime change or new exclusion.
-Candidate3 completes404 browser variants:342 pass/61 existing exclusions and one
-zero native-buffer sample immediately after protein topology publication. Its
-screenshot/reopen probe support a transient readiness race; the complete run remains
-diagnostic. [Readiness correction gate](assets/workspace-sequence-viewer/c3-canvas-gate.json)
-passes62 focused/370 frontend and three explicit complete protein-workflow repeats,
-static/build/diff, no exclusions/retries. The identical16-point sum >0 is polled
-within the original5000ms expect timeout; production, fixtures, numerical limits
-and host settings are unchanged. All12 new sequence cases pass in the diagnostic
-full run. No current blocker. Next: clean fixed candidate4/full release gate and
-actual tagged readers before PR; then exact merged-master qualification/publication.
+[Pre-PR policy](assets/workspace-sequence-viewer/c3-pre-pr-policy.json) confirms the
+unchanged fetched base, unused0.26.0 tag/release and normal-merge support. No current
+blocker. Next: commit/push C3 evidence, open/review the PR, then repeat the complete
+gate on exact merged master before verified v0.26.0 publication and cleanup.
+Local review is implementer self-review; independent approval is not claimed.
 
 ### Previous delivery baseline — v0.25.0
 

@@ -24,3 +24,14 @@ Final boundary gate passes62 focused/370 frontend/six native cases, static/types
 The full candidate2 gate exposed one additional stale test: the all-surface accessibility loop still focused the removed Inspector Sequence tab. It now asserts its absence and audits the docked sequence region, with all other checks intact. The focused surface gate passes62 focused/370 frontend/two desktop-mobile browser cases, both themes, lint/types/build/diff, no exclusions/retries and fixed source/log identities. Candidate2 retains1250 Python passes and113 browser passes but is incomplete: the first failure caused deliberate interruption of the following zoom case and remaining suite. It is diagnostic, not qualification. All remaining test references to the removed tab were searched. No application behavior, fixture, performance limit or exclusion changed.
 
 Candidate3 completes every404 browser variant:342 pass/61 preceding exclusions and one transient zero framebuffer sample immediately after protein topology publication. The failure screenshot renders afterward and a read-only reopen probe has positive original-grid values with no WebGL error; this supports a readiness race without claiming a specific GPU cause. Retain the complete failed run as diagnostic, including the brief post-failure observer. The test now polls the identical16-point sum >0 within the existing5000ms expectation timeout. No pixel, scientific, performance, fixture or exclusion condition changes. The complete native protein-editing workflow passes three explicit repetitions (no retries), alongside62 focused/370 frontend and lint/types/build/diff with fixed source/logs. New clean candidate4 remains required. Verification wording separately attributes all-four-mode coverage to shared resolver tests rather than claiming four native sequence-picking modes.
+
+Final clean candidate80720fee873b321b950db84a52df8bd3c3926f82 passes all20 commands,
+1250 Python/370 frontend/8 supervisor/343 browser,61 byte-for-title/project identical
+preceding exclusions, zero failures/flakes/retries/Python or required native skips.
+All583 source identities/log hashes and actual0.25.0↔0.26.0 readers verify. Rechecked
+the complete diff against fetched d459e07, including every runtime/test change,
+five versions, documentation and diagnostic separation. No unresolved consequential
+scope, dead-code, scientific, migration, stale-context or regression finding remains.
+This is implementer self-review only. Documentation/evidence changes preserve every
+qualified runtime/test/tool byte. Current policy/base/version receipt is retained;
+review/check/conversation and exact merged-master gates still govern delivery.
