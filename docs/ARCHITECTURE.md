@@ -597,7 +597,8 @@ refetching. An immutable-projection index provides component/residue membership
 and source-order protein intervals; no viewer hierarchy becomes authoritative.
 
 Issue #94 adds typed explicit protein-residue requests from Components and the
-existing Sequence tab. App validates project visit/entry/artifact against current
+sequence presentation, now docked in the workspace by #95. App validates project
+visit/entry/artifact against current
 cache state, then the central store applies the same atomic transition used by
 native picks. Indexed residue membership is entry-independent; result references
 use the request's current entry and preserve its source metadata. Panel residue

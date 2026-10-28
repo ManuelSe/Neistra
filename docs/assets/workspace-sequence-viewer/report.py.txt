@@ -1,0 +1,83 @@
+"""Retain and verify one complete source-frozen issue95 qualification."""
+from pathlib import Path
+import gzip, hashlib, json, re, shutil, sys
+label=sys.argv[1]; out=Path('docs/assets/workspace-sequence-viewer')
+gate=json.loads((out/f'{label}-gate.json').read_text())
+assert gate['complete'] and gate['source_unchanged'] and len(gate['steps'])==20
+assert gate['initial_status']==''
+logs={}
+for step in gate['steps']:
+ assert step['exit_code']==0
+ content=gzip.decompress(Path(step['log']).read_bytes())
+ assert hashlib.sha256(content).hexdigest()==step['log_sha256']
+ logs[step['label']]=content.decode()
+assert not re.search(r'\b[1-9]\d* (skipped|failed)\b', logs['python'])
+source=gate['source_before'];assert source==gate['source_after']
+assert all(hashlib.sha256(Path(n).read_bytes()).hexdigest()==v for n,v in source.items())
+task=Path(gate['environment']['MOLWEAVE_DATA_DIR']).parent
+browser=json.loads((task/'browser.json').read_text());stats=browser['stats']
+assert stats['unexpected']==stats['flaky']==0 and stats['skipped']==61
+assert stats['expected']==343
+retries=[]; exclusions=[]; performance=[]; residue_performance=[]; sequence_performance=[]
+def walk(suites):
+ for suite in suites:
+  for spec in suite.get('specs',[]):
+   for test in spec['tests']:
+    if len(test['results'])>1:retries.append(spec['title'])
+    for result in test['results']:
+     if result['status']=='skipped':exclusions.append({'title':spec['title'],'project':test['projectName'],'annotations':test.get('annotations',[])})
+     for attachment in result.get('attachments',[]):
+      if attachment['name']=='sequence-performance':
+       import base64
+       sequence_performance.append({'project': test['projectName'], **json.loads(base64.b64decode(attachment['body']))})
+      if attachment['name']=='residue-navigation-performance':
+       import base64
+       residue_performance.append({'project': test['projectName'], **json.loads(base64.b64decode(attachment['body']))})
+      if attachment['name']=='quick-cold-performance':
+       import base64
+       performance.append(json.loads(base64.b64decode(attachment['body'])))
+  walk(suite.get('suites',[]))
+walk(browser['suites']);assert not retries
+from collections import Counter
+baseline=json.loads(Path('docs/assets/protein-residue-hierarchy/c4-merged2-summary.json').read_text())['exclusions']
+old=Counter((v['title'],v['project']) for v in baseline)
+new=Counter((v['title'],v['project']) for v in exclusions)
+assert old==new, {'removed': list((old-new).elements()), 'added': list((new-old).elements())}
+assert len(sequence_performance)==2
+for value in sequence_performance:
+ assert value['elapsed']<5000 and value['longest']<750 and value['repeatedReads']==0
+ assert value['mounted']<=value['bound'] and value['entryVisible'] is True
+ assert value['propertyTable']=='unmounted' and value['atoms']==30000 and value['residues']==10000
+
+assert len(residue_performance)==2
+for value in residue_performance:
+ assert value['longest']<750 and value['repeatedReads']==0
+ assert all(value[k]<5000 for k in ['firstMs','endMs','rangeMs'])
+# Retain explicit output artifacts before another browser run.
+retained=task/'retained-browser'
+for p in (task/'browser-results').rglob('*'):
+ if p.is_file() and p.suffix in {'.png','.json'}:
+  dest=retained/p.relative_to(task/'browser-results');dest.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(p,dest)
+(out/f'{label}-browser.json.gz').write_bytes(gzip.compress((task/'browser.json').read_bytes(),mtime=0))
+# Preserve numeric first-frame/Cancel evidence before a later Playwright run clears its output.
+for p in sorted((task/'browser-results').rglob('quick-live-performance.json')):
+ value=json.loads(p.read_text());performance.append({'kind':'live',**value})
+ assert value['firstFrameMs']<=1000 and value['cancelMs']<=500
+assert len(performance)==7, len(performance)
+for value in performance:
+ if value.get('kind')!='live':
+  assert 0<=value['commandAcceptedMs']<=100
+  assert value['nativeAppliedMs']<=(5000 if value['copies'] else 2000)
+  assert value['longestTaskMs']<750
+for name in ('forward-produce','forward-read','reverse-produce','reverse-read'):
+ value=json.loads((task/f'{name}.json').read_text())
+ (out/f'{label}-{name}.json').write_text(json.dumps(value,indent=2)+'\n')
+# Generated scientific fixture evidence only, never managed user data.
+if (task/'native').exists():
+ dest=task/'retained-native';shutil.copytree(task/'native',dest,dirs_exist_ok=True)
+python=int(re.search(r'(\d+) passed, \d+ warnings',logs['python'])[1])
+frontend=int(re.search(r'Tests\s+(\d+) passed',logs['frontend'])[1])
+assert python==1250 and frontend==370
+summary={'label':label,'commit':gate['commit'],'complete':True,'commands':20,'python':python,'frontend':frontend,'supervisor':8,'browser':stats,'retries':retries,'exclusions':exclusions,'scientific_skips':0,'source_count':len(source),'source_sha256':hashlib.sha256(json.dumps(source,sort_keys=True).encode()).hexdigest(),'quick_performance':performance,'residue_performance':residue_performance,'sequence_performance':sequence_performance,'actual_reader':'0.25.0 and final0.26.0, both directions','migration_head':'0014','application_version':'0.26.0','new_migration':False,'power_samples':len(gate['power_samples'])}
+(out/f'{label}-summary.json').write_text(json.dumps(summary,indent=2)+'\n')
+print(json.dumps({k:v for k,v in summary.items() if k not in {'exclusions','quick_performance'}},indent=2))

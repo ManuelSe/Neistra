@@ -49,7 +49,13 @@ static/build checks; a fail-first regression reproduces outside-focus reclamatio
 blur guard. Last-chain owned focus and project-scoped viewport isolation now have fail-first
 proof and passing fixes. Candidate1 was deliberately stopped after294 passing
 Python cases for review corrections; it remains diagnostic. Obsolete integration/
-spinner and fixed content ID are removed. No current blocker. Next action: clean fixed0.26.0 candidate/full release gate and actual tagged
+spinner and fixed content ID are removed. Candidate2 passes1250 Python/370 frontend
+but its all-surface audit still opens the removed Inspector tab; this is retained as
+diagnostic, with the following zoom case/rest of suite deliberately interrupted.
+[Replacement surface gate](assets/workspace-sequence-viewer/c3-surface-gate.json)
+passes62 focused/370 frontend/two native desktop-mobile cases, both themes, static/
+build checks and unchanged assertions/budgets. No runtime change or new exclusion.
+No current blocker. Next: clean fixed candidate3/full release gate and actual tagged
 readers before PR; then exact merged-master qualification and verified delivery.
 
 ### Previous delivery baseline — v0.25.0

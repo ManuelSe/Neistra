@@ -469,6 +469,7 @@ unrelated branches/worktrees.
 | M3/C3 — Review correction | [Review gate](../assets/workspace-sequence-viewer/c3-review-gate.json) passes59 focused/367 frontend/six native cases plus lint/types/build/diff, no exclusions/retries. Removed obsolete Inspector callback/spinner selector, generated a unique content ID and fixed ownership loss after null-target blur. [Fail-first proof](../assets/workspace-sequence-viewer/c3-focus-fail-first.json) reproduces inappropriate focus reclamation on the old guard; restored source matches the passing gate exactly. Full final-version qualification remains pending. |
 | M3/C3 — Release preparation | Five versions0.26.0, archive provenance assertions/current prior-version case updated; Ruff/mypy102 files/37 archive tests/version audit/diff pass. [Preparation record](../assets/workspace-sequence-viewer/c3-release-preparation.json). Detached actual v0.25.0 reader at `2adeaac973a6047ee537fd8c639f3b3e18d216b0`; candidate/exact-master20-step recipes prepared. Latest fetched `origin/master` remains the approved base and v0.26.0 is unused. Full gates pending. |
 | M3/C3 — Boundary review | Last-chain removal returns only owned focus to the surviving header and retires stale intent. Project-scoped viewport reads cannot inherit another cached project’s offsets before App reconciles session state. Fail-first proofs: [last chain](../assets/workspace-sequence-viewer/c3-last-chain-fail-first.json), [project viewport](../assets/workspace-sequence-viewer/c3-project-viewport-fail-first.json). [Final boundary gate](../assets/workspace-sequence-viewer/c3-boundaries-gate.json) passes62 focused/370 frontend/six native cases, lint/types/build/diff; no exclusions/retries, fixed source/log hashes. Candidate1 stopped for this review correction after294 passing Python cases; its incomplete gate is diagnostic, not qualification or a waived test. |
+| M3/C3 — Surface audit correction | Candidate2 passes1250 Python/370 frontend/static/build but fails a stale all-surface test that still opens the removed Inspector Sequence tab; the following zoom case and remaining suite were deliberately interrupted. [Diagnostic](../assets/workspace-sequence-viewer/c3-candidate2-diagnostic.json), original failure trace/logs retained. The replacement audit asserts tab removal and checks the docked region in both themes/layouts. [Focused gate](../assets/workspace-sequence-viewer/c3-surface-gate.json) passes62 focused/370 frontend/two browser cases plus lint/types/build/diff, zero exclusions/retries, fixed source/logs. All other surface assertions, fixtures, limits and exclusion set remain intact. New clean candidate3 required. |
 | M3/C3 final gate–M4/C4 | Pending. Record each checkpoint’s commits, commands/evidence, deviations, candidate/merged gates, publication receipts, and cleanup here as they occur. |
 
 **Known limitations:** sequence navigation is observed protein context, not
@@ -479,8 +480,8 @@ remain pending. C2 review identifies bounded cleanup for the final candidate.
 
 **Blockers:** none.
 
-**Next action:** M3/C3 — review correction committed as `cd8d1d1`; five
-authoritative versions and archive provenance assertion advance to0.26.0, with
-0.25.0 added to the retained archive-version cases. Release notes and actual
-producer/reader recipes are prepared. Boundary review corrections now pass370 frontend/six native cases. Restart the
-complete clean fixed candidate and actual v0.25.0 readers before opening the PR.
+**Next action:** M3/C3 — the complete candidate2 run exposed a remaining obsolete
+Inspector-tab navigation in the accessibility surface audit. Its focused replacement
+passes desktop/mobile, both themes and all frontend checks without runtime changes.
+Commit this correction/evidence, then qualify clean fixed candidate3 and the actual
+v0.25.0 readers before opening the PR.

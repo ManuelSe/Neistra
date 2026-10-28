@@ -110,7 +110,7 @@ test("reviews all Neistra workflow surfaces in both themes", async ({ page, requ
 
     await panel(page, "Inspector");
     const tabs = page.getByRole("tablist", { name: "Inspector views" });
-    for (const name of ["selection", "inspect", "measurements", "transform", "ligand", "protein", "sequence", "details"]) {
+    for (const name of ["selection", "inspect", "measurements", "transform", "ligand", "protein", "details"]) {
       const tab = tabs.getByRole("tab", { name, exact: true });
       await tab.focus();
       await page.keyboard.press("Enter");
@@ -120,7 +120,12 @@ test("reviews all Neistra workflow surfaces in both themes", async ({ page, requ
     await tabs.getByRole("tab", { name: "details", exact: true }).focus();
     await page.keyboard.press("Home");
     await expect(tabs.getByRole("tab", { name: "selection", exact: true })).toHaveAttribute("aria-selected", "true");
+    await expect(tabs.getByRole("tab", { name: "sequence", exact: true })).toHaveCount(0);
     await closePanel(page);
+    const sequence = page.getByRole("region", { name: "Protein sequence viewer", exact: true });
+    await expect(sequence).toBeVisible();
+    await expect(sequence.getByRole("list", { name: "Displayed protein chains", exact: true })).toBeVisible();
+    await review(page, info, `${theme}-workspace-sequence`, ".sequence-viewer");
 
     await page.getByRole("button", { name: "Style selection", exact: true }).click();
     const style = page.getByRole("dialog", { name: "Style selection" });
