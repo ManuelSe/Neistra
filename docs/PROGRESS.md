@@ -42,8 +42,11 @@ zoom corrects tiny-fixture framing with unchanged assertions/fixture/budgets.
 
 All five versions remain0.25.0; planned stable minor0.26.0 remains pending fresh
 baseline/tag checks. No backend/API/job/schema/migration/dependency/scientific-model
-change. No current blocker. Next action: M3/C3 review cleanup, final-version
-candidate/full release gate and actual tagged readers, then verified delivery.
+change. C3 review cleanup passes59 focused/367 frontend/six native cases and static/build
+checks; a fail-first regression reproduces outside-focus reclamation with the old
+blur guard. Obsolete integration/spinner and fixed content ID are removed. No
+current blocker. Next action: final-version0.26.0 candidate/full release gate and
+actual tagged readers, then verified delivery.
 
 ### Previous delivery baseline — v0.25.0
 

@@ -1,0 +1,28 @@
+import ast,json,subprocess,tomllib
+from pathlib import Path
+package=tomllib.loads(Path('pyproject.toml').read_text())['project']['version']
+lock=tomllib.loads(Path('uv.lock').read_text())
+locked=next(p['version'] for p in lock['package'] if p['name']=='molweave-dev')
+web=json.loads(Path('apps/web/package.json').read_text())['version']
+tree=ast.parse(Path('apps/api/src/molweave_api/main.py').read_text())
+api=next(k.value.value for node in ast.walk(tree) if isinstance(node,ast.Call) and isinstance(node.func,ast.Name) and node.func.id=='FastAPI' for k in node.keywords if k.arg=='version')
+tree=ast.parse(Path('apps/api/src/molweave_api/archive_service.py').read_text())
+archive=next(node.value.value for node in ast.walk(tree) if isinstance(node,ast.Assign) and any(isinstance(t,ast.Name) and t.id=='APPLICATION_VERSION' for t in node.targets))
+versions=dict(project=package,lock=locked,web=web,api=api,archive=archive)
+assert set(versions.values())=={'0.26.0'},versions
+base=tomllib.loads(subprocess.check_output(['git','show','v0.25.0:uv.lock'],text=True))
+next(p for p in base['package'] if p['name']=='molweave-dev')['version']='0.26.0'
+assert lock==base,'No dependency resolution changes are authorized'
+print(json.dumps(dict(versions=versions,dependency_resolution_unchanged=True),indent=2))
+for asset in Path('apps/web/dist').rglob('*'):
+    if asset.is_file() and asset.suffix in {'.js','.html'}:
+        content=asset.read_bytes()
+        for marker in (b'modelingHarness.ts', b'molecularEditHarness.ts', b'inspectNativeAppearance', b'quickMinimizationHarness.ts', b'measureQuickPublication', b'commandAcceptedMs', b'selectionGestureHarness.ts', b'residueTasks', b'sequenceTasks', b'sequenceFixture'):
+            assert marker not in content,(str(asset),marker)
+print('Production build excludes native observation harnesses')
+
+for filename in ('apps/api/src/molweave_api/main.py', 'apps/api/src/molweave_api/archive_service.py'):
+    previous=subprocess.check_output(['git','show',f'v0.25.0:{filename}'],text=True)
+    assert Path(filename).read_text()==previous.replace('"0.25.0"','"0.26.0"'),filename
+subprocess.run(['git','diff','--exit-code','v0.25.0','--','packages','apps/api/migrations','apps/web/src/api','pnpm-lock.yaml','tools','patches'],check=True)
+print('Backend changes are version metadata only; molecular/API schemas, migrations, native tools, JS lock and patches unchanged')

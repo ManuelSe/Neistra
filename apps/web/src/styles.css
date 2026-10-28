@@ -1016,8 +1016,7 @@ input[type="radio"] {
   text-transform: capitalize;
 }
 
-.selection-meta svg,
-.sequence-loading svg {
+.selection-meta svg {
   margin-left: auto;
   animation: spin 800ms linear infinite;
 }

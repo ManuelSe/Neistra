@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { act, cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { useState, type ReactNode } from "react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
@@ -49,7 +49,6 @@ function Harness({ initialSelection = emptySelection(), onSelectResidue, project
       busy={false}
       onApply={() => undefined}
       onApplySelection={() => undefined}
-      onSelectResidue={onSelectResidue}
       onClearSelection={() => setSelection(emptySelection())}
       onExpandSelection={() => undefined}
       onInvertSelection={() => undefined}
@@ -238,5 +237,25 @@ describe("bidirectional sequence selection", () => {
     fireEvent.click(residue);
     expect(onSelectResidue).not.toHaveBeenCalled();
     expect(screen.getByRole("status")).toHaveTextContent("Updating");
+  });
+
+  it("does not reclaim outside focus when a previously focused residue disappears", async () => {
+    vi.spyOn(document, "hasFocus").mockReturnValue(true);
+    const projection = proteinProjection();
+    const client = new QueryClient();
+    const view = render(<Harness projection={projection} />, { wrapper: wrapper(client) });
+    const residue = await screen.findByRole("button", { name: /^GLY 10 ·/ });
+    act(() => residue.focus());
+    act(() => residue.blur());
+    expect(document.body).toHaveFocus();
+    const updated = proteinProjection();
+    updated.structure.residues = updated.structure.residues.filter(r => r.id !== 1);
+    updated.structure.atoms = updated.structure.atoms.filter(a => a.residue_id !== 1);
+    updated.structure.bonds = [];
+    updated.hierarchy.components[0].residue_ids = [2];
+    view.rerender(<Harness projection={updated} />);
+    await screen.findByRole("button", { name: /^ALA 11 ·/ });
+    expect(document.body).toHaveFocus();
+    expect(screen.getByRole("button", { name: "Collapse sequences" })).not.toHaveFocus();
   });
 });

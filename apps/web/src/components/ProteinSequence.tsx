@@ -181,7 +181,7 @@ export function ProteinSequence({ projectId, rows, selection, onSelectResidue, o
   return <div ref={scroller} className="sequence-chain-scroll" role="list" aria-label="Displayed protein chains"
     style={{ height: Math.min(3, rows.length) * rowHeight }}
     onFocusCapture={() => { ownsFocus.current = true; }} onBlurCapture={event => {
-      if (event.relatedTarget instanceof Node && !event.currentTarget.contains(event.relatedTarget)) {
+      if (!(event.relatedTarget instanceof Node) || !event.currentTarget.contains(event.relatedTarget)) {
         ownsFocus.current = false; setRequest(null);
       }
     }} onScroll={event => useSequenceNavigationStore.getState().rememberScroll(projectId, event.currentTarget.scrollTop)}>

@@ -5907,3 +5907,15 @@ zoom during setup (and after explicit resize fitting); source fixture, molecular
 membership/camera assertions, budgets, renderer bindings and production picking
 remain unchanged. The original failed attempts and corrected native cases are
 retained. This is test framing, not a renderer fix or a performance speedup claim.
+
+
+### D-146 outside-focus qualification — issue #95 C3 review, 2026-10-28
+
+A null-related-target blur retires sequence focus ownership, including when a
+nonfocusable outside target takes interaction. Otherwise later topology removal
+could reclaim focus from the body/canvas. The old guard fails the new regression
+by focusing the next residue; the corrected guard retains outside focus. Owned
+responsive remount intent is still captured separately during unmount. C3 review
+also removes the obsolete Inspector callback and spinner selector and uses a
+React-generated content ID. Fixed-source unit/native evidence and fail-first
+source hashes are retained; no selection, display-policy or durable change.

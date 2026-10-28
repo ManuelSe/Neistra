@@ -537,7 +537,6 @@ export default function App() {
     pickingGranularity,
     selectionBusy,
     onApplySelection: applySelection,
-    onSelectResidue: applyResidueSelection,
     onPickingGranularity: setPickingGranularity,
     onClearSelection: clearSelection,
     onExpandSelection: (granularity: SelectionGranularity) => {
@@ -1179,7 +1178,7 @@ export default function App() {
                       pickingGranularity={pickingGranularity}
                       onPickingGranularity={setPickingGranularity}
                       onViewerSelection={applyViewerSelection}
-                onSelectResidue={applyResidueSelection}
+                      onSelectResidue={applyResidueSelection}
                       loading={projectQuery.isLoading}
                       onCreate={() => {
                         setCreateMode(true);

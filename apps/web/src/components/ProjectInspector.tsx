@@ -32,7 +32,6 @@ import {
   type PredicateField,
   type StructureMap,
 } from "../selection/selection";
-import type { ResidueSelectionRequest } from "../selection/gestures";
 import { IconButton } from "./IconButton";
 import { LigandEditorPanel } from "./LigandEditorPanel";
 import { MeasurementsPanel } from "./MeasurementsPanel";
@@ -49,7 +48,6 @@ interface ProjectInspectorProps {
   selectionBusy?: boolean;
   onApply: (name: string, description: string | null) => void;
   onApplySelection: (selection: Selection, mode: SelectionMode) => void;
-  onSelectResidue?: (request: ResidueSelectionRequest) => void;
   onPickingGranularity: (granularity: SelectionGranularity) => void;
   onClearSelection: () => void;
   onExpandSelection: (granularity: SelectionGranularity) => void;

@@ -21,7 +21,7 @@ manifest = output / f"{args.label}-gate.json"
 assert not manifest.exists(), "Use a new evidence label; previous attempts are retained."
 recipe = json.loads(args.commands.read_text())
 files = subprocess.check_output(["git", "ls-files", "--cached", "--others", "--exclude-standard"], text=True).splitlines()
-files = sorted({p for p in files if p.startswith(("apps/", "packages/", "tests/", "tools/", "patches/")) or p in {"pyproject.toml", "uv.lock", "package.json", "pnpm-lock.yaml", "playwright.config.ts"}})
+files = sorted({p for p in files if p.startswith(("apps/", "packages/", "tests/", "tools/", "patches/", "scripts/")) or p in {"pyproject.toml", "uv.lock", "package.json", "pnpm-lock.yaml", "playwright.config.ts"}})
 def identities():
     return {p: hashlib.sha256((root / p).read_bytes()).hexdigest() for p in files if (root / p).is_file()}
 environment = {**os.environ, **recipe.get("environment", {})}
