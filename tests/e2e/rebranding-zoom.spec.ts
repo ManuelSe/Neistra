@@ -474,6 +474,14 @@ test("keeps expanded protein residues selectable at actual 100% and 200% browser
         expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
         await captureZoomPage(page, info, `${theme}-${factor * 100}-residue-navigation.png`);
         if (factor === 2) await page.keyboard.press("Escape");
+        const sequences = page.getByRole("region", { name: "Protein sequence viewer", exact: true });
+        const tile = sequences.getByRole("button", { name: `${label} · chain ${projection.structure.chains.find(c => c.id === residue.chain_id)!.name} in ${entry.name}`, exact: true });
+        await tile.focus(); await expect(tile).toBeFocused();
+        await tile.press("ArrowRight"); await page.keyboard.press("ArrowLeft"); await expect(tile).toBeFocused();
+        await tile.press("Enter"); await expect(tile).toHaveAttribute("aria-pressed", "true");
+        expect(await tile.evaluate(node => { const b = node.getBoundingClientRect(); return b.x >= 0 && b.right <= innerWidth && b.y >= 0 && b.bottom <= innerHeight && node.contains(document.elementFromPoint(b.x + b.width / 2, b.y + b.height / 2)); })).toBe(true);
+        expect((await new AxeBuilder({ page }).include(".sequence-viewer").withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"]).analyze()).violations).toEqual([]);
+        await captureZoomPage(page, info, `${theme}-${factor * 100}-protein-sequences.png`);
       }
     }
     expect(await (await request.get(`/api/v1/projects/${project.id}`)).json()).toEqual(baseline);

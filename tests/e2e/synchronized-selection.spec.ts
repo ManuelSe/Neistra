@@ -160,7 +160,7 @@ test("keeps browser, sequence, inspector, viewer, and saved selection synchroniz
     structures: 1,
   });
 
-  await page.getByRole("tab", { name: "sequence" }).click();
+  await expect(page.getByRole("region", { name: "Protein sequence viewer", exact: true })).toBeVisible();
   const residue = page.getByRole("button", { name: /GLY 10/ });
   await residue.click();
   await expect(residue).toHaveAttribute("aria-pressed", "true");

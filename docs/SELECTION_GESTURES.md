@@ -1,15 +1,18 @@
 # Selection gestures
 
-Issue #94 extends explicit protein-residue actions in Components and the existing
-Sequence tab to the shared fixed anchor, insertion-code labels and partial
-coverage. Final milestone/release qualification remains in progress.
+Issue #94 delivers shared fixed anchors, insertion-code labels and partial
+coverage for explicit protein-residue actions in Components and Sequence. Issue
+#95 moves protein-only sequence navigation below the canvas, with preserved source
+instances, recorded nonstandard names and independent collapse/hide. See
+[sequence guidance](SEQUENCE_VIEWER.md) and its approved feature plan for checkpoint
+and release evidence.
 
 Whole-entity toggle, double-click expansion and viewer residue ranges were added
 in0.22.0. Picking-mode hover and complete individual-molecule Residue alignment
 are corrected in0.22.1; see the issue #91 plan for qualification/publication status.
 
 Selection stays synchronized across the viewer, project browser, Components panel
-and Sequence tab. Picking does not
+and Sequence viewer. Picking does not
 change the camera, molecular data, project revision, or edit history. Save a named
 selection or scene explicitly to retain its references; ordinary selection clears
 when changing projects or reloading.
@@ -24,8 +27,8 @@ when changing projects or reloading.
 | Alt-click | Subtract the entity. |
 
 The viewer uses the active Atom, Residue, Chain, or Structure picking mode. Project
-entries, groups, component categories, individual components, and Sequence-tab
-chain/residue buttons use their own displayed membership. A group/category is one
+entries, groups, component categories, individual components, and Sequence-viewer
+residue buttons use their own displayed membership. A group/category is one
 operand: partial membership becomes complete rather than inverting each child.
 Unrelated selected atoms remain selected during modifier clicks.
 
@@ -99,7 +102,7 @@ artifact changes, or removal of any start-residue atom clear the start. Responsi
 viewer remounts preserve a still-valid start; reload clears it. Changing the camera
 or explicitly fitting the view does not change this application selection state.
 
-Components and the existing Sequence tab's explicit protein-residue buttons share the fixed start
+Components and the existing Sequence viewer's explicit protein-residue buttons share the fixed start
 with the viewer. They select complete observed residues in every picking mode;
 plain activation or Ctrl/Cmd toggle-on without Shift establishes a start. Shift
 adds an inclusive same-entry/component/chain range or only the clicked residue

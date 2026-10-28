@@ -1,0 +1,90 @@
+"""Issue 95 command evidence: exact argv/environment, source identities and lossless logs."""
+import argparse
+import gzip
+import hashlib
+import json
+import os
+from pathlib import Path
+import platform
+import subprocess
+import time
+import threading
+
+parser = argparse.ArgumentParser()
+parser.add_argument("label")
+parser.add_argument("commands", type=Path)
+args = parser.parse_args()
+root = Path.cwd()
+output = root / "docs/assets/workspace-sequence-viewer"
+output.mkdir(parents=True, exist_ok=True)
+manifest = output / f"{args.label}-gate.json"
+assert not manifest.exists(), "Use a new evidence label; previous attempts are retained."
+recipe = json.loads(args.commands.read_text())
+files = subprocess.check_output(["git", "ls-files", "--cached", "--others", "--exclude-standard"], text=True).splitlines()
+files = sorted({p for p in files if p.startswith(("apps/", "packages/", "tests/", "tools/", "patches/", "scripts/")) or p in {"pyproject.toml", "uv.lock", "package.json", "pnpm-lock.yaml", "playwright.config.ts"}})
+def identities():
+    return {p: hashlib.sha256((root / p).read_bytes()).hexdigest() for p in files if (root / p).is_file()}
+environment = {**os.environ, **recipe.get("environment", {})}
+def power():
+    paths = list(Path("/sys/class/power_supply").glob("*/online")) + list(Path("/sys/class/power_supply").glob("*/status"))
+    paths += [Path("/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor"), Path("/sys/devices/system/cpu/cpu0/cpufreq/energy_performance_preference")]
+    values = {"at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())}
+    for p in paths:
+        try:
+            values[str(p)] = p.read_text().strip()
+        except OSError:
+            values[str(p)] = "unavailable"
+    return values
+metadata = {
+    "label": args.label,
+    "commit": subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip(),
+    "branch": subprocess.check_output(["git", "branch", "--show-current"], text=True).strip(),
+    "initial_status": subprocess.check_output(["git", "status", "--porcelain=v1"], text=True),
+    "started_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+    "platform": platform.platform(),
+    "qualifier_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+    "environment": {k: environment[k] for k in recipe.get("environment", {})},
+    "source_before": identities(),
+    "power_samples": [power()],
+    "steps": [],
+    "complete": False,
+}
+if recipe.get("require_clean", False):
+    assert not metadata["initial_status"], "Release qualification requires a clean starting tree."
+manifest.write_text(json.dumps(metadata, indent=2) + "\n")
+stop_samples = threading.Event()
+def sample_power():
+    while not stop_samples.wait(15):
+        metadata["power_samples"].append(power())
+threading.Thread(target=sample_power, daemon=True).start()
+for step in recipe["steps"]:
+    print("START", step["label"], flush=True)
+    started = time.monotonic()
+    chunks = []
+    process = subprocess.Popen(step["command"], env={**environment, **step.get("environment", {})}, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    assert process.stdout is not None
+    for line in process.stdout:
+        chunks.append(line)
+        decoded = line.decode(errors="replace").strip()
+        if decoded.startswith(("✓", "✘", "Running ")) or (" [chromium]" in decoded or " [mobile-chromium]" in decoded) and not decoded.startswith("[WebServer]"):
+            print(decoded, flush=True)
+    returncode = process.wait()
+    content = b"".join(chunks)
+    log = output / f'{args.label}-{step["label"]}.log.gz'
+    log.write_bytes(gzip.compress(content, mtime=0))
+    record = {**step, "exit_code": returncode, "seconds": round(time.monotonic()-started, 3), "log": str(log.relative_to(root)), "log_sha256": hashlib.sha256(content).hexdigest()}
+    metadata["steps"].append(record)
+    metadata["source_after"] = identities()
+    metadata["source_unchanged"] = metadata["source_before"] == metadata["source_after"]
+    manifest.write_text(json.dumps(metadata, indent=2) + "\n")
+    print("PASS" if returncode == 0 else "FAIL", step["label"], record["seconds"], flush=True)
+    print(content.decode(errors="replace")[-2000:], flush=True)
+    if returncode != 0:
+        raise SystemExit(returncode)
+    assert metadata["source_unchanged"], "Source changed while checks were running."
+stop_samples.set()
+metadata["power_samples"].append(power())
+metadata["complete"] = True
+metadata["finished_at"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+manifest.write_text(json.dumps(metadata, indent=2) + "\n")
+print("COMPLETE", manifest.relative_to(root), flush=True)

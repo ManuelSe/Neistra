@@ -1,0 +1,59 @@
+{
+  "base": "d459e073732b1d9ccbba5f404a0d6206c4a12f4e",
+  "review_fix": "cd8d1d1",
+  "version": "0.26.0",
+  "commands": [
+    {
+      "command": [
+        ".venv/bin/uv",
+        "run",
+        "ruff",
+        "check",
+        "."
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        ".venv/bin/uv",
+        "run",
+        "mypy",
+        "apps/api",
+        "packages/molweave_core"
+      ],
+      "exit_code": 0,
+      "source_files": 102
+    },
+    {
+      "command": [
+        ".venv/bin/uv",
+        "run",
+        "pytest",
+        "tests/integration/test_archive_roundtrip.py"
+      ],
+      "exit_code": 0,
+      "passed": 37
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "docs/assets/workspace-sequence-viewer/versions.py.txt"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "five_versions_agree": true,
+  "dependency_resolution_unchanged": true,
+  "schema_migration_unchanged": true,
+  "actual_reader_root": "/tmp/neistra95-reader-0250",
+  "actual_reader_commit": "2adeaac973a6047ee537fd8c639f3b3e18d216b0",
+  "full_candidate_and_exact_master_gates": "pending"
+}

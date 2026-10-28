@@ -1,0 +1,19 @@
+{
+  "status": "diagnostic; not qualified",
+  "commit": "81ebc9174d5eaf1f78cf45f47150a2c5848aa2e0",
+  "source_unchanged": true,
+  "completed_commands": 12,
+  "python": 1250,
+  "frontend": 370,
+  "browser": {
+    "startTime": "2026-10-28T11:46:31.182Z",
+    "duration": 1216956.07,
+    "expected": 113,
+    "skipped": 290,
+    "unexpected": 1,
+    "flaky": 0
+  },
+  "actual_failure": "Existing rebranding-surfaces test line115 still focuses removed Inspector sequence tab.",
+  "interruption": "Owned Playwright PID45666 received SIGINT after the first consequential failure; the following zoom case is interrupted, not an application failure. Remaining285 cases and compatibility readers did not run.",
+  "next": "Audit the replacement docked sequence region in both themes/layouts; retain assertions and all budgets; focused gate then new clean full candidate."
+}

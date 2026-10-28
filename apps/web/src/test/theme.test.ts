@@ -49,6 +49,7 @@ describe("Neistra presentation contract", () => {
   it("restores legacy preferences without accepting malformed values or stored actions", async () => {
     const saved = {
       theme: "dark", activeProjectId: "existing-project", horizontalLayout: [30, 45, 25],
+      sequenceDisplay: "collapsed",
       verticalLayout: [70, 30], leftCollapsed: true, rightCollapsed: false, lowerCollapsed: true,
     };
     localStorage.setItem(WORKSPACE_STORAGE_KEY, JSON.stringify({ state: saved, version: 0 }));
@@ -57,6 +58,7 @@ describe("Neistra presentation contract", () => {
     localStorage.setItem(WORKSPACE_STORAGE_KEY, JSON.stringify({ state: { theme: "sepia", horizontalLayout: null, setTheme: "invalid", activeProjectId: {} }, version: 0 }));
     await useWorkspaceStore.persist.rehydrate();
     expect(useWorkspaceStore.getState().theme).toBe("light");
+    expect(useWorkspaceStore.getState().sequenceDisplay).toBe("expanded");
     expect(useWorkspaceStore.getState().activeProjectId).toBeNull();
     expect(useWorkspaceStore.getState().horizontalLayout).toEqual([30, 45, 25]);
     expect(typeof useWorkspaceStore.getState().setTheme).toBe("function");

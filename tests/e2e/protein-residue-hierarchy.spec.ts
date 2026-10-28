@@ -78,11 +78,10 @@ for (const theme of ["light", "dark"] as const) test(`selects complete residues 
   await residue("GLY 3").click({ modifiers: ["Shift"] });
   await expect.poll(() => selected(page)).toEqual(refs(entry.id, Array.from({ length: 12 }, (_, i) => i + 5)));
   const scrollBefore = await page.locator(".component-scroll").evaluate(e => e.scrollTop);
-  if (mobile) { await page.keyboard.press("Escape"); await page.getByRole("button", { name: "Inspector", exact: true }).click(); }
-  await page.getByRole("tab", { name: "sequence", exact: true }).click();
+  if (mobile) await page.keyboard.press("Escape");
+  await expect(page.getByRole("region", { name: "Protein sequence viewer", exact: true })).toBeVisible();
   await expect(page.getByRole("button", { name: /^GLY 10A · chain A/ })).toHaveAttribute("aria-pressed", "true");
   await page.getByRole("button", { name: /^GLY 10 · chain A/ }).click();
-  if (mobile) await page.keyboard.press("Escape");
   await canvas.click({ position: await point(14), modifiers: ["Shift"] });
   await expect.poll(() => selected(page)).toEqual(refs(entry.id, Array.from({ length: 16 }, (_, i) => i + 1)));
   if (mobile) { await page.getByRole("button", { name: "Project browser", exact: true }).click(); await page.getByRole("tab", { name: "Components", exact: true }).click(); }

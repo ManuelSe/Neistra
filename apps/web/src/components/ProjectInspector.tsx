@@ -8,7 +8,7 @@ import {
   Trash2,
   X,
 } from "lucide-react";
-import { useEffect, useId, useMemo, useRef, useState, type MouseEvent } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { molecularApi } from "../api/client";
 import type {
   Project,
@@ -23,22 +23,15 @@ import type {
   Selection,
   SelectionGranularity,
   SelectionMode,
-  StructureProjection,
   SuperpositionRequest,
   SuperpositionResult,
 } from "../api/types";
 import {
-  chainSelection,
-  residueSelection,
   selectedEntryIds,
-  selectionMode,
   selectionSummary,
   type PredicateField,
   type StructureMap,
 } from "../selection/selection";
-import { gestureIndex, residueLabel, residuePosition, type ResidueSelectionRequest } from "../selection/gestures";
-import { membershipSelectedState } from "../selection/componentMembership";
-import { useSelectionStore } from "../store/selection";
 import { IconButton } from "./IconButton";
 import { LigandEditorPanel } from "./LigandEditorPanel";
 import { MeasurementsPanel } from "./MeasurementsPanel";
@@ -55,7 +48,6 @@ interface ProjectInspectorProps {
   selectionBusy?: boolean;
   onApply: (name: string, description: string | null) => void;
   onApplySelection: (selection: Selection, mode: SelectionMode) => void;
-  onSelectResidue?: (request: ResidueSelectionRequest) => void;
   onPickingGranularity: (granularity: SelectionGranularity) => void;
   onClearSelection: () => void;
   onExpandSelection: (granularity: SelectionGranularity) => void;
@@ -160,29 +152,6 @@ function InspectPanel({
     </div>
   );
 }
-
-const residueCodes: Record<string, string> = {
-  ALA: "A",
-  ARG: "R",
-  ASN: "N",
-  ASP: "D",
-  CYS: "C",
-  GLN: "Q",
-  GLU: "E",
-  GLY: "G",
-  HIS: "H",
-  ILE: "I",
-  LEU: "L",
-  LYS: "K",
-  MET: "M",
-  PHE: "F",
-  PRO: "P",
-  SER: "S",
-  THR: "T",
-  TRP: "W",
-  TYR: "Y",
-  VAL: "V",
-};
 
 function DetailsPanel({
   project,
@@ -502,104 +471,6 @@ function SelectionPanel({
   );
 }
 
-function SequencePanel({
-  project,
-  selection,
-  structures,
-  loading,
-  onApplySelection,
-  onSelectResidue,
-  projections,
-}: Pick<ProjectInspectorProps, "project" | "selection" | "onApplySelection" | "onSelectResidue"> & {
-  structures: StructureMap;
-  projections: ReadonlyMap<string, StructureProjection>;
-  loading: boolean;
-}) {
-  const projectEpoch = useSelectionStore(state => state.projectEpoch);
-  const indexes = useMemo(() => new Map([...projections].map(([entryId, projection]) => [entryId,
-    gestureIndex({ entryId, normalized: projection.structure, hierarchy: projection.hierarchy })])), [projections]);
-  const selected = useMemo(() => {
-    const result = new Map<string, Set<number>>();
-    for (const atom of selection.atoms) {
-      const ids = result.get(atom.structure_id) ?? new Set<number>();
-      ids.add(atom.atom_id); result.set(atom.structure_id, ids);
-    }
-    return result;
-  }, [selection.atoms]);
-  if (loading) {
-    return <div className="sequence-loading"><LoaderCircle size={18} /> Loading sequence</div>;
-  }
-  const proteinEntries = project?.entries.filter((entry) => {
-    const structure = structures.get(entry.id);
-    return structure?.residues.some((residue) => residue.component_type === "polymer");
-  }) ?? [];
-  if (proteinEntries.length === 0) {
-    return <p className="empty-label">No visible protein sequence</p>;
-  }
-
-  return (
-    <div className="sequence-panel">
-      {proteinEntries.map((entry) => {
-        const structure = structures.get(entry.id);
-        const index = indexes.get(entry.id);
-        if (!structure || !index) return null;
-        return (
-          <section key={entry.id} className="sequence-entry">
-            <h3>{entry.name}</h3>
-            {structure.chains.map((chain) => {
-              const residues = (index.residuesByChain.get(chain.id) ?? []).filter(residue => residue.component_type === "polymer");
-              if (residues.length === 0) return null;
-              return (
-                <div key={chain.id} className="sequence-chain">
-                  <button
-                    type="button"
-                    className="chain-label"
-                    onClick={(event) =>
-                      onApplySelection(
-                        chainSelection(entry.id, structure, chain.id, "sequence"),
-                        selectionMode(event.nativeEvent),
-                      )
-                    }
-                  >
-                    Chain {chain.name || "-"}
-                  </button>
-                  <div className="residue-strip">
-                    {residues.map((residue) => {
-                      const atomIds = index.residueAtoms.get(residue.id) ?? [];
-                      const coverage = membershipSelectedState(atomIds, selected.get(entry.id) ?? new Set());
-                      const label = `${residueLabel(residue)} · chain ${chain.name || "(unnamed)"} in ${entry.name}`;
-                      return (
-                        <button
-                          type="button"
-                          key={residue.id}
-                          className={coverage === false ? "" : "selected"}
-                          aria-pressed={coverage}
-                          aria-label={label}
-                          title={label}
-                          onClick={(event: MouseEvent<HTMLButtonElement>) => {
-                            const mode = selectionMode(event.nativeEvent);
-                            if (onSelectResidue && entry.current_artifact_id && project && index.proteinResidues.has(residue.id)) {
-                              onSelectResidue({ projectId: project.id, projectEpoch, entryId: entry.id,
-                                artifactId: entry.current_artifact_id, residueId: residue.id, source: "sequence", mode, shift: event.shiftKey });
-                            } else onApplySelection(residueSelection(entry.id, structure, residue.id, "sequence"), mode);
-                          }}
-                        >
-                          <span>{residueCodes[residue.name] ?? "X"}</span>
-                          <small>{residuePosition(residue)}</small>
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-              );
-            })}
-          </section>
-        );
-      })}
-    </div>
-  );
-}
-
 export function ProjectInspector(props: ProjectInspectorProps) {
   const tabId = useId();
   const { project, selection, onCollapse } = props;
@@ -610,7 +481,6 @@ export function ProjectInspector(props: ProjectInspectorProps) {
     | "transform"
     | "ligand"
     | "protein"
-    | "sequence"
     | "details"
   >(props.movement?.state.capture ? "transform" : "selection");
   const automaticallyOpenedDetails = useRef(false);
@@ -663,10 +533,6 @@ export function ProjectInspector(props: ProjectInspectorProps) {
       ),
     [structureQueries],
   );
-  const projections = useMemo(() => new Map(structureQueries.flatMap(query =>
-    query.data ? [[query.data.entry_id, query.data] as const] : [])), [structureQueries]);
-  const loading = structureQueries.some((query) => query.isPending);
-
   return (
     <section className="panel-content project-inspector" aria-label="Project inspector">
       <div className="panel-header inspector-header">
@@ -685,8 +551,6 @@ export function ProjectInspector(props: ProjectInspectorProps) {
                       ? "Ligand"
                     : tab === "protein"
                       ? "Protein"
-                    : tab === "sequence"
-                    ? "Sequence"
                     : "Project"}
           </h2>
         </div>
@@ -702,7 +566,7 @@ export function ProjectInspector(props: ProjectInspectorProps) {
         aria-label="Inspector views"
         onKeyDown={activateTabFromKeyboard}
       >
-        {(["selection", "inspect", "measurements", "transform", "ligand", "protein", "sequence", "details"] as const).map((item) => (
+        {(["selection", "inspect", "measurements", "transform", "ligand", "protein", "details"] as const).map((item) => (
           <button
             type="button"
             role="tab"
@@ -778,16 +642,6 @@ export function ProjectInspector(props: ProjectInspectorProps) {
               (() => Promise.reject(new Error("Protein editing is unavailable.")))
             }
             onMove={props.onTransform ?? (() => Promise.resolve())}
-          />
-        ) : tab === "sequence" ? (
-          <SequencePanel
-            project={project}
-            selection={selection}
-            structures={structures}
-            loading={loading}
-            projections={projections}
-            onSelectResidue={props.onSelectResidue}
-            onApplySelection={props.onApplySelection}
           />
         ) : (
           <DetailsPanel project={project} busy={props.busy} onApply={props.onApply} />

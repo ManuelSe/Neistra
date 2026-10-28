@@ -1,4 +1,4 @@
-import type { ViewerPick } from "../selection/gestures";
+import type { ResidueSelectionRequest, ViewerPick } from "../selection/gestures";
 import type { MinimizationWorkflow } from "../minimization/useMinimization";
 import type { SurfaceActions, ChangeSelectionAppearance, ApplySelectionEdit } from "../api/types";
 import type { ExpandSelection } from "../selection/expansion";
@@ -28,6 +28,7 @@ interface WorkspaceCanvasProps {
   selection: Selection;
   pickingGranularity: SelectionGranularity;
   onPickingGranularity: (granularity: SelectionGranularity) => void;
+  onSelectResidue?: (request: ResidueSelectionRequest) => void;
   onViewerSelection: (selection: Selection, mode: SelectionMode, pick?: ViewerPick) => void;
   loading: boolean;
   onCreate: () => void;
@@ -61,6 +62,7 @@ export function WorkspaceCanvas({
   pickingGranularity,
   onPickingGranularity,
   onViewerSelection,
+  onSelectResidue,
   loading,
   onCreate,
   onImport,
@@ -134,6 +136,7 @@ export function WorkspaceCanvas({
           pickingGranularity={pickingGranularity}
           onPickingGranularity={onPickingGranularity}
           onViewerSelection={onViewerSelection}
+          onSelectResidue={onSelectResidue}
           busy={busy}
           coordinatePreview={coordinatePreview}
           movement={movement}

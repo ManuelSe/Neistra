@@ -49,6 +49,9 @@ async function setup(page: Page, request: Parameters<typeof prepare>[1]) {
     const { settleSelectionScene } = await import(/* @vite-ignore */ path);
     await settleSelectionScene(window.interactionEngines.at(-1)!, { structure_id: entryId, atom_id: 2 });
   }, entry.id);
+  // The docked sequence reduces the canvas height. Explicit camera zoom keeps
+  // this intentionally tiny fixture pickable; all gesture/camera assertions remain.
+  await zoomForPicking(page);
   return { project, entry, projection };
 }
 
@@ -59,6 +62,12 @@ const selection = (page: Page): Promise<AtomReference[]> => page.evaluate(async 
 });
 async function point(page: Page, coordinates: [number, number, number]) {
   return page.evaluate(xyz => window.editingPicks.point(xyz), coordinates);
+}
+async function zoomForPicking(page: Page) {
+  await page.getByRole("button", { name: "Open viewer controls", exact: true }).click();
+  await page.locator(".viewer-controls").getByRole("button", { name: "Zoom in", exact: true }).click();
+  await page.getByRole("button", { name: "Close viewer controls", exact: true }).click();
+  await page.evaluate(() => window.editingPicks.settled());
 }
 const refs = (entryId: string, ids: number[]) => ids.map(atom_id => ({ structure_id: entryId, atom_id }));
 
@@ -166,7 +175,7 @@ test("extends Atom-mode residue double-clicks and preserves anchors across respo
   // Retaining the old camera on a narrower aspect ratio can crop the endpoint.
   // Explicit fitting is camera-only and must also retain the application anchor.
   await page.getByRole("button", { name: "Fit all visible", exact: true }).click();
-  await page.evaluate(() => window.editingPicks.settled());
+  await zoomForPicking(page);
   expect(await anchor(page)).toEqual(captured);
   const endpoint = await page.evaluate(async expected => {
     const path = "/src/test/selectionGestureHarness.ts";
@@ -245,8 +254,7 @@ test("shares fixed residue starts between native picks and Sequence with partial
   await canvas.click({ position: await position(6) });
   await expect.poll(() => selection(page)).toEqual(refs(entry.id, [6]));
   const openSequence = async () => {
-    if (mobile) await page.getByRole("button", { name: "Inspector", exact: true }).click();
-    await page.getByRole("tab", { name: "sequence", exact: true }).click();
+    await expect(page.getByRole("region", { name: "Protein sequence viewer", exact: true })).toBeVisible();
   };
   await openSequence();
   const inserted = page.getByRole("button", { name: /^GLY 10A · chain A/ });

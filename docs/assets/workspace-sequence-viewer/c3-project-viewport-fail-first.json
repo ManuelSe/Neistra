@@ -1,0 +1,18 @@
+{
+  "command": [
+    "corepack",
+    "pnpm",
+    "--dir",
+    "apps/web",
+    "exec",
+    "vitest",
+    "run",
+    "sequence.test.tsx",
+    "--testNamePattern",
+    "starts a new project"
+  ],
+  "exit_code": 1,
+  "failed": 1,
+  "log": "c3-project-viewport-fail-first.log.gz",
+  "log_sha256": "66e680949f9752c1c07cfd857ae5ad20083886b714394d8946258c6554956554"
+}

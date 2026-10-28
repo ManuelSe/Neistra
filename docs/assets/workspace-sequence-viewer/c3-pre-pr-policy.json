@@ -1,0 +1,40 @@
+{
+  "at": "2026-10-28T14:20:28.744740+00:00",
+  "repository": {
+    "full_name": "ManuelSe/Neistra",
+    "default_branch": "master",
+    "allow_merge_commit": true,
+    "allow_squash_merge": true,
+    "allow_rebase_merge": true,
+    "delete_branch_on_merge": false
+  },
+  "base": {
+    "sha": "d459e073732b1d9ccbba5f404a0d6206c4a12f4e",
+    "protected": false
+  },
+  "protection": {
+    "http_status": 404,
+    "message": "Branch not protected"
+  },
+  "rulesets": [],
+  "workflows": {
+    "total_count": 0,
+    "workflows": []
+  },
+  "open_prs": [],
+  "release_baseline": {
+    "id": 422152304,
+    "tag_name": "v0.25.0",
+    "draft": false,
+    "prerelease": false,
+    "html_url": "https://github.com/ManuelSe/Neistra/releases/tag/v0.25.0"
+  },
+  "proposed_release": {
+    "http_status": 404,
+    "message": "Not Found"
+  },
+  "remote_refs": "80720fee873b321b950db84a52df8bd3c3926f82\trefs/heads/feat/issue-95-workspace-sequence-viewer\nd459e073732b1d9ccbba5f404a0d6206c4a12f4e\trefs/heads/master\n",
+  "normal_merge_required": true,
+  "override_used": false,
+  "next": "Open implementation PR after committing qualified evidence; recheck live review/check policy before merge."
+}

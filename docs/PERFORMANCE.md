@@ -610,3 +610,30 @@ exclusion-baseline filename. It audits the already-completed merged gate without
 changing any command, outcome, exclusion assertion, runtime/test byte or budget.
 The documentation audit persists that correction and checks the actual baseline
 path and executed-report hash; the runtime tag remains fixed.
+
+## Workspace protein sequences (issue #95)
+
+C2 uses an already-loaded **visible**10,000-residue/30,000-atom synthetic protein,
+with the unrelated unvirtualized atom property table unmounted. Complete
+endpoint navigation/range selection takes2033/1893ms desktop/mobile, longest
+tasks384/315ms, mounted 20/15 residue tiles within 29/24 bounds, repeated normalized
+reads0/0. A24-chain case also verifies bounded vertical DOM. These retain the
+5s operation and750ms longest-task budgets; they qualify navigation, not realistic
+protein chemistry or universal throughput. [Exact context and counts](assets/workspace-sequence-viewer/c2-final2-summary.json)
+and the feature plan retain evidence.
+
+Immutable membership/display indexes avoid all-atom scans per residue or minor
+selection/camera update. Horizontal windows use eight-item overscan per side plus
+one retained focus; vertical windows use four rows per side plus one retained
+focus row. Virtualization never limits canonical selection operands. Existing
+1STP/movement/surface/minimization budgets remain unchanged and separately required
+by the complete final candidate and exact-master release gates.
+
+The clean [final 0.26.0 candidate](assets/workspace-sequence-viewer/c3-candidate4-summary.json)
+repeats the visible profile:2050/2162ms desktop/mobile, longest 281/383ms,
+mounted 20/15 within 29/24 bounds, zero repeated reads and unmounted property table.
+The many-chain case and every existing native budget pass. Native cold small/
+pocket/18k paint is1.282/2.095/3.609s, first frame708ms, Cancel73.8ms; original
+2/5/5s,1s,500ms and750ms limits remain. All252 power samples retain AC online;
+no host setting or performance assertion changes. Exact merged-master repetition
+is still required before stable publication.

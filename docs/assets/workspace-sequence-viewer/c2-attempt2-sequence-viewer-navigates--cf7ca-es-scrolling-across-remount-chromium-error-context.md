@@ -1,0 +1,272 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - button "Projects" [ref=e5] [cursor=pointer]:
+      - generic [ref=e7] [cursor=pointer]: Neistra
+    - button "Protein sequences 1793184646500 Unsaved changes" [ref=e8] [cursor=pointer]:
+      - generic [ref=e9] [cursor=pointer]: Protein sequences 1793184646500
+    - generic [ref=e11]:
+      - button "Project browser" [ref=e12] [cursor=pointer]:
+        - img [ref=e13] [cursor=pointer]
+      - button "History" [ref=e18] [cursor=pointer]:
+        - img [ref=e19] [cursor=pointer]
+      - button "Inspector" [ref=e23] [cursor=pointer]:
+        - img [ref=e24] [cursor=pointer]
+      - button "Import structures" [ref=e26] [cursor=pointer]:
+        - img [ref=e27] [cursor=pointer]
+      - button "Export" [ref=e30] [cursor=pointer]:
+        - img [ref=e31] [cursor=pointer]
+      - button "Jobs" [ref=e37] [cursor=pointer]:
+        - img [ref=e38] [cursor=pointer]
+      - 'button "Undo: Import 1 structures from 1 files" [ref=e43] [cursor=pointer]':
+        - img [ref=e44] [cursor=pointer]
+      - button "Redo" [disabled] [ref=e47]:
+        - img [ref=e48]
+      - button "Save checkpoint" [ref=e51] [cursor=pointer]:
+        - img [ref=e52] [cursor=pointer]
+      - button "Use dark theme" [ref=e57] [cursor=pointer]:
+        - img [ref=e58] [cursor=pointer]
+  - status:
+    - generic: 1 structure imported.
+    - button "Dismiss message" [ref=e60] [cursor=pointer]: Close
+  - main [ref=e62]:
+    - generic [ref=e63]:
+      - generic [ref=e64]:
+        - region "3D molecular viewer" [ref=e65]:
+          - generic [ref=e69]:
+            - button "Select Animation" [ref=e77] [cursor=pointer]:
+              - img [ref=e79] [cursor=pointer]
+            - generic [ref=e82]:
+              - button "Reset Zoom" [ref=e85] [cursor=pointer]:
+                - img [ref=e87] [cursor=pointer]
+              - button "Screenshot / State Snapshot" [ref=e91] [cursor=pointer]:
+                - img [ref=e93] [cursor=pointer]
+              - generic [ref=e95]:
+                - button "Toggle Controls Panel" [ref=e97] [cursor=pointer]:
+                  - img [ref=e99] [cursor=pointer]
+                - button "Toggle Expanded Viewport" [ref=e102] [cursor=pointer]:
+                  - img [ref=e104] [cursor=pointer]
+                - button "Settings / Controls Info" [ref=e106] [cursor=pointer]:
+                  - img [ref=e108] [cursor=pointer]
+                - button "Illumination" [ref=e110] [cursor=pointer]:
+                  - img [ref=e112] [cursor=pointer]
+                - button "Augmented/Virtual Reality unavailable" [disabled] [ref=e114]:
+                  - img [ref=e116]
+              - button "Toggle Selection Mode" [ref=e121] [cursor=pointer]:
+                - img [ref=e123] [cursor=pointer]
+        - generic:
+          - status:
+            - generic: 1 visible / 1 loaded / 300 selected
+          - toolbar "Viewer quick actions" [ref=e125]:
+            - generic [ref=e126]: Pick
+            - group "Viewer picking mode" [ref=e127]:
+              - button "Pick atoms" [pressed] [ref=e128] [cursor=pointer]: Atom
+              - button "Pick residues" [ref=e129] [cursor=pointer]: Residue
+              - button "Pick chains" [ref=e130] [cursor=pointer]: Chain
+              - button "Pick structures" [ref=e131] [cursor=pointer]: Structure
+            - group "Viewer focus actions" [ref=e132]:
+              - button "Fit all visible" [ref=e133] [cursor=pointer]:
+                - img [ref=e134] [cursor=pointer]
+              - button "Focus selection" [ref=e135] [cursor=pointer]:
+                - img [ref=e136] [cursor=pointer]
+              - button "Focus visible ligands" [disabled] [ref=e142]:
+                - img [ref=e143]
+              - button "Style selection" [ref=e146] [cursor=pointer]:
+                - img [ref=e147] [cursor=pointer]
+              - button "Interactions" [ref=e153] [cursor=pointer]:
+                - img [ref=e154] [cursor=pointer]
+          - group "Molecular tools" [ref=e159]:
+            - region "Transformation tools" [ref=e160]:
+              - button "Transform selection" [disabled] [ref=e161]:
+                - img [ref=e162]
+            - button "Edit molecule" [ref=e168] [cursor=pointer]:
+              - img [ref=e169] [cursor=pointer]
+            - button "Minimize selection" [ref=e173] [cursor=pointer]:
+              - img [ref=e174] [cursor=pointer]
+        - button "Open viewer controls" [ref=e177] [cursor=pointer]:
+          - img [ref=e178] [cursor=pointer]
+      - region "Protein sequence viewer" [ref=e182]:
+        - generic [ref=e183]:
+          - button "Collapse sequences" [expanded] [ref=e184] [cursor=pointer]:
+            - img [ref=e185] [cursor=pointer]
+          - generic [ref=e187]: Sequence
+          - generic [ref=e188]: 2 chains
+          - button "Hide sequences" [ref=e189] [cursor=pointer]:
+            - img [ref=e190] [cursor=pointer]
+        - list "Displayed protein chains" [ref=e194]:
+          - generic [ref=e195]:
+            - listitem [ref=e196]:
+              - generic [ref=e197]:
+                - generic "string · chain A" [ref=e198]:
+                  - generic [ref=e199]: string
+                  - generic [ref=e200]: Chain A
+                - list "Residues · chain A in string" [ref=e202]:
+                  - listitem [ref=e203]:
+                    - button "GLY 1 · chain A in string" [pressed] [ref=e204] [cursor=pointer]:
+                      - generic [ref=e205] [cursor=pointer]: G
+                      - generic [ref=e206] [cursor=pointer]: "1"
+                  - listitem [ref=e207]:
+                    - button "GLY 2 · chain A in string" [pressed] [ref=e208] [cursor=pointer]:
+                      - generic [ref=e209] [cursor=pointer]: G
+                      - generic [ref=e210] [cursor=pointer]: "2"
+                  - listitem [ref=e211]:
+                    - button "GLY 3 · chain A in string" [pressed] [ref=e212] [cursor=pointer]:
+                      - generic [ref=e213] [cursor=pointer]: G
+                      - generic [ref=e214] [cursor=pointer]: "3"
+                  - listitem [ref=e215]:
+                    - button "GLY 4 · chain A in string" [pressed] [ref=e216] [cursor=pointer]:
+                      - generic [ref=e217] [cursor=pointer]: G
+                      - generic [ref=e218] [cursor=pointer]: "4"
+                  - listitem [ref=e219]:
+                    - button "GLY 5 · chain A in string" [pressed] [ref=e220] [cursor=pointer]:
+                      - generic [ref=e221] [cursor=pointer]: G
+                      - generic [ref=e222] [cursor=pointer]: "5"
+                  - listitem [ref=e223]:
+                    - button "GLY 6 · chain A in string" [pressed] [ref=e224] [cursor=pointer]:
+                      - generic [ref=e225] [cursor=pointer]: G
+                      - generic [ref=e226] [cursor=pointer]: "6"
+                  - listitem [ref=e227]:
+                    - button "GLY 7 · chain A in string" [pressed] [ref=e228] [cursor=pointer]:
+                      - generic [ref=e229] [cursor=pointer]: G
+                      - generic [ref=e230] [cursor=pointer]: "7"
+                  - listitem [ref=e231]:
+                    - button "GLY 8 · chain A in string" [pressed] [ref=e232] [cursor=pointer]:
+                      - generic [ref=e233] [cursor=pointer]: G
+                      - generic [ref=e234] [cursor=pointer]: "8"
+                  - listitem [ref=e235]:
+                    - button "GLY 9 · chain A in string" [pressed] [ref=e236] [cursor=pointer]:
+                      - generic [ref=e237] [cursor=pointer]: G
+                      - generic [ref=e238] [cursor=pointer]: "9"
+                  - listitem [ref=e239]:
+                    - button "GLY 10 · chain A in string" [pressed] [ref=e240] [cursor=pointer]:
+                      - generic [ref=e241] [cursor=pointer]: G
+                      - generic [ref=e242] [cursor=pointer]: "10"
+                  - listitem [ref=e243]:
+                    - button "GLY 11 · chain A in string" [pressed] [ref=e244] [cursor=pointer]:
+                      - generic [ref=e245] [cursor=pointer]: G
+                      - generic [ref=e246] [cursor=pointer]: "11"
+                  - listitem [ref=e247]:
+                    - button "GLY 12 · chain A in string" [pressed] [ref=e248] [cursor=pointer]:
+                      - generic [ref=e249] [cursor=pointer]: G
+                      - generic [ref=e250] [cursor=pointer]: "12"
+                  - listitem [ref=e251]:
+                    - button "GLY 13 · chain A in string" [pressed] [ref=e252] [cursor=pointer]:
+                      - generic [ref=e253] [cursor=pointer]: G
+                      - generic [ref=e254] [cursor=pointer]: "13"
+                  - listitem [ref=e255]:
+                    - button "GLY 14 · chain A in string" [pressed] [ref=e256] [cursor=pointer]:
+                      - generic [ref=e257] [cursor=pointer]: G
+                      - generic [ref=e258] [cursor=pointer]: "14"
+                  - listitem [ref=e259]:
+                    - button "GLY 15 · chain A in string" [pressed] [ref=e260] [cursor=pointer]:
+                      - generic [ref=e261] [cursor=pointer]: G
+                      - generic [ref=e262] [cursor=pointer]: "15"
+                  - listitem [ref=e263]:
+                    - button "GLY 16 · chain A in string" [pressed] [ref=e264] [cursor=pointer]:
+                      - generic [ref=e265] [cursor=pointer]: G
+                      - generic [ref=e266] [cursor=pointer]: "16"
+                  - listitem [ref=e267]:
+                    - button "GLY 17 · chain A in string" [pressed] [ref=e268] [cursor=pointer]:
+                      - generic [ref=e269] [cursor=pointer]: G
+                      - generic [ref=e270] [cursor=pointer]: "17"
+                  - listitem [ref=e271]:
+                    - button "GLY 18 · chain A in string" [pressed] [ref=e272] [cursor=pointer]:
+                      - generic [ref=e273] [cursor=pointer]: G
+                      - generic [ref=e274] [cursor=pointer]: "18"
+                  - listitem [ref=e275]:
+                    - button "GLY 19 · chain A in string" [pressed] [ref=e276] [cursor=pointer]:
+                      - generic [ref=e277] [cursor=pointer]: G
+                      - generic [ref=e278] [cursor=pointer]: "19"
+                  - listitem [ref=e279]:
+                    - button "GLY 20 · chain A in string" [pressed] [ref=e280] [cursor=pointer]:
+                      - generic [ref=e281] [cursor=pointer]: G
+                      - generic [ref=e282] [cursor=pointer]: "20"
+            - listitem [ref=e283]:
+              - generic [ref=e284]:
+                - generic "string · chain B" [ref=e285]:
+                  - generic [ref=e286]: string
+                  - generic [ref=e287]: Chain B
+                - list "Residues · chain B in string" [ref=e289]:
+                  - listitem [ref=e290]:
+                    - button "GLY 81 · chain B in string" [ref=e291] [cursor=pointer]:
+                      - generic [ref=e292] [cursor=pointer]: G
+                      - generic [ref=e293] [cursor=pointer]: "81"
+                  - listitem [ref=e294]:
+                    - button "GLY 82 · chain B in string" [ref=e295] [cursor=pointer]:
+                      - generic [ref=e296] [cursor=pointer]: G
+                      - generic [ref=e297] [cursor=pointer]: "82"
+                  - listitem [ref=e298]:
+                    - button "GLY 83 · chain B in string" [ref=e299] [cursor=pointer]:
+                      - generic [ref=e300] [cursor=pointer]: G
+                      - generic [ref=e301] [cursor=pointer]: "83"
+                  - listitem [ref=e302]:
+                    - button "GLY 84 · chain B in string" [ref=e303] [cursor=pointer]:
+                      - generic [ref=e304] [cursor=pointer]: G
+                      - generic [ref=e305] [cursor=pointer]: "84"
+                  - listitem [ref=e306]:
+                    - button "GLY 85 · chain B in string" [ref=e307] [cursor=pointer]:
+                      - generic [ref=e308] [cursor=pointer]: G
+                      - generic [ref=e309] [cursor=pointer]: "85"
+                  - listitem [ref=e310]:
+                    - button "GLY 86 · chain B in string" [ref=e311] [cursor=pointer]:
+                      - generic [ref=e312] [cursor=pointer]: G
+                      - generic [ref=e313] [cursor=pointer]: "86"
+                  - listitem [ref=e314]:
+                    - button "GLY 87 · chain B in string" [ref=e315] [cursor=pointer]:
+                      - generic [ref=e316] [cursor=pointer]: G
+                      - generic [ref=e317] [cursor=pointer]: "87"
+                  - listitem [ref=e318]:
+                    - button "GLY 88 · chain B in string" [ref=e319] [cursor=pointer]:
+                      - generic [ref=e320] [cursor=pointer]: G
+                      - generic [ref=e321] [cursor=pointer]: "88"
+                  - listitem [ref=e322]:
+                    - button "GLY 89 · chain B in string" [ref=e323] [cursor=pointer]:
+                      - generic [ref=e324] [cursor=pointer]: G
+                      - generic [ref=e325] [cursor=pointer]: "89"
+                  - listitem [ref=e326]:
+                    - button "GLY 90 · chain B in string" [ref=e327] [cursor=pointer]:
+                      - generic [ref=e328] [cursor=pointer]: G
+                      - generic [ref=e329] [cursor=pointer]: "90"
+                  - listitem [ref=e330]:
+                    - button "GLY 91 · chain B in string" [ref=e331] [cursor=pointer]:
+                      - generic [ref=e332] [cursor=pointer]: G
+                      - generic [ref=e333] [cursor=pointer]: "91"
+                  - listitem [ref=e334]:
+                    - button "GLY 92 · chain B in string" [ref=e335] [cursor=pointer]:
+                      - generic [ref=e336] [cursor=pointer]: G
+                      - generic [ref=e337] [cursor=pointer]: "92"
+                  - listitem [ref=e338]:
+                    - button "GLY 93 · chain B in string" [ref=e339] [cursor=pointer]:
+                      - generic [ref=e340] [cursor=pointer]: G
+                      - generic [ref=e341] [cursor=pointer]: "93"
+                  - listitem [ref=e342]:
+                    - button "GLY 94 · chain B in string" [ref=e343] [cursor=pointer]:
+                      - generic [ref=e344] [cursor=pointer]: G
+                      - generic [ref=e345] [cursor=pointer]: "94"
+                  - listitem [ref=e346]:
+                    - button "GLY 95 · chain B in string" [ref=e347] [cursor=pointer]:
+                      - generic [ref=e348] [cursor=pointer]: G
+                      - generic [ref=e349] [cursor=pointer]: "95"
+                  - listitem [ref=e350]:
+                    - button "GLY 96 · chain B in string" [ref=e351] [cursor=pointer]:
+                      - generic [ref=e352] [cursor=pointer]: G
+                      - generic [ref=e353] [cursor=pointer]: "96"
+                  - listitem [ref=e354]:
+                    - button "GLY 97 · chain B in string" [ref=e355] [cursor=pointer]:
+                      - generic [ref=e356] [cursor=pointer]: G
+                      - generic [ref=e357] [cursor=pointer]: "97"
+                  - listitem [ref=e358]:
+                    - button "GLY 98 · chain B in string" [ref=e359] [cursor=pointer]:
+                      - generic [ref=e360] [cursor=pointer]: G
+                      - generic [ref=e361] [cursor=pointer]: "98"
+                  - listitem [ref=e362]:
+                    - button "GLY 99 · chain B in string" [ref=e363] [cursor=pointer]:
+                      - generic [ref=e364] [cursor=pointer]: G
+                      - generic [ref=e365] [cursor=pointer]: "99"
+                  - listitem [ref=e366]:
+                    - button "GLY 100 · chain B in string" [ref=e367] [cursor=pointer]:
+                      - generic [ref=e368] [cursor=pointer]: G
+                      - generic [ref=e369] [cursor=pointer]: "100"
+```

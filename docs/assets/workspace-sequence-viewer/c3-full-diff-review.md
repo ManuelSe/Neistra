@@ -1,0 +1,37 @@
+# Issue95 complete-diff implementer review
+
+Reviewed the complete feature diff from approved base d459e073732b1d9ccbba5f404a0d6206c4a12f4e through the C3 boundary correction, including runtime, test, schema/version, documentation and evidence changes. This is implementer self-review, not independent approval.
+
+## Resolved findings
+
+- Remove obsolete Inspector callback/spinner code and generate a unique sequence content ID.
+- Retire ownership on null-related-target blur; old code demonstrably reclaims outside focus after residue removal. Preserve responsive owned remount intent separately.
+- Consume owned last-chain unmount intent at the surviving header; do not leave stale intent or steal unrelated focus. The old parent fails owned removal and retains the correct unowned control case.
+- Scope initial/layout scroll reads to the rendered project before App's passive session transition. The old code demonstrably inherits another cached project's viewport. Rendering cannot retarget session state.
+- Retire fulfilled keyboard requests. Preserve valid scroll with clamping after viewport change. Native show/hide and responsive focus cases pass.
+- Existing tiny native gesture targets need explicit UI camera zoom in the shorter canvas. Keep source fixtures, native event/selection/camera assertions and all numerical budgets unchanged. Controlled-checkbox tests wait for final display state; Undo uses its actual action label.
+
+## Scope and scientific review
+
+The implementation follows the approved protein-only stacked workspace context. It does not reintroduce a chain selector, nonprotein sequence UI, automatic selection scrolling, alignment, reconstruction, editing, height resizing or new chemistry. Assigned source component/chain identities, source residue order, nonstandard labels and insertion codes remain explicit. Complete canonical operands and a single fixed anchor remain independent of visible atoms and virtual windows. Current project/visit/artifact guards reject stale actions.
+
+Application display settings and viewer-local isolation retain ownership. Independent surface sources supply chain context without pixel/mesh authority. Weak caches and the existing virtualizer bound repeated work; no per-residue all-atom scan or duplicate molecular store. Native full/partial feedback, keyboard tooltips, focus, both themes, 320px, actual zoom and independent lower-panel controls are covered. The renderer instance survives presentation changes.
+
+Backend changes are version metadata only. Project/viewer/archive2, normalized/selection/component1 and migration0014 remain. Original uploads, all conformers, chemistry, saved selections/scenes, surfaces, jobs, exact history and archive remapping retain their contracts. All five versions agree at0.26.0; lock resolution and native tool/model pins are unchanged. An additional0.25.0 archive-provenance case preserves prior coverage. Actual tagged-reader qualification is still required.
+
+Final boundary gate passes62 focused/370 frontend/six native cases, static/types/build/diff with fixed source/log identities. C2 separately passes36 browser/one actual-zoom cases, all new feature cases in both layouts and the original performance bounds. The first full candidate was stopped after294 passing Python cases to apply the review corrections; no scientific or infrastructure waiver is claimed. Complete clean-candidate and exact merged-master20-command gates remain mandatory. Further consequential findings require correction and requalification before merge/release.
+
+The full candidate2 gate exposed one additional stale test: the all-surface accessibility loop still focused the removed Inspector Sequence tab. It now asserts its absence and audits the docked sequence region, with all other checks intact. The focused surface gate passes62 focused/370 frontend/two desktop-mobile browser cases, both themes, lint/types/build/diff, no exclusions/retries and fixed source/log identities. Candidate2 retains1250 Python passes and113 browser passes but is incomplete: the first failure caused deliberate interruption of the following zoom case and remaining suite. It is diagnostic, not qualification. All remaining test references to the removed tab were searched. No application behavior, fixture, performance limit or exclusion changed.
+
+Candidate3 completes every404 browser variant:342 pass/61 preceding exclusions and one transient zero framebuffer sample immediately after protein topology publication. The failure screenshot renders afterward and a read-only reopen probe has positive original-grid values with no WebGL error; this supports a readiness race without claiming a specific GPU cause. Retain the complete failed run as diagnostic, including the brief post-failure observer. The test now polls the identical16-point sum >0 within the existing5000ms expectation timeout. No pixel, scientific, performance, fixture or exclusion condition changes. The complete native protein-editing workflow passes three explicit repetitions (no retries), alongside62 focused/370 frontend and lint/types/build/diff with fixed source/logs. New clean candidate4 remains required. Verification wording separately attributes all-four-mode coverage to shared resolver tests rather than claiming four native sequence-picking modes.
+
+Final clean candidate80720fee873b321b950db84a52df8bd3c3926f82 passes all20 commands,
+1250 Python/370 frontend/8 supervisor/343 browser,61 byte-for-title/project identical
+preceding exclusions, zero failures/flakes/retries/Python or required native skips.
+All583 source identities/log hashes and actual0.25.0↔0.26.0 readers verify. Rechecked
+the complete diff against fetched d459e07, including every runtime/test change,
+five versions, documentation and diagnostic separation. No unresolved consequential
+scope, dead-code, scientific, migration, stale-context or regression finding remains.
+This is implementer self-review only. Documentation/evidence changes preserve every
+qualified runtime/test/tool byte. Current policy/base/version receipt is retained;
+review/check/conversation and exact merged-master gates still govern delivery.

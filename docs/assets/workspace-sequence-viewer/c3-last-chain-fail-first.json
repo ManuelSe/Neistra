@@ -1,0 +1,20 @@
+{
+  "command": [
+    "corepack",
+    "pnpm",
+    "--dir",
+    "apps/web",
+    "exec",
+    "vitest",
+    "run",
+    "sequence.test.tsx",
+    "--testNamePattern",
+    "returns last-chain focus"
+  ],
+  "exit_code": 1,
+  "old_parent_commit": "7f8bab0",
+  "failed": 1,
+  "passed": 1,
+  "log": "c3-last-chain-fail-first.log.gz",
+  "log_sha256": "7c501684b44dcd68c5732120aa99e15c2fb2ea53913693b68e587354c6ca5a33"
+}

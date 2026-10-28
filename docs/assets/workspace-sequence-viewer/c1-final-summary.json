@@ -1,0 +1,19 @@
+{
+  "checkpoint": "M1/C1",
+  "frontend_tests": 357,
+  "focused_tests": 48,
+  "browser": {
+    "startTime": "2026-10-28T10:36:28.617Z",
+    "duration": 65552.023,
+    "expected": 7,
+    "skipped": 1,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "required_feature_skips": 0,
+  "existing_layout_exclusion": "synchronized-selection desktop three-panel workflow on mobile",
+  "gate": "c1-final-gate.json",
+  "initial_diagnostic": "c1-initial-gate.json",
+  "schemas_unchanged": true,
+  "versions_unchanged": "0.25.0"
+}

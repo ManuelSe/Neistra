@@ -464,3 +464,22 @@ retain disclosure/selection separation, source numbering/insertion labels and
 compact 32 px fine / 44 px coarse controls. This is tested-scope evidence, not a
 claim that every application state has been audited. The [exact merged-master gate](assets/protein-residue-hierarchy/c4-merged2-gate.json)
 confirms these same workflows before verified stable v0.25.0 publication.
+
+## Workspace protein sequences (issue #95)
+
+The docked sequence uses native region/list/button semantics, one active residue
+in the tab order, horizontal/Home/End and cross-row Up/Down navigation. Focus
+moves without selecting; Enter/Space keeps shared modifier semantics. Mixed
+coverage has a dashed border and pressed/mixed state. Entry/chain context remains
+in accessible residue names and focus tooltips. Independent collapse/hide and
+connected restore controls preserve owned focus without selecting or moving the
+camera; transient focus/scroll survive responsive remounts.
+
+C2 passes both themes,320px,44px coarse targets, actual100%/200%browser zoom,
+scoped axe and trusted keyboard/remount input. Screenshots are separately
+inspected. See the [feature evidence](assets/workspace-sequence-viewer/c2-final2-summary.json).
+The [clean final candidate](assets/workspace-sequence-viewer/c3-candidate4-gate.json)
+repeats all tested scopes, including the relocated sequence region in the existing
+all-surface audit, with no new exclusion or retry. Exact merged-master repetition
+remains pending. No interactive screen-reader,
+physical-device or broader-browser certification is claimed.

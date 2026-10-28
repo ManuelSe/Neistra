@@ -55,6 +55,7 @@ import { ExportDialog } from "./components/ExportDialog";
 import { GroupMembershipDialog, type GroupDialogRequest } from "./components/GroupMembershipDialog";
 import { groupReturnFocus, type GroupScope } from "./groups/membership";
 import { useGroupActionFocus } from "./groups/useGroupActionFocus";
+import { useSequenceNavigationStore } from "./store/sequenceNavigation";
 import { useNavigationStore } from "./store/navigation";
 import { ProjectBrowser } from "./components/ProjectBrowser";
 import { ProjectInspector } from "./components/ProjectInspector";
@@ -192,6 +193,7 @@ export default function App() {
 
   useEffect(() => {
     useNavigationStore.getState().setProject(activeProjectId);
+    useSequenceNavigationStore.getState().setProject(activeProjectId);
     useEditingStore.getState().setProject(activeProjectId);
     useMinimizationStore.getState().setProject(activeProjectId);
     useViewerCameraStore.getState().setProject(activeProjectId);
@@ -535,7 +537,6 @@ export default function App() {
     pickingGranularity,
     selectionBusy,
     onApplySelection: applySelection,
-    onSelectResidue: applyResidueSelection,
     onPickingGranularity: setPickingGranularity,
     onClearSelection: clearSelection,
     onExpandSelection: (granularity: SelectionGranularity) => {
@@ -1037,6 +1038,7 @@ export default function App() {
                 pickingGranularity={pickingGranularity}
                 onPickingGranularity={setPickingGranularity}
                 onViewerSelection={applyViewerSelection}
+                onSelectResidue={applyResidueSelection}
                 loading={projectQuery.isLoading}
                 onCreate={() => {
                   setCreateMode(true);
@@ -1176,6 +1178,7 @@ export default function App() {
                       pickingGranularity={pickingGranularity}
                       onPickingGranularity={setPickingGranularity}
                       onViewerSelection={applyViewerSelection}
+                      onSelectResidue={applyResidueSelection}
                       loading={projectQuery.isLoading}
                       onCreate={() => {
                         setCreateMode(true);

@@ -1,0 +1,66 @@
+"""Package completed candidate/master qualifications and synthetic reader data."""
+from pathlib import Path
+import argparse, hashlib, io, json, sqlite3, subprocess, zipfile
+
+p=argparse.ArgumentParser()
+p.add_argument('--candidate',required=True)
+p.add_argument('--merged',required=True)
+p.add_argument('--notes',type=Path,required=True)
+p.add_argument('--output',type=Path,required=True)
+p.add_argument('--receipt',type=Path,required=True)
+a=p.parse_args()
+out=Path('docs/assets/workspace-sequence-viewer')
+c=json.loads((out/f'{a.candidate}-gate.json').read_text())
+m=json.loads((out/f'{a.merged}-gate.json').read_text())
+for gate in (c,m):
+ assert gate['complete'] and gate['source_unchanged'] and len(gate['steps'])==20
+ assert all(s['exit_code']==0 for s in gate['steps'])
+assert c['source_before']==c['source_after']==m['source_before']==m['source_after']
+sha=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+assert sha==m['commit']
+s=json.loads((out/f'{a.merged}-summary.json').read_text())
+assert s['complete'] and s['scientific_skips']==0 and not s['retries']
+qualification={'issue':95,'version':'0.26.0','runtime_commit':sha,'candidate_commit':c['commit'],
+ 'candidate_label':a.candidate,'merged_label':a.merged,'source_identity_count':s['source_count'],
+ 'source_sha256':s['source_sha256'],'all_20_commands_pass_both_phases':True,
+ 'previous_reader':'actual tagged v0.25.0','migration_head':'0014','new_migration':False,
+ 'dependency_upgrade':False,'python':s['python'],'frontend':s['frontend'],
+ 'supervisor':s['supervisor'],'browser':s['browser']['expected'],
+ 'browser_exclusions':s['browser']['skipped'],'failures':0,'flakes':0,'retries':0,
+ 'native_scientific_skips':0}
+files={}
+with zipfile.ZipFile(io.BytesIO(subprocess.check_output(['git','archive','--format=zip',sha]))) as archive:
+ for name in archive.namelist():
+  if not name.endswith('/'):files['source/'+name]=archive.read(name)
+for name,digest in m['source_before'].items():
+ assert hashlib.sha256(files['source/'+name]).hexdigest()==digest
+for path in out.iterdir():
+ if path.is_file():files['evidence/'+path.name]=path.read_bytes()
+for phase,gate in [('candidate',c),('merged',m)]:
+ task=Path(gate['environment']['MOLWEAVE_DATA_DIR']).parent
+ for folder in ['forward','reverse','retained-native','retained-browser']:
+  assert (task/folder).is_dir(), (phase,folder)
+  for path in (task/folder).rglob('*'):
+   if path.is_file() and not path.name.endswith(('-wal','-shm')):
+    content=path.read_bytes()
+    if path.name=='molweave.db':
+     with sqlite3.connect(f'file:{path}?mode=ro',uri=True) as src,sqlite3.connect(':memory:') as dst:
+      src.backup(dst);content=dst.serialize()
+    files[f'compatibility/{phase}/{folder}/'+str(path.relative_to(task/folder))]=content
+files['qualification.json']=(json.dumps(qualification,indent=2)+'\n').encode()
+files['release-notes.md']=a.notes.read_bytes()
+assert b'0.26.0' in files['release-notes.md'] and b'issue #95' in files['release-notes.md']
+assert sha.encode() in files['release-notes.md']
+manifest={name:hashlib.sha256(data).hexdigest() for name,data in sorted(files.items())}
+files['SHA256.json']=(json.dumps(manifest,indent=2)+'\n').encode()
+assert not a.output.exists()
+with zipfile.ZipFile(a.output,'w',zipfile.ZIP_DEFLATED) as archive:
+ for name,data in sorted(files.items()):archive.writestr(name,data)
+with zipfile.ZipFile(a.output) as archive:
+ assert archive.testzip() is None
+ assert all(hashlib.sha256(archive.read(n)).hexdigest()==v for n,v in manifest.items())
+result={'filename':a.output.name,'path':str(a.output),'size':a.output.stat().st_size,
+ 'sha256':hashlib.sha256(a.output.read_bytes()).hexdigest(),'members':len(files),
+ 'internal_hashes':len(manifest),'crc_verified':True,'qualification':qualification}
+a.receipt.write_text(json.dumps(result,indent=2)+'\n')
+print(json.dumps(result,indent=2))

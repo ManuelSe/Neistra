@@ -5803,3 +5803,133 @@ membership. Keep current stale-reference/eligibility semantics and full edit
 regressions; do not bypass validation or alter edit behavior. Retain the CPU profile
 as diagnostic evidence; qualification runs without profiling and with original
 limits. No molecular/API/schema/scientific-model expansion is introduced.
+
+## D-146 — Application display owns stacked protein sequence context
+
+Date: 2026-10-28. Status: accepted by explicit approval of the
+[issue #95 plan](plans/issue-95-workspace-sequence-viewer.md); runtime
+implementation not started. C0 authorizes planning persistence only, with a
+mandatory stop ready for `/goal`.
+
+Replace the Inspector Sequence tab with a dedicated sequence component below the
+3D canvas and above the existing lower panel. The user's confirmed guidance
+supersedes the issue's single active protein/chain selector: show all displayed
+protein chains in vertically stacked, nonwrapping, independently horizontally
+scrollable rows. Protein-only scope explicitly supersedes D-145's temporary
+retention of nonprotein Sequence-tab access; other molecular access remains in
+Components and existing tools. Do not change protein classification or infer
+missing residues.
+
+Derive rows from assigned protein component and normalized chain identities in
+current artifact-keyed application projections. Entry visibility, protein
+settings, applicable representations/masks, and current isolation determine row
+eligibility. Retain the complete observed chain while any part is displayed.
+Visible protein surfaces retain declared source-chain context; camera clipping,
+occlusion, cropped mesh pixels, and renderer internals do not define sequence
+membership. Keep separate source instances distinct despite colliding labels or
+numbers. Preserve normalized residue order, author/label numbering, insertion
+codes, explicit internal-ID fallback, and recorded nonstandard names.
+
+Reuse D-144's guarded residue action, canonical atom references, modifier policy,
+and shared transient fixed anchor. Complete residue operands include hidden
+members; displayed DOM or rendered membership never limits selection. Derive
+full/partial/unselected coverage from the central selection. Selecting, browsing,
+collapsing, or hiding sequences cannot move the camera, reveal atoms, change
+picking mode, mutate the project, or create another selection authority.
+
+Keep molecular payloads in TanStack Query and isolation with its existing viewer
+owner. Persist only the safe workspace presentation preference
+`sequenceDisplay: "expanded" | "collapsed" | "hidden"`, with expanded as the
+default. Keep scroll/focus context transient and project-scoped across responsive
+remounts; reset on project change/reload and reconcile removed identities. No
+browsing or anchor state enters project snapshots, history, scenes, or archives.
+
+The expanded area accommodates up to three chain rows and at most one-third of
+the available viewer region, with vertical scrolling for additional chains.
+Collapse leaves a compact header; hide leaves a named toolbar restore control.
+Both are independent of the existing lower-panel layout/collapse state. Preserve
+the renderer instance and existing saved panel-layout shape. Selection does not
+automatically scroll; keyboard focus reveals its own target. Native accessible
+controls, non-color partial coverage, theme tokens, and the existing virtualizer
+provide bounded two-axis browsing without a new dependency or ARIA tree.
+
+Rationale: workspace-derived stacked rows preserve visible molecular context
+without a chain selector, another molecular authority, or pixel-driven row
+churn. Shared actions retain cross-panel behavior; browser presentation and
+transient browsing remain outside scientific persistence.
+
+No HTTP/job/plugin/scientific-model, molecular artifact, dependency upgrade,
+database migration, or persisted schema change is authorized. Alembic remains
+0014; project/viewer/archive schemas remain 2 and normalized/selection/component
+schemas remain 1. Plan stable minor 0.26.0 against verified 0.25.0 for the added
+independent sequence workspace. Complete candidate/exact-master and actual
+prior-reader qualification remain mandatory before delivery; C0 changes no
+application version or runtime behavior.
+
+
+### D-146 implementation authorization — issue #95 M1/C1, 2026-10-28
+
+The user’s `/goal` authorizes implementation and verified delivery under the
+approved feature contract. C1 extracts reusable protein sequence presentation,
+source-instance rows and residue labels into typed frontend modules while the
+existing Inspector remains the working integration. The shared immutable gesture
+index supplies exact protein membership and source order; cached rows retain no
+entry identity, preventing artifact reuse from selecting another entry. Assigned
+protein scope and identifiable nonstandard names follow explicit user guidance.
+No scientific inference or API/schema/migration/version change. Native evidence
+and the initial/final qualification attempts are retained in the feature plan;
+docking and final qualification remain C2 onward.
+
+
+### D-146 implementation note — issue #95 M2/C2, 2026-10-28
+
+The docked component consumes existing visible artifact-keyed projections and
+viewer-local isolation. A weak immutable-projection/settings cache derives
+logical displayed protein rows from ordinary representation membership and
+independent surface sources. It never reads mesh pixels or publishes molecular
+state. Row identity includes entry/component/chain; complete observed residue
+context and exact shared canonical operands remain independent of virtual DOM.
+Previous-artifact rows are visibly updating and cannot publish residue actions.
+
+Only the validated expanded/collapsed/hidden preference enters safe browser
+storage. Separate project-scoped transient navigation holds row/residue IDs,
+scroll positions and owned responsive focus intent, not molecules or selection.
+Keyboard navigation reveals focus, while unrelated selections do not scroll.
+Hide/show focus returns through connected controls; collapse and lower-panel state
+remain independent. Focus requests retire after fulfillment rather than reclaiming
+focus on later selection renders. Native evidence and final checkpoint status
+remain in the feature plan; no delivery is inferred from this implementation note.
+
+The shorter canvas exposed unpickable raster centers in the intentionally tiny
+existing gesture fixture. Read-only native probes confirmed absent picks at those
+pixels and valid picks after resizing. Qualification uses explicit existing camera
+zoom during setup (and after explicit resize fitting); source fixture, molecular
+membership/camera assertions, budgets, renderer bindings and production picking
+remain unchanged. The original failed attempts and corrected native cases are
+retained. This is test framing, not a renderer fix or a performance speedup claim.
+
+
+### D-146 outside-focus qualification — issue #95 C3 review, 2026-10-28
+
+A null-related-target blur retires sequence focus ownership, including when a
+nonfocusable outside target takes interaction. Otherwise later topology removal
+could reclaim focus from the body/canvas. The old guard fails the new regression
+by focusing the next residue; the corrected guard retains outside focus. Owned
+responsive remount intent is still captured separately during unmount. C3 review
+also removes the obsolete Inspector callback and spinner selector and uses a
+React-generated content ID. Fixed-source unit/native evidence and fail-first
+source hashes are retained; no selection, display-policy or durable change.
+
+
+### D-146 last-chain and project-viewport review — issue #95 C3, 2026-10-28
+
+When the last displayed chain disappears, the surviving sequence header consumes
+only owned unmount focus intent and retires obsolete focus/row identities. It
+cannot reclaim unrelated outside focus. A fail-first pair verifies owned versus
+unowned behavior. Scroll restoration also checks project ownership on every
+initial/layout read: cached-project rendering can precede App's passive store
+transition. Reading another project's offsets must yield zero without retargeting
+the session store. Its fail-first regression demonstrates the stale viewport.
+These complete existing focus/project boundaries, not new navigation policy or
+persistence. Final boundary gates and the interrupted first full candidate are
+retained; repeat the complete gate from a new clean fixed candidate.

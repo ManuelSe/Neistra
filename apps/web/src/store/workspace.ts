@@ -5,8 +5,11 @@ import { WORKSPACE_STORAGE_KEY, type Theme } from "../theme";
 export type { Theme } from "../theme";
 export type MobilePanel = "projects" | "inspector" | "history" | null;
 
+export type SequenceDisplay = "expanded" | "collapsed" | "hidden";
+
 interface WorkspaceState {
   theme: Theme;
+  sequenceDisplay: SequenceDisplay;
   activeProjectId: string | null;
   horizontalLayout: number[];
   verticalLayout: number[];
@@ -17,6 +20,7 @@ interface WorkspaceState {
   lowerCollapsed: boolean;
   mobilePanel: MobilePanel;
   setTheme: (theme: Theme) => void;
+  setSequenceDisplay: (display: SequenceDisplay) => void;
   setActiveProjectId: (projectId: string | null) => void;
   setHorizontalLayout: (layout: number[]) => void;
   setVerticalLayout: (layout: number[]) => void;
@@ -46,6 +50,7 @@ export const useWorkspaceStore = create<WorkspaceState>()(
   persist(
     (set) => ({
       theme: "light",
+      sequenceDisplay: "expanded",
       activeProjectId: null,
       horizontalLayout: [22, 56, 22],
       verticalLayout: [74, 26],
@@ -56,6 +61,7 @@ export const useWorkspaceStore = create<WorkspaceState>()(
       lowerCollapsed: false,
       mobilePanel: null,
       setTheme: (theme) => set({ theme }),
+      setSequenceDisplay: (sequenceDisplay) => set({ sequenceDisplay }),
       setActiveProjectId: (activeProjectId) => set({ activeProjectId }),
       setHorizontalLayout: (horizontalLayout) => set({ horizontalLayout }),
       setVerticalLayout: (verticalLayout) => set({ verticalLayout }),
@@ -75,6 +81,7 @@ export const useWorkspaceStore = create<WorkspaceState>()(
         return {
           ...current,
           theme: saved.theme === "dark" ? "dark" : "light",
+          sequenceDisplay: saved.sequenceDisplay === "hidden" || saved.sequenceDisplay === "collapsed" ? saved.sequenceDisplay : "expanded",
           activeProjectId: typeof saved.activeProjectId === "string" ? saved.activeProjectId : null,
           horizontalLayout: validLayout(saved.horizontalLayout, 3) ? saved.horizontalLayout : current.horizontalLayout,
           verticalLayout: validLayout(saved.verticalLayout, 2) ? saved.verticalLayout : current.verticalLayout,
@@ -87,6 +94,7 @@ export const useWorkspaceStore = create<WorkspaceState>()(
       },
       partialize: (state) => ({
         theme: state.theme,
+        sequenceDisplay: state.sequenceDisplay,
         activeProjectId: state.activeProjectId,
         horizontalLayout: state.horizontalLayout,
         verticalLayout: state.verticalLayout,

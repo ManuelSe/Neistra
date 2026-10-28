@@ -1,0 +1,27 @@
+"""Generate the existing twenty-step release recipe for one isolated issue95 phase."""
+import json
+from pathlib import Path
+import re
+import sys
+
+label = sys.argv[1]
+assert re.fullmatch(r"[a-z0-9-]+", label), label
+root = Path.cwd()
+out = root / "docs/assets/workspace-sequence-viewer"
+base = json.loads((root / "docs/assets/protein-residue-hierarchy/c3-candidate3-gate.json").read_text())
+recipe = {"require_clean": True, "environment": base["environment"], "steps": [
+    {key: value for key, value in step.items() if key in {"label", "command", "environment"}}
+    for step in base["steps"]
+]}
+text = json.dumps(recipe)
+text = text.replace("/tmp/neistra94-c3-candidate3", f"/tmp/neistra95-{label}")
+text = text.replace("/tmp/neistra94-reader-0241", "/tmp/neistra95-reader-0250")
+text = text.replace("docs/assets/protein-residue-hierarchy/versions.py.txt", "docs/assets/workspace-sequence-viewer/versions.py.txt")
+text = text.replace("0.25.0", "0.26.0").replace("0.24.1", "0.25.0")
+recipe = json.loads(text)
+recipe["environment"].update(MOLWEAVE_E2E_API_PORT="19810", MOLWEAVE_E2E_WORKER_PORT="19811", MOLWEAVE_E2E_WEB_PORT="19873")
+assert len(recipe["steps"]) == 20
+path = out / f"{label}-commands.json"
+assert not path.exists(), "Retain previous recipes/attempts."
+path.write_text(json.dumps(recipe, indent=2) + "\n")
+print(path)

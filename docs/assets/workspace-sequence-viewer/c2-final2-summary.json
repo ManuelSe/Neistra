@@ -1,0 +1,98 @@
+{
+  "checkpoint": "M2/C2",
+  "focused_tests": 58,
+  "frontend_tests": 366,
+  "browser": {
+    "startTime": "2026-10-28T11:06:23.936Z",
+    "duration": 290745.668,
+    "expected": 36,
+    "skipped": 2,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "zoom": {
+    "startTime": "2026-10-28T11:11:15.392Z",
+    "duration": 25399.52,
+    "expected": 1,
+    "skipped": 1,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "sequence_performance": [
+    {
+      "project": "chromium",
+      "mounted": 20,
+      "bound": 29,
+      "longest": 384,
+      "elapsed": 2033,
+      "repeatedReads": 0,
+      "atoms": 30000,
+      "residues": 10000,
+      "entryVisible": true,
+      "propertyTable": "unmounted"
+    },
+    {
+      "project": "mobile-chromium",
+      "mounted": 15,
+      "bound": 24,
+      "longest": 315,
+      "elapsed": 1893,
+      "repeatedReads": 0,
+      "atoms": 30000,
+      "residues": 10000,
+      "entryVisible": true,
+      "propertyTable": "unmounted"
+    }
+  ],
+  "exclusions": [
+    {
+      "title": "completes the MolWeave v0.1 definition-of-done journey",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "The complete release journey is desktop-only.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/release-journey.spec.ts",
+            "line": 160,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "keeps browser, sequence, inspector, viewer, and saved selection synchronized",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "The full three-panel synchronized-selection workflow runs on desktop.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/synchronized-selection.spec.ts",
+            "line": 107,
+            "column": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "keeps expanded protein residues selectable at actual 100% and 200% browser zoom",
+      "project": "mobile-chromium",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Actual desktop zoom; mobile residue navigation has separate native qualification.",
+          "location": {
+            "file": "/datadisk/dev/neistra/tests/e2e/rebranding-zoom.spec.ts",
+            "line": 437,
+            "column": 8
+          }
+        }
+      ]
+    }
+  ],
+  "source_count": 580,
+  "source_unchanged": true,
+  "retries": 0,
+  "schema_migration_dependency_version_changes": false
+}

@@ -1,0 +1,20 @@
+{
+  "command": [
+    "corepack",
+    "pnpm",
+    "--dir",
+    "apps/web",
+    "exec",
+    "vitest",
+    "run",
+    "sequence.test.tsx",
+    "--testNamePattern",
+    "does not reclaim outside focus"
+  ],
+  "exit_code": 1,
+  "old_guard_sha256": "d4e601cb147c890257db73f06cc06ffb01c7c09eef9991b8a40c3a4079c01a80",
+  "restored_guard_sha256": "afc1dcbdd1f92069109a975e26faf121c21b70ac65fb749466fc2050dd705cd0",
+  "runtime_restored": true,
+  "log": "c3-focus-fail-first.log.gz",
+  "log_sha256": "c23c57615f6c1c8b26a9a5035b35630ace85996f3f59cfc4509823663e6957a1"
+}
