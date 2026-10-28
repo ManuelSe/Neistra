@@ -1,0 +1,263 @@
+{
+  "require_clean": true,
+  "environment": {
+    "MOLWEAVE_DATA_DIR": "/tmp/neistra95-c3-candidate4/default-data",
+    "MOLWEAVE_MINIMIZATION_MAX_RSS_BYTES": "4294967296",
+    "MOLWEAVE_JOB_PLUGIN_ALLOWLIST": "molweave.demo,molweave.minimization",
+    "MOLWEAVE_JOB_PLUGIN_TARGETS": "molweave_demo_plugin.plugin:plugin,molweave_core.minimization.plugin:plugin",
+    "MOLWEAVE_AMBERTOOLS_PREFIX": "/datadisk/dev/.neistra-tools/ambertools-24.8",
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "PLAYWRIGHT_BROWSERS_PATH": ".playwright",
+    "MOLWEAVE_E2E_DATA_DIR": "/tmp/neistra95-c3-candidate4/browser-data",
+    "MOLWEAVE_E2E_API_PORT": "19810",
+    "MOLWEAVE_E2E_WORKER_PORT": "19811",
+    "MOLWEAVE_E2E_WEB_PORT": "19873",
+    "MOLWEAVE_MINIMIZATION_EVIDENCE_DIR": "/tmp/neistra95-c3-candidate4/native",
+    "PLAYWRIGHT_JSON_OUTPUT_NAME": "/tmp/neistra95-c3-candidate4/browser.json"
+  },
+  "steps": [
+    {
+      "label": "python-lock",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/uv",
+        "sync",
+        "--frozen"
+      ]
+    },
+    {
+      "label": "node-lock",
+      "command": [
+        "corepack",
+        "pnpm",
+        "install",
+        "--frozen-lockfile"
+      ]
+    },
+    {
+      "label": "migration",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/uv",
+        "run",
+        "alembic",
+        "upgrade",
+        "head"
+      ]
+    },
+    {
+      "label": "ruff",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/uv",
+        "run",
+        "ruff",
+        "check",
+        "."
+      ]
+    },
+    {
+      "label": "mypy",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/uv",
+        "run",
+        "mypy",
+        "apps/api",
+        "packages/molweave_core"
+      ]
+    },
+    {
+      "label": "python",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/uv",
+        "run",
+        "pytest"
+      ]
+    },
+    {
+      "label": "lint",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "lint"
+      ]
+    },
+    {
+      "label": "types",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "typecheck"
+      ]
+    },
+    {
+      "label": "frontend",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "test"
+      ]
+    },
+    {
+      "label": "supervisor",
+      "command": [
+        "corepack",
+        "pnpm",
+        "test:dev"
+      ]
+    },
+    {
+      "label": "build",
+      "command": [
+        "corepack",
+        "pnpm",
+        "--dir",
+        "apps/web",
+        "build"
+      ]
+    },
+    {
+      "label": "browser",
+      "command": [
+        "corepack",
+        "pnpm",
+        "exec",
+        "playwright",
+        "test",
+        "--reporter=list,json",
+        "--output=/tmp/neistra95-c3-candidate4/browser-results"
+      ]
+    },
+    {
+      "label": "forward-migration",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/uv",
+        "run",
+        "alembic",
+        "upgrade",
+        "head"
+      ],
+      "environment": {
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra95-c3-candidate4/forward",
+        "PYTHONPATH": "/datadisk/dev/neistra/apps/api/src:/datadisk/dev/neistra/packages/molweave_core/src:/datadisk/dev/neistra/packages/molweave_demo_plugin/src"
+      }
+    },
+    {
+      "label": "forward-produce",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/python",
+        "-m",
+        "tests.support.selection_reader_qualification",
+        "produce",
+        "--data-dir",
+        "/tmp/neistra95-c3-candidate4/forward",
+        "--implementation-root",
+        "/datadisk/dev/neistra",
+        "--expected-version",
+        "0.26.0",
+        "--evidence",
+        "/tmp/neistra95-c3-candidate4/forward-produce.json"
+      ],
+      "environment": {
+        "PYTHONPATH": "/datadisk/dev/neistra/apps/api/src:/datadisk/dev/neistra/packages/molweave_core/src:/datadisk/dev/neistra/packages/molweave_demo_plugin/src",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra95-c3-candidate4/forward"
+      }
+    },
+    {
+      "label": "forward-read",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/python",
+        "-m",
+        "tests.support.selection_reader_qualification",
+        "read",
+        "--data-dir",
+        "/tmp/neistra95-c3-candidate4/forward",
+        "--implementation-root",
+        "/tmp/neistra95-reader-0250",
+        "--expected-version",
+        "0.25.0",
+        "--evidence",
+        "/tmp/neistra95-c3-candidate4/forward-read.json"
+      ],
+      "environment": {
+        "PYTHONPATH": "/tmp/neistra95-reader-0250/apps/api/src:/tmp/neistra95-reader-0250/packages/molweave_core/src:/tmp/neistra95-reader-0250/packages/molweave_demo_plugin/src",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra95-c3-candidate4/forward"
+      }
+    },
+    {
+      "label": "reverse-migration",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/uv",
+        "run",
+        "alembic",
+        "upgrade",
+        "head"
+      ],
+      "environment": {
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra95-c3-candidate4/reverse",
+        "PYTHONPATH": "/tmp/neistra95-reader-0250/apps/api/src:/tmp/neistra95-reader-0250/packages/molweave_core/src:/tmp/neistra95-reader-0250/packages/molweave_demo_plugin/src"
+      }
+    },
+    {
+      "label": "reverse-produce",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/python",
+        "-m",
+        "tests.support.selection_reader_qualification",
+        "produce",
+        "--data-dir",
+        "/tmp/neistra95-c3-candidate4/reverse",
+        "--implementation-root",
+        "/tmp/neistra95-reader-0250",
+        "--expected-version",
+        "0.25.0",
+        "--evidence",
+        "/tmp/neistra95-c3-candidate4/reverse-produce.json"
+      ],
+      "environment": {
+        "PYTHONPATH": "/tmp/neistra95-reader-0250/apps/api/src:/tmp/neistra95-reader-0250/packages/molweave_core/src:/tmp/neistra95-reader-0250/packages/molweave_demo_plugin/src",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra95-c3-candidate4/reverse"
+      }
+    },
+    {
+      "label": "reverse-read",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/python",
+        "-m",
+        "tests.support.selection_reader_qualification",
+        "read",
+        "--data-dir",
+        "/tmp/neistra95-c3-candidate4/reverse",
+        "--implementation-root",
+        "/datadisk/dev/neistra",
+        "--expected-version",
+        "0.26.0",
+        "--evidence",
+        "/tmp/neistra95-c3-candidate4/reverse-read.json"
+      ],
+      "environment": {
+        "PYTHONPATH": "/datadisk/dev/neistra/apps/api/src:/datadisk/dev/neistra/packages/molweave_core/src:/datadisk/dev/neistra/packages/molweave_demo_plugin/src",
+        "MOLWEAVE_DATA_DIR": "/tmp/neistra95-c3-candidate4/reverse"
+      }
+    },
+    {
+      "label": "versions",
+      "command": [
+        "/datadisk/dev/neistra/.venv/bin/python",
+        "docs/assets/workspace-sequence-viewer/versions.py.txt"
+      ]
+    },
+    {
+      "label": "diff",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ]
+    }
+  ]
+}

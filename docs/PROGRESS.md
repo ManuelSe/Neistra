@@ -55,8 +55,16 @@ diagnostic, with the following zoom case/rest of suite deliberately interrupted.
 [Replacement surface gate](assets/workspace-sequence-viewer/c3-surface-gate.json)
 passes62 focused/370 frontend/two native desktop-mobile cases, both themes, static/
 build checks and unchanged assertions/budgets. No runtime change or new exclusion.
-No current blocker. Next: clean fixed candidate3/full release gate and actual tagged
-readers before PR; then exact merged-master qualification and verified delivery.
+Candidate3 completes404 browser variants:342 pass/61 existing exclusions and one
+zero native-buffer sample immediately after protein topology publication. Its
+screenshot/reopen probe support a transient readiness race; the complete run remains
+diagnostic. [Readiness correction gate](assets/workspace-sequence-viewer/c3-canvas-gate.json)
+passes62 focused/370 frontend and three explicit complete protein-workflow repeats,
+static/build/diff, no exclusions/retries. The identical16-point sum >0 is polled
+within the original5000ms expect timeout; production, fixtures, numerical limits
+and host settings are unchanged. All12 new sequence cases pass in the diagnostic
+full run. No current blocker. Next: clean fixed candidate4/full release gate and
+actual tagged readers before PR; then exact merged-master qualification/publication.
 
 ### Previous delivery baseline — v0.25.0
 

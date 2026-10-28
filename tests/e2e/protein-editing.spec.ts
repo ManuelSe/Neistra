@@ -125,7 +125,8 @@ async function selectAtoms(
 async function expectNonblankCanvas(page: Page): Promise<void> {
   const canvas = page.locator(".molstar-host canvas").first();
   await expect(canvas).toBeVisible();
-  const sum = await canvas.evaluate((element: HTMLCanvasElement) => {
+  // Topology publication can precede the disposable viewer's asynchronous redraw.
+  await expect.poll(() => canvas.evaluate((element: HTMLCanvasElement) => {
     const context = element.getContext("webgl2") ?? element.getContext("webgl");
     if (!context) return 0;
     const pixel = new Uint8Array(4);
@@ -145,8 +146,7 @@ async function expectNonblankCanvas(page: Page): Promise<void> {
       }
     }
     return total;
-  });
-  expect(sum).toBeGreaterThan(0);
+  })).toBeGreaterThan(0);
 }
 
 test("edits protein hierarchy and chemistry with exact history and validation", async ({

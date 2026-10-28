@@ -1,0 +1,19 @@
+{
+  "status": "diagnostic; not qualified",
+  "commit": "b7cb329a38fa2a0f99c1e4e917e030cfa7c12ae5",
+  "source_unchanged": true,
+  "completed_commands": 12,
+  "python": 1250,
+  "frontend": 370,
+  "browser": {
+    "startTime": "2026-10-28T12:17:12.040Z",
+    "duration": 3390331.0999999996,
+    "expected": 342,
+    "skipped": 61,
+    "unexpected": 1,
+    "flaky": 0
+  },
+  "actual_failure": "One-shot framebuffer sample is zero immediately after mutation at protein-editing.spec.ts:209; failure screenshot renders the molecule afterward. Read-only reopen probe has positive original-grid samples and no WebGL error. This supports a transient readiness race; it does not identify a specific GPU scheduling cause.",
+  "continued_diagnostic": "All404 browser variants completed to detect other regressions. Brief read-only separate-browser probe ran only after the known failure; this phase is not release performance qualification. No source changed during the run.",
+  "next": "Bounded polling of identical16-point sum >0 under existing5000ms expect timeout; no production, fixture, pixel assertion, scientific/performance limit or exclusion change. Focused complete protein workflow repeats, then new clean full candidate4 and actual readers."
+}

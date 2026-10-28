@@ -14,8 +14,9 @@ layout/zoom exclusions, zero failures/flakes/retries. Lint/types/build/diff, all
 C2 source identities and lossless logs verify. [Summary](assets/workspace-sequence-viewer/c2-final2-summary.json)
 retains exact counts, exclusions and synthetic performance context.
 
-Native tests prove stacked displayed chains, complete source-order residue
-selection in all modes, fixed shared anchors, partial coverage, visibility/
+Shared resolver tests cover complete panel residues/ranges in all four picking
+modes. Native tests prove stacked displayed chains, source-order residue selection,
+fixed shared anchors, partial coverage, visibility/
 isolation/Undo, independent collapse/hide/persistence, keyboard, scroll clamping,
 owned responsive focus, renderer/camera/project/request invariants, both themes,
 320px and actual100%/200%browser zoom. All new feature cases run on desktop/mobile.

@@ -1,0 +1,258 @@
+{
+  "kind": "read-only diagnostic reopen; concurrent only with already-failed candidate3",
+  "project": "01a18280-2403-7396-b42e-4fba8f05c7ec",
+  "values": [
+    {
+      "sparse": 15335,
+      "nonzero": 249568,
+      "sum": 242525807,
+      "width": 709,
+      "height": 352,
+      "framebufferBound": false,
+      "attributes": {
+        "alpha": true,
+        "antialias": true,
+        "depth": true,
+        "desynchronized": false,
+        "failIfMajorPerformanceCaveat": true,
+        "powerPreference": "high-performance",
+        "premultipliedAlpha": true,
+        "preserveDrawingBuffer": true,
+        "stencil": false,
+        "xrCompatible": false
+      },
+      "error": 0
+    },
+    {
+      "sparse": 15392,
+      "nonzero": 249568,
+      "sum": 242526445,
+      "width": 709,
+      "height": 352,
+      "framebufferBound": false,
+      "attributes": {
+        "alpha": true,
+        "antialias": true,
+        "depth": true,
+        "desynchronized": false,
+        "failIfMajorPerformanceCaveat": true,
+        "powerPreference": "high-performance",
+        "premultipliedAlpha": true,
+        "preserveDrawingBuffer": true,
+        "stencil": false,
+        "xrCompatible": false
+      },
+      "error": 0
+    },
+    {
+      "sparse": 15392,
+      "nonzero": 249568,
+      "sum": 242526445,
+      "width": 709,
+      "height": 352,
+      "framebufferBound": false,
+      "attributes": {
+        "alpha": true,
+        "antialias": true,
+        "depth": true,
+        "desynchronized": false,
+        "failIfMajorPerformanceCaveat": true,
+        "powerPreference": "high-performance",
+        "premultipliedAlpha": true,
+        "preserveDrawingBuffer": true,
+        "stencil": false,
+        "xrCompatible": false
+      },
+      "error": 0
+    },
+    {
+      "sparse": 15392,
+      "nonzero": 249568,
+      "sum": 242526445,
+      "width": 709,
+      "height": 352,
+      "framebufferBound": false,
+      "attributes": {
+        "alpha": true,
+        "antialias": true,
+        "depth": true,
+        "desynchronized": false,
+        "failIfMajorPerformanceCaveat": true,
+        "powerPreference": "high-performance",
+        "premultipliedAlpha": true,
+        "preserveDrawingBuffer": true,
+        "stencil": false,
+        "xrCompatible": false
+      },
+      "error": 0
+    },
+    {
+      "sparse": 15392,
+      "nonzero": 249568,
+      "sum": 242526445,
+      "width": 709,
+      "height": 352,
+      "framebufferBound": false,
+      "attributes": {
+        "alpha": true,
+        "antialias": true,
+        "depth": true,
+        "desynchronized": false,
+        "failIfMajorPerformanceCaveat": true,
+        "powerPreference": "high-performance",
+        "premultipliedAlpha": true,
+        "preserveDrawingBuffer": true,
+        "stencil": false,
+        "xrCompatible": false
+      },
+      "error": 0
+    },
+    {
+      "sparse": 15392,
+      "nonzero": 249568,
+      "sum": 242526445,
+      "width": 709,
+      "height": 352,
+      "framebufferBound": false,
+      "attributes": {
+        "alpha": true,
+        "antialias": true,
+        "depth": true,
+        "desynchronized": false,
+        "failIfMajorPerformanceCaveat": true,
+        "powerPreference": "high-performance",
+        "premultipliedAlpha": true,
+        "preserveDrawingBuffer": true,
+        "stencil": false,
+        "xrCompatible": false
+      },
+      "error": 0
+    },
+    {
+      "sparse": 15392,
+      "nonzero": 249568,
+      "sum": 242526445,
+      "width": 709,
+      "height": 352,
+      "framebufferBound": false,
+      "attributes": {
+        "alpha": true,
+        "antialias": true,
+        "depth": true,
+        "desynchronized": false,
+        "failIfMajorPerformanceCaveat": true,
+        "powerPreference": "high-performance",
+        "premultipliedAlpha": true,
+        "preserveDrawingBuffer": true,
+        "stencil": false,
+        "xrCompatible": false
+      },
+      "error": 0
+    },
+    {
+      "sparse": 15392,
+      "nonzero": 249568,
+      "sum": 242526445,
+      "width": 709,
+      "height": 352,
+      "framebufferBound": false,
+      "attributes": {
+        "alpha": true,
+        "antialias": true,
+        "depth": true,
+        "desynchronized": false,
+        "failIfMajorPerformanceCaveat": true,
+        "powerPreference": "high-performance",
+        "premultipliedAlpha": true,
+        "preserveDrawingBuffer": true,
+        "stencil": false,
+        "xrCompatible": false
+      },
+      "error": 0
+    },
+    {
+      "sparse": 15392,
+      "nonzero": 249568,
+      "sum": 242526445,
+      "width": 709,
+      "height": 352,
+      "framebufferBound": false,
+      "attributes": {
+        "alpha": true,
+        "antialias": true,
+        "depth": true,
+        "desynchronized": false,
+        "failIfMajorPerformanceCaveat": true,
+        "powerPreference": "high-performance",
+        "premultipliedAlpha": true,
+        "preserveDrawingBuffer": true,
+        "stencil": false,
+        "xrCompatible": false
+      },
+      "error": 0
+    },
+    {
+      "sparse": 15392,
+      "nonzero": 249568,
+      "sum": 242526445,
+      "width": 709,
+      "height": 352,
+      "framebufferBound": false,
+      "attributes": {
+        "alpha": true,
+        "antialias": true,
+        "depth": true,
+        "desynchronized": false,
+        "failIfMajorPerformanceCaveat": true,
+        "powerPreference": "high-performance",
+        "premultipliedAlpha": true,
+        "preserveDrawingBuffer": true,
+        "stencil": false,
+        "xrCompatible": false
+      },
+      "error": 0
+    },
+    {
+      "sparse": 15392,
+      "nonzero": 249568,
+      "sum": 242526445,
+      "width": 709,
+      "height": 352,
+      "framebufferBound": false,
+      "attributes": {
+        "alpha": true,
+        "antialias": true,
+        "depth": true,
+        "desynchronized": false,
+        "failIfMajorPerformanceCaveat": true,
+        "powerPreference": "high-performance",
+        "premultipliedAlpha": true,
+        "preserveDrawingBuffer": true,
+        "stencil": false,
+        "xrCompatible": false
+      },
+      "error": 0
+    },
+    {
+      "sparse": 15392,
+      "nonzero": 249568,
+      "sum": 242526445,
+      "width": 709,
+      "height": 352,
+      "framebufferBound": false,
+      "attributes": {
+        "alpha": true,
+        "antialias": true,
+        "depth": true,
+        "desynchronized": false,
+        "failIfMajorPerformanceCaveat": true,
+        "powerPreference": "high-performance",
+        "premultipliedAlpha": true,
+        "preserveDrawingBuffer": true,
+        "stencil": false,
+        "xrCompatible": false
+      },
+      "error": 0
+    }
+  ]
+}
