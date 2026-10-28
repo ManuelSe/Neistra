@@ -617,7 +617,7 @@ C2 uses an already-loaded **visible**10,000-residue/30,000-atom synthetic protei
 with the unrelated unvirtualized atom property table unmounted. Complete
 endpoint navigation/range selection takes2033/1893ms desktop/mobile, longest
 tasks384/315ms, mounted 20/15 residue tiles within 29/24 bounds, repeated normalized
-reads0/0. A24-chain case also verifies bounded vertical DOM. These retain the
+reads 0/0. A24-chain case also verifies bounded vertical DOM. These retain the
 5s operation and750ms longest-task budgets; they qualify navigation, not realistic
 protein chemistry or universal throughput. [Exact context and counts](assets/workspace-sequence-viewer/c2-final2-summary.json)
 and the feature plan retain evidence.
@@ -633,7 +633,11 @@ The clean [final 0.26.0 candidate](assets/workspace-sequence-viewer/c3-candidate
 repeats the visible profile:2050/2162ms desktop/mobile, longest 281/383ms,
 mounted 20/15 within 29/24 bounds, zero repeated reads and unmounted property table.
 The many-chain case and every existing native budget pass. Native cold small/
-pocket/18k paint is1.282/2.095/3.609s, first frame708ms, Cancel73.8ms; original
-2/5/5s,1s,500ms and750ms limits remain. All252 power samples retain AC online;
-no host setting or performance assertion changes. Exact merged-master repetition
-is still required before stable publication.
+pocket/18k paint is 1.282/2.095/3.609s, first frame 708ms, Cancel 73.8ms; original
+2/5/5s,1s,500ms and750ms limits remain. All 252 power samples retain AC online;
+no host setting or performance assertion changes. The [exact merged-master summary](assets/workspace-sequence-viewer/c4-merged1-summary.json)
+repeats the visible profile:2071/2095ms, longest 332/386ms, mounted 20/15 within 29/24,
+zero refetches and unmounted property table. Native cold small/pocket/18k
+0.949/2.114/3.879s, first frame 664.5ms, Cancel 58.1ms and every original budget pass.
+All 253 merged power samples retain AC online. These are regression measurements,
+not a host-causality or scientific-throughput claim.

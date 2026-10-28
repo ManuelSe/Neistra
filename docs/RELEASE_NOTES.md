@@ -2,8 +2,9 @@
 
 ## 0.26.0 - 2026-10-28 - Workspace protein sequences
 
-**Release status:** complete clean-candidate qualification passes; merge, exact-master
-qualification and stable publication remain pending.
+**Release status:** stable [v0.26.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.26.0),
+normally merged in [PR #124](https://github.com/ManuelSe/Neistra/pull/124). Exact
+qualified runtime: `582617139527cf22dd7ec9514632b121a628959a`.
 
 **Highlights.** [Issue #95](https://github.com/ManuelSe/Neistra/issues/95) docks
 observed protein sequences below the 3D canvas. All displayed protein chains have
@@ -37,13 +38,13 @@ HTTP/job/plugin or scientific-model change: Alembic0014, project/viewer/archive2
 and normalized/selection/component1 remain. Originals and molecular history retain
 their contracts. Only presentation enters optional browser storage; scroll/focus
 and range starts do not enter durable projects or archives. Archives retain
-current state, not portable Undo history. Qualification requires actual tagged
-0.25.0↔final 0.26.0 producer/reader processes both ways. Rollback uses matching
+current state, not portable Undo history. Actual tagged
+0.25.0↔final 0.26.0 producer/reader processes pass both ways. Rollback uses matching
 0.25.0 client/API and a backed-up complete managed directory, with no schema
 downgrade; old clients ignore the added presentation preference.
 
 **Verification and performance.** C1/C2 and C3 review gates are retained in the
-[approved plan](plans/issue-95-workspace-sequence-viewer.md). C2 passes366 frontend,
+[approved plan](plans/issue-95-workspace-sequence-viewer.md). C2 passes 366 frontend,
 36 native browser and one actual100%/200%zoom case, with three existing mobile
 layout exclusions and no failures/flakes/retries. C3 final review passes 370 frontend
 and six native cases, with fail-first focus and project-viewport regressions. Both themes,320px,
@@ -60,15 +61,27 @@ reader directions and all 583 source/log identities verify. Final displayed
 sequence navigation 2050/2162ms desktop/mobile, longest 281/383ms, bounded 20/15 tiles
 and zero repeated reads passes original limits with the property table unmounted.
 All existing native budgets also pass. The native protein canvas test waits for
-asynchronous topology redraw using its identical16-point sum >0 and original
+asynchronous topology redraw using its identical 16-point sum >0 and original
 5000ms expect timeout. Full-diff review is implementer self-review, not independent.
 Initial failed/interrupted attempts remain diagnostic; no assertion/fixture/budget
-or host setting is relaxed. Exact merged-master repetition remains required.
+or host setting is relaxed. The [exact merged-master gate](assets/workspace-sequence-viewer/c4-merged1-gate.json)
+repeats all 20 commands/counts, actual readers and source/log integrity. Merged
+sequence navigation 2071/2095ms, longest 332/386ms, bounded 20/15 tiles, zero refetches
+passes. Native cold small/pocket/18k 0.949/2.114/3.879s, frame 664.5ms, Cancel 58.1ms
+meet unchanged budgets. Candidate/master retain all 583 source identities, digest
+56b62d3de68322e9afb8dafe856fb31d2cd8dc88bb98464a6cc4658d2b72702b.
 
 **Limits and follow-up.** Observed sequence is not complete biological sequence,
 alignment, preparation or a chemical-validity claim. Unknown identities remain
-warned; no missing residues are invented. No new follow-up is created. Verified
-PR/tag/release/issue links and complete gate results are added after delivery.
+warned; no missing residues are invented. No new follow-up is created.
+
+**Publication.** [Audit](assets/workspace-sequence-viewer/c4-publication.json)
+verifies the annotated exact tag, stable latest release/full notes, anonymous
+public verification ZIP SHA256 d691523ba1305b97bbc57080795b2e2f16101994bc9cec14c1292c0ad3c3cdc2,
+CRC/all 6,306 internal hashes and the exact
+[issue reply](https://github.com/ManuelSe/Neistra/issues/95#issuecomment-6473416179).
+Final publication documentation integration and delayed ref/worktree cleanup
+receipts are maintained at that reply; the runtime tag remains fixed.
 
 ## 0.25.0 - 2026-10-23 - Protein residue browsing and shared ranges
 

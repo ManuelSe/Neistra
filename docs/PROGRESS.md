@@ -2,36 +2,43 @@
 
 ## Current milestone
 
-Issue [#95](https://github.com/ManuelSe/Neistra/issues/95) completes M1–M3/C1–C3
-under its [approved contract](plans/issue-95-workspace-sequence-viewer.md) and D-146.
-Observed protein chains now form stacked, virtualized rows below the canvas, with
-whole-chain application display context, shared canonical residue selection and
-independent collapse/hide/restore. The Inspector Sequence tab is removed. Owned
-focus/scroll remain transient and project-scoped; no new molecular authority.
+Issue [#95](https://github.com/ManuelSe/Neistra/issues/95) is delivered under its
+[approved contract](plans/issue-95-workspace-sequence-viewer.md) and D-146, normally
+merged through [PR #124](https://github.com/ManuelSe/Neistra/pull/124) and published
+stable [v0.26.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.26.0) from exact
+qualified runtime **`582617139527cf22dd7ec9514632b121a628959a`**. Protein chains now
+form stacked, virtualized rows below the canvas with shared canonical selection,
+whole-chain application display context and independent collapse/hide/restore.
+The Inspector Sequence tab is removed; focus/scroll remain transient/project-scoped.
 
-The clean [candidate 80720fe](assets/workspace-sequence-viewer/c3-candidate4-gate.json)
-passes all 20 release commands: **1,250 Python,370 frontend,8 supervisor,343 browser**,
-61 exactly unchanged preceding-release exclusions, zero failures/flakes/retries/
-Python or required native scientific skips. Both actual tagged 0.25.0↔final 0.26.0
-reader directions, all 583 source identities and lossless log hashes verify.
-[Summary](assets/workspace-sequence-viewer/c3-candidate4-summary.json) retains exact
-commands, exclusions and timings. All five versions 0.26.0; schemas/head0014,
-APIs/jobs, scientific models and dependencies remain unchanged.
+Both [clean candidate](assets/workspace-sequence-viewer/c3-candidate4-gate.json) and
+[exact merged master](assets/workspace-sequence-viewer/c4-merged1-gate.json) pass all
+20 commands: **1,250 Python,370 frontend,8 supervisor,343 browser**,61 exactly
+unchanged exclusions, zero failures/flakes/retries/Python or required native skips.
+Both actual tagged 0.25.0↔final 0.26.0 reader directions, all 583 matching source
+identities and lossless log hashes verify. Five versions 0.26.0; head 0014 and public/
+project/archive/scientific/dependency contracts remain unchanged. Originals, all
+conformers, selections/scenes/surfaces/jobs/history and archive remapping persist.
 
-Displayed 10,000-residue/30,000-atom navigation takes 2050/2162ms desktop/mobile,
-longest 281/383ms, mounted 20/15 within 29/24 bounds, zero repeated reads; property
-table unmounted. Both themes,320px, actual100%/200%zoom, keyboard/native selection,
-visibility/isolation/Undo, responsive focus/scroll and every existing native budget
-pass. This is pinned-host navigation evidence, not chemistry throughput. Earlier
-failed/interrupted attempts remain diagnostic; all consequential self-review
-findings are fixed, including stale surface navigation and native redraw readiness.
-No assertion, fixture, numerical budget or host setting is relaxed.
+Merged displayed 10,000-residue/30,000-atom navigation 2071/2095ms desktop/mobile,
+longest 332/386ms, mounted 20/15 within 29/24, zero repeated reads; property table
+unmounted. Both themes,320px, actual100%/200%zoom, keyboard/native input and every
+existing native budget pass. Native cold small/pocket/18k 0.949/2.114/3.879s,
+frame 664.5ms, Cancel 58.1ms retain original bounds.252/253 candidate/master power
+samples retain AC. Earlier failed/interrupted attempts remain diagnostic; no
+assertion, fixture, numerical budget or host setting is relaxed.
 
-[Pre-PR policy](assets/workspace-sequence-viewer/c3-pre-pr-policy.json) confirms the
-unchanged fetched base, unused0.26.0 tag/release and normal-merge support. No current
-blocker. Next: commit/push C3 evidence, open/review the PR, then repeat the complete
-gate on exact merged master before verified v0.26.0 publication and cleanup.
-Local review is implementer self-review; independent approval is not claimed.
+[Publication audit](assets/workspace-sequence-viewer/c4-publication.json) verifies
+annotated exact tag, stable latest release/full notes, anonymous public ZIP SHA256/
+CRC/all 6,306 internal hashes and the exact
+[issue close-out](https://github.com/ManuelSe/Neistra/issues/95#issuecomment-6473416179).
+Codex was requested without a returned review; full-diff review is implementer
+self-review, with no required review/check/protection or conversation bypass.
+Existing scientific limits and approved protein-only/no-auto-scroll scope remain;
+no essential outcome is deferred and no new follow-up is needed. Final publication
+documentation integration and actual delayed branch/reader-worktree cleanup
+receipts are maintained at the linked close-out; runtime tag stays fixed.
+No product blocker remains. Further work requires a separate approved scope.
 
 ### Previous delivery baseline — v0.25.0
 

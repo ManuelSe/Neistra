@@ -1,0 +1,19 @@
+{
+  "at": "2026-10-28T15:38:10.527073+00:00",
+  "public_download_verified": true,
+  "anonymous_request": true,
+  "authorization_header_sent": false,
+  "url": "https://github.com/ManuelSe/Neistra/releases/download/v0.26.0/neistra-v0.26.0-verification.zip",
+  "final_host": "release-assets.githubusercontent.com",
+  "asset_id": 685445999,
+  "release_id": 426855805,
+  "path": "/datadisk/dev/.neistra-tools/issue95-public-download/neistra-v0.26.0-verification.zip",
+  "size": 481823784,
+  "sha256": "d691523ba1305b97bbc57080795b2e2f16101994bc9cec14c1292c0ad3c3cdc2",
+  "crc_verified": true,
+  "internal_hashes_verified": 6306,
+  "members": 6307,
+  "runtime_commit": "582617139527cf22dd7ec9514632b121a628959a",
+  "notes_exact": true,
+  "stable_latest_verified": true
+}

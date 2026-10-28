@@ -480,6 +480,6 @@ scoped axe and trusted keyboard/remount input. Screenshots are separately
 inspected. See the [feature evidence](assets/workspace-sequence-viewer/c2-final2-summary.json).
 The [clean final candidate](assets/workspace-sequence-viewer/c3-candidate4-gate.json)
 repeats all tested scopes, including the relocated sequence region in the existing
-all-surface audit, with no new exclusion or retry. Exact merged-master repetition
-remains pending. No interactive screen-reader,
+all-surface audit, with no new exclusion or retry. The [exact merged-master gate](assets/workspace-sequence-viewer/c4-merged1-gate.json)
+repeats these tested scopes before verified stable v0.26.0 publication. No interactive screen-reader,
 physical-device or broader-browser certification is claimed.

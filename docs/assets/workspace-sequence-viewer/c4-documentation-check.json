@@ -1,0 +1,16 @@
+{
+  "at": "2026-10-28T15:43:40.123531+00:00",
+  "kind": "documentation/evidence audit only",
+  "branch": "feat/issue-95-workspace-sequence-viewer",
+  "runtime_commit": "582617139527cf22dd7ec9514632b121a628959a",
+  "qualified_source_identities_unchanged": 583,
+  "source_sha256": "56b62d3de68322e9afb8dafe856fb31d2cd8dc88bb98464a6cc4658d2b72702b",
+  "both_20_step_gates_and_log_hashes_verified": true,
+  "relative_markdown_links": 680,
+  "all_issue_json_and_gzip_parse": true,
+  "helper_syntax_valid": true,
+  "public_bundle_crc_and_internal_hashes_verified": 6306,
+  "version_or_runtime_test_tool_lock_changes": false,
+  "local_review": "implementer self-review of complete documentation/evidence diff; no independent review claimed",
+  "final_merge_cleanup_receipt": "https://github.com/ManuelSe/Neistra/issues/95#issuecomment-6473416179"
+}

@@ -1,0 +1,202 @@
+{
+  "status": "runtime release and issue closeout verified; final docs/ref audit follows at linked issue reply",
+  "issue": 95,
+  "plan": "docs/plans/issue-95-workspace-sequence-viewer.md",
+  "runtime_pr": {
+    "headRefOid": "5dd584a7e32e6bffaa1fdba80c0002a1b354b959",
+    "mergeCommit": {
+      "oid": "582617139527cf22dd7ec9514632b121a628959a"
+    },
+    "mergedAt": "2026-10-28T14:28:19Z",
+    "number": 124,
+    "state": "MERGED",
+    "url": "https://github.com/ManuelSe/Neistra/pull/124",
+    "strategy": "normal merge preserving checkpoint history"
+  },
+  "tag": {
+    "name": "v0.26.0",
+    "type": "annotated",
+    "object": "f9b35e80937cf9b81917947d6d6531b7a8caed9e",
+    "commit": "582617139527cf22dd7ec9514632b121a628959a",
+    "remote_ref_and_peeled_commit_verified": true
+  },
+  "release": {
+    "id": 426855805,
+    "html_url": "https://github.com/ManuelSe/Neistra/releases/tag/v0.26.0",
+    "tag_name": "v0.26.0",
+    "target_commitish": "582617139527cf22dd7ec9514632b121a628959a",
+    "draft": false,
+    "prerelease": false,
+    "published_at": "2026-10-28T15:35:56Z"
+  },
+  "release_notes_sha256": "61c8f4f3ac4db9e46f6a96801b1ab6cb2984fb8a4904603ed1128ed63118e712",
+  "verification_bundle": {
+    "filename": "neistra-v0.26.0-verification.zip",
+    "path": "/datadisk/dev/.neistra-tools/neistra-v0.26.0-verification.zip",
+    "size": 481823784,
+    "sha256": "d691523ba1305b97bbc57080795b2e2f16101994bc9cec14c1292c0ad3c3cdc2",
+    "members": 6307,
+    "internal_hashes": 6306,
+    "crc_verified": true,
+    "qualification": {
+      "issue": 95,
+      "version": "0.26.0",
+      "runtime_commit": "582617139527cf22dd7ec9514632b121a628959a",
+      "candidate_commit": "80720fee873b321b950db84a52df8bd3c3926f82",
+      "candidate_label": "c3-candidate4",
+      "merged_label": "c4-merged1",
+      "source_identity_count": 583,
+      "source_sha256": "56b62d3de68322e9afb8dafe856fb31d2cd8dc88bb98464a6cc4658d2b72702b",
+      "all_20_commands_pass_both_phases": true,
+      "previous_reader": "actual tagged v0.25.0",
+      "migration_head": "0014",
+      "new_migration": false,
+      "dependency_upgrade": false,
+      "python": 1250,
+      "frontend": 370,
+      "supervisor": 8,
+      "browser": 343,
+      "browser_exclusions": 61,
+      "failures": 0,
+      "flakes": 0,
+      "retries": 0,
+      "native_scientific_skips": 0
+    },
+    "public_url": "https://github.com/ManuelSe/Neistra/releases/download/v0.26.0/neistra-v0.26.0-verification.zip",
+    "asset_id": 685445999,
+    "remote_digest": "sha256:d691523ba1305b97bbc57080795b2e2f16101994bc9cec14c1292c0ad3c3cdc2",
+    "public_published_download_verified": true,
+    "downloaded_zip_crc_and_all_internal_hashes_verified": true
+  },
+  "issue_closeout": {
+    "id": 6473416179,
+    "url": "https://github.com/ManuelSe/Neistra/issues/95#issuecomment-6473416179",
+    "verified_body_sha256": "0209a913a5e6768986cdc576b8b5a393064918d9d47dc117207526cb2846f130",
+    "final_reference_audit": "Final documentation integration and actual cleanup are appended after verification."
+  },
+  "qualification": {
+    "issue": 95,
+    "version": "0.26.0",
+    "runtime_commit": "582617139527cf22dd7ec9514632b121a628959a",
+    "candidate_commit": "80720fee873b321b950db84a52df8bd3c3926f82",
+    "candidate_label": "c3-candidate4",
+    "merged_label": "c4-merged1",
+    "source_identity_count": 583,
+    "source_sha256": "56b62d3de68322e9afb8dafe856fb31d2cd8dc88bb98464a6cc4658d2b72702b",
+    "all_20_commands_pass_both_phases": true,
+    "previous_reader": "actual tagged v0.25.0",
+    "migration_head": "0014",
+    "new_migration": false,
+    "dependency_upgrade": false,
+    "python": 1250,
+    "frontend": 370,
+    "supervisor": 8,
+    "browser": 343,
+    "browser_exclusions": 61,
+    "failures": 0,
+    "flakes": 0,
+    "retries": 0,
+    "native_scientific_skips": 0
+  },
+  "review": {
+    "at": "2026-10-28T14:27:47.292702+00:00",
+    "pr": {
+      "baseRefName": "master",
+      "comments": [
+        {
+          "id": "IC_kwDOTqyhK88AAAABgb0kKw",
+          "author": {
+            "login": "ManuelSe"
+          },
+          "authorAssociation": "OWNER",
+          "body": "@codex review",
+          "createdAt": "2026-10-28T14:25:43Z",
+          "includesCreatedEdit": false,
+          "isMinimized": false,
+          "minimizedReason": "",
+          "reactionGroups": [],
+          "url": "https://github.com/ManuelSe/Neistra/pull/124#issuecomment-6471623723",
+          "viewerDidAuthor": true
+        }
+      ],
+      "headRefOid": "5dd584a7e32e6bffaa1fdba80c0002a1b354b959",
+      "isDraft": false,
+      "mergeStateStatus": "CLEAN",
+      "mergeable": "MERGEABLE",
+      "number": 124,
+      "reviewDecision": "",
+      "reviewRequests": [],
+      "reviews": [],
+      "state": "OPEN",
+      "statusCheckRollup": [],
+      "url": "https://github.com/ManuelSe/Neistra/pull/124",
+      "baseRefOid": "d459e073732b1d9ccbba5f404a0d6206c4a12f4e"
+    },
+    "base": {
+      "sha": "d459e073732b1d9ccbba5f404a0d6206c4a12f4e",
+      "protected": false,
+      "rulesets": []
+    },
+    "local_full_release_gate": "docs/assets/workspace-sequence-viewer/c3-candidate4-gate.json",
+    "qualification_commit": "80720fee873b321b950db84a52df8bd3c3926f82",
+    "qualified_source_identities": 583,
+    "source_bytes_match_reviewed_head": true,
+    "local_review": "complete-diff implementer self-review; consequential findings fixed and requalified",
+    "independent_review_received": false,
+    "codex_requested": true,
+    "codex_comment_url": "https://github.com/ManuelSe/Neistra/pull/124#issuecomment-6471623723",
+    "unresolved_review_threads": 0,
+    "required_status_checks": 0,
+    "required_human_reviews": 0,
+    "merge_strategy": "normal merge preserving checkpoint history",
+    "override_used": false,
+    "connector_write_failure": "403 Resource not accessible by integration; authenticated gh CLI performs explicitly authorized PR/comment/merge actions",
+    "pending_before_release": "Repeat all20 commands and actual readers on the exact merged master before tagging.",
+    "postmerge_release_check": {
+      "at": "2026-10-28T15:33:40.292107+00:00",
+      "pr": {
+        "comments": [
+          {
+            "id": "IC_kwDOTqyhK88AAAABgb0kKw",
+            "author": {
+              "login": "ManuelSe"
+            },
+            "authorAssociation": "OWNER",
+            "body": "@codex review",
+            "createdAt": "2026-10-28T14:25:43Z",
+            "includesCreatedEdit": false,
+            "isMinimized": false,
+            "minimizedReason": "",
+            "reactionGroups": [],
+            "url": "https://github.com/ManuelSe/Neistra/pull/124#issuecomment-6471623723",
+            "viewerDidAuthor": true
+          }
+        ],
+        "headRefOid": "5dd584a7e32e6bffaa1fdba80c0002a1b354b959",
+        "mergeCommit": {
+          "oid": "582617139527cf22dd7ec9514632b121a628959a"
+        },
+        "number": 124,
+        "reviews": [],
+        "state": "MERGED",
+        "statusCheckRollup": [],
+        "url": "https://github.com/ManuelSe/Neistra/pull/124"
+      },
+      "unresolved_review_threads": 0,
+      "required_review_or_check_override": false,
+      "exact_qualified_master": "582617139527cf22dd7ec9514632b121a628959a",
+      "tag_unused": true,
+      "latest_stable": "v0.25.0"
+    }
+  },
+  "compatibility": {
+    "database_head": "0014",
+    "normalized_selection_component_schema": 1,
+    "project_viewer_archive_schema": 2,
+    "new_migration": false,
+    "dependency_version_upgrade": false
+  },
+  "new_followup_issues": [],
+  "feature_branch": "feat/issue-95-workspace-sequence-viewer",
+  "cleanup_order": "Delete only after verified runtime merge, tag, release/public bundle, issue reply and docs audit. Runtime tag remains fixed."
+}

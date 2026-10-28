@@ -56,7 +56,7 @@ Updating or failed molecular projections cannot publish stale residue actions.
 
 ## Compatibility and limits
 
-The issue #95 candidate targets stable 0.26.0. No database migration, molecular or
+Introduced in stable [v0.26.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.26.0) for issue #95. No database migration, molecular or
 archive rewrite, API/job change, new chemistry, or dependency upgrade is required.
 Alembic remains 0014; project/viewer/archive schemas remain 2 and
 normalized/selection/component schemas remain 1. Portable archives retain current
