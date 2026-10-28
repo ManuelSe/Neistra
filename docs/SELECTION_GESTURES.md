@@ -1,8 +1,10 @@
 # Selection gestures
 
-Issue #94 extends explicit protein-residue actions in Components and the existing
-Sequence tab to the shared fixed anchor, insertion-code labels and partial
-coverage. Final milestone/release qualification remains in progress.
+Issue #94 delivers shared fixed anchors, insertion-code labels and partial
+coverage for explicit protein-residue actions in Components and Sequence. Issue
+#95 C1 extracts protein-only Sequence presentation with preserved source instances
+and recorded nonstandard names; relocation below the canvas remains in progress.
+See its approved feature plan for checkpoint and release evidence.
 
 Whole-entity toggle, double-click expansion and viewer residue ranges were added
 in0.22.0. Picking-mode hover and complete individual-molecule Residue alignment

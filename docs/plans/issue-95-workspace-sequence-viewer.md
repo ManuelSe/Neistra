@@ -2,8 +2,8 @@
 
 ## 1. Status, outcome, and authority
 
-**Status:** approved implementation contract; planning persistence only.
-Runtime implementation, feature qualification, PR, and release are not started.
+**Status:** implementation authorized by the user’s `/goal` on 2026-10-28.
+M1/C1 extraction is implemented and qualified; M2–M4 remain pending.
 
 **Approval:** the user's “Implement the plan.” on 2026-10-28 approves the complete
 proposal, including its mandatory C0 stop ready for `/goal`. This authorizes
@@ -461,14 +461,17 @@ unrelated branches/worktrees.
 | Planning baseline | `corepack pnpm --dir apps/web exec vitest run selection-gestures component-membership structure-loading` passed 3 files / 37 tests. Baseline evidence only; no feature-completion claim. |
 | C0 — Base and branch | Clean `master`; `git pull --ff-only origin master` already up to date at `d459e073732b1d9ccbba5f404a0d6206c4a12f4e`; clean tree reconfirmed; approved feature branch created. Issue and stable release baseline unchanged. |
 | C0 — Persistence and validation | This approved plan is the first branch change; D-146 and concise project progress accompany it. Documentation checks pass: 13 relative links, exact three-file scope, preserved accepted decisions/prior progress, no prohibited references or conflict markers, all five versions still 0.25.0, and unchanged global plan/product specification/verification. Staged whitespace and scope checks precede `docs(plan): add approved plan for issue 95`; its commit/push receipt is reported in the C0 handoff. |
-| M1/C1–M4/C4 | Not started. Record each checkpoint's commits, commands/evidence, deviations, candidate/merged gates, publication receipts, and cleanup here as they occur. |
+| C0 — Remote receipt | Planning commit `e51c0d37ff6de8b66b0b1c7f2ce932eaf2cb9fc8` pushed and remotely verified; clean tree. |
+| 2026-10-28 — Implementation authorization | User’s `/goal` authorizes implementation, checkpoint qualification and verified delivery under this contract. |
+| M1/C1 — Complete | [Final gate](../assets/workspace-sequence-viewer/c1-final-gate.json): 48 focused / 357 complete frontend / 7 native browser tests pass, one existing mobile exclusion of the desktop three-panel workflow. Lint/typecheck/build/diff pass. [Summary](../assets/workspace-sequence-viewer/c1-final-summary.json), [browser report](../assets/workspace-sequence-viewer/c1-final-browser-results.json.gz), [implementer review](../assets/workspace-sequence-viewer/c1-review.md). All source identities fixed. [Initial lint attempt](../assets/workspace-sequence-viewer/c1-initial-gate.json) retained as diagnostic; obsolete imports corrected without assertion changes. |
+| M2/C2–M4/C4 | Pending. Record each checkpoint’s commits, commands/evidence, deviations, candidate/merged gates, publication receipts, and cleanup here as they occur. |
 
-**Known limitations:** the existing Sequence tab is still the runtime UI; this
-document does not claim the docked feature exists. No C0 runtime, version,
-schema, migration, dependency, PR, issue-message, tag, or release change.
+**Known limitations:** the extracted protein sequence remains in the Inspector;
+docking, display eligibility, virtualization and final release qualification are
+pending. No version/schema/migration/dependency change at C1. The extraction’s
+compatibility fallback is replaced by guarded docked activation at C2.
 
-**Blockers:** none for planning persistence. Runtime work awaits its separate
-authorization boundary.
+**Blockers:** none.
 
-**Next action:** approved planning persisted; implementation not started. Stop
-ready for `/goal`.
+**Next action:** M2/C2 — integrate the docked stacked workflow, display-derived
+eligibility, independent presentation state and virtual accessible navigation.

@@ -2,35 +2,29 @@
 
 ## Current milestone
 
-Issue [#95](https://github.com/ManuelSe/Neistra/issues/95) has an
-[approved implementation contract](plans/issue-95-workspace-sequence-viewer.md).
-The user's 2026-10-28 “Implement the plan.” authorizes C0 planning persistence
-only, including the mandatory stop ready for `/goal`. Runtime implementation has
-not started.
+Issue [#95](https://github.com/ManuelSe/Neistra/issues/95) is in progress under its
+[approved contract](plans/issue-95-workspace-sequence-viewer.md). The user’s
+2026-10-28 `/goal` authorizes implementation and verified delivery. Work remains on
+`feat/issue-95-workspace-sequence-viewer`; C0 planning commit `e51c0d3` is pushed.
 
-Completed C0 preparation: clean `master` fast-forward checked against
-`origin/master` at `d459e073732b1d9ccbba5f404a0d6206c4a12f4e`; dedicated
-`feat/issue-95-workspace-sequence-viewer` branch created; approved plan written as
-the first branch change; D-146 appended. The contract replaces the Inspector
-Sequence tab with a bounded stack of displayed protein-chain sequences below
-the canvas. Complete observed chain context, application-owned display and
-selection, independent collapse/hide, and accessible virtual browsing govern.
-The issue's single-chain selector is superseded by explicit user guidance.
+M1/C1 extracts reusable protein-only sequence presentation and immutable indexed
+rows, preserving source instances/order, insertion codes, identifiable nonstandard
+names, canonical coverage and shared residue actions. D-146 governs; no new
+molecular authority, scientific inference, API/job/schema/migration/dependency or
+version change. The old Inspector location remains temporarily for this coherent
+extraction checkpoint.
 
-Verification: issue/release/ref revalidation found no baseline change; planning
-baseline passes 37 gesture/membership/structure-loading tests. C0 checks pass for
-13 relative links, exact documentation-only scope, preserved historical decisions
-and progress, unchanged versions/global plan/product specification/verification,
-and no prohibited references or conflict markers. Staged whitespace checks precede
-the exact planning commit; the handoff reports commit/push verification. No
-feature or release qualification is claimed.
+[Final C1 gate](assets/workspace-sequence-viewer/c1-final-gate.json) passes 48
+focused, 357 full frontend and seven native browser tests; one existing mobile
+exclusion belongs to the desktop three-panel workflow. Lint/typecheck/build/diff
+pass with fixed source identities. Initial obsolete-import lint failure remains
+diagnostic. [Review](assets/workspace-sequence-viewer/c1-review.md) is implementer
+self-review. No feature-release qualification is claimed.
 
-Known limitations: the existing Sequence tab remains the runtime UI. All five
-application versions remain 0.25.0; no runtime/API/job/schema/migration/dependency
-change. M1 extraction, M2 docked workflow, M3 final candidate qualification, and
-M4 verified delivery remain pending. Planned stable minor is 0.26.0, subject to
-fresh baseline/tag checks. No planning blocker remains. Next action: stop after
-the planning commit/push, ready for `/goal`; do not start implementation.
+All five versions remain 0.25.0; planned stable minor is 0.26.0, subject to fresh
+baseline/tag checks. Known limitation: docking, display eligibility and virtual
+accessible browsing remain pending. No current blocker. Next action: M2/C2,
+followed by complete candidate/exact-master qualification and verified delivery.
 
 ### Previous delivery baseline — v0.25.0
 

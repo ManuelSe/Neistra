@@ -5865,3 +5865,17 @@ schemas remain 1. Plan stable minor 0.26.0 against verified 0.25.0 for the added
 independent sequence workspace. Complete candidate/exact-master and actual
 prior-reader qualification remain mandatory before delivery; C0 changes no
 application version or runtime behavior.
+
+
+### D-146 implementation authorization — issue #95 M1/C1, 2026-10-28
+
+The user’s `/goal` authorizes implementation and verified delivery under the
+approved feature contract. C1 extracts reusable protein sequence presentation,
+source-instance rows and residue labels into typed frontend modules while the
+existing Inspector remains the working integration. The shared immutable gesture
+index supplies exact protein membership and source order; cached rows retain no
+entry identity, preventing artifact reuse from selecting another entry. Assigned
+protein scope and identifiable nonstandard names follow explicit user guidance.
+No scientific inference or API/schema/migration/version change. Native evidence
+and the initial/final qualification attempts are retained in the feature plan;
+docking and final qualification remain C2 onward.
