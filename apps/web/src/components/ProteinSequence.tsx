@@ -8,7 +8,7 @@ import { residueLabel, residuePosition, type ResidueSelectionRequest } from "../
 import { selectionMode } from "../selection/selection";
 import { residueCode, type ProteinSequenceRow } from "../selection/sequence";
 import { useSelectionStore } from "../store/selection";
-import { useSequenceNavigationStore, type SequenceFocus } from "../store/sequenceNavigation";
+import { sequenceScroll, useSequenceNavigationStore, type SequenceFocus } from "../store/sequenceNavigation";
 
 export interface SequenceRow extends ProteinSequenceRow {
   entryId: string;
@@ -44,14 +44,14 @@ function ResidueRow({ row, projectId, selected, active, request, coarse, onFocus
   const virtualizer = useVirtualizer({ horizontal: true, count: row.residues.length,
     getScrollElement: () => scroller.current, estimateSize: () => stride, getItemKey,
     overscan: 8, rangeExtractor, initialRect: { width: 320, height: coarse ? 64 : 52 },
-    initialOffset: () => useSequenceNavigationStore.getState().scrollLeft[row.key] ?? 0,
+    initialOffset: () => sequenceScroll(projectId, row.key),
   });
   const items = virtualizer.getVirtualItems();
   useLayoutEffect(() => {
     const element = scroller.current;
-    if (element) element.scrollLeft = Math.min(useSequenceNavigationStore.getState().scrollLeft[row.key] ?? 0,
+    if (element) element.scrollLeft = Math.min(sequenceScroll(projectId, row.key),
       Math.max(0, row.residues.length * stride - element.clientWidth));
-  }, [row.key, row.residues.length]);
+  }, [projectId, row.key, row.residues.length]);
   useLayoutEffect(() => {
     if (requestIndex < 0) return;
     virtualizer.scrollToIndex(requestIndex, { align: "auto" });
@@ -123,7 +123,7 @@ export function ProteinSequence({ projectId, rows, selection, onSelectResidue, o
   const virtualizer = useVirtualizer({ count: rows.length, getScrollElement: () => scroller.current,
     estimateSize: () => rowHeight, getItemKey, overscan: 4, rangeExtractor,
     initialRect: { width: 640, height: rowHeight * 3 },
-    initialOffset: () => useSequenceNavigationStore.getState().scrollTop,
+    initialOffset: () => sequenceScroll(projectId),
   });
   const selected = useMemo(() => {
     const result = new Map<string, Set<number>>();
@@ -151,9 +151,9 @@ export function ProteinSequence({ projectId, rows, selection, onSelectResidue, o
   }, [projectId]);
   useLayoutEffect(() => {
     const element = scroller.current;
-    if (element) element.scrollTop = Math.min(useSequenceNavigationStore.getState().scrollTop,
+    if (element) element.scrollTop = Math.min(sequenceScroll(projectId),
       Math.max(0, rows.length * rowHeight - element.clientHeight));
-  }, [rows.length, rowHeight]);
+  }, [projectId, rows.length, rowHeight]);
   useEffect(() => { useSequenceNavigationStore.getState().reconcile(projectId, rows.map(row => row.key)); }, [projectId, rows]);
   useLayoutEffect(() => {
     const previous = lastOwnedFocus.current;

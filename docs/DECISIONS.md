@@ -5919,3 +5919,17 @@ responsive remount intent is still captured separately during unmount. C3 review
 also removes the obsolete Inspector callback and spinner selector and uses a
 React-generated content ID. Fixed-source unit/native evidence and fail-first
 source hashes are retained; no selection, display-policy or durable change.
+
+
+### D-146 last-chain and project-viewport review — issue #95 C3, 2026-10-28
+
+When the last displayed chain disappears, the surviving sequence header consumes
+only owned unmount focus intent and retires obsolete focus/row identities. It
+cannot reclaim unrelated outside focus. A fail-first pair verifies owned versus
+unowned behavior. Scroll restoration also checks project ownership on every
+initial/layout read: cached-project rendering can precede App's passive store
+transition. Reading another project's offsets must yield zero without retargeting
+the session store. Its fail-first regression demonstrates the stale viewport.
+These complete existing focus/project boundaries, not new navigation policy or
+persistence. Final boundary gates and the interrupted first full candidate are
+retained; repeat the complete gate from a new clean fixed candidate.

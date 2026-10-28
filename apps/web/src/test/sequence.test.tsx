@@ -258,4 +258,46 @@ describe("bidirectional sequence selection", () => {
     expect(document.body).toHaveFocus();
     expect(screen.getByRole("button", { name: "Collapse sequences" })).not.toHaveFocus();
   });
+
+  it.each([true, false])("returns last-chain focus to the header only when it owns focus (%s)", async ownsFocus => {
+    vi.spyOn(document, "hasFocus").mockReturnValue(true);
+    const project = molecularProject();
+    const projection = proteinProjection();
+    useSequenceNavigationStore.getState().setProject(project.id);
+    const rows = proteinSequenceRows({ entryId: "protein", normalized: projection.structure, hierarchy: projection.hierarchy })
+      .map(row => ({ ...row, entryId: "protein", entryName: "Receptor", artifactId: "current", current: true }));
+    const onSelectResidue = vi.fn();
+    const props = { projectId: project.id, selection: emptySelection(), loading: false, failed: false,
+      onSelectResidue, onHide: () => undefined };
+    const view = render(<SequenceViewer {...props} rows={rows} />);
+    const residue = await screen.findByRole("button", { name: /^GLY 10 ·/ });
+    act(() => residue.focus());
+    if (!ownsFocus) act(() => residue.blur());
+    view.rerender(<SequenceViewer {...props} rows={[]} />);
+    await waitFor(() => {
+      if (ownsFocus) expect(screen.getByRole("button", { name: "Collapse sequences" })).toHaveFocus();
+      else expect(document.body).toHaveFocus();
+    });
+    expect(useSequenceNavigationStore.getState().restoreFocus).toBe(false);
+    expect(onSelectResidue).not.toHaveBeenCalled();
+  });
+
+  it("starts a new project at its own viewport before session-store reconciliation", async () => {
+    const projection = proteinProjection();
+    const [original] = proteinSequenceRows({ entryId: "protein", normalized: projection.structure, hierarchy: projection.hierarchy });
+    const residues = Array.from({ length: 20 }, (_, index) => ({ ...original.residues[0], id: index + 1, author_number: index + 1 }));
+    const rows = Array.from({ length: 4 }, (_, index) => ({ ...original, key: `row-${index}`, residues,
+      entryId: "protein", entryName: "Receptor", artifactId: "current", current: true }));
+    const navigation = useSequenceNavigationStore.getState();
+    navigation.setProject("old-project");
+    navigation.rememberScroll("old-project", 52);
+    navigation.rememberRowScroll("old-project", "row-0", 400);
+    render(<SequenceViewer projectId="new-project" rows={rows} selection={emptySelection()} loading={false} failed={false}
+      onSelectResidue={() => undefined} onHide={() => undefined} />);
+    await screen.findByRole("list", { name: "Displayed protein chains" });
+    expect(screen.getByRole("list", { name: "Displayed protein chains" })).toHaveProperty("scrollTop", 0);
+    expect(document.querySelector(".sequence-residue-scroll")).toHaveProperty("scrollLeft", 0);
+    // App owns the session transition; rendering another project cannot retarget it.
+    expect(useSequenceNavigationStore.getState().projectId).toBe("old-project");
+  });
 });

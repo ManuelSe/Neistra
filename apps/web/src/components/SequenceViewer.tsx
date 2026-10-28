@@ -1,9 +1,10 @@
 import * as Tooltip from "@radix-ui/react-tooltip";
 import { ChevronDown, ChevronUp, X } from "lucide-react";
-import { useId, useRef } from "react";
+import { useId, useLayoutEffect, useRef } from "react";
 import type { Selection } from "../api/types";
 import type { ResidueSelectionRequest } from "../selection/gestures";
 import { useWorkspaceStore } from "../store/workspace";
+import { useSequenceNavigationStore } from "../store/sequenceNavigation";
 import { IconButton } from "./IconButton";
 import { ProteinSequence, type SequenceRow } from "./ProteinSequence";
 
@@ -16,6 +17,22 @@ export function SequenceViewer({ projectId, rows, selection, loading, failed, on
   const setDisplay = useWorkspaceStore(state => state.setSequenceDisplay);
   const toggle = useRef<HTMLButtonElement>(null);
   const contentId = useId();
+  useLayoutEffect(() => {
+    const navigation = useSequenceNavigationStore.getState();
+    if (navigation.projectId !== projectId) return;
+    const restore = navigation.restoreFocus;
+    if (!rows.length) {
+      navigation.rememberFocus(projectId, null);
+      navigation.reconcile(projectId, []);
+    }
+    if (display === "expanded" && rows.length || !restore) return;
+    navigation.setRestoreFocus(projectId, false);
+    // Child unmount retains owned responsive focus. If no list remains, the
+    // surviving header owns that fallback, without reclaiming outside focus.
+    if (document.hasFocus() && document.activeElement === document.body) {
+      toggle.current?.focus({ preventScroll: true });
+    }
+  }, [display, projectId, rows.length]);
   if (display === "hidden") return null;
   const expanded = display === "expanded";
   return <Tooltip.Provider delayDuration={350}>

@@ -33,3 +33,10 @@ export const useSequenceNavigationStore = create<SequenceNavigation>(set => ({
     return Object.keys(scrollLeft).length === Object.keys(state.scrollLeft).length ? state : { scrollLeft };
   }),
 }));
+
+/** A cached project's first render can precede App's session-store transition. */
+export function sequenceScroll(projectId: string, rowKey?: string): number {
+  const state = useSequenceNavigationStore.getState();
+  if (state.projectId !== projectId) return 0;
+  return rowKey === undefined ? state.scrollTop : state.scrollLeft[rowKey] ?? 0;
+}

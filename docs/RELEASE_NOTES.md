@@ -18,7 +18,8 @@ changing visibility/picking mode or automatically scrolling. Keyboard arrows,
 Home/End and Enter/Space work with bounded horizontal/vertical windows. Native
 focus tooltips, non-color partial cues, safe preferences and owned responsive
 scroll/focus retain browsing context. C3 review fixes outside-focus reclamation
-when a previously focused residue disappears.
+when a previously focused residue disappears, supplies an owned header fallback
+when the final chain disappears, and isolates cached-project viewport restoration.
 
 **Scope decisions.** Explicit user guidance replaces the issue's active-chain
 selector with all displayed chains and narrows this replacement to protein-only.
@@ -43,8 +44,8 @@ downgrade; old clients ignore the added presentation preference.
 **Verification and performance.** C1/C2 and C3 review gates are retained in the
 [approved plan](plans/issue-95-workspace-sequence-viewer.md). C2 passes366 frontend,
 36 native browser and one actual100%/200%zoom case, with three existing mobile
-layout exclusions and no failures/flakes/retries. C3 review passes367 frontend
-and six native cases, with a fail-first ownership regression. Both themes,320px,
+layout exclusions and no failures/flakes/retries. C3 final review passes370 frontend
+and six native cases, with fail-first focus and project-viewport regressions. Both themes,320px,
 keyboard/scroll/remount, partial/range selection, visibility/isolation/Undo,
 independent collapse/hide and renderer/project/camera/request invariants pass.
 Displayed10,000-residue/30,000-atom navigation takes2033/1893ms desktop/mobile,
