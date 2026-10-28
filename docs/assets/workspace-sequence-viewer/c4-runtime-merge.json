@@ -1,0 +1,12 @@
+{
+  "pr": 124,
+  "url": "https://github.com/ManuelSe/Neistra/pull/124",
+  "merge_sha": "582617139527cf22dd7ec9514632b121a628959a",
+  "parents": [
+    "d459e073732b1d9ccbba5f404a0d6206c4a12f4e",
+    "5dd584a7e32e6bffaa1fdba80c0002a1b354b959"
+  ],
+  "normal_merge": true,
+  "remote_master_verified": true,
+  "head": "5dd584a7e32e6bffaa1fdba80c0002a1b354b959"
+}

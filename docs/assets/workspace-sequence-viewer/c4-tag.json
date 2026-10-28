@@ -1,0 +1,38 @@
+{
+  "ref": {
+    "ref": "refs/tags/v0.26.0",
+    "node_id": "REF_kwDOTqyhK7FyZWZzL3RhZ3MvdjAuMjYuMA",
+    "url": "https://api.github.com/repos/ManuelSe/Neistra/git/refs/tags/v0.26.0",
+    "object": {
+      "sha": "f9b35e80937cf9b81917947d6d6531b7a8caed9e",
+      "type": "tag",
+      "url": "https://api.github.com/repos/ManuelSe/Neistra/git/tags/f9b35e80937cf9b81917947d6d6531b7a8caed9e"
+    }
+  },
+  "tag": {
+    "node_id": "TA_kwDOTqyhK9oAKGY5YjM1ZTgwOTM3Y2Y5YjgxOTE3OTQ3ZDZkNjUzMWI3YThjYWVkOWU",
+    "sha": "f9b35e80937cf9b81917947d6d6531b7a8caed9e",
+    "url": "https://api.github.com/repos/ManuelSe/Neistra/git/tags/f9b35e80937cf9b81917947d6d6531b7a8caed9e",
+    "tagger": {
+      "name": "Manuel Sellner",
+      "email": "manuel@sellner.ch",
+      "date": "2026-10-28T15:34:51Z"
+    },
+    "object": {
+      "sha": "582617139527cf22dd7ec9514632b121a628959a",
+      "type": "commit",
+      "url": "https://api.github.com/repos/ManuelSe/Neistra/git/commits/582617139527cf22dd7ec9514632b121a628959a"
+    },
+    "tag": "v0.26.0",
+    "message": "Neistra v0.26.0: workspace protein sequences\n\nApproved issue #95 delivered by PR #124. Complete candidate and exact merged-master gates, actual v0.25.0 readers both directions, source and log integrity, original native budgets and verification bundle checks pass.\n",
+    "verification": {
+      "verified": false,
+      "reason": "unsigned",
+      "signature": null,
+      "payload": null,
+      "verified_at": null
+    }
+  },
+  "peeled_commit": "582617139527cf22dd7ec9514632b121a628959a",
+  "remotely_verified": true
+}

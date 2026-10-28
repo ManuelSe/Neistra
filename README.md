@@ -73,8 +73,9 @@ the observed chains of displayed proteins. Browse and select residues with the
 same modifiers as Components and the viewer. Collapse or hide sequences
 independently of Properties / History / Jobs; the viewer toolbar restores them.
 Rows retain whole-chain context while any part is displayed, without inventing
-missing residues or including nonprotein polymers. Issue #95's approved contract
-tracks candidate qualification and release status.
+missing residues or including nonprotein polymers. Released in
+[v0.26.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.26.0); the approved
+feature plan records qualification and scope.
 
 The compact molecular toolbar contains **Transform**, **Edit**, and **Minimize**.
 Click **Minimize** to open setup without calculating. Select atoms and press

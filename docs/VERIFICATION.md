@@ -1,16 +1,18 @@
 # V0.1 Requirement Evidence
 
-## Workspace protein sequences (issue #95) — qualified 0.26.0 candidate
+## Workspace protein sequences (issue #95) — stable v0.26.0
 
 The [approved contract](plans/issue-95-workspace-sequence-viewer.md), D-146 and
 [sequence guidance](SEQUENCE_VIEWER.md) govern. M1/C1 extraction and M2/C2 docked
-stacked browsing and C3 final candidate qualification pass. Exact merged-master
-qualification/publication remain pending; no stable-release completion is claimed.
+stacked browsing and both complete final qualifications pass. Normal
+[PR #124](https://github.com/ManuelSe/Neistra/pull/124) delivers stable
+[v0.26.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.26.0) from exact runtime
+`582617139527cf22dd7ec9514632b121a628959a`.
 
-[C1](assets/workspace-sequence-viewer/c1-final-gate.json) passes48 focused/357
+[C1](assets/workspace-sequence-viewer/c1-final-gate.json) passes 48 focused/357
 frontend/seven native cases, one existing mobile layout exclusion. [C2](assets/workspace-sequence-viewer/c2-final2-gate.json)
-passes58 focused/366 frontend/36 browser/one actual-zoom case, three existing mobile
-layout/zoom exclusions, zero failures/flakes/retries. Lint/types/build/diff, all580
+passes 58 focused/366 frontend/36 browser/one actual-zoom case, three existing mobile
+layout/zoom exclusions, zero failures/flakes/retries. Lint/types/build/diff, all 580
 C2 source identities and lossless logs verify. [Summary](assets/workspace-sequence-viewer/c2-final2-summary.json)
 retains exact counts, exclusions and synthetic performance context.
 
@@ -22,15 +24,15 @@ owned responsive focus, renderer/camera/project/request invariants, both themes,
 320px and actual100%/200%browser zoom. All new feature cases run on desktop/mobile.
 The displayed 10,000-residue/30,000-atom profile with property table unmounted takes
 2033/1893ms, longest384/315ms, mounted 20/15 within 29/24 bounds, zero repeated reads.
-The24-chain stack also keeps DOM bounded. Existing native/scientific budgets and
-actual tagged 0.25.0↔final 0.26.0 readers remain C3/C4 release requirements.
+The 24-chain stack also keeps DOM bounded. Existing native/scientific budgets and
+actual tagged 0.25.0↔final 0.26.0 readers are qualified by C3/C4 below.
 
 Initial lint/test-type and interrupted native attempts are retained as diagnostic.
 Tiny existing gesture targets require explicit UI camera zoom in the shorter
 canvas; original fixtures, exact assertions, budgets and production picking are
 unchanged. [Review](assets/workspace-sequence-viewer/c2-review.md) is implementer
 self-review, not independent approval. No schema/migration/API/job/dependency or
-scientific-model change; all five versions remain0.25.0 at C2.
+scientific-model change; all five versions remain 0.25.0 at C2.
 
 The clean [candidate 80720fe](assets/workspace-sequence-viewer/c3-candidate4-gate.json)
 passes all 20 release commands:1250 Python/370 frontend/8 supervisor/343 browser,
@@ -45,7 +47,17 @@ zero refetches and unmounted property table. Every existing native budget passes
 implementer self-review, not independent. Earlier full-run failures are retained as
 diagnostic; stale Inspector navigation and a one-shot redraw observation are fixed
 without changing fixtures, pixel conditions, numerical limits or exclusions.
-Exact merged-master repetition and publication receipts remain mandatory.
+The [exact merged-master gate](assets/workspace-sequence-viewer/c4-merged1-gate.json)
+and [summary](assets/workspace-sequence-viewer/c4-merged1-summary.json) repeat all 20
+commands/counts/exclusions, both actual-reader directions and 583 identical source
+bytes/log hashes. Merged displayed profile 2071/2095ms, longest 332/386ms, mounted 20/15
+within 29/24, repeated reads 0/0 with property table unmounted. Every existing native
+budget passes;253 merged AC samples retain the host context. [Publication](assets/workspace-sequence-viewer/c4-publication.json)
+verifies annotated tag/exact commit, stable latest release/notes, anonymous public
+ZIP SHA256/CRC/all 6,306 internal hashes and [issue close-out](https://github.com/ManuelSe/Neistra/issues/95#issuecomment-6473416179).
+Final documentation integration/ref cleanup receipts live at that reply; runtime
+source/tag stay fixed. No required review/check/protection or unresolved conversation
+is bypassed; Codex request is unreturned and local review remains self-review.
 
 ## Protein residue browsing (issue #94) — stable v0.25.0
 

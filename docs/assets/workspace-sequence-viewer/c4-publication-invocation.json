@@ -1,0 +1,28 @@
+{
+  "command": [
+    ".venv/bin/python",
+    "docs/assets/workspace-sequence-viewer/publication-record.py.txt",
+    "--merged",
+    "c4-merged1",
+    "--runtime-pr",
+    "124",
+    "--comment",
+    "6473416179",
+    "--notes",
+    "/tmp/neistra95-release.md",
+    "--bundle",
+    "/tmp/neistra95-bundle.json",
+    "--download",
+    "/datadisk/dev/.neistra-tools/issue95-public-download/neistra-v0.26.0-verification.zip",
+    "--download-receipt",
+    "/tmp/neistra95-public-download-receipt.json",
+    "--closeout",
+    "/tmp/neistra95-closeout.md",
+    "--review",
+    "/tmp/neistra95-review-audit.json"
+  ],
+  "helper_sha256": "252ca8d9f03e14a042649d6daf9c9b66e636590e65c61a159e9d298a8a89d22b",
+  "runtime_commit": "582617139527cf22dd7ec9514632b121a628959a",
+  "result": "passed; remote exact tag/release/notes/public bundle/issue reply verified",
+  "source_unchanged": true
+}
