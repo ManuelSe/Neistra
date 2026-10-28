@@ -5803,3 +5803,65 @@ membership. Keep current stale-reference/eligibility semantics and full edit
 regressions; do not bypass validation or alter edit behavior. Retain the CPU profile
 as diagnostic evidence; qualification runs without profiling and with original
 limits. No molecular/API/schema/scientific-model expansion is introduced.
+
+## D-146 — Application display owns stacked protein sequence context
+
+Date: 2026-10-28. Status: accepted by explicit approval of the
+[issue #95 plan](plans/issue-95-workspace-sequence-viewer.md); runtime
+implementation not started. C0 authorizes planning persistence only, with a
+mandatory stop ready for `/goal`.
+
+Replace the Inspector Sequence tab with a dedicated sequence component below the
+3D canvas and above the existing lower panel. The user's confirmed guidance
+supersedes the issue's single active protein/chain selector: show all displayed
+protein chains in vertically stacked, nonwrapping, independently horizontally
+scrollable rows. Protein-only scope explicitly supersedes D-145's temporary
+retention of nonprotein Sequence-tab access; other molecular access remains in
+Components and existing tools. Do not change protein classification or infer
+missing residues.
+
+Derive rows from assigned protein component and normalized chain identities in
+current artifact-keyed application projections. Entry visibility, protein
+settings, applicable representations/masks, and current isolation determine row
+eligibility. Retain the complete observed chain while any part is displayed.
+Visible protein surfaces retain declared source-chain context; camera clipping,
+occlusion, cropped mesh pixels, and renderer internals do not define sequence
+membership. Keep separate source instances distinct despite colliding labels or
+numbers. Preserve normalized residue order, author/label numbering, insertion
+codes, explicit internal-ID fallback, and recorded nonstandard names.
+
+Reuse D-144's guarded residue action, canonical atom references, modifier policy,
+and shared transient fixed anchor. Complete residue operands include hidden
+members; displayed DOM or rendered membership never limits selection. Derive
+full/partial/unselected coverage from the central selection. Selecting, browsing,
+collapsing, or hiding sequences cannot move the camera, reveal atoms, change
+picking mode, mutate the project, or create another selection authority.
+
+Keep molecular payloads in TanStack Query and isolation with its existing viewer
+owner. Persist only the safe workspace presentation preference
+`sequenceDisplay: "expanded" | "collapsed" | "hidden"`, with expanded as the
+default. Keep scroll/focus context transient and project-scoped across responsive
+remounts; reset on project change/reload and reconcile removed identities. No
+browsing or anchor state enters project snapshots, history, scenes, or archives.
+
+The expanded area accommodates up to three chain rows and at most one-third of
+the available viewer region, with vertical scrolling for additional chains.
+Collapse leaves a compact header; hide leaves a named toolbar restore control.
+Both are independent of the existing lower-panel layout/collapse state. Preserve
+the renderer instance and existing saved panel-layout shape. Selection does not
+automatically scroll; keyboard focus reveals its own target. Native accessible
+controls, non-color partial coverage, theme tokens, and the existing virtualizer
+provide bounded two-axis browsing without a new dependency or ARIA tree.
+
+Rationale: workspace-derived stacked rows preserve visible molecular context
+without a chain selector, another molecular authority, or pixel-driven row
+churn. Shared actions retain cross-panel behavior; browser presentation and
+transient browsing remain outside scientific persistence.
+
+No HTTP/job/plugin/scientific-model, molecular artifact, dependency upgrade,
+database migration, or persisted schema change is authorized. Alembic remains
+0014; project/viewer/archive schemas remain 2 and normalized/selection/component
+schemas remain 1. Plan stable minor 0.26.0 against verified 0.25.0 for the added
+independent sequence workspace. Complete candidate/exact-master and actual
+prior-reader qualification remain mandatory before delivery; C0 changes no
+application version or runtime behavior.
