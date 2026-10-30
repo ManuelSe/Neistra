@@ -1,10 +1,10 @@
 import { act, cleanup, render, screen } from "@testing-library/react";
 import * as Tooltip from "@radix-ui/react-tooltip";
 import userEvent from "@testing-library/user-event";
-import { useState } from "react";
+import { useState, type ComponentProps } from "react";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { Selection, StructureProjection } from "../api/types";
-import { SelectionStyleDialog } from "../components/SelectionStyleDialog";
+import type { Selection, SelectionColorMode, StructureProjection } from "../api/types";
+import { SelectionStyleDialog as ProductionSelectionStyleDialog } from "../components/SelectionStyleDialog";
 import { SelectionColorControls } from "../components/SelectionColorControls";
 import { SelectionHydrogenControls } from "../components/SelectionHydrogenControls";
 import {
@@ -13,6 +13,26 @@ import {
 } from "./molecular-fixtures";
 
 afterEach(cleanup);
+
+type SelectionStyleDialogProps = ComponentProps<typeof ProductionSelectionStyleDialog>;
+type TestSelectionStyleDialogProps = Omit<
+  SelectionStyleDialogProps,
+  "selectionColorMode" | "onSelectionColorModeChange"
+> & Partial<Pick<
+  SelectionStyleDialogProps,
+  "selectionColorMode" | "onSelectionColorModeChange"
+>>;
+
+function SelectionStyleDialog({
+  selectionColorMode: controlledMode,
+  onSelectionColorModeChange: controlledChange,
+  ...props
+}: TestSelectionStyleDialogProps) {
+  const [mode, setMode] = useState<SelectionColorMode>("carbon");
+  return <ProductionSelectionStyleDialog {...props}
+    selectionColorMode={controlledMode ?? mode}
+    onSelectionColorModeChange={controlledChange ?? setMode} />;
+}
 
 function Harness({
   selection,
@@ -60,17 +80,22 @@ describe("selection style dialog", () => {
   it("shows mixed colors and applies or resets only the requested property", async () => {
     const user = userEvent.setup();
     const onChange = vi.fn().mockResolvedValue(undefined);
+    const onModeChange = vi.fn();
     const entry = molecularEntry("protein", "Receptor", "protein");
     entry.viewer_settings.selection_colors = [{ color: "#ff0000", atom_ids: [1] }];
-    render(<SelectionColorControls selection={completeResidue} entries={[entry]}
-      busy={false} onChange={onChange} />);
+    const props = { selection: completeResidue, entries: [entry], busy: false, onChange, onModeChange };
+    const view = render(<SelectionColorControls {...props} mode="carbon" />);
     expect(screen.getByText("Mixed")).toBeVisible();
-    await user.click(screen.getByRole("button", { name: "Apply blue color" }));
-    expect(onChange).toHaveBeenCalledWith({ property: "color", action: "set", color: "#3b82f6" });
-    await user.click(screen.getByRole("button", { name: "Carbon only" }));
+    expect(screen.getByRole("button", { name: "Carbon only" })).toHaveAttribute("aria-pressed", "true");
     expect(screen.getByText(/Other selected atoms use element colors/)).toBeVisible();
     await user.click(screen.getByRole("button", { name: "Apply blue color" }));
-    expect(onChange).toHaveBeenLastCalledWith({ property: "color", action: "set", color: "#3b82f6", color_mode: "carbon" });
+    expect(onChange).toHaveBeenCalledWith({ property: "color", action: "set", color: "#3b82f6", color_mode: "carbon" });
+    await user.click(screen.getByRole("button", { name: "All atoms" }));
+    expect(onModeChange).toHaveBeenCalledExactlyOnceWith("all");
+    expect(onChange).toHaveBeenCalledTimes(1);
+    view.rerender(<SelectionColorControls {...props} mode="all" />);
+    await user.click(screen.getByRole("button", { name: "Apply blue color" }));
+    expect(onChange).toHaveBeenLastCalledWith({ property: "color", action: "set", color: "#3b82f6" });
     await user.click(screen.getByRole("button", { name: "Reset color" }));
     expect(onChange).toHaveBeenLastCalledWith({ property: "color", action: "reset" });
     expect(completeResidue.atoms).toHaveLength(2);
@@ -221,7 +246,7 @@ it("uses one action status, blocks overlapping properties, and preserves errors 
   expect(screen.getByRole("button", { name: "Apply red color" })).toBeEnabled();
 });
 
-it("shows mixed style membership and resets only draft controls when reopened", async () => {
+it("shows mixed style membership, remembers coloring mode, and resets panel-local draft controls when reopened", async () => {
   const user = userEvent.setup();
   const entry = molecularEntry("protein", "Receptor", "protein");
   entry.viewer_settings.selection_representations = [{ style: "stick", atom_ids: [1] }];
@@ -231,7 +256,7 @@ it("shows mixed style membership and resets only draft controls when reopened", 
     onAppearance: vi.fn().mockResolvedValue(undefined), onOpenChange: vi.fn() };
   const view = render(<Tooltip.Provider><SelectionStyleDialog {...props} /></Tooltip.Provider>);
   expect(screen.getByRole("button", { name: "Thin sticks" })).toHaveAttribute("aria-pressed", "mixed");
-  await user.click(screen.getByRole("button", { name: "Carbon only" }));
+  await user.click(screen.getByRole("button", { name: "All atoms" }));
   await user.click(screen.getByText("Custom…"));
   expect(screen.getByLabelText("Custom selection color")).toBeVisible();
   view.rerender(<Tooltip.Provider><SelectionStyleDialog {...props} open={false} /></Tooltip.Provider>);

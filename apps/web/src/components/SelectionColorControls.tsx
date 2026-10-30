@@ -1,16 +1,25 @@
 import { RotateCcw } from "lucide-react";
 import { useMemo, useState } from "react";
-import type { ChangeSelectionAppearance, Entry, Selection } from "../api/types";
+import type {
+  ChangeSelectionAppearance,
+  Entry,
+  Selection,
+  SelectionColorMode,
+} from "../api/types";
 
 const SWATCHES = [
   ["Blue", "#3b82f6"], ["Cyan", "#06b6d4"], ["Green", "#22c55e"], ["Yellow", "#eab308"],
   ["Orange", "#f97316"], ["Red", "#ef4444"], ["Purple", "#a855f7"], ["Gray", "#94a3b8"],
 ] as const;
 
-export function SelectionColorControls({ selection, entries, busy, onChange }: {
-  selection: Selection; entries: Entry[]; busy: boolean; onChange: ChangeSelectionAppearance;
+export function SelectionColorControls({ selection, entries, busy, mode, onModeChange, onChange }: {
+  selection: Selection;
+  entries: Entry[];
+  busy: boolean;
+  mode: SelectionColorMode;
+  onModeChange: (mode: SelectionColorMode) => void;
+  onChange: ChangeSelectionAppearance;
 }) {
-  const [mode, setMode] = useState<"all" | "carbon">("all");
   const [color, setColor] = useState("#3b82f6");
   const byEntry = useMemo(() => new Map(entries.map((entry) => [entry.id,
     new Map(entry.viewer_settings.selection_colors.flatMap((item) =>
@@ -27,8 +36,8 @@ export function SelectionColorControls({ selection, entries, busy, onChange }: {
         onClick={() => void onChange({ property: "color", action: "reset" })}><RotateCcw size={13} aria-hidden="true" /> Reset</button>
     </div>
     <div role="group" aria-label="Coloring mode" className="selection-color-mode">
-      <button type="button" aria-pressed={mode === "all"} disabled={unavailable} onClick={() => setMode("all")}>All atoms</button>
-      <button type="button" aria-pressed={mode === "carbon"} disabled={unavailable} onClick={() => setMode("carbon")}>Carbon only</button>
+      <button type="button" aria-pressed={mode === "all"} disabled={unavailable} onClick={() => onModeChange("all")}>All atoms</button>
+      <button type="button" aria-pressed={mode === "carbon"} disabled={unavailable} onClick={() => onModeChange("carbon")}>Carbon only</button>
     </div>
     <div className="selection-swatches" role="group" aria-label="Quick colors">
       {SWATCHES.map(([name, value]) => <button key={name} type="button" aria-label={`Apply ${name.toLowerCase()} color`}
