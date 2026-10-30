@@ -10,6 +10,7 @@ import type {
   Project,
   Scene,
   Selection,
+  SelectionColorMode,
   SelectionGranularity,
   SelectionMode,
   SelectionRepresentationStyle,
@@ -49,6 +50,8 @@ interface WorkspaceCanvasProps {
   onSurfaces?: SurfaceActions;
   onLoadPocketStructures?: () => Promise<Map<string, StructureProjection>>;
   onAppearance?: ChangeSelectionAppearance;
+  selectionColorMode: SelectionColorMode;
+  onSelectionColorModeChange: (mode: SelectionColorMode) => void;
   onSelectionStyle?: (
     action: "apply" | "reset",
     style?: SelectionRepresentationStyle,
@@ -83,6 +86,8 @@ export function WorkspaceCanvas({
   onSurfaces,
   onLoadPocketStructures,
   onAppearance,
+  selectionColorMode,
+  onSelectionColorModeChange,
   onEdit,
 }: WorkspaceCanvasProps) {
   if (loading) {
@@ -150,6 +155,8 @@ export function WorkspaceCanvas({
           onSelectionStyle={onSelectionStyle}
           onExpandDistance={onExpandDistance}
           onAppearance={onAppearance}
+          selectionColorMode={selectionColorMode}
+          onSelectionColorModeChange={onSelectionColorModeChange}
           onAtomVisibility={onAtomVisibility}
           onSurfaces={onSurfaces}
           onLoadPocketStructures={onLoadPocketStructures}

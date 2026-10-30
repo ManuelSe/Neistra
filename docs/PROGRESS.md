@@ -2,6 +2,52 @@
 
 ## Current milestone
 
+Issue [#58](https://github.com/ManuelSe/Neistra/issues/58) is implemented under its
+[approved contract](plans/issue-58-carbon-only-session-default.md) and D-147 on
+branch `fix/issue-58-carbon-only-session-default`, based on released v0.26.0 at
+`d8544d494a11e05a11883a2cb0df4e9cef43b15f`. **Carbon only** is now the coloring
+mode when the application mounts. An explicit mode choice is remembered for the
+current application runtime: it survives palette closure, selection changes,
+responsive viewer remounts and project switches, and resets to Carbon only on
+reload. All atoms remains available and keeps omitting `color_mode` on the wire.
+
+Ownership is one typed `App` state value threaded as required props through
+`WorkspaceCanvas`, `StructureViewer`, `SelectionStyleDialog` and
+`SelectionColorControls`; the control is now controlled for the mode and retains
+only its transient custom-color draft. Element overrides, reset, undo/redo,
+rendering and scientific interpretation are unchanged. No dependency, HTTP/job/
+plugin, persisted-schema or migration change: head 0014, project/viewer/archive 2
+and normalized/selection/component 1 remain. Durable browser storage, project
+state, scenes, history and archives receive no mode value.
+
+Validation ran in purpose-built containers because this host has glibc 2.31 while
+the locked Rollup binary and `openmm==8.4.0` wheel require 2.34; the locked
+AmberTools 24.8 prefix was installed so no native scientific test skips. Passing
+on the candidate: 9 + 1,242 Python with zero skips, ruff, mypy (102 files), 370
+frontend, 8 supervisor, lint, type-check, production build, and the focused
+selection-appearance browser file (6 passed, 2 intentional mobile skips). No
+threshold, fixture, assertion or host setting was relaxed.
+
+The complete browser gate **fails on this host** and is not qualified by this
+work: 310 passed, 34 failed, 62 skipped in 2.1 hours. Every failure is a
+wall-clock budget, native-minimization latency or bounded-capacity test; no
+functional, accessibility, chemistry, persistence or selection-styling test
+failed. Pre-existence was demonstrated, not assumed: the same eleven spec files
+on the stashed-clean base produced 29 failed / 42 passed / 15 skipped, and a
+matched like-for-like re-run of the four divergent files produced an identical
+4 failed / 13 passed on both base and candidate, with `release-hardening`
+reporting 5,185 ms against its 5,000 ms budget on the unmodified base. The host
+carried an unrelated sustained load: average about 50 on 72 cores, swap
+exhausted, root filesystem 96% full.
+
+Planned patch release **0.26.1**; all five authoritative version sources are
+advanced and the archive round-trip producer matrix accepts `0.26.0`. A complete
+browser gate on a quiet host, pull-request review, merge, and an exact
+merged-master gate remain before any tag or release. Review is implementer
+self-review; independent review is not claimed. Nothing is published yet.
+
+### Previous delivery baseline — v0.26.0
+
 Issue [#95](https://github.com/ManuelSe/Neistra/issues/95) is delivered under its
 [approved contract](plans/issue-95-workspace-sequence-viewer.md) and D-146, normally
 merged through [PR #124](https://github.com/ManuelSe/Neistra/pull/124) and published
@@ -790,6 +836,17 @@ and closed out on issue #1. The release tag remains on the exact verified
 feature merge; this documentation-only closeout records the remote evidence.
 
 ## Completed work
+
+- Issue #58: approved the carbon-first default with runtime mode memory, added
+  the typed `SelectionColorMode`, moved mode ownership to `App` state, threaded
+  required props through the workspace/viewer/dialog/control chain, and made
+  `SelectionColorControls` controlled for the mode while keeping its transient
+  custom-color draft. Added fail-first component regressions, a cross-project and
+  reload browser workflow, updated the existing all-atom scenarios for the new
+  default, appended D-147, added the feature plan, updated styling documentation,
+  advanced all five authoritative version sources to 0.26.1, and extended the
+  archive round-trip producer matrix with `0.26.0`. No dependency, API, schema or
+  migration change. Publication remains pending pull-request review and merge.
 
 - Issue #91 planning: inspected repository and remote delivery conventions,
   confirmed entity-only hover and shared complete-molecule click targets,
@@ -1656,6 +1713,30 @@ feature merge; this documentation-only closeout records the remote evidence.
   affected-entry topology replacement without a full scene synchronization.
 
 ## Verification performed
+
+- Issue #58: fail-first component tests reproduced the `all`-mode default with
+  two `aria-pressed` mismatches, then passed after implementation. Passing on the
+  feature branch: focused selection-style component tests, all 370 frontend
+  tests, frontend lint, TypeScript, the production build, 8 supervisor tests,
+  ruff, mypy across 102 source files, and the complete Python suite as two
+  invocations (9 + 1,242 passed, zero skips) with the locked AmberTools 24.8
+  prefix configured. The focused `selection-appearance.spec.ts` browser file
+  passed 6 cases with 2 intentional mobile layout skips, including the new
+  panel-reopen, project-switch and reload lifecycle workflow. The complete
+  browser gate **failed on this host** with 310 passed, 34 failed and 62 skipped
+  in 2.1 hours; every failure is a wall-clock budget, native-minimization
+  latency or bounded-capacity test in eleven spec files, and none touches
+  selection coloring. The same eleven files on the stashed-clean base produced
+  29 failed / 42 passed / 15 skipped, and a matched re-run of the four divergent
+  files produced an identical 4 failed / 13 passed on both base and candidate.
+  A passing complete gate on a quiet host is therefore an open merge blocker and
+  is not claimed. Commands ran in `neistra-dev:node22-python312` and the pinned
+  `neistra-e2e:playwright-1.55-python312` container images because this host's
+  glibc 2.31 cannot load the locked Rollup binary or the `openmm==8.4.0` wheel.
+  One parameterized native resident-memory deadline case intermittently reports
+  `wall_time_exceeded` under full concurrent load on this host; both orderings
+  pass in isolation and no source, threshold, plugin budget or assertion was
+  changed to accommodate it.
 
 - Issue #91 baseline: 28 frontend tests across viewer interaction/adapter,
   selection gestures, component hierarchy and surface objects; 24 Python
@@ -2890,11 +2971,21 @@ Results:
 
 ## Blockers
 
-No approved-scope implementation or external blocker remains for issue#92.
-Runtime publication is verified; the linked close-out records final documentation
-integration and actual delayed reference/worktree cleanup after verification.
+The complete browser gate does not pass on this development host. It reports 310
+passed, 34 failed and 62 skipped; all 34 failures are wall-clock budget,
+native-minimization latency or bounded-capacity tests that reproduce on the
+unmodified base, with a matched like-for-like re-run producing identical results
+on base and candidate. A passing complete gate on a quiet machine, pull-request
+review, merge, and an exact merged-master gate remain required before a tag or
+release. Native execution of the documented commands on this host is separately
+blocked by glibc 2.31; the pinned container images are the supported workaround
+and change no locked dependency.
 
 ## Next action
 
-Follow the linked issue reply for the final documentation/ref audit. Subsequent
-product work requires a separate approved plan; keep broader chemistry in#114.
+Open the pull request documenting implemented, simplified, deferred and rejected
+issue #58 requirements, the patch 0.26.1 SemVer rationale, and the unqualified
+complete browser gate with its base-reproduced evidence. Review the complete
+diff. A maintainer must run the complete browser gate on a quiet host before
+merge. Create the annotated `v0.26.1` tag and release only from the verified
+merged `master` commit.

@@ -20,20 +20,30 @@ import type {
 } from "../viewer/MolecularViewer";
 import { componentHierarchy, viewerSettings } from "./molecular-fixtures";
 
+type StructureViewerOverrides =
+  | "onPickingGranularity"
+  | "selectionColorMode"
+  | "onSelectionColorModeChange";
 type StructureViewerProps = Omit<
   ComponentProps<typeof ProductionStructureViewer>,
-  "onPickingGranularity"
-> & {
-  onPickingGranularity?: ComponentProps<
-    typeof ProductionStructureViewer
-  >["onPickingGranularity"];
-};
+  StructureViewerOverrides
+> & Partial<Pick<
+  ComponentProps<typeof ProductionStructureViewer>,
+  StructureViewerOverrides
+>>;
 
-function StructureViewer(props: StructureViewerProps) {
+function StructureViewer({
+  onPickingGranularity = () => undefined,
+  selectionColorMode = "carbon",
+  onSelectionColorModeChange = () => undefined,
+  ...props
+}: StructureViewerProps) {
   return (
     <ProductionStructureViewer
-      onPickingGranularity={() => undefined}
       {...props}
+      onPickingGranularity={onPickingGranularity}
+      selectionColorMode={selectionColorMode}
+      onSelectionColorModeChange={onSelectionColorModeChange}
     />
   );
 }

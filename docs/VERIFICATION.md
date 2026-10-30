@@ -1,5 +1,62 @@
 # V0.1 Requirement Evidence
 
+## Carbon-first selection coloring (issue #58) — candidate 0.26.1
+
+The [approved contract](plans/issue-58-carbon-only-session-default.md), D-147 and
+[styling guidance](SELECTION_STYLING.md) govern. This is an unmerged candidate on
+`fix/issue-58-carbon-only-session-default`, based on released v0.26.0 at
+`d8544d494a11e05a11883a2cb0df4e9cef43b15f`. No tag, release or merged commit
+exists for 0.26.1; publication follows pull-request review and merge. The
+complete browser gate is not satisfied here, as recorded below.
+
+Fail-first component tests reproduced the previous all-atoms default with two
+`aria-pressed` mismatches, then passed after the typed controlled implementation.
+Passing on the candidate: focused selection-style component tests, all 370
+frontend tests, frontend lint, TypeScript, the production build, 8 supervisor
+tests, ruff, mypy across 102 source files, and the complete Python suite as two
+invocations (9 + 1,242 passed, zero skips) with the locked AmberTools 24.8 prefix
+configured. The focused `selection-appearance.spec.ts` browser file passes 6
+cases with 2 intentional mobile layout exclusions, including a new workflow that
+switches to All atoms, closes and reopens the palette, changes selection,
+switches project, and reloads to verify the Carbon-only reset.
+
+Coverage includes the mounted default, immediate memory on click, both modes'
+request payloads (All atoms still omits `color_mode`), retained custom-color
+draft reset on reopen, and unchanged element-override/reset semantics.
+
+The complete browser gate **does not pass on this development host** and is not
+qualified by this work: 310 passed, 34 failed, 62 skipped in 2.1 hours. All 34
+failures are wall-clock budget, native-minimization latency or bounded-capacity
+tests in `export-archive`, `interactions`, `minimization-accessibility`,
+`minimization-live`, `minimization-performance`,
+`quick-minimization-performance`, `quick-minimization`, `release-hardening`,
+`selection-minimization`, `sequence-viewer` and `surface-capacity`. No
+functional, semantic, accessibility, chemistry, persistence or selection-styling
+test failed, and no test touched by this change failed.
+
+Pre-existence was demonstrated rather than assumed. The same eleven spec files on
+the stashed-clean base `d8544d494a11e05a11883a2cb0df4e9cef43b15f` produced 29
+failed / 42 passed / 15 skipped in 31 minutes. Five candidate failures did not
+reproduce in that shorter run, so the four files containing them were re-run on
+base and then on the candidate under matched conditions: both produced an
+identical 4 failed / 13 passed, with `release-hardening` reporting 5,185 ms
+against its 5,000 ms interaction budget on the unmodified base. The host carried
+an unrelated sustained load during qualification: average about 50 on 72 cores,
+swap exhausted at 973 of 979 MiB, and the root filesystem 96% full.
+`PERFORMANCE.md` describes these budgets as pinned-host regression gates rather
+than hardware-independent guarantees. A passing complete gate on a quiet machine
+and an exact merged-master repetition remain required merge blockers.
+
+Commands ran in `neistra-dev:node22-python312` and the pinned
+`neistra-e2e:playwright-1.55-python312` images because this host's glibc 2.31
+cannot load the locked Rollup native binary or the `manylinux_2_34_x86_64`
+`openmm==8.4.0` wheel. No locked dependency, threshold, fixture or assertion was
+changed. The Python suite is split into two invocations because one
+parameterized native resident-memory deadline case intermittently reports
+`wall_time_exceeded` under full concurrent load on this host; both orderings pass
+in isolation and the plugin's declared budgets are unchanged. Review is
+implementer self-review, not independent approval.
+
 ## Workspace protein sequences (issue #95) — stable v0.26.0
 
 The [approved contract](plans/issue-95-workspace-sequence-viewer.md), D-146 and

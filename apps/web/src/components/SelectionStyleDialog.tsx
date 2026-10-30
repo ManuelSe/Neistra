@@ -1,6 +1,6 @@
 import { Eye, EyeOff, Info, RotateCcw } from "lucide-react";
 import { useMemo, useRef, useState } from "react";
-import type { SurfaceActions, ChangeSelectionAppearance, Entry, Selection, SelectionRepresentationStyle, StructureProjection } from "../api/types";
+import type { SurfaceActions, ChangeSelectionAppearance, Entry, Selection, SelectionColorMode, SelectionRepresentationStyle, StructureProjection } from "../api/types";
 import type { ExpandSelection } from "../selection/expansion";
 import { polymerStyleUnavailableReason } from "../viewer/selectionStyleEligibility";
 import { atomicRepresentationStyles, polymerRepresentationStyles } from "../viewer/settings";
@@ -26,6 +26,8 @@ interface SelectionStyleDialogProps {
   eligibilityBusy: boolean;
   eligibilityError?: string | null;
   busy: boolean;
+  selectionColorMode: SelectionColorMode;
+  onSelectionColorModeChange: (mode: SelectionColorMode) => void;
   onOpenChange: (open: boolean) => void;
   onExpandDistance?: ExpandSelection;
   onAtomVisibility?: (action: "hide" | "show") => Promise<void>;
@@ -45,7 +47,7 @@ export function SelectionStyleDialog(props: SelectionStyleDialogProps) {
 }
 
 function SelectionStyleContent({ selection, entries, structures, eligibilityBusy,
-  eligibilityError, busy, onAction, onExpandDistance, onAppearance, onCreateFragment, onAtomVisibility, onSurfaces, onManageSurfaces, onLoadPocketStructures }: SelectionStyleDialogProps) {
+  eligibilityError, busy, selectionColorMode, onSelectionColorModeChange, onAction, onExpandDistance, onAppearance, onCreateFragment, onAtomVisibility, onSurfaces, onManageSurfaces, onLoadPocketStructures }: SelectionStyleDialogProps) {
   const [pending, setPending] = useState(false);
   const locked = useRef(false);
   const [message, setMessage] = useState<{ text: string; failed: boolean; context: string } | null>(null);
@@ -138,7 +140,8 @@ function SelectionStyleContent({ selection, entries, structures, eligibilityBusy
             Selection changes do not retarget saved surfaces. Atomic and polymer styles remain independent.</p>
         </details>}
     </div> : null}
-    {onAppearance ? <SelectionColorControls selection={selection} entries={entries} busy={disabled} onChange={appearance} /> : null}
+    {onAppearance ? <SelectionColorControls selection={selection} entries={entries} busy={disabled}
+      mode={selectionColorMode} onModeChange={onSelectionColorModeChange} onChange={appearance} /> : null}
     {onAppearance && !eligibilityError ? <SelectionHydrogenControls selection={selection} entries={entries}
       structures={structures} loading={eligibilityBusy} busy={disabled || eligibilityBusy} onChange={appearance} /> : null}
     {onExpandDistance ? <details className="selection-disclosure"><summary>Expand by distance</summary>
