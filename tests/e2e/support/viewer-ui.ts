@@ -26,8 +26,10 @@ export async function watchNativeUi(page: Page) {
   }, nativeUiSelector);
 }
 
-export async function expectApplicationViewer(page: Page) {
+export async function expectApplicationViewer(page: Page, mounted = true) {
   await expect(page.locator(nativeUiSelector)).toHaveCount(0);
   expect(await page.evaluate(() => window.nativeUiAppearances)).toEqual([]);
-  await expect(page.getByRole("region", { name: "3D molecular viewer", exact: true })).toBeVisible();
+  const viewer = page.getByRole("region", { name: "3D molecular viewer", exact: true });
+  if (mounted) await expect(viewer).toBeVisible();
+  else await expect(viewer).toHaveCount(0);
 }

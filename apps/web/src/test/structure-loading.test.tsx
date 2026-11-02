@@ -973,5 +973,13 @@ it("keeps loading through rendering and rejects obsolete rebuild completion and 
   expect(screen.queryByRole("alert")).not.toBeInTheDocument();
   await act(async () => { pending.at(-1)!.resolve(); await Promise.resolve(); });
   expect(screen.queryByLabelText("Loading molecular structures")).not.toBeInTheDocument();
+  const completed = pending.length;
+  const failing = structuredClone(styled);
+  failing.entries[0].viewer_settings.representations[0].opacity = 0.6;
+  view.rerender(<StructureViewer {...props} project={failing} />);
+  await waitFor(() => expect(pending.length).toBeGreaterThan(completed));
+  await act(async () => { pending.at(-1)!.reject(new Error("Current render failed")); await Promise.resolve(); });
+  expect(screen.getByRole("alert")).toHaveTextContent("Current render failed");
+  expect(screen.queryByLabelText("Loading molecular structures")).not.toBeInTheDocument();
   view.unmount(); queryClient.clear();
 });

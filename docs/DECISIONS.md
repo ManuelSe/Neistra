@@ -6080,3 +6080,16 @@ behavior. They are an explicit exception to the native-interface cleanup;
 native DOM controls, information overlays, notifications, task UI and branding
 remain omitted. No replacement axes widget or new setting is introduced. Native
 qualification asserts the retained camera helper is on.
+
+### D-149 lifecycle qualification note — issue #96 M2/C2, 2026-11-02
+
+Native measurement/structure-label representations retain their custom text and
+positive visible glyph draw counts through rebuilds, responsive remounts and
+project teardown/reopen. Real toast entries and overlay-task events do not mount
+native UI. Exact database reads, original bytes and camera are preserved; no
+renderer rebuild writes back to the application model. The current render error
+still reaches the application alert, unlike obsolete errors. Existing orientation
+axes remain enabled. The observation harness is development-only and its cold-cache
+and production-exclusion checks pass. Existing annotation overlap/placement is
+unchanged; this is interface ownership qualification, not a label-layout redesign
+or new scientific algorithm. Final release gates remain independently required.

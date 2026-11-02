@@ -3,7 +3,7 @@
 ## 1. Status, approval, and metadata
 
 **Status:** implementation authorized by the user's `/goal` on 2026-11-02.
-M1/C1 is implemented and qualified; M2/C2 and release gates remain pending.
+M1/C1 and M2/C2 are implemented and qualified; final release gates remain pending.
 
 **Approval:** on 2026-11-02, the user replied, “Implement this plan. Wait for
 the /goal command.” This approves the preceding proposal, including its explicit
@@ -446,13 +446,13 @@ portable versus strict timing qualification; no new timing/power exclusions.
 |---|---|---|
 | C0 | Approved planning persistence | User approval 2026-11-02; clean fast-forward-checked base above; planned branch created. This checkpoint contains the plan, decision and progress records only. Commit/push receipts are reported in the C0 handoff after verification. |
 | M1/C1 | Complete | 373 frontend tests, lint/types/build, license byte identity and 30 native browser passes / 10 existing layout exclusions; zero final failures/retries/flakes. See C1 evidence below. |
-| M2/C2 | Not started | Lifecycle, scientific-display and accessibility qualification. |
+| M2/C2 | Complete | 55 native browser passes / 7 existing exclusions, real WebGL failure 1 pass / 1 existing exclusion, 373 frontend and static/build gates; cold-cache annotation cases pass both layouts. |
 | M3/C3 | Not started | Final versions, compatibility, complete candidate gate and review. |
 | M4/C4 | Not started | Merge, exact-master gate, verified publication, issue close-out and cleanup. |
 
-**Current limitations:** C2 and complete candidate/master qualification remain;
+**Current limitations:** complete candidate/master qualification remains;
 existing scientific limits are unchanged. **Blockers:** none. **Next action:**
-complete M2/C2. C0 remains the historical planning-only checkpoint; the later
+prepare and qualify M3/C3. C0 remains the historical planning-only checkpoint; the later
 `/goal` authorizes implementation and delivery.
 
 ### Implementation authorization — 2026-11-02
@@ -496,3 +496,33 @@ assertion, deadline or exclusion was relaxed. The [C1 review](../assets/applicat
 is implementer self-review. Both-theme desktop/mobile screenshots were retained
 and inspected. C2 scientific-display/lifecycle and complete candidate/master
 qualification remain required. Next: M2/C2, then final release preparation.
+
+### M2/C2 completion — 2026-11-02
+
+[C2 summary](../assets/application-owned-viewer/c2-summary.json) records **55 native
+browser passes / 7 existing exclusions**, zero failures/flakes/retries, plus the
+updated actual WebGL-failure case (**1 pass / 1 existing exclusion**). All **373
+frontend tests**, lint/types/build/diff and production-harness exclusion pass.
+Source hashes remain unchanged in every final gate. The two-layout annotation
+workflow additionally passes after clearing generated Vite optimization cache;
+the observation harness is included only by the existing development qualification
+HTML and dynamic test imports, absent from production output.
+
+Native distance/angle/dihedral/structure text and positive visible glyph draw
+counts survive appearance rebuild/restoration, responsive remounts and project
+teardown/reopen. Real native toast entries and overlay task-progress events never
+mount native UI. Camera, exact before/after database state and original bytes
+remain; renderer-only rebuilds issue zero normalized reads. Existing hover/picking,
+independent surfaces, movement, notifications and both-theme accessibility pass.
+1STP records 682ms import, 4542ms interactions, 365ms longest task and zero repeated
+structure reads; D-148 portable mode records these without claiming strict timing
+qualification. Existing annotation overlap/placement remains unchanged.
+
+Earlier fixture/cache/navigation/timestamp diagnostics remain separate. Corrected
+fixtures use the existing four-carbon 3D structure and a project-list target
+created before application caching; state comparison uses exact database GETs.
+No assertion, production deadline, scientific policy or exclusion is relaxed.
+[Review](../assets/application-owned-viewer/c2-review.md) is local self-review.
+Both-theme desktop/mobile screenshots are retained and inspected. No production
+runtime change beyond C1, schema/migration/dependency or version change. Next:
+M3/C3 version preparation, actual tagged readers and complete release gate.

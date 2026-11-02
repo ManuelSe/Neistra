@@ -2,23 +2,27 @@
 
 ## Current milestone
 
-Issue [#96](https://github.com/ManuelSe/Neistra/issues/96), M1/C1 complete under
-[the approved contract](plans/issue-96-application-owned-viewer.md) and D-149.
-Minimal native canvas composition removes competing controls/informational/task/
-toast/logo UI; existing orientation axes remain by explicit user correction.
-React/plugin cleanup, guarded rendering feedback, obsolete helper/CSS removal,
-license/attribution and appropriate tests/documentation are implemented.
+Issue [#96](https://github.com/ManuelSe/Neistra/issues/96), M1/C1 and M2/C2 complete
+under [the approved contract](plans/issue-96-application-owned-viewer.md) and D-149.
+Minimal native canvas composition removes controls/information/task/toast/logo UI;
+existing orientation axes remain by explicit user correction. React/plugin cleanup,
+guarded rendering feedback, obsolete helper/CSS removal and shipped attribution
+are implemented. Molecular/backend/API/schema/dependency ownership is unchanged.
 
-Verification: **373 frontend tests**, lint/types/build/shipped-license identity
-and **30 native browser cases / 10 existing layout exclusions** pass, zero final
-failures/flakes/retries and unchanged source hashes. Both themes, desktop/mobile,
-actual 100%/200% zoom and existing camera/picking/scenes/failure workflows pass.
-[Evidence and local self-review](assets/application-owned-viewer/c1-review.md)
-retain diagnostics separately. No API/schema/migration/dependency/science change.
+Verification: C1 **30 native passes / 10 existing exclusions**; C2 **55 / 7**, plus
+updated actual WebGL failure **1 / 1** and cold-cache annotation checks on both
+layouts. All **373 frontend tests**, lint/types/build/diff and production-harness
+exclusion pass. Zero final failures/flakes/retries; unchanged source hashes.
+[C2 summary/review](assets/application-owned-viewer/c2-review.md) records native
+annotation/task/toast/rebuild/remount/project invariants, exact state/originals,
+existing hover/picking/surfaces/movement/notifications/accessibility and diagnostics.
+1STP records 682ms import/4542ms interactions/365ms longest/zero repeated reads in
+portable mode; strict reference timing is not claimed. Review is local self-review.
 
-Known limits: C2 lifecycle/scientific-display and complete candidate/exact-master
-qualification remain. Five versions remain 0.26.1; planned patch 0.26.2. No release
-or feature PR exists yet. Blockers: none. Next: M2/C2 qualification, then release.
+Known limits: annotation overlap and existing scientific limits are unchanged.
+Actual-reader compatibility and complete candidate/exact-master gates remain.
+Five versions remain 0.26.1; planned patch 0.26.2. No feature PR/release exists yet.
+Blockers: none. Next: M3/C3 release preparation and complete qualification.
 
 ### Previous delivery baseline — PR #126, unreleased 0.26.1
 

@@ -1,5 +1,21 @@
 # V0.1 Requirement Evidence
 
+## Issue #96 — C2 lifecycle and scientific-display qualification
+
+Under D-149 and the [approved plan](plans/issue-96-application-owned-viewer.md),
+[C2](assets/application-owned-viewer/c2-summary.json) passes 55 native cases / 7
+existing exclusions, updated real WebGL failure 1 / 1, 373 frontend and static/
+build/diff checks, zero failures/flakes/retries and unchanged sources. Cold-cache
+annotation qualification passes desktop/mobile. Actual distance/angle/dihedral/
+structure glyphs, native toast/task events, appearance rebuilds, responsive
+remounts, project teardown/reopen, camera and exact project/original invariants
+are observed. Existing hover/picking/surface/movement/notification/accessibility
+checks pass. 1STP records 682ms import/4542ms interactions/365ms longest/zero repeated
+reads; D-148 portable mode is not strict reference timing qualification.
+Existing annotation overlap remains; no new label-layout/scientific behavior is
+claimed. [Review](assets/application-owned-viewer/c2-review.md) is self-review.
+Actual tagged readers and complete final-version candidate/master gates remain.
+
 ## Issue #96 — C1 viewer interface cleanup
 
 Under D-149 and the [approved plan](plans/issue-96-application-owned-viewer.md),

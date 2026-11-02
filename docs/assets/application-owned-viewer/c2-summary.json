@@ -1,0 +1,56 @@
+{
+  "c2-final-static": {
+    "exit_code": 0,
+    "source_unchanged": true,
+    "source_files": 594,
+    "seconds": 34.805267572402954
+  },
+  "c2-final-unit": {
+    "exit_code": 0,
+    "source_unchanged": true,
+    "source_files": 594,
+    "seconds": 13.043345928192139
+  },
+  "c2-final-browser": {
+    "exit_code": 0,
+    "source_unchanged": true,
+    "source_files": 594,
+    "seconds": 471.2384600639343,
+    "browser_stats": {
+      "startTime": "2026-11-02T20:37:59.940Z",
+      "duration": 470430.757,
+      "expected": 55,
+      "skipped": 7,
+      "unexpected": 0,
+      "flaky": 0
+    }
+  },
+  "c2-webgl-failure": {
+    "exit_code": 0,
+    "source_unchanged": true,
+    "source_files": 594,
+    "seconds": 7.664093255996704,
+    "browser_stats": {
+      "startTime": "2026-11-02T20:46:47.771Z",
+      "duration": 6894.257,
+      "expected": 1,
+      "skipped": 1,
+      "unexpected": 0,
+      "flaky": 0
+    }
+  },
+  "c2-cold-native": {
+    "exit_code": 0,
+    "source_unchanged": true,
+    "source_files": 594,
+    "seconds": 41.677812576293945,
+    "browser_stats": {
+      "startTime": "2026-11-02T20:36:58.207Z",
+      "duration": 40868.897000000004,
+      "expected": 2,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    }
+  }
+}
