@@ -1,3 +1,4 @@
+import { performanceBudget } from "./support/performance";
 import AxeBuilder from "@axe-core/playwright";
 import { readFile, writeFile } from "node:fs/promises";
 import { expect, test } from "@playwright/test";
@@ -113,7 +114,7 @@ for (const wholeProtein of [false, true]) test(`renders accepted native steps fo
     expect(received?.frame).toBeTruthy();
     const deliveryMs = await page.evaluate(() => (window as unknown as { nativeMinimizationTimings: { deliveryMs?: number }[] }).nativeMinimizationTimings.find(t => t.deliveryMs !== undefined)?.deliveryMs);
     expect(deliveryMs).toBeDefined();
-    expect(deliveryMs!).toBeLessThan(1000);
+    performanceBudget(deliveryMs!, 1000, "deliveryMs!");
     expect(deliveryMs!).toBeGreaterThanOrEqual(0);
     expect(shown.fixedExact).toBe(true); expect(shown.moving).toBeGreaterThan(0);
     expect(await structures(request, p)).toEqual(before);
@@ -127,9 +128,9 @@ for (const wholeProtein of [false, true]) test(`renders accepted native steps fo
     const restoreMs = await page.evaluate(() => window.minimizationPreviewTime);
     const nativeTimings = await page.evaluate(() => (window as unknown as { nativeMinimizationTimings: { method: string; ms: number }[] }).nativeMinimizationTimings);
     await info.attach(`native-${cache}-timings`, { body: JSON.stringify({ restoreMs, nativeTimings }), contentType: "application/json" });
-    expect(restoreMs).toBeLessThan(500);
-    await expect(panel(page).getByRole("status").filter({ hasText: /^cancelled/ })).toBeVisible({ timeout: 5000 });
-    expect(Date.now() - cancelledAt).toBeLessThan(5000);
+    performanceBudget(restoreMs, 500, "restoreMs");
+    await expect(panel(page).getByRole("status").filter({ hasText: /^cancelled/ })).toBeVisible({ timeout: 30000 });
+    performanceBudget(Date.now() - cancelledAt, 5000, "Date.now() - cancelledAt");
     const restored = await coordinateSummary(page, movable);
     expect(restored.fixedExact).toBe(true); expect(restored.moving).toBe(0);
     expect((await current(request, p.id)).revision).toBe(p.revision);

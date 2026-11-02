@@ -1,3 +1,4 @@
+import { performanceBudget } from "./support/performance";
 import { browserRssKiB } from "./support/process-memory";
 import { createHash } from "node:crypto";
 import { readFileSync, writeFileSync } from "node:fs";
@@ -107,8 +108,8 @@ for (const fixture of ["6vxx", "1aon", "synthetic-100k"]) {
       expect(evidence.exactMembership).toBe(true);
       expect(evidence.exactCoordinates).toBe(true);
       expect(evidence.renderedPixels).toBeGreaterThan(100);
-      expect(evidence.readyMs).toBeLessThan(120_000);
-      expect(evidence.longestSurfaceTaskMs).toBeLessThan(750);
+      performanceBudget(evidence.readyMs, 120_000, "evidence.readyMs");
+      performanceBudget(evidence.longestSurfaceTaskMs, 750, "evidence.longestSurfaceTaskMs");
       expect(evidence.meshBytes).toBeLessThanOrEqual(evidence.meshBoundBytes);
       expect(evidence.meshBoundBytes).toBeLessThanOrEqual(512 * 1024 ** 2);
       expect(evidence.workingBoundBytes).toBeLessThanOrEqual(2 * 1024 ** 3);

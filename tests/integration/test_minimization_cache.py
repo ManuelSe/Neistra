@@ -14,6 +14,7 @@ from tests.integration.test_job_lifecycle import _worker
 from tests.integration.test_minimization_apply import seeded_project
 from tests.integration.test_minimization_jobs import minclient as minclient
 from tests.integration.test_minimization_performance import prepared_pocket, retain, submit
+from tests.support.performance import performance_budget
 
 
 @pytest.mark.skipif(
@@ -78,8 +79,10 @@ def test_real_worker_three_paired_cache_runs_preserve_inputs_and_independent_art
         "preparation_speedup": cold_median / warm_median,
     }
     retain("issue89-cache-pairs", evidence, tmp_path)
-    assert warm_median <= cold_median / 2, evidence
-    assert max(r["startup_seconds"] for r in [*cold, *warm]) < 120
+    performance_budget(warm_median, cold_median / 2, "warm/cold parameter-cache median")
+    performance_budget(
+        max(r["startup_seconds"] for r in [*cold, *warm]), 120, "startup seconds", inclusive=False
+    )
     model = next(r["artifact"] for r in primed["results"] if r["role"] == "model")
     data = minclient.get(model["download_url"]).content
     assert hashlib.sha256(data).hexdigest() == model["sha256"]

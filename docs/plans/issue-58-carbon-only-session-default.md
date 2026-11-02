@@ -294,3 +294,43 @@ result.
   then confirmed with a matched like-for-like re-run that produced identical
   results on base and candidate. Section 9 records the exact counts; the gate
   remains an open merge blocker for a quiet host.
+
+
+## 12. Approved battery-independent qualification amendment — 2026-11-02
+
+The user explicitly authorizes adapting tests to pass without AC, completing PR
+#126 validation, merging into master when satisfied, and removing branches created
+for this work after integration. This extends the approved contract; earlier
+unchanged-budget requirements are historical and superseded for qualification.
+No further plan approval is required. Keep implementation on the existing PR branch.
+
+C4: Separate machine-dependent latency assertions from mandatory correctness.
+Default Python and browser runs execute every existing workflow and record timing,
+with finite/nonnegative measurements and generous bounded readiness waits. Enforce
+original absolute timing targets only with `NEISTRA_PERFORMANCE=1` on an identified
+reference host. Preserve all scientific, state, request-count, DOM/work/memory bounds,
+production deadlines, cancellation behavior and resource-policy tests. Do not skip
+performance workflows or change chemistry, fixtures or production limits to pass.
+Use a separate test-only memory-failure job policy so its unrelated deadline cannot
+win the assertion. Verify the policy itself in default/strict and invalid-input cases.
+
+C5: Run frozen dependency installs, disposable database migration, Python lint/type
+checks/full tests with the locked native toolchain, frontend lint/type/tests/build,
+supervisor tests, full desktop/mobile browser suite, and bidirectional actual-reader
+compatibility with released v0.26.0. Review the complete diff, update PR scope and
+verification records, and inspect required checks/reviews/threads before normal merge.
+Repeat necessary checks on merged master and remove only obsolete task branches.
+
+This remains patch 0.26.1: application behavior, dependencies, scientific models,
+API and persisted schemas are unchanged by the test amendment. Reference timing
+qualification is reported separately and is no longer a laptop/merge prerequisite.
+Do not claim physical battery qualification unless observed; deterministic policy
+tests prove timing overruns are diagnostic by default regardless of power source.
+
+C4 verification: 18 focused Python cases (resource lifecycle and policy), eight
+focused browser cases with four existing desktop-only exclusions (policy plus
+real cold/repeat minimization and cancellation), all 370 frontend tests, 12
+supervisor/policy tests, frozen installs, Ruff, mypy (102 files), frontend lint,
+type-check and production build pass. AC0 reports 0 and BAT0 Discharging during
+these checks. A final strict-boundary policy regression is included for C5.
+Full release validation remains pending; no merge or publication is claimed.

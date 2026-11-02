@@ -2,6 +2,19 @@
 
 ## Current milestone
 
+PR #126 qualification amendment (D-148), explicitly authorized 2026-11-02:
+separate portable correctness gates from opt-in reference-host latency targets;
+retain all workflows and scientific/resource/structural assertions. Work is on
+`fix/issue-58-carbon-only-session-default`; patch 0.26.1 remains planned.
+Implementation is complete. Focused resource/policy Python cases, real quick
+minimization browser cases, frontend 370, supervisor/policy 12, frozen installs,
+Ruff/mypy, frontend lint/types/build pass while AC0=0 / BAT0=Discharging. Full
+amended release gate, review, normal merge, merged-state verification and branch
+cleanup remain. Existing timing-failure records below are historical; D-148
+supersedes their requirement for a quiet AC-powered qualification host.
+
+### Prior milestone record
+
 Issue [#58](https://github.com/ManuelSe/Neistra/issues/58) is implemented under its
 [approved contract](plans/issue-58-carbon-only-session-default.md) and D-147 on
 branch `fix/issue-58-carbon-only-session-default`, based on released v0.26.0 at

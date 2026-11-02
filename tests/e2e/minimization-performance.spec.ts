@@ -1,3 +1,4 @@
+import { performanceBudget } from "./support/performance";
 import { readFile, writeFile } from "node:fs/promises";
 import { expect, test } from "@playwright/test";
 import { prepare } from "./support/interactions";
@@ -43,7 +44,7 @@ for (const copies of [1, 8]) test(`bounds real ${copies === 1 ? "prepared1STP po
   const start = Date.now(); await panel(page).getByRole("button", { name: "Run minimization" }).click();
   await expect(panel(page).getByRole("button", { name: "Apply coordinates" })).toBeEnabled({ timeout: 180000 });
   const calculation = Date.now() - start;
-  expect(calculation).toBeLessThan(180000);
+  performanceBudget(calculation, 180000, "calculation");
   expect(writes).toHaveLength(1); expect(writes[0].path).toBe(`/api/v1/projects/${p.id}/minimizations`);
   const payload = writes[0].body as { selection: { atoms: unknown[] }; context: { atom_ids: number[] }[]; captured_inputs?: unknown };
   expect(payload.selection.atoms).toHaveLength(32); expect(payload.context.reduce((n, c) => n + c.atom_ids.length, 0)).toBe(2272 * copies + 32);
@@ -75,6 +76,6 @@ for (const copies of [1, 8]) test(`bounds real ${copies === 1 ? "prepared1STP po
   const evidence = { copies, atoms: 2272 * copies + 32, calculationMs: calculation, previewMs, discardMs, previewAutomationMs, discardAutomationMs, longestTaskMs, longestTasks: await page.evaluate(() => window.minimizationTasks.longestTasks), writes };
   await writeFile(info.outputPath("minimization-performance.json"), JSON.stringify(evidence, null, 2));
   await info.attach("minimization-performance", { body: JSON.stringify(evidence, null, 2), contentType: "application/json" });
-  expect(previewMs).toBeLessThan(500); expect(discardMs).toBeLessThan(500); expect(longestTaskMs).toBeLessThan(750);
+  performanceBudget(previewMs, 500, "previewMs"); performanceBudget(discardMs, 500, "discardMs"); performanceBudget(longestTaskMs, 750, "longestTaskMs");
   const after = await current(request, p.id); expect(after.revision).toBe(p.revision); expect(after.entries.map(e => e.current_artifact_id)).toEqual(p.entries.map(e => e.current_artifact_id));
 });

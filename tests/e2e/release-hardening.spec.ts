@@ -1,3 +1,4 @@
+import { performanceBudget } from "./support/performance";
 import AxeBuilder from "@axe-core/playwright";
 import { resolve } from "node:path";
 import {
@@ -191,7 +192,7 @@ test("keeps representative-project interactions responsive and projection-scoped
     timeout: 45_000,
   });
   const importAndViewerMs = Date.now() - importStarted;
-  expect(importAndViewerMs).toBeLessThan(30_000);
+  performanceBudget(importAndViewerMs, 30_000, "importAndViewerMs");
 
   await page.evaluate(() => {
     (window as Window & { __molweaveLongTasks: number[] }).__molweaveLongTasks.length = 0;
@@ -216,14 +217,14 @@ test("keeps representative-project interactions responsive and projection-scoped
   await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded");
   await page.waitForTimeout(750);
   const interactionMs = Date.now() - interactionStarted;
-  expect(interactionMs).toBeLessThan(5_000);
+  performanceBudget(interactionMs, 5_000, "interactionMs");
   expect(structureRequests).toEqual([]);
 
   const longTasks = await page.evaluate(
     () => (window as Window & { __molweaveLongTasks: number[] }).__molweaveLongTasks,
   );
   const maxInteractionLongTaskMs = Math.max(0, ...longTasks);
-  expect(maxInteractionLongTaskMs).toBeLessThan(750);
+  performanceBudget(maxInteractionLongTaskMs, 750, "maxInteractionLongTaskMs");
   await testInfo.attach("performance-profile.json", {
     body: JSON.stringify(
       {

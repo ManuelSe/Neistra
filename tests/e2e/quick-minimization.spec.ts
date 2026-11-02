@@ -28,7 +28,7 @@ for (const filename of ["New_molecule.sdf", "New_molecule.pdb", "paracetamol.pdb
     expect((await current(request, p.id)).revision).toBe(p.revision);
     await panel(page).getByRole("button", { name: "Run quick minimization", exact: true }).click();
   }
-  await expect.poll(async () => (await current(request, p.id)).revision, { timeout: 10000 }).toBe(p.revision + 1);
+  await expect.poll(async () => (await current(request, p.id)).revision, { timeout: 60000 }).toBe(p.revision + 1);
   if (!mobile) await expect(panel(page)).toBeHidden();
   const elapsed = Date.now() - started;
   const updated = await current(request, p.id), after = await structures(request, updated);
@@ -116,7 +116,7 @@ test("preserves quick settings through actual 100–200% browser zoom and respon
         await expect.poll(async () => {
           const box = await bounds();
           return !!box && box.x >= 0 && box.y >= 0 && box.x + box.width <= box.viewportWidth + 1 && box.y + box.height <= box.viewportHeight + 1;
-        }, { timeout: 1000, intervals: [10, 20, 30] }).toBe(true);
+        }, { timeout: 15000, intervals: [10, 20, 30] }).toBe(true);
         const box = await bounds();
         expect(box).not.toBeNull();
         expect(box!.x).toBeGreaterThanOrEqual(0); expect(box!.y).toBeGreaterThanOrEqual(0);

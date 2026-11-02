@@ -1,3 +1,4 @@
+import { performanceBudget } from "./support/performance";
 import { browserRssKiB } from "./support/process-memory";
 import { readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
@@ -58,11 +59,11 @@ test("qualifies worker geometry, real element colors, picking and cancellation",
   expect(evidence.atoms).toBe(1001);
   expect(evidence.partitionUnits).toBeGreaterThan(1);
   expect(evidence.partitionInvariant).toBe(true);
-  expect(evidence.longestSurfaceTaskMs).toBeLessThan(750);
+  performanceBudget(evidence.longestSurfaceTaskMs, 750, "evidence.longestSurfaceTaskMs");
   expect(evidence.vertices).toBeGreaterThan(100);
   expect(evidence.groups).toBeGreaterThan(20);
   expect(evidence.meshBytes).toBeLessThan(64 * 1024 * 1024);
-  expect(evidence.readyMs).toBeLessThan(10_000);
+  performanceBudget(evidence.readyMs, 10_000, "evidence.readyMs");
   const canvas = page.locator("#surface-harness canvas").first();
   await expect(canvas).toBeVisible();
   await expect.poll(async () => canvas.evaluate((canvas: HTMLCanvasElement) => {
@@ -100,7 +101,7 @@ test("qualifies worker geometry, real element colors, picking and cancellation",
     catch (e) { return { cancelled: e instanceof DOMException && e.name === "AbortError", elapsed: performance.now() - start }; }
   });
   expect(cancellation.cancelled).toBe(true);
-  expect(cancellation.elapsed).toBeLessThan(500);
+  performanceBudget(cancellation.elapsed, 500, "cancellation.elapsed");
   clearInterval(memoryTimer);
   const report = JSON.stringify({ ...evidence, cancellation, baselineRssKiB, peakRssKiB,
     memoryMeasurement: "Linux summed descendant RSS, sampled every 100 ms; includes browser and shared pages" }, null, 2);
@@ -328,7 +329,7 @@ for (const fixture of ["formats/ethanol.mol", "hydrogens/polar_hydrogens_ligand.
       expect(cancellation.cancelled.statuses[0].state).toBe("cancelled");
       expect(cancellation.cancelled.meshes).toEqual([]);
       expect(cancellation.cancelled.workers.active).toBe(0);
-      expect(cancellation.cancelMs).toBeLessThan(500);
+      performanceBudget(cancellation.cancelMs, 500, "cancellation.cancelMs");
       expect(cancellation.activeAfterCancel).toBe(0);
       expect(cancellation.retried.statuses[0].state).toBe("ready");
       expect(cancellation.retried.meshes).toEqual([`fragment:${entry.id}`]);
@@ -395,8 +396,8 @@ test("qualifies production 1STP surface response and partial-fragment boundaries
     h.dispose();
     return { readyMs, longestSurfaceTaskMs: Math.max(0, ...tasks), full: fullSummary, partial };
   }, { entry, projection });
-  expect(result.readyMs).toBeLessThan(10_000);
-  expect(result.longestSurfaceTaskMs).toBeLessThan(750);
+  performanceBudget(result.readyMs, 10_000, "result.readyMs");
+  performanceBudget(result.longestSurfaceTaskMs, 750, "surface longest task");
   expect(result.full.atoms).toEqual(entry.atom_ids);
   expect(result.full.groups.length).toBeGreaterThan(20);
   expect(result.partial.atoms).toEqual([entry.atom_ids[0]]);

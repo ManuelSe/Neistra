@@ -5957,3 +5957,30 @@ session. App ownership is the narrowest lifetime that survives project-keyed vie
 replacement without turning the choice into durable user or scientific state.
 The compatible presentation correction targets patch 0.26.1 with no dependency,
 migration, persisted-schema, HTTP/job/plugin or molecular-model change.
+
+
+## D-148 — Portable correctness gates and explicit reference timing qualification
+
+Date: 2026-11-02. Accepted by explicit user instruction during PR #126 review.
+
+Default tests must execute scientific/UI workflows without requiring AC power or
+a particular CPU/GPU performance profile. Retain finite/nonnegative measurements,
+scientific outcomes, exact state/original preservation, request/work/DOM/memory
+bounds and generous bounded readiness/hang waits. Only absolute latency targets
+(and empirical timing ratios) require `NEISTRA_PERFORMANCE=1`; preserve their
+original limits and record whether they were enforced. Invalid profile settings
+must fail rather than silently disabling qualification. No timing-based test skips.
+
+Production computation deadlines, cancellation policies and resource ceilings
+remain unchanged and retain dedicated enforcement tests. A memory-enforcement
+fixture gets its own longer test-only deadline so memory failure is not a race
+against the independent short-deadline fixture. General developer/merge gates
+run the portable profile; strict timing is separate reference-host qualification.
+Existing decisions/plans requiring every pinned-host timing target on arbitrary
+developer hardware are superseded only for this test/release policy, not for
+scientific correctness, supported capacity or intended responsiveness targets.
+
+Rationale: power saving and machine load change elapsed time without changing
+correctness. Controlled timing remains useful regression evidence; laptop power
+state must not determine whether a presentation fix can merge. No public API,
+scientific model, dependency, persisted schema or production resource policy change.

@@ -2,9 +2,36 @@
 
 Status: Neistra regression budgets, established for MolWeave v0.1.
 
-Performance thresholds are regression gates on the pinned Playwright desktop
-Chromium host. They are not hardware-independent throughput promises or
-recommended maximum scientific system sizes.
+Default test and merge gates execute every workflow on battery or AC without
+enforcing reference-machine latency targets. Scientific outcomes, exact state,
+request counts, bounded work/DOM/memory, cancellation and production resource
+enforcement remain mandatory. Measurements must still be finite and nonnegative;
+bounded readiness waits catch hangs. No power profile change is needed.
+
+Set `NEISTRA_PERFORMANCE=1` to additionally enforce the original latency targets
+below on a controlled reference host. `0` or an unset variable selects portable
+correctness; any other value is an error. Browser report annotations retain each
+measurement, original target, target result and whether it was enforced. Native
+minimization evidence includes `performance_limits_enforced`. A portable pass is
+not a claim that reference performance was qualified.
+
+```bash
+# Complete portable correctness gate, including real performance workflows.
+PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm e2e
+.venv/bin/pytest
+
+# Additional reference timing qualification; use stable hardware/resources,
+# browser, native toolchain, power and thermal conditions, and no competing load.
+PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm e2e:performance
+NEISTRA_PERFORMANCE=1 .venv/bin/pytest
+```
+
+This user-approved policy (D-148) supersedes historical requirements below to
+enforce all timing budgets in every candidate/master run. Historical measurements
+and thresholds remain reference evidence, not hardware-independent throughput
+promises or recommended scientific system sizes. Production computation deadlines
+and safety/resource ceilings are unchanged. Some native tests still require the
+documented locked toolchain; portable does not mean replacing real chemistry.
 
 ## Protein residue navigation (issue #94)
 

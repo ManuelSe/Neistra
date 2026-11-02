@@ -1,3 +1,4 @@
+import { performanceBudget } from "./support/performance";
 import AxeBuilder from "@axe-core/playwright";
 import { browserRssKiB } from "./support/process-memory";
 import { readFileSync, writeFileSync } from "node:fs";
@@ -97,7 +98,7 @@ for (const file of ["complex/1stp.pdb", "hydrogens/polar_hydrogens_protein.pdb",
         detailIndependent, isolationIndependent, colorIndependent, cameraStable, hidden, reshown, coexistence, empty, cancelled, cancellationMs, retried, fullMeshBytes: full.evidence.meshBytes,
         workers: { ...h.workers }, seedId: seed.id };
     }, { entry, projection, large: file.includes("1aon") });
-    expect(result.readyMs).toBeLessThan(file.includes("1stp") ? 10_000 : 120_000); expect(result.longestTaskMs).toBeLessThan(750);
+    performanceBudget(result.readyMs, file.includes("1stp") ? 10_000 : 120_000, "result.readyMs"); performanceBudget(result.longestTaskMs, 750, "result.longestTaskMs");
     expect(result.exactReference).toBe(true); expect(result.contextIds).toEqual(result.proteinIds);
     expect(result.evidence.keptTriangles).toBeGreaterThan(0);
     expect(result.evidence.keptTriangles).toBeLessThan(result.evidence.sourceTriangles!);
@@ -108,7 +109,7 @@ for (const file of ["complex/1stp.pdb", "hydrogens/polar_hydrogens_protein.pdb",
     expect(result.workers.maximum).toBe(1);
     if (!file.includes("1aon")) {
       expect(result.empty).toBe("empty"); expect(result.cancelled).toBe("cancelled");
-      expect(result.cancellationMs).toBeLessThan(500); expect(result.retried).toBe("ready");
+      performanceBudget(result.cancellationMs, 500, "result.cancellationMs"); expect(result.retried).toBe("ready");
     }
     if (file.includes("hydrogens")) expect(result.proteinHydrogens).toBeGreaterThan(0);
     const canvas = page.locator("canvas").first(), box = (await canvas.boundingBox())!;

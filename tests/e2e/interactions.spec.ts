@@ -1,3 +1,4 @@
+import { performanceBudget } from "./support/performance";
 import { resolve } from "node:path";
 import { writeFileSync } from "node:fs";
 import { expect, test } from "@playwright/test";
@@ -163,7 +164,7 @@ test("measures bounded analysis and cached toggles on pinned 1STP with aligned t
   await expect(panel.getByRole("status")).toContainText(/\d+ detected/, { timeout: 20_000 });
   await expect.poll(async () => (await native(page)).records.length).toBeGreaterThan(0);
   const firstMs = Date.now() - start;
-  expect(firstMs).toBeLessThan(5_000);
+  performanceBudget(firstMs, 5_000, "firstMs");
   const records = await native(page);
   const cachedStart = Date.now();
   await panel.getByRole("button", { name: "Clashes", exact: true }).click();
@@ -171,12 +172,12 @@ test("measures bounded analysis and cached toggles on pinned 1STP with aligned t
   await panel.getByRole("button", { name: "Clashes", exact: true }).click();
   await expect.poll(async () => (await native(page)).records.length).toBe(records.records.length);
   const cachedToggleMs = (Date.now() - cachedStart) / 2;
-  expect(cachedToggleMs).toBeLessThan(500);
+  performanceBudget(cachedToggleMs, 500, "cachedToggleMs");
   const longestTaskMs = await page.evaluate(() => {
     const timing = (window as unknown as { interactionTiming: { tasks: number[]; observer: PerformanceObserver } }).interactionTiming;
     timing.observer.disconnect(); return Math.max(0, ...timing.tasks);
   });
-  expect(longestTaskMs).toBeLessThan(750);
+  performanceBudget(longestTaskMs, 750, "longestTaskMs");
   expect(analyses).toBe(1); expect(structureGets).toBe(0); expect(requestBytes).toBeLessThan(500);
   const evidence = { project: info.project.name, atoms: project.entries.reduce((count, entry) => count + entry.atom_count, 0), records: records.records.length, firstMs, cachedToggleMs, longestTaskMs, analyses, structureGets, requestBytes, fixture: "pinned 1STP + supplied typed ethanol aligned to BTN centroid; no binding claim" };
   writeFileSync(info.outputPath("interaction-performance.json"), JSON.stringify(evidence, null, 2));

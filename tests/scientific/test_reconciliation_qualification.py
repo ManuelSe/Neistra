@@ -10,6 +10,7 @@ from molweave_core.hydrogen_protection import (
 from molweave_core.molecular import Conformer, Residue
 
 from tests.support.hydrogen_fixture import model
+from tests.support.performance import performance_budget
 from tests.unit.editing.test_hydrogen_reconciliation import apply, hcounts
 
 
@@ -324,7 +325,8 @@ def test_bounded_reconciliation_in_real_protein_context(monkeypatch: pytest.Monk
         result.edit.structure.conformers[0].coordinates[: len(protein.atoms)]
         == protein.active_coordinates
     )
-    assert elapsed < 5.0 and peak < 64 * 1024 * 1024
+    performance_budget(elapsed, 5.0, "hydrogen reconciliation seconds", inclusive=False)
+    assert peak < 64 * 1024 * 1024
     print(
         json.dumps(
             {

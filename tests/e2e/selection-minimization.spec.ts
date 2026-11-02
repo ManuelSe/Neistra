@@ -1,3 +1,4 @@
+import { performanceBudget } from "./support/performance";
 import { expect, test } from "@playwright/test";
 import { configure, startAdvanced, coordinateState, current, panel, prepared, select, structures } from "./support/minimization";
 import { prepare } from "./support/interactions";
@@ -74,8 +75,8 @@ test("cancels native parameter generation without editing coordinates and can in
   await expect(cancel).toBeVisible();
   await expect(panel(page).getByRole("status").filter({ hasText: "Preparing GAFF" })).toBeVisible({ timeout: 15000 });
   const started = Date.now(); await cancel.click();
-  await expect(panel(page).getByRole("status").filter({ hasText: /^cancelled/ })).toBeVisible({ timeout: 5000 });
-  expect(Date.now() - started).toBeLessThan(5000);
+  await expect(panel(page).getByRole("status").filter({ hasText: /^cancelled/ })).toBeVisible({ timeout: 30000 });
+  performanceBudget(Date.now() - started, 5000, "Date.now() - started");
   expect(await structures(request, p)).toEqual(before); expect((await current(request, p.id)).revision).toBe(p.revision);
   await panel(page).getByRole("button", { name: "Close minimization" }).click();
   if (info.project.name === "mobile-chromium") await page.getByRole("button", { name: "History", exact: true }).click();

@@ -1,3 +1,4 @@
+import { performanceBudget } from "./support/performance";
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test, type Page } from "@playwright/test";
 import type { AtomReference, Project, StructureProjection } from "../../apps/web/src/api/types";
@@ -161,9 +162,9 @@ test("virtualizes 10000 observed residues and selects complete off-screen ranges
     bound: Math.ceil(e.clientHeight / e.querySelector('.hierarchy-row')!.getBoundingClientRect().height) + 16 + 2,
     scroll: e.scrollTop }));
   expect(windowSize.mounted).toBeLessThanOrEqual(windowSize.bound); expect(windowSize.scroll).toBeGreaterThan(10000);
-  expect(firstMs).toBeLessThan(5000); expect(endMs).toBeLessThan(5000); expect(rangeMs).toBeLessThan(5000);
+  performanceBudget(firstMs, 5000, "firstMs"); performanceBudget(endMs, 5000, "endMs"); performanceBudget(rangeMs, 5000, "rangeMs");
   const longest = await page.evaluate(() => Math.max(0, ...(window as unknown as { residueTasks: number[] }).residueTasks));
-  expect(longest).toBeLessThan(750); expect(reads.length).toBe(initialReads);
+  performanceBudget(longest, 750, "longest"); expect(reads.length).toBe(initialReads);
   expect(await (await request.get(`/api/v1/projects/${project.id}`)).json()).toEqual(baseline);
   await info.attach("residue-navigation-performance", { body: JSON.stringify({ count: 10000, atoms: 30000,
     firstMs, endMs, rangeMs, longest, ...windowSize, repeatedReads: reads.length - initialReads,

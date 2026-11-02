@@ -1,3 +1,4 @@
+import { performanceBudget } from "./support/performance";
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test, type Page } from "@playwright/test";
 import type { AtomReference, Project } from "../../apps/web/src/api/types";
@@ -149,7 +150,7 @@ test("bounds virtual DOM and complete selection for a displayed 10000-residue pr
   await last.press("Shift+Enter");
   await expect.poll(async () => (await selected(page)).length).toBe(30000);
   const elapsed = Date.now() - start;
-  expect(elapsed).toBeLessThan(5000);
+  performanceBudget(elapsed, 5000, "elapsed");
   const metrics = await page.evaluate(() => {
     const scroller = document.querySelector<HTMLElement>(".sequence-residue-scroll")!;
     return { mounted: document.querySelectorAll(".sequence-residue").length,
@@ -157,7 +158,7 @@ test("bounds virtual DOM and complete selection for a displayed 10000-residue pr
       longest: Math.max(0, ...(window as unknown as { sequenceTasks: number[] }).sequenceTasks) };
   });
   expect(metrics.mounted).toBeLessThanOrEqual(metrics.bound);
-  expect(metrics.longest).toBeLessThan(750); expect(reads).toEqual([]);
+  performanceBudget(metrics.longest, 750, "metrics.longest"); expect(reads).toEqual([]);
   const current: Project = await (await request.get(`/api/v1/projects/${project.id}`)).json();
   expect(current.revision).toBe(project.revision);
   await info.attach("sequence-performance", { body: JSON.stringify({ ...metrics, elapsed, repeatedReads: reads.length, atoms: 30000, residues: 10000, entryVisible: true, propertyTable: "unmounted" }), contentType: "application/json" });

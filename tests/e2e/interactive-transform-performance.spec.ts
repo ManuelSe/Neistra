@@ -1,3 +1,4 @@
+import { performanceBudget } from "./support/performance";
 import { readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { expect, test } from "@playwright/test";
@@ -139,8 +140,8 @@ for (const modeled of [false, true]) test(`bounds native ${modeled ? "authored d
   for (const c of evidence.cases) {
     expect(c.changed).toBe(true); expect(c.exactRestore).toBe(true); expect(c.errors).toEqual([]);
     expect(c.navigationCycles).toBe(6);
-    expect(c.previewMs).toBeLessThan(500); expect(c.coordinateCancelMs).toBeLessThan(500);
-    expect(c.longestTaskMs).toBeLessThan(750); expect(c.maxActive).toBe(1); expect(c.renderedFrames).toBe(2);
+    performanceBudget(c.previewMs, 500, "c.previewMs"); performanceBudget(c.coordinateCancelMs, 500, "c.coordinateCancelMs");
+    performanceBudget(c.longestTaskMs, 750, "c.longestTaskMs"); expect(c.maxActive).toBe(1); expect(c.renderedFrames).toBe(2);
   }
-  expect(evidence.surface.coordinateCancelMs).toBeLessThan(500); expect(evidence.surface.inheritedRestored).toBe(true);
+  performanceBudget(evidence.surface.coordinateCancelMs, 500, "evidence.surface.coordinateCancelMs"); expect(evidence.surface.inheritedRestored).toBe(true);
 });
