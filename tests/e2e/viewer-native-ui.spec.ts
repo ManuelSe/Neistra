@@ -37,6 +37,10 @@ test("keeps native UI absent through loading, themes, camera actions and reload"
 
 test("retains molecular annotations through native tasks, rebuilds, remounts and projects", async ({ page, request }, info) => {
   test.setTimeout(180000);
+  const lifecycleErrors: string[] = [];
+  page.on("console", message => {
+    if (message.type() === "error" && message.text().includes("unmount a root")) lifecycleErrors.push(message.text());
+  });
   await watchNativeUi(page);
   const other = await (await request.post("/api/v1/projects", { data: { name: `Other annotation project ${Date.now()}` } })).json() as import("../../apps/web/src/api/types").Project;
   let project = await prepare(page, request, ["tests/fixtures/hydrogens/butane-reconciliation.mol"], "Annotation ownership");
@@ -123,4 +127,5 @@ test("retains molecular annotations through native tasks, rebuilds, remounts and
   await settled();
   expect(await (await request.get(path)).json()).toEqual(persistedBefore);
   expect(await (await request.get(`${path}/entries/${entry.id}/original`)).body()).toEqual(original);
+  expect(lifecycleErrors, "Nested viewer roots must unmount outside the parent React commit").toEqual([]);
 });

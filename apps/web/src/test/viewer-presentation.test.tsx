@@ -1,10 +1,11 @@
 import { act, render, cleanup } from "@testing-library/react";
+import { useEffect } from "react";
 import { afterEach, expect, it, vi } from "vitest";
 import { DefaultPluginUISpec } from "molstar/lib/mol-plugin-ui/spec";
 import { NeistraViewport } from "../viewer/viewport";
 import { mountViewerPlugin } from "../viewer/mountPlugin";
 
-const native = vi.hoisted(() => ({ dispose: vi.fn(), initError: false, canvasError: false, props: vi.fn<(props: { logo?: unknown; noWebGl: () => null }) => void>() }));
+const native = vi.hoisted(() => ({ dispose: vi.fn(), canvasUnmount: vi.fn(), initError: false, canvasError: false, props: vi.fn<(props: { logo?: unknown; noWebGl: () => null }) => void>() }));
 vi.mock("molstar/lib/mol-plugin-ui/context", () => ({
   PluginUIContext: class {
     initialized = Promise.resolve();
@@ -14,11 +15,14 @@ vi.mock("molstar/lib/mol-plugin-ui/context", () => ({
     dispose = native.dispose;
   },
 }));
-vi.mock("molstar/lib/mol-plugin-ui/plugin", () => ({ Plugin: () => <canvas /> }));
+vi.mock("molstar/lib/mol-plugin-ui/plugin", () => ({ Plugin: () => {
+  useEffect(() => () => { native.canvasUnmount(); }, []);
+  return <canvas />;
+} }));
 vi.mock("molstar/lib/mol-plugin-ui/viewport/canvas", () => ({
   ViewportCanvas: (props: { logo?: unknown; noWebGl: () => null }) => { native.props(props); return <canvas />; },
 }));
-afterEach(() => { cleanup(); vi.clearAllMocks(); native.initError = false; native.canvasError = false; });
+afterEach(() => { cleanup(); vi.restoreAllMocks(); vi.clearAllMocks(); native.initError = false; native.canvasError = false; });
 
 it("composes only the canvas without logo or native error text", () => {
   const { container } = render(<NeistraViewport />);
@@ -35,7 +39,11 @@ it("unmounts the owned root and disposes the plugin exactly once", async () => {
   let mounted!: Awaited<ReturnType<typeof mountViewerPlugin>>;
   await act(async () => { mounted = await mountViewerPlugin(target, DefaultPluginUISpec()); });
   expect(target.querySelector("canvas")).not.toBeNull();
-  act(() => { mounted.dispose(); mounted.dispose(); });
+  await act(async () => {
+    mounted.dispose(); mounted.dispose();
+    expect(native.dispose).not.toHaveBeenCalled();
+    await Promise.resolve();
+  });
   expect(target).toBeEmptyDOMElement();
   expect(native.dispose).toHaveBeenCalledOnce();
   target.remove();
@@ -49,4 +57,25 @@ it.each(["initError", "canvasError"] as const)("cleans up %s and reports an appl
   });
   expect(native.dispose).toHaveBeenCalledOnce();
   expect(target).toBeEmptyDOMElement();
+});
+
+it("finishes canvas cleanup before plugin disposal when the parent root unmounts", async () => {
+  const errors = vi.spyOn(console, "error").mockImplementation(() => undefined);
+  const target = document.createElement("div");
+  document.body.append(target);
+  let mounted!: Awaited<ReturnType<typeof mountViewerPlugin>>;
+  function Parent() {
+    useEffect(() => () => mounted.dispose(), []);
+    return <div />;
+  }
+  const parent = render(<Parent />);
+  await act(async () => { mounted = await mountViewerPlugin(target, DefaultPluginUISpec()); });
+  const order: string[] = [];
+  native.canvasUnmount.mockImplementationOnce(() => { order.push("canvas"); });
+  native.dispose.mockImplementationOnce(() => { order.push("plugin"); });
+  await act(async () => { parent.unmount(); await Promise.resolve(); });
+  expect(order).toEqual(["canvas", "plugin"]);
+  expect(errors).not.toHaveBeenCalled();
+  expect(target).toBeEmptyDOMElement();
+  target.remove();
 });

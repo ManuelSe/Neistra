@@ -27,7 +27,13 @@ then351 browser cases pass and one new mobile annotation test fails (62 existing
 exclusions). The retained trace identifies observation before replacement-plugin
 mount completion. Test-only explicit remount/readiness correction passes all4 focused desktop/mobile
 cases and373 frontend/static/build/audit checks;
-no production/assertion/deadline/fixture/exclusion change. No release qualification
+no assertion/deadline/fixture/exclusion change. Subsequent retained-trace review
+finds nested React root cleanup ordering can defer canvas unmount past plugin
+disposal; candidate2 is interrupted for correction. A fail-first unit reproduces
+the order; one microtask now completes root cleanup before context disposal.
+Five mount tests, all374 frontend/static/build/audits and focused native5pass/1
+existing exclusion now pass, including zero React root warnings. Full qualification
+of this runtime repair remains pending. No release qualification
 is claimed. Image export is follow-up#128. Blockers: none. Next: focused corrected
 checks, clean commit, then a fresh complete candidate gate and actual tagged readers.
 

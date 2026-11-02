@@ -39,3 +39,17 @@ Complete candidate/exact-master qualification and publication receipts are pendi
   test waits for each replacement engine and its annotations without changing
   production code, assertions, timeouts, fixtures or exclusions. Fresh complete
   candidate qualification remains required.
+
+- C3 candidate2 is intentionally interrupted at browser case63 after retained-trace
+  review reveals nested React root cleanup ordering. c3-root-warning.json links
+  the exact console event to its trace hash. c3-root-fail-first proves the wrong
+  cleanup order; c3-root-fixed-unit passes5 cases. The runtime fix queues cleanup
+  after the parent commit and preserves root-before-context disposal. Focused and
+  fresh complete gate evidence remain required; interrupted results are diagnostic.
+
+- C3 root final-static passes374 frontend/lint/types/build/version/schema/license/
+  production-exclusion checks. Root-browser passes5/1existing exclusion with zero
+  React root warnings, both-layout remount/project annotations and real WebGL
+  failure feedback. All source/log identities verify. Initial lint attempt remains
+  diagnostic. Full-diff review of the repair has no unresolved consequential finding;
+  a fresh clean complete candidate gate is still required.

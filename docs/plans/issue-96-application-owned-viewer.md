@@ -568,3 +568,32 @@ flakes/retries. Exact replacement engines and all four annotations are required;
 source/log identities verify. Complete local review of this additional test-only
 diff finds no unresolved consequential issue. Commit the passing correction and
 retained diagnostic evidence, then run a fresh clean complete candidate gate.
+
+### M3/C3 nested-root review finding — 2026-11-02
+
+Review of the retained candidate1 trace exposes a production lifecycle warning:
+React defers a nested root unmount invoked during its parent's commit, allowing
+plugin disposal before canvas cleanup. Candidate2 is deliberately interrupted
+(exit254 after browser case63) for this correction, not called qualification.
+Its pre-browser checks pass1262 Python/373 frontend/12 supervisor/static/build;
+logs/source identities and interruption provenance remain retained. Actual-reader
+steps did not run. Owned interrupted API/worker/web process groups are stopped.
+
+The fail-first unit regression proves the actual wrong order (`plugin`, `canvas`).
+A single queued microtask now exits the parent commit and completes root unmount
+before context disposal, once, including failure/late-mount paths. Immediate engine
+invalidation remains. Five mounting/composition unit cases pass after correction.
+Native lifecycle checks additionally reject the exact React root warning through
+responsive and project teardown. D-149 appends this implementation correction;
+no assertion/deadline/scientific policy/fixture/exclusion is relaxed. Requalify the
+focused runtime checkpoint and then a fresh clean full candidate before PR.
+
+The cleanup correction passes **374 frontend tests**, lint/types/build and
+version/schema/dependency/license/harness-exclusion audits. Focused native checks
+pass **5 / 1 existing layout exclusion**, including both-layout annotation/remount/
+project workflows with zero React root warnings and real WebGL failure feedback.
+Source/log identities verify; no failures/flakes/retries in final focused checks.
+The additional complete diff is reviewed locally, including lazy mount cancellation
+and idempotent/failure cleanup. The initial unit failure and minor lint correction
+remain diagnostic evidence. Commit this coherent runtime repair, then start a
+fresh clean complete candidate gate; no PR/tag/release is claimed yet.

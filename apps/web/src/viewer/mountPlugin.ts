@@ -12,9 +12,12 @@ export async function mountViewerPlugin(target: HTMLElement, spec: PluginUISpec)
   const dispose = () => {
     if (disposed) return;
     disposed = true;
-    // Unmount canvas subscriptions before disposing their plugin context.
-    root.unmount();
-    plugin.dispose();
+    // A parent React cleanup may be committing. Leave that commit before
+    // unmounting this root so canvas subscriptions finish before the context.
+    queueMicrotask(() => {
+      try { root.unmount(); }
+      finally { plugin.dispose(); }
+    });
   };
   try {
     // Observe rejection even when initialization fails before the canvas mounts.

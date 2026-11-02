@@ -1,5 +1,17 @@
 # V0.1 Requirement Evidence
 
+## Issue #96 — Nested-root cleanup review correction
+
+The retained candidate1 mobile trace exposes React's nested-root unmount warning.
+A fail-first unit proves plugin disposal precedes canvas cleanup. Candidate2 is
+intentionally interrupted after browser case63 to fix this production lifecycle
+ordering; it is not qualified. D-149 records one microtask after the parent commit,
+then root unmount before plugin disposal. All5 mount tests pass after correction;
+native tests now reject that warning across responsive/project teardown. Focused native5pass/1existing exclusion and all374 frontend/static/build/audit
+checks now pass, including zero React root warnings. Fresh complete release
+qualification remains required. No diagnostic suppression,
+assertion/deadline/scientific/fixture/exclusion relaxation is introduced.
+
 ## Issue #96 — Initial candidate diagnostic
 
 The initial clean `a66bf7c` [complete-gate attempt](assets/application-owned-viewer/c3-candidate1-gate.json)

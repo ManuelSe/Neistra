@@ -6093,3 +6093,15 @@ axes remain enabled. The observation harness is development-only and its cold-ca
 and production-exclusion checks pass. Existing annotation overlap/placement is
 unchanged; this is interface ownership qualification, not a label-layout redesign
 or new scientific algorithm. Final release gates remain independently required.
+
+### D-149 cleanup ordering correction — issue #96 M3/C3, 2026-11-02
+
+A retained native remount trace reveals React cannot synchronously finish a nested
+root unmount during the parent root's commit. The fail-first regression reproduces
+plugin disposal preceding canvas cleanup. Queue the idempotent root/context
+cleanup in one microtask after that commit, unmount the canvas root first, and
+always dispose its plugin context afterward. Engine input/subscription teardown
+and invalidation remain immediate; no stale engine can accept new application
+work. No renderer/state/API/schema ownership change is introduced. Real responsive
+and project teardown tests must assert the React warning is absent. This corrects
+the earlier intended cleanup ordering without suppressing React diagnostics.

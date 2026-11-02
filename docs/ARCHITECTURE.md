@@ -182,7 +182,9 @@ feedback retain their separate application lifecycles.
 
 The plugin context, builders and molecular representation/measurement managers
 remain unchanged. The adapter owns the React root and unmounts it before plugin
-disposal; failed and late mounts clean up. Molecular labels, measurements,
+disposal; failed and late mounts clean up. Root/context cleanup runs in one
+microtask after any parent React commit, preserving that teardown order.
+Molecular labels, measurements,
 interaction markers and hover highlighting are renderer content, not native UI.
 Licensing ships outside the viewer. D-149 and the [issue #96 plan](plans/issue-96-application-owned-viewer.md)
 govern this boundary and its current qualification status.
