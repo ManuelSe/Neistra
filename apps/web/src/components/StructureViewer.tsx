@@ -33,6 +33,7 @@ import type {
 } from "../api/types";
 import type {
   Selection,
+  SelectionColorMode,
   SelectionGranularity,
   SelectionMode,
 } from "../api/types";
@@ -90,6 +91,8 @@ interface StructureViewerProps {
   onSurfaces?: SurfaceActions;
   onLoadPocketStructures?: () => Promise<Map<string, StructureProjection>>;
   onAppearance?: ChangeSelectionAppearance;
+  selectionColorMode: SelectionColorMode;
+  onSelectionColorModeChange: (mode: SelectionColorMode) => void;
   onSelectionStyle?: (
     action: "apply" | "reset",
     style?: SelectionRepresentationStyle,
@@ -121,6 +124,8 @@ export function StructureViewer({
   onSurfaces,
   onLoadPocketStructures,
   onAppearance,
+  selectionColorMode,
+  onSelectionColorModeChange,
   onEdit,
   createViewer = createMolstarViewer,
 }: StructureViewerProps) {
@@ -716,6 +721,8 @@ export function StructureViewer({
         <SelectionStyleDialog
           onExpandDistance={onExpandDistance}
           onAppearance={onAppearance}
+          selectionColorMode={selectionColorMode}
+          onSelectionColorModeChange={onSelectionColorModeChange}
           onAtomVisibility={onAtomVisibility}
           key={project.id}
           onSurfaces={onSurfaces}

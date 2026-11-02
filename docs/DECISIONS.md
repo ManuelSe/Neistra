@@ -5933,3 +5933,69 @@ the session store. Its fail-first regression demonstrates the stale viewport.
 These complete existing focus/project boundaries, not new navigation policy or
 persistence. Final boundary gates and the interrupted first full candidate are
 retained; repeat the complete gate from a new clean fixed candidate.
+## D-147 — Carbon-first selection coloring uses application-session memory
+
+Date: 2026-10-30. Status: accepted for issue #58.
+
+Selection coloring starts in **Carbon only** mode when the application mounts. A
+mode button updates one App-owned transient value immediately, before any color is
+applied. That value survives palette closure, selection changes, responsive viewer
+remounts and project switches. Reloading the page mounts a fresh application and
+restores Carbon only. Do not copy the value into local/session storage, project
+state, scenes, history, APIs or molecular artifacts.
+
+This supersedes D-055 only for the coloring-mode lifetime. Custom-color input and
+its disclosure remain scoped to one open palette. Mode changes remain presentation
+state and issue no selection-appearance request or project command. Applying in
+Carbon only continues to send `color_mode: "carbon"`; applying in All atoms keeps
+the established omitted `color_mode` wire behavior. Existing element overrides,
+reset, undo/redo, rendering and scientific interpretation remain unchanged.
+
+Rationale: carbon-first coloring preserves conventional heteroatom colors, while
+remembering an explicit mode choice avoids repeated setup during one working
+session. App ownership is the narrowest lifetime that survives project-keyed viewer
+replacement without turning the choice into durable user or scientific state.
+The compatible presentation correction targets patch 0.26.1 with no dependency,
+migration, persisted-schema, HTTP/job/plugin or molecular-model change.
+
+
+## D-148 — Portable correctness gates and explicit reference timing qualification
+
+Date: 2026-11-02. Accepted by explicit user instruction during PR #126 review.
+
+Default tests must execute scientific/UI workflows without requiring AC power or
+a particular CPU/GPU performance profile. Retain finite/nonnegative measurements,
+scientific outcomes, exact state/original preservation, request/work/DOM/memory
+bounds and generous bounded readiness/hang waits. Only absolute latency targets
+(and empirical timing ratios) require `NEISTRA_PERFORMANCE=1`; preserve their
+original limits and record whether they were enforced. Invalid profile settings
+must fail rather than silently disabling qualification. No timing-based test skips.
+
+Production computation deadlines, cancellation policies and resource ceilings
+remain unchanged and retain dedicated enforcement tests. A memory-enforcement
+fixture gets its own longer test-only deadline so memory failure is not a race
+against the independent short-deadline fixture. General developer/merge gates
+run the portable profile; strict timing is separate reference-host qualification.
+Existing decisions/plans requiring every pinned-host timing target on arbitrary
+developer hardware are superseded only for this test/release policy, not for
+scientific correctness, supported capacity or intended responsiveness targets.
+
+Rationale: power saving and machine load change elapsed time without changing
+correctness. Controlled timing remains useful regression evidence; laptop power
+state must not determine whether a presentation fix can merge. No public API,
+scientific model, dependency, persisted schema or production resource policy change.
+
+
+### D-148 qualification note — PR #126, 2026-11-02
+
+The complete browser execution has one externally interrupted case: Vite's
+connection loss triggers a document reload during a native job that converges in
+1.443s. Power telemetry has a 216s gap followed by AC/charging; no isolated causal
+claim is made. Retain the failed command/trace. An unchanged-source exact-case
+replay passes; all other cases passed initially. Complete unique coverage plus
+this explicit resolution qualifies the merge, without suppressing failures,
+adding skips/automatic retries, changing scientific assertions or needlessly
+repeating already passing coverage. Report the mixed power conditions honestly.
+No source changes follow qualification beyond documentation/evidence. A release
+is outside the user's merge/cleanup request; no release gate or publication is
+claimed for an unexecuted merged-master run.

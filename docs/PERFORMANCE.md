@@ -2,9 +2,36 @@
 
 Status: Neistra regression budgets, established for MolWeave v0.1.
 
-Performance thresholds are regression gates on the pinned Playwright desktop
-Chromium host. They are not hardware-independent throughput promises or
-recommended maximum scientific system sizes.
+Default test and merge gates execute every workflow on battery or AC without
+enforcing reference-machine latency targets. Scientific outcomes, exact state,
+request counts, bounded work/DOM/memory, cancellation and production resource
+enforcement remain mandatory. Measurements must still be finite and nonnegative;
+bounded readiness waits catch hangs. No power profile change is needed.
+
+Set `NEISTRA_PERFORMANCE=1` to additionally enforce the original latency targets
+below on a controlled reference host. `0` or an unset variable selects portable
+correctness; any other value is an error. Browser report annotations retain each
+measurement, original target, target result and whether it was enforced. Native
+minimization evidence includes `performance_limits_enforced`. A portable pass is
+not a claim that reference performance was qualified.
+
+```bash
+# Complete portable correctness gate, including real performance workflows.
+PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm e2e
+.venv/bin/pytest
+
+# Additional reference timing qualification; use stable hardware/resources,
+# browser, native toolchain, power and thermal conditions, and no competing load.
+PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm e2e:performance
+NEISTRA_PERFORMANCE=1 .venv/bin/pytest
+```
+
+This user-approved policy (D-148) supersedes historical requirements below to
+enforce all timing budgets in every candidate/master run. Historical measurements
+and thresholds remain reference evidence, not hardware-independent throughput
+promises or recommended scientific system sizes. Production computation deadlines
+and safety/resource ceilings are unchanged. Some native tests still require the
+documented locked toolchain; portable does not mean replacing real chemistry.
 
 ## Protein residue navigation (issue #94)
 
@@ -641,3 +668,19 @@ zero refetches and unmounted property table. Native cold small/pocket/18k
 0.949/2.114/3.879s, first frame 664.5ms, Cancel 58.1ms and every original budget pass.
 All 253 merged power samples retain AC online. These are regression measurements,
 not a host-causality or scientific-throughput claim.
+
+
+## Portable gate qualification — PR #126
+
+[Evidence](assets/portable-test-gates/README.md) records the full fixed-source
+suite and one unchanged replay resolving a Vite reconnect/document reload during
+a successful native calculation. Coverage is348 unique browser passes with 62
+documented exclusions;1,261 Python (no skips), 370 frontend and12 supervisor/policy
+cases pass. Both actual v0.26.0/current readers pass. Original source identities
+match and no timing/battery exclusion is added by the amendment.
+
+Power was sampled, not controlled: 467 discharging samples precede a 216s gap and
+later AC/charging. The run is not described as entirely on battery. All 117 browser
+measurements are retained; strict reference-host throughput is not claimed.
+The failed full invocation and successful exact-case replay remain separate in
+raw records; complete unique coverage is not mislabeled as a clean invocation.

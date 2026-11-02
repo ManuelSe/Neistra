@@ -84,7 +84,7 @@ export function measurePreviewEvent(engine: MolstarEngine, target: Element, show
         const ready = show ? !!native.modelPreview && native.modelPreviewRepresentation.renderObjects.some(o => o.values.drawCount.ref.value > 0) : !native.modelPreview;
         if (ready) {
           void native.syncQueue.then(() => requestAnimationFrame(() => resolve(performance.now() - start)), reject);
-        } else if (performance.now() - start > 5000) reject(new Error("Native preview event did not settle"));
+        } else if (performance.now() - start > 30_000) reject(new Error("Native preview event did not settle"));
         else requestAnimationFrame(sample);
       };
       requestAnimationFrame(sample);
@@ -114,7 +114,7 @@ export function measureCoordinatePreviewEvent(engine: MolstarEngine, target: Ele
       const start = performance.now();
       const sample = () => {
         if ((native.coordinatePreviews.size > 0) === show) void native.syncQueue.then(() => requestAnimationFrame(() => resolve(performance.now() - start)), reject);
-        else if (performance.now() - start > 5000) reject(new Error("Coordinate preview did not settle"));
+        else if (performance.now() - start > 30_000) reject(new Error("Coordinate preview did not settle"));
         else requestAnimationFrame(sample);
       };
       requestAnimationFrame(sample);

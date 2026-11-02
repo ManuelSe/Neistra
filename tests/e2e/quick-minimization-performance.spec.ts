@@ -1,3 +1,4 @@
+import { performanceBudget } from "./support/performance";
 import { readFile, writeFile } from "node:fs/promises";
 import { expect, test } from "@playwright/test";
 import type { QuickTiming } from "../../apps/web/src/test/quickMinimizationHarness";
@@ -58,9 +59,9 @@ for (const copies of [0, 1, 8]) test(`bounds cold quick publication for ${copies
     backend: proposal?.report.timings, elapsedBackendSeconds: proposal?.report.elapsed_seconds, jobId: job?.id };
   await writeFile(info.outputPath(`quick-${phase}-performance.json`), JSON.stringify(evidence, null, 2));
   await info.attach("quick-cold-performance", { body: JSON.stringify(evidence), contentType: "application/json" });
-  expect(timing.commandAcceptedMs).toBeGreaterThanOrEqual(0); expect(timing.commandAcceptedMs).toBeLessThanOrEqual(100);
-  expect(timing.nativeAppliedMs).toBeLessThanOrEqual(copies ? 5000 : 2000);
-  expect(timing.longestTaskMs).toBeLessThan(750);
+  expect(timing.commandAcceptedMs).toBeGreaterThanOrEqual(0); performanceBudget(timing.commandAcceptedMs, 100, "timing.commandAcceptedMs", true);
+  performanceBudget(timing.nativeAppliedMs, copies ? 5000 : 2000, "timing.nativeAppliedMs", true);
+  performanceBudget(timing.longestTaskMs, 750, "timing.longestTaskMs");
   if (phase === "cold") {
     await page.getByRole("button", { name: /Undo: Quick minimize selection/ }).click();
     await expect(page.getByRole("button", { name: /Redo: Quick minimize selection/ })).toBeEnabled();
@@ -106,8 +107,8 @@ test("renders genuine quick steps and clears native preview within500ms on Cance
   await expect.poll(async () => (await coordinateEntries(page)).length).toBe(0);
   const cancelMs = await page.evaluate(() => window.minimizationPreviewTime);
   expect((await current(request, p.id)).revision).toBe(p.revision);
-  await expect(panel(page).getByRole("status").filter({ hasText: /^cancelled/ })).toBeVisible({ timeout: 5000 });
+  await expect(panel(page).getByRole("status").filter({ hasText: /^cancelled/ })).toBeVisible({ timeout: 30000 });
   const evidence = { firstFrameMs, cancelMs, startedWall: await page.evaluate(() => (window as unknown as { quickRunWall: number }).quickRunWall), frames: frames.map(f => ({ sequence: f.frame!.sequence, iteration: f.frame!.iteration, published_at: f.frame!.published_at })) };
   await writeFile(info.outputPath("quick-live-performance.json"), JSON.stringify(evidence, null, 2));
-  expect(firstFrameMs).toBeLessThanOrEqual(1000); expect(cancelMs).toBeLessThanOrEqual(500);
+  performanceBudget(firstFrameMs, 1000, "firstFrameMs", true); performanceBudget(cancelMs, 500, "cancelMs", true);
 });

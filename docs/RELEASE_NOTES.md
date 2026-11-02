@@ -1,5 +1,35 @@
 # Neistra Release Notes
 
+## 0.26.1 — Unreleased — Carbon-first coloring and portable test gates
+
+[PR #126](https://github.com/ManuelSe/Neistra/pull/126) addresses issue #58.
+**Carbon only** is selected when the application mounts. Explicit mode choices
+are remembered immediately across palette/selection/project changes and responsive
+remounts, then reset on reload. All atoms, custom colors, reset, rendering and
+undo/redo retain existing behavior. The mode stays transient App state.
+
+The user-approved D-148 amendment separates portable correctness from reference-
+host timing: default tests execute every workflow and retain measurements, while
+NEISTRA_PERFORMANCE=1 enforces original latency targets. Invalid profiles and
+invalid measurements fail. Scientific/state/resource/request/DOM/memory assertions
+remain mandatory. Test readiness has generous finite waits; the memory fixture
+has an independent test-only deadline. Production limits and chemistry are unchanged.
+
+Qualification: 1,261 Python (zero skips), 370 frontend, 12 supervisor/policy and both
+actual v0.26.0/current readers pass, alongside frozen installs, migration,
+lint/type/build and version checks. Browser coverage is 348 unique passes with 62
+documented exclusions. The full command had one external-reload interruption;
+the exact unchanged-source replay passes. Both attempts and the trace are retained.
+Power samples show battery use followed by AC charging; a wholly battery-powered
+full run and strict reference-host throughput are not claimed.
+
+Patch increment from 0.26.0. All five authoritative versions agree. No dependency,
+API/job/plugin, scientific-model, persisted-schema or migration change. Alembic 0014
+and existing schema versions remain. No original issue requirement is deferred,
+simplified or rejected. See the [plan](plans/issue-58-carbon-only-session-default.md)
+and [evidence](assets/portable-test-gates/README.md). No tag/release is published
+by this merge/cleanup work; the PR tracks remote integration.
+
 ## 0.26.0 - 2026-10-28 - Workspace protein sequences
 
 **Release status:** stable [v0.26.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.26.0),

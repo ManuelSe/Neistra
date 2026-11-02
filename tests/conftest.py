@@ -9,6 +9,11 @@ from molweave_api.main import create_app
 from molweave_api.settings import Settings
 
 from tests.support.api_client import ApiClient
+from tests.support.performance import performance_enabled
+
+
+def pytest_configure() -> None:
+    performance_enabled()  # Reject invalid profiles before running tests.
 
 
 @pytest.fixture

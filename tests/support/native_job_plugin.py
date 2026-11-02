@@ -29,9 +29,9 @@ class NativeTreePlugin:
     name = "test.native_tree"
 
     def definitions(self) -> tuple[JobDefinition, ...]:
-        return (
+        return tuple(
             JobDefinition(
-                job_type="test.native_tree",
+                job_type=job_type,
                 implementation_version="1",
                 label="Test native tree",
                 description="Test-only controlled descendant cleanup",
@@ -41,11 +41,13 @@ class NativeTreePlugin:
                     ResultRole(role="unused", label="Unused", media_types=("text/plain",)),
                 ),
                 resources=ResourcePolicy(
-                    wall_time_seconds=2,
+                    # Exercise memory enforcement independently of the short deadline.
+                    wall_time_seconds=30 if job_type.endswith(".memory") else 2,
                     cancellation_grace_seconds=0.1,
                     resident_memory_bytes=512 * 1024**2,
                 ),
-            ),
+            )
+            for job_type in ("test.native_tree", "test.native_tree.memory")
         )
 
     def execute(

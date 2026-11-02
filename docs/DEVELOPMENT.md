@@ -102,6 +102,13 @@ corepack pnpm --dir apps/web build
 PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test
 ```
 
+These commands run portable correctness checks on battery or AC. All real
+minimization, rendering and performance workflows still execute; strict elapsed-
+time targets are additional reference-host qualification with
+`NEISTRA_PERFORMANCE=1` (or `pnpm e2e:performance` for browsers). Invalid profile
+values fail. Production deadlines, resource limits, chemistry and state checks
+remain mandatory. See [performance qualification](PERFORMANCE.md) and D-148.
+
 Playwright owns `.molweave-e2e/` and starts API port 8010, worker health port
 8011, and Vite port 5173. Focus one workflow with, for example:
 

@@ -19,6 +19,7 @@ from tests.integration.test_minimization_apply import seeded_project
 from tests.integration.test_minimization_jobs import minclient as minclient
 from tests.support.api_client import ApiClient
 from tests.support.minimization import molecule, translated
+from tests.support.performance import performance_budget, performance_enabled
 
 FIXTURES = Path(__file__).parents[1] / "fixtures/minimization"
 
@@ -88,7 +89,11 @@ def retain(label: str, value: dict[str, Any], tmp_path: Path):
     root = Path(os.environ.get("MOLWEAVE_MINIMIZATION_EVIDENCE_DIR", str(tmp_path)))
     root.mkdir(parents=True, exist_ok=True)
     (root / f"{label}-{os.getpid()}.json").write_text(
-        json.dumps(value, indent=2, sort_keys=True) + "\n"
+        json.dumps(
+            {**value, "performance_limits_enforced": performance_enabled()},
+            indent=2,
+            sort_keys=True,
+        ) + "\n"
     )
 
 
@@ -149,7 +154,8 @@ def test_real_worker_setup_optimization_and_aggregate_rss(
     }
     setup = (times[35] - datetime.fromisoformat(job["started_at"])).total_seconds()
     optimization_and_publication = (times[100] - times[35]).total_seconds()
-    assert setup <= 120 and optimization_and_publication <= 60
+    performance_budget(setup, 120, "minimization setup seconds")
+    performance_budget(optimization_and_publication, 60, "optimization/publication seconds")
     assert memory.peak <= 2 * 1024**3
     assert memory.samples > 5
     assert {
@@ -186,7 +192,9 @@ def test_real_worker_setup_optimization_and_aggregate_rss(
     )
 
 
-def test_real_sqm_cancellation_settles_within_five_seconds(minclient: ApiClient, tmp_path: Path):
+def test_real_sqm_cancellation_stops_descendants_and_preserves_state(
+    minclient: ApiClient, tmp_path: Path
+):
     if not os.environ.get("MOLWEAVE_AMBERTOOLS_PREFIX"):
         pytest.skip("Locked Linux native profile required for real SQM cancellation")
     project = seeded_project(minclient, molecule("C" * 80))
@@ -214,9 +222,10 @@ def test_real_sqm_cancellation_settles_within_five_seconds(minclient: ApiClient,
         start = time.monotonic()
         response = minclient.post(f"/api/v1/jobs/{queued['id']}/cancel")
         assert response.status_code == 200
-        thread.join(5)
+        thread.join(30)
         elapsed = time.monotonic() - start
-        assert not thread.is_alive() and elapsed <= 5
+        assert not thread.is_alive()
+        performance_budget(elapsed, 5, "native cancellation seconds")
         assert not errors
         assert not set(native_pids) & processes().keys()
         job = minclient.get(f"/api/v1/jobs/{queued['id']}").json()

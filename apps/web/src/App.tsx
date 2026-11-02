@@ -37,6 +37,7 @@ import type {
   SavedSelection,
   Scene,
   SelectionGranularity,
+  SelectionColorMode,
   SelectionMode,
   SelectionRepresentationStyle,
   SelectionAppearanceChange,
@@ -130,6 +131,8 @@ export default function App() {
   const [notice, setNotice] = useState<ApplicationNoticeValue | null>(null);
   const [editedThisSession, setEditedThisSession] = useState(false);
   const [selectionBusy, setSelectionBusy] = useState(false);
+  const [selectionColorMode, setSelectionColorMode] =
+    useState<SelectionColorMode>("carbon");
   const [coordinatePreview, setCoordinatePreview] =
     useState<CoordinatePatch | null>(null);
   const numericalPreviewGeneration = useRef(0);
@@ -873,6 +876,8 @@ export default function App() {
       }
     },
     busy,
+    selectionColorMode,
+    onSelectionColorModeChange: setSelectionColorMode,
     coordinatePreview,
     minimization,
     movement,

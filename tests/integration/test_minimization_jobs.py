@@ -148,7 +148,7 @@ def test_native_descendants_stop_on_cancel_deadline_and_child_loss(
     response = minclient.post(
         f"/api/v1/projects/{project['id']}/jobs",
         json={
-            "job_type": "test.native_tree",
+            "job_type": "test.native_tree.memory" if mode == "memory" else "test.native_tree",
             "parameters": {"pid_file": str(pid_file), "mode": mode},
             "inputs": [{"role": "structure", "entry_id": entry["id"]}],
         },
@@ -172,7 +172,7 @@ def test_native_descendants_stop_on_cancel_deadline_and_child_loss(
     pids = [int(i) for i in pid_file.read_text().split()]
     if cancel:
         assert minclient.post(f"/api/v1/jobs/{job['id']}/cancel").status_code == 200
-    thread.join(timeout=8)
+    thread.join(timeout=40 if mode == "memory" else 8)
     assert not thread.is_alive() and not errors, errors
     finished = minclient.get(f"/api/v1/jobs/{job['id']}").json()
     assert finished["status"] == status, finished

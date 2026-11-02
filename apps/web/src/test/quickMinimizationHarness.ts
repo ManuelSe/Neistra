@@ -33,7 +33,7 @@ export function measureQuickPublication(engine: MolstarEngine, atoms: AtomRefere
         if (applied && changed) void native.syncQueue.then(() => requestAnimationFrame(() => {
           unsubscribe(); tasks.disconnect(); resolve({ commandAcceptedMs, nativeAppliedMs: performance.now() - start, longestTaskMs });
         }), (error: unknown) => { unsubscribe(); tasks.disconnect(); reject(error instanceof Error ? error : new Error("Native coordinate synchronization failed")); });
-        else if (performance.now() - start > 30_000) { unsubscribe(); tasks.disconnect(); reject(new Error("Quick publication did not reach native canonical geometry")); }
+        else if (performance.now() - start > 120_000) { unsubscribe(); tasks.disconnect(); reject(new Error("Quick publication did not reach native canonical geometry")); }
         else requestAnimationFrame(sample);
       };
       requestAnimationFrame(sample);

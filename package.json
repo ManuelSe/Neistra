@@ -10,7 +10,8 @@
     "test": "pnpm --dir apps/web test",
     "build": "pnpm --dir apps/web build",
     "e2e": "playwright test",
-    "test:dev": "node --test scripts/dev.test.mjs"
+    "e2e:performance": "NEISTRA_PERFORMANCE=1 playwright test",
+    "test:dev": "node --test scripts/*.test.mjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.10.2",

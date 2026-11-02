@@ -247,8 +247,9 @@ export interface SelectionRepresentation {
 }
 
 export interface SelectionColor { color: string; atom_ids: number[] }
+export type SelectionColorMode = "all" | "carbon";
 export type SelectionAppearanceChange =
-  | ({ property: "color" } & ({ action: "set"; color: string; color_mode?: "all" | "carbon" } | { action: "reset"; color?: never }))
+  | ({ property: "color" } & ({ action: "set"; color: string; color_mode?: SelectionColorMode } | { action: "reset"; color?: never }))
   | ({ property: "nonpolar_hydrogens" } & ({ action: "set"; show: boolean } | { action: "reset"; show?: never }));
 export type ChangeSelectionAppearance = (change: SelectionAppearanceChange) => Promise<void>;
 

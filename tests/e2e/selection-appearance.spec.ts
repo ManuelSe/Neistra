@@ -1,7 +1,101 @@
 import AxeBuilder from "@axe-core/playwright";
+import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { expect, test } from "@playwright/test";
+import { expect, test, type APIRequestContext, type Page } from "@playwright/test";
 import type { Project, Selection } from "../../apps/web/src/api/types";
+
+const ETHANOL = resolve("tests/fixtures/formats/ethanol.mol");
+
+function escapeRegex(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+async function createImportedProject(
+  request: APIRequestContext,
+  name: string,
+): Promise<Project> {
+  const created = await request.post("/api/v1/projects", { data: { name } });
+  expect(created.status()).toBe(201);
+  const project = await created.json() as Project;
+  const imported = await request.post(`/api/v1/projects/${project.id}/imports`, {
+    multipart: {
+      expected_revision: String(project.revision),
+      generate_3d: "true",
+      infer_bonds: "true",
+      files: {
+        name: "ethanol.mol",
+        mimeType: "chemical/x-mdl-molfile",
+        buffer: readFileSync(ETHANOL),
+      },
+    },
+  });
+  expect(imported.status()).toBe(201);
+  return await (await request.get(`/api/v1/projects/${project.id}`)).json() as Project;
+}
+
+async function switchToProject(page: Page, name: string): Promise<void> {
+  await page.getByRole("button", { name: "Projects", exact: true }).click();
+  await page.getByRole("dialog", { name: "Projects" })
+    .getByRole("button", { name: new RegExp(`^${escapeRegex(name)}`) }).click();
+  await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded", { timeout: 30_000 });
+}
+
+async function selectCurrentEntry(page: Page): Promise<void> {
+  await page.locator(".entry-row .entry-select").click();
+  await expect(page.locator(".viewer-status")).toContainText("/ 3 selected");
+}
+
+test("remembers coloring mode across panels and projects until reload", async ({ page, request }, info) => {
+  test.setTimeout(90_000);
+  test.skip(info.project.name !== "chromium", "Application-session preference is covered once in desktop Chromium.");
+  const stamp = Date.now();
+  const first = await createImportedProject(request, `Color mode A ${stamp}`);
+  const second = await createImportedProject(request, `Color mode B ${stamp}`);
+  let appearanceRequests = 0;
+  page.on("request", (outgoing) => {
+    if (new URL(outgoing.url()).pathname.endsWith("/selection-appearance")) appearanceRequests++;
+  });
+
+  await page.goto("/");
+  await switchToProject(page, first.name);
+  await selectCurrentEntry(page);
+  const launcher = page.getByRole("button", { name: "Style selection", exact: true });
+  const dialog = page.getByRole("dialog", { name: "Style selection" });
+  await launcher.click();
+  await expect(dialog.getByRole("button", { name: "Carbon only" })).toHaveAttribute("aria-pressed", "true");
+  await dialog.getByRole("button", { name: "All atoms" }).click();
+  await expect(dialog.getByRole("button", { name: "All atoms" })).toHaveAttribute("aria-pressed", "true");
+  expect(appearanceRequests).toBe(0);
+  await page.keyboard.press("Escape");
+  await launcher.click();
+  await expect(dialog.getByRole("button", { name: "All atoms" })).toHaveAttribute("aria-pressed", "true");
+  await page.keyboard.press("Escape");
+
+  await switchToProject(page, second.name);
+  await selectCurrentEntry(page);
+  await launcher.click();
+  await expect(dialog.getByRole("button", { name: "All atoms" })).toHaveAttribute("aria-pressed", "true");
+  await dialog.getByRole("button", { name: "Carbon only" }).click();
+  await expect(dialog.getByRole("button", { name: "Carbon only" })).toHaveAttribute("aria-pressed", "true");
+  await page.keyboard.press("Escape");
+
+  await switchToProject(page, first.name);
+  await selectCurrentEntry(page);
+  await launcher.click();
+  await expect(dialog.getByRole("button", { name: "Carbon only" })).toHaveAttribute("aria-pressed", "true");
+  await dialog.getByRole("button", { name: "All atoms" }).click();
+  expect(appearanceRequests).toBe(0);
+  expect((await (await request.get(`/api/v1/projects/${first.id}`)).json() as Project).revision).toBe(first.revision);
+  expect((await (await request.get(`/api/v1/projects/${second.id}`)).json() as Project).revision).toBe(second.revision);
+
+  await page.reload();
+  await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded", { timeout: 30_000 });
+  await selectCurrentEntry(page);
+  await page.getByRole("button", { name: "Style selection", exact: true }).click();
+  await expect(page.getByRole("dialog", { name: "Style selection" })
+    .getByRole("button", { name: "Carbon only" })).toHaveAttribute("aria-pressed", "true");
+  expect(appearanceRequests).toBe(0);
+});
 
 test("expands from styling across hidden entries without durable changes", async ({ page, request }, info) => {
   test.setTimeout(90_000);
@@ -38,6 +132,9 @@ test("expands from styling across hidden entries without durable changes", async
   const before = await (await request.get(`/api/v1/projects/${project.id}`)).json();
   await page.getByRole("button", { name: "Style selection", exact: true }).click();
   const dialog = page.getByRole("dialog", { name: "Style selection" });
+  await expect(dialog.getByRole("button", { name: "Carbon only" })).toHaveAttribute("aria-pressed", "true");
+  await dialog.getByRole("button", { name: "All atoms" }).click();
+  await expect(dialog.getByRole("button", { name: "All atoms" })).toHaveAttribute("aria-pressed", "true");
   await expect(dialog.getByRole("button", { name: "Apply blue color" })).toBeInViewport();
   expect(await dialog.evaluate((el) => el.scrollHeight <= el.clientHeight + 1)).toBe(true);
   await page.screenshot({ path: info.outputPath("selection-palette-desktop.png") });
@@ -111,6 +208,7 @@ test("expands from styling across hidden entries without durable changes", async
   await expect.poll(() => colorPixels("red")).toBeGreaterThan(100);
   await row.locator(".entry-select").click();
   await page.getByRole("button", { name: "Style selection", exact: true }).click();
+  await expect(dialog.getByRole("button", { name: "Carbon only" })).toHaveAttribute("aria-pressed", "true");
   await dialog.getByRole("button", { name: "Reset color" }).click();
   await expect(dialog.getByRole("status")).toHaveText("Selection color reset.");
   await page.keyboard.press("Escape");
@@ -150,6 +248,8 @@ test("expands from styling across hidden entries without durable changes", async
   await expect(dialog.locator(".selection-style-summary")).toHaveText("1 atom");
 
   let releaseRequest = () => {};
+  await dialog.getByRole("button", { name: "All atoms" }).click();
+  await expect(dialog.getByRole("button", { name: "All atoms" })).toHaveAttribute("aria-pressed", "true");
   const held = new Promise<void>((resolve) => { releaseRequest = resolve; });
   let submitted: Selection | undefined;
   await page.route(`**/projects/${project.id}/selection-appearance`, async (route) => {
@@ -223,6 +323,7 @@ for (const theme of ["light", "dark"]) {
     await page.keyboard.press("Enter");
     const dialog = page.getByRole("dialog", { name: "Style selection" });
     await expect(dialog).toBeVisible();
+    await expect(dialog.getByRole("button", { name: "Carbon only" })).toHaveAttribute("aria-pressed", "true");
     await page.screenshot({ path: info.outputPath(`selection-palette-${theme}.png`) });
     if (mobile) {
       for (const control of await dialog.locator("button:visible, select:visible, summary:visible").all()) {
