@@ -1,0 +1,46 @@
+import json, gzip, hashlib, base64, sys, re
+from pathlib import Path
+phase=sys.argv[1]
+root=Path.cwd();out=root/'docs/assets/application-owned-viewer';work=Path('/tmp')/f'neistra96-{phase}'
+gate=json.loads((out/f'{phase}-gate.json').read_text())
+assert gate['complete'] and gate['source_unchanged'] and not gate['initial_status']
+assert len(gate['steps'])==20 and all(s['exit_code']==0 for s in gate['steps'])
+assert gate['source_before']==gate['source_after']
+assert all(hashlib.sha256((root/p).read_bytes()).hexdigest()==h for p,h in gate['source_after'].items())
+for step in gate['steps']:
+ content=gzip.decompress((root/step['log']).read_bytes());assert hashlib.sha256(content).hexdigest()==step['log_sha256'],step['label']
+raw=(work/'browser.json').read_bytes();browser=json.loads(raw)
+assert browser['stats']['unexpected']==0 and browser['stats']['flaky']==0 and not browser['errors']
+(out/f'{phase}-browser.json.gz').write_bytes(gzip.compress(raw,mtime=0))
+def cases(report):
+ result={}
+ def walk(suite,ancestors=()):
+  for spec in suite.get('specs',[]):
+   for test in spec['tests']:
+    key=(Path(spec['file']).name, *ancestors, spec['title'], test['projectName'])
+    assert key not in result,key
+    result[key]=test
+  for child in suite.get('suites',[]):walk(child,(*ancestors,child['title']))
+ for suite in report['suites']:walk(suite)
+ return result
+current=cases(browser)
+baseline=cases(json.loads(gzip.decompress((root/'docs/assets/portable-test-gates/candidate-browser.json.gz').read_bytes())))
+def skips(values):return {key for key,t in values.items() if t['expectedStatus']=='skipped'}
+assert skips(current)==skips(baseline), {'added':list(skips(current)-skips(baseline)),'removed':list(skips(baseline)-skips(current))}
+assert all(len(t['results'])==1 and t['results'][0]['retry']==0 for t in current.values())
+assert all(t['results'][0]['status'] in ('passed','skipped') for t in current.values())
+metrics=[];attachments=[]
+for key,test in current.items():
+ for result in test['results']:
+  for a in result.get('annotations',[]):
+   if a['type']=='performance':metrics.append({'case':key,**json.loads(a['description'])})
+  for a in result.get('attachments',[]):
+   if a.get('contentType')=='application/json' and 'body' in a:
+    attachments.append({'case':key,'name':a['name'],'data':json.loads(base64.b64decode(a['body']))})
+python_log=gzip.decompress((root/next(s['log'] for s in gate['steps'] if s['label']=='python')).read_bytes()).decode()
+front_log=gzip.decompress((root/next(s['log'] for s in gate['steps'] if s['label']=='frontend')).read_bytes()).decode()
+assert not re.search(r'\d+ skipped',python_log)
+summary={'phase':phase,'qualified':True,'commit':gate['commit'],'profile':gate['environment']['NEISTRA_PERFORMANCE'],'commands':len(gate['steps']),'python_passed':int(re.findall(r'(\d+) passed',python_log)[-1]),'frontend_passed':int(re.findall(r'Tests\s+(\d+) passed',front_log)[-1]),'browser':browser['stats'],'browser_cases':len(current),'browser_exclusions':len(skips(current)),'exclusions_equal_approved_base':True,'automatic_retries':0,'source_files':len(gate['source_before']),'source_unchanged':True,'logs_verified':True,'browser_sha256':hashlib.sha256(raw).hexdigest(),'performance_targets_measured':len(metrics),'strict_reference_timing_qualified':False,'power_samples':len(gate['power_samples']),'actual_readers':{name:json.loads((work/f'{name}.json').read_text()) for name in ['forward-produce','forward-read','reverse-produce','reverse-read']}}
+(out/f'{phase}-summary.json').write_text(json.dumps(summary,indent=2)+'\n')
+(out/f'{phase}-observations.json.gz').write_bytes(gzip.compress(json.dumps({'metrics':metrics,'attachments':attachments},indent=2).encode(),mtime=0))
+print(json.dumps({k:v for k,v in summary.items() if k!='actual_readers'},indent=2))

@@ -1,5 +1,16 @@
 # V0.1 Requirement Evidence
 
+## Issue #96 — Initial candidate diagnostic
+
+The initial clean `a66bf7c` [complete-gate attempt](assets/application-owned-viewer/c3-candidate1-gate.json)
+passes pre-browser steps (1262 Python,373 frontend,12 supervisor and static/build)
+but ends351 browser passes/1 failed/62 existing exclusions. The new mobile annotation
+observer reads a replacement engine before plugin mounting completes during a
+responsive remount. Full report, failure context/screenshot/trace remain diagnostic;
+actual readers did not run. A test-only readiness correction and fresh complete
+candidate qualification are required. No production/scientific policy/assertion/
+timeout/fixture/exclusion relaxation is authorized.
+
 ## Issue #96 — C2 lifecycle and scientific-display qualification
 
 Under D-149 and the [approved plan](plans/issue-96-application-owned-viewer.md),

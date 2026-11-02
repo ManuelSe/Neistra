@@ -104,10 +104,14 @@ test("retains molecular annotations through native tasks, rebuilds, remounts and
     await page.screenshot({ path: info.outputPath(`${theme}-owned-annotations.png`) });
   }
   const viewport = page.viewportSize()!;
-  await page.setViewportSize({ width: viewport.width > 840 ? 600 : 1100, height: viewport.height });
-  await settled();
-  await page.setViewportSize(viewport);
-  await settled();
+  const remount = async (size: { width: number; height: number }) => {
+    const mounts = await page.evaluate(() => window.interactionEngines.length);
+    await page.setViewportSize(size);
+    await expect.poll(() => page.evaluate(() => window.interactionEngines.length)).toBeGreaterThan(mounts);
+    await settled();
+  };
+  await remount({ width: viewport.width > 840 ? 600 : 1100, height: viewport.height });
+  await remount(viewport);
   const open = async (name: string) => {
     await page.getByRole("button", { name: "Projects", exact: true }).click();
     await page.getByRole("dialog", { name: "Projects" }).getByRole("button", { name: new RegExp(`^${name}`) }).click();

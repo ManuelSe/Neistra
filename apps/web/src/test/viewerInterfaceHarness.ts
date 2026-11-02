@@ -8,12 +8,15 @@ import type { MolstarEngine } from "../viewer/MolstarEngine";
 import type { ViewerStructure } from "../viewer/MolecularViewer";
 
 function native(engine: MolstarEngine) {
-  return engine as unknown as { plugin: PluginUIContext; syncQueue: Promise<void>; structures: ViewerStructure[] };
+  return engine as unknown as { plugin: PluginUIContext | undefined; syncQueue: Promise<void>; structures: ViewerStructure[] };
 }
 
 export async function inspectViewerAnnotations(engine: MolstarEngine) {
-  const { plugin, syncQueue } = native(engine);
-  await syncQueue;
+  const context = native(engine);
+  await context.syncQueue;
+  const { plugin } = context;
+  // A replacement engine is observable before its asynchronous mount completes.
+  if (!plugin) return [];
   const kinds = [
     ["distance", StateTransforms.Representation.StructureSelectionsDistance3D],
     ["angle", StateTransforms.Representation.StructureSelectionsAngle3D],
@@ -44,6 +47,7 @@ export async function rebuildViewerAppearance(engine: MolstarEngine) {
 
 export async function startNativeFeedback(engine: MolstarEngine) {
   const { plugin } = native(engine);
+  if (!plugin) throw new Error("Native qualification requires a mounted viewer.");
   await PluginCommands.Toast.Show(plugin, { key: "qualification", title: "Native toast qualification", message: "Must not mount native UI" });
   let release!: () => void;
   const pending = new Promise<void>(resolve => { release = resolve; });

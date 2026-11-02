@@ -1,0 +1,6 @@
+import subprocess
+commands=[['corepack','pnpm','--dir','apps/web',step] for step in ['lint','typecheck','test','build']]
+commands += [['.venv/bin/python','docs/assets/application-owned-viewer/versions.py.txt'],['git','diff','--check']]
+for command in commands:
+ print(command,flush=True)
+ subprocess.run(command,check=True)

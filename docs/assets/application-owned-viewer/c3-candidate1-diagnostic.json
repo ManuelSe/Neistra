@@ -1,0 +1,13 @@
+{
+  "qualified": false,
+  "browser": {
+    "startTime": "2026-11-02T20:59:17.567Z",
+    "duration": 3301233.174,
+    "expected": 351,
+    "skipped": 62,
+    "unexpected": 1,
+    "flaky": 0
+  },
+  "cause": "Annotation observer accessed a replacement engine before plugin mounting completed during responsive remount. No native UI or molecular assertion failed. Complete gate stops at failed browser step; actual readers not run.",
+  "source_unchanged": true
+}

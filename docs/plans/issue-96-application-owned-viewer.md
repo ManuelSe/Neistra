@@ -448,7 +448,7 @@ portable versus strict timing qualification; no new timing/power exclusions.
 | C0 | Approved planning persistence | User approval 2026-11-02; clean fast-forward-checked base above; planned branch created. This checkpoint contains the plan, decision and progress records only. Commit/push receipts are reported in the C0 handoff after verification. |
 | M1/C1 | Complete | 373 frontend tests, lint/types/build, license byte identity and 30 native browser passes / 10 existing layout exclusions; zero final failures/retries/flakes. See C1 evidence below. |
 | M2/C2 | Complete | 55 native browser passes / 7 existing exclusions, real WebGL failure 1 pass / 1 existing exclusion, 373 frontend and static/build gates; cold-cache annotation cases pass both layouts. |
-| M3/C3 | Not started | Final versions, compatibility, complete candidate gate and review. |
+| M3/C3 | In progress | Versions prepared; first full gate finds a test-observer remount race. Correct and requalify below. |
 | M4/C4 | Not started | Merge, exact-master gate, verified publication, issue close-out and cleanup. |
 
 **Current limitations:** complete candidate/master qualification remains;
@@ -541,3 +541,30 @@ The bounded, remotely verified image-export follow-up is
 worktree `/tmp/neistra96-reader-0260` is at tagged runtime `582617139527cf22dd7ec9514632b121a628959a`.
 Focused archive, complete candidate/actual-reader, full-diff review and exact-master
 qualification remain pending; no PR, tag or release is claimed at preparation.
+
+### M3/C3 candidate diagnostic and focused correction — 2026-11-02
+
+The clean `a66bf7c` candidate passes all pre-browser release steps: 1262 Python
+with zero skips, 373 frontend, 12 supervisor/policy and static/build checks. Its
+full browser invocation ends **351 passed / 1 failed / 62 existing exclusions**.
+[c3-candidate1-gate.json](../assets/application-owned-viewer/c3-candidate1-gate.json),
+full report and failed mobile trace are retained. This is not release qualification;
+the gate stops at browser failure before actual-reader steps.
+
+The new annotation observer dereferenced a newly created replacement engine while
+its asynchronous plugin mount was incomplete. The test now requires the actual
+replacement engine on each breakpoint crossing and polls until its four annotation
+representations exist. The observer returns an empty set while the plugin is absent;
+it does not catch render errors or weaken text/draw-count/state assertions. Native
+feedback stimulation still requires a mounted plugin. Production code, deadlines,
+scientific policies, fixture data and exclusions are unchanged. Focused validation
+and a fresh clean complete candidate gate are required before PR creation.
+
+Focused correction validation passes all373 frontend tests, lint/type-check/build,
+version/schema/dependency/license/production-harness exclusion and diff checks.
+[c3-remount-browser](../assets/application-owned-viewer/c3-remount-browser.json)
+passes all4 desktop/mobile native-interface and annotation cases, zero failures/
+flakes/retries. Exact replacement engines and all four annotations are required;
+source/log identities verify. Complete local review of this additional test-only
+diff finds no unresolved consequential issue. Commit the passing correction and
+retained diagnostic evidence, then run a fresh clean complete candidate gate.

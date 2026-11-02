@@ -21,11 +21,15 @@ portable mode; strict reference timing is not claimed. Review is local self-revi
 
 Known limits: annotation overlap and existing scientific limits are unchanged.
 Actual-reader compatibility and complete candidate/exact-master gates remain.
-All five versions now declare 0.26.2 in release preparation; 39 focused archive
-tests and version/dependency/schema/license audits pass. Image export is tracked
-in verified follow-up #128. Actual tagged reader worktree is ready. No feature
-PR/tag/release exists yet. Blockers: none. Next: clean committed final-candidate
-complete gate and two-way actual readers, followed by review/PR.
+All five versions declare0.26.2; 39 focused archive tests/audits pass. The first
+full candidate passes1262 Python/373 frontend/12 supervisor and static/build gates,
+then351 browser cases pass and one new mobile annotation test fails (62 existing
+exclusions). The retained trace identifies observation before replacement-plugin
+mount completion. Test-only explicit remount/readiness correction passes all4 focused desktop/mobile
+cases and373 frontend/static/build/audit checks;
+no production/assertion/deadline/fixture/exclusion change. No release qualification
+is claimed. Image export is follow-up#128. Blockers: none. Next: focused corrected
+checks, clean commit, then a fresh complete candidate gate and actual tagged readers.
 
 ### Previous delivery baseline — PR #126, unreleased 0.26.1
 

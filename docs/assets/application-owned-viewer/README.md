@@ -27,3 +27,15 @@ They require a clean initial tree, isolated stores, locked native tools, actual
 v0.26.0/current producer-reader processes, identical source hashes and lossless
 logs. Each phase has a fresh label and /tmp data; failed attempts are retained.
 Complete candidate/exact-master qualification and publication receipts are pending.
+
+- C3 candidate1 is diagnostic:1262 Python/373 frontend/12 supervisor/static/build
+  pass, browser351pass/1failure/62existing exclusions. Full report and failed mobile
+  trace/context/screenshot are retained. The annotation observer read a replacement
+  engine before asynchronous mount completion. Gate stops before actual readers;
+  it is not release qualification. A test-only readiness correction is requalified.
+
+- C3 remount correction:4/4 focused native cases and373 frontend/static/build/
+  version/schema/license/exclusion checks pass; source/log hashes verify. The new
+  test waits for each replacement engine and its annotations without changing
+  production code, assertions, timeouts, fixtures or exclusions. Fresh complete
+  candidate qualification remains required.
