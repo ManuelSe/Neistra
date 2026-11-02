@@ -1,0 +1,322 @@
+{
+  "head": "9fc84bb2a05c90edc7febdd1428f6717a0a56b8e",
+  "qualified": true,
+  "qualification_basis": "Complete unchanged-source coverage, with one externally interrupted test replayed unchanged. The initial full command failed and remains diagnostic; it is not represented as a clean invocation.",
+  "profile": "0",
+  "commands": 22,
+  "python_passed": 1261,
+  "frontend_passed": 370,
+  "supervisor_and_policy_passed": 12,
+  "browser_unique_passed": 348,
+  "browser_cases": 410,
+  "browser_exclusions": 62,
+  "initial_full_browser_stats": {
+    "startTime": "2026-11-02T18:20:31.548Z",
+    "duration": 4709941.699,
+    "expected": 347,
+    "skipped": 62,
+    "unexpected": 1,
+    "flaky": 0
+  },
+  "targeted_replay_stats": {
+    "startTime": "2026-11-02T19:45:28.616Z",
+    "duration": 14069.481,
+    "expected": 1,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "manual_targeted_replays": 1,
+  "automatic_retries": 0,
+  "resolved_case": [
+    "selection-minimization.spec.ts",
+    "minimizes same-entry captured selections with disposable preview and atomic Undo/Redo",
+    "mobile-chromium"
+  ],
+  "new_skips_relative_to_v0260": [
+    [
+      "selection-appearance.spec.ts",
+      "remembers coloring mode across panels and projects until reload",
+      "mobile-chromium"
+    ]
+  ],
+  "prior_exclusions_retained": 61,
+  "power_samples": 517,
+  "battery_discharging_samples": 467,
+  "entire_run_on_battery": false,
+  "sampling_gap": {
+    "seconds": 216.52553033828735,
+    "before": {
+      "at": 1793647828.7025352,
+      "/sys/class/power_supply/ucsi-source-psy-USBC000:002/online": "0",
+      "/sys/class/power_supply/AC0/online": "0",
+      "/sys/class/power_supply/ucsi-source-psy-USBC000:001/online": "0",
+      "/sys/class/power_supply/BAT0/status": "Discharging"
+    },
+    "after": {
+      "at": 1793648045.2280655,
+      "/sys/class/power_supply/ucsi-source-psy-USBC000:002/online": "1",
+      "/sys/class/power_supply/AC0/online": "1",
+      "/sys/class/power_supply/ucsi-source-psy-USBC000:001/online": "0",
+      "/sys/class/power_supply/BAT0/status": "Charging"
+    }
+  },
+  "interruption": "The Vite client reported server connection lost and automatically reloaded the document during minimization. Selection and panel reset. The recorded native job converged in 1.443 seconds with no error. Telemetry has a 216-second gap and AC/charging transition; isolated power causality is not claimed.",
+  "measured_reference_targets": 117,
+  "diagnostic_target_overruns": [],
+  "source_files": 588,
+  "sources_unchanged": true,
+  "steps": [
+    {
+      "phase": "initial",
+      "name": "uv",
+      "returncode": 0,
+      "seconds": 0.029173612594604492,
+      "log_sha256": "cd5105a811a4c5f9d6e65160a8a5b608376f3621d11e664038bd830baab596c9"
+    },
+    {
+      "phase": "initial",
+      "name": "pnpm",
+      "returncode": 0,
+      "seconds": 0.8318850994110107,
+      "log_sha256": "b718f112a006e64fee776c66cd00a93ea93ae168dc7c7af14a3a79cac5d22185"
+    },
+    {
+      "phase": "initial",
+      "name": "migration",
+      "returncode": 0,
+      "seconds": 1.068084716796875,
+      "log_sha256": "a65aaba1d288361248cfad53dee993528aa5c4bbd5accca186ae60e26f85c610"
+    },
+    {
+      "phase": "initial",
+      "name": "ruff",
+      "returncode": 0,
+      "seconds": 0.01591324806213379,
+      "log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "phase": "initial",
+      "name": "mypy",
+      "returncode": 0,
+      "seconds": 0.1739656925201416,
+      "log_sha256": "dc43c4a518c8b02be9b88992ec25413d8e874b5fe64eebf24c6e12d5007d2ccc"
+    },
+    {
+      "phase": "initial",
+      "name": "python",
+      "returncode": 0,
+      "seconds": 378.06712770462036,
+      "log_sha256": "64ad2ddf58b5781633f4b8ba0b5559ad539470b439798019e23840b7e9f640c6"
+    },
+    {
+      "phase": "initial",
+      "name": "lint",
+      "returncode": 0,
+      "seconds": 12.165685415267944,
+      "log_sha256": "557f08b022d8452367e4074a020fe1dc857b2487222b537cbaeafda0b9fa37b1"
+    },
+    {
+      "phase": "initial",
+      "name": "types",
+      "returncode": 0,
+      "seconds": 6.59955358505249,
+      "log_sha256": "f6edbe439e4e565710e801c657e765d6c07183f8be3ca8e67cd7e741ecc0fdbe"
+    },
+    {
+      "phase": "initial",
+      "name": "frontend",
+      "returncode": 0,
+      "seconds": 11.800609111785889,
+      "log_sha256": "c79c3cb594915aaecd3f9fce368a29ad9af44b4477bab7f3a8f541bc0d550128"
+    },
+    {
+      "phase": "initial",
+      "name": "supervisor",
+      "returncode": 0,
+      "seconds": 1.4980814456939697,
+      "log_sha256": "7e64fb67bc55cc84708a0250b93cd8918c54c4fd6fe5e0400126ecc9f43254b3"
+    },
+    {
+      "phase": "initial",
+      "name": "build",
+      "returncode": 0,
+      "seconds": 16.002243518829346,
+      "log_sha256": "f803ac6a52bb90d81558952c1367ceda5cf00b357df5ea3f914c339e0f5a8fb1"
+    },
+    {
+      "phase": "initial",
+      "name": "browser",
+      "returncode": 1,
+      "seconds": 4910.472660303116,
+      "log_sha256": "2d79c7dbc8d0c2eb27421b9bce3daa191b76b19d8d24f01ed10c01dac5ce090b"
+    },
+    {
+      "phase": "resolved",
+      "name": "browser",
+      "returncode": 0,
+      "seconds": 14.930205821990967,
+      "log_sha256": "80fcc47309326c62b726fea4dfca798dc0bbaab3191705fcbf1ba8b7ebd286ac"
+    },
+    {
+      "phase": "resolved",
+      "name": "forward-producer-migration",
+      "returncode": 0,
+      "seconds": 1.2360210418701172,
+      "log_sha256": "a65aaba1d288361248cfad53dee993528aa5c4bbd5accca186ae60e26f85c610"
+    },
+    {
+      "phase": "resolved",
+      "name": "forward-produce",
+      "returncode": 0,
+      "seconds": 3.2413535118103027,
+      "log_sha256": "6ab6f2e9ad9f4941816b283ba94da822fd1b979d49e19e564c52e3b15f972347"
+    },
+    {
+      "phase": "resolved",
+      "name": "forward-reader-migration",
+      "returncode": 0,
+      "seconds": 0.9211046695709229,
+      "log_sha256": "8bad3c53b492f15ad91e1b9941bfba0d6f8ae72f7d531a830167b86fbb729e9c"
+    },
+    {
+      "phase": "resolved",
+      "name": "forward-read",
+      "returncode": 0,
+      "seconds": 1.8633806705474854,
+      "log_sha256": "79beeb1c2513658b22818b85f07a85b7db047701155eed237587ceb3dda3cb41"
+    },
+    {
+      "phase": "resolved",
+      "name": "reverse-producer-migration",
+      "returncode": 0,
+      "seconds": 1.1347007751464844,
+      "log_sha256": "a65aaba1d288361248cfad53dee993528aa5c4bbd5accca186ae60e26f85c610"
+    },
+    {
+      "phase": "resolved",
+      "name": "reverse-produce",
+      "returncode": 0,
+      "seconds": 3.213160276412964,
+      "log_sha256": "c71d0d9dd7ef3e63f6d114697acb0fbc568803d85217a683c15b5f8755125b74"
+    },
+    {
+      "phase": "resolved",
+      "name": "reverse-reader-migration",
+      "returncode": 0,
+      "seconds": 0.9277424812316895,
+      "log_sha256": "8bad3c53b492f15ad91e1b9941bfba0d6f8ae72f7d531a830167b86fbb729e9c"
+    },
+    {
+      "phase": "resolved",
+      "name": "reverse-read",
+      "returncode": 0,
+      "seconds": 1.8276855945587158,
+      "log_sha256": "aae4fd11260b68acacb5819a0693094bdfd7109217c925ed1e882145df3c5440"
+    },
+    {
+      "phase": "resolved",
+      "name": "diff",
+      "returncode": 0,
+      "seconds": 0.00635528564453125,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "actual_readers": {
+    "forward": {
+      "reader": "0.26.1",
+      "reader_module": "/datadisk/dev/neistra/apps/api/src/molweave_api/main.py",
+      "producer": "0.26.0",
+      "entries": 2,
+      "exact_coordinates_and_originals": true,
+      "retained_batch_undo_redo": true,
+      "save_and_reexport": true,
+      "archive_import": true,
+      "archive_omits_history": true,
+      "original_jobs_unchanged": true,
+      "surface_objects_exact": true,
+      "scenes_exact": true,
+      "archive_surface_seed_remapping": true,
+      "surface_objects": 3,
+      "named_selections_exact": true,
+      "gesture_scene_exact": true,
+      "archive_selection_remapping": true,
+      "transient_anchor_absent": true,
+      "api_module": "/datadisk/dev/neistra/apps/api/src/molweave_api/main.py",
+      "core_module": "/datadisk/dev/neistra/packages/molweave_core/src/molweave_core/__init__.py",
+      "application_version": "0.26.1",
+      "implementation_root": "/datadisk/dev/neistra"
+    },
+    "reverse": {
+      "reader": "0.26.0",
+      "reader_module": "/tmp/neistra126-qualification/reader-0260/apps/api/src/molweave_api/main.py",
+      "producer": "0.26.1",
+      "entries": 2,
+      "exact_coordinates_and_originals": true,
+      "retained_batch_undo_redo": true,
+      "save_and_reexport": true,
+      "archive_import": true,
+      "archive_omits_history": true,
+      "original_jobs_unchanged": true,
+      "surface_objects_exact": true,
+      "scenes_exact": true,
+      "archive_surface_seed_remapping": true,
+      "surface_objects": 3,
+      "named_selections_exact": true,
+      "gesture_scene_exact": true,
+      "archive_selection_remapping": true,
+      "transient_anchor_absent": true,
+      "api_module": "/tmp/neistra126-qualification/reader-0260/apps/api/src/molweave_api/main.py",
+      "core_module": "/tmp/neistra126-qualification/reader-0260/packages/molweave_core/src/molweave_core/__init__.py",
+      "application_version": "0.26.0",
+      "implementation_root": "/tmp/neistra126-qualification/reader-0260"
+    }
+  },
+  "evidence_files": {
+    "resolved-gate.json.gz": {
+      "sha256": "5ef57c2d3132ac3338855342cf8819b4ff75d89ad31c883ce5924f0c652fb5a5",
+      "bytes": 59074
+    },
+    "candidate-browser.json.gz": {
+      "sha256": "57e77089f2fc6fc79d0a58403128abf123d877d54b3b33179690361b6b0f09e2",
+      "bytes": 536168
+    },
+    "interruption-diagnostic.json": {
+      "sha256": "ac824def459be7465557267633a49c328f8810d5df83a980f2b56922a49d50b8",
+      "bytes": 2786
+    },
+    "candidate-gate.json.gz": {
+      "sha256": "c37980b9aea77dfdbf37441d0fe4721dbceab75aa5e9030f31aebf242b557e9a",
+      "bytes": 35454
+    },
+    "candidate-logs.json.gz": {
+      "sha256": "4e06f468262c83e1937d08c6e0499904de551fab62f87d1289bad0a585c5c24b",
+      "bytes": 25746
+    },
+    "resolved-browser.json.gz": {
+      "sha256": "847f10a8a7f15ec87a9bb1a420922a1a179add577669691d25ac56362196855a",
+      "bytes": 1024
+    },
+    "interrupted-minimization-trace.zip": {
+      "sha256": "01b5452d0f97c2b8ba6a368e1b165a0ccb4eb41d03c99eb554c1a0f16d49ccc2",
+      "bytes": 2528292
+    }
+  },
+  "versions": {
+    "pyproject": "0.26.1",
+    "uv.lock": "0.26.1",
+    "web": "0.26.1",
+    "api": "0.26.1",
+    "archive": "0.26.1"
+  },
+  "prior_release": {
+    "tag": "v0.26.0",
+    "commit": "582617139527cf22dd7ec9514632b121a628959a",
+    "remote_refs": [
+      "f9b35e80937cf9b81917947d6d6531b7a8caed9e\trefs/tags/v0.26.0",
+      "582617139527cf22dd7ec9514632b121a628959a\trefs/tags/v0.26.0^{}"
+    ]
+  },
+  "qualifier_sha256": "892fe7fb8411fd0911dfb0694a1e8e1ed87fa71e15dbb3ebc47f2715fe916b37",
+  "continuation_qualifier_sha256": "2f9d72977c91d7608622d265edcb40fdff7cc0c09c9e29e5f716961a7148c432"
+}

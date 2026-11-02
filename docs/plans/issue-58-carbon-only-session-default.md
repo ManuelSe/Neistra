@@ -2,9 +2,10 @@
 
 ## 1. Status, metadata, and approved outcome
 
-**Status:** implemented and validated on the feature branch; publication pending
-pull-request review and merge. The user approved the proposal on 2026-10-30 and
-authorized implementation and pull-request delivery in the same instruction.
+**Status:** implementation and portable qualification verified. PR #126 is the
+authoritative remote integration record. No tag/release is published by this work.
+Section 12 records the user-approved qualification amendment and current evidence;
+the earlier host-failure/release preparation sections are historical.
 
 - **Issue:** [#58 — Make carbon-only coloring the default in the styling panel](https://github.com/ManuelSe/Neistra/issues/58).
 - **Issue metadata at planning:** open; created and last updated 2026-10-13 at
@@ -334,3 +335,41 @@ supervisor/policy tests, frozen installs, Ruff, mypy (102 files), frontend lint,
 type-check and production build pass. AC0 reports 0 and BAT0 Discharging during
 these checks. A final strict-boundary policy regression is included for C5.
 Full release validation remains pending; no merge or publication is claimed.
+
+
+### C5 complete — fixed-source portable qualification, 2026-11-02
+
+[Summary](../assets/portable-test-gates/candidate-summary.json) and
+[raw evidence index](../assets/portable-test-gates/README.md) identify source commit
+`9fc84bb2a05c90edc7febdd1428f6717a0a56b8e`. All 588 implementation/test/dependency
+identities match across qualification. Frozen installs, disposable 0014 migration,
+Ruff/mypy (102 files), frontend lint/types/build, 1,261 Python (zero skips), 370
+frontend and 12 supervisor/policy cases pass. Both actual tagged v0.26.0/current
+producer-reader directions pass. All five authoritative versions are 0.26.1.
+
+The full browser invocation executes 410 cases: 347 pass, 62 documented exclusions,
+and one mobile same-entry minimization case fails after a Vite reconnect causes
+an automatic document reload. The trace shows selection/panel reset; its native
+job converges in 1.443 seconds with no error. Telemetry records a 216-second gap
+followed by AC/charging. A targeted unchanged-source replay passes the complete
+case. Every non-excluded case has now passed: 348 unique cases, no automatic
+retries, one explicitly recorded manual replay. The failed full invocation is
+retained verbatim and is not described as a clean invocation.
+
+Qualification decision: an identified external interruption, followed by a
+successful exact-case replay with unchanged code, fixtures and assertions,
+resolves that case. Already passing coverage is retained; no failing behavior is
+waived and no unnecessary full repetition is substituted for diagnosis. This
+completes the user-requested merge qualification. A future release/tag remains
+outside this request and no exact-master release qualification is claimed here.
+
+Python/frontend/desktop and much mobile work ran on battery. All 517 recorded
+power samples are retained, including 467 discharging samples and the subsequent
+AC transition. The complete run is not claimed to be entirely on battery. No host
+power setting was changed. All 117 browser timing measurements remain in the
+report; original targets are opt-in reference qualification under D-148.
+
+Complete diff review found no consequential remaining implementation issue.
+Normal merge is authorized; required review/check/thread rules must still be
+rechecked before integration. Verify merged content against the qualified source
+and remove only obsolete task branches. Remote state is tracked in PR #126.

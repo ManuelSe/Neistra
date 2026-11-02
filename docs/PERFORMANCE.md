@@ -668,3 +668,19 @@ zero refetches and unmounted property table. Native cold small/pocket/18k
 0.949/2.114/3.879s, first frame 664.5ms, Cancel 58.1ms and every original budget pass.
 All 253 merged power samples retain AC online. These are regression measurements,
 not a host-causality or scientific-throughput claim.
+
+
+## Portable gate qualification — PR #126
+
+[Evidence](assets/portable-test-gates/README.md) records the full fixed-source
+suite and one unchanged replay resolving a Vite reconnect/document reload during
+a successful native calculation. Coverage is348 unique browser passes with 62
+documented exclusions;1,261 Python (no skips), 370 frontend and12 supervisor/policy
+cases pass. Both actual v0.26.0/current readers pass. Original source identities
+match and no timing/battery exclusion is added by the amendment.
+
+Power was sampled, not controlled: 467 discharging samples precede a 216s gap and
+later AC/charging. The run is not described as entirely on battery. All 117 browser
+measurements are retained; strict reference-host throughput is not claimed.
+The failed full invocation and successful exact-case replay remain separate in
+raw records; complete unique coverage is not mislabeled as a clean invocation.

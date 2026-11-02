@@ -1,6 +1,34 @@
 # V0.1 Requirement Evidence
 
-## Carbon-first selection coloring (issue #58) — candidate 0.26.1
+## Current issue #58 qualification — 2026-11-02
+
+The amended [contract](plans/issue-58-carbon-only-session-default.md), D-147 and
+D-148 govern. [Machine-readable summary](assets/portable-test-gates/candidate-summary.json)
+and [evidence index](assets/portable-test-gates/README.md) retain commands, source/
+log hashes, full browser results, interrupted trace and actual-reader outcomes.
+
+Fixed source `9fc84bb2a05c90edc7febdd1428f6717a0a56b8e`: 1,261 Python with no
+skips, 370 frontend, 12 supervisor/policy, frozen dependencies, disposable head 0014,
+Ruff/mypy 102 files, frontend lint/types/build, all five versions 0.26.1 and both
+actual v0.26.0/current reader directions pass. All 588 source identities match.
+
+Complete browser coverage: 348 unique passes, 62 documented exclusions. The full
+invocation itself returned347 passed/1 failed/62 excluded; a Vite reconnect and
+automatic reload cleared transient state during that case. The native calculation
+converged in 1.443s without error. Its exact unchanged-source replay passes. The
+initial failure is preserved, not relabeled as a clean invocation. No automatic
+retries or new timing/battery exclusions are introduced. Existing61 exclusions
+plus the original PR's desktop-only lifecycle case account for all 62.
+
+Power samples honestly record 467 discharging observations among 517, a 216s gap and
+later AC/charging. Python/frontend/desktop and much mobile work ran on battery;
+an entirely-on-battery full run is not claimed. No power settings changed. Normal
+correctness is independent of reference-host latency enforcement;117 browser
+measurements are retained. Strict qualification requires NEISTRA_PERFORMANCE=1.
+No production resource limit, scientific model, fixture or functional assertion
+was reduced. See the evidence for the complete interruption-resolution rationale.
+
+## Historical initial carbon-first candidate — 2026-10-30
 
 The [approved contract](plans/issue-58-carbon-only-session-default.md), D-147 and
 [styling guidance](SELECTION_STYLING.md) govern. This is an unmerged candidate on

@@ -5984,3 +5984,18 @@ Rationale: power saving and machine load change elapsed time without changing
 correctness. Controlled timing remains useful regression evidence; laptop power
 state must not determine whether a presentation fix can merge. No public API,
 scientific model, dependency, persisted schema or production resource policy change.
+
+
+### D-148 qualification note — PR #126, 2026-11-02
+
+The complete browser execution has one externally interrupted case: Vite's
+connection loss triggers a document reload during a native job that converges in
+1.443s. Power telemetry has a 216s gap followed by AC/charging; no isolated causal
+claim is made. Retain the failed command/trace. An unchanged-source exact-case
+replay passes; all other cases passed initially. Complete unique coverage plus
+this explicit resolution qualifies the merge, without suppressing failures,
+adding skips/automatic retries, changing scientific assertions or needlessly
+repeating already passing coverage. Report the mixed power conditions honestly.
+No source changes follow qualification beyond documentation/evidence. A release
+is outside the user's merge/cleanup request; no release gate or publication is
+claimed for an unexecuted merged-master run.

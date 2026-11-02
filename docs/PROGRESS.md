@@ -2,18 +2,32 @@
 
 ## Current milestone
 
-PR #126 qualification amendment (D-148), explicitly authorized 2026-11-02:
-separate portable correctness gates from opt-in reference-host latency targets;
-retain all workflows and scientific/resource/structural assertions. Work is on
-`fix/issue-58-carbon-only-session-default`; patch 0.26.1 remains planned.
-Implementation is complete. Focused resource/policy Python cases, real quick
-minimization browser cases, frontend 370, supervisor/policy 12, frozen installs,
-Ruff/mypy, frontend lint/types/build pass while AC0=0 / BAT0=Discharging. Full
-amended release gate, review, normal merge, merged-state verification and branch
-cleanup remain. Existing timing-failure records below are historical; D-148
-supersedes their requirement for a quiet AC-powered qualification host.
+PR [#126](https://github.com/ManuelSe/Neistra/pull/126): carbon-first coloring and
+portable correctness qualification are verified under D-147/D-148 and the amended
+[issue #58 plan](plans/issue-58-carbon-only-session-default.md). Remote integration
+is tracked in the PR; version 0.26.1 remains unreleased.
 
-### Prior milestone record
+Completed: App-owned runtime coloring mode and controlled props; portable timing
+policy with strict opt-in; finite readiness waits; independent test-only memory
+and deadline fixtures; documentation and auditable evidence. Production science,
+resource limits, dependencies and persisted/API schemas are unchanged.
+
+Verification: frozen installs, disposable migration, Ruff/mypy, frontend lint/
+types/build, **1,261 Python (zero skips), 370 frontend, 12 supervisor/policy** and
+both actual v0.26.0/current readers pass. Browser coverage is **348 unique passed /
+62 documented exclusions**: the initial full invocation has 347 passes and one
+external-reload interruption; that exact case passes unchanged on replay. No
+automatic retries or new timing/battery exclusions. All 588 source identities
+match. [Evidence](assets/portable-test-gates/README.md) preserves both reports and
+the interrupted trace rather than calling the first invocation clean.
+
+Known limits: strict reference-host throughput is not qualified. Python/frontend/
+desktop and much mobile coverage ran on battery; telemetry records 467 discharging
+samples, a 216s gap, and later AC charging. The full run is not claimed to be
+entirely on battery. No host setting, production budget or chemistry was changed.
+
+### Historical pre-amendment candidate record
+
 
 Issue [#58](https://github.com/ManuelSe/Neistra/issues/58) is implemented under its
 [approved contract](plans/issue-58-carbon-only-session-default.md) and D-147 on
@@ -2984,21 +2998,15 @@ Results:
 
 ## Blockers
 
-The complete browser gate does not pass on this development host. It reports 310
-passed, 34 failed and 62 skipped; all 34 failures are wall-clock budget,
-native-minimization latency or bounded-capacity tests that reproduce on the
-unmodified base, with a matched like-for-like re-run producing identical results
-on base and candidate. A passing complete gate on a quiet machine, pull-request
-review, merge, and an exact merged-master gate remain required before a tag or
-release. Native execution of the documented commands on this host is separately
-blocked by glibc 2.31; the pinned container images are the supported workaround
-and change no locked dependency.
+No implementation or unresolved validation blocker remains for the requested
+merge. The external-reload interruption has an unchanged successful replay and
+is retained in the evidence. Required remote checks/reviews/threads still govern
+normal integration; strict reference-host timing and release publication are
+separate from the user's merge request.
 
 ## Next action
 
-Open the pull request documenting implemented, simplified, deferred and rejected
-issue #58 requirements, the patch 0.26.1 SemVer rationale, and the unqualified
-complete browser gate with its base-reproduced evidence. Review the complete
-diff. A maintainer must run the complete browser gate on a quiet host before
-merge. Create the annotated `v0.26.1` tag and release only from the verified
-merged `master` commit.
+PR #126 is the authoritative integration/cleanup record. Use the verified source
+for normal integration and confirm merged content identity. Further product work
+or release publication requires its own requested scope; reference timing remains
+available explicitly with NEISTRA_PERFORMANCE=1.

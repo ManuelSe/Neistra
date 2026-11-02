@@ -1,67 +1,34 @@
 # Neistra Release Notes
 
-## 0.26.1 - 2026-10-30 - Carbon-first selection coloring
+## 0.26.1 — Unreleased — Carbon-first coloring and portable test gates
 
-**Release status:** candidate on `fix/issue-58-carbon-only-session-default`, based
-on released v0.26.0 at `d8544d494a11e05a11883a2cb0df4e9cef43b15f`. Nothing is
-published; the annotated tag and release follow a verified merged `master` commit.
+[PR #126](https://github.com/ManuelSe/Neistra/pull/126) addresses issue #58.
+**Carbon only** is selected when the application mounts. Explicit mode choices
+are remembered immediately across palette/selection/project changes and responsive
+remounts, then reset on reload. All atoms, custom colors, reset, rendering and
+undo/redo retain existing behavior. The mode stays transient App state.
 
-**Highlights.** [Issue #58](https://github.com/ManuelSe/Neistra/issues/58) makes
-**Carbon only** the coloring mode when the application starts, so a chosen color
-applies to selected carbon while heteroatoms keep conventional element colors.
-**All atoms** remains available and behaves exactly as before. Following explicit
-user guidance, an intentional mode choice is also remembered for the current
-application runtime: it survives closing and reopening the styling palette,
-changing the selection, responsive viewer remounts and switching projects.
-Reloading the page mounts a fresh application and restores Carbon only.
+The user-approved D-148 amendment separates portable correctness from reference-
+host timing: default tests execute every workflow and retain measurements, while
+NEISTRA_PERFORMANCE=1 enforces original latency targets. Invalid profiles and
+invalid measurements fail. Scientific/state/resource/request/DOM/memory assertions
+remain mandatory. Test readiness has generous finite waits; the memory fixture
+has an independent test-only deadline. Production limits and chemistry are unchanged.
 
-**Ownership and scope.** The mode is one typed value in `App` state, threaded as
-required props through the workspace, viewer, styling dialog and color controls.
-The control is now controlled for the mode and keeps only its transient
-custom-color draft. The mode is deliberately not stored in browser storage,
-project state, scenes, history, archives or the API, so it cannot become a
-durable user or scientific preference. All atoms continues to omit `color_mode`
-from the appearance request. Element overrides, custom color, reset, undo/redo,
-rendering and scientific interpretation are unchanged. Per-project modes,
-additional color schemes, opacity, labels and presets remain out of scope.
+Qualification: 1,261 Python (zero skips), 370 frontend, 12 supervisor/policy and both
+actual v0.26.0/current readers pass, alongside frozen installs, migration,
+lint/type/build and version checks. Browser coverage is 348 unique passes with 62
+documented exclusions. The full command had one external-reload interruption;
+the exact unchanged-source replay passes. Both attempts and the trace are retained.
+Power samples show battery use followed by AC charging; a wholly battery-powered
+full run and strict reference-host throughput are not claimed.
 
-**Data, migrations and compatibility.** Patch increment from 0.26.0 for a
-compatible presentation correction. No dependency upgrade, database migration,
-molecular/schema rewrite, HTTP/job/plugin or scientific-model change: Alembic
-0014, project/viewer/archive 2 and normalized/selection/component 1 remain.
-All five authoritative version sources advance together, and the archive
-round-trip producer matrix additionally accepts `0.26.0`. Rolling back to 0.26.0
-requires no conversion or schema downgrade and restores the previous default.
-
-**Verification.** Passing on the candidate: 9 + 1,242 Python tests with zero
-skips, ruff, mypy across 102 source files, 370 frontend tests, 8 supervisor
-tests, frontend lint, TypeScript, the production build, and the focused
-`selection-appearance.spec.ts` browser file (6 passed, 2 intentional mobile
-layout skips) including the new reopen/project-switch/reload workflow.
-Fail-first component tests reproduced the previous all-atoms default before the
-fix. Commands ran in pinned container images because this host's glibc 2.31
-cannot load the locked Rollup binary or the `openmm==8.4.0` wheel; the locked
-AmberTools 24.8 prefix was configured so no native scientific test skipped. The
-Python suite runs as two invocations because one parameterized native
-resident-memory deadline case intermittently reports `wall_time_exceeded` under
-full concurrent load on this host; both orderings pass in isolation and no
-source, threshold, plugin budget or assertion was changed.
-
-The complete browser gate **does not pass on this development host** and is not
-claimed: 310 passed, 34 failed, 62 skipped in 2.1 hours. All 34 failures are
-wall-clock budget, native-minimization latency or bounded-capacity tests, and
-none touches selection coloring. The same eleven spec files on the stashed-clean
-base produced 29 failed / 42 passed / 15 skipped, and a matched re-run of the
-four divergent files produced an identical 4 failed / 13 passed on both base and
-candidate, with `release-hardening` reporting 5,185 ms against its 5,000 ms
-budget on the unmodified base. The host carried an unrelated sustained load
-(average about 50 on 72 cores, swap exhausted, root filesystem 96% full);
-`PERFORMANCE.md` treats these budgets as pinned-host regression gates. A passing
-complete gate on a quiet machine and an exact merged-master repetition remain
-required merge blockers. Review is implementer self-review; independent review is
-not claimed. Scope, dispositions and blockers are recorded in the
-[feature plan](plans/issue-58-carbon-only-session-default.md) and
-[D-147](DECISIONS.md#d-147--carbon-first-selection-coloring-uses-application-session-memory).
+Patch increment from 0.26.0. All five authoritative versions agree. No dependency,
+API/job/plugin, scientific-model, persisted-schema or migration change. Alembic 0014
+and existing schema versions remain. No original issue requirement is deferred,
+simplified or rejected. See the [plan](plans/issue-58-carbon-only-session-default.md)
+and [evidence](assets/portable-test-gates/README.md). No tag/release is published
+by this merge/cleanup work; the PR tracks remote integration.
 
 ## 0.26.0 - 2026-10-28 - Workspace protein sequences
 
