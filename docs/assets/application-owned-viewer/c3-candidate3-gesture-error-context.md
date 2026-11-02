@@ -1,0 +1,110 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - button "Projects" [ref=e5] [cursor=pointer]:
+      - generic [ref=e7] [cursor=pointer]: Neistra
+    - button "Selection gestures 1793660981583 Unsaved changes" [ref=e8] [cursor=pointer]:
+      - generic [ref=e9] [cursor=pointer]: Selection gestures 1793660981583
+    - generic [ref=e11]:
+      - button "Project browser" [ref=e12] [cursor=pointer]:
+        - img [ref=e13] [cursor=pointer]
+      - button "History" [ref=e18] [cursor=pointer]:
+        - img [ref=e19] [cursor=pointer]
+      - button "Inspector" [ref=e23] [cursor=pointer]:
+        - img [ref=e24] [cursor=pointer]
+      - button "Import structures" [ref=e26] [cursor=pointer]:
+        - img [ref=e27] [cursor=pointer]
+      - button "Export" [ref=e30] [cursor=pointer]:
+        - img [ref=e31] [cursor=pointer]
+      - button "Jobs" [ref=e37] [cursor=pointer]:
+        - img [ref=e38] [cursor=pointer]
+      - 'button "Undo: Update viewer settings for string" [ref=e42] [cursor=pointer]':
+        - img [ref=e43] [cursor=pointer]
+      - button "Redo" [disabled] [ref=e46]:
+        - img [ref=e47]
+      - button "Save checkpoint" [ref=e50] [cursor=pointer]:
+        - img [ref=e51] [cursor=pointer]
+      - button "Use dark theme" [ref=e55] [cursor=pointer]:
+        - img [ref=e56] [cursor=pointer]
+  - main [ref=e59]:
+    - generic [ref=e60]:
+      - generic [ref=e61]:
+        - region "3D molecular viewer" [ref=e62]
+        - generic:
+          - status:
+            - generic: 1 visible / 1 loaded / 1 selected
+          - toolbar "Viewer quick actions" [ref=e70]:
+            - generic [ref=e71]: Pick
+            - generic [ref=e72]:
+              - generic [ref=e73]: Viewer picking mode
+              - combobox "Viewer picking mode" [ref=e74]:
+                - option "Atom" [selected]
+                - option "Residue"
+                - option "Chain"
+                - option "Structure"
+            - group "Viewer focus actions" [ref=e75]:
+              - button "Fit all visible" [ref=e76] [cursor=pointer]:
+                - img [ref=e77] [cursor=pointer]
+              - button "Focus selection" [ref=e78] [cursor=pointer]:
+                - img [ref=e79] [cursor=pointer]
+              - button "Focus visible ligands" [ref=e85] [cursor=pointer]:
+                - img [ref=e86] [cursor=pointer]
+              - button "Style selection" [ref=e89] [cursor=pointer]:
+                - img [ref=e90] [cursor=pointer]
+              - button "Interactions" [ref=e96] [cursor=pointer]:
+                - img [ref=e97] [cursor=pointer]
+          - group "Molecular tools" [ref=e102]:
+            - region "Transformation tools" [ref=e103]:
+              - button "Transform selection" [ref=e104] [cursor=pointer]:
+                - img [ref=e105] [cursor=pointer]
+            - button "Edit molecule" [ref=e111] [cursor=pointer]:
+              - img [ref=e112] [cursor=pointer]
+            - button "Minimize selection" [ref=e116] [cursor=pointer]:
+              - img [ref=e117] [cursor=pointer]
+        - button "Open viewer controls" [ref=e120] [cursor=pointer]:
+          - img [ref=e121] [cursor=pointer]
+      - region "Protein sequence viewer" [ref=e125]:
+        - generic [ref=e126]:
+          - button "Collapse sequences" [expanded] [ref=e127] [cursor=pointer]:
+            - img [ref=e128] [cursor=pointer]
+          - generic [ref=e130]: Sequence
+          - generic [ref=e131]: 2 chains
+          - button "Hide sequences" [ref=e132] [cursor=pointer]:
+            - img [ref=e133] [cursor=pointer]
+        - list "Displayed protein chains" [ref=e137]:
+          - generic [ref=e138]:
+            - listitem [ref=e139]:
+              - generic [ref=e140]:
+                - generic "string · chain A" [ref=e141]:
+                  - generic [ref=e142]: string
+                  - generic [ref=e143]: Chain A
+                - list "Residues · chain A in string" [ref=e145]:
+                  - listitem [ref=e146]:
+                    - button "GLY 10 · chain A in string" [pressed=mixed] [ref=e147] [cursor=pointer]:
+                      - generic [ref=e148] [cursor=pointer]: G
+                      - generic [ref=e149] [cursor=pointer]: "10"
+                  - listitem [ref=e150]:
+                    - button "GLY 10A · chain A in string" [ref=e151] [cursor=pointer]:
+                      - generic [ref=e152] [cursor=pointer]: G
+                      - generic [ref=e153] [cursor=pointer]: 10A
+                  - listitem [ref=e154]:
+                    - button "GLY 24 · chain A in string" [ref=e155] [cursor=pointer]:
+                      - generic [ref=e156] [cursor=pointer]: G
+                      - generic [ref=e157] [cursor=pointer]: "24"
+                  - listitem [ref=e158]:
+                    - button "GLY 3 · chain A in string" [ref=e159] [cursor=pointer]:
+                      - generic [ref=e160] [cursor=pointer]: G
+                      - generic [ref=e161] [cursor=pointer]: "3"
+            - listitem [ref=e162]:
+              - generic [ref=e163]:
+                - generic "string · chain B" [ref=e164]:
+                  - generic [ref=e165]: string
+                  - generic [ref=e166]: Chain B
+                - list "Residues · chain B in string" [ref=e168]:
+                  - listitem [ref=e169]:
+                    - button "ALA 10 · chain B in string" [ref=e170] [cursor=pointer]:
+                      - generic [ref=e171] [cursor=pointer]: A
+                      - generic [ref=e172] [cursor=pointer]: "10"
+```

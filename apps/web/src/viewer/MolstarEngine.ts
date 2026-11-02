@@ -331,10 +331,16 @@ export class MolstarEngine implements MolecularViewer {
         });
       },
     );
+    let gestureCamera = JSON.stringify(plugin.canvas3d.camera.getSnapshot());
     let publishedCamera: CameraState | null = null;
     this.cameraSubscription = plugin.canvas3d.camera.changed.subscribe(() => {
-      this.doubleClicks.clear();
       const snapshot = plugin.canvas3d!.camera.getSnapshot();
+      const nextGestureCamera = JSON.stringify(snapshot);
+      // Projection jitter emits native camera events without moving the camera.
+      if (nextGestureCamera !== gestureCamera) {
+        this.doubleClicks.clear();
+        gestureCamera = nextGestureCamera;
+      }
       if (this.movementCamera && ["position", "target", "up"].some(key =>
         (snapshot[key as "position"] as number[]).some((value, axis) => value !== this.movementCamera![key as "position"][axis]))) {
         this.setCamera(this.movementCamera);

@@ -6105,3 +6105,21 @@ and invalidation remain immediate; no stale engine can accept new application
 work. No renderer/state/API/schema ownership change is introduced. Real responsive
 and project teardown tests must assert the React warning is absent. This corrects
 the earlier intended cleanup ordering without suppressing React diagnostics.
+
+### D-149 native camera-event qualification correction — 2026-11-03
+
+Candidate qualification exposes a missed native double-click expansion. The pinned
+renderer emits camera.changed for projection-only multisampling jitter as well
+as physical camera changes. The adapter previously cleared transient double-click
+history for every such event, although its existing hover invalidation already
+distinguishes unchanged application camera state. A deterministic native regression
+reproduces the expansion failure with two actual projection updates/events and
+byte-for-byte equal physical camera snapshots; it retains trusted native input
+and exact complete-residue/individual-ligand membership assertions.
+
+Compare the full physical SDK camera snapshot before invalidating double-click
+history. Real camera changes, native drag/wheel, scene rebuilds, modes and existing
+lifecycle invalidation still clear it. Projection jitter changes no molecular,
+selection, camera, schema or API authority. This is a narrow interaction-preservation
+repair required by #96's acceptance contract, not a renderer upgrade or gesture
+feature expansion. No deadline, fixture, scientific policy or exclusion is relaxed.

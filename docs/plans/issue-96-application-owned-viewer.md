@@ -597,3 +597,55 @@ The additional complete diff is reviewed locally, including lazy mount cancellat
 and idempotent/failure cleanup. The initial unit failure and minor lint correction
 remain diagnostic evidence. Commit this coherent runtime repair, then start a
 fresh clean complete candidate gate; no PR/tag/release is claimed yet.
+
+### M3/C3 camera-event regression — 2026-11-03
+
+Candidate3 completes **351 browser passes / 1 failure / 62 existing exclusions**;
+all pre-browser steps pass1262 Python/374 frontend/12 supervisor/static/build.
+Both new native-interface/annotation/cleanup cases pass desktop and mobile. The
+remaining failure is the existing mobile light-theme native double-click case:
+only the picked atom remains selected instead of the full residue. Trace/report/
+screenshot/context are retained; there is no unexpected reload. The full gate is
+not qualified and stops before actual readers.
+
+Inspection finds unconditional double-click invalidation on camera.changed,
+including native projection jitter. A deterministic regression performs actual
+subpixel projection updates before the trusted dblclick reaches the adapter.
+[Evidence](../assets/application-owned-viewer/c3-jitter-fail-first-evidence.json)
+proves2 updates/2 native events and exactly equal physical snapshots, while the
+old adapter fails the unchanged complete-membership assertion. This reproduces
+the failure mode; the original uninstrumented trace does not itself identify the
+specific camera event. The first regression invocation is a cold dependency-scan
+navigation diagnostic, not the fail-first proof. The existing development-only
+qualification HTML now exposes the harness to Vite's scan; production excludes it.
+
+D-149 records the correction: compare full physical camera snapshots before
+clearing transient double-click history. Physical movement/drag/wheel and scene/
+mode/lifecycle invalidation remain. No new gesture/scientific algorithm, renderer
+pin/patch, fixture, assertion/deadline or exclusion change. All374 frontend and
+static/build/version/schema/license audits pass. Focused cold-cache native checks
+and a fresh clean complete candidate remain required.
+
+Actual detached tagged v0.26.0/current0.26.2 producer/readers now pass both ways in
+[a separate preflight](../assets/application-owned-viewer/c3-reader-preflight-results.json),
+with explicit module-root/version assertions. Originals/coordinates, retained
+batch history, named selections/scenes/surface identities, generic jobs and archive
+remapping pass; no schema downgrade/data stripping. Complete-gate readers still
+repeat on final clean candidate and exact merged master before publication.
+
+The corrected camera-event checkpoint passes all374 frontend/static/build/version/
+schema/license/production-exclusion checks and **28 native cases / 8 existing
+layout exclusions** after clearing generated Vite optimization cache. Zero final
+failures/flakes/retries; source/log hashes verify. All4 desktop/mobile and both-theme
+projection-jitter records prove2 true updates/2 events/equal full snapshots while
+exact native residue/ligand expansion succeeds. Hover, camera/navigation, WebGL
+failure, annotations/tasks/remounts/projects and zero React root warnings pass.
+[Summary](../assets/application-owned-viewer/c3-jitter-summary.json) retains the
+four positive records; fail-first/raw reports/traces remain separate diagnostics.
+
+The complete additional diff is reviewed locally: only full physical camera
+snapshot changes invalidate gesture history; drag/wheel/scene/mode/lifecycle guards
+remain. No canonical model, membership/math, API/schema/migration/renderer pin,
+fixture/deadline or exclusion change. Actual reader preflight passes both ways.
+Commit the coherent passing repair, then run a fresh clean complete candidate gate
+before PR creation. No independent approval, tag or release is claimed.

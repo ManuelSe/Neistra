@@ -1,8 +1,43 @@
 import { Vec2 } from "molstar/lib/mol-math/linear-algebra";
+import { Camera } from "molstar/lib/mol-canvas3d/camera";
 import type { Loci } from "molstar/lib/mol-model/loci";
 import type { PluginUIContext } from "molstar/lib/mol-plugin-ui/context";
 import type { AtomReference } from "../api/types";
 import type { MolstarEngine } from "../viewer/MolstarEngine";
+
+interface ProjectionJitterEvidence {
+  updates: boolean[];
+  cameraEvents: number;
+  before: Camera.Snapshot;
+  after: Camera.Snapshot;
+}
+const projectionJitter = new WeakMap<MolstarEngine, ProjectionJitterEvidence>();
+
+/** Real projection-only camera updates between native clicks and dblclick. */
+export function installProjectionJitterOnDoubleClick(engine: MolstarEngine, canvas: HTMLCanvasElement) {
+  const native = engine as unknown as { plugin: PluginUIContext };
+  canvas.addEventListener("dblclick", () => {
+    const camera = native.plugin.canvas3d!.camera;
+    const saved = { ...camera.viewOffset };
+    const evidence: ProjectionJitterEvidence = { updates: [], cameraEvents: 0,
+      before: camera.getSnapshot(), after: camera.getSnapshot() };
+    projectionJitter.set(engine, evidence);
+    const subscription = camera.changed.subscribe(() => { evidence.cameraEvents++; });
+    try {
+      Camera.setViewOffset(camera.viewOffset, camera.viewport.width, camera.viewport.height,
+        0.25, 0, camera.viewport.width, camera.viewport.height);
+      camera.viewOffset.enabled = true;
+      evidence.updates.push(camera.update());
+    } finally {
+      Object.assign(camera.viewOffset, saved);
+      evidence.updates.push(camera.update());
+      evidence.after = camera.getSnapshot();
+      subscription.unsubscribe();
+    }
+  }, { capture: true, once: true });
+}
+
+export function projectionJitterEvidence(engine: MolstarEngine) { return projectionJitter.get(engine); }
 
 /** Read the real native pick raster near a projected atom after viewport resize.
  * A floating projected center need not be a pickable raster sample. This only

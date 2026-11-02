@@ -1,5 +1,24 @@
 # V0.1 Requirement Evidence
 
+## Issue #96 — Native camera-event correction and actual readers
+
+Candidate3 passes351 native cases with one existing mobile double-click failure
+and62 unchanged exclusions; pre-browser1262 Python/374 frontend/12 supervisor and
+static/build pass. Both new lifecycle cases pass both layouts. This full attempt
+remains diagnostic. A deterministic native projection-jitter regression fails the
+old adapter with2 updates/2 native events, identical physical snapshots and trusted
+clicks. The adapter now invalidates gesture history only on physical camera change;
+D-149 records the narrow preservation correction. Original traces cannot identify
+the exact original camera event. Cold dependency-scan navigation remains separate.
+
+Actual [tagged/current reader preflight](assets/application-owned-viewer/c3-reader-preflight-results.json)
+passes both ways with explicit roots/versions, originals/coordinates, batch history,
+named selections/scenes/surface identities, jobs and archive remapping. All374
+frontend/static/build/audits and focused cold native28pass/8existing exclusions
+pass. All4 theme/layout jitter records prove2 updates/2 events/equal physical
+snapshots with exact native expansion. Source/log hashes verify; zero failures/
+flakes/retries. Complete candidate/exact-master gates remain required.
+
 ## Issue #96 — Nested-root cleanup review correction
 
 The retained candidate1 mobile trace exposes React's nested-root unmount warning.

@@ -53,3 +53,19 @@ Complete candidate/exact-master qualification and publication receipts are pendi
   failure feedback. All source/log identities verify. Initial lint attempt remains
   diagnostic. Full-diff review of the repair has no unresolved consequential finding;
   a fresh clean complete candidate gate is still required.
+
+- C3 candidate3:351pass/1existing gesture failure/62existing exclusions; all other
+  native UI/annotation/cleanup cases pass both layouts. Full report/failure trace/
+  screenshot/context are diagnostic. Actual projection-jitter fail-first2 proves
+  2 updates/2 native events with equal camera snapshots; old complete-membership
+  assertion fails. Initial fail-first attempt is a cold-scan navigation diagnostic.
+- c3-reader-preflight-results.json retains actual tagged/current producer/readers
+  both ways; original/state/history/jobs/surface/selection/archive checks pass.
+  Exact recipe/script/command/source/log evidence is retained; full gates repeat it.
+
+- c3-jitter-summary.json:374 frontend/static/build/audits,28 native/8existing
+  exclusions after clearing generated Vite cache, zero final failures/flakes/retries.
+  Four theme/layout positive jitter records prove actual projection updates and
+  native events preserve physical snapshots and complete trusted-input expansion.
+  Hover/controls/WebGL/annotations/lifecycle/root-warning checks pass. Source/log
+  identities verify. Complete final candidate/master gates remain required.

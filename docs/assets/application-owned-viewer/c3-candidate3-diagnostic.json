@@ -1,0 +1,12 @@
+{
+  "qualified": false,
+  "browser": {
+    "startTime": "2026-11-02T22:24:24.761Z",
+    "duration": 3237419.364,
+    "expected": 351,
+    "skipped": 62,
+    "unexpected": 1,
+    "flaky": 0
+  },
+  "failure": "Mobile light native double-click retained only the picked atom instead of the complete residue. No unexpected reload is present. Both native-interface/annotation/cleanup cases pass both layouts. Camera-event handling is being investigated with a deterministic regression; actual readers did not run."
+}

@@ -34,8 +34,15 @@ the order; one microtask now completes root cleanup before context disposal.
 Five mount tests, all374 frontend/static/build/audits and focused native5pass/1
 existing exclusion now pass, including zero React root warnings. Full qualification
 of this runtime repair remains pending. No release qualification
-is claimed. Image export is follow-up#128. Blockers: none. Next: focused corrected
-checks, clean commit, then a fresh complete candidate gate and actual tagged readers.
+is claimed. Candidate3 ends351 browser passes/1existing gesture failure/62exclusions;
+both native UI/annotation/cleanup cases pass both layouts. Deterministic actual
+projection jitter reproduces double-click invalidation despite unchanged physical
+camera state. The adapter now compares full camera snapshots;374 frontend/static/
+build/audits pass, cold native qualification passes28 cases/8existing exclusions, including four
+both-theme/layout projection-jitter records with identical physical snapshots. Actual tagged0.26.0↔0.26.2
+reader preflight passes both directions with originals/state/history/jobs/archive
+remapping intact. Image export is follow-up#128. Blockers: none. Next: focused
+camera/gesture correction, passing commit and fresh clean complete candidate gate.
 
 ### Previous delivery baseline — PR #126, unreleased 0.26.1
 
