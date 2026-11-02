@@ -1,6 +1,64 @@
 # Neistra Release Notes
 
-## 0.26.1 — Unreleased — Carbon-first coloring and portable test gates
+## 0.26.2 — Release candidate — Application-owned viewer interface
+
+**Status:** release preparation; complete candidate and exact merged-master
+qualification, review and publication remain pending. No tag/release is claimed.
+
+**Highlights and fixes.** [Issue #96](https://github.com/ManuelSe/Neistra/issues/96)
+removes native viewport buttons/settings, hover-information text, notifications,
+task/drag overlays and logo through a minimal canvas composition. Neistra's own
+controls, warning/error/status and job/surface/minimization feedback remain.
+The existing orientation axes stay by explicit user guidance. Molecular labels,
+measurements, interaction markers, hover highlighting, selection, camera navigation
+and previews retain the existing renderer and canonical state owners. Scene-loading
+feedback spans rendering; obsolete completion/errors cannot replace active feedback.
+Failed/late mounts clean up the owned React root and plugin resources. Obsolete
+native CSS/DOM observers and popup-clearance code are removed. Complete Mol*
+licensing/attribution ships outside the viewer at `/licenses/molstar.txt` and in
+[third-party notices](THIRD_PARTY_NOTICES.md).
+
+**Scope and follow-up.** Native screenshot/settings entry points deliberately
+disappear. Application-owned image export is separately tracked in
+[#128](https://github.com/ManuelSe/Neistra/issues/128). Automatic parity with every
+native function is rejected; no new hover-information overlay, advanced renderer,
+fullscreen/XR/animation panel or snapshot format is introduced. Detached
+presentation #97, warning inspection #98 and pinned renderer-patch maintenance
+#107 remain independent. No essential approved outcome is deferred.
+
+**Persisted data, migration and compatibility.** Patch 0.26.2 follows the current
+unreleased 0.26.1 source version and the latest published v0.26.0. The correction
+changes presentation ownership, not supported scientific capabilities or public
+contracts. All five authoritative versions agree. No dependency upgrade, new
+migration, HTTP/job/plugin or scientific-model change: Alembic0014,
+project/viewer/archive2 and normalized/selection/component1 remain. Original
+uploads, molecular data, history, selections, scenes, surfaces and jobs retain
+existing contracts. Rollback uses compatible matching application components and
+a complete managed-store backup; no data stripping or schema downgrade is needed.
+Actual tagged v0.26.0/final 0.26.2 producer/readers must qualify both directions.
+
+**Inherited unreleased changes.** This release also includes PR #126's carbon-first
+coloring and application-runtime mode memory, plus D-148's portable correctness
+profile. The original reference timing targets remain opt-in with
+`NEISTRA_PERFORMANCE=1`; production scientific/resource/deadline policies remain
+mandatory and unchanged. No separate v0.26.1 publication is required.
+
+**Verification.** C1 passes 373 frontend and 30 native browser cases / 10 existing
+exclusions; C2 passes 55 native cases / 7 exclusions, actual WebGL failure 1 / 1,
+373 frontend, static/build checks and two-layout cold-cache annotation/lifecycle
+qualification. Final source hashes remain unchanged; zero final failures/flakes/
+retries. Exact database/original/camera invariants, real task/toast suppression,
+annotation text/draw counts, both themes, native picking/surfaces/movement and
+actual 100%/200%zoom are covered. Final complete gate/reader evidence will be
+recorded in the [feature plan](plans/issue-96-application-owned-viewer.md).
+Review so far is implementer self-review, not independent approval.
+
+**Known limitations.** Existing scientific interpretation, annotation placement/
+overlap, supported browser/rendering and capacity limits remain. These checks
+preserve annotation rendering; they do not add label collision avoidance.
+Portable qualification does not claim strict reference-host throughput.
+
+## 0.26.1 — Included in 0.26.2 — Carbon-first coloring and portable test gates
 
 [PR #126](https://github.com/ManuelSe/Neistra/pull/126) addresses issue #58.
 **Carbon only** is selected when the application mounts. Explicit mode choices

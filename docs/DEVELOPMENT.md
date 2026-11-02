@@ -140,6 +140,25 @@ Use `.venv/bin/uv run pytest tests/scientific` for the chemistry/file-format
 suite and `corepack pnpm --dir apps/web test -- jobs` for a focused component
 run. Do not add `MOLWEAVE_ENABLE_TEST_ROUTES=1` to normal startup.
 
+## Application-owned viewer compatibility (0.26.2)
+
+Issue #96 changes viewer composition and transient loading/resource lifecycle only.
+Orientation axes remain enabled by explicit user guidance. Native screenshot/
+settings UI is removed; application-owned image export is #128. The complete Mol*
+notice ships at `/licenses/molstar.txt`; no native viewer branding is required by
+this application interface. See [third-party notices](THIRD_PARTY_NOTICES.md) and
+the [approved feature contract](plans/issue-96-application-owned-viewer.md).
+
+No dependency, database migration, persisted-schema, HTTP/job/plugin or scientific
+model change: head0014, project/viewer/archive2 and normalized/selection/component1
+remain. Upgrade normally from compatible 0.26.x; matching older app components
+can read retained projects/archives without schema downgrade or data stripping.
+Back up the complete managed store before deployment changes. Application version
+metadata records provenance, not structural compatibility. Complete candidate
+and exact merged-master gates and actual tagged v0.26.0/final0.26.2 reader processes
+in both directions are mandatory before publication. Keep D-148's portable and
+strict reference timing profiles distinct. Qualification status lives in the plan.
+
 ## Workspace protein sequence compatibility (0.26.0)
 
 Issue #95 changes frontend navigation and application version metadata. The

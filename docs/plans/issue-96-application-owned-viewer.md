@@ -23,6 +23,7 @@ It authorizes planning persistence now, not runtime implementation or delivery.
 | Planned release | Stable patch **0.26.2** |
 | Proposed annotated tag | **v0.26.2** |
 | Implementation PR, tag, and release | Not created for this issue |
+| Verified image-export follow-up | [#128](https://github.com/ManuelSe/Neistra/issues/128) |
 
 ## 2. Core problem, outcome, authority, and assumptions
 
@@ -526,3 +527,17 @@ No assertion, production deadline, scientific policy or exclusion is relaxed.
 Both-theme desktop/mobile screenshots are retained and inspected. No production
 runtime change beyond C1, schema/migration/dependency or version change. Next:
 M3/C3 version preparation, actual tagged readers and complete release gate.
+
+### M3/C3 release preparation — 2026-11-02
+
+C1 `e2df929` and C2 `e899ab9` are committed and pushed. A fresh fetch confirms
+origin/master remains `8c92dfd`; it is already an ancestor of this branch. No
+v0.26.2 tag/release or other open PR collides with the approved patch. All five
+versions advance to0.26.2; archive tests retain producer0.26.1 coverage. Release/
+compatibility notes explicitly include inherited unreleased0.26.1 changes.
+
+The bounded, remotely verified image-export follow-up is
+[#128](https://github.com/ManuelSe/Neistra/issues/128). Actual detached v0.26.0 reader
+worktree `/tmp/neistra96-reader-0260` is at tagged runtime `582617139527cf22dd7ec9514632b121a628959a`.
+Focused archive, complete candidate/actual-reader, full-diff review and exact-master
+qualification remain pending; no PR, tag or release is claimed at preparation.

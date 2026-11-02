@@ -21,8 +21,11 @@ portable mode; strict reference timing is not claimed. Review is local self-revi
 
 Known limits: annotation overlap and existing scientific limits are unchanged.
 Actual-reader compatibility and complete candidate/exact-master gates remain.
-Five versions remain 0.26.1; planned patch 0.26.2. No feature PR/release exists yet.
-Blockers: none. Next: M3/C3 release preparation and complete qualification.
+All five versions now declare 0.26.2 in release preparation; 39 focused archive
+tests and version/dependency/schema/license audits pass. Image export is tracked
+in verified follow-up #128. Actual tagged reader worktree is ready. No feature
+PR/tag/release exists yet. Blockers: none. Next: clean committed final-candidate
+complete gate and two-way actual readers, followed by review/PR.
 
 ### Previous delivery baseline — PR #126, unreleased 0.26.1
 
