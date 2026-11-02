@@ -32,9 +32,9 @@ import {
 import { Color } from "molstar/lib/mol-util/color";
 import type { UnitIndex } from "molstar/lib/mol-model/structure/structure/element/util";
 import { Vec3 } from "molstar/lib/mol-math/linear-algebra";
-import { createPluginUI } from "molstar/lib/mol-plugin-ui";
 import type { PluginUIContext } from "molstar/lib/mol-plugin-ui/context";
-import { renderReact18 } from "molstar/lib/mol-plugin-ui/react18";
+import { NeistraViewport } from "./viewport";
+import { mountViewerPlugin } from "./mountPlugin";
 import { DefaultPluginUISpec } from "molstar/lib/mol-plugin-ui/spec";
 import { StateTransforms } from "molstar/lib/mol-plugin-state/transforms";
 import type {
@@ -64,7 +64,6 @@ import { THEME_TOKENS } from "../theme";
 import type { MovementView } from "../coordinates/interactiveTransform";
 import { Binding } from "molstar/lib/mol-util/binding";
 import type { Canvas3DAttribs, Canvas3DProps } from "molstar/lib/mol-canvas3d/canvas3d";
-import { observeViewerAttribution } from "./domPresentation";
 import { authoredBondInput, AuthoredModelBonds } from "./authoredBonds";
 import {
   hydrogenDisplayMode,
@@ -85,7 +84,8 @@ interface LoadedStructure {
 }
 
 export class MolstarEngine implements MolecularViewer {
-  private stopAttributionObserver: (() => void) | undefined;
+  private disposePlugin: (() => void) | undefined;
+  private disposed = false;
   private plugin: PluginUIContext | undefined;
   private backgroundColor: string = THEME_TOKENS.light["viewer-background"];
   // Each caller observes its rejection; later restoration commands must still run.
@@ -146,45 +146,44 @@ export class MolstarEngine implements MolecularViewer {
 
   async mount(target: HTMLElement): Promise<void> {
     const defaultSpec = DefaultPluginUISpec();
-    const plugin = await createPluginUI({
-      target,
-      render: renderReact18,
-      spec: {
-        ...defaultSpec,
-        behaviors: applicationHoverBehaviors(withCameraNeutralPrimarySelection(defaultSpec.behaviors, () => this.movementInteraction === "inactive")),
-        canvas3d: {
-          ...defaultSpec.canvas3d,
-          camera: { ...defaultSpec.canvas3d?.camera, manualReset: true },
-          renderer: {
-            ...defaultSpec.canvas3d?.renderer,
-            backgroundColor: Color.fromHexStyle(this.backgroundColor),
-          },
-          transparentBackground: false,
+    const mounted = await mountViewerPlugin(target, {
+      ...defaultSpec,
+      behaviors: applicationHoverBehaviors(withCameraNeutralPrimarySelection(defaultSpec.behaviors, () => this.movementInteraction === "inactive")),
+      canvas3d: {
+        ...defaultSpec.canvas3d,
+        camera: { ...defaultSpec.canvas3d?.camera, manualReset: true },
+        renderer: {
+          ...defaultSpec.canvas3d?.renderer,
+          backgroundColor: Color.fromHexStyle(this.backgroundColor),
         },
-        layout: {
-          initial: {
-            isExpanded: false,
-            showControls: false,
-          },
-        },
-        components: {
-          controls: {
-            top: "none",
-            left: "none",
-            right: "none",
-            bottom: "none",
-          },
-          remoteState: "none",
-          disableDragOverlay: true,
+        transparentBackground: false,
+      },
+      layout: {
+        initial: {
+          isExpanded: false,
+          showControls: false,
         },
       },
+      components: {
+        controls: {
+          top: "none",
+          left: "none",
+          right: "none",
+          bottom: "none",
+        },
+        remoteState: "none",
+        disableDragOverlay: true,
+        hideTaskOverlay: true,
+        viewport: { view: NeistraViewport },
+      },
     });
-    if (!plugin.canvas3d) {
-      plugin.dispose();
-      throw new Error(
-        "WebGL is unavailable. Enable hardware acceleration or use a browser with WebGL support.",
-      );
+    if (this.disposed) {
+      mounted.dispose();
+      return;
     }
+    const plugin = mounted.plugin;
+    if (!plugin.canvas3d) { mounted.dispose(); throw new Error("The molecular canvas could not start."); }
+    this.disposePlugin = mounted.dispose;
     this.plugin = plugin;
     this.mountTarget = target;
     const inputRoot = target.parentElement ?? target;
@@ -263,7 +262,6 @@ export class MolstarEngine implements MolecularViewer {
     };
     plugin.representation.structure.registry.add(SelectionSurfaceProvider);
     plugin.representation.structure.registry.add(SelectionSurfaceWireframeProvider);
-    this.stopAttributionObserver = observeViewerAttribution(target);
     this.setBackgroundColor(this.backgroundColor);
     const highlightManager = plugin.managers.interactivity.lociHighlights;
     const markHover: Parameters<typeof highlightManager.addProvider>[0] = ({ loci }, action) => {
@@ -827,6 +825,8 @@ export class MolstarEngine implements MolecularViewer {
   }
 
   dispose(): void {
+    if (this.disposed) return;
+    this.disposed = true;
     this.clearHover();
     this.hoverSubscription?.unsubscribe();
     this.hoverSubscription = undefined;
@@ -840,8 +840,6 @@ export class MolstarEngine implements MolecularViewer {
     this.setMovementMode("inactive");
     this.stopInputBoundary?.();
     this.stopInputBoundary = undefined;
-    this.stopAttributionObserver?.();
-    this.stopAttributionObserver = undefined;
     this.generation += 1;
     this.surfaces.dispose();
     this.surfaceVisuals.dispose();
@@ -865,7 +863,8 @@ export class MolstarEngine implements MolecularViewer {
     this.models.clear();
     this.coordinatePreviews.clear();
     this.pocketPreviewEntries.clear();
-    this.plugin?.dispose();
+    this.disposePlugin?.();
+    this.disposePlugin = undefined;
     this.plugin = undefined;
   }
 

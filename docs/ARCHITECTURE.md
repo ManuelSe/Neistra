@@ -161,7 +161,7 @@ are weakly keyed by immutable normalized/hierarchy objects; the current hover
 target/loci is scoped to the bound scene and picking mode. Hover does not publish
 selection events or store updates. Camera publications deduplicate the existing
 application snapshot so native projection jitter cannot cause application React/
-store updates during hover. Native labels/focus retain their own behavior.
+store updates during hover. Application-managed molecular labels and explicit focus retain their behavior.
 Visibility, scene, coordinate, navigation and
 movement boundaries clear it. Managed surface representations are excluded from
 queued molecular highlight/removal actions, preserving their independently owned
@@ -169,6 +169,23 @@ object activation. D-124 and the issue #91 contract govern qualification.
 The pinned Mol*5.11.0 patch (D-125) completes pending native GPU pick readbacks
 before synchronous click resolution, preserving surface activation after native
 hover ownership is removed. It does not infer or replay click targets.
+
+## Viewer Interface Ownership
+
+The adapter composes the pinned Mol* canvas in a minimal custom viewport. Native
+controls, information/toast/task overlays, drag UI and logo are not rendered.
+Neistra owns all visible controls and feedback. Existing canvas orientation axes
+are retained by explicit user guidance. StructureViewer extends existing
+loading feedback through scene synchronization, rejecting stale completion/errors
+from retired operations. Scientific warnings and import/job/surface/minimization
+feedback retain their separate application lifecycles.
+
+The plugin context, builders and molecular representation/measurement managers
+remain unchanged. The adapter owns the React root and unmounts it before plugin
+disposal; failed and late mounts clean up. Molecular labels, measurements,
+interaction markers and hover highlighting are renderer content, not native UI.
+Licensing ships outside the viewer. D-149 and the [issue #96 plan](plans/issue-96-application-owned-viewer.md)
+govern this boundary and its current qualification status.
 
 ## Selection Representation Ownership
 

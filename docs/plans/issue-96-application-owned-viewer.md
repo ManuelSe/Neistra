@@ -2,8 +2,8 @@
 
 ## 1. Status, approval, and metadata
 
-**Status:** approved implementation plan; C0 planning persistence only.
-Implementation has not started and must wait for the user's `/goal` command.
+**Status:** implementation authorized by the user's `/goal` on 2026-11-02.
+M1/C1 is implemented and qualified; M2/C2 and release gates remain pending.
 
 **Approval:** on 2026-11-02, the user replied, “Implement this plan. Wait for
 the /goal command.” This approves the preceding proposal, including its explicit
@@ -93,6 +93,7 @@ the recorded base. The branch, plan path, and proposed tag were unused.
 | Remove native hover-information text and tooltips | Essential | Omit native informational overlays; retain molecular hover highlighting. |
 | Remove native notifications and progress overlays | Essential | Omit them while preserving actionable application feedback. |
 | Remove native logo and viewer branding | Essential | Render the canvas without its logo component. |
+| Existing canvas orientation axes | Essential exception by explicit user correction | Retain the existing axes. Do not add a replacement widget or disable the helper. |
 | All remaining viewer controls and information belong to Neistra | Essential | Preserve existing application controls, status, errors and notifications. |
 | Preserve rendering, camera navigation, picking, selection and hover | Essential | Require real WebGL regression coverage. |
 | Preserve application-managed molecular annotations and measurements | Essential | Keep representation and measurement-manager paths intact. |
@@ -119,7 +120,8 @@ No essential outcome is deferred. No issue/comment is created during C0.
 
 Use a small Neistra-owned viewport component containing the existing
 `ViewportCanvas`, without its logo or default native controls, hover text, toasts,
-snapshot descriptions, trajectory controls, or background-task widgets. Disable
+snapshot descriptions, trajectory controls, or background-task widgets. Preserve the existing canvas orientation axes by explicit user
+correction. Disable
 the outer native task and drag overlays explicitly. Native initialization/WebGL
 failure presentation must also resolve through application-owned feedback.
 
@@ -443,13 +445,54 @@ portable versus strict timing qualification; no new timing/power exclusions.
 | Checkpoint | Status | Evidence / next action |
 |---|---|---|
 | C0 | Approved planning persistence | User approval 2026-11-02; clean fast-forward-checked base above; planned branch created. This checkpoint contains the plan, decision and progress records only. Commit/push receipts are reported in the C0 handoff after verification. |
-| M1/C1 | Not started | Wait for `/goal`; then implement the coherent viewer cleanup and focused qualification. |
+| M1/C1 | Complete | 373 frontend tests, lint/types/build, license byte identity and 30 native browser passes / 10 existing layout exclusions; zero final failures/retries/flakes. See C1 evidence below. |
 | M2/C2 | Not started | Lifecycle, scientific-display and accessibility qualification. |
 | M3/C3 | Not started | Final versions, compatibility, complete candidate gate and review. |
 | M4/C4 | Not started | Merge, exact-master gate, verified publication, issue close-out and cleanup. |
 
-**Current limitations:** native UI remains in the runtime; planned replacement
-behavior and tests are unimplemented. Existing scientific limits remain unchanged.
-**Blockers:** none to planning persistence; implementation awaits `/goal` by
-explicit user instruction. **Next action:** report the verified planning handoff
-and wait. No implementation, PR, follow-up, tag or release is authorized by C0.
+**Current limitations:** C2 and complete candidate/master qualification remain;
+existing scientific limits are unchanged. **Blockers:** none. **Next action:**
+complete M2/C2. C0 remains the historical planning-only checkpoint; the later
+`/goal` authorizes implementation and delivery.
+
+### Implementation authorization — 2026-11-02
+
+The user invoked `/goal` for the complete approved implementation and delivery
+lifecycle after C0 commit `461c2be0a6ff9d96cf14c588de193438333d3ae3` was pushed and
+verified. This ends C0's wait. The subsequent explicit PR requirement to include
+`Closes #96` supersedes section 10's no-auto-close strategy; the implementation
+PR will close the issue on merge, followed by the verified release close-out
+reply. Publication still requires exact merged-master qualification. No other
+approved scope, deferred requirement or qualification policy is expanded.
+
+### User correction — orientation axes, 2026-11-02
+
+During C1 screenshot review, the user explicitly stated: “Actually, the
+orientaion axes can stay.” Preserve the existing canvas-rendered orientation
+axes as an exception to the native-interface cleanup. Their defaults and camera
+behavior remain unchanged; native DOM controls/labels/toasts/task UI/logo are
+still omitted. The browser gate asserts the retained helper is on. This overrides
+the interim axes-disable implementation note; the decision log retains both the
+interim rationale and the explicit correction.
+
+### M1/C1 completion — 2026-11-02
+
+The minimal viewport, explicit React/plugin cleanup, guarded scene loading,
+obsolete CSS/helper removal, shipped byte-identical license and attribution,
+updated application-focus/zoom tests and native-UI absence monitor are implemented.
+Existing orientation axes remain by explicit user correction. No API/schema/
+migration/dependency/version/scientific-model change.
+
+Final [browser gate](../assets/application-owned-viewer/c1-final-browser.json)
+passes **30 native cases / 10 existing layout exclusions**, with zero failures,
+flakes or retries, unchanged source hashes and actual 100%/200% zoom. Both new
+absence/axes/reload cases run on desktop and mobile. The final
+[frontend suite](../assets/application-owned-viewer/c1-final-unit.json) passes
+**373 tests**; [static/build/license gate](../assets/application-owned-viewer/c1-final-static.json)
+passes lint, types, production build, byte-identical shipped notice and diff checks.
+Initial lint/isolation/focus/mobile-target attempts remain diagnostic; the first
+browser run changed source during execution and is not qualification. No scientific
+assertion, deadline or exclusion was relaxed. The [C1 review](../assets/application-owned-viewer/c1-review.md)
+is implementer self-review. Both-theme desktop/mobile screenshots were retained
+and inspected. C2 scientific-display/lifecycle and complete candidate/master
+qualification remain required. Next: M2/C2, then final release preparation.

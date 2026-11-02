@@ -11,7 +11,6 @@ import { placementContext } from "../editing/placement";
 import { useSelectionStore } from "../store/selection";
 import type { SurfaceStatus } from "../viewer/surface/runtime";
 import type { SurfaceActions, ChangeSelectionAppearance, ApplySelectionEdit } from "../api/types";
-import { useChromeClearance } from "../viewer/useChromeClearance";
 import { MolecularEditPanel } from "./MolecularEditPanel";
 import { useViewerCameraStore } from "../store/viewerCamera";
 import { useEditingStore } from "../store/editing";
@@ -140,7 +139,6 @@ export function StructureViewer({
     }
   }, [sequenceDisplay]);
   const targetRef = useRef<HTMLDivElement>(null);
-  useChromeClearance(targetRef);
   const viewerRef = useRef<MolecularViewer | undefined>(undefined);
   const themeRef = useRef(theme);
   themeRef.current = theme;
@@ -168,6 +166,7 @@ export function StructureViewer({
     setStyleProjectId(null); setSurfaceProjectId(project.id);
   };
   const [viewerReady, setViewerReady] = useState(false);
+  const [sceneLoading, setSceneLoading] = useState(false);
   const [viewerError, setViewerError] = useState<string | null>(null);
   const [activeEntryId, setActiveEntryId] = useState("");
   const [camera, setCamera] = useState<CameraState | null>(null);
@@ -392,11 +391,13 @@ export function StructureViewer({
   useEffect(() => {
     if (!viewerReady) return;
     const syncedViewer = viewerRef.current;
+    let current = true;
+    setSceneLoading(true);
     void syncedViewer
       ?.syncStructures(viewerStructuresRef.current)
       .then(() => {
         const viewer = viewerRef.current;
-        if (!viewer || viewer !== syncedViewer) return;
+        if (!current || !viewer || viewer !== syncedViewer) return;
         const workflow = currentMovement.current;
         const active = Boolean(workflow?.state.capture && workflow.state.phase !== "idle");
         if (!initialSceneReady.current && !structuresPending && viewerStructuresRef.current.length) {
@@ -418,9 +419,15 @@ export function StructureViewer({
           if (!active && useSelectionStore.getState().selection === focus.selection) viewer.focusAtoms([{ structure_id: focus.entryId, atom_id: focus.atomId }]);
         }
       })
-      .catch((error: unknown) =>
-        setViewerError(error instanceof Error ? error.message : "The viewer rejected a structure."),
-      );
+      .catch((error: unknown) => {
+        if (current && viewerRef.current === syncedViewer) {
+          setViewerError(error instanceof Error ? error.message : "The viewer rejected a structure.");
+        }
+      })
+      .finally(() => {
+        if (current && viewerRef.current === syncedViewer) setSceneLoading(false);
+      });
+    return () => { current = false; };
   }, [structuresPending, syncKey, viewerReady, project.id]);
 
   useEffect(() => {
@@ -544,7 +551,7 @@ export function StructureViewer({
   }, [normalizedStructures, project.measurements, syncKey, viewerReady, interactionPaused]);
 
   const loading =
-    (!viewerReady && !viewerError) || structuresPending;
+    (!viewerReady && !viewerError) || structuresPending || sceneLoading;
   const failedQueries = [...structureQueries, ...hiddenSeedQueries].filter((query) => query.isError);
   const warningCount = visibleEntries.reduce((count, entry) => count + entry.warnings.length, 0);
   const largeEntries = visibleEntries.filter((entry) => entry.atom_count >= 250_000);

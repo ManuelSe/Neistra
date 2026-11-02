@@ -379,7 +379,6 @@ select:focus-visible,
 }
 
 .structure-viewer {
-  --viewer-chrome-bottom: 72px;
   position: relative;
   container-type: size;
   z-index: 1;
@@ -539,105 +538,6 @@ select:focus-visible,
   background: transparent;
 }
 
-/* Vendor DOM chrome is presentation; molecular palettes remain untouched. */
-.molstar-host .msp-plugin {
-  font-family: var(--font-ui);
-  color: var(--text);
-}
-
-.molstar-host .msp-plugin .msp-viewport-controls .msp-viewport-controls-buttons .msp-btn,
-.molstar-host .msp-viewport-controls-panel,
-.molstar-host .msp-highlight-info,
-.molstar-host .msp-highlight-toast-wrapper,
-.molstar-host .msp-toast {
-  color: var(--text);
-  background: var(--surface);
-  border-color: var(--border-strong);
-}
-
-.molstar-host .msp-plugin .msp-viewport-controls .msp-viewport-controls-buttons .msp-btn:hover {
-  color: var(--text) !important;
-  background: var(--surface-hover);
-}
-
-.molstar-host .msp-plugin .msp-viewport-controls .msp-btn-link-toggle-off {
-  /* Mol* marks its stock toggle colors important, including focus/hover. */
-  color: var(--text-soft) !important;
-}
-
-.molstar-host .msp-plugin .msp-viewport-controls .msp-viewport-controls-buttons .msp-btn-link-toggle-on {
-  color: var(--brand);
-  background: var(--accent-soft);
-}
-
-.molstar-host .msp-semi-transparent-background {
-  background: var(--surface);
-  opacity: 0.95;
-}
-
-/* Theme nested vendor forms, but preserve inline scientific color swatches. */
-.molstar-host .msp-plugin .msp-viewport-controls-panel {
-  z-index: 9;
-  /* Leave the complete wrapping application header/launchers reachable. */
-  top: var(--viewer-chrome-bottom, 72px);
-  width: min(290px, calc(100cqw - 52px));
-  max-height: max(80px, calc(100cqh - var(--viewer-chrome-bottom, 72px) - 20px));
-  overflow: auto;
-}
-
-.molstar-host .msp-plugin .msp-viewport-controls-panel :is(
-  .msp-control-row, .msp-control-row > div, .msp-control-current,
-  .msp-control-group-header, .msp-control-group-header > span,
-  .msp-help-text, .msp-image-preview, .msp-help-row
-) {
-  color: var(--text);
-  background-color: var(--surface);
-}
-
-.molstar-host .msp-plugin .msp-viewport-controls-panel :is(
-  .msp-control-row-label, .msp-control-button-label, .msp-help-description,
-  .msp-help-text > div, .msp-help-text > p
-) {
-  color: var(--text-soft);
-}
-
-.molstar-host .msp-plugin .msp-viewport-controls-panel :is(
-  button:not(.msp-combined-color-button), input, select, textarea
-) {
-  color: var(--text);
-  background-color: var(--surface-muted);
-}
-
-.molstar-host .msp-plugin .msp-viewport-controls-panel .msp-control-group-header > :is(button, div) {
-  color: var(--text-soft);
-  background: var(--surface) !important;
-  font-size: var(--text-xs) !important;
-}
-
-.molstar-host .msp-plugin .msp-viewport-controls-panel :is(
-  button:not(.msp-combined-color-button), input, select, textarea
-):is(:hover, :focus-visible) {
-  color: var(--text);
-  background-color: var(--surface-hover);
-}
-
-.molstar-host .msp-plugin .msp-viewport-controls-panel .msp-control-group-footer {
-  background: var(--border);
-}
-
-.molstar-host .msp-plugin .msp-viewport-controls-panel .msp-slider-base-rail {
-  background: var(--border-strong);
-}
-
-.molstar-host .msp-plugin .msp-viewport-controls-panel :is(.msp-slider-base-track, .msp-slider-base-handle) {
-  background: var(--action);
-  border-color: var(--surface);
-}
-
-.molstar-host button:focus-visible {
-  outline: 2px solid var(--focus) !important;
-  outline-offset: 2px !important;
-}
 
 progress,
 input[type="range"],

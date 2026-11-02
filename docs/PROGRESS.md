@@ -2,24 +2,23 @@
 
 ## Current milestone
 
-Issue [#96](https://github.com/ManuelSe/Neistra/issues/96), C0: the
-[application-owned viewer plan](plans/issue-96-application-owned-viewer.md) is
-approved on 2026-11-02 and persisted on
-`fix/issue-96-application-owned-viewer`, based on clean master
-`8c92dfd8d92dec4d450775ee8a0f74254a24b707`. D-149 records the interface boundary.
+Issue [#96](https://github.com/ManuelSe/Neistra/issues/96), M1/C1 complete under
+[the approved contract](plans/issue-96-application-owned-viewer.md) and D-149.
+Minimal native canvas composition removes competing controls/informational/task/
+toast/logo UI; existing orientation axes remain by explicit user correction.
+React/plugin cleanup, guarded rendering feedback, obsolete helper/CSS removal,
+license/attribution and appropriate tests/documentation are implemented.
 
-Completed: approved requirement dispositions, coherent cleanup/lifecycle/release
-checkpoints, compatibility and portable verification gates, and delivery plan.
-Verification: read-only repository/remote inspection, fast-forward-only master
-update (already up to date), clean starting tree, and documentation checks. No
-runtime tests or feature qualification are claimed by this planning checkpoint.
+Verification: **373 frontend tests**, lint/types/build/shipped-license identity
+and **30 native browser cases / 10 existing layout exclusions** pass, zero final
+failures/flakes/retries and unchanged source hashes. Both themes, desktop/mobile,
+actual 100%/200% zoom and existing camera/picking/scenes/failure workflows pass.
+[Evidence and local self-review](assets/application-owned-viewer/c1-review.md)
+retain diagnostics separately. No API/schema/migration/dependency/science change.
 
-Known limitations: native UI remains implemented; no application behavior,
-dependency, version, API, schema or migration changes. Planned patch **0.26.2**
-follows current unreleased 0.26.1; stable remote releases exist through v0.26.0.
-Image export is a separate delivery follow-up; #97/#98/#107 remain independent.
-Blockers: none to planning; implementation explicitly awaits the user's `/goal`.
-Next action: report the committed/pushed planning handoff and wait for `/goal`.
+Known limits: C2 lifecycle/scientific-display and complete candidate/exact-master
+qualification remain. Five versions remain 0.26.1; planned patch 0.26.2. No release
+or feature PR exists yet. Blockers: none. Next: M2/C2 qualification, then release.
 
 ### Previous delivery baseline — PR #126, unreleased 0.26.1
 

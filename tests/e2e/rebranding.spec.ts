@@ -98,12 +98,12 @@ test("uses the Neistra identity through project creation and import", async ({ p
   await page.screenshot({ path: testInfo.outputPath("workspace-light.png") });
   for (const theme of ["light", "dark"] as const) {
     if (theme === "dark") await page.getByRole("button", { name: "Use dark theme" }).click();
-    const vendorButton = page.locator('.msp-viewport-controls button[title="Screenshot / State Snapshot"]');
-    await expect(vendorButton).toHaveCSS("color", theme === "dark" ? "rgb(186, 196, 203)" : "rgb(85, 91, 99)");
+    await expect(page.locator(".msp-viewport-controls, .msp-viewport-controls-panel, .msp-logo")).toHaveCount(0);
+    const control = page.getByRole("button", { name: "Fit all visible", exact: true });
     await page.keyboard.press("Tab");
-    await vendorButton.focus();
-    await expect(vendorButton).toBeFocused();
-    await expect(vendorButton).toHaveCSS("outline-color", theme === "dark" ? "rgb(255, 179, 92)" : "rgb(163, 60, 32)");
+    await control.focus();
+    await expect(control).toBeFocused();
+    await expect(control).toHaveCSS("outline-color", theme === "dark" ? "rgb(255, 179, 92)" : "rgb(163, 60, 32)");
     await page.getByRole("button", { name: "Projects", exact: true }).focus();
   }
   expect(oldAssetRequests).toEqual([]);

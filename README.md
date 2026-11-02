@@ -315,3 +315,5 @@ The Playwright configuration migrates an isolated test database, then starts
 the test API, separate worker, and Vite server. Ports 5173, 8010, and 8011 must
 be free. See [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) for focused commands,
 environment variables, clean-state procedures, and troubleshooting.
+
+Dependency attribution: [third-party notices](docs/THIRD_PARTY_NOTICES.md). The Mol* license is also shipped at `/licenses/molstar.txt`.

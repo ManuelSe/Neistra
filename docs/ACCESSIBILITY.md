@@ -195,6 +195,18 @@ These checks do not certify physical phones, other browsers or screen-reader
 access to individual canvas atoms. Coordinates and WebGL cues are qualified
 separately from semantic accessibility.
 
+## Viewer interface ownership (issue #96)
+
+Native viewport controls, labels/toasts/task UI and logo are omitted at composition
+time. Existing canvas orientation axes are retained by explicit user guidance.
+Named application controls, viewer region, loading indicator and
+error alerts remain. Molecular annotations and measurement labels remain rendered
+scene content. Keyboard inspection is available through existing application tools.
+No claim of screen-reader access to individual WebGL atoms is introduced.
+Historical native-popup accessibility evidence is superseded for those removed
+controls; applicable theme/focus/zoom/layout coverage now targets application UI.
+See D-149 and the [feature contract](plans/issue-96-application-owned-viewer.md).
+
 ## Automated Scope
 
 `tests/e2e/release-hardening.spec.ts` opens a populated protein/ligand project

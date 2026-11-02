@@ -6054,3 +6054,29 @@ unreleased 0.26.1. Stable releases already exist through v0.26.0. No dependency,
 migration, persisted schema, public API/job/plugin or scientific-model change is
 planned. The feature contract governs checkpoints, evidence and delivery; C0
 persists planning only and stops ready for `/goal`.
+
+### D-149 implementation note — issue #96 M1/C1, 2026-11-02
+
+The minimal viewport retains the existing PluginUIContext and Plugin layout. A
+small mounting helper performs the same initialization/render/canvas-readiness
+sequence while retaining the React root for unmount-before-context disposal,
+including initialization/WebGL failures. Engine disposal is idempotent and late
+mount completion cannot bind input/subscriptions to a retired engine. No renderer
+architecture, scientific model, dependency or schema changes are introduced.
+
+Screenshot review also identified the canvas-rendered native orientation axes.
+Disable that camera helper explicitly: a DOM-only absence assertion would miss
+this native viewport overlay. Molecular labels/measurements and navigation remain
+intact; no replacement orientation widget is introduced. The native gate checks
+both forbidden DOM and the actual camera-helper state. Existing D-125 patch and
+D-148 portable correctness requirements remain unchanged.
+
+### D-149 explicit user correction — retain orientation axes, 2026-11-02
+
+The user explicitly stated, “Actually, the orientaion axes can stay.” This
+supersedes the axes-disable portion of the preceding implementation note.
+Preserve the existing canvas-rendered orientation axes and their default camera
+behavior. They are an explicit exception to the native-interface cleanup;
+native DOM controls, information overlays, notifications, task UI and branding
+remain omitted. No replacement axes widget or new setting is introduced. Native
+qualification asserts the retained camera helper is on.

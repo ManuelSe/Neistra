@@ -1,0 +1,28 @@
+import sys, subprocess, time, json, gzip, hashlib, os
+from pathlib import Path
+out=Path('docs/assets/application-owned-viewer');out.mkdir(parents=True,exist_ok=True)
+label=sys.argv[1];cmd=sys.argv[2:];start=time.time()
+assert not (out/f'{label}.json').exists(), 'Use a fresh evidence label'
+files=subprocess.check_output(['git','ls-files','--cached','--others','--exclude-standard'],text=True).splitlines()
+def identities():
+ return {p:hashlib.sha256(Path(p).read_bytes()).hexdigest() for p in sorted(set(files)) if Path(p).is_file() and (p.startswith(('apps/','packages/','tests/','scripts/','patches/','tools/')) or p in ['pyproject.toml','uv.lock','package.json','pnpm-lock.yaml','playwright.config.ts'])}
+before=identities()
+initial_status=subprocess.check_output(['git','status','--porcelain=v1'],text=True)
+process=subprocess.Popen(cmd,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
+chunks=[]
+assert process.stdout is not None
+for line in process.stdout:
+ chunks.append(line)
+ decoded=line.decode(errors='replace')
+ if ' passed' in decoded or ' failed' in decoded or decoded.startswith('[') and ']' in decoded[:14]:
+  print(decoded.strip()[:350],flush=True)
+class Result: pass
+r=Result();r.returncode=process.wait();r.stdout=b''.join(chunks)
+report=os.environ.get('PLAYWRIGHT_JSON_OUTPUT_FILE')
+if report and Path(report).exists():
+ (out/f'{label}-browser.json.gz').write_bytes(gzip.compress(Path(report).read_bytes(),mtime=0))
+(out/f'{label}.log.gz').write_bytes(gzip.compress(r.stdout,mtime=0))
+record={'command':cmd,'head':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),'initial_status':initial_status,'status_after_command':subprocess.check_output(['git','status','--porcelain=v1'],text=True),'started_at':start,'seconds':time.time()-start,'exit_code':r.returncode,'log_sha256':hashlib.sha256(r.stdout).hexdigest(),'source_before':before,'source_unchanged':before==identities(),'environment':{k:v for k,v in os.environ.items() if k.startswith(('MOLWEAVE','NEISTRA','PLAYWRIGHT','PYTHONPATH'))}}
+(out/f'{label}.json').write_text(json.dumps(record,indent=2)+'\n')
+print(r.stdout.decode(errors='replace')[-11000:]);print('Evidence:',out/f'{label}.json',flush=True)
+sys.exit(r.returncode)

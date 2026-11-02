@@ -4,3 +4,5 @@ tests/fixtures/interactions/2reg-receptor.pdb -text whitespace=-blank-at-eol
 # Prepared PDB and original CCD provenance retain their native padding/bytes.
 tests/fixtures/minimization/1stp-protein-prepared.pdb -text whitespace=-blank-at-eol
 tests/fixtures/minimization/BTN.cif -text whitespace=-blank-at-eol
+# Preserve the complete upstream license, including its CRLF line endings.
+apps/web/public/licenses/molstar.txt -text whitespace=cr-at-eol

@@ -944,3 +944,34 @@ it("loads hidden pocket seeds by artifact, keeps them invisible, and reuses styl
   expect(fake.syncs.at(-1)?.map((s) => s.entryId)).toEqual(["protein"]);
   expect(fake.syncs.at(-1)![0].pockets!.pocket.dependencyKey).not.toBe(key);
 });
+
+it("keeps loading through rendering and rejects obsolete rebuild completion and errors", async () => {
+  cleanup(); vi.restoreAllMocks();
+  const fake = new FakeViewer(), createViewer = () => fake;
+  vi.spyOn(globalThis, "fetch").mockImplementation(() => Promise.resolve(new Response(JSON.stringify(projection("protein")), {
+    status: 200, headers: { "Content-Type": "application/json" },
+  })));
+  const pending: { resolve: () => void; reject: (error: Error) => void }[] = [];
+  fake.syncStructures = () => new Promise<void>((resolve, reject) => pending.push({ resolve, reject }));
+  const queryClient = new QueryClient({ defaultOptions: { queries: { retry: false } } });
+  const props = { project: project(), theme: "light" as const, selection: emptySelection,
+    pickingGranularity: "atom" as const, onViewerSelection: vi.fn(), createViewer };
+  const view = render(<StructureViewer {...props} />, { wrapper: wrapper(queryClient) });
+  await waitFor(() => expect(pending.length).toBeGreaterThan(0));
+  await waitFor(() => expect(screen.getByText(/1 visible \/ 1 loaded/)).toBeVisible());
+  expect(screen.getByLabelText("Loading molecular structures")).toBeVisible();
+  const previous = [...pending];
+  const styled = structuredClone(props.project);
+  styled.entries[0].viewer_settings.representations[0].opacity = 0.5;
+  view.rerender(<StructureViewer {...props} project={styled} />);
+  await waitFor(() => expect(pending.length).toBeGreaterThan(previous.length));
+  await act(async () => {
+    previous.forEach((item, index) => index ? item.reject(new Error("Obsolete render")) : item.resolve());
+    await Promise.resolve();
+  });
+  expect(screen.getByLabelText("Loading molecular structures")).toBeVisible();
+  expect(screen.queryByRole("alert")).not.toBeInTheDocument();
+  await act(async () => { pending.at(-1)!.resolve(); await Promise.resolve(); });
+  expect(screen.queryByLabelText("Loading molecular structures")).not.toBeInTheDocument();
+  view.unmount(); queryClient.clear();
+});

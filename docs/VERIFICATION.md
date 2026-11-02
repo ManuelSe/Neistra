@@ -1,5 +1,19 @@
 # V0.1 Requirement Evidence
 
+## Issue #96 — C1 viewer interface cleanup
+
+Under D-149 and the [approved plan](plans/issue-96-application-owned-viewer.md),
+[C1](assets/application-owned-viewer/c1-final-browser.json) passes 30 native browser
+cases / 10 existing layout exclusions, with zero failures/flakes/retries and
+unchanged source. All 373 frontend tests, lint/types/build, shipped-license byte
+identity and diff checks pass. Native controls/information/task/toast/logo UI is
+omitted at composition time; the user explicitly retains orientation axes.
+Existing camera, selection, representation, scene, theme, WebGL failure and actual
+100%/200% zoom workflows pass. Earlier diagnostic failures remain separate.
+[Local self-review](assets/application-owned-viewer/c1-review.md) is not independent
+review. C2 scientific-display/lifecycle, actual-reader compatibility and complete
+candidate/exact-master gates are still required; no release is claimed.
+
 ## Current issue #58 qualification — 2026-11-02
 
 The amended [contract](plans/issue-58-carbon-only-session-default.md), D-147 and
