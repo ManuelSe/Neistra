@@ -2,6 +2,27 @@
 
 ## Current milestone
 
+Issue [#96](https://github.com/ManuelSe/Neistra/issues/96), C0: the
+[application-owned viewer plan](plans/issue-96-application-owned-viewer.md) is
+approved on 2026-11-02 and persisted on
+`fix/issue-96-application-owned-viewer`, based on clean master
+`8c92dfd8d92dec4d450775ee8a0f74254a24b707`. D-149 records the interface boundary.
+
+Completed: approved requirement dispositions, coherent cleanup/lifecycle/release
+checkpoints, compatibility and portable verification gates, and delivery plan.
+Verification: read-only repository/remote inspection, fast-forward-only master
+update (already up to date), clean starting tree, and documentation checks. No
+runtime tests or feature qualification are claimed by this planning checkpoint.
+
+Known limitations: native UI remains implemented; no application behavior,
+dependency, version, API, schema or migration changes. Planned patch **0.26.2**
+follows current unreleased 0.26.1; stable remote releases exist through v0.26.0.
+Image export is a separate delivery follow-up; #97/#98/#107 remain independent.
+Blockers: none to planning; implementation explicitly awaits the user's `/goal`.
+Next action: report the committed/pushed planning handoff and wait for `/goal`.
+
+### Previous delivery baseline — PR #126, unreleased 0.26.1
+
 PR [#126](https://github.com/ManuelSe/Neistra/pull/126): carbon-first coloring and
 portable correctness qualification are verified under D-147/D-148 and the amended
 [issue #58 plan](plans/issue-58-carbon-only-session-default.md). Remote integration

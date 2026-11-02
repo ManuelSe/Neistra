@@ -5999,3 +5999,58 @@ repeating already passing coverage. Report the mixed power conditions honestly.
 No source changes follow qualification beyond documentation/evidence. A release
 is outside the user's merge/cleanup request; no release gate or publication is
 claimed for an unexecuted merged-master run.
+
+## D-149 — Neistra owns the viewer interface around the rendering engine
+
+Date: 2026-11-02. Status: accepted by explicit approval of the
+[issue #96 plan](plans/issue-96-application-owned-viewer.md). Implementation is
+pending and must wait for `/goal`; this decision does not claim delivered behavior.
+
+Use the pinned Mol* 5.11.0 custom viewport seam to render its existing canvas
+without native controls, settings/menus, hover-information DOM, notifications,
+task overlays or logo. Disable outer native task and drag overlays. Keep the
+existing PluginUIContext, builders, representation/measurement managers, camera,
+picking and application adapter; do not convert the engine architecture or hide
+native UI after rendering using CSS, DOM deletion or production observers.
+
+All user-facing controls and feedback belong to Neistra. Preserve application
+warnings/errors, import/job/surface/minimization feedback and notification
+lifetimes. Extend the existing loading indicator through actual scene
+synchronization with transient operation/current-viewer guards. Initialization
+and WebGL failures must reach application-owned feedback. Clean up failed/late
+mounts, subscriptions and rendering resources. No new task mirror, fabricated
+percentage progress or unsupported cancellation control is introduced.
+
+Retain renderer-owned molecular representations, hover highlighting, selection,
+interaction markers, previews and application-managed labels and measurements.
+The normalized molecular model and backend remain authoritative. No molecular,
+project, scene, history, archive, job/plugin or API state migrates into the viewer.
+Preserve the D-125 pick-readback patch and #107 maintenance scope.
+
+Remove obsolete native-UI theme overrides, attribution observer and native-popup
+clearance helper/variable when unused. Ship the complete Mol* copyright/license
+notice outside the viewer in the production distribution and repository
+attribution documentation. Required implementation wrappers and canvas layout
+styles may remain.
+
+This supersedes D-049 only for retaining/theming native controls and visible
+viewport attribution, and related native-popup clearance guidance including the
+D-100 release-review note. It supersedes D-124/125's incidental preservation of
+native informational label DOM, not their picking, hover, camera or surface
+contracts. Theme tokens, scientific molecular colors, accessibility, ownership
+and all D-148 portable qualification requirements remain binding. Update tests
+that require native controls alongside their removal, preserving applicable
+theme, focus, zoom, layout and hit-target coverage.
+
+Rationale: a minimal composition boundary removes competing interfaces without
+replacing the qualified rendering engine. Existing Neistra controls cover the
+supported scientific workflows. Automatic parity with every native function
+would expand scope unnecessarily. Defer application-owned image export to a
+bounded delivery follow-up; retain #97/#98 independently. No new hover-information
+overlay or advanced renderer panels are required by this approval.
+
+The planned compatible presentation correction is patch 0.26.2 from current
+unreleased 0.26.1. Stable releases already exist through v0.26.0. No dependency,
+migration, persisted schema, public API/job/plugin or scientific-model change is
+planned. The feature contract governs checkpoints, evidence and delivery; C0
+persists planning only and stops ready for `/goal`.
