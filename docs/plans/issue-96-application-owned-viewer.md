@@ -3,7 +3,7 @@
 ## 1. Status, approval, and metadata
 
 **Status:** implementation authorized by the user's `/goal` on 2026-11-02.
-M1/C1 and M2/C2 are implemented and qualified; final release gates remain pending.
+M1/C1, M2/C2 and M3/C3 are complete; PR/merge and exact-master publication remain.
 
 **Approval:** on 2026-11-02, the user replied, “Implement this plan. Wait for
 the /goal command.” This approves the preceding proposal, including its explicit
@@ -448,13 +448,14 @@ portable versus strict timing qualification; no new timing/power exclusions.
 | C0 | Approved planning persistence | User approval 2026-11-02; clean fast-forward-checked base above; planned branch created. This checkpoint contains the plan, decision and progress records only. Commit/push receipts are reported in the C0 handoff after verification. |
 | M1/C1 | Complete | 373 frontend tests, lint/types/build, license byte identity and 30 native browser passes / 10 existing layout exclusions; zero final failures/retries/flakes. See C1 evidence below. |
 | M2/C2 | Complete | 55 native browser passes / 7 existing exclusions, real WebGL failure 1 pass / 1 existing exclusion, 373 frontend and static/build gates; cold-cache annotation cases pass both layouts. |
-| M3/C3 | In progress | Versions prepared; first full gate finds a test-observer remount race. Correct and requalify below. |
+| M3/C3 | Complete | Clean final candidate passes all20 commands, real tagged readers both ways and complete local diff review; evidence below. |
 | M4/C4 | Not started | Merge, exact-master gate, verified publication, issue close-out and cleanup. |
 
-**Current limitations:** complete candidate/master qualification remains;
-existing scientific limits are unchanged. **Blockers:** none. **Next action:**
-prepare and qualify M3/C3. C0 remains the historical planning-only checkpoint; the later
-`/goal` authorizes implementation and delivery.
+**Current limitations:** exact merged-master qualification/publication remain;
+existing scientific limits and annotation overlap are unchanged. **Blockers:** none.
+**Next action:** reviewed PR and normal merge, exact-master gate and release.
+C0 remains the historical planning-only checkpoint; the later `/goal` authorizes
+implementation and delivery.
 
 ### Implementation authorization — 2026-11-02
 
@@ -649,3 +650,38 @@ remain. No canonical model, membership/math, API/schema/migration/renderer pin,
 fixture/deadline or exclusion change. Actual reader preflight passes both ways.
 Commit the coherent passing repair, then run a fresh clean complete candidate gate
 before PR creation. No independent approval, tag or release is claimed.
+
+### M3/C3 completion — 2026-11-03
+
+Clean release-prepared candidate `117c35480586edffc2bb1cc72a06df934e0b59b8` passes the
+[complete 20-command gate](../assets/application-owned-viewer/c3-candidate4-gate.json):
+**1,262 Python (zero skips), 374 frontend, 12 supervisor/policy and 352 browser passes / 62 exactly unchanged exclusions**. Frozen installs, fresh Alembic 0014, Ruff/mypy 102 files,
+frontend lint/types/build, versions/dependency/schema/license checks and diff pass.
+Zero failures/flakes/automatic retries; no Python or required scientific skips.
+All **595 source identities** and lossless log checksums verify.
+The full browser invocation is clean; no replay is needed. The exclusion set is
+exactly the accepted preceding baseline, with no new exclusions.
+
+[Summary and actual readers](../assets/application-owned-viewer/c3-candidate4-summary.json)
+record actual detached tagged v0.26.0 and current 0.26.2 modules/versions in separate
+producer/reader processes both ways. Retained originals/coordinates, saved
+selections/scenes/surfaces, generic jobs/history and archive remapping pass without
+migration, schema downgrade or data stripping. Backend changes are version metadata
+only; approved-base frontend transport types remain unchanged.
+
+[Complete-diff review](../assets/application-owned-viewer/c3-full-diff-review.md)
+is implementer self-review, with no unresolved consequential finding. Native
+render screenshots are inspected; axes and existing annotation placement remain.
+D-148 portable measurements do not qualify strict reference-host timing. Exact
+commands, environment, full report, observations, reader evidence, source/log hashes
+and power samples are retained. Next: request external review on the PR, recheck
+protections/base/version and normally merge; then repeat the complete gate on
+exact merged master before annotated tag, release, issue reply and cleanup.
+
+Presubmit fetch on2026-11-03 confirms master remains8c92dfd and is already in the
+branch. Planned v0.26.2 remains unused; latest stable isv0.26.0. Current repository
+policy exposes no master protection/rulesets or CI workflows, allows normal merge,
+and disables automatic branch deletion. [Receipt](../assets/application-owned-viewer/c3-presubmit.json)
+records this observation; required PR reviews/checks/conversations and policy are
+rechecked before merge. Runtime/test/version/lock bytes remain identical to the
+clean qualified117c354 candidate after documentation/evidence additions.

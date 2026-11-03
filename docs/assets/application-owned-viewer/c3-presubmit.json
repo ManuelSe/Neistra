@@ -1,0 +1,27 @@
+{
+  "at": "2026-11-03T00:29:25.884500+00:00",
+  "qualified_source": "117c35480586edffc2bb1cc72a06df934e0b59b8",
+  "fetched_base": "8c92dfd8d92dec4d450775ee8a0f74254a24b707",
+  "base_already_in_branch": true,
+  "planned_tag_unused": true,
+  "latest_release": {
+    "tag_name": "v0.26.0",
+    "target_commitish": "582617139527cf22dd7ec9514632b121a628959a",
+    "published_at": "2026-10-28T15:35:56Z",
+    "html_url": "https://github.com/ManuelSe/Neistra/releases/tag/v0.26.0"
+  },
+  "default_branch": "master",
+  "allow_merge_commit": true,
+  "delete_branch_on_merge": false,
+  "protection": {
+    "message": "Branch not protected",
+    "documentation_url": "https://docs.github.com/rest/branches/branch-protection#get-branch-protection",
+    "status": "404"
+  },
+  "rulesets": [],
+  "workflows": {
+    "total_count": 0,
+    "workflows": []
+  },
+  "note": "Observed presubmit state; recheck PR reviews, checks, conversations, base and protections before merge."
+}

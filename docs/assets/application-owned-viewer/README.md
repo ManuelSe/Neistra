@@ -26,7 +26,7 @@ The release-recipe and release-qualification scripts preserve the established
 They require a clean initial tree, isolated stores, locked native tools, actual
 v0.26.0/current producer-reader processes, identical source hashes and lossless
 logs. Each phase has a fresh label and /tmp data; failed attempts are retained.
-Complete candidate/exact-master qualification and publication receipts are pending.
+Complete candidate qualification is recorded below; exact-master and publication remain pending.
 
 - C3 candidate1 is diagnostic:1262 Python/373 frontend/12 supervisor/static/build
   pass, browser351pass/1failure/62existing exclusions. Full report and failed mobile
@@ -69,3 +69,15 @@ Complete candidate/exact-master qualification and publication receipts are pendi
   native events preserve physical snapshots and complete trusted-input expansion.
   Hover/controls/WebGL/annotations/lifecycle/root-warning checks pass. Source/log
   identities verify. Complete final candidate/master gates remain required.
+
+- C3 clean candidate `117c354`: all20 commands, **1,262 Python (zero skips), 374 frontend, 12 supervisor/policy and 352 browser passes / 62 exactly unchanged exclusions**;
+  zero failures/flakes/retries, all595 source and lossless log identities.
+  c3-candidate4-summary.json embeds all four actual reader process records;
+  c3-candidate4-browser.json.gz is the complete raw report. Observations preserve
+  portable measurements/JSON attachments; strict timing qualification is not claimed.
+  c3-full-diff-review.md is local self-review. release-summary.py.txt checks clean
+  complete gates, source/log identities, exact baseline exclusions and no retries.
+
+Presubmit receipt verifies the refreshed base is already incorporated andv0.26.2
+is unused; PR policy is rechecked at merge. Final candidate desktop/mobile renders
+were visually inspected (axes retained; existing annotation overlap unchanged).

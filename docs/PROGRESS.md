@@ -2,47 +2,25 @@
 
 ## Current milestone
 
-Issue [#96](https://github.com/ManuelSe/Neistra/issues/96), M1/C1 and M2/C2 complete
-under [the approved contract](plans/issue-96-application-owned-viewer.md) and D-149.
-Minimal native canvas composition removes controls/information/task/toast/logo UI;
-existing orientation axes remain by explicit user correction. React/plugin cleanup,
-guarded rendering feedback, obsolete helper/CSS removal and shipped attribution
-are implemented. Molecular/backend/API/schema/dependency ownership is unchanged.
+Issue [#96](https://github.com/ManuelSe/Neistra/issues/96): M1/C1, M2/C2 and M3/C3
+complete under [the approved contract](plans/issue-96-application-owned-viewer.md)
+and D-149. Neistra owns viewer controls/feedback; native controls/information/
+task/toast/logo UI is omitted. Orientation axes remain by explicit user correction.
+Guarded rendering feedback, root/plugin cleanup, obsolete helper removal and shipped
+attribution are implemented. Molecular/API/schema/dependency owners are unchanged.
 
-Verification: C1 **30 native passes / 10 existing exclusions**; C2 **55 / 7**, plus
-updated actual WebGL failure **1 / 1** and cold-cache annotation checks on both
-layouts. All **373 frontend tests**, lint/types/build/diff and production-harness
-exclusion pass. Zero final failures/flakes/retries; unchanged source hashes.
-[C2 summary/review](assets/application-owned-viewer/c2-review.md) records native
-annotation/task/toast/rebuild/remount/project invariants, exact state/originals,
-existing hover/picking/surfaces/movement/notifications/accessibility and diagnostics.
-1STP records 682ms import/4542ms interactions/365ms longest/zero repeated reads in
-portable mode; strict reference timing is not claimed. Review is local self-review.
+Clean final candidate `117c354` passes all 20 release commands: **1,262 Python (zero skips), 374 frontend, 12 supervisor/policy and 352 browser passes / 62 exactly unchanged exclusions**,
+zero failures/flakes/retries, all 595 source/log identities verified.
+Frozen installs, Alembic 0014, static/build/license/version checks and actual tagged
+v0.26.0↔final 0.26.2 readers pass. [Evidence and local self-review](assets/application-owned-viewer/README.md)
+retain exact commands/results and earlier diagnostics. C1/C2 qualify both themes,
+320px/actual zoom, annotations, native tasks/toasts, responsive/project lifecycle,
+camera and exact project/original invariants. No independent approval is claimed.
 
-Known limits: annotation overlap and existing scientific limits are unchanged.
-Actual-reader compatibility and complete candidate/exact-master gates remain.
-All five versions declare0.26.2; 39 focused archive tests/audits pass. The first
-full candidate passes1262 Python/373 frontend/12 supervisor and static/build gates,
-then351 browser cases pass and one new mobile annotation test fails (62 existing
-exclusions). The retained trace identifies observation before replacement-plugin
-mount completion. Test-only explicit remount/readiness correction passes all4 focused desktop/mobile
-cases and373 frontend/static/build/audit checks;
-no assertion/deadline/fixture/exclusion change. Subsequent retained-trace review
-finds nested React root cleanup ordering can defer canvas unmount past plugin
-disposal; candidate2 is interrupted for correction. A fail-first unit reproduces
-the order; one microtask now completes root cleanup before context disposal.
-Five mount tests, all374 frontend/static/build/audits and focused native5pass/1
-existing exclusion now pass, including zero React root warnings. Full qualification
-of this runtime repair remains pending. No release qualification
-is claimed. Candidate3 ends351 browser passes/1existing gesture failure/62exclusions;
-both native UI/annotation/cleanup cases pass both layouts. Deterministic actual
-projection jitter reproduces double-click invalidation despite unchanged physical
-camera state. The adapter now compares full camera snapshots;374 frontend/static/
-build/audits pass, cold native qualification passes28 cases/8existing exclusions, including four
-both-theme/layout projection-jitter records with identical physical snapshots. Actual tagged0.26.0↔0.26.2
-reader preflight passes both directions with originals/state/history/jobs/archive
-remapping intact. Image export is follow-up#128. Blockers: none. Next: focused
-camera/gesture correction, passing commit and fresh clean complete candidate gate.
+Known limits: annotation overlap/scientific limits remain; portable correctness
+is not strict timing qualification. Stable patch 0.26.2 includes unreleased 0.26.1;
+no migration. Image export is follow-up #128. Blockers: none. Next: PR/review/normal
+merge, exact-master complete gate and verified tag/release/issue close-out/cleanup.
 
 ### Previous delivery baseline — PR #126, unreleased 0.26.1
 

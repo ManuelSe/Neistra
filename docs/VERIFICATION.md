@@ -1,5 +1,20 @@
 # V0.1 Requirement Evidence
 
+## Issue #96 — Complete candidate qualification
+
+Clean candidate `117c35480586edffc2bb1cc72a06df934e0b59b8` passes the
+[twenty-command gate](assets/application-owned-viewer/c3-candidate4-gate.json):
+**1,262 Python (zero skips), 374 frontend, 12 supervisor/policy and 352 browser passes / 62 exactly unchanged exclusions**. Zero failures/flakes/automatic retries, no Python/required scientific
+skips; all 595 source identities and lossless log hashes verify.
+Frozen installs, fresh Alembic 0014, Ruff/mypy 102 files, frontend lint/types/build,
+version/schema/dependency/shipped-license audits and both actual tagged
+v0.26.0↔final 0.26.2 producer/readers pass. [Summary](assets/application-owned-viewer/c3-candidate4-summary.json)
+retains reader roots/versions, originals/state/history/jobs and archive remapping.
+The full browser invocation passes cleanly with the identical accepted exclusion
+set. [Full-diff review](assets/application-owned-viewer/c3-full-diff-review.md) is
+implementer self-review, not independent approval. D-148 portable qualification
+does not claim strict reference timing. Exact merged-master gate/publication remain.
+
 ## Issue #96 — Native camera-event correction and actual readers
 
 Candidate3 passes351 native cases with one existing mobile double-click failure
