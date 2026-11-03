@@ -2,6 +2,31 @@
 
 ## Current milestone
 
+Issue [#96](https://github.com/ManuelSe/Neistra/issues/96): M1/C1, M2/C2 and M3/C3
+complete under [the approved contract](plans/issue-96-application-owned-viewer.md)
+and D-149. Neistra owns viewer controls/feedback; native controls/information/
+task/toast/logo UI is omitted. Orientation axes remain by explicit user correction.
+Guarded rendering feedback, root/plugin cleanup, obsolete helper removal and shipped
+attribution are implemented. Molecular/API/schema/dependency owners are unchanged.
+
+Clean final candidate `117c354` passes all 20 release commands: **1,262 Python (zero skips), 374 frontend, 12 supervisor/policy and 352 browser passes / 62 exactly unchanged exclusions**,
+zero failures/flakes/retries, all 595 source/log identities verified.
+Frozen installs, Alembic 0014, static/build/license/version checks and actual tagged
+v0.26.0↔final 0.26.2 readers pass. [Evidence and local self-review](assets/application-owned-viewer/README.md)
+retain exact commands/results and earlier diagnostics. C1/C2 qualify both themes,
+320px/actual zoom, annotations, native tasks/toasts, responsive/project lifecycle,
+camera and exact project/original invariants. No independent approval is claimed.
+
+Known limits: annotation overlap/scientific limits remain; portable correctness
+is not strict timing qualification. Stable patch 0.26.2 includes unreleased 0.26.1;
+no migration. Image export is follow-up #128. [PR#129](https://github.com/ManuelSe/Neistra/pull/129)
+is open and mergeable. Codex review is requested; no external result is returned,
+so review remains local self-review. Current policy has no required human approval/
+remote checks or unresolved threads. Blockers: none. Next: normal merge, exact-master
+complete gate and verified tag/release/issue close-out/cleanup.
+
+### Previous delivery baseline — PR #126, unreleased 0.26.1
+
 PR [#126](https://github.com/ManuelSe/Neistra/pull/126): carbon-first coloring and
 portable correctness qualification are verified under D-147/D-148 and the amended
 [issue #58 plan](plans/issue-58-carbon-only-session-default.md). Remote integration

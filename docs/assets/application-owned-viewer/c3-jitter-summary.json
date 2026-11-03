@@ -1,0 +1,261 @@
+{
+  "qualified_focused_checkpoint": true,
+  "browser": {
+    "startTime": "2026-11-02T23:22:19.079Z",
+    "duration": 220963.887,
+    "expected": 28,
+    "skipped": 8,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "automatic_retries": 0,
+  "source_and_logs_verified": true,
+  "projection_jitter": [
+    {
+      "project": "chromium",
+      "name": "projection-jitter-light",
+      "data": {
+        "updates": [
+          true,
+          true
+        ],
+        "cameraEvents": 2,
+        "before": {
+          "mode": "perspective",
+          "fov": 0.7853981633974483,
+          "position": [
+            -0.624532756274599,
+            -1.0189252043125712,
+            40.70281095786849
+          ],
+          "up": [
+            0,
+            1,
+            0
+          ],
+          "target": [
+            -0.624532756274599,
+            -1.0189252043125712,
+            0.02234470022461764
+          ],
+          "radius": 19.459675572109223,
+          "radiusMax": 19.459675572109223,
+          "fog": 15,
+          "clipFar": true,
+          "minNear": 1,
+          "minFar": 0
+        },
+        "after": {
+          "mode": "perspective",
+          "fov": 0.7853981633974483,
+          "position": [
+            -0.624532756274599,
+            -1.0189252043125712,
+            40.70281095786849
+          ],
+          "up": [
+            0,
+            1,
+            0
+          ],
+          "target": [
+            -0.624532756274599,
+            -1.0189252043125712,
+            0.02234470022461764
+          ],
+          "radius": 19.459675572109223,
+          "radiusMax": 19.459675572109223,
+          "fog": 15,
+          "clipFar": true,
+          "minNear": 1,
+          "minFar": 0
+        }
+      }
+    },
+    {
+      "project": "chromium",
+      "name": "projection-jitter-dark",
+      "data": {
+        "updates": [
+          true,
+          true
+        ],
+        "cameraEvents": 2,
+        "before": {
+          "mode": "perspective",
+          "fov": 0.7853981633974483,
+          "position": [
+            -0.624532756274599,
+            -1.0189252043125712,
+            40.70281095786849
+          ],
+          "up": [
+            0,
+            1,
+            0
+          ],
+          "target": [
+            -0.624532756274599,
+            -1.0189252043125712,
+            0.02234470022461764
+          ],
+          "radius": 19.459675572109223,
+          "radiusMax": 19.459675572109223,
+          "fog": 15,
+          "clipFar": true,
+          "minNear": 1,
+          "minFar": 0
+        },
+        "after": {
+          "mode": "perspective",
+          "fov": 0.7853981633974483,
+          "position": [
+            -0.624532756274599,
+            -1.0189252043125712,
+            40.70281095786849
+          ],
+          "up": [
+            0,
+            1,
+            0
+          ],
+          "target": [
+            -0.624532756274599,
+            -1.0189252043125712,
+            0.02234470022461764
+          ],
+          "radius": 19.459675572109223,
+          "radiusMax": 19.459675572109223,
+          "fog": 15,
+          "clipFar": true,
+          "minNear": 1,
+          "minFar": 0
+        }
+      }
+    },
+    {
+      "project": "mobile-chromium",
+      "name": "projection-jitter-light",
+      "data": {
+        "updates": [
+          true,
+          true
+        ],
+        "cameraEvents": 2,
+        "before": {
+          "mode": "perspective",
+          "fov": 0.7853981633974483,
+          "position": [
+            -0.624532756274599,
+            -1.0189252043125712,
+            60.745382138463775
+          ],
+          "up": [
+            0,
+            1,
+            0
+          ],
+          "target": [
+            -0.624532756274599,
+            -1.0189252043125712,
+            0.02234470022461764
+          ],
+          "radius": 19.459675572109223,
+          "radiusMax": 19.459675572109223,
+          "fog": 15,
+          "clipFar": true,
+          "minNear": 1,
+          "minFar": 0
+        },
+        "after": {
+          "mode": "perspective",
+          "fov": 0.7853981633974483,
+          "position": [
+            -0.624532756274599,
+            -1.0189252043125712,
+            60.745382138463775
+          ],
+          "up": [
+            0,
+            1,
+            0
+          ],
+          "target": [
+            -0.624532756274599,
+            -1.0189252043125712,
+            0.02234470022461764
+          ],
+          "radius": 19.459675572109223,
+          "radiusMax": 19.459675572109223,
+          "fog": 15,
+          "clipFar": true,
+          "minNear": 1,
+          "minFar": 0
+        }
+      }
+    },
+    {
+      "project": "mobile-chromium",
+      "name": "projection-jitter-dark",
+      "data": {
+        "updates": [
+          true,
+          true
+        ],
+        "cameraEvents": 2,
+        "before": {
+          "mode": "perspective",
+          "fov": 0.7853981633974483,
+          "position": [
+            -0.624532756274599,
+            -1.0189252043125712,
+            60.745382138463775
+          ],
+          "up": [
+            0,
+            1,
+            0
+          ],
+          "target": [
+            -0.624532756274599,
+            -1.0189252043125712,
+            0.02234470022461764
+          ],
+          "radius": 19.459675572109223,
+          "radiusMax": 19.459675572109223,
+          "fog": 15,
+          "clipFar": true,
+          "minNear": 1,
+          "minFar": 0
+        },
+        "after": {
+          "mode": "perspective",
+          "fov": 0.7853981633974483,
+          "position": [
+            -0.624532756274599,
+            -1.0189252043125712,
+            60.745382138463775
+          ],
+          "up": [
+            0,
+            1,
+            0
+          ],
+          "target": [
+            -0.624532756274599,
+            -1.0189252043125712,
+            0.02234470022461764
+          ],
+          "radius": 19.459675572109223,
+          "radiusMax": 19.459675572109223,
+          "fog": 15,
+          "clipFar": true,
+          "minNear": 1,
+          "minFar": 0
+        }
+      }
+    }
+  ],
+  "actual_reader_preflight": "c3-reader-preflight-results.json",
+  "complete_release_gate_pending": true
+}

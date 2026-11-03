@@ -1,3 +1,4 @@
+import { watchNativeUi, expectApplicationViewer } from "./support/viewer-ui";
 import { resolve } from "node:path";
 import {
   expect,
@@ -432,6 +433,7 @@ test("shows a usable WebGL failure instead of a blank viewer", async ({
   request,
 }, testInfo) => {
   test.skip(testInfo.project.name !== "chromium", "Failure injection runs once.");
+  await watchNativeUi(page);
   const project = await createProject(request, testInfo);
   await page.addInitScript(() => {
     HTMLCanvasElement.prototype.getContext = () => null;
@@ -446,4 +448,5 @@ test("shows a usable WebGL failure instead of a blank viewer", async ({
     timeout: 20_000,
   });
   await expect(page.locator(".viewer-status")).toContainText("1 visible");
+  await expectApplicationViewer(page);
 });

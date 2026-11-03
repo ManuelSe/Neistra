@@ -1,5 +1,92 @@
 # V0.1 Requirement Evidence
 
+## Issue #96 — Complete candidate qualification
+
+Clean candidate `117c35480586edffc2bb1cc72a06df934e0b59b8` passes the
+[twenty-command gate](assets/application-owned-viewer/c3-candidate4-gate.json):
+**1,262 Python (zero skips), 374 frontend, 12 supervisor/policy and 352 browser passes / 62 exactly unchanged exclusions**. Zero failures/flakes/automatic retries, no Python/required scientific
+skips; all 595 source identities and lossless log hashes verify.
+Frozen installs, fresh Alembic 0014, Ruff/mypy 102 files, frontend lint/types/build,
+version/schema/dependency/shipped-license audits and both actual tagged
+v0.26.0↔final 0.26.2 producer/readers pass. [Summary](assets/application-owned-viewer/c3-candidate4-summary.json)
+retains reader roots/versions, originals/state/history/jobs and archive remapping.
+The full browser invocation passes cleanly with the identical accepted exclusion
+set. [Full-diff review](assets/application-owned-viewer/c3-full-diff-review.md) is
+implementer self-review, not independent approval. D-148 portable qualification
+does not claim strict reference timing. Exact merged-master gate/publication remain.
+
+## Issue #96 — Native camera-event correction and actual readers
+
+Candidate3 passes351 native cases with one existing mobile double-click failure
+and62 unchanged exclusions; pre-browser1262 Python/374 frontend/12 supervisor and
+static/build pass. Both new lifecycle cases pass both layouts. This full attempt
+remains diagnostic. A deterministic native projection-jitter regression fails the
+old adapter with2 updates/2 native events, identical physical snapshots and trusted
+clicks. The adapter now invalidates gesture history only on physical camera change;
+D-149 records the narrow preservation correction. Original traces cannot identify
+the exact original camera event. Cold dependency-scan navigation remains separate.
+
+Actual [tagged/current reader preflight](assets/application-owned-viewer/c3-reader-preflight-results.json)
+passes both ways with explicit roots/versions, originals/coordinates, batch history,
+named selections/scenes/surface identities, jobs and archive remapping. All374
+frontend/static/build/audits and focused cold native28pass/8existing exclusions
+pass. All4 theme/layout jitter records prove2 updates/2 events/equal physical
+snapshots with exact native expansion. Source/log hashes verify; zero failures/
+flakes/retries. Complete candidate/exact-master gates remain required.
+
+## Issue #96 — Nested-root cleanup review correction
+
+The retained candidate1 mobile trace exposes React's nested-root unmount warning.
+A fail-first unit proves plugin disposal precedes canvas cleanup. Candidate2 is
+intentionally interrupted after browser case63 to fix this production lifecycle
+ordering; it is not qualified. D-149 records one microtask after the parent commit,
+then root unmount before plugin disposal. All5 mount tests pass after correction;
+native tests now reject that warning across responsive/project teardown. Focused native5pass/1existing exclusion and all374 frontend/static/build/audit
+checks now pass, including zero React root warnings. Fresh complete release
+qualification remains required. No diagnostic suppression,
+assertion/deadline/scientific/fixture/exclusion relaxation is introduced.
+
+## Issue #96 — Initial candidate diagnostic
+
+The initial clean `a66bf7c` [complete-gate attempt](assets/application-owned-viewer/c3-candidate1-gate.json)
+passes pre-browser steps (1262 Python,373 frontend,12 supervisor and static/build)
+but ends351 browser passes/1 failed/62 existing exclusions. The new mobile annotation
+observer reads a replacement engine before plugin mounting completes during a
+responsive remount. Full report, failure context/screenshot/trace remain diagnostic;
+actual readers did not run. A test-only readiness correction and fresh complete
+candidate qualification are required. No production/scientific policy/assertion/
+timeout/fixture/exclusion relaxation is authorized.
+
+## Issue #96 — C2 lifecycle and scientific-display qualification
+
+Under D-149 and the [approved plan](plans/issue-96-application-owned-viewer.md),
+[C2](assets/application-owned-viewer/c2-summary.json) passes 55 native cases / 7
+existing exclusions, updated real WebGL failure 1 / 1, 373 frontend and static/
+build/diff checks, zero failures/flakes/retries and unchanged sources. Cold-cache
+annotation qualification passes desktop/mobile. Actual distance/angle/dihedral/
+structure glyphs, native toast/task events, appearance rebuilds, responsive
+remounts, project teardown/reopen, camera and exact project/original invariants
+are observed. Existing hover/picking/surface/movement/notification/accessibility
+checks pass. 1STP records 682ms import/4542ms interactions/365ms longest/zero repeated
+reads; D-148 portable mode is not strict reference timing qualification.
+Existing annotation overlap remains; no new label-layout/scientific behavior is
+claimed. [Review](assets/application-owned-viewer/c2-review.md) is self-review.
+Actual tagged readers and complete final-version candidate/master gates remain.
+
+## Issue #96 — C1 viewer interface cleanup
+
+Under D-149 and the [approved plan](plans/issue-96-application-owned-viewer.md),
+[C1](assets/application-owned-viewer/c1-final-browser.json) passes 30 native browser
+cases / 10 existing layout exclusions, with zero failures/flakes/retries and
+unchanged source. All 373 frontend tests, lint/types/build, shipped-license byte
+identity and diff checks pass. Native controls/information/task/toast/logo UI is
+omitted at composition time; the user explicitly retains orientation axes.
+Existing camera, selection, representation, scene, theme, WebGL failure and actual
+100%/200% zoom workflows pass. Earlier diagnostic failures remain separate.
+[Local self-review](assets/application-owned-viewer/c1-review.md) is not independent
+review. C2 scientific-display/lifecycle, actual-reader compatibility and complete
+candidate/exact-master gates are still required; no release is claimed.
+
 ## Current issue #58 qualification — 2026-11-02
 
 The amended [contract](plans/issue-58-carbon-only-session-default.md), D-147 and

@@ -3,6 +3,13 @@
 Status: M1–M5 implemented and verified; no implementation gate remains.
 This is local implementation evidence, not a release announcement.
 
+The native screenshot/settings popup and attribution-label evidence below is
+historical. D-149 and the [issue #96 contract](plans/issue-96-application-owned-viewer.md)
+supersede retention of those elements. Current checks cover their absence and
+application-owned focus/theme/zoom behavior; orientation axes remain by explicit
+user guidance. Molecular color, canvas background and accessibility contracts
+remain in force. See [current verification](VERIFICATION.md) for qualification.
+
 Baseline: `2b22cc4` (v0.5.0 documentation closeout). Work is isolated on
 `feat/neistra-rebranding`; `.rebranding/` is never staged or committed.
 Original brand source files, molecular uploads and protected backend paths remain

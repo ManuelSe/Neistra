@@ -180,17 +180,8 @@ test("keeps actions and dialogs reachable at real 100% and 200% browser zoom", a
         await expect(movement).toBeVisible();
         await page.keyboard.press("Escape"); await expect(movement).toBeHidden();
         await expect(page.getByRole("button", { name: factor === 2 ? "Transform selection" : "Move selection", exact: true })).toBeFocused();
-        const settings = page.locator('.msp-viewport-controls button[title="Settings / Controls Info"]');
-        await settings.click();
-        const popup = page.locator(".msp-viewport-controls-panel");
-        await popup.locator(".msp-control-group-header > button").first().click({ trial: true });
-        expect(await popup.evaluate(node => {
-          const box = node.getBoundingClientRect();
-          const host = node.closest(".structure-viewer")!.getBoundingClientRect();
-          return box.left >= host.left && box.right <= host.right && box.bottom <= host.bottom;
-        })).toBe(true);
-        await captureZoomPage(page, info, `${theme}-${factor * 100}-viewer-settings.png`);
-        await settings.click();
+        await expect(page.locator(".msp-viewport-controls, .msp-viewport-controls-panel, .msp-logo")).toHaveCount(0);
+        await captureZoomPage(page, info, `${theme}-${factor * 100}-application-viewer.png`);
         const inspector = page.getByRole("button", { name: "Inspector", exact: true });
         if (await inspector.isVisible()) await inspector.click();
         for (const tab of await page.locator('.inspector-tabs [role="tab"]').all()) {

@@ -72,27 +72,13 @@ test("reviews all Neistra workflow surfaces in both themes", async ({ page, requ
   for (const theme of ["light", "dark"] as const) {
     if (theme === "dark") await page.getByRole("button", { name: "Use dark theme" }).click();
     await closePanel(page);
-    for (const title of ["Screenshot / State Snapshot", "Settings / Controls Info"]) {
-      const trigger = page.locator(`.msp-viewport-controls button[title="${title}"]`);
-      await trigger.click();
-      const popup = page.locator(".msp-viewport-controls-panel");
-      await expect(popup).toBeVisible();
-      await popup.locator(".msp-control-group-header > button").first().click({ trial: true });
-      expect(await popup.evaluate(node => {
-        const box = node.getBoundingClientRect();
-        const host = node.closest(".structure-viewer")!.getBoundingClientRect();
-        return box.left >= host.left && box.right <= host.right && box.bottom <= host.bottom;
-      })).toBe(true);
-      const edit = page.getByRole("button", { name: "Edit molecule", exact: true });
-      expect(await edit.evaluate(node => {
-        const box = node.getBoundingClientRect();
-        return node.contains(document.elementFromPoint(box.x + box.width / 2, box.y + box.height / 2));
-      })).toBe(true);
-      expect((await popup.boundingBox())!.y).toBeGreaterThanOrEqual((await edit.boundingBox())!.y + (await edit.boundingBox())!.height);
-      await review(page, info, `${theme}-vendor-${title.startsWith("Screenshot") ? "screenshot" : "settings"}`);
-      await trigger.click();
-      await expect(popup).toBeHidden();
-    }
+    await expect(page.locator(".msp-viewport-controls, .msp-viewport-controls-panel, .msp-logo")).toHaveCount(0);
+    const edit = page.getByRole("button", { name: "Edit molecule", exact: true });
+    expect(await edit.evaluate(node => {
+      const box = node.getBoundingClientRect();
+      return node.contains(document.elementFromPoint(box.x + box.width / 2, box.y + box.height / 2));
+    })).toBe(true);
+    await review(page, info, `${theme}-application-viewer`);
     await panel(page, "Project browser");
     await page.locator(".entry-select").filter({ hasText: "Ethanol" }).click();
     await browseComponents(page, "Ethanol");

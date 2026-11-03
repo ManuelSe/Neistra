@@ -1,0 +1,24 @@
+{
+  "source_trace": "docs/assets/application-owned-viewer/c3-candidate1-mobile-trace.zip",
+  "source_trace_sha256": "0f1902bc411891baf225b31e62cc3a49062efce43cd862cb6393b0d00b08cfb2",
+  "console_event": {
+    "type": "console",
+    "messageType": "error",
+    "text": "Attempted to synchronously unmount a root while React was already rendering. React cannot finish unmounting the root until the current render has completed, which may lead to a race condition.",
+    "args": [
+      {
+        "preview": "Attempted to synchronously unmount a root while React was already rendering. React cannot finish unmounting the root until the current render has completed, which may lead to a race condition.",
+        "value": "Attempted to synchronously unmount a root while React was already rendering. React cannot finish unmounting the root until the current render has completed, which may lead to a race condition."
+      }
+    ],
+    "location": {
+      "url": "http://127.0.0.1:19873/node_modules/.vite/deps/react-dom_client.js?v=0a3dc98d",
+      "lineNumber": 17926,
+      "columnNumber": 88
+    },
+    "time": 3167196.817,
+    "pageId": "page@977cf5270b73ed83c963e8098d05d9bb"
+  },
+  "fail_first": "c3-root-fail-first.json",
+  "corrected_unit": "c3-root-fixed-unit.json"
+}

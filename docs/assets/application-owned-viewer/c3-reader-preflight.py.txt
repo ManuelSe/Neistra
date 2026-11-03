@@ -1,0 +1,6 @@
+import json,os,subprocess
+from pathlib import Path
+recipe=json.loads(Path('/tmp/neistra96-c3-reader-preflight/commands.json').read_text())
+for step in recipe['steps'][12:18]:
+ print(step['label'],step['command'],flush=True)
+ subprocess.run(step['command'],env={**os.environ,**recipe['environment'],**step.get('environment',{})},check=True)

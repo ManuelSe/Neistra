@@ -84,7 +84,21 @@ for (const theme of ["light", "dark"] as const) test(`expands native protein and
     const position = await point(page, atom.coordinates);
     await canvas.click({ position });
     await expect.poll(() => selection(page)).toEqual(refs(entry.id, [atomId]));
+    if (atomId === 2) await page.evaluate(async () => {
+      const { installProjectionJitterOnDoubleClick } = await import("/src/test/selectionGestureHarness.ts");
+      installProjectionJitterOnDoubleClick(window.interactionEngines.at(-1)!, document.querySelector<HTMLCanvasElement>(".molstar-host canvas")!);
+    });
     await canvas.dblclick({ position });
+    if (atomId === 2) {
+      const evidence = await page.evaluate(async () => {
+        const { projectionJitterEvidence } = await import("/src/test/selectionGestureHarness.ts");
+        return projectionJitterEvidence(window.interactionEngines.at(-1)!);
+      });
+      expect(evidence?.updates).toEqual([true, true]);
+      expect(evidence?.cameraEvents).toBe(2);
+      expect(evidence?.after).toEqual(evidence?.before);
+      await info.attach(`projection-jitter-${theme}`, { contentType: "application/json", body: Buffer.from(JSON.stringify(evidence)) });
+    }
     const expected = projection.structure.atoms.filter(a => a.residue_id === atom.residue_id).map(a => a.id);
     await expect.poll(() => selection(page)).toEqual(refs(entry.id, expected));
     expect(await page.evaluate(() => window.editingPicks.camera())).toEqual(camera);

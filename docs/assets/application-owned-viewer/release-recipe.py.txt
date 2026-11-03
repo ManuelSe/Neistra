@@ -1,0 +1,27 @@
+"""Generate the existing twenty-step release gate for one isolated issue96 phase."""
+import json
+from pathlib import Path
+import re
+import sys
+
+label = sys.argv[1]
+assert re.fullmatch(r"[a-z0-9-]+", label), label
+root = Path.cwd()
+baseline = json.loads((root / "docs/assets/workspace-sequence-viewer/c3-candidate4-gate.json").read_text())
+recipe = {"require_clean": True, "environment": baseline["environment"], "steps": [
+    {key: value for key, value in step.items() if key in {"label", "command", "environment"}}
+    for step in baseline["steps"]
+]}
+serialized = json.dumps(recipe).replace("/tmp/neistra95-c3-candidate4", f"/tmp/neistra96-{label}")
+serialized = serialized.replace("/tmp/neistra95-reader-0250", "/tmp/neistra96-reader-0260")
+serialized = serialized.replace("0.26.0", "0.26.2").replace("0.25.0", "0.26.0")
+serialized = serialized.replace("docs/assets/workspace-sequence-viewer/versions.py.txt", "docs/assets/application-owned-viewer/versions.py.txt")
+recipe = json.loads(serialized)
+recipe["environment"].pop("PLAYWRIGHT_JSON_OUTPUT_NAME", None)
+recipe["environment"].update(NEISTRA_PERFORMANCE="0", PLAYWRIGHT_JSON_OUTPUT_FILE=f"/tmp/neistra96-{label}/browser.json")
+assert len(recipe["steps"]) == 20
+output = Path(f"/tmp/neistra96-{label}")
+output.mkdir(exist_ok=False)
+path = output / "commands.json"
+path.write_text(json.dumps(recipe, indent=2) + "\n")
+print(path)

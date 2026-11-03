@@ -5999,3 +5999,127 @@ repeating already passing coverage. Report the mixed power conditions honestly.
 No source changes follow qualification beyond documentation/evidence. A release
 is outside the user's merge/cleanup request; no release gate or publication is
 claimed for an unexecuted merged-master run.
+
+## D-149 — Neistra owns the viewer interface around the rendering engine
+
+Date: 2026-11-02. Status: accepted by explicit approval of the
+[issue #96 plan](plans/issue-96-application-owned-viewer.md). Implementation is
+pending and must wait for `/goal`; this decision does not claim delivered behavior.
+
+Use the pinned Mol* 5.11.0 custom viewport seam to render its existing canvas
+without native controls, settings/menus, hover-information DOM, notifications,
+task overlays or logo. Disable outer native task and drag overlays. Keep the
+existing PluginUIContext, builders, representation/measurement managers, camera,
+picking and application adapter; do not convert the engine architecture or hide
+native UI after rendering using CSS, DOM deletion or production observers.
+
+All user-facing controls and feedback belong to Neistra. Preserve application
+warnings/errors, import/job/surface/minimization feedback and notification
+lifetimes. Extend the existing loading indicator through actual scene
+synchronization with transient operation/current-viewer guards. Initialization
+and WebGL failures must reach application-owned feedback. Clean up failed/late
+mounts, subscriptions and rendering resources. No new task mirror, fabricated
+percentage progress or unsupported cancellation control is introduced.
+
+Retain renderer-owned molecular representations, hover highlighting, selection,
+interaction markers, previews and application-managed labels and measurements.
+The normalized molecular model and backend remain authoritative. No molecular,
+project, scene, history, archive, job/plugin or API state migrates into the viewer.
+Preserve the D-125 pick-readback patch and #107 maintenance scope.
+
+Remove obsolete native-UI theme overrides, attribution observer and native-popup
+clearance helper/variable when unused. Ship the complete Mol* copyright/license
+notice outside the viewer in the production distribution and repository
+attribution documentation. Required implementation wrappers and canvas layout
+styles may remain.
+
+This supersedes D-049 only for retaining/theming native controls and visible
+viewport attribution, and related native-popup clearance guidance including the
+D-100 release-review note. It supersedes D-124/125's incidental preservation of
+native informational label DOM, not their picking, hover, camera or surface
+contracts. Theme tokens, scientific molecular colors, accessibility, ownership
+and all D-148 portable qualification requirements remain binding. Update tests
+that require native controls alongside their removal, preserving applicable
+theme, focus, zoom, layout and hit-target coverage.
+
+Rationale: a minimal composition boundary removes competing interfaces without
+replacing the qualified rendering engine. Existing Neistra controls cover the
+supported scientific workflows. Automatic parity with every native function
+would expand scope unnecessarily. Defer application-owned image export to a
+bounded delivery follow-up; retain #97/#98 independently. No new hover-information
+overlay or advanced renderer panels are required by this approval.
+
+The planned compatible presentation correction is patch 0.26.2 from current
+unreleased 0.26.1. Stable releases already exist through v0.26.0. No dependency,
+migration, persisted schema, public API/job/plugin or scientific-model change is
+planned. The feature contract governs checkpoints, evidence and delivery; C0
+persists planning only and stops ready for `/goal`.
+
+### D-149 implementation note — issue #96 M1/C1, 2026-11-02
+
+The minimal viewport retains the existing PluginUIContext and Plugin layout. A
+small mounting helper performs the same initialization/render/canvas-readiness
+sequence while retaining the React root for unmount-before-context disposal,
+including initialization/WebGL failures. Engine disposal is idempotent and late
+mount completion cannot bind input/subscriptions to a retired engine. No renderer
+architecture, scientific model, dependency or schema changes are introduced.
+
+Screenshot review also identified the canvas-rendered native orientation axes.
+Disable that camera helper explicitly: a DOM-only absence assertion would miss
+this native viewport overlay. Molecular labels/measurements and navigation remain
+intact; no replacement orientation widget is introduced. The native gate checks
+both forbidden DOM and the actual camera-helper state. Existing D-125 patch and
+D-148 portable correctness requirements remain unchanged.
+
+### D-149 explicit user correction — retain orientation axes, 2026-11-02
+
+The user explicitly stated, “Actually, the orientaion axes can stay.” This
+supersedes the axes-disable portion of the preceding implementation note.
+Preserve the existing canvas-rendered orientation axes and their default camera
+behavior. They are an explicit exception to the native-interface cleanup;
+native DOM controls, information overlays, notifications, task UI and branding
+remain omitted. No replacement axes widget or new setting is introduced. Native
+qualification asserts the retained camera helper is on.
+
+### D-149 lifecycle qualification note — issue #96 M2/C2, 2026-11-02
+
+Native measurement/structure-label representations retain their custom text and
+positive visible glyph draw counts through rebuilds, responsive remounts and
+project teardown/reopen. Real toast entries and overlay-task events do not mount
+native UI. Exact database reads, original bytes and camera are preserved; no
+renderer rebuild writes back to the application model. The current render error
+still reaches the application alert, unlike obsolete errors. Existing orientation
+axes remain enabled. The observation harness is development-only and its cold-cache
+and production-exclusion checks pass. Existing annotation overlap/placement is
+unchanged; this is interface ownership qualification, not a label-layout redesign
+or new scientific algorithm. Final release gates remain independently required.
+
+### D-149 cleanup ordering correction — issue #96 M3/C3, 2026-11-02
+
+A retained native remount trace reveals React cannot synchronously finish a nested
+root unmount during the parent root's commit. The fail-first regression reproduces
+plugin disposal preceding canvas cleanup. Queue the idempotent root/context
+cleanup in one microtask after that commit, unmount the canvas root first, and
+always dispose its plugin context afterward. Engine input/subscription teardown
+and invalidation remain immediate; no stale engine can accept new application
+work. No renderer/state/API/schema ownership change is introduced. Real responsive
+and project teardown tests must assert the React warning is absent. This corrects
+the earlier intended cleanup ordering without suppressing React diagnostics.
+
+### D-149 native camera-event qualification correction — 2026-11-03
+
+Candidate qualification exposes a missed native double-click expansion. The pinned
+renderer emits camera.changed for projection-only multisampling jitter as well
+as physical camera changes. The adapter previously cleared transient double-click
+history for every such event, although its existing hover invalidation already
+distinguishes unchanged application camera state. A deterministic native regression
+reproduces the expansion failure with two actual projection updates/events and
+byte-for-byte equal physical camera snapshots; it retains trusted native input
+and exact complete-residue/individual-ligand membership assertions.
+
+Compare the full physical SDK camera snapshot before invalidating double-click
+history. Real camera changes, native drag/wheel, scene rebuilds, modes and existing
+lifecycle invalidation still clear it. Projection jitter changes no molecular,
+selection, camera, schema or API authority. This is a narrow interaction-preservation
+repair required by #96's acceptance contract, not a renderer upgrade or gesture
+feature expansion. No deadline, fixture, scientific policy or exclusion is relaxed.
