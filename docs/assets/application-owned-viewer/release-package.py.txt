@@ -1,0 +1,57 @@
+"""Package qualified issue96 evidence without modifying the repository."""
+import hashlib
+import json
+from pathlib import Path
+import sys
+import zipfile
+
+runtime = sys.argv[1]
+root = Path.cwd()
+assets = root / 'docs/assets/application-owned-viewer'
+gates = {phase: json.loads((assets / f'{phase}-gate.json').read_text()) for phase in ('c3-candidate4', 'c4-merged1')}
+for phase, gate in gates.items():
+    assert gate['complete'] and gate['source_unchanged'] and not gate['initial_status']
+    assert len(gate['steps']) == 20 and all(s['exit_code'] == 0 for s in gate['steps'])
+assert gates['c4-merged1']['commit'] == runtime
+assert gates['c3-candidate4']['source_after'] == gates['c4-merged1']['source_after']
+entries = {}
+for path in sorted(assets.rglob('*')):
+    if path.is_file():
+        entries[str(path.relative_to(root))] = path.read_bytes()
+entries['licenses/molstar.txt'] = (root / 'apps/web/public/licenses/molstar.txt').read_bytes()
+entries['docs/THIRD_PARTY_NOTICES.md'] = (root / 'docs/THIRD_PARTY_NOTICES.md').read_bytes()
+for phase in gates:
+    work = Path('/tmp') / f'neistra96-{phase}'
+    for name in ('commands.json', 'browser.json', 'forward-produce.json', 'forward-read.json', 'reverse-produce.json', 'reverse-read.json'):
+        entries[f'raw/{phase}/{name}'] = (work / name).read_bytes()
+    for directory in ('native', 'browser-results'):
+        for path in sorted((work / directory).rglob('*')):
+            if path.is_file():
+                entries[f'raw/{phase}/{path.relative_to(work)}'] = path.read_bytes()
+entries['package.py'] = Path(__file__).read_bytes()
+entries['README.md'] = f'''# Neistra v0.26.2 qualification
+
+Exact merged runtime: {runtime}.
+
+Both clean twenty-command gates passed. See the phase summaries and gate manifests
+for exact commands, source/log hashes, real tagged readers, environment and results.
+All raw browser reports, retained screenshots/traces and native scientific evidence
+are included by phase. Earlier diagnostic attempts in docs/assets remain diagnostic.
+D-148 portable correctness is qualified; strict reference-host timing is not claimed.
+This bundle predates publication receipts. No credentials or live project store is
+included. manifest.json records SHA-256 and size for every other archive member.
+'''.encode()
+manifest = {'version': '0.26.2', 'runtime': runtime, 'candidate': gates['c3-candidate4']['commit'], 'files': {name: {'sha256': hashlib.sha256(data).hexdigest(), 'bytes': len(data)} for name, data in entries.items()}}
+entries['manifest.json'] = (json.dumps(manifest, indent=2) + '\n').encode()
+output = Path('/tmp/neistra-v0.26.2-qualification.zip')
+assert not output.exists(), 'Do not overwrite a published or previously built bundle'
+with zipfile.ZipFile(output, 'w', compression=zipfile.ZIP_DEFLATED, compresslevel=6) as archive:
+    for name, data in entries.items():
+        archive.writestr(name, data)
+with zipfile.ZipFile(output) as archive:
+    assert archive.testzip() is None
+    for name, expected in manifest['files'].items():
+        data = archive.read(name)
+        assert len(data) == expected['bytes']
+        assert hashlib.sha256(data).hexdigest() == expected['sha256'], name
+print(json.dumps({'path': str(output), 'sha256': hashlib.sha256(output.read_bytes()).hexdigest(), 'bytes': output.stat().st_size, 'entries': len(entries), 'runtime': runtime}, indent=2))

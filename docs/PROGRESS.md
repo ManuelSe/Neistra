@@ -2,28 +2,29 @@
 
 ## Current milestone
 
-Issue [#96](https://github.com/ManuelSe/Neistra/issues/96): M1/C1, M2/C2 and M3/C3
-complete under [the approved contract](plans/issue-96-application-owned-viewer.md)
-and D-149. Neistra owns viewer controls/feedback; native controls/information/
-task/toast/logo UI is omitted. Orientation axes remain by explicit user correction.
-Guarded rendering feedback, root/plugin cleanup, obsolete helper removal and shipped
-attribution are implemented. Molecular/API/schema/dependency owners are unchanged.
+Issue [#96](https://github.com/ManuelSe/Neistra/issues/96) is delivered in
+[stable v0.26.2](https://github.com/ManuelSe/Neistra/releases/tag/v0.26.2) through [PR #129](https://github.com/ManuelSe/Neistra/pull/129).
+Exact qualified runtime: `e1cae49a9655a4a48a72c25f36bbd45db0273423`. Neistra owns viewer controls/feedback;
+native UI is omitted, with existing orientation axes retained by explicit guidance.
+Loading/lifecycle cleanup and projection-jitter gesture preservation are qualified;
+molecular/API/schema/dependency owners remain unchanged.
 
-Clean final candidate `117c354` passes all 20 release commands: **1,262 Python (zero skips), 374 frontend, 12 supervisor/policy and 352 browser passes / 62 exactly unchanged exclusions**,
-zero failures/flakes/retries, all 595 source/log identities verified.
-Frozen installs, Alembic 0014, static/build/license/version checks and actual tagged
-v0.26.0↔final 0.26.2 readers pass. [Evidence and local self-review](assets/application-owned-viewer/README.md)
-retain exact commands/results and earlier diagnostics. C1/C2 qualify both themes,
-320px/actual zoom, annotations, native tasks/toasts, responsive/project lifecycle,
-camera and exact project/original invariants. No independent approval is claimed.
+Both clean candidate and exact merged-master **20-command gates pass**:
+**1,262 Python (zero skips), 374 frontend, 12 supervisor/policy, 352 browser passes /
+62 exactly unchanged exclusions**. Zero final failures/flakes/retries; all 595 source
+identities and log hashes verify. Both actual tagged v0.26.0↔0.26.2 reader directions
+pass. [Evidence](assets/application-owned-viewer/README.md) retains exact commands,
+failed diagnostics/fail-first corrections and honest local self-review provenance.
+Codex was requested but returned no external review; independent approval is not
+claimed. Portable correctness is qualified; strict reference timing is not.
 
-Known limits: annotation overlap/scientific limits remain; portable correctness
-is not strict timing qualification. Stable patch 0.26.2 includes unreleased 0.26.1;
-no migration. Image export is follow-up #128. [PR#129](https://github.com/ManuelSe/Neistra/pull/129)
-is open and mergeable. Codex review is requested; no external result is returned,
-so review remains local self-review. Current policy has no required human approval/
-remote checks or unresolved threads. Blockers: none. Next: normal merge, exact-master
-complete gate and verified tag/release/issue close-out/cleanup.
+The remote annotated tag/release and anonymous ZIP download verify (SHA-256, CRC,
+all 1,303 manifest files). [Publication receipt](assets/application-owned-viewer/c4-publication.json).
+The [verified issue close-out](https://github.com/ManuelSe/Neistra/issues/96#issuecomment-6596946523) maintains final documentation-integration
+and branch-cleanup receipts. No migration: head 0014, project/viewer/archive 2 and
+normalized/selection/component 1 remain. Known scientific/annotation-overlap/browser/
+capacity limits remain. Blockers: none. Next product work: image-export design #128,
+separate from this completed implementation and release.
 
 ### Previous delivery baseline — PR #126, unreleased 0.26.1
 

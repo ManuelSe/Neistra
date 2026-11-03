@@ -1,0 +1,44 @@
+{
+  "at": "2026-11-03T00:39:04.658779+00:00",
+  "pr": 129,
+  "head": "8beea42f0db65355d151c716e892de4e1ab7f51b",
+  "base": "8c92dfd8d92dec4d450775ee8a0f74254a24b707",
+  "mergeable": true,
+  "mergeable_state": "clean",
+  "reviews": [],
+  "threads": {
+    "pageInfo": {
+      "hasNextPage": false
+    },
+    "nodes": []
+  },
+  "comments": {
+    "pageInfo": {
+      "hasNextPage": false
+    },
+    "nodes": [
+      {
+        "author": {
+          "login": "ManuelSe"
+        },
+        "body": "@codex review",
+        "url": "https://github.com/ManuelSe/Neistra/pull/129#issuecomment-6592134908",
+        "createdAt": "2026-11-03T00:31:44Z"
+      }
+    ]
+  },
+  "required_human_approval": false,
+  "protection": {
+    "message": "Branch not protected",
+    "documentation_url": "https://docs.github.com/rest/branches/branch-protection#get-branch-protection",
+    "status": "404"
+  },
+  "rulesets": [],
+  "check_runs": 0,
+  "status_count": 0,
+  "source_files": 595,
+  "source_matches_candidate": true,
+  "review_provenance": "Local self-review. Codex request verified; no result returned. No independent approval claimed.",
+  "method": "merge",
+  "delete_branch_on_merge": false
+}

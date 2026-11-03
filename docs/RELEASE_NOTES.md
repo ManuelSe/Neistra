@@ -1,11 +1,11 @@
 # Neistra Release Notes
 
-## 0.26.2 — Release candidate — Application-owned viewer interface
+## 0.26.2 — 2026-11-03 — Application-owned viewer interface
 
-**Status:** candidate qualified in [PR#129](https://github.com/ManuelSe/Neistra/pull/129);
-normal merge, exact merged-master qualification and publication remain pending.
-Codex review is requested; review evidence remains local self-review because no
-external result has returned. No tag/release is claimed.
+**Status:** stable [v0.26.2](https://github.com/ManuelSe/Neistra/releases/tag/v0.26.2), normally merged in
+[PR #129](https://github.com/ManuelSe/Neistra/pull/129). Exact qualified runtime:
+`e1cae49a9655a4a48a72c25f36bbd45db0273423`. [Publication evidence](assets/application-owned-viewer/c4-publication.json)
+and the [issue close-out](https://github.com/ManuelSe/Neistra/issues/96#issuecomment-6596946523) retain delivery receipts.
 
 **Highlights and fixes.** [Issue #96](https://github.com/ManuelSe/Neistra/issues/96)
 removes native viewport buttons/settings, hover-information text, notifications,
@@ -29,8 +29,8 @@ fullscreen/XR/animation panel or snapshot format is introduced. Detached
 presentation #97, warning inspection #98 and pinned renderer-patch maintenance
 #107 remain independent. No essential approved outcome is deferred.
 
-**Persisted data, migration and compatibility.** Patch 0.26.2 follows the current
-unreleased 0.26.1 source version and the latest published v0.26.0. The correction
+**Persisted data, migration and compatibility.** Patch 0.26.2 follows the previously
+unreleased 0.26.1 source version and prior stable v0.26.0. The correction
 changes presentation ownership, not supported scientific capabilities or public
 contracts. All five authoritative versions agree. No dependency upgrade, new
 migration, HTTP/job/plugin or scientific-model change: Alembic 0014,
@@ -40,7 +40,7 @@ existing contracts. Archives retain current state; Undo history remains in the
 managed store. Rollback uses compatible matching application components and
 a complete managed-store backup; no data stripping or schema downgrade is needed.
 Actual tagged v0.26.0/final 0.26.2 producer/readers pass both directions on the
-candidate; exact merged-master qualification remains mandatory.
+clean candidate and exact merged master.
 
 **Inherited unreleased changes.** This release also includes PR #126's carbon-first
 coloring and application-runtime mode memory, plus D-148's portable correctness
@@ -48,15 +48,20 @@ profile. The original reference timing targets remain opt-in with
 `NEISTRA_PERFORMANCE=1`; production scientific/resource/deadline policies remain
 mandatory and unchanged. No separate v0.26.1 publication is required.
 
-**Verification.** The clean final candidate passes all 20 release commands:
-**1,262 Python (zero skips), 374 frontend, 12 supervisor/policy and 352 browser passes / 62 exactly unchanged exclusions**, zero failures/flakes/automatic retries. All 595 source identities
-and lossless log hashes verify. Frozen installs, migration, static/build checks,
-actual tagged readers, version/dependency/schema and shipped-license audits pass.
-C1/C2 also qualify exact database/original/camera invariants, real task/toast
-suppression, annotation text/draw counts, both themes, native picking/surfaces/
-movement and actual 100%/200% zoom. [Feature plan/evidence](plans/issue-96-application-owned-viewer.md)
-retain all attempts. Complete-diff review is implementer self-review; external
-review and exact-master qualification remain separate before publication.
+**Verification.** Both clean candidate and exact merged master pass all **20 release
+commands**: **1,262 Python (zero skips), 374 frontend, 12 supervisor/policy and 352
+browser tests / 62 exactly unchanged exclusions**, zero failures/flakes/retries.
+All 595 source identities match and lossless log hashes verify. Frozen installs,
+migration, static/build, actual tagged readers, versions/dependencies/schemas and
+shipped-license audits pass. C1/C2 and final gates cover exact state/original/camera
+invariants, real task/toast suppression, all annotation kinds, both themes/layouts,
+native picking/surfaces/movement and actual 100%/200% zoom. Fail-first regressions
+cover nested teardown ordering and actual projection jitter. Earlier diagnostics
+remain retained in the [feature plan/evidence](plans/issue-96-application-owned-viewer.md).
+Complete local diff review is self-review; Codex was requested but returned no
+external review. No independent approval is claimed. The remote annotated tag and
+stable release verify; the anonymous qualification ZIP download passes SHA-256,
+CRC and all 1,303 internal file hashes. ZIP SHA-256: `6ae3fc4558626a4272c1afed402f6fd7170ce3fcb48964928420fab40d99cf76`.
 
 **Known limitations.** Existing scientific interpretation, annotation placement/
 overlap, supported browser/rendering and capacity limits remain. These checks
