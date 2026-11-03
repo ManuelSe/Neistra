@@ -1,0 +1,45 @@
+{
+  "at": "2026-11-03T00:36:52.782853+00:00",
+  "pr": {
+    "url": "https://github.com/ManuelSe/Neistra/pull/129",
+    "state": "OPEN",
+    "headRefOid": "16ac6807fffca5da7b5e9928cf629dc48699a6ec",
+    "baseRefOid": "8c92dfd8d92dec4d450775ee8a0f74254a24b707",
+    "mergeable": "MERGEABLE",
+    "mergeStateStatus": "CLEAN",
+    "reviewDecision": null,
+    "reviewThreads": {
+      "pageInfo": {
+        "hasNextPage": false
+      },
+      "nodes": []
+    },
+    "reviews": {
+      "pageInfo": {
+        "hasNextPage": false
+      },
+      "nodes": []
+    },
+    "comments": {
+      "pageInfo": {
+        "hasNextPage": false
+      },
+      "nodes": [
+        {
+          "author": {
+            "login": "ManuelSe"
+          },
+          "body": "@codex review",
+          "url": "https://github.com/ManuelSe/Neistra/pull/129#issuecomment-6592134908",
+          "createdAt": "2026-11-03T00:31:44Z"
+        }
+      ]
+    }
+  },
+  "review_provenance": "Complete local implementer self-review. Codex review requested and remotely verified; no external result returned as of this receipt. No independent approval is claimed.",
+  "connector_write": "GitHub connector PR creation returned Resource not accessible by integration (403). The authenticated user GitHub CLI created the authorized normal PR; connector readback verified its body/head/base.",
+  "source_matches_clean_candidate": true,
+  "source_files": 595,
+  "candidate": "117c35480586edffc2bb1cc72a06df934e0b59b8",
+  "policy_receipt": "c3-presubmit.json"
+}

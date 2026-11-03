@@ -81,3 +81,9 @@ Complete candidate qualification is recorded below; exact-master and publication
 Presubmit receipt verifies the refreshed base is already incorporated andv0.26.2
 is unused; PR policy is rechecked at merge. Final candidate desktop/mobile renders
 were visually inspected (axes retained; existing annotation overlap unchanged).
+
+c3-remote-review.json records PR#129/readback, Codex request with no returned
+external result at that timestamp, and honest local-only review provenance.
+Runtime/test/version/lock bytes still match the clean qualified candidate; policy
+and conversations are checked again at normal merge. No independent approval is
+claimed and publication still requires the exact-master gate.

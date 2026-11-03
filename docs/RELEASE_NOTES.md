@@ -2,8 +2,10 @@
 
 ## 0.26.2 — Release candidate — Application-owned viewer interface
 
-**Status:** candidate qualified; PR/review, exact merged-master qualification and
-publication remain pending. No tag/release is claimed.
+**Status:** candidate qualified in [PR#129](https://github.com/ManuelSe/Neistra/pull/129);
+normal merge, exact merged-master qualification and publication remain pending.
+Codex review is requested; review evidence remains local self-review because no
+external result has returned. No tag/release is claimed.
 
 **Highlights and fixes.** [Issue #96](https://github.com/ManuelSe/Neistra/issues/96)
 removes native viewport buttons/settings, hover-information text, notifications,

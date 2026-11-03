@@ -22,7 +22,7 @@ It authorizes planning persistence now, not runtime implementation or delivery.
 | Merge strategy | Normal merge commit preserving passing checkpoints |
 | Planned release | Stable patch **0.26.2** |
 | Proposed annotated tag | **v0.26.2** |
-| Implementation PR, tag, and release | Not created for this issue |
+| Implementation PR | [#129](https://github.com/ManuelSe/Neistra/pull/129), open against master; tag/release pending |
 | Verified image-export follow-up | [#128](https://github.com/ManuelSe/Neistra/issues/128) |
 
 ## 2. Core problem, outcome, authority, and assumptions
@@ -449,7 +449,7 @@ portable versus strict timing qualification; no new timing/power exclusions.
 | M1/C1 | Complete | 373 frontend tests, lint/types/build, license byte identity and 30 native browser passes / 10 existing layout exclusions; zero final failures/retries/flakes. See C1 evidence below. |
 | M2/C2 | Complete | 55 native browser passes / 7 existing exclusions, real WebGL failure 1 pass / 1 existing exclusion, 373 frontend and static/build gates; cold-cache annotation cases pass both layouts. |
 | M3/C3 | Complete | Clean final candidate passes all20 commands, real tagged readers both ways and complete local diff review; evidence below. |
-| M4/C4 | Not started | Merge, exact-master gate, verified publication, issue close-out and cleanup. |
+| M4/C4 | In progress | PR#129 is qualified and reviewed locally; normal merge, exact-master gate and verified publication remain. |
 
 **Current limitations:** exact merged-master qualification/publication remain;
 existing scientific limits and annotation overlap are unchanged. **Blockers:** none.
@@ -685,3 +685,21 @@ and disables automatic branch deletion. [Receipt](../assets/application-owned-vi
 records this observation; required PR reviews/checks/conversations and policy are
 rechecked before merge. Runtime/test/version/lock bytes remain identical to the
 clean qualified117c354 candidate after documentation/evidence additions.
+
+### M4/C4 review and merge handoff — 2026-11-03
+
+[PR#129](https://github.com/ManuelSe/Neistra/pull/129) is created against master,
+with Closes#96, approved scope/deferrals, patch impact, compatibility and immutable
+candidate evidence. GitHub connector write access is insufficient (403); the
+already authenticated user CLI creates the authorized PR normally. Connector
+readback verifies its exact body, branch/head and base. No protection is bypassed.
+
+[Codex request](https://github.com/ManuelSe/Neistra/pull/129#issuecomment-6592134908)
+is remotely verified. No external result, review submission or unresolved thread
+has returned at the [recorded review receipt](../assets/application-owned-viewer/c3-remote-review.json).
+Review remains complete local implementer self-review; no independent approval is
+claimed. Current policy requires no human approval/status check; PR is mergeable
+and CLEAN, with no configured check runs. Recheck before the normal merge.
+All595 qualified runtime/test/version/lock source identities remain unchanged
+through these documentation-only records. Next: normal merge, exact merged-master
+complete gate/readers, annotatedv0.26.2, verified release/asset/reply and cleanup.

@@ -19,8 +19,11 @@ camera and exact project/original invariants. No independent approval is claimed
 
 Known limits: annotation overlap/scientific limits remain; portable correctness
 is not strict timing qualification. Stable patch 0.26.2 includes unreleased 0.26.1;
-no migration. Image export is follow-up #128. Blockers: none. Next: PR/review/normal
-merge, exact-master complete gate and verified tag/release/issue close-out/cleanup.
+no migration. Image export is follow-up #128. [PR#129](https://github.com/ManuelSe/Neistra/pull/129)
+is open and mergeable. Codex review is requested; no external result is returned,
+so review remains local self-review. Current policy has no required human approval/
+remote checks or unresolved threads. Blockers: none. Next: normal merge, exact-master
+complete gate and verified tag/release/issue close-out/cleanup.
 
 ### Previous delivery baseline — PR #126, unreleased 0.26.1
 
