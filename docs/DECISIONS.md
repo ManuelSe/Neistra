@@ -6123,3 +6123,18 @@ lifecycle invalidation still clear it. Projection jitter changes no molecular,
 selection, camera, schema or API authority. This is a narrow interaction-preservation
 repair required by #96's acceptance contract, not a renderer upgrade or gesture
 feature expansion. No deadline, fixture, scientific policy or exclusion is relaxed.
+
+### D-149 verified delivery — 2026-11-03
+
+The accepted interface boundary, explicit orientation-axes exception and appended
+cleanup/camera-event corrections are qualified on clean candidate and exact merged
+master `e1cae49a9655a4a48a72c25f36bbd45db0273423`. Both complete 20-command gates and actual tagged v0.26.0↔0.26.2
+producer/readers pass, with 595 identical source identities, no required scientific
+skips or new browser exclusions. Stable annotated v0.26.2 is published from that
+master only; [publication/download receipts](assets/application-owned-viewer/c4-publication.json)
+verify tag target, release/asset identities, downloaded SHA-256/CRC and internal
+file hashes. No migration/API/schema/dependency/scientific-model change. Review
+provenance remains local self-review; requested Codex returned no external result.
+Later publication-document integration/cleanup receipts in the [issue reply](https://github.com/ManuelSe/Neistra/issues/96#issuecomment-6596946523)
+preserve qualified runtime bytes and never retarget the published tag. Image
+export remains separately scoped #128; native-feature parity is not reintroduced.

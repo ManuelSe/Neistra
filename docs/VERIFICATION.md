@@ -1,5 +1,27 @@
 # V0.1 Requirement Evidence
 
+## Issue #96 — Released v0.26.2 / exact-master qualification
+
+[PR #129](https://github.com/ManuelSe/Neistra/pull/129) is normally merged at
+`e1cae49a9655a4a48a72c25f36bbd45db0273423`. The [clean exact-master twenty-command gate](assets/application-owned-viewer/c4-merged1-gate.json)
+passes **1,262 Python (zero skips), 374 frontend, 12 supervisor/policy and 352
+browser cases / 62 exactly unchanged exclusions**, zero failures/flakes/automatic
+retries and no required scientific skip. All 595 source identities equal the
+qualified candidate; lossless log hashes verify. [Summary](assets/application-owned-viewer/c4-merged1-summary.json)
+retains actual tagged v0.26.0↔0.26.2 producers/readers both ways with explicit roots/
+versions, originals/coordinates, retained history, selections/scenes/surfaces/jobs
+and archive remapping. Frozen installs, fresh Alembic 0014, static/build, versions/
+dependencies/schemas, production-harness exclusion and byte-identical license pass.
+D-148 portable qualification does not claim strict reference timing.
+
+[Publication receipt](assets/application-owned-viewer/c4-publication.json) verifies
+annotated tag 2977060→e1cae49, [stable release](https://github.com/ManuelSe/Neistra/releases/tag/v0.26.2), latest status and asset
+metadata. Anonymous downloaded ZIP SHA-256 `6ae3fc4558626a4272c1afed402f6fd7170ce3fcb48964928420fab40d99cf76` matches API/local hashes;
+CRC/all 1,303 manifest files and notice bytes verify. [Verified issue reply](https://github.com/ManuelSe/Neistra/issues/96#issuecomment-6596946523)
+records final integration/cleanup status. No schema/data migration. Review is local
+self-review; Codex was requested but returned no external result. Earlier sections
+below are historical checkpoint/diagnostic records superseded by this delivery.
+
 ## Issue #96 — Complete candidate qualification
 
 Clean candidate `117c35480586edffc2bb1cc72a06df934e0b59b8` passes the

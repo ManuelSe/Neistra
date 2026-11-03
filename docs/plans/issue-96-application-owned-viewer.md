@@ -2,10 +2,11 @@
 
 ## 1. Status, approval, and metadata
 
-**Status:** implementation authorized by the user's `/goal` on 2026-11-02.
-M1/C1, M2/C2 and M3/C3 are complete; PR/merge and exact-master publication remain.
+**Status:** implemented, qualified and released as stable **v0.26.2**.
+Publication evidence is recorded below. Final documentation-integration and branch-
+cleanup status are maintained in the [live delivery receipt](https://github.com/ManuelSe/Neistra/issues/96#issuecomment-6596946523).
 
-**Approval:** on 2026-11-02, the user replied, “Implement this plan. Wait for
+**Historical C0 approval:** on 2026-11-02, the user replied, “Implement this plan. Wait for
 the /goal command.” This approves the preceding proposal, including its explicit
 C0 stop, deferred image-export replacement, and planned patch release 0.26.2.
 It authorizes planning persistence now, not runtime implementation or delivery.
@@ -22,15 +23,19 @@ It authorizes planning persistence now, not runtime implementation or delivery.
 | Merge strategy | Normal merge commit preserving passing checkpoints |
 | Planned release | Stable patch **0.26.2** |
 | Proposed annotated tag | **v0.26.2** |
-| Implementation PR | [#129](https://github.com/ManuelSe/Neistra/pull/129), open against master; tag/release pending |
+| Implementation PR | [#129](https://github.com/ManuelSe/Neistra/pull/129), normally merged on 2026-11-03 |
+| Qualified released master | `e1cae49a9655a4a48a72c25f36bbd45db0273423` |
+| Verified annotated tag | `v0.26.2`; object `29770609722c6783ac9e0e37bfaf9fd803dfab1a` targets the qualified master |
+| Published release | [Stable v0.26.2](https://github.com/ManuelSe/Neistra/releases/tag/v0.26.2) |
+| Issue close-out and final delivery receipt | [Verified reply](https://github.com/ManuelSe/Neistra/issues/96#issuecomment-6596946523); issue closed |
 | Verified image-export follow-up | [#128](https://github.com/ManuelSe/Neistra/issues/128) |
 
 ## 2. Core problem, outcome, authority, and assumptions
 
-The viewer currently exposes two interface systems. Neistra hides the main
-native panels, but Mol* still renders viewport controls, information overlays,
-tasks, notifications, and branding. Application CSS and DOM observers then
-maintain those native elements.
+At the approved baseline, the viewer exposed two interface systems. Neistra hid
+the main native panels, but Mol* still rendered viewport controls, information
+overlays, tasks, notifications and branding. Application CSS and DOM observers
+maintained those native elements.
 
 **Approved outcome:** one Neistra-owned interface around the existing molecular
 rendering engine. Rendering, navigation, picking, hover highlighting, selection,
@@ -449,13 +454,15 @@ portable versus strict timing qualification; no new timing/power exclusions.
 | M1/C1 | Complete | 373 frontend tests, lint/types/build, license byte identity and 30 native browser passes / 10 existing layout exclusions; zero final failures/retries/flakes. See C1 evidence below. |
 | M2/C2 | Complete | 55 native browser passes / 7 existing exclusions, real WebGL failure 1 pass / 1 existing exclusion, 373 frontend and static/build gates; cold-cache annotation cases pass both layouts. |
 | M3/C3 | Complete | Clean final candidate passes all20 commands, real tagged readers both ways and complete local diff review; evidence below. |
-| M4/C4 | In progress | PR#129 is qualified and reviewed locally; normal merge, exact-master gate and verified publication remain. |
+| M4/C4 | Release verified | Normal merge, exact-master gate, annotated tag, stable release, downloaded evidence and issue reply verify. The [live receipt](https://github.com/ManuelSe/Neistra/issues/96#issuecomment-6596946523) records final documentation integration and branch cleanup. |
 
-**Current limitations:** exact merged-master qualification/publication remain;
-existing scientific limits and annotation overlap are unchanged. **Blockers:** none.
-**Next action:** reviewed PR and normal merge, exact-master gate and release.
-C0 remains the historical planning-only checkpoint; the later `/goal` authorizes
-implementation and delivery.
+**Current limitations:** existing scientific interpretation, annotation overlap,
+browser/rendering and capacity limits remain. Portable correctness does not qualify
+strict reference-host timing. **Blockers:** none. **Next product work:** image-export
+design remains independently tracked in #128; it is outside this implementation.
+Final delivery integration/cleanup receipts live in the [issue close-out](https://github.com/ManuelSe/Neistra/issues/96#issuecomment-6596946523).
+C0 remains the historical planning-only checkpoint; the subsequent `/goal`
+authorized implementation and the complete delivery lifecycle.
 
 ### Implementation authorization — 2026-11-02
 
@@ -703,3 +710,46 @@ and CLEAN, with no configured check runs. Recheck before the normal merge.
 All595 qualified runtime/test/version/lock source identities remain unchanged
 through these documentation-only records. Next: normal merge, exact merged-master
 complete gate/readers, annotatedv0.26.2, verified release/asset/reply and cleanup.
+
+### M4/C4 publication and completion evidence — 2026-11-03
+
+[PR #129](https://github.com/ManuelSe/Neistra/pull/129) is normally merged at
+`e1cae49a9655a4a48a72c25f36bbd45db0273423`, verified on origin/master before local fast-forward.
+All checkpoint commits remain ancestors. The [exact merged-master gate](../assets/application-owned-viewer/c4-merged1-gate.json)
+starts clean and passes all **20 commands**: **1,262 Python (zero skips),
+374 frontend, 12 supervisor/policy, 352 browser passes / 62 exactly unchanged
+exclusions**. Zero final failures/flakes/automatic retries; no required scientific
+skip. All **595 source identities** match the clean candidate and merged runtime;
+lossless log hashes verify. [Summary](../assets/application-owned-viewer/c4-merged1-summary.json)
+retains all four actual tagged v0.26.0/current 0.26.2 producer/reader records.
+Originals/coordinates, managed-store history, selections/scenes/surface identities,
+jobs and archive remapping remain compatible. No migration, data stripping,
+schema downgrade, dependency or HTTP/job/plugin contract change. Strict reference
+host timing is not claimed; D-148 policies remain unchanged.
+
+Annotated **v0.26.2**, object `29770609722c6783ac9e0e37bfaf9fd803dfab1a`, remotely
+targets that exact qualified master. [Stable release](https://github.com/ManuelSe/Neistra/releases/tag/v0.26.2) ID 432338883 is published,
+non-draft/non-prerelease and verified latest. Notes cover highlights/fixes,
+compatibility/migrations, inherited unreleased 0.26.1 changes, verification,
+scientific limits and scope/follow-ups. The published qualification ZIP is
+**124,988,688 bytes / 1,304 entries**, independently downloaded anonymously.
+SHA-256 **`6ae3fc4558626a4272c1afed402f6fd7170ce3fcb48964928420fab40d99cf76`** matches the uploaded API digest; CRC and all **1,303 manifest
+file hashes** verify. Complete Mol* notice bytes match. The [publication receipt](../assets/application-owned-viewer/c4-publication.json)
+records exact tag/release/asset identities and verification timestamps. The archive
+predates publication receipts and retains raw reports/screenshots/traces/native
+scientific records, actual readers, recipes and source/log hashes.
+
+The [issue reply](https://github.com/ManuelSe/Neistra/issues/96#issuecomment-6596946523) is remotely read back and #96 is closed. It records
+implemented/simplified/deferred/rejected scope, axes exception, verification,
+compatibility/release and #128/#97/#98/#107. Review remains complete local self-review:
+Codex request is verified, but no external result was returned. No independent
+approval is claimed; required checks/reviews/protections were not bypassed.
+
+This publication-record change is documentation/evidence only on the planned
+feature branch, fast-forwarded to the released master. Its normal PR integration
+and the subsequent local/remote branch cleanup are recorded in the **live issue
+reply** after each action. That receipt supplies the final delivery status without
+self-referential commits or retargeting the published runtime tag. After integration,
+verify current master runtime/test/version/lock bytes still match the qualified tag,
+remove only this feature branch and the owned tagged-reader worktree, and confirm
+the working tree is clean. No further implementation is part of #96.

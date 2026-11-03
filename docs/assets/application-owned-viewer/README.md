@@ -1,5 +1,27 @@
 # Issue #96 qualification evidence
 
+Current delivery: [stable v0.26.2](https://github.com/ManuelSe/Neistra/releases/tag/v0.26.2), [PR #129](https://github.com/ManuelSe/Neistra/pull/129),
+qualified runtime `e1cae49a9655a4a48a72c25f36bbd45db0273423`. Final integration/cleanup status lives in the
+[verified issue close-out](https://github.com/ManuelSe/Neistra/issues/96#issuecomment-6596946523).
+
+- c3-candidate4 and c4-merged1 summaries/manifests: both clean 20-command gates pass
+  1,262 Python (zero skips), 374 frontend, 12 supervisor/policy, 352 browser / 62 exactly
+  unchanged exclusions; zero final failures/flakes/retries. All 595 source/log
+  identities verify; actual tagged/current readers pass both ways.
+- c4-publication.json: annotated tag object/target, stable/latest release and asset
+  identities; anonymous download SHA-256/CRC/all 1,303 manifest files/notice identity.
+  The 125 MB qualification ZIP SHA-256 is `6ae3fc4558626a4272c1afed402f6fd7170ce3fcb48964928420fab40d99cf76` (1,304 entries including manifest).
+- c4-issue-closeout.json is the initial verified reply snapshot. The live URL above
+  is updated with subsequent documentation-integration and branch-cleanup receipts.
+- c4-merge-ready/merge-result records preserve review/policy/head/normal-merge
+  provenance. Review is local self-review; Codex request has no external result.
+  Portable correctness is qualified; strict reference timing is not claimed.
+
+The historical checkpoint records below retain failed/interrupted diagnostics and
+superseded pending-state notes. Final source, reader and publication evidence above
+supersedes their qualification status; no failure or exclusion is hidden.
+
+
 The approved feature contract and D-149 govern. Orientation axes remain by
 explicit user correction. D-148 portable correctness is mandatory; strict reference
 latency qualification is not claimed. No production resource/chemistry policy changes.

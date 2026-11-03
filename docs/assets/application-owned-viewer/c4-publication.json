@@ -1,0 +1,44 @@
+{
+  "verified_at": "2026-11-03T06:20:12.659674+00:00",
+  "version": "0.26.2",
+  "runtime": "e1cae49a9655a4a48a72c25f36bbd45db0273423",
+  "pr": 129,
+  "pr_url": "https://github.com/ManuelSe/Neistra/pull/129",
+  "tag": {
+    "name": "v0.26.2",
+    "object": "29770609722c6783ac9e0e37bfaf9fd803dfab1a",
+    "type": "tag",
+    "target": "e1cae49a9655a4a48a72c25f36bbd45db0273423",
+    "remote_verified": true
+  },
+  "release": {
+    "id": 432338883,
+    "tag_name": "v0.26.2",
+    "target_commitish": "e1cae49a9655a4a48a72c25f36bbd45db0273423",
+    "html_url": "https://github.com/ManuelSe/Neistra/releases/tag/v0.26.2",
+    "draft": false,
+    "prerelease": false,
+    "published_at": "2026-11-03T06:16:20Z"
+  },
+  "latest_verified": true,
+  "notes_sha256": "76ca3de68d8c1c7dbcb08cfc4f6f81aa3db26811409f10b0d4090130e7a8130a",
+  "asset": {
+    "id": 704540912,
+    "name": "neistra-v0.26.2-qualification.zip",
+    "url": "https://github.com/ManuelSe/Neistra/releases/download/v0.26.2/neistra-v0.26.2-qualification.zip",
+    "bytes": 124988688,
+    "sha256": "6ae3fc4558626a4272c1afed402f6fd7170ce3fcb48964928420fab40d99cf76",
+    "api_digest": "sha256:6ae3fc4558626a4272c1afed402f6fd7170ce3fcb48964928420fab40d99cf76",
+    "downloaded_anonymously": true,
+    "download_sha256_matches": true,
+    "crc_verified": true,
+    "entries": 1304,
+    "all_manifest_files_verified": 1303,
+    "license_byte_identity": true
+  },
+  "candidate_gate": "c3-candidate4",
+  "merged_gate": "c4-merged1",
+  "source_identities": 595,
+  "review_provenance": "Local full-diff self-review. Codex requested and remotely verified; no external review returned. No independent approval is claimed.",
+  "migration": "None; head0014, project/viewer/archive2 and normalized/selection/component1 retained. Actual tagged0.26.0/current0.26.2 readers pass both directions."
+}

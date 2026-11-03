@@ -142,7 +142,10 @@ run. Do not add `MOLWEAVE_ENABLE_TEST_ROUTES=1` to normal startup.
 
 ## Application-owned viewer compatibility (0.26.2)
 
-Issue #96 changes viewer composition and transient loading/resource lifecycle only.
+Issue #96 changes viewer composition, transient loading/resource lifecycle and
+invalidation of native double-click history after physical camera changes.
+Projection jitter
+keeps the camera/selection semantics intact.
 Orientation axes remain enabled by explicit user guidance. Native screenshot/
 settings UI is removed; application-owned image export is #128. The complete Mol*
 notice ships at `/licenses/molstar.txt`; no native viewer branding is required by
@@ -150,14 +153,21 @@ this application interface. See [third-party notices](THIRD_PARTY_NOTICES.md) an
 the [approved feature contract](plans/issue-96-application-owned-viewer.md).
 
 No dependency, database migration, persisted-schema, HTTP/job/plugin or scientific
-model change: head0014, project/viewer/archive2 and normalized/selection/component1
+model change: head 0014, project/viewer/archive 2 and normalized/selection/component 1
 remain. Upgrade normally from compatible 0.26.x; matching older app components
 can read retained projects/archives without schema downgrade or data stripping.
 Back up the complete managed store before deployment changes. Application version
 metadata records provenance, not structural compatibility. Complete candidate
-and exact merged-master gates and actual tagged v0.26.0/final0.26.2 reader processes
+and exact merged-master gates and actual tagged v0.26.0/final 0.26.2 reader processes
 in both directions are mandatory before publication. Keep D-148's portable and
 strict reference timing profiles distinct. Qualification status lives in the plan.
+
+Qualification is complete on both clean candidate and exact merged master
+`e1cae49a9655a4a48a72c25f36bbd45db0273423`; see [release receipts](assets/application-owned-viewer/c4-publication.json)
+and [reader/gate summary](assets/application-owned-viewer/c4-merged1-summary.json).
+Stable v0.26.2 is published. Later documentation receipts preserve those runtime/
+test/version/lock bytes and never retarget the annotated tag. Archives retain
+current state; Undo history remains in the complete managed store.
 
 ## Workspace protein sequence compatibility (0.26.0)
 
