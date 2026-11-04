@@ -1,0 +1,46 @@
+"""Verify completed issue97 qualification and retain exact exclusion identities."""
+import gzip,hashlib,json,re,sys
+from pathlib import Path
+out=Path('docs/assets/detached-presentation');label=sys.argv[1]
+d=json.loads((out/f'{label}-gate.json').read_text());assert d['complete'] and d['source_unchanged'] and not d['initial_status']
+assert len(d['steps'])==24
+logs={}
+for step in d['steps']:
+ assert step['exit_code']==0
+ blob=gzip.decompress(Path(step['log']).read_bytes());assert hashlib.sha256(blob).hexdigest()==step['log_sha256'];logs[step['label']]=blob.decode()
+assert d['source_before']==d['source_after']
+for name,digest in d['source_after'].items():assert hashlib.sha256(Path(name).read_bytes()).hexdigest()==digest,name
+report=out/f'{label}-browser.json';b=json.loads(report.read_text()); records=[]
+def walk(suite,parents=()):
+ for spec in suite.get('specs',[]):
+  for t in spec['tests']:
+   result=t['results'][-1];project=t['projectName'];title=' › '.join((*parents,spec['title']))
+   identity=f"[{project}] › tests/e2e/{spec['file']} › {title}"
+   records.append({'identity':identity,'file':spec['file'],'project':project,'title':title,'status':result['status'],'expected_status':t['expectedStatus'],'retries':len(t['results'])-1})
+ for child in suite.get('suites',[]):walk(child,parents+((suite['title'],) if suite.get('specs') else ()))
+for suite in b['suites']:walk(suite)
+assert not b.get('errors'),b.get('errors')
+assert b['stats']['unexpected']==0 and b['stats']['flaky']==0
+assert all(r['retries']==0 for r in records)
+skips={r['identity'] for r in records if r['status']=='skipped'}
+baseline=set(json.loads(Path('docs/assets/technical-rebranding/c5-merged1-exclusions.json').read_text())['cases'])
+new={r['identity'] for r in records if r['status']=='skipped' and r['file'].startswith('detached-presentation')}
+assert skips-new==baseline,(sorted(baseline-(skips-new)),sorted((skips-new)-baseline))
+assert len(new)==12 and all(x.startswith('[mobile-chromium]') for x in new)
+assert len([r for r in records if r['file'].startswith('detached-presentation') and r['status']=='passed'])==12
+assert not re.search(r'\d+ skipped',logs['python'])
+summary={'commit':d['commit'],'branch':d['branch'],'clean_start':True,'complete_steps':24,
+ 'source_count':len(d['source_before']),'source_digest':hashlib.sha256(json.dumps(d['source_before'],sort_keys=True).encode()).hexdigest(),
+ 'sources_unchanged':True,'all_lossless_log_hashes_valid':True,
+ 'python':int(re.search(r'(\d+) passed',logs['python'])[1]),'python_skips':0,
+ 'frontend':int(re.search(r'Tests\s+(\d+) passed',logs['web'])[1]),
+ 'supervisor':int(re.search(r'# pass (\d+)',logs['supervisor'])[1]),
+ 'browser_passed':b['stats']['expected'],'browser_exclusions':len(skips),'existing_exclusions':len(baseline),'approved_desktop_only_exclusions':len(new),
+ 'existing_exclusion_identities_unchanged':True,'failures_flakes_retries':0,
+ 'profile':d['qualification_profile'],'preceding_reader':'actual v0.27.0 e702a3d12aabbd1d5bd4eb10bc50ee44ba7c1782, separate processes both directions; both suffixes accepted',
+ 'duration_seconds':round(sum(s['seconds'] for s in d['steps']),3)}
+(out/f'{label}-summary.json').write_text(json.dumps(summary,indent=2)+'\n')
+(out/f'{label}-exclusions.json').write_text(json.dumps({'baseline':sorted(baseline),'new_approved_desktop_only':sorted(new),'existing_unchanged':True},indent=2)+'\n')
+(out/f'{label}-browser-cases.json').write_text(json.dumps(records,indent=2)+'\n')
+(out/f'{label}-browser.json.gz').write_bytes(gzip.compress(report.read_bytes(),mtime=0));report.unlink()
+print(json.dumps(summary,indent=2))

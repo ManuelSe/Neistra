@@ -28,3 +28,16 @@ review, reference-host timing or broader browser certification is inferred.
 
 Correction verification:392frontend,6native presentation/lifecycle cases, lint,
 type checking and production build pass. Focused logs are c4-review-*.log.gz.
+
+Candidate2 diagnostic: all nonbrowser gates pass (1,333Python/392frontend/
+14supervisor), then an existing movement test fails because its direct store
+injection races project initialization after reload. The trace shows0selected and
+correct empty-target feedback instead of the expected locked-target feedback.
+Gracefully stop the already-failed run after63browser passes; one in-flight test is
+interrupted and371do not run. Preserve the partial report and failing trace rather
+than reporting a passing gate. Use existing UI selection/query controls and their
+acknowledged summary for that case. Both desktop/mobile variants then pass with
+all error, revision and coordinate invariants retained. No timeout, exclusion,
+scientific assertion or production behavior changes. A new clean full candidate
+is mandatory before PR creation; this is an explicit diagnostic correction, not
+automatic test retry.

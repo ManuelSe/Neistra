@@ -151,3 +151,14 @@ hashes before/after. Candidate and exact merged-master runs include migration
 upgrade/downgrade/re-upgrade, full Python/frontend/supervisor/native browser gates,
 production/license/schema/dependency audits and actual tagged0.27.0 readers both
 ways. Portable correctness is explicit; no strict reference timing claim.
+
+`c4-candidate2-gate.json` is a failed/interrupted diagnostic, not qualification.
+Its nonbrowser steps pass (1,333Python,392frontend,14supervisor); the browser run
+records63passes, one movement setup-race failure, one intentionally interrupted
+case, two existing skips and371not run. Raw Playwright skipped totals also include
+not-run/interrupted entries; the diagnostic summary preserves that distinction.
+`c4-candidate2-movement-diagnostic-*` retains the failing screenshot, trace and
+snapshot. `c4-movement-focus*` verifies both desktop/mobile variants after replacing
+premature store injection with acknowledged workspace selection. Existing error,
+revision and coordinate checks remain; no production/scientific behavior, timeout
+or exclusion is changed. Candidate3 must run all24steps from a clean commit.
