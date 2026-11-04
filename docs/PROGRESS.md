@@ -6,7 +6,8 @@ Issue [#97](https://github.com/ManuelSe/Neistra/issues/97) planning is approved 
 [the detailed feature contract](plans/issue-97-detached-presentation-viewer.md) and
 D-151 on `feat/issue-97-detached-presentation-viewer`, based on clean, fast-forwarded
 master `e6d8f63670e3a3819f1a6dbceba7411438861d72`. Explicit `/goal` authorized
-implementation after planning commit3631543. **M2/C2 capture/lifecycle is qualified.**
+implementation after planning commit3631543. **M3/C3 implementation and focused
+qualification are complete; final version/release qualification remains.**
 
 Completed: read-only issue/architecture/schema/API/state/test/release inspection;
 approved requirement dispositions and independently verifiable M0-C0 through
@@ -19,20 +20,25 @@ fullscreen and actual annotation/coordinate-preview raster agreement.
 Application-owned source retirement, session/source generations, child reload,
 parent disconnection, hidden/muted/real context-loss feedback and resource cleanup
 now keep retired content hidden. Heartbeats do not force stationary redraws.
+The leader pointer is bounded, image-relative and transient; fullscreen access
+fades while retaining focus. Preview/failure feedback and complete native visual,
+editing, minimization, two-owner and actual zoom cases pass.
 
-Verification performed:384frontend (10presentation unit cases),9native lifecycle/
-regression cases and4final presentation cases after frame-epoch review pass, with lint,
+Verification performed:392frontend,12native presentation cases,1headed desktop
+case and69existing desktop/mobile regressions pass, with13exactly retained baseline
+layout exclusions, lint,
 types/build and local checkpoint diff review. [Evidence](assets/detached-presentation/README.md)
 retains exact commands and initial diagnostic failures separately; no independent
 review or complete release gate is claimed. Existing stable history through0.27.0
 supports proposed additive minor0.28.0; all five current versions remain0.27.0.
 No schema, migration, dependency, API or scientific behavior changes.
 
-Known limitations: C3 pointer/full visual/accessibility/resource qualification,
-actual readers and complete candidate/master gates remain. The user explicitly
+Known limitations: final version, actual readers and complete candidate/master
+gates remain. The user explicitly
 replaces separate physical-monitor checks with ordinary headed desktop movement/
-fullscreen and unequal-viewport coverage. Blockers: none for C2. Next action:
-M3/C3 visual and pointer coverage. The feature plan holds detailed acceptance/delivery.
+fullscreen and unequal-viewport coverage. No known feature-code blocker. Next action:
+C4 coordinated version/release preparation and complete qualification before a PR.
+The feature plan holds detailed acceptance/delivery.
 
 ### Previous completed milestone — issue #99
 

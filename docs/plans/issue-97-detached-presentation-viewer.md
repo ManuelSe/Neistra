@@ -2,7 +2,7 @@
 
 ## 1. Status and issue metadata
 
-- Status: **Approved; implementation in progress — M2/C2 qualified**.
+- Status: **Approved; implementation complete through M3/C3 — release qualification pending**.
 - Issue: [#97 — Add a detached, read-only presentation viewer with live synchronization](https://github.com/ManuelSe/Neistra/issues/97).
 - Issue inspected: open, enhancement label, no comments, assignee or milestone;
   issue updated 2026-10-19. Recheck material changes before implementation.
@@ -509,11 +509,12 @@ branches or user work.
 | M0 / C0 | Approved contract persisted as first feature-branch change, with planning-only D-151 and PROGRESS records. Commit/push identities and document validation are reported in the handoff after remote verification. No runtime work or application-version change. |
 | M1 / C1 | Qualified: typed native canvas capture, separate lightweight entry, one-window reuse/read-only/fullscreen and annotation/coordinate-preview raster.376frontend and4native desktop cases pass; lint/types/build/diff pass. [Evidence](../assets/detached-presentation/README.md) retains diagnostics and local self-review. No schema/API/dependency/scientific/version change. |
 | M2 / C2 | Qualified: application-owned source retirement, exact session/source checks, child reload, parent disconnection, hidden/muted/context-lost feedback, bounded first-frame waiting, cleanup and stationary-scene heartbeat separation.384frontend (including10presentation unit cases),9native lifecycle/regression cases and4final presentation cases after frame-epoch review pass; lint/types/build pass. [Evidence](../assets/detached-presentation/README.md). Explicit user correction removes separate physical-monitor testing. |
-| M3 / C3 | Pending. |
+| M3 / C3 | Qualified: bounded passive pointer, focused transient fullscreen access, preview/error fidelity and all approved native visual/edit/minimization workflows.392frontend,12new native cases,1headed desktop case and69existing desktop/mobile regressions pass, with13exactly retained baseline layout exclusions. Lint/types/build, production-entry/license audit and local self-review pass. [Requirement/evidence index](../assets/detached-presentation/requirements.md) and C3 receipts retain diagnostics separately. No API/schema/migration/dependency/scientific/version change. |
 | M4 / C4 | Pending;0.28.0 metadata, actual readers, full candidate gate and PR review not performed. |
 | M5 / C5 | Pending; no issue97 PR, merge, tag, release, issue reply or cleanup claimed. |
 
-Current limitations: C1/C2 capture and lifecycle work on pinned desktop Chromium;
-C3 pointer/full visual/accessibility/resource qualification and final
-release gates/readers remain. No implementation blocker at this checkpoint.
-Next action: M3/C3 under the approved contract; no release is claimed.
+Current limitations: final version, actual preceding readers, complete candidate/
+exact-master gates and delivery remain. The feature code is implemented on pinned desktop
+Chromium; broader browser/hardware throughput certification is not claimed.
+Next action: prepare the version and complete C4 before opening the PR. No release
+or independent review is claimed.

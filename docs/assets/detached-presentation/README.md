@@ -73,3 +73,63 @@ Local self-review found and corrected same-generation replacement-frame ownershi
 and kept popup errors independent of scientific renderer status. No backend,
 migration, persisted contract, dependency or scientific code change. C3 pointer,
 comprehensive live workflows/accessibility/resources and final gates remain.
+
+## C3 — Complete feature workflow and focused regression qualification
+
+Final feature command uses the isolated8210/8211/5373 ports and
+`NEISTRA_E2E_DATA_DIR=/tmp/neistra97-c3-final2`, locked
+`NEISTRA_AMBERTOOLS_PREFIX=/datadisk/dev/.neistra-tools/ambertools-24.8`,
+`PLAYWRIGHT_BROWSERS_PATH=.playwright` and
+`PLAYWRIGHT_JSON_OUTPUT_FILE=/tmp/neistra97-c3-final2-browser.json`:
+
+```bash
+corepack pnpm exec playwright test tests/e2e/detached-presentation.spec.ts \
+  tests/e2e/detached-presentation-workflows.spec.ts \
+  tests/e2e/detached-presentation-resources.spec.ts \
+  tests/e2e/detached-presentation-zoom.spec.ts --project=chromium --reporter=list,json
+```
+
+All12cases pass without retry. `c3-browser.json.gz`/`c3-browser-summary.json`
+retain outcomes and attachments; source raster covers labels/distance/angle/
+dihedral. Feature workflows observe appearance, H, surfaces, interaction markers,
+selection/isolation, visibility, scenes, placement/cancel/apply, topology edits,
+Undo/Redo, explicit translation/numerical previews and real running native
+minimization with exact committed restoration on Cancel. Both owning windows are
+isolated; native initialization/context-loss and fullscreen-denial feedback pass.
+
+All392frontend tests pass in `c3-commit-web.log.gz` (18presentation unit cases),
+with lint/types/build in `c3-final2-{lint,types,build}.log.gz`. Existing82-case
+desktop/mobile regression invocation passes69cases with13exactly retained baseline
+layout exclusions, zero failures/flakes/retries. `c3-regressions-summary.json` and
+`c3-regression-exclusions.json` verify identities against released0.27.0. It uses
+the same port/toolchain values, `/tmp/neistra97-c3-regressions`, and these files:
+`viewer-transform-toolbar`, `direct-molecular-modeling`, `minimization-live`,
+`viewer-controls`, `interactions-lifecycle`, `surface-objects`, `modeling-toolbar`
+and `rebranding-zoom` (all `.spec.ts`, both configured projects).
+
+The separate headed command runs `detached-presentation-workflows.spec.ts
+--project=chromium --headed --grep 'maps the leader pointer' --reporter=list,json`
+with `/tmp/neistra97-c3-headed` and an isolated output directory. One case passes;
+`c3-headed-window-bounds.json` records Chromium140.0.7339.16/Linux, movement to80,70
+at1100x750 and reported maximized state. Source/child portrait dimensions, focus,
+fullscreen and themes are observed. Actual extension-driven zoom1/2 yields child
+width800/400, DPR1/2 and reachable44px controls. These satisfy the explicit user
+amendment; no separate physical second-monitor check is required or claimed.
+
+The 58,870-atom1AON resource profile observes one renderer and one active capture
+per owner; all tracks stop across three cycles, with zero repeated structure reads.
+Open-to-frame4688/3046/7778ms and longest task371ms are portable measurements, not
+strict reference timing or total GPU-memory qualification. See
+`c3-presentation-resource-profile.json`. `c3-production-audit.json` verifies the
+4,593-byte presentation entry avoids workspace/API/renderer code, production
+excludes harnesses and the shipped notice is byte-identical.
+
+Local self-review is recorded in `c3-review.md`. Initial failed runs remain
+diagnostic: asynchronous controlled-checkbox checks needed acknowledged state,
+ethane totals8atoms, the toolbar uses Transform selection, and the accessible
+scene-only shell needs a hidden heading. An actual initial media-width0 observation
+led to hiding video until a current frame paints; logs/reports retain that failure,
+but its trace was not copied before the output directory reset. Available other
+failure traces are preserved. No assertions/tolerances, production scientific
+behavior, fixtures or existing deadlines were relaxed. Final-version compatibility
+readers, complete candidate/exact-master gates and delivery remain C4/C5.

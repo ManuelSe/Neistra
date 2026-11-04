@@ -262,6 +262,7 @@ export function StructureViewer({
       })
       .catch((error: unknown) => {
         if (active) {
+          presentation?.unavailable("The molecular viewer could not start. Reload the workspace to retry.");
           setViewerError(
             error instanceof Error ? error.message : "The molecular viewer could not start.",
           );
@@ -558,12 +559,12 @@ export function StructureViewer({
 
   const loading =
     (!viewerReady && !viewerError) || structuresPending || sceneLoading;
+  const failedQueries = [...structureQueries, ...hiddenSeedQueries].filter((query) => query.isError);
   useEffect(() => {
     if (viewerRef.current) presentation?.update(viewerRef.current,
-      viewerError ? "The molecular scene is unavailable" : loading ? "Loading molecular scene" : null,
+      viewerError || failedQueries.length ? "The molecular scene is unavailable" : loading ? "Loading molecular scene" : null,
       Boolean(movementActive || coordinatePreview || modelPreview || minimizationPreview.patches.length));
-  }, [presentation, viewerError, loading, movementActive, coordinatePreview, modelPreview, minimizationPreview.patches.length]);
-  const failedQueries = [...structureQueries, ...hiddenSeedQueries].filter((query) => query.isError);
+  }, [presentation, viewerError, failedQueries.length, loading, movementActive, coordinatePreview, modelPreview, minimizationPreview.patches.length]);
   const warningCount = visibleEntries.reduce((count, entry) => count + entry.warnings.length, 0);
   const largeEntries = visibleEntries.filter((entry) => entry.atom_count >= 250_000);
   const ligandAtoms = useMemo(

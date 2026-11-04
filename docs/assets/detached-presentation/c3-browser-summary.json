@@ -1,0 +1,96 @@
+{
+  "records": [
+    {
+      "title": "keeps large-scene capture bounded across repeated opening, navigation and closure",
+      "project": "chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 44568
+    },
+    {
+      "title": "maps the leader pointer, preserves keyboard access and supports ordinary desktop windows",
+      "project": "chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 14537
+    },
+    {
+      "title": "mirrors appearance, surfaces, interaction markers, isolation, visibility and named scenes",
+      "project": "chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 26269
+    },
+    {
+      "title": "mirrors placement, atomic edits, undo/redo, interactive movement and numerical preview",
+      "project": "chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 14069
+    },
+    {
+      "title": "mirrors real native minimization frames and restores committed output on cancel",
+      "project": "chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 10921
+    },
+    {
+      "title": "keeps presentation and its launcher usable at actual 100% and 200% browser zoom",
+      "project": "chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 8530
+    },
+    {
+      "title": "mirrors native molecular frames, stays read-only and reuses its window",
+      "project": "chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 5034
+    },
+    {
+      "title": "reports viewer initialization failure in the presentation shell",
+      "project": "chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 2314
+    },
+    {
+      "title": "keeps two owning workspaces and their presentation sessions isolated",
+      "project": "chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 9755
+    },
+    {
+      "title": "retires stale output across reload, responsive remounts, projects and owner reload",
+      "project": "chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 11936
+    },
+    {
+      "title": "reports blocked popups and real WebGL source loss without mutating the project",
+      "project": "chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 3714
+    },
+    {
+      "title": "captures native molecular annotation raster and coordinate previews",
+      "project": "chromium",
+      "status": "passed",
+      "retry": 0,
+      "duration_ms": 10638
+    }
+  ],
+  "stats": {
+    "startTime": "2026-11-04T20:24:05.403Z",
+    "duration": 167899.051,
+    "expected": 12,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

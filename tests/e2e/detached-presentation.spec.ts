@@ -1,67 +1,7 @@
-import { expect, test, type Page } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 import { prepare } from "./support/interactions";
-
-async function frame(page: Page) {
-  return page.locator("video").evaluate((video: HTMLVideoElement) => {
-    const canvas = document.createElement("canvas");
-    canvas.width = video.videoWidth; canvas.height = video.videoHeight;
-    const context = canvas.getContext("2d")!;
-    context.drawImage(video, 0, 0);
-    const data = context.getImageData(0, 0, canvas.width, canvas.height).data;
-    let hash = 2166136261;
-    let colored = 0;
-    for (let i = 0; i < data.length; i += 4) {
-      hash = Math.imul(hash ^ data[i], 16777619);
-      if (Math.max(data[i], data[i + 1], data[i + 2]) - Math.min(data[i], data[i + 1], data[i + 2]) > 35) colored++;
-    }
-    return { width: canvas.width, height: canvas.height, hash: hash >>> 0, colored };
-  });
-}
-
-async function matchesSource(child: Page, source: Buffer) {
-  return child.locator("video").evaluate(async (video: HTMLVideoElement, png: string) => {
-    const image = new Image(); image.src = `data:image/png;base64,${png}`; await image.decode();
-    const canvas = document.createElement("canvas"); canvas.width = video.videoWidth; canvas.height = video.videoHeight;
-    const ctx = canvas.getContext("2d")!;
-    ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
-    const expected = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
-    ctx.drawImage(video, 0, 0);
-    const actual = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
-    let matching = 0, content = 0;
-    for (let i = 0; i < expected.length; i += 4) {
-      if (Math.max(...[0, 1, 2].map(c => Math.abs(expected[i + c] - expected[c]))) < 25) continue;
-      content++;
-      if (Math.max(...[0, 1, 2].map(c => Math.abs(expected[i + c] - actual[i + c]))) < 30) matching++;
-    }
-    return { content, fraction: matching / Math.max(1, content) };
-  }, source.toString("base64"));
-}
-
-async function sourceRaster(page: Page) {
-  const encoded = await page.evaluate(async () => {
-    const engine = window.interactionEngines.at(-1)! as unknown as {
-      plugin: { canvas3d: { requestDraw(): void } };
-    };
-    const canvas = document.querySelector<HTMLCanvasElement>(".molstar-host canvas")!;
-    engine.plugin.canvas3d.requestDraw();
-    // Read the actual canvas, excluding application controls composited above it.
-    return await new Promise<string>(resolve => requestAnimationFrame(() => resolve(canvas.toDataURL().split(",")[1])));
-  });
-  return Buffer.from(encoded, "base64");
-}
-
-async function openPresentation(page: Page) {
-  const opened = page.waitForEvent("popup");
-  await page.getByRole("button", { name: "Detach viewer", exact: true }).click();
-  const child = await opened;
-  await expect(child.locator("video")).toBeVisible();
-  return child;
-}
-
-async function openProject(page: Page, name: string) {
-  await page.getByRole("button", { name: "Projects", exact: true }).click();
-  await page.getByRole("dialog", { name: "Projects" }).getByRole("button", { name: new RegExp(`^${name}`) }).click();
-}
+import { newEmptyProject } from "./support/modeling";
+import { frame, matchesSource, sourceRaster, openPresentation, openProject } from "./support/presentation";
 
 test("mirrors native molecular frames, stays read-only and reuses its window", async ({ page, request, context }, info) => {
   test.skip(info.project.name !== "chromium", "Detached windows are qualified on desktop Chromium");
@@ -100,11 +40,60 @@ test("mirrors native molecular frames, stays read-only and reuses its window", a
   await expect.poll(() => child.evaluate(() => !!document.fullscreenElement)).toBe(true);
   await child.evaluate(() => document.exitFullscreen());
   await child.screenshot({ path: info.outputPath("native-presentation.png") });
+  await child.evaluate(() => {
+    document.getElementById("root")!.requestFullscreen = () => Promise.reject(new Error("Fullscreen denial qualification"));
+  });
+  await child.keyboard.press("f");
+  await expect(child.getByRole("alert")).toContainText("Fullscreen is unavailable");
+  await expect(child.locator("video")).toBeVisible();
   expect(childRequests).toEqual([]);
   await child.close();
   expect(await (await request.get(`/api/v1/projects/${project.id}`)).json()).toEqual(before);
   expect(await (await request.get(`/api/v1/projects/${project.id}/entries/${project.entries[0].id}/original`)).body()).toEqual(original);
   await expect(page.locator(".molstar-host canvas").first()).toBeVisible();
+});
+
+test("reports viewer initialization failure in the presentation shell", async ({ page, request }, info) => {
+  test.skip(info.project.name !== "chromium", "Desktop failure qualification");
+  const project = await newEmptyProject(page, request);
+  await page.addInitScript(() => { HTMLCanvasElement.prototype.getContext = () => null; });
+  await page.reload();
+  await page.getByRole("button", { name: "Import structures" }).first().click();
+  const imports = page.getByRole("dialog", { name: "Import structures" });
+  await imports.locator('input[type="file"]').setInputFiles("tests/fixtures/formats/ethanol.mol");
+  await imports.getByRole("button", { name: "Import", exact: true }).click();
+  await expect(imports).toBeHidden();
+  await expect(page.locator(".viewer-error")).toContainText(/WebGL|viewer could not start/i);
+  const before = await (await request.get(`/api/v1/projects/${project.id}`)).json();
+  const opened = page.waitForEvent("popup");
+  await page.getByRole("button", { name: "Detach viewer" }).click();
+  const child = await opened;
+  await expect(child.getByRole("status")).toContainText("could not start");
+  await expect(child.locator("video")).toBeHidden();
+  expect(await (await request.get(`/api/v1/projects/${project.id}`)).json()).toEqual(before);
+  await child.close();
+});
+
+test("keeps two owning workspaces and their presentation sessions isolated", async ({ page, request, context }, info) => {
+  test.skip(info.project.name !== "chromium", "Desktop session isolation qualification");
+  test.setTimeout(120000);
+  const firstProject = await prepare(page, request, ["tests/fixtures/formats/ethanol.mol"], "First presentation owner");
+  const first = await openPresentation(page);
+  const secondPage = await context.newPage();
+  const secondProject = await prepare(secondPage, request, ["tests/fixtures/hydrogens/butane-reconciliation.mol"], "Second presentation owner");
+  const second = await openPresentation(secondPage);
+  const camera = await secondPage.evaluate(() => window.interactionEngines.at(-1)!.getCamera());
+  const firstFrame = await frame(first);
+  await page.bringToFront(); await page.locator(".molstar-host canvas").first().hover(); await page.mouse.wheel(0, -180);
+  await expect.poll(async () => (await frame(first)).hash).not.toBe(firstFrame.hash);
+  expect(await secondPage.evaluate(() => window.interactionEngines.at(-1)!.getCamera())).toEqual(camera);
+  await page.getByRole("button", { name: "Detach viewer" }).click();
+  expect(context.pages()).toHaveLength(4);
+  await first.close(); await page.reload();
+  await expect(second.locator("video")).toBeVisible();
+  expect((await (await request.get(`/api/v1/projects/${firstProject.id}`)).json()).revision).toBe(firstProject.revision);
+  expect((await (await request.get(`/api/v1/projects/${secondProject.id}`)).json()).revision).toBe(secondProject.revision);
+  await second.close(); await secondPage.close();
 });
 
 test("retires stale output across reload, responsive remounts, projects and owner reload", async ({ page, request }, info) => {
@@ -185,18 +174,20 @@ test("captures native molecular annotation raster and coordinate previews", asyn
   project = await (await request.put(`${path}/entries/${entry.id}/viewer-settings`, { data: {
     expected_revision: project.revision, settings: { ...entry.viewer_settings, labels: { ...entry.viewer_settings.labels, structure: true } },
   } })).json();
-  const measured = await request.post(`${path}/measurements`, { data: {
-    expected_revision: project.revision, name: "Presentation distance", kind: "distance",
-    atom_references: projection.structure.atoms.slice(0, 2).map(atom => ({ structure_id: entry.id, atom_id: atom.id })),
-  } });
-  expect(measured.ok()).toBe(true);
+  for (const [kind, count] of [["distance", 2], ["angle", 3], ["dihedral", 4]] as const) {
+    const measured = await request.post(`${path}/measurements`, { data: {
+      expected_revision: project.revision, name: `Presentation ${kind}`, kind,
+      atom_references: projection.structure.atoms.slice(0, count).map(atom => ({ structure_id: entry.id, atom_id: atom.id })),
+    } });
+    expect(measured.ok()).toBe(true); project = await measured.json();
+  }
   await page.reload();
   await expect(page.locator(".viewer-status")).toContainText("1 visible / 1 loaded");
   await expect(page.getByLabel("Loading molecular structures")).toHaveCount(0);
   await expect.poll(() => page.evaluate(async () => {
     const { inspectViewerAnnotations } = await import("/src/test/viewerInterfaceHarness.ts");
     return (await inspectViewerAnnotations(window.interactionEngines.at(-1)!)).filter(a => a.textDrawCount > 0).length;
-  })).toBe(2);
+  })).toBe(4);
   const opened = page.waitForEvent("popup");
   await page.getByRole("button", { name: "Detach viewer" }).click();
   const child = await opened;

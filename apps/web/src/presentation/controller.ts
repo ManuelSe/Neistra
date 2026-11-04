@@ -1,4 +1,4 @@
-import type { MolecularViewer, PresentationCapture } from "../viewer/MolecularViewer";
+import type { MolecularViewer, PresentationCapture, PresentationPointer } from "../viewer/MolecularViewer";
 import { presentationReady } from "./protocol";
 
 /** Owns one child above disposable molecular viewer instances. */
@@ -15,6 +15,8 @@ export class PresentationController {
   private captureFailed = false;
   private available = true;
   private captureCleanup: (() => void) | undefined;
+  private point: PresentationPointer | null = null;
+  private pointerTimer: number | undefined;
 
   constructor(private readonly owner: Window) {}
 
@@ -25,6 +27,12 @@ export class PresentationController {
   }
 
   private visibility = () => this.publish(true);
+
+  unavailable(status: string) {
+    if (this.viewer) return;
+    this.status = status;
+    this.publish();
+  }
 
   private ready = (event: MessageEvent<unknown>) => {
     const data = event.data;
@@ -110,11 +118,21 @@ export class PresentationController {
             if (this.capture !== capture) return;
             this.available = available; this.publish(available);
           });
+          const unsubscribePointer = capture.subscribePointer?.(point => {
+            if (this.capture !== capture) return;
+            this.point = point;
+            if (!point) { this.clearPointer(); return; }
+            if (this.pointerTimer !== undefined) return;
+            this.pointerTimer = this.owner.setTimeout(() => {
+              this.pointerTimer = undefined; this.sendPointer();
+            }, 33);
+          });
           const tracks = capture.stream.getVideoTracks();
           const health = () => { if (this.capture === capture) this.publish(true); };
           for (const track of tracks) for (const event of ["ended", "mute", "unmute"]) track.addEventListener(event, health);
           this.captureCleanup = () => {
             unsubscribe?.();
+            unsubscribePointer?.();
             for (const track of tracks) for (const event of ["ended", "mute", "unmute"]) track.removeEventListener(event, health);
           };
         }
@@ -140,10 +158,23 @@ export class PresentationController {
   }
 
   private clearCapture() {
+    this.clearPointer();
     this.captureCleanup?.();
     this.captureCleanup = undefined;
     this.capture?.stream.getTracks().forEach(track => track.stop());
     this.capture = null;
+  }
+
+  private sendPointer() {
+    try { this.child?.neistraPresentation?.pointer?.(this.session, this.generation, this.point); }
+    catch { /* Source/connection status owns recovery after child navigation. */ }
+  }
+
+  private clearPointer() {
+    if (this.pointerTimer !== undefined) this.owner.clearTimeout(this.pointerTimer);
+    this.pointerTimer = undefined;
+    this.point = null;
+    this.sendPointer();
   }
 
   private disconnect = () => {

@@ -33,6 +33,29 @@ promises or recommended scientific system sizes. Production computation deadline
 and safety/resource ceilings are unchanged. Some native tests still require the
 documented locked toolchain; portable does not mean replacing real chemistry.
 
+## Local presentation (issue #97)
+
+Presentation captures the existing molecular canvas rather than loading another
+molecular scene. Output requests at most 30 frames per second; actual delivery
+depends on the browser, source visibility, rendering load and hardware. There is
+no independent high-resolution renderer or universal throughput guarantee.
+
+The C3 native 1AON profile uses 58,870 atoms and three open/navigate/close cycles.
+It observes one live source per owner, one unchanged main renderer, no child
+molecular canvas, zero repeated normalized-structure reads and zero live tracks
+after closure. Open-to-frame samples are 4,688/3,046/7,778ms and the longest main
+task is 371ms on this run. These are portable measurements on pinned Chromium/
+SwiftShader, not strict reference-host or hardware-GPU qualification and not a
+measurement of total GPU memory. Exact records are in
+[the profile](assets/detached-presentation/c3-presentation-resource-profile.json).
+
+Pointer publication retains one latest value per 33ms scheduling interval; 1,000
+queued unit-test movements yield one update. Inactivity/source retirement clears
+the marker and pending work. Connection leases are separate from image activity:
+stationary scenes do not force periodic native redraws. Existing scientific,
+resource and reference timing policies remain unchanged. Complete candidate and
+exact-master gates remain required; see the approved feature plan.
+
 ## Protein residue navigation (issue #94)
 
 The [C2 profile](assets/protein-residue-hierarchy/c2-final2-performance.json)

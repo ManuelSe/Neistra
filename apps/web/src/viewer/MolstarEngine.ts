@@ -51,6 +51,7 @@ import type {
   ViewerSelectionEvent,
   ViewerStructure,
   ViewerMeasurement,
+  PresentationPointer,
 } from "./MolecularViewer";
 import {
   isPrimarySelectionActivation,
@@ -89,6 +90,30 @@ export class MolstarEngine implements MolecularViewer {
     if (!canvas?.captureStream || this.disposed) throw new Error("Presentation capture is unavailable.");
     return {
       stream: canvas.captureStream(30), refresh: () => this.plugin?.canvas3d?.requestDraw(),
+      subscribePointer: (listener: (point: PresentationPointer | null) => void) => {
+        const root = this.mountTarget?.parentElement ?? canvas;
+        const clear = () => listener(null);
+        const move = (event: PointerEvent) => {
+          if (!(event.target instanceof Element) || (event.target !== canvas && !event.target.closest("[data-movement-canvas]"))) {
+            clear(); return;
+          }
+          const bounds = canvas.getBoundingClientRect();
+          const x = (event.clientX - bounds.left) / bounds.width;
+          const y = (event.clientY - bounds.top) / bounds.height;
+          listener(Number.isFinite(x) && Number.isFinite(y) && x >= 0 && x <= 1 && y >= 0 && y <= 1 ? { x, y } : null);
+        };
+        const up = (event: PointerEvent) => { if (event.pointerType === "touch") clear(); };
+        root.addEventListener("pointermove", move, { passive: true });
+        root.addEventListener("pointerleave", clear);
+        root.addEventListener("pointerup", up);
+        window.addEventListener("blur", clear);
+        return () => {
+          root.removeEventListener("pointermove", move);
+          root.removeEventListener("pointerleave", clear);
+          root.removeEventListener("pointerup", up);
+          window.removeEventListener("blur", clear);
+        };
+      },
       subscribeAvailability: (listener: (available: boolean) => void) => {
         const lost = () => listener(false);
         const restored = () => listener(true);

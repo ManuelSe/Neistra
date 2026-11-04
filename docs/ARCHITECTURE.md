@@ -200,6 +200,31 @@ interaction markers and hover highlighting are renderer content, not native UI.
 Licensing ships outside the viewer. D-149 and the [issue #96 plan](plans/issue-96-application-owned-viewer.md)
 govern this boundary and its current qualification status.
 
+## Local presentation boundary
+
+Issue #97 captures the main molecular canvas behind the typed `MolecularViewer`
+boundary and displays it in a lightweight same-origin child. Bootstrap selects the
+presentation entry before loading workspace/API/renderer modules. The child owns
+only media playback, pointer/exceptional status and native fullscreen access; it
+has no project queries, molecular model, chemistry, scientific calculations or
+workspace mutation/input handlers.
+
+An application-level controller survives responsive renderer replacement. Exact
+window/origin/session checks and source generations retire stale output before
+project switches. Receiver-local epochs guard asynchronous frame/play callbacks,
+including same-generation stream replacement. Control leases distinguish owner
+health from stationary images; heartbeats do not force native redraws. Capture
+tracks/subscriptions/timers are released on source/child retirement. Parent reload
+ends the session; child reload can reconnect only to its still-current owner.
+
+Normalized pointer events are latest-value coalesced and mapped through the
+contained source-image rectangle. They never enter canonical selection. Preview
+feedback describes current uncommitted rendering without changing scientific
+acceptance or geometry-dependent annotation pauses. All session data is transient,
+absent from preferences, history, scenes, archives, artifacts and API schemas.
+Source resolution/visibility are explicit limits; D-151 and the
+[approved contract](plans/issue-97-detached-presentation-viewer.md) govern delivery.
+
 ## Selection Representation Ownership
 
 Selection-specific representations are durable `ViewerSettingsV1` records,

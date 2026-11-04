@@ -1,5 +1,25 @@
 # V0.1 Requirement Evidence
 
+## Issue #97 — C3 implementation and focused qualification
+
+The [approved contract](plans/issue-97-detached-presentation-viewer.md) and D-151
+are implemented through C3.392frontend tests,12native presentation cases,1headed
+ordinary-window/fullscreen case and69existing desktop/mobile workflow regressions
+pass, with13exactly retained baseline layout exclusions. Lint/types/build and
+production entry/license checks pass. No application version, API, schema,
+migration, dependency or scientific-model change has occurred at this checkpoint.
+
+[Evidence](assets/detached-presentation/README.md) includes actual media/raster,
+all measurement types, surfaces/interactions, source lifecycle/two-owner isolation,
+authored topology/Undo/Redo, all approved preview families, real minimization and
+Cancel, real100%/200%zoom, keyboard/axe, headed movement/maximization/fullscreen,
+58,870-atom resource bounds and lossless diagnostics. The
+[requirement map](assets/detached-presentation/requirements.md) distinguishes
+implemented outcomes from approved scope dispositions. Review is local
+implementer self-review; independent review and strict reference timing are not
+claimed. Final-version actual readers, complete candidate/exact-master gates,
+PR/review/merge and publication remain before release.
+
 ## Issue #99 — Released v0.27.0 / exact-master qualification
 
 [PR #131](https://github.com/ManuelSe/Neistra/pull/131) is normally merged at

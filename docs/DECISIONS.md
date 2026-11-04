@@ -6411,3 +6411,44 @@ playback denial, lost ownership and first-frame waiting. Popup failures have the
 own application message and cannot mark molecular rendering as failed. Actual
 native context loss and project/remount/reload workflows pass. No molecular/API/
 schema/migration/scientific/dependency/version change. C3 and release gates remain.
+
+### D-151 visual and accessibility implementation — issue #97 M3/C3
+
+Pointer observations remain passive and bounded to one latest packet per33ms,
+with immediate retirement/leave clearing and two-second child inactivity expiry.
+Map through the contained source image, never the complete letterboxed window or
+canonical selection. The child fullscreen affordance fades while idle, remains
+visible while focused, retains F/native exit, and reports denied requests without
+interrupting media. A visually hidden heading supports the scene-only accessible
+shell without adding visible application chrome.
+
+Initial video stays hidden until a current source frame has actually painted.
+Explicit initialization/projection failures propagate to the child, including
+when no viewer could bind, rather than leaving an apparently valid empty/stale
+scene. Existing source warnings, annotation-overlap limitations and scientific
+preview pauses remain owned by the main application. No chemistry, API, schema,
+migration or dependency change is introduced.
+
+Twelve native feature cases, real100%/200%zoom, eighteen presentation unit cases
+within392frontend tests and a headed ordinary-window/fullscreen case pass. The
+58,870-atom resource case retains one main renderer/one active capture per owner,
+no repeat structure reads and stopped tracks across three cycles. Existing
+desktop/mobile regression qualification and complete release gates remain pending
+at this implementation note; exact checkpoint receipts govern final claims.
+
+### D-151 C3 checkpoint qualification — 2026-11-04
+
+All392frontend,12native feature,1headed ordinary-window/fullscreen and69existing
+desktop/mobile workflow cases pass. The13layout exclusions are an exact subset of
+the verified0.27.0 baseline, with no new scientific exclusion. Lint/types/build,
+shipped license and lightweight production-entry/test-harness audits pass. The
+headed browser observes movement to80,70 and reports maximization; actual browser
+zoom1/2 preserves44px controls and accessibility. The user-approved ordinary-desktop
+amendment is satisfied without claiming physical multi-monitor testing.
+
+Source/projection initialization failures now have explicit child status, and
+video remains hidden until a current frame paints. This removes initial zero-size
+media observation and avoids presenting failed loading as an empty valid scene.
+Tests await acknowledged display changes, retain correct authored ethane2C/6H
+counts, and use the actual toolbar launcher. No chemistry or API behavior was
+changed to satisfy tests. Full release/actual-reader qualification remains C4/C5.

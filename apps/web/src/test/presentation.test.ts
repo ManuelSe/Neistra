@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { PresentationController } from "../presentation/controller";
 import { presentationReady } from "../presentation/protocol";
-import type { MolecularViewer } from "../viewer/MolecularViewer";
+import type { MolecularViewer, PresentationPointer } from "../viewer/MolecularViewer";
 
 afterEach(() => { vi.restoreAllMocks(); vi.useRealTimers(); });
 
@@ -129,6 +129,44 @@ describe("local presentation", () => {
     const count = state.receive.mock.calls.length;
     old();
     expect(state.receive).toHaveBeenCalledTimes(count);
+    state.controller.dispose();
+  });
+
+  it("coalesces pointer movement and immediately clears a retired pointer", () => {
+    vi.useFakeTimers();
+    const state = setup();
+    let emit!: (point: PresentationPointer | null) => void;
+    const unsubscribe = vi.fn();
+    const pointer = vi.fn();
+    state.child.neistraPresentation!.pointer = pointer;
+    const capture = { stream: state.stream, refresh: state.refresh,
+      subscribePointer: (listener: typeof emit) => { emit = listener; return unsubscribe; } };
+    state.capture.mockReturnValue(capture);
+    state.controller.bind(state.viewer); state.controller.update(state.viewer, null, false);
+    pointer.mockClear();
+    for (let i = 0; i < 1000; i++) emit({ x: i / 1000, y: 0.5 });
+    expect(pointer).not.toHaveBeenCalled();
+    vi.advanceTimersByTime(33);
+    expect(pointer).toHaveBeenCalledTimes(1);
+    expect(pointer.mock.calls[0][2]).toEqual({ x: 0.999, y: 0.5 });
+    emit({ x: 0.1, y: 0.2 }); emit(null);
+    expect(pointer.mock.calls.at(-1)?.[2]).toBeNull();
+    const count = pointer.mock.calls.length;
+    vi.advanceTimersByTime(33);
+    expect(pointer).toHaveBeenCalledTimes(count);
+    state.controller.retire();
+    expect(unsubscribe).toHaveBeenCalledTimes(1);
+    state.controller.dispose();
+  });
+
+  it("reports initialization failure only while no current viewer owns the source", () => {
+    const state = setup();
+    const count = state.receive.mock.calls.length;
+    state.controller.unavailable("Old initialization error");
+    expect(state.receive).toHaveBeenCalledTimes(count);
+    state.controller.retire();
+    state.controller.unavailable("The molecular viewer could not start");
+    expect(state.receive).toHaveBeenLastCalledWith(expect.objectContaining({ status: "The molecular viewer could not start" }), null);
     state.controller.dispose();
   });
 

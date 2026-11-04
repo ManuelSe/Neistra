@@ -22,6 +22,13 @@ Real workspace screenshots: [light](docs/assets/neistra-workspace-light.png) ·
 [dark](docs/assets/neistra-workspace-dark.png). These show the existing local
 workspace, not proposed account, docking or marketplace features.
 
+Use **Detach viewer** in the viewer quick actions for a local, read-only molecular
+presentation window. The main workspace remains the operator; its rendered
+scene, annotations and previews appear in the detached view. Move/maximize the
+window normally and use **F** for fullscreen. Output follows source resolution and
+requires the main workspace to remain rendering. See
+[presentation guidance](docs/PRESENTATION.md) for lifecycle and qualification limits.
+
 Open **Edit molecule** beside Transform for direct atom/charge/deletion and
 same-entry bond changes, including incomplete chemistry and covalently attached
 ligands. All118 elements and unknown charge/order remain available in Advanced.
