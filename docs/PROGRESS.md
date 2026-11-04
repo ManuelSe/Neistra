@@ -2,6 +2,26 @@
 
 ## Current milestone
 
+Issue [#99](https://github.com/ManuelSe/Neistra/issues/99) **C0 — approved plan
+persistence**. The [feature contract](plans/issue-99-compatible-technical-rebranding.md)
+and appended D-150 include canonical Python package moves with compatibility
+aliases, canonical configuration with legacy fallback, safe in-place store access,
+and dual archive naming. The user approved the proposal on 2026-11-04 and explicitly
+required waiting for `/goal` before implementation.
+
+Completed: fast-forward-only master update (already current), clean-tree check and
+creation of `feat/issue-99-compatible-technical-rebranding` from
+`75754343c0c6f7031afc282e2b7c1e28ac52333a`; approved plan/supporting records written.
+Verification: seven relative document links and planning-only scope/diff checks pass; commit and remote
+readback are recorded in the C0 handoff. No runtime tests or new feature
+qualification are claimed. Known limitations: implementation/compatibility aliases
+remain unimplemented; detailed branch-protection read returned403 and must be
+rechecked before delivery. Blockers: none for planning. Next action after C0
+commit/push: wait for `/goal`; approved M1–M5 target stable minor **0.27.0** with no persisted
+schema/migration or scientific-model change. Existing release remains v0.26.2.
+
+### Previous completed milestone — issue #96
+
 Issue [#96](https://github.com/ManuelSe/Neistra/issues/96) is delivered in
 [stable v0.26.2](https://github.com/ManuelSe/Neistra/releases/tag/v0.26.2) through [PR #129](https://github.com/ManuelSe/Neistra/pull/129).
 Exact qualified runtime: `e1cae49a9655a4a48a72c25f36bbd45db0273423`. Neistra owns viewer controls/feedback;

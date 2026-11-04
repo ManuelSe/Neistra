@@ -6138,3 +6138,64 @@ provenance remains local self-review; requested Codex returned no external resul
 Later publication-document integration/cleanup receipts in the [issue reply](https://github.com/ManuelSe/Neistra/issues/96#issuecomment-6596946523)
 preserve qualified runtime bytes and never retarget the published tag. Image
 export remains separately scoped #128; native-feature parity is not reintroduced.
+
+## D-150 — Compatible Neistra technical namespaces and configuration
+
+Date: 2026-11-04. Status: accepted by explicit approval of the
+[issue #99 plan](plans/issue-99-compatible-technical-rebranding.md).
+Implementation is pending `/goal`; this decision does not claim delivered behavior.
+
+The user explicitly selected Python package moves with compatibility aliases,
+then approved the complete proposal with “Implement this plan and wait for goal.”
+C0 persists planning only and stops before runtime implementation.
+
+Canonical implementation becomes `neistra_api`, `neistra_core` and
+`neistra_demo_plugin`, with canonical package directories and updated maintained
+imports/tooling. Retain thin legacy module aliases and source-root bridges so
+documented old imports, API/worker invocations and configured plugin targets remain
+usable. Both import orders must preserve object/type/exception/ORM/registry/plugin
+identity; never duplicate scientific implementations or eagerly import the entire
+module tree. Preserve lightweight spawn bootstrap and scientific resource lookup.
+
+Use canonical `NEISTRA_*` configuration when explicitly present, otherwise legacy
+`MOLWEAVE_*`, otherwise defaults. An invalid canonical value fails instead of
+falling back. Conflicts identify setting names without disclosing values. Apply
+the same policy across settings, launch/migration/worker/test/native-toolchain and
+resource/cache controls. Preserve production limits and allowlist enforcement.
+
+Explicit store/database configuration wins. Reuse existing default old/new stores
+in place; competing default stores require explicit selection. Only genuinely
+fresh installations create `.neistra/neistra.db`. Recognize `molweave.db` in an
+explicitly chosen root; competing database files need explicit database selection.
+An unreadable existing store must never cause a silent empty replacement. Do not
+automatically copy, rename, merge or relocate stores. All stack processes must
+resolve the same store; no schema migration is introduced.
+
+Accept `.neistra.zip` and `.molweave.zip` using existing strict content validation.
+An additive optional archive-export filename-style field preserves old API naming
+when omitted; current UI explicitly requests the new suffix, with legacy naming
+available through a secondary option. Only filenames change: retain archive
+contents, schemas, hashes, original bytes and MIME contracts. Qualify actual older
+HTTP readers with legacy-named current archives, not only producer-version strings.
+
+Retain serialized MIME/job/plugin/scientific-model identifiers, `molweave.jobs`
+discovery, stored legacy plugin targets, historical provenance and the browser key
+`molweave-workspace-v1`. Preserve user names/uploads, scientific fixtures, historical
+plans/decisions/releases and evidence. Document residual legacy names rather than
+performing an unconditional replacement. No alias removal/deprecation schedule,
+public distribution packaging or physical store migration is authorized here.
+
+This supersedes D-048/D-050 only for canonical Python implementation names/current
+metadata, configured names, fresh-installation paths and archive filename behavior
+approved above. Their historical/data/provenance protections remain. D-002, D-042,
+D-148 and current application/viewer state owners remain binding. Project/viewer/
+archive schema2, normalized/selection/component1 and Alembic0014 remain unchanged.
+
+Rationale: current developer naming can converge without discarding working
+installations or rewriting scientific contracts. Explicit aliases and precedence
+bound compatibility work; in-place store discovery avoids data-migration risk.
+Stable minor0.27.0 reflects additive public namespaces/configuration/archive support
+from established stable0.26.2, rather than a first-release reset or a major break.
+Actual preceding-reader, scientific/spawn, candidate and exact-master qualification
+remain mandatory under the feature contract. No implementation or release is
+claimed by this approved architectural decision.
