@@ -6272,3 +6272,18 @@ bootstrap with `disable_existing_loggers=False`; do not weaken the diagnostic te
 or re-enable a logger only inside that test.184 focused configuration/store/migration
 cases pass after correction. Historical migration files/revisions and schemas are
 unchanged. Candidate1 remains diagnostic; a fresh complete candidate gate is required.
+
+
+### D-150 native-observation correction — issue #99 M4/C4
+
+Candidate2 passes1332 Python/374 frontend/14 supervisor and static/build/migration
+checks, then native ammonia appearance fails because current test instrumentation
+and exact-tag assertions still read the retired private renderer prefix. The trace
+shows an undefined observed layer, not a molecular count/charge change. Stop the
+known-failing run explicitly and retain its60pass/1fail/1interrupted/3existing
+exclusions/349not-run summary and known-failure trace. Update the two harness readers
+and two assertion files to the canonical private tag; retain exact atom/color/mesh
+assertions.24 focused desktop/mobile native cases then pass with no exclusions.
+The name audit now also rejects retired private markers in live source and tests,
+while preserving historical/fixture data. No product runtime or scientific policy
+changes; a fresh complete candidate3 gate remains required.

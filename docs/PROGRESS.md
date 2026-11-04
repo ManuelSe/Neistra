@@ -22,6 +22,12 @@ bootstrap now preserves diagnostics.184 focused cases/Ruff/mypy195 and explicit
 legacy-target spawned completion/result-import/Undo pass. [Correction](assets/technical-rebranding/c4-logging-correction.json)
 retains failed/red/green logs. Blockers:none; fresh complete candidate2 remains
 required before PR/review/merge/exact-master/tag/release/issue response/cleanup.
+Candidate2 pre-browser1332Python/374frontend/14supervisor/static/build/migrations
+pass; native styled-ammonia inspection reveals retired private tags in test readers.
+Run intentionally stopped (60pass/1fail/1interrupted/3existing exclusions/349not-run).
+Four instrumentation/assertion files now use canonical tags with exact checks
+preserved;24 focused native cases and374frontend/static/build pass. [Evidence](assets/technical-rebranding/c4-marker-correction.json).
+No product runtime change; fresh complete candidate3 remains required.
 No issue99 PR/tag/release yet; released baseline remains0.26.2.
 
 ### Previous completed milestone — issue #96

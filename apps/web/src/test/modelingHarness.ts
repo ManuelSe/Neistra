@@ -19,7 +19,7 @@ export async function inspectNativeAppearance(engine: MolstarEngine, entryId: st
     return [...result].sort((a,b) => a-b);
   };
   return [...native.plugin.state.data.cells.values()].flatMap(cell => {
-    const tag = cell.transform.tags?.find(value => value.startsWith("molweave-representation-"));
+    const tag = cell.transform.tags?.find(value => value.startsWith("neistra-representation-"));
     if (!tag) return [];
     const structure = native.plugin.state.data.cells.get(cell.transform.parent)?.obj?.data as Structure | undefined;
     if (!structure?.units || !structure.models.some(model => loaded.structure.models.includes(model))) return [];

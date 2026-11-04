@@ -361,26 +361,6 @@
       ]
     },
     {
-      "path": "apps/web/src/test/modelingHarness.ts",
-      "path_match": false,
-      "matching_lines": 1,
-      "disposition": "retained protocol/configuration/preference/archive identifiers",
-      "sha256": "aadad43fe6cb6df49cfa469b27dda154a49c80aa9dc68c1a7a268757ef124efa",
-      "line_numbers": [
-        22
-      ]
-    },
-    {
-      "path": "apps/web/src/test/selectionSurfaceHarness.ts",
-      "path_match": false,
-      "matching_lines": 1,
-      "disposition": "retained protocol/configuration/preference/archive identifiers",
-      "sha256": "8b943edc82ff10c54189828371502375e1a7b7b43dbca9da71e4021d4ed9ed88",
-      "line_numbers": [
-        114
-      ]
-    },
-    {
       "path": "apps/web/src/theme.ts",
       "path_match": false,
       "matching_lines": 1,
@@ -442,46 +422,46 @@
       "path_match": false,
       "matching_lines": 41,
       "disposition": "historical/approved planning and explicit compatibility records",
-      "sha256": "6fb7b485014839558c515cce89872526157517511354f2cb9460affd7dfdca7b"
+      "sha256": "9f25b0df9f291a2a503757141db1793dab88bc5ea5269d19e5489fb0044ccce6"
     },
     {
       "path": "docs/DEVELOPMENT.md",
       "path_match": false,
       "matching_lines": 31,
       "disposition": "explicit compatibility/transition or historical qualification documentation",
-      "sha256": "66ab85bcf12ecc011ceb6db3943dfc742e9ae17a0952739e8a9ed9a7718817ac",
+      "sha256": "8537b3bad1f0c8d07ad19f70395ec26d3569cd69e1b173c1037ae7cd9dde8286",
       "line_numbers": [
         234,
-        242,
-        244,
-        250,
+        243,
+        245,
         251,
-        418,
+        252,
         419,
-        422,
-        460,
+        420,
+        423,
         461,
-        464,
-        506,
+        462,
+        465,
         507,
         508,
-        661,
+        509,
         662,
-        665,
-        696,
+        663,
+        666,
         697,
         698,
-        710,
-        712,
+        699,
+        711,
         713,
-        722,
-        735,
-        763,
+        714,
+        723,
+        736,
         764,
         765,
-        787,
+        766,
         788,
-        789
+        789,
+        790
       ]
     },
     {
@@ -577,7 +557,7 @@
       "path_match": false,
       "matching_lines": 31,
       "disposition": "historical/approved planning and explicit compatibility records",
-      "sha256": "5a9ba028bc0536f7f657ccec1d5f5810a26f4fc7eae5d6f4d28cae5b49c49d19"
+      "sha256": "36a665e67de90ebfed71549f55ff4099f65a5837f17f3c6e19dc9a74c60cd39f"
     },
     {
       "path": "docs/PROJECT_SCHEMA.md",
@@ -5288,11 +5268,25 @@
       "sha256": "19c9d90c47ccd64aa0c62cc16dd440716b148b6e138719e8d3e9178075001890"
     },
     {
+      "path": "docs/assets/technical-rebranding/c4-candidate2-gate.json",
+      "path_match": false,
+      "matching_lines": 195,
+      "disposition": "historical qualification evidence or current compatibility audit",
+      "sha256": "1edf05c12ff6afe255a486892e40146263477bec5609a15afdd6d5c06d4f8578"
+    },
+    {
       "path": "docs/assets/technical-rebranding/c4-candidate2-recipe.json",
       "path_match": false,
       "matching_lines": 17,
       "disposition": "historical qualification evidence or current compatibility audit",
       "sha256": "04bec3e5bc4b10d84011324d3b06a24d06911b955c344a79813f338527b38a68"
+    },
+    {
+      "path": "docs/assets/technical-rebranding/c4-candidate3-recipe.json",
+      "path_match": false,
+      "matching_lines": 17,
+      "disposition": "historical qualification evidence or current compatibility audit",
+      "sha256": "a0fdcefca454b8b123d7a9141b40f60e1a495e3bb4625bb7b6884ab2e64118ed"
     },
     {
       "path": "docs/assets/technical-rebranding/c4-logging-correction.json",
@@ -5346,9 +5340,9 @@
     {
       "path": "docs/assets/technical-rebranding/name-audit.py.txt",
       "path_match": false,
-      "matching_lines": 7,
+      "matching_lines": 8,
       "disposition": "historical qualification evidence or current compatibility audit",
-      "sha256": "c87392d39f1149e1d7087f0b91fb9cb1a02d7e58bdcd0898e803eddc9f7550c5"
+      "sha256": "7b6c189da0c508cbce0f1d68c0cf5eb4a696aec3f587a63afdacad5f7a2c7ea3"
     },
     {
       "path": "docs/assets/technical-rebranding/release-recipe.py.txt",
@@ -6034,7 +6028,7 @@
       "path_match": false,
       "matching_lines": 12,
       "disposition": "historical/approved planning and explicit compatibility records",
-      "sha256": "65b4602ce5da4f1731b8d2b063ebc078a8f100b2b5a48ae622106a8cd0b13e9f"
+      "sha256": "6220acc054a4baacb47e33efcd4de23aea2a1246b89e9f9886b869f001a9fe48"
     },
     {
       "path": "packages/molweave_core/src/molweave_core/__init__.py",
@@ -6675,17 +6669,6 @@
       ]
     },
     {
-      "path": "tests/e2e/automatic-hydrogen-editing.spec.ts",
-      "path_match": false,
-      "matching_lines": 2,
-      "disposition": "legacy integration/reader coverage and user/provenance test data",
-      "sha256": "aeba8b8033479d7a97cd32f8b7bdf669f4e41a1f6da052d6adedc4070873ceb1",
-      "line_numbers": [
-        67,
-        68
-      ]
-    },
-    {
       "path": "tests/e2e/direct-molecular-modeling.spec.ts",
       "path_match": false,
       "matching_lines": 1,
@@ -6798,17 +6781,6 @@
       "sha256": "ba624abf2af3295b562d48d05a1077376a49ee02e569d31eab49cbd34fbb70d0",
       "line_numbers": [
         7
-      ]
-    },
-    {
-      "path": "tests/e2e/surface-objects.spec.ts",
-      "path_match": false,
-      "matching_lines": 2,
-      "disposition": "legacy integration/reader coverage and user/provenance test data",
-      "sha256": "eb71a9f780066d1f6b4dfebea67a3ed4811e98ea7c67ee744bb2efd82e6d4e93",
-      "line_numbers": [
-        273,
-        363
       ]
     },
     {

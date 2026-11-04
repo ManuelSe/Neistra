@@ -231,8 +231,9 @@ plan before claiming release compatibility.
 
 ## Configuration
 
-All maintained settings use `NEISTRA_*`; each accepts the same-suffix `MOLWEAVE_*`
-alias. An explicitly present canonical value wins, including invalid values which
+Renamed settings use `NEISTRA_*`; each accepts the same-suffix `MOLWEAVE_*`
+alias. The already established `NEISTRA_PERFORMANCE` policy remains unchanged.
+An explicitly present canonical value wins, including invalid values which
 fail validation instead of falling back. Conflicts log setting names without
 values. Limits and boolean flags keep their production meaning; flags use0/1.
 This includes API/worker settings, supervisor/E2E ports and native toolchain/cache/

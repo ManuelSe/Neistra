@@ -270,7 +270,7 @@ test("manages production object appearance and explicit sources independently th
     } }).managedEngine;
     await engine.syncQueue;
     engine.setActiveSurface(null); // Measure theme pixels independently of transient highlight.
-    const repr = [...engine.plugin.state.data.cells.values()].find(cell => cell.transform.tags?.includes(`molweave-representation-surface-${id}`));
+    const repr = [...engine.plugin.state.data.cells.values()].find(cell => cell.transform.tags?.includes(`neistra-representation-surface-${id}`));
     const data = repr?.obj?.data as { repr: { renderObjects: { type: string; values: { drawCount: { ref: { value: number } } } }[] } } | undefined;
     return data?.repr.renderObjects.map(object => ({ type: object.type, drawCount: object.values.drawCount.ref.value })) ?? [];
   }, saved[0].id);
@@ -360,7 +360,7 @@ test("manages production object appearance and explicit sources independently th
   expect(await page.evaluate(() => (window as unknown as { managedEngine: { getCamera(): unknown } }).managedEngine.getCamera())).toEqual(pick!.camera);
   const nativeMarkerCounts = await page.evaluate(id => {
     const engine = (window as unknown as { managedEngine: { plugin: import("molstar/lib/mol-plugin-ui/context").PluginUIContext } }).managedEngine;
-    const cell = [...engine.plugin.state.data.cells.values()].find(item => item.transform.tags?.includes(`molweave-representation-surface-${id}`));
+    const cell = [...engine.plugin.state.data.cells.values()].find(item => item.transform.tags?.includes(`neistra-representation-surface-${id}`));
     const repr = cell?.obj?.data as { repr: { renderObjects: { values: {
       uGroupCount: { ref: { value: number } }; instanceCount: { ref: { value: number } };
       tMarker: { ref: { value: { array: Uint8Array } } };

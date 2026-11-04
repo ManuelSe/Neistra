@@ -44,6 +44,10 @@ for name in files:
         disposition = 'legacy import/source-root bridge; no duplicate implementation'
     else:
         disposition = 'retained protocol/configuration/preference/archive identifiers'
+    if name.startswith(('apps/', 'packages/', 'tests/')) and not name.startswith('tests/fixtures/'):
+        for marker in ['molweave-representation-', '_MolWeaveAtomId', '_MolWeaveBondId']:
+            if marker in content:
+                unexpected.append({'path':name, 'retired_private_marker':marker})
     active = name.startswith((
         'apps/api/src/neistra_api/', 'packages/neistra_core/src/neistra_core/',
         'packages/neistra_demo_plugin/src/neistra_demo_plugin/', 'apps/web/src/',

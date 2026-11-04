@@ -64,3 +64,16 @@ warnings; historical migration files, root levels/format and schemas stay intact
 legacy configured plugin-target execution also passes the existing real spawned
 completion/provenance/result-import/Undo workflow. The initial ad-hoc fixture-schema
 omission is documented separately. Candidate2 must repeat the entire clean gate.
+
+
+## Native instrumentation correction review
+
+Candidate2's first styled-ammonia failure is a stale private-marker lookup in two
+harness readers and two exact-tag assertion files. The observed layer is undefined;
+the underlying requested H edit succeeds. Correct those strings to the actual
+renamed runtime marker, without changing exact membership/color/mesh assertions.
+Strengthen the audit against retired private markers in all live code/tests.
+24 focused hydrogen/surface/branding native workflows pass on both layouts, plus
+374 frontend/static/build checks. Known-failure trace and intentional interruption
+summary are retained; candidate2 is not a complete passing gate. Product runtime
+is unchanged fromdfde33f. Candidate3 must qualify the corrected tests completely.
