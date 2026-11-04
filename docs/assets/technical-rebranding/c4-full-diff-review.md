@@ -77,3 +77,22 @@ Strengthen the audit against retired private markers in all live code/tests.
 374 frontend/static/build checks. Known-failure trace and intentional interruption
 summary are retained; candidate2 is not a complete passing gate. Product runtime
 is unchanged fromdfde33f. Candidate3 must qualify the corrected tests completely.
+
+
+## Final post-gate review
+
+Clean candidate `12f1aebe49fc20552f31cf67aeae26725c01300d` completes all24 steps:
+1332 Python (zero skips),374 frontend,14 supervisor,352 browser/62 exactly unchanged
+exclusions; no failure/flake/automatic retry. All697 source identities remain
+unchanged; all lossless log hashes and committed verifier identities check.
+Actual0.26.2↔0.27 readers and both HTTP suffix boundaries pass. Fresh migration
+upgrade/downgrade/re-upgrade, schema/dependency/version and live-name audits pass.
+Production contains the new filename behavior and private tags, excludes observed
+test harnesses, and ships the byte-identical license. The separate actual legacy
+CLI/source-root/configuration/target probe completes a spawned job and downloads
+both artifacts. Final source review has no unresolved consequential finding.
+Refreshed origin/master is still7575434; v0.27.0 remains unused. Only documentation/
+qualification receipts and the prepared exact-master recipe follow this candidate;
+runtime/test bytes stay frozen. Review remains implementer self-review until an
+external result actually returns. Required remote protections/checks/conversations
+must be rechecked before normal merge; exact-master gate still blocks publication.

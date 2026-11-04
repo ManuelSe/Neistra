@@ -155,8 +155,8 @@ complete gate above, fresh upgrade/downgrade/re-upgrade, schema/version/dependen
 name audits, legacy CLI and actual taggedv0.26.2/current producer/readers in both
 directions. The additional reader wrapper executes each checkout's actual API/core
 and existing rich history/selection/surface/job helpers and verifies HTTP suffix
-behavior. Preflight passes on uncommitted preparation; clean candidate/exact-master
-results are independently required. D-148 portable policy remains binding.
+behavior. The clean candidate passes all24 steps with actual final-version readers; exact
+merged-master qualification remains independently required. D-148 portable policy remains binding.
 
 ## Application-owned viewer compatibility (0.26.2)
 

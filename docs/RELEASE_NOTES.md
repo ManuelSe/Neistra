@@ -2,9 +2,9 @@
 
 ## 0.27.0 — Compatible technical rebranding
 
-**Status:** release candidate; not published. Issue [#99](https://github.com/ManuelSe/Neistra/issues/99)
+**Status:** complete clean candidate; not published. Issue [#99](https://github.com/ManuelSe/Neistra/issues/99)
 follows the [approved contract](plans/issue-99-compatible-technical-rebranding.md).
-Complete candidate and exact-master qualification/publication remain required.
+Clean candidate qualification passes; PR/merge and exact-master qualification/publication remain required.
 
 **Changed.** Current API metadata, Python development metadata, package namespaces,
 private adapter/viewer markers and current setup documentation use Neistra.
@@ -40,8 +40,11 @@ history/schema renaming are rejected because they add risk without user value.
 **Verification.** Checkpoints cover namespace identity/spawn, canonical/legacy
 settings and native jobs, store reopen, byte-identical dual archive naming, safety,
 scientific editing/format regression, both themes/layouts, keyboard/axe/touch
-controls and native workspace workflows. Full final-version and actual-reader
-results will be added after qualification. Portable correctness follows D-148;
+controls and native workspace workflows. Clean final-version candidate passes all24 steps:1,332 Python (zero skips),374
+frontend,14 supervisor,352 browser/62 exactly unchanged exclusions and actual
+v0.26.2↔0.27.0 readers. All697 source/log identities verify; no failures/flakes/
+automatic retries. [Summary](assets/technical-rebranding/c4-candidate3-summary.json).
+Exact-master qualification remains required. Portable correctness follows D-148;
 strict reference-host timing is separate.
 
 **Known limitations.** Compatibility aliases remain intentionally. No new chemistry,

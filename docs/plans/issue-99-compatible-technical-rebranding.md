@@ -2,7 +2,7 @@
 
 ## 1. Status, approval and metadata
 
-**Status:** M1–M3 verified; M4 final0.27.0 candidate preparation in progress.
+**Status:** M1–M4 verified; complete clean final0.27.0 candidate ready for PR.
 The user activated `/goal` on 2026-11-04; delivery remains incomplete.
 
 On 2026-11-04 the user explicitly selected **Include Python package moves with
@@ -453,7 +453,8 @@ local/remote cleanup. Never claim an absent independent review or remote artifac
 | M4/C4 preparation | All five versions0.27.0; preceding0.26.2 producer coverage added. Actual tagged0.26.2↔final0.27 reader preflight passes with real roots/HTTP suffix behavior; clean complete gates still required. [Full-diff self-review](../assets/technical-rebranding/c4-full-diff-review.md),90-file runtime comparison and702 local links pass. Remote master unchanged7575434, no0.27 tag/release collision; master unprotected via authenticated detailed endpoint, normal merge enabled.24-step candidate recipe prepared. |
 | M4/C4 candidate1 correction | Clean b3e4046 gate stops at Python:1330pass/1 missing-log failure, zero skips. Fail-first migration regression demonstrates logger disabling; bootstrap now preserves application diagnostics.184 focused checks/Ruff/mypy195 and explicit legacy-target spawned job workflow pass. [Correction evidence](../assets/technical-rebranding/c4-logging-correction.json). Candidate1 logs retained; fresh candidate2 required. |
 | M4/C4 candidate2 correction | Pre-browser1332Python/374frontend/14supervisor/static/build/fresh migration round trip pass. Native run deliberately stopped at stale private-tag observation:60pass/1fail/1interrupted/3existing exclusions/349not-run. Corrected two harnesses/two assertions without relaxing exact checks;24 focused native cases and374frontend/static/build pass. [Marker correction](../assets/technical-rebranding/c4-marker-correction.json). Candidate3 must complete the full gate. |
-| M5 | Pending. No PR, merge or release yet. |
+| M4/C4 complete | Clean12f1aeb passes all24 steps:1332Python (zero skips),374frontend,14supervisor,352browser/62 exactly unchanged exclusions; zero failures/flakes/automatic retries.697 unchanged source identities and all lossless log hashes verify. Actual tagged0.26.2↔final0.27.0 readers, legacy CLI, fresh migration round trip and version/schema/dependency/name/production audits pass. [Summary](../assets/technical-rebranding/c4-candidate3-summary.json). Full-diff local self-review has no unresolved consequential finding; origin/master still7575434 and0.27 tag/release unused. |
+| M5 | PR/review/normal merge, exact-master24-step gate and publication pending. |
 
 Maintain this detailed source of truth as checkpoints pass. PROGRESS remains the
 concise project summary. Record exact C0 commit/remote evidence in the handoff;

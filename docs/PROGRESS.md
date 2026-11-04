@@ -2,33 +2,25 @@
 
 ## Current milestone
 
-Issue [#99](https://github.com/ManuelSe/Neistra/issues/99) **M4/C4 release preparation**
-under its [approved contract](plans/issue-99-compatible-technical-rebranding.md).
-M1–M3 are verified and committed through6049d42. Canonical Python/configuration,
-legacy aliases/store continuity and accessible dual archive naming are implemented.
-All five version sources now0.27.0; no dependency/schema/migration/chemistry change.
+Issue [#99](https://github.com/ManuelSe/Neistra/issues/99) **M4 complete; M5 delivery next**.
+The [approved contract](plans/issue-99-compatible-technical-rebranding.md) and D-150
+are implemented. Canonical packages/settings retain legacy imports, commands,
+configuration and stores. UI uses `.neistra.zip`; old HTTP defaults and secondary
+legacy naming preserve compatibility. Schemas, migrations and science remain.
 
-Actual tagged0.26.2↔final0.27.0 preflight passes with verified API/core roots,
-exact originals/coordinates/history/scenes/selections/surfaces/jobs and archive
-remapping; old HTTP accepts legacy suffix and rejects new suffix as documented.
-[Full-diff self-review](assets/technical-rebranding/c4-full-diff-review.md) has no
-unresolved consequential finding.90-file runtime comparison and702 local links
-pass; residual audit finds no unexpected canonical implementation branding.
-[Evidence](assets/technical-rebranding/) retains checkpoint logs, screenshots and
-preflight; it does not substitute for clean candidate/exact-master qualification.
-Candidate1 cleanb3e4046 stops at Python:1330pass/1 missing conflict-log failure,
-zero skips. Fail-first regression proves Alembic disabled application loggers;
-bootstrap now preserves diagnostics.184 focused cases/Ruff/mypy195 and explicit
-legacy-target spawned completion/result-import/Undo pass. [Correction](assets/technical-rebranding/c4-logging-correction.json)
-retains failed/red/green logs. Blockers:none; fresh complete candidate2 remains
-required before PR/review/merge/exact-master/tag/release/issue response/cleanup.
-Candidate2 pre-browser1332Python/374frontend/14supervisor/static/build/migrations
-pass; native styled-ammonia inspection reveals retired private tags in test readers.
-Run intentionally stopped (60pass/1fail/1interrupted/3existing exclusions/349not-run).
-Four instrumentation/assertion files now use canonical tags with exact checks
-preserved;24 focused native cases and374frontend/static/build pass. [Evidence](assets/technical-rebranding/c4-marker-correction.json).
-No product runtime change; fresh complete candidate3 remains required.
-No issue99 PR/tag/release yet; released baseline remains0.26.2.
+Clean final **12f1aeb** passes all **24 release steps**: **1,332 Python (zero skips),
+374 frontend,14 supervisor,352 browser passes /62 exactly unchanged exclusions**.
+Zero failures/flakes/automatic retries;697 source identities and all lossless logs
+verify. Actual tagged0.26.2↔final0.27.0 readers, real legacy CLI jobs, originals/
+history/scenes/selections/surfaces/jobs, fresh migration round trip, frozen/static/
+build/version/dependency/name/production audits pass. [Summary](assets/technical-rebranding/c4-candidate3-summary.json).
+Earlier failed/interrupted attempts remain diagnostic. Review is local self-review;
+strict reference timing and independent approval are not claimed.
+
+Blockers:none. Next:PR/review/normal merge, exact-master24-step qualification,
+annotated v0.27.0/stable release, issue close-out and branch cleanup. No issue99
+PR/tag/release yet; released baseline remains0.26.2. All five candidate versions
+are0.27.0. No new migration (head0014), schema or dependency/scientific-model change.
 
 ### Previous completed milestone — issue #96
 

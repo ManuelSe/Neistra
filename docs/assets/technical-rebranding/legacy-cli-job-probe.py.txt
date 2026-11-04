@@ -1,0 +1,45 @@
+"""Real legacy -m worker, legacy source roots/settings/target, migrated shared store."""
+import json
+import os
+from pathlib import Path
+import subprocess
+import sys
+from tempfile import TemporaryDirectory
+import time
+
+from neistra_api.main import create_app
+from neistra_api.settings import Settings
+from tests.support.api_client import ApiClient
+from tests.integration.test_job_lifecycle import _project_with_structure, _submit
+
+ROOT=Path.cwd()
+
+def main():
+    with TemporaryDirectory(prefix='neistra99-cli-job-') as directory:
+        env={k:v for k,v in os.environ.items() if not k.startswith(('NEISTRA_','MOLWEAVE_'))}
+        env.update(MOLWEAVE_DATA_DIR=directory,MOLWEAVE_DATABASE_URL=f'sqlite:///{directory}/molweave.db',
+                   MOLWEAVE_JOB_PLUGIN_TARGETS='molweave_demo_plugin.plugin:plugin',
+                   PYTHONPATH=os.pathsep.join(str(ROOT/p) for p in ['apps/api/src','packages/molweave_core/src','packages/molweave_demo_plugin/src']))
+        migration=subprocess.run([sys.executable,'-m','alembic','upgrade','head'],cwd=ROOT,env=env,capture_output=True)
+        assert migration.returncode==0,migration.stderr.decode()
+        app=create_app(Settings(data_dir=Path(directory),database_url=env['MOLWEAVE_DATABASE_URL'],job_plugin_targets=('molweave_demo_plugin.plugin:plugin',)))
+        client=ApiClient(app)
+        project,entry=_project_with_structure(client)
+        submitted=_submit(client,project['id'],entry['id'],{'step_count':2,'delay_ms':0,'translation':[1,2,3]})
+        assert submitted.status_code==201,submitted.text
+        worker=subprocess.Popen([sys.executable,'-m','molweave_api.worker'],cwd=ROOT,env=env,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+        try:
+            deadline=time.monotonic()+30
+            while time.monotonic()<deadline:
+                assert worker.poll() is None,worker.communicate()[1].decode()
+                job=client.get('/api/v1/jobs/'+submitted.json()['id']).json()
+                if job['status'] in ['completed','failed']:break
+                time.sleep(.05)
+            assert job['status']=='completed',job
+            assert job['result_values']['atom_count']==3
+            for item in job['results']:
+                assert client.get(item['artifact']['download_url']).status_code==200
+            print(json.dumps({'legacy_worker_cli':True,'legacy_source_roots':True,'legacy_settings_and_target':True,'real_spawned_job':job['status'],'artifact_downloads':len(job['results']),'schema_head':'0014'}))
+        finally:
+            worker.terminate();worker.communicate(timeout=10);app.state.engine.dispose()
+if __name__=='__main__':main()
