@@ -1,0 +1,42 @@
+{
+  "failed_candidate": "c4-candidate1",
+  "candidate_commit": "b3e4046",
+  "full_python": "1330 passed,1 failed,zero skips; failure is missing conflict log after migration logging disabled the existing logger",
+  "regression": "test_migration_keeps_application_diagnostics_enabled fails before fix, passes after fix",
+  "fix": "Alembic bootstrap fileConfig disables no existing application loggers; historical migration files unchanged",
+  "focused": "184 configuration/store/migration tests pass; Ruff and mypy195 pass",
+  "legacy_job": "explicit molweave_demo_plugin.plugin:plugin completes spawned job, artifacts/provenance/result import and Undo via existing full integration workflow",
+  "legacy_job_probe_note": "Initial ad-hoc probe omitted test-schema setup; corrected probe explicitly creates fixture schema. Diagnostic retained, no production workaround.",
+  "logs": [
+    {
+      "path": "docs/assets/technical-rebranding/c4-logging-green.log.gz",
+      "uncompressed_sha256": "e975ef749eca5b6e0063f6bb4c21f46d06e337bc5eec71055ee75e5083de9432"
+    },
+    {
+      "path": "docs/assets/technical-rebranding/c4-logging-mypy.log.gz",
+      "uncompressed_sha256": "a26123bd78884ea2ed677ffaab1876632f65611f63eae2bf70d9add013ad963f"
+    },
+    {
+      "path": "docs/assets/technical-rebranding/c4-logging-red.log.gz",
+      "uncompressed_sha256": "0720d281fe4650282a4a9c248537e04c79734898675f12188a613d277622ae83"
+    },
+    {
+      "path": "docs/assets/technical-rebranding/c4-logging-ruff.log.gz",
+      "uncompressed_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "path": "docs/assets/technical-rebranding/c4-legacy-plugin-diagnostic.log.gz",
+      "uncompressed_sha256": "c12a45fd4b38f78173f253116db97609d920bfdadd04084d6c05f1e5d272c066"
+    },
+    {
+      "path": "docs/assets/technical-rebranding/c4-legacy-plugin-qualified.log.gz",
+      "uncompressed_sha256": "9e90540e161911b72757f848654bd897aeaceefdc42e90ae894d67c7b05fca38"
+    },
+    {
+      "path": "docs/assets/technical-rebranding/c4-legacy-plugin.log.gz",
+      "uncompressed_sha256": "c12a45fd4b38f78173f253116db97609d920bfdadd04084d6c05f1e5d272c066"
+    }
+  ],
+  "review": "implementer self-review; logging policy preserves diagnostics, no scientific/API/schema or dependency change",
+  "next": "fresh clean candidate2 full24-step gate"
+}

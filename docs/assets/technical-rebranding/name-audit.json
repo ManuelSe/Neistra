@@ -442,7 +442,7 @@
       "path_match": false,
       "matching_lines": 41,
       "disposition": "historical/approved planning and explicit compatibility records",
-      "sha256": "f349805e29d37c9b9cfd6f4e328c37a7514a4587836039c3b0a57b5ac9725b71"
+      "sha256": "6fb7b485014839558c515cce89872526157517511354f2cb9460affd7dfdca7b"
     },
     {
       "path": "docs/DEVELOPMENT.md",
@@ -577,7 +577,7 @@
       "path_match": false,
       "matching_lines": 31,
       "disposition": "historical/approved planning and explicit compatibility records",
-      "sha256": "9082865c1aeb36d23170e90c2e7f54e443226c0f0ac9595e6fb81733420455bb"
+      "sha256": "5a9ba028bc0536f7f657ccec1d5f5810a26f4fc7eae5d6f4d28cae5b49c49d19"
     },
     {
       "path": "docs/PROJECT_SCHEMA.md",
@@ -5274,11 +5274,32 @@
       "sha256": "5e60a0b67fa97f15a05179d31aa8adcc98ce6f1c66e3270e4fff750dc82a03e4"
     },
     {
+      "path": "docs/assets/technical-rebranding/c4-candidate1-gate.json",
+      "path_match": false,
+      "matching_lines": 195,
+      "disposition": "historical qualification evidence or current compatibility audit",
+      "sha256": "5eb0f9d21b8b715bca117162cba92903bc31cdb226b43bf9064d5d18dcd4210f"
+    },
+    {
       "path": "docs/assets/technical-rebranding/c4-candidate1-recipe.json",
       "path_match": false,
       "matching_lines": 17,
       "disposition": "historical qualification evidence or current compatibility audit",
       "sha256": "19c9d90c47ccd64aa0c62cc16dd440716b148b6e138719e8d3e9178075001890"
+    },
+    {
+      "path": "docs/assets/technical-rebranding/c4-candidate2-recipe.json",
+      "path_match": false,
+      "matching_lines": 17,
+      "disposition": "historical qualification evidence or current compatibility audit",
+      "sha256": "04bec3e5bc4b10d84011324d3b06a24d06911b955c344a79813f338527b38a68"
+    },
+    {
+      "path": "docs/assets/technical-rebranding/c4-logging-correction.json",
+      "path_match": false,
+      "matching_lines": 1,
+      "disposition": "historical qualification evidence or current compatibility audit",
+      "sha256": "f2f5334c62d7eac32857b565715a27e49206c99647f3aaa75fbbdf5fca5da1da"
     },
     {
       "path": "docs/assets/technical-rebranding/c4-reader-preflight-forward-read.json",
@@ -5314,6 +5335,13 @@
       "matching_lines": 90,
       "disposition": "historical qualification evidence or current compatibility audit",
       "sha256": "86da7c3e7d034620493c42faa8e223847f6a733039b8ce0f6ae2e85b4845c263"
+    },
+    {
+      "path": "docs/assets/technical-rebranding/legacy-plugin-probe.py.txt",
+      "path_match": false,
+      "matching_lines": 2,
+      "disposition": "historical qualification evidence or current compatibility audit",
+      "sha256": "c73ba8f1b3af0bb500090dbe985d556a9a5f0e11ff585110906c32dc1f238a1b"
     },
     {
       "path": "docs/assets/technical-rebranding/name-audit.py.txt",
@@ -6006,7 +6034,7 @@
       "path_match": false,
       "matching_lines": 12,
       "disposition": "historical/approved planning and explicit compatibility records",
-      "sha256": "5ad87378686482084b30a1792b907cc08e39c62ea229fa0d9c74fcd766e7c01b"
+      "sha256": "65b4602ce5da4f1731b8d2b063ebc078a8f100b2b5a48ae622106a8cd0b13e9f"
     },
     {
       "path": "packages/molweave_core/src/molweave_core/__init__.py",
@@ -7032,7 +7060,7 @@
       "path_match": false,
       "matching_lines": 14,
       "disposition": "legacy integration/reader coverage and user/provenance test data",
-      "sha256": "36f2b4001fed43a4788a2eb41c32fe5703a63bab5eaede8e138e13abcbaea1e2",
+      "sha256": "3f7f8497daa9d5110bd4c75f87aa3dc89680cb3f059d239219de6a23ee96ed50",
       "line_numbers": [
         21,
         42,

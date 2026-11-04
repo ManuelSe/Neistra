@@ -152,3 +152,18 @@ def test_explicit_broken_root_is_not_resolved_into_a_fresh_store(
     with pytest.raises(ValueError, match="broken symlink"):
         Settings.from_env()
     assert not missing.exists()
+
+
+def test_migration_keeps_application_diagnostics_enabled(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    import logging
+
+    logger = logging.getLogger("neistra_core.configuration")
+    logger.disabled = False
+    monkeypatch.setenv("NEISTRA_DATA_DIR", str(tmp_path / "migration-logging"))
+    config = Config(str(ROOT / "alembic.ini"))
+    config.set_main_option("script_location", str(ROOT / "apps/api/migrations"))
+    command.upgrade(config, "head")
+    assert not logger.disabled, "Migration logging must preserve application diagnostics"

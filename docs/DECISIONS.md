@@ -6260,3 +6260,15 @@ both legacy package/source-root entry points, then export the original singleton
 matching the original package initialization order. Both-order and old-source-root
 subprocess regressions now assert the package-level singleton identity too. No
 registry policy, plugin ID, job behavior or scientific state changes.
+
+
+### D-150 complete-gate logging correction — issue #99 M4/C4
+
+The first complete candidate reports1330 passing Python cases and one missing
+configuration-conflict diagnostic. In-process Alembic calls disabled pre-existing
+application loggers through `fileConfig`'s default. A fail-first migration regression
+reproduces this independently. Preserve existing loggers explicitly in the migration
+bootstrap with `disable_existing_loggers=False`; do not weaken the diagnostic test
+or re-enable a logger only inside that test.184 focused configuration/store/migration
+cases pass after correction. Historical migration files/revisions and schemas are
+unchanged. Candidate1 remains diagnostic; a fresh complete candidate gate is required.

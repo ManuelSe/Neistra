@@ -52,3 +52,15 @@ historical or user/scientific-fixture dispositions. No speculative alias removal
 public packaging, physical data migration or scientific expansion was introduced.
 No unresolved consequential finding at this review. Required remote checks/reviews/
 conversations and the full clean final-version gate still block merge/publication.
+
+
+## Complete-gate correction review
+
+Candidate1 stops after1330 Python passes and one missing-log failure. A separate
+fail-first test proves migration bootstrap disables the already-created config
+logger. `fileConfig(..., disable_existing_loggers=False)` preserves application
+warnings; historical migration files, root levels/format and schemas stay intact.
+184 focused cases and static/type checks pass; no assertion was reduced. Explicit
+legacy configured plugin-target execution also passes the existing real spawned
+completion/provenance/result-import/Undo workflow. The initial ad-hoc fixture-schema
+omission is documented separately. Candidate2 must repeat the entire clean gate.
