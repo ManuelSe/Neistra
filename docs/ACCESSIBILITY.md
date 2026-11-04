@@ -495,3 +495,12 @@ repeats all tested scopes, including the relocated sequence region in the existi
 all-surface audit, with no new exclusion or retry. The [exact merged-master gate](assets/workspace-sequence-viewer/c4-merged1-gate.json)
 repeats these tested scopes before verified stable v0.26.0 publication. No interactive screen-reader,
 physical-device or broader-browser certification is claimed.
+
+
+## Archive naming compatibility (issue #99)
+
+The archive export's native Compatibility disclosure contains a labelled checkbox
+for legacy filename naming. It uses native keyboard activation and existing
+focus/touch styles, disables changes during export, and clears stale results on
+changes. Both archive suffixes are accepted by the labelled import file picker.
+Naming and help do not conceal archive validation errors or scientific warnings.

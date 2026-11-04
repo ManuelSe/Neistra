@@ -1,1 +1,1 @@
-"""MolWeave HTTP API."""
+"""Neistra HTTP API."""

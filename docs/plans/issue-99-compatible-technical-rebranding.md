@@ -2,7 +2,7 @@
 
 ## 1. Status, approval and metadata
 
-**Status:** implementation in progress; M1/C1 and M2/C2 verified.
+**Status:** implementation in progress; M1/C1–M3/C3 verified.
 The user activated `/goal` on 2026-11-04; delivery remains incomplete.
 
 On 2026-11-04 the user explicitly selected **Include Python package moves with
@@ -449,7 +449,8 @@ local/remote cleanup. Never claim an absent independent review or remote artifac
 | C0 persistence | This plan is the first branch file change, followed by D-150 and concise PROGRESS. Seven relative document links, approved branch, planning-only changed-file scope and whitespace/diff checks pass. No prohibited reference-product names in new text. Commit/remote receipt is recorded in the handoff. |
 | M1/C1 | Verified: canonical packages and explicit aliases/source-root bridges, lazy legacy worker CLI, same-singleton registry deduplication. 151 focused Python tests then 8 revised namespace/CLI tests pass; 374 frontend and 12 supervisor tests pass; native journey 1 pass/1 existing mobile exclusion. Ruff, mypy193, lint/types/build/frozen install/diff pass. [Logs/review](../assets/technical-rebranding/) retain exact outputs and 90-file move/hash review. No migration-history/dependency/scientific change. |
 | M2/C2 | Verified: canonical/legacy precedence throughout Python/JS/toolchain/tests; safe shared store resolver;69 focused Python/38 precedence recheck,374 frontend,14 supervisor, native journey1pass/1existing exclusion for each spelling. Ruff/mypy195/lint/types/build/diff pass. [Exact logs/environments/hashes](../assets/technical-rebranding/c2-evidence.json). Initial test-only ApiClient context-manager failure retained separately. No schema/migration/science change. |
-| M3–M5 | Pending. No PR, merge or release yet. |
+| M3/C3 | Verified: Neistra metadata/private markers, byte-identical archive filename choices, dual import suffixes, secondary accessible legacy export.66 archive/security,146 editing/format/metadata and21 final alias/job tests pass;374 frontend;23 native/5existing exclusions, both themes/layouts and keyboard/axe/44px. Ruff/mypy195/lint/types/build/diff pass. [Exact evidence/screenshots](../assets/technical-rebranding/c3-evidence.json). Review corrected package-export singleton shadowing with regressions. No schema/migration/scientific-algorithm change. |
+| M4–M5 | Pending. No PR, merge or release yet. |
 
 Maintain this detailed source of truth as checkpoints pass. PROGRESS remains the
 concise project summary. Record exact C0 commit/remote evidence in the handoff;

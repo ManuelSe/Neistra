@@ -52,6 +52,7 @@ export function ExportDialog({
   const [includeHydrogens, setIncludeHydrogens] = useState(true);
   const [includeWaters, setIncludeWaters] = useState(true);
   const [includeIons, setIncludeIons] = useState(true);
+  const [legacyArchiveName, setLegacyArchiveName] = useState(false);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [reports, setReports] = useState<ExportEntryReport[]>([]);
@@ -104,6 +105,7 @@ export function ExportDialog({
     setIncludeWaters(true);
     setIncludeIons(true);
     setPending(false);
+    setLegacyArchiveName(false);
     resetResult();
   }, [initialEntry, open, selectedIds.length]);
 
@@ -128,7 +130,7 @@ export function ExportDialog({
     const sequence = ++operationSequence.current;
     const operation =
       tab === "archive"
-        ? molecularApi.exportArchive(project.id)
+        ? molecularApi.exportArchive(project.id, legacyArchiveName ? "legacy" : "neistra")
         : molecularApi.exportProject(project.id, {
             scope,
             entryIds: scope === "selected" ? selectedIds : [],
@@ -292,6 +294,21 @@ export function ExportDialog({
         ) : (
           <div>
             <ArchiveFormatHelp />
+            <details className="archive-compatibility">
+              <summary>Compatibility</summary>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={legacyArchiveName}
+                  disabled={pending}
+                  onChange={(event) => {
+                    setLegacyArchiveName(event.target.checked);
+                    resetResult();
+                  }}
+                />
+                <span>Use .molweave.zip for older releases</span>
+              </label>
+            </details>
             <div className="archive-summary">
               <Archive size={18} />
               <div>

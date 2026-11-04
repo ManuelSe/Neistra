@@ -222,9 +222,9 @@ describe("export dialog", () => {
     const result: ArchiveExportResult = {
       artifact: {
         ...artifact,
-        filename: "selection-project.molweave.zip",
+        filename: "selection-project.neistra.zip",
         download_url:
-          "/api/v1/artifacts/artifact-1?filename=selection-project.molweave.zip",
+          "/api/v1/artifacts/artifact-1?filename=selection-project.neistra.zip",
       },
       manifest_schema_version: 2,
       source_revision: 2,
@@ -246,11 +246,16 @@ describe("export dialog", () => {
     await user.click(screen.getByRole("tab", { name: "Project archive" }));
     expect(screen.getByText("2 structures · revision 2")).toBeInTheDocument();
     await user.click(screen.getByRole("button", { name: "Generate" }));
-    expect(archiveSpy).toHaveBeenCalledWith("project-1");
+    expect(archiveSpy).toHaveBeenCalledWith("project-1", "neistra");
     expect(await screen.findByRole("link", { name: "Download" })).toHaveAttribute(
       "href",
       result.artifact.download_url,
     );
+    await user.click(screen.getByText("Compatibility", { exact: true }));
+    await user.click(screen.getByRole("checkbox", { name: "Use .molweave.zip for older releases" }));
+    expect(screen.queryByRole("link", { name: "Download" })).not.toBeInTheDocument();
+    await user.click(screen.getByRole("button", { name: "Generate" }));
+    expect(archiveSpy).toHaveBeenLastCalledWith("project-1", "legacy");
   });
 });
 
@@ -276,8 +281,8 @@ describe("archive import dialog", () => {
       <ArchiveImportDialog open onOpenChange={vi.fn()} onImported={onImported} />,
     );
 
-    expect(screen.getByText(/Neistra Archives use the existing/)).toHaveTextContent(".molweave.zip");
-    expect(screen.getByLabelText("Choose project archive")).toHaveAttribute("accept", ".molweave.zip");
+    expect(screen.getByText(/Neistra Archives use/)).toHaveTextContent(".neistra.zip");
+    expect(screen.getByLabelText("Choose project archive")).toHaveAttribute("accept", ".neistra.zip,.molweave.zip");
 
     await user.upload(
       screen.getByLabelText("Choose project archive"),

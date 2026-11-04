@@ -36,12 +36,19 @@ not around loaded scientific content.
 
 ## Compatibility
 
-The backend and scientific model keep their existing MolWeave technical names.
-Archives remain `.molweave.zip`; browser preferences remain under
-`molweave-workspace-v1`; configuration remains `MOLWEAVE_*`. API/worker modules,
-job/plugin identifiers, original uploads and server-provided diagnostics are
-not rebranded by substitution. Version values remain synchronized and unchanged.
-See D-048 for the boundary and rationale.
+Canonical backend namespaces and metadata use Neistra. `NEISTRA_*` settings take
+precedence over accepted `MOLWEAVE_*` aliases; old Python imports and source roots
+remain thin compatibility entry points. Existing data stores are reused in place.
+Fresh installations use `.neistra/neistra.db`; ambiguous/invalid stores fail safely.
+Current UI exports `.neistra.zip`, imports accept both suffixes, and a secondary
+Compatibility option exports `.molweave.zip` for older releases. Existing API
+requests omitting filename style retain the old download suffix.
+
+Preserve browser key `molweave-workspace-v1`, serialized MIME/job/plugin/model IDs,
+historical evidence and original uploads. Never rewrite user names or server
+provenance by text substitution. Versions remain coordinated; issue99 targets
+minor0.27.0. D-150 and the approved issue99 feature contract supersede only the
+technical-name retention provisions of the initial presentation rebrand.
 
 ## Theme and typography contract
 

@@ -557,8 +557,8 @@ def _write_pdb(structure: NormalizedStructureV1) -> str:
 def _write_mmcif(structure: NormalizedStructureV1) -> str:
     document = gemmi.cif.Document()
     block_name = "".join(character if character.isalnum() else "_" for character in structure.title)
-    block = document.add_new_block(block_name or "molweave")
-    block.set_pair("_entry.id", block_name or "molweave")
+    block = document.add_new_block(block_name or "neistra")
+    block.set_pair("_entry.id", block_name or "neistra")
     atom_site = block.init_loop(
         "_atom_site.",
         [

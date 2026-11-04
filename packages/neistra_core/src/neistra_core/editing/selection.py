@@ -205,9 +205,9 @@ def sanitized(mol: Any) -> None:
 
 def indices(mol: Any) -> dict[int, int]:
     return {
-        int(a.GetIntProp("_MolWeaveAtomId")): int(a.GetIdx())
+        int(a.GetIntProp("_NeistraAtomId")): int(a.GetIdx())
         for a in mol.GetAtoms()
-        if a.HasProp("_MolWeaveAtomId")
+        if a.HasProp("_NeistraAtomId")
     }
 
 
@@ -235,7 +235,7 @@ def reconcile_hydrogens(mol: Any, affected: set[int]) -> Any:
     for atom_id, hydrogens in local_h.items():
         needed = int(probe.GetAtomWithIdx(probe_ids[atom_id]).GetNumImplicitHs())
         ordered = sorted(
-            hydrogens, key=lambda i: mol.GetAtomWithIdx(i).GetIntProp("_MolWeaveAtomId")
+            hydrogens, key=lambda i: mol.GetAtomWithIdx(i).GetIntProp("_NeistraAtomId")
         )
         remove.update(ordered[needed:])
     edited = Chem.RWMol(mol)
@@ -292,7 +292,7 @@ class SelectionMolecularEditor:
             atom = mol.GetAtomWithIdx(ids[selected[0]])
             if atom.GetSymbol() != "H" or atom.GetDegree() != 1:
                 raise InvalidSelectionEdit("Select one terminal H for fragment substitution.")
-            anchor_id = int(atom.GetNeighbors()[0].GetIntProp("_MolWeaveAtomId"))
+            anchor_id = int(atom.GetNeighbors()[0].GetIntProp("_NeistraAtomId"))
             try:
                 mol = graft_fragment(mol, selected[0], action.fragment, next_atom_id)
             except (ValueError, RuntimeError) as error:
@@ -352,7 +352,7 @@ class SelectionMolecularEditor:
             remove = set(selected)
             for i in selected:
                 for neighbor in mol.GetAtomWithIdx(ids[i]).GetNeighbors():
-                    stable = int(neighbor.GetIntProp("_MolWeaveAtomId"))
+                    stable = int(neighbor.GetIntProp("_NeistraAtomId"))
                     if neighbor.GetSymbol() == "H":
                         remove.add(stable)
                     elif stable not in remove:
@@ -388,7 +388,7 @@ class SelectionMolecularEditor:
                         raise InvalidSelectionEdit(
                             "H substitution requires a single bond to a heavy atom."
                         )
-                    anchor_id = int(anchor.GetIntProp("_MolWeaveAtomId"))
+                    anchor_id = int(anchor.GetIntProp("_NeistraAtomId"))
                     conf = mol.GetConformer()
                     origin = np.array(conf.GetAtomPosition(anchor.GetIdx()))
                     direction = np.array(conf.GetAtomPosition(atom.GetIdx())) - origin
@@ -400,9 +400,9 @@ class SelectionMolecularEditor:
                         action.element
                     )
                     conf.SetAtomPosition(atom.GetIdx(), origin + direction / length * target_length)
-                    atom.SetIntProp("_MolWeaveAtomId", next_atom_id)
+                    atom.SetIntProp("_NeistraAtomId", next_atom_id)
                     # The H bond has changed identity with its endpoint.
-                    bond.ClearProp("_MolWeaveBondId")
+                    bond.ClearProp("_NeistraBondId")
                     replacements[atom_id] = next_atom_id
                     affected = {anchor_id, next_atom_id}
                 atom.SetAtomicNum(Chem.GetPeriodicTable().GetAtomicNumber(action.element))
@@ -444,25 +444,25 @@ class SelectionMolecularEditor:
         before_atoms = {a.id: a for a in before.atoms}
         before_bonds = {b.id: b for b in before.bonds}
         created: list[int] = sorted(
-            int(a.GetIntProp("_MolWeaveAtomId"))
+            int(a.GetIntProp("_NeistraAtomId"))
             for a in mol.GetAtoms()
-            if a.HasProp("_MolWeaveAtomId") and a.GetIntProp("_MolWeaveAtomId") not in before_atoms
+            if a.HasProp("_NeistraAtomId") and a.GetIntProp("_NeistraAtomId") not in before_atoms
         )
         atom_cursor = max([next_atom_id - 1, *created]) + 1
         for atom in mol.GetAtoms():
-            if not atom.HasProp("_MolWeaveAtomId"):
-                atom.SetIntProp("_MolWeaveAtomId", atom_cursor)
+            if not atom.HasProp("_NeistraAtomId"):
+                atom.SetIntProp("_NeistraAtomId", atom_cursor)
                 created.append(atom_cursor)
                 atom_cursor += 1
         created_bonds: list[int] = []
         for bond in mol.GetBonds():
-            if not bond.HasProp("_MolWeaveBondId"):
-                bond.SetIntProp("_MolWeaveBondId", next_bond_id + len(created_bonds))
+            if not bond.HasProp("_NeistraBondId"):
+                bond.SetIntProp("_NeistraBondId", next_bond_id + len(created_bonds))
                 created_bonds.append(next_bond_id + len(created_bonds))
         if mol.GetNumAtoms() > 1024 or sum(a.GetSymbol() != "H" for a in mol.GetAtoms()) > 256:
             raise InvalidSelectionEdit("The result exceeds component edit limits.")
         conf = mol.GetConformer()
-        rd_atoms = {int(a.GetIntProp("_MolWeaveAtomId")): a for a in mol.GetAtoms()}
+        rd_atoms = {int(a.GetIntProp("_NeistraAtomId")): a for a in mol.GetAtoms()}
         points = {
             i: tuple(float(v) for v in conf.GetAtomPosition(a.GetIdx()))
             for i, a in rd_atoms.items()
@@ -471,9 +471,9 @@ class SelectionMolecularEditor:
             raise InvalidSelectionEdit("Generated coordinates must be finite.")
         bonds: list[Bond] = []
         for b in mol.GetBonds():
-            stable = int(b.GetIntProp("_MolWeaveBondId"))
-            first = int(b.GetBeginAtom().GetIntProp("_MolWeaveAtomId"))
-            second = int(b.GetEndAtom().GetIntProp("_MolWeaveAtomId"))
+            stable = int(b.GetIntProp("_NeistraBondId"))
+            first = int(b.GetBeginAtom().GetIntProp("_NeistraAtomId"))
+            second = int(b.GetEndAtom().GetIntProp("_NeistraAtomId"))
             bonds.append(
                 Bond(
                     id=stable,
@@ -499,7 +499,7 @@ class SelectionMolecularEditor:
                     )
         created_set = set(created)
         for atom in mol.GetAtoms():
-            center_id = int(atom.GetIntProp("_MolWeaveAtomId"))
+            center_id = int(atom.GetIntProp("_NeistraAtomId"))
             neighbors = list(atom.GetNeighbors())
             expected, tolerance = {"SP": (180.0, 20), "SP2": (120.0, 30)}.get(
                 str(atom.GetHybridization()),
@@ -507,8 +507,8 @@ class SelectionMolecularEditor:
             )
             for left in range(len(neighbors)):
                 for right in range(left + 1, len(neighbors)):
-                    first = int(neighbors[left].GetIntProp("_MolWeaveAtomId"))
-                    second = int(neighbors[right].GetIntProp("_MolWeaveAtomId"))
+                    first = int(neighbors[left].GetIntProp("_NeistraAtomId"))
+                    second = int(neighbors[right].GetIntProp("_NeistraAtomId"))
                     if not ({center_id, first, second} & created_set):
                         continue
                     u = np.array(points[first]) - points[center_id]
@@ -640,13 +640,13 @@ class SelectionMolecularEditor:
         if any(str(info.specified) == "Unspecified" for info in potential):
             raise InvalidSelectionEdit("Generated geometry does not resolve tetrahedral stereo.")
         centers = {
-            int(stereo_mol.GetAtomWithIdx(info.centeredOn).GetIntProp("_MolWeaveAtomId"))
+            int(stereo_mol.GetAtomWithIdx(info.centeredOn).GetIntProp("_NeistraAtomId"))
             for info in potential
             if str(info.type) == "Atom_Tetrahedral"
         }
         supplied = {a.id for a in before.atoms if a.stereo is not None}
         tags = {
-            int(a.GetIntProp("_MolWeaveAtomId")): str(a.GetChiralTag()).removeprefix("CHI_")
+            int(a.GetIntProp("_NeistraAtomId")): str(a.GetChiralTag()).removeprefix("CHI_")
             for a in stereo_mol.GetAtoms()
         }
         after = after.model_copy(

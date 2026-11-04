@@ -58,7 +58,10 @@ def test_all_legacy_leaf_modules_share_identity(legacy_first: bool, tmp_path: Pa
         "assert old_registry is PluginRegistry\n"
         "from molweave_api.database import Base as old_base\n"
         "from neistra_api.database import Base\n"
-        "assert old_base is Base and old_base.metadata is Base.metadata\n",
+        "assert old_base is Base and old_base.metadata is Base.metadata\n"
+        "from molweave_demo_plugin import plugin as old_plugin\n"
+        "from neistra_demo_plugin import plugin\n"
+        "assert old_plugin is plugin\n",
         ["apps/api/src", "packages/neistra_core/src", "packages/neistra_demo_plugin/src"],
         tmp_path,
     )
@@ -74,7 +77,10 @@ def test_historical_source_roots_bootstrap_canonical_code(entry: str, tmp_path: 
         "registry = PluginRegistry.load(allowlist=('molweave.demo',), "
         "configured_targets=('molweave_demo_plugin.plugin:plugin',), "
         "discover_installed=False)\n"
-        "assert len(registry.definitions()) == 1\n",
+        "assert len(registry.definitions()) == 1\n"
+        "from molweave_demo_plugin import plugin as old_plugin\n"
+        "from neistra_demo_plugin import plugin\n"
+        "assert old_plugin is plugin\n",
         ["apps/api/src", "packages/molweave_core/src", "packages/molweave_demo_plugin/src"],
         tmp_path,
     )

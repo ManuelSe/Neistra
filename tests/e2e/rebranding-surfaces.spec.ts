@@ -138,15 +138,24 @@ test("reviews all Neistra workflow surfaces in both themes", async ({ page, requ
     const exporter = page.getByRole("dialog", { name: "Export" });
     await review(page, info, `${theme}-export`, '.dialog-content');
     await exporter.getByRole("tab", { name: "Project archive" }).click();
-    await expect(exporter).toContainText("Neistra Archives use the existing .molweave.zip format.");
+    await expect(exporter).toContainText("Neistra Archives use .neistra.zip.");
     await review(page, info, `${theme}-archive-export`, '.dialog-content');
+    const compatibility = exporter.locator(".archive-compatibility summary");
+    await compatibility.focus();
+    await page.keyboard.press("Enter");
+    await expect(exporter.getByRole("checkbox", { name: "Use .molweave.zip for older releases" })).toBeVisible();
+    if (info.project.name === "mobile-chromium") {
+      expect((await compatibility.boundingBox())!.height).toBeGreaterThanOrEqual(44);
+      expect((await exporter.locator(".archive-compatibility label").boundingBox())!.height).toBeGreaterThanOrEqual(44);
+    }
+    await review(page, info, `${theme}-archive-compatibility`, '.dialog-content');
     await closeDialog(page);
     await page.getByRole("button", { name: "Projects", exact: true }).click();
     await review(page, info, `${theme}-project-chooser`, '.dialog-content');
     await page.getByRole("dialog", { name: "Projects" }).getByRole("button", { name: "Import project archive" }).click();
     const archive = page.getByRole("dialog", { name: "Import project archive" });
-    await expect(archive.locator('input[type="file"]')).toHaveAttribute("accept", ".molweave.zip");
-    await expect(archive).toContainText("Existing MolWeave archives remain supported.");
+    await expect(archive.locator('input[type="file"]')).toHaveAttribute("accept", ".neistra.zip,.molweave.zip");
+    await expect(archive).toContainText("Existing .molweave.zip archives remain supported.");
     await review(page, info, `${theme}-archive-import`, '.dialog-content');
     await closeDialog(page);
     await page.getByRole("button", { name: "Import structures" }).first().click();

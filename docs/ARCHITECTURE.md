@@ -316,7 +316,7 @@ are hash-addressed beneath the managed root and published with temporary-file,
 `expected_revision`; artifacts may be orphaned by a failed transaction but a
 project never points to unpublished bytes.
 
-Portable `.molweave.zip` archives use `ProjectManifestV2`, checksums, safe
+Portable `.neistra.zip` and legacy `.molweave.zip` archives use `ProjectManifestV2`, checksums, safe
 relative member paths, and an allowlisted media/type model. They contain the
 current checkpoint-compatible state and required immutable artifacts, not an
 executable process or opaque viewer snapshot.

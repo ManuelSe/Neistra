@@ -2,22 +2,22 @@
 
 ## Current milestone
 
-Issue [#99](https://github.com/ManuelSe/Neistra/issues/99) **M1/C1 and M2/C2 verified**
-under the [approved contract](plans/issue-99-compatible-technical-rebranding.md)
-and D-150. Canonical Python packages/legacy aliases share domain/ORM/plugin
-objects. Canonical-first configuration covers settings, launcher, toolchain,
-cache/resource controls and scientific guards. Shared read-only store discovery
-preserves existing roots/databases and refuses ambiguous/invalid replacements.
+Issue [#99](https://github.com/ManuelSe/Neistra/issues/99) **M1–M3 verified** under
+its [approved contract](plans/issue-99-compatible-technical-rebranding.md)/D-150.
+Canonical packages/configuration retain legacy imports/settings and existing stores.
+Neistra API metadata and private markers are current; UI requests `.neistra.zip`,
+old HTTP requests keep legacy naming, and both import suffixes share exact contents.
+Secondary legacy export retains keyboard/44px touch targets and both-theme axe.
 
-M2 verification:69 focused Python plus38 precedence recheck,374 frontend,
-14 supervisor, native journey1pass/1existing mobile exclusion with each spelling;
-Ruff/mypy195/frontend lint/types/build/diff pass. [Exact evidence](assets/technical-rebranding/c2-evidence.json)
-retains logs, environments, source identities, preceding diagnostics and self-review.
-M1 evidence remains alongside. No scientific algorithm, migration history,
-persisted schema or dependency-version change. Known limits:M3 naming/archive
-workflow and complete final-version/actual-reader/exact-master qualification remain.
-Blockers:none. Next:M3/C3, then M4–M5 toward stable minor0.27.0. No implementation
-PR/tag/release exists yet; released baseline remains0.26.2.
+M3 verification:66 archive/security,146 editing/format/metadata,21 final alias/job,
+374 frontend,23 native/5existing exclusions; Ruff/mypy195/lint/types/build/diff pass.
+[Evidence](assets/technical-rebranding/c3-evidence.json) retains commands/logs,
+screenshots and self-review. A reproduced package-export shadowing case is corrected
+and covered in both orders/legacy roots. No schema/migration/scientific-algorithm
+or dependency-version change. Known limits:complete final-version candidate,
+actual tagged readers and exact-master/release work remain. Blockers:none.
+Next:M4/C4 audit/version/full qualification, then M5 delivery toward stable0.27.0.
+No issue99 PR/tag/release yet; released baseline remains0.26.2.
 
 ### Previous completed milestone — issue #96
 

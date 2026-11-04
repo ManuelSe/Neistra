@@ -1334,6 +1334,7 @@ class BatchExportRead(BaseModel):
 
 class ArchiveExportCreate(BaseModel):
     operation_id: str = Field(min_length=1, max_length=64)
+    filename_style: Literal["legacy", "neistra"] = "legacy"
 
 
 class ArchiveExportRead(BaseModel):

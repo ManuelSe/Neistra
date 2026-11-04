@@ -11,7 +11,13 @@ for _source in ("apps/api/src", "packages/neistra_core/src", "packages/neistra_d
     if _path not in sys.path:
         sys.path.append(_path)
 
+# Bind the legacy leaf before exporting the singleton, just like the original
+# package initializer. Later cached leaf imports must not replace this export.
+_legacy_leaf = importlib.import_module("molweave_demo_plugin.plugin")
 _implementation = importlib.import_module("neistra_demo_plugin")
+DemoJobParameters = _legacy_leaf.DemoJobParameters
+DemoPlugin = _legacy_leaf.DemoPlugin
+plugin = _legacy_leaf.plugin
 __all__ = getattr(_implementation, "__all__", [])
 
 

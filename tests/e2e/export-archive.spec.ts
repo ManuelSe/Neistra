@@ -238,20 +238,28 @@ test("round-trips a deterministic archive and rejects an unsafe archive without 
 
   const archiveDownloads: Buffer[] = [];
   let archiveFilename = "";
+  const archiveFilenames: string[] = [];
   for (let index = 0; index < 2; index += 1) {
     await page.getByRole("button", { name: "Export", exact: true }).click();
     const dialog = page.getByRole("dialog", { name: "Export" });
     await dialog.getByRole("tab", { name: "Project archive" }).click();
+    if (index === 1) {
+      await dialog.getByText("Compatibility", { exact: true }).click();
+      await dialog.getByRole("checkbox", { name: "Use .molweave.zip for older releases" }).check();
+    }
     await dialog.getByRole("button", { name: "Generate", exact: true }).click();
     await expect(dialog.getByRole("link", { name: "Download" })).toBeVisible({
       timeout: 15_000,
     });
     const archive = await downloadArtifact(page, dialog);
     archiveFilename = archive.filename;
+    archiveFilenames.push(archiveFilename);
     archiveDownloads.push(archive.bytes);
     await dialog.getByRole("button", { name: "Close", exact: true }).click();
   }
-  expect(archiveFilename).toMatch(/\.molweave\.zip$/);
+  expect(archiveFilenames[0]).toMatch(/\.neistra\.zip$/);
+  expect(archiveFilenames[1]).toMatch(/\.molweave\.zip$/);
+  archiveFilename = archiveFilenames[0];
   expect(archiveDownloads[1]).toEqual(archiveDownloads[0]);
 
   await page.getByRole("button", { name: "Projects" }).click();

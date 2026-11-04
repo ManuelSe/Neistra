@@ -1,6 +1,6 @@
 # Neistra HTTP API
 
-Status: Neistra HTTP interface; the unchanged server identifies itself as `MolWeave API`.
+Status: Neistra HTTP interface; server metadata identifies itself as `Neistra API`.
 
 The local FastAPI application exposes a versioned API under `/api/v1` and
 generates OpenAPI at `/api/v1/openapi.json`. Swagger UI is available at
@@ -22,6 +22,16 @@ generates OpenAPI at `/api/v1/openapi.json`. Swagger UI is available at
   reads return empty patch lists.
 - Save advances the checkpoint to the working revision without creating a
   reversible edit command.
+
+## Archive filename compatibility
+
+Archive export accepts optional `filename_style: "legacy" | "neistra"`.
+Omission preserves `.molweave.zip` for existing API clients. Current UI explicitly
+requests `neistra`, producing `.neistra.zip`; its Compatibility disclosure offers
+legacy naming for older releases. Import accepts both suffixes case-insensitively.
+Naming does not change content, media types or schema2. Older compatible readers
+can import current content with a legacy filename; unknown schemas remain rejected.
+The archive artifact metadata and Content-Disposition use the selected suffix.
 
 ## Project Endpoints
 
@@ -152,7 +162,7 @@ If known blocking losses exist, the first request returns HTTP 409 with
 `export_loss_acknowledgement_required` and structured warnings. Repeating with
 explicit acknowledgement generates an immutable artifact.
 
-When `MOLWEAVE_ENABLE_TEST_ROUTES=1`, the test harness exposes a fixture-only
+When `NEISTRA_ENABLE_TEST_ROUTES=1`, the test harness exposes a fixture-only
 seed endpoint under `/api/v1/testing`; normal startup never registers it.
 
 ## Lazy Structure And Component Contract
@@ -860,7 +870,7 @@ history actions preserve archive/reader compatibility; no migration is added.
 ## Selection minimization proposals (issue #82, C3)
 
 These additive interfaces use the default allowlisted `molweave.minimization`
-plugin (`molweave_core.minimization.plugin:plugin`) and
+plugin (`neistra_core.minimization.plugin:plugin`) and
 [locked native model](../tools/README.md). The dedicated native UI is described in
 [Selection minimization](MINIMIZATION.md). The existing cleanup endpoints remain unchanged.
 

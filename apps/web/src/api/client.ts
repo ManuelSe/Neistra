@@ -591,6 +591,7 @@ export const molecularApi = {
   },
   exportArchive: (
     projectId: string,
+    filenameStyle: "neistra" | "legacy" = "neistra",
   ): CancellableOperation<ArchiveExportResult> => {
     const operationId = crypto.randomUUID();
     const controller = new AbortController();
@@ -599,7 +600,7 @@ export const molecularApi = {
       {
         method: "POST",
         signal: controller.signal,
-        body: JSON.stringify({ operation_id: operationId }),
+        body: JSON.stringify({ operation_id: operationId, filename_style: filenameStyle }),
       },
     );
     return {

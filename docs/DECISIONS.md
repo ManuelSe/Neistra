@@ -6237,3 +6237,26 @@ their intentional database-location override and connectivity validation remains
 in the database layer. No missing/invalid store is silently replaced. Tests include
 an existing migrated store, project publication and reopen through the other
 configuration spelling, plus canonical and legacy native/browser execution.
+
+
+### D-150 implementation note — issue #99 M3/C3
+
+Archive filename style is an optional literal request field, defaulting to legacy
+for existing HTTP clients. Current UI explicitly requests the new suffix; a native
+secondary disclosure allows legacy naming. Both names use byte-identical prepared
+archive contents and preserve media/schema contracts. Import validates either
+suffix before invoking unchanged archive safety checks. Private transient renderer
+and RDKit identity-property markers now use Neistra consistently; these are never
+normalized/persisted identity authorities. Default generated mmCIF block labels
+use Neistra. Original uploads and authoritative molecular IDs are untouched.
+
+
+### D-150 package-export review correction — issue #99 M3/C3
+
+Full compatibility review reproduces a package-export shadowing edge case: an
+explicit legacy demo-plugin submodule import can replace the package's delegated
+`plugin` singleton with that submodule. Bind the forwarding leaf while initializing
+both legacy package/source-root entry points, then export the original singleton,
+matching the original package initialization order. Both-order and old-source-root
+subprocess regressions now assert the package-level singleton identity too. No
+registry policy, plugin ID, job behavior or scientific state changes.

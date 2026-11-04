@@ -1,4 +1,4 @@
-"""Core domain and persistence services for MolWeave."""
+"""Core domain and persistence services for Neistra."""
 
 from neistra_core.artifacts import ArtifactRecord, LocalArtifactStore
 from neistra_core.components import ComponentHierarchyV1, ComponentV1, derive_component_hierarchy

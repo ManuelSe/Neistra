@@ -36,7 +36,7 @@ def fragment_template(fragment: FragmentName) -> Any:
 
 def graft_fragment(mol: Any, hydrogen_id: int, fragment: FragmentName, next_atom_id: int) -> Any:
     """Replace H by the template root. Six fixed torsions bound placement work."""
-    ids = {int(a.GetIntProp("_MolWeaveAtomId")): a.GetIdx() for a in mol.GetAtoms()}
+    ids = {int(a.GetIntProp("_NeistraAtomId")): a.GetIdx() for a in mol.GetAtoms()}
     h = mol.GetAtomWithIdx(ids[hydrogen_id])
     if h.GetSymbol() != "H" or h.GetDegree() != 1 or h.GetFormalCharge() != 0:
         raise ValueError("Fragment substitution requires one neutral terminal H.")
@@ -47,7 +47,7 @@ def graft_fragment(mol: Any, hydrogen_id: int, fragment: FragmentName, next_atom
         != Chem.BondType.SINGLE
     ):
         raise ValueError("Fragment H must have a single bond to a heavy atom.")
-    anchor_id = int(anchor.GetIntProp("_MolWeaveAtomId"))
+    anchor_id = int(anchor.GetIntProp("_NeistraAtomId"))
     conf = mol.GetConformer()
     origin = np.asarray(conf.GetAtomPosition(anchor.GetIdx()))
     direction = np.asarray(conf.GetAtomPosition(h.GetIdx())) - origin
@@ -112,11 +112,11 @@ def graft_fragment(mol: Any, hydrogen_id: int, fragment: FragmentName, next_atom
     for idx in sorted(remove, reverse=True):
         fragment_mol.RemoveAtom(idx)
     for offset, atom in enumerate(fragment_mol.GetAtoms()):
-        atom.SetIntProp("_MolWeaveAtomId", next_atom_id + offset)
+        atom.SetIntProp("_NeistraAtomId", next_atom_id + offset)
     parent = Chem.RWMol(mol)
     parent.RemoveAtom(h.GetIdx())
     anchor_index = next(
-        a.GetIdx() for a in parent.GetAtoms() if a.GetIntProp("_MolWeaveAtomId") == anchor_id
+        a.GetIdx() for a in parent.GetAtoms() if a.GetIntProp("_NeistraAtomId") == anchor_id
     )
     combined = Chem.RWMol(Chem.CombineMols(parent, fragment_mol))
     combined.AddBond(anchor_index, parent.GetNumAtoms(), Chem.BondType.SINGLE)

@@ -701,8 +701,10 @@ class ProjectArchiveService:
         project_name: str,
         source_revision: int,
         prepared: bytes,
+        filename_style: Literal["legacy", "neistra"] = "legacy",
     ) -> ArchiveExportRead:
-        filename = f"{safe_filename_stem(project_name)}.molweave.zip"
+        suffix = "neistra" if filename_style == "neistra" else "molweave"
+        filename = f"{safe_filename_stem(project_name)}.{suffix}.zip"
         artifact = self.artifacts.publish(prepared, filename, ARCHIVE_MEDIA_TYPE)
         self.session.commit()
         return ArchiveExportRead(

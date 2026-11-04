@@ -174,7 +174,7 @@ class RdkitLigandEditor:
         except RuntimeError as error:
             raise InvalidLigandEditError(f"Unknown chemical element: {element}") from error
         rd_atom.SetFormalCharge(formal_charge)
-        rd_atom.SetIntProp("_MolWeaveAtomId", atom_id)
+        rd_atom.SetIntProp("_NeistraAtomId", atom_id)
         mol = Chem.RWMol(normalized_to_mol(structure))
         index = int(mol.AddAtom(rd_atom))
         edited = mol.GetMol()
@@ -228,7 +228,7 @@ class RdkitLigandEditor:
             raise InvalidLigandEditError("A bond already exists between those atoms")
         mol.AddBond(first, second, self._bond_type(order))
         bond = mol.GetBondBetweenAtoms(first, second)
-        bond.SetIntProp("_MolWeaveBondId", bond_id)
+        bond.SetIntProp("_NeistraBondId", bond_id)
         return self._finish(
             structure,
             mol.GetMol(),
@@ -316,12 +316,12 @@ class RdkitLigandEditor:
         for atom, stable_id in zip(
             list(edited.GetAtoms())[before_count:], created_atom_ids, strict=True
         ):
-            atom.SetIntProp("_MolWeaveAtomId", stable_id)
+            atom.SetIntProp("_NeistraAtomId", stable_id)
         original_bond_count = len(structure.bonds)
         for bond, stable_id in zip(
             list(edited.GetBonds())[original_bond_count:], created_bond_ids, strict=True
         ):
-            bond.SetIntProp("_MolWeaveBondId", stable_id)
+            bond.SetIntProp("_NeistraBondId", stable_id)
         if not created_atom_ids:
             raise InvalidLigandEditError("The selected atoms do not need additional hydrogens")
         inference = InferenceRecord(
@@ -563,9 +563,9 @@ class RdkitLigandEditor:
         valid_residues = {residue.id for residue in before.residues}
         atom_ids: list[int] = []
         for atom in mol.GetAtoms():
-            if not atom.HasProp("_MolWeaveAtomId"):
+            if not atom.HasProp("_NeistraAtomId"):
                 raise InvalidLigandEditError("Edited atom is missing a stable identity")
-            atom_ids.append(int(atom.GetIntProp("_MolWeaveAtomId")))
+            atom_ids.append(int(atom.GetIntProp("_NeistraAtomId")))
         order = sorted(range(len(atom_ids)), key=atom_ids.__getitem__)
         conformers = [
             Conformer(
@@ -612,8 +612,8 @@ class RdkitLigandEditor:
             generated_residue_id = new_atom_residue_id
             if existing is None and rd_atom.GetSymbol() == "H":
                 parents = list(rd_atom.GetNeighbors())
-                if len(parents) == 1 and parents[0].HasProp("_MolWeaveAtomId"):
-                    parent = before_atoms.get(int(parents[0].GetIntProp("_MolWeaveAtomId")))
+                if len(parents) == 1 and parents[0].HasProp("_NeistraAtomId"):
+                    parent = before_atoms.get(int(parents[0].GetIntProp("_NeistraAtomId")))
                     if parent is not None and parent.element != "H":
                         generated_residue_id = (
                             parent.residue_id if parent.residue_id in valid_residues else None
@@ -651,9 +651,9 @@ class RdkitLigandEditor:
             )
         bonds: list[Bond] = []
         for rd_bond in mol.GetBonds():
-            if not rd_bond.HasProp("_MolWeaveBondId"):
+            if not rd_bond.HasProp("_NeistraBondId"):
                 raise InvalidLigandEditError("Edited bond is missing a stable identity")
-            bond_id = int(rd_bond.GetIntProp("_MolWeaveBondId"))
+            bond_id = int(rd_bond.GetIntProp("_NeistraBondId"))
             existing_bond = before_bonds.get(bond_id)
             stereo = str(rd_bond.GetStereo())
             bonds.append(

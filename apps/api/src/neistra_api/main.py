@@ -495,7 +495,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         engine.dispose()
 
     app = FastAPI(
-        title="MolWeave API",
+        title="Neistra API",
         version="0.26.2",
         lifespan=lifespan,
         openapi_url="/api/v1/openapi.json",
@@ -1541,6 +1541,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
                     source.manifest.name,
                     source.manifest.source_revision,
                     prepared,
+                    payload.filename_style,
                 )
             )
         finally:
@@ -1558,12 +1559,12 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         session: Session = Depends(session_dependency),
     ) -> ArchiveImportRead:
         import_id = operation_id or str(uuid7())
-        filename = safe_display_filename(file.filename or "project.molweave.zip")
-        if not filename.casefold().endswith(".molweave.zip"):
+        filename = safe_display_filename(file.filename or "project.neistra.zip")
+        if not filename.casefold().endswith((".neistra.zip", ".molweave.zip")):
             raise _error(
                 422,
                 "unsupported_project_archive_extension",
-                "Project archives must use the .molweave.zip extension.",
+                "Project archives must use the .neistra.zip or .molweave.zip extension.",
             )
         chunks: list[bytes] = []
         archive_size = 0

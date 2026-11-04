@@ -213,7 +213,7 @@ def normalized_to_mol(structure: NormalizedStructureV1) -> Any:
             chiral_tag = getattr(Chem.ChiralType, f"CHI_{atom.stereo}", None)
             if chiral_tag is not None:
                 rd_atom.SetChiralTag(chiral_tag)
-        rd_atom.SetIntProp("_MolWeaveAtomId", atom.id)
+        rd_atom.SetIntProp("_NeistraAtomId", atom.id)
         if atom.residue_id is not None and atom.residue_id in residue_by_id:
             residue = residue_by_id[atom.residue_id]
             chain = chain_by_id.get(residue.chain_id)
@@ -245,7 +245,7 @@ def normalized_to_mol(structure: NormalizedStructureV1) -> Any:
         added = editable.GetBondBetweenAtoms(
             atom_indices[bond.atom_1_id], atom_indices[bond.atom_2_id]
         )
-        added.SetIntProp("_MolWeaveBondId", bond.id)
+        added.SetIntProp("_NeistraBondId", bond.id)
 
     mol = editable.GetMol()
     for conformer in structure.conformers:

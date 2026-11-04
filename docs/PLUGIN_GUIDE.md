@@ -10,15 +10,15 @@ uploads and arbitrary command strings are not accepted. API and worker must run
 with the same package, allowlist, and targets:
 
 ```bash
-export MOLWEAVE_JOB_PLUGIN_ALLOWLIST=acme.docking
-export MOLWEAVE_JOB_PLUGIN_TARGETS=acme_docking.molweave_plugin:plugin
+export NEISTRA_JOB_PLUGIN_ALLOWLIST=acme.docking
+export NEISTRA_JOB_PLUGIN_TARGETS=acme_docking.neistra_plugin:plugin
 ```
 
 An installed package should also declare the standard entry-point group:
 
 ```toml
 [project.entry-points."molweave.jobs"]
-acme-docking = "acme_docking.molweave_plugin:plugin"
+acme-docking = "acme_docking.neistra_plugin:plugin"
 ```
 
 Discovery occurs only at process startup. The object `name` must be allowlisted.
@@ -237,3 +237,13 @@ child/worker processes have separate codes. v0.1 never retries automatically.
 `packages/neistra_demo_plugin` is the runnable reference. It uses the same
 registry, child runner, event ledger, validation, result publication, and import
 path that a future docking package will use.
+
+
+## Namespace and configuration compatibility
+
+Implementation imports use `neistra_core`; legacy `molweave_core` imports and
+configured old module targets remain supported with identical classes/objects.
+Keep existing serialized job/plugin identifiers and the `molweave.jobs` discovery
+group. Canonical/legacy targets resolving to the same singleton register once;
+independent conflicting plugins still fail. `NEISTRA_*` configuration wins over
+its same-suffix `MOLWEAVE_*` alias without changing allowlist enforcement.
