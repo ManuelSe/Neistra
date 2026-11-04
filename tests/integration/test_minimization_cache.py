@@ -3,11 +3,11 @@
 from __future__ import annotations
 
 import hashlib
-import os
 import statistics
 from datetime import datetime
 
 import pytest
+from neistra_core.configuration import environment_value
 
 from tests.integration.test_coordinate_commands import _structure
 from tests.integration.test_job_lifecycle import _worker
@@ -18,7 +18,7 @@ from tests.support.performance import performance_budget
 
 
 @pytest.mark.skipif(
-    not os.environ.get("MOLWEAVE_AMBERTOOLS_PREFIX"),
+    not environment_value("AMBERTOOLS_PREFIX"),
     reason="Locked native cache benchmark required",
 )
 def test_real_worker_three_paired_cache_runs_preserve_inputs_and_independent_artifacts(

@@ -1,10 +1,10 @@
 from __future__ import annotations
 
-import os
 from typing import Any
 
 import pytest
 from neistra_api.import_export import ImportExportService, PreparedFile
+from neistra_core.configuration import environment_value
 from neistra_core.molecular import Conformer, NormalizedStructureV1
 
 from tests.integration.test_coordinate_commands import _structure
@@ -55,7 +55,7 @@ def calculate(
     acceptance_policy: str = "strict",
     automatic: bool = False,
 ) -> tuple[dict[str, Any], str]:
-    if not os.environ.get("MOLWEAVE_AMBERTOOLS_PREFIX"):
+    if not environment_value("AMBERTOOLS_PREFIX"):
         pytest.skip("Locked native toolchain required for real Apply qualification")
     members = (
         project["entries"]
@@ -332,9 +332,10 @@ def test_nonconverged_and_foreign_proposals_cannot_apply(minclient: ApiClient):
 def test_capabilities_and_capture_cannot_be_bypassed(minclient: ApiClient, monkeypatch):
     capabilities = minclient.get("/api/v1/minimization-capabilities").json()
     assert capabilities["limits"]["assembly_atoms"] == 20_000
-    if os.environ.get("MOLWEAVE_AMBERTOOLS_PREFIX"):
+    if environment_value("AMBERTOOLS_PREFIX"):
         assert capabilities["available"]
     monkeypatch.delenv("MOLWEAVE_AMBERTOOLS_PREFIX", raising=False)
+    monkeypatch.delenv("NEISTRA_AMBERTOOLS_PREFIX", raising=False)
     assert not minclient.get("/api/v1/minimization-capabilities").json()["available"]
     project = seeded_project(minclient, molecule())
     entry = project["entries"][0]

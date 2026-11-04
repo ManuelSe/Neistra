@@ -70,7 +70,7 @@ test("brands startup diagnostics while retaining the existing configuration cont
     env: { ...process.env, MOLWEAVE_API_PORT: "invalid" }, encoding: "utf8",
   });
   assert.equal(result.status, 1);
-  assert.match(result.stderr, /^\[neistra\] MOLWEAVE_API_PORT must be an integer between 1 and 65535\./);
+  assert.match(result.stderr, /^\[neistra\] NEISTRA_API_PORT must be an integer between 1 and 65535\./);
   assert.doesNotMatch(result.stderr, /\[molweave\]/);
 });
 

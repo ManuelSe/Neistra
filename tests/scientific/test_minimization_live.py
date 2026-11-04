@@ -1,9 +1,8 @@
 from __future__ import annotations
 
-import os
-
 import numpy as np
 import pytest
+from neistra_core.configuration import environment_value
 from neistra_core.minimization import optimize
 from neistra_core.minimization.live import SnapshotPublisher, read_snapshot
 from neistra_core.minimization.parameterization import parameterize_isolated
@@ -14,7 +13,7 @@ from tests.support.minimization import LocalContext, capture, molecule
 
 
 @pytest.mark.skipif(
-    not os.environ.get("MOLWEAVE_AMBERTOOLS_PREFIX"),
+    not environment_value("AMBERTOOLS_PREFIX"),
     reason="Locked native callback qualification required",
 )
 def test_live_coordinates_come_from_accepted_iterates_not_last_trial(tmp_path, monkeypatch):
@@ -57,7 +56,7 @@ def test_live_coordinates_come_from_accepted_iterates_not_last_trial(tmp_path, m
 
 
 @pytest.mark.skipif(
-    not os.environ.get("MOLWEAVE_AMBERTOOLS_PREFIX"), reason="Locked native qualification required"
+    not environment_value("AMBERTOOLS_PREFIX"), reason="Locked native qualification required"
 )
 @pytest.mark.parametrize("termination", ["iteration", "line_search", "evaluation_limit"])
 def test_improving_native_partial_is_eligible_only_for_ordinary_iteration_limit(

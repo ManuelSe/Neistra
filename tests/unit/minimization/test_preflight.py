@@ -124,6 +124,7 @@ def test_unconfigured_or_wrong_toolchain_refuses(
     monkeypatch: pytest.MonkeyPatch, tmp_path: Path
 ) -> None:
     monkeypatch.delenv("MOLWEAVE_AMBERTOOLS_PREFIX", raising=False)
+    monkeypatch.delenv("NEISTRA_AMBERTOOLS_PREFIX", raising=False)
     with pytest.raises(CalculationError, match="Install the locked"):
         AmberTools.discover()
     with pytest.raises(CalculationError, match="Invalid locked"):

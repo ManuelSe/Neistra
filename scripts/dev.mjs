@@ -1,3 +1,4 @@
+import { environmentValue } from "./configuration.mjs";
 import { spawn, spawnSync } from "node:child_process";
 import { accessSync, constants as fsConstants } from "node:fs";
 import { createRequire } from "node:module";
@@ -36,8 +37,8 @@ export function buildConfiguration({
 } = {}) {
   const pathApi = platform === "win32" ? path.win32 : path.posix;
   const delimiter = platform === "win32" ? ";" : ":";
-  const apiPort = parsePort(environment.MOLWEAVE_API_PORT, "MOLWEAVE_API_PORT", 8000);
-  const webPort = parsePort(environment.MOLWEAVE_WEB_PORT, "MOLWEAVE_WEB_PORT", 5173);
+  const apiPort = parsePort(environmentValue("API_PORT", "8000", environment), "NEISTRA_API_PORT", 8000);
+  const webPort = parsePort(environmentValue("WEB_PORT", "5173", environment), "NEISTRA_WEB_PORT", 5173);
   const pythonPath = [
     pathApi.join(root, "apps", "api", "src"),
     pathApi.join(root, "packages", "neistra_core", "src"),
@@ -48,7 +49,6 @@ export function buildConfiguration({
     .join(delimiter);
   const sharedEnvironment = {
     ...environment,
-    MOLWEAVE_DATA_DIR: environment.MOLWEAVE_DATA_DIR ?? ".molweave",
     PYTHONPATH: pythonPath,
   };
 

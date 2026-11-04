@@ -1,12 +1,12 @@
 from __future__ import annotations
 
 import json
-import os
 from pathlib import Path
 
 import numpy as np
 import openmm
 import pytest
+from neistra_core.configuration import environment_value
 from neistra_core.minimization.assembly import Assembly, environment_preflight
 from neistra_core.minimization.context_model import parameterize_environment
 from neistra_core.minimization.optimize import optimize_environment
@@ -28,7 +28,7 @@ from tests.support.minimization import (
 
 @pytest.fixture
 def tools() -> AmberTools:
-    if not os.environ.get("MOLWEAVE_AMBERTOOLS_PREFIX"):
+    if not environment_value("AMBERTOOLS_PREFIX"):
         pytest.skip("Install/export locked AmberTools for native model qualification")
     return AmberTools.discover()
 

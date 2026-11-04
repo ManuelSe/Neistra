@@ -3,7 +3,6 @@ from __future__ import annotations
 import hashlib
 import io
 import json
-import os
 import time
 import traceback
 import zipfile
@@ -12,6 +11,7 @@ from typing import Any
 
 from pydantic import BaseModel
 
+from neistra_core.configuration import environment_flag, environment_integer
 from neistra_core.jobs import (
     InputArtifact,
     InputRole,
@@ -94,8 +94,8 @@ class MinimizationPlugin:
                 resources=ResourcePolicy(
                     wall_time_seconds=600,
                     cancellation_grace_seconds=2,
-                    resident_memory_bytes=int(
-                        os.environ.get("MOLWEAVE_MINIMIZATION_MAX_RSS_BYTES", 4 * 1024**3)
+                    resident_memory_bytes=environment_integer(
+                        "MINIMIZATION_MAX_RSS_BYTES", 4 * 1024**3
                     ),
                     max_result_artifacts=3,
                     max_result_bytes=100 * 1024**2,
@@ -145,10 +145,9 @@ class MinimizationPlugin:
             cache = (
                 ParameterCache(
                     cache_root / "minimization",
-                    int(os.environ.get("MOLWEAVE_MINIMIZATION_CACHE_BYTES", 2 * 1024**3)),
+                    environment_integer("MINIMIZATION_CACHE_BYTES", 2 * 1024**3),
                 )
-                if isinstance(cache_root, Path)
-                and os.environ.get("MOLWEAVE_MINIMIZATION_CACHE") != "0"
+                if isinstance(cache_root, Path) and environment_flag("MINIMIZATION_CACHE", True)
                 else None
             )
             use_assembly = needs_templates(values, inputs)

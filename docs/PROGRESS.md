@@ -2,22 +2,22 @@
 
 ## Current milestone
 
-Issue [#99](https://github.com/ManuelSe/Neistra/issues/99) **M1/C1 verified** under
-its [approved feature contract](plans/issue-99-compatible-technical-rebranding.md)
-and D-150. `/goal` authorizes implementation and full delivery. Canonical Python
-packages, explicit legacy module/source-root aliases and legacy worker execution
-share domain/ORM/plugin objects without duplicating scientific code.
+Issue [#99](https://github.com/ManuelSe/Neistra/issues/99) **M1/C1 and M2/C2 verified**
+under the [approved contract](plans/issue-99-compatible-technical-rebranding.md)
+and D-150. Canonical Python packages/legacy aliases share domain/ORM/plugin
+objects. Canonical-first configuration covers settings, launcher, toolchain,
+cache/resource controls and scientific guards. Shared read-only store discovery
+preserves existing roots/databases and refuses ambiguous/invalid replacements.
 
-Verification:151 focused Python tests plus8 revised namespace/CLI tests,374 frontend,
-12 supervisor, native journey1pass/1existing mobile exclusion; Ruff, mypy193,
-frontend lint/types/build, frozen Python install and diff checks pass.
-[Evidence](assets/technical-rebranding/) includes a90-file implementation/resource
-move review: namespace-only except same-singleton alias-target deduplication.
-Migration history, schemas, dependency versions and science are unchanged.
-Known limits: M2 configuration/store continuity and M3 presentation/archive naming
-remain unimplemented; complete candidate/actual-reader/exact-master gates and
-release are pending. Blockers:none. Next:M2/C2, then M3–M5 toward stable minor0.27.0.
-No PR/tag/release for issue99 exists yet; released baseline remains0.26.2.
+M2 verification:69 focused Python plus38 precedence recheck,374 frontend,
+14 supervisor, native journey1pass/1existing mobile exclusion with each spelling;
+Ruff/mypy195/frontend lint/types/build/diff pass. [Exact evidence](assets/technical-rebranding/c2-evidence.json)
+retains logs, environments, source identities, preceding diagnostics and self-review.
+M1 evidence remains alongside. No scientific algorithm, migration history,
+persisted schema or dependency-version change. Known limits:M3 naming/archive
+workflow and complete final-version/actual-reader/exact-master qualification remain.
+Blockers:none. Next:M3/C3, then M4–M5 toward stable minor0.27.0. No implementation
+PR/tag/release exists yet; released baseline remains0.26.2.
 
 ### Previous completed milestone — issue #96
 

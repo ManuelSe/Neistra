@@ -6217,3 +6217,23 @@ as one registration; conflicting independent plugins still fail existing checks.
 Historical migrations and actual preceding-reader support keep their old imports
 so one harness can execute older tags. Scientific resource files move unchanged;
 no persisted identifier, dependency version, schema or chemistry changes in C1.
+
+
+### D-150 implementation note — issue #99 M2/C2
+
+A dependency-light core helper owns canonical-first environment resolution. The
+Python store resolver is shared by settings consumers; the launcher no longer
+injects a data-root default that would defeat existing-store discovery. TypeScript
+and JavaScript tooling use the same tested precedence contract. Native-toolchain,
+cache/resource readers and scientific test guards recognize both spellings; empty
+or invalid canonical settings never fall back. Explicitly empty plugin CSV values
+still disable configured plugins, rather than restoring the defaults.
+
+The resolver performs read-only filesystem checks before startup mutations,
+propagates access errors, rejects broken symlinks/competing roots/databases, and
+requires an explicit database URL for nonempty roots without a recognized database.
+Existing auto-discovered databases must have a SQLite header. Explicit URLs retain
+their intentional database-location override and connectivity validation remains
+in the database layer. No missing/invalid store is silently replaced. Tests include
+an existing migrated store, project publication and reopen through the other
+configuration spelling, plus canonical and legacy native/browser execution.

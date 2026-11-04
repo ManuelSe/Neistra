@@ -4,12 +4,12 @@ from __future__ import annotations
 
 import hashlib
 import io
-import os
 import time
 import traceback
 import zipfile
 from importlib.metadata import version
 
+from neistra_core.configuration import environment_integer
 from neistra_core.jobs import (
     InputArtifact,
     InputRole,
@@ -53,9 +53,7 @@ def definition() -> JobDefinition:
         resources=ResourcePolicy(
             wall_time_seconds=30,
             cancellation_grace_seconds=2,
-            resident_memory_bytes=int(
-                os.environ.get("MOLWEAVE_MINIMIZATION_MAX_RSS_BYTES", 4 * 1024**3)
-            ),
+            resident_memory_bytes=environment_integer("MINIMIZATION_MAX_RSS_BYTES", 4 * 1024**3),
             max_result_artifacts=3,
             max_result_bytes=100 * 1024**2,
         ),

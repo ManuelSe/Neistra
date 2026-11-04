@@ -16,7 +16,7 @@ repository and create it from the explicit package lock:
 
 ```bash
 micromamba --no-rc create -y -p /absolute/path/to/ambertools-24.8 --file tools/ambertools-linux-64.lock
-export MOLWEAVE_AMBERTOOLS_PREFIX=/absolute/path/to/ambertools-24.8
+export NEISTRA_AMBERTOOLS_PREFIX=/absolute/path/to/ambertools-24.8
 ```
 
 The lock contains 137 exact package URLs and SHA256 hashes, including

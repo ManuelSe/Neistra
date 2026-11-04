@@ -27,12 +27,12 @@ python3.12 -m venv .venv
 corepack prepare pnpm@10.15.1 --activate
 corepack pnpm install --frozen-lockfile
 PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright install chromium
-MOLWEAVE_DATA_DIR=.molweave .venv/bin/uv run alembic upgrade head
+NEISTRA_DATA_DIR=.neistra .venv/bin/uv run alembic upgrade head
 ```
 
 `uv sync --frozen` installs the locked PDBFixer Git commit and scientific
 packages. Network access is required only for initial dependency/browser
-installation. The default managed state is `.molweave/`; it contains SQLite,
+installation. The default managed state is `.neistra/`; it contains SQLite,
 artifacts, job work directories, and worker state and is ignored by Git.
 
 ## Local Processes
@@ -54,18 +54,18 @@ For process-level troubleshooting, run the migration and three long-running
 commands manually in separate terminals:
 
 ```bash
-MOLWEAVE_DATA_DIR=.molweave .venv/bin/uv run alembic upgrade head
+NEISTRA_DATA_DIR=.neistra .venv/bin/uv run alembic upgrade head
 ```
 
 ```bash
 PYTHONPATH=apps/api/src:packages/neistra_core/src:packages/neistra_demo_plugin/src \
-  MOLWEAVE_DATA_DIR=.molweave \
+  NEISTRA_DATA_DIR=.neistra \
   .venv/bin/uvicorn neistra_api.main:app --host 127.0.0.1 --port 8000
 ```
 
 ```bash
 PYTHONPATH=apps/api/src:packages/neistra_core/src:packages/neistra_demo_plugin/src \
-  MOLWEAVE_DATA_DIR=.molweave .venv/bin/python -m neistra_api.worker
+  NEISTRA_DATA_DIR=.neistra .venv/bin/python -m neistra_api.worker
 ```
 
 ```bash
@@ -90,7 +90,7 @@ The complete release gate is:
 ```bash
 .venv/bin/uv sync --frozen
 corepack pnpm install --frozen-lockfile
-MOLWEAVE_DATA_DIR=.molweave .venv/bin/uv run alembic upgrade head
+NEISTRA_DATA_DIR=.neistra .venv/bin/uv run alembic upgrade head
 .venv/bin/uv run ruff check .
 .venv/bin/uv run mypy apps/api packages/neistra_core
 .venv/bin/uv run pytest
@@ -109,7 +109,7 @@ time targets are additional reference-host qualification with
 values fail. Production deadlines, resource limits, chemistry and state checks
 remain mandatory. See [performance qualification](PERFORMANCE.md) and D-148.
 
-Playwright owns `.molweave-e2e/` and starts API port 8010, worker health port
+Playwright owns `.neistra-e2e/` and starts API port 8010, worker health port
 8011, and Vite port 5173. Focus one workflow with, for example:
 
 ```bash
@@ -122,10 +122,10 @@ stack, focused evidence can use isolated values without changing repository or
 CI defaults:
 
 ```bash
-MOLWEAVE_E2E_API_PORT=8110 \
-MOLWEAVE_E2E_WORKER_PORT=8111 \
-MOLWEAVE_E2E_WEB_PORT=5273 \
-MOLWEAVE_E2E_DATA_DIR=.molweave-e2e-isolated \
+NEISTRA_E2E_API_PORT=8110 \
+NEISTRA_E2E_WORKER_PORT=8111 \
+NEISTRA_E2E_WEB_PORT=5273 \
+NEISTRA_E2E_DATA_DIR=.neistra-e2e-isolated \
 PLAYWRIGHT_BROWSERS_PATH=.playwright \
   corepack pnpm exec playwright test tests/e2e/polar-hydrogen-visibility.spec.ts
 ```
@@ -138,7 +138,7 @@ root before constructing any service command.
 
 Use `.venv/bin/uv run pytest tests/scientific` for the chemistry/file-format
 suite and `corepack pnpm --dir apps/web test -- jobs` for a focused component
-run. Do not add `MOLWEAVE_ENABLE_TEST_ROUTES=1` to normal startup.
+run. Do not add `NEISTRA_ENABLE_TEST_ROUTES=1` to normal startup.
 
 ## Application-owned viewer compatibility (0.26.2)
 
@@ -213,8 +213,28 @@ plan before claiming release compatibility.
 
 ## Configuration
 
-`MOLWEAVE_DATA_DIR` changes the managed root. `MOLWEAVE_DATABASE_URL` can
-replace the default SQLite URL. `MOLWEAVE_API_PORT` and `MOLWEAVE_WEB_PORT`
+All maintained settings use `NEISTRA_*`; each accepts the same-suffix `MOLWEAVE_*`
+alias. An explicitly present canonical value wins, including invalid values which
+fail validation instead of falling back. Conflicts log setting names without
+values. Limits and boolean flags keep their production meaning; flags use0/1.
+This includes API/worker settings, supervisor/E2E ports and native toolchain/cache/
+resource settings. The supervisor leaves data/database discovery to the shared
+Python resolver used by API, worker and Alembic.
+
+With no explicit paths, an existing `.molweave` or `.neistra` root is reused in
+place; competing roots require `NEISTRA_DATA_DIR`. Fresh installations use
+`.neistra/neistra.db`. Existing `molweave.db` files are recognized in selected
+roots. Competing database filenames require `NEISTRA_DATABASE_URL`; unreadable,
+broken-link, invalid or nonempty database-less stores fail without creating a
+replacement. Explicit database URLs may intentionally select another location.
+No store is automatically moved, merged, copied or renamed. Stop services before
+manual relocation and preserve the entire database/artifact root together.
+Rollback to an older release uses its `MOLWEAVE_DATA_DIR` and
+`MOLWEAVE_DATABASE_URL` settings to point to a new-name store explicitly.
+
+
+`NEISTRA_DATA_DIR` changes the managed root. `NEISTRA_DATABASE_URL` can
+replace the default SQLite URL. `NEISTRA_API_PORT` and `NEISTRA_WEB_PORT`
 change the single-command supervisor ports from their defaults of 8000 and
 5173; the Vite proxy follows the selected API port unless `VITE_API_TARGET` is
 set explicitly. Import/archive byte limits, atom warning/hard limits, worker
@@ -226,9 +246,9 @@ directory and plugin configuration.
 
 ### Migration or database errors
 
-Stop API and worker, confirm both use the same `MOLWEAVE_DATA_DIR`, then rerun
-`MOLWEAVE_DATA_DIR=.molweave .venv/bin/uv run alembic upgrade head`. For a
-disposable development reset only, remove `.molweave/` and migrate again. Do
+Stop API and worker, confirm both use the same `NEISTRA_DATA_DIR`, then rerun
+`NEISTRA_DATA_DIR=.neistra .venv/bin/uv run alembic upgrade head`. For a
+disposable development reset only, remove `.neistra/` and migrate again. Do
 not remove a state directory containing projects that must be retained.
 
 ### API unavailable in the browser

@@ -11,6 +11,7 @@ import time
 from dataclasses import dataclass
 from pathlib import Path
 
+from neistra_core.configuration import environment_value
 from neistra_core.jobs import JobContext
 from neistra_core.minimization.contracts import CalculationError
 
@@ -57,12 +58,12 @@ class AmberTools:
             raise CalculationError(
                 "toolchain_platform", "This model is qualified for Linux x86-64."
             )
-        configured = os.environ.get("MOLWEAVE_AMBERTOOLS_PREFIX")
+        configured = environment_value("AMBERTOOLS_PREFIX")
         if prefix is None and not configured:
             raise CalculationError(
                 "toolchain_unavailable",
                 "Install the locked AmberTools environment and set "
-                "MOLWEAVE_AMBERTOOLS_PREFIX for both API and worker.",
+                "NEISTRA_AMBERTOOLS_PREFIX for both API and worker.",
             )
         root = (prefix or Path(str(configured))).resolve()
         try:

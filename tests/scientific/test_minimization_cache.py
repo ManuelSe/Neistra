@@ -1,10 +1,9 @@
 from __future__ import annotations
 
-import os
-
 import numpy as np
 import openmm
 import pytest
+from neistra_core.configuration import environment_value
 from neistra_core.minimization.assembly import environment_preflight
 from neistra_core.minimization.context_model import parameterize_environment
 from neistra_core.minimization.parameter_cache import ParameterCache
@@ -21,7 +20,7 @@ from tests.support.minimization import (
 )
 
 pytestmark = pytest.mark.skipif(
-    not os.environ.get("MOLWEAVE_AMBERTOOLS_PREFIX"),
+    not environment_value("AMBERTOOLS_PREFIX"),
     reason="Locked native cache qualification required",
 )
 
