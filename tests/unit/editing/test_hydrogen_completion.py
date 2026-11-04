@@ -1,7 +1,7 @@
 import pytest
-from molweave_core.editing.hydrogen import HydrogenBuilder, apply_hydrogen_proposal
-from molweave_core.editing.model import DirectMolecularEditor, ModelCharge
-from molweave_core.molecular import Conformer
+from neistra_core.editing.hydrogen import HydrogenBuilder, apply_hydrogen_proposal
+from neistra_core.editing.model import DirectMolecularEditor, ModelCharge
+from neistra_core.molecular import Conformer
 
 from tests.support.hydrogen_fixture import model
 

@@ -1,5 +1,7 @@
 .venv/
 .molweave/
+.neistra/
+.neistra-e2e/
 .molweave-e2e/
 .pytest_cache/
 .mypy_cache/

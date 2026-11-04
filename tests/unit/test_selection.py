@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import pytest
-from molweave_core.molecular import (
+from neistra_core.molecular import (
     Atom,
     Chain,
     Conformer,
@@ -9,7 +9,7 @@ from molweave_core.molecular import (
     Residue,
     SourceFacts,
 )
-from molweave_core.selection import (
+from neistra_core.selection import (
     AtomReference,
     SelectionGranularity,
     SelectionV1,

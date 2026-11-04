@@ -11,7 +11,8 @@ from pathlib import Path
 from typing import Any
 
 import pytest
-from molweave_core.molecular import NormalizedStructureV1
+from neistra_core.configuration import environment_value
+from neistra_core.molecular import NormalizedStructureV1
 
 from tests.integration.test_coordinate_commands import _structure
 from tests.integration.test_job_lifecycle import _worker
@@ -86,7 +87,7 @@ class Memory:
 
 
 def retain(label: str, value: dict[str, Any], tmp_path: Path):
-    root = Path(os.environ.get("MOLWEAVE_MINIMIZATION_EVIDENCE_DIR", str(tmp_path)))
+    root = Path(environment_value("MINIMIZATION_EVIDENCE_DIR", str(tmp_path)))
     root.mkdir(parents=True, exist_ok=True)
     (root / f"{label}-{os.getpid()}.json").write_text(
         json.dumps(
@@ -129,7 +130,7 @@ def submit(client: ApiClient, project: dict[str, Any], environment: bool):
 def test_real_worker_setup_optimization_and_aggregate_rss(
     minclient: ApiClient, tmp_path: Path, label: str, copies: int
 ):
-    if not os.environ.get("MOLWEAVE_AMBERTOOLS_PREFIX"):
+    if not environment_value("AMBERTOOLS_PREFIX"):
         pytest.skip("Locked Linux native profile required for performance qualification")
     project = seeded_project(minclient, *(prepared_pocket(copies) if copies else (molecule(),)))
     before = {e["id"]: _structure(minclient, project["id"], e["id"]) for e in project["entries"]}
@@ -195,7 +196,7 @@ def test_real_worker_setup_optimization_and_aggregate_rss(
 def test_real_sqm_cancellation_stops_descendants_and_preserves_state(
     minclient: ApiClient, tmp_path: Path
 ):
-    if not os.environ.get("MOLWEAVE_AMBERTOOLS_PREFIX"):
+    if not environment_value("AMBERTOOLS_PREFIX"):
         pytest.skip("Locked Linux native profile required for real SQM cancellation")
     project = seeded_project(minclient, molecule("C" * 80))
     queued = submit(minclient, project, False)

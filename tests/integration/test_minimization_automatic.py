@@ -1,8 +1,7 @@
 from __future__ import annotations
 
-import os
-
 import pytest
+from neistra_core.configuration import environment_value
 
 from tests.integration.test_coordinate_commands import _structure
 from tests.integration.test_job_lifecycle import _worker
@@ -55,7 +54,7 @@ def test_server_captures_hidden_complete_context_and_excludes_distant_entries(mi
 
 
 @pytest.mark.skipif(
-    not os.environ.get("MOLWEAVE_AMBERTOOLS_PREFIX"), reason="Locked native model required"
+    not environment_value("AMBERTOOLS_PREFIX"), reason="Locked native model required"
 )
 def test_auto_native_result_refuses_newly_nearby_omitted_context(minclient):
     project = seeded_project(minclient, molecule(), translated(molecule(), (100, 0, 0)))
@@ -95,7 +94,7 @@ def test_auto_native_result_refuses_newly_nearby_omitted_context(minclient):
 
 
 @pytest.mark.skipif(
-    not os.environ.get("MOLWEAVE_AMBERTOOLS_PREFIX"), reason="Locked native model required"
+    not environment_value("AMBERTOOLS_PREFIX"), reason="Locked native model required"
 )
 def test_required_unsupported_neighbor_blocks_whole_automatic_calculation(minclient):
     project = seeded_project(minclient, molecule(), translated(molecule("[Cl-]"), (5, 0, 0)))

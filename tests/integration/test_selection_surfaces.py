@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Any
 
 import pytest
-from molweave_api.schemas import SelectionSurface
+from neistra_api.schemas import SelectionSurface
 from pydantic import ValidationError
 
 from tests.integration.test_archive_roundtrip import export_archive, import_archive, upload
@@ -298,9 +298,9 @@ def test_surface_archive_compatibility_and_referential_validation(
 
 
 def test_surface_checkpoint_survives_restart_and_undo_restores_clean_state(tmp_path: Path) -> None:
-    from molweave_api.database import Base
-    from molweave_api.main import create_app
-    from molweave_api.settings import Settings
+    from neistra_api.database import Base
+    from neistra_api.main import create_app
+    from neistra_api.settings import Settings
 
     settings = Settings(
         data_dir=tmp_path,

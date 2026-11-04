@@ -5,8 +5,8 @@ import time
 from pathlib import Path
 from typing import Any
 
-from molweave_api.job_service import JobService
-from molweave_api.job_worker import JobWorker
+from neistra_api.job_service import JobService
+from neistra_api.job_worker import JobWorker
 
 from tests.support.api_client import ApiClient
 

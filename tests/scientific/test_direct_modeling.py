@@ -1,16 +1,16 @@
 from __future__ import annotations
 
 import pytest
-from molweave_core.adapters.base import AdapterError
-from molweave_core.adapters.defaults import create_default_registry
-from molweave_core.editing.model import (
+from neistra_core.adapters.base import AdapterError
+from neistra_core.adapters.defaults import create_default_registry
+from neistra_core.editing.model import (
     DirectMolecularEditor,
     ModelAtomAdd,
     ModelBondDelete,
     ModelCharge,
     ModelElement,
 )
-from molweave_core.viewer_projection import ligand_viewer_sdf
+from neistra_core.viewer_projection import ligand_viewer_sdf
 
 from tests.support.modeling_fixture import paracetamol
 from tests.unit.editing.test_ligand_editor import ligand
@@ -194,8 +194,8 @@ def test_current_mol2_types_follow_the_edited_element_and_original_types_stay_so
 def test_large_parent_uses_no_rdkit_parent_conversion_or_component_helper(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    import molweave_core.editing.selection as helper
-    from molweave_core.molecular import Atom, Bond, Conformer, NormalizedStructureV1, SourceFacts
+    import neistra_core.editing.selection as helper
+    from neistra_core.molecular import Atom, Bond, Conformer, NormalizedStructureV1, SourceFacts
 
     def forbidden(*args: object, **kwargs: object) -> None:
         raise AssertionError("The complete parent must not enter a chemistry helper.")
@@ -241,7 +241,7 @@ def test_large_parent_uses_no_rdkit_parent_conversion_or_component_helper(
 
 def test_mmcif_multimodel_serials_remain_unique_after_sparse_identity_edits() -> None:
     import gemmi
-    from molweave_core.molecular import Conformer
+    from neistra_core.molecular import Conformer
 
     before = paracetamol()
     # Valid stable identities can have arbitrary allocator gaps after branching.
@@ -269,7 +269,7 @@ def test_mmcif_multimodel_serials_remain_unique_after_sparse_identity_edits() ->
 
 @pytest.mark.parametrize("format_name", ["mol", "sdf", "smiles"])
 def test_h_free_draft_exports_explain_implicit_valence_h_interpretation(format_name: str) -> None:
-    from molweave_core.editing.model import ModelDelete
+    from neistra_core.editing.model import ModelDelete
     from rdkit import Chem
 
     before = paracetamol()

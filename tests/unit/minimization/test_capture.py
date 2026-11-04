@@ -1,8 +1,8 @@
 from __future__ import annotations
 
 import pytest
-from molweave_core.minimization.capture import complete_membership
-from molweave_core.minimization.contracts import CalculationError
+from neistra_core.minimization.capture import complete_membership
+from neistra_core.minimization.contracts import CalculationError
 
 from tests.support.minimization import combined, molecule, peptide
 

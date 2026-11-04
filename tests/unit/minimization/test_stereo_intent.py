@@ -4,9 +4,9 @@ from dataclasses import replace
 
 import numpy as np
 import pytest
-from molweave_core.minimization.contracts import CalculationError
-from molweave_core.minimization.optimize import geometry_stereo, validate_stereo_intent
-from molweave_core.minimization.preflight import isolated_preflight
+from neistra_core.minimization.contracts import CalculationError
+from neistra_core.minimization.optimize import geometry_stereo, validate_stereo_intent
+from neistra_core.minimization.preflight import isolated_preflight
 
 from tests.support.minimization import capture, molecule
 

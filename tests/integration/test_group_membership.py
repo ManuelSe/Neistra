@@ -6,11 +6,11 @@ from pathlib import Path
 from typing import Any
 
 import pytest
-from molweave_api.database import Base
-from molweave_api.main import create_app
-from molweave_api.models import CommandRecord, StructureEntry
-from molweave_api.project_service import ProjectService
-from molweave_api.settings import Settings
+from neistra_api.database import Base
+from neistra_api.main import create_app
+from neistra_api.models import CommandRecord, StructureEntry
+from neistra_api.project_service import ProjectService
+from neistra_api.settings import Settings
 from sqlalchemy import select
 
 from tests.integration.test_archive_roundtrip import (

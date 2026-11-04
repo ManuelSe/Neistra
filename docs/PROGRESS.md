@@ -2,6 +2,28 @@
 
 ## Current milestone
 
+Issue [#99](https://github.com/ManuelSe/Neistra/issues/99) **M4 complete; M5 delivery next**.
+The [approved contract](plans/issue-99-compatible-technical-rebranding.md) and D-150
+are implemented. Canonical packages/settings retain legacy imports, commands,
+configuration and stores. UI uses `.neistra.zip`; old HTTP defaults and secondary
+legacy naming preserve compatibility. Schemas, migrations and science remain.
+
+Clean final **12f1aeb** passes all **24 release steps**: **1,332 Python (zero skips),
+374 frontend,14 supervisor,352 browser passes /62 exactly unchanged exclusions**.
+Zero failures/flakes/automatic retries;697 source identities and all lossless logs
+verify. Actual tagged0.26.2↔final0.27.0 readers, real legacy CLI jobs, originals/
+history/scenes/selections/surfaces/jobs, fresh migration round trip, frozen/static/
+build/version/dependency/name/production audits pass. [Summary](assets/technical-rebranding/c4-candidate3-summary.json).
+Earlier failed/interrupted attempts remain diagnostic. Review is local self-review;
+strict reference timing and independent approval are not claimed.
+
+Blockers:none. Next:PR/review/normal merge, exact-master24-step qualification,
+annotated v0.27.0/stable release, issue close-out and branch cleanup. No issue99
+PR/tag/release yet; released baseline remains0.26.2. All five candidate versions
+are0.27.0. No new migration (head0014), schema or dependency/scientific-model change.
+
+### Previous completed milestone — issue #96
+
 Issue [#96](https://github.com/ManuelSe/Neistra/issues/96) is delivered in
 [stable v0.26.2](https://github.com/ManuelSe/Neistra/releases/tag/v0.26.2) through [PR #129](https://github.com/ManuelSe/Neistra/pull/129).
 Exact qualified runtime: `e1cae49a9655a4a48a72c25f36bbd45db0273423`. Neistra owns viewer controls/feedback;

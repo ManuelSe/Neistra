@@ -4,12 +4,12 @@ from dataclasses import replace
 from pathlib import Path
 
 import pytest
-from molweave_core.jobs import JobCancelled
-from molweave_core.minimization.contracts import CalculationError, MinimizationParameters
-from molweave_core.minimization.parameterization import write_calculation_mol2
-from molweave_core.minimization.plugin import plugin
-from molweave_core.minimization.preflight import isolated_preflight
-from molweave_core.minimization.toolchain import AmberTools
+from neistra_core.jobs import JobCancelled
+from neistra_core.minimization.contracts import CalculationError, MinimizationParameters
+from neistra_core.minimization.parameterization import write_calculation_mol2
+from neistra_core.minimization.plugin import plugin
+from neistra_core.minimization.preflight import isolated_preflight
+from neistra_core.minimization.toolchain import AmberTools
 from pydantic import ValidationError
 
 from tests.support.minimization import LocalContext, capture, molecule
@@ -124,6 +124,7 @@ def test_unconfigured_or_wrong_toolchain_refuses(
     monkeypatch: pytest.MonkeyPatch, tmp_path: Path
 ) -> None:
     monkeypatch.delenv("MOLWEAVE_AMBERTOOLS_PREFIX", raising=False)
+    monkeypatch.delenv("NEISTRA_AMBERTOOLS_PREFIX", raising=False)
     with pytest.raises(CalculationError, match="Install the locked"):
         AmberTools.discover()
     with pytest.raises(CalculationError, match="Invalid locked"):
@@ -203,9 +204,9 @@ def test_malformed_identity_preserves_the_underlying_cause():
 
 
 def test_server_recovery_overlay_is_local_bounded_and_never_overrides_existing_facts():
-    from molweave_core.hydrogen_protection import protection_facts
-    from molweave_core.minimization.contracts import IdentityRecovery
-    from molweave_core.minimization.preflight import recovered_identity
+    from neistra_core.hydrogen_protection import protection_facts
+    from neistra_core.minimization.contracts import IdentityRecovery
+    from neistra_core.minimization.preflight import recovered_identity
 
     original = molecule()
     source = original.model_copy(update={"annotations": []})

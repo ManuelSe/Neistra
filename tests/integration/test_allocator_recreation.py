@@ -4,7 +4,7 @@ from copy import deepcopy
 from typing import Any
 
 import pytest
-from molweave_api.models import CommandRecord, StructureEntry
+from neistra_api.models import CommandRecord, StructureEntry
 from sqlalchemy import select
 
 from tests.integration.test_archive_roundtrip import export_archive, import_archive

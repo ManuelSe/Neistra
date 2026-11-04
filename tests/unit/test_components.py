@@ -2,12 +2,12 @@ from __future__ import annotations
 
 from collections import Counter
 
-from molweave_core.components import (
+from neistra_core.components import (
     category_atom_ids,
     component_atom_ids,
     derive_component_hierarchy,
 )
-from molweave_core.molecular import (
+from neistra_core.molecular import (
     Atom,
     Bond,
     Chain,

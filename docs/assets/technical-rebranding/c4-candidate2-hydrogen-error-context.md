@@ -1,0 +1,304 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - button "Projects" [ref=e5] [cursor=pointer]:
+        - generic [ref=e7] [cursor=pointer]: Neistra
+      - button "Molecule from scratch 1793784885039 Unsaved changes" [ref=e8] [cursor=pointer]:
+        - generic [ref=e9] [cursor=pointer]: Molecule from scratch 1793784885039
+      - generic [ref=e11]:
+        - button "Import structures" [ref=e12] [cursor=pointer]:
+          - img [ref=e13] [cursor=pointer]
+        - button "Export" [ref=e16] [cursor=pointer]:
+          - img [ref=e17] [cursor=pointer]
+        - button "Jobs" [ref=e23] [cursor=pointer]:
+          - img [ref=e24] [cursor=pointer]
+        - 'button "Undo: Add one hydrogen in single-hydrogen-ammonia synthetic seed92" [ref=e29] [cursor=pointer]':
+          - img [ref=e30] [cursor=pointer]
+        - button "Redo" [disabled] [ref=e33]:
+          - img [ref=e34]
+        - button "Save checkpoint" [ref=e37] [cursor=pointer]:
+          - img [ref=e38] [cursor=pointer]
+        - button "Use dark theme" [ref=e43] [cursor=pointer]:
+          - img [ref=e44] [cursor=pointer]
+    - status:
+      - generic: Molecular edit stored. 2 scientific warnings; see entry Details.
+      - button "Dismiss message" [ref=e46] [cursor=pointer]: Close
+    - generic [ref=e48]:
+      - region "Project browser" [ref=e50]:
+        - generic [ref=e51]:
+          - generic [ref=e52]:
+            - generic [ref=e53]: Project
+            - heading "Structures" [level=2] [ref=e54]
+          - button "New molecule" [ref=e55]
+          - button "Collapse project browser" [ref=e56] [cursor=pointer]:
+            - img [ref=e57] [cursor=pointer]
+        - generic [ref=e59]:
+          - generic [ref=e61]:
+            - generic [ref=e62]:
+              - generic [ref=e63]:
+                - img [ref=e64]
+                - generic [ref=e67]: Search structures
+                - textbox "Search structures" [ref=e68]
+              - group [ref=e69]:
+                - option "All types" [selected]
+                - option "Protein"
+                - option "Ligand"
+                - option "Complex"
+                - option "Solvent"
+                - option "Unknown"
+                - option "Name" [selected]
+                - option "Type"
+                - option "Atom count"
+                - option "Modified"
+            - generic [ref=e74]:
+              - img [ref=e76]
+              - button "single-hydrogen-ammonia synthetic seed92 2 warnings; open Details for messages Modified" [pressed] [ref=e83] [cursor=pointer]:
+                - img [ref=e84] [cursor=pointer]
+                - generic [ref=e87] [cursor=pointer]: single-hydrogen-ammonia synthetic seed92
+                - generic [ref=e88] [cursor=pointer]:
+                  - img [ref=e89] [cursor=pointer]
+                  - generic [ref=e91] [cursor=pointer]: 2 warnings; open Details for messages
+                - generic [ref=e93] [cursor=pointer]: Modified
+              - generic [ref=e94]:
+                - button "Hide single-hydrogen-ammonia synthetic seed92" [ref=e95] [cursor=pointer]:
+                  - img [ref=e96] [cursor=pointer]
+                - button "Lock single-hydrogen-ammonia synthetic seed92" [ref=e99] [cursor=pointer]:
+                  - img [ref=e100] [cursor=pointer]
+                - button "Actions for single-hydrogen-ammonia synthetic seed92" [ref=e103] [cursor=pointer]:
+                  - img [ref=e104] [cursor=pointer]
+          - separator "Resize entries and components" [ref=e108]
+          - region "Component browser" [ref=e110]:
+            - generic [ref=e111]:
+              - heading "Components" [level=3] [ref=e112]
+              - button "Collapse components" [ref=e113] [cursor=pointer]:
+                - img [ref=e114] [cursor=pointer]
+            - paragraph [ref=e116]: Choose an entry to browse components
+      - separator "Resize project browser" [ref=e117]
+      - generic [ref=e119]:
+        - main [ref=e121]:
+          - generic [ref=e122]:
+            - generic [ref=e123]:
+              - region "3D molecular viewer" [ref=e124]
+              - generic:
+                - status:
+                  - generic: 1 visible / 1 loaded / 1 selected
+                  - generic:
+                    - img
+                    - text: 2 warnings
+                - toolbar "Viewer quick actions" [ref=e132]:
+                  - generic [ref=e133]: Pick
+                  - group "Viewer picking mode" [ref=e134]:
+                    - button "Pick atoms" [pressed] [ref=e135] [cursor=pointer]: Atom
+                    - button "Pick residues" [ref=e136] [cursor=pointer]: Residue
+                    - button "Pick chains" [ref=e137] [cursor=pointer]: Chain
+                    - button "Pick structures" [ref=e138] [cursor=pointer]: Structure
+                  - group "Viewer focus actions" [ref=e139]:
+                    - button "Fit all visible" [ref=e140] [cursor=pointer]:
+                      - img [ref=e141] [cursor=pointer]
+                    - button "Focus selection" [ref=e142] [cursor=pointer]:
+                      - img [ref=e143] [cursor=pointer]
+                    - button "Focus visible ligands" [ref=e149] [cursor=pointer]:
+                      - img [ref=e150] [cursor=pointer]
+                    - button "Style selection" [ref=e153] [cursor=pointer]:
+                      - img [ref=e154] [cursor=pointer]
+                    - button "Interactions" [ref=e160] [cursor=pointer]:
+                      - img [ref=e161] [cursor=pointer]
+                - group "Molecular tools" [ref=e166]:
+                  - region "Transformation tools" [ref=e167]:
+                    - button "Transform selection" [disabled] [ref=e168]:
+                      - img [ref=e169]
+                  - button "Edit molecule" [expanded] [ref=e175] [cursor=pointer]:
+                    - img [ref=e176] [cursor=pointer]
+                  - button "Minimize selection" [ref=e180] [cursor=pointer]:
+                    - img [ref=e181] [cursor=pointer]
+              - button "Open viewer controls" [ref=e184] [cursor=pointer]:
+                - img [ref=e185] [cursor=pointer]
+            - region "Protein sequence viewer" [ref=e189]:
+              - generic [ref=e190]:
+                - button "Collapse sequences" [expanded] [ref=e191] [cursor=pointer]:
+                  - img [ref=e192] [cursor=pointer]
+                - generic [ref=e194]: Sequence
+                - generic [ref=e195]: No displayed protein chains
+                - button "Hide sequences" [ref=e196] [cursor=pointer]:
+                  - img [ref=e197] [cursor=pointer]
+        - separator "Resize lower panel" [ref=e200]
+        - region "Properties and history" [ref=e202]:
+          - generic [ref=e203]:
+            - tablist "Lower panel views" [ref=e204]:
+              - tab "Properties" [selected] [ref=e205] [cursor=pointer]:
+                - img [ref=e206] [cursor=pointer]
+                - text: Properties
+              - tab "History" [ref=e208] [cursor=pointer]:
+                - img [ref=e209] [cursor=pointer]
+                - text: History
+              - tab "Jobs" [ref=e213] [cursor=pointer]:
+                - img [ref=e214] [cursor=pointer]
+                - text: Jobs
+            - button "Collapse lower panel" [ref=e218] [cursor=pointer]:
+              - img [ref=e219] [cursor=pointer]
+          - region "Selected atom properties" [ref=e221]:
+            - table [ref=e222]:
+              - rowgroup [ref=e223]:
+                - row "Structure Index Atom Element Residue Chain Charge X Y Z" [ref=e224]:
+                  - cell "Structure" [ref=e225]
+                  - cell "Index" [ref=e226]
+                  - cell "Atom" [ref=e227]
+                  - cell "Element" [ref=e228]
+                  - cell "Residue" [ref=e229]
+                  - cell "Chain" [ref=e230]
+                  - cell "Charge" [ref=e231]
+                  - cell "X" [ref=e232]
+                  - cell "Y" [ref=e233]
+                  - cell "Z" [ref=e234]
+              - rowgroup [ref=e235]:
+                - row "single-hydrogen-ammonia synthetic seed92 1 N1 N LIG 1 - 1 0.003 -0.001 0.273" [ref=e236] [cursor=pointer]:
+                  - cell "single-hydrogen-ammonia synthetic seed92" [ref=e237] [cursor=pointer]
+                  - cell "1" [ref=e238] [cursor=pointer]
+                  - cell "N1" [ref=e239] [cursor=pointer]
+                  - cell "N" [ref=e240] [cursor=pointer]
+                  - cell "LIG 1" [ref=e241] [cursor=pointer]
+                  - cell "-" [ref=e242] [cursor=pointer]
+                  - cell "1" [ref=e243] [cursor=pointer]
+                  - cell "0.003" [ref=e244] [cursor=pointer]
+                  - cell "-0.001" [ref=e245] [cursor=pointer]
+                  - cell "0.273" [ref=e246] [cursor=pointer]
+      - separator "Resize inspector" [ref=e247]
+      - region "Project inspector" [ref=e249]:
+        - generic [ref=e250]:
+          - generic [ref=e251]:
+            - generic [ref=e252]: Inspector
+            - heading "Selection" [level=2] [ref=e253]
+          - button "Collapse inspector" [ref=e254] [cursor=pointer]:
+            - img [ref=e255] [cursor=pointer]
+        - tablist "Inspector views" [ref=e257]:
+          - tab "selection" [selected] [ref=e258] [cursor=pointer]
+          - tab "inspect" [ref=e259] [cursor=pointer]
+          - tab "measurements" [ref=e260] [cursor=pointer]
+          - tab "transform" [ref=e261] [cursor=pointer]
+          - tab "ligand" [ref=e262] [cursor=pointer]
+          - tab "protein" [ref=e263] [cursor=pointer]
+          - tab "details" [ref=e264] [cursor=pointer]
+        - tabpanel "selection" [ref=e265]:
+          - generic [ref=e266]:
+            - generic "Current selection summary" [ref=e267]:
+              - generic [ref=e268]:
+                - term [ref=e269]: Atoms
+                - definition [ref=e270]: "1"
+              - generic [ref=e271]:
+                - term [ref=e272]: Residues
+                - definition [ref=e273]: "1"
+              - generic [ref=e274]:
+                - term [ref=e275]: Chains
+                - definition [ref=e276]: "1"
+              - generic [ref=e277]:
+                - term [ref=e278]: Structures
+                - definition [ref=e279]: "1"
+            - generic [ref=e280]:
+              - generic [ref=e281]: atom
+              - generic [ref=e282]: from inspector
+            - generic [ref=e283]:
+              - button "Clear" [ref=e284] [cursor=pointer]:
+                - img [ref=e285] [cursor=pointer]
+                - text: Clear
+              - button "Invert" [ref=e288] [cursor=pointer]
+            - group "Operation mode" [ref=e289]:
+              - generic [ref=e290]: Operation mode
+              - generic [ref=e291]:
+                - button "replace" [pressed] [ref=e292] [cursor=pointer]
+                - button "add" [ref=e293] [cursor=pointer]
+                - button "subtract" [ref=e294] [cursor=pointer]
+            - group "Viewer pick" [ref=e295]:
+              - generic [ref=e296]: Viewer pick
+              - generic [ref=e297]:
+                - button "atom" [pressed] [ref=e298] [cursor=pointer]
+                - button "residue" [ref=e299] [cursor=pointer]
+                - button "chain" [ref=e300] [cursor=pointer]
+                - button "structure" [ref=e301] [cursor=pointer]
+            - group "Expand current" [ref=e302]:
+              - generic [ref=e303]: Expand current
+              - generic [ref=e304]:
+                - button "residue" [ref=e305] [cursor=pointer]
+                - button "chain" [ref=e306] [cursor=pointer]
+                - button "structure" [ref=e307] [cursor=pointer]
+            - generic [ref=e308]:
+              - generic [ref=e309]:
+                - text: Select by
+                - combobox "Select by" [ref=e310]:
+                  - option "Atom name"
+                  - option "Atom index"
+                  - option "Structure:atom reference" [selected]
+                  - option "Element"
+                  - option "Residue name"
+                  - option "Residue number"
+                  - option "Chain"
+                  - option "Structure ID"
+              - generic [ref=e311]:
+                - text: Value
+                - textbox "Value" [ref=e312]: 01a1a5e9-3346-7f1b-ba23-f4cf59b801b2:1
+              - button "Apply query" [ref=e313] [cursor=pointer]
+            - generic [ref=e314]:
+              - generic [ref=e315]:
+                - generic [ref=e316]:
+                  - text: Within (angstrom)
+                  - spinbutton "Within (angstrom)" [ref=e317]: "4"
+                - generic [ref=e318]:
+                  - text: Result
+                  - combobox "Result" [ref=e319]:
+                    - option "Atoms" [selected]
+                    - option "Residues"
+              - button "Run distance selection" [ref=e320] [cursor=pointer]
+            - generic [ref=e321]:
+              - generic [ref=e322]:
+                - text: Saved selections
+                - generic [ref=e323]:
+                  - textbox "Saved selections Save current selection" [ref=e324]
+                  - button "Save current selection" [disabled] [ref=e325]:
+                    - img [ref=e326]
+              - paragraph [ref=e331]: No saved selections
+  - dialog "Edit molecule" [active] [ref=e332]:
+    - generic [ref=e333]:
+      - generic [ref=e334]:
+        - strong [ref=e335]: Edit
+        - button "Close molecular editor" [ref=e336] [cursor=pointer]:
+          - img [ref=e337] [cursor=pointer]
+      - paragraph [ref=e340]: single-hydrogen-ammonia synthetic seed92 · 1 selected
+      - group "Editing tools" [ref=e341]:
+        - button "Atoms" [pressed] [ref=e342]
+        - button "Bonds" [ref=e343]
+        - button "Fragments" [ref=e344]
+        - button "Residues" [ref=e345]
+      - group "Atoms" [ref=e346]:
+        - generic [ref=e347]: Atoms
+        - generic [ref=e348]:
+          - button "Replace selected atom with C" [ref=e349]: C
+          - button "Replace selected atom with N" [disabled] [ref=e350]: "N"
+          - button "Replace selected atom with O" [ref=e351]: O
+          - button "Replace selected atom with S" [ref=e352]: S
+          - button "Replace selected atom with F" [ref=e353]: F
+          - button "Replace selected atom with Cl" [ref=e354]: Cl
+          - button "Replace selected atom with Br" [ref=e355]: Br
+          - button "Replace selected atom with I" [ref=e356]: I
+        - generic [ref=e357]:
+          - button "Add hydrogen (+H)" [ref=e358] [cursor=pointer]:
+            - img [ref=e359] [cursor=pointer]
+            - text: H
+          - button "Decrease formal charge" [ref=e360] [cursor=pointer]:
+            - img [ref=e361] [cursor=pointer]
+            - text: q
+          - button "Increase formal charge" [ref=e362] [cursor=pointer]:
+            - img [ref=e363] [cursor=pointer]
+            - text: q
+          - button "Delete selected atoms" [ref=e364] [cursor=pointer]:
+            - img [ref=e365] [cursor=pointer]
+        - group [ref=e368]
+        - group [ref=e370]
+      - button "Show explicit H" [ref=e372] [cursor=pointer]:
+        - img [ref=e373] [cursor=pointer]
+        - text: H
+      - group [ref=e376]
+      - group [ref=e378]
+      - group [ref=e380]
+```

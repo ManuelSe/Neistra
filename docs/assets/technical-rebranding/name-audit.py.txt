@@ -1,0 +1,70 @@
+"""Inventory all tracked names/content; fail on unapproved legacy tokens in implementation."""
+import hashlib
+import json
+from pathlib import Path
+import re
+import subprocess
+
+output = Path('docs/assets/technical-rebranding/name-audit.json')
+files = sorted(set(subprocess.check_output(
+    ['git', 'ls-files', '--cached', '--others', '--exclude-standard'], text=True,
+).splitlines()))
+allowed = {
+    'molweave', 'molweave.db', 'molweave.zip', 'molweave.demo', 'molweave.minimization',
+    'molweave.demo.structure_statistics', 'molweave.jobs', 'MOLWEAVE_',
+    'vnd.molweave.normalized-structure', 'vnd.molweave.project', 'molweave-workspace-v1',
+}
+rows, unexpected = [], []
+for name in files:
+    path = Path(name)
+    if not path.is_file() or path == output:
+        continue
+    try:
+        content = path.read_text()
+    except (UnicodeError, OSError):
+        content = ''
+    lines = [i for i, line in enumerate(content.splitlines(), 1) if 'molweave' in line.lower()]
+    path_match = 'molweave' in name.lower()
+    if not lines and not path_match:
+        continue
+    if name.startswith('docs/assets/'):
+        disposition = 'historical qualification evidence or current compatibility audit'
+    elif name.startswith('docs/plans/') or name in {
+        'docs/PLAN.md', 'docs/DECISIONS.md', 'docs/PROGRESS.md', 'docs/VERIFICATION.md',
+        'docs/RELEASE_NOTES.md', 'docs/PRODUCT_SPEC.md',
+    }:
+        disposition = 'historical/approved planning and explicit compatibility records'
+    elif name.startswith('tests/fixtures/'):
+        disposition = 'immutable scientific/source/compatibility fixtures'
+    elif name.startswith('tests/'):
+        disposition = 'legacy integration/reader coverage and user/provenance test data'
+    elif name.startswith('docs/') or name == 'README.md':
+        disposition = 'explicit compatibility/transition or historical qualification documentation'
+    elif ('/molweave_' in name or name.startswith('packages/molweave_')):
+        disposition = 'legacy import/source-root bridge; no duplicate implementation'
+    else:
+        disposition = 'retained protocol/configuration/preference/archive identifiers'
+    if name.startswith(('apps/', 'packages/', 'tests/')) and not name.startswith('tests/fixtures/'):
+        for marker in ['molweave-representation-', '_MolWeaveAtomId', '_MolWeaveBondId']:
+            if marker in content:
+                unexpected.append({'path':name, 'retired_private_marker':marker})
+    active = name.startswith((
+        'apps/api/src/neistra_api/', 'packages/neistra_core/src/neistra_core/',
+        'packages/neistra_demo_plugin/src/neistra_demo_plugin/', 'apps/web/src/',
+    )) and '/test/' not in name
+    if active:
+        for number, line in enumerate(content.splitlines(), 1):
+            for token in re.findall(r'[A-Za-z_][A-Za-z0-9_.-]*', line):
+                if 'molweave' in token.lower() and token not in allowed:
+                    unexpected.append({'path': name, 'line': number, 'token': token})
+    row = {'path': name, 'path_match': path_match, 'matching_lines': len(lines),
+           'disposition': disposition, 'sha256': hashlib.sha256(path.read_bytes()).hexdigest()}
+    if not name.startswith(('docs/assets/', 'docs/plans/')) and name not in {
+        'docs/DECISIONS.md', 'docs/PROGRESS.md', 'docs/VERIFICATION.md', 'docs/RELEASE_NOTES.md',
+    }:
+        row['line_numbers'] = lines
+    rows.append(row)
+output.write_text(json.dumps({'scope': 'tracked and pending nonignored files, paths and UTF-8 content; immutable binary fixtures/evidence retained',
+                             'unexpected_implementation_tokens': unexpected, 'records': rows}, indent=2)+'\n')
+print(f'{len(rows)} matching files/path records; {len(unexpected)} unexpected implementation tokens')
+assert not unexpected, unexpected

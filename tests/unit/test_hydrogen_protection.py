@@ -1,13 +1,13 @@
 from __future__ import annotations
 
 import pytest
-from molweave_core.adapters.rdkit_common import export_loss_warnings, mol_to_normalized
-from molweave_core.editing.model import DirectMolecularEditor, ModelAtomAdd
-from molweave_core.hydrogen_protection import (
+from neistra_core.adapters.rdkit_common import export_loss_warnings, mol_to_normalized
+from neistra_core.editing.model import DirectMolecularEditor, ModelAtomAdd
+from neistra_core.hydrogen_protection import (
     protection_facts,
     recover_protection,
 )
-from molweave_core.molecular import NormalizedStructureV1
+from neistra_core.molecular import NormalizedStructureV1
 from rdkit import Chem
 
 from tests.support.hydrogen_fixture import model
@@ -82,7 +82,7 @@ def test_new_direct_atoms_have_known_generated_identity() -> None:
 
 @pytest.mark.parametrize("isotope", [0, 2, None])
 def test_authored_element_identity_never_overwrites_protected_or_unknown(isotope):
-    from molweave_core.hydrogen_protection import authored_protection
+    from neistra_core.hydrogen_protection import authored_protection
 
     before = model("C")
     record = before.annotations[0]
@@ -105,7 +105,7 @@ def test_authored_element_identity_never_overwrites_protected_or_unknown(isotope
 
 
 def test_direct_element_change_retains_applicable_ordinary_identity():
-    from molweave_core.editing.model import ModelElement
+    from neistra_core.editing.model import ModelElement
 
     before = model("C")
     after = (

@@ -1,19 +1,19 @@
 from __future__ import annotations
 
 import json
-import os
 from pathlib import Path
 
 import numpy as np
 import openmm
 import pytest
-from molweave_core.minimization.assembly import Assembly, environment_preflight
-from molweave_core.minimization.context_model import parameterize_environment
-from molweave_core.minimization.optimize import optimize_environment
-from molweave_core.minimization.parameterization import Parameterized
-from molweave_core.minimization.plugin import plugin
-from molweave_core.minimization.templates import STATES, read_templates
-from molweave_core.minimization.toolchain import AmberTools
+from neistra_core.configuration import environment_value
+from neistra_core.minimization.assembly import Assembly, environment_preflight
+from neistra_core.minimization.context_model import parameterize_environment
+from neistra_core.minimization.optimize import optimize_environment
+from neistra_core.minimization.parameterization import Parameterized
+from neistra_core.minimization.plugin import plugin
+from neistra_core.minimization.templates import STATES, read_templates
+from neistra_core.minimization.toolchain import AmberTools
 from openmm import unit
 
 from tests.support.minimization import (
@@ -28,7 +28,7 @@ from tests.support.minimization import (
 
 @pytest.fixture
 def tools() -> AmberTools:
-    if not os.environ.get("MOLWEAVE_AMBERTOOLS_PREFIX"):
+    if not environment_value("AMBERTOOLS_PREFIX"):
         pytest.skip("Install/export locked AmberTools for native model qualification")
     return AmberTools.discover()
 
@@ -283,8 +283,8 @@ def test_isolated_protein_uses_one_complete_chain_without_a_cutoff(
 def test_all26_internal_states_generate_finite_native_models_and_consistent_forces(
     tmp_path: Path, tools: AmberTools, state: str
 ):
-    from molweave_core.minimization.parameterization import finite_parameters
-    from molweave_core.minimization.stereo import assembly_stereo_validator
+    from neistra_core.minimization.parameterization import finite_parameters
+    from neistra_core.minimization.stereo import assembly_stereo_validator
 
     from tests.support.minimization import protein_state_chain, protein_state_templates
 

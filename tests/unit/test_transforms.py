@@ -3,8 +3,8 @@ from __future__ import annotations
 import math
 
 import pytest
-from molweave_core.molecular import Atom, Conformer, NormalizedStructureV1, SourceFacts
-from molweave_core.transforms import (
+from neistra_core.molecular import Atom, Conformer, NormalizedStructureV1, SourceFacts
+from neistra_core.transforms import (
     InvalidTransformError,
     apply_rigid_transform,
     centroid,

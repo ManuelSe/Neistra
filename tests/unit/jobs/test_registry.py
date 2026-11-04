@@ -1,16 +1,26 @@
 from __future__ import annotations
 
 import pytest
-from molweave_core.jobs import (
+from neistra_core.jobs import (
     DuplicateJobTypeError,
     JobDefinitionNotFoundError,
     PluginLoadError,
     PluginRegistry,
 )
-from molweave_demo_plugin import plugin
-from molweave_demo_plugin.plugin import DEMO_JOB_TYPE, DemoJobParameters
+from neistra_demo_plugin import plugin
+from neistra_demo_plugin.plugin import DEMO_JOB_TYPE, DemoJobParameters
 
-DEMO_TARGET = "molweave_demo_plugin.plugin:plugin"
+DEMO_TARGET = "neistra_demo_plugin.plugin:plugin"
+
+
+def test_canonical_and_legacy_targets_share_one_registration() -> None:
+    registry = PluginRegistry.load(
+        allowlist=("molweave.demo",),
+        configured_targets=(DEMO_TARGET, "molweave_demo_plugin.plugin:plugin"),
+        discover_installed=False,
+    )
+    assert len(registry.definitions()) == 1
+    assert registry.get(DEMO_JOB_TYPE).plugin is plugin
 
 
 def test_registry_loads_only_allowlisted_configured_plugins() -> None:

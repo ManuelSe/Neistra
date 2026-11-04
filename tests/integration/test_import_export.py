@@ -5,12 +5,12 @@ from typing import Any, cast
 
 import httpx
 import pytest
-from molweave_api.database import Base
-from molweave_api.import_export import ImportExportService, UploadPayload
-from molweave_api.main import create_app
-from molweave_api.models import Artifact
-from molweave_api.settings import Settings
-from molweave_core.adapters.defaults import create_default_registry
+from neistra_api.database import Base
+from neistra_api.import_export import ImportExportService, UploadPayload
+from neistra_api.main import create_app
+from neistra_api.models import Artifact
+from neistra_api.settings import Settings
+from neistra_core.adapters.defaults import create_default_registry
 from sqlalchemy import func, select
 
 from tests.support.api_client import ApiClient

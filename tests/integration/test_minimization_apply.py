@@ -1,11 +1,11 @@
 from __future__ import annotations
 
-import os
 from typing import Any
 
 import pytest
-from molweave_api.import_export import ImportExportService, PreparedFile
-from molweave_core.molecular import Conformer, NormalizedStructureV1
+from neistra_api.import_export import ImportExportService, PreparedFile
+from neistra_core.configuration import environment_value
+from neistra_core.molecular import Conformer, NormalizedStructureV1
 
 from tests.integration.test_coordinate_commands import _structure
 from tests.integration.test_job_lifecycle import _worker
@@ -21,7 +21,7 @@ def seeded_project(client: ApiClient, *structures: NormalizedStructureV1) -> dic
     Real raw-upload/preparation/worker paths remain in test_minimization_jobs.
     """
     project = client.post("/api/v1/projects", json={"name": "Apply specimen"}).json()
-    from molweave_core.adapters.defaults import create_default_registry
+    from neistra_core.adapters.defaults import create_default_registry
 
     registry = create_default_registry()
     prepared = []
@@ -55,7 +55,7 @@ def calculate(
     acceptance_policy: str = "strict",
     automatic: bool = False,
 ) -> tuple[dict[str, Any], str]:
-    if not os.environ.get("MOLWEAVE_AMBERTOOLS_PREFIX"):
+    if not environment_value("AMBERTOOLS_PREFIX"):
         pytest.skip("Locked native toolchain required for real Apply qualification")
     members = (
         project["entries"]
@@ -192,7 +192,7 @@ def test_sparse_ids_active_conformer_and_metadata_survive_apply(minclient: ApiCl
     source = molecule()
     original_rows = source.active_coordinates
     active = [(p[0] + 1, p[1] + 2, p[2] + 3) for p in original_rows]
-    from molweave_core.hydrogen_protection import protection_annotation, protection_facts
+    from neistra_core.hydrogen_protection import protection_annotation, protection_facts
 
     facts = [
         f.model_copy(update={"atom_id": f.atom_id * 3}) for f in protection_facts(source).values()
@@ -332,9 +332,10 @@ def test_nonconverged_and_foreign_proposals_cannot_apply(minclient: ApiClient):
 def test_capabilities_and_capture_cannot_be_bypassed(minclient: ApiClient, monkeypatch):
     capabilities = minclient.get("/api/v1/minimization-capabilities").json()
     assert capabilities["limits"]["assembly_atoms"] == 20_000
-    if os.environ.get("MOLWEAVE_AMBERTOOLS_PREFIX"):
+    if environment_value("AMBERTOOLS_PREFIX"):
         assert capabilities["available"]
     monkeypatch.delenv("MOLWEAVE_AMBERTOOLS_PREFIX", raising=False)
+    monkeypatch.delenv("NEISTRA_AMBERTOOLS_PREFIX", raising=False)
     assert not minclient.get("/api/v1/minimization-capabilities").json()["available"]
     project = seeded_project(minclient, molecule())
     entry = project["entries"][0]
@@ -424,7 +425,7 @@ def test_concurrent_apply_requests_publish_exactly_one_command(minclient: ApiCli
 
 
 def test_corrupted_proposal_storage_is_never_applied(minclient: ApiClient):
-    from molweave_api.models import Artifact, Job
+    from neistra_api.models import Artifact, Job
 
     project = seeded_project(minclient, molecule())
     entry = project["entries"][0]
@@ -451,9 +452,9 @@ def test_semantically_invalid_or_unchanged_proposals_create_no_history(
     import hashlib
     import json
 
-    from molweave_api.import_export import ArtifactService
-    from molweave_api.models import Job
-    from molweave_core.artifacts import LocalArtifactStore
+    from neistra_api.import_export import ArtifactService
+    from neistra_api.models import Job
+    from neistra_core.artifacts import LocalArtifactStore
 
     project = seeded_project(minclient, molecule())
     entry = project["entries"][0]

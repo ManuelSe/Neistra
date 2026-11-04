@@ -1,5 +1,5 @@
-from molweave_core.hydrogen_protection import protection_facts
-from molweave_core.molecular import NormalizedStructureV1
+from neistra_core.hydrogen_protection import protection_facts
+from neistra_core.molecular import NormalizedStructureV1
 
 from tests.integration.test_archive_roundtrip import export_archive, import_archive
 from tests.integration.test_ligand_edits import structure

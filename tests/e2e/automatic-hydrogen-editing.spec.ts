@@ -64,8 +64,8 @@ for (const item of [
         const { inspectNativeAppearance } = await import(/* @vite-ignore */ path);
         return inspectNativeAppearance(window.interactionEngines.at(-1)!, entryId);
       }, entry.id);
-      await expect.poll(async () => (await nativeAppearance()).find((layer: { tag: string }) => layer.tag === "molweave-representation-selection-thick-stick")?.atomIds).toEqual([item.parent, created]);
-      expect((await nativeAppearance()).find((layer: { tag: string }) => layer.tag === "molweave-representation-selection-thick-stick")?.colors).toEqual([{ color: 0xff00ff, atomIds: [item.parent, created] }]);
+      await expect.poll(async () => (await nativeAppearance()).find((layer: { tag: string }) => layer.tag === "neistra-representation-selection-thick-stick")?.atomIds).toEqual([item.parent, created]);
+      expect((await nativeAppearance()).find((layer: { tag: string }) => layer.tag === "neistra-representation-selection-thick-stick")?.colors).toEqual([{ color: 0xff00ff, atomIds: [item.parent, created] }]);
     }
     expect(after.atoms.find(a => a.id === item.parent)?.formal_charge).toBe(1);
     expect(after.atoms.slice(0, before.atoms.length).map(a => a.coordinates)).toEqual(before.atoms.map(a => a.coordinates));

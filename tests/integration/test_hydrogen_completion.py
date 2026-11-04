@@ -180,7 +180,7 @@ def test_unresolved_is_noop_and_guards_do_not_publish(client: ApiClient) -> None
 def test_preview_noop_and_refusal_leave_artifacts_commands_and_allocators_exact(
     client: ApiClient,
 ) -> None:
-    from molweave_api.models import Artifact, CommandRecord, StructureEntry
+    from neistra_api.models import Artifact, CommandRecord, StructureEntry
     from sqlalchemy import func, select
 
     before = model("CC")

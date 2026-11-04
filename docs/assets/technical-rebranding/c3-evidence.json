@@ -1,0 +1,107 @@
+{
+  "checkpoint": "M3/C3",
+  "base": "33afbc4",
+  "logs": [
+    {
+      "path": "docs/assets/technical-rebranding/c3-alias-final.log.gz",
+      "uncompressed_sha256": "1ce1c696bfef0b1ddc831ace7f97d975e166cc538f57eb08b5fa705597cbb4a4"
+    },
+    {
+      "path": "docs/assets/technical-rebranding/c3-browser.log.gz",
+      "uncompressed_sha256": "9e0326b83bf014e904f5697d2a063a50a6b235307593973692f6b07dcb2e199f"
+    },
+    {
+      "path": "docs/assets/technical-rebranding/c3-build.log.gz",
+      "uncompressed_sha256": "b07f3218f8e25028936805300bde108673cc0777dfd2ec8c2bdf9bd11a09a0c3"
+    },
+    {
+      "path": "docs/assets/technical-rebranding/c3-final-browser.log.gz",
+      "uncompressed_sha256": "d4b86a5fea8c0336474577d8b104adab2fd3f6fd0b5e0e0a6c7e1f5f8e3543b8"
+    },
+    {
+      "path": "docs/assets/technical-rebranding/c3-final-build.log.gz",
+      "uncompressed_sha256": "24b75fb3db33723388f103e0c4a6b785aeaf3ce6655f3ac731949fbcfa17661a"
+    },
+    {
+      "path": "docs/assets/technical-rebranding/c3-final-lint.log.gz",
+      "uncompressed_sha256": "f306cc50e9a0028f020e9b371b380224807de44bae9b109f545b7960fc4048ca"
+    },
+    {
+      "path": "docs/assets/technical-rebranding/c3-final-mypy.log.gz",
+      "uncompressed_sha256": "a26123bd78884ea2ed677ffaab1876632f65611f63eae2bf70d9add013ad963f"
+    },
+    {
+      "path": "docs/assets/technical-rebranding/c3-final-types.log.gz",
+      "uncompressed_sha256": "35272d4b274065e24ed6e00050e1731118a46dc3b45a0f85f7a23799404558f6"
+    },
+    {
+      "path": "docs/assets/technical-rebranding/c3-final-web.log.gz",
+      "uncompressed_sha256": "aea73d3dc56cd6a645f2d42885379931604bb982d1cbdbc2bd71b24f94acfe6a"
+    },
+    {
+      "path": "docs/assets/technical-rebranding/c3-focused-web.log.gz",
+      "uncompressed_sha256": "7ebcc3c601cab154571c8f6bf7c8005665ec0fd5b86427dd0c2ff6a7121c8a78"
+    },
+    {
+      "path": "docs/assets/technical-rebranding/c3-lint.log.gz",
+      "uncompressed_sha256": "f306cc50e9a0028f020e9b371b380224807de44bae9b109f545b7960fc4048ca"
+    },
+    {
+      "path": "docs/assets/technical-rebranding/c3-mypy.log.gz",
+      "uncompressed_sha256": "a26123bd78884ea2ed677ffaab1876632f65611f63eae2bf70d9add013ad963f"
+    },
+    {
+      "path": "docs/assets/technical-rebranding/c3-python.log.gz",
+      "uncompressed_sha256": "e02354c827804350c4cd08822e59623a2223f40e01a2f11be4d752ce13a314e3"
+    },
+    {
+      "path": "docs/assets/technical-rebranding/c3-ruff.log.gz",
+      "uncompressed_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "path": "docs/assets/technical-rebranding/c3-science.log.gz",
+      "uncompressed_sha256": "69419dd6cf371f338fa80035b851bbb45ae69b603ffc92a0d8066bc25b9c24d9"
+    },
+    {
+      "path": "docs/assets/technical-rebranding/c3-types.log.gz",
+      "uncompressed_sha256": "35272d4b274065e24ed6e00050e1731118a46dc3b45a0f85f7a23799404558f6"
+    },
+    {
+      "path": "docs/assets/technical-rebranding/c3-web.log.gz",
+      "uncompressed_sha256": "a3b4a4591188b98f7155b9fd910dcb16511fc76132b483b9e7a70e0dfae47460"
+    }
+  ],
+  "screenshots": [
+    "docs/assets/technical-rebranding/c3-mobile-light-archive-compatibility.png",
+    "docs/assets/technical-rebranding/c3-mobile-dark-archive-compatibility.png",
+    "docs/assets/technical-rebranding/c3-desktop-light-archive-compatibility.png",
+    "docs/assets/technical-rebranding/c3-desktop-dark-archive-compatibility.png"
+  ],
+  "commands": [
+    ".venv/bin/uv run pytest tests/integration/test_archive_roundtrip.py tests/integration/test_archive_naming.py tests/security/test_archive_safety.py",
+    ".venv/bin/uv run pytest tests/integration/test_archive_naming.py tests/unit/editing tests/scientific/test_format_fidelity.py tests/scientific/test_direct_modeling.py",
+    ".venv/bin/uv run pytest tests/unit/test_namespace_compatibility.py tests/unit/jobs tests/integration/test_job_lifecycle.py",
+    ".venv/bin/uv run ruff check .",
+    ".venv/bin/uv run mypy apps/api packages/neistra_core packages/neistra_demo_plugin",
+    "corepack pnpm --dir apps/web test -- export-dialog",
+    "corepack pnpm --dir apps/web lint",
+    "corepack pnpm --dir apps/web typecheck",
+    "corepack pnpm --dir apps/web test",
+    "corepack pnpm --dir apps/web build",
+    "PLAYWRIGHT_BROWSERS_PATH=.playwright corepack pnpm exec playwright test tests/e2e/export-archive.spec.ts tests/e2e/rebranding.spec.ts tests/e2e/rebranding-surfaces.spec.ts tests/e2e/release-journey.spec.ts"
+  ],
+  "environment": {
+    "NEISTRA_AMBERTOOLS_PREFIX": "/datadisk/dev/.neistra-tools/ambertools-24.8",
+    "NEISTRA_E2E_DATA_DIR": "/tmp/neistra99-c3-final-browser"
+  },
+  "results": {
+    "archive_and_security": 66,
+    "editing_formats_and_metadata": 146,
+    "final_alias_jobs": 21,
+    "frontend": 374,
+    "native_passed": 23,
+    "native_existing_excluded": 5
+  },
+  "review": "Implementer self-review; visually inspected desktop-light and mobile-dark expanded archive controls, both-theme native axe and keyboard/44px checks. Fixed demonstrated legacy package-export singleton shadowing; focused alias/job regressions21pass. Final native run includes archive/disclosure changes; final complete gates must qualify all changes together.",
+  "limitations": "no final-version/actual-reader/exact-master qualification or release yet"
+}

@@ -3,11 +3,11 @@ from __future__ import annotations
 import hashlib
 
 import pytest
-from molweave_api.import_export import NORMALIZED_MEDIA_TYPE, ArtifactService
-from molweave_api.models import StructureEntry
-from molweave_core.artifacts import LocalArtifactStore
-from molweave_core.hydrogen_protection import protection_facts
-from molweave_core.molecular import NormalizedStructureV1
+from neistra_api.import_export import NORMALIZED_MEDIA_TYPE, ArtifactService
+from neistra_api.models import StructureEntry
+from neistra_core.artifacts import LocalArtifactStore
+from neistra_core.hydrogen_protection import protection_facts
+from neistra_core.molecular import NormalizedStructureV1
 from rdkit import Chem
 
 from tests.integration.test_coordinate_commands import _structure

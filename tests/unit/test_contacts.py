@@ -1,8 +1,8 @@
 from __future__ import annotations
 
 import pytest
-from molweave_core.contacts import close_contacts
-from molweave_core.molecular import Atom, Bond, Conformer, NormalizedStructureV1, SourceFacts
+from neistra_core.contacts import close_contacts
+from neistra_core.molecular import Atom, Bond, Conformer, NormalizedStructureV1, SourceFacts
 
 
 def structure() -> NormalizedStructureV1:

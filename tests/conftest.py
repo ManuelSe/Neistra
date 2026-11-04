@@ -4,9 +4,9 @@ from collections.abc import Iterator
 from pathlib import Path
 
 import pytest
-from molweave_api.database import Base
-from molweave_api.main import create_app
-from molweave_api.settings import Settings
+from neistra_api.database import Base
+from neistra_api.main import create_app
+from neistra_api.settings import Settings
 
 from tests.support.api_client import ApiClient
 from tests.support.performance import performance_enabled

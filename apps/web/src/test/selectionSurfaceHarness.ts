@@ -111,7 +111,7 @@ export async function mountProductionSurfaceHarness(container: HTMLElement, sour
     details: () => ({ labels: internal.labelRefs.length, measurements: internal.measurementRefs.length,
       selection: structuredClone(internal.pendingSelection),
       representations: [...internal.plugin.state.data.cells.values()].flatMap((cell) => {
-        const tags = cell.transform.tags?.filter((tag) => tag.startsWith("molweave-representation-")) ?? [];
+        const tags = cell.transform.tags?.filter((tag) => tag.startsWith("neistra-representation-")) ?? [];
         if (!tags.length) return [];
         const repr = (cell.obj?.data as { repr?: { renderObjects: { type: string; values: unknown }[] } } | undefined)?.repr;
         return repr ? [{ tags, objects: repr.renderObjects.map((object) => {

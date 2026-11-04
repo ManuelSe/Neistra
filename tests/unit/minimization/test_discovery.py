@@ -1,9 +1,9 @@
 from __future__ import annotations
 
 import pytest
-from molweave_core.minimization.contracts import CalculationError
-from molweave_core.minimization.discovery import discover_context, whole_components
-from molweave_core.selection import AtomReference, SelectionV1
+from neistra_core.minimization.contracts import CalculationError
+from neistra_core.minimization.discovery import discover_context, whole_components
+from neistra_core.selection import AtomReference, SelectionV1
 
 from tests.support.minimization import combined, molecule, peptide, translated
 

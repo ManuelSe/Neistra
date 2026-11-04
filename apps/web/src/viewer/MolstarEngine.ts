@@ -1116,7 +1116,7 @@ export class MolstarEngine implements MolecularViewer {
                 }
               : undefined,
         },
-        { tag: `molweave-representation-${layer.id}` },
+        { tag: `neistra-representation-${layer.id}` },
       ).catch(async (error: unknown) => {
         if (!layer.surface) throw error;
         if (binding && this.surfaceBindings.get(surfaceKeyId!) === binding) {

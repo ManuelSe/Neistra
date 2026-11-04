@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import pytest
-from molweave_core.measurements import (
+from neistra_core.measurements import (
     InvalidMeasurementError,
     angle,
     calculate,

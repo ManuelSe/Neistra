@@ -3,13 +3,13 @@ from __future__ import annotations
 from pathlib import Path
 
 import pytest
-from molweave_core.adapters.macromolecular import PdbAdapter
-from molweave_core.editing import (
+from neistra_core.adapters.macromolecular import PdbAdapter
+from neistra_core.editing import (
     InvalidProteinEditError,
     PdbfixerProteinEditor,
     ProteinStructureValidator,
 )
-from molweave_core.molecular import NormalizedStructureV1
+from neistra_core.molecular import NormalizedStructureV1
 
 FIXTURE = (
     Path(__file__).parents[2] / "fixtures" / "formats" / "protein_editing.pdb"

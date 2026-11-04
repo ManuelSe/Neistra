@@ -1,7 +1,7 @@
-from molweave_core.components import component_atom_ids, derive_component_hierarchy
-from molweave_core.editing.ligand import RdkitLigandEditor
-from molweave_core.editing.selection import component_projection
-from molweave_core.molecular import Bond
+from neistra_core.components import component_atom_ids, derive_component_hierarchy
+from neistra_core.editing.ligand import RdkitLigandEditor
+from neistra_core.editing.selection import component_projection
+from neistra_core.molecular import Bond
 
 from tests.support.modeling_fixture import paracetamol
 

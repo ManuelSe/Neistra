@@ -7,11 +7,11 @@ from pathlib import Path
 
 import numpy as np
 import pytest
-from molweave_core.minimization.assembly import environment_preflight
-from molweave_core.minimization.contracts import CalculationError
-from molweave_core.minimization.stereo import assembly_stereo_validator
-from molweave_core.minimization.templates import ResidueTemplate
-from molweave_core.molecular import Bond
+from neistra_core.minimization.assembly import environment_preflight
+from neistra_core.minimization.contracts import CalculationError
+from neistra_core.minimization.stereo import assembly_stereo_validator
+from neistra_core.minimization.templates import ResidueTemplate
+from neistra_core.molecular import Bond
 
 from tests.support.minimization import combined, environment_capture, molecule, peptide
 

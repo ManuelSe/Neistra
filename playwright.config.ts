@@ -1,11 +1,12 @@
 import { defineConfig, devices } from "@playwright/test";
+import { environmentValue } from "./scripts/configuration.mjs";
 import { performanceEnabled } from "./scripts/performance-policy.mjs";
 
 // Reject invalid profiles before starting any services.
 performanceEnabled();
 
 function e2ePort(name: string, fallback: string): string {
-  const raw = process.env[name] ?? fallback;
+  const raw = environmentValue(name, fallback);
   const port = Number(raw);
   if (!/^\d+$/.test(raw) || !Number.isInteger(port) || port < 1 || port > 65_535) {
     throw new Error(`${name} must be an integer port between 1 and 65535`);
@@ -14,23 +15,26 @@ function e2ePort(name: string, fallback: string): string {
 }
 
 function e2eDataDir(): string {
-  const raw = process.env.MOLWEAVE_E2E_DATA_DIR ?? ".molweave-e2e";
+  const raw = environmentValue("E2E_DATA_DIR", ".neistra-e2e");
   if (
     !/^[A-Za-z0-9._/-]+$/.test(raw) ||
     raw === "/" ||
     raw.split("/").includes("..")
   ) {
     throw new Error(
-      "MOLWEAVE_E2E_DATA_DIR must be a dedicated path without spaces, shell metacharacters, or parent traversal",
+      "NEISTRA_E2E_DATA_DIR must be a dedicated path without spaces, shell metacharacters, or parent traversal",
     );
   }
   return raw;
 }
 
-const apiPort = e2ePort("MOLWEAVE_E2E_API_PORT", "8010");
-const workerPort = e2ePort("MOLWEAVE_E2E_WORKER_PORT", "8011");
-const webPort = e2ePort("MOLWEAVE_E2E_WEB_PORT", "5173");
+const apiPort = e2ePort("E2E_API_PORT", "8010");
+const workerPort = e2ePort("E2E_WORKER_PORT", "8011");
+const webPort = e2ePort("E2E_WEB_PORT", "5173");
 const dataDir = e2eDataDir();
+// A legacy explicit fixture override exercises the full old configuration path.
+const configPrefix = process.env.NEISTRA_E2E_DATA_DIR === undefined &&
+  process.env.MOLWEAVE_E2E_DATA_DIR !== undefined ? "MOLWEAVE" : "NEISTRA";
 const apiUrl = `http://127.0.0.1:${apiPort}`;
 const workerUrl = `http://127.0.0.1:${workerPort}`;
 const webUrl = `http://127.0.0.1:${webPort}`;
@@ -58,13 +62,13 @@ export default defineConfig({
   },
   webServer: [
     {
-      command: `PYTHONPATH=apps/api/src:packages/molweave_core/src:packages/molweave_demo_plugin/src MOLWEAVE_DATA_DIR=${dataDir} .venv/bin/alembic upgrade head && PYTHONPATH=apps/api/src:packages/molweave_core/src:packages/molweave_demo_plugin/src MOLWEAVE_DATA_DIR=${dataDir} MOLWEAVE_ENABLE_TEST_ROUTES=1 .venv/bin/uvicorn molweave_api.main:app --host 127.0.0.1 --port ${apiPort}`,
+      command: `PYTHONPATH=apps/api/src:packages/neistra_core/src:packages/neistra_demo_plugin/src ${configPrefix}_DATA_DIR=${dataDir} .venv/bin/alembic upgrade head && PYTHONPATH=apps/api/src:packages/neistra_core/src:packages/neistra_demo_plugin/src ${configPrefix}_DATA_DIR=${dataDir} ${configPrefix}_ENABLE_TEST_ROUTES=1 .venv/bin/uvicorn neistra_api.main:app --host 127.0.0.1 --port ${apiPort}`,
       url: `${apiUrl}/api/v1/health`,
       reuseExistingServer: true,
       timeout: 30_000,
     },
     {
-      command: `while ! curl -sf ${apiUrl}/api/v1/health >/dev/null; do sleep 0.1; done; PYTHONPATH=apps/api/src:packages/molweave_core/src:packages/molweave_demo_plugin/src MOLWEAVE_DATA_DIR=${dataDir} MOLWEAVE_JOB_WORKER_HEALTH_PORT=${workerPort} .venv/bin/python -m molweave_api.worker`,
+      command: `while ! curl -sf ${apiUrl}/api/v1/health >/dev/null; do sleep 0.1; done; PYTHONPATH=apps/api/src:packages/neistra_core/src:packages/neistra_demo_plugin/src ${configPrefix}_DATA_DIR=${dataDir} ${configPrefix}_JOB_WORKER_HEALTH_PORT=${workerPort} .venv/bin/python -m neistra_api.worker`,
       url: `${workerUrl}/health`,
       reuseExistingServer: true,
       timeout: 30_000,

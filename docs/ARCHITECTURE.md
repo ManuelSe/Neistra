@@ -42,6 +42,17 @@ flowchart TB
   Worker -->|validated atomic publication| Store
 ```
 
+## Python namespace compatibility
+
+The implementation uses `neistra_api`, `neistra_core` and `neistra_demo_plugin`.
+Legacy `molweave_*` leaf modules forward to the identical canonical module objects;
+package wrappers delegate public exports without loading unrelated modules. Old
+core/demo source roots contain only a bridge to the maintained compatibility
+packages under the canonical source roots. No scientific implementation is copied.
+The worker retains `python -m molweave_api.worker` support and lazy coordinator
+imports. Historical migrations and preceding-reader harnesses intentionally keep
+legacy imports. See D-150 and the issue #99 feature contract.
+
 ## Ownership Boundaries
 
 - FastAPI owns transport validation and maps domain failures to structured
@@ -83,7 +94,7 @@ artifact-keyed membership index visits atoms once and caches exact component/
 category operands. Selection coverage uses a current entry-local canonical-ID
 set; scrolling/appearance changes do not rebuild the molecular index.
 
-`molweave_core.components` deterministically derives `ComponentHierarchyV1`
+`neistra_core.components` deterministically derives `ComponentHierarchyV1`
 from the current `NormalizedStructureV1` artifact. Gemmi contributes optional
 source entity, subchain, polymer-type, and tabulated-residue facts only at the
 macromolecular adapter boundary; the classifier itself is library-independent.
@@ -305,7 +316,7 @@ are hash-addressed beneath the managed root and published with temporary-file,
 `expected_revision`; artifacts may be orphaned by a failed transaction but a
 project never points to unpublished bytes.
 
-Portable `.molweave.zip` archives use `ProjectManifestV2`, checksums, safe
+Portable `.neistra.zip` and legacy `.molweave.zip` archives use `ProjectManifestV2`, checksums, safe
 relative member paths, and an allowlisted media/type model. They contain the
 current checkpoint-compatible state and required immutable artifacts, not an
 executable process or opaque viewer snapshot.

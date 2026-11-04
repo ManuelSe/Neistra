@@ -5,11 +5,11 @@ from pathlib import Path
 
 import numpy as np
 import pytest
-from molweave_core.jobs import JobCancelled
-from molweave_core.minimization.quick_contracts import QuickCapture, QuickParameters, usable
-from molweave_core.minimization.quick_model import build_assembly, read_sources, resolve_selection
-from molweave_core.minimization.quick_plugin import execute
-from molweave_core.selection import AtomReference, SelectionV1
+from neistra_core.jobs import JobCancelled
+from neistra_core.minimization.quick_contracts import QuickCapture, QuickParameters, usable
+from neistra_core.minimization.quick_model import build_assembly, read_sources, resolve_selection
+from neistra_core.minimization.quick_plugin import execute
+from neistra_core.selection import AtomReference, SelectionV1
 
 from tests.support.minimization import LocalContext, capture, molecule
 
@@ -34,7 +34,7 @@ def test_native_quick_partial_result_moves_only_expanded_mask(tmp_path: Path):
     context = LocalContext(tmp_path)
     result = execute(parameters, inputs, context)
     proposal = json.loads(next(a.data for a in result.artifacts if a.role == "proposal"))
-    from molweave_core.minimization.quick_contracts import QuickReport
+    from neistra_core.minimization.quick_contracts import QuickReport
 
     report = QuickReport.model_validate(proposal["report"])
     assert usable(report), report
@@ -46,7 +46,7 @@ def test_native_quick_partial_result_moves_only_expanded_mask(tmp_path: Path):
 
 
 def test_exact_selection_keeps_every_other_model_coordinate_fixed(tmp_path: Path):
-    from molweave_core.minimization.quick_optimize import optimize
+    from neistra_core.minimization.quick_optimize import optimize
 
     source = molecule()
     parameters, _ = quick_capture(source, [3], expand_hydrogens=False)
@@ -93,7 +93,7 @@ def environment_parameters(sources, selected, **options):
 
 
 def test_local_native_interfragment_attraction_and_independent_gradient():
-    from molweave_core.minimization.quick_optimize import force_field
+    from neistra_core.minimization.quick_optimize import force_field
 
     from tests.support.minimization import translated
 
@@ -126,8 +126,8 @@ def test_local_native_interfragment_attraction_and_independent_gradient():
 
 
 def test_1stp_local_field_caps_mixed_mask_and_finite_forces():
-    from molweave_core.minimization.quick_optimize import force_field
-    from molweave_core.molecular import NormalizedStructureV1
+    from neistra_core.minimization.quick_optimize import force_field
+    from neistra_core.molecular import NormalizedStructureV1
 
     fixtures = Path(__file__).parents[1] / "fixtures/minimization"
     sources = {
@@ -170,8 +170,8 @@ def test_1stp_local_field_caps_mixed_mask_and_finite_forces():
 def test_exact_user_debug_inputs_recover_and_improve_without_canonical_edits(
     tmp_path: Path, name: str
 ):
-    from molweave_core.adapters.defaults import create_default_registry
-    from molweave_core.minimization.quick_contracts import QuickReport
+    from neistra_core.adapters.defaults import create_default_registry
+    from neistra_core.minimization.quick_contracts import QuickReport
 
     path = Path(__file__).parents[1] / "fixtures/quick-minimization" / name
     source = (
@@ -191,7 +191,7 @@ def test_exact_user_debug_inputs_recover_and_improve_without_canonical_edits(
 
 
 def test_stale_aromatic_draft_has_explicit_improving_repair(tmp_path: Path):
-    from molweave_core.minimization.quick_contracts import QuickReport
+    from neistra_core.minimization.quick_contracts import QuickReport
 
     source = molecule("CCC")
     source = source.model_copy(
@@ -216,7 +216,7 @@ def test_stale_aromatic_draft_has_explicit_improving_repair(tmp_path: Path):
 
 
 def test_fixed_unsupported_site_keeps_supported_native_field_and_steric_repulsion():
-    from molweave_core.minimization.quick_optimize import force_field
+    from neistra_core.minimization.quick_optimize import force_field
 
     from tests.support.minimization import translated
 
@@ -243,7 +243,7 @@ def test_legacy_identity_absence_does_not_gate_or_invent_evidence(tmp_path: Path
 
 
 def test_coincident_movers_receive_repair_offsets_without_moving_fixed_atoms(tmp_path: Path):
-    from molweave_core.minimization.quick_contracts import QuickReport
+    from neistra_core.minimization.quick_contracts import QuickReport
 
     source = molecule("CC", explicit_h=False)
     coordinates = [(0.0, 0.0, 0.0), (0.0, 0.0, 0.0)]
@@ -270,7 +270,7 @@ def test_coincident_movers_receive_repair_offsets_without_moving_fixed_atoms(tmp
 
 
 def test_uff_fallback_reports_omitted_electrostatics(tmp_path: Path):
-    from molweave_core.minimization.quick_contracts import QuickReport
+    from neistra_core.minimization.quick_contracts import QuickReport
 
     source = molecule("B")
     parameters, inputs = quick_capture(source)

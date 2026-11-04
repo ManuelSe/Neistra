@@ -4,8 +4,8 @@ from pathlib import Path
 from typing import Any, cast
 
 import pytest
-from molweave_api.main import create_app
-from molweave_api.models import Artifact, CommandRecord
+from neistra_api.main import create_app
+from neistra_api.models import Artifact, CommandRecord
 from sqlalchemy import func, select
 
 from tests.integration.test_archive_roundtrip import export_archive, import_archive

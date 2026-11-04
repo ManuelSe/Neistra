@@ -10,14 +10,14 @@ from typing import Any
 
 import numpy as np
 import pytest
-from molweave_core.adapters.defaults import create_default_registry
-from molweave_core.adapters.rdkit_common import mol_to_normalized
-from molweave_core.minimization.quick_contracts import QuickReport, usable
-from molweave_core.minimization.quick_field import force_field
-from molweave_core.minimization.quick_model import build_assembly
-from molweave_core.minimization.quick_optimize import optimize
-from molweave_core.minimization.quick_plugin import execute
-from molweave_core.minimization.quick_protein import protein_graph
+from neistra_core.adapters.defaults import create_default_registry
+from neistra_core.adapters.rdkit_common import mol_to_normalized
+from neistra_core.minimization.quick_contracts import QuickReport, usable
+from neistra_core.minimization.quick_field import force_field
+from neistra_core.minimization.quick_model import build_assembly
+from neistra_core.minimization.quick_optimize import optimize
+from neistra_core.minimization.quick_plugin import execute
+from neistra_core.minimization.quick_protein import protein_graph
 from rdkit import Chem
 from rdkit.Chem import AllChem
 
@@ -239,7 +239,7 @@ def test_isolated_mode_excludes_disconnected_context_inside_the_selected_entry()
 def test_abnormal_solver_stop_is_never_usable(tmp_path: Path, monkeypatch):
     from types import SimpleNamespace
 
-    import molweave_core.minimization.quick_optimize as module
+    import neistra_core.minimization.quick_optimize as module
 
     source = molecule()
     p, _ = quick_capture(source, [3])
@@ -256,7 +256,7 @@ def test_abnormal_solver_stop_is_never_usable(tmp_path: Path, monkeypatch):
 
 @pytest.mark.parametrize("smiles", ["F[C@](Cl)(Br)I", "F/C=C/F"])
 def test_declared_stereochemistry_is_preserved_and_conflicts_refuse(tmp_path: Path, smiles: str):
-    from molweave_core.minimization.quick_optimize import declared_stereo
+    from neistra_core.minimization.quick_optimize import declared_stereo
 
     source = molecule(smiles)
     p, _ = quick_capture(source)
@@ -303,7 +303,7 @@ def test_assigned_current_connectivity_is_not_reconnected_by_protein_templates()
 
 @pytest.mark.parametrize("side", [1, -1])
 def test_repair_planarity_preserves_cis_and_trans_with_radian_scaled_strength(side):
-    from molweave_core.minimization.quick_model import QuickAssembly
+    from neistra_core.minimization.quick_model import QuickAssembly
 
     mol = Chem.MolFromSmiles("CC=CC")
     xyz = np.asarray(
@@ -347,7 +347,7 @@ def test_repair_planarity_preserves_cis_and_trans_with_radian_scaled_strength(si
 
 
 def test_quick_solver_and_eligibility_ignore_constant_energy_offsets(tmp_path: Path, monkeypatch):
-    import molweave_core.minimization.quick_optimize as module
+    import neistra_core.minimization.quick_optimize as module
 
     source = molecule("CCO")
     parameters, _ = quick_capture(source)
@@ -385,7 +385,7 @@ def test_lower_objective_cannot_publish_collapsed_covalent_geometry(
 ):
     from types import SimpleNamespace
 
-    import molweave_core.minimization.quick_optimize as module
+    import neistra_core.minimization.quick_optimize as module
 
     source = molecule("CC", explicit_h=False)
     if unsupported:
@@ -442,7 +442,7 @@ def test_historical_quick_report_without_geometry_proof_cannot_apply(tmp_path: P
 
 @pytest.mark.parametrize("collapsed", [False, True])
 def test_metal_linked_repair_ring_keeps_geometry_and_exact_fixed_pocket(tmp_path: Path, collapsed):
-    from molweave_core.molecular import Bond
+    from neistra_core.molecular import Bond
 
     from tests.support.minimization import combined
 
@@ -523,7 +523,7 @@ def test_metal_linked_repair_ring_keeps_geometry_and_exact_fixed_pocket(tmp_path
 @pytest.mark.parametrize("partial", [False, True])
 @pytest.mark.parametrize("raw", [False, True])
 def test_component_projection_matches_full_native_pocket_energy_and_gradient(partial, raw):
-    from molweave_core.molecular import NormalizedStructureV1
+    from neistra_core.molecular import NormalizedStructureV1
 
     fixtures = Path(__file__).parents[1] / "fixtures/minimization"
     sources = {
@@ -585,7 +585,7 @@ def test_fixed_context_geometry_settling_is_limited_and_never_overrides_geometry
 ):
     from types import SimpleNamespace
 
-    import molweave_core.minimization.quick_optimize as module
+    import neistra_core.minimization.quick_optimize as module
 
     source = molecule("CC", explicit_h=False)
     if collapsed:
@@ -641,8 +641,8 @@ def test_fixed_context_geometry_settling_is_limited_and_never_overrides_geometry
 
 @pytest.mark.parametrize("kekule", [False, True])
 def test_folded_substituted_repair_ring_recovers_consistent_planarity(tmp_path: Path, kekule):
-    from molweave_core.adapters.rdkit_common import normalized_to_mol
-    from molweave_core.molecular import Bond
+    from neistra_core.adapters.rdkit_common import normalized_to_mol
+    from neistra_core.molecular import Bond
 
     from tests.support.minimization import combined
 
@@ -710,7 +710,7 @@ def test_planar_guard_rejects_lower_energy_folded_aromatic_but_allows_saturated_
 ):
     from types import SimpleNamespace
 
-    import molweave_core.minimization.quick_optimize as module
+    import neistra_core.minimization.quick_optimize as module
 
     source = molecule("c1ccccc1" if unsaturated else "C1CCCCC1", explicit_h=False)
     xyz = np.asarray(source.active_coordinates).copy()

@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import os
 import statistics
 import time
 from pathlib import Path
@@ -10,10 +9,11 @@ from pathlib import Path
 import numpy as np
 import openmm
 import pytest
-from molweave_core.minimization.assembly import Assembly, environment_preflight
-from molweave_core.minimization.context_model import parameterize_environment
-from molweave_core.minimization.templates import read_templates
-from molweave_core.minimization.toolchain import AmberTools
+from neistra_core.configuration import environment_value
+from neistra_core.minimization.assembly import Assembly, environment_preflight
+from neistra_core.minimization.context_model import parameterize_environment
+from neistra_core.minimization.templates import read_templates
+from neistra_core.minimization.toolchain import AmberTools
 from openmm import unit
 
 from tests.integration.test_minimization_performance import prepared_pocket, retain
@@ -22,7 +22,7 @@ from tests.support.minimization import LocalContext, environment_capture
 
 @pytest.mark.parametrize("copies", [1, 8])
 def test_fixed_only_cost_is_profiled_without_changing_the_model(tmp_path: Path, copies: int):
-    if not os.environ.get("MOLWEAVE_AMBERTOOLS_PREFIX"):
+    if not environment_value("AMBERTOOLS_PREFIX"):
         pytest.skip("Locked native toolchain required for fixed-only profiling")
     sources = {f"entry-{i}": s for i, s in enumerate(prepared_pocket(copies))}
     ligand = f"entry-{copies}"

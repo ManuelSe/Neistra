@@ -1,6 +1,6 @@
 import pytest
-from molweave_core.editing.model import DirectMolecularEditor, InvalidModelEdit, ModelHydrogenAddOne
-from molweave_core.molecular import Conformer, NormalizedStructureV1
+from neistra_core.editing.model import DirectMolecularEditor, InvalidModelEdit, ModelHydrogenAddOne
+from neistra_core.molecular import Conformer, NormalizedStructureV1
 
 from tests.support.hydrogen_fixture import model
 from tests.unit.editing.test_automatic_hydrogens import hcounts
@@ -112,7 +112,7 @@ def test_single_hydrogen_unknowns_and_all_conformer_failure_are_atomic() -> None
 
 
 def test_single_hydrogen_retains_legacy_configurable_draft_addition() -> None:
-    from molweave_core.editing.model import ModelHydrogenAdd
+    from neistra_core.editing.model import ModelHydrogenAdd
 
     before = model("C")
     result = DirectMolecularEditor().edit(
@@ -127,7 +127,7 @@ def test_single_hydrogen_retains_legacy_configurable_draft_addition() -> None:
 
 @pytest.mark.parametrize("smiles", ["N", "O", "S"])
 def test_single_hydrogen_later_explicit_charge_edit_can_reconcile_added_h(smiles: str) -> None:
-    from molweave_core.editing.model import ModelCharge
+    from neistra_core.editing.model import ModelCharge
 
     before = model(smiles)
     added = single(before).edit.structure

@@ -10,15 +10,15 @@ uploads and arbitrary command strings are not accepted. API and worker must run
 with the same package, allowlist, and targets:
 
 ```bash
-export MOLWEAVE_JOB_PLUGIN_ALLOWLIST=acme.docking
-export MOLWEAVE_JOB_PLUGIN_TARGETS=acme_docking.molweave_plugin:plugin
+export NEISTRA_JOB_PLUGIN_ALLOWLIST=acme.docking
+export NEISTRA_JOB_PLUGIN_TARGETS=acme_docking.neistra_plugin:plugin
 ```
 
 An installed package should also declare the standard entry-point group:
 
 ```toml
 [project.entry-points."molweave.jobs"]
-acme-docking = "acme_docking.molweave_plugin:plugin"
+acme-docking = "acme_docking.neistra_plugin:plugin"
 ```
 
 Discovery occurs only at process startup. The object `name` must be allowlisted.
@@ -27,12 +27,12 @@ support source checkouts; entry points are the distribution mechanism.
 
 ## Definition
 
-Public types live in `molweave_core.jobs`. A future docking package uses generic
+Public types live in `neistra_core.jobs`. A future docking package uses generic
 role strings without adding docking models to Neistra core:
 
 ```python
 from pydantic import BaseModel, ConfigDict, Field
-from molweave_core.jobs import (
+from neistra_core.jobs import (
     InputRole, JobDefinition, ResourcePolicy, ResultRole,
 )
 
@@ -128,8 +128,8 @@ The exact execution point is `JobPlugin.execute` inside the spawned worker child
 after the parent re-hashes inputs and parameters are revalidated:
 
 ```python
-from molweave_core.jobs import JobContext, JobResult
-from molweave_core.molecular import NormalizedStructureV1
+from neistra_core.jobs import JobContext, JobResult
+from neistra_core.molecular import NormalizedStructureV1
 
 def execute_docking(job_type, parameters, inputs, context: JobContext) -> JobResult:
     receptor_input = next(item for item in inputs if item.role == "receptor")
@@ -234,6 +234,16 @@ child/worker processes have separate codes. v0.1 never retries automatically.
 10. Test success, deterministic failure, cancellation, limits, worker loss,
     downloads, result import/undo, and archive round trips before enablement.
 
-`packages/molweave_demo_plugin` is the runnable reference. It uses the same
+`packages/neistra_demo_plugin` is the runnable reference. It uses the same
 registry, child runner, event ledger, validation, result publication, and import
 path that a future docking package will use.
+
+
+## Namespace and configuration compatibility
+
+Implementation imports use `neistra_core`; legacy `molweave_core` imports and
+configured old module targets remain supported with identical classes/objects.
+Keep existing serialized job/plugin identifiers and the `molweave.jobs` discovery
+group. Canonical/legacy targets resolving to the same singleton register once;
+independent conflicting plugins still fail. `NEISTRA_*` configuration wins over
+its same-suffix `MOLWEAVE_*` alias without changing allowlist enforcement.

@@ -351,8 +351,12 @@ files[]:
   filename: safe display basename
 ```
 
+Both archive filename suffixes share the identical schema and contents. Current
+UI uses `.neistra.zip`; `.molweave.zip` remains available for older readers and
+is the default for existing API requests. No schema migration accompanies naming.
+
 `schema_version` selects the structural archive contract. The separately
-validated `application_version` records which MolWeave release produced the
+validated `application_version` records which application release produced the
 archive and is not an exact-version import gate. Schema-1 archives from older
 releases validate and convert into the current structural contract. New schema-2
 archives require an upgraded reader. Malformed semantic versions, mixed surface

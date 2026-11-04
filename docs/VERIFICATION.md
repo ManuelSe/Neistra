@@ -1,5 +1,28 @@
 # V0.1 Requirement Evidence
 
+## Issue #99 — Complete clean 0.27.0 candidate
+
+The [approved contract](plans/issue-99-compatible-technical-rebranding.md) and D-150
+are implemented through clean candidate `12f1aebe49fc20552f31cf67aeae26725c01300d`.
+Its [complete24-step gate](assets/technical-rebranding/c4-candidate3-gate.json)
+passes **1,332 Python (zero skips),374 frontend,14 supervisor and352 browser cases /
+62 exactly unchanged existing exclusions**. Zero failures/flakes/automatic retries;
+all697 source identities and lossless log hashes verify. [Summary](assets/technical-rebranding/c4-candidate3-summary.json)
+retains exact current/preceding module roots, both actual taggedv0.26.2↔final0.27
+reader directions, originals/coordinates/history/scenes/selections/surfaces/jobs,
+archive remapping and actual HTTP suffix behavior. The legacy worker CLI/source-
+root/settings/target probe also completes a real spawned job and artifact downloads.
+
+Frozen installs, fresh upgrade/downgrade/re-upgrade to0014, static/types/build,
+version/schema/dependency/name and production-license/harness checks pass.
+[Screenshots and checkpoint evidence](assets/technical-rebranding/) retain both-theme
+keyboard/axe/44px archive controls and earlier diagnostic failures separately.
+The [full-diff review](assets/technical-rebranding/c4-full-diff-review.md) is local
+self-review. Portable correctness is qualified; strict reference timing is not.
+PR/review/merge/exact-master gate and publication remain pending. No new schema,
+dependency or scientific-model change; current/legacy names share archive contents.
+
+
 ## Issue #96 — Released v0.26.2 / exact-master qualification
 
 [PR #129](https://github.com/ManuelSe/Neistra/pull/129) is normally merged at

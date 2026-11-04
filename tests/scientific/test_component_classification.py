@@ -3,9 +3,9 @@ from __future__ import annotations
 from collections import Counter
 from pathlib import Path
 
-from molweave_core.adapters.defaults import create_default_registry
-from molweave_core.components import component_atom_ids, derive_component_hierarchy
-from molweave_core.molecular import NormalizedStructureV1
+from neistra_core.adapters.defaults import create_default_registry
+from neistra_core.components import component_atom_ids, derive_component_hierarchy
+from neistra_core.molecular import NormalizedStructureV1
 
 FIXTURES = Path(__file__).parents[1] / "fixtures"
 

@@ -1,15 +1,14 @@
 from __future__ import annotations
 
-import os
-
 import numpy as np
 import openmm
 import pytest
-from molweave_core.minimization.assembly import environment_preflight
-from molweave_core.minimization.context_model import parameterize_environment
-from molweave_core.minimization.parameter_cache import ParameterCache
-from molweave_core.minimization.templates import read_templates
-from molweave_core.minimization.toolchain import AmberTools
+from neistra_core.configuration import environment_value
+from neistra_core.minimization.assembly import environment_preflight
+from neistra_core.minimization.context_model import parameterize_environment
+from neistra_core.minimization.parameter_cache import ParameterCache
+from neistra_core.minimization.templates import read_templates
+from neistra_core.minimization.toolchain import AmberTools
 from openmm import unit
 
 from tests.support.minimization import (
@@ -21,7 +20,7 @@ from tests.support.minimization import (
 )
 
 pytestmark = pytest.mark.skipif(
-    not os.environ.get("MOLWEAVE_AMBERTOOLS_PREFIX"),
+    not environment_value("AMBERTOOLS_PREFIX"),
     reason="Locked native cache qualification required",
 )
 

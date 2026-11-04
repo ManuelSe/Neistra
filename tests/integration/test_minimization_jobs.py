@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import hashlib
 import multiprocessing
-import os
 import sys
 import threading
 import time
@@ -11,10 +10,11 @@ from pathlib import Path
 from typing import Any
 
 import pytest
-from molweave_api.database import Base
-from molweave_api.main import create_app
-from molweave_api.settings import Settings
-from molweave_core.adapters.rdkit_common import normalized_to_mol
+from neistra_api.database import Base
+from neistra_api.main import create_app
+from neistra_api.settings import Settings
+from neistra_core.adapters.rdkit_common import normalized_to_mol
+from neistra_core.configuration import environment_value
 
 from tests.integration.test_coordinate_commands import _structure
 from tests.integration.test_job_lifecycle import _project_with_structure, _worker
@@ -31,8 +31,8 @@ def minclient(tmp_path: Path) -> Iterator[ApiClient]:
         enable_test_routes=True,
         job_plugin_allowlist=("molweave.demo", "molweave.minimization", "test.native_tree"),
         job_plugin_targets=(
-            "molweave_demo_plugin.plugin:plugin",
-            "molweave_core.minimization.plugin:plugin",
+            "neistra_demo_plugin.plugin:plugin",
+            "neistra_core.minimization.plugin:plugin",
             "tests.support.native_job_plugin:plugin",
         ),
     )
@@ -70,7 +70,7 @@ def submit_molecule(client: ApiClient) -> tuple[dict[str, Any], dict[str, Any], 
 
 
 def test_real_worker_produces_proposal_without_mutating_molecule(minclient: ApiClient) -> None:
-    if not os.environ.get("MOLWEAVE_AMBERTOOLS_PREFIX"):
+    if not environment_value("AMBERTOOLS_PREFIX"):
         pytest.skip("Locked native toolchain required for scientific worker qualification")
     project, entry, queued = submit_molecule(minclient)
     before = _structure(minclient, project["id"], entry["id"])
@@ -103,6 +103,7 @@ def test_missing_toolchain_is_reported_without_false_success(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     monkeypatch.delenv("MOLWEAVE_AMBERTOOLS_PREFIX", raising=False)
+    monkeypatch.delenv("NEISTRA_AMBERTOOLS_PREFIX", raising=False)
     project, _entry, queued = submit_molecule(minclient)
     assert _worker(minclient).run_once()
     job = minclient.get(f"/api/v1/jobs/{queued['id']}").json()
@@ -235,9 +236,9 @@ def test_worker_loss_terminates_native_tree_and_recovers_honestly(
 
 
 def test_worker_includes_hidden_locked_protein_context_without_mutation(minclient: ApiClient):
-    if not os.environ.get("MOLWEAVE_AMBERTOOLS_PREFIX"):
+    if not environment_value("AMBERTOOLS_PREFIX"):
         pytest.skip("Locked native toolchain required for scientific worker qualification")
-    from molweave_core.molecular import NormalizedStructureV1
+    from neistra_core.molecular import NormalizedStructureV1
     from rdkit import Chem
 
     from tests.support.minimization import translated

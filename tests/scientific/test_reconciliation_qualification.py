@@ -1,13 +1,13 @@
 from __future__ import annotations
 
 import pytest
-from molweave_core.editing import reconciliation
-from molweave_core.editing.model import ModelBondDelete, ModelBondSet
-from molweave_core.hydrogen_protection import (
+from neistra_core.editing import reconciliation
+from neistra_core.editing.model import ModelBondDelete, ModelBondSet
+from neistra_core.hydrogen_protection import (
     protection_annotation,
     protection_facts,
 )
-from molweave_core.molecular import Conformer, Residue
+from neistra_core.molecular import Conformer, Residue
 
 from tests.support.hydrogen_fixture import model
 from tests.support.performance import performance_budget
@@ -87,7 +87,7 @@ def test_protected_drafts_retain_site_h_and_coordinates(mode: str) -> None:
             }
         )
     if mode == "bridge_h":
-        from molweave_core.molecular import Bond
+        from neistra_core.molecular import Bond
 
         before = before.model_copy(
             update={"bonds": [*before.bonds, Bond(id=99, atom_1_id=h, atom_2_id=2, order=1.0)]}
@@ -230,9 +230,9 @@ def test_bounded_reconciliation_in_real_protein_context(monkeypatch: pytest.Monk
     import tracemalloc
     from pathlib import Path
 
-    from molweave_core.adapters.defaults import create_default_registry
-    from molweave_core.editing import hydrogen
-    from molweave_core.molecular import Chain
+    from neistra_core.adapters.defaults import create_default_registry
+    from neistra_core.editing import hydrogen
+    from neistra_core.molecular import Chain
 
     path = Path("tests/fixtures/complex/1stp.pdb")
     protein = (
@@ -306,7 +306,7 @@ def test_bounded_reconciliation_in_real_protein_context(monkeypatch: pytest.Monk
     monkeypatch.setattr(hydrogen, "normalized_to_mol", bounded)
     tracemalloc.start()
     start = time.perf_counter()
-    from molweave_core.editing.model import DirectMolecularEditor
+    from neistra_core.editing.model import DirectMolecularEditor
 
     result = DirectMolecularEditor().edit(
         structure,

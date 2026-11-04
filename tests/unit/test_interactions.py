@@ -1,14 +1,14 @@
 from __future__ import annotations
 
 import pytest
-from molweave_core.interactions import (
+from neistra_core.interactions import (
     AnalysisInput,
     AnalysisLimits,
     InteractionInputIdentity,
     InteractionLimitError,
     analyze_interactions,
 )
-from molweave_core.molecular import Atom, Bond, Conformer, NormalizedStructureV1, SourceFacts
+from neistra_core.molecular import Atom, Bond, Conformer, NormalizedStructureV1, SourceFacts
 
 
 def molecule(
@@ -91,7 +91,7 @@ def test_nonfinite_coordinates_are_rejected() -> None:
 
 
 def test_missing_coordinate_provenance_is_unavailable_instead_of_zero_detected() -> None:
-    from molweave_core.molecular import MolecularWarning
+    from neistra_core.molecular import MolecularWarning
 
     structure = molecule([(0, 0, 0), (1, 0, 0)]).model_copy(
         update={

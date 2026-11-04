@@ -7,8 +7,8 @@ from typing import Any
 import pytest
 from alembic import command
 from alembic.config import Config
-from molweave_api.database import create_database_engine, create_session_factory
-from molweave_api.models import CommandRecord, Project, Scene, StructureEntry
+from neistra_api.database import create_database_engine, create_session_factory
+from neistra_api.models import CommandRecord, Project, Scene, StructureEntry
 from sqlalchemy import select
 
 
@@ -849,7 +849,7 @@ def test_display_migrations_cover_every_retained_path_and_refuse_loss_atomically
 
 
 def test_0014_legacy_identity_is_stable_across_changed_historical_snapshots() -> None:
-    from molweave_api.surface_upgrade import upgrade_surface_settings
+    from neistra_api.surface_upgrade import upgrade_surface_settings
 
     old = {
         **legacy_viewer_settings(),

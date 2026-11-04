@@ -9,10 +9,10 @@ from pathlib import Path
 
 import numpy as np
 import pytest
-from molweave_core.adapters.base import ImportOptions
-from molweave_core.adapters.defaults import create_default_registry
-from molweave_core.interactions import InteractionType, analyze_interactions
-from molweave_core.molecular import NormalizedStructureV1
+from neistra_core.adapters.base import ImportOptions
+from neistra_core.adapters.defaults import create_default_registry
+from neistra_core.interactions import InteractionType, analyze_interactions
+from neistra_core.molecular import NormalizedStructureV1
 
 from tests.unit.test_interactions import source
 

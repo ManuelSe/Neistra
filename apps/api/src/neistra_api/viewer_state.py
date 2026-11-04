@@ -1,0 +1,288 @@
+from __future__ import annotations
+
+from typing import Any
+
+from neistra_core.components import component_atom_ids, derive_component_hierarchy
+from neistra_core.molecular import MolecularWarning, NormalizedStructureV1
+
+ATOMIC_SELECTION_STYLES = frozenset(
+    {"line", "stick", "thick-stick", "ball-and-stick", "space-filling"}
+)
+POLYMER_SELECTION_STYLES = frozenset({"backbone", "cartoon"})
+TRACE_NAMES = {
+    "protein": {"CA"},
+    "dna": {"C4'", "C4*"},
+    "rna": {"C4'", "C4*"},
+}
+
+
+def selection_style_channel(style: str) -> str:
+    if style in ATOMIC_SELECTION_STYLES:
+        return "atomic"
+    if style in POLYMER_SELECTION_STYLES:
+        return "polymer"
+    raise ValueError(f"Unsupported selection representation style: {style}")
+
+
+def inherit_added_appearance(
+    settings: dict[str, Any],
+    before: NormalizedStructureV1,
+    after: NormalizedStructureV1,
+    sources: dict[int, int],
+) -> tuple[dict[str, Any], tuple[MolecularWarning, ...]]:
+    """Copy explicit attachment properties, never infer a renderer/molecule theme."""
+    old_ids = {a.id for a in before.atoms}
+    new_ids = {a.id for a in after.atoms}
+    if not sources:
+        return settings, ()
+    if not set(sources) <= new_ids - old_ids:
+        raise ValueError("Appearance ancestry must describe only newly created atoms.")
+    resolved: dict[int, int | None] = {}
+    for child in sources:
+        path: set[int] = set()
+        current = child
+        while current in sources and current not in resolved:
+            if current in path:
+                raise ValueError("Appearance ancestry contains a cycle.")
+            path.add(current)
+            current = sources[current]
+        parent = resolved.get(current, current if current in old_ids else None)
+        resolved.update({i: parent for i in path})
+    by_parent: dict[int, set[int]] = {}
+    for child, parent in resolved.items():
+        if parent is not None:
+            by_parent.setdefault(parent, set()).add(child)
+    result = {**settings}
+    warnings: list[MolecularWarning] = []
+    for property_name in ("selection_representations", "selection_colors"):
+        assignments = []
+        for item in settings.get(property_name, []):
+            retained = set(item["atom_ids"]) & new_ids
+            added = {i for parent in item["atom_ids"] for i in by_parent.get(parent, set())}
+            if (
+                added
+                and property_name == "selection_representations"
+                and item["style"] in POLYMER_SELECTION_STYLES
+            ):
+                try:
+                    validate_polymer_selection(after, retained | added)
+                except ValueError:
+                    added = set()
+                    warnings.append(
+                        MolecularWarning(
+                            code="model_appearance_polymer_unresolved",
+                            operation="model.appearance",
+                            field="viewer_settings.selection_representations",
+                            message="New atoms could not inherit an incomplete/unsupported polymer "
+                            "assignment; existing appearance retained, entry defaults apply.",
+                        )
+                    )
+            if retained or added:
+                assignments.append({**item, "atom_ids": sorted(retained | added)})
+        result[property_name] = assignments
+    return result, tuple(warnings)
+
+
+def update_selection_representations(
+    assignments: list[dict[str, Any]],
+    atom_ids: set[int],
+    *,
+    action: str,
+    style: str | None = None,
+) -> list[dict[str, Any]]:
+    """Apply deterministic replacement-channel algebra to one entry."""
+    if not atom_ids:
+        raise ValueError("Selection representation target must not be empty")
+    target_channel = selection_style_channel(style) if style is not None else None
+    result: dict[str, set[int]] = {
+        str(item["style"]): {int(atom_id) for atom_id in item["atom_ids"]} for item in assignments
+    }
+    for existing_style, existing_ids in result.items():
+        if action == "reset" or selection_style_channel(existing_style) == target_channel:
+            existing_ids.difference_update(atom_ids)
+    if action == "apply":
+        if style is None:
+            raise ValueError("Style is required when applying a selection representation")
+        result.setdefault(style, set()).update(atom_ids)
+    elif action != "reset":
+        raise ValueError(f"Unsupported selection representation action: {action}")
+    return [
+        {"style": item_style, "atom_ids": sorted(ids)}
+        for item_style, ids in sorted(result.items())
+        if ids
+    ]
+
+
+def prune_selection_representations(
+    settings: dict[str, Any], deleted_atom_ids: set[int]
+) -> dict[str, Any]:
+    updated = {**settings}
+    updated["selection_hidden_atoms"] = sorted(
+        set(settings.get("selection_hidden_atoms", [])) - deleted_atom_ids
+    )
+    updated["selection_representations"] = [
+        {"style": item["style"], "atom_ids": retained}
+        for item in settings.get("selection_representations", [])
+        if (retained := sorted(set(item["atom_ids"]) - deleted_atom_ids))
+    ]
+    updated["selection_colors"] = [
+        {**item, "atom_ids": retained}
+        for item in settings.get("selection_colors", [])
+        if (retained := sorted(set(item["atom_ids"]) - deleted_atom_ids))
+    ]
+    updated["selection_nonpolar_hydrogens"] = [
+        {**item, "atom_ids": retained}
+        for item in settings.get("selection_nonpolar_hydrogens", [])
+        if (retained := sorted(set(item["atom_ids"]) - deleted_atom_ids))
+    ]
+    surfaces = []
+    for surface in settings.get("surface_objects", []):
+        source = surface["source"]
+        if source["kind"] != "fragment":
+            surfaces.append(surface)
+            continue
+        retained = sorted(set(source["atom_ids"]) - deleted_atom_ids)
+        if retained:
+            surfaces.append({**surface, "source": {**source, "atom_ids": retained}})
+    updated["surface_objects"] = surfaces
+    return updated
+
+
+def update_selection_hydrogens(
+    assignments: list[dict[str, Any]],
+    atom_ids: set[int],
+    show: bool | None,
+) -> list[dict[str, Any]]:
+    result = {item["show"]: set(item["atom_ids"]) - atom_ids for item in assignments}
+    if show is not None:
+        result.setdefault(show, set()).update(atom_ids)
+    return [{"show": mode, "atom_ids": sorted(ids)} for mode, ids in sorted(result.items()) if ids]
+
+
+def update_selection_colors(
+    assignments: list[dict[str, Any]],
+    atom_ids: set[int],
+    color: str | None,
+) -> list[dict[str, Any]]:
+    result = {item["color"]: set(item["atom_ids"]) - atom_ids for item in assignments}
+    if color is not None:
+        result.setdefault(color.lower(), set()).update(atom_ids)
+    return [
+        {"color": color, "atom_ids": sorted(ids)} for color, ids in sorted(result.items()) if ids
+    ]
+
+
+def validate_polymer_selection(structure: NormalizedStructureV1, selected: set[int]) -> None:
+    hierarchy = derive_component_hierarchy(structure)
+    atom_by_id = {atom.id: atom for atom in structure.atoms}
+    residue_atoms: dict[int, set[int]] = {}
+    for atom in structure.atoms:
+        if atom.residue_id is not None:
+            residue_atoms.setdefault(atom.residue_id, set()).add(atom.id)
+    supported_residues: dict[int, str] = {}
+    for component in hierarchy.components:
+        if component.category not in TRACE_NAMES:
+            continue
+        if selected.intersection(component_atom_ids(structure, component)):
+            for residue_id in component.residue_ids:
+                supported_residues[residue_id] = component.category
+    selected_residues: set[int] = set()
+    for atom_id in selected:
+        selected_atom = atom_by_id.get(atom_id)
+        if (
+            selected_atom is None
+            or selected_atom.residue_id is None
+            or selected_atom.residue_id not in supported_residues
+        ):
+            raise ValueError("Backbone and Cartoon require complete protein, DNA, or RNA residues")
+        selected_residues.add(selected_atom.residue_id)
+    expected = {
+        atom_id for residue_id in selected_residues for atom_id in residue_atoms[residue_id]
+    }
+    if selected != expected:
+        raise ValueError("Backbone and Cartoon require every atom in each selected residue")
+    for residue_id in selected_residues:
+        trace_names = TRACE_NAMES[supported_residues[residue_id]]
+        if not any(
+            atom_by_id[atom_id].name.strip().upper() in trace_names
+            for atom_id in residue_atoms[residue_id]
+        ):
+            raise ValueError(
+                "Backbone and Cartoon require usable trace atoms in every selected residue"
+            )
+
+
+def default_viewer_settings(structure_type: str) -> dict[str, Any]:
+    style = "cartoon" if structure_type in {"protein", "complex"} else "ball-and-stick"
+    return {
+        "schema_version": 2,
+        "representations": [
+            {
+                "id": "primary",
+                "style": style,
+                "color_by": "element",
+                "custom_color": "#3b82f6",
+                "opacity": 1.0,
+            }
+        ],
+        "surface_objects": [],
+        "selection_hidden_atoms": [],
+        "selection_representations": [],
+        "selection_colors": [],
+        "selection_nonpolar_hydrogens": [],
+        "components": {
+            "hydrogens": True,
+            "nonpolar_hydrogens": True,
+            "solvent": True,
+            "ions": True,
+            "ligands": True,
+            "protein": True,
+        },
+        "labels": {
+            "atoms": False,
+            "residues": False,
+            "chains": False,
+            "structure": False,
+        },
+    }
+
+
+def prune_pocket_seeds(
+    settings: dict[str, Any], seed_entry_id: str, deleted_atom_ids: set[int] | None
+) -> dict[str, Any]:
+    surfaces = []
+    for surface in settings.get("surface_objects", []):
+        source = surface["source"]
+        if source["kind"] != "pocket":
+            surfaces.append(surface)
+            continue
+        retained = [
+            reference
+            for reference in source["seed_atom_references"]
+            if not (
+                reference["structure_id"] == seed_entry_id
+                and (deleted_atom_ids is None or reference["atom_id"] in deleted_atom_ids)
+            )
+        ]
+        if retained:
+            surfaces.append({**surface, "source": {**source, "seed_atom_references": retained}})
+    return {**settings, "surface_objects": surfaces}
+
+
+def remap_pocket_seeds(settings: dict[str, Any], entry_ids: dict[str, str]) -> dict[str, Any]:
+    surfaces = []
+    for surface in settings.get("surface_objects", []):
+        source = surface["source"]
+        if source["kind"] == "pocket":
+            references = [
+                {**ref, "structure_id": entry_ids.get(ref["structure_id"], ref["structure_id"])}
+                for ref in source["seed_atom_references"]
+            ]
+            source = {
+                **source,
+                "seed_atom_references": sorted(
+                    references, key=lambda ref: (ref["structure_id"], ref["atom_id"])
+                ),
+            }
+        surfaces.append({**surface, "source": source})
+    return {**settings, "surface_objects": surfaces}

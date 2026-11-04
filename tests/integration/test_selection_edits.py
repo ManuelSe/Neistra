@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Any
 
 import pytest
-from molweave_core.editing.protein import STANDARD_AMINO_ACIDS
+from neistra_core.editing.protein import STANDARD_AMINO_ACIDS
 
 from tests.integration.test_archive_roundtrip import import_archive
 from tests.integration.test_ligand_edits import structure
@@ -369,7 +369,7 @@ def test_stale_revision_artifact_lock_and_branching_allocators(client: ApiClient
 
 
 def test_explicit_residue_crosslink_refuses_atomic_mutation(client: ApiClient) -> None:
-    from molweave_core.molecular import Bond
+    from neistra_core.molecular import Bond
 
     from tests.support.editing_fixture import prepared_complex
 

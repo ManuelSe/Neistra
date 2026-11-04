@@ -1,0 +1,14 @@
+{
+  "producer": "0.26.2",
+  "entries": 2,
+  "atomic_batch": true,
+  "jobs_unchanged": true,
+  "archive_sha256": "a60774806de9311239a905a7870f84f3c6006ab3163212b9091c7b5c434f3511",
+  "application_version": "0.26.2",
+  "implementation_root": "/tmp/neistra99-reader-0262",
+  "api_module": "/tmp/neistra99-reader-0262/apps/api/src/molweave_api/main.py",
+  "core_module": "/tmp/neistra99-reader-0262/packages/molweave_core/src/molweave_core/molecular.py",
+  "legacy_suffix_http": 201,
+  "new_suffix_http": 422,
+  "expect_new_names": false
+}

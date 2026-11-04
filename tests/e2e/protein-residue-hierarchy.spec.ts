@@ -1,3 +1,4 @@
+import { environmentValue } from "../../scripts/configuration.mjs";
 import { performanceBudget } from "./support/performance";
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test, type Page } from "@playwright/test";
@@ -148,7 +149,7 @@ test("virtualizes 10000 observed residues and selects complete off-screen ranges
   const endStart = await now(); await page.keyboard.press("End");
   const last = page.getByRole("button", { name: `Select GLY 1A · ${component.display_label} in ${entry.name}`, exact: true });
   await expect(last).toBeFocused(); const endMs = await now() - endStart;
-  const profiler = process.env.MOLWEAVE_RESIDUE_PROFILE ? await page.context().newCDPSession(page) : null;
+  const profiler = environmentValue("RESIDUE_PROFILE", "") ? await page.context().newCDPSession(page) : null;
   if (profiler) { await profiler.send("Profiler.enable"); await profiler.send("Profiler.start"); }
   const rangeStart = await now(); await last.press("Shift+Enter");
   await expect.poll(async () => (await selected(page)).length).toBe(30000);

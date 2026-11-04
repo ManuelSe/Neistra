@@ -92,7 +92,7 @@ export function ArchiveImportDialog({
           <span>{file ? "Choose another archive" : "Choose project archive"}</span>
           <input
             type="file"
-            accept=".molweave.zip"
+            accept=".neistra.zip,.molweave.zip"
             disabled={active}
             onChange={(event) => {
               setFile(event.target.files?.item(0) ?? null);

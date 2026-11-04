@@ -3,14 +3,14 @@ from __future__ import annotations
 from collections import Counter
 
 import pytest
-from molweave_core.editing.model import (
+from neistra_core.editing.model import (
     DirectMolecularEditor,
     InvalidModelEdit,
     ModelBondDelete,
     ModelBondSet,
     ModelDelete,
 )
-from molweave_core.molecular import Conformer, NormalizedStructureV1
+from neistra_core.molecular import Conformer, NormalizedStructureV1
 
 from tests.support.hydrogen_fixture import model
 

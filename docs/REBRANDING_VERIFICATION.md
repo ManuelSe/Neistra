@@ -1,3 +1,8 @@
+> Historical qualification of the initial presentation-only rebrand. Technical
+> rebranding is now governed by D-150 and the
+> [issue #99 contract](plans/issue-99-compatible-technical-rebranding.md).
+> Earlier unchanged-backend statements below describe that earlier work only.
+
 # Neistra rebranding verification
 
 Status: M1–M5 implemented and verified; no implementation gate remains.

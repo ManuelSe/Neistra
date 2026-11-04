@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Any
 
 import pytest
-from molweave_api.schemas import ViewerSettings
+from neistra_api.schemas import ViewerSettings
 from pydantic import ValidationError
 
 from tests.integration.test_archive_roundtrip import export_archive, import_archive, upload
@@ -340,9 +340,9 @@ def test_visibility_archive_compatibility_and_validation(client: ApiClient, mode
 
 
 def test_visibility_checkpoint_restart_and_clean_undo(tmp_path: Path) -> None:
-    from molweave_api.database import Base
-    from molweave_api.main import create_app
-    from molweave_api.settings import Settings
+    from neistra_api.database import Base
+    from neistra_api.main import create_app
+    from neistra_api.settings import Settings
 
     settings = Settings(
         data_dir=tmp_path,

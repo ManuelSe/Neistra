@@ -161,8 +161,8 @@ archives still import. Upgrade client and server together. New exports require a
 upgraded reader. Downgrade refuses retained objects or empty ordinary representation
 sets, including history; restore the complete pre-upgrade backup for rollback.
 Atomic hiding does not change entry-based Visible export.
-`.molweave.zip`, Python module names, `MOLWEAVE_*` settings and data paths remain
-compatible. See [release notes](docs/RELEASE_NOTES.md) and
+Current UI exports use `.neistra.zip`; legacy `.molweave.zip` archives, Python
+imports, `MOLWEAVE_*` settings and existing stores remain supported. See [release notes](docs/RELEASE_NOTES.md) and
 [migration guidance](docs/DEVELOPMENT.md#pocket-definition-migration-090).
 The [pocket feature plan](docs/plans/issue-36-pocket-surfaces.md) records scope,
 scientific boundaries and qualification evidence.
@@ -186,7 +186,7 @@ python3.12 -m venv .venv
 .venv/bin/uv sync --frozen
 corepack prepare pnpm@10.15.1 --activate
 corepack pnpm install --frozen-lockfile
-MOLWEAVE_DATA_DIR=.molweave .venv/bin/alembic upgrade head
+.venv/bin/alembic upgrade head
 ```
 
 ## Start Locally
@@ -207,18 +207,17 @@ For troubleshooting, the equivalent processes can still be run in separate
 terminals after applying migrations manually:
 
 ```bash
-MOLWEAVE_DATA_DIR=.molweave .venv/bin/uv run alembic upgrade head
+.venv/bin/uv run alembic upgrade head
 ```
 
 ```bash
-PYTHONPATH=apps/api/src:packages/molweave_core/src:packages/molweave_demo_plugin/src \
-  MOLWEAVE_DATA_DIR=.molweave \
-  .venv/bin/uvicorn molweave_api.main:app --host 127.0.0.1 --port 8000
+PYTHONPATH=apps/api/src:packages/neistra_core/src:packages/neistra_demo_plugin/src \
+  .venv/bin/uvicorn neistra_api.main:app --host 127.0.0.1 --port 8000
 ```
 
 ```bash
-PYTHONPATH=apps/api/src:packages/molweave_core/src:packages/molweave_demo_plugin/src \
-  MOLWEAVE_DATA_DIR=.molweave .venv/bin/python -m molweave_api.worker
+PYTHONPATH=apps/api/src:packages/neistra_core/src:packages/neistra_demo_plugin/src \
+  .venv/bin/python -m neistra_api.worker
 ```
 
 ```bash
@@ -293,9 +292,9 @@ Run these from the repository root:
 ```bash
 .venv/bin/uv sync --frozen
 corepack pnpm install --frozen-lockfile
-MOLWEAVE_DATA_DIR=.molweave .venv/bin/uv run alembic upgrade head
+.venv/bin/uv run alembic upgrade head
 .venv/bin/uv run ruff check .
-.venv/bin/uv run mypy apps/api packages/molweave_core
+.venv/bin/uv run mypy apps/api packages/neistra_core packages/neistra_demo_plugin
 .venv/bin/uv run pytest
 corepack pnpm --dir apps/web lint
 corepack pnpm --dir apps/web typecheck

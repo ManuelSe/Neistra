@@ -3,8 +3,8 @@ from __future__ import annotations
 import math
 
 import pytest
-from molweave_core.interactions import analyze_interactions
-from molweave_core.molecular import Atom, Bond, Conformer, NormalizedStructureV1, SourceFacts
+from neistra_core.interactions import analyze_interactions
+from neistra_core.molecular import Atom, Bond, Conformer, NormalizedStructureV1, SourceFacts
 
 from tests.unit.test_interactions import source
 
@@ -131,8 +131,8 @@ def test_degenerate_donor_angle_is_unassessable() -> None:
 def test_raw_pdb_ligand_chemistry_is_warned_without_fabricated_assignments() -> None:
     from pathlib import Path
 
-    from molweave_core.adapters.base import ImportOptions
-    from molweave_core.adapters.defaults import create_default_registry
+    from neistra_core.adapters.base import ImportOptions
+    from neistra_core.adapters.defaults import create_default_registry
 
     fixture = Path(__file__).parents[1] / "fixtures" / "complex" / "1stp.pdb"
     structure = (
@@ -163,7 +163,7 @@ def test_raw_pdb_ligand_chemistry_is_warned_without_fabricated_assignments() -> 
 def test_covalent_attachment_prevents_unmodified_lysine_charge_assumption(
     attached: bool, expected: int
 ) -> None:
-    from molweave_core.molecular import Chain, Residue
+    from neistra_core.molecular import Chain, Residue
 
     from tests.unit.test_interactions import molecule
 
@@ -202,7 +202,7 @@ def test_covalent_attachment_prevents_unmodified_lysine_charge_assumption(
 
 @pytest.mark.parametrize("hydrogen", [False, True])
 def test_disulfide_is_not_a_thiol_donor_or_a_missing_hydrogen_request(hydrogen: bool) -> None:
-    from molweave_core.molecular import Chain, Residue
+    from neistra_core.molecular import Chain, Residue
 
     from tests.unit.test_interactions import molecule
 
@@ -295,7 +295,7 @@ def test_unknown_chemistry_does_not_become_rdkit_defaults() -> None:
 def test_source_water_assignment_respects_contradictory_charges(
     charge: int, expected: bool
 ) -> None:
-    from molweave_core.molecular import Chain, Residue
+    from neistra_core.molecular import Chain, Residue
 
     from tests.unit.test_interactions import molecule
 
@@ -344,7 +344,7 @@ def test_hydrophobic_neighborhood_and_distance() -> None:
 
 
 def test_protein_template_types_only_observed_unambiguous_sites_without_mutation() -> None:
-    from molweave_core.molecular import Chain, Residue
+    from neistra_core.molecular import Chain, Residue
 
     base = hydrogen_pair()
     protein_points = [(0, 0, 0), (1, 0, 0), (-1, 1, 0), (-2, 1, 0), (-3, 1, 0), (-1, 2, 0)]
@@ -397,7 +397,7 @@ def test_protein_template_types_only_observed_unambiguous_sites_without_mutation
 def aromatic(
     z: float = 0, offset: float = 0, tilt: float = 0, warp: float = 0
 ) -> NormalizedStructureV1:
-    from molweave_core.adapters.rdkit_common import mol_to_normalized
+    from neistra_core.adapters.rdkit_common import mol_to_normalized
     from rdkit import Chem
 
     mol = Chem.MolFromSmiles("c1ccccc1")
@@ -486,7 +486,7 @@ def test_cation_pi_requires_positive_charge_and_direction(
 
 
 def test_salt_bridge_charge_distance_and_delocalized_grouping() -> None:
-    from molweave_core.adapters.rdkit_common import mol_to_normalized
+    from neistra_core.adapters.rdkit_common import mol_to_normalized
     from rdkit import Chem
 
     mol = Chem.MolFromSmiles("CC(=O)[O-]")
@@ -531,7 +531,7 @@ def test_salt_and_hydrogen_bond_classifications_are_independent() -> None:
 def test_protein_charge_assumptions_respect_explicit_evidence(
     charge: int | None, protonated: bool, expected: int
 ) -> None:
-    from molweave_core.molecular import Chain, Residue
+    from neistra_core.molecular import Chain, Residue
 
     from tests.unit.test_interactions import molecule
 
@@ -575,7 +575,7 @@ def test_protein_charge_assumptions_respect_explicit_evidence(
 def test_conflicting_acid_charge_and_hydrogen_cannot_produce_a_hydrogen_bond(
     residue_name: str,
 ) -> None:
-    from molweave_core.molecular import Chain, Residue
+    from neistra_core.molecular import Chain, Residue
 
     from tests.unit.test_interactions import molecule
 

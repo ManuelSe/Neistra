@@ -1,0 +1,31 @@
+{
+  "candidate_commit": "12f1aebe49fc20552f31cf67aeae26725c01300d",
+  "complete_steps": 24,
+  "source_count": 697,
+  "source_digest": "2a43e7691b9aa533cd4db2ab901229d687ff0d3dc667be0a7e6148d3e0d70e1c",
+  "sources_and_helper_scripts_unchanged": true,
+  "all_lossless_log_hashes_valid": true,
+  "python": 1332,
+  "python_skips": 0,
+  "frontend": 374,
+  "supervisor": 14,
+  "browser_passed": 352,
+  "browser_existing_exclusions": 62,
+  "exact_exclusion_set_matches_preceding_release": true,
+  "failures_flakes_automatic_retries": 0,
+  "profile": "portable; strict reference-host timing not claimed",
+  "preceding_reader": "actual annotated v0.26.2 checkout e1cae49a9655a4a48a72c25f36bbd45db0273423",
+  "readers": "both directions, exact coordinates/originals/history/scenes/selections/surfaces/jobs and archive remapping; old HTTP422 for new suffix and201 for legacy; new accepts both",
+  "legacy_cli_probe": {
+    "legacy_worker_cli": true,
+    "legacy_source_roots": true,
+    "legacy_settings_and_target": true,
+    "real_spawned_job": "completed",
+    "artifact_downloads": 2,
+    "schema_head": "0014"
+  },
+  "shipped_license_sha256": "eabd1831ed605a29cf9d7e60221c019c1bc026add81e3c0686ce5f24b3d4d500",
+  "production_contains_new_behavior": true,
+  "test_harnesses_absent_in_production": true,
+  "limitations": "merge/exact-master/release/issue close-out pending; no independent review claimed"
+}

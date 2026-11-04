@@ -1,0 +1,21 @@
+"""Exercise a historical configured target through a real spawned job workflow."""
+import json
+from pathlib import Path
+from tempfile import TemporaryDirectory
+from neistra_api.database import Base
+from neistra_api.main import create_app
+from neistra_api.settings import Settings
+from tests.support.api_client import ApiClient
+from tests.integration.test_job_lifecycle import test_job_completes_persists_provenance_and_imports_with_undo
+
+def main():
+    with TemporaryDirectory(prefix='neistra99-legacy-job-') as directory:
+        app = create_app(Settings(data_dir=Path(directory),database_url=f'sqlite:///{directory}/test.db',
+                                  auto_create_schema=True,job_plugin_targets=('molweave_demo_plugin.plugin:plugin',)))
+        Base.metadata.create_all(app.state.engine)
+        try:
+            test_job_completes_persists_provenance_and_imports_with_undo(ApiClient(app))
+            print(json.dumps({'legacy_target':'molweave_demo_plugin.plugin:plugin',
+                              'spawned_completion_artifacts_provenance_result_import_and_undo':'passed'}))
+        finally:app.state.engine.dispose()
+if __name__=='__main__':main()

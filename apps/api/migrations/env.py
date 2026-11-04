@@ -2,15 +2,15 @@ from __future__ import annotations
 
 from logging.config import fileConfig
 
-import molweave_api.models  # noqa: F401
+import neistra_api.models  # noqa: F401
 from alembic import context
-from molweave_api.database import Base
-from molweave_api.settings import Settings
+from neistra_api.database import Base
+from neistra_api.settings import Settings
 from sqlalchemy import engine_from_config, pool
 
 config = context.config
 if config.config_file_name is not None:
-    fileConfig(config.config_file_name)
+    fileConfig(config.config_file_name, disable_existing_loggers=False)
 
 settings = Settings.from_env()
 settings.data_dir.mkdir(parents=True, exist_ok=True)

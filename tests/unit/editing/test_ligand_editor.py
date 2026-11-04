@@ -3,9 +3,9 @@ from __future__ import annotations
 from typing import Any
 
 import pytest
-from molweave_core.adapters.rdkit_common import mol_to_normalized
-from molweave_core.editing import InvalidLigandEditError, RdkitLigandEditor
-from molweave_core.molecular import Atom, Conformer, NormalizedStructureV1
+from neistra_core.adapters.rdkit_common import mol_to_normalized
+from neistra_core.editing import InvalidLigandEditError, RdkitLigandEditor
+from neistra_core.molecular import Atom, Conformer, NormalizedStructureV1
 from rdkit import Chem
 from rdkit.Chem import AllChem
 

@@ -6138,3 +6138,152 @@ provenance remains local self-review; requested Codex returned no external resul
 Later publication-document integration/cleanup receipts in the [issue reply](https://github.com/ManuelSe/Neistra/issues/96#issuecomment-6596946523)
 preserve qualified runtime bytes and never retarget the published tag. Image
 export remains separately scoped #128; native-feature parity is not reintroduced.
+
+## D-150 — Compatible Neistra technical namespaces and configuration
+
+Date: 2026-11-04. Status: accepted by explicit approval of the
+[issue #99 plan](plans/issue-99-compatible-technical-rebranding.md).
+Implementation is pending `/goal`; this decision does not claim delivered behavior.
+
+The user explicitly selected Python package moves with compatibility aliases,
+then approved the complete proposal with “Implement this plan and wait for goal.”
+C0 persists planning only and stops before runtime implementation.
+
+Canonical implementation becomes `neistra_api`, `neistra_core` and
+`neistra_demo_plugin`, with canonical package directories and updated maintained
+imports/tooling. Retain thin legacy module aliases and source-root bridges so
+documented old imports, API/worker invocations and configured plugin targets remain
+usable. Both import orders must preserve object/type/exception/ORM/registry/plugin
+identity; never duplicate scientific implementations or eagerly import the entire
+module tree. Preserve lightweight spawn bootstrap and scientific resource lookup.
+
+Use canonical `NEISTRA_*` configuration when explicitly present, otherwise legacy
+`MOLWEAVE_*`, otherwise defaults. An invalid canonical value fails instead of
+falling back. Conflicts identify setting names without disclosing values. Apply
+the same policy across settings, launch/migration/worker/test/native-toolchain and
+resource/cache controls. Preserve production limits and allowlist enforcement.
+
+Explicit store/database configuration wins. Reuse existing default old/new stores
+in place; competing default stores require explicit selection. Only genuinely
+fresh installations create `.neistra/neistra.db`. Recognize `molweave.db` in an
+explicitly chosen root; competing database files need explicit database selection.
+An unreadable existing store must never cause a silent empty replacement. Do not
+automatically copy, rename, merge or relocate stores. All stack processes must
+resolve the same store; no schema migration is introduced.
+
+Accept `.neistra.zip` and `.molweave.zip` using existing strict content validation.
+An additive optional archive-export filename-style field preserves old API naming
+when omitted; current UI explicitly requests the new suffix, with legacy naming
+available through a secondary option. Only filenames change: retain archive
+contents, schemas, hashes, original bytes and MIME contracts. Qualify actual older
+HTTP readers with legacy-named current archives, not only producer-version strings.
+
+Retain serialized MIME/job/plugin/scientific-model identifiers, `molweave.jobs`
+discovery, stored legacy plugin targets, historical provenance and the browser key
+`molweave-workspace-v1`. Preserve user names/uploads, scientific fixtures, historical
+plans/decisions/releases and evidence. Document residual legacy names rather than
+performing an unconditional replacement. No alias removal/deprecation schedule,
+public distribution packaging or physical store migration is authorized here.
+
+This supersedes D-048/D-050 only for canonical Python implementation names/current
+metadata, configured names, fresh-installation paths and archive filename behavior
+approved above. Their historical/data/provenance protections remain. D-002, D-042,
+D-148 and current application/viewer state owners remain binding. Project/viewer/
+archive schema2, normalized/selection/component1 and Alembic0014 remain unchanged.
+
+Rationale: current developer naming can converge without discarding working
+installations or rewriting scientific contracts. Explicit aliases and precedence
+bound compatibility work; in-place store discovery avoids data-migration risk.
+Stable minor0.27.0 reflects additive public namespaces/configuration/archive support
+from established stable0.26.2, rather than a first-release reset or a major break.
+Actual preceding-reader, scientific/spawn, candidate and exact-master qualification
+remain mandatory under the feature contract. No implementation or release is
+claimed by this approved architectural decision.
+
+
+### D-150 implementation note — issue #99 M1/C1
+
+Canonical implementation directories retain one source of molecular, ORM and
+plugin objects. Explicit leaf forwarding files replace their legacy module entry
+in `sys.modules`; package wrappers delegate exports and retain their own forwarding
+search path. Legacy outer core/demo source roots only bridge to the canonical
+compatibility directories. This avoids both duplicated class identities and a
+process-wide import hook; no symlinks or eager whole-tree aliasing are needed.
+Type-check-only reexports preserve legacy migration imports without executing
+another implementation. The existing worker `-m` entry delegates explicitly.
+
+Registry loading treats canonical/legacy targets resolving to the same singleton
+as one registration; conflicting independent plugins still fail existing checks.
+Historical migrations and actual preceding-reader support keep their old imports
+so one harness can execute older tags. Scientific resource files move unchanged;
+no persisted identifier, dependency version, schema or chemistry changes in C1.
+
+
+### D-150 implementation note — issue #99 M2/C2
+
+A dependency-light core helper owns canonical-first environment resolution. The
+Python store resolver is shared by settings consumers; the launcher no longer
+injects a data-root default that would defeat existing-store discovery. TypeScript
+and JavaScript tooling use the same tested precedence contract. Native-toolchain,
+cache/resource readers and scientific test guards recognize both spellings; empty
+or invalid canonical settings never fall back. Explicitly empty plugin CSV values
+still disable configured plugins, rather than restoring the defaults.
+
+The resolver performs read-only filesystem checks before startup mutations,
+propagates access errors, rejects broken symlinks/competing roots/databases, and
+requires an explicit database URL for nonempty roots without a recognized database.
+Existing auto-discovered databases must have a SQLite header. Explicit URLs retain
+their intentional database-location override and connectivity validation remains
+in the database layer. No missing/invalid store is silently replaced. Tests include
+an existing migrated store, project publication and reopen through the other
+configuration spelling, plus canonical and legacy native/browser execution.
+
+
+### D-150 implementation note — issue #99 M3/C3
+
+Archive filename style is an optional literal request field, defaulting to legacy
+for existing HTTP clients. Current UI explicitly requests the new suffix; a native
+secondary disclosure allows legacy naming. Both names use byte-identical prepared
+archive contents and preserve media/schema contracts. Import validates either
+suffix before invoking unchanged archive safety checks. Private transient renderer
+and RDKit identity-property markers now use Neistra consistently; these are never
+normalized/persisted identity authorities. Default generated mmCIF block labels
+use Neistra. Original uploads and authoritative molecular IDs are untouched.
+
+
+### D-150 package-export review correction — issue #99 M3/C3
+
+Full compatibility review reproduces a package-export shadowing edge case: an
+explicit legacy demo-plugin submodule import can replace the package's delegated
+`plugin` singleton with that submodule. Bind the forwarding leaf while initializing
+both legacy package/source-root entry points, then export the original singleton,
+matching the original package initialization order. Both-order and old-source-root
+subprocess regressions now assert the package-level singleton identity too. No
+registry policy, plugin ID, job behavior or scientific state changes.
+
+
+### D-150 complete-gate logging correction — issue #99 M4/C4
+
+The first complete candidate reports1330 passing Python cases and one missing
+configuration-conflict diagnostic. In-process Alembic calls disabled pre-existing
+application loggers through `fileConfig`'s default. A fail-first migration regression
+reproduces this independently. Preserve existing loggers explicitly in the migration
+bootstrap with `disable_existing_loggers=False`; do not weaken the diagnostic test
+or re-enable a logger only inside that test.184 focused configuration/store/migration
+cases pass after correction. Historical migration files/revisions and schemas are
+unchanged. Candidate1 remains diagnostic; a fresh complete candidate gate is required.
+
+
+### D-150 native-observation correction — issue #99 M4/C4
+
+Candidate2 passes1332 Python/374 frontend/14 supervisor and static/build/migration
+checks, then native ammonia appearance fails because current test instrumentation
+and exact-tag assertions still read the retired private renderer prefix. The trace
+shows an undefined observed layer, not a molecular count/charge change. Stop the
+known-failing run explicitly and retain its60pass/1fail/1interrupted/3existing
+exclusions/349not-run summary and known-failure trace. Update the two harness readers
+and two assertion files to the canonical private tag; retain exact atom/color/mesh
+assertions.24 focused desktop/mobile native cases then pass with no exclusions.
+The name audit now also rejects retired private markers in live source and tests,
+while preserving historical/fixture data. No product runtime or scientific policy
+changes; a fresh complete candidate3 gate remains required.

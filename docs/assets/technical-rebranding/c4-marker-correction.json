@@ -1,0 +1,37 @@
+{
+  "candidate": "c4-candidate2",
+  "commit": "dfde33f",
+  "pre_browser": "1332 Python zero skips,374 frontend,14 supervisor,static/build/frozen/migration round trip passed",
+  "browser": "intentionally interrupted after diagnosing stale private tags:60 passed,1 failed,1 interrupted,3 existing exclusions,349 not run; exit130",
+  "diagnosis": "renamed production private representation tags were not updated in modeling/surface test readers and exact-tag assertions; known-failure trace retained",
+  "fix": "change only the four current harness/assertion files to the canonical tag; exact atom/color/mesh assertions unchanged; audit rejects all retired private markers in live source/tests",
+  "focused": "24 desktop/mobile hydrogen/surface/branding cases pass, zero exclusions/failures/retries;374 frontend and lint/types/build/ruff/diff pass",
+  "logs": [
+    {
+      "path": "docs/assets/technical-rebranding/c4-marker-browser.log.gz",
+      "uncompressed_sha256": "39af6873b14525d243e8fa6555d1a20bc3417185c7a3355f87c5a2d8da0201e5"
+    },
+    {
+      "path": "docs/assets/technical-rebranding/c4-marker-build.log.gz",
+      "uncompressed_sha256": "e1a3c772287c319de344517e33df65d11955cada95d6d6149fe1d8025dd52fe0"
+    },
+    {
+      "path": "docs/assets/technical-rebranding/c4-marker-lint.log.gz",
+      "uncompressed_sha256": "37faac493c48a34328a191322878c48b70a561c81d38fae4e778774f8cf21ce8"
+    },
+    {
+      "path": "docs/assets/technical-rebranding/c4-marker-ruff.log.gz",
+      "uncompressed_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "path": "docs/assets/technical-rebranding/c4-marker-types.log.gz",
+      "uncompressed_sha256": "471e112f7ab4ccb6d1500532c4a2bf17ceff2833bd02168bafb5457f0c39007a"
+    },
+    {
+      "path": "docs/assets/technical-rebranding/c4-marker-web.log.gz",
+      "uncompressed_sha256": "338986bf9eca18cb2ec880356724f3e43adadc855db1acdbe7287d772a232538"
+    }
+  ],
+  "review": "implementer self-review; product runtime unchanged; no scientific assertion, timing/capacity limit or exclusion relaxed",
+  "next": "clean candidate3 repeats all24 gate steps"
+}

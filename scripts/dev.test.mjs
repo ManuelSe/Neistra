@@ -55,7 +55,7 @@ test("preserves environment overrides and constructs platform-specific paths", (
   assert.equal(configuration.apiPort, 18000);
   assert.equal(configuration.webPort, 15173);
   assert.equal(configuration.sharedEnvironment.MOLWEAVE_DATA_DIR, "custom-data");
-  assert.match(configuration.sharedEnvironment.PYTHONPATH, /molweave_demo_plugin\\src;C:\\plugins$/);
+  assert.match(configuration.sharedEnvironment.PYTHONPATH, /neistra_demo_plugin\\src;C:\\plugins$/);
   assert.equal(configuration.webEnvironment.VITE_API_TARGET, "http://api.example.test");
 });
 
@@ -70,7 +70,7 @@ test("brands startup diagnostics while retaining the existing configuration cont
     env: { ...process.env, MOLWEAVE_API_PORT: "invalid" }, encoding: "utf8",
   });
   assert.equal(result.status, 1);
-  assert.match(result.stderr, /^\[neistra\] MOLWEAVE_API_PORT must be an integer between 1 and 65535\./);
+  assert.match(result.stderr, /^\[neistra\] NEISTRA_API_PORT must be an integer between 1 and 65535\./);
   assert.doesNotMatch(result.stderr, /\[molweave\]/);
 });
 

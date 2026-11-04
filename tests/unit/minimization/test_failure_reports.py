@@ -6,8 +6,8 @@ import json
 from pathlib import Path
 
 import pytest
-from molweave_core.minimization.plugin import plugin
-from molweave_core.minimization.toolchain import AmberTools
+from neistra_core.minimization.plugin import plugin
+from neistra_core.minimization.toolchain import AmberTools
 
 from tests.support.minimization import LocalContext, capture, environment_capture, molecule
 
@@ -77,7 +77,7 @@ def test_singular_geometry_refuses_before_parameter_generation(
     )
     # Environment mode reads templates even for organic-only assemblies.
     monkeypatch.setattr(
-        "molweave_core.minimization.templates.read_templates",
+        "neistra_core.minimization.templates.read_templates",
         lambda prefix: protein_state_templates(),
     )
 
