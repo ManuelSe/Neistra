@@ -6310,3 +6310,59 @@ without retargeting the fixed runtime tag; all qualified runtime/test/tool sourc
 identities must remain unchanged. Final issue-response and branch-cleanup receipts
 are maintained in the verified issue reply. Deferred public packaging/alias-removal
 policy and rejected history/store/serialized-identifier rewrites remain as approved.
+
+## D-151 — Local read-only presentation mirrors the molecular canvas
+
+Date: 2026-11-04. Status: approved planning; implementation awaits `/goal`.
+
+The [issue #97 contract](plans/issue-97-detached-presentation-viewer.md) adds one
+local presentation window displaying captured main molecular canvas output. Keep
+the capture boundary typed behind MolecularViewer and its lazy renderer adapter.
+The child mounts neither the workspace nor a second molecular renderer, project
+queries, editing handlers or job subscriptions. It has no independent camera,
+selection or project authority. Backend normalized artifacts and existing
+application owners remain authoritative; rendered output is transient presentation,
+never a molecular store, project snapshot or scientific calculation result.
+
+An application-level controller above responsive viewer remounts owns the child,
+capture source and cleanup. Use a narrow same-origin bridge with exact window,
+origin, session and source-generation checks. Share the media object through the
+same-origin relationship, not serialized scene messages. Child replies are limited
+to readiness/lifecycle acknowledgement, never workspace commands. Retire sources
+and obscure stale output on project changes, source replacement and disconnection.
+Distinguish source health from an unchanged stationary image. Parent reload ends
+the session; child reload can reconnect to its still-current owner.
+
+Mirror existing molecular annotations, highlights, surfaces, appearance and live
+previews, preserving their existing scientific pause/visibility rules. Keep the
+accepted canvas-rendered orientation axes. A latest-value normalized pointer maps
+through the displayed source-image rectangle and never changes selection. Retain
+necessary temporary preview/loading/error/disconnected feedback while steady-state
+presentation remains free of application controls. Fullscreen requires a child
+user gesture and retains browser exit behavior.
+
+Explicitly accepted limits: output detail follows main canvas resolution with
+aspect-preserving letterboxing; main workspace must remain rendering. Hidden,
+minimized, suspended or unavailable sources show paused/disconnected feedback
+instead of promising background operation. Desktop Chromium qualification does
+not imply every browser-family certification. Remote sharing, recording, automatic
+monitor placement, independent high-resolution rendering and image export are
+outside this slice; #128 independently owns image export.
+
+Rationale: mirroring the existing canvas carries the entire visible molecular
+workflow without duplicate geometry, surface calculations, chemistry, artifact
+fetches or complex transient scene synchronization. An independent renderer,
+BroadcastChannel scene replication and 3D pointer reconstruction are unnecessary
+for the approved outcome. Native WebGL capture, annotation/preview fidelity,
+resizing, input isolation and source lifecycle are a mandatory first gate. Failure
+requires a revised approved plan, not a silent second-renderer fallback or reduced
+essential coverage. Measure capture/compositing overhead; do not promise constant
+frame rate or hardware-independent performance.
+
+Preserve D-148 correctness/timing policy, D-149 interface/axes ownership and D-150
+technical compatibility. No new HTTP/job/plugin, durable state, scientific
+algorithm, dependency or migration is planned. Project/viewer/archive remain2,
+normalized/selection/component remain1 and Alembic remains0014. Proposed stable
+minor0.28.0 reflects a new compatible user capability on established stable0.27.0,
+subject to final version/tag recheck and complete candidate/exact-master gates.
+This planning checkpoint changes no application version or runtime behavior.

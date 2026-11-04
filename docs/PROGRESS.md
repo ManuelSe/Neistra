@@ -2,6 +2,35 @@
 
 ## Current milestone
 
+Issue [#97](https://github.com/ManuelSe/Neistra/issues/97) planning is approved in
+[the detailed feature contract](plans/issue-97-detached-presentation-viewer.md) and
+D-151 on `feat/issue-97-detached-presentation-viewer`, based on clean, fast-forwarded
+master `e6d8f63670e3a3819f1a6dbceba7411438861d72`. **Implementation has not started;
+wait for `/goal`.**
+
+Completed: read-only issue/architecture/schema/API/state/test/release inspection;
+approved requirement dispositions and independently verifiable M0-C0 through
+M5-C5 delivery checkpoints; persistent planning and source ownership decision.
+The design mirrors the main molecular canvas into one local read-only window,
+including existing annotations/previews, with bounded pointer/lifecycle handling.
+Source resolution and visibility are explicit limits. Native capture feasibility
+is the first implementation gate; no working presentation feature is claimed.
+
+Verification performed: planning-only clean-tree/base/fast-forward checks,
+document/relative-link and diff review; commit/push identities are reported in the
+C0 handoff after remote readback. No runtime tests or release gate are claimed for
+this documentation checkpoint. Existing stable release history through0.27.0
+supports proposed additive minor0.28.0; all five current versions remain0.27.0.
+No schema, migration, dependency, API or scientific behavior changes.
+
+Known limitations: feature unimplemented; native capture fidelity, browser behavior
+and compositing overhead remain unqualified. Blockers: none for planning; explicit
+`/goal` is required before starting M1/C1. Next action: wait for that command, then
+qualify a working native presentation slice under the approved contract. The
+feature plan holds the detailed acceptance/evidence and delivery log.
+
+### Previous completed milestone — issue #99
+
 Issue [#99](https://github.com/ManuelSe/Neistra/issues/99) is delivered in
 [stable v0.27.0](https://github.com/ManuelSe/Neistra/releases/tag/v0.27.0) through
 [PR #131](https://github.com/ManuelSe/Neistra/pull/131). The
