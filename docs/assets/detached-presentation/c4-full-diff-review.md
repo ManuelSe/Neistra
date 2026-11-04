@@ -66,3 +66,14 @@ status before selecting, then retain all existing error/coordinate/revision chec
 Both desktop/mobile variants pass three deliberate repetitions each (6total, zero
 failure or automatic retry). No application, timeout, exclusion or scientific
 assertion changes. A complete clean candidate5 remains mandatory.
+
+Final clean candidate 663c5fa passes all 24 steps:1,333 Python (zero skips),392 frontend,
+14 supervisor and364native browser passes, with62 unchanged baseline exclusions and
+12 approved desktop-only presentation cases excluded on mobile. All 713 source
+identities and lossless log hashes verify. Actual tagged 0.27.0 readers pass both
+ways, both suffixes accepted. Schema/dependency/migration and production/license
+checks pass. No unresolved consequential local finding. Review covers final test
+preconditions; no application/scientific behavior or assertion relaxation was used
+to obtain the pass. Rechecked origin/master remains e6d8f63, normal merge enabled,
+unprotected/no rulesets, automatic branch deletion disabled, no 0.28 tag/release.
+PR review/conversation policy and exact merged-master qualification remain required.

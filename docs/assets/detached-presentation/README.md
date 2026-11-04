@@ -184,3 +184,28 @@ explicitly awaits visible/loaded viewer status before selecting; all original er
 coordinate/revision assertions remain. `c4-project-ready*` records6passes: each
 existing desktop/mobile variant repeated three times deliberately after the fix,
 with zero automatic retries. Candidate5 reruns the complete gate from a clean commit.
+
+## C4 complete clean-candidate qualification
+
+Clean commit `663c5fa1f283c72d0bc57fff0f64a4ee4015f46b` passes all 24 steps in
+4,036.205seconds: **1,333 Python (zero skips),392 frontend,14 supervisor,364native
+browser passes /74 registered exclusions**, zero failures/flakes/automatic retries.
+The62 existing exclusion identities match released0.27.0 exactly;12 new exclusions
+are the approved desktop presentation cases on the mobile project. All 713 source
+identities remain unchanged and all lossless log hashes verify. See
+[candidate summary](c4-candidate5-summary.json), [gate](c4-candidate5-gate.json),
+[exclusions](c4-candidate5-exclusions.json) and the compressed full browser report.
+
+Actual tagged 0.27.0 and final 0.28.0 produce/read rich persisted projects and archives
+in both directions, retaining original bytes, coordinates, history, scenes,
+selections, surfaces/jobs and remapping. Both real HTTP suffix handlers accept both
+names. Frozen/static/build/supervisor checks, fresh migration round trip,
+version/schema/dependency/production/license audits and legacy CLI pass. Final
+native scientific JSON profiles and presentation screenshots are retained with
+the candidate prefix. Earlier failed attempts remain diagnostic, not passing gates.
+
+The exact-master 24-step recipe is committed before the PR so its later execution
+can start clean. `package-qualification.py.txt` packages completed merged-master
+receipts with a SHA-256 manifest and CRC checks; neither master qualification nor
+publication has occurred at this checkpoint. Review provenance remains local
+implementer self-review. Independent approval and strict timing are not claimed.

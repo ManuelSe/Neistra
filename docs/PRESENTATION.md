@@ -1,7 +1,7 @@
 # Detached molecular presentation
 
-Status: issue #97 implementation and focused C3 qualification complete; final
-version/release gates are tracked under the
+Status: issue #97 clean-candidate release qualification complete; integration,
+exact-master verification and publication are tracked under the
 [approved contract](plans/issue-97-detached-presentation-viewer.md).
 
 Open **Detach viewer** in the viewer quick actions to show the molecular canvas

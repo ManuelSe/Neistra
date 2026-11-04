@@ -1,0 +1,23 @@
+{
+  "commit": "663c5fa1f283c72d0bc57fff0f64a4ee4015f46b",
+  "branch": "feat/issue-97-detached-presentation-viewer",
+  "clean_start": true,
+  "complete_steps": 24,
+  "source_count": 713,
+  "source_digest": "200de538e617408453852b0ba54f96dcaa1b73fbdc5f5efd7529d9deae7090bb",
+  "sources_unchanged": true,
+  "all_lossless_log_hashes_valid": true,
+  "python": 1333,
+  "python_skips": 0,
+  "frontend": 392,
+  "supervisor": 14,
+  "browser_passed": 364,
+  "browser_exclusions": 74,
+  "existing_exclusions": 62,
+  "approved_desktop_only_exclusions": 12,
+  "existing_exclusion_identities_unchanged": true,
+  "failures_flakes_retries": 0,
+  "profile": "portable correctness; no strict reference-host timing claim",
+  "preceding_reader": "actual v0.27.0 e702a3d12aabbd1d5bd4eb10bc50ee44ba7c1782, separate processes both directions; both suffixes accepted",
+  "duration_seconds": 4036.205
+}

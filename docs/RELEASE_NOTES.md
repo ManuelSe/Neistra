@@ -4,7 +4,8 @@
 
 **Status:** release candidate for [issue #97](https://github.com/ManuelSe/Neistra/issues/97),
 under the [approved contract](plans/issue-97-detached-presentation-viewer.md).
-Publication is blocked until full candidate and exact merged-master qualification.
+The complete clean-candidate gate passes; integration and exact merged-master
+qualification still block publication.
 
 **Added.** The Detach viewer icon opens one local read-only presentation window.
 It mirrors the main molecular canvas, including camera navigation, appearance,
@@ -35,8 +36,12 @@ presentation cases, one headed desktop case and 69 existing workflow regressions
 with 13 retained layout exclusions. Tests observe actual molecular frames, previews,
 input isolation, two owners, lifecycle failures, pointer mapping, both themes,
 actual 100%/200% browser zoom and large-scene capture cleanup. Complete final-version
-candidate/master gates and actual tagged 0.27.0 readers in both directions remain
-required; final receipts will be recorded in [verification](VERIFICATION.md).
+candidate gate passes all 24 steps:1,333 Python (zero skips),392 frontend,14 supervisor,
+364 browser passes /74 exclusions (62 exactly retained plus12 approved desktop-only
+mobile exclusions), with713 unchanged source identities and all lossless logs
+verified. Actual tagged 0.27.0 readers pass both directions and accept both suffixes.
+Zero final failures/flakes/automatic retries. Exact merged-master qualification
+still precedes publication; [verification](VERIFICATION.md) retains receipts.
 
 **Known limitations and follow-up.** Desktop Chromium is qualified. Source size
 limits image detail, and the main workspace must remain visible and rendering.

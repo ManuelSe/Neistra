@@ -1,5 +1,21 @@
 # V0.1 Requirement Evidence
 
+## Issue #97 — Complete clean candidate for0.28.0
+
+Clean `663c5fa1f283c72d0bc57fff0f64a4ee4015f46b` passes all 24release steps:
+**1,333 Python (zero skips),392 frontend,14 supervisor,364 browser passes /74 registered
+exclusions**, zero failures/flakes/automatic retries.62 existing exclusion identities
+are exactly unchanged;12 new mobile exclusions implement approved desktop-only
+presentation qualification. All 713 source hashes and lossless logs verify.
+[Summary](assets/detached-presentation/c4-candidate5-summary.json) and
+[full evidence](assets/detached-presentation/README.md) retain commands, actual
+reader roots, both directions persistence/archive checks, migration round trip,
+production/license/schema/dependency audits and earlier diagnostics separately.
+No new migration or scientific/public API change. Local full-diff self-review has
+no unresolved consequential finding; no independent approval or strict reference
+performance certification is claimed. PR integration and exact merged-master gate
+still block publication.
+
 ## Issue #97 — C3 implementation and focused qualification
 
 The [approved contract](plans/issue-97-detached-presentation-viewer.md) and D-151

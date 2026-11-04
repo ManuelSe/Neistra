@@ -2,43 +2,35 @@
 
 ## Current milestone
 
-Issue [#97](https://github.com/ManuelSe/Neistra/issues/97) planning is approved in
-[the detailed feature contract](plans/issue-97-detached-presentation-viewer.md) and
-D-151 on `feat/issue-97-detached-presentation-viewer`, based on clean, fast-forwarded
-master `e6d8f63670e3a3819f1a6dbceba7411438861d72`. Explicit `/goal` authorized
-implementation after planning commit3631543. **M3/C3 implementation and focused
-qualification are complete; final version/release qualification remains.**
+Issue [#97](https://github.com/ManuelSe/Neistra/issues/97) implements the approved
+[detached presentation contract](plans/issue-97-detached-presentation-viewer.md)
+and D-151 on `feat/issue-97-detached-presentation-viewer`. **C4 candidate qualification
+is complete; PR integration and release remain.**
 
-Completed: read-only issue/architecture/schema/API/state/test/release inspection;
-approved requirement dispositions and independently verifiable M0-C0 through
-M5-C5 delivery checkpoints; persistent planning and source ownership decision.
-The design mirrors the main molecular canvas into one local read-only window,
-including existing annotations/previews, with bounded pointer/lifecycle handling.
-Source resolution and visibility are explicit limits. C1 now provides typed canvas
-capture, a dedicated lightweight child entry, one-window reuse, read-only input,
-fullscreen and actual annotation/coordinate-preview raster agreement.
-Application-owned source retirement, session/source generations, child reload,
-parent disconnection, hidden/muted/real context-loss feedback and resource cleanup
-now keep retired content hidden. Heartbeats do not force stationary redraws.
-The leader pointer is bounded, image-relative and transient; fullscreen access
-fades while retaining focus. Preview/failure feedback and complete native visual,
-editing, minimization, two-owner and actual zoom cases pass.
+Completed: one local read-only canvas presentation, one-window reuse, native
+fullscreen, bounded leader pointer, preview/failure feedback, source retirement,
+reload/disconnection cleanup and native visual/edit/minimization workflows.
+No second molecular renderer, child project queries or durable presentation state.
+All five application versions are 0.28.0. Public API contracts, persisted schemas,
+dependencies and scientific behavior remain unchanged; no new migration. Source resolution/visibility and pinned desktop Chromium are explicit limits.
+Ordinary headed window movement/fullscreen and unequal-viewports satisfy the
+explicit user amendment; no separate physical-monitor test is required.
 
-Verification performed:392frontend,12native presentation cases,1headed desktop
-case and69existing desktop/mobile regressions pass, with13exactly retained baseline
-layout exclusions, lint,
-types/build and local checkpoint diff review. [Evidence](assets/detached-presentation/README.md)
-retains exact commands and initial diagnostic failures separately; no independent
-review or complete release gate is claimed. Existing stable history through0.27.0
-supports proposed additive minor0.28.0; all five application versions are now prepared as0.28.0.
-No schema, migration, dependency, API or scientific behavior changes.
+Clean 663c5fa passes all 24release steps: **1,333 Python (zero skips),392 frontend,
+14 supervisor,364 browser passes /74 registered exclusions**, zero final failures,
+flakes or automatic retries.62 existing exclusion identities are unchanged;12 new
+mobile exclusions reflect approved desktop-only presentation qualification.
+All 713 source identities and lossless logs verify. Actual tagged 0.27.0↔final 0.28.0
+readers, both suffixes, migration round trip and production/version/schema/dependency/
+license checks pass. [Summary](assets/detached-presentation/c4-candidate5-summary.json).
+Earlier failed diagnostic runs and readiness corrections are retained separately.
+Full-diff local self-review has no unresolved consequential finding; independent
+approval and strict reference-host timing are not claimed.
 
-Known limitations: final version, actual readers and complete candidate/master
-gates remain. The user explicitly
-replaces separate physical-monitor checks with ordinary headed desktop movement/
-fullscreen and unequal-viewport coverage. No known feature-code blocker. Next action:
-C4 rerun a clean full candidate after correcting an existing reload/selection test race. Candidate2 passed1,333Python/392frontend/14supervisor, then failed one browser setup case; its diagnostic report/trace are retained. Both corrected desktop/mobile cases pass with unchanged error/state assertions. Candidate3 found a pixel-helper readiness race during responsive remount;93browser passes preceded its stop. The helper now waits atomically for current media before sampling;12focused native cases pass with no production/assertion/timeout/exclusion change. Candidate4 then stopped after251browser passes on mobile selection before project data arrived; the trace confirms click-before-GET-completion. An explicit viewer-ready precondition now passes six focused runs (three per layout), preserving all assertions and production. Candidate5 complete qualification remains; no PR yet.
-The feature plan holds detailed acceptance/delivery.
+No known implementation blocker. Next action: PR/review and normal merge, then
+complete exact-master qualification before annotated v0.28.0/release, issue response,
+documentation receipts and branch cleanup. The feature plan remains the detailed
+source of truth.
 
 ### Previous completed milestone — issue #99
 

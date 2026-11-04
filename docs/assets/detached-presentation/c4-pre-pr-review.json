@@ -1,0 +1,13 @@
+{
+  "qualified_commit": "663c5fa1f283c72d0bc57fff0f64a4ee4015f46b",
+  "source_count": 713,
+  "runtime_test_sources_identical_after_evidence_documentation": true,
+  "review": "local implementer full-diff self-review; no unresolved consequential finding",
+  "master": "e6d8f63670e3a3819f1a6dbceba7411438861d72",
+  "normal_merge_allowed": true,
+  "master_protected": false,
+  "rulesets": [],
+  "automatic_branch_deletion": false,
+  "v0280_tag_release_unused": true,
+  "next": "PR/review/normal merge and clean exact-master gate before tag/publication"
+}

@@ -2,7 +2,7 @@
 
 ## 1. Status and issue metadata
 
-- Status: **Approved; implementation complete through M3/C3 — release qualification pending**.
+- Status: **Approved; C4 candidate qualified — PR integration and release pending**.
 - Issue: [#97 — Add a detached, read-only presentation viewer with live synchronization](https://github.com/ManuelSe/Neistra/issues/97).
 - Issue inspected: open, enhancement label, no comments, assignee or milestone;
   issue updated 2026-10-19. Recheck material changes before implementation.
@@ -132,7 +132,7 @@ Approved product assumptions:
 | P21 | BroadcastChannel synchronization | Rejected as proposed | A bounded same-origin bridge suffices for one owned local window. No follow-up needed. |
 | P22 | Full molecular snapshots/artifact fetches/revision synchronization | Rejected as proposed | Child consumes frames, not another molecular model. No backend sync feature or follow-up needed. |
 | P23 | Session handshake and stale-update protection | Supporting | Retain for window/source lifecycle, pointer and status. |
-| P24 | Throttled camera messages | Already satisfied by design | Camera changes travel in frames; no separate camera stream is introduced. Capture itself remains unimplemented. |
+| P24 | Throttled camera messages | Already satisfied by design | Camera changes travel in frames; no separate camera stream is introduced. Capture is qualified in C1-C4. |
 | P25 | Lightweight bounded pointer updates | Supporting | Latest-value coalescing without event-proportional queues. |
 | P26 | Closure, reload, owner loss and initialization failure | Essential | Explicit bounded lifecycle states and resource cleanup. |
 | P27 | Independent high-resolution output | Deferred | Accept source resolution for this slice. Create a follow-up if demonstrated presentation needs require more detail. |
@@ -510,11 +510,13 @@ branches or user work.
 | M1 / C1 | Qualified: typed native canvas capture, separate lightweight entry, one-window reuse/read-only/fullscreen and annotation/coordinate-preview raster.376frontend and4native desktop cases pass; lint/types/build/diff pass. [Evidence](../assets/detached-presentation/README.md) retains diagnostics and local self-review. No schema/API/dependency/scientific/version change. |
 | M2 / C2 | Qualified: application-owned source retirement, exact session/source checks, child reload, parent disconnection, hidden/muted/context-lost feedback, bounded first-frame waiting, cleanup and stationary-scene heartbeat separation.384frontend (including10presentation unit cases),9native lifecycle/regression cases and4final presentation cases after frame-epoch review pass; lint/types/build pass. [Evidence](../assets/detached-presentation/README.md). Explicit user correction removes separate physical-monitor testing. |
 | M3 / C3 | Qualified: bounded passive pointer, focused transient fullscreen access, preview/error fidelity and all approved native visual/edit/minimization workflows.392frontend,12new native cases,1headed desktop case and69existing desktop/mobile regressions pass, with13exactly retained baseline layout exclusions. Lint/types/build, production-entry/license audit and local self-review pass. [Requirement/evidence index](../assets/detached-presentation/requirements.md) and C3 receipts retain diagnostics separately. No API/schema/migration/dependency/scientific/version change. |
-| M4 / C4 | In progress: five authoritative versions updated to0.28.0, preceding producer assertion retained, release notes and reproducible clean-candidate/exact-master recipes prepared. Remote master remains e6d8f63, normal merge allowed, unprotected/no rulesets,0.28.0 tag/release available at preparation. Actual0.27.0 preflight passes both ways. Candidate2 passes all nonbrowser gates, then fails one existing movement setup case; stopped with63browser passes, one failure/one interruption. Retained trace demonstrates premature selection injection during reload. Both variants pass using acknowledged UI selection, with unchanged scientific/state assertions. Candidate3 then exposed a responsive pixel-helper readiness race (93passes before stop); current-frame sampling now waits atomically and12native feature cases pass with unchanged assertions, timeouts and production. Candidate4 reaches251browser passes, then reveals mobile selection before the reload project GET completes. Explicit viewer-ready setup now passes six deliberate focused repetitions (three per layout) with original error/coordinate/revision assertions. Candidate5 full gate and PR review remain required. |
+| M4 / C4 diagnostics | Version0.28.0 prepared in all five sources. Actual0.27.0 preflight passes both ways. Failed candidates2/3/4 and their traces remain diagnostic: reload/selection setup and current-frame sampling required explicit readiness. Corrections retain every original science/state/raster assertion, timeout and exclusion. Details and focused passes are in [local review](../assets/detached-presentation/c4-full-diff-review.md). |
+| M4 / C4 qualified | Clean663c5fa passes all24steps:1,333Python (zero skips),392frontend,14supervisor,364browser/74exclusions, zero final failures/flakes/automatic retries.62baseline exclusions are exactly unchanged;12new mobile exclusions implement approved desktop-only presentation qualification.713unchanged sources and all lossless log hashes verify. Actual tagged0.27.0↔final0.28.0 readers, both suffixes, fresh migration round trip, versions/dependencies/schemas/production/license and legacy CLI pass. [Summary](../assets/detached-presentation/c4-candidate5-summary.json). Full-diff implementer self-review has no unresolved consequential finding. Rechecked base e6d8f63, normal merge/unprotected/no rulesets, no automatic branch deletion, no0.28tag/release collision. |
 | M5 / C5 | Pending; no issue97 PR, merge, tag, release, issue reply or cleanup claimed. |
 
-Current limitations: final version, actual preceding readers, complete candidate/
-exact-master gates and delivery remain. The feature code is implemented on pinned desktop
-Chromium; broader browser/hardware throughput certification is not claimed.
-Next action: prepare the version and complete C4 before opening the PR. No release
-or independent review is claimed.
+Current limitations: PR review/integration, complete exact merged-master gate,
+publication, issue reply and cleanup remain. Desktop Chromium is qualified;
+broader browser/hardware throughput certification is not claimed. No essential
+approved scope is deferred. Next action: open the planned PR, request available
+Codex review and satisfy all current policies before normal merge. No release or
+independent approval is claimed yet.
